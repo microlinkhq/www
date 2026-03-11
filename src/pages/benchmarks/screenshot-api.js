@@ -59,7 +59,7 @@ const BENCHMARK_DATA = {
         { url: 'https://screenshotone.com', coldDuration: 9900.12 },
         { url: 'https://news.ycombinator.com', coldDuration: 2061.07 },
         { url: 'https://github.com/trending', coldDuration: 7145.75 },
-        { url: 'https://www.framer.com', coldDuration: 27531.1 }
+        { url: 'https://www.framer.com', coldDuration: 7531.1 }
       ]
     },
     screenshotapi: {
@@ -185,56 +185,57 @@ const pulseGlow = keyframes`
 
 const RaceContainer = styled('div')`
   width: 100%;
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
 `
 
 const UrlLabel = styled('div')`
   font-family: ${MONO_FONT};
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.02em;
-  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.03em;
+  margin-bottom: 16px;
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 10px;
 
   @media (max-width: 600px) {
-    font-size: 10px;
+    font-size: 14px;
   }
 `
 
 const UrlCounter = styled('span')`
   font-family: ${MONO_FONT};
-  font-size: 10px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 4px;
-  padding: 2px 6px;
-  color: rgba(255, 255, 255, 0.4);
+  padding: 3px 8px;
+  color: rgba(255, 255, 255, 0.6);
 `
 
 const LaneRow = styled('div')`
   display: flex;
   align-items: center;
-  gap: 8px;
-  height: 32px;
+  gap: 10px;
+  height: 38px;
 
   @media (max-width: 600px) {
-    height: 28px;
-    gap: 6px;
+    height: 32px;
+    gap: 8px;
   }
 `
 
 const LaneName = styled('div')`
   font-family: ${MONO_FONT};
-  font-size: 12px;
-  font-weight: ${({ $isMicrolink }) => ($isMicrolink ? '700' : '400')};
+  font-size: 14px;
+  font-weight: ${({ $isMicrolink }) => ($isMicrolink ? '700' : '500')};
   color: ${({ $isMicrolink }) =>
-    $isMicrolink ? '#fd494a' : 'rgba(255, 255, 255, 0.65)'};
-  width: 130px;
+    $isMicrolink ? '#fd494a' : 'rgba(255, 255, 255, 0.85)'};
+  width: 150px;
   flex-shrink: 0;
   text-align: right;
   white-space: nowrap;
@@ -242,8 +243,8 @@ const LaneName = styled('div')`
   text-overflow: ellipsis;
 
   @media (max-width: 600px) {
-    width: 80px;
-    font-size: 10px;
+    width: 90px;
+    font-size: 12px;
   }
 `
 
@@ -251,14 +252,14 @@ const LaneTrack = styled('div')`
   flex: 1;
   height: 100%;
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 5px;
   overflow: hidden;
 `
 
 const LaneBar = styled('div')`
   height: 100%;
-  border-radius: 4px;
+  border-radius: 5px;
   transform-origin: left center;
   animation: ${barGrow} 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -271,7 +272,7 @@ const LaneBar = styled('div')`
         content: '';
         position: absolute;
         inset: 0;
-        border-radius: 4px;
+        border-radius: 5px;
         animation: ${pulseGlow} 2s ease-in-out infinite;
       }
     `}
@@ -279,18 +280,18 @@ const LaneBar = styled('div')`
 
 const LaneTime = styled('span')`
   font-family: ${MONO_FONT};
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
   color: ${({ $isMicrolink }) =>
-    $isMicrolink ? '#fd494a' : 'rgba(255, 255, 255, 0.5)'};
-  width: 70px;
+    $isMicrolink ? '#fd494a' : 'rgba(255, 255, 255, 0.7)'};
+  width: 80px;
   flex-shrink: 0;
   text-align: right;
   font-variant-numeric: tabular-nums;
 
   @media (max-width: 600px) {
-    width: 55px;
-    font-size: 10px;
+    width: 60px;
+    font-size: 12px;
   }
 `
 
@@ -298,16 +299,16 @@ const StepIndicator = styled('div')`
   display: flex;
   gap: 6px;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 `
 
 const StepDot = styled('button')`
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   background: ${({ $active, $done }) =>
-    $active ? '#fd494a' : $done ? 'rgba(255, 255, 255, 0.3)' : 'transparent'};
+    $active ? '#fd494a' : $done ? 'rgba(255, 255, 255, 0.45)' : 'transparent'};
   padding: 0;
   cursor: pointer;
   transition: background ${transition.medium}, transform ${transition.medium};
@@ -329,66 +330,66 @@ const StepDot = styled('button')`
 const LeaderboardRow = styled('div')`
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 16px;
+  gap: 14px;
+  padding: 12px 18px;
   border-radius: 8px;
   background: ${({ $rank }) =>
-    $rank === 0 ? 'rgba(253, 73, 74, 0.08)' : 'rgba(255, 255, 255, 0.02)'};
+    $rank === 0 ? 'rgba(253, 73, 74, 0.1)' : 'rgba(255, 255, 255, 0.04)'};
   border: 1px solid
     ${({ $rank }) =>
-      $rank === 0 ? 'rgba(253, 73, 74, 0.25)' : 'rgba(255, 255, 255, 0.06)'};
+      $rank === 0 ? 'rgba(253, 73, 74, 0.3)' : 'rgba(255, 255, 255, 0.1)'};
   animation: ${fadeIn} 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   animation-delay: ${({ $rank }) => $rank * 80}ms;
   opacity: 0;
 
   @media (max-width: 600px) {
-    padding: 8px 12px;
-    gap: 8px;
+    padding: 10px 14px;
+    gap: 10px;
   }
 `
 
 const RankBadge = styled('span')`
   font-family: ${MONO_FONT};
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  color: ${({ $rank }) => ($rank === 0 ? '#fd494a' : 'rgba(255,255,255,0.4)')};
-  width: 24px;
+  color: ${({ $rank }) => ($rank === 0 ? '#fd494a' : 'rgba(255,255,255,0.6)')};
+  width: 28px;
   text-align: center;
   font-variant-numeric: tabular-nums;
 `
 
 const LeaderName = styled('span')`
   font-family: ${MONO_FONT};
-  font-size: 13px;
-  font-weight: ${({ $rank }) => ($rank === 0 ? '700' : '400')};
+  font-size: 15px;
+  font-weight: ${({ $rank }) => ($rank === 0 ? '700' : '500')};
   color: ${({ $rank }) =>
-    $rank === 0 ? '#fd494a' : 'rgba(255, 255, 255, 0.75)'};
+    $rank === 0 ? '#fd494a' : 'rgba(255, 255, 255, 0.9)'};
   flex: 1;
 
   @media (max-width: 600px) {
-    font-size: 12px;
+    font-size: 13px;
   }
 `
 
 const LeaderTime = styled('span')`
   font-family: ${MONO_FONT};
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
   color: ${({ $rank }) =>
-    $rank === 0 ? '#fd494a' : 'rgba(255, 255, 255, 0.5)'};
+    $rank === 0 ? '#fd494a' : 'rgba(255, 255, 255, 0.7)'};
   font-variant-numeric: tabular-nums;
 
   @media (max-width: 600px) {
-    font-size: 11px;
+    font-size: 13px;
   }
 `
 
 const LeaderDelta = styled('span')`
   font-family: ${MONO_FONT};
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.3);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
   font-variant-numeric: tabular-nums;
-  width: 70px;
+  width: 80px;
   text-align: right;
 
   @media (max-width: 600px) {
@@ -399,23 +400,23 @@ const LeaderDelta = styled('span')`
 const MetricTabs = styled('div')`
   display: flex;
   justify-content: center;
-  gap: 4px;
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 28px;
 `
 
 const MetricTab = styled('button')`
   font-family: ${MONO_FONT};
-  font-size: 11px;
+  font-size: 15px;
   font-weight: ${({ $active }) => ($active ? '600' : '400')};
   background: ${({ $active }) =>
-    $active ? 'rgba(255, 255, 255, 0.1)' : 'transparent'};
+    $active ? 'rgba(255, 255, 255, 0.12)' : 'transparent'};
   border: 1px solid
     ${({ $active }) =>
-      $active ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.08)'};
-  border-radius: 5px;
-  padding: 4px 12px;
+      $active ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.12)'};
+  border-radius: 6px;
+  padding: 6px 18px;
   color: ${({ $active }) =>
-    $active ? 'rgba(255, 255, 255, 0.85)' : 'rgba(255, 255, 255, 0.4)'};
+    $active ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.5)'};
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -562,7 +563,7 @@ const HeroRace = () => {
             {extractDomain(currentUrl)}
           </UrlLabel>
 
-          <Flex css={{ flexDirection: 'column', gap: '6px' }}>
+          <Flex css={{ flexDirection: 'column', gap: '8px' }}>
             {SORTED_SERVICES.map(key => {
               const svc = BENCHMARK_DATA.results[key]
               const urlData = svc.perUrl.find(p => p.url === currentUrl)
@@ -580,7 +581,7 @@ const HeroRace = () => {
                         width: `${pct}%`,
                         background: isMicrolink
                           ? 'linear-gradient(90deg, #fd494a, #ff7b7b)'
-                          : `${SERVICE_COLORS[key]}88`
+                          : `${SERVICE_COLORS[key]}bb`
                       }}
                     />
                   </LaneTrack>
@@ -592,8 +593,8 @@ const HeroRace = () => {
             })}
           </Flex>
 
-          {!isRunning && (
-            <Flex css={{ justifyContent: 'center', marginTop: '20px' }}>
+          {!isRunning && hasAutoStarted.current && (
+            <Flex css={{ justifyContent: 'center', marginTop: '32px' }}>
               <RaceButton onClick={startRace} aria-label='Restart race'>
                 ▶ Replay
               </RaceButton>
@@ -634,14 +635,14 @@ const HeroRace = () => {
               <UrlLabel
                 css={{
                   justifyContent: 'center',
-                  marginBottom: '16px',
-                  fontSize: '12px',
-                  color: 'rgba(255,255,255,0.6)'
+                  marginBottom: '28px',
+                  fontSize: '16px',
+                  color: 'rgba(255,255,255,0.8)'
                 }}
               >
                 Final leaderboard — {mode.label}
               </UrlLabel>
-              <Flex css={{ flexDirection: 'column', gap: '6px' }}>
+              <Flex css={{ flexDirection: 'column', gap: '8px' }}>
                 {sorted.map((key, rank) => {
                   const svc = BENCHMARK_DATA.results[key]
                   const val = svc.summary[field]
@@ -661,7 +662,7 @@ const HeroRace = () => {
                   )
                 })}
               </Flex>
-              <Flex css={{ justifyContent: 'center', marginTop: '20px' }}>
+              <Flex css={{ justifyContent: 'center', marginTop: '32px' }}>
                 <RaceButton
                   onClick={startRace}
                   aria-label='Replay benchmark race'
@@ -679,12 +680,12 @@ const HeroRace = () => {
 
 const RaceButton = styled('button')`
   font-family: ${MONO_FONT};
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 500;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 6px;
-  padding: 6px 16px;
+  padding: 8px 22px;
   color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
   touch-action: manipulation;
