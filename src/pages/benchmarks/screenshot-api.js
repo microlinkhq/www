@@ -295,14 +295,14 @@ const RaceContainer = styled('div')`
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
-  padding: 32px 28px;
+  padding: 32px 28px 40px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
   overflow: hidden;
 
   @media (max-width: 600px) {
     min-height: 310px;
-    padding: 24px 16px;
+    padding: 24px 16px 32px;
     border-radius: 10px;
   }
 `
@@ -491,6 +491,7 @@ const StepIndicator = styled('div')`
   display: flex;
   gap: 6px;
   justify-content: center;
+  padding: 4px 0;
 `
 
 const StepDot = styled('button')`
@@ -991,9 +992,7 @@ const HeroRace = () => {
                           : 'rgba(255, 255, 255, 0.25)',
                         transition: 'color 0.4s ease'
                       }}
-                    >
-                      —
-                    </LaneTime>
+                    ></LaneTime>
                   </LaneRow>
                 )
               })}
@@ -2140,7 +2139,7 @@ export const Head = () => (
 )
 
 const ScreenshotApiBenchmarkPage = () => (
-  <Layout>
+  <Layout css={{ marginTop: '0px' }}>
     <Hero />
     <Methodology />
     <CompetitorComparison />
