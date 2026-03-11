@@ -1,3 +1,4 @@
+/* global IntersectionObserver */
 import { borders, layout, colors, theme, transition } from 'theme'
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import styled, { css, keyframes } from 'styled-components'
@@ -910,12 +911,6 @@ const WinnerTag = styled('span')`
   vertical-align: middle;
 `
 
-const SectionDivider = styled('hr')`
-  border: none;
-  border-top: ${borders[1]} ${colors.black05};
-  margin: 0;
-`
-
 const PerUrlTable = styled('table')`
   width: 100%;
   border-collapse: separate;
@@ -1365,11 +1360,13 @@ const CompetitorComparison = () => {
                       const isMin = times[i] === minTime
                       return (
                         <td key={key}>
-                          {isMin ? (
-                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                          ) : (
-                            formatMs(times[i])
-                          )}
+                          {isMin
+                            ? (
+                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                              )
+                            : (
+                                formatMs(times[i])
+                              )}
                         </td>
                       )
                     })}
