@@ -1359,39 +1359,37 @@ const Hero = function Hero ({ onRequestTiming }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </ScreenshotApiBar>
             </BrowserWindow>
@@ -1504,28 +1502,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
         })}
         style={{ fontVariantNumeric: 'tabular-nums' }}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -2641,75 +2637,65 @@ const CLIENTS = [
     name: 'Vercel',
     description: 'Frontend cloud platform',
     logo: (
-      <svg
+      <img
+        src='/images/clients/vercel.com.png'
+        alt='Vercel'
         width='28'
         height='28'
-        viewBox='0 0 76 65'
-        fill='currentColor'
         aria-hidden='true'
-      >
-        <path d='M37.5274 0L75.0548 65H0L37.5274 0Z' />
-      </svg>
+      />
     )
   },
   {
-    name: 'Stripe',
-    description: 'Payment infrastructure',
+    name: 'Community',
+    description: 'Fan engagement platform',
     logo: (
-      <svg
+      <img
+        src='/images/clients/community.com.png'
+        alt='Community'
         width='28'
         height='28'
-        viewBox='0 0 24 24'
-        fill='currentColor'
         aria-hidden='true'
-      >
-        <path d='M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-7.076-2.19l-.893 5.575C4.746 22.72 7.311 24 11.326 24c2.588 0 4.737-.665 6.263-1.928 1.636-1.348 2.41-3.28 2.41-5.608 0-4.116-2.607-5.834-6.023-7.314z' />
-      </svg>
+      />
     )
   },
   {
-    name: 'GitHub',
-    description: 'Developer platform',
+    name: 'Impact',
+    description: 'Partnership management',
     logo: (
-      <svg
+      <img
+        src='/images/clients/impact.com.png'
+        alt='Impact'
         width='28'
         height='28'
-        viewBox='0 0 24 24'
-        fill='currentColor'
         aria-hidden='true'
-      >
-        <path d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12' />
-      </svg>
+      />
     )
   },
   {
-    name: 'Notion',
-    description: 'Workspace for teams',
+    name: 'Mirror',
+    description: 'Web3 publishing platform',
     logo: (
-      <svg
+      <img
+        src='/images/clients/mirror.xyz.png'
+        alt='Mirror'
         width='28'
         height='28'
-        viewBox='0 0 24 24'
-        fill='currentColor'
         aria-hidden='true'
-      >
-        <path d='M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.98-.7-2.055-.607L2.58 2.514c-.467.047-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.166V6.354c0-.606-.233-.933-.748-.886l-15.177.887c-.56.046-.747.326-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952l1.45.327s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V8.858l-1.168-.093c-.093-.42.14-1.026.793-1.073l3.455-.233 4.763 7.28v-6.44l-1.215-.14c-.093-.513.28-.886.747-.933zM1.44 1.2L15.26 0c1.68-.14 2.1.093 2.802.606l3.87 2.7c.467.326.606.42.606 1.026V22.04c0 1.026-.373 1.633-1.68 1.726L5.44 24.56c-.98.047-1.448-.093-1.962-.747l-3.13-4.06c-.56-.746-.793-1.306-.793-1.96V2.926c0-.84.373-1.54 1.886-1.726z' />
-      </svg>
+      />
     )
   },
   {
-    name: 'Linear',
-    description: 'Issue tracking tool',
+    name: 'Padlet',
+    description: 'Visual collaboration tool',
     logo: (
-      <svg
+      <img
+        src='/images/clients/padlet.com.png'
+        alt='Padlet'
         width='28'
         height='28'
-        viewBox='0 0 24 24'
-        fill='currentColor'
         aria-hidden='true'
-      >
-        <path d='M2.77 17.717l3.513 3.513a11.985 11.985 0 01-3.513-3.513zM1.085 14.09l8.825 8.825a12.077 12.077 0 01-2.417-.622L1.707 16.507a12.077 12.077 0 01-.622-2.417zM1.74 9.47l12.79 12.79a12.02 12.02 0 01-2.042.24L1.5 11.512a12.02 12.02 0 01.24-2.042zM3.132 6.345L17.655 20.868a11.946 11.946 0 01-1.584 1.03L2.103 7.929a11.946 11.946 0 011.03-1.584zM5.78 3.78l14.44 14.44a12.016 12.016 0 01-1.283 1.327L4.453 5.063A12.016 12.016 0 015.78 3.78zm3.564-2.072L21.272 13.636a11.906 11.906 0 01-.622 2.417L7.355 2.758a11.952 11.952 0 011.989-1.05zM12.488 1.5l10.012 10.012a12.02 12.02 0 01-.24 2.042L10.446 1.74a12.02 12.02 0 012.042-.24zm4.019.207L22.293 7.493a12.077 12.077 0 01.622 2.417l-8.825-8.825a12.077 12.077 0 012.417.622zm3.776 3.276A11.985 11.985 0 0121.217 2.77l-3.513 3.513a11.985 11.985 0 013.513-3.513z' />
-      </svg>
+      />
     )
   }
 ]
@@ -2813,7 +2799,7 @@ const Clients = () => (
       css={theme({
         pt: [3, 3, 4, 4],
         px: [3, 4, 0, 0],
-        flexWrap: 'wrap',
+        flexWrap: ['wrap', 'wrap', 'nowrap', 'nowrap'],
         justifyContent: 'center',
         alignItems: 'center',
         gap: [4, 4, 5, 5],
@@ -2839,7 +2825,9 @@ const Clients = () => (
           >
             {name}
           </Text>
-          <Text css={theme({ fontSize: 0, color: 'black80' })}>
+          <Text
+            css={theme({ fontSize: 0, color: 'black80', textAlign: 'center' })}
+          >
             {description}
           </Text>
         </ClientLogo>
@@ -3438,39 +3426,37 @@ const Capabilities = () => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </ScreenshotApiBar>
           </Box>
