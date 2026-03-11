@@ -25,7 +25,6 @@ const BENCHMARK_DATA = {
     {
       url: 'https://vercel.com',
       width: 1920,
-      height: 1080,
       fullPage: true,
       format: 'jpeg'
     },
@@ -46,14 +45,12 @@ const BENCHMARK_DATA = {
     {
       url: 'https://screenshotone.com',
       width: 1920,
-      height: 1080,
       fullPage: true,
       format: 'png'
     },
     {
       url: 'https://news.ycombinator.com',
       width: 1440,
-      height: 1080,
       fullPage: true,
       format: 'jpeg'
     },
@@ -212,6 +209,14 @@ const extractDomain = url => {
   }
 }
 
+const getDeviceType = width => {
+  if (width <= 480) return 'Mobile'
+  if (width <= 1024) return 'Tablet'
+  return 'Desktop'
+}
+
+const getTestUrlConfig = url => BENCHMARK_DATA.testUrls.find(t => t.url === url)
+
 const COUNTER_DURATION = 500
 
 const AnimatedCounter = ({ value, animate }) => {
@@ -320,18 +325,38 @@ const RaceInner = styled('div')`
 const UrlLabel = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 16px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 1);
   letter-spacing: 0.03em;
-  margin-bottom: 16px;
+  margin-bottom: 0;
   text-transform: uppercase;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  line-height: 1.2;
 
   @media (max-width: 600px) {
     font-size: 14px;
+  }
+`
+
+const UrlMeta = styled('div')`
+  font-family: ${MONO_FONT};
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  margin-top: 13px;
+  margin-bottom: 12px;
+  text-align: center;
+  line-height: 1.2;
+
+  @media (max-width: 600px) {
+    font-size: 11px;
+    margin-top: 6px;
+    margin-bottom: 8px;
   }
 `
 
@@ -351,7 +376,7 @@ const domainShrink = keyframes`
   100% {
     font-size: 16px;
     opacity: 1;
-    top: 32px;
+    top: 30px;
     transform: translate(-50%, 0);
   }
 `
@@ -377,6 +402,27 @@ const domainShrinkMobile = keyframes`
   }
 `
 
+const AnnounceMeta = styled('div')`
+  font-family: ${MONO_FONT};
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+
+  @media (max-width: 600px) {
+    font-size: 11px;
+    gap: 6px;
+    margin-top: 6px;
+  }
+`
+
 const DomainAnnounce = styled('div')`
   position: absolute;
   left: 50%;
@@ -390,7 +436,15 @@ const DomainAnnounce = styled('div')`
   text-transform: uppercase;
   white-space: nowrap;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   animation: ${domainShrink} 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+  & > ${AnnounceMeta} {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
 
   @media (max-width: 600px) {
     font-size: 28px;
@@ -422,11 +476,11 @@ const AnnounceBackdrop = styled('div')`
 
 const IntroLabel = styled('div')`
   font-family: ${MONO_FONT};
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   letter-spacing: 0.02em;
   animation: ${fadeIn} 0.4s ease forwards;
 
@@ -1137,16 +1191,58 @@ const HeroRace = () => {
         {isRacing && (
           <>
             <AnnounceBackdrop $visible={isAnnouncing} />
-            {isAnnouncing && announcingUrl && (
-              <DomainAnnounce key={`announce-${announcingUrl}`}>
-                {extractDomain(announcingUrl)}
-              </DomainAnnounce>
-            )}
-            <UrlLabel
-              style={{ visibility: isAnnouncing ? 'hidden' : 'visible' }}
-            >
-              {extractDomain(announcingUrl || currentUrl || '')}
-            </UrlLabel>
+            {isAnnouncing &&
+              announcingUrl &&
+              (() => {
+                const cfg = getTestUrlConfig(announcingUrl)
+                const device = cfg ? getDeviceType(cfg.width) : null
+                const dims = cfg
+                  ? cfg.height
+                    ? `${cfg.width}\u00d7${cfg.height}`
+                    : `${cfg.width}w`
+                  : null
+                const tags = [
+                  device && `${device} screenshot`,
+                  dims,
+                  cfg?.fullPage && 'Full\u2011page',
+                  cfg?.format?.toUpperCase()
+                ].filter(Boolean)
+                return (
+                  <DomainAnnounce key={`announce-${announcingUrl}`}>
+                    {extractDomain(announcingUrl)}
+                    {tags.length > 0 && (
+                      <AnnounceMeta>{tags.join(' · ')}</AnnounceMeta>
+                    )}
+                  </DomainAnnounce>
+                )
+              })()}
+            {(() => {
+              const activeUrl = announcingUrl || currentUrl || ''
+              const cfg = getTestUrlConfig(activeUrl)
+              const device = cfg ? getDeviceType(cfg.width) : null
+              const dims = cfg
+                ? cfg.height
+                  ? `${cfg.width}\u00d7${cfg.height}`
+                  : `${cfg.width}w`
+                : null
+              const metaTags = [
+                device && `${device} screenshot`,
+                dims,
+                cfg?.fullPage && 'Full\u2011page',
+                cfg?.format?.toUpperCase()
+              ].filter(Boolean)
+              const vis = isAnnouncing ? 'hidden' : 'visible'
+              return (
+                <>
+                  <UrlLabel style={{ visibility: vis }}>
+                    {extractDomain(activeUrl)}
+                  </UrlLabel>
+                  <UrlMeta style={{ visibility: vis }}>
+                    {metaTags.join(' · ')}
+                  </UrlMeta>
+                </>
+              )
+            })()}
 
             <div
               style={{
