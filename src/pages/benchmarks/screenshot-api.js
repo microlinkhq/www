@@ -366,7 +366,6 @@ const StepIndicator = styled('div')`
   display: flex;
   gap: 6px;
   justify-content: center;
-  margin-bottom: 28px;
 `
 
 const StepDot = styled('button')`
@@ -510,7 +509,7 @@ const LEADERBOARD_MODES = [
   },
   {
     key: 'total',
-    label: 'Total cold duration (7 URLs)',
+    label: 'Total cold duration',
     field: 'totalColdDuration',
     sorted: SORTED_BY_TOTAL
   }
@@ -599,15 +598,16 @@ const HeroRace = () => {
 
   useEffect(() => {
     if (phase === 'finished') {
-      modeTimerRef.current = setInterval(() => {
-        setModeIndex(prev => (prev + 1) % LEADERBOARD_MODES.length)
+      modeTimerRef.current = setTimeout(() => {
+        setModeIndex(1)
+        modeTimerRef.current = null
       }, 5000)
     } else if (modeTimerRef.current) {
-      clearInterval(modeTimerRef.current)
+      clearTimeout(modeTimerRef.current)
       modeTimerRef.current = null
     }
     return () => {
-      if (modeTimerRef.current) clearInterval(modeTimerRef.current)
+      if (modeTimerRef.current) clearTimeout(modeTimerRef.current)
     }
   }, [phase])
 
@@ -715,7 +715,58 @@ const HeroRace = () => {
 
         {isRacing && (
           <>
-            <StepIndicator>
+            <UrlLabel>{extractDomain(currentUrl)}</UrlLabel>
+
+            <Flex css={{ flexDirection: 'column', gap: '8px' }}>
+              {(() => {
+                const fastest = Math.min(
+                  ...ALPHABETICAL_SERVICES.map(
+                    k =>
+                      BENCHMARK_DATA.results[k].perUrl.find(
+                        p => p.url === currentUrl
+                      )?.coldDuration || Infinity
+                  )
+                )
+
+                return ALPHABETICAL_SERVICES.map(key => {
+                  const svc = BENCHMARK_DATA.results[key]
+                  const urlData = svc.perUrl.find(p => p.url === currentUrl)
+                  const cold = urlData?.coldDuration || 0
+                  const pct = (cold / currentMaxForStep) * 100
+                  const isMicrolink = key === 'microlink'
+                  const isFastest = cold === fastest
+
+                  return (
+                    <LaneRow key={key}>
+                      <LaneName $isMicrolink={false}>{svc.name}</LaneName>
+                      <LaneTrack>
+                        <LaneBar
+                          $isMicrolink={isMicrolink}
+                          style={{
+                            width: `${pct}%`,
+                            background: isMicrolink
+                              ? 'linear-gradient(90deg, #fd494a, #ff7b7b)'
+                              : SERVICE_COLORS[key]
+                          }}
+                        />
+                      </LaneTrack>
+                      <LaneTime
+                        $isMicrolink={false}
+                        style={
+                          isFastest
+                            ? { color: '#fd494a', fontWeight: 700 }
+                            : undefined
+                        }
+                      >
+                        {formatMs(cold)}&thinsp;ms
+                      </LaneTime>
+                    </LaneRow>
+                  )
+                })
+              })()}
+            </Flex>
+
+            <StepIndicator css={{ marginTop: '30px' }}>
               {BENCHMARK_DATA.testUrls.map((t, i) => (
                 <StepDot
                   key={t.url}
@@ -726,38 +777,6 @@ const HeroRace = () => {
                 />
               ))}
             </StepIndicator>
-
-            <UrlLabel>{extractDomain(currentUrl)}</UrlLabel>
-
-            <Flex css={{ flexDirection: 'column', gap: '8px' }}>
-              {ALPHABETICAL_SERVICES.map(key => {
-                const svc = BENCHMARK_DATA.results[key]
-                const urlData = svc.perUrl.find(p => p.url === currentUrl)
-                const cold = urlData?.coldDuration || 0
-                const pct = (cold / currentMaxForStep) * 100
-                const isMicrolink = key === 'microlink'
-
-                return (
-                  <LaneRow key={key}>
-                    <LaneName $isMicrolink={isMicrolink}>{svc.name}</LaneName>
-                    <LaneTrack>
-                      <LaneBar
-                        $isMicrolink={isMicrolink}
-                        style={{
-                          width: `${pct}%`,
-                          background: isMicrolink
-                            ? 'linear-gradient(90deg, #fd494a, #ff7b7b)'
-                            : SERVICE_COLORS[key]
-                        }}
-                      />
-                    </LaneTrack>
-                    <LaneTime $isMicrolink={isMicrolink}>
-                      {formatMs(cold)}&thinsp;ms
-                    </LaneTime>
-                  </LaneRow>
-                )
-              })}
-            </Flex>
           </>
         )}
 
@@ -770,28 +789,6 @@ const HeroRace = () => {
 
             return (
               <>
-                <MetricTabs>
-                  {LEADERBOARD_MODES.map((m, i) => (
-                    <MetricTab
-                      key={m.key}
-                      $active={i === modeIndex}
-                      onClick={() => {
-                        setModeIndex(i)
-                        if (modeTimerRef.current) {
-                          clearInterval(modeTimerRef.current)
-                        }
-                        modeTimerRef.current = setInterval(() => {
-                          setModeIndex(
-                            prev => (prev + 1) % LEADERBOARD_MODES.length
-                          )
-                        }, 5000)
-                      }}
-                      aria-label={`Show ${m.label}`}
-                    >
-                      {m.label}
-                    </MetricTab>
-                  ))}
-                </MetricTabs>
                 <UrlLabel
                   css={{
                     justifyContent: 'center',
@@ -800,8 +797,26 @@ const HeroRace = () => {
                     color: 'rgba(255,255,255,0.8)'
                   }}
                 >
-                  Final leaderboard — {mode.label}
+                  Final leaderboard
                 </UrlLabel>
+                <MetricTabs>
+                  {LEADERBOARD_MODES.map((m, i) => (
+                    <MetricTab
+                      key={m.key}
+                      $active={i === modeIndex}
+                      onClick={() => {
+                        if (modeTimerRef.current) {
+                          clearTimeout(modeTimerRef.current)
+                          modeTimerRef.current = null
+                        }
+                        setModeIndex(i)
+                      }}
+                      aria-label={`Show ${m.label}`}
+                    >
+                      {m.label}
+                    </MetricTab>
+                  ))}
+                </MetricTabs>
                 <Flex css={{ flexDirection: 'column', gap: '8px' }}>
                   {sorted.map((key, rank) => {
                     const svc = BENCHMARK_DATA.results[key]
