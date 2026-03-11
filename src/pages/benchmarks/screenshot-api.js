@@ -170,6 +170,50 @@ const extractDomain = url => {
   }
 }
 
+const COUNTER_DURATION = 500
+
+const AnimatedCounter = ({ value, animate }) => {
+  const displayRef = useRef(null)
+  const prevValue = useRef(value)
+
+  useEffect(() => {
+    if (!animate || prevValue.current === value) {
+      prevValue.current = value
+      return
+    }
+
+    const from = prevValue.current
+    const to = value
+    const start = performance.now()
+    let raf
+
+    const tick = now => {
+      const t = Math.min((now - start) / COUNTER_DURATION, 1)
+      const eased = 1 - Math.pow(1 - t, 3)
+      const current = Math.round(from + (to - from) * eased)
+      if (displayRef.current) {
+        displayRef.current.textContent = `${formatMs(current)}\u2009ms`
+      }
+      if (t < 1) {
+        raf = requestAnimationFrame(tick)
+      } else {
+        prevValue.current = to
+      }
+    }
+
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [value, animate])
+
+  useEffect(() => {
+    if (!animate) {
+      prevValue.current = value
+    }
+  }, [value, animate])
+
+  return <span ref={displayRef}>{formatMs(value)}&thinsp;ms</span>
+}
+
 const MONO_FONT =
   "'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono', Menlo, monospace"
 
@@ -351,13 +395,52 @@ const LaneTime = styled('span')`
   font-weight: 600;
   color: ${({ $isMicrolink }) =>
     $isMicrolink ? '#fd494a' : 'rgba(255, 255, 255, 0.7)'};
-  width: 80px;
+  width: 90px;
   flex-shrink: 0;
   text-align: right;
   font-variant-numeric: tabular-nums;
 
   @media (max-width: 600px) {
-    width: 60px;
+    width: 68px;
+    font-size: 12px;
+  }
+`
+
+const BarTimeLabel = styled('span')`
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: ${MONO_FONT};
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+  transition: opacity 0.3s ease;
+
+  @media (max-width: 600px) {
+    font-size: 11px;
+    right: 5px;
+  }
+`
+
+const CumulativeTime = styled('span')`
+  font-family: ${MONO_FONT};
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  width: 90px;
+  flex-shrink: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+
+  @media (max-width: 600px) {
+    width: 68px;
     font-size: 12px;
   }
 `
@@ -539,8 +622,11 @@ const HeroRace = () => {
   const [step, setStep] = useState(0)
   const [modeIndex, setModeIndex] = useState(0)
   const [cumulativeTimes, setCumulativeTimes] = useState(initCumulativeTimes)
+  const [displayedCumulative, setDisplayedCumulative] =
+    useState(initCumulativeTimes)
   const [rankedOrder, setRankedOrder] = useState(ALPHABETICAL_SERVICES)
   const [isReordering, setIsReordering] = useState(false)
+  const [isSumming, setIsSumming] = useState(false)
   const introTimerRef = useRef(null)
   const modeTimerRef = useRef(null)
   const containerRef = useRef(null)
@@ -561,22 +647,35 @@ const HeroRace = () => {
         next[key] = prev[key] + d
       })
 
+      // 1. Show bars for 1.8s, then wait 0.5s
       setTimeout(() => {
-        setIsReordering(true)
-        setRankedOrder(getRankedOrder(next))
+        // 2. Sum animation (500ms counter + 500ms hold)
+        setIsSumming(true)
+        setDisplayedCumulative(next)
 
         setTimeout(() => {
-          setIsReordering(false)
-          const nextStep = currentStep + 1
-          if (nextStep >= BENCHMARK_DATA.testUrls.length) {
-            setPhase('finished')
-          } else {
-            stepRef.current = nextStep
-            setStep(nextStep)
-            scheduleNext()
-          }
+          // 3. Wait 1s, then reorder
+          setIsSumming(false)
+
+          setTimeout(() => {
+            setIsReordering(true)
+            setRankedOrder(getRankedOrder(next))
+
+            // 4. Reorder animation (600ms) + wait 2s, then advance
+            setTimeout(() => {
+              setIsReordering(false)
+              const nextStep = currentStep + 1
+              if (nextStep >= BENCHMARK_DATA.testUrls.length) {
+                setPhase('finished')
+              } else {
+                stepRef.current = nextStep
+                setStep(nextStep)
+                scheduleNext()
+              }
+            }, 2000)
+          }, 1000)
         }, 1000)
-      }, 1800)
+      }, 1000)
 
       return next
     })
@@ -585,9 +684,12 @@ const HeroRace = () => {
   const startRace = useCallback(() => {
     stepRef.current = 0
     setStep(0)
-    setCumulativeTimes(initCumulativeTimes())
+    const fresh = initCumulativeTimes()
+    setCumulativeTimes(fresh)
+    setDisplayedCumulative(fresh)
     setRankedOrder(ALPHABETICAL_SERVICES)
     setIsReordering(false)
+    setIsSumming(false)
     setPhase('racing')
     setModeIndex(0)
     if (modeTimerRef.current) {
@@ -784,6 +886,7 @@ const HeroRace = () => {
                   const isFastest = cold === fastest
                   const visualIndex = getVisualIndex(key, rankedOrder)
                   const offset = (visualIndex - domIndex) * ROW_SLOT
+                  const cumTotal = displayedCumulative[key]
 
                   return (
                     <LaneRow
@@ -809,18 +912,23 @@ const HeroRace = () => {
                               ? 'linear-gradient(90deg, #fd494a, #ff7b7b)'
                               : SERVICE_COLORS[key]
                           }}
-                        />
+                        >
+                          <BarTimeLabel $visible>
+                            {formatMs(cold)}&thinsp;ms
+                          </BarTimeLabel>
+                        </LaneBar>
                       </LaneTrack>
-                      <LaneTime
-                        $isMicrolink={false}
+                      <CumulativeTime
                         style={
-                          isFastest
-                            ? { color: '#fd494a', fontWeight: 700 }
-                            : undefined
+                          isFastest && !isSumming
+                            ? { color: '#fd494a' }
+                            : isSumming
+                              ? { color: 'rgba(255, 255, 255, 0.95)' }
+                              : undefined
                         }
                       >
-                        {formatMs(cold)}&thinsp;ms
-                      </LaneTime>
+                        <AnimatedCounter value={cumTotal} animate={isSumming} />
+                      </CumulativeTime>
                     </LaneRow>
                   )
                 })
