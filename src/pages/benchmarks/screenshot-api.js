@@ -20,7 +20,7 @@ const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
 const BENCHMARK_DATA = {
-  timestamp: '2026-03-10T17:51:40.480Z',
+  timestamp: '2026-03',
   testUrls: [
     {
       url: 'https://vercel.com',
@@ -70,100 +70,226 @@ const BENCHMARK_DATA = {
     }
   ],
   results: {
-    microlink: {
-      name: 'Microlink',
-      summary: {
-        avgColdDuration: 3745.82,
-        totalColdDuration: 26220.68
-      },
-      perUrl: [
-        { url: 'https://vercel.com', coldDuration: 6172.32 },
-        { url: 'https://example.com', coldDuration: 972.44 },
-        { url: 'https://stripe.com', coldDuration: 3114.02 },
-        { url: 'https://screenshotone.com', coldDuration: 4823.36 },
-        { url: 'https://news.ycombinator.com', coldDuration: 3195.26 },
-        { url: 'https://github.com/trending', coldDuration: 3079.05 },
-        { url: 'https://www.framer.com', coldDuration: 4864.23 }
-      ]
-    },
     apiflash: {
       name: 'ApiFlash',
       summary: {
-        avgColdDuration: 9702.57,
-        totalColdDuration: 67917.96
+        avgColdDuration: 9463.2,
+        totalColdDuration: 66242.4
       },
       perUrl: [
-        { url: 'https://vercel.com', coldDuration: 13956.19 },
-        { url: 'https://example.com', coldDuration: 2010.55 },
-        { url: 'https://stripe.com', coldDuration: 5313.18 },
-        { url: 'https://screenshotone.com', coldDuration: 9900.12 },
-        { url: 'https://news.ycombinator.com', coldDuration: 2061.07 },
-        { url: 'https://github.com/trending', coldDuration: 7145.75 },
-        { url: 'https://www.framer.com', coldDuration: 7531.1 }
+        {
+          url: 'https://vercel.com',
+          coldDuration: 14232.91
+        },
+        {
+          url: 'https://example.com',
+          coldDuration: 1819.86
+        },
+        {
+          url: 'https://stripe.com',
+          coldDuration: 5900.18
+        },
+        {
+          url: 'https://screenshotone.com',
+          coldDuration: 9802.49
+        },
+        {
+          url: 'https://news.ycombinator.com',
+          coldDuration: 1967.53
+        },
+        {
+          url: 'https://github.com/trending',
+          coldDuration: 5365.86
+        },
+        {
+          url: 'https://www.framer.com',
+          coldDuration: 27153.57
+        }
+      ]
+    },
+    microlink: {
+      name: 'Microlink',
+      summary: {
+        avgColdDuration: 4111.84,
+        totalColdDuration: 28782.87
+      },
+      perUrl: [
+        {
+          url: 'https://vercel.com',
+          coldDuration: 6361.22
+        },
+        {
+          url: 'https://example.com',
+          coldDuration: 967.96
+        },
+        {
+          url: 'https://stripe.com',
+          coldDuration: 3217.22
+        },
+        {
+          url: 'https://screenshotone.com',
+          coldDuration: 5474.39
+        },
+        {
+          url: 'https://news.ycombinator.com',
+          coldDuration: 3435.08
+        },
+        {
+          url: 'https://github.com/trending',
+          coldDuration: 3059.69
+        },
+        {
+          url: 'https://www.framer.com',
+          coldDuration: 6267.31
+        }
       ]
     },
     screenshotapi: {
       name: 'ScreenshotAPI',
       summary: {
-        avgColdDuration: 5876.14,
-        totalColdDuration: 41132.97
+        avgColdDuration: 5915.71,
+        totalColdDuration: 41409.99
       },
       perUrl: [
-        { url: 'https://vercel.com', coldDuration: 6204.79 },
-        { url: 'https://example.com', coldDuration: 4849.4 },
-        { url: 'https://stripe.com', coldDuration: 4808.85 },
-        { url: 'https://screenshotone.com', coldDuration: 7259.61 },
-        { url: 'https://news.ycombinator.com', coldDuration: 5295.75 },
-        { url: 'https://github.com/trending', coldDuration: 5807.86 },
-        { url: 'https://www.framer.com', coldDuration: 6906.71 }
+        {
+          url: 'https://vercel.com',
+          coldDuration: 6143.4
+        },
+        {
+          url: 'https://example.com',
+          coldDuration: 4987.8
+        },
+        {
+          url: 'https://stripe.com',
+          coldDuration: 5613.77
+        },
+        {
+          url: 'https://screenshotone.com',
+          coldDuration: 6805.46
+        },
+        {
+          url: 'https://news.ycombinator.com',
+          coldDuration: 5384.65
+        },
+        {
+          url: 'https://github.com/trending',
+          coldDuration: 6174.08
+        },
+        {
+          url: 'https://www.framer.com',
+          coldDuration: 6300.83
+        }
       ]
     },
     screenshotmachine: {
       name: 'ScreenshotMachine',
       summary: {
-        avgColdDuration: 6076.81,
-        totalColdDuration: 42537.63
+        avgColdDuration: 6099.77,
+        totalColdDuration: 42698.4
       },
       perUrl: [
-        { url: 'https://vercel.com', coldDuration: 9347.0 },
-        { url: 'https://example.com', coldDuration: 1332.77 },
-        { url: 'https://stripe.com', coldDuration: 3612.38 },
-        { url: 'https://screenshotone.com', coldDuration: 11815.22 },
-        { url: 'https://news.ycombinator.com', coldDuration: 4872.24 },
-        { url: 'https://github.com/trending', coldDuration: 3878.28 },
-        { url: 'https://www.framer.com', coldDuration: 7679.74 }
+        {
+          url: 'https://vercel.com',
+          coldDuration: 9790.6
+        },
+        {
+          url: 'https://example.com',
+          coldDuration: 1321.19
+        },
+        {
+          url: 'https://stripe.com',
+          coldDuration: 3167.16
+        },
+        {
+          url: 'https://screenshotone.com',
+          coldDuration: 12403.69
+        },
+        {
+          url: 'https://news.ycombinator.com',
+          coldDuration: 4328.76
+        },
+        {
+          url: 'https://github.com/trending',
+          coldDuration: 3898.21
+        },
+        {
+          url: 'https://www.framer.com',
+          coldDuration: 7788.79
+        }
       ]
     },
     screenshotone: {
       name: 'ScreenshotOne',
       summary: {
-        avgColdDuration: 8002.65,
-        totalColdDuration: 56018.5
+        avgColdDuration: 7711.14,
+        totalColdDuration: 53977.99
       },
       perUrl: [
-        { url: 'https://vercel.com', coldDuration: 10339.49 },
-        { url: 'https://example.com', coldDuration: 3618.0 },
-        { url: 'https://stripe.com', coldDuration: 6500.47 },
-        { url: 'https://screenshotone.com', coldDuration: 12907.7 },
-        { url: 'https://news.ycombinator.com', coldDuration: 7026.93 },
-        { url: 'https://github.com/trending', coldDuration: 6806.01 },
-        { url: 'https://www.framer.com', coldDuration: 8819.9 }
+        {
+          url: 'https://vercel.com',
+          coldDuration: 12695.34
+        },
+        {
+          url: 'https://example.com',
+          coldDuration: 3134.84
+        },
+        {
+          url: 'https://stripe.com',
+          coldDuration: 5677.9
+        },
+        {
+          url: 'https://screenshotone.com',
+          coldDuration: 12138.63
+        },
+        {
+          url: 'https://news.ycombinator.com',
+          coldDuration: 6857.3
+        },
+        {
+          url: 'https://github.com/trending',
+          coldDuration: 6058.52
+        },
+        {
+          url: 'https://www.framer.com',
+          coldDuration: 7415.46
+        }
       ]
     },
     urlbox: {
       name: 'Urlbox',
       summary: {
-        avgColdDuration: 7417.9,
-        totalColdDuration: 51925.3
+        avgColdDuration: 7334.22,
+        totalColdDuration: 51339.56
       },
       perUrl: [
-        { url: 'https://vercel.com', coldDuration: 13724.91 },
-        { url: 'https://example.com', coldDuration: 2252.97 },
-        { url: 'https://stripe.com', coldDuration: 3967.98 },
-        { url: 'https://screenshotone.com', coldDuration: 15606.44 },
-        { url: 'https://news.ycombinator.com', coldDuration: 4656.41 },
-        { url: 'https://github.com/trending', coldDuration: 4862.29 },
-        { url: 'https://www.framer.com', coldDuration: 6854.3 }
+        {
+          url: 'https://vercel.com',
+          coldDuration: 14952.83
+        },
+        {
+          url: 'https://example.com',
+          coldDuration: 2331.45
+        },
+        {
+          url: 'https://stripe.com',
+          coldDuration: 3678.79
+        },
+        {
+          url: 'https://screenshotone.com',
+          coldDuration: 14975.56
+        },
+        {
+          url: 'https://news.ycombinator.com',
+          coldDuration: 4748.08
+        },
+        {
+          url: 'https://github.com/trending',
+          coldDuration: 4266.84
+        },
+        {
+          url: 'https://www.framer.com',
+          coldDuration: 6386.01
+        }
       ]
     }
   }
@@ -1742,7 +1868,7 @@ const Hero = () => (
         >
           Cold-start latency across 6&nbsp;providers, 7&nbsp;URLs, zero caching.
           <br />
-          Microlink finishes first on every test.
+          Microlink averages the lowest time across all&nbsp;tests.
         </Caption>
       </Flex>
 
@@ -1822,7 +1948,7 @@ const Methodology = () => (
             fontVariantNumeric: 'tabular-nums'
           }}
         >
-          March&nbsp;10,&nbsp;2026
+          March&nbsp;12,&nbsp;2026
         </span>
         .
       </Text>
@@ -2012,12 +2138,12 @@ const CompetitorComparison = () => {
                 )}
                 &thinsp;ms
               </strong>{' '}
-              per cold request — nearly 2&times; slower than Microlink's{' '}
+              per cold request — ~1.8&times; slower than Microlink's{' '}
               <strong css={{ fontFamily: MONO_FONT, color: '#fd494a' }}>
                 {formatMsDecimal(microAvg)}&thinsp;ms
               </strong>
-              . On heavy pages like screenshotone.com, Urlbox took 15.6&nbsp;s
-              compared to Microlink's 4.8&nbsp;s — a 3.2&times;&nbsp;difference
+              . On heavy pages like screenshotone.com, Urlbox took 15.0&nbsp;s
+              compared to Microlink's 5.5&nbsp;s — a 2.7&times;&nbsp;difference
               that compounds at scale.
             </Text>
           </Box>
@@ -2047,9 +2173,9 @@ const CompetitorComparison = () => {
                 )}
                 &thinsp;ms
               </strong>
-              , driven by a 27.5-second response on framer.com. Microlink
-              handled the same URL in under 5&nbsp;seconds — making it a
-              reliable drop-in replacement for latency-sensitive&nbsp;workloads.
+              , driven by a 27.2-second response on framer.com. Microlink
+              handled the same URL in 6.3&nbsp;seconds — making it a reliable
+              drop-in replacement for latency-sensitive&nbsp;workloads.
             </Text>
           </Box>
 
@@ -2087,8 +2213,8 @@ const CompetitorComparison = () => {
                 &thinsp;ms avg
               </span>
               ) sit in the mid-range. Both delivered consistent but
-              unexceptional times. Microlink outperformed each by 36–38%,
-              finishing faster on every single&nbsp;URL tested.
+              unexceptional times. Microlink outperformed each by 44–48%,
+              finishing with the lowest average across all&nbsp;URLs tested.
             </Text>
           </Box>
 
@@ -2117,10 +2243,10 @@ const CompetitorComparison = () => {
                 )}
                 &thinsp;ms
               </strong>{' '}
-              — more than double Microlink's latency. On its own domain
-              (screenshotone.com), it took 12.9&nbsp;s while Microlink returned
-              in 4.8&nbsp;s. For teams already paying for ScreenshotOne,
-              Microlink delivers the same capabilities at half the
+              — nearly 1.9&times; Microlink's latency. On its own domain
+              (screenshotone.com), it took 12.1&nbsp;s while Microlink returned
+              in 5.5&nbsp;s. For teams already paying for ScreenshotOne,
+              Microlink delivers the same capabilities at roughly half the
               response&nbsp;time.
             </Text>
           </Box>
@@ -2179,8 +2305,8 @@ const WhyLatencyMatters = () => (
         })}
       >
         Fast cold-start times translate directly to better UX for your
-        end-users. A 3.7-second P50 means your screenshots are ready before a
-        user can perceive a delay. At 8–10&nbsp;seconds, you are forced to add
+        end-users. A 3.4-second P50 means your screenshots are ready before a
+        user can perceive a delay. At 7–10&nbsp;seconds, you are forced to add
         loading spinners, queue architectures, and retry logic — engineering
         complexity that a faster API eliminates&nbsp;entirely.
       </Text>
@@ -2365,8 +2491,8 @@ export const Head = () => (
       description:
         'Independent performance benchmark comparing 6 screenshot API providers on cold-start latency across 7 real-world URLs.',
       url: 'https://microlink.io/benchmarks/screenshot-api',
-      datePublished: '2026-03-10',
-      dateModified: '2026-03-10',
+      datePublished: '2026-03-12',
+      dateModified: '2026-03-12',
       author: {
         '@type': 'Organization',
         name: 'Microlink',
