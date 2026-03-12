@@ -1,6 +1,5 @@
-/* global IntersectionObserver */
-import { borders, layout, colors, space, theme, transition } from 'theme'
-import React, { useState, useEffect } from 'react'
+import { borders, layout, colors, space, theme } from 'theme'
+import React from 'react'
 import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
@@ -315,12 +314,6 @@ const SERVICE_COLORS = {
 const formatMs = ms => ms.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const formatMsDecimal = ms =>
   ms.toLocaleString('en-US', { maximumFractionDigits: 2 })
-
-const getDeviceType = width => {
-  if (width <= 480) return 'Mobile'
-  if (width <= 1024) return 'Tablet'
-  return 'Desktop'
-}
 
 const MONO_FONT =
   "'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono', Menlo, monospace"
@@ -1027,15 +1020,21 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin ? (
-                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                          ) : isMax ? (
-                            <CellLoser>{formatMs(times[i])}</CellLoser>
-                          ) : isSecond ? (
-                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                          ) : (
-                            formatMs(times[i])
-                          )}
+                          {isMin
+                            ? (
+                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                              )
+                            : isMax
+                              ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                                )
+                              : isSecond
+                                ? (
+                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                                  )
+                                : (
+                                    formatMs(times[i])
+                                  )}
                         </td>
                       )
                     })}
@@ -1500,56 +1499,6 @@ const WhyLatencyMatters = () => (
   </Container>
 )
 
-const StickyCtaBar = styled('div')`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: ${borders[1]} ${colors.black10};
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  transform: translateY(${({ $visible }) => ($visible ? '0' : '100%')});
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-`
-
-const CtaButton = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: ${MONO_FONT};
-  font-size: 13px;
-  font-weight: 600;
-  background: #fd494a;
-  color: white !important;
-  border-radius: 6px;
-  padding: 8px 20px;
-  text-decoration: none !important;
-  transition: background ${transition.medium}, box-shadow ${transition.medium};
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-
-  &:hover {
-    background: #e5383b;
-    box-shadow: 0 4px 12px rgba(253, 73, 74, 0.3);
-  }
-
-  &:focus-visible {
-    outline: 2px solid rgba(253, 73, 74, 0.5);
-    outline-offset: 2px;
-  }
-`
-
 const CalloutBox = styled('blockquote')`
   position: relative;
   margin: 0;
@@ -1663,36 +1612,6 @@ const BottomCta = () => (
     </Flex>
   </Container>
 )
-
-const StickyFooterCta = () => {
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setVisible(window.scrollY > 600)
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  return (
-    <StickyCtaBar $visible={visible}>
-      <Text
-        css={theme({
-          fontSize: [0, 0, 1, 1],
-          color: 'black60',
-          display: ['none', 'none', 'block', 'block']
-        })}
-      >
-        The fastest screenshot API — proven by benchmarks
-      </Text>
-      <CtaButton href='/docs/api/parameters/screenshot'>
-        Start free trial →
-      </CtaButton>
-    </StickyCtaBar>
-  )
-}
 
 export const Head = () => (
   <Meta
