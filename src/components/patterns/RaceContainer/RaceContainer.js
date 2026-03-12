@@ -1,4 +1,4 @@
-/* global IntersectionObserver */
+/* global IntersectionObserver, requestAnimationFrame, cancelAnimationFrame */
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import { transition } from 'theme'
@@ -741,7 +741,7 @@ const RaceContainer = ({ benchmarkData, serviceColors, highlightKey }) => {
   const [step, setStep] = useState(0)
   const [activeStep, setActiveStep] = useState(0)
   const [modeIndex, setModeIndex] = useState(0)
-  const [cumulativeTimes, setCumulativeTimes] = useState(initCumulativeTimes)
+  const [, setCumulativeTimes] = useState(initCumulativeTimes)
   const [displayedCumulative, setDisplayedCumulative] =
     useState(initCumulativeTimes)
   const [rankedOrder, setRankedOrder] = useState(ALPHABETICAL_SERVICES)
@@ -1028,7 +1028,7 @@ const RaceContainer = ({ benchmarkData, serviceColors, highlightKey }) => {
 
     if (prevHeight && prevHeight !== nextHeight) {
       el.style.height = `${prevHeight}px`
-      el.offsetHeight // force reflow
+      el.getBoundingClientRect() // force reflow
       el.style.height = `${nextHeight}px`
     } else {
       el.style.height = `${nextHeight}px`
