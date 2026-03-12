@@ -1,5 +1,13 @@
 /* global IntersectionObserver */
-import { borders, layout, colors, space, theme, transition } from 'theme'
+import {
+  borders,
+  layout,
+  colors,
+  space,
+  textGradient,
+  theme,
+  transition
+} from 'theme'
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 
@@ -425,14 +433,14 @@ const RaceContainer = styled('div')`
   max-width: 960px;
   margin: 0 auto;
   min-height: 360px;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.9);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   padding: 32px 28px 40px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   overflow: hidden;
 
   @media (max-width: 600px) {
@@ -607,14 +615,15 @@ const IntroLabel = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 18px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.9);
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 42px;
   letter-spacing: 0.02em;
   animation: ${fadeIn} 0.4s ease forwards;
 
   @media (max-width: 600px) {
-    font-size: 13px;
+    font-size: 14px;
+    margin-bottom: 34px;
   }
 `
 
@@ -673,7 +682,7 @@ const LaneName = styled('div')`
   font-size: 14px;
   font-weight: ${({ $isMicrolink }) => ($isMicrolink ? '700' : '500')};
   color: ${({ $isMicrolink }) =>
-    $isMicrolink ? '#fd494a' : 'rgba(255, 255, 255, 0.85)'};
+    $isMicrolink ? '#fd494a' : 'rgba(255, 255, 255, 0.90)'};
   width: 150px;
   flex-shrink: 0;
   text-align: right;
@@ -1334,7 +1343,7 @@ const HeroRace = () => {
           <>
             <IntroLabel>
               Measuring cold-start speed across {SERVICES.length}
-              &nbsp;screenshot APIs…
+              &nbsp;screenshot APIs
             </IntroLabel>
 
             <Flex css={{ flexDirection: 'column', gap: '8px' }}>
@@ -1622,7 +1631,7 @@ const RaceButton = styled('button')`
   &:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.25);
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.9);
   }
 
   &:focus-visible {
@@ -1847,126 +1856,34 @@ const Hero = () => (
     css={{
       position: 'relative',
       overflow: 'hidden',
-      width: '100%',
-      backgroundImage: `radial-gradient(
-        circle at center right,
-        #850ba7 0%,
-        #850ba7 48%,
-        #a31b91 48%,
-        #a31b91 52%,
-        #c12a78 52%,
-        #c12a78 65%,
-        #df3a61 65%,
-        #df3a61 79%,
-        #fd494a 79%,
-        #fd494a 100%
-      )`,
-      borderBottom: `${borders[1]} ${colors.white20}`
+      width: '100%'
     }}
   >
-    <Box
+    <div
       css={{
         position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        overflow: 'hidden',
-        pointerEvents: 'none',
-        zIndex: 0
+        inset: 0,
+        zIndex: 0,
+        backgroundImage: `
+          linear-gradient(to right, #e7e5e4 1px, transparent 1px),
+          linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
+        `,
+        backgroundSize: '20px 20px',
+        backgroundPosition: '0 0, 0 0',
+        maskImage: `
+          repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
+          repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
+          radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
+        `,
+        WebkitMaskImage: `
+          repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
+          repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
+          radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
+        `,
+        maskComposite: 'intersect',
+        WebkitMaskComposite: 'source-in'
       }}
-    >
-      <SpeedLine
-        $top='10%'
-        $w='140px'
-        $h='3px'
-        $dur='1.27s'
-        $delay='0s'
-        $color='rgba(255,255,255,0.45)'
-        $glow='8px'
-      />
-      <SpeedLine
-        $top='25%'
-        $w='80px'
-        $h='2px'
-        $dur='1.78s'
-        $delay='0.6s'
-        $color='rgba(255,255,255,0.2)'
-        $glow='4px'
-      />
-      <SpeedLine
-        $top='40%'
-        $w='110px'
-        $h='2px'
-        $dur='1.1s'
-        $delay='0.15s'
-        $color='rgba(255,255,255,0.55)'
-        $glow='10px'
-      />
-      <SpeedLine
-        $top='55%'
-        $w='50px'
-        $h='1px'
-        $dur='2.11s'
-        $delay='1.1s'
-        $color='rgba(255,255,255,0.12)'
-        $glow='3px'
-      />
-      <SpeedLine
-        $top='70%'
-        $w='130px'
-        $h='3px'
-        $dur='1.01s'
-        $delay='0.3s'
-        $color='rgba(255,255,255,0.6)'
-        $glow='12px'
-      />
-      <SpeedLine
-        $top='85%'
-        $w='60px'
-        $h='1px'
-        $dur='1.91s'
-        $delay='1.35s'
-        $color='rgba(255,255,255,0.15)'
-        $glow='3px'
-      />
-      <SpeedLine
-        $top='15%'
-        $w='90px'
-        $h='2px'
-        $dur='1.19s'
-        $delay='0.2s'
-        $color='rgba(255,255,255,0.35)'
-        $glow='6px'
-      />
-      <SpeedLine
-        $top='45%'
-        $w='120px'
-        $h='3px'
-        $dur='0.94s'
-        $delay='0s'
-        $color='rgba(255,255,255,0.5)'
-        $glow='10px'
-      />
-      <SpeedLine
-        $top='60%'
-        $w='45px'
-        $h='1px'
-        $dur='1.8s'
-        $delay='0.8s'
-        $color='rgba(255,255,255,0.18)'
-        $glow='3px'
-      />
-      <SpeedLine
-        $top='75%'
-        $w='75px'
-        $h='2px'
-        $dur='1.35s'
-        $delay='0.45s'
-        $color='rgba(255,255,255,0.3)'
-        $glow='5px'
-      />
-    </Box>
+    />
 
     <Flex
       css={theme({
@@ -1991,21 +1908,20 @@ const Hero = () => (
       >
         <Subhead
           forwardedAs='h1'
+          variant='gradient'
           css={theme({
             fontSize: ['28px', '36px', '48px', '52px'],
-            color: 'white',
             textAlign: 'center'
           })}
         >
-          The Screenshot API{' '}
-          <span css={theme({ display: 'block', color: 'white60' })}>
-            Performance Benchmark
-          </span>
+          The Screenshot API
+          <br />
+          Performance Benchmark
         </Subhead>
         <Caption
           forwardedAs='div'
           css={theme({
-            color: 'white80',
+            color: 'black60',
             textAlign: 'center',
             width: '100%',
             fontSize: [1, 1, 2, '22px'],
@@ -2062,7 +1978,8 @@ const Methodology = () => (
     css={theme({
       maxWidth: '100%',
       bg: 'pinky',
-      py: [4, 4, 5, 5]
+      pt: [5, 5, 6, 6],
+      pb: [4, 4, 5, 5]
     })}
   >
     <Flex
@@ -2075,6 +1992,7 @@ const Methodology = () => (
       })}
     >
       <Subhead
+        variant='gradient'
         css={theme({
           fontSize: ['28px', '32px', '40px', '44px'],
           textAlign: 'left'
@@ -2192,28 +2110,6 @@ const Methodology = () => (
           </Text>
         </MethodologyItem>
       </MethodologyList>
-      <Text
-        css={theme({
-          fontSize: [0, 0, 1, 1],
-          color: 'black50',
-          lineHeight: 3
-        })}
-      >
-        The complete testing architecture is{' '}
-        <Link href='https://github.com/microlinkhq/benchmark'>
-          open source on GitHub
-        </Link>
-        . Last run:{' '}
-        <span
-          css={{
-            fontFamily: MONO_FONT,
-            fontVariantNumeric: 'tabular-nums'
-          }}
-        >
-          March,&nbsp;2026
-        </span>
-        .
-      </Text>
       <CalloutBox>
         <CalloutLabel>Transparency note</CalloutLabel>
         <Text
@@ -2263,6 +2159,29 @@ const Methodology = () => (
           behind&nbsp;ScreenshotMachine.
         </Text>
       </CalloutBox>
+      <Text
+        css={theme({
+          fontSize: [0, 0, 1, 1],
+          color: 'black50',
+          lineHeight: 3
+        })}
+      >
+        The complete testing architecture is{' '}
+        <Link href='https://github.com/microlinkhq/benchmark'>
+          open source on GitHub
+        </Link>
+        . Last run:{' '}
+        <span
+          css={{
+            fontFamily: MONO_FONT,
+            fontSize: '15px',
+            fontVariantNumeric: 'tabular-nums'
+          }}
+        >
+          March,&nbsp;2026
+        </span>
+        .
+      </Text>
     </Flex>
   </Container>
 )
@@ -2276,9 +2195,7 @@ const CompetitorComparison = () => {
       as='section'
       css={theme({
         maxWidth: '100%',
-        borderTop: `${borders[1]} ${colors.pinkest}`,
-        borderBottom: `${borders[1]} ${colors.pinkest}`,
-        pt: [5, 5, 6, 6],
+        pt: [4, 4, 5, 5],
         pb: [5, 5, 6, 6]
       })}
     >
@@ -2809,7 +2726,8 @@ const WhyLatencyMatters = () => (
     css={theme({
       maxWidth: '100%',
       bg: 'white',
-      py: [4, 4, 5, 5]
+      pt: [5, 5, 6, 6],
+      pb: [4, 4, 5, 5]
     })}
   >
     <Flex
@@ -3160,7 +3078,7 @@ const ScreenshotApiBenchmarkPage = () => (
     <Methodology />
     <WhyLatencyMatters />
     <BottomCta />
-    <StickyFooterCta />
+    {/* <StickyFooterCta /> */}
   </Layout>
 )
 
