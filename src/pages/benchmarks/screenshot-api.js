@@ -1745,8 +1745,14 @@ const MobileCardName = styled('span')`
 
 const MobileCardTime = styled('span')`
   font-weight: ${({ $highlight }) => ($highlight ? 700 : 400)};
-  color: ${({ $isMin, $isMax }) =>
-    $isMin ? '#16a34a' : $isMax ? '#dc2626' : colors.black80};
+  color: ${({ $isMin, $isMax, $isSecond }) =>
+    $isMin
+      ? '#16a34a'
+      : $isMax
+        ? '#dc2626'
+        : $isSecond
+          ? '#d97706'
+          : colors.black80};
 `
 
 const CellHighlight = styled('span')`
@@ -1757,6 +1763,11 @@ const CellHighlight = styled('span')`
 const CellLoser = styled('span')`
   font-weight: 700;
   color: #dc2626;
+`
+
+const CellRunnerUp = styled('span')`
+  font-weight: 600;
+  color: #d97706;
 `
 
 const Hero = () => (
@@ -2156,7 +2167,7 @@ const CompetitorComparison = () => {
           maxWidth: layout.large,
           px: [4, 4, 4, 0],
           mx: 'auto',
-          gap: [4, 4, 5, 5]
+          gap: ['24px', '24px', '32px', '32px']
         })}
       >
         <Subhead
@@ -2168,6 +2179,19 @@ const CompetitorComparison = () => {
           Screenshot API speed comparison by provider
         </Subhead>
 
+        <Text
+          css={{
+            fontFamily: MONO_FONT,
+            fontSize: '13px',
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            color: colors.black50,
+            marginBottom: '-16px'
+          }}
+        >
+          Average cold-start latency per provider
+        </Text>
         <Box
           css={{
             overflowX: 'auto',
@@ -2186,21 +2210,33 @@ const CompetitorComparison = () => {
               </tr>
             </thead>
             <tbody>
-              {SORTED_SERVICES.map(key => {
+              {SORTED_SERVICES.map((key, rank) => {
                 const svc = BENCHMARK_DATA.results[key]
                 const avg = svc.summary.avgColdDuration
                 const delta = avg - microAvg
                 const pctSlower =
                   microAvg > 0 ? ((delta / microAvg) * 100).toFixed(0) : 0
                 const isMicrolink = key === 'microlink'
+                const isRunnerUp = rank === 1
+
+                const nameColor = isMicrolink
+                  ? '#16a34a'
+                  : isRunnerUp
+                    ? '#d97706'
+                    : colors.black80
+                const timeColor = isMicrolink
+                  ? '#16a34a'
+                  : isRunnerUp
+                    ? '#d97706'
+                    : undefined
 
                 return (
                   <tr key={key}>
                     <td>
                       <span
-                        css={{
-                          fontWeight: isMicrolink ? 700 : 400,
-                          color: isMicrolink ? '#16a34a' : colors.black80
+                        style={{
+                          fontWeight: isMicrolink || isRunnerUp ? 700 : 400,
+                          color: nameColor
                         }}
                       >
                         {svc.name}
@@ -2209,14 +2245,14 @@ const CompetitorComparison = () => {
                     </td>
                     <td
                       style={{
-                        fontWeight: isMicrolink ? 700 : 400,
-                        color: isMicrolink ? '#16a34a' : undefined
+                        fontWeight: isMicrolink || isRunnerUp ? 700 : 400,
+                        color: timeColor
                       }}
                     >
                       {formatMsDecimal(avg)}&thinsp;ms
                     </td>
                     <td
-                      css={{
+                      style={{
                         color: isMicrolink ? '#16a34a' : colors.black50
                       }}
                     >
@@ -2229,6 +2265,19 @@ const CompetitorComparison = () => {
           </ComparisonTable>
         </Box>
 
+        <Text
+          css={{
+            fontFamily: MONO_FONT,
+            fontSize: '13px',
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            color: colors.black50,
+            marginBottom: '-16px'
+          }}
+        >
+          Cold-start latency breakdown by URL
+        </Text>
         <Box
           css={theme({
             overflowX: 'auto',
@@ -2262,14 +2311,17 @@ const CompetitorComparison = () => {
                     BENCHMARK_DATA.results[key].perUrl.find(p => p.url === url)
                       ?.coldDuration || 0
                 )
-                const minTime = Math.min(...times)
-                const maxTime = Math.max(...times)
+                const sorted = [...times].sort((a, b) => a - b)
+                const minTime = sorted[0]
+                const secondMin = sorted[1]
+                const maxTime = sorted[sorted.length - 1]
 
                 return (
                   <tr key={url}>
                     <td>{extractDomain(url)}</td>
                     {SORTED_SERVICES.map((key, i) => {
                       const isMin = times[i] === minTime
+                      const isSecond = !isMin && times[i] === secondMin
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
@@ -2277,6 +2329,8 @@ const CompetitorComparison = () => {
                             <CellHighlight>{formatMs(times[i])}</CellHighlight>
                           ) : isMax ? (
                             <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
                           ) : (
                             formatMs(times[i])
                           )}
@@ -2338,14 +2392,17 @@ const CompetitorComparison = () => {
                 BENCHMARK_DATA.results[key].perUrl.find(p => p.url === url)
                   ?.coldDuration || 0
             )
-            const minTime = Math.min(...times)
-            const maxTime = Math.max(...times)
+            const sorted = [...times].sort((a, b) => a - b)
+            const minTime = sorted[0]
+            const secondMin = sorted[1]
+            const maxTime = sorted[sorted.length - 1]
 
             return (
               <MobileCard key={url}>
                 <MobileCardHeader>{extractDomain(url)}</MobileCardHeader>
                 {SORTED_SERVICES.map((key, i) => {
                   const isMin = times[i] === minTime
+                  const isSecond = !isMin && times[i] === secondMin
                   const isMax = times[i] === maxTime
                   return (
                     <MobileCardRow key={key}>
@@ -2353,9 +2410,10 @@ const CompetitorComparison = () => {
                         {BENCHMARK_DATA.results[key].name}
                       </MobileCardName>
                       <MobileCardTime
-                        $highlight={isMin || isMax}
+                        $highlight={isMin || isMax || isSecond}
                         $isMin={isMin}
                         $isMax={isMax}
+                        $isSecond={isSecond}
                       >
                         {formatMs(times[i])}&thinsp;ms
                       </MobileCardTime>
@@ -2401,6 +2459,58 @@ const CompetitorComparison = () => {
         </MobileCards>
 
         <Flex
+          css={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: '14px',
+            fontFamily: MONO_FONT,
+            fontSize: '11px',
+            color: colors.black50,
+            marginTop: '-12px'
+          }}
+        >
+          <Flex css={{ alignItems: 'center', gap: '6px' }}>
+            <span
+              css={{
+                width: '10px',
+                height: '10px',
+                borderRadius: '2px',
+                background: '#16a34a',
+                flexShrink: 0
+              }}
+            />
+            <span>Fastest</span>
+          </Flex>
+          <Flex css={{ alignItems: 'center', gap: '6px' }}>
+            <span
+              css={{
+                width: '10px',
+                height: '10px',
+                borderRadius: '2px',
+                background: '#d97706',
+                flexShrink: 0
+              }}
+            />
+            <span>2nd fastest</span>
+          </Flex>
+          <Flex css={{ alignItems: 'center', gap: '6px' }}>
+            <span
+              css={{
+                width: '10px',
+                height: '10px',
+                borderRadius: '2px',
+                background: '#dc2626',
+                flexShrink: 0
+              }}
+            />
+            <span>Slowest</span>
+          </Flex>
+          <span css={{ color: colors.black40 }}>·</span>
+          <span>Times in milliseconds (ms), totals in seconds&nbsp;(s)</span>
+        </Flex>
+
+        <Flex
           css={theme({
             flexDirection: 'column',
             gap: [4, 4, 5, 5]
@@ -2412,6 +2522,7 @@ const CompetitorComparison = () => {
               css={theme({
                 fontSize: ['22px', '24px', '28px', '28px'],
                 textAlign: 'left',
+                mt: [3, 3, 4, 4],
                 mb: [2, 2, 3, 3]
               })}
             >
@@ -2760,10 +2871,38 @@ const TransparencyNote = () => (
           times approaching 30&nbsp;seconds. Because this metric was a
           significant outlier, we paused the benchmark publication and re-ran
           this specific configuration multiple times across different days and
-          server locations. The response times remained consistently slow. In
-          the interest of absolute transparency and fairness to the other
+          server locations. The response times remained consistently slow.
+        </Text>
+        <br />
+        <Text
+          css={theme({
+            fontSize: [0, 0, 1, 1],
+            color: 'black70',
+            lineHeight: 3
+          })}
+        >
+          In the interest of absolute transparency and fairness to the other
           providers who successfully handled the complex DOM, we have chosen to
           publish the raw, unedited data exactly as it was&nbsp;recorded.
+        </Text>
+        <br />
+        <Text
+          css={theme({
+            fontSize: [0, 0, 1, 1],
+            color: 'black70',
+            lineHeight: 3,
+            mt: 2
+          })}
+        >
+          For context: if framer.com were excluded from the dataset, ApiFlash's
+          average cold duration would drop from{' '}
+          <span css={{ fontFamily: MONO_FONT }}>9,463.20&thinsp;ms</span> to{' '}
+          <span css={{ fontFamily: MONO_FONT }}>6,514.81&thinsp;ms</span>,
+          moving it from last place to <strong>3rd in average latency</strong>{' '}
+          (behind Microlink and ScreenshotAPI). Its total cold duration would
+          fall to{' '}
+          <span css={{ fontFamily: MONO_FONT }}>39,088.83&thinsp;ms</span>,
+          ranking <strong>2nd overall</strong> — right behind&nbsp;Microlink.
         </Text>
       </CalloutBox>
     </Flex>
@@ -2777,7 +2916,7 @@ const BottomCta = () => (
       alignItems: 'center',
       maxWidth: '100%',
       bg: 'white',
-      pt: [3, 3, 4, 4],
+      pt: [4, 4, 5, 5],
       pb: 0
     })}
   >
