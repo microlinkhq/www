@@ -1,5 +1,5 @@
 /* global IntersectionObserver */
-import { borders, layout, colors, theme, transition } from 'theme'
+import { borders, layout, colors, space, theme, transition } from 'theme'
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 
@@ -1618,6 +1618,13 @@ const ComparisonTable = styled('table')`
     color: ${colors.black80};
   }
 
+  th:last-child,
+  td:last-child {
+    @media (max-width: 480px) {
+      display: none;
+    }
+  }
+
   tbody tr:last-child td {
     border-bottom: 0;
   }
@@ -1634,9 +1641,9 @@ const WinnerTag = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 10px;
   font-weight: 700;
-  color: #fd494a;
-  background: rgba(253, 73, 74, 0.08);
-  border: 1px solid rgba(253, 73, 74, 0.2);
+  color: #16a34a;
+  background: rgba(22, 163, 74, 0.08);
+  border: 1px solid rgba(22, 163, 74, 0.2);
   border-radius: 4px;
   padding: 2px 6px;
   margin-left: 6px;
@@ -1650,6 +1657,10 @@ const PerUrlTable = styled('table')`
   font-variant-numeric: tabular-nums;
   table-layout: auto;
 
+  @media (max-width: 767px) {
+    display: none;
+  }
+
   th,
   td {
     padding: 8px 12px;
@@ -1658,11 +1669,6 @@ const PerUrlTable = styled('table')`
     border-bottom: ${borders[1]} ${colors.black05};
     font-family: ${MONO_FONT};
     white-space: nowrap;
-
-    @media (max-width: 600px) {
-      padding: 6px 8px;
-      font-size: 10px;
-    }
   }
 
   th {
@@ -1690,9 +1696,67 @@ const PerUrlTable = styled('table')`
   }
 `
 
+const MobileCards = styled('div')`
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (max-width: 767px) {
+    display: flex;
+  }
+`
+
+const MobileCard = styled('div')`
+  border: 1px solid ${colors.black10};
+  border-radius: 8px;
+  overflow: hidden;
+  background: ${colors.white};
+`
+
+const MobileCardHeader = styled('div')`
+  font-family: ${MONO_FONT};
+  font-size: 13px;
+  font-weight: 600;
+  color: ${colors.black80};
+  padding: 10px 14px;
+  background: ${colors.black025};
+  border-bottom: 1px solid ${colors.black10};
+`
+
+const MobileCardRow = styled('div')`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  font-family: ${MONO_FONT};
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  border-bottom: 1px solid ${colors.black05};
+
+  &:last-child {
+    border-bottom: 0;
+  }
+`
+
+const MobileCardName = styled('span')`
+  color: ${colors.black60};
+  font-weight: 500;
+`
+
+const MobileCardTime = styled('span')`
+  font-weight: ${({ $highlight }) => ($highlight ? 700 : 400)};
+  color: ${({ $isMin, $isMax }) =>
+    $isMin ? '#16a34a' : $isMax ? '#dc2626' : colors.black80};
+`
+
 const CellHighlight = styled('span')`
   font-weight: 700;
-  color: #fd494a;
+  color: #16a34a;
+`
+
+const CellLoser = styled('span')`
+  font-weight: 700;
+  color: #dc2626;
 `
 
 const Hero = () => (
@@ -1866,9 +1930,8 @@ const Hero = () => (
             maxWidth: layout.normal
           })}
         >
-          Cold-start latency across 6&nbsp;providers, 7&nbsp;URLs, zero caching.
-          <br />
-          Microlink averages the lowest time across all&nbsp;tests.
+          Cold-start latency across 6&nbsp;providers and 7&nbsp;URLs.
+          Zero&nbsp;caching.
         </Caption>
       </Flex>
 
@@ -1877,14 +1940,46 @@ const Hero = () => (
   </section>
 )
 
+const MethodologyList = styled('ul')`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: ${space[3]};
+`
+
+const MethodologyItem = styled('li')`
+  position: relative;
+  padding-left: 20px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: ${colors.close};
+  }
+
+  @media (max-width: 767px) {
+    padding-left: 0;
+
+    &::before {
+      display: none;
+    }
+  }
+`
+
 const Methodology = () => (
   <Container
     as='section'
     css={theme({
       maxWidth: '100%',
-      bg: 'white',
-      pt: [5, 5, 6, 6],
-      pb: [4, 4, 5, 5]
+      bg: 'pinky',
+      py: [4, 4, 5, 5]
     })}
   >
     <Flex
@@ -1902,7 +1997,7 @@ const Methodology = () => (
           textAlign: 'left'
         })}
       >
-        Finding the Fastest Screenshot API
+        Benchmark methodology &amp; testing architecture
       </Subhead>
       <Text
         css={theme({
@@ -1911,11 +2006,10 @@ const Methodology = () => (
           lineHeight: 3
         })}
       >
-        We benchmarked 6 screenshot API providers — Microlink, ApiFlash,
-        ScreenshotAPI, ScreenshotMachine, ScreenshotOne, and Urlbox — against
-        7&nbsp;real-world URLs. The test suite ranges from trivial static pages
-        (example.com) to complex SPAs and heavy marketing sites (Framer, Vercel,
-        Stripe).
+        To ensure a strictly objective baseline, we built a reproducible testing
+        suite targeting 6 screenshot API providers (Microlink, ApiFlash,
+        ScreenshotAPI, ScreenshotMachine, ScreenshotOne, and Urlbox) against
+        7&nbsp;real-world URLs.
       </Text>
       <Text
         css={theme({
@@ -1924,12 +2018,97 @@ const Methodology = () => (
           lineHeight: 3
         })}
       >
-        Every request was a cold start: no caching, no warm browser pools. We
-        measured the full round-trip from HTTP request to pixel delivery,
-        including DNS resolution, Headless Chrome boot, DOM rendering, and
-        viewport capture. This is the latency your users actually experience on
-        a first&nbsp;hit.
+        Here is exactly how the data was captured and&nbsp;aggregated:
       </Text>
+      <MethodologyList>
+        <MethodologyItem>
+          <Text
+            css={theme({
+              fontSize: [1, 1, 2, 2],
+              color: 'black70',
+              lineHeight: 3
+            })}
+          >
+            <strong>True Cold Starts:</strong> Every request bypassed edge
+            caching and warm browser pools. We measured the total round-trip
+            latency: HTTP request to Headless Chrome boot to DOM render to
+            pixel&nbsp;capture.
+          </Text>
+        </MethodologyItem>
+        <MethodologyItem>
+          <Text
+            css={theme({
+              fontSize: [1, 1, 2, 2],
+              color: 'black70',
+              lineHeight: 3
+            })}
+          >
+            <strong>Concurrent Execution:</strong> All 6 APIs were triggered
+            simultaneously for each target URL. If a target website (e.g.,
+            Vercel or Stripe) experienced a latency spike or routing bottleneck,
+            every screenshot provider faced the exact same&nbsp;conditions.
+          </Text>
+        </MethodologyItem>
+        <MethodologyItem>
+          <Text
+            css={theme({
+              fontSize: [1, 1, 2, 2],
+              color: 'black70',
+              lineHeight: 3
+            })}
+          >
+            <strong>10&times; Global Polling:</strong> To account for AWS/GCP
+            load balancing and natural internet traffic fluctuations, the
+            benchmark was executed 10 separate times at different hours of
+            the&nbsp;day.
+          </Text>
+        </MethodologyItem>
+        <MethodologyItem>
+          <Text
+            css={theme({
+              fontSize: [1, 1, 2, 2],
+              color: 'black70',
+              lineHeight: 3
+            })}
+          >
+            <strong>Heavy Browser Workloads:</strong> We didn't just test simple
+            viewport captures. The payload configurations forced high device
+            scale factors (Retina/2&times; resolution), full-page scrolling, and
+            active ad-blocking across a mix of static HTML and heavy
+            React&nbsp;SPAs.
+          </Text>
+        </MethodologyItem>
+        <MethodologyItem>
+          <Text
+            css={theme({
+              fontSize: [1, 1, 2, 2],
+              color: 'black70',
+              lineHeight: 3
+            })}
+          >
+            <strong>Outlier &amp; Error Mitigation:</strong> Real-world networks
+            occasionally drop packets. To prevent a single anomalous DNS timeout
+            (e.g., a 25,000&thinsp;ms spike) from corrupting the dataset, we
+            systematically dropped the single slowest execution out of the
+            10&nbsp;runs. Any request returning a non-200 HTTP error was also
+            isolated and&nbsp;removed.
+          </Text>
+        </MethodologyItem>
+        <MethodologyItem>
+          <Text
+            css={theme({
+              fontSize: [1, 1, 2, 2],
+              color: 'black70',
+              lineHeight: 3
+            })}
+          >
+            <strong>Final Aggregation:</strong> After cleaning the dataset, we
+            calculated the strict avgColdDuration per URL, and summed them to
+            find the totalColdDuration to determine the fastest
+            overall&nbsp;provider.
+          </Text>
+        </MethodologyItem>
+      </MethodologyList>
       <Text
         css={theme({
           fontSize: [0, 0, 1, 1],
@@ -1937,18 +2116,18 @@ const Methodology = () => (
           lineHeight: 3
         })}
       >
-        The benchmark suite is{' '}
+        The complete testing architecture is{' '}
         <Link href='https://github.com/microlinkhq/benchmark'>
           open source on GitHub
-        </Link>{' '}
-        for full reproducibility. Last run:{' '}
+        </Link>
+        . Last run:{' '}
         <span
           css={{
             fontFamily: MONO_FONT,
             fontVariantNumeric: 'tabular-nums'
           }}
         >
-          March&nbsp;12,&nbsp;2026
+          March,&nbsp;2026
         </span>
         .
       </Text>
@@ -1965,7 +2144,6 @@ const CompetitorComparison = () => {
       as='section'
       css={theme({
         maxWidth: '100%',
-        bg: 'pinky',
         borderTop: `${borders[1]} ${colors.pinkest}`,
         borderBottom: `${borders[1]} ${colors.pinkest}`,
         pt: [5, 5, 6, 6],
@@ -1987,7 +2165,7 @@ const CompetitorComparison = () => {
             textAlign: 'left'
           })}
         >
-          Microlink vs. The Competitors
+          Screenshot API speed comparison by provider
         </Subhead>
 
         <Box
@@ -2022,7 +2200,7 @@ const CompetitorComparison = () => {
                       <span
                         css={{
                           fontWeight: isMicrolink ? 700 : 400,
-                          color: isMicrolink ? '#fd494a' : colors.black80
+                          color: isMicrolink ? '#16a34a' : colors.black80
                         }}
                       >
                         {svc.name}
@@ -2030,16 +2208,16 @@ const CompetitorComparison = () => {
                       {isMicrolink && <WinnerTag>Fastest</WinnerTag>}
                     </td>
                     <td
-                      css={{
+                      style={{
                         fontWeight: isMicrolink ? 700 : 400,
-                        color: isMicrolink ? '#fd494a' : undefined
+                        color: isMicrolink ? '#16a34a' : undefined
                       }}
                     >
                       {formatMsDecimal(avg)}&thinsp;ms
                     </td>
                     <td
                       css={{
-                        color: isMicrolink ? '#fd494a' : colors.black50
+                        color: isMicrolink ? '#16a34a' : colors.black50
                       }}
                     >
                       {isMicrolink ? '—' : `+${pctSlower}% slower`}
@@ -2052,13 +2230,14 @@ const CompetitorComparison = () => {
         </Box>
 
         <Box
-          css={{
+          css={theme({
             overflowX: 'auto',
             WebkitOverflowScrolling: 'touch',
             borderRadius: '8px',
             border: `${borders[1]} ${colors.black10}`,
-            background: colors.white
-          }}
+            background: colors.white,
+            display: ['none', 'none', 'block']
+          })}
         >
           <PerUrlTable>
             <thead>
@@ -2068,7 +2247,7 @@ const CompetitorComparison = () => {
                   <th
                     key={key}
                     css={{
-                      color: key === 'microlink' ? '#fd494a' : colors.black50
+                      color: key === 'microlink' ? '#16a34a' : colors.black50
                     }}
                   >
                     {BENCHMARK_DATA.results[key].name}
@@ -2084,16 +2263,20 @@ const CompetitorComparison = () => {
                       ?.coldDuration || 0
                 )
                 const minTime = Math.min(...times)
+                const maxTime = Math.max(...times)
 
                 return (
                   <tr key={url}>
                     <td>{extractDomain(url)}</td>
                     {SORTED_SERVICES.map((key, i) => {
                       const isMin = times[i] === minTime
+                      const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
                           {isMin ? (
                             <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
                           ) : (
                             formatMs(times[i])
                           )}
@@ -2103,9 +2286,119 @@ const CompetitorComparison = () => {
                   </tr>
                 )
               })}
+              {(() => {
+                const totals = SORTED_SERVICES.map(
+                  key => BENCHMARK_DATA.results[key].summary.totalColdDuration
+                )
+                const minTotal = Math.min(...totals)
+                const maxTotal = Math.max(...totals)
+
+                return (
+                  <tr>
+                    <td
+                      css={{
+                        fontWeight: 700,
+                        color: colors.black80,
+                        borderTop: `${borders[2]} ${colors.black10}`
+                      }}
+                    >
+                      Total
+                    </td>
+                    {SORTED_SERVICES.map((key, i) => {
+                      const isMin = totals[i] === minTotal
+                      const isMax = totals[i] === maxTotal
+                      return (
+                        <td
+                          key={key}
+                          css={{
+                            fontWeight: 700,
+                            borderTop: `${borders[2]} ${colors.black10}`,
+                            color: isMin
+                              ? '#16a34a'
+                              : isMax
+                                ? '#dc2626'
+                                : colors.black80
+                          }}
+                        >
+                          {(totals[i] / 1000).toFixed(1)}&thinsp;s
+                        </td>
+                      )
+                    })}
+                  </tr>
+                )
+              })()}
             </tbody>
           </PerUrlTable>
         </Box>
+
+        <MobileCards>
+          {BENCHMARK_DATA.testUrls.map(({ url }) => {
+            const times = SORTED_SERVICES.map(
+              key =>
+                BENCHMARK_DATA.results[key].perUrl.find(p => p.url === url)
+                  ?.coldDuration || 0
+            )
+            const minTime = Math.min(...times)
+            const maxTime = Math.max(...times)
+
+            return (
+              <MobileCard key={url}>
+                <MobileCardHeader>{extractDomain(url)}</MobileCardHeader>
+                {SORTED_SERVICES.map((key, i) => {
+                  const isMin = times[i] === minTime
+                  const isMax = times[i] === maxTime
+                  return (
+                    <MobileCardRow key={key}>
+                      <MobileCardName>
+                        {BENCHMARK_DATA.results[key].name}
+                      </MobileCardName>
+                      <MobileCardTime
+                        $highlight={isMin || isMax}
+                        $isMin={isMin}
+                        $isMax={isMax}
+                      >
+                        {formatMs(times[i])}&thinsp;ms
+                      </MobileCardTime>
+                    </MobileCardRow>
+                  )
+                })}
+              </MobileCard>
+            )
+          })}
+          {(() => {
+            const totals = SORTED_SERVICES.map(
+              key => BENCHMARK_DATA.results[key].summary.totalColdDuration
+            )
+            const minTotal = Math.min(...totals)
+            const maxTotal = Math.max(...totals)
+
+            return (
+              <MobileCard>
+                <MobileCardHeader css={{ fontWeight: 700 }}>
+                  Total
+                </MobileCardHeader>
+                {SORTED_SERVICES.map((key, i) => {
+                  const isMin = totals[i] === minTotal
+                  const isMax = totals[i] === maxTotal
+                  return (
+                    <MobileCardRow key={key}>
+                      <MobileCardName>
+                        {BENCHMARK_DATA.results[key].name}
+                      </MobileCardName>
+                      <MobileCardTime
+                        $highlight={isMin || isMax}
+                        $isMin={isMin}
+                        $isMax={isMax}
+                      >
+                        {(totals[i] / 1000).toFixed(1)}&thinsp;s
+                      </MobileCardTime>
+                    </MobileCardRow>
+                  )
+                })}
+              </MobileCard>
+            )
+          })()}
+        </MobileCards>
 
         <Flex
           css={theme({
@@ -2122,7 +2415,7 @@ const CompetitorComparison = () => {
                 mb: [2, 2, 3, 3]
               })}
             >
-              Urlbox Alternative: Speed &amp; Latency
+              Urlbox alternative: speed &amp; latency
             </Subhead>
             <Text
               css={theme({
@@ -2131,20 +2424,22 @@ const CompetitorComparison = () => {
                 lineHeight: 3
               })}
             >
-              Urlbox averaged{' '}
+              When evaluating a Urlbox alternative, cold-start latency is a
+              primary concern. In our tests, Urlbox averaged{' '}
               <strong css={{ fontFamily: MONO_FONT }}>
                 {formatMsDecimal(
                   BENCHMARK_DATA.results.urlbox.summary.avgColdDuration
                 )}
                 &thinsp;ms
               </strong>{' '}
-              per cold request — ~1.8&times; slower than Microlink's{' '}
+              per request. Microlink processed the same suite at an average of{' '}
               <strong css={{ fontFamily: MONO_FONT, color: '#fd494a' }}>
                 {formatMsDecimal(microAvg)}&thinsp;ms
               </strong>
-              . On heavy pages like screenshotone.com, Urlbox took 15.0&nbsp;s
-              compared to Microlink's 5.5&nbsp;s — a 2.7&times;&nbsp;difference
-              that compounds at scale.
+              , making it roughly 44% faster overall. The performance gap is
+              most noticeable on heavy DOMs; for instance, on vercel.com, Urlbox
+              took nearly 15&nbsp;seconds to resolve and capture, whereas
+              Microlink completed the task in 6.3&nbsp;seconds.
             </Text>
           </Box>
 
@@ -2157,7 +2452,7 @@ const CompetitorComparison = () => {
                 mb: [2, 2, 3, 3]
               })}
             >
-              ApiFlash Alternative: Response Times
+              ApiFlash alternative: response times
             </Subhead>
             <Text
               css={theme({
@@ -2166,16 +2461,29 @@ const CompetitorComparison = () => {
                 lineHeight: 3
               })}
             >
-              ApiFlash recorded the highest average cold duration in our test at{' '}
+              ApiFlash demonstrated significant variance depending on the target
+              URL. While it handled lightweight pages like example.com
+              reasonably well (
+              <span css={{ fontFamily: MONO_FONT }}>
+                {formatMs(
+                  BENCHMARK_DATA.results.apiflash.perUrl.find(
+                    p => p.url === 'https://example.com'
+                  )?.coldDuration || 0
+                )}
+                &thinsp;ms
+              </span>
+              ), it struggled with complex SPAs, resulting in the highest
+              average cold duration in our test at{' '}
               <strong css={{ fontFamily: MONO_FONT }}>
                 {formatMsDecimal(
                   BENCHMARK_DATA.results.apiflash.summary.avgColdDuration
                 )}
                 &thinsp;ms
               </strong>
-              , driven by a 27.2-second response on framer.com. Microlink
-              handled the same URL in 6.3&nbsp;seconds — making it a reliable
-              drop-in replacement for latency-sensitive&nbsp;workloads.
+              . On framer.com, ApiFlash took over 27&nbsp;seconds to return a
+              payload. For developers seeking an ApiFlash alternative for
+              latency-sensitive workloads, Microlink offers a much tighter
+              performance baseline, handling the same URL in 6.2&nbsp;seconds.
             </Text>
           </Box>
 
@@ -2188,7 +2496,7 @@ const CompetitorComparison = () => {
                 mb: [2, 2, 3, 3]
               })}
             >
-              ScreenshotAPI &amp; ScreenshotMachine Performance
+              ScreenshotAPI &amp; ScreenshotMachine performance
             </Subhead>
             <Text
               css={theme({
@@ -2212,9 +2520,12 @@ const CompetitorComparison = () => {
                 )}
                 &thinsp;ms avg
               </span>
-              ) sit in the mid-range. Both delivered consistent but
-              unexceptional times. Microlink outperformed each by 44–48%,
-              finishing with the lowest average across all&nbsp;URLs tested.
+              ) performed consistently, placing them in the middle of the pack.
+              Both services handle standard web pages well, but still lag behind
+              Microlink's optimized browser infrastructure. Microlink
+              outperformed both services by roughly 30–32% on average,
+              demonstrating consistently lower latency across all 7&nbsp;test
+              URLs.
             </Text>
           </Box>
 
@@ -2227,7 +2538,7 @@ const CompetitorComparison = () => {
                 mb: [2, 2, 3, 3]
               })}
             >
-              ScreenshotOne Comparison
+              ScreenshotOne comparison
             </Subhead>
             <Text
               css={theme({
@@ -2243,11 +2554,13 @@ const CompetitorComparison = () => {
                 )}
                 &thinsp;ms
               </strong>{' '}
-              — nearly 1.9&times; Microlink's latency. On its own domain
-              (screenshotone.com), it took 12.1&nbsp;s while Microlink returned
-              in 5.5&nbsp;s. For teams already paying for ScreenshotOne,
-              Microlink delivers the same capabilities at roughly half the
-              response&nbsp;time.
+              across the test suite. Interestingly, when capturing its own
+              domain (screenshotone.com), it required over 12&nbsp;seconds to
+              resolve the request. Microlink handled the same domain in
+              5.4&nbsp;seconds. For teams already utilizing ScreenshotOne,
+              switching to Microlink provides the same headless browser
+              capabilities while cutting the average response time nearly
+              in&nbsp;half.
             </Text>
           </Box>
         </Flex>
@@ -2262,8 +2575,7 @@ const WhyLatencyMatters = () => (
     css={theme({
       maxWidth: '100%',
       bg: 'white',
-      pt: [5, 5, 6, 6],
-      pb: [4, 4, 5, 5]
+      py: [4, 4, 5, 5]
     })}
   >
     <Flex
@@ -2281,7 +2593,7 @@ const WhyLatencyMatters = () => (
           textAlign: 'left'
         })}
       >
-        Why Latency Matters for Puppeteer Alternatives
+        Why latency matters for Puppeteer alternatives
       </Subhead>
       <Text
         css={theme({
@@ -2290,12 +2602,10 @@ const WhyLatencyMatters = () => (
           lineHeight: 3
         })}
       >
-        When you outsource browser infrastructure to a screenshot API, you are
-        adding a network hop to your critical path. If that service is slow,
-        every downstream feature — link previews, PDF generation, social cards,
-        visual regression tests — inherits the latency. The whole point of
-        moving off self-hosted Puppeteer is to remove operational overhead{' '}
-        <em>without</em> creating a new&nbsp;bottleneck.
+        When you transition from managing your own headless browser
+        infrastructure (like Puppeteer or Playwright) to outsourcing it to a
+        Screenshot API, you introduce a network hop into your
+        critical&nbsp;path.
       </Text>
       <Text
         css={theme({
@@ -2304,11 +2614,35 @@ const WhyLatencyMatters = () => (
           lineHeight: 3
         })}
       >
-        Fast cold-start times translate directly to better UX for your
-        end-users. A 3.4-second P50 means your screenshots are ready before a
-        user can perceive a delay. At 7–10&nbsp;seconds, you are forced to add
-        loading spinners, queue architectures, and retry logic — engineering
-        complexity that a faster API eliminates&nbsp;entirely.
+        If your chosen API provider is slow, every downstream feature that
+        relies on it — link previews, PDF generation, dynamic social cards (Open
+        Graph images), or visual regression tests — inherits that latency. The
+        goal of migrating to a "browser-as-a-service" model is to reduce
+        operational overhead without creating a new performance&nbsp;bottleneck.
+      </Text>
+      <Text
+        css={theme({
+          fontSize: [1, 1, 2, 2],
+          color: 'black70',
+          lineHeight: 3
+        })}
+      >
+        Fast cold-start times translate directly to better UX. An API response
+        time in the 3–4&nbsp;second range means screenshots are generated and
+        served before a user perceives a significant delay. When API response
+        times stretch to 8, 10, or even 15&nbsp;seconds, developers are forced
+        to implement complex workarounds: loading spinners, webhook
+        architectures, background job queues, and retry&nbsp;logic.
+      </Text>
+      <Text
+        css={theme({
+          fontSize: [1, 1, 2, 2],
+          color: 'black70',
+          lineHeight: 3
+        })}
+      >
+        A faster API eliminates this engineering complexity entirely, allowing
+        you to fetch screenshots synchronously and&nbsp;reliably.
       </Text>
     </Flex>
   </Container>
@@ -2364,6 +2698,78 @@ const CtaButton = styled(Link)`
   }
 `
 
+const CalloutBox = styled('blockquote')`
+  position: relative;
+  margin: 0;
+  padding: ${space[4]};
+  background: ${colors.white};
+  border: 1px solid ${colors.black10};
+  border-left: 4px solid ${colors.close};
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  @media (max-width: 600px) {
+    padding: ${space[3]};
+  }
+`
+
+const CalloutLabel = styled('span')`
+  display: inline-block;
+  font-family: ${MONO_FONT};
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: ${colors.close};
+  background: rgba(253, 73, 74, 0.08);
+  border: 1px solid rgba(253, 73, 74, 0.2);
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-bottom: ${space[2]};
+`
+
+const TransparencyNote = () => (
+  <Container
+    as='section'
+    css={theme({
+      maxWidth: '100%',
+      bg: 'white',
+      pt: 1,
+      pb: [4, 4, 5, 5]
+    })}
+  >
+    <Flex
+      css={theme({
+        flexDirection: 'column',
+        maxWidth: layout.normal,
+        px: [4, 4, 4, 0],
+        mx: 'auto'
+      })}
+    >
+      <CalloutBox>
+        <CalloutLabel>Transparency note</CalloutLabel>
+        <Text
+          css={theme({
+            fontSize: [0, 0, 1, 1],
+            color: 'black70',
+            lineHeight: 3
+          })}
+        >
+          <strong>Regarding ApiFlash:</strong> During our testing, ApiFlash
+          consistently struggled with the framer.com payload, returning response
+          times approaching 30&nbsp;seconds. Because this metric was a
+          significant outlier, we paused the benchmark publication and re-ran
+          this specific configuration multiple times across different days and
+          server locations. The response times remained consistently slow. In
+          the interest of absolute transparency and fairness to the other
+          providers who successfully handled the complex DOM, we have chosen to
+          publish the raw, unedited data exactly as it was&nbsp;recorded.
+        </Text>
+      </CalloutBox>
+    </Flex>
+  </Container>
+)
+
 const BottomCta = () => (
   <Container
     as='section'
@@ -2371,8 +2777,8 @@ const BottomCta = () => (
       alignItems: 'center',
       maxWidth: '100%',
       bg: 'white',
-      pt: 1,
-      pb: [5, 5, 6, 6]
+      pt: [3, 3, 4, 4],
+      pb: 0
     })}
   >
     <Flex
@@ -2412,12 +2818,12 @@ const BottomCta = () => (
           alignItems: 'center'
         })}
       >
-        <ArrowLink
+        <Link
           href='/docs/api/parameters/screenshot'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
-          Get your API key
-        </ArrowLink>
+          Start now for free
+        </Link>
       </Flex>
       <Flex
         css={theme({
@@ -2427,7 +2833,7 @@ const BottomCta = () => (
           justifyContent: 'center'
         })}
       >
-        {['No login needed', '50 reqs/day free', 'No credit card'].map(
+        {['50 requests/day free', 'No login required', 'No credit card'].map(
           label => (
             <Flex
               key={label}
@@ -2481,7 +2887,7 @@ const StickyFooterCta = () => {
 export const Head = () => (
   <Meta
     title='Fastest Screenshot API: 2026 Speed Benchmark & Comparison'
-    description='Independent benchmark comparing Microlink, Urlbox, ApiFlash, ScreenshotAPI, ScreenshotMachine, and ScreenshotOne. Cold-start latency across 7 URLs. Microlink is 2x faster.'
+    description='See the cold-start latency benchmark across 6 screenshot API providers (Microlink, Urlbox, ApiFlash, etc.) tested against 7 real-world URLs.'
     schemaType='Article'
     structured={{
       '@context': 'https://schema.org',
@@ -2491,8 +2897,8 @@ export const Head = () => (
       description:
         'Independent performance benchmark comparing 6 screenshot API providers on cold-start latency across 7 real-world URLs.',
       url: 'https://microlink.io/benchmarks/screenshot-api',
-      datePublished: '2026-03-12',
-      dateModified: '2026-03-12',
+      datePublished: '2026-03-10',
+      dateModified: '2026-03-10',
       author: {
         '@type': 'Organization',
         name: 'Microlink',
@@ -2522,9 +2928,10 @@ export const Head = () => (
 const ScreenshotApiBenchmarkPage = () => (
   <Layout css={{ marginTop: '0px' }}>
     <Hero />
-    <Methodology />
     <CompetitorComparison />
+    <Methodology />
     <WhyLatencyMatters />
+    <TransparencyNote />
     <BottomCta />
     <StickyFooterCta />
   </Layout>
