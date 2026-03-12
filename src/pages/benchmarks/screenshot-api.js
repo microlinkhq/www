@@ -1980,7 +1980,7 @@ const Methodology = () => (
     <Flex
       css={theme({
         flexDirection: 'column',
-        maxWidth: layout.normal,
+        maxWidth: layout.large,
         px: [4, 4, 4, 0],
         mx: 'auto',
         gap: [3, 3, 4, 4]
@@ -2728,7 +2728,7 @@ const WhyLatencyMatters = () => (
     <Flex
       css={theme({
         flexDirection: 'column',
-        maxWidth: layout.normal,
+        maxWidth: layout.large,
         px: [4, 4, 4, 0],
         mx: 'auto',
         gap: [3, 3, 4, 4]
