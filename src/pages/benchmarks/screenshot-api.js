@@ -651,6 +651,23 @@ const LaneRow = styled('div')`
   }
 `
 
+const LaneRank = styled('span')`
+  font-family: ${MONO_FONT};
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  width: 28px;
+  flex-shrink: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+
+  @media (max-width: 600px) {
+    width: 22px;
+    font-size: 11px;
+  }
+`
+
 const LaneName = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 14px;
@@ -802,10 +819,10 @@ const LeaderboardRow = styled('div')`
   padding: 12px 18px;
   border-radius: 8px;
   background: ${({ $rank }) =>
-    $rank === 0 ? 'rgba(253, 73, 74, 0.1)' : 'rgba(255, 255, 255, 0.04)'};
+    $rank === 0 ? 'rgba(22, 163, 74, 0.1)' : 'rgba(255, 255, 255, 0.04)'};
   border: 1px solid
     ${({ $rank }) =>
-      $rank === 0 ? 'rgba(253, 73, 74, 0.3)' : 'rgba(255, 255, 255, 0.1)'};
+      $rank === 0 ? 'rgba(22, 163, 74, 0.3)' : 'rgba(255, 255, 255, 0.1)'};
   animation: ${fadeIn} 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   animation-delay: ${({ $rank }) => $rank * 80}ms;
   opacity: 0;
@@ -820,7 +837,7 @@ const RankBadge = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 14px;
   font-weight: 700;
-  color: ${({ $rank }) => ($rank === 0 ? '#fd494a' : 'rgba(255,255,255,0.6)')};
+  color: ${({ $rank }) => ($rank === 0 ? '#16a34a' : 'rgba(255,255,255,0.6)')};
   width: 28px;
   text-align: center;
   font-variant-numeric: tabular-nums;
@@ -831,7 +848,7 @@ const LeaderName = styled('span')`
   font-size: 15px;
   font-weight: ${({ $rank }) => ($rank === 0 ? '700' : '500')};
   color: ${({ $rank }) =>
-    $rank === 0 ? '#fd494a' : 'rgba(255, 255, 255, 0.9)'};
+    $rank === 0 ? '#16a34a' : 'rgba(255, 255, 255, 0.9)'};
   flex: 1;
 
   @media (max-width: 600px) {
@@ -844,7 +861,7 @@ const LeaderTime = styled('span')`
   font-size: 15px;
   font-weight: 600;
   color: ${({ $rank }) =>
-    $rank === 0 ? '#fd494a' : 'rgba(255, 255, 255, 0.7)'};
+    $rank === 0 ? '#16a34a' : 'rgba(255, 255, 255, 0.7)'};
   font-variant-numeric: tabular-nums;
 
   @media (max-width: 600px) {
@@ -1033,7 +1050,7 @@ const HeroRace = () => {
               setIsReordering(true)
               setRankedOrder(newOrder)
               rankedOrderRef.current = newOrder
-              schedule(advance, 2600)
+              schedule(advance, 2000)
             }, 1000)
           } else {
             setRankedOrder(newOrder)
@@ -1041,7 +1058,7 @@ const HeroRace = () => {
             schedule(advance, 500)
           }
         }, 1000)
-      }, 2300)
+      }, 1500)
 
       return next
     })
@@ -1411,6 +1428,7 @@ const HeroRace = () => {
                         : 'none'
                     }}
                   >
+                    <LaneRank $rank={visualIndex}>#{visualIndex + 1}</LaneRank>
                     <LaneName $isMicrolink={false}>{svc.name}</LaneName>
                     <LaneTrack>
                       <LaneBar
@@ -2142,6 +2160,55 @@ const Methodology = () => (
         </span>
         .
       </Text>
+      <CalloutBox>
+        <CalloutLabel>Transparency note</CalloutLabel>
+        <Text
+          css={theme({
+            fontSize: [0, 0, 1, 1],
+            color: 'black70',
+            lineHeight: 3
+          })}
+        >
+          <strong>Regarding ApiFlash:</strong> During our testing, ApiFlash
+          consistently struggled with the framer.com payload, returning response
+          times approaching 30&nbsp;seconds. Because this metric was a
+          significant outlier, we paused the benchmark publication and re-ran
+          this specific configuration multiple times across different days and
+          server locations. The response times remained consistently slow.
+        </Text>
+        <br />
+        <Text
+          css={theme({
+            fontSize: [0, 0, 1, 1],
+            color: 'black70',
+            lineHeight: 3
+          })}
+        >
+          In the interest of absolute transparency and fairness to the other
+          providers who successfully handled the complex DOM, we have chosen to
+          publish the raw, unedited data exactly as it was&nbsp;recorded.
+        </Text>
+        <br />
+        <Text
+          css={theme({
+            fontSize: [0, 0, 1, 1],
+            color: 'black70',
+            lineHeight: 3,
+            mt: 2
+          })}
+        >
+          For context: if framer.com were excluded from the dataset, ApiFlash's
+          average cold duration would drop from{' '}
+          <span css={{ fontFamily: MONO_FONT }}>9,702.57&thinsp;ms</span> to{' '}
+          <span css={{ fontFamily: MONO_FONT }}>6,731.14&thinsp;ms</span>,
+          moving it from last place to <strong>4th in average latency</strong>{' '}
+          (behind Microlink, ScreenshotAPI, and ScreenshotMachine). Its total
+          cold duration would fall to{' '}
+          <span css={{ fontFamily: MONO_FONT }}>40,386.86&thinsp;ms</span>,
+          ranking <strong>4th overall</strong> — right
+          behind&nbsp;ScreenshotMachine.
+        </Text>
+      </CalloutBox>
     </Flex>
   </Container>
 )
@@ -2704,7 +2771,7 @@ const WhyLatencyMatters = () => (
           textAlign: 'left'
         })}
       >
-        Why latency matters for Puppeteer alternatives
+        Why latency matters for AI agents &amp; Puppeteer alternatives
       </Subhead>
       <Text
         css={theme({
@@ -2715,8 +2782,32 @@ const WhyLatencyMatters = () => (
       >
         When you transition from managing your own headless browser
         infrastructure (like Puppeteer or Playwright) to outsourcing it to a
-        Screenshot API, you introduce a network hop into your
-        critical&nbsp;path.
+        managed API, you introduce a network hop into your critical path. If
+        your provider is slow, every downstream system inherits
+        that&nbsp;latency.
+      </Text>
+      <Subhead
+        forwardedAs='h3'
+        css={theme({
+          fontSize: ['22px', '24px', '28px', '28px'],
+          textAlign: 'left',
+          mt: [2, 2, 3, 3]
+        })}
+      >
+        The "observe" phase in agentic workflows
+      </Subhead>
+      <Text
+        css={theme({
+          fontSize: [1, 1, 2, 2],
+          color: 'black70',
+          lineHeight: 3
+        })}
+      >
+        For multimodal AI agents and LLMs, browser latency compounds
+        exponentially. Modern agents rely on both structured DOM extraction and
+        visual grounding (screenshots) to observe web state and make decisions.
+        When a single page capture takes 10–15&nbsp;seconds, a multi-step
+        reasoning loop quickly stalls&nbsp;out.
       </Text>
       <Text
         css={theme({
@@ -2725,11 +2816,33 @@ const WhyLatencyMatters = () => (
           lineHeight: 3
         })}
       >
-        If your chosen API provider is slow, every downstream feature that
-        relies on it — link previews, PDF generation, dynamic social cards (Open
-        Graph images), or visual regression tests — inherits that latency. The
-        goal of migrating to a "browser-as-a-service" model is to reduce
-        operational overhead without creating a new performance&nbsp;bottleneck.
+        Microlink is built to keep this cycle as tight as physically possible.
+        It includes a built-in proxy layer that handles IP rotation and
+        mitigates anti-bot blocking (403s, CAPTCHAs) out-of-the-box. This
+        ensures your agents get reliable access to target URLs without you
+        having to maintain complex, failing proxy&nbsp;pools.
+      </Text>
+      <Subhead
+        forwardedAs='h3'
+        css={theme({
+          fontSize: ['22px', '24px', '28px', '28px'],
+          textAlign: 'left',
+          mt: [2, 2, 3, 3]
+        })}
+      >
+        Reducing architectural overhead
+      </Subhead>
+      <Text
+        css={theme({
+          fontSize: [1, 1, 2, 2],
+          color: 'black70',
+          lineHeight: 3
+        })}
+      >
+        Even a highly optimized Headless Chrome boot and SPA render takes
+        3–4&nbsp;seconds. Because browser automation is inherently heavy, your
+        infrastructure provider shouldn't add unnecessary network or routing
+        overhead.
       </Text>
       <Text
         css={theme({
@@ -2738,22 +2851,12 @@ const WhyLatencyMatters = () => (
           lineHeight: 3
         })}
       >
-        Fast cold-start times translate directly to better UX. An API response
-        time in the 3–4&nbsp;second range means screenshots are generated and
-        served before a user perceives a significant delay. When API response
-        times stretch to 8, 10, or even 15&nbsp;seconds, developers are forced
-        to implement complex workarounds: loading spinners, webhook
-        architectures, background job queues, and retry&nbsp;logic.
-      </Text>
-      <Text
-        css={theme({
-          fontSize: [1, 1, 2, 2],
-          color: 'black70',
-          lineHeight: 3
-        })}
-      >
-        A faster API eliminates this engineering complexity entirely, allowing
-        you to fetch screenshots synchronously and&nbsp;reliably.
+        When cold starts consistently stretch beyond 8&nbsp;seconds, you are
+        forced to abandon synchronous code. Developers have to over-engineer
+        workarounds: webhook callbacks, background job queues (Redis/Celery),
+        and aggressive retry logic to handle timeouts. By minimizing cold-start
+        latency, Microlink keeps response times within manageable synchronous
+        limits, drastically simplifying your system&nbsp;architecture.
       </Text>
     </Flex>
   </Container>
@@ -2838,76 +2941,6 @@ const CalloutLabel = styled('span')`
   padding: 2px 8px;
   margin-bottom: ${space[2]};
 `
-
-const TransparencyNote = () => (
-  <Container
-    as='section'
-    css={theme({
-      maxWidth: '100%',
-      bg: 'white',
-      pt: 1,
-      pb: [4, 4, 5, 5]
-    })}
-  >
-    <Flex
-      css={theme({
-        flexDirection: 'column',
-        maxWidth: layout.normal,
-        px: [4, 4, 4, 0],
-        mx: 'auto'
-      })}
-    >
-      <CalloutBox>
-        <CalloutLabel>Transparency note</CalloutLabel>
-        <Text
-          css={theme({
-            fontSize: [0, 0, 1, 1],
-            color: 'black70',
-            lineHeight: 3
-          })}
-        >
-          <strong>Regarding ApiFlash:</strong> During our testing, ApiFlash
-          consistently struggled with the framer.com payload, returning response
-          times approaching 30&nbsp;seconds. Because this metric was a
-          significant outlier, we paused the benchmark publication and re-ran
-          this specific configuration multiple times across different days and
-          server locations. The response times remained consistently slow.
-        </Text>
-        <br />
-        <Text
-          css={theme({
-            fontSize: [0, 0, 1, 1],
-            color: 'black70',
-            lineHeight: 3
-          })}
-        >
-          In the interest of absolute transparency and fairness to the other
-          providers who successfully handled the complex DOM, we have chosen to
-          publish the raw, unedited data exactly as it was&nbsp;recorded.
-        </Text>
-        <br />
-        <Text
-          css={theme({
-            fontSize: [0, 0, 1, 1],
-            color: 'black70',
-            lineHeight: 3,
-            mt: 2
-          })}
-        >
-          For context: if framer.com were excluded from the dataset, ApiFlash's
-          average cold duration would drop from{' '}
-          <span css={{ fontFamily: MONO_FONT }}>9,463.20&thinsp;ms</span> to{' '}
-          <span css={{ fontFamily: MONO_FONT }}>6,514.81&thinsp;ms</span>,
-          moving it from last place to <strong>3rd in average latency</strong>{' '}
-          (behind Microlink and ScreenshotAPI). Its total cold duration would
-          fall to{' '}
-          <span css={{ fontFamily: MONO_FONT }}>39,088.83&thinsp;ms</span>,
-          ranking <strong>2nd overall</strong> — right behind&nbsp;Microlink.
-        </Text>
-      </CalloutBox>
-    </Flex>
-  </Container>
-)
 
 const BottomCta = () => (
   <Container
@@ -3070,7 +3103,6 @@ const ScreenshotApiBenchmarkPage = () => (
     <CompetitorComparison />
     <Methodology />
     <WhyLatencyMatters />
-    <TransparencyNote />
     <BottomCta />
     <StickyFooterCta />
   </Layout>
