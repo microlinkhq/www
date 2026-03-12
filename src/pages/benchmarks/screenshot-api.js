@@ -778,6 +778,54 @@ const CumulativeTime = styled('span')`
   }
 `
 
+const LaneHeaderRow = styled('div')`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+
+  @media (max-width: 600px) {
+    gap: 8px;
+  }
+`
+
+const LaneHeaderSpacer = styled('span')`
+  flex-shrink: 0;
+
+  &.rank {
+    width: 28px;
+
+    @media (max-width: 600px) {
+      width: 22px;
+    }
+  }
+
+  &.name {
+    width: 150px;
+
+    @media (max-width: 600px) {
+      width: 90px;
+    }
+  }
+`
+
+const LaneHeaderLabel = styled('span')`
+  font-family: ${MONO_FONT};
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.4);
+  width: 90px;
+  flex-shrink: 0;
+  text-align: right;
+
+  @media (max-width: 600px) {
+    width: 68px;
+    font-size: 10px;
+  }
+`
+
 const StepIndicator = styled('div')`
   display: flex;
   gap: 6px;
@@ -1398,6 +1446,12 @@ const HeroRace = () => {
               )
             })()}
 
+            <LaneHeaderRow>
+              <LaneHeaderSpacer className='rank' />
+              <LaneHeaderSpacer className='name' />
+              <span style={{ flex: 1 }} />
+              <LaneHeaderLabel>Total</LaneHeaderLabel>
+            </LaneHeaderRow>
             <div
               style={{
                 position: 'relative',
@@ -2547,7 +2601,7 @@ const CompetitorComparison = () => {
                 flexShrink: 0
               }}
             />
-            <span>Fastest</span>
+            <span css={{ marginTop: '3px' }}>Fastest</span>
           </Flex>
           <Flex css={{ alignItems: 'center', gap: '6px' }}>
             <span
@@ -2559,7 +2613,7 @@ const CompetitorComparison = () => {
                 flexShrink: 0
               }}
             />
-            <span>2nd fastest</span>
+            <span css={{ marginTop: '3px' }}>2nd fastest</span>
           </Flex>
           <Flex css={{ alignItems: 'center', gap: '6px' }}>
             <span
@@ -2571,10 +2625,12 @@ const CompetitorComparison = () => {
                 flexShrink: 0
               }}
             />
-            <span>Slowest</span>
+            <span css={{ marginTop: '3px' }}>Slowest</span>
           </Flex>
           <span css={{ color: colors.black40 }}>·</span>
-          <span>Times in milliseconds (ms), totals in seconds&nbsp;(s)</span>
+          <span css={{ marginTop: '3px' }}>
+            Times in milliseconds (ms), totals in seconds&nbsp;(s)
+          </span>
         </Flex>
 
         <Flex
