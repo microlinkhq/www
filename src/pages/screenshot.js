@@ -45,7 +45,9 @@ import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 
+import SpeedLine from 'components/patterns/SpeedLine/SpeedLine'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
+import { extractDomain } from 'helpers/extract-domain'
 
 import analyticsData from '../../data/analytics.json'
 
@@ -1412,14 +1414,6 @@ const TimingHighlight = styled('span')`
   }
 `
 
-const extractDomain = url => {
-  try {
-    return new URL(url).hostname.replace(/^www\./, '')
-  } catch {
-    return url
-  }
-}
-
 const formatTiming = ms =>
   ms < 100 ? `${Math.round(ms)}` : (ms / 1000).toFixed(2)
 const timingUnit = ms => (ms < 100 ? 'ms' : 'secs')
@@ -2383,41 +2377,6 @@ const Playground = () => {
     </Container>
   )
 }
-
-const speedStreak = keyframes`
-  0% {
-    transform: translateX(-10vw);
-    opacity: 0;
-  }
-  5% {
-    opacity: 1;
-  }
-  95% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(100vw);
-    opacity: 0;
-  }
-`
-
-const SpeedLine = styled('div')`
-  position: absolute;
-  height: ${({ $h }) => $h || '2px'};
-  border-radius: 2px;
-  background: ${({ $color }) => $color || 'rgba(255, 255, 255, 0.3)'};
-  top: ${({ $top }) => $top};
-  animation: ${speedStreak} ${({ $dur }) => $dur || '2s'}
-    ${({ $delay }) => $delay || '0s'} linear infinite;
-  width: ${({ $w }) => $w || '800px'};
-  box-shadow: 0 0 ${({ $glow }) => $glow || '4px'}
-    ${({ $color }) => $color || 'rgba(255, 255, 255, 0.2)'};
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-    opacity: 0;
-  }
-`
 
 const Benchmark = () => (
   <section
@@ -3561,7 +3520,7 @@ const CallToAction = () => (
       alignItems: 'center',
       maxWidth: '100%',
       bg: 'white',
-      pt: 1,
+      pt: [3, 3, 5, 5],
       pb: [5, 5, 6, 6]
     })}
   >
