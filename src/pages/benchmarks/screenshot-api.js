@@ -433,14 +433,14 @@ const RaceContainer = styled('div')`
   max-width: 960px;
   margin: 0 auto;
   min-height: 360px;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 14px;
   padding: 32px 28px 40px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.65),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
   overflow: hidden;
 
   @media (max-width: 600px) {
@@ -463,7 +463,7 @@ const UrlLabel = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 16px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 0.9);
   letter-spacing: 0.03em;
   margin-bottom: 0;
   text-transform: uppercase;
@@ -482,7 +482,7 @@ const UrlMeta = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 14px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(0, 0, 0, 0.45);
   letter-spacing: 0.02em;
   text-transform: none;
   margin-top: 13px;
@@ -543,7 +543,7 @@ const AnnounceMeta = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 14px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(0, 0, 0, 0.45);
   letter-spacing: 0.02em;
   text-transform: none;
   margin-top: 8px;
@@ -568,7 +568,7 @@ const DomainAnnounce = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 42px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 0.9);
   letter-spacing: 0.03em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -599,7 +599,7 @@ const DomainAnnounce = styled('div')`
 const AnnounceBackdrop = styled('div')`
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.75);
   border-radius: 14px;
   z-index: 5;
   opacity: ${({ $visible }) => ($visible ? 1 : 0)};
@@ -615,7 +615,7 @@ const IntroLabel = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 18px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.55);
   text-align: center;
   margin-bottom: 42px;
   letter-spacing: 0.02em;
@@ -664,7 +664,7 @@ const LaneRank = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 13px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(0, 0, 0, 0.35);
   width: 28px;
   flex-shrink: 0;
   text-align: center;
@@ -682,7 +682,7 @@ const LaneName = styled('div')`
   font-size: 14px;
   font-weight: ${({ $isMicrolink }) => ($isMicrolink ? '700' : '500')};
   color: ${({ $isMicrolink }) =>
-    $isMicrolink ? '#fd494a' : 'rgba(255, 255, 255, 0.90)'};
+    $isMicrolink ? '#fd494a' : 'rgba(0, 0, 0, 0.75)'};
   width: 150px;
   flex-shrink: 0;
   text-align: right;
@@ -700,7 +700,7 @@ const LaneTrack = styled('div')`
   flex: 1;
   height: 100%;
   position: relative;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.05);
   border-radius: 5px;
   overflow: hidden;
 `
@@ -736,7 +736,7 @@ const LaneTime = styled('span')`
   font-size: 14px;
   font-weight: 600;
   color: ${({ $isMicrolink }) =>
-    $isMicrolink ? '#fd494a' : 'rgba(255, 255, 255, 0.7)'};
+    $isMicrolink ? '#fd494a' : 'rgba(0, 0, 0, 0.5)'};
   width: 90px;
   flex-shrink: 0;
   text-align: right;
@@ -760,7 +760,7 @@ const BarTimeLabel = styled('span')`
   font-variant-numeric: tabular-nums;
   pointer-events: none;
   white-space: nowrap;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   opacity: ${({ $visible }) => ($visible ? 1 : 0)};
   transition: opacity 0.3s ease;
 
@@ -774,7 +774,7 @@ const CumulativeTime = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 14px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.5);
   width: 90px;
   flex-shrink: 0;
   text-align: right;
@@ -824,7 +824,7 @@ const LaneHeaderLabel = styled('span')`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.35);
   width: 90px;
   flex-shrink: 0;
   text-align: right;
@@ -848,9 +848,9 @@ const StepDot = styled('button')`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   background: ${({ $active, $done }) =>
-    $active ? '#fd494a' : $done ? 'rgba(255, 255, 255, 0.45)' : 'transparent'};
+    $active ? '#fd494a' : $done ? 'rgba(0, 0, 0, 0.3)' : 'transparent'};
   padding: 0;
   cursor: pointer;
   transition: background ${transition.medium}, transform ${transition.medium};
@@ -860,7 +860,7 @@ const StepDot = styled('button')`
   &:hover {
     transform: scale(1.3);
     background: ${({ $active }) =>
-      $active ? '#fd494a' : 'rgba(255, 255, 255, 0.4)'};
+      $active ? '#fd494a' : 'rgba(0, 0, 0, 0.25)'};
   }
 
   &:focus-visible {
@@ -876,10 +876,10 @@ const LeaderboardRow = styled('div')`
   padding: 12px 18px;
   border-radius: 8px;
   background: ${({ $rank }) =>
-    $rank === 0 ? 'rgba(22, 163, 74, 0.1)' : 'rgba(255, 255, 255, 0.04)'};
+    $rank === 0 ? 'rgba(22, 163, 74, 0.06)' : 'rgba(0, 0, 0, 0.03)'};
   border: 1px solid
     ${({ $rank }) =>
-      $rank === 0 ? 'rgba(22, 163, 74, 0.3)' : 'rgba(255, 255, 255, 0.1)'};
+      $rank === 0 ? 'rgba(22, 163, 74, 0.25)' : 'rgba(0, 0, 0, 0.08)'};
   animation: ${fadeIn} 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   animation-delay: ${({ $rank }) => $rank * 80}ms;
   opacity: 0;
@@ -894,7 +894,7 @@ const RankBadge = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 14px;
   font-weight: 700;
-  color: ${({ $rank }) => ($rank === 0 ? '#16a34a' : 'rgba(255,255,255,0.6)')};
+  color: ${({ $rank }) => ($rank === 0 ? '#16a34a' : 'rgba(0, 0, 0, 0.4)')};
   width: 28px;
   text-align: center;
   font-variant-numeric: tabular-nums;
@@ -904,8 +904,7 @@ const LeaderName = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 15px;
   font-weight: ${({ $rank }) => ($rank === 0 ? '700' : '500')};
-  color: ${({ $rank }) =>
-    $rank === 0 ? '#16a34a' : 'rgba(255, 255, 255, 0.9)'};
+  color: ${({ $rank }) => ($rank === 0 ? '#16a34a' : 'rgba(0, 0, 0, 0.75)')};
   flex: 1;
 
   @media (max-width: 600px) {
@@ -917,8 +916,7 @@ const LeaderTime = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 15px;
   font-weight: 600;
-  color: ${({ $rank }) =>
-    $rank === 0 ? '#16a34a' : 'rgba(255, 255, 255, 0.7)'};
+  color: ${({ $rank }) => ($rank === 0 ? '#16a34a' : 'rgba(0, 0, 0, 0.5)')};
   font-variant-numeric: tabular-nums;
 
   @media (max-width: 600px) {
@@ -929,7 +927,7 @@ const LeaderTime = styled('span')`
 const LeaderDelta = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(0, 0, 0, 0.35);
   font-variant-numeric: tabular-nums;
   width: 80px;
   text-align: right;
@@ -951,14 +949,13 @@ const MetricTab = styled('button')`
   font-size: 15px;
   font-weight: ${({ $active }) => ($active ? '600' : '400')};
   background: ${({ $active }) =>
-    $active ? 'rgba(255, 255, 255, 0.12)' : 'transparent'};
+    $active ? 'rgba(0, 0, 0, 0.06)' : 'transparent'};
   border: 1px solid
-    ${({ $active }) =>
-      $active ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.12)'};
+    ${({ $active }) => ($active ? 'rgba(0, 0, 0, 0.15)' : 'rgba(0, 0, 0, 0.1)')};
   border-radius: 6px;
   padding: 6px 18px;
   color: ${({ $active }) =>
-    $active ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.5)'};
+    $active ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.4)'};
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -966,8 +963,8 @@ const MetricTab = styled('button')`
     color ${transition.medium};
 
   &:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.7);
+    background: rgba(0, 0, 0, 0.04);
+    color: rgba(0, 0, 0, 0.6);
   }
 
   &:focus-visible {
@@ -1358,8 +1355,8 @@ const HeroRace = () => {
                       $isMicrolink={false}
                       style={{
                         color: isLit
-                          ? 'rgba(255, 255, 255, 0.95)'
-                          : 'rgba(255, 255, 255, 0.4)',
+                          ? 'rgba(0, 0, 0, 0.8)'
+                          : 'rgba(0, 0, 0, 0.3)',
                         transition: 'color 0.4s ease'
                       }}
                     >
@@ -1387,8 +1384,8 @@ const HeroRace = () => {
                       $isMicrolink={false}
                       style={{
                         color: isLit
-                          ? 'rgba(255, 255, 255, 0.7)'
-                          : 'rgba(255, 255, 255, 0.25)',
+                          ? 'rgba(0, 0, 0, 0.5)'
+                          : 'rgba(0, 0, 0, 0.2)',
                         transition: 'color 0.4s ease'
                       }}
                     ></LaneTime>
@@ -1513,9 +1510,7 @@ const HeroRace = () => {
                     </LaneTrack>
                     <CumulativeTime
                       style={
-                        isSumming
-                          ? { color: 'rgba(255, 255, 255, 0.95)' }
-                          : undefined
+                        isSumming ? { color: 'rgba(0, 0, 0, 0.85)' } : undefined
                       }
                     >
                       <AnimatedCounter value={cumTotal} animate={isSumming} />
@@ -1541,7 +1536,7 @@ const HeroRace = () => {
                     justifyContent: 'center',
                     marginBottom: '28px',
                     fontSize: '20px',
-                    color: 'rgba(255,255,255,0.8)'
+                    color: 'rgba(0,0,0,0.7)'
                   }}
                 >
                   Final leaderboard
@@ -1617,11 +1612,11 @@ const RaceButton = styled('button')`
   font-family: ${MONO_FONT};
   font-size: 15px;
   font-weight: 500;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 6px;
   padding: 8px 22px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -1629,9 +1624,9 @@ const RaceButton = styled('button')`
     color ${transition.medium};
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.25);
-    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.75);
   }
 
   &:focus-visible {
