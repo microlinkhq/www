@@ -594,6 +594,36 @@ const ROUTES_GUIDES = [
         ]
       },
       {
+        name: 'Markdown',
+        href: '/docs/guides/markdown',
+        posts: [
+          {
+            name: 'Defining extraction rules',
+            href: '/docs/guides/markdown/defining-extraction-rules'
+          },
+          {
+            name: 'Page preparation',
+            href: '/docs/guides/markdown/page-preparation'
+          },
+          {
+            name: 'Delivery and response shaping',
+            href: '/docs/guides/markdown/delivery-and-response'
+          },
+          {
+            name: 'Caching and performance',
+            href: '/docs/guides/markdown/caching-and-performance'
+          },
+          {
+            name: 'Private pages',
+            href: '/docs/guides/markdown/private-pages'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/markdown/troubleshooting'
+          }
+        ]
+      },
+      {
         name: 'PDF',
         href: '/docs/guides/pdf',
         posts: [
@@ -624,32 +654,36 @@ const ROUTES_GUIDES = [
         ]
       },
       {
-        name: 'Markdown',
-        href: '/docs/guides/markdown',
+        name: 'Metadata',
+        href: '/docs/guides/metadata',
         posts: [
           {
-            name: 'Defining extraction rules',
-            href: '/docs/guides/markdown/defining-extraction-rules'
+            name: 'Choosing fields',
+            href: '/docs/guides/metadata/choosing-fields'
           },
           {
-            name: 'Page preparation',
-            href: '/docs/guides/markdown/page-preparation'
+            name: 'Extending results',
+            href: '/docs/guides/metadata/extending-results'
           },
           {
             name: 'Delivery and response shaping',
-            href: '/docs/guides/markdown/delivery-and-response'
+            href: '/docs/guides/metadata/delivery-and-response'
+          },
+          {
+            name: 'Page preparation',
+            href: '/docs/guides/metadata/page-preparation'
           },
           {
             name: 'Caching and performance',
-            href: '/docs/guides/markdown/caching-and-performance'
+            href: '/docs/guides/metadata/caching-and-performance'
           },
           {
             name: 'Private pages',
-            href: '/docs/guides/markdown/private-pages'
+            href: '/docs/guides/metadata/private-pages'
           },
           {
             name: 'Troubleshooting',
-            href: '/docs/guides/markdown/troubleshooting'
+            href: '/docs/guides/metadata/troubleshooting'
           }
         ]
       }

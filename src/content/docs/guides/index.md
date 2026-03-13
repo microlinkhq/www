@@ -29,6 +29,18 @@ Capture high-quality screenshots of any website with a single API call. This gui
 - <Link href='/docs/guides/screenshot/private-pages' children='Private pages' /> — handle login, sessions, and header-based personalization safely.
 - <Link href='/docs/guides/screenshot/troubleshooting' children='Troubleshooting' /> — debug timing issues, blocked sites, wrong captures, and plan errors.
 
+## Markdown
+
+Extract whole pages or targeted sections as Markdown, shape the response for LLM or CMS workflows, and handle dynamic or private pages reliably.
+
+- <Link href='/docs/guides/markdown' children='Quickstart' /> — your first Markdown extraction in under a minute.
+- <Link href='/docs/guides/markdown/defining-extraction-rules' children='Defining extraction rules' /> — whole-page conversion, scoped selectors, supporting fields, and fallback logic.
+- <Link href='/docs/guides/markdown/page-preparation' children='Page preparation' /> — prerendering, waits, device emulation, and DOM cleanup before conversion.
+- <Link href='/docs/guides/markdown/delivery-and-response' children='Delivery and response shaping' /> — choose between full JSON, filtered payloads, and direct Markdown responses.
+- <Link href='/docs/guides/markdown/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and extraction speed tips.
+- <Link href='/docs/guides/markdown/private-pages' children='Private pages' /> — extract Markdown from authenticated or session-based pages safely.
+- <Link href='/docs/guides/markdown/troubleshooting' children='Troubleshooting' /> — fix empty output, wrong selectors, timeouts, and blocked sites.
+
 ## PDF
 
 Generate production-ready PDFs of any website with full control over paper size, layout, delivery, caching, and private-page access.
@@ -41,14 +53,15 @@ Generate production-ready PDFs of any website with full control over paper size,
 - <Link href='/docs/guides/pdf/private-pages' children='Private pages' /> — generate PDFs from authenticated or session-based pages safely.
 - <Link href='/docs/guides/pdf/troubleshooting' children='Troubleshooting' /> — debug missing content, wrong layout, blocked sites, and plan errors.
 
-## Markdown
+## Metadata
 
-Extract whole pages or targeted sections as Markdown, shape the response for LLM or CMS workflows, and handle dynamic or private pages reliably.
+Extract normalized metadata from any URL, narrow the field set to what you actually need, enrich the result when necessary, and handle dynamic or private targets reliably.
 
-- <Link href='/docs/guides/markdown' children='Quickstart' /> — your first Markdown extraction in under a minute.
-- <Link href='/docs/guides/markdown/defining-extraction-rules' children='Defining extraction rules' /> — whole-page conversion, scoped selectors, supporting fields, and fallback logic.
-- <Link href='/docs/guides/markdown/page-preparation' children='Page preparation' /> — prerendering, waits, device emulation, and DOM cleanup before conversion.
-- <Link href='/docs/guides/markdown/delivery-and-response' children='Delivery and response shaping' /> — choose between full JSON, filtered payloads, and direct Markdown responses.
-- <Link href='/docs/guides/markdown/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and extraction speed tips.
-- <Link href='/docs/guides/markdown/private-pages' children='Private pages' /> — extract Markdown from authenticated or session-based pages safely.
-- <Link href='/docs/guides/markdown/troubleshooting' children='Troubleshooting' /> — fix empty output, wrong selectors, timeouts, and blocked sites.
+- <Link href='/docs/guides/metadata' children='Quickstart' /> — your first metadata extraction in under a minute.
+- <Link href='/docs/guides/metadata/choosing-fields' children='Choosing fields' /> — request only the normalized metadata fields you actually need.
+- <Link href='/docs/guides/metadata/extending-results' children='Extending results' /> — add custom fields, oEmbed HTML, color palettes, or site analysis.
+- <Link href='/docs/guides/metadata/delivery-and-response' children='Delivery and response shaping' /> — choose between full JSON, filtered payloads, and direct field responses.
+- <Link href='/docs/guides/metadata/page-preparation' children='Page preparation' /> — handle SPAs, waits, and browser-rendered metadata.
+- <Link href='/docs/guides/metadata/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and metadata performance tips.
+- <Link href='/docs/guides/metadata/private-pages' children='Private pages' /> — extract metadata from authenticated or session-based pages safely.
+- <Link href='/docs/guides/metadata/troubleshooting' children='Troubleshooting' /> — fix missing fields, wrong variants, timeouts, and blocked sites.
