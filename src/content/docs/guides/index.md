@@ -28,3 +28,15 @@ Capture high-quality screenshots of any website with a single API call. This gui
 - <Link href='/docs/guides/screenshot/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and optimization tips.
 - <Link href='/docs/guides/screenshot/private-pages' children='Private pages' /> — handle login, sessions, and header-based personalization safely.
 - <Link href='/docs/guides/screenshot/troubleshooting' children='Troubleshooting' /> — debug timing issues, blocked sites, wrong captures, and plan errors.
+
+## PDF
+
+Generate production-ready PDFs of any website with full control over paper size, layout, delivery, caching, and private-page access.
+
+- <Link href='/docs/guides/pdf' children='Quickstart' /> — your first PDF in under a minute.
+- <Link href='/docs/guides/pdf/page-size-and-layout' children='Page size and layout' /> — paper format, custom dimensions, margins, orientation, scale, and page ranges.
+- <Link href='/docs/guides/pdf/page-preparation' children='Page preparation' /> — print vs screen CSS, waits, clicks, and CSS cleanup before printing.
+- <Link href='/docs/guides/pdf/embedding' children='Delivery and embedding' /> — choose between JSON + CDN URLs and direct PDF responses.
+- <Link href='/docs/guides/pdf/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and optimization tips.
+- <Link href='/docs/guides/pdf/private-pages' children='Private pages' /> — generate PDFs from authenticated or session-based pages safely.
+- <Link href='/docs/guides/pdf/troubleshooting' children='Troubleshooting' /> — debug missing content, wrong layout, blocked sites, and plan errors.
