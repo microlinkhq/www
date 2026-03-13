@@ -4,7 +4,7 @@ description: 'Generate high-fidelity screenshots of any website with a single AP
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
-import { Type } from 'components/markdown/Type'
+import { Type, TypeContainer } from 'components/markdown/Type'
 
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='false'/>
