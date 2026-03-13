@@ -134,29 +134,51 @@ The function has access to:
 
 You can also `require()` a set of allowed NPM packages at runtime (lodash, cheerio, jsdom, got, and more). See the <Link href='/docs/api/parameters/function' children='function reference' /> for the full list.
 
-## Blocking ads
+## Blocking ads and cookie banners
 
-Ad blocking is **enabled by default**. Ads and third-party trackers are removed before rendering, which produces cleaner screenshots and faster response times:
+Ad blocking is **enabled by default** (`adblock: true`). It removes ads, third-party trackers, and cookie consent banners before the page renders, which means your screenshots come out clean without any extra work:
 
 <MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://www.youtube.com', screenshot: true, adblock: true, meta: false }} />
 
-<Figcaption>Powered by the <Link href='https://github.com/nicedoc/adblocker' children='Cliqz adblocker engine' />. Set <code>adblock: false</code> if you need to capture the page with ads.</Figcaption>
+<Figcaption>Powered by the <Link href='https://github.com/nicedoc/adblocker' children='Cliqz adblocker engine' />. Ads, trackers, and cookie consent popups are blocked at the network level.</Figcaption>
+
+This is one of the most impactful features for screenshot quality. Without it, many pages would show intrusive overlays:
+
+- **Cookie consent banners** — GDPR/CCPA popups that cover the content.
+- **Ad placements** — banners, interstitials, and video ads.
+- **Tracking scripts** — third-party scripts that slow down rendering.
+
+Since `adblock` is `true` by default, you don't need to set it explicitly. But if you need to capture a page *with* its ads and cookie banners visible (e.g., for compliance auditing), disable it:
+
+<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://www.youtube.com', screenshot: true, adblock: false, meta: false }} />
+
+<Figcaption>Set <code>adblock: false</code> to see the page exactly as a first-time visitor would, including all popups and ads.</Figcaption>
+
+For cookie banners that slip through the adblocker (custom implementations, first-party banners), you can dismiss them with `click` or hide them with `styles`:
+
+<MultiCodeEditorInteractive height={230} mqlCode={{
+  url: 'https://example.com',
+  screenshot: true,
+  styles: ['.cookie-banner, .consent-modal, [class*="cookie"] { display: none !important; }'],
+  meta: false
+}} />
+
+<Figcaption>Target common cookie banner class names to hide them via CSS injection.</Figcaption>
 
 ## Combining interactions
 
-These parameters work together. Here's a realistic example — dismiss a cookie banner, scroll to a pricing section, wait for it to render, and hide the sticky nav:
+These parameters work together. Here's a realistic example — scroll to a pricing section, wait for it to render, and hide the sticky nav:
 
-<MultiCodeEditorInteractive height={320} mqlCode={{
+<MultiCodeEditorInteractive height={280} mqlCode={{
   url: 'https://microlink.io',
   screenshot: true,
-  click: '#cookie-accept',
   scroll: '#pricing',
   waitForSelector: '#pricing',
   styles: ['.navbar { display: none !important; }'],
   meta: false
 }} />
 
-<Figcaption>Parameters are applied in a logical order: click → scroll → wait → inject styles → capture.</Figcaption>
+<Figcaption>Parameters are applied in a logical order: scroll → wait → inject styles → capture. Cookie banners are already handled by <code>adblock</code>.</Figcaption>
 
 ## Next step
 
