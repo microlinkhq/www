@@ -824,7 +824,7 @@ const Methodology = () => (
         })}
       >
         The complete testing architecture is{' '}
-        <Link href='https://github.com/microlinkhq/benchmark'>
+        <Link href='https://github.com/microlinkhq/benchmarks/tree/main/screenshot'>
           open source on GitHub
         </Link>
         . Last run:{' '}
@@ -1020,21 +1020,15 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : isMax
-                              ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                                )
-                              : isSecond
-                                ? (
-                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                                  )
-                                : (
-                                    formatMs(times[i])
-                                  )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
