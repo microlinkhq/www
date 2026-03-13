@@ -266,10 +266,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
         ? node.fields.slug.split('/').filter(Boolean).pop()
         : null
       const frontmatter = isBlogPage
-        ? {
-            ...node.frontmatter,
-            title: formatTitle(node.frontmatter.title)
-          }
+        ? { ...node.frontmatter, title: formatTitle(node.frontmatter.title) }
         : node.frontmatter
       const templatePath = isSkillPage
         ? path.resolve('./src/templates/skill.js')
