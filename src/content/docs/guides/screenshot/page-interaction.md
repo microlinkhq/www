@@ -7,35 +7,27 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 
-Real-world pages often need interaction before they're ready to capture — a cookie banner to dismiss, a section to scroll to, or dynamic content to wait for. This section covers every parameter that lets you manipulate the page before the screenshot fires.
+Real-world pages often need preparation before they are ready to capture: a cookie banner to dismiss, a tab to open, a section to scroll to, or dynamic content to wait for. This section covers every parameter that lets you manipulate the page before the screenshot fires.
 
-## Clicking elements
+## Start with the cleanest page
 
-Use `click` with a CSS selector to click DOM elements before capture:
+Ad blocking is **enabled by default** (`adblock: true`). It removes ads, third-party trackers, and many cookie consent banners before the page renders, which means screenshots often come out clean without any extra work:
 
-<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://microlink.io', screenshot: true, click: '#features', meta: false }} />
+<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://www.youtube.com', screenshot: true, adblock: true, meta: false }} />
 
-<Figcaption>Useful for dismissing cookie banners, expanding accordions, or activating tab panels.</Figcaption>
+<Figcaption>Ads, trackers, and many consent popups are blocked at the network level before the page is captured.</Figcaption>
 
-You can click multiple elements by passing an array:
+If you need to capture the page exactly as a first-time visitor would see it, disable it:
 
-<MultiCodeEditorInteractive height={260} mqlCode={{ url: 'https://microlink.io', screenshot: true, click: ['#cookie-accept', '#features'], meta: false }} />
+<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://www.youtube.com', screenshot: true, adblock: false, meta: false }} />
 
-<Figcaption>Elements are clicked in the order they appear in the array.</Figcaption>
+<Figcaption>Set <code>adblock: false</code> when you explicitly want banners, ads, or consent flows to remain visible.</Figcaption>
 
-## Scrolling to a section
-
-The `scroll` parameter scrolls the viewport to a specific element before capturing:
-
-<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://microlink.io', screenshot: true, scroll: '#pricing', meta: false }} />
-
-<Figcaption>The viewport scrolls so the matched element is visible, then the screenshot is taken.</Figcaption>
-
-This is different from `screenshot.element` — scroll positions the viewport but still captures the full viewport, while `element` crops to the matched node.
+For first-party cookie banners that still slip through, use `click` or `styles` later in this guide.
 
 ## Waiting for content
 
-Dynamic pages often load content asynchronously. Microlink provides three levels of wait control.
+Dynamic pages often load content asynchronously. Microlink gives you three levels of wait control.
 
 ### Wait for a lifecycle event
 
@@ -63,6 +55,12 @@ For heavy pages, a good pattern is to use a fast lifecycle event combined with a
 
 <Figcaption>Navigate quickly with <code>domcontentloaded</code>, then wait until the content you care about is in the DOM.</Figcaption>
 
+You can also pass an array when a page needs to satisfy more than one lifecycle event:
+
+<MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://dev.to', screenshot: true, waitUntil: ['load', 'networkidle2'], meta: false }} />
+
+<Figcaption>Use an array when one event alone is too early but waiting for a single strict event is unreliable.</Figcaption>
+
 ### Wait for a specific element
 
 Use `waitForSelector` to pause until a CSS selector matches a visible element:
@@ -70,6 +68,8 @@ Use `waitForSelector` to pause until a CSS selector matches a visible element:
 <MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://dev.to', screenshot: true, waitForSelector: 'main', meta: false }} />
 
 <Figcaption>The browser waits until <code>main</code> appears in the DOM before capturing.</Figcaption>
+
+If you are already using `screenshot.element` to capture that same node, you usually do not need an extra `waitForSelector` because element capture already waits for visibility.
 
 ### Wait for a fixed duration
 
@@ -81,6 +81,30 @@ When you need to wait for animations, transitions, or timed content, use `waitFo
 
 Use this as a last resort — selector-based waits are more reliable and faster.
 
+## Clicking elements
+
+Use `click` with a CSS selector to click DOM elements before capture:
+
+<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://microlink.io', screenshot: true, click: '#features', meta: false }} />
+
+<Figcaption>Useful for dismissing cookie banners, expanding accordions, opening tabs, or triggering lazy sections.</Figcaption>
+
+You can click multiple elements by passing an array:
+
+<MultiCodeEditorInteractive height={260} mqlCode={{ url: 'https://microlink.io', screenshot: true, click: ['#cookie-accept', '#features'], meta: false }} />
+
+<Figcaption>Elements are clicked in array order, so you can dismiss one UI layer before opening the next.</Figcaption>
+
+## Scrolling to a section
+
+The `scroll` parameter scrolls the viewport to a specific element before capturing:
+
+<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://microlink.io', screenshot: true, scroll: '#pricing', meta: false }} />
+
+<Figcaption>The viewport scrolls so the matched element is visible, then the screenshot is taken.</Figcaption>
+
+This is different from `screenshot.element`: `scroll` keeps the normal viewport-sized capture, while `element` crops the final image to the matched node.
+
 ## Injecting custom CSS
 
 The `styles` parameter injects CSS into the page before capture:
@@ -88,7 +112,7 @@ The `styles` parameter injects CSS into the page before capture:
 <MultiCodeEditorInteractive height={280} mqlCode={{
   url: 'https://example.com',
   screenshot: true,
-  styles: ['body { background: white; }', 'div { border: 1px solid gray; font-family: "Comic Sans MS", cursive; }'],
+  styles: ['header, .cookie-banner { display: none !important; }', 'main { padding-top: 0 !important; }'],
   meta: false
 }} />
 
@@ -107,15 +131,15 @@ Use `scripts` to inject `<script>` tags or `modules` for ES module syntax:
 <MultiCodeEditorInteractive height={230} mqlCode={{
   url: 'https://microlink.io',
   screenshot: true,
-  modules: ["document.body.style.backgroundColor = 'red'"],
+  modules: ["document.querySelector('header')?.remove()"],
   meta: false
 }} />
 
 <Figcaption>Prefer <code>modules</code> over <code>scripts</code> for modern JavaScript. Both accept inline code or absolute URLs.</Figcaption>
 
-See the <Link href='/docs/api/parameters/scripts' children='scripts' /> and <Link href='/docs/api/parameters/modules' children='modules' /> references for details.
+Reach for `styles` first when CSS alone can solve the problem. Use `modules` or `scripts` when you need to mutate the page state with JavaScript. See the <Link href='/docs/api/parameters/scripts' children='scripts' /> and <Link href='/docs/api/parameters/modules' children='modules' /> references for details.
 
-## Running custom functions
+## Use function for last-resort automation
 
 For advanced scenarios, the `function` parameter gives you full Puppeteer access to the page:
 
@@ -134,54 +158,23 @@ The function has access to:
 - `html` — the page's HTML markup
 - `response` — the [Puppeteer response](https://pptr.dev/api/puppeteer.httpresponse) object
 
-You can also `require()` a set of allowed NPM packages at runtime (lodash, cheerio, jsdom, got, and more). See the <Link href='/docs/api/parameters/function' children='function reference' /> for the full list.
-
-## Blocking ads and cookie banners
-
-Ad blocking is **enabled by default** (`adblock: true`). It removes ads, third-party trackers, and cookie consent banners before the page renders, which means your screenshots come out clean without any extra work:
-
-<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://www.youtube.com', screenshot: true, adblock: true, meta: false }} />
-
-<Figcaption>Ads, trackers, and cookie consent popups are blocked at the network level.</Figcaption>
-
-This is one of the most impactful features for screenshot quality. Without it, many pages would show intrusive overlays:
-
-- **Cookie consent banners** — GDPR/CCPA popups that cover the content.
-- **Ad placements** — banners, interstitials, and video ads.
-- **Tracking scripts** — third-party scripts that slow down rendering.
-
-Since `adblock` is `true` by default, you don't need to set it explicitly. But if you need to capture a page *with* its ads and cookie banners visible (e.g., for compliance auditing), disable it:
-
-<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://www.youtube.com', screenshot: true, adblock: false, meta: false }} />
-
-<Figcaption>Set <code>adblock: false</code> to see the page exactly as a first-time visitor would, including all popups and ads.</Figcaption>
-
-For cookie banners that slip through the adblocker (custom implementations, first-party banners), you can dismiss them with `click` or hide them with `styles`:
-
-<MultiCodeEditorInteractive height={260} mqlCode={{
-  url: 'https://example.com',
-  screenshot: true,
-  styles: ['.cookie-banner, .consent-modal, [class*="cookie"] { display: none !important; }'],
-  meta: false
-}} />
-
-<Figcaption>Target common cookie banner class names to hide them via CSS injection.</Figcaption>
+Reach for `function` when CSS, `modules`, and `scripts` are no longer enough. You can also `require()` a set of allowed NPM packages at runtime. See the <Link href='/docs/api/parameters/function' children='function reference' /> for the full list and the compression options for large functions.
 
 ## Combining interactions
 
-These parameters work together. Here's a realistic example — scroll to a pricing section, wait for it to render, and hide the sticky nav:
+These parameters work together. Here is a realistic sequence: wait for the target section, scroll to it, and remove the sticky header before capture:
 
 <MultiCodeEditorInteractive height={280} mqlCode={{
   url: 'https://microlink.io',
   screenshot: true,
-  scroll: '#pricing',
   waitForSelector: '#pricing',
-  styles: ['.navbar { display: none !important; }'],
+  scroll: '#pricing',
+  styles: ['header, .navbar { display: none !important; }'],
   meta: false
 }} />
 
-<Figcaption>Parameters are applied in a logical order: scroll → wait → inject styles → capture. Cookie banners are already handled by <code>adblock</code>.</Figcaption>
+<Figcaption>Think in terms of page state: clean the page, wait until the right content exists, move the viewport, apply final cosmetic fixes, then capture.</Figcaption>
 
 ## Next step
 
-Learn how to embed screenshots directly in your HTML, CSS, and Markdown in [embedding](/docs/guides/screenshot/embedding).
+Learn how to deliver screenshots as JSON or direct image responses in [delivery and embedding](/docs/guides/screenshot/embedding).

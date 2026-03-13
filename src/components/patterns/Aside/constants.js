@@ -576,12 +576,20 @@ const ROUTES_GUIDES = [
             href: '/docs/guides/screenshot/page-interaction'
           },
           {
-            name: 'Embedding',
+            name: 'Delivery and embedding',
             href: '/docs/guides/screenshot/embedding'
           },
           {
             name: 'Caching and performance',
             href: '/docs/guides/screenshot/caching-and-performance'
+          },
+          {
+            name: 'Private pages',
+            href: '/docs/guides/screenshot/private-pages'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/screenshot/troubleshooting'
           }
         ]
       }

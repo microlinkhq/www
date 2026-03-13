@@ -18,11 +18,13 @@ Some features are marked with <ProBadge /> and require a paid plan. Everything e
 
 ## Screenshot
 
-Capture high-quality screenshots of any website with a single API call. This guide covers everything from your first screenshot to advanced techniques like element targeting, device emulation, page interaction, and embedding.
+Capture high-quality screenshots of any website with a single API call. This guide now covers the full workflow, from your first screenshot to advanced output control, embedding, private-page capture, and troubleshooting.
 
 - <Link href='/docs/guides/screenshot' children='Quickstart' /> — your first screenshot in under a minute.
 - <Link href='/docs/guides/screenshot/customizing-output' children='Customizing output' /> — full-page, element targeting, format, overlays, and code themes.
 - <Link href='/docs/guides/screenshot/browser-settings' children='Browser settings' /> — viewport, device emulation, dark mode, and animations.
 - <Link href='/docs/guides/screenshot/page-interaction' children='Page interaction' /> — click, scroll, wait, inject CSS/JS, block ads and cookie banners.
-- <Link href='/docs/guides/screenshot/embedding' children='Embedding' /> — use screenshots in HTML, CSS, Markdown, and OG tags.
+- <Link href='/docs/guides/screenshot/embedding' children='Delivery and embedding' /> — choose between JSON + CDN URLs and direct image responses.
 - <Link href='/docs/guides/screenshot/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and optimization tips.
+- <Link href='/docs/guides/screenshot/private-pages' children='Private pages' /> — handle login, sessions, and header-based personalization safely.
+- <Link href='/docs/guides/screenshot/troubleshooting' children='Troubleshooting' /> — debug timing issues, blocked sites, wrong captures, and plan errors.
