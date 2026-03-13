@@ -21,8 +21,10 @@ import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
+import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
+import Select from 'components/elements/Select/Select'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
@@ -117,6 +119,51 @@ const DEVICE_OPTIONS = [
   { value: 'tablet', label: 'Tablet' },
   { value: 'mobile', label: 'Mobile' }
 ]
+
+const ASPECT_RATIO_OPTIONS = [
+  { value: '16:9', label: '16:9' },
+  { value: '4:3', label: '4:3' },
+  { value: '1:1', label: '1:1' },
+  { value: '3:4', label: '3:4' },
+  { value: '9:16', label: '9:16' },
+  { value: '9:19.5', label: '9:19.5' }
+]
+
+const parseAspectRatio = value => {
+  const [widthRaw, heightRaw] = String(value || '')
+    .split(':')
+    .map(Number)
+
+  if (
+    !Number.isFinite(widthRaw) ||
+    !Number.isFinite(heightRaw) ||
+    heightRaw <= 0
+  ) {
+    return 16 / 9
+  }
+
+  return widthRaw / heightRaw
+}
+
+const getClosestAspectRatioOption = (width, height) => {
+  const target = width / height
+  return ASPECT_RATIO_OPTIONS.reduce(
+    (closest, option) => {
+      const diff = Math.abs(parseAspectRatio(option.value) - target)
+      return diff < closest.diff ? { value: option.value, diff } : closest
+    },
+    {
+      value: ASPECT_RATIO_OPTIONS[0].value,
+      diff: Number.POSITIVE_INFINITY
+    }
+  ).value
+}
+
+const getHeightFromWidth = (width, aspectRatio) =>
+  String(Math.max(1, Math.round(width / aspectRatio)))
+
+const getWidthFromHeight = (height, aspectRatio) =>
+  String(Math.max(1, Math.round(height * aspectRatio)))
 
 const FEATURES_LIST = [
   {
@@ -466,12 +513,49 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
         setOptions(prev => ({
           ...prev,
           device: val,
+          aspectRatio: getClosestAspectRatioOption(device.width, device.height),
           customWidth: String(device.width),
           customHeight: String(device.height)
         }))
       }
     },
     [setOptions]
+  )
+
+  const handleAspectRatioChange = useCallback(
+    nextAspectRatio => {
+      setOptions(prev => {
+        const width = Number(prev.customWidth)
+        const height = Number(prev.customHeight)
+        const ratio = parseAspectRatio(nextAspectRatio)
+
+        if (Number.isFinite(width) && width > 0) {
+          return {
+            ...prev,
+            aspectRatio: nextAspectRatio,
+            customHeight: getHeightFromWidth(width, ratio),
+            device: 'custom'
+          }
+        }
+
+        if (Number.isFinite(height) && height > 0) {
+          return {
+            ...prev,
+            aspectRatio: nextAspectRatio,
+            customWidth: getWidthFromHeight(height, ratio),
+            device: 'custom'
+          }
+        }
+
+        return {
+          ...prev,
+          aspectRatio: nextAspectRatio,
+          device: 'custom'
+        }
+      })
+      if (viewportError) setViewportError('')
+    },
+    [setOptions, viewportError]
   )
 
   return (
@@ -548,9 +632,17 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   aria-label='Viewport width in pixels'
                   value={options.customWidth}
                   onChange={e => {
+                    const nextWidth = Number(e.target.value)
                     setOptions(prev => ({
                       ...prev,
                       customWidth: e.target.value,
+                      customHeight:
+                        nextWidth > 0
+                          ? getHeightFromWidth(
+                            nextWidth,
+                            parseAspectRatio(prev.aspectRatio)
+                          )
+                          : prev.customHeight,
                       device: 'custom'
                     }))
                     if (viewportError) setViewportError('')
@@ -581,9 +673,17 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   disabled={options.fullPage}
                   value={options.customHeight}
                   onChange={e => {
+                    const nextHeight = Number(e.target.value)
                     setOptions(prev => ({
                       ...prev,
                       customHeight: e.target.value,
+                      customWidth:
+                        nextHeight > 0
+                          ? getWidthFromHeight(
+                            nextHeight,
+                            parseAspectRatio(prev.aspectRatio)
+                          )
+                          : prev.customWidth,
                       device: 'custom'
                     }))
                     if (viewportError) setViewportError('')
@@ -594,6 +694,21 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                     height: '18px'
                   })}
                 />
+              </Box>
+              <Box css={theme({ pl: 2, width: ['92px', '98px'] })}>
+                <Select
+                  id='ws-aspect-ratio'
+                  aria-label='Viewport aspect ratio'
+                  value={options.aspectRatio}
+                  onChange={e => handleAspectRatioChange(e.target.value)}
+                  css={theme({ width: '100%', fontSize: '16px' })}
+                >
+                  {ASPECT_RATIO_OPTIONS.map(({ value, label }) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </Select>
               </Box>
             </Flex>
             {viewportError && (
@@ -647,8 +762,9 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
             <input
               type='checkbox'
               checked={options.adblock}
-              onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+              onChange={e => {
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }}
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -672,8 +788,9 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
             <input
               type='checkbox'
               checked={options.cache}
-              onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+              onChange={e => {
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }}
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -717,11 +834,13 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               <Box css={theme({ pt: 1, pl: 0 })}>
                 <ColorPicker
                   value={options.overlayBackground}
-                  onChange={val =>
-                    setOptions(prev => ({ ...prev, overlayBackground: val }))}
+                  onChange={val => {
+                    setOptions(prev => ({ ...prev, overlayBackground: val }))
+                  }}
                   customHex={options.overlayCustomHex}
-                  onCustomHexChange={val =>
-                    setOptions(prev => ({ ...prev, overlayCustomHex: val }))}
+                  onCustomHexChange={val => {
+                    setOptions(prev => ({ ...prev, overlayCustomHex: val }))
+                  }}
                 />
               </Box>
             )}
@@ -762,6 +881,7 @@ const ScreenshotTool = () => {
     adblock: true,
     cache: true,
     device: 'desktop',
+    aspectRatio: '16:9',
     customWidth: '1920',
     customHeight: '1080',
     overlayEnabled: false,
@@ -887,6 +1007,7 @@ const ScreenshotTool = () => {
                   type: options.type,
                   fullPage: options.fullPage,
                   device: options.device,
+                  aspectRatio: options.aspectRatio,
                   customWidth: options.customWidth,
                   customHeight: options.customHeight,
                   overlayEnabled: options.overlayEnabled,
@@ -921,6 +1042,12 @@ const ScreenshotTool = () => {
       type: settings.type,
       fullPage: settings.fullPage,
       device: settings.device,
+      aspectRatio:
+        settings.aspectRatio ||
+        getClosestAspectRatioOption(
+          Number(settings.customWidth) || 1920,
+          Number(settings.customHeight) || 1080
+        ),
       customWidth: settings.customWidth,
       customHeight: settings.customHeight,
       overlayEnabled: settings.overlayEnabled,
@@ -1031,7 +1158,7 @@ const Hero = () => (
         fontSize: [3, '35px', '40px', '50px']
       })}
     >
-      Generate Website Screenshots Instantly
+      Generate Website <LineBreak breakpoints={[0, 1]} /> Screenshots Instantly
     </Heading>
     <Caption
       forwardedAs='h2'
