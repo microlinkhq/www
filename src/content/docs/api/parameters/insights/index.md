@@ -14,7 +14,7 @@ It gets a web performance metrics of the target [url](/docs/api/parameters/url).
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://vercel.com', insights: true }} />
 
-When is presnet, a new `insights` data field will be returned. These field contain two subfields:
+When is present, a new `insights` data field will be returned. These field contain two subfields:
 
 - `technologies`: A list of technologies identified powered by [Wappalyzer](https://www.wappalyzer.com/).
 - `lighthouse`: A full web audit report powered by [Lighthouse](https://developers.google.com/web/tools/lighthouse).
