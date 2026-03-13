@@ -65,3 +65,12 @@ Extract normalized metadata from any URL, narrow the field set to what you actua
 - <Link href='/docs/guides/metadata/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and metadata performance tips.
 - <Link href='/docs/guides/metadata/private-pages' children='Private pages' /> — extract metadata from authenticated or session-based pages safely.
 - <Link href='/docs/guides/metadata/troubleshooting' children='Troubleshooting' /> — fix missing fields, wrong variants, timeouts, and blocked sites.
+
+## Insights
+
+Analyze any site with Microlink Insights, choose between technology detection and Lighthouse audits, and troubleshoot slow or blocked runs.
+
+- <Link href='/docs/guides/insights' children='Quickstart' /> — your first Insights analysis in under a minute.
+- <Link href='/docs/guides/insights/technology-detection' children='Technology detection' /> — identify frameworks, CDNs, analytics tools, and other technologies behind a site.
+- <Link href='/docs/guides/insights/lighthouse-reports' children='Lighthouse reports' /> — generate JSON, HTML, or CSV audit reports and tune report settings.
+- <Link href='/docs/guides/insights/troubleshooting' children='Troubleshooting' /> — fix missing results, timeouts, wrong variants, and blocked sites.

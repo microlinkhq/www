@@ -686,6 +686,24 @@ const ROUTES_GUIDES = [
             href: '/docs/guides/metadata/troubleshooting'
           }
         ]
+      },
+      {
+        name: 'Insights',
+        href: '/docs/guides/insights',
+        posts: [
+          {
+            name: 'Technology detection',
+            href: '/docs/guides/insights/technology-detection'
+          },
+          {
+            name: 'Lighthouse reports',
+            href: '/docs/guides/insights/lighthouse-reports'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/insights/troubleshooting'
+          }
+        ]
       }
     ]
   }
