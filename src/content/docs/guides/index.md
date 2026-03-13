@@ -40,3 +40,15 @@ Generate production-ready PDFs of any website with full control over paper size,
 - <Link href='/docs/guides/pdf/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and optimization tips.
 - <Link href='/docs/guides/pdf/private-pages' children='Private pages' /> — generate PDFs from authenticated or session-based pages safely.
 - <Link href='/docs/guides/pdf/troubleshooting' children='Troubleshooting' /> — debug missing content, wrong layout, blocked sites, and plan errors.
+
+## Markdown
+
+Extract whole pages or targeted sections as Markdown, shape the response for LLM or CMS workflows, and handle dynamic or private pages reliably.
+
+- <Link href='/docs/guides/markdown' children='Quickstart' /> — your first Markdown extraction in under a minute.
+- <Link href='/docs/guides/markdown/defining-extraction-rules' children='Defining extraction rules' /> — whole-page conversion, scoped selectors, supporting fields, and fallback logic.
+- <Link href='/docs/guides/markdown/page-preparation' children='Page preparation' /> — prerendering, waits, device emulation, and DOM cleanup before conversion.
+- <Link href='/docs/guides/markdown/delivery-and-response' children='Delivery and response shaping' /> — choose between full JSON, filtered payloads, and direct Markdown responses.
+- <Link href='/docs/guides/markdown/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and extraction speed tips.
+- <Link href='/docs/guides/markdown/private-pages' children='Private pages' /> — extract Markdown from authenticated or session-based pages safely.
+- <Link href='/docs/guides/markdown/troubleshooting' children='Troubleshooting' /> — fix empty output, wrong selectors, timeouts, and blocked sites.
