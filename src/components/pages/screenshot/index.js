@@ -61,7 +61,7 @@ export const OptionLabel = styled(Label)`
     fontWeight: 'regular',
     fontFamily: 'sans',
     fontSize: 0,
-    color: 'black50'
+    color: 'black60'
   })}
 `
 
@@ -92,7 +92,7 @@ export const SegmentedOption = styled(Box)
     gap: '6px'
   })}
   background: ${({ $active }) => ($active ? 'white' : 'transparent')};
-  color: ${({ $active }) => ($active ? colors.black80 : colors.black50)};
+  color: ${({ $active }) => ($active ? colors.black80 : colors.black70)};
   box-shadow: ${({ $active }) =>
     $active ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'};
   transition: background ${transition.medium}, color ${transition.medium},
@@ -862,19 +862,8 @@ export const PreviewDisplay = ({
                   fontFamily: 'sans'
                 })}
               >
-                {isLoading
-                  ? (
-                    <>
-                      {loadingText}
-                      <DotSpinner />
-                    </>
-                    )
-                  : (
-                    <>
-                      Loading image
-                      <DotSpinner />
-                    </>
-                    )}
+                {isLoading ? loadingText : 'Loading image'}
+                <DotSpinner />
               </Text>
             </Flex>
           </FadeIn>
@@ -894,18 +883,16 @@ export const PreviewDisplay = ({
             })}
           >
             <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              {error?.statusCode === 429
-                ? (
-                  <>
-                    You've reached your free daily limit.
-                    <Text css={theme({ fontSize: 2, color: 'black60' })}>
-                      We allow 50 requests per day for free users.
-                    </Text>
-                  </>
-                  )
-                : (
-                    error?.message || 'Something went wrong. Please try again.'
-                  )}
+              {error?.statusCode === 429 && (
+                <>
+                  You've reached your free daily limit.
+                  <Text css={theme({ fontSize: 2, color: 'black60' })}>
+                    We allow 50 requests per day for free users.
+                  </Text>
+                </>
+              )}
+              {error?.statusCode !== 429 &&
+                (error?.message || 'Something went wrong. Please try again.')}
             </Text>
             {error?.statusCode !== 429 && (
               <Button onClick={onRetry}>
@@ -944,93 +931,91 @@ export const PreviewDisplay = ({
                   responseData={responseData}
                 />
               )}
-              {isPreviewTooBig
-                ? (
-                  <Flex
-                    css={theme({
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      minHeight: '100%'
-                    })}
+              {isPreviewTooBig && (
+                <Flex
+                  css={theme({
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '100%'
+                  })}
+                >
+                  <ViewportCard
+                    as='section'
+                    aria-live='polite'
+                    aria-label='Screenshot preview notice'
+                    style={{ maxWidth: `${maxWidth}px` }}
                   >
-                    <ViewportCard
-                      as='section'
-                      aria-live='polite'
-                      aria-label='Screenshot preview notice'
-                      style={{ maxWidth: `${maxWidth}px` }}
+                    <Flex
+                      css={theme({
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        p: [4, 5],
+                        textAlign: 'center',
+                        bg: 'gray0'
+                      })}
                     >
-                      <Flex
+                      <Box
                         css={theme({
-                          flexDirection: 'column',
+                          width: '56px',
+                          height: '56px',
+                          borderRadius: '50%',
+                          display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          p: [4, 5],
-                          textAlign: 'center',
-                          bg: 'gray0'
+                          mb: 3
+                        })}
+                        style={{
+                          background: colors.black025
+                        }}
+                      >
+                        <ExternalLink size={26} color={colors.link} />
+                      </Box>
+                      <Text
+                        role='status'
+                        css={theme({
+                          fontSize: 2,
+                          fontWeight: 'bold',
+                          color: 'black80',
+                          fontFamily: 'sans'
                         })}
                       >
-                        <Box
-                          css={theme({
-                            width: '56px',
-                            height: '56px',
-                            borderRadius: '50%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            mb: 3
-                          })}
-                          style={{
-                            background:
-                            'linear-gradient(225deg, #FF057C11 0%, #32157511 100%)'
-                          }}
-                        >
-                          <ExternalLink size={26} color={colors.link} />
-                        </Box>
-                        <Text
-                          role='status'
-                          css={theme({
-                            fontSize: 2,
-                            fontWeight: 'bold',
-                            color: 'black80',
-                            fontFamily: 'sans'
-                          })}
-                        >
-                          This screenshot is too large to preview here.
-                        </Text>
-                        <Text
-                          css={theme({
-                            pt: 2,
-                            fontSize: 1,
-                            color: 'black60',
-                            maxWidth: '420px',
-                            fontFamily: 'sans'
-                          })}
-                        >
-                          You can still download the full image or open it in a
-                          new browser tab using the options below.
-                        </Text>
-                      </Flex>
-                    </ViewportCard>
-                  </Flex>
-                  )
-                : (
-                  <ViewportCard style={{ maxWidth: `${maxWidth}px` }}>
-                    <img
-                      alt={`Screenshot of ${url}`}
-                      src={imageUrl}
-                      loading='lazy'
-                      decoding='async'
-                      onError={() => setIsPreviewTooBig(true)}
-                      style={{
-                        width: '100%',
-                        maxWidth: '100%',
-                        display: 'block',
-                        objectFit: 'contain',
-                        imageRendering: '-webkit-optimize-contrast'
-                      }}
-                    />
+                        This screenshot is too large to preview here.
+                      </Text>
+                      <Text
+                        css={theme({
+                          pt: 2,
+                          fontSize: 1,
+                          color: 'black60',
+                          maxWidth: '420px',
+                          fontFamily: 'sans'
+                        })}
+                      >
+                        You can still download the full image or open it in a
+                        new browser tab using the options below.
+                      </Text>
+                    </Flex>
                   </ViewportCard>
-                  )}
+                </Flex>
+              )}
+              {!isPreviewTooBig && (
+                <ViewportCard style={{ maxWidth: `${maxWidth}px` }}>
+                  <img
+                    alt={`Screenshot of ${url}`}
+                    src={imageUrl}
+                    loading='lazy'
+                    decoding='async'
+                    onError={() => setIsPreviewTooBig(true)}
+                    style={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      display: 'block',
+                      objectFit: 'contain',
+                      imageRendering: '-webkit-optimize-contrast'
+                    }}
+                  />
+                </ViewportCard>
+              )}
             </Box>
 
             <Flex
@@ -1062,11 +1047,12 @@ export const PreviewDisplay = ({
               <ActionButton
                 as='button'
                 type='button'
-                onClick={() =>
+                onClick={() => {
                   toClipboard({
                     copy: imageUrl,
                     text: Tooltip.TEXT.COPIED('URL')
-                  })}
+                  })
+                }}
                 css={theme({
                   bg: 'white',
                   color: 'black80',
@@ -1129,19 +1115,16 @@ export const PreviewDisplay = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                mb: 3
+                mb: 3,
+                background: 'black025'
               })}
-              style={{
-                background:
-                  'linear-gradient(225deg, #FF057C11 0%, #32157511 100%)'
-              }}
             >
               <EmptyIcon size={32} color={colors.black20} />
             </Box>
-            <Text css={theme({ color: 'black40', fontSize: 2 })}>
+            <Text css={theme({ color: 'black60', fontSize: 2 })}>
               {emptyText}
             </Text>
-            <Text css={theme({ color: 'black20', fontSize: 1, pt: 1 })}>
+            <Text css={theme({ color: 'black60', fontSize: 1, pt: 1 })}>
               {emptySubtext}
             </Text>
           </FadeIn>
