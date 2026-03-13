@@ -21,10 +21,12 @@ export const SDK = 'SDK'
 export const API = 'API'
 export const MQL = 'MQL'
 export const CARDS = 'Cards'
+export const GUIDES = 'Guides'
 
 export const DEFAULT_ACTIVE_ROUTE_NAME = API
 
 export const getActiveRouteName = ({ pathname }) => {
+  if (pathname.startsWith('/docs/guides')) return GUIDES
   if (pathname.startsWith('/docs/sdk')) return SDK
   if (pathname.startsWith('/docs/api')) return API
   if (pathname.startsWith('/docs/cards')) return CARDS
@@ -33,6 +35,10 @@ export const getActiveRouteName = ({ pathname }) => {
 
 export const DOC_TABS = [
   { name: 'API', path: '/docs/api/getting-started/overview' },
+  {
+    name: 'GUIDES',
+    path: '/docs/guides'
+  },
   {
     name: 'MQL',
     path: '/docs/mql/getting-started/overview'
@@ -545,11 +551,50 @@ const ROUTES_CARDS = [
   }
 ]
 
+const ROUTES_GUIDES = [
+  {
+    name: 'Getting Started',
+    posts: [
+      {
+        name: 'Overview',
+        href: '/docs/guides'
+      },
+      {
+        name: 'Screenshot',
+        href: '/docs/guides/screenshot',
+        posts: [
+          {
+            name: 'Customizing output',
+            href: '/docs/guides/screenshot/customizing-output'
+          },
+          {
+            name: 'Browser settings',
+            href: '/docs/guides/screenshot/browser-settings'
+          },
+          {
+            name: 'Page interaction',
+            href: '/docs/guides/screenshot/page-interaction'
+          },
+          {
+            name: 'Embedding',
+            href: '/docs/guides/screenshot/embedding'
+          },
+          {
+            name: 'Caching and performance',
+            href: '/docs/guides/screenshot/caching-and-performance'
+          }
+        ]
+      }
+    ]
+  }
+]
+
 export const ROUTES = {
   [SDK]: ROUTES_SDK,
   [MQL]: ROUTES_MQL,
   [CARDS]: ROUTES_CARDS,
-  [API]: ROUTES_API
+  [API]: ROUTES_API,
+  [GUIDES]: ROUTES_GUIDES
 }
 
 export const ALL_ROUTES_NAMES = Object.keys(ROUTES)
