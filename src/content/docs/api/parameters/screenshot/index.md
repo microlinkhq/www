@@ -6,7 +6,7 @@ description: 'Generate high-fidelity screenshots of any website with a single AP
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type } from 'components/markdown/Type'
 
-Type: <Type children='<boolean>'/><br/>
+Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='false'/>
 
 It generates a screenshot over the target [url](/docs/api/parameters/url).
