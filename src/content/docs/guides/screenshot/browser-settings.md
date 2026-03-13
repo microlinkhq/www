@@ -6,6 +6,7 @@ description: 'Configure the headless browser before capturing a screenshot. Set 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 The headless browser that renders your screenshot can be configured to emulate different devices, screen sizes, and rendering preferences. These settings affect the entire page rendering, not just the screenshot output.
 
@@ -117,9 +118,9 @@ JavaScript is enabled by default. Disable it to capture a page as-if the browser
 
 Disabling JavaScript means SPAs (React, Vue, Angular) will render their initial server-side HTML only.
 
-## Custom headers
+## Custom headers <ProBadge />
 
-For pages that require authentication or serve different content based on headers, use `headers` (pro):
+For pages that require authentication or serve different content based on headers, use `headers`:
 
 <MultiCodeEditorInteractive height={260} mqlCode={{
   url: 'https://example.com',
