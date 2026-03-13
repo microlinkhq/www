@@ -1219,7 +1219,7 @@ const CompetitorComparison = () => {
               css={theme({
                 fontSize: ['22px', '24px', '28px', '28px'],
                 textAlign: 'left',
-                mt: [3, 3, 4, 4],
+                mt: [4, 4, 5, 5],
                 mb: [2, 2, 3, 3]
               })}
             >
