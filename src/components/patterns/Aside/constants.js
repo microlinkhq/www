@@ -592,6 +592,36 @@ const ROUTES_GUIDES = [
             href: '/docs/guides/screenshot/troubleshooting'
           }
         ]
+      },
+      {
+        name: 'PDF',
+        href: '/docs/guides/pdf',
+        posts: [
+          {
+            name: 'Page size and layout',
+            href: '/docs/guides/pdf/page-size-and-layout'
+          },
+          {
+            name: 'Page preparation',
+            href: '/docs/guides/pdf/page-preparation'
+          },
+          {
+            name: 'Delivery and embedding',
+            href: '/docs/guides/pdf/embedding'
+          },
+          {
+            name: 'Caching and performance',
+            href: '/docs/guides/pdf/caching-and-performance'
+          },
+          {
+            name: 'Private pages',
+            href: '/docs/guides/pdf/private-pages'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/pdf/troubleshooting'
+          }
+        ]
       }
     ]
   }
