@@ -8,11 +8,18 @@ import { Award as AwardIcon } from 'components/icons/Award'
 import { Building2 as Building2Icon } from 'components/icons/Building2'
 import { Bug as BugIcon } from 'components/icons/Bug'
 import { Camera as CameraIcon } from 'components/icons/Camera'
-import { Grid as GridIcon } from 'components/icons/Grid'
 import { Files as FilesIcon } from 'components/icons/Files'
 import { Focus as FocusIcon } from 'components/icons/Focus'
 import { Inbox as InboxIcon } from 'components/icons/Inbox'
-import { Layers, BarChart2, Image, Map, Users, Activity } from 'react-feather'
+import {
+  Layers,
+  BarChart2,
+  Image,
+  Map,
+  Users,
+  Activity,
+  Film
+} from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
 import { PDF as PDFIcon } from 'components/icons/PDF'
@@ -81,8 +88,7 @@ const createNavigationItem = ({
   externalIcon,
   description,
   icon,
-  logo,
-  group
+  logo
 }) => ({
   label,
   href,
@@ -91,8 +97,7 @@ const createNavigationItem = ({
   externalIcon,
   description,
   icon,
-  logo,
-  group
+  logo
 })
 
 export const PRICING_NAV_ITEM = createNavigationItem({
@@ -116,6 +121,22 @@ export const SOCIAL_NAV_ITEMS = [
     title: '@microlinkhq on GitHub',
     externalIcon: false,
     icon: GitHubSocialIcon
+  })
+]
+
+export const TOOLS_INTEGRATIONS_ITEMS = [
+  createNavigationItem({
+    label: 'SDK',
+    href: '/sdk',
+    description: 'Beautiful link previews',
+    icon: TerminalIcon
+  }),
+  createNavigationItem({
+    label: 'Geolocation',
+    href: 'https://geolocation.microlink.io',
+    description: 'IP & request insights',
+    externalIcon: false,
+    icon: GlobeIcon
   })
 ]
 
@@ -176,49 +197,31 @@ export const NAVIGATION_SECTIONS = [
   {
     label: 'Tools',
     description: 'Browse and use tools built on top of the Microlink API.',
-    columns: 3,
+    columns: 2,
     items: [
       createNavigationItem({
         label: 'Website Screenshot',
         href: '/tools/website-screenshot',
         description: 'Capture any website as a screenshot',
-        icon: CameraIcon,
-        group: 'tools'
+        icon: CameraIcon
       }),
       createNavigationItem({
         label: 'Bulk Screenshots',
         href: '/tools/website-screenshot/bulk',
         description: 'Capture multiple websites as screenshots in one go',
-        icon: Layers,
-        group: 'tools'
+        icon: Layers
+      }),
+      createNavigationItem({
+        label: 'Animated Screenshot',
+        href: '/tools/website-screenshot/animated',
+        description: 'Generate animated website screenshots',
+        icon: Film
       }),
       createNavigationItem({
         label: 'Sharing Debugger',
         href: '/tools/sharing-debugger',
         description: 'Preview social cards before publishing links',
-        icon: BugIcon,
-        group: 'tools'
-      }),
-      createNavigationItem({
-        label: 'All Tools',
-        href: '/tools',
-        description: 'Explore all web automation and scraping tools',
-        icon: GridIcon,
-        group: 'tools'
-      }),
-      createNavigationItem({
-        label: 'Geolocation',
-        href: 'https://geolocation.microlink.io',
-        description: 'Get detailed information about the incoming request',
-        externalIcon: false,
-        icon: GlobeIcon
-      }),
-      createNavigationItem({
-        label: 'SDK',
-        href: '/sdk',
-        description: 'Link Previews',
-        icon: TerminalIcon,
-        group: 'integrations'
+        icon: BugIcon
       })
     ]
   },
