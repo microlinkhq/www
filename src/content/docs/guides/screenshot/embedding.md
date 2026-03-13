@@ -22,7 +22,7 @@ Set `embed=screenshot.url` to get the image as the response body:
 
 <Figcaption>The API URL itself becomes the image. You can use dot notation to reference any nested field in the response payload.</Figcaption>
 
-The `embed` parameter uses dot notation to extract a specific field from the JSON response and return it directly. For screenshots, `screenshot.url` is the one you need.
+The `embed` parameter uses dot notation to extract a specific field from the JSON response and return it directly. For screenshots, `screenshot.url` is the one you need. See the <Link href='/docs/api/parameters/embed' children='embed reference' /> for all supported fields and advanced usage.
 
 ## HTML
 

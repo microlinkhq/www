@@ -18,7 +18,7 @@ Set `screenshot.fullPage` to capture the entire scrollable content of a page, no
 
 <Figcaption>Full-page screenshots stitch together the entire scrollable area. Response time is longer for tall pages.</Figcaption>
 
-This is useful for capturing landing pages, articles, or any content that extends below the fold.
+This is useful for capturing landing pages, articles, or any content that extends below the fold. See the <Link href='/docs/api/parameters/screenshot/fullPage' children='fullPage reference' /> for details.
 
 ## Targeting a specific element
 
@@ -96,7 +96,7 @@ When the target URL returns JSON or plain text (like an API endpoint), the `scre
 
 <Figcaption>Any <Link href='https://github.com/PrismJS/prism-themes' children='prism-themes' /> identifier or a remote CSS URL works.</Figcaption>
 
-You can further customize the appearance by combining it with [styles](/docs/api/parameters/styles) to inject additional CSS.
+You can further customize the appearance by combining it with [styles](/docs/api/parameters/styles) to inject additional CSS. See the <Link href='/docs/api/parameters/screenshot/codeScheme' children='codeScheme reference' /> for all available themes.
 
 ## Filtering the response
 
@@ -104,7 +104,7 @@ If you only need the screenshot data and want to reduce payload size, use the `f
 
 <MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://github.com/microlinkhq', screenshot: true, meta: false, filter: 'screenshot' }} />
 
-<Figcaption>The response will only include the <code>screenshot</code> field, stripping everything else.</Figcaption>
+<Figcaption>The response will only include the <code>screenshot</code> field, stripping everything else. See the <Link href='/docs/api/parameters/filter' children='filter reference' /> for dot notation and multiple fields.</Figcaption>
 
 ## Custom filename <ProBadge />
 
