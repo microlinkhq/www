@@ -6,9 +6,8 @@ description: 'Configure the headless browser before capturing a screenshot. Set 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
-import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
-The headless browser that renders your screenshot can be configured to emulate different devices, screen sizes, and rendering preferences. These settings affect the entire page rendering, not just the screenshot output.
+The browser that renders your screenshot can be configured to emulate different devices, screen sizes, and rendering preferences. These settings affect the entire page rendering process, not just the final image output.
 
 ## Device emulation
 
@@ -58,7 +57,7 @@ Available viewport properties:
 | `hasTouch` | `<boolean>` | Enable touch event support |
 | `isLandscape` | `<boolean>` | Landscape orientation |
 
-You can also override a single property while keeping the rest from the default device:
+A good pattern is to start with a `device` preset, then override only the viewport property you need:
 
 <MultiCodeEditorInteractive height={240} mqlCode={{
   url: 'https://en.wikipedia.org/wiki/Bob_Dylan',
@@ -118,20 +117,7 @@ JavaScript is enabled by default. Disable it to capture a page as-if the browser
 
 <Figcaption>Useful for checking how a page degrades without JavaScript, or for capturing static HTML content faster.</Figcaption>
 
-Disabling JavaScript means SPAs (React, Vue, Angular) will render their initial server-side HTML only.
-
-## Custom headers <ProBadge />
-
-For pages that require authentication or serve different content based on headers, use `headers`:
-
-<MultiCodeEditorInteractive height={260} mqlCode={{
-  url: 'https://example.com',
-  screenshot: true,
-  headers: { 'Accept-Language': 'es-ES', 'Cookie': 'session=abc123' },
-  meta: false
-}} />
-
-<Figcaption>Set cookies, authorization tokens, language preferences, or any custom HTTP headers.</Figcaption>
+Disabling JavaScript means SPAs (React, Vue, Angular) will often render their initial server-side HTML only. Use this when the target page is already fully useful without client-side execution.
 
 ## Next step
 

@@ -8,11 +8,21 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
-Every screenshot request spins up a headless browser, which takes time and resources. This section covers how to minimize that cost through caching, response optimization, and smart parameter choices.
+Every new screenshot request requires browser work. The fastest captures are the ones that reuse cache, skip unnecessary extraction, and avoid waiting longer than necessary.
 
-## Cache TTL
+The biggest wins usually come from three decisions: disable metadata when you do not need it, choose a sensible cache policy, and avoid expensive rendering work such as unnecessary full-page captures or fixed waits.
 
-Every response is cached for **24 hours** by default. Set `ttl` to control how long:
+## Start with the biggest speedup
+
+If you only need the screenshot, disable metadata extraction:
+
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://microlink.io', screenshot: true, meta: false }} />
+
+<Figcaption>Skipping metadata avoids extra processing and is usually the single biggest speedup for screenshot-only requests.</Figcaption>
+
+## Cache TTL <ProBadge />
+
+Every response is cached for **24 hours** by default. Set `ttl` to control how long a generated screenshot can be reused before expiring:
 
 <MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://microlink.io', screenshot: true, meta: false, ttl: '1h' }} />
 
@@ -37,7 +47,7 @@ Choose your TTL based on how often the target page changes:
 | Marketing pages, blogs | `'1d'` to `'7d'` |
 | Static documentation, rarely changing sites | `'max'` (31 days) |
 
-The TTL is reflected in the `x-cache-ttl` response header. See the <Link href='/docs/api/parameters/ttl' children='ttl reference' /> for all supported formats and the <Link href='/docs/api/basics/cache' children='cache docs' /> for how caching works.
+The TTL is reflected in the `x-cache-ttl` response header. Configurable TTL requires a <ProBadge /> plan. See the <Link href='/docs/api/parameters/ttl' children='ttl reference' /> for all supported formats and the <Link href='/docs/api/basics/cache' children='cache docs' /> for how caching works.
 
 ## Stale-while-revalidate <ProBadge />
 
@@ -65,60 +75,22 @@ Use `force: true` to skip the cache entirely and get a fresh screenshot:
 
 <Figcaption>The response header <code>x-cache-status</code> will be <code>BYPASS</code>. Use sparingly — this always triggers a full browser render.</Figcaption>
 
-## Skipping metadata
-
-If you only need the screenshot, disable metadata extraction with `meta: false`:
-
-<MultiCodeEditorInteractive mqlCode={{ url: 'https://microlink.io', screenshot: true, meta: false }} />
-
-<Figcaption>Skipping metadata avoids extra processing and reduces response time. This is the single most impactful optimization for screenshot-only requests.</Figcaption>
-
-## Prerender control
-
-The `prerender` parameter controls whether a headless browser is used. For screenshots, a browser is always required — but understanding this parameter helps with debugging:
-
-| Value | Behavior |
-|-------|----------|
-| `'auto'` | Let the API decide (default) |
-| `true` | Force headless browser |
-| `false` | Simple HTTP GET — will not produce a screenshot |
-
-When combining screenshots with metadata extraction, the API always uses a browser regardless of this setting. See the <Link href='/docs/api/parameters/prerender' children='prerender reference' /> for details.
-
-## Proxy for blocked sites <ProBadge />
-
-Some sites block headless browser requests. The `proxy` parameter routes the request through a proxy:
-
-<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://example.com', screenshot: true, meta: false, proxy: true }} />
-
-<Figcaption>Microlink provides automatic proxy resolution for pro plans. You can also supply your own proxy URL.</Figcaption>
-
-## Error handling
-
-Control retry behavior and timeouts for unreliable targets:
-
-<MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://example.com', screenshot: true, meta: false, retry: 3, timeout: '15s' }} />
-
-<Figcaption>Retry up to 3 times with exponential backoff, with a 15-second timeout per attempt.</Figcaption>
-
-| Parameter | Default | Range |
-|-----------|---------|-------|
-| `retry` | `2` | 0–∞ |
-| `timeout` | `'28s'` | up to 28 seconds |
-
 ## Performance checklist
 
 A summary of the best practices for fast screenshot requests:
 
 1. **Set `meta: false`** — the single biggest speedup for screenshot-only requests.
-2. **Use `staleTtl: 0`** <ProBadge /> — instant responses with background refresh.
-3. **Choose the right `ttl`** — longer cache means fewer browser renders.
+2. **Choose the right `ttl`** <ProBadge /> — longer cache means fewer browser renders.
+3. **Use `staleTtl: 0`** <ProBadge /> when freshness matters but you still want instant responses.
 4. **Keep `adblock: true`** (default) — blocks slow third-party requests.
 5. **Keep `animations: false`** (default) — avoids waiting for CSS animations.
 6. **Prefer `waitForSelector`** over `waitForTimeout` — it's faster and more reliable.
-7. **Use `filter: 'screenshot'`** — reduces response payload size.
-8. **Lower `deviceScaleFactor`** — a 1× screenshot is faster and lighter than 2×.
+7. **Lower `deviceScaleFactor`** — a 1x screenshot is faster and lighter than 2x.
+8. **Disable `javascript`** when the page does not need client-side execution.
+9. **Avoid `fullPage`** when a viewport or element capture is enough.
 
-## Back to guides
+If the request still fails after these optimizations, continue with [private pages](/docs/guides/screenshot/private-pages) for auth-related setups or [troubleshooting](/docs/guides/screenshot/troubleshooting) for timeouts, antibot protections, and capture issues.
 
-See the <Link href='/docs/guides' children='guides overview' /> for more Microlink guides.
+## Next step
+
+Learn how to capture logged-in and header-dependent pages safely in [private pages](/docs/guides/screenshot/private-pages).
