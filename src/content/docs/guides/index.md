@@ -23,6 +23,6 @@ Capture high-quality screenshots of any website with a single API call. This gui
 - <Link href='/docs/guides/screenshot' children='Quickstart' /> — your first screenshot in under a minute.
 - <Link href='/docs/guides/screenshot/customizing-output' children='Customizing output' /> — full-page, element targeting, format, overlays, and code themes.
 - <Link href='/docs/guides/screenshot/browser-settings' children='Browser settings' /> — viewport, device emulation, dark mode, and animations.
-- <Link href='/docs/guides/screenshot/page-interaction' children='Page interaction' /> — click, scroll, wait, inject CSS/JS, and block ads.
+- <Link href='/docs/guides/screenshot/page-interaction' children='Page interaction' /> — click, scroll, wait, inject CSS/JS, block ads and cookie banners.
 - <Link href='/docs/guides/screenshot/embedding' children='Embedding' /> — use screenshots in HTML, CSS, Markdown, and OG tags.
 - <Link href='/docs/guides/screenshot/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and optimization tips.

@@ -78,6 +78,6 @@ Now that you have a basic screenshot working, the following sections will help y
 
 - **[Customizing output](/docs/guides/screenshot/customizing-output)** — full-page captures, element targeting, format, overlays, and more.
 - **[Browser settings](/docs/guides/screenshot/browser-settings)** — viewport size, device emulation, dark mode, and media type.
-- **[Page interaction](/docs/guides/screenshot/page-interaction)** — click, scroll, wait, inject CSS/JS before the capture.
+- **[Page interaction](/docs/guides/screenshot/page-interaction)** — click, scroll, wait, inject CSS/JS, block ads and cookie banners.
 - **[Embedding](/docs/guides/screenshot/embedding)** — use screenshots in HTML, CSS, Markdown, and OG tags.
 - **[Caching and performance](/docs/guides/screenshot/caching-and-performance)** — cache control, stale-while-revalidate, and optimization tips.

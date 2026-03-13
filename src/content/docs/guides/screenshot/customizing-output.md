@@ -24,7 +24,7 @@ This is useful for capturing landing pages, articles, or any content that extend
 
 Use `screenshot.element` with a CSS selector to capture only a specific part of the page:
 
-<MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://codepen.io/fossheim/full/oNjxrZa', screenshot: { element: '#result-iframe-wrap' }, meta: false }} />
+<MultiCodeEditorInteractive height={230} mqlCode={{ url: 'https://codepen.io/fossheim/full/oNjxrZa', screenshot: { element: '#result-iframe-wrap' }, meta: false }} />
 
 <Figcaption>The API waits for the element to appear and become visible before capturing.</Figcaption>
 
