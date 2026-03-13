@@ -6,6 +6,7 @@ description: 'Optimize Microlink screenshot requests for speed and cost. Control
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 Every screenshot request spins up a headless browser, which takes time and resources. This section covers how to minimize that cost through caching, response optimization, and smart parameter choices.
 
@@ -38,9 +39,9 @@ Choose your TTL based on how often the target page changes:
 
 The TTL is reflected in the `x-cache-ttl` response header.
 
-## Stale-while-revalidate
+## Stale-while-revalidate <ProBadge />
 
-The `staleTtl` parameter (pro) serves the cached screenshot immediately while refreshing it in the background:
+The `staleTtl` parameter serves the cached screenshot immediately while refreshing it in the background:
 
 <MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://microlink.io', screenshot: true, meta: false, ttl: '1d', staleTtl: 0 }} />
 
@@ -82,9 +83,9 @@ The `prerender` parameter controls whether a headless browser is used. For scree
 
 When combining screenshots with metadata extraction, the API always uses a browser regardless of this setting.
 
-## Proxy for blocked sites
+## Proxy for blocked sites <ProBadge />
 
-Some sites block headless browser requests. The `proxy` parameter (pro) routes the request through a proxy:
+Some sites block headless browser requests. The `proxy` parameter routes the request through a proxy:
 
 <MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://example.com', screenshot: true, meta: false, proxy: true }} />
 
@@ -108,7 +109,7 @@ Control retry behavior and timeouts for unreliable targets:
 A summary of the best practices for fast screenshot requests:
 
 1. **Set `meta: false`** — the single biggest speedup for screenshot-only requests.
-2. **Use `staleTtl: 0`** — instant responses with background refresh.
+2. **Use `staleTtl: 0`** <ProBadge /> — instant responses with background refresh.
 3. **Choose the right `ttl`** — longer cache means fewer browser renders.
 4. **Keep `adblock: true`** (default) — blocks slow third-party requests.
 5. **Keep `animations: false`** (default) — avoids waiting for CSS animations.

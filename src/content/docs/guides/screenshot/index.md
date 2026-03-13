@@ -6,6 +6,7 @@ description: 'Take your first website screenshot with Microlink API in under a m
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 Taking a screenshot with Microlink API requires two parameters: the target `url` and `screenshot: true`.
 
@@ -54,6 +55,22 @@ https://api.microlink.io?url=https://github.com/microlinkhq&screenshot&meta=fals
 ```
 
 This returns JSON. To get the image directly (useful for embedding), see the [embedding](/docs/guides/screenshot/embedding) section.
+
+## Free tier and API key
+
+The Microlink API works **without an API key** — you get **50 free requests per day** with no signup required. That's enough to explore the API, build prototypes, and test every example in this guide.
+
+For production usage, you'll need a <ProBadge /> plan which starts at 14,000 requests/month and unlocks additional features like [custom filenames](/docs/api/parameters/filename), [stale-while-revalidate caching](/docs/api/parameters/staleTtl), [custom headers](/docs/api/parameters/headers), and [proxy](/docs/api/parameters/proxy).
+
+To authenticate, pass your API key as the `x-api-key` header:
+
+<MultiCodeEditorInteractive height={200} mqlCode={{ url: 'https://github.com/microlinkhq', screenshot: true, meta: false, apiKey: 'YOUR_API_TOKEN' }} />
+
+<Figcaption>You can enter your API key in any interactive example by clicking the key icon in the terminal toolbar.</Figcaption>
+
+> Throughout this guide, features that require a pro plan are marked with <ProBadge />. Everything else works on the free tier.
+
+See the <Link href='/docs/api/basics/authentication' children='authentication' /> and <Link href='/docs/api/basics/rate-limit' children='rate limit' /> docs for details.
 
 ## What's next
 

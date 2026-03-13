@@ -4,10 +4,17 @@ description: 'Step-by-step guides for common Microlink workflows. Learn how to c
 ---
 
 import { Link } from 'components/elements/Link'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 Microlink Guides are practical, step-by-step walkthroughs that show you how to accomplish real tasks using the Microlink API. While the <Link href='/docs/api/getting-started/overview' children='API reference' /> documents every parameter individually, these guides focus on **workflows** — combining parameters to solve specific problems from start to finish.
 
 Every guide includes live, runnable examples you can modify and test directly.
+
+## Before you start
+
+The Microlink API works **without an API key** — you get **50 free requests per day**, no signup required. That's enough to follow every example in these guides.
+
+Some features are marked with <ProBadge /> and require a paid plan. Everything else works on the free tier. See <Link href='/docs/api/basics/rate-limit' children='rate limit' /> and <Link href='/docs/api/basics/authentication' children='authentication' /> for details.
 
 ## Screenshot
 

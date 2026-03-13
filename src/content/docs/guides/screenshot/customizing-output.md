@@ -6,6 +6,7 @@ description: 'Control what your Microlink screenshot captures and how it looks. 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 By default, the API captures the visible viewport as a PNG. This section covers every option for changing what gets captured and how the output looks.
 
@@ -105,9 +106,9 @@ If you only need the screenshot data and want to reduce payload size, use the `f
 
 <Figcaption>The response will only include the <code>screenshot</code> field, stripping everything else.</Figcaption>
 
-## Custom filename
+## Custom filename <ProBadge />
 
-With the `filename` parameter (pro), you can set a meaningful name for the screenshot asset:
+The `filename` parameter lets you set a meaningful name for the screenshot asset:
 
 <MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://github.com/microlinkhq', screenshot: true, meta: false, filename: 'github-microlink' }} />
 
