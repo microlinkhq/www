@@ -594,6 +594,36 @@ const ROUTES_GUIDES = [
         ]
       },
       {
+        name: 'Data extraction',
+        href: '/docs/guides/data-extraction',
+        posts: [
+          {
+            name: 'Defining rules',
+            href: '/docs/guides/data-extraction/defining-rules'
+          },
+          {
+            name: 'Page preparation',
+            href: '/docs/guides/data-extraction/page-preparation'
+          },
+          {
+            name: 'Delivery and response shaping',
+            href: '/docs/guides/data-extraction/delivery-and-response'
+          },
+          {
+            name: 'Caching and performance',
+            href: '/docs/guides/data-extraction/caching-and-performance'
+          },
+          {
+            name: 'Private pages',
+            href: '/docs/guides/data-extraction/private-pages'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/data-extraction/troubleshooting'
+          }
+        ]
+      },
+      {
         name: 'Markdown',
         href: '/docs/guides/markdown',
         posts: [

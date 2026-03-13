@@ -1,6 +1,6 @@
 ---
 title: 'Guides'
-description: 'Step-by-step guides for common Microlink workflows. Learn how to capture screenshots, generate PDFs, extract metadata, and more with practical, runnable examples.'
+description: 'Step-by-step guides for common Microlink workflows. Learn how to capture screenshots, extract custom data, generate PDFs, extract metadata, and more with practical, runnable examples.'
 ---
 
 import { Link } from 'components/elements/Link'
@@ -28,6 +28,18 @@ Capture high-quality screenshots of any website with a single API call. This gui
 - <Link href='/docs/guides/screenshot/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and optimization tips.
 - <Link href='/docs/guides/screenshot/private-pages' children='Private pages' /> — handle login, sessions, and header-based personalization safely.
 - <Link href='/docs/guides/screenshot/troubleshooting' children='Troubleshooting' /> — debug timing issues, blocked sites, wrong captures, and plan errors.
+
+## Data extraction
+
+Extract exactly the fields you need from any page with Microlink API, shape the response for your application, and handle dynamic or private targets reliably.
+
+- <Link href='/docs/guides/data-extraction' children='Quickstart' /> — your first custom data extractor in under a minute.
+- <Link href='/docs/guides/data-extraction/defining-rules' children='Defining rules' /> — model single fields, collections, nested objects, fallbacks, and computed values.
+- <Link href='/docs/guides/data-extraction/page-preparation' children='Page preparation' /> — choose fetch mode, wait for dynamic content, and mutate the DOM before extraction.
+- <Link href='/docs/guides/data-extraction/delivery-and-response' children='Delivery and response shaping' /> — choose between full JSON, filtered payloads, and direct field responses.
+- <Link href='/docs/guides/data-extraction/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and extraction speed tips.
+- <Link href='/docs/guides/data-extraction/private-pages' children='Private pages' /> — extract data from authenticated or session-based pages safely.
+- <Link href='/docs/guides/data-extraction/troubleshooting' children='Troubleshooting' /> — fix empty fields, wrong selectors, timeouts, and blocked sites.
 
 ## Markdown
 
