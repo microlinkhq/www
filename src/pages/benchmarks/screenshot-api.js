@@ -1020,21 +1020,15 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : isMax
-                              ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                                )
-                              : isSecond
-                                ? (
-                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                                  )
-                                : (
-                                    formatMs(times[i])
-                                  )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
@@ -1247,7 +1241,7 @@ const CompetitorComparison = () => {
                 &thinsp;ms
               </strong>{' '}
               per request. Microlink processed the same suite at an average of{' '}
-              <strong css={{ fontFamily: MONO_FONT, color: '#fd494a' }}>
+              <strong css={{ fontFamily: MONO_FONT, color: '#16a34a' }}>
                 {formatMsDecimal(microAvg)}&thinsp;ms
               </strong>
               , making it roughly 44% faster overall. The performance gap is
