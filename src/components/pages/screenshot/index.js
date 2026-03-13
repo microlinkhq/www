@@ -273,9 +273,9 @@ export const IconCircle = styled(Flex)`
     borderRadius: '50%',
     alignItems: 'center',
     justifyContent: 'center',
-    mb: 3
+    mb: 3,
+    background: 'black025'
   })}
-  background: linear-gradient(225deg, #FF057C22 0%, #32157522 100%);
 `
 
 export const UseCaseCard = styled(Box)`

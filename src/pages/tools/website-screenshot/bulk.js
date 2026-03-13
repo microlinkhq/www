@@ -72,7 +72,7 @@ import {
   FORMAT_OPTIONS,
   LAYOUT_PIVOT,
   MOBILE_BP
-} from 'components/pages/screenshot/shared'
+} from 'components/pages/screenshot'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)

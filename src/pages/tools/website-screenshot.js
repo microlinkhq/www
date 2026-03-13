@@ -65,7 +65,7 @@ import {
   HISTORY_MAX_AGE_MS,
   FORMAT_OPTIONS,
   MOBILE_BP
-} from 'components/pages/screenshot/shared'
+} from 'components/pages/screenshot'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -1211,9 +1211,12 @@ const HowItWorks = () => (
       {HOW_IT_WORKS.map(({ icon: Icon, title, description }) => (
         <StepCard key={title}>
           <IconCircle css={theme({ width: '80px', height: '80px' })}>
-            <Icon size={32} color='rgba(0, 0, 0, 0.8)' />
+            <Icon size={32} color={colors.black50} />
           </IconCircle>
-          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 0 })}>
+          <Caps
+            as='h3'
+            css={theme({ fontWeight: 'regular', pb: 2, fontSize: 0 })}
+          >
             {title}
           </Caps>
           <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
@@ -1498,7 +1501,7 @@ const UseCases = () => (
         width: '100%'
       })}
     >
-      {USE_CASES.map(({ title, items, link }) => (
+      {USE_CASES.map(({ title, items }) => (
         <Box
           key={title}
           css={theme({
@@ -1538,7 +1541,6 @@ const UseCases = () => (
               >
                 <ArrowRight
                   size={12}
-                  color={colors.link}
                   css={{ flexShrink: 0, position: 'relative', top: 1 }}
                 />
                 <Text

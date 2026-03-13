@@ -62,7 +62,7 @@ import {
   MAX_HISTORY_ITEMS,
   HISTORY_MAX_AGE_MS,
   MOBILE_BP
-} from 'components/pages/screenshot/shared'
+} from 'components/pages/screenshot'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)

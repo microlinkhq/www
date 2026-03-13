@@ -68,7 +68,7 @@ import {
   ScreenshotHistory,
   PreviewDisplay,
   createThumbnail
-} from 'components/pages/screenshot/shared'
+} from 'components/pages/screenshot'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
