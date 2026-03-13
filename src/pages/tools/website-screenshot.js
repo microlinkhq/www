@@ -71,6 +71,12 @@ const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
+const SectionIcon = ({ icon: Icon }) => (
+  <IconCircle css={theme({ width: '80px', height: '80px' })}>
+    <Icon size={32} color={colors.black50} />
+  </IconCircle>
+)
+
 /* ─── Constants ────────────────────────────────────────── */
 
 const SOLID_COLORS = [
@@ -1210,9 +1216,7 @@ const HowItWorks = () => (
     >
       {HOW_IT_WORKS.map(({ icon: Icon, title, description }) => (
         <StepCard key={title}>
-          <IconCircle css={theme({ width: '80px', height: '80px' })}>
-            <Icon size={32} color={colors.black50} />
-          </IconCircle>
+          <SectionIcon icon={Icon} />
           <Caps
             as='h3'
             css={theme({ fontWeight: 'regular', pb: 2, fontSize: 0 })}
@@ -1312,9 +1316,6 @@ const ApiDocs = () => (
         borderRadius: 3,
         textAlign: 'center'
       })}
-      style={{
-        background: 'linear-gradient(225deg, #FF057C08 0%, #32157508 100%)'
-      }}
     >
       <Flex
         css={theme({
@@ -1322,9 +1323,7 @@ const ApiDocs = () => (
           p: 1
         })}
       >
-        <IconCircle>
-          <Code size={24} color={colors.link} />
-        </IconCircle>
+        <SectionIcon icon={Code} />
       </Flex>
       <Subhead css={theme({ fontSize: 3 })}>
         Screenshot API documentation
