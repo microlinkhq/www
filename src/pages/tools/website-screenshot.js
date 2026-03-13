@@ -4,7 +4,6 @@ import {
   Camera,
   Globe,
   ArrowRight,
-  Code,
   HelpCircle,
   Link2,
   Settings,
@@ -28,7 +27,6 @@ import Select from 'components/elements/Select/Select'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import ArrowLink from 'components/patterns/ArrowLink'
 import Block from 'components/patterns/Block/Block'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
@@ -50,7 +48,7 @@ import {
   GenerateButton,
   CheckboxLabel,
   StepCard,
-  IconCircle,
+  SectionIcon,
   UseCaseCard,
   ToolLayout,
   OptionsPanelOuter,
@@ -59,6 +57,7 @@ import {
   StickyGenerateWrapper,
   SegmentedControl,
   PreviewDisplay,
+  ApiDocsCard,
   ScreenshotHistory,
   createThumbnail,
   MAX_HISTORY_ITEMS,
@@ -70,12 +69,6 @@ import {
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
-
-const SectionIcon = ({ icon: Icon }) => (
-  <IconCircle css={theme({ width: '80px', height: '80px' })}>
-    <Icon size={32} color={colors.black50} />
-  </IconCircle>
-)
 
 /* ─── Constants ────────────────────────────────────────── */
 
@@ -655,7 +648,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   }}
                   css={theme({
                     width: '100%',
-                    fontSize: '16px',
+                    fontSize: 1,
                     height: '18px'
                   })}
                 />
@@ -696,7 +689,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   }}
                   css={theme({
                     width: '100%',
-                    fontSize: '16px',
+                    fontSize: 1,
                     height: '18px'
                   })}
                 />
@@ -707,7 +700,10 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   aria-label='Viewport aspect ratio'
                   value={options.aspectRatio}
                   onChange={e => handleAspectRatioChange(e.target.value)}
-                  css={theme({ width: '100%', fontSize: '16px' })}
+                  css={theme({
+                    width: '100%',
+                    fontSize: 1
+                  })}
                 >
                   {ASPECT_RATIO_OPTIONS.map(({ value, label }) => (
                     <option key={value} value={value}>
@@ -741,7 +737,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 }))
               }}
             />
-            <Text css={theme({ pl: 2, fontSize: '16px', color: 'black80' })}>
+            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Capture entire page
             </Text>
           </CheckboxLabel>
@@ -1295,65 +1291,6 @@ const Explanation = () => (
   </Container>
 )
 
-/* ─── API Docs Card ────────────────────────────────────── */
-
-const ApiDocs = () => (
-  <Container
-    as='section'
-    id='api-docs'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [2, 2, 3, 3],
-      pt: [5, 5, 5, 5],
-      mb: [4, 4, 5, 5]
-    })}
-  >
-    <Box
-      css={theme({
-        width: '100%',
-        p: [3, 4],
-        borderRadius: 3,
-        textAlign: 'center'
-      })}
-    >
-      <Flex
-        css={theme({
-          justifyContent: 'center',
-          p: 1
-        })}
-      >
-        <SectionIcon icon={Code} />
-      </Flex>
-      <Subhead css={theme({ fontSize: 3 })}>
-        Screenshot API documentation
-      </Subhead>
-      <Caption
-        css={theme({ pt: 3, maxWidth: layout.small, mx: 'auto', fontSize: 2 })}
-      >
-        Explore the full Screenshot API reference with interactive examples,
-        SDKs for every language, and ready-to-use code snippets.
-      </Caption>
-      <Flex
-        css={theme({
-          pt: [3, 3, 4, 4],
-          justifyContent: 'center',
-          gap: 3,
-          flexWrap: 'wrap',
-          fontSize: [1, 1, 2, 2]
-        })}
-      >
-        <ArrowLink href='/docs/api/parameters/screenshot'>
-          API reference
-        </ArrowLink>
-        <ArrowLink href='/docs/api/getting-started/overview'>
-          Getting started
-        </ArrowLink>
-      </Flex>
-    </Box>
-  </Container>
-)
-
 /* ─── Banner ─────────────────────────────────────────── */
 
 const Banner = () => (
@@ -1729,6 +1666,10 @@ const WebsiteScreenshotPage = () => (
     <Explanation />
     <UseCases />
     <Banner />
+    <ApiDocsCard
+      title='Screenshot API documentation'
+      description='Explore the full Screenshot API reference with interactive examples, SDKs for every language, and ready-to-use code snippets.'
+    />
     <Features
       css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={
@@ -1756,7 +1697,6 @@ const WebsiteScreenshotPage = () => (
       }
       features={FEATURES_LIST}
     />
-    <ApiDocs />
     <ProductInformation />
   </Layout>
 )

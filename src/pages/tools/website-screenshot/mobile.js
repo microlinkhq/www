@@ -3,7 +3,6 @@ import React, { useState, useCallback, useEffect } from 'react'
 import {
   Camera,
   ArrowRight,
-  Code,
   Download,
   HelpCircle,
   Settings,
@@ -25,7 +24,6 @@ import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import ArrowLink from 'components/patterns/ArrowLink'
 import Block from 'components/patterns/Block/Block'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
@@ -53,11 +51,12 @@ import {
   StickyGenerateWrapper,
   SegmentedControl,
   StepCard,
-  IconCircle,
+  SectionIcon,
   UseCaseCard,
   PreviewDisplay,
   ScreenshotHistory,
   createThumbnail,
+  ApiDocsCard,
   FORMAT_OPTIONS,
   MAX_HISTORY_ITEMS,
   HISTORY_MAX_AGE_MS,
@@ -237,7 +236,7 @@ const StyledSelect = styled.select`
   ${theme({
     width: '100%',
     fontFamily: 'sans',
-    fontSize: '16px',
+    fontSize: 1,
     px: 2,
     py: '10px',
     borderRadius: '6px',
@@ -393,7 +392,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   fullPage: e.target.checked
                 }))}
             />
-            <Text css={theme({ pl: 2, fontSize: '16px', color: 'black80' })}>
+            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Full page screenshot
             </Text>
           </CheckboxLabel>
@@ -814,9 +813,7 @@ const HowItWorks = () => (
     >
       {HOW_IT_WORKS.map(({ icon: Icon, title, description }) => (
         <StepCard key={title}>
-          <IconCircle css={theme({ width: '80px', height: '80px' })}>
-            <Icon size={32} color='rgba(0, 0, 0, 0.8)' />
-          </IconCircle>
+          <SectionIcon icon={Icon} />
           <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 0 })}>
             {title}
           </Caps>
@@ -901,70 +898,6 @@ const Explanation = () => (
         get enterprise performance at no cost.
       </Text>
     </Caption>
-  </Container>
-)
-
-/* ─── API Docs Card ────────────────────────────────────── */
-
-const ApiDocs = () => (
-  <Container
-    as='section'
-    id='api-docs'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [2, 2, 3, 3],
-      pt: [5, 5, 5, 5],
-      mb: [4, 4, 5, 5]
-    })}
-  >
-    <Box
-      css={theme({
-        width: '100%',
-        p: [3, 4],
-        borderRadius: 3,
-        textAlign: 'center'
-      })}
-      style={{
-        background: 'linear-gradient(225deg, #FF057C08 0%, #32157508 100%)'
-      }}
-    >
-      <Flex
-        css={theme({
-          justifyContent: 'center',
-          p: 1
-        })}
-      >
-        <IconCircle>
-          <Code size={24} color={colors.link} />
-        </IconCircle>
-      </Flex>
-      <Subhead css={theme({ fontSize: 3 })}>
-        Screenshot API documentation
-      </Subhead>
-      <Caption
-        css={theme({ pt: 3, maxWidth: layout.small, mx: 'auto', fontSize: 2 })}
-      >
-        Explore the full Screenshot API reference with interactive examples,
-        SDKs for every language, and ready-to-use code snippets.
-      </Caption>
-      <Flex
-        css={theme({
-          pt: [3, 3, 4, 4],
-          justifyContent: 'center',
-          gap: 3,
-          flexWrap: 'wrap',
-          fontSize: [1, 1, 2, 2]
-        })}
-      >
-        <ArrowLink href='/docs/api/parameters/screenshot'>
-          API reference
-        </ArrowLink>
-        <ArrowLink href='/docs/api/getting-started/overview'>
-          Getting started
-        </ArrowLink>
-      </Flex>
-    </Box>
   </Container>
 )
 
@@ -1378,7 +1311,10 @@ const WebsiteScreenshotPage = () => (
       }
       features={FEATURES_LIST}
     />
-    <ApiDocs />
+    <ApiDocsCard
+      title='Screenshot API documentation'
+      description='Explore the full Screenshot API reference with interactive examples, SDKs for every language, and ready-to-use code snippets.'
+    />
     <ProductInformation />
   </Layout>
 )

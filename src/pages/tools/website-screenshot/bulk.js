@@ -9,7 +9,6 @@ import {
   Download,
   Globe,
   ArrowRight,
-  Code,
   HelpCircle,
   Link2,
   Settings,
@@ -35,7 +34,6 @@ import Spinner from 'components/elements/Spinner'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import ArrowLink from 'components/patterns/ArrowLink'
 import Block from 'components/patterns/Block/Block'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
@@ -59,7 +57,7 @@ import {
   PreviewCanvas,
   FadeIn,
   StepCard,
-  IconCircle,
+  SectionIcon,
   UseCaseCard,
   ToolLayout,
   OptionsPanelOuter,
@@ -67,6 +65,7 @@ import {
   PanelRibbonLayout,
   StickyGenerateWrapper,
   SegmentedControl,
+  ApiDocsCard,
   createThumbnail,
   PreviewDisplay,
   FORMAT_OPTIONS,
@@ -274,21 +273,19 @@ const AnimatedResultsList = ({ results }) => {
 
         return (
           <Wrapper key={item.id}>
-            {item.data.success
-              ? (
-                <CheckCircle
-                  size={14}
-                  color='#22c55e'
-                  style={{ flexShrink: 0 }}
-                />
-                )
-              : (
-                <AlertTriangle
-                  size={14}
-                  color='#ef4444'
-                  style={{ flexShrink: 0 }}
-                />
-                )}
+            {item.data.success ? (
+              <CheckCircle
+                size={14}
+                color='#22c55e'
+                style={{ flexShrink: 0 }}
+              />
+            ) : (
+              <AlertTriangle
+                size={14}
+                color='#ef4444'
+                style={{ flexShrink: 0 }}
+              />
+            )}
             <Text
               css={theme({
                 fontSize: 0,
@@ -898,7 +895,7 @@ const OptionsPanel = ({
                   }}
                   css={theme({
                     width: '100%',
-                    fontSize: '16px',
+                    fontSize: 1,
                     height: '18px'
                   })}
                 />
@@ -931,7 +928,7 @@ const OptionsPanel = ({
                   }}
                   css={theme({
                     width: '100%',
-                    fontSize: '16px',
+                    fontSize: 1,
                     height: '18px'
                   })}
                 />
@@ -952,9 +949,10 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.fullPage}
               onChange={e =>
-                setOptions(prev => ({ ...prev, fullPage: e.target.checked }))}
+                setOptions(prev => ({ ...prev, fullPage: e.target.checked }))
+              }
             />
-            <Text css={theme({ pl: 2, fontSize: '16px', color: 'black80' })}>
+            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Full page screenshot
             </Text>
           </CheckboxLabel>
@@ -982,7 +980,8 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -1007,7 +1006,8 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -1045,24 +1045,22 @@ const OptionsPanel = ({
               gap: space[2]
             }}
           >
-            {isLoading
-              ? (
-                <>
-                  <Spinner width='16px' height='14px' />
-                  Capturing {bulkProgress.current} of {bulkProgress.total}…
-                </>
-                )
-              : (
-                <>
-                  <Camera size={16} />
-                  {detectedUrls.length > 1
-                    ? `Generate ${Math.min(
+            {isLoading ? (
+              <>
+                <Spinner width='16px' height='14px' />
+                Capturing {bulkProgress.current} of {bulkProgress.total}…
+              </>
+            ) : (
+              <>
+                <Camera size={16} />
+                {detectedUrls.length > 1
+                  ? `Generate ${Math.min(
                     detectedUrls.length,
                     MAX_URLS
                   )} screenshots`
-                    : 'Generate screenshot'}
-                </>
-                )}
+                  : 'Generate screenshot'}
+              </>
+            )}
           </Flex>
         </GenerateButton>
       </StickyGenerateWrapper>
@@ -1223,10 +1221,10 @@ const ScreenshotHistory = ({
               style={
                 confirmingDelete
                   ? {
-                      color: '#dc2626',
-                      borderColor: '#dc2626',
-                      background: '#fef2f2'
-                    }
+                    color: '#dc2626',
+                    borderColor: '#dc2626',
+                    background: '#fef2f2'
+                  }
                   : undefined
               }
             >
@@ -1237,19 +1235,17 @@ const ScreenshotHistory = ({
               onClick={onDownloadZip}
               disabled={isZipping || disabled}
             >
-              {isZipping
-                ? (
-                  <>
-                    <Spinner width='14px' height='14px' />
-                    Creating ZIP…
-                  </>
-                  )
-                : (
-                  <>
-                    <Download size={14} />
-                    Download ZIP
-                  </>
-                  )}
+              {isZipping ? (
+                <>
+                  <Spinner width='14px' height='14px' />
+                  Creating ZIP…
+                </>
+              ) : (
+                <>
+                  <Download size={14} />
+                  Download ZIP
+                </>
+              )}
             </DownloadZipButton>
           </Flex>
         )}
@@ -1515,249 +1511,245 @@ const BulkPreview = ({
             gap: 3
           })}
         >
-          {failedResults.length === 0
-            ? (
-              <>
-                <Box
-                  css={theme({
-                    width: '56px',
-                    height: '56px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  })}
-                  style={{
-                    background:
+          {failedResults.length === 0 ? (
+            <>
+              <Box
+                css={theme({
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                })}
+                style={{
+                  background:
                     'linear-gradient(225deg, #22c55e22 0%, #16a34a22 100%)'
-                  }}
-                >
-                  <CheckCircle size={28} color='#22c55e' />
-                </Box>
+                }}
+              >
+                <CheckCircle size={28} color='#22c55e' />
+              </Box>
+              <Text
+                css={theme({
+                  fontSize: 3,
+                  fontWeight: 'bold',
+                  color: 'black80',
+                  fontFamily: 'sans'
+                })}
+              >
+                {bulkResults.length === 1
+                  ? 'Screenshot ready!'
+                  : `All ${bulkResults.length} screenshots ready!`}
+              </Text>
+              <Text
+                css={theme({
+                  fontSize: 1,
+                  color: 'black50',
+                  fontFamily: 'sans'
+                })}
+              >
+                Your ZIP file is downloading. Check your downloads folder.
+              </Text>
+              {(bulkTotalMs != null || bulkTotalBytes > 0) && (
                 <Text
                   css={theme({
-                    fontSize: 3,
-                    fontWeight: 'bold',
-                    color: 'black80',
-                    fontFamily: 'sans'
+                    fontSize: 0,
+                    color: 'black30',
+                    fontFamily: 'mono'
                   })}
                 >
-                  {bulkResults.length === 1
-                    ? 'Screenshot ready!'
-                    : `All ${bulkResults.length} screenshots ready!`}
-                </Text>
-                <Text
-                  css={theme({
-                    fontSize: 1,
-                    color: 'black50',
-                    fontFamily: 'sans'
-                  })}
-                >
-                  Your ZIP file is downloading. Check your downloads folder.
-                </Text>
-                {(bulkTotalMs != null || bulkTotalBytes > 0) && (
-                  <Text
-                    css={theme({
-                      fontSize: 0,
-                      color: 'black30',
-                      fontFamily: 'mono'
-                    })}
-                  >
-                    {[
-                      bulkTotalMs != null &&
+                  {[
+                    bulkTotalMs != null &&
                       `Total time: ${formatDuration(bulkTotalMs)}`,
-                      bulkTotalBytes > 0 && formatFileSize(bulkTotalBytes)
-                    ]
-                      .filter(Boolean)
-                      .join(' · ')}
-                  </Text>
-                )}
-              </>
-              )
-            : (
-              <>
+                    bulkTotalBytes > 0 && formatFileSize(bulkTotalBytes)
+                  ]
+                    .filter(Boolean)
+                    .join(' · ')}
+                </Text>
+              )}
+            </>
+          ) : (
+            <>
+              <Box
+                css={theme({
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mt: 4
+                })}
+                style={{
+                  background:
+                    'linear-gradient(225deg, #f59e0b22 0%, #d9770622 100%)'
+                }}
+              >
+                <AlertTriangle size={28} color='#f59e0b' />
+              </Box>
+              <Text
+                css={theme({
+                  fontSize: 3,
+                  fontWeight: 'bold',
+                  color: 'black80',
+                  fontFamily: 'sans'
+                })}
+              >
+                {successCount} of {bulkResults.length} screenshots ready
+              </Text>
+              {successCount > 0 && (
+                <DownloadZipButton onClick={onDownloadZip} disabled={isZipping}>
+                  {isZipping ? (
+                    <>
+                      <Spinner width='14px' height='14px' />
+                      Creating ZIP…
+                    </>
+                  ) : (
+                    <>
+                      <Download size={14} />
+                      Download ZIP ({successCount}{' '}
+                      {successCount === 1 ? 'image' : 'images'})
+                    </>
+                  )}
+                </DownloadZipButton>
+              )}
+              <Box
+                css={theme({
+                  width: '100%',
+                  maxWidth: '500px',
+                  textAlign: 'left',
+                  border: 1,
+                  borderColor: 'black10',
+                  borderRadius: 2,
+                  p: 3,
+                  bg: 'white'
+                })}
+              >
+                <Text
+                  css={theme({
+                    fontSize: 0,
+                    fontWeight: 'bold',
+                    color: 'black60',
+                    fontFamily: 'sans',
+                    pb: 2
+                  })}
+                >
+                  Failed requests
+                </Text>
                 <Box
                   css={theme({
-                    width: '56px',
-                    height: '56px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mt: 4
+                    maxHeight: `${5 * 46}px`,
+                    overflowY: 'auto',
+                    overscrollBehavior: 'contain'
                   })}
-                  style={{
-                    background:
-                    'linear-gradient(225deg, #f59e0b22 0%, #d9770622 100%)'
-                  }}
                 >
-                  <AlertTriangle size={28} color='#f59e0b' />
+                  {failedResults.map((r, i) => (
+                    <Flex
+                      key={i}
+                      css={theme({
+                        gap: 2,
+                        py: '6px',
+                        alignItems: 'flex-start',
+                        borderBottom: i < failedResults.length - 1 ? 1 : 0,
+                        borderColor: 'black05'
+                      })}
+                    >
+                      <X
+                        size={14}
+                        color='#ef4444'
+                        style={{ flexShrink: 0, marginTop: '5px' }}
+                      />
+                      <Box css={{ minWidth: 0, flex: 1 }}>
+                        <Text
+                          css={theme({
+                            fontSize: 0,
+                            color: 'black80',
+                            fontFamily: 'sans',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap'
+                          })}
+                        >
+                          {r.url}
+                        </Text>
+                        <Text
+                          css={theme({
+                            fontSize: '11px',
+                            color: 'black40',
+                            fontFamily: 'sans',
+                            pt: '2px'
+                          })}
+                        >
+                          {r.error?.message}
+                        </Text>
+                      </Box>
+                    </Flex>
+                  ))}
                 </Box>
-                <Text
-                  css={theme({
-                    fontSize: 3,
-                    fontWeight: 'bold',
-                    color: 'black80',
-                    fontFamily: 'sans'
-                  })}
-                >
-                  {successCount} of {bulkResults.length} screenshots ready
-                </Text>
-                {successCount > 0 && (
-                  <DownloadZipButton onClick={onDownloadZip} disabled={isZipping}>
-                    {isZipping
-                      ? (
-                        <>
-                          <Spinner width='14px' height='14px' />
-                          Creating ZIP…
-                        </>
-                        )
-                      : (
-                        <>
-                          <Download size={14} />
-                          Download ZIP ({successCount}{' '}
-                          {successCount === 1 ? 'image' : 'images'})
-                        </>
-                        )}
-                  </DownloadZipButton>
-                )}
+              </Box>
+              {hasRateLimit && (
                 <Box
                   css={theme({
                     width: '100%',
                     maxWidth: '500px',
                     textAlign: 'left',
-                    border: 1,
-                    borderColor: 'black10',
                     borderRadius: 2,
                     p: 3,
-                    bg: 'white'
+                    mb: 4
                   })}
+                  style={{
+                    background: '#fffbeb',
+                    border: '1px solid #fef3c7'
+                  }}
                 >
                   <Text
                     css={theme({
-                      fontSize: 0,
+                      fontSize: 1,
                       fontWeight: 'bold',
-                      color: 'black60',
                       fontFamily: 'sans',
-                      pb: 2
+                      pb: 1
                     })}
+                    style={{ color: '#92400e' }}
                   >
-                    Failed requests
+                    Daily limit reached
                   </Text>
-                  <Box
-                    css={theme({
-                      maxHeight: `${5 * 46}px`,
-                      overflowY: 'auto',
-                      overscrollBehavior: 'contain'
-                    })}
-                  >
-                    {failedResults.map((r, i) => (
-                      <Flex
-                        key={i}
-                        css={theme({
-                          gap: 2,
-                          py: '6px',
-                          alignItems: 'flex-start',
-                          borderBottom: i < failedResults.length - 1 ? 1 : 0,
-                          borderColor: 'black05'
-                        })}
-                      >
-                        <X
-                          size={14}
-                          color='#ef4444'
-                          style={{ flexShrink: 0, marginTop: '5px' }}
-                        />
-                        <Box css={{ minWidth: 0, flex: 1 }}>
-                          <Text
-                            css={theme({
-                              fontSize: 0,
-                              color: 'black80',
-                              fontFamily: 'sans',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap'
-                            })}
-                          >
-                            {r.url}
-                          </Text>
-                          <Text
-                            css={theme({
-                              fontSize: '11px',
-                              color: 'black40',
-                              fontFamily: 'sans',
-                              pt: '2px'
-                            })}
-                          >
-                            {r.error?.message}
-                          </Text>
-                        </Box>
-                      </Flex>
-                    ))}
-                  </Box>
-                </Box>
-                {hasRateLimit && (
-                  <Box
-                    css={theme({
-                      width: '100%',
-                      maxWidth: '500px',
-                      textAlign: 'left',
-                      borderRadius: 2,
-                      p: 3,
-                      mb: 4
-                    })}
-                    style={{
-                      background: '#fffbeb',
-                      border: '1px solid #fef3c7'
-                    }}
-                  >
-                    <Text
-                      css={theme({
-                        fontSize: 1,
-                        fontWeight: 'bold',
-                        fontFamily: 'sans',
-                        pb: 1
-                      })}
-                      style={{ color: '#92400e' }}
-                    >
-                      Daily limit reached
-                    </Text>
-                    <Text
-                      css={theme({
-                        fontSize: 0,
-                        fontFamily: 'sans',
-                        lineHeight: 2
-                      })}
-                      style={{ color: '#78350f' }}
-                    >
-                      Free users can take up to 50 screenshots per day. Your limit
-                      will reset tomorrow. For unlimited access, check out our{' '}
-                      <Link href='/#pricing'>API plans</Link> or write to{' '}
-                      <Link href='mailto:hello@microlink.io'>
-                        hello@microlink.io
-                      </Link>{' '}
-                      if you need something else.
-                    </Text>
-                  </Box>
-                )}
-                {(bulkTotalMs != null || bulkTotalBytes > 0) && (
                   <Text
                     css={theme({
                       fontSize: 0,
-                      color: 'black30',
-                      fontFamily: 'mono'
+                      fontFamily: 'sans',
+                      lineHeight: 2
                     })}
+                    style={{ color: '#78350f' }}
                   >
-                    {[
-                      bulkTotalBytes > 0 && formatFileSize(bulkTotalBytes),
-                      bulkTotalMs != null &&
-                      `Total time: ${formatDuration(bulkTotalMs)}`
-                    ]
-                      .filter(Boolean)
-                      .join(' · ')}
+                    Free users can take up to 50 screenshots per day. Your limit
+                    will reset tomorrow. For unlimited access, check out our{' '}
+                    <Link href='/#pricing'>API plans</Link> or write to{' '}
+                    <Link href='mailto:hello@microlink.io'>
+                      hello@microlink.io
+                    </Link>{' '}
+                    if you need something else.
                   </Text>
-                )}
-              </>
+                </Box>
               )}
+              {(bulkTotalMs != null || bulkTotalBytes > 0) && (
+                <Text
+                  css={theme({
+                    fontSize: 0,
+                    color: 'black30',
+                    fontFamily: 'mono'
+                  })}
+                >
+                  {[
+                    bulkTotalBytes > 0 && formatFileSize(bulkTotalBytes),
+                    bulkTotalMs != null &&
+                      `Total time: ${formatDuration(bulkTotalMs)}`
+                  ]
+                    .filter(Boolean)
+                    .join(' · ')}
+                </Text>
+              )}
+            </>
+          )}
           {!hasRateLimit && (
             <Button
               onClick={onReset}
@@ -2143,36 +2135,34 @@ const ScreenshotTool = () => {
             minHeight: ['auto', 'auto', 550, 550]
           })}
         >
-          {bulkState === 'history-preview' && previewData
-            ? (
-              <PreviewDisplay
-                data={previewData}
-                isLoading={false}
-                error={null}
-                onRetry={() => {}}
-                url={previewUrl}
-                viewportWidth={previewViewport.width}
-                viewportHeight={previewViewport.height}
-                nerdStats={previewNerdStats}
-                mqlQuery={previewMqlQuery}
-                responseData={previewResponseData}
-                showNerdStats={showNerdStats}
-                onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
-              />
-              )
-            : (
-              <BulkPreview
-                bulkState={bulkState}
-                bulkProgress={bulkProgress}
-                bulkResults={bulkResults}
-                bulkTotalMs={bulkTotalMs}
-                bulkTotalBytes={bulkTotalBytes}
-                urls={bulkUrlsRef.current}
-                onDownloadZip={handleDownloadZip}
-                isZipping={isZipping}
-                onReset={handleReset}
-              />
-              )}
+          {bulkState === 'history-preview' && previewData ? (
+            <PreviewDisplay
+              data={previewData}
+              isLoading={false}
+              error={null}
+              onRetry={() => {}}
+              url={previewUrl}
+              viewportWidth={previewViewport.width}
+              viewportHeight={previewViewport.height}
+              nerdStats={previewNerdStats}
+              mqlQuery={previewMqlQuery}
+              responseData={previewResponseData}
+              showNerdStats={showNerdStats}
+              onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
+            />
+          ) : (
+            <BulkPreview
+              bulkState={bulkState}
+              bulkProgress={bulkProgress}
+              bulkResults={bulkResults}
+              bulkTotalMs={bulkTotalMs}
+              bulkTotalBytes={bulkTotalBytes}
+              urls={bulkUrlsRef.current}
+              onDownloadZip={handleDownloadZip}
+              isZipping={isZipping}
+              onReset={handleReset}
+            />
+          )}
         </PreviewOuter>
       </ToolLayout>
 
@@ -2269,9 +2259,7 @@ const HowItWorks = () => (
     >
       {HOW_IT_WORKS.map(({ icon: Icon, title, description }) => (
         <StepCard key={title}>
-          <IconCircle css={theme({ width: '80px', height: '80px' })}>
-            <Icon size={32} color='rgba(0, 0, 0, 0.8)' />
-          </IconCircle>
+          <SectionIcon icon={Icon} />
           <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 0 })}>
             {title}
           </Caps>
@@ -2344,71 +2332,6 @@ const Explanation = () => (
         You get the same speed, quality, and reliability at no cost.
       </Text>
     </Caption>
-  </Container>
-)
-
-/* ─── API Docs Card ────────────────────────────────────── */
-
-const ApiDocs = () => (
-  <Container
-    as='section'
-    id='api-docs'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [2, 2, 3, 3],
-      pt: [5, 5, 5, 5],
-      mb: [4, 4, 5, 5]
-    })}
-  >
-    <Box
-      css={theme({
-        width: '100%',
-        p: [3, 4],
-        borderRadius: 3,
-        textAlign: 'center'
-      })}
-      style={{
-        background: 'linear-gradient(225deg, #FF057C08 0%, #32157508 100%)'
-      }}
-    >
-      <Flex
-        css={theme({
-          justifyContent: 'center',
-          p: 1
-        })}
-      >
-        <IconCircle>
-          <Code size={24} color={colors.link} />
-        </IconCircle>
-      </Flex>
-      <Subhead css={theme({ fontSize: 3 })}>
-        Screenshot API documentation
-      </Subhead>
-      <Caption
-        css={theme({ pt: 3, maxWidth: layout.small, mx: 'auto', fontSize: 2 })}
-      >
-        Automate bulk website screenshots with a simple REST call. Explore the
-        full API reference with interactive examples, SDKs for every language,
-        and ready-to-use code snippets.
-      </Caption>
-      <Flex
-        css={theme({
-          pt: [3, 3, 4, 4],
-          justifyContent: 'center',
-          gap: 3,
-          flexWrap: 'wrap',
-          fontSize: [1, 1, 2, 2]
-        })}
-      >
-        <ArrowLink href='/docs/api/parameters/screenshot'>
-          API reference
-        </ArrowLink>
-        <ArrowLink href='/docs/api/getting-started/overview'>
-          Getting started
-        </ArrowLink>
-      </Flex>
-    </Box>
   </Container>
 )
 
@@ -2864,7 +2787,10 @@ const WebsiteScreenshotPage = () => (
       }
       features={FEATURES_LIST}
     />
-    <ApiDocs />
+    <ApiDocsCard
+      title='Screenshot API documentation'
+      description='Automate bulk website screenshots with a simple REST call. Explore the full API reference with interactive examples, SDKs for every language, and ready-to-use code snippets.'
+    />
     <ProductInformation />
   </Layout>
 )

@@ -1,8 +1,15 @@
 /* global fetch, ResizeObserver */
 
-import { colors, theme, transition, space } from 'theme'
+import { colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
-import { Camera, Clipboard, Download, ExternalLink, X } from 'react-feather'
+import {
+  Camera,
+  Clipboard,
+  Code,
+  Download,
+  ExternalLink,
+  X
+} from 'react-feather'
 import styled, { keyframes } from 'styled-components'
 import get from 'dlv'
 
@@ -10,12 +17,16 @@ import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Choose from 'components/elements/Choose'
+import Container from 'components/elements/Container'
 import DotSpinner from 'components/elements/DotSpinner'
 import Flex from 'components/elements/Flex'
 import Label from 'components/elements/Label'
 import Spinner from 'components/elements/Spinner'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
+import ArrowLink from 'components/patterns/ArrowLink'
+import Caption from 'components/patterns/Caption/Caption'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import NerdStatsOverlay, {
@@ -277,6 +288,66 @@ export const IconCircle = styled(Flex)`
     background: 'black025'
   })}
 `
+
+export const SectionIcon = ({ icon: Icon }) => (
+  <IconCircle css={theme({ width: '80px', height: '80px' })}>
+    <Icon size={32} color={colors.black50} />
+  </IconCircle>
+)
+
+export const ApiDocsCard = ({ title, description }) => (
+  <Container
+    as='section'
+    id='api-docs'
+    css={theme({
+      alignItems: 'center',
+      maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
+      pb: [2, 2, 3, 3],
+      pt: [5, 5, 5, 5],
+      mb: [4, 4, 5, 5]
+    })}
+  >
+    <Box
+      css={theme({
+        width: '100%',
+        p: [3, 4],
+        borderRadius: 3,
+        textAlign: 'center'
+      })}
+    >
+      <Flex
+        css={theme({
+          justifyContent: 'center',
+          pb: 4
+        })}
+      >
+        <SectionIcon icon={Code} />
+      </Flex>
+      <Subhead css={theme({ fontSize: 3 })}>{title}</Subhead>
+      <Caption
+        css={theme({ pt: 3, maxWidth: layout.small, mx: 'auto', fontSize: 2 })}
+      >
+        {description}
+      </Caption>
+      <Flex
+        css={theme({
+          pt: [3, 3, 4, 4],
+          justifyContent: 'center',
+          gap: 3,
+          flexWrap: 'wrap',
+          fontSize: [1, 1, 2, 2]
+        })}
+      >
+        <ArrowLink href='/docs/api/parameters/screenshot'>
+          API reference
+        </ArrowLink>
+        <ArrowLink href='/docs/api/getting-started/overview'>
+          Getting started
+        </ArrowLink>
+      </Flex>
+    </Box>
+  </Container>
+)
 
 export const UseCaseCard = styled(Box)`
   ${theme({
