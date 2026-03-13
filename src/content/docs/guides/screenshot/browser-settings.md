@@ -26,6 +26,8 @@ Supported devices include:
 | Tablet | iPad, iPad Pro, iPad Mini, Galaxy Tab S4 |
 | Desktop | Macbook Pro 13, Macbook Pro 16, iMac 27 5K |
 
+See the <Link href='/docs/api/parameters/device' children='device reference' /> for the full list of supported devices.
+
 Capturing the same page across devices is as simple as changing the `device` value:
 
 <MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://microlink.io', screenshot: true, device: 'iPad', meta: false }} />

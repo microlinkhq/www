@@ -37,7 +37,7 @@ Choose your TTL based on how often the target page changes:
 | Marketing pages, blogs | `'1d'` to `'7d'` |
 | Static documentation, rarely changing sites | `'max'` (31 days) |
 
-The TTL is reflected in the `x-cache-ttl` response header.
+The TTL is reflected in the `x-cache-ttl` response header. See the <Link href='/docs/api/parameters/ttl' children='ttl reference' /> for all supported formats and the <Link href='/docs/api/basics/cache' children='cache docs' /> for how caching works.
 
 ## Stale-while-revalidate <ProBadge />
 
@@ -54,6 +54,8 @@ This is the recommended pattern for production use. Your users always get an ins
 | `staleTtl: 0` | Always serve cache, always revalidate |
 | `staleTtl: '12h'` | Serve cache for 12h, then revalidate |
 | `staleTtl: false` | Disabled (default) — no stale serving |
+
+See the <Link href='/docs/api/parameters/staleTtl' children='staleTtl reference' /> for all supported formats.
 
 ## Bypassing the cache
 
@@ -81,7 +83,7 @@ The `prerender` parameter controls whether a headless browser is used. For scree
 | `true` | Force headless browser |
 | `false` | Simple HTTP GET — will not produce a screenshot |
 
-When combining screenshots with metadata extraction, the API always uses a browser regardless of this setting.
+When combining screenshots with metadata extraction, the API always uses a browser regardless of this setting. See the <Link href='/docs/api/parameters/prerender' children='prerender reference' /> for details.
 
 ## Proxy for blocked sites <ProBadge />
 

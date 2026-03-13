@@ -113,6 +113,8 @@ Use `scripts` to inject `<script>` tags or `modules` for ES module syntax:
 
 <Figcaption>Prefer <code>modules</code> over <code>scripts</code> for modern JavaScript. Both accept inline code or absolute URLs.</Figcaption>
 
+See the <Link href='/docs/api/parameters/scripts' children='scripts' /> and <Link href='/docs/api/parameters/modules' children='modules' /> references for details.
+
 ## Running custom functions
 
 For advanced scenarios, the `function` parameter gives you full Puppeteer access to the page:
@@ -140,7 +142,7 @@ Ad blocking is **enabled by default** (`adblock: true`). It removes ads, third-p
 
 <MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://www.youtube.com', screenshot: true, adblock: true, meta: false }} />
 
-<Figcaption>Powered by the <Link href='https://github.com/nicedoc/adblocker' children='Cliqz adblocker engine' />. Ads, trackers, and cookie consent popups are blocked at the network level.</Figcaption>
+<Figcaption>Ads, trackers, and cookie consent popups are blocked at the network level.</Figcaption>
 
 This is one of the most impactful features for screenshot quality. Without it, many pages would show intrusive overlays:
 
@@ -156,7 +158,7 @@ Since `adblock` is `true` by default, you don't need to set it explicitly. But i
 
 For cookie banners that slip through the adblocker (custom implementations, first-party banners), you can dismiss them with `click` or hide them with `styles`:
 
-<MultiCodeEditorInteractive height={230} mqlCode={{
+<MultiCodeEditorInteractive height={260} mqlCode={{
   url: 'https://example.com',
   screenshot: true,
   styles: ['.cookie-banner, .consent-modal, [class*="cookie"] { display: none !important; }'],
