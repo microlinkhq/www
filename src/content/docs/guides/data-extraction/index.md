@@ -172,3 +172,9 @@ Pick the next step based on the result you want:
 - **[Caching and performance](/docs/guides/data-extraction/caching-and-performance)** — tune freshness, cache behavior, and extraction speed.
 - **[Private pages](/docs/guides/data-extraction/private-pages)** — extract data from logged-in or header-dependent pages safely.
 - **[Troubleshooting](/docs/guides/data-extraction/troubleshooting)** — fix empty fields, wrong selectors, timeouts, and blocked sites.
+
+## See also
+
+- <Link href='/docs/guides/markdown' children='Markdown' /> — if you want the extracted content as Markdown rather than raw text or HTML.
+- <Link href='/docs/guides/metadata' children='Metadata' /> — if you only need standard link preview fields without custom rules.
+- <Link href='/docs/guides/function' children='Custom functions' /> — if you need Puppeteer-level browser control beyond what `data` rules offer.

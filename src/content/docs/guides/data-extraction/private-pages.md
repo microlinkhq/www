@@ -1,6 +1,6 @@
 ---
 title: 'Private pages'
-description: 'Extract data from authenticated, session-based, or header-dependent pages without exposing secrets in public Microlink URLs.'
+description: 'Extract data from authenticated, session-based, or header-dependent pages safely.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
@@ -8,11 +8,11 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
-If the target page changes based on cookies, authorization, locale, or geolocation, the extraction rules are only half the problem. You also need the request to reach the right page variant safely.
+If the target page changes based on cookies, authorization, locale, or geolocation, the extraction rules are only half the problem. You also need the request to reach the right page variant. The general patterns for headers, secrets, endpoint selection, and proxy are covered in <Link href='/docs/guides/common/private-pages' children='private pages patterns' />.
 
-## Public vs sensitive headers <ProBadge />
+This page shows the data-extraction-specific setup.
 
-Use `headers` for non-sensitive request customization such as locale or user agent:
+## Extraction with non-sensitive headers <ProBadge />
 
 <MultiCodeEditorInteractive
   height={250}
@@ -31,13 +31,11 @@ Use `headers` for non-sensitive request customization such as locale or user age
   }}
 />
 
-<Figcaption>Use <code>headers</code> for public request shaping, but remember these values travel as query parameters.</Figcaption>
+<Figcaption>Use <code>headers</code> for public request shaping. For cookies or authorization tokens, use the <code>x-api-header-*</code> pattern described in <Link href='/docs/guides/common/private-pages' children='private pages patterns' />.</Figcaption>
 
-Anything passed through `headers` is visible in the request URL, so do not put cookies, bearer tokens, or other secrets there.
+## Extraction with sensitive credentials
 
-## Keep secrets out of the URL
-
-For sensitive values, pass them as request headers using the `x-api-header-*` prefix instead:
+Use `x-api-header-*` to forward secrets without exposing them in the URL:
 
 ```bash
 curl -G https://pro.microlink.io \
@@ -49,51 +47,11 @@ curl -G https://pro.microlink.io \
   -H 'x-api-header-cookie: session=YOUR_SESSION_COOKIE'
 ```
 
-That keeps the secret out of the public query string while still forwarding it to the target site.
+## When private extraction still fails
 
-## Use the right endpoint
+If the target blocks headless traffic, geofences content, or rate-limits the origin, use <Link href='/docs/api/parameters/proxy' children='proxy' /> <ProBadge />. If the API returns `EPROXYNEEDED`, that confirms it.
 
-Authenticated requests belong on the Pro endpoint:
-
-- `api.microlink.io` for unauthenticated free requests.
-- `pro.microlink.io` when you send `x-api-key`.
-
-If you send an API key to the free endpoint, Microlink returns `EPRO`.
-
-## Run MQL from the server
-
-If your extractor needs private headers or cookies, run MQL from your backend, serverless function, or trusted worker instead of directly from the browser.
-
-This keeps:
-
-- your `x-api-key` private
-- session cookies out of client-side code
-- sensitive extraction logic under your control
-
-See the <Link href='/docs/api/basics/authentication' children='authentication' /> and <Link href='/docs/api/basics/endpoint' children='endpoint' /> docs for the full setup.
-
-## When proxy is needed <ProBadge />
-
-Some targets block headless traffic, geofence content, or rate-limit the request origin. In those cases, use `proxy`:
-
-<MultiCodeEditorInteractive
-  height={230}
-  mqlCode={{
-    url: 'https://example.com',
-    data: {
-      title: {
-        selector: 'h1',
-        attr: 'text'
-      }
-    },
-    meta: false,
-    proxy: 'https://myproxy:603f60f5@superproxy.cool:8001'
-  }}
-/>
-
-<Figcaption>Use a proxy URL when the target site blocks automation, needs a specific region, or serves the wrong variant from your default origin.</Figcaption>
-
-If the API returns `EPROXYNEEDED`, that is the clearest signal that the target needs a proxy-backed request.
+For other errors, continue with [troubleshooting](/docs/guides/data-extraction/troubleshooting).
 
 ## Next step
 

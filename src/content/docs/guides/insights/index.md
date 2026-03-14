@@ -87,4 +87,10 @@ See the <Link href='/docs/api/basics/authentication' children='authentication' /
 
 - **[Technology detection](/docs/guides/insights/technology-detection)** — identify frameworks, CDNs, analytics tools, and other technologies behind a site.
 - **[Lighthouse reports](/docs/guides/insights/lighthouse-reports)** — generate JSON, HTML, or CSV Lighthouse audits and tune report settings.
+- **[Caching and performance](/docs/guides/insights/caching-and-performance)** — cache expensive runs, skip unnecessary work, and verify response behavior.
 - **[Troubleshooting](/docs/guides/insights/troubleshooting)** — fix missing results, slow requests, private-page issues, and blocked sites.
+
+## See also
+
+- <Link href='/docs/guides/metadata' children='Metadata' /> — if you need link preview data alongside site analysis.
+- <Link href='/docs/guides/screenshot' children='Screenshot' /> — if you want a visual capture of the analyzed site.

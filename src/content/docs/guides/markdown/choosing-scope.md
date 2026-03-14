@@ -1,5 +1,5 @@
 ---
-title: 'Defining extraction rules'
+title: 'Choosing scope'
 description: 'Choose what should become Markdown, prepare the page state when needed, and fix the most common noisy or incomplete conversion issues.'
 ---
 

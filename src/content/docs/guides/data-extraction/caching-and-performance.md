@@ -1,17 +1,18 @@
 ---
 title: 'Caching and performance'
-description: 'Speed up repeated data extraction by reducing unnecessary work, choosing the right fetch mode, and tuning Microlink cache behavior.'
+description: 'Speed up repeated data extraction by reducing unnecessary work, choosing the right fetch mode, and applying the right cache strategy.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
+import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 Data extraction performance comes from doing less work: skip metadata when you do not need it, avoid browser rendering when plain HTML is enough, and let the cache absorb repeated requests.
 
-## Start with the cheapest successful extraction
+## Extraction-specific speedups
 
-The fastest successful request is usually a focused rule with no extra metadata and no browser render:
+The fastest successful extraction is a focused rule with no extra metadata and no browser render:
 
 <MultiCodeEditorInteractive
   height={230}
@@ -30,40 +31,20 @@ The fastest successful request is usually a focused rule with no extra metadata 
 
 <Figcaption>Use <code>meta: false</code> and <code>prerender: false</code> whenever the page already ships the content in HTML.</Figcaption>
 
-The biggest speed wins usually come from:
+The most effective extraction-specific optimizations are:
 
-- Turning off `meta` when you only need custom fields.
-- Using `prerender: false` for static or server-rendered pages.
-- Replacing `waitForTimeout` with `waitForSelector`.
-- Keeping selectors focused instead of extracting huge chunks of DOM.
-- Avoiding `scripts`, `modules`, and `function` unless the page truly needs them.
+1. **Set `meta: false`** when you only need custom fields.
+2. **Use `prerender: false`** for static or server-rendered pages.
+3. **Prefer `waitForSelector`** over `waitForTimeout`.
+4. **Keep selectors focused** instead of extracting huge chunks of DOM.
+5. **Disable `javascript`** when the page does not need client-side execution.
+6. **Avoid `scripts`, `modules`, and `function`** unless the page truly needs them.
 
-## Cache TTL <ProBadge />
+## Cache strategy
 
-Use `ttl` when the extracted data changes less often than your users request it:
+For the cache controls that apply to all workflows — `ttl`, `staleTtl`, `force`, and how to verify caching through response headers — see <Link href='/docs/guides/common/caching' children='caching patterns' />.
 
-<MultiCodeEditorInteractive
-  height={220}
-  mqlCode={{
-    url: 'https://example.com',
-    data: {
-      title: {
-        selector: 'h1',
-        attr: 'text'
-      }
-    },
-    meta: false,
-    ttl: '1h'
-  }}
-/>
-
-<Figcaption>Longer <code>ttl</code> values improve cache hit rates and reduce repeated extraction work.</Figcaption>
-
-Shorter TTLs are better when the target changes often. Longer TTLs are better when freshness is less important than speed.
-
-## Serve stale while revalidating <ProBadge />
-
-If you want fast responses even after expiration, add `staleTtl`:
+A recommended production setup for repeated extractions:
 
 <MultiCodeEditorInteractive
   height={230}
@@ -81,40 +62,7 @@ If you want fast responses even after expiration, add `staleTtl`:
   }}
 />
 
-<Figcaption>Use <code>staleTtl: 0</code> to serve the last cached copy while Microlink refreshes it in the background.</Figcaption>
-
-This is a strong default for production extractors where latency matters more than getting the newest value on every single request.
-
-## Force a fresh copy
-
-When you know the target changed and want to bypass cache immediately, use `force`:
-
-<MultiCodeEditorInteractive
-  height={220}
-  mqlCode={{
-    url: 'https://example.com',
-    data: {
-      title: {
-        selector: 'h1',
-        attr: 'text'
-      }
-    },
-    meta: false,
-    force: true
-  }}
-/>
-
-<Figcaption>Use <code>force</code> sparingly. It bypasses cache and makes Microlink do the extraction work again.</Figcaption>
-
-## Performance checklist
-
-1. Start with `meta: false`.
-2. Try `prerender: false` before assuming you need a browser.
-3. Prefer `waitForSelector` over fixed waits.
-4. Keep selectors specific and close to the data you need.
-5. Disable `javascript` when the page does not depend on client-side execution.
-6. Keep `ttl` and `staleTtl` aligned with how often the source changes <ProBadge />.
-7. Use `force` only when you intentionally want a fresh uncached run.
+<Figcaption>Cache for a day, serve stale instantly while refreshing in the background. Requires a <ProBadge /> plan.</Figcaption>
 
 ## Next step
 

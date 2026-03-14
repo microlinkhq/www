@@ -12,8 +12,8 @@ After a screenshot is generated, you can either consume it as structured JSON or
 
 ## Two delivery models
 
-| When you need | Use | Result |
-|---------------|-----|--------|
+| When you need                | Use | Result |
+|------------------------------|-----|--------|
 | Screenshot metadata inside an app or backend workflow | Default JSON response | Read the asset from `data.screenshot.url` |
 | A direct image URL for HTML, CSS, Markdown, or social tags | `embed: 'screenshot.url'` | The API URL itself behaves like an image |
 

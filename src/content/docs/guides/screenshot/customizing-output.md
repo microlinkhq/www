@@ -82,7 +82,7 @@ Some background examples:
 { "background": "#F76698" }
 { "background": "rgba(0, 0, 0, 0.8)" }
 { "background": "linear-gradient(0deg, #330867 0%, #30CFD0 100%)" }
-{ "background": "https://source.unsplash.com/random/1920x1080" }
+{ "background": "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=1920&h=1080&fit=crop" }
 ```
 
 ## Code syntax theme
@@ -90,8 +90,8 @@ Some background examples:
 When the target URL returns JSON, HTML, or plain text, the `screenshot.codeScheme` parameter applies syntax highlighting before the screenshot is taken:
 
 <MultiCodeEditorInteractive height={220} mqlCode={{
-  url: 'https://api.microlink.io?url=https://github.com/microlinkhq',
-  screenshot: { codeScheme: 'dracula' },
+  url: 'https://api.microlink.io?url=https://github.com/microlinkhq/browserless',
+  screenshot: { codeScheme: 'darcula' },
   meta: false
 }} />
 
