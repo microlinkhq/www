@@ -11,7 +11,7 @@ We provide a command-line interface for interacting with [Microlink API](/docs/a
 
 Alternatively, if you have [npx](https://www.npmjs.com/package/npx), you can just run it.
 
-<Terminal>npx install @microlink/cli --help</Terminal>
+<Terminal>npx @microlink/cli --help</Terminal>
 
 After that, `microlink` command will be available in your system.
 

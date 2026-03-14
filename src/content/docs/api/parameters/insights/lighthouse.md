@@ -44,7 +44,7 @@ Any [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/m
 <MultiCodeEditorInteractive mqlCode={{
     url: 'https://css-tricks.com/nerds-guide-color-web',
     insights: {
-    lighthouse: { onlyCategories: ['accesibility'] }
+    lighthouse: { onlyCategories: ['accessibility'] }
   }
   }} />
 
