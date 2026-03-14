@@ -140,6 +140,70 @@ Any extra query parameter you include in the request is passed to your function:
 
 <Figcaption>The <code>selector</code> parameter is forwarded to the function as a property.</Figcaption>
 
+## Real-world examples
+
+These examples show what makes custom functions powerful: you get a headless browser, npm packages, and Puppeteer access through a single API call, with zero infrastructure on your side.
+
+### Scrape structured data with Cheerio
+
+Use `cheerio` to parse rendered HTML and reshape it into exactly the JSON structure you need:
+
+<MultiCodeEditorInteractive height={370} mqlCode={{
+  url: 'https://news.ycombinator.com',
+  function: `({ page }) => page.content().then(html => {
+  const cheerio = require('cheerio')
+  const $ = cheerio.load(html)
+  return $('.athing').toArray().slice(0, 5).map(el => ({
+    rank: $(el).find('.rank').text().trim(),
+    title: $(el).find('.titleline > a').first().text(),
+    href: $(el).find('.titleline > a').first().attr('href')
+  }))
+})`,
+  meta: false
+}} />
+
+<Figcaption>Microlink renders the page in a real browser, then Cheerio parses the result with jQuery-style selectors. No Puppeteer setup on your end.</Figcaption>
+
+### Multi-step browser interaction
+
+Use Puppeteer's `page` object to click, wait, and extract — things that static scraping cannot do:
+
+<MultiCodeEditorInteractive height={340} mqlCode={{
+  url: 'https://microlink.io',
+  function: `({ page }) => page.evaluate(() => {
+  const links = [...document.querySelectorAll('a[href]')]
+  const external = links
+    .filter(a => a.hostname !== location.hostname)
+    .map(a => ({ text: a.textContent.trim(), href: a.href }))
+    .filter(a => a.text.length > 0)
+  return { total: external.length, links: external.slice(0, 10) }
+})`,
+  meta: false
+}} />
+
+<Figcaption>Run arbitrary JavaScript inside a fully rendered page. Extract computed values, filter by runtime conditions, or query the live DOM — all through a single API call.</Figcaption>
+
+### Capture performance metrics
+
+Access browser-level APIs that are impossible without a real browser environment:
+
+<MultiCodeEditorInteractive height={280} mqlCode={{
+  url: 'https://example.com',
+  function: `({ page }) => page.evaluate(() => {
+  const perf = performance.getEntriesByType('navigation')[0]
+  return {
+    dns: Math.round(perf.domainLookupEnd - perf.domainLookupStart),
+    tcp: Math.round(perf.connectEnd - perf.connectStart),
+    ttfb: Math.round(perf.responseStart - perf.requestStart),
+    domReady: Math.round(perf.domContentLoadedEventEnd - perf.startTime),
+    load: Math.round(perf.loadEventEnd - perf.startTime)
+  }
+})`,
+  meta: false
+}} />
+
+<Figcaption>Get real Navigation Timing metrics from a full browser render. Useful for synthetic monitoring without managing your own browser fleet.</Figcaption>
+
 ## When to use custom functions
 
 Use `function` when:
