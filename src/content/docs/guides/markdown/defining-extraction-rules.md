@@ -1,17 +1,17 @@
 ---
 title: 'Defining extraction rules'
-description: 'Define Markdown extraction rules with selectors, lists, fallback logic, and supporting fields so the API returns the content shape you actually need.'
+description: 'Choose what should become Markdown, prepare the page state when needed, and fix the most common noisy or incomplete conversion issues.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 
-Markdown extraction starts with the shape of your `data` rules. The goal is not to scrape everything blindly, but to declare exactly which part of the page should become Markdown and which supporting fields should travel with it.
+Most Markdown quality issues are really scope issues. The rule decides which HTML becomes Markdown, and the page state decides whether that HTML is clean, complete, and ready to serialize.
 
-## Convert the whole page
+## Start with the smallest useful wrapper
 
-The simplest rule omits `selector` and converts the entire document:
+Whole-page conversion is fine for a first pass:
 
 <MultiCodeEditorInteractive
   height={220}
@@ -26,13 +26,9 @@ The simplest rule omits `selector` and converts the entire document:
   }}
 />
 
-<Figcaption>Omitting <code>selector</code> tells Microlink to serialize the whole page into Markdown.</Figcaption>
+<Figcaption>Use whole-page conversion to prototype quickly or inspect what the site exposes before you tighten the scope.</Figcaption>
 
-This is the best first pass when you are prototyping, indexing static documentation, or feeding a full page into another system.
-
-## Scope extraction to the main content
-
-Once the whole-page result includes too much chrome, add a selector:
+For production use, a scoped wrapper is usually better:
 
 <MultiCodeEditorInteractive
   height={250}
@@ -48,35 +44,33 @@ Once the whole-page result includes too much chrome, add a selector:
   }}
 />
 
-<Figcaption>Scoping the rule to <code>main</code> avoids navigation, footer, and other layout chrome.</Figcaption>
-
-Start with semantic containers like `main`, `article`, or a stable content wrapper. This is usually more reliable than trying to remove page chrome after the fact.
-
-## Whole page vs scoped content
+<Figcaption>Start with semantic wrappers like <code>main</code> or <code>article</code>. It is usually more reliable than cleaning the full page after the fact.</Figcaption>
 
 | If you need | Use |
 |-------------|-----|
-| A quick draft of the entire document | Omit `selector` |
-| Cleaner article or docs content | `selector: 'main'` or `selector: 'article'` |
-| A very specific block, tab, or section | A more precise CSS selector |
+| A quick draft of the entire page | Omit `selector` |
+| Cleaner docs or article content | `selector: 'main'` or `selector: 'article'` |
+| One specific block or panel | A more precise CSS selector |
 
-If the target markup varies across pages, add [fallback rules](#use-fallback-rules) instead of relying on a single fragile selector.
+## Add supporting fields when Markdown alone is not enough
 
-## Add supporting fields and lists
-
-Markdown is often just one field in a larger structured payload:
+Markdown is often only one field in a larger payload:
 
 <MultiCodeEditorInteractive
-  height={300}
+  height={310}
   mqlCode={{
     url: 'https://microlink.io/docs/api/getting-started/overview',
     data: {
+      title: {
+        selector: 'main h1',
+        attr: 'text'
+      },
       article: {
         selector: 'main',
         attr: 'markdown'
       },
       headings: {
-        selectorAll: 'main h1, main h2, main h3',
+        selectorAll: 'main h2',
         attr: 'text'
       }
     },
@@ -84,23 +78,51 @@ Markdown is often just one field in a larger structured payload:
   }}
 />
 
-<Figcaption>Use <code>selectorAll</code> for repeated values such as headings, links, or table rows, while keeping the main article as Markdown.</Figcaption>
+<Figcaption>Keep the main body as Markdown, then add the extra text fields your indexer, CMS, or LLM pipeline still needs.</Figcaption>
 
-The key rule properties are:
+This is usually as far as Markdown-specific rule design needs to go. If you need nested objects, typed collections, or `evaluate`, jump to <Link href='/docs/guides/data-extraction/defining-rules' children='Data extraction: Defining rules' />.
 
-| Property | Use it for |
-|----------|------------|
-| `selector` | A single element |
-| `selectorAll` | A collection of matching elements |
-| `attr` | The output form, including `markdown`, `text`, `html`, or an attribute like `href` |
-| `type` | Validation and casting for values such as URLs, numbers, dates, and images |
-| `evaluate` | Custom browser-side extraction logic when selectors are not enough |
+## Prepare the page before conversion
 
-See the <Link href='/docs/mql/data/selector' children='selector' />, <Link href='/docs/mql/data/selectorAll' children='selectorAll' />, <Link href='/docs/mql/data/attr' children='attr' />, <Link href='/docs/mql/data/type' children='type' />, and <Link href='/docs/mql/data/evaluate' children='evaluate' /> references for the full rule surface.
+Once the scope is right, make sure the wrapper is actually ready:
 
-## Use fallback rules
+<MultiCodeEditorInteractive
+  height={320}
+  mqlCode={{
+    url: 'https://microlink.io',
+    data: {
+      content: {
+        selector: 'main',
+        attr: 'markdown'
+      }
+    },
+    meta: false,
+    waitUntil: 'domcontentloaded',
+    waitForSelector: 'main',
+    click: '#features',
+    styles: ['header, footer { display: none !important; }']
+  }}
+/>
 
-When page structures vary, define multiple rules in priority order:
+<Figcaption>Wait for the content wrapper, open the state you need, and hide the chrome that should not end up in the Markdown.</Figcaption>
+
+Use the preparation tools in this order:
+
+1. Better `selector`
+2. `waitForSelector`
+3. `click` or `scroll`
+4. `styles`
+
+A few good defaults:
+
+- Use `prerender: false` when the HTML already contains the content you need.
+- Use `prerender: true` when a client-rendered page stays empty without a browser.
+- Prefer `waitForSelector` over `waitForTimeout`.
+- Keep `adblock: true` unless you explicitly need banners or ads in the output.
+
+## Use fallbacks when wrappers vary
+
+When the same content lives under different wrappers across pages, define multiple rules in priority order:
 
 <MultiCodeEditorInteractive
   height={300}
@@ -125,39 +147,36 @@ When page structures vary, define multiple rules in priority order:
   }}
 />
 
-<Figcaption>Microlink tries each rule in order and returns the first one that produces a valid value.</Figcaption>
+<Figcaption>Try the cleanest wrapper first, then fall back to broader rules only when needed.</Figcaption>
 
-Fallbacks are especially useful across blog platforms, documentation sites, or publisher templates where the main content wrapper is not consistent.
+This is the most useful Markdown-specific fallback pattern because it lets you keep the output clean without inventing separate per-site extractors too early.
 
-## Use evaluate for custom extraction
+## Fix the most common Markdown problems
 
-If selectors still are not enough, `evaluate` can compute a field directly in the browser context:
+- Empty output: add `waitForSelector`, then try `prerender: true`.
+- Noisy output: tighten the `selector` before you reach for CSS cleanup.
+- Sticky headers, nav, or banners inside the result: use `click`, `scroll`, or `styles` before conversion.
+- Inconsistent wrappers across pages: use fallback rules instead of one fragile selector.
 
-<MultiCodeEditorInteractive
-  height={260}
-  mqlCode={{
-    url: 'https://example.com',
-    data: {
-      content: {
-        attr: 'markdown'
-      },
-      title: {
-        evaluate: "document.querySelector('h1')?.textContent.trim()",
-        type: 'string'
-      }
-    },
-    meta: false
-  }}
-/>
+## Use Data extraction for the deeper dives
 
-<Figcaption>Use <code>evaluate</code> for custom values that are awkward to express with plain selectors.</Figcaption>
+The Markdown guide should stay focused on scoping and conversion. Continue with Data extraction when you need:
 
-Keep `evaluate` as a last resort. Start with plain selectors and `attr: 'markdown'`, then add `evaluate` only when the page needs custom logic.
+- nested objects or list-of-objects responses
+- collections that carry several fields per item
+- typed fields such as URLs, dates, images, or numbers
+- `evaluate` for custom browser-side extraction logic
+- device, viewport, media type, or browser automation details
+- timeout, auth, proxy, and advanced troubleshooting paths
 
-## Structured outputs
+The most relevant deeper pages are:
 
-If you need grouped objects or list-of-objects results in addition to Markdown, continue with the <Link href='/docs/mql/rules/nested' children='nested rules' /> docs. That is the right tool for building richer JSON shapes on top of your Markdown field.
+- <Link href='/docs/guides/data-extraction/defining-rules' children='Data extraction: Defining rules' />
+- <Link href='/docs/guides/data-extraction/page-preparation' children='Data extraction: Page preparation' />
+- <Link href='/docs/guides/data-extraction/troubleshooting' children='Data extraction: Troubleshooting' />
+
+For the low-level syntax, see the MQL references for <Link href='/docs/mql/data/selector' children='selector' />, <Link href='/docs/mql/data/selectorAll' children='selectorAll' />, <Link href='/docs/mql/data/attr' children='attr' />, <Link href='/docs/mql/data/type' children='type' />, and <Link href='/docs/mql/data/evaluate' children='evaluate' />.
 
 ## Next step
 
-Learn how to render the right page state before conversion in [page preparation](/docs/guides/markdown/page-preparation).
+Learn how to serve Markdown as JSON or a direct response in <Link href='/docs/guides/markdown/delivery-and-response' children='Delivery and response shaping' />.

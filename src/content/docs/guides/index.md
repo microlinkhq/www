@@ -43,15 +43,11 @@ Extract exactly the fields you need from any page with Microlink API, shape the 
 
 ## Markdown
 
-Extract whole pages or targeted sections as Markdown, shape the response for LLM or CMS workflows, and handle dynamic or private pages reliably.
+Convert full pages or scoped sections to Markdown. This guide is intentionally smaller than Data extraction: it covers the `attr: 'markdown'` workflow, then sends you to the deeper Data extraction pages whenever the topic becomes shared.
 
-- <Link href='/docs/guides/markdown' children='Quickstart' /> — your first Markdown extraction in under a minute.
-- <Link href='/docs/guides/markdown/defining-extraction-rules' children='Defining extraction rules' /> — whole-page conversion, scoped selectors, supporting fields, and fallback logic.
-- <Link href='/docs/guides/markdown/page-preparation' children='Page preparation' /> — prerendering, waits, device emulation, and DOM cleanup before conversion.
-- <Link href='/docs/guides/markdown/delivery-and-response' children='Delivery and response shaping' /> — choose between full JSON, filtered payloads, and direct Markdown responses.
-- <Link href='/docs/guides/markdown/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and extraction speed tips.
-- <Link href='/docs/guides/markdown/private-pages' children='Private pages' /> — extract Markdown from authenticated or session-based pages safely.
-- <Link href='/docs/guides/markdown/troubleshooting' children='Troubleshooting' /> — fix empty output, wrong selectors, timeouts, and blocked sites.
+- <Link href='/docs/guides/markdown' children='Quickstart' /> — your first Markdown extraction, plus the mental model that connects it to Data extraction.
+- <Link href='/docs/guides/markdown/defining-extraction-rules' children='Defining extraction rules' /> — choose the right wrapper, prepare the page state, and fix noisy or incomplete Markdown.
+- <Link href='/docs/guides/markdown/delivery-and-response' children='Delivery and response shaping' /> — choose between JSON and direct Markdown responses, then apply the right performance and auth patterns.
 
 ## PDF
 
