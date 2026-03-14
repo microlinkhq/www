@@ -131,3 +131,8 @@ Pick the next step based on the result you want:
 - **[Caching and performance](/docs/guides/pdf/caching-and-performance)** — tune freshness, cache behavior, and PDF generation speed.
 - **[Private pages](/docs/guides/pdf/private-pages)** — generate PDFs from logged-in or header-dependent pages safely.
 - **[Troubleshooting](/docs/guides/pdf/troubleshooting)** — fix missing content, wrong layout, timeouts, blocked sites, and plan-related errors.
+
+## See also
+
+- <Link href='/docs/guides/screenshot' children='Screenshot' /> — if you need an image of the page instead of a printable document.
+- <Link href='/docs/guides/metadata' children='Metadata' /> — if you need link preview data alongside or instead of a PDF.

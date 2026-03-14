@@ -628,14 +628,19 @@ const ROUTES_GUIDES = [
         href: '/docs/guides/markdown',
         posts: [
           {
-            name: 'Defining extraction rules',
-            href: '/docs/guides/markdown/defining-extraction-rules'
+            name: 'Choosing scope',
+            href: '/docs/guides/markdown/choosing-scope'
           },
           {
             name: 'Delivery and response shaping',
             href: '/docs/guides/markdown/delivery-and-response'
           }
         ]
+      },
+      {
+        name: 'Custom functions',
+        href: '/docs/guides/function',
+        posts: []
       },
       {
         name: 'PDF',
@@ -714,8 +719,34 @@ const ROUTES_GUIDES = [
             href: '/docs/guides/insights/lighthouse-reports'
           },
           {
+            name: 'Caching and performance',
+            href: '/docs/guides/insights/caching-and-performance'
+          },
+          {
             name: 'Troubleshooting',
             href: '/docs/guides/insights/troubleshooting'
+          }
+        ]
+      },
+      {
+        name: 'Common patterns',
+        href: '/docs/guides/common/caching',
+        posts: [
+          {
+            name: 'Caching patterns',
+            href: '/docs/guides/common/caching'
+          },
+          {
+            name: 'Private pages',
+            href: '/docs/guides/common/private-pages'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/common/troubleshooting'
+          },
+          {
+            name: 'Production patterns',
+            href: '/docs/guides/common/production-patterns'
           }
         ]
       }

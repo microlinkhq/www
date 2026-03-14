@@ -12,9 +12,23 @@ Every guide includes live, runnable examples you can modify and test directly.
 
 ## Before you start
 
-The Microlink API works **without an API key** — you get **50 free requests per day**, no signup required. That's enough to follow every example in these guides.
+The Microlink API works **without an API key** — you get **50 free requests per day**, no signup required. No API key is required to implement your code or to run the examples directly in your browser.
 
 Some features are marked with <ProBadge /> and require a paid plan. Everything else works on the free tier. See <Link href='/docs/api/basics/rate-limit' children='rate limit' /> and <Link href='/docs/api/basics/authentication' children='authentication' /> for details.
+
+## Which guide do I need?
+
+| I want to… | Start here |
+|-------------|------------|
+| Get an image of a website | <Link href='/docs/guides/screenshot' children='Screenshot' /> |
+| Scrape structured data from a page | <Link href='/docs/guides/data-extraction' children='Data extraction' /> |
+| Get link preview data (title, image, description) | <Link href='/docs/guides/metadata' children='Metadata' /> |
+| Turn a page into a PDF | <Link href='/docs/guides/pdf' children='PDF' /> |
+| Convert a page to Markdown | <Link href='/docs/guides/markdown' children='Markdown' /> |
+| Detect what tech a site uses or run a Lighthouse audit | <Link href='/docs/guides/insights' children='Insights' /> |
+| Run custom JavaScript in a headless browser | <Link href='/docs/guides/function' children='Custom functions' /> |
+
+Caching, private-page access, and general troubleshooting are shared across all workflows. See <Link href='/docs/guides/common/caching' children='common patterns' />.
 
 ## Screenshot
 
@@ -46,8 +60,14 @@ Extract exactly the fields you need from any page with Microlink API, shape the 
 Convert full pages or scoped sections to Markdown. This guide is intentionally smaller than Data extraction: it covers the `attr: 'markdown'` workflow, then sends you to the deeper Data extraction pages whenever the topic becomes shared.
 
 - <Link href='/docs/guides/markdown' children='Quickstart' /> — your first Markdown extraction, plus the mental model that connects it to Data extraction.
-- <Link href='/docs/guides/markdown/defining-extraction-rules' children='Defining extraction rules' /> — choose the right wrapper, prepare the page state, and fix noisy or incomplete Markdown.
+- <Link href='/docs/guides/markdown/choosing-scope' children='Choosing scope' /> — choose the right wrapper, prepare the page state, and fix noisy or incomplete Markdown.
 - <Link href='/docs/guides/markdown/delivery-and-response' children='Delivery and response shaping' /> — choose between JSON and direct Markdown responses, then apply the right performance and auth patterns.
+
+## Custom functions
+
+Run arbitrary JavaScript inside a headless browser with full Puppeteer access. Use it when none of the built-in parameters cover your workflow.
+
+- <Link href='/docs/guides/function' children='Quickstart' /> — your first custom function in under a minute.
 
 ## PDF
 
@@ -81,4 +101,14 @@ Analyze any site with Microlink Insights, choose between technology detection an
 - <Link href='/docs/guides/insights' children='Quickstart' /> — your first Insights analysis in under a minute.
 - <Link href='/docs/guides/insights/technology-detection' children='Technology detection' /> — identify frameworks, CDNs, analytics tools, and other technologies behind a site.
 - <Link href='/docs/guides/insights/lighthouse-reports' children='Lighthouse reports' /> — generate JSON, HTML, or CSV audit reports and tune report settings.
+- <Link href='/docs/guides/insights/caching-and-performance' children='Caching and performance' /> — cache expensive runs, skip unnecessary work, and verify response behavior.
 - <Link href='/docs/guides/insights/troubleshooting' children='Troubleshooting' /> — fix missing results, timeouts, wrong variants, and blocked sites.
+
+## Common patterns
+
+Caching, private-page access, and troubleshooting patterns that apply to every workflow above.
+
+- <Link href='/docs/guides/common/caching' children='Caching patterns' /> — control TTL, stale-while-revalidate, cache bypass, and verify behavior.
+- <Link href='/docs/guides/common/private-pages' children='Private pages' /> — headers, secrets, endpoint selection, proxy, and credential safety.
+- <Link href='/docs/guides/common/troubleshooting' children='Troubleshooting' /> — timeouts, blocked sites, auth/plan errors, and debug headers.
+- <Link href='/docs/guides/common/production-patterns' children='Production patterns' /> — rate limits, endpoint selection, credential safety, retries, and monitoring.

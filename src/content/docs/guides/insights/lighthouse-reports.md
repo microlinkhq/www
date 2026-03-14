@@ -101,4 +101,4 @@ That keeps the response JSON but strips unrelated top-level fields. If the page 
 
 ## Next step
 
-If the report is slow, wrong, or blocked, continue with [troubleshooting](/docs/guides/insights/troubleshooting).
+Learn how to cache expensive Lighthouse runs and skip unnecessary work in [caching and performance](/docs/guides/insights/caching-and-performance).

@@ -1,6 +1,6 @@
 ---
 title: 'Private pages'
-description: 'Capture screenshots of pages behind logins, sessions, or header-based personalization. Learn when to use headers, how to pass sensitive credentials safely, and when to use the Pro endpoint.'
+description: 'Capture screenshots of pages behind logins, sessions, or header-based personalization safely.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
@@ -8,22 +8,11 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
-Capturing a private dashboard, localized experience, or staged environment is possible, but the setup depends on whether the values you need to send are public or sensitive.
+Capturing a private dashboard, localized experience, or staged environment requires the right auth setup. The general patterns for headers, secrets, endpoint selection, and proxy are covered in <Link href='/docs/guides/common/private-pages' children='private pages patterns' />.
 
-Most of these workflows require a <ProBadge /> plan because they rely on authenticated requests, custom headers, or proxying.
+This page shows the screenshot-specific setup.
 
-## Choose the right header path
-
-| Situation | Use | Why |
-|-----------|-----|-----|
-| Language, user-agent, or other non-sensitive request shaping | `headers` | Fine when the value is safe to expose in the URL |
-| Cookies, bearer tokens, or other secrets | Request headers with `x-api-header-*` | Keeps credentials out of the public query string |
-
-Both approaches require a <ProBadge /> plan.
-
-## Non-sensitive headers <ProBadge />
-
-Use `headers` when the value is safe to expose, for example `Accept-Language`:
+## Screenshot with non-sensitive headers <ProBadge />
 
 <MultiCodeEditorInteractive height={240} mqlCode={{
   url: 'https://example.com',
@@ -34,11 +23,11 @@ Use `headers` when the value is safe to expose, for example `Accept-Language`:
   }
 }} />
 
-<Figcaption>Good for request shaping and localization. Avoid putting cookies or authorization tokens here because query parameters are public.</Figcaption>
+<Figcaption>Good for locale and request shaping. For cookies or authorization tokens, use the <code>x-api-header-*</code> pattern described in <Link href='/docs/guides/common/private-pages' children='private pages patterns' />.</Figcaption>
 
-## Sensitive headers and cookies <ProBadge />
+## Screenshot with sensitive credentials
 
-For cookies, authorization tokens, or any other secret, pass the value as an HTTP header on the Microlink request itself using the `x-api-header-*` prefix:
+Use `x-api-header-*` to forward secrets without exposing them in the URL:
 
 ```bash
 curl -G https://pro.microlink.io \
@@ -49,65 +38,11 @@ curl -G https://pro.microlink.io \
   -H 'x-api-header-cookie: session=abc123'
 ```
 
-The same pattern works for any forwarded header:
+## When private screenshots still fail
 
-- `x-api-header-cookie`
-- `x-api-header-authorization`
-- `x-api-header-x-my-custom-header`
+If the page is authenticated **and** protected by antibot systems, CAPTCHAs, or geofencing, you may also need <Link href='/docs/api/parameters/proxy' children='proxy' /> <ProBadge />. If you see `EPROXYNEEDED`, that confirms it.
 
-Microlink strips the `x-api-header-` prefix and forwards the original header to the target page.
-
-## Use MQL from the server
-
-If you are using `@microlink/mql`, keep credentials in the request headers passed via `httpOptions`, not inside public client-side code:
-
-```js
-import mql from '@microlink/mql'
-
-const { data } = await mql(
-  'https://example.com/dashboard',
-  {
-    screenshot: true,
-    meta: false,
-    headers: {
-      'accept-language': 'es-ES'
-    }
-  },
-  {
-    headers: {
-      'x-api-key': process.env.MICROLINK_API_KEY,
-      'x-api-header-cookie': `session=${process.env.SESSION_COOKIE}`
-    }
-  }
-)
-```
-
-See the <Link href='/docs/mql/getting-started/api' children='MQL API reference' /> for more on `httpOptions`.
-
-## Use the correct endpoint
-
-When you make raw HTTP requests:
-
-- Use `https://api.microlink.io` for unauthenticated requests.
-- Use `https://pro.microlink.io` for authenticated requests with `x-api-key`.
-
-If you send `x-api-key` to the free endpoint, the request fails with `EPRO`. See the <Link href='/docs/api/basics/endpoint' children='endpoint docs' /> and <Link href='/docs/api/basics/authentication' children='authentication docs' />.
-
-## Keep credentials out of the browser
-
-Do not expose API keys, cookies, or authorization headers in client-side embed URLs.
-
-- Keep authenticated screenshot requests on your backend whenever possible.
-- Use <Link href='https://github.com/microlinkhq/proxy' children='@microlink/proxy' /> for self-hosted protection.
-- Use <Link href='https://github.com/microlinkhq/edge-proxy' children='@microlink/edge-proxy' /> for edge-deployed protection.
-
-This is especially important when you combine screenshots with `embed=screenshot.url`, because the final URL can end up in markup, logs, or browser devtools.
-
-## When private pages still fail
-
-If the page is authenticated **and** protected by antibot systems, CAPTCHAs, geofencing, or IP rules, you may also need [proxy](/docs/api/parameters/proxy) <ProBadge />.
-
-For timeout errors, wrong endpoint issues, invalid overlay values, or antibot failures such as `EPROXYNEEDED`, continue with [troubleshooting](/docs/guides/screenshot/troubleshooting).
+For other errors, continue with [troubleshooting](/docs/guides/screenshot/troubleshooting).
 
 ## Next step
 

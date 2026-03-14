@@ -127,3 +127,9 @@ Pick the next step based on the result you want:
 - **[Caching and performance](/docs/guides/screenshot/caching-and-performance)** — tune freshness, cache behavior, and request speed.
 - **[Private pages](/docs/guides/screenshot/private-pages)** — capture logged-in or header-dependent pages safely.
 - **[Troubleshooting](/docs/guides/screenshot/troubleshooting)** — debug timeouts, antibot protections, wrong captures, and plan-related errors.
+
+## See also
+
+- <Link href='/docs/guides/metadata' children='Metadata' /> — if you need link preview data (title, description, image) instead of a visual capture.
+- <Link href='/docs/guides/data-extraction' children='Data extraction' /> — if you need structured data from the page, not just an image.
+- <Link href='/docs/guides/pdf' children='PDF' /> — if you need a printable document instead of a screenshot.

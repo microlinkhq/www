@@ -154,3 +154,9 @@ Pick the next step based on the result you want:
 - **[Caching and performance](/docs/guides/metadata/caching-and-performance)** — tune freshness, cache behavior, and request speed.
 - **[Private pages](/docs/guides/metadata/private-pages)** — extract metadata from logged-in or header-dependent pages safely.
 - **[Troubleshooting](/docs/guides/metadata/troubleshooting)** — fix missing fields, wrong variants, timeouts, and blocked sites.
+
+## See also
+
+- <Link href='/docs/guides/data-extraction' children='Data extraction' /> — if you need custom fields beyond the normalized metadata set.
+- <Link href='/docs/guides/screenshot' children='Screenshot' /> — if you need a visual capture alongside or instead of metadata.
+- <Link href='/docs/guides/insights' children='Insights' /> — if you want to analyze the technology stack or run a Lighthouse audit.

@@ -109,6 +109,11 @@ See the <Link href='/docs/api/basics/authentication' children='authentication' /
 
 This guide is intentionally small. Pick the next step based on what you need:
 
-- <Link href='/docs/guides/markdown/defining-extraction-rules' children='Defining extraction rules' /> for choosing the right wrapper, preparing the page state, and fixing noisy or incomplete Markdown.
+- <Link href='/docs/guides/markdown/choosing-scope' children='Choosing scope' /> for choosing the right wrapper, preparing the page state, and fixing noisy or incomplete Markdown.
 - <Link href='/docs/guides/markdown/delivery-and-response' children='Delivery and response shaping' /> for JSON vs direct Markdown responses, performance defaults, and safe private-page handling.
 - <Link href='/docs/guides/data-extraction' children='Data extraction' /> when you want the full shared MQL workflow beyond Markdown-specific decisions.
+
+## See also
+
+- <Link href='/docs/guides/data-extraction' children='Data extraction' /> — the full MQL workflow for structured extraction beyond Markdown.
+- <Link href='/docs/guides/metadata' children='Metadata' /> — if you only need standard link preview fields.
