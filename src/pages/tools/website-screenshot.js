@@ -1667,10 +1667,6 @@ const WebsiteScreenshotPage = () => (
     <Explanation />
     <UseCases />
     <Banner />
-    <ApiDocsCard
-      title='Screenshot API documentation'
-      description='Explore the full Screenshot API reference with interactive examples, SDKs for every language, and ready-to-use code snippets.'
-    />
     <Features
       css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={
@@ -1697,6 +1693,10 @@ const WebsiteScreenshotPage = () => (
         </>
       }
       features={FEATURES_LIST}
+    />
+    <ApiDocsCard
+      title='Screenshot API documentation'
+      description='Explore the full Screenshot API reference with interactive examples, SDKs for every language, and ready-to-use code snippets.'
     />
     <ProductInformation />
   </Layout>
