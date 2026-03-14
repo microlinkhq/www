@@ -113,6 +113,10 @@
       "destination": "/docs/api/getting-started/overview"
     },
     {
+      "source": "/guides",
+      "destination": "/docs/guides"
+    },
+    {
       "source": "/audio",
       "destination": "/docs/api/parameters/audio"
     },
