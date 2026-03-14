@@ -66,6 +66,7 @@ import {
   StickyGenerateWrapper,
   SegmentedControl,
   ApiDocsCard,
+  PreviewEmptyState,
   createThumbnail,
   PreviewDisplay,
   FORMAT_OPTIONS,
@@ -1378,29 +1379,11 @@ const BulkPreview = ({
             textAlign: 'center'
           })}
         >
-          <Box
-            css={theme({
-              width: '80px',
-              height: '80px',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              mb: 3
-            })}
-            style={{
-              background:
-                'linear-gradient(225deg, #FF057C11 0%, #32157511 100%)'
-            }}
-          >
-            <Camera size={32} color={colors.black20} />
-          </Box>
-          <Text css={theme({ color: 'black40', fontSize: 2 })}>
-            Paste your URLs and click Generate
-          </Text>
-          <Text css={theme({ color: 'black20', fontSize: 1, pt: 1 })}>
-            Up to {MAX_URLS} screenshots at once
-          </Text>
+          <PreviewEmptyState
+            icon={Camera}
+            text='Paste your URLs and click Generate'
+            subtext={`Up to ${MAX_URLS} screenshots at once`}
+          />
         </FadeIn>
       </PreviewCanvas>
     )
