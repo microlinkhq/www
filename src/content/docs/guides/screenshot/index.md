@@ -18,6 +18,18 @@ Use `screenshot: true` for the default capture, or pass an object when you need 
 
 That's the basic flow: Microlink opens a headless browser, renders the page, captures the current viewport, stores the image on the CDN, and returns the resulting asset metadata.
 
+## MQL installation
+
+To run the JavaScript examples with MQL, install `@microlink/mql`:
+
+```bash
+npm install @microlink/mql --save
+```
+
+It works in Node.js, Edge runtimes, and the browser. See the <Link href='/docs/mql/getting-started/installation' children='MQL installation guide' /> for the environment-specific setup.
+
+If you are using another language, you do not need to install MQL to follow this guide. You can use the terminal examples or call the API directly from any HTTP client.
+
 ## How screenshot options work
 
 As soon as you want to customize the capture, switch from `true` to a `screenshot` object:

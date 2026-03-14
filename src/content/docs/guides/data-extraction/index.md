@@ -13,7 +13,7 @@ Custom data extraction with Microlink API starts with two things: the target `ur
 Each key inside `data` becomes a field in the response, and each rule tells Microlink how to obtain that field from the page.
 
 <MultiCodeEditorInteractive
-  height={300}
+  height={550}
   mqlCode={{
     url: 'https://news.ycombinator.com',
     data: {
@@ -31,7 +31,17 @@ Each key inside `data` becomes a field in the response, and each rule tells Micr
 
 <Figcaption>Run the request and inspect <code>data.story</code>. The field name comes from your key, and the nested object comes from the rule shape you declared.</Figcaption>
 
-Microlink fetches or renders the page, applies your MQL rules, normalizes typed values when needed, and returns the extracted fields inside the normal API response.
+## MQL installation
+
+To run the JavaScript examples with MQL, install `@microlink/mql`:
+
+```bash
+npm install @microlink/mql --save
+```
+
+It works in Node.js, Edge runtimes, and the browser. See the <Link href='/docs/mql/getting-started/installation' children='MQL installation guide' /> for the environment-specific setup.
+
+If you are using another language, you do not need to install MQL to follow this guide. You can use the terminal examples or call the API directly from any HTTP client.
 
 ## How data extraction works
 
