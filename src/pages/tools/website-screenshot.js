@@ -702,7 +702,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   onChange={e => handleAspectRatioChange(e.target.value)}
                   css={theme({
                     width: '100%',
-                    fontSize: 1
+                    fontSize: 1,
+                    bg: 'white'
                   })}
                 >
                   {ASPECT_RATIO_OPTIONS.map(({ value, label }) => (
