@@ -43,6 +43,11 @@ import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 - **[Page 1](...)** — <why to read it>
 - **[Page 2](...)** — <why to read it>
+
+## See also
+
+- <Link href='/docs/guides/...' children='...' /> — <when this related guide is the better choice>
+- <Link href='/docs/guides/...' children='...' /> — <when this related guide is the better choice>
 ```
 
 ## Topical subguide
@@ -90,36 +95,109 @@ import ProBadge from 'components/patterns/ProBadge/ProBadge'
 | Direct asset response | `embed: '<field>.url'` | The API URL behaves like the asset |
 ```
 
-## Troubleshooting page
+## Caching page (slim, guide-specific)
 
 ```md
-## Quick triage checklist
+---
+title: 'Caching and performance'
+description: '<Optimize [utility] requests for speed and cost.>'
+---
 
-1. <Most common fix>
-2. <Second most common fix>
-3. <Route to auth/proxy if needed>
+import { Figcaption } from 'components/markdown/Figcaption'
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
+import { Link } from 'components/elements/Link'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
-## The result is wrong or incomplete
+<One-sentence context about why this utility benefits from caching.>
 
-<Explain the main timing/rendering failure mode.>
+## <Utility>-specific speedups
 
-## The request fails
+<The single biggest speedup for this workflow, with interactive example.>
 
-<Explain timeout, auth, proxy, or plan issues.>
+<Numbered list of guide-specific optimizations.>
 
-## Useful headers while debugging
+## Cache strategy
 
-- `x-cache-status`
-- `x-cache-ttl`
-- `x-fetch-mode`
-- `x-fetch-time`
-- `x-pricing-plan`
-- `x-response-time`
+For the cache controls that apply to all workflows — `ttl`, `staleTtl`, `force`, and how to verify caching through response headers — see <Link href='/docs/guides/common/caching' children='caching patterns' />.
+
+<Recommended production setup with interactive example.>
+
+## Next step
+
+<Route to the next page, usually private pages.>
+```
+
+## Private pages page (slim, guide-specific)
+
+```md
+---
+title: 'Private pages'
+description: '<Access authenticated pages for [utility] safely.>'
+---
+
+import { Figcaption } from 'components/markdown/Figcaption'
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
+import { Link } from 'components/elements/Link'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
+
+<One-sentence intro linking to shared patterns.> The general patterns for headers, secrets, endpoint selection, and proxy are covered in <Link href='/docs/guides/common/private-pages' children='private pages patterns' />.
+
+## <Utility> with non-sensitive headers <ProBadge />
+
+<Interactive example with guide-specific parameters.>
+
+## <Utility> with sensitive credentials
+
+<curl example with guide-specific parameters and x-api-header-*.>
+
+## When private <utility> still fails
+
+<Brief mention of proxy and link to troubleshooting.>
+
+## Next step
+
+<Route to troubleshooting.>
+```
+
+## Troubleshooting page (slim, guide-specific)
+
+```md
+---
+title: 'Troubleshooting'
+description: '<Debug [utility]-specific failures.>'
+---
+
+import { Figcaption } from 'components/markdown/Figcaption'
+import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
+import { Link } from 'components/elements/Link'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
+
+<One-sentence overview of common failure categories.>
+
+For timeouts, blocked sites, auth/plan errors, and debug headers that apply to all workflows, see <Link href='/docs/guides/common/troubleshooting' children='common troubleshooting' />.
+
+## <Guide-specific issue 1>
+
+<Explanation with interactive example.>
+
+## <Guide-specific issue 2>
+
+<Explanation with table or example.>
+
+## Still stuck
+
+Check the full <Link href='/docs/api/basics/error-codes' children='error codes reference' /> or see <Link href='/docs/guides/common/troubleshooting' children='common troubleshooting' />.
+
+## Back to guides
+
+See the <Link href='/docs/guides' children='guides overview' /> for more Microlink guides.
 ```
 
 ## Naming guidance
 
 - Keep page names action-oriented and user-facing.
-- Prefer “Delivery and embedding” over a narrow “Embed” page when the page also covers JSON vs direct asset responses.
+- Prefer "Delivery and embedding" over a narrow "Embed" page when the page also covers JSON vs direct asset responses.
+- Use descriptive names that avoid collision with other guides (e.g., `choosing-scope.md` instead of `defining-rules.md` in the markdown guide).
 - Add `private-pages.md` only when auth, sessions, headers, or endpoint choice are real workflows.
 - Add `troubleshooting.md` when the utility has common multi-step failure modes.
+- For caching, private pages, and troubleshooting: keep guide-specific content only, link to `common/` for shared patterns.
