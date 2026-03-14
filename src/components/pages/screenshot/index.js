@@ -349,6 +349,31 @@ export const ApiDocsCard = ({ title, description }) => (
   </Container>
 )
 
+export const PreviewEmptyState = ({
+  icon: Icon = Camera,
+  text = 'Enter a URL and click Generate',
+  subtext = 'Your screenshot will appear here'
+}) => (
+  <>
+    <Box
+      css={theme({
+        width: '80px',
+        height: '80px',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        mb: 3,
+        background: 'black025'
+      })}
+    >
+      <Icon size={32} color={colors.black20} />
+    </Box>
+    <Text css={theme({ color: 'black60', fontSize: 2 })}>{text}</Text>
+    <Text css={theme({ color: 'black60', fontSize: 1, pt: 1 })}>{subtext}</Text>
+  </>
+)
+
 export const UseCaseCard = styled(Box)`
   ${theme({
     p: 4,
@@ -1178,26 +1203,11 @@ export const PreviewDisplay = ({
               textAlign: 'center'
             })}
           >
-            <Box
-              css={theme({
-                width: '80px',
-                height: '80px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                mb: 3,
-                background: 'black025'
-              })}
-            >
-              <EmptyIcon size={32} color={colors.black20} />
-            </Box>
-            <Text css={theme({ color: 'black60', fontSize: 2 })}>
-              {emptyText}
-            </Text>
-            <Text css={theme({ color: 'black60', fontSize: 1, pt: 1 })}>
-              {emptySubtext}
-            </Text>
+            <PreviewEmptyState
+              icon={EmptyIcon}
+              text={emptyText}
+              subtext={emptySubtext}
+            />
           </FadeIn>
         </Choose.Otherwise>
       </Choose>

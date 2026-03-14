@@ -70,6 +70,7 @@ import {
   StickyGenerateWrapper,
   SegmentedControl,
   ApiDocsCard,
+  PreviewEmptyState,
   ScreenshotHistory,
   downloadFile,
   createThumbnail,
@@ -795,29 +796,11 @@ const PreviewDisplay = ({
               textAlign: 'center'
             })}
           >
-            <Box
-              css={theme({
-                width: '80px',
-                height: '80px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                mb: 3
-              })}
-              style={{
-                background:
-                  'linear-gradient(225deg, #FF057C11 0%, #32157511 100%)'
-              }}
-            >
-              <Film size={32} color={colors.black80} />
-            </Box>
-            <Text css={theme({ color: 'black60', fontSize: 2 })}>
-              Enter a URL and click Generate
-            </Text>
-            <Text css={theme({ color: 'black40', fontSize: 1, pt: 1 })}>
-              Your animated screenshot will appear here
-            </Text>
+            <PreviewEmptyState
+              icon={Film}
+              text='Enter a URL and click Generate'
+              subtext='Your animated screenshot will appear here'
+            />
           </FadeIn>
         </Choose.Otherwise>
       </Choose>

@@ -2,12 +2,10 @@ import { layout, theme, transition, borders, colors } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 import {
-  Camera,
   Maximize,
   Layers,
   Smartphone,
-  Play,
-  Share2,
+  Film,
   ArrowRight,
   ChevronRight
 } from 'react-feather'
@@ -23,6 +21,8 @@ import Meta from 'components/elements/Meta/Meta'
 
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
+import { Camera as CameraIcon } from 'components/icons/Camera'
+import { Bug as BugIcon } from 'components/icons/Bug'
 
 import { withTitle } from 'helpers/hoc/with-title'
 import { cdnUrl } from 'helpers/cdn-url'
@@ -41,7 +41,7 @@ const TOOLS = [
         description:
           'The fastest way to capture any website. Paste a URL, pick a viewport, and get a high-resolution PNG or JPEG in seconds. Supports custom overlays and backgrounds.',
         href: '/tools/website-screenshot',
-        icon: Camera,
+        icon: CameraIcon,
         image: cdnUrl('screenshot/browser/dark/apple.png'),
         featured: true,
         // tags: ['Free', 'No login'],
@@ -109,7 +109,7 @@ const TOOLS = [
         description:
           'Capture an animated screenshot of any website. Get a GIF or MP4 file in seconds with the motion that the webpage has. Create rich previews.',
         href: '/tools/website-screenshot/animated',
-        icon: Play,
+        icon: Film,
         image: cdnUrl('www/tools/animated-screenshot.mp4'),
         animation: ['scale(1.2) translateY(10%)', 'scale(1)'],
         styles: {
@@ -131,7 +131,7 @@ const TOOLS = [
         description:
           'Validate Open Graph, Twitter Cards, JSON-LD, microdata, and every other meta tag in one place. Preview how your URL renders on Facebook, X, LinkedIn, Slack, and more — before you hit publish.',
         href: '/tools/sharing-debugger',
-        icon: Share2,
+        icon: BugIcon,
         image: '/images/sharing-debugger.png',
         featured: true,
         // tags: ['Free', 'No login'],
@@ -171,8 +171,8 @@ const Tag = styled(Text)(
     fontWeight: 'bold',
     letterSpacing: '0.05em',
     textTransform: 'uppercase',
-    color: 'blue7',
-    bg: 'blue0',
+    color: 'black70',
+    bg: 'black05',
     px: 2,
     py: '3px',
     borderRadius: 1,
@@ -183,7 +183,7 @@ const Tag = styled(Text)(
 
 const ImagePreview = styled(Box)(
   theme({
-    bg: 'gray0',
+    bg: 'black025',
     overflow: 'hidden',
     position: 'relative',
     display: 'flex',
@@ -200,8 +200,8 @@ const ArrowIndicator = ({ isHover, size = 18 }) => (
       width: '32px',
       height: '32px',
       borderRadius: '50%',
-      bg: isHover ? 'blue0' : 'gray0',
-      color: isHover ? 'link' : 'black30',
+      bg: isHover ? 'black05' : 'black025',
+      color: isHover ? 'black80' : 'black50',
       transition: `all ${transition.medium}`,
       flexShrink: 0
     })}
@@ -209,6 +209,28 @@ const ArrowIndicator = ({ isHover, size = 18 }) => (
     {isHover ? <ArrowRight size={size} /> : <ChevronRight size={size} />}
   </Flex>
 )
+
+const TOOL_ICON_CHIP_VARIANTS = {
+  featured: { iconSize: 20 },
+  default: { iconSize: 12 }
+}
+
+const ToolIconChip = ({ icon: Icon, variant = 'default' }) => {
+  const { iconSize } = TOOL_ICON_CHIP_VARIANTS[variant]
+
+  return (
+    <Flex
+      css={theme({
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'black60',
+        flexShrink: 0
+      })}
+    >
+      <Icon width={`${iconSize}px`} height={`${iconSize}px`} />
+    </Flex>
+  )
+}
 
 const FeaturedTool = ({
   title,
@@ -276,20 +298,7 @@ const FeaturedTool = ({
           >
             <Box css={{ flex: 1, minWidth: 0 }}>
               <Flex css={theme({ alignItems: 'center', gap: 2, mb: 2 })}>
-                <Flex
-                  css={theme({
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '28px',
-                    height: '28px',
-                    borderRadius: 2,
-                    bg: 'blue0',
-                    color: 'blue7',
-                    flexShrink: 0
-                  })}
-                >
-                  <Icon size={16} />
-                </Flex>
+                <ToolIconChip icon={Icon} variant='featured' />
                 <Text
                   css={theme({
                     fontSize: [2, 2, 3, 3],
@@ -303,7 +312,7 @@ const FeaturedTool = ({
               <Text
                 css={theme({
                   fontSize: [0, 0, 1, 1],
-                  color: 'black60',
+                  color: 'black80',
                   lineHeight: 2
                 })}
               >
@@ -401,20 +410,7 @@ const Tool = ({
             })}
           >
             <Flex css={theme({ alignItems: 'center', gap: 2 })}>
-              <Flex
-                css={theme({
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '24px',
-                  height: '24px',
-                  borderRadius: 2,
-                  bg: 'gray0',
-                  color: 'gray7',
-                  flexShrink: 0
-                })}
-              >
-                <Icon size={14} />
-              </Flex>
+              <ToolIconChip icon={Icon} />
               <Text
                 css={theme({
                   fontSize: 1,
@@ -430,7 +426,7 @@ const Tool = ({
           <Text
             css={theme({
               fontSize: 0,
-              color: 'black50',
+              color: 'black80',
               lineHeight: 2
             })}
           >
@@ -463,7 +459,7 @@ const CategorySection = ({ category, description, tools }) => {
         <Text
           css={theme({
             fontSize: [1, 1, 2, 2],
-            color: 'black50',
+            color: 'black80',
             mt: 2,
             lineHeight: 2,
             maxWidth: layout.normal
@@ -586,7 +582,7 @@ const ToolsPage = () => (
         <Text
           css={theme({
             fontSize: [1, 1, 2, 2],
-            color: 'black50',
+            color: 'black80',
             pt: 3,
             textAlign: 'center',
             maxWidth: layout.normal,
@@ -627,7 +623,7 @@ const ToolsPage = () => (
         <Text
           css={theme({
             fontSize: [1, 1, 2, 2],
-            color: 'black50',
+            color: 'black80',
             pt: [4, null, 5]
           })}
         >

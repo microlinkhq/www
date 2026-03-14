@@ -53,6 +53,12 @@ export const ToolbarNavLink = styled(NavLink)`
 `
 
 const docsMatcher = ({ location }) => location.pathname.startsWith('/docs')
+const screenshotToolMatcher = ({ location }) =>
+  [
+    '/tools/website-screenshot',
+    '/tools/website-screenshot/full-page',
+    '/tools/website-screenshot/mobile'
+  ].some(path => location.pathname === path)
 const compactNumberFormatter = new Intl.NumberFormat('en-US', {
   notation: 'compact',
   maximumFractionDigits: 0
@@ -202,24 +208,28 @@ export const NAVIGATION_SECTIONS = [
       createNavigationItem({
         label: 'Website Screenshot',
         href: '/tools/website-screenshot',
+        actively: screenshotToolMatcher,
         description: 'Capture any website as a screenshot',
         icon: CameraIcon
       }),
       createNavigationItem({
         label: 'Bulk Screenshots',
         href: '/tools/website-screenshot/bulk',
+        actively: 'exact',
         description: 'Capture multiple websites as screenshots in one go',
         icon: Layers
       }),
       createNavigationItem({
         label: 'Animated Screenshot',
         href: '/tools/website-screenshot/animated',
+        actively: 'exact',
         description: 'Generate animated website screenshots',
         icon: Film
       }),
       createNavigationItem({
         label: 'Sharing Debugger',
         href: '/tools/sharing-debugger',
+        actively: 'exact',
         description: 'Preview social cards before publishing links',
         icon: BugIcon
       })
