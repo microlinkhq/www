@@ -22,11 +22,11 @@ Some features are marked with <ProBadge /> and require a paid plan. Everything e
 |-------------|------------|
 | Get an image of a website | <Link href='/docs/guides/screenshot' children='Screenshot' /> |
 | Scrape structured data from a page | <Link href='/docs/guides/data-extraction' children='Data extraction' /> |
-| Get link preview data (title, image, description) | <Link href='/docs/guides/metadata' children='Metadata' /> |
-| Turn a page into a PDF | <Link href='/docs/guides/pdf' children='PDF' /> |
 | Convert a page to Markdown | <Link href='/docs/guides/markdown' children='Markdown' /> |
-| Detect what tech a site uses or run a Lighthouse audit | <Link href='/docs/guides/insights' children='Insights' /> |
 | Run custom JavaScript in a headless browser | <Link href='/docs/guides/function' children='Custom functions' /> |
+| Turn a page into a PDF | <Link href='/docs/guides/pdf' children='PDF' /> |
+| Get link preview data (title, image, description) | <Link href='/docs/guides/metadata' children='Metadata' /> |
+| Detect what tech a site uses or run a Lighthouse audit | <Link href='/docs/guides/insights' children='Insights' /> |
 
 Caching, private-page access, and general troubleshooting are shared across all workflows. See <Link href='/docs/guides/common/caching' children='common patterns' />.
 
