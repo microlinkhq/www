@@ -632,24 +632,8 @@ const ROUTES_GUIDES = [
             href: '/docs/guides/markdown/defining-extraction-rules'
           },
           {
-            name: 'Page preparation',
-            href: '/docs/guides/markdown/page-preparation'
-          },
-          {
             name: 'Delivery and response shaping',
             href: '/docs/guides/markdown/delivery-and-response'
-          },
-          {
-            name: 'Caching and performance',
-            href: '/docs/guides/markdown/caching-and-performance'
-          },
-          {
-            name: 'Private pages',
-            href: '/docs/guides/markdown/private-pages'
-          },
-          {
-            name: 'Troubleshooting',
-            href: '/docs/guides/markdown/troubleshooting'
           }
         ]
       },

@@ -1,28 +1,28 @@
 ---
 title: 'Delivery and response shaping'
-description: 'Choose the right way to consume extracted Markdown. Keep the full JSON response, trim it with filter, or return the Markdown body directly.'
+description: 'Serve extracted Markdown in JSON or directly as the response body, then apply the right performance and auth patterns for production use.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 
-After Markdown is extracted, you can either keep the full JSON response, slim it down, or make the API URL return the Markdown body directly. The right choice depends on where the content goes next.
+Once the Markdown output looks correct, the next questions are operational: how should you serve it, how small can the payload be, how aggressively should it cache, and can that URL be public?
 
-## Three response models
+## Choose a response model
 
-| When you need | Use | Result |
-|---------------|-----|--------|
-| Full JSON with your extracted fields | Default response | Read `data.content`, `data.article`, and any other fields in JSON |
-| Compact JSON with only a few fields | `filter` | Smaller payload, still JSON |
-| The Markdown body directly | `embed` | The API URL responds with `text/markdown` |
+| When you need | Use | Why |
+|---------------|-----|-----|
+| Markdown plus surrounding structure | Default JSON response | Best fit for apps, queues, and ingestion pipelines |
+| Smaller JSON with only one or two fields | `filter` | Keeps JSON, trims the payload |
+| The Markdown body itself | `embed` | Turns the request into a direct Markdown response |
 
-## Default JSON response
+## Keep JSON when structure still matters
 
-The default response keeps the extracted field in the normal JSON payload:
+The default response keeps your Markdown field inside the normal payload:
 
 <MultiCodeEditorInteractive
-  height={220}
+  height={230}
   mqlCode={{
     url: 'https://example.com',
     data: {
@@ -34,38 +34,16 @@ The default response keeps the extracted field in the normal JSON payload:
   }}
 />
 
-<Figcaption>Use the default JSON response when your application already expects structured data.</Figcaption>
+<Figcaption>Use normal JSON when your consumer still wants a predictable envelope around the Markdown field.</Figcaption>
 
-This is usually the best fit for backends, queues, ingestion pipelines, and UI code that wants both the Markdown field and surrounding context.
+For Markdown-only workflows, `meta: false` is usually the right default. If you still need a few normalized fields, leave `meta` enabled or pass a selective object. See the <Link href='/docs/api/parameters/meta' children='meta reference' />.
 
-## Compact JSON with filter
+## Return the Markdown body directly
 
-If you still want JSON but only need the Markdown field, add `filter`:
-
-<MultiCodeEditorInteractive
-  height={220}
-  mqlCode={{
-    url: 'https://example.com',
-    data: {
-      content: {
-        attr: 'markdown'
-      }
-    },
-    meta: false,
-    filter: 'content'
-  }}
-/>
-
-<Figcaption>The response only includes <code>content</code>. This is useful when you want minimal JSON without changing the response format.</Figcaption>
-
-The `filter` parameter uses the field names inside the response payload, so the same idea works for `article`, `headings`, or any other field you define. See the <Link href='/docs/api/parameters/filter' children='filter reference' /> for dot notation and multi-field filters.
-
-## Direct Markdown with embed
-
-Set `embed` to the extracted field name to return the Markdown body as the response itself:
+Set `embed` to the extracted field name when the field already is the final output you want to serve:
 
 <MultiCodeEditorInteractive
-  height={220}
+  height={230}
   mqlCode={{
     url: 'https://example.com',
     data: {
@@ -78,40 +56,76 @@ Set `embed` to the extracted field name to return the Markdown body as the respo
   }}
 />
 
-<Figcaption>The API URL now returns the Markdown body directly with a <code>text/markdown</code> content type.</Figcaption>
+<Figcaption>With <code>embed</code>, the request behaves like the extracted Markdown itself instead of the full JSON envelope.</Figcaption>
 
 If your rule is named `article`, use `embed: 'article'`. `embed` always points to the response field name, not the selector.
 
-## Raw URL and cURL
+## Use a fast default for production
 
-You can call the direct-response version from any HTTP client:
+For most production Markdown endpoints, a good default is:
+
+<MultiCodeEditorInteractive
+  height={260}
+  mqlCode={{
+    url: 'https://example.com',
+    data: {
+      content: {
+        selector: 'main',
+        attr: 'markdown'
+      }
+    },
+    meta: false,
+    prerender: false,
+    ttl: '1d',
+    staleTtl: 0
+  }}
+/>
+
+<Figcaption>Scope the content, skip metadata, avoid browser work when possible, and let cache absorb repeated requests.</Figcaption>
+
+The usual levers are:
+
+- `meta: false` when you only need the Markdown field
+- `filter` when you still want JSON but only need one or two fields
+- `ttl` <Link href='/docs/api/parameters/ttl' children='cache TTL' /> for freshness control
+- `staleTtl` <Link href='/docs/api/parameters/staleTtl' children='stale-while-revalidate' /> when latency matters
+- `force` for the occasional fresh uncached run
+
+## Keep private Markdown URLs off the public internet
+
+The biggest Markdown-specific delivery risk is `embed=content`: it is convenient, but it also makes the final URL very shareable.
+
+If the request needs cookies, authorization, or forwarded headers:
+
+- do not expose it as a public `embed` URL
+- keep it on your backend whenever possible
+- forward secrets with `x-api-header-*`, not query parameters
 
 ```bash
-curl -G https://api.microlink.io \
-  -d url=https://example.com \
+curl -G https://pro.microlink.io \
+  -d url=https://example.com/private \
   -d data.content.attr=markdown \
   -d meta=false \
-  -d embed=content
+  -H 'x-api-key: YOUR_API_TOKEN' \
+  -H 'x-api-header-cookie: session=abc123'
 ```
 
-That returns the Markdown body directly instead of JSON.
+## Use Data extraction for the deeper dives
 
-## Metadata strategy
+Markdown follows the same shared response model as any other extracted field. Continue with Data extraction when you need:
 
-For Markdown-only workflows, `meta: false` is usually the right default.
+- deeper `filter` coverage, including dot notation
+- a fuller cache strategy with `ttl`, `staleTtl`, and `force`
+- private-page setup, endpoint choice, and proxy-backed requests
+- timeout and response-header debugging
 
-If you still need normalized fields such as title, description, image, or canonical URL context, leave `meta` enabled or pass a selective `meta` object. The <Link href='/docs/api/parameters/meta' children='meta reference' /> covers the exact field controls.
+The most relevant deeper pages are:
 
-## Security considerations
-
-If the request needs an API key, cookies, or authorization headers, do not expose those values in public URLs or client-side code, especially when you use `embed` to produce a shareable direct-response URL.
-
-- Keep authenticated extraction requests on your backend whenever possible.
-- Use <Link href='https://github.com/microlinkhq/proxy' children='@microlink/proxy' /> for self-hosted protection.
-- Use <Link href='https://github.com/microlinkhq/edge-proxy' children='@microlink/edge-proxy' /> for edge-deployed protection.
-
-See the <Link href='/docs/api/basics/authentication' children='authentication' /> docs and [private pages](/docs/guides/markdown/private-pages) for the full setup.
+- <Link href='/docs/guides/data-extraction/delivery-and-response' children='Data extraction: Delivery and response shaping' />
+- <Link href='/docs/guides/data-extraction/caching-and-performance' children='Data extraction: Caching and performance' />
+- <Link href='/docs/guides/data-extraction/private-pages' children='Data extraction: Private pages' />
+- <Link href='/docs/guides/data-extraction/troubleshooting' children='Data extraction: Troubleshooting' />
 
 ## Next step
 
-Learn how to tune cache behavior and extraction speed in [caching and performance](/docs/guides/markdown/caching-and-performance).
+If you need richer structured extraction around the Markdown field, continue with <Link href='/docs/guides/data-extraction' children='Data extraction' />. Otherwise, see the <Link href='/docs/guides' children='guides overview' /> for the rest of the Microlink guide set.
