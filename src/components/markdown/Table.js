@@ -26,7 +26,7 @@ export const Table = props => {
       as='table'
       css={theme({
         mx: isBlogPage ? 'auto' : undefined,
-        fontSize: isGuidesPage ? 1 : undefined
+        fontSize: isGuidesPage ? '18px' : undefined
       })}
       {...props}
     />
@@ -73,7 +73,7 @@ export const Th = props => {
   return (
     <StyledTh
       as='th'
-      css={isGuidesPage ? theme({ fontSize: 1 }) : undefined}
+      css={isGuidesPage ? theme({ fontSize: [1, 1, '20px'] }) : undefined}
       {...props}
     />
   )
@@ -113,7 +113,7 @@ export const Td = props => {
   return (
     <StyledTd
       as='td'
-      css={isGuidesPage ? theme({ fontSize: 1 }) : undefined}
+      css={isGuidesPage ? theme({ fontSize: [1, 1, '18px'] }) : undefined}
       {...props}
     />
   )
