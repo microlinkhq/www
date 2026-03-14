@@ -82,6 +82,7 @@ const DocTemplate = ({
 }) => {
   const activeRouteName = getActiveRouteName(props.location)
   const pathname = props.location?.pathname || ''
+  const isGuidesPage = pathname.startsWith('/docs/guides')
   const mdUrl = `${pathname.replace(/\/+$/, '')}.md`
   const [copyLabel, setCopyLabel] = React.useState(COPY)
   const copyTimeoutRef = React.useRef(null)
@@ -162,7 +163,7 @@ const DocTemplate = ({
               <Box css={theme({ mt: 4 })} />
             </Choose.Otherwise>
           </Choose>
-          <Markdown>{content}</Markdown>
+          <Markdown isGuidesPage={isGuidesPage}>{content}</Markdown>
           <Flex
             as='footer'
             css={theme({

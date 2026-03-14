@@ -339,9 +339,9 @@ const ScopedComponents = {
 
 const components = { ...mdComponents, ...ScopedComponents }
 
-const Markdown = ({ children, isBlogPage, ...props }) => {
+const Markdown = ({ children, isBlogPage, isGuidesPage, ...props }) => {
   return (
-    <MarkdownContext.Provider value={{ isBlogPage }}>
+    <MarkdownContext.Provider value={{ isBlogPage, isGuidesPage }}>
       <Box {...props}>
         <MDXProvider components={components}>{children}</MDXProvider>
       </Box>
