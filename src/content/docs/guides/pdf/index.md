@@ -18,6 +18,18 @@ Use `pdf: true` for the default behavior, or pass an object when you need PDF-sp
 
 Microlink renders the page in a headless browser, prints it to PDF, stores the result on the CDN, and returns the PDF asset metadata in the response.
 
+## MQL installation
+
+To run the JavaScript examples with MQL, install `@microlink/mql`:
+
+```bash
+npm install @microlink/mql --save
+```
+
+It works in Node.js, Edge runtimes, and the browser. See the <Link href='/docs/mql/getting-started/installation' children='MQL installation guide' /> for the environment-specific setup.
+
+If you are using another language, you do not need to install MQL to follow this guide. You can use the terminal examples or call the API directly from any HTTP client.
+
 ## How PDF options work
 
 As soon as you want to customize paper size, margins, or scale, switch from `true` to a `pdf` object:

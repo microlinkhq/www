@@ -11,7 +11,7 @@ import ProBadge from 'components/patterns/ProBadge/ProBadge'
 Markdown extraction is a specialized form of Microlink data extraction. You still declare a `data` field, but the rule uses `attr: 'markdown'` so Microlink serializes HTML into Markdown instead of returning raw text or HTML.
 
 <MultiCodeEditorInteractive
-  height={260}
+  height={320}
   mqlCode={{
     url: 'https://microlink.io/docs/api/getting-started/overview',
     data: {
@@ -25,6 +25,18 @@ Markdown extraction is a specialized form of Microlink data extraction. You stil
 />
 
 <Figcaption>Run the request and inspect <code>data.article</code>. The field name is yours, and <code>attr: 'markdown'</code> controls the serialization format.</Figcaption>
+
+## MQL installation
+
+To run the JavaScript examples with MQL, install `@microlink/mql`:
+
+```bash
+npm install @microlink/mql --save
+```
+
+It works in Node.js, Edge runtimes, and the browser. See the <Link href='/docs/mql/getting-started/installation' children='MQL installation guide' /> for the environment-specific setup.
+
+If you are using another language, you do not need to install MQL to follow this guide. You can use the terminal examples or call the API directly from any HTTP client.
 
 ## The mental model
 
