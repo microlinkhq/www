@@ -202,24 +202,28 @@ export const NAVIGATION_SECTIONS = [
       createNavigationItem({
         label: 'Website Screenshot',
         href: '/tools/website-screenshot',
+        actively: 'exact',
         description: 'Capture any website as a screenshot',
         icon: CameraIcon
       }),
       createNavigationItem({
         label: 'Bulk Screenshots',
         href: '/tools/website-screenshot/bulk',
+        actively: 'exact',
         description: 'Capture multiple websites as screenshots in one go',
         icon: Layers
       }),
       createNavigationItem({
         label: 'Animated Screenshot',
         href: '/tools/website-screenshot/animated',
+        actively: 'exact',
         description: 'Generate animated website screenshots',
         icon: Film
       }),
       createNavigationItem({
         label: 'Sharing Debugger',
         href: '/tools/sharing-debugger',
+        actively: 'exact',
         description: 'Preview social cards before publishing links',
         icon: BugIcon
       })
