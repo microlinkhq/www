@@ -1,7 +1,8 @@
 import React from 'react'
+
 import styled, { keyframes } from 'styled-components'
 import { Terminal } from 'react-feather'
-import { transition } from 'theme'
+import { theme, borders, colors, radii, space, transition } from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 
@@ -80,8 +81,16 @@ const FULL_SECTIONS = [
     keys: ['x-response-time', 'x-fetch-time', 'x-fetch-mode']
   },
   {
-    label: 'Cloudflare',
+    label: 'Infrastructure',
     keys: [
+      'x-region',
+      'x-amz-cf-pop',
+      'x-pricing-plan',
+      'x-amz-apigw-id',
+      'x-amzn-requestid',
+      'x-amzn-remapped-connection',
+      'x-amzn-remapped-content-length',
+      'x-amzn-remapped-date',
       'cf-ray',
       'age',
       'cache-control',
@@ -98,19 +107,6 @@ const FULL_SECTIONS = [
   {
     label: 'Rate Limit',
     keys: ['x-rate-limit-limit', 'x-rate-limit-remaining', 'x-rate-limit-reset']
-  },
-  {
-    label: 'Infra',
-    keys: [
-      'x-region',
-      'x-amz-cf-pop',
-      'x-pricing-plan',
-      'x-amz-apigw-id',
-      'x-amzn-requestid',
-      'x-amzn-remapped-connection',
-      'x-amzn-remapped-content-length',
-      'x-amzn-remapped-date'
-    ]
   },
   {
     label: 'Request',
@@ -160,7 +156,7 @@ export const extractNerdStats = headers => {
 
 const LABEL_MAP = {
   'cf-cache-status': 'status',
-  'cf-ray': 'ray',
+  'cf-ray': 'edge id',
   'cache-control': 'policy',
   'server-timing': 'timing',
   'content-encoding': 'encoding',
@@ -178,7 +174,7 @@ const LABEL_MAP = {
   'x-rate-limit-reset': 'reset',
   'x-request-id': 'request id',
   'x-client-ip': 'client ip',
-  'x-amz-cf-pop': 'pop',
+  'x-amz-cf-pop': 'edge pop',
   'x-amz-apigw-id': 'gateway id',
   'x-amzn-requestid': 'aws request id'
 }
@@ -255,10 +251,10 @@ const formatValue = (key, value) => {
     if (entries.length === 0) return value
 
     return (
-      <span style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+      <span css={{ display: 'flex', flexDirection: 'column', gap: space[1] }}>
         {entries.map(({ name, ms }) => (
           <span key={name}>
-            <span style={{ color: 'rgba(0, 255, 136, 0.5)' }}>{name}</span> {ms}
+            <span css={{ color: colors.green6 }}>{name}</span> {ms}
             ms
           </span>
         ))}
@@ -282,6 +278,10 @@ const formatValue = (key, value) => {
   if (key === 'alt-svc') {
     if (value.includes('h3=')) return 'h3 (HTTP/3)'
   }
+  if (key === 'server' || key === 'via') {
+    const normalized = String(value).toLowerCase()
+    if (normalized.includes('cloudflare')) return 'edge'
+  }
   return value
 }
 
@@ -298,12 +298,12 @@ const Overlay = styled(Box)`
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  background: rgba(10, 10, 14, 0.88);
+  background: ${colors.black90};
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   animation: ${fadeSlide} 250ms cubic-bezier(0.4, 0, 0.2, 1) both;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  scrollbar-color: ${colors.white20} transparent;
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -312,8 +312,8 @@ const Overlay = styled(Box)`
     background: transparent;
   }
   &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 2px;
+    background: ${colors.white20};
+    border-radius: ${radii[1]};
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -323,13 +323,13 @@ const Overlay = styled(Box)`
 
 const QueryBlock = styled.pre`
   margin: 0;
-  padding: 10px 12px;
-  border-radius: 6px;
-  background: rgba(0, 255, 136, 0.06);
-  border: 1px solid rgba(0, 255, 136, 0.12);
+  padding: ${space[2]} ${space[3]};
+  border-radius: ${radii[3]};
+  background: ${colors.black80};
+  border: 1px solid ${colors.green8};
   font-size: 12px;
   line-height: 1.6;
-  color: rgba(0, 255, 136, 0.85);
+  color: ${colors.green4};
   white-space: pre-wrap;
   word-break: break-all;
   overflow-x: auto;
@@ -340,29 +340,29 @@ const SectionTitle = styled.span`
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(0, 255, 136, 0.6);
-  padding-bottom: 4px;
+  color: ${colors.white70};
+  padding-bottom: ${space[1]};
   display: block;
 `
 
 const Row = styled(Flex)`
   padding: 2px 0;
-  gap: 8px;
+  gap: ${space[2]};
   align-items: baseline;
   font-size: 13px;
   line-height: 1.5;
 `
 
 const Label = styled.span`
-  color: rgba(255, 255, 255, 0.45);
-  text-transform: capitalize;
+  color: ${colors.white50};
+  text-tr-nsform: capitalize;
   flex-shrink: 0;
   min-width: 90px;
   font-size: 12px;
 `
 
 const Value = styled.span`
-  color: rgba(0, 255, 136, 0.9);
+  color: ${colors.green4};
   word-break: break-all;
   font-variant-numeric: tabular-nums;
 `
@@ -371,10 +371,10 @@ const ToggleButton = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 8px;
+  gap: ${space[1]};
+  padding: ${space[2]};
   aspect-ratio: 1;
-  border-radius: 6px;
+  border-radius: ${radii[3]};
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
@@ -385,26 +385,22 @@ const ToggleButton = styled.button`
   -webkit-tap-highlight-color: transparent;
   font-family: inherit;
   transition: background ${transition.medium}, box-shadow ${transition.medium},
-    transform 80ms ease;
+    transform ${transition.short};
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
   }
 
-  background: ${({ $active }) =>
-    $active ? 'rgba(0, 255, 136, 0.08)' : 'white'};
-  color: ${({ $active }) =>
-    $active ? 'rgba(0, 180, 100, 1)' : 'rgba(0,0,0,0.8)'};
-  border-color: ${({ $active }) =>
-    $active ? 'rgba(0, 255, 136, 0.25)' : 'rgba(0,0,0,0.1)'};
+  background: ${({ $active }) => ($active ? colors.green0 : colors.white)};
+  color: ${({ $active }) => ($active ? colors.green8 : colors.black80)};
+  border-color: ${({ $active }) => ($active ? colors.green4 : colors.black10)};
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    background: ${({ $active }) =>
-      $active ? 'rgba(0, 255, 136, 0.12)' : 'rgba(0,0,0,0.02)'};
+    box-shadow: 0 4px 12px ${colors.black10};
+    background: ${({ $active }) => ($active ? colors.green1 : colors.black025)};
     border-color: ${({ $active }) =>
-      $active ? 'rgba(0, 255, 136, 0.35)' : 'rgba(0,0,0,0.2)'};
+      $active ? colors.green5 : colors.black20};
   }
 
   &:active {
@@ -412,7 +408,7 @@ const ToggleButton = styled.button`
   }
 
   &:focus-visible {
-    outline: 2px solid #067df7;
+    outline: 2px solid ${colors.link};
     outline-offset: 2px;
   }
 `
@@ -435,40 +431,26 @@ const NerdStatsOverlay = ({ stats, mqlQuery, responseData }) => {
 
   return (
     <Overlay
-      css={{
-        fontFamily:
-          '"Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo, monospace',
-        padding: '16px 20px'
-      }}
+      css={theme({
+        fontFamily: 'mono',
+        p: 4
+      })}
     >
       <Flex
         css={{
           flexDirection: 'column',
-          gap: '12px'
+          gap: space[4]
         }}
       >
-        <span
-          css={{
-            fontSize: '18px',
-            fontWeight: 700,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color: 'rgba(0, 255, 136, 0.9)',
-            paddingBottom: '8px',
-            borderBottom: '1px solid rgba(255,255,255,0.08)'
-          }}
-        >
-          Nerd Mode
-        </span>
         {mqlQuery && (
           <Box>
             <SectionTitle
-              style={{
+              css={{
                 fontSize: '13px',
-                color: 'rgba(0, 255, 136, 0.8)',
-                paddingBottom: '4px',
-                marginBottom: '8px',
-                borderBottom: '1px solid rgba(255,255,255,0.08)'
+                color: colors.green4,
+                paddingBottom: space[1],
+                marginBottom: space[2],
+                borderBottom: `${borders[1]} ${colors.white10}`
               }}
             >
               Microlink Query Language (MQL)
@@ -479,12 +461,12 @@ const NerdStatsOverlay = ({ stats, mqlQuery, responseData }) => {
         {responseData && (
           <Box>
             <SectionTitle
-              style={{
+              css={{
                 fontSize: '13px',
-                color: 'rgba(0, 255, 136, 0.8)',
-                paddingBottom: '4px',
-                marginBottom: '8px',
-                borderBottom: '1px solid rgba(255,255,255,0.08)'
+                color: colors.green4,
+                paddingBottom: space[1],
+                marginBottom: space[2],
+                borderBottom: `${borders[1]} ${colors.white10}`
               }}
             >
               Response
@@ -493,18 +475,18 @@ const NerdStatsOverlay = ({ stats, mqlQuery, responseData }) => {
           </Box>
         )}
         <SectionTitle
-          style={{
+          css={{
             fontSize: '13px',
-            color: 'rgba(0, 255, 136, 0.8)',
-            paddingBottom: '4px',
-            borderBottom: '1px solid rgba(255,255,255,0.08)'
+            color: colors.green4,
+            paddingBottom: space[1],
+            borderBottom: `${borders[1]} ${colors.white10}`
           }}
         >
           Headers
         </SectionTitle>
         {sections.map(section => (
           <Box key={section.label}>
-            <SectionTitle>{section.label}</SectionTitle>
+            <SectionTitle css={theme({ mb: 2 })}>{section.label}</SectionTitle>
             {section.entries.map(({ key, label, value }) => (
               <Row key={key}>
                 <Label>{label}</Label>
@@ -515,19 +497,19 @@ const NerdStatsOverlay = ({ stats, mqlQuery, responseData }) => {
         ))}
         <Box
           css={{
-            marginTop: '8px',
+            marginTop: space[2],
             paddingTop: '12px',
-            borderTop: '1px solid rgba(255,255,255,0.08)',
+            borderTop: `${borders[1]} ${colors.white10}`,
             fontSize: '11px',
             lineHeight: 1.6,
-            color: 'rgba(255,255,255,0.35)'
+            color: colors.white40
           }}
         >
           If you're reading this, you're our kind of people.{' '}
           <a
             href='mailto:hello@microlink.io'
-            style={{
-              color: 'rgba(0, 255, 136, 0.7)',
+            css={{
+              color: colors.green5,
               textDecoration: 'none'
             }}
           >
