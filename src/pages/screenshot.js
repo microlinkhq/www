@@ -47,7 +47,6 @@ import NerdStatsOverlay, {
   buildMqlQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import { rotate, dash, fadeInDown, highlight } from 'components/keyframes'
-import { TerminalButton } from 'components/elements/Terminal/Terminal'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Block from 'components/patterns/Block/Block'
 import { withTitle } from 'helpers/hoc/with-title'
@@ -62,7 +61,6 @@ import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { extractDomain } from 'helpers/extract-domain'
 
 import analyticsData from '../../data/analytics.json'
-import { fontWeight, letterSpacing } from 'styled-system'
 
 const FIRST_URL = 'https://apple.com'
 const FIRST_IMAGE_URL = cdnUrl('www/apple.png')
@@ -126,17 +124,17 @@ const NerdButton = styled(Button).attrs({ variant: 'black' })`
     align-items: center;
     justify-content: center;
     align-self: center;
-    gap: ${space[1]};
     height: ${space[4]};
     min-height: ${space[4]};
     max-height: ${space[4]};
-    padding: 0 ${space[2]};
+    width: ${space[4]};
+    min-width: ${space[4]};
+    padding: 0;
     background: ${p => (p.$active ? colors.black : 'transparent')};
-    border: ${borders[1]} ${p => (p.$active ? colors.black : colors.gray6)};
+    border: ${borders[1]} ${p => (p.$active ? colors.black : colors.black10)};
     border-radius: ${radii[4]};
     box-shadow: none;
-    border-width: 2px;
-    color: ${p => (p.$active ? colors.green7 : colors.gray7)};
+    color: ${p => (p.$active ? colors.white : colors.gray6)};
     flex-shrink: 0;
     white-space: nowrap;
     transition: background ${transition.short}, border-color ${transition.short},
@@ -144,9 +142,9 @@ const NerdButton = styled(Button).attrs({ variant: 'black' })`
   }
 
   &&&:hover:not(:disabled) {
-    background: ${p => (p.$active ? colors.black90 : 'transparent')};
-    border-color: ${p => (p.$active ? colors.gray6 : colors.gray7)};
-    color: ${colors.black};
+    background: ${p => (p.$active ? colors.black90 : colors.gray1)};
+    border-color: ${p => (p.$active ? colors.gray7 : colors.black20)};
+    color: ${p => (p.$active ? colors.white : colors.gray7)};
     box-shadow: none;
   }
 
@@ -157,68 +155,61 @@ const NerdButton = styled(Button).attrs({ variant: 'black' })`
 `
 
 const BrowserWindow = styled('div')`
-  border-radius: ${radii[4]};
+  border-radius: ${radii[5]};
   overflow: hidden;
-  border: ${borders[1]} ${colors.black10};
+  border: ${borders[1]} ${colors.black05};
   background: ${colors.white};
-  box-shadow: 0 12px 30px ${colors.black10}, 0 1px 4px ${colors.black05};
+  box-shadow: 0 8px 24px ${colors.black10};
   display: flex;
   flex-direction: column;
 
   &:hover:not(:has(.screenshot-api-bar:hover)) .address-bar {
-    background: ${colors.white};
-    border-color: ${colors.gray6};
-    box-shadow: 0 0 0 2px ${colors.black10};
+    background: ${colors.gray1};
+    border-color: ${colors.black10};
+    box-shadow: none;
 
     input {
-      color: ${colors.black90};
+      color: ${colors.gray8};
     }
   }
 `
 
 const BrowserHeader = styled(Flex)`
-  background: ${colors.gray1};
-  border-bottom: ${borders[1]} ${colors.black10};
+  background: ${colors.white};
+  border-bottom: ${borders[1]} ${colors.black05};
   height: ${fontSizes[4]};
   align-items: center;
   padding: 0 ${space[2]};
-  gap: ${space[2]};
-  flex-shrink: 0;
-`
-
-const TrafficLights = styled(Flex)`
-  align-items: center;
-  gap: ${space[2]};
+  gap: ${space[1]};
   flex-shrink: 0;
 `
 
 const NavButtons = styled(Flex)`
   align-items: center;
-  gap: ${space[2]};
+  gap: ${space[1]};
   flex-shrink: 0;
 `
 
 const NavArrow = styled('button')`
-  background: ${colors.gray0};
-  border: ${borders[1]} ${colors.black10};
-  padding: ${space[1]} ${space[2]};
+  background: transparent;
+  border: none;
+  padding: ${space[1]};
   cursor: default;
-  color: ${colors.black50};
+  color: ${colors.gray5};
   display: flex;
   align-items: center;
-  border-radius: ${radii[4]};
+  border-radius: ${radii[1]};
   line-height: 1;
   transition: color ${transition.short}, background ${transition.short},
     border-color ${transition.short};
 
   &:not(:disabled) {
     cursor: pointer;
-    color: ${colors.black70};
+    color: ${colors.gray6};
 
     &:hover {
-      color: ${colors.black90};
-      background: ${colors.white};
-      border-color: ${colors.black20};
+      color: ${colors.gray8};
+      background: ${colors.gray1};
     }
 
     &:active {
@@ -247,8 +238,8 @@ const caretPulse = keyframes`
 
 const AddressBar = styled(Flex)`
   flex: 1;
-  background: ${colors.white};
-  border: ${borders[1]} ${colors.black10};
+  background: ${colors.gray1};
+  border: ${borders[1]} transparent;
   border-radius: ${radii[4]};
   height: ${space[4]};
   align-items: center;
@@ -261,12 +252,12 @@ const AddressBar = styled(Flex)`
     border-color ${transition.medium};
 
   &:hover {
-    background: ${colors.white};
-    border-color: ${colors.gray6};
-    box-shadow: 0 0 0 2px ${colors.black10};
+    background: ${colors.gray1};
+    border-color: ${colors.black10};
+    box-shadow: none;
 
     input {
-      color: ${colors.black90};
+      color: ${colors.gray8};
     }
   }
 
@@ -274,8 +265,8 @@ const AddressBar = styled(Flex)`
     $glowing &&
     css`
       background: ${colors.white};
-      border-color: ${colors.gray6};
-      box-shadow: 0 0 0 2px ${colors.black20};
+      border-color: ${colors.black10};
+      box-shadow: 0 0 0 1px ${colors.black10};
     `}
 
   ${({ $isPulsing }) =>
@@ -289,14 +280,14 @@ const AddressBar = styled(Flex)`
     !$isPulsing &&
     css`
       background: ${colors.white};
-      border-color: ${colors.gray6};
-      box-shadow: 0 0 0 2px ${colors.black10};
+      border-color: ${colors.black10};
+      box-shadow: 0 0 0 1px ${colors.black10};
     `}
 
   &:focus-within {
     background: ${colors.white};
-    border-color: ${colors.gray6};
-    box-shadow: 0 0 0 2px ${colors.black20};
+    border-color: ${colors.black10};
+    box-shadow: 0 0 0 1px ${colors.black10};
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -317,15 +308,15 @@ const AddressInput = styled('input')`
   flex: 1;
   min-width: 0;
   font-size: ${fontSizes[0]};
-  font-family: ${fonts.mono};
-  font-weight: 500;
-  color: ${({ $active }) => ($active ? colors.black90 : colors.black70)};
+  font-family: ${fonts.sans};
+  font-weight: 400;
+  color: ${({ $active }) => ($active ? colors.gray8 : colors.gray6)};
   text-align: left;
   letter-spacing: 0.01em;
   transition: color ${transition.short};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  caret-color: ${colors.black80};
+  caret-color: ${colors.gray8};
 
   &::selection {
     background: ${colors.black20};
@@ -337,17 +328,6 @@ const AddressInput = styled('input')`
     color: ${colors.black90};
     text-align: left;
   }
-`
-
-const AddressScheme = styled('span')`
-  flex-shrink: 0;
-  color: ${colors.black70};
-  font-size: ${fontSizes[0]};
-  font-family: ${fonts.mono};
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
 `
 
 const addressPromptArrowNudge = keyframes`
@@ -372,7 +352,7 @@ const AddressPrompt = styled('span')`
   -webkit-text-fill-color: transparent;
   font-size: ${fontSizes[0]};
   font-family: ${fonts.sans};
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.01em;
   white-space: nowrap;
   pointer-events: none;
@@ -385,11 +365,12 @@ const AddressPrompt = styled('span')`
     display: inline-flex;
     align-items: center;
     margin-right: ${space[1]};
-    color: ${colors.red6};
+    background-image: ${gradient};
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-size: ${fontSizes[1]};
     line-height: 1;
-    background: none;
-    -webkit-text-fill-color: currentColor;
     animation: ${addressPromptArrowNudge} 1.2s ease-in-out infinite;
   }
 
@@ -790,7 +771,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
   const fetchScreenshot = useCallback(
     async url => {
       if (abortRef.current) abortRef.current.abort()
-      abortRef.current = new AbortController()
+      abortRef.current = new window.AbortController()
 
       setIsLoading(true)
       setError(null)
@@ -799,7 +780,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
       const t0 = Date.now()
 
       try {
-        const res = await fetch(
+        const res = await window.fetch(
           `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot`,
           { signal: abortRef.current.signal }
         )
@@ -951,6 +932,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
 
   return (
     <Flex
+      id='hero'
       as='section'
       css={theme({
         flexDirection: 'column',
@@ -1044,15 +1026,6 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
               }}
             >
               <BrowserHeader>
-                <TrafficLights
-                  css={theme({
-                    display: ['none', 'inherit', 'inherit', 'inherit']
-                  })}
-                >
-                  <TerminalButton.Red />
-                  <TerminalButton.Yellow />
-                  <TerminalButton.Green />
-                </TrafficLights>
                 <NavButtons>
                   <NavArrow
                     type='button'
@@ -1128,7 +1101,6 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                       strokeLinecap='round'
                     />
                   </svg>
-                  {isFocused && <AddressScheme>https://</AddressScheme>}
                   <AddressInput
                     ref={inputRef}
                     $active={isFocused || isAttractMode}
@@ -1208,19 +1180,8 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                     setShowNerdStats(s => !s)
                   }}
                 >
-                  <Caps
-                    css={theme({
-                      fontWeight: 'bold',
-                      fontSize: 0,
-                      fontFamily: 'mono',
-                      letterSpacing: 2,
-                      display: ['none', 'none', 'inline', 'inline']
-                    })}
-                  >
-                    Debug mode
-                  </Caps>
+                  <TerminalIcon size={16} aria-hidden='true' />
                 </NerdButton>
-                <Box css={{ width: '4px', flexShrink: 0 }} />
               </BrowserHeader>
               <div
                 style={{
@@ -3313,6 +3274,7 @@ const Capabilities = () => {
 
   return (
     <Container
+      id='capabilities'
       as='section'
       css={theme({
         alignItems: 'center',
