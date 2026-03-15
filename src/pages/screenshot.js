@@ -53,10 +53,10 @@ import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
+import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
-import SpeedLine from 'components/patterns/SpeedLine/SpeedLine'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { extractDomain } from 'helpers/extract-domain'
 
@@ -1365,39 +1365,37 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </ScreenshotApiBar>
             </BrowserWindow>
@@ -1502,28 +1500,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
         })}
         style={{ fontVariantNumeric: 'tabular-nums' }}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -2079,153 +2075,7 @@ const Playground = () => {
 }
 
 const Benchmark = () => (
-  <section
-    id='benchmark'
-    css={{
-      position: 'relative',
-      overflow: 'hidden',
-      width: '100%',
-      backgroundImage: `radial-gradient(
-        circle at center right,
-        ${colors.grape9} 0%,
-        ${colors.grape9} 48%,
-        ${colors.grape8} 48%,
-        ${colors.grape8} 52%,
-        ${colors.pink8} 52%,
-        ${colors.pink8} 65%,
-        ${colors.pink7} 65%,
-        ${colors.pink7} 79%,
-        ${colors.red6} 79%,
-        ${colors.red6} 100%
-      )`,
-      borderTop: `${borders[1]} ${colors.white20}`,
-      borderBottom: `${borders[1]} ${colors.white20}`
-    }}
-  >
-    {/* Speed lines — full width absolute overlay */}
-    <Box
-      css={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        overflow: 'hidden',
-        pointerEvents: 'none',
-        zIndex: 0
-      }}
-    >
-      <SpeedLine
-        $top='12%'
-        $w='140px'
-        $h='3px'
-        $dur='1.27s'
-        $delay='0s'
-        $color={colors.white40}
-        $glow='8px'
-      />
-      <SpeedLine
-        $top='22%'
-        $w='80px'
-        $h='2px'
-        $dur='1.78s'
-        $delay='0.6s'
-        $color={colors.white20}
-        $glow='4px'
-      />
-      <SpeedLine
-        $top='32%'
-        $w='110px'
-        $h='2px'
-        $dur='1.1s'
-        $delay='0.15s'
-        $color={colors.white60}
-        $glow='10px'
-      />
-      <SpeedLine
-        $top='42%'
-        $w='50px'
-        $h='1px'
-        $dur='2.11s'
-        $delay='1.1s'
-        $color={colors.white10}
-        $glow='3px'
-      />
-      <SpeedLine
-        $top='52%'
-        $w='130px'
-        $h='3px'
-        $dur='1.01s'
-        $delay='0.3s'
-        $color={colors.white60}
-        $glow='12px'
-      />
-      <SpeedLine
-        $top='62%'
-        $w='60px'
-        $h='1px'
-        $dur='1.91s'
-        $delay='1.35s'
-        $color={colors.white20}
-        $glow='3px'
-      />
-      <SpeedLine
-        $top='17%'
-        $w='90px'
-        $h='2px'
-        $dur='1.19s'
-        $delay='0.2s'
-        $color={colors.white40}
-        $glow='6px'
-      />
-      <SpeedLine
-        $top='37%'
-        $w='120px'
-        $h='3px'
-        $dur='0.94s'
-        $delay='0s'
-        $color={colors.white50}
-        $glow='10px'
-      />
-      <SpeedLine
-        $top='47%'
-        $w='45px'
-        $h='1px'
-        $dur='1.8s'
-        $delay='0.8s'
-        $color={colors.white20}
-        $glow='3px'
-      />
-      <SpeedLine
-        $top='57%'
-        $w='75px'
-        $h='2px'
-        $dur='1.35s'
-        $delay='0.45s'
-        $color={colors.white30}
-        $glow='5px'
-      />
-      <SpeedLine
-        $top='67%'
-        $w='105px'
-        $h='3px'
-        $dur='1.08s'
-        $delay='0.15s'
-        $color={colors.white50}
-        $glow='9px'
-      />
-      <SpeedLine
-        $top='77%'
-        $w='55px'
-        $h='1px'
-        $dur='1.97s'
-        $delay='1.2s'
-        $color={colors.white10}
-        $glow='3px'
-      />
-    </Box>
-
-    {/* Content */}
+  <BluePrintBackground as='section' id='benchmark'>
     <Flex
       css={theme({
         position: 'relative',
@@ -2241,19 +2091,19 @@ const Benchmark = () => (
       <Subhead
         css={theme({
           fontSize: [3, 3, '44px', '44px'],
-          color: 'white',
+          color: 'black',
           textAlign: 'center'
         })}
       >
         The fastest screenshot API{' '}
-        <span css={theme({ display: 'block', color: 'white60' })}>
+        <span css={theme({ display: 'block', color: 'red6' })}>
           50% faster than competitors
         </span>
       </Subhead>
       <Caption
         forwardedAs='div'
         css={theme({
-          color: 'white80',
+          color: 'black60',
           textAlign: 'center',
           width: '100%',
           fontSize: [2, 2, '22px', '22px'],
@@ -2268,15 +2118,13 @@ const Benchmark = () => (
       <ArrowLink
         href='/benchmarks/screenshot-api'
         css={theme({
-          fontSize: ['22px', '24px', '26px', '26px'],
-          color: 'white'
+          fontSize: ['22px', '24px', '26px', '26px']
         })}
-        style={{ color: 'white' }}
       >
         See the benchmarks
       </ArrowLink>
     </Flex>
-  </section>
+  </BluePrintBackground>
 )
 
 const [
@@ -3144,39 +2992,37 @@ const Capabilities = () => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </ScreenshotApiBar>
           </Box>

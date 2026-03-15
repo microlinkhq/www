@@ -11,6 +11,7 @@ import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { Check as CheckIcon } from 'react-feather'
 import CaptionBase from 'components/patterns/Caption/Caption'
+import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
@@ -505,39 +506,7 @@ const CellRunnerUp = styled('span')`
 `
 
 const Hero = () => (
-  <section
-    css={{
-      position: 'relative',
-      overflow: 'hidden',
-      width: '100%'
-    }}
-  >
-    <div
-      css={{
-        position: 'absolute',
-        inset: 0,
-        zIndex: 0,
-        backgroundImage: `
-          linear-gradient(to right, #e7e5e4 1px, transparent 1px),
-          linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
-        `,
-        backgroundSize: '20px 20px',
-        backgroundPosition: '0 0, 0 0',
-        maskImage: `
-          repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
-          repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
-          radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
-        `,
-        WebkitMaskImage: `
-          repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
-          repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px),
-          radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
-        `,
-        maskComposite: 'intersect',
-        WebkitMaskComposite: 'source-in'
-      }}
-    />
-
+  <BluePrintBackground as='section'>
     <Flex
       css={theme({
         position: 'relative',
@@ -593,7 +562,7 @@ const Hero = () => (
         highlightKey='microlink'
       />
     </Flex>
-  </section>
+  </BluePrintBackground>
 )
 
 const MethodologyList = styled('ul')`
@@ -1020,21 +989,15 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : isMax
-                              ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                                )
-                              : isSecond
-                                ? (
-                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                                  )
-                                : (
-                                    formatMs(times[i])
-                                  )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
