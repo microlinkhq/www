@@ -604,6 +604,7 @@ const HERO_LAYOUT = {
   demoWidth: '55%',
   gap: [5, 5, 6, 6]
 }
+const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 
 const DEFAULT_HISTORY = [
   'https://apple.com',
@@ -1659,8 +1660,7 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
       flexDirection='column'
       css={theme({
         px: 4,
-        pt: [4, 4, 5, 5],
-        pb: [4, 4, 5, 5],
+        py: SECTION_VERTICAL_SPACING,
         width: '100%',
         // https://www.gradientmagic.com/collection/radialstripes
         backgroundImage: `radial-gradient(
@@ -1779,8 +1779,7 @@ const OpenSource = () => (
     css={theme({
       alignItems: 'center',
       width: '100%',
-      pt: [5, 5, 5, 6],
-      pb: [4, 4, 4, 5],
+      py: SECTION_VERTICAL_SPACING,
       px: [1, 1, 5, 5]
     })}
   >
@@ -1995,8 +1994,7 @@ const Playground = () => {
       css={theme({
         alignItems: 'center',
         width: '100%',
-        pt: [4, 4, 4, 4],
-        pb: [5, 5, 6, 6],
+        py: SECTION_VERTICAL_SPACING,
         px: [1, 1, 5, 5]
       })}
     >
@@ -2083,7 +2081,7 @@ const Benchmark = () => (
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        py: [4, 4, 5, 5],
+        py: SECTION_VERTICAL_SPACING,
         px: 4,
         gap: [3, 3, 4, 4]
       })}
@@ -2248,8 +2246,7 @@ const Clients = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: layout.large,
-      pt: [1, 1, 2, 2],
-      pb: [5, 5, 6, 6]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Caps
@@ -2440,8 +2437,7 @@ const CodeExample = () => {
       css={theme({
         alignItems: 'center',
         width: '100%',
-        pt: [5, 5, 6, 6],
-        pb: [3, 3, 5, 5],
+        py: SECTION_VERTICAL_SPACING,
         px: [1, 1, 5, 5]
       })}
     >
@@ -2590,8 +2586,7 @@ const Pricing = () => (
       alignItems: 'center',
       maxWidth: '100%',
       bg: 'pinky',
-      pt: 5,
-      pb: [5, 5, 5, 6]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Subhead
@@ -2911,8 +2906,7 @@ const Capabilities = () => {
         alignItems: 'center',
         maxWidth: '100%',
         bg: 'pinky',
-        pt: [4, 4, 5, 6],
-        pb: [5, 5, 5, 5]
+        py: SECTION_VERTICAL_SPACING
       })}
     >
       <Flex
@@ -3169,8 +3163,7 @@ const CallToAction = () => (
       alignItems: 'center',
       maxWidth: '100%',
       bg: 'white',
-      pt: [3, 3, 5, 5],
-      pb: [5, 5, 6, 6]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Flex
