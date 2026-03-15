@@ -16,6 +16,10 @@ The Microlink API works **without an API key** — you get **50 free requests pe
 
 Some features are marked with <ProBadge /> and require a paid plan. Everything else works on the free tier. See <Link href='/docs/api/basics/rate-limit' children='rate limit' /> and <Link href='/docs/api/basics/authentication' children='authentication' /> for details.
 
+## What is Microlink?
+
+New to the API? Start with <Link href='/docs/guides/what-is-microlink' children='What is Microlink' /> — it explains the core idea, walks through every workflow with live examples, and helps you decide which guide to read next.
+
 ## Which guide do I need?
 
 | I want to… | Start here |
