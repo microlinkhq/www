@@ -94,6 +94,7 @@ https://microlink.io/docs/mql/rules/nested.md
 
 ## Guides Documentation
 https://microlink.io/docs/guides/index.md
+https://microlink.io/docs/guides/what-is-microlink.md
 https://microlink.io/docs/guides/function/index.md
 https://microlink.io/docs/guides/screenshot/index.md
 https://microlink.io/docs/guides/screenshot/browser-settings.md

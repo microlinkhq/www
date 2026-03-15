@@ -560,6 +560,10 @@ const ROUTES_GUIDES = [
         href: '/docs/guides'
       },
       {
+        name: 'What is Microlink',
+        href: '/docs/guides/what-is-microlink'
+      },
+      {
         name: 'Screenshot',
         href: '/docs/guides/screenshot',
         posts: [
