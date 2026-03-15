@@ -1,7 +1,7 @@
-/* global IntersectionObserver, requestAnimationFrame, cancelAnimationFrame */
+/* global IntersectionObserver, requestAnimationFrame, cancelAnimationFrame, performance */
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import styled, { css, keyframes } from 'styled-components'
-import { transition } from 'theme'
+import { transition, colors } from 'theme'
 
 import Flex from 'components/elements/Flex'
 
@@ -76,8 +76,8 @@ const fadeIn = keyframes`
 `
 
 const pulseGlow = keyframes`
-  0%, 100% { box-shadow: 0 0 0 0 rgba(253, 73, 74, 0); }
-  50% { box-shadow: 0 0 12px 2px rgba(253, 73, 74, 0.3); }
+  0%, 100% { box-shadow: 0 0 0 0 ${colors.red0}; }
+  50% { box-shadow: 0 0 12px 2px ${colors.red3}; }
 `
 
 const introSweep = keyframes`
@@ -139,20 +139,22 @@ const RaceContainerWrapper = styled('div')`
   max-width: 960px;
   margin: 0 auto;
   min-height: 360px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 14px;
-  padding: 32px 28px 40px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  background: ${({ $flat }) => ($flat ? 'transparent' : colors.white95)};
+  backdrop-filter: ${({ $flat }) => ($flat ? 'none' : 'blur(16px)')};
+  -webkit-backdrop-filter: ${({ $flat }) => ($flat ? 'none' : 'blur(16px)')};
+  border: ${({ $flat }) => ($flat ? '0' : `1px solid ${colors.black10}`)};
+  border-radius: ${({ $flat }) => ($flat ? '0' : '14px')};
+  padding: ${({ $flat }) => ($flat ? '0' : '32px 28px 40px')};
+  box-shadow: ${({ $flat }) =>
+    $flat
+      ? 'none'
+      : `0 8px 32px ${colors.black10}, inset 0 1px 0 ${colors.white80}`};
   overflow: hidden;
 
   @media (max-width: 600px) {
     min-height: 310px;
-    padding: 24px 16px 32px;
-    border-radius: 10px;
+    padding: ${({ $flat }) => ($flat ? '0' : '24px 16px 32px')};
+    border-radius: ${({ $flat }) => ($flat ? '0' : '10px')};
   }
 `
 
@@ -169,7 +171,7 @@ const UrlLabel = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 16px;
   font-weight: 700;
-  color: rgba(0, 0, 0, 0.9);
+  color: ${colors.black90};
   letter-spacing: 0.03em;
   margin-bottom: 0;
   text-transform: uppercase;
@@ -188,7 +190,7 @@ const UrlMeta = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 14px;
   font-weight: 400;
-  color: rgba(0, 0, 0, 0.45);
+  color: ${colors.black50};
   letter-spacing: 0.02em;
   text-transform: none;
   margin-top: 13px;
@@ -207,7 +209,7 @@ const AnnounceMeta = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 14px;
   font-weight: 400;
-  color: rgba(0, 0, 0, 0.45);
+  color: ${colors.black50};
   letter-spacing: 0.02em;
   text-transform: none;
   margin-top: 8px;
@@ -232,7 +234,7 @@ const DomainAnnounce = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 42px;
   font-weight: 700;
-  color: rgba(0, 0, 0, 0.9);
+  color: ${colors.black90};
   letter-spacing: 0.03em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -263,15 +265,15 @@ const DomainAnnounce = styled('div')`
 const AnnounceBackdrop = styled('div')`
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.75);
-  border-radius: 14px;
+  background: ${colors.white80};
+  border-radius: ${({ $flat }) => ($flat ? '0' : '14px')};
   z-index: 5;
   opacity: ${({ $visible }) => ($visible ? 1 : 0)};
   transition: opacity ${({ $visible }) => ($visible ? '0.4s' : '0s')} ease;
   pointer-events: none;
 
   @media (max-width: 600px) {
-    border-radius: 10px;
+    border-radius: ${({ $flat }) => ($flat ? '0' : '10px')};
   }
 `
 
@@ -279,7 +281,7 @@ const IntroLabel = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 16px;
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.55);
+  color: ${colors.black60};
   text-align: center;
   margin-bottom: 40px;
   letter-spacing: 0.02em;
@@ -328,7 +330,7 @@ const LaneRank = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 13px;
   font-weight: 700;
-  color: rgba(0, 0, 0, 0.35);
+  color: ${colors.black40};
   width: 28px;
   flex-shrink: 0;
   text-align: center;
@@ -345,8 +347,7 @@ const LaneName = styled('div')`
   font-family: ${MONO_FONT};
   font-size: 14px;
   font-weight: ${({ $isMicrolink }) => ($isMicrolink ? '700' : '500')};
-  color: ${({ $isMicrolink }) =>
-    $isMicrolink ? '#fd494a' : 'rgba(0, 0, 0, 0.75)'};
+  color: ${({ $isMicrolink }) => ($isMicrolink ? colors.red6 : colors.black80)};
   width: 150px;
   flex-shrink: 0;
   text-align: right;
@@ -364,7 +365,7 @@ const LaneTrack = styled('div')`
   flex: 1;
   height: 100%;
   position: relative;
-  background: rgba(0, 0, 0, 0.05);
+  background: ${colors.black05};
   border-radius: 5px;
   overflow: hidden;
 `
@@ -399,8 +400,7 @@ const LaneTime = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 14px;
   font-weight: 600;
-  color: ${({ $isMicrolink }) =>
-    $isMicrolink ? '#fd494a' : 'rgba(0, 0, 0, 0.5)'};
+  color: ${({ $isMicrolink }) => ($isMicrolink ? colors.red6 : colors.black50)};
   width: 90px;
   flex-shrink: 0;
   text-align: right;
@@ -420,11 +420,11 @@ const BarTimeLabel = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 13px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
+  color: ${colors.white95};
   font-variant-numeric: tabular-nums;
   pointer-events: none;
   white-space: nowrap;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 2px ${colors.black30};
   opacity: ${({ $visible }) => ($visible ? 1 : 0)};
   transition: opacity 0.3s ease;
 
@@ -438,7 +438,7 @@ const CumulativeTime = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 14px;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.5);
+  color: ${colors.black50};
   width: 90px;
   flex-shrink: 0;
   text-align: right;
@@ -488,7 +488,7 @@ const LaneHeaderLabel = styled('span')`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: rgba(0, 0, 0, 0.35);
+  color: ${colors.black40};
   width: 90px;
   flex-shrink: 0;
   text-align: right;
@@ -512,9 +512,9 @@ const StepDot = styled('button')`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid ${colors.black20};
   background: ${({ $active, $done }) =>
-    $active ? '#fd494a' : $done ? 'rgba(0, 0, 0, 0.3)' : 'transparent'};
+    $active ? colors.red6 : $done ? colors.black30 : 'transparent'};
   padding: 0;
   cursor: pointer;
   transition: background ${transition.medium}, transform ${transition.medium};
@@ -523,12 +523,11 @@ const StepDot = styled('button')`
 
   &:hover {
     transform: scale(1.3);
-    background: ${({ $active }) =>
-      $active ? '#fd494a' : 'rgba(0, 0, 0, 0.25)'};
+    background: ${({ $active }) => ($active ? colors.red6 : colors.black20)};
   }
 
   &:focus-visible {
-    outline: 2px solid rgba(253, 73, 74, 0.6);
+    outline: 2px solid ${colors.red5};
     outline-offset: 2px;
   }
 `
@@ -539,11 +538,9 @@ const LeaderboardRow = styled('div')`
   gap: 14px;
   padding: 12px 18px;
   border-radius: 8px;
-  background: ${({ $rank }) =>
-    $rank === 0 ? 'rgba(22, 163, 74, 0.06)' : 'rgba(0, 0, 0, 0.03)'};
+  background: ${({ $rank }) => ($rank === 0 ? colors.green0 : colors.black025)};
   border: 1px solid
-    ${({ $rank }) =>
-      $rank === 0 ? 'rgba(22, 163, 74, 0.25)' : 'rgba(0, 0, 0, 0.08)'};
+    ${({ $rank }) => ($rank === 0 ? colors.green2 : colors.black10)};
   animation: ${fadeIn} 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   animation-delay: ${({ $rank }) => $rank * 80}ms;
   opacity: 0;
@@ -558,7 +555,7 @@ const RankBadge = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 14px;
   font-weight: 700;
-  color: ${({ $rank }) => ($rank === 0 ? '#16a34a' : 'rgba(0, 0, 0, 0.4)')};
+  color: ${({ $rank }) => ($rank === 0 ? colors.green7 : colors.black40)};
   width: 28px;
   text-align: center;
   font-variant-numeric: tabular-nums;
@@ -568,7 +565,7 @@ const LeaderName = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 15px;
   font-weight: ${({ $rank }) => ($rank === 0 ? '700' : '500')};
-  color: ${({ $rank }) => ($rank === 0 ? '#16a34a' : 'rgba(0, 0, 0, 0.75)')};
+  color: ${({ $rank }) => ($rank === 0 ? colors.green7 : colors.black80)};
   flex: 1;
 
   @media (max-width: 600px) {
@@ -580,7 +577,7 @@ const LeaderTime = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 15px;
   font-weight: 600;
-  color: ${({ $rank }) => ($rank === 0 ? '#16a34a' : 'rgba(0, 0, 0, 0.5)')};
+  color: ${({ $rank }) => ($rank === 0 ? colors.green7 : colors.black50)};
   font-variant-numeric: tabular-nums;
 
   @media (max-width: 600px) {
@@ -591,7 +588,7 @@ const LeaderTime = styled('span')`
 const LeaderDelta = styled('span')`
   font-family: ${MONO_FONT};
   font-size: 13px;
-  color: rgba(0, 0, 0, 0.35);
+  color: ${colors.black40};
   font-variant-numeric: tabular-nums;
   width: 80px;
   text-align: right;
@@ -612,14 +609,12 @@ const MetricTab = styled('button')`
   font-family: ${MONO_FONT};
   font-size: 15px;
   font-weight: ${({ $active }) => ($active ? '600' : '400')};
-  background: ${({ $active }) =>
-    $active ? 'rgba(0, 0, 0, 0.06)' : 'transparent'};
+  background: ${({ $active }) => ($active ? colors.black05 : 'transparent')};
   border: 1px solid
-    ${({ $active }) => ($active ? 'rgba(0, 0, 0, 0.15)' : 'rgba(0, 0, 0, 0.1)')};
+    ${({ $active }) => ($active ? colors.black20 : colors.black10)};
   border-radius: 6px;
   padding: 6px 18px;
-  color: ${({ $active }) =>
-    $active ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.4)'};
+  color: ${({ $active }) => ($active ? colors.black80 : colors.black50)};
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -627,12 +622,12 @@ const MetricTab = styled('button')`
     color ${transition.medium};
 
   &:hover {
-    background: rgba(0, 0, 0, 0.04);
-    color: rgba(0, 0, 0, 0.6);
+    background: ${colors.black05};
+    color: ${colors.black60};
   }
 
   &:focus-visible {
-    outline: 2px solid rgba(253, 73, 74, 0.5);
+    outline: 2px solid ${colors.red5};
     outline-offset: 2px;
   }
 `
@@ -641,25 +636,22 @@ const RaceButton = styled('button')`
   font-family: ${MONO_FONT};
   font-size: 15px;
   font-weight: 500;
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: 6px;
-  padding: 8px 22px;
-  color: rgba(0, 0, 0, 0.5);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  color: ${colors.black60};
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: background ${transition.medium}, border-color ${transition.medium},
-    color ${transition.medium};
+  transition: color ${transition.medium};
 
   &:hover {
-    background: rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: rgba(0, 0, 0, 0.75);
+    color: ${colors.black90};
   }
 
   &:focus-visible {
-    outline: 2px solid rgba(253, 73, 74, 0.5);
+    outline: 2px solid ${colors.red5};
     outline-offset: 2px;
   }
 `
@@ -677,7 +669,12 @@ const extractDomain = url => {
   }
 }
 
-const RaceContainer = ({ benchmarkData, serviceColors, highlightKey }) => {
+const RaceContainer = ({
+  benchmarkData,
+  serviceColors,
+  highlightKey,
+  flat = false
+}) => {
   const SERVICES = Object.keys(benchmarkData.results)
   const ALPHABETICAL_SERVICES = [...SERVICES].sort((a, b) =>
     benchmarkData.results[a].name.localeCompare(benchmarkData.results[b].name)
@@ -1049,7 +1046,7 @@ const RaceContainer = ({ benchmarkData, serviceColors, highlightKey }) => {
   )
 
   return (
-    <RaceContainerWrapper ref={containerRef}>
+    <RaceContainerWrapper ref={containerRef} $flat={flat}>
       <RaceInner ref={innerRef}>
         {(isIntro || phase === 'idle') && (
           <>
@@ -1069,9 +1066,7 @@ const RaceContainer = ({ benchmarkData, serviceColors, highlightKey }) => {
                     <LaneName
                       $isMicrolink={false}
                       style={{
-                        color: isLit
-                          ? 'rgba(0, 0, 0, 0.8)'
-                          : 'rgba(0, 0, 0, 0.3)',
+                        color: isLit ? colors.black80 : colors.black30,
                         transition: 'color 0.4s ease'
                       }}
                     >
@@ -1098,9 +1093,7 @@ const RaceContainer = ({ benchmarkData, serviceColors, highlightKey }) => {
                     <LaneTime
                       $isMicrolink={false}
                       style={{
-                        color: isLit
-                          ? 'rgba(0, 0, 0, 0.5)'
-                          : 'rgba(0, 0, 0, 0.2)',
+                        color: isLit ? colors.black50 : colors.black20,
                         transition: 'color 0.4s ease'
                       }}
                     />
@@ -1113,7 +1106,7 @@ const RaceContainer = ({ benchmarkData, serviceColors, highlightKey }) => {
 
         {isRacing && (
           <>
-            <AnnounceBackdrop $visible={isAnnouncing} />
+            <AnnounceBackdrop $visible={isAnnouncing} $flat={flat} />
             {isAnnouncing &&
               announcingUrl &&
               (() => {
@@ -1212,7 +1205,7 @@ const RaceContainer = ({ benchmarkData, serviceColors, highlightKey }) => {
                         style={{
                           width: isAnnouncing ? '0%' : `${pct}%`,
                           background: isHighlighted
-                            ? 'linear-gradient(90deg, #fd494a, #ff7b7b)'
+                            ? `linear-gradient(90deg, ${colors.red6}, ${colors.red4})`
                             : serviceColors[key]
                         }}
                       >
@@ -1224,9 +1217,7 @@ const RaceContainer = ({ benchmarkData, serviceColors, highlightKey }) => {
                       </LaneBar>
                     </LaneTrack>
                     <CumulativeTime
-                      style={
-                        isSumming ? { color: 'rgba(0, 0, 0, 0.85)' } : undefined
-                      }
+                      style={isSumming ? { color: colors.black90 } : undefined}
                     >
                       <AnimatedCounter value={cumTotal} animate={isSumming} />
                     </CumulativeTime>
@@ -1251,7 +1242,7 @@ const RaceContainer = ({ benchmarkData, serviceColors, highlightKey }) => {
                     justifyContent: 'center',
                     marginBottom: '28px',
                     fontSize: '20px',
-                    color: 'rgba(0,0,0,0.7)'
+                    color: colors.black70
                   }}
                 >
                   Final leaderboard

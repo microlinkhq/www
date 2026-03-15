@@ -1,4 +1,14 @@
-import { borders, layout, colors, space, theme } from 'theme'
+import {
+  borders,
+  layout,
+  colors,
+  space,
+  theme,
+  fontSizes,
+  radii,
+  fonts,
+  breakpoints
+} from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -19,6 +29,15 @@ import { extractDomain } from 'helpers/extract-domain'
 
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
+
+const PROVIDER_NAMES = {
+  microlink: 'Microlink',
+  apiflash: 'ApiFlash',
+  screenshotapi: 'ScreenshotAPI',
+  screenshotmachine: 'ScreenshotMachine',
+  screenshotone: 'ScreenshotOne',
+  urlbox: 'Urlbox'
+}
 
 const BENCHMARK_DATA = {
   timestamp: '2026-03',
@@ -72,7 +91,7 @@ const BENCHMARK_DATA = {
   ],
   results: {
     apiflash: {
-      name: 'ApiFlash',
+      name: PROVIDER_NAMES.apiflash,
       summary: {
         avgColdDuration: 9463.2,
         totalColdDuration: 66242.4
@@ -109,7 +128,7 @@ const BENCHMARK_DATA = {
       ]
     },
     microlink: {
-      name: 'Microlink',
+      name: PROVIDER_NAMES.microlink,
       summary: {
         avgColdDuration: 4111.84,
         totalColdDuration: 28782.87
@@ -146,7 +165,7 @@ const BENCHMARK_DATA = {
       ]
     },
     screenshotapi: {
-      name: 'ScreenshotAPI',
+      name: PROVIDER_NAMES.screenshotapi,
       summary: {
         avgColdDuration: 5915.71,
         totalColdDuration: 41409.99
@@ -183,7 +202,7 @@ const BENCHMARK_DATA = {
       ]
     },
     screenshotmachine: {
-      name: 'ScreenshotMachine',
+      name: PROVIDER_NAMES.screenshotmachine,
       summary: {
         avgColdDuration: 6099.77,
         totalColdDuration: 42698.4
@@ -220,7 +239,7 @@ const BENCHMARK_DATA = {
       ]
     },
     screenshotone: {
-      name: 'ScreenshotOne',
+      name: PROVIDER_NAMES.screenshotone,
       summary: {
         avgColdDuration: 7711.14,
         totalColdDuration: 53977.99
@@ -257,7 +276,7 @@ const BENCHMARK_DATA = {
       ]
     },
     urlbox: {
-      name: 'Urlbox',
+      name: PROVIDER_NAMES.urlbox,
       summary: {
         avgColdDuration: 7334.22,
         totalColdDuration: 51339.56
@@ -304,20 +323,73 @@ const SORTED_SERVICES = [...SERVICES].sort(
 )
 
 const SERVICE_COLORS = {
-  microlink: 'rgba(253, 73, 74, 0.5)',
-  apiflash: 'rgba(99, 102, 241, 0.5)',
-  screenshotapi: 'rgba(245, 158, 11, 0.5)',
-  screenshotmachine: 'rgba(16, 185, 129, 0.5)',
-  screenshotone: 'rgba(139, 92, 246, 0.5)',
-  urlbox: 'rgba(6, 182, 212, 0.5)'
+  microlink: colors.red6,
+  apiflash: colors.orange6,
+  screenshotapi: colors.grape7,
+  screenshotmachine: colors.blue6,
+  screenshotone: colors.pink6,
+  urlbox: colors.teal6
 }
 
 const formatMs = ms => ms.toLocaleString('en-US', { maximumFractionDigits: 0 })
+
 const formatMsDecimal = ms =>
   ms.toLocaleString('en-US', { maximumFractionDigits: 2 })
 
-const MONO_FONT =
-  "'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono', Menlo, monospace"
+const MONO_FONT = fonts.mono
+const FONT_SIZE_10 = `calc(${fontSizes[0]} - ${space[1]})`
+const FONT_SIZE_11 = `calc(${fontSizes[0]} - ${radii[1]} - ${radii[1]} / 2)`
+const FONT_SIZE_12 = `calc(${fontSizes[0]} - ${radii[1]})`
+const FONT_SIZE_13 = `calc(${fontSizes[0]} - ${radii[1]} / 2)`
+const FONT_SIZE_15 = `calc(${fontSizes[0]} + ${radii[1]} / 2)`
+const SPACE_6 = `calc(${space[2]} - ${radii[1]})`
+const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
+const SPACE_12 = `calc(${space[3]} - ${space[1]})`
+const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
+const SPACE_20 = `calc(${space[3]} + ${space[1]})`
+const SPACE_24 = `calc(${space[3]} + ${space[2]})`
+const OFFSET_3 = `calc(${space[1]} - ${radii[1]} / 2)`
+const NEGATIVE_SPACE_12 = `calc(${space[3]} * -0.75)`
+const NEGATIVE_SPACE_16 = `calc(${space[3]} * -1)`
+const BREAKPOINT_SMALL_MAX = breakpoints[0]
+const BREAKPOINT_MEDIUM_MAX = `calc(${breakpoints[1]} - ${radii[1]} / 2)`
+const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4]} - ${space[3]} - ${space[2]})`
+const HERO_TITLE_FONT_SIZE = [
+  fontSizes[3],
+  `calc(${fontSizes[3]} + ${space[2]})`,
+  `calc(${fontSizes[4]} - ${space[1]})`,
+  fontSizes[4]
+]
+const SECTION_TITLE_FONT_SIZE = [
+  fontSizes[3],
+  `calc(${fontSizes[3]} + ${space[1]})`,
+  `calc(${fontSizes[3]} + ${space[3]} - ${space[1]})`,
+  `calc(${fontSizes[3]} + ${space[3]})`
+]
+const CAPTION_FONT_SIZE = [
+  fontSizes[1],
+  fontSizes[1],
+  fontSizes[2],
+  `calc(${fontSizes[2]} + ${radii[1]})`
+]
+const SUBSECTION_TITLE_FONT_SIZE = [
+  `calc(${fontSizes[2]} + ${radii[1]})`,
+  `calc(${fontSizes[2]} + ${space[1]})`,
+  fontSizes[3],
+  fontSizes[3]
+]
+const CTA_TITLE_FONT_SIZE = [
+  `calc(${fontSizes[3]} + ${space[3]} - ${space[1]})`,
+  `calc(${fontSizes[4]} - ${space[1]})`,
+  fontSizes[4],
+  `calc(${fontSizes[4]} + ${SPACE_6})`
+]
+const CTA_LINK_FONT_SIZE = [
+  `calc(${fontSizes[2]} + ${space[1]})`,
+  fontSizes[3],
+  `calc(${fontSizes[3]} + ${radii[1]})`,
+  `calc(${fontSizes[3]} + ${space[1]})`
+]
 
 const ComparisonTable = styled('table')`
   width: 100%;
@@ -327,25 +399,25 @@ const ComparisonTable = styled('table')`
 
   th,
   td {
-    padding: 10px 14px;
+    padding: ${SPACE_10} ${SPACE_14};
     text-align: left;
-    font-size: 14px;
+    font-size: ${fontSizes[0]};
     border-bottom: ${borders[1]} ${colors.black05};
 
-    @media (max-width: 600px) {
-      padding: 8px 10px;
-      font-size: 12px;
+    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+      padding: ${space[2]} ${SPACE_10};
+      font-size: ${FONT_SIZE_12};
     }
   }
 
   th {
     font-family: ${MONO_FONT};
-    font-size: 11px;
+    font-size: ${FONT_SIZE_11};
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: ${colors.black50};
-    border-bottom: ${borders[2]} ${colors.black10};
+    border-bottom: ${borders[1]} ${colors.black10};
   }
 
   td {
@@ -355,7 +427,7 @@ const ComparisonTable = styled('table')`
 
   th:last-child,
   td:last-child {
-    @media (max-width: 480px) {
+    @media (max-width: ${BREAKPOINT_COMPACT_MAX}) {
       display: none;
     }
   }
@@ -372,17 +444,21 @@ const ComparisonTable = styled('table')`
 const WinnerTag = styled('span')`
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: ${space[1]};
   font-family: ${MONO_FONT};
-  font-size: 10px;
+  font-size: ${FONT_SIZE_10};
   font-weight: 700;
-  color: #16a34a;
-  background: rgba(22, 163, 74, 0.08);
-  border: 1px solid rgba(22, 163, 74, 0.2);
-  border-radius: 4px;
-  padding: 2px 6px;
-  margin-left: 6px;
-  vertical-align: middle;
+  color: ${colors.green7};
+  background: ${colors.green0};
+  border: ${borders[1]} ${colors.green2};
+  border-radius: ${radii[2]};
+  padding: ${radii[1]} ${SPACE_6};
+`
+
+const ProviderNameWithTag = styled('span')`
+  display: inline-flex;
+  align-items: center;
+  gap: ${space[1]};
 `
 
 const PerUrlTable = styled('table')`
@@ -392,15 +468,15 @@ const PerUrlTable = styled('table')`
   font-variant-numeric: tabular-nums;
   table-layout: auto;
 
-  @media (max-width: 767px) {
+  @media (max-width: ${BREAKPOINT_MEDIUM_MAX}) {
     display: none;
   }
 
   th,
   td {
-    padding: 8px 12px;
+    padding: ${space[2]} ${SPACE_12};
     text-align: right;
-    font-size: 12px;
+    font-size: ${FONT_SIZE_12};
     border-bottom: ${borders[1]} ${colors.black05};
     font-family: ${MONO_FONT};
     white-space: nowrap;
@@ -411,8 +487,8 @@ const PerUrlTable = styled('table')`
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: ${colors.black50};
-    border-bottom: ${borders[2]} ${colors.black10};
-    font-size: 10px;
+    border-bottom: ${borders[1]} ${colors.black10};
+    font-size: ${FONT_SIZE_10};
   }
 
   th:first-child,
@@ -434,39 +510,39 @@ const PerUrlTable = styled('table')`
 const MobileCards = styled('div')`
   display: none;
   flex-direction: column;
-  gap: 12px;
+  gap: ${SPACE_12};
 
-  @media (max-width: 767px) {
+  @media (max-width: ${BREAKPOINT_MEDIUM_MAX}) {
     display: flex;
   }
 `
 
 const MobileCard = styled('div')`
-  border: 1px solid ${colors.black10};
-  border-radius: 8px;
+  border: ${borders[1]} ${colors.black10};
+  border-radius: ${radii[4]};
   overflow: hidden;
   background: ${colors.white};
 `
 
 const MobileCardHeader = styled('div')`
   font-family: ${MONO_FONT};
-  font-size: 13px;
+  font-size: ${FONT_SIZE_13};
   font-weight: 600;
   color: ${colors.black80};
-  padding: 10px 14px;
+  padding: ${SPACE_10} ${SPACE_14};
   background: ${colors.black025};
-  border-bottom: 1px solid ${colors.black10};
+  border-bottom: ${borders[1]} ${colors.black10};
 `
 
 const MobileCardRow = styled('div')`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 14px;
+  padding: ${space[2]} ${SPACE_14};
   font-family: ${MONO_FONT};
-  font-size: 12px;
+  font-size: ${FONT_SIZE_12};
   font-variant-numeric: tabular-nums;
-  border-bottom: 1px solid ${colors.black05};
+  border-bottom: ${borders[1]} ${colors.black05};
 
   &:last-child {
     border-bottom: 0;
@@ -482,27 +558,27 @@ const MobileCardTime = styled('span')`
   font-weight: ${({ $highlight }) => ($highlight ? 700 : 400)};
   color: ${({ $isMin, $isMax, $isSecond }) =>
     $isMin
-      ? '#16a34a'
+      ? colors.green7
       : $isMax
-        ? '#dc2626'
+        ? colors.red8
         : $isSecond
-          ? '#d97706'
+          ? colors.orange7
           : colors.black80};
 `
 
 const CellHighlight = styled('span')`
   font-weight: 700;
-  color: #16a34a;
+  color: ${colors.green7};
 `
 
 const CellLoser = styled('span')`
   font-weight: 700;
-  color: #dc2626;
+  color: ${colors.red8};
 `
 
 const CellRunnerUp = styled('span')`
   font-weight: 600;
-  color: #d97706;
+  color: ${colors.orange7};
 `
 
 const Hero = () => (
@@ -532,7 +608,7 @@ const Hero = () => (
           forwardedAs='h1'
           variant='gradient'
           css={theme({
-            fontSize: ['28px', '36px', '48px', '52px'],
+            fontSize: HERO_TITLE_FONT_SIZE,
             textAlign: 'center'
           })}
         >
@@ -546,7 +622,7 @@ const Hero = () => (
             color: 'black60',
             textAlign: 'center',
             width: '100%',
-            fontSize: [1, 1, 2, '22px'],
+            fontSize: CAPTION_FONT_SIZE,
             px: [4, 4, 4, 0],
             maxWidth: layout.normal
           })}
@@ -560,6 +636,7 @@ const Hero = () => (
         benchmarkData={BENCHMARK_DATA}
         serviceColors={SERVICE_COLORS}
         highlightKey='microlink'
+        flat
       />
     </Flex>
   </BluePrintBackground>
@@ -576,20 +653,20 @@ const MethodologyList = styled('ul')`
 
 const MethodologyItem = styled('li')`
   position: relative;
-  padding-left: 20px;
+  padding-left: ${SPACE_20};
 
   &::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 14px;
-    width: 6px;
-    height: 6px;
+    top: ${SPACE_14};
+    width: ${SPACE_6};
+    height: ${SPACE_6};
     border-radius: 50%;
-    background: ${colors.close};
+    background: ${colors.black70};
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: ${BREAKPOINT_MEDIUM_MAX}) {
     padding-left: 0;
 
     &::before {
@@ -620,7 +697,7 @@ const Methodology = () => (
       <Subhead
         variant='gradient'
         css={theme({
-          fontSize: ['28px', '32px', '40px', '44px'],
+          fontSize: SECTION_TITLE_FONT_SIZE,
           textAlign: 'left'
         })}
       >
@@ -737,7 +814,7 @@ const Methodology = () => (
         </MethodologyItem>
       </MethodologyList>
       <CalloutBox>
-        <CalloutLabel>Transparency note</CalloutLabel>
+        <CalloutLabel css={theme({ mb: 4 })}>Transparency note</CalloutLabel>
         <Text
           css={theme({
             fontSize: [0, 0, 1, 1],
@@ -800,7 +877,7 @@ const Methodology = () => (
         <span
           css={{
             fontFamily: MONO_FONT,
-            fontSize: '15px',
+            fontSize: FONT_SIZE_15,
             fontVariantNumeric: 'tabular-nums'
           }}
         >
@@ -831,12 +908,12 @@ const CompetitorComparison = () => {
           maxWidth: layout.large,
           px: [4, 4, 4, 0],
           mx: 'auto',
-          gap: ['24px', '24px', '32px', '32px']
+          gap: [SPACE_24, SPACE_24, space[4], space[4]]
         })}
       >
         <Subhead
           css={theme({
-            fontSize: ['28px', '32px', '40px', '44px'],
+            fontSize: SECTION_TITLE_FONT_SIZE,
             textAlign: 'left'
           })}
         >
@@ -846,12 +923,12 @@ const CompetitorComparison = () => {
         <Text
           css={{
             fontFamily: MONO_FONT,
-            fontSize: '13px',
+            fontSize: FONT_SIZE_13,
             fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
             color: colors.black50,
-            marginBottom: '-16px'
+            marginBottom: NEGATIVE_SPACE_16
           }}
         >
           Average cold-start latency per provider
@@ -860,7 +937,7 @@ const CompetitorComparison = () => {
           css={{
             overflowX: 'auto',
             WebkitOverflowScrolling: 'touch',
-            borderRadius: '8px',
+            borderRadius: radii[4],
             border: `${borders[1]} ${colors.black10}`,
             background: colors.white
           }}
@@ -884,28 +961,30 @@ const CompetitorComparison = () => {
                 const isRunnerUp = rank === 1
 
                 const nameColor = isMicrolink
-                  ? '#16a34a'
+                  ? colors.green7
                   : isRunnerUp
-                    ? '#d97706'
+                    ? colors.orange7
                     : colors.black80
                 const timeColor = isMicrolink
-                  ? '#16a34a'
+                  ? colors.green7
                   : isRunnerUp
-                    ? '#d97706'
+                    ? colors.orange7
                     : undefined
 
                 return (
                   <tr key={key}>
                     <td>
-                      <span
-                        style={{
-                          fontWeight: isMicrolink || isRunnerUp ? 700 : 400,
-                          color: nameColor
-                        }}
-                      >
-                        {svc.name}
-                      </span>
-                      {isMicrolink && <WinnerTag>Fastest</WinnerTag>}
+                      <ProviderNameWithTag>
+                        <span
+                          style={{
+                            fontWeight: isMicrolink || isRunnerUp ? 700 : 400,
+                            color: nameColor
+                          }}
+                        >
+                          {svc.name}
+                        </span>
+                        {isMicrolink && <WinnerTag>Fastest</WinnerTag>}
+                      </ProviderNameWithTag>
                     </td>
                     <td
                       style={{
@@ -917,7 +996,7 @@ const CompetitorComparison = () => {
                     </td>
                     <td
                       style={{
-                        color: isMicrolink ? '#16a34a' : colors.black50
+                        color: isMicrolink ? colors.green7 : colors.black50
                       }}
                     >
                       {isMicrolink ? '—' : `+${pctSlower}% slower`}
@@ -932,12 +1011,12 @@ const CompetitorComparison = () => {
         <Text
           css={{
             fontFamily: MONO_FONT,
-            fontSize: '13px',
+            fontSize: FONT_SIZE_13,
             fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
             color: colors.black50,
-            marginBottom: '-16px'
+            marginBottom: NEGATIVE_SPACE_16
           }}
         >
           Cold-start latency breakdown by URL
@@ -946,7 +1025,7 @@ const CompetitorComparison = () => {
           css={theme({
             overflowX: 'auto',
             WebkitOverflowScrolling: 'touch',
-            borderRadius: '8px',
+            borderRadius: radii[4],
             border: `${borders[1]} ${colors.black10}`,
             background: colors.white,
             display: ['none', 'none', 'block']
@@ -960,7 +1039,8 @@ const CompetitorComparison = () => {
                   <th
                     key={key}
                     css={{
-                      color: key === 'microlink' ? '#16a34a' : colors.black50
+                      color:
+                        key === 'microlink' ? colors.green7 : colors.black50
                     }}
                   >
                     {BENCHMARK_DATA.results[key].name}
@@ -989,15 +1069,21 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin ? (
-                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                          ) : isMax ? (
-                            <CellLoser>{formatMs(times[i])}</CellLoser>
-                          ) : isSecond ? (
-                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                          ) : (
-                            formatMs(times[i])
-                          )}
+                          {isMin
+                            ? (
+                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                              )
+                            : isMax
+                              ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                                )
+                              : isSecond
+                                ? (
+                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                                  )
+                                : (
+                                    formatMs(times[i])
+                                  )}
                         </td>
                       )
                     })}
@@ -1017,7 +1103,7 @@ const CompetitorComparison = () => {
                       css={{
                         fontWeight: 700,
                         color: colors.black80,
-                        borderTop: `${borders[2]} ${colors.black10}`
+                        borderTop: `${borders[1]} ${colors.black10}`
                       }}
                     >
                       Total
@@ -1030,11 +1116,11 @@ const CompetitorComparison = () => {
                           key={key}
                           css={{
                             fontWeight: 700,
-                            borderTop: `${borders[2]} ${colors.black10}`,
+                            borderTop: `${borders[1]} ${colors.black10}`,
                             color: isMin
-                              ? '#16a34a'
+                              ? colors.green7
                               : isMax
-                                ? '#dc2626'
+                                ? colors.red8
                                 : colors.black80
                           }}
                         >
@@ -1127,51 +1213,51 @@ const CompetitorComparison = () => {
             alignItems: 'center',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            gap: '14px',
+            gap: SPACE_14,
             fontFamily: MONO_FONT,
-            fontSize: '11px',
+            fontSize: FONT_SIZE_11,
             color: colors.black50,
-            marginTop: '-12px'
+            marginTop: NEGATIVE_SPACE_12
           }}
         >
-          <Flex css={{ alignItems: 'center', gap: '6px' }}>
+          <Flex css={{ alignItems: 'center', gap: SPACE_6 }}>
             <span
               css={{
-                width: '10px',
-                height: '10px',
-                borderRadius: '2px',
-                background: '#16a34a',
+                width: SPACE_10,
+                height: SPACE_10,
+                borderRadius: radii[1],
+                background: colors.green7,
                 flexShrink: 0
               }}
             />
-            <span css={{ marginTop: '3px' }}>Fastest</span>
+            <span css={{ marginTop: OFFSET_3 }}>Fastest</span>
           </Flex>
-          <Flex css={{ alignItems: 'center', gap: '6px' }}>
+          <Flex css={{ alignItems: 'center', gap: SPACE_6 }}>
             <span
               css={{
-                width: '10px',
-                height: '10px',
-                borderRadius: '2px',
-                background: '#d97706',
+                width: SPACE_10,
+                height: SPACE_10,
+                borderRadius: radii[1],
+                background: colors.orange7,
                 flexShrink: 0
               }}
             />
-            <span css={{ marginTop: '3px' }}>2nd fastest</span>
+            <span css={{ marginTop: OFFSET_3 }}>2nd fastest</span>
           </Flex>
-          <Flex css={{ alignItems: 'center', gap: '6px' }}>
+          <Flex css={{ alignItems: 'center', gap: SPACE_6 }}>
             <span
               css={{
-                width: '10px',
-                height: '10px',
-                borderRadius: '2px',
-                background: '#dc2626',
+                width: SPACE_10,
+                height: SPACE_10,
+                borderRadius: radii[1],
+                background: colors.red8,
                 flexShrink: 0
               }}
             />
-            <span css={{ marginTop: '3px' }}>Slowest</span>
+            <span css={{ marginTop: OFFSET_3 }}>Slowest</span>
           </Flex>
           <span css={{ color: colors.black40 }}>·</span>
-          <span css={{ marginTop: '3px' }}>
+          <span css={{ marginTop: OFFSET_3 }}>
             Times in milliseconds (ms), totals in seconds&nbsp;(s)
           </span>
         </Flex>
@@ -1184,15 +1270,16 @@ const CompetitorComparison = () => {
         >
           <Box>
             <Subhead
+              titleize={false}
               forwardedAs='h3'
               css={theme({
-                fontSize: ['22px', '24px', '28px', '28px'],
+                fontSize: SUBSECTION_TITLE_FONT_SIZE,
                 textAlign: 'left',
                 mt: [4, 4, 5, 5],
                 mb: [2, 2, 3, 3]
               })}
             >
-              Urlbox alternative: speed &amp; latency
+              vs Urlbox
             </Subhead>
             <Text
               css={theme({
@@ -1210,7 +1297,7 @@ const CompetitorComparison = () => {
                 &thinsp;ms
               </strong>{' '}
               per request. Microlink processed the same suite at an average of{' '}
-              <strong css={{ fontFamily: MONO_FONT, color: '#16a34a' }}>
+              <strong css={{ fontFamily: MONO_FONT, color: colors.green7 }}>
                 {formatMsDecimal(microAvg)}&thinsp;ms
               </strong>
               , making it roughly 44% faster overall. The performance gap is
@@ -1222,14 +1309,15 @@ const CompetitorComparison = () => {
 
           <Box>
             <Subhead
+              titleize={false}
               forwardedAs='h3'
               css={theme({
-                fontSize: ['22px', '24px', '28px', '28px'],
+                fontSize: SUBSECTION_TITLE_FONT_SIZE,
                 textAlign: 'left',
                 mb: [2, 2, 3, 3]
               })}
             >
-              ApiFlash alternative: response times
+              vs ApiFlash
             </Subhead>
             <Text
               css={theme({
@@ -1266,14 +1354,15 @@ const CompetitorComparison = () => {
 
           <Box>
             <Subhead
+              titleize={false}
               forwardedAs='h3'
               css={theme({
-                fontSize: ['22px', '24px', '28px', '28px'],
+                fontSize: SUBSECTION_TITLE_FONT_SIZE,
                 textAlign: 'left',
                 mb: [2, 2, 3, 3]
               })}
             >
-              ScreenshotAPI &amp; ScreenshotMachine performance
+              vs ScreenshotAPI &amp; ScreenshotMachine
             </Subhead>
             <Text
               css={theme({
@@ -1308,14 +1397,15 @@ const CompetitorComparison = () => {
 
           <Box>
             <Subhead
+              titleize={false}
               forwardedAs='h3'
               css={theme({
-                fontSize: ['22px', '24px', '28px', '28px'],
+                fontSize: SUBSECTION_TITLE_FONT_SIZE,
                 textAlign: 'left',
                 mb: [2, 2, 3, 3]
               })}
             >
-              ScreenshotOne comparison
+              vs ScreenshotOne
             </Subhead>
             <Text
               css={theme({
@@ -1367,7 +1457,7 @@ const WhyLatencyMatters = () => (
     >
       <Subhead
         css={theme({
-          fontSize: ['28px', '32px', '40px', '44px'],
+          fontSize: SECTION_TITLE_FONT_SIZE,
           textAlign: 'left'
         })}
       >
@@ -1389,7 +1479,7 @@ const WhyLatencyMatters = () => (
       <Subhead
         forwardedAs='h3'
         css={theme({
-          fontSize: ['22px', '24px', '28px', '28px'],
+          fontSize: SUBSECTION_TITLE_FONT_SIZE,
           textAlign: 'left',
           mt: [2, 2, 3, 3]
         })}
@@ -1425,7 +1515,7 @@ const WhyLatencyMatters = () => (
       <Subhead
         forwardedAs='h3'
         css={theme({
-          fontSize: ['22px', '24px', '28px', '28px'],
+          fontSize: SUBSECTION_TITLE_FONT_SIZE,
           textAlign: 'left',
           mt: [2, 2, 3, 3]
         })}
@@ -1467,12 +1557,9 @@ const CalloutBox = styled('blockquote')`
   margin: 0;
   padding: ${space[4]};
   background: ${colors.white};
-  border: 1px solid ${colors.black10};
-  border-left: 4px solid ${colors.close};
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-
-  @media (max-width: 600px) {
+  border: ${borders[1]} ${colors.yellow6};
+  border-radius: ${radii[4]};
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     padding: ${space[3]};
   }
 `
@@ -1480,16 +1567,15 @@ const CalloutBox = styled('blockquote')`
 const CalloutLabel = styled('span')`
   display: inline-block;
   font-family: ${MONO_FONT};
-  font-size: 10px;
+  font-size: ${FONT_SIZE_10};
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: ${colors.close};
-  background: rgba(253, 73, 74, 0.08);
-  border: 1px solid rgba(253, 73, 74, 0.2);
-  border-radius: 4px;
-  padding: 2px 8px;
-  margin-bottom: ${space[2]};
+  color: ${colors.yellow8};
+  background: ${colors.yellow0};
+  border: ${borders[1]} ${colors.yellow3};
+  border-radius: ${radii[2]};
+  padding: ${radii[1]} ${space[2]};
 `
 
 const BottomCta = () => (
@@ -1515,7 +1601,7 @@ const BottomCta = () => (
       <Subhead
         variant='gradient'
         css={theme({
-          fontSize: ['40px', '48px', '52px', '58px'],
+          fontSize: CTA_TITLE_FONT_SIZE,
           textAlign: 'center'
         })}
       >
@@ -1542,7 +1628,7 @@ const BottomCta = () => (
       >
         <Link
           href='/docs/api/parameters/screenshot'
-          css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
+          css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
         >
           Start now for free
         </Link>
@@ -1618,7 +1704,7 @@ export const Head = () => (
 )
 
 const ScreenshotApiBenchmarkPage = () => (
-  <Layout css={{ marginTop: '0px' }}>
+  <Layout css={{ marginTop: 0 }}>
     <Hero />
     <CompetitorComparison />
     <Methodology />

@@ -5,8 +5,8 @@ import { colors, fontSizes, space, theme } from 'theme'
 import Box from 'components/elements/Box'
 
 const GRID_SIZE = fontSizes[2]
-const MASK_DASH = space[1]
-const MASK_GAP = space[2]
+const MASK_DASH = '3px'
+const MASK_STEP = space[2]
 export const BLUEPRINT_OPACITY = 0.8
 
 const Root = styled(Box)`
@@ -33,14 +33,14 @@ const Pattern = styled(Box)`
       #000 0px,
       #000 ${MASK_DASH},
       transparent ${MASK_DASH},
-      transparent calc(${MASK_DASH} + ${MASK_GAP})
+      transparent ${MASK_STEP}
     ),
     repeating-linear-gradient(
       to bottom,
       #000 0px,
       #000 ${MASK_DASH},
       transparent ${MASK_DASH},
-      transparent calc(${MASK_DASH} + ${MASK_GAP})
+      transparent ${MASK_STEP}
     ),
     radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%);
   -webkit-mask-image: repeating-linear-gradient(
@@ -48,14 +48,14 @@ const Pattern = styled(Box)`
       #000 0px,
       #000 ${MASK_DASH},
       transparent ${MASK_DASH},
-      transparent calc(${MASK_DASH} + ${MASK_GAP})
+      transparent ${MASK_STEP}
     ),
     repeating-linear-gradient(
       to bottom,
       #000 0px,
       #000 ${MASK_DASH},
       transparent ${MASK_DASH},
-      transparent calc(${MASK_DASH} + ${MASK_GAP})
+      transparent ${MASK_STEP}
     ),
     radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%);
   mask-composite: intersect;
