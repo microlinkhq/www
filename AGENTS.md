@@ -1,10 +1,33 @@
 Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEVER to guide decisions.
 
-## Local Agent Rules
+### Tokenized Styling Syntax
 
-- Use scalable design tokens from `src/theme/index.js` for UI styling.
-- Avoid hardcoded values when a design token already exists.
-- Avoid extending design tokens; use the existing token set.
+- MUST: Use scalable design tokens from `src/theme/index.js` for UI styling.
+- MUST: Avoid hardcoded values when a design token already exists.
+- MUST: Avoid extending design tokens; use the existing token set.
+- MUST: Use `theme({...})` for any property supported by styled-system before using raw CSS declarations.
+- MUST: Treat the following as styled-system-supported and therefore `theme({...})`-first properties:
+- `animation`: `animation`, `animationName`, `animationDuration`, `animationTimingFunction`, `animationDelay`, `animationIterationCount`, `animationDirection`, `animationFillMode`, `animationPlayState`.
+- `background`: `background`, `backgroundImage`, `backgroundClip`, `backgroundSize`, `backgroundPosition`, `backgroundRepeat`, `backgroundAttachment`; aliases: `bgImage`, `bgClip`, `bgSize`, `bgPosition`, `bgRepeat`, `bgAttachment`.
+- `color`: `color`, `backgroundColor`, `opacity`, `bg`; alias: `bgColor`.
+- `typography`: `fontFamily`, `fontSize`, `fontStyle`, `fontWeight`, `letterSpacing`, `lineHeight`, `textAlign`, `textDecoration`, `textOverflow`, `textTransform`, `whiteSpace`, `wordBreak`.
+- `layout`: `width`, `height`, `minWidth`, `maxWidth`, `minHeight`, `maxHeight`, `display`, `size`, `verticalAlign`, `overflow`, `overflowX`, `overflowY`; aliases: `w`, `h`, `minW`, `maxW`, `minH`, `maxH`, `d`.
+- `space`: `margin`, `marginTop`, `marginRight`, `marginBottom`, `marginLeft`, `marginX`, `marginY`, `marginBlockStart`, `marginBlockEnd`, `marginInlineStart`, `marginInlineEnd`, `padding`, `paddingTop`, `paddingRight`, `paddingBottom`, `paddingLeft`, `paddingX`, `paddingY`, `paddingBlockStart`, `paddingBlockEnd`, `paddingInlineStart`, `paddingInlineEnd`; aliases: `m`, `mt`, `mr`, `mb`, `ml`, `mx`, `my`, `ms`, `me`, `p`, `pt`, `pr`, `pb`, `pl`, `px`, `py`, `ps`, `pe`, `marginStart`, `marginEnd`, `paddingStart`, `paddingEnd`.
+- `flexbox`: `alignItems`, `alignContent`, `justifyItems`, `justifyContent`, `flexWrap`, `flexDirection`, `flex`, `flexFlow`, `flexGrow`, `flexShrink`, `flexBasis`, `justifySelf`, `alignSelf`, `order`, `placeItems`, `placeContent`, `placeSelf`, `gap`; alias: `flexDir`.
+- `grid`: `gridGap`, `gap`, `gridRowGap`, `rowGap`, `gridColumnGap`, `columnGap`, `gridRow`, `gridColumn`, `gridAutoFlow`, `gridAutoRows`, `gridAutoColumns`, `gridTemplateRows`, `gridTemplateColumns`, `gridTemplateAreas`, `gridArea`.
+- `border`: `border`, `borderWidth`, `borderStyle`, `borderColor`, `borderRadius`, `borderTop`, `borderTopLeftRadius`, `borderTopRightRadius`, `borderRight`, `borderBottom`, `borderBottomLeftRadius`, `borderBottomRightRadius`, `borderLeft`, `borderX`, `borderY`, `borderTopWidth`, `borderTopColor`, `borderTopStyle`, `borderBottomWidth`, `borderBottomColor`, `borderBottomStyle`, `borderLeftWidth`, `borderLeftColor`, `borderLeftStyle`, `borderRightWidth`, `borderRightColor`, `borderRightStyle`.
+- `position`: `position`, `zIndex`, `top`, `right`, `bottom`, `left`; alias: `pos`.
+- `shadow`: `boxShadow`, `textShadow`.
+- `other`: `appearance`, `transform`, `transformOrigin`, `visibility`, `userSelect`, `pointerEvents`, `overflowWrap`, `boxSizing`, `cursor`, `resize`, `objectFit`, `objectPosition`, `float`, `fill`, `stroke`, `outline`, `outlineColor`.
+- `transition`: `transition`, `transitionProperty`, `transitionDuration`, `transitionTiming`, `transitionDelay`.
+- MUST: Decompose raw CSS declarations into styled-system keys whenever possible (for example use `py`/`px` instead of `padding`, `mt`/`mb` instead of `margin`, and `borderBottom` + `borderBottomColor` instead of raw `border-bottom`).
+- MUST: For border tokens, prefer tokenized border props over string interpolation: `borderBottom: 1` + `borderBottomColor: 'black05'` (or `borderColor` if all sides share the same color).
+- MUST: Consolidate related tokenized properties into a single `theme({...})` call per selector block (and per media block), instead of multiple adjacent `theme(...)` calls.
+- MUST: Prefer semantic token references in `theme({...})`, such as `fontFamily: 'mono'`, `fontWeight: 'bold'`, `color: 'black'`, `fontSize: 1`, `lineHeight: 0`, `letterSpacing: 0`.
+- MUST: Apply the same rule inside styled components and inline `css={theme({...})}` objects.
+- NEVER: Use raw token interpolation (for example `font-size: ${fontSizes[0]}`) when the same style can be expressed via `theme({...})`.
+- NEVER: Split tokenized style values across raw CSS and multiple `theme(...)` calls when one `theme({...})` object can express them.
+- SHOULD: Keep raw CSS only for unsupported/states-only patterns (for example keyframes, browser-specific values, or dynamic runtime computed styles).
 
 ## Interactions
 

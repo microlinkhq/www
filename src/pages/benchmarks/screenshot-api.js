@@ -6,7 +6,6 @@ import {
   theme,
   fontSizes,
   radii,
-  fonts,
   breakpoints
 } from 'theme'
 import React from 'react'
@@ -336,12 +335,6 @@ const formatMs = ms => ms.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const formatMsDecimal = ms =>
   ms.toLocaleString('en-US', { maximumFractionDigits: 2 })
 
-const MONO_FONT = fonts.mono
-const FONT_SIZE_10 = `calc(${fontSizes[0]} - ${space[1]})`
-const FONT_SIZE_11 = `calc(${fontSizes[0]} - ${radii[1]} - ${radii[1]} / 2)`
-const FONT_SIZE_12 = `calc(${fontSizes[0]} - ${radii[1]})`
-const FONT_SIZE_13 = `calc(${fontSizes[0]} - ${radii[1]} / 2)`
-const FONT_SIZE_15 = `calc(${fontSizes[0]} + ${radii[1]} / 2)`
 const SPACE_6 = `calc(${space[2]} - ${radii[1]})`
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
 const SPACE_12 = `calc(${space[3]} - ${space[1]})`
@@ -350,7 +343,6 @@ const SPACE_20 = `calc(${space[3]} + ${space[1]})`
 const SPACE_24 = `calc(${space[3]} + ${space[2]})`
 const OFFSET_3 = `calc(${space[1]} - ${radii[1]} / 2)`
 const NEGATIVE_SPACE_12 = `calc(${space[3]} * -0.75)`
-const NEGATIVE_SPACE_16 = `calc(${space[3]} * -1)`
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const BREAKPOINT_MEDIUM_MAX = `calc(${breakpoints[1]} - ${radii[1]} / 2)`
 const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4]} - ${space[3]} - ${space[2]})`
@@ -390,6 +382,12 @@ const CTA_LINK_FONT_SIZE = [
   `calc(${fontSizes[3]} + ${radii[1]})`,
   `calc(${fontSizes[3]} + ${space[1]})`
 ]
+const COMPARISON_SECTION_LABEL_CSS = theme({
+  fontSize: 2,
+  fontWeight: 'bold',
+  letterSpacing: 0,
+  color: 'black'
+})
 
 const ComparisonTable = styled('table')`
   width: 100%;
@@ -400,29 +398,24 @@ const ComparisonTable = styled('table')`
   th,
   td {
     padding: ${SPACE_10} ${SPACE_14};
-    text-align: left;
-    font-size: ${fontSizes[0]};
+    ${theme({ textAlign: 'left', fontSize: 0 })};
     border-bottom: ${borders[1]} ${colors.black05};
 
     @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
       padding: ${space[2]} ${SPACE_10};
-      font-size: ${FONT_SIZE_12};
+      ${theme({ fontSize: 0 })};
     }
   }
 
   th {
-    font-family: ${MONO_FONT};
-    font-size: ${FONT_SIZE_11};
+    ${theme({ fontFamily: 'mono', fontSize: 0, color: 'black' })};
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: ${colors.black50};
     border-bottom: ${borders[1]} ${colors.black10};
   }
 
   td {
-    font-family: ${MONO_FONT};
-    color: ${colors.black80};
+    ${theme({ fontFamily: 'mono', color: 'black' })};
   }
 
   th:last-child,
@@ -437,28 +430,28 @@ const ComparisonTable = styled('table')`
   }
 
   tbody tr:hover {
-    background: ${colors.black025};
+    ${theme({ bg: 'black05' })};
   }
 `
 
 const WinnerTag = styled('span')`
-  display: inline-flex;
-  align-items: center;
-  gap: ${space[1]};
-  font-family: ${MONO_FONT};
-  font-size: ${FONT_SIZE_10};
-  font-weight: 700;
-  color: ${colors.green7};
-  background: ${colors.green0};
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 1,
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'bold',
+    color: 'green7',
+    bg: 'green0',
+    borderRadius: 2
+  })};
   border: ${borders[1]} ${colors.green2};
-  border-radius: ${radii[2]};
   padding: ${radii[1]} ${SPACE_6};
 `
 
 const ProviderNameWithTag = styled('span')`
-  display: inline-flex;
-  align-items: center;
-  gap: ${space[1]};
+  ${theme({ display: 'inline-flex', alignItems: 'center', gap: 1 })};
 `
 
 const PerUrlTable = styled('table')`
@@ -475,27 +468,23 @@ const PerUrlTable = styled('table')`
   th,
   td {
     padding: ${space[2]} ${SPACE_12};
-    text-align: right;
-    font-size: ${FONT_SIZE_12};
+    ${theme({ textAlign: 'right', fontSize: 0, fontFamily: 'mono' })};
     border-bottom: ${borders[1]} ${colors.black05};
-    font-family: ${MONO_FONT};
     white-space: nowrap;
   }
 
   th {
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: ${colors.black50};
+    ${theme({ color: 'black', fontSize: 0 })};
     border-bottom: ${borders[1]} ${colors.black10};
-    font-size: ${FONT_SIZE_10};
   }
 
   th:first-child,
   td:first-child {
     text-align: left;
     font-weight: 500;
-    color: ${colors.black60};
+    ${theme({ color: 'black' })};
   }
 
   tbody tr:last-child td {
@@ -503,44 +492,46 @@ const PerUrlTable = styled('table')`
   }
 
   tbody tr:hover {
-    background: ${colors.black025};
+    ${theme({ bg: 'black05' })};
   }
 `
 
 const MobileCards = styled('div')`
-  display: none;
-  flex-direction: column;
+  ${theme({ display: 'none', flexDirection: 'column' })};
   gap: ${SPACE_12};
 
   @media (max-width: ${BREAKPOINT_MEDIUM_MAX}) {
-    display: flex;
+    ${theme({ display: 'flex' })};
   }
 `
 
 const MobileCard = styled('div')`
+  ${theme({ borderRadius: 4, bg: 'white' })};
   border: ${borders[1]} ${colors.black10};
-  border-radius: ${radii[4]};
   overflow: hidden;
-  background: ${colors.white};
 `
 
 const MobileCardHeader = styled('div')`
-  font-family: ${MONO_FONT};
-  font-size: ${FONT_SIZE_13};
-  font-weight: 600;
-  color: ${colors.black80};
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    color: 'black',
+    fontWeight: 'bold'
+  })};
   padding: ${SPACE_10} ${SPACE_14};
-  background: ${colors.black025};
+  ${theme({ bg: 'black05' })};
   border-bottom: ${borders[1]} ${colors.black10};
 `
 
 const MobileCardRow = styled('div')`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  ${theme({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    fontFamily: 'mono',
+    fontSize: 0
+  })};
   padding: ${space[2]} ${SPACE_14};
-  font-family: ${MONO_FONT};
-  font-size: ${FONT_SIZE_12};
   font-variant-numeric: tabular-nums;
   border-bottom: ${borders[1]} ${colors.black05};
 
@@ -550,7 +541,7 @@ const MobileCardRow = styled('div')`
 `
 
 const MobileCardName = styled('span')`
-  color: ${colors.black60};
+  ${theme({ color: 'black' })};
   font-weight: 500;
 `
 
@@ -560,25 +551,23 @@ const MobileCardTime = styled('span')`
     $isMin
       ? colors.green7
       : $isMax
-        ? colors.red8
-        : $isSecond
-          ? colors.orange7
-          : colors.black80};
+      ? colors.red8
+      : $isSecond
+      ? colors.orange7
+      : colors.black};
 `
 
 const CellHighlight = styled('span')`
-  font-weight: 700;
-  color: ${colors.green7};
+  ${theme({ fontWeight: 'bold', color: 'green7' })};
 `
 
 const CellLoser = styled('span')`
-  font-weight: 700;
-  color: ${colors.red8};
+  ${theme({ fontWeight: 'bold', color: 'red8' })};
 `
 
 const CellRunnerUp = styled('span')`
+  ${theme({ color: 'orange7' })};
   font-weight: 600;
-  color: ${colors.orange7};
 `
 
 const Hero = () => (
@@ -605,8 +594,8 @@ const Hero = () => (
         })}
       >
         <Subhead
-          forwardedAs='h1'
           variant='gradient'
+          forwardedAs='h1'
           css={theme({
             fontSize: HERO_TITLE_FONT_SIZE,
             textAlign: 'center'
@@ -619,7 +608,7 @@ const Hero = () => (
         <Caption
           forwardedAs='div'
           css={theme({
-            color: 'black60',
+            color: 'black',
             textAlign: 'center',
             width: '100%',
             fontSize: CAPTION_FONT_SIZE,
@@ -643,34 +632,37 @@ const Hero = () => (
 )
 
 const MethodologyList = styled('ul')`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: ${space[3]};
+  ${theme({
+    listStyle: 'none',
+    p: 0,
+    m: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 3
+  })};
 `
 
 const MethodologyItem = styled('li')`
-  position: relative;
-  padding-left: ${SPACE_20};
+  ${theme({ position: 'relative', pl: SPACE_20 })};
 
   &::before {
     content: '';
-    position: absolute;
-    left: 0;
-    top: ${SPACE_14};
-    width: ${SPACE_6};
-    height: ${SPACE_6};
-    border-radius: 50%;
-    background: ${colors.black70};
+    ${theme({
+      position: 'absolute',
+      left: 0,
+      top: SPACE_14,
+      width: SPACE_6,
+      height: SPACE_6,
+      borderRadius: '50%',
+      bg: 'black'
+    })};
   }
 
   @media (max-width: ${BREAKPOINT_MEDIUM_MAX}) {
-    padding-left: 0;
+    ${theme({ pl: 0 })};
 
     &::before {
-      display: none;
+      ${theme({ display: 'none' })};
     }
   }
 `
@@ -706,7 +698,7 @@ const Methodology = () => (
       <Text
         css={theme({
           fontSize: [1, 1, 2, 2],
-          color: 'black70',
+          color: 'black',
           lineHeight: 3
         })}
       >
@@ -718,7 +710,7 @@ const Methodology = () => (
       <Text
         css={theme({
           fontSize: [1, 1, 2, 2],
-          color: 'black70',
+          color: 'black',
           lineHeight: 3
         })}
       >
@@ -729,7 +721,7 @@ const Methodology = () => (
           <Text
             css={theme({
               fontSize: [1, 1, 2, 2],
-              color: 'black70',
+              color: 'black',
               lineHeight: 3
             })}
           >
@@ -743,7 +735,7 @@ const Methodology = () => (
           <Text
             css={theme({
               fontSize: [1, 1, 2, 2],
-              color: 'black70',
+              color: 'black',
               lineHeight: 3
             })}
           >
@@ -757,7 +749,7 @@ const Methodology = () => (
           <Text
             css={theme({
               fontSize: [1, 1, 2, 2],
-              color: 'black70',
+              color: 'black',
               lineHeight: 3
             })}
           >
@@ -771,7 +763,7 @@ const Methodology = () => (
           <Text
             css={theme({
               fontSize: [1, 1, 2, 2],
-              color: 'black70',
+              color: 'black',
               lineHeight: 3
             })}
           >
@@ -786,7 +778,7 @@ const Methodology = () => (
           <Text
             css={theme({
               fontSize: [1, 1, 2, 2],
-              color: 'black70',
+              color: 'black',
               lineHeight: 3
             })}
           >
@@ -802,7 +794,7 @@ const Methodology = () => (
           <Text
             css={theme({
               fontSize: [1, 1, 2, 2],
-              color: 'black70',
+              color: 'black',
               lineHeight: 3
             })}
           >
@@ -818,7 +810,7 @@ const Methodology = () => (
         <Text
           css={theme({
             fontSize: [0, 0, 1, 1],
-            color: 'black70',
+            color: 'black',
             lineHeight: 3
           })}
         >
@@ -833,7 +825,7 @@ const Methodology = () => (
         <Text
           css={theme({
             fontSize: [0, 0, 1, 1],
-            color: 'black70',
+            color: 'black',
             lineHeight: 3
           })}
         >
@@ -845,19 +837,19 @@ const Methodology = () => (
         <Text
           css={theme({
             fontSize: [0, 0, 1, 1],
-            color: 'black70',
+            color: 'black',
             lineHeight: 3,
             mt: 2
           })}
         >
           For context: if framer.com were excluded from the dataset, ApiFlash's
           average cold duration would drop from{' '}
-          <span css={{ fontFamily: MONO_FONT }}>9,702.57&thinsp;ms</span> to{' '}
-          <span css={{ fontFamily: MONO_FONT }}>6,731.14&thinsp;ms</span>,
+          <span css={theme({ fontFamily: 'mono' })}>9,702.57&thinsp;ms</span> to{' '}
+          <span css={theme({ fontFamily: 'mono' })}>6,731.14&thinsp;ms</span>,
           moving it from last place to <strong>4th in average latency</strong>{' '}
           (behind Microlink, ScreenshotAPI, and ScreenshotMachine). Its total
           cold duration would fall to{' '}
-          <span css={{ fontFamily: MONO_FONT }}>40,386.86&thinsp;ms</span>,
+          <span css={theme({ fontFamily: 'mono' })}>40,386.86&thinsp;ms</span>,
           ranking <strong>4th overall</strong> — right
           behind&nbsp;ScreenshotMachine.
         </Text>
@@ -865,7 +857,7 @@ const Methodology = () => (
       <Text
         css={theme({
           fontSize: [0, 0, 1, 1],
-          color: 'black50',
+          color: 'black',
           lineHeight: 3
         })}
       >
@@ -875,11 +867,11 @@ const Methodology = () => (
         </Link>
         . Last run:{' '}
         <span
-          css={{
-            fontFamily: MONO_FONT,
-            fontSize: FONT_SIZE_15,
+          css={theme({
+            fontFamily: 'mono',
+            fontSize: 1,
             fontVariantNumeric: 'tabular-nums'
-          }}
+          })}
         >
           March,&nbsp;2026
         </span>
@@ -917,37 +909,27 @@ const CompetitorComparison = () => {
             textAlign: 'left'
           })}
         >
-          Screenshot API speed comparison by provider
+          Screenshot API speed comparison
         </Subhead>
 
-        <Text
-          css={{
-            fontFamily: MONO_FONT,
-            fontSize: FONT_SIZE_13,
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-            color: colors.black50,
-            marginBottom: NEGATIVE_SPACE_16
-          }}
-        >
+        <Text css={COMPARISON_SECTION_LABEL_CSS}>
           Average cold-start latency per provider
         </Text>
         <Box
-          css={{
+          css={theme({
             overflowX: 'auto',
             WebkitOverflowScrolling: 'touch',
-            borderRadius: radii[4],
+            borderRadius: 4,
             border: `${borders[1]} ${colors.black10}`,
-            background: colors.white
-          }}
+            bg: 'white'
+          })}
         >
           <ComparisonTable>
             <thead>
               <tr>
                 <th>Provider</th>
                 <th>Avg Cold Duration</th>
-                <th>vs.&nbsp;Microlink</th>
+                <th>versus.&nbsp;Microlink</th>
               </tr>
             </thead>
             <tbody>
@@ -964,7 +946,7 @@ const CompetitorComparison = () => {
                   ? colors.green7
                   : isRunnerUp
                     ? colors.orange7
-                    : colors.black80
+                    : colors.black
                 const timeColor = isMicrolink
                   ? colors.green7
                   : isRunnerUp
@@ -976,10 +958,11 @@ const CompetitorComparison = () => {
                     <td>
                       <ProviderNameWithTag>
                         <span
-                          style={{
-                            fontWeight: isMicrolink || isRunnerUp ? 700 : 400,
+                          css={theme({
+                            fontWeight:
+                              isMicrolink || isRunnerUp ? 'bold' : 'normal',
                             color: nameColor
-                          }}
+                          })}
                         >
                           {svc.name}
                         </span>
@@ -987,17 +970,18 @@ const CompetitorComparison = () => {
                       </ProviderNameWithTag>
                     </td>
                     <td
-                      style={{
-                        fontWeight: isMicrolink || isRunnerUp ? 700 : 400,
+                      css={theme({
+                        fontWeight:
+                          isMicrolink || isRunnerUp ? 'bold' : 'normal',
                         color: timeColor
-                      }}
+                      })}
                     >
                       {formatMsDecimal(avg)}&thinsp;ms
                     </td>
                     <td
-                      style={{
-                        color: isMicrolink ? colors.green7 : colors.black50
-                      }}
+                      css={theme({
+                        color: isMicrolink ? colors.green7 : colors.black
+                      })}
                     >
                       {isMicrolink ? '—' : `+${pctSlower}% slower`}
                     </td>
@@ -1008,40 +992,29 @@ const CompetitorComparison = () => {
           </ComparisonTable>
         </Box>
 
-        <Text
-          css={{
-            fontFamily: MONO_FONT,
-            fontSize: FONT_SIZE_13,
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-            color: colors.black50,
-            marginBottom: NEGATIVE_SPACE_16
-          }}
-        >
+        <Text css={COMPARISON_SECTION_LABEL_CSS}>
           Cold-start latency breakdown by URL
         </Text>
         <Box
           css={theme({
             overflowX: 'auto',
             WebkitOverflowScrolling: 'touch',
-            borderRadius: radii[4],
+            borderRadius: 4,
             border: `${borders[1]} ${colors.black10}`,
-            background: colors.white,
+            bg: 'white',
             display: ['none', 'none', 'block']
           })}
         >
           <PerUrlTable>
             <thead>
               <tr>
-                <th css={{ textAlign: 'left' }}>URL</th>
+                <th css={theme({ textAlign: 'left' })}>URL</th>
                 {SORTED_SERVICES.map(key => (
                   <th
                     key={key}
-                    css={{
-                      color:
-                        key === 'microlink' ? colors.green7 : colors.black50
-                    }}
+                    css={theme({
+                      color: key === 'microlink' ? colors.green7 : colors.black
+                    })}
                   >
                     {BENCHMARK_DATA.results[key].name}
                   </th>
@@ -1100,11 +1073,11 @@ const CompetitorComparison = () => {
                 return (
                   <tr>
                     <td
-                      css={{
-                        fontWeight: 700,
-                        color: colors.black80,
+                      css={theme({
+                        fontWeight: 'bold',
+                        color: 'black',
                         borderTop: `${borders[1]} ${colors.black10}`
-                      }}
+                      })}
                     >
                       Total
                     </td>
@@ -1114,15 +1087,15 @@ const CompetitorComparison = () => {
                       return (
                         <td
                           key={key}
-                          css={{
-                            fontWeight: 700,
+                          css={theme({
+                            fontWeight: 'bold',
                             borderTop: `${borders[1]} ${colors.black10}`,
                             color: isMin
                               ? colors.green7
                               : isMax
                                 ? colors.red8
-                                : colors.black80
-                          }}
+                                : colors.black
+                          })}
                         >
                           {(totals[i] / 1000).toFixed(1)}&thinsp;s
                         </td>
@@ -1182,7 +1155,7 @@ const CompetitorComparison = () => {
 
             return (
               <MobileCard>
-                <MobileCardHeader css={{ fontWeight: 700 }}>
+                <MobileCardHeader css={theme({ fontWeight: 'bold' })}>
                   Total
                 </MobileCardHeader>
                 {SORTED_SERVICES.map((key, i) => {
@@ -1209,55 +1182,50 @@ const CompetitorComparison = () => {
         </MobileCards>
 
         <Flex
-          css={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: SPACE_14,
-            fontFamily: MONO_FONT,
-            fontSize: FONT_SIZE_11,
-            color: colors.black50,
-            marginTop: NEGATIVE_SPACE_12
-          }}
+          css={[
+            theme({
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              fontFamily: 'mono',
+              fontSize: 0,
+              color: 'black'
+            }),
+            {
+              gap: SPACE_14,
+              marginTop: NEGATIVE_SPACE_12
+            }
+          ]}
         >
-          <Flex css={{ alignItems: 'center', gap: SPACE_6 }}>
+          <Flex css={[theme({ alignItems: 'center' }), { gap: SPACE_6 }]}>
             <span
-              css={{
-                width: SPACE_10,
-                height: SPACE_10,
-                borderRadius: radii[1],
-                background: colors.green7,
-                flexShrink: 0
-              }}
+              css={[
+                theme({ borderRadius: 1, bg: 'green7', flexShrink: 0 }),
+                { width: SPACE_10, height: SPACE_10 }
+              ]}
             />
-            <span css={{ marginTop: OFFSET_3 }}>Fastest</span>
+            <span css={theme({ mt: OFFSET_3 })}>Fastest</span>
           </Flex>
-          <Flex css={{ alignItems: 'center', gap: SPACE_6 }}>
+          <Flex css={[theme({ alignItems: 'center' }), { gap: SPACE_6 }]}>
             <span
-              css={{
-                width: SPACE_10,
-                height: SPACE_10,
-                borderRadius: radii[1],
-                background: colors.orange7,
-                flexShrink: 0
-              }}
+              css={[
+                theme({ borderRadius: 1, bg: 'orange7', flexShrink: 0 }),
+                { width: SPACE_10, height: SPACE_10 }
+              ]}
             />
-            <span css={{ marginTop: OFFSET_3 }}>2nd fastest</span>
+            <span css={theme({ mt: OFFSET_3 })}>2nd fastest</span>
           </Flex>
-          <Flex css={{ alignItems: 'center', gap: SPACE_6 }}>
+          <Flex css={[theme({ alignItems: 'center' }), { gap: SPACE_6 }]}>
             <span
-              css={{
-                width: SPACE_10,
-                height: SPACE_10,
-                borderRadius: radii[1],
-                background: colors.red8,
-                flexShrink: 0
-              }}
+              css={[
+                theme({ borderRadius: 1, bg: 'red8', flexShrink: 0 }),
+                { width: SPACE_10, height: SPACE_10 }
+              ]}
             />
-            <span css={{ marginTop: OFFSET_3 }}>Slowest</span>
+            <span css={theme({ mt: OFFSET_3 })}>Slowest</span>
           </Flex>
-          <span css={{ color: colors.black40 }}>·</span>
-          <span css={{ marginTop: OFFSET_3 }}>
+          <span css={theme({ color: 'black' })}>·</span>
+          <span css={theme({ mt: OFFSET_3 })}>
             Times in milliseconds (ms), totals in seconds&nbsp;(s)
           </span>
         </Flex>
@@ -1274,6 +1242,7 @@ const CompetitorComparison = () => {
               forwardedAs='h3'
               css={theme({
                 fontSize: SUBSECTION_TITLE_FONT_SIZE,
+                color: 'black',
                 textAlign: 'left',
                 mt: [4, 4, 5, 5],
                 mb: [2, 2, 3, 3]
@@ -1284,20 +1253,20 @@ const CompetitorComparison = () => {
             <Text
               css={theme({
                 fontSize: [1, 1, 2, 2],
-                color: 'black70',
+                color: 'black',
                 lineHeight: 3
               })}
             >
               When evaluating a Urlbox alternative, cold-start latency is a
               primary concern. In our tests, Urlbox averaged{' '}
-              <strong css={{ fontFamily: MONO_FONT }}>
+              <strong css={theme({ fontFamily: 'mono' })}>
                 {formatMsDecimal(
                   BENCHMARK_DATA.results.urlbox.summary.avgColdDuration
                 )}
                 &thinsp;ms
               </strong>{' '}
               per request. Microlink processed the same suite at an average of{' '}
-              <strong css={{ fontFamily: MONO_FONT, color: colors.green7 }}>
+              <strong css={theme({ fontFamily: 'mono', color: 'green7' })}>
                 {formatMsDecimal(microAvg)}&thinsp;ms
               </strong>
               , making it roughly 44% faster overall. The performance gap is
@@ -1313,6 +1282,7 @@ const CompetitorComparison = () => {
               forwardedAs='h3'
               css={theme({
                 fontSize: SUBSECTION_TITLE_FONT_SIZE,
+                color: 'black',
                 textAlign: 'left',
                 mb: [2, 2, 3, 3]
               })}
@@ -1322,14 +1292,14 @@ const CompetitorComparison = () => {
             <Text
               css={theme({
                 fontSize: [1, 1, 2, 2],
-                color: 'black70',
+                color: 'black',
                 lineHeight: 3
               })}
             >
               ApiFlash demonstrated significant variance depending on the target
               URL. While it handled lightweight pages like example.com
               reasonably well (
-              <span css={{ fontFamily: MONO_FONT }}>
+              <span css={theme({ fontFamily: 'mono' })}>
                 {formatMs(
                   BENCHMARK_DATA.results.apiflash.perUrl.find(
                     p => p.url === 'https://example.com'
@@ -1339,7 +1309,7 @@ const CompetitorComparison = () => {
               </span>
               ), it struggled with complex SPAs, resulting in the highest
               average cold duration in our test at{' '}
-              <strong css={{ fontFamily: MONO_FONT }}>
+              <strong css={theme({ fontFamily: 'mono' })}>
                 {formatMsDecimal(
                   BENCHMARK_DATA.results.apiflash.summary.avgColdDuration
                 )}
@@ -1358,6 +1328,7 @@ const CompetitorComparison = () => {
               forwardedAs='h3'
               css={theme({
                 fontSize: SUBSECTION_TITLE_FONT_SIZE,
+                color: 'black',
                 textAlign: 'left',
                 mb: [2, 2, 3, 3]
               })}
@@ -1367,19 +1338,19 @@ const CompetitorComparison = () => {
             <Text
               css={theme({
                 fontSize: [1, 1, 2, 2],
-                color: 'black70',
+                color: 'black',
                 lineHeight: 3
               })}
             >
               ScreenshotAPI (
-              <span css={{ fontFamily: MONO_FONT }}>
+              <span css={theme({ fontFamily: 'mono' })}>
                 {formatMsDecimal(
                   BENCHMARK_DATA.results.screenshotapi.summary.avgColdDuration
                 )}
                 &thinsp;ms avg
               </span>
               ) and ScreenshotMachine (
-              <span css={{ fontFamily: MONO_FONT }}>
+              <span css={theme({ fontFamily: 'mono' })}>
                 {formatMsDecimal(
                   BENCHMARK_DATA.results.screenshotmachine.summary
                     .avgColdDuration
@@ -1401,6 +1372,7 @@ const CompetitorComparison = () => {
               forwardedAs='h3'
               css={theme({
                 fontSize: SUBSECTION_TITLE_FONT_SIZE,
+                color: 'black',
                 textAlign: 'left',
                 mb: [2, 2, 3, 3]
               })}
@@ -1410,12 +1382,12 @@ const CompetitorComparison = () => {
             <Text
               css={theme({
                 fontSize: [1, 1, 2, 2],
-                color: 'black70',
+                color: 'black',
                 lineHeight: 3
               })}
             >
               ScreenshotOne averaged{' '}
-              <strong css={{ fontFamily: MONO_FONT }}>
+              <strong css={theme({ fontFamily: 'mono' })}>
                 {formatMsDecimal(
                   BENCHMARK_DATA.results.screenshotone.summary.avgColdDuration
                 )}
@@ -1456,8 +1428,10 @@ const WhyLatencyMatters = () => (
       })}
     >
       <Subhead
+        variant='gradient'
         css={theme({
           fontSize: SECTION_TITLE_FONT_SIZE,
+          color: 'black',
           textAlign: 'left'
         })}
       >
@@ -1466,7 +1440,7 @@ const WhyLatencyMatters = () => (
       <Text
         css={theme({
           fontSize: [1, 1, 2, 2],
-          color: 'black70',
+          color: 'black',
           lineHeight: 3
         })}
       >
@@ -1480,6 +1454,7 @@ const WhyLatencyMatters = () => (
         forwardedAs='h3'
         css={theme({
           fontSize: SUBSECTION_TITLE_FONT_SIZE,
+          color: 'black',
           textAlign: 'left',
           mt: [2, 2, 3, 3]
         })}
@@ -1489,7 +1464,7 @@ const WhyLatencyMatters = () => (
       <Text
         css={theme({
           fontSize: [1, 1, 2, 2],
-          color: 'black70',
+          color: 'black',
           lineHeight: 3
         })}
       >
@@ -1502,7 +1477,7 @@ const WhyLatencyMatters = () => (
       <Text
         css={theme({
           fontSize: [1, 1, 2, 2],
-          color: 'black70',
+          color: 'black',
           lineHeight: 3
         })}
       >
@@ -1516,6 +1491,7 @@ const WhyLatencyMatters = () => (
         forwardedAs='h3'
         css={theme({
           fontSize: SUBSECTION_TITLE_FONT_SIZE,
+          color: 'black',
           textAlign: 'left',
           mt: [2, 2, 3, 3]
         })}
@@ -1525,7 +1501,7 @@ const WhyLatencyMatters = () => (
       <Text
         css={theme({
           fontSize: [1, 1, 2, 2],
-          color: 'black70',
+          color: 'black',
           lineHeight: 3
         })}
       >
@@ -1537,7 +1513,7 @@ const WhyLatencyMatters = () => (
       <Text
         css={theme({
           fontSize: [1, 1, 2, 2],
-          color: 'black70',
+          color: 'black',
           lineHeight: 3
         })}
       >
@@ -1553,28 +1529,26 @@ const WhyLatencyMatters = () => (
 )
 
 const CalloutBox = styled('blockquote')`
-  position: relative;
-  margin: 0;
-  padding: ${space[4]};
-  background: ${colors.white};
+  ${theme({ position: 'relative', m: 0, p: 4, bg: 'white', borderRadius: 4 })};
   border: ${borders[1]} ${colors.yellow6};
-  border-radius: ${radii[4]};
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-    padding: ${space[3]};
+    ${theme({ p: 3 })};
   }
 `
 
 const CalloutLabel = styled('span')`
-  display: inline-block;
-  font-family: ${MONO_FONT};
-  font-size: ${FONT_SIZE_10};
-  font-weight: 700;
+  ${theme({
+    display: 'inline-block',
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'bold',
+    letterSpacing: 0,
+    color: 'yellow8',
+    bg: 'yellow0',
+    borderRadius: 2
+  })};
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: ${colors.yellow8};
-  background: ${colors.yellow0};
   border: ${borders[1]} ${colors.yellow3};
-  border-radius: ${radii[2]};
   padding: ${radii[1]} ${space[2]};
 `
 
@@ -1648,7 +1622,7 @@ const BottomCta = () => (
               css={theme({
                 alignItems: 'center',
                 gap: 1,
-                color: 'black60',
+                color: 'black',
                 fontSize: [0, 0, 1, 1]
               })}
             >
@@ -1704,7 +1678,7 @@ export const Head = () => (
 )
 
 const ScreenshotApiBenchmarkPage = () => (
-  <Layout css={{ marginTop: 0 }}>
+  <Layout css={theme({ mt: 0 })}>
     <Hero />
     <CompetitorComparison />
     <Methodology />

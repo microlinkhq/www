@@ -4,7 +4,6 @@ import {
   colors,
   theme,
   transition,
-  fonts,
   gradient,
   fontSizes,
   space,
@@ -36,8 +35,7 @@ import {
 import {
   Check as CheckIcon,
   Terminal as TerminalIcon,
-  Star as StarIcon,
-  GitBranch as ForkIcon
+  Star as StarIcon
 } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
 import NerdStatsOverlay, {
@@ -61,9 +59,25 @@ import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { extractDomain } from 'helpers/extract-domain'
 
 import analyticsData from '../../data/analytics.json'
+import ossData from '../../data/oss.json'
 
 const FIRST_URL = 'https://apple.com'
 const FIRST_IMAGE_URL = cdnUrl('www/apple.png')
+const COMPACT_NUMBER_FORMATTER = new Intl.NumberFormat('en-US', {
+  notation: 'compact',
+  maximumFractionDigits: 1
+})
+const formatCompactCount = number =>
+  COMPACT_NUMBER_FORMATTER.format(number).toLowerCase()
+const OSS_STARS_BY_NAME = new Map(
+  ossData.map(({ name, stars }) => [name, stars])
+)
+const getRepoStarsLabel = repo => {
+  const liveStars = OSS_STARS_BY_NAME.get(repo.name)
+  return typeof liveStars === 'number'
+    ? formatCompactCount(liveStars)
+    : repo.stars
+}
 
 const FEATURES = [
   {
@@ -130,23 +144,25 @@ const Caption = withTitle(CaptionBase)
 
 const NerdButton = styled(Button).attrs({ variant: 'black' })`
   &&& {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    align-self: center;
-    height: ${space[4]};
-    min-height: ${space[4]};
-    max-height: ${space[4]};
-    width: ${space[4]};
-    min-width: ${space[4]};
-    padding: 0;
+    ${theme({
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignSelf: 'center',
+      height: space[4],
+      minHeight: space[4],
+      maxHeight: space[4],
+      width: space[4],
+      minWidth: space[4],
+      p: 0,
+      borderRadius: 4,
+      flexShrink: 0,
+      whiteSpace: 'nowrap'
+    })};
     background: ${p => (p.$active ? colors.black : 'transparent')};
     border: ${borders[1]} ${p => (p.$active ? colors.black : colors.black10)};
-    border-radius: ${radii[4]};
     box-shadow: none;
     color: ${p => (p.$active ? colors.white : colors.gray6)};
-    flex-shrink: 0;
-    white-space: nowrap;
     transition: background ${transition.short}, border-color ${transition.short},
       color ${transition.short}, box-shadow ${transition.short};
   }
@@ -165,13 +181,15 @@ const NerdButton = styled(Button).attrs({ variant: 'black' })`
 `
 
 const BrowserWindow = styled('div')`
-  border-radius: ${radii[5]};
+  ${theme({
+    borderRadius: 5,
+    bg: 'white',
+    display: 'flex',
+    flexDirection: 'column'
+  })};
   overflow: hidden;
   border: ${borders[1]} ${colors.black05};
-  background: ${colors.white};
   box-shadow: 0 8px 24px ${colors.black10};
-  display: flex;
-  flex-direction: column;
 
   &:hover:not(:has(.screenshot-api-bar:hover)) .address-bar {
     background: ${colors.gray1};
@@ -185,31 +203,33 @@ const BrowserWindow = styled('div')`
 `
 
 const BrowserHeader = styled(Flex)`
-  background: ${colors.white};
+  ${theme({
+    bg: 'white',
+    height: fontSizes[4],
+    alignItems: 'center',
+    px: 2,
+    gap: 1,
+    flexShrink: 0
+  })};
   border-bottom: ${borders[1]} ${colors.black05};
-  height: ${fontSizes[4]};
-  align-items: center;
-  padding: 0 ${space[2]};
-  gap: ${space[1]};
-  flex-shrink: 0;
 `
 
 const NavButtons = styled(Flex)`
-  align-items: center;
-  gap: ${space[1]};
-  flex-shrink: 0;
+  ${theme({ alignItems: 'center', gap: 1, flexShrink: 0 })};
 `
 
 const NavArrow = styled('button')`
-  background: transparent;
+  ${theme({
+    bg: 'transparent',
+    p: 1,
+    color: 'gray5',
+    display: 'flex',
+    alignItems: 'center',
+    borderRadius: 1,
+    lineHeight: 0
+  })};
   border: none;
-  padding: ${space[1]};
   cursor: default;
-  color: ${colors.gray5};
-  display: flex;
-  align-items: center;
-  border-radius: ${radii[1]};
-  line-height: 1;
   transition: color ${transition.short}, background ${transition.short},
     border-color ${transition.short};
 
@@ -247,16 +267,18 @@ const caretPulse = keyframes`
 `
 
 const AddressBar = styled(Flex)`
-  flex: 1;
-  background: ${colors.gray1};
+  ${theme({
+    flex: 1,
+    bg: 'gray1',
+    borderRadius: 4,
+    height: space[4],
+    alignItems: 'center',
+    justifyContent: 'center',
+    px: 2,
+    gap: 2,
+    minWidth: '0'
+  })};
   border: ${borders[1]} transparent;
-  border-radius: ${radii[4]};
-  height: ${space[4]};
-  align-items: center;
-  justify-content: center;
-  padding: 0 ${space[2]};
-  gap: ${space[2]};
-  min-width: 0;
   position: relative;
   transition: box-shadow ${transition.medium}, background ${transition.medium},
     border-color ${transition.medium};
@@ -308,21 +330,23 @@ const AddressBar = styled(Flex)`
 `
 
 const AddressInput = styled('input')`
-  background: none;
+  ${theme({
+    bg: 'transparent',
+    p: 0,
+    m: 0,
+    flex: 1,
+    minWidth: '0',
+    fontSize: 0,
+    fontFamily: 'sans',
+    letterSpacing: 0
+  })};
   border: none;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
-  padding: 0;
-  margin: 0;
-  flex: 1;
-  min-width: 0;
-  font-size: ${fontSizes[0]};
-  font-family: ${fonts.sans};
   font-weight: 400;
   color: ${({ $active }) => ($active ? colors.gray8 : colors.gray6)};
   text-align: left;
-  letter-spacing: 0.01em;
   transition: color ${transition.short};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -352,18 +376,20 @@ const addressPromptArrowNudge = keyframes`
 `
 
 const AddressPrompt = styled('span')`
-  display: inline-flex;
-  align-items: center;
-  flex-shrink: 0;
-  margin-right: ${space[1]};
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    flexShrink: 0,
+    mr: 1,
+    fontSize: 0,
+    fontFamily: 'sans',
+    letterSpacing: 0
+  })};
   background-image: ${gradient};
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: ${fontSizes[0]};
-  font-family: ${fonts.sans};
   font-weight: 600;
-  letter-spacing: 0.01em;
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
@@ -372,15 +398,17 @@ const AddressPrompt = styled('span')`
   transform: translateX(${p => (p.$visible ? 0 : space[1])});
 
   .address-prompt__arrow {
-    display: inline-flex;
-    align-items: center;
-    margin-right: ${space[1]};
+    ${theme({
+      display: 'inline-flex',
+      alignItems: 'center',
+      mr: 1,
+      fontSize: 1,
+      lineHeight: 0
+    })};
     background-image: ${gradient};
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: ${fontSizes[1]};
-    line-height: 1;
     animation: ${addressPromptArrowNudge} 1.2s ease-in-out infinite;
   }
 
@@ -396,7 +424,7 @@ const AddressPrompt = styled('span')`
 `
 
 const ScreenshotApiBar = styled(Flex)`
-  background: ${colors.gray1};
+  ${theme({ bg: 'gray1' })};
 
   .codecopy__button {
     top: 0;
@@ -419,12 +447,14 @@ const ScreenshotApiBar = styled(Flex)`
 `
 
 const ScreenshotOverlay = styled('div')`
-  position: absolute;
-  inset: 0;
+  ${theme({
+    position: 'absolute',
+    inset: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  })};
   background: ${({ $dim }) => ($dim ? colors.black60 : 'transparent')};
-  display: flex;
-  align-items: center;
-  justify-content: center;
   pointer-events: none;
 `
 
@@ -439,15 +469,17 @@ const SpinnerCircle = styled('circle')`
 `
 
 const CopyButton = styled('button')`
-  background: none;
+  ${theme({
+    bg: 'transparent',
+    p: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    color: 'black60'
+  })};
   border: none;
-  padding: ${space[1]};
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: ${colors.black60};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   transition: color ${transition.short}, transform ${transition.short};
@@ -474,32 +506,32 @@ const CopyButton = styled('button')`
 `
 
 const HistoryDropdown = styled('div')`
-  position: absolute;
+  ${theme({ position: 'absolute', borderRadius: 4, bg: 'white' })};
   top: calc(100% + ${space[1]});
   left: 0;
   right: 0;
-  background: ${colors.white};
   border: ${borders[1]} ${colors.black20};
-  border-radius: ${radii[4]};
   overflow: hidden;
   box-shadow: 0 16px 40px ${colors.black20};
   z-index: 10;
 `
 
 const HistoryItem = styled('button')`
-  width: 100%;
-  min-width: 0;
-  background: none;
+  ${theme({
+    width: '100%',
+    minWidth: '0',
+    bg: 'transparent',
+    p: 2,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 2,
+    color: 'black70',
+    fontSize: 0,
+    fontFamily: 'sans'
+  })};
   border: none;
-  padding: ${space[2]};
-  display: flex;
-  align-items: center;
-  gap: ${space[2]};
   cursor: pointer;
   text-align: left;
-  color: ${colors.black70};
-  font-size: ${fontSizes[0]};
-  font-family: ${fonts.sans};
   font-weight: 500;
   transition: background ${transition.short}, color ${transition.short};
 
@@ -528,51 +560,56 @@ const HistoryItem = styled('button')`
 `
 
 const ErrorModalOverlay = styled('div')`
-  position: absolute;
-  inset: 0;
+  ${theme({
+    position: 'absolute',
+    inset: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  })};
   background: ${colors.black60};
   backdrop-filter: blur(${space[1]});
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 2;
 `
 
 const ErrorModalWindow = styled('div')`
-  background: ${colors.black95};
+  ${theme({ bg: 'black95', borderRadius: 4 })};
   border: ${borders[1]} ${colors.red7};
-  border-radius: ${radii[4]};
   width: 340px;
   box-shadow: 0 24px 64px ${colors.black80}, 0 4px 16px ${colors.black40};
   overflow: hidden;
 `
 
 const ErrorModalHeader = styled('div')`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  ${theme({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  })};
   padding: ${space[3]} ${space[3]} ${space[2]};
   border-bottom: ${borders[1]} ${colors.white05};
 `
 
 const ErrorModalBody = styled('div')`
-  padding: ${space[3]};
+  ${theme({ p: 3 })};
 `
 
 const ErrorCloseButton = styled('button')`
-  background: ${colors.white10};
+  ${theme({
+    bg: 'white10',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white50',
+    flexShrink: 0,
+    lineHeight: 0,
+    fontSize: 0
+  })};
   border: none;
-  border-radius: 50%;
   width: ${fontSizes[2]};
   height: ${fontSizes[2]};
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  color: ${colors.white50};
-  flex-shrink: 0;
-  line-height: 1;
-  font-size: ${fontSizes[0]};
   transition: background ${transition.short}, color ${transition.short};
 
   &:hover {
@@ -1021,9 +1058,9 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
               display: 'inline-flex',
               flexDirection: 'column',
               maxWidth: ['100%', '95%', '85%', '100%'],
-              width: ['100%', '95%', '85%', '100%']
+              width: ['100%', '95%', '85%', '100%'],
+              position: 'relative'
             })}
-            style={{ position: 'relative' }}
           >
             <BrowserWindow
               onClick={e => {
@@ -1095,7 +1132,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                     viewBox='0 0 11 13'
                     fill='none'
                     aria-hidden='true'
-                    style={{ flexShrink: 0 }}
+                    css={theme({ flexShrink: 0 })}
                   >
                     <rect
                       x='1'
@@ -1194,12 +1231,12 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   <TerminalIcon size={16} aria-hidden='true' />
                 </NerdButton>
               </BrowserHeader>
-              <div
-                style={{
+              <Box
+                css={theme({
                   position: 'relative',
                   aspectRatio: '16/10',
                   overflow: 'hidden'
-                }}
+                })}
               >
                 <img
                   key={imgKey}
@@ -1224,16 +1261,20 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                       imageLoadResolverRef.current = null
                     }
                   }}
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    display: 'block',
-                    filter: imgVisible ? 'blur(0px)' : 'blur(6px)',
-                    transition: 'filter 0.5s ease'
-                  }}
+                  css={[
+                    theme({
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block'
+                    }),
+                    {
+                      filter: imgVisible ? 'blur(0px)' : 'blur(6px)',
+                      transition: 'filter 0.5s ease'
+                    }
+                  ]}
                 />
                 {isLoading && (
                   <ScreenshotOverlay
@@ -1275,7 +1316,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   >
                     <ErrorModalWindow>
                       <ErrorModalHeader>
-                        <Flex css={{ alignItems: 'center', gap: '8px' }}>
+                        <Flex css={theme({ alignItems: 'center', gap: 2 })}>
                           <svg
                             width='16'
                             height='16'
@@ -1299,12 +1340,12 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                           </svg>
                           <Text
                             as='span'
-                            style={{
-                              color: colors.white90,
-                              fontSize: '13px',
-                              fontWeight: 600,
-                              letterSpacing: '0.01em'
-                            }}
+                            css={theme({
+                              color: 'white90',
+                              fontSize: 0,
+                              fontWeight: 'bold',
+                              letterSpacing: 0
+                            })}
                           >
                             Request failed
                           </Text>
@@ -1320,13 +1361,13 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                       <ErrorModalBody>
                         <Text
                           as='p'
-                          css={theme({ fontFamily: 'mono' })}
-                          style={{
-                            color: colors.red5,
-                            fontSize: '12px',
-                            lineHeight: '1.6',
-                            margin: 0
-                          }}
+                          css={theme({
+                            fontFamily: 'mono',
+                            color: 'red5',
+                            fontSize: 0,
+                            lineHeight: 2,
+                            m: 0
+                          })}
                         >
                           {error}
                         </Text>
@@ -1334,7 +1375,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                     </ErrorModalWindow>
                   </ErrorModalOverlay>
                 )}
-              </div>
+              </Box>
               <ScreenshotApiBar
                 className='screenshot-api-bar'
                 css={theme({
@@ -1350,14 +1391,14 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   css={theme({
                     fontSize: ['12px', '12px', '13px', '13px'],
                     fontFamily: 'mono',
-                    letterSpacing: '0.01em',
+                    letterSpacing: 0,
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
                     flex: 1,
-                    minWidth: 0
+                    minWidth: '0',
+                    color: 'black70'
                   })}
-                  style={{ color: colors.black70 }}
                 >
                   {apiUrl}
                 </Text>
@@ -1499,9 +1540,9 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
         css={theme({
           fontSize: ['28px', '34px', '42px', '42px'],
           color: 'white',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          fontVariantNumeric: 'tabular-nums'
         })}
-        style={{ fontVariantNumeric: 'tabular-nums' }}
       >
         {hasValue
           ? (
@@ -1544,11 +1585,11 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
 
   const blockOne = (
     <Flex
-      css={{
+      css={theme({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'
-      }}
+      })}
     >
       <Subhead css={theme({ fontSize: [2, 3, 3, '44px'], color: 'white' })}>
         Send the URL{' '}
@@ -1567,17 +1608,17 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
         alignItems: 'baseline',
         width: '100%',
         maxWidth: layout.large,
-        gap: [1, 3, 4, 5]
+        gap: [1, 3, 4, 5],
+        fontVariantNumeric: 'tabular-nums'
       })}
-      style={{ fontVariantNumeric: 'tabular-nums' }}
     >
       <Flex
-        css={{
+        css={theme({
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column'
-        }}
+        })}
       >
         <Subhead
           forwardedAs='div'
@@ -1618,12 +1659,12 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
         timingHistory={timingHistory}
       />
       <Flex
-        css={{
+        css={theme({
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column'
-        }}
+        })}
       >
         <Subhead
           forwardedAs='div'
@@ -1698,7 +1739,6 @@ const REPOS = [
     language: 'JavaScript',
     languageColor: colors.yellow3,
     stars: '1.8k',
-    forks: '87',
     primary: true
   },
   {
@@ -1708,8 +1748,7 @@ const REPOS = [
       'A library to easily scrape metadata from an article on the web using Open Graph, JSON+LD, and HTML metadata.',
     language: 'JavaScript',
     languageColor: colors.yellow3,
-    stars: '2.3k',
-    forks: '183'
+    stars: '2.3k'
   },
   {
     name: 'unavatar',
@@ -1718,28 +1757,36 @@ const REPOS = [
       'Get the unified avatar for a username, email, or domain — from any provider, in one call.',
     language: 'JavaScript',
     languageColor: colors.yellow3,
-    stars: '1.2k',
-    forks: '78'
+    stars: '1.2k'
   }
 ]
 
 const RepoCard = styled('a')`
-  display: flex;
-  flex-direction: column;
-  gap: ${space[2]};
-  padding: ${space[3]};
-  border-radius: ${radii[4]};
+  ${theme({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 2,
+    p: 3,
+    borderRadius: 4,
+    bg: 'white'
+  })};
   border: ${borders[1]} ${colors.black10};
-  background: ${colors.white};
   text-decoration: none;
   color: inherit;
   transition: border-color ${transition.short}, box-shadow ${transition.short},
-    transform ${transition.short};
+    background ${transition.short};
+
+  .repo-github-icon {
+    transition: fill ${transition.short};
+  }
 
   &:hover {
-    border-color: ${colors.black20};
+    border-color: ${colors.black};
     box-shadow: 0 8px 24px ${colors.black10};
-    transform: translateY(-${radii[1]});
+
+    .repo-github-icon {
+      fill: ${colors.black};
+    }
   }
 
   &:focus-visible {
@@ -1749,29 +1796,28 @@ const RepoCard = styled('a')`
 `
 
 const RepoCardPrimary = styled(RepoCard)`
-  padding: 24px;
-  border: ${borders[2]} transparent;
-  background: linear-gradient(${colors.white}, ${colors.white}) padding-box,
-    ${gradient} border-box;
-  box-shadow: 0 1px 3px ${colors.black05}, 0 4px 12px ${colors.black05};
+  ${theme({ p: 3 })};
+  border: ${borders[1]} ${colors.black10};
 
   &:hover {
-    box-shadow: 0 12px 32px ${colors.black10};
-    transform: translateY(-${radii[2]});
+    border-color: ${colors.black};
+    box-shadow: 0 8px 24px ${colors.black10};
   }
 `
 
 const RepoMeta = styled(Flex)`
-  align-items: center;
-  gap: ${space[3]};
-  font-size: ${fontSizes[0]};
-  font-family: ${fonts.sans};
-  color: ${colors.black60};
+  ${theme({
+    alignItems: 'center',
+    gap: 3,
+    fontSize: 0,
+    fontFamily: 'sans',
+    color: 'black60'
+  })};
 `
 
 const LanguageDot = styled('span')`
-  width: ${fontSizes[0]};
-  height: ${fontSizes[0]};
+  ${theme({ width: fontSizes[0], height: fontSizes[0] })};
+  background: ${({ $color }) => $color};
   border-radius: 50%;
   flex-shrink: 0;
 `
@@ -1820,8 +1866,9 @@ const OpenSource = () => (
               target='_blank'
               rel='noopener noreferrer'
             >
-              <Flex css={{ alignItems: 'center', gap: '10px' }}>
+              <Flex css={theme({ alignItems: 'center', gap: '10px' })}>
                 <svg
+                  className='repo-github-icon'
                   width='20'
                   height='20'
                   viewBox='0 0 16 16'
@@ -1831,30 +1878,32 @@ const OpenSource = () => (
                   <path d='M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z' />
                 </svg>
                 <Text
-                  css={theme({ fontWeight: 'bold', fontSize: [2, 2, 3, 3] })}
-                  style={{ color: colors.black }}
+                  css={theme({
+                    fontWeight: 'bold',
+                    fontSize: [2, 2, 3, 3],
+                    color: 'black80'
+                  })}
                 >
-                  {repo.org}/{repo.name}
+                  {repo.name}
                 </Text>
               </Flex>
               <Text
-                css={theme({ fontSize: [1, 1, 2, 2] })}
-                style={{ color: colors.black70, lineHeight: 1.5 }}
+                css={theme({
+                  fontSize: [1, 1, 2, 2],
+                  color: 'black60',
+                  lineHeight: 1
+                })}
               >
                 {repo.description}
               </Text>
-              <RepoMeta style={{ fontSize: '15px' }}>
-                <Flex css={{ alignItems: 'center', gap: '5px' }}>
-                  <LanguageDot style={{ background: repo.languageColor }} />
+              <RepoMeta css={theme({ fontSize: 1 })}>
+                <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+                  <LanguageDot $color={repo.languageColor} />
                   {repo.language}
                 </Flex>
-                <Flex css={{ alignItems: 'center', gap: '5px' }}>
+                <Flex css={theme({ alignItems: 'center', gap: 1 })}>
                   <StarIcon size={16} aria-hidden='true' />
-                  {repo.stars}
-                </Flex>
-                <Flex css={{ alignItems: 'center', gap: '5px' }}>
-                  <ForkIcon size={16} aria-hidden='true' />
-                  {repo.forks}
+                  {getRepoStarsLabel(repo)}
                 </Flex>
               </RepoMeta>
             </RepoCardPrimary>
@@ -1872,10 +1921,11 @@ const OpenSource = () => (
                 href={`https://github.com/${repo.org}/${repo.name}`}
                 target='_blank'
                 rel='noopener noreferrer'
-                css={{ flex: 1 }}
+                css={theme({ flex: 1 })}
               >
-                <Flex css={{ alignItems: 'center', gap: '8px' }}>
+                <Flex css={theme({ alignItems: 'center', gap: 2 })}>
                   <svg
+                    className='repo-github-icon'
                     width='16'
                     height='16'
                     viewBox='0 0 16 16'
@@ -1885,34 +1935,33 @@ const OpenSource = () => (
                     <path d='M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z' />
                   </svg>
                   <Text
-                    css={theme({ fontWeight: 'bold', fontSize: [2, 2, 2, 2] })}
-                    style={{ color: colors.black }}
+                    css={theme({
+                      fontWeight: 'bold',
+                      fontSize: [2, 2, 2, 2],
+                      color: 'black'
+                    })}
                   >
                     {repo.name}
                   </Text>
                 </Flex>
                 <Text
-                  style={{
-                    color: colors.black60,
-                    fontSize: '15px',
-                    lineHeight: 1.5,
+                  css={theme({
+                    color: 'black60',
+                    fontSize: 1,
+                    lineHeight: 1,
                     flex: 1
-                  }}
+                  })}
                 >
                   {repo.description}
                 </Text>
                 <RepoMeta>
-                  <Flex css={{ alignItems: 'center', gap: '5px' }}>
-                    <LanguageDot style={{ background: repo.languageColor }} />
+                  <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+                    <LanguageDot $color={repo.languageColor} />
                     {repo.language}
                   </Flex>
-                  <Flex css={{ alignItems: 'center', gap: '5px' }}>
+                  <Flex css={theme({ alignItems: 'center', gap: 1 })}>
                     <StarIcon size={14} aria-hidden='true' />
-                    {repo.stars}
-                  </Flex>
-                  <Flex css={{ alignItems: 'center', gap: '5px' }}>
-                    <ForkIcon size={14} aria-hidden='true' />
-                    {repo.forks}
+                    {getRepoStarsLabel(repo)}
                   </Flex>
                 </RepoMeta>
               </RepoCard>
@@ -1935,7 +1984,7 @@ const OpenSource = () => (
             width: '100%'
           })}
         >
-          Built on <span css={{ color: colors.red6 }}>open source</span>,
+          Built on <span css={theme({ color: 'red6' })}>open source</span>,
           <br />
           trusted by developers
         </Subhead>
@@ -1967,7 +2016,7 @@ const OpenSource = () => (
             href='https://github.com/microlinkhq'
             css={theme({ fontSize: ['20px', '20px', '24px', '24px'] })}
           >
-            Explore all repos on GitHub
+            Explore on GitHub
           </ArrowLink>
         </Flex>
       </Flex>
@@ -1982,7 +2031,7 @@ const livePulse = keyframes`
 `
 
 const LiveText = styled('span')`
-  animation: ${livePulse} 5s ease-in-out infinite;
+  animation: ${livePulse} 1.5s ease-in-out infinite;
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
@@ -2105,7 +2154,6 @@ const Benchmark = () => (
       <Caption
         forwardedAs='div'
         css={theme({
-          color: 'black60',
           textAlign: 'center',
           width: '100%',
           fontSize: [2, 2, '22px', '22px'],
@@ -2147,6 +2195,8 @@ const STATS = [
   { value: cachedReqsPercentage, label: 'cache hit rate' },
   { value: analyticsBytes, label: 'data served' }
 ]
+const CLIENTS_STATS_VALUE_FONT_SIZE = [3, 4, 6, 6]
+const CLIENTS_STATS_LABEL_FONT_SIZE = [0, 2, 3, 3]
 
 const CLIENTS = [
   {
@@ -2222,7 +2272,7 @@ const CLIENTS = [
 ]
 
 const ClientLogo = styled(Flex)`
-  text-decoration: none;
+  ${theme({ textDecoration: 'none' })};
   color: inherit;
   transition: transform ${transition.short};
 
@@ -2238,9 +2288,7 @@ const ClientLogo = styled(Flex)`
 `
 
 const StatSeparator = styled(Box)`
-  width: 1px;
-  align-self: stretch;
-  background: ${colors.black10};
+  ${theme({ width: '1px', alignSelf: 'stretch', bg: 'black10' })};
 `
 
 const Clients = () => (
@@ -2257,11 +2305,11 @@ const Clients = () => (
       css={theme({
         fontSize: ['14px', '14px', '16px', '16px'],
         fontWeight: 'bold',
-        color: 'black50',
-        letterSpacing: '0.1em'
+        color: 'black60',
+        letterSpacing: 3
       })}
     >
-      Live usage this month across all clients
+      Last month usage
     </Caps>
     <Flex
       css={theme({
@@ -2271,9 +2319,9 @@ const Clients = () => (
         alignItems: 'center',
         gap: [3, 4, 5, 5],
         maxWidth: layout.large,
-        width: '100%'
+        width: '100%',
+        fontVariantNumeric: 'tabular-nums'
       })}
-      style={{ fontVariantNumeric: 'tabular-nums' }}
     >
       {STATS.map(({ value, label }, index) => (
         <React.Fragment key={label}>
@@ -2288,7 +2336,7 @@ const Clients = () => (
               forwardedAs='div'
               titleize={false}
               css={theme({
-                fontSize: [4, 4, 5, 5],
+                fontSize: CLIENTS_STATS_VALUE_FONT_SIZE,
                 fontWeight: 'bold',
                 color: 'black'
               })}
@@ -2298,9 +2346,11 @@ const Clients = () => (
             <Caps
               css={theme({
                 pt: 1,
-                fontSize: 0,
+                fontSize: CLIENTS_STATS_LABEL_FONT_SIZE,
                 fontWeight: 'bold',
-                color: 'black50'
+                color: 'black80',
+                whiteSpace: 'nowrap',
+                lineHeight: 0
               })}
             >
               {label}
@@ -2315,12 +2365,12 @@ const Clients = () => (
         pt: [4, 4, 5, 5],
         fontSize: [1, 1, '16px', '16px'],
         fontWeight: 'bold',
-        color: 'black50',
-        letterSpacing: '0.1em',
+        color: 'black60',
+        letterSpacing: 3,
         pb: [3, 3, 0, 0]
       })}
     >
-      Some of our clients
+      some clients
     </Caps>
     <Flex
       css={theme({
@@ -2380,13 +2430,11 @@ const cursorBlink = keyframes`
 `
 
 const TypedLanguage = styled('span')`
-  color: ${colors.red6};
+  ${theme({ color: 'red6' })};
 `
 
 const TypedCursor = styled('span')`
-  display: inline-block;
-  margin-left: ${radii[1]};
-  color: ${colors.red6};
+  ${theme({ display: 'inline-block', ml: 1, color: 'red6' })};
   animation: ${cursorBlink} 1s step-end infinite;
 
   @media (prefers-reduced-motion: reduce) {
@@ -2620,7 +2668,7 @@ const Pricing = () => (
         width: ['100%', '420px', '100%', '100%']
       })}
     >
-      <PricingCard css={{ borderColor: colors.black10 }}>
+      <PricingCard css={theme({ borderColor: 'black10' })}>
         <Text
           css={theme({
             fontSize: ['20px', '20px', '24px', '24px'],
@@ -2639,14 +2687,13 @@ const Pricing = () => (
           >
             $0
           </Text>
-          <Text css={theme({ color: 'black50', fontSize: [0, 0, 1, 1] })}>
+          <Text css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}>
             /month
           </Text>
         </Flex>
         <Text
           css={theme({
             pt: 2,
-            color: 'black60',
             fontSize: [1, 1, '18px', '18px']
           })}
         >
@@ -2661,7 +2708,7 @@ const Pricing = () => (
           <PricingCheck>Full browser control</PricingCheck>
         </Box>
         <Flex
-          css={theme({ pt: 3, fontSize: ['18px', '18px', '20px', '20px'] })}
+          css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
         >
           <ArrowLink href='/docs/api/parameters/screenshot'>
             Get started free
@@ -2670,11 +2717,13 @@ const Pricing = () => (
       </PricingCard>
 
       <PricingCard
-        css={{
-          borderColor: 'transparent',
-          background: `linear-gradient(${colors.white}, ${colors.white}) padding-box, ${gradient} border-box`,
-          border: '2px solid transparent'
-        }}
+        css={[
+          theme({ borderColor: 'transparent' }),
+          {
+            background: `linear-gradient(${colors.white}, ${colors.white}) padding-box, ${gradient} border-box`,
+            border: '2px solid transparent'
+          }
+        ]}
       >
         <Text
           css={theme({
@@ -2694,14 +2743,13 @@ const Pricing = () => (
           >
             €39
           </Text>
-          <Text css={theme({ color: 'black50', fontSize: [0, 0, 1, 1] })}>
+          <Text css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}>
             /month
           </Text>
         </Flex>
         <Text
           css={theme({
             pt: 2,
-            color: 'black60',
             fontSize: [1, 1, '18px', '18px']
           })}
         >
@@ -2725,7 +2773,7 @@ const Pricing = () => (
           </PricingCheck>
         </Box>
         <Flex
-          css={theme({ pt: 3, fontSize: ['18px', '18px', '20px', '20px'] })}
+          css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
         >
           <ArrowLink href='/#pricing'>See all plans</ArrowLink>
         </Flex>
@@ -2861,18 +2909,19 @@ const CAPABILITIES = [
 ]
 
 const CapabilityItem = styled(Flex)`
-  gap: ${space[3]};
-  align-items: flex-start;
+  ${theme({ gap: 2, alignItems: 'flex-start' })};
 `
 
 const CapabilityIcon = styled(Flex)`
-  width: ${space[4]};
-  height: ${space[4]};
-  border-radius: ${radii[4]};
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: ${colors.red6};
+  ${theme({
+    width: space[4],
+    height: space[4],
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    color: 'red6'
+  })};
 `
 
 const Capabilities = () => {
@@ -2939,10 +2988,10 @@ const Capabilities = () => {
                 width: ['100%', '100%', '80%', '100%'],
                 borderRadius: 3,
                 overflow: 'hidden',
-                boxShadow: `0 8px 32px ${colors.black10}`
+                boxShadow: `0 8px 32px ${colors.black10}`,
+                lineHeight: 0
               }),
               {
-                lineHeight: 0,
                 '& img': { display: 'block', width: '100%', height: 'auto' }
               }
             ]}
@@ -2976,12 +3025,13 @@ const Capabilities = () => {
                 css={theme({
                   fontSize: ['12px', '12px', '13px', '13px'],
                   fontFamily: 'mono',
-                  letterSpacing: '0.01em',
+                  letterSpacing: 0,
                   flex: 1,
-                  minWidth: 0,
-                  lineHeight: '20px'
+                  minWidth: '0',
+                  lineHeight: 2,
+                  color: 'green5',
+                  wordBreak: 'break-all'
                 })}
-                style={{ color: colors.green5, wordBreak: 'break-all' }}
               >
                 {capApiUrl}
               </Text>
@@ -3032,10 +3082,10 @@ const Capabilities = () => {
                 width: ['100%', '100%', '80%', '100%'],
                 borderRadius: 3,
                 overflow: 'hidden',
-                boxShadow: `0 8px 32px ${colors.black10}`
+                boxShadow: `0 8px 32px ${colors.black10}`,
+                lineHeight: 0
               }),
               {
-                lineHeight: 0,
                 '& img': { display: 'block', width: '100%', height: 'auto' }
               }
             ]}
@@ -3058,12 +3108,13 @@ const Capabilities = () => {
                 css={theme({
                   fontSize: ['12px', '12px', '13px', '13px'],
                   fontFamily: 'mono',
-                  letterSpacing: '0.01em',
+                  letterSpacing: 0,
                   flex: 1,
-                  minWidth: 0,
-                  lineHeight: '20px'
+                  minWidth: '0',
+                  lineHeight: 2,
+                  color: 'green5',
+                  wordBreak: 'break-all'
                 })}
-                style={{ color: colors.green5, wordBreak: 'break-all' }}
               >
                 {capViewportApiUrl}
               </Text>
@@ -3088,7 +3139,7 @@ const Capabilities = () => {
           >
             Everything you need,
             <LineBreak />
-            <span style={{ color: colors.red6 }}>one API call away</span>
+            <span css={theme({ color: 'red6' })}>one API call away</span>
           </Subhead>
           <Flex
             css={[
@@ -3115,9 +3166,7 @@ const Capabilities = () => {
                   >
                     {title}
                   </Text>
-                  <Text
-                    css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}
-                  >
+                  <Text css={theme({ fontSize: [0, 0, 1, 1] })}>
                     {description}
                   </Text>
                 </Flex>
@@ -3236,7 +3285,7 @@ const CallToAction = () => (
               css={theme({
                 alignItems: 'center',
                 gap: 1,
-                color: 'black60',
+                color: 'black80',
                 fontSize: [0, 0, 1, 1]
               })}
             >
@@ -3253,9 +3302,14 @@ const CallToAction = () => (
 const ProductInformation = () => {
   return (
     <Faq
-      title='Screenshot API FAQ'
+      title='Product Information'
       titleSize={['40px', 4, 5, 5]}
-      caption='Everything you need to know about our website screenshot API and web screenshot service.'
+      caption={
+        <>
+          Everything you need to know about <LineBreak /> Microlink website
+          screenshot API.
+        </>
+      }
       css={theme({
         pb: [5, 5, 6, 6],
         bg: 'pinky',
@@ -3477,15 +3531,26 @@ const ScreenshotPage = () => {
       <Features
         css={theme({ px: 4, pb: 5 })}
         title={
-          <Subhead css={{ width: '100%', textAlign: 'left' }}>
+          <Subhead
+            css={theme({
+              width: '100%',
+              textAlign: 'left',
+              fontSize: [
+                4,
+                4,
+                `calc(${fontSizes[6]} - 1px)`,
+                `calc(${fontSizes[6]} - 1px)`
+              ]
+            })}
+          >
             The best screenshot API,{' '}
             <span
-              css={{
+              css={theme({
                 display: 'block',
-                color: colors.red6,
+                color: 'red6',
                 width: '100%',
                 textAlign: 'left'
-              }}
+              })}
             >
               with no compromises.
             </span>

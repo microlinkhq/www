@@ -73,8 +73,7 @@ const Faq = ({
                 {React.Children.map(answer.props.children, (paraph, index) => (
                   <Text
                     css={theme({
-                      pt: [3, 4, 4, 4],
-                      color: 'black80'
+                      pt: [3, 4, 4, 4]
                     })}
                     key={`${slugger(question)}-${index}`}
                   >

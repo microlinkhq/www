@@ -1,12 +1,20 @@
 /* global IntersectionObserver, requestAnimationFrame, cancelAnimationFrame, performance */
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import styled, { css, keyframes } from 'styled-components'
-import { transition, colors } from 'theme'
+import {
+  theme,
+  transition,
+  colors,
+  space,
+  radii,
+  borders,
+  fontSizes,
+  breakpoints
+} from 'theme'
 
 import Flex from 'components/elements/Flex'
 
-const MONO_FONT =
-  "'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono', Menlo, monospace"
+const BREAKPOINT_SMALL_MAX = breakpoints[0]
 
 const formatMs = ms => ms.toLocaleString('en-US', { maximumFractionDigits: 0 })
 const formatMsDecimal = ms =>
@@ -105,7 +113,7 @@ const domainShrink = keyframes`
     transform: translate(-50%, -50%);
   }
   100% {
-    font-size: 16px;
+    font-size: ${fontSizes[1]};
     opacity: 1;
     top: 30px;
     transform: translate(-50%, 0);
@@ -114,21 +122,21 @@ const domainShrink = keyframes`
 
 const domainShrinkMobile = keyframes`
   0% {
-    font-size: 28px;
+    font-size: ${fontSizes[3]};
     opacity: 1;
     top: 50%;
     transform: translate(-50%, -50%);
   }
   60% {
-    font-size: 28px;
+    font-size: ${fontSizes[3]};
     opacity: 1;
     top: 50%;
     transform: translate(-50%, -50%);
   }
   100% {
-    font-size: 14px;
+    font-size: ${fontSizes[0]};
     opacity: 1;
-    top: 32px;
+    top: ${space[4]};
     transform: translate(-50%, 0);
   }
 `
@@ -140,9 +148,10 @@ const RaceContainerWrapper = styled('div')`
   margin: 0 auto;
   min-height: 360px;
   background: ${({ $flat }) => ($flat ? 'transparent' : colors.white95)};
-  backdrop-filter: ${({ $flat }) => ($flat ? 'none' : 'blur(16px)')};
-  -webkit-backdrop-filter: ${({ $flat }) => ($flat ? 'none' : 'blur(16px)')};
-  border: ${({ $flat }) => ($flat ? '0' : `1px solid ${colors.black10}`)};
+  backdrop-filter: ${({ $flat }) => ($flat ? 'none' : `blur(${space[3]})`)};
+  -webkit-backdrop-filter: ${({ $flat }) =>
+    $flat ? 'none' : `blur(${space[3]})`};
+  border: ${({ $flat }) => ($flat ? '0' : `${borders[1]} ${colors.black10}`)};
   border-radius: ${({ $flat }) => ($flat ? '0' : '14px')};
   padding: ${({ $flat }) => ($flat ? '0' : '32px 28px 40px')};
   box-shadow: ${({ $flat }) =>
@@ -151,7 +160,7 @@ const RaceContainerWrapper = styled('div')`
       : `0 8px 32px ${colors.black10}, inset 0 1px 0 ${colors.white80}`};
   overflow: hidden;
 
-  @media (max-width: 600px) {
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     min-height: 310px;
     padding: ${({ $flat }) => ($flat ? '0' : '24px 16px 32px')};
     border-radius: ${({ $flat }) => ($flat ? '0' : '10px')};
@@ -168,61 +177,67 @@ const RaceInner = styled('div')`
 `
 
 const UrlLabel = styled('div')`
-  font-family: ${MONO_FONT};
-  font-size: 16px;
-  font-weight: 700;
-  color: ${colors.black90};
-  letter-spacing: 0.03em;
-  margin-bottom: 0;
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 1,
+    fontWeight: 'bold',
+    color: 'black',
+    mb: 0,
+    letterSpacing: 0,
+    lineHeight: 0
+  })};
   text-transform: uppercase;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  line-height: 1.2;
 
-  @media (max-width: 600px) {
-    font-size: 14px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ fontSize: 0 })};
   }
 `
 
 const UrlMeta = styled('div')`
-  font-family: ${MONO_FONT};
-  font-size: 14px;
-  font-weight: 400;
-  color: ${colors.black50};
-  letter-spacing: 0.02em;
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'normal',
+    color: 'black',
+    letterSpacing: 0,
+    lineHeight: 0
+  })};
   text-transform: none;
   margin-top: 13px;
   margin-bottom: 12px;
   text-align: center;
-  line-height: 1.2;
 
-  @media (max-width: 600px) {
-    font-size: 11px;
-    margin-top: 6px;
-    margin-bottom: 8px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ fontSize: 0 })};
+    margin-top: ${radii[3]};
+    margin-bottom: ${space[2]};
   }
 `
 
 const AnnounceMeta = styled('div')`
-  font-family: ${MONO_FONT};
-  font-size: 14px;
-  font-weight: 400;
-  color: ${colors.black50};
-  letter-spacing: 0.02em;
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'normal',
+    color: 'black',
+    letterSpacing: 0,
+    mt: 2,
+    gap: 2
+  })};
   text-transform: none;
-  margin-top: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   white-space: nowrap;
 
-  @media (max-width: 600px) {
-    font-size: 11px;
-    gap: 6px;
-    margin-top: 6px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ fontSize: 0 })};
+    gap: ${radii[3]};
+    margin-top: ${radii[3]};
   }
 `
 
@@ -231,11 +246,13 @@ const DomainAnnounce = styled('div')`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-family: ${MONO_FONT};
-  font-size: 42px;
-  font-weight: 700;
-  color: ${colors.black90};
-  letter-spacing: 0.03em;
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: '42px',
+    fontWeight: 'bold',
+    color: 'black',
+    letterSpacing: 0
+  })};
   text-transform: uppercase;
   white-space: nowrap;
   z-index: 10;
@@ -249,15 +266,15 @@ const DomainAnnounce = styled('div')`
     transition: opacity 0.3s ease;
   }
 
-  @media (max-width: 600px) {
-    font-size: 28px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ fontSize: 3 })};
     animation: ${domainShrinkMobile} 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
-    font-size: 16px;
-    top: 32px;
+    ${theme({ fontSize: 1 })};
+    top: ${space[4]};
     transform: translate(-50%, 0);
   }
 `
@@ -272,31 +289,32 @@ const AnnounceBackdrop = styled('div')`
   transition: opacity ${({ $visible }) => ($visible ? '0.4s' : '0s')} ease;
   pointer-events: none;
 
-  @media (max-width: 600px) {
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     border-radius: ${({ $flat }) => ($flat ? '0' : '10px')};
   }
 `
 
 const IntroLabel = styled('div')`
-  font-family: ${MONO_FONT};
-  font-size: 16px;
-  font-weight: 500;
-  color: ${colors.black60};
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 1,
+    fontWeight: 'regular',
+    color: 'black',
+    mb: '40px',
+    letterSpacing: 0
+  })};
   text-align: center;
-  margin-bottom: 40px;
-  letter-spacing: 0.02em;
   animation: ${fadeIn} 0.4s ease forwards;
 
-  @media (max-width: 600px) {
-    font-size: 14px;
-    margin-bottom: 34px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ fontSize: 0, mb: '34px' })};
   }
 `
 
 const IntroHighlightBar = styled('div')`
   position: absolute;
   inset: 0;
-  border-radius: 5px;
+  ${theme({ borderRadius: 2 })};
   transform-origin: left center;
   animation: ${introSweep} 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 `
@@ -304,8 +322,7 @@ const IntroHighlightBar = styled('div')`
 const LaneRow = styled('div')`
   display: flex;
   align-items: center;
-  gap: 10px;
-  height: 38px;
+  ${theme({ gap: '10px', height: '38px' })};
   opacity: ${({ $animate }) => ($animate ? 0 : 1)};
   animation: ${({ $animate, $delay }) =>
     $animate
@@ -315,9 +332,9 @@ const LaneRow = styled('div')`
       `
       : 'none'};
 
-  @media (max-width: 600px) {
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     height: 32px;
-    gap: 8px;
+    ${theme({ gap: 2 })};
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -327,37 +344,35 @@ const LaneRow = styled('div')`
 `
 
 const LaneRank = styled('span')`
-  font-family: ${MONO_FONT};
-  font-size: 13px;
-  font-weight: 700;
-  color: ${colors.black40};
-  width: 28px;
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'bold',
+    color: 'black',
+    width: '28px'
+  })};
   flex-shrink: 0;
   text-align: center;
   font-variant-numeric: tabular-nums;
   transition: color 0.3s ease;
 
-  @media (max-width: 600px) {
-    width: 22px;
-    font-size: 11px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ width: '22px', fontSize: 0 })};
   }
 `
 
 const LaneName = styled('div')`
-  font-family: ${MONO_FONT};
-  font-size: 14px;
+  ${theme({ fontFamily: 'mono', fontSize: 0, width: '150px' })};
   font-weight: ${({ $isMicrolink }) => ($isMicrolink ? '700' : '500')};
-  color: ${({ $isMicrolink }) => ($isMicrolink ? colors.red6 : colors.black80)};
-  width: 150px;
+  color: ${({ $isMicrolink }) => ($isMicrolink ? colors.red6 : colors.black)};
   flex-shrink: 0;
   text-align: right;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
-  @media (max-width: 600px) {
-    width: 90px;
-    font-size: 12px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ width: '90px', fontSize: 0 })};
   }
 `
 
@@ -366,13 +381,13 @@ const LaneTrack = styled('div')`
   height: 100%;
   position: relative;
   background: ${colors.black05};
-  border-radius: 5px;
+  ${theme({ borderRadius: 2 })};
   overflow: hidden;
 `
 
 const LaneBar = styled('div')`
   height: 100%;
-  border-radius: 5px;
+  ${theme({ borderRadius: 2 })};
   transform-origin: left center;
   animation: ${({ $noGrow }) =>
     $noGrow
@@ -390,75 +405,67 @@ const LaneBar = styled('div')`
         content: '';
         position: absolute;
         inset: 0;
-        border-radius: 5px;
+        ${theme({ borderRadius: 2 })};
         animation: ${pulseGlow} 2s ease-in-out infinite;
       }
     `}
 `
 
 const LaneTime = styled('span')`
-  font-family: ${MONO_FONT};
-  font-size: 14px;
+  ${theme({ fontFamily: 'mono', fontSize: 0, width: '90px' })};
   font-weight: 600;
-  color: ${({ $isMicrolink }) => ($isMicrolink ? colors.red6 : colors.black50)};
-  width: 90px;
+  color: ${({ $isMicrolink }) => ($isMicrolink ? colors.red6 : colors.black)};
   flex-shrink: 0;
   text-align: right;
   font-variant-numeric: tabular-nums;
 
-  @media (max-width: 600px) {
-    width: 68px;
-    font-size: 12px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ width: '68px', fontSize: 0 })};
   }
 `
 
 const BarTimeLabel = styled('span')`
   position: absolute;
-  right: 8px;
+  right: ${space[2]};
   top: 50%;
   transform: translateY(-50%);
-  font-family: ${MONO_FONT};
-  font-size: 13px;
+  ${theme({ fontFamily: 'mono', fontSize: 0 })};
   font-weight: 600;
   color: ${colors.white95};
   font-variant-numeric: tabular-nums;
   pointer-events: none;
   white-space: nowrap;
-  text-shadow: 0 1px 2px ${colors.black30};
+  text-shadow: 0 1px 2px ${colors.black50};
   opacity: ${({ $visible }) => ($visible ? 1 : 0)};
   transition: opacity 0.3s ease;
 
-  @media (max-width: 600px) {
-    font-size: 11px;
-    right: 5px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ fontSize: 0 })};
+    right: ${radii[2]};
   }
 `
 
 const CumulativeTime = styled('span')`
-  font-family: ${MONO_FONT};
-  font-size: 14px;
+  ${theme({ fontFamily: 'mono', fontSize: 0, width: '90px' })};
   font-weight: 600;
-  color: ${colors.black50};
-  width: 90px;
+  color: ${colors.black};
   flex-shrink: 0;
   text-align: right;
   font-variant-numeric: tabular-nums;
   transition: color 0.3s ease;
 
-  @media (max-width: 600px) {
-    width: 68px;
-    font-size: 12px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ width: '68px', fontSize: 0 })};
   }
 `
 
 const LaneHeaderRow = styled('div')`
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 6px;
+  ${theme({ gap: '10px', mb: radii[3] })};
 
-  @media (max-width: 600px) {
-    gap: 8px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ gap: 2 })};
   }
 `
 
@@ -466,44 +473,44 @@ const LaneHeaderSpacer = styled('span')`
   flex-shrink: 0;
 
   &.rank {
-    width: 28px;
+    ${theme({ width: '28px' })};
 
-    @media (max-width: 600px) {
-      width: 22px;
+    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+      ${theme({ width: '22px' })};
     }
   }
 
   &.name {
-    width: 150px;
+    ${theme({ width: '150px' })};
 
-    @media (max-width: 600px) {
-      width: 90px;
+    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+      ${theme({ width: '90px' })};
     }
   }
 `
 
 const LaneHeaderLabel = styled('span')`
-  font-family: ${MONO_FONT};
-  font-size: 11px;
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    letterSpacing: 0,
+    width: '90px'
+  })};
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: ${colors.black40};
-  width: 90px;
+  color: ${colors.black};
   flex-shrink: 0;
   text-align: right;
 
-  @media (max-width: 600px) {
-    width: 68px;
-    font-size: 10px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ width: '68px', fontSize: 0 })};
   }
 `
 
 const StepIndicator = styled('div')`
   display: flex;
-  gap: 6px;
+  ${theme({ gap: radii[3], py: 1 })};
   justify-content: center;
-  padding: 4px 0;
   position: relative;
   z-index: 15;
 `
@@ -512,9 +519,9 @@ const StepDot = styled('button')`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  border: 1px solid ${colors.black20};
+  border: ${borders[1]} ${colors.black10};
   background: ${({ $active, $done }) =>
-    $active ? colors.red6 : $done ? colors.black30 : 'transparent'};
+    $active ? colors.red6 : $done ? colors.black50 : 'transparent'};
   padding: 0;
   cursor: pointer;
   transition: background ${transition.medium}, transform ${transition.medium};
@@ -523,77 +530,70 @@ const StepDot = styled('button')`
 
   &:hover {
     transform: scale(1.3);
-    background: ${({ $active }) => ($active ? colors.red6 : colors.black20)};
+    background: ${({ $active }) => ($active ? colors.red6 : colors.black10)};
   }
 
   &:focus-visible {
-    outline: 2px solid ${colors.red5};
-    outline-offset: 2px;
+    outline: ${borders[2]} ${colors.red5};
+    outline-offset: ${radii[1]};
   }
 `
 
 const LeaderboardRow = styled('div')`
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 12px 18px;
-  border-radius: 8px;
-  background: ${({ $rank }) => ($rank === 0 ? colors.green0 : colors.black025)};
-  border: 1px solid
+  ${theme({ gap: '14px', py: '12px', px: '18px' })};
+  border-radius: ${radii[4]};
+  background: ${({ $rank }) => ($rank === 0 ? colors.green0 : colors.black05)};
+  border: ${borders[1]}
     ${({ $rank }) => ($rank === 0 ? colors.green2 : colors.black10)};
   animation: ${fadeIn} 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   animation-delay: ${({ $rank }) => $rank * 80}ms;
   opacity: 0;
 
-  @media (max-width: 600px) {
-    padding: 10px 14px;
-    gap: 10px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ py: '10px', px: '14px', gap: '10px' })};
   }
 `
 
 const RankBadge = styled('span')`
-  font-family: ${MONO_FONT};
-  font-size: 14px;
-  font-weight: 700;
-  color: ${({ $rank }) => ($rank === 0 ? colors.green7 : colors.black40)};
-  width: 28px;
+  ${theme({ fontFamily: 'mono', fontSize: 0, fontWeight: 'bold' })};
+  color: ${({ $rank }) => ($rank === 0 ? colors.green7 : colors.black)};
+  ${theme({ width: fontSizes[3] })};
   text-align: center;
   font-variant-numeric: tabular-nums;
 `
 
 const LeaderName = styled('span')`
-  font-family: ${MONO_FONT};
-  font-size: 15px;
+  ${theme({ fontFamily: 'mono', fontSize: 1 })};
   font-weight: ${({ $rank }) => ($rank === 0 ? '700' : '500')};
-  color: ${({ $rank }) => ($rank === 0 ? colors.green7 : colors.black80)};
+  color: ${({ $rank }) => ($rank === 0 ? colors.green7 : colors.black)};
   flex: 1;
 
-  @media (max-width: 600px) {
-    font-size: 13px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ fontSize: 0 })};
   }
 `
 
 const LeaderTime = styled('span')`
-  font-family: ${MONO_FONT};
-  font-size: 15px;
+  ${theme({ fontFamily: 'mono', fontSize: 1 })};
   font-weight: 600;
-  color: ${({ $rank }) => ($rank === 0 ? colors.green7 : colors.black50)};
+  color: ${({ $rank }) => ($rank === 0 ? colors.green7 : colors.black)};
   font-variant-numeric: tabular-nums;
 
-  @media (max-width: 600px) {
-    font-size: 13px;
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ fontSize: 0 })};
   }
 `
 
 const LeaderDelta = styled('span')`
-  font-family: ${MONO_FONT};
-  font-size: 13px;
-  color: ${colors.black40};
+  ${theme({ fontFamily: 'mono', fontSize: 0 })};
+  color: ${colors.black};
   font-variant-numeric: tabular-nums;
-  width: 80px;
+  ${theme({ width: fontSizes[6] })};
   text-align: right;
 
-  @media (max-width: 600px) {
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     display: none;
   }
 `
@@ -601,20 +601,18 @@ const LeaderDelta = styled('span')`
 const MetricTabs = styled('div')`
   display: flex;
   justify-content: center;
-  gap: 6px;
-  margin-bottom: 28px;
+  ${theme({ gap: radii[3], marginBottom: fontSizes[3] })};
 `
 
 const MetricTab = styled('button')`
-  font-family: ${MONO_FONT};
-  font-size: 15px;
+  ${theme({ fontFamily: 'mono', fontSize: 1 })};
   font-weight: ${({ $active }) => ($active ? '600' : '400')};
   background: ${({ $active }) => ($active ? colors.black05 : 'transparent')};
-  border: 1px solid
-    ${({ $active }) => ($active ? colors.black20 : colors.black10)};
-  border-radius: 6px;
-  padding: 6px 18px;
-  color: ${({ $active }) => ($active ? colors.black80 : colors.black50)};
+  border: ${borders[1]}
+    ${({ $active }) => ($active ? colors.black50 : colors.black10)};
+  border-radius: ${radii[3]};
+  ${theme({ py: radii[3], px: '18px' })};
+  color: ${colors.black};
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -623,36 +621,34 @@ const MetricTab = styled('button')`
 
   &:hover {
     background: ${colors.black05};
-    color: ${colors.black60};
+    color: ${colors.black};
   }
 
   &:focus-visible {
-    outline: 2px solid ${colors.red5};
-    outline-offset: 2px;
+    outline: ${borders[2]} ${colors.red5};
+    outline-offset: ${radii[1]};
   }
 `
 
 const RaceButton = styled('button')`
-  font-family: ${MONO_FONT};
-  font-size: 15px;
-  font-weight: 500;
+  ${theme({ fontFamily: 'mono', fontSize: 1, fontWeight: 'regular' })};
   background: transparent;
   border: 0;
   border-radius: 0;
   padding: 0;
-  color: ${colors.black60};
+  color: ${colors.black};
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   transition: color ${transition.medium};
 
   &:hover {
-    color: ${colors.black90};
+    color: ${colors.black};
   }
 
   &:focus-visible {
-    outline: 2px solid ${colors.red5};
-    outline-offset: 2px;
+    outline: ${borders[2]} ${colors.red5};
+    outline-offset: ${radii[1]};
   }
 `
 
@@ -1055,7 +1051,7 @@ const RaceContainer = ({
               &nbsp;screenshot APIs
             </IntroLabel>
 
-            <Flex css={{ flexDirection: 'column', gap: '8px' }}>
+            <Flex css={theme({ flexDirection: 'column', gap: 2 })}>
               {ALPHABETICAL_SERVICES.map((key, i) => {
                 const svc = benchmarkData.results[key]
                 const isLit = isIntro && i <= introHighlight
@@ -1066,7 +1062,7 @@ const RaceContainer = ({
                     <LaneName
                       $isMicrolink={false}
                       style={{
-                        color: isLit ? colors.black80 : colors.black30,
+                        color: isLit ? colors.black : colors.black10,
                         transition: 'color 0.4s ease'
                       }}
                     >
@@ -1084,7 +1080,7 @@ const RaceContainer = ({
                           style={{
                             position: 'absolute',
                             inset: 0,
-                            borderRadius: '5px',
+                            borderRadius: radii[2],
                             background: serviceColors[key]
                           }}
                         />
@@ -1093,7 +1089,7 @@ const RaceContainer = ({
                     <LaneTime
                       $isMicrolink={false}
                       style={{
-                        color: isLit ? colors.black50 : colors.black20,
+                        color: isLit ? colors.black : colors.black10,
                         transition: 'color 0.4s ease'
                       }}
                     />
@@ -1217,7 +1213,7 @@ const RaceContainer = ({
                       </LaneBar>
                     </LaneTrack>
                     <CumulativeTime
-                      style={isSumming ? { color: colors.black90 } : undefined}
+                      style={isSumming ? { color: colors.black } : undefined}
                     >
                       <AnimatedCounter value={cumTotal} animate={isSumming} />
                     </CumulativeTime>
@@ -1238,12 +1234,12 @@ const RaceContainer = ({
             return (
               <>
                 <UrlLabel
-                  css={{
+                  css={theme({
                     justifyContent: 'center',
-                    marginBottom: '28px',
-                    fontSize: '20px',
-                    color: colors.black70
-                  }}
+                    mb: 4,
+                    fontSize: 2,
+                    color: 'black'
+                  })}
                 >
                   Final leaderboard
                 </UrlLabel>
@@ -1265,7 +1261,7 @@ const RaceContainer = ({
                     </MetricTab>
                   ))}
                 </MetricTabs>
-                <Flex css={{ flexDirection: 'column', gap: '8px' }}>
+                <Flex css={theme({ flexDirection: 'column', gap: 2 })}>
                   {sorted.map((key, rank) => {
                     const svc = benchmarkData.results[key]
                     const val = svc.summary[field]
@@ -1285,7 +1281,7 @@ const RaceContainer = ({
                     )
                   })}
                 </Flex>
-                <Flex css={{ justifyContent: 'center', marginTop: '32px' }}>
+                <Flex css={theme({ justifyContent: 'center', mt: 4 })}>
                   <RaceButton
                     onClick={replay}
                     aria-label='Replay benchmark race'
@@ -1298,7 +1294,7 @@ const RaceContainer = ({
           })()}
       </RaceInner>
       {isRacing && (
-        <StepIndicator style={{ marginTop: '16px' }}>
+        <StepIndicator css={theme({ mt: 3 })}>
           {benchmarkData.testUrls.map((t, i) => (
             <StepDot
               key={t.url}
