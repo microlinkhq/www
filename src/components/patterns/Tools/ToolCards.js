@@ -99,13 +99,11 @@ const renderToolImage = ({ image, title, styles, transform }) => {
     transform
   })
 
-  return image.endsWith('.mp4')
-    ? (
-      <Video src={image} title={title} css={mediaCss} />
-      )
-    : (
-      <Image src={image} alt={title} css={mediaCss} />
-      )
+  return image.endsWith('.mp4') ? (
+    <Video src={image} title={title} css={mediaCss} />
+  ) : (
+    <Image src={image} alt={title} css={mediaCss} />
+  )
 }
 
 export const FeaturedToolCard = ({
@@ -135,6 +133,7 @@ export const FeaturedToolCard = ({
         color: 'inherit',
         _hover: { color: 'inherit' },
         display: 'block',
+        height: '100%',
         WebkitTapHighlightColor: 'transparent',
         touchAction: 'manipulation',
         ...linkCss
@@ -146,7 +145,12 @@ export const FeaturedToolCard = ({
         onTouchStart={() => setIsHover(true)}
         onTouchEnd={() => setIsHover(false)}
         onTouchCancel={() => setIsHover(false)}
-        css={theme({ borderColor: 'black10', ...cardCss })}
+        css={theme({
+          borderColor: 'black10',
+          display: 'flex',
+          flexDirection: 'column',
+          ...cardCss
+        })}
       >
         <ImagePreview
           css={theme({
@@ -163,14 +167,16 @@ export const FeaturedToolCard = ({
           css={theme({
             p: [3, 3, 4, 4],
             flexDirection: 'column',
-            gap: 3
+            gap: 3,
+            flex: 1
           })}
         >
           <Flex
             css={theme({
               alignItems: 'flex-start',
               justifyContent: 'space-between',
-              gap: 3
+              gap: 3,
+              flex: 1
             })}
           >
             <Box css={theme({ flex: 1, minWidth: 0 })}>
