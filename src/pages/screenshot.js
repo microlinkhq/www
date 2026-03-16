@@ -15,6 +15,7 @@ import { trimMs } from 'helpers/trim-ms'
 import styled, { css, keyframes } from 'styled-components'
 
 import Box from 'components/elements/Box'
+import Button from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
