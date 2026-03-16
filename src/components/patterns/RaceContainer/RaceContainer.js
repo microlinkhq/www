@@ -99,7 +99,7 @@ const slideInFromRight = keyframes`
   to { opacity: 1; transform: translateX(0); }
 `
 
-const domainShrink = keyframes`
+const domainShrink = props => keyframes`
   0% {
     font-size: 42px;
     opacity: 1;
@@ -115,12 +115,12 @@ const domainShrink = keyframes`
   100% {
     font-size: ${fontSizes[1]};
     opacity: 1;
-    top: 30px;
+    top: ${props.$flat ? '0px' : '32px'};
     transform: translate(-50%, 0);
   }
 `
 
-const domainShrinkMobile = keyframes`
+const domainShrinkMobile = props => keyframes`
   0% {
     font-size: ${fontSizes[3]};
     opacity: 1;
@@ -136,7 +136,7 @@ const domainShrinkMobile = keyframes`
   100% {
     font-size: ${fontSizes[0]};
     opacity: 1;
-    top: ${space[4]};
+    top: ${props.$flat ? '0px' : '24px'};
     transform: translate(-50%, 0);
   }
 `
@@ -188,6 +188,7 @@ const UrlLabel = styled('div')`
   })};
   text-transform: uppercase;
   display: flex;
+  margin-top: 2px;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -213,8 +214,8 @@ const UrlMeta = styled('div')`
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     ${theme({ fontSize: 0 })};
-    margin-top: ${radii[3]};
-    margin-bottom: ${space[2]};
+    margin-top: 10px;
+    margin-bottom: ${space[3]};
   }
 `
 
@@ -259,7 +260,10 @@ const DomainAnnounce = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: ${domainShrink} 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: ${props =>
+    css`
+      ${domainShrink(props)} 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards
+    `};
 
   & > ${AnnounceMeta} {
     opacity: 1;
@@ -268,13 +272,16 @@ const DomainAnnounce = styled('div')`
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     ${theme({ fontSize: 3 })};
-    animation: ${domainShrinkMobile} 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: ${props =>
+      css`
+        ${domainShrinkMobile(props)} 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards
+      `};
   }
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
     ${theme({ fontSize: 1 })};
-    top: ${space[4]};
+    top: ${({ $flat }) => ($flat ? '0px' : '32px')};
     transform: translate(-50%, 0);
   }
 `
@@ -1156,7 +1163,10 @@ const RaceContainer = ({
                   cfg?.format?.toUpperCase()
                 ].filter(Boolean)
                 return (
-                  <DomainAnnounce key={`announce-${announcingUrl}`}>
+                  <DomainAnnounce
+                    key={`announce-${announcingUrl}`}
+                    $flat={flat}
+                  >
                     {extractDomain(announcingUrl)}
                     {tags.length > 0 && (
                       <AnnounceMeta>{tags.join(' · ')}</AnnounceMeta>
