@@ -22,6 +22,7 @@ import { Check as CheckIcon } from 'react-feather'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
+import FaqComponent from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 import { extractDomain } from 'helpers/extract-domain'
@@ -1042,21 +1043,15 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : isMax
-                              ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                                )
-                              : isSecond
-                                ? (
-                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                                  )
-                                : (
-                                    formatMs(times[i])
-                                  )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
@@ -1552,6 +1547,152 @@ const CalloutLabel = styled('span')`
   padding: ${radii[1]} ${space[2]};
 `
 
+const FAQ_ITEMS = [
+  {
+    question: 'What is the fastest screenshot API in 2026?',
+    answer: (
+      <>
+        <div>
+          Based on our independent benchmark testing 7 real-world URLs with zero
+          caching, Microlink is the fastest screenshot API with an average
+          cold-start latency of 4,111.84&thinsp;ms. The next closest provider
+          averaged 5,915.71&thinsp;ms, making Microlink roughly 30–44% faster
+          than every competitor tested.
+        </div>
+      </>
+    ),
+    text: 'Based on our independent benchmark testing 7 real-world URLs with zero caching, Microlink is the fastest screenshot API with an average cold-start latency of 4,111.84\u2009ms. The next closest provider averaged 5,915.71\u2009ms, making Microlink roughly 30\u201344% faster than every competitor tested.'
+  },
+  {
+    question: 'What is cold-start latency and why does it matter?',
+    answer: (
+      <>
+        <div>
+          Cold-start latency is the total time from sending an HTTP request to
+          receiving the final screenshot, with no warm caches or pre-booted
+          browsers. It measures the real-world worst case: Headless Chrome boot,
+          DNS resolution, DOM render, and pixel capture.
+        </div>
+        <div>
+          This metric matters because it determines whether your system can
+          handle screenshots synchronously or needs complex async workarounds
+          like webhook callbacks and job&nbsp;queues.
+        </div>
+      </>
+    ),
+    text: 'Cold-start latency is the total time from sending an HTTP request to receiving the final screenshot, with no warm caches or pre-booted browsers. It measures the real-world worst case: Headless Chrome boot, DNS resolution, DOM render, and pixel capture. This metric matters because it determines whether your system can handle screenshots synchronously or needs complex async workarounds like webhook callbacks and job queues.'
+  },
+  {
+    question: 'Is there a free screenshot API?',
+    answer: (
+      <>
+        <div>
+          Yes. Microlink offers 50 free screenshot requests per day with no
+          account, no login, and no credit card required. The free tier includes
+          full browser control, adblock, cookie banner removal, and metadata
+          extraction.
+        </div>
+        <div>
+          For production workloads, the Pro plan starts at €39/month for 46,000
+          requests with automatic proxy resolution and antibot&nbsp;protection.
+        </div>
+      </>
+    ),
+    text: 'Yes. Microlink offers 50 free screenshot requests per day with no account, no login, and no credit card required. The free tier includes full browser control, adblock, cookie banner removal, and metadata extraction. For production workloads, the Pro plan starts at \u20ac39/month for 46,000 requests with automatic proxy resolution and antibot protection.'
+  },
+  {
+    question: 'What is a screenshot API?',
+    answer: (
+      <>
+        <div>
+          A screenshot API is a managed service that captures visual snapshots
+          of web pages by running a headless browser (typically Chrome) in the
+          cloud. Instead of maintaining your own Puppeteer or Playwright
+          infrastructure, you send an HTTP request with a URL and receive a
+          rendered image.
+        </div>
+        <div>
+          Screenshot APIs handle browser lifecycle, rendering, scaling, and
+          anti-bot mitigation so developers can focus on their&nbsp;product.
+        </div>
+      </>
+    ),
+    text: 'A screenshot API is a managed service that captures visual snapshots of web pages by running a headless browser (typically Chrome) in the cloud. Instead of maintaining your own Puppeteer or Playwright infrastructure, you send an HTTP request with a URL and receive a rendered image. Screenshot APIs handle browser lifecycle, rendering, scaling, and anti-bot mitigation so developers can focus on their product.'
+  },
+  {
+    question: 'Can I use a screenshot API for AI agents?',
+    answer: (
+      <>
+        <div>
+          Yes, and speed is critical for this use case. AI agents rely on
+          screenshots for visual grounding during multi-step reasoning loops.
+          When a single capture takes 10–15&nbsp;seconds, the entire agent
+          workflow stalls.
+        </div>
+        <div>
+          Microlink is built to be the eyes of AI agents: sub-5-second cold
+          starts, built-in proxy rotation to bypass CAPTCHAs and anti-bot
+          blocking, and structured DOM extraction alongside visual&nbsp;capture.
+        </div>
+      </>
+    ),
+    text: 'Yes, and speed is critical for this use case. AI agents rely on screenshots for visual grounding during multi-step reasoning loops. When a single capture takes 10\u201315 seconds, the entire agent workflow stalls. Microlink is built to be the eyes of AI agents: sub-5-second cold starts, built-in proxy rotation to bypass CAPTCHAs and anti-bot blocking, and structured DOM extraction alongside visual capture.'
+  },
+  {
+    question: 'Is Microlink open source?',
+    answer: (
+      <>
+        <div>
+          Yes. Microlink is powered by{' '}
+          <Link href='https://github.com/microlinkhq/browserless'>
+            browserless
+          </Link>
+          , an open-source headless Chrome/Chromium driver built on top of
+          Puppeteer. The entire stack is available on GitHub under the
+          microlinkhq organization.
+        </div>
+        <div>
+          You can self-host it for full control, or use the managed API to skip
+          infrastructure work and get automatic scaling, proxy rotation, and
+          global edge&nbsp;deployment.
+        </div>
+      </>
+    ),
+    text: 'Yes. Microlink is powered by browserless, an open-source headless Chrome/Chromium driver built on top of Puppeteer. The entire stack is available on GitHub under the microlinkhq organization. You can self-host it for full control, or use the managed API to skip infrastructure work and get automatic scaling, proxy rotation, and global edge deployment.'
+  },
+  {
+    question: 'How was this benchmark conducted?',
+    answer: (
+      <>
+        <div>
+          We tested 6 screenshot API providers against 7 real-world URLs using
+          true cold starts (no caching). All providers were triggered
+          simultaneously for each URL to ensure identical network conditions.
+        </div>
+        <div>
+          The benchmark ran 10 times at different hours, the single slowest run
+          was dropped to remove outliers, and non-200 responses were excluded.
+          The full testing architecture is{' '}
+          <Link href='https://github.com/microlinkhq/benchmarks/tree/main/screenshot'>
+            open source on GitHub
+          </Link>
+          .
+        </div>
+      </>
+    ),
+    text: 'We tested 6 screenshot API providers against 7 real-world URLs using true cold starts (no caching). All providers were triggered simultaneously for each URL to ensure identical network conditions. The benchmark ran 10 times at different hours, the single slowest run was dropped to remove outliers, and non-200 responses were excluded. The full testing architecture is open source on GitHub.'
+  }
+]
+
+const Faq = () => (
+  <FaqComponent
+    title='Frequently Asked Questions'
+    titleSize={[3, 3, 4, 4]}
+    questions={FAQ_ITEMS}
+    css={theme({ bg: 'pinky', maxWidth: '100%', py: [4, 4, 5, 5] })}
+  />
+)
+
 const BottomCta = () => (
   <Container
     as='section'
@@ -1560,7 +1701,7 @@ const BottomCta = () => (
       maxWidth: '100%',
       bg: 'white',
       pt: [4, 4, 5, 5],
-      pb: 0
+      pb: [5, 5, 6, 6]
     })}
   >
     <Flex
@@ -1573,13 +1714,12 @@ const BottomCta = () => (
       })}
     >
       <Subhead
-        variant='gradient'
         css={theme({
           fontSize: CTA_TITLE_FONT_SIZE,
           textAlign: 'center'
         })}
       >
-        Ship faster screenshots
+        Ship <span css='color: #fa5252;'>faster</span> screenshots
       </Subhead>
       <Caption
         forwardedAs='div'
@@ -1641,39 +1781,53 @@ export const Head = () => (
     title='Fastest Screenshot API: 2026 Speed Benchmark & Comparison'
     description='See the cold-start latency benchmark across 6 screenshot API providers (Microlink, Urlbox, ApiFlash, etc.) tested against 7 real-world URLs.'
     schemaType='Article'
-    structured={{
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      '@id': 'https://microlink.io/benchmarks/screenshot-api',
-      headline: 'Fastest Screenshot API: 2026 Speed Benchmark & Comparison',
-      description:
-        'Independent performance benchmark comparing 6 screenshot API providers on cold-start latency across 7 real-world URLs.',
-      url: 'https://microlink.io/benchmarks/screenshot-api',
-      datePublished: '2026-03-10',
-      dateModified: '2026-03-10',
-      author: {
-        '@type': 'Organization',
-        name: 'Microlink',
-        url: 'https://microlink.io'
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: 'Microlink',
-        url: 'https://microlink.io'
-      },
-      about: [
-        {
-          '@type': 'Thing',
-          name: 'Screenshot API',
-          sameAs: 'https://en.wikipedia.org/wiki/Screenshot'
+    structured={[
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': 'https://microlink.io/benchmarks/screenshot-api',
+        headline: 'Fastest Screenshot API: 2026 Speed Benchmark & Comparison',
+        description:
+          'Independent performance benchmark comparing 6 screenshot API providers on cold-start latency across 7 real-world URLs.',
+        url: 'https://microlink.io/benchmarks/screenshot-api',
+        datePublished: '2026-03-10',
+        dateModified: '2026-03-10',
+        author: {
+          '@type': 'Organization',
+          name: 'Microlink',
+          url: 'https://microlink.io'
         },
-        {
-          '@type': 'Thing',
-          name: 'Web Performance',
-          sameAs: 'https://en.wikipedia.org/wiki/Web_performance'
-        }
-      ]
-    }}
+        publisher: {
+          '@type': 'Organization',
+          name: 'Microlink',
+          url: 'https://microlink.io'
+        },
+        about: [
+          {
+            '@type': 'Thing',
+            name: 'Screenshot API',
+            sameAs: 'https://en.wikipedia.org/wiki/Screenshot'
+          },
+          {
+            '@type': 'Thing',
+            name: 'Web Performance',
+            sameAs: 'https://en.wikipedia.org/wiki/Web_performance'
+          }
+        ]
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: FAQ_ITEMS.map(({ question, text }) => ({
+          '@type': 'Question',
+          name: question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text
+          }
+        }))
+      }
+    ]}
   />
 )
 
@@ -1684,6 +1838,7 @@ const ScreenshotApiBenchmarkPage = () => (
     <Methodology />
     <WhyLatencyMatters />
     <BottomCta />
+    <Faq />
     {/* <StickyFooterCta /> */}
   </Layout>
 )
