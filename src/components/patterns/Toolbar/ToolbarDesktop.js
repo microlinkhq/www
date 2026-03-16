@@ -649,71 +649,71 @@ const ToolbarDesktop = () => {
                     listStyle: TOOLBAR_LIST_RESET_STYLES.listStyle
                   })}
                 >
-                  {isToolsSection ? (
-                    <TopLevelDirectLink
-                      forwardedAs='div'
-                      href='/tools'
-                      actively='partial'
-                      data-event-location='Toolbar'
-                      data-event-name={label}
-                      onClick={handleClosePanel}
-                      onMouseEnter={() => handleOpenSectionWithHover(label)}
-                      onFocus={() =>
-                        canUseHover() ? handleOpenSection(label) : undefined
-                      }
-                      css={theme({
-                        ...TOP_LEVEL_LINK_LAYOUT_STYLES,
-                        ...TOOLBAR_TOP_LEVEL_TEXT_STYLES,
-                        '> a': {
-                          alignItems: 'center',
-                          gap: '6px'
-                        },
-                        ...(isActive
-                          ? {
-                            backgroundColor: TOP_LEVEL_ACTIVE_BACKGROUND,
-                            color: 'black'
-                          }
-                          : {})
-                      })}
-                    >
-                      <Caps
-                        as='span'
-                        css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}
+                  {isToolsSection
+                    ? (
+                      <TopLevelDirectLink
+                        forwardedAs='div'
+                        href='/tools'
+                        actively='partial'
+                        data-event-location='Toolbar'
+                        data-event-name={label}
+                        onClick={handleClosePanel}
+                        onMouseEnter={() => handleOpenSectionWithHover(label)}
+                        onFocus={() =>
+                          canUseHover() ? handleOpenSection(label) : undefined}
+                        css={theme({
+                          ...TOP_LEVEL_LINK_LAYOUT_STYLES,
+                          ...TOOLBAR_TOP_LEVEL_TEXT_STYLES,
+                          '> a': {
+                            alignItems: 'center',
+                            gap: '6px'
+                          },
+                          ...(isActive
+                            ? {
+                                backgroundColor: TOP_LEVEL_ACTIVE_BACKGROUND,
+                                color: 'black'
+                              }
+                            : {})
+                        })}
                       >
-                        {label}
-                      </Caps>
-                      <TopLevelChevron
-                        icon={ChevronDown}
-                        isOpen={openSection === label}
-                        size={TOOLBAR_CHEVRON_ICON_SIZE}
-                      />
-                    </TopLevelDirectLink>
-                  ) : (
-                    <TopLevelTrigger
-                      type='button'
-                      isActive={isActive}
-                      aria-haspopup='true'
-                      aria-expanded={openSection === label}
-                      aria-controls={toSectionDomId(label)}
-                      onClick={handleTriggerClick(label)}
-                      onMouseEnter={() => handleOpenSectionWithHover(label)}
-                      onFocus={() =>
-                        canUseHover() ? handleOpenSection(label) : undefined
-                      }
-                    >
-                      <Caps
-                        as='span'
-                        css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}
+                        <Caps
+                          as='span'
+                          css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}
+                        >
+                          {label}
+                        </Caps>
+                        <TopLevelChevron
+                          icon={ChevronDown}
+                          isOpen={openSection === label}
+                          size={TOOLBAR_CHEVRON_ICON_SIZE}
+                        />
+                      </TopLevelDirectLink>
+                      )
+                    : (
+                      <TopLevelTrigger
+                        type='button'
+                        isActive={isActive}
+                        aria-haspopup='true'
+                        aria-expanded={openSection === label}
+                        aria-controls={toSectionDomId(label)}
+                        onClick={handleTriggerClick(label)}
+                        onMouseEnter={() => handleOpenSectionWithHover(label)}
+                        onFocus={() =>
+                          canUseHover() ? handleOpenSection(label) : undefined}
                       >
-                        {label}
-                      </Caps>
-                      <TopLevelChevron
-                        icon={ChevronDown}
-                        isOpen={openSection === label}
-                        size={TOOLBAR_CHEVRON_ICON_SIZE}
-                      />
-                    </TopLevelTrigger>
-                  )}
+                        <Caps
+                          as='span'
+                          css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}
+                        >
+                          {label}
+                        </Caps>
+                        <TopLevelChevron
+                          icon={ChevronDown}
+                          isOpen={openSection === label}
+                          size={TOOLBAR_CHEVRON_ICON_SIZE}
+                        />
+                      </TopLevelTrigger>
+                      )}
                 </Box>
               )
             })}
