@@ -24,6 +24,7 @@ import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePri
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import FaqComponent from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
+import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { withTitle } from 'helpers/hoc/with-title'
 import { extractDomain } from 'helpers/extract-domain'
 
@@ -619,6 +620,8 @@ const Hero = () => (
         >
           Cold-start latency across 6&nbsp;providers and 7&nbsp;URLs.
           Zero&nbsp;caching.
+          <br />
+          Which is the fastest screenshot API?
         </Caption>
       </Flex>
 
@@ -674,8 +677,7 @@ const Methodology = () => (
     css={theme({
       maxWidth: '100%',
       bg: 'pinky',
-      pt: [5, 5, 6, 6],
-      pb: [4, 4, 5, 5]
+      py: [4, 4, 5, 5]
     })}
   >
     <Flex
@@ -704,9 +706,10 @@ const Methodology = () => (
         })}
       >
         To ensure a strictly objective baseline, we built a reproducible testing
-        suite targeting 6 screenshot API providers (Microlink, ApiFlash,
-        ScreenshotAPI, ScreenshotMachine, ScreenshotOne, and Urlbox) against
-        7&nbsp;real-world URLs.
+        suite targeting 6 screenshot API providers (
+        <Link href='/screenshot'>Microlink</Link>, ApiFlash, ScreenshotAPI,
+        ScreenshotMachine, ScreenshotOne, and Urlbox) against 7&nbsp;real-world
+        URLs.
       </Text>
       <Text
         css={theme({
@@ -800,9 +803,43 @@ const Methodology = () => (
             })}
           >
             <strong>Final Aggregation:</strong> After cleaning the dataset, we
-            calculated the strict avgColdDuration per URL, and summed them to
-            find the totalColdDuration to determine the fastest
+            calculated the strict avg cold duration per URL, and summed them to
+            find the total cold duration to determine the fastest
             overall&nbsp;provider.
+          </Text>
+        </MethodologyItem>
+        <MethodologyItem>
+          <Text
+            css={theme({
+              fontSize: [1, 1, 2, 2],
+              color: 'black',
+              lineHeight: 3
+            })}
+          >
+            <strong>Image Parity:</strong> All screenshots were captured at the
+            same resolution and quality settings per URL. The compression
+            algorithms used by each provider produce nearly identical output
+            quality, with no visible difference between them. Because the
+            variance was negligible, we chose not to include image-quality
+            metrics in this benchmark. On the caching side, warm-cache
+            performance is also comparable across providers, with a few
+            exceptions we plan to document in a future&nbsp;update.
+          </Text>
+        </MethodologyItem>
+        <MethodologyItem>
+          <Text
+            css={theme({
+              fontSize: [1, 1, 2, 2],
+              color: 'black',
+              lineHeight: 3
+            })}
+          >
+            <strong>Public Data:</strong> All raw metrics, scripts, and
+            configurations are{' '}
+            <Link href='https://github.com/microlinkhq/benchmarks/tree/main/screenshot'>
+              public on GitHub
+            </Link>
+            . Anyone can inspect, reproduce, or challenge the&nbsp;results.
           </Text>
         </MethodologyItem>
       </MethodologyList>
@@ -892,7 +929,7 @@ const CompetitorComparison = () => {
       css={theme({
         maxWidth: '100%',
         pt: [4, 4, 5, 5],
-        pb: [5, 5, 6, 6]
+        pb: [4, 4, 5, 5]
       })}
     >
       <Flex
@@ -1233,13 +1270,37 @@ const CompetitorComparison = () => {
         >
           <Box>
             <Subhead
+              forwardedAs='h2'
+              css={theme({
+                fontSize: SECTION_TITLE_FONT_SIZE,
+                color: 'black',
+                textAlign: 'left',
+                mt: [4, 4, 5, 5],
+                mb: [2, 2, 3, 3]
+              })}
+            >
+              Provider-by-provider performance breakdown
+            </Subhead>
+            <Text
+              css={theme({
+                fontSize: [1, 1, 2, 2],
+                color: 'black',
+                lineHeight: 3
+              })}
+            >
+              Below is a provider-by-provider breakdown of speed, latency,
+              response time, and overall performance. Each comparison uses the
+              same 7-URL test suite so the numbers are directly&nbsp;comparable.
+            </Text>
+          </Box>
+          <Box>
+            <Subhead
               titleize={false}
               forwardedAs='h3'
               css={theme({
                 fontSize: SUBSECTION_TITLE_FONT_SIZE,
                 color: 'black',
                 textAlign: 'left',
-                mt: [4, 4, 5, 5],
                 mb: [2, 2, 3, 3]
               })}
             >
@@ -1409,8 +1470,7 @@ const WhyLatencyMatters = () => (
     css={theme({
       maxWidth: '100%',
       bg: 'white',
-      pt: [5, 5, 6, 6],
-      pb: [4, 4, 5, 5]
+      py: [4, 4, 5, 5]
     })}
   >
     <Flex
@@ -1423,7 +1483,6 @@ const WhyLatencyMatters = () => (
       })}
     >
       <Subhead
-        variant='gradient'
         css={theme({
           fontSize: SECTION_TITLE_FONT_SIZE,
           color: 'black',
@@ -1476,11 +1535,12 @@ const WhyLatencyMatters = () => (
           lineHeight: 3
         })}
       >
-        Microlink is built to keep this cycle as tight as physically possible.
-        It includes a built-in proxy layer that handles IP rotation and
-        mitigates anti-bot blocking (403s, CAPTCHAs) out-of-the-box. This
-        ensures your agents get reliable access to target URLs without you
-        having to maintain complex, failing proxy&nbsp;pools.
+        <Link href='/screenshot'>Microlink</Link> is built to keep this cycle as
+        tight as physically possible. It includes a built-in{' '}
+        <Link href='/docs/api/parameters/proxy'>proxy layer</Link> that handles
+        IP rotation and mitigates anti-bot blocking (403s, CAPTCHAs)
+        out-of-the-box. This ensures your agents get reliable access to target
+        URLs without you having to maintain complex, failing proxy&nbsp;pools.
       </Text>
       <Subhead
         forwardedAs='h3'
@@ -1516,8 +1576,9 @@ const WhyLatencyMatters = () => (
         forced to abandon synchronous code. Developers have to over-engineer
         workarounds: webhook callbacks, background job queues (Redis/Celery),
         and aggressive retry logic to handle timeouts. By minimizing cold-start
-        latency, Microlink keeps response times within manageable synchronous
-        limits, drastically simplifying your system&nbsp;architecture.
+        latency, <Link href='/screenshot'>Microlink</Link> keeps response times
+        within manageable synchronous limits, simplifying your
+        system&nbsp;architecture.
       </Text>
     </Flex>
   </Container>
@@ -1554,17 +1615,18 @@ const FAQ_ITEMS = [
       <>
         <div>
           Based on our independent benchmark testing 7 real-world URLs with zero
-          caching, Microlink is the fastest screenshot API with an average
-          cold-start latency of 4,111.84&thinsp;ms. The next closest provider
-          averaged 5,915.71&thinsp;ms, making Microlink roughly 30–44% faster
-          than every competitor tested.
+          caching, <Link href='/screenshot'>Microlink</Link> is the fastest
+          screenshot API with an average cold-start latency of
+          4,111.84&thinsp;ms. The next closest provider averaged
+          5,915.71&thinsp;ms, making Microlink roughly 30–44% faster than every
+          competitor tested.
         </div>
       </>
     ),
     text: 'Based on our independent benchmark testing 7 real-world URLs with zero caching, Microlink is the fastest screenshot API with an average cold-start latency of 4,111.84\u2009ms. The next closest provider averaged 5,915.71\u2009ms, making Microlink roughly 30\u201344% faster than every competitor tested.'
   },
   {
-    question: 'What is cold-start latency and why does it matter?',
+    question: 'What is cold-start latency?',
     answer: (
       <>
         <div>
@@ -1587,14 +1649,16 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. Microlink offers 50 free screenshot requests per day with no
-          account, no login, and no credit card required. The free tier includes
-          full browser control, adblock, cookie banner removal, and metadata
-          extraction.
+          Yes. <Link href='/screenshot'>Microlink</Link> offers 50 free
+          screenshot requests per day with no account, no login, and no credit
+          card required. The free tier includes full browser control, adblock,
+          cookie banner removal, and metadata extraction.
         </div>
         <div>
-          For production workloads, the Pro plan starts at €39/month for 46,000
-          requests with automatic proxy resolution and antibot&nbsp;protection.
+          For production workloads, the <Link href='/#pricing'>Pro plan</Link>{' '}
+          starts at €39/month for 46,000 requests with automatic{' '}
+          <Link href='/docs/api/parameters/proxy'>proxy resolution</Link> and
+          antibot&nbsp;protection.
         </div>
       </>
     ),
@@ -1613,7 +1677,8 @@ const FAQ_ITEMS = [
         </div>
         <div>
           Screenshot APIs handle browser lifecycle, rendering, scaling, and
-          anti-bot mitigation so developers can focus on their&nbsp;product.
+          anti-bot mitigation so developers can focus on their product.{' '}
+          <Link href='/docs/api/parameters/screenshot'>See how it works</Link>.
         </div>
       </>
     ),
@@ -1630,9 +1695,11 @@ const FAQ_ITEMS = [
           workflow stalls.
         </div>
         <div>
-          Microlink is built to be the eyes of AI agents: sub-5-second cold
-          starts, built-in proxy rotation to bypass CAPTCHAs and anti-bot
-          blocking, and structured DOM extraction alongside visual&nbsp;capture.
+          <Link href='/screenshot'>Microlink</Link> is built to be the eyes of
+          AI agents: sub-5-second cold starts, built-in{' '}
+          <Link href='/docs/api/parameters/proxy'>proxy rotation</Link> to
+          bypass CAPTCHAs and anti-bot blocking, and structured DOM extraction
+          alongside visual&nbsp;capture.
         </div>
       </>
     ),
@@ -1735,6 +1802,22 @@ const BottomCta = () => (
       <Flex
         css={theme({
           pt: [4, 4, 5, 5],
+          width: '100%',
+          maxWidth: layout.small,
+          justifyContent: 'center'
+        })}
+      >
+        <MultiCodeEditorInteractive
+          mqlCode={{
+            url: 'https://www.apple.com',
+            screenshot: true,
+            embed: 'screenshot'
+          }}
+        />
+      </Flex>
+      <Flex
+        css={theme({
+          pt: [3, 3, 4, 4],
           gap: [3, 3, 4, 4],
           flexDirection: ['column', 'column', 'row', 'row'],
           alignItems: 'center'
