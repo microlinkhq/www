@@ -403,17 +403,14 @@ const AddressPrompt = styled('span')`
       alignItems: 'center',
       mr: 1,
       fontSize: 1,
-      lineHeight: 0
+      lineHeight: 0,
+      mt: 1
     })};
     background-image: ${gradient};
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: ${addressPromptArrowNudge} 1.2s ease-in-out infinite;
-  }
-
-  @media (max-width: 1120px) {
-    display: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -424,7 +421,7 @@ const AddressPrompt = styled('span')`
 `
 
 const ScreenshotApiBar = styled(Flex)`
-  ${theme({ bg: 'gray1' })};
+  background: 'white';
 
   .codecopy__button {
     top: 0;
@@ -636,10 +633,10 @@ const stripForDisplay = url => stripProtocol(url).replace(/\?.*$/, '')
 const MAX_HISTORY = 6
 
 const HERO_LAYOUT = {
-  maxWidth: ['100%', '100%', '100%', `calc(${layout.large} * 1.5)`],
-  textWidth: '45%',
-  demoWidth: '55%',
-  gap: [5, 5, 6, 6]
+  maxWidth: ['100%', '100%', '100%', `calc(${layout.large} * 1.7)`],
+  mainWidth: '55%',
+  secondaryWidth: '45%',
+  gap: [1, 1, 1, 5]
 }
 const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 
@@ -985,8 +982,9 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
       css={theme({
         flexDirection: 'column',
         alignItems: 'center',
+        pt: [3, 3, 1, 0],
         px: [3, 3, 4, 5],
-        pb: [5, 5, 6, 6]
+        pb: [4, 4, 5, 5]
       })}
     >
       <Flex
@@ -1001,8 +999,8 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
       >
         <Flex
           css={theme({
-            width: ['100%', '100%', '100%', heroLayout.textWidth],
             flexDirection: 'column',
+            width: ['100%', '100%', '100%', heroLayout.secondaryWidth],
             justifyContent: 'center',
             alignItems: ['center', 'center', 'center', 'flex-start']
           })}
@@ -1010,11 +1008,13 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
           <Heading
             css={theme({
               px: [4, 4, 4, 0],
+              fontSize: [3, 3, 4, 4],
               maxWidth: ['100%', '100%', '100%', '640px'],
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            Website screenshot API <br /> for developers
+            Website <span style={{ whiteSpace: 'nowrap' }}>screenshot API</span>{' '}
+            <span style={{ whiteSpace: 'nowrap' }}>for developers</span>
           </Heading>
           <Caption
             forwardedAs='h2'
@@ -1046,7 +1046,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
         </Flex>
         <Flex
           css={theme({
-            width: ['100%', '100%', '100%', heroLayout.demoWidth],
+            width: ['100%', '100%', '100%', heroLayout.mainWidth],
             pt: [4, 4, 5, 0],
             flexDirection: 'column',
             justifyContent: 'center',
@@ -1165,7 +1165,10 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                     autoCorrect='off'
                     autoCapitalize='off'
                   />
-                  <AddressPrompt $visible={!isFocused} aria-hidden='true'>
+                  <AddressPrompt
+                    $visible={!isFocused && !hasInteracted}
+                    aria-hidden='true'
+                  >
                     <span className='address-prompt__arrow'>←</span>
                     Type any URL
                   </AddressPrompt>
@@ -1389,7 +1392,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                 <Text
                   as='span'
                   css={theme({
-                    fontSize: ['12px', '12px', '13px', '13px'],
+                    fontSize: ['13px', '13px', '14px', '14px'],
                     fontFamily: 'mono',
                     letterSpacing: 0,
                     overflow: 'hidden',
@@ -1407,39 +1410,37 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </ScreenshotApiBar>
             </BrowserWindow>
@@ -1544,28 +1545,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -1829,7 +1828,7 @@ const OpenSource = () => (
     css={theme({
       alignItems: 'center',
       width: '100%',
-      py: SECTION_VERTICAL_SPACING,
+      py: [5, 5, 6, 6],
       px: [1, 1, 5, 5]
     })}
   >
@@ -1845,7 +1844,7 @@ const OpenSource = () => (
     >
       <Flex
         css={theme({
-          width: ['100%', '100%', '100%', HERO_LAYOUT.demoWidth],
+          width: ['100%', '100%', '100%', HERO_LAYOUT.mainWidth],
           pt: [4, 4, 5, 0],
           flexDirection: 'column',
           justifyContent: 'center',
@@ -1971,8 +1970,8 @@ const OpenSource = () => (
       </Flex>
       <Flex
         css={theme({
-          width: ['100%', '100%', '100%', HERO_LAYOUT.textWidth],
           flexDirection: 'column',
+          width: ['100%', '100%', '100%', HERO_LAYOUT.secondaryWidth],
           justifyContent: 'center',
           alignItems: ['center', 'center', 'center', 'flex-start']
         })}
@@ -2047,7 +2046,8 @@ const Playground = () => {
       css={theme({
         alignItems: 'center',
         width: '100%',
-        py: SECTION_VERTICAL_SPACING,
+        pt: [3, 3, 3, 3],
+        pb: SECTION_VERTICAL_SPACING,
         px: [1, 1, 5, 5]
       })}
     >
@@ -2103,7 +2103,7 @@ const Playground = () => {
             >
               <FeaturedToolCard
                 {...tool}
-                cardCss={{ height: '100%' }}
+                cardCss={{ height: '100%', minHeight: '470px' }}
                 titleCss={{ fontSize: [2, 2, 2, 2] }}
                 descriptionCss={{ color: 'black60' }}
               />
@@ -2195,8 +2195,8 @@ const STATS = [
   { value: cachedReqsPercentage, label: 'cache hit rate' },
   { value: analyticsBytes, label: 'data served' }
 ]
-const CLIENTS_STATS_VALUE_FONT_SIZE = [3, 4, 6, 6]
-const CLIENTS_STATS_LABEL_FONT_SIZE = [0, 2, 3, 3]
+const CLIENTS_STATS_VALUE_FONT_SIZE = [3, 3, 4, 4]
+const CLIENTS_STATS_LABEL_FONT_SIZE = [0, 1, 1, 1]
 
 const CLIENTS = [
   {
@@ -2298,12 +2298,13 @@ const Clients = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: layout.large,
-      py: SECTION_VERTICAL_SPACING
+      pt: [3, 3, 2, 2],
+      pb: [5, 5, 5, 5]
     })}
   >
     <Caps
       css={theme({
-        fontSize: ['14px', '14px', '16px', '16px'],
+        fontSize: [1, 1, 2, 2],
         fontWeight: 'bold',
         color: 'black60',
         letterSpacing: 3
@@ -2363,7 +2364,7 @@ const Clients = () => (
     <Caps
       css={theme({
         pt: [4, 4, 5, 5],
-        fontSize: [1, 1, '16px', '16px'],
+        fontSize: [1, 1, 2, 2],
         fontWeight: 'bold',
         color: 'black60',
         letterSpacing: 3,
@@ -2505,52 +2506,8 @@ const CodeExample = () => {
       >
         <Flex
           css={theme({
-            width: ['100%', '100%', '100%', HERO_LAYOUT.demoWidth],
-            pt: [4, 4, 5, 0],
             flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
-          })}
-        >
-          <Flex
-            css={[
-              theme({
-                width: ['100%', '100%', '85%', '100%'],
-                justifyContent: 'center',
-                pb: [4, 4, 4, 5],
-                px: [2, 3, 0, 0]
-              }),
-              {
-                '& > div, & > div > div:first-child': {
-                  width: '100%',
-                  maxWidth: '750px'
-                },
-                '& > div > div:first-child': {
-                  boxShadow: `0 24px 64px ${colors.black20}, 0 4px 16px ${colors.black10}`
-                }
-              }
-            ]}
-          >
-            <MultiCodeEditorInteractive
-              height={300}
-              mqlCode={{
-                url: 'https://www.netflix.com/title/80057281',
-                screenshot: {
-                  type: 'jpeg'
-                },
-                viewport: {
-                  width: 1920,
-                  height: 1080,
-                  deviceScaleFactor: 2
-                }
-              }}
-            />
-          </Flex>
-        </Flex>
-        <Flex
-          css={theme({
-            width: ['100%', '100%', '100%', HERO_LAYOUT.textWidth],
-            flexDirection: 'column',
+            width: ['100%', '100%', '100%', HERO_LAYOUT.secondaryWidth],
             justifyContent: 'center',
             alignItems: ['center', 'center', 'center', 'flex-start']
           })}
@@ -2572,7 +2529,7 @@ const CodeExample = () => {
             forwardedAs='div'
             css={theme({
               pt: [3, 3, 4, 4],
-              fontSize: [2, 2, 3, 3],
+              fontSize: [2, 2, 2, 2],
               textAlign: ['center', 'center', 'center', 'left'],
               maxWidth: [
                 layout.small,
@@ -2596,6 +2553,50 @@ const CodeExample = () => {
             <ArrowLink href='/docs/api/parameters/screenshot'>
               Read the docs
             </ArrowLink>
+          </Flex>
+        </Flex>
+        <Flex
+          css={theme({
+            width: ['100%', '100%', '100%', HERO_LAYOUT.mainWidth],
+            pt: [4, 4, 5, 0],
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          })}
+        >
+          <Flex
+            css={[
+              theme({
+                width: ['100%', '100%', '85%', '100%'],
+                justifyContent: 'center',
+                pt: [0, 0, 4, 4],
+                pb: [4, 4, 4, 5],
+                px: [2, 3, 0, 0]
+              }),
+              {
+                '& > div, & > div > div:first-child': {
+                  width: '100%'
+                },
+                '& > div > div:first-child': {
+                  boxShadow: `0 24px 64px ${colors.black20}, 0 4px 16px ${colors.black10}`
+                }
+              }
+            ]}
+          >
+            <MultiCodeEditorInteractive
+              height={320}
+              mqlCode={{
+                url: 'https://www.netflix.com/title/80057281',
+                screenshot: {
+                  type: 'jpeg'
+                },
+                viewport: {
+                  width: 1920,
+                  height: 1080,
+                  deviceScaleFactor: 2
+                }
+              }}
+            />
           </Flex>
         </Flex>
       </Flex>
@@ -2934,8 +2935,6 @@ const Capabilities = () => {
   }, [])
 
   const capApiUrl = `https://api.microlink.io?screenshot&url=https://ft.com&adblock=${adblock}`
-  const capViewportApiUrl =
-    'https://api.microlink.io?screenshot&url=https://microlink.io&viewport.width=1440&viewport.height=900'
 
   const handleCapCopy = () => {
     const markCopied = () => {
@@ -2959,6 +2958,7 @@ const Capabilities = () => {
         alignItems: 'center',
         maxWidth: '100%',
         bg: 'pinky',
+        px: [4, 4, 4, 5],
         py: SECTION_VERTICAL_SPACING
       })}
     >
@@ -2969,12 +2969,12 @@ const Capabilities = () => {
           mx: 'auto',
           flexDirection: ['column', 'column', 'column', 'row'],
           alignItems: ['center', 'center', 'center', 'stretch'],
-          gap: HERO_LAYOUT.gap
+          gap: [4, 4, 5, HERO_LAYOUT.gap[3]]
         })}
       >
         <Flex
           css={theme({
-            width: ['100%', '100%', '100%', HERO_LAYOUT.demoWidth],
+            width: ['100%', '100%', '100%', HERO_LAYOUT.mainWidth],
             pt: [4, 4, 5, 0],
             flexDirection: 'column',
             justifyContent: 'center',
@@ -3023,13 +3023,12 @@ const Capabilities = () => {
               <Text
                 as='span'
                 css={theme({
-                  fontSize: ['12px', '12px', '13px', '13px'],
+                  fontSize: ['13px', '13px', '14px', '14px'],
                   fontFamily: 'mono',
                   letterSpacing: 0,
                   flex: 1,
                   minWidth: '0',
-                  lineHeight: 2,
-                  color: 'green5',
+                  color: 'black70',
                   wordBreak: 'break-all'
                 })}
               >
@@ -3040,91 +3039,45 @@ const Capabilities = () => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
-            </ScreenshotApiBar>
-          </Box>
-          <Box
-            css={[
-              theme({
-                width: ['100%', '100%', '80%', '100%'],
-                borderRadius: 3,
-                overflow: 'hidden',
-                boxShadow: `0 8px 32px ${colors.black10}`,
-                lineHeight: 0
-              }),
-              {
-                '& img': { display: 'block', width: '100%', height: 'auto' }
-              }
-            ]}
-          >
-            <Image
-              src='/images/screenshot-tool-landing.png'
-              alt='Landing page screenshot generated using Microlink Screenshot API'
-              width='100%'
-            />
-            <ScreenshotApiBar
-              css={theme({
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                px: [2, 3, 3, 3],
-                py: '10px'
-              })}
-            >
-              <Text
-                as='span'
-                css={theme({
-                  fontSize: ['12px', '12px', '13px', '13px'],
-                  fontFamily: 'mono',
-                  letterSpacing: 0,
-                  flex: 1,
-                  minWidth: '0',
-                  lineHeight: 2,
-                  color: 'green5',
-                  wordBreak: 'break-all'
-                })}
-              >
-                {capViewportApiUrl}
-              </Text>
             </ScreenshotApiBar>
           </Box>
         </Flex>
         <Flex
           css={theme({
-            width: ['100%', '100%', '100%', HERO_LAYOUT.textWidth],
             flexDirection: 'column',
+            width: ['100%', '100%', '100%', HERO_LAYOUT.secondaryWidth],
             justifyContent: 'center',
             alignItems: ['center', 'center', 'center', 'flex-start'],
             gap: [3, 3, 4, 4]
@@ -3132,7 +3085,7 @@ const Capabilities = () => {
         >
           <Subhead
             css={theme({
-              fontSize: [3, 3, 4, 4],
+              fontSize: [3, 4, 4, 4],
               textAlign: ['center', 'center', 'center', 'left'],
               width: '100%'
             })}
