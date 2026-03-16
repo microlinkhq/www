@@ -1,4 +1,14 @@
-import { borders, layout, colors, theme, transition } from 'theme'
+import {
+  borders,
+  layout,
+  colors,
+  theme,
+  transition,
+  gradient,
+  fontSizes,
+  space,
+  radii
+} from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
@@ -15,6 +25,7 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
+import LineBreak from 'components/elements/LineBreak'
 
 import {
   ReactCompareSlider,
@@ -23,11 +34,7 @@ import {
 import {
   Check as CheckIcon,
   Terminal as TerminalIcon,
-  Star as StarIcon,
-  GitBranch as ForkIcon,
-  Camera,
-  Layers,
-  ArrowRight
+  Star as StarIcon
 } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
 import NerdStatsOverlay, {
@@ -35,7 +42,6 @@ import NerdStatsOverlay, {
   buildMqlQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import { rotate, dash, fadeInDown, highlight } from 'components/keyframes'
-import { TerminalButton } from 'components/elements/Terminal/Terminal'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Block from 'components/patterns/Block/Block'
 import { withTitle } from 'helpers/hoc/with-title'
@@ -44,15 +50,33 @@ import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
+import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
+import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
+import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
-import SpeedLine from 'components/patterns/SpeedLine/SpeedLine'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { extractDomain } from 'helpers/extract-domain'
 
 import analyticsData from '../../data/analytics.json'
+import ossData from '../../data/oss.json'
 
 const FIRST_URL = 'https://apple.com'
 const FIRST_IMAGE_URL = cdnUrl('www/apple.png')
+const COMPACT_NUMBER_FORMATTER = new Intl.NumberFormat('en-US', {
+  notation: 'compact',
+  maximumFractionDigits: 1
+})
+const formatCompactCount = number =>
+  COMPACT_NUMBER_FORMATTER.format(number).toLowerCase()
+const OSS_STARS_BY_NAME = new Map(
+  ossData.map(({ name, stars }) => [name, stars])
+)
+const getRepoStarsLabel = repo => {
+  const liveStars = OSS_STARS_BY_NAME.get(repo.name)
+  return typeof liveStars === 'number'
+    ? formatCompactCount(liveStars)
+    : repo.stars
+}
 
 const FEATURES = [
   {
@@ -102,216 +126,178 @@ const FEATURES = [
   }
 ]
 
+const PLAYGROUND_TOOL_PATHS = [
+  '/tools/website-screenshot',
+  '/tools/website-screenshot/bulk'
+]
+const SCREENSHOT_TOOLS =
+  TOOL_CATALOG.find(section => section.category === 'Screenshots')?.tools ?? []
+const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.map(path =>
+  SCREENSHOT_TOOLS.find(tool => tool.href === path)
+).filter(Boolean)
+
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 
 const Caption = withTitle(CaptionBase)
 
-const HERO_MQ = '@media (min-width: 1200px) and (max-width: 1750px)'
-
-const NerdButton = styled('button')`
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(74, 222, 128, 0.06);
-  border: 1px solid rgba(74, 222, 128, 0.25);
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 500;
-  font-family: 'Operator Mono', 'Fira Code', 'SF Mono', monospace;
-  color: #4ade80;
-  opacity: 0.7;
-  flex-shrink: 0;
-  letter-spacing: 0.02em;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.15s ease, background 0.15s ease, border-color 0.15s ease,
-    box-shadow 0.15s ease;
-  white-space: nowrap;
-
-  &:hover {
-    opacity: 1;
-    background: rgba(74, 222, 128, 0.12);
-    border-color: rgba(74, 222, 128, 0.4);
-    box-shadow: 0 0 8px rgba(74, 222, 128, 0.15);
+const NerdButton = styled(Button).attrs({ variant: 'black' })`
+  &&& {
+    ${theme({
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignSelf: 'center',
+      height: space[4],
+      minHeight: space[4],
+      maxHeight: space[4],
+      width: space[4],
+      minWidth: space[4],
+      p: 0,
+      borderRadius: 4,
+      flexShrink: 0,
+      whiteSpace: 'nowrap'
+    })};
+    background: ${p => (p.$active ? colors.black : 'transparent')};
+    border: ${borders[1]} ${p => (p.$active ? colors.black : colors.black10)};
+    box-shadow: none;
+    color: ${p => (p.$active ? colors.white : colors.gray6)};
+    transition: background ${transition.short}, border-color ${transition.short},
+      color ${transition.short}, box-shadow ${transition.short};
   }
 
-  &:focus-visible {
-    outline: 2px solid rgba(74, 222, 128, 0.4);
-    outline-offset: 2px;
+  &&&:hover:not(:disabled) {
+    background: ${p => (p.$active ? colors.black : colors.gray1)};
+    border-color: ${p => (p.$active ? colors.gray7 : colors.black20)};
+    color: ${p => (p.$active ? colors.white : colors.gray7)};
+    box-shadow: none;
   }
-`
 
-const tooltipFloat = keyframes`
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-3px); }
-`
-
-const HintTooltip = styled('span')`
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%) translateY(${p => (p.$visible ? '0' : '4px')});
-  opacity: ${p => (p.$visible ? 1 : 0)};
-  z-index: 20;
-  pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: ${p => (p.$visible ? tooltipFloat : 'none')} 3s ease-in-out 0.4s
-    infinite;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: opacity 0.01s, transform 0.01s;
-    animation: none;
+  &&&:focus-visible {
+    outline: ${borders[2]} ${colors.black40};
+    outline-offset: ${radii[1]};
   }
-`
-
-const HintTooltipLabel = styled('span')`
-  color: #4ade80;
-  font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono', Menlo,
-    monospace;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-  background: #111113;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
-  padding: 7px 14px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
-
-  @media (max-width: 640px) {
-    font-size: 10px;
-    padding: 5px 12px;
-  }
-`
-
-const HintTooltipArrow = styled('span')`
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid #111113;
 `
 
 const BrowserWindow = styled('div')`
-  border-radius: 10px;
+  ${theme({
+    borderRadius: 5,
+    bg: 'white',
+    display: 'flex',
+    flexDirection: 'column'
+  })};
   overflow: hidden;
-  background: #1c1c1e;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25), 0 4px 16px rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
+  border: ${borders[1]} ${colors.black05};
+  box-shadow: 0 8px 24px ${colors.black10};
 
   &:hover:not(:has(.screenshot-api-bar:hover)) .address-bar {
-    background: rgba(255, 255, 255, 0.11);
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.65),
-      0 0 12px 1px rgba(255, 255, 255, 0.15);
+    background: ${colors.gray1};
+    border-color: ${colors.black10};
+    box-shadow: none;
 
     input {
-      color: rgba(255, 255, 255, 0.85);
+      color: ${colors.gray8};
     }
   }
 `
 
 const BrowserHeader = styled(Flex)`
-  background: #2c2c2e;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  height: 44px;
-  align-items: center;
-  padding: 0 12px;
-  gap: 8px;
-  flex-shrink: 0;
-`
-
-const TrafficLights = styled(Flex)`
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
+  ${theme({
+    bg: 'white',
+    height: fontSizes[4],
+    alignItems: 'center',
+    px: 2,
+    gap: 1,
+    flexShrink: 0
+  })};
+  border-bottom: ${borders[1]} ${colors.black05};
 `
 
 const NavButtons = styled(Flex)`
-  align-items: center;
-  gap: 2px;
-  flex-shrink: 0;
+  ${theme({ alignItems: 'center', gap: 1, flexShrink: 0 })};
 `
 
 const NavArrow = styled('button')`
-  background: none;
+  ${theme({
+    bg: 'transparent',
+    p: 1,
+    color: 'gray5',
+    display: 'flex',
+    alignItems: 'center',
+    borderRadius: 1,
+    lineHeight: 0
+  })};
   border: none;
-  padding: 4px 9px;
   cursor: default;
-  color: rgba(255, 255, 255, 0.25);
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  line-height: 1;
-  transition: color 0.15s ease;
+  transition: color ${transition.short}, background ${transition.short},
+    border-color ${transition.short};
 
   &:not(:disabled) {
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.65);
+    color: ${colors.gray6};
 
     &:hover {
-      color: rgba(255, 255, 255, 0.95);
+      color: ${colors.gray8};
+      background: ${colors.gray1};
     }
 
     &:active {
-      color: rgba(255, 255, 255, 0.5);
+      color: ${colors.black60};
     }
   }
 
   &:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.3);
-    outline-offset: 2px;
+    outline: ${borders[2]} ${colors.black40};
+    outline-offset: ${radii[1]};
   }
 `
 
 const caretPulse = keyframes`
   0%, 100% {
-    box-shadow: 0 0 0 2px rgba(255,255,255,0.65), 0 0 10px 1px rgba(255,255,255,0.12);
-    background: rgba(255,255,255,0.12);
+    box-shadow: 0 0 0 2px ${colors.black20};
+    border-color: ${colors.gray6};
+    background: ${colors.white};
   }
   50% {
-    box-shadow: 0 0 0 2px rgba(255,255,255,0.15), 0 0 4px 0px rgba(255,255,255,0.04);
-    background: rgba(255,255,255,0.07);
+    box-shadow: 0 0 0 1px ${colors.black10};
+    border-color: ${colors.black20};
+    background: ${colors.white95};
   }
 `
 
 const AddressBar = styled(Flex)`
-  flex: 1;
-  background: rgba(255, 255, 255, 0.07);
-  border-radius: 6px;
-  height: 26px;
-  align-items: center;
-  justify-content: center;
-  padding: 0 10px;
-  gap: 10px;
-  min-width: 0;
+  ${theme({
+    flex: 1,
+    bg: 'gray1',
+    borderRadius: 4,
+    height: space[4],
+    alignItems: 'center',
+    justifyContent: 'center',
+    px: 2,
+    gap: 2,
+    minWidth: '0'
+  })};
+  border: ${borders[1]} transparent;
   position: relative;
-  transition: box-shadow 0.3s ease, background 0.3s ease;
+  transition: box-shadow ${transition.medium}, background ${transition.medium},
+    border-color ${transition.medium};
 
   &:hover {
-    background: rgba(255, 255, 255, 0.11);
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.65),
-      0 0 12px 1px rgba(255, 255, 255, 0.15);
+    background: ${colors.gray1};
+    border-color: ${colors.black10};
+    box-shadow: none;
 
     input {
-      color: rgba(255, 255, 255, 0.85);
+      color: ${colors.gray8};
     }
   }
 
   ${({ $glowing }) =>
     $glowing &&
     css`
-      background: rgba(255, 255, 255, 0.11);
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7),
-        0 0 12px 1px rgba(255, 255, 255, 0.15);
+      background: ${colors.white};
+      border-color: ${colors.black10};
+      box-shadow: 0 0 0 1px ${colors.black10};
     `}
 
   ${({ $isPulsing }) =>
@@ -324,14 +310,15 @@ const AddressBar = styled(Flex)`
     $active &&
     !$isPulsing &&
     css`
-      background: rgba(255, 255, 255, 0.11);
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.65),
-        0 0 10px 1px rgba(255, 255, 255, 0.12);
+      background: ${colors.white};
+      border-color: ${colors.black10};
+      box-shadow: 0 0 0 1px ${colors.black10};
     `}
 
   &:focus-within {
-    background: rgba(255, 255, 255, 0.11);
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
+    background: ${colors.white};
+    border-color: ${colors.black10};
+    box-shadow: 0 0 0 1px ${colors.black10};
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -342,47 +329,106 @@ const AddressBar = styled(Flex)`
 `
 
 const AddressInput = styled('input')`
-  background: none;
+  ${theme({
+    bg: 'transparent',
+    p: 0,
+    m: 0,
+    flex: 1,
+    minWidth: '0',
+    fontSize: 0,
+    fontFamily: 'sans',
+    letterSpacing: 0
+  })};
   border: none;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
-  padding: 0;
-  margin: 0;
-  flex: 1;
-  min-width: 0;
-  font-size: 14px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  color: ${({ $active }) =>
-    $active ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.5)'};
+  font-weight: 400;
+  color: ${({ $active }) => ($active ? colors.gray8 : colors.gray6)};
   text-align: left;
-  letter-spacing: 0.01em;
-  transition: color 0.2s ease;
+  transition: color ${transition.short};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  caret-color: rgba(255, 255, 255, 0.7);
+  caret-color: ${colors.gray8};
 
   &::selection {
-    background: rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.9);
+    background: ${colors.black20};
+    color: ${colors.black};
   }
 
   &:focus {
     outline: none;
-    color: rgba(255, 255, 255, 0.85);
+    color: ${colors.black};
     text-align: left;
   }
 `
 
+const addressPromptArrowNudge = keyframes`
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateX(-${space[1]});
+    opacity: 1;
+  }
+`
+
+const AddressPrompt = styled('span')`
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    flexShrink: 0,
+    mr: 1,
+    fontSize: 0,
+    fontFamily: 'sans',
+    letterSpacing: 0
+  })};
+  background-image: ${gradient};
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  opacity: ${p => (p.$visible ? 1 : 0)};
+  transform: translateX(${p => (p.$visible ? 0 : space[1])});
+
+  .address-prompt__arrow {
+    ${theme({
+      display: 'inline-flex',
+      alignItems: 'center',
+      mr: 1,
+      fontSize: 1,
+      lineHeight: 0
+    })};
+    background-image: ${gradient};
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: ${addressPromptArrowNudge} 1.2s ease-in-out infinite;
+  }
+
+  @media (max-width: 1120px) {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .address-prompt__arrow {
+      animation: none;
+    }
+  }
+`
+
 const ScreenshotApiBar = styled(Flex)`
-  background: #111113;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  ${theme({ bg: 'gray1' })};
 
   .codecopy__button {
     top: 0;
     opacity: 0.85;
-    transition: opacity 0.15s ease;
+    transition: opacity ${transition.short};
 
     &:hover {
       opacity: 1;
@@ -395,17 +441,19 @@ const ScreenshotApiBar = styled(Flex)`
   }
 
   .codecopy__icon {
-    fill: rgba(255, 255, 255, 0.9) !important;
+    fill: ${colors.black80} !important;
   }
 `
 
 const ScreenshotOverlay = styled('div')`
-  position: absolute;
-  inset: 0;
-  background: ${({ $dim }) => ($dim ? 'rgba(0, 0, 0, 0.55)' : 'transparent')};
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${theme({
+    position: 'absolute',
+    inset: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  })};
+  background: ${({ $dim }) => ($dim ? colors.black60 : 'transparent')};
   pointer-events: none;
 `
 
@@ -415,26 +463,28 @@ const Spinner = styled('svg')`
 
 const SpinnerCircle = styled('circle')`
   animation: ${dash} 1.4s ease-in-out infinite;
-  stroke: rgba(255, 255, 255, 0.85);
+  stroke: ${colors.white90};
   stroke-linecap: round;
 `
 
 const CopyButton = styled('button')`
-  background: none;
+  ${theme({
+    bg: 'transparent',
+    p: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    color: 'black60'
+  })};
   border: none;
-  padding: 6px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: rgba(255, 255, 255, 0.9);
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: color 0.15s ease, transform 0.15s ease;
+  transition: color ${transition.short}, transform ${transition.short};
 
   &:hover {
-    color: #fff;
+    color: ${colors.black};
     transform: scale(1.1);
   }
 
@@ -443,46 +493,46 @@ const CopyButton = styled('button')`
   }
 
   &:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.3);
-    outline-offset: 3px;
-    border-radius: 3px;
+    outline: ${borders[2]} ${colors.black40};
+    outline-offset: ${radii[2]};
+    border-radius: ${radii[2]};
   }
 
   svg.icon-check {
     animation: ${fadeInDown} 0.2s ease both;
-    color: #4ade80;
+    color: ${colors.green5};
   }
 `
 
 const HistoryDropdown = styled('div')`
-  position: absolute;
-  top: calc(100% + 6px);
+  ${theme({ position: 'absolute', borderRadius: 4, bg: 'white' })};
+  top: calc(100% + ${space[1]});
   left: 0;
   right: 0;
-  background: #2c2c2e;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border: ${borders[1]} ${colors.black20};
   overflow: hidden;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 16px 40px ${colors.black20};
   z-index: 10;
 `
 
 const HistoryItem = styled('button')`
-  width: 100%;
-  min-width: 0;
-  background: none;
+  ${theme({
+    width: '100%',
+    minWidth: '0',
+    bg: 'transparent',
+    p: 2,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 2,
+    color: 'black70',
+    fontSize: 0,
+    fontFamily: 'sans'
+  })};
   border: none;
-  padding: 8px 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
   cursor: pointer;
   text-align: left;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 13px;
-  font-family: 'Inter', sans-serif;
   font-weight: 500;
-  transition: background 0.1s ease, color 0.1s ease;
+  transition: background ${transition.short}, color ${transition.short};
 
   span {
     overflow: hidden;
@@ -498,88 +548,77 @@ const HistoryItem = styled('button')`
 
   &:hover,
   &:focus-visible {
-    background: rgba(255, 255, 255, 0.07);
-    color: rgba(255, 255, 255, 0.9);
+    background: ${colors.blue0};
+    color: ${colors.black};
     outline: none;
   }
 
   & + & {
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: ${borders[1]} ${colors.black10};
   }
 `
 
 const ErrorModalOverlay = styled('div')`
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${theme({
+    position: 'absolute',
+    inset: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  })};
+  background: ${colors.black60};
+  backdrop-filter: blur(${space[1]});
   z-index: 2;
 `
 
 const ErrorModalWindow = styled('div')`
-  background: #1c1c1e;
-  border: 1px solid rgba(255, 80, 80, 0.25);
-  border-radius: 12px;
+  ${theme({ bg: 'black95', borderRadius: 4 })};
+  border: ${borders[1]} ${colors.red7};
   width: 340px;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7), 0 4px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 24px 64px ${colors.black80}, 0 4px 16px ${colors.black40};
   overflow: hidden;
 `
 
 const ErrorModalHeader = styled('div')`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  ${theme({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  })};
+  padding: ${space[3]} ${space[3]} ${space[2]};
+  border-bottom: ${borders[1]} ${colors.white05};
 `
 
 const ErrorModalBody = styled('div')`
-  padding: 16px;
+  ${theme({ p: 3 })};
 `
 
 const ErrorCloseButton = styled('button')`
-  background: rgba(255, 255, 255, 0.07);
+  ${theme({
+    bg: 'white10',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white50',
+    flexShrink: 0,
+    lineHeight: 0,
+    fontSize: 0
+  })};
   border: none;
-  border-radius: 50%;
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: ${fontSizes[2]};
+  height: ${fontSizes[2]};
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.5);
-  flex-shrink: 0;
-  line-height: 1;
-  font-size: 14px;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: background ${transition.short}, color ${transition.short};
 
   &:hover {
-    background: rgba(255, 255, 255, 0.13);
-    color: rgba(255, 255, 255, 0.9);
+    background: ${colors.white20};
+    color: ${colors.white90};
   }
 
   &:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.3);
-    outline-offset: 2px;
-  }
-`
-
-const HeroTextContainer = styled(Flex)`
-  ${HERO_MQ} {
-    h1 {
-      font-size: 48px !important;
-    }
-    h2 {
-      font-size: 24px !important;
-      padding-top: 20px !important;
-      max-width: 580px !important;
-    }
-    & > div:last-child {
-      font-size: 26px !important;
-    }
+    outline: ${borders[2]} ${colors.white30};
+    outline-offset: ${radii[1]};
   }
 `
 
@@ -594,6 +633,15 @@ const stripProtocol = url => url.replace(/^https?:\/\//i, '')
 const stripForDisplay = url => stripProtocol(url).replace(/\?.*$/, '')
 
 const MAX_HISTORY = 6
+
+const HERO_LAYOUT = {
+  maxWidth: ['100%', '100%', '100%', `calc(${layout.large} * 1.5)`],
+  textWidth: '45%',
+  demoWidth: '55%',
+  gap: [5, 5, 6, 6]
+}
+const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
+
 const DEFAULT_HISTORY = [
   'https://apple.com',
   'https://microlink.io',
@@ -605,7 +653,7 @@ const addToHistory = (history, url) => {
   return [url, ...filtered].slice(0, MAX_HISTORY)
 }
 
-const Hero = function Hero ({ onRequestTiming }) {
+const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
   const [inputUrl, setInputUrl] = useState(FIRST_URL)
   const [isFocused, setIsFocused] = useState(false)
   const [history, setHistory] = useState(DEFAULT_HISTORY)
@@ -624,7 +672,6 @@ const Hero = function Hero ({ onRequestTiming }) {
   const [isAttractMode, setIsAttractMode] = useState(false)
   const [isPulsing, setIsPulsing] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
-  const [showTooltip, setShowTooltip] = useState(false)
   const [navStack, setNavStack] = useState(['https://apple.com'])
   const [navIndex, setNavIndex] = useState(0)
   const abortRef = useRef(null)
@@ -668,7 +715,6 @@ const Hero = function Hero ({ onRequestTiming }) {
 
         if (i === 0) {
           setIsGlowing(true)
-          setTimeout(() => setShowTooltip(true), 50)
           await delay(250)
           if (check()) return
         }
@@ -712,7 +758,6 @@ const Hero = function Hero ({ onRequestTiming }) {
           await delay(5000)
           if (check()) return
           setIsPulsing(false)
-          setShowTooltip(false)
         }
       }
     }
@@ -765,13 +810,15 @@ const Hero = function Hero ({ onRequestTiming }) {
     }
   }
 
-  const displayValue = isFocused ? inputUrl : stripForDisplay(inputUrl)
+  const displayValue = isFocused
+    ? stripProtocol(inputUrl)
+    : stripForDisplay(inputUrl)
   const apiUrl = `https://api.microlink.io?screenshot&url=${inputUrl}`
 
   const fetchScreenshot = useCallback(
     async url => {
       if (abortRef.current) abortRef.current.abort()
-      abortRef.current = new AbortController()
+      abortRef.current = new window.AbortController()
 
       setIsLoading(true)
       setError(null)
@@ -780,7 +827,7 @@ const Hero = function Hero ({ onRequestTiming }) {
       const t0 = Date.now()
 
       try {
-        const res = await fetch(
+        const res = await window.fetch(
           `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot`,
           { signal: abortRef.current.signal }
         )
@@ -823,8 +870,31 @@ const Hero = function Hero ({ onRequestTiming }) {
   )
 
   const handleChange = e => {
-    setInputUrl(e.target.value)
+    setInputUrl(ensureProtocol(stripProtocol(e.target.value)))
     stopAttract()
+  }
+
+  const handlePaste = e => {
+    const pastedText = e.clipboardData?.getData('text') ?? ''
+    const trimmedText = pastedText.trim()
+    const strippedText = stripProtocol(trimmedText)
+
+    if (strippedText === trimmedText) return
+
+    e.preventDefault()
+    const inputEl = e.currentTarget
+    const start = inputEl.selectionStart ?? inputEl.value.length
+    const end = inputEl.selectionEnd ?? inputEl.value.length
+    const nextValue =
+      inputEl.value.slice(0, start) + strippedText + inputEl.value.slice(end)
+
+    setInputUrl(ensureProtocol(stripProtocol(nextValue)))
+    stopAttract()
+
+    setTimeout(() => {
+      const cursorPosition = start + strippedText.length
+      inputEl.setSelectionRange(cursorPosition, cursorPosition)
+    }, 0)
   }
 
   const stopAttract = () => {
@@ -832,7 +902,6 @@ const Hero = function Hero ({ onRequestTiming }) {
     setIsAttractMode(false)
     setIsPulsing(false)
     setHasInteracted(true)
-    setShowTooltip(false)
   }
 
   const handleFocus = () => {
@@ -848,7 +917,6 @@ const Hero = function Hero ({ onRequestTiming }) {
     const newIndex = newStack.length - 1
     setInputUrl(normalized)
     setIsFocused(false)
-    setShowTooltip(false)
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
@@ -884,7 +952,6 @@ const Hero = function Hero ({ onRequestTiming }) {
       const normalized = ensureProtocol(e.target.value)
       setInputUrl(normalized)
       setIsFocused(false)
-      setShowTooltip(false)
       if (normalized && normalized !== inputUrl) {
         setHistory(h => addToHistory(h, normalized))
         fetchScreenshot(normalized)
@@ -900,7 +967,6 @@ const Hero = function Hero ({ onRequestTiming }) {
     if (e.key === 'Escape') {
       e.target.blur()
       setIsFocused(false)
-      setShowTooltip(false)
     }
   }
 
@@ -913,27 +979,28 @@ const Hero = function Hero ({ onRequestTiming }) {
 
   return (
     <Flex
+      id='hero'
       as='section'
       css={theme({
         flexDirection: 'column',
         alignItems: 'center',
-        pt: [4, 4, 4, 5],
-        pb: [5, 5, 5, 6]
+        px: [3, 3, 4, 5],
+        pb: [5, 5, 6, 6]
       })}
     >
       <Flex
         css={theme({
           width: '100%',
+          maxWidth: heroLayout.maxWidth,
           mx: 'auto',
           flexDirection: ['column', 'column', 'column', 'row'],
           alignItems: ['center', 'center', 'center', 'stretch'],
-          gap: [0, 0, 3, 4],
-          px: [1, 1, 1, 5]
+          gap: heroLayout.gap
         })}
       >
-        <HeroTextContainer
+        <Flex
           css={theme({
-            width: ['100%', '100%', '100%', '50%'],
+            width: ['100%', '100%', '100%', heroLayout.textWidth],
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: ['center', 'center', 'center', 'flex-start']
@@ -941,8 +1008,8 @@ const Hero = function Hero ({ onRequestTiming }) {
         >
           <Heading
             css={theme({
-              maxWidth: layout.large,
-              fontSize: [4, 4, 4, 5],
+              px: [4, 4, 4, 0],
+              maxWidth: ['100%', '100%', '100%', '640px'],
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
@@ -951,14 +1018,10 @@ const Hero = function Hero ({ onRequestTiming }) {
           <Caption
             forwardedAs='h2'
             css={theme({
-              pt: [3, 3, 3, 4],
-              fontSize: [2, 2, '24px', 3],
-              maxWidth: [
-                layout.small,
-                layout.small,
-                layout.normal,
-                layout.large
-              ],
+              pt: [3, 3, 4, 4],
+              px: [4, 4, 4, 0],
+              maxWidth: ['100%', layout.small, layout.small, '640px'],
+              fontSize: [2, 2, 2, 2],
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
@@ -969,45 +1032,35 @@ const Hero = function Hero ({ onRequestTiming }) {
           <Flex
             css={theme({
               pt: [3, 3, 4, 4],
-              fontSize: [2, 2, '26px', 3],
+              px: [4, 4, 4, 0],
+              width: '100%',
+              fontSize: [2, 2, 3, 3],
               justifyContent: ['center', 'center', 'center', 'flex-start']
             })}
           >
-            <ArrowLink
-              css={theme({ pr: [2, 4, 4, 4] })}
-              href='/docs/api/parameters/screenshot'
-            >
+            <ArrowLink href='/docs/api/parameters/screenshot'>
               Get Started
             </ArrowLink>
           </Flex>
-        </HeroTextContainer>
+        </Flex>
         <Flex
-          css={[
-            theme({
-              width: ['100%', '100%', '100%', '50%'],
-              pt: [5, 5, 5, 0],
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }),
-            { '@media (min-width: 2100px)': { width: '42%' } }
-          ]}
+          css={theme({
+            width: ['100%', '100%', '100%', heroLayout.demoWidth],
+            pt: [4, 4, 5, 0],
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          })}
         >
           <Box
             css={theme({
               display: 'inline-flex',
               flexDirection: 'column',
-              maxWidth: ['100%', '85%', '70%', '100%'],
-              width: ['100%', '85%', '70%', '100%']
+              maxWidth: ['100%', '95%', '85%', '100%'],
+              width: ['100%', '95%', '85%', '100%'],
+              position: 'relative'
             })}
-            style={{ position: 'relative' }}
           >
-            <HintTooltip $visible={showTooltip} aria-hidden='true'>
-              <HintTooltipLabel>
-                Type any URL to capture a screenshot
-              </HintTooltipLabel>
-              <HintTooltipArrow />
-            </HintTooltip>
             <BrowserWindow
               onClick={e => {
                 if (
@@ -1020,15 +1073,6 @@ const Hero = function Hero ({ onRequestTiming }) {
               }}
             >
               <BrowserHeader>
-                <TrafficLights
-                  css={theme({
-                    display: ['none', 'inherit', 'inherit', 'inherit']
-                  })}
-                >
-                  <TerminalButton.Red />
-                  <TerminalButton.Yellow />
-                  <TerminalButton.Green />
-                </TrafficLights>
                 <NavButtons>
                   <NavArrow
                     type='button'
@@ -1087,7 +1131,7 @@ const Hero = function Hero ({ onRequestTiming }) {
                     viewBox='0 0 11 13'
                     fill='none'
                     aria-hidden='true'
-                    style={{ flexShrink: 0 }}
+                    css={theme({ flexShrink: 0 })}
                   >
                     <rect
                       x='1'
@@ -1095,11 +1139,11 @@ const Hero = function Hero ({ onRequestTiming }) {
                       width='9'
                       height='7'
                       rx='1.5'
-                      fill='rgba(255,255,255,0.3)'
+                      fill={colors.black40}
                     />
                     <path
                       d='M3 5.5V3.5a2.5 2.5 0 015 0v2'
-                      stroke='rgba(255,255,255,0.3)'
+                      stroke={colors.black40}
                       strokeWidth='1.4'
                       strokeLinecap='round'
                     />
@@ -1110,6 +1154,7 @@ const Hero = function Hero ({ onRequestTiming }) {
                     type='url'
                     value={displayValue}
                     onChange={handleChange}
+                    onPaste={handlePaste}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                     onKeyDown={handleKeyDown}
@@ -1119,6 +1164,10 @@ const Hero = function Hero ({ onRequestTiming }) {
                     autoCorrect='off'
                     autoCapitalize='off'
                   />
+                  <AddressPrompt $visible={!isFocused} aria-hidden='true'>
+                    <span className='address-prompt__arrow'>←</span>
+                    Type any URL
+                  </AddressPrompt>
 
                   {isFocused && history.length > 0 && (
                     <HistoryDropdown role='listbox' aria-label='Recent URLs'>
@@ -1143,12 +1192,12 @@ const Hero = function Hero ({ onRequestTiming }) {
                               cx='5'
                               cy='5'
                               r='3.5'
-                              stroke='rgba(255,255,255,0.3)'
+                              stroke={colors.black40}
                               strokeWidth='1.3'
                             />
                             <path
                               d='M8 8l2 2'
-                              stroke='rgba(255,255,255,0.3)'
+                              stroke={colors.black40}
                               strokeWidth='1.3'
                               strokeLinecap='round'
                             />
@@ -1159,42 +1208,34 @@ const Hero = function Hero ({ onRequestTiming }) {
                     </HistoryDropdown>
                   )}
                 </AddressBar>
-                {nerdStats && (
-                  <NerdButton
-                    type='button'
-                    aria-label={
-                      showNerdStats ? 'Hide nerd stats' : 'Show nerd stats'
+                <NerdButton
+                  $active={showNerdStats}
+                  type='button'
+                  aria-label={
+                    showNerdStats ? 'Hide nerd stats' : 'Show nerd stats'
+                  }
+                  aria-pressed={showNerdStats}
+                  onClick={() => {
+                    stopAttract()
+
+                    if (!nerdStats) {
+                      setShowNerdStats(true)
+                      fetchScreenshot(inputUrl)
+                      return
                     }
-                    aria-pressed={showNerdStats}
-                    onClick={() => {
-                      stopAttract()
-                      setShowNerdStats(s => !s)
-                    }}
-                    style={
-                      showNerdStats
-                        ? { opacity: 1, color: '#4ade80' }
-                        : undefined
-                    }
-                  >
-                    <TerminalIcon size={13} aria-hidden='true' />{' '}
-                    <span
-                      css={theme({
-                        display: ['none', 'none', 'inline', 'inline']
-                      })}
-                    >
-                      Nerd
-                    </span>{' '}
-                    Stats
-                  </NerdButton>
-                )}
-                <Box css={{ width: '4px', flexShrink: 0 }} />
+
+                    setShowNerdStats(s => !s)
+                  }}
+                >
+                  <TerminalIcon size={16} aria-hidden='true' />
+                </NerdButton>
               </BrowserHeader>
-              <div
-                style={{
+              <Box
+                css={theme({
                   position: 'relative',
                   aspectRatio: '16/10',
                   overflow: 'hidden'
-                }}
+                })}
               >
                 <img
                   key={imgKey}
@@ -1219,16 +1260,20 @@ const Hero = function Hero ({ onRequestTiming }) {
                       imageLoadResolverRef.current = null
                     }
                   }}
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    display: 'block',
-                    filter: imgVisible ? 'blur(0px)' : 'blur(6px)',
-                    transition: 'filter 0.5s ease'
-                  }}
+                  css={[
+                    theme({
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block'
+                    }),
+                    {
+                      filter: imgVisible ? 'blur(0px)' : 'blur(6px)',
+                      transition: 'filter 0.5s ease'
+                    }
+                  ]}
                 />
                 {isLoading && (
                   <ScreenshotOverlay
@@ -1270,7 +1315,7 @@ const Hero = function Hero ({ onRequestTiming }) {
                   >
                     <ErrorModalWindow>
                       <ErrorModalHeader>
-                        <Flex css={{ alignItems: 'center', gap: '8px' }}>
+                        <Flex css={theme({ alignItems: 'center', gap: 2 })}>
                           <svg
                             width='16'
                             height='16'
@@ -1282,24 +1327,24 @@ const Hero = function Hero ({ onRequestTiming }) {
                               cx='8'
                               cy='8'
                               r='7'
-                              stroke='rgba(255,80,80,0.8)'
+                              stroke={colors.red6}
                               strokeWidth='1.5'
                             />
                             <path
                               d='M8 5v3M8 10.5v.5'
-                              stroke='rgba(255,80,80,0.9)'
+                              stroke={colors.red5}
                               strokeWidth='1.5'
                               strokeLinecap='round'
                             />
                           </svg>
                           <Text
                             as='span'
-                            style={{
-                              color: 'rgba(255,255,255,0.9)',
-                              fontSize: '13px',
-                              fontWeight: 600,
-                              letterSpacing: '0.01em'
-                            }}
+                            css={theme({
+                              color: 'white90',
+                              fontSize: 0,
+                              fontWeight: 'bold',
+                              letterSpacing: 0
+                            })}
                           >
                             Request failed
                           </Text>
@@ -1315,13 +1360,13 @@ const Hero = function Hero ({ onRequestTiming }) {
                       <ErrorModalBody>
                         <Text
                           as='p'
-                          css={theme({ fontFamily: 'mono' })}
-                          style={{
-                            color: 'rgba(255,120,120,0.9)',
-                            fontSize: '12px',
-                            lineHeight: '1.6',
-                            margin: 0
-                          }}
+                          css={theme({
+                            fontFamily: 'mono',
+                            color: 'red5',
+                            fontSize: 0,
+                            lineHeight: 2,
+                            m: 0
+                          })}
                         >
                           {error}
                         </Text>
@@ -1329,7 +1374,7 @@ const Hero = function Hero ({ onRequestTiming }) {
                     </ErrorModalWindow>
                   </ErrorModalOverlay>
                 )}
-              </div>
+              </Box>
               <ScreenshotApiBar
                 className='screenshot-api-bar'
                 css={theme({
@@ -1345,14 +1390,14 @@ const Hero = function Hero ({ onRequestTiming }) {
                   css={theme({
                     fontSize: ['12px', '12px', '13px', '13px'],
                     fontFamily: 'mono',
-                    letterSpacing: '0.01em',
+                    letterSpacing: 0,
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
                     flex: 1,
-                    minWidth: 0
+                    minWidth: '0',
+                    color: 'black70'
                   })}
-                  style={{ color: '#4ade80' }}
                 >
                   {apiUrl}
                 </Text>
@@ -1361,39 +1406,37 @@ const Hero = function Hero ({ onRequestTiming }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </ScreenshotApiBar>
             </BrowserWindow>
@@ -1408,8 +1451,8 @@ const HIGHLIGHT_DURATION = 1000
 
 const TimingHighlight = styled('span')`
   animation: ${highlight} ${HIGHLIGHT_DURATION}ms ease both;
-  border-radius: 2px;
-  padding: 0 2px;
+  border-radius: ${radii[1]};
+  padding: 0 ${radii[1]};
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
@@ -1494,32 +1537,30 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
         css={theme({
           fontSize: ['28px', '34px', '42px', '42px'],
           color: 'white',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          fontVariantNumeric: 'tabular-nums'
         })}
-        style={{ fontVariantNumeric: 'tabular-nums' }}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -1539,11 +1580,11 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
 
   const blockOne = (
     <Flex
-      css={{
+      css={theme({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'
-      }}
+      })}
     >
       <Subhead css={theme({ fontSize: [2, 3, 3, '44px'], color: 'white' })}>
         Send the URL{' '}
@@ -1562,17 +1603,17 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
         alignItems: 'baseline',
         width: '100%',
         maxWidth: layout.large,
-        gap: [1, 3, 4, 5]
+        gap: [1, 3, 4, 5],
+        fontVariantNumeric: 'tabular-nums'
       })}
-      style={{ fontVariantNumeric: 'tabular-nums' }}
     >
       <Flex
-        css={{
+        css={theme({
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column'
-        }}
+        })}
       >
         <Subhead
           forwardedAs='div'
@@ -1613,12 +1654,12 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
         timingHistory={timingHistory}
       />
       <Flex
-        css={{
+        css={theme({
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column'
-        }}
+        })}
       >
         <Subhead
           forwardedAs='div'
@@ -1659,22 +1700,21 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
       flexDirection='column'
       css={theme({
         px: 4,
-        pt: [4, 4, 5, 5],
-        pb: [4, 4, 5, 5],
+        py: SECTION_VERTICAL_SPACING,
         width: '100%',
         // https://www.gradientmagic.com/collection/radialstripes
         backgroundImage: `radial-gradient(
           circle at center right,
-          #850ba7 0%,
-          #850ba7 48%,
-          #a31b91 48%,
-          #a31b91 52%,
-          #c12a78 52%,
-          #c12a78 65%,
-          #df3a61 65%,
-          #df3a61 79%,
-          #fd494a 79%,
-          #fd494a 100%
+          ${colors.grape9} 0%,
+          ${colors.grape9} 48%,
+          ${colors.grape8} 48%,
+          ${colors.grape8} 52%,
+          ${colors.pink8} 52%,
+          ${colors.pink8} 65%,
+          ${colors.pink7} 65%,
+          ${colors.pink7} 79%,
+          ${colors.red6} 79%,
+          ${colors.red6} 100%
         )`,
         borderTop: `${borders[1]} ${colors.white20}`,
         borderBottom: `${borders[1]} ${colors.white20}`
@@ -1692,9 +1732,8 @@ const REPOS = [
     description:
       'The headless Chrome/Chromium driver on top of Puppeteer. Fast, scalable, and reliable browser automation.',
     language: 'JavaScript',
-    languageColor: '#f1e05a',
+    languageColor: colors.yellow3,
     stars: '1.8k',
-    forks: '87',
     primary: true
   },
   {
@@ -1703,9 +1742,8 @@ const REPOS = [
     description:
       'A library to easily scrape metadata from an article on the web using Open Graph, JSON+LD, and HTML metadata.',
     language: 'JavaScript',
-    languageColor: '#f1e05a',
-    stars: '2.3k',
-    forks: '183'
+    languageColor: colors.yellow3,
+    stars: '2.3k'
   },
   {
     name: 'unavatar',
@@ -1713,61 +1751,68 @@ const REPOS = [
     description:
       'Get the unified avatar for a username, email, or domain — from any provider, in one call.',
     language: 'JavaScript',
-    languageColor: '#f1e05a',
-    stars: '1.2k',
-    forks: '78'
+    languageColor: colors.yellow3,
+    stars: '1.2k'
   }
 ]
 
 const RepoCard = styled('a')`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid ${colors.black10};
-  background: white;
+  ${theme({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 2,
+    p: 3,
+    borderRadius: 4,
+    bg: 'white'
+  })};
+  border: ${borders[1]} ${colors.black10};
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  transition: border-color ${transition.short}, box-shadow ${transition.short},
+    background ${transition.short};
+
+  .repo-github-icon {
+    transition: fill ${transition.short};
+  }
 
   &:hover {
-    border-color: ${colors.black20};
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+    border-color: ${colors.black};
+    box-shadow: 0 8px 24px ${colors.black10};
+
+    .repo-github-icon {
+      fill: ${colors.black};
+    }
   }
 
   &:focus-visible {
-    outline: 2px solid #067df7;
-    outline-offset: 2px;
+    outline: ${borders[2]} ${colors.link};
+    outline-offset: ${radii[1]};
   }
 `
 
 const RepoCardPrimary = styled(RepoCard)`
-  padding: 24px;
-  border: 2px solid transparent;
-  background: linear-gradient(white, white) padding-box,
-    linear-gradient(90deg, #f76698, #c03fa2 60%, #8c1bab 100%) border-box;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+  ${theme({ p: 3 })};
+  border: ${borders[1]} ${colors.black10};
 
   &:hover {
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
-    transform: translateY(-3px);
+    border-color: ${colors.black};
+    box-shadow: 0 8px 24px ${colors.black10};
   }
 `
 
 const RepoMeta = styled(Flex)`
-  align-items: center;
-  gap: 16px;
-  font-size: 14px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
-    sans-serif;
-  color: ${colors.black60};
+  ${theme({
+    alignItems: 'center',
+    gap: 3,
+    fontSize: 0,
+    fontFamily: 'sans',
+    color: 'black60'
+  })};
 `
 
 const LanguageDot = styled('span')`
-  width: 12px;
-  height: 12px;
+  ${theme({ width: fontSizes[0], height: fontSizes[0] })};
+  background: ${({ $color }) => $color};
   border-radius: 50%;
   flex-shrink: 0;
 `
@@ -1779,259 +1824,196 @@ const OpenSource = () => (
     css={theme({
       alignItems: 'center',
       width: '100%',
-      pt: [5, 5, 5, 6],
-      pb: [4, 4, 4, 5],
+      py: SECTION_VERTICAL_SPACING,
       px: [1, 1, 5, 5]
     })}
   >
     <Flex
-      css={[
-        theme({
-          width: '100%',
-          mx: 'auto',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: [4, 4, 5, 5]
-        }),
-        {
-          '@media (min-width: 1500px)': {
-            flexDirection: 'row-reverse',
-            alignItems: 'center',
-            paddingBottom: '30px'
-          }
-        }
-      ]}
+      css={theme({
+        width: '100%',
+        maxWidth: HERO_LAYOUT.maxWidth,
+        mx: 'auto',
+        flexDirection: ['column', 'column', 'column', 'row'],
+        alignItems: ['center', 'center', 'center', 'stretch'],
+        gap: HERO_LAYOUT.gap
+      })}
     >
-      {/* Text side */}
       <Flex
-        css={[
-          theme({
-            width: '100%',
+        css={theme({
+          width: ['100%', '100%', '100%', HERO_LAYOUT.demoWidth],
+          pt: [4, 4, 5, 0],
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        })}
+      >
+        <Flex
+          css={theme({
+            width: ['100%', '100%', '85%', '100%'],
             flexDirection: 'column',
-            alignItems: 'center'
-          }),
-          {
-            '@media (min-width: 1500px)': {
-              width: '55%',
-              alignItems: 'flex-start'
-            }
-          }
-        ]}
+            gap: [3, 3, 4, 4]
+          })}
+        >
+          {REPOS.filter(r => r.primary).map(repo => (
+            <RepoCardPrimary
+              key={repo.name}
+              href={`https://github.com/${repo.org}/${repo.name}`}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <Flex css={theme({ alignItems: 'center', gap: '10px' })}>
+                <svg
+                  className='repo-github-icon'
+                  width='20'
+                  height='20'
+                  viewBox='0 0 16 16'
+                  fill={colors.black80}
+                  aria-hidden='true'
+                >
+                  <path d='M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z' />
+                </svg>
+                <Text
+                  css={theme({
+                    fontWeight: 'bold',
+                    fontSize: [2, 2, 3, 3],
+                    color: 'black80'
+                  })}
+                >
+                  {repo.name}
+                </Text>
+              </Flex>
+              <Text
+                css={theme({
+                  fontSize: [1, 1, 2, 2],
+                  color: 'black60',
+                  lineHeight: 1
+                })}
+              >
+                {repo.description}
+              </Text>
+              <RepoMeta css={theme({ fontSize: 1 })}>
+                <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+                  <LanguageDot $color={repo.languageColor} />
+                  {repo.language}
+                </Flex>
+                <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+                  <StarIcon size={16} aria-hidden='true' />
+                  {getRepoStarsLabel(repo)}
+                </Flex>
+              </RepoMeta>
+            </RepoCardPrimary>
+          ))}
+
+          <Flex
+            css={theme({
+              gap: [3, 3, 4, 4],
+              flexDirection: ['column', 'column', 'row', 'row']
+            })}
+          >
+            {REPOS.filter(r => !r.primary).map(repo => (
+              <RepoCard
+                key={repo.name}
+                href={`https://github.com/${repo.org}/${repo.name}`}
+                target='_blank'
+                rel='noopener noreferrer'
+                css={theme({ flex: 1 })}
+              >
+                <Flex css={theme({ alignItems: 'center', gap: 2 })}>
+                  <svg
+                    className='repo-github-icon'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill={colors.black60}
+                    aria-hidden='true'
+                  >
+                    <path d='M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z' />
+                  </svg>
+                  <Text
+                    css={theme({
+                      fontWeight: 'bold',
+                      fontSize: [2, 2, 2, 2],
+                      color: 'black'
+                    })}
+                  >
+                    {repo.name}
+                  </Text>
+                </Flex>
+                <Text
+                  css={theme({
+                    color: 'black60',
+                    fontSize: 1,
+                    lineHeight: 1,
+                    flex: 1
+                  })}
+                >
+                  {repo.description}
+                </Text>
+                <RepoMeta>
+                  <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+                    <LanguageDot $color={repo.languageColor} />
+                    {repo.language}
+                  </Flex>
+                  <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+                    <StarIcon size={14} aria-hidden='true' />
+                    {getRepoStarsLabel(repo)}
+                  </Flex>
+                </RepoMeta>
+              </RepoCard>
+            ))}
+          </Flex>
+        </Flex>
+      </Flex>
+      <Flex
+        css={theme({
+          width: ['100%', '100%', '100%', HERO_LAYOUT.textWidth],
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: ['center', 'center', 'center', 'flex-start']
+        })}
       >
         <Subhead
-          css={[
-            theme({
-              textAlign: 'center',
-              fontSize: ['34px', '42px', '54px', '62px']
-            }),
-            {
-              '@media (min-width: 1500px)': {
-                textAlign: 'left'
-              }
-            }
-          ]}
+          css={theme({
+            textAlign: ['center', 'center', 'center', 'left'],
+            fontSize: [3, 3, 4, 4],
+            width: '100%'
+          })}
         >
-          Built on <span css={{ color: '#fd494a' }}>open source</span>,
+          Built on <span css={theme({ color: 'red6' })}>open source</span>,
           <br />
           trusted by developers
         </Subhead>
         <Caption
-          css={[
-            theme({
-              pt: [3, 3, 4, 4],
-              px: [4, 4, 4, 0],
-              maxWidth: [
-                layout.small,
-                layout.small,
-                layout.normal,
-                layout.normal
-              ],
-              textAlign: 'center'
-            }),
-            {
-              '@media (min-width: 1500px)': {
-                textAlign: 'left'
-              }
-            }
-          ]}
+          css={theme({
+            pt: [3, 3, 4, 4],
+            px: [4, 4, 4, 0],
+            maxWidth: [
+              layout.small,
+              layout.small,
+              layout.normal,
+              layout.normal
+            ],
+            textAlign: ['center', 'center', 'center', 'left']
+          })}
         >
           The Microlink screenshot engine is powered by battle-tested open
           source libraries used by thousands of developers worldwide. Explore
           the code, contribute, or run it yourself.
         </Caption>
         <Flex
-          css={[
-            {
-              display: 'none'
-            },
-            {
-              '@media (min-width: 1500px)': {
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                gap: '16px',
-                paddingTop: '32px'
-              }
-            }
-          ]}
+          css={theme({
+            pt: [3, 3, 4, 4],
+            width: '100%',
+            justifyContent: ['center', 'center', 'center', 'flex-start']
+          })}
         >
           <ArrowLink
             href='https://github.com/microlinkhq'
             css={theme({ fontSize: ['20px', '20px', '24px', '24px'] })}
           >
-            Explore all repos on GitHub
+            Explore on GitHub
           </ArrowLink>
         </Flex>
-      </Flex>
-
-      {/* Repo cards side */}
-      <Flex
-        css={[
-          theme({
-            width: '100%',
-            flexDirection: 'column',
-            gap: '16px',
-            maxWidth: layout.normal
-          }),
-          {
-            '@media (min-width: 1500px)': {
-              width: '45%',
-              marginLeft: '5%',
-              maxWidth: 'none',
-              flexShrink: 0
-            }
-          }
-        ]}
-      >
-        {REPOS.filter(r => r.primary).map(repo => (
-          <RepoCardPrimary
-            key={repo.name}
-            href={`https://github.com/${repo.org}/${repo.name}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <Flex css={{ alignItems: 'center', gap: '10px' }}>
-              <svg
-                width='20'
-                height='20'
-                viewBox='0 0 16 16'
-                fill={colors.black80}
-                aria-hidden='true'
-              >
-                <path d='M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z' />
-              </svg>
-              <Text
-                css={theme({ fontWeight: 'bold', fontSize: [2, 2, 3, 3] })}
-                style={{ color: colors.black }}
-              >
-                {repo.org}/{repo.name}
-              </Text>
-            </Flex>
-            <Text
-              css={theme({ fontSize: [1, 1, 2, 2] })}
-              style={{ color: colors.black70, lineHeight: 1.5 }}
-            >
-              {repo.description}
-            </Text>
-            <RepoMeta style={{ fontSize: '15px' }}>
-              <Flex css={{ alignItems: 'center', gap: '5px' }}>
-                <LanguageDot style={{ background: repo.languageColor }} />
-                {repo.language}
-              </Flex>
-              <Flex css={{ alignItems: 'center', gap: '5px' }}>
-                <StarIcon size={16} aria-hidden='true' />
-                {repo.stars}
-              </Flex>
-              <Flex css={{ alignItems: 'center', gap: '5px' }}>
-                <ForkIcon size={16} aria-hidden='true' />
-                {repo.forks}
-              </Flex>
-            </RepoMeta>
-          </RepoCardPrimary>
-        ))}
-
-        <Flex
-          css={theme({
-            gap: '16px',
-            flexDirection: ['column', 'column', 'row', 'row']
-          })}
-        >
-          {REPOS.filter(r => !r.primary).map(repo => (
-            <RepoCard
-              key={repo.name}
-              href={`https://github.com/${repo.org}/${repo.name}`}
-              target='_blank'
-              rel='noopener noreferrer'
-              css={{ flex: 1 }}
-            >
-              <Flex css={{ alignItems: 'center', gap: '8px' }}>
-                <svg
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill={colors.black60}
-                  aria-hidden='true'
-                >
-                  <path d='M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z' />
-                </svg>
-                <Text
-                  css={theme({ fontWeight: 'bold', fontSize: [2, 2, 2, 2] })}
-                  style={{ color: colors.black }}
-                >
-                  {repo.name}
-                </Text>
-              </Flex>
-              <Text
-                style={{
-                  color: colors.black60,
-                  fontSize: '15px',
-                  lineHeight: 1.5,
-                  flex: 1
-                }}
-              >
-                {repo.description}
-              </Text>
-              <RepoMeta>
-                <Flex css={{ alignItems: 'center', gap: '5px' }}>
-                  <LanguageDot style={{ background: repo.languageColor }} />
-                  {repo.language}
-                </Flex>
-                <Flex css={{ alignItems: 'center', gap: '5px' }}>
-                  <StarIcon size={14} aria-hidden='true' />
-                  {repo.stars}
-                </Flex>
-                <Flex css={{ alignItems: 'center', gap: '5px' }}>
-                  <ForkIcon size={14} aria-hidden='true' />
-                  {repo.forks}
-                </Flex>
-              </RepoMeta>
-            </RepoCard>
-          ))}
-        </Flex>
-      </Flex>
-
-      {/* Links — always below cards on small screens, under text on large */}
-      <Flex
-        css={[
-          theme({
-            gap: [4, 4, 4, 4],
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%'
-          }),
-          {
-            '@media (min-width: 1500px)': {
-              display: 'none'
-            }
-          }
-        ]}
-      >
-        <ArrowLink
-          href='https://github.com/microlinkhq'
-          css={theme({ fontSize: ['20px', '20px', '24px', '24px'] })}
-        >
-          Explore all repos on GitHub
-        </ArrowLink>
       </Flex>
     </Flex>
   </Container>
@@ -2039,66 +2021,20 @@ const OpenSource = () => (
 
 const livePulse = keyframes`
   0%, 62% { color: inherit; }
-  70%, 90% { color: #fd494a; }
+  70%, 90% { color: ${colors.red6}; }
   100% { color: inherit; }
 `
 
 const LiveText = styled('span')`
-  animation: ${livePulse} 5s ease-in-out infinite;
+  animation: ${livePulse} 1.5s ease-in-out infinite;
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
-    color: #fd494a;
+    color: ${colors.red6};
   }
-`
-
-const ToolCardBase = styled(Flex)`
-  overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid ${colors.black10};
-  background: white;
-  flex-direction: column;
-  transition: border-color ${transition.medium}, box-shadow ${transition.medium};
-
-  &:hover {
-    border-color: ${colors.black20};
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  }
-`
-
-const ToolImagePreview = styled(Flex)`
-  overflow: hidden;
-  align-items: flex-end;
-  justify-content: center;
-  background: ${colors.black03};
-`
-
-const ToolArrowIndicator = styled(Flex)`
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: ${colors.black05};
-  flex-shrink: 0;
-  transition: background ${transition.medium}, transform ${transition.medium};
-
-  ${({ $hover }) =>
-    $hover &&
-    css`
-      background: #fd494a;
-      transform: translateX(2px);
-
-      svg {
-        color: white;
-      }
-    `}
 `
 
 const Playground = () => {
-  const [isHover, setIsHover] = React.useState(false)
-  const [isHover2, setIsHover2] = React.useState(false)
-
   return (
     <Container
       as='section'
@@ -2106,8 +2042,7 @@ const Playground = () => {
       css={theme({
         alignItems: 'center',
         width: '100%',
-        pt: [4, 4, 4, 4],
-        pb: [5, 5, 6, 6],
+        py: SECTION_VERTICAL_SPACING,
         px: [1, 1, 5, 5]
       })}
     >
@@ -2152,216 +2087,23 @@ const Playground = () => {
             alignItems: ['center', 'center', 'stretch', 'stretch']
           })}
         >
-          <Link
-            href='/tools/website-screenshot'
-            css={theme({
-              textDecoration: 'none',
-              color: 'inherit',
-              _hover: { color: 'inherit' },
-              display: 'block',
-              WebkitTapHighlightColor: 'transparent',
-              touchAction: 'manipulation',
-              width: '100%',
-              maxWidth: ['550px', '550px', 'none', 'none'],
-              flex: [null, null, 1, 1]
-            })}
-          >
-            <ToolCardBase
-              onMouseEnter={() => setIsHover(true)}
-              onMouseLeave={() => setIsHover(false)}
-              onTouchStart={() => setIsHover(true)}
-              onTouchEnd={() => setIsHover(false)}
-              onTouchCancel={() => setIsHover(false)}
-              css={{ height: '100%' }}
+          {PLAYGROUND_TOOLS.map(tool => (
+            <Box
+              key={tool.href}
+              css={theme({
+                width: '100%',
+                maxWidth: ['550px', '550px', 'none', 'none'],
+                flex: [null, null, 1, 1]
+              })}
             >
-              <ToolImagePreview
-                css={theme({
-                  height: ['180px', '200px', '260px', '260px'],
-                  borderBottom: 1,
-                  borderColor: 'black05'
-                })}
-              >
-                <Image
-                  src={cdnUrl('screenshot/browser/dark/apple.png')}
-                  alt='Website Screenshot'
-                  css={theme({
-                    maxHeight: '100%',
-                    objectFit: 'contain',
-                    transition: `transform ${transition.long}`,
-                    transform: isHover
-                      ? 'scale(1.35) translateY(5%)'
-                      : 'scale(1.25) translateY(14%)'
-                  })}
-                />
-              </ToolImagePreview>
-              <Flex
-                css={theme({
-                  p: [3, 3, 4, 4],
-                  flexDirection: 'column',
-                  gap: 3
-                })}
-              >
-                <Flex
-                  css={theme({
-                    alignItems: 'flex-start',
-                    justifyContent: 'space-between',
-                    gap: 3
-                  })}
-                >
-                  <Box css={{ flex: 1, minWidth: 0 }}>
-                    <Flex css={theme({ alignItems: 'center', gap: 2, mb: 2 })}>
-                      <Flex
-                        css={theme({
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          width: '28px',
-                          height: '28px',
-                          borderRadius: 2,
-                          bg: 'rgba(253, 73, 74, 0.08)',
-                          color: '#fd494a',
-                          flexShrink: 0
-                        })}
-                      >
-                        <Camera size={16} aria-hidden='true' />
-                      </Flex>
-                      <Text
-                        css={theme({
-                          fontSize: [2, 2, 2, 2],
-                          fontWeight: 'bold',
-                          color: 'black'
-                        })}
-                      >
-                        Website Screenshot
-                      </Text>
-                    </Flex>
-                    <Text
-                      css={theme({
-                        fontSize: [0, 0, 1, 1],
-                        color: 'black60',
-                        lineHeight: 2
-                      })}
-                    >
-                      The fastest way to capture any website. Paste a URL, pick
-                      a viewport, and get a high-resolution PNG or JPEG in
-                      seconds. Supports custom overlays and backgrounds.
-                    </Text>
-                  </Box>
-                  <ToolArrowIndicator
-                    $hover={isHover}
-                    css={theme({ mt: [0, 0, '5px', '10px'] })}
-                  >
-                    <ArrowRight size={16} aria-hidden='true' />
-                  </ToolArrowIndicator>
-                </Flex>
-              </Flex>
-            </ToolCardBase>
-          </Link>
-
-          <Link
-            href='/tools/website-screenshot/bulk'
-            css={theme({
-              textDecoration: 'none',
-              color: 'inherit',
-              _hover: { color: 'inherit' },
-              display: 'block',
-              WebkitTapHighlightColor: 'transparent',
-              touchAction: 'manipulation',
-              width: '100%',
-              maxWidth: ['550px', '550px', 'none', 'none'],
-              flex: [null, null, 1, 1]
-            })}
-          >
-            <ToolCardBase
-              onMouseEnter={() => setIsHover2(true)}
-              onMouseLeave={() => setIsHover2(false)}
-              onTouchStart={() => setIsHover2(true)}
-              onTouchEnd={() => setIsHover2(false)}
-              onTouchCancel={() => setIsHover2(false)}
-              css={{ height: '100%' }}
-            >
-              <ToolImagePreview
-                css={theme({
-                  height: ['180px', '200px', '260px', '260px'],
-                  borderBottom: 1,
-                  borderColor: 'black05'
-                })}
-              >
-                <Image
-                  src='/images/screenshot-bulk.png'
-                  alt='Bulk Screenshots'
-                  css={theme({
-                    maxHeight: '75%',
-                    marginBottom: '25px',
-                    objectFit: 'contain',
-                    transition: 'transform 0.3s',
-                    transform: isHover2
-                      ? 'scale(1.65) rotate(0deg)'
-                      : 'scale(1.3) rotate(-10deg)'
-                  })}
-                />
-              </ToolImagePreview>
-              <Flex
-                css={theme({
-                  p: [3, 3, 4, 4],
-                  flexDirection: 'column',
-                  gap: 3
-                })}
-              >
-                <Flex
-                  css={theme({
-                    alignItems: 'flex-start',
-                    justifyContent: 'space-between',
-                    gap: 3
-                  })}
-                >
-                  <Box css={{ flex: 1, minWidth: 0 }}>
-                    <Flex css={theme({ alignItems: 'center', gap: 2, mb: 2 })}>
-                      <Flex
-                        css={theme({
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          width: '28px',
-                          height: '28px',
-                          borderRadius: 2,
-                          bg: 'rgba(253, 73, 74, 0.08)',
-                          color: '#fd494a',
-                          flexShrink: 0
-                        })}
-                      >
-                        <Layers size={16} aria-hidden='true' />
-                      </Flex>
-                      <Text
-                        css={theme({
-                          fontSize: [2, 2, 2, 2],
-                          fontWeight: 'bold',
-                          color: 'black'
-                        })}
-                      >
-                        Bulk Screenshots
-                      </Text>
-                    </Flex>
-                    <Text
-                      css={theme({
-                        fontSize: [0, 0, 1, 1],
-                        color: 'black60',
-                        lineHeight: 2
-                      })}
-                    >
-                      Paste up to 50 URLs and capture them all at once. Great
-                      for competitive analysis and monitoring. Download every
-                      screenshot as a ZIP file.
-                    </Text>
-                  </Box>
-                  <ToolArrowIndicator
-                    $hover={isHover2}
-                    css={theme({ mt: [0, 0, '5px', '10px'] })}
-                  >
-                    <ArrowRight size={16} aria-hidden='true' />
-                  </ToolArrowIndicator>
-                </Flex>
-              </Flex>
-            </ToolCardBase>
-          </Link>
+              <FeaturedToolCard
+                {...tool}
+                cardCss={{ height: '100%' }}
+                titleCss={{ fontSize: [2, 2, 2, 2] }}
+                descriptionCss={{ color: 'black60' }}
+              />
+            </Box>
+          ))}
         </Flex>
 
         <ArrowLink
@@ -2379,153 +2121,7 @@ const Playground = () => {
 }
 
 const Benchmark = () => (
-  <section
-    id='benchmark'
-    css={{
-      position: 'relative',
-      overflow: 'hidden',
-      width: '100%',
-      backgroundImage: `radial-gradient(
-        circle at center right,
-        #850ba7 0%,
-        #850ba7 48%,
-        #a31b91 48%,
-        #a31b91 52%,
-        #c12a78 52%,
-        #c12a78 65%,
-        #df3a61 65%,
-        #df3a61 79%,
-        #fd494a 79%,
-        #fd494a 100%
-      )`,
-      borderTop: `${borders[1]} ${colors.white20}`,
-      borderBottom: `${borders[1]} ${colors.white20}`
-    }}
-  >
-    {/* Speed lines — full width absolute overlay */}
-    <Box
-      css={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        overflow: 'hidden',
-        pointerEvents: 'none',
-        zIndex: 0
-      }}
-    >
-      <SpeedLine
-        $top='12%'
-        $w='140px'
-        $h='3px'
-        $dur='1.27s'
-        $delay='0s'
-        $color='rgba(255,255,255,0.45)'
-        $glow='8px'
-      />
-      <SpeedLine
-        $top='22%'
-        $w='80px'
-        $h='2px'
-        $dur='1.78s'
-        $delay='0.6s'
-        $color='rgba(255,255,255,0.2)'
-        $glow='4px'
-      />
-      <SpeedLine
-        $top='32%'
-        $w='110px'
-        $h='2px'
-        $dur='1.1s'
-        $delay='0.15s'
-        $color='rgba(255,255,255,0.55)'
-        $glow='10px'
-      />
-      <SpeedLine
-        $top='42%'
-        $w='50px'
-        $h='1px'
-        $dur='2.11s'
-        $delay='1.1s'
-        $color='rgba(255,255,255,0.12)'
-        $glow='3px'
-      />
-      <SpeedLine
-        $top='52%'
-        $w='130px'
-        $h='3px'
-        $dur='1.01s'
-        $delay='0.3s'
-        $color='rgba(255,255,255,0.6)'
-        $glow='12px'
-      />
-      <SpeedLine
-        $top='62%'
-        $w='60px'
-        $h='1px'
-        $dur='1.91s'
-        $delay='1.35s'
-        $color='rgba(255,255,255,0.15)'
-        $glow='3px'
-      />
-      <SpeedLine
-        $top='17%'
-        $w='90px'
-        $h='2px'
-        $dur='1.19s'
-        $delay='0.2s'
-        $color='rgba(255,255,255,0.35)'
-        $glow='6px'
-      />
-      <SpeedLine
-        $top='37%'
-        $w='120px'
-        $h='3px'
-        $dur='0.94s'
-        $delay='0s'
-        $color='rgba(255,255,255,0.5)'
-        $glow='10px'
-      />
-      <SpeedLine
-        $top='47%'
-        $w='45px'
-        $h='1px'
-        $dur='1.8s'
-        $delay='0.8s'
-        $color='rgba(255,255,255,0.18)'
-        $glow='3px'
-      />
-      <SpeedLine
-        $top='57%'
-        $w='75px'
-        $h='2px'
-        $dur='1.35s'
-        $delay='0.45s'
-        $color='rgba(255,255,255,0.3)'
-        $glow='5px'
-      />
-      <SpeedLine
-        $top='67%'
-        $w='105px'
-        $h='3px'
-        $dur='1.08s'
-        $delay='0.15s'
-        $color='rgba(255,255,255,0.5)'
-        $glow='9px'
-      />
-      <SpeedLine
-        $top='77%'
-        $w='55px'
-        $h='1px'
-        $dur='1.97s'
-        $delay='1.2s'
-        $color='rgba(255,255,255,0.14)'
-        $glow='3px'
-      />
-    </Box>
-
-    {/* Content */}
+  <BluePrintBackground as='section' id='benchmark'>
     <Flex
       css={theme({
         position: 'relative',
@@ -2533,7 +2129,7 @@ const Benchmark = () => (
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        py: [4, 4, 5, 5],
+        py: SECTION_VERTICAL_SPACING,
         px: 4,
         gap: [3, 3, 4, 4]
       })}
@@ -2541,19 +2137,18 @@ const Benchmark = () => (
       <Subhead
         css={theme({
           fontSize: [3, 3, '44px', '44px'],
-          color: 'white',
+          color: 'black',
           textAlign: 'center'
         })}
       >
         The fastest screenshot API{' '}
-        <span css={theme({ display: 'block', color: 'white60' })}>
+        <span css={theme({ display: 'block', color: 'red6' })}>
           50% faster than competitors
         </span>
       </Subhead>
       <Caption
         forwardedAs='div'
         css={theme({
-          color: 'white80',
           textAlign: 'center',
           width: '100%',
           fontSize: [2, 2, '22px', '22px'],
@@ -2568,18 +2163,22 @@ const Benchmark = () => (
       <ArrowLink
         href='/benchmarks/screenshot-api'
         css={theme({
-          fontSize: ['22px', '24px', '26px', '26px'],
-          color: 'white'
+          fontSize: ['22px', '24px', '26px', '26px']
         })}
-        style={{ color: 'white' }}
       >
         See the benchmarks
       </ArrowLink>
     </Flex>
-  </section>
+  </BluePrintBackground>
 )
 
-const [{ reqs_pretty: reqsPretty, bytes_pretty: bytesPretty }] = analyticsData
+const [
+  {
+    reqs_pretty: reqsPretty,
+    cached_reqs_percentage: cachedReqsPercentage,
+    bytes_pretty: bytesPretty
+  }
+] = analyticsData
 
 const analyticsBytes = (() => {
   const [value, unit] = bytesPretty.split(' ')
@@ -2588,13 +2187,17 @@ const analyticsBytes = (() => {
 
 const STATS = [
   { value: reqsPretty, label: 'reqs per month' },
+  { value: cachedReqsPercentage, label: 'cache hit rate' },
   { value: analyticsBytes, label: 'data served' }
 ]
+const CLIENTS_STATS_VALUE_FONT_SIZE = [3, 4, 6, 6]
+const CLIENTS_STATS_LABEL_FONT_SIZE = [0, 2, 3, 3]
 
 const CLIENTS = [
   {
     name: 'Vercel',
     description: 'Frontend cloud platform',
+    url: 'https://vercel.com',
     logo: (
       <img
         src='/images/clients/vercel.com.png'
@@ -2608,6 +2211,7 @@ const CLIENTS = [
   {
     name: 'Community',
     description: 'Fan engagement platform',
+    url: 'https://community.com',
     logo: (
       <img
         src='/images/clients/community.com.png'
@@ -2621,6 +2225,7 @@ const CLIENTS = [
   {
     name: 'Impact',
     description: 'Partnership management',
+    url: 'https://impact.com',
     logo: (
       <img
         src='/images/clients/impact.com.png'
@@ -2634,6 +2239,7 @@ const CLIENTS = [
   {
     name: 'Mirror',
     description: 'Web3 publishing platform',
+    url: 'https://mirror.xyz',
     logo: (
       <img
         src='/images/clients/mirror.xyz.png'
@@ -2647,6 +2253,7 @@ const CLIENTS = [
   {
     name: 'Padlet',
     description: 'Visual collaboration tool',
+    url: 'https://padlet.com',
     logo: (
       <img
         src='/images/clients/padlet.com.png'
@@ -2660,40 +2267,44 @@ const CLIENTS = [
 ]
 
 const ClientLogo = styled(Flex)`
-  transition: transform 0.2s ease, filter 0.3s ease;
+  ${theme({ textDecoration: 'none' })};
+  color: inherit;
+  transition: transform ${transition.short};
 
   &:hover {
-    transform: translateY(-2px) scale(1.05);
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.12))
-      drop-shadow(0 0 6px rgba(0, 0, 0, 0.06));
+    transform: translateY(-${radii[1]}) scale(1.05);
+  }
+
+  &:focus-visible {
+    outline: ${borders[2]} ${colors.link};
+    outline-offset: ${radii[1]};
+    border-radius: ${radii[3]};
   }
 `
 
 const StatSeparator = styled(Box)`
-  width: 1px;
-  align-self: stretch;
-  background: ${colors.black10};
+  ${theme({ width: '1px', alignSelf: 'stretch', bg: 'black10' })};
 `
 
 const Clients = () => (
   <Container
+    id='clients'
     as='section'
     css={theme({
       alignItems: 'center',
       maxWidth: layout.large,
-      pt: [1, 1, 2, 2],
-      pb: [5, 5, 6, 6]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Caps
       css={theme({
         fontSize: ['14px', '14px', '16px', '16px'],
         fontWeight: 'bold',
-        color: 'black50',
-        letterSpacing: '0.1em'
+        color: 'black60',
+        letterSpacing: 3
       })}
     >
-      Live usage this month across all clients
+      Last month usage
     </Caps>
     <Flex
       css={theme({
@@ -2703,9 +2314,9 @@ const Clients = () => (
         alignItems: 'center',
         gap: [3, 4, 5, 5],
         maxWidth: layout.large,
-        width: '100%'
+        width: '100%',
+        fontVariantNumeric: 'tabular-nums'
       })}
-      style={{ fontVariantNumeric: 'tabular-nums' }}
     >
       {STATS.map(({ value, label }, index) => (
         <React.Fragment key={label}>
@@ -2720,7 +2331,7 @@ const Clients = () => (
               forwardedAs='div'
               titleize={false}
               css={theme({
-                fontSize: ['24px', '32px', '42px', '42px'],
+                fontSize: CLIENTS_STATS_VALUE_FONT_SIZE,
                 fontWeight: 'bold',
                 color: 'black'
               })}
@@ -2730,9 +2341,11 @@ const Clients = () => (
             <Caps
               css={theme({
                 pt: 1,
-                fontSize: 0,
+                fontSize: CLIENTS_STATS_LABEL_FONT_SIZE,
                 fontWeight: 'bold',
-                color: 'black50'
+                color: 'black80',
+                whiteSpace: 'nowrap',
+                lineHeight: 0
               })}
             >
               {label}
@@ -2747,12 +2360,12 @@ const Clients = () => (
         pt: [4, 4, 5, 5],
         fontSize: [1, 1, '16px', '16px'],
         fontWeight: 'bold',
-        color: 'black50',
-        letterSpacing: '0.1em',
+        color: 'black60',
+        letterSpacing: 3,
         pb: [3, 3, 0, 0]
       })}
     >
-      Some of our clients
+      some clients
     </Caps>
     <Flex
       css={theme({
@@ -2765,9 +2378,14 @@ const Clients = () => (
         maxWidth: layout.large
       })}
     >
-      {CLIENTS.map(({ name, description, logo }) => (
+      {CLIENTS.map(({ name, description, logo, url }) => (
         <ClientLogo
+          as='a'
           key={name}
+          href={url}
+          target='_blank'
+          rel='noopener noreferrer'
+          aria-label={`Visit ${name}`}
           css={theme({
             flexDirection: 'column',
             alignItems: 'center',
@@ -2795,146 +2413,190 @@ const Clients = () => (
   </Container>
 )
 
-const CodeExample = () => (
-  <Container
-    as='section'
-    css={theme({
-      alignItems: 'center',
-      width: '100%',
-      pt: [5, 5, 6, 6],
-      pb: [3, 3, 5, 5],
-      px: [1, 1, 5, 5]
-    })}
-  >
-    <Flex
-      css={[
-        theme({
-          width: '100%',
-          mx: 'auto',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: [4, 4, 5, 5]
-        }),
-        {
-          '@media (min-width: 1500px)': {
-            flexDirection: 'row'
-          }
-        }
-      ]}
+const CODE_EXAMPLE_LANGUAGES = ['JavaScript', 'Python', 'Ruby', 'PHP', 'Golang']
+const TYPE_SPEED_MS = 90
+const DELETE_SPEED_MS = 60
+const HOLD_TYPED_MS = 2000
+const BETWEEN_WORDS_MS = 250
+
+const cursorBlink = keyframes`
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+`
+
+const TypedLanguage = styled('span')`
+  ${theme({ color: 'red6' })};
+`
+
+const TypedCursor = styled('span')`
+  ${theme({ display: 'inline-block', ml: 1, color: 'red6' })};
+  animation: ${cursorBlink} 1s step-end infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`
+
+const CodeExample = () => {
+  const [languageIndex, setLanguageIndex] = useState(0)
+  const [typedLanguage, setTypedLanguage] = useState('')
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  useEffect(() => {
+    const currentLanguage = CODE_EXAMPLE_LANGUAGES[languageIndex]
+    const hasTypedWholeWord = !isDeleting && typedLanguage === currentLanguage
+    const hasDeletedWholeWord = isDeleting && typedLanguage.length === 0
+
+    const delay = hasTypedWholeWord
+      ? HOLD_TYPED_MS
+      : hasDeletedWholeWord
+        ? BETWEEN_WORDS_MS
+        : isDeleting
+          ? DELETE_SPEED_MS
+          : TYPE_SPEED_MS
+
+    const timeoutId = setTimeout(() => {
+      if (hasTypedWholeWord) {
+        setIsDeleting(true)
+        return
+      }
+
+      if (hasDeletedWholeWord) {
+        setIsDeleting(false)
+        setLanguageIndex(prev => (prev + 1) % CODE_EXAMPLE_LANGUAGES.length)
+        return
+      }
+
+      setTypedLanguage(prev =>
+        isDeleting
+          ? currentLanguage.slice(0, Math.max(0, prev.length - 1))
+          : currentLanguage.slice(0, prev.length + 1)
+      )
+    }, delay)
+
+    return () => clearTimeout(timeoutId)
+  }, [typedLanguage, isDeleting, languageIndex])
+
+  return (
+    <Container
+      id='code-example'
+      as='section'
+      css={theme({
+        alignItems: 'center',
+        width: '100%',
+        py: SECTION_VERTICAL_SPACING,
+        px: [1, 1, 5, 5]
+      })}
     >
       <Flex
-        css={[
-          theme({
-            width: '100%',
+        css={theme({
+          width: '100%',
+          maxWidth: HERO_LAYOUT.maxWidth,
+          mx: 'auto',
+          flexDirection: ['column', 'column', 'column', 'row'],
+          alignItems: ['center', 'center', 'center', 'stretch'],
+          gap: HERO_LAYOUT.gap
+        })}
+      >
+        <Flex
+          css={theme({
+            width: ['100%', '100%', '100%', HERO_LAYOUT.demoWidth],
+            pt: [4, 4, 5, 0],
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center'
-          }),
-          {
-            '@media (min-width: 1500px)': {
-              width: '50%',
-              alignItems: 'flex-start'
-            }
-          }
-        ]}
-      >
-        <Subhead
-          css={[
-            theme({
-              fontSize: [3, 3, 4, 4],
-              textAlign: 'center'
-            }),
-            {
-              '@media (min-width: 1500px)': {
-                textAlign: 'left'
-              }
-            }
-          ]}
+          })}
         >
-          Website capture API in{' '}
-          <span style={{ color: '#fd494a' }}>any language</span>
-        </Subhead>
-        <Caption
-          forwardedAs='div'
-          css={[
-            theme({
-              pt: [3, 3, 4, 4],
-              fontSize: [2, 2, 3, 3],
-              textAlign: 'center',
-              maxWidth: [layout.small, layout.small, layout.normal, '700px']
-            }),
-            {
-              '@media (min-width: 1500px)': {
-                textAlign: 'left'
+          <Flex
+            css={[
+              theme({
+                width: ['100%', '100%', '85%', '100%'],
+                justifyContent: 'center',
+                pb: [4, 4, 4, 5],
+                px: [2, 3, 0, 0]
+              }),
+              {
+                '& > div, & > div > div:first-child': {
+                  width: '100%',
+                  maxWidth: '750px'
+                },
+                '& > div > div:first-child': {
+                  boxShadow: `0 24px 64px ${colors.black20}, 0 4px 16px ${colors.black10}`
+                }
               }
-            }
-          ]}
-        >
-          Microlink screenshot API delivers enterprise-grade screen capture API
-          through a developer-friendly web screenshot service.
-        </Caption>
+            ]}
+          >
+            <MultiCodeEditorInteractive
+              height={300}
+              mqlCode={{
+                url: 'https://www.netflix.com/title/80057281',
+                screenshot: {
+                  type: 'jpeg'
+                },
+                viewport: {
+                  width: 1920,
+                  height: 1080,
+                  deviceScaleFactor: 2
+                }
+              }}
+            />
+          </Flex>
+        </Flex>
         <Flex
-          css={[
-            theme({
+          css={theme({
+            width: ['100%', '100%', '100%', HERO_LAYOUT.textWidth],
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: ['center', 'center', 'center', 'flex-start']
+          })}
+        >
+          <Subhead
+            css={theme({
+              fontSize: [3, 3, 4, 4],
+              textAlign: ['center', 'center', 'center', 'left'],
+              width: '100%'
+            })}
+          >
+            Website capture API <LineBreak /> in{' '}
+            <TypedLanguage>
+              {typedLanguage}
+              <TypedCursor aria-hidden='true'>|</TypedCursor>
+            </TypedLanguage>
+          </Subhead>
+          <Caption
+            forwardedAs='div'
+            css={theme({
               pt: [3, 3, 4, 4],
               fontSize: [2, 2, 3, 3],
-              justifyContent: 'center'
-            }),
-            {
-              '@media (min-width: 1500px)': {
-                justifyContent: 'flex-start'
-              }
-            }
-          ]}
-        >
-          <ArrowLink href='/docs/api/parameters/screenshot'>
-            Read the docs
-          </ArrowLink>
+              textAlign: ['center', 'center', 'center', 'left'],
+              maxWidth: [
+                layout.small,
+                layout.small,
+                layout.normal,
+                layout.normal
+              ]
+            })}
+          >
+            Microlink screenshot API delivers enterprise-grade screen capture
+            API through a developer-friendly web screenshot service.
+          </Caption>
+          <Flex
+            css={theme({
+              pt: [3, 3, 4, 4],
+              width: '100%',
+              fontSize: [2, 2, 3, 3],
+              justifyContent: ['center', 'center', 'center', 'flex-start']
+            })}
+          >
+            <ArrowLink href='/docs/api/parameters/screenshot'>
+              Read the docs
+            </ArrowLink>
+          </Flex>
         </Flex>
       </Flex>
-      <Flex
-        css={[
-          theme({
-            width: '100%',
-            justifyContent: 'center',
-            pb: [4, 4, 4, 5],
-            px: [2, 3, 0, 0]
-          }),
-          {
-            '@media (min-width: 1500px)': {
-              width: '40%',
-              justifyContent: 'flex-end',
-              minWidth: '750px'
-            },
-            '& > div, & > div > div:first-child': {
-              width: '100%',
-              maxWidth: '750px'
-            },
-            '& > div > div:first-child': {
-              boxShadow:
-                '0 24px 64px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1)'
-            }
-          }
-        ]}
-      >
-        <MultiCodeEditorInteractive
-          height={300}
-          mqlCode={{
-            url: 'https://www.netflix.com/title/80057281',
-            screenshot: {
-              type: 'jpeg'
-            },
-            viewport: {
-              width: 1920,
-              height: 1080,
-              deviceScaleFactor: 2
-            }
-          }}
-        />
-      </Flex>
-    </Flex>
-  </Container>
-)
+    </Container>
+  )
+}
 
 const PricingCheck = ({ children }) => (
   <Flex css={theme({ alignItems: 'center', pt: 2 })}>
@@ -2959,8 +2621,8 @@ const PricingCard = styled(Flex)`
     minWidth: 0,
     maxWidth: ['100%', '100%', '380px', '380px']
   })}
-  border: 1px solid;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: ${borders[1]};
+  box-shadow: 0 2px 8px ${colors.black05};
 `
 
 const Pricing = () => (
@@ -2971,8 +2633,7 @@ const Pricing = () => (
       alignItems: 'center',
       maxWidth: '100%',
       bg: 'pinky',
-      pt: 5,
-      pb: [5, 5, 5, 6]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Subhead
@@ -3002,7 +2663,7 @@ const Pricing = () => (
         width: ['100%', '420px', '100%', '100%']
       })}
     >
-      <PricingCard css={{ borderColor: colors.black10 }}>
+      <PricingCard css={theme({ borderColor: 'black10' })}>
         <Text
           css={theme({
             fontSize: ['20px', '20px', '24px', '24px'],
@@ -3021,14 +2682,13 @@ const Pricing = () => (
           >
             $0
           </Text>
-          <Text css={theme({ color: 'black50', fontSize: [0, 0, 1, 1] })}>
+          <Text css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}>
             /month
           </Text>
         </Flex>
         <Text
           css={theme({
             pt: 2,
-            color: 'black60',
             fontSize: [1, 1, '18px', '18px']
           })}
         >
@@ -3043,7 +2703,7 @@ const Pricing = () => (
           <PricingCheck>Full browser control</PricingCheck>
         </Box>
         <Flex
-          css={theme({ pt: 3, fontSize: ['18px', '18px', '20px', '20px'] })}
+          css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
         >
           <ArrowLink href='/docs/api/parameters/screenshot'>
             Get started free
@@ -3052,12 +2712,13 @@ const Pricing = () => (
       </PricingCard>
 
       <PricingCard
-        css={{
-          borderColor: 'transparent',
-          background:
-            'linear-gradient(white, white) padding-box, linear-gradient(90deg, #f76698, #c03fa2 60%, #8c1bab 100%) border-box',
-          border: '2px solid transparent'
-        }}
+        css={[
+          theme({ borderColor: 'transparent' }),
+          {
+            background: `linear-gradient(${colors.white}, ${colors.white}) padding-box, ${gradient} border-box`,
+            border: '2px solid transparent'
+          }
+        ]}
       >
         <Text
           css={theme({
@@ -3077,14 +2738,13 @@ const Pricing = () => (
           >
             €39
           </Text>
-          <Text css={theme({ color: 'black50', fontSize: [0, 0, 1, 1] })}>
+          <Text css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}>
             /month
           </Text>
         </Flex>
         <Text
           css={theme({
             pt: 2,
-            color: 'black60',
             fontSize: [1, 1, '18px', '18px']
           })}
         >
@@ -3108,7 +2768,7 @@ const Pricing = () => (
           </PricingCheck>
         </Box>
         <Flex
-          css={theme({ pt: 3, fontSize: ['18px', '18px', '20px', '20px'] })}
+          css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
         >
           <ArrowLink href='/#pricing'>See all plans</ArrowLink>
         </Flex>
@@ -3244,19 +2904,19 @@ const CAPABILITIES = [
 ]
 
 const CapabilityItem = styled(Flex)`
-  gap: 14px;
-  align-items: flex-start;
+  ${theme({ gap: 2, alignItems: 'flex-start' })};
 `
 
 const CapabilityIcon = styled(Flex)`
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  background: rgba(253, 73, 74, 0.1);
-  color: #fd494a;
+  ${theme({
+    width: space[4],
+    height: space[4],
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    color: 'red6'
+  })};
 `
 
 const Capabilities = () => {
@@ -3269,6 +2929,8 @@ const Capabilities = () => {
   }, [])
 
   const capApiUrl = `https://api.microlink.io?screenshot&url=https://ft.com&adblock=${adblock}`
+  const capViewportApiUrl =
+    'https://api.microlink.io?screenshot&url=https://microlink.io&viewport.width=1440&viewport.height=900'
 
   const handleCapCopy = () => {
     const markCopied = () => {
@@ -3286,59 +2948,45 @@ const Capabilities = () => {
 
   return (
     <Container
+      id='capabilities'
       as='section'
       css={theme({
         alignItems: 'center',
         maxWidth: '100%',
         bg: 'pinky',
-        pt: [4, 4, 5, 6],
-        pb: [5, 5, 5, 5]
+        py: SECTION_VERTICAL_SPACING
       })}
     >
       <Flex
-        css={[
-          theme({
-            width: '100%',
-            mx: 'auto',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: [4, 4, 5, 5],
-            px: [4, 4, 5, 5]
-          }),
-          { '@media (min-width: 2100px)': { width: '80%' } }
-        ]}
+        css={theme({
+          width: '100%',
+          maxWidth: HERO_LAYOUT.maxWidth,
+          mx: 'auto',
+          flexDirection: ['column', 'column', 'column', 'row'],
+          alignItems: ['center', 'center', 'center', 'stretch'],
+          gap: HERO_LAYOUT.gap
+        })}
       >
-        <Subhead
-          css={[
-            theme({
-              fontSize: [3, 3, '40px', 4],
-              textAlign: 'center',
-              width: '100%'
-            }),
-            { '@media (min-width: 1200px)': { display: 'none' } }
-          ]}
-        >
-          Everything you need,{' '}
-          <span style={{ color: '#fd494a' }}>one API call away</span>
-        </Subhead>
         <Flex
           css={theme({
-            width: '100%',
-            flexDirection: ['column', 'column', 'column', 'row'],
+            width: ['100%', '100%', '100%', HERO_LAYOUT.demoWidth],
+            pt: [4, 4, 5, 0],
+            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
-            gap: [4, 4, 5, 6]
+            gap: [3, 3, 4, 4]
           })}
         >
           <Box
             css={[
               theme({
-                width: ['100%', '100%', '65%', '50%'],
+                width: ['100%', '100%', '80%', '100%'],
                 borderRadius: 3,
                 overflow: 'hidden',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+                boxShadow: `0 8px 32px ${colors.black10}`,
+                lineHeight: 0
               }),
               {
-                lineHeight: 0,
                 '& img': { display: 'block', width: '100%', height: 'auto' }
               }
             ]}
@@ -3372,12 +3020,13 @@ const Capabilities = () => {
                 css={theme({
                   fontSize: ['12px', '12px', '13px', '13px'],
                   fontFamily: 'mono',
-                  letterSpacing: '0.01em',
+                  letterSpacing: 0,
                   flex: 1,
-                  minWidth: 0,
-                  lineHeight: '20px'
+                  minWidth: '0',
+                  lineHeight: 2,
+                  color: 'green5',
+                  wordBreak: 'break-all'
                 })}
-                style={{ color: '#4ade80', wordBreak: 'break-all' }}
               >
                 {capApiUrl}
               </Text>
@@ -3386,100 +3035,136 @@ const Capabilities = () => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </ScreenshotApiBar>
           </Box>
-          <Flex
+          <Box
+            css={[
+              theme({
+                width: ['100%', '100%', '80%', '100%'],
+                borderRadius: 3,
+                overflow: 'hidden',
+                boxShadow: `0 8px 32px ${colors.black10}`,
+                lineHeight: 0
+              }),
+              {
+                '& img': { display: 'block', width: '100%', height: 'auto' }
+              }
+            ]}
+          >
+            <Image
+              src='/images/screenshot-tool-landing.png'
+              alt='Landing page screenshot generated using Microlink Screenshot API'
+              width='100%'
+            />
+            <ScreenshotApiBar
+              css={theme({
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                px: [2, 3, 3, 3],
+                py: '10px'
+              })}
+            >
+              <Text
+                as='span'
+                css={theme({
+                  fontSize: ['12px', '12px', '13px', '13px'],
+                  fontFamily: 'mono',
+                  letterSpacing: 0,
+                  flex: 1,
+                  minWidth: '0',
+                  lineHeight: 2,
+                  color: 'green5',
+                  wordBreak: 'break-all'
+                })}
+              >
+                {capViewportApiUrl}
+              </Text>
+            </ScreenshotApiBar>
+          </Box>
+        </Flex>
+        <Flex
+          css={theme({
+            width: ['100%', '100%', '100%', HERO_LAYOUT.textWidth],
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: ['center', 'center', 'center', 'flex-start'],
+            gap: [3, 3, 4, 4]
+          })}
+        >
+          <Subhead
             css={theme({
-              width: ['100%', '100%', '100%', '50%'],
-              flexDirection: 'column',
-              justifyContent: 'center',
-              gap: 4
+              fontSize: [3, 3, 4, 4],
+              textAlign: ['center', 'center', 'center', 'left'],
+              width: '100%'
             })}
           >
-            <Subhead
-              css={[
-                theme({
-                  fontSize: 4,
-                  textAlign: 'left',
-                  pb: 1
-                }),
-                {
-                  display: 'none',
-                  '@media (min-width: 1200px)': { display: 'block' }
+            Everything you need,
+            <LineBreak />
+            <span css={theme({ color: 'red6' })}>one API call away</span>
+          </Subhead>
+          <Flex
+            css={[
+              theme({ gap: [3, 3, 3, 4], width: '100%' }),
+              {
+                flexDirection: 'column',
+                '@media (min-width: 768px) and (max-width: 1199px)': {
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  '& > *': { width: 'calc(50% - 12px)' }
                 }
-              ]}
-            >
-              Everything you need,{' '}
-              <span style={{ color: '#fd494a' }}>one API call away</span>
-            </Subhead>
-            <Flex
-              css={[
-                theme({ gap: [3, 3, 3, 4] }),
-                {
-                  flexDirection: 'column',
-                  '@media (min-width: 768px) and (max-width: 1199px)': {
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                    '& > *': { width: 'calc(50% - 12px)' }
-                  }
-                }
-              ]}
-            >
-              {CAPABILITIES.map(({ icon, title, description }) => (
-                <CapabilityItem key={title}>
-                  <CapabilityIcon>{icon}</CapabilityIcon>
-                  <Flex css={{ flexDirection: 'column', gap: '4px' }}>
-                    <Text
-                      css={theme({
-                        fontWeight: 'bold',
-                        fontSize: [1, 1, 2, 2]
-                      })}
-                    >
-                      {title}
-                    </Text>
-                    <Text
-                      css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}
-                    >
-                      {description}
-                    </Text>
-                  </Flex>
-                </CapabilityItem>
-              ))}
-            </Flex>
+              }
+            ]}
+          >
+            {CAPABILITIES.map(({ icon, title, description }) => (
+              <CapabilityItem key={title}>
+                <CapabilityIcon>{icon}</CapabilityIcon>
+                <Flex css={theme({ flexDirection: 'column', gap: 1 })}>
+                  <Text
+                    css={theme({
+                      fontWeight: 'bold',
+                      fontSize: [1, 1, 2, 2]
+                    })}
+                  >
+                    {title}
+                  </Text>
+                  <Text css={theme({ fontSize: [0, 0, 1, 1] })}>
+                    {description}
+                  </Text>
+                </Flex>
+              </CapabilityItem>
+            ))}
           </Flex>
         </Flex>
       </Flex>
@@ -3489,18 +3174,22 @@ const Capabilities = () => {
 
 const CTA_DURATION = 6.2
 const CTA_SWEEP_PCT = (1.2 / CTA_DURATION) * 100
-const CTA_CHAR_PCT = CTA_SWEEP_PCT / 5
+const CTA_LEAD_TEXT = 'START IT'
+const CTA_LEAD_CHARS = CTA_LEAD_TEXT.split('')
+const CTA_CHAR_PCT = CTA_SWEEP_PCT / CTA_LEAD_CHARS.length
 
 const ctaCharAnim = index => {
   const on = index * CTA_CHAR_PCT
   const off = on + CTA_CHAR_PCT
   return keyframes`
     0%, ${on}%, ${off}%, 100% { color: inherit; }
-    ${on + 0.01}%, ${off - 0.01}% { color: #fd494a; }
+    ${on + 0.01}%, ${off - 0.01}% { color: ${colors.red6}; }
   `
 }
 
-const ctaAnims = Array.from({ length: 5 }, (_, i) => ctaCharAnim(i))
+const ctaAnims = Array.from({ length: CTA_LEAD_CHARS.length }, (_, i) =>
+  ctaCharAnim(i)
+)
 
 const CtaChar = styled('span')`
   animation: ${({ $i }) => ctaAnims[$i]} ${CTA_DURATION}s step-end infinite;
@@ -3508,7 +3197,7 @@ const CtaChar = styled('span')`
 
 const ctaNowAnim = keyframes`
   0%, ${CTA_SWEEP_PCT}% { color: inherit; }
-  ${CTA_SWEEP_PCT + 0.01}%, 100% { color: #fd494a; }
+  ${CTA_SWEEP_PCT + 0.01}%, 100% { color: ${colors.red6}; }
 `
 
 const CtaNow = styled('span')`
@@ -3522,8 +3211,7 @@ const CallToAction = () => (
       alignItems: 'center',
       maxWidth: '100%',
       bg: 'white',
-      pt: [3, 3, 5, 5],
-      pb: [5, 5, 6, 6]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Flex
@@ -3541,12 +3229,12 @@ const CallToAction = () => (
           textAlign: 'center'
         })}
       >
-        {'Start'.split('').map((char, i) => (
+        {CTA_LEAD_CHARS.map((char, i) => (
           <CtaChar key={i} $i={i}>
             {char}
           </CtaChar>
         ))}{' '}
-        <CtaNow>now</CtaNow>
+        <CtaNow>NOW</CtaNow>
       </Subhead>
       <Caption
         forwardedAs='div'
@@ -3590,7 +3278,7 @@ const CallToAction = () => (
               css={theme({
                 alignItems: 'center',
                 gap: 1,
-                color: 'black60',
+                color: 'black80',
                 fontSize: [0, 0, 1, 1]
               })}
             >
@@ -3607,9 +3295,14 @@ const CallToAction = () => (
 const ProductInformation = () => {
   return (
     <Faq
-      title='Screenshot API FAQ'
+      title='Product Information'
       titleSize={['40px', 4, 5, 5]}
-      caption='Everything you need to know about our website screenshot API and web screenshot service.'
+      caption={
+        <>
+          Everything you need to know about <LineBreak /> Microlink website
+          screenshot API.
+        </>
+      }
       css={theme({
         pb: [5, 5, 6, 6],
         bg: 'pinky',
@@ -3815,7 +3508,7 @@ const ScreenshotPage = () => {
 
   return (
     <Layout>
-      <Hero onRequestTiming={handleRequestTiming} />
+      <Hero onRequestTiming={handleRequestTiming} heroLayout={HERO_LAYOUT} />
       <Timings
         timingMs={timingMs}
         timingUrl={timingUrl}
@@ -3831,15 +3524,26 @@ const ScreenshotPage = () => {
       <Features
         css={theme({ px: 4, pb: 5 })}
         title={
-          <Subhead css={{ width: '100%', textAlign: 'left' }}>
+          <Subhead
+            css={theme({
+              width: '100%',
+              textAlign: 'left',
+              fontSize: [
+                4,
+                4,
+                `calc(${fontSizes[6]} - 1px)`,
+                `calc(${fontSizes[6]} - 1px)`
+              ]
+            })}
+          >
             The best screenshot API,{' '}
             <span
-              css={{
+              css={theme({
                 display: 'block',
-                color: '#fd494a',
+                color: 'red6',
                 width: '100%',
                 textAlign: 'left'
-              }}
+              })}
             >
               with no compromises.
             </span>

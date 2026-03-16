@@ -7,9 +7,19 @@ import { Bot as BotIcon } from 'components/icons/Bot'
 import { Award as AwardIcon } from 'components/icons/Award'
 import { Building2 as Building2Icon } from 'components/icons/Building2'
 import { Bug as BugIcon } from 'components/icons/Bug'
+import { Camera as CameraIcon } from 'components/icons/Camera'
 import { Files as FilesIcon } from 'components/icons/Files'
 import { Focus as FocusIcon } from 'components/icons/Focus'
 import { Inbox as InboxIcon } from 'components/icons/Inbox'
+import {
+  Layers,
+  BarChart2,
+  Image,
+  Map,
+  Users,
+  Activity,
+  Film
+} from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
 import { PDF as PDFIcon } from 'components/icons/PDF'
@@ -21,7 +31,6 @@ import { GitHub as GitHubBrand } from 'components/icons/GitHub'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import { theme } from 'theme'
 import styled from 'styled-components'
-import { BarChart2, Image, Map, Users, Activity } from 'react-feather'
 import NavLink from './NavLink'
 
 export const ToolbarNavLink = styled(NavLink)`
@@ -44,6 +53,12 @@ export const ToolbarNavLink = styled(NavLink)`
 `
 
 const docsMatcher = ({ location }) => location.pathname.startsWith('/docs')
+const screenshotToolMatcher = ({ location }) =>
+  [
+    '/tools/website-screenshot',
+    '/tools/website-screenshot/full-page',
+    '/tools/website-screenshot/mobile'
+  ].some(path => location.pathname === path)
 const compactNumberFormatter = new Intl.NumberFormat('en-US', {
   notation: 'compact',
   maximumFractionDigits: 0
@@ -115,6 +130,22 @@ export const SOCIAL_NAV_ITEMS = [
   })
 ]
 
+export const TOOLS_INTEGRATIONS_ITEMS = [
+  createNavigationItem({
+    label: 'SDK',
+    href: '/sdk',
+    description: 'Beautiful link previews',
+    icon: TerminalIcon
+  }),
+  createNavigationItem({
+    label: 'Geolocation',
+    href: 'https://geolocation.microlink.io',
+    description: 'IP & request insights',
+    externalIcon: false,
+    icon: GlobeIcon
+  })
+]
+
 const UNAVATAR_LOGO =
   'data:image/png;base64,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'
 
@@ -171,27 +202,36 @@ export const NAVIGATION_SECTIONS = [
   },
   {
     label: 'Tools',
-    description: 'Utilities to test and validate your metadata integrations.',
-    columns: 3,
+    description: 'Browse and use tools built on top of the Microlink API.',
+    columns: 2,
     items: [
+      createNavigationItem({
+        label: 'Website Screenshot',
+        href: '/tools/website-screenshot',
+        actively: screenshotToolMatcher,
+        description: 'Capture any website as a screenshot',
+        icon: CameraIcon
+      }),
+      createNavigationItem({
+        label: 'Bulk Screenshots',
+        href: '/tools/website-screenshot/bulk',
+        actively: 'exact',
+        description: 'Capture multiple websites as screenshots in one go',
+        icon: Layers
+      }),
+      createNavigationItem({
+        label: 'Animated Screenshot',
+        href: '/tools/website-screenshot/animated',
+        actively: 'exact',
+        description: 'Generate animated website screenshots',
+        icon: Film
+      }),
       createNavigationItem({
         label: 'Sharing Debugger',
         href: '/tools/sharing-debugger',
+        actively: 'exact',
         description: 'Preview social cards before publishing links',
         icon: BugIcon
-      }),
-      createNavigationItem({
-        label: 'SDK',
-        href: '/sdk',
-        description: 'Ship API integrations faster across platforms',
-        icon: TerminalIcon
-      }),
-      createNavigationItem({
-        label: 'Geolocation',
-        href: 'https://geolocation.microlink.io',
-        description: 'Get detailed information about the incoming request',
-        externalIcon: false,
-        icon: GlobeIcon
       })
     ]
   },

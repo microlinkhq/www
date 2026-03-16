@@ -346,6 +346,7 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
 
   const baseUrl =
     process.env.MICROLINK_MARKDOWN_BASE_URL || 'https://microlink.io'
+
   const pages = result.data.allMdx.edges
 
   const startTime = Date.now()
