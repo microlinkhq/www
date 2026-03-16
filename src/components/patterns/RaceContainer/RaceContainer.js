@@ -547,9 +547,15 @@ const LeaderboardRow = styled('div')`
   background: ${({ $rank }) => ($rank === 0 ? colors.green0 : colors.black05)};
   border: ${borders[1]}
     ${({ $rank }) => ($rank === 0 ? colors.green2 : colors.black10)};
-  animation: ${fadeIn} 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  animation-delay: ${({ $rank }) => $rank * 80}ms;
-  opacity: 0;
+  animation: ${({ $animate }) =>
+    $animate
+      ? css`
+        ${fadeIn} 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards
+      `
+      : 'none'};
+  animation-delay: ${({ $animate, $rank }) =>
+    $animate ? `${$rank * 80}ms` : '0s'};
+  opacity: ${({ $animate }) => ($animate ? 0 : 1)};
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     ${theme({ py: '10px', px: '14px', gap: '10px' })};
@@ -569,6 +575,7 @@ const LeaderName = styled('span')`
   font-weight: ${({ $rank }) => ($rank === 0 ? '700' : '500')};
   color: ${({ $rank }) => ($rank === 0 ? colors.green7 : colors.black)};
   flex: 1;
+  min-width: 0;
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     ${theme({ fontSize: 0 })};
@@ -580,6 +587,8 @@ const LeaderTime = styled('span')`
   font-weight: 600;
   color: ${({ $rank }) => ($rank === 0 ? colors.green7 : colors.black)};
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  flex-shrink: 0;
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     ${theme({ fontSize: 0 })};
@@ -592,6 +601,8 @@ const LeaderDelta = styled('span')`
   font-variant-numeric: tabular-nums;
   ${theme({ width: fontSizes[6] })};
   text-align: right;
+  flex-shrink: 0;
+  white-space: nowrap;
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     display: none;
@@ -631,18 +642,20 @@ const MetricTab = styled('button')`
 `
 
 const RaceButton = styled('button')`
-  ${theme({ fontFamily: 'mono', fontSize: 1, fontWeight: 'regular' })};
+  ${theme({ fontFamily: 'mono', fontSize: 1, py: radii[3], px: '18px' })};
+  font-weight: 600;
   background: transparent;
-  border: 0;
-  border-radius: 0;
-  padding: 0;
+  border: ${borders[1]} ${colors.black10};
+  border-radius: ${radii[3]};
   color: ${colors.black};
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: color ${transition.medium};
+  transition: background ${transition.medium}, border-color ${transition.medium},
+    color ${transition.medium};
 
   &:hover {
+    background: ${colors.black05};
     color: ${colors.black};
   }
 
@@ -739,6 +752,7 @@ const RaceContainer = ({
     useState(initCumulativeTimes)
   const [rankedOrder, setRankedOrder] = useState(ALPHABETICAL_SERVICES)
   const rankedOrderRef = useRef(ALPHABETICAL_SERVICES)
+  const [leaderboardEntered, setLeaderboardEntered] = useState(false)
   const [isReordering, setIsReordering] = useState(false)
   const [isSumming, setIsSumming] = useState(false)
   const [isAnnouncing, setIsAnnouncing] = useState(false)
@@ -939,6 +953,7 @@ const RaceContainer = ({
     setIsSumming(false)
     setIsAnnouncing(false)
     setAnnouncingUrl(null)
+    setLeaderboardEntered(false)
     setPhase('racing')
     setModeIndex(0)
     if (modeTimerRef.current) {
@@ -992,10 +1007,15 @@ const RaceContainer = ({
 
   useEffect(() => {
     if (phase === 'finished') {
+      const t = setTimeout(() => setLeaderboardEntered(true), 1000)
       modeTimerRef.current = setTimeout(() => {
         setModeIndex(1)
         modeTimerRef.current = null
       }, 5000)
+      return () => {
+        clearTimeout(t)
+        if (modeTimerRef.current) clearTimeout(modeTimerRef.current)
+      }
     } else if (modeTimerRef.current) {
       clearTimeout(modeTimerRef.current)
       modeTimerRef.current = null
@@ -1011,9 +1031,25 @@ const RaceContainer = ({
     }
   }, [])
 
+  const prevPhaseRef = useRef(phase)
+  const prevModeRef = useRef(modeIndex)
+
   useEffect(() => {
     const el = innerRef.current
     if (!el) return
+
+    const phaseChanged = prevPhaseRef.current !== phase
+    const modeChanged = prevModeRef.current !== modeIndex
+    prevPhaseRef.current = phase
+    prevModeRef.current = modeIndex
+
+    if (phase === 'finished' && modeChanged && !phaseChanged) {
+      el.style.transition = 'none'
+      el.style.height = 'auto'
+      el.getBoundingClientRect()
+      el.style.transition = ''
+      return
+    }
 
     const prevHeight = el.offsetHeight
     el.style.height = 'auto'
@@ -1021,7 +1057,7 @@ const RaceContainer = ({
 
     if (prevHeight && prevHeight !== nextHeight) {
       el.style.height = `${prevHeight}px`
-      el.getBoundingClientRect() // force reflow
+      el.getBoundingClientRect()
       el.style.height = `${nextHeight}px`
     } else {
       el.style.height = `${nextHeight}px`
@@ -1268,7 +1304,11 @@ const RaceContainer = ({
                     const delta = val - bestVal
 
                     return (
-                      <LeaderboardRow key={key} $rank={rank}>
+                      <LeaderboardRow
+                        key={key}
+                        $rank={rank}
+                        $animate={!leaderboardEntered}
+                      >
                         <RankBadge $rank={rank}>#{rank + 1}</RankBadge>
                         <LeaderName $rank={rank}>{svc.name}</LeaderName>
                         <LeaderDelta>
