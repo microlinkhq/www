@@ -1,6 +1,6 @@
 ---
-title: 'Functions'
-description: 'Run arbitrary JavaScript inside a headless browser with full Puppeteer access. Use functions when none of the built-in parameters cover your workflow.'
+title: 'Function'
+description: "Run custom JavaScript remotely inside Microlink's headless browser, return exactly the result you need, and know when to reach for functions over simpler workflows."
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
@@ -8,220 +8,248 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
-The `function` parameter lets you run JavaScript code inside the headless browser that Microlink uses to render pages. This gives you full access to the browser page via Puppeteer, allowing you to do things that no combination of built-in parameters can achieve.
+The `function` parameter is Microlink's escape hatch. When `data`, `metadata`, `screenshot`, or `pdf` gets you close but not all the way, you can send JavaScript that Microlink executes remotely inside the same headless Chromium request.
+
+You keep the no-infrastructure model: no Lambda bundle, no browser fleet, and no server to maintain. Microlink executes the code in a safe remote runtime with Puppeteer access and wraps the result under `data.function`, with the resolved value at `data.function.value`.
 
 ## Your first function
 
-Pass a JavaScript function as a string. It receives `page` (a Puppeteer [Page](https://pptr.dev/api/puppeteer.page) object) and `html` (the page markup):
+Pass a JavaScript function as a string. This example uses a public MDN page and the simplest reliable Puppeteer helper, `page.title()`:
 
 <MultiCodeEditorInteractive mqlCode={{
-  url: 'https://example.com',
+  url: 'https://developer.mozilla.org/en-US/docs/Web/API/Document/title',
   function: '({ page }) => page.title()',
   meta: false
 }} />
 
-<Figcaption>The function runs inside the headless browser after the page loads. The return value appears under <code>data.function</code>.</Figcaption>
+<Figcaption>The function runs remotely after the page loads. On success, Microlink returns the result at <code>data.function.value</code>. The examples in this guide use fully public pages and <code>meta: false</code> to keep them friendly to the free plan.</Figcaption>
 
-The response includes the returned value:
+The response contains the returned value:
 
 ```json
 {
   "status": "success",
   "data": {
-    "function": "Example Domain"
+    "function": {
+      "isFulfilled": true,
+      "value": "Document: title property - Web APIs | MDN"
+    }
   }
 }
 ```
 
-## What the function receives
+## MQL installation
+
+To run the JavaScript examples with MQL, install `@microlink/mql`:
+
+```bash
+npm install @microlink/mql --save
+```
+
+It works in Node.js, Edge runtimes, and the browser. You can still call the API from any HTTP client, but MQL is usually the easiest option once your function needs serialization or compression.
+
+If you prefer a higher-level wrapper, [`@microlink/function`](https://www.npmjs.com/package/@microlink/function) decorates a local function and sends it to the same remote runtime described in this guide. It is useful when you want to author reusable "serverless-style" helpers instead of managing `code.toString()` yourself.
+
+## How function execution works
+
+Every function request follows the same flow:
+
+1. Microlink opens the target `url` in headless Chromium.
+2. The request can also include page-preparation parameters such as `scripts`, `modules`, `click`, or `waitForSelector`.
+3. Microlink calls your function with `page`, `response`, `html`, and any extra parameters you passed in the request.
+4. Whatever your function returns or resolves to is wrapped into `data.function`, and the actual result is available at `data.function.value`.
+
+Because `function` is just another Microlink parameter, you can also combine it with other workflows in the same request, such as `screenshot: true` or `pdf: true`, when you need custom page preparation before generating the final output.
+
+## Choose the lightest tool
+
+Use `function` when the built-in parameters stop being expressive enough, not as the default for every workflow.
+
+| If you need | Best option | Why |
+|-------------|-------------|-----|
+| Simple field extraction from the DOM | `data` | Declarative rules are shorter, easier to maintain, and easier to reuse |
+| Inject CSS or JavaScript before another workflow | `styles`, `modules`, or `scripts` | Lighter than full browser automation |
+| Click, wait, compute, reshape, or orchestrate custom logic | `function` | You get Puppeteer access plus a curated `require()` allowlist |
+
+For simpler extraction flows, start with <Link href='/docs/guides/data-extraction' children='data extraction' /> and only escalate to `function` when the declarative approach becomes limiting.
+
+## What your function receives
 
 Your function is called with an object containing:
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `page` | [Page](https://pptr.dev/api/puppeteer.page) | The Puppeteer page object — full browser control |
-| `response` | [HTTPResponse](https://pptr.dev/api/puppeteer.httpresponse) | The result of the implicit `page.goto` |
-| `html` | `string` | The target URL's HTML markup |
+| `page` | [Page](https://pptr.dev/api/puppeteer.page) | Full Puppeteer access for clicks, waits, evaluation, navigation, and page inspection |
+| `response` | [HTTPResponse](https://pptr.dev/api/puppeteer.httpresponse) | The response returned by the implicit navigation |
+| `html` | `string` | Page markup when available. If you disable metadata and still need HTML, prefer `page.content()` |
+| any extra parameter | depends on what you pass | Custom inputs such as selectors, flags, thresholds, or field names |
 
-Plus any query parameter you include in the request.
+That last point is important: any extra parameter you include in the request is forwarded to the function as a property on the first argument.
 
-## Evaluate code in the browser context
+In practice, most first implementations should start with `page` helpers such as `page.title()`, `page.$eval()`, or `page.$$eval()`. They are easier to read and easier to debug than reaching for a large `page.evaluate(...)` block immediately.
 
-The most common pattern is using `page.evaluate` to run code inside the page's JavaScript context:
+## Pass your own parameters
 
-<MultiCodeEditorInteractive mqlCode={{
-  url: 'https://news.ycombinator.com',
-  function: '({ page }) => page.evaluate(() => document.querySelectorAll(".titleline > a").length)',
+<MultiCodeEditorInteractive height={250} mqlCode={{
+  url: 'https://developer.mozilla.org/en-US/docs/Web/API/Document/title',
+  function: `({ page, label }) =>
+  page.title().then(title => ({ label, title }))`,
+  label: 'Current page title',
   meta: false
 }} />
 
-<Figcaption>Count the number of story links on the page. <code>page.evaluate</code> runs inside the browser, not in Node.js.</Figcaption>
+<Figcaption>The custom <code>label</code> parameter is forwarded into the function. This is the simplest way to make one function reusable across different requests.</Figcaption>
+
+## Two execution contexts
+
+There are two different places your code can run, and it helps to keep them separate in your head:
+
+| Code runs in | Good for | Can access |
+|--------------|----------|------------|
+| The outer `function` body | Orchestration, Puppeteer calls, `require()`, and response shaping | `page`, `response`, forwarded params, and allowed npm packages |
+| `page.evaluate(...)` | Reading or computing values from the live DOM when page helpers are not enough | `window`, `document`, `performance`, and page state |
+
+A good rule of thumb: start with Puppeteer helpers such as `page.title()`, `page.$eval()`, and `page.$$eval()`. Reach for `page.evaluate(...)` only when the logic truly belongs inside the page context. Do not rely on `require()` inside `page.evaluate`.
 
 ## Return structured data
 
-Functions can return objects, arrays, or any JSON-serializable value:
+Functions can return strings, numbers, booleans, arrays, or plain objects, so they are a good fit when the result shape is unique to your application:
 
-<MultiCodeEditorInteractive height={280} mqlCode={{
-  url: 'https://news.ycombinator.com',
-  function: `({ page }) => page.evaluate(() => {
-  const stories = [...document.querySelectorAll('.athing')]
-  return stories.slice(0, 3).map(el => ({
-    title: el.querySelector('.titleline > a')?.textContent,
-    href: el.querySelector('.titleline > a')?.href
-  }))
-})`,
+<MultiCodeEditorInteractive height={300} mqlCode={{
+  url: 'https://developer.mozilla.org/en-US/docs/Web/API/Document/title',
+  function: `({ page }) =>
+  page.title().then(title => ({
+    title,
+    titleLength: title.length,
+    words: title.split(/\\s+/)
+  }))`,
   meta: false
 }} />
 
-<Figcaption>Extract the first 3 stories as structured objects.</Figcaption>
+<Figcaption>Returning an object is often more useful than returning a single string. Here the function shapes the page title into a small JSON payload your application can consume directly.</Figcaption>
 
-## Inject scripts before running
+## When you really need page.evaluate
 
-Use `scripts` to load libraries before your function runs:
+Use `page.evaluate(...)` when the information only exists inside the live browser page:
 
-<MultiCodeEditorInteractive height={240} mqlCode={{
-  url: 'https://microlink.io',
-  function: '({ page }) => page.evaluate("jQuery.fn.jquery")',
-  scripts: ['https://code.jquery.com/jquery-3.5.0.min.js'],
+```js
+const { data } = await mql('https://developer.mozilla.org/en-US/docs/Web/API/Document/title', {
+  function: `({ page }) => page.evaluate(() => ({
+    heading: document.querySelector('main h1')?.textContent?.trim(),
+    codeExamples: document.querySelectorAll('pre').length
+  }))`,
   meta: false
-}} />
+})
 
-<Figcaption>Load jQuery into the page, then use it inside the function.</Figcaption>
+console.log(data.function.value)
+```
+
+That pattern is powerful, but it is also more fragile than `page.title()` or `page.$eval()`. Start with the page helpers first, then move into `page.evaluate(...)` when you need direct access to `document`, `window`, or browser-only APIs.
 
 ## Use npm packages
 
-You can `require()` a curated set of npm packages at runtime:
+The function runtime can `require()` a curated allowlist of packages. That makes it useful for parsing, retries, HTML processing, HTTP calls, and response shaping without running your own serverless infrastructure.
 
-```js
-const mql = require('@microlink/mql')
-
-const code = ({ response }) => {
-  const { result } = require('lodash')
-  return result(response, 'status')
-}
-
-const { data } = await mql('https://example.com', {
-  function: code.toString(),
+<MultiCodeEditorInteractive height={310} mqlCode={{
+  url: 'https://developer.mozilla.org/en-US/docs/Web/API/Document/title',
+  function: `({ page }) =>
+  page.title().then(title => {
+    const { words, kebabCase } = require('lodash')
+    return {
+      title,
+      words: words(title),
+      slug: kebabCase(title)
+    }
+  })`,
   meta: false
-})
-```
+}} />
 
-Supported packages include `cheerio`, `lodash`, `got`, `jsdom`, `@mozilla/readability`, `ioredis`, `@aws-sdk/client-s3`, and others. See the <Link href='/docs/api/parameters/function' children='function reference' /> for the full list.
+<Figcaption>The outer function can use allowed packages such as <code>lodash</code>. Here it turns the page title into both an array of words and a slug-like string.</Figcaption>
+
+Common choices include `cheerio`, `lodash`, `got`, `jsdom`, `@mozilla/readability`, `ioredis`, and `metascraper`. See the <Link href='/docs/api/parameters/function' children='function reference' /> for the documented allowlist.
+
+## Skip metadata for faster runs
+
+Most function-only workflows do not need normalized metadata such as title, description, image, or logo. In those cases, set `meta: false`:
+
+<MultiCodeEditorInteractive height={200} mqlCode={{
+  url: 'https://developer.mozilla.org/en-US/docs/Web/API/Document/title',
+  function: '({ page }) => page.title()',
+  meta: false
+}} />
+
+<Figcaption>Disabling metadata is usually the biggest speedup for function requests. If you still need the rendered markup, call <code>page.content()</code> inside the function instead of enabling metadata just to read the page HTML.</Figcaption>
 
 ## Compress large functions
 
-When the function body is large, compress it to keep the URL short:
+When the function body gets too large for a comfortable query string, compress it before sending it:
 
 ```js
 const { compressToURI } = require('lz-ts')
+const mql = require('@microlink/mql')
 
-const code = ({ page }) => page.evaluate(() => {
-  // ... large extraction logic ...
-})
+const code = ({ page }) => page.title()
 
-const { data } = await mql('https://example.com', {
+const { data } = await mql('https://developer.mozilla.org/en-US/docs/Web/API/Document/title', {
   function: `lz#${compressToURI(code.toString())}`,
   meta: false
 })
+
+console.log(data.function.value)
 ```
 
-Prefix the compressed string with the algorithm alias: `lz#` (lz-string), `br#` (brotli), or `gz#` (gzip).
+Prefix the compressed payload with the algorithm alias:
 
-## Passing parameters
+- `lz#` for lz-string
+- `br#` for brotli
+- `gz#` for gzip
 
-Any extra query parameter you include in the request is passed to your function:
+## Free tier, API key, and local testing
 
-<MultiCodeEditorInteractive height={240} mqlCode={{
-  url: 'https://example.com',
-  function: '({ page, selector }) => page.evaluate((sel) => document.querySelector(sel)?.textContent, selector)',
-  selector: 'h1',
-  meta: false
+The free endpoint is enough to prototype function workflows and run the examples in this guide. If the same request also needs parameters such as `headers`, `proxy`, `ttl`, or `staleTtl`, those controls require a <ProBadge /> plan.
+
+To authenticate, pass your API key as `x-api-key`:
+
+<MultiCodeEditorInteractive height={220} mqlCode={{
+  url: 'https://developer.mozilla.org/en-US/docs/Web/API/Document/title',
+  function: '({ page }) => page.title()',
+  meta: false,
+  apiKey: 'YOUR_API_TOKEN'
 }} />
 
-<Figcaption>The <code>selector</code> parameter is forwarded to the function as a property.</Figcaption>
+<Figcaption>You can enter your API key in interactive examples by clicking the key icon in the terminal toolbar.</Figcaption>
 
-## Real-world examples
+For local development, test the same function logic with [@microlink/local](https://github.com/microlinkhq/local). It is useful when you want to iterate on browser automation locally before sending the request to the hosted API.
 
-These examples show what makes functions powerful: you get a headless browser, npm packages, and Puppeteer access through a single API call, with zero infrastructure on your side.
+See the <Link href='/docs/api/basics/authentication' children='authentication' /> and <Link href='/docs/api/basics/rate-limit' children='rate limit' /> docs for the exact endpoint and quota details.
 
-### Scrape structured data with Cheerio
+## Common failure modes
 
-Use `cheerio` to parse rendered HTML and reshape it into exactly the JSON structure you need:
+These are the two function-specific errors you will hit most often:
 
-<MultiCodeEditorInteractive height={370} mqlCode={{
-  url: 'https://news.ycombinator.com',
-  function: `({ page }) => page.content().then(html => {
-  const cheerio = require('cheerio')
-  const $ = cheerio.load(html)
-  return $('.athing').toArray().slice(0, 5).map(el => ({
-    rank: $(el).find('.rank').text().trim(),
-    title: $(el).find('.titleline > a').first().text(),
-    href: $(el).find('.titleline > a').first().attr('href')
-  }))
-})`,
-  meta: false
-}} />
+- `EINVALFUNCTION` — the function string has invalid JavaScript syntax. Check quotes, brackets, template strings, and arrow function formatting.
+- `EINVALEVAL` — the function executed but threw at runtime. Check undefined variables, DOM queries that return `null`, or mistakes inside `page.evaluate`.
 
-<Figcaption>Microlink renders the page in a real browser, then Cheerio parses the result with jQuery-style selectors. No Puppeteer setup on your end.</Figcaption>
+If a function request starts getting slow or flaky:
 
-### Multi-step browser interaction
+1. Reduce it to a trivial check such as `({ page }) => page.title()`.
+2. Set `meta: false` unless metadata is part of the requirement.
+3. Replace fixed waits with `waitForSelector` whenever possible.
+4. Move DOM-only code into `page.evaluate`, and keep orchestration in the outer function.
 
-Use Puppeteer's `page` object to click, wait, and extract — things that static scraping cannot do:
+For timeouts, blocked sites, auth issues, and debug headers that apply to every workflow, see <Link href='/docs/guides/common/troubleshooting' children='common troubleshooting' />.
 
-<MultiCodeEditorInteractive height={340} mqlCode={{
-  url: 'https://microlink.io',
-  function: `({ page }) => page.evaluate(() => {
-  const links = [...document.querySelectorAll('a[href]')]
-  const external = links
-    .filter(a => a.hostname !== location.hostname)
-    .map(a => ({ text: a.textContent.trim(), href: a.href }))
-    .filter(a => a.text.length > 0)
-  return { total: external.length, links: external.slice(0, 10) }
-})`,
-  meta: false
-}} />
+## What's next
 
-<Figcaption>Run arbitrary JavaScript inside a fully rendered page. Extract computed values, filter by runtime conditions, or query the live DOM — all through a single API call.</Figcaption>
+Pick the next page based on what is blocking you now:
 
-### Capture performance metrics
+- **[Common troubleshooting](/docs/guides/common/troubleshooting)** — debug timeouts, blocked sites, and plan/auth problems.
+- **[Common caching patterns](/docs/guides/common/caching)** — reduce cost and improve response speed once the function logic is stable.
+- **[Common private pages](/docs/guides/common/private-pages)** — run functions against logged-in, session-based, or personalized pages safely.
+- **[Production patterns](/docs/guides/common/production-patterns)** — add retries, endpoint selection, and monitoring for real integrations.
 
-Access browser-level APIs that are impossible without a real browser environment:
+## See also
 
-<MultiCodeEditorInteractive height={280} mqlCode={{
-  url: 'https://example.com',
-  function: `({ page }) => page.evaluate(() => {
-  const perf = performance.getEntriesByType('navigation')[0]
-  return {
-    dns: Math.round(perf.domainLookupEnd - perf.domainLookupStart),
-    tcp: Math.round(perf.connectEnd - perf.connectStart),
-    ttfb: Math.round(perf.responseStart - perf.requestStart),
-    domReady: Math.round(perf.domContentLoadedEventEnd - perf.startTime),
-    load: Math.round(perf.loadEventEnd - perf.startTime)
-  }
-})`,
-  meta: false
-}} />
-
-<Figcaption>Get real Navigation Timing metrics from a full browser render. Useful for synthetic monitoring without managing your own browser fleet.</Figcaption>
-
-## When to use functions
-
-Use `function` when:
-
-- You need Puppeteer-level browser control (navigation, clicks, form fills, multi-step flows).
-- The data you need requires JavaScript execution or DOM manipulation that `data` rules cannot express.
-- You want to combine extraction with external npm packages.
-- You need to interact with APIs or perform computations inside the browser context.
-
-For simpler extractions, prefer `data` rules — they are easier to write, cache better, and are more maintainable. See the <Link href='/docs/guides/data-extraction' children='data extraction guide' />.
-
-## Caching and performance
-
-A function follow the same <Link href='/docs/guides/common/caching' children='caching patterns' /> as all other workflows. The key speedup is `meta: false` since most function workflows do not need normalized metadata.
-
-## Error handling
-
-- `EINVALFUNCTION` — the function has a JavaScript syntax error. Check brackets, quotes, and arrow function formatting.
-- `EINVALEVAL` — the function executed but threw a runtime error. Check for undefined variables, incorrect DOM queries, or unsupported operations.
-
-See the full <Link href='/docs/api/basics/error-codes' children='error codes reference' /> and <Link href='/docs/guides/common/troubleshooting' children='common troubleshooting' /> for other errors.
+- <Link href='/docs/guides/data-extraction' children='Data extraction' /> — if declarative rules are enough and you want the simplest possible extraction workflow.
+- <Link href='/docs/guides/screenshot/page-interaction' children='Screenshot: page interaction' /> — if you mainly need to prepare a page before taking a screenshot.
+- <Link href='/docs/guides/pdf/page-preparation' children='PDF: page preparation' /> — if your real goal is to clean up or wait for the page before printing to PDF.
