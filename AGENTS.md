@@ -23,10 +23,12 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: Decompose raw CSS declarations into styled-system keys whenever possible (for example use `py`/`px` instead of `padding`, `mt`/`mb` instead of `margin`, and `borderBottom` + `borderBottomColor` instead of raw `border-bottom`).
 - MUST: For border tokens, prefer tokenized border props over string interpolation: `borderBottom: 1` + `borderBottomColor: 'black05'` (or `borderColor` if all sides share the same color).
 - MUST: Consolidate related tokenized properties into a single `theme({...})` call per selector block (and per media block), instead of multiple adjacent `theme(...)` calls.
+- MUST: Prefer responsive arrays/objects for styled-system props inside one `theme({...})` call (for example `p: [3, 3, 4, 4]`) instead of token-only media-query overrides.
 - MUST: Prefer semantic token references in `theme({...})`, such as `fontFamily: 'mono'`, `fontWeight: 'bold'`, `color: 'black'`, `fontSize: 1`, `lineHeight: 0`, `letterSpacing: 0`.
 - MUST: Apply the same rule inside styled components and inline `css={theme({...})}` objects.
 - NEVER: Use raw token interpolation (for example `font-size: ${fontSizes[0]}`) when the same style can be expressed via `theme({...})`.
 - NEVER: Split tokenized style values across raw CSS and multiple `theme(...)` calls when one `theme({...})` object can express them.
+- NEVER: Add media queries only to change styled-system token values that can be expressed as responsive arrays/objects in `theme({...})`.
 - SHOULD: Keep raw CSS only for unsupported/states-only patterns (for example keyframes, browser-specific values, or dynamic runtime computed styles).
 
 ## Interactions

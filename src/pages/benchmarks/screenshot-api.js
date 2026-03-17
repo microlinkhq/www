@@ -436,20 +436,40 @@ const ComparisonTable = styled('table')`
   }
 `
 
-const WinnerTag = styled('span')`
-  ${theme({
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: 1,
-    fontFamily: 'mono',
-    fontSize: 0,
-    fontWeight: 'bold',
+const UI_TAG_VARIANTS = {
+  success: {
     color: 'green7',
     bg: 'green0',
-    borderRadius: 2
-  })};
-  border: ${borders[1]} ${colors.green2};
-  padding: ${radii[1]} ${SPACE_6};
+    borderColor: 'green2'
+  },
+  warning: {
+    color: 'yellow8',
+    bg: 'yellow0',
+    borderColor: 'yellow3'
+  }
+}
+
+const SquareBadge = styled(Text).attrs({ as: 'span' })`
+  ${({ $variant = 'success' }) => {
+    const { bg, borderColor, color } =
+      UI_TAG_VARIANTS[$variant] || UI_TAG_VARIANTS.success
+
+    return theme({
+      display: 'inline-flex',
+      alignItems: 'center',
+      fontFamily: 'mono',
+      fontSize: '10px',
+      fontWeight: 'bold',
+      letterSpacing: 0,
+      bg,
+      borderRadius: 2,
+      border: 1,
+      borderColor,
+      px: 1,
+      textTransform: 'uppercase',
+      color
+    })
+  }};
 `
 
 const ProviderNameWithTag = styled('span')`
@@ -844,14 +864,10 @@ const Methodology = () => (
         </MethodologyItem>
       </MethodologyList>
       <CalloutBox>
-        <CalloutLabel css={theme({ mb: 4 })}>Transparency note</CalloutLabel>
-        <Text
-          css={theme({
-            fontSize: [0, 0, 1, 1],
-            color: 'black',
-            lineHeight: 3
-          })}
-        >
+        <SquareBadge $variant='warning' css={theme({ mb: 3 })}>
+          Transparency note
+        </SquareBadge>
+        <Text>
           <strong>Regarding ApiFlash:</strong> During our testing, ApiFlash
           consistently struggled with the framer.com payload, returning response
           times approaching 30&nbsp;seconds. Because this metric was a
@@ -860,26 +876,13 @@ const Methodology = () => (
           server locations. The response times remained consistently slow.
         </Text>
         <br />
-        <Text
-          css={theme({
-            fontSize: [0, 0, 1, 1],
-            color: 'black',
-            lineHeight: 3
-          })}
-        >
+        <Text>
           In the interest of absolute transparency and fairness to the other
           providers who successfully handled the complex DOM, we have chosen to
           publish the raw, unedited data exactly as it was&nbsp;recorded.
         </Text>
         <br />
-        <Text
-          css={theme({
-            fontSize: [0, 0, 1, 1],
-            color: 'black',
-            lineHeight: 3,
-            mt: 2
-          })}
-        >
+        <Text>
           For context: if framer.com were excluded from the dataset, ApiFlash's
           average cold duration would drop from{' '}
           <span css={theme({ fontFamily: 'mono' })}>9,702.57&thinsp;ms</span> to{' '}
@@ -895,25 +898,14 @@ const Methodology = () => (
       <Text
         css={theme({
           fontSize: [0, 0, 1, 1],
-          color: 'black',
-          lineHeight: 3
+          color: 'black60'
         })}
       >
         The complete testing architecture is{' '}
         <Link href='https://github.com/microlinkhq/benchmarks/tree/main/screenshot'>
           open source on GitHub
         </Link>
-        . Last run:{' '}
-        <span
-          css={theme({
-            fontFamily: 'mono',
-            fontSize: 1,
-            fontVariantNumeric: 'tabular-nums'
-          })}
-        >
-          March,&nbsp;2026
-        </span>
-        .
+        . Last run: March,&nbsp;2026.
       </Text>
     </Flex>
   </Container>
@@ -1004,7 +996,7 @@ const CompetitorComparison = () => {
                         >
                           {svc.name}
                         </span>
-                        {isMicrolink && <WinnerTag>Fastest</WinnerTag>}
+                        {isMicrolink && <SquareBadge>Fastest</SquareBadge>}
                       </ProviderNameWithTag>
                     </td>
                     <td
@@ -1591,27 +1583,20 @@ const WhyLatencyMatters = () => (
 )
 
 const CalloutBox = styled('blockquote')`
-  ${theme({ position: 'relative', m: 0, p: 4, bg: 'white', borderRadius: 4 })};
-  border: ${borders[1]} ${colors.yellow6};
-  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-    ${theme({ p: 3 })};
-  }
-`
-
-const CalloutLabel = styled('span')`
   ${theme({
-    display: 'inline-block',
-    fontFamily: 'mono',
     fontSize: 0,
-    fontWeight: 'bold',
-    letterSpacing: 0,
-    color: 'yellow8',
-    bg: 'yellow0',
-    borderRadius: 2
+    position: 'relative',
+    m: 0,
+    p: [3, 3, 4, 4],
+    bg: 'white',
+    borderRadius: 4,
+    border: 1,
+    borderColor: 'yellow6'
   })};
-  text-transform: uppercase;
-  border: ${borders[1]} ${colors.yellow3};
-  padding: ${radii[1]} ${space[2]};
+
+  div {
+    ${theme({ fontSize: 0, color: 'black80' })}
+  }
 `
 
 const FAQ_ITEMS = [
