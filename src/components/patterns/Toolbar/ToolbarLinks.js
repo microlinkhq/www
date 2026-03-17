@@ -18,7 +18,8 @@ import {
   Map,
   Users,
   Activity,
-  Film
+  Film,
+  Zap
 } from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
@@ -265,6 +266,12 @@ export const NAVIGATION_SECTIONS = [
         icon: Building2Icon
       }),
       createNavigationItem({
+        label: 'Benchmark',
+        href: '/benchmarks/screenshot-api',
+        description: 'Compare screenshot API speed and reliability',
+        icon: Zap
+      }),
+      createNavigationItem({
         label: 'Changelog',
         href: '/changelog',
         description: 'Track shipped improvements and platform releases',
@@ -281,12 +288,6 @@ export const NAVIGATION_SECTIONS = [
         href: '/status',
         description: 'Monitor uptime and incident history in real time',
         icon: Activity
-      }),
-      createNavigationItem({
-        label: 'Formats',
-        href: '/formats',
-        description: 'See every supported format and coverage details',
-        icon: FilesIcon
       }),
       createNavigationItem({
         label: 'Recipes',
