@@ -52,13 +52,27 @@ const AnchorLink = styled.a`
   }
 `
 
+const extractText = children => {
+  if (typeof children === 'string') return children
+  if (typeof children === 'number') return String(children)
+  if (children == null || typeof children === 'boolean') return ''
+  if (Array.isArray(children)) return children.map(extractText).join('')
+  return ''
+}
+
 export const withSlug = Component => {
   const SlugWrapper = ({ children, slug, ...props }) => {
-    if (typeof children !== 'string' || slug === false) {
+    if (slug === false) {
       return createElement(Component, props, children)
     }
 
-    const { id = slugger(children), ...rest } = props
+    const text = extractText(children).trim()
+
+    if (!text) {
+      return createElement(Component, props, children)
+    }
+
+    const { id = slugger(text), ...rest } = props
 
     return (
       <Component id={id} {...rest}>

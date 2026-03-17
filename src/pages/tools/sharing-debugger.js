@@ -11,8 +11,9 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 
 export const Head = () => (
   <Meta
-    title='Sharing Debugger Tool'
-    description='Debug and validate metadata HTML markup, including Open Graph, microdata, RDFa, JSON-LD, and more. Preview how your URL appears on major social networks instantly.'
+    title='Sharing Debugger Tool: Free Open Graph & Meta Tags Validator'
+    description='Validate Open Graph, Twitter Cards, JSON-LD, and meta tags for any URL. Preview how your links appear on Facebook, WhatsApp, X, LinkedIn, and Slack.'
+    noSuffix
     image={cdnUrl('banner/sharing-debugger.jpeg')}
     schemaType='SoftwareApplication'
     structured={{
@@ -21,30 +22,36 @@ export const Head = () => (
       '@id': 'https://microlink.io/tools/sharing-debugger',
       name: 'Microlink Sharing Debugger',
       description:
-        'Debug and validate metadata HTML markup, including Open Graph, microdata, RDFa, JSON-LD, and more. Preview social media sharing across platforms.',
+        'Validate Open Graph, Twitter Cards, JSON-LD, microdata, and RDFa markup for any URL. Preview how links appear across social networks and fix metadata issues instantly.',
       url: 'https://microlink.io/tools/sharing-debugger',
-      applicationCategory: ['DeveloperApplication', 'Tool'],
-      keywords: [
-        'sharing debugger',
-        'Open Graph debugger',
-        'metadata validator',
-        'HTML markup debugger',
-        'microdata validator',
-        'RDFa debugger',
-        'JSON-LD validator',
-        'social media preview',
-        'meta tags validator',
-        'SEO debugging tool'
-      ],
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Web, Platform-Agnostic',
+      keywords:
+        'sharing debugger, Open Graph debugger, meta tags validator, social media preview, Twitter Card validator, JSON-LD validator, og:image checker, link preview tool',
+      provider: {
+        '@type': 'Organization',
+        name: 'Microlink',
+        url: 'https://microlink.io'
+      },
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+        description: 'Free online tool with no login required.',
+        priceValidUntil: '2028-12-31'
+      },
       about: [
-        { '@type': 'Thing', name: 'Open Graph Debugger' },
-        { '@type': 'Thing', name: 'Microdata Validator' },
-        { '@type': 'Thing', name: 'RDFa Debugger' },
-        { '@type': 'Thing', name: 'JSON-LD Validator' },
-        { '@type': 'Thing', name: 'HTML Markup Validator' },
-        { '@type': 'Thing', name: 'Social Media Preview Tool' },
-        { '@type': 'Thing', name: 'Meta Tags Validator' },
-        { '@type': 'Thing', name: 'SEO Debugging Tool' }
+        {
+          '@type': 'Thing',
+          name: 'Open Graph protocol',
+          sameAs:
+            'https://en.wikipedia.org/wiki/Facebook_Platform#Open_Graph_protocol'
+        },
+        {
+          '@type': 'Thing',
+          name: 'Metadata',
+          sameAs: 'https://en.wikipedia.org/wiki/Metadata'
+        }
       ]
     }}
   />
@@ -149,7 +156,7 @@ const SharingDebugger = () => {
                 <div>
                   You can automate your Open Graph and SEO audit workflow using
                   the{' '}
-                  <Link href='/docs/api/parameters/meta' logoIcon>
+                  <Link href='/docs/guides/metadata' logoIcon>
                     Microlink API
                   </Link>
                   . This allows you to programmatically validate metadata for
@@ -194,11 +201,11 @@ const SharingDebugger = () => {
                   generic logos get ignored.
                   <br />
                   <br />
-                  Microlink solves this by treating your screenshots as an{' '}
+                  Microlink solves this with its{' '}
                   <Link href='/screenshot' logoIcon>
-                    Screenshot API
-                  </Link>
-                  .
+                    screenshot API
+                  </Link>{' '}
+                  — pass a URL, get a production-ready image back.
                   <MultiCodeEditorInteractive
                     mqlCode={{
                       url: 'https://www.netflix.com/title/80057281',
@@ -207,7 +214,7 @@ const SharingDebugger = () => {
                   />
                   Instead of storing static JPEGs, simply pass your page's URL
                   to{' '}
-                  <Link href='/docs/api/parameters/screenshot' logoIcon>
+                  <Link href='/docs/guides/screenshot' logoIcon>
                     Microlink with screenshot=true
                   </Link>
                   . We spin up a headless browser, capture the viewport, and
