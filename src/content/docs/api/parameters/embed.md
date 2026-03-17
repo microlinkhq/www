@@ -51,7 +51,7 @@ Use embedded URLs directly in stylesheets:
 
 ```css
 .hero-background {
-  background-image: url(/images/image-1.png);
+  background-image: url("/images/image-1.png");
   background-size: cover;
 }
 ```
