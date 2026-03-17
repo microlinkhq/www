@@ -84,7 +84,11 @@ export const Hero = () => {
               <Heading>Sharing debugger</Heading>
               <Caption
                 forwardedAs='h2'
-                css={theme({ pt: '20px', px: [4, 0], fontSize: '25px' })}
+                css={theme({
+                  pt: '20px',
+                  px: [4, 0],
+                  fontSize: [2, 2, '25px', '25px']
+                })}
               >
                 Debug and validate metadata HTML markup, including Open Graph,
                 microdata, RDFa, JSON-LD, and more. Preview how your URL appears
@@ -95,6 +99,7 @@ export const Hero = () => {
                 <Flex
                   as='form'
                   css={theme({
+                    mt: [2, 2, 3, 3],
                     pt: [3, 3, 4, 4],
                     pb: 4,
                     mx: [0, 0, 'auto', 'auto'],
@@ -108,7 +113,7 @@ export const Hero = () => {
                       id='sharing-debugger-url'
                       css={theme({
                         fontSize: 2,
-                        width: ['100%', '100%', 128, 128]
+                        width: ['100%', 256, 256, 256]
                       })}
                       iconComponent={
                         <InputIcon.Microlink url={!isInitialData && url} />
@@ -120,7 +125,7 @@ export const Hero = () => {
                     />
                   </Box>
                   <Button
-                    css={theme({ mt: [3, 0, 0, 0], ml: [0, 2, 2, 2] })}
+                    css={theme({ mt: [3, 3, 0, 0], ml: [0, 2, 2, 2] })}
                     loading={isLoading}
                   >
                     <Caps css={theme({ fontSize: 1 })}>Preview</Caps>
@@ -157,10 +162,10 @@ export const Hero = () => {
                               bg: 'transparent',
                               color: isActive ? 'black' : 'black40',
                               display: 'flex',
-                              height: '20px',
-                              width: '20px',
-                              minWidth: '20px',
-                              minHeight: '20px',
+                              height: '24px',
+                              width: '24px',
+                              minWidth: '24px',
+                              minHeight: '24px',
                               justifyContent: 'center',
                               p: 0,
                               _hover: {
