@@ -312,11 +312,13 @@ const ToolbarMobile = () => {
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             onClick={toggleOpen}
           >
-            {isOpen ? (
-              <X size={20} color={colors.black80} />
-            ) : (
-              <MobileMenuIcon />
-            )}
+            {isOpen
+              ? (
+                <X size={20} color={colors.black80} />
+                )
+              : (
+                <MobileMenuIcon />
+                )}
           </MenuButton>
         </Flex>
       </Toolbar>

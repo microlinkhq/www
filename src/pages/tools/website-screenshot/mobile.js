@@ -357,8 +357,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               id='ws-phone'
               value={options.phoneId}
               onChange={e =>
-                setOptions(prev => ({ ...prev, phoneId: e.target.value }))
-              }
+                setOptions(prev => ({ ...prev, phoneId: e.target.value }))}
               aria-label='Select phone model'
             >
               {PHONE_DEVICES.map(phone => (
@@ -379,8 +378,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 setOptions(prev => ({
                   ...prev,
                   landscape: val === 'landscape'
-                }))
-              }
+                }))}
             />
           </Box>
 
@@ -392,8 +390,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 setOptions(prev => ({
                   ...prev,
                   fullPage: e.target.checked
-                }))
-              }
+                }))}
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Full page screenshot
@@ -423,8 +420,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
-              }
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -449,8 +445,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))
-              }
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -546,17 +541,17 @@ const ScreenshotTool = () => {
         PHONE_DEVICES.find(p => p.id === options.phoneId) || PHONE_DEVICES[0]
       const viewport = options.landscape
         ? {
-          width: phone.height,
-          height: phone.width,
-          isMobile: true,
-          isLandscape: true
-        }
+            width: phone.height,
+            height: phone.width,
+            isMobile: true,
+            isLandscape: true
+          }
         : {
-          width: phone.width,
-          height: phone.height,
-          isMobile: true,
-          isLandscape: false
-        }
+            width: phone.width,
+            height: phone.height,
+            isMobile: true,
+            isLandscape: false
+          }
 
       setRequestedViewport(viewport)
       setIsLoading(true)

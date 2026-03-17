@@ -785,7 +785,7 @@ const Hero = () => (
               })}
               style={{ fontVariantNumeric: 'tabular-nums' }}
               dangerouslySetInnerHTML={{ __html: value }}
-            ></Text>
+            />
             <Flex
               css={theme({
                 flexDirection: 'row',
@@ -802,7 +802,7 @@ const Hero = () => (
                   fontWeight: 'bold'
                 })}
                 dangerouslySetInnerHTML={{ __html: label }}
-              ></Caps>
+              />
             </Flex>
           </Flex>
         </Flex>
@@ -1131,7 +1131,7 @@ const WhySwitchSection = () => (
             style={{
               background: 'rgba(255, 255, 255, 0.08)',
               backdropFilter: 'blur(8px)',
-              border: `1px solid rgba(255, 255, 255, 0.12)`
+              border: '1px solid rgba(255, 255, 255, 0.12)'
             }}
           >
             <Text
@@ -1182,7 +1182,7 @@ const HonestySection = () => (
         css={theme({ pb: [4, 4, 5, 5], fontSize: [4, 4, 5, 5], pt: 3 })}
         titleize={false}
       >
-        Where <GradientText>Screenshot One</GradientText> <br></br> Might Be the
+        Where <GradientText>Screenshot One</GradientText> <br /> Might Be the
         Right Choice
       </Subhead>
 
