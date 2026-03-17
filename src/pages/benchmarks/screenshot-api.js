@@ -1685,7 +1685,7 @@ const FAQ_ITEMS = [
         <div>
           Screenshot APIs handle browser lifecycle, rendering, scaling, and
           anti-bot mitigation so developers can focus on their product.{' '}
-          <Link href='/docs/api/parameters/screenshot'>See how it works</Link>.
+          <Link href='/docs/guides/screenshot'>See how it works</Link>.
         </div>
       </>
     ),
@@ -1851,7 +1851,7 @@ const BottomCta = () => {
           })}
         >
           <Link
-            href='/docs/api/parameters/screenshot'
+            href='/docs/guides/screenshot'
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
             Start now for free

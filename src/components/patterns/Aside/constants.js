@@ -745,6 +745,10 @@ const ROUTES_GUIDES = [
             href: '/docs/guides/common/private-pages'
           },
           {
+            name: 'Proxy',
+            href: '/docs/guides/common/proxy'
+          },
+          {
             name: 'Troubleshooting',
             href: '/docs/guides/common/troubleshooting'
           },
