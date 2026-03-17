@@ -86,6 +86,13 @@ module.exports = {
       }
     },
     {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: path.join(__dirname, 'data/skills-content'),
+        name: 'skills-content'
+      }
+    },
+    {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
         siteUrl: CANONICAL_URL

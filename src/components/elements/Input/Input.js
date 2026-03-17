@@ -31,20 +31,20 @@ const StyledInputBase = styled(Text)(
 const InputBase = props => <StyledInputBase as='input' type='text' {...props} />
 
 const focusStyle = css`
-  border-color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
+  border-color: ${colors.black80};
   svg {
-    stroke: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
-    color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
+    stroke: ${colors.black80};
+    color: ${colors.black80};
   }
 `
 
 const InputWrapper = styled(Flex).withConfig({
-  shouldForwardProp: prop => !['focus', 'isDark'].includes(prop)
+  shouldForwardProp: prop => !['focus'].includes(prop)
 })`
-  background: ${({ isDark }) => (isDark ? colors.black : colors.white)};
+  background: ${colors.white};
   border: ${borders[1]};
-  border-color: ${({ isDark }) => (isDark ? colors.white20 : colors.black10)};
-  color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
+  border-color: ${colors.black10};
+  color: ${colors.black80};
   transition: border-color, stroke, color, box-shadow ${transition.short};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -69,7 +69,6 @@ const Input = ({
   iconComponent: Icon,
   suggestions,
   children,
-  isDark,
   labelCss,
   autoComplete,
   inputMode,
@@ -91,7 +90,6 @@ const Input = ({
     <InputWrapper
       as='label'
       focus={isFocus}
-      isDark={isDark}
       css={theme({
         pr: suggestions ? 0 : 2,
         py: '12px',

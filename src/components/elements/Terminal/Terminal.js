@@ -18,9 +18,9 @@ export const TerminalWindow = styled(Box)`
   overflow: auto;
   border-radius: ${radii[3]};
   border: ${borders[1]};
-  border-color: ${({ $isDark }) => cx($isDark ? 'white10' : 'black10')};
-  background: ${({ $isDark }) => cx($isDark ? 'black' : 'white')};
-  color: ${({ $isDark }) => cx($isDark ? 'white' : 'black')};
+  border-color: ${cx('black10')};
+  background: ${cx('white')};
+  color: ${cx('black')};
 `
 
 export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
@@ -93,9 +93,9 @@ const TerminalButtonRed = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(1),
-            animationDuration
-          }
+          animationDelay: animationDelay(1),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -121,9 +121,9 @@ const TerminalButtonGreen = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(3),
-            animationDuration
-          }
+          animationDelay: animationDelay(3),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -141,11 +141,11 @@ const TerminalTitleWrapper = styled('div')`
   margin-left: -3rem;
 `
 
-export const TerminalTitle = ({ isDark, children }) => (
+export const TerminalTitle = ({ children }) => (
   <TerminalTitleWrapper>
     <Text
       css={theme({
-        color: isDark ? 'white40' : 'black40',
+        color: 'black40',
         fontSize: 0
       })}
     >
@@ -214,7 +214,6 @@ const TerminalProvider = ({
   text,
   children,
   loading = false,
-  isDark = false,
   title,
   header,
   ...props
@@ -225,16 +224,15 @@ const TerminalProvider = ({
     <FadeBackgroundProvider containerRef={containerRef}>
       <TerminalWindow
         ref={containerRef}
-        $isDark={isDark}
         css={theme({ width: TERMINAL_WIDTH })}
         {...props}
       >
-        <TerminalHeader $isDark={isDark} {...header}>
+        <TerminalHeader {...header}>
           <TerminalButton.Red loading={loading} />
           <TerminalButton.Yellow loading={loading} />
           <TerminalButton.Green loading={loading} />
-          <TerminalTitle isDark={isDark}>{title}</TerminalTitle>
-          <ActionComponent isDark={isDark} text={text} />
+          <TerminalTitle>{title}</TerminalTitle>
+          <ActionComponent text={text} />
         </TerminalHeader>
 
         <FadeBackground.Top />

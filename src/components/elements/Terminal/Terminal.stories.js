@@ -48,13 +48,6 @@ storiesOf('Elements', module).add('Terminal', () => (
     </Terminal>
 
     <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
-      {'<Terminal isDark />'}
-    </Text>
-    <Terminal css={theme({ mb: 4 })} title='microlink' isDark>
-      {cmd}
-    </Terminal>
-
-    <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
       {'<Terminal blinkCursor={false} />'}
     </Text>
     <Terminal blinkCursor={false}>

@@ -135,6 +135,34 @@ The `ttl` value is invalid.
 
 The [ttl](/docs/api/parameters/ttl) value should be a value between <Type children="'1m'"/> to <Type children="'31d'"/> range.
 
+## EINVALEVAL
+
+**Message**
+
+The `function` evaluation failed.
+
+**Solution**
+
+The [function](/docs/api/parameters/function) code was executed but failed during evaluation. This typically means your function threw an error or encountered a runtime exception. Check your function code for:
+
+- JavaScript runtime errors
+- Undefined variables or functions
+- Incorrect operations on the page data
+
+## EINVALFUNCTION
+
+**Message**
+
+The `function` code has a syntax error.
+
+**Solution**
+
+The [function](/docs/api/parameters/function) parameter contains invalid JavaScript syntax. Ensure your function:
+
+- Has valid JavaScript syntax
+- Uses proper function formatting (arrow function or regular function)
+- Doesn't contain syntax errors like missing brackets or semicolons
+
 ## EINVALSTTL
 
 **Message**

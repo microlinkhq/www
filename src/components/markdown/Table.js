@@ -20,11 +20,14 @@ const StyledTable = styled(Text)`
 `
 
 export const Table = props => {
-  const { isBlogPage } = useContext(MarkdownContext)
+  const { isBlogPage, isGuidesPage } = useContext(MarkdownContext)
   return (
     <StyledTable
       as='table'
-      css={theme({ mx: isBlogPage ? 'auto' : undefined })}
+      css={theme({
+        mx: isBlogPage ? 'auto' : undefined,
+        fontSize: isGuidesPage ? '18px' : undefined
+      })}
       {...props}
     />
   )
@@ -65,7 +68,16 @@ const StyledTh = styled(Text)`
   }
 `
 
-export const Th = props => <StyledTh as='th' {...props} />
+export const Th = props => {
+  const { isGuidesPage } = useContext(MarkdownContext)
+  return (
+    <StyledTh
+      as='th'
+      css={isGuidesPage ? theme({ fontSize: [1, 1, '20px'] }) : undefined}
+      {...props}
+    />
+  )
+}
 
 const StyledTd = styled(Text)`
   color: ${colors.black80};
@@ -96,4 +108,13 @@ const StyledTd = styled(Text)`
   }
 `
 
-export const Td = props => <StyledTd as='td' {...props} />
+export const Td = props => {
+  const { isGuidesPage } = useContext(MarkdownContext)
+  return (
+    <StyledTd
+      as='td'
+      css={isGuidesPage ? theme({ fontSize: [1, 1, '18px'] }) : undefined}
+      {...props}
+    />
+  )
+}

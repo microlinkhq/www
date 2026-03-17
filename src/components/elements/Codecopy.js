@@ -35,40 +35,26 @@ const CodeCopyWrapper = styled('div')`
     background: black;
   }
 
-  .codecopy__button__dark::before {
-    border-bottom-color: white;
-  }
-  .codecopy__button__dark::after {
-    background: white;
-    color: black;
-  }
-
   .codecopy__icon {
-    fill: ${({ $isDark }) => cx($isDark ? 'white50' : 'black20')};
+    fill: ${cx('black20')};
 
     &:hover {
-      fill: ${({ $isDark }) => cx($isDark ? 'white' : 'black')};
+      fill: ${cx('black')};
     }
   }
 `
 
-const CodeCopy = ({ isDark, text }) => {
+const CodeCopy = ({ text }) => {
   const mounted = useMounted()
 
   return (
-    <CodeCopyWrapper $isDark={isDark}>
+    <CodeCopyWrapper>
       {mounted ? (
-        <CodeCopyBase
-          theme={isDark ? 'dark' : 'light'}
-          interactive
-          text={text}
-        />
+        <CodeCopyBase theme='light' interactive text={text} />
       ) : (
         <button
           type='button'
-          className={`codecopy__button codecopy__button__${
-            isDark ? 'dark' : 'light'
-          }`}
+          className='codecopy__button codecopy__button__light'
           aria-label='Copy to clipboard'
           disabled
           style={{

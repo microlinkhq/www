@@ -139,7 +139,6 @@ export const Code = ({
   children,
   highlightLines,
   highLightLinesSelector,
-  isDark,
   showLineNumbers,
   firstHighlightLine,
   lastHighlightLine,
@@ -178,7 +177,7 @@ export const Code = ({
       $language={language}
       css={`
         ${String(highLightLinesSelector)} {
-          background: ${cx(isDark ? 'white05' : 'black05')};
+          background: ${cx('black05')};
         }
         ${String(firstHighlightLine)} {
           border-top-left-radius: ${radii[2]};
@@ -188,7 +187,7 @@ export const Code = ({
           border-bottom-left-radius: ${radii[2]};
           border-bottom-right-radius: ${radii[2]};
         }
-        ${getLanguageTheme(language, isDark ? 'dark' : 'light') || ''}
+        ${getLanguageTheme(language) || ''}
       `}
     >
       {showLineNumbers && (
@@ -246,7 +245,6 @@ const getLanguage = ({ className, language, title }) => {
 const CodeEditor = ({
   children,
   showLineNumbers = false,
-  isDark = false,
   language: languageProp,
   title = '',
   blinkCursor = false,
@@ -277,9 +275,8 @@ const CodeEditor = ({
 
   return (
     <Terminal
-      id={`codeditor-${hash(children)}-${isDark ? 'dark' : 'light'}`}
+      id={`codeditor-${hash(children)}`}
       title={title}
-      isDark={isDark}
       text={text}
       css={theme({ width: TERMINAL_WIDTH })}
       blinkCursor={blinkCursor}
@@ -290,7 +287,6 @@ const CodeEditor = ({
           firstHighlightLine={firstHighlightLine}
           highlightLines={highlightLines}
           highLightLinesSelector={highLightLinesSelector}
-          isDark={isDark}
           language={language}
           lastHighlightLine={lastHighlightLine}
           showLineNumbers={showLineNumbers}

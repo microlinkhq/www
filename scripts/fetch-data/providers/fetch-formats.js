@@ -1,6 +1,7 @@
 'use strict'
 
 const debug = require('debug-logfmt')('data:providers:formats')
+const { default: pMap } = require('p-map')
 const mql = require('@microlink/mql')
 const { sortBy } = require('lodash')
 const { getType } = require('mime')
@@ -39,59 +40,65 @@ const getConfidence = formats => {
 }
 
 const fn = async () => {
-  const result = []
+  const urls = await fileUrls()
 
-  for (const fileUrl of await fileUrls()) {
-    try {
-      const contentType = getType(fileUrl) || 'application'
-      const [type] = contentType?.split('/') || []
-      const isImage = type === 'image'
+  const result = await pMap(
+    urls,
+    async fileUrl => {
+      try {
+        const contentType = getType(fileUrl) || 'application'
+        const [type] = contentType?.split('/') || []
+        const isImage = type === 'image'
 
-      const { data, response } = await mql(
-        `https://compose-html.vercel.app/?body=${fileUrl}`,
-        {
-          apiKey: process.env.MICROLINK_API_KEY,
-          data: {
-            file: {
-              selector: 'body',
-              type: isImage ? 'image' : 'url'
-            }
-          },
-          ttl: 'max',
-          filter: 'file',
-          prerender: false,
-          // force: true,
-          palette: true
+        const { data, response } = await mql(
+          `https://compose-html.vercel.app/?body=${fileUrl}`,
+          {
+            apiKey: process.env.MICROLINK_API_KEY,
+            data: {
+              file: {
+                selector: 'body',
+                type: isImage ? 'image' : 'url'
+              }
+            },
+            ttl: 'max',
+            filter: 'file',
+            prerender: false,
+            // force: true,
+            palette: true
+          }
+        )
+
+        const { file } = data
+
+        const item = {
+          url: file.url,
+          extension: path.extname(fileUrl).substring(1),
+          type,
+          height: file.height !== null,
+          width: file.width !== null,
+          size: file.size !== null
         }
-      )
 
-      const { file } = data
+        if (isImage) {
+          item.palette = file.palette !== null
+        }
 
-      const item = {
-        url: file.url,
-        extension: path.extname(fileUrl).substring(1),
-        type,
-        height: file.height !== null,
-        width: file.height !== null,
-        size: file.size !== null
+        if (file.duration !== undefined) {
+          item.duration = file.duration !== null
+        }
+
+        debug(response.requestUrl, '→', item)
+        return item
+      } catch (err) {
+        debug.error(fileUrl, err)
+        return null
       }
+    },
+    { concurrency: 4 }
+  )
 
-      if (isImage) {
-        item.palette = file.palette !== null
-      }
-
-      if (file.duration !== undefined) {
-        item.duration = file.duration !== null
-      }
-
-      debug(response.requestUrl, '→', item)
-      result.push(item)
-    } catch (err) {
-      debug.error(fileUrl, err)
-    }
-  }
-
-  return [getConfidence(result), sortBy(result, 'extension')]
+  const validResults = result.filter(Boolean)
+  return [getConfidence(validResults), sortBy(validResults, 'extension')]
 }
 
 module.exports = () =>

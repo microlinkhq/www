@@ -10,4 +10,4 @@ Running a **Microlink Enterprise** plan means:
 
 The physical servers associated with your own Microlink API endpoint can be chosen between 8 locations (🇺🇸 New York, 🇺🇸 San Francisco, 🇳🇱 Amsterdam, 🇸🇬 Singapore, 🇬🇧 London, 🇩🇪 Frankfurt, 🇨🇦 Toronto, or 🇮🇳 Bangalore).
 
-The price model is the same as you Microlink Pro plan, plus <PriceMonthly isDark>500</PriceMonthly> for the extra cost of keeping the dedicated infrastructure running.
+The price model is the same as you Microlink Pro plan, plus <PriceMonthly>500</PriceMonthly> for the extra cost of keeping the dedicated infrastructure running.
