@@ -15,9 +15,9 @@ Default: <Type children="'atom-dark'"/>
 
 It enables code syntax highlighting to beautify HTML markup under JSON/Text content type over the target [url](/docs/api/parameters/url).
 
-![](/images/code-scheme.png)
+![](/images/code-scheme.gif)
 
-<MultiCodeEditorInteractive mqlCode={{ url: 'https://emojipedia-api.vercel.app', screenshot: { codeScheme: 'atom-dark' } }} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://emojipedia-api.vercel.app', screenshot: { codeScheme: 'automad-dark', styles: ['span { line-height: 2 }'] } }} />
 
 The theme can be defined as:
 
