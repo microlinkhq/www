@@ -794,9 +794,15 @@ const Methodology = () => (
             })}
           >
             <strong>Heavy Browser Workloads:</strong> We didn't just test simple
-            viewport captures. The payload configurations forced high device
-            scale factors (Retina/2&times; resolution), full-page scrolling, and
-            active ad-blocking across a mix of static HTML and heavy
+            viewport captures. The payload configurations forced high{' '}
+            <Link href='/docs/api/parameters/viewport'>
+              device scale factors
+            </Link>{' '}
+            (Retina/2&times; resolution),{' '}
+            <Link href='/tools/website-screenshot/full-page'>
+              full-page scrolling
+            </Link>
+            , and active ad-blocking across a mix of static HTML and heavy
             React&nbsp;SPAs.
           </Text>
         </MethodologyItem>
@@ -903,8 +909,8 @@ const Methodology = () => (
           color: 'black60'
         })}
       >
-        The complete testing architecture is{' '}
-        <Link href='https://github.com/microlinkhq/benchmarks/tree/main/screenshot'>
+        The complete testing data is{' '}
+        <Link href='https://github.com/microlinkhq/benchmarks/tree/main/screenshot/runs/2026-03'>
           open source on GitHub
         </Link>
         . Last run: March,&nbsp;2026.
@@ -1074,21 +1080,15 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : isMax
-                              ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                                )
-                              : isSecond
-                                ? (
-                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                                  )
-                                : (
-                                    formatMs(times[i])
-                                  )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
@@ -1435,10 +1435,13 @@ const CompetitorComparison = () => {
               </span>
               ) performed consistently, placing them in the middle of the pack.
               Both services handle standard web pages well, but still lag behind
-              Microlink's optimized browser infrastructure. Microlink
-              outperformed both services by roughly 30–32% on average,
-              demonstrating consistently lower latency across all 7&nbsp;test
-              URLs.
+              Microlink's optimized{' '}
+              <Link href='/blog/browser-automation'>
+                browser infrastructure
+              </Link>
+              . Microlink outperformed both services by roughly 30–32% on
+              average, demonstrating consistently lower latency across all
+              7&nbsp;test URLs.
             </Text>
           </Box>
 
@@ -1473,9 +1476,11 @@ const CompetitorComparison = () => {
               domain (screenshotone.com), it required over 12&nbsp;seconds to
               resolve the request. Microlink handled the same domain in
               5.4&nbsp;seconds. For teams already utilizing ScreenshotOne,
-              switching to Microlink provides the same headless browser
-              capabilities while cutting the average response time nearly
-              in&nbsp;half.
+              switching to Microlink provides the same{' '}
+              <Link href='/blog/what-is-a-headless-browser'>
+                headless browser capabilities
+              </Link>{' '}
+              while cutting the average response time nearly in&nbsp;half.
             </Text>
           </Box>
         </Flex>
@@ -1519,9 +1524,10 @@ const WhyLatencyMatters = () => (
         })}
       >
         When you transition from managing your own headless browser
-        infrastructure (like Puppeteer or Playwright) to outsourcing it to a
-        managed API, you introduce a network hop into your critical path. If
-        your provider is slow, every downstream system inherits
+        infrastructure (like <Link href='https://pptr.dev/'>Puppeteer</Link> or{' '}
+        <Link href='https://playwright.dev/'>Playwright</Link>) to outsourcing
+        it to a managed API, you introduce a network hop into your critical
+        path. If your provider is slow, every downstream system inherits
         that&nbsp;latency.
       </Text>
       <Subhead
@@ -1543,10 +1549,11 @@ const WhyLatencyMatters = () => (
         })}
       >
         For multimodal AI agents and LLMs, browser latency compounds
-        exponentially. Modern agents rely on both structured DOM extraction and
-        visual grounding (screenshots) to observe web state and make decisions.
-        When a single page capture takes 10–15&nbsp;seconds, a multi-step
-        reasoning loop quickly stalls&nbsp;out.
+        exponentially. Modern agents rely on both structured DOM extraction and{' '}
+        <Link href='/docs/guides/screenshot/embedding'>visual grounding</Link>{' '}
+        (screenshots) to observe web state and make decisions. When a single
+        page capture takes 10–15&nbsp;seconds, a multi-step reasoning loop
+        quickly stalls&nbsp;out.
       </Text>
       <Text
         css={theme({
@@ -1558,9 +1565,11 @@ const WhyLatencyMatters = () => (
         <Link href='/screenshot'>Microlink</Link> is built to keep this cycle as
         tight as physically possible. It includes a built-in{' '}
         <Link href='/docs/api/parameters/proxy'>proxy layer</Link> that handles
-        IP rotation and mitigates anti-bot blocking (403s, CAPTCHAs)
-        out-of-the-box. This ensures your agents get reliable access to target
-        URLs without you having to maintain complex, failing proxy&nbsp;pools.
+        IP rotation and mitigates{' '}
+        <Link href='/blog/antibot-detection-at-scale'>anti-bot blocking</Link>{' '}
+        (403s, CAPTCHAs) out-of-the-box. This ensures your agents get reliable
+        access to target URLs without you having to maintain complex, failing
+        proxy&nbsp;pools.
       </Text>
       <Subhead
         forwardedAs='h3'
@@ -1580,10 +1589,11 @@ const WhyLatencyMatters = () => (
           lineHeight: 3
         })}
       >
-        Even a highly optimized Headless Chrome boot and SPA render takes
-        3–4&nbsp;seconds. Because browser automation is inherently heavy, your
-        infrastructure provider shouldn't add unnecessary network or routing
-        overhead.
+        Even a highly optimized{' '}
+        <Link href='/blog/what-is-a-headless-browser'>Headless Chrome</Link>{' '}
+        boot and SPA render takes 3–4&nbsp;seconds. Because browser automation
+        is inherently heavy, your infrastructure provider shouldn't add
+        unnecessary network or routing overhead.
       </Text>
       <Text
         css={theme({
@@ -1596,8 +1606,8 @@ const WhyLatencyMatters = () => (
         forced to abandon synchronous code. Developers have to over-engineer
         workarounds: webhook callbacks, background job queues (Redis/Celery),
         and aggressive retry logic to handle timeouts. By minimizing cold-start
-        latency, <Link href='/screenshot'>Microlink</Link> keeps response times
-        within manageable synchronous limits, simplifying your
+        latency, <Link href='/'>Microlink</Link> keeps response times within
+        manageable synchronous limits, simplifying your
         system&nbsp;architecture.
       </Text>
     </Flex>
@@ -1644,9 +1654,13 @@ const FAQ_ITEMS = [
       <>
         <div>
           Cold-start latency is the total time from sending an HTTP request to
-          receiving the final screenshot, with no warm caches or pre-booted
-          browsers. It measures the real-world worst case: Headless Chrome boot,
-          DNS resolution, DOM render, and pixel capture.
+          receiving the final screenshot, with no warm{' '}
+          <Link href='/docs/guides/screenshot/caching-and-performance'>
+            caches
+          </Link>{' '}
+          or pre-booted browsers. It measures the real-world worst case:
+          Headless Chrome boot, DNS resolution, DOM render, and
+          pixel&nbsp;capture.
         </div>
         <div>
           This metric matters because it determines whether your system can
@@ -1662,10 +1676,16 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. <Link href='/screenshot'>Microlink</Link> offers 50 free
-          screenshot requests per day with no account, no login, and no credit
-          card required. The free tier includes full browser control, adblock,
-          cookie banner removal, and metadata extraction.
+          Yes. Microlink offers 50 free screenshot requests per day with no
+          account, no login, and no credit card required. The free tier includes{' '}
+          <Link href='/docs/guides/screenshot/browser-settings'>
+            full browser control
+          </Link>
+          , adblock,{' '}
+          <Link href='/blog/microlink-adblock-now-handles-cookie-banners'>
+            cookie banner removal
+          </Link>
+          , and <Link href='/metadata'>metadata extraction</Link>.
         </div>
         <div>
           For production workloads, the <Link href='/#pricing'>Pro plan</Link>{' '}
@@ -1683,19 +1703,47 @@ const FAQ_ITEMS = [
       <>
         <div>
           A screenshot API is a managed service that captures visual snapshots
-          of web pages by running a headless browser (typically Chrome) in the
-          cloud. Instead of maintaining your own Puppeteer or Playwright
-          infrastructure, you send an HTTP request with a URL and receive a
-          rendered image.
+          of web pages by running a{' '}
+          <Link href='/blog/what-is-a-headless-browser'>headless browser</Link>{' '}
+          (typically Chrome) in the cloud. Instead of maintaining your own{' '}
+          <Link href='https://pptr.dev/'>Puppeteer</Link>{' '}
+          <Link href='https://playwright.dev/'>Playwright</Link> infrastructure,
+          you send an HTTP request with a URL and receive a rendered image.
         </div>
         <div>
-          Screenshot APIs handle browser lifecycle, rendering, scaling, and
-          anti-bot mitigation so developers can focus on their product.{' '}
+          Screenshot APIs handle browser lifecycle, rendering,{' '}
+          <Link href='/blog/edge-cdn'>caching</Link>, scaling, and anti-bot
+          mitigation so developers can focus on their product.{' '}
           <Link href='/docs/guides/screenshot'>See how it works</Link>.
         </div>
       </>
     ),
     text: 'A screenshot API is a managed service that captures visual snapshots of web pages by running a headless browser (typically Chrome) in the cloud. Instead of maintaining your own Puppeteer or Playwright infrastructure, you send an HTTP request with a URL and receive a rendered image. Screenshot APIs handle browser lifecycle, rendering, scaling, and anti-bot mitigation so developers can focus on their product.'
+  },
+  {
+    question: 'Can I try the screenshot API without signing up?',
+    answer: (
+      <>
+        <div>
+          Yes. The{' '}
+          <Link href='/tools/website-screenshot'>screenshot playground</Link>{' '}
+          lets you capture any URL directly from the browser — no API key, no
+          account, no setup. Configure viewport, format, full-page mode, and
+          device emulation, then preview the result&nbsp;instantly.
+        </div>
+        <div>
+          For more tools — including{' '}
+          <Link href='/tools/website-screenshot/bulk'>bulk screenshots</Link>,{' '}
+          <Link href='/tools/website-screenshot/mobile'>mobile captures</Link>,{' '}
+          <Link href='/tools/website-screenshot/animated'>
+            animated captures
+          </Link>
+          , and a <Link href='/tools/sharing-debugger'>sharing debugger</Link> —
+          check the full <Link href='/tools'>tools page</Link>.
+        </div>
+      </>
+    ),
+    text: 'Yes. The screenshot playground lets you capture any URL directly from the browser \u2014 no API key, no account, no setup. Configure viewport, format, full-page mode, and device emulation, then preview the result instantly. For more tools \u2014 including bulk screenshots, mobile captures, animated captures, and a sharing debugger \u2014 check the full tools page.'
   },
   {
     question: 'Can I use a screenshot API for AI agents?',
@@ -1704,15 +1752,16 @@ const FAQ_ITEMS = [
         <div>
           Yes, and speed is critical for this use case. AI agents rely on
           screenshots for visual grounding during multi-step reasoning loops.
-          When a single capture takes 10–15&nbsp;seconds, the entire agent
+          When a single capture takes 10-15&nbsp;seconds, the entire agent
           workflow stalls.
         </div>
         <div>
-          <Link href='/screenshot'>Microlink</Link> is built to be the eyes of
-          AI agents: sub-5-second cold starts, built-in{' '}
-          <Link href='/docs/api/parameters/proxy'>proxy rotation</Link> to
-          bypass CAPTCHAs and anti-bot blocking, and structured DOM extraction
-          alongside visual&nbsp;capture.
+          Microlink is built to be the eyes of AI agents: sub-5-second cold
+          starts, built-in{' '}
+          <Link href='/docs/guides/common/proxy'>proxy rotation</Link> to bypass
+          CAPTCHAs and anti-bot blocking, and{' '}
+          <Link href='/metadata'>structured DOM extraction</Link> alongside
+          visual&nbsp;capture.
         </div>
       </>
     ),
@@ -1732,9 +1781,10 @@ const FAQ_ITEMS = [
           microlinkhq organization.
         </div>
         <div>
-          You can self-host it for full control, or use the managed API to skip
-          infrastructure work and get automatic scaling, proxy rotation, and
-          global edge&nbsp;deployment.
+          You can self-host it for full control, or use the{' '}
+          <Link href='/#pricing'>managed API</Link> to skip infrastructure work
+          and get automatic scaling, proxy rotation, and global
+          edge&nbsp;deployment.
         </div>
       </>
     ),
