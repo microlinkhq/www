@@ -10,6 +10,8 @@ yarn-error.log
 .envrc
 static/data/
 data/*.json
+data/skills-content/
+data/skills-repo/
 !data/healthcheck.json
 !data/git-timestamps-modified.json
 !data/git-timestamps-created.json
