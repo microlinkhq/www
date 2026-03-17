@@ -5,9 +5,9 @@ description: 'Generate high-quality PDFs from any website using Microlink headle
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Iframe } from 'components/markdown/Iframe'
-import { Type } from 'components/markdown/Type'
+import { Type, TypeContainer } from 'components/markdown/Type'
 
-Type: <Type children='<boolean>'/><br/>
+Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='false'/>
 
 It generates a PDF over the target [url](/docs/api/parameters/url).
@@ -48,11 +48,25 @@ When it's enabled, a new `pdf` data field will be part of the response payload.
 }
 ```
 
+In MQL and SDKs, use `pdf: true` for the default behavior or pass an object when you need PDF-specific options:
+
+```js
+{
+  pdf: {
+    format: 'A4',
+    margin: '1cm',
+    scale: 0.8
+  }
+}
+```
+
+In raw query strings, the same options are expressed with dot notation such as `pdf.format=A4`.
+
 You can configure different specific options, such as [scale](/docs/api/parameters/pdf/scale) or [margin](/docs/api/parameters/pdf/margin):
 
-<MultiCodeEditorInteractive mqlCode={{ url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications', pdf: true, scale: 1, margin: '0.4cm' }} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications', pdf: { scale: 1, margin: '0.4cm' } }} />
 
-Also, combine it with [embed](/docs/api/parameters/embed) for inserting it as HTML markup and refresh it asynchronously in the background (known as _stale_).
+The `data.pdf.url` field is a CDN-hosted PDF URL you can reuse directly. If you want the API URL itself to return the PDF file, combine PDF generation with [embed](/docs/api/parameters/embed) and return `pdf.url` as the response body.
 
 <Container textAlign='center'>
   <a href="https://api.microlink.io/?url=https://rauchg.com/2014/7-principles-of-rich-web-applications&pdf&embed=pdf.url&scale=1&margin=0.4cm" download="How-to-download-file.pdf">

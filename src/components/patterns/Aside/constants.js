@@ -21,10 +21,12 @@ export const SDK = 'SDK'
 export const API = 'API'
 export const MQL = 'MQL'
 export const CARDS = 'Cards'
+export const GUIDES = 'Guides'
 
 export const DEFAULT_ACTIVE_ROUTE_NAME = API
 
 export const getActiveRouteName = ({ pathname }) => {
+  if (pathname.startsWith('/docs/guides')) return GUIDES
   if (pathname.startsWith('/docs/sdk')) return SDK
   if (pathname.startsWith('/docs/api')) return API
   if (pathname.startsWith('/docs/cards')) return CARDS
@@ -33,6 +35,10 @@ export const getActiveRouteName = ({ pathname }) => {
 
 export const DOC_TABS = [
   { name: 'API', path: '/docs/api/getting-started/overview' },
+  {
+    name: 'GUIDES',
+    path: '/docs/guides'
+  },
   {
     name: 'MQL',
     path: '/docs/mql/getting-started/overview'
@@ -545,11 +551,219 @@ const ROUTES_CARDS = [
   }
 ]
 
+const ROUTES_GUIDES = [
+  {
+    name: 'Getting Started',
+    posts: [
+      {
+        name: 'Overview',
+        href: '/docs/guides'
+      },
+      {
+        name: 'What is Microlink',
+        href: '/docs/guides/what-is-microlink'
+      },
+      {
+        name: 'Screenshot',
+        href: '/docs/guides/screenshot',
+        posts: [
+          {
+            name: 'Customizing output',
+            href: '/docs/guides/screenshot/customizing-output'
+          },
+          {
+            name: 'Browser settings',
+            href: '/docs/guides/screenshot/browser-settings'
+          },
+          {
+            name: 'Page interaction',
+            href: '/docs/guides/screenshot/page-interaction'
+          },
+          {
+            name: 'Delivery and embedding',
+            href: '/docs/guides/screenshot/embedding'
+          },
+          {
+            name: 'Caching and performance',
+            href: '/docs/guides/screenshot/caching-and-performance'
+          },
+          {
+            name: 'Private pages',
+            href: '/docs/guides/screenshot/private-pages'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/screenshot/troubleshooting'
+          }
+        ]
+      },
+      {
+        name: 'Data extraction',
+        href: '/docs/guides/data-extraction',
+        posts: [
+          {
+            name: 'Defining rules',
+            href: '/docs/guides/data-extraction/defining-rules'
+          },
+          {
+            name: 'Page preparation',
+            href: '/docs/guides/data-extraction/page-preparation'
+          },
+          {
+            name: 'Delivery and response shaping',
+            href: '/docs/guides/data-extraction/delivery-and-response'
+          },
+          {
+            name: 'Caching and performance',
+            href: '/docs/guides/data-extraction/caching-and-performance'
+          },
+          {
+            name: 'Private pages',
+            href: '/docs/guides/data-extraction/private-pages'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/data-extraction/troubleshooting'
+          }
+        ]
+      },
+      {
+        name: 'Markdown',
+        href: '/docs/guides/markdown',
+        posts: [
+          {
+            name: 'Choosing scope',
+            href: '/docs/guides/markdown/choosing-scope'
+          },
+          {
+            name: 'Delivery and response shaping',
+            href: '/docs/guides/markdown/delivery-and-response'
+          }
+        ]
+      },
+      {
+        name: 'Function',
+        href: '/docs/guides/function',
+        posts: []
+      },
+      {
+        name: 'PDF',
+        href: '/docs/guides/pdf',
+        posts: [
+          {
+            name: 'Page size and layout',
+            href: '/docs/guides/pdf/page-size-and-layout'
+          },
+          {
+            name: 'Page preparation',
+            href: '/docs/guides/pdf/page-preparation'
+          },
+          {
+            name: 'Delivery and embedding',
+            href: '/docs/guides/pdf/embedding'
+          },
+          {
+            name: 'Caching and performance',
+            href: '/docs/guides/pdf/caching-and-performance'
+          },
+          {
+            name: 'Private pages',
+            href: '/docs/guides/pdf/private-pages'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/pdf/troubleshooting'
+          }
+        ]
+      },
+      {
+        name: 'Metadata',
+        href: '/docs/guides/metadata',
+        posts: [
+          {
+            name: 'Choosing fields',
+            href: '/docs/guides/metadata/choosing-fields'
+          },
+          {
+            name: 'Extending results',
+            href: '/docs/guides/metadata/extending-results'
+          },
+          {
+            name: 'Delivery and response shaping',
+            href: '/docs/guides/metadata/delivery-and-response'
+          },
+          {
+            name: 'Page preparation',
+            href: '/docs/guides/metadata/page-preparation'
+          },
+          {
+            name: 'Caching and performance',
+            href: '/docs/guides/metadata/caching-and-performance'
+          },
+          {
+            name: 'Private pages',
+            href: '/docs/guides/metadata/private-pages'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/metadata/troubleshooting'
+          }
+        ]
+      },
+      {
+        name: 'Insights',
+        href: '/docs/guides/insights',
+        posts: [
+          {
+            name: 'Technology detection',
+            href: '/docs/guides/insights/technology-detection'
+          },
+          {
+            name: 'Lighthouse reports',
+            href: '/docs/guides/insights/lighthouse-reports'
+          },
+          {
+            name: 'Caching and performance',
+            href: '/docs/guides/insights/caching-and-performance'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/insights/troubleshooting'
+          }
+        ]
+      },
+      {
+        name: 'Common patterns',
+        href: '/docs/guides/common/caching',
+        posts: [
+          {
+            name: 'Caching patterns',
+            href: '/docs/guides/common/caching'
+          },
+          {
+            name: 'Private pages',
+            href: '/docs/guides/common/private-pages'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/common/troubleshooting'
+          },
+          {
+            name: 'Production patterns',
+            href: '/docs/guides/common/production-patterns'
+          }
+        ]
+      }
+    ]
+  }
+]
+
 export const ROUTES = {
   [SDK]: ROUTES_SDK,
   [MQL]: ROUTES_MQL,
   [CARDS]: ROUTES_CARDS,
-  [API]: ROUTES_API
+  [API]: ROUTES_API,
+  [GUIDES]: ROUTES_GUIDES
 }
 
 export const ALL_ROUTES_NAMES = Object.keys(ROUTES)
