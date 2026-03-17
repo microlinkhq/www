@@ -1408,39 +1408,37 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </ScreenshotApiBar>
             </BrowserWindow>
@@ -1545,28 +1543,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -3219,39 +3215,37 @@ const Capabilities = () => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </ScreenshotApiBar>
           </Box>
@@ -3458,15 +3452,25 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                No. Microlink acts as a fully managed, "backendless" browser
-                service. We maintain the underlying Chromium infrastructure,
-                manage the instance pool, and handle edge caching.
+                No. Microlink acts as a fully managed, "backendless"{' '}
+                <Link href='/blog/what-is-a-headless-browser'>
+                  browser service
+                </Link>
+                . We maintain the underlying Chromium infrastructure, manage the
+                instance pool, and handle{' '}
+                <Link href='/blog/edge-cdn'>edge caching</Link>.
               </div>
               <div>
                 You simply make a REST API call and receive a structured JSON
-                payload or a binary image directly — the easiest way to
-                automatically take screenshots of website pages without
-                maintaining Puppeteer or Playwright on your own servers.
+                payload or a{' '}
+                <Link href='/docs/guides/screenshot/embedding#direct-image-with-embed'>
+                  binary image directly
+                </Link>{' '}
+                — the easiest way to automatically take screenshots of website
+                pages without maintaining{' '}
+                <Link href='https://pptr.dev/'>Puppeteer</Link> or{' '}
+                <Link href='https://playwright.dev/'>Playwright</Link> on your
+                own servers.
               </div>
             </>
           )
@@ -3478,13 +3482,25 @@ const ProductInformation = () => {
               <div>
                 Yes. Our free screenshot API tier provides 50 requests per day
                 with unrestricted access to all browser automation features,
-                including device emulation, custom HTTP headers, and CSS
-                injection.
+                including{' '}
+                <Link href='/docs/api/parameters/device'>device emulation</Link>
+                ,{' '}
+                <Link href='/docs/api/parameters/headers'>
+                  custom HTTP headers
+                </Link>
+                , and{' '}
+                <Link href='/docs/guides/screenshot/page-interaction#injecting-custom-css'>
+                  CSS injection
+                </Link>
+                .
               </div>
               <div>
                 No credit card, account creation, or API key is required to
-                start developing. Just point your code at the endpoint and begin
-                capturing.
+                start developing. Try it instantly in the{' '}
+                <Link href='/tools/website-screenshot'>
+                  screenshot playground
+                </Link>{' '}
+                or point your code at the endpoint and begin capturing.
               </div>
             </>
           )
@@ -3494,9 +3510,12 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                By default, our engine includes a built-in, frequently updated
-                adblocker. It automatically dismisses GDPR cookie consent
-                banners, closes newsletter popups, and removes injected ads.
+                By default, our engine includes a built-in, frequently updated{' '}
+                <Link href='/blog/microlink-adblock-now-handles-cookie-banners'>
+                  adblocker
+                </Link>
+                . It automatically dismisses GDPR cookie consent banners, closes
+                newsletter popups, and removes injected ads.
               </div>
               <div>
                 This ensures your programmatic captures remain clean and focused
@@ -3512,10 +3531,23 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                Absolutely. Our HTML screenshot API provides complete browser
-                control. You can inject custom CSS, execute arbitrary
-                JavaScript, scroll to specific coordinates, or wait for specific
-                DOM elements or network events to load.
+                Absolutely. Our HTML screenshot API provides complete{' '}
+                <Link href='/docs/guides/screenshot/browser-settings'>
+                  browser control
+                </Link>
+                . You can{' '}
+                <Link href='/docs/guides/function'>
+                  execute arbitrary JavaScript
+                </Link>
+                ,{' '}
+                <Link href='/docs/guides/screenshot/page-interaction#scrolling-to-a-section'>
+                  scroll to specific coordinates
+                </Link>
+                ,{' '}
+                <Link href='/docs/guides/screenshot/page-interaction#clicking-elements'>
+                  click on elements
+                </Link>
+                , or wait for specific DOM elements or network events to load.
               </div>
               <div>
                 It is built to handle complex, dynamic SPA (Single Page
@@ -3530,15 +3562,25 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                We guarantee enterprise-grade reliability with a 99.95% uptime
-                SLA. Every request runs in an isolated browser instance to
-                guarantee security and avoid shared-state leaks.
+                We guarantee <Link href='/enterprise'>enterprise-grade</Link>{' '}
+                reliability with a 99.95% uptime SLA. Every request runs in an
+                isolated browser instance to guarantee security and avoid
+                shared-state leaks. Check real-time availability on the{' '}
+                <Link href='/status'>status page</Link>.
               </div>
               <div>
                 For latency: assets are distributed via Cloudflare's 240+ edge
-                locations, meaning cached responses are delivered in
-                milliseconds. For cold starts, our optimized Chromium pool
-                typically responds in under 3 seconds (P95).
+                locations, meaning{' '}
+                <Link href='/docs/guides/screenshot/caching-and-performance'>
+                  cached responses
+                </Link>{' '}
+                are delivered in milliseconds. For cold starts, our optimized
+                Chromium pool typically responds in under 3&nbsp;seconds (P95).
+                See our{' '}
+                <Link href='/benchmarks/screenshot-api'>
+                  independent benchmark
+                </Link>{' '}
+                for detailed provider comparisons.
               </div>
             </>
           )
@@ -3548,14 +3590,27 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                You can export captures as optimized JPEG, PNG, or MP4 formats.
-                We support specific viewport cropping as well as full-page
-                scrolling captures.
+                You can export captures as optimized{' '}
+                <Link href='/docs/guides/screenshot/customizing-output'>
+                  JPEG or PNG
+                </Link>{' '}
+                formats. We support specific viewport cropping as well as{' '}
+                <Link href='/tools/website-screenshot/full-page'>
+                  full-page scrolling captures
+                </Link>{' '}
+                and{' '}
+                <Link href='/tools/website-screenshot/animated'>
+                  animated recordings
+                </Link>
+                .
               </div>
               <div>
                 Depending on your integration, you can request a raw image
-                buffer, or a comprehensive JSON payload that includes the image
-                URL alongside metadata, performance timings, and HTTP headers.
+                buffer via the{' '}
+                <Link href='/docs/api/parameters/embed'>embed parameter</Link>,
+                or a comprehensive JSON payload that includes the image URL
+                alongside <Link href='/metadata'>metadata</Link>, performance
+                timings, and HTTP headers.
               </div>
             </>
           )
@@ -3567,11 +3622,13 @@ const ProductInformation = () => {
               <div>
                 In minutes. Visit our{' '}
                 <Link href='/docs/guides/screenshot'>documentation</Link> for
-                interactive playground examples, official SDKs (Node.js, Python,
-                Ruby, Go), and copy-paste code snippets.
+                interactive playground examples, official{' '}
+                <Link href='/sdk'>SDKs</Link> (Node.js, Python, Ruby, Go), and
+                copy-paste code snippets.
               </div>
               <div>
-                Need architectural advice or have custom requirements? Contact
+                Need architectural advice or have custom requirements? Check our{' '}
+                <Link href='/enterprise'>enterprise offering</Link> or contact
                 our engineering team at{' '}
                 <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
                 .

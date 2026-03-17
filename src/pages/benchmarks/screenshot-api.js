@@ -1080,21 +1080,15 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : isMax
-                              ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                                )
-                              : isSecond
-                                ? (
-                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                                  )
-                                : (
-                                    formatMs(times[i])
-                                  )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
@@ -1712,7 +1706,7 @@ const FAQ_ITEMS = [
           of web pages by running a{' '}
           <Link href='/blog/what-is-a-headless-browser'>headless browser</Link>{' '}
           (typically Chrome) in the cloud. Instead of maintaining your own{' '}
-          <Link href='https://pptr.dev/'>Puppeteer</Link>{' '}
+          <Link href='https://pptr.dev/'>Puppeteer</Link> or{' '}
           <Link href='https://playwright.dev/'>Playwright</Link> infrastructure,
           you send an HTTP request with a URL and receive a rendered image.
         </div>
