@@ -267,9 +267,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
         : null
       const frontmatter = isBlogPage
         ? {
-            ...node.frontmatter,
-            title: formatTitle(node.frontmatter.title)
-          }
+          ...node.frontmatter,
+          title: formatTitle(node.frontmatter.title)
+        }
         : node.frontmatter
       const templatePath = isSkillPage
         ? path.resolve('./src/templates/skill.js')
@@ -349,6 +349,7 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
 
   const baseUrl =
     process.env.MICROLINK_MARKDOWN_BASE_URL || 'https://microlink.io'
+
   const pages = result.data.allMdx.edges
 
   const startTime = Date.now()

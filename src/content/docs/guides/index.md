@@ -27,7 +27,7 @@ New to the API? Start with <Link href='/docs/guides/what-is-microlink' children=
 | Get an image of a website | <Link href='/docs/guides/screenshot' children='Screenshot' /> |
 | Scrape structured data from a page | <Link href='/docs/guides/data-extraction' children='Data extraction' /> |
 | Convert a page to Markdown | <Link href='/docs/guides/markdown' children='Markdown' /> |
-| Run custom JavaScript in a headless browser | <Link href='/docs/guides/function' children='Custom functions' /> |
+| Run custom JavaScript in a headless browser | <Link href='/docs/guides/function' children='Function' /> |
 | Turn a page into a PDF | <Link href='/docs/guides/pdf' children='PDF' /> |
 | Get link preview data (title, image, description) | <Link href='/docs/guides/metadata' children='Metadata' /> |
 | Detect what tech a site uses or run a Lighthouse audit | <Link href='/docs/guides/insights' children='Insights' /> |
@@ -67,7 +67,7 @@ Convert full pages or scoped sections to Markdown. This guide is intentionally s
 - <Link href='/docs/guides/markdown/choosing-scope' children='Choosing scope' /> — choose the right wrapper, prepare the page state, and fix noisy or incomplete Markdown.
 - <Link href='/docs/guides/markdown/delivery-and-response' children='Delivery and response shaping' /> — choose between JSON and direct Markdown responses, then apply the right performance and auth patterns.
 
-## Custom functions
+## Function
 
 Run arbitrary JavaScript inside a headless browser with full Puppeteer access. Use it when none of the built-in parameters cover your workflow.
 
