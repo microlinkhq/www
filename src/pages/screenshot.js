@@ -1038,9 +1038,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
               justifyContent: ['center', 'center', 'center', 'flex-start']
             })}
           >
-            <ArrowLink href='/docs/api/parameters/screenshot'>
-              Get Started
-            </ArrowLink>
+            <ArrowLink href='/docs/guides/screenshot'>Get Started</ArrowLink>
           </Flex>
         </Flex>
         <Flex
@@ -2736,9 +2734,7 @@ const CodeExample = () => {
               justifyContent: ['center', 'center', 'center', 'flex-start']
             })}
           >
-            <ArrowLink href='/docs/api/parameters/screenshot'>
-              Read the docs
-            </ArrowLink>
+            <ArrowLink href='/docs/guides/screenshot'>Read the docs</ArrowLink>
           </Flex>
         </Flex>
         <Flex
@@ -2897,9 +2893,7 @@ const Pricing = () => (
         <Flex
           css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
         >
-          <ArrowLink href='/docs/api/parameters/screenshot'>
-            Get started free
-          </ArrowLink>
+          <ArrowLink href='/docs/guides/screenshot'>Get started free</ArrowLink>
         </Flex>
       </PricingCard>
 
@@ -2945,7 +2939,7 @@ const Pricing = () => (
         <Box css={theme({ pt: 3 })}>
           <PricingCheck>Everything in Free</PricingCheck>
           <PricingCheck>
-            <Link href='/docs/api/parameters/proxy'>
+            <Link href='/docs/guides/common/proxy'>
               Automatic proxy resolution
             </Link>
           </PricingCheck>
@@ -3406,7 +3400,7 @@ const CallToAction = () => (
         })}
       >
         <ArrowLink
-          href='/docs/api/parameters/screenshot'
+          href='/docs/guides/screenshot'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
           Get started free
@@ -3464,15 +3458,25 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                No. Microlink acts as a fully managed, "backendless" browser
-                service. We maintain the underlying Chromium infrastructure,
-                manage the instance pool, and handle edge caching.
+                No. Microlink acts as a fully managed, "backendless"{' '}
+                <Link href='/blog/what-is-a-headless-browser'>
+                  browser service
+                </Link>
+                . We maintain the underlying Chromium infrastructure, manage the
+                instance pool, and handle{' '}
+                <Link href='/blog/edge-cdn'>edge caching</Link>.
               </div>
               <div>
                 You simply make a REST API call and receive a structured JSON
-                payload or a binary image directly — the easiest way to
-                automatically take screenshots of website pages without
-                maintaining Puppeteer or Playwright on your own servers.
+                payload or a{' '}
+                <Link href='/docs/guides/screenshot/embedding#direct-image-with-embed'>
+                  binary image directly
+                </Link>{' '}
+                — the easiest way to automatically take screenshots of website
+                pages without maintaining{' '}
+                <Link href='https://pptr.dev/'>Puppeteer</Link> or{' '}
+                <Link href='https://playwright.dev/'>Playwright</Link> on your
+                own servers.
               </div>
             </>
           )
@@ -3484,13 +3488,25 @@ const ProductInformation = () => {
               <div>
                 Yes. Our free screenshot API tier provides 50 requests per day
                 with unrestricted access to all browser automation features,
-                including device emulation, custom HTTP headers, and CSS
-                injection.
+                including{' '}
+                <Link href='/docs/api/parameters/device'>device emulation</Link>
+                ,{' '}
+                <Link href='/docs/api/parameters/headers'>
+                  custom HTTP headers
+                </Link>
+                , and{' '}
+                <Link href='/docs/guides/screenshot/page-interaction#injecting-custom-css'>
+                  CSS injection
+                </Link>
+                .
               </div>
               <div>
                 No credit card, account creation, or API key is required to
-                start developing. Just point your code at the endpoint and begin
-                capturing.
+                start developing. Try it instantly in the{' '}
+                <Link href='/tools/website-screenshot'>
+                  screenshot playground
+                </Link>{' '}
+                or point your code at the endpoint and begin capturing.
               </div>
             </>
           )
@@ -3500,9 +3516,12 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                By default, our engine includes a built-in, frequently updated
-                adblocker. It automatically dismisses GDPR cookie consent
-                banners, closes newsletter popups, and removes injected ads.
+                By default, our engine includes a built-in, frequently updated{' '}
+                <Link href='/blog/microlink-adblock-now-handles-cookie-banners'>
+                  adblocker
+                </Link>
+                . It automatically dismisses GDPR cookie consent banners, closes
+                newsletter popups, and removes injected ads.
               </div>
               <div>
                 This ensures your programmatic captures remain clean and focused
@@ -3518,10 +3537,17 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                Absolutely. Our HTML screenshot API provides complete browser
-                control. You can inject custom CSS, execute arbitrary
-                JavaScript, scroll to specific coordinates, or wait for specific
-                DOM elements or network events to load.
+                Absolutely. Our HTML screenshot API provides complete{' '}
+                <Link href='/docs/guides/screenshot/browser-settings'>
+                  browser control
+                </Link>
+                . You can execute arbitrary JavaScript via our{' '}
+                <Link href='/docs/guides/function'>functions integration</Link>,
+                or use native parameters to{' '}
+                <Link href='/docs/guides/screenshot/page-interaction'>
+                  scroll, click, and wait
+                </Link>{' '}
+                for specific DOM elements and network events to load.
               </div>
               <div>
                 It is built to handle complex, dynamic SPA (Single Page
@@ -3536,15 +3562,25 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                We guarantee enterprise-grade reliability with a 99.95% uptime
-                SLA. Every request runs in an isolated browser instance to
-                guarantee security and avoid shared-state leaks.
+                We guarantee <Link href='/enterprise'>enterprise-grade</Link>{' '}
+                reliability with a 99.95% uptime SLA. Every request runs in an
+                isolated browser instance to guarantee security and avoid
+                shared-state leaks. Check real-time availability on the{' '}
+                <Link href='/status'>status page</Link>.
               </div>
               <div>
                 For latency: assets are distributed via Cloudflare's 240+ edge
-                locations, meaning cached responses are delivered in
-                milliseconds. For cold starts, our optimized Chromium pool
-                typically responds in under 3 seconds (P95).
+                locations, meaning{' '}
+                <Link href='/docs/guides/screenshot/caching-and-performance'>
+                  cached responses
+                </Link>{' '}
+                are delivered in milliseconds. For cold starts, our optimized
+                Chromium pool typically responds in under 3&nbsp;seconds (P95).
+                See our{' '}
+                <Link href='/benchmarks/screenshot-api'>
+                  independent benchmark
+                </Link>{' '}
+                for detailed provider comparisons.
               </div>
             </>
           )
@@ -3554,14 +3590,27 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                You can export captures as optimized JPEG, PNG, or MP4 formats.
-                We support specific viewport cropping as well as full-page
-                scrolling captures.
+                You can export captures as optimized{' '}
+                <Link href='/docs/guides/screenshot/customizing-output'>
+                  JPEG or PNG
+                </Link>{' '}
+                formats. We support specific viewport cropping, as well as{' '}
+                <Link href='/tools/website-screenshot/full-page'>
+                  full-page scrolling captures
+                </Link>{' '}
+                for long documents. If you need motion, you can even generate{' '}
+                <Link href='/tools/website-screenshot/animated'>
+                  animated recordings
+                </Link>
+                .
               </div>
               <div>
                 Depending on your integration, you can request a raw image
-                buffer, or a comprehensive JSON payload that includes the image
-                URL alongside metadata, performance timings, and HTTP headers.
+                buffer via the{' '}
+                <Link href='/docs/api/parameters/embed'>embed parameter</Link>,
+                or a comprehensive JSON payload that includes the image URL
+                alongside <Link href='/metadata'>metadata</Link>, performance
+                timings, and HTTP headers.
               </div>
             </>
           )
@@ -3572,14 +3621,14 @@ const ProductInformation = () => {
             <>
               <div>
                 In minutes. Visit our{' '}
-                <Link href='/docs/api/parameters/screenshot'>
-                  documentation
-                </Link>{' '}
-                for interactive playground examples, official SDKs (Node.js,
-                Python, Ruby, Go), and copy-paste code snippets.
+                <Link href='/docs/guides/screenshot'>documentation</Link> for
+                interactive playground examples, official{' '}
+                <Link href='/sdk'>SDKs</Link> (Node.js, Python, Ruby, Go), and
+                copy-paste code snippets.
               </div>
               <div>
-                Need architectural advice or have custom requirements? Contact
+                Need architectural advice or have custom requirements? Check our{' '}
+                <Link href='/enterprise'>enterprise offering</Link> or contact
                 our engineering team at{' '}
                 <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
                 .
@@ -3703,10 +3752,7 @@ const ScreenshotPage = () => {
             No more servers to maintain, load balancers, or paying for capacity
             you don’t use — our screenshot service API lets you spend more time
             building, less time configuring, with easy integration via{' '}
-            <Link href='/docs/api/parameters/screenshot'>
-              web screenshot API
-            </Link>
-            .
+            <Link href='/docs/guides/screenshot'>web screenshot API</Link>.
           </>
         }
         features={FEATURES}

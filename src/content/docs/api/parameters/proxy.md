@@ -15,7 +15,7 @@ It sets the proxy HTTP server for resolving any internal sub-requests over the t
 
 We provide an **automatic proxy resolution** included for any [pro plan](/docs/api/basics/endpoint) to handle IP blocking, CAPTCHAs, banners, or any other scraping shield protection. 
 
-Our automatic proxy resolution is well-tested against [Top 500](/blog/proxy-capabilities) most popular worldwide websites.
+Our automatic proxy resolution is well-tested against [Top 500](/blog/microlink-proxy-how-it-works) most popular worldwide websites.
 
 Additionally, you can provide your own proxy server:
 

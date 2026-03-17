@@ -8,7 +8,6 @@ import { Award as AwardIcon } from 'components/icons/Award'
 import { Building2 as Building2Icon } from 'components/icons/Building2'
 import { Bug as BugIcon } from 'components/icons/Bug'
 import { Camera as CameraIcon } from 'components/icons/Camera'
-import { Files as FilesIcon } from 'components/icons/Files'
 import { Focus as FocusIcon } from 'components/icons/Focus'
 import { Inbox as InboxIcon } from 'components/icons/Inbox'
 import {
@@ -18,7 +17,8 @@ import {
   Map,
   Users,
   Activity,
-  Film
+  Film,
+  Zap
 } from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
@@ -265,6 +265,12 @@ export const NAVIGATION_SECTIONS = [
         icon: Building2Icon
       }),
       createNavigationItem({
+        label: 'Benchmark',
+        href: '/benchmarks/screenshot-api',
+        description: 'Compare screenshot API speed and reliability',
+        icon: Zap
+      }),
+      createNavigationItem({
         label: 'Changelog',
         href: '/changelog',
         description: 'Track shipped improvements and platform releases',
@@ -281,12 +287,6 @@ export const NAVIGATION_SECTIONS = [
         href: '/status',
         description: 'Monitor uptime and incident history in real time',
         icon: Activity
-      }),
-      createNavigationItem({
-        label: 'Formats',
-        href: '/formats',
-        description: 'See every supported format and coverage details',
-        icon: FilesIcon
       }),
       createNavigationItem({
         label: 'Recipes',

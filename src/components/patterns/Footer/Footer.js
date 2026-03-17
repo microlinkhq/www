@@ -38,7 +38,7 @@ const FOOTER_COLUMNS = [
       { label: 'Blog', href: '/blog' },
       { label: 'Changelog', href: '/changelog' },
       { label: 'Community', href: '/community' },
-      { label: 'Formats', href: '/formats' },
+      { label: 'Benchmark', href: '/benchmarks/screenshot-api' },
       { label: 'Open Source', href: '/oss' },
       { label: 'Skills', href: '/skills' },
       { label: 'User Agents', href: '/user-agents' }
