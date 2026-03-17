@@ -83,7 +83,9 @@ if [ "$ACTUAL" -ne "$TOTAL" ]; then
 fi
 
 LIST_FILE="$(mktemp)"
-PALETTE_FILE="$(mktemp -t code-scheme-palette).png"
+PALETTE_TMPFILE="$(mktemp)"
+PALETTE_FILE="$PALETTE_TMPFILE.png"
+mv "$PALETTE_TMPFILE" "$PALETTE_FILE"
 
 cleanup() {
   rm -f "$LIST_FILE" "$PALETTE_FILE"
