@@ -1750,13 +1750,13 @@ const REPOS = [
     stars: '2.3k'
   },
   {
-    name: 'unavatar',
+    name: 'html-get',
     org: 'microlinkhq',
     description:
-      'Get the unified avatar for a username, email, or domain — from any provider, in one call.',
+      'Get the HTML from any website, using prerendering when necessary.',
     language: 'JavaScript',
     languageColor: colors.yellow3,
-    stars: '1.2k'
+    stars: '100'
   }
 ]
 
