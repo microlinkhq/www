@@ -41,7 +41,7 @@ Microlink is not a single-purpose tool. It is a general-purpose browser automati
 | **PDF** | Generate a printable document from any page | `pdf` |
 | **Data extraction** | Scrape specific fields using CSS selectors and extraction rules | `data` |
 | **Markdown** | Convert page content to clean Markdown | `data` + `attr: 'markdown'` |
-| **Custom functions** | Run arbitrary JavaScript with full Puppeteer access | `function` |
+| **Function** | Run arbitrary JavaScript with full Puppeteer access | `function` |
 | **Insights** | Detect technologies behind a site or run Lighthouse audits | `insights` |
 
 Every workflow shares the same endpoint, the same caching layer, the same authentication model, and the same response format. Learn one, and the rest follow the same pattern.
@@ -143,7 +143,7 @@ Every Microlink request follows the same lifecycle:
 
 1. **You send a URL** plus optional parameters via HTTP GET.
 2. **Microlink opens the page** in a headless browser (Chromium), handling JavaScript, redirects, and rendering.
-3. **The API executes your request** — metadata extraction, screenshot capture, data rules, custom functions, or any combination.
+3. **The API executes your request** — metadata extraction, screenshot capture, data rules, functions, or any combination.
 4. **Assets are stored on a CDN** and cached according to the TTL you configure.
 5. **You get a JSON response** with the results, or a direct asset response if you use `embed`.
 
@@ -286,7 +286,7 @@ Now that you understand what Microlink does, pick the workflow that matches your
 - **<Link href='/docs/guides/metadata' children='Metadata' />** — get normalized link preview data.
 - **<Link href='/docs/guides/pdf' children='PDF' />** — generate printable documents from any page.
 - **<Link href='/docs/guides/markdown' children='Markdown' />** — convert pages to clean Markdown.
-- **<Link href='/docs/guides/function' children='Custom functions' />** — run JavaScript with full Puppeteer access.
+- **<Link href='/docs/guides/function' children='Function' />** — run JavaScript with full Puppeteer access.
 - **<Link href='/docs/guides/insights' children='Insights' />** — detect technologies or run Lighthouse audits.
 
 Or jump to <Link href='/docs/guides/common/production-patterns' children='production patterns' /> if you are ready to integrate.

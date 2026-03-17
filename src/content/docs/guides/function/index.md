@@ -1,6 +1,6 @@
 ---
-title: 'Custom functions'
-description: 'Run arbitrary JavaScript inside a headless browser with full Puppeteer access. Use custom functions when none of the built-in parameters cover your workflow.'
+title: 'Functions'
+description: 'Run arbitrary JavaScript inside a headless browser with full Puppeteer access. Use functions when none of the built-in parameters cover your workflow.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
@@ -10,7 +10,7 @@ import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 The `function` parameter lets you run JavaScript code inside the headless browser that Microlink uses to render pages. This gives you full access to the browser page via Puppeteer, allowing you to do things that no combination of built-in parameters can achieve.
 
-## Your first custom function
+## Your first function
 
 Pass a JavaScript function as a string. It receives `page` (a Puppeteer [Page](https://pptr.dev/api/puppeteer.page) object) and `html` (the page markup):
 
@@ -127,7 +127,7 @@ const { data } = await mql('https://example.com', {
 
 Prefix the compressed string with the algorithm alias: `lz#` (lz-string), `br#` (brotli), or `gz#` (gzip).
 
-## Pass custom parameters
+## Passing parameters
 
 Any extra query parameter you include in the request is passed to your function:
 
@@ -142,7 +142,7 @@ Any extra query parameter you include in the request is passed to your function:
 
 ## Real-world examples
 
-These examples show what makes custom functions powerful: you get a headless browser, npm packages, and Puppeteer access through a single API call, with zero infrastructure on your side.
+These examples show what makes functions powerful: you get a headless browser, npm packages, and Puppeteer access through a single API call, with zero infrastructure on your side.
 
 ### Scrape structured data with Cheerio
 
@@ -204,7 +204,7 @@ Access browser-level APIs that are impossible without a real browser environment
 
 <Figcaption>Get real Navigation Timing metrics from a full browser render. Useful for synthetic monitoring without managing your own browser fleet.</Figcaption>
 
-## When to use custom functions
+## When to use functions
 
 Use `function` when:
 
@@ -217,7 +217,7 @@ For simpler extractions, prefer `data` rules — they are easier to write, cache
 
 ## Caching and performance
 
-Custom functions follow the same <Link href='/docs/guides/common/caching' children='caching patterns' /> as all other workflows. The key speedup is `meta: false` since most function workflows do not need normalized metadata.
+A function follow the same <Link href='/docs/guides/common/caching' children='caching patterns' /> as all other workflows. The key speedup is `meta: false` since most function workflows do not need normalized metadata.
 
 ## Error handling
 

@@ -642,7 +642,7 @@ const ROUTES_GUIDES = [
         ]
       },
       {
-        name: 'Custom functions',
+        name: 'Function',
         href: '/docs/guides/function',
         posts: []
       },

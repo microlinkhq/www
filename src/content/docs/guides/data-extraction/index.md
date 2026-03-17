@@ -177,4 +177,4 @@ Pick the next step based on the result you want:
 
 - <Link href='/docs/guides/markdown' children='Markdown' /> — if you want the extracted content as Markdown rather than raw text or HTML.
 - <Link href='/docs/guides/metadata' children='Metadata' /> — if you only need standard link preview fields without custom rules.
-- <Link href='/docs/guides/function' children='Custom functions' /> — if you need Puppeteer-level browser control beyond what `data` rules offer.
+- <Link href='/docs/guides/function' children='Function' /> — if you need Puppeteer-level browser control beyond what `data` rules offer.
