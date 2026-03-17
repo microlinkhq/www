@@ -1080,21 +1080,15 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : isMax
-                              ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                                )
-                              : isSecond
-                                ? (
-                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                                  )
-                                : (
-                                    formatMs(times[i])
-                                  )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
@@ -1683,15 +1677,12 @@ const FAQ_ITEMS = [
       <>
         <div>
           Yes. Microlink offers 50 free screenshot requests per day with no
-          account, no login, and no credit card required. The free tier includes{' '}
+          account, no login, and no credit card required. The free tier includes
+          adblock, cookie banner removal, metadata extraction, and{' '}
           <Link href='/docs/guides/screenshot/browser-settings'>
             full browser control
           </Link>
-          , adblock,{' '}
-          <Link href='/blog/microlink-adblock-now-handles-cookie-banners'>
-            cookie banner removal
-          </Link>
-          , and <Link href='/metadata'>metadata extraction</Link>.
+          .
         </div>
         <div>
           For production workloads, the <Link href='/#pricing'>Pro plan</Link>{' '}
@@ -1701,7 +1692,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Yes. Microlink offers 50 free screenshot requests per day with no account, no login, and no credit card required. The free tier includes full browser control, adblock, cookie banner removal, and metadata extraction. For production workloads, the Pro plan starts at \u20ac39/month for 46,000 requests with automatic proxy resolution and antibot protection.'
+    text: 'Yes. Microlink offers 50 free screenshot requests per day with no account, no login, and no credit card required. The free tier includes adblock, cookie banner removal, metadata extraction, and full browser control. For production workloads, the Pro plan starts at €39/month for 46,000 requests with automatic proxy resolution and antibot protection.'
   },
   {
     question: 'What is a screenshot API?',
@@ -1738,18 +1729,13 @@ const FAQ_ITEMS = [
           device emulation, then preview the result&nbsp;instantly.
         </div>
         <div>
-          For more tools — including{' '}
-          <Link href='/tools/website-screenshot/bulk'>bulk screenshots</Link>,{' '}
-          <Link href='/tools/website-screenshot/mobile'>mobile captures</Link>,{' '}
-          <Link href='/tools/website-screenshot/animated'>
-            animated captures
-          </Link>
-          , and a <Link href='/tools/sharing-debugger'>sharing debugger</Link> —
-          check the full <Link href='/tools'>tools page</Link>.
+          If you need specific workflows like mobile device emulation, scrolling
+          animations, or bulk URL processing, you can test them all for free on
+          our <Link href='/tools'>developer tools page</Link>.
         </div>
       </>
     ),
-    text: 'Yes. The screenshot playground lets you capture any URL directly from the browser \u2014 no API key, no account, no setup. Configure viewport, format, full-page mode, and device emulation, then preview the result instantly. For more tools \u2014 including bulk screenshots, mobile captures, animated captures, and a sharing debugger \u2014 check the full tools page.'
+    text: 'Yes. The screenshot playground lets you capture any URL directly from the browser — no API key, no account, no setup. Configure viewport, format, full-page mode, and device emulation, then preview the result instantly. If you need specific workflows like mobile device emulation, scrolling animations, or bulk URL processing, you can test them all for free on our developer tools page.'
   },
   {
     question: 'Can I use a screenshot API for AI agents?',
