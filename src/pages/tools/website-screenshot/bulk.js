@@ -1652,23 +1652,23 @@ const BulkPreview = ({
                         <Box css={{ minWidth: 0, flex: 1 }}>
                           <Text
                             css={theme({
-                  fontSize: 0,
-                  color: 'black80',
-                  fontFamily: 'sans',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap'
-                })}
+                              fontSize: 0,
+                              color: 'black80',
+                              fontFamily: 'sans',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap'
+                            })}
                           >
                             {r.url}
                           </Text>
                           <Text
                             css={theme({
-                  fontSize: '11px',
-                  color: 'black40',
-                  fontFamily: 'sans',
-                  pt: '2px'
-                })}
+                              fontSize: '11px',
+                              color: 'black40',
+                              fontFamily: 'sans',
+                              pt: '2px'
+                            })}
                           >
                             {r.error?.message}
                           </Text>
