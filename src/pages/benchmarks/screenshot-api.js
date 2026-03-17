@@ -27,6 +27,7 @@ import Layout from 'components/patterns/Layout'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { withTitle } from 'helpers/hoc/with-title'
 import { extractDomain } from 'helpers/extract-domain'
+import { useBreakpoint } from 'components/hook/use-breakpoint'
 
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
@@ -538,11 +539,12 @@ const MobileCardHeader = styled('div')`
     fontFamily: 'mono',
     fontSize: 0,
     color: 'black',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    bg: 'black05'
   })};
   padding: ${SPACE_10} ${SPACE_14};
-  ${theme({ bg: 'black05' })};
   border-bottom: ${borders[1]} ${colors.black10};
+  color: ${colors.black};
 `
 
 const MobileCardRow = styled('div')`
@@ -1072,21 +1074,15 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : isMax
-                              ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                                )
-                              : isSecond
-                                ? (
-                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                                  )
-                                : (
-                                    formatMs(times[i])
-                                  )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
@@ -1254,8 +1250,28 @@ const CompetitorComparison = () => {
             />
             <span css={theme({ mt: OFFSET_3 })}>Slowest</span>
           </Flex>
-          <span css={theme({ color: 'black' })}>·</span>
-          <span css={theme({ mt: OFFSET_3 })}>
+          <span
+            css={[
+              theme({ color: 'black' }),
+              {
+                [`@media (max-width: ${BREAKPOINT_MEDIUM_MAX})`]: {
+                  display: 'none'
+                }
+              }
+            ]}
+          >
+            ·
+          </span>
+          <span
+            css={[
+              theme({ mt: OFFSET_3 }),
+              {
+                [`@media (max-width: ${BREAKPOINT_MEDIUM_MAX})`]: {
+                  display: 'none'
+                }
+              }
+            ]}
+          >
             Times in milliseconds (ms), totals in seconds&nbsp;(s)
           </span>
         </Flex>
@@ -1751,104 +1767,125 @@ const Faq = () => (
   />
 )
 
-const BottomCta = () => (
-  <Container
-    as='section'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: '100%',
-      bg: 'white',
-      pt: [4, 4, 5, 5],
-      pb: [5, 5, 6, 6]
-    })}
-  >
-    <Flex
+const BottomCta = () => {
+  const breakpoint = useBreakpoint()
+  return (
+    <Container
+      as='section'
       css={theme({
-        flexDirection: 'column',
         alignItems: 'center',
-        maxWidth: layout.normal,
-        px: [4, 4, 4, 0],
-        mx: 'auto'
+        maxWidth: '100%',
+        bg: 'white',
+        pt: [4, 4, 5, 5],
+        pb: [5, 5, 6, 6]
       })}
     >
-      <Subhead
-        css={theme({
-          fontSize: CTA_TITLE_FONT_SIZE,
-          textAlign: 'center'
-        })}
-      >
-        Ship <span css='color: #fa5252;'>faster</span> screenshots
-      </Subhead>
-      <Caption
-        forwardedAs='div'
-        css={theme({
-          pt: [3, 3, 4, 4],
-          maxWidth: [layout.small, layout.small, layout.normal, layout.normal],
-          textAlign: 'center'
-        })}
-      >
-        50&nbsp;requests/day free — no account, no credit card. Start capturing
-        screenshots at the speed your users&nbsp;deserve.
-      </Caption>
       <Flex
         css={theme({
-          pt: [4, 4, 5, 5],
-          width: '100%',
-          maxWidth: layout.small,
-          justifyContent: 'center'
+          flexDirection: 'column',
+          alignItems: 'center',
+          maxWidth: layout.normal,
+          px: [4, 4, 4, 0],
+          mx: 'auto'
         })}
       >
-        <MultiCodeEditorInteractive
-          mqlCode={{
-            url: 'https://www.apple.com',
-            screenshot: true,
-            embed: 'screenshot'
-          }}
-        />
-      </Flex>
-      <Flex
-        css={theme({
-          pt: [3, 3, 4, 4],
-          gap: [3, 3, 4, 4],
-          flexDirection: ['column', 'column', 'row', 'row'],
-          alignItems: 'center'
-        })}
-      >
-        <Link
-          href='/docs/api/parameters/screenshot'
-          css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
+        <Subhead
+          css={theme({
+            fontSize: CTA_TITLE_FONT_SIZE,
+            textAlign: 'center'
+          })}
         >
-          Start now for free
-        </Link>
+          Ship <span css='color: #fa5252;'>faster</span> screenshots
+        </Subhead>
+        <Caption
+          forwardedAs='div'
+          css={theme({
+            pt: [3, 3, 4, 4],
+            maxWidth: [
+              layout.small,
+              layout.small,
+              layout.normal,
+              layout.normal
+            ],
+            textAlign: 'center'
+          })}
+        >
+          50&nbsp;requests/day free — no account, no credit card. Start
+          capturing screenshots at the speed your users&nbsp;deserve.
+        </Caption>
+        <Flex
+          css={[
+            theme({
+              pt: [4, 4, 5, 5],
+              width: '100%',
+              maxWidth: [
+                layout.large,
+                layout.normal,
+                layout.small,
+                layout.small
+              ],
+              justifyContent: 'center'
+            }),
+            {
+              '& > div, & > div > div:first-child': {
+                width: '100%'
+              }
+            }
+          ]}
+        >
+          <MultiCodeEditorInteractive
+            height={breakpoint === 0 ? 250 : 180}
+            mqlCode={{
+              url: 'https://www.apple.com',
+              screenshot: true,
+              embed: 'screenshot'
+            }}
+          />
+        </Flex>
+        <Flex
+          css={theme({
+            pt: [3, 3, 4, 4],
+            gap: [3, 3, 4, 4],
+            flexDirection: ['column', 'column', 'row', 'row'],
+            alignItems: 'center'
+          })}
+        >
+          <Link
+            href='/docs/api/parameters/screenshot'
+            css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
+          >
+            Start now for free
+          </Link>
+        </Flex>
+        <Flex
+          css={theme({
+            pt: [4, 4, 5, 5],
+            gap: [3, 3, 4, 4],
+            flexWrap: 'wrap',
+            justifyContent: 'center'
+          })}
+        >
+          {['50 requests/day free', 'No login required', 'No credit card'].map(
+            label => (
+              <Flex
+                key={label}
+                css={theme({
+                  alignItems: 'center',
+                  gap: 1,
+                  color: 'black',
+                  fontSize: [0, 0, 1, 1]
+                })}
+              >
+                <CheckIcon size={16} color={colors.close} />
+                <Text as='span'>{label}</Text>
+              </Flex>
+            )
+          )}
+        </Flex>
       </Flex>
-      <Flex
-        css={theme({
-          pt: [4, 4, 5, 5],
-          gap: [3, 3, 4, 4],
-          flexWrap: 'wrap',
-          justifyContent: 'center'
-        })}
-      >
-        {['50 requests/day free', 'No login required', 'No credit card'].map(
-          label => (
-            <Flex
-              key={label}
-              css={theme({
-                alignItems: 'center',
-                gap: 1,
-                color: 'black',
-                fontSize: [0, 0, 1, 1]
-              })}
-            >
-              <CheckIcon size={16} color={colors.close} />
-              <Text as='span'>{label}</Text>
-            </Flex>
-          )
-        )}
-      </Flex>
-    </Flex>
-  </Container>
-)
+    </Container>
+  )
+}
 
 export const Head = () => (
   <Meta
