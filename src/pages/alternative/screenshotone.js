@@ -4,7 +4,6 @@ import {
   fonts,
   gradient,
   layout,
-  transition,
   theme,
   textGradient,
   breakpoints
@@ -61,7 +60,7 @@ function useInView (options = {}) {
     const node = ref.current
     if (!node) return
 
-    const observer = new IntersectionObserver(
+    const observer = new window.IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true)
@@ -137,37 +136,6 @@ const HeroImageMobile = styled.img`
   @media screen and (min-width: ${breakpoints[1]}) {
     display: none;
   }
-`
-
-const CodeBlock = styled('pre')`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: '13px',
-    lineHeight: '1.7',
-    p: 4,
-    borderRadius: 3,
-    border: 1,
-    borderColor: 'black10',
-    m: 0
-  })}
-  overflow-x: auto;
-  white-space: pre;
-  tab-size: 2;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-`
-
-const InlineCode = styled('code')`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: '13px',
-    px: '6px',
-    py: '2px',
-    borderRadius: 1,
-    bg: 'black05'
-  })}
 `
 
 /* ---------------------------------------------------------------------------
