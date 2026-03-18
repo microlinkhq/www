@@ -19,6 +19,10 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import { Link } from 'components/elements/Link'
 import { findDemoLinkById } from 'helpers/demo-links'
 import { isDevelopment } from 'helpers/is-development'
+import {
+  buildSharingDebuggerUrl,
+  buildSharingDebuggerDisplayUrl
+} from 'helpers/share-debugger-url'
 
 const INITIAL_SUGGESTION = 'microlink'
 
@@ -33,9 +37,10 @@ const EXAMPLE_URLS = [
 ]
 
 export const Hero = () => {
-  const [query, setQuery] = useQueryState()
+  const [query] = useQueryState()
   const [isMounted, setIsMounted] = useState(false)
   const [inputError, setInputError] = useState('')
+  const [currentAnalyzedUrl, setCurrentAnalyzedUrl] = useState('')
 
   useEffect(() => {
     setIsMounted(true)
@@ -61,11 +66,9 @@ export const Hero = () => {
     if (query.url) {
       setShowValidation(true)
       setInputError('')
-      if (!/^https?:\/\//.test(query.url)) {
-        setQuery({ url: prependHttp(query.url) })
-      }
+      setCurrentAnalyzedUrl(query.url)
     }
-  }, [query.url, setQuery])
+  }, [query.url])
 
   return (
     <FetchProvider mqlOpts={{ force: HAS_FORCE, meta: true }}>
@@ -78,6 +81,9 @@ export const Hero = () => {
           !hasQuery && !hasMetadata && status === 'initial'
         const activeTabId = `sharing-debugger-tab-${selectedPlatform}`
         const shouldShowInlineError = status === 'error'
+        const shareResultUrl = buildSharingDebuggerUrl(currentAnalyzedUrl)
+        const shareResultDisplayUrl =
+          buildSharingDebuggerDisplayUrl(currentAnalyzedUrl)
         const inlineErrorMessage =
           error?.description ||
           error?.message ||
@@ -105,8 +111,8 @@ export const Hero = () => {
           setInputError('')
           setShowValidation(true)
           setInputUrl(trimmedValue)
-          setQuery({ url: trimmedValue })
-          doFetch(normalizedUrl)
+          setCurrentAnalyzedUrl(trimmedValue)
+          doFetch(normalizedUrl, { syncQuery: false })
         }
 
         const handleSubmit = event => {
@@ -317,7 +323,11 @@ export const Hero = () => {
                     <Button
                       type='button'
                       variant='black'
-                      onClick={() => submitUrl(inputUrl || query.url || '')}
+                      onClick={() => {
+                        submitUrl(
+                          inputUrl || currentAnalyzedUrl || query.url || ''
+                        )
+                      }}
                     >
                       <Caps css={theme({ fontSize: 0 })}>Try Again</Caps>
                     </Button>
@@ -487,7 +497,11 @@ export const Hero = () => {
                         id='metatags'
                         css={theme({ justifyContent: 'center' })}
                       >
-                        <Metatags metadata={metadata} />
+                        <Metatags
+                          metadata={metadata}
+                          shareResultUrl={shareResultUrl}
+                          shareResultDisplayUrl={shareResultDisplayUrl}
+                        />
                       </Flex>
                     )}
                   </Flex>

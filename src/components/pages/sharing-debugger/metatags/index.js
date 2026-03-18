@@ -8,6 +8,7 @@ import TimeAgo from 'react-timeago'
 import { formatDate } from 'helpers/format-date'
 import truncateUrl from 'truncate-url'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
+import { useClipboard } from 'components/hook/use-clipboard'
 import {
   VALIDATOR_STATUS,
   VALIDATOR_STATUS_ERROR,
@@ -20,6 +21,8 @@ import Choose from 'components/elements/Choose'
 import { CheckCircle, XCircle } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
+import { Clipboard as ClipboardIcon } from 'components/icons/Clipboard'
+import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 const ISSUE_WEIGHTS = {
   title: 25,
@@ -33,8 +36,13 @@ const ISSUE_WEIGHTS = {
   date: 5
 }
 
-export const Metatags = ({ metadata }) => {
+export const Metatags = ({
+  metadata,
+  shareResultUrl,
+  shareResultDisplayUrl
+}) => {
   const breakpoint = useBreakpoint()
+  const [ClipboardComponent, toClipboard] = useClipboard()
   const TRUNCATE_URL_LENGTH = breakpoint === 0 ? 45 : 75
   const fields = validate(metadata)
   const issues = fields.filter(({ status }) => status !== VALIDATOR_STATUS_OK)
@@ -57,6 +65,7 @@ export const Metatags = ({ metadata }) => {
 
   return (
     <Box css={theme({ m: 0 })}>
+      <ClipboardComponent />
       {issues.length > 0 && (
         <Box css={theme({ pt: 4 })}>
           <Box css={theme({ textAlign: 'center', pb: 3 })}>
@@ -277,6 +286,103 @@ export const Metatags = ({ metadata }) => {
               </Box>
             )
           }
+        )}
+
+        {shareResultUrl && (
+          <Box css={theme({ mt: [3, 4], px: [2, 0] })}>
+            <Flex
+              css={theme({
+                mx: 'auto',
+                width: '100%',
+                maxWidth: layout.small,
+                flexDirection: 'column',
+                gap: 1,
+                bg: 'gray0',
+                border: 1,
+                borderColor: 'black10',
+                borderRadius: 3,
+                p: [2, 3]
+              })}
+            >
+              <Flex
+                css={theme({
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 2
+                })}
+              >
+                <Text
+                  css={theme({
+                    fontSize: 1,
+                    fontWeight: 'bold',
+                    color: 'black'
+                  })}
+                >
+                  Share this result
+                </Text>
+
+                <Tooltip
+                  type='copy'
+                  tabIndex={-1}
+                  tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                  content={
+                    <Tooltip.Content>
+                      {Tooltip.TEXT.COPY('URL')}
+                    </Tooltip.Content>
+                  }
+                >
+                  <Flex
+                    as='button'
+                    type='button'
+                    aria-label='Copy share URL'
+                    onClick={() => {
+                      toClipboard({
+                        copy: shareResultUrl,
+                        text: 'Share URL copied'
+                      })
+                    }}
+                    css={theme({
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: '44px',
+                      minWidth: '44px',
+                      p: 1,
+                      border: 0,
+                      bg: 'transparent',
+                      color: 'black50',
+                      cursor: 'pointer',
+                      flexShrink: 0,
+                      _hover: {
+                        color: 'black'
+                      },
+                      _focusVisible: {
+                        outline: '2px solid',
+                        outlineColor: 'link',
+                        outlineOffset: '2px',
+                        borderRadius: 2
+                      }
+                    })}
+                  >
+                    <ClipboardIcon css={theme({ color: 'currentColor' })} />
+                  </Flex>
+                </Tooltip>
+              </Flex>
+
+              <Text
+                css={theme({
+                  fontSize: 0,
+                  color: 'black80',
+                  fontFamily: 'mono',
+                  wordBreak: 'break-all'
+                })}
+              >
+                {truncateUrl(
+                  shareResultDisplayUrl || shareResultUrl,
+                  breakpoint === 0 ? 60 : 90
+                )}
+              </Text>
+            </Flex>
+          </Box>
         )}
       </Box>
     </Box>
