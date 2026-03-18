@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createElement } from 'react'
-import { colors, gradient, theme } from 'theme'
+import { theme } from 'theme'
 import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
@@ -16,7 +16,6 @@ import FetchProvider from 'components/patterns/FetchProvider'
 import Caption from 'components/patterns/Caption/Caption'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import { Link } from 'components/elements/Link'
-import { findDemoLinkById } from 'helpers/demo-links'
 import { isDevelopment } from 'helpers/is-development'
 import { hasDomainLikeHostname } from 'helpers/url-input'
 import {
@@ -24,20 +23,9 @@ import {
   buildSharingDebuggerDisplayUrl
 } from 'helpers/share-debugger-url'
 
-const INITIAL_SUGGESTION = 'microlink'
+const DEFAULT_URL = 'https://microlink.io'
 
 const HAS_FORCE = !isDevelopment
-
-// Use O(1) Map lookup instead of O(n) array.find()
-const DEMO_LINK = findDemoLinkById(INITIAL_SUGGESTION)
-const EXAMPLE_URLS = [
-  {
-    label: 'Microlink.io',
-    url: DEMO_LINK?.data?.url || 'https://microlink.io'
-  },
-  { label: 'MDN.org', url: 'https://developer.mozilla.org/en-US/' },
-  { label: 'Wikipedia.org', url: 'https://www.wikipedia.org/' }
-]
 
 export const Hero = () => {
   const [query] = useQueryState()
@@ -53,6 +41,8 @@ export const Hero = () => {
   const [selectedPlatform, setSelectedPlatform] = useState('whatsapp')
   const [inputUrl, setInputUrl] = useState('')
   const [showValidation, setShowValidation] = useState(false)
+  const defaultFetched = React.useRef(false)
+  const doFetchRef = React.useRef(null)
 
   const platforms =
     selectedPlatform === 'all'
@@ -73,15 +63,22 @@ export const Hero = () => {
     }
   }, [query.url])
 
+  useEffect(() => {
+    if (defaultFetched.current || query.url) return
+    defaultFetched.current = true
+    setShowValidation(true)
+    setCurrentAnalyzedUrl(DEFAULT_URL)
+    if (doFetchRef.current) {
+      doFetchRef.current(DEFAULT_URL, { syncQuery: false })
+    }
+  }, [query.url])
+
   return (
     <FetchProvider mqlOpts={{ force: HAS_FORCE, meta: true }}>
       {({ status, doFetch, data, error }) => {
         const isLoading =
           (hasQuery && status === 'initial') || status === 'fetching'
         const metadata = status === 'error' ? null : data || null
-        const hasMetadata = !!metadata
-        const shouldShowEmptyState =
-          !hasQuery && !hasMetadata && status === 'initial'
         const activeTabId = `sharing-debugger-tab-${selectedPlatform}`
         const shouldShowInlineError = status === 'error'
         const shareResultUrl = buildSharingDebuggerUrl(currentAnalyzedUrl)
@@ -121,7 +118,7 @@ export const Hero = () => {
           submitUrl(inputUrl)
         }
 
-        const handleExampleClick = url => submitUrl(url)
+        doFetchRef.current = doFetch
 
         const isAll = selectedPlatform === 'all'
 
@@ -214,122 +211,6 @@ export const Hero = () => {
                 </Text>
               )}
             </Box>
-
-            {shouldShowEmptyState && (
-              <Flex css={theme({ justifyContent: 'center', pt: [3, 4] })}>
-                <Box
-                  css={[
-                    theme({
-                      width: '100%',
-                      maxWidth: '640px',
-                      position: 'relative',
-                      overflow: 'hidden',
-                      borderRadius: 4,
-                      p: [3, 4]
-                    }),
-                    {
-                      background: `linear-gradient(180deg, ${colors.pinky} 0%, ${colors.white} 100%) padding-box, ${gradient} border-box`,
-                      border: '1px solid transparent'
-                    }
-                  ]}
-                >
-                  <Text
-                    as='p'
-                    css={theme({
-                      position: 'relative',
-                      fontSize: [1, 2],
-                      color: 'black80',
-                      textAlign: 'center',
-                      m: 0
-                    })}
-                  >
-                    Paste any URL to inspect Open Graph, X Cards, title,
-                    description, image, favicon, locale, and more before you
-                    share it.
-                  </Text>
-                  <Text
-                    as='p'
-                    css={theme({
-                      position: 'relative',
-                      mt: 3,
-                      mb: 2,
-                      fontSize: 1,
-                      color: 'black60',
-                      textAlign: 'center'
-                    })}
-                  >
-                    Start instantly clicking one of these example URLs:
-                  </Text>
-                  <Flex
-                    css={theme({
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      flexWrap: 'wrap',
-                      pt: [1, 1, 2, 2],
-                      gap: [1, 2, 3, 3]
-                    })}
-                  >
-                    {EXAMPLE_URLS.map(({ label, url }) => (
-                      <Box
-                        key={label}
-                        as='button'
-                        type='button'
-                        aria-label={`Try example URL: ${label}`}
-                        onClick={() => handleExampleClick(url)}
-                        css={theme({
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          minHeight: '44px',
-                          px: [2, 3, 3, 3],
-                          py: [1, 1, 2, 2],
-                          border: 1,
-                          borderColor: 'black05',
-                          borderRadius: 2,
-                          bg: 'white95',
-                          color: 'black80',
-                          fontSize: 1,
-                          lineHeight: 0,
-                          cursor: 'pointer',
-                          touchAction: 'manipulation',
-                          boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)',
-                          transitionProperty:
-                            'background-color, border-color, color, box-shadow, transform',
-                          transitionDuration: '0.15s',
-                          _hover: {
-                            bg: 'white',
-                            color: 'black',
-                            borderColor: 'black30',
-                            boxShadow: '0 6px 16px rgba(16, 24, 40, 0.08)',
-                            transform: 'translateY(-1px)'
-                          },
-                          _active: {
-                            transform: 'translateY(0)'
-                          },
-                          _focusVisible: {
-                            outline: '2px solid',
-                            outlineColor: 'link',
-                            outlineOffset: '2px',
-                            borderRadius: 2
-                          }
-                        })}
-                      >
-                        <Text
-                          as='span'
-                          css={theme({
-                            color: 'inherit',
-                            fontSize: 1,
-                            fontWeight: 'medium'
-                          })}
-                        >
-                          {label}
-                        </Text>
-                      </Box>
-                    ))}
-                  </Flex>
-                </Box>
-              </Flex>
-            )}
 
             {shouldShowInlineError && (
               <Flex css={theme({ justifyContent: 'center', pt: [3, 4] })}>
