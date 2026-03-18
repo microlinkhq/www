@@ -72,10 +72,19 @@ const FOOTER_COLUMNS = [
   {
     title: 'Tools',
     links: [
-      { label: 'API', href: '/docs/api/getting-started/overview' },
-      { label: 'Geolocation', href: 'https://geolocation.microlink.io' },
       { label: 'SDK', href: '/sdk' },
-      { label: 'Sharing Debugger', href: '/tools/sharing-debugger' }
+      { label: 'Sharing Debugger', href: '/tools/sharing-debugger' },
+      { label: 'Website Screenshot', href: '/tools/website-screenshot' },
+      {
+        label: 'Full page Screenshot',
+        href: '/tools/website-screenshot/full-page'
+      },
+      { label: 'Bulk Screenshots', href: '/tools/website-screenshot/bulk' },
+      {
+        label: 'Animated Screenshot',
+        href: '/tools/website-screenshot/animated'
+      },
+      { label: 'Geolocation', href: 'https://geolocation.microlink.io' }
     ]
   }
 ]

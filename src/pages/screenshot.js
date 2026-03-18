@@ -2365,7 +2365,7 @@ const STATS = [
   { value: cachedReqsPercentage, label: 'cache hit rate' },
   { value: analyticsBytes, label: 'data served' }
 ]
-const CLIENTS_STATS_VALUE_FONT_SIZE = [3, 3, 4, 4]
+const CLIENTS_STATS_VALUE_FONT_SIZE = [3, 3, '42px']
 const CLIENTS_STATS_LABEL_FONT_SIZE = [0, 1, 1, 1]
 
 const CLIENTS = [
@@ -2505,7 +2505,8 @@ const Clients = () => (
         gap: [3, 4, 5, 5],
         maxWidth: layout.large,
         width: '100%',
-        fontVariantNumeric: 'tabular-nums'
+        fontVariantNumeric: 'tabular-nums',
+        flexWrap: ['wrap', 'nowrap', 'nowrap', 'nowrap']
       })}
     >
       {STATS.map(({ value, label }, index) => (
@@ -2514,7 +2515,8 @@ const Clients = () => (
             css={theme({
               flexDirection: 'column',
               alignItems: 'center',
-              px: [1, 2, 3, 3]
+              px: [3, 2, 3, 3],
+              mt: index === STATS.length - 1 ? [2, 0, 0, 0] : undefined
             })}
           >
             <Subhead
@@ -2541,7 +2543,17 @@ const Clients = () => (
               {label}
             </Caps>
           </Flex>
-          {index < STATS.length - 1 && <StatSeparator />}
+          {index < STATS.length - 1 && (
+            <StatSeparator
+              css={
+                index === 1
+                  ? theme({
+                    display: ['none', 'block', 'block', 'block']
+                  })
+                  : undefined
+              }
+            />
+          )}
         </React.Fragment>
       ))}
     </Flex>

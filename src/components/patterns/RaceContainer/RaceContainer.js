@@ -364,7 +364,7 @@ const LaneRank = styled('span')`
   transition: color 0.3s ease;
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-    ${theme({ width: '22px', fontSize: 0 })};
+    display: none;
   }
 `
 
@@ -379,7 +379,7 @@ const LaneName = styled('div')`
   text-overflow: ellipsis;
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-    ${theme({ width: '90px', fontSize: 0 })};
+    ${theme({ width: '120px', fontSize: 0 })};
   }
 `
 
@@ -483,7 +483,7 @@ const LaneHeaderSpacer = styled('span')`
     ${theme({ width: '28px' })};
 
     @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-      ${theme({ width: '22px' })};
+      display: none;
     }
   }
 
@@ -491,7 +491,7 @@ const LaneHeaderSpacer = styled('span')`
     ${theme({ width: '150px' })};
 
     @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-      ${theme({ width: '90px' })};
+      ${theme({ width: '120px' })};
     }
   }
 `

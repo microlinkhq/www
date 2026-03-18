@@ -1836,10 +1836,11 @@ const BottomCta = () => {
     >
       <Flex
         css={theme({
+          width: ['100%', '100%', layout.small, layout.small],
           flexDirection: 'column',
           alignItems: 'center',
           maxWidth: layout.normal,
-          px: [4, 4, 4, 0],
+          px: [2, 2, 4, 0],
           mx: 'auto'
         })}
       >
@@ -1872,13 +1873,7 @@ const BottomCta = () => {
             theme({
               pt: [4, 4, 5, 5],
               width: '100%',
-              maxWidth: [
-                layout.large,
-                layout.normal,
-                layout.small,
-                layout.small
-              ],
-              justifyContent: 'center'
+              px: [2, 3, 0, 0]
             }),
             {
               '& > div, & > div > div:first-child': {
