@@ -111,7 +111,7 @@ export const Hero = () => {
       {({ status, doFetch, data, error }) => {
         const isLoading =
           (hasQuery && status === 'initial') || status === 'fetching'
-        const metadata = status === 'error' ? null : data || null
+        const metadata = data || null
         const activeTabId = `sharing-debugger-tab-${selectedPlatform}`
         const shouldShowInlineError = status === 'error'
         const shareResultUrl = buildSharingDebuggerUrl(currentAnalyzedUrl)
@@ -127,7 +127,6 @@ export const Hero = () => {
 
           if (!trimmedValue) {
             setInputError('Enter a URL to inspect.')
-            setShowValidation(false)
             return
           }
 
@@ -135,7 +134,6 @@ export const Hero = () => {
 
           if (!hasDomainLikeHostname(normalizedUrl)) {
             setInputError('Enter a valid URL format.')
-            setShowValidation(false)
             return
           }
 
@@ -323,11 +321,10 @@ export const Hero = () => {
                 as='p'
                 aria-live='polite'
                 css={theme({
-                  mt: 0,
-                  mb: 3,
-                  py: 2,
+                  mt: 4,
+                  pb: 0,
                   fontSize: 1,
-                  color: 'black50',
+                  color: 'black80',
                   textAlign: 'center'
                 })}
               >
