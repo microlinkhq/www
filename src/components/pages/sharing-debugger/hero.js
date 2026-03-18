@@ -16,6 +16,7 @@ import Caps from 'components/elements/Caps'
 import FetchProvider from 'components/patterns/FetchProvider'
 import Caption from 'components/patterns/Caption/Caption'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
+import { Link } from 'components/elements/Link'
 import { findDemoLinkById } from 'helpers/demo-links'
 import { isDevelopment } from 'helpers/is-development'
 
@@ -42,7 +43,7 @@ export const Hero = () => {
 
   const hasQuery = isMounted && !!query.url
   const [selectedPlatform, setSelectedPlatform] = useState('whatsapp')
-  const [inputUrl, setInputUrl] = useState(query.url || '')
+  const [inputUrl, setInputUrl] = useState('')
   const [showValidation, setShowValidation] = useState(false)
 
   const platforms =
@@ -68,14 +69,19 @@ export const Hero = () => {
 
   return (
     <FetchProvider mqlOpts={{ force: HAS_FORCE, meta: true }}>
-      {({ status, doFetch, data }) => {
+      {({ status, doFetch, data, error }) => {
         const isLoading =
           (hasQuery && status === 'initial') || status === 'fetching'
-        const metadata = data || null
+        const metadata = status === 'error' ? null : data || null
         const hasMetadata = !!metadata
         const shouldShowEmptyState =
           !hasQuery && !hasMetadata && status === 'initial'
         const activeTabId = `sharing-debugger-tab-${selectedPlatform}`
+        const shouldShowInlineError = status === 'error'
+        const inlineErrorMessage =
+          error?.description ||
+          error?.message ||
+          "We couldn't fetch metadata for this URL."
 
         const submitUrl = value => {
           const trimmedValue = value.trim()
@@ -257,6 +263,69 @@ export const Hero = () => {
                         <Caps css={theme({ fontSize: 0 })}>{label}</Caps>
                       </Button>
                     ))}
+                  </Flex>
+                </Box>
+              </Flex>
+            )}
+
+            {shouldShowInlineError && (
+              <Flex css={theme({ justifyContent: 'center', pt: [3, 4] })}>
+                <Box
+                  css={theme({
+                    width: '100%',
+                    maxWidth: '640px',
+                    bg: 'red0',
+                    border: 1,
+                    borderColor: 'red2',
+                    borderRadius: 3,
+                    p: [3, 4]
+                  })}
+                >
+                  <Text
+                    as='p'
+                    css={theme({
+                      fontSize: [1, 2],
+                      color: 'red8',
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                      mt: 0,
+                      mb: 2
+                    })}
+                  >
+                    We couldn&apos;t fetch metadata for this URL.
+                  </Text>
+                  <Text
+                    as='p'
+                    css={theme({
+                      fontSize: 1,
+                      color: 'black70',
+                      textAlign: 'center',
+                      mt: 0,
+                      mb: 3
+                    })}
+                  >
+                    {inlineErrorMessage}
+                  </Text>
+                  <Flex
+                    css={theme({
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flexWrap: 'wrap',
+                      gap: 2
+                    })}
+                  >
+                    <Button
+                      type='button'
+                      variant='black'
+                      onClick={() => submitUrl(inputUrl || query.url || '')}
+                    >
+                      <Caps css={theme({ fontSize: 0 })}>Try Again</Caps>
+                    </Button>
+                    {error?.more && (
+                      <Link href={error.more} logoIcon>
+                        Report it
+                      </Link>
+                    )}
                   </Flex>
                 </Box>
               </Flex>

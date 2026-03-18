@@ -107,7 +107,7 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
       {!error && warning && (
         <Notification.Warning key={warning.id} {...warning} />
       )}
-      {children({ status, doFetch, data, response })}
+      {children({ status, doFetch, data, response, error, warning })}
     </>
   )
 }
