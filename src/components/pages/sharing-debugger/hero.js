@@ -154,6 +154,12 @@ export const Hero = () => {
 
         doFetchRef.current = doFetch
 
+        const trimmedInput = inputUrl.trim()
+        const inputMatchesResult =
+          trimmedInput &&
+          currentAnalyzedUrl &&
+          prependHttp(trimmedInput) === prependHttp(currentAnalyzedUrl)
+
         const isAll = selectedPlatform === 'all'
 
         return (
@@ -195,11 +201,11 @@ export const Hero = () => {
                       })}
                       iconComponent={
                         <InputIcon.Microlink
-                          src={metadata?.logo?.url}
+                          src={
+                            inputMatchesResult ? metadata?.logo?.url : undefined
+                          }
                           url={
-                            inputUrl.trim()
-                              ? prependHttp(inputUrl.trim())
-                              : undefined
+                            trimmedInput ? prependHttp(trimmedInput) : undefined
                           }
                         />
                       }
