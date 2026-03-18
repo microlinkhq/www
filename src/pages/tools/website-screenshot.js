@@ -1730,14 +1730,6 @@ export const Head = () => (
               '@type': 'Answer',
               text: 'Absolutely. The tool is built on the Microlink Screenshot API, which provides a simple REST endpoint. Integrate with any language — Node.js, Python, Ruby, or plain cURL. Use the @microlink/mql SDK for Node.js, or hit the API directly from any HTTP client.'
             }
-          },
-          {
-            '@type': 'Question',
-            name: 'How does caching work?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: "Screenshots are cached on our global CDN by default. Cached responses are served instantly and don't count against your limit. Cache lasts for 24 hours."
-            }
           }
         ]
       }

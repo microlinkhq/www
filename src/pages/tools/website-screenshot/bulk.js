@@ -2779,9 +2779,7 @@ export const Head = () => (
           'take screenshot of all pages in a website',
           'batch website screenshot',
           'multiple website screenshots',
-          'screenshot API',
           'bulk screen capture',
-          'website screenshot generator',
           'download screenshots zip'
         ],
         offers: {
@@ -2821,34 +2819,10 @@ export const Head = () => (
           },
           {
             '@type': 'Question',
-            name: 'What happens if some screenshots fail?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'If a screenshot fails, the tool continues with the remaining URLs. At the end you will see a summary of which ones succeeded and which failed, along with the reason. Successful screenshots are automatically selected so you can download just the working ones as a ZIP. If you hit the daily rate limit (50 requests), the remaining URLs will be skipped. Your limit resets the next day.'
-            }
-          },
-          {
-            '@type': 'Question',
             name: "What's the quality of the bulk screenshots?",
             acceptedAnswer: {
               '@type': 'Answer',
               text: 'Every screenshot is rendered at the highest quality settings using a real Chromium browser. We then compress the images to the smallest file size possible without visible quality loss. You get the same output whether you capture one URL or fifty.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'Can I automate bulk website screenshots?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Absolutely. This tool is built on the Microlink screenshot API, which provides a simple REST endpoint. Send a URL, get back a screenshot — integrate with any language (Node.js, Python, Ruby, Go) or plain cURL. For Node.js, use the @microlink/mql SDK. Loop over your URLs, call the API for each, and you have a fully automated bulk screenshot pipeline.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'How does caching work for bulk screenshots?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: "Screenshots are cached on our global CDN (240+ edge locations) by default. Cached responses are served instantly and don't count against your daily limit. Cache lasts for 24 hours. This is especially useful for bulk captures — if you re-run the same batch, cached URLs will resolve immediately. Turn off caching only if you need a fresh screenshot of a page that changes frequently."
             }
           }
         ]

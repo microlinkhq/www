@@ -1307,8 +1307,6 @@ export const Head = () => (
         applicationCategory: ['DeveloperApplication', 'Tool'],
         keywords: [
           'mobile website screenshot generator',
-          'mobile screenshot online',
-          'full page screen capture mobile',
           'mobile screenshot of website',
           'screenshot responsive website',
           'website screenshot in different devices',
@@ -1352,26 +1350,10 @@ export const Head = () => (
           },
           {
             '@type': 'Question',
-            name: "What's the quality of the screenshots?",
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'We always use the best quality settings for the screenshots. Then we compress the images to the smallest file size possible without losing quality.'
-            }
-          },
-          {
-            '@type': 'Question',
             name: 'Can I screenshot a website in different mobile devices at the same time?',
             acceptedAnswer: {
               '@type': 'Answer',
               text: 'The free tool handles one device at a time. For batch captures across multiple devices simultaneously, use the Microlink Screenshot API which supports any custom viewport or preset device in a single request.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: "What's the difference between a viewport screenshot and a full page capture?",
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: "A viewport screenshot captures only the visible area of the screen (what you'd see without scrolling). A full page screen capture mobile screenshot stitches together the entire page from top to bottom — ideal for documenting long pages."
             }
           }
         ]

@@ -1625,25 +1625,12 @@ export const Head = () => (
         url: 'https://microlink.io/tools/website-screenshot/animated',
         applicationCategory: ['DeveloperApplication', 'Tool'],
         keywords: [
-          'animated screenshot tool',
           'animated screenshot',
           'animated screen capture',
-          'online animated screenshot',
-          'animated website screenshot',
-          'animated webpage screenshot',
-          'website animated screenshot',
-          'webpage animated screenshot',
-          'screenshot animated page',
           'screenshot website animated',
           'capture animated web page',
-          'capture animated page',
           'screen capture animated web page',
-          'full page animated screen capture',
-          'capture entire web page animated',
-          'capture web page with animated',
-          'screenshot web page with animated',
-          'print screen animated web page',
-          'print animated web page'
+          'screenshot web page with animated'
         ],
         offers: {
           '@type': 'Offer',
@@ -1694,22 +1681,6 @@ export const Head = () => (
             acceptedAnswer: {
               '@type': 'Answer',
               text: 'All animated screenshots are delivered as MP4 files using the H.264 codec. MP4 plays natively in every major browser and device, keeping file sizes small without sacrificing quality.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'Can I automate animated screen capture via API?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Yes. The tool is powered by the Microlink Screenshot API, which accepts a single REST call. Add screenshot: { animated: true } to capture any animated webpage programmatically from Node.js, Python, Ruby, or plain cURL. Use the @microlink/mql SDK for the easiest integration, or call the HTTP endpoint directly.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'How does caching work?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: "Animated screenshots are cached on our global CDN for 24 hours by default. Cached responses are served instantly and don't count against your daily limit. Turn off caching only if you need a fresh capture of a page that updates frequently."
             }
           }
         ]
