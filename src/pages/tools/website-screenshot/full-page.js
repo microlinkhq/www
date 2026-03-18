@@ -9,7 +9,6 @@ import {
   Maximize,
   Settings,
   XSquare,
-  ArrowRight,
   Zap
 } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
@@ -136,26 +135,72 @@ const REASON_TO_USE = [
   {
     icon: Maximize,
     title: 'Capture the Entire Webpage, Not Just the Visible Area',
-    description:
-      "Most screenshot tools only capture what's visible on screen. Our tool scrolls and renders the entire web page. <br><br> Every section, every pixel, into a single high-resolution image. Whether it's a long landing page or an infinite-scroll blog, you get the whole site screenshot."
+    description: (
+      <>
+        Most screenshot tools only capture what's visible on screen. Our tool
+        scrolls and renders the entire web page.
+        <br />
+        <br />
+        Every section, every pixel, into a single high-resolution image. Whether
+        it's a long landing page or an infinite-scroll blog, you get the whole
+        site screenshot. See the{' '}
+        <Link href='/docs/guides/screenshot/customizing-output#full-page-screenshots'>
+          customizing output guide
+        </Link>{' '}
+        for all capture options.
+      </>
+    )
   },
   {
     icon: XSquare,
     title: 'No Extension, No Install — 100% Online and Free',
-    description:
-      "This is a full page screenshot tool that works entirely in your browser. No Chrome extensions, no desktop apps, no sign-ups required to start. <br><br> Capture any website for free — it's a full page screen capture online, with no hidden limits or trials. Just a fast, online screenshot capture experience."
+    description: (
+      <>
+        This is a full page screenshot tool that works entirely in your browser.
+        No Chrome extensions, no desktop apps, no sign-ups required to start.
+        <br />
+        <br />
+        Capture any website for free — it's a full page screen capture online,
+        with no hidden limits or trials. Just a fast, online screenshot capture
+        experience.
+      </>
+    )
   },
   {
     icon: Crosshair,
     title: 'Pixel-Perfect at Any Resolution',
-    description:
-      'Need a full screen website screenshot at 1440px? 1920px? Custom dimensions? <br><br> Choose your viewport width and get a crisp, accurate capture every time. Perfect for designers, QA teams, and agencies that need reliable web page screenshots.'
+    description: (
+      <>
+        Need a full screen website screenshot at 1440px? 1920px? Custom
+        dimensions?
+        <br />
+        <br />
+        Choose your viewport width and get a crisp, accurate capture every time.
+        Configure{' '}
+        <Link href='/docs/guides/screenshot/browser-settings'>
+          browser settings
+        </Link>{' '}
+        for device emulation and dark mode. Perfect for designers, QA teams, and
+        agencies that need reliable web page screenshots.
+      </>
+    )
   },
   {
     icon: Zap,
     title: 'Blazing Fast, Zero Ads',
-    description:
-      'Our rendering engine captures full webpage screenshots in seconds, even for pages that are thousands of pixels tall. <br><br> Automatically block ads and cookie banners before the rendering. No timeouts, no broken renders.'
+    description: (
+      <>
+        Our rendering engine captures full webpage screenshots in seconds, even
+        for pages that are thousands of pixels tall.
+        <br />
+        <br />
+        Automatically{' '}
+        <Link href='/docs/guides/screenshot/page-interaction'>
+          block ads and cookie banners
+        </Link>{' '}
+        before the rendering. No timeouts, no broken renders.
+      </>
+    )
   }
 ]
 
@@ -342,7 +387,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -367,7 +413,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -753,7 +800,7 @@ const HowItWorks = () => (
 const Explanation = () => (
   <Container
     as='section'
-    id='use-cases'
+    id='why-choose'
     css={theme({
       alignItems: 'center',
       pb: [4, 4, 5, 5],
@@ -817,10 +864,9 @@ const Explanation = () => (
           >
             {title}
           </Caps>
-          <Text
-            css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}
-            dangerouslySetInnerHTML={{ __html: description }}
-          />
+          <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
+            {description}
+          </Text>
         </UseCaseCard>
       ))}
     </Box>
@@ -921,36 +967,52 @@ const Banner = () => (
 const USE_CASES = [
   {
     title: 'Designers & Agencies',
-    items: [
-      'Capture full website screenshots for client presentations, design audits, and portfolio showcases.<br><br> Save entire webpages as images with one click — no more stitching screenshots together.'
-    ],
-    link: {
-      href: '',
-      alt: '',
-      text: ''
-    }
+    content: (
+      <>
+        Capture full website screenshots for client presentations, design
+        audits, and portfolio showcases.
+        <br />
+        <br />
+        Save entire webpages as images with one click — no more stitching
+        screenshots together. Learn about{' '}
+        <Link href='/docs/guides/screenshot/embedding'>
+          embedding and delivery options
+        </Link>
+        .
+      </>
+    )
   },
   {
     title: 'QA & Development Teams',
-    items: [
-      'Take full page screenshots across different viewports and resolutions to catch layout issues before launch. <br><br> Create any kind of product, automation or integration with our <a href="/screenshot">screenshot API</a>.'
-    ],
-    link: {
-      href: '',
-      alt: '',
-      text: ''
-    }
+    content: (
+      <>
+        Take full page screenshots across different viewports and resolutions to
+        catch layout issues before launch.
+        <br />
+        <br />
+        Create any kind of product, automation or integration with our{' '}
+        <Link href='/screenshot'>screenshot API</Link>. Need to capture pages
+        behind a login? See the{' '}
+        <Link href='/docs/guides/screenshot/private-pages'>
+          private pages guide
+        </Link>
+        .
+      </>
+    )
   },
   {
     title: 'Marketing & SEO Professionals',
-    items: [
-      'Screenshot competitor landing pages, track design changes over time, or capture long web pages for reports. <br><br> Get a snapshot of any entire website without ever visiting it.'
-    ],
-    link: {
-      href: '',
-      alt: '',
-      text: ''
-    }
+    content: (
+      <>
+        Screenshot competitor landing pages, track design changes over time, or
+        capture long web pages for reports.
+        <br />
+        <br />
+        Get a snapshot of any entire website without ever visiting it. For quick
+        viewport screenshots, try the{' '}
+        <Link href='/tools/website-screenshot'>standard screenshot tool</Link>.
+      </>
+    )
   }
 ]
 
@@ -984,7 +1046,7 @@ const UseCases = () => (
         width: '100%'
       })}
     >
-      {USE_CASES.map(({ title, items, link }) => (
+      {USE_CASES.map(({ title, content }) => (
         <Box
           key={title}
           css={theme({
@@ -1002,42 +1064,15 @@ const UseCases = () => (
           >
             {title}
           </Caps>
-          <Box
-            as='ul'
-            css={{
-              padding: 0,
-              margin: 0,
-              listStyle: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: space[2]
-            }}
+          <Text
+            css={theme({
+              fontSize: 1,
+              color: 'black60',
+              lineHeight: 2
+            })}
           >
-            {items.map(item => (
-              <Flex
-                key={item}
-                as='li'
-                css={{
-                  alignItems: 'baseline',
-                  gap: space[2]
-                }}
-              >
-                <ArrowRight
-                  size={12}
-                  color={colors.link}
-                  css={{ flexShrink: 0, position: 'relative', top: 1 }}
-                />
-                <Text
-                  css={theme({
-                    fontSize: 1,
-                    color: 'black60',
-                    lineHeight: 2
-                  })}
-                  dangerouslySetInnerHTML={{ __html: item }}
-                />
-              </Flex>
-            ))}
-          </Box>
+            {content}
+          </Text>
         </Box>
       ))}
     </Box>
@@ -1062,9 +1097,12 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              On the screenshot tool, the maximum width length goes up to
-              8000px. The height is not limited, it'll be as long as the page
-              is.
+              On the screenshot tool, the maximum width goes up to 8000px. The
+              height is not limited — it'll be as long as the page is. See the{' '}
+              <Link href='/docs/guides/screenshot/browser-settings'>
+                browser settings guide
+              </Link>{' '}
+              for viewport and device emulation options.
             </div>
           </>
         )
@@ -1092,7 +1130,12 @@ const ProductInformation = () => (
             <div>
               We always use the best quality settings for the full page
               screenshots. Then we compress the images to the smallest file size
-              possible without losing quality.
+              possible without losing quality. Learn about all the available
+              options in the{' '}
+              <Link href='/docs/guides/screenshot/customizing-output'>
+                customizing output guide
+              </Link>
+              .
             </div>
           </>
         )
@@ -1103,7 +1146,7 @@ const ProductInformation = () => (
           <>
             <div>
               Absolutely. The tool is built on the{' '}
-              <Link href='/docs/api/parameters/screenshot/fullPage'>
+              <Link href='/docs/guides/screenshot/customizing-output#full-page-screenshots'>
                 Microlink Screenshot API
               </Link>
               , which provides a simple REST endpoint. Integrate with any
@@ -1115,6 +1158,11 @@ const ProductInformation = () => (
                 @microlink/mql
               </Link>{' '}
               SDK for Node.js, or hit the API directly from any HTTP client.
+              Check the{' '}
+              <Link href='/docs/guides/screenshot/embedding'>
+                embedding guide
+              </Link>{' '}
+              for delivery and integration patterns.
             </div>
           </>
         )
@@ -1129,8 +1177,12 @@ const ProductInformation = () => (
               <b>don't count against your limit</b>. It lasts for 24 hours.
             </div>
             <div>
-              We only recomend turning of the cache if you need to take a
-              screenshot of a page that changes frequently.
+              We only recommend turning off the cache if you need to take a
+              screenshot of a page that changes frequently. Read the{' '}
+              <Link href='/docs/guides/screenshot/caching-and-performance'>
+                caching and performance guide
+              </Link>{' '}
+              for advanced strategies.
             </div>
           </>
         )
@@ -1140,7 +1192,11 @@ const ProductInformation = () => (
         answer: (
           <>
             <span>
-              We're are always available at:{' '}
+              Check our{' '}
+              <Link href='/docs/guides/screenshot/troubleshooting'>
+                troubleshooting guide
+              </Link>{' '}
+              for common fixes, or reach us at:{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
             </span>
           </>
@@ -1159,33 +1215,81 @@ export const Head = () => (
     description='Take a full page screenshot of any website in seconds. Just paste a URL and capture the entire webpage. Free, fast, no extension needed. Try it now.'
     image='https://cdn.microlink.io/banner/screenshot.jpeg'
     schemaType='SoftwareApplication'
-    structured={{
-      '@context': 'https://schema.org',
-      '@type': 'SoftwareApplication',
-      '@id': 'https://microlink.io/tools/website-screenshot',
-      name: 'Microlink Website Screenshot Tool',
-      description:
-        'Capture high-quality screenshots of any webpage with full-page support, device emulation, overlays, and multiple formats.',
-      url: 'https://microlink.io/tools/website-screenshot',
-      applicationCategory: ['DeveloperApplication', 'Tool'],
-      keywords: [
-        'complete page screenshot',
-        'screenshot API',
-        'capture full page screenshot',
-        'full page screenshot',
-        'full website screenshot generator',
-        'full site screenshot',
-        'entire page screenshot',
-        'free full page screen capture',
-        'full length website screenshot'
-      ],
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-        description: 'Free tier with 50 screenshots per day'
+    structured={[
+      {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        '@id': 'https://microlink.io/tools/website-screenshot/full-page',
+        name: 'Microlink Full Page Screenshot Tool',
+        description:
+          'Take a full page screenshot of any website. Scrolls and renders the entire webpage into a single high-resolution image with customizable viewport width.',
+        url: 'https://microlink.io/tools/website-screenshot/full-page',
+        applicationCategory: ['DeveloperApplication', 'Tool'],
+        keywords: [
+          'complete page screenshot',
+          'screenshot API',
+          'capture full page screenshot',
+          'full page screenshot',
+          'full website screenshot generator',
+          'full site screenshot',
+          'entire page screenshot',
+          'free full page screen capture',
+          'full length website screenshot'
+        ],
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          description: 'Free tier with 50 full page screenshots per day'
+        }
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: "What's the maximum screenshot size?",
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "On the screenshot tool, the maximum width goes up to 8000px. The height is not limited — it'll be as long as the page is."
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Is this entire website screenshot tool really free?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes! You can take up to 50 full page screenshots per day for free, with no credit card required.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: "What's the quality of the screenshots?",
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'We always use the best quality settings for the full page screenshots. Then we compress the images to the smallest file size possible without losing quality.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Do you offer a screenshot API?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Absolutely. The tool is built on the Microlink Screenshot API, which provides a simple REST endpoint. Integrate with any language — Node.js, Python, Ruby, or plain cURL. Use the @microlink/mql SDK for Node.js, or hit the API directly from any HTTP client.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How does caching work?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "Screenshots are cached on our global CDN by default. Cached responses are served instantly and don't count against your limit. Cache lasts for 24 hours."
+            }
+          }
+        ]
       }
-    }}
+    ]}
   />
 )
 

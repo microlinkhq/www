@@ -323,9 +323,9 @@ export const ApiDocsCard = ({ title, description }) => (
       >
         <SectionIcon icon={Code} />
       </Flex>
-      <Subhead css={theme({ fontSize: 3 })}>{title}</Subhead>
+      <Subhead css={theme({ fontSize: 4 })}>{title}</Subhead>
       <Caption
-        css={theme({ pt: 3, maxWidth: layout.small, mx: 'auto', fontSize: 2 })}
+        css={theme({ pt: 3, maxWidth: layout.normal, mx: 'auto', fontSize: 3 })}
       >
         {description}
       </Caption>
@@ -335,15 +335,10 @@ export const ApiDocsCard = ({ title, description }) => (
           justifyContent: 'center',
           gap: 3,
           flexWrap: 'wrap',
-          fontSize: [1, 1, 2, 2]
+          fontSize: [2, 2, 3, 3]
         })}
       >
-        <ArrowLink href='/docs/api/parameters/screenshot'>
-          API reference
-        </ArrowLink>
-        <ArrowLink href='/docs/api/getting-started/overview'>
-          Getting started
-        </ArrowLink>
+        <ArrowLink href='/docs/guides/screenshot'>Getting started</ArrowLink>
       </Flex>
     </Box>
   </Container>

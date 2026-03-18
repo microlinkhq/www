@@ -208,13 +208,27 @@ const HOW_IT_WORKS = [
 const REASON_TO_USE = [
   {
     title: 'Fast Screen Capture',
-    description:
-      'Our advanced technology captures website screenshots as fast as possible. Whether you need a quick snapshot or bulk captures via API, we deliver speed and quality.'
+    description: (
+      <>
+        Our advanced technology captures website screenshots as fast as
+        possible. Whether you need a quick snapshot or bulk captures via API, we
+        deliver <Link href='/benchmarks/screenshot-api'>speed and quality</Link>
+        .
+      </>
+    )
   },
   {
     title: 'High-Resolution Website Images',
-    description:
-      'Get crystal-clear screenshots at any viewport size—mobile, tablet, desktop, or custom dimensions. Add custom backgrounds and choose from multiple formats.'
+    description: (
+      <>
+        Get crystal-clear screenshots at any viewport size—mobile, tablet,
+        desktop, or custom dimensions.{' '}
+        <Link href='/docs/guides/screenshot/customizing-output'>
+          Add custom backgrounds
+        </Link>{' '}
+        and choose from multiple formats.
+      </>
+    )
   },
   {
     title: 'No Installation Required',
@@ -233,8 +247,16 @@ const REASON_TO_USE = [
   },
   {
     title: 'Block ads and banners',
-    description:
-      'Automatically block ads and cookie banners before the rendering. Get the cleanest screenshots possible.'
+    description: (
+      <>
+        Automatically block ads and cookie banners before the rendering. Get the
+        cleanest screenshots possible. Learn more about{' '}
+        <Link href='/docs/guides/screenshot/page-interaction'>
+          page interaction options
+        </Link>
+        .
+      </>
+    )
   }
 ]
 
@@ -1234,7 +1256,7 @@ const HowItWorks = () => (
 const Explanation = () => (
   <Container
     as='section'
-    id='use-cases'
+    id='why-choose'
     css={theme({
       alignItems: 'center',
       pb: [4, 4, 5, 5],
@@ -1373,9 +1395,9 @@ const USE_CASES = [
       'Capture responsive layouts across devices'
     ],
     link: {
-      href: '/blog/using-screenshot-design',
-      alt: 'Screenshot for designers use case',
-      text: 'Check out how to xxxx'
+      href: '/docs/guides/screenshot/browser-settings',
+      alt: 'Browser settings guide for device emulation',
+      text: 'Learn about device emulation'
     }
   },
   {
@@ -1387,9 +1409,9 @@ const USE_CASES = [
       'Generate social media preview images'
     ],
     link: {
-      href: '/use-cases/generate-og-img-previews',
-      alt: 'Screenshot for og:images',
-      text: 'Check out this use case xxxx'
+      href: '/docs/guides/screenshot/embedding',
+      alt: 'Embedding guide for screenshot delivery',
+      text: 'Learn about embedding'
     }
   },
   {
@@ -1398,12 +1420,12 @@ const USE_CASES = [
       'Screenshot webpages for bug reports',
       'Automate visual regression testing via API',
       'Capture site states at specific timestamps',
-      'Generate and previews of multiple websites without effort'
+      'Generate previews of multiple websites without effort'
     ],
     link: {
       href: '/screenshot',
       alt: 'Screenshot API',
-      text: 'Check out the API'
+      text: 'Explore the Screenshot API'
     }
   }
 ]
@@ -1438,7 +1460,7 @@ const UseCases = () => (
         width: '100%'
       })}
     >
-      {USE_CASES.map(({ title, items }) => (
+      {USE_CASES.map(({ title, items, link }) => (
         <Box
           key={title}
           css={theme({
@@ -1451,7 +1473,7 @@ const UseCases = () => (
         >
           <Caps
             as='h3'
-            titleize={false}
+            titleize='false'
             css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}
           >
             {title}
@@ -1491,17 +1513,14 @@ const UseCases = () => (
                 </Text>
               </Flex>
             ))}
-            {/* <Flex
-              css={
-                theme({
-                  px: 2,
-                  textAlign: 'center'
-                })
-              }
-            >
-              <Link alt={link.alt} href={link.href}>{link.text}</Link>
-            </Flex> */}
           </Box>
+          {link && (
+            <Box css={theme({ pt: 3 })}>
+              <Link href={link.href} aria-label={link.alt}>
+                {link.text}
+              </Link>
+            </Box>
+          )}
         </Box>
       ))}
     </Box>
@@ -1549,7 +1568,11 @@ const ProductInformation = () => (
             </div>
             <div>
               On the API, there's no maximum size limit. You can take
-              screenshots of any size you need.
+              screenshots of any size you need. See the{' '}
+              <Link href='/docs/guides/screenshot/browser-settings'>
+                browser settings guide
+              </Link>{' '}
+              for viewport and device emulation options.
             </div>
           </>
         )
@@ -1561,7 +1584,11 @@ const ProductInformation = () => (
             <div>
               We always use the best quality settings for the screenshots. Then
               we compress the images to the smallest file size possible without
-              losing quality.
+              losing quality. Learn about all the available options in the{' '}
+              <Link href='/docs/guides/screenshot/customizing-output'>
+                customizing output guide
+              </Link>
+              .
             </div>
           </>
         )
@@ -1584,6 +1611,11 @@ const ProductInformation = () => (
                 @microlink/mql
               </Link>{' '}
               SDK for Node.js, or hit the API directly from any HTTP client.
+              Check the{' '}
+              <Link href='/docs/guides/screenshot/embedding'>
+                embedding guide
+              </Link>{' '}
+              for delivery and integration patterns.
             </div>
           </>
         )
@@ -1598,8 +1630,12 @@ const ProductInformation = () => (
               <b>don't count against your limit</b>. It lasts for 24 hours.
             </div>
             <div>
-              We only recomend turning of the cache if you need to take a
-              screenshot of a page that changes frequently.
+              We only recommend turning off the cache if you need to take a
+              screenshot of a page that changes frequently. Read the{' '}
+              <Link href='/docs/guides/screenshot/caching-and-performance'>
+                caching and performance guide
+              </Link>{' '}
+              for advanced strategies.
             </div>
           </>
         )
@@ -1609,7 +1645,11 @@ const ProductInformation = () => (
         answer: (
           <>
             <span>
-              We're are always available at:{' '}
+              Check our{' '}
+              <Link href='/docs/guides/screenshot/troubleshooting'>
+                troubleshooting guide
+              </Link>{' '}
+              for common fixes, or reach us at:{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
             </span>
           </>
@@ -1628,32 +1668,80 @@ export const Head = () => (
     description='Generate high-quality website screenshots from any URL. Free, no-login online screen capture tool powered by a fast, reliable, and high resolution API.'
     image='https://cdn.microlink.io/banner/screenshot.jpeg' // TODO: generate banner
     schemaType='SoftwareApplication'
-    structured={{
-      '@context': 'https://schema.org',
-      '@type': 'SoftwareApplication',
-      '@id': 'https://microlink.io/tools/website-screenshot',
-      name: 'Microlink Website Screenshot Tool',
-      description:
-        'Capture high-quality screenshots of any webpage with full-page support, device emulation, overlays, and multiple formats.', // TODO: add json-ld description
-      url: 'https://microlink.io/tools/website-screenshot',
-      applicationCategory: ['DeveloperApplication', 'Tool'],
-      keywords: [
-        'website screenshot tool',
-        'screenshot API',
-        'webpage capture',
-        'take web screenshot',
-        'website screenshot generator',
-        'responsive screenshot',
-        'screen capture site',
-        'web page screen capture online'
-      ],
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-        description: 'Free tier with 50 screenshots per day'
+    structured={[
+      {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        '@id': 'https://microlink.io/tools/website-screenshot',
+        name: 'Microlink Website Screenshot Tool',
+        description:
+          'Capture high-quality screenshots of any webpage with full-page support, device emulation, overlays, and multiple formats.',
+        url: 'https://microlink.io/tools/website-screenshot',
+        applicationCategory: ['DeveloperApplication', 'Tool'],
+        keywords: [
+          'website screenshot tool',
+          'screenshot API',
+          'webpage capture',
+          'take web screenshot',
+          'website screenshot generator',
+          'responsive screenshot',
+          'screen capture site',
+          'web page screen capture online'
+        ],
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          description: 'Free tier with 50 screenshots per day'
+        }
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'Is this website screenshot tool really free?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes! You can take up to 50 screenshots per day for free, with no credit card required. Free screenshots include all features — full-page capture, device emulation, overlays, and multiple formats.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: "What's the maximum screenshot size?",
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "On the screenshot tool, the maximum resolution area goes up to 8000px. On the API, there's no maximum size limit. You can take screenshots of any size you need."
+            }
+          },
+          {
+            '@type': 'Question',
+            name: "What's the quality of the screenshots?",
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'We always use the best quality settings for the screenshots. Then we compress the images to the smallest file size possible without losing quality.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I integrate this into my application?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Absolutely. The tool is built on the Microlink Screenshot API, which provides a simple REST endpoint. Integrate with any language — Node.js, Python, Ruby, or plain cURL. Use the @microlink/mql SDK for Node.js, or hit the API directly from any HTTP client.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How does caching work?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "Screenshots are cached on our global CDN by default. Cached responses are served instantly and don't count against your limit. Cache lasts for 24 hours."
+            }
+          }
+        ]
       }
-    }}
+    ]}
   />
 )
 
