@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createElement } from 'react'
-import { theme } from 'theme'
+import { colors, gradient, theme } from 'theme'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'
@@ -31,9 +31,12 @@ const HAS_FORCE = !isDevelopment
 // Use O(1) Map lookup instead of O(n) array.find()
 const DEMO_LINK = findDemoLinkById(INITIAL_SUGGESTION)
 const EXAMPLE_URLS = [
-  { label: 'Microlink', url: DEMO_LINK?.data?.url || 'https://microlink.io' },
-  { label: 'MDN', url: 'https://developer.mozilla.org/en-US/' },
-  { label: 'Wikipedia', url: 'https://www.wikipedia.org/' }
+  {
+    label: 'Microlink.io',
+    url: DEMO_LINK?.data?.url || 'https://microlink.io'
+  },
+  { label: 'MDN.org', url: 'https://developer.mozilla.org/en-US/' },
+  { label: 'Wikipedia.org', url: 'https://www.wikipedia.org/' }
 ]
 
 export const Hero = () => {
@@ -217,21 +220,27 @@ export const Hero = () => {
             {shouldShowEmptyState && (
               <Flex css={theme({ justifyContent: 'center', pt: [3, 4] })}>
                 <Box
-                  css={theme({
-                    width: '100%',
-                    maxWidth: '640px',
-                    bg: 'gray0',
-                    border: 1,
-                    borderColor: 'black10',
-                    borderRadius: 3,
-                    p: [3, 4]
-                  })}
+                  css={[
+                    theme({
+                      width: '100%',
+                      maxWidth: '640px',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      borderRadius: 4,
+                      p: [3, 4]
+                    }),
+                    {
+                      background: `linear-gradient(180deg, ${colors.pinky} 0%, ${colors.white} 100%) padding-box, ${gradient} border-box`,
+                      border: '1px solid transparent'
+                    }
+                  ]}
                 >
                   <Text
                     as='p'
                     css={theme({
+                      position: 'relative',
                       fontSize: [1, 2],
-                      color: 'black70',
+                      color: 'black80',
                       textAlign: 'center',
                       m: 0
                     })}
@@ -243,31 +252,81 @@ export const Hero = () => {
                   <Text
                     as='p'
                     css={theme({
+                      position: 'relative',
                       mt: 3,
                       mb: 2,
-                      fontSize: 0,
-                      color: 'black50',
+                      fontSize: 1,
+                      color: 'black60',
                       textAlign: 'center'
                     })}
                   >
-                    Try one of these examples:
+                    Start instantly clicking one of these example URLs:
                   </Text>
                   <Flex
                     css={theme({
                       justifyContent: 'center',
+                      alignItems: 'center',
                       flexWrap: 'wrap',
-                      gap: 2
+                      pt: [1, 1, 2, 2],
+                      gap: [1, 2, 3, 3]
                     })}
                   >
                     {EXAMPLE_URLS.map(({ label, url }) => (
-                      <Button
+                      <Box
                         key={label}
+                        as='button'
                         type='button'
-                        variant='white'
+                        aria-label={`Try example URL: ${label}`}
                         onClick={() => handleExampleClick(url)}
+                        css={theme({
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          minHeight: '44px',
+                          px: [2, 3, 3, 3],
+                          py: [1, 1, 2, 2],
+                          border: 1,
+                          borderColor: 'black05',
+                          borderRadius: 2,
+                          bg: 'white95',
+                          color: 'black80',
+                          fontSize: 1,
+                          lineHeight: 0,
+                          cursor: 'pointer',
+                          touchAction: 'manipulation',
+                          boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)',
+                          transitionProperty:
+                            'background-color, border-color, color, box-shadow, transform',
+                          transitionDuration: '0.15s',
+                          _hover: {
+                            bg: 'white',
+                            color: 'black',
+                            borderColor: 'black30',
+                            boxShadow: '0 6px 16px rgba(16, 24, 40, 0.08)',
+                            transform: 'translateY(-1px)'
+                          },
+                          _active: {
+                            transform: 'translateY(0)'
+                          },
+                          _focusVisible: {
+                            outline: '2px solid',
+                            outlineColor: 'link',
+                            outlineOffset: '2px',
+                            borderRadius: 2
+                          }
+                        })}
                       >
-                        <Caps css={theme({ fontSize: 0 })}>{label}</Caps>
-                      </Button>
+                        <Text
+                          as='span'
+                          css={theme({
+                            color: 'inherit',
+                            fontSize: 1,
+                            fontWeight: 'medium'
+                          })}
+                        >
+                          {label}
+                        </Text>
+                      </Box>
                     ))}
                   </Flex>
                 </Box>
