@@ -17,7 +17,7 @@ import {
   Map,
   Users,
   Activity,
-  Film,
+  Maximize,
   Zap
 } from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
@@ -220,11 +220,11 @@ export const NAVIGATION_SECTIONS = [
         icon: Layers
       }),
       createNavigationItem({
-        label: 'Animated Screenshot',
-        href: '/tools/website-screenshot/animated',
+        label: 'Full Page Screenshot',
+        href: '/tools/website-screenshot/full-page',
         actively: 'exact',
-        description: 'Generate animated website screenshots',
-        icon: Film
+        description: 'Generate full page screenshots',
+        icon: Maximize
       }),
       createNavigationItem({
         label: 'Sharing Debugger',
