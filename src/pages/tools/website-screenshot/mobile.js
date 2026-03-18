@@ -2,7 +2,6 @@ import { borders, colors, layout, theme, space } from 'theme'
 import React, { useState, useCallback, useEffect } from 'react'
 import {
   Camera,
-  ArrowRight,
   Download,
   HelpCircle,
   Settings,
@@ -95,13 +94,13 @@ const PHONE_DEVICES = [
     height: 896
   },
   {
-    id: 'galaxy-s25-ultra',
+    id: 'galaxy-s26-ultra',
     label: 'Samsung Galaxy S26 Ultra',
     width: 412,
     height: 915
   },
   {
-    id: 'galaxy-s25',
+    id: 'galaxy-s26',
     label: 'Samsung Galaxy S26',
     width: 360,
     height: 800
@@ -157,19 +156,19 @@ const ORIENTATION_OPTIONS = [
 
 const FEATURES_LIST = [
   {
-    title: 'Fast CDN Delivery',
+    title: 'Real Device Viewports',
     description:
-      'Screenshots are served via a global CDN with 240+ edge locations. Lightning-fast delivery anywhere in the world.'
+      'Emulate exact CSS viewport dimensions of popular smartphones. iPhone, Samsung Galaxy, and Pixel — accurate mobile rendering without owning the hardware.'
   },
   {
-    title: 'Smart Caching',
+    title: 'Instant Mobile Captures',
     description:
-      "Automatic edge caching with configurable TTL. Cached responses are free and don't count against your plan."
+      'Mobile screenshots are generated in seconds and served via a global CDN with 240+ edge locations. Cached responses are free.'
   },
   {
-    title: 'Zero-Config API',
+    title: 'Mobile Screenshot API',
     description:
-      'Get started in minutes with a simple REST API. No browsers to manage, no infrastructure to maintain.'
+      'Automate mobile screenshots at scale with a simple REST API. Pass any viewport, device flag, and orientation — no headless browser setup required.'
   }
 ]
 
@@ -200,18 +199,44 @@ const HOW_IT_WORKS = [
 const REASON_TO_USE = [
   {
     title: 'Accurate Mobile Emulation',
-    description:
-      'Emulate real phone viewports for pixel-perfect mobile screenshots. Choose from the latest iPhones, Samsung Galaxy, and Google Pixel devices.'
+    description: (
+      <>
+        Emulate real phone viewports for pixel-perfect mobile screenshots.
+        Choose from the latest iPhones, Samsung Galaxy, and Google Pixel
+        devices. See all{' '}
+        <Link href='/docs/guides/screenshot/browser-settings'>
+          browser settings
+        </Link>{' '}
+        for device emulation options.
+      </>
+    )
   },
   {
     title: 'Portrait & Landscape',
-    description:
-      'Capture screenshots in both orientations. Toggle between portrait and landscape mode to see exactly how your site looks on mobile.'
+    description: (
+      <>
+        Capture screenshots in both orientations. Toggle between portrait and
+        landscape mode to see exactly how your site looks on mobile. Learn about{' '}
+        <Link href='/docs/guides/screenshot/customizing-output'>
+          output customization
+        </Link>{' '}
+        for format and quality options.
+      </>
+    )
   },
   {
     title: 'Full Page Capture',
-    description:
-      "Capture the entire scrollable page, not just what's visible. Perfect for reviewing complete mobile layouts and long-scrolling content."
+    description: (
+      <>
+        Capture the entire scrollable page, not just what's visible. Perfect for
+        reviewing complete mobile layouts and long-scrolling content. Need
+        desktop full page? Try the{' '}
+        <Link href='/tools/website-screenshot/full-page'>
+          full page screenshot tool
+        </Link>
+        .
+      </>
+    )
   },
   {
     title: 'Free + No login',
@@ -220,13 +245,29 @@ const REASON_TO_USE = [
   },
   {
     title: 'Local Storage Support',
-    description:
-      'Save screenshots to your local storage for easy access. Access them for 24 hours so if you grab the perfect screenshot, you can come back and grab it again.'
+    description: (
+      <>
+        Save screenshots to your local storage for easy access. Access them for
+        24 hours so if you grab the perfect screenshot, you can come back and
+        grab it again. Learn about{' '}
+        <Link href='/docs/guides/screenshot/caching-and-performance'>
+          caching strategies
+        </Link>
+        .
+      </>
+    )
   },
   {
     title: 'Block ads and banners',
-    description:
-      'Automatically block ads and cookie banners before the rendering. Get the cleanest mobile screenshots possible.'
+    description: (
+      <>
+        Automatically{' '}
+        <Link href='/docs/guides/screenshot/page-interaction'>
+          block ads and cookie banners
+        </Link>{' '}
+        before the rendering. Get the cleanest mobile screenshots possible.
+      </>
+    )
   }
 ]
 
@@ -357,7 +398,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               id='ws-phone'
               value={options.phoneId}
               onChange={e =>
-                setOptions(prev => ({ ...prev, phoneId: e.target.value }))}
+                setOptions(prev => ({ ...prev, phoneId: e.target.value }))
+              }
               aria-label='Select phone model'
             >
               {PHONE_DEVICES.map(phone => (
@@ -378,7 +420,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 setOptions(prev => ({
                   ...prev,
                   landscape: val === 'landscape'
-                }))}
+                }))
+              }
             />
           </Box>
 
@@ -390,7 +433,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 setOptions(prev => ({
                   ...prev,
                   fullPage: e.target.checked
-                }))}
+                }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Full page screenshot
@@ -420,7 +464,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -445,7 +490,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -541,17 +587,17 @@ const ScreenshotTool = () => {
         PHONE_DEVICES.find(p => p.id === options.phoneId) || PHONE_DEVICES[0]
       const viewport = options.landscape
         ? {
-            width: phone.height,
-            height: phone.width,
-            isMobile: true,
-            isLandscape: true
-          }
+          width: phone.height,
+          height: phone.width,
+          isMobile: true,
+          isLandscape: true
+        }
         : {
-            width: phone.width,
-            height: phone.height,
-            isMobile: true,
-            isLandscape: false
-          }
+          width: phone.width,
+          height: phone.height,
+          isMobile: true,
+          isLandscape: false
+        }
 
       setRequestedViewport(viewport)
       setIsLoading(true)
@@ -831,7 +877,7 @@ const HowItWorks = () => (
 const Explanation = () => (
   <Container
     as='section'
-    id='use-cases'
+    id='why-choose'
     css={theme({
       alignItems: 'center',
       pb: [4, 4, 5, 5],
@@ -962,8 +1008,8 @@ const Banner = () => (
           css={theme({
             width: ['300px', '500px', '700px', '900px']
           })}
-          src='/images/screenshot-tool-landing.png' // TODO: add the definitive landing image
-          alt='Screenshot API'
+          src='/images/screenshot-tool-landing.png'
+          alt='Mobile Screenshot API for automated mobile captures'
         />
       </Flex>
     }
@@ -975,36 +1021,52 @@ const Banner = () => (
 const USE_CASES = [
   {
     title: 'Developers',
-    items: [
-      "Capture visual regression bugs across device sizes before they reach production. <br><br> A website screenshot mobile capture is the fastest way to document what went wrong and prove it's fixed."
-    ],
-    link: {
-      href: '',
-      alt: '',
-      text: ''
-    }
+    content: (
+      <>
+        Capture visual regression bugs across device sizes before they reach
+        production. A website screenshot mobile capture is the fastest way to
+        document what went wrong and prove it's fixed.
+        <br />
+        <br />
+        Need to capture pages behind a login? See the{' '}
+        <Link href='/docs/guides/screenshot/private-pages'>
+          private pages guide
+        </Link>
+        . For batch captures, try the{' '}
+        <Link href='/tools/website-screenshot/bulk'>bulk screenshot tool</Link>.
+      </>
+    )
   },
   {
     title: 'Designers',
-    items: [
-      'Verify that Figma-to-code handoffs look correct on real mobile viewports. <br><br> Our screenshot mobile website output gives you a pixel-level source of truth.'
-    ],
-    link: {
-      href: '',
-      alt: '',
-      text: ''
-    }
+    content: (
+      <>
+        Verify that Figma-to-code handoffs look correct on real mobile
+        viewports. Our screenshot mobile website output gives you a pixel-level
+        source of truth.
+        <br />
+        <br />
+        Learn about{' '}
+        <Link href='/docs/guides/screenshot/embedding'>
+          embedding and delivery
+        </Link>{' '}
+        to use mobile screenshots in your workflow.
+      </>
+    )
   },
   {
     title: 'Marketers and SEO',
-    items: [
-      'Document landing page performance, track competitor changes, and build visual audit reports. <br><br> All from a mobile screenshot online tool that requires no installs or configuration.'
-    ],
-    link: {
-      href: '',
-      alt: '',
-      text: ''
-    }
+    content: (
+      <>
+        Document landing page performance, track competitor changes, and build
+        visual audit reports — all from a mobile screenshot online tool that
+        requires no installs or configuration.
+        <br />
+        <br />
+        Need desktop captures too? Use the{' '}
+        <Link href='/tools/website-screenshot'>standard screenshot tool</Link>.
+      </>
+    )
   }
 ]
 
@@ -1045,7 +1107,7 @@ const UseCases = () => (
         width: '100%'
       })}
     >
-      {USE_CASES.map(({ title, items, link }) => (
+      {USE_CASES.map(({ title, content }) => (
         <Box
           key={title}
           css={theme({
@@ -1063,52 +1125,15 @@ const UseCases = () => (
           >
             {title}
           </Caps>
-          <Box
-            as='ul'
-            css={{
-              padding: 0,
-              margin: 0,
-              listStyle: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: space[2]
-            }}
+          <Text
+            css={theme({
+              fontSize: 1,
+              color: 'black60',
+              lineHeight: 2
+            })}
           >
-            {items.map(item => (
-              <Flex
-                key={item}
-                as='li'
-                css={{
-                  alignItems: 'baseline',
-                  gap: space[2]
-                }}
-              >
-                <ArrowRight
-                  size={12}
-                  color={colors.link}
-                  css={{ flexShrink: 0, position: 'relative', top: 1 }}
-                />
-                <Text
-                  css={theme({
-                    fontSize: 1,
-                    color: 'black60',
-                    lineHeight: 2
-                  })}
-                  dangerouslySetInnerHTML={{ __html: item }}
-                />
-              </Flex>
-            ))}
-            {/* <Flex
-              css={
-                theme({
-                  px: 2,
-                  textAlign: 'center'
-                })
-              }
-            >
-              <Link alt={link.alt} href={link.href}>{link.text}</Link>
-            </Flex> */}
-          </Box>
+            {content}
+          </Text>
         </Box>
       ))}
     </Box>
@@ -1136,7 +1161,7 @@ const ProductInformation = () => (
               Yes! You can take up to <b>50&nbsp;mobile screenshots per day</b>{' '}
               for free, with no credit card required. Free screenshots include
               all features — phone emulation, full-page capture, portrait and
-              landscape modes, overlays, and multiple formats.
+              landscape modes, and multiple formats.
             </div>
             <div>
               Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
@@ -1150,19 +1175,23 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              We support the 10 most popular smartphones including iPhone 17 Pro
-              Max, iPhone 17 Pro, iPhone 17, iPhone 17 Air, Samsung Galaxy S25
-              Ultra, Samsung Galaxy S24, Samsung Galaxy A16, Samsung Galaxy A06,
-              Google Pixel 9 Pro, and Google Pixel 9.
+              We support the most popular smartphones including iPhone 17 Pro
+              Max, iPhone 17 Pro, iPhone 17, iPhone 17 Air, Samsung Galaxy S26
+              Ultra, Samsung Galaxy S26, Samsung Galaxy A16, Samsung Galaxy A06,
+              Google Pixel 10 Pro, Google Pixel 10 Pro XL, and Google Pixel 10.
             </div>
             <div>
               Each device uses its real CSS viewport dimensions for
-              pixel-perfect mobile screenshots.
+              pixel-perfect mobile screenshots. See the{' '}
+              <Link href='/docs/guides/screenshot/browser-settings'>
+                browser settings guide
+              </Link>{' '}
+              for advanced device emulation via the API.
             </div>
             <div>
               <b>Need a custom size?</b> Use the{' '}
               <Link href='/tools/website-screenshot'>
-                Advanced Screenshot Tool
+                standard screenshot tool
               </Link>
               .
             </div>
@@ -1188,7 +1217,11 @@ const ProductInformation = () => (
             <div>
               We always use the best quality settings for the screenshots. Then
               we compress the images to the smallest file size possible without
-              losing quality.
+              losing quality. Learn about all the available options in the{' '}
+              <Link href='/docs/guides/screenshot/customizing-output'>
+                customizing output guide
+              </Link>
+              .
             </div>
           </>
         )
@@ -1202,7 +1235,16 @@ const ProductInformation = () => (
               The free tool handles one device at a time. For batch captures
               across multiple devices simultaneously, use our{' '}
               <Link href='/screenshot'>Screenshot API</Link> which supports any
-              custom viewport or preset device in a single request.
+              custom viewport or preset device in a single request. You can also
+              try the{' '}
+              <Link href='/tools/website-screenshot/bulk'>
+                bulk screenshot tool
+              </Link>
+              . Check the{' '}
+              <Link href='/docs/guides/screenshot/embedding'>
+                embedding guide
+              </Link>{' '}
+              for delivery patterns.
             </div>
           </>
         )
@@ -1216,7 +1258,11 @@ const ProductInformation = () => (
               A viewport screenshot captures only the visible area of the screen
               (what you'd see without scrolling). A full page screen capture
               mobile screenshot stitches together the entire page from top to
-              bottom — ideal for documenting long pages.
+              bottom — ideal for documenting long pages. Try the{' '}
+              <Link href='/tools/website-screenshot/full-page'>
+                full page screenshot tool
+              </Link>{' '}
+              for desktop full page captures.
             </div>
           </>
         )
@@ -1226,7 +1272,11 @@ const ProductInformation = () => (
         answer: (
           <>
             <span>
-              We are always available at:{' '}
+              Check our{' '}
+              <Link href='/docs/guides/screenshot/troubleshooting'>
+                troubleshooting guide
+              </Link>{' '}
+              for common fixes, or reach us at:{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
             </span>
           </>
@@ -1245,32 +1295,88 @@ export const Head = () => (
     description='Take full page screen capture mobile screenshots of any website. Test responsive designs across real device sizes. Free online tool + Screenshot API.'
     image='https://cdn.microlink.io/banner/screenshot.jpeg'
     schemaType='SoftwareApplication'
-    structured={{
-      '@context': 'https://schema.org',
-      '@type': 'SoftwareApplication',
-      '@id': 'https://microlink.io/tools/website-screenshot/mobile',
-      name: 'Microlink Mobile Screenshot Tool',
-      description:
-        'Capture mobile screenshots of any website using real smartphone viewports. Supports iPhone, Samsung Galaxy, and Google Pixel devices with portrait and landscape modes.',
-      url: 'https://microlink.io/tools/website-screenshot/mobile',
-      applicationCategory: ['DeveloperApplication', 'Tool'],
-      keywords: [
-        'mobile website screenshot generator',
-        'mobile screenshot online',
-        'full page screen capture mobile',
-        'mobile screenshot of website',
-        'screenshot responsive website',
-        'website screenshot in different devices',
-        'mobile website capture tool',
-        'responsive design screenshot'
-      ],
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-        description: 'Free tier with 50 screenshots per day'
+    structured={[
+      {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        '@id': 'https://microlink.io/tools/website-screenshot/mobile',
+        name: 'Microlink Mobile Screenshot Tool',
+        description:
+          'Capture mobile screenshots of any website using real smartphone viewports. Supports iPhone, Samsung Galaxy, and Google Pixel devices with portrait and landscape modes.',
+        url: 'https://microlink.io/tools/website-screenshot/mobile',
+        applicationCategory: ['DeveloperApplication', 'Tool'],
+        keywords: [
+          'mobile website screenshot generator',
+          'mobile screenshot online',
+          'full page screen capture mobile',
+          'mobile screenshot of website',
+          'screenshot responsive website',
+          'website screenshot in different devices',
+          'mobile website capture tool',
+          'responsive design screenshot'
+        ],
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          description: 'Free tier with 50 mobile screenshots per day'
+        }
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'Is this mobile screenshot tool really free?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes! You can take up to 50 mobile screenshots per day for free, with no credit card required. Free screenshots include all features — phone emulation, full-page capture, portrait and landscape modes, and multiple formats.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Which phones can I emulate?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'We support the most popular smartphones including iPhone 17 Pro Max, iPhone 17 Pro, iPhone 17, iPhone 17 Air, Samsung Galaxy S26 Ultra, Samsung Galaxy S26, Samsung Galaxy A16, Samsung Galaxy A06, Google Pixel 10 Pro, Google Pixel 10 Pro XL, and Google Pixel 10. Each device uses its real CSS viewport dimensions for pixel-perfect mobile screenshots.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I take landscape screenshots?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes! Toggle between portrait and landscape orientation for any phone model. The viewport dimensions are automatically swapped to give you an accurate landscape view.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: "What's the quality of the screenshots?",
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'We always use the best quality settings for the screenshots. Then we compress the images to the smallest file size possible without losing quality.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I screenshot a website in different mobile devices at the same time?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The free tool handles one device at a time. For batch captures across multiple devices simultaneously, use the Microlink Screenshot API which supports any custom viewport or preset device in a single request.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: "What's the difference between a viewport screenshot and a full page capture?",
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "A viewport screenshot captures only the visible area of the screen (what you'd see without scrolling). A full page screen capture mobile screenshot stitches together the entire page from top to bottom — ideal for documenting long pages."
+            }
+          }
+        ]
       }
-    }}
+    ]}
   />
 )
 

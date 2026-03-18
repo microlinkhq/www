@@ -120,19 +120,19 @@ const DEVICE_OPTIONS = [
 
 const FEATURES_LIST = [
   {
-    title: 'Global CDN Delivery',
+    title: 'Real Browser Recording',
     description:
-      'Every animated screenshot is served from 240+ edge locations worldwide. Your MP4 loads fast no matter where your users are.'
+      'Every animated screenshot is captured in a full Chromium instance — CSS animations, scroll effects, and JavaScript transitions are recorded exactly as a visitor would see them.'
   },
   {
-    title: 'Smart Caching',
+    title: 'Configurable Duration',
     description:
-      "Repeated captures of the same animated web page are served from cache instantly and don't count against your daily limit."
+      'Set the recording length from 2 to 10 seconds. Capture quick hero animations or longer scroll sequences — the slider lets you dial in exactly what you need.'
   },
   {
-    title: 'One-Line API Integration',
+    title: 'Lightweight MP4 Output',
     description:
-      'Add animated screen capture to any app with a single API call. No headless browsers to manage, no infrastructure to maintain.'
+      'Animated screenshots are delivered as H.264 MP4 files that play natively in every browser. Small file sizes, no codec issues, no GIF bloat.'
   }
 ]
 
@@ -165,13 +165,30 @@ const HOW_IT_WORKS = [
 const REASON_TO_USE = [
   {
     title: 'True Animated Screen Capture',
-    description:
-      'Static screenshots miss CSS transitions, scroll effects, and interactive states. Our animated screenshot tool records the full live experience as an MP4 video.'
+    description: (
+      <>
+        Static screenshots miss CSS transitions, scroll effects, and{' '}
+        <Link href='/docs/guides/screenshot/page-interaction'>
+          interactive states
+        </Link>
+        . Our animated screenshot tool records the full live experience as an
+        MP4 video. Need a static image instead? Use the{' '}
+        <Link href='/tools/website-screenshot'>website screenshot tool</Link>.
+      </>
+    )
   },
   {
     title: 'Screenshot Any Animated Page',
-    description:
-      'Works on any public webpage — marketing sites, dashboards, product demos, portfolios. If a browser can open it, we can capture it animated.'
+    description: (
+      <>
+        Works on any public webpage — marketing sites, dashboards, product
+        demos, portfolios. For{' '}
+        <Link href='/docs/guides/screenshot/private-pages'>
+          pages behind a login
+        </Link>
+        , use the API with custom headers or cookies.
+      </>
+    )
   },
   {
     title: 'Free Online Animated Screenshot',
@@ -184,14 +201,30 @@ const REASON_TO_USE = [
       'Every animated screenshot is clean and professional — no watermarks, no overlays, no branding. Free for up to 50 captures daily.'
   },
   {
-    title: '24-Hour Recording History',
-    description:
-      'Your recent animated screenshots are saved locally for 24 hours so you can revisit, download, or share them any time.'
+    title: 'Desktop, Tablet & Mobile',
+    description: (
+      <>
+        Record animated screenshots on any viewport. For pixel-perfect phone
+        emulation with real device frames, try the{' '}
+        <Link href='/tools/website-screenshot/mobile'>
+          mobile screenshot tool
+        </Link>
+        .
+      </>
+    )
   },
   {
     title: 'Clean Captures, No Ads',
-    description:
-      'Cookie banners and ad overlays are automatically removed before the animated web page is captured, giving you a clean, professional result every time.'
+    description: (
+      <>
+        Cookie banners and ad overlays are automatically removed before the
+        animated web page is captured. Learn more in the{' '}
+        <Link href='/docs/guides/screenshot/page-interaction#start-with-the-cleanest-page'>
+          browser settings guide
+        </Link>
+        .
+      </>
+    )
   }
 ]
 
@@ -310,7 +343,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 step={1}
                 value={Number(options.duration) || DEFAULT_DURATION_S}
                 onChange={e =>
-                  setOptions(prev => ({ ...prev, duration: e.target.value }))}
+                  setOptions(prev => ({ ...prev, duration: e.target.value }))
+                }
                 aria-label='Animation duration in seconds'
                 style={{ width: '100%', accentColor: colors.link }}
               />
@@ -372,7 +406,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -397,7 +432,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -600,19 +636,17 @@ const PreviewDisplay = ({
                   fontFamily: 'sans'
                 })}
               >
-                {isLoading
-                  ? (
-                    <>
-                      Recording animated screenshot
-                      <DotSpinner />
-                    </>
-                    )
-                  : (
-                    <>
-                      Loading video
-                      <DotSpinner />
-                    </>
-                    )}
+                {isLoading ? (
+                  <>
+                    Recording animated screenshot
+                    <DotSpinner />
+                  </>
+                ) : (
+                  <>
+                    Loading video
+                    <DotSpinner />
+                  </>
+                )}
               </Text>
             </Flex>
           </FadeIn>
@@ -633,18 +667,16 @@ const PreviewDisplay = ({
             })}
           >
             <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              {error?.statusCode === 429
-                ? (
-                  <>
-                    You've reached your free daily limit.
-                    <Text css={theme({ fontSize: 2, color: 'black60' })}>
-                      We allow 50 requests per day for free users.
-                    </Text>
-                  </>
-                  )
-                : (
-                    error?.message || 'Something went wrong. Please try again.'
-                  )}
+              {error?.statusCode === 429 ? (
+                <>
+                  You've reached your free daily limit.
+                  <Text css={theme({ fontSize: 2, color: 'black60' })}>
+                    We allow 50 requests per day for free users.
+                  </Text>
+                </>
+              ) : (
+                error?.message || 'Something went wrong. Please try again.'
+              )}
             </Text>
             {error?.statusCode !== 429 && (
               <Button onClick={onRetry}>
@@ -741,7 +773,8 @@ const PreviewDisplay = ({
                   toClipboard({
                     copy: videoUrl,
                     text: Tooltip.TEXT.COPIED('URL')
-                  })}
+                  })
+                }
                 css={theme({
                   bg: 'white',
                   color: 'black80',
@@ -1139,7 +1172,7 @@ const HowItWorks = () => (
 const Explanation = () => (
   <Container
     as='section'
-    id='use-cases'
+    id='why-choose'
     css={theme({
       alignItems: 'center',
       pb: [4, 4, 5, 5],
@@ -1259,7 +1292,7 @@ const Banner = () => (
             width: ['300px', '500px', '700px', '900px']
           })}
           src='/images/screenshot-tool-landing.png'
-          alt='Screenshot API'
+          alt='Microlink animated screenshot API'
         />
       </Flex>
     }
@@ -1276,7 +1309,12 @@ const USE_CASES = [
       'Capture interactive UI states that static images miss',
       'Record animated walkthroughs for stakeholder presentations',
       'Screenshot animated pages to document product behavior'
-    ]
+    ],
+    link: {
+      href: '/docs/guides/screenshot/page-interaction',
+      alt: 'Page interaction guide',
+      text: 'Page interaction guide'
+    }
   },
   {
     title: 'For Digital Marketers',
@@ -1285,7 +1323,12 @@ const USE_CASES = [
       'Capture animated landing pages for ad creative analysis',
       'Generate animated webpage screenshots for social content',
       'Screenshot website animations for campaign inspiration'
-    ]
+    ],
+    link: {
+      href: '/docs/guides/screenshot/embedding',
+      alt: 'Embedding screenshots',
+      text: 'Embedding guide'
+    }
   },
   {
     title: 'For Developers',
@@ -1294,7 +1337,12 @@ const USE_CASES = [
       'Record animated page screenshots for visual regression tests',
       'Capture CSS transitions and scroll effects on any webpage',
       'Screenshot animated pages for automated documentation'
-    ]
+    ],
+    link: {
+      href: '/docs/api/parameters/screenshot',
+      alt: 'Screenshot API reference',
+      text: 'API reference'
+    }
   }
 ]
 
@@ -1328,7 +1376,7 @@ const UseCases = () => (
         width: '100%'
       })}
     >
-      {USE_CASES.map(({ title, items }) => (
+      {USE_CASES.map(({ title, items, link }) => (
         <Box
           key={title}
           css={theme({
@@ -1382,6 +1430,11 @@ const UseCases = () => (
                 </Text>
               </Flex>
             ))}
+            <Flex css={theme({ pt: 3, justifyContent: 'flex-start' })}>
+              <Link alt={link.alt} href={link.href}>
+                {link.text}
+              </Link>
+            </Flex>
           </Box>
         </Box>
       ))}
@@ -1410,11 +1463,13 @@ const ProductInformation = () => (
               Yes. You can take up to{' '}
               <b>50&nbsp;animated screenshots per day</b> at no cost — no credit
               card, no account required. Every free capture includes all
-              features: device emulation, ad blocking, and CDN caching.
+              features: device emulation, ad blocking, and CDN caching. Need
+              multiple.
             </div>
             <div>
-              Need more? See our <Link href='/#pricing'>pricing plans</Link> for
-              higher daily limits and priority processing.
+              Need higher limits? See our{' '}
+              <Link href='/#pricing'>pricing plans</Link> for unlimited captures
+              and priority processing.
             </div>
           </>
         )
@@ -1438,13 +1493,12 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              You can record between 2&nbsp;and 15&nbsp;seconds. The default is
-              5&nbsp;seconds.
+              You can record between <b>2&nbsp;and 10&nbsp;seconds</b>. The
+              default is 5&nbsp;seconds.
             </div>
             <div>
-              For long web pages with delayed animations or slow scroll
-              interactions, increase the duration up to 10&nbsp;seconds using
-              the slider in the options panel.
+              For pages with delayed animations or slow scroll interactions,
+              increase the duration using the slider in the options panel.
             </div>
           </>
         )
@@ -1460,7 +1514,11 @@ const ProductInformation = () => (
               page content and animations are captured. On the{' '}
               <Link href='/docs/api/parameters/screenshot'>API</Link>, you have
               full control over duration and viewport to capture entire animated
-              pages programmatically.
+              pages programmatically. For a static full-length capture, try the{' '}
+              <Link href='/tools/website-screenshot/full-page'>
+                full-page screenshot tool
+              </Link>
+              .
             </div>
           </>
         )
@@ -1471,7 +1529,11 @@ const ProductInformation = () => (
           <div>
             All animated screenshots are delivered as MP4 files using the H.264
             codec. MP4 plays natively in every major browser and device, keeping
-            file sizes small without sacrificing quality.
+            file sizes small without sacrificing quality. See the{' '}
+            <Link href='/docs/guides/screenshot/customizing-output'>
+              customizing output guide
+            </Link>{' '}
+            for more format options via the API.
           </div>
         )
       },
@@ -1487,7 +1549,11 @@ const ProductInformation = () => (
               , which accepts a single REST call. Add{' '}
               <code>screenshot: {'{ animated: true }'}</code> to capture any
               animated webpage programmatically from Node.js, Python, Ruby, or
-              plain cURL.
+              plain cURL. See the{' '}
+              <Link href='/docs/guides/screenshot/embedding'>
+                embedding guide
+              </Link>{' '}
+              for drop-in HTML snippets.
             </div>
             <div>
               Use the{' '}
@@ -1495,7 +1561,11 @@ const ProductInformation = () => (
                 @microlink/mql
               </Link>{' '}
               SDK for the easiest integration, or call the HTTP endpoint
-              directly.
+              directly. If something goes wrong, check the{' '}
+              <Link href='/docs/guides/screenshot/troubleshooting'>
+                troubleshooting guide
+              </Link>
+              .
             </div>
           </>
         )
@@ -1507,7 +1577,11 @@ const ProductInformation = () => (
             <div>
               Animated screenshots are cached on our global CDN for 24 hours by
               default. Cached responses are served instantly and{' '}
-              <b>don't count against your daily limit</b>.
+              <b>don't count against your daily limit</b>. Read the{' '}
+              <Link href='/docs/guides/screenshot/caching-and-performance'>
+                caching &amp; performance guide
+              </Link>{' '}
+              for fine-grained control.
             </div>
             <div>
               Turn off caching only if you need a fresh capture of a page that
@@ -1540,44 +1614,107 @@ export const Head = () => (
     description='Take a free animated screenshot of any website online. Capture animated web pages as MP4 video — no login, no install. Our online animated screen capture tool records any webpage in seconds.'
     image='https://cdn.microlink.io/banner/screenshot.jpeg'
     schemaType='SoftwareApplication'
-    structured={{
-      '@context': 'https://schema.org',
-      '@type': 'SoftwareApplication',
-      '@id': 'https://microlink.io/tools/website-screenshot/animated',
-      name: 'Microlink Animated Screenshot Tool',
-      description:
-        'Free online animated screenshot tool. Capture any animated web page as an MP4 video. Screenshot animated websites, capture full page animations, and record any webpage online without installing anything.',
-      url: 'https://microlink.io/tools/website-screenshot/animated',
-      applicationCategory: ['DeveloperApplication', 'Tool'],
-      keywords: [
-        'animated screenshot tool',
-        'animated screenshot',
-        'animated screen capture',
-        'online animated screenshot',
-        'animated website screenshot',
-        'animated webpage screenshot',
-        'website animated screenshot',
-        'webpage animated screenshot',
-        'screenshot animated page',
-        'screenshot website animated',
-        'capture animated web page',
-        'capture animated page',
-        'screen capture animated web page',
-        'full page animated screen capture',
-        'capture entire web page animated',
-        'capture web page with animated',
-        'screenshot web page with animated',
-        'print screen animated web page',
-        'print animated web page',
-        'take screenshot of long web page'
-      ],
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-        description: 'Free tier with 50 animated screenshots per day'
+    structured={[
+      {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        '@id': 'https://microlink.io/tools/website-screenshot/animated',
+        name: 'Microlink Animated Screenshot Tool',
+        description:
+          'Free online animated screenshot tool. Capture any animated web page as an MP4 video. Screenshot animated websites, capture full page animations, and record any webpage online without installing anything.',
+        url: 'https://microlink.io/tools/website-screenshot/animated',
+        applicationCategory: ['DeveloperApplication', 'Tool'],
+        keywords: [
+          'animated screenshot tool',
+          'animated screenshot',
+          'animated screen capture',
+          'online animated screenshot',
+          'animated website screenshot',
+          'animated webpage screenshot',
+          'website animated screenshot',
+          'webpage animated screenshot',
+          'screenshot animated page',
+          'screenshot website animated',
+          'capture animated web page',
+          'capture animated page',
+          'screen capture animated web page',
+          'full page animated screen capture',
+          'capture entire web page animated',
+          'capture web page with animated',
+          'screenshot web page with animated',
+          'print screen animated web page',
+          'print animated web page'
+        ],
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          description: 'Free tier with 50 animated screenshots per day'
+        }
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'Is this animated screenshot tool really free?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes. You can take up to 50 animated screenshots per day at no cost — no credit card, no account required. Every free capture includes all features: device emulation, ad blocking, and CDN caching. Need more? See our pricing plans for higher daily limits and priority processing.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How do I take an animated screenshot of a webpage?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Paste the URL into the tool, choose a device (desktop, tablet, or mobile), set the recording duration, and click Generate. We open the page in a real browser, capture the animated web page — including CSS transitions, scroll effects, and interactive states — and return an MP4 video within seconds.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How long can an animated screenshot be?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'You can record between 2 and 10 seconds. The default is 5 seconds. For pages with delayed animations or slow scroll interactions, increase the duration using the slider in the options panel.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I take a full page animated screenshot of a long web page?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The tool captures the visible viewport for the selected duration. For long web pages, increase the recording time so more of the page content and animations are captured. On the API, you have full control over duration and viewport to capture entire animated pages programmatically.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'What format are animated screenshots saved in?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'All animated screenshots are delivered as MP4 files using the H.264 codec. MP4 plays natively in every major browser and device, keeping file sizes small without sacrificing quality.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I automate animated screen capture via API?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes. The tool is powered by the Microlink Screenshot API, which accepts a single REST call. Add screenshot: { animated: true } to capture any animated webpage programmatically from Node.js, Python, Ruby, or plain cURL. Use the @microlink/mql SDK for the easiest integration, or call the HTTP endpoint directly.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How does caching work?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "Animated screenshots are cached on our global CDN for 24 hours by default. Cached responses are served instantly and don't count against your daily limit. Turn off caching only if you need a fresh capture of a page that updates frequently."
+            }
+          }
+        ]
       }
-    }}
+    ]}
   />
 )
 
