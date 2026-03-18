@@ -138,6 +138,14 @@ export const Hero = () => {
             return
           }
 
+          if (
+            status !== 'error' &&
+            currentAnalyzedUrl &&
+            normalizedUrl === prependHttp(currentAnalyzedUrl)
+          ) {
+            return
+          }
+
           setInputError('')
           setShowValidation(true)
           setInputUrl(trimmedValue)
