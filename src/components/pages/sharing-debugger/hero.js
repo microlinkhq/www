@@ -185,7 +185,7 @@ export const Hero = () => {
                   css={theme({
                     mt: [2, 2, 3, 3],
                     pt: [3, 3, 4, 4],
-                    pb: 4,
+                    pb: 2,
                     mx: [0, 0, 'auto', 'auto'],
                     justifyContent: 'center',
                     flexDirection: ['column', 'column', 'row', 'row']
@@ -240,8 +240,7 @@ export const Hero = () => {
                 <Text
                   as='p'
                   css={theme({
-                    mt: 2,
-                    mb: 0,
+                    mt: 1,
                     color: 'red8',
                     fontSize: 1,
                     textAlign: 'center'
@@ -347,6 +346,7 @@ export const Hero = () => {
               <Box id='previews'>
                 <Flex
                   css={theme({
+                    mt: 4,
                     flexDirection: 'column',
                     mx: 'auto'
                   })}

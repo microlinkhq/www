@@ -55,5 +55,18 @@ languageColors.html = `
   }
 `
 
+languageColors.text = `
+  --sh-class: var(--gray9);
+  --sh-identifier: var(--gray9);
+  --sh-sign: var(--gray9);
+  --sh-property: var(--gray9);
+  --sh-entity: var(--gray9);
+  --sh-jsxliterals: var(--gray9);
+  --sh-string: var(--gray9);
+  --sh-keyword: var(--gray9);
+  --sh-comment: var(--gray6);
+`
+
+languageColors.markdown = languageColors.text
 languageColors.headers = languageColors.json
 languageColors.cli = languageColors.bash
