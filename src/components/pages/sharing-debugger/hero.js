@@ -41,6 +41,7 @@ export const Hero = () => {
   const [selectedPlatform, setSelectedPlatform] = useState('whatsapp')
   const [inputUrl, setInputUrl] = useState('')
   const [showValidation, setShowValidation] = useState(false)
+  const [isDefaultDemo, setIsDefaultDemo] = useState(false)
   const defaultFetched = React.useRef(false)
   const doFetchRef = React.useRef(null)
 
@@ -58,6 +59,7 @@ export const Hero = () => {
   useEffect(() => {
     if (query.url) {
       setShowValidation(true)
+      setIsDefaultDemo(false)
       setInputError('')
       setCurrentAnalyzedUrl(query.url)
     }
@@ -67,6 +69,7 @@ export const Hero = () => {
     if (defaultFetched.current || query.url) return
     defaultFetched.current = true
     setShowValidation(true)
+    setIsDefaultDemo(true)
     setCurrentAnalyzedUrl(DEFAULT_URL)
     if (doFetchRef.current) {
       doFetchRef.current(DEFAULT_URL, { syncQuery: false })
@@ -108,6 +111,7 @@ export const Hero = () => {
 
           setInputError('')
           setShowValidation(true)
+          setIsDefaultDemo(false)
           setInputUrl(trimmedValue)
           setCurrentAnalyzedUrl(trimmedValue)
           doFetch(normalizedUrl, { syncQuery: false })
@@ -277,6 +281,30 @@ export const Hero = () => {
                   </Flex>
                 </Box>
               </Flex>
+            )}
+
+            {isDefaultDemo && metadata && (
+              <Text
+                as='p'
+                aria-live='polite'
+                css={theme({
+                  mt: 0,
+                  mb: 3,
+                  py: 2,
+                  fontSize: 1,
+                  color: 'black50',
+                  textAlign: 'center'
+                })}
+              >
+                Showing example results for{' '}
+                <Text
+                  as='span'
+                  css={theme({ fontWeight: 'bold', color: 'black80' })}
+                >
+                  microlink.io
+                </Text>
+                {' \u2014 enter any URL above to debug your own.'}
+              </Text>
             )}
 
             {metadata && (
