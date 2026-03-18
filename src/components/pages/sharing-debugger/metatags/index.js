@@ -10,6 +10,7 @@ import truncateUrl from 'truncate-url'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
 import {
   VALIDATOR_STATUS,
+  VALIDATOR_STATUS_ERROR,
   VALIDATOR_STATUS_OK,
   buildFixSnippet,
   validate
@@ -20,13 +21,38 @@ import { CheckCircle, XCircle } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
+const ISSUE_WEIGHTS = {
+  title: 25,
+  description: 20,
+  image: 20,
+  url: 15,
+  logo: 10,
+  publisher: 5,
+  locale: 5,
+  author: 5,
+  date: 5
+}
+
 export const Metatags = ({ metadata }) => {
   const breakpoint = useBreakpoint()
   const TRUNCATE_URL_LENGTH = breakpoint === 0 ? 45 : 75
   const fields = validate(metadata)
   const issues = fields.filter(({ status }) => status !== VALIDATOR_STATUS_OK)
 
-  const score = 100 - issues.length * 10
+  const score = Math.max(
+    0,
+    100 -
+      issues.reduce((total, issue) => {
+        const weight = ISSUE_WEIGHTS[issue.name] || 5
+
+        return (
+          total +
+          (issue.status === VALIDATOR_STATUS_ERROR
+            ? weight
+            : Math.ceil(weight / 2))
+        )
+      }, 0)
+  )
   const fixSnippet = buildFixSnippet({ issues, metadata })
 
   return (
@@ -49,8 +75,8 @@ export const Metatags = ({ metadata }) => {
               })}
             >
               {breakpoint === 0
-                ? 'Apply to your site & come back.'
-                : 'Copy the fix. Apply to your site & come back.'}
+                ? 'Fix the highest-impact tags first, then run it again.'
+                : 'Review the suggested tags, apply the fixes, then run the debugger again.'}
             </Text>
           </Box>
 
@@ -86,10 +112,24 @@ export const Metatags = ({ metadata }) => {
           </Text>
         </Box>
         {fields.map(
-          ({ name, isNullable, value, status, description, resume }, index) => {
+          (
+            {
+              name,
+              isNullable,
+              value,
+              displayValue,
+              status,
+              description,
+              resume
+            },
+            index
+          ) => {
             const length = value?.length || 0
             const color = VALIDATOR_STATUS[status].color
             const bg = VALIDATOR_STATUS[status].bg
+            const renderedValue = displayValue ?? value
+            const severity =
+              status === VALIDATOR_STATUS_ERROR ? 'Required' : 'Recommended'
 
             return (
               <Box
@@ -118,6 +158,18 @@ export const Metatags = ({ metadata }) => {
                     })}
                   >
                     {name}
+                  </Text>
+                  <Text
+                    as='span'
+                    css={theme({
+                      fontFamily: 'mono',
+                      fontSize: 0,
+                      color,
+                      fontWeight: 'bold'
+                    })}
+                  >
+                    {' • '}
+                    {severity}
                   </Text>
                   <Text
                     as='span'
@@ -163,10 +215,10 @@ export const Metatags = ({ metadata }) => {
                             condition={name === 'image'}
                             render={() => (
                               <>
-                                You should to add a{' '}
-                                <CodeInline>og:image</CodeInline> meta tag
-                                inside <CodeInline>head</CodeInline> tag in your
-                                HTML markup.
+                                Add an <CodeInline>og:image</CodeInline> meta
+                                tag inside your page{' '}
+                                <CodeInline>head</CodeInline> so social
+                                platforms can render a preview image.
                               </>
                             )}
                           />
@@ -174,19 +226,17 @@ export const Metatags = ({ metadata }) => {
                             condition={name === 'logo'}
                             render={() => (
                               <>
-                                You should to add a{' '}
-                                <CodeInline>/favicon</CodeInline> in your site,
-                                preferrable a png.
+                                Add standard favicon assets to your site so
+                                browsers and link previews can identify your
+                                brand more reliably.
                               </>
                             )}
                           />
                           <Choose.Otherwise
                             render={() => (
                               <>
-                                You should to add a{' '}
-                                <CodeInline>{name}</CodeInline> meta tag inside{' '}
-                                <CodeInline>head</CodeInline> tag in your HTML
-                                markup.
+                                Add a <CodeInline>{name}</CodeInline> meta tag
+                                inside your page <CodeInline>head</CodeInline>.
                               </>
                             )}
                           />
@@ -210,14 +260,18 @@ export const Metatags = ({ metadata }) => {
                       )}
                     />
                     <Choose.When
-                      condition={name === 'date'}
+                      condition={
+                        name === 'date' && status === VALIDATOR_STATUS_OK
+                      }
                       render={() => (
                         <>
                           {formatDate(value)} (<TimeAgo date={value} />)
                         </>
                       )}
                     />
-                    <Choose.Otherwise render={() => value} />
+                    <Choose.Otherwise
+                      render={() => renderedValue || `${length} length`}
+                    />
                   </Choose>
                 </Text>
               </Box>

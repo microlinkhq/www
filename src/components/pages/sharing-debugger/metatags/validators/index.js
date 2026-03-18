@@ -123,6 +123,7 @@ export const validate = metadata => {
       return {
         name: field.name,
         value: field.value,
+        displayValue: result?.displayValue ?? field.value,
         type: field.type,
         isNullable: field.isNullable,
         ...result
