@@ -32,6 +32,6 @@ const createInputIcon = (UnavatarComponent, debounceKeys) =>
 
 const InputIcon = createInputIcon(Unavatar, ['query'])
 
-InputIcon.Microlink = createInputIcon(Unavatar.Microlink, ['url'])
+InputIcon.Microlink = createInputIcon(Unavatar.Microlink, ['url', 'src'])
 
 export default InputIcon
