@@ -44,6 +44,7 @@ export const Hero = () => {
   const [isDefaultDemo, setIsDefaultDemo] = useState(false)
   const defaultFetched = React.useRef(false)
   const doFetchRef = React.useRef(null)
+  const prevFetchStatusRef = React.useRef('initial')
 
   const platforms =
     selectedPlatform === 'all'
@@ -139,7 +140,6 @@ export const Hero = () => {
 
           setInputError('')
           setShowValidation(true)
-          setIsDefaultDemo(false)
           setInputUrl(trimmedValue)
           setCurrentAnalyzedUrl(trimmedValue)
           doFetch(normalizedUrl, { queryUrl: trimmedValue })
@@ -151,6 +151,18 @@ export const Hero = () => {
         }
 
         doFetchRef.current = doFetch
+
+        const prevStatus = prevFetchStatusRef.current
+        prevFetchStatusRef.current = status
+
+        if (
+          isDefaultDemo &&
+          prevStatus === 'fetching' &&
+          (status === 'fetched' || status === 'error') &&
+          prependHttp(currentAnalyzedUrl) !== DEFAULT_URL
+        ) {
+          setIsDefaultDemo(false)
+        }
 
         const trimmedInput = inputUrl.trim()
         const inputMatchesResult =
