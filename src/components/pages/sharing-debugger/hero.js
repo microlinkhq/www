@@ -76,6 +76,36 @@ export const Hero = () => {
     }
   }, [query.url])
 
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search)
+      const url = params.get('url')
+
+      if (url) {
+        setInputUrl(url)
+        setCurrentAnalyzedUrl(url)
+        setShowValidation(true)
+        setIsDefaultDemo(false)
+        setInputError('')
+        if (doFetchRef.current) {
+          doFetchRef.current(prependHttp(url), { syncQuery: false })
+        }
+      } else {
+        setInputUrl('')
+        setShowValidation(true)
+        setIsDefaultDemo(true)
+        setCurrentAnalyzedUrl(DEFAULT_URL)
+        setInputError('')
+        if (doFetchRef.current) {
+          doFetchRef.current(DEFAULT_URL, { syncQuery: false })
+        }
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
   return (
     <FetchProvider mqlOpts={{ force: HAS_FORCE, meta: true }}>
       {({ status, doFetch, data, error }) => {
@@ -114,7 +144,7 @@ export const Hero = () => {
           setIsDefaultDemo(false)
           setInputUrl(trimmedValue)
           setCurrentAnalyzedUrl(trimmedValue)
-          doFetch(normalizedUrl, { syncQuery: false })
+          doFetch(normalizedUrl, { queryUrl: trimmedValue })
         }
 
         const handleSubmit = event => {
