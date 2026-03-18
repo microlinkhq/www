@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createElement } from 'react'
 import { colors, gradient, theme } from 'theme'
-import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
@@ -19,6 +18,7 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import { Link } from 'components/elements/Link'
 import { findDemoLinkById } from 'helpers/demo-links'
 import { isDevelopment } from 'helpers/is-development'
+import { hasDomainLikeHostname } from 'helpers/url-input'
 import {
   buildSharingDebuggerUrl,
   buildSharingDebuggerDisplayUrl
@@ -103,10 +103,8 @@ export const Hero = () => {
 
           const normalizedUrl = prependHttp(trimmedValue)
 
-          if (!isUrl(normalizedUrl)) {
-            setInputError(
-              'Enter a valid URL, such as https://example.com/page.'
-            )
+          if (!hasDomainLikeHostname(normalizedUrl)) {
+            setInputError('Enter a valid URL format.')
             setShowValidation(false)
             return
           }
