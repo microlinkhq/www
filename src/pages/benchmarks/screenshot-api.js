@@ -1080,21 +1080,15 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : isMax
-                              ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                                )
-                              : isSecond
-                                ? (
-                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                                  )
-                                : (
-                                    formatMs(times[i])
-                                  )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
@@ -1836,10 +1830,11 @@ const BottomCta = () => {
     >
       <Flex
         css={theme({
+          width: ['100%', '100%', layout.small, layout.small],
           flexDirection: 'column',
           alignItems: 'center',
           maxWidth: layout.normal,
-          px: [4, 4, 4, 0],
+          px: [2, 2, 4, 0],
           mx: 'auto'
         })}
       >
@@ -1872,13 +1867,7 @@ const BottomCta = () => {
             theme({
               pt: [4, 4, 5, 5],
               width: '100%',
-              maxWidth: [
-                layout.large,
-                layout.normal,
-                layout.small,
-                layout.small
-              ],
-              justifyContent: 'center'
+              px: [2, 3, 0, 0]
             }),
             {
               '& > div, & > div > div:first-child': {
