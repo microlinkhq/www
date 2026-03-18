@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createElement } from 'react'
-import { colors, gradient, theme } from 'theme'
+import { theme } from 'theme'
 import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
@@ -16,7 +16,6 @@ import FetchProvider from 'components/patterns/FetchProvider'
 import Caption from 'components/patterns/Caption/Caption'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import { Link } from 'components/elements/Link'
-import { findDemoLinkById } from 'helpers/demo-links'
 import { isDevelopment } from 'helpers/is-development'
 import { hasDomainLikeHostname } from 'helpers/url-input'
 import {
@@ -24,20 +23,9 @@ import {
   buildSharingDebuggerDisplayUrl
 } from 'helpers/share-debugger-url'
 
-const INITIAL_SUGGESTION = 'microlink'
+const DEFAULT_URL = 'https://microlink.io'
 
 const HAS_FORCE = !isDevelopment
-
-// Use O(1) Map lookup instead of O(n) array.find()
-const DEMO_LINK = findDemoLinkById(INITIAL_SUGGESTION)
-const EXAMPLE_URLS = [
-  {
-    label: 'Microlink.io',
-    url: DEMO_LINK?.data?.url || 'https://microlink.io'
-  },
-  { label: 'MDN.org', url: 'https://developer.mozilla.org/en-US/' },
-  { label: 'Wikipedia.org', url: 'https://www.wikipedia.org/' }
-]
 
 export const Hero = () => {
   const [query] = useQueryState()
@@ -53,6 +41,10 @@ export const Hero = () => {
   const [selectedPlatform, setSelectedPlatform] = useState('whatsapp')
   const [inputUrl, setInputUrl] = useState('')
   const [showValidation, setShowValidation] = useState(false)
+  const [isDefaultDemo, setIsDefaultDemo] = useState(false)
+  const defaultFetched = React.useRef(false)
+  const doFetchRef = React.useRef(null)
+  const prevFetchStatusRef = React.useRef('initial')
 
   const platforms =
     selectedPlatform === 'all'
@@ -68,20 +60,59 @@ export const Hero = () => {
   useEffect(() => {
     if (query.url) {
       setShowValidation(true)
+      setIsDefaultDemo(false)
       setInputError('')
       setCurrentAnalyzedUrl(query.url)
     }
   }, [query.url])
+
+  useEffect(() => {
+    if (defaultFetched.current || query.url) return
+    defaultFetched.current = true
+    setShowValidation(true)
+    setIsDefaultDemo(true)
+    setCurrentAnalyzedUrl(DEFAULT_URL)
+    if (doFetchRef.current) {
+      doFetchRef.current(DEFAULT_URL, { syncQuery: false })
+    }
+  }, [query.url])
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search)
+      const url = params.get('url')
+
+      if (url) {
+        setInputUrl(url)
+        setCurrentAnalyzedUrl(url)
+        setShowValidation(true)
+        setIsDefaultDemo(false)
+        setInputError('')
+        if (doFetchRef.current) {
+          doFetchRef.current(prependHttp(url), { syncQuery: false })
+        }
+      } else {
+        setInputUrl('')
+        setShowValidation(true)
+        setIsDefaultDemo(true)
+        setCurrentAnalyzedUrl(DEFAULT_URL)
+        setInputError('')
+        if (doFetchRef.current) {
+          doFetchRef.current(DEFAULT_URL, { syncQuery: false })
+        }
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
 
   return (
     <FetchProvider mqlOpts={{ force: HAS_FORCE, meta: true }}>
       {({ status, doFetch, data, error }) => {
         const isLoading =
           (hasQuery && status === 'initial') || status === 'fetching'
-        const metadata = status === 'error' ? null : data || null
-        const hasMetadata = !!metadata
-        const shouldShowEmptyState =
-          !hasQuery && !hasMetadata && status === 'initial'
+        const metadata = data || null
         const activeTabId = `sharing-debugger-tab-${selectedPlatform}`
         const shouldShowInlineError = status === 'error'
         const shareResultUrl = buildSharingDebuggerUrl(currentAnalyzedUrl)
@@ -97,7 +128,6 @@ export const Hero = () => {
 
           if (!trimmedValue) {
             setInputError('Enter a URL to inspect.')
-            setShowValidation(false)
             return
           }
 
@@ -105,7 +135,14 @@ export const Hero = () => {
 
           if (!hasDomainLikeHostname(normalizedUrl)) {
             setInputError('Enter a valid URL format.')
-            setShowValidation(false)
+            return
+          }
+
+          if (
+            status !== 'error' &&
+            currentAnalyzedUrl &&
+            normalizedUrl === prependHttp(currentAnalyzedUrl)
+          ) {
             return
           }
 
@@ -113,7 +150,7 @@ export const Hero = () => {
           setShowValidation(true)
           setInputUrl(trimmedValue)
           setCurrentAnalyzedUrl(trimmedValue)
-          doFetch(normalizedUrl, { syncQuery: false })
+          doFetch(normalizedUrl, { queryUrl: trimmedValue })
         }
 
         const handleSubmit = event => {
@@ -121,7 +158,25 @@ export const Hero = () => {
           submitUrl(inputUrl)
         }
 
-        const handleExampleClick = url => submitUrl(url)
+        doFetchRef.current = doFetch
+
+        const prevStatus = prevFetchStatusRef.current
+        prevFetchStatusRef.current = status
+
+        if (
+          isDefaultDemo &&
+          prevStatus === 'fetching' &&
+          (status === 'fetched' || status === 'error') &&
+          prependHttp(currentAnalyzedUrl) !== DEFAULT_URL
+        ) {
+          setIsDefaultDemo(false)
+        }
+
+        const trimmedInput = inputUrl.trim()
+        const inputMatchesResult =
+          trimmedInput &&
+          currentAnalyzedUrl &&
+          prependHttp(trimmedInput) === prependHttp(currentAnalyzedUrl)
 
         const isAll = selectedPlatform === 'all'
 
@@ -148,7 +203,7 @@ export const Hero = () => {
                   css={theme({
                     mt: [2, 2, 3, 3],
                     pt: [3, 3, 4, 4],
-                    pb: 4,
+                    pb: 2,
                     mx: [0, 0, 'auto', 'auto'],
                     justifyContent: 'center',
                     flexDirection: ['column', 'column', 'row', 'row']
@@ -164,11 +219,11 @@ export const Hero = () => {
                       })}
                       iconComponent={
                         <InputIcon.Microlink
-                          src={metadata?.logo?.url}
+                          src={
+                            inputMatchesResult ? metadata?.logo?.url : undefined
+                          }
                           url={
-                            inputUrl.trim()
-                              ? prependHttp(inputUrl.trim())
-                              : undefined
+                            trimmedInput ? prependHttp(trimmedInput) : undefined
                           }
                         />
                       }
@@ -203,8 +258,7 @@ export const Hero = () => {
                 <Text
                   as='p'
                   css={theme({
-                    mt: 2,
-                    mb: 0,
+                    mt: 1,
                     color: 'red8',
                     fontSize: 1,
                     textAlign: 'center'
@@ -214,122 +268,6 @@ export const Hero = () => {
                 </Text>
               )}
             </Box>
-
-            {shouldShowEmptyState && (
-              <Flex css={theme({ justifyContent: 'center', pt: [3, 4] })}>
-                <Box
-                  css={[
-                    theme({
-                      width: '100%',
-                      maxWidth: '640px',
-                      position: 'relative',
-                      overflow: 'hidden',
-                      borderRadius: 4,
-                      p: [3, 4]
-                    }),
-                    {
-                      background: `linear-gradient(180deg, ${colors.pinky} 0%, ${colors.white} 100%) padding-box, ${gradient} border-box`,
-                      border: '1px solid transparent'
-                    }
-                  ]}
-                >
-                  <Text
-                    as='p'
-                    css={theme({
-                      position: 'relative',
-                      fontSize: [1, 2],
-                      color: 'black80',
-                      textAlign: 'center',
-                      m: 0
-                    })}
-                  >
-                    Paste any URL to inspect Open Graph, X Cards, title,
-                    description, image, favicon, locale, and more before you
-                    share it.
-                  </Text>
-                  <Text
-                    as='p'
-                    css={theme({
-                      position: 'relative',
-                      mt: 3,
-                      mb: 2,
-                      fontSize: 1,
-                      color: 'black60',
-                      textAlign: 'center'
-                    })}
-                  >
-                    Start instantly clicking one of these example URLs:
-                  </Text>
-                  <Flex
-                    css={theme({
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      flexWrap: 'wrap',
-                      pt: [1, 1, 2, 2],
-                      gap: [1, 2, 3, 3]
-                    })}
-                  >
-                    {EXAMPLE_URLS.map(({ label, url }) => (
-                      <Box
-                        key={label}
-                        as='button'
-                        type='button'
-                        aria-label={`Try example URL: ${label}`}
-                        onClick={() => handleExampleClick(url)}
-                        css={theme({
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          minHeight: '44px',
-                          px: [2, 3, 3, 3],
-                          py: [1, 1, 2, 2],
-                          border: 1,
-                          borderColor: 'black05',
-                          borderRadius: 2,
-                          bg: 'white95',
-                          color: 'black80',
-                          fontSize: 1,
-                          lineHeight: 0,
-                          cursor: 'pointer',
-                          touchAction: 'manipulation',
-                          boxShadow: '0 1px 2px rgba(16, 24, 40, 0.04)',
-                          transitionProperty:
-                            'background-color, border-color, color, box-shadow, transform',
-                          transitionDuration: '0.15s',
-                          _hover: {
-                            bg: 'white',
-                            color: 'black',
-                            borderColor: 'black30',
-                            boxShadow: '0 6px 16px rgba(16, 24, 40, 0.08)',
-                            transform: 'translateY(-1px)'
-                          },
-                          _active: {
-                            transform: 'translateY(0)'
-                          },
-                          _focusVisible: {
-                            outline: '2px solid',
-                            outlineColor: 'link',
-                            outlineOffset: '2px',
-                            borderRadius: 2
-                          }
-                        })}
-                      >
-                        <Text
-                          as='span'
-                          css={theme({
-                            color: 'inherit',
-                            fontSize: 1,
-                            fontWeight: 'medium'
-                          })}
-                        >
-                          {label}
-                        </Text>
-                      </Box>
-                    ))}
-                  </Flex>
-                </Box>
-              </Flex>
-            )}
 
             {shouldShowInlineError && (
               <Flex css={theme({ justifyContent: 'center', pt: [3, 4] })}>
@@ -398,10 +336,34 @@ export const Hero = () => {
               </Flex>
             )}
 
+            {isDefaultDemo && metadata && (
+              <Text
+                as='p'
+                aria-live='polite'
+                css={theme({
+                  mt: 4,
+                  pb: 0,
+                  fontSize: 1,
+                  color: 'black80',
+                  textAlign: 'center'
+                })}
+              >
+                Showing example results for{' '}
+                <Text
+                  as='span'
+                  css={theme({ fontWeight: 'bold', color: 'black80' })}
+                >
+                  microlink.io
+                </Text>
+                {' \u2014 enter any URL above to debug your own.'}
+              </Text>
+            )}
+
             {metadata && (
               <Box id='previews'>
                 <Flex
                   css={theme({
+                    mt: 4,
                     flexDirection: 'column',
                     mx: 'auto'
                   })}
