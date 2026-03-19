@@ -8,6 +8,8 @@ import {
   Settings,
   Download,
   Clipboard,
+  Check,
+  Loader,
   Code,
   ChevronDown,
   X
@@ -266,6 +268,19 @@ const MarkdownPre = styled.pre`
   &::-webkit-scrollbar-thumb {
     background: ${colors.black10};
     border-radius: 3px;
+  }
+`
+
+const spinAnimation = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`
+
+const SpinningLoader = styled(Loader)`
+  animation: ${spinAnimation} 1s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
   }
 `
 
@@ -540,6 +555,30 @@ const MarkdownHistory = ({
 }) => {
   const scrollRef = useRef(null)
   const prevFirstIdRef = useRef(null)
+  const [copiedId, setCopiedId] = useState(null)
+  const [downloadedId, setDownloadedId] = useState(null)
+
+  const handleCopy = useCallback(
+    (e, entry) => {
+      e.stopPropagation()
+      if (disabled) return
+      onCopy(entry)
+      setCopiedId(entry.id)
+      setTimeout(() => setCopiedId(null), 1500)
+    },
+    [disabled, onCopy]
+  )
+
+  const handleDownload = useCallback(
+    (e, entry) => {
+      e.stopPropagation()
+      if (disabled) return
+      onDownload(entry)
+      setDownloadedId(entry.id)
+      setTimeout(() => setDownloadedId(null), 1500)
+    },
+    [disabled, onDownload]
+  )
 
   useEffect(() => {
     const firstId = entries?.[0]?.id
@@ -603,23 +642,25 @@ const MarkdownHistory = ({
               aria-label={`Copy markdown of ${entry.settings.url}`}
               disabled={disabled || undefined}
               style={{ bottom: 8, right: 50 }}
-              onClick={e => {
-                e.stopPropagation()
-                if (!disabled) onCopy(entry)
-              }}
+              onClick={e => handleCopy(e, entry)}
             >
-              <Clipboard size={15} />
+              {copiedId === entry.id ? (
+                <Check size={15} />
+              ) : (
+                <Clipboard size={15} />
+              )}
             </HistoryCardAction>
             <HistoryCardAction
               aria-label={`Download markdown of ${entry.settings.url}`}
               disabled={disabled || undefined}
               style={{ bottom: 8, right: 8 }}
-              onClick={e => {
-                e.stopPropagation()
-                if (!disabled) onDownload(entry)
-              }}
+              onClick={e => handleDownload(e, entry)}
             >
-              <Download size={15} />
+              {downloadedId === entry.id ? (
+                <SpinningLoader size={15} />
+              ) : (
+                <Download size={15} />
+              )}
             </HistoryCardAction>
             <HistoryDeleteButton
               aria-label={`Delete markdown of ${entry.settings.url}`}
