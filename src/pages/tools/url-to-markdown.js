@@ -1,5 +1,5 @@
-import { borders, colors, layout, theme, space } from 'theme'
-import React, { useState, useCallback } from 'react'
+import { borders, colors, layout, theme, transition, space } from 'theme'
+import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
   Globe,
   ArrowRight,
@@ -9,7 +9,8 @@ import {
   Download,
   Clipboard,
   Code,
-  ChevronDown
+  ChevronDown,
+  X
 } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
@@ -65,7 +66,9 @@ import {
   FadeIn,
   SkeletonPulse,
   ActionButton,
-  MOBILE_BP
+  HistoryScrollContainer,
+  MOBILE_BP,
+  HISTORY_MAX_AGE_MS
 } from 'components/pages/screenshot'
 
 const Heading = withTitle(HeadingBase)
@@ -73,6 +76,10 @@ const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
 /* ─── Constants ────────────────────────────────────────── */
+
+const MAX_MARKDOWN_HISTORY = 20
+const PREVIEW_HEIGHT = '620px'
+const PREVIEW_HEIGHT_MOBILE = '460px'
 
 const FEATURES_LIST = [
   {
@@ -231,9 +238,8 @@ const MarkdownPre = styled.pre`
   white-space: pre-wrap;
   word-break: break-word;
   overflow-y: auto;
-  max-height: 600px;
-  min-height: 200px;
   flex: 1;
+  min-height: 0;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: ${colors.black10} transparent;
@@ -325,6 +331,200 @@ const AdvancedToggle = styled(Flex).attrs({ as: 'button', type: 'button' })`
   }
 `
 
+const MARKDOWN_HISTORY_KEY = 'markdown-history'
+
+const HistoryCard = styled(Box).withConfig({
+  shouldForwardProp: prop => !['$active'].includes(prop)
+})`
+  position: relative;
+  flex-shrink: 0;
+  width: 200px;
+  height: 122px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  scroll-snap-align: start;
+  background: white;
+  border: 2px solid ${({ $active }) => ($active ? colors.link : colors.black10)};
+  transition: border-color ${transition.medium}, box-shadow ${transition.medium},
+    transform ${transition.short};
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &:hover {
+    border-color: ${({ $active }) => ($active ? colors.link : colors.black20)};
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
+`
+
+const HistoryCardContent = styled(Box)`
+  ${theme({
+    p: 2,
+    fontFamily: 'mono',
+    fontSize: '10px',
+    lineHeight: 1,
+    color: 'black50'
+  })}
+  height: 100%;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+`
+
+const HistoryCardUrl = styled(Text)`
+  ${theme({
+    fontSize: 0,
+    fontWeight: 'bold',
+    fontFamily: 'sans',
+    color: 'black80',
+    pb: 1
+  })}
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
+const HistoryDeleteButton = styled(Box).attrs({
+  as: 'button',
+  type: 'button'
+})`
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity ${transition.short}, background ${transition.short};
+  z-index: 1;
+  padding: 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  ${HistoryCard}:hover &,
+  ${HistoryCard}:focus-within & {
+    opacity: 1;
+  }
+
+  &:hover {
+    background: rgba(220, 38, 38, 0.9);
+  }
+
+  &:focus-visible {
+    opacity: 1;
+    outline: 2px solid white;
+    outline-offset: 1px;
+  }
+`
+
+/* ─── Markdown History ─────────────────────────────────── */
+
+const MarkdownHistory = ({
+  entries,
+  activeId,
+  onSelect,
+  onDelete,
+  disabled
+}) => {
+  const scrollRef = useRef(null)
+  const prevFirstIdRef = useRef(null)
+
+  useEffect(() => {
+    const firstId = entries?.[0]?.id
+    if (firstId && firstId !== prevFirstIdRef.current && scrollRef.current) {
+      scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' })
+    }
+    prevFirstIdRef.current = firstId
+  }, [entries])
+
+  if (!entries || entries.length === 0) return null
+
+  return (
+    <Box css={theme({ pt: [3, 3, 4, 4] })}>
+      <Flex
+        css={theme({
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          pb: 2
+        })}
+      >
+        <Text
+          css={theme({
+            fontSize: 0,
+            fontWeight: 'bold',
+            color: 'black50',
+            fontFamily: 'sans'
+          })}
+        >
+          Recent conversions
+        </Text>
+      </Flex>
+      <HistoryScrollContainer
+        ref={scrollRef}
+        role='list'
+        aria-label='Conversion history'
+      >
+        {entries.map(entry => (
+          <HistoryCard
+            key={entry.id}
+            role='listitem'
+            $active={entry.id === activeId}
+            tabIndex={disabled ? -1 : 0}
+            aria-label={`Load markdown of ${entry.settings.url}`}
+            aria-disabled={disabled || undefined}
+            onClick={() => !disabled && onSelect(entry)}
+            onKeyDown={e => {
+              if (!disabled && (e.key === 'Enter' || e.key === ' ')) {
+                e.preventDefault()
+                onSelect(entry)
+              }
+            }}
+            style={
+              disabled ? { opacity: 0.5, cursor: 'not-allowed' } : undefined
+            }
+          >
+            <HistoryCardContent>
+              <HistoryCardUrl>{entry.settings.url}</HistoryCardUrl>
+              {entry.markdown?.slice(0, 300)}
+            </HistoryCardContent>
+            <HistoryDeleteButton
+              aria-label={`Delete markdown of ${entry.settings.url}`}
+              disabled={disabled || undefined}
+              onClick={e => {
+                e.stopPropagation()
+                if (!disabled) onDelete(entry.id)
+              }}
+            >
+              <X size={12} />
+            </HistoryDeleteButton>
+          </HistoryCard>
+        ))}
+      </HistoryScrollContainer>
+    </Box>
+  )
+}
+
 /* ─── Markdown Preview Display ─────────────────────────── */
 
 const MarkdownPreviewDisplay = ({
@@ -357,7 +557,16 @@ const MarkdownPreviewDisplay = ({
   const displayContent = jsonData || markdown
 
   return (
-    <PreviewCanvas>
+    <PreviewCanvas
+      css={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: PREVIEW_HEIGHT_MOBILE,
+        [`@media (min-width: ${MOBILE_BP}px)`]: {
+          height: PREVIEW_HEIGHT
+        }
+      }}
+    >
       <Choose>
         <Choose.When condition={isLoading}>
           <FadeIn
@@ -365,7 +574,8 @@ const MarkdownPreviewDisplay = ({
             css={theme({
               display: 'flex',
               flexDirection: 'column',
-              height: '100%'
+              flex: 1,
+              minHeight: 0
             })}
           >
             <Box
@@ -374,8 +584,7 @@ const MarkdownPreviewDisplay = ({
                 flex: 1,
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: ['380px', '380px', '520px']
+                justifyContent: 'center'
               })}
             >
               <SkeletonPulse
@@ -392,7 +601,8 @@ const MarkdownPreviewDisplay = ({
                 borderColor: 'black05',
                 bg: 'white',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                flexShrink: 0
               })}
               aria-live='polite'
               aria-label='Converting to markdown'
@@ -420,7 +630,7 @@ const MarkdownPreviewDisplay = ({
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              minHeight: ['380px', '380px', '520px'],
+              flex: 1,
               px: 4,
               textAlign: 'center'
             })}
@@ -451,29 +661,30 @@ const MarkdownPreviewDisplay = ({
             css={theme({
               display: 'flex',
               flexDirection: 'column',
-              height: '100%',
-              position: 'relative'
+              flex: 1,
+              minHeight: 0
             })}
           >
-            {showNerdStats && nerdStats ? (
-              <Box
-                css={theme({
-                  flex: 1,
-                  overflowY: 'auto',
-                  maxHeight: ['60vh', '650px', '650px']
-                })}
-              >
+            <Box
+              css={theme({
+                flex: 1,
+                minHeight: 0,
+                position: 'relative',
+                overflow: 'hidden'
+              })}
+            >
+              {showNerdStats && nerdStats ? (
                 <NerdStatsOverlay
                   stats={nerdStats}
                   mqlQuery={mqlQuery}
                   responseData={responseData}
                 />
-              </Box>
-            ) : (
-              <MarkdownPre>
-                <code>{displayContent}</code>
-              </MarkdownPre>
-            )}
+              ) : (
+                <MarkdownPre>
+                  <code>{displayContent}</code>
+                </MarkdownPre>
+              )}
+            </Box>
 
             <Flex
               css={theme({
@@ -481,7 +692,8 @@ const MarkdownPreviewDisplay = ({
                 gap: 2,
                 borderTop: 1,
                 borderColor: 'black05',
-                bg: 'white'
+                bg: 'white',
+                flexShrink: 0
               })}
             >
               <ActionButton
@@ -538,7 +750,7 @@ const MarkdownPreviewDisplay = ({
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              minHeight: ['380px', '380px', '520px'],
+              flex: 1,
               px: 4,
               textAlign: 'center'
             })}
@@ -649,6 +861,67 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
         )}
       </PanelSection>
 
+      {/* ── Quick Options ──────────────────── */}
+      <Box css={theme({ pb: 2 })}>
+        <CheckboxLabel>
+          <input
+            type='checkbox'
+            checked={options.adblock}
+            onChange={e =>
+              setOptions(prev => ({
+                ...prev,
+                adblock: e.target.checked
+              }))
+            }
+          />
+          <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+            Block ads and banners
+          </Text>
+          <Tooltip
+            content={
+              <Tooltip.Content>
+                Removes ads and cookie banners before extraction
+              </Tooltip.Content>
+            }
+          >
+            <HelpCircle
+              size={16}
+              color={colors.black60}
+              style={{ marginLeft: '6px', marginTop: '5px' }}
+            />
+          </Tooltip>
+        </CheckboxLabel>
+
+        <CheckboxLabel>
+          <input
+            type='checkbox'
+            checked={options.cache}
+            onChange={e =>
+              setOptions(prev => ({
+                ...prev,
+                cache: e.target.checked
+              }))
+            }
+          />
+          <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+            Use cache
+          </Text>
+          <Tooltip
+            content={
+              <Tooltip.Content>
+                Uses cached markdown if available, otherwise generates fresh
+              </Tooltip.Content>
+            }
+          >
+            <HelpCircle
+              size={16}
+              color={colors.black60}
+              style={{ marginLeft: '6px', marginTop: '5px' }}
+            />
+          </Tooltip>
+        </CheckboxLabel>
+      </Box>
+
       {/* ── Advanced Options (collapsible) ──── */}
       <Box css={theme({ pb: 3 })}>
         <AdvancedToggle
@@ -667,64 +940,6 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
 
         {showAdvanced && (
           <Box id='md-advanced-options' css={theme({ pt: 1 })}>
-            <CheckboxLabel>
-              <input
-                type='checkbox'
-                checked={options.adblock}
-                onChange={e =>
-                  setOptions(prev => ({
-                    ...prev,
-                    adblock: e.target.checked
-                  }))
-                }
-              />
-              <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-                Block ads and banners
-              </Text>
-              <Tooltip
-                content={
-                  <Tooltip.Content>
-                    Removes ads and cookie banners before extraction
-                  </Tooltip.Content>
-                }
-              >
-                <HelpCircle
-                  size={16}
-                  color={colors.black60}
-                  style={{ marginLeft: '6px', marginTop: '5px' }}
-                />
-              </Tooltip>
-            </CheckboxLabel>
-
-            <CheckboxLabel>
-              <input
-                type='checkbox'
-                checked={options.cache}
-                onChange={e =>
-                  setOptions(prev => ({
-                    ...prev,
-                    cache: e.target.checked
-                  }))
-                }
-              />
-              <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-                Use cache
-              </Text>
-              <Tooltip
-                content={
-                  <Tooltip.Content>
-                    Uses cached markdown if available, otherwise generates fresh
-                  </Tooltip.Content>
-                }
-              >
-                <HelpCircle
-                  size={16}
-                  color={colors.black60}
-                  style={{ marginLeft: '6px', marginTop: '5px' }}
-                />
-              </Tooltip>
-            </CheckboxLabel>
-
             <CheckboxLabel>
               <input
                 type='checkbox'
@@ -822,7 +1037,21 @@ const MarkdownTool = () => {
   const [showNerdStats, setShowNerdStats] = useState(false)
 
   const [localStorageData] = useLocalStorage('mql-api-key')
-  console.log({ localStorageData })
+  const [history, setHistory] = useLocalStorage(MARKDOWN_HISTORY_KEY, [])
+  const [activeHistoryId, setActiveHistoryId] = useState(null)
+  const [historyReady, setHistoryReady] = useState(false)
+
+  useEffect(() => {
+    setHistory(prev => {
+      if (!Array.isArray(prev)) return []
+      const now = Date.now()
+      const cleaned = prev.filter(
+        entry => now - entry.createdAt < HISTORY_MAX_AGE_MS
+      )
+      return cleaned.length !== prev.length ? cleaned : prev
+    })
+    setHistoryReady(true)
+  }, [setHistory])
 
   const handleSubmit = useCallback(
     async url => {
@@ -839,7 +1068,7 @@ const MarkdownTool = () => {
           : { attr: 'markdown' }
 
         const mqlOpts = {
-          apiKey: localStorageData,
+          apiKey: localStorageData?.apiKey,
           meta: false,
           data: { markdown: dataRule },
           adblock: options.adblock,
@@ -854,19 +1083,65 @@ const MarkdownTool = () => {
         const queryStr = buildMqlQuery(url, mqlOpts)
         setMqlQuery(queryStr)
 
-        const response = await mql(url, mqlOpts)
-        const md = response.data?.markdown || ''
-        setMarkdown(md)
+        let response = null
+        let headerStats = null
+        let truncatedResponseStr = null
+        try {
+          response = await mql(url, mqlOpts)
+          const md = response.data?.markdown || ''
+          setMarkdown(md)
+          headerStats = extractNerdStats(response.response?.headers)
+          setNerdStats(headerStats)
 
-        const headerStats = extractNerdStats(response.response?.headers)
-        setNerdStats(headerStats)
-        setResponseData(
-          JSON.stringify(
-            { status: response.status, data: response.data },
+          const truncatedData = { ...response.data }
+          if (
+            typeof truncatedData.markdown === 'string' &&
+            truncatedData.markdown.length > 300
+          ) {
+            truncatedData.markdown =
+              truncatedData.markdown.slice(0, 300) + '\u2026'
+          }
+          truncatedResponseStr = JSON.stringify(
+            { status: response.status, data: truncatedData },
             null,
             2
           )
-        )
+          setResponseData(truncatedResponseStr)
+        } catch (err) {
+          setError({
+            message:
+              err.description ||
+              err.message ||
+              'Failed to convert to markdown.',
+            statusCode: err.statusCode || err.code
+          })
+        }
+
+        if (response?.data?.markdown) {
+          const entryId = String(Date.now())
+          setHistory(prev => {
+            const items = Array.isArray(prev) ? prev : []
+            return [
+              {
+                id: entryId,
+                createdAt: Date.now(),
+                markdown: response.data.markdown,
+                nerdStats: headerStats,
+                mqlQuery: queryStr,
+                responseData: truncatedResponseStr,
+                settings: {
+                  url,
+                  customSelector: options.customSelector,
+                  adblock: options.adblock,
+                  cache: options.cache,
+                  waitForLoad: options.waitForLoad
+                }
+              },
+              ...items
+            ].slice(0, MAX_MARKDOWN_HISTORY)
+          })
+          setActiveHistoryId(entryId)
+        }
       } catch (err) {
         setError({
           message:
@@ -877,7 +1152,36 @@ const MarkdownTool = () => {
         setIsLoading(false)
       }
     },
-    [options, localStorageData]
+    [options, localStorageData, setHistory]
+  )
+
+  const handleHistorySelect = useCallback(entry => {
+    const { settings } = entry
+    setOptions({
+      url: settings.url,
+      customSelector: settings.customSelector || '',
+      adblock: settings.adblock !== undefined ? settings.adblock : true,
+      cache: settings.cache !== undefined ? settings.cache : true,
+      waitForLoad: settings.waitForLoad || false
+    })
+    setMarkdown(entry.markdown)
+    setLastUrl(settings.url)
+    setNerdStats(entry.nerdStats || null)
+    setMqlQuery(entry.mqlQuery || null)
+    setResponseData(entry.responseData || null)
+    setError(null)
+    setActiveHistoryId(entry.id)
+  }, [])
+
+  const handleHistoryDelete = useCallback(
+    id => {
+      setHistory(prev => {
+        const items = Array.isArray(prev) ? prev : []
+        return items.filter(entry => entry.id !== id)
+      })
+      setActiveHistoryId(prev => (prev === id ? null : prev))
+    },
+    [setHistory]
   )
 
   const handleRetry = useCallback(() => {
@@ -919,6 +1223,16 @@ const MarkdownTool = () => {
           />
         </PreviewOuter>
       </ToolLayout>
+
+      {historyReady && (
+        <MarkdownHistory
+          entries={Array.isArray(history) ? history : []}
+          activeId={activeHistoryId}
+          onSelect={handleHistorySelect}
+          onDelete={handleHistoryDelete}
+          disabled={isLoading}
+        />
+      )}
     </Container>
   )
 }
