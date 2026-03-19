@@ -3,6 +3,7 @@ import { Maximize, Layers, Smartphone, Film } from 'react-feather'
 
 import { Camera as CameraIcon } from 'components/icons/Camera'
 import { Bug as BugIcon } from 'components/icons/Bug'
+import { FileText as FileTextIcon } from 'components/icons/FileTextIcon'
 import { cdnUrl } from 'helpers/cdn-url'
 
 export const TOOLS = [
@@ -113,6 +114,35 @@ export const TOOLS = [
           boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
           position: 'absolute',
           top: ['25%', '10%'],
+          width: ['300px', '450px', '550px'],
+          objectFit: 'cover',
+          transition: 'transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
+          transformOrigin: 'top center'
+        }
+      }
+    ]
+  },
+  {
+    category: 'Markdown',
+    description:
+      'Convert any webpage into clean, structured markdown. Extract content from blogs, docs, and SPAs — edit, copy, or download the result instantly.',
+    tools: [
+      {
+        title: 'URL to Markdown',
+        description:
+          'Turn any URL into clean, structured markdown. Supports ad blocking, HTML selectors, JavaScript rendering, and inline editing — copy or download the result. No login required.',
+        href: '/tools/url-to-markdown',
+        icon: FileTextIcon,
+        image: '/images/url-to-markdown.png',
+        featured: true,
+        animation: [
+          'scale(1.0) translateY(-6%) perspective(800px) rotateY(-8deg)',
+          'scale(1) perspective(800px) rotateY(0deg)'
+        ],
+        styles: {
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          position: 'absolute',
+          top: ['25%', '7%'],
           width: ['300px', '450px', '550px'],
           objectFit: 'cover',
           transition: 'transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
