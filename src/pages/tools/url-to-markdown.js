@@ -14,7 +14,7 @@ import {
 } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import mql from '@microlink/mql'
 
 import Box from 'components/elements/Box'
@@ -22,14 +22,12 @@ import Caps from 'components/elements/Caps'
 import { Button } from 'components/elements/Button/Button'
 import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
-import DotSpinner from 'components/elements/DotSpinner'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import Spinner from 'components/elements/Spinner'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
@@ -62,9 +60,7 @@ import {
   OptionsPanelOuter,
   PreviewOuter,
   StickyGenerateWrapper,
-  PreviewCanvas,
   FadeIn,
-  SkeletonPulse,
   ActionButton,
   HistoryScrollContainer,
   MOBILE_BP,
@@ -226,15 +222,45 @@ const USE_CASES = [
 
 /* ─── Page-specific Styled Components ──────────────────── */
 
+const PaperSheet = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  background: repeating-linear-gradient(
+      transparent,
+      transparent 27px,
+      ${colors.black05} 27px,
+      ${colors.black05} 28px
+    ),
+    linear-gradient(180deg, #fffef9 0%, #fdfcf7 100%);
+  border: 1px solid ${colors.black10};
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 6px 16px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 32px;
+    width: 1px;
+    height: 100%;
+    background: rgba(220, 80, 80, 0.18);
+    z-index: 1;
+    pointer-events: none;
+  }
+`
+
 const MarkdownPre = styled.pre`
   ${theme({
     fontFamily: 'mono',
     fontSize: 0,
     lineHeight: 2,
     color: 'black80',
-    p: 3,
     m: 0
   })}
+  padding: ${space[4]} ${space[3]} ${space[3]} 44px;
   white-space: pre-wrap;
   word-break: break-word;
   overflow-y: auto;
@@ -255,6 +281,56 @@ const MarkdownPre = styled.pre`
   &::-webkit-scrollbar-thumb {
     background: ${colors.black10};
     border-radius: 3px;
+  }
+`
+
+const quillWrite = keyframes`
+  0%, 100% { transform: rotate(-45deg) translate(0, 0); }
+  15% { transform: rotate(-43deg) translate(3px, 1px); }
+  30% { transform: rotate(-45deg) translate(7px, 0); }
+  45% { transform: rotate(-47deg) translate(11px, 1px); }
+  55% { transform: rotate(-45deg) translate(14px, 0); }
+  70% { transform: rotate(-44deg) translate(10px, 0); }
+  85% { transform: rotate(-46deg) translate(5px, 1px); }
+`
+
+const inkDot = keyframes`
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+`
+
+const QuillIcon = styled.span`
+  display: inline-block;
+  font-size: 28px;
+  animation: ${quillWrite} 2s ease-in-out infinite;
+  transform-origin: bottom right;
+  line-height: 1;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`
+
+const InkDot = styled.span`
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: ${colors.black30};
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: ${inkDot} 1.5s ease-in-out infinite;
+
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  &:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: 0.5;
   }
 `
 
@@ -557,10 +633,8 @@ const MarkdownPreviewDisplay = ({
   const displayContent = jsonData || markdown
 
   return (
-    <PreviewCanvas
+    <PaperSheet
       css={{
-        display: 'flex',
-        flexDirection: 'column',
         height: PREVIEW_HEIGHT_MOBILE,
         [`@media (min-width: ${MOBILE_BP}px)`]: {
           height: PREVIEW_HEIGHT
@@ -574,50 +648,37 @@ const MarkdownPreviewDisplay = ({
             css={theme({
               display: 'flex',
               flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
               flex: 1,
-              minHeight: 0
+              gap: 3
             })}
           >
-            <Box
-              css={theme({
-                p: 3,
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              })}
-            >
-              <SkeletonPulse
-                role='progressbar'
-                aria-label='Converting to markdown'
-                style={{ width: '100%', height: '300px', borderRadius: '8px' }}
-              />
-            </Box>
+            <QuillIcon role='img' aria-label='Writing'>
+              &#x1F58B;&#xFE0F;
+            </QuillIcon>
             <Flex
               css={theme({
-                p: 3,
-                gap: 2,
-                borderTop: 1,
-                borderColor: 'black05',
-                bg: 'white',
-                justifyContent: 'center',
                 alignItems: 'center',
-                flexShrink: 0
+                gap: 2
               })}
               aria-live='polite'
-              aria-label='Converting to markdown'
             >
-              <Spinner width='20px' height='14px' />
               <Text
                 css={theme({
                   color: 'black50',
                   fontSize: 1,
-                  fontFamily: 'sans'
+                  fontFamily: 'sans',
+                  fontStyle: 'italic'
                 })}
               >
-                Converting to markdown
-                <DotSpinner />
+                Transcribing the web onto paper
               </Text>
+              <Flex css={{ gap: '3px' }}>
+                <InkDot />
+                <InkDot />
+                <InkDot />
+              </Flex>
             </Flex>
           </FadeIn>
         </Choose.When>
@@ -670,7 +731,8 @@ const MarkdownPreviewDisplay = ({
                 flex: 1,
                 minHeight: 0,
                 position: 'relative',
-                overflow: 'hidden'
+                display: 'flex',
+                flexDirection: 'column'
               })}
             >
               {showNerdStats && nerdStats ? (
@@ -690,11 +752,12 @@ const MarkdownPreviewDisplay = ({
               css={theme({
                 p: 3,
                 gap: 2,
-                borderTop: 1,
-                borderColor: 'black05',
-                bg: 'white',
                 flexShrink: 0
               })}
+              style={{
+                borderTop: '1px solid rgba(0,0,0,0.06)',
+                background: 'linear-gradient(180deg, #fdfcf7 0%, #f8f7f2 100%)'
+              }}
             >
               <ActionButton
                 as='button'
@@ -755,30 +818,33 @@ const MarkdownPreviewDisplay = ({
               textAlign: 'center'
             })}
           >
-            <Box
+            <Text
+              css={{
+                fontSize: '40px',
+                lineHeight: 1,
+                marginBottom: space[3],
+                opacity: 0.3
+              }}
+            >
+              &#x1F58B;&#xFE0F;
+            </Text>
+            <Text css={theme({ color: 'black50', fontSize: 2 })}>
+              Paste a URL and press Convert
+            </Text>
+            <Text
               css={theme({
-                width: '80px',
-                height: '80px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                mb: 3,
-                background: 'black025'
+                color: 'black40',
+                fontSize: 1,
+                pt: 1,
+                fontStyle: 'italic'
               })}
             >
-              <FileText size={32} color={colors.black20} />
-            </Box>
-            <Text css={theme({ color: 'black60', fontSize: 2 })}>
-              Enter a URL and click Convert
-            </Text>
-            <Text css={theme({ color: 'black60', fontSize: 1, pt: 1 })}>
-              Your markdown will appear here
+              The markdown will appear on this sheet
             </Text>
           </FadeIn>
         </Choose.Otherwise>
       </Choose>
-    </PreviewCanvas>
+    </PaperSheet>
   )
 }
 
@@ -1016,6 +1082,12 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
   )
 }
 
+const cleanMarkdown = raw =>
+  raw
+    .replace(/\n{3,}/g, '\n\n')
+    .replace(/^[\t ]+$/gm, '')
+    .trim()
+
 /* ─── Main Tool Section ────────────────────────────────── */
 
 const MarkdownTool = () => {
@@ -1088,7 +1160,7 @@ const MarkdownTool = () => {
         let truncatedResponseStr = null
         try {
           response = await mql(url, mqlOpts)
-          const md = response.data?.markdown || ''
+          const md = cleanMarkdown(response.data?.markdown || '')
           setMarkdown(md)
           headerStats = extractNerdStats(response.response?.headers)
           setNerdStats(headerStats)
@@ -1164,7 +1236,7 @@ const MarkdownTool = () => {
       cache: settings.cache !== undefined ? settings.cache : true,
       waitForLoad: settings.waitForLoad || false
     })
-    setMarkdown(entry.markdown)
+    setMarkdown(cleanMarkdown(entry.markdown || ''))
     setLastUrl(settings.url)
     setNerdStats(entry.nerdStats || null)
     setMqlQuery(entry.mqlQuery || null)
