@@ -39,6 +39,10 @@ import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
+import { ArrowBig } from 'components/icons/ArrowBig'
+import { FileText as FileTextIcon } from 'components/icons/FileTextIcon'
+import { LinkIcon } from 'components/icons/LinkIcon'
+import { Pencil } from 'components/icons/PencilLine'
 import NerdStatsOverlay, {
   NerdStatsToggle,
   extractNerdStats,
@@ -227,29 +231,10 @@ const PaperSheet = styled(Box)`
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  background: repeating-linear-gradient(
-      transparent,
-      transparent 27px,
-      ${colors.black05} 27px,
-      ${colors.black05} 28px
-    ),
-    linear-gradient(180deg, #fffef9 0%, #fdfcf7 100%);
+  background: #fff;
   border: 1px solid ${colors.black10};
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 6px 16px rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.7);
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 32px;
-    width: 1px;
-    height: 100%;
-    background: rgba(220, 80, 80, 0.18);
-    z-index: 1;
-    pointer-events: none;
-  }
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
 `
 
 const MarkdownPre = styled.pre`
@@ -258,9 +243,9 @@ const MarkdownPre = styled.pre`
     fontSize: 0,
     lineHeight: 2,
     color: 'black80',
-    m: 0
+    m: 0,
+    p: 4
   })}
-  padding: ${space[4]} ${space[3]} ${space[3]} 44px;
   white-space: pre-wrap;
   word-break: break-word;
   overflow-y: auto;
@@ -284,42 +269,30 @@ const MarkdownPre = styled.pre`
   }
 `
 
-const quillWrite = keyframes`
-  0%, 100% { transform: rotate(-45deg) translate(0, 0); }
-  15% { transform: rotate(-43deg) translate(3px, 1px); }
-  30% { transform: rotate(-45deg) translate(7px, 0); }
-  45% { transform: rotate(-47deg) translate(11px, 1px); }
-  55% { transform: rotate(-45deg) translate(14px, 0); }
-  70% { transform: rotate(-44deg) translate(10px, 0); }
-  85% { transform: rotate(-46deg) translate(5px, 1px); }
+const pencilSpin = keyframes`
+  0% { transform: rotate(0deg); }
+  75% { transform: rotate(360deg); }
+  100% { transform: rotate(360deg); }
 `
 
-const inkDot = keyframes`
-  0%, 100% { opacity: 0.3; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.2); }
-`
-
-const QuillIcon = styled.span`
-  display: inline-block;
-  font-size: 28px;
-  animation: ${quillWrite} 2s ease-in-out infinite;
-  transform-origin: bottom right;
-  line-height: 1;
+const PencilAnimated = styled.div`
+  animation: ${pencilSpin} 1.2s ease-in-out infinite;
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
   }
 `
 
-const InkDot = styled.span`
+const LoadingDot = styled.span`
   display: inline-block;
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: ${colors.black30};
-  margin-left: 2px;
-  vertical-align: middle;
-  animation: ${inkDot} 1.5s ease-in-out infinite;
+  animation: ${keyframes`
+    0%, 80%, 100% { opacity: 0.2; }
+    40% { opacity: 1; }
+  `} 1.4s ease-in-out infinite;
 
   &:nth-child(2) {
     animation-delay: 0.2s;
@@ -414,8 +387,8 @@ const HistoryCard = styled(Box).withConfig({
 })`
   position: relative;
   flex-shrink: 0;
-  width: 200px;
-  height: 122px;
+  width: 250px;
+  height: 150px;
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
@@ -477,12 +450,12 @@ const HistoryDeleteButton = styled(Box).attrs({
   type: 'button'
 })`
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: 6px;
+  right: 6px;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(220, 38, 38, 0.9);
   color: white;
   border: none;
   cursor: pointer;
@@ -504,7 +477,47 @@ const HistoryDeleteButton = styled(Box).attrs({
   }
 
   &:hover {
-    background: rgba(220, 38, 38, 0.9);
+    background: rgba(185, 28, 28, 1);
+  }
+
+  &:focus-visible {
+    opacity: 1;
+    outline: 2px solid white;
+    outline-offset: 1px;
+  }
+`
+
+const HistoryCardAction = styled(Box).attrs({
+  as: 'button',
+  type: 'button'
+})`
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity ${transition.short}, background ${transition.short};
+  z-index: 1;
+  padding: 0;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  ${HistoryCard}:hover &,
+  ${HistoryCard}:focus-within & {
+    opacity: 1;
+  }
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.8);
   }
 
   &:focus-visible {
@@ -521,6 +534,8 @@ const MarkdownHistory = ({
   activeId,
   onSelect,
   onDelete,
+  onCopy,
+  onDownload,
   disabled
 }) => {
   const scrollRef = useRef(null)
@@ -584,6 +599,28 @@ const MarkdownHistory = ({
               <HistoryCardUrl>{entry.settings.url}</HistoryCardUrl>
               {entry.markdown?.slice(0, 300)}
             </HistoryCardContent>
+            <HistoryCardAction
+              aria-label={`Copy markdown of ${entry.settings.url}`}
+              disabled={disabled || undefined}
+              style={{ bottom: 8, right: 50 }}
+              onClick={e => {
+                e.stopPropagation()
+                if (!disabled) onCopy(entry)
+              }}
+            >
+              <Clipboard size={15} />
+            </HistoryCardAction>
+            <HistoryCardAction
+              aria-label={`Download markdown of ${entry.settings.url}`}
+              disabled={disabled || undefined}
+              style={{ bottom: 8, right: 8 }}
+              onClick={e => {
+                e.stopPropagation()
+                if (!disabled) onDownload(entry)
+              }}
+            >
+              <Download size={15} />
+            </HistoryCardAction>
             <HistoryDeleteButton
               aria-label={`Delete markdown of ${entry.settings.url}`}
               disabled={disabled || undefined}
@@ -649,37 +686,31 @@ const MarkdownPreviewDisplay = ({
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'center',
-              flex: 1,
-              gap: 3
+              flex: 1
             })}
           >
-            <QuillIcon role='img' aria-label='Writing'>
-              &#x1F58B;&#xFE0F;
-            </QuillIcon>
-            <Flex
+            <Box css={{ flex: '1 1 45%' }} />
+            <Box css={{ color: colors.black80, marginBottom: space[3] }}>
+              <PencilAnimated>
+                <Pencil width='34' height='34' />
+              </PencilAnimated>
+            </Box>
+            <Text
               css={theme({
-                alignItems: 'center',
-                gap: 2
+                color: 'black80',
+                fontSize: 2,
+                fontFamily: 'sans'
               })}
               aria-live='polite'
             >
-              <Text
-                css={theme({
-                  color: 'black50',
-                  fontSize: 1,
-                  fontFamily: 'sans',
-                  fontStyle: 'italic'
-                })}
-              >
-                Transcribing the web onto paper
-              </Text>
-              <Flex css={{ gap: '3px' }}>
-                <InkDot />
-                <InkDot />
-                <InkDot />
-              </Flex>
+              Converting to markdown
+            </Text>
+            <Flex css={{ gap: '5px', marginTop: space[2] }}>
+              <LoadingDot />
+              <LoadingDot />
+              <LoadingDot />
             </Flex>
+            <Box css={{ flex: '1 1 55%' }} />
           </FadeIn>
         </Choose.When>
 
@@ -755,8 +786,8 @@ const MarkdownPreviewDisplay = ({
                 flexShrink: 0
               })}
               style={{
-                borderTop: '1px solid rgba(0,0,0,0.06)',
-                background: 'linear-gradient(180deg, #fdfcf7 0%, #f8f7f2 100%)'
+                borderTop: `1px solid ${colors.black05}`,
+                background: '#fafafa'
               }}
             >
               <ActionButton
@@ -812,35 +843,41 @@ const MarkdownPreviewDisplay = ({
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'center',
               flex: 1,
               px: 4,
               textAlign: 'center'
             })}
           >
-            <Text
+            <Box css={{ flex: '1 1 45%' }} />
+            <Flex
               css={{
-                fontSize: '40px',
-                lineHeight: 1,
-                marginBottom: space[3],
-                opacity: 0.3
+                color: colors.black80,
+                alignItems: 'center',
+                gap: space[2],
+                marginBottom: space[3]
               }}
             >
-              &#x1F58B;&#xFE0F;
-            </Text>
-            <Text css={theme({ color: 'black50', fontSize: 2 })}>
+              <LinkIcon width='30' height='30' />
+              <ArrowBig
+                width='28'
+                height='28'
+                css={{ color: colors.black40 }}
+              />
+              <FileTextIcon width='32' height='32' />
+            </Flex>
+            <Text css={theme({ color: 'black80', fontSize: 2 })}>
               Paste a URL and press Convert
             </Text>
             <Text
               css={theme({
-                color: 'black40',
+                color: 'black60',
                 fontSize: 1,
-                pt: 1,
-                fontStyle: 'italic'
+                pt: 1
               })}
             >
-              The markdown will appear on this sheet
+              The markdown will appear here
             </Text>
+            <Box css={{ flex: '1 1 55%' }} />
           </FadeIn>
         </Choose.Otherwise>
       </Choose>
@@ -1158,7 +1195,7 @@ const MarkdownTool = () => {
           : { attr: 'markdown' }
 
         const mqlOpts = {
-          apiKey: localStorageData?.apiKey,
+          apiKey: localStorageData,
           meta: false,
           data: { markdown: dataRule },
           adblock: options.adblock,
@@ -1277,6 +1314,37 @@ const MarkdownTool = () => {
     [setHistory]
   )
 
+  const [HistoryClipboard, historyToClipboard] = useClipboard()
+
+  const handleHistoryCopy = useCallback(
+    entry => {
+      historyToClipboard({
+        copy: entry.markdown || '',
+        text: Tooltip.TEXT.COPIED('Markdown')
+      })
+    },
+    [historyToClipboard]
+  )
+
+  const handleHistoryDownload = useCallback(entry => {
+    if (!entry.markdown) return
+    const blob = new Blob([entry.markdown], { type: 'text/markdown' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    try {
+      const hostname = new URL(entry.settings.url).hostname.replace(
+        /^www\./,
+        ''
+      )
+      a.download = `${hostname}.md`
+    } catch {
+      a.download = 'markdown.md'
+    }
+    a.click()
+    URL.revokeObjectURL(url)
+  }, [])
+
   const handleRetry = useCallback(() => {
     if (lastUrl) handleSubmit(lastUrl)
   }, [lastUrl, handleSubmit])
@@ -1323,9 +1391,12 @@ const MarkdownTool = () => {
           activeId={activeHistoryId}
           onSelect={handleHistorySelect}
           onDelete={handleHistoryDelete}
+          onCopy={handleHistoryCopy}
+          onDownload={handleHistoryDownload}
           disabled={isLoading}
         />
       )}
+      <HistoryClipboard />
     </Container>
   )
 }
