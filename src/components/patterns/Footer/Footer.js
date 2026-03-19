@@ -75,6 +75,7 @@ const FOOTER_COLUMNS = [
       { label: 'SDK', href: '/sdk' },
       { label: 'Sharing Debugger', href: '/tools/sharing-debugger' },
       { label: 'Website Screenshot', href: '/tools/website-screenshot' },
+      { label: 'URL to Markdown', href: '/tools/url-to-markdown' },
       {
         label: 'Full page Screenshot',
         href: '/tools/website-screenshot/full-page'

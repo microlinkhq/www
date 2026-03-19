@@ -7,6 +7,7 @@ import { Bot as BotIcon } from 'components/icons/Bot'
 import { Award as AwardIcon } from 'components/icons/Award'
 import { Building2 as Building2Icon } from 'components/icons/Building2'
 import { Bug as BugIcon } from 'components/icons/Bug'
+import { FileText as FileTextIcon } from 'components/icons/FileTextIcon'
 import { Camera as CameraIcon } from 'components/icons/Camera'
 import { Focus as FocusIcon } from 'components/icons/Focus'
 import { Inbox as InboxIcon } from 'components/icons/Inbox'
@@ -18,7 +19,8 @@ import {
   Users,
   Activity,
   Maximize,
-  Zap
+  Zap,
+  Film
 } from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
@@ -227,11 +229,25 @@ export const NAVIGATION_SECTIONS = [
         icon: Maximize
       }),
       createNavigationItem({
+        label: 'Animated Screenshot',
+        href: '/tools/website-screenshot/animated',
+        actively: 'exact',
+        description: 'Generate animated screenshots',
+        icon: Film
+      }),
+      createNavigationItem({
         label: 'Sharing Debugger',
         href: '/tools/sharing-debugger',
         actively: 'exact',
         description: 'Preview social cards before publishing links',
         icon: BugIcon
+      }),
+      createNavigationItem({
+        label: 'Url to Markdown',
+        href: '/tools/url-to-markdown',
+        actively: 'exact',
+        description: 'Convert any URL to a markdown file',
+        icon: FileTextIcon
       })
     ]
   },
