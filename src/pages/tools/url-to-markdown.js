@@ -1038,7 +1038,25 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
             </CheckboxLabel>
 
             <Box css={theme({ pt: 2 })}>
-              <OptionLabel as='span'>HTML Selector</OptionLabel>
+              <Flex css={{ alignItems: 'center', gap: '6px' }}>
+                <OptionLabel as='span'>HTML Selector</OptionLabel>
+                <Tooltip
+                  content={
+                    <Tooltip.Content>
+                      Target specific elements on the page using a CSS selector.
+                      When set, the tool matches <b>all</b> elements and joins
+                      their markdown with a line break — useful for repeating
+                      structures like article lists, cards, or table rows.
+                    </Tooltip.Content>
+                  }
+                >
+                  <HelpCircle
+                    size={16}
+                    color={colors.black60}
+                    style={{ marginTop: '1px', cursor: 'help', flexShrink: 0 }}
+                  />
+                </Tooltip>
+              </Flex>
               <SelectorInput
                 id='md-selector'
                 type='text'
@@ -1134,9 +1152,9 @@ const MarkdownTool = () => {
       setLastUrl(url)
 
       try {
-        const selector = options.customSelector.trim()
-        const dataRule = selector
-          ? { selector, attr: 'markdown' }
+        const selectorAll = options.customSelector.trim()
+        const dataRule = selectorAll
+          ? { selectorAll, attr: 'markdown' }
           : { attr: 'markdown' }
 
         const mqlOpts = {
@@ -1158,20 +1176,23 @@ const MarkdownTool = () => {
         let response = null
         let headerStats = null
         let truncatedResponseStr = null
+        let md = null
         try {
           response = await mql(url, mqlOpts)
-          const md = cleanMarkdown(response.data?.markdown || '')
+          const raw = response.data?.markdown
+          md = cleanMarkdown(Array.isArray(raw) ? raw.join('\n\n') : raw || '')
           setMarkdown(md)
           headerStats = extractNerdStats(response.response?.headers)
           setNerdStats(headerStats)
 
           const truncatedData = { ...response.data }
-          if (
-            typeof truncatedData.markdown === 'string' &&
-            truncatedData.markdown.length > 300
-          ) {
-            truncatedData.markdown =
-              truncatedData.markdown.slice(0, 300) + '\u2026'
+          const mdForTruncation = Array.isArray(truncatedData.markdown)
+            ? truncatedData.markdown.join('\n\n')
+            : truncatedData.markdown || ''
+          if (mdForTruncation.length > 300) {
+            truncatedData.markdown = mdForTruncation.slice(0, 300) + '\u2026'
+          } else {
+            truncatedData.markdown = mdForTruncation
           }
           truncatedResponseStr = JSON.stringify(
             { status: response.status, data: truncatedData },
@@ -1189,7 +1210,7 @@ const MarkdownTool = () => {
           })
         }
 
-        if (response?.data?.markdown) {
+        if (md) {
           const entryId = String(Date.now())
           setHistory(prev => {
             const items = Array.isArray(prev) ? prev : []
@@ -1197,7 +1218,7 @@ const MarkdownTool = () => {
               {
                 id: entryId,
                 createdAt: Date.now(),
-                markdown: response.data.markdown,
+                markdown: md,
                 nerdStats: headerStats,
                 mqlQuery: queryStr,
                 responseData: truncatedResponseStr,
