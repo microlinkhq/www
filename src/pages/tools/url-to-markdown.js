@@ -88,42 +88,44 @@ const FEATURES_LIST = [
   {
     title: 'Fast CDN Delivery',
     description:
-      'Markdown is generated and served via a global CDN with 240+ edge locations. Lightning-fast delivery anywhere in the world.'
+      'Web to markdown conversion served via a global CDN with 240+ edge locations. Lightning-fast URL to md delivery anywhere in the world.'
   },
   {
     title: 'Smart Caching',
     description:
-      "Automatic edge caching with configurable TTL. Cached responses are free and don't count against your plan."
+      "Automatic edge caching with configurable TTL. Cached URL to markdown responses are free and don't count against your plan."
   },
   {
     title: 'Zero-Config API',
     description:
-      'Get started in minutes with a simple REST API. No browsers to manage, no infrastructure to maintain.'
+      'Convert any URL to a markdown file with a simple REST call. No browsers to manage, no infrastructure to maintain.'
   }
 ]
 
 const HOW_IT_WORKS = [
   {
     icon: Globe,
-    title: 'Enter URL',
-    description: 'Paste any website address into the input field above.'
+    title: 'Paste a URL',
+    description:
+      'Enter any website URL — blogs, docs, SPAs, or JavaScript-rendered pages.'
   },
   {
     icon: Settings,
-    title: 'Configure Options',
+    title: 'Set Options',
     description:
-      'Optionally target a specific HTML selector, enable ad blocking, or wait for dynamic content.'
+      'Block ads, target specific HTML selectors, or enable full-page rendering for dynamic content.'
   },
   {
     icon: FileText,
-    title: 'Generate Markdown',
-    description: 'Click the button and get clean markdown in seconds.'
+    title: 'Get Markdown',
+    description:
+      'Hit Convert and get clean, structured markdown from the web page in seconds.'
   },
   {
     icon: Download,
-    title: 'Copy & Download',
+    title: 'Edit, Copy & Download',
     description:
-      'Copy the markdown to your clipboard or download as a .md file.'
+      'Edit the result inline, copy to clipboard, or download as a .md file. Your history is saved locally.'
   }
 ]
 
@@ -131,7 +133,7 @@ const REASON_TO_USE = [
   {
     title: 'Clean Markdown Output',
     description:
-      'Get well-structured markdown from any webpage. Headers, lists, links, images, and code blocks are all preserved with proper formatting.'
+      'Convert any webpage to well-structured markdown. Headings, lists, links, images, code blocks, and tables are all preserved with proper formatting.'
   },
   {
     title: 'Works on Any Website',
@@ -148,8 +150,8 @@ const REASON_TO_USE = [
     title: 'Target Specific Content',
     description: (
       <>
-        Extract the full page by default, or use an HTML selector to target a
-        specific section.{' '}
+        Extract the full page by default, or use an HTML selector to target
+        specific sections. All matching elements are joined automatically.{' '}
         <Link href='/docs/guides/markdown/choosing-scope'>
           Learn about choosing scope
         </Link>
@@ -158,14 +160,14 @@ const REASON_TO_USE = [
     )
   },
   {
-    title: 'Block Ads and Banners',
+    title: 'Edit Before Saving',
     description:
-      'Automatically strip ads, cookie banners, and other noise before extraction. Get only the content that matters.'
+      'Edit the extracted markdown directly in the browser. Fix formatting, remove sections, or add notes — then save, copy, or download the final version.'
   },
   {
     title: 'Free + No Login',
     description:
-      'Free markdown tool with 50 conversions per day. No account needed, no branding, no strings attached.'
+      'Free website to markdown tool with 50 conversions per day. No account needed, no branding, no strings attached.'
   },
   {
     title: 'API Integration Ready',
@@ -186,10 +188,10 @@ const USE_CASES = [
   {
     title: 'For AI & LLM Pipelines',
     items: [
-      'Feed web pages into AI agents as markdown context',
-      'Build RAG pipelines with clean extracted content',
-      'Reduce token usage with structured markdown vs raw HTML',
-      'Automate web research for LLM workflows'
+      'Turn any URL into markdown context for AI agents',
+      'Build RAG pipelines with clean web-to-markdown extraction',
+      'Cut token costs with structured markdown instead of raw HTML',
+      'Automate web research and feed results into LLM workflows'
     ],
     link: {
       href: '/docs/guides/markdown',
@@ -200,10 +202,10 @@ const USE_CASES = [
   {
     title: 'For Content Teams',
     items: [
-      'Migrate website content to markdown-based CMS',
-      'Archive web pages in a portable format',
-      'Repurpose blog posts and articles',
-      'Extract documentation for offline use'
+      'Migrate web pages to markdown-based CMS platforms',
+      'Archive webpages as portable .md files',
+      'Repurpose blog posts, articles, and documentation',
+      'Edit extracted markdown before exporting'
     ],
     link: {
       href: '/docs/guides/markdown/choosing-scope',
@@ -214,10 +216,10 @@ const USE_CASES = [
   {
     title: 'For Developers',
     items: [
-      'Automate markdown extraction via API',
-      'Build content pipelines with clean data',
-      'Convert web documentation to markdown files',
-      'Integrate into CI/CD for content syncing'
+      'Automate URL to markdown file conversion via API',
+      'Build content pipelines with clean, structured data',
+      'Convert web documentation to markdown files at scale',
+      'Integrate into CI/CD for automated content syncing'
     ],
     link: {
       href: '/markdown',
@@ -1851,8 +1853,7 @@ const Hero = () => (
         fontSize: [3, '35px', '40px', '50px']
       })}
     >
-      Convert Any Website <LineBreak breakpoints={[0, 1]} /> to Markdown
-      Instantly
+      Website to Markdown <LineBreak breakpoints={[0, 1]} /> Converter
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -1863,7 +1864,8 @@ const Hero = () => (
         fontSize: [2, 2, 3, '32px']
       })}
     >
-      Turn any URL into clean, structured markdown in seconds
+      Turn any URL into clean, structured markdown — edit, copy, or download
+      instantly
     </Caption>
   </Flex>
 )
@@ -1891,7 +1893,7 @@ const HowItWorks = () => (
         fontSize: [3, 3, 3, '28px']
       })}
     >
-      How to convert a webpage to markdown
+      How to convert a web page to markdown
     </Caption>
     <Flex
       css={theme({
@@ -1938,7 +1940,7 @@ const Explanation = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Why choose our free markdown tool?
+      Why use this free URL to markdown tool?
     </Subhead>
     <Box
       css={theme({
@@ -1969,15 +1971,15 @@ const Explanation = () => (
       })}
     >
       <Text css={theme({ fontSize: 3, color: 'black' })}>
-        Wondering how we deliver this quality for free?
+        How can a web to markdown converter be free?
       </Text>
       <Text
         css={theme({ fontSize: 2, color: 'black80', lineHeight: 2, mt: 2 })}
       >
-        This tool runs on <b>Microlink's</b>{' '}
-        <Link href='/markdown'>Markdown API</Link>—the same infrastructure
-        powering AI pipelines and content workflows for paying customers. You
-        get enterprise performance at no cost.
+        This tool runs on the{' '}
+        <Link href='/markdown'>Microlink Markdown API</Link> — the same
+        infrastructure powering AI pipelines and content workflows at scale. You
+        get enterprise-grade URL to markdown conversion at no cost.
       </Text>
     </Caption>
   </Container>
@@ -2000,11 +2002,11 @@ const UseCasesSection = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Use cases for URL to markdown conversion
+      Use cases for website to markdown conversion
     </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
-      From AI agent workflows to content migration, markdown extraction powers
-      workflows across every team.
+      From AI agent workflows to content migration, converting web pages to
+      markdown powers workflows across every team.
     </Caption>
     <Box
       css={theme({
@@ -2133,28 +2135,19 @@ const Banner = () => (
         css={theme({
           pt: [4, 4, 5, 5],
           justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          gap: 3
+          alignItems: 'flex-start',
+          maxHeight: ['200px', '300px', '400px', '650px'],
+          overflow: 'hidden'
         })}
+        style={{ fontVariantNumeric: 'tabular-nums' }}
       >
-        <Text
+        <img
           css={theme({
-            fontSize: [2, 2, 3, 3],
-            color: 'white80',
-            textAlign: 'center',
-            maxWidth: layout.small
+            width: ['300px', '500px', '700px', '900px']
           })}
-        >
-          Convert any URL to structured markdown with a single API call. Built
-          for AI pipelines, content workflows, and data extraction at scale.
-        </Text>
-        <ArrowLink
-          href='/markdown'
-          css={theme({ color: 'white', fontSize: [2, 2, 3, 3] })}
-        >
-          Explore the Markdown API
-        </ArrowLink>
+          src='/images/screenshot-tool-landing.png' // TODO: add the definitive landing image
+          alt='Microlink landing API'
+        />
       </Flex>
     }
   />
@@ -2185,7 +2178,9 @@ const MarkdownApiDocsCard = () => (
       <Flex css={theme({ justifyContent: 'center', pb: 4 })}>
         <SectionIcon icon={Code} />
       </Flex>
-      <Subhead css={theme({ fontSize: 4 })}>Markdown API documentation</Subhead>
+      <Subhead css={theme({ fontSize: 4 })}>
+        URL to Markdown API Documentation
+      </Subhead>
       <Caption
         css={theme({
           pt: 3,
@@ -2194,8 +2189,8 @@ const MarkdownApiDocsCard = () => (
           fontSize: 3
         })}
       >
-        Explore the full Markdown API guide with interactive examples, scope
-        options, caching strategies, and ready-to-use code snippets.
+        Explore the full Markdown API guide with interactive examples, HTML
+        selectors, caching strategies, and ready-to-use code snippets.
       </Caption>
       <Flex
         css={theme({
@@ -2226,14 +2221,14 @@ const ProductInformation = () => (
     })}
     questions={[
       {
-        question: 'Is this URL to markdown tool really free?',
+        question: 'Is this website to markdown converter free?',
         answer: (
           <>
             <div>
               Yes! You can convert up to <b>50&nbsp;URLs per day</b> for free,
               with no credit card required. Free conversions include all
-              features — scope control, ad blocking, prerendering, and custom
-              selectors.
+              features — ad blocking, HTML selectors, prerendering, inline
+              editing, and download.
             </div>
             <div>
               Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
@@ -2243,18 +2238,18 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'What content does it extract?',
+        question: 'What content does the URL to markdown tool extract?',
         answer: (
           <>
             <div>
-              The tool converts HTML to clean markdown, preserving headings,
-              paragraphs, lists, links, images, code blocks, tables, and
-              emphasis. It strips navigation, scripts, and non-content elements
-              automatically.
+              The tool converts any web page to clean markdown, preserving
+              headings, paragraphs, lists, links, images, code blocks, tables,
+              and emphasis. It strips navigation, scripts, and non-content
+              elements automatically.
             </div>
             <div>
-              For best results, use the <b>Main content</b> scope to focus on
-              the article or documentation body. See the{' '}
+              Use an <b>HTML Selector</b> in Advanced options to target the
+              article or documentation body. See the{' '}
               <Link href='/docs/guides/markdown/choosing-scope'>
                 choosing scope guide
               </Link>{' '}
@@ -2264,15 +2259,15 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'Can I target specific sections of a page?',
+        question: 'Can I target specific sections of a webpage?',
         answer: (
           <>
             <div>
               Absolutely. Open <b>Advanced options</b> and enter any HTML
               selector in the <b>HTML Selector</b> field — for example{' '}
               <code>article</code>, <code>.post-body</code>, or{' '}
-              <code>#main-content</code>. Only the matching element will be
-              converted to markdown.
+              <code>#main-content</code>. All matching elements are joined
+              automatically into one markdown output.
             </div>
           </>
         )
@@ -2283,14 +2278,13 @@ const ProductInformation = () => (
           <>
             <div>
               Enable <b>Wait for all the elements to load</b> in Advanced
-              options and the tool will render the page in a real browser,
-              waiting for every resource to finish loading before extracting
-              content. This handles SPAs, client-side rendered frameworks, and
-              lazy-loaded content.
+              options. The tool renders the page in a real browser, waiting for
+              every resource to finish before extracting content. This handles
+              SPAs, client-side rendered frameworks, and lazy-loaded content.
             </div>
             <div>
               Learn more in the{' '}
-              <Link href='/docs/guides/markdown/choosing-scope'>
+              <Link href='/docs/guides/markdown/choosing-scope#prepare-the-page-before-conversion'>
                 choosing scope guide
               </Link>
               .
@@ -2299,11 +2293,46 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'Can I integrate this into my application?',
+        question: 'Can I edit the markdown before downloading?',
         answer: (
           <>
             <div>
-              Yes. The tool is built on the{' '}
+              Yes. Click the <b>Edit</b> button to enter edit mode. You can
+              modify, delete, or add content directly in the browser. Click{' '}
+              <b>Save</b> to persist your changes — edited conversions are
+              marked in your history.
+            </div>
+            <div>
+              Copy and download actions always use the latest saved version. If
+              you have unsaved edits, the tool will prompt you before switching
+              to another conversion.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'Does it keep a history of my conversions?',
+        answer: (
+          <>
+            <div>
+              Yes. Your last <b>20&nbsp;conversions</b> are saved in your
+              browser's local storage — no account needed. Click any history
+              item to reload the markdown, or use the copy and download buttons
+              directly from the history card.
+            </div>
+            <div>
+              History never expires and persists across sessions. Edited
+              conversions are flagged so you can tell them apart.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'Can I integrate URL to markdown conversion into my app?',
+        answer: (
+          <>
+            <div>
+              Yes. This tool is built on the{' '}
               <Link href='/markdown'>Microlink Markdown API</Link>, which
               provides a simple REST endpoint. Integrate with any language —
               Node.js, Python, Ruby, or plain cURL.
@@ -2318,7 +2347,7 @@ const ProductInformation = () => (
               <Link href='/docs/guides/markdown/delivery-and-response'>
                 delivery guide
               </Link>{' '}
-              for response formats and embedding patterns.
+              for response formats.
             </div>
           </>
         )
@@ -2330,7 +2359,8 @@ const ProductInformation = () => (
             <div>
               Markdown responses are cached on our global CDN by default. Cached
               responses are served instantly and{' '}
-              <b>don't count against your limit</b>. Cache lasts for 24 hours.
+              <b>don't count against your limit</b>. Cache lasts for
+              24&nbsp;hours.
             </div>
             <div>
               Uncheck <b>Use cache</b> if you need fresh content from a
@@ -2351,9 +2381,9 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='URL to Markdown Converter - Free Website to Markdown Tool'
+    title='Website to Markdown Converter — Free URL to Markdown Tool'
     noSuffix
-    description='Convert any webpage to clean markdown instantly. Free online tool to turn URLs into structured markdown for AI pipelines, content migration, and data extraction.'
+    description='Convert any URL to markdown instantly. Free online tool to turn web pages into clean, structured markdown files — edit, copy, and download. No login required.'
     image='https://cdn.microlink.io/banner/markdown.jpeg'
     schemaType='SoftwareApplication'
     structured={[
@@ -2361,21 +2391,18 @@ export const Head = () => (
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
         '@id': 'https://microlink.io/tools/url-to-markdown',
-        name: 'Microlink URL to Markdown Tool',
+        name: 'Website to Markdown Converter',
         description:
-          'Convert any webpage to clean, structured markdown with scope control, ad blocking, CSS selectors, and JavaScript rendering support.',
+          'Free URL to markdown converter with inline editing, ad blocking, HTML selectors, and JavaScript rendering support. Convert any webpage to a markdown file — edit, copy, and download.',
         url: 'https://microlink.io/tools/url-to-markdown',
-        applicationCategory: ['DeveloperApplication', 'Tool'],
+        applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
-          'website to markdown',
           'url to markdown',
-          'url to markdown file',
           'webpage to markdown',
           'web to markdown',
-          'web to md',
+          'link to md',
           'web page to markdown',
-          'url md',
-          'html to markdown',
+          'download url to markdown',
           'url to markdown converter'
         ],
         offers: {
@@ -2383,7 +2410,18 @@ export const Head = () => (
           price: '0',
           priceCurrency: 'USD',
           description: 'Free tier with 50 conversions per day'
-        }
+        },
+        featureList: [
+          'Convert URL to markdown',
+          'Edit markdown inline',
+          'Copy to clipboard',
+          'Download as .md file',
+          'HTML selector targeting',
+          'Ad and banner blocking',
+          'JavaScript rendering',
+          'Conversion history (20 entries)',
+          'No login required'
+        ]
       },
       {
         '@context': 'https://schema.org',
@@ -2391,26 +2429,26 @@ export const Head = () => (
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'Is this URL to markdown tool really free?',
+            name: 'Is this website to markdown converter really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! You can convert up to 50 URLs per day for free, with no credit card required. Free conversions include all features — scope control, ad blocking, prerendering, and custom selectors.'
+              text: 'Yes! You can convert up to 50 URLs per day for free, with no credit card required. Free conversions include all features — ad blocking, HTML selectors, prerendering, inline editing, and download.'
             }
           },
           {
             '@type': 'Question',
-            name: 'What content does it extract?',
+            name: 'What content does the URL to markdown tool extract?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'The tool converts HTML to clean markdown, preserving headings, paragraphs, lists, links, images, code blocks, tables, and emphasis. It strips navigation, scripts, and non-content elements automatically.'
+              text: 'The tool converts any web page to clean markdown, preserving headings, paragraphs, lists, links, images, code blocks, tables, and emphasis. It strips navigation, scripts, and non-content elements automatically.'
             }
           },
           {
             '@type': 'Question',
-            name: 'Can I target specific sections of a page?',
+            name: 'Can I target specific sections of a webpage?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. Open Advanced options and enter any HTML selector — for example article, .post-body, or #main-content. Only the matching element will be converted to markdown.'
+              text: 'Yes. Open Advanced options and enter any HTML selector — for example article, .post-body, or #main-content. All matching elements are joined automatically into one markdown output.'
             }
           },
           {
@@ -2418,15 +2456,31 @@ export const Head = () => (
             name: 'How does it handle JavaScript-rendered pages?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Enable "Wait for all the elements to load" in Advanced options and the tool will render the page in a real browser, waiting for every resource to finish loading before extracting content. This handles SPAs, client-side rendered frameworks, and lazy-loaded content.'
+              text: 'Enable "Wait for all the elements to load" in Advanced options. The tool renders the page in a real browser, waiting for every resource to finish before extracting content. This handles SPAs, client-side rendered frameworks, and lazy-loaded content.'
             }
           },
           {
             '@type': 'Question',
-            name: 'Can I integrate this into my application?',
+            name: 'Can I edit the markdown before downloading?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. The tool is built on the Microlink Markdown API, which provides a simple REST endpoint. Integrate with any language — Node.js, Python, Ruby, or plain cURL. Use the @microlink/mql SDK for Node.js, or hit the API directly from any HTTP client.'
+              text: 'Yes. Click the Edit button to modify, delete, or add content directly in the browser. Click Save to persist your changes. Copy and download actions always use the latest saved version.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Does it keep a history of my conversions?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes. Your last 20 conversions are saved in your browser local storage — no account needed. Click any history item to reload the markdown, or use the copy and download buttons directly from the history card. History never expires.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I integrate URL to markdown conversion into my app?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes. This tool is built on the Microlink Markdown API, which provides a simple REST endpoint. Integrate with any language — Node.js, Python, Ruby, or plain cURL. Use the @microlink/mql SDK for Node.js, or hit the API directly from any HTTP client.'
             }
           }
         ]
@@ -2449,7 +2503,7 @@ const UrlToMarkdownPage = () => (
       css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
-          Markdown API{' '}
+          URL to Markdown{' '}
           <span
             css={{
               display: 'block',
@@ -2458,15 +2512,14 @@ const UrlToMarkdownPage = () => (
               textAlign: 'left'
             }}
           >
-            for Automated Extraction.
+            API for Automated Extraction.
           </span>
         </Subhead>
       }
       caption={
         <>
-          No servers to maintain, no browsers to manage, no paying for capacity
-          you don't use. Microlink lets you spend more time building and less
-          time configuring — easy integration via{' '}
+          No servers to maintain, no browsers to manage. Convert any URL to
+          markdown at scale — easy integration via{' '}
           <Link href='/markdown'>API</Link>.
         </>
       }
