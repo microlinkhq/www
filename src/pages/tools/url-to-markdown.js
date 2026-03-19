@@ -10,6 +10,8 @@ import {
   Clipboard,
   Check,
   Loader,
+  Edit2,
+  Save,
   Code,
   ChevronDown,
   X
@@ -69,8 +71,7 @@ import {
   FadeIn,
   ActionButton,
   HistoryScrollContainer,
-  MOBILE_BP,
-  HISTORY_MAX_AGE_MS
+  MOBILE_BP
 } from 'components/pages/screenshot'
 
 const Heading = withTitle(HeadingBase)
@@ -239,20 +240,13 @@ const PaperSheet = styled(Box)`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
 `
 
-const MarkdownPre = styled.pre`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    lineHeight: 2,
-    color: 'black80',
-    m: 0,
-    p: 4
-  })}
+const markdownTextStyles = `
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.8);
   white-space: pre-wrap;
   word-break: break-word;
-  overflow-y: auto;
-  flex: 1;
-  min-height: 0;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: ${colors.black10} transparent;
@@ -270,6 +264,194 @@ const MarkdownPre = styled.pre`
     border-radius: 3px;
   }
 `
+
+const MarkdownPre = styled.pre`
+  ${theme({ m: 0, p: 4 })}
+  ${markdownTextStyles}
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+`
+
+const MarkdownTextarea = styled.textarea`
+  ${theme({ m: 0, p: 4 })}
+  ${markdownTextStyles}
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  background: #fffff8;
+  border: none;
+  outline: none;
+  resize: none;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+`
+
+const SaveBadge = styled(Box).attrs({ as: 'button', type: 'button' })`
+  ${theme({
+    fontFamily: 'sans',
+    fontSize: 0,
+    fontWeight: 'bold'
+  })}
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid ${colors.black10};
+  background: white;
+  color: ${colors.black60};
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: background ${transition.short}, color ${transition.short};
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &:hover {
+    background: ${colors.black};
+    color: white;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
+`
+
+const ModalBackdrop = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const ModalBox = styled(Box)`
+  ${theme({
+    bg: 'white',
+    borderRadius: '12px',
+    p: 4,
+    fontFamily: 'sans'
+  })}
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+`
+
+const ModalTitle = styled(Text)`
+  ${theme({
+    fontSize: 2,
+    fontWeight: 'bold',
+    color: 'black80',
+    pb: 2
+  })}
+`
+
+const ModalDesc = styled(Text)`
+  ${theme({
+    fontSize: 1,
+    color: 'black60',
+    pb: 4
+  })}
+`
+
+const ModalActions = styled(Flex)`
+  ${theme({ gap: 2 })}
+  justify-content: flex-end;
+`
+
+const ModalBtn = styled(Box).attrs({ as: 'button', type: 'button' })`
+  ${theme({
+    fontFamily: 'sans',
+    fontSize: 0,
+    fontWeight: 'bold',
+    borderRadius: '6px',
+    cursor: 'pointer'
+  })}
+  padding: 8px 16px;
+  border: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity ${transition.short};
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
+`
+
+const UnsavedChangesModal = ({ onSave, onDiscard, onClose }) => (
+  <ModalBackdrop onClick={onClose}>
+    <ModalBox onClick={e => e.stopPropagation()}>
+      <Flex css={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <ModalTitle>Unsaved changes</ModalTitle>
+        <Box
+          as='button'
+          type='button'
+          onClick={onClose}
+          css={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            color: colors.black40,
+            padding: 0,
+            lineHeight: 1,
+            '&:hover': { color: colors.black80 }
+          }}
+          aria-label='Close'
+        >
+          <X size={18} />
+        </Box>
+      </Flex>
+      <ModalDesc>You have unsaved edits. What would you like to do?</ModalDesc>
+      <ModalActions>
+        <ModalBtn
+          onClick={onDiscard}
+          css={{
+            background: 'transparent',
+            color: colors.black60,
+            '&:hover': { opacity: 0.7 }
+          }}
+        >
+          Don't save
+        </ModalBtn>
+        <ModalBtn
+          onClick={onSave}
+          css={{
+            background: colors.black,
+            color: 'white',
+            '&:hover': { opacity: 0.85 }
+          }}
+        >
+          Save changes
+        </ModalBtn>
+      </ModalActions>
+    </ModalBox>
+  </ModalBackdrop>
+)
 
 const spinAnimation = keyframes`
   from { transform: rotate(0deg); }
@@ -502,6 +684,25 @@ const HistoryDeleteButton = styled(Box).attrs({
   }
 `
 
+const EditedTag = styled.span`
+  ${theme({
+    fontFamily: 'sans',
+    fontSize: '9px',
+    fontWeight: 'bold',
+    color: 'white',
+    borderRadius: '4px'
+  })}
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  padding: 2px 6px;
+  background: ${colors.link};
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 1;
+  pointer-events: none;
+`
+
 const HistoryCardAction = styled(Box).attrs({
   as: 'button',
   type: 'button'
@@ -634,6 +835,7 @@ const MarkdownHistory = ({
               disabled ? { opacity: 0.5, cursor: 'not-allowed' } : undefined
             }
           >
+            {entry.edited && <EditedTag>edited</EditedTag>}
             <HistoryCardContent>
               <HistoryCardUrl>{entry.settings.url}</HistoryCardUrl>
               {entry.markdown?.slice(0, 300)}
@@ -691,22 +893,53 @@ const MarkdownPreviewDisplay = ({
   mqlQuery,
   responseData,
   showNerdStats,
-  onToggleNerdStats
+  onToggleNerdStats,
+  isEditing,
+  onToggleEdit,
+  editedMarkdown,
+  onEditChange,
+  onSave,
+  saveState
 }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
 
+  const currentMarkdown = isEditing ? editedMarkdown : markdown
+
+  const ensureSavedThen = useCallback(
+    action => {
+      if (isEditing && editedMarkdown !== markdown) {
+        onSave()
+        setTimeout(() => action(editedMarkdown), 50)
+      } else {
+        action(currentMarkdown)
+      }
+    },
+    [isEditing, editedMarkdown, markdown, onSave, currentMarkdown]
+  )
+
+  const handleCopy = useCallback(() => {
+    ensureSavedThen(text => {
+      toClipboard({
+        copy: text || '',
+        text: Tooltip.TEXT.COPIED('Markdown')
+      })
+    })
+  }, [ensureSavedThen, toClipboard])
+
   const handleDownload = useCallback(() => {
-    if (!markdown) return
-    const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `markdown-${Date.now()}.md`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-  }, [markdown])
+    ensureSavedThen(text => {
+      if (!text) return
+      const blob = new Blob([text], { type: 'text/markdown;charset=utf-8' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `markdown-${Date.now()}.md`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+    })
+  }, [ensureSavedThen])
 
   const displayContent = jsonData || markdown
 
@@ -807,11 +1040,28 @@ const MarkdownPreviewDisplay = ({
                 flexDirection: 'column'
               })}
             >
+              {isEditing && (
+                <SaveBadge onClick={onSave} aria-label='Save changes'>
+                  {saveState === 'saved' ? (
+                    <Check size={15} />
+                  ) : (
+                    <Save size={15} />
+                  )}
+                  {saveState === 'saved' ? 'Saved' : 'Save'}
+                </SaveBadge>
+              )}
               {showNerdStats && nerdStats ? (
                 <NerdStatsOverlay
                   stats={nerdStats}
                   mqlQuery={mqlQuery}
                   responseData={responseData}
+                />
+              ) : isEditing ? (
+                <MarkdownTextarea
+                  value={editedMarkdown}
+                  onChange={e => onEditChange(e.target.value)}
+                  spellCheck={false}
+                  aria-label='Edit markdown content'
                 />
               ) : (
                 <MarkdownPre>
@@ -834,12 +1084,7 @@ const MarkdownPreviewDisplay = ({
               <ActionButton
                 as='button'
                 type='button'
-                onClick={() => {
-                  toClipboard({
-                    copy: markdown || '',
-                    text: Tooltip.TEXT.COPIED('Markdown')
-                  })
-                }}
+                onClick={handleCopy}
                 css={theme({
                   bg: 'black',
                   color: 'white',
@@ -864,6 +1109,26 @@ const MarkdownPreviewDisplay = ({
               >
                 <Download size={15} />
                 <Caps css={theme({ fontSize: 0 })}>Download .md</Caps>
+              </ActionButton>
+
+              <ActionButton
+                as='button'
+                type='button'
+                onClick={onToggleEdit}
+                css={theme({
+                  bg: isEditing ? 'black' : 'white',
+                  color: isEditing ? 'white' : 'black80',
+                  border: 1,
+                  borderColor: isEditing ? 'black' : 'black10',
+                  _hover: isEditing
+                    ? { bg: 'black80' }
+                    : { bg: 'gray1', borderColor: 'black20' }
+                })}
+              >
+                {isEditing ? <X size={15} /> : <Edit2 size={15} />}
+                <Caps css={theme({ fontSize: 0 })}>
+                  {isEditing ? 'Stop editing' : 'Edit'}
+                </Caps>
               </ActionButton>
 
               {nerdStats && (
@@ -1203,6 +1468,11 @@ const MarkdownTool = () => {
   const [mqlQuery, setMqlQuery] = useState(null)
   const [responseData, setResponseData] = useState(null)
   const [showNerdStats, setShowNerdStats] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
+  const [editedMarkdown, setEditedMarkdown] = useState('')
+  const [saveState, setSaveState] = useState(null)
+  const [showUnsavedModal, setShowUnsavedModal] = useState(false)
+  const pendingActionRef = useRef(null)
 
   const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(MARKDOWN_HISTORY_KEY, [])
@@ -1212,21 +1482,88 @@ const MarkdownTool = () => {
   useEffect(() => {
     setHistory(prev => {
       if (!Array.isArray(prev)) return []
-      const now = Date.now()
-      const cleaned = prev.filter(
-        entry => now - entry.createdAt < HISTORY_MAX_AGE_MS
-      )
-      return cleaned.length !== prev.length ? cleaned : prev
+      return prev
     })
     setHistoryReady(true)
   }, [setHistory])
 
-  const handleSubmit = useCallback(
+  const hasUnsavedEdits = isEditing && editedMarkdown !== markdown
+
+  const saveEdits = useCallback(() => {
+    setMarkdown(editedMarkdown)
+    if (activeHistoryId) {
+      setHistory(prev => {
+        const items = Array.isArray(prev) ? prev : []
+        return items.map(entry =>
+          entry.id === activeHistoryId
+            ? { ...entry, markdown: editedMarkdown, edited: true }
+            : entry
+        )
+      })
+    }
+  }, [editedMarkdown, activeHistoryId, setHistory])
+
+  const exitEditMode = useCallback(() => {
+    setIsEditing(false)
+    setSaveState(null)
+  }, [])
+
+  const guardUnsavedEdits = useCallback(
+    action => {
+      if (hasUnsavedEdits) {
+        pendingActionRef.current = action
+        setShowUnsavedModal(true)
+        return true
+      }
+      return false
+    },
+    [hasUnsavedEdits]
+  )
+
+  const handleModalSave = useCallback(() => {
+    saveEdits()
+    exitEditMode()
+    setShowUnsavedModal(false)
+    const action = pendingActionRef.current
+    pendingActionRef.current = null
+    if (action) action()
+  }, [saveEdits, exitEditMode])
+
+  const handleModalDiscard = useCallback(() => {
+    exitEditMode()
+    setShowUnsavedModal(false)
+    const action = pendingActionRef.current
+    pendingActionRef.current = null
+    if (action) action()
+  }, [exitEditMode])
+
+  const handleModalClose = useCallback(() => {
+    setShowUnsavedModal(false)
+    pendingActionRef.current = null
+  }, [])
+
+  const handleToggleEdit = useCallback(() => {
+    if (isEditing) {
+      if (hasUnsavedEdits) {
+        guardUnsavedEdits(() => {})
+        return
+      }
+      exitEditMode()
+      return
+    }
+    setEditedMarkdown(markdown || '')
+    setSaveState(null)
+    setIsEditing(true)
+  }, [isEditing, hasUnsavedEdits, guardUnsavedEdits, exitEditMode, markdown])
+
+  const executeSubmit = useCallback(
     async url => {
       setIsLoading(true)
       setError(null)
       setMarkdown(null)
       setShowNerdStats(false)
+      setIsEditing(false)
+      setSaveState(null)
       setLastUrl(url)
 
       try {
@@ -1326,7 +1663,15 @@ const MarkdownTool = () => {
     [options, localStorageData, setHistory]
   )
 
-  const handleHistorySelect = useCallback(entry => {
+  const handleSubmit = useCallback(
+    url => {
+      if (guardUnsavedEdits(() => executeSubmit(url))) return
+      executeSubmit(url)
+    },
+    [guardUnsavedEdits, executeSubmit]
+  )
+
+  const applyHistoryEntry = useCallback(entry => {
     const { settings } = entry
     setOptions({
       url: settings.url,
@@ -1341,8 +1686,18 @@ const MarkdownTool = () => {
     setMqlQuery(entry.mqlQuery || null)
     setResponseData(entry.responseData || null)
     setError(null)
+    setIsEditing(false)
+    setSaveState(null)
     setActiveHistoryId(entry.id)
   }, [])
+
+  const handleHistorySelect = useCallback(
+    entry => {
+      if (guardUnsavedEdits(() => applyHistoryEntry(entry))) return
+      applyHistoryEntry(entry)
+    },
+    [guardUnsavedEdits, applyHistoryEntry]
+  )
 
   const handleHistoryDelete = useCallback(
     id => {
@@ -1386,6 +1741,27 @@ const MarkdownTool = () => {
     URL.revokeObjectURL(url)
   }, [])
 
+  const handleEditChange = useCallback(val => {
+    setEditedMarkdown(val)
+    setSaveState(null)
+  }, [])
+
+  const handleSave = useCallback(() => {
+    setMarkdown(editedMarkdown)
+    if (activeHistoryId) {
+      setHistory(prev => {
+        const items = Array.isArray(prev) ? prev : []
+        return items.map(entry =>
+          entry.id === activeHistoryId
+            ? { ...entry, markdown: editedMarkdown, edited: true }
+            : entry
+        )
+      })
+    }
+    setSaveState('saved')
+    setTimeout(() => setSaveState(null), 1500)
+  }, [editedMarkdown, activeHistoryId, setHistory])
+
   const handleRetry = useCallback(() => {
     if (lastUrl) handleSubmit(lastUrl)
   }, [lastUrl, handleSubmit])
@@ -1422,6 +1798,12 @@ const MarkdownTool = () => {
             responseData={responseData}
             showNerdStats={showNerdStats}
             onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
+            isEditing={isEditing}
+            onToggleEdit={handleToggleEdit}
+            editedMarkdown={editedMarkdown}
+            onEditChange={handleEditChange}
+            onSave={handleSave}
+            saveState={saveState}
           />
         </PreviewOuter>
       </ToolLayout>
@@ -1438,6 +1820,13 @@ const MarkdownTool = () => {
         />
       )}
       <HistoryClipboard />
+      {showUnsavedModal && (
+        <UnsavedChangesModal
+          onSave={handleModalSave}
+          onDiscard={handleModalDiscard}
+          onClose={handleModalClose}
+        />
+      )}
     </Container>
   )
 }
