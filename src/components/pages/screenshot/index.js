@@ -291,7 +291,7 @@ export const IconCircle = styled(Flex)`
 
 export const SectionIcon = ({ icon: Icon }) => (
   <IconCircle css={theme({ width: '80px', height: '80px' })}>
-    <Icon size={32} color={colors.black50} />
+    <Icon size={32} color={colors.black80} />
   </IconCircle>
 )
 

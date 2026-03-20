@@ -7,7 +7,6 @@ import { Bot as BotIcon } from 'components/icons/Bot'
 import { Award as AwardIcon } from 'components/icons/Award'
 import { Building2 as Building2Icon } from 'components/icons/Building2'
 import { Bug as BugIcon } from 'components/icons/Bug'
-import { FileText as FileTextIcon } from 'components/icons/FileTextIcon'
 import { Camera as CameraIcon } from 'components/icons/Camera'
 import { Focus as FocusIcon } from 'components/icons/Focus'
 import { Inbox as InboxIcon } from 'components/icons/Inbox'
@@ -20,7 +19,8 @@ import {
   Activity,
   Maximize,
   Zap,
-  Film
+  Film,
+  FileText
 } from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
@@ -247,7 +247,7 @@ export const NAVIGATION_SECTIONS = [
         href: '/tools/url-to-markdown',
         actively: 'exact',
         description: 'Convert any URL to a markdown file',
-        icon: FileTextIcon
+        icon: FileText
       })
     ]
   },
