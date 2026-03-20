@@ -790,8 +790,7 @@ const SettingsPopover = ({
           setOptions(prev => ({
             ...prev,
             adblock: e.target.checked
-          }))
-        }
+          }))}
       />
       <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
         Block ads and banners
@@ -819,8 +818,7 @@ const SettingsPopover = ({
           setOptions(prev => ({
             ...prev,
             cache: e.target.checked
-          }))
-        }
+          }))}
       />
       <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
         Use cache
@@ -865,8 +863,7 @@ const SettingsPopover = ({
                 setOptions(prev => ({
                   ...prev,
                   waitForLoad: e.target.checked
-                }))
-              }
+                }))}
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Wait for all the elements to load
@@ -917,8 +914,7 @@ const SettingsPopover = ({
                 setOptions(prev => ({
                   ...prev,
                   customSelector: e.target.value
-                }))
-              }
+                }))}
               spellCheck={false}
               autoComplete='off'
               aria-label='HTML selector to target specific content'
@@ -1218,11 +1214,13 @@ const MarkdownHistory = ({
               style={{ bottom: 8, right: 50 }}
               onClick={e => handleCopy(e, entry)}
             >
-              {copiedId === entry.id ? (
-                <Check size={15} />
-              ) : (
-                <Clipboard size={15} />
-              )}
+              {copiedId === entry.id
+                ? (
+                  <Check size={15} />
+                  )
+                : (
+                  <Clipboard size={15} />
+                  )}
             </HistoryCardAction>
             <HistoryCardAction
               aria-label={`Download markdown of ${entry.settings.url}`}
@@ -1230,11 +1228,13 @@ const MarkdownHistory = ({
               style={{ bottom: 8, right: 8 }}
               onClick={e => handleDownload(e, entry)}
             >
-              {downloadedId === entry.id ? (
-                <SpinningLoader size={15} />
-              ) : (
-                <Download size={15} />
-              )}
+              {downloadedId === entry.id
+                ? (
+                  <SpinningLoader size={15} />
+                  )
+                : (
+                  <Download size={15} />
+                  )}
             </HistoryCardAction>
             <HistoryDeleteButton
               aria-label={`Delete markdown of ${entry.settings.url}`}
@@ -1414,32 +1414,38 @@ const MarkdownPreviewDisplay = ({
             >
               {isEditing && (
                 <SaveBadge onClick={onSave} aria-label='Save changes'>
-                  {saveState === 'saved' ? (
-                    <Check size={15} />
-                  ) : (
-                    <Save size={15} />
-                  )}
+                  {saveState === 'saved'
+                    ? (
+                      <Check size={15} />
+                      )
+                    : (
+                      <Save size={15} />
+                      )}
                   {saveState === 'saved' ? 'Saved' : 'Save'}
                 </SaveBadge>
               )}
-              {showNerdStats && nerdStats ? (
-                <NerdStatsOverlay
-                  stats={nerdStats}
-                  mqlQuery={mqlQuery}
-                  responseData={responseData}
-                />
-              ) : isEditing ? (
-                <MarkdownTextarea
-                  value={editedMarkdown}
-                  onChange={e => onEditChange(e.target.value)}
-                  spellCheck={false}
-                  aria-label='Edit markdown content'
-                />
-              ) : (
-                <MarkdownPre>
-                  <code>{displayContent}</code>
-                </MarkdownPre>
-              )}
+              {showNerdStats && nerdStats
+                ? (
+                  <NerdStatsOverlay
+                    stats={nerdStats}
+                    mqlQuery={mqlQuery}
+                    responseData={responseData}
+                  />
+                  )
+                : isEditing
+                  ? (
+                    <MarkdownTextarea
+                      value={editedMarkdown}
+                      onChange={e => onEditChange(e.target.value)}
+                      spellCheck={false}
+                      aria-label='Edit markdown content'
+                    />
+                    )
+                  : (
+                    <MarkdownPre>
+                      <code>{displayContent}</code>
+                    </MarkdownPre>
+                    )}
             </Box>
 
             <Flex

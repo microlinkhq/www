@@ -1,9 +1,8 @@
 import { transition } from 'theme'
-import { Maximize, Layers, Smartphone, Film } from 'react-feather'
+import { Maximize, Layers, Smartphone, Film, FileText as FileTextIcon } from 'react-feather'
 
 import { Camera as CameraIcon } from 'components/icons/Camera'
 import { Bug as BugIcon } from 'components/icons/Bug'
-import { FileText as FileTextIcon } from 'react-feather'
 import { cdnUrl } from 'helpers/cdn-url'
 
 export const TOOLS = [
