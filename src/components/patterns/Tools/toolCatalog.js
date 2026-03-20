@@ -1,5 +1,11 @@
 import { transition } from 'theme'
-import { Maximize, Layers, Smartphone, Film, FileText as FileTextIcon } from 'react-feather'
+import {
+  Maximize,
+  Layers,
+  Smartphone,
+  Film,
+  FileText as FileTextIcon
+} from 'react-feather'
 
 import { Camera as CameraIcon } from 'components/icons/Camera'
 import { Bug as BugIcon } from 'components/icons/Bug'
@@ -132,12 +138,9 @@ export const TOOLS = [
           'Turn any URL into clean, structured markdown. Supports ad blocking, HTML selectors, JavaScript rendering, and inline editing — copy or download the result. No login required.',
         href: '/tools/url-to-markdown',
         icon: FileTextIcon,
-        image: '/images/url-to-markdown.png',
+        image: '/images/url-to-markdown.jpg',
         featured: true,
-        animation: [
-          'scale(1.0) translateY(-6%) perspective(800px) rotateY(-8deg)',
-          'scale(1) perspective(800px) rotateY(0deg)'
-        ],
+        animation: ['scale(1.3) translateY(-25%)', 'scale(1)'],
         styles: {
           boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
           position: 'absolute',
