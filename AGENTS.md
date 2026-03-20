@@ -29,7 +29,7 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - NEVER: Use raw token interpolation (for example `font-size: ${fontSizes[0]}`) when the same style can be expressed via `theme({...})`.
 - NEVER: Split tokenized style values across raw CSS and multiple `theme(...)` calls when one `theme({...})` object can express them.
 - NEVER: Add media queries only to change styled-system token values that can be expressed as responsive arrays/objects in `theme({...})`.
-- MUST: When a `styled(Flex)` (or other display primitive) needs to hide below the first breakpoint and restore layout above it, use `display: ['none', 'inherit']` (or `d: [...]`) instead of repeating `flex` or hand-writing `@media` blocks that only change `display`. `inherit` copies the **parent element’s** `display` at larger breakpoints—so the parent must be a flex container (`display: flex`) when the child must resolve to `flex`; otherwise use `display: ['none', 'flex']` explicitly. Avoid duplicating the primitive’s `display` keyword in the array when `inherit` is correct.
+- MUST: When a component needs responsive visibility, use responsive arrays (e.g. `display: ["none", "flex"]`) instead of hand-writing `@media` blocks that only change `display`. For `position: fixed`/`absolute` elements, always state the target `display` value explicitly (e.g. `"flex"`, `"block"`) because `inherit` resolves against the DOM parent, not the visual stacking context, and fixed/absolute elements are out of normal flow.
 - SHOULD: Keep raw CSS only for unsupported/states-only patterns (for example keyframes, browser-specific values, or dynamic runtime computed styles).
 
 ## Interactions

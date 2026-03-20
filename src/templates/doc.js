@@ -52,7 +52,7 @@ const DocsNavbar = styled(Flex)`
     zIndex: 100,
     alignItems: 'flex-end',
     height: DOCS_NAVBAR_HEIGHT,
-    display: ['none', 'inherit']
+    display: ['none', 'flex']
   })}
 `
 
