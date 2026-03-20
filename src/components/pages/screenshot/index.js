@@ -1115,7 +1115,8 @@ export const PreviewDisplay = ({
                 gap: 2,
                 borderTop: 1,
                 borderColor: 'black05',
-                bg: 'white'
+                bg: 'white',
+                flexWrap: 'wrap'
               })}
             >
               <ActionButton
