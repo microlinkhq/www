@@ -18,7 +18,9 @@ import {
   Users,
   Activity,
   Maximize,
-  Zap
+  Zap,
+  Film,
+  FileText
 } from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
@@ -227,11 +229,25 @@ export const NAVIGATION_SECTIONS = [
         icon: Maximize
       }),
       createNavigationItem({
+        label: 'Animated Screenshot',
+        href: '/tools/website-screenshot/animated',
+        actively: 'exact',
+        description: 'Generate animated screenshots',
+        icon: Film
+      }),
+      createNavigationItem({
         label: 'Sharing Debugger',
         href: '/tools/sharing-debugger',
         actively: 'exact',
         description: 'Preview social cards before publishing links',
         icon: BugIcon
+      }),
+      createNavigationItem({
+        label: 'Url to Markdown',
+        href: '/tools/url-to-markdown',
+        actively: 'exact',
+        description: 'Convert any URL to a markdown file',
+        icon: FileText
       })
     ]
   },

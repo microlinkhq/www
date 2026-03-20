@@ -22,17 +22,20 @@ const Caption = withTitle(CaptionBase)
 const CategorySection = ({ category, description, tools }) => {
   const featured = tools.find(t => t.featured)
   const rest = tools.filter(t => !t.featured)
+  const slug = category.toLowerCase().replace(/\s+/g, '-')
 
   return (
     <Box as='section' css={theme({ mb: [4, 4, 5, 5] })}>
       <Box css={theme({ mb: [3, 3, 4, 4] })}>
         <Text
           as='h2'
+          id={slug}
           css={theme({
             fontSize: [3, 3, '38px', '38px'],
             fontWeight: 'bold',
             color: 'black',
-            letterSpacing: 1
+            letterSpacing: 1,
+            scrollMarginTop: 4
           })}
         >
           {category}
@@ -125,6 +128,12 @@ export const Head = () => (
               position: 5,
               url: 'https://microlink.io/tools/sharing-debugger',
               name: 'Sharing Debugger'
+            },
+            {
+              '@type': 'ListItem',
+              position: 6,
+              url: 'https://microlink.io/tools/url-to-markdown',
+              name: 'URL to Markdown'
             }
           ]
         }

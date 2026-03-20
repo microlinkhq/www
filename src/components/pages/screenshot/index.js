@@ -4,10 +4,12 @@ import { colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
   Camera,
+  Check,
   Clipboard,
   Code,
   Download,
   ExternalLink,
+  Loader,
   X
 } from 'react-feather'
 import styled, { keyframes } from 'styled-components'
@@ -221,6 +223,19 @@ export const shimmer = keyframes`
   100% { background-position: -200% 0; }
 `
 
+const spinAnimation = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`
+
+const SpinningLoader = styled(Loader)`
+  animation: ${spinAnimation} 1s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`
+
 /* ─── Preview Styled Components ────────────────────────── */
 
 export const PreviewCanvas = styled(Box)`
@@ -291,7 +306,7 @@ export const IconCircle = styled(Flex)`
 
 export const SectionIcon = ({ icon: Icon }) => (
   <IconCircle css={theme({ width: '80px', height: '80px' })}>
-    <Icon size={32} color={colors.black50} />
+    <Icon size={32} color={colors.black80} />
   </IconCircle>
 )
 
@@ -820,6 +835,8 @@ export const PreviewDisplay = ({
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [isPreviewTooBig, setIsPreviewTooBig] = useState(false)
   const [imagePainted, setImagePainted] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const [downloaded, setDownloaded] = useState(false)
   const prevImageUrlRef = useRef(null)
   const scrollAreaRef = useRef(null)
   const imageUrl = get(data, 'screenshot.url')
@@ -1115,7 +1132,8 @@ export const PreviewDisplay = ({
                 gap: 2,
                 borderTop: 1,
                 borderColor: 'black05',
-                bg: 'white'
+                bg: 'white',
+                flexWrap: 'wrap'
               })}
             >
               <ActionButton
@@ -1124,6 +1142,8 @@ export const PreviewDisplay = ({
                 onClick={e => {
                   e.preventDefault()
                   downloadFile(imageUrl, `screenshot-${Date.now()}.png`)
+                  setDownloaded(true)
+                  setTimeout(() => setDownloaded(false), 1500)
                 }}
                 css={theme({
                   bg: 'black',
@@ -1131,8 +1151,16 @@ export const PreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                <Download size={15} />
-                <Caps css={theme({ fontSize: 0 })}>Download</Caps>
+                {downloaded
+                  ? (
+                    <SpinningLoader size={15} />
+                    )
+                  : (
+                    <Download size={15} />
+                    )}
+                <Caps css={theme({ fontSize: 0 })}>
+                  {downloaded ? 'Saving' : 'Download'}
+                </Caps>
               </ActionButton>
 
               <ActionButton
@@ -1143,6 +1171,8 @@ export const PreviewDisplay = ({
                     copy: imageUrl,
                     text: Tooltip.TEXT.COPIED('URL')
                   })
+                  setCopied(true)
+                  setTimeout(() => setCopied(false), 1500)
                 }}
                 css={theme({
                   bg: 'white',
@@ -1153,8 +1183,10 @@ export const PreviewDisplay = ({
                   _hover: { bg: 'gray1', borderColor: 'black20' }
                 })}
               >
-                <Clipboard size={15} />
-                <Caps css={theme({ fontSize: 0 })}>Copy URL</Caps>
+                {copied ? <Check size={15} /> : <Clipboard size={15} />}
+                <Caps css={theme({ fontSize: 0 })}>
+                  {copied ? 'Copied' : 'Copy URL'}
+                </Caps>
               </ActionButton>
 
               <ActionButton
