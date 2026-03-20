@@ -73,6 +73,13 @@ const MAX_MARKDOWN_HISTORY = 20
 const PREVIEW_HEIGHT = '450px'
 const PREVIEW_HEIGHT_MOBILE = '400px'
 
+const RE_EXCESS_NEWLINES = /\n{3,}/g
+const RE_BLANK_LINES = /^[\t ]+$/gm
+const RE_WWW_PREFIX = /^www\./
+
+const cleanMarkdown = raw =>
+  raw.replace(RE_EXCESS_NEWLINES, '\n\n').replace(RE_BLANK_LINES, '').trim()
+
 const FEATURES_LIST = [
   {
     title: 'Fast CDN Delivery',
@@ -790,7 +797,8 @@ const SettingsPopover = ({
           setOptions(prev => ({
             ...prev,
             adblock: e.target.checked
-          }))}
+          }))
+        }
       />
       <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
         Block ads and banners
@@ -818,7 +826,8 @@ const SettingsPopover = ({
           setOptions(prev => ({
             ...prev,
             cache: e.target.checked
-          }))}
+          }))
+        }
       />
       <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
         Use cache
@@ -853,7 +862,7 @@ const SettingsPopover = ({
         Advanced options
       </AdvancedToggle>
 
-      {showAdvanced && (
+      {showAdvanced ? (
         <Box id='md-advanced-options' css={theme({ pt: 1 })}>
           <CheckboxLabel>
             <input
@@ -863,7 +872,8 @@ const SettingsPopover = ({
                 setOptions(prev => ({
                   ...prev,
                   waitForLoad: e.target.checked
-                }))}
+                }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Wait for all the elements to load
@@ -914,14 +924,15 @@ const SettingsPopover = ({
                 setOptions(prev => ({
                   ...prev,
                   customSelector: e.target.value
-                }))}
+                }))
+              }
               spellCheck={false}
               autoComplete='off'
               aria-label='HTML selector to target specific content'
             />
           </Box>
         </Box>
-      )}
+      ) : null}
     </Box>
   </PopoverPanel>
 )
@@ -1203,7 +1214,7 @@ const MarkdownHistory = ({
               disabled ? { opacity: 0.5, cursor: 'not-allowed' } : undefined
             }
           >
-            {entry.edited && <EditedTag>edited</EditedTag>}
+            {entry.edited ? <EditedTag>edited</EditedTag> : null}
             <HistoryCardContent>
               <HistoryCardUrl>{entry.settings.url}</HistoryCardUrl>
               {entry.markdown?.slice(0, 300)}
@@ -1214,13 +1225,11 @@ const MarkdownHistory = ({
               style={{ bottom: 8, right: 50 }}
               onClick={e => handleCopy(e, entry)}
             >
-              {copiedId === entry.id
-                ? (
-                  <Check size={15} />
-                  )
-                : (
-                  <Clipboard size={15} />
-                  )}
+              {copiedId === entry.id ? (
+                <Check size={15} />
+              ) : (
+                <Clipboard size={15} />
+              )}
             </HistoryCardAction>
             <HistoryCardAction
               aria-label={`Download markdown of ${entry.settings.url}`}
@@ -1228,13 +1237,11 @@ const MarkdownHistory = ({
               style={{ bottom: 8, right: 8 }}
               onClick={e => handleDownload(e, entry)}
             >
-              {downloadedId === entry.id
-                ? (
-                  <SpinningLoader size={15} />
-                  )
-                : (
-                  <Download size={15} />
-                  )}
+              {downloadedId === entry.id ? (
+                <SpinningLoader size={15} />
+              ) : (
+                <Download size={15} />
+              )}
             </HistoryCardAction>
             <HistoryDeleteButton
               aria-label={`Delete markdown of ${entry.settings.url}`}
@@ -1380,22 +1387,22 @@ const MarkdownPreviewDisplay = ({
             })}
           >
             <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              {error?.statusCode === 429 && (
+              {error?.statusCode === 429 ? (
                 <>
                   You've reached your free daily limit.
                   <Text css={theme({ fontSize: 2, color: 'black60' })}>
                     We allow 50 requests per day for free users.
                   </Text>
                 </>
+              ) : (
+                error?.message || 'Something went wrong. Please try again.'
               )}
-              {error?.statusCode !== 429 &&
-                (error?.message || 'Something went wrong. Please try again.')}
             </Text>
-            {error?.statusCode !== 429 && (
+            {error?.statusCode !== 429 ? (
               <Button onClick={onRetry}>
                 <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
               </Button>
-            )}
+            ) : null}
           </FadeIn>
         </Choose.When>
 
@@ -1418,40 +1425,34 @@ const MarkdownPreviewDisplay = ({
                 flexDirection: 'column'
               })}
             >
-              {isEditing && (
+              {isEditing ? (
                 <SaveBadge onClick={onSave} aria-label='Save changes'>
-                  {saveState === 'saved'
-                    ? (
-                      <Check size={15} />
-                      )
-                    : (
-                      <Save size={15} />
-                      )}
+                  {saveState === 'saved' ? (
+                    <Check size={15} />
+                  ) : (
+                    <Save size={15} />
+                  )}
                   {saveState === 'saved' ? 'Saved' : 'Save'}
                 </SaveBadge>
+              ) : null}
+              {showNerdStats && nerdStats ? (
+                <NerdStatsOverlay
+                  stats={nerdStats}
+                  mqlQuery={mqlQuery}
+                  responseData={responseData}
+                />
+              ) : isEditing ? (
+                <MarkdownTextarea
+                  value={editedMarkdown}
+                  onChange={e => onEditChange(e.target.value)}
+                  spellCheck={false}
+                  aria-label='Edit markdown content'
+                />
+              ) : (
+                <MarkdownPre>
+                  <code>{displayContent}</code>
+                </MarkdownPre>
               )}
-              {showNerdStats && nerdStats
-                ? (
-                  <NerdStatsOverlay
-                    stats={nerdStats}
-                    mqlQuery={mqlQuery}
-                    responseData={responseData}
-                  />
-                  )
-                : isEditing
-                  ? (
-                    <MarkdownTextarea
-                      value={editedMarkdown}
-                      onChange={e => onEditChange(e.target.value)}
-                      spellCheck={false}
-                      aria-label='Edit markdown content'
-                    />
-                    )
-                  : (
-                    <MarkdownPre>
-                      <code>{displayContent}</code>
-                    </MarkdownPre>
-                    )}
             </Box>
 
             <Flex
@@ -1494,13 +1495,11 @@ const MarkdownPreviewDisplay = ({
                   _hover: { bg: 'gray1', borderColor: 'black20' }
                 })}
               >
-                {downloaded
-                  ? (
-                    <SpinningLoader size={15} />
-                    )
-                  : (
-                    <Download size={15} />
-                    )}
+                {downloaded ? (
+                  <SpinningLoader size={15} />
+                ) : (
+                  <Download size={15} />
+                )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
@@ -1526,12 +1525,12 @@ const MarkdownPreviewDisplay = ({
                 </Caps>
               </ActionButton>
 
-              {nerdStats && (
+              {nerdStats ? (
                 <NerdStatsToggle
                   active={showNerdStats}
                   onClick={onToggleNerdStats}
                 />
-              )}
+              ) : null}
             </Flex>
           </FadeIn>
           <ClipboardComponent />
@@ -1561,16 +1560,16 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
     e => {
       const val = e.target.value
       setOptions(prev => ({ ...prev, url: val }))
-      if (urlError) setUrlError('')
+      setUrlError(prev => (prev ? '' : prev))
     },
-    [setOptions, urlError]
+    [setOptions]
   )
 
-  const normalizeUrl = useCallback(rawUrl => {
+  const normalizeUrl = rawUrl => {
     const trimmed = rawUrl.trim()
     if (!trimmed) return ''
     return prependHttp(trimmed)
-  }, [])
+  }
 
   const handleSubmit = useCallback(() => {
     const url = normalizeUrl(options.url)
@@ -1617,9 +1616,9 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
             aria-expanded={showPopover}
           >
             <Settings size={18} />
-            {hasNonDefaultSettings && <ActiveDot />}
+            {hasNonDefaultSettings ? <ActiveDot /> : null}
           </SettingsIconButton>
-          {showPopover && (
+          {showPopover ? (
             <>
               <PopoverBackdrop onClick={() => setShowPopover(false)} />
               <SettingsPopover
@@ -1629,7 +1628,7 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
                 setShowAdvanced={setShowAdvanced}
               />
             </>
-          )}
+          ) : null}
         </Box>
 
         <OmniboxConvertButton
@@ -1641,7 +1640,7 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
           <ArrowRight size={16} />
         </OmniboxConvertButton>
       </OmniboxWrapper>
-      {urlError && (
+      {urlError ? (
         <Text
           id='md-url-error'
           role='alert'
@@ -1649,16 +1648,10 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
         >
           {urlError}
         </Text>
-      )}
+      ) : null}
     </Box>
   )
 }
-
-const cleanMarkdown = raw =>
-  raw
-    .replace(/\n{3,}/g, '\n\n')
-    .replace(/^[\t ]+$/gm, '')
-    .trim()
 
 /* ─── Main Tool Section ────────────────────────────────── */
 
@@ -1688,31 +1681,27 @@ const MarkdownTool = () => {
   const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(MARKDOWN_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
-  const [historyReady, setHistoryReady] = useState(false)
 
-  useEffect(() => {
-    setHistory(prev => {
-      if (!Array.isArray(prev)) return []
-      return prev
-    })
-    setHistoryReady(true)
-  }, [setHistory])
+  const safeHistory = Array.isArray(history) ? history : []
 
   const hasUnsavedEdits = isEditing && editedMarkdown !== markdown
 
-  const saveEdits = useCallback(() => {
-    setMarkdown(editedMarkdown)
-    if (activeHistoryId) {
-      setHistory(prev => {
-        const items = Array.isArray(prev) ? prev : []
-        return items.map(entry =>
-          entry.id === activeHistoryId
-            ? { ...entry, markdown: editedMarkdown, edited: true }
-            : entry
-        )
-      })
-    }
-  }, [editedMarkdown, activeHistoryId, setHistory])
+  const persistEdits = useCallback(
+    md => {
+      setMarkdown(md)
+      if (activeHistoryId) {
+        setHistory(prev => {
+          const items = Array.isArray(prev) ? prev : []
+          return items.map(entry =>
+            entry.id === activeHistoryId
+              ? { ...entry, markdown: md, edited: true }
+              : entry
+          )
+        })
+      }
+    },
+    [activeHistoryId, setHistory]
+  )
 
   const exitEditMode = useCallback(() => {
     setIsEditing(false)
@@ -1732,13 +1721,13 @@ const MarkdownTool = () => {
   )
 
   const handleModalSave = useCallback(() => {
-    saveEdits()
+    persistEdits(editedMarkdown)
     exitEditMode()
     setShowUnsavedModal(false)
     const action = pendingActionRef.current
     pendingActionRef.current = null
     if (action) action()
-  }, [saveEdits, exitEditMode])
+  }, [persistEdits, editedMarkdown, exitEditMode])
 
   const handleModalDiscard = useCallback(() => {
     exitEditMode()
@@ -1753,6 +1742,9 @@ const MarkdownTool = () => {
     pendingActionRef.current = null
   }, [])
 
+  const markdownRef = useRef(markdown)
+  markdownRef.current = markdown
+
   const handleToggleEdit = useCallback(() => {
     if (isEditing) {
       if (hasUnsavedEdits) {
@@ -1762,10 +1754,10 @@ const MarkdownTool = () => {
       exitEditMode()
       return
     }
-    setEditedMarkdown(markdown || '')
+    setEditedMarkdown(markdownRef.current || '')
     setSaveState(null)
     setIsEditing(true)
-  }, [isEditing, hasUnsavedEdits, guardUnsavedEdits, exitEditMode, markdown])
+  }, [isEditing, hasUnsavedEdits, guardUnsavedEdits, exitEditMode])
 
   const executeSubmit = useCallback(
     async url => {
@@ -1941,7 +1933,7 @@ const MarkdownTool = () => {
     a.href = url
     try {
       const hostname = new URL(entry.settings.url).hostname.replace(
-        /^www\./,
+        RE_WWW_PREFIX,
         ''
       )
       a.download = `${hostname}.md`
@@ -1958,20 +1950,10 @@ const MarkdownTool = () => {
   }, [])
 
   const handleSave = useCallback(() => {
-    setMarkdown(editedMarkdown)
-    if (activeHistoryId) {
-      setHistory(prev => {
-        const items = Array.isArray(prev) ? prev : []
-        return items.map(entry =>
-          entry.id === activeHistoryId
-            ? { ...entry, markdown: editedMarkdown, edited: true }
-            : entry
-        )
-      })
-    }
+    persistEdits(editedMarkdown)
     setSaveState('saved')
     setTimeout(() => setSaveState(null), 1500)
-  }, [editedMarkdown, activeHistoryId, setHistory])
+  }, [persistEdits, editedMarkdown])
 
   const handleRetry = useCallback(() => {
     if (lastUrl) handleSubmit(lastUrl)
@@ -2070,9 +2052,9 @@ const MarkdownTool = () => {
         </Box>
       </Flex>
 
-      {historyReady && (
+      {safeHistory.length > 0 ? (
         <MarkdownHistory
-          entries={Array.isArray(history) ? history : []}
+          entries={safeHistory}
           activeId={activeHistoryId}
           onSelect={handleHistorySelect}
           onDelete={handleHistoryDelete}
@@ -2080,15 +2062,15 @@ const MarkdownTool = () => {
           onDownload={handleHistoryDownload}
           disabled={isLoading}
         />
-      )}
+      ) : null}
       <HistoryClipboard />
-      {showUnsavedModal && (
+      {showUnsavedModal ? (
         <UnsavedChangesModal
           onSave={handleModalSave}
           onDiscard={handleModalDiscard}
           onClose={handleModalClose}
         />
-      )}
+      ) : null}
     </Container>
   )
 }
@@ -2331,13 +2313,13 @@ const UseCasesSection = () => (
               </Flex>
             ))}
           </Box>
-          {link && (
+          {link ? (
             <Box css={theme({ pt: 3 })}>
               <Link href={link.href} aria-label={link.alt}>
                 {link.text}
               </Link>
             </Box>
-          )}
+          ) : null}
         </Box>
       ))}
     </Box>
