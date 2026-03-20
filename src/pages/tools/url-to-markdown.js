@@ -634,7 +634,6 @@ const OmniboxConvertButton = styled(Box).attrs({
     fontWeight: 'bold',
     borderRadius: '999px',
     cursor: 'pointer',
-    color: 'white',
     flexShrink: 0
   })}
   display: flex;
@@ -642,10 +641,9 @@ const OmniboxConvertButton = styled(Box).attrs({
   gap: 6px;
   padding: 10px 20px;
   border: none;
-  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.3);
-  transition: opacity ${transition.medium}, transform ${transition.short},
-    box-shadow ${transition.medium};
+  background: ${colors.link};
+  color: white;
+  transition: transform ${transition.short};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   white-space: nowrap;
@@ -655,9 +653,7 @@ const OmniboxConvertButton = styled(Box).attrs({
   }
 
   &:hover:not(:disabled) {
-    opacity: 0.92;
     transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);
   }
 
   &:active:not(:disabled) {
