@@ -65,6 +65,8 @@ const Root = styled(Flex)`
 
 const Main = styled(Box)`
   ${themeProp({
+    display: 'flex',
+    flexDirection: 'column',
     pt: TOOLBAR_HEIGHTS,
     mt: [0, 0, 4],
     px: [3, 3, 0],
