@@ -243,7 +243,7 @@ export const NAVIGATION_SECTIONS = [
         icon: BugIcon
       }),
       createNavigationItem({
-        label: 'Url to Markdown',
+        label: 'URL to Markdown',
         href: '/tools/url-to-markdown',
         actively: 'exact',
         description: 'Convert any URL to a markdown file',
