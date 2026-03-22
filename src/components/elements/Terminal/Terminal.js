@@ -39,15 +39,16 @@ to {
 }
 `
 
-const fromString = text =>
-  Array.isArray(text)
-    ? text
-    : text.split(/\r?\n/).map((item, index) => (
-      <span key={index}>
-        {item}
-        {'\n'}
-      </span>
-    ))
+const fromString = text => {
+  if (Array.isArray(text)) return text
+
+  return text.split(/\r?\n/).map((item, index) => (
+    <span key={index}>
+      {item}
+      {'\n'}
+    </span>
+  ))
+}
 
 const TerminalHeader = styled('div')`
   background: white;
@@ -141,6 +142,15 @@ const TerminalTitleWrapper = styled('div')`
   margin-left: -3rem;
 `
 
+const TerminalHeaderSpacer = styled('div')`
+  flex: 1;
+`
+
+const TerminalWindowButtons = styled('div')`
+  display: flex;
+  align-items: center;
+`
+
 export const TerminalTitle = ({ children }) => (
   <TerminalTitleWrapper>
     <Text
@@ -216,6 +226,9 @@ const TerminalProvider = ({
   loading = false,
   title,
   header,
+  showWindowButtons = true,
+  showTitle = true,
+  showAction = true,
   ...props
 }) => {
   const containerRef = useRef(null)
@@ -228,11 +241,18 @@ const TerminalProvider = ({
         {...props}
       >
         <TerminalHeader {...header}>
-          <TerminalButton.Red loading={loading} />
-          <TerminalButton.Yellow loading={loading} />
-          <TerminalButton.Green loading={loading} />
-          <TerminalTitle>{title}</TerminalTitle>
-          <ActionComponent text={text} />
+          {showWindowButtons && (
+            <TerminalWindowButtons>
+              <TerminalButton.Red loading={loading} />
+              <TerminalButton.Yellow loading={loading} />
+              <TerminalButton.Green loading={loading} />
+            </TerminalWindowButtons>
+          )}
+          {showTitle && <TerminalTitle>{title}</TerminalTitle>}
+          {!showTitle && (
+            <TerminalHeaderSpacer aria-hidden='true' />
+          )}
+          {showAction && ActionComponent && <ActionComponent text={text} />}
         </TerminalHeader>
 
         <FadeBackground.Top />

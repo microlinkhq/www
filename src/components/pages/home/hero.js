@@ -110,6 +110,12 @@ const GRID_ITEMS = [
     href: '/metadata'
   },
   {
+    title: 'Google API',
+    subtitle: 'Turn Google results into structured data',
+    color: '#1c7ed6',
+    href: '/search'
+  },
+  {
     title: 'PDF',
     subtitle: 'PDF made simple',
     color: '#e000ac',
