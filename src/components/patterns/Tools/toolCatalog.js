@@ -147,7 +147,7 @@ export const TOOLS = [
           top: ['25%', '7%'],
           width: ['300px', '450px', '550px'],
           objectFit: 'cover',
-          transition: 'transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: 'transform 768ms cubic-bezier(0.4, 0, 0.2, 1)',
           transformOrigin: 'top center'
         }
       }
