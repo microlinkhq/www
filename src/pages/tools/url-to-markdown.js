@@ -797,8 +797,7 @@ const SettingsPopover = ({
           setOptions(prev => ({
             ...prev,
             meta: e.target.checked
-          }))
-        }
+          }))}
       />
       <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
         Include metadata
@@ -827,8 +826,7 @@ const SettingsPopover = ({
           setOptions(prev => ({
             ...prev,
             adblock: e.target.checked
-          }))
-        }
+          }))}
       />
       <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
         Block ads and banners
@@ -856,8 +854,7 @@ const SettingsPopover = ({
           setOptions(prev => ({
             ...prev,
             cache: e.target.checked
-          }))
-        }
+          }))}
       />
       <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
         Use cache
@@ -892,77 +889,77 @@ const SettingsPopover = ({
         Advanced options
       </AdvancedToggle>
 
-      {showAdvanced ? (
-        <Box id='md-advanced-options' css={theme({ pt: 1 })}>
-          <CheckboxLabel>
-            <input
-              type='checkbox'
-              checked={options.waitForLoad}
-              onChange={e =>
-                setOptions(prev => ({
-                  ...prev,
-                  waitForLoad: e.target.checked
-                }))
-              }
-            />
-            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-              Wait for all the elements to load
-            </Text>
-            <Tooltip
-              content={
-                <Tooltip.Content>
-                  Renders the page in a real browser and waits for every
-                  resource to load — slower but sees all content including
-                  lazy-loaded elements, SPAs, and client-side rendered pages
-                </Tooltip.Content>
-              }
-            >
-              <HelpCircle
-                size={16}
-                color={colors.black60}
-                style={{ marginLeft: '6px', marginTop: '5px' }}
+      {showAdvanced
+        ? (
+          <Box id='md-advanced-options' css={theme({ pt: 1 })}>
+            <CheckboxLabel>
+              <input
+                type='checkbox'
+                checked={options.waitForLoad}
+                onChange={e =>
+                  setOptions(prev => ({
+                    ...prev,
+                    waitForLoad: e.target.checked
+                  }))}
               />
-            </Tooltip>
-          </CheckboxLabel>
-
-          <Box css={theme({ pt: 2 })}>
-            <Flex css={{ alignItems: 'center', gap: '6px' }}>
-              <OptionLabel as='span'>HTML Selector</OptionLabel>
+              <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+                Wait for all the elements to load
+              </Text>
               <Tooltip
                 content={
                   <Tooltip.Content>
-                    Target specific elements on the page using a CSS selector.
-                    When set, the tool matches <b>all</b> elements and joins
-                    their markdown with a line break — useful for repeating
-                    structures like article lists, cards, or table rows.
+                    Renders the page in a real browser and waits for every
+                    resource to load — slower but sees all content including
+                    lazy-loaded elements, SPAs, and client-side rendered pages
                   </Tooltip.Content>
-                }
+              }
               >
                 <HelpCircle
                   size={16}
                   color={colors.black60}
-                  style={{ marginTop: '1px', cursor: 'help', flexShrink: 0 }}
+                  style={{ marginLeft: '6px', marginTop: '5px' }}
                 />
               </Tooltip>
-            </Flex>
-            <SelectorInput
-              id='md-selector'
-              type='text'
-              placeholder='article, main, .content…'
-              value={options.customSelector}
-              onChange={e =>
-                setOptions(prev => ({
-                  ...prev,
-                  customSelector: e.target.value
-                }))
-              }
-              spellCheck={false}
-              autoComplete='off'
-              aria-label='HTML selector to target specific content'
-            />
+            </CheckboxLabel>
+
+            <Box css={theme({ pt: 2 })}>
+              <Flex css={{ alignItems: 'center', gap: '6px' }}>
+                <OptionLabel as='span'>HTML Selector</OptionLabel>
+                <Tooltip
+                  content={
+                    <Tooltip.Content>
+                      Target specific elements on the page using a CSS selector.
+                      When set, the tool matches <b>all</b> elements and joins
+                      their markdown with a line break — useful for repeating
+                      structures like article lists, cards, or table rows.
+                    </Tooltip.Content>
+                }
+                >
+                  <HelpCircle
+                    size={16}
+                    color={colors.black60}
+                    style={{ marginTop: '1px', cursor: 'help', flexShrink: 0 }}
+                  />
+                </Tooltip>
+              </Flex>
+              <SelectorInput
+                id='md-selector'
+                type='text'
+                placeholder='article, main, .content…'
+                value={options.customSelector}
+                onChange={e =>
+                  setOptions(prev => ({
+                    ...prev,
+                    customSelector: e.target.value
+                  }))}
+                spellCheck={false}
+                autoComplete='off'
+                aria-label='HTML selector to target specific content'
+              />
+            </Box>
           </Box>
-        </Box>
-      ) : null}
+          )
+        : null}
     </Box>
   </PopoverPanel>
 )
@@ -1255,11 +1252,13 @@ const MarkdownHistory = ({
               style={{ bottom: 8, right: 50 }}
               onClick={e => handleCopy(e, entry)}
             >
-              {copiedId === entry.id ? (
-                <Check size={15} />
-              ) : (
-                <Clipboard size={15} />
-              )}
+              {copiedId === entry.id
+                ? (
+                  <Check size={15} />
+                  )
+                : (
+                  <Clipboard size={15} />
+                  )}
             </HistoryCardAction>
             <HistoryCardAction
               aria-label={`Download markdown of ${entry.settings.url}`}
@@ -1267,11 +1266,13 @@ const MarkdownHistory = ({
               style={{ bottom: 8, right: 8 }}
               onClick={e => handleDownload(e, entry)}
             >
-              {downloadedId === entry.id ? (
-                <SpinningLoader size={15} />
-              ) : (
-                <Download size={15} />
-              )}
+              {downloadedId === entry.id
+                ? (
+                  <SpinningLoader size={15} />
+                  )
+                : (
+                  <Download size={15} />
+                  )}
             </HistoryCardAction>
             <HistoryDeleteButton
               aria-label={`Delete markdown of ${entry.settings.url}`}
@@ -1417,22 +1418,26 @@ const MarkdownPreviewDisplay = ({
             })}
           >
             <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              {error?.statusCode === 429 ? (
-                <>
-                  You've reached your free daily limit.
-                  <Text css={theme({ fontSize: 2, color: 'black60' })}>
-                    We allow 50 requests per day for free users.
-                  </Text>
-                </>
-              ) : (
-                error?.message || 'Something went wrong. Please try again.'
-              )}
+              {error?.statusCode === 429
+                ? (
+                  <>
+                    You've reached your free daily limit.
+                    <Text css={theme({ fontSize: 2, color: 'black60' })}>
+                      We allow 50 requests per day for free users.
+                    </Text>
+                  </>
+                  )
+                : (
+                    error?.message || 'Something went wrong. Please try again.'
+                  )}
             </Text>
-            {error?.statusCode !== 429 ? (
-              <Button onClick={onRetry}>
-                <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-              </Button>
-            ) : null}
+            {error?.statusCode !== 429
+              ? (
+                <Button onClick={onRetry}>
+                  <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+                </Button>
+                )
+              : null}
           </FadeIn>
         </Choose.When>
 
@@ -1455,34 +1460,42 @@ const MarkdownPreviewDisplay = ({
                 flexDirection: 'column'
               })}
             >
-              {isEditing ? (
-                <SaveBadge onClick={onSave} aria-label='Save changes'>
-                  {saveState === 'saved' ? (
-                    <Check size={15} />
-                  ) : (
-                    <Save size={15} />
-                  )}
-                  {saveState === 'saved' ? 'Saved' : 'Save'}
-                </SaveBadge>
-              ) : null}
-              {showNerdStats && nerdStats ? (
-                <NerdStatsOverlay
-                  stats={nerdStats}
-                  mqlQuery={mqlQuery}
-                  responseData={responseData}
-                />
-              ) : isEditing ? (
-                <MarkdownTextarea
-                  value={editedMarkdown}
-                  onChange={e => onEditChange(e.target.value)}
-                  spellCheck={false}
-                  aria-label='Edit markdown content'
-                />
-              ) : (
-                <MarkdownPre>
-                  <code>{displayContent}</code>
-                </MarkdownPre>
-              )}
+              {isEditing
+                ? (
+                  <SaveBadge onClick={onSave} aria-label='Save changes'>
+                    {saveState === 'saved'
+                      ? (
+                        <Check size={15} />
+                        )
+                      : (
+                        <Save size={15} />
+                        )}
+                    {saveState === 'saved' ? 'Saved' : 'Save'}
+                  </SaveBadge>
+                  )
+                : null}
+              {showNerdStats && nerdStats
+                ? (
+                  <NerdStatsOverlay
+                    stats={nerdStats}
+                    mqlQuery={mqlQuery}
+                    responseData={responseData}
+                  />
+                  )
+                : isEditing
+                  ? (
+                    <MarkdownTextarea
+                      value={editedMarkdown}
+                      onChange={e => onEditChange(e.target.value)}
+                      spellCheck={false}
+                      aria-label='Edit markdown content'
+                    />
+                    )
+                  : (
+                    <MarkdownPre>
+                      <code>{displayContent}</code>
+                    </MarkdownPre>
+                    )}
             </Box>
 
             <Flex
@@ -1525,11 +1538,13 @@ const MarkdownPreviewDisplay = ({
                   _hover: { bg: 'gray1', borderColor: 'black20' }
                 })}
               >
-                {downloaded ? (
-                  <SpinningLoader size={15} />
-                ) : (
-                  <Download size={15} />
-                )}
+                {downloaded
+                  ? (
+                    <SpinningLoader size={15} />
+                    )
+                  : (
+                    <Download size={15} />
+                    )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
@@ -1555,12 +1570,14 @@ const MarkdownPreviewDisplay = ({
                 </Caps>
               </ActionButton>
 
-              {nerdStats ? (
-                <NerdStatsToggle
-                  active={showNerdStats}
-                  onClick={onToggleNerdStats}
-                />
-              ) : null}
+              {nerdStats
+                ? (
+                  <NerdStatsToggle
+                    active={showNerdStats}
+                    onClick={onToggleNerdStats}
+                  />
+                  )
+                : null}
             </Flex>
           </FadeIn>
           <ClipboardComponent />
@@ -1649,17 +1666,19 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
             <Settings size={18} />
             {hasNonDefaultSettings ? <ActiveDot /> : null}
           </SettingsIconButton>
-          {showPopover ? (
-            <>
-              <PopoverBackdrop onClick={() => setShowPopover(false)} />
-              <SettingsPopover
-                options={options}
-                setOptions={setOptions}
-                showAdvanced={showAdvanced}
-                setShowAdvanced={setShowAdvanced}
-              />
-            </>
-          ) : null}
+          {showPopover
+            ? (
+              <>
+                <PopoverBackdrop onClick={() => setShowPopover(false)} />
+                <SettingsPopover
+                  options={options}
+                  setOptions={setOptions}
+                  showAdvanced={showAdvanced}
+                  setShowAdvanced={setShowAdvanced}
+                />
+              </>
+              )
+            : null}
         </Box>
 
         <OmniboxConvertButton
@@ -1671,15 +1690,17 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
           <ArrowRight size={16} />
         </OmniboxConvertButton>
       </OmniboxWrapper>
-      {urlError ? (
-        <Text
-          id='md-url-error'
-          role='alert'
-          css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
-        >
-          {urlError}
-        </Text>
-      ) : null}
+      {urlError
+        ? (
+          <Text
+            id='md-url-error'
+            role='alert'
+            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+          >
+            {urlError}
+          </Text>
+          )
+        : null}
     </Box>
   )
 }
@@ -1826,7 +1847,7 @@ const MarkdownTool = () => {
         let response = null
         let headerStats = null
         let truncatedResponseStr = null
-        let md = null
+        const md = null
         try {
           response = await mql(url, mqlOpts)
           const md = response.data?.markdown
@@ -2059,25 +2080,29 @@ const MarkdownTool = () => {
         </Box>
       </Flex>
 
-      {safeHistory.length > 0 ? (
-        <MarkdownHistory
-          entries={safeHistory}
-          activeId={activeHistoryId}
-          onSelect={handleHistorySelect}
-          onDelete={handleHistoryDelete}
-          onCopy={handleHistoryCopy}
-          onDownload={handleHistoryDownload}
-          disabled={isLoading}
-        />
-      ) : null}
+      {safeHistory.length > 0
+        ? (
+          <MarkdownHistory
+            entries={safeHistory}
+            activeId={activeHistoryId}
+            onSelect={handleHistorySelect}
+            onDelete={handleHistoryDelete}
+            onCopy={handleHistoryCopy}
+            onDownload={handleHistoryDownload}
+            disabled={isLoading}
+          />
+          )
+        : null}
       <HistoryClipboard />
-      {showUnsavedModal ? (
-        <UnsavedChangesModal
-          onSave={handleModalSave}
-          onDiscard={handleModalDiscard}
-          onClose={handleModalClose}
-        />
-      ) : null}
+      {showUnsavedModal
+        ? (
+          <UnsavedChangesModal
+            onSave={handleModalSave}
+            onDiscard={handleModalDiscard}
+            onClose={handleModalClose}
+          />
+          )
+        : null}
     </Container>
   )
 }
@@ -2320,13 +2345,15 @@ const UseCasesSection = () => (
               </Flex>
             ))}
           </Box>
-          {link ? (
-            <Box css={theme({ pt: 3 })}>
-              <Link href={link.href} aria-label={link.alt}>
-                {link.text}
-              </Link>
-            </Box>
-          ) : null}
+          {link
+            ? (
+              <Box css={theme({ pt: 3 })}>
+                <Link href={link.href} aria-label={link.alt}>
+                  {link.text}
+                </Link>
+              </Box>
+              )
+            : null}
         </Box>
       ))}
     </Box>
