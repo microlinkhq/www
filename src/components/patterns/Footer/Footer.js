@@ -51,7 +51,10 @@ const FOOTER_COLUMNS = [
       { label: 'Bug Reports', href: issueUrl.bug() },
       { label: 'Contact', href: 'mailto:hello@microlink.io' },
       { label: 'GitHub', href: 'https://github.com/microlinkhq' },
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/microlink' },
+      {
+        label: 'LinkedIn',
+        href: 'https://www.linkedin.com/company/microlinkhq'
+      },
       { label: 'X/Twitter', href: 'https://x.com/microlinkhq' }
     ],
     groups: [
