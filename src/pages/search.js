@@ -4,6 +4,7 @@ import { colors, layout, theme, transition } from 'theme'
 import {
   ArrowRight,
   Check,
+  CheckCircle,
   GitMerge,
   Hexagon,
   Target
@@ -13,12 +14,16 @@ import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Container from 'components/elements/Container'
+import FeatherIcon from 'components/icons/Feather'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Text from 'components/elements/Text'
 import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
+import List from 'components/patterns/List/List'
+import ArrowLink from 'components/patterns/ArrowLink'
+
 import GOOGLE_VERTICAL_EXAMPLES_DATA from 'helpers/google-examples'
 
 const PAGE_URL = 'https://microlink.io/search'
@@ -806,7 +811,7 @@ const HeroDescription = styled(Text)
     m: 0,
     maxWidth: ['100%', layout.small, layout.small, '640px'],
     color: 'black80',
-    fontSize: [2, 2, 3, 3],
+    fontSize: [2, 2, 2, 2],
     lineHeight: 2,
     textAlign: ['center', 'center', 'center', 'left']
   })};
@@ -834,20 +839,6 @@ const HeroProofList = styled(Box)
     display: 'grid',
     gap: 2,
     width: '100%'
-  })};
-`
-
-const HeroProofItem = styled(Text)
-  .withConfig({ componentId: 'google__HeroProofItem' })
-  .attrs({ as: 'li' })`
-  ${theme({
-    display: 'flex',
-    alignItems: 'center',
-    gap: 2,
-    m: 0,
-    color: 'black80',
-    fontSize: [1, 1, 2, 2],
-    justifyContent: ['center', 'center', 'center', 'flex-start']
   })};
 `
 
@@ -1177,12 +1168,13 @@ const VerticalTabs = styled(Box).withConfig({
   componentId: 'google__VerticalTabs'
 })`
   ${theme({
-    py: 5,
-    px: 6,
+    pt: [4, 4, 4, 4],
+    pb: [3, 3, 4, 4],
+    px: [0, 0, 0, 0],
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'stretch',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     gap: 2,
     width: '100%',
     border: 0
@@ -1305,6 +1297,19 @@ const TutorialTimeline = styled(Box).withConfig({
     maxWidth: ['100%', '100%', layout.medium, layout.medium],
     mx: 'auto'
   })};
+
+  &::before {
+    content: '';
+    ${theme({
+      display: ['none', 'none', 'block', 'block'],
+      position: 'absolute',
+      top: '22px',
+      bottom: '22px',
+      left: '35px',
+      width: '2px',
+      bg: 'black10'
+    })};
+  }
 `
 
 const TutorialStep = styled(Box)
@@ -1330,18 +1335,6 @@ const TutorialRail = styled(Box).withConfig({
     display: ['none', 'none', 'flex', 'flex'],
     position: 'relative',
     justifyContent: 'center'
-  })};
-`
-
-const TutorialRailLine = styled(Box).withConfig({
-  componentId: 'google__TutorialRailLine'
-})`
-  ${theme({
-    position: 'absolute',
-    top: '56px',
-    bottom: 0,
-    width: '2px',
-    bg: 'black10'
   })};
 `
 
@@ -1392,7 +1385,7 @@ const TutorialStepTitle = styled(Text)
     mt: 2,
     color: 'black',
     fontWeight: 'bold',
-    fontSize: [3, 3, 4, 4],
+    fontSize: [2, 2, 3, 3],
     lineHeight: 1
   })};
 `
@@ -1404,7 +1397,7 @@ const TutorialStepDescription = styled(Text)
     m: 0,
     mt: 2,
     color: 'black70',
-    fontSize: [2, 2, 2, 3],
+    fontSize: [1, 1, 2, 2],
     lineHeight: 2,
     maxWidth: ['100%', '100%', layout.normal, layout.normal]
   })};
@@ -1479,7 +1472,9 @@ const PricingCardsGrid = styled(Flex).withConfig({
   })};
 `
 
-const PricingCard = styled(Flex).withConfig({ componentId: 'google__PricingCard' })`
+const PricingCard = styled(Flex).withConfig({
+  componentId: 'google__PricingCard'
+})`
   ${theme({
     flexDirection: 'column',
     borderRadius: 3,
@@ -1562,7 +1557,12 @@ const GooglePage = () => {
             flexDirection: 'column',
             alignItems: 'center',
             pt: [3, 3, 1, 0],
-            pb: ['calc(128px + 32px)', 'calc(128px + 32px)', 'calc(128px + 32px)', 'calc(128px + 32px)'],
+            pb: [
+              'calc(128px + 32px)',
+              'calc(128px + 32px)',
+              'calc(128px + 32px)',
+              'calc(128px + 32px)'
+            ],
             px: [2, 3, 4, 5]
           })}
         >
@@ -1593,9 +1593,10 @@ const GooglePage = () => {
                     fontWeight: 'bold',
                     letterSpacing: 1,
                     lineHeight: [1, 1, 0, 0],
-                    fontSize: [4, 4, 4, 5],
+                    fontSize: [3, 3, 4, 4],
                     textAlign: ['center', 'center', 'center', 'left'],
-                    width: '100%'
+                    width: '100%',
+                    maxWidth: ['100%', '100%', '100%', '640px']
                   })}
                 >
                   Seamless Search API for developers, SEO teams, and AI agents.
@@ -1611,10 +1612,17 @@ const GooglePage = () => {
               </Box>
 
               <Flex css={theme({ px: [4, 4, 4, 0], width: '100%' })}>
-                <ActionRow>
-                  <Button as='a' href='/docs/api/getting-started/overview'>
-                    Read docs
-                  </Button>
+                <ActionRow
+                  css={theme({
+                    flexDirection: 'column',
+                    flexWrap: 'nowrap',
+                    alignItems: ['center', 'center', 'center', 'flex-start'],
+                    justifyContent: ['center', 'center', 'center', 'flex-start']
+                  })}
+                >
+                  <ArrowLink href='/docs/api/getting-started/overview'>
+                    Get Started
+                  </ArrowLink>
                   <Button as='a' variant='white' href={PACKAGE_URL}>
                     Install @microlink/google
                   </Button>
@@ -1623,20 +1631,56 @@ const GooglePage = () => {
 
               <Box css={theme({ px: [1, 2, 4, 0], width: '100%' })}>
                 <HeroProofList>
-                  <HeroProofItem>
-                    <Check size={16} aria-hidden='true' />
+                  <List.Item
+                    css={theme({
+                      m: 0,
+                      mb: 0,
+                      color: 'black80',
+                      fontSize: [1, 1, 2, 2],
+                      justifyContent: [
+                        'center',
+                        'center',
+                        'center',
+                        'flex-start'
+                      ]
+                    })}
+                  >
                     One package for 10 Google products.
-                  </HeroProofItem>
-                  <HeroProofItem>
-                    <Check size={16} aria-hidden='true' />
+                  </List.Item>
+                  <List.Item
+                    css={theme({
+                      m: 0,
+                      mb: 0,
+                      color: 'black80',
+                      fontSize: [1, 1, 2, 2],
+                      justifyContent: [
+                        'center',
+                        'center',
+                        'center',
+                        'flex-start'
+                      ]
+                    })}
+                  >
                     Normalized entities for prices, ratings, coordinates, and
                     media.
-                  </HeroProofItem>
-                  <HeroProofItem>
-                    <Check size={16} aria-hidden='true' />
+                  </List.Item>
+                  <List.Item
+                    css={theme({
+                      m: 0,
+                      mb: 0,
+                      color: 'black80',
+                      fontSize: [1, 1, 2, 2],
+                      justifyContent: [
+                        'center',
+                        'center',
+                        'center',
+                        'flex-start'
+                      ]
+                    })}
+                  >
                     Built on Microlink infrastructure for browser + data
                     workloads.
-                  </HeroProofItem>
+                  </List.Item>
                 </HeroProofList>
               </Box>
             </Flex>
@@ -1834,7 +1878,7 @@ const GooglePage = () => {
         >
           <SectionTitle
             css={theme({
-              fontSize: [5, 5, 6, 7],
+              fontSize: [4, 4, 5, 5],
               lineHeight: [1, 1, 0, 0],
               maxWidth: ['100%', '100%', '100%', layout.medium]
             })}
@@ -1845,7 +1889,7 @@ const GooglePage = () => {
           <SectionDescription
             css={theme({
               mt: [3, 3, 4, 4],
-              fontSize: [3, 3, 3, 4],
+              fontSize: [2, 2, 3, 3],
               maxWidth: ['100%', '100%', layout.normal, layout.medium]
             })}
           >
@@ -1856,21 +1900,23 @@ const GooglePage = () => {
           <TutorialTimeline>
             {INTEGRATION_TUTORIAL_STEPS.map((step, index) => {
               const Icon = step.icon
-              const panelContent = step.panel.type === 'features'
-                ? (
+              let panelContent
+
+              if (step.panel.type === 'features') {
+                panelContent = (
                   <TutorialFeatureList>
                     {step.panel.items.map(item => (
                       <TutorialFeatureItem as='li' key={item}>
-                        <Box
+                        <FeatherIcon
+                          icon={CheckCircle}
+                          color='close'
+                          size={[1, 1, 2, 2]}
                           css={theme({
-                            display: 'inline-flex',
-                            color: 'black',
                             flexShrink: 0,
-                            pt: '2px'
+                            mr: 1,
+                            alignSelf: 'flex-start'
                           })}
-                        >
-                          <Check size={16} aria-hidden='true' />
-                        </Box>
+                        />
                         <Text
                           as='span'
                           css={theme({
@@ -1884,28 +1930,30 @@ const GooglePage = () => {
                       </TutorialFeatureItem>
                     ))}
                   </TutorialFeatureList>
-                  )
-                : step.panel.type === 'terminal'
-                  ? (
-                    <TutorialTerminal>{step.panel.content}</TutorialTerminal>
-                    )
-                  : (
-                    <CodeEditor
-                      language={step.panel.language}
-                      blinkCursor={false}
-                      showWindowButtons={false}
-                      showTitle={false}
-                      showAction={false}
-                      css={theme({
-                        width: '100%',
-                        height: ['180px', '180px', '200px', '200px'],
-                        border: 0,
-                        borderRadius: 0
-                      })}
-                    >
-                      {step.panel.content}
-                    </CodeEditor>
-                    )
+                )
+              } else if (step.panel.type === 'terminal') {
+                panelContent = (
+                  <TutorialTerminal>{step.panel.content}</TutorialTerminal>
+                )
+              } else {
+                panelContent = (
+                  <CodeEditor
+                    language={step.panel.language}
+                    blinkCursor={false}
+                    showWindowButtons={false}
+                    showTitle={false}
+                    showAction={false}
+                    css={theme({
+                      width: '100%',
+                      height: ['180px', '180px', '200px', '200px'],
+                      border: 0,
+                      borderRadius: 0
+                    })}
+                  >
+                    {step.panel.content}
+                  </CodeEditor>
+                )
+              }
 
               return (
                 <TutorialStep key={step.step}>
@@ -1913,9 +1961,6 @@ const GooglePage = () => {
                     <TutorialRailDot>
                       <Icon size={18} aria-hidden='true' />
                     </TutorialRailDot>
-                    {index < INTEGRATION_TUTORIAL_STEPS.length - 1 && (
-                      <TutorialRailLine />
-                    )}
                   </TutorialRail>
 
                   <TutorialContent>
@@ -1934,11 +1979,17 @@ const GooglePage = () => {
             })}
           </TutorialTimeline>
 
-          <ActionRow css={theme({ mt: [4, 4, 5, 5], justifyContent: 'flex-start' })}>
+          <ActionRow
+            css={theme({ mt: [4, 4, 5, 5], justifyContent: 'flex-start' })}
+          >
             <Button as='a' href={PACKAGE_URL}>
               Get started
             </Button>
-            <Button as='a' variant='white' href='/docs/api/getting-started/overview'>
+            <Button
+              as='a'
+              variant='white'
+              href='/docs/api/getting-started/overview'
+            >
               <Flex as='span' css={theme({ alignItems: 'center', gap: 2 })}>
                 Documentation
                 <ArrowRight size={16} aria-hidden='true' />
@@ -1981,7 +2032,9 @@ const GooglePage = () => {
               >
                 €39
               </Text>
-              <Text css={theme({ m: 0, color: 'black60', fontSize: [0, 0, 1, 1] })}>
+              <Text
+                css={theme({ m: 0, color: 'black60', fontSize: [0, 0, 1, 1] })}
+              >
                 /month
               </Text>
             </Flex>
@@ -2003,11 +2056,17 @@ const GooglePage = () => {
               <PricingCheck>Search API</PricingCheck>
               <PricingCheck>10 Google verticals in one package</PricingCheck>
               <PricingCheck>Structured normalized results</PricingCheck>
-              <PricingCheck>Pagination with <code>.next()</code></PricingCheck>
-              <PricingCheck>Optional page HTML via <code>.html()</code></PricingCheck>
+              <PricingCheck>
+                Pagination with <code>.next()</code>
+              </PricingCheck>
+              <PricingCheck>
+                Optional page HTML via <code>.html()</code>
+              </PricingCheck>
             </Box>
 
-            <Flex css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}>
+            <Flex
+              css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
+            >
               <Link href='/#pricing'>See all plans</Link>
             </Flex>
           </PricingCard>
@@ -2015,16 +2074,16 @@ const GooglePage = () => {
       </PageSection>
 
       <Faq
-        title='Search FAQ'
-        caption='Answers to common questions about Search and the Google products it supports.'
+        title='Product Information'
+        caption='Everything you need to know about Search and the Google products it supports.'
         css={theme({
           mt: [5, 5, 6, 6],
           pb: [5, 5, 6, 6],
-          bg: 'gray0',
-          borderTop: 1,
-          borderTopColor: 'black10',
-          borderBottom: 1,
-          borderBottomColor: 'black10'
+          bg: 'pinky',
+          borderTop: '1px solid',
+          borderTopColor: 'pinkest',
+          borderBottom: '1px solid',
+          borderBottomColor: 'pinkest'
         })}
         questions={FAQ_ENTRIES.map(({ question, answers }) => ({
           question,
@@ -2037,7 +2096,6 @@ const GooglePage = () => {
           )
         }))}
       />
-
     </Layout>
   )
 }
