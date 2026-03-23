@@ -1004,13 +1004,11 @@ const CompetitorComparison = () => {
                         >
                           {svc.name}
                         </span>
-                        {isMicrolink && <SquareBadge>Fastest</SquareBadge>}
                       </ProviderNameWithTag>
                     </td>
                     <td
                       css={theme({
-                        fontWeight:
-                          isMicrolink || isRunnerUp ? 'bold' : 'normal',
+                        fontWeight: isMicrolink ? 'bold' : 'normal',
                         color: timeColor
                       })}
                     >
@@ -1080,21 +1078,15 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : isMax
-                              ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                                )
-                              : isSecond
-                                ? (
-                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                                  )
-                                : (
-                                    formatMs(times[i])
-                                  )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
