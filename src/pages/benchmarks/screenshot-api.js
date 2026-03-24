@@ -864,7 +864,7 @@ const Methodology = () => (
           >
             <strong>Public Data:</strong> All raw metrics, scripts, and
             configurations are{' '}
-            <Link href='https://github.com/microlinkhq/benchmarks/tree/main/screenshot'>
+            <Link href='https://github.com/microlinkhq/screenshot-benchmark'>
               public on GitHub
             </Link>
             . Anyone can inspect, reproduce, or challenge the&nbsp;results.
@@ -910,7 +910,7 @@ const Methodology = () => (
         })}
       >
         The complete testing data is{' '}
-        <Link href='https://github.com/microlinkhq/benchmarks/tree/main/screenshot/runs/2026-03'>
+        <Link href='https://github.com/microlinkhq/screenshot-benchmark/tree/main/runs/2026-03'>
           open source on GitHub
         </Link>
         . Last run: March,&nbsp;2026.
@@ -1799,7 +1799,7 @@ const FAQ_ITEMS = [
           The benchmark ran 10 times at different hours, the single slowest run
           was dropped to remove outliers, and non-200 responses were excluded.
           The full testing architecture is{' '}
-          <Link href='https://github.com/microlinkhq/benchmarks/tree/main/screenshot'>
+          <Link href='https://github.com/microlinkhq/screenshot-benchmark'>
             open source on GitHub
           </Link>
           .
