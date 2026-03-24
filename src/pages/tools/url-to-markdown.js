@@ -75,6 +75,35 @@ const PREVIEW_HEIGHT_MOBILE = '400px'
 
 const RE_WWW_PREFIX = /^www\./
 
+const META_NOISE_KEYS = new Set([
+  'image_url',
+  'image_type',
+  'image_size',
+  'image_height',
+  'image_width',
+  'image_size_pretty',
+  'logo_url',
+  'logo_type',
+  'logo_size',
+  'logo_height',
+  'logo_width',
+  'logo_size_pretty'
+])
+
+const stripNoisyMeta = md => {
+  if (!md || typeof md !== 'string') return md
+  const match = md.match(/^---\n([\s\S]*?)\n---\n/)
+  if (!match) return md
+  const filtered = match[1]
+    .split('\n')
+    .filter(line => {
+      const key = line.split(':')[0]?.trim()
+      return !META_NOISE_KEYS.has(key)
+    })
+    .join('\n')
+  return `---\n${filtered}\n---\n${md.slice(match[0].length)}`
+}
+
 const FEATURES_LIST = [
   {
     title: 'Fast CDN Delivery',
@@ -124,7 +153,7 @@ const REASON_TO_USE = [
   {
     title: 'Clean Markdown Output',
     description:
-      'Convert any webpage to well-structured markdown. Headings, lists, links, images, code blocks, and tables are all preserved with proper formatting.'
+      'Convert any webpage to well-structured markdown. Headings, lists, links, images, code blocks, and tables are all preserved — and you can edit the result directly in the browser to make it even cleaner before saving, copying, or downloading.'
   },
   {
     title: 'LLM-Ready Metadata',
@@ -138,7 +167,8 @@ const REASON_TO_USE = [
         Static sites, SPAs, JavaScript-rendered pages — it handles them all.
         Enable{' '}
         <Link href='/docs/guides/markdown/choosing-scope'>prerendering</Link>{' '}
-        for client-side apps.
+        for client-side apps. If the target page has bot protection,{' '}
+        <Link href='/#pricing'>pro plans</Link> can bypass it.
       </>
     )
   },
@@ -154,11 +184,6 @@ const REASON_TO_USE = [
         .
       </>
     )
-  },
-  {
-    title: 'Edit Before Saving',
-    description:
-      'Edit the extracted markdown directly in the browser. Fix formatting, remove sections, or add notes — then save, copy, or download the final version.'
   },
   {
     title: 'Free + No Login',
@@ -797,7 +822,8 @@ const SettingsPopover = ({
           setOptions(prev => ({
             ...prev,
             meta: e.target.checked
-          }))}
+          }))
+        }
       />
       <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
         Include metadata
@@ -826,7 +852,8 @@ const SettingsPopover = ({
           setOptions(prev => ({
             ...prev,
             adblock: e.target.checked
-          }))}
+          }))
+        }
       />
       <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
         Block ads and banners
@@ -854,7 +881,8 @@ const SettingsPopover = ({
           setOptions(prev => ({
             ...prev,
             cache: e.target.checked
-          }))}
+          }))
+        }
       />
       <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
         Use cache
@@ -889,77 +917,77 @@ const SettingsPopover = ({
         Advanced options
       </AdvancedToggle>
 
-      {showAdvanced
-        ? (
-          <Box id='md-advanced-options' css={theme({ pt: 1 })}>
-            <CheckboxLabel>
-              <input
-                type='checkbox'
-                checked={options.waitForLoad}
-                onChange={e =>
-                  setOptions(prev => ({
-                    ...prev,
-                    waitForLoad: e.target.checked
-                  }))}
+      {showAdvanced ? (
+        <Box id='md-advanced-options' css={theme({ pt: 1 })}>
+          <CheckboxLabel>
+            <input
+              type='checkbox'
+              checked={options.waitForLoad}
+              onChange={e =>
+                setOptions(prev => ({
+                  ...prev,
+                  waitForLoad: e.target.checked
+                }))
+              }
+            />
+            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+              Wait for all the elements to load
+            </Text>
+            <Tooltip
+              content={
+                <Tooltip.Content>
+                  Renders the page in a real browser and waits for every
+                  resource to load — slower but sees all content including
+                  lazy-loaded elements, SPAs, and client-side rendered pages
+                </Tooltip.Content>
+              }
+            >
+              <HelpCircle
+                size={16}
+                color={colors.black60}
+                style={{ marginLeft: '6px', marginTop: '5px' }}
               />
-              <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-                Wait for all the elements to load
-              </Text>
+            </Tooltip>
+          </CheckboxLabel>
+
+          <Box css={theme({ pt: 2 })}>
+            <Flex css={{ alignItems: 'center', gap: '6px' }}>
+              <OptionLabel as='span'>HTML Selector</OptionLabel>
               <Tooltip
                 content={
                   <Tooltip.Content>
-                    Renders the page in a real browser and waits for every
-                    resource to load — slower but sees all content including
-                    lazy-loaded elements, SPAs, and client-side rendered pages
+                    Target specific elements on the page using a CSS selector.
+                    When set, the tool matches <b>all</b> elements and joins
+                    their markdown with a line break — useful for repeating
+                    structures like article lists, cards, or table rows.
                   </Tooltip.Content>
-              }
+                }
               >
                 <HelpCircle
                   size={16}
                   color={colors.black60}
-                  style={{ marginLeft: '6px', marginTop: '5px' }}
+                  style={{ marginTop: '1px', cursor: 'help', flexShrink: 0 }}
                 />
               </Tooltip>
-            </CheckboxLabel>
-
-            <Box css={theme({ pt: 2 })}>
-              <Flex css={{ alignItems: 'center', gap: '6px' }}>
-                <OptionLabel as='span'>HTML Selector</OptionLabel>
-                <Tooltip
-                  content={
-                    <Tooltip.Content>
-                      Target specific elements on the page using a CSS selector.
-                      When set, the tool matches <b>all</b> elements and joins
-                      their markdown with a line break — useful for repeating
-                      structures like article lists, cards, or table rows.
-                    </Tooltip.Content>
-                }
-                >
-                  <HelpCircle
-                    size={16}
-                    color={colors.black60}
-                    style={{ marginTop: '1px', cursor: 'help', flexShrink: 0 }}
-                  />
-                </Tooltip>
-              </Flex>
-              <SelectorInput
-                id='md-selector'
-                type='text'
-                placeholder='article, main, .content…'
-                value={options.customSelector}
-                onChange={e =>
-                  setOptions(prev => ({
-                    ...prev,
-                    customSelector: e.target.value
-                  }))}
-                spellCheck={false}
-                autoComplete='off'
-                aria-label='HTML selector to target specific content'
-              />
-            </Box>
+            </Flex>
+            <SelectorInput
+              id='md-selector'
+              type='text'
+              placeholder='article, main, .content…'
+              value={options.customSelector}
+              onChange={e =>
+                setOptions(prev => ({
+                  ...prev,
+                  customSelector: e.target.value
+                }))
+              }
+              spellCheck={false}
+              autoComplete='off'
+              aria-label='HTML selector to target specific content'
+            />
           </Box>
-          )
-        : null}
+        </Box>
+      ) : null}
     </Box>
   </PopoverPanel>
 )
@@ -1252,13 +1280,11 @@ const MarkdownHistory = ({
               style={{ bottom: 8, right: 50 }}
               onClick={e => handleCopy(e, entry)}
             >
-              {copiedId === entry.id
-                ? (
-                  <Check size={15} />
-                  )
-                : (
-                  <Clipboard size={15} />
-                  )}
+              {copiedId === entry.id ? (
+                <Check size={15} />
+              ) : (
+                <Clipboard size={15} />
+              )}
             </HistoryCardAction>
             <HistoryCardAction
               aria-label={`Download markdown of ${entry.settings.url}`}
@@ -1266,13 +1292,11 @@ const MarkdownHistory = ({
               style={{ bottom: 8, right: 8 }}
               onClick={e => handleDownload(e, entry)}
             >
-              {downloadedId === entry.id
-                ? (
-                  <SpinningLoader size={15} />
-                  )
-                : (
-                  <Download size={15} />
-                  )}
+              {downloadedId === entry.id ? (
+                <SpinningLoader size={15} />
+              ) : (
+                <Download size={15} />
+              )}
             </HistoryCardAction>
             <HistoryDeleteButton
               aria-label={`Delete markdown of ${entry.settings.url}`}
@@ -1418,26 +1442,32 @@ const MarkdownPreviewDisplay = ({
             })}
           >
             <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              {error?.statusCode === 429
-                ? (
-                  <>
-                    You've reached your free daily limit.
-                    <Text css={theme({ fontSize: 2, color: 'black60' })}>
-                      We allow 50 requests per day for free users.
-                    </Text>
-                  </>
-                  )
-                : (
-                    error?.message || 'Something went wrong. Please try again.'
-                  )}
+              {error?.statusCode === 429 ? (
+                <>
+                  You've reached your free daily limit.
+                  <Text css={theme({ fontSize: 2, color: 'black60' })}>
+                    We allow 50 requests per day for free users.
+                  </Text>
+                </>
+              ) : error?.statusCode === 'EMPTY_MARKDOWN' ? (
+                <>
+                  This URL couldn't be analyzed.
+                  <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
+                    The page may not exist, return empty content, or be behind
+                    anti-bot / anti-scraping protection.{' '}
+                    <Link href='/#pricing'>Pro plans</Link> can bypass most
+                    protections.
+                  </Text>
+                </>
+              ) : (
+                error?.message || 'Something went wrong. Please try again.'
+              )}
             </Text>
-            {error?.statusCode !== 429
-              ? (
-                <Button onClick={onRetry}>
-                  <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-                </Button>
-                )
-              : null}
+            {error?.statusCode !== 429 ? (
+              <Button onClick={onRetry}>
+                <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+              </Button>
+            ) : null}
           </FadeIn>
         </Choose.When>
 
@@ -1460,42 +1490,34 @@ const MarkdownPreviewDisplay = ({
                 flexDirection: 'column'
               })}
             >
-              {isEditing
-                ? (
-                  <SaveBadge onClick={onSave} aria-label='Save changes'>
-                    {saveState === 'saved'
-                      ? (
-                        <Check size={15} />
-                        )
-                      : (
-                        <Save size={15} />
-                        )}
-                    {saveState === 'saved' ? 'Saved' : 'Save'}
-                  </SaveBadge>
-                  )
-                : null}
-              {showNerdStats && nerdStats
-                ? (
-                  <NerdStatsOverlay
-                    stats={nerdStats}
-                    mqlQuery={mqlQuery}
-                    responseData={responseData}
-                  />
-                  )
-                : isEditing
-                  ? (
-                    <MarkdownTextarea
-                      value={editedMarkdown}
-                      onChange={e => onEditChange(e.target.value)}
-                      spellCheck={false}
-                      aria-label='Edit markdown content'
-                    />
-                    )
-                  : (
-                    <MarkdownPre>
-                      <code>{displayContent}</code>
-                    </MarkdownPre>
-                    )}
+              {isEditing ? (
+                <SaveBadge onClick={onSave} aria-label='Save changes'>
+                  {saveState === 'saved' ? (
+                    <Check size={15} />
+                  ) : (
+                    <Save size={15} />
+                  )}
+                  {saveState === 'saved' ? 'Saved' : 'Save'}
+                </SaveBadge>
+              ) : null}
+              {showNerdStats && nerdStats ? (
+                <NerdStatsOverlay
+                  stats={nerdStats}
+                  mqlQuery={mqlQuery}
+                  responseData={responseData}
+                />
+              ) : isEditing ? (
+                <MarkdownTextarea
+                  value={editedMarkdown}
+                  onChange={e => onEditChange(e.target.value)}
+                  spellCheck={false}
+                  aria-label='Edit markdown content'
+                />
+              ) : (
+                <MarkdownPre>
+                  <code>{displayContent}</code>
+                </MarkdownPre>
+              )}
             </Box>
 
             <Flex
@@ -1538,13 +1560,11 @@ const MarkdownPreviewDisplay = ({
                   _hover: { bg: 'gray1', borderColor: 'black20' }
                 })}
               >
-                {downloaded
-                  ? (
-                    <SpinningLoader size={15} />
-                    )
-                  : (
-                    <Download size={15} />
-                    )}
+                {downloaded ? (
+                  <SpinningLoader size={15} />
+                ) : (
+                  <Download size={15} />
+                )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
@@ -1570,14 +1590,12 @@ const MarkdownPreviewDisplay = ({
                 </Caps>
               </ActionButton>
 
-              {nerdStats
-                ? (
-                  <NerdStatsToggle
-                    active={showNerdStats}
-                    onClick={onToggleNerdStats}
-                  />
-                  )
-                : null}
+              {nerdStats ? (
+                <NerdStatsToggle
+                  active={showNerdStats}
+                  onClick={onToggleNerdStats}
+                />
+              ) : null}
             </Flex>
           </FadeIn>
           <ClipboardComponent />
@@ -1666,19 +1684,17 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
             <Settings size={18} />
             {hasNonDefaultSettings ? <ActiveDot /> : null}
           </SettingsIconButton>
-          {showPopover
-            ? (
-              <>
-                <PopoverBackdrop onClick={() => setShowPopover(false)} />
-                <SettingsPopover
-                  options={options}
-                  setOptions={setOptions}
-                  showAdvanced={showAdvanced}
-                  setShowAdvanced={setShowAdvanced}
-                />
-              </>
-              )
-            : null}
+          {showPopover ? (
+            <>
+              <PopoverBackdrop onClick={() => setShowPopover(false)} />
+              <SettingsPopover
+                options={options}
+                setOptions={setOptions}
+                showAdvanced={showAdvanced}
+                setShowAdvanced={setShowAdvanced}
+              />
+            </>
+          ) : null}
         </Box>
 
         <OmniboxConvertButton
@@ -1690,17 +1706,15 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
           <ArrowRight size={16} />
         </OmniboxConvertButton>
       </OmniboxWrapper>
-      {urlError
-        ? (
-          <Text
-            id='md-url-error'
-            role='alert'
-            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
-          >
-            {urlError}
-          </Text>
-          )
-        : null}
+      {urlError ? (
+        <Text
+          id='md-url-error'
+          role='alert'
+          css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+        >
+          {urlError}
+        </Text>
+      ) : null}
     </Box>
   )
 }
@@ -1850,7 +1864,15 @@ const MarkdownTool = () => {
         let md = null
         try {
           response = await mql(url, mqlOpts)
-          md = response.data?.markdown
+          md = stripNoisyMeta(response.data?.markdown)
+
+          if (!md) {
+            setError({
+              message:
+                "This URL couldn't be converted to markdown. It may not exist, return empty content, or be behind anti-bot / anti-scraping protection.",
+              statusCode: 'EMPTY_MARKDOWN'
+            })
+          }
 
           setMarkdown(md)
           headerStats = extractNerdStats(response.response?.headers)
@@ -2067,29 +2089,25 @@ const MarkdownTool = () => {
         </Box>
       </Flex>
 
-      {safeHistory.length > 0
-        ? (
-          <MarkdownHistory
-            entries={safeHistory}
-            activeId={activeHistoryId}
-            onSelect={handleHistorySelect}
-            onDelete={handleHistoryDelete}
-            onCopy={handleHistoryCopy}
-            onDownload={handleHistoryDownload}
-            disabled={isLoading}
-          />
-          )
-        : null}
+      {safeHistory.length > 0 ? (
+        <MarkdownHistory
+          entries={safeHistory}
+          activeId={activeHistoryId}
+          onSelect={handleHistorySelect}
+          onDelete={handleHistoryDelete}
+          onCopy={handleHistoryCopy}
+          onDownload={handleHistoryDownload}
+          disabled={isLoading}
+        />
+      ) : null}
       <HistoryClipboard />
-      {showUnsavedModal
-        ? (
-          <UnsavedChangesModal
-            onSave={handleModalSave}
-            onDiscard={handleModalDiscard}
-            onClose={handleModalClose}
-          />
-          )
-        : null}
+      {showUnsavedModal ? (
+        <UnsavedChangesModal
+          onSave={handleModalSave}
+          onDiscard={handleModalDiscard}
+          onClose={handleModalClose}
+        />
+      ) : null}
     </Container>
   )
 }
@@ -2122,7 +2140,7 @@ const Hero = () => (
         pt: [2, 2, 3, 3],
         px: 3,
         maxWidth: layout.large,
-        fontSize: [2, 2, 3, 3]
+        fontSize: [2, 2, '26px', '28px']
       })}
     >
       Turn any URL into clean, structured markdown with metadata.
@@ -2332,15 +2350,13 @@ const UseCasesSection = () => (
               </Flex>
             ))}
           </Box>
-          {link
-            ? (
-              <Box css={theme({ pt: 3 })}>
-                <Link href={link.href} aria-label={link.alt}>
-                  {link.text}
-                </Link>
-              </Box>
-              )
-            : null}
+          {link ? (
+            <Box css={theme({ pt: 3 })}>
+              <Link href={link.href} aria-label={link.alt}>
+                {link.text}
+              </Link>
+            </Box>
+          ) : null}
         </Box>
       ))}
     </Box>
@@ -2668,10 +2684,10 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Website to Markdown Converter — Free URL to Markdown Tool'
+    title='Free URL to Markdown Converter — Extract Clean Web Content'
     noSuffix
-    description='Convert any URL to markdown. Free online tool to turn web pages into clean, structured markdown files. Edit, copy, and download — no login required.'
-    image='https://cdn.microlink.io/banner/markdown.jpeg'
+    description='Free and no login required online tool to convert any URL into structured Markdown. Automatically strip ads and navbars. Copy, edit, or download instantly.'
+    image='https://cdn.microlink.io/banner/api.jpeg'
     schemaType='SoftwareApplication'
     structured={[
       {
