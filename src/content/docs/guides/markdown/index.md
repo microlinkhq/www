@@ -73,7 +73,7 @@ The converted Markdown appears under the field you declared:
 }
 ```
 
-If `meta` stays enabled, your Markdown field sits alongside normalized metadata such as `title`, `description`, `image`, and `url`.
+When `meta` is `true` (the default), the Markdown output includes a YAML frontmatter header with normalized metadata — `title`, `description`, `url`, `author`, `publisher`, `image`, `logo`, `date`, `word_count`, `reading_time`, and more. This gives LLMs richer context about the source page. Set `meta: false` to return only the raw Markdown content. See <Link href='/docs/guides/markdown/delivery-and-response#include-metadata-for-richer-context' children='Include metadata for richer context' /> for examples and details.
 
 ## Choose a starting pattern
 
@@ -81,6 +81,7 @@ If `meta` stays enabled, your Markdown field sits alongside normalized metadata 
 |------|--------------|-----|
 | Convert the whole document | Omit `selector` and use `attr: 'markdown'` | Fastest way to prototype or feed a full page into another system |
 | Keep only the main article or docs body | Add `selector: 'main'` or `selector: 'article'` | Avoid nav, footer, cookie banners, and other chrome |
+| Include page metadata for LLM context | Keep `meta: true` (the default) | Adds a YAML frontmatter header with title, description, author, dates, and more |
 | Return Markdown plus a few supporting fields | Mix Markdown with other `data` rules | Useful for indexing, CMS imports, and LLM pipelines |
 | Return the Markdown body directly | Keep the field in `data`, then use `embed` | Turns the API URL into a direct Markdown response |
 
@@ -89,6 +90,7 @@ If `meta` stays enabled, your Markdown field sits alongside normalized metadata 
 This guide stays focused on the choices that are unique to Markdown extraction:
 
 - whole page vs scoped content
+- metadata frontmatter vs raw content only
 - clean conversion vs noisy page chrome
 - JSON vs direct Markdown delivery
 

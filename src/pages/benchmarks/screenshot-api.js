@@ -1004,13 +1004,11 @@ const CompetitorComparison = () => {
                         >
                           {svc.name}
                         </span>
-                        {isMicrolink && <SquareBadge>Fastest</SquareBadge>}
                       </ProviderNameWithTag>
                     </td>
                     <td
                       css={theme({
-                        fontWeight:
-                          isMicrolink || isRunnerUp ? 'bold' : 'normal',
+                        fontWeight: isMicrolink ? 'bold' : 'normal',
                         color: timeColor
                       })}
                     >

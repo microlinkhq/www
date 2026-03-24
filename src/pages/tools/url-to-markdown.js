@@ -73,12 +73,36 @@ const MAX_MARKDOWN_HISTORY = 20
 const PREVIEW_HEIGHT = '450px'
 const PREVIEW_HEIGHT_MOBILE = '400px'
 
-const RE_EXCESS_NEWLINES = /\n{3,}/g
-const RE_BLANK_LINES = /^[\t ]+$/gm
 const RE_WWW_PREFIX = /^www\./
 
-const cleanMarkdown = raw =>
-  raw.replace(RE_EXCESS_NEWLINES, '\n\n').replace(RE_BLANK_LINES, '').trim()
+const META_NOISE_KEYS = new Set([
+  'image_url',
+  'image_type',
+  'image_size',
+  'image_height',
+  'image_width',
+  'image_size_pretty',
+  'logo_url',
+  'logo_type',
+  'logo_size',
+  'logo_height',
+  'logo_width',
+  'logo_size_pretty'
+])
+
+const stripNoisyMeta = md => {
+  if (!md || typeof md !== 'string') return md
+  const match = md.match(/^---\n([\s\S]*?)\n---\n/)
+  if (!match) return md
+  const filtered = match[1]
+    .split('\n')
+    .filter(line => {
+      const key = line.split(':')[0]?.trim()
+      return !META_NOISE_KEYS.has(key)
+    })
+    .join('\n')
+  return `---\n${filtered}\n---\n${md.slice(match[0].length)}`
+}
 
 const FEATURES_LIST = [
   {
@@ -109,7 +133,7 @@ const HOW_IT_WORKS = [
     icon: Settings,
     title: 'Set Options',
     description:
-      'Block ads, target specific HTML selectors, or enable full-page rendering for dynamic content.'
+      'Metadata is included by default — title, description, logo, and more. Block ads, target HTML selectors, or toggle metadata off in one click.'
   },
   {
     icon: FileText,
@@ -129,7 +153,12 @@ const REASON_TO_USE = [
   {
     title: 'Clean Markdown Output',
     description:
-      'Convert any webpage to well-structured markdown. Headings, lists, links, images, code blocks, and tables are all preserved with proper formatting.'
+      'Convert any webpage to well-structured markdown. Headings, lists, links, images, code blocks, and tables are all preserved — and you can edit the result directly in the browser to make it even cleaner before saving, copying, or downloading.'
+  },
+  {
+    title: 'LLM-Ready Metadata',
+    description:
+      'Every conversion includes page metadata by default — URL, title, description, logo, and more. This gives LLMs richer context about the source. Need just the content? Turn metadata off in one click.'
   },
   {
     title: 'Works on Any Website',
@@ -138,7 +167,8 @@ const REASON_TO_USE = [
         Static sites, SPAs, JavaScript-rendered pages — it handles them all.
         Enable{' '}
         <Link href='/docs/guides/markdown/choosing-scope'>prerendering</Link>{' '}
-        for client-side apps.
+        for client-side apps. If the target page has bot protection,{' '}
+        <Link href='/#pricing'>pro plans</Link> can bypass it.
       </>
     )
   },
@@ -154,11 +184,6 @@ const REASON_TO_USE = [
         .
       </>
     )
-  },
-  {
-    title: 'Edit Before Saving',
-    description:
-      'Edit the extracted markdown directly in the browser. Fix formatting, remove sections, or add notes — then save, copy, or download the final version.'
   },
   {
     title: 'Free + No Login',
@@ -184,10 +209,10 @@ const USE_CASES = [
   {
     title: 'For AI & LLM Pipelines',
     items: [
-      'Turn any URL into markdown context for AI agents',
-      'Build RAG pipelines with clean web-to-markdown extraction',
+      'Turn any URL into markdown context with metadata for AI agents',
+      'Build RAG pipelines with title, description, and logo alongside content',
       'Cut token costs with structured markdown instead of raw HTML',
-      'Automate web research and feed results into LLM workflows'
+      'Toggle metadata off when you only need the raw content'
     ],
     link: {
       href: '/docs/guides/markdown',
@@ -789,6 +814,35 @@ const SettingsPopover = ({
   setShowAdvanced
 }) => (
   <PopoverPanel onClick={e => e.stopPropagation()}>
+    <CheckboxLabel>
+      <input
+        type='checkbox'
+        checked={options.meta}
+        onChange={e =>
+          setOptions(prev => ({
+            ...prev,
+            meta: e.target.checked
+          }))}
+      />
+      <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+        Include metadata
+      </Text>
+      <Tooltip
+        content={
+          <Tooltip.Content>
+            Returns page metadata (URL, title, description, logo, etc.)
+            alongside the markdown — useful for giving extra context to an LLM
+          </Tooltip.Content>
+        }
+      >
+        <HelpCircle
+          size={16}
+          color={colors.black60}
+          style={{ marginLeft: '6px', marginTop: '5px' }}
+        />
+      </Tooltip>
+    </CheckboxLabel>
+
     <CheckboxLabel>
       <input
         type='checkbox'
@@ -1398,9 +1452,21 @@ const MarkdownPreviewDisplay = ({
                     </Text>
                   </>
                   )
-                : (
-                    error?.message || 'Something went wrong. Please try again.'
-                  )}
+                : error?.statusCode === 'EMPTY_MARKDOWN'
+                  ? (
+                    <>
+                      This URL couldn't be analyzed.
+                      <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
+                        The page may not exist, return empty content, or be behind
+                        anti-bot / anti-scraping protection.{' '}
+                        <Link href='/#pricing'>Pro plans</Link> can bypass most
+                        protections.
+                      </Text>
+                    </>
+                    )
+                  : (
+                      error?.message || 'Something went wrong. Please try again.'
+                    )}
             </Text>
             {error?.statusCode !== 429
               ? (
@@ -1571,6 +1637,7 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
   const hasNonDefaultSettings =
     !options.adblock ||
     !options.cache ||
+    !options.meta ||
     options.waitForLoad ||
     options.customSelector.trim() !== ''
 
@@ -1683,6 +1750,7 @@ const MarkdownTool = () => {
     customSelector: '',
     adblock: true,
     cache: true,
+    meta: true,
     waitForLoad: false
   })
 
@@ -1799,7 +1867,7 @@ const MarkdownTool = () => {
 
         const mqlOpts = {
           apiKey: localStorageData,
-          meta: false,
+          meta: options.meta,
           data: { markdown: dataRule },
           adblock: options.adblock,
           force: !options.cache
@@ -1819,8 +1887,16 @@ const MarkdownTool = () => {
         let md = null
         try {
           response = await mql(url, mqlOpts)
-          const raw = response.data?.markdown
-          md = cleanMarkdown(Array.isArray(raw) ? raw.join('\n\n') : raw || '')
+          md = stripNoisyMeta(response.data?.markdown)
+
+          if (!md) {
+            setError({
+              message:
+                "This URL couldn't be converted to markdown. It may not exist, return empty content, or be behind anti-bot / anti-scraping protection.",
+              statusCode: 'EMPTY_MARKDOWN'
+            })
+          }
+
           setMarkdown(md)
           headerStats = extractNerdStats(response.response?.headers)
           setNerdStats(headerStats)
@@ -1867,6 +1943,7 @@ const MarkdownTool = () => {
                   customSelector: options.customSelector,
                   adblock: options.adblock,
                   cache: options.cache,
+                  meta: options.meta,
                   waitForLoad: options.waitForLoad
                 }
               },
@@ -1903,9 +1980,10 @@ const MarkdownTool = () => {
       customSelector: settings.customSelector || '',
       adblock: settings.adblock !== undefined ? settings.adblock : true,
       cache: settings.cache !== undefined ? settings.cache : true,
+      meta: settings.meta !== undefined ? settings.meta : true,
       waitForLoad: settings.waitForLoad || false
     })
-    setMarkdown(cleanMarkdown(entry.markdown || ''))
+    setMarkdown(entry.markdown || '')
     setLastUrl(settings.url)
     setNerdStats(entry.nerdStats || null)
     setMqlQuery(entry.mqlQuery || null)
@@ -2031,46 +2109,6 @@ const MarkdownTool = () => {
               />
             </ResultsExpandInner>
           </ResultsExpandWrapper>
-
-          {/* {!hasContent && (
-            <Flex
-              css={theme({
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center',
-                py: [4, 4, 5, 5]
-              })}
-            >
-              <Flex
-                css={{
-                  color: colors.black80,
-                  alignItems: 'center',
-                  gap: space[2],
-                  marginBottom: space[3]
-                }}
-              >
-                <LinkIcon width='30' height='30' />
-                <ArrowBig
-                  width='28'
-                  height='28'
-                  css={{ color: colors.black40 }}
-                />
-                <FileText width='32' height='32' />
-              </Flex>
-              <Text css={theme({ color: 'black80', fontSize: 2 })}>
-                Paste a URL and press Convert
-              </Text>
-              <Text
-                css={theme({
-                  color: 'black60',
-                  fontSize: 1,
-                  pt: 1
-                })}
-              >
-                The markdown will appear here
-              </Text>
-            </Flex>
-          )} */}
         </Box>
       </Flex>
 
@@ -2129,11 +2167,11 @@ const Hero = () => (
         pt: [2, 2, 3, 3],
         px: 3,
         maxWidth: layout.large,
-        fontSize: [2, 2, 3, 3]
+        fontSize: [2, 2, '26px', '28px']
       })}
     >
-      Turn any URL into clean, structured markdown.
-      <br /> Edit, copy, or download instantly.
+      Turn any URL into clean, structured markdown with metadata.
+      <br /> Ready for LLMs, RAG pipelines, and content workflows.
     </Caption>
   </Flex>
 )
@@ -2518,6 +2556,12 @@ const ProductInformation = () => (
               elements automatically.
             </div>
             <div>
+              By default, page metadata — title, description, URL, logo, and
+              more — is included alongside the markdown to give LLMs extra
+              context about the source. If you only need the raw content,
+              uncheck <b>Include metadata</b> in the settings.
+            </div>
+            <div>
               Use an <b>HTML Selector</b> in Advanced options to target the
               article or documentation body. See the{' '}
               <Link href='/docs/guides/markdown/choosing-scope'>
@@ -2642,6 +2686,24 @@ const ProductInformation = () => (
             </div>
           </>
         )
+      },
+      {
+        question: 'What does the "Include metadata" option do?',
+        answer: (
+          <>
+            <div>
+              When enabled (the default), each conversion returns page metadata
+              — URL, title, description, logo, and other fields — alongside the
+              markdown content. This gives an LLM richer context about the page
+              it is reading, which improves summarization, citation, and
+              retrieval accuracy.
+            </div>
+            <div>
+              If you only need the raw markdown without extra context, uncheck{' '}
+              <b>Include metadata</b> in the settings — it's a single click.
+            </div>
+          </>
+        )
       }
     ]}
   />
@@ -2651,11 +2713,10 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Website to Markdown Converter — Free URL to Markdown Tool'
+    title='Free URL to Markdown Converter — Extract Clean Web Content'
     noSuffix
-    description='Convert any URL to markdown instantly. Free online tool to turn web pages into clean, structured markdown files — edit, copy, and download. No login required.'
-    image='https://cdn.microlink.io/banner/markdown.jpeg'
-    schemaType='SoftwareApplication'
+    description='Free and no login required online tool to convert any URL into structured Markdown. Automatically strip ads and navbars. Copy, edit, or download instantly.'
+    image='https://cdn.microlink.io/banner/api.jpeg'
     structured={[
       {
         '@context': 'https://schema.org',
@@ -2663,7 +2724,7 @@ export const Head = () => (
         '@id': 'https://microlink.io/tools/url-to-markdown',
         name: 'Website to Markdown Converter',
         description:
-          'Free URL to markdown converter with inline editing, ad blocking, HTML selectors, and JavaScript rendering support. Convert any webpage to a markdown file — edit, copy, and download.',
+          'Free URL to markdown converter with page metadata, inline editing, ad blocking, HTML selectors, and JavaScript rendering support. Includes title, description, and logo for LLM context.',
         url: 'https://microlink.io/tools/url-to-markdown',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
@@ -2710,7 +2771,7 @@ export const Head = () => (
             name: 'What content does the URL to markdown tool extract?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'The tool converts any web page to clean markdown, preserving headings, paragraphs, lists, links, images, code blocks, tables, and emphasis. It strips navigation, scripts, and non-content elements automatically.'
+              text: 'The tool converts any web page to clean markdown, preserving headings, paragraphs, lists, links, images, code blocks, tables, and emphasis. By default, page metadata — title, description, URL, logo — is included alongside the markdown to give LLMs extra context. Uncheck "Include metadata" in the settings if you only need the raw content.'
             }
           },
           {

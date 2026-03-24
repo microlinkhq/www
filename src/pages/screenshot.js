@@ -70,9 +70,12 @@ const formatCompactCount = number =>
 const OSS_STARS_BY_NAME = new Map(
   ossData.map(({ name, stars }) => [name, stars])
 )
-const getRepoStarsLabel = repo => {
+const getRepoStarsLabel = (repo, asNumber = false) => {
   const liveStars = OSS_STARS_BY_NAME.get(repo.name)
-  return typeof liveStars === 'number'
+  if (asNumber) {
+    return liveStars
+  }
+  return typeof liveStars === 'number' && !asNumber
     ? formatCompactCount(liveStars)
     : repo.stars
 }
@@ -2440,7 +2443,7 @@ const CLIENTS = [
     )
   },
   {
-    name: 'Sked Social',
+    name: 'SkedSocial',
     description: 'Marketing platform',
     url: 'https://skedsocial.com',
     logo: (
@@ -2545,13 +2548,9 @@ const Clients = () => (
           </Flex>
           {index < STATS.length - 1 && (
             <StatSeparator
-              css={
-                index === 1
-                  ? theme({
-                    display: ['none', 'block', 'block', 'block']
-                  })
-                  : undefined
-              }
+              css={theme({
+                display: ['none', 'none', 'block', 'block']
+              })}
             />
           )}
         </React.Fragment>
@@ -2572,7 +2571,7 @@ const Clients = () => (
     <Flex
       css={theme({
         pt: [3, 3, 4, 4],
-        px: [3, 4, 0, 0],
+        px: [3, 4, 4, 0],
         flexWrap: ['wrap', 'wrap', 'nowrap', 'nowrap'],
         justifyContent: 'center',
         alignItems: 'center',
@@ -3655,34 +3654,52 @@ const ProductInformation = () => {
 
 export const Head = () => (
   <Meta
-    title='Screenshot API | Fast, Automated Web Snapshots — Microlink'
-    description='The best screenshot API and web screenshot service to capture any URL as an image. Built for developers. Features device emulation, ad-blocking, and edge caching. Start for free.'
+    title='Website Screenshot API — Convert URL to Image'
+    description='Capture pixel-perfect website screenshots with one API call. Free to start. Sub-second responses, full headless browser control, device emulation & ad-blocking.'
     image={cdnUrl('banner/screenshot.jpeg')}
-    schemaType='SoftwareApplication'
     structured={{
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
       '@id': 'https://microlink.io/screenshot',
       name: 'Microlink Screenshot API',
       description:
-        'A backendless API for developers to programmatically capture website screenshots, generate web snapshots, and automate browser tasks using Headless Chrome.',
+        'A developer-first API to capture pixel-perfect website screenshots programmatically. Sub-second cached responses, full Headless Chrome control, device emulation, and ad-blocking across a global edge network.',
       url: 'https://microlink.io/screenshot',
-      applicationCategory: 'DeveloperApplication',
+      applicationCategory: ['DeveloperApplication', 'WebAPI'],
       operatingSystem: 'Web, Platform-Agnostic',
       provider: {
         '@type': 'Organization',
+        '@id': 'https://microlink.io/about',
         name: 'Microlink',
         url: 'https://microlink.io'
+      },
+      isPartOf: {
+        '@type': 'WebSite',
+        '@id': 'https://microlink.io',
+        url: 'https://microlink.io',
+        name: 'Microlink'
       },
       offers: {
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'USD',
         description:
-          'Free tier available for experimentation. Pro plans scale for high concurrency.'
+          'Free tier available for experimentation, 50 requests per day. Pro plans scale for high concurrency.'
       },
       keywords:
-        'screenshot API, website capture, automated screenshots, puppeteer API, headless chrome, web snapshot',
+        'screenshot API, website screenshot, URL to image, headless chrome, website capture, web screenshot, puppeteer API',
+      interactionStatistic: {
+        '@type': 'InteractionCounter',
+        interactionType: {
+          '@type': 'https://schema.org/LikeAction'
+        },
+        userInteractionCount: getRepoStarsLabel(REPOS[0], true),
+        interactionService: {
+          '@type': 'WebSite',
+          name: 'GitHub',
+          url: 'https://github.com/microlinkhq/browserless'
+        }
+      },
       about: [
         {
           '@type': 'Thing',
