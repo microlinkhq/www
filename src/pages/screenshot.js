@@ -70,9 +70,12 @@ const formatCompactCount = number =>
 const OSS_STARS_BY_NAME = new Map(
   ossData.map(({ name, stars }) => [name, stars])
 )
-const getRepoStarsLabel = repo => {
+const getRepoStarsLabel = (repo, asNumber = false) => {
   const liveStars = OSS_STARS_BY_NAME.get(repo.name)
-  return typeof liveStars === 'number'
+  if (asNumber) {
+    return liveStars
+  }
+  return typeof liveStars === 'number' && !asNumber
     ? formatCompactCount(liveStars)
     : repo.stars
 }
@@ -1408,39 +1411,37 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </ScreenshotApiBar>
             </BrowserWindow>
@@ -1545,28 +1546,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -3227,39 +3226,37 @@ const Capabilities = () => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </ScreenshotApiBar>
           </Box>
@@ -3651,34 +3648,52 @@ const ProductInformation = () => {
 
 export const Head = () => (
   <Meta
-    title='Screenshot API | Fast, Automated Web Snapshots — Microlink'
-    description='The best screenshot API and web screenshot service to capture any URL as an image. Built for developers. Features device emulation, ad-blocking, and edge caching. Start for free.'
+    title='Website Screenshot API — Convert URL to Image'
+    description='Capture pixel-perfect website screenshots with one API call. Free to start. Sub-second responses, full headless browser control, device emulation & ad-blocking.'
     image={cdnUrl('banner/screenshot.jpeg')}
-    schemaType='SoftwareApplication'
     structured={{
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
       '@id': 'https://microlink.io/screenshot',
       name: 'Microlink Screenshot API',
       description:
-        'A backendless API for developers to programmatically capture website screenshots, generate web snapshots, and automate browser tasks using Headless Chrome.',
+        'A developer-first API to capture pixel-perfect website screenshots programmatically. Sub-second cached responses, full Headless Chrome control, device emulation, and ad-blocking across a global edge network.',
       url: 'https://microlink.io/screenshot',
-      applicationCategory: 'DeveloperApplication',
+      applicationCategory: ['DeveloperApplication', 'WebAPI'],
       operatingSystem: 'Web, Platform-Agnostic',
       provider: {
         '@type': 'Organization',
+        '@id': 'https://microlink.io/about',
         name: 'Microlink',
         url: 'https://microlink.io'
+      },
+      isPartOf: {
+        '@type': 'WebSite',
+        '@id': 'https://microlink.io',
+        url: 'https://microlink.io',
+        name: 'Microlink'
       },
       offers: {
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'USD',
         description:
-          'Free tier available for experimentation. Pro plans scale for high concurrency.'
+          'Free tier available for experimentation, 50 requests per day. Pro plans scale for high concurrency.'
       },
       keywords:
-        'screenshot API, website capture, automated screenshots, puppeteer API, headless chrome, web snapshot',
+        'screenshot API, website screenshot, URL to image, headless chrome, website capture, web screenshot, puppeteer API',
+      interactionStatistic: {
+        '@type': 'InteractionCounter',
+        interactionType: {
+          '@type': 'https://schema.org/LikeAction'
+        },
+        userInteractionCount: getRepoStarsLabel(REPOS[0], true),
+        interactionService: {
+          '@type': 'WebSite',
+          name: 'GitHub',
+          url: 'https://github.com/microlinkhq/browserless'
+        }
+      },
       about: [
         {
           '@type': 'Thing',
