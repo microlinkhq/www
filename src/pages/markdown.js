@@ -613,10 +613,14 @@ const countWords = text => {
   return text.split(/\s+/).filter(Boolean).length
 }
 
-const formatWordCount = count => {
-  if (count === 0) return ''
-  if (count >= 1000) return `${(count / 1000).toFixed(1)}k words`
-  return `${count} words`
+const estimateTokens = text => {
+  if (!text) return 0
+  return Math.ceil(text.length / 4)
+}
+
+const formatCompactNumber = n => {
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`
+  return `${n}`
 }
 
 const ensureProtocol = value => {
@@ -1434,14 +1438,17 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                     whiteSpace: 'nowrap',
                     flex: 1,
                     minWidth: '0',
-                    color: 'black40'
+                    color: 'black80'
                   })}
                 >
                   {apiUrl}
                 </Text>
                 {displayedContent && (
                   <WordCountBadge>
-                    {formatWordCount(countWords(displayedContent))}
+                    {formatCompactNumber(countWords(displayedContent))} words
+                    {' · '}
+                    {formatCompactNumber(estimateTokens(displayedContent))}{' '}
+                    tokens
                   </WordCountBadge>
                 )}
                 <CopyButton
@@ -2949,7 +2956,7 @@ const Capabilities = () => {
                   letterSpacing: 0,
                   flex: 1,
                   minWidth: '0',
-                  color: 'black40',
+                  color: 'black80',
                   wordBreak: 'break-all'
                 })}
               >
