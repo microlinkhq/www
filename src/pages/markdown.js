@@ -615,7 +615,11 @@ const countWords = text => {
 
 const estimateTokens = text => {
   if (!text) return 0
-  return Math.ceil(text.length / 4)
+
+  const chunks = text.match(/\b\w+\b|[^\w\s]/g)
+  if (!chunks) return 0
+
+  return Math.ceil(chunks.length * 1.15)
 }
 
 const formatCompactNumber = n => {
@@ -686,8 +690,10 @@ const highlightMarkdown = text => {
 
 const STREAM_CHARS_PER_FRAME = 12
 const STREAM_CHARS_PER_FRAME_FAST = 120
+const STREAM_CHARS_PER_FRAME_HTML_FAST = 5000
 const STREAM_FRAME_MS = 33
 const STREAM_FAST_AFTER_WORDS = 100
+const STREAM_FAST_AFTER_WORDS_HTML = 50
 
 const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
   const [inputUrl, setInputUrl] = useState(FIRST_URL)
@@ -2771,7 +2777,7 @@ const CapabilityIcon = styled(Flex)`
   })};
 `
 
-const CAP_DEFAULT_URL = 'https://stripe.com/docs'
+const CAP_DEFAULT_URL = 'https://docs.stripe.com/api'
 
 const SplitPaneLabel = styled(Flex)`
   ${theme({
@@ -2874,7 +2880,7 @@ const Capabilities = () => {
     for (let i = 0; i < text.length; i++) {
       if (/\s/.test(text[i]) && i > 0 && !/\s/.test(text[i - 1])) {
         wc++
-        if (wc >= STREAM_FAST_AFTER_WORDS) {
+        if (wc >= STREAM_FAST_AFTER_WORDS_HTML) {
           fastThreshold = i
           break
         }
@@ -2883,7 +2889,7 @@ const Capabilities = () => {
     const step = () => {
       const chunk =
         pos >= fastThreshold
-          ? STREAM_CHARS_PER_FRAME_FAST
+          ? STREAM_CHARS_PER_FRAME_HTML_FAST
           : STREAM_CHARS_PER_FRAME
       pos = Math.min(pos + chunk, text.length)
       setCapHtmlDisplayed(text.slice(0, pos))
@@ -2916,52 +2922,76 @@ const Capabilities = () => {
     setCapHtmlLoading(true)
     setCapError(null)
 
-    window
+    const htmlPromise = window
       .fetch(
         `https://api.microlink.io/?data.html.attr=html&meta=false&url=${encodeURIComponent(
           url
         )}`,
         { signal: capHtmlAbortRef.current.signal }
       )
-      .then(r => r.json())
+      .then(r => {
+        if (r.status === 429)
+          return { error: 'Rate limit reached — try again in a moment.' }
+        return r.json()
+      })
       .then(json => {
+        if (json?.error) return json
         const html = json?.data?.html
-        if (html)
-          setCapHtml(typeof html === 'string' ? html : JSON.stringify(html))
-        setCapHtmlLoading(false)
+        return {
+          html: html
+            ? typeof html === 'string'
+              ? html
+              : JSON.stringify(html)
+            : ''
+        }
       })
       .catch(err => {
-        if (err.name !== 'AbortError') setCapHtmlLoading(false)
+        if (err.name === 'AbortError') return { aborted: true }
+        return { error: err.message }
       })
 
-    try {
-      const res = await window.fetch(
+    const mdPromise = window
+      .fetch(
         `https://api.microlink.io?url=${encodeURIComponent(
           url
         )}&data.markdown.attr=markdown&meta=false`,
         { signal: capAbortRef.current.signal }
       )
-      const json = await res.json()
-      if (!res.ok) {
-        setCapError(
-          res.status === 429
-            ? 'Rate limit reached — try again in a moment.'
-            : json.message || `Error ${res.status}`
-        )
-        setCapLoading(false)
-        return
-      }
-      const md = json?.data?.markdown
-      if (md) {
-        capHasContentRef.current = true
-        setCapMarkdown(typeof md === 'string' ? md : JSON.stringify(md))
-      }
+      .then(r => {
+        if (r.status === 429)
+          return { error: 'Rate limit reached — try again in a moment.' }
+        return r.json().then(json => {
+          if (!r.ok) return { error: json.message || `Error ${r.status}` }
+          const md = json?.data?.markdown
+          return {
+            md: md ? (typeof md === 'string' ? md : JSON.stringify(md)) : ''
+          }
+        })
+      })
+      .catch(err => {
+        if (err.name === 'AbortError') return { aborted: true }
+        return { error: err.message || 'Something went wrong.' }
+      })
+
+    const [htmlResult, mdResult] = await Promise.all([htmlPromise, mdPromise])
+
+    if (htmlResult.aborted || mdResult.aborted) return
+
+    const error = htmlResult.error || mdResult.error
+    if (error) {
+      setCapError(error)
       setCapLoading(false)
-    } catch (err) {
-      if (err.name !== 'AbortError')
-        setCapError(err.message || 'Something went wrong.')
-      setCapLoading(false)
+      setCapHtmlLoading(false)
+      return
     }
+
+    if (mdResult.md) {
+      capHasContentRef.current = true
+      setCapMarkdown(mdResult.md)
+    }
+    if (htmlResult.html) setCapHtml(htmlResult.html)
+    setCapLoading(false)
+    setCapHtmlLoading(false)
   }, [])
 
   useEffect(() => {
@@ -3029,7 +3059,7 @@ const Capabilities = () => {
         </Subhead>
         <Box
           css={theme({
-            width: ['100%', '100%', '90%', '85%'],
+            width: ['100%', '100%', '85%', '80%'],
             display: 'inline-flex',
             flexDirection: 'column',
             position: 'relative'
@@ -3129,7 +3159,7 @@ const Capabilities = () => {
                 </SourcePrompt>
               </SourceBar>
             </DocumentHeader>
-            <Flex css={{ width: '100%' }}>
+            <Flex css={{ width: '100%', position: 'relative' }}>
               <Box
                 css={theme({
                   flex: 1,
@@ -3214,53 +3244,6 @@ const Capabilities = () => {
                       />
                     </Spinner>
                   </MarkdownOverlay>
-                )}
-                {capError && (
-                  <ErrorInline role='alert' aria-label='Error'>
-                    <svg
-                      width='20'
-                      height='20'
-                      viewBox='0 0 20 20'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <circle
-                        cx='10'
-                        cy='10'
-                        r='9'
-                        stroke={colors.red5}
-                        strokeWidth='1.5'
-                      />
-                      <path
-                        d='M10 6v4M10 13v.5'
-                        stroke={colors.red5}
-                        strokeWidth='1.5'
-                        strokeLinecap='round'
-                      />
-                    </svg>
-                    <Text
-                      as='p'
-                      css={theme({
-                        fontFamily: 'sans',
-                        color: 'black60',
-                        fontSize: 1,
-                        lineHeight: 2,
-                        m: 0,
-                        pt: 2,
-                        textAlign: 'center',
-                        maxWidth: '300px'
-                      })}
-                    >
-                      {capError}
-                    </Text>
-                    <ErrorDismissButton
-                      type='button'
-                      aria-label='Dismiss error'
-                      onClick={() => setCapError(null)}
-                    >
-                      Dismiss
-                    </ErrorDismissButton>
-                  </ErrorInline>
                 )}
               </Box>
               <Box
@@ -3349,6 +3332,64 @@ const Capabilities = () => {
                   </MarkdownOverlay>
                 )}
               </Box>
+              {capError && (
+                <ErrorInline
+                  role='alert'
+                  aria-label='Error'
+                  css={theme({
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 2
+                  })}
+                >
+                  <svg
+                    width='20'
+                    height='20'
+                    viewBox='0 0 20 20'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <circle
+                      cx='10'
+                      cy='10'
+                      r='9'
+                      stroke={colors.red5}
+                      strokeWidth='1.5'
+                    />
+                    <path
+                      d='M10 6v4M10 13v.5'
+                      stroke={colors.red5}
+                      strokeWidth='1.5'
+                      strokeLinecap='round'
+                    />
+                  </svg>
+                  <Text
+                    as='p'
+                    css={theme({
+                      fontFamily: 'sans',
+                      color: 'black60',
+                      fontSize: 1,
+                      lineHeight: 2,
+                      m: 0,
+                      pt: 2,
+                      textAlign: 'center',
+                      maxWidth: '300px'
+                    })}
+                  >
+                    {capError}
+                  </Text>
+                  <ErrorDismissButton
+                    type='button'
+                    aria-label='Dismiss error'
+                    onClick={() => setCapError(null)}
+                  >
+                    Dismiss
+                  </ErrorDismissButton>
+                </ErrorInline>
+              )}
             </Flex>
           </DocumentViewer>
         </Box>
@@ -3357,7 +3398,8 @@ const Capabilities = () => {
             display: 'grid',
             gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr'],
             gap: [3, 3, 4, 4],
-            width: '100%'
+            width: ['100%', '100%', '85%', '80%'],
+            mx: 'auto'
           })}
         >
           {CAPABILITIES.map(({ icon, title, description }) => (
