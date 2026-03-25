@@ -173,43 +173,29 @@ const NerdButton = styled(Button).attrs({ variant: 'black' })`
   }
 `
 
-const PreviewWindow = styled('div')`
+const DocumentViewer = styled('div')`
   ${theme({
-    borderRadius: 5,
+    borderRadius: 3,
     bg: 'white',
     display: 'flex',
     flexDirection: 'column'
   })};
   overflow: hidden;
-  border: ${borders[1]} ${colors.black05};
-  box-shadow: 0 8px 24px ${colors.black10};
-
-  &:hover:not(:has(.markdown-api-bar:hover)) .address-bar {
-    background: ${colors.gray1};
-    border-color: ${colors.black10};
-    box-shadow: none;
-
-    input {
-      color: ${colors.gray8};
-    }
-  }
+  border: ${borders[1]} ${colors.black10};
+  box-shadow: 0 2px 8px ${colors.black05}, 0 12px 32px ${colors.black05};
 `
 
-const BrowserHeader = styled(Flex)`
+const DocumentHeader = styled(Flex)`
   ${theme({
     bg: 'white',
-    height: fontSizes[4],
     alignItems: 'center',
-    px: 2,
-    gap: 1,
+    px: [2, 2, 3, 3],
+    py: '10px',
+    gap: 2,
     flexShrink: 0,
     minWidth: '0'
   })};
   border-bottom: ${borders[1]} ${colors.black05};
-`
-
-const NavButtons = styled(Flex)`
-  ${theme({ alignItems: 'center', gap: 1, flexShrink: 0 })};
 `
 
 const NavArrow = styled('button')`
@@ -224,8 +210,7 @@ const NavArrow = styled('button')`
   })};
   border: none;
   cursor: default;
-  transition: color ${transition.short}, background ${transition.short},
-    border-color ${transition.short};
+  transition: color ${transition.short}, background ${transition.short};
 
   &:not(:disabled) {
     cursor: pointer;
@@ -249,50 +234,35 @@ const NavArrow = styled('button')`
 
 const caretPulse = keyframes`
   0%, 100% {
-    box-shadow: 0 0 0 2px ${colors.black20};
-    border-color: ${colors.gray6};
+    border-color: ${colors.black10};
     background: ${colors.white};
   }
   50% {
-    box-shadow: 0 0 0 1px ${colors.black10};
     border-color: ${colors.black20};
-    background: ${colors.white95};
+    background: ${colors.gray0};
   }
 `
 
-const AddressBar = styled(Flex)`
+const SourceBar = styled(Flex)`
   ${theme({
     flex: 1,
-    bg: 'gray1',
-    borderRadius: 4,
-    height: space[4],
+    bg: 'white',
+    borderRadius: 2,
     alignItems: 'center',
-    justifyContent: 'center',
     px: 2,
     gap: 2,
-    minWidth: '0'
+    minWidth: '0',
+    height: space[4]
   })};
   border: ${borders[1]} transparent;
   position: relative;
-  transition: box-shadow ${transition.medium}, background ${transition.medium},
-    border-color ${transition.medium};
-
-  &:hover {
-    background: ${colors.gray1};
-    border-color: ${colors.black10};
-    box-shadow: none;
-
-    input {
-      color: ${colors.gray8};
-    }
-  }
+  transition: border-color ${transition.medium}, background ${transition.medium};
 
   ${({ $glowing }) =>
     $glowing &&
     css`
-      background: ${colors.white};
       border-color: ${colors.black10};
-      box-shadow: 0 0 0 1px ${colors.black10};
+      background: ${colors.gray0};
     `}
 
   ${({ $isPulsing }) =>
@@ -305,25 +275,22 @@ const AddressBar = styled(Flex)`
     $active &&
     !$isPulsing &&
     css`
-      background: ${colors.white};
       border-color: ${colors.black10};
-      box-shadow: 0 0 0 1px ${colors.black10};
+      background: ${colors.gray0};
     `}
 
   &:focus-within {
-    background: ${colors.white};
-    border-color: ${colors.black10};
-    box-shadow: 0 0 0 1px ${colors.black10};
+    border-color: ${colors.black20};
+    background: ${colors.gray0};
   }
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
     animation: none;
-    box-shadow: none;
   }
 `
 
-const AddressInput = styled('input')`
+const SourceInput = styled('input')`
   ${theme({
     bg: 'transparent',
     p: 0,
@@ -332,19 +299,19 @@ const AddressInput = styled('input')`
     minWidth: '0',
     fontSize: 0,
     fontFamily: 'sans',
-    letterSpacing: 0
+    letterSpacing: 0,
+    fontWeight: 'bold'
   })};
   border: none;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
-  font-weight: 400;
-  color: ${({ $active }) => ($active ? colors.gray8 : colors.gray6)};
+  color: ${({ $active }) => ($active ? colors.black : colors.black80)};
   text-align: left;
   transition: color ${transition.short};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  caret-color: ${colors.gray8};
+  caret-color: ${colors.black};
 
   &::selection {
     background: ${colors.black20};
@@ -354,7 +321,7 @@ const AddressInput = styled('input')`
   &:focus {
     outline: none;
     color: ${colors.black};
-    text-align: left;
+    font-weight: 400;
   }
 `
 
@@ -369,7 +336,7 @@ const addressPromptArrowNudge = keyframes`
   }
 `
 
-const AddressPrompt = styled('span')`
+const SourcePrompt = styled('span')`
   ${theme({
     display: 'inline-flex',
     alignItems: 'center',
@@ -391,11 +358,11 @@ const AddressPrompt = styled('span')`
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
-  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
   opacity: ${p => (p.$visible ? 1 : 0)};
   transform: translateX(${p => (p.$visible ? 0 : space[1])});
 
-  .address-prompt__arrow {
+  .source-prompt__arrow {
     ${theme({
       display: 'inline-flex',
       alignItems: 'center',
@@ -416,33 +383,36 @@ const AddressPrompt = styled('span')`
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .address-prompt__arrow {
+    .source-prompt__arrow {
       animation: none;
     }
   }
 `
 
-const MarkdownApiBar = styled(Flex)`
-  background: 'white';
+const DocumentFooter = styled(Flex)`
+  ${theme({
+    bg: 'gray0',
+    px: [2, 3, 3, 3],
+    py: '10px',
+    gap: 2,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexShrink: 0,
+    minWidth: '0'
+  })};
+  border-top: ${borders[1]} ${colors.black05};
+`
 
-  .codecopy__button {
-    top: 0;
-    opacity: 0.85;
-    transition: opacity ${transition.short};
-
-    &:hover {
-      opacity: 1;
-    }
-
-    &::before,
-    &::after {
-      display: none !important;
-    }
-  }
-
-  .codecopy__icon {
-    fill: ${colors.black80} !important;
-  }
+const WordCountBadge = styled('span')`
+  ${theme({
+    fontSize: '11px',
+    fontFamily: 'sans',
+    color: 'black40',
+    letterSpacing: 0,
+    fontWeight: 'bold',
+    flexShrink: 0
+  })};
+  white-space: nowrap;
 `
 
 const MarkdownContentArea = styled('pre')`
@@ -590,69 +560,64 @@ const HistoryItem = styled('button')`
   }
 `
 
-const ErrorModalOverlay = styled('div')`
+const ErrorInline = styled('div')`
   ${theme({
     position: 'absolute',
     inset: 0,
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    px: 4,
+    bg: 'white'
   })};
-  background: ${colors.black60};
-  backdrop-filter: blur(${space[1]});
   z-index: 2;
 `
 
-const ErrorModalWindow = styled('div')`
-  ${theme({ bg: 'black95', borderRadius: 4 })};
-  border: ${borders[1]} ${colors.red7};
-  width: 340px;
-  box-shadow: 0 24px 64px ${colors.black80}, 0 4px 16px ${colors.black40};
-  overflow: hidden;
-`
-
-const ErrorModalHeader = styled('div')`
+const ErrorDismissButton = styled('button')`
   ${theme({
-    display: 'flex',
+    bg: 'transparent',
+    borderRadius: 2,
+    display: 'inline-flex',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    gap: 1,
+    color: 'black50',
+    fontSize: 0,
+    fontFamily: 'sans',
+    fontWeight: 'bold',
+    mt: 3,
+    px: 3,
+    py: 2
   })};
-  padding: ${space[3]} ${space[3]} ${space[2]};
-  border-bottom: ${borders[1]} ${colors.white05};
-`
-
-const ErrorModalBody = styled('div')`
-  ${theme({ p: 3 })};
-`
-
-const ErrorCloseButton = styled('button')`
-  ${theme({
-    bg: 'white10',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white50',
-    flexShrink: 0,
-    lineHeight: 0,
-    fontSize: 0
-  })};
-  border: none;
-  width: ${fontSizes[2]};
-  height: ${fontSizes[2]};
+  border: ${borders[1]} ${colors.black10};
   cursor: pointer;
-  transition: background ${transition.short}, color ${transition.short};
+  transition: background ${transition.short}, color ${transition.short},
+    border-color ${transition.short};
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 
   &:hover {
-    background: ${colors.white20};
-    color: ${colors.white90};
+    background: ${colors.gray1};
+    color: ${colors.black80};
+    border-color: ${colors.black20};
   }
 
   &:focus-visible {
-    outline: ${borders[2]} ${colors.white30};
+    outline: ${borders[2]} ${colors.black40};
     outline-offset: ${radii[1]};
   }
 `
+
+const countWords = text => {
+  if (!text) return 0
+  return text.split(/\s+/).filter(Boolean).length
+}
+
+const formatWordCount = count => {
+  if (count === 0) return ''
+  if (count >= 1000) return `${(count / 1000).toFixed(1)}k words`
+  return `${count} words`
+}
 
 const ensureProtocol = value => {
   const trimmed = value.trim()
@@ -716,7 +681,9 @@ const highlightMarkdown = text => {
 }
 
 const STREAM_CHARS_PER_FRAME = 12
+const STREAM_CHARS_PER_FRAME_FAST = 120
 const STREAM_FRAME_MS = 33
+const STREAM_FAST_AFTER_WORDS = 100
 
 const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
   const [inputUrl, setInputUrl] = useState(FIRST_URL)
@@ -756,8 +723,24 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
     let pos = 0
     const text = markdownContent
 
+    let fastThreshold = text.length
+    let wordCount = 0
+    for (let i = 0; i < text.length; i++) {
+      if (/\s/.test(text[i]) && i > 0 && !/\s/.test(text[i - 1])) {
+        wordCount++
+        if (wordCount >= STREAM_FAST_AFTER_WORDS) {
+          fastThreshold = i
+          break
+        }
+      }
+    }
+
     const step = () => {
-      pos = Math.min(pos + STREAM_CHARS_PER_FRAME, text.length)
+      const chunkSize =
+        pos >= fastThreshold
+          ? STREAM_CHARS_PER_FRAME_FAST
+          : STREAM_CHARS_PER_FRAME
+      pos = Math.min(pos + chunkSize, text.length)
       setDisplayedContent(text.slice(0, pos))
       if (pos < text.length) {
         streamRef.current = setTimeout(step, STREAM_FRAME_MS)
@@ -1175,94 +1158,91 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
               position: 'relative'
             })}
           >
-            <PreviewWindow
+            <DocumentViewer
               onClick={e => {
                 if (
                   !e.target.closest('input') &&
                   !e.target.closest('[role="listbox"]') &&
-                  !e.target.closest('.markdown-api-bar')
+                  !e.target.closest('.document-footer')
                 ) {
                   setIsFocused(false)
                 }
               }}
             >
-              <BrowserHeader>
-                <NavButtons>
-                  <NavArrow
-                    type='button'
-                    aria-label='Go back'
-                    disabled={navIndex === 0}
-                    onClick={handleBack}
+              <DocumentHeader>
+                <NavArrow
+                  type='button'
+                  aria-label='Go back'
+                  disabled={navIndex === 0}
+                  onClick={handleBack}
+                >
+                  <svg
+                    width='7'
+                    height='12'
+                    viewBox='0 0 7 12'
+                    fill='none'
+                    aria-hidden='true'
                   >
-                    <svg
-                      width='7'
-                      height='12'
-                      viewBox='0 0 7 12'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M6 1L1 6l5 5'
-                        stroke='currentColor'
-                        strokeWidth='1.5'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                  </NavArrow>
-                  <NavArrow
-                    type='button'
-                    aria-label='Go forward'
-                    disabled={navIndex >= navStack.length - 1}
-                    onClick={handleForward}
+                    <path
+                      d='M6 1L1 6l5 5'
+                      stroke='currentColor'
+                      strokeWidth='1.5'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                </NavArrow>
+                <NavArrow
+                  type='button'
+                  aria-label='Go forward'
+                  disabled={navIndex >= navStack.length - 1}
+                  onClick={handleForward}
+                >
+                  <svg
+                    width='7'
+                    height='12'
+                    viewBox='0 0 7 12'
+                    fill='none'
+                    aria-hidden='true'
                   >
-                    <svg
-                      width='7'
-                      height='12'
-                      viewBox='0 0 7 12'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M1 1l5 5-5 5'
-                        stroke='currentColor'
-                        strokeWidth='1.5'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                  </NavArrow>
-                </NavButtons>
-                <AddressBar
-                  className='address-bar'
+                    <path
+                      d='M1 1l5 5-5 5'
+                      stroke='currentColor'
+                      strokeWidth='1.5'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                </NavArrow>
+                <SourceBar
                   $glowing={isGlowing}
                   $active={isAttractMode}
                   $isPulsing={isPulsing}
                 >
                   <svg
-                    width='11'
-                    height='13'
-                    viewBox='0 0 11 13'
+                    width='14'
+                    height='14'
+                    viewBox='0 0 24 24'
                     fill='none'
                     aria-hidden='true'
-                    css={theme({ flexShrink: 0 })}
+                    css={theme({ flexShrink: 0, color: 'black30' })}
                   >
-                    <rect
-                      x='1'
-                      y='5.5'
-                      width='9'
-                      height='7'
-                      rx='1.5'
-                      fill={colors.black40}
+                    <circle
+                      cx='12'
+                      cy='12'
+                      r='10'
+                      stroke='currentColor'
+                      strokeWidth='1.5'
                     />
                     <path
-                      d='M3 5.5V3.5a2.5 2.5 0 015 0v2'
-                      stroke={colors.black40}
-                      strokeWidth='1.4'
+                      d='M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z'
+                      stroke='currentColor'
+                      strokeWidth='1.5'
                       strokeLinecap='round'
+                      strokeLinejoin='round'
                     />
                   </svg>
-                  <AddressInput
+                  <SourceInput
                     ref={inputRef}
                     $active={isFocused || isAttractMode}
                     type='url'
@@ -1273,19 +1253,19 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                     onKeyDown={handleKeyDown}
-                    aria-label='Browser address bar'
+                    aria-label='Source URL'
                     spellCheck={false}
                     autoComplete='off'
                     autoCorrect='off'
                     autoCapitalize='off'
                   />
-                  <AddressPrompt
+                  <SourcePrompt
                     $visible={!isFocused && !hasInteracted}
                     aria-hidden='true'
                   >
-                    <span className='address-prompt__arrow'>←</span>
+                    <span className='source-prompt__arrow'>←</span>
                     Type any URL
-                  </AddressPrompt>
+                  </SourcePrompt>
 
                   {isFocused && history.length > 0 && (
                     <HistoryDropdown role='listbox' aria-label='Recent URLs'>
@@ -1325,7 +1305,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                       ))}
                     </HistoryDropdown>
                   )}
-                </AddressBar>
+                </SourceBar>
                 <NerdButton
                   $active={showNerdStats}
                   type='button'
@@ -1347,7 +1327,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                 >
                   <TerminalIcon size={16} aria-hidden='true' />
                 </NerdButton>
-              </BrowserHeader>
+              </DocumentHeader>
               <Box
                 css={theme({
                   position: 'relative',
@@ -1395,90 +1375,58 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   />
                 )}
                 {error && (
-                  <ErrorModalOverlay
-                    role='dialog'
-                    aria-modal='true'
-                    aria-label='Error'
-                    onClick={e => {
-                      if (e.target === e.currentTarget) setError(null)
-                    }}
-                  >
-                    <ErrorModalWindow>
-                      <ErrorModalHeader>
-                        <Flex css={theme({ alignItems: 'center', gap: 2 })}>
-                          <svg
-                            width='16'
-                            height='16'
-                            viewBox='0 0 16 16'
-                            fill='none'
-                            aria-hidden='true'
-                          >
-                            <circle
-                              cx='8'
-                              cy='8'
-                              r='7'
-                              stroke={colors.red6}
-                              strokeWidth='1.5'
-                            />
-                            <path
-                              d='M8 5v3M8 10.5v.5'
-                              stroke={colors.red5}
-                              strokeWidth='1.5'
-                              strokeLinecap='round'
-                            />
-                          </svg>
-                          <Text
-                            as='span'
-                            css={theme({
-                              color: 'white90',
-                              fontSize: 0,
-                              fontWeight: 'bold',
-                              letterSpacing: 0
-                            })}
-                          >
-                            Request failed
-                          </Text>
-                        </Flex>
-                        <ErrorCloseButton
-                          type='button'
-                          aria-label='Dismiss error'
-                          onClick={() => setError(null)}
-                        >
-                          ×
-                        </ErrorCloseButton>
-                      </ErrorModalHeader>
-                      <ErrorModalBody>
-                        <Text
-                          as='p'
-                          css={theme({
-                            fontFamily: 'mono',
-                            color: 'red5',
-                            fontSize: 0,
-                            lineHeight: 2,
-                            m: 0
-                          })}
-                        >
-                          {error}
-                        </Text>
-                      </ErrorModalBody>
-                    </ErrorModalWindow>
-                  </ErrorModalOverlay>
+                  <ErrorInline role='alert' aria-label='Error'>
+                    <svg
+                      width='20'
+                      height='20'
+                      viewBox='0 0 20 20'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <circle
+                        cx='10'
+                        cy='10'
+                        r='9'
+                        stroke={colors.red5}
+                        strokeWidth='1.5'
+                      />
+                      <path
+                        d='M10 6v4M10 13v.5'
+                        stroke={colors.red5}
+                        strokeWidth='1.5'
+                        strokeLinecap='round'
+                      />
+                    </svg>
+                    <Text
+                      as='p'
+                      css={theme({
+                        fontFamily: 'sans',
+                        color: 'black60',
+                        fontSize: 1,
+                        lineHeight: 2,
+                        m: 0,
+                        pt: 2,
+                        textAlign: 'center',
+                        maxWidth: '300px'
+                      })}
+                    >
+                      {error}
+                    </Text>
+                    <ErrorDismissButton
+                      type='button'
+                      aria-label='Dismiss error'
+                      onClick={() => setError(null)}
+                    >
+                      Dismiss
+                    </ErrorDismissButton>
+                  </ErrorInline>
                 )}
               </Box>
-              <MarkdownApiBar
-                className='markdown-api-bar'
-                css={theme({
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  px: [2, 3, 3, 3],
-                  py: '10px',
-                  gap: 2
-                })}
-              >
+              <DocumentFooter className='document-footer'>
                 <Text
                   as='span'
                   css={theme({
-                    fontSize: ['13px', '13px', '14px', '14px'],
+                    fontSize: ['12px', '12px', '13px', '13px'],
                     fontFamily: 'mono',
                     letterSpacing: 0,
                     overflow: 'hidden',
@@ -1486,11 +1434,16 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                     whiteSpace: 'nowrap',
                     flex: 1,
                     minWidth: '0',
-                    color: 'black70'
+                    color: 'black40'
                   })}
                 >
                   {apiUrl}
                 </Text>
+                {displayedContent && (
+                  <WordCountBadge>
+                    {formatWordCount(countWords(displayedContent))}
+                  </WordCountBadge>
+                )}
                 <CopyButton
                   type='button'
                   onClick={handleCopy}
@@ -1528,8 +1481,8 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                     </svg>
                   )}
                 </CopyButton>
-              </MarkdownApiBar>
-            </PreviewWindow>
+              </DocumentFooter>
+            </DocumentViewer>
           </Box>
         </Flex>
       </Flex>
@@ -2987,25 +2940,16 @@ const Capabilities = () => {
                 </ComparisonPane>
               </Box>
             </Flex>
-            <MarkdownApiBar
-              css={theme({
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                px: [2, 3, 3, 3],
-                py: '10px',
-                gap: 2,
-                borderTop: `${borders[1]} ${colors.black05}`
-              })}
-            >
+            <DocumentFooter>
               <Text
                 as='span'
                 css={theme({
-                  fontSize: ['13px', '13px', '14px', '14px'],
+                  fontSize: ['12px', '12px', '13px', '13px'],
                   fontFamily: 'mono',
                   letterSpacing: 0,
                   flex: 1,
                   minWidth: '0',
-                  color: 'black70',
+                  color: 'black40',
                   wordBreak: 'break-all'
                 })}
               >
@@ -3048,7 +2992,7 @@ const Capabilities = () => {
                   </svg>
                 )}
               </CopyButton>
-            </MarkdownApiBar>
+            </DocumentFooter>
           </Box>
         </Flex>
         <Flex
