@@ -84,7 +84,7 @@ const FEATURES = [
   {
     title: 'Works on Any Website',
     description:
-      'Convert any public URL to markdown without the target site needing CDN opt-in or special configuration. The entire web is your dataset.'
+      'Our HTML to markdown converter processes any public URL without the target site needing CDN opt-in or special configuration. The entire web is your dataset.'
   },
   {
     title: 'Built for Agent Workloads',
@@ -1121,11 +1121,10 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            HTML to <span style={{ whiteSpace: 'nowrap' }}>markdown API</span>{' '}
+            URL to <span style={{ whiteSpace: 'nowrap' }}>markdown API</span>{' '}
             <span style={{ whiteSpace: 'nowrap' }}>for AI agents</span>
           </Heading>
           <Caption
-            forwardedAs='h2'
             css={theme({
               pt: [3, 3, 4, 4],
               px: [1, 2, 4, 0],
@@ -1134,9 +1133,9 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            Convert any URL to clean markdown with 80% fewer tokens than raw
-            HTML. Built for AI agent crawling, LLM ingestion, and RAG pipelines
-            without parsers or custom scrapers.
+            The URL to markdown API that converts any web page to clean markdown
+            with 80% fewer tokens than raw HTML. Built for AI agent crawling,
+            LLM ingestion, and RAG pipelines.
           </Caption>
           <Flex
             css={theme({
@@ -2223,7 +2222,8 @@ const TokenSavings = () => (
           px: [4, 4, 4, 0]
         })}
       >
-        A typical blog post: 20,000 HTML tokens becomes 4,000 markdown tokens.
+        A markdown converter for LLMs: 20,000 HTML tokens becomes 4,000 markdown
+        tokens.
         <br />
         Feed more content into every LLM call and cut inference costs at scale.
       </Caption>
@@ -2611,8 +2611,8 @@ const CodeExample = () => {
               ]
             })}
           >
-            Microlink Markdown API delivers enterprise-grade HTML to markdown
-            conversion through a developer-friendly REST endpoint.
+            Microlink URL to Markdown API delivers enterprise-grade URL to
+            markdown conversion through a developer-friendly REST API endpoint.
           </Caption>
           <Flex
             css={theme({
@@ -3053,7 +3053,7 @@ const Capabilities = () => {
             width: '100%'
           })}
         >
-          Everything you need,
+          URL to markdown service,
           <LineBreak />
           <span css={theme({ color: 'orange7' })}>one API call away</span>
         </Subhead>
@@ -3407,6 +3407,7 @@ const Capabilities = () => {
               <CapabilityIcon>{icon}</CapabilityIcon>
               <Flex css={theme({ flexDirection: 'column', gap: 1 })}>
                 <Text
+                  as='h3'
                   css={theme({
                     fontWeight: 'bold',
                     fontSize: [1, 1, 2, 2]
@@ -3468,7 +3469,9 @@ const Pricing = () => (
       variant='gradient'
       css={theme({ fontSize: ['34px', '42px', '54px', '62px'] })}
     >
-      Start free, scale when ready
+      URL to markdown API
+      <br />
+      free to start, scales when ready
     </Subhead>
     <Caption
       forwardedAs='div'
@@ -3478,8 +3481,8 @@ const Pricing = () => (
         maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
       })}
     >
-      No login required. No credit card needed. Markdown API free to use — just
-      start calling it.
+      No login required. No credit card needed. URL to markdown API free to use
+      — just start calling it.
     </Caption>
     <Flex
       css={theme({
@@ -3493,9 +3496,11 @@ const Pricing = () => (
     >
       <PricingCard css={theme({ borderColor: 'black10' })}>
         <Text
+          as='h3'
           css={theme({
             fontSize: ['20px', '20px', '24px', '24px'],
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            m: 0
           })}
         >
           Free
@@ -3527,7 +3532,7 @@ const Pricing = () => (
           <PricingCheck>CSS selector scoping</PricingCheck>
           <PricingCheck>Metadata + YAML frontmatter</PricingCheck>
           <PricingCheck>Adblock & cookie banners</PricingCheck>
-          <PricingCheck>Full browser rendering</PricingCheck>
+          <PricingCheck>Headless browser rendering</PricingCheck>
         </Box>
         <Flex
           css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
@@ -3546,9 +3551,11 @@ const Pricing = () => (
         ]}
       >
         <Text
+          as='h3'
           css={theme({
             fontSize: ['20px', '20px', '24px', '24px'],
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            m: 0
           })}
         >
           Pro
@@ -3675,9 +3682,9 @@ const CallToAction = () => (
           fontSize: [2, 2, 3, 3]
         })}
       >
-        Get 50&nbsp;requests/day with zero commitment — markdown API free to
-        use, no account, and no credit card. Just call the API and start
-        extracting markdown in seconds.
+        Get 50&nbsp;requests/day free — our URL to markdown API needs no account
+        and no credit card. Just call the API and start converting URLs to
+        markdown in seconds.
       </Caption>
       <Flex
         css={theme({
@@ -3730,7 +3737,7 @@ const ProductInformation = () => {
       titleSize={['40px', 4, 5, 5]}
       caption={
         <>
-          Everything you need to know about <LineBreak /> Microlink HTML to
+          Everything you need to know about <LineBreak /> Microlink URL to
           markdown API.
         </>
       }
@@ -3799,7 +3806,10 @@ const ProductInformation = () => {
               <div>
                 This directly lowers your LLM API costs and increases how much
                 information you can process per request. Try it instantly in the{' '}
-                <Link href='/tools/url-to-markdown'>markdown tool</Link>.
+                <Link href='/tools/url-to-markdown'>
+                  interactive HTML to Markdown tool
+                </Link>
+                .
               </div>
             </>
           )
@@ -3857,7 +3867,8 @@ const ProductInformation = () => {
               <div>
                 This structure supports LLM and RAG pipelines by providing
                 source context without additional requests. See{' '}
-                <Link href='/metadata'>metadata extraction</Link> for details.
+                <Link href='/metadata'>structured metadata extraction</Link> for
+                details.
               </div>
             </>
           )
@@ -3904,6 +3915,68 @@ const ProductInformation = () => {
               </div>
             </>
           )
+        },
+        {
+          question: 'Is the URL to markdown API free?',
+          answer: (
+            <>
+              <div>
+                Yes. The URL to markdown API is free to use with
+                50&nbsp;requests per day — no login, no credit card, and no
+                setup required. Just call the endpoint and get clean markdown
+                back.
+              </div>
+              <div>
+                For production workloads that need higher volume, automatic
+                proxy rotation, and priority support, see our{' '}
+                <Link href='/pricing'>Pro plans</Link>.
+              </div>
+            </>
+          )
+        },
+        {
+          question: 'What is a URL to markdown service and how does it work?',
+          answer: (
+            <>
+              <div>
+                A URL to markdown service takes any web page URL as input,
+                fetches the page with a full headless browser, strips away HTML
+                noise (ads, navigation, scripts), and returns clean, structured
+                markdown text.
+              </div>
+              <div>
+                Microlink&rsquo;s URL to markdown API does this in a single REST
+                call:{' '}
+                <code>
+                  https://api.microlink.io?url=example.com&data.markdown.attr=markdown
+                </code>
+                . The result is ready for AI agents, RAG pipelines, or any
+                downstream text processing.
+              </div>
+            </>
+          )
+        },
+        {
+          question: 'How do I convert a web page to markdown for AI or LLMs?',
+          answer: (
+            <>
+              <div>
+                Send the page URL to the Microlink API with the markdown data
+                extraction rule. The API renders the page, removes clutter, and
+                returns clean markdown with up to 80% fewer tokens than raw
+                HTML.
+              </div>
+              <div>
+                You can also use the shortcut endpoint{' '}
+                <code>markdown.microlink.io/&#123;url&#125;</code> for quick
+                scripts and pipeline prototyping. Try it live in our{' '}
+                <Link href='/url-to-markdown'>
+                  interactive URL to Markdown tool
+                </Link>
+                .
+              </div>
+            </>
+          )
         }
       ]}
     />
@@ -3912,62 +3985,160 @@ const ProductInformation = () => {
 
 export const Head = () => (
   <Meta
-    title='HTML to Markdown API — Convert URL to Markdown for AI Agents'
-    description='Convert any URL to clean markdown — 80% fewer tokens than raw HTML. Built for AI agent crawling, RAG pipelines, and LLM ingestion without custom parsers or brittle scrapers.'
+    title='URL to Markdown API — Convert Any URL to Markdown Free'
+    description='Free URL to markdown API — convert any web page to clean markdown with 80% fewer tokens. Built for AI agents, RAG pipelines, and LLM ingestion. No login required.'
     image={cdnUrl('logo/banner.jpeg')}
     structured={{
       '@context': 'https://schema.org',
-      '@type': 'SoftwareApplication',
-      '@id': 'https://microlink.io/markdown',
-      name: 'Microlink Markdown API',
-      description:
-        'Convert any URL into clean markdown — 80% fewer tokens than raw HTML. Purpose-built for AI agents, RAG ingestion, and LLM content processing at scale.',
-      url: 'https://microlink.io/markdown',
-      applicationCategory: ['DeveloperApplication', 'WebAPI'],
-      operatingSystem: 'Web, Platform-Agnostic',
-      provider: {
-        '@type': 'Organization',
-        '@id': 'https://microlink.io/about',
-        name: 'Microlink',
-        url: 'https://microlink.io'
-      },
-      isPartOf: {
-        '@type': 'WebSite',
-        '@id': 'https://microlink.io',
-        url: 'https://microlink.io',
-        name: 'Microlink'
-      },
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-        description:
-          'Free tier available for experimentation, 50 requests per day. Pro plans scale for high concurrency.'
-      },
-      keywords:
-        'markdown API, HTML to markdown, URL to markdown, markdown for AI agents, RAG ingestion, LLM preprocessing, token-efficient content, structured markdown',
-      interactionStatistic: {
-        '@type': 'InteractionCounter',
-        interactionType: {
-          '@type': 'https://schema.org/LikeAction'
-        },
-        userInteractionCount: getRepoStarsLabel(REPOS[0], true),
-        interactionService: {
-          '@type': 'WebSite',
-          name: 'GitHub',
-          url: `https://github.com/microlinkhq/${REPOS[0].name}`
-        }
-      },
-      about: [
+      '@graph': [
         {
-          '@type': 'Thing',
-          name: 'HTML to Markdown Conversion',
-          sameAs: 'https://en.wikipedia.org/wiki/Markdown'
+          '@type': 'SoftwareApplication',
+          '@id': 'https://microlink.io/markdown',
+          name: 'Microlink URL to Markdown API',
+          description:
+            'Free URL to markdown API — convert any web page to clean markdown with 80% fewer tokens than raw HTML. Purpose-built for AI agents, RAG ingestion, and LLM content processing at scale.',
+          url: 'https://microlink.io/markdown',
+          applicationCategory: ['DeveloperApplication', 'WebAPI'],
+          operatingSystem: 'Web, Platform-Agnostic',
+          provider: {
+            '@type': 'Organization',
+            '@id': 'https://microlink.io/about',
+            name: 'Microlink',
+            url: 'https://microlink.io'
+          },
+          isPartOf: {
+            '@type': 'WebSite',
+            '@id': 'https://microlink.io',
+            url: 'https://microlink.io',
+            name: 'Microlink'
+          },
+          offers: {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'USD',
+            description:
+              'Free tier available for experimentation, 50 requests per day. Pro plans scale for high concurrency.'
+          },
+          keywords:
+            'url to markdown api, url to markdown free, web to markdown api, html to markdown api, url to markdown service, markdown for AI agents, RAG ingestion, LLM preprocessing, token-efficient content',
+          interactionStatistic: {
+            '@type': 'InteractionCounter',
+            interactionType: {
+              '@type': 'https://schema.org/LikeAction'
+            },
+            userInteractionCount: getRepoStarsLabel(REPOS[1], true),
+            interactionService: {
+              '@type': 'WebSite',
+              name: 'GitHub',
+              url: `https://github.com/microlinkhq/${REPOS[1].name}`
+            }
+          },
+          about: [
+            {
+              '@type': 'Thing',
+              name: 'HTML to Markdown Conversion',
+              sameAs: 'https://en.wikipedia.org/wiki/Markdown'
+            },
+            {
+              '@type': 'Thing',
+              name: 'Application Programming Interface',
+              sameAs: 'https://en.wikipedia.org/wiki/API'
+            }
+          ]
         },
         {
-          '@type': 'Thing',
-          name: 'Application Programming Interface',
-          sameAs: 'https://en.wikipedia.org/wiki/API'
+          '@type': 'FAQPage',
+          '@id': 'https://microlink.io/markdown#faq',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'What is Microlink Markdown?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Microlink Markdown is an extraction API that takes any URL and returns clean markdown content ready for AI workflows. It is built on the same Microlink API surface your team already uses for metadata, screenshots, and PDFs. Use it for crawling, summarization, and RAG ingestion where clean text beats noisy HTML.'
+              }
+            },
+            {
+              '@type': 'Question',
+              name: 'Why do AI agents prefer markdown over HTML?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'HTML pages are padded with navigation bars, script tags, class attributes, and styling that carry zero semantic value for AI. Markdown’s explicit structure lets AI models focus on meaning, not markup, which improves comprehension and reduces LLM API costs at scale. You can further tune extraction with CSS selector scoping to target only the content your agents need.'
+              }
+            },
+            {
+              '@type': 'Question',
+              name: 'How much do I save on tokens by converting to markdown?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'On average, markdown reduces token usage by 80% compared to raw HTML. A page costing 20,000 tokens as HTML costs around 4,000 tokens as markdown. Giving you 5x more content per context window. This directly lowers your LLM API costs and increases how much information you can process per request.'
+              }
+            },
+            {
+              '@type': 'Question',
+              name: 'Does it work on any website?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Yes. Microlink extracts markdown from any public URL. The target website does not need to natively serve markdown or have any special CDN or server-level configuration. Unlike solutions that require opt-in at the infrastructure layer, Microlink works on the entire web immediately.'
+              }
+            },
+            {
+              '@type': 'Question',
+              name: 'Can I control what content is extracted?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Absolutely. Use the selector parameter to target specific DOM elements — narrow to main, article, or any CSS selector. You can also use fallback arrays that try selectors in order. Omit the selector entirely to convert the whole page, or combine multiple fields to extract different sections of the same page in a single API call.'
+              }
+            },
+            {
+              '@type': 'Question',
+              name: 'Can I get metadata alongside the markdown?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Yes. Set meta: true to prepend a YAML frontmatter block with normalized metadata — title, description, author, publisher, date, word count, and reading time. This structure supports LLM and RAG pipelines by providing source context without additional requests.'
+              }
+            },
+            {
+              '@type': 'Question',
+              name: 'How do I integrate it?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'In minutes. Visit our documentation for interactive playground examples, official SDKs (Node.js, Python, Ruby, Go), and copy-paste code snippets. Or use the shortcut endpoint markdown.microlink.io/{url} for the simplest possible integration — just an HTTP GET.'
+              }
+            },
+            {
+              '@type': 'Question',
+              name: 'Where can I see all parameters?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Visit the Microlink API documentation for parameter details, request examples, and SDK usage guides. Key parameters include embed for raw markdown output, ttl for cache control, and the data extraction rules for CSS selector scoping.'
+              }
+            },
+            {
+              '@type': 'Question',
+              name: 'Is the URL to markdown API free?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Yes. The URL to markdown API is free to use with 50 requests per day — no login, no credit card, and no setup required. Just call the endpoint and get clean markdown back. For production workloads that need higher volume, automatic proxy rotation, and priority support, see our Pro plans.'
+              }
+            },
+            {
+              '@type': 'Question',
+              name: 'What is a URL to markdown service and how does it work?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'A URL to markdown service takes any web page URL as input, fetches the page with a full headless browser, strips away HTML noise (ads, navigation, scripts), and returns clean, structured markdown text. Microlink’s URL to markdown API does this in a single REST call. The result is ready for AI agents, RAG pipelines, or any downstream text processing.'
+              }
+            },
+            {
+              '@type': 'Question',
+              name: 'How do I convert a web page to markdown for AI or LLMs?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Send the page URL to the Microlink API with the markdown data extraction rule. The API renders the page, removes clutter, and returns clean markdown with up to 80% fewer tokens than raw HTML. You can also use the shortcut endpoint markdown.microlink.io/{url} for quick scripts and pipeline prototyping.'
+              }
+            }
+          ]
         }
       ]
     }}
@@ -4022,7 +4193,7 @@ const MarkdownPage = () => {
               ]
             })}
           >
-            The best markdown API,{' '}
+            The best URL to markdown API,{' '}
             <span
               css={theme({
                 display: 'block',
@@ -4037,10 +4208,13 @@ const MarkdownPage = () => {
         }
         caption={
           <>
-            No more custom scrapers, HTML cleanup jobs, or brittle parsing
-            layers — our markdown API lets you spend more time building, less
-            time configuring, with easy integration via{' '}
-            <Link href='/docs/guides/markdown'>markdown API docs</Link>.
+            No more custom scrapers or brittle parsing — our URL to markdown API
+            lets you convert any web page to markdown with easy integration via
+            the{' '}
+            <Link href='/docs/guides/markdown'>
+              URL to Markdown API documentation
+            </Link>
+            .
           </>
         }
         features={FEATURES}
