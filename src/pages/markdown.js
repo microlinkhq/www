@@ -460,7 +460,6 @@ const MarkdownContentArea = styled('pre')`
   -webkit-overflow-scrolling: touch;
 
   .md-heading {
-    color: ${colors.orange7};
     font-weight: 700;
   }
 
@@ -474,7 +473,7 @@ const MarkdownContentArea = styled('pre')`
   }
 
   .md-list {
-    color: ${colors.orange6};
+    color: ${colors.black60};
   }
 `
 
@@ -677,8 +676,8 @@ const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 
 const DEFAULT_HISTORY = [
   'https://microlink.io',
-  'https://stripe.com/docs',
-  'https://developer.mozilla.org'
+  'https://unavatar.io',
+  'https://stripe.com'
 ]
 
 const addToHistory = (history, url) => {
@@ -716,12 +715,16 @@ const highlightMarkdown = text => {
   })
 }
 
+const STREAM_CHARS_PER_FRAME = 12
+const STREAM_FRAME_MS = 33
+
 const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
   const [inputUrl, setInputUrl] = useState(FIRST_URL)
   const [isFocused, setIsFocused] = useState(false)
   const [history, setHistory] = useState(DEFAULT_HISTORY)
   const inputRef = useRef(null)
   const [markdownContent, setMarkdownContent] = useState('')
+  const [displayedContent, setDisplayedContent] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   const [isCopied, setIsCopied] = useState(false)
@@ -740,8 +743,37 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
   const hasContentRef = useRef(false)
   const skipBlurRef = useRef(false)
   const fetchResolverRef = useRef(null)
+  const streamRef = useRef(null)
 
-  const DEMO_URLS = ['apple.com', 'microlink.io']
+  useEffect(() => {
+    if (!markdownContent) {
+      setDisplayedContent('')
+      return
+    }
+
+    if (streamRef.current) clearTimeout(streamRef.current)
+
+    let pos = 0
+    const text = markdownContent
+
+    const step = () => {
+      pos = Math.min(pos + STREAM_CHARS_PER_FRAME, text.length)
+      setDisplayedContent(text.slice(0, pos))
+      if (pos < text.length) {
+        streamRef.current = setTimeout(step, STREAM_FRAME_MS)
+      } else {
+        streamRef.current = null
+      }
+    }
+
+    streamRef.current = setTimeout(step, STREAM_FRAME_MS)
+
+    return () => {
+      if (streamRef.current) clearTimeout(streamRef.current)
+    }
+  }, [markdownContent])
+
+  const DEMO_URLS = ['unavatar.io', 'microlink.io']
 
   useEffect(() => {
     if (hasInteracted) return
@@ -769,7 +801,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
     const run = async () => {
       // Initial load for first URL
       fetchMarkdown('https://stripe.com')
-      await delay(1200)
+      await delay(3200)
       if (check()) return
 
       for (let i = 0; i < DEMO_URLS.length; i++) {
@@ -805,14 +837,14 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
         if (check()) return
 
         if (i < DEMO_URLS.length - 1) {
-          await delay(4000)
+          await delay(6000)
           if (check()) return
           setIsGlowing(true)
           await delay(250)
           if (check()) return
           setInputUrl('')
         } else {
-          await delay(2000)
+          await delay(4000)
           if (check()) return
           setIsGlowing(true)
           setIsFocused(true)
@@ -883,6 +915,10 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
     async url => {
       if (abortRef.current) abortRef.current.abort()
       abortRef.current = new window.AbortController()
+      if (streamRef.current) {
+        clearTimeout(streamRef.current)
+        streamRef.current = null
+      }
 
       setIsLoading(true)
       setError(null)
@@ -1327,7 +1363,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                     height: '100%'
                   })}
                 >
-                  {highlightMarkdown(markdownContent)}
+                  {highlightMarkdown(displayedContent)}
                 </MarkdownContentArea>
                 {isLoading && (
                   <MarkdownOverlay
@@ -1460,39 +1496,37 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </MarkdownApiBar>
             </PreviewWindow>
@@ -1597,28 +1631,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -1784,14 +1816,23 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
 
 const REPOS = [
   {
+    name: 'browserless',
+    org: 'microlinkhq',
+    description:
+      'The headless Chrome/Chromium driver on top of Puppeteer. Fast, scalable, and reliable browser automation.',
+    language: 'JavaScript',
+    languageColor: colors.yellow3,
+    stars: '1.8k',
+    primary: true
+  },
+  {
     name: 'html-get',
     org: 'microlinkhq',
     description:
       'Get the HTML from any website, using prerendering when necessary.',
     language: 'JavaScript',
     languageColor: colors.yellow3,
-    stars: '100',
-    primary: true
+    stars: '100'
   },
   {
     name: 'metascraper',
@@ -1801,15 +1842,6 @@ const REPOS = [
     language: 'JavaScript',
     languageColor: colors.yellow3,
     stars: '2.3k'
-  },
-  {
-    name: 'browserless',
-    org: 'microlinkhq',
-    description:
-      'The headless Chrome/Chromium driver on top of Puppeteer. Fast, scalable, and reliable browser automation.',
-    language: 'JavaScript',
-    languageColor: colors.yellow3,
-    stars: '1.8k'
   }
 ]
 
@@ -2150,8 +2182,7 @@ const Playground = () => {
             <Box
               key={tool.href}
               css={theme({
-                width: '100%',
-                maxWidth: ['550px', '550px', '550px', '550px']
+                width: '100%'
               })}
             >
               <FeaturedToolCard
@@ -2163,41 +2194,10 @@ const Playground = () => {
             </Box>
           ))}
         </Flex>
-
-        <ArrowLink
-          href='/tools'
-          css={theme({
-            fontSize: ['20px', '20px', '24px', '24px'],
-            pt: [3, 3, 4, 4]
-          })}
-        >
-          See all the tools
-        </ArrowLink>
       </Flex>
     </Container>
   )
 }
-
-const speedLineAnim = keyframes`
-  from { transform: translateX(-200px); opacity: 1; }
-  to   { transform: translateX(100vw); opacity: 0; }
-`
-
-const SpeedLine = styled('div')`
-  position: absolute;
-  left: 0;
-  top: ${p => p.$top};
-  width: ${p => p.$w};
-  height: ${p => p.$h};
-  background: ${p => p.$color};
-  border-radius: 9999px;
-  box-shadow: 0 0 ${p => p.$glow} ${p => p.$color};
-  animation: ${speedLineAnim} ${p => p.$dur} linear ${p => p.$delay} infinite;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-`
 
 const TokenSavings = () => (
   <section
@@ -2223,118 +2223,6 @@ const TokenSavings = () => (
       borderBottom: `${borders[1]} ${colors.white20}`
     }}
   >
-    <Box
-      css={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        overflow: 'hidden',
-        pointerEvents: 'none',
-        zIndex: 0
-      }}
-    >
-      <SpeedLine
-        $top='12%'
-        $w='140px'
-        $h='3px'
-        $dur='1.27s'
-        $delay='0s'
-        $color='rgba(255,255,255,0.45)'
-        $glow='8px'
-      />
-      <SpeedLine
-        $top='22%'
-        $w='80px'
-        $h='2px'
-        $dur='1.78s'
-        $delay='0.6s'
-        $color='rgba(255,255,255,0.2)'
-        $glow='4px'
-      />
-      <SpeedLine
-        $top='32%'
-        $w='110px'
-        $h='2px'
-        $dur='1.1s'
-        $delay='0.15s'
-        $color='rgba(255,255,255,0.55)'
-        $glow='10px'
-      />
-      <SpeedLine
-        $top='42%'
-        $w='50px'
-        $h='1px'
-        $dur='2.11s'
-        $delay='1.1s'
-        $color='rgba(255,255,255,0.12)'
-        $glow='3px'
-      />
-      <SpeedLine
-        $top='52%'
-        $w='130px'
-        $h='3px'
-        $dur='1.01s'
-        $delay='0.3s'
-        $color='rgba(255,255,255,0.6)'
-        $glow='12px'
-      />
-      <SpeedLine
-        $top='62%'
-        $w='60px'
-        $h='1px'
-        $dur='1.91s'
-        $delay='1.35s'
-        $color='rgba(255,255,255,0.15)'
-        $glow='3px'
-      />
-      <SpeedLine
-        $top='17%'
-        $w='90px'
-        $h='2px'
-        $dur='1.19s'
-        $delay='0.2s'
-        $color='rgba(255,255,255,0.35)'
-        $glow='6px'
-      />
-      <SpeedLine
-        $top='37%'
-        $w='120px'
-        $h='3px'
-        $dur='0.94s'
-        $delay='0s'
-        $color='rgba(255,255,255,0.5)'
-        $glow='10px'
-      />
-      <SpeedLine
-        $top='47%'
-        $w='45px'
-        $h='1px'
-        $dur='1.8s'
-        $delay='0.8s'
-        $color='rgba(255,255,255,0.18)'
-        $glow='3px'
-      />
-      <SpeedLine
-        $top='57%'
-        $w='75px'
-        $h='2px'
-        $dur='1.35s'
-        $delay='0.45s'
-        $color='rgba(255,255,255,0.3)'
-        $glow='5px'
-      />
-      <SpeedLine
-        $top='67%'
-        $w='105px'
-        $h='3px'
-        $dur='1.08s'
-        $delay='0.15s'
-        $color='rgba(255,255,255,0.5)'
-        $glow='9px'
-      />
-    </Box>
     <Flex
       css={theme({
         position: 'relative',
@@ -2805,11 +2693,10 @@ const CodeExample = () => {
                 url: 'https://stripe.com/docs/api',
                 data: {
                   markdown: {
-                    selector: 'main',
                     attr: 'markdown'
                   }
                 },
-                meta: false
+                embed: 'markdown'
               }}
             />
           </Flex>
@@ -3129,39 +3016,37 @@ const Capabilities = () => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </MarkdownApiBar>
           </Box>
@@ -3631,9 +3516,9 @@ const ProductInformation = () => {
                 <Link href='/docs/guides/markdown/choosing-scope'>
                   selector parameter
                 </Link>{' '}
-                to target specific DOM elements — narrow to <code>main</code>,{' '}
-                <code>article</code>, or any CSS selector. You can also use
-                fallback arrays that try selectors in order.
+                to target specific DOM elements — narrow to main, article, or
+                any CSS selector. You can also use fallback arrays that try
+                selectors in order.
               </div>
               <div>
                 Omit the selector entirely to convert the whole page, or combine
@@ -3648,8 +3533,8 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                Yes. Set <code>meta: true</code> to prepend a YAML frontmatter
-                block with normalized metadata — title, description, author,
+                Yes. Set <i>meta: true</i> to prepend a YAML frontmatter block
+                with normalized metadata — title, description, author,
                 publisher, date, word count, and reading time.
               </div>
               <div>
@@ -3672,9 +3557,8 @@ const ProductInformation = () => {
                 copy-paste code snippets.
               </div>
               <div>
-                Or use the shortcut endpoint{' '}
-                <code>markdown.microlink.io/{'<url>'}</code> for the simplest
-                possible integration — just an HTTP GET.
+                Or use the shortcut endpoint markdown.microlink.io/{'<url>'} for
+                the simplest possible integration — just an HTTP GET.
               </div>
             </>
           )
