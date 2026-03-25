@@ -2752,47 +2752,6 @@ const CAPABILITIES = [
     title: 'Sub-second cached responses',
     description:
       'Cached responses return in milliseconds from 240+ Cloudflare edge locations. Configure TTL caching rules to keep your content fresh with minimal latency.'
-  },
-  {
-    icon: (
-      <svg
-        width='20'
-        height='20'
-        viewBox='0 0 24 24'
-        fill='none'
-        stroke='currentColor'
-        strokeWidth='2'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        aria-hidden='true'
-      >
-        <path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' />
-      </svg>
-    ),
-    title: 'No target-site setup',
-    description:
-      'Works on any public URL without the target website needing CDN opt-in, special headers, or server-level configuration. The entire web is your dataset.'
-  },
-  {
-    icon: (
-      <svg
-        width='20'
-        height='20'
-        viewBox='0 0 24 24'
-        fill='none'
-        stroke='currentColor'
-        strokeWidth='2'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        aria-hidden='true'
-      >
-        <polyline points='16 18 22 12 16 6' />
-        <polyline points='8 6 2 12 8 18' />
-      </svg>
-    ),
-    title: 'One-line integration',
-    description:
-      'A single REST endpoint or the shortcut URL markdown.microlink.io/{url} — works from any language or framework. No SDKs required, just an HTTP call.'
   }
 ]
 
@@ -2812,37 +2771,207 @@ const CapabilityIcon = styled(Flex)`
   })};
 `
 
-const ComparisonPane = styled('div')`
-  ${theme({
-    flex: 1,
-    p: 2,
-    fontFamily: 'mono',
-    fontSize: 0,
-    lineHeight: 2,
-    overflow: 'hidden'
-  })};
-  white-space: pre-wrap;
-  word-break: break-all;
-`
+const CAP_DEFAULT_URL = 'https://stripe.com/docs'
 
-const ComparisonLabel = styled(Flex)`
+const SplitPaneLabel = styled(Flex)`
   ${theme({
     px: 2,
-    py: 1,
-    fontSize: 0,
+    py: 2,
+    fontSize: 1,
     fontWeight: 'bold',
     fontFamily: 'sans',
     alignItems: 'center',
-    gap: 1
+    justifyContent: 'center',
+    flexWrap: ['wrap', 'wrap', 'nowrap', 'nowrap'],
+    gap: 1,
+    flexShrink: 0
   })};
+`
+
+const HtmlContentArea = styled('pre')`
+  ${theme({
+    m: 0,
+    p: 3,
+    fontFamily: 'mono',
+    fontSize: 0,
+    lineHeight: 2,
+    color: 'black80'
+  })};
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  -webkit-overflow-scrolling: touch;
 `
 
 const Capabilities = () => {
   const [capCopied, setCapCopied] = useState(false)
   const capCopyTimerRef = useRef(null)
+  const [capUrl, setCapUrl] = useState(CAP_DEFAULT_URL)
+  const [capFocused, setCapFocused] = useState(false)
+  const [capMarkdown, setCapMarkdown] = useState('')
+  const [capDisplayed, setCapDisplayed] = useState('')
+  const [capHtml, setCapHtml] = useState('')
+  const [capHtmlDisplayed, setCapHtmlDisplayed] = useState('')
+  const [capLoading, setCapLoading] = useState(false)
+  const [capHtmlLoading, setCapHtmlLoading] = useState(false)
+  const [capError, setCapError] = useState(null)
+  const capAbortRef = useRef(null)
+  const capHtmlAbortRef = useRef(null)
+  const capStreamRef = useRef(null)
+  const capHtmlStreamRef = useRef(null)
+  const capInputRef = useRef(null)
+  const capHasContentRef = useRef(false)
+  const [capHasInteracted, setCapHasInteracted] = useState(false)
 
-  const capApiUrl =
-    'https://api.microlink.io?url=https://stripe.com/docs&data.markdown.selector=main&data.markdown.attr=markdown'
+  useEffect(() => {
+    if (!capMarkdown) {
+      setCapDisplayed('')
+      return
+    }
+    if (capStreamRef.current) clearTimeout(capStreamRef.current)
+    let pos = 0
+    const text = capMarkdown
+    let fastThreshold = text.length
+    let wc = 0
+    for (let i = 0; i < text.length; i++) {
+      if (/\s/.test(text[i]) && i > 0 && !/\s/.test(text[i - 1])) {
+        wc++
+        if (wc >= STREAM_FAST_AFTER_WORDS) {
+          fastThreshold = i
+          break
+        }
+      }
+    }
+    const step = () => {
+      const chunk =
+        pos >= fastThreshold
+          ? STREAM_CHARS_PER_FRAME_FAST
+          : STREAM_CHARS_PER_FRAME
+      pos = Math.min(pos + chunk, text.length)
+      setCapDisplayed(text.slice(0, pos))
+      if (pos < text.length) {
+        capStreamRef.current = setTimeout(step, STREAM_FRAME_MS)
+      } else {
+        capStreamRef.current = null
+      }
+    }
+    capStreamRef.current = setTimeout(step, STREAM_FRAME_MS)
+    return () => {
+      if (capStreamRef.current) clearTimeout(capStreamRef.current)
+    }
+  }, [capMarkdown])
+
+  useEffect(() => {
+    if (!capHtml) {
+      setCapHtmlDisplayed('')
+      return
+    }
+    if (capHtmlStreamRef.current) clearTimeout(capHtmlStreamRef.current)
+    let pos = 0
+    const text = capHtml
+    let fastThreshold = text.length
+    let wc = 0
+    for (let i = 0; i < text.length; i++) {
+      if (/\s/.test(text[i]) && i > 0 && !/\s/.test(text[i - 1])) {
+        wc++
+        if (wc >= STREAM_FAST_AFTER_WORDS) {
+          fastThreshold = i
+          break
+        }
+      }
+    }
+    const step = () => {
+      const chunk =
+        pos >= fastThreshold
+          ? STREAM_CHARS_PER_FRAME_FAST
+          : STREAM_CHARS_PER_FRAME
+      pos = Math.min(pos + chunk, text.length)
+      setCapHtmlDisplayed(text.slice(0, pos))
+      if (pos < text.length) {
+        capHtmlStreamRef.current = setTimeout(step, STREAM_FRAME_MS)
+      } else {
+        capHtmlStreamRef.current = null
+      }
+    }
+    capHtmlStreamRef.current = setTimeout(step, STREAM_FRAME_MS)
+    return () => {
+      if (capHtmlStreamRef.current) clearTimeout(capHtmlStreamRef.current)
+    }
+  }, [capHtml])
+
+  const fetchCapMarkdown = useCallback(async url => {
+    if (capAbortRef.current) capAbortRef.current.abort()
+    if (capHtmlAbortRef.current) capHtmlAbortRef.current.abort()
+    capAbortRef.current = new window.AbortController()
+    capHtmlAbortRef.current = new window.AbortController()
+    if (capStreamRef.current) {
+      clearTimeout(capStreamRef.current)
+      capStreamRef.current = null
+    }
+    if (capHtmlStreamRef.current) {
+      clearTimeout(capHtmlStreamRef.current)
+      capHtmlStreamRef.current = null
+    }
+    setCapLoading(true)
+    setCapHtmlLoading(true)
+    setCapError(null)
+
+    window
+      .fetch(
+        `https://api.microlink.io/?data.html.attr=html&meta=false&url=${encodeURIComponent(
+          url
+        )}`,
+        { signal: capHtmlAbortRef.current.signal }
+      )
+      .then(r => r.json())
+      .then(json => {
+        const html = json?.data?.html
+        if (html)
+          setCapHtml(typeof html === 'string' ? html : JSON.stringify(html))
+        setCapHtmlLoading(false)
+      })
+      .catch(err => {
+        if (err.name !== 'AbortError') setCapHtmlLoading(false)
+      })
+
+    try {
+      const res = await window.fetch(
+        `https://api.microlink.io?url=${encodeURIComponent(
+          url
+        )}&data.markdown.attr=markdown&meta=false`,
+        { signal: capAbortRef.current.signal }
+      )
+      const json = await res.json()
+      if (!res.ok) {
+        setCapError(
+          res.status === 429
+            ? 'Rate limit reached — try again in a moment.'
+            : json.message || `Error ${res.status}`
+        )
+        setCapLoading(false)
+        return
+      }
+      const md = json?.data?.markdown
+      if (md) {
+        capHasContentRef.current = true
+        setCapMarkdown(typeof md === 'string' ? md : JSON.stringify(md))
+      }
+      setCapLoading(false)
+    } catch (err) {
+      if (err.name !== 'AbortError')
+        setCapError(err.message || 'Something went wrong.')
+      setCapLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchCapMarkdown(CAP_DEFAULT_URL)
+  }, [fetchCapMarkdown])
+
+  const capDisplayValue = capFocused
+    ? stripProtocol(capUrl)
+    : stripForDisplay(capUrl)
+  const capApiUrl = `https://markdown.microlink.io/${stripProtocol(capUrl)}`
 
   const handleCapCopy = () => {
     const markCopied = () => {
@@ -2856,6 +2985,13 @@ const Capabilities = () => {
         .then(markCopied)
         .catch(() => {})
     }
+  }
+
+  const submitCapUrl = url => {
+    const normalized = ensureProtocol(url)
+    setCapUrl(normalized)
+    setCapFocused(false)
+    fetchCapMarkdown(normalized)
   }
 
   return (
@@ -2875,60 +3011,143 @@ const Capabilities = () => {
           width: '100%',
           maxWidth: HERO_LAYOUT.maxWidth,
           mx: 'auto',
-          flexDirection: ['column', 'column', 'column', 'row'],
-          alignItems: ['center', 'center', 'center', 'stretch'],
-          gap: [4, 4, 5, HERO_LAYOUT.gap[3]]
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: [4, 4, 5, 5]
         })}
       >
-        <Flex
+        <Subhead
           css={theme({
-            width: ['100%', '100%', '100%', HERO_LAYOUT.mainWidth],
-            pt: [4, 4, 5, 0],
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: [3, 3, 4, 4]
+            fontSize: [3, 4, 4, 4],
+            textAlign: 'center',
+            width: '100%'
           })}
         >
-          <Box
-            css={[
-              theme({
-                width: ['100%', '100%', '80%', '100%'],
-                borderRadius: 3,
-                overflow: 'hidden',
-                boxShadow: `0 8px 32px ${colors.black10}`,
-                lineHeight: 0,
-                bg: 'white'
-              })
-            ]}
+          Everything you need,
+          <LineBreak />
+          <span css={theme({ color: 'orange7' })}>one API call away</span>
+        </Subhead>
+        <Box
+          css={theme({
+            width: ['100%', '100%', '90%', '85%'],
+            display: 'inline-flex',
+            flexDirection: 'column',
+            position: 'relative'
+          })}
+        >
+          <DocumentViewer
+            onClick={e => {
+              if (
+                !e.target.closest('input') &&
+                !e.target.closest('.document-footer')
+              ) {
+                setCapFocused(false)
+              }
+            }}
           >
+            <DocumentHeader>
+              <SourceBar>
+                <svg
+                  width='14'
+                  height='14'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  aria-hidden='true'
+                  css={theme({ flexShrink: 0, color: 'black30' })}
+                >
+                  <circle
+                    cx='12'
+                    cy='12'
+                    r='10'
+                    stroke='currentColor'
+                    strokeWidth='1.5'
+                  />
+                  <path
+                    d='M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z'
+                    stroke='currentColor'
+                    strokeWidth='1.5'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  />
+                </svg>
+                <SourceInput
+                  ref={capInputRef}
+                  $active={capFocused}
+                  css={css`
+                    ${theme({ fontSize: 1 })};
+                    text-align: ${capFocused ? 'left' : 'center'};
+                  `}
+                  type='url'
+                  size='1'
+                  value={capDisplayValue}
+                  onChange={e =>
+                    setCapUrl(ensureProtocol(stripProtocol(e.target.value)))
+                  }
+                  onFocus={() => {
+                    setCapFocused(true)
+                    setCapHasInteracted(true)
+                  }}
+                  onBlur={e => {
+                    setTimeout(() => {
+                      const normalized = ensureProtocol(e.target.value)
+                      setCapUrl(normalized)
+                      setCapFocused(false)
+                    }, 150)
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      e.target.blur()
+                      submitCapUrl(e.target.value)
+                    }
+                    if (e.key === 'Escape') {
+                      e.target.blur()
+                      setCapFocused(false)
+                    }
+                  }}
+                  aria-label='Source URL'
+                  spellCheck={false}
+                  autoComplete='off'
+                  autoCorrect='off'
+                  autoCapitalize='off'
+                />
+                <SourcePrompt
+                  $visible={!capFocused && !capHasInteracted}
+                  aria-hidden='true'
+                  css={css`
+                    position: absolute;
+                    right: ${space[2]};
+                    top: 50%;
+                    transform: translateY(-50%)
+                      ${!capFocused && !capHasInteracted
+                        ? ''
+                        : `translateX(${space[1]})`};
+                    margin: 0;
+                  `}
+                >
+                  <span className='source-prompt__arrow'>←</span>
+                  Type any URL
+                </SourcePrompt>
+              </SourceBar>
+            </DocumentHeader>
             <Flex css={{ width: '100%' }}>
               <Box
                 css={theme({
                   flex: 1,
-                  borderRight: `${borders[1]} ${colors.black10}`
+                  position: 'relative',
+                  height: ['280px', '320px', '380px', '420px'],
+                  overflow: 'hidden',
+                  borderRight: `${borders[1]} ${colors.black05}`
                 })}
               >
-                <ComparisonLabel css={theme({ color: 'black60', bg: 'gray0' })}>
-                  <Box
-                    css={theme({
-                      width: '8px',
-                      height: '8px',
-                      borderRadius: '50%',
-                      bg: 'red6',
-                      flexShrink: 0
-                    })}
-                  />
-                  HTML · 20,000 tokens
-                </ComparisonLabel>
-                <ComparisonPane css={theme({ color: 'black40', bg: 'gray0' })}>
-                  {
-                    '<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>API Docs</title><link rel="stylesheet" href="/css/main.css"><script src="/js/app.js"></script></head><body class="docs-page"><nav class="nav-bar"><ul><li><a href="/">Home</a></li></ul></nav><main id="content"><div class="container"><article class="doc-content"><h1>Getting Started</h1><p>Welcome to the API documentation...</p>'
-                  }
-                </ComparisonPane>
-              </Box>
-              <Box css={theme({ flex: 1 })}>
-                <ComparisonLabel css={theme({ color: 'black80', bg: 'white' })}>
+                <SplitPaneLabel
+                  css={theme({
+                    color: 'black80',
+                    bg: 'white',
+                    borderBottom: `${borders[1]} ${colors.black05}`,
+                    position: 'relative',
+                    zIndex: 1
+                  })}
+                >
                   <Box
                     css={theme({
                       width: '8px',
@@ -2938,123 +3157,228 @@ const Capabilities = () => {
                       flexShrink: 0
                     })}
                   />
-                  Markdown · 4,000 tokens
-                </ComparisonLabel>
-                <ComparisonPane css={theme({ color: 'black80' })}>
-                  {
-                    '# Getting Started\n\nWelcome to the API documentation.\n\n## Authentication\n\nUse your API key in the header:\n\n```bash\ncurl -H "Authorization: Bearer sk_live_..."\n```\n\n## Making Requests\n\nAll API requests return JSON.\n\n- **GET** /v1/resources\n- **POST** /v1/resources\n- **PUT** /v1/resources/:id'
-                  }
-                </ComparisonPane>
+                  Markdown
+                  {capDisplayed && (
+                    <WordCountBadge
+                      css={theme({
+                        fontSize: 0,
+                        color: 'black60',
+                        flexBasis: ['100%', '100%', 'auto', 'auto'],
+                        textAlign: 'center'
+                      })}
+                    >
+                      <Box
+                        as='span'
+                        css={theme({
+                          display: ['none', 'none', 'inline', 'inline']
+                        })}
+                      >
+                        ·{' '}
+                      </Box>
+                      {formatCompactNumber(countWords(capDisplayed))} words ·{' '}
+                      {formatCompactNumber(estimateTokens(capDisplayed))} tokens
+                    </WordCountBadge>
+                  )}
+                </SplitPaneLabel>
+                <MarkdownContentArea
+                  css={theme({
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    width: '100%',
+                    pt: 5
+                  })}
+                >
+                  {highlightMarkdown(capDisplayed)}
+                </MarkdownContentArea>
+                {capLoading && (
+                  <MarkdownOverlay
+                    $dim={capHasContentRef.current}
+                    aria-label='Loading markdown'
+                    role='status'
+                  >
+                    <Spinner
+                      width='36'
+                      height='36'
+                      viewBox='0 0 50 50'
+                      aria-hidden='true'
+                    >
+                      <SpinnerCircle
+                        cx='25'
+                        cy='25'
+                        r='20'
+                        fill='none'
+                        strokeWidth='4'
+                      />
+                    </Spinner>
+                  </MarkdownOverlay>
+                )}
+                {capError && (
+                  <ErrorInline role='alert' aria-label='Error'>
+                    <svg
+                      width='20'
+                      height='20'
+                      viewBox='0 0 20 20'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <circle
+                        cx='10'
+                        cy='10'
+                        r='9'
+                        stroke={colors.red5}
+                        strokeWidth='1.5'
+                      />
+                      <path
+                        d='M10 6v4M10 13v.5'
+                        stroke={colors.red5}
+                        strokeWidth='1.5'
+                        strokeLinecap='round'
+                      />
+                    </svg>
+                    <Text
+                      as='p'
+                      css={theme({
+                        fontFamily: 'sans',
+                        color: 'black60',
+                        fontSize: 1,
+                        lineHeight: 2,
+                        m: 0,
+                        pt: 2,
+                        textAlign: 'center',
+                        maxWidth: '300px'
+                      })}
+                    >
+                      {capError}
+                    </Text>
+                    <ErrorDismissButton
+                      type='button'
+                      aria-label='Dismiss error'
+                      onClick={() => setCapError(null)}
+                    >
+                      Dismiss
+                    </ErrorDismissButton>
+                  </ErrorInline>
+                )}
               </Box>
-            </Flex>
-            <DocumentFooter>
-              <Text
-                as='span'
+              <Box
                 css={theme({
-                  fontSize: ['12px', '12px', '13px', '13px'],
-                  fontFamily: 'mono',
-                  letterSpacing: 0,
                   flex: 1,
-                  minWidth: '0',
-                  color: 'black80',
-                  wordBreak: 'break-all'
+                  position: 'relative',
+                  height: ['280px', '320px', '380px', '420px'],
+                  overflow: 'hidden'
                 })}
               >
-                {capApiUrl}
-              </Text>
-              <CopyButton
-                type='button'
-                onClick={handleCapCopy}
-                aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
-              >
-                {capCopied ? (
-                  <svg
-                    className='icon-check'
-                    width='16'
-                    height='16'
-                    viewBox='0 0 16 16'
-                    fill='none'
-                    aria-hidden='true'
+                <SplitPaneLabel
+                  css={theme({
+                    color: 'black60',
+                    bg: 'gray0',
+                    borderBottom: `${borders[1]} ${colors.black05}`,
+                    position: 'relative',
+                    zIndex: 1
+                  })}
+                >
+                  <Box
+                    css={theme({
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '50%',
+                      bg: 'red6',
+                      flexShrink: 0
+                    })}
+                  />
+                  HTML
+                  {capHtmlDisplayed && (
+                    <WordCountBadge
+                      css={theme({
+                        fontSize: 0,
+                        color: 'black60',
+                        flexBasis: ['100%', '100%', 'auto', 'auto'],
+                        textAlign: 'center'
+                      })}
+                    >
+                      <Box
+                        as='span'
+                        css={theme({
+                          display: ['none', 'none', 'inline', 'inline']
+                        })}
+                      >
+                        ·{' '}
+                      </Box>
+                      {formatCompactNumber(countWords(capHtmlDisplayed))} words
+                      · {formatCompactNumber(estimateTokens(capHtmlDisplayed))}{' '}
+                      tokens
+                    </WordCountBadge>
+                  )}
+                </SplitPaneLabel>
+                <HtmlContentArea
+                  css={theme({
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    width: '100%',
+                    pt: 5
+                  })}
+                >
+                  <code>{capHtmlDisplayed}</code>
+                </HtmlContentArea>
+                {capHtmlLoading && (
+                  <MarkdownOverlay
+                    $dim={!!capHtmlDisplayed}
+                    aria-label='Loading HTML'
+                    role='status'
                   >
-                    <path
-                      d='M3 8l3.5 3.5L13 4.5'
-                      stroke='currentColor'
-                      strokeWidth='1.8'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    width='16'
-                    height='16'
-                    viewBox='0 0 16 16'
-                    fill='currentColor'
-                    aria-hidden='true'
-                  >
-                    <path
-                      fillRule='evenodd'
-                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                    />
-                  </svg>
+                    <Spinner
+                      width='36'
+                      height='36'
+                      viewBox='0 0 50 50'
+                      aria-hidden='true'
+                    >
+                      <SpinnerCircle
+                        cx='25'
+                        cy='25'
+                        r='20'
+                        fill='none'
+                        strokeWidth='4'
+                      />
+                    </Spinner>
+                  </MarkdownOverlay>
                 )}
-              </CopyButton>
-            </DocumentFooter>
-          </Box>
-        </Flex>
-        <Flex
+              </Box>
+            </Flex>
+          </DocumentViewer>
+        </Box>
+        <Box
           css={theme({
-            flexDirection: 'column',
-            width: ['100%', '100%', '100%', HERO_LAYOUT.secondaryWidth],
-            justifyContent: 'center',
-            alignItems: ['center', 'center', 'center', 'flex-start'],
-            gap: [3, 3, 4, 4]
+            display: 'grid',
+            gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr'],
+            gap: [3, 3, 4, 4],
+            width: '100%'
           })}
         >
-          <Subhead
-            css={theme({
-              fontSize: [3, 4, 4, 4],
-              textAlign: ['center', 'center', 'center', 'left'],
-              width: '100%'
-            })}
-          >
-            Everything you need,
-            <LineBreak />
-            <span css={theme({ color: 'orange7' })}>one API call away</span>
-          </Subhead>
-          <Flex
-            css={[
-              theme({ gap: [3, 3, 3, 4], width: '100%' }),
-              {
-                flexDirection: 'column',
-                '@media (min-width: 768px) and (max-width: 1199px)': {
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  '& > *': { width: 'calc(50% - 12px)' }
-                }
-              }
-            ]}
-          >
-            {CAPABILITIES.map(({ icon, title, description }) => (
-              <CapabilityItem key={title}>
-                <CapabilityIcon>{icon}</CapabilityIcon>
-                <Flex css={theme({ flexDirection: 'column', gap: 1 })}>
-                  <Text
-                    css={theme({
-                      fontWeight: 'bold',
-                      fontSize: [1, 1, 2, 2]
-                    })}
-                  >
-                    {title}
-                  </Text>
-                  <Text css={theme({ fontSize: [0, 0, 1, 1] })}>
-                    {description}
-                  </Text>
-                </Flex>
-              </CapabilityItem>
-            ))}
-          </Flex>
-        </Flex>
+          {CAPABILITIES.map(({ icon, title, description }) => (
+            <CapabilityItem key={title}>
+              <CapabilityIcon>{icon}</CapabilityIcon>
+              <Flex css={theme({ flexDirection: 'column', gap: 1 })}>
+                <Text
+                  css={theme({
+                    fontWeight: 'bold',
+                    fontSize: [1, 1, 2, 2]
+                  })}
+                >
+                  {title}
+                </Text>
+                <Text css={theme({ fontSize: [0, 0, 1, 1] })}>
+                  {description}
+                </Text>
+              </Flex>
+            </CapabilityItem>
+          ))}
+        </Box>
       </Flex>
     </Container>
   )
