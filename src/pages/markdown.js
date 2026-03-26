@@ -121,7 +121,7 @@ const FEATURES = [
   }
 ]
 
-const PLAYGROUND_TOOL_PATHS = ['/tools/url-to-markdown']
+const PLAYGROUND_TOOL_PATHS = ['/tools/tools']
 const MARKDOWN_TOOLS =
   TOOL_CATALOG.find(section => section.category === 'Markdown')?.tools ?? []
 const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.map(path =>
@@ -1546,39 +1546,37 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </DocumentFooter>
             </DocumentViewer>
@@ -1683,28 +1681,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -3160,7 +3156,8 @@ const Capabilities = () => {
                   size='1'
                   value={capDisplayValue}
                   onChange={e =>
-                    setCapUrl(ensureProtocol(stripProtocol(e.target.value)))}
+                    setCapUrl(ensureProtocol(stripProtocol(e.target.value)))
+                  }
                   onFocus={() => {
                     setCapFocused(true)
                     setCapHasInteracted(true)
@@ -3849,7 +3846,7 @@ const ProductInformation = () => {
               </div>
               <div>
                 You can further tune extraction with{' '}
-                <Link href='/docs/guides/markdown/choosing-scope'>
+                <Link href='/docs/guides/markdown/choosing-scope#start-with-the-smallest-useful-wrapper'>
                   CSS selector scoping
                 </Link>{' '}
                 to target only the content your agents need.
@@ -3870,7 +3867,7 @@ const ProductInformation = () => {
               <div>
                 This directly lowers your LLM API costs and increases how much
                 information you can process per request. Try it instantly in the{' '}
-                <Link href='/tools/url-to-markdown'>
+                <Link href='/tools/tools'>
                   interactive HTML to Markdown tool
                 </Link>
                 .
@@ -3890,7 +3887,7 @@ const ProductInformation = () => {
               <div>
                 Unlike solutions that require opt-in at the infrastructure
                 layer, Microlink works on the entire web immediately. See{' '}
-                <Link href='/docs/guides/markdown/delivery-and-response'>
+                <Link href='/docs/guides/markdown/delivery-and-response#use-a-fast-default-for-production'>
                   delivery and response
                 </Link>{' '}
                 for production configuration options.
@@ -3904,7 +3901,7 @@ const ProductInformation = () => {
             <>
               <div>
                 Absolutely. Use the{' '}
-                <Link href='/docs/guides/markdown/choosing-scope'>
+                <Link href='/docs/guides/markdown/choosing-scope#start-with-the-smallest-useful-wrapper'>
                   selector parameter
                 </Link>{' '}
                 to target specific DOM elements — narrow to main, article, or
@@ -3945,8 +3942,10 @@ const ProductInformation = () => {
                 In minutes. Visit our{' '}
                 <Link href='/docs/guides/markdown'>documentation</Link> for
                 interactive playground examples, official{' '}
-                <Link href='/sdk'>SDKs</Link> (Node.js, Python, Ruby, Go), and
-                copy-paste code snippets.
+                <Link href='/docs/mql/getting-started/overview'>
+                  MQL client
+                </Link>{' '}
+                (Node.js, Python, Ruby, Go, etc.), and copy-paste code snippets.
               </div>
               <div>
                 Or use the shortcut endpoint markdown.microlink.io/{'<url>'} for
@@ -4034,7 +4033,7 @@ const ProductInformation = () => {
                 You can also use the shortcut endpoint{' '}
                 <code>markdown.microlink.io/&#123;url&#125;</code> for quick
                 scripts and pipeline prototyping. Try it live in our{' '}
-                <Link href='/url-to-markdown'>
+                <Link href='/tools/url-to-markdown'>
                   interactive URL to Markdown tool
                 </Link>
                 .
