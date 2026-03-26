@@ -2242,10 +2242,7 @@ const Explanation = () => (
       bg: 'pinky'
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
+    <Subhead css={theme({ fontSize: [3, '30px', '35px', '45px'] })}>
       Why use this free URL to markdown tool?
     </Subhead>
     <Box
