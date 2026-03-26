@@ -1461,37 +1461,39 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                  )}
+                  {isCopied
+                    ? (
+                      <svg
+                        className='icon-check'
+                        width='16'
+                        height='16'
+                        viewBox='0 0 16 16'
+                        fill='none'
+                        aria-hidden='true'
+                      >
+                        <path
+                          d='M3 8l3.5 3.5L13 4.5'
+                          stroke='currentColor'
+                          strokeWidth='1.8'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                      </svg>
+                      )
+                    : (
+                      <svg
+                        width='16'
+                        height='16'
+                        viewBox='0 0 16 16'
+                        fill='currentColor'
+                        aria-hidden='true'
+                      >
+                        <path
+                          fillRule='evenodd'
+                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                        />
+                      </svg>
+                      )}
                 </CopyButton>
               </DocumentFooter>
             </DocumentViewer>
@@ -1596,26 +1598,28 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue ? (
-          <>
-            <TimingHighlight key={key}>{value}</TimingHighlight>
-            <Caption
-              forwardedAs='div'
-              css={theme({
-                ml: 1,
-                color: 'white',
-                display: 'inline',
-                fontWeight: 'bold',
-                fontSize: ['22px', '28px', '32px', '32px']
-              })}
-              titleize={false}
-            >
-              {unit}
-            </Caption>
-          </>
-        ) : (
-          '—'
-        )}
+        {hasValue
+          ? (
+            <>
+              <TimingHighlight key={key}>{value}</TimingHighlight>
+              <Caption
+                forwardedAs='div'
+                css={theme({
+                  ml: 1,
+                  color: 'white',
+                  display: 'inline',
+                  fontWeight: 'bold',
+                  fontSize: ['22px', '28px', '32px', '32px']
+                })}
+                titleize={false}
+              >
+                {unit}
+              </Caption>
+            </>
+            )
+          : (
+              '—'
+            )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -2810,8 +2814,6 @@ const HtmlContentArea = styled('pre')`
 `
 
 const Capabilities = () => {
-  const [capCopied, setCapCopied] = useState(false)
-  const capCopyTimerRef = useRef(null)
   const [capUrl, setCapUrl] = useState('')
   const [capFocused, setCapFocused] = useState(false)
   const [capMarkdown, setCapMarkdown] = useState('')
@@ -2933,8 +2935,7 @@ const Capabilities = () => {
         { signal: capHtmlAbortRef.current.signal }
       )
       .then(r => {
-        if (r.status === 429)
-          return { error: 'Rate limit reached — try again in a moment.' }
+        if (r.status === 429) { return { error: 'Rate limit reached — try again in a moment.' } }
         return r.json()
       })
       .then(json => {
@@ -2961,8 +2962,7 @@ const Capabilities = () => {
         { signal: capAbortRef.current.signal }
       )
       .then(r => {
-        if (r.status === 429)
-          return { error: 'Rate limit reached — try again in a moment.' }
+        if (r.status === 429) { return { error: 'Rate limit reached — try again in a moment.' } }
         return r.json().then(json => {
           if (!r.ok) return { error: json.message || `Error ${r.status}` }
           const md = json?.data?.markdown
@@ -3136,8 +3136,7 @@ const Capabilities = () => {
                   size='1'
                   value={capDisplayValue}
                   onChange={e =>
-                    setCapUrl(ensureProtocol(stripProtocol(e.target.value)))
-                  }
+                    setCapUrl(ensureProtocol(stripProtocol(e.target.value)))}
                   onFocus={() => {
                     setCapFocused(true)
                     setCapHasInteracted(true)
