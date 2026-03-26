@@ -121,7 +121,7 @@ const FEATURES = [
   }
 ]
 
-const PLAYGROUND_TOOL_PATHS = ['/tools/tools']
+const PLAYGROUND_TOOL_PATHS = ['/tools/url-to-markdown']
 const MARKDOWN_TOOLS =
   TOOL_CATALOG.find(section => section.category === 'Markdown')?.tools ?? []
 const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.map(path =>
@@ -3870,10 +3870,7 @@ const ProductInformation = () => {
               <div>
                 This directly lowers your LLM API costs and increases how much
                 information you can process per request. Try it instantly in the{' '}
-                <Link href='/tools/tools'>
-                  interactive HTML to Markdown tool
-                </Link>
-                .
+                <Link href='/tools/'>interactive HTML to Markdown tool</Link>.
               </div>
             </>
           )
