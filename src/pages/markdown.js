@@ -13,7 +13,6 @@ import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { cdnUrl } from 'helpers/cdn-url'
 import { trimMs } from 'helpers/trim-ms'
 import styled, { css, keyframes } from 'styled-components'
-
 import Box from 'components/elements/Box'
 import Button from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
@@ -51,7 +50,6 @@ import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { extractDomain } from 'helpers/extract-domain'
-
 import analyticsData from '../../data/analytics.json'
 import ossData from '../../data/oss.json'
 
@@ -445,6 +443,19 @@ const MarkdownContentArea = styled('pre')`
   .md-list {
     color: ${colors.black60};
   }
+
+  .md-meta-fence {
+    color: ${colors.black40};
+  }
+
+  .md-meta-key {
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .md-meta-value {
+    color: ${colors.blue7};
+  }
 `
 
 const MarkdownOverlay = styled('div')`
@@ -627,6 +638,57 @@ const formatCompactNumber = n => {
   return `${n}`
 }
 
+const formatCompactNumberRound = n => {
+  if (n >= 10000) return `${Math.round(n / 1000)}k`
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`
+  return `${n}`
+}
+
+const useIsSmallMobile = () => {
+  const [small, setSmall] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 30em)')
+    setSmall(mq.matches)
+    const handler = e => setSmall(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+  return small
+}
+
+const COUNTER_DURATION_MS = 900
+const COUNTER_STEPS = 20
+
+const useAnimatedCount = target => {
+  const [display, setDisplay] = useState(0)
+  const prevRef = useRef(0)
+  useEffect(() => {
+    if (target === 0) {
+      setDisplay(0)
+      prevRef.current = 0
+      return
+    }
+    const from = prevRef.current
+    const diff = target - from
+    if (diff === 0) return
+    let step = 0
+    const interval = setInterval(() => {
+      step++
+      if (step >= COUNTER_STEPS) {
+        setDisplay(target)
+        prevRef.current = target
+        clearInterval(interval)
+      } else {
+        const progress = step / COUNTER_STEPS
+        const eased = 1 - Math.pow(1 - progress, 3)
+        setDisplay(Math.round(from + diff * eased))
+      }
+    }, COUNTER_DURATION_MS / COUNTER_STEPS)
+    return () => clearInterval(interval)
+  }, [target])
+  return display
+}
+
 const ensureProtocol = value => {
   const trimmed = value.trim()
   if (!trimmed) return trimmed
@@ -661,7 +723,33 @@ const addToHistory = (history, url) => {
 const highlightMarkdown = text => {
   if (!text) return null
   const lines = text.split('\n')
+  let inFrontmatter = false
+  let fenceCount = 0
   return lines.map((line, i) => {
+    if (/^---\s*$/.test(line) && fenceCount < 2) {
+      fenceCount++
+      inFrontmatter = fenceCount === 1
+      if (fenceCount === 2) inFrontmatter = false
+      return (
+        <span key={i}>
+          <span className='md-meta-fence'>{line}</span>
+          {'\n'}
+        </span>
+      )
+    }
+    if (inFrontmatter) {
+      const colonIdx = line.indexOf(':')
+      if (colonIdx > 0) {
+        return (
+          <span key={i}>
+            <span className='md-meta-key'>{line.slice(0, colonIdx)}</span>
+            {':'}
+            <span className='md-meta-value'>{line.slice(colonIdx + 1)}</span>
+            {'\n'}
+          </span>
+        )
+      }
+    }
     if (/^#{1,6}\s/.test(line)) {
       return (
         <span key={i}>
@@ -1461,39 +1549,37 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </DocumentFooter>
             </DocumentViewer>
@@ -1598,28 +1684,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -2825,8 +2909,6 @@ const Capabilities = () => {
   const [capError, setCapError] = useState(null)
   const capAbortRef = useRef(null)
   const capHtmlAbortRef = useRef(null)
-  const capStreamRef = useRef(null)
-  const capHtmlStreamRef = useRef(null)
   const capInputRef = useRef(null)
   const capHasContentRef = useRef(false)
   const [capHasInteracted, setCapHasInteracted] = useState(false)
@@ -2834,80 +2916,25 @@ const Capabilities = () => {
   const capTriggeredRef = useRef(false)
   const capTypeTimerRef = useRef(null)
 
+  const isSmallMobile = useIsSmallMobile()
+  const capFmt = isSmallMobile ? formatCompactNumberRound : formatCompactNumber
+
+  const capMdWords = countWords(capDisplayed)
+  const capMdTokens = estimateTokens(capDisplayed)
+  const capHtmlWords = countWords(capHtmlDisplayed)
+  const capHtmlTokens = estimateTokens(capHtmlDisplayed)
+
+  const animatedCapMdWords = useAnimatedCount(capMdWords)
+  const animatedCapMdTokens = useAnimatedCount(capMdTokens)
+  const animatedCapHtmlWords = useAnimatedCount(capHtmlWords)
+  const animatedCapHtmlTokens = useAnimatedCount(capHtmlTokens)
+
   useEffect(() => {
-    if (!capMarkdown) {
-      setCapDisplayed('')
-      return
-    }
-    if (capStreamRef.current) clearTimeout(capStreamRef.current)
-    let pos = 0
-    const text = capMarkdown
-    let fastThreshold = text.length
-    let wc = 0
-    for (let i = 0; i < text.length; i++) {
-      if (/\s/.test(text[i]) && i > 0 && !/\s/.test(text[i - 1])) {
-        wc++
-        if (wc >= STREAM_FAST_AFTER_WORDS) {
-          fastThreshold = i
-          break
-        }
-      }
-    }
-    const step = () => {
-      const chunk =
-        pos >= fastThreshold
-          ? STREAM_CHARS_PER_FRAME_FAST
-          : STREAM_CHARS_PER_FRAME
-      pos = Math.min(pos + chunk, text.length)
-      setCapDisplayed(text.slice(0, pos))
-      if (pos < text.length) {
-        capStreamRef.current = setTimeout(step, STREAM_FRAME_MS)
-      } else {
-        capStreamRef.current = null
-      }
-    }
-    capStreamRef.current = setTimeout(step, STREAM_FRAME_MS)
-    return () => {
-      if (capStreamRef.current) clearTimeout(capStreamRef.current)
-    }
+    setCapDisplayed(capMarkdown || '')
   }, [capMarkdown])
 
   useEffect(() => {
-    if (!capHtml) {
-      setCapHtmlDisplayed('')
-      return
-    }
-    if (capHtmlStreamRef.current) clearTimeout(capHtmlStreamRef.current)
-    let pos = 0
-    const text = capHtml
-    let fastThreshold = text.length
-    let wc = 0
-    for (let i = 0; i < text.length; i++) {
-      if (/\s/.test(text[i]) && i > 0 && !/\s/.test(text[i - 1])) {
-        wc++
-        if (wc >= STREAM_FAST_AFTER_WORDS_HTML) {
-          fastThreshold = i
-          break
-        }
-      }
-    }
-    const step = () => {
-      const chunk =
-        pos >= fastThreshold
-          ? STREAM_CHARS_PER_FRAME_HTML_FAST
-          : STREAM_CHARS_PER_FRAME
-      pos = Math.min(pos + chunk, text.length)
-      setCapHtmlDisplayed(text.slice(0, pos))
-      if (pos < text.length) {
-        capHtmlStreamRef.current = setTimeout(step, STREAM_FRAME_MS)
-      } else {
-        capHtmlStreamRef.current = null
-      }
-    }
-    capHtmlStreamRef.current = setTimeout(step, STREAM_FRAME_MS)
-    return () => {
-      if (capHtmlStreamRef.current) clearTimeout(capHtmlStreamRef.current)
-    }
+    setCapHtmlDisplayed(capHtml || '')
   }, [capHtml])
 
   const fetchCapMarkdown = useCallback(async url => {
@@ -2915,14 +2942,6 @@ const Capabilities = () => {
     if (capHtmlAbortRef.current) capHtmlAbortRef.current.abort()
     capAbortRef.current = new window.AbortController()
     capHtmlAbortRef.current = new window.AbortController()
-    if (capStreamRef.current) {
-      clearTimeout(capStreamRef.current)
-      capStreamRef.current = null
-    }
-    if (capHtmlStreamRef.current) {
-      clearTimeout(capHtmlStreamRef.current)
-      capHtmlStreamRef.current = null
-    }
     setCapLoading(true)
     setCapHtmlLoading(true)
     setCapError(null)
@@ -2935,7 +2954,9 @@ const Capabilities = () => {
         { signal: capHtmlAbortRef.current.signal }
       )
       .then(r => {
-        if (r.status === 429) { return { error: 'Rate limit reached — try again in a moment.' } }
+        if (r.status === 429) {
+          return { error: 'Rate limit reached — try again in a moment.' }
+        }
         return r.json()
       })
       .then(json => {
@@ -2962,7 +2983,9 @@ const Capabilities = () => {
         { signal: capAbortRef.current.signal }
       )
       .then(r => {
-        if (r.status === 429) { return { error: 'Rate limit reached — try again in a moment.' } }
+        if (r.status === 429) {
+          return { error: 'Rate limit reached — try again in a moment.' }
+        }
         return r.json().then(json => {
           if (!r.ok) return { error: json.message || `Error ${r.status}` }
           const md = json?.data?.markdown
@@ -3136,7 +3159,8 @@ const Capabilities = () => {
                   size='1'
                   value={capDisplayValue}
                   onChange={e =>
-                    setCapUrl(ensureProtocol(stripProtocol(e.target.value)))}
+                    setCapUrl(ensureProtocol(stripProtocol(e.target.value)))
+                  }
                   onFocus={() => {
                     setCapFocused(true)
                     setCapHasInteracted(true)
@@ -3184,6 +3208,9 @@ const Capabilities = () => {
                         ? ''
                         : `translateX(${space[1]})`};
                     margin: 0;
+                    @media (max-width: 40em) {
+                      display: none;
+                    }
                   `}
                 >
                   <span className='source-prompt__arrow'>←</span>
@@ -3237,8 +3264,8 @@ const Capabilities = () => {
                       >
                         ·{' '}
                       </Box>
-                      {formatCompactNumber(countWords(capDisplayed))} words ·{' '}
-                      {formatCompactNumber(estimateTokens(capDisplayed))} tokens
+                      {capFmt(animatedCapMdWords)} words ·{' '}
+                      {capFmt(animatedCapMdTokens)} tokens
                     </WordCountBadge>
                   )}
                 </SplitPaneLabel>
@@ -3322,9 +3349,8 @@ const Capabilities = () => {
                       >
                         ·{' '}
                       </Box>
-                      {formatCompactNumber(countWords(capHtmlDisplayed))} words
-                      · {formatCompactNumber(estimateTokens(capHtmlDisplayed))}{' '}
-                      tokens
+                      {capFmt(animatedCapHtmlWords)} words ·{' '}
+                      {capFmt(animatedCapHtmlTokens)} tokens
                     </WordCountBadge>
                   )}
                 </SplitPaneLabel>
@@ -3969,7 +3995,7 @@ const ProductInformation = () => {
               <div>
                 For production workloads that need higher volume, automatic
                 proxy rotation, and priority support, see our{' '}
-                <Link href='/pricing'>Pro plans</Link>.
+                <Link href='/#pricing'>Pro plans</Link>.
               </div>
             </>
           )
@@ -3987,9 +4013,9 @@ const ProductInformation = () => {
               <div>
                 Microlink&rsquo;s URL to markdown API does this in a single REST
                 call:{' '}
-                <code>
+                <i>
                   https://api.microlink.io?url=example.com&data.markdown.attr=markdown
-                </code>
+                </i>
                 . The result is ready for AI agents, RAG pipelines, or any
                 downstream text processing.
               </div>
