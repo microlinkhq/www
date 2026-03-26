@@ -692,7 +692,7 @@ const STREAM_CHARS_PER_FRAME = 12
 const STREAM_CHARS_PER_FRAME_FAST = 120
 const STREAM_CHARS_PER_FRAME_HTML_FAST = 5000
 const STREAM_FRAME_MS = 33
-const STREAM_FAST_AFTER_WORDS = 100
+const STREAM_FAST_AFTER_WORDS = 200
 const STREAM_FAST_AFTER_WORDS_HTML = 50
 
 const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
@@ -2812,7 +2812,7 @@ const HtmlContentArea = styled('pre')`
 const Capabilities = () => {
   const [capCopied, setCapCopied] = useState(false)
   const capCopyTimerRef = useRef(null)
-  const [capUrl, setCapUrl] = useState(CAP_DEFAULT_URL)
+  const [capUrl, setCapUrl] = useState('')
   const [capFocused, setCapFocused] = useState(false)
   const [capMarkdown, setCapMarkdown] = useState('')
   const [capDisplayed, setCapDisplayed] = useState('')
@@ -2828,6 +2828,9 @@ const Capabilities = () => {
   const capInputRef = useRef(null)
   const capHasContentRef = useRef(false)
   const [capHasInteracted, setCapHasInteracted] = useState(false)
+  const capSectionRef = useRef(null)
+  const capTriggeredRef = useRef(false)
+  const capTypeTimerRef = useRef(null)
 
   useEffect(() => {
     if (!capMarkdown) {
@@ -2995,7 +2998,41 @@ const Capabilities = () => {
   }, [])
 
   useEffect(() => {
-    fetchCapMarkdown(CAP_DEFAULT_URL)
+    const el = capSectionRef.current
+    if (!el) return
+
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || capTriggeredRef.current) return
+        capTriggeredRef.current = true
+        observer.disconnect()
+
+        const target = stripProtocol(CAP_DEFAULT_URL)
+        let i = 0
+        const typeStep = () => {
+          i++
+          setCapUrl('https://' + target.slice(0, i))
+          if (i < target.length) {
+            capTypeTimerRef.current = setTimeout(typeStep, 60)
+          } else {
+            capTypeTimerRef.current = null
+            setCapUrl(CAP_DEFAULT_URL)
+            fetchCapMarkdown(CAP_DEFAULT_URL)
+          }
+        }
+        capTypeTimerRef.current = setTimeout(typeStep, 300)
+      },
+      { threshold: 0.1 }
+    )
+
+    observer.observe(el)
+    return () => {
+      observer.disconnect()
+      if (capTypeTimerRef.current) {
+        clearTimeout(capTypeTimerRef.current)
+        capTypeTimerRef.current = null
+      }
+    }
   }, [fetchCapMarkdown])
 
   const capDisplayValue = capFocused
@@ -3066,6 +3103,7 @@ const Capabilities = () => {
           })}
         >
           <DocumentViewer
+            ref={capSectionRef}
             onClick={e => {
               if (
                 !e.target.closest('input') &&
@@ -3116,6 +3154,14 @@ const Capabilities = () => {
                   onFocus={() => {
                     setCapFocused(true)
                     setCapHasInteracted(true)
+                    if (capTypeTimerRef.current) {
+                      clearTimeout(capTypeTimerRef.current)
+                      capTypeTimerRef.current = null
+                      setCapUrl(CAP_DEFAULT_URL)
+                      if (!capHasContentRef.current) {
+                        fetchCapMarkdown(CAP_DEFAULT_URL)
+                      }
+                    }
                   }}
                   onBlur={e => {
                     setTimeout(() => {
