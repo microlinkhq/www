@@ -690,7 +690,7 @@ const highlightMarkdown = text => {
 
 const STREAM_CHARS_PER_FRAME = 12
 const STREAM_CHARS_PER_FRAME_FAST = 120
-const STREAM_CHARS_PER_FRAME_HTML_FAST = 5000
+const STREAM_CHARS_PER_FRAME_HTML_FAST = 4000
 const STREAM_FRAME_MS = 33
 const STREAM_FAST_AFTER_WORDS = 200
 const STREAM_FAST_AFTER_WORDS_HTML = 50
@@ -2777,7 +2777,7 @@ const CapabilityIcon = styled(Flex)`
   })};
 `
 
-const CAP_DEFAULT_URL = 'https://docs.stripe.com/api'
+const CAP_DEFAULT_URL = 'https://github.com/trending'
 
 const SplitPaneLabel = styled(Flex)`
   ${theme({
@@ -2957,7 +2957,7 @@ const Capabilities = () => {
       .fetch(
         `https://api.microlink.io?url=${encodeURIComponent(
           url
-        )}&data.markdown.attr=markdown&meta=false`,
+        )}&data.markdown.attr=markdown&meta=true`,
         { signal: capAbortRef.current.signal }
       )
       .then(r => {
@@ -3038,21 +3038,6 @@ const Capabilities = () => {
   const capDisplayValue = capFocused
     ? stripProtocol(capUrl)
     : stripForDisplay(capUrl)
-  const capApiUrl = `https://markdown.microlink.io/${stripProtocol(capUrl)}`
-
-  const handleCapCopy = () => {
-    const markCopied = () => {
-      setCapCopied(true)
-      if (capCopyTimerRef.current) clearTimeout(capCopyTimerRef.current)
-      capCopyTimerRef.current = setTimeout(() => setCapCopied(false), 1500)
-    }
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard
-        .writeText(capApiUrl)
-        .then(markCopied)
-        .catch(() => {})
-    }
-  }
 
   const submitCapUrl = url => {
     const normalized = ensureProtocol(url)
@@ -3095,11 +3080,13 @@ const Capabilities = () => {
           <span css={theme({ color: 'orange7' })}>one API call away</span>
         </Subhead>
         <Box
+          as='figure'
           css={theme({
             width: ['100%', '100%', '85%', '80%'],
             display: 'inline-flex',
             flexDirection: 'column',
-            position: 'relative'
+            position: 'relative',
+            m: 0
           })}
         >
           <DocumentViewer
@@ -3438,6 +3425,14 @@ const Capabilities = () => {
               )}
             </Flex>
           </DocumentViewer>
+          <noscript>
+            <figcaption style={{ display: 'none' }}>
+              Interactive demonstration comparing raw website HTML against
+              Microlink's structured Markdown API output. Converting raw HTML
+              DOM to Markdown reduces LLM context window token usage by 80%
+              while preserving semantic metadata, text, and structure.
+            </figcaption>
+          </noscript>
         </Box>
         <Box
           css={theme({
