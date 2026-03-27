@@ -110,6 +110,11 @@ const ORIENTATION_OPTIONS = [
   { value: 'landscape', label: 'Landscape' }
 ]
 
+const MEDIA_TYPE_OPTIONS = [
+  { value: 'screen', label: 'Screen' },
+  { value: 'print', label: 'Print' }
+]
+
 const FEATURES_LIST = [
   {
     title: 'Fast CDN Delivery',
@@ -430,6 +435,37 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   ...prev,
                   landscape: val === 'landscape'
                 }))
+              }
+            />
+          </Box>
+
+          <Box css={theme({ mt: 3 })}>
+            <Box css={{ display: 'flex', alignItems: 'center' }}>
+              <OptionLabel as='span' css={{ marginBottom: 0 }}>
+                Media Type
+              </OptionLabel>
+              <Tooltip
+                content={
+                  <Tooltip.Content>
+                    <b>Screen</b> renders the PDF with the closest visual match
+                    to the webpage. <b>Print</b> optimizes for printing, better
+                    for documents, reports, invoices, and resumes.
+                  </Tooltip.Content>
+                }
+              >
+                <HelpCircle
+                  size={16}
+                  color={colors.black60}
+                  style={{ marginLeft: '6px' }}
+                />
+              </Tooltip>
+            </Box>
+            <SegmentedControl
+              name='Media Type'
+              options={MEDIA_TYPE_OPTIONS}
+              value={options.mediaType}
+              onChange={val =>
+                setOptions(prev => ({ ...prev, mediaType: val }))
               }
             />
           </Box>
@@ -971,6 +1007,7 @@ const PdfTool = () => {
     url: '',
     format: 'A4',
     landscape: false,
+    mediaType: 'screen',
     scale: '0.6',
     margin: '10px',
     width: '',
@@ -1038,7 +1075,8 @@ const PdfTool = () => {
           adblock: options.adblock,
           force: !options.cache,
           waitUntil: 'networkidle2',
-          prerender: true
+          prerender: true,
+          mediaType: options.mediaType
         }
 
         const queryStr = buildMqlQuery(url, mqlOpts)
