@@ -103,8 +103,8 @@ const ORIENTATION_OPTIONS = [
 ]
 
 const MEDIA_TYPE_OPTIONS = [
-  { value: 'screen', label: 'Screen' },
-  { value: 'print', label: 'Print' }
+  { value: 'screen', label: 'Screen View' },
+  { value: 'print', label: 'Print Version' }
 ]
 
 const FEATURES_LIST = [
@@ -994,14 +994,14 @@ const OptionsPanel = ({
           <Box css={theme({ mt: 3 })}>
             <Box css={{ display: 'flex', alignItems: 'center' }}>
               <OptionLabel as='span' css={{ marginBottom: 0 }}>
-                Media Type
+                PDF Appearance
               </OptionLabel>
               <Tooltip
                 content={
                   <Tooltip.Content>
-                    <b>Screen</b> renders the PDF with the closest visual match
-                    to the webpage. <b>Print</b> optimizes for printing, better
-                    for documents, reports, invoices, and resumes.
+                    <b>Screen View</b> is a perfect visual match of your current
+                    digital display. <b>Print Version</b> is optimized for
+                    paper, hiding non-essential web elements.
                   </Tooltip.Content>
                 }
               >
@@ -1013,7 +1013,7 @@ const OptionsPanel = ({
               </Tooltip>
             </Box>
             <SegmentedControl
-              name='Media Type'
+              name='PDF Appearance'
               options={MEDIA_TYPE_OPTIONS}
               value={options.mediaType}
               onChange={val =>
@@ -1050,8 +1050,10 @@ const OptionsPanel = ({
               })}
             >
               <Box>
-                <OptionLabel as='span'>
-                  Scale
+                <Box css={{ display: 'flex', alignItems: 'center' }}>
+                  <OptionLabel as='span' css={{ marginBottom: 0 }}>
+                    Scale
+                  </OptionLabel>
                   <Tooltip
                     content={
                       <Tooltip.Content>
@@ -1063,10 +1065,10 @@ const OptionsPanel = ({
                     <HelpCircle
                       size={14}
                       color={colors.black40}
-                      style={{ marginLeft: '4px', verticalAlign: 'middle' }}
+                      style={{ marginLeft: '4px' }}
                     />
                   </Tooltip>
-                </OptionLabel>
+                </Box>
                 <Input
                   id='pdf-scale'
                   type='number'
@@ -1085,8 +1087,10 @@ const OptionsPanel = ({
               </Box>
 
               <Box>
-                <OptionLabel as='span'>
-                  Margin
+                <Box css={{ display: 'flex', alignItems: 'center' }}>
+                  <OptionLabel as='span' css={{ marginBottom: 0 }}>
+                    Margin
+                  </OptionLabel>
                   <Tooltip
                     content={
                       <Tooltip.Content>
@@ -1098,10 +1102,10 @@ const OptionsPanel = ({
                     <HelpCircle
                       size={14}
                       color={colors.black40}
-                      style={{ marginLeft: '4px', verticalAlign: 'middle' }}
+                      style={{ marginLeft: '4px' }}
                     />
                   </Tooltip>
-                </OptionLabel>
+                </Box>
                 <Input
                   id='pdf-margin'
                   type='text'
@@ -1118,8 +1122,10 @@ const OptionsPanel = ({
               </Box>
 
               <Box>
-                <OptionLabel as='span'>
-                  Width
+                <Box css={{ display: 'flex', alignItems: 'center' }}>
+                  <OptionLabel as='span' css={{ marginBottom: 0 }}>
+                    Width
+                  </OptionLabel>
                   <Tooltip
                     content={
                       <Tooltip.Content>
@@ -1132,10 +1138,10 @@ const OptionsPanel = ({
                     <HelpCircle
                       size={14}
                       color={colors.black40}
-                      style={{ marginLeft: '4px', verticalAlign: 'middle' }}
+                      style={{ marginLeft: '4px' }}
                     />
                   </Tooltip>
-                </OptionLabel>
+                </Box>
                 <Input
                   id='pdf-width'
                   type='text'
@@ -1152,8 +1158,10 @@ const OptionsPanel = ({
               </Box>
 
               <Box>
-                <OptionLabel as='span'>
-                  Height
+                <Box css={{ display: 'flex', alignItems: 'center' }}>
+                  <OptionLabel as='span' css={{ marginBottom: 0 }}>
+                    Height
+                  </OptionLabel>
                   <Tooltip
                     content={
                       <Tooltip.Content>
@@ -1166,10 +1174,10 @@ const OptionsPanel = ({
                     <HelpCircle
                       size={14}
                       color={colors.black40}
-                      style={{ marginLeft: '4px', verticalAlign: 'middle' }}
+                      style={{ marginLeft: '4px' }}
                     />
                   </Tooltip>
-                </OptionLabel>
+                </Box>
                 <Input
                   id='pdf-height'
                   type='text'
