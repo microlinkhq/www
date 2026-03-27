@@ -310,7 +310,11 @@ export const SectionIcon = ({ icon: Icon }) => (
   </IconCircle>
 )
 
-export const ApiDocsCard = ({ title, description }) => (
+export const ApiDocsCard = ({
+  title,
+  description,
+  guideHref = '/docs/guides/screenshot'
+}) => (
   <Container
     as='section'
     id='api-docs'
@@ -353,7 +357,7 @@ export const ApiDocsCard = ({ title, description }) => (
           fontSize: [2, 2, 3, 3]
         })}
       >
-        <ArrowLink href='/docs/guides/screenshot'>Getting started</ArrowLink>
+        <ArrowLink href={guideHref}>Getting started</ArrowLink>
       </Flex>
     </Box>
   </Container>
@@ -1151,13 +1155,11 @@ export const PreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                {downloaded
-                  ? (
-                    <SpinningLoader size={15} />
-                    )
-                  : (
-                    <Download size={15} />
-                    )}
+                {downloaded ? (
+                  <SpinningLoader size={15} />
+                ) : (
+                  <Download size={15} />
+                )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
