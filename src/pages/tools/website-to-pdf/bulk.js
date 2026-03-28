@@ -22,6 +22,7 @@ import mql from '@microlink/mql'
 import JSZip from 'jszip'
 
 import Box from 'components/elements/Box'
+import LineBreak from 'components/elements/LineBreak'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
@@ -109,75 +110,110 @@ const MEDIA_TYPE_OPTIONS = [
 
 const FEATURES_LIST = [
   {
-    title: 'Batch Processing',
+    title: 'Bulk URL to PDF Processing',
     description:
-      'Paste up to 50 URLs and convert them all to PDF in sequence. Real-time progress tracking shows each document as it completes.'
+      'Paste up to 50 URLs and bulk convert them all to PDF in sequence. Real-time progress tracking shows each document as it completes.'
   },
   {
     title: 'One-Click ZIP Download',
     description:
-      'All PDFs are packaged into a single ZIP file automatically. Select individual documents or download them all at once.'
+      'All batch PDFs are packaged into a single ZIP file automatically. Select individual documents or bulk download them all at once.'
   },
   {
-    title: '24h Local History',
+    title: 'Simple REST API',
     description:
-      'Every batch is saved to your browser for 24 hours. Re-download, review, or re-run any previous conversion without starting over.'
+      'Automate bulk PDF generation from a URL list with a single HTTP request per document. No headless browsers to manage.'
   }
 ]
 
 const HOW_IT_WORKS = [
   {
     icon: Globe,
-    title: 'Paste your URLs',
-    description: 'Add up to 50 URLs at once, one per line or comma-separated.'
+    title: 'Paste your URL list',
+    description: (
+      <>
+        Add up to <b>50 URLs</b> at once — one per line or comma-separated. Any
+        publicly accessible <b>web page</b>, <b>article</b>, or <b>dashboard</b>{' '}
+        works.
+      </>
+    )
   },
   {
     icon: Settings,
-    title: 'Configure Options',
-    description: 'Choose paper format, orientation, scale, and margins.'
+    title: 'Choose your settings',
+    description: (
+      <>
+        <span>
+          Pick a <b>paper format</b> (A4, Letter, Legal, and more) and{' '}
+          <b>orientation</b>. Use <b>PDF&nbsp;Appearance</b> to switch between{' '}
+          <b>Screen View</b> or <b>Print Version</b>. Enable{' '}
+          <b>Wait for full load</b> if pages have lazy images.
+        </span>
+        <span style={{ display: 'block', paddingTop: '8px' }}>
+          Under <b>Advanced</b> you can fine-tune <b>scale</b>, <b>margins</b>,
+          custom <b>width</b> and <b>height</b>, and set a <b>page range</b> to
+          export only the pages you need.
+        </span>
+      </>
+    )
   },
   {
     icon: FileText,
-    title: 'Generate PDFs',
-    description:
-      'Click the button and watch them converted one by one in real time.'
+    title: 'Bulk convert to PDF',
+    description: (
+      <>
+        Click <b>Generate PDFs</b> and watch every URL converted one by one with{' '}
+        <b>real-time progress</b>. Failed URLs are skipped automatically so the
+        batch keeps going.
+      </>
+    )
   },
   {
     icon: Download,
-    title: 'Download ZIP',
-    description: 'Get all your PDFs in a single ZIP file saved to your desktop.'
+    title: 'Download all as ZIP',
+    description: (
+      <>
+        <b>Bulk download</b> all your PDFs as a single <b>ZIP file</b>, or
+        select individual documents. Every batch is saved in your{' '}
+        <b>local history</b> for 24&nbsp;hours.
+      </>
+    )
   }
 ]
 
 const REASON_TO_USE = [
   {
-    title: 'Convert multiple URLs at once',
+    title: 'Bulk convert multiple URLs to PDF',
     description: (
       <>
-        Paste up to 50 URLs and generate all PDFs in one batch. No need to
-        convert them one by one — save hours of repetitive manual work. Need a
-        single URL instead? Use the{' '}
-        <Link href='/tools/website-to-pdf'>website to PDF tool</Link>.
+        Paste up to 50 URLs and <b>bulk convert them to PDF</b> in one go. No
+        need to process them one by one — save hours of repetitive manual work.
+        Need a single URL instead? Use the{' '}
+        <Link href='/tools/website-to-pdf'>webpage to PDF tool</Link>.
       </>
     )
   },
   {
-    title: 'Get all PDFs as a ZIP',
+    title: 'Bulk download PDFs as a ZIP',
     description: (
       <>
-        All your batch PDFs are packaged into a single ZIP file that downloads
-        automatically. Configure{' '}
+        All your <b>batch PDFs</b> are packaged into a single ZIP file and{' '}
+        <b>bulk downloaded</b> automatically. Configure{' '}
         <Link href='/docs/guides/pdf/page-size-and-layout'>
           paper format and layout
         </Link>{' '}
-        — ready to share with your team, archive, or use in your workflow.
+        — ready to share, archive, or use in any workflow.
       </>
     )
   },
   {
-    title: 'Free + No login required',
-    description:
-      'Convert up to 50 websites to PDF per day for free. No account needed, no credit card, no watermarks on your documents.'
+    title: 'Free online — no login required',
+    description: (
+      <>
+        <b>Batch convert URLs to PDF</b> for free — up to 50 per day. No account
+        needed, no credit card, no watermarks on your documents.
+      </>
+    )
   },
   {
     title: 'Configurable paper format',
@@ -185,17 +221,17 @@ const REASON_TO_USE = [
       <>
         Choose from standard paper sizes (A4, Letter, Legal, Tabloid) or set
         custom dimensions. Control orientation, margins, and scaling for every
-        PDF in the batch.
+        PDF in the <b>batch</b>.
       </>
     )
   },
   {
-    title: 'Clean documents',
+    title: 'Clean, ad-free documents',
     description: (
       <>
-        Automatically remove ads and cookie consent popups before generating
-        PDFs. Get clean, professional documents without visual clutter. Learn
-        more in the{' '}
+        Automatically remove ads and cookie popups before generating PDFs. Get
+        clean, professional documents from every URL in your list. Learn more in
+        the{' '}
         <Link href='/docs/guides/pdf/page-preparation'>
           page preparation guide
         </Link>
@@ -209,7 +245,7 @@ const REASON_TO_USE = [
       <>
         PDFs are cached on our global CDN by default. Cached responses are
         served instantly and <b>don't count against your limit</b>. Re-run the
-        same batch and cached URLs resolve immediately. Read the{' '}
+        same <b>URL list</b> and cached entries resolve immediately. Read the{' '}
         <Link href='/docs/guides/pdf/caching-and-performance'>
           caching guide
         </Link>
@@ -2441,7 +2477,7 @@ const Hero = () => (
         fontSize: [3, '35px', '40px', '50px']
       })}
     >
-      Batch website to PDF tool
+      Bulk Convert Multiple URLs to PDF
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -2452,8 +2488,8 @@ const Hero = () => (
         fontSize: [2, 2, '24px', '28px']
       })}
     >
-      Paste up to 50 URLs, convert every page to PDF, and download all documents
-      as a ZIP
+      Paste a URL list to batch convert up to 50 web pages into PDF documents.
+      Download your results instantly as a ZIP file.
     </Caption>
   </Flex>
 )
@@ -2476,34 +2512,99 @@ const HowItWorks = () => (
       forwardedAs='h2'
       css={theme({
         pt: [3, 3, 4, 4],
+        pb: [2, 2, 3, 3],
         px: 3,
         maxWidth: layout.large,
         fontSize: [3, 3, 3, '28px']
       })}
     >
-      How to convert multiple websites to PDF
+      How to bulk download PDFs from a URL list
     </Caption>
-    <Flex
+    <Box
       css={theme({
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        gap: [3, 3, 4, 4],
-        pt: [2, 2, 3, 3]
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 0,
+        pt: [3, 3, 4, 4],
+        maxWidth: layout.normal,
+        px: [3, 3, 0, 0],
+        width: '100%'
       })}
     >
-      {HOW_IT_WORKS.map(({ icon: Icon, title, description }) => (
-        <StepCard key={title}>
-          <SectionIcon icon={Icon} />
-          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 0 })}>
-            {title}
-          </Caps>
-          <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-            {description}
-          </Text>
-        </StepCard>
+      {HOW_IT_WORKS.map((step, index) => (
+        <Flex
+          key={step.title}
+          css={theme({
+            gap: 3,
+            alignItems: 'stretch',
+            pb: index < HOW_IT_WORKS.length - 1 ? 0 : 0
+          })}
+        >
+          <Flex
+            css={{
+              flexShrink: 0,
+              flexDirection: 'column',
+              alignItems: 'center',
+              width: '24px'
+            }}
+          >
+            <Text
+              css={theme({
+                fontWeight: 'bold',
+                fontSize: '16px',
+                color: 'black30',
+                fontFamily: 'mono',
+                lineHeight: 0,
+                mt: '-1px'
+              })}
+            >
+              {`0${index + 1}`}
+            </Text>
+            {index < HOW_IT_WORKS.length - 1 && (
+              <Box
+                css={theme({
+                  flex: 1,
+                  width: '1px',
+                  bg: 'black10',
+                  mt: 2,
+                  mb: 2
+                })}
+              />
+            )}
+          </Flex>
+          <Box
+            css={theme({
+              flex: 1,
+              minWidth: 0,
+              pb: 4
+            })}
+          >
+            <Text
+              as='h3'
+              css={theme({
+                fontWeight: 'bold',
+                fontSize: 1,
+                color: 'black',
+                lineHeight: 0,
+                m: 0
+              })}
+            >
+              {step.title}
+            </Text>
+            <Text
+              css={theme({
+                fontSize: 1,
+                color: 'black60',
+                lineHeight: 2,
+                pt: 1
+              })}
+            >
+              {step.description}
+            </Text>
+          </Box>
+        </Flex>
       ))}
-    </Flex>
+    </Box>
   </Container>
 )
 
@@ -2525,7 +2626,7 @@ const Explanation = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Why use a batch website to PDF tool?
+      Why bulk convert URLs to PDF?
     </Subhead>
     <Box
       css={theme({
@@ -2556,15 +2657,16 @@ const Explanation = () => (
       })}
     >
       <Text css={theme({ fontSize: 3, color: 'black' })}>
-        How can a batch PDF tool be free?
+        How can a bulk URL to PDF tool be free?
       </Text>
       <Text
         css={theme({ fontSize: 2, color: 'black80', lineHeight: 2, mt: 2 })}
       >
-        This tool is built on <b>Microlink's</b>{' '}
-        <Link href='/pdf'>PDF API</Link>—the same infrastructure that processes
-        millions of requests per week for paying customers. You get the same
-        speed, quality, and reliability at no cost.
+        This <b>batch PDF converter</b> is built on{' '}
+        <Link href='/pdf'>Microlink's PDF API</Link> — the same infrastructure
+        that processes millions of requests per week for paying customers. You
+        get the same speed, quality, and reliability at no cost for bulk
+        downloads.
       </Text>
     </Caption>
   </Container>
@@ -2632,7 +2734,7 @@ const Banner = () => (
             width: ['300px', '500px', '700px', '900px']
           })}
           src='/images/screenshot-tool-landing.png'
-          alt='Microlink batch PDF API'
+          alt='Code snippet demonstrating how to bulk convert URLs to PDF using the Microlink Node.js API'
         />
       </Flex>
     }
@@ -2645,8 +2747,8 @@ const USE_CASES = [
   {
     title: 'For archivists & researchers',
     items: [
-      'Archive multiple web pages as PDF documents in one batch',
-      'Convert entire websites to offline-readable PDF collections',
+      'Bulk download PDFs from a URL list for offline archival',
+      'Batch convert entire websites to searchable PDF collections',
       'Preserve web content before it changes or disappears',
       'Generate citation-ready document snapshots at scale'
     ],
@@ -2659,10 +2761,10 @@ const USE_CASES = [
   {
     title: 'For legal & compliance',
     items: [
-      'Batch convert web pages for legal evidence records',
-      'Archive terms of service and policy changes across sites',
-      'Generate compliance documentation from multiple pages',
-      'Produce timestamped website snapshots in bulk'
+      'Bulk convert multiple URLs to PDF for evidence records',
+      'Batch archive terms of service and policy changes across sites',
+      'Generate compliance documentation from a URL list',
+      'Produce timestamped website-to-PDF snapshots in bulk'
     ],
     link: {
       href: '/docs/guides/pdf/embedding',
@@ -2673,14 +2775,14 @@ const USE_CASES = [
   {
     title: 'For developers',
     items: [
-      'Automate batch PDF generation via REST API',
-      'Convert multiple dashboards and reports to PDF',
-      'Build PDF export pipelines for web applications',
-      'Generate documentation PDFs from live sites'
+      'Automate batch URL to PDF generation via REST API',
+      'Bulk convert multiple dashboards and reports to PDF',
+      'Build batch PDF export pipelines for web applications',
+      'Generate documentation PDFs from live sites at scale'
     ],
     link: {
       href: '/docs/api/parameters/pdf',
-      alt: 'PDF API reference',
+      alt: 'Bulk PDF API reference',
       text: 'API reference'
     }
   }
@@ -2701,11 +2803,11 @@ const UseCases = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Who needs batch website to PDF?
+      Who needs to bulk convert URLs to PDF?
     </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
-      From web archiving to automated document generation, batch PDF conversion
-      saves time across every team.
+      From web archiving to automated document generation, bulk PDF download
+      from a URL list saves hours across every team.
     </Caption>
     <Box
       css={theme({
@@ -2796,50 +2898,72 @@ const ProductInformation = () => (
     })}
     questions={[
       {
-        question: 'Is this batch PDF tool really free?',
+        question: 'Is this bulk URL to PDF tool really free?',
         answer: (
           <>
             <div>
-              Yes! You can convert up to <b>50&nbsp;URLs per day</b> for free,
-              with no credit card or account required. Free PDFs include every
-              feature — paper format, margins, scaling, and landscape mode.
+              Yes! You can <b>bulk convert up to 50&nbsp;URLs to PDF</b> per day
+              for free, with no credit card or account required. Free PDFs
+              include every feature — paper format, margins, scaling, page
+              ranges, and landscape mode.
             </div>
             <div>
-              Need higher limits? Check our{' '}
-              <Link href='/#pricing'>pricing plans</Link> for unlimited
-              conversions and priority processing, or write to{' '}
+              Need higher limits for automated <b>batch URL to PDF</b>{' '}
+              processing? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
+              for unlimited conversions and priority processing, or write to{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
             </div>
           </>
         )
       },
       {
-        question: 'How many URLs can I convert at once?',
+        question: 'How do I bulk download PDFs from a URL list online?',
         answer: (
           <>
             <div>
-              You can convert up to <b>50&nbsp;URLs</b> in a single batch. Paste
-              them one per line or comma-separated. PDFs are generated
-              sequentially and you can track progress in real time.
+              Paste your <b>URL list</b> (up to 50 links, one per line or
+              comma-separated), choose your settings, and click{' '}
+              <b>Generate PDFs</b>. The tool <b>batch converts</b> every page
+              and packages all documents into a ZIP file that downloads
+              automatically.
             </div>
             <div>
-              All successful PDFs are packaged into a ZIP file that downloads
-              automatically. They're also saved to your browser's local storage
-              for 24&nbsp;hours so you can re-download anytime.
+              All results are saved to your browser's local storage for
+              24&nbsp;hours so you can re-download anytime. For a single URL,
+              use the{' '}
+              <Link href='/tools/website-to-pdf'>webpage to PDF converter</Link>
+              .
             </div>
           </>
         )
       },
       {
-        question: 'What happens if some PDFs fail?',
+        question: 'Can I set a page range when batch converting URLs to PDF?',
         answer: (
           <>
             <div>
-              If a conversion fails, the tool continues with the remaining URLs.
-              At the end you'll see a summary of which ones succeeded and which
-              failed, along with the reason. Successful PDFs are automatically
-              selected so you can download just the working ones as a ZIP. Check
-              the{' '}
+              Yes. Under <b>Advanced</b> settings, set a <b>first page</b> and{' '}
+              <b>last page</b> to export only the pages you need from each URL.
+              Leave the fields empty to include all pages. The same page range
+              applies to every URL in the batch. Read the{' '}
+              <Link href='/docs/api/parameters/pdf/pageRanges'>
+                pageRanges reference
+              </Link>{' '}
+              for more details.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'What happens if some PDFs fail during bulk conversion?',
+        answer: (
+          <>
+            <div>
+              If a URL fails, the tool continues processing the remaining
+              entries in your list. At the end you'll see a summary of which
+              succeeded and which failed, along with the reason. Successful PDFs
+              are automatically selected so you can <b>bulk download</b> just
+              the working ones as a ZIP. Check the{' '}
               <Link href='/docs/guides/pdf/troubleshooting'>
                 troubleshooting guide
               </Link>{' '}
@@ -2849,7 +2973,7 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'Can I automate batch PDF generation?',
+        question: 'Can I automate batch URL to PDF conversion with an API?',
         answer: (
           <>
             <div>
@@ -2864,25 +2988,45 @@ const ProductInformation = () => (
               <Link href='https://www.npmjs.com/package/@microlink/mql'>
                 @microlink/mql
               </Link>{' '}
-              SDK. Loop over your URLs, call the API for each, and you have a
-              fully automated batch PDF pipeline.
+              SDK. Loop over your URL list, call the API for each, and you have
+              a fully automated <b>batch PDF pipeline</b>.
             </div>
           </>
         )
       },
       {
-        question: 'How does caching work for batch PDFs?',
+        question: 'How does caching work for bulk downloads?',
         answer: (
           <>
             <div>
               PDFs are cached on our global CDN (240+ edge locations) by
               default. Cached responses are served instantly and{' '}
               <b>don't count against your daily limit</b>. Cache lasts for
-              24&nbsp;hours. Read the{' '}
+              24&nbsp;hours. Re-run the same URL list and cached entries resolve
+              immediately. Read the{' '}
               <Link href='/docs/guides/pdf/caching-and-performance'>
                 caching &amp; performance guide
               </Link>{' '}
               for fine-grained control.
+            </div>
+          </>
+        )
+      },
+      {
+        question:
+          'What is the difference between the single and bulk PDF tool?',
+        answer: (
+          <>
+            <div>
+              The <Link href='/tools/website-to-pdf'>single tool</Link> converts
+              one webpage at a time and lets you preview the PDF inline. This{' '}
+              <b>bulk tool</b> accepts up to 50&nbsp;URLs, converts them all
+              sequentially, and packages everything into a ZIP download.
+            </div>
+            <div>
+              Both tools share the same settings — paper format, orientation,
+              margins, scale, page ranges, and PDF&nbsp;appearance — and are
+              powered by the same <Link href='/pdf'>Microlink PDF API</Link>.
             </div>
           </>
         )
@@ -2927,13 +3071,15 @@ const PdfApiDocsCard = () => (
       <Flex css={theme({ justifyContent: 'center', pb: 4 })}>
         <SectionIcon icon={FileText} />
       </Flex>
-      <Subhead css={theme({ fontSize: 4 })}>PDF API documentation</Subhead>
+      <Subhead css={theme({ fontSize: 4 })}>
+        Bulk URL to PDF API Documentation
+      </Subhead>
       <Caption
         css={theme({ pt: 3, maxWidth: layout.normal, mx: 'auto', fontSize: 3 })}
       >
-        Automate batch website-to-PDF conversion with a simple REST call.
-        Explore the full API reference with interactive examples, SDKs for every
-        language, and ready-to-use code snippets.
+        Automate batch URL to PDF conversion with a single REST call. Explore
+        the full API reference with interactive examples, SDKs for every
+        language, and ready-to-use code snippets for bulk processing.
       </Caption>
       <Flex
         css={theme({
@@ -2954,9 +3100,9 @@ const PdfApiDocsCard = () => (
 
 export const Head = () => (
   <Meta
-    title='Batch Website to PDF Tool — Convert up to 50 URLs at Once'
+    title='Bulk Download PDF from URL List — Batch Webpage Converter'
     noSuffix
-    description='Free batch website to PDF tool. Paste up to 50 URLs, convert every page to PDF at once, and download all documents as a ZIP. No login required. Powered by Microlink PDF API.'
+    description='Free online tool to bulk convert multiple URLs to PDF. Paste your URL list, batch process up to 50 web pages, and download them all as a single ZIP file.'
     image='https://cdn.microlink.io/banner/pdf.jpeg'
     schemaType='SoftwareApplication'
     structured={[
@@ -2964,24 +3110,16 @@ export const Head = () => (
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
         '@id': 'https://microlink.io/tools/website-to-pdf/batch',
-        name: 'Microlink Batch Website to PDF Tool',
+        name: 'Microlink Bulk URL to PDF Converter',
         description:
-          'Free batch website to PDF tool. Paste up to 50 URLs, convert every page to PDF at once, and download them all as a ZIP file. Built on Microlink PDF API.',
+          'Free bulk URL to PDF converter. Paste up to 50 URLs, batch convert every page to PDF, and download them all as a ZIP file. Built on Microlink PDF API.',
         url: 'https://microlink.io/tools/website-to-pdf/batch',
         applicationCategory: ['DeveloperApplication', 'Tool'],
-        keywords: [
-          'batch website to pdf',
-          'bulk url to pdf converter',
-          'convert multiple websites to pdf',
-          'batch pdf generator',
-          'bulk html to pdf',
-          'download pdfs zip'
-        ],
         offers: {
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 50 PDF conversions per day'
+          description: 'Free tier with 50 bulk PDF conversions per day'
         }
       },
       {
@@ -2990,27 +3128,65 @@ export const Head = () => (
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'Is this batch PDF tool really free?',
+            name: 'Is this bulk URL to PDF tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! You can convert up to 50 URLs per day for free, with no credit card or account required. Free PDFs include every feature — paper format, margins, scaling, and landscape mode.'
+              text: 'Yes! You can bulk convert up to 50 URLs to PDF per day for free, with no credit card or account required. Free PDFs include every feature — paper format, margins, scaling, page ranges, and landscape mode.'
             }
           },
           {
             '@type': 'Question',
-            name: 'How many URLs can I convert at once?',
+            name: 'How do I bulk download PDFs from a URL list online?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'You can convert up to 50 URLs in a single batch. Paste them one per line or comma-separated. PDFs are generated sequentially and you can track progress in real time. All successful PDFs are packaged into a ZIP file that downloads automatically.'
+              text: 'Paste your URL list (up to 50 links, one per line or comma-separated), choose your settings, and click Generate PDFs. The tool batch converts every page and packages all documents into a ZIP file that downloads automatically.'
             }
           },
           {
             '@type': 'Question',
-            name: 'Can I automate batch PDF generation?',
+            name: 'Can I set a page range when batch converting URLs to PDF?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes. Under Advanced settings, set a first page and last page to export only the pages you need from each URL. Leave the fields empty to include all pages.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I automate batch URL to PDF conversion with an API?',
             acceptedAnswer: {
               '@type': 'Answer',
               text: 'Absolutely. This tool is built on the Microlink PDF API, which provides a simple REST endpoint. Send a URL, get back a PDF — integrate with any language (Node.js, Python, Ruby, Go) or plain cURL.'
             }
+          },
+          {
+            '@type': 'Question',
+            name: 'What is the difference between the single and bulk PDF tool?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The single tool converts one webpage at a time with inline preview. This bulk tool accepts up to 50 URLs, converts them all sequentially, and packages everything into a ZIP download. Both share the same settings and are powered by the Microlink PDF API.'
+            }
+          }
+        ]
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'HowTo',
+        name: 'How to bulk download PDFs from a URL list online',
+        step: [
+          {
+            '@type': 'HowToStep',
+            name: 'Paste your URL list',
+            text: 'Add up to 50 URLs at once — one per line or comma-separated. Any publicly accessible web page works.'
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Choose your settings',
+            text: 'Pick a paper format (A4, Letter, Legal), orientation, PDF appearance, and optionally set advanced options like scale, margins, or page ranges.'
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Bulk convert and download',
+            text: 'Click Generate PDFs and watch every URL converted one by one. Download all PDFs as a single ZIP file.'
           }
         ]
       }
@@ -3032,7 +3208,7 @@ const WebsiteToPdfBatchPage = () => (
       css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
-          Website to PDF API{' '}
+          Bulk URL to PDF API{' '}
           <span
             css={{
               display: 'block',
@@ -3041,16 +3217,16 @@ const WebsiteToPdfBatchPage = () => (
               textAlign: 'left'
             }}
           >
-            for Automated Conversions.
+            Batch Convert URLs at Scale.
           </span>
         </Subhead>
       }
       caption={
         <>
-          Need to automate batch PDF generation? No servers to maintain, no
-          headless browsers to manage. Microlink's PDF API handles the
-          infrastructure so you can focus on building — easy integration via{' '}
-          <Link href='/pdf'>API</Link>.
+          Need to automate <b>batch URL to PDF</b> conversion? No servers to
+          maintain, no headless browsers to manage. Microlink's{' '}
+          <Link href='/pdf'>PDF API</Link> handles the infrastructure so you can
+          bulk convert hundreds of URLs programmatically.
         </>
       }
       features={FEATURES_LIST}
