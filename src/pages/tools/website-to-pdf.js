@@ -1,4 +1,4 @@
-import { borders, colors, layout, theme, transition, space } from 'theme'
+import { borders, colors, layout, theme, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
   FileText,
@@ -28,7 +28,6 @@ import DotSpinner from 'components/elements/DotSpinner'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
-import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Select from 'components/elements/Select/Select'
@@ -44,11 +43,10 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import ArrowLink from 'components/patterns/ArrowLink'
 
-import {
+import NerdStatsOverlay, {
   extractNerdStats,
   buildMqlQuery
-} from 'components/patterns/NerdStats/NerdStats'
-import NerdStatsOverlay, {
+  ,
   NerdStatsToggle
 } from 'components/patterns/NerdStats/NerdStats'
 import { useClipboard } from 'components/hook/use-clipboard'
@@ -61,7 +59,6 @@ import {
   OptionLabel,
   GenerateButton,
   CheckboxLabel,
-  StepCard,
   SectionIcon,
   UseCaseCard,
   ToolLayout,
@@ -451,8 +448,7 @@ const OptionsPanel = ({
               aria-label='Paper format'
               value={options.format}
               onChange={e =>
-                setOptions(prev => ({ ...prev, format: e.target.value }))
-              }
+                setOptions(prev => ({ ...prev, format: e.target.value }))}
               css={theme({ width: '100%', fontSize: 1, bg: 'white' })}
             >
               {FORMAT_OPTIONS.map(({ value, label }) => (
@@ -473,8 +469,7 @@ const OptionsPanel = ({
                 setOptions(prev => ({
                   ...prev,
                   landscape: val === 'landscape'
-                }))
-              }
+                }))}
             />
           </Box>
 
@@ -520,8 +515,7 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
-              }
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -547,8 +541,7 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))
-              }
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -577,8 +570,7 @@ const OptionsPanel = ({
                 setOptions(prev => ({
                   ...prev,
                   waitForLoad: e.target.checked
-                }))
-              }
+                }))}
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Wait for full load
@@ -668,8 +660,7 @@ const OptionsPanel = ({
                       setOptions(prev => ({
                         ...prev,
                         pageFrom: e.target.value
-                      }))
-                    }
+                      }))}
                     css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                   />
                   <Input
@@ -685,8 +676,7 @@ const OptionsPanel = ({
                       setOptions(prev => ({
                         ...prev,
                         pageTo: e.target.value
-                      }))
-                    }
+                      }))}
                     css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                   />
                 </Box>
@@ -723,8 +713,7 @@ const OptionsPanel = ({
                   aria-label='PDF scale factor'
                   value={options.scale}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, scale: e.target.value }))
-                  }
+                    setOptions(prev => ({ ...prev, scale: e.target.value }))}
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                 />
               </Box>
@@ -756,8 +745,7 @@ const OptionsPanel = ({
                   aria-label='PDF margin'
                   value={options.margin}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, margin: e.target.value }))
-                  }
+                    setOptions(prev => ({ ...prev, margin: e.target.value }))}
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -792,8 +780,7 @@ const OptionsPanel = ({
                   aria-label='Custom paper width'
                   value={options.width}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, width: e.target.value }))
-                  }
+                    setOptions(prev => ({ ...prev, width: e.target.value }))}
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -828,8 +815,7 @@ const OptionsPanel = ({
                   aria-label='Custom paper height'
                   value={options.height}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, height: e.target.value }))
-                  }
+                    setOptions(prev => ({ ...prev, height: e.target.value }))}
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -1055,11 +1041,13 @@ const PdfPreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                {downloaded ? (
-                  <SpinningLoader size={15} />
-                ) : (
-                  <Download size={15} />
-                )}
+                {downloaded
+                  ? (
+                    <SpinningLoader size={15} />
+                    )
+                  : (
+                    <Download size={15} />
+                    )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
