@@ -121,6 +121,8 @@ const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.map(path =>
   PDF_TOOLS.find(tool => tool.href === path)
 ).filter(Boolean)
 
+const ACCENT = 'rgb(224, 0, 172)'
+
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
@@ -1166,39 +1168,37 @@ const Hero = function Hero ({ onRequestTiming }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </PdfApiBar>
             </BrowserWindow>
@@ -1303,28 +1303,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '-'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '-'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -1476,8 +1474,8 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
           ${colors.pink8} 65%,
           ${colors.pink7} 65%,
           ${colors.pink7} 79%,
-          ${colors.red6} 79%,
-          ${colors.red6} 100%
+          ${ACCENT} 79%,
+          ${ACCENT} 100%
         )`,
         borderTop: `${borders[1]} ${colors.white20}`,
         borderBottom: `${borders[1]} ${colors.white20}`
@@ -1633,9 +1631,9 @@ const CapabilityIcon = styled(Flex)`
     borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
-    flexShrink: 0,
-    color: 'red6'
+    flexShrink: 0
   })};
+  color: ${ACCENT};
 `
 
 const FORMAT_OPTIONS = [
@@ -1882,39 +1880,37 @@ const Capabilities = () => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </PdfApiBar>
           </Box>
@@ -1937,7 +1933,7 @@ const Capabilities = () => {
           >
             Everything you need,
             <LineBreak />
-            <span css={theme({ color: 'red6' })}>one API call away</span>
+            <span css={{ color: ACCENT }}>one API call away</span>
           </Subhead>
           <Flex
             css={[
@@ -1991,11 +1987,12 @@ const cursorBlink = keyframes`
 `
 
 const TypedLanguage = styled('span')`
-  ${theme({ color: 'red6' })};
+  color: ${ACCENT};
 `
 
 const TypedCursor = styled('span')`
-  ${theme({ display: 'inline-block', ml: 1, color: 'red6' })};
+  ${theme({ display: 'inline-block', ml: 1 })};
+  color: ${ACCENT};
   animation: ${cursorBlink} 1s step-end infinite;
 
   @media (prefers-reduced-motion: reduce) {
@@ -2823,7 +2820,7 @@ const OpenSource = () => (
             width: '100%'
           })}
         >
-          Built on <span css={theme({ color: 'red6' })}>open source</span>,
+          Built on <span css={{ color: ACCENT }}>open source</span>,
           <br />
           trusted by developers
         </Subhead>
@@ -2868,7 +2865,7 @@ const OpenSource = () => (
 
 const livePulse = keyframes`
   0%, 62% { color: inherit; }
-  70%, 90% { color: ${colors.red6}; }
+  70%, 90% { color: ${ACCENT}; }
   100% { color: inherit; }
 `
 
@@ -2877,7 +2874,7 @@ const LiveText = styled('span')`
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
-    color: ${colors.red6};
+    color: ${ACCENT};
   }
 `
 
@@ -3200,7 +3197,7 @@ const ctaCharAnim = index => {
   const off = on + CTA_CHAR_PCT
   return keyframes`
     0%, ${on}%, ${off}%, 100% { color: inherit; }
-    ${on + 0.01}%, ${off - 0.01}% { color: ${colors.red6}; }
+    ${on + 0.01}%, ${off - 0.01}% { color: ${ACCENT}; }
   `
 }
 
@@ -3214,7 +3211,7 @@ const CtaChar = styled('span')`
 
 const ctaNowAnim = keyframes`
   0%, ${CTA_SWEEP_PCT}% { color: inherit; }
-  ${CTA_SWEEP_PCT + 0.01}%, 100% { color: ${colors.red6}; }
+  ${CTA_SWEEP_PCT + 0.01}%, 100% { color: ${ACCENT}; }
 `
 
 const CtaNow = styled('span')`
@@ -3666,12 +3663,12 @@ const PdfPage = () => {
           >
             The best HTML to PDF API,{' '}
             <span
-              css={theme({
+              css={{
                 display: 'block',
-                color: 'red6',
+                color: ACCENT,
                 width: '100%',
                 textAlign: 'left'
-              })}
+              }}
             >
               with no compromises.
             </span>
