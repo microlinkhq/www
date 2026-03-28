@@ -128,6 +128,41 @@ export const TOOLS = [
     ]
   },
   {
+    category: 'PDF',
+    description:
+      'Convert any URL into a clean, high-fidelity PDF document. Choose paper size, orientation, margins, and more — download or share the result instantly.',
+    tools: [
+      {
+        title: 'Website to PDF',
+        description:
+          'Save any web page as a PDF. Pick your paper format, orientation, and appearance — download a high-fidelity document in seconds. No login required.',
+        href: '/tools/website-to-pdf',
+        icon: FileTextIcon,
+        image: '/images/placeholder.png',
+        animation: ['scale(1.05)', 'scale(1)'],
+        styles: {
+          maxHeight: '100%',
+          objectFit: 'contain',
+          transition: `transform ${transition.long}`
+        }
+      },
+      {
+        title: 'Bulk PDF',
+        description:
+          'Paste up to 50 URLs and convert them all to PDF at once. Download every document as a ZIP file. Great for archiving and batch exports.',
+        href: '/tools/website-to-pdf/bulk',
+        icon: Layers,
+        image: '/images/placeholder.png',
+        animation: ['scale(1.05)', 'scale(1)'],
+        styles: {
+          maxHeight: '100%',
+          objectFit: 'contain',
+          transition: `transform ${transition.long}`
+        }
+      }
+    ]
+  },
+  {
     category: 'Markdown',
     description:
       'Convert any webpage into clean, structured markdown. Extract content from blogs, docs, and SPAs — edit, copy, or download the result instantly.',
