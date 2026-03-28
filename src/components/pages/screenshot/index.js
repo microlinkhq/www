@@ -381,7 +381,7 @@ export const PreviewEmptyState = ({
         background: 'black025'
       })}
     >
-      <Icon size={32} color={colors.black20} />
+      <Icon size={32} color={colors.black80} />
     </Box>
     <Text css={theme({ color: 'black60', fontSize: 2 })}>{text}</Text>
     <Text css={theme({ color: 'black60', fontSize: 1, pt: 1 })}>{subtext}</Text>

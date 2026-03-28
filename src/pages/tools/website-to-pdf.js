@@ -80,8 +80,7 @@ import {
   createThumbnail,
   downloadFile,
   MAX_HISTORY_ITEMS,
-  HISTORY_MAX_AGE_MS,
-  MOBILE_BP
+  HISTORY_MAX_AGE_MS
 } from 'components/pages/screenshot'
 
 const Heading = withTitle(HeadingBase)
@@ -117,94 +116,128 @@ const MEDIA_TYPE_OPTIONS = [
 
 const FEATURES_LIST = [
   {
-    title: 'Fast CDN Delivery',
+    title: 'Global CDN Delivery',
     description:
-      'PDFs are served via a global CDN with 240+ edge locations. Lightning-fast delivery anywhere in the world.'
+      'Every PDF you generate is served via a global CDN with 240+ edge locations. Save web pages as PDF and deliver them fast, anywhere in the world.'
   },
   {
     title: 'Smart Caching',
     description:
-      "Automatic edge caching with configurable TTL. Cached responses are free and don't count against your plan."
+      "Converted pages are cached automatically. Cached PDFs are served instantly and don't count against your daily limit — ideal for pages you convert often."
   },
   {
-    title: 'Zero-Config API',
+    title: 'Simple REST API',
     description:
-      'Get started in minutes with a simple REST API. No browsers to manage, no infrastructure to maintain.'
+      'Convert any URL to a PDF document with a single HTTP request. No headless browsers to manage, no infrastructure to maintain.'
   }
 ]
 
 const HOW_IT_WORKS = [
   {
     icon: Globe,
-    title: 'Enter URL',
-    description: 'Paste any website address into the capture field above.'
+    title: 'Paste the URL',
+    description: (
+      <>
+        Enter the <b>link</b> to any web page you want to download as PDF. It
+        can be a full <b>website</b>, a single <b>article</b>, a{' '}
+        <b>dashboard</b>, or any publicly accessible URL.
+      </>
+    )
   },
   {
     icon: Settings,
-    title: 'Configure Options',
-    description: 'Choose paper format, orientation, scale, margins, and more.'
+    title: 'Choose your settings',
+    description: (
+      <>
+        <span>
+          Pick a <b>paper format</b> (A4, Letter, Legal, and more) and{' '}
+          <b>orientation</b> (portrait or landscape). Use{' '}
+          <b>PDF&nbsp;Appearance</b> to choose between <b>Screen View</b> — a
+          faithful visual match of the webpage — or <b>Print Version</b>, which
+          strips non-essential elements for a cleaner document. If your page has
+          lazy-loaded images, enable <b>Wait for full load</b> so nothing is
+          missing.
+        </span>
+        <span style={{ display: 'block', paddingTop: '8px' }}>
+          Under <b>Advanced</b> you can fine-tune <b>scale</b>, <b>margins</b>,
+          custom <b>width</b> and <b>height</b>, and select a <b>page range</b>{' '}
+          to export only the pages you need.
+        </span>
+      </>
+    )
   },
   {
     icon: FileText,
-    title: 'Generate PDF',
-    description: 'Click the button and wait a few seconds.'
+    title: 'Generate the PDF',
+    description: (
+      <>
+        Click <b>Generate PDF</b> and the page is rendered and converted in
+        seconds. A <b>live preview</b> appears so you can inspect the result
+        before downloading. Open the <b>Nerd Stats</b> panel to see response
+        time, cache status, and other API details.
+      </>
+    )
   },
   {
     icon: Download,
-    title: 'Download & Share',
-    description: 'Save your PDF to your device or share it with others.'
+    title: 'Download, copy, or share',
+    description: (
+      <>
+        <b>Download</b> the PDF to your device, <b>copy the direct URL</b> to
+        share it, or <b>open it in a new tab</b>. Every conversion is saved in
+        your <b>local history</b> for 24&nbsp;hours, so you can come back and
+        grab it again without re-converting.
+      </>
+    )
   }
 ]
 
 const REASON_TO_USE = [
   {
-    title: 'Fast PDF Generation',
+    title: 'Convert HTML to PDF Instantly',
     description: (
       <>
-        Our advanced technology converts websites to PDF as fast as possible.
-        Whether you need a quick document or bulk conversions via API, we
-        deliver <Link href='/pdf'>speed and quality</Link>.
+        Transform any HTML page into a clean PDF document in seconds. Whether
+        you need to save a single web page or convert pages to PDF in bulk, our{' '}
+        <Link href='/pdf'>PDF API</Link> delivers speed and quality.
       </>
     )
   },
   {
-    title: 'High-Quality Documents',
+    title: 'Save Web Pages with Perfect Layout',
     description: (
       <>
-        Get clean, well-formatted PDFs with configurable paper size, margins,
-        and scaling.{' '}
+        Get high-fidelity PDFs that match the original webpage. Configure paper
+        size, margins, and scaling to{' '}
         <Link href='/docs/guides/pdf/page-size-and-layout'>
-          Customize page layout
+          customize page layout
         </Link>{' '}
-        for any use case.
+        for any document.
       </>
     )
   },
   {
-    title: 'No Installation Required',
+    title: 'Online Tool — No Install Needed',
     description:
-      'Convert any website to PDF directly in your browser. No downloads, no plugins, no hassle. Just paste the URL and generate.'
+      'Save any internet page as PDF directly in your browser. No downloads, no plugins, no desktop software. Just paste the URL and convert the webpage to PDF.'
   },
   {
-    title: 'Free + No login',
+    title: 'Free + No Login Required',
     description:
-      'Free PDF tool with 50 conversions per day. Every PDF is clean and professional. No branding, overlays, or watermarks on your documents.'
+      'Convert up to 50 web pages to PDF per day for free. Every PDF is clean and professional — no watermarks, no branding, no overlays on your documents.'
   },
   {
-    title: 'Local Storage Support',
+    title: 'History & Local Storage',
     description:
-      'Save PDF previews to your local storage for easy access. Access them for 24 hours so if you generate the perfect document, you can come back and grab it again.'
+      'Every PDF you generate is saved locally for 24 hours. Come back and download the document again without re-converting the page.'
   },
   {
-    title: 'Block ads and banners',
+    title: 'Block Ads Before Converting',
     description: (
       <>
-        Automatically block ads and cookie banners before generating the PDF.
-        Get the cleanest documents possible. Learn more about{' '}
-        <Link href='/docs/guides/pdf/page-preparation'>
-          page preparation options
-        </Link>
-        .
+        Automatically remove ads and cookie banners before saving the webpage as
+        PDF. Get the cleanest documents possible. Learn more about{' '}
+        <Link href='/docs/guides/pdf/page-preparation'>page preparation</Link>.
       </>
     )
   }
@@ -212,44 +245,44 @@ const REASON_TO_USE = [
 
 const USE_CASES = [
   {
-    title: 'For Archivists & Researchers',
+    title: 'Save Internet Pages for Research',
     items: [
-      'Archive web pages as PDF documents for long-term storage',
-      'Convert articles and reports to shareable offline formats',
-      'Preserve website content before it changes or disappears',
-      'Generate citation-ready document snapshots'
+      'Save a web page as PDF for offline reading and long-term archiving',
+      'Convert articles and reports into shareable PDF documents',
+      'Preserve website content as a PDF before it changes or disappears',
+      'Turn any link into a citation-ready PDF document'
     ],
     link: {
       href: '/docs/guides/pdf/page-preparation',
-      alt: 'Page preparation guide for PDF generation',
-      text: 'Learn about page preparation'
+      alt: 'Page preparation guide for saving web pages as PDF',
+      text: 'Page preparation guide'
     }
   },
   {
-    title: 'For Legal & Compliance',
+    title: 'Convert Web Pages for Legal & Compliance',
     items: [
-      'Create PDF records of web pages for legal evidence',
-      'Archive terms of service and policy changes',
-      'Generate compliance documentation from live pages',
-      'Produce timestamped website snapshots'
+      'Save a website page as PDF for legal evidence and court filings',
+      'Convert terms of service and policy pages to timestamped PDFs',
+      'Turn compliance web documents into PDF records',
+      'Change a webpage to PDF to produce auditable snapshots'
     ],
     link: {
       href: '/docs/guides/pdf/embedding',
-      alt: 'Embedding guide for PDF delivery',
-      text: 'Learn about PDF delivery'
+      alt: 'Guide to embedding and delivering PDFs',
+      text: 'PDF delivery guide'
     }
   },
   {
-    title: 'For Developers',
+    title: 'Convert HTML to PDF via API',
     items: [
-      'Convert web reports and dashboards to PDF via API',
-      'Automate invoice and receipt generation from web apps',
-      'Generate PDF documentation from live sites',
-      'Build PDF export features into your application'
+      'Transform HTML reports and dashboards into PDF via REST API',
+      'Automate invoice and receipt generation from web applications',
+      'Convert web documentation into downloadable PDF files',
+      'Build "save page as PDF" features into any product'
     ],
     link: {
       href: '/pdf',
-      alt: 'PDF API',
+      alt: 'HTML to PDF API for developers',
       text: 'Explore the PDF API'
     }
   }
@@ -1397,7 +1430,7 @@ const Hero = () => (
         fontSize: [3, '35px', '40px', '50px']
       })}
     >
-      Convert Any Website <LineBreak breakpoints={[0, 1]} /> to PDF Instantly
+      Save HTML Webpage as PDF
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -1405,10 +1438,11 @@ const Hero = () => (
         pt: [2, 2, 3, 3],
         px: 3,
         maxWidth: layout.large,
-        fontSize: [2, 2, 3, '32px']
+        fontSize: [2, 2, '28px', '28px']
       })}
     >
-      Generate PDFs from any URL in seconds
+      Use our free online tool to turn any URL into a high-fidelity PDF
+      document.
     </Caption>
   </Flex>
 )
@@ -1431,36 +1465,131 @@ const HowItWorks = () => (
       forwardedAs='h2'
       css={theme({
         pt: [3, 3, 4, 4],
+        pb: [2, 2, 3, 3],
         px: 3,
         maxWidth: layout.large,
         fontSize: [3, 3, 3, '28px']
       })}
     >
-      How to convert a website to PDF
+      How to save a webpage as PDF online
     </Caption>
-    <Flex
+    <Box
       css={theme({
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        gap: [3, 3, 4, 4],
-        pt: [2, 2, 3, 3]
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 0,
+        pt: [3, 3, 4, 4],
+        maxWidth: layout.normal,
+        px: [3, 3, 0, 0],
+        width: '100%'
       })}
     >
-      {HOW_IT_WORKS.map(({ icon: Icon, title, description }) => (
-        <StepCard key={title}>
-          <SectionIcon icon={Icon} />
-          <Caps
-            as='h3'
-            css={theme({ fontWeight: 'regular', pb: 2, fontSize: 0 })}
+      {HOW_IT_WORKS.map((step, index) => (
+        <Flex
+          key={step.title}
+          css={theme({
+            gap: 3,
+            alignItems: 'stretch',
+            pb: index < HOW_IT_WORKS.length - 1 ? 0 : 0
+          })}
+        >
+          <Flex
+            css={{
+              flexShrink: 0,
+              flexDirection: 'column',
+              alignItems: 'center',
+              width: '24px'
+            }}
           >
-            {title}
-          </Caps>
-          <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-            {description}
-          </Text>
-        </StepCard>
+            <Text
+              css={theme({
+                fontWeight: 'bold',
+                fontSize: '16px',
+                color: 'black30',
+                fontFamily: 'mono',
+                lineHeight: 0,
+                mt: '-1px'
+              })}
+            >
+              {`0${index + 1}`}
+            </Text>
+            {index < HOW_IT_WORKS.length - 1 && (
+              <Box
+                css={theme({
+                  flex: 1,
+                  width: '1px',
+                  bg: 'black10',
+                  mt: 2,
+                  mb: 2
+                })}
+              />
+            )}
+          </Flex>
+          <Box
+            css={theme({
+              flex: 1,
+              minWidth: 0,
+              pb: 4
+            })}
+          >
+            <Text
+              as='h3'
+              css={theme({
+                fontWeight: 'bold',
+                fontSize: 1,
+                color: 'black',
+                lineHeight: 0,
+                m: 0
+              })}
+            >
+              {step.title}
+            </Text>
+            <Text
+              css={theme({
+                fontSize: 1,
+                color: 'black60',
+                lineHeight: 2,
+                pt: 1
+              })}
+            >
+              {step.description}
+            </Text>
+          </Box>
+        </Flex>
       ))}
+    </Box>
+
+    <Flex
+      css={theme({
+        mt: 2,
+        mx: [3, 3, 0, 0],
+        py: 3,
+        px: [3, 3, 4, 4],
+        maxWidth: layout.normal,
+        width: '100%',
+        borderRadius: 3,
+        border: 1,
+        borderColor: 'black10',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: 3
+      })}
+    >
+      <Box css={{ flex: 1, minWidth: '200px' }}>
+        <Text css={theme({ fontSize: 1, fontWeight: 'bold', color: 'black' })}>
+          Need to convert multiple pages?
+        </Text>
+        <Text css={theme({ fontSize: 0, color: 'black50', pt: 1 })}>
+          Paste up to 50&nbsp;URLs and download all PDFs as a ZIP file.
+        </Text>
+      </Box>
+      <ArrowLink
+        href='/tools/website-to-pdf/batch'
+        css={theme({ fontSize: 1 })}
+      >
+        Batch tool
+      </ArrowLink>
     </Flex>
   </Container>
 )
@@ -1483,7 +1612,7 @@ const Explanation = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Why choose our free PDF tool?
+      Why use our URL to PDF converter?
     </Subhead>
     <Box
       css={theme({
@@ -1514,14 +1643,15 @@ const Explanation = () => (
       })}
     >
       <Text css={theme({ fontSize: 3, color: 'black' })}>
-        Wondering how we deliver this quality for free?
+        How is this HTML to PDF converter free?
       </Text>
       <Text
         css={theme({ fontSize: 2, color: 'black80', lineHeight: 2, mt: 2 })}
       >
-        This tool runs on <b>Microlink's</b> <Link href='/pdf'>PDF API</Link>
-        —the same infrastructure processing millions of requests per week for
-        paying customers. You get enterprise performance at no cost.
+        This online tool runs on <b>Microlink's</b>{' '}
+        <Link href='/pdf'>PDF API</Link> — the same infrastructure that converts
+        millions of web pages to PDF every week for paying customers. You get
+        enterprise-grade webpage to PDF conversion at no cost.
       </Text>
     </Caption>
   </Container>
@@ -1589,7 +1719,7 @@ const Banner = () => (
             width: ['300px', '500px', '700px', '900px']
           })}
           src='/images/screenshot-tool-landing.png'
-          alt='PDF API'
+          alt='Code snippet demonstrating how to convert HTML to PDF using the Microlink Node.js API'
         />
       </Flex>
     }
@@ -1613,11 +1743,11 @@ const UseCases = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Use cases for website to PDF conversion
+      Who saves web pages as PDF?
     </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
-      From web archiving to automated document generation, website-to-PDF
-      conversion powers workflows across every team.
+      From archiving internet pages to converting HTML to PDF at scale,
+      webpage-to-PDF conversion powers workflows across every industry.
     </Caption>
     <Box
       css={theme({
@@ -1709,29 +1839,105 @@ const ProductInformation = () => (
     })}
     questions={[
       {
-        question: 'Is this website to PDF tool really free?',
+        question: 'How do I save a web page as a PDF?',
         answer: (
           <>
             <div>
-              Yes! You can generate up to <b>50&nbsp;PDFs per day</b> for free,
-              with no credit card required. Free PDFs include all features —
-              paper format, margins, scaling, and landscape mode.
+              Paste the URL of the page you want to save, choose your paper
+              format and options, then click <b>Generate PDF</b>. The webpage is
+              converted to a downloadable PDF document in seconds — no login, no
+              install.
             </div>
             <div>
-              Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
-              for higher limits and priority processing.
+              See the <Link href='/docs/guides/pdf'>getting started guide</Link>{' '}
+              for a full walkthrough.
             </div>
           </>
         )
       },
       {
-        question: 'What paper formats are supported?',
+        question: 'My PDF looks different from the webpage. What can I do?',
         answer: (
           <>
             <div>
-              We support all standard paper sizes: A0 through A6, Letter, Legal,
-              and Tabloid. You can also set custom width and height using CSS
-              units (px, in, cm, mm).
+              Try switching <b>PDF Appearance</b> to <b>Screen View</b> for a
+              closer visual match. Enable <b>Wait for full load</b> if the page
+              has lazy-loaded images or animations. You can also adjust scale
+              and margins for a better fit.
+            </div>
+            <div>
+              Check the{' '}
+              <Link href='/docs/guides/pdf/troubleshooting'>
+                troubleshooting guide
+              </Link>{' '}
+              for more tips, or reach us at{' '}
+              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'How do I export only specific pages from a PDF?',
+        answer: (
+          <>
+            <div>
+              Open the <b>Advanced</b> section in the sidebar and use the{' '}
+              <b>Page Range</b> inputs. Set <b>First page</b> and{' '}
+              <b>Last page</b> to control which pages are included in the final
+              PDF.
+            </div>
+            <div>
+              For example, enter <b>1</b> and <b>1</b> to export just the first
+              page, <b>2</b> and <b>4</b> to get pages two through four, or
+              leave <b>Last page</b> empty to export everything from your
+              starting page to the end. If you only set <b>Last page</b>, the
+              first page defaults to&nbsp;1 automatically.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'Is this online HTML to PDF converter free?',
+        answer: (
+          <>
+            <div>
+              Yes! You can convert up to <b>50&nbsp;web pages to PDF per day</b>{' '}
+              for free, with no credit card required. Every conversion includes
+              all features — paper format, margins, scaling, and landscape mode.
+            </div>
+            <div>
+              Need higher limits? Check our{' '}
+              <Link href='/#pricing'>pricing plans</Link> for priority
+              processing and more daily conversions.
+            </div>
+          </>
+        )
+      },
+      {
+        question:
+          'Can I convert any URL to PDF, including private or authenticated pages?',
+        answer: (
+          <>
+            <div>
+              You can turn any publicly accessible link into a PDF document. For
+              authenticated or private pages behind a login, use the{' '}
+              <Link href='/docs/guides/pdf/private-pages'>
+                private pages guide
+              </Link>{' '}
+              to pass session cookies or headers via the API.
+            </div>
+          </>
+        )
+      },
+      {
+        question:
+          'What paper formats does the webpage to PDF converter support?',
+        answer: (
+          <>
+            <div>
+              The converter supports all standard paper sizes: A0 through A6,
+              Letter, Legal, and Tabloid. You can also set custom width and
+              height using CSS units (px, in, cm, mm).
             </div>
             <div>
               See the{' '}
@@ -1744,22 +1950,22 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'Can I integrate this into my application?',
+        question:
+          'Can I integrate HTML to PDF conversion into my own application?',
         answer: (
           <>
             <div>
-              Absolutely. The tool is built on the{' '}
-              <Link href='/docs/api/parameters/pdf'>Microlink PDF API</Link>,
-              which provides a simple REST endpoint. Integrate with any language
-              — Node.js, Python, Ruby, or plain cURL.
+              Absolutely. This tool is built on the{' '}
+              <Link href='/docs/api/parameters/pdf'>Microlink PDF API</Link> — a
+              simple REST endpoint that converts any URL to a PDF document.
+              Integrate with Node.js, Python, Ruby, or plain cURL.
             </div>
             <div>
               Use the{' '}
               <Link href='https://www.npmjs.com/package/@microlink/mql'>
                 @microlink/mql
               </Link>{' '}
-              SDK for Node.js, or hit the API directly from any HTTP client.
-              Check the{' '}
+              SDK or hit the API directly. Check the{' '}
               <Link href='/docs/guides/pdf/embedding'>embedding guide</Link> for
               delivery and integration patterns.
             </div>
@@ -1767,37 +1973,22 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'How does caching work?',
+        question: 'How does caching work when converting web pages to PDF?',
         answer: (
           <>
             <div>
               PDFs are cached on our global CDN by default. Cached responses are
-              served instantly and <b>don't count against your limit</b>. It
-              lasts for 24 hours.
+              served instantly and <b>don't count against your daily limit</b>.
+              Cache lasts 24&nbsp;hours.
             </div>
             <div>
-              We only recommend turning off the cache if you need to convert a
-              page that changes frequently. Read the{' '}
+              Turn off caching only when you need to save a page that changes
+              frequently. Read the{' '}
               <Link href='/docs/guides/pdf/caching-and-performance'>
                 caching and performance guide
               </Link>{' '}
               for advanced strategies.
             </div>
-          </>
-        )
-      },
-      {
-        question: 'Any question or issue?',
-        answer: (
-          <>
-            <span>
-              Check our{' '}
-              <Link href='/docs/guides/pdf/troubleshooting'>
-                troubleshooting guide
-              </Link>{' '}
-              for common fixes, or reach us at:{' '}
-              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
-            </span>
           </>
         )
       }
@@ -1830,12 +2021,14 @@ const PdfApiDocsCard = () => (
       <Flex css={theme({ justifyContent: 'center', pb: 4 })}>
         <SectionIcon icon={Code} />
       </Flex>
-      <Subhead css={theme({ fontSize: 4 })}>PDF API documentation</Subhead>
+      <Subhead css={theme({ fontSize: 4 })}>
+        HTML to PDF API Documentation
+      </Subhead>
       <Caption
         css={theme({ pt: 3, maxWidth: layout.normal, mx: 'auto', fontSize: 3 })}
       >
-        Explore the full PDF API reference with interactive examples, SDKs for
-        every language, and ready-to-use code snippets.
+        Convert any URL to a PDF document programmatically. Explore the full API
+        reference, SDKs for every language, and ready-to-use code snippets.
       </Caption>
       <Flex
         css={theme({
@@ -1856,9 +2049,9 @@ const PdfApiDocsCard = () => (
 
 export const Head = () => (
   <Meta
-    title='Website to PDF Converter - Free Online URL to PDF Tool'
+    title='Save Webpage as PDF — Free Online HTML to PDF Converter'
     noSuffix
-    description='Convert any website to a high-quality PDF document. Free, no-login online tool with configurable paper size, margins, scaling, and orientation. Powered by a fast, reliable API.'
+    description='Save any web page as a PDF for free. Convert HTML to PDF, turn a URL into a downloadable document, or save an internet page as PDF — no login, no install. Supports custom paper size, margins, and orientation.'
     image='https://cdn.microlink.io/banner/pdf.jpeg'
     schemaType='SoftwareApplication'
     structured={[
@@ -1866,27 +2059,17 @@ export const Head = () => (
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
         '@id': 'https://microlink.io/tools/website-to-pdf',
-        name: 'Microlink Website to PDF Tool',
+        name: 'Website to PDF Converter — Save Web Pages as PDF Online',
         description:
-          'Convert any webpage to a high-quality PDF document with configurable paper format, margins, scaling, and orientation.',
+          'Free online tool to save a webpage as PDF, convert HTML to PDF, or turn any URL into a downloadable PDF document. No login required.',
         url: 'https://microlink.io/tools/website-to-pdf',
-        applicationCategory: ['DeveloperApplication', 'Tool'],
-        keywords: [
-          'website to pdf',
-          'url to pdf converter',
-          'webpage to pdf',
-          'convert website to pdf',
-          'web page to pdf online',
-          'pdf generator',
-          'html to pdf',
-          'save webpage as pdf',
-          'pdf api'
-        ],
+        applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         offers: {
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 50 PDF conversions per day'
+          description:
+            'Free tier — save up to 50 web pages as PDF per day, no credit card required'
         }
       },
       {
@@ -1895,27 +2078,86 @@ export const Head = () => (
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'Is this website to PDF tool really free?',
+            name: 'How do I save a web page as a PDF?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! You can generate up to 50 PDFs per day for free, with no credit card required. Free PDFs include all features — paper format, margins, scaling, and landscape mode.'
+              text: 'Paste the URL of the web page you want to save, choose your paper format and options, then click Generate PDF. Your PDF is ready to download in seconds — no login or install needed.'
             }
           },
           {
             '@type': 'Question',
-            name: 'What paper formats are supported?',
+            name: 'How do I export only specific pages from a PDF?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'We support all standard paper sizes: A0 through A6, Letter, Legal, and Tabloid. You can also set custom width and height using CSS units (px, in, cm, mm).'
+              text: 'Open the Advanced section and use the Page Range inputs. Set First page and Last page to control which pages are included — for example, 1 to 1 for a single page, or 2 to 4 for pages two through four. Leave Last page empty to export from your starting page to the end.'
             }
           },
           {
             '@type': 'Question',
-            name: 'Can I integrate this into my application?',
+            name: 'Is this online HTML to PDF converter free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Absolutely. The tool is built on the Microlink PDF API, which provides a simple REST endpoint. Integrate with any language — Node.js, Python, Ruby, or plain cURL. Use the @microlink/mql SDK for Node.js, or hit the API directly from any HTTP client.'
+              text: 'Yes. You can convert up to 50 web pages to PDF per day for free, with no credit card required. Every PDF includes all features — paper format, margins, scaling, and landscape mode.'
             }
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I convert a URL to PDF or a link to a PDF document?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Absolutely. Just paste any URL — a full website, a single internet page, or a direct link — and the tool will convert it into a downloadable PDF document.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'What paper formats does the webpage to PDF converter support?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The converter supports all standard paper sizes: A0 through A6, Letter, Legal, and Tabloid. You can also set custom width and height using CSS units (px, in, cm, mm).'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I integrate HTML to PDF conversion into my application?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes. This tool is built on the Microlink PDF API, a simple REST endpoint. Integrate with Node.js, Python, Ruby, or plain cURL. Use the @microlink/mql SDK or hit the API directly from any HTTP client.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How does caching work when converting web pages to PDF?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "PDFs are cached on a global CDN by default. Cached responses are served instantly and don't count against your daily limit. Cache lasts 24 hours."
+            }
+          }
+        ]
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'HowTo',
+        name: 'How to convert a webpage to PDF',
+        description:
+          'Use the free Microlink tool to save any web page as a PDF document in three steps.',
+        step: [
+          {
+            '@type': 'HowToStep',
+            name: 'Paste the URL',
+            text: 'Enter the link to any web page, article, or website you want to convert to PDF.',
+            url: 'https://microlink.io/tools/website-to-pdf#tool'
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Choose your settings',
+            text: 'Pick a paper format, orientation, PDF appearance (Screen View or Print Version), and optionally adjust scale, margins, or page range under Advanced.',
+            url: 'https://microlink.io/tools/website-to-pdf#tool'
+          },
+          {
+            '@type': 'HowToStep',
+            name: 'Generate and Download',
+            text: 'Click Generate PDF to convert the page. Preview the result, then download it, copy the direct URL, or open it in a new tab.',
+            url: 'https://microlink.io/tools/website-to-pdf#tool'
           }
         ]
       }
@@ -1937,7 +2179,7 @@ const WebsiteToPdfPage = () => (
       css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
-          Website to PDF API{' '}
+          HTML to PDF API{' '}
           <span
             css={{
               display: 'block',
@@ -1946,15 +2188,15 @@ const WebsiteToPdfPage = () => (
               textAlign: 'left'
             }}
           >
-            for Automated Conversions.
+            Convert Web Pages to PDF at Scale.
           </span>
         </Subhead>
       }
       caption={
         <>
-          No servers to maintain, no load balancers, no paying for capacity you
-          don't use. Microlink lets you spend more time building and less time
-          configuring — easy integration via <Link href='/pdf'>API</Link>.
+          No servers to maintain, no headless browsers to configure. Convert any
+          URL to a PDF document with a single API call — easy integration via{' '}
+          <Link href='/pdf'>API</Link>.
         </>
       }
       features={FEATURES_LIST}
