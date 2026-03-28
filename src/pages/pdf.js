@@ -26,6 +26,10 @@ import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import LineBreak from 'components/elements/LineBreak'
 
+import {
+  ReactCompareSlider,
+  ReactCompareSliderImage
+} from 'react-compare-slider'
 import { Check as CheckIcon, Star as StarIcon } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
 import { rotate, dash, fadeInDown, highlight } from 'components/keyframes'
@@ -669,7 +673,6 @@ const Hero = function Hero ({ onRequestTiming }) {
   const [history, setHistory] = useState(DEFAULT_HISTORY)
   const inputRef = useRef(null)
   const [pdfSrc, setPdfSrc] = useState('')
-  const [imgVisible, setImgVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [isCopied, setIsCopied] = useState(false)
@@ -692,15 +695,12 @@ const Hero = function Hero ({ onRequestTiming }) {
 
       setIsLoading(true)
       setError(null)
-      setImgVisible(false)
 
       const t0 = Date.now()
 
       try {
         const res = await window.fetch(
-          `https://api.microlink.io?url=${encodeURIComponent(
-            url
-          )}&screenshot=true&screenshot.fullPage=true&screenshot.type=png`,
+          `https://api.microlink.io?url=${encodeURIComponent(url)}&pdf`,
           { signal: abortRef.current.signal }
         )
         const json = await res.json()
@@ -718,7 +718,7 @@ const Hero = function Hero ({ onRequestTiming }) {
 
         onRequestTiming?.(elapsedMs, url)
 
-        const src = json?.data?.screenshot?.url
+        const src = json?.data?.pdf?.url
         if (src) {
           hasPdfRef.current = true
           imgKeyRef.current += 1
@@ -1222,28 +1222,20 @@ const Hero = function Hero ({ onRequestTiming }) {
                 ]}
               >
                 {pdfSrc && (
-                  <img
+                  <iframe
                     key={imgKeyRef.current}
-                    src={pdfSrc}
-                    alt='Full-page PDF preview'
-                    decoding='async'
+                    title='PDF preview'
+                    src={`${pdfSrc}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
                     onLoad={() => {
-                      setImgVisible(true)
-                      setIsLoading(false)
-                    }}
-                    onError={() => {
                       setIsLoading(false)
                     }}
                     css={[
                       theme({
                         width: '100%',
+                        height: '100%',
                         display: 'block'
                       }),
-                      {
-                        height: 'auto',
-                        filter: imgVisible ? 'blur(0px)' : 'blur(6px)',
-                        transition: 'filter 0.5s ease'
-                      }
+                      { border: 'none' }
                     ]}
                   />
                 )}
@@ -1793,9 +1785,9 @@ const CAPABILITIES = [
         <polyline points='10 9 9 9 8 9' />
       </svg>
     ),
-    title: 'Page range selection',
+    title: 'Screen & print media types',
     description:
-      'Extract specific pages from multi-page documents. Generate exactly the content you need with precision page control.'
+      'Choose between screen and print CSS media types. Capture the web layout as-is or switch to print stylesheets for clean, optimized PDF output.'
   },
   {
     icon: (
@@ -1856,48 +1848,23 @@ const CapabilityIcon = styled(Flex)`
   color: ${ACCENT};
 `
 
-const FORMAT_OPTIONS = [
-  { label: 'A4 Portrait', format: 'A4', landscape: false },
-  { label: 'Letter Landscape', format: 'Letter', landscape: true }
-]
-
-const FormatButton = styled('button')`
-  ${theme({
-    bg: 'transparent',
-    px: 3,
-    py: 2,
-    borderRadius: 4,
-    fontSize: 0,
-    fontFamily: 'mono',
-    fontWeight: 'bold',
-    cursor: 'pointer'
-  })};
-  border: ${borders[1]} ${p => (p.$active ? colors.black : colors.black10)};
-  background: ${p => (p.$active ? colors.black : 'transparent')};
-  color: ${p => (p.$active ? colors.white : colors.black60)};
-  transition: background ${transition.short}, border-color ${transition.short},
-    color ${transition.short};
-
-  &:hover:not(:disabled) {
-    border-color: ${p => (p.$active ? colors.black : colors.black20)};
-    background: ${p => (p.$active ? colors.black : colors.gray1)};
-  }
-
-  &:focus-visible {
-    outline: ${borders[2]} ${colors.black40};
-    outline-offset: ${radii[1]};
-  }
-`
+const CAP_API_URLS = {
+  screen:
+    'https://api.microlink.io?pdf&url=https://developer.mozilla.org/Printing&mediaType=screen',
+  print:
+    'https://api.microlink.io?pdf&url=https://developer.mozilla.org/Printing&mediaType=print'
+}
 
 const Capabilities = () => {
-  const [formatIdx, setFormatIdx] = useState(0)
+  const [mediaType, setMediaType] = useState('screen')
   const [capCopied, setCapCopied] = useState(false)
   const capCopyTimerRef = useRef(null)
 
-  const selected = FORMAT_OPTIONS[formatIdx]
-  const capApiUrl = `https://api.microlink.io?pdf&url=https://example.com&format=${
-    selected.format
-  }${selected.landscape ? '&landscape=true' : ''}`
+  const capApiUrl = CAP_API_URLS[mediaType]
+
+  const handlePositionChange = useCallback(position => {
+    setMediaType(position < 51 ? 'screen' : 'print')
+  }, [])
 
   const handleCapCopy = () => {
     const markCopied = () => {
@@ -1952,125 +1919,28 @@ const Capabilities = () => {
                 borderRadius: 3,
                 overflow: 'hidden',
                 boxShadow: `0 8px 32px ${colors.black10}`,
-                lineHeight: 0,
-                bg: 'white',
-                display: 'flex',
-                flexDirection: 'column'
-              })
+                lineHeight: 0
+              }),
+              {
+                '& img': { display: 'block', width: '100%', height: 'auto' }
+              }
             ]}
           >
-            <Flex
-              css={theme({
-                justifyContent: 'center',
-                gap: 2,
-                p: 3,
-                borderBottom: `${borders[1]} ${colors.black05}`
-              })}
-            >
-              {FORMAT_OPTIONS.map((opt, idx) => (
-                <FormatButton
-                  key={opt.label}
-                  type='button'
-                  $active={formatIdx === idx}
-                  onClick={() => setFormatIdx(idx)}
-                >
-                  {opt.label}
-                </FormatButton>
-              ))}
-            </Flex>
-            <Flex
-              css={theme({
-                justifyContent: 'center',
-                alignItems: 'center',
-                p: [3, 3, 4, 4],
-                bg: 'gray0',
-                minHeight: ['200px', '240px', '280px', '280px']
-              })}
-            >
-              <Box
-                css={[
-                  theme({
-                    bg: 'white',
-                    borderRadius: 2,
-                    overflow: 'hidden'
-                  }),
-                  {
-                    border: `${borders[1]} ${colors.black10}`,
-                    boxShadow: `0 4px 16px ${colors.black10}`,
-                    transition: `width ${transition.medium}, height ${transition.medium}`,
-                    width: selected.landscape ? '240px' : '170px',
-                    height: selected.landscape ? '170px' : '240px'
-                  }
-                ]}
-              >
-                <Flex
-                  css={theme({
-                    flexDirection: 'column',
-                    gap: 1,
-                    p: 2
-                  })}
-                >
-                  <Box
-                    css={{
-                      width: '80%',
-                      height: '6px',
-                      borderRadius: '3px',
-                      background: colors.black10
-                    }}
-                  />
-                  <Box
-                    css={{
-                      width: '60%',
-                      height: '4px',
-                      borderRadius: '2px',
-                      background: colors.black05
-                    }}
-                  />
-                  <Box
-                    css={{
-                      width: '90%',
-                      height: '4px',
-                      borderRadius: '2px',
-                      background: colors.black05,
-                      mt: space[1]
-                    }}
-                  />
-                  <Box
-                    css={{
-                      width: '70%',
-                      height: '4px',
-                      borderRadius: '2px',
-                      background: colors.black05
-                    }}
-                  />
-                  <Box
-                    css={{
-                      width: '85%',
-                      height: '4px',
-                      borderRadius: '2px',
-                      background: colors.black05
-                    }}
-                  />
-                  <Box
-                    css={{
-                      width: '50%',
-                      height: '4px',
-                      borderRadius: '2px',
-                      background: colors.black05,
-                      mt: space[1]
-                    }}
-                  />
-                  <Box
-                    css={{
-                      width: '75%',
-                      height: '4px',
-                      borderRadius: '2px',
-                      background: colors.black05
-                    }}
-                  />
-                </Flex>
-              </Box>
-            </Flex>
+            <ReactCompareSlider
+              onPositionChange={handlePositionChange}
+              itemOne={
+                <ReactCompareSliderImage
+                  src='/images/pdf-example-screen.jpg'
+                  alt='PDF generated with mediaType=screen — web layout preserved'
+                />
+              }
+              itemTwo={
+                <ReactCompareSliderImage
+                  src='/images/pdf-example-print.jpg'
+                  alt='PDF generated with mediaType=print — print-optimized layout'
+                />
+              }
+            />
             <PdfApiBar
               className='pdf-api-bar'
               css={theme({
@@ -2095,11 +1965,10 @@ const Capabilities = () => {
                   color: 'black70'
                 })}
               >
-                https://api.microlink.io?
-                <strong css={theme({ color: 'black' })}>pdf</strong>
-                <strong css={theme({ color: 'black' })}>&url=</strong>
-                https://example.com&format={selected.format}
-                {selected.landscape ? '&landscape=true' : ''}
+                https://api.microlink.io/?pdf&url=https://developer.mozilla.org/Printing
+                <strong css={theme({ color: 'black' })}>
+                  &mediaType={mediaType}
+                </strong>
               </Text>
               <CopyButton
                 type='button'
@@ -3175,16 +3044,6 @@ const Playground = () => (
           </Box>
         ))}
       </Flex>
-
-      <ArrowLink
-        href='/tools'
-        css={theme({
-          fontSize: ['20px', '20px', '24px', '24px'],
-          pt: [3, 3, 4, 4]
-        })}
-      >
-        See all tools
-      </ArrowLink>
     </Flex>
   </Container>
 )
@@ -3580,7 +3439,7 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'Is there a free tier for testing the HTML to PDF API?',
+        question: 'Is there a free tier for the HTML to PDF API?',
         answer: (
           <>
             <div>
