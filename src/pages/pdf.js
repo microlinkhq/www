@@ -149,9 +149,10 @@ const BrowserWindow = styled('div')`
     borderRadius: 5,
     bg: 'white',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    minWidth: 0,
+    position: 'relative'
   })};
-  overflow: hidden;
   border: ${borders[1]} ${colors.black05};
   box-shadow: 0 8px 24px ${colors.black10};
 
@@ -174,9 +175,50 @@ const BrowserHeader = styled(Flex)`
     px: 2,
     gap: 2,
     flexShrink: 0,
-    minWidth: '0'
+    minWidth: 0,
+    position: 'relative',
+    zIndex: 2
   })};
   border-bottom: ${borders[1]} ${colors.black05};
+  border-radius: ${radii[5]} ${radii[5]} 0 0;
+`
+
+const NavButtons = styled(Flex)`
+  ${theme({ alignItems: 'center', gap: 1, flexShrink: 0 })};
+`
+
+const NavArrow = styled('button')`
+  ${theme({
+    bg: 'transparent',
+    p: 1,
+    color: 'gray5',
+    display: 'flex',
+    alignItems: 'center',
+    borderRadius: 1,
+    lineHeight: 0
+  })};
+  border: none;
+  cursor: default;
+  transition: color ${transition.short}, background ${transition.short},
+    border-color ${transition.short};
+
+  &:not(:disabled) {
+    cursor: pointer;
+    color: ${colors.gray6};
+
+    &:hover {
+      color: ${colors.gray8};
+      background: ${colors.gray1};
+    }
+
+    &:active {
+      color: ${colors.black60};
+    }
+  }
+
+  &:focus-visible {
+    outline: ${borders[2]} ${colors.black40};
+  }
 `
 
 const caretPulse = keyframes`
@@ -202,7 +244,7 @@ const AddressBar = styled(Flex)`
     justifyContent: 'center',
     px: 2,
     gap: 2,
-    minWidth: '0'
+    minWidth: 0
   })};
   border: ${borders[1]} transparent;
   position: relative;
@@ -261,6 +303,7 @@ const AddressInput = styled('input')`
     p: 0,
     m: 0,
     flex: 1,
+    width: 0,
     minWidth: '0',
     fontSize: 0,
     fontFamily: 'sans',
@@ -347,7 +390,10 @@ const AddressPrompt = styled('span')`
 `
 
 const PdfApiBar = styled(Flex)`
-  background: 'white';
+  background: white;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 0 0 ${radii[5]} ${radii[5]};
 
   .codecopy__button {
     top: 0;
@@ -369,6 +415,11 @@ const PdfApiBar = styled(Flex)`
   }
 `
 
+const shimmer = keyframes`
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+`
+
 const PdfOverlay = styled('div')`
   ${theme({
     position: 'absolute',
@@ -377,17 +428,56 @@ const PdfOverlay = styled('div')`
     alignItems: 'center',
     justifyContent: 'center'
   })};
-  background: ${({ $dim }) => ($dim ? colors.black60 : 'transparent')};
+  background: ${colors.gray0};
   pointer-events: none;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      ${colors.white80} 50%,
+      transparent 100%
+    );
+    animation: ${shimmer} 1.8s ease-in-out infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+`
+
+const SkeletonLines = styled('div')`
+  ${theme({
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+    px: 4,
+    py: 4
+  })};
+  inset: 0;
+  pointer-events: none;
+`
+
+const SkeletonLine = styled('div')`
+  height: ${({ $h }) => $h || '12px'};
+  width: ${({ $w }) => $w || '100%'};
+  background: ${colors.black05};
+  border-radius: 6px;
 `
 
 const Spinner = styled('svg')`
   animation: ${rotate} 1.4s linear infinite;
+  z-index: 1;
 `
 
 const SpinnerCircle = styled('circle')`
   animation: ${dash} 1.4s ease-in-out infinite;
-  stroke: ${colors.white90};
+  stroke: ${colors.black40};
   stroke-linecap: round;
 `
 
@@ -436,7 +526,7 @@ const HistoryDropdown = styled('div')`
   border: ${borders[1]} ${colors.black20};
   overflow: hidden;
   box-shadow: 0 16px 40px ${colors.black20};
-  z-index: 10;
+  z-index: 100;
 `
 
 const HistoryItem = styled('button')`
@@ -579,6 +669,7 @@ const Hero = function Hero ({ onRequestTiming }) {
   const [history, setHistory] = useState(DEFAULT_HISTORY)
   const inputRef = useRef(null)
   const [pdfSrc, setPdfSrc] = useState('')
+  const [imgVisible, setImgVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [isCopied, setIsCopied] = useState(false)
@@ -586,10 +677,13 @@ const Hero = function Hero ({ onRequestTiming }) {
   const [isAttractMode, setIsAttractMode] = useState(false)
   const [isPulsing, setIsPulsing] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
+  const [navStack, setNavStack] = useState([FIRST_URL])
+  const [navIndex, setNavIndex] = useState(0)
   const abortRef = useRef(null)
   const copyTimerRef = useRef(null)
   const hasPdfRef = useRef(false)
   const skipBlurRef = useRef(false)
+  const imgKeyRef = useRef(0)
 
   const fetchPdf = useCallback(
     async url => {
@@ -598,12 +692,15 @@ const Hero = function Hero ({ onRequestTiming }) {
 
       setIsLoading(true)
       setError(null)
+      setImgVisible(false)
 
       const t0 = Date.now()
 
       try {
         const res = await window.fetch(
-          `https://api.microlink.io?url=${encodeURIComponent(url)}&pdf`,
+          `https://api.microlink.io?url=${encodeURIComponent(
+            url
+          )}&screenshot=true&screenshot.fullPage=true&screenshot.type=png`,
           { signal: abortRef.current.signal }
         )
         const json = await res.json()
@@ -612,7 +709,7 @@ const Hero = function Hero ({ onRequestTiming }) {
         if (!res.ok) {
           const message =
             res.status === 429
-              ? 'Rate limit reached - try again in a moment.'
+              ? 'Rate limit reached \u2014 try again in a moment.'
               : json.message || `Error ${res.status}`
           setError(message)
           setIsLoading(false)
@@ -621,11 +718,11 @@ const Hero = function Hero ({ onRequestTiming }) {
 
         onRequestTiming?.(elapsedMs, url)
 
-        const src = json?.data?.pdf?.url
+        const src = json?.data?.screenshot?.url
         if (src) {
           hasPdfRef.current = true
+          imgKeyRef.current += 1
           setPdfSrc(src)
-          setIsLoading(false)
         } else {
           setIsLoading(false)
         }
@@ -687,6 +784,11 @@ const Hero = function Hero ({ onRequestTiming }) {
         const normalized = ensureProtocol(url)
         setInputUrl(normalized)
         setHistory(h => addToHistory(h, normalized))
+        setNavStack(s => {
+          const next = [...s, normalized].slice(-MAX_HISTORY)
+          setNavIndex(next.length - 1)
+          return next
+        })
         fetchPdf(normalized)
 
         await delay(8000)
@@ -791,10 +893,36 @@ const Hero = function Hero ({ onRequestTiming }) {
 
   const submitUrl = url => {
     const normalized = ensureProtocol(url)
+    const newStack = [...navStack.slice(0, navIndex + 1), normalized].slice(
+      -MAX_HISTORY
+    )
+    const newIndex = newStack.length - 1
     setInputUrl(normalized)
     setIsFocused(false)
     setHistory(h => addToHistory(h, normalized))
+    setNavStack(newStack)
+    setNavIndex(newIndex)
     fetchPdf(normalized)
+  }
+
+  const handleBack = () => {
+    if (navIndex === 0) return
+    stopAttract()
+    const newIndex = navIndex - 1
+    const url = navStack[newIndex]
+    setNavIndex(newIndex)
+    setInputUrl(url)
+    fetchPdf(url)
+  }
+
+  const handleForward = () => {
+    if (navIndex >= navStack.length - 1) return
+    stopAttract()
+    const newIndex = navIndex + 1
+    const url = navStack[newIndex]
+    setNavIndex(newIndex)
+    setInputUrl(url)
+    fetchPdf(url)
   }
 
   const handleBlur = e => {
@@ -901,6 +1029,7 @@ const Hero = function Hero ({ onRequestTiming }) {
         <Flex
           css={theme({
             width: ['100%', '100%', '100%', HERO_LAYOUT.mainWidth],
+            minWidth: 0,
             pt: [4, 4, 5, 0],
             flexDirection: 'column',
             justifyContent: 'center',
@@ -909,10 +1038,11 @@ const Hero = function Hero ({ onRequestTiming }) {
         >
           <Box
             css={theme({
-              display: 'inline-flex',
+              display: 'flex',
               flexDirection: 'column',
               maxWidth: ['100%', '95%', '85%', '100%'],
               width: ['100%', '95%', '85%', '100%'],
+              minWidth: 0,
               position: 'relative'
             })}
           >
@@ -928,6 +1058,52 @@ const Hero = function Hero ({ onRequestTiming }) {
               }}
             >
               <BrowserHeader>
+                <NavButtons>
+                  <NavArrow
+                    type='button'
+                    aria-label='Go back'
+                    disabled={navIndex === 0}
+                    onClick={handleBack}
+                  >
+                    <svg
+                      width='7'
+                      height='12'
+                      viewBox='0 0 7 12'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M6 1L1 6l5 5'
+                        stroke='currentColor'
+                        strokeWidth='1.5'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  </NavArrow>
+                  <NavArrow
+                    type='button'
+                    aria-label='Go forward'
+                    disabled={navIndex >= navStack.length - 1}
+                    onClick={handleForward}
+                  >
+                    <svg
+                      width='7'
+                      height='12'
+                      viewBox='0 0 7 12'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M1 1l5 5-5 5'
+                        stroke='currentColor'
+                        strokeWidth='1.5'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  </NavArrow>
+                </NavButtons>
                 <AddressBar
                   className='address-bar'
                   $glowing={isGlowing}
@@ -1023,33 +1199,75 @@ const Hero = function Hero ({ onRequestTiming }) {
                 </AddressBar>
               </BrowserHeader>
               <Box
-                css={theme({
-                  position: 'relative',
-                  overflow: 'hidden'
-                })}
-                style={{ aspectRatio: '4/5', maxHeight: '520px' }}
+                css={[
+                  theme({
+                    position: 'relative',
+                    overflowX: 'hidden',
+                    overflowY: 'auto',
+                    zIndex: 1,
+                    bg: 'gray0'
+                  }),
+                  {
+                    height: '520px',
+                    WebkitOverflowScrolling: 'touch',
+                    scrollbarWidth: 'thin',
+                    scrollbarColor: `${colors.black20} transparent`,
+                    '&::-webkit-scrollbar': { width: '6px' },
+                    '&::-webkit-scrollbar-track': { background: 'transparent' },
+                    '&::-webkit-scrollbar-thumb': {
+                      background: colors.black20,
+                      borderRadius: '3px'
+                    }
+                  }
+                ]}
               >
                 {pdfSrc && (
-                  <iframe
-                    title='PDF preview'
+                  <img
+                    key={imgKeyRef.current}
                     src={pdfSrc}
+                    alt='Full-page PDF preview'
+                    decoding='async'
+                    onLoad={() => {
+                      setImgVisible(true)
+                      setIsLoading(false)
+                    }}
+                    onError={() => {
+                      setIsLoading(false)
+                    }}
                     css={[
                       theme({
-                        position: 'absolute',
                         width: '100%',
-                        height: '100%',
                         display: 'block'
                       }),
-                      { border: 'none', inset: 0 }
+                      {
+                        height: 'auto',
+                        filter: imgVisible ? 'blur(0px)' : 'blur(6px)',
+                        transition: 'filter 0.5s ease'
+                      }
                     ]}
                   />
                 )}
                 {isLoading && (
-                  <PdfOverlay
-                    $dim={hasPdfRef.current}
-                    aria-label='Generating PDF\u2026'
-                    role='status'
-                  >
+                  <PdfOverlay aria-label='Generating PDF\u2026' role='status'>
+                    <SkeletonLines aria-hidden='true'>
+                      <SkeletonLine $w='55%' $h='18px' />
+                      <SkeletonLine $w='90%' />
+                      <SkeletonLine $w='80%' />
+                      <SkeletonLine $w='85%' />
+                      <SkeletonLine $w='40%' />
+                      <Box css={theme({ height: '12px' })} />
+                      <SkeletonLine $w='45%' $h='16px' />
+                      <SkeletonLine $w='95%' />
+                      <SkeletonLine $w='70%' />
+                      <SkeletonLine $w='88%' />
+                      <SkeletonLine $w='60%' />
+                      <Box css={theme({ height: '12px' })} />
+                      <SkeletonLine $w='50%' $h='16px' />
+                      <SkeletonLine $w='82%' />
+                      <SkeletonLine $w='75%' />
+                      <SkeletonLine $w='90%' />
+                      <SkeletonLine $w='35%' />
+                    </SkeletonLines>
                     <Spinner
                       width='36'
                       height='36'
@@ -1161,7 +1379,9 @@ const Hero = function Hero ({ onRequestTiming }) {
                     color: 'black70'
                   })}
                 >
-                  {apiUrl}
+                  https://api.microlink.io?
+                  <strong css={theme({ color: 'black' })}>pdf&url</strong>=
+                  {inputUrl}
                 </Text>
                 <CopyButton
                   type='button'
@@ -1869,11 +2089,17 @@ const Capabilities = () => {
                   letterSpacing: 0,
                   flex: 1,
                   minWidth: '0',
-                  color: 'black70',
-                  wordBreak: 'break-all'
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  color: 'black70'
                 })}
               >
-                {capApiUrl}
+                https://api.microlink.io?
+                <strong css={theme({ color: 'black' })}>pdf</strong>
+                <strong css={theme({ color: 'black' })}>&url=</strong>
+                https://example.com&format={selected.format}
+                {selected.landscape ? '&landscape=true' : ''}
               </Text>
               <CopyButton
                 type='button'
