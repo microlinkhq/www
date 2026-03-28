@@ -324,7 +324,13 @@ const AdvancedToggle = styled(Flex).attrs({ as: 'button', type: 'button' })`
 
 /* ─── Options Panel ────────────────────────────────────── */
 
-const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
+const OptionsPanel = ({
+  options,
+  setOptions,
+  onSubmit,
+  isLoading,
+  onMediaTypeChange
+}) => {
   const [urlError, setUrlError] = useState('')
   const [showAdvanced, setShowAdvanced] = useState(false)
 
@@ -464,12 +470,103 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               name='PDF Appearance'
               options={MEDIA_TYPE_OPTIONS}
               value={options.mediaType}
-              onChange={val =>
+              onChange={val => {
                 setOptions(prev => ({ ...prev, mediaType: val }))
-              }
+                onMediaTypeChange(val)
+              }}
             />
           </Box>
         </PanelSection>
+
+        {/* ── Preferences ────────────────────── */}
+        <Box css={theme({ pb: 3 })}>
+          <SectionLabel>Preferences</SectionLabel>
+
+          <CheckboxLabel>
+            <input
+              type='checkbox'
+              checked={options.adblock}
+              onChange={e =>
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
+            />
+            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+              Block ads and banners
+            </Text>
+            <Tooltip
+              content={
+                <Tooltip.Content>
+                  Removes all the ads and cookie banners before generating the
+                  PDF
+                </Tooltip.Content>
+              }
+            >
+              <HelpCircle
+                size={16}
+                color={colors.black60}
+                style={{ marginLeft: '6px', marginTop: '5px' }}
+              />
+            </Tooltip>
+          </CheckboxLabel>
+
+          <CheckboxLabel>
+            <input
+              type='checkbox'
+              checked={options.cache}
+              onChange={e =>
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
+            />
+            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+              Use cache
+            </Text>
+            <Tooltip
+              content={
+                <Tooltip.Content>
+                  Uses the cached PDF if available, otherwise generates a new
+                  one
+                </Tooltip.Content>
+              }
+            >
+              <HelpCircle
+                size={16}
+                color={colors.black60}
+                style={{ marginLeft: '6px', marginTop: '5px' }}
+              />
+            </Tooltip>
+          </CheckboxLabel>
+
+          <CheckboxLabel>
+            <input
+              type='checkbox'
+              checked={options.waitForLoad}
+              onChange={e =>
+                setOptions(prev => ({
+                  ...prev,
+                  waitForLoad: e.target.checked
+                }))
+              }
+            />
+            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
+              Wait for full load
+            </Text>
+            <Tooltip
+              content={
+                <Tooltip.Content>
+                  Adds extra time for lazy images, animations, and dynamic
+                  content to finish loading. Produces more complete PDFs but
+                  takes longer.
+                </Tooltip.Content>
+              }
+            >
+              <HelpCircle
+                size={16}
+                color={colors.black60}
+                style={{ marginLeft: '6px', marginTop: '5px' }}
+              />
+            </Tooltip>
+          </CheckboxLabel>
+        </Box>
 
         {/* ── Advanced (collapsible) ─────────── */}
         <PanelSection>
@@ -497,6 +594,71 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 gap: '12px'
               })}
             >
+              <Box css={{ gridColumn: '1 / -1' }}>
+                <Box css={{ display: 'flex', alignItems: 'center' }}>
+                  <OptionLabel as='span' css={{ marginBottom: 0 }}>
+                    Page Range
+                  </OptionLabel>
+                  <Tooltip
+                    content={
+                      <Tooltip.Content>
+                        Export only a subset of pages. Leave empty to include
+                        all pages.
+                      </Tooltip.Content>
+                    }
+                  >
+                    <HelpCircle
+                      size={14}
+                      color={colors.black40}
+                      style={{ marginLeft: '4px' }}
+                    />
+                  </Tooltip>
+                </Box>
+                <Box
+                  css={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: '12px',
+                    alignItems: 'center'
+                  }}
+                >
+                  <Input
+                    id='pdf-page-from'
+                    type='number'
+                    inputMode='numeric'
+                    min='1'
+                    step='1'
+                    placeholder='First page'
+                    aria-label='Start page'
+                    value={options.pageFrom}
+                    onChange={e =>
+                      setOptions(prev => ({
+                        ...prev,
+                        pageFrom: e.target.value
+                      }))
+                    }
+                    css={theme({ width: '100%', fontSize: 1, height: '18px' })}
+                  />
+                  <Input
+                    id='pdf-page-to'
+                    type='number'
+                    inputMode='numeric'
+                    min='1'
+                    step='1'
+                    placeholder='Last page'
+                    aria-label='End page'
+                    value={options.pageTo}
+                    onChange={e =>
+                      setOptions(prev => ({
+                        ...prev,
+                        pageTo: e.target.value
+                      }))
+                    }
+                    css={theme({ width: '100%', fontSize: 1, height: '18px' })}
+                  />
+                </Box>
+              </Box>
+
               <Box>
                 <Box css={{ display: 'flex', alignItems: 'center' }}>
                   <OptionLabel as='span' css={{ marginBottom: 0 }}>
@@ -643,65 +805,6 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
             </Box>
           )}
         </PanelSection>
-
-        {/* ── Preferences ────────────────────── */}
-        <Box css={theme({ pb: 3 })}>
-          <SectionLabel>Preferences</SectionLabel>
-
-          <CheckboxLabel>
-            <input
-              type='checkbox'
-              checked={options.adblock}
-              onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
-              }
-            />
-            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-              Block ads and banners
-            </Text>
-            <Tooltip
-              content={
-                <Tooltip.Content>
-                  Removes all the ads and cookie banners before generating the
-                  PDF
-                </Tooltip.Content>
-              }
-            >
-              <HelpCircle
-                size={16}
-                color={colors.black60}
-                style={{ marginLeft: '6px', marginTop: '5px' }}
-              />
-            </Tooltip>
-          </CheckboxLabel>
-
-          <CheckboxLabel>
-            <input
-              type='checkbox'
-              checked={options.cache}
-              onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))
-              }
-            />
-            <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
-              Use cache
-            </Text>
-            <Tooltip
-              content={
-                <Tooltip.Content>
-                  Uses the cached PDF if available, otherwise generates a new
-                  one
-                </Tooltip.Content>
-              }
-            >
-              <HelpCircle
-                size={16}
-                color={colors.black60}
-                style={{ marginLeft: '6px', marginTop: '5px' }}
-              />
-            </Tooltip>
-          </CheckboxLabel>
-        </Box>
       </PanelRibbonLayout>
 
       {/* ── Generate ────────────────────────── */}
@@ -1020,8 +1123,11 @@ const PdfTool = () => {
     margin: '10px',
     width: '',
     height: '',
+    pageFrom: '',
+    pageTo: '',
     adblock: true,
-    cache: true
+    cache: true,
+    waitForLoad: false
   })
 
   const [isLoading, setIsLoading] = useState(false)
@@ -1035,8 +1141,18 @@ const PdfTool = () => {
 
   const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(PDF_HISTORY_KEY, [])
+  const [savedMediaType, setSavedMediaType] = useLocalStorage(
+    'pdf-media-type',
+    'screen'
+  )
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
+
+  useEffect(() => {
+    if (savedMediaType) {
+      setOptions(prev => ({ ...prev, mediaType: savedMediaType }))
+    }
+  }, [savedMediaType])
 
   useEffect(() => {
     setHistory(prev => {
@@ -1075,6 +1191,16 @@ const PdfTool = () => {
           pdfOpts.height = options.height.trim()
         }
 
+        const rawFrom = parseInt(options.pageFrom, 10)
+        const rawTo = parseInt(options.pageTo, 10)
+        const to = rawTo >= 1 ? rawTo : NaN
+        const from = to >= 1 && !(rawFrom >= 1) ? 1 : rawFrom
+        if (from >= 1 && to >= 1) {
+          pdfOpts.pageRanges = `${Math.min(from, to)}-${Math.max(from, to)}`
+        } else if (from >= 1) {
+          pdfOpts.pageRanges = `${from}-`
+        }
+
         const mqlOpts = {
           apiKey: localStorageData?.apiKey,
           meta: false,
@@ -1083,7 +1209,8 @@ const PdfTool = () => {
           adblock: options.adblock,
           force: !options.cache,
           prerender: true,
-          mediaType: options.mediaType
+          mediaType: options.mediaType,
+          ...(options.waitForLoad && { waitForTimeout: 4000 })
         }
 
         const queryStr = buildMqlQuery(url, mqlOpts)
@@ -1216,6 +1343,7 @@ const PdfTool = () => {
             setOptions={setOptions}
             onSubmit={handleSubmit}
             isLoading={isLoading}
+            onMediaTypeChange={setSavedMediaType}
           />
         </OptionsPanelOuter>
 
