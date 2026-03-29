@@ -441,13 +441,7 @@ const AdvancedToggle = styled(Flex).attrs({ as: 'button', type: 'button' })`
 
 /* ─── Options Panel ────────────────────────────────────── */
 
-const OptionsPanel = ({
-  options,
-  setOptions,
-  onSubmit,
-  isLoading,
-  onMediaTypeChange
-}) => {
+const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
   const [urlError, setUrlError] = useState('')
   const [showAdvanced, setShowAdvanced] = useState(false)
 
@@ -587,10 +581,9 @@ const OptionsPanel = ({
               name='PDF Appearance'
               options={MEDIA_TYPE_OPTIONS}
               value={options.mediaType}
-              onChange={val => {
+              onChange={val =>
                 setOptions(prev => ({ ...prev, mediaType: val }))
-                onMediaTypeChange(val)
-              }}
+              }
             />
           </Box>
 
@@ -1277,18 +1270,8 @@ const PdfTool = () => {
 
   const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(PDF_HISTORY_KEY, [])
-  const [savedMediaType, setSavedMediaType] = useLocalStorage(
-    'pdf-media-type',
-    'screen'
-  )
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
-
-  useEffect(() => {
-    if (savedMediaType) {
-      setOptions(prev => ({ ...prev, mediaType: savedMediaType }))
-    }
-  }, [savedMediaType])
 
   useEffect(() => {
     setHistory(prev => {
@@ -1485,7 +1468,6 @@ const PdfTool = () => {
             setOptions={setOptions}
             onSubmit={handleSubmit}
             isLoading={isLoading}
-            onMediaTypeChange={setSavedMediaType}
           />
         </OptionsPanelOuter>
 

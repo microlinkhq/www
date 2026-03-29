@@ -929,8 +929,7 @@ const OptionsPanel = ({
   setOptions,
   onSubmit,
   isLoading,
-  bulkProgress,
-  onMediaTypeChange
+  bulkProgress
 }) => {
   const [urlError, setUrlError] = useState('')
   const [showFormatOptions, setShowFormatOptions] = useState(false)
@@ -1164,10 +1163,9 @@ const OptionsPanel = ({
                   name='PDF Appearance'
                   options={MEDIA_TYPE_OPTIONS}
                   value={options.mediaType}
-                  onChange={val => {
+                  onChange={val =>
                     setOptions(prev => ({ ...prev, mediaType: val }))
-                    onMediaTypeChange(val)
-                  }}
+                  }
                 />
               </Box>
 
@@ -2357,21 +2355,11 @@ const PdfBatchTool = () => {
 
   const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(PDF_HISTORY_KEY, [])
-  const [savedMediaType, setSavedMediaType] = useLocalStorage(
-    'pdf-media-type',
-    'screen'
-  )
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
   const [selectedIds, setSelectedIds] = useState([])
   const [isZipping, setIsZipping] = useState(false)
   const [previewPdf, setPreviewPdf] = useState(null)
-
-  useEffect(() => {
-    if (savedMediaType) {
-      setOptions(prev => ({ ...prev, mediaType: savedMediaType }))
-    }
-  }, [savedMediaType])
 
   useEffect(() => {
     setHistory(prev => {
@@ -2680,7 +2668,6 @@ const PdfBatchTool = () => {
             onSubmit={handleBulkSubmit}
             isLoading={isProcessing}
             bulkProgress={bulkProgress}
-            onMediaTypeChange={setSavedMediaType}
           />
         </OptionsPanelOuter>
 
