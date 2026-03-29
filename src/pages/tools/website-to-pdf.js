@@ -147,18 +147,24 @@ const HOW_IT_WORKS = [
       <>
         <span>
           Pick a <b>paper format</b> (A4, Letter, Legal, and more) and{' '}
-          <b>orientation</b> (portrait or landscape). Use{' '}
-          <b>PDF&nbsp;Appearance</b> to choose between <b>Screen View</b> — a
-          faithful visual match of the webpage — or <b>Print Version</b>, which
-          strips non-essential elements for a cleaner document. If your page has
+          <b>orientation</b> (portrait or landscape). If your page has
           lazy-loaded images, enable <b>Wait for full load</b> so nothing is
-          missing.
-        </span>
-        <span style={{ display: 'block', paddingTop: '8px' }}>
-          Use <b>Zoom scale</b> to make the content larger or smaller, and
-          explore <b>Advanced</b> to fine-tune <b>margins</b>, custom{' '}
+          missing. Explore <b>Advanced</b> to fine-tune <b>margins</b>, custom{' '}
           <b>width</b> and <b>height</b>, and select a <b>page range</b> to
           export only the pages you need.
+        </span>
+        <span style={{ display: 'block', paddingTop: '8px' }}>
+          Use <b>PDF&nbsp;Appearance</b> to choose between <b>Screen View</b> —
+          a faithful visual match of the webpage, preserving colors,
+          backgrounds, and layout exactly as you see them on screen — or{' '}
+          <b>Print Version</b>, which applies the page's print stylesheet,
+          stripping navigation, ads, and non-essential elements for a cleaner,
+          ink-friendly document.
+        </span>
+        <span style={{ display: 'block', paddingTop: '8px' }}>
+          Adjust <b>Zoom scale</b> to make the content larger or smaller —
+          values below 1 shrink the page to fit more content per sheet, while
+          values above 1 enlarge text and images for easier reading.
         </span>
       </>
     )
@@ -448,7 +454,8 @@ const OptionsPanel = ({
               aria-label='Paper format'
               value={options.format}
               onChange={e =>
-                setOptions(prev => ({ ...prev, format: e.target.value }))}
+                setOptions(prev => ({ ...prev, format: e.target.value }))
+              }
               css={theme({ width: '100%', fontSize: 1, bg: 'white' })}
             >
               {FORMAT_OPTIONS.map(({ value, label }) => (
@@ -469,7 +476,8 @@ const OptionsPanel = ({
                 setOptions(prev => ({
                   ...prev,
                   landscape: val === 'landscape'
-                }))}
+                }))
+              }
             />
           </Box>
 
@@ -534,7 +542,8 @@ const OptionsPanel = ({
                 step='0.1'
                 value={options.scale || '0.6'}
                 onChange={e =>
-                  setOptions(prev => ({ ...prev, scale: e.target.value }))}
+                  setOptions(prev => ({ ...prev, scale: e.target.value }))
+                }
                 aria-label='PDF zoom scale'
                 style={{ flex: 1, accentColor: colors.link }}
               />
@@ -548,7 +557,8 @@ const OptionsPanel = ({
                 aria-label='PDF zoom scale value'
                 value={options.scale}
                 onChange={e =>
-                  setOptions(prev => ({ ...prev, scale: e.target.value }))}
+                  setOptions(prev => ({ ...prev, scale: e.target.value }))
+                }
                 css={theme({
                   width: '60px',
                   fontSize: 1,
@@ -569,7 +579,8 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -595,7 +606,8 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -624,7 +636,8 @@ const OptionsPanel = ({
                 setOptions(prev => ({
                   ...prev,
                   waitForLoad: e.target.checked
-                }))}
+                }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Wait for full load
@@ -714,7 +727,8 @@ const OptionsPanel = ({
                       setOptions(prev => ({
                         ...prev,
                         pageFrom: e.target.value
-                      }))}
+                      }))
+                    }
                     css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                   />
                   <Input
@@ -730,7 +744,8 @@ const OptionsPanel = ({
                       setOptions(prev => ({
                         ...prev,
                         pageTo: e.target.value
-                      }))}
+                      }))
+                    }
                     css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                   />
                 </Box>
@@ -763,7 +778,8 @@ const OptionsPanel = ({
                   aria-label='PDF margin'
                   value={options.margin}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, margin: e.target.value }))}
+                    setOptions(prev => ({ ...prev, margin: e.target.value }))
+                  }
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -798,7 +814,8 @@ const OptionsPanel = ({
                   aria-label='Custom paper width'
                   value={options.width}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, width: e.target.value }))}
+                    setOptions(prev => ({ ...prev, width: e.target.value }))
+                  }
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -833,7 +850,8 @@ const OptionsPanel = ({
                   aria-label='Custom paper height'
                   value={options.height}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, height: e.target.value }))}
+                    setOptions(prev => ({ ...prev, height: e.target.value }))
+                  }
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -1059,13 +1077,11 @@ const PdfPreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                {downloaded
-                  ? (
-                    <SpinningLoader size={15} />
-                    )
-                  : (
-                    <Download size={15} />
-                    )}
+                {downloaded ? (
+                  <SpinningLoader size={15} />
+                ) : (
+                  <Download size={15} />
+                )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
@@ -1553,7 +1569,7 @@ const HowItWorks = () => (
             <Text
               css={theme({
                 fontSize: 1,
-                color: 'black60',
+                color: 'black80',
                 lineHeight: 2,
                 pt: 1
               })}
