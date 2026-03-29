@@ -45,8 +45,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 
 import NerdStatsOverlay, {
   extractNerdStats,
-  buildMqlQuery
-  ,
+  buildMqlQuery,
   NerdStatsToggle
 } from 'components/patterns/NerdStats/NerdStats'
 import { useClipboard } from 'components/hook/use-clipboard'
@@ -156,9 +155,10 @@ const HOW_IT_WORKS = [
           missing.
         </span>
         <span style={{ display: 'block', paddingTop: '8px' }}>
-          Under <b>Advanced</b> you can fine-tune <b>scale</b>, <b>margins</b>,
-          custom <b>width</b> and <b>height</b>, and select a <b>page range</b>{' '}
-          to export only the pages you need.
+          Use <b>Zoom scale</b> to make the content larger or smaller, and
+          explore <b>Advanced</b> to fine-tune <b>margins</b>, custom{' '}
+          <b>width</b> and <b>height</b>, and select a <b>page range</b> to
+          export only the pages you need.
         </span>
       </>
     )
@@ -448,7 +448,8 @@ const OptionsPanel = ({
               aria-label='Paper format'
               value={options.format}
               onChange={e =>
-                setOptions(prev => ({ ...prev, format: e.target.value }))}
+                setOptions(prev => ({ ...prev, format: e.target.value }))
+              }
               css={theme({ width: '100%', fontSize: 1, bg: 'white' })}
             >
               {FORMAT_OPTIONS.map(({ value, label }) => (
@@ -469,7 +470,8 @@ const OptionsPanel = ({
                 setOptions(prev => ({
                   ...prev,
                   landscape: val === 'landscape'
-                }))}
+                }))
+              }
             />
           </Box>
 
@@ -504,6 +506,62 @@ const OptionsPanel = ({
               }}
             />
           </Box>
+
+          <Box css={theme({ mt: 3 })}>
+            <Box css={{ display: 'flex', alignItems: 'center' }}>
+              <OptionLabel as='span' css={{ marginBottom: 0 }}>
+                Zoom scale
+              </OptionLabel>
+              <Tooltip
+                content={
+                  <Tooltip.Content>
+                    If the text in the PDF appears too small or too large,
+                    adjust this value to scale the page content up or down.
+                  </Tooltip.Content>
+                }
+              >
+                <HelpCircle
+                  size={16}
+                  color={colors.black60}
+                  style={{ marginLeft: '6px' }}
+                />
+              </Tooltip>
+            </Box>
+            <Flex css={theme({ alignItems: 'center', gap: 2, pt: 1 })}>
+              <input
+                id='pdf-scale-range'
+                type='range'
+                min='0.1'
+                max='2'
+                step='0.1'
+                value={options.scale || '0.6'}
+                onChange={e =>
+                  setOptions(prev => ({ ...prev, scale: e.target.value }))
+                }
+                aria-label='PDF zoom scale'
+                style={{ flex: 1, accentColor: colors.link }}
+              />
+              <Input
+                id='pdf-scale'
+                type='number'
+                inputMode='decimal'
+                step='0.1'
+                min='0.1'
+                max='2'
+                aria-label='PDF zoom scale value'
+                value={options.scale}
+                onChange={e =>
+                  setOptions(prev => ({ ...prev, scale: e.target.value }))
+                }
+                css={theme({
+                  width: '60px',
+                  fontSize: 1,
+                  height: '18px',
+                  textAlign: 'center'
+                })}
+              />
+            </Flex>
+          </Box>
         </PanelSection>
 
         {/* ── Preferences ────────────────────── */}
@@ -515,7 +573,8 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -541,7 +600,8 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -570,7 +630,8 @@ const OptionsPanel = ({
                 setOptions(prev => ({
                   ...prev,
                   waitForLoad: e.target.checked
-                }))}
+                }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Wait for full load
@@ -660,7 +721,8 @@ const OptionsPanel = ({
                       setOptions(prev => ({
                         ...prev,
                         pageFrom: e.target.value
-                      }))}
+                      }))
+                    }
                     css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                   />
                   <Input
@@ -676,46 +738,11 @@ const OptionsPanel = ({
                       setOptions(prev => ({
                         ...prev,
                         pageTo: e.target.value
-                      }))}
+                      }))
+                    }
                     css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                   />
                 </Box>
-              </Box>
-
-              <Box>
-                <Box css={{ display: 'flex', alignItems: 'center' }}>
-                  <OptionLabel as='span' css={{ marginBottom: 0 }}>
-                    Scale
-                  </OptionLabel>
-                  <Tooltip
-                    content={
-                      <Tooltip.Content>
-                        Scales the page content. Values between 0.1 and 2. Lower
-                        values fit more content per page.
-                      </Tooltip.Content>
-                    }
-                  >
-                    <HelpCircle
-                      size={14}
-                      color={colors.black40}
-                      style={{ marginLeft: '4px' }}
-                    />
-                  </Tooltip>
-                </Box>
-                <Input
-                  id='pdf-scale'
-                  type='number'
-                  inputMode='decimal'
-                  step='0.1'
-                  min='0.1'
-                  max='2'
-                  placeholder='0.6'
-                  aria-label='PDF scale factor'
-                  value={options.scale}
-                  onChange={e =>
-                    setOptions(prev => ({ ...prev, scale: e.target.value }))}
-                  css={theme({ width: '100%', fontSize: 1, height: '18px' })}
-                />
               </Box>
 
               <Box>
@@ -745,7 +772,8 @@ const OptionsPanel = ({
                   aria-label='PDF margin'
                   value={options.margin}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, margin: e.target.value }))}
+                    setOptions(prev => ({ ...prev, margin: e.target.value }))
+                  }
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -780,7 +808,8 @@ const OptionsPanel = ({
                   aria-label='Custom paper width'
                   value={options.width}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, width: e.target.value }))}
+                    setOptions(prev => ({ ...prev, width: e.target.value }))
+                  }
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -815,7 +844,8 @@ const OptionsPanel = ({
                   aria-label='Custom paper height'
                   value={options.height}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, height: e.target.value }))}
+                    setOptions(prev => ({ ...prev, height: e.target.value }))
+                  }
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -1041,13 +1071,11 @@ const PdfPreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                {downloaded
-                  ? (
-                    <SpinningLoader size={15} />
-                    )
-                  : (
-                    <Download size={15} />
-                    )}
+                {downloaded ? (
+                  <SpinningLoader size={15} />
+                ) : (
+                  <Download size={15} />
+                )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
@@ -1496,7 +1524,7 @@ const HowItWorks = () => (
                 color: 'black30',
                 fontFamily: 'mono',
                 lineHeight: 0,
-                mt: '-1px'
+                mt: '1px'
               })}
             >
               {`0${index + 1}`}
@@ -1524,7 +1552,7 @@ const HowItWorks = () => (
               as='h3'
               css={theme({
                 fontWeight: 'bold',
-                fontSize: 1,
+                fontSize: '18px',
                 color: 'black',
                 lineHeight: 0,
                 m: 0
@@ -1572,10 +1600,7 @@ const HowItWorks = () => (
           Paste up to 50&nbsp;URLs and download all PDFs as a ZIP file.
         </Text>
       </Box>
-      <ArrowLink
-        href='/tools/website-to-pdf/batch'
-        css={theme({ fontSize: 1 })}
-      >
+      <ArrowLink href='/tools/website-to-pdf/bulk' css={theme({ fontSize: 1 })}>
         Batch tool
       </ArrowLink>
     </Flex>
