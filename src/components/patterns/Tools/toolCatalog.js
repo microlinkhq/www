@@ -8,6 +8,7 @@ import {
 } from 'react-feather'
 
 import { Camera as CameraIcon } from 'components/icons/Camera'
+import { BookImage as BookImageIcon } from 'components/icons/BookImage'
 import { Bug as BugIcon } from 'components/icons/Bug'
 import { cdnUrl } from 'helpers/cdn-url'
 
@@ -58,7 +59,7 @@ export const TOOLS = [
         description:
           'Paste up to 50 URLs and capture them all at once. Download every screenshot as a ZIP file. Great for competitive analysis and monitoring.',
         href: '/tools/website-screenshot/bulk',
-        icon: Layers,
+        icon: BookImageIcon,
         image: '/images/screenshot-bulk.png',
         animation: ['scale(1.5) rotate(0deg)', 'scale(1.3) rotate(-10deg)'],
         styles: {
