@@ -1863,7 +1863,7 @@ const Capabilities = () => {
   const capApiUrl = CAP_API_URLS[mediaType]
 
   const handlePositionChange = useCallback(position => {
-    setMediaType(position < 51 ? 'screen' : 'print')
+    setMediaType(position < 51 ? 'print' : 'screen')
   }, [])
 
   const handleCapCopy = () => {
