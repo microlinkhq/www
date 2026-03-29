@@ -12,8 +12,13 @@ import {
   ChevronDown,
   ExternalLink,
   Code,
-  Loader
+  Loader,
+  Zap
 } from 'react-feather'
+import {
+  ReactCompareSlider,
+  ReactCompareSliderImage
+} from 'react-compare-slider'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled, { keyframes } from 'styled-components'
@@ -83,6 +88,80 @@ const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
+/* ─── Compare Slider ──────────────────────────────────── */
+
+const CompareSliderBlock = styled('span')`
+  display: block;
+  ${theme({
+    mt: 3,
+    mb: 3,
+    mx: 'auto',
+    width: ['100%', '100%', '80%', '80%'],
+    borderRadius: 3,
+    overflow: 'hidden',
+    border: 1,
+    borderColor: 'black10',
+    lineHeight: 0
+  })}
+`
+
+const CompareSliderFooter = styled('span')`
+  display: flex;
+  ${theme({
+    justifyContent: 'space-between',
+    px: 3,
+    py: 2,
+    bg: 'white',
+    borderTop: 1,
+    borderTopColor: 'black10',
+    fontSize: 1,
+    color: 'black80',
+    lineHeight: 2
+  })}
+`
+
+const SettingsCompareSlider = () => {
+  const [activeLabel, setActiveLabel] = useState(null)
+
+  const handlePositionChange = useCallback(position => {
+    if (position < 49) setActiveLabel('print')
+    else if (position > 51) setActiveLabel('screen')
+    else setActiveLabel(null)
+  }, [])
+
+  return (
+    <CompareSliderBlock>
+      <ReactCompareSlider
+        onPositionChange={handlePositionChange}
+        itemOne={
+          <ReactCompareSliderImage
+            src='/images/pdf-example-screen.jpg'
+            alt='PDF generated with Screen View — web layout preserved'
+          />
+        }
+        itemTwo={
+          <ReactCompareSliderImage
+            src='/images/pdf-example-print.jpg'
+            alt='PDF generated with Print Version — print-optimized layout'
+          />
+        }
+      />
+      <CompareSliderFooter>
+        <span
+          style={{ color: activeLabel === 'print' ? colors.link : undefined }}
+        >
+          ← <b>Print Version</b>
+        </span>
+        <span
+          style={{ color: activeLabel === 'screen' ? colors.link : undefined }}
+        >
+          <b>Screen View</b> →
+        </span>
+      </CompareSliderFooter>
+    </CompareSliderBlock>
+  )
+}
+
 /* ─── Constants ────────────────────────────────────────── */
 
 const PDF_HISTORY_KEY = 'pdf-history'
@@ -147,13 +226,15 @@ const HOW_IT_WORKS = [
       <>
         <span>
           Pick a <b>paper format</b> (A4, Letter, Legal, and more) and{' '}
-          <b>orientation</b> (portrait or landscape). If your page has
-          lazy-loaded images, enable <b>Wait for full load</b> so nothing is
-          missing. Explore <b>Advanced</b> to fine-tune <b>margins</b>, custom{' '}
-          <b>width</b> and <b>height</b>, and select a <b>page range</b> to
-          export only the pages you need.
+          <b>orientation</b> (portrait or landscape). If some images or content
+          appear blank in the PDF, the page may need more time to finish loading
+          — enable <b>Wait for full load</b> to give it extra time. Explore{' '}
+          <b>Advanced</b> to fine-tune <b>margins</b>, custom <b>width</b> and{' '}
+          <b>height</b>, and select a <b>page range</b> to export only the pages
+          you need.
         </span>
-        <span style={{ display: 'block', paddingTop: '8px' }}>
+        <SettingsCompareSlider />
+        <span style={{ display: 'block', paddingTop: '12px' }}>
           Use <b>PDF&nbsp;Appearance</b> to choose between <b>Screen View</b> —
           a faithful visual match of the webpage, preserving colors,
           backgrounds, and layout exactly as you see them on screen — or{' '}
@@ -454,7 +535,8 @@ const OptionsPanel = ({
               aria-label='Paper format'
               value={options.format}
               onChange={e =>
-                setOptions(prev => ({ ...prev, format: e.target.value }))}
+                setOptions(prev => ({ ...prev, format: e.target.value }))
+              }
               css={theme({ width: '100%', fontSize: 1, bg: 'white' })}
             >
               {FORMAT_OPTIONS.map(({ value, label }) => (
@@ -475,7 +557,8 @@ const OptionsPanel = ({
                 setOptions(prev => ({
                   ...prev,
                   landscape: val === 'landscape'
-                }))}
+                }))
+              }
             />
           </Box>
 
@@ -540,7 +623,8 @@ const OptionsPanel = ({
                 step='0.1'
                 value={options.scale || '0.6'}
                 onChange={e =>
-                  setOptions(prev => ({ ...prev, scale: e.target.value }))}
+                  setOptions(prev => ({ ...prev, scale: e.target.value }))
+                }
                 aria-label='PDF zoom scale'
                 style={{ flex: 1, accentColor: colors.link }}
               />
@@ -554,7 +638,8 @@ const OptionsPanel = ({
                 aria-label='PDF zoom scale value'
                 value={options.scale}
                 onChange={e =>
-                  setOptions(prev => ({ ...prev, scale: e.target.value }))}
+                  setOptions(prev => ({ ...prev, scale: e.target.value }))
+                }
                 css={theme({
                   width: '60px',
                   fontSize: 1,
@@ -575,7 +660,8 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -601,7 +687,8 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -630,7 +717,8 @@ const OptionsPanel = ({
                 setOptions(prev => ({
                   ...prev,
                   waitForLoad: e.target.checked
-                }))}
+                }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Wait for full load
@@ -720,7 +808,8 @@ const OptionsPanel = ({
                       setOptions(prev => ({
                         ...prev,
                         pageFrom: e.target.value
-                      }))}
+                      }))
+                    }
                     css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                   />
                   <Input
@@ -736,7 +825,8 @@ const OptionsPanel = ({
                       setOptions(prev => ({
                         ...prev,
                         pageTo: e.target.value
-                      }))}
+                      }))
+                    }
                     css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                   />
                 </Box>
@@ -769,7 +859,8 @@ const OptionsPanel = ({
                   aria-label='PDF margin'
                   value={options.margin}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, margin: e.target.value }))}
+                    setOptions(prev => ({ ...prev, margin: e.target.value }))
+                  }
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -804,7 +895,8 @@ const OptionsPanel = ({
                   aria-label='Custom paper width'
                   value={options.width}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, width: e.target.value }))}
+                    setOptions(prev => ({ ...prev, width: e.target.value }))
+                  }
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -839,7 +931,8 @@ const OptionsPanel = ({
                   aria-label='Custom paper height'
                   value={options.height}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, height: e.target.value }))}
+                    setOptions(prev => ({ ...prev, height: e.target.value }))
+                  }
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -1065,13 +1158,11 @@ const PdfPreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                {downloaded
-                  ? (
-                    <SpinningLoader size={15} />
-                    )
-                  : (
-                    <Download size={15} />
-                    )}
+                {downloaded ? (
+                  <SpinningLoader size={15} />
+                ) : (
+                  <Download size={15} />
+                )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
@@ -1308,12 +1399,14 @@ const PdfTool = () => {
                   url,
                   format: options.format,
                   landscape: options.landscape,
+                  mediaType: options.mediaType,
                   scale: options.scale,
                   margin: options.margin,
                   width: options.width,
                   height: options.height,
                   adblock: options.adblock,
-                  cache: options.cache
+                  cache: options.cache,
+                  waitForLoad: options.waitForLoad
                 }
               },
               ...items
@@ -1339,12 +1432,16 @@ const PdfTool = () => {
       url: settings.url,
       format: settings.format || 'A4',
       landscape: settings.landscape || false,
+      mediaType: settings.mediaType || 'screen',
       scale: settings.scale || '0.6',
       margin: settings.margin || '10px',
       width: settings.width || '',
       height: settings.height || '',
+      pageFrom: settings.pageFrom || '',
+      pageTo: settings.pageTo || '',
       adblock: settings.adblock !== undefined ? settings.adblock : true,
-      cache: settings.cache !== undefined ? settings.cache : true
+      cache: settings.cache !== undefined ? settings.cache : true,
+      waitForLoad: settings.waitForLoad || false
     })
     setData({ pdf, screenshot })
     setLastUrl(settings.url)
@@ -1561,7 +1658,7 @@ const HowItWorks = () => (
                 fontSize: 1,
                 color: 'black80',
                 lineHeight: 2,
-                pt: 1
+                pt: 2
               })}
             >
               {step.description}
@@ -1589,16 +1686,72 @@ const HowItWorks = () => (
       })}
     >
       <Box css={{ flex: 1, minWidth: '200px' }}>
-        <Text css={theme({ fontSize: 1, fontWeight: 'bold', color: 'black' })}>
+        <Text
+          css={theme({ fontSize: '16px', fontWeight: 'bold', color: 'black' })}
+        >
           Need to convert multiple pages?
         </Text>
-        <Text css={theme({ fontSize: 0, color: 'black50', pt: 1 })}>
+        <Text css={theme({ fontSize: '16px', color: 'black80', pt: 1 })}>
           Paste up to 50&nbsp;URLs and download all PDFs as a ZIP file.
         </Text>
       </Box>
       <ArrowLink href='/tools/website-to-pdf/bulk' css={theme({ fontSize: 1 })}>
-        Batch tool
+        Bulk URLs to PDFs tool
       </ArrowLink>
+    </Flex>
+
+    <Flex
+      css={theme({
+        mt: 2,
+        mx: [3, 3, 0, 0],
+        py: 3,
+        px: [3, 3, 4, 4],
+        maxWidth: layout.normal,
+        width: '100%',
+        borderRadius: 3,
+        alignItems: 'flex-start',
+        gap: 3
+      })}
+      style={{
+        background: colors.yellow0,
+        border: `1px solid ${colors.yellow2}`
+      }}
+    >
+      <Flex
+        css={theme({
+          flexShrink: 0,
+          width: '24px',
+          height: '24px',
+          borderRadius: '50%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          mt: '1px'
+        })}
+        style={{ background: colors.yellow2 }}
+      >
+        <Zap size={13} color={colors.yellow8} fill={colors.yellow8} />
+      </Flex>
+      <Box css={{ flex: 1, minWidth: 0 }}>
+        <Text css={theme({ fontSize: 1, fontWeight: 'bold', color: 'black' })}>
+          Tip - Need a pixel-perfect image instead of a PDF?
+        </Text>
+        <Text
+          css={theme({
+            fontSize: '16px',
+            color: 'black80',
+            pt: 1,
+            lineHeight: 2
+          })}
+        >
+          If the PDF doesn't capture the page exactly as it looks on screen, try
+          our{' '}
+          <Link href='/tools/website-screenshot/full-page'>
+            full-page screenshot tool
+          </Link>{' '}
+          — it renders the entire webpage as a high-resolution image, preserving
+          every visual detail.
+        </Text>
+      </Box>
     </Flex>
   </Container>
 )
