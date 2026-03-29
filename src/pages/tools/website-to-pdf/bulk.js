@@ -2585,6 +2585,24 @@ const PdfBatchTool = () => {
 
   const handleHistorySelect = useCallback(entry => {
     setActiveHistoryId(entry.id)
+    if (entry.settings) {
+      setOptions(prev => ({
+        ...prev,
+        format: entry.settings.format || 'A4',
+        landscape: entry.settings.landscape || false,
+        mediaType: entry.settings.mediaType || 'screen',
+        scale: entry.settings.scale || '0.6',
+        margin: entry.settings.margin || '10px',
+        width: entry.settings.width || '',
+        height: entry.settings.height || '',
+        pageFrom: entry.settings.pageFrom || '',
+        pageTo: entry.settings.pageTo || '',
+        adblock:
+          entry.settings.adblock !== undefined ? entry.settings.adblock : true,
+        cache: entry.settings.cache !== undefined ? entry.settings.cache : true,
+        waitForLoad: entry.settings.waitForLoad || false
+      }))
+    }
     if (entry.pdf?.url) {
       setPreviewPdf({
         url: entry.pdf.url,
