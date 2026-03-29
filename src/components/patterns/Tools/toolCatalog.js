@@ -138,12 +138,16 @@ export const TOOLS = [
           'Save any web page as a PDF. Pick your paper format, orientation, and appearance — download a high-fidelity document in seconds. No login required.',
         href: '/tools/website-to-pdf',
         icon: FileTextIcon,
-        image: '/images/placeholder.png',
-        animation: ['scale(1.05)', 'scale(1)'],
+        image: '/images/pdf-tool.png',
+        animation: ['scale(1) translateY(-90%)', 'scale(1)'],
         styles: {
-          maxHeight: '100%',
-          objectFit: 'contain',
-          transition: `transform ${transition.long}`
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          position: 'absolute',
+          top: '10%',
+          width: ['85%', '60%', '95%'],
+          objectFit: 'cover',
+          transition: 'transform 2000ms cubic-bezier(0.4, 0, 0.2, 1)',
+          transformOrigin: 'top center'
         }
       },
       {
@@ -152,10 +156,12 @@ export const TOOLS = [
           'Paste up to 50 URLs and convert them all to PDF at once. Download every document as a ZIP file. Great for archiving and batch exports.',
         href: '/tools/website-to-pdf/bulk',
         icon: Layers,
-        image: '/images/placeholder.png',
+        image: '/images/bulk-pdf-tool.png',
         animation: ['scale(1.05)', 'scale(1)'],
         styles: {
-          maxHeight: '100%',
+          position: 'absolute',
+          top: '5%',
+          width: ['85%', '60%', '95%'],
           objectFit: 'contain',
           transition: `transform ${transition.long}`
         }
