@@ -764,7 +764,7 @@ const Hero = function Hero ({ onRequestTiming }) {
     }
 
     const run = async () => {
-      await delay(8000)
+      await delay(5000)
       if (check()) return
 
       for (let i = 0; i < DEMO_URLS.length; i++) {
@@ -1208,7 +1208,7 @@ const Hero = function Hero ({ onRequestTiming }) {
                     bg: 'gray0'
                   }),
                   {
-                    height: '520px',
+                    aspectRatio: '4 / 3',
                     WebkitOverflowScrolling: 'touch',
                     scrollbarWidth: 'thin',
                     scrollbarColor: `${colors.black20} transparent`,
@@ -1225,18 +1225,16 @@ const Hero = function Hero ({ onRequestTiming }) {
                   <iframe
                     key={imgKeyRef.current}
                     title='PDF preview'
-                    src={`${pdfSrc}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                    src={`https://docs.google.com/viewer?url=${pdfSrc}&embedded=true`}
                     onLoad={() => {
                       setIsLoading(false)
                     }}
-                    css={[
-                      theme({
-                        width: '100%',
-                        height: '100%',
-                        display: 'block'
-                      }),
-                      { border: 'none' }
-                    ]}
+                    css={theme({
+                      width: '100%',
+                      height: '100%',
+                      display: 'block',
+                      border: 'none'
+                    })}
                   />
                 )}
                 {isLoading && (
