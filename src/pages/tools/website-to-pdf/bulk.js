@@ -396,19 +396,21 @@ const AnimatedResultsList = ({ results }) => {
 
         return (
           <Wrapper key={item.id}>
-            {item.data.success ? (
-              <CheckCircle
-                size={14}
-                color='#22c55e'
-                style={{ flexShrink: 0 }}
-              />
-            ) : (
-              <AlertTriangle
-                size={14}
-                color='#ef4444'
-                style={{ flexShrink: 0 }}
-              />
-            )}
+            {item.data.success
+              ? (
+                <CheckCircle
+                  size={14}
+                  color='#22c55e'
+                  style={{ flexShrink: 0 }}
+                />
+                )
+              : (
+                <AlertTriangle
+                  size={14}
+                  color='#ef4444'
+                  style={{ flexShrink: 0 }}
+                />
+                )}
             <Text
               css={theme({
                 fontSize: 0,
@@ -1000,8 +1002,7 @@ const OptionsPanel = ({
               aria-label='Paper format'
               value={options.format}
               onChange={e =>
-                setOptions(prev => ({ ...prev, format: e.target.value }))
-              }
+                setOptions(prev => ({ ...prev, format: e.target.value }))}
               css={theme({ width: '100%', fontSize: 1, bg: 'white' })}
             >
               {FORMAT_OPTIONS.map(({ value, label }) => (
@@ -1022,8 +1023,7 @@ const OptionsPanel = ({
                 setOptions(prev => ({
                   ...prev,
                   landscape: val === 'landscape'
-                }))
-              }
+                }))}
             />
           </Box>
 
@@ -1088,8 +1088,7 @@ const OptionsPanel = ({
                 step='0.1'
                 value={options.scale || '0.6'}
                 onChange={e =>
-                  setOptions(prev => ({ ...prev, scale: e.target.value }))
-                }
+                  setOptions(prev => ({ ...prev, scale: e.target.value }))}
                 aria-label='PDF zoom scale'
                 style={{ flex: 1, accentColor: colors.link }}
               />
@@ -1103,8 +1102,7 @@ const OptionsPanel = ({
                 aria-label='PDF zoom scale value'
                 value={options.scale}
                 onChange={e =>
-                  setOptions(prev => ({ ...prev, scale: e.target.value }))
-                }
+                  setOptions(prev => ({ ...prev, scale: e.target.value }))}
                 css={theme({
                   width: '60px',
                   fontSize: 1,
@@ -1125,8 +1123,7 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
-              }
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -1152,8 +1149,7 @@ const OptionsPanel = ({
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))
-              }
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -1182,8 +1178,7 @@ const OptionsPanel = ({
                 setOptions(prev => ({
                   ...prev,
                   waitForLoad: e.target.checked
-                }))
-              }
+                }))}
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Wait for full load
@@ -1273,8 +1268,7 @@ const OptionsPanel = ({
                       setOptions(prev => ({
                         ...prev,
                         pageFrom: e.target.value
-                      }))
-                    }
+                      }))}
                     css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                   />
                   <Input
@@ -1290,8 +1284,7 @@ const OptionsPanel = ({
                       setOptions(prev => ({
                         ...prev,
                         pageTo: e.target.value
-                      }))
-                    }
+                      }))}
                     css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                   />
                 </Box>
@@ -1324,8 +1317,7 @@ const OptionsPanel = ({
                   aria-label='PDF margin'
                   value={options.margin}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, margin: e.target.value }))
-                  }
+                    setOptions(prev => ({ ...prev, margin: e.target.value }))}
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -1360,8 +1352,7 @@ const OptionsPanel = ({
                   aria-label='Custom paper width'
                   value={options.width}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, width: e.target.value }))
-                  }
+                    setOptions(prev => ({ ...prev, width: e.target.value }))}
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -1396,8 +1387,7 @@ const OptionsPanel = ({
                   aria-label='Custom paper height'
                   value={options.height}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, height: e.target.value }))
-                  }
+                    setOptions(prev => ({ ...prev, height: e.target.value }))}
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -1423,19 +1413,21 @@ const OptionsPanel = ({
               gap: space[2]
             }}
           >
-            {isLoading ? (
-              <>
-                <Spinner width='16px' height='14px' />
-                Generating {bulkProgress.current} of {bulkProgress.total}…
-              </>
-            ) : (
-              <>
-                <FileText size={16} />
-                {detectedUrls.length > 1
-                  ? `Generate ${Math.min(detectedUrls.length, MAX_URLS)} PDFs`
-                  : 'Generate PDF'}
-              </>
-            )}
+            {isLoading
+              ? (
+                <>
+                  <Spinner width='16px' height='14px' />
+                  Generating {bulkProgress.current} of {bulkProgress.total}…
+                </>
+                )
+              : (
+                <>
+                  <FileText size={16} />
+                  {detectedUrls.length > 1
+                    ? `Generate ${Math.min(detectedUrls.length, MAX_URLS)} PDFs`
+                    : 'Generate PDF'}
+                </>
+                )}
           </Flex>
         </GenerateButton>
       </StickyGenerateWrapper>
@@ -1568,10 +1560,10 @@ const PdfHistory = ({
               style={
                 confirmingDelete
                   ? {
-                    color: '#dc2626',
-                    borderColor: '#dc2626',
-                    background: '#fef2f2'
-                  }
+                      color: '#dc2626',
+                      borderColor: '#dc2626',
+                      background: '#fef2f2'
+                    }
                   : undefined
               }
             >
@@ -1582,17 +1574,19 @@ const PdfHistory = ({
               onClick={onDownloadZip}
               disabled={isZipping || disabled}
             >
-              {isZipping ? (
-                <>
-                  <Spinner width='14px' height='14px' />
-                  Creating ZIP…
-                </>
-              ) : (
-                <>
-                  <Download size={14} />
-                  Download ZIP
-                </>
-              )}
+              {isZipping
+                ? (
+                  <>
+                    <Spinner width='14px' height='14px' />
+                    Creating ZIP…
+                  </>
+                  )
+                : (
+                  <>
+                    <Download size={14} />
+                    Download ZIP
+                  </>
+                  )}
             </DownloadZipButton>
           </Flex>
         )}
@@ -1837,245 +1831,249 @@ const BulkPreview = ({
             gap: 3
           })}
         >
-          {failedResults.length === 0 ? (
-            <>
-              <Box
-                css={theme({
-                  width: '56px',
-                  height: '56px',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                })}
-                style={{
-                  background:
-                    'linear-gradient(225deg, #22c55e22 0%, #16a34a22 100%)'
-                }}
-              >
-                <CheckCircle size={28} color='#22c55e' />
-              </Box>
-              <Text
-                css={theme({
-                  fontSize: 3,
-                  fontWeight: 'bold',
-                  color: 'black80',
-                  fontFamily: 'sans'
-                })}
-              >
-                {bulkResults.length === 1
-                  ? 'PDF ready!'
-                  : `All ${bulkResults.length} PDFs ready!`}
-              </Text>
-              <Text
-                css={theme({
-                  fontSize: 1,
-                  color: 'black50',
-                  fontFamily: 'sans'
-                })}
-              >
-                Your ZIP file is downloading. Check your downloads folder.
-              </Text>
-              {(bulkTotalMs != null || bulkTotalBytes > 0) && (
-                <Text
-                  css={theme({
-                    fontSize: 0,
-                    color: 'black30',
-                    fontFamily: 'mono'
-                  })}
-                >
-                  {[
-                    bulkTotalMs != null &&
-                      `Total time: ${formatDuration(bulkTotalMs)}`,
-                    bulkTotalBytes > 0 && formatFileSize(bulkTotalBytes)
-                  ]
-                    .filter(Boolean)
-                    .join(' · ')}
-                </Text>
-              )}
-            </>
-          ) : (
-            <>
-              <Box
-                css={theme({
-                  width: '56px',
-                  height: '56px',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  mt: 4
-                })}
-                style={{
-                  background:
-                    'linear-gradient(225deg, #f59e0b22 0%, #d9770622 100%)'
-                }}
-              >
-                <AlertTriangle size={28} color='#f59e0b' />
-              </Box>
-              <Text
-                css={theme({
-                  fontSize: 3,
-                  fontWeight: 'bold',
-                  color: 'black80',
-                  fontFamily: 'sans'
-                })}
-              >
-                {successCount} of {bulkResults.length} PDFs ready
-              </Text>
-              {successCount > 0 && (
-                <DownloadZipButton onClick={onDownloadZip} disabled={isZipping}>
-                  {isZipping ? (
-                    <>
-                      <Spinner width='14px' height='14px' />
-                      Creating ZIP…
-                    </>
-                  ) : (
-                    <>
-                      <Download size={14} />
-                      Download ZIP ({successCount}{' '}
-                      {successCount === 1 ? 'PDF' : 'PDFs'})
-                    </>
-                  )}
-                </DownloadZipButton>
-              )}
-              <Box
-                css={theme({
-                  width: '100%',
-                  maxWidth: '500px',
-                  textAlign: 'left',
-                  border: 1,
-                  borderColor: 'black10',
-                  borderRadius: 2,
-                  p: 3,
-                  bg: 'white'
-                })}
-              >
-                <Text
-                  css={theme({
-                    fontSize: 0,
-                    fontWeight: 'bold',
-                    color: 'black60',
-                    fontFamily: 'sans',
-                    pb: 2
-                  })}
-                >
-                  Failed requests
-                </Text>
+          {failedResults.length === 0
+            ? (
+              <>
                 <Box
                   css={theme({
-                    maxHeight: `${5 * 46}px`,
-                    overflowY: 'auto',
-                    overscrollBehavior: 'contain'
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  })}
+                  style={{
+                    background:
+                    'linear-gradient(225deg, #22c55e22 0%, #16a34a22 100%)'
+                  }}
+                >
+                  <CheckCircle size={28} color='#22c55e' />
+                </Box>
+                <Text
+                  css={theme({
+                    fontSize: 3,
+                    fontWeight: 'bold',
+                    color: 'black80',
+                    fontFamily: 'sans'
                   })}
                 >
-                  {failedResults.map((r, i) => (
-                    <Flex
-                      key={i}
-                      css={theme({
-                        gap: 2,
-                        py: '6px',
-                        alignItems: 'flex-start',
-                        borderBottom: i < failedResults.length - 1 ? 1 : 0,
-                        borderColor: 'black05'
-                      })}
-                    >
-                      <X
-                        size={14}
-                        color='#ef4444'
-                        style={{ flexShrink: 0, marginTop: '5px' }}
-                      />
-                      <Box css={{ minWidth: 0, flex: 1 }}>
-                        <Text
-                          css={theme({
-                            fontSize: 0,
-                            color: 'black80',
-                            fontFamily: 'sans',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap'
-                          })}
-                        >
-                          {r.url}
-                        </Text>
-                        <Text
-                          css={theme({
-                            fontSize: '11px',
-                            color: 'black40',
-                            fontFamily: 'sans',
-                            pt: '2px'
-                          })}
-                        >
-                          {r.error?.message}
-                        </Text>
-                      </Box>
-                    </Flex>
-                  ))}
+                  {bulkResults.length === 1
+                    ? 'PDF ready!'
+                    : `All ${bulkResults.length} PDFs ready!`}
+                </Text>
+                <Text
+                  css={theme({
+                    fontSize: 1,
+                    color: 'black50',
+                    fontFamily: 'sans'
+                  })}
+                >
+                  Your ZIP file is downloading. Check your downloads folder.
+                </Text>
+                {(bulkTotalMs != null || bulkTotalBytes > 0) && (
+                  <Text
+                    css={theme({
+                      fontSize: 0,
+                      color: 'black30',
+                      fontFamily: 'mono'
+                    })}
+                  >
+                    {[
+                      bulkTotalMs != null &&
+                      `Total time: ${formatDuration(bulkTotalMs)}`,
+                      bulkTotalBytes > 0 && formatFileSize(bulkTotalBytes)
+                    ]
+                      .filter(Boolean)
+                      .join(' · ')}
+                  </Text>
+                )}
+              </>
+              )
+            : (
+              <>
+                <Box
+                  css={theme({
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mt: 4
+                  })}
+                  style={{
+                    background:
+                    'linear-gradient(225deg, #f59e0b22 0%, #d9770622 100%)'
+                  }}
+                >
+                  <AlertTriangle size={28} color='#f59e0b' />
                 </Box>
-              </Box>
-              {hasRateLimit && (
+                <Text
+                  css={theme({
+                    fontSize: 3,
+                    fontWeight: 'bold',
+                    color: 'black80',
+                    fontFamily: 'sans'
+                  })}
+                >
+                  {successCount} of {bulkResults.length} PDFs ready
+                </Text>
+                {successCount > 0 && (
+                  <DownloadZipButton onClick={onDownloadZip} disabled={isZipping}>
+                    {isZipping
+                      ? (
+                        <>
+                          <Spinner width='14px' height='14px' />
+                          Creating ZIP…
+                        </>
+                        )
+                      : (
+                        <>
+                          <Download size={14} />
+                          Download ZIP ({successCount}{' '}
+                          {successCount === 1 ? 'PDF' : 'PDFs'})
+                        </>
+                        )}
+                  </DownloadZipButton>
+                )}
                 <Box
                   css={theme({
                     width: '100%',
                     maxWidth: '500px',
                     textAlign: 'left',
+                    border: 1,
+                    borderColor: 'black10',
                     borderRadius: 2,
                     p: 3,
-                    mb: 4
+                    bg: 'white'
                   })}
-                  style={{
-                    background: '#fffbeb',
-                    border: '1px solid #fef3c7'
-                  }}
                 >
-                  <Text
-                    css={theme({
-                      fontSize: 1,
-                      fontWeight: 'bold',
-                      fontFamily: 'sans',
-                      pb: 1
-                    })}
-                    style={{ color: '#92400e' }}
-                  >
-                    Daily limit reached
-                  </Text>
                   <Text
                     css={theme({
                       fontSize: 0,
+                      fontWeight: 'bold',
+                      color: 'black60',
                       fontFamily: 'sans',
-                      lineHeight: 2
+                      pb: 2
                     })}
-                    style={{ color: '#78350f' }}
                   >
-                    Free users can generate up to 50 PDFs per day. Your limit
-                    will reset tomorrow. For unlimited access, check out our{' '}
-                    <Link href='/#pricing'>API plans</Link> or write to{' '}
-                    <Link href='mailto:hello@microlink.io'>
-                      hello@microlink.io
-                    </Link>{' '}
-                    if you need something else.
+                    Failed requests
                   </Text>
+                  <Box
+                    css={theme({
+                      maxHeight: `${5 * 46}px`,
+                      overflowY: 'auto',
+                      overscrollBehavior: 'contain'
+                    })}
+                  >
+                    {failedResults.map((r, i) => (
+                      <Flex
+                        key={i}
+                        css={theme({
+                          gap: 2,
+                          py: '6px',
+                          alignItems: 'flex-start',
+                          borderBottom: i < failedResults.length - 1 ? 1 : 0,
+                          borderColor: 'black05'
+                        })}
+                      >
+                        <X
+                          size={14}
+                          color='#ef4444'
+                          style={{ flexShrink: 0, marginTop: '5px' }}
+                        />
+                        <Box css={{ minWidth: 0, flex: 1 }}>
+                          <Text
+                            css={theme({
+                              fontSize: 0,
+                              color: 'black80',
+                              fontFamily: 'sans',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap'
+                            })}
+                          >
+                            {r.url}
+                          </Text>
+                          <Text
+                            css={theme({
+                              fontSize: '11px',
+                              color: 'black40',
+                              fontFamily: 'sans',
+                              pt: '2px'
+                            })}
+                          >
+                            {r.error?.message}
+                          </Text>
+                        </Box>
+                      </Flex>
+                    ))}
+                  </Box>
                 </Box>
-              )}
-              {(bulkTotalMs != null || bulkTotalBytes > 0) && (
-                <Text
-                  css={theme({
-                    fontSize: 0,
-                    color: 'black30',
-                    fontFamily: 'mono'
-                  })}
-                >
-                  {[
-                    bulkTotalBytes > 0 && formatFileSize(bulkTotalBytes),
-                    bulkTotalMs != null &&
+                {hasRateLimit && (
+                  <Box
+                    css={theme({
+                      width: '100%',
+                      maxWidth: '500px',
+                      textAlign: 'left',
+                      borderRadius: 2,
+                      p: 3,
+                      mb: 4
+                    })}
+                    style={{
+                      background: '#fffbeb',
+                      border: '1px solid #fef3c7'
+                    }}
+                  >
+                    <Text
+                      css={theme({
+                        fontSize: 1,
+                        fontWeight: 'bold',
+                        fontFamily: 'sans',
+                        pb: 1
+                      })}
+                      style={{ color: '#92400e' }}
+                    >
+                      Daily limit reached
+                    </Text>
+                    <Text
+                      css={theme({
+                        fontSize: 0,
+                        fontFamily: 'sans',
+                        lineHeight: 2
+                      })}
+                      style={{ color: '#78350f' }}
+                    >
+                      Free users can generate up to 50 PDFs per day. Your limit
+                      will reset tomorrow. For unlimited access, check out our{' '}
+                      <Link href='/#pricing'>API plans</Link> or write to{' '}
+                      <Link href='mailto:hello@microlink.io'>
+                        hello@microlink.io
+                      </Link>{' '}
+                      if you need something else.
+                    </Text>
+                  </Box>
+                )}
+                {(bulkTotalMs != null || bulkTotalBytes > 0) && (
+                  <Text
+                    css={theme({
+                      fontSize: 0,
+                      color: 'black30',
+                      fontFamily: 'mono'
+                    })}
+                  >
+                    {[
+                      bulkTotalBytes > 0 && formatFileSize(bulkTotalBytes),
+                      bulkTotalMs != null &&
                       `Total time: ${formatDuration(bulkTotalMs)}`
-                  ]
-                    .filter(Boolean)
-                    .join(' · ')}
-                </Text>
+                    ]
+                      .filter(Boolean)
+                      .join(' · ')}
+                  </Text>
+                )}
+              </>
               )}
-            </>
-          )}
           {!hasRateLimit && (
             <Button
               onClick={onReset}
