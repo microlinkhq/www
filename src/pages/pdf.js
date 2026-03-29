@@ -131,12 +131,10 @@ const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
-const FIRST_URL = 'https://basecamp.com/shapeup/0.3-chapter-01'
+const FIRST_URL =
+  'https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Media_queries/Printing'
 
-const DEMO_URLS = [
-  'https://rauchg.com/2014/7-principles-of-rich-web-applications',
-  'https://css-tricks.com/nerds-guide-color-web/'
-]
+const DEMO_URLS = ['https://nav.al/david-deutsch', 'https://plausible.io']
 
 const HERO_LAYOUT = {
   maxWidth: ['100%', '100%', '100%', `calc(${layout.large} * 1.7)`],
@@ -656,8 +654,8 @@ const MAX_HISTORY = 6
 
 const DEFAULT_HISTORY = [
   FIRST_URL,
-  'https://rauchg.com/2014/7-principles-of-rich-web-applications',
-  'https://css-tricks.com/nerds-guide-color-web/'
+  'https://nav.al/david-deutsch',
+  'https://plausible.io'
 ]
 
 const addToHistory = (history, url) => {
@@ -699,8 +697,10 @@ const Hero = function Hero ({ onRequestTiming }) {
       const t0 = Date.now()
 
       try {
+        const scale = url === DEFAULT_HISTORY[0] || url === DEFAULT_HISTORY[1]
         const res = await window.fetch(
-          `https://api.microlink.io?url=${encodeURIComponent(url)}&pdf`,
+          `https://api.microlink.io?url=${encodeURIComponent(url)}&pdf` +
+            (scale ? '&scale=1.2' : ''),
           { signal: abortRef.current.signal }
         )
         const json = await res.json()
@@ -754,7 +754,7 @@ const Hero = function Hero ({ onRequestTiming }) {
     const typeUrl = async url => {
       setInputUrl('')
       for (let i = 1; i <= url.length; i++) {
-        await delay(130)
+        await delay(65)
         if (check()) return false
         setInputUrl('https://' + url.slice(0, i))
       }
