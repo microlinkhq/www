@@ -4,10 +4,14 @@ import { borders, colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
   AlertTriangle,
+  ArrowLeft,
   FileText,
   CheckCircle,
   ChevronDown,
+  Clipboard,
+  Check,
   Download,
+  ExternalLink,
   Globe,
   ArrowRight,
   HelpCircle,
@@ -47,6 +51,7 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import ArrowLink from 'components/patterns/ArrowLink'
 
+import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { withTitle } from 'helpers/hoc/with-title'
 import {
@@ -71,7 +76,9 @@ import {
   StickyGenerateWrapper,
   SegmentedControl,
   PreviewEmptyState,
+  ActionButton,
   createThumbnail,
+  downloadFile,
   LAYOUT_PIVOT,
   MOBILE_BP
 } from 'components/pages/screenshot'
@@ -926,6 +933,7 @@ const OptionsPanel = ({
   onMediaTypeChange
 }) => {
   const [urlError, setUrlError] = useState('')
+  const [showFormatOptions, setShowFormatOptions] = useState(false)
   const [showAdvanced, setShowAdvanced] = useState(false)
 
   const handleUrlsChange = useCallback(
@@ -1079,129 +1087,147 @@ const OptionsPanel = ({
 
       {/* ── Settings Groups (Ribbon on tablet) ── */}
       <PanelRibbonLayout>
-        {/* ── Page Setup ─────────────────────── */}
+        {/* ── Format Options (collapsible) ──── */}
         <PanelSection>
-          <Box css={theme({ pb: '12px' })}>
-            <OptionLabel as='span'>Paper Format</OptionLabel>
-            <Select
-              id='pdf-format'
-              aria-label='Paper format'
-              value={options.format}
-              onChange={e =>
-                setOptions(prev => ({ ...prev, format: e.target.value }))
-              }
-              css={theme({ width: '100%', fontSize: 1, bg: 'white' })}
-            >
-              {FORMAT_OPTIONS.map(({ value, label }) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </Select>
-          </Box>
-
-          <Box>
-            <OptionLabel as='span'>Orientation</OptionLabel>
-            <SegmentedControl
-              name='Orientation'
-              options={ORIENTATION_OPTIONS}
-              value={options.landscape ? 'landscape' : 'portrait'}
-              onChange={val =>
-                setOptions(prev => ({
-                  ...prev,
-                  landscape: val === 'landscape'
-                }))
-              }
-            />
-          </Box>
-
-          <Box css={theme({ mt: 3 })}>
-            <Box css={{ display: 'flex', alignItems: 'center' }}>
-              <OptionLabel as='span' css={{ marginBottom: 0 }}>
-                PDF Appearance
-              </OptionLabel>
-              <Tooltip
-                content={
-                  <Tooltip.Content>
-                    <b>Screen View</b> is a perfect visual match of your current
-                    digital display. <b>Print Version</b> is optimized for
-                    paper, hiding non-essential web elements.
-                  </Tooltip.Content>
-                }
-              >
-                <HelpCircle
-                  size={16}
-                  color={colors.black60}
-                  style={{ marginLeft: '6px' }}
-                />
-              </Tooltip>
-            </Box>
-            <SegmentedControl
-              name='PDF Appearance'
-              options={MEDIA_TYPE_OPTIONS}
-              value={options.mediaType}
-              onChange={val => {
-                setOptions(prev => ({ ...prev, mediaType: val }))
-                onMediaTypeChange(val)
+          <AdvancedToggle
+            onClick={() => setShowFormatOptions(prev => !prev)}
+            aria-expanded={showFormatOptions}
+            aria-controls='pdf-format-options'
+          >
+            <ChevronDown
+              size={16}
+              style={{
+                transform: showFormatOptions ? 'rotate(180deg)' : 'rotate(0deg)'
               }}
             />
-          </Box>
+            Format Options
+          </AdvancedToggle>
 
-          <Box css={theme({ mt: 3 })}>
-            <Box css={{ display: 'flex', alignItems: 'center' }}>
-              <OptionLabel as='span' css={{ marginBottom: 0 }}>
-                Zoom scale
-              </OptionLabel>
-              <Tooltip
-                content={
-                  <Tooltip.Content>
-                    If the text in the PDF appears too small or too large,
-                    adjust this value to scale the page content up or down.
-                  </Tooltip.Content>
-                }
-              >
-                <HelpCircle
-                  size={16}
-                  color={colors.black60}
-                  style={{ marginLeft: '6px' }}
+          {showFormatOptions && (
+            <Box id='pdf-format-options' css={theme({ pt: 1 })}>
+              <Box css={theme({ pb: '12px' })}>
+                <OptionLabel as='span'>Paper Format</OptionLabel>
+                <Select
+                  id='pdf-format'
+                  aria-label='Paper format'
+                  value={options.format}
+                  onChange={e =>
+                    setOptions(prev => ({ ...prev, format: e.target.value }))
+                  }
+                  css={theme({ width: '100%', fontSize: 1, bg: 'white' })}
+                >
+                  {FORMAT_OPTIONS.map(({ value, label }) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </Select>
+              </Box>
+
+              <Box>
+                <OptionLabel as='span'>Orientation</OptionLabel>
+                <SegmentedControl
+                  name='Orientation'
+                  options={ORIENTATION_OPTIONS}
+                  value={options.landscape ? 'landscape' : 'portrait'}
+                  onChange={val =>
+                    setOptions(prev => ({
+                      ...prev,
+                      landscape: val === 'landscape'
+                    }))
+                  }
                 />
-              </Tooltip>
+              </Box>
+
+              <Box css={theme({ mt: 3 })}>
+                <Box css={{ display: 'flex', alignItems: 'center' }}>
+                  <OptionLabel as='span' css={{ marginBottom: 0 }}>
+                    PDF Appearance
+                  </OptionLabel>
+                  <Tooltip
+                    content={
+                      <Tooltip.Content>
+                        <b>Screen View</b> is a perfect visual match of your
+                        current digital display. <b>Print Version</b> is
+                        optimized for paper, hiding non-essential web elements.
+                      </Tooltip.Content>
+                    }
+                  >
+                    <HelpCircle
+                      size={16}
+                      color={colors.black60}
+                      style={{ marginLeft: '6px' }}
+                    />
+                  </Tooltip>
+                </Box>
+                <SegmentedControl
+                  name='PDF Appearance'
+                  options={MEDIA_TYPE_OPTIONS}
+                  value={options.mediaType}
+                  onChange={val => {
+                    setOptions(prev => ({ ...prev, mediaType: val }))
+                    onMediaTypeChange(val)
+                  }}
+                />
+              </Box>
+
+              <Box css={theme({ mt: 3 })}>
+                <Box css={{ display: 'flex', alignItems: 'center' }}>
+                  <OptionLabel as='span' css={{ marginBottom: 0 }}>
+                    Zoom scale
+                  </OptionLabel>
+                  <Tooltip
+                    content={
+                      <Tooltip.Content>
+                        If the text in the PDF appears too small or too large,
+                        adjust this value to scale the page content up or down.
+                      </Tooltip.Content>
+                    }
+                  >
+                    <HelpCircle
+                      size={16}
+                      color={colors.black60}
+                      style={{ marginLeft: '6px' }}
+                    />
+                  </Tooltip>
+                </Box>
+                <Flex css={theme({ alignItems: 'center', gap: 2, pt: 1 })}>
+                  <input
+                    id='pdf-scale-range'
+                    type='range'
+                    min='0.1'
+                    max='2'
+                    step='0.1'
+                    value={options.scale || '0.6'}
+                    onChange={e =>
+                      setOptions(prev => ({ ...prev, scale: e.target.value }))
+                    }
+                    aria-label='PDF zoom scale'
+                    style={{ flex: 1, accentColor: colors.link }}
+                  />
+                  <Input
+                    id='pdf-scale'
+                    type='number'
+                    inputMode='decimal'
+                    step='0.1'
+                    min='0.1'
+                    max='2'
+                    aria-label='PDF zoom scale value'
+                    value={options.scale}
+                    onChange={e =>
+                      setOptions(prev => ({ ...prev, scale: e.target.value }))
+                    }
+                    css={theme({
+                      width: '60px',
+                      fontSize: 1,
+                      height: '18px',
+                      textAlign: 'center'
+                    })}
+                  />
+                </Flex>
+              </Box>
             </Box>
-            <Flex css={theme({ alignItems: 'center', gap: 2, pt: 1 })}>
-              <input
-                id='pdf-scale-range'
-                type='range'
-                min='0.1'
-                max='2'
-                step='0.1'
-                value={options.scale || '0.6'}
-                onChange={e =>
-                  setOptions(prev => ({ ...prev, scale: e.target.value }))
-                }
-                aria-label='PDF zoom scale'
-                style={{ flex: 1, accentColor: colors.link }}
-              />
-              <Input
-                id='pdf-scale'
-                type='number'
-                inputMode='decimal'
-                step='0.1'
-                min='0.1'
-                max='2'
-                aria-label='PDF zoom scale value'
-                value={options.scale}
-                onChange={e =>
-                  setOptions(prev => ({ ...prev, scale: e.target.value }))
-                }
-                css={theme({
-                  width: '60px',
-                  fontSize: 1,
-                  height: '18px',
-                  textAlign: 'center'
-                })}
-              />
-            </Flex>
-          </Box>
+          )}
         </PanelSection>
 
         {/* ── Preferences ────────────────────── */}
@@ -1790,11 +1816,132 @@ const BulkPreview = ({
   bulkTotalBytes,
   onDownloadZip,
   isZipping,
-  onReset
+  onReset,
+  previewPdf,
+  onClosePreview
 }) => {
+  const [ClipboardComponent, toClipboard] = useClipboard()
+  const [copied, setCopied] = useState(false)
+  const [downloaded, setDownloaded] = useState(false)
+
   const successCount = bulkResults.filter(r => r.success).length
   const failedResults = bulkResults.filter(r => !r.success)
   const hasRateLimit = failedResults.some(r => r.error?.statusCode === 429)
+
+  if (previewPdf) {
+    return (
+      <PreviewCanvas>
+        <FadeIn
+          key='preview'
+          css={theme({
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%'
+          })}
+        >
+          <Box
+            css={theme({
+              flex: 1,
+              position: 'relative',
+              minHeight: ['400px', '500px', '650px'],
+              maxHeight: ['60vh', '750px', '750px']
+            })}
+          >
+            <iframe
+              src={previewPdf.url}
+              title='PDF preview'
+              style={{
+                width: '100%',
+                height: '100%',
+                border: 'none',
+                display: 'block',
+                minHeight: 'inherit'
+              }}
+            />
+          </Box>
+
+          <Flex
+            css={theme({
+              p: 3,
+              gap: 2,
+              borderTop: 1,
+              borderColor: 'black05',
+              bg: 'white',
+              flexWrap: 'wrap'
+            })}
+          >
+            <ActionButton
+              role='button'
+              tabIndex={0}
+              onClick={e => {
+                e.preventDefault()
+                downloadFile(
+                  previewPdf.url,
+                  `${buildPdfFilename(previewPdf.sourceUrl)}.pdf`
+                )
+                setDownloaded(true)
+                setTimeout(() => setDownloaded(false), 1500)
+              }}
+              css={theme({
+                bg: 'black',
+                color: 'white',
+                _hover: { bg: 'black80' }
+              })}
+            >
+              {downloaded ? <Check size={15} /> : <Download size={15} />}
+              <Caps css={theme({ fontSize: 0 })}>
+                {downloaded ? 'Saving' : 'Download'}
+              </Caps>
+            </ActionButton>
+
+            <ActionButton
+              as='button'
+              type='button'
+              onClick={() => {
+                toClipboard({
+                  copy: previewPdf.url,
+                  text: Tooltip.TEXT.COPIED('URL')
+                })
+                setCopied(true)
+                setTimeout(() => setCopied(false), 1500)
+              }}
+              css={theme({
+                bg: 'white',
+                color: 'black80',
+                border: 1,
+                borderColor: 'black10',
+                width: '100%',
+                _hover: { bg: 'gray1', borderColor: 'black20' }
+              })}
+            >
+              {copied ? <Check size={15} /> : <Clipboard size={15} />}
+              <Caps css={theme({ fontSize: 0 })}>
+                {copied ? 'Copied' : 'Copy URL'}
+              </Caps>
+            </ActionButton>
+
+            <ActionButton
+              href={previewPdf.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label='Open PDF in new tab'
+              css={theme({
+                bg: 'white',
+                color: 'black80',
+                border: 1,
+                borderColor: 'black10',
+                _hover: { bg: 'gray1', borderColor: 'black20' }
+              })}
+            >
+              <ExternalLink size={15} />
+              <Caps css={theme({ fontSize: 0 })}>Open</Caps>
+            </ActionButton>
+          </Flex>
+        </FadeIn>
+        <ClipboardComponent />
+      </PreviewCanvas>
+    )
+  }
 
   if (bulkState === 'idle') {
     return (
@@ -2218,6 +2365,7 @@ const PdfBatchTool = () => {
   const [historyReady, setHistoryReady] = useState(false)
   const [selectedIds, setSelectedIds] = useState([])
   const [isZipping, setIsZipping] = useState(false)
+  const [previewPdf, setPreviewPdf] = useState(null)
 
   useEffect(() => {
     if (savedMediaType) {
@@ -2275,6 +2423,7 @@ const PdfBatchTool = () => {
 
   const handleBulkSubmit = useCallback(
     async urls => {
+      setPreviewPdf(null)
       setBulkState('processing')
       setBulkProgress({ current: 0, total: urls.length, currentUrl: '' })
       setBulkResults([])
@@ -2449,7 +2598,10 @@ const PdfBatchTool = () => {
   const handleHistorySelect = useCallback(entry => {
     setActiveHistoryId(entry.id)
     if (entry.pdf?.url) {
-      window.open(entry.pdf.url, '_blank', 'noopener,noreferrer')
+      setPreviewPdf({
+        url: entry.pdf.url,
+        sourceUrl: entry.settings?.url || ''
+      })
     }
   }, [])
 
@@ -2497,6 +2649,7 @@ const PdfBatchTool = () => {
   }, [history, selectedIds, downloadZipFromEntries])
 
   const handleReset = useCallback(() => {
+    setPreviewPdf(null)
     setBulkState('idle')
     setBulkResults([])
     setBulkTotalMs(null)
@@ -2541,6 +2694,8 @@ const PdfBatchTool = () => {
             onDownloadZip={handleDownloadZip}
             isZipping={isZipping}
             onReset={handleReset}
+            previewPdf={previewPdf}
+            onClosePreview={() => setPreviewPdf(null)}
           />
         </PreviewOuter>
       </ToolLayout>
@@ -2597,6 +2752,7 @@ const Hero = () => (
       })}
     >
       Paste a URL list to batch convert up to 50 web pages into PDF documents.
+      <br />
       Download your results instantly as a ZIP file.
     </Caption>
   </Flex>
@@ -2913,7 +3069,7 @@ const UseCases = () => (
     >
       Who needs to bulk convert URLs to PDF?
     </Subhead>
-    <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
+    <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.large })}>
       From web archiving to automated document generation, bulk PDF download
       from a URL list saves hours across every team.
     </Caption>

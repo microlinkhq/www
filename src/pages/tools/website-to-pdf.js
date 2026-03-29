@@ -1907,7 +1907,7 @@ const UseCases = () => (
     >
       Who saves web pages as PDF?
     </Subhead>
-    <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
+    <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.large })}>
       From archiving internet pages to converting HTML to PDF at scale,
       webpage-to-PDF conversion powers workflows across every industry.
     </Caption>
