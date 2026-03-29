@@ -163,7 +163,7 @@ const SettingsCompareSlider = () => {
 
 /* ─── Constants ────────────────────────────────────────── */
 
-const PDF_HISTORY_KEY = 'pdf-history/batch'
+const PDF_HISTORY_KEY = 'pdf-history/bulk'
 const MAX_HISTORY_ITEMS = 50
 const MAX_URLS = 50
 const HISTORY_MAX_AGE_MS = 24 * 60 * 60 * 1000
@@ -2282,7 +2282,7 @@ const BulkPreview = ({
                   >
                     Free users can generate up to 50 PDFs per day. Your limit
                     will reset tomorrow. For unlimited access, check out our{' '}
-                    <Link href='/#pricing'>API plans</Link> or write to{' '}
+                    <Link href='/pdf#pricing'>API plans</Link> or write to{' '}
                     <Link href='mailto:hello@microlink.io'>
                       hello@microlink.io
                     </Link>{' '}
@@ -3050,7 +3050,7 @@ const USE_CASES = [
       'Generate documentation PDFs from live sites at scale'
     ],
     link: {
-      href: '/docs/api/parameters/pdf',
+      href: '/pdf',
       alt: 'Bulk PDF API reference',
       text: 'API reference'
     }
@@ -3178,8 +3178,9 @@ const ProductInformation = () => (
             </div>
             <div>
               Need higher limits for automated <b>batch URL to PDF</b>{' '}
-              processing? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
-              for unlimited conversions and priority processing, or write to{' '}
+              processing? Check our{' '}
+              <Link href='/pdf#pricing'>pricing plans</Link> for unlimited
+              conversions and priority processing, or write to{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
             </div>
           </>
@@ -3247,10 +3248,9 @@ const ProductInformation = () => (
           <>
             <div>
               Absolutely. This tool is built on the{' '}
-              <Link href='/docs/api/parameters/pdf'>Microlink PDF API</Link>,
-              which provides a simple REST endpoint. Send a URL, get back a PDF
-              — integrate with any language (Node.js, Python, Ruby, Go) or plain
-              cURL.
+              <Link href='/pdf'>Microlink PDF API</Link>, which provides a
+              simple REST endpoint. Send a URL, get back a PDF — integrate with
+              any language (Node.js, Python, Ruby, Go) or plain cURL.
             </div>
             <div>
               For Node.js, use the{' '}
@@ -3378,16 +3378,23 @@ export const Head = () => (
       {
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        '@id': 'https://microlink.io/tools/website-to-pdf/batch',
+        '@id': 'https://microlink.io/tools/website-to-pdf/bulk',
         name: 'Microlink Bulk URL to PDF Converter',
         description:
           'Free bulk URL to PDF converter. Paste up to 50 URLs, batch convert every page to PDF, and download them all as a ZIP file. Built on Microlink PDF API.',
-        url: 'https://microlink.io/tools/website-to-pdf/batch',
-        applicationCategory: ['DeveloperApplication', 'Tool'],
+        url: 'https://microlink.io/tools/website-to-pdf/bulk',
+        applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
+        operatingSystem: 'WebApplication',
+        provider: {
+          '@type': 'Organization',
+          '@id': 'https://microlink.io/#organization',
+          name: 'Microlink',
+          url: 'https://microlink.io'
+        },
         offers: {
           '@type': 'Offer',
           price: '0',
-          priceCurrency: 'USD',
+          priceCurrency: 'EUR',
           description: 'Free tier with 50 bulk PDF conversions per day'
         }
       },
@@ -3445,17 +3452,20 @@ export const Head = () => (
           {
             '@type': 'HowToStep',
             name: 'Paste your URL list',
-            text: 'Add up to 50 URLs at once — one per line or comma-separated. Any publicly accessible web page works.'
+            text: 'Add up to 50 URLs at once — one per line or comma-separated. Any publicly accessible web page works.',
+            url: 'https://microlink.io/tools/website-to-pdf/bulk'
           },
           {
             '@type': 'HowToStep',
             name: 'Choose your settings',
-            text: 'Pick a paper format (A4, Letter, Legal), orientation, PDF appearance, and optionally set advanced options like scale, margins, or page ranges.'
+            text: 'Pick a paper format (A4, Letter, Legal), orientation, PDF appearance, and optionally set advanced options like scale, margins, or page ranges.',
+            url: 'https://microlink.io/tools/website-to-pdf/bulk'
           },
           {
             '@type': 'HowToStep',
             name: 'Bulk convert and download',
-            text: 'Click Generate PDFs and watch every URL converted one by one. Download all PDFs as a single ZIP file.'
+            text: 'Click Generate PDFs to trigger the API. Watch every URL convert one by one, then download all PDFs packaged as a single ZIP file.',
+            url: 'https://microlink.io/tools/website-to-pdf/bulk'
           }
         ]
       }

@@ -2051,7 +2051,7 @@ const ProductInformation = () => (
             </div>
             <div>
               Need higher limits? Check our{' '}
-              <Link href='/#pricing'>pricing plans</Link> for priority
+              <Link href='/pdf#pricing'>pricing plans</Link> for priority
               processing and more daily conversions.
             </div>
           </>
@@ -2100,9 +2100,9 @@ const ProductInformation = () => (
           <>
             <div>
               Absolutely. This tool is built on the{' '}
-              <Link href='/docs/api/parameters/pdf'>Microlink PDF API</Link> — a
-              simple REST endpoint that converts any URL to a PDF document.
-              Integrate with Node.js, Python, Ruby, or plain cURL.
+              <Link href='/pdf'>Microlink PDF API</Link> — a simple REST
+              endpoint that converts any URL to a PDF document. Integrate with
+              Node.js, Python, Ruby, or plain cURL.
             </div>
             <div>
               Use the{' '}
@@ -2195,7 +2195,7 @@ export const Head = () => (
   <Meta
     title='Save Webpage as PDF — Free Online HTML to PDF Converter'
     noSuffix
-    description='Save any web page as a PDF for free. Convert HTML to PDF, turn a URL into a downloadable document, or save an internet page as PDF — no login, no install. Supports custom paper size, margins, and orientation.'
+    description='Convert any webpage url to PDF instantly. Free online tool with custom margins, paper sizes, and API access. No login required. Try it now.'
     image='https://cdn.microlink.io/banner/pdf.jpeg'
     schemaType='SoftwareApplication'
     structured={[
@@ -2208,10 +2208,17 @@ export const Head = () => (
           'Free online tool to save a webpage as PDF, convert HTML to PDF, or turn any URL into a downloadable PDF document. No login required.',
         url: 'https://microlink.io/tools/website-to-pdf',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
+        operatingSystem: 'WebApplication',
+        provider: {
+          '@type': 'Organization',
+          '@id': 'https://microlink.io/#organization',
+          name: 'Microlink',
+          url: 'https://microlink.io'
+        },
         offers: {
           '@type': 'Offer',
           price: '0',
-          priceCurrency: 'USD',
+          priceCurrency: 'EUR',
           description:
             'Free tier — save up to 50 web pages as PDF per day, no credit card required'
         }
