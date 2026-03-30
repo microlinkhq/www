@@ -98,13 +98,13 @@ function getPdfjsLib () {
   const cdnUrl = `${PDFJS_CDN_BASE}/build/pdf.min.mjs`
   const workerUrl = `${PDFJS_CDN_BASE}/build/pdf.worker.min.mjs`
 
-  const loaderCode = `import * as pdfjsLib from '${cdnUrl}'; self.__pdfjsLib = pdfjsLib;`
+  const loaderCode = `import * as pdfjsLib from '${cdnUrl}'; window.__pdfjsLib = pdfjsLib;`
   const blob = new Blob([loaderCode], { type: 'text/javascript' })
   const blobUrl = URL.createObjectURL(blob)
 
   pdfjsLibPromise = import(/* webpackIgnore: true */ blobUrl).then(() => {
     URL.revokeObjectURL(blobUrl)
-    const lib = self.__pdfjsLib
+    const lib = window.__pdfjsLib
     if (!lib) throw new Error('pdfjs-dist failed to initialize')
     lib.GlobalWorkerOptions.workerSrc = workerUrl
     return lib
@@ -336,7 +336,7 @@ const PdfViewer = ({
             >
               {renderedPages === totalPages
                 ? `${totalPages} page${totalPages !== 1 ? 's' : ''}`
-                : `Loading\u2026`}
+                : 'Loading\u2026'}
             </Text>
             <ToolbarButton
               aria-label='Next page'
@@ -379,8 +379,7 @@ const PdfViewer = ({
               aria-label='Zoom in'
               disabled={zoomIndex === ZOOM_STEPS.length - 1}
               onClick={() =>
-                setZoomIndex(i => Math.min(ZOOM_STEPS.length - 1, i + 1))
-              }
+                setZoomIndex(i => Math.min(ZOOM_STEPS.length - 1, i + 1))}
             >
               <ZoomIn size={14} />
             </ToolbarButton>
