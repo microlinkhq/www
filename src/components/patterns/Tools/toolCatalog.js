@@ -140,7 +140,7 @@ export const TOOLS = [
         href: '/tools/website-to-pdf',
         icon: FileTextIcon,
         image: '/images/pdf-tool.png',
-        animation: ['scale(1) translateY(-90%)', 'scale(1)'],
+        animation: ['scale(1) translateY(-70%)', 'scale(1)'],
         styles: {
           boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
           position: 'absolute',
