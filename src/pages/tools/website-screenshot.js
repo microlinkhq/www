@@ -39,6 +39,7 @@ import {
   buildMqlQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { normalizeApiError } from 'helpers/api-error'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import {
@@ -1002,11 +1003,9 @@ const ScreenshotTool = () => {
             )
           )
         } catch (err) {
-          setError({
-            message:
-              err.description || err.message || 'Failed to capture screenshot.',
-            statusCode: err.statusCode || err.code
-          })
+          setError(
+            normalizeApiError.fromMql(err, 'Failed to capture screenshot.')
+          )
         }
 
         if (response?.data?.screenshot) {
@@ -1048,11 +1047,9 @@ const ScreenshotTool = () => {
           setActiveHistoryId(entryId)
         }
       } catch (err) {
-        setError({
-          message:
-            err.description || err.message || 'Failed to capture screenshot.',
-          statusCode: err.statusCode || err.code
-        })
+        setError(
+          normalizeApiError.fromMql(err, 'Failed to capture screenshot.')
+        )
       } finally {
         setIsLoading(false)
       }

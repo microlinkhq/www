@@ -26,7 +26,13 @@ import Label from 'components/elements/Label'
 import Spinner from 'components/elements/Spinner'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
+import { Link } from 'components/elements/Link'
 
+import {
+  ApiErrorTitle,
+  ApiErrorBody
+} from 'components/patterns/ApiError/ApiError'
+import { getErrorMeta } from 'helpers/api-error'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Caption from 'components/patterns/Caption/Caption'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
@@ -995,18 +1001,17 @@ export const PreviewDisplay = ({
             })}
           >
             <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              {error?.statusCode === 429 && (
-                <>
-                  You've reached your free daily limit.
-                  <Text css={theme({ fontSize: 2, color: 'black60' })}>
-                    We allow 50 requests per day for free users.
-                  </Text>
-                </>
-              )}
-              {error?.statusCode !== 429 &&
-                (error?.message || 'Something went wrong. Please try again.')}
+              <ApiErrorTitle code={error?.code} />
+              <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
+                <ApiErrorBody
+                  code={error?.code}
+                  fallback={
+                    error?.message || 'Something went wrong. Please try again.'
+                  }
+                />
+              </Text>
             </Text>
-            {error?.statusCode !== 429 && (
+            {getErrorMeta(error?.code).showRetry && (
               <Button onClick={onRetry}>
                 <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
               </Button>
@@ -1155,13 +1160,11 @@ export const PreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                {downloaded
-                  ? (
-                    <SpinningLoader size={15} />
-                    )
-                  : (
-                    <Download size={15} />
-                    )}
+                {downloaded ? (
+                  <SpinningLoader size={15} />
+                ) : (
+                  <Download size={15} />
+                )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
