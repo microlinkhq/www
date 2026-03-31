@@ -55,7 +55,7 @@ importers:
         version: 1.2.21
       cloudflare-bot-directory:
         specifier: ~1.0.7
-        version: 1.0.16
+        version: 1.0.17
       cssnano:
         specifier: ~7.1.2
         version: 7.1.2(postcss@8.5.6)
@@ -199,7 +199,7 @@ importers:
         version: 7.0.23
       top-user-agents:
         specifier: ~2.1.96
-        version: 2.1.103
+        version: 2.1.104
       truncate-url:
         specifier: ~3.0.0
         version: 3.0.0
@@ -4527,8 +4527,8 @@ packages:
     resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
 
-  cloudflare-bot-directory@1.0.16:
-    resolution: {integrity: sha512-KsDyiKxNBQlvNXNpuSuKeg/obyhoLo3ZAUwbD5fxOAsRLtugC8+8CqpnNaMRdxqI89cXtnFD2Qsn5Yg6zP+8SQ==}
+  cloudflare-bot-directory@1.0.17:
+    resolution: {integrity: sha512-PDc55c02oGdq3Z/KzysfFJwk3D8jOS6F692vAW5CVMI7gZ8S8LHLi92oK91r6pT512zRjlS5t3dmyg1U2giLfQ==}
     engines: {node: '>= 20'}
 
   coffeescript@2.7.0:
@@ -11545,8 +11545,8 @@ packages:
     resolution: {integrity: sha512-6udB24Q737UD/SDsKAHI9FCRP7Bqc9D/MQUV02ORQg5iskjtLJlZJNdN4kKtcdtwCeWIwIHDGaUsTsCCAa8sFQ==}
     engines: {node: '>=10'}
 
-  top-user-agents@2.1.103:
-    resolution: {integrity: sha512-hp5wk4ElLR8uknjf1PRZjvQPtBUhlmVjuSsSujEdnqPcRXeAoaAc5frdw7ZOdNWO8dvzUSDs5zkZ0RKL6LAlGQ==}
+  top-user-agents@2.1.104:
+    resolution: {integrity: sha512-SRU3kzzQFc8u3tAAO0Lnc57Z3w1fCMDDQCsdHYFFU4VUzq2mvmCrrzB+/ZKSMWrn4KST7wEWA1ziUX3EE1hjXg==}
 
   tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
@@ -18203,7 +18203,7 @@ snapshots:
 
   clone@2.1.2: {}
 
-  cloudflare-bot-directory@1.0.16: {}
+  cloudflare-bot-directory@1.0.17: {}
 
   coffeescript@2.7.0: {}
 
@@ -27450,7 +27450,7 @@ snapshots:
       '@tokenizer/token': 0.3.0
       ieee754: 1.2.1
 
-  top-user-agents@2.1.103: {}
+  top-user-agents@2.1.104: {}
 
   tr46@0.0.3: {}
 
