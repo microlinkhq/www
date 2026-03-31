@@ -588,7 +588,6 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
         borderColor: 'black10',
         borderRadius: 3
       })}
-      style={{ background: '#f8fafc' }}
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>

@@ -251,7 +251,7 @@ export const PreviewCanvas = styled(Box)`
     overflow: 'hidden',
     position: 'relative'
   })}
-  background: #f1f5f9;
+  background: #fcfcfc;
 `
 
 export const ViewportCard = styled(Box)`
@@ -1159,13 +1159,11 @@ export const PreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                {downloaded
-                  ? (
-                    <SpinningLoader size={15} />
-                    )
-                  : (
-                    <Download size={15} />
-                    )}
+                {downloaded ? (
+                  <SpinningLoader size={15} />
+                ) : (
+                  <Download size={15} />
+                )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
