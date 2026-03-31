@@ -42,6 +42,11 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import {
+  ApiErrorTitle,
+  ApiErrorBody
+} from 'components/patterns/ApiError/ApiError'
+import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
 import { withTitle } from 'helpers/hoc/with-title'
 import NerdStatsOverlay, {
   NerdStatsToggle,
@@ -277,7 +282,6 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
         borderColor: 'black10',
         borderRadius: 3
       })}
-      style={{ background: '#f8fafc' }}
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
@@ -666,20 +670,17 @@ const PreviewDisplay = ({
             })}
           >
             <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              {error?.statusCode === 429
-                ? (
-                  <>
-                    You've reached your free daily limit.
-                    <Text css={theme({ fontSize: 2, color: 'black60' })}>
-                      We allow 50 requests per day for free users.
-                    </Text>
-                  </>
-                  )
-                : (
+              <ApiErrorTitle code={error?.code} />
+              <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
+                <ApiErrorBody
+                  code={error?.code}
+                  fallback={
                     error?.message || 'Something went wrong. Please try again.'
-                  )}
+                  }
+                />
+              </Text>
             </Text>
-            {error?.statusCode !== 429 && (
+            {getErrorMeta(error?.code).showRetry && (
               <Button onClick={onRetry}>
                 <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
               </Button>
@@ -933,13 +934,12 @@ const AnimatedScreenshotTool = () => {
             )
           )
         } catch (err) {
-          setError({
-            message:
-              err.description ||
-              err.message ||
-              'Failed to capture animated screenshot.',
-            statusCode: err.statusCode || err.code
-          })
+          setError(
+            normalizeApiError.fromMql(
+              err,
+              'Failed to capture animated screenshot.'
+            )
+          )
         }
 
         if (response?.data?.screenshot) {
@@ -976,13 +976,12 @@ const AnimatedScreenshotTool = () => {
           setActiveHistoryId(entryId)
         }
       } catch (err) {
-        setError({
-          message:
-            err.description ||
-            err.message ||
-            'Failed to capture animated screenshot.',
-          statusCode: err.statusCode || err.code
-        })
+        setError(
+          normalizeApiError.fromMql(
+            err,
+            'Failed to capture animated screenshot.'
+          )
+        )
       } finally {
         setIsLoading(false)
       }

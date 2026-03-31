@@ -49,6 +49,11 @@ import NerdStatsOverlay, {
 } from 'components/patterns/NerdStats/NerdStats'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import {
+  ApiErrorTitle,
+  ApiErrorBody
+} from 'components/patterns/ApiError/ApiError'
+import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import {
@@ -1443,32 +1448,17 @@ const MarkdownPreviewDisplay = ({
             })}
           >
             <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              {error?.statusCode === 429
-                ? (
-                  <>
-                    You've reached your free daily limit.
-                    <Text css={theme({ fontSize: 2, color: 'black60' })}>
-                      We allow 50 requests per day for free users.
-                    </Text>
-                  </>
-                  )
-                : error?.statusCode === 'EMPTY_MARKDOWN'
-                  ? (
-                    <>
-                      This URL couldn't be analyzed.
-                      <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
-                        The page may not exist, return empty content, or be behind
-                        anti-bot / anti-scraping protection.{' '}
-                        <Link href='/#pricing'>Pro plans</Link> can bypass most
-                        protections.
-                      </Text>
-                    </>
-                    )
-                  : (
-                      error?.message || 'Something went wrong. Please try again.'
-                    )}
+              <ApiErrorTitle code={error?.code} />
+              <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
+                <ApiErrorBody
+                  code={error?.code}
+                  fallback={
+                    error?.message || 'Something went wrong. Please try again.'
+                  }
+                />
+              </Text>
             </Text>
-            {error?.statusCode !== 429
+            {getErrorMeta(error?.code).showRetry
               ? (
                 <Button onClick={onRetry}>
                   <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
@@ -1890,11 +1880,7 @@ const MarkdownTool = () => {
           md = stripNoisyMeta(response.data?.markdown)
 
           if (!md) {
-            setError({
-              message:
-                "This URL couldn't be converted to markdown. It may not exist, return empty content, or be behind anti-bot / anti-scraping protection.",
-              statusCode: 'EMPTY_MARKDOWN'
-            })
+            setError({ code: 'EMPTY_MARKDOWN' })
           }
 
           setMarkdown(md)
@@ -1917,13 +1903,9 @@ const MarkdownTool = () => {
           )
           setResponseData(truncatedResponseStr)
         } catch (err) {
-          setError({
-            message:
-              err.description ||
-              err.message ||
-              'Failed to convert to markdown.',
-            statusCode: err.statusCode || err.code
-          })
+          setError(
+            normalizeApiError.fromMql(err, 'Failed to convert to markdown.')
+          )
         }
 
         if (md) {
@@ -1953,11 +1935,9 @@ const MarkdownTool = () => {
           setActiveHistoryId(entryId)
         }
       } catch (err) {
-        setError({
-          message:
-            err.description || err.message || 'Failed to convert to markdown.',
-          statusCode: err.statusCode || err.code
-        })
+        setError(
+          normalizeApiError.fromMql(err, 'Failed to convert to markdown.')
+        )
       } finally {
         setIsLoading(false)
       }

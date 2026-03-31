@@ -35,6 +35,7 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { normalizeApiError } from 'helpers/api-error'
 import { withTitle } from 'helpers/hoc/with-title'
 import {
   extractNerdStats,
@@ -274,7 +275,6 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
         borderColor: 'black10',
         borderRadius: 3
       })}
-      style={{ background: '#f8fafc' }}
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
@@ -545,11 +545,9 @@ const ScreenshotTool = () => {
             )
           )
         } catch (err) {
-          setError({
-            message:
-              err.description || err.message || 'Failed to capture screenshot.',
-            statusCode: err.statusCode || err.code
-          })
+          setError(
+            normalizeApiError.fromMql(err, 'Failed to capture screenshot.')
+          )
         }
 
         if (response?.data?.screenshot) {
@@ -590,11 +588,9 @@ const ScreenshotTool = () => {
           setActiveHistoryId(entryId)
         }
       } catch (err) {
-        setError({
-          message:
-            err.description || err.message || 'Failed to capture screenshot.',
-          statusCode: err.statusCode || err.code
-        })
+        setError(
+          normalizeApiError.fromMql(err, 'Failed to capture screenshot.')
+        )
       } finally {
         setIsLoading(false)
       }

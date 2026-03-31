@@ -53,6 +53,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { normalizeApiError, isRateLimited } from 'helpers/api-error'
 import { withTitle } from 'helpers/hoc/with-title'
 import {
   extractNerdStats,
@@ -523,7 +524,7 @@ const AnimatedResultsList = ({ results }) => {
               <Text
                 css={theme({
                   fontSize: '11px',
-                  color: 'black30',
+                  color: 'black50',
                   fontFamily: 'mono',
                   flexShrink: 0,
                   pl: 2
@@ -536,7 +537,7 @@ const AnimatedResultsList = ({ results }) => {
               <Text
                 css={theme({
                   fontSize: '11px',
-                  color: 'black30',
+                  color: 'black50',
                   fontFamily: 'mono',
                   flexShrink: 0,
                   pl: 1
@@ -668,7 +669,7 @@ const HistoryRowThumb = styled(Box)`
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid ${colors.black10};
-  background: #f1f5f9;
+  background: #fcfcfc;
 
   img {
     width: 100%;
@@ -1017,7 +1018,6 @@ const OptionsPanel = ({
         borderColor: 'black10',
         borderRadius: 3
       })}
-      style={{ background: '#f8fafc' }}
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
@@ -1817,7 +1817,7 @@ const BulkPreview = ({
 
   const successCount = bulkResults.filter(r => r.success).length
   const failedResults = bulkResults.filter(r => !r.success)
-  const hasRateLimit = failedResults.some(r => r.error?.statusCode === 429)
+  const hasRateLimit = failedResults.some(r => isRateLimited(r.error?.code))
 
   if (previewPdf) {
     return (
@@ -2106,7 +2106,7 @@ const BulkPreview = ({
                   <Text
                     css={theme({
                       fontSize: 0,
-                      color: 'black30',
+                      color: 'black50',
                       fontFamily: 'mono'
                     })}
                   >
@@ -2290,7 +2290,7 @@ const BulkPreview = ({
                   <Text
                     css={theme({
                       fontSize: 0,
-                      color: 'black30',
+                      color: 'black50',
                       fontFamily: 'mono'
                     })}
                   >
@@ -2432,8 +2432,8 @@ const PdfBatchTool = () => {
             success: false,
             duration: null,
             error: {
-              message: 'Skipped — daily rate limit reached',
-              statusCode: 429
+              code: 'ERATE',
+              message: 'Skipped \u2014 daily rate limit reached'
             }
           }
           results.push(result)
@@ -2543,17 +2543,16 @@ const PdfBatchTool = () => {
           }
         } catch (err) {
           const duration = Date.now() - reqStart
-          const statusCode = err.statusCode || err.code
-          if (statusCode === 429) hitRateLimit = true
+          const apiErr = normalizeApiError.fromMql(
+            err,
+            'Failed to generate PDF'
+          )
+          if (isRateLimited(apiErr.code)) hitRateLimit = true
           results.push({
             url,
             success: false,
             duration,
-            error: {
-              message:
-                err.description || err.message || 'Failed to generate PDF',
-              statusCode
-            }
+            error: apiErr
           })
           setBulkResults([...results])
         }

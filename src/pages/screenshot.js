@@ -54,6 +54,11 @@ import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
 import { useHealthcheck } from 'components/hook/use-healthcheck'
+import {
+  ApiErrorTitle,
+  ApiErrorBody
+} from 'components/patterns/ApiError/ApiError'
+import { normalizeApiError } from 'helpers/api-error'
 import { extractDomain } from 'helpers/extract-domain'
 
 import analyticsData from '../../data/analytics.json'
@@ -835,11 +840,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
         const elapsedMs = Date.now() - t0
 
         if (!res.ok) {
-          const message =
-            res.status === 429
-              ? 'Rate limit reached — try again in a moment.'
-              : json.message || `Error ${res.status}`
-          setError(message)
+          setError(normalizeApiError(json, res))
           setIsLoading(false)
           return
         }
@@ -861,7 +862,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
         }
       } catch (err) {
         if (err.name !== 'AbortError') {
-          setError(err.message || 'Something went wrong.')
+          setError(normalizeApiError.fromNetwork(err))
         }
         setIsLoading(false)
       }
@@ -1345,13 +1346,13 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                           <Text
                             as='span'
                             css={theme({
-                              color: 'white90',
+                              color: 'red5',
                               fontSize: 0,
                               fontWeight: 'bold',
                               letterSpacing: 0
                             })}
                           >
-                            Request failed
+                            <ApiErrorTitle code={error.code} />
                           </Text>
                         </Flex>
                         <ErrorCloseButton
@@ -1366,14 +1367,16 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                         <Text
                           as='p'
                           css={theme({
-                            fontFamily: 'mono',
-                            color: 'red5',
-                            fontSize: 0,
+                            color: 'white90',
+                            fontSize: 1,
                             lineHeight: 2,
                             m: 0
                           })}
                         >
-                          {error}
+                          <ApiErrorBody
+                            code={error.code}
+                            fallback={error.message}
+                          />
                         </Text>
                       </ErrorModalBody>
                     </ErrorModalWindow>

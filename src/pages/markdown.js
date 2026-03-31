@@ -49,6 +49,8 @@ import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
 import { useHealthcheck } from 'components/hook/use-healthcheck'
+import { ApiErrorBody } from 'components/patterns/ApiError/ApiError'
+import { normalizeApiError } from 'helpers/api-error'
 import { extractDomain } from 'helpers/extract-domain'
 import analyticsData from '../../data/analytics.json'
 import ossData from '../../data/oss.json'
@@ -1015,11 +1017,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
         const elapsedMs = Date.now() - t0
 
         if (!res.ok) {
-          const message =
-            res.status === 429
-              ? 'Rate limit reached — try again in a moment.'
-              : json.message || `Error ${res.status}`
-          setError(message)
+          setError(normalizeApiError(json, res))
           setIsLoading(false)
           return
         }
@@ -1048,7 +1046,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
         }
       } catch (err) {
         if (err.name !== 'AbortError') {
-          setError(err.message || 'Something went wrong.')
+          setError(normalizeApiError.fromNetwork(err))
         }
         setIsLoading(false)
         if (fetchResolverRef.current) {
@@ -1504,7 +1502,10 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                         maxWidth: '300px'
                       })}
                     >
-                      {error}
+                      <ApiErrorBody
+                        code={error.code}
+                        fallback={error.message}
+                      />
                     </Text>
                     <ErrorDismissButton
                       type='button'
@@ -2954,26 +2955,22 @@ const Capabilities = () => {
         )}`,
         { signal: capHtmlAbortRef.current.signal }
       )
-      .then(r => {
-        if (r.status === 429) {
-          return { error: 'Rate limit reached — try again in a moment.' }
-        }
-        return r.json()
-      })
-      .then(json => {
-        if (json?.error) return json
-        const html = json?.data?.html
-        return {
-          html: html
-            ? typeof html === 'string'
-              ? html
-              : JSON.stringify(html)
-            : ''
-        }
-      })
+      .then(r =>
+        r.json().then(json => {
+          if (!r.ok) return { error: normalizeApiError(json, r) }
+          const html = json?.data?.html
+          return {
+            html: html
+              ? typeof html === 'string'
+                ? html
+                : JSON.stringify(html)
+              : ''
+          }
+        })
+      )
       .catch(err => {
         if (err.name === 'AbortError') return { aborted: true }
-        return { error: err.message }
+        return { error: normalizeApiError.fromNetwork(err) }
       })
 
     const mdPromise = window
@@ -2983,30 +2980,27 @@ const Capabilities = () => {
         )}&data.markdown.attr=markdown&meta=true`,
         { signal: capAbortRef.current.signal }
       )
-      .then(r => {
-        if (r.status === 429) {
-          return { error: 'Rate limit reached — try again in a moment.' }
-        }
-        return r.json().then(json => {
-          if (!r.ok) return { error: json.message || `Error ${r.status}` }
+      .then(r =>
+        r.json().then(json => {
+          if (!r.ok) return { error: normalizeApiError(json, r) }
           const md = json?.data?.markdown
           return {
             md: md ? (typeof md === 'string' ? md : JSON.stringify(md)) : ''
           }
         })
-      })
+      )
       .catch(err => {
         if (err.name === 'AbortError') return { aborted: true }
-        return { error: err.message || 'Something went wrong.' }
+        return { error: normalizeApiError.fromNetwork(err) }
       })
 
     const [htmlResult, mdResult] = await Promise.all([htmlPromise, mdPromise])
 
     if (htmlResult.aborted || mdResult.aborted) return
 
-    const error = htmlResult.error || mdResult.error
-    if (error) {
-      setCapError(error)
+    const capErr = htmlResult.error || mdResult.error
+    if (capErr) {
+      setCapError(capErr)
       setCapLoading(false)
       setCapHtmlLoading(false)
       return
@@ -3437,7 +3431,10 @@ const Capabilities = () => {
                       maxWidth: '300px'
                     })}
                   >
-                    {capError}
+                    <ApiErrorBody
+                      code={capError.code}
+                      fallback={capError.message}
+                    />
                   </Text>
                   <ErrorDismissButton
                     type='button'
