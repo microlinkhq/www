@@ -41,7 +41,8 @@ const FOOTER_COLUMNS = [
       { label: 'Benchmark', href: '/benchmarks/screenshot-api' },
       { label: 'Open Source', href: '/oss' },
       { label: 'Skills', href: '/skills' },
-      { label: 'User Agents', href: '/user-agents' }
+      { label: 'User Agents', href: '/user-agents' },
+      { label: 'Geolocation', href: 'https://geolocation.microlink.io' }
     ]
   },
   {
@@ -79,16 +80,17 @@ const FOOTER_COLUMNS = [
       { label: 'Sharing Debugger', href: '/tools/sharing-debugger' },
       { label: 'Website Screenshot', href: '/tools/website-screenshot' },
       { label: 'URL to Markdown', href: '/tools/url-to-markdown' },
+      { label: 'Website to PDF', href: '/tools/website-to-pdf' },
+      { label: 'Bulk Screenshots', href: '/tools/website-screenshot/bulk' },
+      { label: 'Bulk URLs to PDFs', href: '/tools/website-to-pdf/bulk' },
       {
         label: 'Full page Screenshot',
         href: '/tools/website-screenshot/full-page'
       },
-      { label: 'Bulk Screenshots', href: '/tools/website-screenshot/bulk' },
       {
         label: 'Animated Screenshot',
         href: '/tools/website-screenshot/animated'
-      },
-      { label: 'Geolocation', href: 'https://geolocation.microlink.io' }
+      }
     ]
   }
 ]

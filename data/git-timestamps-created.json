@@ -493,6 +493,9 @@
   "src/pages/tools/website-screenshot/bulk.js": "2026-03-13T15:58:11.000Z",
   "src/pages/tools/website-screenshot/full-page.js": "2026-03-13T15:58:11.000Z",
   "src/pages/tools/website-screenshot/mobile.js": "2026-03-13T15:58:11.000Z",
+  "src/pages/tools/website-to-pdf.js": "2026-03-27T16:25:10.000Z",
+  "src/pages/tools/website-to-pdf/batch.js": "2026-03-27T18:24:20.000Z",
+  "src/pages/tools/website-to-pdf/bulk.js": "2026-03-28T16:29:54.000Z",
   "src/pages/tos.js": "2018-08-20T15:55:21.000Z",
   "src/pages/tos.md": "2019-03-13T18:58:33.000Z",
   "src/pages/user-agents.js": "2023-11-26T09:33:50.000Z"

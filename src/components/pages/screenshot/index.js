@@ -310,7 +310,11 @@ export const SectionIcon = ({ icon: Icon }) => (
   </IconCircle>
 )
 
-export const ApiDocsCard = ({ title, description }) => (
+export const ApiDocsCard = ({
+  title,
+  description,
+  guideHref = '/docs/guides/screenshot'
+}) => (
   <Container
     as='section'
     id='api-docs'
@@ -353,7 +357,7 @@ export const ApiDocsCard = ({ title, description }) => (
           fontSize: [2, 2, 3, 3]
         })}
       >
-        <ArrowLink href='/docs/guides/screenshot'>Getting started</ArrowLink>
+        <ArrowLink href={guideHref}>Getting started</ArrowLink>
       </Flex>
     </Box>
   </Container>
@@ -377,7 +381,7 @@ export const PreviewEmptyState = ({
         background: 'black025'
       })}
     >
-      <Icon size={32} color={colors.black20} />
+      <Icon size={32} color={colors.black80} />
     </Box>
     <Text css={theme({ color: 'black60', fontSize: 2 })}>{text}</Text>
     <Text css={theme({ color: 'black60', fontSize: 1, pt: 1 })}>{subtext}</Text>
