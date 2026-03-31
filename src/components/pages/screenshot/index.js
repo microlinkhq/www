@@ -26,7 +26,6 @@ import Label from 'components/elements/Label'
 import Spinner from 'components/elements/Spinner'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import { Link } from 'components/elements/Link'
 
 import {
   ApiErrorTitle,
@@ -1160,11 +1159,13 @@ export const PreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                {downloaded ? (
-                  <SpinningLoader size={15} />
-                ) : (
-                  <Download size={15} />
-                )}
+                {downloaded
+                  ? (
+                    <SpinningLoader size={15} />
+                    )
+                  : (
+                    <Download size={15} />
+                    )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
