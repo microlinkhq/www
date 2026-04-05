@@ -9,7 +9,7 @@ import { Link } from 'components/elements/Link'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Default: <Type children="'html'"/><br/>
-Values: <TypeContainer><Type><Link href="https://developer.mozilla.org/en-US/docs/Web/API/Element/tagName">tagName</Link></Type> | <Type><Link href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeName">nodeName</Link></Type> | <Type children="'html'"/> | <Type children="'outerHTML'"/> | <Type children="'text'"/> | <Type children="'markdown'"/> | <Type children="'val'"/></TypeContainer>
+Values: <TypeContainer><Type><Link href="https://developer.mozilla.org/en-US/docs/Web/API/Element/tagName">tagName</Link></Type> | <Type><Link href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeName">nodeName</Link></Type> | <Type children="'html'"/> | <Type children="'outerHTML'"/> | <Type children="'text'"/> | <Type children="'markdown'"/> | <Type children="'json'"/> | <Type children="'val'"/></TypeContainer>
 
 It specifies how the value should be extracted from the matched [selector](/docs/mql/data/selector):
 
@@ -39,6 +39,7 @@ Any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attribute
 - <Type children="'outerHTML'"/>: Get the outer HTML of the matched selector, including the element itself.
 - <Type children="'text'"/>: Returns the combined text content, including its descendants, by removing leading, trailing, and repeated whitespace.
 - <Type children="'markdown'"/>: Converts the HTML content into Markdown, preserving headings, links, and formatting.
+- <Type children="'json'"/>: Parses the page body as JSON and returns structured data. Whole-page only — do not combine with `selector`. See the <Link href='/docs/guides/json' children='JSON guide' />.
 - <Type children="'val'"/>: Get the current value of the matched selector, oriented for select or input fields.
 
 ## Whole-page serialization
@@ -77,6 +78,25 @@ const { data } = await mql('https://example.com', {
 console.log(data.article)
 // => '# Article Title\n\nArticle content as markdown…'
 ```
+
+For JSON endpoints, use `attr: 'json'` to parse the response body as structured data:
+
+```js
+const mql = require('@microlink/mql')
+
+const { data } = await mql('https://jsonplaceholder.typicode.com/posts/1', {
+  data: {
+    content: {
+      attr: 'json'
+    }
+  }
+})
+
+console.log(data.content)
+// => { userId: 1, id: 1, title: '…', body: '…' }
+```
+
+`json` is whole-page only — it cannot be combined with `selector`. See the <Link href='/docs/guides/json' children='JSON guide' /> for the full walkthrough.
 
 ## Fallback values
 

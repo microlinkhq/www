@@ -107,7 +107,7 @@ Fallbacks are especially useful across publisher templates, ecommerce catalogs, 
 
 | Property | Use it for |
 |----------|------------|
-| `attr` | Choosing the source value such as `text`, `html`, `markdown`, `href`, `src`, or `content` |
+| `attr` | Choosing the source value such as `text`, `html`, `markdown`, `json`, `href`, `src`, or `content` |
 | `type` | Validating or normalizing the result as `url`, `number`, `date`, `image`, and more |
 
 For example, a link field usually needs both:
@@ -129,7 +129,7 @@ For example, a link field usually needs both:
 
 <Figcaption>Think of <code>attr</code> as “where to read from” and <code>type</code> as “what shape this value should have”.</Figcaption>
 
-If you specifically want HTML-to-Markdown serialization, see the <Link href='/docs/guides/markdown' children='Markdown guide' />.
+If you specifically want HTML-to-Markdown serialization, see the <Link href='/docs/guides/markdown' children='Markdown guide' />. For parsing JSON endpoints into structured data, see the <Link href='/docs/guides/json' children='JSON guide' />.
 
 ## Use evaluate for custom values
 
