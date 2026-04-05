@@ -642,6 +642,16 @@ const ROUTES_GUIDES = [
         ]
       },
       {
+        name: 'JSON',
+        href: '/docs/guides/json',
+        posts: [
+          {
+            name: 'Delivery and response shaping',
+            href: '/docs/guides/json/delivery-and-response'
+          }
+        ]
+      },
+      {
         name: 'Function',
         href: '/docs/guides/function',
         posts: []
