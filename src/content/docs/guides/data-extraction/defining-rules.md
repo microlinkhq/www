@@ -107,7 +107,7 @@ Fallbacks are especially useful across publisher templates, ecommerce catalogs, 
 
 | Property | Use it for |
 |----------|------------|
-| `attr` | Choosing the source value such as `text`, `html`, `markdown`, `href`, `src`, or `content` |
+| `attr` | Choosing the source value such as `text`, `html`, `markdown`, `json`, `href`, `src`, or `content` |
 | `type` | Validating or normalizing the result as `url`, `number`, `date`, `image`, and more |
 
 For example, a link field usually needs both:
@@ -130,6 +130,65 @@ For example, a link field usually needs both:
 <Figcaption>Think of <code>attr</code> as “where to read from” and <code>type</code> as “what shape this value should have”.</Figcaption>
 
 If you specifically want HTML-to-Markdown serialization, see the <Link href='/docs/guides/markdown' children='Markdown guide' />.
+
+## Extract JSON
+
+When the target URL returns JSON instead of HTML, use `attr: 'json'` to parse the response body into structured data:
+
+<MultiCodeEditorInteractive
+  height={280}
+  mqlCode={{
+    url: 'https://jsonplaceholder.typicode.com/posts/1',
+    data: {
+      content: {
+        attr: 'json'
+      }
+    },
+    meta: false
+  }}
+/>
+
+<Figcaption>Run the request and inspect <code>data.content</code>. The parsed JSON object is returned as structured data, not a string.</Figcaption>
+
+Unlike other `attr` values, `json` is **whole-page only** — it always operates on the entire response body. Do not combine it with `selector` or `selectorAll`.
+
+Key behaviors:
+
+- The field name you declare becomes the response key.
+- `attr: 'json'` parses the body with `JSON.parse` and returns native structured data (objects, arrays, strings, numbers, booleans, or `null`).
+- The original shape is preserved exactly — no URL rewriting, no array compaction, no value normalization.
+- Strings that contain HTML-like content (e.g. `"<b>bold</b>"`) pass through unchanged — they are not interpreted as DOM elements.
+
+Microlink tries two strategies depending on how the JSON arrives:
+
+1. **`<pre>` tag present** — when the response is browser-rendered, JSON is often wrapped in a `<pre>` element. Microlink extracts the inner HTML, decodes HTML entities, and parses the result.
+2. **Plain body text** — when no `<pre>` exists, Microlink reads the raw body text directly and parses it.
+
+This means `attr: 'json'` works regardless of whether you use `prerender: true` or `prerender: false`.
+
+| Need | Best approach |
+|------|---------------|
+| Consume a REST API or JSON endpoint | `attr: 'json'` on the endpoint URL |
+| Combine JSON data with HTML-extracted fields | Mix `attr: 'json'` (no selector) with other `data` rules that use selectors |
+| Parse a page that returns `application/json` | `attr: 'json'` handles it whether the body is raw or wrapped in `<pre>` |
+| Extract structured data from an HTML page | Use `selector` + other `attr` values — `json` is not designed for HTML documents |
+
+For delivery options (`embed`, `filter`, caching, and private endpoint handling), the same patterns from <Link href='/docs/guides/data-extraction/delivery-and-response' children='delivery and response shaping' /> apply. A common production setup for JSON proxying:
+
+```js
+{
+  url: 'https://jsonplaceholder.typicode.com/posts/1',
+  data: {
+    content: {
+      attr: 'json'
+    }
+  },
+  meta: false,
+  prerender: false,
+  ttl: '1d',
+  staleTtl: 0
+}
+```
 
 ## Use evaluate for custom values
 
