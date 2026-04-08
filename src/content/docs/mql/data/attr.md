@@ -39,7 +39,7 @@ Any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attribute
 - <Type children="'outerHTML'"/>: Get the outer HTML of the matched selector, including the element itself.
 - <Type children="'text'"/>: Returns the combined text content, including its descendants, by removing leading, trailing, and repeated whitespace.
 - <Type children="'markdown'"/>: Converts the HTML content into Markdown, preserving headings, links, and formatting.
-- <Type children="'json'"/>: Parses the page body as JSON and returns structured data. Whole-page only — do not combine with `selector`. See the <Link href='/docs/guides/json' children='JSON guide' />.
+- <Type children="'json'"/>: Parses the page body as JSON and returns structured data. Whole-page only — do not combine with `selector`. See <Link href='/docs/guides/data-extraction/defining-rules#extract-json' children='Extract JSON' /> in the Data extraction guide.
 - <Type children="'val'"/>: Get the current value of the matched selector, oriented for select or input fields.
 
 ## Whole-page serialization
@@ -96,7 +96,7 @@ console.log(data.content)
 // => { userId: 1, id: 1, title: '…', body: '…' }
 ```
 
-`json` is whole-page only — it cannot be combined with `selector`. See the <Link href='/docs/guides/json' children='JSON guide' /> for the full walkthrough.
+`json` is whole-page only — it cannot be combined with `selector`. See <Link href='/docs/guides/data-extraction/defining-rules#extract-json' children='Extract JSON' /> for the full walkthrough.
 
 ## Fallback values
 
