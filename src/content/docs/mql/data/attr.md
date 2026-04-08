@@ -84,7 +84,7 @@ For JSON endpoints, use `attr: 'json'` to parse the response body as structured 
 ```js
 const mql = require('@microlink/mql')
 
-const { data } = await mql('https://jsonplaceholder.typicode.com/posts/1', {
+const { data } = await mql('https://pokeapi.co/api/v2/pokemon', {
   data: {
     content: {
       attr: 'json'

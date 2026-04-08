@@ -138,13 +138,13 @@ When the target URL returns JSON instead of HTML, use `attr: 'json'` to parse th
 <MultiCodeEditorInteractive
   height={280}
   mqlCode={{
-    url: 'https://jsonplaceholder.typicode.com/posts/1',
+    url: 'https://pokeapi.co/api/v2/pokemon',
+    meta: false,
     data: {
       content: {
         attr: 'json'
       }
     },
-    meta: false
   }}
 />
 
@@ -177,7 +177,7 @@ For delivery options (`embed`, `filter`, caching, and private endpoint handling)
 
 ```js
 {
-  url: 'https://jsonplaceholder.typicode.com/posts/1',
+  url: 'https://pokeapi.co/api/v2/pokemon',
   data: {
     content: {
       attr: 'json'
