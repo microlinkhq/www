@@ -785,7 +785,7 @@ const SpeedSection = () => {
             pb: [3, 3, 4, 4],
             maxWidth: layout.normal,
             color: 'black60',
-            fontSize: 1,
+            fontSize: 2,
             lineHeight: 2,
             textAlign: 'center',
             mx: 'auto'
