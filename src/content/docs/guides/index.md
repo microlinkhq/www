@@ -31,6 +31,7 @@ New to the API? Start with <Link href='/docs/guides/what-is-microlink' children=
 | Turn a page into a PDF | <Link href='/docs/guides/pdf' children='PDF' /> |
 | Get link preview data (title, image, description) | <Link href='/docs/guides/metadata' children='Metadata' /> |
 | Detect what tech a site uses or run a Lighthouse audit | <Link href='/docs/guides/insights' children='Insights' /> |
+| Bypass IP blocking, CAPTCHAs, or regional restrictions | <Link href='/docs/guides/common/proxy' children='Proxy' /> |
 
 Caching, private-page access, and general troubleshooting are shared across all workflows. See <Link href='/docs/guides/common/caching' children='common patterns' />.
 
@@ -114,5 +115,6 @@ Caching, private-page access, and troubleshooting patterns that apply to every w
 
 - <Link href='/docs/guides/common/caching' children='Caching patterns' /> — control TTL, stale-while-revalidate, cache bypass, and verify behavior.
 - <Link href='/docs/guides/common/private-pages' children='Private pages' /> — headers, secrets, endpoint selection, proxy, and credential safety.
+- <Link href='/docs/guides/common/proxy' children='Proxy' /> — bypass IP blocking, CAPTCHAs, antibot protection, and regional restrictions with automatic or custom proxy rotation.
 - <Link href='/docs/guides/common/troubleshooting' children='Troubleshooting' /> — timeouts, blocked sites, auth/plan errors, and debug headers.
 - <Link href='/docs/guides/common/production-patterns' children='Production patterns' /> — rate limits, endpoint selection, credential safety, retries, and monitoring.

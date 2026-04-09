@@ -104,7 +104,7 @@ module.exports = {
         extensions: ['.mdx', '.md'],
         mdxOptions: {
           remarkPlugins: [require('remark-gfm').default],
-          rehypePlugins: [require('rehype-slug').default]
+          rehypePlugins: [require('./src/plugins/rehype-slug-trim')]
         }
       }
     },

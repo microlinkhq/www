@@ -49,7 +49,7 @@ export const locale = (field = {}) => {
   return {
     status: isIsoLocale ? 'OK' : 'WARNING',
     resume: formattedValue || 'Unknown',
-    value: formattedValue,
+    displayValue: formattedValue || value,
     description: isIsoLocale
       ? "Locale field specifies the content language using ISO 639-1 format, helping search engines and social platforms understand your content's language."
       : "Locale should be in ISO 639-1 format (2-letter language code, e.g., 'en', 'es'). Optionally include country code (e.g., 'en-US')."

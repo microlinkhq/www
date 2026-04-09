@@ -4,10 +4,12 @@ import { colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
   Camera,
+  Check,
   Clipboard,
   Code,
   Download,
   ExternalLink,
+  Loader,
   X
 } from 'react-feather'
 import styled, { keyframes } from 'styled-components'
@@ -25,6 +27,11 @@ import Spinner from 'components/elements/Spinner'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
+import {
+  ApiErrorTitle,
+  ApiErrorBody
+} from 'components/patterns/ApiError/ApiError'
+import { getErrorMeta } from 'helpers/api-error'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Caption from 'components/patterns/Caption/Caption'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
@@ -221,6 +228,19 @@ export const shimmer = keyframes`
   100% { background-position: -200% 0; }
 `
 
+const spinAnimation = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`
+
+const SpinningLoader = styled(Loader)`
+  animation: ${spinAnimation} 1s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`
+
 /* ─── Preview Styled Components ────────────────────────── */
 
 export const PreviewCanvas = styled(Box)`
@@ -231,7 +251,7 @@ export const PreviewCanvas = styled(Box)`
     overflow: 'hidden',
     position: 'relative'
   })}
-  background: #f1f5f9;
+  background: #fcfcfc;
 `
 
 export const ViewportCard = styled(Box)`
@@ -291,11 +311,15 @@ export const IconCircle = styled(Flex)`
 
 export const SectionIcon = ({ icon: Icon }) => (
   <IconCircle css={theme({ width: '80px', height: '80px' })}>
-    <Icon size={32} color={colors.black50} />
+    <Icon size={32} color={colors.black80} />
   </IconCircle>
 )
 
-export const ApiDocsCard = ({ title, description }) => (
+export const ApiDocsCard = ({
+  title,
+  description,
+  guideHref = '/docs/guides/screenshot'
+}) => (
   <Container
     as='section'
     id='api-docs'
@@ -323,9 +347,9 @@ export const ApiDocsCard = ({ title, description }) => (
       >
         <SectionIcon icon={Code} />
       </Flex>
-      <Subhead css={theme({ fontSize: 3 })}>{title}</Subhead>
+      <Subhead css={theme({ fontSize: 4 })}>{title}</Subhead>
       <Caption
-        css={theme({ pt: 3, maxWidth: layout.small, mx: 'auto', fontSize: 2 })}
+        css={theme({ pt: 3, maxWidth: layout.normal, mx: 'auto', fontSize: 3 })}
       >
         {description}
       </Caption>
@@ -335,15 +359,10 @@ export const ApiDocsCard = ({ title, description }) => (
           justifyContent: 'center',
           gap: 3,
           flexWrap: 'wrap',
-          fontSize: [1, 1, 2, 2]
+          fontSize: [2, 2, 3, 3]
         })}
       >
-        <ArrowLink href='/docs/api/parameters/screenshot'>
-          API reference
-        </ArrowLink>
-        <ArrowLink href='/docs/api/getting-started/overview'>
-          Getting started
-        </ArrowLink>
+        <ArrowLink href={guideHref}>Getting started</ArrowLink>
       </Flex>
     </Box>
   </Container>
@@ -367,7 +386,7 @@ export const PreviewEmptyState = ({
         background: 'black025'
       })}
     >
-      <Icon size={32} color={colors.black20} />
+      <Icon size={32} color={colors.black80} />
     </Box>
     <Text css={theme({ color: 'black60', fontSize: 2 })}>{text}</Text>
     <Text css={theme({ color: 'black60', fontSize: 1, pt: 1 })}>{subtext}</Text>
@@ -825,6 +844,8 @@ export const PreviewDisplay = ({
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [isPreviewTooBig, setIsPreviewTooBig] = useState(false)
   const [imagePainted, setImagePainted] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const [downloaded, setDownloaded] = useState(false)
   const prevImageUrlRef = useRef(null)
   const scrollAreaRef = useRef(null)
   const imageUrl = get(data, 'screenshot.url')
@@ -979,18 +1000,17 @@ export const PreviewDisplay = ({
             })}
           >
             <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              {error?.statusCode === 429 && (
-                <>
-                  You've reached your free daily limit.
-                  <Text css={theme({ fontSize: 2, color: 'black60' })}>
-                    We allow 50 requests per day for free users.
-                  </Text>
-                </>
-              )}
-              {error?.statusCode !== 429 &&
-                (error?.message || 'Something went wrong. Please try again.')}
+              <ApiErrorTitle code={error?.code} />
+              <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
+                <ApiErrorBody
+                  code={error?.code}
+                  fallback={
+                    error?.message || 'Something went wrong. Please try again.'
+                  }
+                />
+              </Text>
             </Text>
-            {error?.statusCode !== 429 && (
+            {getErrorMeta(error?.code).showRetry && (
               <Button onClick={onRetry}>
                 <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
               </Button>
@@ -1120,7 +1140,8 @@ export const PreviewDisplay = ({
                 gap: 2,
                 borderTop: 1,
                 borderColor: 'black05',
-                bg: 'white'
+                bg: 'white',
+                flexWrap: 'wrap'
               })}
             >
               <ActionButton
@@ -1129,6 +1150,8 @@ export const PreviewDisplay = ({
                 onClick={e => {
                   e.preventDefault()
                   downloadFile(imageUrl, `screenshot-${Date.now()}.png`)
+                  setDownloaded(true)
+                  setTimeout(() => setDownloaded(false), 1500)
                 }}
                 css={theme({
                   bg: 'black',
@@ -1136,8 +1159,14 @@ export const PreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                <Download size={15} />
-                <Caps css={theme({ fontSize: 0 })}>Download</Caps>
+                {downloaded ? (
+                  <SpinningLoader size={15} />
+                ) : (
+                  <Download size={15} />
+                )}
+                <Caps css={theme({ fontSize: 0 })}>
+                  {downloaded ? 'Saving' : 'Download'}
+                </Caps>
               </ActionButton>
 
               <ActionButton
@@ -1148,6 +1177,8 @@ export const PreviewDisplay = ({
                     copy: imageUrl,
                     text: Tooltip.TEXT.COPIED('URL')
                   })
+                  setCopied(true)
+                  setTimeout(() => setCopied(false), 1500)
                 }}
                 css={theme({
                   bg: 'white',
@@ -1158,8 +1189,10 @@ export const PreviewDisplay = ({
                   _hover: { bg: 'gray1', borderColor: 'black20' }
                 })}
               >
-                <Clipboard size={15} />
-                <Caps css={theme({ fontSize: 0 })}>Copy URL</Caps>
+                {copied ? <Check size={15} /> : <Clipboard size={15} />}
+                <Caps css={theme({ fontSize: 0 })}>
+                  {copied ? 'Copied' : 'Copy URL'}
+                </Caps>
               </ActionButton>
 
               <ActionButton

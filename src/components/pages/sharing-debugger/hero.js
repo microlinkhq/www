@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo, createElement } from 'react'
-import { theme, space } from 'theme'
-import isUrl from 'is-url-http/lightweight'
+import React, { useState, useEffect, createElement } from 'react'
+import { theme } from 'theme'
 import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
+import Text from 'components/elements/Text'
 import { Button } from 'components/elements/Button/Button'
 import Input from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
@@ -14,30 +14,42 @@ import { Metatags } from 'components/pages/sharing-debugger/metatags'
 import Caps from 'components/elements/Caps'
 import FetchProvider from 'components/patterns/FetchProvider'
 import Caption from 'components/patterns/Caption/Caption'
-import { findDemoLinkById } from 'helpers/demo-links'
+import Tooltip from 'components/patterns/Tooltip/Tooltip'
+import { Link } from 'components/elements/Link'
 import { isDevelopment } from 'helpers/is-development'
+import { hasDomainLikeHostname } from 'helpers/url-input'
+import {
+  buildSharingDebuggerUrl,
+  buildSharingDebuggerDisplayUrl
+} from 'helpers/share-debugger-url'
+import {
+  ApiErrorTitle,
+  ApiErrorBody
+} from 'components/patterns/ApiError/ApiError'
+import { getErrorMeta } from 'helpers/api-error'
 
-const INITIAL_SUGGESTION = 'microlink'
+const DEFAULT_URL = 'https://microlink.io'
 
 const HAS_FORCE = !isDevelopment
 
-// Use O(1) Map lookup instead of O(n) array.find()
-const DEMO_LINK = findDemoLinkById(INITIAL_SUGGESTION)
-
 export const Hero = () => {
-  const [query, setQuery] = useQueryState()
+  const [query] = useQueryState()
   const [isMounted, setIsMounted] = useState(false)
+  const [inputError, setInputError] = useState('')
+  const [currentAnalyzedUrl, setCurrentAnalyzedUrl] = useState('')
 
   useEffect(() => {
     setIsMounted(true)
   }, [])
 
   const hasQuery = isMounted && !!query.url
-  const [selectedPlatform, setSelectedPlatform] = useState(
-    Object.keys(PREVIEWS)[1]
-  )
-  const [inputUrl, setInputUrl] = useState(query.url || '')
-  const [showValidation, setShowValidation] = useState(!hasQuery)
+  const [selectedPlatform, setSelectedPlatform] = useState('whatsapp')
+  const [inputUrl, setInputUrl] = useState('')
+  const [showValidation, setShowValidation] = useState(false)
+  const [isDefaultDemo, setIsDefaultDemo] = useState(false)
+  const defaultFetched = React.useRef(false)
+  const doFetchRef = React.useRef(null)
+  const prevFetchStatusRef = React.useRef('initial')
 
   const platforms =
     selectedPlatform === 'all'
@@ -45,36 +57,126 @@ export const Hero = () => {
       : [[selectedPlatform, PREVIEWS[selectedPlatform]]]
 
   useEffect(() => {
+    if (!isMounted) return
+
+    setInputUrl(query.url || '')
+  }, [isMounted, query.url])
+
+  useEffect(() => {
     if (query.url) {
       setShowValidation(true)
-      if (!/^https?:\/\//.test(query.url)) {
-        setQuery({ url: prependHttp(query.url) })
+      setIsDefaultDemo(false)
+      setInputError('')
+      setCurrentAnalyzedUrl(query.url)
+    }
+  }, [query.url])
+
+  useEffect(() => {
+    if (defaultFetched.current || query.url) return
+    defaultFetched.current = true
+    setShowValidation(true)
+    setIsDefaultDemo(true)
+    setCurrentAnalyzedUrl(DEFAULT_URL)
+    if (doFetchRef.current) {
+      doFetchRef.current(DEFAULT_URL, { syncQuery: false })
+    }
+  }, [query.url])
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search)
+      const url = params.get('url')
+
+      if (url) {
+        setInputUrl(url)
+        setCurrentAnalyzedUrl(url)
+        setShowValidation(true)
+        setIsDefaultDemo(false)
+        setInputError('')
+        if (doFetchRef.current) {
+          doFetchRef.current(prependHttp(url), { syncQuery: false })
+        }
+      } else {
+        setInputUrl('')
+        setShowValidation(true)
+        setIsDefaultDemo(true)
+        setCurrentAnalyzedUrl(DEFAULT_URL)
+        setInputError('')
+        if (doFetchRef.current) {
+          doFetchRef.current(DEFAULT_URL, { syncQuery: false })
+        }
       }
     }
-  }, [query.url, setQuery])
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
 
   return (
     <FetchProvider mqlOpts={{ force: HAS_FORCE, meta: true }}>
-      {({ status, doFetch, data }) => {
+      {({ status, doFetch, data, error }) => {
         const isLoading =
           (hasQuery && status === 'initial') || status === 'fetching'
-        const metadata = data || (hasQuery ? null : DEMO_LINK.data)
-        const isInitialData = metadata?.url === DEMO_LINK.data.url
+        const metadata = data || null
+        const activeTabId = `sharing-debugger-tab-${selectedPlatform}`
+        const shouldShowInlineError = status === 'error'
+        const shareResultUrl = buildSharingDebuggerUrl(currentAnalyzedUrl)
+        const shareResultDisplayUrl =
+          buildSharingDebuggerDisplayUrl(currentAnalyzedUrl)
+        const submitUrl = value => {
+          const trimmedValue = value.trim()
 
-        const handleSubmit = e => {
-          if (e) e.preventDefault()
-          const url = prependHttp(inputUrl)
-          if (isUrl(url)) {
-            setShowValidation(true)
-            setQuery({ url: inputUrl })
-            doFetch(url)
+          if (!trimmedValue) {
+            setInputError('Enter a URL to inspect.')
+            return
           }
+
+          const normalizedUrl = prependHttp(trimmedValue)
+
+          if (!hasDomainLikeHostname(normalizedUrl)) {
+            setInputError('Enter a valid URL format.')
+            return
+          }
+
+          if (
+            status !== 'error' &&
+            currentAnalyzedUrl &&
+            normalizedUrl === prependHttp(currentAnalyzedUrl)
+          ) {
+            return
+          }
+
+          setInputError('')
+          setShowValidation(true)
+          setInputUrl(trimmedValue)
+          setCurrentAnalyzedUrl(trimmedValue)
+          doFetch(normalizedUrl, { queryUrl: trimmedValue })
         }
 
-        const url = useMemo(() => {
-          const input = prependHttp(inputUrl)
-          return isUrl(input) ? input : data?.url
-        }, [inputUrl, data])
+        const handleSubmit = event => {
+          if (event) event.preventDefault()
+          submitUrl(inputUrl)
+        }
+
+        doFetchRef.current = doFetch
+
+        const prevStatus = prevFetchStatusRef.current
+        prevFetchStatusRef.current = status
+
+        if (
+          isDefaultDemo &&
+          prevStatus === 'fetching' &&
+          (status === 'fetched' || status === 'error') &&
+          prependHttp(currentAnalyzedUrl) !== DEFAULT_URL
+        ) {
+          setIsDefaultDemo(false)
+        }
+
+        const trimmedInput = inputUrl.trim()
+        const inputMatchesResult =
+          trimmedInput &&
+          currentAnalyzedUrl &&
+          prependHttp(trimmedInput) === prependHttp(currentAnalyzedUrl)
 
         const isAll = selectedPlatform === 'all'
 
@@ -84,7 +186,11 @@ export const Hero = () => {
               <Heading>Sharing debugger</Heading>
               <Caption
                 forwardedAs='h2'
-                css={theme({ pt: '20px', px: [4, 0], fontSize: '25px' })}
+                css={theme({
+                  pt: '20px',
+                  px: [4, 0],
+                  fontSize: [2, 2, '25px', '25px']
+                })}
               >
                 Debug and validate metadata HTML markup, including Open Graph,
                 microdata, RDFa, JSON-LD, and more. Preview how your URL appears
@@ -95,8 +201,9 @@ export const Hero = () => {
                 <Flex
                   as='form'
                   css={theme({
+                    mt: [2, 2, 3, 3],
                     pt: [3, 3, 4, 4],
-                    pb: 4,
+                    pb: 2,
                     mx: [0, 0, 'auto', 'auto'],
                     justifyContent: 'center',
                     flexDirection: ['column', 'column', 'row', 'row']
@@ -108,31 +215,153 @@ export const Hero = () => {
                       id='sharing-debugger-url'
                       css={theme({
                         fontSize: 2,
-                        width: ['100%', '100%', 128, 128]
+                        width: ['100%', '320px', '320px', '320px']
                       })}
                       iconComponent={
-                        <InputIcon.Microlink url={!isInitialData && url} />
+                        <InputIcon.Microlink
+                          src={
+                            inputMatchesResult ? metadata?.logo?.url : undefined
+                          }
+                          url={
+                            trimmedInput ? prependHttp(trimmedInput) : undefined
+                          }
+                        />
                       }
-                      placeholder='Check URL'
+                      aria-invalid={Boolean(inputError)}
+                      aria-label='URL to debug'
+                      autoCapitalize='none'
+                      autoComplete='url'
+                      autoCorrect='off'
+                      inputMode='url'
+                      name='url'
+                      placeholder='https://example.com/post'
+                      spellCheck={false}
                       type='text'
                       value={inputUrl}
-                      onChange={event => setInputUrl(event.target.value)}
+                      onChange={event => {
+                        if (inputError) setInputError('')
+                        setInputUrl(event.target.value)
+                      }}
                     />
                   </Box>
                   <Button
-                    css={theme({ mt: [3, 0, 0, 0], ml: [0, 2, 2, 2] })}
+                    type='submit'
+                    css={theme({ mt: [3, 3, 0, 0], ml: [0, 2, 2, 2] })}
                     loading={isLoading}
                   >
                     <Caps css={theme({ fontSize: 1 })}>Preview</Caps>
                   </Button>
                 </Flex>
               </Flex>
+
+              {inputError && (
+                <Text
+                  as='p'
+                  css={theme({
+                    mt: 1,
+                    color: 'red8',
+                    fontSize: 1,
+                    textAlign: 'center'
+                  })}
+                >
+                  {inputError}
+                </Text>
+              )}
             </Box>
+
+            {shouldShowInlineError && (
+              <Flex css={theme({ justifyContent: 'center', pt: [3, 4] })}>
+                <Box
+                  css={theme({
+                    width: '100%',
+                    maxWidth: '640px',
+                    bg: 'red0',
+                    border: 1,
+                    borderColor: 'red2',
+                    borderRadius: 3,
+                    p: [3, 4],
+                    textAlign: 'center'
+                  })}
+                >
+                  <Text
+                    css={theme({
+                      color: 'red8',
+                      fontSize: [1, 2],
+                      fontWeight: 'bold',
+                      mb: 2
+                    })}
+                  >
+                    <ApiErrorTitle code={error?.code} />
+                  </Text>
+                  <Text css={theme({ fontSize: 1, color: 'black60', mb: 3 })}>
+                    <ApiErrorBody
+                      code={error?.code}
+                      fallback={
+                        error?.description ||
+                        error?.message ||
+                        "We couldn't fetch metadata for this URL."
+                      }
+                    />
+                  </Text>
+                  <Flex
+                    css={theme({
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flexWrap: 'wrap',
+                      gap: 2
+                    })}
+                  >
+                    {getErrorMeta(error?.code).showRetry && (
+                      <Button
+                        type='button'
+                        variant='black'
+                        onClick={() => {
+                          submitUrl(
+                            inputUrl || currentAnalyzedUrl || query.url || ''
+                          )
+                        }}
+                      >
+                        <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+                      </Button>
+                    )}
+                    {error?.more && (
+                      <Link href={error.more} logoIcon>
+                        Report it
+                      </Link>
+                    )}
+                  </Flex>
+                </Box>
+              </Flex>
+            )}
+
+            {isDefaultDemo && metadata && (
+              <Text
+                as='p'
+                aria-live='polite'
+                css={theme({
+                  mt: 4,
+                  pb: 0,
+                  fontSize: 1,
+                  color: 'black80',
+                  textAlign: 'center'
+                })}
+              >
+                Showing example results for{' '}
+                <Text
+                  as='span'
+                  css={theme({ fontWeight: 'bold', color: 'black80' })}
+                >
+                  microlink.io
+                </Text>
+                {' \u2014 enter any URL above to debug your own.'}
+              </Text>
+            )}
 
             {metadata && (
               <Box id='previews'>
                 <Flex
                   css={theme({
+                    mt: 4,
                     flexDirection: 'column',
                     mx: 'auto'
                   })}
@@ -142,36 +371,77 @@ export const Hero = () => {
                     css={theme({ justifyContent: 'center', mb: 3 })}
                   >
                     <Flex
+                      as='div'
+                      role='tablist'
+                      aria-label='Preview platforms'
                       css={theme({
-                        gap: space[3]
+                        gap: 2,
+                        flexWrap: 'wrap',
+                        justifyContent: 'center'
                       })}
                     >
-                      {Object.entries(PREVIEWS).map(([key, { icon }]) => {
+                      {Object.entries(PREVIEWS).map(([key, { icon, name }]) => {
                         const isActive = selectedPlatform === key
                         return (
-                          <Button
+                          <Tooltip
                             key={key}
-                            onClick={() => setSelectedPlatform(key)}
+                            type='pointer'
+                            tabIndex={-1}
+                            tooltipsOpts={{
+                              interactive: false,
+                              hideOnClick: true
+                            }}
+                            content={<Tooltip.Content>{name}</Tooltip.Content>}
                             css={theme({
-                              alignItems: 'center',
-                              bg: 'transparent',
-                              color: isActive ? 'black' : 'black40',
                               display: 'flex',
-                              height: '20px',
-                              width: '20px',
-                              minWidth: '20px',
-                              minHeight: '20px',
-                              justifyContent: 'center',
-                              p: 0,
-                              _hover: {
-                                color: 'black',
-                                border: 0,
-                                boxShadow: 'none'
-                              }
+                              alignItems: 'center'
                             })}
                           >
-                            {createElement(icon)}
-                          </Button>
+                            <Box
+                              as='button'
+                              id={`sharing-debugger-tab-${key}`}
+                              type='button'
+                              role='tab'
+                              aria-label={name}
+                              aria-selected={isActive}
+                              aria-controls={`sharing-debugger-panel-${key}`}
+                              onClick={() => setSelectedPlatform(key)}
+                              css={theme({
+                                alignItems: 'center',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                minHeight: '44px',
+                                minWidth: '44px',
+                                p: 2,
+                                border: 1,
+                                borderColor: isActive ? 'black' : 'black10',
+                                borderRadius: 2,
+                                bg: isActive ? 'black' : 'white',
+                                color: isActive ? 'white' : 'black70',
+                                cursor: 'pointer',
+                                _hover: {
+                                  color: isActive ? 'white' : 'black',
+                                  borderColor: isActive ? 'black' : 'black30'
+                                },
+                                _focusVisible: {
+                                  outline: '2px solid',
+                                  outlineColor: 'link',
+                                  outlineOffset: '2px'
+                                }
+                              })}
+                            >
+                              <Box
+                                as='span'
+                                aria-hidden='true'
+                                css={theme({
+                                  display: 'flex',
+                                  alignItems: 'center'
+                                })}
+                              >
+                                {createElement(icon, { size: '18px' })}
+                              </Box>
+                            </Box>
+                          </Tooltip>
                         )
                       })}
                     </Flex>
@@ -186,6 +456,9 @@ export const Hero = () => {
                     <Box
                       as='section'
                       id='preview'
+                      role='tabpanel'
+                      aria-labelledby={activeTabId}
+                      tabIndex={0}
                       css={theme({
                         width: '100%',
                         display: 'grid',
@@ -202,6 +475,7 @@ export const Hero = () => {
                       {platforms.map(([key, { name, component }]) => (
                         <Box
                           key={key}
+                          id={`sharing-debugger-panel-${key}`}
                           css={theme({
                             mx: 'auto',
                             ...(isAll && {
@@ -240,7 +514,11 @@ export const Hero = () => {
                         id='metatags'
                         css={theme({ justifyContent: 'center' })}
                       >
-                        <Metatags metadata={metadata} />
+                        <Metatags
+                          metadata={metadata}
+                          shareResultUrl={shareResultUrl}
+                          shareResultDisplayUrl={shareResultDisplayUrl}
+                        />
                       </Flex>
                     )}
                   </Flex>

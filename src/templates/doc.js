@@ -43,15 +43,16 @@ const DocsHeaderBackdrop = styled(Box)`
   })}
 `
 
-const DocsNavbar = styled(Box)`
+const DocsNavbar = styled(Flex)`
   ${theme({
     position: 'fixed',
     top: TOOLBAR_PRIMARY_HEIGHT,
     left: 0,
     right: 0,
     zIndex: 100,
-    background: 'transparent',
-    display: ['none', 'block']
+    alignItems: 'flex-end',
+    height: DOCS_NAVBAR_HEIGHT,
+    display: ['none', 'flex']
   })}
 `
 
@@ -59,7 +60,8 @@ const DocsNavbarContainer = styled(Container)`
   ${theme({
     px: 0,
     pt: 0,
-    maxWidth: layout.large
+    maxWidth: layout.large,
+    width: '100%'
   })}
 `
 

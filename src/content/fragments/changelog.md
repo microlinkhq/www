@@ -1,7 +1,22 @@
+### March 2026
+
+- [Optimo](https://x.com/microlinkhq/status/2034224454033723796): Introduced Optimo.
+- [Microlink](/): Added [skills](/skills) page.
+- [Microlink API](/docs): Added [guides](/docs/guides).
+- [unavatar.io](https://unavatar.io): Added [Mastodon](https://unavatar.io/#/?id=mastodon) support.
+- [unavatar.io](https://unavatar.io): Added [LinkedIn](https://unavatar.io/#/?id=linkedin) support.
+
+### February 2026
+
+- [Microlink](/): Added [markdown](/markdown) page.
+- [Microlink Blog](/blog): Published [Documentation as markdown](/blog/documentation-as-markdown).
+- [Microlink Blog](/blog): Published [Microlink AdBlock now handles cookie banners](/blog/microlink-adblock-now-handles-cookie-banners).
+
 ### January 2025
 
 - [Microlink API](/docs/api/getting-started/overview): Improved [Dribbble](https://x.com/microlinkhq/status/2017919456463265976) URLs resolution.
 - [Microlink API](/docs/api/getting-started/overview): Better [Bluesky](https://x.com/microlinkhq/status/2016431365592437183) support.
+- [Microlink Tools](/tools): Added [sharing-debugger](/tools/sharing-debugger) page.
 
 ### December 2025
 

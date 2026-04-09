@@ -50,11 +50,20 @@ const addSection = (lines, title, content) => {
   lines.push(`<!-- ${title} -->`, ...content)
 }
 
+const addUnique = (lines, ...entries) => {
+  entries.forEach(entry => {
+    if (!lines.includes(entry)) lines.push(entry)
+  })
+}
+
 const getValue = (placeholders, name, value) =>
   value || placeholders[name] || ''
 
 export const buildFixSnippet = ({ issues = [], metadata = {} } = {}) => {
   const placeholders = buildPlaceholders(metadata)
+  const twitterCardValue = metadata?.image?.url
+    ? 'summary_large_image'
+    : 'summary'
 
   const issueFixes = issues.reduce(
     (groups, issue) => {
@@ -63,51 +72,61 @@ export const buildFixSnippet = ({ issues = [], metadata = {} } = {}) => {
 
       switch (issue.name) {
         case 'title': {
-          groups.basic.push(`<title>${safeValue}</title>`)
-          groups.openGraph.push(
+          addUnique(groups.basic, `<title>${safeValue}</title>`)
+          addUnique(
+            groups.openGraph,
             `<meta property="og:title" content="${safeValue}">`
           )
-          groups.twitter.push(
+          addUnique(
+            groups.twitter,
+            `<meta name="twitter:card" content="${twitterCardValue}">`,
             `<meta name="twitter:title" content="${safeValue}">`
           )
           break
         }
         case 'description': {
           if (!issue.isNullable) {
-            groups.search.push(
+            addUnique(
+              groups.search,
               '<!-- Aim for 90-155 characters to optimize the preview -->'
             )
           }
-          groups.search.push(`<meta name="description" content="${safeValue}">`)
-          groups.openGraph.push(
+          addUnique(
+            groups.search,
+            `<meta name="description" content="${safeValue}">`
+          )
+          addUnique(
+            groups.openGraph,
             `<meta property="og:description" content="${safeValue}">`
           )
-          groups.twitter.push(
+          addUnique(
+            groups.twitter,
+            `<meta name="twitter:card" content="${twitterCardValue}">`,
             `<meta name="twitter:description" content="${safeValue}">`
           )
           break
         }
         case 'image': {
-          groups.search.push(`<meta name="image" content="${safeValue}">`)
-          groups.schema.push(`<meta itemprop="image" content="${safeValue}">`)
-          groups.openGraph.push(
+          addUnique(
+            groups.openGraph,
             `<meta property="og:image" content="${safeValue}">`
           )
-          groups.twitter.push(
+          addUnique(
+            groups.twitter,
+            '<meta name="twitter:card" content="summary_large_image">',
             `<meta name="twitter:image" content="${safeValue}">`
           )
           break
         }
         case 'logo': {
           if (!issue.isNullable) {
-            groups.favicon.push(
+            addUnique(
+              groups.favicon,
               '<!-- Use images at least 100x100px for better quality -->'
             )
           }
-          groups.openGraph.push(
-            `<meta property="og:logo" content="${safeValue}">`
-          )
-          groups.favicon.push(
+          addUnique(
+            groups.favicon,
             '<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">',
             '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
             '<link rel="shortcut icon" href="/favicon.ico">',
@@ -117,39 +136,51 @@ export const buildFixSnippet = ({ issues = [], metadata = {} } = {}) => {
           break
         }
         case 'url': {
-          groups.search.push(`<link rel="canonical" href="${safeValue}">`)
-          groups.openGraph.push(
+          addUnique(groups.search, `<link rel="canonical" href="${safeValue}">`)
+          addUnique(
+            groups.openGraph,
             `<meta property="og:url" content="${safeValue}">`
           )
           break
         }
         case 'publisher': {
-          groups.search.push(`<meta name="publisher" content="${safeValue}">`)
-          groups.openGraph.push(
+          addUnique(
+            groups.search,
+            `<meta name="publisher" content="${safeValue}">`
+          )
+          addUnique(
+            groups.openGraph,
             `<meta property="og:site_name" content="${safeValue}">`
           )
           break
         }
         case 'author': {
-          groups.search.push(`<meta name="author" content="${safeValue}">`)
-          groups.schema.push(`<meta itemprop="author" content="${safeValue}">`)
-          groups.openGraph.push(
+          addUnique(
+            groups.search,
+            `<meta name="author" content="${safeValue}">`
+          )
+          addUnique(
+            groups.openGraph,
             `<meta property="article:author" content="${safeValue}">`
           )
           break
         }
         case 'locale': {
-          const htmlLang = safeValue.split(/[-_]/)[0]
-          const ogLocale = safeValue.replace('-', '_')
-          groups.basic.push(`<!-- <html lang="${htmlLang}"> -->`)
-          groups.openGraph.push(
+          const rawLocaleValue = String(rawValue || '').trim()
+          const htmlLang = rawLocaleValue.split(/[-_]/)[0]
+          const ogLocale = rawLocaleValue.replace('-', '_')
+
+          addUnique(groups.basic, `<!-- <html lang="${htmlLang}"> -->`)
+          addUnique(
+            groups.openGraph,
             `<meta property="og:locale" content="${ogLocale}">`
           )
           break
         }
         case 'date': {
-          groups.openGraph.push(
-            `<meta property="article:modified_time" content="${safeValue}">`
+          addUnique(
+            groups.openGraph,
+            `<meta property="article:published_time" content="${safeValue}">`
           )
           break
         }

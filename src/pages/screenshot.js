@@ -54,6 +54,11 @@ import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
 import { useHealthcheck } from 'components/hook/use-healthcheck'
+import {
+  ApiErrorTitle,
+  ApiErrorBody
+} from 'components/patterns/ApiError/ApiError'
+import { normalizeApiError } from 'helpers/api-error'
 import { extractDomain } from 'helpers/extract-domain'
 
 import analyticsData from '../../data/analytics.json'
@@ -70,9 +75,12 @@ const formatCompactCount = number =>
 const OSS_STARS_BY_NAME = new Map(
   ossData.map(({ name, stars }) => [name, stars])
 )
-const getRepoStarsLabel = repo => {
+const getRepoStarsLabel = (repo, asNumber = false) => {
   const liveStars = OSS_STARS_BY_NAME.get(repo.name)
-  return typeof liveStars === 'number'
+  if (asNumber) {
+    return liveStars
+  }
+  return typeof liveStars === 'number' && !asNumber
     ? formatCompactCount(liveStars)
     : repo.stars
 }
@@ -832,11 +840,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
         const elapsedMs = Date.now() - t0
 
         if (!res.ok) {
-          const message =
-            res.status === 429
-              ? 'Rate limit reached — try again in a moment.'
-              : json.message || `Error ${res.status}`
-          setError(message)
+          setError(normalizeApiError(json, res))
           setIsLoading(false)
           return
         }
@@ -858,7 +862,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
         }
       } catch (err) {
         if (err.name !== 'AbortError') {
-          setError(err.message || 'Something went wrong.')
+          setError(normalizeApiError.fromNetwork(err))
         }
         setIsLoading(false)
       }
@@ -1038,9 +1042,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
               justifyContent: ['center', 'center', 'center', 'flex-start']
             })}
           >
-            <ArrowLink href='/docs/api/parameters/screenshot'>
-              Get Started
-            </ArrowLink>
+            <ArrowLink href='/docs/guides/screenshot'>Get Started</ArrowLink>
           </Flex>
         </Flex>
         <Flex
@@ -1344,13 +1346,13 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                           <Text
                             as='span'
                             css={theme({
-                              color: 'white90',
+                              color: 'red5',
                               fontSize: 0,
                               fontWeight: 'bold',
                               letterSpacing: 0
                             })}
                           >
-                            Request failed
+                            <ApiErrorTitle code={error.code} />
                           </Text>
                         </Flex>
                         <ErrorCloseButton
@@ -1365,14 +1367,16 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                         <Text
                           as='p'
                           css={theme({
-                            fontFamily: 'mono',
-                            color: 'red5',
-                            fontSize: 0,
+                            color: 'white90',
+                            fontSize: 1,
                             lineHeight: 2,
                             m: 0
                           })}
                         >
-                          {error}
+                          <ApiErrorBody
+                            code={error.code}
+                            fallback={error.message}
+                          />
                         </Text>
                       </ErrorModalBody>
                     </ErrorModalWindow>
@@ -1410,39 +1414,37 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </ScreenshotApiBar>
             </BrowserWindow>
@@ -1547,28 +1549,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -2367,7 +2367,7 @@ const STATS = [
   { value: cachedReqsPercentage, label: 'cache hit rate' },
   { value: analyticsBytes, label: 'data served' }
 ]
-const CLIENTS_STATS_VALUE_FONT_SIZE = [3, 3, 4, 4]
+const CLIENTS_STATS_VALUE_FONT_SIZE = [3, 3, '42px']
 const CLIENTS_STATS_LABEL_FONT_SIZE = [0, 1, 1, 1]
 
 const CLIENTS = [
@@ -2442,7 +2442,7 @@ const CLIENTS = [
     )
   },
   {
-    name: 'Sked Social',
+    name: 'SkedSocial',
     description: 'Marketing platform',
     url: 'https://skedsocial.com',
     logo: (
@@ -2507,7 +2507,8 @@ const Clients = () => (
         gap: [3, 4, 5, 5],
         maxWidth: layout.large,
         width: '100%',
-        fontVariantNumeric: 'tabular-nums'
+        fontVariantNumeric: 'tabular-nums',
+        flexWrap: ['wrap', 'nowrap', 'nowrap', 'nowrap']
       })}
     >
       {STATS.map(({ value, label }, index) => (
@@ -2516,7 +2517,8 @@ const Clients = () => (
             css={theme({
               flexDirection: 'column',
               alignItems: 'center',
-              px: [1, 2, 3, 3]
+              px: [3, 2, 3, 3],
+              mt: index === STATS.length - 1 ? [2, 0, 0, 0] : undefined
             })}
           >
             <Subhead
@@ -2543,7 +2545,13 @@ const Clients = () => (
               {label}
             </Caps>
           </Flex>
-          {index < STATS.length - 1 && <StatSeparator />}
+          {index < STATS.length - 1 && (
+            <StatSeparator
+              css={theme({
+                display: ['none', 'none', 'block', 'block']
+              })}
+            />
+          )}
         </React.Fragment>
       ))}
     </Flex>
@@ -2562,7 +2570,7 @@ const Clients = () => (
     <Flex
       css={theme({
         pt: [3, 3, 4, 4],
-        px: [3, 4, 0, 0],
+        px: [3, 4, 4, 0],
         flexWrap: ['wrap', 'wrap', 'nowrap', 'nowrap'],
         justifyContent: 'center',
         alignItems: 'center',
@@ -2736,9 +2744,7 @@ const CodeExample = () => {
               justifyContent: ['center', 'center', 'center', 'flex-start']
             })}
           >
-            <ArrowLink href='/docs/api/parameters/screenshot'>
-              Read the docs
-            </ArrowLink>
+            <ArrowLink href='/docs/guides/screenshot'>Read the docs</ArrowLink>
           </Flex>
         </Flex>
         <Flex
@@ -2897,9 +2903,7 @@ const Pricing = () => (
         <Flex
           css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
         >
-          <ArrowLink href='/docs/api/parameters/screenshot'>
-            Get started free
-          </ArrowLink>
+          <ArrowLink href='/docs/guides/screenshot'>Get started free</ArrowLink>
         </Flex>
       </PricingCard>
 
@@ -2945,7 +2949,7 @@ const Pricing = () => (
         <Box css={theme({ pt: 3 })}>
           <PricingCheck>Everything in Free</PricingCheck>
           <PricingCheck>
-            <Link href='/docs/api/parameters/proxy'>
+            <Link href='/docs/guides/common/proxy'>
               Automatic proxy resolution
             </Link>
           </PricingCheck>
@@ -3225,39 +3229,37 @@ const Capabilities = () => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </ScreenshotApiBar>
           </Box>
@@ -3406,7 +3408,7 @@ const CallToAction = () => (
         })}
       >
         <ArrowLink
-          href='/docs/api/parameters/screenshot'
+          href='/docs/guides/screenshot'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
           Get started free
@@ -3464,15 +3466,25 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                No. Microlink acts as a fully managed, "backendless" browser
-                service. We maintain the underlying Chromium infrastructure,
-                manage the instance pool, and handle edge caching.
+                No. Microlink acts as a fully managed, "backendless"{' '}
+                <Link href='/blog/what-is-a-headless-browser'>
+                  browser service
+                </Link>
+                . We maintain the underlying Chromium infrastructure, manage the
+                instance pool, and handle{' '}
+                <Link href='/blog/edge-cdn'>edge caching</Link>.
               </div>
               <div>
                 You simply make a REST API call and receive a structured JSON
-                payload or a binary image directly — the easiest way to
-                automatically take screenshots of website pages without
-                maintaining Puppeteer or Playwright on your own servers.
+                payload or a{' '}
+                <Link href='/docs/guides/screenshot/embedding#direct-image-with-embed'>
+                  binary image directly
+                </Link>{' '}
+                — the easiest way to automatically take screenshots of website
+                pages without maintaining{' '}
+                <Link href='https://pptr.dev/'>Puppeteer</Link> or{' '}
+                <Link href='https://playwright.dev/'>Playwright</Link> on your
+                own servers.
               </div>
             </>
           )
@@ -3484,13 +3496,25 @@ const ProductInformation = () => {
               <div>
                 Yes. Our free screenshot API tier provides 50 requests per day
                 with unrestricted access to all browser automation features,
-                including device emulation, custom HTTP headers, and CSS
-                injection.
+                including{' '}
+                <Link href='/docs/api/parameters/device'>device emulation</Link>
+                ,{' '}
+                <Link href='/docs/api/parameters/headers'>
+                  custom HTTP headers
+                </Link>
+                , and{' '}
+                <Link href='/docs/guides/screenshot/page-interaction#injecting-custom-css'>
+                  CSS injection
+                </Link>
+                .
               </div>
               <div>
                 No credit card, account creation, or API key is required to
-                start developing. Just point your code at the endpoint and begin
-                capturing.
+                start developing. Try it instantly in the{' '}
+                <Link href='/tools/website-screenshot'>
+                  screenshot playground
+                </Link>{' '}
+                or point your code at the endpoint and begin capturing.
               </div>
             </>
           )
@@ -3500,9 +3524,12 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                By default, our engine includes a built-in, frequently updated
-                adblocker. It automatically dismisses GDPR cookie consent
-                banners, closes newsletter popups, and removes injected ads.
+                By default, our engine includes a built-in, frequently updated{' '}
+                <Link href='/blog/microlink-adblock-now-handles-cookie-banners'>
+                  adblocker
+                </Link>
+                . It automatically dismisses GDPR cookie consent banners, closes
+                newsletter popups, and removes injected ads.
               </div>
               <div>
                 This ensures your programmatic captures remain clean and focused
@@ -3518,10 +3545,17 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                Absolutely. Our HTML screenshot API provides complete browser
-                control. You can inject custom CSS, execute arbitrary
-                JavaScript, scroll to specific coordinates, or wait for specific
-                DOM elements or network events to load.
+                Absolutely. Our HTML screenshot API provides complete{' '}
+                <Link href='/docs/guides/screenshot/browser-settings'>
+                  browser control
+                </Link>
+                . You can execute arbitrary JavaScript via our{' '}
+                <Link href='/docs/guides/function'>functions integration</Link>,
+                or use native parameters to{' '}
+                <Link href='/docs/guides/screenshot/page-interaction'>
+                  scroll, click, and wait
+                </Link>{' '}
+                for specific DOM elements and network events to load.
               </div>
               <div>
                 It is built to handle complex, dynamic SPA (Single Page
@@ -3536,15 +3570,25 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                We guarantee enterprise-grade reliability with a 99.95% uptime
-                SLA. Every request runs in an isolated browser instance to
-                guarantee security and avoid shared-state leaks.
+                We guarantee <Link href='/enterprise'>enterprise-grade</Link>{' '}
+                reliability with a 99.95% uptime SLA. Every request runs in an
+                isolated browser instance to guarantee security and avoid
+                shared-state leaks. Check real-time availability on the{' '}
+                <Link href='/status'>status page</Link>.
               </div>
               <div>
                 For latency: assets are distributed via Cloudflare's 240+ edge
-                locations, meaning cached responses are delivered in
-                milliseconds. For cold starts, our optimized Chromium pool
-                typically responds in under 3 seconds (P95).
+                locations, meaning{' '}
+                <Link href='/docs/guides/screenshot/caching-and-performance'>
+                  cached responses
+                </Link>{' '}
+                are delivered in milliseconds. For cold starts, our optimized
+                Chromium pool typically responds in under 3&nbsp;seconds (P95).
+                See our{' '}
+                <Link href='/benchmarks/screenshot-api'>
+                  independent benchmark
+                </Link>{' '}
+                for detailed provider comparisons.
               </div>
             </>
           )
@@ -3554,14 +3598,27 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                You can export captures as optimized JPEG, PNG, or MP4 formats.
-                We support specific viewport cropping as well as full-page
-                scrolling captures.
+                You can export captures as optimized{' '}
+                <Link href='/docs/guides/screenshot/customizing-output'>
+                  JPEG or PNG
+                </Link>{' '}
+                formats. We support specific viewport cropping, as well as{' '}
+                <Link href='/tools/website-screenshot/full-page'>
+                  full-page scrolling captures
+                </Link>{' '}
+                for long documents. If you need motion, you can even generate{' '}
+                <Link href='/tools/website-screenshot/animated'>
+                  animated recordings
+                </Link>
+                .
               </div>
               <div>
                 Depending on your integration, you can request a raw image
-                buffer, or a comprehensive JSON payload that includes the image
-                URL alongside metadata, performance timings, and HTTP headers.
+                buffer via the{' '}
+                <Link href='/docs/api/parameters/embed'>embed parameter</Link>,
+                or a comprehensive JSON payload that includes the image URL
+                alongside <Link href='/metadata'>metadata</Link>, performance
+                timings, and HTTP headers.
               </div>
             </>
           )
@@ -3572,14 +3629,14 @@ const ProductInformation = () => {
             <>
               <div>
                 In minutes. Visit our{' '}
-                <Link href='/docs/api/parameters/screenshot'>
-                  documentation
-                </Link>{' '}
-                for interactive playground examples, official SDKs (Node.js,
-                Python, Ruby, Go), and copy-paste code snippets.
+                <Link href='/docs/guides/screenshot'>documentation</Link> for
+                interactive playground examples, official{' '}
+                <Link href='/sdk'>SDKs</Link> (Node.js, Python, Ruby, Go), and
+                copy-paste code snippets.
               </div>
               <div>
-                Need architectural advice or have custom requirements? Contact
+                Need architectural advice or have custom requirements? Check our{' '}
+                <Link href='/enterprise'>enterprise offering</Link> or contact
                 our engineering team at{' '}
                 <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
                 .
@@ -3594,34 +3651,52 @@ const ProductInformation = () => {
 
 export const Head = () => (
   <Meta
-    title='Screenshot API | Fast, Automated Web Snapshots — Microlink'
-    description='The best screenshot API and web screenshot service to capture any URL as an image. Built for developers. Features device emulation, ad-blocking, and edge caching. Start for free.'
+    title='Website Screenshot API — Convert URL to Image'
+    description='Capture pixel-perfect website screenshots with one API call. Free to start. Sub-second responses, full headless browser control, device emulation & ad-blocking.'
     image={cdnUrl('banner/screenshot.jpeg')}
-    schemaType='SoftwareApplication'
     structured={{
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
       '@id': 'https://microlink.io/screenshot',
       name: 'Microlink Screenshot API',
       description:
-        'A backendless API for developers to programmatically capture website screenshots, generate web snapshots, and automate browser tasks using Headless Chrome.',
+        'A developer-first API to capture pixel-perfect website screenshots programmatically. Sub-second cached responses, full Headless Chrome control, device emulation, and ad-blocking across a global edge network.',
       url: 'https://microlink.io/screenshot',
-      applicationCategory: 'DeveloperApplication',
+      applicationCategory: ['DeveloperApplication', 'WebAPI'],
       operatingSystem: 'Web, Platform-Agnostic',
       provider: {
         '@type': 'Organization',
+        '@id': 'https://microlink.io/about',
         name: 'Microlink',
         url: 'https://microlink.io'
+      },
+      isPartOf: {
+        '@type': 'WebSite',
+        '@id': 'https://microlink.io',
+        url: 'https://microlink.io',
+        name: 'Microlink'
       },
       offers: {
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'USD',
         description:
-          'Free tier available for experimentation. Pro plans scale for high concurrency.'
+          'Free tier available for experimentation, 50 requests per day. Pro plans scale for high concurrency.'
       },
       keywords:
-        'screenshot API, website capture, automated screenshots, puppeteer API, headless chrome, web snapshot',
+        'screenshot API, website screenshot, URL to image, headless chrome, website capture, web screenshot, puppeteer API',
+      interactionStatistic: {
+        '@type': 'InteractionCounter',
+        interactionType: {
+          '@type': 'https://schema.org/LikeAction'
+        },
+        userInteractionCount: getRepoStarsLabel(REPOS[0], true),
+        interactionService: {
+          '@type': 'WebSite',
+          name: 'GitHub',
+          url: 'https://github.com/microlinkhq/browserless'
+        }
+      },
       about: [
         {
           '@type': 'Thing',
@@ -3703,10 +3778,7 @@ const ScreenshotPage = () => {
             No more servers to maintain, load balancers, or paying for capacity
             you don’t use — our screenshot service API lets you spend more time
             building, less time configuring, with easy integration via{' '}
-            <Link href='/docs/api/parameters/screenshot'>
-              web screenshot API
-            </Link>
-            .
+            <Link href='/docs/guides/screenshot'>web screenshot API</Link>.
           </>
         }
         features={FEATURES}
