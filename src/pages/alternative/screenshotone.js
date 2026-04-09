@@ -247,7 +247,13 @@ const FeatureTable = styled('table')`
 
 const Check = () => (
   <span
-    css={theme({ color: 'green7', fontFamily: 'mono', fontSize: 1 })}
+    css={theme({
+      color: 'green7',
+      fontFamily: 'mono',
+      fontSize: 1,
+      display: 'block',
+      textAlign: 'center'
+    })}
     aria-label='Yes'
     role='img'
   >
@@ -261,6 +267,8 @@ const Cross = () => (
       color: 'red5',
       fontFamily: 'mono',
       fontSize: 1,
+      display: 'block',
+      textAlign: 'center',
       opacity: 0.7
     })}
     aria-label='No'
@@ -271,7 +279,15 @@ const Cross = () => (
 )
 
 const Partial = ({ children }) => (
-  <span css={theme({ color: 'yellow7', fontFamily: 'mono', fontSize: 0 })}>
+  <span
+    css={theme({
+      color: 'yellow7',
+      fontFamily: 'mono',
+      fontSize: 0,
+      display: 'block',
+      textAlign: 'center'
+    })}
+  >
     {children || '~'}
   </span>
 )
@@ -323,6 +339,12 @@ const COMPARISON_DATA = [
     highlight: true
   },
   {
+    feature: 'Antibot detection (30+ providers)',
+    microlink: true,
+    screenshotone: false,
+    highlight: true
+  },
+  {
     feature: 'Metadata extraction',
     microlink: true,
     screenshotone: false,
@@ -352,8 +374,12 @@ const COMPARISON_DATA = [
     screenshotone: false,
     highlight: true
   },
-  { feature: 'Remote JS execution', microlink: true, screenshotone: false },
-  { feature: '240+ CDN edge nodes', microlink: true, screenshotone: false },
+  {
+    feature: 'Remote JS execution',
+    microlink: true,
+    screenshotone: false,
+    highlight: true
+  },
   { feature: 'GPU rendering', microlink: 'on demand', screenshotone: true },
   {
     feature: 'No-code integrations (Zapier, Make\u2026)',
@@ -993,9 +1019,32 @@ const SpeedSection = () => {
                 </tbody>
               </FeatureTable>
             </Box>
+            <Box
+              css={theme({
+                mt: 4,
+                p: 1,
+                borderColor: 'black10',
+                bg: 'white'
+              })}
+            >
+              <Text
+                css={theme({
+                  fontSize: [1, 1, 2, 2],
+                  color: 'black90',
+                  lineHeight: 2
+                })}
+              >
+                See the full benchmark with all 6&nbsp;providers and 7&nbsp;URLs
+                on the{' '}
+                <Link href='/benchmarks/screenshot-api'>
+                  Screenshot API Benchmark
+                </Link>{' '}
+                page.
+              </Text>
+            </Box>
             <Text
               css={theme({
-                pt: 3,
+                pt: 4,
                 fontSize: 0,
                 color: 'black40',
                 fontFamily: 'mono',
@@ -1110,7 +1159,7 @@ const WhySwitchSection = () => (
         css={theme({ color: 'black', pb: [1, 2, 2, 2] })}
         titleize={false}
       >
-        Why Developers Switch
+        Why <GradientText>Developers</GradientText> Switch
       </Subhead>
       <Caption
         css={theme({
@@ -1160,9 +1209,9 @@ const WhySwitchSection = () => (
           },
           {
             number: '05',
-            title: 'Drop screenshots anywhere — no backend',
+            title: 'Proxy and antibot\u00a0built\u2011in, zero\u00a0config',
             description:
-              'embed=screenshot.url returns the image URL directly. Drop it in an <img> tag, a CSS background-image, or Markdown. No storage layer, no server, no extra step.'
+              'Microlink auto-rotates residential proxies and detects 30+\u00a0antibot providers (Cloudflare, DataDome, Akamai\u2026) on every request. No middleware, no extra parameter \u2014 make a query and it just\u00a0works.'
           },
           {
             number: '06',
@@ -1515,7 +1564,7 @@ const CTASection = () => (
   <Section
     as='section'
     id='get-started'
-    css={{
+    css={theme({
       backgroundImage: `radial-gradient(
         circle at center right,
         #850ba7 0%,
@@ -1531,8 +1580,8 @@ const CTASection = () => (
       )`,
       borderTop: `${borders[1]} ${colors.white20}`,
       borderBottom: `${borders[1]} ${colors.white20}`,
-      ...theme({ py: 5 })
-    }}
+      py: [4, 4, 5, 5]
+    })}
   >
     <Flex
       css={theme({
@@ -1577,18 +1626,12 @@ const CTASection = () => (
           justifyContent: 'center'
         })}
       >
-        <Button
+        <ArrowLink
           href='/screenshot'
-          css={theme({ fontSize: 2, px: 5, py: 3 })}
-          style={{
-            background:
-              'linear-gradient(90deg, #f76698, #c03fa2 60%, #8c1bab 100%)',
-            color: 'white',
-            boxShadow: '0 8px 32px rgba(192, 63, 162, 0.45)'
-          }}
+          css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
-          <Caps>Start Building Free</Caps>
-        </Button>
+          Start Building Free
+        </ArrowLink>
       </Flex>
     </Flex>
   </Section>
