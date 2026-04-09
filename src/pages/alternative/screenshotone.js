@@ -213,6 +213,7 @@ const FeatureTable = styled('table')`
   border-collapse: separate;
   border-spacing: 0;
   font-variant-numeric: tabular-nums;
+  table-layout: auto;
 
   th,
   td {
@@ -222,6 +223,8 @@ const FeatureTable = styled('table')`
 
     @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
       padding: ${space[2]} ${SPACE_10};
+      white-space: normal;
+      word-break: break-word;
     }
   }
 
@@ -538,7 +541,7 @@ const CellLoser = styled('span')`
 `
 
 const MobileCards = styled('div')`
-  ${theme({ display: 'none', flexDirection: 'column' })};
+  ${theme({ display: 'none', flexDirection: 'column', width: '100%' })};
   gap: ${SPACE_12};
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
@@ -556,10 +559,10 @@ const MobileCardHeader = styled('div')`
   ${theme({
     fontFamily: 'mono',
     fontSize: 0,
-    color: 'black',
     fontWeight: 'bold',
     bg: 'black05'
   })};
+  color: ${colors.black} !important;
   padding: ${SPACE_10} ${SPACE_14};
   border-bottom: ${borders[1]} ${colors.black10};
 `
@@ -641,7 +644,7 @@ const Hero = () => (
           color: 'black'
         })}
       >
-        The fastest <GradientText>Screenshot One</GradientText> alternative
+        The fastest <GradientText>ScreenshotOne</GradientText> alternative
       </Heading>
 
       <Caption
@@ -653,9 +656,9 @@ const Hero = () => (
         })}
         titleize={false}
       >
-        <b>ScreenshotOne</b> does one thing: render screenshots.{' '}
-        <b>Microlink</b> does many things. That's exactly why it's been
-        battle-tested across enough edge cases to make its screenshot engine{' '}
+        Looking for a <b>ScreenshotOne alternative</b> that&rsquo;s actually
+        faster? <b>Microlink</b> does screenshots, PDFs, metadata, and more
+        &mdash; battle-tested across enough edge cases to make its engine{' '}
         <b>88% faster on average</b>.
       </Caption>
 
@@ -680,7 +683,7 @@ const Hero = () => (
           pb: [3, 3, 4, 4]
         })}
       >
-        <RaceHero>
+        <RaceHero aria-label='Live benchmark race: Microlink vs ScreenshotOne screenshot speed'>
           <RaceContainer
             benchmarkData={BENCHMARK_DATA}
             serviceColors={SERVICE_COLORS}
@@ -777,6 +780,23 @@ const SpeedSection = () => {
           Same request. Same URL. Same output format.
         </Caption>
 
+        <Text
+          css={theme({
+            pb: [3, 3, 4, 4],
+            maxWidth: layout.normal,
+            color: 'black60',
+            fontSize: 1,
+            lineHeight: 2,
+            textAlign: 'center',
+            mx: 'auto'
+          })}
+        >
+          We ran identical screenshot requests against both APIs from a New York
+          server and measured cold-start latency &mdash; no cache, no warm-up.
+          The numbers below are averages from 10&nbsp;independent benchmark runs
+          at different hours.
+        </Text>
+
         <Flex
           css={theme({
             pt: [3, 3, 4, 4],
@@ -786,7 +806,7 @@ const SpeedSection = () => {
             width: '100%'
           })}
         >
-          <Box css={theme({ flex: 1, minWidth: 0 })}>
+          <Box css={theme({ flex: 1, minWidth: 0, width: '100%' })}>
             <Text
               css={theme({
                 fontSize: 2,
@@ -942,7 +962,7 @@ const SpeedSection = () => {
             </MobileCards>
           </Box>
 
-          <Box css={theme({ flex: 1, minWidth: 0 })}>
+          <Box css={theme({ flex: 1, minWidth: 0, width: '100%' })}>
             <Text
               css={theme({
                 fontSize: 2,
@@ -1061,89 +1081,6 @@ const SpeedSection = () => {
           </Box>
         </Flex>
       </SectionInner>
-
-      <Flex
-        css={theme({
-          pt: [5, 5, 6, 6],
-          pb: [2, 2, 3, 3],
-          px: 4,
-          gap: [3, 5, 5, '80px'],
-          flexWrap: 'wrap',
-          justifyContent: ['space-between', 'space-between', 'center'],
-          alignItems: 'center',
-          width: '100%'
-        })}
-      >
-        {[
-          {
-            icon: Zap,
-            value: '88%',
-            label: 'Faster on average'
-          },
-          {
-            icon: Code,
-            value: 'Open source',
-            label: 'Transparent & auditable'
-          },
-          {
-            icon: Gift,
-            value: 'Free',
-            label: 'To start'
-          },
-          {
-            icon: TrendingUp,
-            value: '4\u00d7 requests',
-            label: 'for half the price'
-          }
-        ].map(({ icon, value, label }) => (
-          <Flex
-            key={label}
-            css={theme({
-              flexDirection: 'row',
-              alignItems: 'center',
-              minWidth: '100px'
-            })}
-          >
-            <Flex
-              css={theme({
-                flexDirection: 'column',
-                alignItems: 'flex-start'
-              })}
-            >
-              <Text
-                css={theme({
-                  fontSize: ['32px', '42px'],
-                  fontWeight: 'bold',
-                  lineHeight: 0,
-                  textAlign: 'center'
-                })}
-                style={{ fontVariantNumeric: 'tabular-nums' }}
-              >
-                {value}
-              </Text>
-              <Flex
-                css={theme({
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 1,
-                  pt: 1
-                })}
-              >
-                <FeatherIcon icon={icon} size={1} color='blue8' />
-                <Caps
-                  css={theme({
-                    fontSize: 1,
-                    color: 'black50',
-                    fontWeight: 'bold'
-                  })}
-                >
-                  {label}
-                </Caps>
-              </Flex>
-            </Flex>
-          </Flex>
-        ))}
-      </Flex>
     </Section>
   )
 }
@@ -1282,8 +1219,8 @@ const HonestySection = () => (
         css={theme({ pb: [4, 4, 5, 5], fontSize: [4, 4, 5, 5], pt: 3 })}
         titleize={false}
       >
-        Where <GradientText>Screenshot One</GradientText> <br /> Might Be the
-        Right Choice
+        Where <GradientText>ScreenshotOne</GradientText>
+        <br /> Might Be the Right Choice
       </Subhead>
 
       <Box
@@ -1600,7 +1537,7 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Make the switch in minutes
+        Switch from ScreenshotOne in minutes
       </Subhead>
 
       <Caption
@@ -1831,7 +1768,7 @@ const FAQSection = () => (
 
 export const Head = () => (
   <Meta
-    title='ScreenshotOne Alternative'
+    title='ScreenshotOne Alternative — 88% Faster Screenshot API | Microlink'
     description='Microlink captures screenshots up to 2× faster than ScreenshotOne — 88% faster on average — plus PDF, metadata, and link previews in one API. Free to start.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
@@ -1839,7 +1776,7 @@ export const Head = () => (
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'ScreenshotOne Alternative — Microlink Screenshot API',
+        name: 'ScreenshotOne Alternative — 88% Faster Screenshot API | Microlink',
         description:
           'Compare Microlink and ScreenshotOne screenshot APIs. Microlink is 88% faster on average — up to 2× faster on full-page captures — with screenshots, PDF generation, metadata extraction, and more in one API.',
         url: 'https://microlink.io/alternative/screenshotone',
@@ -1861,34 +1798,42 @@ export const Head = () => (
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'How does Microlink compare to ScreenshotOne for screenshot quality?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Both services produce high-quality screenshots using Chromium. Microlink serves maximum quality with optimal compression by default and is 88% faster on average — up to 2× faster on full-page captures — due to its 240+ edge node infrastructure.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'What is the best alternative to ScreenshotOne?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Microlink is a full headless browser API that replaces ScreenshotOne for screenshots and adds PDF generation, metadata extraction, link previews, and remote JS execution — all in one API with one key.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'Can I migrate from ScreenshotOne to Microlink?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Yes. Microlink accepts similar parameters. Most migrations involve updating the API endpoint and key. SDKs are available for JavaScript, Python, Ruby, PHP, and Go.'
-            }
-          },
-          {
-            '@type': 'Question',
             name: 'Is there a free ScreenshotOne alternative?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "Yes. Microlink's free tier includes 50 requests/day with no credit card and no time limit — the same API, quality, and 240+ edge network as paid plans."
+              text: "Yes. Microlink's free tier includes 50 requests/day with no credit card and no time limit. You get the same API, the same quality, and the same 240+ edge network as paid plans. ScreenshotOne also offers a free tier, but it's limited to 100 screenshots with no daily renewal — once they're gone, you need a paid plan."
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How does Microlink compare to ScreenshotOne for screenshot quality?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Both services produce high-quality screenshots using Chromium. Microlink serves maximum quality with optimal compression by default — no manual parameter tuning needed. ScreenshotOne also delivers good quality, with optional GPU rendering for WebGL-heavy sites.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Can I migrate from ScreenshotOne to Microlink easily?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "Yes. Microlink's screenshot API accepts similar parameters (URL, viewport, format, full-page, selectors). Most migrations involve updating the API endpoint and key. The screenshot docs include examples for every parameter. Just ask your favorite LLM client to migrate your code. Or, if you need help migrating, contact hello@microlink.io."
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'What does "platform vs. point solution" mean in practice?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'With Microlink, one API key and one integration gives you screenshots, PDF generation, metadata/Open Graph extraction, link previews (via SDK), remote JavaScript execution, and Lighthouse audits.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'Is Microlink really open source?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The core engine components are MIT-licensed and available on GitHub: Metascraper (metadata extraction), MQL (Microlink Query Language), and Browserless (headless browser). Enterprise teams can audit, fork, and contribute. ScreenshotOne is closed-source. There is no way to inspect or audit the engine processing your requests.'
             }
           },
           {
@@ -1896,7 +1841,7 @@ export const Head = () => (
             name: 'How much does ScreenshotOne cost compared to Microlink?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "ScreenshotOne's recommended plan is $79/month for 10,000 screenshots with an 80 req/min cap. Microlink offers 46,000 requests for $45/month with no per-minute rate limit — 4.6× more volume for nearly half the price."
+              text: "ScreenshotOne's recommended plan is $79/month for 10,000 screenshots with an 80 requests-per-minute cap. Microlink's comparable plan is $45/month for 46,000 requests — 4.6× more volume for nearly half the price — with no per-minute rate limit. Microlink can offer lower prices because enterprise clients running millions of requests a month cover the infrastructure cost."
             }
           },
           {
@@ -1904,23 +1849,7 @@ export const Head = () => (
             name: 'Does Microlink have rate limits?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Paid plans have no requests-per-minute cap. The only limit is the monthly request quota. ScreenshotOne enforces a per-minute rate limit which can bottleneck batch pipelines.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'Can I use the screenshot API without running my own server?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: "Yes. Microlink's embed mode returns a direct image URL you can drop into an <img> tag, CSS background-image, or Markdown — no backend or storage layer needed."
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'What output formats does the Microlink screenshot API support?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Microlink supports PNG, JPEG, and WebP for still screenshots, animated GIF and video (MP4) for motion captures, and PDF generation — all from the same API endpoint.'
+              text: 'Paid plans have no requests-per-minute cap — you can burst as high as your concurrency allows. The only limit is your monthly request quota. ScreenshotOne enforces a per-minute rate limit (80 req/min on the $79 plan), which can bottleneck batch pipelines or high-traffic embed scenarios.'
             }
           },
           {
@@ -1928,7 +1857,7 @@ export const Head = () => (
             name: 'How does Microlink handle sites with cookie banners or ads?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Microlink supports ad blocking and cookie banner removal via the adblock parameter and custom CSS/JS injection. You can also hide specific elements by CSS selector using screenshot.hide.'
+              text: 'Both Microlink and ScreenshotOne support ad blocking and cookie banner removal. In Microlink you enable them with the adblock parameter and custom CSS/JS injection to dismiss consent dialogs before the screenshot is taken. You can also use screenshot.hide to remove specific elements by CSS selector — useful for sticky banners, chat widgets, or any overlay that clutters the capture.'
             }
           },
           {
@@ -1936,7 +1865,7 @@ export const Head = () => (
             name: 'What uptime and SLA does Microlink guarantee?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Microlink guarantees 99.9% uptime backed by a formal SLA. Requests are served from 240+ Cloudflare edge nodes worldwide for consistent latency and availability.'
+              text: 'Microlink guarantees 99.9% uptime backed by a formal SLA. Requests are served from 240+ Cloudflare edge nodes worldwide, so latency and availability stay consistent regardless of where the caller is located.'
             }
           }
         ]
