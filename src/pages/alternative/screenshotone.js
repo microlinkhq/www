@@ -17,6 +17,19 @@ import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { cdnUrl } from 'helpers/cdn-url'
 import styled, { css } from 'styled-components'
+import React from 'react'
+
+import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import Caps from 'components/elements/Caps'
+import Container from 'components/elements/Container'
+import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
+import { Link } from 'components/elements/Link'
+import Meta from 'components/elements/Meta/Meta'
+import SubheadBase from 'components/elements/Subhead'
+import Text from 'components/elements/Text'
+import { extractDomain } from 'helpers/extract-domain'
 
 const RaceHero = styled(Box)`
   width: 100%;
@@ -37,21 +50,6 @@ const RaceHero = styled(Box)`
     }
   }
 `
-import React from 'react'
-
-import Box from 'components/elements/Box'
-import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
-import Container from 'components/elements/Container'
-import Flex from 'components/elements/Flex'
-import FeatherIcon from 'components/icons/Feather'
-import HeadingBase from 'components/elements/Heading'
-import { Link } from 'components/elements/Link'
-import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
-import Text from 'components/elements/Text'
-import { Zap, Code, Gift, TrendingUp } from 'react-feather'
-import { extractDomain } from 'helpers/extract-domain'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -864,15 +862,19 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin ? (
-                                <CellHighlight>
-                                  {formatMs(times[i])}
-                                </CellHighlight>
-                              ) : isMax ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                              ) : (
-                                formatMs(times[i])
-                              )}
+                              {isMin
+                                ? (
+                                  <CellHighlight>
+                                    {formatMs(times[i])}
+                                  </CellHighlight>
+                                  )
+                                : isMax
+                                  ? (
+                                    <CellLoser>{formatMs(times[i])}</CellLoser>
+                                    )
+                                  : (
+                                      formatMs(times[i])
+                                    )}
                             </td>
                           )
                         })}
