@@ -664,10 +664,360 @@ const Hero = () => (
           />
         </RaceHero>
       </Flex>
+    </Flex>
+  </BluePrintBackground>
+)
+
+/* ---------------------------------------------------------------------------
+ * Comparison Table Section
+ * --------------------------------------------------------------------------- */
+
+const ComparisonSection = () => (
+  <Section
+    as='section'
+    id='comparison'
+    css={theme({
+      borderTop: `${borders[1]} ${colors.black05}`,
+      borderBottom: `${borders[1]} ${colors.black05}`,
+      py: 5
+    })}
+  >
+    <SectionInner>
+      <Subhead
+        css={theme({ pb: [2, 2, 3, 3], fontSize: [3, 3, 4, 4], pt: 3 })}
+        titleize={false}
+      >
+        <GradientText>Feature-by-Feature</GradientText> Comparison
+      </Subhead>
+      <Caption
+        css={theme({
+          pt: 2,
+          pb: [3, 3, 4, 4],
+          maxWidth: layout.normal,
+          color: 'black60'
+        })}
+        titleize={false}
+      >
+        An honest look at what each API offers.
+      </Caption>
+      <ComparisonTable />
+      <Text
+        css={theme({
+          pt: 4,
+          pb: 4,
+          fontSize: '12px',
+          color: 'black40',
+          textAlign: 'center',
+          fontFamily: 'mono'
+        })}
+      >
+        Last verified: March&nbsp;2026. See each product's docs for the latest.
+      </Text>
+    </SectionInner>
+  </Section>
+)
+
+/* ---------------------------------------------------------------------------
+ * Speed Section (benchmark data tables)
+ * --------------------------------------------------------------------------- */
+
+const SpeedSection = () => {
+  const micro = BENCHMARK_DATA.results.microlink
+  const microAvg = micro.summary.avgColdDuration
+
+  return (
+    <Section
+      as='section'
+      id='speed'
+      css={theme({ bg: 'white', pt: [3, 3, 4, 4] })}
+    >
+      <SectionInner>
+        <Subhead
+          css={theme({ pb: [2, 2, 3, 3], fontSize: [3, 3, 4, 4] })}
+          titleize={false}
+        >
+          <GradientText>Up to 2&times; faster</GradientText> response times
+        </Subhead>
+
+        <Caption
+          css={theme({
+            pb: [3, 3, 4, 4],
+            maxWidth: layout.normal,
+            color: 'black80',
+            fontSize: 3
+          })}
+          titleize={false}
+        >
+          Same request. Same URL. Same output format.
+        </Caption>
+
+        <Flex
+          css={theme({
+            pt: [3, 3, 4, 4],
+            flexDirection: ['column', 'column', 'row', 'row'],
+            gap: [3, 3, 4, 4],
+            alignItems: 'flex-start',
+            width: '100%'
+          })}
+        >
+          <Box css={theme({ flex: 1, minWidth: 0 })}>
+            <Text
+              css={theme({
+                fontSize: 2,
+                fontWeight: 'bold',
+                letterSpacing: 0,
+                color: 'black',
+                pb: 3
+              })}
+            >
+              Cold-start latency by&nbsp;URL
+            </Text>
+            <Box
+              css={theme({
+                overflowX: 'auto',
+                WebkitOverflowScrolling: 'touch',
+                borderRadius: 4,
+                border: `${borders[1]} ${colors.black10}`,
+                bg: 'white',
+                display: ['none', 'block']
+              })}
+            >
+              <PerUrlTable>
+                <thead>
+                  <tr>
+                    <th css={theme({ textAlign: 'left' })}>URL</th>
+                    {SORTED_SERVICES.map(key => (
+                      <th
+                        key={key}
+                        css={theme({
+                          color:
+                            key === 'microlink' ? colors.green7 : colors.black
+                        })}
+                      >
+                        {BENCHMARK_DATA.results[key].name}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {BENCHMARK_DATA.testUrls.map(({ url }) => {
+                    const times = SORTED_SERVICES.map(
+                      key =>
+                        BENCHMARK_DATA.results[key].perUrl.find(
+                          p => p.url === url
+                        )?.coldDuration || 0
+                    )
+                    const minTime = Math.min(...times)
+                    const maxTime = Math.max(...times)
+
+                    return (
+                      <tr key={url}>
+                        <td>{extractDomain(url)}</td>
+                        {SORTED_SERVICES.map((key, i) => {
+                          const isMin = times[i] === minTime
+                          const isMax = times[i] === maxTime
+                          return (
+                            <td key={key}>
+                              {isMin ? (
+                                <CellHighlight>
+                                  {formatMs(times[i])}
+                                </CellHighlight>
+                              ) : isMax ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                              ) : (
+                                formatMs(times[i])
+                              )}
+                            </td>
+                          )
+                        })}
+                      </tr>
+                    )
+                  })}
+                  {(() => {
+                    const totals = SORTED_SERVICES.map(
+                      key =>
+                        BENCHMARK_DATA.results[key].summary.totalColdDuration
+                    )
+                    const minTotal = Math.min(...totals)
+                    const maxTotal = Math.max(...totals)
+
+                    return (
+                      <tr>
+                        <td
+                          css={theme({
+                            fontWeight: 'bold',
+                            color: 'black',
+                            borderTop: `${borders[1]} ${colors.black10}`
+                          })}
+                        >
+                          Total
+                        </td>
+                        {SORTED_SERVICES.map((key, i) => {
+                          const isMin = totals[i] === minTotal
+                          const isMax = totals[i] === maxTotal
+                          return (
+                            <td
+                              key={key}
+                              css={theme({
+                                fontWeight: 'bold',
+                                borderTop: `${borders[1]} ${colors.black10}`,
+                                color: isMin
+                                  ? colors.green7
+                                  : isMax
+                                    ? colors.red8
+                                    : colors.black
+                              })}
+                            >
+                              {(totals[i] / 1000).toFixed(1)}&thinsp;s
+                            </td>
+                          )
+                        })}
+                      </tr>
+                    )
+                  })()}
+                </tbody>
+              </PerUrlTable>
+            </Box>
+
+            <MobileCards>
+              {BENCHMARK_DATA.testUrls.map(({ url }) => {
+                const times = SORTED_SERVICES.map(
+                  key =>
+                    BENCHMARK_DATA.results[key].perUrl.find(p => p.url === url)
+                      ?.coldDuration || 0
+                )
+                const minTime = Math.min(...times)
+                const maxTime = Math.max(...times)
+
+                return (
+                  <MobileCard key={url}>
+                    <MobileCardHeader>{extractDomain(url)}</MobileCardHeader>
+                    {SORTED_SERVICES.map((key, i) => {
+                      const isMin = times[i] === minTime
+                      const isMax = times[i] === maxTime
+                      return (
+                        <MobileCardRow key={key}>
+                          <MobileCardName>
+                            {BENCHMARK_DATA.results[key].name}
+                          </MobileCardName>
+                          <MobileCardTime
+                            $highlight={isMin || isMax}
+                            $isMin={isMin}
+                            $isMax={isMax}
+                          >
+                            {formatMs(times[i])}&thinsp;ms
+                          </MobileCardTime>
+                        </MobileCardRow>
+                      )
+                    })}
+                  </MobileCard>
+                )
+              })}
+            </MobileCards>
+          </Box>
+
+          <Box css={theme({ flex: 1, minWidth: 0 })}>
+            <Text
+              css={theme({
+                fontSize: 2,
+                fontWeight: 'bold',
+                letterSpacing: 0,
+                color: 'black',
+                pb: 3
+              })}
+            >
+              Average cold-start latency
+            </Text>
+            <Box
+              css={theme({
+                overflowX: 'auto',
+                WebkitOverflowScrolling: 'touch',
+                borderRadius: 4,
+                border: `${borders[1]} ${colors.black10}`,
+                bg: 'white'
+              })}
+            >
+              <FeatureTable>
+                <thead>
+                  <tr>
+                    <th>Provider</th>
+                    <th css={theme({ textAlign: 'right' })}>
+                      Avg Cold Duration
+                    </th>
+                    <th css={theme({ textAlign: 'right' })}>
+                      vs.&nbsp;Microlink
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {SORTED_SERVICES.map((key, rank) => {
+                    const svc = BENCHMARK_DATA.results[key]
+                    const avg = svc.summary.avgColdDuration
+                    const delta = avg - microAvg
+                    const pctSlower =
+                      microAvg > 0 ? ((delta / microAvg) * 100).toFixed(0) : 0
+                    const isMicrolink = key === 'microlink'
+
+                    return (
+                      <tr key={key}>
+                        <td>
+                          <span
+                            css={theme({
+                              fontWeight: isMicrolink ? 'bold' : 'normal',
+                              color: isMicrolink ? colors.green7 : 'black'
+                            })}
+                          >
+                            {svc.name}
+                          </span>
+                        </td>
+                        <td
+                          css={theme({
+                            textAlign: 'right',
+                            fontWeight: isMicrolink ? 'bold' : 'normal',
+                            color: isMicrolink ? colors.green7 : undefined
+                          })}
+                        >
+                          {formatMsDecimal(avg)}&thinsp;ms
+                        </td>
+                        <td
+                          css={theme({
+                            textAlign: 'right',
+                            color: isMicrolink ? colors.green7 : 'black'
+                          })}
+                        >
+                          {isMicrolink ? '—' : `+${pctSlower}% slower`}
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </FeatureTable>
+            </Box>
+            <Text
+              css={theme({
+                pt: 3,
+                fontSize: 0,
+                color: 'black40',
+                fontFamily: 'mono',
+                lineHeight: 2
+              })}
+            >
+              Averages from 10&nbsp;benchmark runs taken from a New York server
+              at different hours. The{' '}
+              <Link href='https://github.com/microlinkhq/screenshot-benchmark'>
+                benchmark repo
+              </Link>{' '}
+              is open — run it yourself and see. Last run: March&nbsp;2026.
+            </Text>
+          </Box>
+        </Flex>
+      </SectionInner>
 
       <Flex
         css={theme({
-          pt: [2, 2, 3, 3],
+          pt: [5, 5, 6, 6],
+          pb: [2, 2, 3, 3],
+          px: 4,
           gap: [3, 5, 5, '80px'],
           flexWrap: 'wrap',
           justifyContent: ['space-between', 'space-between', 'center'],
@@ -745,425 +1095,6 @@ const Hero = () => (
           </Flex>
         ))}
       </Flex>
-    </Flex>
-  </BluePrintBackground>
-)
-
-/* ---------------------------------------------------------------------------
- * Comparison Table Section
- * --------------------------------------------------------------------------- */
-
-const ComparisonSection = () => (
-  <Section
-    as='section'
-    id='comparison'
-    css={theme({
-      borderTop: `${borders[1]} ${colors.black05}`,
-      borderBottom: `${borders[1]} ${colors.black05}`,
-      py: 5
-    })}
-  >
-    <SectionInner>
-      <Subhead
-        css={theme({ pb: [2, 2, 3, 3], fontSize: [3, 3, 4, 4], pt: 3 })}
-        titleize={false}
-      >
-        <GradientText>Feature-by-Feature</GradientText> Comparison
-      </Subhead>
-      <Caption
-        css={theme({
-          pt: 2,
-          pb: [3, 3, 4, 4],
-          maxWidth: layout.normal,
-          color: 'black60'
-        })}
-        titleize={false}
-      >
-        An honest look at what each API offers.
-      </Caption>
-      <ComparisonTable />
-      <Text
-        css={theme({
-          pt: 4,
-          pb: 4,
-          fontSize: '12px',
-          color: 'black40',
-          textAlign: 'center',
-          fontFamily: 'mono'
-        })}
-      >
-        Last verified: March&nbsp;2026. See each product's docs for the latest.
-      </Text>
-    </SectionInner>
-  </Section>
-)
-
-/* ---------------------------------------------------------------------------
- * Speed Section (benchmark data tables)
- * --------------------------------------------------------------------------- */
-
-const SpeedSection = () => {
-  const micro = BENCHMARK_DATA.results.microlink
-  const microAvg = micro.summary.avgColdDuration
-
-  return (
-    <Section
-      as='section'
-      id='speed'
-      css={theme({ background: colors.gray0, paddingTop: [5, 5, 6, 6] })}
-    >
-      <SectionInner>
-        <Subhead
-          css={theme({ pb: [2, 2, 3, 3], fontSize: [4, 4, 5, 5] })}
-          titleize={false}
-        >
-          <GradientText>Up to 2&times; faster</GradientText> response times
-        </Subhead>
-
-        <Caption
-          css={theme({
-            pb: [3, 3, 4, 4],
-            maxWidth: layout.normal,
-            color: 'black80',
-            fontSize: 3
-          })}
-          titleize={false}
-        >
-          Same request. Same URL. Same output format.
-        </Caption>
-
-        <Text
-          css={theme({
-            fontSize: [1, 1, 2, 2],
-            color: 'black',
-            lineHeight: 3,
-            maxWidth: layout.normal,
-            mx: 'auto',
-            pb: [3, 3, 4, 4]
-          })}
-        >
-          Averaged over 10&nbsp;runs from a New York server, Microlink is 88%
-          faster. Tested across 7&nbsp;real-world URLs with true cold starts (no
-          caching). All providers triggered simultaneously. Single slowest run
-          dropped to remove outliers.
-        </Text>
-
-        <Text
-          css={theme({
-            fontSize: 2,
-            fontWeight: 'bold',
-            letterSpacing: 0,
-            color: 'black',
-            pb: 3
-          })}
-        >
-          Average cold-start latency
-        </Text>
-        <Box
-          css={theme({
-            overflowX: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            borderRadius: 4,
-            border: `${borders[1]} ${colors.black10}`,
-            bg: 'white',
-            mb: [3, 3, 4, 4]
-          })}
-        >
-          <FeatureTable>
-            <thead>
-              <tr>
-                <th>Provider</th>
-                <th css={theme({ textAlign: 'right' })}>Avg Cold Duration</th>
-                <th css={theme({ textAlign: 'right' })}>vs.&nbsp;Microlink</th>
-              </tr>
-            </thead>
-            <tbody>
-              {SORTED_SERVICES.map((key, rank) => {
-                const svc = BENCHMARK_DATA.results[key]
-                const avg = svc.summary.avgColdDuration
-                const delta = avg - microAvg
-                const pctSlower =
-                  microAvg > 0 ? ((delta / microAvg) * 100).toFixed(0) : 0
-                const isMicrolink = key === 'microlink'
-
-                return (
-                  <tr key={key}>
-                    <td>
-                      <span
-                        css={theme({
-                          fontWeight: isMicrolink ? 'bold' : 'normal',
-                          color: isMicrolink ? colors.green7 : 'black'
-                        })}
-                      >
-                        {svc.name}
-                      </span>
-                    </td>
-                    <td
-                      css={theme({
-                        textAlign: 'right',
-                        fontWeight: isMicrolink ? 'bold' : 'normal',
-                        color: isMicrolink ? colors.green7 : undefined
-                      })}
-                    >
-                      {formatMsDecimal(avg)}&thinsp;ms
-                    </td>
-                    <td
-                      css={theme({
-                        textAlign: 'right',
-                        color: isMicrolink ? colors.green7 : 'black'
-                      })}
-                    >
-                      {isMicrolink ? '—' : `+${pctSlower}% slower`}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </FeatureTable>
-        </Box>
-
-        <Text
-          css={theme({
-            fontSize: 2,
-            fontWeight: 'bold',
-            letterSpacing: 0,
-            color: 'black',
-            pb: 3
-          })}
-        >
-          Cold-start latency breakdown by&nbsp;URL
-        </Text>
-        <Box
-          css={theme({
-            overflowX: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            borderRadius: 4,
-            border: `${borders[1]} ${colors.black10}`,
-            bg: 'white',
-            display: ['none', 'block']
-          })}
-        >
-          <PerUrlTable>
-            <thead>
-              <tr>
-                <th css={theme({ textAlign: 'left' })}>URL</th>
-                {SORTED_SERVICES.map(key => (
-                  <th
-                    key={key}
-                    css={theme({
-                      color: key === 'microlink' ? colors.green7 : colors.black
-                    })}
-                  >
-                    {BENCHMARK_DATA.results[key].name}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {BENCHMARK_DATA.testUrls.map(({ url }) => {
-                const times = SORTED_SERVICES.map(
-                  key =>
-                    BENCHMARK_DATA.results[key].perUrl.find(p => p.url === url)
-                      ?.coldDuration || 0
-                )
-                const minTime = Math.min(...times)
-                const maxTime = Math.max(...times)
-
-                return (
-                  <tr key={url}>
-                    <td>{extractDomain(url)}</td>
-                    {SORTED_SERVICES.map((key, i) => {
-                      const isMin = times[i] === minTime
-                      const isMax = times[i] === maxTime
-                      return (
-                        <td key={key}>
-                          {isMin ? (
-                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                          ) : isMax ? (
-                            <CellLoser>{formatMs(times[i])}</CellLoser>
-                          ) : (
-                            formatMs(times[i])
-                          )}
-                        </td>
-                      )
-                    })}
-                  </tr>
-                )
-              })}
-              {(() => {
-                const totals = SORTED_SERVICES.map(
-                  key => BENCHMARK_DATA.results[key].summary.totalColdDuration
-                )
-                const minTotal = Math.min(...totals)
-                const maxTotal = Math.max(...totals)
-
-                return (
-                  <tr>
-                    <td
-                      css={theme({
-                        fontWeight: 'bold',
-                        color: 'black',
-                        borderTop: `${borders[1]} ${colors.black10}`
-                      })}
-                    >
-                      Total
-                    </td>
-                    {SORTED_SERVICES.map((key, i) => {
-                      const isMin = totals[i] === minTotal
-                      const isMax = totals[i] === maxTotal
-                      return (
-                        <td
-                          key={key}
-                          css={theme({
-                            fontWeight: 'bold',
-                            borderTop: `${borders[1]} ${colors.black10}`,
-                            color: isMin
-                              ? colors.green7
-                              : isMax
-                                ? colors.red8
-                                : colors.black
-                          })}
-                        >
-                          {(totals[i] / 1000).toFixed(1)}&thinsp;s
-                        </td>
-                      )
-                    })}
-                  </tr>
-                )
-              })()}
-            </tbody>
-          </PerUrlTable>
-        </Box>
-
-        <MobileCards>
-          {BENCHMARK_DATA.testUrls.map(({ url }) => {
-            const times = SORTED_SERVICES.map(
-              key =>
-                BENCHMARK_DATA.results[key].perUrl.find(p => p.url === url)
-                  ?.coldDuration || 0
-            )
-            const minTime = Math.min(...times)
-            const maxTime = Math.max(...times)
-
-            return (
-              <MobileCard key={url}>
-                <MobileCardHeader>{extractDomain(url)}</MobileCardHeader>
-                {SORTED_SERVICES.map((key, i) => {
-                  const isMin = times[i] === minTime
-                  const isMax = times[i] === maxTime
-                  return (
-                    <MobileCardRow key={key}>
-                      <MobileCardName>
-                        {BENCHMARK_DATA.results[key].name}
-                      </MobileCardName>
-                      <MobileCardTime
-                        $highlight={isMin || isMax}
-                        $isMin={isMin}
-                        $isMax={isMax}
-                      >
-                        {formatMs(times[i])}&thinsp;ms
-                      </MobileCardTime>
-                    </MobileCardRow>
-                  )
-                })}
-              </MobileCard>
-            )
-          })}
-        </MobileCards>
-
-        <Flex
-          css={theme({
-            pt: [4, 4, 5, 5],
-            pb: [3, 3, 4, 4],
-            fontSize: [2, 2, 3, 3],
-            gap: '16px',
-            flexWrap: 'wrap',
-            justifyContent: 'center'
-          })}
-        >
-          <ArrowLink href='https://github.com/microlinkhq/screenshot-benchmark'>
-            See the full benchmark on&nbsp;GitHub
-          </ArrowLink>
-        </Flex>
-
-        <Flex
-          css={theme({
-            pt: [3, 3, 4, 4],
-            flexDirection: ['column', 'column', 'row', 'row'],
-            gap: [3, 3, 4, 4],
-            justifyContent: 'center',
-            width: '100%',
-            maxWidth: layout.normal,
-            mx: 'auto'
-          })}
-        >
-          {[
-            {
-              icon: '\u26A1',
-              title: 'Cold start',
-              description:
-                'We obsessively fine-tune our libraries to eliminate latency, delivering maximum speed.'
-            },
-            {
-              icon: '\uD83C\uDF10',
-              title: 'Edge proximity',
-              description:
-                '240+ Cloudflare nodes means the nearest browser is milliseconds away, not seconds.'
-            },
-            {
-              icon: '\uD83D\uDD12',
-              title: 'Isolated requests',
-              description:
-                'No shared browser contexts. Clean state on every request — fast and secure by default.'
-            }
-          ].map(({ icon, title, description }) => (
-            <Flex
-              key={title}
-              css={theme({
-                flexDirection: 'column',
-                p: [3, 3, 4, 4],
-                borderRadius: 3,
-                border: 1,
-                borderColor: 'black10',
-                flex: 1,
-                bg: 'white'
-              })}
-            >
-              <Text
-                css={{ fontSize: '24px', lineHeight: 1, paddingBottom: '8px' }}
-              >
-                {icon}
-              </Text>
-              <Text css={theme({ fontWeight: 'bold', fontSize: 1, pb: 1 })}>
-                {title}
-              </Text>
-              <Text
-                css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}
-              >
-                {description}
-              </Text>
-            </Flex>
-          ))}
-        </Flex>
-        <Text
-          css={theme({
-            pt: 4,
-            fontSize: 0,
-            color: 'black40',
-            textAlign: 'center',
-            fontFamily: 'mono',
-            maxWidth: layout.small,
-            mx: 'auto'
-          })}
-        >
-          Averages from 10&nbsp;benchmark runs taken from a New York server at
-          different hours. The{' '}
-          <Link href='https://github.com/microlinkhq/screenshot-benchmark'>
-            benchmark repo
-          </Link>{' '}
-          is open — run it yourself and see. Last run: March&nbsp;2026.
-        </Text>
-      </SectionInner>
     </Section>
   )
 }
@@ -1173,37 +1104,17 @@ const SpeedSection = () => {
  * --------------------------------------------------------------------------- */
 
 const WhySwitchSection = () => (
-  <Section
-    as='section'
-    id='why-switch'
-    css={{
-      backgroundImage: `radial-gradient(
-        circle at center right,
-        #850ba7 0%,
-        #850ba7 48%,
-        #a31b91 48%,
-        #a31b91 52%,
-        #c12a78 52%,
-        #c12a78 65%,
-        #df3a61 65%,
-        #df3a61 79%,
-        #fd494a 79%,
-        #fd494a 100%
-      )`,
-      borderTop: `${borders[1]} ${colors.white20}`,
-      borderBottom: `${borders[1]} ${colors.white20}`
-    }}
-  >
+  <Section as='section' id='why-switch' css={theme({ bg: 'gray0' })}>
     <SectionInner>
       <Subhead
-        css={theme({ color: 'white', pb: [1, 2, 2, 2] })}
+        css={theme({ color: 'black', pb: [1, 2, 2, 2] })}
         titleize={false}
       >
         Why Developers Switch
       </Subhead>
       <Caption
         css={theme({
-          color: 'white90',
+          color: 'black60',
           pb: [4, 4, 5, 5],
           maxWidth: layout.normal
         })}
@@ -1266,20 +1177,19 @@ const WhySwitchSection = () => (
               flexDirection: 'column',
               p: 4,
               borderRadius: 3,
+              border: 1,
+              borderColor: 'black05',
+              bg: 'white',
+              boxShadow: `0 1px 3px ${colors.black05}`,
               width: ['100%', '100%', 'calc(50% - 16px)', 'calc(50% - 16px)'],
               minWidth: '280px'
             })}
-            style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              backdropFilter: 'blur(8px)',
-              border: '1px solid rgba(255, 255, 255, 0.12)'
-            }}
           >
             <Text
               css={theme({
                 fontFamily: 'mono',
                 fontSize: '14px',
-                color: 'white50',
+                color: 'black30',
                 pb: 2
               })}
             >
@@ -1289,7 +1199,7 @@ const WhySwitchSection = () => (
               css={theme({
                 fontWeight: 'bold',
                 fontSize: [2, 2, 3, 3],
-                color: 'white',
+                color: 'black',
                 pb: 2,
                 lineHeight: 1
               })}
@@ -1297,7 +1207,7 @@ const WhySwitchSection = () => (
               {title}
             </Text>
             <Text
-              css={theme({ fontSize: '18px', color: 'white80', lineHeight: 2 })}
+              css={theme({ fontSize: '18px', color: 'black60', lineHeight: 2 })}
             >
               {description}
             </Text>
@@ -1605,11 +1515,24 @@ const CTASection = () => (
   <Section
     as='section'
     id='get-started'
-    css={theme({
-      py: 5,
-      background: `radial-gradient(ellipse at 65% 0%, rgba(140, 27, 171, 0.35) 0%, transparent 65%), ${colors.gray9}`,
-      borderTop: `${borders[1]} ${colors.white10}`
-    })}
+    css={{
+      backgroundImage: `radial-gradient(
+        circle at center right,
+        #850ba7 0%,
+        #850ba7 48%,
+        #a31b91 48%,
+        #a31b91 52%,
+        #c12a78 52%,
+        #c12a78 65%,
+        #df3a61 65%,
+        #df3a61 79%,
+        #fd494a 79%,
+        #fd494a 100%
+      )`,
+      borderTop: `${borders[1]} ${colors.white20}`,
+      borderBottom: `${borders[1]} ${colors.white20}`,
+      ...theme({ py: 5 })
+    }}
   >
     <Flex
       css={theme({
@@ -1987,11 +1910,11 @@ const ScreenshotOnePage = () => (
   <Layout>
     <Hero />
     <SpeedSection />
-    <ComparisonSection />
     <WhySwitchSection />
     <PricingSection />
-    <HonestySection />
     <CTASection />
+    <ComparisonSection />
+    <HonestySection />
     <FAQSection />
   </Layout>
 )
