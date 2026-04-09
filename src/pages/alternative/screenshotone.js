@@ -1,11 +1,11 @@
 import {
   borders,
   colors,
-  fonts,
-  gradient,
   layout,
   theme,
   textGradient,
+  space,
+  radii,
   breakpoints
 } from 'theme'
 import { withTitle } from 'helpers/hoc/with-title'
@@ -13,9 +13,31 @@ import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
+import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
+import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { cdnUrl } from 'helpers/cdn-url'
-import styled, { keyframes, css } from 'styled-components'
-import React, { useState, useRef, useEffect } from 'react'
+import styled, { css } from 'styled-components'
+
+const RaceHero = styled(Box)`
+  width: 100%;
+  max-width: 960px;
+
+  ${theme({
+    borderRadius: 4,
+    bg: 'white',
+    p: [3, 3, 4, 4],
+    boxShadow: `0 25px 50px ${colors.black10}, 0 0 0 1px ${colors.black05}`
+  })}
+
+  & > div {
+    min-height: 220px;
+
+    @media (max-width: ${breakpoints[0]}) {
+      min-height: 190px;
+    }
+  }
+`
+import React from 'react'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -29,53 +51,120 @@ import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { Zap, Code, Gift, TrendingUp } from 'react-feather'
+import { extractDomain } from 'helpers/extract-domain'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
-/* ---------------------------------------------------------------------------
- * Keyframes
- * --------------------------------------------------------------------------- */
+const BREAKPOINT_SMALL_MAX = breakpoints[0]
+const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4]} - ${space[3]} - ${space[2]})`
+const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
+const SPACE_12 = `calc(${space[3]} - ${space[1]})`
+const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
-const fillBar = keyframes`
-  from { width: 0; }
-  to { width: var(--bar-width); }
-`
-
-const countUp = keyframes`
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-`
-
-/* ---------------------------------------------------------------------------
- * useInView hook
- * --------------------------------------------------------------------------- */
-
-function useInView (options = {}) {
-  const ref = useRef(null)
-  const [inView, setInView] = useState(false)
-
-  useEffect(() => {
-    const node = ref.current
-    if (!node) return
-
-    const observer = new window.IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true)
-          observer.disconnect()
-        }
+const BENCHMARK_DATA = {
+  timestamp: '2026-03',
+  testUrls: [
+    {
+      url: 'https://vercel.com',
+      width: 1920,
+      fullPage: true,
+      format: 'jpeg'
+    },
+    {
+      url: 'https://example.com',
+      width: 1280,
+      height: 800,
+      fullPage: false,
+      format: 'png'
+    },
+    {
+      url: 'https://stripe.com',
+      width: 393,
+      height: 852,
+      fullPage: false,
+      format: 'jpeg'
+    },
+    {
+      url: 'https://screenshotone.com',
+      width: 1920,
+      fullPage: true,
+      format: 'png'
+    },
+    {
+      url: 'https://news.ycombinator.com',
+      width: 1440,
+      fullPage: true,
+      format: 'jpeg'
+    },
+    {
+      url: 'https://github.com/trending',
+      width: 768,
+      height: 1024,
+      fullPage: false,
+      format: 'png'
+    },
+    {
+      url: 'https://www.framer.com',
+      width: 1920,
+      height: 1800,
+      fullPage: false,
+      format: 'jpeg'
+    }
+  ],
+  results: {
+    microlink: {
+      name: 'Microlink',
+      summary: {
+        avgColdDuration: 4111.84,
+        totalColdDuration: 28782.87
       },
-      { threshold: 0.15, ...options }
-    )
-
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [])
-
-  return [ref, inView]
+      perUrl: [
+        { url: 'https://vercel.com', coldDuration: 6361.22 },
+        { url: 'https://example.com', coldDuration: 967.96 },
+        { url: 'https://stripe.com', coldDuration: 3217.22 },
+        { url: 'https://screenshotone.com', coldDuration: 5474.39 },
+        { url: 'https://news.ycombinator.com', coldDuration: 3435.08 },
+        { url: 'https://github.com/trending', coldDuration: 3059.69 },
+        { url: 'https://www.framer.com', coldDuration: 6267.31 }
+      ]
+    },
+    screenshotone: {
+      name: 'ScreenshotOne',
+      summary: {
+        avgColdDuration: 7711.14,
+        totalColdDuration: 53977.99
+      },
+      perUrl: [
+        { url: 'https://vercel.com', coldDuration: 12695.34 },
+        { url: 'https://example.com', coldDuration: 3134.84 },
+        { url: 'https://stripe.com', coldDuration: 5677.9 },
+        { url: 'https://screenshotone.com', coldDuration: 12138.63 },
+        { url: 'https://news.ycombinator.com', coldDuration: 6857.3 },
+        { url: 'https://github.com/trending', coldDuration: 6058.52 },
+        { url: 'https://www.framer.com', coldDuration: 7415.46 }
+      ]
+    }
+  }
 }
+
+const SERVICE_COLORS = {
+  microlink: colors.red6,
+  screenshotone: colors.pink6
+}
+
+const formatMs = ms => ms.toLocaleString('en-US', { maximumFractionDigits: 0 })
+
+const formatMsDecimal = ms =>
+  ms.toLocaleString('en-US', { maximumFractionDigits: 2 })
+
+const SERVICES = Object.keys(BENCHMARK_DATA.results)
+const SORTED_SERVICES = [...SERVICES].sort(
+  (a, b) =>
+    BENCHMARK_DATA.results[a].summary.avgColdDuration -
+    BENCHMARK_DATA.results[b].summary.avgColdDuration
+)
 
 /* ---------------------------------------------------------------------------
  * Styled primitives
@@ -115,83 +204,50 @@ const GradientText = styled('span')`
   `}
 `
 
-const HeroVideoDesktop = styled.video`
-  display: none;
-  max-width: 1150px;
-  width: 100%;
-  height: auto;
-  border-radius: 18px;
-  box-shadow: 0 25px 50px rgba(15, 23, 42, 0.35),
-    0 0 0 1px rgba(15, 23, 42, 0.12);
-  @media screen and (min-width: ${breakpoints[1]}) {
-    display: block;
-  }
-`
-
-const HeroImageMobile = styled.img`
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  @media screen and (min-width: ${breakpoints[1]}) {
-    display: none;
-  }
-`
-
 /* ---------------------------------------------------------------------------
- * Comparison Table
+ * Comparison Table (benchmark-style)
  * --------------------------------------------------------------------------- */
 
-const TableWrapper = styled(Box)`
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  ${theme({ borderRadius: 3 })}
-`
-
-const Table = styled('table')`
+const FeatureTable = styled('table')`
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  ${theme({
-    fontFamily: 'sans',
-    fontSize: [0, 0, 1, 1]
-  })}
-`
+  font-variant-numeric: tabular-nums;
 
-const Th = styled('th')`
-  text-align: left;
-  white-space: nowrap;
-  ${theme({
-    px: [2, 3, 3, 3],
-    py: 3,
-    fontWeight: 'bold',
-    borderBottom: 1,
-    borderColor: 'black10'
-  })}
+  th,
+  td {
+    padding: ${SPACE_10} ${SPACE_14};
+    ${theme({ textAlign: 'left', fontSize: 0, fontFamily: 'mono' })};
+    border-bottom: ${borders[1]} ${colors.black05};
 
-  &:first-child {
-    ${theme({ pl: [3, 4] })}
+    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+      padding: ${space[2]} ${SPACE_10};
+    }
   }
-`
 
-const Td = styled('td')`
-  ${theme({
-    px: [2, 3, 3, 3],
-    py: [2, 3, 3, 3],
-    borderBottom: 1,
-    borderColor: 'black05'
-  })}
-  vertical-align: top;
+  th {
+    font-weight: 600;
+    text-transform: uppercase;
+    ${theme({ color: 'black', fontSize: 0 })};
+    border-bottom: ${borders[1]} ${colors.black10};
+  }
 
-  &:first-child {
-    ${theme({ pl: [3, 4], fontWeight: 'regular' })}
+  td {
+    ${theme({ color: 'black' })};
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  tbody tr:hover {
+    ${theme({ bg: 'black05' })};
   }
 `
 
 const Check = () => (
   <span
-    css={{ color: colors.green7, fontSize: '18px', lineHeight: 1 }}
+    css={theme({ color: 'green7', fontFamily: 'mono', fontSize: 1 })}
     aria-label='Yes'
     role='img'
   >
@@ -201,7 +257,12 @@ const Check = () => (
 
 const Cross = () => (
   <span
-    css={{ color: colors.red5, fontSize: '18px', lineHeight: 1, opacity: 0.7 }}
+    css={theme({
+      color: 'red5',
+      fontFamily: 'mono',
+      fontSize: 1,
+      opacity: 0.7
+    })}
     aria-label='No'
     role='img'
   >
@@ -210,13 +271,12 @@ const Cross = () => (
 )
 
 const Partial = ({ children }) => (
-  <span css={{ color: colors.yellow7, fontSize: '14px' }}>
+  <span css={theme({ color: 'yellow7', fontFamily: 'mono', fontSize: 0 })}>
     {children || '~'}
   </span>
 )
 
 const COMPARISON_DATA = [
-  // Both
   { feature: 'Screenshot capture', microlink: true, screenshotone: true },
   { feature: 'Full-page screenshots', microlink: true, screenshotone: true },
   {
@@ -256,7 +316,6 @@ const COMPARISON_DATA = [
   { feature: 'MCP server', microlink: true, screenshotone: true },
   { feature: 'Markdown rendering', microlink: true, screenshotone: true },
   { feature: 'Custom proxy support', microlink: true, screenshotone: true },
-  // Microlink-only
   {
     feature: 'Built-in proxy',
     microlink: true,
@@ -295,10 +354,9 @@ const COMPARISON_DATA = [
   },
   { feature: 'Remote JS execution', microlink: true, screenshotone: false },
   { feature: '240+ CDN edge nodes', microlink: true, screenshotone: false },
-  // ScreenshotOne-only / partial
   { feature: 'GPU rendering', microlink: 'on demand', screenshotone: true },
   {
-    feature: 'No-code integrations (Zapier, Make...)',
+    feature: 'No-code integrations (Zapier, Make\u2026)',
     microlink: 'partial',
     screenshotone: true
   },
@@ -318,7 +376,7 @@ const COMPARISON_DATA = [
   }
 ]
 
-const CellValue = ({ value, note }) => {
+const CellValue = ({ value }) => {
   if (value === true) return <Check />
   if (value === false) return <Cross />
   if (value === 'partial' || value === 'on demand') {
@@ -329,23 +387,30 @@ const CellValue = ({ value, note }) => {
 }
 
 const ComparisonTable = () => (
-  <TableWrapper>
-    <Table>
+  <Box
+    css={theme({
+      overflowX: 'auto',
+      WebkitOverflowScrolling: 'touch',
+      borderRadius: 4,
+      border: `${borders[1]} ${colors.black10}`,
+      bg: 'white'
+    })}
+  >
+    <FeatureTable>
       <thead>
-        <tr css={{ background: colors.gray0 }}>
-          <Th css={{ minWidth: '200px' }}>Feature</Th>
-          <Th css={{ textAlign: 'center', minWidth: '120px' }}>
+        <tr>
+          <th css={{ minWidth: '200px' }}>Feature</th>
+          <th css={[theme({ textAlign: 'center' }), { minWidth: '120px' }]}>
             <span css={textGradient}>Microlink</span>
-          </Th>
-          <Th
-            css={{
-              textAlign: 'center',
-              minWidth: '120px',
-              color: colors.black60
-            }}
+          </th>
+          <th
+            css={[
+              theme({ textAlign: 'center', color: 'black60' }),
+              { minWidth: '120px' }
+            ]}
           >
             ScreenshotOne
-          </Th>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -356,11 +421,10 @@ const ComparisonTable = () => (
               css={{
                 background: highlight
                   ? 'rgba(6, 125, 247, 0.03)'
-                  : 'transparent',
-                '&:hover': { background: colors.gray0 }
+                  : 'transparent'
               }}
             >
-              <Td>
+              <td css={theme({ fontWeight: 'regular' })}>
                 {feature}
                 {note && (
                   <Text
@@ -375,234 +439,132 @@ const ComparisonTable = () => (
                     {note}
                   </Text>
                 )}
-              </Td>
-              <Td css={{ textAlign: 'center' }}>
+              </td>
+              <td css={theme({ textAlign: 'center' })}>
                 <CellValue value={microlink} />
-              </Td>
-              <Td css={{ textAlign: 'center' }}>
+              </td>
+              <td css={theme({ textAlign: 'center' })}>
                 <CellValue value={screenshotone} />
-              </Td>
+              </td>
             </tr>
           )
         )}
       </tbody>
-    </Table>
-  </TableWrapper>
+    </FeatureTable>
+  </Box>
 )
 
 /* ---------------------------------------------------------------------------
- * Speed Benchmark Visualization
+ * Speed Benchmark Table (benchmark-style per-URL breakdown)
  * --------------------------------------------------------------------------- */
 
-const BENCHMARKS = [
-  {
-    label: 'Simple page',
-    url: 'example.com',
-    sublabel: 'PNG, 1280×800',
-    microlink: 1.38,
-    screenshotone: 2.93,
-    unit: 's'
-  },
-  {
-    label: 'Full-page capture',
-    url: 'news.ycombinator.com',
-    sublabel: 'JPEG, 1440×1080, full page',
-    microlink: 3.46,
-    screenshotone: 6.56,
-    unit: 's'
-  },
-  {
-    label: 'Their own site',
-    url: 'screenshotone.com',
-    sublabel: 'PNG, 1920×1080, full page',
-    microlink: 5.85,
-    screenshotone: 10.33,
-    unit: 's'
-  },
-  {
-    label: 'Large landing page',
-    url: 'vercel.com',
-    sublabel: 'JPEG, 1920×1080, full page',
-    microlink: 7.46,
-    screenshotone: 10.57,
-    unit: 's'
-  },
-  {
-    label: 'Tablet viewport',
-    url: 'github.com/trending',
-    sublabel: 'PNG, 768×1024',
-    microlink: 3.59,
-    screenshotone: 6.09,
-    unit: 's'
+const PerUrlTable = styled('table')`
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  table-layout: auto;
+
+  th,
+  td {
+    padding: ${space[2]} ${SPACE_12};
+    ${theme({ textAlign: 'right', fontSize: 0, fontFamily: 'mono' })};
+    border-bottom: ${borders[1]} ${colors.black05};
+    white-space: nowrap;
   }
-]
 
-const BarContainer = styled(Box)`
-  position: relative;
-  height: 32px;
-  border-radius: 6px;
-  overflow: hidden;
-  background: ${colors.gray1};
-`
+  th {
+    font-weight: 600;
+    text-transform: uppercase;
+    ${theme({ color: 'black', fontSize: 0 })};
+    border-bottom: ${borders[1]} ${colors.black10};
+  }
 
-const BarFill = styled(Box)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 12px;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: ${fonts.mono};
-  color: white;
-  min-width: 60px;
-  will-change: width;
+  th:first-child,
+  td:first-child {
+    text-align: left;
+    font-weight: 500;
+    ${theme({ color: 'black' })};
+  }
 
-  @media (prefers-reduced-motion: no-preference) {
-    &[data-animate='true'] {
-      animation: ${fillBar} 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      animation-delay: var(--delay);
+  th:last-child,
+  td:last-child {
+    @media (max-width: ${BREAKPOINT_COMPACT_MAX}) {
+      display: none;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    width: var(--bar-width) !important;
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  tbody tr:hover {
+    ${theme({ bg: 'black05' })};
   }
 `
 
-const SpeedLabel = styled(Text)`
-  ${theme({
-    fontWeight: 'bold',
-    fontSize: [1, 1, 2, 2],
-    pb: 1
-  })}
+const CellHighlight = styled('span')`
+  ${theme({ fontWeight: 'bold', color: 'green7' })};
 `
 
-const MultiplierBadge = styled(Box)`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+const CellLoser = styled('span')`
+  ${theme({ fontWeight: 'bold', color: 'red8' })};
+`
+
+const MobileCards = styled('div')`
+  ${theme({ display: 'none', flexDirection: 'column' })};
+  gap: ${SPACE_12};
+
+  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
+    ${theme({ display: 'flex' })};
+  }
+`
+
+const MobileCard = styled('div')`
+  ${theme({ borderRadius: 4, bg: 'white' })};
+  border: ${borders[1]} ${colors.black10};
+  overflow: hidden;
+`
+
+const MobileCardHeader = styled('div')`
   ${theme({
     fontFamily: 'mono',
-    fontSize: '13px',
+    fontSize: 0,
+    color: 'black',
     fontWeight: 'bold',
-    px: 2,
-    py: 1,
-    borderRadius: 2,
-    ml: 2
-  })}
-  background: ${colors.green0};
-  color: ${colors.green8};
-  white-space: nowrap;
+    bg: 'black05'
+  })};
+  padding: ${SPACE_10} ${SPACE_14};
+  border-bottom: ${borders[1]} ${colors.black10};
+`
 
-  @media (prefers-reduced-motion: no-preference) {
-    &[data-animate='true'] {
-      animation: ${countUp} 0.5s ease-out forwards;
-      animation-delay: var(--delay);
-      opacity: 0;
-    }
-  }
+const MobileCardRow = styled('div')`
+  ${theme({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    fontFamily: 'mono',
+    fontSize: 0
+  })};
+  padding: ${space[2]} ${SPACE_14};
+  font-variant-numeric: tabular-nums;
+  border-bottom: ${borders[1]} ${colors.black05};
 
-  @media (prefers-reduced-motion: reduce) {
-    opacity: 1;
+  &:last-child {
+    border-bottom: 0;
   }
 `
 
-const BenchmarkRow = ({ benchmark, index, inView }) => {
-  const { label, sublabel, microlink, screenshotone, unit, url } = benchmark
-  const maxVal = Math.max(...BENCHMARKS.map(b => b.screenshotone)) * 1.1
-  const mlWidth = `${Math.max((microlink / maxVal) * 100, 8)}%`
-  const soWidth = `${Math.max((screenshotone / maxVal) * 100, 8)}%`
-  const multiplier = (screenshotone / microlink).toFixed(1)
-  const microlinkWins = screenshotone > microlink
+const MobileCardName = styled('span')`
+  ${theme({ color: 'black' })};
+  font-weight: 500;
+`
 
-  return (
-    <Box css={theme({ pb: [2], pt: [3, 3, 4, 4] })}>
-      <Flex css={{ alignItems: 'baseline', flexWrap: 'wrap' }}>
-        <SpeedLabel>{label}</SpeedLabel>
-        {microlinkWins && (
-          <MultiplierBadge
-            data-animate={inView ? 'true' : 'false'}
-            style={{ '--delay': `${index * 0.3 + 1}s` }}
-          >
-            {multiplier}× faster
-          </MultiplierBadge>
-        )}
-      </Flex>
-      <Text
-        css={theme({
-          fontSize: '14px',
-          color: 'black80',
-          fontFamily: 'mono',
-          pb: 2
-        })}
-      >
-        {url} - <span css={theme({ color: 'black40' })}>{sublabel}</span>
-      </Text>
-
-      <Box css={theme({ py: 2 })}>
-        <Flex css={{ alignItems: 'center', pb: '6px' }}>
-          <Text
-            css={theme({
-              fontSize: '14px',
-              fontWeight: 'bold',
-              width: '120px',
-              flexShrink: 0,
-              color: 'black80'
-            })}
-          >
-            Microlink
-          </Text>
-          <BarContainer css={{ flex: 1 }}>
-            <BarFill
-              data-animate={inView ? 'true' : 'false'}
-              style={{
-                '--bar-width': mlWidth,
-                '--delay': `${index * 0.15}s`,
-                backgroundImage: gradient,
-                width: inView ? undefined : 0
-              }}
-            >
-              {microlink}
-              {unit}
-            </BarFill>
-          </BarContainer>
-        </Flex>
-
-        <Flex css={{ alignItems: 'center' }}>
-          <Text
-            css={theme({
-              fontSize: '14px',
-              width: '120px',
-              flexShrink: 0,
-              color: 'black50'
-            })}
-          >
-            ScreenshotOne
-          </Text>
-          <BarContainer css={{ flex: 1 }}>
-            <BarFill
-              data-animate={inView ? 'true' : 'false'}
-              style={{
-                '--bar-width': soWidth,
-                '--delay': `${index * 0.15 + 0.1}s`,
-                background: colors.gray5,
-                width: inView ? undefined : 0
-              }}
-            >
-              {screenshotone}
-              {unit}
-            </BarFill>
-          </BarContainer>
-        </Flex>
-      </Box>
-    </Box>
-  )
-}
+const MobileCardTime = styled('span')`
+  font-weight: ${({ $highlight }) => ($highlight ? 700 : 400)};
+  color: ${({ $isMin, $isMax }) =>
+    $isMin ? colors.green7 : $isMax ? colors.red8 : colors.black};
+`
 
 /* ---------------------------------------------------------------------------
  * Pricing Comparison
@@ -634,149 +596,157 @@ const PriceAmount = styled(Text)`
  * --------------------------------------------------------------------------- */
 
 const Hero = () => (
-  <Flex
-    as='section'
-    css={theme({
-      flexDirection: 'column',
-      alignItems: 'center',
-      pt: 3,
-      pb: [4, 4, 5, 5],
-      px: 4
-    })}
-  >
-    <Heading
-      variant={null}
-      css={theme({
-        textAlign: 'center',
-        maxWidth: '100%',
-        fontSize: [4, 4, 5, 5],
-        color: 'black'
-      })}
-    >
-      The fastest <GradientText>Screenshot One</GradientText> alternative
-    </Heading>
-
-    <Caption
-      forwardedAs='h2'
-      css={theme({
-        pt: [3, 3, 4, 4],
-        maxWidth: layout.large,
-        color: 'black80'
-      })}
-      titleize={false}
-    >
-      <b>ScreenshotOne</b> does one thing: render screenshots. <b>Microlink</b>{' '}
-      does many things. That's exactly why it's been battle-tested across enough
-      edge cases to make its screenshot engine <b>46% faster on average</b>.
-    </Caption>
-
+  <BluePrintBackground as='section'>
     <Flex
       css={theme({
-        pt: [3, 3, 4, 4],
-        fontSize: [2, 2, 3, 3],
-        gap: '16px',
-        flexWrap: 'wrap',
-        justifyContent: 'center'
-      })}
-    >
-      <ArrowLink href='/screenshot'>Get Started Free</ArrowLink>
-    </Flex>
-
-    <Flex
-      css={theme({ width: '100%', justifyContent: 'center', my: [3, 3, 4, 4] })}
-    >
-      <HeroVideoDesktop
-        src='https://cdn.microlink.io/www/alternative/benchmark-screenshotone.mp4'
-        autoPlay
-        muted
-        loop
-        playsInline
-      />
-      <HeroImageMobile
-        src='https://cdn.microlink.io/www/alternative/benchmark-screenshotone-mb.gif'
-        alt='ScreenshotOne Hero'
-      />
-    </Flex>
-
-    <Flex
-      css={theme({
-        pt: [2, 2, 3, 3],
-        gap: [3, 5, 5, '80px'],
-        flexWrap: 'wrap',
-        justifyContent: ['space-between', 'space-between', 'center'],
+        flexDirection: 'column',
         alignItems: 'center',
-        width: '100%'
+        pt: 3,
+        pb: [4, 4, 5, 5],
+        px: 4
       })}
     >
-      {[
-        {
-          icon: Zap,
-          value: '46%',
-          label: 'Faster on average'
-        },
-        {
-          icon: Code,
-          value: 'Open source',
-          label: 'Transparent & auditable'
-        },
-        {
-          icon: Gift,
-          value: 'Free',
-          label: 'To start'
-        },
-        {
-          icon: TrendingUp,
-          value: '4× requests',
-          label: 'for half the price'
-        }
-      ].map(({ icon, value, label }) => (
-        <Flex
-          key={label}
-          css={theme({
-            flexDirection: 'row',
-            alignItems: 'center',
-            minWidth: '100px'
-          })}
-        >
+      <Heading
+        variant={null}
+        css={theme({
+          textAlign: 'center',
+          maxWidth: '100%',
+          fontSize: [4, 4, 5, 5],
+          color: 'black'
+        })}
+      >
+        The fastest <GradientText>Screenshot One</GradientText> alternative
+      </Heading>
+
+      <Caption
+        forwardedAs='h2'
+        css={theme({
+          pt: [3, 3, 4, 4],
+          maxWidth: layout.large,
+          color: 'black80'
+        })}
+        titleize={false}
+      >
+        <b>ScreenshotOne</b> does one thing: render screenshots.{' '}
+        <b>Microlink</b> does many things. That's exactly why it's been
+        battle-tested across enough edge cases to make its screenshot engine{' '}
+        <b>88% faster on average</b>.
+      </Caption>
+
+      <Flex
+        css={theme({
+          pt: [3, 3, 4, 4],
+          pb: [3, 3, 4, 4],
+          fontSize: [2, 2, 3, 3],
+          gap: '16px',
+          flexWrap: 'wrap',
+          justifyContent: 'center'
+        })}
+      >
+        <ArrowLink href='/screenshot'>Get Started Free</ArrowLink>
+      </Flex>
+
+      <Flex
+        css={theme({
+          width: '100%',
+          justifyContent: 'center',
+          my: [3, 3, 4, 4],
+          pb: [3, 3, 4, 4]
+        })}
+      >
+        <RaceHero>
+          <RaceContainer
+            benchmarkData={BENCHMARK_DATA}
+            serviceColors={SERVICE_COLORS}
+            highlightKey='microlink'
+            flat
+            compact
+          />
+        </RaceHero>
+      </Flex>
+
+      <Flex
+        css={theme({
+          pt: [2, 2, 3, 3],
+          gap: [3, 5, 5, '80px'],
+          flexWrap: 'wrap',
+          justifyContent: ['space-between', 'space-between', 'center'],
+          alignItems: 'center',
+          width: '100%'
+        })}
+      >
+        {[
+          {
+            icon: Zap,
+            value: '88%',
+            label: 'Faster on average'
+          },
+          {
+            icon: Code,
+            value: 'Open source',
+            label: 'Transparent & auditable'
+          },
+          {
+            icon: Gift,
+            value: 'Free',
+            label: 'To start'
+          },
+          {
+            icon: TrendingUp,
+            value: '4\u00d7 requests',
+            label: 'for half the price'
+          }
+        ].map(({ icon, value, label }) => (
           <Flex
+            key={label}
             css={theme({
-              flexDirection: 'column',
-              alignItems: 'flex-start'
+              flexDirection: 'row',
+              alignItems: 'center',
+              minWidth: '100px'
             })}
           >
-            <Text
-              css={theme({
-                fontSize: ['32px', '42px'],
-                fontWeight: 'bold',
-                lineHeight: 0,
-                textAlign: 'center'
-              })}
-              style={{ fontVariantNumeric: 'tabular-nums' }}
-              dangerouslySetInnerHTML={{ __html: value }}
-            />
             <Flex
               css={theme({
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 1,
-                pt: 1
+                flexDirection: 'column',
+                alignItems: 'flex-start'
               })}
             >
-              <FeatherIcon icon={icon} size={1} color='blue8' />
-              <Caps
+              <Text
                 css={theme({
-                  fontSize: 1,
-                  color: 'black50',
-                  fontWeight: 'bold'
+                  fontSize: ['32px', '42px'],
+                  fontWeight: 'bold',
+                  lineHeight: 0,
+                  textAlign: 'center'
                 })}
-                dangerouslySetInnerHTML={{ __html: label }}
-              />
+                style={{ fontVariantNumeric: 'tabular-nums' }}
+              >
+                {value}
+              </Text>
+              <Flex
+                css={theme({
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 1,
+                  pt: 1
+                })}
+              >
+                <FeatherIcon icon={icon} size={1} color='blue8' />
+                <Caps
+                  css={theme({
+                    fontSize: 1,
+                    color: 'black50',
+                    fontWeight: 'bold'
+                  })}
+                >
+                  {label}
+                </Caps>
+              </Flex>
             </Flex>
           </Flex>
-        </Flex>
-      ))}
+        ))}
+      </Flex>
     </Flex>
-  </Flex>
+  </BluePrintBackground>
 )
 
 /* ---------------------------------------------------------------------------
@@ -790,7 +760,6 @@ const ComparisonSection = () => (
     css={theme({
       borderTop: `${borders[1]} ${colors.black05}`,
       borderBottom: `${borders[1]} ${colors.black05}`,
-      paddingBottom: [2, 2, 3, 3],
       py: 5
     })}
   >
@@ -823,24 +792,24 @@ const ComparisonSection = () => (
           fontFamily: 'mono'
         })}
       >
-        Last verified: March 2026. See each product's docs for the latest.
+        Last verified: March&nbsp;2026. See each product's docs for the latest.
       </Text>
     </SectionInner>
   </Section>
 )
 
 /* ---------------------------------------------------------------------------
- * Speed Section (most important visual block)
+ * Speed Section (benchmark data tables)
  * --------------------------------------------------------------------------- */
 
 const SpeedSection = () => {
-  const [ref, inView] = useInView()
+  const micro = BENCHMARK_DATA.results.microlink
+  const microAvg = micro.summary.avgColdDuration
 
   return (
     <Section
       as='section'
       id='speed'
-      ref={ref}
       css={theme({ background: colors.gray0, paddingTop: [5, 5, 6, 6] })}
     >
       <SectionInner>
@@ -848,7 +817,7 @@ const SpeedSection = () => {
           css={theme({ pb: [2, 2, 3, 3], fontSize: [4, 4, 5, 5] })}
           titleize={false}
         >
-          <GradientText>Up to 2× faster</GradientText> response times
+          <GradientText>Up to 2&times; faster</GradientText> response times
         </Subhead>
 
         <Caption
@@ -865,35 +834,242 @@ const SpeedSection = () => {
 
         <Text
           css={theme({
-            fontSize: '20px',
-            color: 'black60',
-            fontFamily: 'mono',
+            fontSize: [1, 1, 2, 2],
+            color: 'black',
+            lineHeight: 3,
             maxWidth: layout.normal,
             mx: 'auto',
-            pt: 3,
-            pb: 2
+            pb: [3, 3, 4, 4]
           })}
         >
-          Averaged over 10 runs from a New York server Microlink is 46% faster.
-          The gap widens even more on complex, full-page captures.
+          Averaged over 10&nbsp;runs from a New York server, Microlink is 88%
+          faster. Tested across 7&nbsp;real-world URLs with true cold starts (no
+          caching). All providers triggered simultaneously. Single slowest run
+          dropped to remove outliers.
         </Text>
 
-        <Box
+        <Text
           css={theme({
-            width: '100%',
-            maxWidth: layout.normal,
-            mx: 'auto'
+            fontSize: 2,
+            fontWeight: 'bold',
+            letterSpacing: 0,
+            color: 'black',
+            pb: 3
           })}
         >
-          {BENCHMARKS.map((benchmark, index) => (
-            <BenchmarkRow
-              key={benchmark.label}
-              benchmark={benchmark}
-              index={index}
-              inView={inView}
-            />
-          ))}
+          Average cold-start latency
+        </Text>
+        <Box
+          css={theme({
+            overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            borderRadius: 4,
+            border: `${borders[1]} ${colors.black10}`,
+            bg: 'white',
+            mb: [3, 3, 4, 4]
+          })}
+        >
+          <FeatureTable>
+            <thead>
+              <tr>
+                <th>Provider</th>
+                <th css={theme({ textAlign: 'right' })}>Avg Cold Duration</th>
+                <th css={theme({ textAlign: 'right' })}>vs.&nbsp;Microlink</th>
+              </tr>
+            </thead>
+            <tbody>
+              {SORTED_SERVICES.map((key, rank) => {
+                const svc = BENCHMARK_DATA.results[key]
+                const avg = svc.summary.avgColdDuration
+                const delta = avg - microAvg
+                const pctSlower =
+                  microAvg > 0 ? ((delta / microAvg) * 100).toFixed(0) : 0
+                const isMicrolink = key === 'microlink'
+
+                return (
+                  <tr key={key}>
+                    <td>
+                      <span
+                        css={theme({
+                          fontWeight: isMicrolink ? 'bold' : 'normal',
+                          color: isMicrolink ? colors.green7 : 'black'
+                        })}
+                      >
+                        {svc.name}
+                      </span>
+                    </td>
+                    <td
+                      css={theme({
+                        textAlign: 'right',
+                        fontWeight: isMicrolink ? 'bold' : 'normal',
+                        color: isMicrolink ? colors.green7 : undefined
+                      })}
+                    >
+                      {formatMsDecimal(avg)}&thinsp;ms
+                    </td>
+                    <td
+                      css={theme({
+                        textAlign: 'right',
+                        color: isMicrolink ? colors.green7 : 'black'
+                      })}
+                    >
+                      {isMicrolink ? '—' : `+${pctSlower}% slower`}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </FeatureTable>
         </Box>
+
+        <Text
+          css={theme({
+            fontSize: 2,
+            fontWeight: 'bold',
+            letterSpacing: 0,
+            color: 'black',
+            pb: 3
+          })}
+        >
+          Cold-start latency breakdown by&nbsp;URL
+        </Text>
+        <Box
+          css={theme({
+            overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            borderRadius: 4,
+            border: `${borders[1]} ${colors.black10}`,
+            bg: 'white',
+            display: ['none', 'block']
+          })}
+        >
+          <PerUrlTable>
+            <thead>
+              <tr>
+                <th css={theme({ textAlign: 'left' })}>URL</th>
+                {SORTED_SERVICES.map(key => (
+                  <th
+                    key={key}
+                    css={theme({
+                      color: key === 'microlink' ? colors.green7 : colors.black
+                    })}
+                  >
+                    {BENCHMARK_DATA.results[key].name}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {BENCHMARK_DATA.testUrls.map(({ url }) => {
+                const times = SORTED_SERVICES.map(
+                  key =>
+                    BENCHMARK_DATA.results[key].perUrl.find(p => p.url === url)
+                      ?.coldDuration || 0
+                )
+                const minTime = Math.min(...times)
+                const maxTime = Math.max(...times)
+
+                return (
+                  <tr key={url}>
+                    <td>{extractDomain(url)}</td>
+                    {SORTED_SERVICES.map((key, i) => {
+                      const isMin = times[i] === minTime
+                      const isMax = times[i] === maxTime
+                      return (
+                        <td key={key}>
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : (
+                            formatMs(times[i])
+                          )}
+                        </td>
+                      )
+                    })}
+                  </tr>
+                )
+              })}
+              {(() => {
+                const totals = SORTED_SERVICES.map(
+                  key => BENCHMARK_DATA.results[key].summary.totalColdDuration
+                )
+                const minTotal = Math.min(...totals)
+                const maxTotal = Math.max(...totals)
+
+                return (
+                  <tr>
+                    <td
+                      css={theme({
+                        fontWeight: 'bold',
+                        color: 'black',
+                        borderTop: `${borders[1]} ${colors.black10}`
+                      })}
+                    >
+                      Total
+                    </td>
+                    {SORTED_SERVICES.map((key, i) => {
+                      const isMin = totals[i] === minTotal
+                      const isMax = totals[i] === maxTotal
+                      return (
+                        <td
+                          key={key}
+                          css={theme({
+                            fontWeight: 'bold',
+                            borderTop: `${borders[1]} ${colors.black10}`,
+                            color: isMin
+                              ? colors.green7
+                              : isMax
+                                ? colors.red8
+                                : colors.black
+                          })}
+                        >
+                          {(totals[i] / 1000).toFixed(1)}&thinsp;s
+                        </td>
+                      )
+                    })}
+                  </tr>
+                )
+              })()}
+            </tbody>
+          </PerUrlTable>
+        </Box>
+
+        <MobileCards>
+          {BENCHMARK_DATA.testUrls.map(({ url }) => {
+            const times = SORTED_SERVICES.map(
+              key =>
+                BENCHMARK_DATA.results[key].perUrl.find(p => p.url === url)
+                  ?.coldDuration || 0
+            )
+            const minTime = Math.min(...times)
+            const maxTime = Math.max(...times)
+
+            return (
+              <MobileCard key={url}>
+                <MobileCardHeader>{extractDomain(url)}</MobileCardHeader>
+                {SORTED_SERVICES.map((key, i) => {
+                  const isMin = times[i] === minTime
+                  const isMax = times[i] === maxTime
+                  return (
+                    <MobileCardRow key={key}>
+                      <MobileCardName>
+                        {BENCHMARK_DATA.results[key].name}
+                      </MobileCardName>
+                      <MobileCardTime
+                        $highlight={isMin || isMax}
+                        $isMin={isMin}
+                        $isMax={isMax}
+                      >
+                        {formatMs(times[i])}&thinsp;ms
+                      </MobileCardTime>
+                    </MobileCardRow>
+                  )
+                })}
+              </MobileCard>
+            )
+          })}
+        </MobileCards>
 
         <Flex
           css={theme({
@@ -905,8 +1081,8 @@ const SpeedSection = () => {
             justifyContent: 'center'
           })}
         >
-          <ArrowLink href='https://github.com/microlinkhq/benchmark'>
-            Complete speed benchmark
+          <ArrowLink href='https://github.com/microlinkhq/screenshot-benchmark'>
+            See the full benchmark on&nbsp;GitHub
           </ArrowLink>
         </Flex>
 
@@ -923,19 +1099,19 @@ const SpeedSection = () => {
         >
           {[
             {
-              icon: '⚡',
+              icon: '\u26A1',
               title: 'Cold start',
               description:
                 'We obsessively fine-tune our libraries to eliminate latency, delivering maximum speed.'
             },
             {
-              icon: '🌐',
+              icon: '\uD83C\uDF10',
               title: 'Edge proximity',
               description:
                 '240+ Cloudflare nodes means the nearest browser is milliseconds away, not seconds.'
             },
             {
-              icon: '🔒',
+              icon: '\uD83D\uDD12',
               title: 'Isolated requests',
               description:
                 'No shared browser contexts. Clean state on every request — fast and secure by default.'
@@ -972,7 +1148,7 @@ const SpeedSection = () => {
         <Text
           css={theme({
             pt: 4,
-            fontSize: '15px',
+            fontSize: 0,
             color: 'black40',
             textAlign: 'center',
             fontFamily: 'mono',
@@ -980,15 +1156,12 @@ const SpeedSection = () => {
             mx: 'auto'
           })}
         >
-          Averages from 10 benchmark runs taken from a New York server at
+          Averages from 10&nbsp;benchmark runs taken from a New York server at
           different hours. The{' '}
-          <Link
-            css={theme({ fontSize: '16px' })}
-            href='https://github.com/microlinkhq/benchmark'
-          >
+          <Link href='https://github.com/microlinkhq/screenshot-benchmark'>
             benchmark repo
           </Link>{' '}
-          is open — run it yourself and see.
+          is open — run it yourself and see. Last run: March&nbsp;2026.
         </Text>
       </SectionInner>
     </Section>
@@ -1054,7 +1227,7 @@ const WhySwitchSection = () => (
             number: '01',
             title: 'API latency compounds at scale',
             description:
-              'At 100k screenshots/month, saving ~2s per request recovers over 55 hours of pipeline time. Microlink is 46% faster on average — and up to 2× faster on complex, full-page captures.'
+              'At 100k screenshots/month, saving ~2\u2009s per request recovers over 55\u00a0hours of pipeline time. Microlink is 88% faster on average — and up to 2\u00d7 faster on complex, full-page captures.'
           },
           {
             number: '02',
@@ -1064,9 +1237,9 @@ const WhySwitchSection = () => (
           },
           {
             number: '03',
-            title: '4.6× more requests for nearly half the price',
+            title: '4.6\u00d7 more requests for nearly half the price',
             description:
-              "ScreenshotOne's recommended plan: 10,000 screenshots for $79/month. Microlink: 46,000 requests for $45. That's the volume ScreenshotOne charges $259 for."
+              'ScreenshotOne\u2019s recommended plan: 10,000 screenshots for $79/month. Microlink: 46,000 requests for $45. That\u2019s the volume ScreenshotOne charges $259\u00a0for.'
           },
           {
             number: '04',
@@ -1168,32 +1341,32 @@ const HonestySection = () => (
           {
             title: 'You need S3 direct upload with webhooks',
             description:
-              'ScreenshotOne can upload screenshots directly to S3-compatible storage and notify you via webhook when done. Microlink does not have native S3 upload.'
+              'ScreenshotOne can upload screenshots directly to S3-compatible storage and notify you via webhook when done. Microlink does not have native S3\u00a0upload.'
           },
           {
             title: 'GPU rendering is a requirement',
             description:
-              'ScreenshotOne offers opt-in GPU rendering for sites that rely on WebGL or heavy canvas operations. Microlink does not currently support GPU rendering.'
+              'ScreenshotOne offers opt-in GPU rendering for sites that rely on WebGL or heavy canvas operations. Microlink does not currently support GPU\u00a0rendering.'
           },
           {
             title: 'You want built-in OpenAI Vision analysis',
             description:
-              'ScreenshotOne integrates with GPT-4V natively — capture and analyze a screenshot in one API call. Microlink does not have this integration.'
+              'ScreenshotOne integrates with GPT-4V natively — capture and analyze a screenshot in one API call. Microlink does not have this\u00a0integration.'
           },
           {
             title: 'No-code integrations are critical',
             description:
-              'ScreenshotOne has first-class integrations with Make, Zapier, n8n, Bubble, and Clay. Microlink has fewer no-code connectors (coming soon... we promise!).'
+              'ScreenshotOne has first-class integrations with Make, Zapier, n8n, Bubble, and Clay. Microlink has fewer no-code connectors (coming soon\u2026 we\u00a0promise!).'
           },
           {
             title: 'Team access control',
             description:
-              'ScreenshotOne supports organizations with role-based access. Microlink does not have a team/organization feature.'
+              'ScreenshotOne supports organizations with role-based access. Microlink does not have a team/organization\u00a0feature.'
           },
           {
             title: 'Scheduled or recurring captures',
             description:
-              'ScreenshotOne lets you schedule screenshots to run on a recurring basis straight from the dashboard. Microlink focuses on on-demand captures and does not include a built-in scheduler.'
+              'ScreenshotOne lets you schedule screenshots to run on a recurring basis straight from the dashboard. Microlink focuses on on-demand captures and does not include a built-in\u00a0scheduler.'
           }
         ].map(({ title, description }) => (
           <Flex
@@ -1243,7 +1416,7 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        Get <b>4.6x more</b> for nearly half the price.
+        Get <b>4.6&times; more</b> for nearly half the price.
       </Caption>
 
       <Flex
@@ -1256,13 +1429,15 @@ const PricingSection = () => (
         })}
       >
         <Box
+          css={theme({
+            borderRadius: 3,
+            flex: 1,
+            minWidth: ['100%', '400px']
+          })}
           style={{
             background:
               'linear-gradient(90deg, rgb(247, 102, 152), rgb(192, 63, 162) 60%, rgb(140, 27, 171) 100%)',
-            borderRadius: '8px',
-            padding: '2px',
-            flex: 1,
-            minWidth: '400px'
+            padding: '2px'
           }}
         >
           <PriceCard
@@ -1306,16 +1481,16 @@ const PricingSection = () => (
                 fontWeight: 'bold'
               })}
             >
-              46,000 requests/month
+              46,000&nbsp;requests/month
             </Text>
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
-                'Screenshots + PDF + metadata + previews + remote JS',
-                'Free tier: 50 requests/day, no credit card',
+                'Screenshots + PDF + metadata + previews + remote\u00a0JS',
+                'Free tier: 50\u00a0requests/day, no credit card',
                 'No requests-per-minute cap',
-                '240+ edge nodes, 99.9% SLA',
+                '240+ edge nodes, 99.9%\u00a0SLA',
                 'Open-source core (MIT)',
-                "Equivalent to ScreenshotOne's $259 plan by volume"
+                'Equivalent to ScreenshotOne\u2019s $259 plan by\u00a0volume'
               ].map(item => (
                 <Text
                   as='li'
@@ -1375,11 +1550,11 @@ const PricingSection = () => (
               fontWeight: 'bold'
             })}
           >
-            10,000 screenshots/month
+            10,000&nbsp;screenshots/month
           </Text>
           <Box as='ul' css={theme({ pl: 3, m: 0 })}>
             {[
-              '80 requests per minute cap',
+              '80\u00a0requests per minute cap',
               '$0.006 per extra screenshot',
               'Screenshots only — no PDF, metadata, or previews',
               'GPU rendering (opt-in)',
@@ -1468,8 +1643,8 @@ const CTASection = () => (
         Replace your ScreenshotOne endpoint. Keep your code.
         <br />
         Your first{' '}
-        <b css={theme({ color: 'white' })}>50 requests/day are free</b> — no
-        credit card, no commitment.
+        <b css={theme({ color: 'white' })}>50&nbsp;requests/day are free</b> —
+        no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1564,7 +1739,8 @@ const FAQSection = () => (
         )
       },
       {
-        question: 'What does "platform vs. point solution" mean in practice?',
+        question:
+          'What does \u201Cplatform vs. point solution\u201D mean in practice?',
         answer: (
           <>
             <div>
@@ -1615,8 +1791,8 @@ const FAQSection = () => (
               ScreenshotOne's recommended plan is $79/month for
               10,000&nbsp;screenshots with an 80&nbsp;requests-per-minute cap.
               Microlink's comparable plan is $45/month for 46,000&nbsp;requests
-              — 4.6× more volume for nearly half the price — with no per-minute
-              rate limit.
+              — 4.6\u00d7 more volume for nearly half the price — with no
+              per-minute rate limit.
             </div>
             <div>
               Microlink can offer lower prices because enterprise clients
@@ -1690,7 +1866,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='ScreenshotOne Alternative'
-    description='Microlink captures screenshots up to 2× faster than ScreenshotOne — 46% faster on average — plus PDF, metadata, and link previews in one API. Free to start.'
+    description='Microlink captures screenshots up to 2× faster than ScreenshotOne — 88% faster on average — plus PDF, metadata, and link previews in one API. Free to start.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
@@ -1699,7 +1875,7 @@ export const Head = () => (
         '@type': 'WebPage',
         name: 'ScreenshotOne Alternative — Microlink Screenshot API',
         description:
-          'Compare Microlink and ScreenshotOne screenshot APIs. Microlink is 46% faster on average — up to 2× faster on full-page captures — with screenshots, PDF generation, metadata extraction, and more in one API.',
+          'Compare Microlink and ScreenshotOne screenshot APIs. Microlink is 88% faster on average — up to 2× faster on full-page captures — with screenshots, PDF generation, metadata extraction, and more in one API.',
         url: 'https://microlink.io/alternative/screenshotone',
         mainEntity: {
           '@type': 'SoftwareApplication',
@@ -1722,7 +1898,7 @@ export const Head = () => (
             name: 'How does Microlink compare to ScreenshotOne for screenshot quality?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Both services produce high-quality screenshots using Chromium. Microlink serves maximum quality with optimal compression by default and is 46% faster on average — up to 2× faster on full-page captures — due to its 240+ edge node infrastructure.'
+              text: 'Both services produce high-quality screenshots using Chromium. Microlink serves maximum quality with optimal compression by default and is 88% faster on average — up to 2× faster on full-page captures — due to its 240+ edge node infrastructure.'
             }
           },
           {
