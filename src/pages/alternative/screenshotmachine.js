@@ -450,12 +450,14 @@ const COMPARISON_DATA = [
   {
     feature: 'Cookie banner blocking',
     microlink: true,
-    screenshotmachine: false
+    screenshotmachine: false,
+    highlight: true
   },
   {
     feature: 'Ad blocking',
     microlink: true,
-    screenshotmachine: false
+    screenshotmachine: false,
+    highlight: true
   },
   {
     feature: 'GIF output (from API)',
@@ -1111,19 +1113,15 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin
-                                ? (
-                                  <CellHighlight>
-                                    {formatMs(times[i])}
-                                  </CellHighlight>
-                                  )
-                                : isMax
-                                  ? (
-                                    <CellLoser>{formatMs(times[i])}</CellLoser>
-                                    )
-                                  : (
-                                      formatMs(times[i])
-                                    )}
+                              {isMin ? (
+                                <CellHighlight>
+                                  {formatMs(times[i])}
+                                </CellHighlight>
+                              ) : isMax ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                              ) : (
+                                formatMs(times[i])
+                              )}
                             </td>
                           )
                         })}
@@ -1499,11 +1497,6 @@ const HonestySection = () => (
             title: 'You rely on cached impressions being free',
             description:
               'Screenshot Machine caches screenshots for up to 14\u00a0days and serves cached impressions at no cost. If your use case involves hot-linking the same URLs repeatedly, that caching model can save\u00a0money.'
-          },
-          {
-            title: 'EUR billing is a requirement',
-            description:
-              'Screenshot Machine bills in euros (EUR) with EU VAT support for business customers. If your accounting is EUR-native, that removes a currency conversion\u00a0step.'
           },
           {
             title: 'You need GIF output directly from the API',
