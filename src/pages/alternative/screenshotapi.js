@@ -406,9 +406,10 @@ const COMPARISON_DATA = [
   },
   { feature: 'Animated screenshots', microlink: true, screenshotapi: true },
   {
-    feature: 'Scheduled screenshots (cron)',
+    feature: 'Scheduled screenshot workflows',
     microlink: false,
-    screenshotapi: true
+    screenshotapi: true,
+    note: 'Official automation guides exist for Zapier, Make, and n8n workflows.'
   },
   {
     feature: 'Bulk screenshots (JSON/CSV)',
@@ -686,8 +687,9 @@ const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>ScreenshotAPI</GradientText> alternative that does
-        more
+        The <GradientText>ScreenshotAPI</GradientText> alternative
+        <br />
+        for broader browser workflows
       </Heading>
 
       <Caption
@@ -699,10 +701,10 @@ const Hero = () => (
         })}
         titleize={false}
       >
-        <b>ScreenshotAPI</b> covers screenshots well. The moment you need PDFs,
-        metadata, or link previews, you are looking at a second service.{' '}
-        <b>Microlink</b> covers all of it from one API key and is{' '}
-        <b>33% faster than ScreenshotAPI on average</b>.
+        <b>ScreenshotAPI</b> already covers screenshots, PDFs, bulk capture, and
+        scraping workflows. When you need metadata, link previews, and a broader
+        browser API from the same key, <b>Microlink</b> covers all of that and
+        is <b>33% faster than ScreenshotAPI on average</b>.
       </Caption>
 
       <Flex
@@ -783,7 +785,7 @@ const ComparisonSection = () => (
           fontFamily: 'mono'
         })}
       >
-        Last verified: March&nbsp;2026. See each product's docs for the latest.
+        Last verified: April&nbsp;2026. See each product's docs for the latest.
       </Text>
     </SectionInner>
   </Section>
@@ -834,11 +836,12 @@ const SpeedSection = () => {
             mx: 'auto'
           })}
         >
-          Averaged over 10&nbsp;runs from a New York server, Microlink is 33%
-          faster. On simple pages, the gap reaches 4&times;. Tested across
-          7&nbsp;real-world URLs with true cold starts (no caching). All
-          providers triggered simultaneously. Single slowest run dropped to
-          remove outliers.
+          We tested 7&nbsp;real-world URLs with true cold starts (no caching)
+          from a New York server. All providers were triggered simultaneously,
+          the benchmark ran 10&nbsp;times at different hours, the single slowest
+          run was dropped to remove outliers, and non-200 responses were
+          excluded. Averaged across the suite, Microlink is 33% faster; on
+          lighter pages the gap reaches 4&times;.
         </Text>
 
         <Flex
@@ -908,19 +911,15 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin
-                                ? (
-                                  <CellHighlight>
-                                    {formatMs(times[i])}
-                                  </CellHighlight>
-                                  )
-                                : isMax
-                                  ? (
-                                    <CellLoser>{formatMs(times[i])}</CellLoser>
-                                    )
-                                  : (
-                                      formatMs(times[i])
-                                    )}
+                              {isMin ? (
+                                <CellHighlight>
+                                  {formatMs(times[i])}
+                                </CellHighlight>
+                              ) : isMax ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                              ) : (
+                                formatMs(times[i])
+                              )}
                             </td>
                           )
                         })}
@@ -1283,9 +1282,9 @@ const HonestySection = () => (
       >
         {[
           {
-            title: 'You need screenshots on a schedule',
+            title: 'You need scheduled screenshot workflows',
             description:
-              'ScreenshotAPI supports cron-based scheduling: hourly, daily, weekly, or any custom expression, straight from the dashboard. Microlink handles on-demand captures and does not include a built-in\u00a0scheduler.'
+              'ScreenshotAPI has a dedicated scheduling surface and publishes official automation guides for Zapier, Make, and n8n. Microlink handles on-demand captures and does not include a built-in scheduler.'
           },
           {
             title: 'You are processing URLs in bulk',
@@ -1305,12 +1304,12 @@ const HonestySection = () => (
           {
             title: 'You live in Zapier, Make, or n8n',
             description:
-              'ScreenshotAPI ships first-class connectors for Zapier, Make.com, n8n, Google Sheets, viaSocket, and Pipedream. Microlink has fewer no-code connectors today (more on the\u00a0way).'
+              'ScreenshotAPI publishes official integrations and workflow guides for Zapier, Make.com, n8n, Google Sheets, viaSocket, and Pipedream. Microlink has fewer no-code connectors today.'
           },
           {
             title: 'You want screenshots sent to your own bucket',
             description:
-              'Every paid ScreenshotAPI plan can push captures directly to Amazon S3, Wasabi, or Google Cloud Storage. Microlink returns the image in the API response and does not include native storage\u00a0upload.'
+              'ScreenshotAPI supports BYOB storage integrations for Amazon S3, Wasabi, and Google Cloud Storage. Microlink returns the image in the API response and does not include native storage upload.'
           }
         ].map(({ title, description }) => (
           <Flex
@@ -1343,6 +1342,10 @@ const HonestySection = () => (
  * Pricing Section
  * --------------------------------------------------------------------------- */
 
+/* Pricing sources:
+ * ScreenshotAPI pricing: https://www.screenshotapi.net/pricing
+ * Microlink comparison tier: .cursor/skills/alternative-landing/references/microlink-features.md
+ */
 const PricingSection = () => (
   <Section as='section' id='pricing' css={theme({ py: 5 })}>
     <SectionInner>
@@ -1350,7 +1353,7 @@ const PricingSection = () => (
         css={theme({ pb: [2, 2, 3, 3], fontSize: [4, 4, 5, 5], pt: 3 })}
         titleize={false}
       >
-        More requests. <GradientText>Half the price.</GradientText>
+        More requests. <GradientText>One broader API.</GradientText>
       </Subhead>
       <Caption
         css={theme({
@@ -1500,9 +1503,9 @@ const PricingSection = () => (
             {[
               '40\u00a0req/min rate limit on Startup',
               '$0.008 per extra screenshot',
-              'Screenshots and PDF only \u2014 no metadata, previews, or remote\u00a0JS',
-              'No-code integrations (Zapier, Make, n8n)',
-              'BYOB storage (S3/Wasabi/GCS, all paid plans)'
+              'Screenshots, PDF, bulk capture, and scraping',
+              'Official Zapier, Make, and n8n workflows',
+              'BYOB storage (S3/Wasabi/GCS)'
             ].map(item => (
               <Text
                 as='li'
@@ -1585,7 +1588,7 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Switch from ScreenshotAPI in minutes
+        Add metadata and previews without another vendor
       </Subhead>
 
       <Caption
@@ -1597,7 +1600,8 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Replace your ScreenshotAPI endpoint. Keep your code.
+        Keep screenshots, PDF, bulk capture, and scraping in place. Bring richer
+        browser outputs into the same integration.
         <br />
         Your first{' '}
         <b css={theme({ color: 'white' })}>50&nbsp;requests/day are free</b> —
@@ -1700,8 +1704,9 @@ const FAQSection = () => (
               Yes. One API key gives you screenshots, PDF generation,
               Open&nbsp;Graph and metadata extraction, link previews (via the
               React/Vue/JS SDK), remote JavaScript execution, and Lighthouse
-              audits. ScreenshotAPI covers screenshots and PDFs only. Anything
-              else requires a separate service.
+              audits. ScreenshotAPI already handles screenshots, PDFs, bulk
+              capture, and scraping workflows, but metadata extraction, link
+              previews, and remote JS all still sit outside its core surface.
             </div>
           </>
         )
@@ -1813,17 +1818,17 @@ const FAQSection = () => (
 
 export const Head = () => (
   <Meta
-    title='ScreenshotAPI.net Alternative | Microlink Screenshot API'
-    description='Microlink is 33% faster than ScreenshotAPI on average, costs $0.00085/request (vs $0.009), and covers screenshots, PDF, metadata, and link previews in one API. Free tier, no credit card.'
+    title='ScreenshotAPI Alternative for Metadata, Previews, and More'
+    description='ScreenshotAPI already covers screenshots, PDFs, bulk capture, and scraping. Microlink adds metadata, link previews, and remote JS in the same API while benchmarking 33% faster on average.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'ScreenshotAPI.net Alternative — Microlink Screenshot API',
+        name: 'ScreenshotAPI Alternative for Metadata, Previews, and More | Microlink',
         description:
-          'Compare Microlink and ScreenshotAPI. Microlink is 33% faster on average, up to 4× faster on simple pages, and includes screenshots, PDF generation, metadata extraction, and link previews in one API at $0.00085 per request.',
+          'Compare Microlink and ScreenshotAPI when you want screenshots, PDFs, bulk capture, and scraping plus richer browser outputs. Microlink is 33% faster on average and adds metadata extraction, link previews, and remote JS in one API.',
         url: 'https://microlink.io/alternative/screenshotapi',
         mainEntity: {
           '@type': 'SoftwareApplication',
@@ -1854,7 +1859,7 @@ export const Head = () => (
             name: 'What is the best alternative to ScreenshotAPI?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Microlink is a full headless browser API that replaces ScreenshotAPI for screenshots and adds PDF generation, metadata extraction, link previews, and remote JS execution — all in one API with one key.'
+              text: 'Microlink is a full headless browser API that consolidates screenshots, PDF generation, metadata extraction, link previews, and remote JS execution in one API with one key.'
             }
           },
           {

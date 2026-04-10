@@ -381,7 +381,12 @@ const COMPARISON_DATA = [
     screenshotone: false,
     highlight: true
   },
-  { feature: 'GPU rendering', microlink: 'on demand', screenshotone: true },
+  {
+    feature: 'GPU rendering',
+    microlink: 'on demand',
+    screenshotone: 'Scale',
+    note: 'ScreenshotOne lists GPU rendering on its Scale plan.'
+  },
   {
     feature: 'No-code integrations (Zapier, Make\u2026)',
     microlink: 'partial',
@@ -390,7 +395,12 @@ const COMPARISON_DATA = [
   { feature: 'Async + webhooks', microlink: false, screenshotone: true },
   { feature: 'S3 direct upload', microlink: false, screenshotone: true },
   { feature: 'Bulk screenshots', microlink: false, screenshotone: true },
-  { feature: 'Geolocation targeting', microlink: false, screenshotone: true },
+  {
+    feature: 'Geolocation targeting',
+    microlink: false,
+    screenshotone: 'Growth+',
+    note: 'ScreenshotOne lists IP location controls from the Growth plan upward.'
+  },
   {
     feature: 'OpenAI Vision integration',
     microlink: false,
@@ -410,7 +420,9 @@ const CellValue = ({ value }) => {
     const capitalized = value.charAt(0).toUpperCase() + value.slice(1)
     return <Partial>{capitalized}</Partial>
   }
-  return <span>{value}</span>
+  return (
+    <span css={theme({ display: 'block', textAlign: 'center' })}>{value}</span>
+  )
 }
 
 const ComparisonTable = () => (
@@ -654,10 +666,9 @@ const Hero = () => (
         })}
         titleize={false}
       >
-        Looking for a <b>ScreenshotOne alternative</b> that&rsquo;s actually
-        faster? <b>Microlink</b> does screenshots, PDFs, metadata, and more
-        &mdash; battle-tested across enough edge cases to make its engine{' '}
-        <b>88% faster on average</b>.
+        Need a <b>ScreenshotOne alternative</b> for speed-sensitive workloads?
+        <b>Microlink</b> benchmarks <b>88% faster on average</b> while still
+        covering screenshots, PDFs, metadata, and more from one API.
       </Caption>
 
       <Flex
@@ -738,7 +749,7 @@ const ComparisonSection = () => (
           fontFamily: 'mono'
         })}
       >
-        Last verified: March&nbsp;2026. See each product's docs for the latest.
+        Last verified: April&nbsp;2026. See each product's docs for the latest.
       </Text>
     </SectionInner>
   </Section>
@@ -789,10 +800,12 @@ const SpeedSection = () => {
             mx: 'auto'
           })}
         >
-          We ran identical screenshot requests against both APIs from a New York
-          server and measured cold-start latency &mdash; no cache, no warm-up.
-          The numbers below are averages from 10&nbsp;independent benchmark runs
-          at different hours.
+          We tested 7&nbsp;real-world URLs with true cold starts (no caching)
+          from a New York server. Both providers were triggered simultaneously,
+          the benchmark ran 10&nbsp;times at different hours, the single slowest
+          run was dropped to remove outliers, and non-200 responses were
+          excluded. On screenshotone.com itself, Microlink finished in
+          5.5&nbsp;seconds while ScreenshotOne took 12.1&nbsp;seconds.
         </Text>
 
         <Flex
@@ -862,19 +875,15 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin
-                                ? (
-                                  <CellHighlight>
-                                    {formatMs(times[i])}
-                                  </CellHighlight>
-                                  )
-                                : isMax
-                                  ? (
-                                    <CellLoser>{formatMs(times[i])}</CellLoser>
-                                    )
-                                  : (
-                                      formatMs(times[i])
-                                    )}
+                              {isMin ? (
+                                <CellHighlight>
+                                  {formatMs(times[i])}
+                                </CellHighlight>
+                              ) : isMax ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                              ) : (
+                                formatMs(times[i])
+                              )}
                             </td>
                           )
                         })}
@@ -1126,7 +1135,7 @@ const WhySwitchSection = () => (
             number: '01',
             title: 'API latency compounds at scale',
             description:
-              'At 100k screenshots/month, saving ~2\u2009s per request recovers over 55\u00a0hours of pipeline time. Microlink is 88% faster on average — and up to 2\u00d7 faster on complex, full-page captures.'
+              'At 100k screenshots/month, saving ~2\u2009s per request recovers over 55\u00a0hours of pipeline time. Microlink is 88% faster on average — and up to 2x faster on complex, full-page captures.'
           },
           {
             number: '02',
@@ -1136,9 +1145,9 @@ const WhySwitchSection = () => (
           },
           {
             number: '03',
-            title: '4.6\u00d7 more requests for nearly half the price',
+            title: '4.6x more requests for nearly half the price',
             description:
-              'ScreenshotOne\u2019s recommended plan: 10,000 screenshots for $79/month. Microlink: 46,000 requests for $45. That\u2019s the volume ScreenshotOne charges $259\u00a0for.'
+              'ScreenshotOne\u2019s recommended plan: 10,000 screenshots for $79/month. Microlink: 46,000 requests for $39. That\u2019s the volume ScreenshotOne charges $259\u00a0for.'
           },
           {
             number: '04',
@@ -1244,7 +1253,7 @@ const HonestySection = () => (
           {
             title: 'GPU rendering is a requirement',
             description:
-              'ScreenshotOne offers opt-in GPU rendering for sites that rely on WebGL or heavy canvas operations. Microlink does not currently support GPU\u00a0rendering.'
+              'ScreenshotOne lists GPU rendering on its Scale plan for sites that rely on WebGL or heavy canvas operations. Microlink does not currently support GPU rendering.'
           },
           {
             title: 'You want built-in OpenAI Vision analysis',
@@ -1254,7 +1263,7 @@ const HonestySection = () => (
           {
             title: 'No-code integrations are critical',
             description:
-              'ScreenshotOne has first-class integrations with Make, Zapier, n8n, Bubble, and Clay. Microlink has fewer no-code connectors (coming soon\u2026 we\u00a0promise!).'
+              'ScreenshotOne publishes official integrations for Make, Zapier, n8n, Bubble, and Clay. Microlink has fewer no-code connectors today.'
           },
           {
             title: 'Team access control',
@@ -1262,9 +1271,9 @@ const HonestySection = () => (
               'ScreenshotOne supports organizations with role-based access. Microlink does not have a team/organization\u00a0feature.'
           },
           {
-            title: 'Scheduled or recurring captures',
+            title: 'You want recurring workflows via integrations',
             description:
-              'ScreenshotOne lets you schedule screenshots to run on a recurring basis straight from the dashboard. Microlink focuses on on-demand captures and does not include a built-in\u00a0scheduler.'
+              'ScreenshotOne supports recurring and triggered screenshot workflows through its integration surface. Microlink focuses on on-demand captures and does not include a built-in scheduler.'
           }
         ].map(({ title, description }) => (
           <Flex
@@ -1297,6 +1306,10 @@ const HonestySection = () => (
  * Pricing Section
  * --------------------------------------------------------------------------- */
 
+/* Pricing sources:
+ * ScreenshotOne pricing: https://screenshotone.com/pricing/
+ * Microlink comparison tier: .cursor/skills/alternative-landing/references/microlink-features.md
+ */
 const PricingSection = () => (
   <Section as='section' id='pricing' css={theme({ py: 5 })}>
     <SectionInner>
@@ -1358,7 +1371,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $45
+              $39
               <Text
                 as='span'
                 css={theme({
@@ -1454,8 +1467,8 @@ const PricingSection = () => (
             {[
               '80\u00a0requests per minute cap',
               '$0.006 per extra screenshot',
-              'Screenshots only — no PDF, metadata, or previews',
-              'GPU rendering (opt-in)',
+              'PDF, scrolling screenshots, and video output',
+              'Choose IP location on Growth',
               'S3 upload + webhooks'
             ].map(item => (
               <Text
@@ -1539,7 +1552,7 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Switch from ScreenshotOne in minutes
+        Move your slowest ScreenshotOne workloads first
       </Subhead>
 
       <Caption
@@ -1551,7 +1564,8 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Replace your ScreenshotOne endpoint. Keep your code.
+        Benchmark the pages that matter, then shift traffic when you&rsquo;re
+        ready.
         <br />
         Your first{' '}
         <b css={theme({ color: 'white' })}>50&nbsp;requests/day are free</b> —
@@ -1609,15 +1623,16 @@ const FAQSection = () => (
       },
       {
         question:
-          'How does Microlink compare to ScreenshotOne for screenshot quality?',
+          'How does Microlink compare to ScreenshotOne for screenshot speed and quality?',
         answer: (
           <>
             <div>
-              Both services produce high-quality screenshots using Chromium.
-              Microlink serves maximum quality with optimal compression by
-              default — no manual parameter tuning needed. ScreenshotOne also
-              delivers good quality, with optional GPU rendering for WebGL-heavy
-              sites.
+              Both services produce high-quality screenshots using Chromium, but
+              Microlink benchmarked 88% faster on average in our cold-start
+              tests. Microlink also serves maximum quality with optimal
+              compression by default — no manual parameter tuning needed.
+              ScreenshotOne delivers good quality too, with optional GPU
+              rendering on its Scale plan for WebGL-heavy sites.
             </div>
           </>
         )
@@ -1645,7 +1660,7 @@ const FAQSection = () => (
       },
       {
         question:
-          'What does \u201Cplatform vs. point solution\u201D mean in practice?',
+          'What do you get besides speed when switching from ScreenshotOne?',
         answer: (
           <>
             <div>
@@ -1680,11 +1695,6 @@ const FAQSection = () => (
               ScreenshotOne is closed-source. There is no way to inspect or
               audit the engine processing your requests.
             </div>
-            <div>
-              We know for sure that some of our competitors are using our code
-              to run similar services. We're glad to see that our work is
-              helping the community.
-            </div>
           </>
         )
       },
@@ -1695,9 +1705,9 @@ const FAQSection = () => (
             <div>
               ScreenshotOne's recommended plan is $79/month for
               10,000&nbsp;screenshots with an 80&nbsp;requests-per-minute cap.
-              Microlink's comparable plan is $45/month for 46,000&nbsp;requests
-              — 4.6\u00d7 more volume for nearly half the price — with no
-              per-minute rate limit.
+              Microlink's comparable plan is $39/month for 46,000&nbsp;requests
+              — 4.6x more volume for nearly half the price — with no per-minute
+              rate limit.
             </div>
             <div>
               Microlink can offer lower prices because enterprise clients
@@ -1770,17 +1780,17 @@ const FAQSection = () => (
 
 export const Head = () => (
   <Meta
-    title='ScreenshotOne Alternative — 88% Faster Screenshot API | Microlink'
-    description='Microlink captures screenshots up to 2× faster than ScreenshotOne — 88% faster on average — plus PDF, metadata, and link previews in one API. Free to start.'
+    title='ScreenshotOne Alternative for Faster Cold Starts'
+    description='Microlink benchmarks 88% faster on average than ScreenshotOne, with up to 2× faster full-page captures plus screenshots, PDF, metadata, and link previews in one API.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'ScreenshotOne Alternative — 88% Faster Screenshot API | Microlink',
+        name: 'ScreenshotOne Alternative for Faster Cold Starts | Microlink',
         description:
-          'Compare Microlink and ScreenshotOne screenshot APIs. Microlink is 88% faster on average — up to 2× faster on full-page captures — with screenshots, PDF generation, metadata extraction, and more in one API.',
+          'Compare Microlink and ScreenshotOne for latency-sensitive screenshot workloads. Microlink is 88% faster on average — up to 2× faster on full-page captures — while also covering PDF generation, metadata extraction, and more in one API.',
         url: 'https://microlink.io/alternative/screenshotone',
         mainEntity: {
           '@type': 'SoftwareApplication',
@@ -1808,10 +1818,10 @@ export const Head = () => (
           },
           {
             '@type': 'Question',
-            name: 'How does Microlink compare to ScreenshotOne for screenshot quality?',
+            name: 'How does Microlink compare to ScreenshotOne for screenshot speed and quality?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Both services produce high-quality screenshots using Chromium. Microlink serves maximum quality with optimal compression by default — no manual parameter tuning needed. ScreenshotOne also delivers good quality, with optional GPU rendering for WebGL-heavy sites.'
+              text: 'Both services produce high-quality screenshots using Chromium, but Microlink benchmarked 88% faster on average in our cold-start tests. Microlink also serves maximum quality with optimal compression by default — no manual parameter tuning needed. ScreenshotOne delivers good quality too, with optional GPU rendering on its Scale plan for WebGL-heavy sites.'
             }
           },
           {
@@ -1824,7 +1834,7 @@ export const Head = () => (
           },
           {
             '@type': 'Question',
-            name: 'What does "platform vs. point solution" mean in practice?',
+            name: 'What do you get besides speed when switching from ScreenshotOne?',
             acceptedAnswer: {
               '@type': 'Answer',
               text: 'With Microlink, one API key and one integration gives you screenshots, PDF generation, metadata/Open Graph extraction, link previews (via SDK), remote JavaScript execution, and Lighthouse audits.'
@@ -1843,7 +1853,7 @@ export const Head = () => (
             name: 'How much does ScreenshotOne cost compared to Microlink?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "ScreenshotOne's recommended plan is $79/month for 10,000 screenshots with an 80 requests-per-minute cap. Microlink's comparable plan is $45/month for 46,000 requests — 4.6× more volume for nearly half the price — with no per-minute rate limit. Microlink can offer lower prices because enterprise clients running millions of requests a month cover the infrastructure cost."
+              text: "ScreenshotOne's recommended plan is $79/month for 10,000 screenshots with an 80 requests-per-minute cap. Microlink's comparable plan is $39/month for 46,000 requests — 4.6× more volume for nearly half the price — with no per-minute rate limit. Microlink can offer lower prices because enterprise clients running millions of requests a month cover the infrastructure cost."
             }
           },
           {

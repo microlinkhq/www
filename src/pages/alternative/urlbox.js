@@ -408,9 +408,10 @@ const COMPARISON_DATA = [
     urlbox: true
   },
   {
-    feature: 'S3/Azure/GCS direct upload',
+    feature: 'Cloud storage integrations (plan-gated)',
     microlink: false,
-    urlbox: true
+    urlbox: true,
+    note: 'Urlbox documents S3-compatible storage plus newer Azure and GCS workflows with plan/configuration nuance.'
   },
   {
     feature: 'Bulk screenshot tool (CaptureDeck)',
@@ -418,9 +419,10 @@ const COMPARISON_DATA = [
     urlbox: true
   },
   {
-    feature: 'Scheduled/recurring captures',
+    feature: 'Scheduled screenshot workflows',
     microlink: false,
-    urlbox: true
+    urlbox: true,
+    note: 'Recurring capture flows are documented through Zapier and no-code automation.'
   },
   {
     feature: 'No-code integrations (Zapier, Airtable\u2026)',
@@ -428,7 +430,7 @@ const COMPARISON_DATA = [
     urlbox: true
   },
   {
-    feature: 'SOC 2 compliance (in progress)',
+    feature: 'SOC 2 Type 2 audit started',
     microlink: false,
     urlbox: true
   }
@@ -706,23 +708,22 @@ const FAQ_ITEMS = [
     text: "Yes. Urlbox uses render links and a REST API with parameters like url, width, full_page, format, and selector. Microlink accepts the same capture concepts under its own parameter names. Most migrations are endpoint-and-key swaps. The screenshot docs cover every parameter with examples. Paste your Urlbox integration into any LLM and ask it to migrate to Microlink. Or email hello@microlink.io and we'll help directly."
   },
   {
-    question:
-      'What does \u201Cplatform vs. point solution\u201D mean in practice?',
+    question: 'When is Microlink the better value than Urlbox?',
     answer: (
       <>
         <div>
-          Urlbox is a specialist screenshot service with over a decade of
-          focused experience. It does screenshots exceptionally well.
+          Urlbox is feature-rich and a strong fit when you need screenshot-first
+          extras like SVG output, scrolling video, LLM analysis, or CaptureDeck.
         </div>
         <div>
-          Microlink gives you screenshots, PDF generation, metadata/Open Graph
-          extraction, link previews (via SDK), remote JavaScript execution, and
-          Lighthouse audits from one API key and one integration. When your
-          workflow grows beyond screenshots, you don't need a second vendor.
+          Microlink becomes the better value when you want lower cost per render
+          plus screenshots, PDF generation, metadata/Open Graph extraction, link
+          previews (via SDK), remote JavaScript execution, and Lighthouse audits
+          from one API key and one integration.
         </div>
       </>
     ),
-    text: "Urlbox is a specialist screenshot service with over a decade of focused experience. Microlink gives you screenshots, PDF generation, metadata/Open Graph extraction, link previews (via SDK), remote JavaScript execution, and Lighthouse audits from one API key. When your workflow grows beyond screenshots, you don't need a second vendor."
+    text: 'Urlbox is feature-rich and a strong fit when you need screenshot-first extras like SVG output, scrolling video, LLM analysis, or CaptureDeck. Microlink becomes the better value when you want lower cost per render plus screenshots, PDF generation, metadata/Open Graph extraction, link previews (via SDK), remote JavaScript execution, and Lighthouse audits from one API key and one integration.'
   },
   {
     question: 'Is Microlink really open source?',
@@ -849,7 +850,9 @@ const Hero = () => (
           color: 'black'
         })}
       >
-        The fastest <GradientText>Urlbox</GradientText> alternative
+        The <GradientText>Urlbox</GradientText> alternative
+        <br />
+        for better cost per render
       </Heading>
 
       <Caption
@@ -862,10 +865,10 @@ const Hero = () => (
         titleize={false}
       >
         <b>Urlbox</b> is a respected screenshot service with 10+&nbsp;years of
-        experience. When you need lower latency, 9&times;&nbsp;more monthly
-        volume for less money, and a platform that goes beyond screenshots,{' '}
-        <b>Microlink</b> is <b>44% faster on average</b> and covers screenshots,
-        PDFs, metadata, and more in one&nbsp;API.
+        experience. If you care about cost per render and broader browser
+        workflows under one key, <b>Microlink</b> gives you 46,000&nbsp;requests
+        for $39 versus 5,000 on Urlbox Hi-Fi for $49, while still benchmarking{' '}
+        <b>44% faster on average</b>.
       </Caption>
 
       <Flex
@@ -1072,19 +1075,15 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin
-                                ? (
-                                  <CellHighlight>
-                                    {formatMs(times[i])}
-                                  </CellHighlight>
-                                  )
-                                : isMax
-                                  ? (
-                                    <CellLoser>{formatMs(times[i])}</CellLoser>
-                                    )
-                                  : (
-                                      formatMs(times[i])
-                                    )}
+                              {isMin ? (
+                                <CellHighlight>
+                                  {formatMs(times[i])}
+                                </CellHighlight>
+                              ) : isMax ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                              ) : (
+                                formatMs(times[i])
+                              )}
                             </td>
                           )
                         })}
@@ -1459,12 +1458,12 @@ const HonestySection = () => (
           {
             title: 'You need screenshots sent to your own bucket',
             description:
-              'Urlbox can push captures directly to S3, Azure Blob Storage, or Google Cloud Storage. Microlink returns the image in the API response and does not include native storage\u00a0upload.'
+              'Urlbox documents cloud-storage workflows for S3-compatible storage, with newer Azure Blob and Google Cloud options carrying plan and configuration nuance. Microlink returns the image in the API response and does not include native storage upload.'
           },
           {
             title: 'Bulk screenshots from a dashboard',
             description:
-              "Urlbox's CaptureDeck tool lets you upload CSVs or paste URL lists, schedule recurring captures, and download zip archives — all without writing code. Microlink is API-first and does not have a bulk\u00a0dashboard."
+              "Urlbox's CaptureDeck tool lets you upload CSVs or paste URL lists and download zip archives without writing code. For recurring captures, Urlbox documents Zapier-driven automation flows. Microlink is API-first and does not have a bulk dashboard."
           },
           {
             title: 'SOC 2 compliance matters to your procurement team',
@@ -1507,6 +1506,10 @@ const HonestySection = () => (
  * Pricing Section
  * --------------------------------------------------------------------------- */
 
+/* Pricing sources:
+ * Urlbox pricing: https://www.urlbox.io/pricing
+ * Microlink comparison tier: .cursor/skills/alternative-landing/references/microlink-features.md
+ */
 const PricingSection = () => (
   <Section as='section' id='pricing' css={theme({ py: 5 })}>
     <SectionInner>
@@ -1662,10 +1665,10 @@ const PricingSection = () => (
           </Text>
           <Box as='ul' css={theme({ pl: 3, m: 0 })}>
             {[
-              'Screenshots only — no metadata, previews, or remote\u00a0JS',
+              'Screenshots, PDF, metadata, markdown, and video',
               'No free plan (7-day trial only)',
               '$9.80 per 1,000 renders',
-              'S3/Azure/GCS upload included',
+              'Cloud storage workflows with plan/config nuance',
               'GPU rendering available'
             ].map(item => (
               <Text
@@ -1749,7 +1752,8 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Switch from Urlbox in minutes
+        Cut Urlbox cost per render
+        <br /> without trimming features
       </Subhead>
 
       <Caption
@@ -1757,11 +1761,10 @@ const CTASection = () => (
           color: 'white80',
           pb: [3, 3, 4, 4],
           maxWidth: layout.large,
-          fontSize: 2
+          fontSize: 3
         })}
         titleize={false}
       >
-        Replace your Urlbox endpoint. Keep your code.
         <br />
         Your first{' '}
         <b css={theme({ color: 'white' })}>50&nbsp;requests/day are free</b> —
@@ -1808,17 +1811,17 @@ const FAQSection = () => (
 
 export const Head = () => (
   <Meta
-    title='Urlbox Alternative — 44% Faster Screenshot API | Microlink'
-    description='Microlink captures screenshots 44% faster than Urlbox on average, gives you 46,000 requests for $39 vs 5,000 for $49, and adds metadata, link previews, and built-in antibot tooling. Free to start.'
+    title='Urlbox Alternative for Better Cost Per Render'
+    description='Compare Microlink vs Urlbox on cost per render and broader browser workflows: 46,000 requests for $39 vs Urlbox Hi-Fi at 5,000 for $49, plus metadata, previews, and 44% faster average cold starts.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'Urlbox Alternative — 44% Faster Screenshot API | Microlink',
+        name: 'Urlbox Alternative for Better Cost Per Render | Microlink',
         description:
-          'Compare Microlink and Urlbox screenshot APIs. Microlink is 44% faster on average — up to 2.4× faster on heavy pages — with screenshots, PDF generation, metadata extraction, and more in one API at $0.85 per 1,000 requests.',
+          'Compare Microlink and Urlbox when cost per render and broader browser workflows matter. Microlink is 44% faster on average, includes 46,000 requests at $39, and adds screenshots, PDF generation, metadata extraction, and more in one API.',
         url: 'https://microlink.io/alternative/urlbox',
         mainEntity: {
           '@type': 'SoftwareApplication',

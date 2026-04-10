@@ -815,8 +815,9 @@ const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>ApiFlash</GradientText> alternative for production
-        workloads
+        The <GradientText>ApiFlash</GradientText> alternative
+        <br />
+        for production workloads
       </Heading>
 
       <Caption
@@ -1478,7 +1479,8 @@ const PricingSection = () => (
         css={theme({ pb: [2, 2, 3, 3], fontSize: [4, 4, 5, 5], pt: 3 })}
         titleize={false}
       >
-        More volume. <GradientText>Nearly the same spend.</GradientText>
+        More volume. <br />
+        <GradientText>Nearly the same spend.</GradientText>
       </Subhead>
       <Caption
         css={theme({
@@ -1713,7 +1715,7 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Switch from ApiFlash in minutes
+        Harden your screenshot pipeline before it bottlenecks
       </Subhead>
 
       <Caption
@@ -1725,7 +1727,8 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Replace your capture endpoint. Keep your workflow.
+        Move latency-sensitive or proxy-heavy jobs first. Keep the rest of your
+        workflow steady while you compare real production traffic.
         <br />
         Your first{' '}
         <b css={theme({ color: 'white' })}>50&nbsp;requests/day are free</b> —
@@ -1772,7 +1775,7 @@ const FAQSection = () => (
 
 export const Head = () => (
   <Meta
-    title='ApiFlash Alternative for Faster Screenshot Workloads | Microlink'
+    title='ApiFlash Alternative for Production Screenshot Workloads'
     description='Microlink cuts average cold-start latency by 56% vs ApiFlash, gives you 46,000 requests for $39 vs 10,000 for $35, and adds PDF, metadata, previews, and built-in antibot tooling.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
@@ -1780,7 +1783,7 @@ export const Head = () => (
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'ApiFlash Alternative for Faster Screenshot Workloads | Microlink',
+        name: 'ApiFlash Alternative for Production Screenshot Workloads',
         description:
           'Compare Microlink and ApiFlash for production screenshot workloads. Microlink cuts average cold-start latency by 56%, gives you 46,000 requests for $39 versus 10,000 screenshots for $35, and covers screenshots, PDF, metadata, previews, and remote JS from one API.',
         url: 'https://microlink.io/alternative/apiflash',

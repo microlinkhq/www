@@ -353,14 +353,14 @@ const COMPARISON_DATA = [
   {
     feature: 'Custom HTTP headers',
     microlink: true,
-    screenshotmachine: false,
-    highlight: true
+    screenshotmachine: 'partial',
+    highlight: true,
+    note: 'Supports request language and user-agent, not arbitrary headers.'
   },
   {
     feature: 'Custom cookies',
     microlink: true,
-    screenshotmachine: false,
-    highlight: true
+    screenshotmachine: true
   },
   {
     feature: 'Wait for CSS selector',
@@ -371,8 +371,7 @@ const COMPARISON_DATA = [
   {
     feature: 'Element-level capture (CSS selector)',
     microlink: true,
-    screenshotmachine: false,
-    highlight: true
+    screenshotmachine: true
   },
   {
     feature: 'HTML rendering (raw HTML input)',
@@ -450,8 +449,9 @@ const COMPARISON_DATA = [
   {
     feature: 'Cookie banner blocking',
     microlink: true,
-    screenshotmachine: false,
-    highlight: true
+    screenshotmachine: 'partial',
+    highlight: true,
+    note: 'Manual via click/hide selectors instead of a built-in blocker.'
   },
   {
     feature: 'Ad blocking',
@@ -746,23 +746,22 @@ const FAQ_ITEMS = [
     text: "Yes. Screenshot Machine uses a simple GET API with parameters like url, dimension, device, format, delay, and zoom. Microlink accepts the same capture concepts under its own parameter names. Most migrations involve updating the API endpoint and key. The screenshot docs cover every parameter with examples. Paste your existing code into any LLM and ask it to migrate to Microlink. Or email hello@microlink.io and we'll help directly."
   },
   {
-    question:
-      'What does \u201Cplatform vs. point solution\u201D mean in practice?',
+    question: 'When is Screenshot Machine enough, and when should you upgrade?',
     answer: (
       <>
         <div>
-          Screenshot Machine is focused on two things: website screenshots and
-          website-to-PDF conversion. It does those well and simply.
+          Screenshot Machine is a good fit when you want a simpler API focused
+          on screenshots and website-to-PDF conversion.
         </div>
         <div>
-          Microlink gives you screenshots, PDF generation, metadata/Open Graph
-          extraction, link previews (via SDK), remote JavaScript execution, and
-          Lighthouse audits from one API key and one integration. When your
-          workflow grows beyond screenshots, you don't need a second vendor.
+          Microlink is the upgrade path when those captures need to feed richer
+          browser workflows: metadata/Open Graph extraction, link previews (via
+          SDK), remote JavaScript execution, and Lighthouse audits from one API
+          key and one integration.
         </div>
       </>
     ),
-    text: "Screenshot Machine is focused on website screenshots and website-to-PDF conversion. Microlink gives you screenshots, PDF generation, metadata/Open Graph extraction, link previews (via SDK), remote JavaScript execution, and Lighthouse audits from one API key. When your workflow grows beyond screenshots, you don't need a second vendor."
+    text: 'Screenshot Machine is a good fit when you want a simpler API focused on screenshots and website-to-PDF conversion. Microlink is the upgrade path when those captures need to feed richer browser workflows: metadata/Open Graph extraction, link previews (via SDK), remote JavaScript execution, and Lighthouse audits from one API key and one integration.'
   },
   {
     question: 'Is Microlink really open source?',
@@ -794,10 +793,11 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Screenshot Machine Pro is \u20AC59/month (~$64) for
-          20,000&nbsp;screenshots with \u20AC0.003 per extra screenshot.
-          Microlink is $39/month for 46,000&nbsp;requests &mdash; 2.3&times;
-          more volume for 40% less money &mdash; with no per-minute rate limit.
+          Screenshot Machine Pro is listed at \u20AC59/month for
+          20,000&nbsp;fresh screenshots with \u20AC0.003 per extra screenshot.
+          Microlink's comparison tier is $39/month for 46,000&nbsp;requests,
+          which is more than 2&times; the included monthly volume on the plan we
+          compare here.
         </div>
         <div>
           Enterprise clients running millions of requests fund the
@@ -806,7 +806,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Screenshot Machine Pro is \u20ac59/month (~$64) for 20,000 screenshots with \u20ac0.003 per extra screenshot. Microlink is $39/month for 46,000 requests \u2014 2.3\u00d7 more volume for 40% less money \u2014 with no per-minute rate limit. Enterprise clients running millions of requests fund the infrastructure.'
+    text: "Screenshot Machine Pro is listed at \u20ac59/month for 20,000 fresh screenshots with \u20ac0.003 per extra screenshot. Microlink's comparison tier is $39/month for 46,000 requests, which is more than 2\u00d7 the included monthly volume on the plan we compare here. Enterprise clients running millions of requests fund the infrastructure."
   },
   {
     question: 'Does Microlink have rate limits?',
@@ -833,9 +833,10 @@ const FAQ_ITEMS = [
           Microlink supports ad blocking via the{' '}
           <Link href='/docs/api/parameters/adblock'>adblock</Link> parameter and
           custom CSS/JS injection to dismiss consent dialogs before the
-          screenshot is taken. Screenshot Machine supports hiding elements via
-          CSS selectors but does not have dedicated ad blocking or cookie banner
-          removal.
+          screenshot is taken. Screenshot Machine supports cookie-banner
+          handling through its <i>click</i> and <i>hide</i> selector parameters,
+          but it does not advertise a dedicated ad-blocking or cookie-blocking
+          rules engine.
         </div>
         <div>
           Use{' '}
@@ -847,7 +848,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Microlink supports ad blocking via the adblock parameter and custom CSS/JS injection to dismiss consent dialogs. Screenshot Machine supports hiding elements via CSS selectors but does not have dedicated ad blocking or cookie banner removal. Use screenshot.hide to remove specific elements by CSS selector.'
+    text: 'Microlink supports ad blocking via the adblock parameter and custom CSS/JS injection to dismiss consent dialogs. Screenshot Machine supports cookie-banner handling through click and hide selectors, but it does not advertise a dedicated ad-blocking or cookie-blocking rules engine. Use screenshot.hide to remove specific elements by CSS selector.'
   },
   {
     question: 'What uptime and SLA does Microlink guarantee?',
@@ -889,8 +890,9 @@ const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>Screenshot Machine</GradientText> alternative that
-        does&nbsp;more
+        The <GradientText>ScreenshotMachine</GradientText> upgrade path
+        <br />
+        for richer browser workflows
       </Heading>
 
       <Caption
@@ -902,11 +904,11 @@ const Hero = () => (
         })}
         titleize={false}
       >
-        <b>Screenshot Machine</b> is a reliable, no-frills screenshot API. When
-        you need lower latency, more features, and a platform that goes beyond
-        screenshots and PDFs, <b>Microlink</b> is <b>33% faster on average</b>{' '}
-        and covers screenshots, PDFs, metadata, link previews, and more in
-        one&nbsp;API.
+        <b>Screenshot Machine</b> is a reliable, no-frills screenshot and PDF
+        API. When your workflow outgrows that simpler surface and you need
+        metadata, link previews, remote JS, and more request headroom,{' '}
+        <b>Microlink</b> gives you the broader browser API while staying{' '}
+        <b>33% faster on average</b>.
       </Caption>
 
       <Flex
@@ -1111,19 +1113,21 @@ const SpeedSection = () => {
                         {SORTED_SERVICES.map((key, i) => {
                           const isMin = times[i] === minTime
                           const isMax = times[i] === maxTime
-                          return (
-                            <td key={key}>
-                              {isMin ? (
-                                <CellHighlight>
-                                  {formatMs(times[i])}
-                                </CellHighlight>
-                              ) : isMax ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                              ) : (
-                                formatMs(times[i])
-                              )}
-                            </td>
-                          )
+                          let cellContent = formatMs(times[i])
+
+                          if (isMin) {
+                            cellContent = (
+                              <CellHighlight>
+                                {formatMs(times[i])}
+                              </CellHighlight>
+                            )
+                          } else if (isMax) {
+                            cellContent = (
+                              <CellLoser>{formatMs(times[i])}</CellLoser>
+                            )
+                          }
+
+                          return <td key={key}>{cellContent}</td>
                         })}
                       </tr>
                     )
@@ -1373,13 +1377,13 @@ const WhySwitchSection = () => (
             number: '01',
             title: 'A modern API surface, not just query params',
             description:
-              'Screenshot Machine\u2019s API has no support for custom headers, cookies, JS injection, CSS injection, or waiting for a selector. Microlink covers all of these out of the box, so you can capture SPAs, auth-gated pages, and dynamic content without workarounds.'
+              'Screenshot Machine covers the basics well, including cookies plus user-agent and language controls. Microlink still goes further with arbitrary headers, JS injection, CSS injection, and broader browser automation for SPAs, auth-gated pages, and dynamic content.'
           },
           {
             number: '02',
-            title: '2.3\u00d7 more requests, 40%\u00a0less money',
+            title: '2.3\u00d7 more included monthly volume',
             description:
-              'Screenshot Machine Pro: 20,000 screenshots for \u20ac59/month (~$64). Microlink: 46,000 requests for $39. More than double the volume for significantly less spend.'
+              "Screenshot Machine Pro is listed at \u20ac59/month for 20,000 fresh screenshots. Microlink's comparison tier is $39/month for 46,000 requests, which is more than double the included monthly volume on the plan we compare here."
           },
           {
             number: '03',
@@ -1534,6 +1538,10 @@ const HonestySection = () => (
  * Pricing Section
  * --------------------------------------------------------------------------- */
 
+/* Pricing sources:
+ * Screenshot Machine pricing: https://www.screenshotmachine.com/pricing.php
+ * Microlink comparison tier: .cursor/skills/alternative-landing/references/microlink-features.md
+ */
 const PricingSection = () => (
   <Section as='section' id='pricing' css={theme({ py: 5 })}>
     <SectionInner>
@@ -1541,7 +1549,7 @@ const PricingSection = () => (
         css={theme({ pb: [2, 2, 3, 3], fontSize: [4, 4, 5, 5], pt: 3 })}
         titleize={false}
       >
-        More requests. <GradientText>Less money.</GradientText>
+        More requests. <GradientText>Less glue code.</GradientText>
       </Subhead>
       <Caption
         css={theme({
@@ -1551,7 +1559,9 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        Get <b>2.3&times; more</b> volume for 40%&nbsp;less.
+        Compare Microlink's <b>46,000&nbsp;requests</b> at $39/month with
+        Screenshot Machine Pro's <b>20,000&nbsp;fresh screenshots</b> at
+        \u20AC59/month.
       </Caption>
 
       <Flex
@@ -1692,7 +1702,8 @@ const PricingSection = () => (
               'Screenshots and PDF only \u2014 no metadata, previews, or remote\u00a0JS',
               '\u20ac0.003 per additional screenshot',
               'Unlimited impressions from cache (14\u00a0days)',
-              'No custom headers, cookies, or JS injection',
+              'Cookies plus language / user-agent controls',
+              'No custom JS or CSS injection',
               '99.99% uptime SLA'
             ].map(item => (
               <Text
@@ -1776,7 +1787,7 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Switch from Screenshot Machine in minutes
+        Upgrade from Screenshot Machine without rebuilding everything
       </Subhead>
 
       <Caption
@@ -1788,7 +1799,8 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Replace your Screenshot Machine endpoint. Keep your code.
+        Keep the screenshot and PDF workflow you already know. Add broader
+        browser automation only when you need it.
         <br />
         Your first{' '}
         <b css={theme({ color: 'white' })}>50&nbsp;requests/day are free</b> —
@@ -1835,17 +1847,17 @@ const FAQSection = () => (
 
 export const Head = () => (
   <Meta
-    title='Screenshot Machine Alternative — 33% Faster Screenshot API | Microlink'
-    description='Microlink captures screenshots 33% faster than Screenshot Machine on average, gives you 46,000 requests for $39 vs 20,000 for ~$64, and adds metadata, link previews, and built-in antibot tooling. Free to start.'
+    title='Screenshot Machine Alternative for Broader Browser Workflows'
+    description='Screenshot Machine is great for simple screenshots and PDFs. Microlink benchmarks 33% faster on average and adds metadata, link previews, remote JS, and 46,000 requests on its $39 tier.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'Screenshot Machine Alternative — 33% Faster Screenshot API | Microlink',
+        name: 'Screenshot Machine Alternative for Broader Browser Workflows | Microlink',
         description:
-          'Compare Microlink and Screenshot Machine screenshot APIs. Microlink is 33% faster on average — up to 2.3\u00d7 faster on heavy pages — with screenshots, PDF generation, metadata extraction, and more in one API.',
+          'Compare Microlink and Screenshot Machine when your screenshot workflow grows beyond basic captures and PDFs. Microlink is 33% faster on average and adds metadata extraction, link previews, and remote JS in one API.',
         url: 'https://microlink.io/alternative/screenshotmachine',
         mainEntity: {
           '@type': 'SoftwareApplication',
