@@ -21,7 +21,6 @@ import styled, { css } from 'styled-components'
 import React from 'react'
 
 import Box from 'components/elements/Box'
-import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
@@ -892,15 +891,19 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin ? (
-                                <CellHighlight>
-                                  {formatMs(times[i])}
-                                </CellHighlight>
-                              ) : isMax ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                              ) : (
-                                formatMs(times[i])
-                              )}
+                              {isMin
+                                ? (
+                                  <CellHighlight>
+                                    {formatMs(times[i])}
+                                  </CellHighlight>
+                                  )
+                                : isMax
+                                  ? (
+                                    <CellLoser>{formatMs(times[i])}</CellLoser>
+                                    )
+                                  : (
+                                      formatMs(times[i])
+                                    )}
                             </td>
                           )
                         })}

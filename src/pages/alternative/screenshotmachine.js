@@ -21,7 +21,6 @@ import styled, { css } from 'styled-components'
 import React from 'react'
 
 import Box from 'components/elements/Box'
-import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
