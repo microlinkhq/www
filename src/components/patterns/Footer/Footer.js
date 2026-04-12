@@ -70,10 +70,6 @@ const FOOTER_COLUMNS = [
     ]
   },
   {
-    title: 'Comparisons',
-    links: []
-  },
-  {
     title: 'Tools',
     links: [
       { label: 'SDK', href: '/sdk' },
@@ -91,6 +87,16 @@ const FOOTER_COLUMNS = [
         label: 'Animated Screenshot',
         href: '/tools/website-screenshot/animated'
       }
+    ]
+  },
+  {
+    title: 'Comparisons',
+    links: [
+      { label: 'vs ApiFlash', href: '/alternative/apiflash' },
+      { label: 'vs ScreenshotAPI', href: '/alternative/screenshotapi' },
+      { label: 'vs ScreenshotMachine', href: '/alternative/screenshotmachine' },
+      { label: 'vs ScreenshotOne', href: '/alternative/screenshotone' },
+      { label: 'vs Urlbox', href: '/alternative/urlbox' }
     ]
   }
 ]
