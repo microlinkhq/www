@@ -732,8 +732,8 @@ const FAQ_ITEMS = [
           <i>delay</i>, and <i>zoom</i>. Microlink accepts the same capture
           concepts under its own parameter names. Most migrations involve
           updating the API endpoint and key. The{' '}
-          <Link href='/docs/api/parameters/screenshot'>screenshot docs</Link>{' '}
-          cover every parameter with examples.
+          <Link href='/docs/guides/screenshot'>screenshot docs</Link> cover
+          every parameter with examples.
         </div>
         <div>
           Paste your existing code into any LLM and ask it to migrate to
@@ -793,11 +793,10 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Screenshot Machine Pro is listed at \u20AC59/month for
-          20,000&nbsp;fresh screenshots with \u20AC0.003 per extra screenshot.
-          Microlink's comparison tier is $39/month for 46,000&nbsp;requests,
-          which is more than 2&times; the included monthly volume on the plan we
-          compare here.
+          Screenshot Machine Pro is listed at €59/month for 20,000&nbsp;fresh
+          screenshots with €0.003 per extra screenshot. Microlink's comparison
+          tier is &euro;39/month for 46,000&nbsp;requests, which is more than
+          2&times; the included monthly volume on the plan we compare here.
         </div>
         <div>
           Enterprise clients running millions of requests fund the
@@ -806,7 +805,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Screenshot Machine Pro is listed at \u20ac59/month for 20,000 fresh screenshots with \u20ac0.003 per extra screenshot. Microlink's comparison tier is $39/month for 46,000 requests, which is more than 2\u00d7 the included monthly volume on the plan we compare here. Enterprise clients running millions of requests fund the infrastructure."
+    text: "Screenshot Machine Pro is listed at €59/month for 20,000 fresh screenshots with €0.003 per extra screenshot. Microlink's comparison tier is $45/month for 46,000 requests, which is more than 2\u00d7 the included monthly volume on the plan we compare here. Enterprise clients running millions of requests fund the infrastructure."
   },
   {
     question: 'Does Microlink have rate limits?',
@@ -837,14 +836,6 @@ const FAQ_ITEMS = [
           handling through its <i>click</i> and <i>hide</i> selector parameters,
           but it does not advertise a dedicated ad-blocking or cookie-blocking
           rules engine.
-        </div>
-        <div>
-          Use{' '}
-          <Link href='/docs/api/parameters/screenshot/hide'>
-            screenshot.hide
-          </Link>{' '}
-          to remove specific elements by CSS selector &mdash; sticky banners,
-          chat widgets, or any overlay that clutters the capture.
         </div>
       </>
     ),
@@ -1383,7 +1374,7 @@ const WhySwitchSection = () => (
             number: '02',
             title: '2.3\u00d7 more included monthly volume',
             description:
-              "Screenshot Machine Pro is listed at \u20ac59/month for 20,000 fresh screenshots. Microlink's comparison tier is $39/month for 46,000 requests, which is more than double the included monthly volume on the plan we compare here."
+              "Screenshot Machine Pro is listed at €59/month for 20,000 fresh screenshots. Microlink's comparison tier is €39/month for 46,000 requests, which is more than double the included monthly volume on the plan we compare here."
           },
           {
             number: '03',
@@ -1559,9 +1550,9 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        Compare Microlink's <b>46,000&nbsp;requests</b> at $39/month with
+        Compare Microlink's <b>46,000&nbsp;requests</b> at &euro;39/month with
         Screenshot Machine Pro's <b>20,000&nbsp;fresh screenshots</b> at
-        \u20AC59/month.
+        €59/month.
       </Caption>
 
       <Flex
@@ -1605,7 +1596,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $39
+              &euro;39
               <Text
                 as='span'
                 css={theme({
@@ -1635,7 +1626,7 @@ const PricingSection = () => (
                 'No per-minute cap on paid plans',
                 '240+ edge nodes, 99.9%\u00a0SLA',
                 'Open-source core (MIT licensed)',
-                '~$0.00085/request on this tier'
+                '~€0.00085/request on this tier'
               ].map(item => (
                 <Text
                   as='li'
@@ -1652,12 +1643,12 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Button
-                href='/#pricing'
+              <Link
+                href='/screenshot'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
                 <Caps>Start for free</Caps>
-              </Button>
+              </Link>
             </Box>
           </PriceCard>
         </Box>
@@ -1700,7 +1691,7 @@ const PricingSection = () => (
           <Box as='ul' css={theme({ pl: 3, m: 0 })}>
             {[
               'Screenshots and PDF only \u2014 no metadata, previews, or remote\u00a0JS',
-              '\u20ac0.003 per additional screenshot',
+              '€0.003 per additional screenshot',
               'Unlimited impressions from cache (14\u00a0days)',
               'Cookies plus language / user-agent controls',
               'No custom JS or CSS injection',
@@ -1787,8 +1778,20 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Upgrade from Screenshot Machine without rebuilding everything
+        Upgrade without rebuilding everything
       </Subhead>
+
+      <Caption
+        css={theme({
+          color: 'white80',
+          pb: [3, 3, 4, 4],
+          maxWidth: layout.large,
+          fontSize: 3
+        })}
+        titleize={false}
+      >
+        Keep the screenshot and PDF workflow you already know.
+      </Caption>
 
       <Caption
         css={theme({
@@ -1797,11 +1800,7 @@ const CTASection = () => (
           maxWidth: layout.large,
           fontSize: 2
         })}
-        titleize={false}
       >
-        Keep the screenshot and PDF workflow you already know. Add broader
-        browser automation only when you need it.
-        <br />
         Your first{' '}
         <b css={theme({ color: 'white' })}>50&nbsp;requests/day are free</b> —
         no credit card, no commitment.
@@ -1848,7 +1847,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='Screenshot Machine Alternative for Broader Browser Workflows'
-    description='Screenshot Machine is great for simple screenshots and PDFs. Microlink benchmarks 33% faster on average and adds metadata, link previews, remote JS, and 46,000 requests on its $39 tier.'
+    description='Screenshot Machine is great for simple screenshots and PDFs. Microlink benchmarks 33% faster on average and adds metadata, link previews, remote JS, and 46,000 requests on its €39 tier.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[

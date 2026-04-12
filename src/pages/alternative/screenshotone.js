@@ -666,7 +666,7 @@ const Hero = () => (
         })}
         titleize={false}
       >
-        Need a <b>ScreenshotOne alternative</b> for speed-sensitive workloads?
+        Need a <b>ScreenshotOne alternative</b> for speed-sensitive workloads?{' '}
         <b>Microlink</b> benchmarks <b>88% faster on average</b> while still
         covering screenshots, PDFs, metadata, and more from one API.
       </Caption>
@@ -804,8 +804,7 @@ const SpeedSection = () => {
           from a New York server. Both providers were triggered simultaneously,
           the benchmark ran 10&nbsp;times at different hours, the single slowest
           run was dropped to remove outliers, and non-200 responses were
-          excluded. On screenshotone.com itself, Microlink finished in
-          5.5&nbsp;seconds while ScreenshotOne took 12.1&nbsp;seconds.
+          excluded.
         </Text>
 
         <Flex
@@ -875,19 +874,15 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin
-                                ? (
-                                  <CellHighlight>
-                                    {formatMs(times[i])}
-                                  </CellHighlight>
-                                  )
-                                : isMax
-                                  ? (
-                                    <CellLoser>{formatMs(times[i])}</CellLoser>
-                                    )
-                                  : (
-                                      formatMs(times[i])
-                                    )}
+                              {isMin ? (
+                                <CellHighlight>
+                                  {formatMs(times[i])}
+                                </CellHighlight>
+                              ) : isMax ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                              ) : (
+                                formatMs(times[i])
+                              )}
                             </td>
                           )
                         })}
@@ -1149,9 +1144,9 @@ const WhySwitchSection = () => (
           },
           {
             number: '03',
-            title: '4.6x more requests for nearly half the price',
+            title: '4.6× more requests for 43% less',
             description:
-              'ScreenshotOne\u2019s recommended plan: 10,000 screenshots for $79/month. Microlink: 46,000 requests for $39. That\u2019s the volume ScreenshotOne charges $259\u00a0for.'
+              'ScreenshotOne\u2019s recommended plan: 10,000 screenshots for $79/month. Microlink: 46,000 requests for $45. That\u2019s the volume ScreenshotOne charges $259\u00a0for.'
           },
           {
             number: '04',
@@ -1321,7 +1316,7 @@ const PricingSection = () => (
         css={theme({ pb: [2, 2, 3, 3], fontSize: [4, 4, 5, 5], pt: 3 })}
         titleize={false}
       >
-        More requests. <GradientText>Half the price.</GradientText>
+        More requests. <GradientText>Lower price.</GradientText>
       </Subhead>
       <Caption
         css={theme({
@@ -1331,7 +1326,7 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        Get <b>4.6&times; more</b> for nearly half the price.
+        Get <b>4.6&times; more</b> for 43% less.
       </Caption>
 
       <Flex
@@ -1375,7 +1370,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $39
+              $45
               <Text
                 as='span'
                 css={theme({
@@ -1422,12 +1417,12 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Button
-                href='/#pricing'
+              <Link
+                href='/screenshot'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
                 <Caps>Start for free</Caps>
-              </Button>
+              </Link>
             </Box>
           </PriceCard>
         </Box>
@@ -1649,9 +1644,7 @@ const FAQSection = () => (
               Yes. Microlink's screenshot API accepts similar parameters (URL,
               viewport, format, full-page, selectors). Most migrations involve
               updating the API endpoint and key. The{' '}
-              <Link href='/docs/api/parameters/screenshot'>
-                screenshot docs
-              </Link>{' '}
+              <Link href='/docs/guides/screenshot'>screenshot docs</Link>{' '}
               include examples for every parameter.
             </div>
             <div>
@@ -1709,9 +1702,8 @@ const FAQSection = () => (
             <div>
               ScreenshotOne's recommended plan is $79/month for
               10,000&nbsp;screenshots with an 80&nbsp;requests-per-minute cap.
-              Microlink's comparable plan is $39/month for 46,000&nbsp;requests
-              — 4.6x more volume for nearly half the price — with no per-minute
-              rate limit.
+              Microlink's comparable plan is $45/month for 46,000&nbsp;requests
+              — 4.6× more volume for 43% less — with no per-minute rate limit.
             </div>
             <div>
               Microlink can offer lower prices because enterprise clients
@@ -1749,14 +1741,6 @@ const FAQSection = () => (
               <Link href='/docs/api/parameters/adblock'>adblock</Link> and
               custom CSS/JS injection to dismiss consent dialogs before the
               screenshot is taken.
-            </div>
-            <div>
-              You can also use{' '}
-              <Link href='/docs/api/parameters/screenshot/hide'>
-                screenshot.hide
-              </Link>{' '}
-              to remove specific elements by CSS selector — useful for sticky
-              banners, chat widgets, or any overlay that clutters the capture.
             </div>
           </>
         )
@@ -1857,7 +1841,7 @@ export const Head = () => (
             name: 'How much does ScreenshotOne cost compared to Microlink?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "ScreenshotOne's recommended plan is $79/month for 10,000 screenshots with an 80 requests-per-minute cap. Microlink's comparable plan is $39/month for 46,000 requests — 4.6× more volume for nearly half the price — with no per-minute rate limit. Microlink can offer lower prices because enterprise clients running millions of requests a month cover the infrastructure cost."
+              text: "ScreenshotOne's recommended plan is $79/month for 10,000 screenshots with an 80 requests-per-minute cap. Microlink's comparable plan is $45/month for 46,000 requests — 4.6× more volume for 43% less — with no per-minute rate limit. Microlink can offer lower prices because enterprise clients running millions of requests a month cover the infrastructure cost."
             }
           },
           {

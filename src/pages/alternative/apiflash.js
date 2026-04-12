@@ -685,16 +685,16 @@ const FAQ_ITEMS = [
       <>
         <div>
           ApiFlash Medium is $35/month for 10,000 screenshots. Microlink's
-          comparison tier is $39/month for 46,000 requests. That is 4.6&times;
-          more volume for $4 more per month.
+          comparison tier is $45/month for 46,000 requests. That is 4.6&times;
+          more volume for $10 more per month.
         </div>
         <div>
           On a per-request basis, that works out to about $0.0035 for ApiFlash
-          Medium versus about $0.00085 for Microlink's $39 tier.
+          Medium versus about $0.00098 for Microlink's $45 tier.
         </div>
       </>
     ),
-    text: "ApiFlash Medium is $35/month for 10,000 screenshots. Microlink's comparison tier is $39/month for 46,000 requests. That is 4.6× more volume for $4 more per month. On a per-request basis, that works out to about $0.0035 for ApiFlash Medium versus about $0.00085 for Microlink's $39 tier."
+    text: "ApiFlash Medium is $35/month for 10,000 screenshots. Microlink's comparison tier is $45/month for 46,000 requests. That is 4.6× more volume for $10 more per month. On a per-request basis, that works out to about $0.0035 for ApiFlash Medium versus about $0.00098 for Microlink's $45 tier."
   },
   {
     question: 'Can I migrate from ApiFlash urltoimage to Microlink quickly?',
@@ -709,8 +709,8 @@ const FAQ_ITEMS = [
         <div>
           In practice, most migrations are endpoint-and-parameter mapping work,
           not a full rewrite. Start from the{' '}
-          <Link href='/docs/api/parameters/screenshot'>screenshot docs</Link>{' '}
-          and adapt your existing request shape.
+          <Link href='/docs/guides/screenshot'>screenshot docs</Link> and adapt
+          your existing request shape.
         </div>
       </>
     ),
@@ -1305,9 +1305,9 @@ const WhySwitchSection = () => (
           },
           {
             number: '02',
-            title: '4.6× more monthly volume for $4 more',
+            title: '4.6× more monthly volume for $10 more',
             description:
-              'ApiFlash Medium is $35 for 10,000 screenshots. Microlink is $39 for 46,000 requests. If your workload is already moving beyond hobby usage, that price curve changes the economics fast.'
+              'ApiFlash Medium is $35 for 10,000 screenshots. Microlink is $45 for 46,000 requests. If your workload is already moving beyond hobby usage, that price curve changes the economics fast.'
           },
           {
             number: '03',
@@ -1412,11 +1412,6 @@ const HonestySection = () => (
       >
         {[
           {
-            title: 'You only need a simple screenshot API',
-            description:
-              'ApiFlash is built around one job: render a page in Chrome and return an image. If you are not looking for PDF, metadata, previews, or broader browser workflows, that narrower scope can be appealing.'
-          },
-          {
             title: 'You want S3 export built in',
             description:
               'ApiFlash includes Export to S3 on its plans. Microlink does not provide native S3 or cloud-storage upload, so you would need to add that storage step yourself.'
@@ -1490,7 +1485,7 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        Get <b>4.6&times; more</b> monthly volume for $4&nbsp;more.
+        Get <b>4.6&times; more</b> monthly volume for $10&nbsp;more.
       </Caption>
 
       <Flex
@@ -1534,7 +1529,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $39
+              $45
               <Text
                 as='span'
                 css={theme({
@@ -1564,7 +1559,7 @@ const PricingSection = () => (
                 'No per-minute cap on paid plans',
                 '240+ edge nodes, 99.9% SLA',
                 'Open-source core (MIT licensed)',
-                '~$0.00085/request on this tier'
+                '~$0.00098/request on this tier'
               ].map(item => (
                 <Text
                   as='li'
@@ -1581,12 +1576,12 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Button
-                href='/#pricing'
+              <Link
+                href='/screenshot'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
                 <Caps>Start for free</Caps>
-              </Button>
+              </Link>
             </Box>
           </PriceCard>
         </Box>
@@ -1663,7 +1658,7 @@ const PricingSection = () => (
         })}
       >
         This is the cleanest apples-to-apples comparison we found: ApiFlash's
-        Medium plan versus Microlink's $39 tier. The gap is small on monthly
+        Medium plan versus Microlink's $45 tier. The gap is small on monthly
         spend and large on available volume, which is why this page focuses on
         production workloads instead of hobby usage.
       </Text>
@@ -1715,21 +1710,19 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Harden your screenshot pipeline before it bottlenecks
+        Harden your screenshot pipeline
       </Subhead>
 
       <Caption
         css={theme({
           color: 'white80',
+          pt: 3,
           pb: [3, 3, 4, 4],
           maxWidth: layout.large,
-          fontSize: 2
+          fontSize: 3
         })}
         titleize={false}
       >
-        Move latency-sensitive or proxy-heavy jobs first. Keep the rest of your
-        workflow steady while you compare real production traffic.
-        <br />
         Your first{' '}
         <b css={theme({ color: 'white' })}>50&nbsp;requests/day are free</b> —
         no credit card, no commitment.
@@ -1776,7 +1769,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='ApiFlash Alternative for Production Screenshot Workloads'
-    description='Microlink cuts average cold-start latency by 56% vs ApiFlash, gives you 46,000 requests for $39 vs 10,000 for $35, and adds PDF, metadata, previews, and built-in antibot tooling.'
+    description='Microlink cuts average cold-start latency by 56% vs ApiFlash, gives you 46,000 requests for $45 vs 10,000 for $35, and adds PDF, metadata, previews, and built-in antibot tooling.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
@@ -1785,7 +1778,7 @@ export const Head = () => (
         '@type': 'WebPage',
         name: 'ApiFlash Alternative for Production Screenshot Workloads',
         description:
-          'Compare Microlink and ApiFlash for production screenshot workloads. Microlink cuts average cold-start latency by 56%, gives you 46,000 requests for $39 versus 10,000 screenshots for $35, and covers screenshots, PDF, metadata, previews, and remote JS from one API.',
+          'Compare Microlink and ApiFlash for production screenshot workloads. Microlink cuts average cold-start latency by 56%, gives you 46,000 requests for $45 versus 10,000 screenshots for $35, and covers screenshots, PDF, metadata, previews, and remote JS from one API.',
         url: 'https://microlink.io/alternative/apiflash',
         mainEntity: {
           '@type': 'SoftwareApplication',

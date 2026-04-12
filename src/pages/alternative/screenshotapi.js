@@ -911,19 +911,15 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin
-                                ? (
-                                  <CellHighlight>
-                                    {formatMs(times[i])}
-                                  </CellHighlight>
-                                  )
-                                : isMax
-                                  ? (
-                                    <CellLoser>{formatMs(times[i])}</CellLoser>
-                                    )
-                                  : (
-                                      formatMs(times[i])
-                                    )}
+                              {isMin ? (
+                                <CellHighlight>
+                                  {formatMs(times[i])}
+                                </CellHighlight>
+                              ) : isMax ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                              ) : (
+                                formatMs(times[i])
+                              )}
                             </td>
                           )
                         })}
@@ -1185,9 +1181,9 @@ const WhySwitchSection = () => (
           },
           {
             number: '03',
-            title: '4.6\u00d7 more requests for $10\u00a0more',
+            title: '4.6\u00d7 more requests for $16\u00a0more',
             description:
-              'ScreenshotAPI Startup: 10,000 screenshots for $29/month. Microlink: 46,000 requests for $39. Same $10\u00a0more, 4.6\u00d7 the volume, and every request covers screenshots, PDF, metadata, and more.'
+              'ScreenshotAPI Startup: 10,000 screenshots for $29/month. Microlink: 46,000 requests for $45. Just $16\u00a0more, 4.6\u00d7 the volume, and every request covers screenshots, PDF, metadata, and more.'
           },
           {
             number: '04',
@@ -1367,7 +1363,7 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        Get <b>4.6&times; more</b> for just $10&nbsp;more.
+        Get <b>4.6&times; more</b> for just $16&nbsp;more.
       </Caption>
 
       <Flex
@@ -1411,7 +1407,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $39
+              $45
               <Text
                 as='span'
                 css={theme({
@@ -1441,7 +1437,7 @@ const PricingSection = () => (
                 'No rate limit on any paid plan',
                 '240+ edge nodes, 99.9%\u00a0SLA',
                 'Open-source core (MIT licensed)',
-                '$0.00085/request \u2014 10\u00d7 cheaper than ScreenshotAPI\u00a0Essentials'
+                '~$0.00098/request \u2014 9\u00d7 cheaper than ScreenshotAPI\u00a0Essentials'
               ].map(item => (
                 <Text
                   as='li'
@@ -1458,12 +1454,12 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Button
-                href='/#pricing'
+              <Link
+                href='/screenshot'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
                 <Caps>Start for free</Caps>
-              </Button>
+              </Link>
             </Box>
           </PriceCard>
         </Box>
@@ -1592,21 +1588,19 @@ const CTASection = () => (
         })}
         titleize={false}
       >
-        Add metadata and previews without another vendor
+        Bring richer browser outputs into the same integration
       </Subhead>
 
       <Caption
         css={theme({
           color: 'white80',
+          pt: 3,
           pb: [3, 3, 4, 4],
           maxWidth: layout.large,
-          fontSize: 2
+          fontSize: 3
         })}
         titleize={false}
       >
-        Keep screenshots, PDF, bulk capture, and scraping in place. Bring richer
-        browser outputs into the same integration.
-        <br />
         Your first{' '}
         <b css={theme({ color: 'white' })}>50&nbsp;requests/day are free</b> —
         no credit card, no commitment.
@@ -1686,10 +1680,8 @@ const FAQSection = () => (
               <i>full_page</i>. Microlink accepts the same concepts under its
               own parameter names. Change the host and the key, and most
               integrations keep working. The{' '}
-              <Link href='/docs/api/parameters/screenshot'>
-                screenshot docs
-              </Link>{' '}
-              cover every parameter with examples.
+              <Link href='/docs/guides/screenshot'>screenshot docs</Link> cover
+              every parameter with examples.
             </div>
             <div>
               Paste your existing code into any LLM and ask it to migrate to
@@ -1746,12 +1738,12 @@ const FAQSection = () => (
             <div>
               ScreenshotAPI Essentials: $9/month for 1,000&nbsp;screenshots at
               $0.009 each. Startup: $29/month for 10,000 with a 40&nbsp;req/min
-              cap. Microlink: $39/month for 46,000&nbsp;requests at $0.00085
+              cap. Microlink: $45/month for 46,000&nbsp;requests at ~$0.00098
               each, no per-minute cap.
             </div>
             <div>
-              Per request, Microlink is 10.6&times; cheaper than ScreenshotAPI
-              Essentials and 3.4&times; cheaper than Startup. Enterprise clients
+              Per request, Microlink is 9&times; cheaper than ScreenshotAPI
+              Essentials and 3&times; cheaper than Startup. Enterprise clients
               running millions of requests fund the infrastructure, which is how
               indie devs get the same global edge network at these prices.
             </div>
@@ -1786,14 +1778,6 @@ const FAQSection = () => (
               <Link href='/docs/api/parameters/adblock'>adblock</Link> parameter
               and custom CSS/JS injection to dismiss consent dialogs before
               capture.
-            </div>
-            <div>
-              Use{' '}
-              <Link href='/docs/api/parameters/screenshot/hide'>
-                screenshot.hide
-              </Link>{' '}
-              to remove any element by CSS selector, whether that's a sticky
-              banner, a chat widget, or a promo overlay.
             </div>
           </>
         )
@@ -1887,7 +1871,7 @@ export const Head = () => (
             name: 'How does ScreenshotAPI pricing compare to Microlink?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'ScreenshotAPI Startup is $29/month for 10,000 screenshots with a 40 req/min cap. Microlink is $39/month for 46,000 requests at $0.00085 each, with no per-minute rate limit. That is 4.6× more volume for $10 more, and 10.6× cheaper per request than ScreenshotAPI Essentials.'
+              text: 'ScreenshotAPI Startup is $29/month for 10,000 screenshots with a 40 req/min cap. Microlink is $45/month for 46,000 requests at ~$0.00098 each, with no per-minute rate limit. That is 4.6× more volume for $16 more, and 9× cheaper per request than ScreenshotAPI Essentials.'
             }
           },
           {
