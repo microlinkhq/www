@@ -15,17 +15,21 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
   const handleCheckout = async () => {
     setIsLoading(true)
 
-    const { data } = await fetch(`${apiEndpoint}/payment/session`, {
-      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
-      method: 'POST',
-      body: JSON.stringify({
-        planId,
-        successUrl: `${canonicalUrl}/payment?status=success`,
-        cancelUrl: `${canonicalUrl}/payment?status=failed`
-      })
-    }).then(res => res.json())
+    try {
+      const { data } = await fetch(`${apiEndpoint}/payment/session`, {
+        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
+        method: 'POST',
+        body: JSON.stringify({
+          planId,
+          successUrl: `${canonicalUrl}/payment?status=success`,
+          cancelUrl: `${canonicalUrl}/payment?status=failed`
+        })
+      }).then(res => res.json())
 
-    window.location.href = data.url
+      window.location.href = data.url
+    } catch (_) {
+      setIsLoading(false)
+    }
   }
 
   return (

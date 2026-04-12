@@ -312,9 +312,11 @@ const IntroLabel = styled('div')`
   })};
   text-align: center;
   animation: ${fadeIn} 0.4s ease forwards;
+  padding-top: ${({ $compact }) => ($compact ? '20px' : '0')};
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     ${theme({ fontSize: 0, mb: '34px' })};
+    padding-top: ${({ $compact }) => ($compact ? '16px' : '0')};
   }
 `
 
@@ -362,6 +364,7 @@ const LaneRank = styled('span')`
   text-align: center;
   font-variant-numeric: tabular-nums;
   transition: color 0.3s ease;
+  display: ${({ $compact }) => ($compact ? 'none' : 'inline')};
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     display: none;
@@ -369,7 +372,8 @@ const LaneRank = styled('span')`
 `
 
 const LaneName = styled('div')`
-  ${theme({ fontFamily: 'mono', fontSize: 0, width: '150px' })};
+  ${theme({ fontFamily: 'mono', fontSize: 0 })};
+  width: ${({ $compact }) => ($compact ? '110px' : '150px')};
   font-weight: ${({ $isMicrolink }) => ($isMicrolink ? '700' : '500')};
   color: ${({ $isMicrolink }) => ($isMicrolink ? colors.red6 : colors.black)};
   flex-shrink: 0;
@@ -379,7 +383,8 @@ const LaneName = styled('div')`
   text-overflow: ellipsis;
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-    ${theme({ width: '120px', fontSize: 0 })};
+    width: ${({ $compact }) => ($compact ? '90px' : '120px')};
+    ${theme({ fontSize: 0 })};
   }
 `
 
@@ -689,7 +694,8 @@ const RaceContainer = ({
   benchmarkData,
   serviceColors,
   highlightKey,
-  flat = false
+  flat = false,
+  compact = false
 }) => {
   const SERVICES = Object.keys(benchmarkData.results)
   const ALPHABETICAL_SERVICES = [...SERVICES].sort((a, b) =>
@@ -1089,7 +1095,7 @@ const RaceContainer = ({
       <RaceInner ref={innerRef}>
         {(isIntro || phase === 'idle') && (
           <>
-            <IntroLabel>
+            <IntroLabel $compact={compact}>
               Measuring cold-start speed across {SERVICES.length}
               &nbsp;screenshot APIs
             </IntroLabel>
@@ -1104,6 +1110,7 @@ const RaceContainer = ({
                   <LaneRow key={key} $animate $delay={staggerDelay}>
                     <LaneName
                       $isMicrolink={false}
+                      $compact={compact}
                       style={{
                         color: isLit ? colors.black : colors.black10,
                         transition: 'color 0.4s ease'
@@ -1238,8 +1245,12 @@ const RaceContainer = ({
                         : 'none'
                     }}
                   >
-                    <LaneRank $rank={visualIndex}>#{visualIndex + 1}</LaneRank>
-                    <LaneName $isMicrolink={false}>{svc.name}</LaneName>
+                    <LaneRank $rank={visualIndex} $compact={compact}>
+                      #{visualIndex + 1}
+                    </LaneRank>
+                    <LaneName $isMicrolink={false} $compact={compact}>
+                      {svc.name}
+                    </LaneName>
                     <LaneTrack>
                       <LaneBar
                         $isMicrolink={isHighlighted}
