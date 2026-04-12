@@ -1350,8 +1350,129 @@ const SpeedSection = () => {
  * Why Developers Switch
  * --------------------------------------------------------------------------- */
 
+const WHY_SWITCH_ITEMS = [
+  {
+    number: '01',
+    title: 'A modern API surface, not just query params',
+    description: (
+      <>
+        Screenshot Machine covers the basics well, including cookies plus
+        user-agent and language controls. Microlink goes further with{' '}
+        <b>arbitrary headers, JS injection, CSS injection</b>, and broader
+        browser automation for SPAs, auth-gated pages, and dynamic content.
+      </>
+    )
+  },
+  {
+    number: '02',
+    title: '2.3× more included monthly volume',
+    description: (
+      <>
+        Screenshot Machine Pro is listed at <b>€59/month</b> for 20,000 fresh
+        screenshots. Microlink{'\u2019'}s comparison tier is{' '}
+        <b>€39/month for 46,000 requests</b>, which is more than double the
+        included monthly volume.
+      </>
+    )
+  },
+  {
+    number: '03',
+    title: 'One API key, not five',
+    description: (
+      <>
+        Microlink handles screenshots, PDFs, metadata extraction, link previews,
+        and remote JS in <b>a single integration</b>. Screenshot Machine covers
+        screenshots and PDFs only — anything else requires a separate service.
+      </>
+    )
+  },
+  {
+    number: '04',
+    title: '33% faster on cold starts',
+    description: (
+      <>
+        In the March 2026 benchmark, Microlink averaged <b>4,112{'\u2009'}ms</b>{' '}
+        and Screenshot Machine averaged <b>6,100{'\u2009'}ms</b> across 7
+        real-world URLs. On heavy pages, the gap reached <b>2.3×</b>.
+      </>
+    )
+  },
+  {
+    number: '05',
+    title: 'Proxy and antibot\u00a0built\u2011in, zero\u00a0config',
+    description: (
+      <>
+        Microlink <b>auto-rotates residential proxies</b> and detects{' '}
+        <b>30+&nbsp;antibot providers</b> (Cloudflare, DataDome, Akamai
+        {'\u2026'}) on every request. Screenshot Machine does not offer proxy
+        support or antibot&nbsp;detection.
+      </>
+    )
+  },
+  {
+    number: '06',
+    title: 'Open-source, fully auditable',
+    description: (
+      <>
+        Metascraper, MQL, and Browserless are <b>MIT-licensed</b>. Inspect the
+        core engine, fork it, or self-host.{' '}
+        <b>No black boxes, no vendor lock-in</b> — Screenshot Machine is
+        closed-source with no way to audit what runs against your&nbsp;URLs.
+      </>
+    )
+  }
+]
+
+const WhySwitchTimeline = styled(Flex)`
+  position: relative;
+  ${theme({
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  })}
+`
+
+const WhySwitchItem = styled(Flex)`
+  ${theme({
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    gap: 0
+  })}
+`
+
+const WhySwitchRail = styled('div')`
+  ${theme({ flexShrink: 0, position: 'relative', mr: [3, 3, 4, 4] })}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 32px;
+
+  @media (min-width: ${breakpoints[1]}) {
+    width: 40px;
+  }
+`
+
+const WhySwitchConnector = styled('div')`
+  width: 1px;
+  flex: 1;
+  ${theme({ bg: 'black10', mt: 2, mb: 2 })}
+`
+
+const WhySwitchNumber = styled(Text)`
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: [3, 3, 4, 4],
+    fontWeight: 'bold',
+    lineHeight: 0,
+    flexShrink: 0
+  })}
+  ${css`
+    ${textGradient}
+  `}
+  opacity: 0.90;
+`
+
 const WhySwitchSection = () => (
-  <Section as='section' id='why-switch' css={theme({ bg: 'gray0' })}>
+  <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead
         css={theme({ color: 'black', pb: [1, 2, 2, 2] })}
@@ -1370,97 +1491,54 @@ const WhySwitchSection = () => (
         The top reasons teams move from Screenshot Machine to Microlink.
       </Caption>
 
-      <Flex
+      <WhySwitchTimeline
         css={theme({
-          flexDirection: ['column', 'column', 'row', 'row'],
-          gap: [3, 3, 4, 4],
           width: '100%',
-          maxWidth: layout.large,
-          flexWrap: 'wrap',
-          justifyContent: 'center'
+          maxWidth: layout.normal,
+          mx: 'auto'
         })}
       >
-        {[
-          {
-            number: '01',
-            title: 'A modern API surface, not just query params',
-            description:
-              'Screenshot Machine covers the basics well, including cookies plus user-agent and language controls. Microlink still goes further with arbitrary headers, JS injection, CSS injection, and broader browser automation for SPAs, auth-gated pages, and dynamic content.'
-          },
-          {
-            number: '02',
-            title: '2.3\u00d7 more included monthly volume',
-            description:
-              "Screenshot Machine Pro is listed at €59/month for 20,000 fresh screenshots. Microlink's comparison tier is €39/month for 46,000 requests, which is more than double the included monthly volume on the plan we compare here."
-          },
-          {
-            number: '03',
-            title: 'One API key, not five',
-            description:
-              'Microlink handles screenshots, PDFs, metadata extraction, link previews, and remote JS in a single integration. Screenshot Machine covers screenshots and PDFs only \u2014 anything else requires a separate service.'
-          },
-          {
-            number: '04',
-            title: '33% faster on cold starts',
-            description:
-              'In the March 2026 benchmark, Microlink averaged 4,112\u2009ms and Screenshot Machine averaged 6,100\u2009ms across 7 real-world URLs. On heavy pages like screenshotone.com, the gap reached 2.3\u00d7.'
-          },
-          {
-            number: '05',
-            title: 'Proxy and antibot\u00a0built\u2011in, zero\u00a0config',
-            description:
-              'Microlink auto-rotates residential proxies and detects 30+\u00a0antibot providers (Cloudflare, DataDome, Akamai\u2026) on every request. Screenshot Machine does not offer proxy support or antibot\u00a0detection.'
-          },
-          {
-            number: '06',
-            title: 'Open-source, fully auditable',
-            description:
-              'Metascraper, MQL, and Browserless are MIT-licensed. Inspect the core engine, fork it, or self-host. Screenshot Machine is closed-source with no way to audit what runs against your\u00a0URLs.'
-          }
-        ].map(({ number, title, description }) => (
-          <Flex
-            key={number}
-            css={theme({
-              flexDirection: 'column',
-              p: 4,
-              borderRadius: 3,
-              border: 1,
-              borderColor: 'black05',
-              bg: 'white',
-              boxShadow: `0 1px 3px ${colors.black05}`,
-              width: ['100%', '100%', 'calc(50% - 16px)', 'calc(50% - 16px)'],
-              minWidth: '280px'
-            })}
-          >
-            <Text
-              css={theme({
-                fontFamily: 'mono',
-                fontSize: '14px',
-                color: 'black30',
-                pb: 2
-              })}
-            >
-              {number}
-            </Text>
-            <Text
-              css={theme({
-                fontWeight: 'bold',
-                fontSize: [2, 2, 3, 3],
-                color: 'black',
-                pb: 2,
-                lineHeight: 1
-              })}
-            >
-              {title}
-            </Text>
-            <Text
-              css={theme({ fontSize: '18px', color: 'black60', lineHeight: 2 })}
-            >
-              {description}
-            </Text>
-          </Flex>
-        ))}
-      </Flex>
+        {WHY_SWITCH_ITEMS.map(({ number, title, description }, index) => {
+          const isLast = index === WHY_SWITCH_ITEMS.length - 1
+          return (
+            <WhySwitchItem key={number}>
+              <WhySwitchRail>
+                <WhySwitchNumber aria-hidden='true'>{number}</WhySwitchNumber>
+                {!isLast && <WhySwitchConnector />}
+              </WhySwitchRail>
+              <Box
+                css={theme({
+                  flex: 1,
+                  minWidth: 0,
+                  pb: isLast ? 0 : [3, 3, 4, 4]
+                })}
+              >
+                <Text
+                  css={theme({
+                    fontWeight: 'bold',
+                    fontSize: [2, 2, 3, 3],
+                    color: 'black',
+                    pb: 2,
+                    lineHeight: 1
+                  })}
+                >
+                  {title}
+                </Text>
+                <Text
+                  css={theme({
+                    fontSize: [1, 1, 2, 2],
+                    color: 'black90',
+                    lineHeight: 2,
+                    maxWidth: '40em'
+                  })}
+                >
+                  {description}
+                </Text>
+              </Box>
+            </WhySwitchItem>
+          )
+        })}
+      </WhySwitchTimeline>
     </SectionInner>
   </Section>
 )
@@ -1469,11 +1547,34 @@ const WhySwitchSection = () => (
  * Where Screenshot Machine Might Be Right
  * --------------------------------------------------------------------------- */
 
+const HONESTY_ITEMS = [
+  {
+    title: 'The simplest possible API',
+    description:
+      'Screenshot Machine\u2019s API is a single GET endpoint with a handful of parameters. If you only need basic screenshots and PDFs with no advanced browser control, that simplicity is genuinely\u00a0appealing.'
+  },
+  {
+    title: 'Region cropping built in',
+    description:
+      'Screenshot Machine lets you crop a specific rectangle (x, y, width, height) from the viewport in a single API call. Microlink captures full viewports or CSS-selected elements, but does not have built-in pixel-coordinate\u00a0cropping.'
+  },
+  {
+    title: 'Free cached impressions',
+    description:
+      'Screenshot Machine caches screenshots for up to 14\u00a0days and serves cached impressions at no cost. If your use case involves hot-linking the same URLs repeatedly, that caching model can save\u00a0money.'
+  },
+  {
+    title: 'GIF output directly from the API',
+    description:
+      'Screenshot Machine supports GIF as a direct output format alongside JPG and PNG.'
+  }
+]
+
 const HonestySection = () => (
   <Section
     as='section'
     id='screenshotmachine-strengths'
-    css={theme({ background: colors.gray0, px: 5, pt: 5, pb: 6 })}
+    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 5 })}
   >
     <SectionInner>
       <Subhead
@@ -1486,57 +1587,62 @@ const HonestySection = () => (
 
       <Box
         css={theme({
-          display: 'grid',
-          gridTemplateColumns: ['1fr', '1fr 1fr', '1fr 1fr', '1fr 1fr'],
-          gap: 3,
           maxWidth: layout.normal,
           width: '100%',
           mx: 'auto'
         })}
       >
-        {[
-          {
-            title: 'You want the simplest possible API',
-            description:
-              'Screenshot Machine\u2019s API is a single GET endpoint with a handful of parameters. If you only need basic screenshots and PDFs with no advanced browser control, that simplicity is genuinely\u00a0appealing.'
-          },
-          {
-            title: 'You need region cropping built in',
-            description:
-              'Screenshot Machine lets you crop a specific rectangle (x, y, width, height) from the viewport in a single API call. Microlink captures full viewports or CSS-selected elements, but does not have built-in pixel-coordinate\u00a0cropping.'
-          },
-          {
-            title: 'You rely on cached impressions being free',
-            description:
-              'Screenshot Machine caches screenshots for up to 14\u00a0days and serves cached impressions at no cost. If your use case involves hot-linking the same URLs repeatedly, that caching model can save\u00a0money.'
-          },
-          {
-            title: 'You need GIF output directly from the API',
-            description:
-              'Screenshot Machine supports GIF as a direct output format alongside JPG and PNG. Microlink supports animated GIF capture but focuses on JPG, PNG, and WebP for still\u00a0screenshots.'
-          }
-        ].map(({ title, description }) => (
-          <Flex
-            key={title}
-            css={theme({
-              p: [3, 4, 4, 4],
-              borderRadius: 3,
-              border: 1,
-              borderColor: 'black10',
-              flexDirection: 'column',
-              bg: 'white'
-            })}
-          >
-            <Text
-              css={theme({ fontWeight: 'bold', fontSize: [1, 1, 2, 2], pb: 2 })}
+        {HONESTY_ITEMS.map(({ title, description }, index) => {
+          const isLast = index === HONESTY_ITEMS.length - 1
+          return (
+            <Flex
+              key={title}
+              css={theme({
+                flexDirection: 'row',
+                alignItems: 'baseline',
+                py: [3, 3, 3, 3],
+                borderBottom: isLast ? 0 : 1,
+                borderBottomColor: 'black05'
+              })}
             >
-              {title}
-            </Text>
-            <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-              {description}
-            </Text>
-          </Flex>
-        ))}
+              <Text
+                css={theme({
+                  fontFamily: 'mono',
+                  fontSize: 0,
+                  color: 'black20',
+                  flexShrink: 0,
+                  mr: [3, 3, 4, 4],
+                  minWidth: '24px'
+                })}
+                aria-hidden='true'
+              >
+                {String(index + 1).padStart(2, '0')}
+              </Text>
+              <Box css={theme({ flex: 1, minWidth: 0 })}>
+                <Text
+                  css={theme({
+                    fontWeight: 'bold',
+                    fontSize: [1, 1, 2, 2],
+                    color: 'black',
+                    pb: 1
+                  })}
+                >
+                  {title}
+                </Text>
+                <Text
+                  css={theme({
+                    fontSize: [0, 0, 1, 1],
+                    color: 'black50',
+                    lineHeight: 2,
+                    maxWidth: '40em'
+                  })}
+                >
+                  {description}
+                </Text>
+              </Box>
+            </Flex>
+          )
+        })}
       </Box>
     </SectionInner>
   </Section>

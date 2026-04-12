@@ -1090,19 +1090,15 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin
-                                ? (
-                                  <CellHighlight>
-                                    {formatMs(times[i])}
-                                  </CellHighlight>
-                                  )
-                                : isMax
-                                  ? (
-                                    <CellLoser>{formatMs(times[i])}</CellLoser>
-                                    )
-                                  : (
-                                      formatMs(times[i])
-                                    )}
+                              {isMin ? (
+                                <CellHighlight>
+                                  {formatMs(times[i])}
+                                </CellHighlight>
+                              ) : isMax ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                              ) : (
+                                formatMs(times[i])
+                              )}
                             </td>
                           )
                         })}
@@ -1319,8 +1315,127 @@ const SpeedSection = () => {
  * Why Developers Switch
  * --------------------------------------------------------------------------- */
 
+const WHY_SWITCH_ITEMS = [
+  {
+    number: '01',
+    title: '9.2× more requests, $4\u00a0less',
+    description: (
+      <>
+        Urlbox Hi-Fi: 5,000 renders for <b>$49/month</b>. Microlink:{' '}
+        <b>46,000 requests for $45</b>. That{'\u2019'}s the volume Urlbox
+        charges $498&nbsp;for on its Business plan.
+      </>
+    )
+  },
+  {
+    number: '02',
+    title: 'API latency compounds at scale',
+    description: (
+      <>
+        At 100k screenshots/month, saving ~3.2{'\u2009'}s per request recovers
+        over <b>88&nbsp;hours of pipeline time</b>. Microlink is{' '}
+        <b>44% faster on average</b> — and up to <b>2.4× faster</b> on heavy
+        DOMs like vercel.com.
+      </>
+    )
+  },
+  {
+    number: '03',
+    title: 'One API key, not five',
+    description: (
+      <>
+        Microlink handles screenshots, PDFs, metadata extraction, link previews,
+        and remote JS in <b>a single integration</b>. One bill, one set of docs,{' '}
+        <b>no glue code</b> between services.
+      </>
+    )
+  },
+  {
+    number: '04',
+    title: 'A free tier that never expires',
+    description: (
+      <>
+        Microlink gives you <b>50 requests/day</b> with no credit card and no
+        time limit. Urlbox only offers a <b>7-day trial</b> — after that, you
+        {'\u2019'}re on a paid plan or locked out.
+      </>
+    )
+  },
+  {
+    number: '05',
+    title: 'Proxy and antibot\u00a0built\u2011in, zero\u00a0config',
+    description: (
+      <>
+        Microlink <b>auto-rotates residential proxies</b> and detects{' '}
+        <b>30+&nbsp;antibot providers</b> (Cloudflare, DataDome, Akamai
+        {'\u2026'}) on every request. Urlbox supports custom proxies but does
+        not include built-in rotating&nbsp;proxies.
+      </>
+    )
+  },
+  {
+    number: '06',
+    title: 'Open-source, fully auditable',
+    description: (
+      <>
+        Metascraper, MQL, and Browserless are <b>MIT-licensed</b>. Inspect the
+        core engine, fork it, or self-host.{' '}
+        <b>No black boxes, no vendor lock-in</b> — just code you can&nbsp;read.
+      </>
+    )
+  }
+]
+
+const WhySwitchTimeline = styled(Flex)`
+  position: relative;
+  ${theme({
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  })}
+`
+
+const WhySwitchItem = styled(Flex)`
+  ${theme({
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    gap: 0
+  })}
+`
+
+const WhySwitchRail = styled('div')`
+  ${theme({ flexShrink: 0, position: 'relative', mr: [3, 3, 4, 4] })}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 32px;
+
+  @media (min-width: ${breakpoints[1]}) {
+    width: 40px;
+  }
+`
+
+const WhySwitchConnector = styled('div')`
+  width: 1px;
+  flex: 1;
+  ${theme({ bg: 'black10', mt: 2, mb: 2 })}
+`
+
+const WhySwitchNumber = styled(Text)`
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: [3, 3, 4, 4],
+    fontWeight: 'bold',
+    lineHeight: 0,
+    flexShrink: 0
+  })}
+  ${css`
+    ${textGradient}
+  `}
+  opacity: 0.90;
+`
+
 const WhySwitchSection = () => (
-  <Section as='section' id='why-switch' css={theme({ bg: 'gray0' })}>
+  <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead
         css={theme({ color: 'black', pb: [1, 2, 2, 2] })}
@@ -1339,97 +1454,54 @@ const WhySwitchSection = () => (
         The top reasons teams move from Urlbox to Microlink.
       </Caption>
 
-      <Flex
+      <WhySwitchTimeline
         css={theme({
-          flexDirection: ['column', 'column', 'row', 'row'],
-          gap: [3, 3, 4, 4],
           width: '100%',
-          maxWidth: layout.large,
-          flexWrap: 'wrap',
-          justifyContent: 'center'
+          maxWidth: layout.normal,
+          mx: 'auto'
         })}
       >
-        {[
-          {
-            number: '01',
-            title: '9.2\u00d7 more requests, $4\u00a0less',
-            description:
-              "Urlbox Hi-Fi: 5,000 renders for $49/month. Microlink: 46,000 requests for $45. That's the volume Urlbox charges $498\u00a0for on its Business plan."
-          },
-          {
-            number: '02',
-            title: 'API latency compounds at scale',
-            description:
-              'At 100k screenshots/month, saving ~3.2\u2009s per request recovers over 88\u00a0hours of pipeline time. Microlink is 44% faster on average — and up to 2.4\u00d7 faster on heavy DOMs like vercel.com.'
-          },
-          {
-            number: '03',
-            title: 'One API key, not five',
-            description:
-              'Microlink handles screenshots, PDFs, metadata extraction, link previews, and remote JS in a single integration. One bill, one set of docs, no glue code between services.'
-          },
-          {
-            number: '04',
-            title: 'A free tier that never expires',
-            description:
-              "Microlink gives you 50 requests/day with no credit card and no time limit. Urlbox only offers a 7-day trial — after that, you're on a paid plan or locked out."
-          },
-          {
-            number: '05',
-            title: 'Proxy and antibot\u00a0built\u2011in, zero\u00a0config',
-            description:
-              'Microlink auto-rotates residential proxies and detects 30+\u00a0antibot providers (Cloudflare, DataDome, Akamai\u2026) on every request. Urlbox supports custom proxies but does not include built-in rotating\u00a0proxies.'
-          },
-          {
-            number: '06',
-            title: 'Open-source, fully auditable',
-            description:
-              'Metascraper, MQL, and Browserless are MIT-licensed. Inspect the core engine, fork it, or self-host. No black boxes, no vendor lock-in — just code you can\u00a0read.'
-          }
-        ].map(({ number, title, description }) => (
-          <Flex
-            key={number}
-            css={theme({
-              flexDirection: 'column',
-              p: 4,
-              borderRadius: 3,
-              border: 1,
-              borderColor: 'black05',
-              bg: 'white',
-              boxShadow: `0 1px 3px ${colors.black05}`,
-              width: ['100%', '100%', 'calc(50% - 16px)', 'calc(50% - 16px)'],
-              minWidth: '280px'
-            })}
-          >
-            <Text
-              css={theme({
-                fontFamily: 'mono',
-                fontSize: '14px',
-                color: 'black30',
-                pb: 2
-              })}
-            >
-              {number}
-            </Text>
-            <Text
-              css={theme({
-                fontWeight: 'bold',
-                fontSize: [2, 2, 3, 3],
-                color: 'black',
-                pb: 2,
-                lineHeight: 1
-              })}
-            >
-              {title}
-            </Text>
-            <Text
-              css={theme({ fontSize: '18px', color: 'black60', lineHeight: 2 })}
-            >
-              {description}
-            </Text>
-          </Flex>
-        ))}
-      </Flex>
+        {WHY_SWITCH_ITEMS.map(({ number, title, description }, index) => {
+          const isLast = index === WHY_SWITCH_ITEMS.length - 1
+          return (
+            <WhySwitchItem key={number}>
+              <WhySwitchRail>
+                <WhySwitchNumber aria-hidden='true'>{number}</WhySwitchNumber>
+                {!isLast && <WhySwitchConnector />}
+              </WhySwitchRail>
+              <Box
+                css={theme({
+                  flex: 1,
+                  minWidth: 0,
+                  pb: isLast ? 0 : [3, 3, 4, 4]
+                })}
+              >
+                <Text
+                  css={theme({
+                    fontWeight: 'bold',
+                    fontSize: [2, 2, 3, 3],
+                    color: 'black',
+                    pb: 2,
+                    lineHeight: 1
+                  })}
+                >
+                  {title}
+                </Text>
+                <Text
+                  css={theme({
+                    fontSize: [1, 1, 2, 2],
+                    color: 'black90',
+                    lineHeight: 2,
+                    maxWidth: '40em'
+                  })}
+                >
+                  {description}
+                </Text>
+              </Box>
+            </WhySwitchItem>
+          )
+        })}
+      </WhySwitchTimeline>
     </SectionInner>
   </Section>
 )
@@ -1438,11 +1510,44 @@ const WhySwitchSection = () => (
  * Where Urlbox Might Be Right
  * --------------------------------------------------------------------------- */
 
+const HONESTY_ITEMS = [
+  {
+    title: 'GPU rendering',
+    description:
+      'Urlbox offers built-in GPU rendering for sites that rely on WebGL, Canvas, or heavy 3D scenes. Microlink supports GPU rendering on demand but does not include it by\u00a0default.'
+  },
+  {
+    title: 'LLM-powered screenshot analysis',
+    description:
+      'Urlbox integrates with OpenAI, Anthropic, Google AI, and more — analyze a screenshot with an LLM prompt in a single API call. Microlink does not have built-in LLM\u00a0integration.'
+  },
+  {
+    title: 'Screenshots sent to your own bucket',
+    description:
+      'Urlbox documents cloud-storage workflows for S3-compatible storage, with newer Azure Blob and Google Cloud options carrying plan and configuration nuance. Microlink returns the image in the API response and does not include native storage upload.'
+  },
+  {
+    title: 'Bulk screenshots from a dashboard',
+    description:
+      "Urlbox's CaptureDeck tool lets you upload CSVs or paste URL lists and download zip archives without writing code. For recurring captures, Urlbox documents Zapier-driven automation flows. Microlink is API-first and does not have a bulk dashboard."
+  },
+  {
+    title: 'SOC 2 compliance',
+    description:
+      'Urlbox has started its SOC 2 Type 2 audit and published a Trust Center. If SOC 2 is a hard requirement in your buying process, Urlbox is further along on that\u00a0path.'
+  },
+  {
+    title: 'SVG or scrolling video output',
+    description:
+      'Urlbox can output SVG images and record scrolling videos (WebM/MP4/GIF) of page content. Microlink supports video and GIF but does not produce SVG or scrolling video\u00a0captures.'
+  }
+]
+
 const HonestySection = () => (
   <Section
     as='section'
     id='urlbox-strengths'
-    css={theme({ background: colors.gray0, px: 5, pt: 5, pb: 6 })}
+    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
   >
     <SectionInner>
       <Subhead
@@ -1455,67 +1560,62 @@ const HonestySection = () => (
 
       <Box
         css={theme({
-          display: 'grid',
-          gridTemplateColumns: ['1fr', '1fr 1fr', '1fr 1fr', '1fr 1fr'],
-          gap: 3,
           maxWidth: layout.normal,
           width: '100%',
           mx: 'auto'
         })}
       >
-        {[
-          {
-            title: 'You need GPU rendering',
-            description:
-              'Urlbox offers built-in GPU rendering for sites that rely on WebGL, Canvas, or heavy 3D scenes. Microlink supports GPU rendering on demand but does not include it by\u00a0default.'
-          },
-          {
-            title: 'You want LLM-powered screenshot analysis',
-            description:
-              'Urlbox integrates with OpenAI, Anthropic, Google AI, and more — analyze a screenshot with an LLM prompt in a single API call. Microlink does not have built-in LLM\u00a0integration.'
-          },
-          {
-            title: 'You need screenshots sent to your own bucket',
-            description:
-              'Urlbox documents cloud-storage workflows for S3-compatible storage, with newer Azure Blob and Google Cloud options carrying plan and configuration nuance. Microlink returns the image in the API response and does not include native storage upload.'
-          },
-          {
-            title: 'Bulk screenshots from a dashboard',
-            description:
-              "Urlbox's CaptureDeck tool lets you upload CSVs or paste URL lists and download zip archives without writing code. For recurring captures, Urlbox documents Zapier-driven automation flows. Microlink is API-first and does not have a bulk dashboard."
-          },
-          {
-            title: 'SOC 2 compliance matters to your procurement team',
-            description:
-              'Urlbox has started its SOC 2 Type 2 audit and published a Trust Center. If SOC 2 is a hard requirement in your buying process, Urlbox is further along on that\u00a0path.'
-          },
-          {
-            title: 'You need SVG or scrolling video output',
-            description:
-              'Urlbox can output SVG images and record scrolling videos (WebM/MP4/GIF) of page content. Microlink supports video and GIF but does not produce SVG or scrolling video\u00a0captures.'
-          }
-        ].map(({ title, description }) => (
-          <Flex
-            key={title}
-            css={theme({
-              p: [3, 4, 4, 4],
-              borderRadius: 3,
-              border: 1,
-              borderColor: 'black10',
-              flexDirection: 'column',
-              bg: 'white'
-            })}
-          >
-            <Text
-              css={theme({ fontWeight: 'bold', fontSize: [1, 1, 2, 2], pb: 2 })}
+        {HONESTY_ITEMS.map(({ title, description }, index) => {
+          const isLast = index === HONESTY_ITEMS.length - 1
+          return (
+            <Flex
+              key={title}
+              css={theme({
+                flexDirection: 'row',
+                alignItems: 'baseline',
+                py: [3, 3, 3, 3],
+                borderBottom: isLast ? 0 : 1,
+                borderBottomColor: 'black05'
+              })}
             >
-              {title}
-            </Text>
-            <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-              {description}
-            </Text>
-          </Flex>
-        ))}
+              <Text
+                css={theme({
+                  fontFamily: 'mono',
+                  fontSize: 0,
+                  color: 'black20',
+                  flexShrink: 0,
+                  mr: [3, 3, 4, 4],
+                  minWidth: '24px'
+                })}
+                aria-hidden='true'
+              >
+                {String(index + 1).padStart(2, '0')}
+              </Text>
+              <Box css={theme({ flex: 1, minWidth: 0 })}>
+                <Text
+                  css={theme({
+                    fontWeight: 'bold',
+                    fontSize: [1, 1, 2, 2],
+                    color: 'black',
+                    pb: 1
+                  })}
+                >
+                  {title}
+                </Text>
+                <Text
+                  css={theme({
+                    fontSize: [0, 0, 1, 1],
+                    color: 'black50',
+                    lineHeight: 2,
+                    maxWidth: '40em'
+                  })}
+                >
+                  {description}
+                </Text>
+              </Box>
+            </Flex>
+          )
+        })}
       </Box>
     </SectionInner>
   </Section>

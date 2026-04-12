@@ -928,19 +928,15 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin
-                                ? (
-                                  <CellHighlight>
-                                    {formatMs(times[i])}
-                                  </CellHighlight>
-                                  )
-                                : isMax
-                                  ? (
-                                    <CellLoser>{formatMs(times[i])}</CellLoser>
-                                    )
-                                  : (
-                                      formatMs(times[i])
-                                    )}
+                              {isMin ? (
+                                <CellHighlight>
+                                  {formatMs(times[i])}
+                                </CellHighlight>
+                              ) : isMax ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                              ) : (
+                                formatMs(times[i])
+                              )}
                             </td>
                           )
                         })}
@@ -1157,8 +1153,126 @@ const SpeedSection = () => {
  * Why Developers Switch
  * --------------------------------------------------------------------------- */
 
+const WHY_SWITCH_ITEMS = [
+  {
+    number: '01',
+    title: 'Latency compounds at scale',
+    description: (
+      <>
+        At 100k screenshots/month, <b>1.9{'\u2009'}s saved per request</b> adds
+        up to <b>53&nbsp;hours</b> of recovered pipeline time. Microlink is{' '}
+        <b>33% faster on average</b>, up to 4× faster on simple pages.
+      </>
+    )
+  },
+  {
+    number: '02',
+    title: 'One API key, not five',
+    description: (
+      <>
+        Screenshots, PDFs, metadata extraction, link previews, and remote JS in{' '}
+        <b>one integration</b>. One bill, one set of docs, <b>no glue code</b>.
+      </>
+    )
+  },
+  {
+    number: '03',
+    title: '4.6× more requests for $16\u00a0more',
+    description: (
+      <>
+        ScreenshotAPI Startup: 10,000 screenshots for <b>$29/month</b>.
+        Microlink: <b>46,000 requests for $45</b>. Just $16&nbsp;more, 4.6× the
+        volume, and every request covers screenshots, PDF, metadata, and more.
+      </>
+    )
+  },
+  {
+    number: '04',
+    title: 'Open source, fully auditable',
+    description: (
+      <>
+        Metascraper, MQL, and Browserless are <b>MIT-licensed</b> on GitHub.
+        Read the code, fork it, or self-host. ScreenshotAPI is closed-source,
+        with <b>no way to inspect</b> what runs against your&nbsp;URLs.
+      </>
+    )
+  },
+  {
+    number: '05',
+    title: 'Proxy and antibot\u00a0built\u2011in, zero\u00a0config',
+    description: (
+      <>
+        Microlink <b>auto-rotates residential proxies</b> and detects{' '}
+        <b>30+&nbsp;antibot providers</b> (Cloudflare, DataDome, Akamai
+        {'\u2026'}) on every request. No middleware, no extra parameter — make a
+        query and it just&nbsp;works.
+      </>
+    )
+  },
+  {
+    number: '06',
+    title: 'Marketing-ready screenshots in one call',
+    description: (
+      <>
+        <b>screenshot.overlay</b> wraps any capture in a browser chrome frame
+        with a custom gradient or image background.{' '}
+        <b>Presentation-ready visuals</b> straight from the API, no
+        Figma&nbsp;needed.
+      </>
+    )
+  }
+]
+
+const WhySwitchTimeline = styled(Flex)`
+  position: relative;
+  ${theme({
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  })}
+`
+
+const WhySwitchItem = styled(Flex)`
+  ${theme({
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    gap: 0
+  })}
+`
+
+const WhySwitchRail = styled('div')`
+  ${theme({ flexShrink: 0, position: 'relative', mr: [3, 3, 4, 4] })}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 32px;
+
+  @media (min-width: ${breakpoints[1]}) {
+    width: 40px;
+  }
+`
+
+const WhySwitchConnector = styled('div')`
+  width: 1px;
+  flex: 1;
+  ${theme({ bg: 'black10', mt: 2, mb: 2 })}
+`
+
+const WhySwitchNumber = styled(Text)`
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: [3, 3, 4, 4],
+    fontWeight: 'bold',
+    lineHeight: 0,
+    flexShrink: 0
+  })}
+  ${css`
+    ${textGradient}
+  `}
+  opacity: 0.90;
+`
+
 const WhySwitchSection = () => (
-  <Section as='section' id='why-switch' css={theme({ bg: 'gray0' })}>
+  <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead
         css={theme({ color: 'black', pb: [1, 2, 2, 2] })}
@@ -1177,97 +1291,54 @@ const WhySwitchSection = () => (
         The top reasons teams move from ScreenshotAPI to Microlink.
       </Caption>
 
-      <Flex
+      <WhySwitchTimeline
         css={theme({
-          flexDirection: ['column', 'column', 'row', 'row'],
-          gap: [3, 3, 4, 4],
           width: '100%',
-          maxWidth: layout.large,
-          flexWrap: 'wrap',
-          justifyContent: 'center'
+          maxWidth: layout.normal,
+          mx: 'auto'
         })}
       >
-        {[
-          {
-            number: '01',
-            title: 'Latency compounds at scale',
-            description:
-              'At 100k screenshots/month, 1.9\u2009s saved per request adds up to 53\u00a0hours of recovered pipeline time. Microlink is 33% faster on average, up to 4\u00d7 faster on simple pages.'
-          },
-          {
-            number: '02',
-            title: 'One API key, not five',
-            description:
-              'Screenshots, PDFs, metadata extraction, link previews, and remote JS in one integration. One bill, one set of docs, no glue code.'
-          },
-          {
-            number: '03',
-            title: '4.6\u00d7 more requests for $16\u00a0more',
-            description:
-              'ScreenshotAPI Startup: 10,000 screenshots for $29/month. Microlink: 46,000 requests for $45. Just $16\u00a0more, 4.6\u00d7 the volume, and every request covers screenshots, PDF, metadata, and more.'
-          },
-          {
-            number: '04',
-            title: 'Open source, fully auditable',
-            description:
-              'Metascraper, MQL, and Browserless are MIT-licensed on GitHub. Read the code, fork it, or self-host. ScreenshotAPI is closed-source, with no way to inspect what runs against your\u00a0URLs.'
-          },
-          {
-            number: '05',
-            title: 'Proxy and antibot\u00a0built\u2011in, zero\u00a0config',
-            description:
-              'Microlink auto-rotates residential proxies and detects 30+\u00a0antibot providers (Cloudflare, DataDome, Akamai\u2026) on every request. No middleware, no extra parameter \u2014 make a query and it just\u00a0works.'
-          },
-          {
-            number: '06',
-            title: 'Marketing-ready screenshots in one call',
-            description:
-              'screenshot.overlay wraps any capture in a browser chrome frame with a custom gradient or image background. Presentation-ready visuals straight from the API, no Figma\u00a0needed.'
-          }
-        ].map(({ number, title, description }) => (
-          <Flex
-            key={number}
-            css={theme({
-              flexDirection: 'column',
-              p: 4,
-              borderRadius: 3,
-              border: 1,
-              borderColor: 'black05',
-              bg: 'white',
-              boxShadow: `0 1px 3px ${colors.black05}`,
-              width: ['100%', '100%', 'calc(50% - 16px)', 'calc(50% - 16px)'],
-              minWidth: '280px'
-            })}
-          >
-            <Text
-              css={theme({
-                fontFamily: 'mono',
-                fontSize: '14px',
-                color: 'black30',
-                pb: 2
-              })}
-            >
-              {number}
-            </Text>
-            <Text
-              css={theme({
-                fontWeight: 'bold',
-                fontSize: [2, 2, 3, 3],
-                color: 'black',
-                pb: 2,
-                lineHeight: 1
-              })}
-            >
-              {title}
-            </Text>
-            <Text
-              css={theme({ fontSize: '18px', color: 'black60', lineHeight: 2 })}
-            >
-              {description}
-            </Text>
-          </Flex>
-        ))}
-      </Flex>
+        {WHY_SWITCH_ITEMS.map(({ number, title, description }, index) => {
+          const isLast = index === WHY_SWITCH_ITEMS.length - 1
+          return (
+            <WhySwitchItem key={number}>
+              <WhySwitchRail>
+                <WhySwitchNumber aria-hidden='true'>{number}</WhySwitchNumber>
+                {!isLast && <WhySwitchConnector />}
+              </WhySwitchRail>
+              <Box
+                css={theme({
+                  flex: 1,
+                  minWidth: 0,
+                  pb: isLast ? 0 : [3, 3, 4, 4]
+                })}
+              >
+                <Text
+                  css={theme({
+                    fontWeight: 'bold',
+                    fontSize: [2, 2, 3, 3],
+                    color: 'black',
+                    pb: 2,
+                    lineHeight: 1
+                  })}
+                >
+                  {title}
+                </Text>
+                <Text
+                  css={theme({
+                    fontSize: [1, 1, 2, 2],
+                    color: 'black90',
+                    lineHeight: 2,
+                    maxWidth: '40em'
+                  })}
+                >
+                  {description}
+                </Text>
+              </Box>
+            </WhySwitchItem>
+          )
+        })}
+      </WhySwitchTimeline>
     </SectionInner>
   </Section>
 )
@@ -1276,11 +1347,44 @@ const WhySwitchSection = () => (
  * Where ScreenshotAPI Might Be Right
  * --------------------------------------------------------------------------- */
 
+const HONESTY_ITEMS = [
+  {
+    title: 'Scheduled screenshot workflows',
+    description:
+      'ScreenshotAPI has a dedicated scheduling surface and publishes official automation guides for Zapier, Make, and n8n. Microlink handles on-demand captures and does not include a built-in scheduler.'
+  },
+  {
+    title: 'Bulk URL processing',
+    description:
+      'ScreenshotAPI accepts JSON payloads or CSV uploads for batch jobs, with pause, resume, and cancel controls, plus an email notification when the run finishes. Microlink does not have native bulk\u00a0processing.'
+  },
+  {
+    title: 'Page-scroll video output',
+    description:
+      'ScreenshotAPI records a scrolling page as WebM, MP4, or GIF with configurable speed, direction, and duration across multiple viewports. Microlink does not produce scrolling video\u00a0captures.'
+  },
+  {
+    title: 'Fine-grained resource control',
+    description:
+      'ScreenshotAPI lets you block JS, stylesheets, images, fonts, XHR, fetch, WebSockets, and more, each with its own toggle. Microlink covers ad blocking and CSS-selector hiding but not per-resource-type\u00a0controls.'
+  },
+  {
+    title: 'Zapier, Make, or n8n integrations',
+    description:
+      'ScreenshotAPI publishes official integrations and workflow guides for Zapier, Make.com, n8n, Google Sheets, viaSocket, and Pipedream. Microlink has fewer no-code connectors today.'
+  },
+  {
+    title: 'Screenshots sent to your own bucket',
+    description:
+      'ScreenshotAPI supports BYOB storage integrations for Amazon S3, Wasabi, and Google Cloud Storage. Microlink returns the image in the API response and does not include native storage upload.'
+  }
+]
+
 const HonestySection = () => (
   <Section
     as='section'
     id='screenshotapi-strengths'
-    css={theme({ background: colors.gray0, px: 5, pt: 5, pb: 6 })}
+    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
   >
     <SectionInner>
       <Subhead
@@ -1293,67 +1397,62 @@ const HonestySection = () => (
 
       <Box
         css={theme({
-          display: 'grid',
-          gridTemplateColumns: ['1fr', '1fr 1fr', '1fr 1fr', '1fr 1fr'],
-          gap: 3,
           maxWidth: layout.normal,
           width: '100%',
           mx: 'auto'
         })}
       >
-        {[
-          {
-            title: 'You need scheduled screenshot workflows',
-            description:
-              'ScreenshotAPI has a dedicated scheduling surface and publishes official automation guides for Zapier, Make, and n8n. Microlink handles on-demand captures and does not include a built-in scheduler.'
-          },
-          {
-            title: 'You are processing URLs in bulk',
-            description:
-              'ScreenshotAPI accepts JSON payloads or CSV uploads for batch jobs, with pause, resume, and cancel controls, plus an email notification when the run finishes. Microlink does not have native bulk\u00a0processing.'
-          },
-          {
-            title: 'You need page-scroll video output',
-            description:
-              'ScreenshotAPI records a scrolling page as WebM, MP4, or GIF with configurable speed, direction, and duration across multiple viewports. Microlink does not produce scrolling video\u00a0captures.'
-          },
-          {
-            title: 'You need fine-grained resource control',
-            description:
-              'ScreenshotAPI lets you block JS, stylesheets, images, fonts, XHR, fetch, WebSockets, and more, each with its own toggle. Microlink covers ad blocking and CSS-selector hiding but not per-resource-type\u00a0controls.'
-          },
-          {
-            title: 'You live in Zapier, Make, or n8n',
-            description:
-              'ScreenshotAPI publishes official integrations and workflow guides for Zapier, Make.com, n8n, Google Sheets, viaSocket, and Pipedream. Microlink has fewer no-code connectors today.'
-          },
-          {
-            title: 'You want screenshots sent to your own bucket',
-            description:
-              'ScreenshotAPI supports BYOB storage integrations for Amazon S3, Wasabi, and Google Cloud Storage. Microlink returns the image in the API response and does not include native storage upload.'
-          }
-        ].map(({ title, description }) => (
-          <Flex
-            key={title}
-            css={theme({
-              p: [3, 4, 4, 4],
-              borderRadius: 3,
-              border: 1,
-              borderColor: 'black10',
-              flexDirection: 'column',
-              bg: 'white'
-            })}
-          >
-            <Text
-              css={theme({ fontWeight: 'bold', fontSize: [1, 1, 2, 2], pb: 2 })}
+        {HONESTY_ITEMS.map(({ title, description }, index) => {
+          const isLast = index === HONESTY_ITEMS.length - 1
+          return (
+            <Flex
+              key={title}
+              css={theme({
+                flexDirection: 'row',
+                alignItems: 'baseline',
+                py: [3, 3, 3, 3],
+                borderBottom: isLast ? 0 : 1,
+                borderBottomColor: 'black05'
+              })}
             >
-              {title}
-            </Text>
-            <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-              {description}
-            </Text>
-          </Flex>
-        ))}
+              <Text
+                css={theme({
+                  fontFamily: 'mono',
+                  fontSize: 0,
+                  color: 'black20',
+                  flexShrink: 0,
+                  mr: [3, 3, 4, 4],
+                  minWidth: '24px'
+                })}
+                aria-hidden='true'
+              >
+                {String(index + 1).padStart(2, '0')}
+              </Text>
+              <Box css={theme({ flex: 1, minWidth: 0 })}>
+                <Text
+                  css={theme({
+                    fontWeight: 'bold',
+                    fontSize: [1, 1, 2, 2],
+                    color: 'black',
+                    pb: 1
+                  })}
+                >
+                  {title}
+                </Text>
+                <Text
+                  css={theme({
+                    fontSize: [0, 0, 1, 1],
+                    color: 'black50',
+                    lineHeight: 2,
+                    maxWidth: '40em'
+                  })}
+                >
+                  {description}
+                </Text>
+              </Box>
+            </Flex>
+          )
+        })}
       </Box>
     </SectionInner>
   </Section>

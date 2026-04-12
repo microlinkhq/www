@@ -1284,8 +1284,128 @@ const SpeedSection = () => {
  * Why Developers Switch
  * --------------------------------------------------------------------------- */
 
+const WHY_SWITCH_ITEMS = [
+  {
+    number: '01',
+    title: 'Less waiting in the critical path',
+    description: (
+      <>
+        ApiFlash averaged <b>9.46 seconds</b> in the benchmark. Microlink
+        averaged <b>4.11 seconds</b>. That is about{' '}
+        <b>56% less cold-start latency</b> on average and more than 4× faster on
+        the slowest benchmark gap.
+      </>
+    )
+  },
+  {
+    number: '02',
+    title: '4.6× more monthly volume for $10 more',
+    description: (
+      <>
+        ApiFlash Medium is <b>$35</b> for 10,000 screenshots. Microlink is{' '}
+        <b>$45 for 46,000 requests</b>. If your workload is already moving
+        beyond hobby usage, that price curve changes the economics fast.
+      </>
+    )
+  },
+  {
+    number: '03',
+    title: 'No second tool when requirements grow',
+    description: (
+      <>
+        ApiFlash stays focused on screenshots. Microlink also gives you{' '}
+        <b>PDFs, metadata extraction, link previews, remote JS</b>, and more
+        from <b>the same integration</b> instead of forcing a second service
+        later.
+      </>
+    )
+  },
+  {
+    number: '04',
+    title: 'Built for blocked pages, not just happy paths',
+    description: (
+      <>
+        ApiFlash documents a BYO-proxy approach when stricter bot protection
+        gets in the way. Microlink includes a <b>built-in proxy layer</b> and{' '}
+        <b>antibot detection</b> so protected pages need less infrastructure
+        around them.
+      </>
+    )
+  },
+  {
+    number: '05',
+    title: 'A free tier you can actually live in',
+    description: (
+      <>
+        ApiFlash offers 100 free screenshots per month. Microlink resets daily
+        with <b>50 free requests every day</b>, so you can test real traffic
+        patterns instead of burning a single monthly pool in one afternoon.
+      </>
+    )
+  },
+  {
+    number: '06',
+    title: 'Open-source core, fully auditable',
+    description: (
+      <>
+        Metascraper, MQL, and Browserless are <b>MIT licensed</b>. Read the
+        code, fork it, or self-host it. <b>No black boxes, no vendor lock-in</b>{' '}
+        — Microlink is much easier to inspect than a closed screenshot service.
+      </>
+    )
+  }
+]
+
+const WhySwitchTimeline = styled(Flex)`
+  position: relative;
+  ${theme({
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  })}
+`
+
+const WhySwitchItem = styled(Flex)`
+  ${theme({
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    gap: 0
+  })}
+`
+
+const WhySwitchRail = styled('div')`
+  ${theme({ flexShrink: 0, position: 'relative', mr: [3, 3, 4, 4] })}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 32px;
+
+  @media (min-width: ${breakpoints[1]}) {
+    width: 40px;
+  }
+`
+
+const WhySwitchConnector = styled('div')`
+  width: 1px;
+  flex: 1;
+  ${theme({ bg: 'black10', mt: 2, mb: 2 })}
+`
+
+const WhySwitchNumber = styled(Text)`
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: [3, 3, 4, 4],
+    fontWeight: 'bold',
+    lineHeight: 0,
+    flexShrink: 0
+  })}
+  ${css`
+    ${textGradient}
+  `}
+  opacity: 0.90;
+`
+
 const WhySwitchSection = () => (
-  <Section as='section' id='why-switch' css={theme({ bg: 'gray0' })}>
+  <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead
         css={theme({ color: 'black', pb: [1, 2, 2, 2] })}
@@ -1304,97 +1424,54 @@ const WhySwitchSection = () => (
         The top reasons teams move from ApiFlash to Microlink.
       </Caption>
 
-      <Flex
+      <WhySwitchTimeline
         css={theme({
-          flexDirection: ['column', 'column', 'row', 'row'],
-          gap: [3, 3, 4, 4],
           width: '100%',
-          maxWidth: layout.large,
-          flexWrap: 'wrap',
-          justifyContent: 'center'
+          maxWidth: layout.normal,
+          mx: 'auto'
         })}
       >
-        {[
-          {
-            number: '01',
-            title: 'Less waiting in the critical path',
-            description:
-              'ApiFlash averaged 9.46 seconds in the benchmark. Microlink averaged 4.11 seconds. That is about 56% less cold-start latency on average and more than 4× faster on the slowest benchmark gap.'
-          },
-          {
-            number: '02',
-            title: '4.6× more monthly volume for $10 more',
-            description:
-              'ApiFlash Medium is $35 for 10,000 screenshots. Microlink is $45 for 46,000 requests. If your workload is already moving beyond hobby usage, that price curve changes the economics fast.'
-          },
-          {
-            number: '03',
-            title: 'No second tool when requirements grow',
-            description:
-              'ApiFlash stays focused on screenshots. Microlink also gives you PDFs, metadata extraction, link previews, remote JS, and more from the same integration instead of forcing a second service later.'
-          },
-          {
-            number: '04',
-            title: 'Built for blocked pages, not just happy paths',
-            description:
-              'ApiFlash documents a BYO-proxy approach when stricter bot protection gets in the way. Microlink includes a built-in proxy layer and antibot detection so protected pages need less infrastructure around them.'
-          },
-          {
-            number: '05',
-            title: 'A free tier you can actually live in',
-            description:
-              'ApiFlash offers 100 free screenshots per month. Microlink resets daily with 50 free requests every day, so you can test real traffic patterns instead of burning a single monthly pool in one afternoon.'
-          },
-          {
-            number: '06',
-            title: 'Open-source core, fully auditable',
-            description:
-              'Metascraper, MQL, and Browserless are MIT licensed. Read the code, fork it, or self-host it. If auditable infrastructure matters to your team, Microlink is much easier to inspect than a closed screenshot service.'
-          }
-        ].map(({ number, title, description }) => (
-          <Flex
-            key={number}
-            css={theme({
-              flexDirection: 'column',
-              p: 4,
-              borderRadius: 3,
-              border: 1,
-              borderColor: 'black05',
-              bg: 'white',
-              boxShadow: `0 1px 3px ${colors.black05}`,
-              width: ['100%', '100%', 'calc(50% - 16px)', 'calc(50% - 16px)'],
-              minWidth: '280px'
-            })}
-          >
-            <Text
-              css={theme({
-                fontFamily: 'mono',
-                fontSize: '14px',
-                color: 'black30',
-                pb: 2
-              })}
-            >
-              {number}
-            </Text>
-            <Text
-              css={theme({
-                fontWeight: 'bold',
-                fontSize: [2, 2, 3, 3],
-                color: 'black',
-                pb: 2,
-                lineHeight: 1
-              })}
-            >
-              {title}
-            </Text>
-            <Text
-              css={theme({ fontSize: '18px', color: 'black60', lineHeight: 2 })}
-            >
-              {description}
-            </Text>
-          </Flex>
-        ))}
-      </Flex>
+        {WHY_SWITCH_ITEMS.map(({ number, title, description }, index) => {
+          const isLast = index === WHY_SWITCH_ITEMS.length - 1
+          return (
+            <WhySwitchItem key={number}>
+              <WhySwitchRail>
+                <WhySwitchNumber aria-hidden='true'>{number}</WhySwitchNumber>
+                {!isLast && <WhySwitchConnector />}
+              </WhySwitchRail>
+              <Box
+                css={theme({
+                  flex: 1,
+                  minWidth: 0,
+                  pb: isLast ? 0 : [3, 3, 4, 4]
+                })}
+              >
+                <Text
+                  css={theme({
+                    fontWeight: 'bold',
+                    fontSize: [2, 2, 3, 3],
+                    color: 'black',
+                    pb: 2,
+                    lineHeight: 1
+                  })}
+                >
+                  {title}
+                </Text>
+                <Text
+                  css={theme({
+                    fontSize: [1, 1, 2, 2],
+                    color: 'black90',
+                    lineHeight: 2,
+                    maxWidth: '40em'
+                  })}
+                >
+                  {description}
+                </Text>
+              </Box>
+            </WhySwitchItem>
+          )
+        })}
+      </WhySwitchTimeline>
     </SectionInner>
   </Section>
 )
@@ -1403,11 +1480,34 @@ const WhySwitchSection = () => (
  * Where ApiFlash Might Be Right
  * --------------------------------------------------------------------------- */
 
+const HONESTY_ITEMS = [
+  {
+    title: 'S3 export built in',
+    description:
+      'ApiFlash includes Export to S3 on its plans. Microlink does not provide native S3 or cloud-storage upload, so you would need to add that storage step yourself.'
+  },
+  {
+    title: '$7 paid plan for light usage',
+    description:
+      'ApiFlash starts at $7/month for 1,000 screenshots. If your need is light, paid, and screenshot-only, that entry point is lower than moving directly onto a fuller platform.'
+  },
+  {
+    title: 'AWS Lambda + isolated Chrome model',
+    description:
+      'ApiFlash emphasizes AWS Lambda-backed scaling and says each screenshot runs in a brand-new isolated Chrome instance that is destroyed after capture. For some teams, that operational model is reassuring.'
+  },
+  {
+    title: 'Vendor-managed proxies or geolocation on enterprise',
+    description:
+      'ApiFlash lists managed proxies and IP geolocation on its custom enterprise plan. If those exact enterprise controls match your buying process, that may be a simpler fit than changing providers.'
+  }
+]
+
 const HonestySection = () => (
   <Section
     as='section'
     id='apiflash-strengths'
-    css={theme({ background: colors.gray0, px: 5, pt: 5, pb: 6 })}
+    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
   >
     <SectionInner>
       <Subhead
@@ -1420,58 +1520,62 @@ const HonestySection = () => (
 
       <Box
         css={theme({
-          display: 'grid',
-          gridTemplateColumns: ['1fr', '1fr 1fr', '1fr 1fr', '1fr 1fr'],
-          gap: 3,
           maxWidth: layout.normal,
           width: '100%',
           mx: 'auto'
         })}
       >
-        {[
-          {
-            title: 'You want S3 export built in',
-            description:
-              'ApiFlash includes Export to S3 on its plans. Microlink does not provide native S3 or cloud-storage upload, so you would need to add that storage step yourself.'
-          },
-          {
-            title: 'A $7 paid plan matters more than platform depth',
-            description:
-              'ApiFlash starts at $7/month for 1,000 screenshots. If your need is light, paid, and screenshot-only, that entry point is lower than moving directly onto a fuller platform.'
-          },
-          {
-            title: 'You prefer its AWS Lambda + isolated Chrome model',
-            description:
-              'ApiFlash emphasizes AWS Lambda-backed scaling and says each screenshot runs in a brand-new isolated Chrome instance that is destroyed after capture. For some teams, that operational model is reassuring.'
-          },
-          {
-            title:
-              'You need vendor-managed proxies or geolocation on enterprise',
-            description:
-              'ApiFlash lists managed proxies and IP geolocation on its custom enterprise plan. If those exact enterprise controls match your buying process, that may be a simpler fit than changing providers.'
-          }
-        ].map(({ title, description }) => (
-          <Flex
-            key={title}
-            css={theme({
-              p: [3, 4, 4, 4],
-              borderRadius: 3,
-              border: 1,
-              borderColor: 'black10',
-              flexDirection: 'column',
-              bg: 'white'
-            })}
-          >
-            <Text
-              css={theme({ fontWeight: 'bold', fontSize: [1, 1, 2, 2], pb: 2 })}
+        {HONESTY_ITEMS.map(({ title, description }, index) => {
+          const isLast = index === HONESTY_ITEMS.length - 1
+          return (
+            <Flex
+              key={title}
+              css={theme({
+                flexDirection: 'row',
+                alignItems: 'baseline',
+                py: [3, 3, 3, 3],
+                borderBottom: isLast ? 0 : 1,
+                borderBottomColor: 'black05'
+              })}
             >
-              {title}
-            </Text>
-            <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-              {description}
-            </Text>
-          </Flex>
-        ))}
+              <Text
+                css={theme({
+                  fontFamily: 'mono',
+                  fontSize: 0,
+                  color: 'black20',
+                  flexShrink: 0,
+                  mr: [3, 3, 4, 4],
+                  minWidth: '24px'
+                })}
+                aria-hidden='true'
+              >
+                {String(index + 1).padStart(2, '0')}
+              </Text>
+              <Box css={theme({ flex: 1, minWidth: 0 })}>
+                <Text
+                  css={theme({
+                    fontWeight: 'bold',
+                    fontSize: [1, 1, 2, 2],
+                    color: 'black',
+                    pb: 1
+                  })}
+                >
+                  {title}
+                </Text>
+                <Text
+                  css={theme({
+                    fontSize: [0, 0, 1, 1],
+                    color: 'black50',
+                    lineHeight: 2,
+                    maxWidth: '40em'
+                  })}
+                >
+                  {description}
+                </Text>
+              </Box>
+            </Flex>
+          )
+        })}
       </Box>
     </SectionInner>
   </Section>
