@@ -1078,21 +1078,15 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : isMax
-                              ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                                )
-                              : isSecond
-                                ? (
-                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                                  )
-                                : (
-                                    formatMs(times[i])
-                                  )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
@@ -1354,6 +1348,18 @@ const CompetitorComparison = () => {
               took nearly 15&nbsp;seconds to resolve and capture, whereas
               Microlink completed the task in 6.3&nbsp;seconds.
             </Text>
+            <Text
+              css={theme({
+                fontSize: [1, 1, 2, 2],
+                color: 'black',
+                lineHeight: 3,
+                pt: 3
+              })}
+            >
+              <Link href='/alternative/urlbox'>
+                vs Urlbox in detail&nbsp;&rarr;
+              </Link>
+            </Text>
           </Box>
 
           <Box>
@@ -1399,6 +1405,18 @@ const CompetitorComparison = () => {
               payload. For developers seeking an ApiFlash alternative for
               latency-sensitive workloads, Microlink offers a much tighter
               performance baseline, handling the same URL in 6.2&nbsp;seconds.
+            </Text>
+            <Text
+              css={theme({
+                fontSize: [1, 1, 2, 2],
+                color: 'black',
+                lineHeight: 3,
+                pt: 3
+              })}
+            >
+              <Link href='/alternative/apiflash'>
+                vs ApiFlash in detail&nbsp;&rarr;
+              </Link>
             </Text>
           </Box>
 
@@ -1447,6 +1465,22 @@ const CompetitorComparison = () => {
               average, demonstrating consistently lower latency across all
               7&nbsp;test URLs.
             </Text>
+            <Text
+              css={theme({
+                fontSize: [1, 1, 2, 2],
+                color: 'black',
+                lineHeight: 3,
+                pt: 3
+              })}
+            >
+              <Link href='/alternative/screenshotapi'>
+                vs ScreenshotAPI in detail&nbsp;&rarr;
+              </Link>
+              <Box as='span' css={theme({ display: 'block', pt: 2 })} />
+              <Link href='/alternative/screenshotmachine'>
+                vs Screenshot Machine in detail&nbsp;&rarr;
+              </Link>
+            </Text>
           </Box>
 
           <Box>
@@ -1485,6 +1519,18 @@ const CompetitorComparison = () => {
                 headless browser capabilities
               </Link>{' '}
               while cutting the average response time nearly in&nbsp;half.
+            </Text>
+            <Text
+              css={theme({
+                fontSize: [1, 1, 2, 2],
+                color: 'black',
+                lineHeight: 3,
+                pt: 3
+              })}
+            >
+              <Link href='/alternative/screenshotone'>
+                vs ScreenshotOne in detail&nbsp;&rarr;
+              </Link>
             </Text>
           </Box>
         </Flex>
