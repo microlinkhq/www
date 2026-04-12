@@ -4,6 +4,7 @@ import {
   layout,
   theme,
   textGradient,
+  fontSizes,
   space,
   radii,
   breakpoints
@@ -30,6 +31,8 @@ import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { extractDomain } from 'helpers/extract-domain'
+import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
+import { useBreakpoint } from 'components/hook/use-breakpoint'
 
 const RaceHero = styled(Box)`
   width: 100%;
@@ -60,6 +63,21 @@ const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
 const SPACE_12 = `calc(${space[3]} - ${space[1]})`
 const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
+const SPACE_6 = `calc(${space[2]} - ${radii[1]})`
+
+const CTA_TITLE_FONT_SIZE = [
+  `calc(${fontSizes[3]} + ${space[3]} - ${space[1]})`,
+  `calc(${fontSizes[4]} - ${space[1]})`,
+  fontSizes[4],
+  `calc(${fontSizes[4]} + ${SPACE_6})`
+]
+
+const CTA_LINK_FONT_SIZE = [
+  `calc(${fontSizes[2]} + ${space[1]})`,
+  fontSizes[3],
+  `calc(${fontSizes[3]} + ${radii[1]})`,
+  `calc(${fontSizes[3]} + ${space[1]})`
+]
 
 const BENCHMARK_DATA = {
   timestamp: '2026-03',
@@ -758,7 +776,7 @@ const ComparisonSection = () => (
   >
     <SectionInner>
       <Subhead
-        css={theme({ pb: [2, 2, 3, 3], fontSize: [3, 3, 4, 4], pt: 3 })}
+        css={theme({ pb: [2, 2, 3, 3], fontSize: [3, 3, 4, 4], pt: 4 })}
         titleize={false}
       >
         <GradientText>Feature-by-Feature</GradientText> Comparison
@@ -1527,6 +1545,7 @@ const PricingSection = () => (
       <Text
         css={theme({
           pt: 4,
+          mb: 4,
           fontSize: 1,
           color: 'black60',
           textAlign: 'center',
@@ -1625,17 +1644,87 @@ const CTASection = () => (
 )
 
 /* ---------------------------------------------------------------------------
+ * Try It Section (code editor + call-to-action)
+ * --------------------------------------------------------------------------- */
+
+const TryItSection = () => {
+  const breakpoint = useBreakpoint()
+  return (
+    <Section as='section' css={theme({ py: [5, 5, 6, 6] })}>
+      <SectionInner>
+        <Subhead
+          css={theme({
+            fontSize: CTA_TITLE_FONT_SIZE,
+            textAlign: 'center'
+          })}
+        >
+          Ship <span css='color: #fa5252;'>faster</span> screenshots
+        </Subhead>
+        <Caption
+          forwardedAs='div'
+          css={theme({
+            pt: [3, 3, 4, 4],
+            maxWidth: [
+              layout.small,
+              layout.small,
+              layout.normal,
+              layout.normal
+            ],
+            textAlign: 'center'
+          })}
+        >
+          50&nbsp;requests/day free — no account, no credit card. Start
+          capturing screenshots at the speed your users&nbsp;deserve.
+        </Caption>
+        <Flex
+          css={[
+            theme({
+              pt: [4, 4, 5, 5],
+              width: '100%',
+              px: [2, 3, 0, 0]
+            }),
+            {
+              '& > div, & > div > div:first-child': {
+                width: '100%'
+              }
+            }
+          ]}
+        >
+          <MultiCodeEditorInteractive
+            height={breakpoint === 0 ? 250 : 180}
+            mqlCode={{
+              url: 'https://www.apple.com',
+              screenshot: true
+            }}
+          />
+        </Flex>
+        <Flex
+          css={theme({
+            pt: [3, 3, 4, 4],
+            gap: [3, 3, 4, 4],
+            flexDirection: ['column', 'column', 'row', 'row'],
+            alignItems: 'center'
+          })}
+        >
+          <Link
+            href='/docs/guides/screenshot'
+            css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
+          >
+            Start now for free
+          </Link>
+        </Flex>
+      </SectionInner>
+    </Section>
+  )
+}
+
+/* ---------------------------------------------------------------------------
  * FAQ Section
  * --------------------------------------------------------------------------- */
 
 const FAQSection = () => (
   <Faq
-    css={theme({
-      pt: [4, 4, 5, 5],
-      pb: [5, 5, 6, 6],
-      borderTop: `${borders[1]} ${colors.pinkest}`,
-      borderBottom: `${borders[1]} ${colors.pinkest}`
-    })}
+    css={theme({ py: 0 })}
     questions={[
       {
         question: 'Is there a free ScreenshotAPI.net alternative?',
@@ -1933,6 +2022,7 @@ const ScreenshotAPIPage = () => (
     <CTASection />
     <ComparisonSection />
     <HonestySection />
+    <TryItSection />
     <FAQSection />
   </Layout>
 )
