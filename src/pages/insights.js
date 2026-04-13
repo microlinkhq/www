@@ -987,7 +987,13 @@ export const Head = () => (
         { '@type': 'Thing', name: 'Web Performance Monitoring' },
         { '@type': 'Thing', name: 'Lighthouse Audits' },
         { '@type': 'Thing', name: 'Core Web Vitals' }
-      ]
+      ],
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+        description: 'Free tier with 50 conversions per day'
+      }
     }}
   />
 )
