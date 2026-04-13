@@ -1,5 +1,5 @@
 ---
-title: 'Delivery and response shaping'
+title: 'Metadata: Delivery and response shaping'
 description: 'Keep the full metadata payload, trim it with filter, or return a single field directly with embed.'
 ---
 

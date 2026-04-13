@@ -148,6 +148,12 @@ export const Head = () => (
               name: 'URL to Markdown'
             }
           ]
+        },
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          description: 'Free tier with 50 conversions per day'
         }
       }
     ]}

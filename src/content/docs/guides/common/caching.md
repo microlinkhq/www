@@ -1,5 +1,5 @@
 ---
-title: 'Caching patterns'
+title: 'Common patterns: Caching patterns'
 description: 'Control cache TTL, serve stale responses while revalidating, bypass cache on demand, and verify caching behavior through response headers.'
 ---
 

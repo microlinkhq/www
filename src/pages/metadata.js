@@ -827,7 +827,13 @@ export const Head = () => (
         { '@type': 'Thing', name: 'Structured Data API' },
         { '@type': 'Thing', name: 'Link Preview Service' },
         { '@type': 'Thing', name: 'Web Data Extraction' }
-      ]
+      ],
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+        description: 'Free tier with 50 conversions per day'
+      }
     }}
   />
 )

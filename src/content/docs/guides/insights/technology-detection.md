@@ -1,5 +1,5 @@
 ---
-title: 'Technology detection'
+title: 'Insights: Technology detection'
 description: 'Identify the frameworks, platforms, analytics tools, and infrastructure behind any URL using Microlink Insights.'
 ---
 

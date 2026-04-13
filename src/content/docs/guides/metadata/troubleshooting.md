@@ -1,5 +1,5 @@
 ---
-title: 'Troubleshooting'
+title: 'Metadata: Troubleshooting'
 description: 'Debug missing or wrong metadata. Fix null fields, dynamic-page issues, and wrong page variants.'
 ---
 

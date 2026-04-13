@@ -1,5 +1,5 @@
 ---
-title: 'Troubleshooting'
+title: 'Common patterns: Troubleshooting'
 description: 'Debug common issues across all Microlink workflows. Fix timeouts, blocked sites, auth errors, plan-related errors, and learn to read response headers for diagnosis.'
 ---
 

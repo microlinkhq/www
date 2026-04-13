@@ -1,5 +1,5 @@
 ---
-title: 'Caching and performance'
+title: 'PDF: Caching and performance'
 description: 'Optimize Microlink PDF generation for speed and cost. Skip unnecessary metadata, reduce rendering work, and apply the right cache strategy.'
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: 'Delivery and embedding'
+title: 'PDF: Delivery and embedding'
 description: 'Choose how to consume Microlink PDFs. Use JSON plus CDN URLs in backend workflows, or return the PDF directly for download links, previews, and embedded viewers.'
 ---
 

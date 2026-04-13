@@ -1,5 +1,5 @@
 ---
-title: 'Caching and performance'
+title: 'Insights: Caching and performance'
 description: 'Optimize Insights requests for speed and cost. Cache expensive Lighthouse runs, skip unnecessary work, and choose the right analysis mode for your use case.'
 ---
 

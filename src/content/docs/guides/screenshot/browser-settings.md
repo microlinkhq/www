@@ -1,5 +1,5 @@
 ---
-title: 'Browser settings'
+title: 'Screenshot: Browser settings'
 description: 'Configure the headless browser before capturing a screenshot. Set viewport dimensions, emulate devices, force dark mode, control CSS media type, and manage animations.'
 ---
 

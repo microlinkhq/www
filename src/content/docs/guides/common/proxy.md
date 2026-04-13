@@ -1,5 +1,5 @@
 ---
-title: 'Proxy'
+title: 'Common patterns: Proxy'
 description: 'Bypass IP blocking, CAPTCHAs, antibot protection, and regional restrictions using automatic or custom proxy rotation. Applies to every Microlink workflow.'
 ---
 

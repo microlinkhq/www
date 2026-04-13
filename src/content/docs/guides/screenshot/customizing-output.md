@@ -1,5 +1,5 @@
 ---
-title: 'Customizing output'
+title: 'Screenshot: Customizing output'
 description: 'Control what your Microlink screenshot captures and how it looks. Full-page mode, element targeting, format selection, transparent backgrounds, browser overlays, and code themes.'
 ---
 

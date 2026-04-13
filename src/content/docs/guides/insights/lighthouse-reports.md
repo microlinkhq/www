@@ -1,5 +1,5 @@
 ---
-title: 'Lighthouse reports'
+title: 'Insights: Lighthouse reports'
 description: 'Generate Lighthouse audits with Microlink Insights, choose the right output format, and tune reports with presets or custom Lighthouse settings.'
 ---
 

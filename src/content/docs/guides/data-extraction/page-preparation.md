@@ -1,5 +1,5 @@
 ---
-title: 'Page preparation'
+title: 'Data extraction: Page preparation'
 description: 'Render the right page state before extraction. Choose fetch mode, wait for dynamic content, emulate the right variant, and mutate the DOM when needed.'
 ---
 

@@ -939,7 +939,13 @@ export const Head = () => (
         { '@type': 'Thing', name: 'Website Logo Extraction' },
         { '@type': 'Thing', name: 'Color Palette Detection' },
         { '@type': 'Thing', name: 'Brand Metadata API' }
-      ]
+      ],
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+        description: 'Free tier with 50 conversions per day'
+      }
     }}
   />
 )
