@@ -1,5 +1,5 @@
 ---
-title: 'Private pages'
+title: 'Data extraction: Private pages'
 description: 'Extract data from authenticated, session-based, or header-dependent pages safely.'
 ---
 

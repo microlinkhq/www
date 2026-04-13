@@ -1,5 +1,5 @@
 ---
-title: 'Delivery and embedding'
+title: 'Screenshot: Delivery and embedding'
 description: 'Choose the right way to consume Microlink screenshots. Use JSON responses and CDN URLs in app workflows, or embed screenshots directly in HTML, CSS, Markdown, and OG tags.'
 ---
 

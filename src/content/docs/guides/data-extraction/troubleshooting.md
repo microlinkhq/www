@@ -1,5 +1,5 @@
 ---
-title: 'Troubleshooting'
+title: 'Data extraction: Troubleshooting'
 description: 'Debug empty fields, wrong selectors, timing issues, and collection shape errors when extracting custom data.'
 ---
 

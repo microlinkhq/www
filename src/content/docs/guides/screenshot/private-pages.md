@@ -1,5 +1,5 @@
 ---
-title: 'Private pages'
+title: 'Screenshot: Private pages'
 description: 'Capture screenshots of pages behind logins, sessions, or header-based personalization safely.'
 ---
 

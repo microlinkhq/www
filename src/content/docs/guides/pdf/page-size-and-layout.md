@@ -1,5 +1,5 @@
 ---
-title: 'Page size and layout'
+title: 'PDF: Page size and layout'
 description: 'Control the paper size and printed layout of generated PDFs. Choose standard formats or custom dimensions, set margins, switch orientation, scale content, and export specific page ranges.'
 ---
 

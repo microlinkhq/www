@@ -1,5 +1,5 @@
 ---
-title: 'Delivery and response shaping'
+title: 'Data extraction: Delivery and response shaping'
 description: 'Choose between full JSON, smaller filtered payloads, or direct field responses when consuming extracted data from Microlink API.'
 ---
 

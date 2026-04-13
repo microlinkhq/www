@@ -1,5 +1,5 @@
 ---
-title: 'Production patterns'
+title: 'Common patterns: Production patterns'
 description: 'Best practices for using Microlink API in production. Handle rate limits, choose the right endpoint, protect credentials, and build resilient integrations.'
 ---
 

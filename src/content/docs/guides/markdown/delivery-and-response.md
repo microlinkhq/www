@@ -1,5 +1,5 @@
 ---
-title: 'Delivery and response shaping'
+title: 'Markdown: Delivery and response shaping'
 description: 'Serve extracted Markdown in JSON or directly as the response body, then apply the right performance and auth patterns for production use.'
 ---
 

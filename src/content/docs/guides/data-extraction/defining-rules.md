@@ -1,5 +1,5 @@
 ---
-title: 'Defining rules'
+title: 'Data extraction: Defining rules'
 description: 'Model single fields, collections, nested objects, fallback logic, and computed values so Microlink returns the exact JSON shape you need.'
 ---
 

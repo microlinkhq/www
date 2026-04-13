@@ -1,5 +1,5 @@
 ---
-title: 'Troubleshooting'
+title: 'Insights: Troubleshooting'
 description: 'Debug missing or wrong Insights results. Fix empty analyses, timing issues, timeouts, wrong page variants, and blocked sites.'
 ---
 

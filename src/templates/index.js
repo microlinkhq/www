@@ -43,27 +43,33 @@ export const Head = ({ pageContext, location }) => {
     const metaProps = {
       ...frontmatter,
       description,
-      name: isDocPage ? 'Microlink Docs' : 'Microlink Blog',
+      name: isDocPage
+        ? activeRouteName === 'Guides'
+          ? 'Microlink Guides'
+          : 'Microlink Docs'
+        : 'Microlink Blog',
       image: isDocPage
         ? cdnUrl('banner/docs.jpeg')
         : cdnUrl('banner/blog.jpeg'),
       title: isDocPage
-        ? `${siteName} ${activeRouteName}: ${frontmatter.title || ''}`
+        ? activeRouteName === 'Guides'
+          ? frontmatter.title || ''
+          : `${siteName} ${activeRouteName}: ${frontmatter.title || ''}`
         : frontmatter.title,
       publishedDate: validPublishedDate,
       modifiedDate: validModifiedDate,
       schemaType: isBlogPage ? 'Article' : 'TechArticle',
       authors: isBlogPage
         ? (() => {
-            const authorsByKey = new Map(
-              (authorsData?.allAuthorsYaml?.nodes || []).map(author => [
-                author.key,
-                author.name
-              ])
-            )
-            const authorKeys = frontmatter.authors || []
-            return authorKeys.map(key => authorsByKey.get(key)).filter(Boolean)
-          })()
+          const authorsByKey = new Map(
+            (authorsData?.allAuthorsYaml?.nodes || []).map(author => [
+              author.key,
+              author.name
+            ])
+          )
+          const authorKeys = frontmatter.authors || []
+          return authorKeys.map(key => authorsByKey.get(key)).filter(Boolean)
+        })()
         : undefined
     }
 

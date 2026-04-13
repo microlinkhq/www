@@ -1,5 +1,5 @@
 ---
-title: 'Private pages'
+title: 'Metadata: Private pages'
 description: 'Extract metadata from pages behind logins, sessions, or header-based personalization safely.'
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: 'Troubleshooting'
+title: 'Screenshot: Troubleshooting'
 description: 'Debug screenshot failures and wrong captures. Fix blank screenshots, timing issues, wrong capture areas, overlay errors, and antibot protections.'
 ---
 

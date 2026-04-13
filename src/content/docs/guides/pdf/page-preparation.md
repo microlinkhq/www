@@ -1,5 +1,5 @@
 ---
-title: 'Page preparation'
+title: 'PDF: Page preparation'
 description: 'Prepare a page before Microlink prints it to PDF. Choose print or screen CSS, wait for dynamic content, click UI controls, inject CSS, and clean up unwanted elements.'
 ---
 

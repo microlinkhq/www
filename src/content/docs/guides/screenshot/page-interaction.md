@@ -1,5 +1,5 @@
 ---
-title: 'Page interaction'
+title: 'Screenshot: Page interaction'
 description: 'Interact with web pages before taking a screenshot. Click buttons, scroll to sections, wait for content, inject CSS and JavaScript, and block ads.'
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: 'Caching and performance'
+title: 'Screenshot: Caching and performance'
 description: 'Optimize Microlink screenshot requests for speed and cost. Disable unnecessary metadata, tune browser settings, and apply the right cache strategy.'
 ---
 
