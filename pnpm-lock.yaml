@@ -55,7 +55,7 @@ importers:
         version: 1.2.21
       cloudflare-bot-directory:
         specifier: ~1.0.7
-        version: 1.0.18
+        version: 1.0.20
       cssnano:
         specifier: ~7.1.2
         version: 7.1.2(postcss@8.5.6)
@@ -199,7 +199,7 @@ importers:
         version: 7.0.23
       top-user-agents:
         specifier: ~2.1.96
-        version: 2.1.105
+        version: 2.1.106
       truncate-url:
         specifier: ~3.0.0
         version: 3.0.0
@@ -1956,8 +1956,8 @@ packages:
     resolution: {integrity: sha512-nbQRccipbLKOBGLBqZnQ4N10cdLnMSoixoLem5DDrpOQBgWW1ejmFiP6noF+Lu1Pdj5C+hcon/A6ixw8SlE6xA==}
     engines: {node: '>= 8'}
 
-  '@microlink/function@0.2.3':
-    resolution: {integrity: sha512-Sp4TTlg0JBP68HBshkzNbwbn0D9tX6Bu2vhmPZ/dr/tGtwmy7q61FiYj6QyhKYtlxgBxSEC5zXzq8R6BW7rc/g==}
+  '@microlink/function@0.2.4':
+    resolution: {integrity: sha512-vsVABr83+jrMZtPIOohWmh6tJGQOXB7aEKGRkf2oAb0cCpHYSUhXZVO+Yto1YQqP853rZZys32WK51sGhxvzRg==}
     engines: {node: '>= 18'}
 
   '@microlink/mql@0.13.20':
@@ -1968,9 +1968,9 @@ packages:
     resolution: {integrity: sha512-xiuCpb1yHJT0rD5v7F6hW+TZNRVk8DQfrZVBj9QzQpZfJ22hme45NieaNtSiY4DsiqEIxaQxParYRR18D/RYeg==}
     engines: {node: '>= 18'}
 
-  '@microlink/mql@0.15.1':
-    resolution: {integrity: sha512-YD07KIoBhTXPbTx+GC19p+GxBDildp2W1lTMSMIddf3Nt12DS1gWTMEak4PnXfAXV1GMG96o42GitvKyaxQ53Q==}
-    engines: {node: '>= 18'}
+  '@microlink/mql@0.16.0':
+    resolution: {integrity: sha512-A/Me9WdCZH3zhZZQpVXukLZSyBTQv9g12A6A0tVzZvm86RMVEN5N0z07INWm1Vgatb3+GF9ncI5PDZT13Pnycg==}
+    engines: {node: '>= 22'}
 
   '@microlink/react@5.5.24':
     resolution: {integrity: sha512-IZyUivw3N1Is8blz+YJzr92h5CggbB09dGFbvI9dyUEWRZz/lH9wMMEU+QD/dl2uXoyj2/KzYTlq71Kk+8R1DQ==}
@@ -4669,8 +4669,8 @@ packages:
     resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
 
-  cloudflare-bot-directory@1.0.18:
-    resolution: {integrity: sha512-NQlwAnaKS26qT4TcDOsw5f3M94TSXkTi0MG13PFL1sV+RJCiDnyq+sZ/QcneVaGeaLc+1Dtk1acju4DOcscZag==}
+  cloudflare-bot-directory@1.0.20:
+    resolution: {integrity: sha512-mi46hUUbuFunH4KxPzYWBYh9/a/AFSbDQNrCDi6S8EkHVHvVjnsWtSEcMtX7XuZj3lJVC7c1SSYI69oHCIawNg==}
     engines: {node: '>= 20'}
 
   coffeescript@2.7.0:
@@ -7962,9 +7962,9 @@ packages:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
     engines: {node: '>= 8'}
 
-  ky@1.14.3:
-    resolution: {integrity: sha512-9zy9lkjac+TR1c2tG+mkNSVlyOpInnWdSMiue4F+kq8TwJSgv6o8jhLRg8Ho6SnZ9wOYUq/yozts9qQCfk7bIw==}
-    engines: {node: '>=18'}
+  ky@2.0.0:
+    resolution: {integrity: sha512-KzI4Vz5AbZFAUFYGx28PCSfFWUo6/qj9Br/P6KRwDieE1xfdz0tIONepJcLw/1xLocN13GgvfJGasa+pfSkbHg==}
+    engines: {node: '>=22'}
 
   language-subtag-registry@0.3.23:
     resolution: {integrity: sha512-0K65Lea881pHotoGEa5gDlMxt3pctLi2RplBb7Ezh4rRdLEOtgi7n4EwK9lamnUCkKBqaeKRVebTq6BAxSkpXQ==}
@@ -10069,8 +10069,8 @@ packages:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.5.8:
-    resolution: {integrity: sha512-OW/rX8O/jXnm82Ey1k44pObPtdblfiuWnrd8X7GJ7emImCOstunGbXUpp7HdBrFQX6rJzn3sPT397Wp5aCwCHg==}
+  postcss@8.5.9:
+    resolution: {integrity: sha512-7a70Nsot+EMX9fFU3064K/kdHWZqGVY+BADLyXc8Dfv+mTLLVl6JzJpPaCZ2kQL9gIJvKXSLMHhqdRRjwQeFtw==}
     engines: {node: ^10 || ^12 || >=14}
 
   prebuild-install@7.1.3:
@@ -10679,8 +10679,8 @@ packages:
     engines: {node: '>= 0.4'}
     hasBin: true
 
-  resolve@1.22.11:
-    resolution: {integrity: sha512-RfqAvLnMl313r7c9oclB1HhUEAezcpLjz95wFH4LVuhk9JF/r22qmVP9AMmOU4vMX7Q8pN8jwNg/CSpdFnMjTQ==}
+  resolve@1.22.12:
+    resolution: {integrity: sha512-TyeJ1zif53BPfHootBGwPRYT1RUt6oGWsaQr8UyZW/eAm9bKoijtvruSDEmZHm92CwS9nj7/fWttqPCgzep8CA==}
     engines: {node: '>= 0.4'}
     hasBin: true
 
@@ -11732,8 +11732,8 @@ packages:
     resolution: {integrity: sha512-6udB24Q737UD/SDsKAHI9FCRP7Bqc9D/MQUV02ORQg5iskjtLJlZJNdN4kKtcdtwCeWIwIHDGaUsTsCCAa8sFQ==}
     engines: {node: '>=10'}
 
-  top-user-agents@2.1.105:
-    resolution: {integrity: sha512-NuNjwgijYWkcbBqqtTdunLlJ0O80iukJWIkmu0FGojTpd8Vht2eeTti39mSMejYQJ+k06TKyE7lfr+dTGEcOrQ==}
+  top-user-agents@2.1.106:
+    resolution: {integrity: sha512-h1Mes0JDiawk9iZEnE6TwzujGWlbFU6J9stXNwa+XeH4i2UyYh0lTr97yJbodOEfIx9v5X9e9r4azqDde7e5Kg==}
 
   tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
@@ -15336,9 +15336,9 @@ snapshots:
 
   '@microlink/demo-links@1.0.18': {}
 
-  '@microlink/function@0.2.3':
+  '@microlink/function@0.2.4':
     dependencies:
-      '@microlink/mql': 0.15.1
+      '@microlink/mql': 0.16.0
       lz-ts: 1.1.2
 
   '@microlink/mql@0.13.20':
@@ -15353,10 +15353,10 @@ snapshots:
       got: 11.8.6
       whoops: 5.1.0
 
-  '@microlink/mql@0.15.1':
+  '@microlink/mql@0.16.0':
     dependencies:
       flattie: 1.1.1
-      ky: 1.14.3
+      ky: 2.0.0
 
   '@microlink/react@5.5.24(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.3.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
@@ -15370,8 +15370,8 @@ snapshots:
   '@microlink/recipes@1.8.1':
     dependencies:
       '@microlink/demo-links': 1.0.18
-      '@microlink/function': 0.2.3
-      '@microlink/mql': 0.15.1
+      '@microlink/function': 0.2.4
+      '@microlink/mql': 0.16.0
 
   '@mischnic/json-sourcemap@0.1.1':
     dependencies:
@@ -18216,7 +18216,7 @@ snapshots:
       '@babel/types': 7.29.0
       eslint: 10.1.0(jiti@2.6.1)
       eslint-visitor-keys: 1.3.0
-      resolve: 1.22.11
+      resolve: 1.22.12
     transitivePeerDependencies:
       - supports-color
 
@@ -19196,7 +19196,7 @@ snapshots:
 
   clone@2.1.2: {}
 
-  cloudflare-bot-directory@1.0.18: {}
+  cloudflare-bot-directory@1.0.20: {}
 
   coffeescript@2.7.0: {}
 
@@ -23740,7 +23740,7 @@ snapshots:
 
   klona@2.0.6: {}
 
-  ky@1.14.3: {}
+  ky@2.0.0: {}
 
   language-subtag-registry@0.3.23: {}
 
@@ -26362,7 +26362,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postcss@8.5.8:
+  postcss@8.5.9:
     dependencies:
       nanoid: 3.3.11
       picocolors: 1.1.1
@@ -27260,8 +27260,9 @@ snapshots:
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
-  resolve@1.22.11:
+  resolve@1.22.12:
     dependencies:
+      es-errors: 1.3.0
       is-core-module: 2.16.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
@@ -28570,7 +28571,7 @@ snapshots:
       '@tokenizer/token': 0.3.0
       ieee754: 1.2.1
 
-  top-user-agents@2.1.105: {}
+  top-user-agents@2.1.106: {}
 
   tr46@0.0.3: {}
 
@@ -29138,7 +29139,7 @@ snapshots:
   vite@6.0.11(@types/node@25.5.0)(jiti@2.6.1)(sass@1.97.3)(terser@5.37.0)(yaml@2.7.0):
     dependencies:
       esbuild: 0.24.2
-      postcss: 8.5.8
+      postcss: 8.5.9
       rollup: 4.60.1
     optionalDependencies:
       '@types/node': 25.5.0
