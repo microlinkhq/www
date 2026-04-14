@@ -28,6 +28,9 @@ jobs:
         with:
           version: latest
 
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
       - name: Update top-user-agents and cloudflare-bot-directory
         run: pnpm up --latest top-user-agents cloudflare-bot-directory --ignore-scripts
 
