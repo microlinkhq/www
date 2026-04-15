@@ -125,8 +125,11 @@ Read every existing file in `src/pages/alternative/*.js` and compare:
 
 Current angle map:
 
-- `screenshotone.js`: speed-first angle
-- `screenshotapi.js`: breadth / "does more" angle
+- `screenshotone.js`: speed-first angle ("The fastest ScreenshotOne alternative")
+- `screenshotapi.js`: breadth / "does more" angle ("broader browser workflows")
+- `urlbox.js`: cost per render angle ("better cost per render")
+- `screenshotmachine.js`: upgrade path angle ("richer browser workflows")
+- `apiflash.js`: production workloads angle ("for production workloads")
 
 Pick a primary angle and a secondary angle for the new page. Examples:
 
@@ -169,6 +172,9 @@ Currently used:
 
 - `screenshotone`: `colors.pink6`
 - `screenshotapi`: `colors.grape7`
+- `urlbox`: `colors.teal6`
+- `screenshotmachine`: `colors.blue6`
+- `apiflash`: `colors.orange6`
 
 ### Speed claim math
 
@@ -249,7 +255,8 @@ That means the page should normally render:
 5. `CTASection`
 6. `ComparisonSection`
 7. `HonestySection`
-8. `FAQSection`
+8. `TryItSection`
+9. `FAQSection`
 
 Use `screenshotone.js` as the primary implementation template and `screenshotapi.js` as a reality check for how the angle can shift without breaking structure.
 
@@ -261,10 +268,11 @@ Do not run automatic formatting after editing. If verification is needed, prefer
 - Use `theme({...})` for styled-system-supported properties per `AGENTS.md`.
 - Keep prose unique to the competitor and the chosen angle.
 - Keep the page honest even when Microlink wins.
-- The `HonestySection` must contain real competitor strengths.
-- The FAQ must contain 7-9 questions and avoid near-duplicates from existing alternative pages.
+- The `HonestySection` must contain real competitor strengths (4–6 items).
+- The FAQ must contain 7–9 questions and avoid near-duplicates from existing alternative pages.
 - The FAQ schema must mirror the visible FAQ content as plain text.
 - The `Head` export must use a unique title, unique description, correct canonical URL, and FAQ schema.
+- For newer pages, prefer the `FAQ_ITEMS` array pattern (with `{ question, answer, text }`) used by `urlbox.js`, `screenshotmachine.js`, and `apiflash.js`. This avoids duplicating FAQ content between the rendered component and the schema. The `text` field holds the plain-text version for schema; `answer` holds the JSX for rendering.
 
 ### Custom sections or custom angles
 

@@ -97,13 +97,50 @@ Microlink pricing varies by which competitor is being compared. Use the tier tha
 
 ### Tier used in screenshotapi comparison
 
-- **Price**: $39/mo
+- **Price**: $45/mo
 - **Requests**: 46,000/month
-- **Per-request cost**: ~$0.00085
+- **Per-request cost**: ~$0.00098
 - **Key points**:
   - Screenshots, PDF, metadata, link previews, remote JS
   - Free: 50 requests/day, no credit card, no expiry
   - No rate limit on any paid plan
+  - 240+ edge nodes, 99.9% SLA
+  - Open-source core (MIT licensed)
+  - ~9× cheaper per request than ScreenshotAPI Essentials
+
+### Tier used in urlbox comparison
+
+- **Price**: $45/mo
+- **Requests**: 46,000/month
+- **Per-request cost**: $0.98 per 1,000 requests
+- **Key points**:
+  - Screenshots + PDF + metadata + previews + remote JS
+  - Free tier: 50 requests/day, no credit card
+  - No requests-per-minute cap
+  - 240+ edge nodes, 99.9% SLA
+  - Open-source core (MIT)
+
+### Tier used in screenshotmachine comparison
+
+- **Price**: €39/mo
+- **Requests**: 46,000/month
+- **Per-request cost**: ~€0.00085
+- **Key points**:
+  - Screenshots, PDF, metadata, link previews, remote JS
+  - Free: 50 requests/day, no credit card, no expiry
+  - No per-minute cap on paid plans
+  - 240+ edge nodes, 99.9% SLA
+  - Open-source core (MIT licensed)
+
+### Tier used in apiflash comparison
+
+- **Price**: $45/mo
+- **Requests**: 46,000/month
+- **Per-request cost**: ~$0.00098
+- **Key points**:
+  - Screenshots, PDF, metadata, link previews, remote JS
+  - Free: 50 requests/day, no credit card, no expiry
+  - No per-minute cap on paid plans
   - 240+ edge nodes, 99.9% SLA
   - Open-source core (MIT licensed)
 
@@ -125,4 +162,4 @@ Microlink pricing varies by which competitor is being compared. Use the tier tha
 
 When creating a new landing page, pick the Microlink tier that makes the most direct comparison to the competitor's most popular or recommended plan. The goal is an honest apples-to-apples comparison. Document the competitor pricing source URL in a code comment.
 
-If neither $39 nor $45 creates a clean comparison, ask the user which Microlink tier to use. The available tiers can be found at `https://microlink.io/#pricing`.
+If neither €39 nor $45 creates a clean comparison, ask the user which Microlink tier to use. The available tiers can be found at `https://microlink.io/#pricing`.
