@@ -1130,15 +1130,19 @@ const SpeedSection = () => {
 
                           return (
                             <td key={key}>
-                              {isMin ? (
-                                <CellHighlight>
-                                  {formatMs(times[i])}
-                                </CellHighlight>
-                              ) : isMax ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                              ) : (
-                                formatMs(times[i])
-                              )}
+                              {isMin
+                                ? (
+                                  <CellHighlight>
+                                    {formatMs(times[i])}
+                                  </CellHighlight>
+                                  )
+                                : isMax
+                                  ? (
+                                    <CellLoser>{formatMs(times[i])}</CellLoser>
+                                    )
+                                  : (
+                                      formatMs(times[i])
+                                    )}
                             </td>
                           )
                         })}
