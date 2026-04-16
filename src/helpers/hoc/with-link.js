@@ -16,6 +16,14 @@ const isInternalLink = (to = '/') => /^\/(?!\/)/.test(to)
 
 const getHash = href => href.replace('/#', '#')
 
+const mergeRel = (...values) => {
+  const tokens = values
+    .flatMap(value => (value ? value.split(/\s+/) : []))
+    .filter(Boolean)
+
+  return tokens.length > 0 ? [...new Set(tokens)].join(' ') : undefined
+}
+
 const linkStyle = css`
   text-decoration: inherit;
   color: inherit;
@@ -87,9 +95,10 @@ const withBaseLink = Component => {
     isInternal = isInternalLink(href),
     title,
     onClick,
+    rel: relProp,
     ...props
   }) => {
-    const rel = isInternal ? undefined : 'noopener noreferrer'
+    const rel = isInternal ? relProp : mergeRel(relProp, 'noopener noreferrer')
     const target = isInternal ? undefined : '_blank'
 
     return (
@@ -122,6 +131,7 @@ export const withLink = Component => {
     externalIcon,
     icon,
     onClick,
+    rel,
     ...props
   }) => {
     const [isIntersecting, setIsIntersecting] = useState(false)
@@ -153,6 +163,7 @@ export const withLink = Component => {
             getProps={getProps}
             title={title}
             onClick={onClick}
+            rel={rel}
           >
             {children}
           </PrefetchLink>
@@ -167,6 +178,7 @@ export const withLink = Component => {
         isInternal={isInternal}
         title={title}
         onClick={onClick}
+        rel={rel}
         {...props}
       >
         {children}

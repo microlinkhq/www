@@ -94,8 +94,11 @@ const FOOTER_COLUMNS = [
     links: [
       { label: 'vs ApiFlash', href: '/alternative/apiflash' },
       { label: 'vs ScreenshotAPI', href: '/alternative/screenshotapi' },
+      { label: 'vs ScreenshotLayer', href: '/alternative/screenshotlayer' },
       { label: 'vs ScreenshotMachine', href: '/alternative/screenshotmachine' },
       { label: 'vs ScreenshotOne', href: '/alternative/screenshotone' },
+      { label: 'vs Thum.io', href: '/alternative/thumio' },
+      { label: 'vs Url2Png', href: '/alternative/url2png' },
       { label: 'vs Urlbox', href: '/alternative/urlbox' }
     ]
   }
