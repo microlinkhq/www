@@ -698,7 +698,17 @@ const JsonPre = styled('pre')`
     font-weight: 600;
   }
   .json-string {
+    color: ${colors.black};
+  }
+  .json-string a {
     color: ${ACCENT};
+    text-decoration: none;
+    text-underline-offset: 2px;
+  }
+  .json-string a:hover,
+  .json-string a:focus-visible {
+    text-decoration: underline;
+    text-decoration-color: ${ACCENT};
   }
   .json-number {
     color: ${colors.grape7};
@@ -885,6 +895,19 @@ const reshapeForHero = data => {
 
 const STRING_TRUNCATE_AT = 64
 
+const URL_REGEX = /^https?:\/\/\S+$/i
+
+const renderStringContent = value => {
+  if (URL_REGEX.test(value)) {
+    return (
+      <a href={value} target='_blank' rel='noopener noreferrer'>
+        {value}
+      </a>
+    )
+  }
+  return value
+}
+
 const renderJson = (value, path = 'root', expanded, onToggle, indent = 0) => {
   const pad = '  '.repeat(indent)
   const padInner = '  '.repeat(indent + 1)
@@ -897,12 +920,13 @@ const renderJson = (value, path = 'root', expanded, onToggle, indent = 0) => {
     return <span className='json-number'>{value}</span>
   }
   if (typeof value === 'string') {
-    const isLong = value.length > STRING_TRUNCATE_AT
+    const isUrl = URL_REGEX.test(value)
+    const isLong = !isUrl && value.length > STRING_TRUNCATE_AT
     const isOpen = expanded.has(path)
     if (!isLong || isOpen) {
       return (
         <>
-          <span className='json-string'>"{value}"</span>
+          <span className='json-string'>"{renderStringContent(value)}"</span>
           {isLong && (
             <>
               {' '}
