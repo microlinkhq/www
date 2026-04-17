@@ -1738,7 +1738,6 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
             })}
           >
             <ArrowLink href='/docs/guides/metadata'>Get Started</ArrowLink>
-            <ArrowLink href={sharingDebuggerHref}>Debug link sharing</ArrowLink>
           </Flex>
         </Flex>
         <Flex
@@ -2380,6 +2379,31 @@ const extractPalette = data => {
   return []
 }
 
+const extractLogoUrl = data => {
+  if (!data) return null
+  const logo = data.logo
+  if (!logo) return null
+  if (typeof logo === 'string') return logo
+  return logo.url || null
+}
+
+const LogoThumb = styled('span')`
+  ${theme({
+    display: 'inline-block',
+    width: space[4],
+    height: space[4],
+    borderRadius: '50%',
+    bg: 'white'
+  })};
+  background-image: ${({ $src }) => `url(${$src})`};
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: ${borders[1]} ${colors.black10};
+  box-shadow: 0 1px 3px ${colors.black10};
+  flex-shrink: 0;
+`
+
 const SOCIAL_PROVIDERS = [
   { key: 'opengraph', label: 'Open Graph' },
   { key: 'twitter', label: 'Twitter Cards' },
@@ -2431,6 +2455,7 @@ const Capabilities = ({ currentUrl, currentData }) => {
     .map(toColor)
     .filter(Boolean)
     .slice(0, 6)
+  const logoUrl = extractLogoUrl(currentData)
 
   return (
     <Container
@@ -2482,7 +2507,7 @@ const Capabilities = ({ currentUrl, currentData }) => {
                 setData={currentData ? () => currentData : undefined}
                 media={['image', 'logo']}
               />
-              {palette.length > 0 && (
+              {(palette.length > 0 || logoUrl) && (
                 <Flex
                   css={theme({
                     pt: [3, 3, 4, 4],
@@ -2490,26 +2515,52 @@ const Capabilities = ({ currentUrl, currentData }) => {
                     gap: 2,
                     flexWrap: 'wrap'
                   })}
-                  aria-label='Detected brand palette'
+                  aria-label='Detected brand logo and palette'
                 >
-                  <Caps
-                    css={theme({
-                      fontSize: 0,
-                      fontWeight: 'bold',
-                      color: 'black60',
-                      letterSpacing: 2,
-                      pr: 2
-                    })}
-                  >
-                    Palette
-                  </Caps>
-                  {palette.map((color, i) => (
-                    <PaletteChip
-                      key={`${color}-${i}`}
-                      $color={color}
-                      aria-label={`Detected color ${color}`}
-                    />
-                  ))}
+                  {logoUrl && (
+                    <>
+                      <Caps
+                        css={theme({
+                          fontSize: 0,
+                          fontWeight: 'bold',
+                          color: 'black60',
+                          letterSpacing: 2,
+                          pr: 2
+                        })}
+                      >
+                        Logo
+                      </Caps>
+                      <LogoThumb
+                        $src={logoUrl}
+                        role='img'
+                        aria-label='Detected logo'
+                        title={logoUrl}
+                      />
+                    </>
+                  )}
+                  {palette.length > 0 && (
+                    <>
+                      <Caps
+                        css={theme({
+                          fontSize: 0,
+                          fontWeight: 'bold',
+                          color: 'black60',
+                          letterSpacing: 2,
+                          pl: logoUrl ? 3 : 0,
+                          pr: 2
+                        })}
+                      >
+                        Palette
+                      </Caps>
+                      {palette.map((color, i) => (
+                        <PaletteChip
+                          key={`${color}-${i}`}
+                          $color={color}
+                          aria-label={`Detected color ${color}`}
+                        />
+                      ))}
+                    </>
+                  )}
                 </Flex>
               )}
               <Flex
@@ -2563,8 +2614,9 @@ const Capabilities = ({ currentUrl, currentData }) => {
                 })}
               >
                 https://api.microlink.io?
-                <strong css={theme({ color: 'black' })}>meta&palette</strong>
-                &url={currentUrl || FIRST_URL}
+                <strong css={theme({ color: 'black' })}>
+                  palette&url={currentUrl || FIRST_URL}
+                </strong>
               </Text>
               <CopyButton
                 type='button'
@@ -2639,18 +2691,6 @@ const Capabilities = ({ currentUrl, currentData }) => {
             brand color palette, logo, and favicon. Everything you need to
             render a pixel-perfect link preview on the first try.
           </Caption>
-          <Flex
-            css={theme({
-              pt: [2, 2, 3, 3],
-              width: '100%',
-              fontSize: [2, 2, 3, 3],
-              justifyContent: ['center', 'center', 'center', 'flex-start']
-            })}
-          >
-            <ArrowLink href='/tools/sharing-debugger'>
-              Inspect any URL
-            </ArrowLink>
-          </Flex>
         </Flex>
       </Flex>
     </Container>
