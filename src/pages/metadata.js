@@ -1,5 +1,6 @@
 import {
   borders,
+  breakpoints,
   layout,
   colors,
   theme,
@@ -636,17 +637,23 @@ const ErrorCloseButton = styled('button')`
   }
 `
 
-// --- Metadata Preview Pane ---
+// --- Metadata Preview Pane (JSON) ---
 
 const HeroPreviewWrapper = styled(Box)`
   ${theme({
     position: 'relative',
     bg: 'gray0',
     px: [3, 4, 4, 4],
-    py: [3, 4, 4, 4],
+    pt: [2, 3, 3, 3],
+    pb: [3, 4, 4, 4],
     zIndex: 1
   })};
   aspect-ratio: 16/10;
+  overflow: hidden;
+`
+
+const JsonScroll = styled(Box)`
+  ${theme({ width: '100%', height: '100%' })};
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
@@ -661,6 +668,85 @@ const HeroPreviewWrapper = styled(Box)`
   &::-webkit-scrollbar-thumb {
     background: ${colors.black20};
     border-radius: 3px;
+  }
+`
+
+const JsonPre = styled('pre')`
+  ${theme({
+    m: 0,
+    fontFamily: 'mono',
+    fontSize: ['12px', '13px', '13px', '13px'],
+    lineHeight: 2,
+    color: 'black80'
+  })};
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  tab-size: 2;
+
+  .json-punct {
+    color: ${colors.black40};
+  }
+  .json-key {
+    color: ${colors.black};
+    font-weight: 600;
+  }
+  .json-string {
+    color: ${ACCENT};
+  }
+  .json-number {
+    color: ${colors.grape7};
+  }
+  .json-boolean {
+    color: ${colors.orange7};
+    font-weight: 600;
+  }
+  .json-null {
+    color: ${colors.black40};
+    font-style: italic;
+  }
+`
+
+const JsonExpandToggle = styled('button')`
+  ${theme({
+    m: 0,
+    p: 0,
+    bg: 'transparent',
+    color: 'black40',
+    fontFamily: 'mono',
+    fontSize: 'inherit',
+    lineHeight: 'inherit'
+  })};
+  border: none;
+  cursor: pointer;
+  vertical-align: baseline;
+  transition: color ${transition.short};
+
+  &:hover,
+  &:focus-visible {
+    color: ${ACCENT};
+  }
+
+  &:focus-visible {
+    outline: ${borders[1]} ${colors.black20};
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+`
+
+const jsonCaret = keyframes`
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+`
+
+const JsonCaret = styled('span')`
+  ${theme({ display: 'inline-block', color: 'black60' })};
+  width: 0.5em;
+  animation: ${jsonCaret} 0.9s step-end infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
   }
 `
 
@@ -690,7 +776,12 @@ const JsonKeyList = styled('ul')`
     m: 0,
     p: 0,
     display: 'grid',
-    gridTemplateColumns: ['1fr 1fr', '1fr 1fr', '1fr 1fr', '1fr'],
+    gridTemplateColumns: [
+      'repeat(3, minmax(0, 1fr))',
+      'repeat(6, minmax(0, 1fr))',
+      '1fr',
+      '1fr'
+    ],
     gap: 2,
     fontFamily: 'mono',
     fontSize: 0
@@ -703,15 +794,271 @@ const JsonKeyItem = styled('li')`
     display: 'flex',
     alignItems: 'center',
     gap: 2,
-    color: 'black70'
+    color: 'black70',
+    minWidth: 0
   })};
 `
 
 const KeyDot = styled('span')`
   ${theme({ width: '8px', height: '8px', borderRadius: '50%' })};
-  background: ${({ $present }) => ($present ? ACCENT : colors.black20)};
+  background: ${({ $present }) => ($present ? colors.green7 : colors.black20)};
   flex-shrink: 0;
 `
+
+const DetectedColumn = styled(Box)`
+  ${theme({
+    width: ['100%', '100%', '160px', '160px'],
+    flexShrink: 0,
+    order: [1, 1, 2, 2],
+    pl: [0, 0, 3, 3],
+    pb: [3, 3, 0, 0]
+  })};
+  display: none;
+  border-bottom: ${borders[1]} ${colors.gray3};
+  border-left: 0;
+
+  @media (min-width: ${breakpoints[0]}) {
+    display: block;
+  }
+
+  @media (min-width: ${breakpoints[1]}) {
+    border-bottom: 0;
+    border-left: ${borders[1]} ${colors.gray3};
+  }
+`
+
+const HERO_JSON_KEY_ORDER = [
+  'title',
+  'description',
+  'lang',
+  'author',
+  'publisher',
+  'date',
+  'url',
+  'image',
+  'logo',
+  'video',
+  'audio',
+  'iframe',
+  'palette'
+]
+
+const compactMedia = value => {
+  if (!value || typeof value !== 'object') return value
+  const { url, type, width, height, size_pretty: sizePretty } = value
+  const compact = { url }
+  if (type) compact.type = type
+  if (width) compact.width = width
+  if (height) compact.height = height
+  if (sizePretty) compact.size_pretty = sizePretty
+  return compact
+}
+
+const reshapeForHero = data => {
+  if (!data) return null
+  const shaped = {}
+  for (const key of HERO_JSON_KEY_ORDER) {
+    if (data[key] == null) continue
+    if (['image', 'logo', 'video', 'audio'].includes(key)) {
+      shaped[key] = compactMedia(data[key])
+    } else if (key === 'iframe') {
+      shaped[key] =
+        typeof data[key] === 'object' && data[key].html
+          ? { html: '…' }
+          : data[key]
+    } else {
+      shaped[key] = data[key]
+    }
+  }
+  for (const key of Object.keys(data)) {
+    if (shaped[key] === undefined && data[key] != null) {
+      shaped[key] = data[key]
+    }
+  }
+  return shaped
+}
+
+const STRING_TRUNCATE_AT = 64
+
+const renderJson = (value, path = 'root', expanded, onToggle, indent = 0) => {
+  const pad = '  '.repeat(indent)
+  const padInner = '  '.repeat(indent + 1)
+
+  if (value === null) return <span className='json-null'>null</span>
+  if (typeof value === 'boolean') {
+    return <span className='json-boolean'>{String(value)}</span>
+  }
+  if (typeof value === 'number') {
+    return <span className='json-number'>{value}</span>
+  }
+  if (typeof value === 'string') {
+    const isLong = value.length > STRING_TRUNCATE_AT
+    const isOpen = expanded.has(path)
+    if (!isLong || isOpen) {
+      return (
+        <>
+          <span className='json-string'>"{value}"</span>
+          {isLong && (
+            <>
+              {' '}
+              <JsonExpandToggle
+                type='button'
+                aria-label='Collapse value'
+                onClick={() => onToggle(path)}
+              >
+                [collapse]
+              </JsonExpandToggle>
+            </>
+          )}
+        </>
+      )
+    }
+    const truncated = value.slice(0, STRING_TRUNCATE_AT).trimEnd()
+    return (
+      <>
+        <span className='json-string'>"{truncated}</span>
+        <JsonExpandToggle
+          type='button'
+          aria-label='Expand value'
+          title={`${value.length - truncated.length} more characters`}
+          onClick={() => onToggle(path)}
+        >
+          …
+        </JsonExpandToggle>
+        <span className='json-string'>"</span>
+      </>
+    )
+  }
+
+  if (Array.isArray(value)) {
+    if (value.length === 0) return <span className='json-punct'>[]</span>
+    return (
+      <>
+        <span className='json-punct'>[</span>
+        {'\n'}
+        {value.map((item, i) => (
+          <React.Fragment key={i}>
+            {padInner}
+            {renderJson(item, `${path}.${i}`, expanded, onToggle, indent + 1)}
+            {i < value.length - 1 && <span className='json-punct'>,</span>}
+            {'\n'}
+          </React.Fragment>
+        ))}
+        {pad}
+        <span className='json-punct'>]</span>
+      </>
+    )
+  }
+
+  if (typeof value === 'object') {
+    const entries = Object.entries(value)
+    if (entries.length === 0) return <span className='json-punct'>{'{}'}</span>
+    return (
+      <>
+        <span className='json-punct'>{'{'}</span>
+        {'\n'}
+        {entries.map(([k, v], i) => (
+          <React.Fragment key={k}>
+            {padInner}
+            <span className='json-key'>"{k}"</span>
+            <span className='json-punct'>: </span>
+            {renderJson(v, `${path}.${k}`, expanded, onToggle, indent + 1)}
+            {i < entries.length - 1 && <span className='json-punct'>,</span>}
+            {'\n'}
+          </React.Fragment>
+        ))}
+        {pad}
+        <span className='json-punct'>{'}'}</span>
+      </>
+    )
+  }
+
+  return String(value)
+}
+
+const STREAM_MS_PER_KEY = 60
+
+const useRevealEntries = entriesCount => {
+  const [revealed, setRevealed] = useState(0)
+  const targetRef = useRef(0)
+
+  useEffect(() => {
+    if (entriesCount === 0) {
+      setRevealed(0)
+      targetRef.current = 0
+      return
+    }
+    // If the entries grew (same-shape response update), keep what's shown.
+    // If they shrank, clamp down.
+    if (entriesCount < targetRef.current) {
+      setRevealed(entriesCount)
+      targetRef.current = entriesCount
+      return
+    }
+    targetRef.current = entriesCount
+    let current = 0
+    setRevealed(0)
+    const timers = []
+    for (let i = 1; i <= entriesCount; i++) {
+      timers.push(
+        setTimeout(() => {
+          current = i
+          setRevealed(current)
+        }, i * STREAM_MS_PER_KEY)
+      )
+    }
+    return () => timers.forEach(clearTimeout)
+  }, [entriesCount])
+
+  return revealed
+}
+
+const StreamedJsonObject = ({ value, expanded, onToggle }) => {
+  const entries = value ? Object.entries(value) : []
+  const revealed = useRevealEntries(entries.length)
+  const isStreaming = revealed < entries.length
+  const visible = entries.slice(0, revealed)
+
+  return (
+    <JsonPre aria-label='Metadata JSON response'>
+      <span className='json-punct'>{'{'}</span>
+      {visible.length > 0 && '\n'}
+      {visible.map(([k, v], i) => (
+        <React.Fragment key={k}>
+          {'  '}
+          <span className='json-key'>"{k}"</span>
+          <span className='json-punct'>: </span>
+          {renderJson(v, `root.${k}`, expanded, onToggle, 1)}
+          {i < entries.length - 1 && <span className='json-punct'>,</span>}
+          {'\n'}
+        </React.Fragment>
+      ))}
+      <span className='json-punct'>{'}'}</span>
+      {isStreaming && <JsonCaret aria-hidden='true'>▍</JsonCaret>}
+    </JsonPre>
+  )
+}
+
+const JsonPreview = ({ data }) => {
+  const shaped = reshapeForHero(data)
+  const [expanded, setExpanded] = useState(() => new Set())
+  const onToggle = useCallback(path => {
+    setExpanded(prev => {
+      const next = new Set(prev)
+      if (next.has(path)) next.delete(path)
+      else next.add(path)
+      return next
+    })
+  }, [])
+
+  return (
+    <StreamedJsonObject
+      value={shaped}
+      expanded={expanded}
+      onToggle={onToggle}
+    />
+  )
+}
 
 const MetadataPreview = ({ url, data, isLoading }) => (
   <HeroPreviewWrapper>
@@ -720,7 +1067,7 @@ const MetadataPreview = ({ url, data, isLoading }) => (
         width: '100%',
         height: '100%',
         flexDirection: ['column', 'column', 'row', 'row'],
-        alignItems: ['stretch', 'stretch', 'flex-start', 'flex-start'],
+        alignItems: 'stretch',
         gap: [3, 3, 4, 4]
       })}
     >
@@ -728,44 +1075,17 @@ const MetadataPreview = ({ url, data, isLoading }) => (
         css={theme({
           flex: 1,
           minWidth: 0,
+          minHeight: 0,
           width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
+          order: [2, 2, 1, 1]
         })}
       >
-        {data ? (
-          <HeroMicrolink
-            key={url}
-            size='large'
-            url={data.url || url}
-            fetchData={false}
-            setData={() => data}
-            media={['image', 'logo']}
-          />
-        ) : (
-          <Box
-            css={theme({
-              width: '100%',
-              height: '180px',
-              bg: 'black05',
-              borderRadius: 3
-            })}
-            aria-label='Loading metadata preview'
-          />
-        )}
+        <JsonScroll>
+          <JsonPreview data={data} />
+        </JsonScroll>
       </Box>
-      <Hide breakpoints={[0, 1]}>
-        <Box
-          css={theme({
-            width: '160px',
-            flexShrink: 0,
-            pl: 3,
-            borderLeft: 1,
-            borderColor: 'black05'
-          })}
-          aria-label='Detected metadata fields'
-        >
+      <DetectedColumn aria-label='Detected metadata fields'>
+        <Hide breakpoints={[0, 1]}>
           <Caps
             css={theme({
               fontSize: 0,
@@ -777,21 +1097,28 @@ const MetadataPreview = ({ url, data, isLoading }) => (
           >
             Detected
           </Caps>
-          <JsonKeyList>
-            {JSON_KEYS.map(key => {
-              const present = !isLoading && data && data[key] != null
-              return (
-                <JsonKeyItem key={key}>
-                  <KeyDot $present={present} />
-                  <span css={theme({ color: present ? 'black' : 'black40' })}>
-                    {key}
-                  </span>
-                </JsonKeyItem>
-              )
-            })}
-          </JsonKeyList>
-        </Box>
-      </Hide>
+        </Hide>
+        <JsonKeyList>
+          {JSON_KEYS.map(key => {
+            const present = !isLoading && data && data[key] != null
+            return (
+              <JsonKeyItem key={key}>
+                <KeyDot $present={present} />
+                <span
+                  css={theme({
+                    color: present ? 'black' : 'black40',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
+                  })}
+                >
+                  {key}
+                </span>
+              </JsonKeyItem>
+            )
+          })}
+        </JsonKeyList>
+      </DetectedColumn>
     </Flex>
   </HeroPreviewWrapper>
 )
@@ -1497,8 +1824,9 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
                   })}
                 >
                   https://api.microlink.io?
-                  <strong css={theme({ color: 'black' })}>meta&url</strong>=
-                  {inputUrl}
+                  <strong css={theme({ color: 'black' })}>
+                    url={inputUrl}
+                  </strong>
                 </Text>
                 <CopyButton
                   type='button'
