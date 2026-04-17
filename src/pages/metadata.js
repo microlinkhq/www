@@ -424,14 +424,18 @@ const shimmer = keyframes`
 const MetaOverlay = styled('div')`
   ${theme({
     position: 'absolute',
-    inset: 0,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    top: [`-${space[2]}`, `-${space[3]}`, `-${space[3]}`, `-${space[3]}`],
+    bottom: 0,
+    left: [`-${space[3]}`, `-${space[4]}`, `-${space[4]}`, `-${space[4]}`],
+    right: [`-${space[3]}`, `-${space[4]}`, 0, 0]
   })};
-  background: ${colors.gray0};
+  background: ${({ $dim }) => ($dim ? colors.black10 : colors.gray0)};
   pointer-events: none;
   overflow: hidden;
+  transition: background ${transition.medium};
 
   &::before {
     content: '';
@@ -444,6 +448,7 @@ const MetaOverlay = styled('div')`
       transparent 100%
     );
     animation: ${shimmer} 1.8s ease-in-out infinite;
+    opacity: ${({ $dim }) => ($dim ? 0 : 1)};
 
     @media (prefers-reduced-motion: reduce) {
       animation: none;
@@ -645,7 +650,7 @@ const HeroPreviewWrapper = styled(Box)`
     bg: 'gray0',
     px: [3, 4, 4, 4],
     pt: [2, 3, 3, 3],
-    pb: [3, 4, 4, 4],
+    pb: 0,
     zIndex: 1
   })};
   aspect-ratio: 16/10;
@@ -760,13 +765,13 @@ const HeroMicrolink = styled(Microlink)`
 const JSON_KEYS = [
   'title',
   'description',
+  'lang',
+  'author',
+  'publisher',
+  'date',
+  'url',
   'image',
   'logo',
-  'author',
-  'date',
-  'lang',
-  'publisher',
-  'url',
   'video',
   'audio'
 ]
@@ -976,64 +981,217 @@ const renderJson = (value, path = 'root', expanded, onToggle, indent = 0) => {
   return String(value)
 }
 
-const STREAM_MS_PER_KEY = 60
+// Flatten the JSON into an ordered list of renderable "lines" so we can
+// reveal them one-by-one at a constant cadence. Each line is a React node
+// that already includes the right indentation, trailing comma, etc.
+const flattenToLines = (value, expanded, onToggle) => {
+  const lines = []
+  const indentStr = depth => '  '.repeat(depth)
 
-const useRevealEntries = entriesCount => {
+  const renderLeaf = (v, path) => renderJson(v, path, expanded, onToggle, 0)
+
+  const pushValue = (v, path, depth, trailingComma) => {
+    const pad = indentStr(depth)
+    if (v !== null && typeof v === 'object' && !Array.isArray(v)) {
+      const entries = Object.entries(v)
+      if (entries.length === 0) {
+        lines.push(
+          <>
+            {pad}
+            <span className='json-punct'>{'{}'}</span>
+            {trailingComma && <span className='json-punct'>,</span>}
+          </>
+        )
+        return
+      }
+      lines.push(
+        <>
+          {pad}
+          <span className='json-punct'>{'{'}</span>
+        </>
+      )
+      entries.forEach(([k, child], i) => {
+        pushEntry(k, child, `${path}.${k}`, depth + 1, i < entries.length - 1)
+      })
+      lines.push(
+        <>
+          {pad}
+          <span className='json-punct'>{'}'}</span>
+          {trailingComma && <span className='json-punct'>,</span>}
+        </>
+      )
+      return
+    }
+    if (Array.isArray(v)) {
+      if (v.length === 0) {
+        lines.push(
+          <>
+            {pad}
+            <span className='json-punct'>[]</span>
+            {trailingComma && <span className='json-punct'>,</span>}
+          </>
+        )
+        return
+      }
+      lines.push(
+        <>
+          {pad}
+          <span className='json-punct'>[</span>
+        </>
+      )
+      v.forEach((child, i) => {
+        pushValue(child, `${path}.${i}`, depth + 1, i < v.length - 1)
+      })
+      lines.push(
+        <>
+          {pad}
+          <span className='json-punct'>]</span>
+          {trailingComma && <span className='json-punct'>,</span>}
+        </>
+      )
+      return
+    }
+    lines.push(
+      <>
+        {pad}
+        {renderLeaf(v, path)}
+        {trailingComma && <span className='json-punct'>,</span>}
+      </>
+    )
+  }
+
+  const pushEntry = (k, v, path, depth, trailingComma) => {
+    const pad = indentStr(depth)
+    if (v !== null && typeof v === 'object' && !Array.isArray(v)) {
+      const entries = Object.entries(v)
+      if (entries.length === 0) {
+        lines.push(
+          <>
+            {pad}
+            <span className='json-key'>"{k}"</span>
+            <span className='json-punct'>: </span>
+            <span className='json-punct'>{'{}'}</span>
+            {trailingComma && <span className='json-punct'>,</span>}
+          </>
+        )
+        return
+      }
+      lines.push(
+        <>
+          {pad}
+          <span className='json-key'>"{k}"</span>
+          <span className='json-punct'>: </span>
+          <span className='json-punct'>{'{'}</span>
+        </>
+      )
+      entries.forEach(([ck, cv], i) => {
+        pushEntry(ck, cv, `${path}.${ck}`, depth + 1, i < entries.length - 1)
+      })
+      lines.push(
+        <>
+          {pad}
+          <span className='json-punct'>{'}'}</span>
+          {trailingComma && <span className='json-punct'>,</span>}
+        </>
+      )
+      return
+    }
+    if (Array.isArray(v)) {
+      if (v.length === 0) {
+        lines.push(
+          <>
+            {pad}
+            <span className='json-key'>"{k}"</span>
+            <span className='json-punct'>: </span>
+            <span className='json-punct'>[]</span>
+            {trailingComma && <span className='json-punct'>,</span>}
+          </>
+        )
+        return
+      }
+      lines.push(
+        <>
+          {pad}
+          <span className='json-key'>"{k}"</span>
+          <span className='json-punct'>: </span>
+          <span className='json-punct'>[</span>
+        </>
+      )
+      v.forEach((child, i) => {
+        pushValue(child, `${path}.${i}`, depth + 1, i < v.length - 1)
+      })
+      lines.push(
+        <>
+          {pad}
+          <span className='json-punct'>]</span>
+          {trailingComma && <span className='json-punct'>,</span>}
+        </>
+      )
+      return
+    }
+    lines.push(
+      <>
+        {pad}
+        <span className='json-key'>"{k}"</span>
+        <span className='json-punct'>: </span>
+        {renderLeaf(v, path)}
+        {trailingComma && <span className='json-punct'>,</span>}
+      </>
+    )
+  }
+
+  if (value && typeof value === 'object' && !Array.isArray(value)) {
+    const entries = Object.entries(value)
+    lines.push(<span className='json-punct'>{'{'}</span>)
+    entries.forEach(([k, v], i) => {
+      pushEntry(k, v, `root.${k}`, 1, i < entries.length - 1)
+    })
+    lines.push(<span className='json-punct'>{'}'}</span>)
+  }
+
+  return lines
+}
+
+const STREAM_MS_PER_LINE = 40
+
+const useRevealLines = (totalLines, signature) => {
   const [revealed, setRevealed] = useState(0)
-  const targetRef = useRef(0)
 
   useEffect(() => {
-    if (entriesCount === 0) {
+    if (totalLines === 0) {
       setRevealed(0)
-      targetRef.current = 0
       return
     }
-    // If the entries grew (same-shape response update), keep what's shown.
-    // If they shrank, clamp down.
-    if (entriesCount < targetRef.current) {
-      setRevealed(entriesCount)
-      targetRef.current = entriesCount
-      return
-    }
-    targetRef.current = entriesCount
-    let current = 0
     setRevealed(0)
     const timers = []
-    for (let i = 1; i <= entriesCount; i++) {
-      timers.push(
-        setTimeout(() => {
-          current = i
-          setRevealed(current)
-        }, i * STREAM_MS_PER_KEY)
-      )
+    for (let i = 1; i <= totalLines; i++) {
+      timers.push(setTimeout(() => setRevealed(i), i * STREAM_MS_PER_LINE))
     }
     return () => timers.forEach(clearTimeout)
-  }, [entriesCount])
+  }, [totalLines, signature])
 
   return revealed
 }
 
 const StreamedJsonObject = ({ value, expanded, onToggle }) => {
-  const entries = value ? Object.entries(value) : []
-  const revealed = useRevealEntries(entries.length)
-  const isStreaming = revealed < entries.length
-  const visible = entries.slice(0, revealed)
+  const lines = value ? flattenToLines(value, expanded, onToggle) : []
+  const signature = value
+    ? `${Object.keys(value).length}:${Object.keys(value).join(',')}:${
+      value.url || value.title || ''
+    }`
+    : ''
+  const revealed = useRevealLines(lines.length, signature)
+  const isStreaming = revealed < lines.length
+  const visible = lines.slice(0, revealed)
 
   return (
     <JsonPre aria-label='Metadata JSON response'>
-      <span className='json-punct'>{'{'}</span>
-      {visible.length > 0 && '\n'}
-      {visible.map(([k, v], i) => (
-        <React.Fragment key={k}>
-          {'  '}
-          <span className='json-key'>"{k}"</span>
-          <span className='json-punct'>: </span>
-          {renderJson(v, `root.${k}`, expanded, onToggle, 1)}
-          {i < entries.length - 1 && <span className='json-punct'>,</span>}
+      {visible.map((line, i) => (
+        <React.Fragment key={i}>
+          {line}
           {'\n'}
         </React.Fragment>
       ))}
-      <span className='json-punct'>{'}'}</span>
       {isStreaming && <JsonCaret aria-hidden='true'>▍</JsonCaret>}
     </JsonPre>
   )
@@ -1077,12 +1235,58 @@ const MetadataPreview = ({ url, data, isLoading }) => (
           minWidth: 0,
           minHeight: 0,
           width: '100%',
-          order: [2, 2, 1, 1]
+          order: [2, 2, 1, 1],
+          position: 'relative'
         })}
       >
-        <JsonScroll>
-          <JsonPreview data={data} />
-        </JsonScroll>
+        <Box
+          css={[
+            theme({ width: '100%', height: '100%' }),
+            {
+              filter: isLoading && data ? 'blur(6px)' : 'blur(0px)',
+              transition: 'filter 0.5s ease'
+            }
+          ]}
+        >
+          <JsonScroll>
+            <JsonPreview data={data} />
+          </JsonScroll>
+        </Box>
+        {isLoading && (
+          <MetaOverlay
+            $dim={Boolean(data)}
+            aria-label='Loading metadata…'
+            role='status'
+          >
+            {!data && (
+              <SkeletonLines aria-hidden='true'>
+                <SkeletonLine $w='55%' $h='18px' />
+                <SkeletonLine $w='90%' />
+                <SkeletonLine $w='80%' />
+                <SkeletonLine $w='85%' />
+                <SkeletonLine $w='40%' />
+                <Box css={theme({ height: '12px' })} />
+                <SkeletonLine $w='45%' $h='16px' />
+                <SkeletonLine $w='95%' />
+                <SkeletonLine $w='70%' />
+              </SkeletonLines>
+            )}
+            <Spinner
+              width='36'
+              height='36'
+              viewBox='0 0 50 50'
+              aria-hidden='true'
+            >
+              <SpinnerCircle
+                cx='25'
+                cy='25'
+                r='20'
+                fill='none'
+                strokeWidth='4'
+              />
+            </Spinner>
+          </MetaOverlay>
+        )}
       </Box>
       <DetectedColumn aria-label='Detected metadata fields'>
         <Hide breakpoints={[0, 1]}>
@@ -1697,35 +1901,6 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
                   data={metaData}
                   isLoading={isLoading}
                 />
-                {isLoading && !metaData && (
-                  <MetaOverlay aria-label='Loading metadata…' role='status'>
-                    <SkeletonLines aria-hidden='true'>
-                      <SkeletonLine $w='55%' $h='18px' />
-                      <SkeletonLine $w='90%' />
-                      <SkeletonLine $w='80%' />
-                      <SkeletonLine $w='85%' />
-                      <SkeletonLine $w='40%' />
-                      <Box css={theme({ height: '12px' })} />
-                      <SkeletonLine $w='45%' $h='16px' />
-                      <SkeletonLine $w='95%' />
-                      <SkeletonLine $w='70%' />
-                    </SkeletonLines>
-                    <Spinner
-                      width='36'
-                      height='36'
-                      viewBox='0 0 50 50'
-                      aria-hidden='true'
-                    >
-                      <SpinnerCircle
-                        cx='25'
-                        cy='25'
-                        r='20'
-                        fill='none'
-                        strokeWidth='4'
-                      />
-                    </Spinner>
-                  </MetaOverlay>
-                )}
                 {error && (
                   <ErrorModalOverlay
                     role='dialog'
