@@ -29,6 +29,8 @@ import LineBreak from 'components/elements/LineBreak'
 
 import { Check as CheckIcon, Star as StarIcon } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
+import { Focus as FocusIcon } from 'components/icons/Focus'
+import { PDF as PDFIcon } from 'components/icons/PDF'
 import { rotate, dash, fadeInDown, highlight } from 'components/keyframes'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Block from 'components/patterns/Block/Block'
@@ -133,7 +135,7 @@ const Caption = withTitle(CaptionBase)
 
 const FIRST_URL = 'https://stripe.com'
 
-const DEMO_URLS = ['microlink.io', 'unavatar.io']
+const DEMO_URLS = ['unavatar.io', 'plausible.io']
 
 const HERO_LAYOUT = {
   maxWidth: ['100%', '100%', '100%', `calc(${layout.large} * 1.7)`],
@@ -1250,7 +1252,7 @@ const MetadataPreview = ({ url, data, isLoading }) => (
         height: '100%',
         flexDirection: ['column', 'column', 'row', 'row'],
         alignItems: 'stretch',
-        gap: [3, 3, 4, 4]
+        gap: 0
       })}
     >
       <Box
@@ -1260,6 +1262,8 @@ const MetadataPreview = ({ url, data, isLoading }) => (
           minHeight: 0,
           width: '100%',
           order: [2, 2, 1, 1],
+          pt: [2, 2, 0, 0],
+          pr: [0, 0, 2, 2],
           position: 'relative'
         })}
       >
@@ -1367,8 +1371,8 @@ const MAX_HISTORY = 6
 
 const DEFAULT_HISTORY = [
   FIRST_URL,
-  'https://microlink.io',
-  'https://unavatar.io'
+  'https://unavatar.io',
+  'https://plausible.io'
 ]
 
 const addToHistory = (history, url) => {
@@ -1698,7 +1702,7 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
           <Heading
             css={theme({
               px: [2, 3, 4, 0],
-              fontSize: [3, 3, 4, 4],
+              fontSize: [4, 4, 5, 5],
               maxWidth: ['100%', '100%', '100%', '640px'],
               textAlign: ['center', 'center', 'center', 'left']
             })}
@@ -2027,39 +2031,37 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </MetaApiBar>
             </BrowserWindow>
@@ -2164,28 +2166,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '-'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '-'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -2623,39 +2623,37 @@ const Capabilities = ({ currentUrl, currentData }) => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </MetaApiBar>
           </Box>
@@ -2694,6 +2692,399 @@ const Capabilities = ({ currentUrl, currentData }) => {
             render a pixel-perfect link preview on the first try.
           </Caption>
         </Flex>
+      </Flex>
+    </Container>
+  )
+}
+
+// --- Stack with Microlink platform ---
+
+const STACK_UTILITIES = [
+  {
+    key: 'screenshot',
+    eyebrow: 'Metadata × Screenshot',
+    title: 'Visual link previews, every time',
+    description:
+      'Pair structured metadata with a real browser screenshot when og:image is missing, low-resolution, or mismatched. Render rich link previews and social cards that always look intentional — even for pages without proper Open Graph tags.',
+    href: '/screenshot',
+    cta: 'Explore Screenshot API',
+    accentColor: colors.red6,
+    accentSoft: colors.red0,
+    apiCall: 'api.microlink.io?meta&screenshot&url=',
+    icon: <FocusIcon width='24' height='24' />
+  },
+  {
+    key: 'markdown',
+    eyebrow: 'Metadata × Markdown',
+    title: 'Clean content for LLMs and RAG pipelines',
+    description:
+      'Strip pages down to clean Markdown for embeddings, summarization, or content ingestion — and ship the structured metadata alongside as front-matter. Your AI pipeline gets both the readable body and the trustworthy source signals in one request.',
+    href: '/markdown',
+    cta: 'Explore Markdown API',
+    accentColor: colors.orange7,
+    accentSoft: colors.orange0,
+    apiCall: 'api.microlink.io?meta&markdown&url=',
+    icon: (
+      <svg
+        width='22'
+        height='22'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='1.8'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <rect x='3' y='5' width='18' height='14' rx='2' />
+        <path d='M7 15V9l3 3 3-3v6' />
+        <path d='M17 9v6m0 0l-2-2m2 2l2-2' />
+      </svg>
+    )
+  },
+  {
+    key: 'pdf',
+    eyebrow: 'Metadata × PDF',
+    title: 'Document-grade archives with provenance',
+    description:
+      'Convert any URL into a high-fidelity PDF and attach the unified metadata as machine-readable context — title, author, language, publication date, canonical URL. Perfect for legal archives, research evidence, and audit trails.',
+    href: '/pdf',
+    cta: 'Explore PDF API',
+    accentColor: 'rgb(224, 0, 172)',
+    accentSoft: colors.pink0,
+    apiCall: 'api.microlink.io?meta&pdf&url=',
+    icon: <PDFIcon width='24' height='24' />
+  },
+  {
+    key: 'palette',
+    eyebrow: 'Metadata × Palette & Logo',
+    title: 'Brand-aware UI without manual art direction',
+    description:
+      'Add palette=true to extract dominant colors from the og:image or logo, and get the logo / favicon URLs in the same response. Theme link cards, chat unfurls, and notification UI to match the source — pixel by pixel, brand by brand.',
+    href: '/logo',
+    cta: 'Read palette docs',
+    accentColor: ACCENT,
+    accentSoft: colors.blue0,
+    apiCall: 'api.microlink.io?meta&palette&url=',
+    icon: (
+      <svg
+        width='22'
+        height='22'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='1.8'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <path d='M12 3a9 9 0 1 0 0 18c1.1 0 2-.9 2-2 0-.5-.2-1-.6-1.4-.4-.4-.6-.9-.6-1.4 0-1.1.9-2 2-2H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8z' />
+        <circle cx='7.5' cy='10.5' r='1' />
+        <circle cx='12' cy='7.5' r='1' />
+        <circle cx='16.5' cy='10.5' r='1' />
+      </svg>
+    )
+  }
+]
+
+const StackCard = styled('a')`
+  ${theme({
+    display: 'flex',
+    flexDirection: 'column',
+    p: [3, 3, 4, 4],
+    bg: 'white',
+    borderRadius: 3,
+    gap: 3
+  })};
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  border: ${borders[1]} ${colors.black10};
+  box-shadow: 0 1px 2px ${colors.black05};
+  transition: transform ${transition.medium}, box-shadow ${transition.medium},
+    border-color ${transition.medium};
+  overflow: hidden;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: ${({ $accent }) => $accent};
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform ${transition.medium};
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px ${colors.black10};
+    border-color: ${colors.black20};
+  }
+
+  &:hover::before,
+  &:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover,
+    &:focus-visible {
+      transform: none;
+    }
+  }
+`
+
+const StackIconWrap = styled('span')`
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '40px',
+    height: '40px',
+    borderRadius: 2
+  })};
+  background: ${({ $soft }) => $soft};
+  color: ${({ $accent }) => $accent};
+  flex-shrink: 0;
+
+  & > svg {
+    display: block;
+    width: 22px !important;
+    height: 22px !important;
+    flex-shrink: 0;
+  }
+`
+
+const StackEyebrow = styled('span')`
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'bold',
+    letterSpacing: 1
+  })};
+  color: ${({ $accent }) => $accent};
+  text-transform: uppercase;
+`
+
+const StackApiCode = styled('code')`
+  ${theme({
+    display: 'block',
+    fontFamily: 'mono',
+    fontSize: 0,
+    color: 'black70',
+    bg: 'gray0',
+    px: 2,
+    py: 2,
+    borderRadius: 2,
+    mt: 'auto'
+  })};
+  border: ${borders[1]} ${colors.black05};
+  word-break: break-all;
+  line-height: 1.5;
+
+  & .stack-api-param {
+    color: ${({ $accent }) => $accent};
+    font-weight: bold;
+  }
+`
+
+const StackCta = styled('span')`
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    fontFamily: 'sans',
+    fontSize: 1,
+    fontWeight: 'bold'
+  })};
+  color: ${({ $accent }) => $accent};
+  gap: 6px;
+  transition: gap ${transition.short};
+
+  ${StackCard}:hover &,
+  ${StackCard}:focus-visible & {
+    gap: 10px;
+  }
+
+  &::after {
+    content: '→';
+    display: inline-block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    ${StackCard}:hover &,
+    ${StackCard}:focus-visible & {
+      gap: 6px;
+    }
+  }
+`
+
+const renderStackApi = (apiCall, currentUrl) => {
+  const parts = apiCall.split(
+    /(\bmeta&\b|\bscreenshot\b|\bpdf\b|\bmarkdown\b|\bpalette\b)/g
+  )
+  const url = currentUrl || FIRST_URL
+  return (
+    <>
+      {parts.map((part, i) =>
+        /^(meta&|screenshot|pdf|markdown|palette)$/.test(part) ? (
+          <span key={i} className='stack-api-param'>
+            {part}
+          </span>
+        ) : (
+          part
+        )
+      )}
+      {url}
+    </>
+  )
+}
+
+const Stack = ({ currentUrl }) => {
+  return (
+    <Container
+      id='stack'
+      as='section'
+      css={theme({
+        alignItems: 'center',
+        width: '100%',
+        pt: [4, 4, 4, 4],
+        pb: [4, 4, 5, 6],
+        px: [3, 3, 4, 5]
+      })}
+    >
+      <Flex
+        css={theme({
+          width: '100%',
+          maxWidth: HERO_LAYOUT.maxWidth,
+          mx: 'auto',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: [4, 4, 5, 5]
+        })}
+      >
+        <Flex
+          css={theme({
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center',
+            gap: 3,
+            maxWidth: layout.large,
+            mx: 'auto'
+          })}
+        >
+          <Caps
+            css={theme({
+              fontSize: 1,
+              fontWeight: 'bold',
+              color: 'black60',
+              letterSpacing: 2
+            })}
+          >
+            One API, every layer of context
+          </Caps>
+          <Subhead
+            css={theme({
+              fontSize: [3, 3, 4, 5],
+              textAlign: 'center'
+            })}
+          >
+            Metadata is the foundation.
+            <br />
+            <span css={{ color: ACCENT }}>Stack the rest on top.</span>
+          </Subhead>
+          <Caption
+            forwardedAs='div'
+            css={theme({
+              fontSize: [2, 2, 2, 2],
+              textAlign: 'center',
+              maxWidth: layout.normal,
+              mx: 'auto'
+            })}
+          >
+            Use the metadata API on its own to power link previews, knowledge
+            graphs, content moderation, or SEO tooling. Combine it with the
+            other Microlink utilities in a single request to enrich the response
+            with screenshots, PDFs, clean Markdown, and brand colors — no extra
+            roundtrips, same predictable JSON, same browser session.
+          </Caption>
+        </Flex>
+        <Box
+          css={theme({
+            display: 'grid',
+            width: '100%',
+            gridTemplateColumns: [
+              '1fr',
+              '1fr',
+              'repeat(2, 1fr)',
+              'repeat(2, 1fr)'
+            ],
+            gap: [3, 3, 4, 4]
+          })}
+        >
+          {STACK_UTILITIES.map(item => (
+            <StackCard
+              key={item.key}
+              href={item.href}
+              $accent={item.accentColor}
+              aria-label={`${item.title} — ${item.cta}`}
+            >
+              <Flex
+                css={theme({
+                  alignItems: 'center',
+                  gap: 3
+                })}
+              >
+                <StackIconWrap
+                  $accent={item.accentColor}
+                  $soft={item.accentSoft}
+                >
+                  {item.icon}
+                </StackIconWrap>
+                <Flex
+                  css={theme({
+                    flexDirection: 'column',
+                    gap: 1,
+                    minWidth: 0
+                  })}
+                >
+                  <StackEyebrow $accent={item.accentColor}>
+                    {item.eyebrow}
+                  </StackEyebrow>
+                  <Subhead
+                    css={theme({
+                      fontSize: [2, 2, 3, 3],
+                      textAlign: 'left'
+                    })}
+                  >
+                    {item.title}
+                  </Subhead>
+                </Flex>
+              </Flex>
+              <Caption
+                forwardedAs='div'
+                css={theme({
+                  fontSize: [1, 1, 2, 2],
+                  textAlign: 'left'
+                })}
+              >
+                {item.description}
+              </Caption>
+              <StackApiCode $accent={item.accentColor}>
+                {renderStackApi(item.apiCall, currentUrl)}
+              </StackApiCode>
+              <StackCta $accent={item.accentColor}>{item.cta}</StackCta>
+            </StackCard>
+          ))}
+        </Box>
       </Flex>
     </Container>
   )
@@ -2864,8 +3255,7 @@ const CodeExample = ({ currentUrl }) => {
               height={320}
               mqlCode={{
                 url: currentUrl || FIRST_URL,
-                meta: true,
-                palette: true
+                meta: true
               }}
             />
           </Flex>
@@ -3994,12 +4384,6 @@ const CallToAction = () => (
         >
           Get started free
         </ArrowLink>
-        <ArrowLink
-          href='/tools/sharing-debugger'
-          css={theme({ fontSize: ['20px', '22px', '24px', '26px'] })}
-        >
-          Try the debugger
-        </ArrowLink>
       </Flex>
       <Flex
         css={theme({
@@ -4458,6 +4842,7 @@ const MetaPage = () => {
       <Clients />
       <Pricing />
       <OpenSource />
+      <Stack currentUrl={currentUrl} />
       <Playground />
       <Benchmark />
       <Features
