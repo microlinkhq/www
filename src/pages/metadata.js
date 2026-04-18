@@ -1707,7 +1707,7 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            Metadata API{' '}
+            Website Metadata API{' '}
             <span style={{ whiteSpace: 'nowrap' }}>for developers</span>
           </Heading>
           <Caption
@@ -1716,14 +1716,13 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
               pt: [3, 3, 4, 4],
               px: [1, 2, 4, 0],
               maxWidth: ['100%', layout.small, layout.small, '640px'],
-              fontSize: [2, 2, 2, 2],
+              fontSize: 2,
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            The metadata API that turns any URL into unified, structured data.
-            Extract Open Graph, Twitter Cards, JSON-LD, microdata, and HTML tags
-            in a single REST call — titles, descriptions, images, logos, and
-            color palettes included.
+            Turn any URL into normalized JSON. A single REST endpoint that
+            executes JavaScript, merges Open Graph, JSON-LD, and HTML tags, and
+            returns structured data instantly.
           </Caption>
           <Flex
             css={theme({
@@ -2815,7 +2814,7 @@ const Capabilities = ({ currentUrl, currentData }) => {
           >
             Microlink returns a unified JSON response — plus the brand color
             palette, logo, and favicon. Everything you need to render a
-            pixel-perfect link preview on the first try.
+            pixel-perfect link preview or URL preview on the first try.
           </Caption>
           <Flex
             css={[
@@ -3224,6 +3223,7 @@ const Stack = ({ currentUrl }) => {
                     {item.eyebrow}
                   </StackEyebrow>
                   <Subhead
+                    titleize={false}
                     css={theme({
                       fontSize: [2, 2, 3, 3],
                       textAlign: 'left'
@@ -3371,10 +3371,10 @@ const CodeExample = ({ currentUrl }) => {
               ]
             })}
           >
-            The Microlink metadata API delivers unified structured data through
-            a developer-friendly HTTP endpoint. One URL in, normalized metadata
-            out — ready to power link previews, content ingestion, and social
-            card generation.
+            The Microlink website metadata API delivers unified structured data
+            through a developer-friendly HTTP endpoint. One URL in, normalized
+            metadata out — ready to power link previews, URL previews, content
+            ingestion, and social card generation.
           </Caption>
           <Flex
             css={theme({
@@ -3729,8 +3729,8 @@ const Pricing = () => (
         maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
       })}
     >
-      No login required. No credit card needed. The metadata API is free to use
-      — just start calling it.
+      No login required. No credit card needed. The website metadata API is free
+      to use — just start calling it.
     </Caption>
     <Flex
       css={theme({
@@ -4421,7 +4421,7 @@ const Benchmark = () => (
           textAlign: 'center'
         })}
       >
-        The most complete metadata API{' '}
+        The most complete website metadata API{' '}
         <span css={theme({ display: 'block', color: 'white60' })}>
           built for production workloads
         </span>
@@ -4530,9 +4530,9 @@ const CallToAction = () => (
           fontSize: [2, 2, 3, 3]
         })}
       >
-        Get 50&nbsp;requests/day with zero commitment — the metadata API is free
-        to use, no account, and no credit card. Just call the API and start
-        unifying metadata in seconds.
+        Get 50&nbsp;requests/day with zero commitment — the website metadata API
+        is free to use, no account, and no credit card. Just call the API and go
+        from URL to metadata in seconds.
       </Caption>
       <Flex
         css={theme({
@@ -4582,26 +4582,18 @@ const CallToAction = () => (
 
 const TOP_FAQ_ITEMS = [
   {
-    question: 'What is a metadata API and how does it work?',
-    text: 'A metadata API takes any URL as input, loads the page with a full headless browser, and returns a unified JSON response containing the title, description, image, logo, favicon, color palette, language, author, date, and other structured fields. Microlink merges Open Graph, Twitter Cards, JSON-LD, oEmbed, microdata, RDFa, and HTML tags in one call — so you never have to pick a single source.',
+    question: 'What is a website metadata API and how does it work?',
+    text: 'A website metadata API takes any URL as input, loads the page with a full headless browser, and returns a unified JSON response containing the title, description, image, logo, favicon, color palette, language, author, date, and other structured fields. Think of it as a programmable link to metadata: one URL in, fully normalized metadata out. Microlink merges Open Graph, Twitter Cards, JSON-LD, oEmbed, microdata, RDFa, and HTML tags in one call — so you never have to pick a single source.',
     answer: (
       <>
         <div>
-          A <b>metadata API</b> takes any URL as input, loads the page with a
-          full{' '}
+          A <b>website metadata API</b> takes any URL as input, loads the page
+          with a full{' '}
           <Link href='/blog/what-is-a-headless-browser'>headless browser</Link>,
           and returns a unified JSON response containing title, description,
           image, logo, favicon, color palette, language, author, date, and more.
-        </div>
-        <div>
-          Microlink merges <Link href='https://ogp.me'>Open Graph</Link>,{' '}
-          <Link href='https://developer.x.com/en/docs/x-for-websites/cards/overview/abouts-cards'>
-            Twitter Cards
-          </Link>
-          , <Link href='https://json-ld.org'>JSON-LD</Link>,{' '}
-          <Link href='https://oembed.com'>oEmbed</Link>, microdata, RDFa, and
-          HTML tags in a single call — so you never have to pick a single
-          source.
+          Think of it as a programmable link to metadata: one URL in, fully
+          normalized metadata out.
         </div>
       </>
     )
@@ -4630,12 +4622,13 @@ const TOP_FAQ_ITEMS = [
     )
   },
   {
-    question: 'How do I extract Open Graph metadata from any URL?',
-    text: 'Send an HTTPS GET request to https://api.microlink.io?url=<your-url> and you will receive JSON with the normalized metadata, including og:title, og:description, og:image, og:type, and og:site_name. No authentication is required for the free tier. The response merges Open Graph with Twitter Cards, JSON-LD, and HTML fallbacks so you always get a complete preview.',
+    question: 'How do I convert a URL to metadata or a link preview?',
+    text: 'Use the metadata API as a URL preview and link preview endpoint: send an HTTPS GET request to https://api.microlink.io?url=<your-url> and you will receive JSON with the normalized metadata, including og:title, og:description, og:image, og:type, and og:site_name. No authentication is required for the free tier. The response merges Open Graph with Twitter Cards, JSON-LD, and HTML fallbacks so you always get a complete preview.',
     answer: (
       <>
         <div>
-          Send an HTTPS <code>GET</code> request to{' '}
+          Use the metadata API as a <b>URL preview</b> and <b>link preview</b>{' '}
+          endpoint. Send an HTTPS <code>GET</code> request to{' '}
           <code>https://api.microlink.io?url=&lt;your-url&gt;</code> and you
           will receive JSON with the normalized metadata — including{' '}
           <i>og:title</i>, <i>og:description</i>, <i>og:image</i>,{' '}
@@ -4684,26 +4677,6 @@ const TOP_FAQ_ITEMS = [
           dominant color palette extracted from the <i>og:image</i> or the logo.
           Perfect for theming link preview cards, chat unfurls, and brand-aware
           UI without manual design work.
-        </div>
-      </>
-    )
-  },
-  {
-    question: 'How is this different from the sharing debugger tool?',
-    text: 'The metadata API returns structured JSON you can integrate into your product — perfect for link previews, RSS ingestion, RAG pipelines, or internal dashboards. The sharing debugger tool is a visual front-end built on the same API: it lets you paste any URL, inspect the merged metadata, preview how it renders on Facebook, X, LinkedIn, WhatsApp, and Slack, and share the results. Use the API to build, the debugger to verify.',
-    answer: (
-      <>
-        <div>
-          The <Link href='/metadata'>metadata API</Link> returns structured JSON
-          you can integrate into your product — perfect for link previews, RSS
-          ingestion, RAG pipelines, or internal dashboards.
-        </div>
-        <div>
-          The <Link href='/tools/sharing-debugger'>sharing debugger tool</Link>{' '}
-          is a visual front-end built on the same API. Paste any URL, inspect
-          the merged metadata, preview how it renders on Facebook, X, LinkedIn,
-          WhatsApp, and Slack, and share the results. Use the API to build, the
-          debugger to verify.
         </div>
       </>
     )
@@ -4858,8 +4831,8 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Metadata API — Extract Open Graph, JSON-LD & Link Previews from Any URL'
-    description='Free metadata API — convert any URL into unified metadata: title, description, Open Graph, Twitter Cards, JSON-LD, images, logos, and color palettes. 50 req/day, no login.'
+    title='Website Metadata API — URL to Metadata & Link Preview API'
+    description='Website metadata API that turns any URL to metadata: Open Graph, JSON-LD, Twitter Cards, link preview & URL preview in one JSON call. 50 req/day free.'
     image={cdnUrl('banner/meta.jpeg')}
     structured={{
       '@context': 'https://schema.org',
@@ -4867,9 +4840,14 @@ export const Head = () => (
         {
           '@type': 'SoftwareApplication',
           '@id': 'https://microlink.io/metadata',
-          name: 'Microlink Metadata API',
+          name: 'Microlink Website Metadata API',
+          alternateName: [
+            'Website Metadata API',
+            'URL to Metadata API',
+            'Link Preview API'
+          ],
           description:
-            'Free metadata API that extracts unified structured data from any URL. Merges Open Graph, Twitter Cards, JSON-LD, oEmbed, microdata, RDFa, and HTML tags into a single JSON response — with images, logos, favicons, and color palettes included.',
+            'Website metadata API that extracts unified structured data from any URL — link preview, URL preview, Open Graph, Twitter Cards, JSON-LD, oEmbed, microdata, RDFa and HTML tags merged into a single JSON response, with images, logos, favicons and color palettes included.',
           url: 'https://microlink.io/metadata',
           applicationCategory: ['DeveloperApplication', 'WebAPI'],
           operatingSystem: 'Web, Platform-Agnostic',
@@ -4894,14 +4872,18 @@ export const Head = () => (
             url: 'https://microlink.io/#pricing'
           },
           keywords: [
+            'website metadata api',
             'metadata api',
+            'url to metadata',
+            'link to metadata',
+            'link preview api',
+            'link preview',
+            'url preview',
             'open graph api',
             'json-ld api',
-            'link preview api',
-            'unified metadata',
-            'url to metadata',
             'twitter cards api',
             'oembed api',
+            'unified metadata',
             'structured data extraction',
             'sharing debugger'
           ],
@@ -5024,7 +5006,7 @@ const MetaPage = () => {
               ]
             })}
           >
-            The most complete metadata API,{' '}
+            The most complete website metadata API,{' '}
             <span
               css={{
                 display: 'block',
@@ -5040,8 +5022,8 @@ const MetaPage = () => {
         caption={
           <>
             No more brittle scrapers, conflicting tag sources, or partial link
-            previews — our metadata API merges every source into one predictable
-            JSON response, with easy integration via the{' '}
+            previews — our website metadata API turns any URL to metadata in one
+            predictable JSON response, with easy integration via the{' '}
             <Link href='/docs/guides/metadata'>metadata API documentation</Link>
             .
           </>
