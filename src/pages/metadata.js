@@ -2031,39 +2031,37 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </MetaApiBar>
             </BrowserWindow>
@@ -2168,28 +2166,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '-'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '-'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -2354,6 +2350,130 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
 }
 
 // --- Capabilities (metadata preview card) ---
+
+const CAPABILITIES = [
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <path d='M9 4H8a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2 2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1' />
+        <path d='M15 4h1a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2 2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-1' />
+      </svg>
+    ),
+    title: 'Every source merged, zero parsing',
+    description: (
+      <>
+        Open Graph, Twitter Cards, JSON-LD, oEmbed, microdata, RDFa, and HTML
+        tags combined into <b>one unified schema</b>. Stop writing{' '}
+        <b>per-site fallback logic</b> and ship consistent previews at scale.
+      </>
+    )
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <rect x='3' y='3' width='18' height='18' rx='2' />
+        <circle cx='9' cy='9' r='2' />
+        <path d='m21 15-5-5L5 21' />
+      </svg>
+    ),
+    title: 'Brand-ready visuals out of the box',
+    description: (
+      <>
+        Get high-resolution images, logos, favicons, and the{' '}
+        <b>dominant color palette</b> for every URL — perfect for{' '}
+        <b>rich link cards and theming</b> without manual art direction.
+      </>
+    )
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <path d='M13 2 3 14h9l-1 8 10-12h-9l1-8z' />
+      </svg>
+    ),
+    title: 'Real browser, SPA-ready rendering',
+    description: (
+      <>
+        Every request runs in a <b>real headless Chrome session</b> that
+        executes JavaScript, hydrates SPAs, and waits for selectors — so you get
+        accurate metadata from dynamic pages that <b>plain scrapers miss</b>.
+      </>
+    )
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <circle cx='12' cy='12' r='10' />
+        <path d='M2 12h20' />
+        <path d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z' />
+      </svg>
+    ),
+    title: 'Production-grade edge infrastructure',
+    description: (
+      <>
+        Global CDN caching, automatic retries, and <b>99.9% uptime</b> handle
+        the scraping complexity for you — with a{' '}
+        <b>free tier of 50 requests per day</b> to get started.
+      </>
+    )
+  }
+]
+
+const CapabilityItem = styled(Flex)`
+  ${theme({ gap: 2, alignItems: 'flex-start' })};
+`
+
+const CapabilityIcon = styled(Flex)`
+  ${theme({
+    width: space[4],
+    height: space[4],
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0
+  })};
+  color: ${ACCENT};
+`
 
 const PaletteChip = styled('span')`
   ${theme({ width: space[3], height: space[3], borderRadius: '50%' })};
@@ -2627,42 +2747,43 @@ const Capabilities = ({ currentUrl, currentData }) => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </MetaApiBar>
           </Box>
+          <ArrowLink css={theme({ fontSize: [1, 1, 2, 2] })} href='/sdk'>
+            Drop-in link previews in one line of code
+          </ArrowLink>
         </Flex>
         <Flex
           css={theme({
@@ -2692,11 +2813,48 @@ const Capabilities = ({ currentUrl, currentData }) => {
               fontSize: [1, 1, 2, 2]
             })}
           >
-            Microlink returns a unified JSON merged from Open Graph, Twitter
-            Cards, JSON-LD, microdata, RDFa, oEmbed, and HTML tags — plus the
-            brand color palette, logo, and favicon. Everything you need to
-            render a pixel-perfect link preview on the first try.
+            Microlink returns a unified JSON response — plus the brand color
+            palette, logo, and favicon. Everything you need to render a
+            pixel-perfect link preview on the first try.
           </Caption>
+          <Flex
+            css={[
+              theme({ gap: [3, 3, 3, 4], width: '100%' }),
+              {
+                flexDirection: 'column',
+                '@media (min-width: 768px) and (max-width: 1199px)': {
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  '& > *': { width: 'calc(50% - 12px)' }
+                }
+              }
+            ]}
+          >
+            {CAPABILITIES.map(({ icon, title, description }) => (
+              <CapabilityItem key={title}>
+                <CapabilityIcon>{icon}</CapabilityIcon>
+                <Flex css={theme({ flexDirection: 'column', gap: 1 })}>
+                  <Text
+                    css={theme({
+                      fontWeight: 'bold',
+                      fontSize: [1, 1, 2, 2]
+                    })}
+                  >
+                    {title}
+                  </Text>
+                  <Text
+                    css={theme({
+                      fontSize: [0, 0, 1, 1],
+                      color: 'black70',
+                      lineHeight: 2
+                    })}
+                  >
+                    {description}
+                  </Text>
+                </Flex>
+              </CapabilityItem>
+            ))}
+          </Flex>
         </Flex>
       </Flex>
     </Container>
@@ -2941,15 +3099,13 @@ const renderStackApi = (apiCall, currentUrl) => {
   return (
     <>
       {parts.map((part, i) =>
-        /^(meta&|screenshot|pdf|markdown|palette)$/.test(part)
-          ? (
-            <span key={i} className='stack-api-param'>
-              {part}
-            </span>
-            )
-          : (
-              part
-            )
+        /^(meta&|screenshot|pdf|markdown|palette)$/.test(part) ? (
+          <span key={i} className='stack-api-param'>
+            {part}
+          </span>
+        ) : (
+          part
+        )
       )}
       {url}
     </>
