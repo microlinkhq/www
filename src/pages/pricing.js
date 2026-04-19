@@ -1,4 +1,10 @@
-import React, { useState } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Check as CheckIcon, X as XIcon } from 'react-feather'
 
@@ -25,7 +31,6 @@ import CaptionBase from 'components/patterns/Caption/Caption'
 import Checkout from 'components/patterns/Checkout'
 import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
-import { formatNumber } from 'helpers/format-number'
 import { withTitle } from 'helpers/hoc/with-title'
 import {
   borders,
@@ -53,6 +58,57 @@ const COMPACT_NUMBER_FORMATTER = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 1
 })
 const formatCompact = n => COMPACT_NUMBER_FORMATTER.format(n).toLowerCase()
+
+// ─── Currency ────────────────────────────────────────────────────────────────
+
+const EUR_TO_USD = 1.17
+const CURRENCIES = {
+  USD: {
+    code: 'USD',
+    symbol: '$',
+    rate: EUR_TO_USD,
+    label: 'USD',
+    word: 'dollars'
+  },
+  EUR: { code: 'EUR', symbol: '€', rate: 1, label: 'EUR', word: 'euros' }
+}
+const CURRENCY_STORAGE_KEY = 'microlink:pricing-currency'
+const EUROPE_TZ_PREFIX = 'Europe/'
+
+const convert = (eurAmount, currencyCode) =>
+  eurAmount * CURRENCIES[currencyCode].rate
+
+const formatPrice = (eurAmount, currencyCode, { decimals = 0 } = {}) => {
+  const value = convert(eurAmount, currencyCode)
+  return value.toFixed(decimals)
+}
+
+const detectInitialCurrency = () => {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''
+    return tz.startsWith(EUROPE_TZ_PREFIX) ? 'EUR' : 'USD'
+  } catch (_) {
+    return 'USD'
+  }
+}
+
+const useCurrency = () => {
+  const [currency, setCurrencyState] = useState('USD')
+
+  useEffect(() => {
+    const next = detectInitialCurrency()
+    if (next !== 'USD') setCurrencyState(next)
+  }, [])
+
+  const setCurrency = useCallback(next => {
+    setCurrencyState(next)
+  }, [])
+
+  return [currency, setCurrency]
+}
+
+const CurrencyContext = createContext(['USD', () => {}])
+const useCurrencyContext = () => useContext(CurrencyContext)
 
 // ─── Head / SEO ──────────────────────────────────────────────────────────────
 
@@ -377,45 +433,57 @@ const PlanCheck = ({ accent = 'black60', children }) => (
   </Flex>
 )
 
-const PriceTag = ({ amount, suffix = '/month', ariaLabel }) => (
-  <Flex
-    css={theme({
-      alignItems: 'baseline',
-      justifyContent: 'flex-start',
-      gap: 1
-    })}
-    aria-label={ariaLabel}
-  >
-    <Text
-      as='span'
+const PriceTag = ({ eur, suffix = '/month', highlight = false }) => {
+  const [currency] = useCurrencyContext()
+  const { symbol, word } = CURRENCIES[currency]
+  const amount = formatPrice(eur, currency)
+  const ariaLabel = `${amount} ${word} per month`
+  const amountNode = highlight ? (
+    <Highlight as='span'>{amount}</Highlight>
+  ) : (
+    amount
+  )
+
+  return (
+    <Flex
       css={theme({
-        fontSize: [2, 2, 3, 3],
-        fontWeight: 'bold',
-        color: 'black',
-        lineHeight: 0,
-        position: 'relative',
-        top: '-12px'
+        alignItems: 'baseline',
+        justifyContent: 'flex-start',
+        gap: 1
       })}
+      aria-label={ariaLabel}
     >
-      €
-    </Text>
-    <Text
-      as='span'
-      css={theme({
-        fontSize: ['32px', '32px', '42px', '42px'],
-        fontWeight: 'bold',
-        color: 'black',
-        lineHeight: 0,
-        fontVariantNumeric: 'tabular-nums'
-      })}
-    >
-      {amount}
-    </Text>
-    <Text css={theme({ fontSize: [0, 0, 1, 1], color: 'black60' })}>
-      {suffix}
-    </Text>
-  </Flex>
-)
+      <Text
+        as='span'
+        css={theme({
+          fontSize: [2, 2, 3, 3],
+          fontWeight: 'bold',
+          color: 'black',
+          lineHeight: 0,
+          position: 'relative',
+          top: '-12px'
+        })}
+      >
+        {symbol}
+      </Text>
+      <Text
+        as='span'
+        css={theme({
+          fontSize: ['32px', '32px', '42px', '42px'],
+          fontWeight: 'bold',
+          color: 'black',
+          lineHeight: 0,
+          fontVariantNumeric: 'tabular-nums'
+        })}
+      >
+        {amountNode}
+      </Text>
+      <Text css={theme({ fontSize: [0, 0, 1, 1], color: 'black60' })}>
+        {suffix}
+      </Text>
+    </Flex>
+  )
+}
 
 const PlanName = ({ children }) => (
   <Text
@@ -430,12 +498,118 @@ const PlanName = ({ children }) => (
   </Text>
 )
 
+const CURRENCY_CODES = Object.keys(CURRENCIES)
+const TOGGLE_EASING = 'cubic-bezier(0.32, 0.72, 0, 1)'
+const TOGGLE_DURATION = '320ms'
+
+const CurrencyToggleGroup = styled(Flex)`
+  ${theme({
+    display: 'inline-flex',
+    bg: 'black05',
+    borderRadius: 5,
+    p: '4px'
+  })}
+  position: relative;
+  border: 1px solid ${colors.black10};
+`
+
+const CurrencyToggleThumb = styled('span')`
+  ${theme({
+    position: 'absolute',
+    top: '4px',
+    left: '4px',
+    bottom: '4px',
+    borderRadius: 4,
+    bg: 'white'
+  })}
+  width: calc((100% - 8px) / ${CURRENCY_CODES.length});
+  box-shadow: 0 1px 2px ${colors.black10}, 0 0 0 1px ${colors.black05};
+  transform: translate3d(${({ $index }) => `${$index * 100}%`}, 0, 0);
+  transition: transform ${TOGGLE_DURATION} ${TOGGLE_EASING};
+  pointer-events: none;
+  will-change: transform;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`
+
+const CurrencyToggleButton = styled('button')`
+  ${theme({
+    appearance: 'none',
+    px: 3,
+    py: 2,
+    borderRadius: 4,
+    fontFamily: 'sans',
+    fontSize: [0, 0, 1, 1],
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    minHeight: '32px',
+    color: 'black60',
+    bg: 'transparent'
+  })}
+  position: relative;
+  z-index: 1;
+  border: 0;
+  letter-spacing: 0.5px;
+  touch-action: manipulation;
+  transition: color ${TOGGLE_DURATION} ${TOGGLE_EASING};
+
+  &[aria-pressed='true'] {
+    color: ${colors.pink7};
+  }
+
+  &:hover:not([aria-pressed='true']) {
+    color: ${colors.black};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.pink7};
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`
+
+const CurrencyToggle = () => {
+  const [currency, setCurrency] = useCurrencyContext()
+  const activeIndex = Math.max(0, CURRENCY_CODES.indexOf(currency))
+  return (
+    <CurrencyToggleGroup role='group' aria-label='Display currency'>
+      <CurrencyToggleThumb aria-hidden='true' $index={activeIndex} />
+      {CURRENCY_CODES.map(code => {
+        const { symbol, label } = CURRENCIES[code]
+        return (
+          <CurrencyToggleButton
+            key={code}
+            type='button'
+            aria-pressed={currency === code}
+            aria-label={`Display prices in ${label}`}
+            onClick={() => setCurrency(code)}
+            data-event-location='Pricing'
+            data-event-name={`Currency toggle · ${label}`}
+          >
+            {symbol} {label}
+          </CurrencyToggleButton>
+        )
+      })}
+    </CurrencyToggleGroup>
+  )
+}
+
 const Plans = ({ canonicalUrl, stripeKey }) => {
   const [plan, setPlan] = useState(DEFAULT_PLAN)
+  const [currency] = useCurrencyContext()
   const { monthlyPrice, id: planId, reqsPerMonth } = plan
-  const humanMonthlyPrice = formatNumber(monthlyPrice)
   const reqsPerMonthNumber = Number(reqsPerMonth.replace(/,/g, ''))
-  const pricePer1k = (monthlyPrice / (reqsPerMonthNumber / 1000)).toFixed(2)
+  const pricePer1kEur = monthlyPrice / (reqsPerMonthNumber / 1000)
+  const pricePer1kDisplay = formatPrice(pricePer1kEur, currency, {
+    decimals: 2
+  })
+  const { symbol: currencySymbol } = CURRENCIES[currency]
+  const isUsd = currency === 'USD'
   const totalStars = useOssTotalStars()
 
   return (
@@ -445,10 +619,20 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
       css={theme({
         alignItems: 'center',
         maxWidth: '100%',
-        py: SECTION_VERTICAL_SPACING,
+        py: [4, 4, 5, 5],
         px: [3, 3, 4, 4]
       })}
     >
+      <Flex
+        css={theme({
+          justifyContent: 'center',
+          width: '100%',
+          mb: [4, 4, 5, 5]
+        })}
+      >
+        <CurrencyToggle />
+      </Flex>
+
       <Flex
         css={theme({
           flexDirection: ['column', 'column', 'row', 'row'],
@@ -471,10 +655,7 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
             For production workloads.
           </Text>
           <Box css={theme({ pt: [3, 3, 4, 4] })}>
-            <PriceTag
-              amount={<Highlight as='span'>{humanMonthlyPrice}</Highlight>}
-              ariaLabel={`${humanMonthlyPrice} euros per month`}
-            />
+            <PriceTag eur={monthlyPrice} highlight />
             <Text
               css={theme({
                 pt: 2,
@@ -484,8 +665,20 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
                 fontVariantNumeric: 'tabular-nums'
               })}
             >
-              ≈ €{pricePer1k} per 1,000 requests
+              ≈ {currencySymbol}
+              {pricePer1kDisplay} per 1,000 requests
             </Text>
+            {isUsd && (
+              <Text
+                css={theme({
+                  pt: 1,
+                  fontSize: 0,
+                  color: 'black60'
+                })}
+              >
+                Billed in EUR · USD shown for reference
+              </Text>
+            )}
           </Box>
           <Box css={theme({ pt: [3, 3, 4, 4] })}>
             <Text css={theme({ fontSize: [1, 1, 2, 2] })}>
@@ -546,7 +739,7 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
             Try the API in seconds. No card.
           </Text>
           <Box css={theme({ pt: [3, 3, 4, 4] })}>
-            <PriceTag amount='0' ariaLabel='0 euros per month' />
+            <PriceTag eur={0} />
             <Text
               css={theme({
                 pt: 2,
@@ -607,7 +800,8 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
               </Text>
             </Flex>
             <Text css={theme({ pt: 2, fontSize: 0, color: 'black60' })}>
-              From €500 / month
+              From {currencySymbol}
+              {formatPrice(500, currency)} / month
             </Text>
           </Box>
           <Box css={theme({ pt: [3, 3, 4, 4] })}>
@@ -1975,96 +2169,106 @@ const CtaNow = styled('span')`
   }
 `
 
-const Cta = () => (
-  <Container
-    as='section'
-    id='final-cta'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: '100%',
-      bg: 'white',
-      py: SECTION_VERTICAL_SPACING,
-      px: [3, 3, 4, 4]
-    })}
-  >
-    <Flex
+const Cta = () => {
+  const [currency] = useCurrencyContext()
+  const { symbol } = CURRENCIES[currency]
+  const startingPrice = formatPrice(39, currency)
+  return (
+    <Container
+      as='section'
+      id='final-cta'
       css={theme({
-        flexDirection: 'column',
         alignItems: 'center',
-        maxWidth: layout.normal,
-        textAlign: 'center'
+        maxWidth: '100%',
+        bg: 'white',
+        py: SECTION_VERTICAL_SPACING,
+        px: [3, 3, 4, 4]
       })}
     >
-      <Subhead
-        titleize={false}
+      <Flex
         css={theme({
-          fontSize: ['34px', '42px', '54px', '62px'],
+          flexDirection: 'column',
+          alignItems: 'center',
+          maxWidth: layout.normal,
           textAlign: 'center'
         })}
       >
-        {CTA_LEAD_CHARS.map((char, i) => (
-          <CtaChar key={i} $i={i}>
-            {char}
-          </CtaChar>
-        ))}{' '}
-        <CtaNow>now</CtaNow>.
-      </Subhead>
-      <Caption
-        forwardedAs='div'
-        titleize={false}
-        css={theme({ pt: [3, 3, 4, 4], fontSize: [1, 2, 2, 2] })}
-      >
-        Free forever plan, no credit card. Pro plans start at €39/month — cancel
-        anytime.
-      </Caption>
-      <Flex
-        css={theme({
-          pt: [4, 4, 5, 5],
-          flexDirection: ['column', 'row', 'row', 'row'],
-          gap: [2, 3, 3, 3],
-          alignItems: 'center',
-          justifyContent: 'center'
-        })}
-      >
-        <Button
-          as='a'
-          href='/docs/api/getting-started/overview'
-          variant='black'
-          data-event-location='Pricing'
-          data-event-name='Final CTA · Get started free'
+        <Subhead
+          titleize={false}
+          css={theme({
+            fontSize: ['34px', '42px', '54px', '62px'],
+            textAlign: 'center'
+          })}
         >
-          <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>Get started free</Caps>
-        </Button>
+          {CTA_LEAD_CHARS.map((char, i) => (
+            <CtaChar key={i} $i={i}>
+              {char}
+            </CtaChar>
+          ))}{' '}
+          <CtaNow>now</CtaNow>.
+        </Subhead>
+        <Caption
+          forwardedAs='div'
+          titleize={false}
+          css={theme({ pt: [3, 3, 4, 4], fontSize: [1, 2, 2, 2] })}
+        >
+          Free forever plan, no credit card. Pro plans start at {symbol}
+          {startingPrice}/month — cancel anytime.
+        </Caption>
+        <Flex
+          css={theme({
+            pt: [4, 4, 5, 5],
+            flexDirection: ['column', 'row', 'row', 'row'],
+            gap: [2, 3, 3, 3],
+            alignItems: 'center',
+            justifyContent: 'center'
+          })}
+        >
+          <Button
+            as='a'
+            href='/docs/api/getting-started/overview'
+            variant='black'
+            data-event-location='Pricing'
+            data-event-name='Final CTA · Get started free'
+          >
+            <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>
+              Get started free
+            </Caps>
+          </Button>
+        </Flex>
+        <Box css={theme({ pt: [3, 3, 4, 4] })}>
+          <Text css={theme({ fontSize: 0, color: 'black60' })}>
+            Questions?{' '}
+            <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
+          </Text>
+        </Box>
       </Flex>
-      <Box css={theme({ pt: [3, 3, 4, 4] })}>
-        <Text css={theme({ fontSize: 0, color: 'black60' })}>
-          Questions?{' '}
-          <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>
-        </Text>
-      </Box>
-    </Flex>
-  </Container>
-)
+    </Container>
+  )
+}
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 const PricingPage = () => {
   const { canonicalUrl, stripeKey } = useSiteMetadata()
+  const currencyState = useCurrency()
   return (
-    <Layout css={theme({ position: 'relative' })}>
-      <DashedGridOverlay aria-hidden='true' />
-      <Box css={theme({ position: 'relative', zIndex: 1 })}>
-        <Hero />
-        <Plans canonicalUrl={canonicalUrl} stripeKey={stripeKey} />
-        <Comparison />
-        <Testimonials />
-        <Clients />
-        <BuildVsBuy />
-        <Capabilities />
-        <Faqs />
-        <Cta />
-      </Box>
-    </Layout>
+    <CurrencyContext.Provider value={currencyState}>
+      <Layout css={theme({ position: 'relative' })}>
+        <DashedGridOverlay aria-hidden='true' />
+        <Box css={theme({ position: 'relative', zIndex: 1 })}>
+          <Hero />
+          <Plans canonicalUrl={canonicalUrl} stripeKey={stripeKey} />
+          <Comparison />
+          <Testimonials />
+          <Clients />
+          <BuildVsBuy />
+          <Capabilities />
+          <Faqs />
+          <Cta />
+        </Box>
+      </Layout>
+    </CurrencyContext.Provider>
   )
 }
 
