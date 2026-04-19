@@ -1472,9 +1472,8 @@ const Testimonials = () => (
         titleize={false}
         css={theme({ fontSize: ['28px', '34px', '42px', '46px'] })}
       >
-        Loved by teams
-        <LineBreak />
-        in <span css={theme({ color: 'pink7' })}>production</span>.
+        Loved by teams in{' '}
+        <span css={theme({ color: 'pink7' })}>production</span>.
       </Subhead>
       <Caption
         forwardedAs='div'
@@ -1482,7 +1481,7 @@ const Testimonials = () => (
         css={theme({ pt: [3, 3, 4, 4], fontSize: [1, 2, 2, 2] })}
       >
         Engineers, founders and platform teams pick Microlink because it just
-        works — and stays out of the way.
+        works.
       </Caption>
     </Box>
     <Flex
