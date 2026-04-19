@@ -677,7 +677,7 @@ const ComparisonPlanCell = styled(Flex)`
 `
 
 const ComparisonProPlanCell = styled(ComparisonPlanCell)`
-  ${theme({ bg: 'black05', color: 'black' })}
+  ${theme({ bg: 'pink0', color: 'black' })}
 `
 
 const ComparisonHeaderLabelCell = styled(ComparisonLabelCell)`
@@ -720,7 +720,7 @@ const renderComparisonValue = value => {
 const MobileComparisonStack = ({ plan, planIndex }) => (
   <Box
     css={theme({
-      bg: planIndex === 1 ? 'black05' : 'white',
+      bg: planIndex === 1 ? 'pink0' : 'white',
       borderRadius: 3,
       border: 1,
       borderColor: 'black10',
