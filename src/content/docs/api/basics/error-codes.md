@@ -163,6 +163,32 @@ The [function](/docs/api/parameters/function) parameter contains invalid JavaScr
 - Uses proper function formatting (arrow function or regular function)
 - Doesn't contain syntax errors like missing brackets or semicolons
 
+## EINVALDATA
+
+**Message**
+
+The `data.<field>` has an invalid value (`<value>`). rule must be an object (or array of objects) with extraction options.
+
+Example:
+
+The `data.innerHTML` has an invalid value (empty). rule must be an object (or array of objects) with extraction options.
+
+**Solution**
+
+Use object rules for [data](/docs/api/parameters/data) extraction instead of primitive values.
+
+Valid:
+
+- `data.title.selector=h1`
+- `data.price.selector=.price&data.price.attr=text`
+- `data.links.selectorAll=a&data.links.attr=href`
+
+Invalid:
+
+- `data.innerHTML=`
+- `data.foo=html`
+- `data.bar=false`
+
 ## EINVALSTTL
 
 **Message**
