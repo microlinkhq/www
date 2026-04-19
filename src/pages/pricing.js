@@ -79,7 +79,7 @@ export const Head = () => {
     }
   }))
 
-  const structuredData = {
+  const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: 'Microlink — Pricing',
@@ -111,11 +111,106 @@ export const Head = () => {
     ]
   }
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Is there really a free plan?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes — the free plan is forever free, no credit card required. You get 50 requests per day against the public endpoint, with the same screenshot, PDF, metadata, SDK, insights and recipes capabilities used on Pro. It runs with rate limits and shared concurrency, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'What counts as a request?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'One request is one API call to a Microlink endpoint — screenshot, PDF, metadata, insights, or any other. Cached responses count too, but they\u2019re served from our edge in milliseconds and don\u2019t exhaust your concurrency.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'What happens if I exceed my quota?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'You\u2019re never billed by surprise. We notify you at 80% usage so you can upgrade before hitting the ceiling. If you do reach 100%, requests are paused until the next billing cycle or until you upgrade — no overage fees.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I change plan at any time?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. Upgrades take effect immediately and are pro-rated; downgrades apply at the start of the next billing cycle. Just email hello@microlink.io from the address you signed up with.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I cancel anytime?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes — no contracts, no commitments. Cancel by sending an email to hello@microlink.io and we\u2019ll process it within 24 hours. You keep access through the end of your paid period.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Do you offer annual billing or volume discounts?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Annual contracts and custom volume discounts are available on Enterprise. Contact hello@microlink.io with your expected volume and we\u2019ll send a quote.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'How is payment processed?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Payments are handled by Stripe — the same provider trusted by Twitter, Pinterest, and Lyft. We never see or store your card details. Invoices are emailed automatically each cycle.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Do you offer refunds?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'If something goes wrong on our side, we\u2019ll make it right — including refunds. Reach out at hello@microlink.io and we\u2019ll review your case personally.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: "What's your SLA?",
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'We commit to 99.9% uptime (three nines) on paid plans. You can monitor live availability and incident history on our status page at https://microlink.io/status.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'When do I need Enterprise?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Enterprise makes sense when you need any of: dedicated infrastructure, custom API endpoints, S3-compatible storage, custom SLAs, a signed DPA, or pricing for very high volumes (millions of requests / month). See https://microlink.io/enterprise for details, or email hello@microlink.io.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I get an API key?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'After payment we send the API key to the email you signed up with. Use it as a header in the API or as the apiKey option in the SDK.'
+        }
+      }
+    ]
+  }
+
   return (
     <Meta
       title='Pricing'
       description='Simple, predictable pricing for the Microlink browser API. Start free, scale to millions of requests, with custom Enterprise tiers when you need them.'
-      structured={structuredData}
+      structured={[productSchema, faqSchema]}
     />
   )
 }
@@ -209,9 +304,7 @@ const Hero = () => {
           maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
         })}
       >
-        Start free. Scale to millions of requests on Pro.
-        <br />
-        No seats, no minimums, no surprises.
+        Start free. No seats, no minimums, no surprises.
       </Caption>
     </Container>
   )
@@ -816,17 +909,15 @@ const Comparison = () => (
               Feature
             </ComparisonHeaderLabelCell>
             {PLAN_NAMES.map((name, i) =>
-              i === 1
-                ? (
-                  <ComparisonProHeaderPlanCell role='columnheader' key={name}>
-                    {name}
-                  </ComparisonProHeaderPlanCell>
-                  )
-                : (
-                  <ComparisonHeaderPlanCell role='columnheader' key={name}>
-                    {name}
-                  </ComparisonHeaderPlanCell>
-                  )
+              i === 1 ? (
+                <ComparisonProHeaderPlanCell role='columnheader' key={name}>
+                  {name}
+                </ComparisonProHeaderPlanCell>
+              ) : (
+                <ComparisonHeaderPlanCell role='columnheader' key={name}>
+                  {name}
+                </ComparisonHeaderPlanCell>
+              )
             )}
           </ComparisonHeaderRow>
         </Box>
@@ -837,17 +928,15 @@ const Comparison = () => (
                 {label}
               </ComparisonLabelCell>
               {values.map((value, i) =>
-                i === 1
-                  ? (
-                    <ComparisonProPlanCell role='cell' key={i}>
-                      {renderComparisonValue(value)}
-                    </ComparisonProPlanCell>
-                    )
-                  : (
-                    <ComparisonPlanCell role='cell' key={i}>
-                      {renderComparisonValue(value)}
-                    </ComparisonPlanCell>
-                    )
+                i === 1 ? (
+                  <ComparisonProPlanCell role='cell' key={i}>
+                    {renderComparisonValue(value)}
+                  </ComparisonProPlanCell>
+                ) : (
+                  <ComparisonPlanCell role='cell' key={i}>
+                    {renderComparisonValue(value)}
+                  </ComparisonPlanCell>
+                )
               )}
             </ComparisonRow>
           ))}
