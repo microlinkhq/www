@@ -720,26 +720,29 @@ const renderComparisonValue = value => {
 const MobileComparisonStack = ({ plan, planIndex }) => (
   <Box
     css={theme({
-      bg: planIndex === 1 ? 'pink0' : 'white',
+      bg: 'white',
       borderRadius: 3,
       border: 1,
       borderColor: 'black10',
-      p: 3
+      fontFamily: 'sans',
+      overflow: 'hidden'
     })}
   >
     <Text
       css={theme({
         fontSize: 2,
         fontWeight: 'bold',
-        color: planIndex === 1 ? 'pink7' : 'black',
-        pb: 2,
+        bg: planIndex === 1 ? 'pink0' : 'white',
+        px: 3,
+        py: 3,
         borderBottom: 1,
         borderBottomColor: 'black10'
       })}
+      style={{ color: planIndex === 1 ? colors.pink7 : colors.black }}
     >
       {plan}
     </Text>
-    <Box css={theme({ pt: 2 })}>
+    <Box css={theme({ pt: 2, px: 3, pb: 3 })}>
       {COMPARISON_ROWS.map(({ label, values }) => (
         <Flex
           key={label}
@@ -1235,9 +1238,7 @@ const BuildVsBuy = () => (
         titleize={false}
         css={theme({ fontSize: ['28px', '34px', '42px', '46px'] })}
       >
-        Build it,
-        <LineBreak />
-        or just <span css={theme({ color: 'pink7' })}>call it</span>.
+        Build it, or just <span css={theme({ color: 'pink7' })}>call it</span>.
       </Subhead>
       <Caption
         forwardedAs='div'
