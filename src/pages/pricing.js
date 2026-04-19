@@ -39,6 +39,7 @@ import {
   layout,
   radii,
   space,
+  textGradient,
   theme,
   transition
 } from 'theme'
@@ -349,7 +350,7 @@ const Hero = () => {
           textAlign: 'center'
         })}
       >
-        Pricing built for <span css={theme({ color: 'pink7' })}>builders</span>
+        Pricing built for <span css={textGradient}>builders</span>
       </Subhead>
 
       <Caption
