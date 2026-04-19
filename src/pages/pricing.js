@@ -122,6 +122,52 @@ export const Head = () => {
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
+const DashedGridOverlay = styled(Box)`
+  ${theme({ position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 0 })}
+  height: 1200px;
+  pointer-events: none;
+  background-image: linear-gradient(
+      to right,
+      ${colors.gray2} 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, ${colors.gray2} 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 0;
+  mask-image: repeating-linear-gradient(
+      to right,
+      #000 0px,
+      #000 3px,
+      transparent 3px,
+      transparent 8px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      #000 0px,
+      #000 3px,
+      transparent 3px,
+      transparent 8px
+    ),
+    radial-gradient(ellipse 90% 80% at 50% 0%, #000 50%, transparent 100%);
+  -webkit-mask-image: repeating-linear-gradient(
+      to right,
+      #000 0px,
+      #000 3px,
+      transparent 3px,
+      transparent 8px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      #000 0px,
+      #000 3px,
+      transparent 3px,
+      transparent 8px
+    ),
+    radial-gradient(ellipse 90% 80% at 50% 0%, #000 50%, transparent 100%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+`
+
 const Dot = () => (
   <Text
     as='span'
@@ -133,17 +179,14 @@ const Dot = () => (
 )
 
 const Hero = () => {
-  const totalStars = useOssTotalStars()
   return (
     <Container
       as='section'
       css={theme({
         alignItems: 'center',
         textAlign: 'center',
-        bg: 'white',
         maxWidth: '100%',
-        pt: SECTION_VERTICAL_SPACING,
-        pb: SECTION_VERTICAL_SPACING,
+        pt: [2, 2, 3, 3],
         px: [3, 3, 4, 4]
       })}
     >
@@ -155,9 +198,7 @@ const Hero = () => {
           textAlign: 'center'
         })}
       >
-        Pricing built for builders,
-        <LineBreak />
-        not for <span css={theme({ color: 'pink7' })}>procurement.</span>
+        Pricing built for <span css={theme({ color: 'pink7' })}>builders</span>
       </Subhead>
 
       <Caption
@@ -168,106 +209,10 @@ const Hero = () => {
           maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
         })}
       >
-        Start free. Scale to millions of requests on Pro. Talk to us when you
-        need dedicated infrastructure. No seats, no minimums, no surprises.
+        Start free. Scale to millions of requests on Pro.
+        <br />
+        No seats, no minimums, no surprises.
       </Caption>
-
-      <Flex
-        css={theme({
-          pt: [4, 4, 5, 5],
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: [0, 0, 1, 1],
-          color: 'black60',
-          fontWeight: 'bold',
-          letterSpacing: 1
-        })}
-      >
-        <Text as='span'>
-          <Text as='span' css={theme({ color: 'black' })}>
-            {formatCompact(totalStars)}
-          </Text>{' '}
-          GitHub stars
-        </Text>
-        <Dot />
-        <Text as='span'>
-          <Text as='span' css={theme({ color: 'black' })}>
-            641M+
-          </Text>{' '}
-          requests last month
-        </Text>
-        <Dot />
-        <Text as='span'>
-          <Text as='span' css={theme({ color: 'black' })}>
-            99.9%
-          </Text>{' '}
-          SLA
-        </Text>
-      </Flex>
-
-      <Flex
-        css={theme({
-          pt: [4, 4, 5, 5],
-          flexDirection: ['column', 'row', 'row', 'row'],
-          gap: [2, 3, 3, 3],
-          alignItems: 'center',
-          justifyContent: 'center'
-        })}
-      >
-        <Link
-          href='#pricing-plans'
-          css={theme({
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            px: 4,
-            py: 3,
-            borderRadius: 5,
-            bg: 'black',
-            color: 'white',
-            fontWeight: 'bold',
-            fontSize: [1, 1, 2, 2],
-            textDecoration: 'none',
-            minHeight: '44px',
-            transition: 'transform 150ms cubic-bezier(.25,.8,.25,1)',
-            '&:hover': { transform: 'translateY(-1px)' }
-          })}
-        >
-          See plans ↓
-        </Link>
-        <Link
-          href='mailto:hello@microlink.io?subject=Microlink%20pricing'
-          css={theme({
-            color: 'black80',
-            fontWeight: 'bold',
-            fontSize: [1, 1, 2, 2],
-            textDecoration: 'none',
-            borderBottom: 1,
-            borderBottomColor: 'black20',
-            pb: 1,
-            '&:hover': { borderBottomColor: 'pink7', color: 'pink7' }
-          })}
-        >
-          Talk to sales →
-        </Link>
-      </Flex>
-
-      <Box
-        aria-hidden='true'
-        css={`
-          margin-top: 32px;
-          width: 100%;
-          max-width: ${layout.normal};
-          height: 1px;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            ${colors.black10},
-            transparent
-          );
-        `}
-      />
     </Container>
   )
 }
@@ -285,7 +230,7 @@ const PricingCard = styled(Flex)`
     minWidth: 0,
     maxWidth: ['100%', '100%', '380px', '380px']
   })}
-  border: ${borders[1]};
+  border: solid 1px ${colors.gray4};
   box-shadow: 0 2px 8px ${colors.black05};
 `
 
@@ -398,6 +343,7 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
   const humanMonthlyPrice = formatNumber(monthlyPrice)
   const reqsPerMonthNumber = Number(reqsPerMonth.replace(/,/g, ''))
   const pricePer1k = (monthlyPrice / (reqsPerMonthNumber / 1000)).toFixed(2)
+  const totalStars = useOssTotalStars()
 
   return (
     <Container
@@ -406,7 +352,6 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
       css={theme({
         alignItems: 'center',
         maxWidth: '100%',
-        bg: 'white',
         py: SECTION_VERTICAL_SPACING,
         px: [3, 3, 4, 4]
       })}
@@ -430,7 +375,7 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
           <Text
             css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black60' })}
           >
-            For production workloads that scale.
+            For production workloads.
           </Text>
           <Box css={theme({ pt: [3, 3, 4, 4] })}>
             <PriceTag
@@ -505,7 +450,7 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
           <Text
             css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black60' })}
           >
-            Try the API in seconds. No login, no card.
+            Try the API in seconds. No card.
           </Text>
           <Box css={theme({ pt: [3, 3, 4, 4] })}>
             <PriceTag amount='0' ariaLabel='0 euros per month' />
@@ -534,19 +479,16 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
             <PlanCheck>Global edge cache</PlanCheck>
             <PlanCheck>Community support</PlanCheck>
           </Box>
-          <Box css={theme({ pt: [4, 4, 5, 5], mt: 'auto' })}>
-            <Button
-              as='a'
-              href='/docs/api/getting-started/overview'
-              variant='black'
-              css={theme({ width: '100%' })}
-              data-event-location='Pricing'
-              data-event-name='Get started free'
-            >
-              <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>
-                Get started free
-              </Caps>
-            </Button>
+          <Box
+            css={theme({
+              pt: [4, 4, 5, 5],
+              mt: 'auto',
+              display: 'flex',
+              justifyContent: 'center',
+              fontSize: [1, 1, 2, 2]
+            })}
+          >
+            <ArrowLink href='/docs/guides'>Get started free</ArrowLink>
           </Box>
         </PricingCard>
 
@@ -555,7 +497,7 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
           <Text
             css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black60' })}
           >
-            Dedicated infra for high-volume teams.
+            Dedicated infra for high-volume.
           </Text>
           <Box css={theme({ pt: [3, 3, 4, 4] })}>
             <Flex css={theme({ alignItems: 'baseline', gap: 1 })}>
@@ -593,7 +535,8 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
               pt: [4, 4, 5, 5],
               mt: 'auto',
               display: 'flex',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              fontSize: [1, 1, 2, 2]
             })}
           >
             <ArrowLink href='/enterprise'>Talk to sales</ArrowLink>
@@ -601,17 +544,55 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
         </PricingCard>
       </Flex>
 
-      <Text
+      <Box
+        aria-hidden='true'
+        css={`
+          margin-top: 32px;
+          width: 100%;
+          max-width: ${layout.normal};
+          height: 1px;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            ${colors.black10},
+            transparent
+          );
+        `}
+      />
+
+      <Flex
         css={theme({
-          pt: [4, 4, 5, 5],
+          pt: [3, 3, 4, 4],
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          alignItems: 'center',
           fontSize: [0, 0, 1, 1],
           color: 'black60',
-          textAlign: 'center'
+          fontWeight: 'bold',
+          letterSpacing: 1
         })}
       >
-        Every plan includes API access, the same global edge network, and 24/7
-        monitoring. Prices in EUR, excl. VAT.
-      </Text>
+        <Text as='span'>
+          <Text as='span' css={theme({ color: 'black' })}>
+            {formatCompact(totalStars)}
+          </Text>{' '}
+          GitHub stars
+        </Text>
+        <Dot />
+        <Text as='span'>
+          <Text as='span' css={theme({ color: 'black' })}>
+            641M+
+          </Text>{' '}
+          requests last month
+        </Text>
+        <Dot />
+        <Text as='span'>
+          <Text as='span' css={theme({ color: 'black' })}>
+            99.9%
+          </Text>{' '}
+          SLA
+        </Text>
+      </Flex>
     </Container>
   )
 }
@@ -832,17 +813,15 @@ const Comparison = () => (
               Feature
             </ComparisonHeaderLabelCell>
             {PLAN_NAMES.map((name, i) =>
-              i === 1
-                ? (
-                  <ComparisonProHeaderPlanCell role='columnheader' key={name}>
-                    {name}
-                  </ComparisonProHeaderPlanCell>
-                  )
-                : (
-                  <ComparisonHeaderPlanCell role='columnheader' key={name}>
-                    {name}
-                  </ComparisonHeaderPlanCell>
-                  )
+              i === 1 ? (
+                <ComparisonProHeaderPlanCell role='columnheader' key={name}>
+                  {name}
+                </ComparisonProHeaderPlanCell>
+              ) : (
+                <ComparisonHeaderPlanCell role='columnheader' key={name}>
+                  {name}
+                </ComparisonHeaderPlanCell>
+              )
             )}
           </ComparisonHeaderRow>
         </Box>
@@ -853,17 +832,15 @@ const Comparison = () => (
                 {label}
               </ComparisonLabelCell>
               {values.map((value, i) =>
-                i === 1
-                  ? (
-                    <ComparisonProPlanCell role='cell' key={i}>
-                      {renderComparisonValue(value)}
-                    </ComparisonProPlanCell>
-                    )
-                  : (
-                    <ComparisonPlanCell role='cell' key={i}>
-                      {renderComparisonValue(value)}
-                    </ComparisonPlanCell>
-                    )
+                i === 1 ? (
+                  <ComparisonProPlanCell role='cell' key={i}>
+                    {renderComparisonValue(value)}
+                  </ComparisonProPlanCell>
+                ) : (
+                  <ComparisonPlanCell role='cell' key={i}>
+                    {renderComparisonValue(value)}
+                  </ComparisonPlanCell>
+                )
               )}
             </ComparisonRow>
           ))}
@@ -1990,16 +1967,19 @@ const Cta = () => (
 const PricingPage = () => {
   const { canonicalUrl, stripeKey } = useSiteMetadata()
   return (
-    <Layout>
-      <Hero />
-      <Plans canonicalUrl={canonicalUrl} stripeKey={stripeKey} />
-      <Comparison />
-      <Capabilities />
-      <BuildVsBuy />
-      <Testimonials />
-      <Clients />
-      <Faqs />
-      <Cta />
+    <Layout css={theme({ position: 'relative' })}>
+      <DashedGridOverlay aria-hidden='true' />
+      <Box css={theme({ position: 'relative', zIndex: 1 })}>
+        <Hero />
+        <Plans canonicalUrl={canonicalUrl} stripeKey={stripeKey} />
+        <Comparison />
+        <Testimonials />
+        <Clients />
+        <BuildVsBuy />
+        <Capabilities />
+        <Faqs />
+        <Cta />
+      </Box>
     </Layout>
   )
 }

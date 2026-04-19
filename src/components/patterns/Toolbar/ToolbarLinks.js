@@ -56,6 +56,8 @@ export const ToolbarNavLink = styled(NavLink)`
 `
 
 const docsMatcher = ({ location }) => location.pathname.startsWith('/docs')
+const pricingMatcher = ({ location }) =>
+  location.pathname.startsWith('/pricing')
 const screenshotToolMatcher = ({ location }) =>
   [
     '/tools/website-screenshot',
@@ -109,13 +111,19 @@ const createNavigationItem = ({
   logo
 })
 
+export const PRICING_NAV_ITEM = createNavigationItem({
+  label: 'Pricing',
+  href: '/pricing',
+  actively: pricingMatcher
+})
+
 export const DOCUMENTATION_NAV_ITEM = createNavigationItem({
   label: 'Docs',
   href: '/docs/api/getting-started/overview',
   actively: docsMatcher
 })
 
-export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM]
+export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM, PRICING_NAV_ITEM]
 
 export const SOCIAL_NAV_ITEMS = [
   createNavigationItem({
