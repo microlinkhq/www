@@ -1942,15 +1942,6 @@ const Cta = () => (
         >
           <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>Get started free</Caps>
         </Button>
-        <Button
-          as='a'
-          href='mailto:hello@microlink.io?subject=Microlink%20Enterprise&body=Hello%2C%20I%20want%20to%20learn%20more%20about%20Microlink%20Enterprise.'
-          variant='white'
-          data-event-location='Pricing'
-          data-event-name='Final CTA · Talk to sales'
-        >
-          <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>Talk to sales</Caps>
-        </Button>
       </Flex>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <Text css={theme({ fontSize: 0, color: 'black60' })}>
