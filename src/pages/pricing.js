@@ -73,7 +73,6 @@ const CURRENCIES = {
   },
   EUR: { code: 'EUR', symbol: '€', rate: 1, label: 'EUR', word: 'euros' }
 }
-const CURRENCY_STORAGE_KEY = 'microlink:pricing-currency'
 const EUROPE_TZ_PREFIX = 'Europe/'
 
 const convert = (eurAmount, currencyCode) =>
@@ -439,11 +438,13 @@ const PriceTag = ({ eur, suffix = '/month', highlight = false }) => {
   const { symbol, word } = CURRENCIES[currency]
   const amount = formatPrice(eur, currency)
   const ariaLabel = `${amount} ${word} per month`
-  const amountNode = highlight ? (
-    <Highlight as='span'>{amount}</Highlight>
-  ) : (
-    amount
-  )
+  const amountNode = highlight
+    ? (
+      <Highlight as='span'>{amount}</Highlight>
+      )
+    : (
+        amount
+      )
 
   return (
     <Flex
@@ -1104,15 +1105,17 @@ const Comparison = () => (
               Feature
             </ComparisonHeaderLabelCell>
             {PLAN_NAMES.map((name, i) =>
-              i === 1 ? (
-                <ComparisonProHeaderPlanCell role='columnheader' key={name}>
-                  {name}
-                </ComparisonProHeaderPlanCell>
-              ) : (
-                <ComparisonHeaderPlanCell role='columnheader' key={name}>
-                  {name}
-                </ComparisonHeaderPlanCell>
-              )
+              i === 1
+                ? (
+                  <ComparisonProHeaderPlanCell role='columnheader' key={name}>
+                    {name}
+                  </ComparisonProHeaderPlanCell>
+                  )
+                : (
+                  <ComparisonHeaderPlanCell role='columnheader' key={name}>
+                    {name}
+                  </ComparisonHeaderPlanCell>
+                  )
             )}
           </ComparisonHeaderRow>
         </Box>
@@ -1123,15 +1126,17 @@ const Comparison = () => (
                 {label}
               </ComparisonLabelCell>
               {values.map((value, i) =>
-                i === 1 ? (
-                  <ComparisonProPlanCell role='cell' key={i}>
-                    {renderComparisonValue(value)}
-                  </ComparisonProPlanCell>
-                ) : (
-                  <ComparisonPlanCell role='cell' key={i}>
-                    {renderComparisonValue(value)}
-                  </ComparisonPlanCell>
-                )
+                i === 1
+                  ? (
+                    <ComparisonProPlanCell role='cell' key={i}>
+                      {renderComparisonValue(value)}
+                    </ComparisonProPlanCell>
+                    )
+                  : (
+                    <ComparisonPlanCell role='cell' key={i}>
+                      {renderComparisonValue(value)}
+                    </ComparisonPlanCell>
+                    )
               )}
             </ComparisonRow>
           ))}
@@ -1225,39 +1230,6 @@ const ShieldXIcon = (
     <line x1='15' y1='9' x2='9' y2='15' />
   </svg>
 )
-const CdnIcon = (
-  <svg
-    width='20'
-    height='20'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth='2'
-    strokeLinecap='round'
-    strokeLinejoin='round'
-    aria-hidden='true'
-  >
-    <circle cx='12' cy='12' r='10' />
-    <ellipse cx='12' cy='12' rx='4' ry='10' />
-    <line x1='2' y1='12' x2='22' y2='12' />
-  </svg>
-)
-const ActivityIcon = (
-  <svg
-    width='20'
-    height='20'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth='2'
-    strokeLinecap='round'
-    strokeLinejoin='round'
-    aria-hidden='true'
-  >
-    <polyline points='22 12 18 12 15 21 9 3 6 12 2 12' />
-  </svg>
-)
-
 const CAPABILITIES = [
   {
     icon: ClockIcon,
