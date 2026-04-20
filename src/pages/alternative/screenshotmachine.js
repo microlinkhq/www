@@ -710,7 +710,7 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. Microlink's <Link href='/#pricing'>free tier</Link> gives you
+          Yes. Microlink's <Link href='/pricing'>free tier</Link> gives you
           50&nbsp;requests/day with no credit card and no time limit. Same API,
           same quality, same 240+ edge network as paid plans.
         </div>

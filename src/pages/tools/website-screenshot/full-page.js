@@ -387,7 +387,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -412,7 +413,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -1111,7 +1113,7 @@ const ProductInformation = () => (
               credit card required.
             </div>
             <div>
-              Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
+              Need more? Check our <Link href='/pricing'>pricing plans</Link>{' '}
               for higher limits and priority processing.
             </div>
           </>

@@ -61,7 +61,7 @@ You need a <ProBadge/> plan for using [filename](/docs/api/parameters/filename) 
 
 **Solution**
 
-See [pricing](/#pricing) for upgrading your plan.
+See [pricing](/pricing) for upgrading your plan.
 
 ## EFATALCLIENT
 
@@ -93,7 +93,7 @@ You need a <ProBadge/> plan for using [headers](/docs/api/parameters/headers) qu
 
 **Solution**
 
-See [pricing](/#pricing) for upgrading your plan.
+See [pricing](/pricing) for upgrading your plan.
 
 ## EINVALURL
 
@@ -217,7 +217,7 @@ You need a <ProBadge/> plan for using [proxy](/docs/api/parameters/proxy) query 
 
 **Solution**
 
-See [pricing](/#pricing) for upgrading your plan.
+See [pricing](/pricing) for upgrading your plan.
 
 ## EPROXYNEEDED
 
@@ -227,7 +227,7 @@ The URL provided uses antibot protection. Upgrade to a <ProBadge/> plan.
 
 **Solution**
 
-See [pricing](/#pricing) for upgrading your plan.
+See [pricing](/pricing) for upgrading your plan.
 
 ## ERATE
 
@@ -259,7 +259,7 @@ You need a <ProBadge/> plan for using [ttl](/docs/api/parameters/ttl) query para
 
 **Solution**
 
-See [pricing](/#pricing) for upgrading your plan.
+See [pricing](/pricing) for upgrading your plan.
 
 ## ESTTL
 
@@ -269,4 +269,4 @@ You need a <ProBadge/> plan for using [staleTtl](/docs/api/parameters/staleTtl) 
 
 **Solution**
 
-See [pricing](/#pricing) for upgrading your plan.
+See [pricing](/pricing) for upgrading your plan.

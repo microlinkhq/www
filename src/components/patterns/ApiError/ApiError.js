@@ -3,7 +3,7 @@ import { Link } from 'components/elements/Link'
 import { getErrorMeta } from 'helpers/api-error'
 
 const PricingLink = ({ children, ...props }) => (
-  <Link href='/#pricing' {...props}>
+  <Link href='/pricing' {...props}>
     {children}
   </Link>
 )

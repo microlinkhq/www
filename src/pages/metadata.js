@@ -2030,39 +2030,37 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </MetaApiBar>
             </BrowserWindow>
@@ -2167,28 +2165,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '-'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '-'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -2750,39 +2746,37 @@ const Capabilities = ({ currentUrl, currentData }) => {
                 onClick={handleCapCopy}
                 aria-label={capCopied ? 'Copied!' : 'Copy API URL'}
               >
-                {capCopied
-                  ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                    )
-                  : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                    )}
+                {capCopied ? (
+                  <svg
+                    className='icon-check'
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                    aria-hidden='true'
+                  >
+                    <path
+                      d='M3 8l3.5 3.5L13 4.5'
+                      stroke='currentColor'
+                      strokeWidth='1.8'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                    />
+                  </svg>
+                )}
               </CopyButton>
             </MetaApiBar>
           </Box>
@@ -3104,15 +3098,13 @@ const renderStackApi = (apiCall, currentUrl) => {
   return (
     <>
       {parts.map((part, i) =>
-        /^(meta&|screenshot|pdf|markdown|palette)$/.test(part)
-          ? (
-            <span key={i} className='stack-api-param'>
-              {part}
-            </span>
-            )
-          : (
-              part
-            )
+        /^(meta&|screenshot|pdf|markdown|palette)$/.test(part) ? (
+          <span key={i} className='stack-api-param'>
+            {part}
+          </span>
+        ) : (
+          part
+        )
       )}
       {url}
     </>
@@ -3844,7 +3836,7 @@ const Pricing = () => (
         <Flex
           css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
         >
-          <ArrowLink href='/#pricing'>See all plans</ArrowLink>
+          <ArrowLink href='/pricing'>See all plans</ArrowLink>
         </Flex>
       </PricingCard>
     </Flex>
@@ -4727,7 +4719,7 @@ const TOP_FAQ_ITEMS = [
           <Link href='/docs/guides/common/proxy'>automatic proxy rotation</Link>
           , <Link href='/docs/api/parameters/headers'>custom headers</Link>,{' '}
           <Link href='/docs/api/parameters/ttl'>configurable TTL</Link>, and
-          priority support, see our <Link href='/#pricing'>Pro plans</Link>{' '}
+          priority support, see our <Link href='/pricing'>Pro plans</Link>{' '}
           starting at €39/month.
         </div>
       </>
@@ -4878,7 +4870,7 @@ export const Head = () => (
             priceCurrency: 'EUR',
             description:
               'Free tier available (50 requests/day). Pro plans start at €39/month for production workloads.',
-            url: 'https://microlink.io/#pricing'
+            url: 'https://microlink.io/pricing'
           },
           keywords: [
             'website metadata api',

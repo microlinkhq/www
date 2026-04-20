@@ -674,7 +674,7 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. Microlink's <Link href='/#pricing'>free tier</Link> includes
+          Yes. Microlink's <Link href='/pricing'>free tier</Link> includes
           50&nbsp;requests/day with no credit card and no time limit. Same API,
           same quality, same 240+ edge network as paid plans.
         </div>
@@ -1090,19 +1090,15 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin
-                                ? (
-                                  <CellHighlight>
-                                    {formatMs(times[i])}
-                                  </CellHighlight>
-                                  )
-                                : isMax
-                                  ? (
-                                    <CellLoser>{formatMs(times[i])}</CellLoser>
-                                    )
-                                  : (
-                                      formatMs(times[i])
-                                    )}
+                              {isMin ? (
+                                <CellHighlight>
+                                  {formatMs(times[i])}
+                                </CellHighlight>
+                              ) : isMax ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                              ) : (
+                                formatMs(times[i])
+                              )}
                             </td>
                           )
                         })}

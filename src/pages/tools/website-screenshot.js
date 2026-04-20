@@ -1547,7 +1547,7 @@ const ProductInformation = () => (
               multiple formats.
             </div>
             <div>
-              Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
+              Need more? Check our <Link href='/pricing'>pricing plans</Link>{' '}
               for higher limits and priority processing.
             </div>
           </>
