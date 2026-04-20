@@ -438,13 +438,11 @@ const PriceTag = ({ eur, suffix = '/month', highlight = false }) => {
   const { symbol, word } = CURRENCIES[currency]
   const amount = formatPrice(eur, currency)
   const ariaLabel = `${amount} ${word} per month`
-  const amountNode = highlight
-    ? (
-      <Highlight as='span'>{amount}</Highlight>
-      )
-    : (
-        amount
-      )
+  const amountNode = highlight ? (
+    <Highlight as='span'>{amount}</Highlight>
+  ) : (
+    amount
+  )
 
   return (
     <Flex
@@ -1105,17 +1103,15 @@ const Comparison = () => (
               Feature
             </ComparisonHeaderLabelCell>
             {PLAN_NAMES.map((name, i) =>
-              i === 1
-                ? (
-                  <ComparisonProHeaderPlanCell role='columnheader' key={name}>
-                    {name}
-                  </ComparisonProHeaderPlanCell>
-                  )
-                : (
-                  <ComparisonHeaderPlanCell role='columnheader' key={name}>
-                    {name}
-                  </ComparisonHeaderPlanCell>
-                  )
+              i === 1 ? (
+                <ComparisonProHeaderPlanCell role='columnheader' key={name}>
+                  {name}
+                </ComparisonProHeaderPlanCell>
+              ) : (
+                <ComparisonHeaderPlanCell role='columnheader' key={name}>
+                  {name}
+                </ComparisonHeaderPlanCell>
+              )
             )}
           </ComparisonHeaderRow>
         </Box>
@@ -1126,17 +1122,15 @@ const Comparison = () => (
                 {label}
               </ComparisonLabelCell>
               {values.map((value, i) =>
-                i === 1
-                  ? (
-                    <ComparisonProPlanCell role='cell' key={i}>
-                      {renderComparisonValue(value)}
-                    </ComparisonProPlanCell>
-                    )
-                  : (
-                    <ComparisonPlanCell role='cell' key={i}>
-                      {renderComparisonValue(value)}
-                    </ComparisonPlanCell>
-                    )
+                i === 1 ? (
+                  <ComparisonProPlanCell role='cell' key={i}>
+                    {renderComparisonValue(value)}
+                  </ComparisonProPlanCell>
+                ) : (
+                  <ComparisonPlanCell role='cell' key={i}>
+                    {renderComparisonValue(value)}
+                  </ComparisonPlanCell>
+                )
               )}
             </ComparisonRow>
           ))}
@@ -1701,6 +1695,7 @@ const Testimonials = () => (
     as='section'
     id='testimonials'
     css={theme({
+      display: 'none', // Remove this once we have real testimonials
       bg: 'white',
       maxWidth: '100%',
       py: SECTION_VERTICAL_SPACING,
