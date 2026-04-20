@@ -695,7 +695,7 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
               <Link href='/docs/api/parameters/ttl'>Configurable TTL</Link>
             </PlanCheck>
             <PlanCheck accent='pink7'>
-              <Link href='/docs/api/parameters/headers'>
+              <Link href='/docs/guides/common/private-pages'>
                 Custom HTTP headers
               </Link>
             </PlanCheck>
@@ -760,8 +760,8 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
             </PlanCheck>
             <PlanCheck>
               <Link href='/metadata'>Metadata</Link>,{' '}
-              <Link href='/insights'>insights</Link>,{' '}
-              <Link href='/recipes'>recipes</Link>
+              <Link href='/logo'>Logo</Link>,{' '}
+              <Link href='/insights'>insights</Link>
             </PlanCheck>
             <PlanCheck>Global edge cache</PlanCheck>
             <PlanCheck>Community support</PlanCheck>
@@ -1271,7 +1271,7 @@ const CAPABILITIES = [
     title: 'Custom HTTP headers',
     description:
       'Forward auth tokens, cookies, or any custom headers. Reach private dashboards, gated content, and authenticated APIs.',
-    href: '/docs/api/parameters/headers'
+    href: '/docs/guides/common/private-pages'
   },
   {
     icon: ProxyIcon,
@@ -1286,20 +1286,6 @@ const CAPABILITIES = [
     description:
       'Strip ads, trackers, and consent banners automatically so screenshots and previews stay clean and consistent.',
     href: '/docs/api/parameters/adblock'
-  },
-  {
-    icon: CdnIcon,
-    title: 'Global edge cache',
-    description:
-      'Responses cached across 240+ Cloudflare nodes. Users see results in milliseconds, no matter where they are.',
-    href: '/docs/api/basics/cache'
-  },
-  {
-    icon: ActivityIcon,
-    title: '99.9% SLA & live status',
-    description:
-      'Three-nines uptime backed by isolated browser instances and real-time monitoring on a public status page.',
-    href: '/status'
   }
 ]
 
