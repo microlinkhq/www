@@ -893,7 +893,7 @@ const PLAN_NAMES = ['Free', 'Pro', 'Enterprise']
 const COMPARISON_ROWS = [
   {
     label: 'Daily quota',
-    values: ['50 req/day', 'Up to 20K req/day', 'Custom']
+    values: ['50 req/day', 'unlimited', 'unlimited']
   },
   {
     label: 'Monthly quota',
