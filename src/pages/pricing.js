@@ -911,7 +911,6 @@ const COMPARISON_ROWS = [
     label: 'Support',
     values: ['Community', 'Priority email', 'Dedicated channel']
   },
-  { label: 'Custom DPA', values: [false, false, true] },
   { label: 'Dedicated infrastructure', values: [false, false, true] }
 ]
 
