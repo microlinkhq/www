@@ -694,12 +694,7 @@ const FAQ_ENTRIES = [
   }
 ]
 
-const INSTALL_SNIPPET = `import createGoogle from '@microlink/google'
-
-const google = createGoogle({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
+const INSTALL_SNIPPET = `
 const page = await google('technical seo checklist', {
   type: 'search',
   location: 'us',
@@ -712,7 +707,7 @@ const html = await page.results[0].html()`
 const HERO_EXAMPLES = [
   {
     id: 'simple-search',
-    title: 'Simple Search Query',
+    title: 'Search Query',
     description:
       'Run a plain Google search query and get normalized result objects.',
     code: INSTALL_SNIPPET
@@ -722,12 +717,7 @@ const HERO_EXAMPLES = [
     title: 'News Monitoring',
     description:
       'Track fresh articles by topic with Google News and weekly filtering.',
-    code: `import createGoogle from '@microlink/google'
-
-const google = createGoogle({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
+    code: `
 const page = await google('artificial intelligence funding', {
   type: 'news',
   location: 'us',
@@ -744,15 +734,10 @@ console.log(headlines)`
   },
   {
     id: 'local-seo',
-    title: 'Local SEO Intelligence',
+    title: 'Local SEO',
     description:
       'Collect local pack and map-style entities for geo-targeted research.',
-    code: `import createGoogle from '@microlink/google'
-
-const google = createGoogle({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
+    code: `
 const placesPage = await google('best coffee madrid', {
   type: 'places',
   location: 'es'
@@ -769,15 +754,10 @@ console.log(leads)`
   },
   {
     id: 'agent-enrichment',
-    title: 'AI Agent Enrichment',
+    title: 'AI Agent',
     description:
       'Expand search results with HTML on demand for agent or RAG pipelines.',
-    code: `import createGoogle from '@microlink/google'
-
-const google = createGoogle({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
+    code: `
 const page = await google('technical seo checklist', {
   type: 'search',
   location: 'us'
@@ -952,108 +932,132 @@ const HeroExampleShell = styled(Box).withConfig({
     overflow: 'hidden',
     minWidth: 0,
     boxShadow: 1,
+    display: 'flex',
+    flexDirection: 'column',
     height: ['auto', 'auto', '550px', '550px']
   })};
 `
 
-const HeroExampleGrid = styled(Box).withConfig({
-  componentId: 'google__HeroExampleGrid'
-})`
+const HeroExampleTabBar = styled(Box)
+  .withConfig({ componentId: 'google__HeroExampleTabBar' })
+  .attrs({ role: 'tablist' })`
   ${theme({
-    display: 'grid',
-    gridTemplateColumns: ['1fr', '1fr', '2fr 3fr', '2fr 3fr'],
-    height: '100%'
-  })};
-`
-
-const HeroExampleOptions = styled(Box).withConfig({
-  componentId: 'google__HeroExampleOptions'
-})`
-  ${theme({
-    bg: 'gray0',
-    borderBottom: [1, 1, 0, 0],
-    borderBottomColor: ['black10', 'black10', null, null],
-    borderRight: [0, 0, 1, 1],
-    borderRightColor: [null, null, 'black10', 'black10'],
-    p: 3,
-    height: ['auto', 'auto', '100%', '100%']
-  })};
-`
-
-const HeroExampleOptionsList = styled(Box)
-  .withConfig({ componentId: 'google__HeroExampleOptionsList' })
-  .attrs({ as: 'ul' })`
-  ${theme({
-    listStyle: 'none',
-    m: 0,
-    p: 0,
     display: 'flex',
-    flexDirection: ['row', 'row', 'column', 'column'],
-    gap: 2,
-    overflowX: ['auto', 'auto', 'visible', 'visible'],
-    overflowY: ['visible', 'visible', 'auto', 'auto'],
-    height: ['auto', 'auto', '100%', '100%']
+    width: '100%',
+    bg: 'gray0',
+    borderBottom: 1,
+    borderBottomColor: 'black10',
+    flexShrink: 0
   })};
 `
 
-const HeroExampleItem = styled(Box)
-  .withConfig({ componentId: 'google__HeroExampleItem' })
-  .attrs({ as: 'li' })`
-  ${theme({
-    flexShrink: 0,
-    width: ['256px', '256px', '100%', '100%']
-  })};
-`
-
-const HeroExampleButton = styled('button').withConfig({
-  componentId: 'google__HeroExampleButton',
+const HeroExampleTab = styled('button').withConfig({
+  componentId: 'google__HeroExampleTab',
   shouldForwardProp: prop => !['$active'].includes(prop)
 })`
   ${theme({
     appearance: 'none',
-    width: '100%',
-    textAlign: 'left',
-    border: 1,
-    borderRadius: 2,
-    borderColor: 'black10',
-    p: 3,
-    bg: 'white',
-    cursor: 'pointer'
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    minHeight: '44px',
+    px: [2, 3, 3, 4],
+    py: 2,
+    border: 0,
+    borderRight: 1,
+    borderRightColor: 'black10',
+    bg: 'gray0',
+    color: 'black60',
+    fontFamily: 'mono',
+    fontSize: [0, 1, 1, 1],
+    fontWeight: 'normal',
+    letterSpacing: 0,
+    whiteSpace: 'nowrap',
+    cursor: 'pointer',
+    flex: 1,
+    minWidth: 0,
+    position: 'relative'
   })};
   ${({ $active }) =>
     theme({
-      borderColor: $active ? 'black20' : 'black10',
-      bg: $active ? 'gray1' : 'white'
+      bg: $active ? 'white' : 'gray0',
+      color: $active ? 'black' : 'black60',
+      fontWeight: $active ? 'bold' : 'normal'
     })};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: background-color ${transition.short},
-    border-color ${transition.short};
+  transition: background-color ${transition.short}, color ${transition.short};
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background-color: ${({ $active }) =>
+      $active ? colors.black : 'transparent'};
+    transition: background-color ${transition.short};
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background-color: ${({ $active }) =>
+      $active ? colors.white : 'transparent'};
+    transition: background-color ${transition.short};
+  }
+
+  &:last-child {
+    border-right: 0;
+  }
 
   &:hover {
-    background-color: ${colors.gray1};
-    border-color: ${colors.black20};
+    background-color: ${colors.white};
+    color: ${colors.black};
   }
 
   &:focus-visible {
     outline: 2px solid ${colors.link};
-    outline-offset: 2px;
+    outline-offset: -2px;
   }
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
+    &::before,
+    &::after {
+      transition: none;
+    }
   }
 `
 
-const HeroExampleTitle = styled(Text)
-  .withConfig({ componentId: 'google__HeroExampleTitle' })
-  .attrs({ as: 'h3' })`
+const HeroExamplePanel = styled(Box)
+  .withConfig({ componentId: 'google__HeroExamplePanel' })
+  .attrs({ role: 'tabpanel' })`
   ${theme({
-    m: 0,
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: [2, 2, 2, 2],
-    lineHeight: 1
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    minWidth: 0,
+    minHeight: 0
+  })};
+`
+
+const HeroExampleDescriptionBar = styled(Box).withConfig({
+  componentId: 'google__HeroExampleDescriptionBar'
+})`
+  ${theme({
+    bg: 'white',
+    borderBottom: 1,
+    borderBottomColor: 'black10',
+    px: [3, 3, 4, 4],
+    py: [2, 2, 3, 3],
+    flexShrink: 0
   })};
 `
 
@@ -1062,8 +1066,7 @@ const HeroExampleDescription = styled(Text)
   .attrs({ as: 'p' })`
   ${theme({
     m: 0,
-    mt: 2,
-    color: 'black70',
+    color: 'black',
     fontSize: [1, 1, 1, 1],
     lineHeight: 2
   })};
@@ -1075,8 +1078,11 @@ const HeroExampleCodePanel = styled(Box).withConfig({
   ${theme({
     bg: 'white',
     minWidth: 0,
+    minHeight: 0,
     display: 'flex',
-    height: ['420px', '420px', '100%', '100%']
+    flex: 1,
+    overflow: 'auto',
+    height: ['420px', '420px', 'auto', 'auto']
   })};
 `
 
@@ -1518,6 +1524,31 @@ const GooglePage = () => {
     if (tab) tab.focus()
   }
 
+  const focusHeroExampleTab = tabId => {
+    const tab = document.getElementById(`hero-example-tab-${tabId}`)
+    if (tab) tab.focus()
+  }
+
+  const handleHeroExampleTabKeyDown = (event, index) => {
+    const lastIndex = HERO_EXAMPLES.length - 1
+    let nextIndex = null
+
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      nextIndex = index === lastIndex ? 0 : index + 1
+    }
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      nextIndex = index === 0 ? lastIndex : index - 1
+    }
+    if (event.key === 'Home') nextIndex = 0
+    if (event.key === 'End') nextIndex = lastIndex
+    if (nextIndex === null) return
+
+    event.preventDefault()
+    const nextTabId = HERO_EXAMPLES[nextIndex].id
+    setActiveHeroExampleId(nextTabId)
+    focusHeroExampleTab(nextTabId)
+  }
+
   const focusVerticalSection = () => {
     const section = document.getElementById('google-verticals')
     if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -1702,28 +1733,39 @@ const GooglePage = () => {
                 })}
               >
                 <HeroExampleShell>
-                  <HeroExampleGrid>
-                    <HeroExampleOptions>
-                      <HeroExampleOptionsList>
-                        {HERO_EXAMPLES.map(example => (
-                          <HeroExampleItem key={example.id}>
-                            <HeroExampleButton
-                              type='button'
-                              $active={activeHeroExampleId === example.id}
-                              aria-pressed={activeHeroExampleId === example.id}
-                              onClick={() => setActiveHeroExampleId(example.id)}
-                            >
-                              <HeroExampleTitle>
-                                {example.title}
-                              </HeroExampleTitle>
-                              <HeroExampleDescription>
-                                {example.description}
-                              </HeroExampleDescription>
-                            </HeroExampleButton>
-                          </HeroExampleItem>
-                        ))}
-                      </HeroExampleOptionsList>
-                    </HeroExampleOptions>
+                  <HeroExampleTabBar aria-label='Example scenarios'>
+                    {HERO_EXAMPLES.map((example, index) => {
+                      const isActive = activeHeroExampleId === example.id
+                      return (
+                        <HeroExampleTab
+                          key={example.id}
+                          id={`hero-example-tab-${example.id}`}
+                          type='button'
+                          role='tab'
+                          $active={isActive}
+                          aria-selected={isActive}
+                          aria-controls={`hero-example-panel-${example.id}`}
+                          tabIndex={isActive ? 0 : -1}
+                          onClick={() => setActiveHeroExampleId(example.id)}
+                          onKeyDown={event =>
+                            handleHeroExampleTabKeyDown(event, index)
+                          }
+                        >
+                          {example.title}
+                        </HeroExampleTab>
+                      )
+                    })}
+                  </HeroExampleTabBar>
+
+                  <HeroExamplePanel
+                    id={`hero-example-panel-${activeHeroExample.id}`}
+                    aria-labelledby={`hero-example-tab-${activeHeroExample.id}`}
+                  >
+                    <HeroExampleDescriptionBar>
+                      <HeroExampleDescription>
+                        {activeHeroExample.description}
+                      </HeroExampleDescription>
+                    </HeroExampleDescriptionBar>
 
                     <HeroExampleCodePanel>
                       <CodeEditor
@@ -1737,13 +1779,14 @@ const GooglePage = () => {
                           width: '100%',
                           height: ['420px', '420px', '100%', '100%'],
                           border: 0,
-                          borderRadius: 0
+                          borderRadius: 0,
+                          mt: '-24px'
                         })}
                       >
                         {activeHeroExample.code}
                       </CodeEditor>
                     </HeroExampleCodePanel>
-                  </HeroExampleGrid>
+                  </HeroExamplePanel>
                 </HeroExampleShell>
               </Box>
             </Flex>
@@ -1970,9 +2013,11 @@ const GooglePage = () => {
                       {step.description}
                     </TutorialStepDescription>
 
-                    {step.panel.type === 'features'
-                      ? panelContent
-                      : <TutorialPanel>{panelContent}</TutorialPanel>}
+                    {step.panel.type === 'features' ? (
+                      panelContent
+                    ) : (
+                      <TutorialPanel>{panelContent}</TutorialPanel>
+                    )}
                   </TutorialContent>
                 </TutorialStep>
               )
