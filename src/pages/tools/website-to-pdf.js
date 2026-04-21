@@ -2037,8 +2037,8 @@ const ProductInformation = () => (
             </div>
             <div>
               Need higher limits? Check our{' '}
-              <Link href='/pdf#pricing'>pricing plans</Link> for priority
-              processing and more daily conversions.
+              <Link href='/pricing'>pricing plans</Link> for priority processing
+              and more daily conversions.
             </div>
           </>
         )

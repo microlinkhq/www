@@ -173,7 +173,7 @@ const REASON_TO_USE = [
         Enable{' '}
         <Link href='/docs/guides/markdown/choosing-scope'>prerendering</Link>{' '}
         for client-side apps. If the target page has bot protection,{' '}
-        <Link href='/#pricing'>pro plans</Link> can bypass it.
+        <Link href='/pricing'>pro plans</Link> can bypass it.
       </>
     )
   },
@@ -2516,7 +2516,7 @@ const ProductInformation = () => (
               editing, and download.
             </div>
             <div>
-              Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
+              Need more? Check our <Link href='/pricing'>pricing plans</Link>{' '}
               for higher limits and priority processing.
             </div>
           </>

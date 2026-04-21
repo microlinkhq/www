@@ -60,6 +60,7 @@ const StyledButton = styled(Box).withConfig({
       padding: ${space[1]};
       &:hover {
         box-shadow: none;
+        color: white;
         filter: hue-rotate(40deg);
       }
       @media (prefers-reduced-motion: reduce) {

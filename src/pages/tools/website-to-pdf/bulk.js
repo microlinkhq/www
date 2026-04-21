@@ -2278,7 +2278,7 @@ const BulkPreview = ({
                     >
                       Free users can generate up to 50 PDFs per day. Your limit
                       will reset tomorrow. For unlimited access, check out our{' '}
-                      <Link href='/pdf#pricing'>API plans</Link> or write to{' '}
+                      <Link href='/pricing'>API plans</Link> or write to{' '}
                       <Link href='mailto:hello@microlink.io'>
                         hello@microlink.io
                       </Link>{' '}
@@ -3173,9 +3173,8 @@ const ProductInformation = () => (
             </div>
             <div>
               Need higher limits for automated <b>batch URL to PDF</b>{' '}
-              processing? Check our{' '}
-              <Link href='/pdf#pricing'>pricing plans</Link> for unlimited
-              conversions and priority processing, or write to{' '}
+              processing? Check our <Link href='/pricing'>pricing plans</Link>{' '}
+              for unlimited conversions and priority processing, or write to{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
             </div>
           </>

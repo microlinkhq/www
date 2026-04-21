@@ -261,10 +261,6 @@
       "destination": "/docs/api/parameters/prerender"
     },
     {
-      "source": "/pricing",
-      "destination": "/#pricing"
-    },
-    {
       "source": "/proxy",
       "destination": "/docs/api/parameters/proxy"
     },

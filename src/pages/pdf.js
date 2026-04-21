@@ -2657,7 +2657,7 @@ const Pricing = () => (
         <Flex
           css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
         >
-          <ArrowLink href='/#pricing'>See all plans</ArrowLink>
+          <ArrowLink href='/pricing'>See all plans</ArrowLink>
         </Flex>
       </PricingCard>
     </Flex>
@@ -3644,7 +3644,7 @@ export const Head = () => (
         priceCurrency: 'EUR',
         description:
           'Free tier available (50 requests/day). Pro plans start at €39/month for production workloads.',
-        url: 'https://microlink.io/#pricing'
+        url: 'https://microlink.io/pricing'
       },
       keywords: [
         'html to pdf api',

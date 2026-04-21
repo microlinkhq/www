@@ -1754,7 +1754,7 @@ const BulkPreview = ({
                     >
                       Free users can take up to 50 screenshots per day. Your limit
                       will reset tomorrow. For unlimited access, check out our{' '}
-                      <Link href='/#pricing'>API plans</Link> or write to{' '}
+                      <Link href='/pricing'>API plans</Link> or write to{' '}
                       <Link href='mailto:hello@microlink.io'>
                         hello@microlink.io
                       </Link>{' '}
@@ -2609,7 +2609,7 @@ const ProductInformation = () => (
             </div>
             <div>
               Need higher limits? Check our{' '}
-              <Link href='/#pricing'>pricing plans</Link> for unlimited
+              <Link href='/pricing'>pricing plans</Link> for unlimited
               screenshots and priority processing, or write to{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
             </div>

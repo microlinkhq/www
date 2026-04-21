@@ -1741,7 +1741,7 @@ const FAQ_ITEMS = [
           .
         </div>
         <div>
-          For production workloads, the <Link href='/#pricing'>Pro plan</Link>{' '}
+          For production workloads, the <Link href='/pricing'>Pro plan</Link>{' '}
           starts at €39/month for 46,000 requests with automatic{' '}
           <Link href='/docs/api/parameters/proxy'>proxy resolution</Link> and
           antibot&nbsp;protection.
@@ -1830,7 +1830,7 @@ const FAQ_ITEMS = [
         </div>
         <div>
           You can self-host it for full control, or use the{' '}
-          <Link href='/#pricing'>managed API</Link> to skip infrastructure work
+          <Link href='/pricing'>managed API</Link> to skip infrastructure work
           and get automatic scaling, proxy rotation, and global
           edge&nbsp;deployment.
         </div>

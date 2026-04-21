@@ -1468,7 +1468,7 @@ const ProductInformation = () => (
             </div>
             <div>
               Need higher limits? See our{' '}
-              <Link href='/#pricing'>pricing plans</Link> for unlimited captures
+              <Link href='/pricing'>pricing plans</Link> for unlimited captures
               and priority processing.
             </div>
           </>
