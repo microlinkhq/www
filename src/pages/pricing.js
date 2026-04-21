@@ -906,7 +906,7 @@ const COMPARISON_ROWS = [
   { label: 'Adblock & cookie banners', values: [true, true, true] },
   { label: 'Global CDN edge cache', values: ['Shared', 'Shared', 'Dedicated'] },
   { label: 'Concurrency', values: ['Limited', 'Standard', 'Custom'] },
-  { label: 'SLA', values: ['Best effort', '99.9%', 'Custom'] },
+  { label: 'SLA', values: ['Best effort', '99.9%', '99,99%'] },
   {
     label: 'Support',
     values: ['Community', 'Priority email', 'Dedicated channel']
