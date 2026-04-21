@@ -1748,8 +1748,7 @@ const GooglePage = () => {
                           tabIndex={isActive ? 0 : -1}
                           onClick={() => setActiveHeroExampleId(example.id)}
                           onKeyDown={event =>
-                            handleHeroExampleTabKeyDown(event, index)
-                          }
+                            handleHeroExampleTabKeyDown(event, index)}
                         >
                           {example.title}
                         </HeroExampleTab>
@@ -2013,11 +2012,13 @@ const GooglePage = () => {
                       {step.description}
                     </TutorialStepDescription>
 
-                    {step.panel.type === 'features' ? (
-                      panelContent
-                    ) : (
-                      <TutorialPanel>{panelContent}</TutorialPanel>
-                    )}
+                    {step.panel.type === 'features'
+                      ? (
+                          panelContent
+                        )
+                      : (
+                        <TutorialPanel>{panelContent}</TutorialPanel>
+                        )}
                   </TutorialContent>
                 </TutorialStep>
               )
