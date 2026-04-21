@@ -899,7 +899,6 @@ const COMPARISON_ROWS = [
     label: 'Monthly quota',
     values: ['~1.5K req/month', '45K – 560K req/month', 'Millions+']
   },
-  { label: 'API key', values: [false, true, true] },
   { label: 'Configurable TTL', values: [false, true, true] },
   { label: 'Custom HTTP headers', values: [false, true, true] },
   { label: 'Automatic proxy resolution', values: [false, true, true] },
