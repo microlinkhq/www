@@ -438,13 +438,11 @@ const PriceTag = ({ eur, suffix = '/month', highlight = false }) => {
   const { symbol, word } = CURRENCIES[currency]
   const amount = formatPrice(eur, currency)
   const ariaLabel = `${amount} ${word} per month`
-  const amountNode = highlight
-    ? (
-      <Highlight as='span'>{amount}</Highlight>
-      )
-    : (
-        amount
-      )
+  const amountNode = highlight ? (
+    <Highlight as='span'>{amount}</Highlight>
+  ) : (
+    amount
+  )
 
   return (
     <Flex
@@ -764,8 +762,12 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
               <Link href='/logo'>Logo</Link>,{' '}
               <Link href='/insights'>insights</Link>
             </PlanCheck>
-            <PlanCheck>Global edge cache</PlanCheck>
-            <PlanCheck>Community support</PlanCheck>
+            <PlanCheck>
+              <Link href='/blog/edge-cdn'>Global edge cache</Link>
+            </PlanCheck>
+            <PlanCheck>
+              <Link href='/community'>Community support</Link>
+            </PlanCheck>
           </Box>
           <Box
             css={theme({
@@ -893,7 +895,7 @@ const PLAN_NAMES = ['Free', 'Pro', 'Enterprise']
 const COMPARISON_ROWS = [
   {
     label: 'Daily quota',
-    values: ['50 req/day', 'unlimited', 'unlimited']
+    values: ['50 req/day', 'Unlimited', 'Unlimited']
   },
   {
     label: 'Monthly quota',
@@ -910,7 +912,7 @@ const COMPARISON_ROWS = [
     label: 'Support',
     values: ['Community', 'Priority email', 'Dedicated channel']
   },
-  { label: 'Dedicated infrastructure', values: [false, false, true] }
+  { label: 'Dedicated endpoint', values: [false, false, true] }
 ]
 
 const ComparisonTable = styled(Box)`
@@ -1103,17 +1105,15 @@ const Comparison = () => (
               Feature
             </ComparisonHeaderLabelCell>
             {PLAN_NAMES.map((name, i) =>
-              i === 1
-                ? (
-                  <ComparisonProHeaderPlanCell role='columnheader' key={name}>
-                    {name}
-                  </ComparisonProHeaderPlanCell>
-                  )
-                : (
-                  <ComparisonHeaderPlanCell role='columnheader' key={name}>
-                    {name}
-                  </ComparisonHeaderPlanCell>
-                  )
+              i === 1 ? (
+                <ComparisonProHeaderPlanCell role='columnheader' key={name}>
+                  {name}
+                </ComparisonProHeaderPlanCell>
+              ) : (
+                <ComparisonHeaderPlanCell role='columnheader' key={name}>
+                  {name}
+                </ComparisonHeaderPlanCell>
+              )
             )}
           </ComparisonHeaderRow>
         </Box>
@@ -1124,17 +1124,15 @@ const Comparison = () => (
                 {label}
               </ComparisonLabelCell>
               {values.map((value, i) =>
-                i === 1
-                  ? (
-                    <ComparisonProPlanCell role='cell' key={i}>
-                      {renderComparisonValue(value)}
-                    </ComparisonProPlanCell>
-                    )
-                  : (
-                    <ComparisonPlanCell role='cell' key={i}>
-                      {renderComparisonValue(value)}
-                    </ComparisonPlanCell>
-                    )
+                i === 1 ? (
+                  <ComparisonProPlanCell role='cell' key={i}>
+                    {renderComparisonValue(value)}
+                  </ComparisonProPlanCell>
+                ) : (
+                  <ComparisonPlanCell role='cell' key={i}>
+                    {renderComparisonValue(value)}
+                  </ComparisonPlanCell>
+                )
               )}
             </ComparisonRow>
           ))}
@@ -1440,7 +1438,6 @@ const BvbBullet = ({ children, kind }) => (
     <FeatherIcon
       css={theme({
         flexShrink: 0,
-        pt: '4px',
         color: kind === 'buy' ? 'pink7' : 'black40'
       })}
       icon={kind === 'buy' ? CheckIcon : XIcon}
