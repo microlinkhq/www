@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { colors, layout, theme, transition } from 'theme'
 import {
@@ -701,7 +701,6 @@ const page = await google('technical seo checklist', {
   period: 'week'
 })
 
-const nextPage = await page.next()
 const html = await page.results[0].html()`
 
 const HERO_EXAMPLES = [
@@ -728,9 +727,7 @@ const headlines = page.results.map(item => ({
   title: item.title,
   source: item.publisher,
   publishedAt: item.date
-}))
-
-console.log(headlines)`
+}))`
   },
   {
     id: 'local-seo',
@@ -748,9 +745,7 @@ const leads = placesPage.results.map(result => ({
   rating: result.rating?.score,
   reviews: result.rating?.reviews,
   coordinates: result.coordinates
-}))
-
-console.log(leads)`
+}))`
   },
   {
     id: 'agent-enrichment',
@@ -758,20 +753,15 @@ console.log(leads)`
     description:
       'Expand search results with HTML on demand for agent or RAG pipelines.',
     code: `
-const page = await google('technical seo checklist', {
-  type: 'search',
-  location: 'us'
-})
+const page = await google('site:openai.com function calling guide')
 
-const documents = await Promise.all(
+const topSources = await Promise.all(
   page.results.slice(0, 3).map(async result => ({
     title: result.title,
     url: result.url,
     html: await result.html()
   }))
-)
-
-console.log(documents)`
+)`
   }
 ]
 const HeroSection = styled(Box).withConfig({
@@ -1084,6 +1074,28 @@ const HeroExampleCodePanel = styled(Box).withConfig({
     overflow: 'auto',
     height: ['420px', '420px', 'auto', 'auto']
   })};
+
+  .hero-code-caret {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin: 0 1px -2px 0;
+    vertical-align: text-bottom;
+    background-color: ${colors.black};
+    animation: heroCodeCaretBlink 900ms steps(2, start) infinite;
+  }
+
+  @keyframes heroCodeCaretBlink {
+    to {
+      visibility: hidden;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-code-caret {
+      animation: none;
+    }
+  }
 `
 
 const VerticalExampleShell = styled(Box).withConfig({
@@ -1495,6 +1507,116 @@ const PricingCard = styled(Flex).withConfig({
   box-shadow: 0 2px 8px ${colors.black05};
 `
 
+const HERO_TYPING_OPTION_KEYS = ['type', 'location', 'period']
+
+const extractHeroTypingTargets = code => {
+  if (!code) return []
+  const targets = []
+  const queryMatch = code.match(/google\(\s*(['"])([\s\S]*?)\1/)
+  if (queryMatch) targets.push(queryMatch[2])
+  HERO_TYPING_OPTION_KEYS.forEach(key => {
+    const pattern = new RegExp(`${key}\\s*:\\s*(['"])([\\s\\S]*?)\\1`)
+    const match = code.match(pattern)
+    if (match) targets.push(match[2])
+  })
+  return targets
+}
+
+const HERO_TYPE_CHAR_MS = 32
+const HERO_TYPE_GAP_MS = 260
+const HERO_TYPE_START_MS = 80
+
+const findHeroTypingSpans = (root, targets) => {
+  const spans = Array.from(root.querySelectorAll('.sh__token--string'))
+  const remaining = [...targets]
+  const matches = []
+  for (const span of spans) {
+    if (remaining.length === 0) break
+    const text = span.textContent
+    const idx = remaining.indexOf(text)
+    if (idx === -1) continue
+    remaining.splice(idx, 1)
+    matches.push({ span, text })
+  }
+  return matches.length === targets.length ? matches : null
+}
+
+const runHeroTypingSequence = (matches, prefersReducedMotion, onComplete) => {
+  const timers = []
+  let cancelled = false
+
+  const caret = document.createElement('span')
+  caret.className = 'hero-code-caret'
+  caret.setAttribute('aria-hidden', 'true')
+
+  matches.forEach(match => {
+    match.span.textContent = ''
+  })
+
+  if (prefersReducedMotion) {
+    matches.forEach(match => {
+      match.span.textContent = match.text
+    })
+    if (onComplete) onComplete()
+    return () => {}
+  }
+
+  const finish = () => {
+    if (cancelled) return
+    if (caret.parentNode) caret.parentNode.removeChild(caret)
+    if (onComplete) onComplete()
+  }
+
+  const typeInto = (match, onDone) => {
+    if (cancelled) return
+    match.span.textContent = ''
+    match.span.appendChild(caret)
+    let i = 0
+
+    const tick = () => {
+      if (cancelled) return
+      i += 1
+      match.span.insertBefore(
+        document.createTextNode(match.text.charAt(i - 1)),
+        caret
+      )
+      if (i < match.text.length) {
+        timers.push(window.setTimeout(tick, HERO_TYPE_CHAR_MS))
+      } else {
+        onDone()
+      }
+    }
+
+    timers.push(window.setTimeout(tick, HERO_TYPE_CHAR_MS))
+  }
+
+  const runIndex = index => {
+    if (cancelled) return
+    if (index >= matches.length) {
+      finish()
+      return
+    }
+    typeInto(matches[index], () => {
+      if (cancelled) return
+      if (index + 1 < matches.length) {
+        timers.push(
+          window.setTimeout(() => runIndex(index + 1), HERO_TYPE_GAP_MS)
+        )
+      } else {
+        finish()
+      }
+    })
+  }
+
+  timers.push(window.setTimeout(() => runIndex(0), HERO_TYPE_START_MS))
+
+  return () => {
+    cancelled = true
+    timers.forEach(id => window.clearTimeout(id))
+    if (caret.parentNode) caret.parentNode.removeChild(caret)
+  }
+}
+
 const GooglePage = () => {
   const [activeHeroExampleId, setActiveHeroExampleId] = useState(
     HERO_EXAMPLES[0].id
@@ -1505,6 +1627,84 @@ const GooglePage = () => {
   const activeHeroExample =
     HERO_EXAMPLES.find(example => example.id === activeHeroExampleId) ??
     HERO_EXAMPLES[0]
+  const heroCodeRef = useRef(null)
+  const heroTypingTargets = useMemo(
+    () => extractHeroTypingTargets(activeHeroExample.code),
+    [activeHeroExample.code]
+  )
+
+  useEffect(() => {
+    const container = heroCodeRef.current
+    if (!container || heroTypingTargets.length === 0) return undefined
+
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    let cancelSequence = null
+    let rafId = null
+    let observer = null
+    let activeSpans = []
+
+    const start = () => {
+      const matches = findHeroTypingSpans(container, heroTypingTargets)
+      if (!matches) return false
+      if (cancelSequence) cancelSequence()
+      activeSpans = matches.map(match => match.span)
+      cancelSequence = runHeroTypingSequence(
+        matches,
+        prefersReducedMotion,
+        () => {
+          if (observer) observer.disconnect()
+          activeSpans = []
+        }
+      )
+      return true
+    }
+
+    const schedule = () => {
+      if (rafId !== null) return
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null
+        start()
+      })
+    }
+
+    const isInsideActiveSpan = node => {
+      if (!node) return false
+      return activeSpans.some(span => span === node || span.contains(node))
+    }
+
+    const isInternalNode = node => {
+      if (!node) return true
+      if (node.nodeType === 1 && node.classList?.contains('hero-code-caret')) {
+        return true
+      }
+      return isInsideActiveSpan(node.parentNode || node)
+    }
+
+    observer = new MutationObserver(mutations => {
+      if (activeSpans.length === 0) return
+      const external = mutations.some(mutation => {
+        if (!isInsideActiveSpan(mutation.target)) return true
+        const nodes = [
+          ...Array.from(mutation.addedNodes || []),
+          ...Array.from(mutation.removedNodes || [])
+        ]
+        return nodes.some(node => !isInternalNode(node))
+      })
+      if (external) schedule()
+    })
+    observer.observe(container, { childList: true, subtree: true })
+    schedule()
+
+    return () => {
+      if (observer) observer.disconnect()
+      if (rafId !== null) window.cancelAnimationFrame(rafId)
+      if (cancelSequence) cancelSequence()
+    }
+  }, [activeHeroExampleId, heroTypingTargets])
   const activeVertical =
     GOOGLE_VERTICALS.find(vertical => vertical.id === activeVerticalId) ??
     GOOGLE_VERTICALS[0]
@@ -1748,7 +1948,8 @@ const GooglePage = () => {
                           tabIndex={isActive ? 0 : -1}
                           onClick={() => setActiveHeroExampleId(example.id)}
                           onKeyDown={event =>
-                            handleHeroExampleTabKeyDown(event, index)}
+                            handleHeroExampleTabKeyDown(event, index)
+                          }
                         >
                           {example.title}
                         </HeroExampleTab>
@@ -1766,7 +1967,7 @@ const GooglePage = () => {
                       </HeroExampleDescription>
                     </HeroExampleDescriptionBar>
 
-                    <HeroExampleCodePanel>
+                    <HeroExampleCodePanel ref={heroCodeRef}>
                       <CodeEditor
                         title='Node.js example'
                         language='javascript'
@@ -2012,13 +2213,11 @@ const GooglePage = () => {
                       {step.description}
                     </TutorialStepDescription>
 
-                    {step.panel.type === 'features'
-                      ? (
-                          panelContent
-                        )
-                      : (
-                        <TutorialPanel>{panelContent}</TutorialPanel>
-                        )}
+                    {step.panel.type === 'features' ? (
+                      panelContent
+                    ) : (
+                      <TutorialPanel>{panelContent}</TutorialPanel>
+                    )}
                   </TutorialContent>
                 </TutorialStep>
               )
