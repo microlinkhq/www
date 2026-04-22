@@ -1239,8 +1239,9 @@ const HeroResultHeaderLabel = styled(Flex)
     gap: 2,
     color: 'black70',
     fontFamily: 'mono',
-    fontSize: [0, 0, 1, 1],
-    letterSpacing: 0
+    fontSize: '14px',
+    letterSpacing: 0,
+    lineHeight: 1
   })};
 `
 
@@ -1396,6 +1397,54 @@ const HeroResultSkeletonLine = styled(Box).withConfig({
   & + & {
     ${theme({ mt: 2 })};
   }
+`
+
+const HeroResultBrand = styled(Flex)
+  .withConfig({
+    componentId: 'google__HeroResultBrand',
+    shouldForwardProp: prop => !['$size', '$tint'].includes(prop)
+  })
+  .attrs({ as: 'span', 'aria-hidden': 'true' })`
+  ${theme({
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    borderRadius: '9999px',
+    bg: 'white',
+    overflow: 'hidden'
+  })};
+  width: ${({ $size }) => $size || '20px'};
+  height: ${({ $size }) => $size || '20px'};
+  border: 1px solid ${colors.black10};
+  background-color: ${({ $tint }) => $tint || colors.white};
+
+  img {
+    width: 62%;
+    height: 62%;
+    object-fit: contain;
+    display: block;
+  }
+`
+
+const HeroResultMonogram = styled('span').withConfig({
+  componentId: 'google__HeroResultMonogram',
+  shouldForwardProp: prop => !['$tint', '$color'].includes(prop)
+})`
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    fontFamily: 'sans',
+    fontSize: '10px',
+    fontWeight: 'bold',
+    letterSpacing: 0,
+    lineHeight: 1
+  })};
+  background-color: ${({ $tint }) => $tint || colors.black80};
+  color: ${({ $color }) => $color || colors.white};
+  text-transform: uppercase;
 `
 
 const HeroResultBreadcrumb = styled(Flex)
@@ -2246,6 +2295,97 @@ const buildBreadcrumb = url => {
   }
 }
 
+const HOST_BRAND_MAP = {
+  'techcrunch.com': { icon: 'techcrunch', tint: '#FFFFFF' },
+  'google.com': { icon: 'google', tint: '#FFFFFF' }
+}
+
+const HOST_MONOGRAM_OVERRIDES = {
+  'openai.com': { label: 'AI', tint: '#10A37F' },
+  'theverge.com': { label: 'V', tint: '#5200FF' },
+  'ft.com': { label: 'FT', tint: '#FFF1E5', color: '#990F3D' }
+}
+
+const MONOGRAM_PALETTE = [
+  '#5B8DEF',
+  '#4DA167',
+  '#F2994A',
+  '#EB5757',
+  '#9B51E0',
+  '#2D9CDB',
+  '#219653'
+]
+
+const monogramTintFor = seed => {
+  if (!seed) return MONOGRAM_PALETTE[0]
+  let hash = 0
+  for (let i = 0; i < seed.length; i += 1) {
+    hash = (hash * 31 + seed.charCodeAt(i)) >>> 0
+  }
+  return MONOGRAM_PALETTE[hash % MONOGRAM_PALETTE.length]
+}
+
+const monogramFor = host => {
+  if (!host) return '•'
+  const base = host.replace(/^www\./, '').split('.')[0]
+  return base.slice(0, 2).toUpperCase()
+}
+
+const brandMatchFor = host => {
+  if (!host) return null
+  const normalized = host.replace(/^www\./, '').toLowerCase()
+  if (HOST_BRAND_MAP[normalized]) return HOST_BRAND_MAP[normalized]
+  const match = Object.keys(HOST_BRAND_MAP).find(key =>
+    normalized.endsWith(`.${key}`)
+  )
+  return match ? HOST_BRAND_MAP[match] : null
+}
+
+const monogramOverrideFor = host => {
+  if (!host) return null
+  const normalized = host.replace(/^www\./, '').toLowerCase()
+  if (HOST_MONOGRAM_OVERRIDES[normalized]) {
+    return HOST_MONOGRAM_OVERRIDES[normalized]
+  }
+  const match = Object.keys(HOST_MONOGRAM_OVERRIDES).find(key =>
+    normalized.endsWith(`.${key}`)
+  )
+  return match ? HOST_MONOGRAM_OVERRIDES[match] : null
+}
+
+const HostBrandIcon = ({ host, size = '20px' }) => {
+  const brand = brandMatchFor(host)
+  if (brand) {
+    return (
+      <HeroResultBrand $size={size} $tint={brand.tint}>
+        <img
+          src={`https://cdn.simpleicons.org/${brand.icon}`}
+          alt=''
+          aria-hidden='true'
+          loading='lazy'
+        />
+      </HeroResultBrand>
+    )
+  }
+  const override = monogramOverrideFor(host)
+  if (override) {
+    return (
+      <HeroResultBrand $size={size} $tint={override.tint}>
+        <HeroResultMonogram $tint={override.tint} $color={override.color}>
+          {override.label}
+        </HeroResultMonogram>
+      </HeroResultBrand>
+    )
+  }
+  return (
+    <HeroResultBrand $size={size} $tint={colors.white}>
+      <HeroResultMonogram $tint={monogramTintFor(host)}>
+        {monogramFor(host)}
+      </HeroResultMonogram>
+    </HeroResultBrand>
+  )
+}
+
 const HeroResultSkeleton = () => (
   <Box css={theme({ width: '100%' })}>
     <HeroResultSkeletonLine $width='160px' $height='10px' />
@@ -2260,6 +2400,7 @@ const HeroSearchResultCard = ({ data, badge = null }) => {
   return (
     <Box>
       <HeroResultBreadcrumb>
+        <HostBrandIcon host={host} size='28px' />
         <Flex
           css={theme({
             flexDirection: 'column',
@@ -2314,6 +2455,14 @@ const HeroNewsResultCard = ({ data }) => {
 const HeroPlacesResultCard = ({ data }) => (
   <Box>
     <Flex css={theme({ alignItems: 'center', gap: 2, minWidth: 0 })}>
+      <HeroResultBrand $size='28px' $tint={colors.white}>
+        <img
+          src='https://cdn.simpleicons.org/googlemaps'
+          alt=''
+          aria-hidden='true'
+          loading='lazy'
+        />
+      </HeroResultBrand>
       <Text
         as='span'
         css={theme({
@@ -2379,42 +2528,49 @@ const HeroPlacesResultCard = ({ data }) => (
   </Box>
 )
 
-const HeroNewsListItem = ({ item }) => (
-  <HeroResultListItem>
-    <HeroResultBreadcrumb>
-      <HeroResultSite>{item.publisher}</HeroResultSite>
-      <Text as='span' css={theme({ color: 'black50', fontSize: [0, 0, 1, 1] })}>
-        •
-      </Text>
-      <Flex css={theme({ alignItems: 'center', gap: 1 })}>
-        <Clock size={12} aria-hidden='true' />
+const HeroNewsListItem = ({ item }) => {
+  const { host } = buildBreadcrumb(item.url)
+  return (
+    <HeroResultListItem>
+      <HeroResultBreadcrumb>
+        <HostBrandIcon host={host} size='20px' />
+        <HeroResultSite>{item.publisher}</HeroResultSite>
         <Text
           as='span'
-          css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}
+          css={theme({ color: 'black50', fontSize: [0, 0, 1, 1] })}
         >
-          {formatRelativeTime(item.date)}
+          •
         </Text>
-      </Flex>
-    </HeroResultBreadcrumb>
-    <HeroResultListTitle>{item.title}</HeroResultListTitle>
-    {item.description && (
-      <Text
-        as='p'
-        css={theme({
-          m: 0,
-          color: 'black70',
-          fontSize: [0, 0, 1, 1],
-          lineHeight: 1,
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis'
-        })}
-      >
-        {item.description}
-      </Text>
-    )}
-  </HeroResultListItem>
-)
+        <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+          <Clock size={12} aria-hidden='true' />
+          <Text
+            as='span'
+            css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}
+          >
+            {formatRelativeTime(item.date)}
+          </Text>
+        </Flex>
+      </HeroResultBreadcrumb>
+      <HeroResultListTitle>{item.title}</HeroResultListTitle>
+      {item.description && (
+        <Text
+          as='p'
+          css={theme({
+            m: 0,
+            color: 'black70',
+            fontSize: [0, 0, 1, 1],
+            lineHeight: 1,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          })}
+        >
+          {item.description}
+        </Text>
+      )}
+    </HeroResultListItem>
+  )
+}
 
 const HeroSearchEnrichedListItem = ({ item }) => {
   const { host } = buildBreadcrumb(item.url)
@@ -2422,6 +2578,7 @@ const HeroSearchEnrichedListItem = ({ item }) => {
     <HeroResultListItem>
       <HeroResultListRow>
         <HeroResultBreadcrumb>
+          <HostBrandIcon host={host} size='20px' />
           <HeroResultSite>{host}</HeroResultSite>
         </HeroResultBreadcrumb>
         <HeroResultBadgeGroup>
