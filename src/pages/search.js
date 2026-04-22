@@ -1276,20 +1276,27 @@ const HeroResultStatusDot = styled(Box).withConfig({
   }
 `
 
+const HERO_RESULT_COLLAPSED_PEEK = '64px'
+const HERO_RESULT_EXPANDED_MAX = '520px'
+
 const HeroResultBodyWrap = styled(Box).withConfig({
   componentId: 'google__HeroResultBodyWrap',
   shouldForwardProp: prop => !['$collapsed'].includes(prop)
 })`
-  display: grid;
-  grid-template-rows: ${({ $collapsed }) => ($collapsed ? '0fr' : '1fr')};
-  opacity: ${({ $collapsed }) => ($collapsed ? 0 : 1)};
-  transition: grid-template-rows 260ms cubic-bezier(0.22, 1, 0.36, 1),
+  overflow: hidden;
+  max-height: ${({ $collapsed }) =>
+    $collapsed ? HERO_RESULT_COLLAPSED_PEEK : HERO_RESULT_EXPANDED_MAX};
+  opacity: ${({ $collapsed }) => ($collapsed ? 0.6 : 1)};
+  transition: max-height 260ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 200ms ease;
-
-  & > * {
-    min-height: 0;
-    overflow: hidden;
-  }
+  -webkit-mask-image: ${({ $collapsed }) =>
+    $collapsed
+      ? `linear-gradient(to bottom, ${colors.black} 0, transparent 100%)`
+      : 'none'};
+  mask-image: ${({ $collapsed }) =>
+    $collapsed
+      ? `linear-gradient(to bottom, ${colors.black} 0, transparent 100%)`
+      : 'none'};
 
   @media (prefers-reduced-motion: reduce) {
     transition: opacity 120ms linear;
