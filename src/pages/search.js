@@ -5,8 +5,10 @@ import {
   ArrowRight,
   Check,
   CheckCircle,
+  ChevronDown,
   Clock,
   Code as CodeIcon,
+  FileText,
   GitMerge,
   Hexagon,
   MapPin,
@@ -705,7 +707,7 @@ const page = await google('technical seo checklist', {
   period: 'week'
 })
 
-const html = await page.results[0].html()`
+const result = await page.results[0]`
 
 const HERO_EXAMPLES = [
   {
@@ -744,14 +746,34 @@ const headlines = page.results.map(item => ({
 }))`,
     result: {
       variant: 'news',
-      data: {
-        title: 'Anthropic raises $13B at $183B valuation to scale AI research',
-        publisher: 'TechCrunch',
-        date: '2026-04-18T09:12:00.000Z',
-        url: 'https://techcrunch.com/2026/04/18/anthropic-series-f/',
-        description:
-          'The round accelerates Claude’s enterprise rollout and new inference infrastructure partnerships.'
-      }
+      data: [
+        {
+          title:
+            'Anthropic raises $13B at $183B valuation to scale AI research',
+          publisher: 'TechCrunch',
+          date: '2026-04-18T09:12:00.000Z',
+          url: 'https://techcrunch.com/2026/04/18/anthropic-series-f/',
+          description:
+            'The round accelerates Claude’s enterprise rollout and new inference infrastructure partnerships.'
+        },
+        {
+          title:
+            'OpenAI launches enterprise agent platform with native tool use',
+          publisher: 'The Verge',
+          date: '2026-04-17T14:40:00.000Z',
+          url: 'https://www.theverge.com/2026/04/17/openai-agents/',
+          description:
+            'New platform bundles memory, tool orchestration, and billing controls for production AI agent deployments.'
+        },
+        {
+          title: 'Mistral AI secures €2B Series C to expand European AI stack',
+          publisher: 'Financial Times',
+          date: '2026-04-15T08:05:00.000Z',
+          url: 'https://www.ft.com/content/mistral-series-c-2026',
+          description:
+            'Funding backs sovereign European cloud partnerships and new open-weight reasoning models for enterprise use.'
+        }
+      ]
     }
   },
   {
@@ -801,13 +823,32 @@ const topSources = await Promise.all(
 )`,
     result: {
       variant: 'search-enriched',
-      data: {
-        title: 'Function calling - OpenAI API',
-        url: 'https://openai.com/index/function-calling-guide/',
-        description:
-          'Learn how function calling lets models interact with external tools, APIs, and structured data through the OpenAI API.',
-        htmlBytes: 48231
-      }
+      data: [
+        {
+          title: 'Function calling - OpenAI API',
+          url: 'https://openai.com/index/function-calling-guide/',
+          description:
+            'Define tools the model can call, then let the API orchestrate inputs, responses, and retries end-to-end.',
+          htmlBytes: 48231,
+          mdBytes: 12403
+        },
+        {
+          title: 'Structured outputs with function calling',
+          url: 'https://openai.com/blog/structured-outputs-function-calling',
+          description:
+            'Constrain responses to JSON schemas so your agents receive strictly typed, validated payloads every time.',
+          htmlBytes: 32148,
+          mdBytes: 8214
+        },
+        {
+          title: 'Building agents with the OpenAI SDK',
+          url: 'https://openai.com/index/building-agents-openai-sdk/',
+          description:
+            'Patterns for memory, planning, and tool routing when composing multi-step agents on top of the SDK.',
+          htmlBytes: 51720,
+          mdBytes: 14190
+        }
+      ]
     }
   }
 ]
@@ -1235,6 +1276,26 @@ const HeroResultStatusDot = styled(Box).withConfig({
   }
 `
 
+const HeroResultBodyWrap = styled(Box).withConfig({
+  componentId: 'google__HeroResultBodyWrap',
+  shouldForwardProp: prop => !['$collapsed'].includes(prop)
+})`
+  display: grid;
+  grid-template-rows: ${({ $collapsed }) => ($collapsed ? '0fr' : '1fr')};
+  opacity: ${({ $collapsed }) => ($collapsed ? 0 : 1)};
+  transition: grid-template-rows 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease;
+
+  & > * {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: opacity 120ms linear;
+  }
+`
+
 const HeroResultBody = styled(Box).withConfig({
   componentId: 'google__HeroResultBody'
 })`
@@ -1244,6 +1305,54 @@ const HeroResultBody = styled(Box).withConfig({
     bg: 'white',
     overflow: 'hidden'
   })};
+`
+
+const HeroResultToggle = styled('button').withConfig({
+  componentId: 'google__HeroResultToggle',
+  shouldForwardProp: prop => !['$collapsed'].includes(prop)
+})`
+  ${theme({
+    appearance: 'none',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '28px',
+    height: '28px',
+    p: 0,
+    m: 0,
+    borderRadius: '9999px',
+    bg: 'transparent',
+    color: 'black70'
+  })};
+  border: 1px solid ${colors.black10};
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: color ${transition.short}, background-color ${transition.short},
+    border-color ${transition.short};
+
+  svg {
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform: rotate(${({ $collapsed }) => ($collapsed ? '180deg' : '0deg')});
+  }
+
+  &:hover {
+    color: ${colors.black};
+    background-color: ${colors.gray0};
+    border-color: ${colors.black20};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    svg {
+      transition: none;
+    }
+  }
 `
 
 const HeroResultSkeletonLine = styled(Box).withConfig({
@@ -1402,6 +1511,41 @@ const HeroResultBadge = styled(Text)
   border: 1px solid ${colors.black10};
 `
 
+const HeroResultBadgeSmall = styled(Text)
+  .withConfig({ componentId: 'google__HeroResultBadgeSmall' })
+  .attrs({ as: 'span' })`
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 1,
+    px: 2,
+    py: 1,
+    borderRadius: '9999px',
+    bg: 'gray0',
+    color: 'black80',
+    fontFamily: 'mono',
+    fontSize: '11px',
+    lineHeight: 1,
+    letterSpacing: 0
+  })};
+  border: 1px solid ${colors.black10};
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+`
+
+const HeroResultBadgeGroup = styled(Flex).withConfig({
+  componentId: 'google__HeroResultBadgeGroup'
+})`
+  ${theme({
+    alignItems: 'center',
+    gap: 1,
+    flexShrink: 0
+  })};
+`
+
 const HeroResultRating = styled(Flex)
   .withConfig({ componentId: 'google__HeroResultRating' })
   .attrs({ as: 'span' })`
@@ -1411,6 +1555,125 @@ const HeroResultRating = styled(Flex)
     color: 'black',
     fontSize: [1, 1, 2, 2]
   })};
+`
+
+const HeroResultList = styled(Box)
+  .withConfig({ componentId: 'google__HeroResultList' })
+  .attrs({ as: 'ul', role: 'list' })`
+  ${theme({
+    m: 0,
+    p: 0,
+    listStyle: 'none',
+    maxHeight: ['180px', '180px', '200px', '220px'],
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    mx: [-3, -3, -4, -4]
+  })};
+  scrollbar-width: thin;
+  scrollbar-color: ${colors.black20} transparent;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    ${colors.black} 12px,
+    ${colors.black} calc(100% - 20px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    ${colors.black} 12px,
+    ${colors.black} calc(100% - 20px),
+    transparent 100%
+  );
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${colors.black20};
+    border-radius: 9999px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+`
+
+const HeroResultListItem = styled(Box)
+  .withConfig({ componentId: 'google__HeroResultListItem' })
+  .attrs({ as: 'li' })`
+  ${theme({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 1,
+    px: [3, 3, 4, 4],
+    py: [2, 2, 3, 3]
+  })};
+  border-bottom: 1px solid ${colors.black05};
+  transition: background-color ${transition.short};
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &:hover {
+    background-color: ${colors.gray0};
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`
+
+const HeroResultListRow = styled(Flex).withConfig({
+  componentId: 'google__HeroResultListRow'
+})`
+  ${theme({
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 3,
+    width: '100%',
+    minWidth: 0
+  })};
+`
+
+const HeroResultListTitle = styled(Text)
+  .withConfig({ componentId: 'google__HeroResultListTitle' })
+  .attrs({ as: 'button', type: 'button' })`
+  ${theme({
+    appearance: 'none',
+    m: 0,
+    p: 0,
+    display: 'block',
+    maxWidth: '100%',
+    color: 'link',
+    fontFamily: 'sans',
+    fontSize: [1, 1, 2, 2],
+    fontWeight: 'normal',
+    lineHeight: 1,
+    letterSpacing: 0,
+    textAlign: 'left',
+    textDecoration: 'none',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    cursor: 'default'
+  })};
+  background: transparent;
+  border: 0;
+  flex: 1;
+  min-width: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 `
 
 const VerticalExampleShell = styled(Box).withConfig({
@@ -2109,9 +2372,109 @@ const HeroPlacesResultCard = ({ data }) => (
   </Box>
 )
 
+const HeroNewsListItem = ({ item }) => (
+  <HeroResultListItem>
+    <HeroResultBreadcrumb>
+      <HeroResultSite>{item.publisher}</HeroResultSite>
+      <Text as='span' css={theme({ color: 'black50', fontSize: [0, 0, 1, 1] })}>
+        •
+      </Text>
+      <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+        <Clock size={12} aria-hidden='true' />
+        <Text
+          as='span'
+          css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}
+        >
+          {formatRelativeTime(item.date)}
+        </Text>
+      </Flex>
+    </HeroResultBreadcrumb>
+    <HeroResultListTitle>{item.title}</HeroResultListTitle>
+    {item.description && (
+      <Text
+        as='p'
+        css={theme({
+          m: 0,
+          color: 'black70',
+          fontSize: [0, 0, 1, 1],
+          lineHeight: 1,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
+        })}
+      >
+        {item.description}
+      </Text>
+    )}
+  </HeroResultListItem>
+)
+
+const HeroSearchEnrichedListItem = ({ item }) => {
+  const { host } = buildBreadcrumb(item.url)
+  return (
+    <HeroResultListItem>
+      <HeroResultListRow>
+        <HeroResultBreadcrumb>
+          <HeroResultSite>{host}</HeroResultSite>
+        </HeroResultBreadcrumb>
+        <HeroResultBadgeGroup>
+          <HeroResultBadgeSmall>
+            <CodeIcon aria-hidden='true' />
+            html · {formatBytes(item.htmlBytes)}
+          </HeroResultBadgeSmall>
+          {typeof item.mdBytes === 'number' && (
+            <HeroResultBadgeSmall>
+              <FileText aria-hidden='true' />
+              md · {formatBytes(item.mdBytes)}
+            </HeroResultBadgeSmall>
+          )}
+        </HeroResultBadgeGroup>
+      </HeroResultListRow>
+      <HeroResultListTitle>{item.title}</HeroResultListTitle>
+      {item.description && (
+        <Text
+          as='p'
+          css={theme({
+            m: 0,
+            color: 'black70',
+            fontSize: [0, 0, 1, 1],
+            lineHeight: 1,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          })}
+        >
+          {item.description}
+        </Text>
+      )}
+    </HeroResultListItem>
+  )
+}
+
 const HeroResultCard = ({ result }) => {
   if (!result) return null
   const { variant, data } = result
+
+  if (variant === 'news' && Array.isArray(data)) {
+    return (
+      <HeroResultList>
+        {data.map(item => (
+          <HeroNewsListItem key={item.url} item={item} />
+        ))}
+      </HeroResultList>
+    )
+  }
+
+  if (variant === 'search-enriched' && Array.isArray(data)) {
+    return (
+      <HeroResultList>
+        {data.map(item => (
+          <HeroSearchEnrichedListItem key={item.url} item={item} />
+        ))}
+      </HeroResultList>
+    )
+  }
+
   if (variant === 'news') return <HeroNewsResultCard data={data} />
   if (variant === 'places') return <HeroPlacesResultCard data={data} />
   if (variant === 'search-enriched') {
@@ -2146,9 +2509,11 @@ const GooglePage = () => {
     [activeHeroExample.code]
   )
   const [heroPhase, setHeroPhase] = useState('typing')
+  const [heroResultCollapsed, setHeroResultCollapsed] = useState(false)
 
   useEffect(() => {
     setHeroPhase('typing')
+    setHeroResultCollapsed(false)
   }, [activeHeroExampleId])
 
   useEffect(() => {
@@ -2528,16 +2893,39 @@ const GooglePage = () => {
                           />
                           {heroPhase === 'loading'
                             ? 'Running query…'
-                            : '200 OK · page.results[0]'}
+                            : Array.isArray(activeHeroExample.result?.data)
+                              ? `200 OK · page.results (${activeHeroExample.result.data.length})`
+                              : '200 OK · page.results[0]'}
                         </HeroResultHeaderLabel>
+                        <HeroResultToggle
+                          type='button'
+                          onClick={() =>
+                            setHeroResultCollapsed(value => !value)
+                          }
+                          aria-expanded={!heroResultCollapsed}
+                          aria-controls='hero-result-body'
+                          aria-label={
+                            heroResultCollapsed
+                              ? 'Expand results'
+                              : 'Collapse results'
+                          }
+                          $collapsed={heroResultCollapsed}
+                        >
+                          <ChevronDown size={16} aria-hidden='true' />
+                        </HeroResultToggle>
                       </HeroResultHeader>
-                      <HeroResultBody>
-                        {heroPhase === 'loading' ? (
-                          <HeroResultSkeleton />
-                        ) : (
-                          <HeroResultCard result={activeHeroExample.result} />
-                        )}
-                      </HeroResultBody>
+                      <HeroResultBodyWrap
+                        id='hero-result-body'
+                        $collapsed={heroResultCollapsed}
+                      >
+                        <HeroResultBody>
+                          {heroPhase === 'loading' ? (
+                            <HeroResultSkeleton />
+                          ) : (
+                            <HeroResultCard result={activeHeroExample.result} />
+                          )}
+                        </HeroResultBody>
+                      </HeroResultBodyWrap>
                     </HeroResultDock>
                   </HeroExamplePanel>
                 </HeroExampleShell>
