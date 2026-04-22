@@ -5,8 +5,12 @@ import {
   ArrowRight,
   Check,
   CheckCircle,
+  Clock,
+  Code as CodeIcon,
   GitMerge,
   Hexagon,
+  MapPin,
+  Star,
   Target
 } from 'react-feather'
 
@@ -709,7 +713,17 @@ const HERO_EXAMPLES = [
     title: 'Search Query',
     description:
       'Run a plain Google search query and get normalized result objects.',
-    code: INSTALL_SNIPPET
+    code: INSTALL_SNIPPET,
+    result: {
+      variant: 'search',
+      data: {
+        title:
+          'Technical SEO Checklist for 2026: 34 Fixes for Rankings, Speed & AI …',
+        url: 'https://almcorp.com/blog/technical-seo-checklist/',
+        description:
+          'Use this technical SEO checklist to fix crawlability, indexing, Core Web Vitals, structured data, mobile SEO, and AI search visibility in 2026.'
+      }
+    }
   },
   {
     id: 'news-monitoring',
@@ -727,7 +741,18 @@ const headlines = page.results.map(item => ({
   title: item.title,
   source: item.publisher,
   publishedAt: item.date
-}))`
+}))`,
+    result: {
+      variant: 'news',
+      data: {
+        title: 'Anthropic raises $13B at $183B valuation to scale AI research',
+        publisher: 'TechCrunch',
+        date: '2026-04-18T09:12:00.000Z',
+        url: 'https://techcrunch.com/2026/04/18/anthropic-series-f/',
+        description:
+          'The round accelerates Claude’s enterprise rollout and new inference infrastructure partnerships.'
+      }
+    }
   },
   {
     id: 'local-seo',
@@ -745,7 +770,19 @@ const leads = placesPage.results.map(result => ({
   rating: result.rating?.score,
   reviews: result.rating?.reviews,
   coordinates: result.coordinates
-}))`
+}))`,
+    result: {
+      variant: 'places',
+      data: {
+        title: 'HanSo Café',
+        category: 'Coffee shop',
+        rating: 4.6,
+        reviewCount: 2184,
+        address: 'Calle del Pez, 20, Centro, 28004 Madrid',
+        latitude: 40.4254,
+        longitude: -3.7067
+      }
+    }
   },
   {
     id: 'agent-enrichment',
@@ -761,7 +798,17 @@ const topSources = await Promise.all(
     url: result.url,
     html: await result.html()
   }))
-)`
+)`,
+    result: {
+      variant: 'search-enriched',
+      data: {
+        title: 'Function calling - OpenAI API',
+        url: 'https://openai.com/index/function-calling-guide/',
+        description:
+          'Learn how function calling lets models interact with external tools, APIs, and structured data through the OpenAI API.',
+        htmlBytes: 48231
+      }
+    }
   }
 ]
 const HeroSection = styled(Box).withConfig({
@@ -1034,7 +1081,8 @@ const HeroExamplePanel = styled(Box)
     flexDirection: 'column',
     flex: 1,
     minWidth: 0,
-    minHeight: 0
+    minHeight: 0,
+    position: 'relative'
   })};
 `
 
@@ -1096,6 +1144,273 @@ const HeroExampleCodePanel = styled(Box).withConfig({
       animation: none;
     }
   }
+`
+
+const HeroResultDock = styled(Box)
+  .withConfig({
+    componentId: 'google__HeroResultDock',
+    shouldForwardProp: prop => !['$visible'].includes(prop)
+  })
+  .attrs({ 'aria-live': 'polite' })`
+  ${theme({
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    bg: 'white',
+    borderTop: 1,
+    borderTopColor: 'black10',
+    boxShadow: '0 -8px 24px rgba(0, 0, 0, 0.06)',
+    display: 'flex',
+    flexDirection: 'column'
+  })};
+  pointer-events: ${({ $visible }) => ($visible ? 'auto' : 'none')};
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+  transform: translateY(${({ $visible }) => ($visible ? '0' : '8px')});
+  transition: opacity 280ms ease, transform 280ms ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: opacity 120ms linear;
+    transform: none;
+  }
+`
+
+const HeroResultHeader = styled(Flex).withConfig({
+  componentId: 'google__HeroResultHeader'
+})`
+  ${theme({
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 2,
+    px: [3, 3, 4, 4],
+    py: 2,
+    bg: 'gray0',
+    borderBottom: 1,
+    borderBottomColor: 'black10'
+  })};
+`
+
+const HeroResultHeaderLabel = styled(Flex)
+  .withConfig({ componentId: 'google__HeroResultHeaderLabel' })
+  .attrs({ as: 'span' })`
+  ${theme({
+    alignItems: 'center',
+    gap: 2,
+    color: 'black70',
+    fontFamily: 'mono',
+    fontSize: [0, 0, 1, 1],
+    letterSpacing: 0
+  })};
+`
+
+const HeroResultStatusDot = styled(Box).withConfig({
+  componentId: 'google__HeroResultStatusDot',
+  shouldForwardProp: prop => !['$loading'].includes(prop)
+})`
+  ${theme({
+    display: 'inline-block',
+    width: '8px',
+    height: '8px',
+    borderRadius: '9999px'
+  })};
+  background-color: ${({ $loading }) =>
+    $loading ? colors.yellow6 : colors.green6};
+  ${({ $loading }) =>
+    $loading ? `animation: heroResultPulse 1200ms ease-in-out infinite;` : ''};
+
+  @keyframes heroResultPulse {
+    0%,
+    100% {
+      opacity: 0.45;
+      transform: scale(0.9);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`
+
+const HeroResultBody = styled(Box).withConfig({
+  componentId: 'google__HeroResultBody'
+})`
+  ${theme({
+    px: [3, 3, 4, 4],
+    py: [3, 3, 3, 3],
+    bg: 'white',
+    overflow: 'hidden'
+  })};
+`
+
+const HeroResultSkeletonLine = styled(Box).withConfig({
+  componentId: 'google__HeroResultSkeletonLine',
+  shouldForwardProp: prop => !['$width', '$height'].includes(prop)
+})`
+  ${theme({
+    borderRadius: '4px'
+  })};
+  width: ${({ $width }) => $width || '100%'};
+  height: ${({ $height }) => $height || '12px'};
+  background: linear-gradient(
+    90deg,
+    ${colors.black05} 0%,
+    ${colors.black10} 50%,
+    ${colors.black05} 100%
+  );
+  background-size: 200% 100%;
+  animation: heroResultShimmer 1400ms ease-in-out infinite;
+
+  @keyframes heroResultShimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+
+  & + & {
+    ${theme({ mt: 2 })};
+  }
+`
+
+const HeroResultBreadcrumb = styled(Flex)
+  .withConfig({ componentId: 'google__HeroResultBreadcrumb' })
+  .attrs({ as: 'div' })`
+  ${theme({
+    alignItems: 'center',
+    gap: 2,
+    color: 'black70',
+    fontSize: [0, 0, 1, 1]
+  })};
+  min-width: 0;
+`
+
+const HeroResultSite = styled(Text)
+  .withConfig({ componentId: 'google__HeroResultSite' })
+  .attrs({ as: 'span' })`
+  ${theme({
+    m: 0,
+    color: 'black',
+    fontSize: [1, 1, 1, 1],
+    fontWeight: 'normal',
+    lineHeight: 1
+  })};
+`
+
+const HeroResultPath = styled(Text)
+  .withConfig({ componentId: 'google__HeroResultPath' })
+  .attrs({ as: 'span' })`
+  ${theme({
+    m: 0,
+    color: 'black60',
+    fontSize: [0, 0, 1, 1],
+    lineHeight: 1,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  })};
+  min-width: 0;
+`
+
+const HeroResultTitle = styled(Text)
+  .withConfig({ componentId: 'google__HeroResultTitle' })
+  .attrs({ as: 'button', type: 'button' })`
+  ${theme({
+    appearance: 'none',
+    m: 0,
+    mt: 2,
+    p: 0,
+    display: 'block',
+    maxWidth: '100%',
+    color: 'link',
+    fontFamily: 'sans',
+    fontSize: [1, 1, 2, 2],
+    fontWeight: 'normal',
+    lineHeight: 1,
+    letterSpacing: 0,
+    textAlign: 'left',
+    textDecoration: 'none',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    cursor: 'default'
+  })};
+  background: transparent;
+  border: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+`
+
+const HeroResultDescription = styled(Text)
+  .withConfig({ componentId: 'google__HeroResultDescription' })
+  .attrs({ as: 'p' })`
+  ${theme({
+    m: 0,
+    mt: 2,
+    color: 'black80',
+    fontSize: [0, 0, 1, 1],
+    lineHeight: 2
+  })};
+`
+
+const HeroResultMeta = styled(Flex)
+  .withConfig({ componentId: 'google__HeroResultMeta' })
+  .attrs({ as: 'div' })`
+  ${theme({
+    alignItems: 'center',
+    gap: 2,
+    mt: 2,
+    color: 'black60',
+    fontSize: [0, 0, 1, 1],
+    flexWrap: 'wrap'
+  })};
+`
+
+const HeroResultBadge = styled(Text)
+  .withConfig({ componentId: 'google__HeroResultBadge' })
+  .attrs({ as: 'span' })`
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 1,
+    px: 2,
+    py: 1,
+    borderRadius: '9999px',
+    bg: 'gray0',
+    color: 'black80',
+    fontFamily: 'mono',
+    fontSize: [0, 0, 1, 1],
+    lineHeight: 1
+  })};
+  border: 1px solid ${colors.black10};
+`
+
+const HeroResultRating = styled(Flex)
+  .withConfig({ componentId: 'google__HeroResultRating' })
+  .attrs({ as: 'span' })`
+  ${theme({
+    alignItems: 'center',
+    gap: 1,
+    color: 'black',
+    fontSize: [1, 1, 2, 2]
+  })};
 `
 
 const VerticalExampleShell = styled(Box).withConfig({
@@ -1617,6 +1932,204 @@ const runHeroTypingSequence = (matches, prefersReducedMotion, onComplete) => {
   }
 }
 
+const HERO_LOADING_MS = 1000
+
+const formatBytes = bytes => {
+  if (typeof bytes !== 'number') return ''
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`
+}
+
+const formatRelativeTime = isoDate => {
+  if (!isoDate) return ''
+  const then = new Date(isoDate).getTime()
+  if (Number.isNaN(then)) return ''
+  const diffMs = Date.now() - then
+  const hours = Math.round(diffMs / (1000 * 60 * 60))
+  if (hours < 1) return 'just now'
+  if (hours < 24) return `${hours}h ago`
+  const days = Math.round(hours / 24)
+  if (days < 30) return `${days}d ago`
+  const months = Math.round(days / 30)
+  if (months < 12) return `${months}mo ago`
+  const years = Math.round(months / 12)
+  return `${years}y ago`
+}
+
+const buildBreadcrumb = url => {
+  try {
+    const parsed = new URL(url)
+    const host = parsed.host.replace(/^www\./, '')
+    const segments = parsed.pathname
+      .split('/')
+      .filter(Boolean)
+      .slice(0, 2)
+      .join(' › ')
+    return {
+      host,
+      path: segments ? ` › ${segments}` : '',
+      origin: parsed.origin
+    }
+  } catch {
+    return { host: url, path: '', origin: '' }
+  }
+}
+
+const HeroResultSkeleton = () => (
+  <Box css={theme({ width: '100%' })}>
+    <HeroResultSkeletonLine $width='160px' $height='10px' />
+    <HeroResultSkeletonLine $width='85%' $height='16px' />
+    <HeroResultSkeletonLine $width='96%' $height='10px' />
+    <HeroResultSkeletonLine $width='70%' $height='10px' />
+  </Box>
+)
+
+const HeroSearchResultCard = ({ data, badge = null }) => {
+  const { host, path, origin } = buildBreadcrumb(data.url)
+  return (
+    <Box>
+      <HeroResultBreadcrumb>
+        <Flex
+          css={theme({
+            flexDirection: 'column',
+            minWidth: 0,
+            lineHeight: 1
+          })}
+        >
+          <HeroResultSite>{host}</HeroResultSite>
+          <HeroResultPath>
+            {origin}
+            {path}
+          </HeroResultPath>
+        </Flex>
+      </HeroResultBreadcrumb>
+      <HeroResultTitle>{data.title}</HeroResultTitle>
+      <HeroResultDescription>{data.description}</HeroResultDescription>
+      {badge && <HeroResultMeta>{badge}</HeroResultMeta>}
+    </Box>
+  )
+}
+
+const HeroNewsResultCard = ({ data }) => {
+  return (
+    <Box>
+      <HeroResultBreadcrumb>
+        <HeroResultSite>{data.publisher}</HeroResultSite>
+        <Text
+          as='span'
+          css={theme({
+            color: 'black50',
+            fontSize: [0, 0, 1, 1]
+          })}
+        >
+          •
+        </Text>
+        <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+          <Clock size={12} aria-hidden='true' />
+          <Text
+            as='span'
+            css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}
+          >
+            {formatRelativeTime(data.date)}
+          </Text>
+        </Flex>
+      </HeroResultBreadcrumb>
+      <HeroResultTitle>{data.title}</HeroResultTitle>
+      <HeroResultDescription>{data.description}</HeroResultDescription>
+    </Box>
+  )
+}
+
+const HeroPlacesResultCard = ({ data }) => (
+  <Box>
+    <Flex css={theme({ alignItems: 'center', gap: 2, minWidth: 0 })}>
+      <Text
+        as='span'
+        css={theme({
+          m: 0,
+          color: 'black',
+          fontSize: [1, 1, 2, 2],
+          fontWeight: 'bold',
+          lineHeight: 1,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          minWidth: 0
+        })}
+      >
+        {data.title}
+      </Text>
+      <HeroResultBadge>{data.category}</HeroResultBadge>
+    </Flex>
+    <HeroResultMeta>
+      <HeroResultRating>
+        <Star
+          size={14}
+          fill={colors.yellow5}
+          color={colors.yellow5}
+          aria-hidden='true'
+        />
+        <Text
+          as='span'
+          css={theme({
+            color: 'black',
+            fontSize: [1, 1, 2, 2],
+            fontWeight: 'bold'
+          })}
+        >
+          {data.rating.toFixed(1)}
+        </Text>
+        <Text
+          as='span'
+          css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}
+        >
+          ({data.reviewCount.toLocaleString()})
+        </Text>
+      </HeroResultRating>
+    </HeroResultMeta>
+    <Flex css={theme({ alignItems: 'center', gap: 2, mt: 2 })}>
+      <MapPin size={14} aria-hidden='true' color={colors.black70} />
+      <Text as='span' css={theme({ color: 'black80', fontSize: [1, 1, 2, 2] })}>
+        {data.address}
+      </Text>
+    </Flex>
+    <Text
+      as='span'
+      css={theme({
+        display: 'block',
+        mt: 1,
+        color: 'black50',
+        fontFamily: 'mono',
+        fontSize: [0, 0, 1, 1]
+      })}
+    >
+      {data.latitude.toFixed(4)}, {data.longitude.toFixed(4)}
+    </Text>
+  </Box>
+)
+
+const HeroResultCard = ({ result }) => {
+  if (!result) return null
+  const { variant, data } = result
+  if (variant === 'news') return <HeroNewsResultCard data={data} />
+  if (variant === 'places') return <HeroPlacesResultCard data={data} />
+  if (variant === 'search-enriched') {
+    return (
+      <HeroSearchResultCard
+        data={data}
+        badge={
+          <HeroResultBadge>
+            <CodeIcon size={12} aria-hidden='true' />
+            html · {formatBytes(data.htmlBytes)}
+          </HeroResultBadge>
+        }
+      />
+    )
+  }
+  return <HeroSearchResultCard data={data} />
+}
+
 const GooglePage = () => {
   const [activeHeroExampleId, setActiveHeroExampleId] = useState(
     HERO_EXAMPLES[0].id
@@ -1632,10 +2145,26 @@ const GooglePage = () => {
     () => extractHeroTypingTargets(activeHeroExample.code),
     [activeHeroExample.code]
   )
+  const [heroPhase, setHeroPhase] = useState('typing')
+
+  useEffect(() => {
+    setHeroPhase('typing')
+  }, [activeHeroExampleId])
+
+  useEffect(() => {
+    if (heroPhase !== 'loading') return undefined
+    const timer = window.setTimeout(() => {
+      setHeroPhase('result')
+    }, HERO_LOADING_MS)
+    return () => window.clearTimeout(timer)
+  }, [heroPhase, activeHeroExampleId])
 
   useEffect(() => {
     const container = heroCodeRef.current
-    if (!container || heroTypingTargets.length === 0) return undefined
+    if (!container || heroTypingTargets.length === 0) {
+      setHeroPhase('result')
+      return undefined
+    }
 
     const prefersReducedMotion =
       typeof window !== 'undefined' &&
@@ -1658,6 +2187,7 @@ const GooglePage = () => {
         () => {
           if (observer) observer.disconnect()
           activeSpans = []
+          setHeroPhase(current => (current === 'typing' ? 'loading' : current))
         }
       )
       return true
@@ -1986,6 +2516,29 @@ const GooglePage = () => {
                         {activeHeroExample.code}
                       </CodeEditor>
                     </HeroExampleCodePanel>
+
+                    <HeroResultDock
+                      $visible={heroPhase !== 'typing'}
+                      aria-busy={heroPhase === 'loading' ? 'true' : 'false'}
+                    >
+                      <HeroResultHeader>
+                        <HeroResultHeaderLabel>
+                          <HeroResultStatusDot
+                            $loading={heroPhase === 'loading'}
+                          />
+                          {heroPhase === 'loading'
+                            ? 'Running query…'
+                            : '200 OK · page.results[0]'}
+                        </HeroResultHeaderLabel>
+                      </HeroResultHeader>
+                      <HeroResultBody>
+                        {heroPhase === 'loading' ? (
+                          <HeroResultSkeleton />
+                        ) : (
+                          <HeroResultCard result={activeHeroExample.result} />
+                        )}
+                      </HeroResultBody>
+                    </HeroResultDock>
                   </HeroExamplePanel>
                 </HeroExampleShell>
               </Box>
