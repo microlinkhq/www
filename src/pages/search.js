@@ -675,7 +675,7 @@ const INTEGRATION_TUTORIAL_STEPS = [
     title: 'Install and initialize',
     icon: Target,
     description:
-      'Install `@microlink/google`, add your Microlink API key, and create one client you can reuse across all supported Google products.',
+      'Install `@microlink/google`, add your Microlink API key, and create one client you can reuse across every supported search surface.',
     panel: {
       type: 'code',
       language: 'bash',
@@ -689,11 +689,15 @@ export MICROLINK_API_KEY=your_api_key`
     title: 'Run the first query',
     icon: Hexagon,
     description:
-      'Choose the Google product you need with the `type` option and keep the same client shape for search, news, images, maps, shopping, and more.',
+      'Choose the surface you need with the `type` option and keep the same client shape for search, news, images, maps, shopping, and more.',
     panel: {
       type: 'code',
       language: 'javascript',
-      content: `const page = await google('technical seo checklist', {
+      content: `const google = require('@microlink/google')({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+      
+const page = await google('technical seo checklist', {
   type: 'search',
   location: 'us',
   period: 'week'
@@ -705,7 +709,7 @@ export MICROLINK_API_KEY=your_api_key`
     title: 'Paginate or enrich on demand',
     icon: GitMerge,
     description:
-      'Once the first query is working, the same client gives you pagination, HTML enrichment, typed responses, and fast parallelized requests.',
+      'Once the first query is working, the same client gives you pagination, HTML enrichment, typed responses, and request patterns ready for recurring jobs.',
     panel: {
       type: 'features',
       items: [
@@ -725,7 +729,7 @@ const INTEGRATION_HOW_TO_STEPS = [
       'Install `@microlink/google`, then initialize with your Microlink API key.'
   },
   {
-    title: 'Query a Google product',
+    title: 'Query a supported surface',
     description:
       'Send your query with optional `type`, `location`, and `period` options to target intent.'
   },
@@ -755,59 +759,59 @@ const PricingCheck = ({ children }) => (
 
 const FAQ_ENTRIES = [
   {
-    question: 'What is @microlink/google?',
+    question: 'What is Microlink Search?',
     answers: [
-      '@microlink/google is the Node.js client for Search, a Microlink product.',
-      'It gives you one package for working with Google Search, News, Images, Videos, Places, Maps, Shopping, Scholar, Patents, and Autocomplete.'
+      'Microlink Search is a paid search intelligence API for querying and normalizing public results from multiple Google surfaces through one product.',
+      '@microlink/google is the Node.js client for integrating Search into your own SEO tooling, monitoring jobs, and AI workflows.'
     ]
   },
   {
-    question: 'Is this a Google Search API or a generic SERP API?',
+    question: 'Is this an official Google product?',
     answers: [
-      'It is Search, a Microlink product built around Google data.',
-      'If you are evaluating a SERP API alternative, the difference is structured output and a cleaner integration layer instead of raw provider-specific payloads.'
+      'No. Search is an independent Microlink product that works on top of public Google surfaces.',
+      'It is not affiliated with, endorsed by, or provided by Google.'
     ]
   },
   {
-    question: 'Which Google verticals are supported?',
+    question: 'Why is there no free tier?',
     answers: [
-      'You can query Search, News, Images, Videos, Places, Maps, Shopping, Scholar, Patents, and Autocomplete.',
-      'Each type uses a consistent API style so teams can ship faster with less parser logic.'
+      'Search starts on paid plans because reliable public-result collection depends on managed proxy capacity from the first request.',
+      'That cost is part of the product itself, so even small workloads use the same proxy-backed delivery model as production workloads.'
     ]
   },
   {
-    question: 'How do I paginate Google results?',
+    question: 'Which surfaces are supported?',
+    answers: [
+      'You can query Google Search, Google News, Google Images, Google Videos, Google Places, Google Maps, Google Shopping, Google Scholar, Google Patents, and Google Autocomplete.',
+      'Each one keeps the same client shape so teams can ship faster with less parser logic and less provider-specific branching.'
+    ]
+  },
+  {
+    question: 'What makes this different from a generic SERP API?',
+    answers: [
+      'Search is designed around normalized output and reusable primitives instead of raw provider-specific payloads.',
+      'That means less cleanup for your codebase and faster handoff into rank tracking, market research, or agent pipelines.'
+    ]
+  },
+  {
+    question: 'How do pagination and HTML enrichment work?',
     answers: [
       'Every result page can call `.next()` to fetch the following page, so pagination can be chained naturally.',
-      'This avoids manual cursor code and keeps long-running data collection flows cleaner.'
+      'Any result containing a URL can also expose `.html()` so you only fetch page markup when a workflow actually needs it.'
     ]
   },
   {
-    question: 'Can I fetch full HTML for a search result URL?',
+    question: 'Is it a fit for SEO and AI workflows?',
     answers: [
-      'Yes. Any result containing a URL exposes a lazy `.html()` method.',
-      'That allows LLM and SEO pipelines to fetch source markup only when needed.'
+      'Yes. Teams use Search for rank tracking, news monitoring, local research, query clustering, citation discovery, and agent enrichment.',
+      'The value is consistent structured output plus proxy-backed delivery for recurring public-result collection.'
     ]
   },
   {
-    question: 'Does it work for international queries?',
+    question: 'Can I run international or local queries?',
     answers: [
-      'Yes. You can set `location` and period filters to tune query context and recency.',
-      'This is useful for multilingual SEO and geo-specific market analysis.'
-    ]
-  },
-  {
-    question: 'Where can I see package docs and examples?',
-    answers: [
-      'Use the package README on GitHub for product-specific examples and API options.',
-      'You can also use Microlink documentation for account setup and platform-wide capabilities.'
-    ]
-  },
-  {
-    question: 'Can I use it with AI SEO and agent workflows?',
-    answers: [
-      'Yes. The structured output, normalized entities, and optional HTML expansion are designed for AI agent pipelines.',
-      'Teams use it for query clustering, content briefs, citation research, and retrieval workflows.'
+      'Yes. You can use options like `location` and `period` to tune regional intent and recency for multilingual SEO and geo-specific analysis.',
+      'That makes the same integration model useful for local search intelligence as well as broader monitoring workflows.'
     ]
   }
 ]
@@ -970,20 +974,6 @@ const HeroSection = styled(Box).withConfig({
   ${theme({
     position: 'relative',
     overflow: 'visible'
-  })};
-`
-
-const HeroDescription = styled(Text)
-  .withConfig({ componentId: 'google__HeroDescription' })
-  .attrs({ as: 'p' })`
-  ${theme({
-    mt: [3, 3, 4, 4],
-    m: 0,
-    maxWidth: ['100%', layout.small, layout.small, '640px'],
-    color: 'black80',
-    fontSize: [2, 2, 2, 2],
-    lineHeight: 2,
-    textAlign: ['center', 'center', 'center', 'left']
   })};
 `
 
@@ -2041,7 +2031,7 @@ const SectionDescription = styled(Text)
     mt: [3, 3, 3, 3],
     maxWidth: [layout.normal, layout.normal, layout.normal, layout.normal],
     color: 'black80',
-    fontSize: [2, 2, 3, 3],
+    fontSize: 2,
     lineHeight: 2,
     textAlign: 'left'
   })};
@@ -2319,6 +2309,7 @@ const PricingCardsGrid = styled(Flex).withConfig({
     px: [2, 2, 3, 3],
     flexDirection: 'column',
     justifyContent: 'stretch',
+    alignItems: 'center',
     gap: [3, 3, 4, 4],
     width: ['100%', '100%', '100%', '100%']
   })};
@@ -2335,10 +2326,23 @@ const PricingCard = styled(Flex).withConfig({
     py: [3, 3, 4, 4],
     flex: 1,
     minWidth: 0,
-    maxWidth: ['100%', '100%', '100%', '100%']
+    maxWidth: ['100%', '100%', '400px', '400px'],
+    width: '100%'
   })};
   border: 1px solid ${colors.black10};
   box-shadow: 0 2px 8px ${colors.black05};
+`
+
+const TrademarkNote = styled(Text)
+  .withConfig({ componentId: 'google__TrademarkNote' })
+  .attrs({ as: 'p' })`
+  ${theme({
+    m: 0,
+    color: 'black60',
+    fontSize: [0, 0, 1, 1],
+    lineHeight: 2,
+    textAlign: 'center'
+  })};
 `
 
 const HERO_TYPING_OPTION_KEYS = ['type', 'location', 'period']
@@ -3047,42 +3051,42 @@ const HeroMapListItem = ({ item }) => (
 
       {(typeof item.latitude === 'number' ||
         typeof item.longitude === 'number') && (
-          <Box
+        <Box
+          css={theme({
+            mt: 2,
+            p: 2,
+            borderRadius: 3,
+            bg: 'gray0',
+            border: 1,
+            borderColor: 'black05'
+          })}
+        >
+          <Text
+            as='p'
             css={theme({
-              mt: 2,
-              p: 2,
-              borderRadius: 3,
-              bg: 'gray0',
-              border: 1,
-              borderColor: 'black05'
+              m: 0,
+              color: 'black50',
+              fontFamily: 'mono',
+              fontSize: [0, 0, 1, 1],
+              fontWeight: 'bold',
+              lineHeight: 1
             })}
           >
-            <Text
-              as='p'
-              css={theme({
-                m: 0,
-                color: 'black50',
-                fontFamily: 'mono',
-                fontSize: [0, 0, 1, 1],
-                fontWeight: 'bold',
-                lineHeight: 1
-              })}
-            >
-              Coordinates
-            </Text>
-            <Flex css={theme({ gap: 2, mt: 2, flexWrap: 'wrap' })}>
-              {typeof item.latitude === 'number' && (
-                <HeroResultBadgeSmall>
-                  lat · {formatCoordinate(item.latitude, 'N', 'S')}
-                </HeroResultBadgeSmall>
-              )}
-              {typeof item.longitude === 'number' && (
-                <HeroResultBadgeSmall>
-                  lng · {formatCoordinate(item.longitude, 'E', 'W')}
-                </HeroResultBadgeSmall>
-              )}
-            </Flex>
-          </Box>
+            Coordinates
+          </Text>
+          <Flex css={theme({ gap: 2, mt: 2, flexWrap: 'wrap' })}>
+            {typeof item.latitude === 'number' && (
+              <HeroResultBadgeSmall>
+                lat · {formatCoordinate(item.latitude, 'N', 'S')}
+              </HeroResultBadgeSmall>
+            )}
+            {typeof item.longitude === 'number' && (
+              <HeroResultBadgeSmall>
+                lng · {formatCoordinate(item.longitude, 'E', 'W')}
+              </HeroResultBadgeSmall>
+            )}
+          </Flex>
+        </Box>
       )}
 
       {item.place?.id && (
@@ -3577,43 +3581,15 @@ const GooglePage = () => {
                     fontWeight: 'bold',
                     letterSpacing: 1,
                     lineHeight: [1, 1, 0, 0],
-                    fontSize: [3, 3, 4, 4],
+                    fontSize: [4, 4, 5, 5],
                     textAlign: ['center', 'center', 'center', 'left'],
                     width: '100%',
                     maxWidth: ['100%', '100%', '100%', '640px']
                   })}
                 >
-                  Seamless Search API for developers, SEO teams, and AI agents.
+                  Search intelligence API for AI agents.
                 </Text>
 
-                <HeroDescription>
-                  Search is a Microlink product that helps you query and
-                  normalize data from Google Search, News, Images, Videos,
-                  Places, Maps, Shopping, Scholar, Patents, and Autocomplete.
-                  Use one package with structured output, predictable schemas,
-                  and low integration friction.
-                </HeroDescription>
-              </Box>
-
-              <Flex css={theme({ px: [4, 4, 4, 0], width: '100%' })}>
-                <ActionRow
-                  css={theme({
-                    flexDirection: 'column',
-                    flexWrap: 'nowrap',
-                    alignItems: ['center', 'center', 'center', 'flex-start'],
-                    justifyContent: ['center', 'center', 'center', 'flex-start']
-                  })}
-                >
-                  <ArrowLink href='/docs/api/getting-started/overview'>
-                    Get Started
-                  </ArrowLink>
-                  <Button as='a' variant='white' href={PACKAGE_URL}>
-                    Install @microlink/google
-                  </Button>
-                </ActionRow>
-              </Flex>
-
-              <Box css={theme({ px: [1, 2, 4, 0], width: '100%' })}>
                 <HeroProofList>
                   <List.Item
                     css={theme({
@@ -3629,7 +3605,7 @@ const GooglePage = () => {
                       ]
                     })}
                   >
-                    One package for 10 Google products.
+                    10 supported search surfaces in one client.
                   </List.Item>
                   <List.Item
                     css={theme({
@@ -3645,8 +3621,8 @@ const GooglePage = () => {
                       ]
                     })}
                   >
-                    Normalized entities for prices, ratings, coordinates, and
-                    media.
+                    Structured results for prices, ratings, coordinates, and
+                    citations.
                   </List.Item>
                   <List.Item
                     css={theme({
@@ -3662,11 +3638,28 @@ const GooglePage = () => {
                       ]
                     })}
                   >
-                    Built on Microlink infrastructure for browser + data
-                    workloads.
+                    Proxy-backed requests from the first call.
                   </List.Item>
                 </HeroProofList>
               </Box>
+
+              <Flex css={theme({ px: [4, 4, 4, 0], width: '100%' })}>
+                <ActionRow
+                  css={theme({
+                    flexDirection: 'column',
+                    flexWrap: 'nowrap',
+                    alignItems: ['center', 'center', 'center', 'flex-start'],
+                    justifyContent: ['center', 'center', 'center', 'flex-start']
+                  })}
+                >
+                  <ArrowLink
+                    href='/pricing'
+                    css={theme({ fontSize: [2, 2, 3, 3] })}
+                  >
+                    See Search pricing
+                  </ArrowLink>
+                </ActionRow>
+              </Flex>
             </Flex>
 
             <Flex
@@ -3701,7 +3694,8 @@ const GooglePage = () => {
                           tabIndex={isActive ? 0 : -1}
                           onClick={() => selectHeroExample(example.id)}
                           onKeyDown={event =>
-                            handleHeroExampleTabKeyDown(event, index)}
+                            handleHeroExampleTabKeyDown(event, index)
+                          }
                         >
                           {example.title}
                         </HeroExampleTab>
@@ -3757,7 +3751,8 @@ const GooglePage = () => {
                         <HeroResultToggle
                           type='button'
                           onClick={() =>
-                            setHeroResultCollapsed(value => !value)}
+                            setHeroResultCollapsed(value => !value)
+                          }
                           aria-expanded={!heroResultCollapsed}
                           aria-controls='hero-result-body'
                           aria-label={
@@ -3775,13 +3770,11 @@ const GooglePage = () => {
                         $collapsed={heroResultCollapsed}
                       >
                         <HeroResultBody>
-                          {heroPhase === 'loading'
-                            ? (
-                              <HeroResultSkeleton />
-                              )
-                            : (
-                              <HeroResultCard result={activeHeroExample.result} />
-                              )}
+                          {heroPhase === 'loading' ? (
+                            <HeroResultSkeleton />
+                          ) : (
+                            <HeroResultCard result={activeHeroExample.result} />
+                          )}
                         </HeroResultBody>
                       </HeroResultBodyWrap>
                     </HeroResultDock>
@@ -3807,14 +3800,26 @@ const GooglePage = () => {
             mx: 'auto'
           })}
         >
-          <SectionTitle>One API, ten Google products.</SectionTitle>
-          <SectionDescription css={theme({ maxWidth: '100%' })}>
-            Search is a Microlink product that brings Google Search, News,
-            Images, Videos, Places, Maps, Shopping, Scholar, Patents, and
-            Autocomplete together behind one consistent API for production
-            teams.
-          </SectionDescription>
-
+          <Box
+            css={theme({
+              maxWidth: ['100%', '100%', layout.normal, layout.medium],
+              mx: 'auto'
+            })}
+          >
+            <SectionTitle css={theme({ textAlign: 'center' })}>
+              One API for recurring search workflows.
+            </SectionTitle>
+            <SectionDescription
+              css={theme({
+                maxWidth: '100%',
+                fontSize: [2, 2, 3, 3],
+                textAlign: 'center'
+              })}
+            >
+              Search keeps the output consistent so monitoring jobs, SEO
+              tooling, and AI agents need less parser logic.
+            </SectionDescription>
+          </Box>
           <Box
             as='section'
             css={theme({
@@ -3825,7 +3830,7 @@ const GooglePage = () => {
             <VerticalExampleShell $accentColor={activeVertical.accentColor}>
               <VerticalExampleTopbar>
                 <VerticalTabs
-                  aria-label='Google products'
+                  aria-label='Supported search surfaces'
                   css={theme({
                     pt: 0,
                     pb: 0,
@@ -3848,7 +3853,8 @@ const GooglePage = () => {
                         aria-pressed={activeVertical.id === vertical.id}
                         onClick={() => setActiveVerticalId(vertical.id)}
                         onKeyDown={event =>
-                          handleVerticalTabKeyDown(event, index)}
+                          handleVerticalTabKeyDown(event, index)
+                        }
                       >
                         {verticalService && (
                           <VerticalTabIcon
@@ -3950,7 +3956,8 @@ const GooglePage = () => {
                           tabIndex={isActive ? 0 : -1}
                           onClick={() => handleOutputTabSelect(tab.id)}
                           onKeyDown={event =>
-                            handleOutputTabKeyDown(event, index)}
+                            handleOutputTabKeyDown(event, index)
+                          }
                         >
                           {tab.label}
                         </VerticalOutputTab>
@@ -3958,59 +3965,57 @@ const GooglePage = () => {
                     })}
                   </VerticalOutputTabBar>
 
-                  {activeOutputTab === 'json'
-                    ? (
-                      <VerticalCodeFrame
-                        id='vertical-output-panel-json'
-                        role='tabpanel'
-                        aria-labelledby='vertical-output-tab-json'
+                  {activeOutputTab === 'json' ? (
+                    <VerticalCodeFrame
+                      id='vertical-output-panel-json'
+                      role='tabpanel'
+                      aria-labelledby='vertical-output-tab-json'
+                      css={theme({
+                        display: 'flex',
+                        flexDirection: 'column',
+                        flex: 1,
+                        minHeight: 0,
+                        height: '100%',
+                        pt: [2, 2, 3, 3],
+                        pb: [2, 2, 3, 3],
+                        px: 0
+                      })}
+                    >
+                      <CodeEditor
+                        language='json'
+                        showFade={false}
+                        showHeader={false}
+                        showWindowButtons={false}
+                        showTitle={false}
+                        showAction={false}
                         css={theme({
-                          display: 'flex',
-                          flexDirection: 'column',
-                          flex: 1,
-                          minHeight: 0,
+                          width: '100%',
                           height: '100%',
-                          pt: [2, 2, 3, 3],
-                          pb: [2, 2, 3, 3],
-                          px: 0
+                          minHeight: 0,
+                          flex: 1,
+                          border: 0,
+                          borderRadius: 0,
+                          pt: 2
                         })}
                       >
-                        <CodeEditor
-                          language='json'
-                          showFade={false}
-                          showHeader={false}
-                          showWindowButtons={false}
-                          showTitle={false}
-                          showAction={false}
-                          css={theme({
-                            width: '100%',
-                            height: '100%',
-                            minHeight: 0,
-                            flex: 1,
-                            border: 0,
-                            borderRadius: 0,
-                            pt: 2
-                          })}
-                        >
-                          {activeVerticalPayloadText}
-                        </CodeEditor>
-                      </VerticalCodeFrame>
-                      )
-                    : (
-                      <VerticalPreviewShell
-                        id='vertical-output-panel-preview'
-                        role='tabpanel'
-                        aria-labelledby='vertical-output-tab-preview'
-                      >
-                        <VerticalPreviewBody>
-                          <VerticalPreviewContent>
-                            <HeroResultBody css={theme({ py: 0 })}>
-                              <HeroResultCard result={activeVerticalPreview} />
-                            </HeroResultBody>
-                          </VerticalPreviewContent>
-                        </VerticalPreviewBody>
-                      </VerticalPreviewShell>
-                      )}
+                        {activeVerticalPayloadText}
+                      </CodeEditor>
+                    </VerticalCodeFrame>
+                  ) : (
+                    <VerticalPreviewShell
+                      id='vertical-output-panel-preview'
+                      role='tabpanel'
+                      aria-labelledby='vertical-output-tab-preview'
+                    >
+                      <VerticalPreviewBody>
+                        <VerticalPreviewContent>
+                          <HeroResultBody css={theme({ py: 0 })}>
+                            <HeroResultCard result={activeVerticalPreview} />
+                          </HeroResultBody>
+                        </VerticalPreviewContent>
+                      </VerticalPreviewBody>
+                    </VerticalPreviewShell>
+                  )}
                 </VerticalExamplePanel>
               </VerticalExampleGrid>
             </VerticalExampleShell>
@@ -4029,21 +4034,23 @@ const GooglePage = () => {
             css={theme({
               fontSize: [4, 4, 5, 5],
               lineHeight: [1, 1, 0, 0],
-              maxWidth: ['100%', '100%', '100%', layout.medium]
+              maxWidth: ['100%', '100%', '100%', layout.large],
+              textAlign: 'center'
             })}
           >
-            Integrate Search in minutes.
+            Integrate Search without scraper debt.
           </SectionTitle>
 
           <SectionDescription
             css={theme({
               mt: [3, 3, 4, 4],
               fontSize: [2, 2, 3, 3],
-              maxWidth: ['100%', '100%', layout.normal, layout.medium]
+              maxWidth: ['100%', '100%', layout.normal, layout.medium],
+              textAlign: 'center'
             })}
           >
-            Everything follows a straightforward flow: initialize once, query
-            the Google product you need, and enrich only where needed.
+            Initialize once, choose the surface you need, then paginate or
+            enrich only when a workflow needs more context.
           </SectionDescription>
 
           <TutorialTimeline>
@@ -4094,7 +4101,12 @@ const GooglePage = () => {
                     showAction={false}
                     css={theme({
                       width: '100%',
-                      height: ['180px', '180px', '200px', '200px'],
+                      height:
+                        step.title === 'Install and initialize'
+                          ? ['120px', '120px', '130px', '130px']
+                          : step.title === 'Run the first query'
+                            ? ['280px', '280px', '320px', '320px']
+                            : ['180px', '180px', '200px', '200px'],
                       border: 0,
                       borderRadius: 0
                     })}
@@ -4119,13 +4131,11 @@ const GooglePage = () => {
                       {step.description}
                     </TutorialStepDescription>
 
-                    {step.panel.type === 'features'
-                      ? (
-                          panelContent
-                        )
-                      : (
-                        <TutorialPanel>{panelContent}</TutorialPanel>
-                        )}
+                    {step.panel.type === 'features' ? (
+                      panelContent
+                    ) : (
+                      <TutorialPanel>{panelContent}</TutorialPanel>
+                    )}
                   </TutorialContent>
                 </TutorialStep>
               )
@@ -4136,15 +4146,11 @@ const GooglePage = () => {
             css={theme({ mt: [4, 4, 5, 5], justifyContent: 'flex-start' })}
           >
             <Button as='a' href={PACKAGE_URL}>
-              Get started
+              Add @microlink/google to your project
             </Button>
-            <Button
-              as='a'
-              variant='white'
-              href='/docs/api/getting-started/overview'
-            >
+            <Button as='a' variant='white' href='https://search.microlink.io'>
               <Flex as='span' css={theme({ alignItems: 'center', gap: 2 })}>
-                Documentation
+                Read setup docs
                 <ArrowRight size={16} aria-hidden='true' />
               </Flex>
             </Button>
@@ -4153,10 +4159,19 @@ const GooglePage = () => {
       </PageSection>
 
       <PageSection as='section' id='pricing'>
-        <SectionTitle>Built for production teams.</SectionTitle>
-        <SectionDescription>
-          Search plans start on paid tiers with production quotas and advanced
-          controls.
+        <SectionTitle css={theme({ textAlign: 'center' })}>
+          Paid from the first request.
+        </SectionTitle>
+        <SectionDescription
+          css={theme({
+            fontSize: [2, 2, 3, 3],
+            textAlign: 'center',
+            mx: 'auto'
+          })}
+        >
+          Search has no free tier because reliable result collection depends on
+          managed proxy capacity, regional routing, and production safeguards on
+          every call.
         </SectionDescription>
 
         <PricingCardsGrid>
@@ -4201,14 +4216,14 @@ const GooglePage = () => {
                 lineHeight: 2
               })}
             >
-              46,000 requests/month for production workflows with stronger
-              reliability guarantees and advanced controls.
+              46,000 requests/month
             </Text>
 
             <Box css={theme({ pt: 3 })}>
-              <PricingCheck>Search API</PricingCheck>
-              <PricingCheck>10 Google verticals in one package</PricingCheck>
+              <PricingCheck>Managed proxy-backed requests</PricingCheck>
+              <PricingCheck>10 supported search surfaces</PricingCheck>
               <PricingCheck>Structured normalized results</PricingCheck>
+              <PricingCheck>Location and period controls</PricingCheck>
               <PricingCheck>
                 Pagination with <code>.next()</code>
               </PricingCheck>
@@ -4220,15 +4235,84 @@ const GooglePage = () => {
             <Flex
               css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
             >
-              <Link href='/#pricing'>See all plans</Link>
+              <Link href='/pricing'>See all plans</Link>
             </Flex>
           </PricingCard>
         </PricingCardsGrid>
       </PageSection>
 
+      <PageSection as='section' id='final-cta'>
+        <Flex
+          css={theme({
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center',
+            px: [2, 2, 3, 3]
+          })}
+        >
+          <SectionTitle
+            css={theme({ textAlign: 'center', maxWidth: layout.medium })}
+          >
+            Pick a plan, then plug Search into your workflow.
+          </SectionTitle>
+          <SectionDescription
+            css={theme({
+              fontSize: [2, 2, 3, 3],
+              textAlign: 'center',
+              maxWidth: [
+                layout.small,
+                layout.small,
+                layout.normal,
+                layout.normal
+              ]
+            })}
+          >
+            Install the client, add your API key, and start shipping rank
+            tracking, news monitoring, local research, or agent enrichment flows
+            without building proxy infrastructure in-house.
+          </SectionDescription>
+
+          <ActionRow
+            css={theme({ mt: [4, 4, 5, 5], justifyContent: 'center' })}
+          >
+            <ArrowLink href='/pricing' css={theme({ fontSize: [2, 2, 3, 3] })}>
+              See all plans
+            </ArrowLink>
+          </ActionRow>
+
+          <Flex
+            css={theme({
+              mt: [4, 4, 5, 5],
+              gap: [3, 3, 4, 4],
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            })}
+          >
+            {[
+              'Paid from day one',
+              'Managed proxy layer included',
+              'Built for SEO and AI workflows'
+            ].map(label => (
+              <Flex
+                key={label}
+                css={theme({
+                  alignItems: 'center',
+                  gap: 1,
+                  color: 'black80',
+                  fontSize: [0, 0, 1, 1]
+                })}
+              >
+                <Check size={16} color={colors.close} aria-hidden='true' />
+                <Text as='span'>{label}</Text>
+              </Flex>
+            ))}
+          </Flex>
+        </Flex>
+      </PageSection>
+
       <Faq
         title='Product Information'
-        caption='Everything you need to know about Search and the Google products it supports.'
+        caption='Everything you need to know about Microlink Search, pricing, and supported search surfaces.'
         css={theme({
           mt: [5, 5, 6, 6],
           pb: [5, 5, 6, 6],
@@ -4249,6 +4333,18 @@ const GooglePage = () => {
           )
         }))}
       />
+      <Container
+        css={theme({
+          px: [4, 4, 5, 5],
+          pb: [4, 4, 5, 5],
+          justifyContent: 'center'
+        })}
+      >
+        <TrademarkNote>
+          Google is a trademark of Google LLC. Microlink Search is an
+          independent product and is not affiliated with or endorsed by Google.
+        </TrademarkNote>
+      </Container>
     </Layout>
   )
 }
@@ -4263,21 +4359,21 @@ const softwareApplicationSchema = {
   url: PAGE_URL,
   image: HERO_IMAGE,
   description:
-    'Search is a Microlink product for querying and normalizing Google Search, News, Images, Videos, Places, Maps, Shopping, Scholar, Patents, and Autocomplete through one API.',
+    'Microlink Search is a paid search intelligence API for querying and normalizing public results from Google Search, Google News, Google Maps, Google Shopping, Google Scholar, and more.',
   keywords: [
-    'google search api',
+    'search api',
     'serp api',
-    'google news api',
-    'google images api',
-    'google maps api',
-    'google shopping api',
-    'google autocomplete api',
+    'google search api alternative',
+    'google news api alternative',
+    'local search api',
+    'shopping data api',
+    'search intelligence api',
     'serp api alternative',
     'ai seo data api'
   ],
   offers: {
     '@type': 'Offer',
-    url: 'https://microlink.io/#pricing'
+    url: 'https://microlink.io/pricing'
   },
   publisher: {
     '@type': 'Organization',
@@ -4290,7 +4386,7 @@ const itemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   '@id': `${PAGE_URL}#verticals`,
-  name: 'Google products supported by Microlink Search',
+  name: 'Supported search surfaces in Microlink Search',
   itemListElement: GOOGLE_VERTICALS.map((item, index) => ({
     '@type': 'ListItem',
     position: index + 1,
@@ -4302,9 +4398,9 @@ const howToSchema = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
   '@id': `${PAGE_URL}#how-to`,
-  name: 'How to integrate Search',
+  name: 'How to integrate Microlink Search',
   description:
-    'Install @microlink/google, query a Google product through Search, then paginate and enrich results for SEO and AI workflows.',
+    'Install @microlink/google, query a supported search surface, then paginate and enrich results for SEO, monitoring, and AI workflows.',
   step: INTEGRATION_HOW_TO_STEPS.map(step => ({
     '@type': 'HowToStep',
     name: step.title,
@@ -4348,8 +4444,8 @@ const breadcrumbSchema = {
 
 export const Head = () => (
   <Meta
-    title='Seamless Search API for Google data'
-    description='Search is a Microlink product for querying and normalizing Google Search, News, Images, Videos, Places, Maps, Shopping, Scholar, Patents, and Autocomplete.'
+    title='Search API for SEO, Monitoring, and AI Workflows'
+    description='Microlink Search is a paid search intelligence API for querying and normalizing public results from Google Search, News, Maps, Shopping, Scholar, and more.'
     image={HERO_IMAGE}
     structured={[
       softwareApplicationSchema,
