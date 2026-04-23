@@ -150,9 +150,87 @@ const buildRequestSnippet = ({ query, options }) => {
 
   return `const page = await google('${query}', {
 ${serializedOptions}
-})
+})`
+}
 
-const firstResult = page.results[0]`
+const toPreviewItems = payload => {
+  if (Array.isArray(payload)) return payload.filter(Boolean).slice(0, 4)
+  if (payload && typeof payload === 'object') return [payload]
+  return []
+}
+
+const formatPriceLabel = price => {
+  if (!price || typeof price !== 'object') return null
+  if (typeof price.symbol === 'string' && typeof price.amount === 'number') {
+    return `${price.symbol}${price.amount}`
+  }
+  if (typeof price.amount === 'number') return `${price.amount}`
+  return null
+}
+
+const getVerticalPreviewResult = (verticalId, payload) => {
+  const items = toPreviewItems(payload)
+
+  if (verticalId === 'search') {
+    return { variant: 'search', data: items }
+  }
+
+  if (verticalId === 'news') {
+    return { variant: 'news', data: items }
+  }
+
+  if (verticalId === 'images') {
+    return { variant: 'images', data: items }
+  }
+
+  if (verticalId === 'videos') {
+    return { variant: 'videos', data: items }
+  }
+
+  if (verticalId === 'places') {
+    return {
+      variant: 'places',
+      data: items.map(item => ({
+        ...item,
+        reviewCount:
+          item.reviewCount ?? item.ratingCount ?? item.rating?.reviews
+      }))
+    }
+  }
+
+  if (verticalId === 'maps') {
+    return { variant: 'maps', data: items }
+  }
+
+  if (verticalId === 'shopping') {
+    return {
+      variant: 'shopping',
+      data: items.map(item => ({
+        ...item,
+        priceLabel: formatPriceLabel(item.price)
+      }))
+    }
+  }
+
+  if (verticalId === 'scholar') {
+    return { variant: 'scholar', data: items }
+  }
+
+  if (verticalId === 'patents') {
+    return {
+      variant: 'patents',
+      data: items.map(item => ({
+        ...item,
+        publicationNumber: item.publication?.number
+      }))
+    }
+  }
+
+  if (verticalId === 'autocomplete') {
+    return { variant: 'autocomplete', data: items }
+  }
+
+  return { variant: 'search', data: items }
 }
 
 const GOOGLE_VERTICAL_EXAMPLES = {
@@ -165,7 +243,7 @@ const google = createGoogleClient({
   apiKey: process.env.MICROLINK_API_KEY
 })
 
-const page = await google('site:developer.mozilla.org fetch api', {
+const page = await google('site:developer.mozilla.org fetch', {
   type: 'search'
 })
 
@@ -582,6 +660,10 @@ const GOOGLE_VERTICALS = [
       'Suggestion datasets for content ideation, demand modeling, and query expansion.'
   }
 ]
+
+const VERTICAL_REQUEST_CODE_HEIGHT = ['180px', '180px', '180px', '180px']
+const VERTICAL_PREVIEW_HEIGHT = ['220px', '220px', '240px', '260px']
+const VERTICAL_RESPONSE_HEIGHT = ['476px', '476px', '512px', '552px']
 
 const INTEGRATION_TUTORIAL_STEPS = [
   {
@@ -1725,6 +1807,7 @@ const VerticalExamplePanel = styled(Box).withConfig({
     minWidth: 0,
     display: 'flex',
     flexDirection: 'column',
+    minHeight: ['540px', '540px', '560px', '600px'],
     borderRadius: 4,
     overflow: 'hidden',
     boxShadow: 1
@@ -1801,6 +1884,51 @@ const VerticalCodeFrame = styled(Box).withConfig({
     p: [2, 2, 3, 3],
     minWidth: 0
   })};
+`
+
+const VerticalPreviewShell = styled(Box).withConfig({
+  componentId: 'google__VerticalPreviewShell'
+})`
+  ${theme({
+    borderTop: 1,
+    borderTopColor: 'black05',
+    bg: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: VERTICAL_PREVIEW_HEIGHT,
+    flex: 1,
+    minWidth: 0
+  })};
+`
+
+const VerticalPreviewBody = styled(Box).withConfig({
+  componentId: 'google__VerticalPreviewBody'
+})`
+  ${theme({
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    minHeight: 0,
+    overflowY: 'auto',
+    overflowX: 'hidden'
+  })};
+`
+
+const VerticalPreviewContent = styled(Box).withConfig({
+  componentId: 'google__VerticalPreviewContent'
+})`
+  ${theme({
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    minHeight: 0
+  })};
+
+  ${HeroResultList} {
+    max-height: [ '156px', '156px', '172px', '188px' ];
+    height: auto;
+    flex: none;
+  }
 `
 
 const PageSection = styled(Container).withConfig({
@@ -2619,15 +2747,412 @@ const HeroSearchEnrichedListItem = ({ item }) => {
   )
 }
 
+const HeroSearchListItem = ({ item }) => {
+  const { host, path, origin } = buildBreadcrumb(item.url)
+  return (
+    <HeroResultListItem>
+      <HeroResultBreadcrumb>
+        <HostBrandIcon host={host} size='20px' />
+        <Flex
+          css={theme({
+            flexDirection: 'column',
+            minWidth: 0,
+            lineHeight: 1
+          })}
+        >
+          <HeroResultSite>{host}</HeroResultSite>
+          <HeroResultPath>
+            {origin}
+            {path}
+          </HeroResultPath>
+        </Flex>
+      </HeroResultBreadcrumb>
+      <HeroResultListTitle>{item.title}</HeroResultListTitle>
+      {item.description && (
+        <Text
+          as='p'
+          css={theme({
+            m: 0,
+            color: 'black70',
+            fontSize: [0, 0, 1, 1],
+            lineHeight: 1,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          })}
+        >
+          {item.description}
+        </Text>
+      )}
+    </HeroResultListItem>
+  )
+}
+
+const HeroImageListItem = ({ item }) => {
+  const { host } = buildBreadcrumb(item.url)
+  const width = item.image?.width ?? item.thumbnail?.width
+  const height = item.image?.height ?? item.thumbnail?.height
+
+  return (
+    <HeroResultListItem>
+      <HeroResultListRow>
+        <HeroResultBreadcrumb>
+          <HostBrandIcon host={host} size='20px' />
+          <HeroResultSite>{host}</HeroResultSite>
+        </HeroResultBreadcrumb>
+        {(width || height) && (
+          <HeroResultBadgeSmall>
+            {width || '?'} × {height || '?'}
+          </HeroResultBadgeSmall>
+        )}
+      </HeroResultListRow>
+      <HeroResultListTitle>{item.title}</HeroResultListTitle>
+    </HeroResultListItem>
+  )
+}
+
+const HeroVideoListItem = ({ item }) => (
+  <HeroResultListItem>
+    <HeroResultListRow>
+      <HeroResultBreadcrumb>
+        <HeroResultSite>{item.publisher || item.channel}</HeroResultSite>
+        {item.date && (
+          <>
+            <Text
+              as='span'
+              css={theme({ color: 'black50', fontSize: [0, 0, 1, 1] })}
+            >
+              •
+            </Text>
+            <Flex css={theme({ alignItems: 'center', gap: 1 })}>
+              <Clock size={12} aria-hidden='true' />
+              <Text
+                as='span'
+                css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}
+              >
+                {formatRelativeTime(item.date)}
+              </Text>
+            </Flex>
+          </>
+        )}
+      </HeroResultBreadcrumb>
+      {item.duration_pretty && (
+        <HeroResultBadgeSmall>{item.duration_pretty}</HeroResultBadgeSmall>
+      )}
+    </HeroResultListRow>
+    <HeroResultListTitle>{item.title}</HeroResultListTitle>
+    {item.description && (
+      <Text
+        as='p'
+        css={theme({
+          m: 0,
+          color: 'black70',
+          fontSize: [0, 0, 1, 1],
+          lineHeight: 1,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
+        })}
+      >
+        {item.description}
+      </Text>
+    )}
+  </HeroResultListItem>
+)
+
+const HeroPlacesListItem = ({ item }) => (
+  <HeroResultListItem>
+    <HeroResultListRow>
+      <Text
+        as='span'
+        css={theme({
+          m: 0,
+          color: 'black',
+          fontSize: [1, 1, 2, 2],
+          fontWeight: 'bold',
+          lineHeight: 1,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          minWidth: 0
+        })}
+      >
+        {item.title}
+      </Text>
+      {item.category && (
+        <HeroResultBadgeSmall>{item.category}</HeroResultBadgeSmall>
+      )}
+    </HeroResultListRow>
+    <HeroResultMeta css={theme({ mt: 1 })}>
+      {typeof item.rating === 'number' && (
+        <HeroResultRating>
+          <Star
+            size={12}
+            fill={colors.yellow5}
+            color={colors.yellow5}
+            aria-hidden='true'
+          />
+          <Text
+            as='span'
+            css={theme({
+              color: 'black',
+              fontSize: [0, 0, 1, 1],
+              fontWeight: 'bold'
+            })}
+          >
+            {item.rating.toFixed(1)}
+          </Text>
+          {typeof item.reviewCount === 'number' && (
+            <Text
+              as='span'
+              css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}
+            >
+              ({item.reviewCount.toLocaleString()})
+            </Text>
+          )}
+        </HeroResultRating>
+      )}
+    </HeroResultMeta>
+    {item.address && (
+      <Text
+        as='p'
+        css={theme({
+          m: 0,
+          color: 'black70',
+          fontSize: [0, 0, 1, 1],
+          lineHeight: 1,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
+        })}
+      >
+        {item.address}
+      </Text>
+    )}
+  </HeroResultListItem>
+)
+
+const HeroMapListItem = ({ item }) => (
+  <HeroResultListItem>
+    <HeroResultListRow>
+      <Text
+        as='span'
+        css={theme({
+          m: 0,
+          color: 'black',
+          fontSize: [1, 1, 2, 2],
+          fontWeight: 'bold',
+          lineHeight: 1
+        })}
+      >
+        {item.title}
+      </Text>
+      <HeroResultBadgeSmall>map</HeroResultBadgeSmall>
+    </HeroResultListRow>
+    <Text
+      as='p'
+      css={theme({
+        m: 0,
+        color: 'black70',
+        fontSize: [0, 0, 1, 1],
+        lineHeight: 1,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+      })}
+    >
+      {item.address}
+    </Text>
+  </HeroResultListItem>
+)
+
+const HeroShoppingListItem = ({ item }) => (
+  <HeroResultListItem>
+    <HeroResultListRow>
+      <HeroResultBreadcrumb>
+        <HeroResultSite>{item.publisher}</HeroResultSite>
+      </HeroResultBreadcrumb>
+      {item.priceLabel && (
+        <HeroResultBadgeSmall>{item.priceLabel}</HeroResultBadgeSmall>
+      )}
+    </HeroResultListRow>
+    <HeroResultListTitle>{item.title}</HeroResultListTitle>
+  </HeroResultListItem>
+)
+
+const HeroScholarListItem = ({ item }) => (
+  <HeroResultListItem>
+    <HeroResultListRow>
+      <HeroResultBadgeGroup>
+        {item.year && <HeroResultBadgeSmall>{item.year}</HeroResultBadgeSmall>}
+        {typeof item.citations === 'number' && (
+          <HeroResultBadgeSmall>
+            {item.citations.toLocaleString()} cites
+          </HeroResultBadgeSmall>
+        )}
+      </HeroResultBadgeGroup>
+    </HeroResultListRow>
+    <HeroResultListTitle>{item.title}</HeroResultListTitle>
+    {item.publisher && (
+      <Text
+        as='p'
+        css={theme({
+          m: 0,
+          color: 'black70',
+          fontSize: [0, 0, 1, 1],
+          lineHeight: 1,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
+        })}
+      >
+        {item.publisher}
+      </Text>
+    )}
+  </HeroResultListItem>
+)
+
+const HeroPatentListItem = ({ item }) => (
+  <HeroResultListItem>
+    <HeroResultListRow>
+      <HeroResultBadgeGroup>
+        {item.publicationNumber && (
+          <HeroResultBadgeSmall>{item.publicationNumber}</HeroResultBadgeSmall>
+        )}
+        {item.language && (
+          <HeroResultBadgeSmall>{item.language}</HeroResultBadgeSmall>
+        )}
+      </HeroResultBadgeGroup>
+    </HeroResultListRow>
+    <HeroResultListTitle>{item.title}</HeroResultListTitle>
+    <Text
+      as='p'
+      css={theme({
+        m: 0,
+        color: 'black70',
+        fontSize: [0, 0, 1, 1],
+        lineHeight: 1,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+      })}
+    >
+      {item.assignee || item.inventor}
+    </Text>
+  </HeroResultListItem>
+)
+
+const HeroAutocompleteListItem = ({ item }) => (
+  <HeroResultListItem>
+    <HeroResultListRow>
+      <HeroResultBadgeSmall>suggestion</HeroResultBadgeSmall>
+    </HeroResultListRow>
+    <HeroResultListTitle>{item.value}</HeroResultListTitle>
+  </HeroResultListItem>
+)
+
 const HeroResultCard = ({ result }) => {
   if (!result) return null
   const { variant, data } = result
+
+  if (variant === 'search' && Array.isArray(data)) {
+    return (
+      <HeroResultList>
+        {data.map(item => (
+          <HeroSearchListItem key={item.url} item={item} />
+        ))}
+      </HeroResultList>
+    )
+  }
 
   if (variant === 'news' && Array.isArray(data)) {
     return (
       <HeroResultList>
         {data.map(item => (
           <HeroNewsListItem key={item.url} item={item} />
+        ))}
+      </HeroResultList>
+    )
+  }
+
+  if (variant === 'images' && Array.isArray(data)) {
+    return (
+      <HeroResultList>
+        {data.map(item => (
+          <HeroImageListItem key={item.url} item={item} />
+        ))}
+      </HeroResultList>
+    )
+  }
+
+  if (variant === 'videos' && Array.isArray(data)) {
+    return (
+      <HeroResultList>
+        {data.map(item => (
+          <HeroVideoListItem key={item.url} item={item} />
+        ))}
+      </HeroResultList>
+    )
+  }
+
+  if (variant === 'places' && Array.isArray(data)) {
+    return (
+      <HeroResultList>
+        {data.map(item => (
+          <HeroPlacesListItem key={item.cid || item.title} item={item} />
+        ))}
+      </HeroResultList>
+    )
+  }
+
+  if (variant === 'maps' && Array.isArray(data)) {
+    return (
+      <HeroResultList>
+        {data.map(item => (
+          <HeroMapListItem key={item.cid || item.title} item={item} />
+        ))}
+      </HeroResultList>
+    )
+  }
+
+  if (variant === 'shopping' && Array.isArray(data)) {
+    return (
+      <HeroResultList>
+        {data.map(item => (
+          <HeroShoppingListItem key={item.id || item.title} item={item} />
+        ))}
+      </HeroResultList>
+    )
+  }
+
+  if (variant === 'scholar' && Array.isArray(data)) {
+    return (
+      <HeroResultList>
+        {data.map(item => (
+          <HeroScholarListItem key={item.id || item.title} item={item} />
+        ))}
+      </HeroResultList>
+    )
+  }
+
+  if (variant === 'patents' && Array.isArray(data)) {
+    return (
+      <HeroResultList>
+        {data.map(item => (
+          <HeroPatentListItem
+            key={item.publicationNumber || item.title}
+            item={item}
+          />
+        ))}
+      </HeroResultList>
+    )
+  }
+
+  if (variant === 'autocomplete' && Array.isArray(data)) {
+    return (
+      <HeroResultList>
+        {data.map(item => (
+          <HeroAutocompleteListItem key={item.value} item={item} />
         ))}
       </HeroResultList>
     )
@@ -2789,6 +3314,10 @@ const GooglePage = () => {
   const activeVerticalRequestSnippet = buildRequestSnippet(
     activeVerticalRequest
   )
+  const activeVerticalPreview = getVerticalPreviewResult(
+    activeVertical.id,
+    activeVerticalPayload
+  )
 
   const focusVerticalTab = tabId => {
     const tab = document.getElementById(`google-vertical-chip-${tabId}`)
@@ -2855,7 +3384,6 @@ const GooglePage = () => {
             alignItems: 'center',
             pt: [3, 3, 4, 4],
             pb: [2, 2, 3, 3]
-            //px: [2, 3, 4, 5]
           })}
         >
           <Flex
@@ -3206,7 +3734,7 @@ const GooglePage = () => {
                       showAction={false}
                       css={theme({
                         width: '100%',
-                        height: ['320px', '320px', '320px', '360px'],
+                        height: VERTICAL_REQUEST_CODE_HEIGHT,
                         border: 0,
                         borderRadius: 0
                       })}
@@ -3214,10 +3742,56 @@ const GooglePage = () => {
                       {activeVerticalRequestSnippet}
                     </CodeEditor>
                   </VerticalCodeFrame>
+
+                  <VerticalPreviewShell>
+                    <HeroResultHeader
+                      css={theme({
+                        justifyContent: 'flex-start',
+                        flexShrink: 0
+                      })}
+                    >
+                      <HeroResultHeaderLabel>
+                        <HeroResultStatusDot $loading={false} />
+                        Preview · page.results
+                      </HeroResultHeaderLabel>
+                    </HeroResultHeader>
+
+                    <VerticalPreviewBody>
+                      <VerticalPreviewContent>
+                        <HeroResultBody
+                          css={theme({
+                            minHeight: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            flex: 1,
+                            py: 0
+                          })}
+                        >
+                          <HeroResultCard result={activeVerticalPreview} />
+                        </HeroResultBody>
+                      </VerticalPreviewContent>
+                    </VerticalPreviewBody>
+                  </VerticalPreviewShell>
                 </VerticalExamplePanel>
 
-                <VerticalExamplePanel>
-                  <VerticalCodeFrame>
+                <VerticalExamplePanel
+                  css={theme({
+                    alignSelf: 'flex-start',
+                    minHeight: 0,
+                    height: VERTICAL_RESPONSE_HEIGHT
+                  })}
+                >
+                  <VerticalCodeFrame
+                    css={theme({
+                      flex: 1,
+                      display: 'flex',
+                      minHeight: 0,
+                      height: '100%',
+                      pt: [2, 2, 3, 3],
+                      pb: [2, 2, 3, 3],
+                      px: 0
+                    })}
+                  >
                     <CodeEditor
                       language='json'
                       showWindowButtons={false}
@@ -3225,7 +3799,9 @@ const GooglePage = () => {
                       showAction={false}
                       css={theme({
                         width: '100%',
-                        height: ['360px', '360px', '380px', '420px'],
+                        height: '100%',
+                        minHeight: 0,
+                        flex: 1,
                         border: 0,
                         borderRadius: 0
                       })}
