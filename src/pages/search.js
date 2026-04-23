@@ -3051,42 +3051,42 @@ const HeroMapListItem = ({ item }) => (
 
       {(typeof item.latitude === 'number' ||
         typeof item.longitude === 'number') && (
-        <Box
-          css={theme({
-            mt: 2,
-            p: 2,
-            borderRadius: 3,
-            bg: 'gray0',
-            border: 1,
-            borderColor: 'black05'
-          })}
-        >
-          <Text
-            as='p'
+          <Box
             css={theme({
-              m: 0,
-              color: 'black50',
-              fontFamily: 'mono',
-              fontSize: [0, 0, 1, 1],
-              fontWeight: 'bold',
-              lineHeight: 1
+              mt: 2,
+              p: 2,
+              borderRadius: 3,
+              bg: 'gray0',
+              border: 1,
+              borderColor: 'black05'
             })}
           >
-            Coordinates
-          </Text>
-          <Flex css={theme({ gap: 2, mt: 2, flexWrap: 'wrap' })}>
-            {typeof item.latitude === 'number' && (
-              <HeroResultBadgeSmall>
-                lat · {formatCoordinate(item.latitude, 'N', 'S')}
-              </HeroResultBadgeSmall>
-            )}
-            {typeof item.longitude === 'number' && (
-              <HeroResultBadgeSmall>
-                lng · {formatCoordinate(item.longitude, 'E', 'W')}
-              </HeroResultBadgeSmall>
-            )}
-          </Flex>
-        </Box>
+            <Text
+              as='p'
+              css={theme({
+                m: 0,
+                color: 'black50',
+                fontFamily: 'mono',
+                fontSize: [0, 0, 1, 1],
+                fontWeight: 'bold',
+                lineHeight: 1
+              })}
+            >
+              Coordinates
+            </Text>
+            <Flex css={theme({ gap: 2, mt: 2, flexWrap: 'wrap' })}>
+              {typeof item.latitude === 'number' && (
+                <HeroResultBadgeSmall>
+                  lat · {formatCoordinate(item.latitude, 'N', 'S')}
+                </HeroResultBadgeSmall>
+              )}
+              {typeof item.longitude === 'number' && (
+                <HeroResultBadgeSmall>
+                  lng · {formatCoordinate(item.longitude, 'E', 'W')}
+                </HeroResultBadgeSmall>
+              )}
+            </Flex>
+          </Box>
       )}
 
       {item.place?.id && (
@@ -3694,8 +3694,7 @@ const GooglePage = () => {
                           tabIndex={isActive ? 0 : -1}
                           onClick={() => selectHeroExample(example.id)}
                           onKeyDown={event =>
-                            handleHeroExampleTabKeyDown(event, index)
-                          }
+                            handleHeroExampleTabKeyDown(event, index)}
                         >
                           {example.title}
                         </HeroExampleTab>
@@ -3751,8 +3750,7 @@ const GooglePage = () => {
                         <HeroResultToggle
                           type='button'
                           onClick={() =>
-                            setHeroResultCollapsed(value => !value)
-                          }
+                            setHeroResultCollapsed(value => !value)}
                           aria-expanded={!heroResultCollapsed}
                           aria-controls='hero-result-body'
                           aria-label={
@@ -3770,11 +3768,13 @@ const GooglePage = () => {
                         $collapsed={heroResultCollapsed}
                       >
                         <HeroResultBody>
-                          {heroPhase === 'loading' ? (
-                            <HeroResultSkeleton />
-                          ) : (
-                            <HeroResultCard result={activeHeroExample.result} />
-                          )}
+                          {heroPhase === 'loading'
+                            ? (
+                              <HeroResultSkeleton />
+                              )
+                            : (
+                              <HeroResultCard result={activeHeroExample.result} />
+                              )}
                         </HeroResultBody>
                       </HeroResultBodyWrap>
                     </HeroResultDock>
@@ -3853,8 +3853,7 @@ const GooglePage = () => {
                         aria-pressed={activeVertical.id === vertical.id}
                         onClick={() => setActiveVerticalId(vertical.id)}
                         onKeyDown={event =>
-                          handleVerticalTabKeyDown(event, index)
-                        }
+                          handleVerticalTabKeyDown(event, index)}
                       >
                         {verticalService && (
                           <VerticalTabIcon
@@ -3956,8 +3955,7 @@ const GooglePage = () => {
                           tabIndex={isActive ? 0 : -1}
                           onClick={() => handleOutputTabSelect(tab.id)}
                           onKeyDown={event =>
-                            handleOutputTabKeyDown(event, index)
-                          }
+                            handleOutputTabKeyDown(event, index)}
                         >
                           {tab.label}
                         </VerticalOutputTab>
@@ -3965,57 +3963,59 @@ const GooglePage = () => {
                     })}
                   </VerticalOutputTabBar>
 
-                  {activeOutputTab === 'json' ? (
-                    <VerticalCodeFrame
-                      id='vertical-output-panel-json'
-                      role='tabpanel'
-                      aria-labelledby='vertical-output-tab-json'
-                      css={theme({
-                        display: 'flex',
-                        flexDirection: 'column',
-                        flex: 1,
-                        minHeight: 0,
-                        height: '100%',
-                        pt: [2, 2, 3, 3],
-                        pb: [2, 2, 3, 3],
-                        px: 0
-                      })}
-                    >
-                      <CodeEditor
-                        language='json'
-                        showFade={false}
-                        showHeader={false}
-                        showWindowButtons={false}
-                        showTitle={false}
-                        showAction={false}
+                  {activeOutputTab === 'json'
+                    ? (
+                      <VerticalCodeFrame
+                        id='vertical-output-panel-json'
+                        role='tabpanel'
+                        aria-labelledby='vertical-output-tab-json'
                         css={theme({
-                          width: '100%',
-                          height: '100%',
-                          minHeight: 0,
+                          display: 'flex',
+                          flexDirection: 'column',
                           flex: 1,
-                          border: 0,
-                          borderRadius: 0,
-                          pt: 2
+                          minHeight: 0,
+                          height: '100%',
+                          pt: [2, 2, 3, 3],
+                          pb: [2, 2, 3, 3],
+                          px: 0
                         })}
                       >
-                        {activeVerticalPayloadText}
-                      </CodeEditor>
-                    </VerticalCodeFrame>
-                  ) : (
-                    <VerticalPreviewShell
-                      id='vertical-output-panel-preview'
-                      role='tabpanel'
-                      aria-labelledby='vertical-output-tab-preview'
-                    >
-                      <VerticalPreviewBody>
-                        <VerticalPreviewContent>
-                          <HeroResultBody css={theme({ py: 0 })}>
-                            <HeroResultCard result={activeVerticalPreview} />
-                          </HeroResultBody>
-                        </VerticalPreviewContent>
-                      </VerticalPreviewBody>
-                    </VerticalPreviewShell>
-                  )}
+                        <CodeEditor
+                          language='json'
+                          showFade={false}
+                          showHeader={false}
+                          showWindowButtons={false}
+                          showTitle={false}
+                          showAction={false}
+                          css={theme({
+                            width: '100%',
+                            height: '100%',
+                            minHeight: 0,
+                            flex: 1,
+                            border: 0,
+                            borderRadius: 0,
+                            pt: 2
+                          })}
+                        >
+                          {activeVerticalPayloadText}
+                        </CodeEditor>
+                      </VerticalCodeFrame>
+                      )
+                    : (
+                      <VerticalPreviewShell
+                        id='vertical-output-panel-preview'
+                        role='tabpanel'
+                        aria-labelledby='vertical-output-tab-preview'
+                      >
+                        <VerticalPreviewBody>
+                          <VerticalPreviewContent>
+                            <HeroResultBody css={theme({ py: 0 })}>
+                              <HeroResultCard result={activeVerticalPreview} />
+                            </HeroResultBody>
+                          </VerticalPreviewContent>
+                        </VerticalPreviewBody>
+                      </VerticalPreviewShell>
+                      )}
                 </VerticalExamplePanel>
               </VerticalExampleGrid>
             </VerticalExampleShell>
@@ -4131,11 +4131,13 @@ const GooglePage = () => {
                       {step.description}
                     </TutorialStepDescription>
 
-                    {step.panel.type === 'features' ? (
-                      panelContent
-                    ) : (
-                      <TutorialPanel>{panelContent}</TutorialPanel>
-                    )}
+                    {step.panel.type === 'features'
+                      ? (
+                          panelContent
+                        )
+                      : (
+                        <TutorialPanel>{panelContent}</TutorialPanel>
+                        )}
                   </TutorialContent>
                 </TutorialStep>
               )
