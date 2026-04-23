@@ -94,9 +94,9 @@ const TerminalButtonRed = ({ loading, ...props }) => (
     style={
       loading
         ? {
-          animationDelay: animationDelay(1),
-          animationDuration
-        }
+            animationDelay: animationDelay(1),
+            animationDuration
+          }
         : undefined
     }
     {...props}
@@ -122,9 +122,9 @@ const TerminalButtonGreen = ({ loading, ...props }) => (
     style={
       loading
         ? {
-          animationDelay: animationDelay(3),
-          animationDuration
-        }
+            animationDelay: animationDelay(3),
+            animationDuration
+          }
         : undefined
     }
     {...props}
