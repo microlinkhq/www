@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { colors, layout, theme, transition } from 'theme'
+import { colors, gradient, layout, theme, transition } from 'theme'
 import {
   ArrowRight,
   Check,
@@ -2331,8 +2331,10 @@ const PricingCard = styled(Flex).withConfig({
     maxWidth: ['100%', '100%', '400px', '400px'],
     width: '100%'
   })};
-  border: 1px solid ${colors.black10};
-  box-shadow: 0 2px 8px ${colors.black05};
+  border: 2px solid transparent;
+  background: linear-gradient(${colors.white}, ${colors.white}) padding-box,
+    ${gradient} border-box;
+  box-shadow: 0 12px 32px ${colors.black10};
 `
 
 const TrademarkNote = styled(Text)
@@ -4318,12 +4320,7 @@ const GooglePage = () => {
         caption='Everything you need to know about Microlink Search, pricing, and supported search surfaces.'
         css={theme({
           mt: [5, 5, 6, 6],
-          pb: [5, 5, 6, 6],
-          bg: 'pinky',
-          borderTop: '1px solid',
-          borderTopColor: 'pinkest',
-          borderBottom: '1px solid',
-          borderBottomColor: 'pinkest'
+          bg: 'white'
         })}
         questions={FAQ_ENTRIES.map(({ question, answers }) => ({
           question,
@@ -4338,9 +4335,9 @@ const GooglePage = () => {
       />
       <Container
         css={theme({
-          px: [4, 4, 5, 5],
-          pb: [4, 4, 5, 5],
-          justifyContent: 'center'
+          justifyContent: 'center',
+          pt: [3, 3, 4, 4],
+          maxWidth: layout.small
         })}
       >
         <TrademarkNote>
