@@ -33,6 +33,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import GOOGLE_VERTICAL_EXAMPLES_DATA from 'helpers/google-examples'
 
 const PAGE_URL = 'https://microlink.io/search'
+const GUIDE_URL = '/docs/guides/search'
 const PACKAGE_URL = 'https://www.npmjs.com/package/@microlink/google'
 const HERO_IMAGE = 'https://search.microlink.io/static/banner.jpg'
 const HERO_LAYOUT = {
@@ -1803,7 +1804,7 @@ const VerticalPanelHeader = styled(Box).withConfig({
   componentId: 'google__VerticalPanelHeader'
 })`
   ${theme({
-    px: [3, 3, 4, 4],
+    px: [2, 2, 3, 3],
     pt: [3, 3, 4, 4],
     pb: [3, 3, 3, 3],
     borderBottom: 1,
@@ -1866,7 +1867,8 @@ const VerticalCodeFrame = styled(Box).withConfig({
   componentId: 'google__VerticalCodeFrame'
 })`
   ${theme({
-    p: [2, 2, 3, 3],
+    py: [2, 2, 3, 3],
+    px: [1, 1, 2, 2],
     minWidth: 0
   })};
 `
@@ -3575,6 +3577,7 @@ const GooglePage = () => {
               <Box css={theme({ px: [2, 3, 4, 0], width: '100%' })}>
                 <Text
                   as='h1'
+                  variant='gradient'
                   css={theme({
                     m: 0,
                     color: 'black',
@@ -3587,7 +3590,7 @@ const GooglePage = () => {
                     maxWidth: ['100%', '100%', '100%', '640px']
                   })}
                 >
-                  Search intelligence API for AI agents.
+                  Search intelligence API for AI agents
                 </Text>
 
                 <HeroProofList>
@@ -4148,9 +4151,9 @@ const GooglePage = () => {
             <Button as='a' href={PACKAGE_URL}>
               Add @microlink/google to your project
             </Button>
-            <Button as='a' variant='white' href='https://search.microlink.io'>
+            <Button as='a' variant='white' href={GUIDE_URL}>
               <Flex as='span' css={theme({ alignItems: 'center', gap: 2 })}>
-                Read setup docs
+                Read the Search guide
                 <ArrowRight size={16} aria-hidden='true' />
               </Flex>
             </Button>
