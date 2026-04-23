@@ -129,6 +129,32 @@ const parseJsonPayload = payload => {
   }
 }
 
+const extractRequestConfig = code => {
+  if (!code) return { query: '', options: [] }
+
+  const queryMatch = code.match(/google\(\s*(['"])([\s\S]*?)\1/)
+  const optionsBlockMatch = code.match(/\{([\s\S]*?)\}/)
+
+  return {
+    query: queryMatch?.[2] ?? '',
+    options: Array.from(
+      optionsBlockMatch?.[1]?.matchAll(/(\w+)\s*:\s*(['"])([\s\S]*?)\2/g) ?? []
+    ).map(([, key, , value]) => ({ key, value }))
+  }
+}
+
+const buildRequestSnippet = ({ query, options }) => {
+  const serializedOptions = options.length
+    ? options.map(({ key, value }) => `  ${key}: '${value}'`).join(',\n')
+    : "  type: 'search'"
+
+  return `const page = await google('${query}', {
+${serializedOptions}
+})
+
+const firstResult = page.results[0]`
+}
+
 const GOOGLE_VERTICAL_EXAMPLES = {
   search: {
     code: `'use strict'
@@ -900,105 +926,6 @@ const HeroProofList = styled(Box)
   })};
 `
 
-const HeroServicesList = styled(Box)
-  .withConfig({ componentId: 'google__HeroServicesList' })
-  .attrs({ as: 'ul' })`
-  ${theme({
-    listStyle: 'none',
-    p: 0,
-    m: 0,
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: [3, 4, 4, 5],
-    justifyContent: 'center'
-  })};
-`
-
-const HeroServicesItem = styled(Box)
-  .withConfig({ componentId: 'google__HeroServicesItem' })
-  .attrs({ as: 'li' })`
-  ${theme({
-    m: 0
-  })};
-`
-
-const HeroServicesLink = styled('a').withConfig({
-  componentId: 'google__HeroServicesLink'
-})`
-  ${theme({
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: ['64px', '64px', '64px', '64px'],
-    height: ['64px', '64px', '64px', '64px'],
-    borderRadius: 4,
-    textDecoration: 'none',
-    color: 'black80'
-  })};
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform ${transition.short}, opacity ${transition.short};
-
-  &:hover {
-    transform: translateY(-2px);
-    opacity: 1;
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-`
-
-const HeroServiceIcon = styled('img').withConfig({
-  componentId: 'google__HeroServiceIcon'
-})`
-  ${theme({
-    width: '64px',
-    height: '64px',
-    flexShrink: 0
-  })};
-`
-
-const ServicesSeparator = styled(Box).withConfig({
-  componentId: 'google__ServicesSeparator'
-})`
-  ${theme({
-    px: [3, 3, 4, 5],
-    position: 'relative',
-    zIndex: 1,
-    height: 0
-  })};
-`
-
-const ServicesSeparatorInner = styled(Flex).withConfig({
-  componentId: 'google__ServicesSeparatorInner'
-})`
-  ${theme({
-    width: '100%',
-    maxWidth: HERO_LAYOUT.maxWidth,
-    mx: 'auto',
-    alignItems: 'center',
-    justifyContent: 'center'
-  })};
-`
-
-const ServicesSeparatorIcons = styled(Box).withConfig({
-  componentId: 'google__ServicesSeparatorIcons'
-})`
-  ${theme({
-    px: [3, 3, 4, 4],
-    bg: 'white',
-    position: 'relative',
-    zIndex: 1
-  })};
-  transform: translateY(-50%);
-`
-
 const HeroExampleShell = styled(Box).withConfig({
   componentId: 'google__HeroExampleShell'
 })`
@@ -1258,7 +1185,7 @@ const HeroResultStatusDot = styled(Box).withConfig({
   background-color: ${({ $loading }) =>
     $loading ? colors.yellow6 : colors.green6};
   ${({ $loading }) =>
-    $loading ? `animation: heroResultPulse 1200ms ease-in-out infinite;` : ''};
+    $loading ? 'animation: heroResultPulse 1200ms ease-in-out infinite;' : ''};
 
   @keyframes heroResultPulse {
     0%,
@@ -1477,7 +1404,7 @@ const HeroResultPath = styled(Text)
   ${theme({
     m: 0,
     color: 'black60',
-    fontSize: [0, 0, 1, 1],
+    fontSize: [1, 1, 1, 1],
     lineHeight: 1,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -1745,6 +1672,32 @@ const VerticalExampleShell = styled(Box).withConfig({
     minWidth: 0,
     boxShadow: 1
   })};
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: ${({ $accentColor }) => colors[$accentColor] || colors.black};
+  }
+`
+
+const VerticalExampleTopbar = styled(Flex).withConfig({
+  componentId: 'google__VerticalExampleTopbar'
+})`
+  ${theme({
+    px: [3, 3, 4, 4],
+    py: [3, 3, 3, 3],
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: 2,
+    bg: 'transparent',
+    borderBottom: 1,
+    borderBottomColor: 'black10'
+  })};
 `
 
 const VerticalExampleGrid = styled(Box).withConfig({
@@ -1752,7 +1705,14 @@ const VerticalExampleGrid = styled(Box).withConfig({
 })`
   ${theme({
     display: 'grid',
-    gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr'],
+    gridTemplateColumns: [
+      '1fr',
+      '1fr',
+      '1fr',
+      'minmax(0, 0.96fr) minmax(0, 1.04fr)'
+    ],
+    gap: [3, 3, 3, 4],
+    p: [3, 3, 4, 4],
     height: '100%'
   })};
 `
@@ -1764,16 +1724,83 @@ const VerticalExamplePanel = styled(Box).withConfig({
     bg: 'white',
     minWidth: 0,
     display: 'flex',
-    borderBottom: [1, 1, 0, 0],
-    borderBottomColor: ['black10', 'black10', null, null],
-    borderRight: [0, 0, 1, 1],
-    borderRightColor: [null, null, 'black10', 'black10']
+    flexDirection: 'column',
+    borderRadius: 4,
+    overflow: 'hidden',
+    boxShadow: 1
   })};
+`
 
-  &:last-child {
-    borderbottom: 0;
-    borderright: 0;
-  }
+const VerticalPanelHeader = styled(Box).withConfig({
+  componentId: 'google__VerticalPanelHeader'
+})`
+  ${theme({
+    px: [3, 3, 4, 4],
+    pt: [3, 3, 4, 4],
+    pb: [3, 3, 3, 3],
+    borderBottom: 1,
+    borderBottomColor: 'black05'
+  })};
+`
+
+const VerticalPanelIntro = styled(Flex).withConfig({
+  componentId: 'google__VerticalPanelIntro'
+})`
+  ${theme({
+    alignItems: 'center',
+    gap: 3
+  })};
+`
+
+const VerticalPanelLogo = styled('img').withConfig({
+  componentId: 'google__VerticalPanelLogo'
+})`
+  ${theme({
+    width: '36px',
+    height: '36px',
+    flexShrink: 0
+  })};
+`
+
+const VerticalPanelCopy = styled(Box).withConfig({
+  componentId: 'google__VerticalPanelCopy'
+})`
+  ${theme({
+    minWidth: 0
+  })};
+`
+
+const VerticalPanelTitle = styled(Text)
+  .withConfig({ componentId: 'google__VerticalPanelTitle' })
+  .attrs({ as: 'h4' })`
+  ${theme({
+    m: 0,
+    color: 'black',
+    fontSize: [1, 1, 2, 2],
+    fontWeight: 'bold',
+    lineHeight: 2
+  })};
+`
+
+const VerticalPanelDescription = styled(Text)
+  .withConfig({ componentId: 'google__VerticalPanelDescription' })
+  .attrs({ as: 'p' })`
+  ${theme({
+    m: 0,
+    mt: 1,
+    color: 'black70',
+    fontSize: [0, 0, 1, 1],
+    lineHeight: 2
+  })};
+`
+
+const VerticalCodeFrame = styled(Box).withConfig({
+  componentId: 'google__VerticalCodeFrame'
+})`
+  ${theme({
+    p: [2, 2, 3, 3],
+    minWidth: 0
+  })};
 `
 
 const PageSection = styled(Container).withConfig({
@@ -1840,17 +1867,20 @@ const VerticalTabButton = styled('button').withConfig({
 })`
   ${theme({
     appearance: 'none',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 2,
     border: 1,
     borderColor: 'black10',
     borderRadius: 4,
     bg: 'gray0',
-    py: 2,
-    px: 3,
-    minHeight: '44px',
+    py: 1,
+    px: 2,
+    minHeight: '36px',
     color: 'black80',
     fontFamily: 'mono',
     fontWeight: 'normal',
-    fontSize: [1, 1, 2, 2],
+    fontSize: [0, 0, 1, 1],
     lineHeight: 1,
     textTransform: 'lowercase',
     letterSpacing: 0,
@@ -1904,39 +1934,13 @@ const VerticalTabButton = styled('button').withConfig({
   }
 `
 
-const VerticalHeader = styled(Flex).withConfig({
-  componentId: 'google__VerticalHeader'
+const VerticalTabIcon = styled('img').withConfig({
+  componentId: 'google__VerticalTabIcon'
 })`
   ${theme({
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 3
-  })};
-`
-
-const VerticalTitle = styled(Text)
-  .withConfig({ componentId: 'google__VerticalTitle' })
-  .attrs({ as: 'h3' })`
-  ${theme({
-    m: 0,
-    color: 'black',
-    fontWeight: 'bold',
-    lineHeight: 1,
-    fontSize: [2, 2, 3, 3],
-    textAlign: 'left'
-  })};
-`
-
-const VerticalDescription = styled(Text)
-  .withConfig({ componentId: 'google__VerticalDescription' })
-  .attrs({ as: 'p' })`
-  ${theme({
-    mt: 2,
-    m: 0,
-    color: 'black80',
-    fontSize: [1, 1, 2, 2],
-    lineHeight: 2,
-    textAlign: 'left'
+    width: '16px',
+    height: '16px',
+    flexShrink: 0
   })};
 `
 
@@ -2743,7 +2747,7 @@ const GooglePage = () => {
       return isInsideActiveSpan(node.parentNode || node)
     }
 
-    observer = new MutationObserver(mutations => {
+    observer = new window.MutationObserver(mutations => {
       if (activeSpans.length === 0) return
       const external = mutations.some(mutation => {
         if (!isInsideActiveSpan(mutation.target)) return true
@@ -2771,11 +2775,19 @@ const GooglePage = () => {
     activeVertical.id
   ] ??
     GOOGLE_VERTICAL_EXAMPLES[activeVertical.id] ?? { code: '', payload: '' }
+  const activeVerticalService =
+    SUPPORTED_GOOGLE_SERVICES.find(
+      service => service.id === activeVertical.id
+    ) ?? null
   const activeVerticalPayload = parseJsonPayload(activeVerticalExample.payload)
   const activeVerticalPayloadText = JSON.stringify(
     activeVerticalPayload,
     null,
     2
+  )
+  const activeVerticalRequest = extractRequestConfig(activeVerticalExample.code)
+  const activeVerticalRequestSnippet = buildRequestSnippet(
+    activeVerticalRequest
   )
 
   const focusVerticalTab = tabId => {
@@ -2806,11 +2818,6 @@ const GooglePage = () => {
     const nextTabId = HERO_EXAMPLES[nextIndex].id
     setActiveHeroExampleId(nextTabId)
     focusHeroExampleTab(nextTabId)
-  }
-
-  const focusVerticalSection = () => {
-    const section = document.getElementById('google-verticals')
-    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   const handleVerticalTabKeyDown = (event, index) => {
@@ -2846,20 +2853,16 @@ const GooglePage = () => {
           css={theme({
             flexDirection: 'column',
             alignItems: 'center',
-            pt: [3, 3, 1, 0],
-            pb: [
-              'calc(128px + 32px)',
-              'calc(128px + 32px)',
-              'calc(128px + 32px)',
-              'calc(128px + 32px)'
-            ],
-            px: [2, 3, 4, 5]
+            pt: [3, 3, 4, 4],
+            pb: [2, 2, 3, 3]
+            //px: [2, 3, 4, 5]
           })}
         >
           <Flex
             css={theme({
               width: '100%',
               maxWidth: HERO_LAYOUT.maxWidth,
+              px: [2, 3, 4, 4],
               mx: 'auto',
               flexDirection: ['column', 'column', 'column', 'row'],
               alignItems: ['center', 'center', 'center', 'stretch'],
@@ -3099,40 +3102,11 @@ const GooglePage = () => {
         </Flex>
       </HeroSection>
 
-      <ServicesSeparator aria-label='Supported Google products'>
-        <ServicesSeparatorInner>
-          <ServicesSeparatorIcons>
-            <HeroServicesList>
-              {SUPPORTED_GOOGLE_SERVICES.map(service => (
-                <HeroServicesItem key={service.id}>
-                  <HeroServicesLink
-                    href='#google-verticals'
-                    aria-label={service.label}
-                    title={service.label}
-                    onClick={event => {
-                      event.preventDefault()
-                      setActiveVerticalId(service.id)
-                      focusVerticalSection()
-                    }}
-                  >
-                    <HeroServiceIcon
-                      src={service.iconUrl}
-                      alt=''
-                      aria-hidden='true'
-                    />
-                  </HeroServicesLink>
-                </HeroServicesItem>
-              ))}
-            </HeroServicesList>
-          </ServicesSeparatorIcons>
-        </ServicesSeparatorInner>
-      </ServicesSeparator>
-
       <PageSection
         as='section'
         id='google-verticals'
         css={theme({
-          pt: [6, 6, 6, 6],
+          pt: 6,
           maxWidth: HERO_LAYOUT.maxWidth
         })}
       >
@@ -3150,66 +3124,115 @@ const GooglePage = () => {
             teams.
           </SectionDescription>
 
-          <VerticalTabs aria-label='Google products'>
-            {GOOGLE_VERTICALS.map((vertical, index) => (
-              <VerticalTabButton
-                key={vertical.id}
-                id={`google-vertical-chip-${vertical.id}`}
-                type='button'
-                $active={activeVertical.id === vertical.id}
-                $activeColor={vertical.accentColor}
-                $activeTextColor={vertical.accentTextColor}
-                aria-pressed={activeVertical.id === vertical.id}
-                onClick={() => setActiveVerticalId(vertical.id)}
-                onKeyDown={event => handleVerticalTabKeyDown(event, index)}
-              >
-                {vertical.name}
-              </VerticalTabButton>
-            ))}
-          </VerticalTabs>
+          <Box
+            as='section'
+            css={theme({
+              px: [5, 5, 6, 6],
+              mt: [4, 4, 5, 5]
+            })}
+          >
+            <VerticalExampleShell $accentColor={activeVertical.accentColor}>
+              <VerticalExampleTopbar>
+                <VerticalTabs
+                  aria-label='Google products'
+                  css={theme({
+                    pt: 0,
+                    pb: 0,
+                    gap: 2
+                  })}
+                >
+                  {GOOGLE_VERTICALS.map((vertical, index) => {
+                    const verticalService =
+                      SUPPORTED_GOOGLE_SERVICES.find(
+                        service => service.id === vertical.id
+                      ) ?? null
 
-          <Box as='section'>
-            <VerticalHeader>
-              <VerticalTitle>{activeVertical.name}</VerticalTitle>
-            </VerticalHeader>
-            <VerticalDescription>
-              {activeVertical.description}
-            </VerticalDescription>
-            <VerticalExampleShell>
+                    return (
+                      <VerticalTabButton
+                        key={vertical.id}
+                        id={`google-vertical-chip-${vertical.id}`}
+                        type='button'
+                        $active={activeVertical.id === vertical.id}
+                        $activeColor={vertical.accentColor}
+                        $activeTextColor={vertical.accentTextColor}
+                        aria-pressed={activeVertical.id === vertical.id}
+                        onClick={() => setActiveVerticalId(vertical.id)}
+                        onKeyDown={event =>
+                          handleVerticalTabKeyDown(event, index)
+                        }
+                      >
+                        {verticalService && (
+                          <VerticalTabIcon
+                            src={verticalService.iconUrl}
+                            alt=''
+                            aria-hidden='true'
+                          />
+                        )}
+                        {vertical.name.replace(/^Google\s+/, '')}
+                      </VerticalTabButton>
+                    )
+                  })}
+                </VerticalTabs>
+              </VerticalExampleTopbar>
+
               <VerticalExampleGrid>
                 <VerticalExamplePanel>
-                  <CodeEditor
-                    language='javascript'
-                    blinkCursor={false}
-                    showWindowButtons={false}
-                    showTitle={false}
-                    showAction={false}
-                    css={theme({
-                      width: '100%',
-                      height: ['420px', '420px', '520px', '560px'],
-                      border: 0,
-                      borderRadius: 0
-                    })}
-                  >
-                    {activeVerticalExample.code}
-                  </CodeEditor>
+                  <VerticalPanelHeader>
+                    <VerticalPanelIntro>
+                      {activeVerticalService && (
+                        <VerticalPanelLogo
+                          src={activeVerticalService.iconUrl}
+                          alt=''
+                          aria-hidden='true'
+                        />
+                      )}
+                      <VerticalPanelCopy>
+                        <VerticalPanelTitle>
+                          {activeVertical.name}
+                        </VerticalPanelTitle>
+                        <VerticalPanelDescription>
+                          {activeVertical.description}
+                        </VerticalPanelDescription>
+                      </VerticalPanelCopy>
+                    </VerticalPanelIntro>
+                  </VerticalPanelHeader>
+
+                  <VerticalCodeFrame>
+                    <CodeEditor
+                      language='javascript'
+                      blinkCursor={false}
+                      showWindowButtons={false}
+                      showTitle={false}
+                      showAction={false}
+                      css={theme({
+                        width: '100%',
+                        height: ['320px', '320px', '320px', '360px'],
+                        border: 0,
+                        borderRadius: 0
+                      })}
+                    >
+                      {activeVerticalRequestSnippet}
+                    </CodeEditor>
+                  </VerticalCodeFrame>
                 </VerticalExamplePanel>
 
                 <VerticalExamplePanel>
-                  <CodeEditor
-                    language='json'
-                    showWindowButtons={false}
-                    showTitle={false}
-                    showAction={false}
-                    css={theme({
-                      width: '100%',
-                      height: ['420px', '420px', '520px', '560px'],
-                      border: 0,
-                      borderRadius: 0
-                    })}
-                  >
-                    {activeVerticalPayloadText}
-                  </CodeEditor>
+                  <VerticalCodeFrame>
+                    <CodeEditor
+                      language='json'
+                      showWindowButtons={false}
+                      showTitle={false}
+                      showAction={false}
+                      css={theme({
+                        width: '100%',
+                        height: ['360px', '360px', '380px', '420px'],
+                        border: 0,
+                        borderRadius: 0
+                      })}
+                    >
+                      {activeVerticalPayloadText}
+                    </CodeEditor>
+                  </VerticalCodeFrame>
                 </VerticalExamplePanel>
               </VerticalExampleGrid>
             </VerticalExampleShell>

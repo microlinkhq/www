@@ -1,85 +1,77 @@
 const GOOGLE_VERTICAL_EXAMPLES = {
   search: {
-    code: `'use strict'
-
-import createGoogleClient from '@microlink/google'
-
-const google = createGoogleClient({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('site:developer.mozilla.org fetch api', {
-  type: 'search'
-})
-
-console.log(page)`,
+    code: `const page = await google(
+  'site:developer.mozilla.org fetch api',
+  { type: 'search' }
+)`,
     payload: [
       {
         title: 'Fetch API - MDN Web Docs',
         url: 'https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API',
-        description: 'The Fetch API provides an interface for fetching resources (including across the network). It is a more powerful and flexible replacement for XMLHttpRequest.'
+        description:
+          'The Fetch API provides an interface for fetching resources (including across the network). It is a more powerful and flexible replacement for XMLHttpRequest.'
       },
       {
         title: 'Using the Fetch API - MDN Web Docs',
         url: 'https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch',
-        description: 'The Fetch API provides a JavaScript interface for making HTTP requests and processing the responses. Fetch is the modern replacement for XMLHttpRequest.'
+        description:
+          'The Fetch API provides a JavaScript interface for making HTTP requests and processing the responses. Fetch is the modern replacement for XMLHttpRequest.'
       },
       {
         title: 'Request - Web APIs - MDN Web Docs',
         url: 'https://developer.mozilla.org/en-US/docs/Web/API/Request',
-        description: 'The Request interface of the Fetch API represents a resource request. You can create a new Request object using the Request() constructor.'
+        description:
+          'The Request interface of the Fetch API represents a resource request. You can create a new Request object using the Request() constructor.'
       },
       {
         title: 'Using Deferred Fetch - Web APIs | MDN',
         url: 'https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Deferred_Fetch',
-        description: 'The fetchLater() API extends the Fetch API to allow setting fetch requests up in advance. These deferred fetches can be updated before they have ...'
+        description:
+          'The fetchLater() API extends the Fetch API to allow setting fetch requests up in advance. These deferred fetches can be updated before they have ...'
       },
       {
         title: 'Response - Web APIs - MDN Web Docs - Mozilla',
         url: 'https://developer.mozilla.org/en-US/docs/Web/API/Response',
-        description: 'The Response interface of the Fetch API represents the response to a request. You can create a new Response object using the Response() constructor.'
+        description:
+          'The Response interface of the Fetch API represents the response to a request. You can create a new Response object using the Response() constructor.'
       },
       {
         title: 'Window: fetch() method - Web APIs | MDN',
         url: 'https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch',
-        description: 'The fetch() method of the Window interface starts the process of fetching a resource from the network, returning a promise that is fulfilled once the response ...'
+        description:
+          'The fetch() method of the Window interface starts the process of fetching a resource from the network, returning a promise that is fulfilled once the response ...'
       },
       {
         title: 'Background Fetch API - MDN Web Docs',
         url: 'https://developer.mozilla.org/en-US/docs/Web/API/Background_Fetch_API',
-        description: 'The Background Fetch API provides a method for managing downloads that may take a significant amount of time such as movies, audio files, ...'
+        description:
+          'The Background Fetch API provides a method for managing downloads that may take a significant amount of time such as movies, audio files, ...'
       },
       {
         title: 'Web APIs - MDN Web Docs - Mozilla',
         url: 'https://developer.mozilla.org/en-US/docs/Web/API',
-        description: 'Below is a list of all the APIs and interfaces (object types) that you may be able to use while developing your Web app or site.'
+        description:
+          'Below is a list of all the APIs and interfaces (object types) that you may be able to use while developing your Web app or site.'
       },
       {
         title: 'ServiceWorkerGlobalScope: fetch event - Web APIs | MDN',
         url: 'https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/fetch_event',
-        description: "The fetch event of the ServiceWorkerGlobalScope interface is fired in the service worker's global scope when the main app thread makes a network request."
+        description:
+          "The fetch event of the ServiceWorkerGlobalScope interface is fired in the service worker's global scope when the main app thread makes a network request."
       },
       {
         title: 'WorkerGlobalScope: fetch() method - Web APIs | MDN',
         url: 'https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/fetch',
-        description: 'The fetch() method of the WorkerGlobalScope interface starts the process of fetching a resource from the network, returning a promise that is fulfilled once ...'
+        description:
+          'The fetch() method of the WorkerGlobalScope interface starts the process of fetching a resource from the network, returning a promise that is fulfilled once ...'
       }
     ]
   },
   news: {
-    code: `'use strict'
-
-import createGoogleClient from '@microlink/google'
-
-const google = createGoogleClient({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('openai api developers', {
-  type: 'news'
-})
-
-console.log(page)`,
+    code: `const page = await google(
+  'openai api developers',
+  { type: 'news' }
+)`,
     payload: [
       {
         title: 'Introducing GPT‑5 for developers',
@@ -89,27 +81,32 @@ console.log(page)`,
         date: '2025-08-07T12:00:00.000Z',
         publisher: 'OpenAI',
         url: 'https://openai.com/index/introducing-gpt-5-for-developers/',
-        description: 'Introducing GPT-5 in our API platform—offering high reasoning performance, new controls for devs, and best-in-class results on real coding...'
+        description:
+          'Introducing GPT-5 in our API platform—offering high reasoning performance, new controls for devs, and best-in-class results on real coding...'
       },
       {
-        title: 'OpenAI ramps up developer push with more powerful models in its API',
+        title:
+          'OpenAI ramps up developer push with more powerful models in its API',
         image: {
           url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlKq3q8yfYDgMWgqE1cYeBYs349foELdbm8ZTN-v6k6BUgSzpKOV6m8e8&usqp=CAI&s'
         },
         date: '2025-10-06T12:00:00.000Z',
         publisher: 'TechCrunch',
         url: 'https://techcrunch.com/2025/10/06/openai-ramps-up-developer-push-with-more-powerful-models-in-its-api/',
-        description: 'OpenAI ramps up developer push with more powerful models in its API ... OpenAI unveiled new API updates at its Dev Day on Monday, introducing GPT-...'
+        description:
+          'OpenAI ramps up developer push with more powerful models in its API ... OpenAI unveiled new API updates at its Dev Day on Monday, introducing GPT-...'
       },
       {
-        title: 'OpenAI upgrades its Responses API to support agent skills and a complete terminal shell',
+        title:
+          'OpenAI upgrades its Responses API to support agent skills and a complete terminal shell',
         image: {
           url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLz8IpRfb_2vSzFy5Y79w7TKEkj59OI-8TOAYWTJmOI7T2Qq-fSQroWis&usqp=CAI&s'
         },
         date: '2026-02-21T11:21:43.477Z',
         publisher: 'VentureBeat',
         url: 'https://venturebeat.com/orchestration/openai-upgrades-its-responses-api-to-support-agent-skills-and-a-complete',
-        description: 'Until recently, the practice of building AI agents has been a bit like training a long-distance runner with a thirty-second memory.'
+        description:
+          'Until recently, the practice of building AI agents has been a bit like training a long-distance runner with a thirty-second memory.'
       },
       {
         title: 'OpenAI brings GPT-5.2 Codex to developers via API',
@@ -119,37 +116,44 @@ console.log(page)`,
         date: '2026-01-16T12:00:00.000Z',
         publisher: 'Techzine Global',
         url: 'https://www.techzine.eu/news/devops/137999/openai-brings-gpt-5-2-codex-to-developers-via-api/',
-        description: "The move to make GPT-5.2-Codex available via an API underscores OpenAI's focus on developers and professional applications. Whereas the company..."
+        description:
+          "The move to make GPT-5.2-Codex available via an API underscores OpenAI's focus on developers and professional applications. Whereas the company..."
       },
       {
-        title: 'From model to agent: Equipping the Responses API with a computer environment',
+        title:
+          'From model to agent: Equipping the Responses API with a computer environment',
         image: {
           url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbGyZuLJFf1JdFJnnznPGOv-g6qDQQtevJcWD9cdNz3DYGpknhJ-hrvoM&usqp=CAI&s'
         },
         date: '2026-03-14T11:21:43.478Z',
         publisher: 'OpenAI',
         url: 'https://openai.com/index/equip-responses-api-computer-environment/',
-        description: 'How OpenAI built an agent runtime using the Responses API, shell tool, and hosted containers to run secure, scalable agents with files,...'
+        description:
+          'How OpenAI built an agent runtime using the Responses API, shell tool, and hosted containers to run secure, scalable agents with files,...'
       },
       {
-        title: 'OpenAI opens GPT-5.2 Codex to developers through the Responses API',
+        title:
+          'OpenAI opens GPT-5.2 Codex to developers through the Responses API',
         image: {
           url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiH_kOOF7jNdSmBAIa95OA4DVwRrhktFWiGr7PAi8YoZCtADBICezaOtY&usqp=CAI&s'
         },
         date: '2026-01-14T12:00:00.000Z',
         publisher: 'The Decoder',
         url: 'https://the-decoder.com/openai-opens-gpt-5-2-codex-to-developers-through-the-responses-api/',
-        description: 'Pricing comes in at $1.75 per million input tokens and $14 per million output tokens, a notable increase from earlier GPT-5 Codex models, which...'
+        description:
+          'Pricing comes in at $1.75 per million input tokens and $14 per million output tokens, a notable increase from earlier GPT-5 Codex models, which...'
       },
       {
-        title: 'Gemini Batch API now supports Embeddings and OpenAI Compatibility',
+        title:
+          'Gemini Batch API now supports Embeddings and OpenAI Compatibility',
         image: {
           url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC4WGzjeur2bgyLLqOdEzHZzqYlBlNNjy0wC748QLaveBpqlDX3djjUE0&usqp=CAI&s'
         },
         date: '2025-09-10T12:00:00.000Z',
         publisher: 'blog.google',
         url: 'https://developers.googleblog.com/en/gemini-batch-api-now-supports-embeddings-and-openai-compatibility/',
-        description: 'Today we are extending the Gemini Batch API to support the newly launched Gemini Embedding model as well as offering developers the ability...'
+        description:
+          'Today we are extending the Gemini Batch API to support the newly launched Gemini Embedding model as well as offering developers the ability...'
       },
       {
         title: 'OpenAI makes Sora 2 models available to developers via API',
@@ -159,17 +163,20 @@ console.log(page)`,
         date: '2025-10-07T12:00:00.000Z',
         publisher: 'Neowin',
         url: 'https://www.neowin.net/news/openai-makes-sora-2-models-available-to-developers-via-api/',
-        description: 'OpenAI has released its advanced Sora 2 and Sora 2 Pro video generation models, making them accessible to developers via an API. · Create video:...'
+        description:
+          'OpenAI has released its advanced Sora 2 and Sora 2 Pro video generation models, making them accessible to developers via an API. · Create video:...'
       },
       {
-        title: "Why Google's new Interactions API is such a big deal for AI developers",
+        title:
+          "Why Google's new Interactions API is such a big deal for AI developers",
         image: {
           url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsDSdkuxQwnEPcc_RssCoi7bQipQPPBMvVJU2eSo4yOOeiyM0WqshXQ5U&usqp=CAI&s'
         },
         date: '2025-12-17T12:00:00.000Z',
         publisher: 'VentureBeat',
         url: 'https://venturebeat.com/infrastructure/why-googles-new-interactions-api-is-such-a-big-deal-for-ai-developers',
-        description: 'For the last two years, the fundamental unit of generative AI development has been the "completion." You send a text prompt to a model,...'
+        description:
+          'For the last two years, the fundamental unit of generative AI development has been the "completion." You send a text prompt to a model,...'
       },
       {
         title: 'Introducing GPT-5.1 for developers',
@@ -179,24 +186,16 @@ console.log(page)`,
         date: '2025-11-13T12:00:00.000Z',
         publisher: 'OpenAI',
         url: 'https://openai.com/index/gpt-5-1-for-developers/',
-        description: 'GPT-5.1 is now available in the API, bringing faster adaptive reasoning, extended prompt caching, improved coding performance,...'
+        description:
+          'GPT-5.1 is now available in the API, bringing faster adaptive reasoning, extended prompt caching, improved coding performance,...'
       }
     ]
   },
   images: {
-    code: `'use strict'
-
-import createGoogleClient from '@microlink/google'
-
-const google = createGoogleClient({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('kubernetes architecture diagram', {
-  type: 'images'
-})
-
-console.log(page)`,
+    code: `const page = await google(
+  'kubernetes architecture diagram',
+  { type: 'images' }
+)`,
     payload: [
       {
         title: 'Cluster Architecture | Kubernetes',
@@ -371,19 +370,10 @@ console.log(page)`,
     ]
   },
   videos: {
-    code: `'use strict'
-
-import createGoogleClient from '@microlink/google'
-
-const google = createGoogleClient({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('node.js streams tutorial', {
-  type: 'videos'
-})
-
-console.log(page)`,
+    code: `const page = await google(
+  'node.js streams tutorial',
+  { type: 'videos' }
+)`,
     payload: [
       {
         title: 'Learn Node.js Streams in 25 minutes | NodeJS Tutorials for ...',
@@ -393,7 +383,8 @@ console.log(page)`,
         },
         date: '2024-08-22T12:00:00.000Z',
         url: 'https://www.youtube.com/watch?v=EcznOgzOdxI',
-        description: 'In this video we will understand what are streams, types of streams and their uses in Node.js ? You will learn how to create Readable, ...',
+        description:
+          'In this video we will understand what are streams, types of streams and their uses in Node.js ? You will learn how to create Readable, ...',
         publisher: 'YouTube',
         duration: 1502000,
         duration_pretty: '25m'
@@ -406,7 +397,8 @@ console.log(page)`,
         },
         date: '2024-04-22T12:00:00.000Z',
         url: 'https://www.youtube.com/watch?v=edB964-YYpE',
-        description: 'Streams are the lifeblood of many Node.js applications, enabling efficient data processing and manipulation. But their evolution has been ...',
+        description:
+          'Streams are the lifeblood of many Node.js applications, enabling efficient data processing and manipulation. But their evolution has been ...',
         publisher: 'YouTube',
         duration: 4546000,
         duration_pretty: '1h'
@@ -419,7 +411,8 @@ console.log(page)`,
         },
         date: '2022-05-24T12:00:00.000Z',
         url: 'https://www.youtube.com/watch?v=BdePYKgrMh0',
-        description: "Hello, my friend. I'm Erick Wendel and welcome to one of the most important videos on this channel. Today is the #NodejsStreams day, ...",
+        description:
+          "Hello, my friend. I'm Erick Wendel and welcome to one of the most important videos on this channel. Today is the #NodejsStreams day, ...",
         publisher: 'YouTube',
         duration: 2690000,
         duration_pretty: '45m'
@@ -432,7 +425,8 @@ console.log(page)`,
         },
         date: '2025-03-24T12:00:00.000Z',
         url: 'https://www.youtube.com/watch?v=eTWWHB_iDjM',
-        description: 'Node.js Streams Explained Like Never Before! Streams are one of the most powerful and important concepts in Node.js, allowing you to ...',
+        description:
+          'Node.js Streams Explained Like Never Before! Streams are one of the most powerful and important concepts in Node.js, allowing you to ...',
         publisher: 'YouTube',
         duration: 545000,
         duration_pretty: '9m'
@@ -448,7 +442,8 @@ console.log(page)`,
         },
         date: '2017-01-27T12:00:00.000Z',
         url: 'https://www.youtube.com/watch?v=YpVDaVufDVU',
-        description: 'Learn more advanced front-end and full-stack development at: https://www.fullstackacademy.com Streams are the basic I/O of node processes.',
+        description:
+          'Learn more advanced front-end and full-stack development at: https://www.fullstackacademy.com Streams are the basic I/O of node processes.',
         publisher: 'YouTube',
         duration: 823000,
         duration_pretty: '14m'
@@ -461,7 +456,8 @@ console.log(page)`,
         },
         date: '2016-06-04T12:00:00.000Z',
         url: 'https://www.youtube.com/watch?v=GlybFFMXXmQ',
-        description: "Alright gang, in this node js tutorial I'll show you how streams and buffers work, so that we're fully prepared to use them within our node ...",
+        description:
+          "Alright gang, in this node js tutorial I'll show you how streams and buffers work, so that we're fully prepared to use them within our node ...",
         publisher: 'YouTube',
         duration: 276000,
         duration_pretty: '5m'
@@ -477,13 +473,15 @@ console.log(page)`,
         },
         date: '2016-06-04T12:00:00.000Z',
         url: 'https://www.youtube.com/watch?v=E3tTzx0Qoj0',
-        description: "Hey gang, in this tutorial I'll show you how we can create a readable stream and use it to read data / files. Using a readable stream means ...",
+        description:
+          "Hey gang, in this tutorial I'll show you how we can create a readable stream and use it to read data / files. Using a readable stream means ...",
         publisher: 'YouTube',
         duration: 505000,
         duration_pretty: '8m'
       },
       {
-        title: 'Node.js Stream Tutorial - The Power and Simplicity of Node.js ...',
+        title:
+          'Node.js Stream Tutorial - The Power and Simplicity of Node.js ...',
         channel: 'Fullstack Academy',
         image: {
           url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy295dFt5c7V9Vddt7xJkbZit-QZpfw-hrpyUwC79729XutRtXzlYAhg&s'
@@ -493,7 +491,8 @@ console.log(page)`,
         },
         date: '2016-03-09T12:00:00.000Z',
         url: 'https://www.youtube.com/watch?v=GpGTYp_G9VE',
-        description: 'Learn more advanced front-end and full-stack development at: https://www.fullstackacademy.com In this Node.js Stream Tutorial, ...',
+        description:
+          'Learn more advanced front-end and full-stack development at: https://www.fullstackacademy.com In this Node.js Stream Tutorial, ...',
         publisher: 'YouTube',
         duration: 603000,
         duration_pretty: '10m'
@@ -506,7 +505,8 @@ console.log(page)`,
         },
         date: '2022-12-29T12:00:00.000Z',
         url: 'https://www.youtube.com/watch?v=qnzC6vpBuxw',
-        description: 'Syncfusion components: https://syncf.co/3Emhvnv Courses - https://learn.codevolution.dev/ Support UPI ...',
+        description:
+          'Syncfusion components: https://syncf.co/3Emhvnv Courses - https://learn.codevolution.dev/ Support UPI ...',
         publisher: 'YouTube',
         duration: 444000,
         duration_pretty: '7m'
@@ -522,7 +522,8 @@ console.log(page)`,
         },
         date: '2016-06-06T12:00:00.000Z',
         url: 'https://www.youtube.com/watch?v=DvlCT0N7yQI',
-        description: "Hey gang, in this node js tutorial I'll show you how we can write data from our read stream, into a writable stream. This is useful for ...",
+        description:
+          "Hey gang, in this node js tutorial I'll show you how we can write data from our read stream, into a writable stream. This is useful for ...",
         publisher: 'YouTube',
         duration: 310000,
         duration_pretty: '5m'
@@ -530,19 +531,10 @@ console.log(page)`,
     ]
   },
   places: {
-    code: `'use strict'
-
-import createGoogleClient from '@microlink/google'
-
-const google = createGoogleClient({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('coworking space barcelona', {
-  type: 'places'
-})
-
-console.log(page)`,
+    code: `const page = await google(
+  'coworking space barcelona',
+  { type: 'places' }
+)`,
     payload: [
       {
         title: 'Betahaus | Coworking Barcelona',
@@ -647,19 +639,10 @@ console.log(page)`,
     ]
   },
   maps: {
-    code: `'use strict'
-
-import createGoogleClient from '@microlink/google'
-
-const google = createGoogleClient({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('software engineering conferences madrid', {
-  type: 'maps'
-})
-
-console.log(page)`,
+    code: `const page = await google(
+  'software engineering conferences madrid',
+  { type: 'maps' }
+)`,
     payload: [
       {
         title: 'Madrid',
@@ -678,22 +661,14 @@ console.log(page)`,
     ]
   },
   shopping: {
-    code: `'use strict'
-
-import createGoogleClient from '@microlink/google'
-
-const google = createGoogleClient({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('ergonomic mechanical keyboard', {
-  type: 'shopping'
-})
-
-console.log(page)`,
+    code: `const page = await google(
+  'ergonomic mechanical keyboard',
+  { type: 'shopping' }
+)`,
     payload: [
       {
-        title: 'Split Ergonomic Mechanical Keyboard – For Peak Gaming & Productivity, Purple & Black',
+        title:
+          'Split Ergonomic Mechanical Keyboard – For Peak Gaming & Productivity, Purple & Black',
         image: {
           url: 'data:image/webp;base...'
         },
@@ -958,7 +933,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'Split Ergonomic Mechanical Keyboard – For Peak Gaming & Productivity Purple & Black',
+        title:
+          'Split Ergonomic Mechanical Keyboard – For Peak Gaming & Productivity Purple & Black',
         image: {
           url: 'data:image/webp;base...'
         },
@@ -1025,7 +1001,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'Advantage360 Signature Series Pro Bluetooth Black Kailh PBT QWERTY White',
+        title:
+          'Advantage360 Signature Series Pro Bluetooth Black Kailh PBT QWERTY White',
         image: {
           url: 'data:image/webp;base...'
         },
@@ -1051,7 +1028,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'NocFree Wireless Ergonomic Split Mechanical Keyboard - Tactile, Hot-Swappable, Compact 60% Layout, Programmable for Mac & Windows, PBT Keycaps(Standar',
+        title:
+          'NocFree Wireless Ergonomic Split Mechanical Keyboard - Tactile, Hot-Swappable, Compact 60% Layout, Programmable for Mac & Windows, PBT Keycaps(Standar',
         image: {
           url: 'data:image/webp;base...'
         },
@@ -1131,7 +1109,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'QK Alice Duo - Ergonomic Alice Mechanical Keyboard Split Alice Layout Anodized Lilac',
+        title:
+          'QK Alice Duo - Ergonomic Alice Mechanical Keyboard Split Alice Layout Anodized Lilac',
         image: {
           url: 'data:image/webp;base...'
         },
@@ -1198,7 +1177,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'Dareu DK100 Mechanical Keyboard 87 Key Full Key Without Conflict Black Switch Full Mechanical Keys Ergonomics Quick Response',
+        title:
+          'Dareu DK100 Mechanical Keyboard 87 Key Full Key Without Conflict Black Switch Full Mechanical Keys Ergonomics Quick Response',
         image: {
           url: 'data:image/webp;base...'
         },
@@ -1247,7 +1227,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'RK Royal KLUDGE A72 Alice Layout Ergonomic Wireless Mechanical Keyboard',
+        title:
+          'RK Royal KLUDGE A72 Alice Layout Ergonomic Wireless Mechanical Keyboard',
         image: {
           url: 'data:image/webp;base...'
         },
@@ -1314,7 +1295,8 @@ console.log(page)`,
         }
       },
       {
-        title: "Ergonomic sturdy UltraThin 78 Keys Mechanical Keyboard PC Laptops Black, Men's, Size: Small",
+        title:
+          "Ergonomic sturdy UltraThin 78 Keys Mechanical Keyboard PC Laptops Black, Men's, Size: Small",
         image: {
           url: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQEAfFfN4Rr9cibAM05y-n3Bpqxwmd5wI1UXWUtyMzBpRI4M23qUE87he0VV5jpFurBKwQ7sxrNVmDhooWcX0IfoMgrAgkm6VH-jHGfCDNp1rK9omIdd6d2'
         },
@@ -1376,7 +1358,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'RKS70 Ergonomic Split Mechanical Keyboard, Wireless Bluetooth/2.4G/Wired Keyboard with Wrist Rest, 75% RGB PC Gaming Keyboards for Win/Mac, Hot Swappa',
+        title:
+          'RKS70 Ergonomic Split Mechanical Keyboard, Wireless Bluetooth/2.4G/Wired Keyboard with Wrist Rest, 75% RGB PC Gaming Keyboards for Win/Mac, Hot Swappa',
         image: {
           url: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSmdyhHNXHgN7IQ21evq6tVKDV-_0zHH-wMX9PL-WXmR3FqYcQ-cQietPC6LfzyGTYjb_3dzpANQ1r9iPCY3sx9aRfvyeYJl-k3Y9Amnya3'
         },
@@ -1389,7 +1372,8 @@ console.log(page)`,
         }
       },
       {
-        title: '69 Key Ergonomic Mechanical Gaming Keyboard USB C Detachable Cable 18 RGB Backlight Modes Silent Office Design Anti Ghosting For PC Mac, Size:',
+        title:
+          '69 Key Ergonomic Mechanical Gaming Keyboard USB C Detachable Cable 18 RGB Backlight Modes Silent Office Design Anti Ghosting For PC Mac, Size:',
         image: {
           url: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQeLczF6NjlbPVijuL01J8rREOLGwGLwOvn7vAp25qZuHWJK5X40D2z_lBi_T9y4_fq0-FoXqnerBVEKVNxvxIUzhiMPgUea09tNSR5FwWovJ0JMbUaIuhUkw'
         },
@@ -1451,7 +1435,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'M MAKETHEONE Ergonomic Mechanical Keyboard, X-Bows Butterfly Layout Mech Keebs, USB-C Wired 80% Ergo KB with Quiet and Linear Red Switches for Desktop',
+        title:
+          'M MAKETHEONE Ergonomic Mechanical Keyboard, X-Bows Butterfly Layout Mech Keebs, USB-C Wired 80% Ergo KB with Quiet and Linear Red Switches for Desktop',
         image: {
           url: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTLhfN2DBNsuS5piDMiy13GQuA30VVXPQZ6ODSdEbBK0QFiU5unaskXzS2U5hofEPVinWWn0ZBiTs1GbXxRpFR9hDw-K67tGi1V55H9aoiW08l5-Uvz65Ph'
         },
@@ -1508,7 +1493,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'Cute Ergonomic Keyboard Backlit Mechanical Keyboard Set Gaming Mouse and Multimedia Functions',
+        title:
+          'Cute Ergonomic Keyboard Backlit Mechanical Keyboard Set Gaming Mouse and Multimedia Functions',
         image: {
           url: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQyItb1IVJtq7XVtH0cc6xvIndjbRr6oS22Ha3ACKnrXDcqvR0ePX-dGKZeOgaNwbtk7kmsPXLd-BeYk-fL8BSBToaQg4dwqw'
         },
@@ -1539,7 +1525,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'Silakka54 Split Keyboard Ergonomic Split Customization ZMK Hot Swappable Left and Right Keyboards, Use Nice! As The Main Controller, NanoV2 Supports',
+        title:
+          'Silakka54 Split Keyboard Ergonomic Split Customization ZMK Hot Swappable Left and Right Keyboards, Use Nice! As The Main Controller, NanoV2 Supports',
         image: {
           url: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTAfPebCHMYZfL0IlWU8PVaPXi8MmYxhgk1U8cenypn0MuNp-jgdgRdsltKe_7bXsUzQ2KnRWguZtCeL-4jv6Bhi4oiFdEhFuuZ35BjE-0GeDL8e0NG3SO4'
         },
@@ -1570,7 +1557,8 @@ console.log(page)`,
         }
       },
       {
-        title: '[In Stock] CK Alice Ergonomics Wired Mechanical Keyboard Kit Glass Green / Yes',
+        title:
+          '[In Stock] CK Alice Ergonomics Wired Mechanical Keyboard Kit Glass Green / Yes',
         image: {
           url: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTFjju3hRYTgJwQIPjtISMqz0lZvBLnNw-1Jpug-MEpi5zCa2YdUeq7b8pI6OpOXJyY0BIqsoMaM6YrCxz3iCcrk_ERah-Yvzx1FBOPMhirID_wqV0yHOEw'
         },
@@ -1585,19 +1573,10 @@ console.log(page)`,
     ]
   },
   scholar: {
-    code: `'use strict'
-
-import createGoogleClient from '@microlink/google'
-
-const google = createGoogleClient({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('attention is all you need transformer', {
-  type: 'scholar'
-})
-
-console.log(page)`,
+    code: `const page = await google(
+  'attention is all you need transformer',
+  { type: 'scholar' }
+)`,
     payload: [
       {
         title: 'Attention is all you need',
@@ -1607,41 +1586,52 @@ console.log(page)`,
           url: 'https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf'
         },
         url: 'https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html',
-        description: '… work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention … , we will describe the Transformer, motivate self-attention and …',
-        publisher: 'A Vaswani, N Shazeer, N Parmar… - Advances in neural …, 2017 - proceedings.neurips.cc',
+        description:
+          '… work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention … , we will describe the Transformer, motivate self-attention and …',
+        publisher:
+          'A Vaswani, N Shazeer, N Parmar… - Advances in neural …, 2017 - proceedings.neurips.cc',
         citations: 237401
       },
       {
-        title: 'Attention is all you need: An interpretable transformer-based asset allocation approach',
+        title:
+          'Attention is all you need: An interpretable transformer-based asset allocation approach',
         year: 2023,
         id: 'jNUTQ2zkN9AJ',
         url: 'https://www.sciencedirect.com/science/article/pii/S1057521923003927',
-        description: '… Chinese stock market, we propose a return-risk trade-off strategy via a new transformer model. The empirical findings show that these updates, such as the self-attention mechanism in …',
-        publisher: 'T Ma, W Wang, Y Chen - International Review of Financial Analysis, 2023 - Elsevier',
+        description:
+          '… Chinese stock market, we propose a return-risk trade-off strategy via a new transformer model. The empirical findings show that these updates, such as the self-attention mechanism in …',
+        publisher:
+          'T Ma, W Wang, Y Chen - International Review of Financial Analysis, 2023 - Elsevier',
         citations: 50
       },
       {
-        title: 'Spectformer: Frequency and attention is what you need in a vision transformer',
+        title:
+          'Spectformer: Frequency and attention is what you need in a vision transformer',
         year: 2025,
         id: 'GmB9gVn1UI8J',
         pdf: {
           url: 'https://arxiv.org/pdf/2304.06446'
         },
         url: 'https://ieeexplore.ieee.org/abstract/document/10943595/',
-        description: '… work, we aim to specifically analyse the transformer for the … They do use self-attention in deeper layers to capture longer … transformers, we developed SpectFormer, a new transformer …',
-        publisher: 'BN Patro, VP Namboodiri… - 2025 IEEE/CVF winter …, 2025 - ieeexplore.ieee.org',
+        description:
+          '… work, we aim to specifically analyse the transformer for the … They do use self-attention in deeper layers to capture longer … transformers, we developed SpectFormer, a new transformer …',
+        publisher:
+          'BN Patro, VP Namboodiri… - 2025 IEEE/CVF winter …, 2025 - ieeexplore.ieee.org',
         citations: 188
       },
       {
-        title: 'Cross-attention is all you need: Adapting pretrained transformers for machine translation',
+        title:
+          'Cross-attention is all you need: Adapting pretrained transformers for machine translation',
         year: 2021,
         id: 'UYb-m2T5pXAJ',
         pdf: {
           url: 'https://aclanthology.org/2021.emnlp-main.132.pdf'
         },
         url: 'https://aclanthology.org/2021.emnlp-main.132/',
-        description: '… We study the power of cross-attention in the Transformer architecture within the context of … the findings of studies into crossattention when training from scratch. We conduct a series of …',
-        publisher: 'M Gheini, X Ren, J May - Proceedings of the 2021 conference on …, 2021 - aclanthology.org',
+        description:
+          '… We study the power of cross-attention in the Transformer architecture within the context of … the findings of studies into crossattention when training from scratch. We conduct a series of …',
+        publisher:
+          'M Gheini, X Ren, J May - Proceedings of the 2021 conference on …, 2021 - aclanthology.org',
         citations: 227
       },
       {
@@ -1652,44 +1642,55 @@ console.log(page)`,
           url: 'https://arxiv.org/pdf/2010.13154'
         },
         url: 'https://ieeexplore.ieee.org/abstract/document/9413901/',
-        description: '… Transformers are emerging as a natural alternative to standard RNNs, replacing recurrent … attention mechanism. In this paper, we propose the SepFormer, a novel RNN-free Transformer…',
-        publisher: 'C Subakan, M Ravanelli, S Cornell… - ICASSP 2021-2021 …, 2021 - ieeexplore.ieee.org',
+        description:
+          '… Transformers are emerging as a natural alternative to standard RNNs, replacing recurrent … attention mechanism. In this paper, we propose the SepFormer, a novel RNN-free Transformer…',
+        publisher:
+          'C Subakan, M Ravanelli, S Cornell… - ICASSP 2021-2021 …, 2021 - ieeexplore.ieee.org',
         citations: 996
       },
       {
-        title: 'Linear attention is (maybe) all you need (to understand transformer optimization)',
+        title:
+          'Linear attention is (maybe) all you need (to understand transformer optimization)',
         year: 2023,
         id: 'OO2zcvUpbcAJ',
         pdf: {
           url: 'https://arxiv.org/pdf/2310.01082'
         },
         url: 'https://arxiv.org/abs/2310.01082',
-        description: '… Transformer with twice many heads matches that of linear Transformers; in other words, we need two softmax attention … In Figure 7, we show that linear attention performs significantly …',
-        publisher: 'K Ahn, X Cheng, M Song, C Yun, A Jadbabaie… - arXiv preprint arXiv …, 2023 - arxiv.org',
+        description:
+          '… Transformer with twice many heads matches that of linear Transformers; in other words, we need two softmax attention … In Figure 7, we show that linear attention performs significantly …',
+        publisher:
+          'K Ahn, X Cheng, M Song, C Yun, A Jadbabaie… - arXiv preprint arXiv …, 2023 - arxiv.org',
         citations: 108
       },
       {
-        title: 'Cross attention is all you need: Relational remote sensing change detection with transformer',
+        title:
+          'Cross attention is all you need: Relational remote sensing change detection with transformer',
         year: 2024,
         id: 'TVjWgGIpG7sJ',
         pdf: {
           url: 'https://www.tandfonline.com/doi/pdf/10.1080/15481603.2024.2380126'
         },
         url: 'https://www.tandfonline.com/doi/abs/10.1080/15481603.2024.2380126',
-        description: '… To unify these three modules into a simple pipeline, we introduce relational change detection transformer (RCDT), a novel and simple framework for remote sensing change detection …',
-        publisher: 'K Lu, X Huang, R Xia, P Zhang… - GIScience & Remote …, 2024 - Taylor & Francis',
+        description:
+          '… To unify these three modules into a simple pipeline, we introduce relational change detection transformer (RCDT), a novel and simple framework for remote sensing change detection …',
+        publisher:
+          'K Lu, X Huang, R Xia, P Zhang… - GIScience & Remote …, 2024 - Taylor & Francis',
         citations: 30
       },
       {
-        title: 'Attention is all you need: utilizing attention in AI-enabled drug discovery',
+        title:
+          'Attention is all you need: utilizing attention in AI-enabled drug discovery',
         year: 2024,
         id: '4ZRunyZN6eIJ',
         pdf: {
           url: 'https://academic.oup.com/bib/article-pdf/25/1/bbad467/55123365/bbad467.pdf'
         },
         url: 'https://academic.oup.com/bib/article-abstract/25/1/bbad467/7512647',
-        description: '… Overall, this section underscores the transformative impact of attention mechanisms and the Transformer model in advancing predictive capabilities and understanding complex …',
-        publisher: 'Y Zhang, C Liu, M Liu, T Liu, H Lin… - Briefings in …, 2024 - academic.oup.com',
+        description:
+          '… Overall, this section underscores the transformative impact of attention mechanisms and the Transformer model in advancing predictive capabilities and understanding complex …',
+        publisher:
+          'Y Zhang, C Liu, M Liu, T Liu, H Lin… - Briefings in …, 2024 - academic.oup.com',
         citations: 152
       },
       {
@@ -1700,7 +1701,8 @@ console.log(page)`,
           url: 'https://arxiv.org/pdf/2308.07661'
         },
         url: 'https://arxiv.org/abs/2308.07661',
-        description: '… Transformer with the self-attention mechanism, we train all the models with the same hyperparameters, settings, and training data. By “the same training data”, we mean that not only all …',
+        description:
+          '… Transformer with the self-attention mechanism, we train all the models with the same hyperparameters, settings, and training data. By “the same training data”, we mean that not only all …',
         publisher: 'Z Chen - arXiv preprint arXiv:2308.07661, 2023 - arxiv.org',
         citations: 7
       },
@@ -1712,26 +1714,19 @@ console.log(page)`,
           url: 'https://arxiv.org/pdf/2108.09084'
         },
         url: 'https://arxiv.org/abs/2108.09084',
-        description: '… paper we propose Fastformer1, which is an efficient Transformer variant based on additive attention that … In Fastformer, we first use additive attention mechanism to summarize the input …',
-        publisher: 'C Wu, F Wu, T Qi, Y Huang, X Xie - arXiv preprint arXiv:2108.09084, 2021 - arxiv.org',
+        description:
+          '… paper we propose Fastformer1, which is an efficient Transformer variant based on additive attention that … In Fastformer, we first use additive attention mechanism to summarize the input …',
+        publisher:
+          'C Wu, F Wu, T Qi, Y Huang, X Xie - arXiv preprint arXiv:2108.09084, 2021 - arxiv.org',
         citations: 244
       }
     ]
   },
   patents: {
-    code: `'use strict'
-
-import createGoogleClient from '@microlink/google'
-
-const google = createGoogleClient({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('compiler optimization patent', {
-  type: 'patents'
-})
-
-console.log(page)`,
+    code: `const page = await google(
+  'compiler optimization patent',
+  { type: 'patents' }
+)`,
     payload: [
       {
         title: 'Compiler optimization of coroutines',
@@ -1745,7 +1740,8 @@ console.log(page)`,
           url: 'https://patentimages.storage.googleapis.com/28/a9/bc/bf16a91d8e7db3/US10747511.pdf'
         },
         url: 'https://patents.google.com/patent/US10747511B2/en',
-        description: "As a memory usage optimization, a compiler identifies coroutines whose activation frames can be allocated on a caller's stack instead of allocating the frame on the heap. For example, when the compiler determines that...",
+        description:
+          "As a memory usage optimization, a compiler identifies coroutines whose activation frames can be allocated on a caller's stack instead of allocating the frame on the heap. For example, when the compiler determines that...",
         figures: [
           {
             image: {
@@ -1835,7 +1831,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'Optimization of loops and data flow sections in multi-core processor …',
+        title:
+          'Optimization of loops and data flow sections in multi-core processor …',
         inventor: 'Martin Vorbach',
         assignee: 'Hyperion Core, Inc.',
         language: 'en',
@@ -1846,7 +1843,8 @@ console.log(page)`,
           url: 'https://patentimages.storage.googleapis.com/3f/8e/c9/6cc1b5279f958f/US20200042492A1.pdf'
         },
         url: 'https://patents.google.com/patent/US20200042492A1/en',
-        description: 'The present invention relates to a method for compiling code for a multi-core processor, comprising: detecting and optimizing a loop, partitioning the loop into partitions executable and mappable on physical hardware ...',
+        description:
+          'The present invention relates to a method for compiling code for a multi-core processor, comprising: detecting and optimizing a loop, partitioning the loop into partitions executable and mappable on physical hardware ...',
         figures: [
           {
             image: {
@@ -1961,7 +1959,8 @@ console.log(page)`,
           url: 'https://patentimages.storage.googleapis.com/92/e0/b7/3fcdc7369e31a6/US9678669.pdf'
         },
         url: 'https://patents.google.com/patent/US9678669B2/en',
-        description: 'Designing memory subsystems for integrated circuits can be time-consuming and costly task. To reduce development time and costs, an automated system and method for designing and constructing high-speed memory operatio...',
+        description:
+          'Designing memory subsystems for integrated circuits can be time-consuming and costly task. To reduce development time and costs, an automated system and method for designing and constructing high-speed memory operatio...',
         figures: [
           {
             image: {
@@ -2118,7 +2117,8 @@ console.log(page)`,
           url: 'https://patentimages.storage.googleapis.com/54/69/3f/65091e092877d6/US9734064.pdf'
         },
         url: 'https://patents.google.com/patent/US9734064B2/en',
-        description: 'The invention relates to a multi-core processor system, in particular a single-package multi-core processor system, comprising at least two processor cores, preferably at least four processor cores, each of said a lea...',
+        description:
+          'The invention relates to a multi-core processor system, in particular a single-package multi-core processor system, comprising at least two processor cores, preferably at least four processor cores, each of said a lea...',
         figures: [
           {
             image: {
@@ -2256,7 +2256,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'Optimization for real-time, parallel execution of models for extracting high- …',
+        title:
+          'Optimization for real-time, parallel execution of models for extracting high- …',
         inventor: 'Luis F. Stevens',
         assignee: 'Target Brands, Inc.',
         language: 'en',
@@ -2267,7 +2268,8 @@ console.log(page)`,
           url: 'https://patentimages.storage.googleapis.com/62/78/39/c51cfdfcf2269d/US12008027.pdf'
         },
         url: 'https://patents.google.com/patent/US12008027B2/en',
-        description: 'A computer system identifies high-value information in data streams. The computer system receives a filter graph definition. The filter graph definition includes a plurality of filter nodes, each filter node including...',
+        description:
+          'A computer system identifies high-value information in data streams. The computer system receives a filter graph definition. The filter graph definition includes a plurality of filter nodes, each filter node including...',
         figures: [
           {
             image: {
@@ -2645,7 +2647,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'Optimization for real-time, parallel execution of models for extracting high- …',
+        title:
+          'Optimization for real-time, parallel execution of models for extracting high- …',
         inventor: 'Luis F. Stevens',
         assignee: 'Target Brands, Inc.',
         language: 'en',
@@ -2656,7 +2659,8 @@ console.log(page)`,
           url: 'https://patentimages.storage.googleapis.com/97/cc/11/ffe970c988652b/US11182098.pdf'
         },
         url: 'https://patents.google.com/patent/US11182098B2/en',
-        description: 'A computer system identifies high-value information in data streams. The computer system receives a filter graph definition. The filter graph definition includes a plurality of filter nodes, each filter node including...',
+        description:
+          'A computer system identifies high-value information in data streams. The computer system receives a filter graph definition. The filter graph definition includes a plurality of filter nodes, each filter node including...',
         figures: [
           {
             image: {
@@ -3045,7 +3049,8 @@ console.log(page)`,
           url: 'https://patentimages.storage.googleapis.com/1b/c1/60/f5e1c14c944c3c/KR100878917B1.pdf'
         },
         url: 'https://patents.google.com/patent/KR100878917B1/en',
-        description: 'An object of the present invention is to extract the performance of the HCMP 1 as much as possible in a short time without being aware of the parallelism in accordance with the configuration of the heterogeneous multi...',
+        description:
+          'An object of the present invention is to extract the performance of the HCMP 1 as much as possible in a short time without being aware of the parallelism in accordance with the configuration of the heterogeneous multi...',
         figures: [
           {
             image: {
@@ -3178,7 +3183,8 @@ console.log(page)`,
           url: 'https://patentimages.storage.googleapis.com/15/e2/e1/483ac208b62aa4/US9064099.pdf'
         },
         url: 'https://patents.google.com/patent/US9064099B2/en',
-        description: "Systems and methods are disclosed for protecting a computer program from unauthorized analysis and modification. Obfuscation transformations can be applied to the computer program's local structure, control graph, and...",
+        description:
+          "Systems and methods are disclosed for protecting a computer program from unauthorized analysis and modification. Obfuscation transformations can be applied to the computer program's local structure, control graph, and...",
         figures: [
           {
             image: {
@@ -3596,7 +3602,8 @@ console.log(page)`,
         }
       },
       {
-        title: 'Integrated data processing core and array data processor and method for …',
+        title:
+          'Integrated data processing core and array data processor and method for …',
         inventor: 'Martin Vorbach',
         assignee: 'Pact Xpp Schweiz Ag',
         language: 'en',
@@ -3607,7 +3614,8 @@ console.log(page)`,
           url: 'https://patentimages.storage.googleapis.com/ae/0a/43/dbcff065656c7c/US10579584.pdf'
         },
         url: 'https://patents.google.com/patent/US10579584B2/en',
-        description: 'An integrated data processing core and a data processor are provided on a single integrated circuit and command sequences are forwarded from the data processing core to be executed on the array data processor wherein ...',
+        description:
+          'An integrated data processing core and a data processor are provided on a single integrated circuit and command sequences are forwarded from the data processing core to be executed on the array data processor wherein ...',
         figures: [
           {
             image: {
@@ -4395,13 +4403,15 @@ console.log(page)`,
       {
         title: 'Method of micro specialization in database management system',
         inventor: 'ケイ． デブライ ソーミヤ',
-        assignee: 'ザ アリゾナ ボード オブ リージェンツ オン ビハーフ オブ ザ ユニバーシティー オブ アリゾナ',
+        assignee:
+          'ザ アリゾナ ボード オブ リージェンツ オン ビハーフ オブ ザ ユニバーシティー オブ アリゾナ',
         language: 'en',
         pdf: {
           url: 'https://patentimages.storage.googleapis.com/b7/51/60/ebc4a6f8d27c99/JP6491725B2.pdf'
         },
         url: 'https://patents.google.com/patent/JP6491725B2/en',
-        description: 'A computer-implemented method for implementing dynamic template-based specialization, said method comprising: Providing a function, wherein the function verifies an element of an input tuple value and determines which...',
+        description:
+          'A computer-implemented method for implementing dynamic template-based specialization, said method comprising: Providing a function, wherein the function verifies an element of an input tuple value and determines which...',
         figures: [],
         priority: {
           date: '2011-12-23T00:00:00.000Z'
@@ -4420,19 +4430,10 @@ console.log(page)`,
     ]
   },
   autocomplete: {
-    code: `'use strict'
-
-import createGoogleClient from '@microlink/google'
-
-const google = createGoogleClient({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('javascript debounce', {
-  type: 'autocomplete'
-})
-
-console.log(page)`,
+    code: `const page = await google(
+  'javascript debounce',
+  { type: 'autocomplete' }
+)`,
     payload: [
       {
         value: 'javascript debounce'
