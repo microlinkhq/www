@@ -148,9 +148,15 @@ const buildRequestSnippet = ({ query, options }) => {
     ? options.map(({ key, value }) => `  ${key}: '${value}'`).join(',\n')
     : "  type: 'search'"
 
-  return `const page = await google('${query}', {
+  return `const google = require('@microlink/google')({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+
+const page = await google('${query}', {
 ${serializedOptions}
-})`
+})
+
+console.log(page.results)`
 }
 
 const toPreviewItems = payload => {
@@ -661,7 +667,6 @@ const GOOGLE_VERTICALS = [
   }
 ]
 
-const VERTICAL_REQUEST_CODE_HEIGHT = ['120px', '120px', '120px', '120px']
 const VERTICAL_RESPONSE_HEIGHT = ['476px', '476px', '512px', '552px']
 
 const INTEGRATION_TUTORIAL_STEPS = [
@@ -1213,15 +1218,7 @@ const HeroResultDock = styled(Box)
     display: 'flex',
     flexDirection: 'column'
   })};
-  pointer-events: ${({ $visible }) => ($visible ? 'auto' : 'none')};
-  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
-  transform: translateY(${({ $visible }) => ($visible ? '0' : '8px')});
-  transition: opacity 280ms ease, transform 280ms ease;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: opacity 120ms linear;
-    transform: none;
-  }
+  display: ${({ $visible }) => ($visible ? 'flex' : 'none')};
 `
 
 const HeroResultHeader = styled(Flex).withConfig({
@@ -1808,8 +1805,7 @@ const VerticalExamplePanel = styled(Box).withConfig({
     flexDirection: 'column',
     minHeight: 0,
     borderRadius: 4,
-    overflow: 'hidden',
-    boxShadow: 1
+    overflow: 'hidden'
   })};
 `
 
@@ -1890,7 +1886,7 @@ const VerticalPreviewShell = styled(Box).withConfig({
 })`
   ${theme({
     borderTop: 1,
-    borderTopColor: 'black05',
+    borderTopColor: 'white',
     bg: 'white',
     display: 'flex',
     flexDirection: 'column',
@@ -1925,6 +1921,89 @@ const VerticalPreviewContent = styled(Box).withConfig({
     max-height: none;
     height: auto;
     flex: none;
+  }
+`
+
+const VerticalOutputTabBar = styled(Box)
+  .withConfig({ componentId: 'google__VerticalOutputTabBar' })
+  .attrs({ role: 'tablist' })`
+  ${theme({
+    display: 'flex',
+    width: '100%',
+    bg: 'gray0',
+    flexShrink: 0
+  })};
+`
+
+const VerticalOutputTab = styled('button').withConfig({
+  componentId: 'google__VerticalOutputTab',
+  shouldForwardProp: prop => !['$active'].includes(prop)
+})`
+  ${theme({
+    appearance: 'none',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    minHeight: '44px',
+    px: [2, 3, 3, 4],
+    py: 2,
+    border: 0,
+    borderRight: 1,
+    borderRightColor: 'black10',
+    bg: 'gray0',
+    color: 'black60',
+    fontFamily: 'mono',
+    fontSize: [0, 1, 1, 1],
+    fontWeight: 'normal',
+    letterSpacing: 0,
+    whiteSpace: 'nowrap',
+    cursor: 'pointer',
+    flex: 1,
+    minWidth: 0,
+    position: 'relative'
+  })};
+  ${({ $active }) =>
+    theme({
+      bg: $active ? 'white' : 'gray0',
+      color: $active ? 'black' : 'black60',
+      fontWeight: $active ? 'bold' : 'normal'
+    })};
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color ${transition.short}, color ${transition.short};
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background-color: ${({ $active }) =>
+      $active ? colors.black : 'transparent'};
+    transition: background-color ${transition.short};
+  }
+
+  &:last-child {
+    border-right: 0;
+  }
+
+  &:hover {
+    background-color: ${colors.white};
+    color: ${colors.black};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: -2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &::before {
+      transition: none;
+    }
   }
 `
 
@@ -1987,8 +2066,7 @@ const VerticalTabs = styled(Box).withConfig({
 
 const VerticalTabButton = styled('button').withConfig({
   componentId: 'google__VerticalTabButton',
-  shouldForwardProp: prop =>
-    !['$active', '$activeColor', '$activeTextColor'].includes(prop)
+  shouldForwardProp: prop => !['$active', '$activeColor'].includes(prop)
 })`
   ${theme({
     appearance: 'none',
@@ -2014,20 +2092,13 @@ const VerticalTabButton = styled('button').withConfig({
     cursor: 'pointer',
     flexShrink: 0
   })};
-  ${({ $active }) =>
+  ${({ $active, $activeColor }) =>
     theme({
-      borderColor: $active ? 'black20' : 'black10',
+      borderColor: $active ? $activeColor : 'black10',
       bg: $active ? 'white' : 'gray0',
-      color: $active ? 'black' : 'black80'
+      color: $active ? 'black' : 'black80',
+      fontWeight: $active ? 'bold' : 'normal'
     })};
-  ${({ $active, $activeColor, $activeTextColor }) =>
-    $active
-      ? `
-    border-color: ${colors[$activeColor] || $activeColor};
-    background-color: ${colors[$activeColor] || $activeColor};
-    color: ${colors[$activeTextColor] || $activeTextColor};
-  `
-      : ''};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   transition: color ${transition.short}, border-color ${transition.short},
@@ -2038,13 +2109,13 @@ const VerticalTabButton = styled('button').withConfig({
     background-color: ${colors.white};
     color: ${colors.black};
   }
-  ${({ $active, $activeColor, $activeTextColor }) =>
+  ${({ $active, $activeColor }) =>
     $active
       ? `
     &:hover {
       border-color: ${colors[$activeColor] || $activeColor};
-      background-color: ${colors[$activeColor] || $activeColor};
-      color: ${colors[$activeTextColor] || $activeTextColor};
+      background-color: ${colors.white};
+      color: ${colors.black};
     }
   `
       : ''};
@@ -2403,6 +2474,12 @@ const formatRelativeTime = isoDate => {
   if (months < 12) return `${months}mo ago`
   const years = Math.round(months / 12)
   return `${years}y ago`
+}
+
+const formatCoordinate = (value, positiveLabel, negativeLabel) => {
+  if (typeof value !== 'number') return null
+  const direction = value >= 0 ? positiveLabel : negativeLabel
+  return `${Math.abs(value).toFixed(4)}° ${direction}`
 }
 
 const buildBreadcrumb = url => {
@@ -2931,35 +3008,89 @@ const HeroPlacesListItem = ({ item }) => (
 
 const HeroMapListItem = ({ item }) => (
   <HeroResultListItem>
-    <HeroResultListRow>
-      <Text
-        as='span'
-        css={theme({
-          m: 0,
-          color: 'black',
-          fontSize: [1, 1, 2, 2],
-          fontWeight: 'bold',
-          lineHeight: 1
-        })}
-      >
-        {item.title}
-      </Text>
-      <HeroResultBadgeSmall>map</HeroResultBadgeSmall>
-    </HeroResultListRow>
-    <Text
-      as='p'
-      css={theme({
-        m: 0,
-        color: 'black70',
-        fontSize: [0, 0, 1, 1],
-        lineHeight: 1,
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis'
-      })}
-    >
-      {item.address}
-    </Text>
+    <Box css={theme({ minWidth: 0 })}>
+      <HeroResultListRow>
+        <Text
+          as='span'
+          css={theme({
+            m: 0,
+            color: 'black',
+            fontSize: [1, 1, 2, 2],
+            fontWeight: 'bold',
+            lineHeight: 1,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            minWidth: 0
+          })}
+        >
+          {item.title}
+        </Text>
+        <HeroResultBadgeSmall>map</HeroResultBadgeSmall>
+      </HeroResultListRow>
+
+      {item.address && (
+        <Flex css={theme({ alignItems: 'flex-start', gap: 2, mt: 2 })}>
+          <Text
+            as='p'
+            css={theme({
+              m: 0,
+              color: 'black70',
+              fontSize: [0, 0, 1, 1],
+              lineHeight: 2
+            })}
+          >
+            {item.address}
+          </Text>
+        </Flex>
+      )}
+
+      {(typeof item.latitude === 'number' ||
+        typeof item.longitude === 'number') && (
+        <Box
+          css={theme({
+            mt: 2,
+            p: 2,
+            borderRadius: 3,
+            bg: 'gray0',
+            border: 1,
+            borderColor: 'black05'
+          })}
+        >
+          <Text
+            as='p'
+            css={theme({
+              m: 0,
+              color: 'black50',
+              fontFamily: 'mono',
+              fontSize: [0, 0, 1, 1],
+              fontWeight: 'bold',
+              lineHeight: 1
+            })}
+          >
+            Coordinates
+          </Text>
+          <Flex css={theme({ gap: 2, mt: 2, flexWrap: 'wrap' })}>
+            {typeof item.latitude === 'number' && (
+              <HeroResultBadgeSmall>
+                lat · {formatCoordinate(item.latitude, 'N', 'S')}
+              </HeroResultBadgeSmall>
+            )}
+            {typeof item.longitude === 'number' && (
+              <HeroResultBadgeSmall>
+                lng · {formatCoordinate(item.longitude, 'E', 'W')}
+              </HeroResultBadgeSmall>
+            )}
+          </Flex>
+        </Box>
+      )}
+
+      {item.place?.id && (
+        <HeroResultMeta css={theme({ mt: 2, gap: 1 })}>
+          <HeroResultBadgeSmall>place · {item.place.id}</HeroResultBadgeSmall>
+        </HeroResultMeta>
+      )}
+    </Box>
   </HeroResultListItem>
 )
 
@@ -3316,6 +3447,35 @@ const GooglePage = () => {
     activeVerticalPayload
   )
 
+  const [activeOutputTab, setActiveOutputTab] = useState('json')
+
+  useEffect(() => {
+    setActiveOutputTab('json')
+  }, [activeVerticalId])
+
+  const handleOutputTabSelect = tabId => {
+    setActiveOutputTab(tabId)
+  }
+
+  const handleOutputTabKeyDown = (event, index) => {
+    const tabs = ['json', 'preview']
+    let nextIndex = null
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      nextIndex = (index + 1) % tabs.length
+    }
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      nextIndex = (index - 1 + tabs.length) % tabs.length
+    }
+    if (event.key === 'Home') nextIndex = 0
+    if (event.key === 'End') nextIndex = tabs.length - 1
+    if (nextIndex === null) return
+    event.preventDefault()
+    const nextTabId = tabs[nextIndex]
+    handleOutputTabSelect(nextTabId)
+    const nextTab = document.getElementById(`vertical-output-tab-${nextTabId}`)
+    if (nextTab) nextTab.focus()
+  }
+
   const focusVerticalTab = tabId => {
     const tab = document.getElementById(`google-vertical-chip-${tabId}`)
     if (tab) tab.focus()
@@ -3324,6 +3484,12 @@ const GooglePage = () => {
   const focusHeroExampleTab = tabId => {
     const tab = document.getElementById(`hero-example-tab-${tabId}`)
     if (tab) tab.focus()
+  }
+
+  const selectHeroExample = tabId => {
+    setHeroPhase('typing')
+    setHeroResultCollapsed(false)
+    setActiveHeroExampleId(tabId)
   }
 
   const handleHeroExampleTabKeyDown = (event, index) => {
@@ -3342,7 +3508,7 @@ const GooglePage = () => {
 
     event.preventDefault()
     const nextTabId = HERO_EXAMPLES[nextIndex].id
-    setActiveHeroExampleId(nextTabId)
+    selectHeroExample(nextTabId)
     focusHeroExampleTab(nextTabId)
   }
 
@@ -3533,7 +3699,7 @@ const GooglePage = () => {
                           aria-selected={isActive}
                           aria-controls={`hero-example-panel-${example.id}`}
                           tabIndex={isActive ? 0 : -1}
-                          onClick={() => setActiveHeroExampleId(example.id)}
+                          onClick={() => selectHeroExample(example.id)}
                           onKeyDown={event =>
                             handleHeroExampleTabKeyDown(event, index)
                           }
@@ -3679,7 +3845,6 @@ const GooglePage = () => {
                         type='button'
                         $active={activeVertical.id === vertical.id}
                         $activeColor={vertical.accentColor}
-                        $activeTextColor={vertical.accentTextColor}
                         aria-pressed={activeVertical.id === vertical.id}
                         onClick={() => setActiveVerticalId(vertical.id)}
                         onKeyDown={event =>
@@ -3703,9 +3868,10 @@ const GooglePage = () => {
               <VerticalExampleGrid>
                 <VerticalExamplePanel
                   css={theme({
-                    alignSelf: 'flex-start',
+                    alignSelf: 'stretch',
                     minHeight: 0,
-                    height: VERTICAL_RESPONSE_HEIGHT
+                    height: VERTICAL_RESPONSE_HEIGHT,
+                    justifyContent: 'center'
                   })}
                 >
                   <VerticalPanelHeader>
@@ -3728,7 +3894,15 @@ const GooglePage = () => {
                     </VerticalPanelIntro>
                   </VerticalPanelHeader>
 
-                  <VerticalCodeFrame>
+                  <VerticalCodeFrame
+                    css={theme({
+                      flex: 1,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      minHeight: 0
+                    })}
+                  >
                     <CodeEditor
                       language='javascript'
                       blinkCursor={false}
@@ -3736,64 +3910,17 @@ const GooglePage = () => {
                       showWindowButtons={false}
                       showTitle={false}
                       showAction={false}
+                      showFade={false}
                       css={theme({
                         width: '100%',
-                        height: VERTICAL_REQUEST_CODE_HEIGHT,
+                        height: 'auto',
                         border: 0,
                         borderRadius: 0,
+                        overflow: 'visible',
                         pt: 2
                       })}
                     >
                       {activeVerticalRequestSnippet}
-                    </CodeEditor>
-                  </VerticalCodeFrame>
-
-                  <VerticalCodeFrame
-                    css={theme({
-                      display: 'flex',
-                      flexDirection: 'column',
-                      flex: 1,
-                      minHeight: 0,
-                      height: '100%',
-                      pt: [2, 2, 3, 3],
-                      pb: [2, 2, 3, 3],
-                      px: 0
-                    })}
-                  >
-                    <HeroResultHeader
-                      css={theme({
-                        justifyContent: 'flex-start',
-                        flexShrink: 0,
-                        mx: [2, 2, 3, 3],
-                        borderRadius: 2,
-                        border: 1,
-                        borderColor: 'black05'
-                      })}
-                    >
-                      <HeroResultHeaderLabel>
-                        <HeroResultStatusDot $loading={false} />
-                        JSON · page.results
-                      </HeroResultHeaderLabel>
-                    </HeroResultHeader>
-
-                    <CodeEditor
-                      language='json'
-                      showFade={false}
-                      showHeader={false}
-                      showWindowButtons={false}
-                      showTitle={false}
-                      showAction={false}
-                      css={theme({
-                        width: '100%',
-                        height: '100%',
-                        minHeight: 0,
-                        flex: 1,
-                        border: 0,
-                        borderRadius: 0,
-                        pt: 2
-                      })}
-                    >
-                      {activeVerticalPayloadText}
                     </CodeEditor>
                   </VerticalCodeFrame>
                 </VerticalExamplePanel>
@@ -3802,30 +3929,88 @@ const GooglePage = () => {
                   css={theme({
                     alignSelf: 'flex-start',
                     minHeight: 0,
-                    height: VERTICAL_RESPONSE_HEIGHT
+                    height: VERTICAL_RESPONSE_HEIGHT,
+                    boxShadow: 1
                   })}
                 >
-                  <VerticalPreviewShell>
-                    <HeroResultHeader
+                  <VerticalOutputTabBar aria-label='Output format'>
+                    {[
+                      { id: 'json', label: 'JSON' },
+                      { id: 'preview', label: 'Preview' }
+                    ].map((tab, index) => {
+                      const isActive = activeOutputTab === tab.id
+                      return (
+                        <VerticalOutputTab
+                          key={tab.id}
+                          id={`vertical-output-tab-${tab.id}`}
+                          type='button'
+                          role='tab'
+                          $active={isActive}
+                          aria-selected={isActive}
+                          aria-controls={`vertical-output-panel-${tab.id}`}
+                          tabIndex={isActive ? 0 : -1}
+                          onClick={() => handleOutputTabSelect(tab.id)}
+                          onKeyDown={event =>
+                            handleOutputTabKeyDown(event, index)
+                          }
+                        >
+                          {tab.label}
+                        </VerticalOutputTab>
+                      )
+                    })}
+                  </VerticalOutputTabBar>
+
+                  {activeOutputTab === 'json' ? (
+                    <VerticalCodeFrame
+                      id='vertical-output-panel-json'
+                      role='tabpanel'
+                      aria-labelledby='vertical-output-tab-json'
                       css={theme({
-                        justifyContent: 'flex-start',
-                        flexShrink: 0
+                        display: 'flex',
+                        flexDirection: 'column',
+                        flex: 1,
+                        minHeight: 0,
+                        height: '100%',
+                        pt: [2, 2, 3, 3],
+                        pb: [2, 2, 3, 3],
+                        px: 0
                       })}
                     >
-                      <HeroResultHeaderLabel>
-                        <HeroResultStatusDot $loading={false} />
-                        Preview · page.results
-                      </HeroResultHeaderLabel>
-                    </HeroResultHeader>
-
-                    <VerticalPreviewBody>
-                      <VerticalPreviewContent>
-                        <HeroResultBody css={theme({ py: 0 })}>
-                          <HeroResultCard result={activeVerticalPreview} />
-                        </HeroResultBody>
-                      </VerticalPreviewContent>
-                    </VerticalPreviewBody>
-                  </VerticalPreviewShell>
+                      <CodeEditor
+                        language='json'
+                        showFade={false}
+                        showHeader={false}
+                        showWindowButtons={false}
+                        showTitle={false}
+                        showAction={false}
+                        css={theme({
+                          width: '100%',
+                          height: '100%',
+                          minHeight: 0,
+                          flex: 1,
+                          border: 0,
+                          borderRadius: 0,
+                          pt: 2
+                        })}
+                      >
+                        {activeVerticalPayloadText}
+                      </CodeEditor>
+                    </VerticalCodeFrame>
+                  ) : (
+                    <VerticalPreviewShell
+                      id='vertical-output-panel-preview'
+                      role='tabpanel'
+                      aria-labelledby='vertical-output-tab-preview'
+                    >
+                      <VerticalPreviewBody>
+                        <VerticalPreviewContent>
+                          <HeroResultBody css={theme({ py: 0 })}>
+                            <HeroResultCard result={activeVerticalPreview} />
+                          </HeroResultBody>
+                        </VerticalPreviewContent>
+                      </VerticalPreviewBody>
+                    </VerticalPreviewShell>
+                  )}
                 </VerticalExamplePanel>
               </VerticalExampleGrid>
             </VerticalExampleShell>
