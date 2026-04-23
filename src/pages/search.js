@@ -661,8 +661,7 @@ const GOOGLE_VERTICALS = [
   }
 ]
 
-const VERTICAL_REQUEST_CODE_HEIGHT = ['180px', '180px', '180px', '180px']
-const VERTICAL_PREVIEW_HEIGHT = ['220px', '220px', '240px', '260px']
+const VERTICAL_REQUEST_CODE_HEIGHT = ['120px', '120px', '120px', '120px']
 const VERTICAL_RESPONSE_HEIGHT = ['476px', '476px', '512px', '552px']
 
 const INTEGRATION_TUTORIAL_STEPS = [
@@ -1807,7 +1806,7 @@ const VerticalExamplePanel = styled(Box).withConfig({
     minWidth: 0,
     display: 'flex',
     flexDirection: 'column',
-    minHeight: ['540px', '540px', '560px', '600px'],
+    minHeight: 0,
     borderRadius: 4,
     overflow: 'hidden',
     boxShadow: 1
@@ -1895,7 +1894,8 @@ const VerticalPreviewShell = styled(Box).withConfig({
     bg: 'white',
     display: 'flex',
     flexDirection: 'column',
-    minHeight: VERTICAL_PREVIEW_HEIGHT,
+    height: '100%',
+    minHeight: 0,
     flex: 1,
     minWidth: 0
   })};
@@ -1918,14 +1918,11 @@ const VerticalPreviewContent = styled(Box).withConfig({
   componentId: 'google__VerticalPreviewContent'
 })`
   ${theme({
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    minHeight: 0
+    minWidth: 0
   })};
 
   ${HeroResultList} {
-    max-height: [ '156px', '156px', '172px', '188px' ];
+    max-height: none;
     height: auto;
     flex: none;
   }
@@ -3704,7 +3701,13 @@ const GooglePage = () => {
               </VerticalExampleTopbar>
 
               <VerticalExampleGrid>
-                <VerticalExamplePanel>
+                <VerticalExamplePanel
+                  css={theme({
+                    alignSelf: 'flex-start',
+                    minHeight: 0,
+                    height: VERTICAL_RESPONSE_HEIGHT
+                  })}
+                >
                   <VerticalPanelHeader>
                     <VerticalPanelIntro>
                       {activeVerticalService && (
@@ -3729,6 +3732,7 @@ const GooglePage = () => {
                     <CodeEditor
                       language='javascript'
                       blinkCursor={false}
+                      showHeader={false}
                       showWindowButtons={false}
                       showTitle={false}
                       showAction={false}
@@ -3736,13 +3740,71 @@ const GooglePage = () => {
                         width: '100%',
                         height: VERTICAL_REQUEST_CODE_HEIGHT,
                         border: 0,
-                        borderRadius: 0
+                        borderRadius: 0,
+                        pt: 2
                       })}
                     >
                       {activeVerticalRequestSnippet}
                     </CodeEditor>
                   </VerticalCodeFrame>
 
+                  <VerticalCodeFrame
+                    css={theme({
+                      display: 'flex',
+                      flexDirection: 'column',
+                      flex: 1,
+                      minHeight: 0,
+                      height: '100%',
+                      pt: [2, 2, 3, 3],
+                      pb: [2, 2, 3, 3],
+                      px: 0
+                    })}
+                  >
+                    <HeroResultHeader
+                      css={theme({
+                        justifyContent: 'flex-start',
+                        flexShrink: 0,
+                        mx: [2, 2, 3, 3],
+                        borderRadius: 2,
+                        border: 1,
+                        borderColor: 'black05'
+                      })}
+                    >
+                      <HeroResultHeaderLabel>
+                        <HeroResultStatusDot $loading={false} />
+                        JSON · page.results
+                      </HeroResultHeaderLabel>
+                    </HeroResultHeader>
+
+                    <CodeEditor
+                      language='json'
+                      showFade={false}
+                      showHeader={false}
+                      showWindowButtons={false}
+                      showTitle={false}
+                      showAction={false}
+                      css={theme({
+                        width: '100%',
+                        height: '100%',
+                        minHeight: 0,
+                        flex: 1,
+                        border: 0,
+                        borderRadius: 0,
+                        pt: 2
+                      })}
+                    >
+                      {activeVerticalPayloadText}
+                    </CodeEditor>
+                  </VerticalCodeFrame>
+                </VerticalExamplePanel>
+
+                <VerticalExamplePanel
+                  css={theme({
+                    alignSelf: 'flex-start',
+                    minHeight: 0,
+                    height: VERTICAL_RESPONSE_HEIGHT
+                  })}
+                >
                   <VerticalPreviewShell>
                     <HeroResultHeader
                       css={theme({
@@ -3758,57 +3820,12 @@ const GooglePage = () => {
 
                     <VerticalPreviewBody>
                       <VerticalPreviewContent>
-                        <HeroResultBody
-                          css={theme({
-                            minHeight: '100%',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            flex: 1,
-                            py: 0
-                          })}
-                        >
+                        <HeroResultBody css={theme({ py: 0 })}>
                           <HeroResultCard result={activeVerticalPreview} />
                         </HeroResultBody>
                       </VerticalPreviewContent>
                     </VerticalPreviewBody>
                   </VerticalPreviewShell>
-                </VerticalExamplePanel>
-
-                <VerticalExamplePanel
-                  css={theme({
-                    alignSelf: 'flex-start',
-                    minHeight: 0,
-                    height: VERTICAL_RESPONSE_HEIGHT
-                  })}
-                >
-                  <VerticalCodeFrame
-                    css={theme({
-                      flex: 1,
-                      display: 'flex',
-                      minHeight: 0,
-                      height: '100%',
-                      pt: [2, 2, 3, 3],
-                      pb: [2, 2, 3, 3],
-                      px: 0
-                    })}
-                  >
-                    <CodeEditor
-                      language='json'
-                      showWindowButtons={false}
-                      showTitle={false}
-                      showAction={false}
-                      css={theme({
-                        width: '100%',
-                        height: '100%',
-                        minHeight: 0,
-                        flex: 1,
-                        border: 0,
-                        borderRadius: 0
-                      })}
-                    >
-                      {activeVerticalPayloadText}
-                    </CodeEditor>
-                  </VerticalCodeFrame>
                 </VerticalExamplePanel>
               </VerticalExampleGrid>
             </VerticalExampleShell>
