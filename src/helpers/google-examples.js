@@ -1,7 +1,7 @@
 const GOOGLE_VERTICAL_EXAMPLES = {
   search: {
     code: `const page = await google(
-  'site:developer.mozilla.org fetch api',
+  'site:developer.mozilla.org fetch',
   { type: 'search' }
 )`,
     payload: [
