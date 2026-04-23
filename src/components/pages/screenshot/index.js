@@ -1159,11 +1159,13 @@ export const PreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                {downloaded ? (
-                  <SpinningLoader size={15} />
-                ) : (
-                  <Download size={15} />
-                )}
+                {downloaded
+                  ? (
+                    <SpinningLoader size={15} />
+                    )
+                  : (
+                    <Download size={15} />
+                    )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>

@@ -61,15 +61,15 @@ export const Head = ({ pageContext, location }) => {
       schemaType: isBlogPage ? 'Article' : 'TechArticle',
       authors: isBlogPage
         ? (() => {
-          const authorsByKey = new Map(
-            (authorsData?.allAuthorsYaml?.nodes || []).map(author => [
-              author.key,
-              author.name
-            ])
-          )
-          const authorKeys = frontmatter.authors || []
-          return authorKeys.map(key => authorsByKey.get(key)).filter(Boolean)
-        })()
+            const authorsByKey = new Map(
+              (authorsData?.allAuthorsYaml?.nodes || []).map(author => [
+                author.key,
+                author.name
+              ])
+            )
+            const authorKeys = frontmatter.authors || []
+            return authorKeys.map(key => authorsByKey.get(key)).filter(Boolean)
+          })()
         : undefined
     }
 

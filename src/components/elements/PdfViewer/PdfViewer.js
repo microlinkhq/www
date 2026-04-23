@@ -379,8 +379,7 @@ const PdfViewer = ({
               aria-label='Zoom in'
               disabled={zoomIndex === ZOOM_STEPS.length - 1}
               onClick={() =>
-                setZoomIndex(i => Math.min(ZOOM_STEPS.length - 1, i + 1))
-              }
+                setZoomIndex(i => Math.min(ZOOM_STEPS.length - 1, i + 1))}
             >
               <ZoomIn size={14} />
             </ToolbarButton>
