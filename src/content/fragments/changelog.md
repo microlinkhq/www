@@ -20,7 +20,7 @@
 
 ### December 2025
 
-- [Microlink API](/docs/api/getting-started/overview): Improved infrastructure for transparent [antibot](/blog/antibot-at-scale) resolution.
+- [Microlink API](/docs/api/getting-started/overview): Improved infrastructure for transparent [antibot](/blog/antibot-detection-at-scale) resolution.
 - [Metascraper](https://metascraper.js.org): Improved X integration (formerly Twitter).
 
 ### November 2025
