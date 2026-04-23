@@ -174,16 +174,16 @@ export const NAVIGATION_SECTIONS = [
         icon: MetascraperIcon
       }),
       createNavigationItem({
-        label: 'Google API',
-        href: '/search',
-        description: 'Turn Google results into structured data',
-        icon: SearchIcon
-      }),
-      createNavigationItem({
         label: 'Screenshot',
         href: '/screenshot',
         description: 'Generate pixel-perfect captures for any URL',
         icon: FocusIcon
+      }),
+      createNavigationItem({
+        label: 'Search API',
+        href: '/search',
+        description: 'Turn Google results into structured data',
+        icon: SearchIcon
       }),
       createNavigationItem({
         label: 'PDF',
