@@ -94,9 +94,9 @@ const TerminalButtonRed = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(1),
-            animationDuration
-          }
+          animationDelay: animationDelay(1),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -122,9 +122,9 @@ const TerminalButtonGreen = ({ loading, ...props }) => (
     style={
       loading
         ? {
-            animationDelay: animationDelay(3),
-            animationDuration
-          }
+          animationDelay: animationDelay(3),
+          animationDuration
+        }
         : undefined
     }
     {...props}
@@ -226,6 +226,8 @@ const TerminalProvider = ({
   loading = false,
   title,
   header,
+  showFade = true,
+  showHeader = true,
   showWindowButtons = true,
   showTitle = true,
   showAction = true,
@@ -240,24 +242,24 @@ const TerminalProvider = ({
         css={theme({ width: TERMINAL_WIDTH })}
         {...props}
       >
-        <TerminalHeader {...header}>
-          {showWindowButtons && (
-            <TerminalWindowButtons>
-              <TerminalButton.Red loading={loading} />
-              <TerminalButton.Yellow loading={loading} />
-              <TerminalButton.Green loading={loading} />
-            </TerminalWindowButtons>
-          )}
-          {showTitle && <TerminalTitle>{title}</TerminalTitle>}
-          {!showTitle && (
-            <TerminalHeaderSpacer aria-hidden='true' />
-          )}
-          {showAction && ActionComponent && <ActionComponent text={text} />}
-        </TerminalHeader>
+        {showHeader && (
+          <TerminalHeader {...header}>
+            {showWindowButtons && (
+              <TerminalWindowButtons>
+                <TerminalButton.Red loading={loading} />
+                <TerminalButton.Yellow loading={loading} />
+                <TerminalButton.Green loading={loading} />
+              </TerminalWindowButtons>
+            )}
+            {showTitle && <TerminalTitle>{title}</TerminalTitle>}
+            {!showTitle && <TerminalHeaderSpacer aria-hidden='true' />}
+            {showAction && ActionComponent && <ActionComponent text={text} />}
+          </TerminalHeader>
+        )}
 
-        <FadeBackground.Top />
+        {showFade && <FadeBackground.Top />}
         <TerminalText>{children}</TerminalText>
-        <FadeBackground.Bottom />
+        {showFade && <FadeBackground.Bottom />}
       </TerminalWindow>
     </FadeBackgroundProvider>
   )
