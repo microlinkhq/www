@@ -1,5 +1,5 @@
 ---
-title: 'Extending results'
+title: 'Metadata: Extending results'
 description: 'Go beyond the standard metadata fields by adding custom extraction rules, ready-to-use oEmbed HTML, color palettes, or site analysis.'
 ---
 

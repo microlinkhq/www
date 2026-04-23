@@ -1,5 +1,5 @@
 ---
-title: 'Private pages'
+title: 'Common patterns: Private pages'
 description: 'Access authenticated, session-based, or header-dependent pages safely. Choose between public headers and secret forwarding, use the right endpoint, and keep credentials secure.'
 ---
 

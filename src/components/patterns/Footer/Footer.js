@@ -41,7 +41,8 @@ const FOOTER_COLUMNS = [
       { label: 'Benchmark', href: '/benchmarks/screenshot-api' },
       { label: 'Open Source', href: '/oss' },
       { label: 'Skills', href: '/skills' },
-      { label: 'User Agents', href: '/user-agents' }
+      { label: 'User Agents', href: '/user-agents' },
+      { label: 'Geolocation', href: 'https://geolocation.microlink.io' }
     ]
   },
   {
@@ -51,7 +52,10 @@ const FOOTER_COLUMNS = [
       { label: 'Bug Reports', href: issueUrl.bug() },
       { label: 'Contact', href: 'mailto:hello@microlink.io' },
       { label: 'GitHub', href: 'https://github.com/microlinkhq' },
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/microlink' },
+      {
+        label: 'LinkedIn',
+        href: 'https://www.linkedin.com/company/microlinkhq'
+      },
       { label: 'X/Twitter', href: 'https://x.com/microlinkhq' }
     ],
     groups: [
@@ -66,26 +70,36 @@ const FOOTER_COLUMNS = [
     ]
   },
   {
-    title: 'Comparisons',
-    links: []
-  },
-  {
     title: 'Tools',
     links: [
       { label: 'SDK', href: '/sdk' },
       { label: 'Sharing Debugger', href: '/tools/sharing-debugger' },
       { label: 'Website Screenshot', href: '/tools/website-screenshot' },
       { label: 'URL to Markdown', href: '/tools/url-to-markdown' },
+      { label: 'Website to PDF', href: '/tools/website-to-pdf' },
+      { label: 'Bulk Screenshots', href: '/tools/website-screenshot/bulk' },
+      { label: 'Bulk URLs to PDFs', href: '/tools/website-to-pdf/bulk' },
       {
         label: 'Full page Screenshot',
         href: '/tools/website-screenshot/full-page'
       },
-      { label: 'Bulk Screenshots', href: '/tools/website-screenshot/bulk' },
       {
         label: 'Animated Screenshot',
         href: '/tools/website-screenshot/animated'
-      },
-      { label: 'Geolocation', href: 'https://geolocation.microlink.io' }
+      }
+    ]
+  },
+  {
+    title: 'Comparisons',
+    links: [
+      { label: 'vs ApiFlash', href: '/alternative/apiflash' },
+      { label: 'vs ScreenshotAPI', href: '/alternative/screenshotapi' },
+      { label: 'vs ScreenshotLayer', href: '/alternative/screenshotlayer' },
+      { label: 'vs ScreenshotMachine', href: '/alternative/screenshotmachine' },
+      { label: 'vs ScreenshotOne', href: '/alternative/screenshotone' },
+      { label: 'vs Thum.io', href: '/alternative/thumio' },
+      { label: 'vs Url2Png', href: '/alternative/url2png' },
+      { label: 'vs Urlbox', href: '/alternative/urlbox' }
     ]
   }
 ]

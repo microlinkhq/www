@@ -13,7 +13,7 @@ The package is fully typed, and it has been designed for being consumed in diffe
 
 <H3 titleize={false}>From Node.js</H3>
 
-Any Node.js above v16.14 is supported. We recommend running it using the active TLS. Check [Node.js releases](https://nodejs.dev/en/about/releases/) to know more.
+Any Node.js above v22 is supported. We recommend running it using the active LTS. Check [Node.js releases](https://nodejs.dev/en/about/releases/) to know more.
 
 Just require `@microlink/mql` dependency from your code:
 

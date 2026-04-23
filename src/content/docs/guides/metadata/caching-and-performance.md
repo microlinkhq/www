@@ -1,5 +1,5 @@
 ---
-title: 'Caching and performance'
+title: 'Metadata: Caching and performance'
 description: 'Optimize metadata extraction for speed and freshness. Limit detection work, avoid unnecessary enrichments, and apply the right cache strategy.'
 ---
 

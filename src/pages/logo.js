@@ -186,17 +186,17 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
   const colors = isLoading
     ? Array.from({ length: 6 }, () => '#fff')
     : [
-        ...new Set(
-          []
-            .concat(
-              logo.palette,
-              logo.background_color,
-              logo.color,
-              logo.alternative_color
-            )
-            .filter(Boolean)
-        )
-      ]
+      ...new Set(
+        []
+          .concat(
+            logo.palette,
+            logo.background_color,
+            logo.color,
+            logo.alternative_color
+          )
+          .filter(Boolean)
+      )
+    ]
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -311,7 +311,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                           toClipboard({
                             copy: color,
                             text: Tooltip.TEXT.COPIED(color)
-                          })}
+                          })
+                        }
                       />
                     </Tooltip>
                   )
@@ -939,7 +940,13 @@ export const Head = () => (
         { '@type': 'Thing', name: 'Website Logo Extraction' },
         { '@type': 'Thing', name: 'Color Palette Detection' },
         { '@type': 'Thing', name: 'Brand Metadata API' }
-      ]
+      ],
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+        description: 'Free tier with 50 conversions per day'
+      }
     }}
   />
 )

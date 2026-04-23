@@ -1,5 +1,5 @@
 ---
-title: 'Private pages'
+title: 'PDF: Private pages'
 description: 'Generate PDFs from pages behind logins, sessions, or header-based personalization safely.'
 ---
 

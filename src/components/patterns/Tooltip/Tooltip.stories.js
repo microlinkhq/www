@@ -18,7 +18,7 @@ export default () => (
     content={
       <Tooltip.Content tabIndex='0'>
         You have to buy{' '}
-        <Link display='inline-block' href='https://microlink.io#pricing'>
+        <Link display='inline-block' href='https://microlink.io/pricing'>
           pro
         </Link>{' '}
         plan to use this feature.

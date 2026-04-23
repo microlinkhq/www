@@ -35,6 +35,7 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { normalizeApiError } from 'helpers/api-error'
 import { withTitle } from 'helpers/hoc/with-title'
 import {
   extractNerdStats,
@@ -274,7 +275,6 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
         borderColor: 'black10',
         borderRadius: 3
       })}
-      style={{ background: '#f8fafc' }}
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
@@ -387,7 +387,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -412,7 +413,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -545,11 +547,9 @@ const ScreenshotTool = () => {
             )
           )
         } catch (err) {
-          setError({
-            message:
-              err.description || err.message || 'Failed to capture screenshot.',
-            statusCode: err.statusCode || err.code
-          })
+          setError(
+            normalizeApiError.fromMql(err, 'Failed to capture screenshot.')
+          )
         }
 
         if (response?.data?.screenshot) {
@@ -590,11 +590,9 @@ const ScreenshotTool = () => {
           setActiveHistoryId(entryId)
         }
       } catch (err) {
-        setError({
-          message:
-            err.description || err.message || 'Failed to capture screenshot.',
-          statusCode: err.statusCode || err.code
-        })
+        setError(
+          normalizeApiError.fromMql(err, 'Failed to capture screenshot.')
+        )
       } finally {
         setIsLoading(false)
       }
@@ -1115,7 +1113,7 @@ const ProductInformation = () => (
               credit card required.
             </div>
             <div>
-              Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
+              Need more? Check our <Link href='/pricing'>pricing plans</Link>{' '}
               for higher limits and priority processing.
             </div>
           </>

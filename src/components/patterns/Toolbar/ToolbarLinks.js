@@ -10,6 +10,7 @@ import { Bug as BugIcon } from 'components/icons/Bug'
 import { Camera as CameraIcon } from 'components/icons/Camera'
 import { Focus as FocusIcon } from 'components/icons/Focus'
 import { Inbox as InboxIcon } from 'components/icons/Inbox'
+import { BookImage as BookImageIcon } from 'components/icons/BookImage'
 import {
   Layers,
   BarChart2,
@@ -56,6 +57,8 @@ export const ToolbarNavLink = styled(NavLink)`
 `
 
 const docsMatcher = ({ location }) => location.pathname.startsWith('/docs')
+const pricingMatcher = ({ location }) =>
+  location.pathname.startsWith('/pricing')
 const screenshotToolMatcher = ({ location }) =>
   [
     '/tools/website-screenshot',
@@ -111,8 +114,8 @@ const createNavigationItem = ({
 
 export const PRICING_NAV_ITEM = createNavigationItem({
   label: 'Pricing',
-  href: '/#pricing',
-  actively: 'observer'
+  href: '/pricing',
+  actively: pricingMatcher
 })
 
 export const DOCUMENTATION_NAV_ITEM = createNavigationItem({
@@ -226,7 +229,35 @@ export const NAVIGATION_SECTIONS = [
         href: '/tools/website-screenshot/bulk',
         actively: 'exact',
         description: 'Capture multiple websites as screenshots in one go',
+        icon: BookImageIcon
+      }),
+      createNavigationItem({
+        label: 'Website to PDF',
+        href: '/tools/website-to-pdf',
+        actively: 'exact',
+        description: 'Convert any URL to a PDF file',
+        icon: FileText
+      }),
+      createNavigationItem({
+        label: 'Bulk URLs to PDFs',
+        href: '/tools/website-to-pdf/bulk',
+        actively: 'exact',
+        description: 'Convert multiple URLs to PDFs at once',
         icon: Layers
+      }),
+      createNavigationItem({
+        label: 'Sharing Debugger',
+        href: '/tools/sharing-debugger',
+        actively: 'exact',
+        description: 'Preview social cards before publishing links',
+        icon: BugIcon
+      }),
+      createNavigationItem({
+        label: 'URL to Markdown',
+        href: '/tools/url-to-markdown',
+        actively: 'exact',
+        description: 'Convert any URL to a markdown file',
+        icon: MarkdownIcon
       }),
       createNavigationItem({
         label: 'Full Page Screenshot',
@@ -241,20 +272,6 @@ export const NAVIGATION_SECTIONS = [
         actively: 'exact',
         description: 'Generate animated screenshots',
         icon: Film
-      }),
-      createNavigationItem({
-        label: 'Sharing Debugger',
-        href: '/tools/sharing-debugger',
-        actively: 'exact',
-        description: 'Preview social cards before publishing links',
-        icon: BugIcon
-      }),
-      createNavigationItem({
-        label: 'URL to Markdown',
-        href: '/tools/url-to-markdown',
-        actively: 'exact',
-        description: 'Convert any URL to a markdown file',
-        icon: FileText
       })
     ]
   },

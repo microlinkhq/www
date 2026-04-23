@@ -20,7 +20,7 @@
 
 ### December 2025
 
-- [Microlink API](/docs/api/getting-started/overview): Improved infrastructure for transparent [antibot](/blog/antibot-at-scale) resolution.
+- [Microlink API](/docs/api/getting-started/overview): Improved infrastructure for transparent [antibot](/blog/antibot-detection-at-scale) resolution.
 - [Metascraper](https://metascraper.js.org): Improved X integration (formerly Twitter).
 
 ### November 2025
@@ -249,7 +249,7 @@
 - [Metascraper v5.25.0](https://metascraper.js.org): Improved highest resolution logo detection and PWA manifest integration.
 - [Microlink Recipes](/recipes): Added [emails](/recipes/emails) recipe.
 - [Microlink MQL](/docs/mql/getting-started/overview): Added [email](/docs/mql/data/type) as type.
-- [Microlink Security](/.well-known/security.txt): Special thanks to [Daniel Wang](https://danielwang.dev) for improving service security.
+- [Microlink Security](/.well-known/security.txt): Special thanks to Daniel Wang for improving service security.
 - [Microlink API](/docs/api/getting-started/overview): Added [efatalclient](https://microlink.io/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](https://microlink.io/docs/api/basics/error-codes#eforbiddenurl) error codes.
 
 ### September 2021

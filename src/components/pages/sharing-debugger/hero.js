@@ -22,6 +22,11 @@ import {
   buildSharingDebuggerUrl,
   buildSharingDebuggerDisplayUrl
 } from 'helpers/share-debugger-url'
+import {
+  ApiErrorTitle,
+  ApiErrorBody
+} from 'components/patterns/ApiError/ApiError'
+import { getErrorMeta } from 'helpers/api-error'
 
 const DEFAULT_URL = 'https://microlink.io'
 
@@ -118,11 +123,6 @@ export const Hero = () => {
         const shareResultUrl = buildSharingDebuggerUrl(currentAnalyzedUrl)
         const shareResultDisplayUrl =
           buildSharingDebuggerDisplayUrl(currentAnalyzedUrl)
-        const inlineErrorMessage =
-          error?.description ||
-          error?.message ||
-          "We couldn't fetch metadata for this URL."
-
         const submitUrl = value => {
           const trimmedValue = value.trim()
 
@@ -279,33 +279,29 @@ export const Hero = () => {
                     border: 1,
                     borderColor: 'red2',
                     borderRadius: 3,
-                    p: [3, 4]
+                    p: [3, 4],
+                    textAlign: 'center'
                   })}
                 >
                   <Text
-                    as='p'
                     css={theme({
-                      fontSize: [1, 2],
                       color: 'red8',
-                      textAlign: 'center',
+                      fontSize: [1, 2],
                       fontWeight: 'bold',
-                      mt: 0,
                       mb: 2
                     })}
                   >
-                    We couldn&apos;t fetch metadata for this URL.
+                    <ApiErrorTitle code={error?.code} />
                   </Text>
-                  <Text
-                    as='p'
-                    css={theme({
-                      fontSize: 1,
-                      color: 'black70',
-                      textAlign: 'center',
-                      mt: 0,
-                      mb: 3
-                    })}
-                  >
-                    {inlineErrorMessage}
+                  <Text css={theme({ fontSize: 1, color: 'black60', mb: 3 })}>
+                    <ApiErrorBody
+                      code={error?.code}
+                      fallback={
+                        error?.description ||
+                        error?.message ||
+                        "We couldn't fetch metadata for this URL."
+                      }
+                    />
                   </Text>
                   <Flex
                     css={theme({
@@ -315,17 +311,19 @@ export const Hero = () => {
                       gap: 2
                     })}
                   >
-                    <Button
-                      type='button'
-                      variant='black'
-                      onClick={() => {
-                        submitUrl(
-                          inputUrl || currentAnalyzedUrl || query.url || ''
-                        )
-                      }}
-                    >
-                      <Caps css={theme({ fontSize: 0 })}>Try Again</Caps>
-                    </Button>
+                    {getErrorMeta(error?.code).showRetry && (
+                      <Button
+                        type='button'
+                        variant='black'
+                        onClick={() => {
+                          submitUrl(
+                            inputUrl || currentAnalyzedUrl || query.url || ''
+                          )
+                        }}
+                      >
+                        <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+                      </Button>
+                    )}
                     {error?.more && (
                       <Link href={error.more} logoIcon>
                         Report it

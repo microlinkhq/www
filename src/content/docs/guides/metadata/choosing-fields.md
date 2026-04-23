@@ -1,5 +1,5 @@
 ---
-title: 'Choosing fields'
+title: 'Metadata: Choosing fields'
 description: 'Request only the normalized metadata fields you actually need, and understand how Microlink represents text, media, and missing values.'
 ---
 

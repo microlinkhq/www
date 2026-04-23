@@ -1,5 +1,5 @@
 ---
-title: 'Caching and performance'
+title: 'Data extraction: Caching and performance'
 description: 'Speed up repeated data extraction by reducing unnecessary work, choosing the right fetch mode, and applying the right cache strategy.'
 ---
 

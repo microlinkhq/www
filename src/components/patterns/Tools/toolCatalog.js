@@ -8,6 +8,7 @@ import {
 } from 'react-feather'
 
 import { Camera as CameraIcon } from 'components/icons/Camera'
+import { BookImage as BookImageIcon } from 'components/icons/BookImage'
 import { Bug as BugIcon } from 'components/icons/Bug'
 import { cdnUrl } from 'helpers/cdn-url'
 
@@ -58,7 +59,7 @@ export const TOOLS = [
         description:
           'Paste up to 50 URLs and capture them all at once. Download every screenshot as a ZIP file. Great for competitive analysis and monitoring.',
         href: '/tools/website-screenshot/bulk',
-        icon: Layers,
+        icon: BookImageIcon,
         image: '/images/screenshot-bulk.png',
         animation: ['scale(1.5) rotate(0deg)', 'scale(1.3) rotate(-10deg)'],
         styles: {
@@ -128,6 +129,47 @@ export const TOOLS = [
     ]
   },
   {
+    category: 'PDF',
+    description:
+      'Convert any URL into a clean, high-fidelity PDF document. Choose paper size, orientation, margins, and more — download or share the result instantly.',
+    tools: [
+      {
+        title: 'Website to PDF',
+        description:
+          'Save any web page as a PDF. Pick your paper format, orientation, and appearance — download a high-fidelity document in seconds. No login required.',
+        href: '/tools/website-to-pdf',
+        icon: FileTextIcon,
+        image: '/images/pdf-tool.png',
+        animation: ['scale(1) translateY(-70%)', 'scale(1)'],
+        styles: {
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          position: 'absolute',
+          top: '10%',
+          width: ['85%', '60%', '95%'],
+          objectFit: 'cover',
+          transition: 'transform 2000ms cubic-bezier(0.4, 0, 0.2, 1)',
+          transformOrigin: 'top center'
+        }
+      },
+      {
+        title: 'Bulk PDF',
+        description:
+          'Paste up to 50 URLs and convert them all to PDF at once. Download every document as a ZIP file. Great for archiving and batch exports.',
+        href: '/tools/website-to-pdf/bulk',
+        icon: Layers,
+        image: '/images/bulk-pdf-tool.png',
+        animation: ['scale(1.05)', 'scale(1)'],
+        styles: {
+          position: 'absolute',
+          top: '5%',
+          width: ['85%', '60%', '95%'],
+          objectFit: 'contain',
+          transition: `transform ${transition.long}`
+        }
+      }
+    ]
+  },
+  {
     category: 'Markdown',
     description:
       'Convert any webpage into clean, structured markdown. Extract content from blogs, docs, and SPAs — edit, copy, or download the result instantly.',
@@ -147,7 +189,7 @@ export const TOOLS = [
           top: ['25%', '7%'],
           width: ['300px', '450px', '550px'],
           objectFit: 'cover',
-          transition: 'transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: 'transform 768ms cubic-bezier(0.4, 0, 0.2, 1)',
           transformOrigin: 'top center'
         }
       }

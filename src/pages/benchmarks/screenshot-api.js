@@ -864,7 +864,7 @@ const Methodology = () => (
           >
             <strong>Public Data:</strong> All raw metrics, scripts, and
             configurations are{' '}
-            <Link href='https://github.com/microlinkhq/benchmarks/tree/main/screenshot'>
+            <Link href='https://github.com/microlinkhq/screenshot-benchmark'>
               public on GitHub
             </Link>
             . Anyone can inspect, reproduce, or challenge the&nbsp;results.
@@ -910,7 +910,7 @@ const Methodology = () => (
         })}
       >
         The complete testing data is{' '}
-        <Link href='https://github.com/microlinkhq/benchmarks/tree/main/screenshot/runs/2026-03'>
+        <Link href='https://github.com/microlinkhq/screenshot-benchmark/tree/main/runs/2026-03'>
           open source on GitHub
         </Link>
         . Last run: March,&nbsp;2026.
@@ -1004,13 +1004,11 @@ const CompetitorComparison = () => {
                         >
                           {svc.name}
                         </span>
-                        {isMicrolink && <SquareBadge>Fastest</SquareBadge>}
                       </ProviderNameWithTag>
                     </td>
                     <td
                       css={theme({
-                        fontWeight:
-                          isMicrolink || isRunnerUp ? 'bold' : 'normal',
+                        fontWeight: isMicrolink ? 'bold' : 'normal',
                         color: timeColor
                       })}
                     >
@@ -1080,21 +1078,15 @@ const CompetitorComparison = () => {
                       const isMax = times[i] === maxTime
                       return (
                         <td key={key}>
-                          {isMin
-                            ? (
-                              <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                              )
-                            : isMax
-                              ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                                )
-                              : isSecond
-                                ? (
-                                  <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
-                                  )
-                                : (
-                                    formatMs(times[i])
-                                  )}
+                          {isMin ? (
+                            <CellHighlight>{formatMs(times[i])}</CellHighlight>
+                          ) : isMax ? (
+                            <CellLoser>{formatMs(times[i])}</CellLoser>
+                          ) : isSecond ? (
+                            <CellRunnerUp>{formatMs(times[i])}</CellRunnerUp>
+                          ) : (
+                            formatMs(times[i])
+                          )}
                         </td>
                       )
                     })}
@@ -1356,6 +1348,18 @@ const CompetitorComparison = () => {
               took nearly 15&nbsp;seconds to resolve and capture, whereas
               Microlink completed the task in 6.3&nbsp;seconds.
             </Text>
+            <Text
+              css={theme({
+                fontSize: [1, 1, 2, 2],
+                color: 'black',
+                lineHeight: 3,
+                pt: 3
+              })}
+            >
+              <Link href='/alternative/urlbox'>
+                vs Urlbox in detail&nbsp;&rarr;
+              </Link>
+            </Text>
           </Box>
 
           <Box>
@@ -1401,6 +1405,18 @@ const CompetitorComparison = () => {
               payload. For developers seeking an ApiFlash alternative for
               latency-sensitive workloads, Microlink offers a much tighter
               performance baseline, handling the same URL in 6.2&nbsp;seconds.
+            </Text>
+            <Text
+              css={theme({
+                fontSize: [1, 1, 2, 2],
+                color: 'black',
+                lineHeight: 3,
+                pt: 3
+              })}
+            >
+              <Link href='/alternative/apiflash'>
+                vs ApiFlash in detail&nbsp;&rarr;
+              </Link>
             </Text>
           </Box>
 
@@ -1449,6 +1465,22 @@ const CompetitorComparison = () => {
               average, demonstrating consistently lower latency across all
               7&nbsp;test URLs.
             </Text>
+            <Text
+              css={theme({
+                fontSize: [1, 1, 2, 2],
+                color: 'black',
+                lineHeight: 3,
+                pt: 3
+              })}
+            >
+              <Link href='/alternative/screenshotapi'>
+                vs ScreenshotAPI in detail&nbsp;&rarr;
+              </Link>
+              <Box as='span' css={theme({ display: 'block', pt: 2 })} />
+              <Link href='/alternative/screenshotmachine'>
+                vs Screenshot Machine in detail&nbsp;&rarr;
+              </Link>
+            </Text>
           </Box>
 
           <Box>
@@ -1487,6 +1519,18 @@ const CompetitorComparison = () => {
                 headless browser capabilities
               </Link>{' '}
               while cutting the average response time nearly in&nbsp;half.
+            </Text>
+            <Text
+              css={theme({
+                fontSize: [1, 1, 2, 2],
+                color: 'black',
+                lineHeight: 3,
+                pt: 3
+              })}
+            >
+              <Link href='/alternative/screenshotone'>
+                vs ScreenshotOne in detail&nbsp;&rarr;
+              </Link>
             </Text>
           </Box>
         </Flex>
@@ -1691,7 +1735,7 @@ const FAQ_ITEMS = [
           .
         </div>
         <div>
-          For production workloads, the <Link href='/#pricing'>Pro plan</Link>{' '}
+          For production workloads, the <Link href='/pricing'>Pro plan</Link>{' '}
           starts at €39/month for 46,000 requests with automatic{' '}
           <Link href='/docs/api/parameters/proxy'>proxy resolution</Link> and
           antibot&nbsp;protection.
@@ -1780,7 +1824,7 @@ const FAQ_ITEMS = [
         </div>
         <div>
           You can self-host it for full control, or use the{' '}
-          <Link href='/#pricing'>managed API</Link> to skip infrastructure work
+          <Link href='/pricing'>managed API</Link> to skip infrastructure work
           and get automatic scaling, proxy rotation, and global
           edge&nbsp;deployment.
         </div>
@@ -1801,7 +1845,7 @@ const FAQ_ITEMS = [
           The benchmark ran 10 times at different hours, the single slowest run
           was dropped to remove outliers, and non-200 responses were excluded.
           The full testing architecture is{' '}
-          <Link href='https://github.com/microlinkhq/benchmarks/tree/main/screenshot'>
+          <Link href='https://github.com/microlinkhq/screenshot-benchmark'>
             open source on GitHub
           </Link>
           .

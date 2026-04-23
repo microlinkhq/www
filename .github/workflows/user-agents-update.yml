@@ -1,4 +1,4 @@
-name: top-user-agents update
+name: user-agents update
 
 on:
   workflow_dispatch:
@@ -24,17 +24,20 @@ jobs:
           node-version: lts/*
 
       - name: Setup PNPM
-        uses: pnpm/action-setup@v5
+        uses: pnpm/action-setup@v6
         with:
           version: latest
 
-      - name: Update top-user-agents
-        run: pnpm up --latest top-user-agents --ignore-scripts
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Update top-user-agents and cloudflare-bot-directory
+        run: pnpm up --latest top-user-agents cloudflare-bot-directory --ignore-scripts
 
       - name: Commit and push to master
         run: |
           git config --global user.email ${{ secrets.GIT_EMAIL }}
           git config --global user.name ${{ secrets.GIT_USERNAME }}
           git add package.json pnpm-lock.yaml
-          git diff-index --quiet HEAD || git commit -m "chore(deps): update top-user-agents" --no-verify
+          git diff-index --quiet HEAD || git commit -m "chore(deps): update top-user-agents, cloudflare-bot-directory" --no-verify
           git push origin ${{ github.head_ref }} || true

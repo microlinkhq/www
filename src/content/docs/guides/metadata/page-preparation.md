@@ -1,5 +1,5 @@
 ---
-title: 'Page preparation'
+title: 'Metadata: Page preparation'
 description: 'Render the right version of the page before metadata extraction. Choose fetch mode, waits, and JavaScript behavior for dynamic or SPA targets.'
 ---
 

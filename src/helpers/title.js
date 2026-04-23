@@ -31,6 +31,7 @@ const special = [
   'PDFs',
   'quality',
   'retry',
+  'ScreenshotOne',
   'scroll',
   'SDK',
   'SEO',

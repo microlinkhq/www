@@ -1,5 +1,5 @@
 ---
-title: 'Troubleshooting'
+title: 'PDF: Troubleshooting'
 description: 'Debug PDF generation failures and wrong output. Fix missing content, bad layout, and wrong print styling.'
 ---
 

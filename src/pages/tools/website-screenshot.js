@@ -39,6 +39,7 @@ import {
   buildMqlQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { normalizeApiError } from 'helpers/api-error'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import {
@@ -587,7 +588,6 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
         borderColor: 'black10',
         borderRadius: 3
       })}
-      style={{ background: '#f8fafc' }}
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
@@ -1002,11 +1002,9 @@ const ScreenshotTool = () => {
             )
           )
         } catch (err) {
-          setError({
-            message:
-              err.description || err.message || 'Failed to capture screenshot.',
-            statusCode: err.statusCode || err.code
-          })
+          setError(
+            normalizeApiError.fromMql(err, 'Failed to capture screenshot.')
+          )
         }
 
         if (response?.data?.screenshot) {
@@ -1048,11 +1046,9 @@ const ScreenshotTool = () => {
           setActiveHistoryId(entryId)
         }
       } catch (err) {
-        setError({
-          message:
-            err.description || err.message || 'Failed to capture screenshot.',
-          statusCode: err.statusCode || err.code
-        })
+        setError(
+          normalizeApiError.fromMql(err, 'Failed to capture screenshot.')
+        )
       } finally {
         setIsLoading(false)
       }
@@ -1551,7 +1547,7 @@ const ProductInformation = () => (
               multiple formats.
             </div>
             <div>
-              Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
+              Need more? Check our <Link href='/pricing'>pricing plans</Link>{' '}
               for higher limits and priority processing.
             </div>
           </>

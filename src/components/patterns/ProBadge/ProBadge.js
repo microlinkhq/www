@@ -14,7 +14,7 @@ const ProBadge = ({ top, ...props }) => (
         You have to buy{' '}
         <Link
           css={{ display: 'inline-block' }}
-          href='https://microlink.io#pricing'
+          href='https://microlink.io/pricing'
         >
           pro
         </Link>{' '}

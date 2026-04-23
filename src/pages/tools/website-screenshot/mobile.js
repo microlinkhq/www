@@ -31,6 +31,7 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { normalizeApiError } from 'helpers/api-error'
 import { withTitle } from 'helpers/hoc/with-title'
 import {
   extractNerdStats,
@@ -348,7 +349,6 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
         borderColor: 'black10',
         borderRadius: 3
       })}
-      style={{ background: '#f8fafc' }}
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
@@ -398,7 +398,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               id='ws-phone'
               value={options.phoneId}
               onChange={e =>
-                setOptions(prev => ({ ...prev, phoneId: e.target.value }))}
+                setOptions(prev => ({ ...prev, phoneId: e.target.value }))
+              }
               aria-label='Select phone model'
             >
               {PHONE_DEVICES.map(phone => (
@@ -419,7 +420,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 setOptions(prev => ({
                   ...prev,
                   landscape: val === 'landscape'
-                }))}
+                }))
+              }
             />
           </Box>
 
@@ -431,7 +433,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 setOptions(prev => ({
                   ...prev,
                   fullPage: e.target.checked
-                }))}
+                }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Full page screenshot
@@ -461,7 +464,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -486,7 +490,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -582,17 +587,17 @@ const ScreenshotTool = () => {
         PHONE_DEVICES.find(p => p.id === options.phoneId) || PHONE_DEVICES[0]
       const viewport = options.landscape
         ? {
-            width: phone.height,
-            height: phone.width,
-            isMobile: true,
-            isLandscape: true
-          }
+          width: phone.height,
+          height: phone.width,
+          isMobile: true,
+          isLandscape: true
+        }
         : {
-            width: phone.width,
-            height: phone.height,
-            isMobile: true,
-            isLandscape: false
-          }
+          width: phone.width,
+          height: phone.height,
+          isMobile: true,
+          isLandscape: false
+        }
 
       setRequestedViewport(viewport)
       setIsLoading(true)
@@ -632,11 +637,9 @@ const ScreenshotTool = () => {
             )
           )
         } catch (err) {
-          setError({
-            message:
-              err.description || err.message || 'Failed to capture screenshot.',
-            statusCode: err.statusCode || err.code
-          })
+          setError(
+            normalizeApiError.fromMql(err, 'Failed to capture screenshot.')
+          )
         }
 
         if (response?.data?.screenshot) {
@@ -673,11 +676,9 @@ const ScreenshotTool = () => {
           setActiveHistoryId(entryId)
         }
       } catch (err) {
-        setError({
-          message:
-            err.description || err.message || 'Failed to capture screenshot.',
-          statusCode: err.statusCode || err.code
-        })
+        setError(
+          normalizeApiError.fromMql(err, 'Failed to capture screenshot.')
+        )
       } finally {
         setIsLoading(false)
       }
@@ -1159,7 +1160,7 @@ const ProductInformation = () => (
               landscape modes, and multiple formats.
             </div>
             <div>
-              Need more? Check our <Link href='/#pricing'>pricing plans</Link>{' '}
+              Need more? Check our <Link href='/pricing'>pricing plans</Link>{' '}
               for higher limits and priority processing.
             </div>
           </>

@@ -132,10 +132,28 @@ export const Head = () => (
             {
               '@type': 'ListItem',
               position: 6,
+              url: 'https://microlink.io/tools/website-to-pdf',
+              name: 'Website to PDF'
+            },
+            {
+              '@type': 'ListItem',
+              position: 7,
+              url: 'https://microlink.io/tools/website-to-pdf/bulk',
+              name: 'Bulk PDF'
+            },
+            {
+              '@type': 'ListItem',
+              position: 8,
               url: 'https://microlink.io/tools/url-to-markdown',
               name: 'URL to Markdown'
             }
           ]
+        },
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          description: 'Free tier with 50 conversions per day'
         }
       }
     ]}
