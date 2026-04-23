@@ -707,17 +707,17 @@ const page = await google('technical seo checklist', {
   },
   {
     step: 'STEP 03',
-    title: 'Paginate or enrich on demand',
+    title: 'Lazy-load the web',
     icon: GitMerge,
     description:
-      'Once the first query is working, the same client gives you pagination, HTML enrichment, typed responses, and request patterns ready for recurring jobs.',
+      'Keep the first pass fast, then enrich only the winners. Browse lightweight result pages first and call `.markdown()` or `.html()` only for the top matches that deserve deeper inspection.',
     panel: {
       type: 'features',
       items: [
-        'Any result with a url exposes `.html()` to fetch the page HTML on demand.',
+        'Any result with a URL exposes `.markdown()` for LLM-ready Markdown on demand.',
+        'Call `.html()` only when your workflow actually needs raw page markup.',
         'Just call `.next()` to fetch the next page.',
-        'Parallelized requests (~1s latency).',
-        'Type-specific inference included.'
+        'Lazy-load the web: scan results at ~1s latency, then enrich only the top 3 matches.'
       ]
     }
   }
@@ -737,7 +737,7 @@ const INTEGRATION_HOW_TO_STEPS = [
   {
     title: 'Paginate or enrich',
     description:
-      'Use `.next()` for additional result pages and `.html()` for URL-level page content.'
+      'Use `.next()` for additional result pages and `.markdown()` or `.html()` when a source deserves deeper extraction.'
   }
 ]
 
@@ -925,16 +925,17 @@ const leads = placesPage.results.map(result => ({
   },
   {
     id: 'agent-enrichment',
-    title: 'AI Agent',
+    title: 'Document Discovery',
     description:
-      'Expand search results with HTML on demand for agent or RAG pipelines.',
+      'Use search operators to find technical sources, then expand the best matches as Markdown or HTML.',
     code: `
-const page = await google('site:openai.com function calling guide')
+const page = await google('site:arxiv.org "deep learning"')
 
 const topSources = await Promise.all(
   page.results.slice(0, 3).map(async result => ({
     title: result.title,
     url: result.url,
+    markdown: await result.markdown(),
     html: await result.html()
   }))
 )`,
@@ -942,28 +943,28 @@ const topSources = await Promise.all(
       variant: 'search-enriched',
       data: [
         {
-          title: 'Function calling - OpenAI API',
-          url: 'https://openai.com/index/function-calling-guide/',
+          title: 'Deep Learning for AI',
+          url: 'https://arxiv.org/abs/2401.02986',
           description:
-            'Define tools the model can call, then let the API orchestrate inputs, responses, and retries end-to-end.',
-          htmlBytes: 48231,
-          mdBytes: 12403
+            'Survey of modern deep learning systems, scaling behavior, and deployment constraints for contemporary AI workloads.',
+          htmlBytes: 28640,
+          mdBytes: 9632
         },
         {
-          title: 'Structured outputs with function calling',
-          url: 'https://openai.com/blog/structured-outputs-function-calling',
+          title: 'Deep Learning via Hessian-free Optimization',
+          url: 'https://arxiv.org/abs/1211.5063',
           description:
-            'Constrain responses to JSON schemas so your agents receive strictly typed, validated payloads every time.',
-          htmlBytes: 32148,
-          mdBytes: 8214
+            'Technical paper on second-order optimization methods for deep neural network training.',
+          htmlBytes: 24512,
+          mdBytes: 8120
         },
         {
-          title: 'Building agents with the OpenAI SDK',
-          url: 'https://openai.com/index/building-agents-openai-sdk/',
+          title: 'Deep Residual Learning for Image Recognition',
+          url: 'https://arxiv.org/abs/1512.03385',
           description:
-            'Patterns for memory, planning, and tool routing when composing multi-step agents on top of the SDK.',
-          htmlBytes: 51720,
-          mdBytes: 14190
+            'Foundational ResNet paper showing how residual connections unlock dramatically deeper models.',
+          htmlBytes: 33218,
+          mdBytes: 10448
         }
       ]
     }
@@ -2303,6 +2304,182 @@ const TutorialFeatureItem = styled(Flex).withConfig({
   }
 `
 
+const RetrievalGrid = styled(Box)
+  .withConfig({
+    componentId: 'google__RetrievalGrid'
+  })
+  .attrs({ as: 'ul' })`
+  ${theme({
+    mt: [4, 4, 5, 5],
+    p: 0,
+    listStyle: 'none',
+    width: '100%'
+  })};
+`
+
+const RetrievalCard = styled(Box)
+  .withConfig({
+    componentId: 'google__RetrievalCard'
+  })
+  .attrs({ as: 'li' })`
+  ${theme({
+    display: 'block',
+    minWidth: 0,
+    py: [3, 3, 4, 4]
+  })};
+
+  &:not(:first-of-type) {
+    border-top: 1px solid ${colors.black05};
+  }
+`
+
+const RetrievalCardHeader = styled(Flex).withConfig({
+  componentId: 'google__RetrievalCardHeader'
+})`
+  ${theme({
+    alignItems: 'flex-start',
+    minWidth: 0
+  })};
+`
+
+const RetrievalCardContent = styled(Box).withConfig({
+  componentId: 'google__RetrievalCardContent'
+})`
+  ${theme({
+    minWidth: 0,
+    width: '100%'
+  })};
+`
+
+const RetrievalCardLabel = styled(Text)
+  .withConfig({ componentId: 'google__RetrievalCardLabel' })
+  .attrs({ as: 'p' })`
+  ${theme({
+    m: 0,
+    color: 'black50',
+    fontFamily: 'mono',
+    fontSize: [0, 0, 1, 1],
+    lineHeight: 1,
+    letterSpacing: 1,
+    textTransform: 'uppercase'
+  })};
+`
+
+const RetrievalCardTitle = styled(Text)
+  .withConfig({ componentId: 'google__RetrievalCardTitle' })
+  .attrs({ as: 'h3' })`
+  ${theme({
+    m: 0,
+    mt: 1,
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: [2, 2, 3, 3],
+    lineHeight: 1
+  })};
+`
+
+const RetrievalCardBody = styled(Box).withConfig({
+  componentId: 'google__RetrievalCardBody'
+})`
+  ${theme({
+    pl: 0
+  })};
+`
+
+const RetrievalCardDescription = styled(Text)
+  .withConfig({ componentId: 'google__RetrievalCardDescription' })
+  .attrs({ as: 'p' })`
+  ${theme({
+    m: 0,
+    mt: 2,
+    color: 'black70',
+    fontSize: [1, 1, 2, 2],
+    lineHeight: 2
+  })};
+`
+
+const RetrievalFeatureText = styled(Text)
+  .withConfig({ componentId: 'google__RetrievalFeatureText' })
+  .attrs({ as: 'span' })`
+  ${theme({
+    color: 'black80',
+    fontSize: [0, 0, 1, 1],
+    lineHeight: 2
+  })};
+`
+
+const RetrievalCommandList = styled(Box)
+  .withConfig({ componentId: 'google__RetrievalCommandList' })
+  .attrs({ as: 'ul' })`
+  ${theme({
+    m: 0,
+    mt: [3, 3, 3, 3],
+    p: 0,
+    listStyle: 'none',
+    display: 'grid',
+    gap: 2
+  })};
+`
+
+const RetrievalCommandRow = styled(Flex).withConfig({
+  componentId: 'google__RetrievalCommandRow'
+})`
+  ${theme({
+    alignItems: 'flex-start',
+    flexDirection: ['column', 'column', 'row', 'row'],
+    gap: [1, 1, 2, 2],
+    minWidth: 0
+  })};
+`
+
+const RetrievalCommandLabel = styled(Text)
+  .withConfig({ componentId: 'google__RetrievalCommandLabel' })
+  .attrs({ as: 'span' })`
+  ${theme({
+    color: 'black50',
+    fontFamily: 'mono',
+    fontSize: [0, 0, 1, 1],
+    lineHeight: 1,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+    minWidth: ['auto', 'auto', '72px', '72px']
+  })};
+`
+
+const RetrievalCommand = styled(Flex).withConfig({
+  componentId: 'google__RetrievalCommand'
+})`
+  ${theme({
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 1,
+    minWidth: 0
+  })};
+`
+
+const RetrievalCommandText = styled(Text)
+  .withConfig({ componentId: 'google__RetrievalCommandText' })
+  .attrs({ as: 'span' })`
+  ${theme({
+    color: 'black70',
+    fontFamily: 'mono',
+    fontSize: [0, 0, 1, 1],
+    lineHeight: 1
+  })};
+`
+
+const RetrievalCommandStrong = styled(Text)
+  .withConfig({ componentId: 'google__RetrievalCommandStrong' })
+  .attrs({ as: 'strong' })`
+  ${theme({
+    color: 'black',
+    fontFamily: 'mono',
+    fontSize: [0, 0, 1, 1],
+    lineHeight: 1,
+    fontWeight: 'bold'
+  })};
+`
+
 const PricingCardsGrid = styled(Flex).withConfig({
   componentId: 'google__PricingCardsGrid'
 })`
@@ -3626,6 +3803,23 @@ const GooglePage = () => {
                       ]
                     })}
                   >
+                    Structured results plus LLM-ready Markdown and HTML for top
+                    matches.
+                  </List.Item>
+                  <List.Item
+                    css={theme({
+                      m: 0,
+                      mb: 0,
+                      color: 'black80',
+                      fontSize: [1, 1, 2, 2],
+                      justifyContent: [
+                        'center',
+                        'center',
+                        'center',
+                        'flex-start'
+                      ]
+                    })}
+                  >
                     Structured results for prices, ratings, coordinates, and
                     citations.
                   </List.Item>
@@ -4028,6 +4222,195 @@ const GooglePage = () => {
         </Box>
       </PageSection>
 
+      <PageSection as='section' id='retrieval-workflows'>
+        <Box
+          css={theme({
+            width: '100%',
+            maxWidth: ['100%', '100%', layout.large, layout.large],
+            mx: 'auto'
+          })}
+        >
+          <SectionTitle css={theme({ textAlign: 'center' })}>
+            Built for retrieval loops, not just result pages.
+          </SectionTitle>
+          <SectionDescription
+            css={theme({
+              maxWidth: ['100%', '100%', layout.normal, layout.medium],
+              mx: 'auto',
+              fontSize: [2, 2, 3, 3],
+              textAlign: 'center'
+            })}
+          >
+            Search stays lightweight on the first pass so technical workflows
+            can stay fast under real production load.
+          </SectionDescription>
+
+          <RetrievalGrid>
+            <RetrievalCard>
+              <RetrievalCardHeader>
+                <RetrievalCardContent>
+                  <RetrievalCardLabel>
+                    A. The <code>.markdown()</code> helper
+                  </RetrievalCardLabel>
+                  <RetrievalCardTitle>
+                    Ship LLM-ready Markdown
+                  </RetrievalCardTitle>
+                </RetrievalCardContent>
+              </RetrievalCardHeader>
+              <RetrievalCardBody>
+                <RetrievalCardDescription>
+                  RAG pipelines rarely want raw HTML. They want cleaner text
+                  that is easier to embed, rerank, cite, and pass into prompts
+                  without wasting context on navigation or markup noise.
+                </RetrievalCardDescription>
+                <TutorialFeatureList>
+                  <TutorialFeatureItem as='li'>
+                    <FeatherIcon
+                      icon={CheckCircle}
+                      color='close'
+                      size={[1, 1, 2, 2]}
+                      css={theme({
+                        flexShrink: 0,
+                        mr: 1,
+                        alignSelf: 'flex-start'
+                      })}
+                    />
+                    <RetrievalFeatureText>
+                      Use <code>.markdown()</code> when the model needs
+                      readable, prompt-ready context.
+                    </RetrievalFeatureText>
+                  </TutorialFeatureItem>
+                  <TutorialFeatureItem as='li'>
+                    <FeatherIcon
+                      icon={CheckCircle}
+                      color='close'
+                      size={[1, 1, 2, 2]}
+                      css={theme({
+                        flexShrink: 0,
+                        mr: 1,
+                        alignSelf: 'flex-start'
+                      })}
+                    />
+                    <RetrievalFeatureText>
+                      Keep <code>.html()</code> for DOM-aware extraction or
+                      custom downstream parsing.
+                    </RetrievalFeatureText>
+                  </TutorialFeatureItem>
+                </TutorialFeatureList>
+              </RetrievalCardBody>
+            </RetrievalCard>
+
+            <RetrievalCard>
+              <RetrievalCardHeader>
+                <RetrievalCardContent>
+                  <RetrievalCardLabel>
+                    B. The two-step retrieval model
+                  </RetrievalCardLabel>
+                  <RetrievalCardTitle>Lazy-load the web</RetrievalCardTitle>
+                </RetrievalCardContent>
+              </RetrievalCardHeader>
+              <RetrievalCardBody>
+                <RetrievalCardDescription>
+                  Search works best as a two-step system: lightweight results
+                  first, deeper content second. That keeps the browse step
+                  snappy, then spends the heavier extraction cost only where
+                  confidence is already high.
+                </RetrievalCardDescription>
+                <TutorialFeatureList>
+                  <TutorialFeatureItem as='li'>
+                    <FeatherIcon
+                      icon={CheckCircle}
+                      color='close'
+                      size={[1, 1, 2, 2]}
+                      css={theme({
+                        flexShrink: 0,
+                        mr: 1,
+                        alignSelf: 'flex-start'
+                      })}
+                    />
+                    <RetrievalFeatureText>
+                      Browse structured results at roughly search latency
+                      instead of fetching every page in full up front.
+                    </RetrievalFeatureText>
+                  </TutorialFeatureItem>
+                  <TutorialFeatureItem as='li'>
+                    <FeatherIcon
+                      icon={CheckCircle}
+                      color='close'
+                      size={[1, 1, 2, 2]}
+                      css={theme({
+                        flexShrink: 0,
+                        mr: 1,
+                        alignSelf: 'flex-start'
+                      })}
+                    />
+                    <RetrievalFeatureText>
+                      Shortlist the top 3 sources, then call{' '}
+                      <code>.markdown()</code> or <code>.html()</code> only for
+                      those winners.
+                    </RetrievalFeatureText>
+                  </TutorialFeatureItem>
+                  <TutorialFeatureItem as='li'>
+                    <FeatherIcon
+                      icon={CheckCircle}
+                      color='close'
+                      size={[1, 1, 2, 2]}
+                      css={theme({
+                        flexShrink: 0,
+                        mr: 1,
+                        alignSelf: 'flex-start'
+                      })}
+                    />
+                    <RetrievalFeatureText>
+                      Keep recurring jobs faster and cheaper because enrichment
+                      is opt-in, not mandatory.
+                    </RetrievalFeatureText>
+                  </TutorialFeatureItem>
+                </TutorialFeatureList>
+              </RetrievalCardBody>
+            </RetrievalCard>
+
+            <RetrievalCard>
+              <RetrievalCardHeader>
+                <RetrievalCardContent>
+                  <RetrievalCardLabel>C. Advanced operators</RetrievalCardLabel>
+                  <RetrievalCardTitle>
+                    Turn Search into a document discovery engine
+                  </RetrievalCardTitle>
+                </RetrievalCardContent>
+              </RetrievalCardHeader>
+              <RetrievalCardBody>
+                <RetrievalCardDescription>
+                  Combine operators like <code>site:</code> and{' '}
+                  <code>filetype:</code> to hunt for papers, docs, filings,
+                  changelogs, or PDFs before you enrich anything. That gives
+                  technical teams much tighter recall from the first query.
+                </RetrievalCardDescription>
+                <RetrievalCommandList>
+                  <RetrievalCommandRow as='li'>
+                    <RetrievalCommand>
+                      <RetrievalCommandStrong>site:</RetrievalCommandStrong>
+                      <RetrievalCommandText>arxiv.org</RetrievalCommandText>
+                      <RetrievalCommandText>
+                        "deep learning"
+                      </RetrievalCommandText>
+                      <RetrievalCommandStrong>
+                        filetype:pdf
+                      </RetrievalCommandStrong>
+                    </RetrievalCommand>
+                  </RetrievalCommandRow>
+                </RetrievalCommandList>
+                <RetrievalCardDescription css={theme({ mt: 3 })}>
+                  The hero example above now uses an operator-driven query so
+                  the workflow reads like real technical research instead of a
+                  generic web search.
+                </RetrievalCardDescription>
+              </RetrievalCardBody>
+            </RetrievalCard>
+          </RetrievalGrid>
+        </Box>
+      </PageSection>
+
       <PageSection as='section' id='google-api-integration'>
         <Box
           css={theme({
@@ -4233,7 +4616,8 @@ const GooglePage = () => {
                 Pagination with <code>.next()</code>
               </PricingCheck>
               <PricingCheck>
-                Optional page HTML via <code>.html()</code>
+                Optional page Markdown or HTML via <code>.markdown()</code> and{' '}
+                <code>.html()</code>
               </PricingCheck>
             </Box>
 
