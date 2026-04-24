@@ -384,26 +384,26 @@ const monogramOverrideFor = host => lookupHost(HOST_MONOGRAM_OVERRIDES, host)
 
 const createTablistKeyHandler =
   ({ items, onSelect, focusTab }) =>
-  (event, index) => {
-    const lastIndex = items.length - 1
-    let nextIndex = null
+    (event, index) => {
+      const lastIndex = items.length - 1
+      let nextIndex = null
 
-    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-      nextIndex = index === lastIndex ? 0 : index + 1
-    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-      nextIndex = index === 0 ? lastIndex : index - 1
-    } else if (event.key === 'Home') {
-      nextIndex = 0
-    } else if (event.key === 'End') {
-      nextIndex = lastIndex
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+        nextIndex = index === lastIndex ? 0 : index + 1
+      } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+        nextIndex = index === 0 ? lastIndex : index - 1
+      } else if (event.key === 'Home') {
+        nextIndex = 0
+      } else if (event.key === 'End') {
+        nextIndex = lastIndex
+      }
+
+      if (nextIndex === null) return
+      event.preventDefault()
+      const nextId = items[nextIndex].id
+      onSelect(nextId)
+      if (focusTab) focusTab(nextId)
     }
-
-    if (nextIndex === null) return
-    event.preventDefault()
-    const nextId = items[nextIndex].id
-    onSelect(nextId)
-    if (focusTab) focusTab(nextId)
-  }
 
 /* ────────────────────────── styled primitives ────────────────────────── */
 
@@ -1673,42 +1673,42 @@ const HeroMapListItem = ({ item }) => (
 
       {(typeof item.latitude === 'number' ||
         typeof item.longitude === 'number') && (
-        <Box
-          css={theme({
-            mt: 2,
-            p: 2,
-            borderRadius: 3,
-            bg: 'gray0',
-            border: 1,
-            borderColor: 'black05'
-          })}
-        >
-          <Text
-            as='p'
+          <Box
             css={theme({
-              m: 0,
-              color: 'black50',
-              fontFamily: 'mono',
-              fontSize: [0, 0, 1, 1],
-              fontWeight: 'bold',
-              lineHeight: 1
+              mt: 2,
+              p: 2,
+              borderRadius: 3,
+              bg: 'gray0',
+              border: 1,
+              borderColor: 'black05'
             })}
           >
-            Coordinates
-          </Text>
-          <Flex css={theme({ gap: 2, mt: 2, flexWrap: 'wrap' })}>
-            {typeof item.latitude === 'number' && (
-              <HeroResultBadgeSmall>
-                lat · {formatCoordinate(item.latitude, 'N', 'S')}
-              </HeroResultBadgeSmall>
-            )}
-            {typeof item.longitude === 'number' && (
-              <HeroResultBadgeSmall>
-                lng · {formatCoordinate(item.longitude, 'E', 'W')}
-              </HeroResultBadgeSmall>
-            )}
-          </Flex>
-        </Box>
+            <Text
+              as='p'
+              css={theme({
+                m: 0,
+                color: 'black50',
+                fontFamily: 'mono',
+                fontSize: [0, 0, 1, 1],
+                fontWeight: 'bold',
+                lineHeight: 1
+              })}
+            >
+              Coordinates
+            </Text>
+            <Flex css={theme({ gap: 2, mt: 2, flexWrap: 'wrap' })}>
+              {typeof item.latitude === 'number' && (
+                <HeroResultBadgeSmall>
+                  lat · {formatCoordinate(item.latitude, 'N', 'S')}
+                </HeroResultBadgeSmall>
+              )}
+              {typeof item.longitude === 'number' && (
+                <HeroResultBadgeSmall>
+                  lng · {formatCoordinate(item.longitude, 'E', 'W')}
+                </HeroResultBadgeSmall>
+              )}
+            </Flex>
+          </Box>
       )}
 
       {item.place?.id && (
@@ -2300,8 +2300,7 @@ const GooglePage = () => {
                           tabIndex={isActive ? 0 : -1}
                           onClick={() => selectHeroExample(example.id)}
                           onKeyDown={event =>
-                            handleHeroExampleTabKeyDown(event, index)
-                          }
+                            handleHeroExampleTabKeyDown(event, index)}
                         >
                           {example.title}
                         </Tab>
@@ -2425,11 +2424,13 @@ const GooglePage = () => {
                             overflow: 'hidden'
                           })}
                         >
-                          {heroPhase === 'loading' ? (
-                            <HeroResultSkeleton />
-                          ) : (
-                            <HeroResultCard result={activeHeroExample.result} />
-                          )}
+                          {heroPhase === 'loading'
+                            ? (
+                              <HeroResultSkeleton />
+                              )
+                            : (
+                              <HeroResultCard result={activeHeroExample.result} />
+                              )}
                         </Box>
                       </HeroResultBodyWrap>
                     </HeroResultDock>
@@ -2530,8 +2531,7 @@ const GooglePage = () => {
                         aria-pressed={activeVertical.id === vertical.id}
                         onClick={() => setActiveVerticalId(vertical.id)}
                         onKeyDown={event =>
-                          handleVerticalTabKeyDown(event, index)
-                        }
+                          handleVerticalTabKeyDown(event, index)}
                       >
                         {verticalService && (
                           <Box
@@ -2680,8 +2680,7 @@ const GooglePage = () => {
                           tabIndex={isActive ? 0 : -1}
                           onClick={() => setActiveOutputTab(tab.id)}
                           onKeyDown={event =>
-                            handleOutputTabKeyDown(event, index)
-                          }
+                            handleOutputTabKeyDown(event, index)}
                         >
                           {tab.label}
                         </Tab>
@@ -2689,83 +2688,85 @@ const GooglePage = () => {
                     })}
                   </Box>
 
-                  {activeOutputTab === 'json' ? (
-                    <Box
-                      id='vertical-output-panel-json'
-                      role='tabpanel'
-                      aria-labelledby='vertical-output-tab-json'
-                      css={theme({
-                        display: 'flex',
-                        flexDirection: 'column',
-                        flex: 1,
-                        minHeight: 0,
-                        height: '100%',
-                        py: [2, 2, 3, 3],
-                        px: 0
-                      })}
-                    >
-                      <CodeEditor
-                        language='json'
-                        showFade={false}
-                        showHeader={false}
-                        showWindowButtons={false}
-                        showTitle={false}
-                        showAction={false}
-                        css={theme({
-                          width: '100%',
-                          height: '100%',
-                          minHeight: 0,
-                          flex: 1,
-                          border: 0,
-                          borderRadius: 0,
-                          pt: 2
-                        })}
-                      >
-                        {activeVerticalPayloadText}
-                      </CodeEditor>
-                    </Box>
-                  ) : (
-                    <Box
-                      id='vertical-output-panel-preview'
-                      role='tabpanel'
-                      aria-labelledby='vertical-output-tab-preview'
-                      css={theme({
-                        borderTop: 1,
-                        borderTopColor: 'white',
-                        bg: 'white',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: '100%',
-                        minHeight: 0,
-                        flex: 1,
-                        minWidth: 0
-                      })}
-                    >
+                  {activeOutputTab === 'json'
+                    ? (
                       <Box
+                        id='vertical-output-panel-json'
+                        role='tabpanel'
+                        aria-labelledby='vertical-output-tab-json'
                         css={theme({
                           display: 'flex',
                           flexDirection: 'column',
                           flex: 1,
                           minHeight: 0,
-                          overflowY: 'auto',
-                          overflowX: 'hidden'
+                          height: '100%',
+                          py: [2, 2, 3, 3],
+                          px: 0
                         })}
                       >
-                        <VerticalPreviewContent>
-                          <Box
-                            css={theme({
-                              px: [3, 3, 4, 4],
-                              py: 0,
-                              bg: 'white',
-                              overflow: 'hidden'
-                            })}
-                          >
-                            <HeroResultCard result={activeVerticalPreview} />
-                          </Box>
-                        </VerticalPreviewContent>
+                        <CodeEditor
+                          language='json'
+                          showFade={false}
+                          showHeader={false}
+                          showWindowButtons={false}
+                          showTitle={false}
+                          showAction={false}
+                          css={theme({
+                            width: '100%',
+                            height: '100%',
+                            minHeight: 0,
+                            flex: 1,
+                            border: 0,
+                            borderRadius: 0,
+                            pt: 2
+                          })}
+                        >
+                          {activeVerticalPayloadText}
+                        </CodeEditor>
                       </Box>
-                    </Box>
-                  )}
+                      )
+                    : (
+                      <Box
+                        id='vertical-output-panel-preview'
+                        role='tabpanel'
+                        aria-labelledby='vertical-output-tab-preview'
+                        css={theme({
+                          borderTop: 1,
+                          borderTopColor: 'white',
+                          bg: 'white',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          height: '100%',
+                          minHeight: 0,
+                          flex: 1,
+                          minWidth: 0
+                        })}
+                      >
+                        <Box
+                          css={theme({
+                            display: 'flex',
+                            flexDirection: 'column',
+                            flex: 1,
+                            minHeight: 0,
+                            overflowY: 'auto',
+                            overflowX: 'hidden'
+                          })}
+                        >
+                          <VerticalPreviewContent>
+                            <Box
+                              css={theme({
+                                px: [3, 3, 4, 4],
+                                py: 0,
+                                bg: 'white',
+                                overflow: 'hidden'
+                              })}
+                            >
+                              <HeroResultCard result={activeVerticalPreview} />
+                            </Box>
+                          </VerticalPreviewContent>
+                        </Box>
+                      </Box>
+                      )}
                 </VerticalExamplePanel>
               </VerticalExampleGrid>
             </VerticalExampleShell>
@@ -3242,17 +3243,6 @@ const GooglePage = () => {
     </Layout>
   )
 }
-
-/* ────────────────────────── retrieval card ────────────────────────── */
-
-const RetrievalCommandText = styled(Text).attrs({ as: 'span' })`
-  ${theme({
-    color: 'black70',
-    fontFamily: 'mono',
-    fontSize: [0, 0, 1, 1],
-    lineHeight: 1
-  })};
-`
 
 const RetrievalCommandStrong = styled(Text).attrs({ as: 'strong' })`
   ${theme({
