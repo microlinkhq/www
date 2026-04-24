@@ -384,26 +384,26 @@ const monogramOverrideFor = host => lookupHost(HOST_MONOGRAM_OVERRIDES, host)
 
 const createTablistKeyHandler =
   ({ items, onSelect, focusTab }) =>
-    (event, index) => {
-      const lastIndex = items.length - 1
-      let nextIndex = null
+  (event, index) => {
+    const lastIndex = items.length - 1
+    let nextIndex = null
 
-      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-        nextIndex = index === lastIndex ? 0 : index + 1
-      } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        nextIndex = index === 0 ? lastIndex : index - 1
-      } else if (event.key === 'Home') {
-        nextIndex = 0
-      } else if (event.key === 'End') {
-        nextIndex = lastIndex
-      }
-
-      if (nextIndex === null) return
-      event.preventDefault()
-      const nextId = items[nextIndex].id
-      onSelect(nextId)
-      if (focusTab) focusTab(nextId)
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      nextIndex = index === lastIndex ? 0 : index + 1
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      nextIndex = index === 0 ? lastIndex : index - 1
+    } else if (event.key === 'Home') {
+      nextIndex = 0
+    } else if (event.key === 'End') {
+      nextIndex = lastIndex
     }
+
+    if (nextIndex === null) return
+    event.preventDefault()
+    const nextId = items[nextIndex].id
+    onSelect(nextId)
+    if (focusTab) focusTab(nextId)
+  }
 
 /* ────────────────────────── styled primitives ────────────────────────── */
 
@@ -1245,48 +1245,6 @@ const PricingCheck = ({ children }) => (
   </Flex>
 )
 
-const SectionHeader = ({
-  title,
-  description,
-  align = 'left',
-  descriptionMaxWidth
-}) => {
-  const descriptionCss = {
-    m: 0,
-    mt: [3, 3, 3, 3],
-    maxWidth: descriptionMaxWidth ?? layout.normal,
-    color: 'black80',
-    fontSize: [2, 2, 3, 3],
-    lineHeight: 2,
-    textAlign: align
-  }
-  if (align === 'center') descriptionCss.mx = 'auto'
-
-  return (
-    <>
-      <Text
-        as='h2'
-        css={theme({
-          m: 0,
-          color: 'black',
-          fontWeight: 'bold',
-          letterSpacing: 1,
-          lineHeight: [1, 1, 0, 0],
-          fontSize: [4, 4, 5, 5],
-          textAlign: align
-        })}
-      >
-        {title}
-      </Text>
-      {description && (
-        <Text as='p' css={theme(descriptionCss)}>
-          {description}
-        </Text>
-      )}
-    </>
-  )
-}
-
 const HostBrandIcon = ({ host, size = '20px' }) => {
   const brand = brandMatchFor(host)
   if (brand) {
@@ -1715,42 +1673,42 @@ const HeroMapListItem = ({ item }) => (
 
       {(typeof item.latitude === 'number' ||
         typeof item.longitude === 'number') && (
-          <Box
+        <Box
+          css={theme({
+            mt: 2,
+            p: 2,
+            borderRadius: 3,
+            bg: 'gray0',
+            border: 1,
+            borderColor: 'black05'
+          })}
+        >
+          <Text
+            as='p'
             css={theme({
-              mt: 2,
-              p: 2,
-              borderRadius: 3,
-              bg: 'gray0',
-              border: 1,
-              borderColor: 'black05'
+              m: 0,
+              color: 'black50',
+              fontFamily: 'mono',
+              fontSize: [0, 0, 1, 1],
+              fontWeight: 'bold',
+              lineHeight: 1
             })}
           >
-            <Text
-              as='p'
-              css={theme({
-                m: 0,
-                color: 'black50',
-                fontFamily: 'mono',
-                fontSize: [0, 0, 1, 1],
-                fontWeight: 'bold',
-                lineHeight: 1
-              })}
-            >
-              Coordinates
-            </Text>
-            <Flex css={theme({ gap: 2, mt: 2, flexWrap: 'wrap' })}>
-              {typeof item.latitude === 'number' && (
-                <HeroResultBadgeSmall>
-                  lat · {formatCoordinate(item.latitude, 'N', 'S')}
-                </HeroResultBadgeSmall>
-              )}
-              {typeof item.longitude === 'number' && (
-                <HeroResultBadgeSmall>
-                  lng · {formatCoordinate(item.longitude, 'E', 'W')}
-                </HeroResultBadgeSmall>
-              )}
-            </Flex>
-          </Box>
+            Coordinates
+          </Text>
+          <Flex css={theme({ gap: 2, mt: 2, flexWrap: 'wrap' })}>
+            {typeof item.latitude === 'number' && (
+              <HeroResultBadgeSmall>
+                lat · {formatCoordinate(item.latitude, 'N', 'S')}
+              </HeroResultBadgeSmall>
+            )}
+            {typeof item.longitude === 'number' && (
+              <HeroResultBadgeSmall>
+                lng · {formatCoordinate(item.longitude, 'E', 'W')}
+              </HeroResultBadgeSmall>
+            )}
+          </Flex>
+        </Box>
       )}
 
       {item.place?.id && (
@@ -2342,7 +2300,8 @@ const GooglePage = () => {
                           tabIndex={isActive ? 0 : -1}
                           onClick={() => selectHeroExample(example.id)}
                           onKeyDown={event =>
-                            handleHeroExampleTabKeyDown(event, index)}
+                            handleHeroExampleTabKeyDown(event, index)
+                          }
                         >
                           {example.title}
                         </Tab>
@@ -2466,13 +2425,11 @@ const GooglePage = () => {
                             overflow: 'hidden'
                           })}
                         >
-                          {heroPhase === 'loading'
-                            ? (
-                              <HeroResultSkeleton />
-                              )
-                            : (
-                              <HeroResultCard result={activeHeroExample.result} />
-                              )}
+                          {heroPhase === 'loading' ? (
+                            <HeroResultSkeleton />
+                          ) : (
+                            <HeroResultCard result={activeHeroExample.result} />
+                          )}
                         </Box>
                       </HeroResultBodyWrap>
                     </HeroResultDock>
@@ -2496,12 +2453,37 @@ const GooglePage = () => {
               mx: 'auto'
             })}
           >
-            <SectionHeader
-              align='center'
-              title='One API for recurring search workflows.'
-              description='Search keeps the output consistent so monitoring jobs, SEO tooling, and AI agents need less parser logic.'
-              descriptionMaxWidth='100%'
-            />
+            <Text
+              as='h2'
+              css={theme({
+                m: 0,
+                color: 'black',
+                fontWeight: 'bold',
+                letterSpacing: 1,
+                lineHeight: [1, 1, 0, 0],
+                fontSize: [4, 4, 5, 5],
+                textAlign: 'center'
+              })}
+            >
+              One API for recurring{' '}
+              <span css={theme({ color: '#3b82f6' })}>search workflows</span>
+            </Text>
+            <Text
+              as='p'
+              css={theme({
+                m: 0,
+                mt: [3, 3, 3, 3],
+                maxWidth: '100%',
+                mx: 'auto',
+                color: 'black80',
+                fontSize: [2, 2, 3, 3],
+                lineHeight: 2,
+                textAlign: 'center'
+              })}
+            >
+              Search keeps the output consistent so monitoring jobs, SEO
+              tooling, and AI agents need less parser logic.
+            </Text>
           </Box>
           <Box as='section' css={theme({ px: [5, 5, 6, 6], mt: [4, 4, 5, 5] })}>
             <VerticalExampleShell $accentColor={activeVertical.accentColor}>
@@ -2548,7 +2530,8 @@ const GooglePage = () => {
                         aria-pressed={activeVertical.id === vertical.id}
                         onClick={() => setActiveVerticalId(vertical.id)}
                         onKeyDown={event =>
-                          handleVerticalTabKeyDown(event, index)}
+                          handleVerticalTabKeyDown(event, index)
+                        }
                       >
                         {verticalService && (
                           <Box
@@ -2697,7 +2680,8 @@ const GooglePage = () => {
                           tabIndex={isActive ? 0 : -1}
                           onClick={() => setActiveOutputTab(tab.id)}
                           onKeyDown={event =>
-                            handleOutputTabKeyDown(event, index)}
+                            handleOutputTabKeyDown(event, index)
+                          }
                         >
                           {tab.label}
                         </Tab>
@@ -2705,85 +2689,83 @@ const GooglePage = () => {
                     })}
                   </Box>
 
-                  {activeOutputTab === 'json'
-                    ? (
+                  {activeOutputTab === 'json' ? (
+                    <Box
+                      id='vertical-output-panel-json'
+                      role='tabpanel'
+                      aria-labelledby='vertical-output-tab-json'
+                      css={theme({
+                        display: 'flex',
+                        flexDirection: 'column',
+                        flex: 1,
+                        minHeight: 0,
+                        height: '100%',
+                        py: [2, 2, 3, 3],
+                        px: 0
+                      })}
+                    >
+                      <CodeEditor
+                        language='json'
+                        showFade={false}
+                        showHeader={false}
+                        showWindowButtons={false}
+                        showTitle={false}
+                        showAction={false}
+                        css={theme({
+                          width: '100%',
+                          height: '100%',
+                          minHeight: 0,
+                          flex: 1,
+                          border: 0,
+                          borderRadius: 0,
+                          pt: 2
+                        })}
+                      >
+                        {activeVerticalPayloadText}
+                      </CodeEditor>
+                    </Box>
+                  ) : (
+                    <Box
+                      id='vertical-output-panel-preview'
+                      role='tabpanel'
+                      aria-labelledby='vertical-output-tab-preview'
+                      css={theme({
+                        borderTop: 1,
+                        borderTopColor: 'white',
+                        bg: 'white',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100%',
+                        minHeight: 0,
+                        flex: 1,
+                        minWidth: 0
+                      })}
+                    >
                       <Box
-                        id='vertical-output-panel-json'
-                        role='tabpanel'
-                        aria-labelledby='vertical-output-tab-json'
                         css={theme({
                           display: 'flex',
                           flexDirection: 'column',
                           flex: 1,
                           minHeight: 0,
-                          height: '100%',
-                          py: [2, 2, 3, 3],
-                          px: 0
+                          overflowY: 'auto',
+                          overflowX: 'hidden'
                         })}
                       >
-                        <CodeEditor
-                          language='json'
-                          showFade={false}
-                          showHeader={false}
-                          showWindowButtons={false}
-                          showTitle={false}
-                          showAction={false}
-                          css={theme({
-                            width: '100%',
-                            height: '100%',
-                            minHeight: 0,
-                            flex: 1,
-                            border: 0,
-                            borderRadius: 0,
-                            pt: 2
-                          })}
-                        >
-                          {activeVerticalPayloadText}
-                        </CodeEditor>
+                        <VerticalPreviewContent>
+                          <Box
+                            css={theme({
+                              px: [3, 3, 4, 4],
+                              py: 0,
+                              bg: 'white',
+                              overflow: 'hidden'
+                            })}
+                          >
+                            <HeroResultCard result={activeVerticalPreview} />
+                          </Box>
+                        </VerticalPreviewContent>
                       </Box>
-                      )
-                    : (
-                      <Box
-                        id='vertical-output-panel-preview'
-                        role='tabpanel'
-                        aria-labelledby='vertical-output-tab-preview'
-                        css={theme({
-                          borderTop: 1,
-                          borderTopColor: 'white',
-                          bg: 'white',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          height: '100%',
-                          minHeight: 0,
-                          flex: 1,
-                          minWidth: 0
-                        })}
-                      >
-                        <Box
-                          css={theme({
-                            display: 'flex',
-                            flexDirection: 'column',
-                            flex: 1,
-                            minHeight: 0,
-                            overflowY: 'auto',
-                            overflowX: 'hidden'
-                          })}
-                        >
-                          <VerticalPreviewContent>
-                            <Box
-                              css={theme({
-                                px: [3, 3, 4, 4],
-                                py: 0,
-                                bg: 'white',
-                                overflow: 'hidden'
-                              })}
-                            >
-                              <HeroResultCard result={activeVerticalPreview} />
-                            </Box>
-                          </VerticalPreviewContent>
-                        </Box>
-                      </Box>
-                      )}
+                    </Box>
+                  )}
                 </VerticalExamplePanel>
               </VerticalExampleGrid>
             </VerticalExampleShell>
@@ -2799,12 +2781,38 @@ const GooglePage = () => {
             mx: 'auto'
           })}
         >
-          <SectionHeader
-            align='center'
-            title='Built for retrieval loops, not just result pages.'
-            description='Search stays lightweight on the first pass so technical workflows can stay fast under real production load.'
-            descriptionMaxWidth={['100%', '100%', layout.normal, layout.medium]}
-          />
+          <Text
+            as='h2'
+            css={theme({
+              m: 0,
+              color: 'black',
+              fontWeight: 'bold',
+              letterSpacing: 1,
+              lineHeight: [1, 1, 0, 0],
+              fontSize: [4, 4, 5, 5],
+              textAlign: 'center'
+            })}
+          >
+            Built for retrieval loops,
+            <br />
+            <span css={theme({ color: '#dc2626' })}>not just result pages</span>
+          </Text>
+          <Text
+            as='p'
+            css={theme({
+              m: 0,
+              mt: [3, 3, 3, 3],
+              maxWidth: ['100%', '100%', layout.normal, layout.medium],
+              mx: 'auto',
+              color: 'black80',
+              fontSize: [2, 2, 3, 3],
+              lineHeight: 2,
+              textAlign: 'center'
+            })}
+          >
+            Search stays lightweight on the first pass so technical workflows
+            can stay fast under real production load.
+          </Text>
 
           <Box
             as='ul'
@@ -2866,7 +2874,7 @@ const GooglePage = () => {
                   Combine operators like <code>site:</code> and{' '}
                   <code>filetype:</code> to hunt for papers, docs, filings,
                   changelogs, or PDFs before you enrich anything. That gives
-                  technical teams much tighter recall from the first query.
+                  technical teams much tighter recall from the first query:
                 </>
               }
             >
@@ -2898,9 +2906,12 @@ const GooglePage = () => {
                       minWidth: 0
                     })}
                   >
-                    <RetrievalCommandStrong>site:</RetrievalCommandStrong>
-                    <RetrievalCommandText>arxiv.org</RetrievalCommandText>
-                    <RetrievalCommandText>"deep learning"</RetrievalCommandText>
+                    <RetrievalCommandStrong>
+                      site:arxiv.org
+                    </RetrievalCommandStrong>
+                    <RetrievalCommandStrong>
+                      "deep learning"
+                    </RetrievalCommandStrong>
                     <RetrievalCommandStrong>
                       filetype:pdf
                     </RetrievalCommandStrong>
@@ -2926,48 +2937,40 @@ const GooglePage = () => {
         </Box>
       </PageSection>
 
-      <PageSection as='section' id='google-api-integration'>
-        <Box
+      <PageSection as='section' id='pricing'>
+        <Text
+          as='h2'
           css={theme({
-            width: '100%',
-            maxWidth: ['100%', '100%', layout.normal, layout.medium]
+            m: 0,
+            color: 'black',
+            fontWeight: 'bold',
+            letterSpacing: 1,
+            lineHeight: [1, 1, 0, 0],
+            fontSize: [4, 4, 5, 5],
+            textAlign: 'center'
           })}
         >
-          <SectionHeader
-            align='center'
-            title='Integrate Search without scraper debt.'
-            description='Initialize once, choose the surface you need, then paginate or enrich only when a workflow needs more context.'
-            descriptionMaxWidth={['100%', '100%', layout.normal, layout.medium]}
-          />
-
-          <TutorialTimeline>
-            {INTEGRATION_TUTORIAL_STEPS.map(step => (
-              <TutorialStep key={step.step} step={step} />
-            ))}
-          </TutorialTimeline>
-
-          <ActionRow
-            css={theme({ mt: [4, 4, 5, 5], justifyContent: 'flex-start' })}
-          >
-            <Button as='a' href={PACKAGE_URL}>
-              Add @microlink/google to your project
-            </Button>
-            <Button as='a' variant='white' href={GUIDE_URL}>
-              <Flex as='span' css={theme({ alignItems: 'center', gap: 2 })}>
-                Read the Search guide
-                <ArrowRight size={16} aria-hidden='true' />
-              </Flex>
-            </Button>
-          </ActionRow>
-        </Box>
-      </PageSection>
-
-      <PageSection as='section' id='pricing'>
-        <SectionHeader
-          align='center'
-          title='Paid from the first request.'
-          description='Search has no free tier because reliable result collection depends on managed proxy capacity, regional routing, and production safeguards on every call.'
-        />
+          One dollar,
+          <br />
+          <span css={theme({ color: '#ca8a04' })}>one thousand requests</span>
+        </Text>
+        <Text
+          as='p'
+          css={theme({
+            m: 0,
+            mt: [3, 3, 3, 3],
+            maxWidth: layout.normal,
+            mx: 'auto',
+            color: 'black80',
+            fontSize: [2, 2, 3, 3],
+            lineHeight: 2,
+            textAlign: 'center'
+          })}
+        >
+          Search has no free tier because reliable result collection depends on
+          managed proxy capacity, regional routing, and production safeguards on
+          every call.
+        </Text>
 
         <Flex
           css={theme({
@@ -3054,6 +3057,68 @@ const GooglePage = () => {
         </Flex>
       </PageSection>
 
+      <PageSection as='section' id='google-api-integration'>
+        <Box
+          css={theme({
+            width: '100%',
+            maxWidth: ['100%', '100%', layout.normal, layout.medium]
+          })}
+        >
+          <Text
+            as='h2'
+            css={theme({
+              m: 0,
+              color: 'black',
+              fontWeight: 'bold',
+              letterSpacing: 1,
+              lineHeight: [1, 1, 0, 0],
+              fontSize: [4, 4, 5, 5],
+              textAlign: 'center'
+            })}
+          >
+            Automate Web Discovery
+            <br />
+            <span css={theme({ color: '#16a34a' })}>without scraper debt</span>
+          </Text>
+          <Text
+            as='p'
+            css={theme({
+              m: 0,
+              mt: [3, 3, 3, 3],
+              maxWidth: ['100%', '100%', layout.normal, layout.medium],
+              mx: 'auto',
+              color: 'black80',
+              fontSize: [2, 2, 3, 3],
+              lineHeight: 2,
+              textAlign: 'center'
+            })}
+          >
+            Initialize once, choose the surface you need, then paginate or
+            enrich only when a workflow needs more context.
+          </Text>
+
+          <TutorialTimeline>
+            {INTEGRATION_TUTORIAL_STEPS.map(step => (
+              <TutorialStep key={step.step} step={step} />
+            ))}
+          </TutorialTimeline>
+
+          <ActionRow
+            css={theme({ mt: [4, 4, 5, 5], justifyContent: 'flex-start' })}
+          >
+            <Button as='a' href={PACKAGE_URL}>
+              Add @microlink/google to your project
+            </Button>
+            <Button as='a' variant='white' href={GUIDE_URL}>
+              <Flex as='span' css={theme({ alignItems: 'center', gap: 2 })}>
+                Read the Search guide
+                <ArrowRight size={16} aria-hidden='true' />
+              </Flex>
+            </Button>
+          </ActionRow>
+        </Box>
+      </PageSection>
+
       <PageSection as='section' id='final-cta'>
         <Flex
           css={theme({
@@ -3076,7 +3141,8 @@ const GooglePage = () => {
               maxWidth: layout.medium
             })}
           >
-            Pick a plan, then plug Search into your workflow.
+            Plug <span css={theme({ color: '#3b82f6' })}>Microlink Search</span>{' '}
+            into your workflow
           </Text>
           <Text
             as='p'
