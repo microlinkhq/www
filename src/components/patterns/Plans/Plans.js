@@ -166,11 +166,13 @@ export const PriceTag = ({ eur, suffix = '/month', highlight = false }) => {
   const { symbol, word } = CURRENCIES[currency]
   const amount = formatPrice(eur, currency)
   const ariaLabel = `${amount} ${word} per month`
-  const amountNode = highlight ? (
-    <Highlight as='span'>{amount}</Highlight>
-  ) : (
-    amount
-  )
+  const amountNode = highlight
+    ? (
+      <Highlight as='span'>{amount}</Highlight>
+      )
+    : (
+        amount
+      )
 
   return (
     <Flex
