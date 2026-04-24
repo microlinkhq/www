@@ -3141,7 +3141,8 @@ const GooglePage = () => {
               maxWidth: layout.medium
             })}
           >
-            Plug <span css={theme({ color: '#3b82f6' })}>Microlink Search</span>{' '}
+            Plug <span css={theme({ color: '#3b82f6' })}>Microlink</span>
+            <br />
             into your workflow
           </Text>
           <Text
@@ -3161,9 +3162,11 @@ const GooglePage = () => {
               ]
             })}
           >
-            Install the client, add your API key, and start shipping rank
-            tracking, news monitoring, local research, or agent enrichment flows
-            without building proxy infrastructure in-house.
+            Combine Search with <Link href='/metadata'>Metadata</Link>,{' '}
+            <Link href='/screenshot'>Screenshot</Link>, and{' '}
+            <Link href='/markdown'>Markdown</Link> to turn discovered URLs into
+            richer outputs for structured fields, visual captures, and AI-ready
+            page content, all under the same paid Microlink plan.
           </Text>
 
           <ActionRow
