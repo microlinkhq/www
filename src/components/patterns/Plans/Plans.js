@@ -492,7 +492,7 @@ const Plans = ({ canonicalUrl, stripeKey, showUsageStats = false }) => {
             <PlanCheck>
               <Link href='/metadata'>Metadata</Link>,{' '}
               <Link href='/logo'>Logo</Link>,{' '}
-              <Link href='/insights'>insights</Link>
+              <Link href='/insights'>Insights</Link>
             </PlanCheck>
             <PlanCheck>
               <Link href='/blog/edge-cdn'>Global edge cache</Link>
