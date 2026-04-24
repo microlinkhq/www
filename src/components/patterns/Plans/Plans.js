@@ -331,7 +331,7 @@ const CurrencyToggle = () => {
 
 // ─── Plans ───────────────────────────────────────────────────────────────────
 
-const Plans = ({ canonicalUrl, stripeKey }) => {
+const Plans = ({ canonicalUrl, stripeKey, showUsageStats = false }) => {
   const [plan, setPlan] = useState(DEFAULT_PLAN)
   const [currency] = useCurrencyContext()
   const { monthlyPrice, id: planId, reqsPerMonth } = plan
@@ -567,55 +567,59 @@ const Plans = ({ canonicalUrl, stripeKey }) => {
         </PricingCard>
       </Flex>
 
-      <Box
-        aria-hidden='true'
-        css={`
-          margin-top: 32px;
-          width: 100%;
-          max-width: ${layout.normal};
-          height: 1px;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            ${colors.black10},
-            transparent
-          );
-        `}
-      />
+      {showUsageStats && (
+        <>
+          <Box
+            aria-hidden='true'
+            css={`
+              margin-top: 32px;
+              width: 100%;
+              max-width: ${layout.normal};
+              height: 1px;
+              background: linear-gradient(
+                90deg,
+                transparent,
+                ${colors.black10},
+                transparent
+              );
+            `}
+          />
 
-      <Flex
-        css={theme({
-          pt: [3, 3, 4, 4],
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: [0, 0, 1, 1],
-          color: 'black60',
-          fontWeight: 'bold',
-          letterSpacing: 1
-        })}
-      >
-        <Text as='span'>
-          <Text as='span' css={theme({ color: 'black' })}>
-            {formatCompact(totalStars)}
-          </Text>{' '}
-          GitHub stars
-        </Text>
-        <Dot />
-        <Text as='span'>
-          <Text as='span' css={theme({ color: 'black' })}>
-            641M+
-          </Text>{' '}
-          requests last month
-        </Text>
-        <Dot />
-        <Text as='span'>
-          <Text as='span' css={theme({ color: 'black' })}>
-            99.9%
-          </Text>{' '}
-          SLA
-        </Text>
-      </Flex>
+          <Flex
+            css={theme({
+              pt: [3, 3, 4, 4],
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontSize: [0, 0, 1, 1],
+              color: 'black60',
+              fontWeight: 'bold',
+              letterSpacing: 1
+            })}
+          >
+            <Text as='span'>
+              <Text as='span' css={theme({ color: 'black' })}>
+                {formatCompact(totalStars)}
+              </Text>{' '}
+              GitHub stars
+            </Text>
+            <Dot />
+            <Text as='span'>
+              <Text as='span' css={theme({ color: 'black' })}>
+                641M+
+              </Text>{' '}
+              requests last month
+            </Text>
+            <Dot />
+            <Text as='span'>
+              <Text as='span' css={theme({ color: 'black' })}>
+                99.9%
+              </Text>{' '}
+              SLA
+            </Text>
+          </Flex>
+        </>
+      )}
     </Container>
   )
 }

@@ -1618,7 +1618,11 @@ const PricingPage = () => {
         <DashedGridOverlay aria-hidden='true' />
         <Box css={theme({ position: 'relative', zIndex: 1 })}>
           <Hero />
-          <Plans canonicalUrl={canonicalUrl} stripeKey={stripeKey} />
+          <Plans
+            canonicalUrl={canonicalUrl}
+            stripeKey={stripeKey}
+            showUsageStats
+          />
           <Comparison />
           <Testimonials />
           <Clients />
