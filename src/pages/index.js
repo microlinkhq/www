@@ -3,11 +3,15 @@ import Faqs from 'components/pages/home/faqs'
 import Hero from 'components/pages/home/hero'
 import Overlay from 'components/pages/home/overlay'
 import Meta from 'components/elements/Meta/Meta'
+import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
+import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
+import Text from 'components/elements/Text'
 import { withTitle } from 'helpers/hoc/with-title'
 import SubheadBase from 'components/elements/Subhead'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
+import ArrowLink from 'components/patterns/ArrowLink'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
@@ -15,7 +19,7 @@ import Plans, {
   CurrencyContext,
   useCurrency
 } from 'components/patterns/Plans/Plans'
-import { layout, textGradient, theme } from 'theme'
+import { colors, layout, textGradient, theme } from 'theme'
 import React from 'react'
 
 const FEATURES = [
@@ -164,6 +168,49 @@ const HomePage = () => {
           </Caption>
         </Container>
         <Plans canonicalUrl={canonicalUrl} stripeKey={stripeKey} />
+        <Container
+          as='section'
+          css={theme({
+            alignItems: 'center',
+            maxWidth: '100%',
+            pt: [2, 2, 3, 3],
+            pb: [3, 3, 4, 4],
+            px: [3, 3, 4, 4]
+          })}
+        >
+          <Box
+            aria-hidden='true'
+            css={`
+              width: 100%;
+              max-width: ${layout.normal};
+              height: 1px;
+              background: linear-gradient(
+                90deg,
+                transparent,
+                ${colors.black10},
+                transparent
+              );
+            `}
+          />
+          <Flex
+            css={theme({
+              pt: [3, 3, 4, 4],
+              flexDirection: ['column', 'row', 'row', 'row'],
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: [1, 2, 2, 2],
+              textAlign: 'center',
+              fontSize: [1, 1, 2, 2]
+            })}
+          >
+            <Text as='span' css={theme({ color: 'black60' })}>
+              Need more details?
+            </Text>
+            <ArrowLink href='/pricing'>
+              Compare every plan side by side
+            </ArrowLink>
+          </Flex>
+        </Container>
         <Faqs />
       </Layout>
     </CurrencyContext.Provider>
