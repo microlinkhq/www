@@ -362,6 +362,7 @@ const Footer = ({ ...props }) => {
             action='https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452'
             method='post'
           >
+            <input type='hidden' name='tags' value='50279' />
             <Flex css={theme({ alignItems: 'center' })}>
               <Input
                 type='email'
