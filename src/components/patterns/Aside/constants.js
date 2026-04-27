@@ -733,6 +733,11 @@ const ROUTES_GUIDES = [
         ]
       },
       {
+        name: 'Search',
+        href: '/docs/guides/search',
+        posts: []
+      },
+      {
         name: 'Common patterns',
         href: '/docs/guides/common/caching',
         posts: [

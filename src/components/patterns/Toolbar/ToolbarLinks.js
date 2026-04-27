@@ -16,6 +16,7 @@ import {
   BarChart2,
   Image,
   Map,
+  Search as SearchIcon,
   Users,
   Activity,
   Maximize,
@@ -177,6 +178,12 @@ export const NAVIGATION_SECTIONS = [
         href: '/screenshot',
         description: 'Generate pixel-perfect captures for any URL',
         icon: FocusIcon
+      }),
+      createNavigationItem({
+        label: 'Search API',
+        href: '/search',
+        description: 'Turn Google results into structured data',
+        icon: SearchIcon
       }),
       createNavigationItem({
         label: 'PDF',

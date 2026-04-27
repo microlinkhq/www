@@ -98,16 +98,16 @@ const GRID_ITEMS = [
     href: '/sdk'
   },
   {
-    title: 'Insights',
-    subtitle: 'Performance metrics powered by Lighthouse',
-    color: 'rgb(181, 0, 237)',
-    href: '/insights'
-  },
-  {
     title: 'Metadata',
     subtitle: 'Get unified metadata',
     color: '#3e55ff',
     href: '/metadata'
+  },
+  {
+    title: 'Search API',
+    subtitle: 'Turn Google results into structured data',
+    color: '#1c7ed6',
+    href: '/search'
   },
   {
     title: 'PDF',

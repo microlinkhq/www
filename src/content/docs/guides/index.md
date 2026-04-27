@@ -1,6 +1,6 @@
 ---
 title: 'Guides'
-description: 'Step-by-step guides for common Microlink workflows. Learn how to capture screenshots, extract custom data, generate PDFs, extract metadata, and more with practical, runnable examples.'
+description: 'Step-by-step guides for common Microlink workflows. Learn how to query public search surfaces, capture screenshots, extract custom data, generate PDFs, extract metadata, and more with practical examples.'
 ---
 
 import { Link } from 'components/elements/Link'
@@ -8,13 +8,15 @@ import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 Microlink Guides are practical, step-by-step walkthroughs that show you how to accomplish real tasks using the Microlink API. While the <Link href='/docs/api/getting-started/overview' children='API reference' /> documents every parameter individually, these guides focus on **workflows** — combining parameters to solve specific problems from start to finish.
 
-Every guide includes live, runnable examples you can modify and test directly.
+Every guide includes practical examples you can adapt quickly. Most API guides also include live, runnable examples you can modify and test directly.
 
 ## Before you start
 
 The Microlink API works **without an API key** — you get **50 free requests per day**, no signup required. No API key is required to implement your code or to run the examples directly in your browser.
 
 Some features are marked with <ProBadge /> and require a paid plan. Everything else works on the free tier. See <Link href='/docs/api/basics/rate-limit' children='rate limit' /> and <Link href='/docs/api/basics/authentication' children='authentication' /> for details.
+
+Microlink Search is the main exception: it is a paid workflow from the first request because public-result collection depends on managed proxy capacity.
 
 ## What is Microlink?
 
@@ -31,6 +33,7 @@ New to the API? Start with <Link href='/docs/guides/what-is-microlink' children=
 | Turn a page into a PDF | <Link href='/docs/guides/pdf' children='PDF' /> |
 | Get link preview data (title, image, description) | <Link href='/docs/guides/metadata' children='Metadata' /> |
 | Detect what tech a site uses or run a Lighthouse audit | <Link href='/docs/guides/insights' children='Insights' /> |
+| Query public search surfaces as structured data | <Link href='/docs/guides/search' children='Search' /> |
 | Bypass IP blocking, CAPTCHAs, or regional restrictions | <Link href='/docs/guides/common/proxy' children='Proxy' /> |
 
 Caching, private-page access, and general troubleshooting are shared across all workflows. See <Link href='/docs/guides/common/caching' children='common patterns' />.
@@ -108,6 +111,12 @@ Analyze any site with Microlink Insights, choose between technology detection an
 - <Link href='/docs/guides/insights/lighthouse-reports' children='Lighthouse reports' /> — generate JSON, HTML, or CSV audit reports and tune report settings.
 - <Link href='/docs/guides/insights/caching-and-performance' children='Caching and performance' /> — cache expensive runs, skip unnecessary work, and verify response behavior.
 - <Link href='/docs/guides/insights/troubleshooting' children='Troubleshooting' /> — fix missing results, timeouts, wrong variants, and blocked sites.
+
+## Search
+
+Query public search surfaces as structured data with Microlink Search and the `@microlink/google` package. This guide focuses on the package workflow: install the client, choose the right surface, then paginate or expand only the results worth reading more deeply.
+
+- <Link href='/docs/guides/search' children='Quickstart' /> — install `@microlink/google`, choose the right surface, and use pagination plus HTML or Markdown expansion in SEO, monitoring, and AI workflows.
 
 ## Common patterns
 

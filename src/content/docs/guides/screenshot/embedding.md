@@ -52,7 +52,7 @@ Use the API URL directly as an `<img>` src:
 
 ```html
 <img
-  src="https://api.microlink.io?url=https://github.com/microlinkhq&screenshot&meta=false&embed=screenshot.url"
+  src="/images/image-1.png"
   alt="GitHub screenshot"
   loading="lazy"
 />
@@ -66,7 +66,7 @@ Use it as a `background-image`:
 
 ```css
 .hero {
-  background-image: url(https://api.microlink.io?url=https://github.com/microlinkhq&screenshot&meta=false&embed=screenshot.url);
+  background-image: url(/images/image-1.png);
   background-size: cover;
   background-position: center;
 }
@@ -77,7 +77,7 @@ Use it as a `background-image`:
 Standard Markdown image syntax works:
 
 ```md
-![GitHub](https://api.microlink.io?url=https://github.com/microlinkhq&screenshot&meta=false&embed=screenshot.url)
+![GitHub](/images/image-1.png)
 ```
 
 This is useful for documentation, README files, and any Markdown-based CMS.
