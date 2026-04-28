@@ -155,7 +155,7 @@
     "p-map": "~7.0.4",
     "path-browserify": "~1.0.1",
     "polished": "~4.3.1",
-    "postcss": "~8.5.6",
+    "postcss": "~8.5.10",
     "postcss-focus": "~7.0.0",
     "prepend-http": "~4.0.0",
     "prettier": "2",
