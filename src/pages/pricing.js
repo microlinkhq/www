@@ -26,6 +26,7 @@ import Plans, {
   useCurrencyContext
 } from 'components/patterns/Plans/Plans'
 import { withTitle } from 'helpers/hoc/with-title'
+import { trackEvent } from 'helpers/plausible'
 import {
   borders,
   colors,
@@ -510,17 +511,15 @@ const Comparison = () => (
               Feature
             </ComparisonHeaderLabelCell>
             {PLAN_NAMES.map((name, i) =>
-              i === 1
-                ? (
-                  <ComparisonProHeaderPlanCell role='columnheader' key={name}>
-                    {name}
-                  </ComparisonProHeaderPlanCell>
-                  )
-                : (
-                  <ComparisonHeaderPlanCell role='columnheader' key={name}>
-                    {name}
-                  </ComparisonHeaderPlanCell>
-                  )
+              i === 1 ? (
+                <ComparisonProHeaderPlanCell role='columnheader' key={name}>
+                  {name}
+                </ComparisonProHeaderPlanCell>
+              ) : (
+                <ComparisonHeaderPlanCell role='columnheader' key={name}>
+                  {name}
+                </ComparisonHeaderPlanCell>
+              )
             )}
           </ComparisonHeaderRow>
         </Box>
@@ -531,17 +530,15 @@ const Comparison = () => (
                 {label}
               </ComparisonLabelCell>
               {values.map((value, i) =>
-                i === 1
-                  ? (
-                    <ComparisonProPlanCell role='cell' key={i}>
-                      {renderComparisonValue(value)}
-                    </ComparisonProPlanCell>
-                    )
-                  : (
-                    <ComparisonPlanCell role='cell' key={i}>
-                      {renderComparisonValue(value)}
-                    </ComparisonPlanCell>
-                    )
+                i === 1 ? (
+                  <ComparisonProPlanCell role='cell' key={i}>
+                    {renderComparisonValue(value)}
+                  </ComparisonProPlanCell>
+                ) : (
+                  <ComparisonPlanCell role='cell' key={i}>
+                    {renderComparisonValue(value)}
+                  </ComparisonPlanCell>
+                )
               )}
             </ComparisonRow>
           ))}
@@ -1594,6 +1591,7 @@ const Cta = () => {
             variant='black'
             data-event-location='Pricing'
             data-event-name='Final CTA · Get started free'
+            onClick={() => trackEvent('pricing cta')}
           >
             <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>
               Get started free

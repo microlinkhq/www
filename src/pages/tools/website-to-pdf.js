@@ -61,6 +61,7 @@ import {
   ApiErrorBody
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
+import { trackEvent } from 'helpers/plausible'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import {
@@ -534,7 +535,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               aria-label='Paper format'
               value={options.format}
               onChange={e =>
-                setOptions(prev => ({ ...prev, format: e.target.value }))}
+                setOptions(prev => ({ ...prev, format: e.target.value }))
+              }
               css={theme({ width: '100%', fontSize: 1, bg: 'white' })}
             >
               {FORMAT_OPTIONS.map(({ value, label }) => (
@@ -555,7 +557,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 setOptions(prev => ({
                   ...prev,
                   landscape: val === 'landscape'
-                }))}
+                }))
+              }
             />
           </Box>
 
@@ -585,7 +588,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               options={MEDIA_TYPE_OPTIONS}
               value={options.mediaType}
               onChange={val =>
-                setOptions(prev => ({ ...prev, mediaType: val }))}
+                setOptions(prev => ({ ...prev, mediaType: val }))
+              }
             />
           </Box>
 
@@ -618,7 +622,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 step='0.1'
                 value={options.scale || '0.6'}
                 onChange={e =>
-                  setOptions(prev => ({ ...prev, scale: e.target.value }))}
+                  setOptions(prev => ({ ...prev, scale: e.target.value }))
+                }
                 aria-label='PDF zoom scale'
                 style={{ flex: 1, accentColor: colors.link }}
               />
@@ -632,7 +637,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 aria-label='PDF zoom scale value'
                 value={options.scale}
                 onChange={e =>
-                  setOptions(prev => ({ ...prev, scale: e.target.value }))}
+                  setOptions(prev => ({ ...prev, scale: e.target.value }))
+                }
                 css={theme({
                   width: '60px',
                   fontSize: 1,
@@ -653,7 +659,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -679,7 +686,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -708,7 +716,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 setOptions(prev => ({
                   ...prev,
                   waitForLoad: e.target.checked
-                }))}
+                }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Wait for full load
@@ -798,7 +807,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                       setOptions(prev => ({
                         ...prev,
                         pageFrom: e.target.value
-                      }))}
+                      }))
+                    }
                     css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                   />
                   <Input
@@ -814,7 +824,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                       setOptions(prev => ({
                         ...prev,
                         pageTo: e.target.value
-                      }))}
+                      }))
+                    }
                     css={theme({ width: '100%', fontSize: 1, height: '18px' })}
                   />
                 </Box>
@@ -847,7 +858,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   aria-label='PDF margin'
                   value={options.margin}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, margin: e.target.value }))}
+                    setOptions(prev => ({ ...prev, margin: e.target.value }))
+                  }
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -882,7 +894,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   aria-label='Custom paper width'
                   value={options.width}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, width: e.target.value }))}
+                    setOptions(prev => ({ ...prev, width: e.target.value }))
+                  }
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -917,7 +930,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   aria-label='Custom paper height'
                   value={options.height}
                   onChange={e =>
-                    setOptions(prev => ({ ...prev, height: e.target.value }))}
+                    setOptions(prev => ({ ...prev, height: e.target.value }))
+                  }
                   spellCheck={false}
                   autoComplete='off'
                   css={theme({ width: '100%', fontSize: 1, height: '18px' })}
@@ -1131,6 +1145,7 @@ const PdfPreviewDisplay = ({
                 tabIndex={0}
                 onClick={e => {
                   e.preventDefault()
+                  trackEvent('pdf download')
                   downloadFile(pdfUrl, buildPdfFilename(url))
                   setDownloaded(true)
                   setTimeout(() => setDownloaded(false), 1500)
@@ -1141,13 +1156,11 @@ const PdfPreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                {downloaded
-                  ? (
-                    <SpinningLoader size={15} />
-                    )
-                  : (
-                    <Download size={15} />
-                    )}
+                {downloaded ? (
+                  <SpinningLoader size={15} />
+                ) : (
+                  <Download size={15} />
+                )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
@@ -1157,6 +1170,7 @@ const PdfPreviewDisplay = ({
                 as='button'
                 type='button'
                 onClick={() => {
+                  trackEvent('pdf copy url')
                   toClipboard({
                     copy: pdfUrl,
                     text: Tooltip.TEXT.COPIED('URL')
@@ -1279,6 +1293,7 @@ const PdfTool = () => {
 
   const handleSubmit = useCallback(
     async url => {
+      trackEvent('pdf generate')
       setIsLoading(true)
       setError(null)
       setData(null)

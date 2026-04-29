@@ -1,5 +1,6 @@
 /* global fetch, ResizeObserver */
 
+import { trackEvent } from 'helpers/plausible'
 import { colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
@@ -839,7 +840,8 @@ export const PreviewDisplay = ({
   loadingText = 'Capturing screenshot',
   emptyIcon: EmptyIcon = Camera,
   emptyText = 'Enter a URL and click Generate',
-  emptySubtext = 'Your screenshot will appear here'
+  emptySubtext = 'Your screenshot will appear here',
+  trackingVariant = 'standard'
 }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [isPreviewTooBig, setIsPreviewTooBig] = useState(false)
@@ -1149,6 +1151,9 @@ export const PreviewDisplay = ({
                 tabIndex={0}
                 onClick={e => {
                   e.preventDefault()
+                  trackEvent('screenshot download', {
+                    variant: trackingVariant
+                  })
                   downloadFile(imageUrl, `screenshot-${Date.now()}.png`)
                   setDownloaded(true)
                   setTimeout(() => setDownloaded(false), 1500)
@@ -1159,13 +1164,11 @@ export const PreviewDisplay = ({
                   _hover: { bg: 'black80' }
                 })}
               >
-                {downloaded
-                  ? (
-                    <SpinningLoader size={15} />
-                    )
-                  : (
-                    <Download size={15} />
-                    )}
+                {downloaded ? (
+                  <SpinningLoader size={15} />
+                ) : (
+                  <Download size={15} />
+                )}
                 <Caps css={theme({ fontSize: 0 })}>
                   {downloaded ? 'Saving' : 'Download'}
                 </Caps>
@@ -1175,6 +1178,9 @@ export const PreviewDisplay = ({
                 as='button'
                 type='button'
                 onClick={() => {
+                  trackEvent('screenshot copy url', {
+                    variant: trackingVariant
+                  })
                   toClipboard({
                     copy: imageUrl,
                     text: Tooltip.TEXT.COPIED('URL')

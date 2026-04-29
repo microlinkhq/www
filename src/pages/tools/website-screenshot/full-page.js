@@ -1,3 +1,4 @@
+import { trackEvent } from 'helpers/plausible'
 import { borders, colors, layout, theme, space } from 'theme'
 import React, { useState, useCallback, useEffect } from 'react'
 import {
@@ -387,7 +388,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.adblock}
               onChange={e =>
-                setOptions(prev => ({ ...prev, adblock: e.target.checked }))}
+                setOptions(prev => ({ ...prev, adblock: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Block ads and banners
@@ -412,7 +414,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               type='checkbox'
               checked={options.cache}
               onChange={e =>
-                setOptions(prev => ({ ...prev, cache: e.target.checked }))}
+                setOptions(prev => ({ ...prev, cache: e.target.checked }))
+              }
             />
             <Text css={theme({ pl: 2, fontSize: 1, color: 'black80' })}>
               Use cache
@@ -503,6 +506,7 @@ const ScreenshotTool = () => {
 
   const handleSubmit = useCallback(
     async url => {
+      trackEvent('screenshot generate', { variant: 'full-page' })
       const viewport = {
         width: Number(options.customWidth) || 1920
       }
@@ -671,6 +675,7 @@ const ScreenshotTool = () => {
             responseData={responseData}
             showNerdStats={showNerdStats}
             onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
+            trackingVariant='full-page'
             maxPreviewHeight={MAX_SCREENSHOT_PREVIEW_HEIGHT}
             loadingText='Capturing full webpage screenshot'
             emptyText='Enter a URL and click Generate Screenshot'

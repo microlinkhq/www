@@ -10,6 +10,7 @@ import { Hugo } from 'components/icons/Hugo'
 import { Eleventy } from 'components/icons/Eleventy'
 import { _React as ReactIcon } from 'components/icons/React'
 import { cdnUrl } from 'helpers/cdn-url'
+import { trackEvent } from 'helpers/plausible'
 import styled from 'styled-components'
 import humanizeUrl from 'humanize-url'
 import { layout, theme } from 'theme'
@@ -187,6 +188,7 @@ const LiveDemo = React.memo(function LiveDemo ({
           })}
           onSubmit={event => {
             event.preventDefault()
+            trackEvent('demo submit', { product: 'sdk' })
             const rawUrl = inputUrl.trim()
             onSubmit(validInputUrl, { queryUrl: rawUrl })
           }}

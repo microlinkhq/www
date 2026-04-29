@@ -6,6 +6,7 @@ import { layout, theme as themeProp } from 'theme'
 import Markdown from 'components/markdown'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import { cdnUrl } from 'helpers/cdn-url'
+import { trackEvent } from 'helpers/plausible'
 import { useClipboard } from 'components/hook/use-clipboard'
 import React from 'react'
 
@@ -66,12 +67,14 @@ const EnterprisePage = () => {
           <Box css={themeProp({ pt: [2, null, 3] })}>
             <Button
               variant='black'
-              onClick={() =>
+              onClick={() => {
+                trackEvent('enterprise contact')
                 window.open(
                   'mailto:hello@microlink.io?subject=Microlink%20Enterprise&body=Hi%2C%20I%27m%20interested%20in%20Microlink%20Enterprise.%20Could%20you%20share%20more%20details%3F%0D%0A%0D%0AThanks!%0D%0A',
                   '_blank',
                   'noopener noreferrer'
-                )}
+                )
+              }}
             >
               <Caps css={themeProp({ fontSize: 0 })}>Contact sales</Caps>
             </Button>
@@ -85,7 +88,8 @@ const EnterprisePage = () => {
                   toClipboard({
                     copy: 'hello@microlink.io',
                     text: Tooltip.TEXT.COPIED('email')
-                  })}
+                  })
+                }
                 css={themeProp({
                   color: 'black',
                   cursor: 'pointer',

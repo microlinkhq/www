@@ -40,6 +40,7 @@ import {
 } from 'components/patterns/NerdStats/NerdStats'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError } from 'helpers/api-error'
+import { trackEvent } from 'helpers/plausible'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import {
@@ -947,6 +948,7 @@ const ScreenshotTool = () => {
 
   const handleSubmit = useCallback(
     async url => {
+      trackEvent('screenshot generate', { variant: 'standard' })
       const viewport = {
         width: Number(options.customWidth) || 1920,
         height: Number(options.customHeight) || 1080

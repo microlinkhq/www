@@ -17,6 +17,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { cdnUrl } from 'helpers/cdn-url'
+import { trackEvent } from 'helpers/plausible'
 import styled, { css } from 'styled-components'
 import React from 'react'
 
@@ -698,7 +699,14 @@ const Hero = () => (
           justifyContent: 'center'
         })}
       >
-        <ArrowLink href='/screenshot'>Get Started Free</ArrowLink>
+        <ArrowLink
+          href='/screenshot'
+          onClick={() =>
+            trackEvent('alternative cta', { competitor: 'screenshotone' })
+          }
+        >
+          Get Started Free
+        </ArrowLink>
       </Flex>
 
       <Flex
@@ -891,19 +899,15 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin
-                                ? (
-                                  <CellHighlight>
-                                    {formatMs(times[i])}
-                                  </CellHighlight>
-                                  )
-                                : isMax
-                                  ? (
-                                    <CellLoser>{formatMs(times[i])}</CellLoser>
-                                    )
-                                  : (
-                                      formatMs(times[i])
-                                    )}
+                              {isMin ? (
+                                <CellHighlight>
+                                  {formatMs(times[i])}
+                                </CellHighlight>
+                              ) : isMax ? (
+                                <CellLoser>{formatMs(times[i])}</CellLoser>
+                              ) : (
+                                formatMs(times[i])
+                              )}
                             </td>
                           )
                         })}
@@ -1705,6 +1709,9 @@ const CTASection = () => (
       >
         <ArrowLink
           href='/screenshot'
+          onClick={() =>
+            trackEvent('alternative cta', { competitor: 'screenshotone' })
+          }
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
           Start Building Free
@@ -1779,6 +1786,9 @@ const TryItSection = () => {
         >
           <Link
             href='/docs/guides/screenshot'
+            onClick={() =>
+              trackEvent('alternative cta', { competitor: 'screenshotone' })
+            }
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
             Start now for free

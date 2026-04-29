@@ -5,6 +5,7 @@ import { Button } from 'components/elements/Button/Button'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useState } from 'react'
 import { theme } from 'theme'
+import { trackEvent } from 'helpers/plausible'
 
 const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -14,6 +15,9 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
 
   const handleCheckout = async () => {
     setIsLoading(true)
+    const location =
+      window.location.pathname === '/pricing' ? 'pricing' : 'home'
+    trackEvent('buy', { location })
 
     try {
       const { data } = await fetch(`${apiEndpoint}/payment/session`, {
