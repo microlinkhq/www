@@ -61,6 +61,7 @@ import {
   ApiErrorBody
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
+import { trackEvent } from 'helpers/plausible'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import {
@@ -1131,6 +1132,7 @@ const PdfPreviewDisplay = ({
                 tabIndex={0}
                 onClick={e => {
                   e.preventDefault()
+                  trackEvent('pdf download')
                   downloadFile(pdfUrl, buildPdfFilename(url))
                   setDownloaded(true)
                   setTimeout(() => setDownloaded(false), 1500)
@@ -1157,6 +1159,7 @@ const PdfPreviewDisplay = ({
                 as='button'
                 type='button'
                 onClick={() => {
+                  trackEvent('pdf copy url')
                   toClipboard({
                     copy: pdfUrl,
                     text: Tooltip.TEXT.COPIED('URL')
@@ -1279,6 +1282,7 @@ const PdfTool = () => {
 
   const handleSubmit = useCallback(
     async url => {
+      trackEvent('pdf generate')
       setIsLoading(true)
       setError(null)
       setData(null)

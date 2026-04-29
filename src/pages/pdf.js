@@ -10,6 +10,7 @@ import {
   radii
 } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
+import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
 import styled, { css, keyframes } from 'styled-components'
 
@@ -692,7 +693,8 @@ const Hero = function Hero ({ onRequestTiming }) {
   const imgKeyRef = useRef(0)
 
   const fetchPdf = useCallback(
-    async url => {
+    async (url, { track } = {}) => {
+      if (track) trackEvent('demo submit', { product: 'pdf' })
       if (abortRef.current) abortRef.current.abort()
       abortRef.current = new window.AbortController()
 
@@ -903,7 +905,7 @@ const Hero = function Hero ({ onRequestTiming }) {
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
-    fetchPdf(normalized)
+    fetchPdf(normalized, { track: true })
   }
 
   const handleBack = () => {

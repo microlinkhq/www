@@ -5,6 +5,7 @@ import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
 import { toCurlSnippet } from 'helpers/curl-snippet'
+import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
@@ -401,6 +402,7 @@ const LiveDemo = React.memo(function LiveDemo ({
           })}
           onSubmit={event => {
             event.preventDefault()
+            trackEvent('demo submit', { product: 'logo' })
             const rawUrl = inputUrl.trim()
             onSubmit(validInputUrl, { queryUrl: rawUrl })
           }}

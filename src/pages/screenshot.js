@@ -11,6 +11,7 @@ import {
 } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { cdnUrl } from 'helpers/cdn-url'
+import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
 import styled, { css, keyframes } from 'styled-components'
 
@@ -821,7 +822,8 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
   const apiUrl = `https://api.microlink.io?screenshot&url=${inputUrl}`
 
   const fetchScreenshot = useCallback(
-    async url => {
+    async (url, { track } = {}) => {
+      if (track) trackEvent('demo submit', { product: 'screenshot' })
       if (abortRef.current) abortRef.current.abort()
       abortRef.current = new window.AbortController()
 
@@ -921,7 +923,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
-    fetchScreenshot(normalized)
+    fetchScreenshot(normalized, { track: true })
   }
 
   const handleBack = () => {

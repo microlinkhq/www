@@ -12,6 +12,7 @@ import {
 } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { cdnUrl } from 'helpers/cdn-url'
+import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
 import styled, { css, keyframes } from 'styled-components'
 
@@ -1402,7 +1403,8 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
   const skipBlurRef = useRef(false)
 
   const fetchMetadata = useCallback(
-    async url => {
+    async (url, { track } = {}) => {
+      if (track) trackEvent('demo submit', { product: 'metadata' })
       if (abortRef.current) abortRef.current.abort()
       abortRef.current = new window.AbortController()
 
@@ -1612,7 +1614,7 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
-    fetchMetadata(normalized)
+    fetchMetadata(normalized, { track: true })
   }
 
   const handleBack = () => {

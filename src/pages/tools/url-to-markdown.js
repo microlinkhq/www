@@ -1,3 +1,4 @@
+import { trackEvent } from 'helpers/plausible'
 import { borders, colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
@@ -1360,6 +1361,7 @@ const MarkdownPreviewDisplay = ({
   )
 
   const handleCopy = useCallback(() => {
+    trackEvent('markdown copy')
     ensureSavedThen(text => {
       toClipboard({
         copy: text || '',
@@ -1371,6 +1373,7 @@ const MarkdownPreviewDisplay = ({
   }, [ensureSavedThen, toClipboard])
 
   const handleDownload = useCallback(() => {
+    trackEvent('markdown download')
     ensureSavedThen(text => {
       if (!text) return
       const blob = new Blob([text], { type: 'text/markdown;charset=utf-8' })
@@ -1841,6 +1844,7 @@ const MarkdownTool = () => {
 
   const executeSubmit = useCallback(
     async url => {
+      trackEvent('markdown convert')
       setIsLoading(true)
       setError(null)
       setMarkdown(null)

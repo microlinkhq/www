@@ -1,3 +1,4 @@
+import { trackEvent } from 'helpers/plausible'
 import { borders, colors, layout, theme, space } from 'theme'
 import React, { useState, useCallback, useEffect } from 'react'
 import {
@@ -503,6 +504,7 @@ const ScreenshotTool = () => {
 
   const handleSubmit = useCallback(
     async url => {
+      trackEvent('screenshot generate', { variant: 'full-page' })
       const viewport = {
         width: Number(options.customWidth) || 1920
       }
@@ -671,6 +673,7 @@ const ScreenshotTool = () => {
             responseData={responseData}
             showNerdStats={showNerdStats}
             onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
+            trackingVariant='full-page'
             maxPreviewHeight={MAX_SCREENSHOT_PREVIEW_HEIGHT}
             loadingText='Capturing full webpage screenshot'
             emptyText='Enter a URL and click Generate Screenshot'

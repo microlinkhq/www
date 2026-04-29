@@ -1,3 +1,4 @@
+import { trackEvent } from 'helpers/plausible'
 import { borders, colors, layout, theme, space } from 'theme'
 import React, { useState, useCallback, useEffect } from 'react'
 import {
@@ -578,6 +579,7 @@ const ScreenshotTool = () => {
 
   const handleSubmit = useCallback(
     async url => {
+      trackEvent('screenshot generate', { variant: 'mobile' })
       const phone =
         PHONE_DEVICES.find(p => p.id === options.phoneId) || PHONE_DEVICES[0]
       const viewport = options.landscape
@@ -761,6 +763,7 @@ const ScreenshotTool = () => {
             responseData={responseData}
             showNerdStats={showNerdStats}
             onToggleNerdStats={() => setShowNerdStats(prev => !prev)}
+            trackingVariant='mobile'
           />
         </PreviewOuter>
       </ToolLayout>

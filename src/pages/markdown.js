@@ -11,6 +11,7 @@ import {
 } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { cdnUrl } from 'helpers/cdn-url'
+import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
 import styled, { css, keyframes } from 'styled-components'
 import Box from 'components/elements/Box'
@@ -952,6 +953,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
   const apiUrl = `https://markdown.microlink.io/${stripProtocol(inputUrl)}`
 
   const handleCopy = () => {
+    trackEvent('demo copy', { product: 'markdown' })
     const markCopied = () => {
       setIsCopied(true)
       if (copyTimerRef.current) clearTimeout(copyTimerRef.current)
@@ -992,7 +994,8 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
     : stripForDisplay(inputUrl)
 
   const fetchMarkdown = useCallback(
-    async url => {
+    async (url, { track } = {}) => {
+      if (track) trackEvent('demo submit', { product: 'markdown' })
       if (abortRef.current) abortRef.current.abort()
       abortRef.current = new window.AbortController()
       if (streamRef.current) {
@@ -1109,7 +1112,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
-    fetchMarkdown(normalized)
+    fetchMarkdown(normalized, { track: true })
   }
 
   const handleBack = () => {

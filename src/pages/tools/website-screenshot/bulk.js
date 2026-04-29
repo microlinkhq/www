@@ -1,5 +1,6 @@
 /* global fetch */
 
+import { trackEvent } from 'helpers/plausible'
 import { borders, colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
@@ -1899,6 +1900,7 @@ const ScreenshotTool = () => {
 
   const handleBulkSubmit = useCallback(
     async urls => {
+      trackEvent('screenshot generate', { variant: 'bulk' })
       setBulkState('processing')
       setBulkProgress({ current: 0, total: urls.length, currentUrl: '' })
       setBulkResults([])

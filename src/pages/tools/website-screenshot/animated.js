@@ -1,5 +1,6 @@
 /* global ResizeObserver */
 
+import { trackEvent } from 'helpers/plausible'
 import { borders, colors, layout, theme, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
@@ -754,6 +755,7 @@ const PreviewDisplay = ({
                 tabIndex={0}
                 onClick={e => {
                   e.preventDefault()
+                  trackEvent('screenshot download', { variant: 'animated' })
                   downloadFile(
                     videoUrl,
                     `animated-screenshot-${Date.now()}.mp4`
@@ -772,11 +774,13 @@ const PreviewDisplay = ({
               <ActionButton
                 as='button'
                 type='button'
-                onClick={() =>
+                onClick={() => {
+                  trackEvent('screenshot copy url', { variant: 'animated' })
                   toClipboard({
                     copy: videoUrl,
                     text: Tooltip.TEXT.COPIED('URL')
-                  })}
+                  })
+                }}
                 css={theme({
                   bg: 'white',
                   color: 'black80',
@@ -886,6 +890,7 @@ const AnimatedScreenshotTool = () => {
 
   const handleSubmit = useCallback(
     async url => {
+      trackEvent('screenshot generate', { variant: 'animated' })
       const deviceDef = DEVICES[options.device] || DEVICES.desktop
       setRequestedViewport({ width: deviceDef.width, height: deviceDef.height })
       setIsLoading(true)

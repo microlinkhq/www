@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createElement } from 'react'
+import { trackEvent } from 'helpers/plausible'
 import { theme } from 'theme'
 import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'
@@ -124,6 +125,7 @@ export const Hero = () => {
         const shareResultDisplayUrl =
           buildSharingDebuggerDisplayUrl(currentAnalyzedUrl)
         const submitUrl = value => {
+          trackEvent('debugger preview')
           const trimmedValue = value.trim()
 
           if (!trimmedValue) {

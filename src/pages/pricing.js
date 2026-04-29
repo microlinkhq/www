@@ -26,6 +26,7 @@ import Plans, {
   useCurrencyContext
 } from 'components/patterns/Plans/Plans'
 import { withTitle } from 'helpers/hoc/with-title'
+import { trackEvent } from 'helpers/plausible'
 import {
   borders,
   colors,
@@ -1594,6 +1595,7 @@ const Cta = () => {
             variant='black'
             data-event-location='Pricing'
             data-event-name='Final CTA · Get started free'
+            onClick={() => trackEvent('pricing cta')}
           >
             <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>
               Get started free
