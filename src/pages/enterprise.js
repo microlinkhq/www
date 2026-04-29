@@ -88,8 +88,7 @@ const EnterprisePage = () => {
                   toClipboard({
                     copy: 'hello@microlink.io',
                     text: Tooltip.TEXT.COPIED('email')
-                  })
-                }
+                  })}
                 css={themeProp({
                   color: 'black',
                   cursor: 'pointer',

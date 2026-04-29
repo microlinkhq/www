@@ -933,8 +933,7 @@ const Hero = () => (
         <ArrowLink
           href='/screenshot'
           onClick={() =>
-            trackEvent('alternative cta', { competitor: 'screenshotmachine' })
-          }
+            trackEvent('alternative cta', { competitor: 'screenshotmachine' })}
         >
           Get Started Free
         </ArrowLink>
@@ -1948,8 +1947,7 @@ const CTASection = () => (
         <ArrowLink
           href='/screenshot'
           onClick={() =>
-            trackEvent('alternative cta', { competitor: 'screenshotmachine' })
-          }
+            trackEvent('alternative cta', { competitor: 'screenshotmachine' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
           Start Building Free
@@ -2025,8 +2023,7 @@ const TryItSection = () => {
           <Link
             href='/docs/guides/screenshot'
             onClick={() =>
-              trackEvent('alternative cta', { competitor: 'screenshotmachine' })
-            }
+              trackEvent('alternative cta', { competitor: 'screenshotmachine' })}
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
             Start now for free

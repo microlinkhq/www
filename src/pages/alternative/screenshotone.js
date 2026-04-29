@@ -702,8 +702,7 @@ const Hero = () => (
         <ArrowLink
           href='/screenshot'
           onClick={() =>
-            trackEvent('alternative cta', { competitor: 'screenshotone' })
-          }
+            trackEvent('alternative cta', { competitor: 'screenshotone' })}
         >
           Get Started Free
         </ArrowLink>
@@ -899,15 +898,19 @@ const SpeedSection = () => {
                           const isMax = times[i] === maxTime
                           return (
                             <td key={key}>
-                              {isMin ? (
-                                <CellHighlight>
-                                  {formatMs(times[i])}
-                                </CellHighlight>
-                              ) : isMax ? (
-                                <CellLoser>{formatMs(times[i])}</CellLoser>
-                              ) : (
-                                formatMs(times[i])
-                              )}
+                              {isMin
+                                ? (
+                                  <CellHighlight>
+                                    {formatMs(times[i])}
+                                  </CellHighlight>
+                                  )
+                                : isMax
+                                  ? (
+                                    <CellLoser>{formatMs(times[i])}</CellLoser>
+                                    )
+                                  : (
+                                      formatMs(times[i])
+                                    )}
                             </td>
                           )
                         })}
@@ -1710,8 +1713,7 @@ const CTASection = () => (
         <ArrowLink
           href='/screenshot'
           onClick={() =>
-            trackEvent('alternative cta', { competitor: 'screenshotone' })
-          }
+            trackEvent('alternative cta', { competitor: 'screenshotone' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
           Start Building Free
@@ -1787,8 +1789,7 @@ const TryItSection = () => {
           <Link
             href='/docs/guides/screenshot'
             onClick={() =>
-              trackEvent('alternative cta', { competitor: 'screenshotone' })
-            }
+              trackEvent('alternative cta', { competitor: 'screenshotone' })}
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
             Start now for free
