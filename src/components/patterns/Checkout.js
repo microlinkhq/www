@@ -2,16 +2,30 @@
 
 import Caps from 'components/elements/Caps'
 import { Button } from 'components/elements/Button/Button'
+import Spinner from 'components/elements/Spinner'
+import Flex from 'components/elements/Flex'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
-import React, { useState } from 'react'
-import { theme } from 'theme'
+import React, { useState, useRef, useEffect } from 'react'
+import { gradient, theme } from 'theme'
 import { trackEvent } from 'helpers/plausible'
 
 const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
   const [isLoading, setIsLoading] = useState(false)
+  const [btnSize, setBtnSize] = useState({})
+  const ref = useRef(null)
 
   const { paymentApiKey: apiKey, paymentEndpoint: apiEndpoint } =
     useSiteMetadata()
+
+  useEffect(() => {
+    if (ref.current) {
+      const computed = window.getComputedStyle(ref.current)
+      setBtnSize({
+        minWidth: parseInt(computed.getPropertyValue('width')),
+        minHeight: parseInt(computed.getPropertyValue('height'))
+      })
+    }
+  }, [])
 
   const handleCheckout = async () => {
     setIsLoading(true)
@@ -36,10 +50,42 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
     }
   }
 
+  if (isLoading) {
+    return (
+      <Button
+        disabled
+        aria-busy='true'
+        data-event-location='Checkout'
+        data-event-name='Buy'
+        style={{ ...btnSize, cursor: 'wait' }}
+        css={`
+          &&&:disabled {
+            background: ${gradient};
+            box-shadow: none;
+            opacity: 0.7;
+            .path {
+              stroke: white;
+            }
+          }
+        `}
+        {...props}
+      >
+        <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Spinner
+            color='white'
+            width='26px'
+            height='26px'
+            style={{ padding: 0 }}
+          />
+        </Flex>
+      </Button>
+    )
+  }
+
   return (
     <Button
+      ref={ref}
       onClick={handleCheckout}
-      loading={isLoading}
       data-event-location='Checkout'
       data-event-name='Buy'
       {...props}
