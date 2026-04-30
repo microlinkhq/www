@@ -9,6 +9,15 @@ import React, { useState, useRef, useEffect } from 'react'
 import { gradient, theme } from 'theme'
 import { trackEvent } from 'helpers/plausible'
 
+const loadingCss = `
+  &&&:disabled {
+    background: ${gradient};
+    box-shadow: none;
+    opacity: 0.8;
+    .path { stroke: white; }
+  }
+`
+
 const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [btnSize, setBtnSize] = useState({})
@@ -21,8 +30,8 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
     if (ref.current) {
       const computed = window.getComputedStyle(ref.current)
       setBtnSize({
-        minWidth: parseInt(computed.getPropertyValue('width')),
-        minHeight: parseInt(computed.getPropertyValue('height'))
+        minWidth: parseFloat(computed.getPropertyValue('width')),
+        minHeight: parseFloat(computed.getPropertyValue('height'))
       })
     }
   }, [])
@@ -50,26 +59,19 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
     }
   }
 
-  if (isLoading) {
-    return (
-      <Button
-        disabled
-        aria-busy='true'
-        data-event-location='Checkout'
-        data-event-name='Buy'
-        style={{ ...btnSize, cursor: 'wait' }}
-        css={`
-          &&&:disabled {
-            background: ${gradient};
-            box-shadow: none;
-            opacity: 0.7;
-            .path {
-              stroke: white;
-            }
-          }
-        `}
-        {...props}
-      >
+  return (
+    <Button
+      ref={ref}
+      onClick={isLoading ? undefined : handleCheckout}
+      disabled={isLoading}
+      aria-busy={isLoading || undefined}
+      data-event-location='Checkout'
+      data-event-name='Buy'
+      style={isLoading ? { ...btnSize, cursor: 'wait' } : undefined}
+      css={isLoading ? loadingCss : undefined}
+      {...props}
+    >
+      {isLoading ? (
         <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
           <Spinner
             color='white'
@@ -78,19 +80,9 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
             style={{ padding: 0 }}
           />
         </Flex>
-      </Button>
-    )
-  }
-
-  return (
-    <Button
-      ref={ref}
-      onClick={handleCheckout}
-      data-event-location='Checkout'
-      data-event-name='Buy'
-      {...props}
-    >
-      <Caps css={theme({ fontSize: [0, 0, 2, 2] })}>Buy</Caps>
+      ) : (
+        <Caps css={theme({ fontSize: [0, 0, 2, 2] })}>Buy</Caps>
+      )}
     </Button>
   )
 }
