@@ -199,44 +199,29 @@ const Hero = () => (
   </Section>
 )
 
-/* ─── Image placeholder ──────────────────────────────────────────────────── */
+/* ─── Hero image ─────────────────────────────────────────────────────────── */
 
-const ImagePlaceholderBox = styled(Flex)`
+const HeroImageEl = styled('img')`
   ${theme({
-    bg: 'black05',
-    borderRadius: 3,
+    display: 'block',
     width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center'
+    maxWidth: '600px',
+    height: 'auto',
+    mx: 'auto'
   })}
-  aspect-ratio: 16 / 9;
-  color: ${colors.black30};
 `
 
-const ImagePlaceholderIcon = () => (
-  <svg
-    width='48'
-    height='48'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth='1.5'
-    strokeLinecap='round'
-    strokeLinejoin='round'
-    aria-hidden='true'
-  >
-    <rect x='3' y='3' width='18' height='18' rx='2' ry='2' />
-    <circle cx='9' cy='9' r='2' />
-    <path d='m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21' />
-  </svg>
-)
-
-const ImagePlaceholder = () => (
+const HeroImage = () => (
   <Section css={theme({ pt: 0 })}>
     <SectionInner>
-      <ImagePlaceholderBox aria-label='Image placeholder'>
-        <ImagePlaceholderIcon />
-      </ImagePlaceholderBox>
+      <HeroImageEl
+        src='/images/proxy.png'
+        alt='Microlink Pro proxy: rotating residential pool, antibot bypass and CAPTCHA handling on a single API'
+        width='1200'
+        height='870'
+        loading='eager'
+        decoding='async'
+      />
     </SectionInner>
   </Section>
 )
@@ -625,10 +610,7 @@ const Diagram = () => (
     <SectionInner>
       <Box
         css={theme({
-          bg: 'white',
-          border: 1,
-          borderColor: 'black10',
-          borderRadius: 3,
+          bg: 'transparent',
           p: [3, 4, 4, 5]
         })}
       >
@@ -985,9 +967,9 @@ const ProxyFeaturePage = () => (
     <DashedGridOverlay aria-hidden='true' />
     <Box css={theme({ position: 'relative', zIndex: 1 })}>
       <Hero />
-      <ImagePlaceholder />
-      <WhatItDoes />
       <Diagram />
+      <WhatItDoes />
+      <HeroImage />
       <ThreeInOne />
       <CodeExample />
       <BringYourOwn />
