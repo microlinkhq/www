@@ -182,7 +182,7 @@ const Hero = () => (
           css={theme({
             color: 'secondary',
             fontWeight: 'bold',
-            fontSize: [1, 1, 2, 2]
+            fontSize: [2, 2, 3, 3]
           })}
         >
           Start Scraping with Pro
