@@ -30,6 +30,16 @@ const FOOTER_COLUMNS = [
       { label: 'PDF', href: '/pdf' },
       { label: 'Screenshot', href: '/screenshot' },
       { label: 'Unavatar', href: 'https://unavatar.io' }
+    ],
+    sections: [
+      {
+        title: 'Features',
+        links: [
+          { label: 'Custom headers', href: '/feature/headers' },
+          { label: 'Configurable TTL', href: '/feature/ttl' },
+          { label: 'Proxy resolution', href: '/feature/proxy' }
+        ]
+      }
     ]
   },
   {
@@ -263,18 +273,23 @@ const FooterGroup = ({ title, links }) => {
   )
 }
 
-const FooterColumn = ({ title, links, groups }) => (
+const FooterColumnTitle = ({ children, css }) => (
+  <Caps
+    css={theme({
+      fontSize: 0,
+      color: secondaryColor,
+      mb: 3,
+      letterSpacing: 3,
+      ...css
+    })}
+  >
+    {children}
+  </Caps>
+)
+
+const FooterColumn = ({ title, links, groups, sections }) => (
   <Box>
-    <Caps
-      css={theme({
-        fontSize: 0,
-        color: secondaryColor,
-        mb: 3,
-        letterSpacing: 3
-      })}
-    >
-      {title}
-    </Caps>
+    <FooterColumnTitle>{title}</FooterColumnTitle>
     <Flex
       css={theme({
         flexDirection: 'column',
@@ -282,6 +297,13 @@ const FooterColumn = ({ title, links, groups }) => (
       })}
     >
       <FooterLinkList links={links} />
+      {sections &&
+        sections.map(section => (
+          <Box key={section.title} css={theme({ pt: 3 })}>
+            <FooterColumnTitle>{section.title}</FooterColumnTitle>
+            <FooterLinkList links={section.links} />
+          </Box>
+        ))}
       {groups &&
         groups.map(group => <FooterGroup key={group.title} {...group} />)}
     </Flex>
