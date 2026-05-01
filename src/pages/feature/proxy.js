@@ -156,8 +156,8 @@ const Hero = () => (
           m: 0
         })}
       >
-        <span css={theme({ color: 'secondary' })}>Proxy:</span> Handle antibots
-        and CAPTCHAs by default
+        <span css={theme({ color: 'secondary' })}>Proxy:</span> Get past
+        antibots and CAPTCHAs by default
       </Text>
       <Caption
         forwardedAs='p'
@@ -170,11 +170,10 @@ const Hero = () => (
           mx: 0
         })}
       >
-        Most teams stitch together three vendors to keep a scraping pipeline
-        running in production: a residential proxy, an antibot detector, and a
-        CAPTCHA solver. Microlink Pro replaces all three with a single parameter
-        on the same API you already use for metadata extraction, HTML scraping,
-        and markdown.
+        Routes blocked requests through a rotating residential proxy, identifies
+        which antibot or CAPTCHA provider is in front of the page, and picks the
+        resolution path required for that specific block. Runs on metadata,
+        HTML, and markdown requests.
       </Caption>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <ArrowLink
