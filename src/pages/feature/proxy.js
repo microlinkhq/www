@@ -73,14 +73,6 @@ const BodyText = props => (
   />
 )
 
-const InlineLink = styled(Link)`
-  ${theme({
-    color: 'secondary',
-    fontWeight: 'bold',
-    fontSize: [0, 1, 1, 1]
-  })}
-`
-
 const ProTag = styled(Box)`
   display: inline-flex;
   align-items: center;
@@ -88,7 +80,7 @@ const ProTag = styled(Box)`
     bg: 'pinkest',
     color: 'secondary',
     fontFamily: 'mono',
-    fontSize: 0,
+    fontSize: 1,
     fontWeight: 'bold',
     letterSpacing: '0.08em',
     px: '10px',
@@ -151,7 +143,6 @@ const Hero = () => (
     <SectionInner>
       <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
         <ProTag>Pro feature</ProTag>
-        <Eyebrow as='span'>proxy</Eyebrow>
       </Flex>
       <Text
         as='h1'
@@ -165,7 +156,8 @@ const Hero = () => (
           m: 0
         })}
       >
-        Handle proxies, antibots, CAPTCHAs by default
+        <span css={theme({ color: 'secondary' })}>Proxy:</span> Handle antibots
+        and CAPTCHAs by default
       </Text>
       <Caption
         forwardedAs='p'
@@ -178,10 +170,11 @@ const Hero = () => (
           mx: 0
         })}
       >
-        Most teams stitch together three vendors to keep a headless browser
-        running in production: a residential proxy, an antibot bypass, and a
+        Most teams stitch together three vendors to keep a scraping pipeline
+        running in production: a residential proxy, an antibot detector, and a
         CAPTCHA solver. Microlink Pro replaces all three with a single parameter
-        on the same API you already use for screenshots, PDFs, and metadata.
+        on the same API you already use for metadata extraction, HTML scraping,
+        and markdown.
       </Caption>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <ArrowLink
@@ -225,12 +218,13 @@ const WhatItDoes = () => (
     <SectionInner>
       <Eyebrow css={theme({ pb: 3, display: 'block' })}>What it does</Eyebrow>
       <BodyText>
-        When the API detects that a target site is blocking a headless request,
-        the call is automatically routed through a rotating residential proxy
-        pool. The same pipeline absorbs antibot challenges and CAPTCHA gates, so
-        screenshots, PDFs, metadata extraction, and Lighthouse audits keep
-        arriving even when the target sits behind Cloudflare, DataDome, or
-        Akamai.
+        When the API detects that a target site is blocking a request, the call
+        is automatically routed through a rotating residential proxy pool. The
+        same pipeline absorbs antibot challenges and CAPTCHA gates, so metadata,
+        HTML, and markdown responses keep arriving even when the target sits
+        behind Cloudflare, DataDome, or Akamai. Today this runs on metadata,
+        HTML scraping, and markdown — for screenshots and PDFs, see the FAQ
+        below.
       </BodyText>
       <Figure>
         <FigureImage
@@ -358,10 +352,10 @@ const ChipRow = ({ items }) => (
 const ANTIBOT_PROVIDERS = [
   'Cloudflare',
   'DataDome',
-  'Akamai',
+  'Akamai Bot Manager',
   'PerimeterX',
   'Kasada',
-  'Imperva',
+  'Imperva / Incapsula',
   'AWS WAF',
   'Vercel Attack Mode',
   'Shape Security'
@@ -423,22 +417,28 @@ const ThreeInOne = () => (
 
         <Card>
           <CardSide>
-            <CardKicker>02 · Antibot evasion</CardKicker>
-            <CardTitle>Detects and bypasses WAFs</CardTitle>
+            <CardKicker>02 · Antibot detection</CardKicker>
+            <CardTitle>
+              Identify the blocker, pick the resolution path
+            </CardTitle>
           </CardSide>
           <CardMain>
             <CardBody>
-              The detection layer identifies which antibot provider is blocking
-              a request and routes it through a dedicated resolution path —
-              including:
+              The missing piece isn't bypassing antibot systems — it's knowing
+              when you've hit one. The detection layer identifies which provider
+              is blocking a request and routes it through the exact resolution
+              path required for that protection layer — including:
             </CardBody>
             <ChipRow items={ANTIBOT_PROVIDERS} />
             <CardBody>
-              Audit it yourself: the detection layer is open source as{' '}
+              Audit it yourself: the detection logic is open source as{' '}
               <Link href='https://github.com/microlinkhq/is-antibot'>
                 is-antibot
               </Link>
-              .
+              . It does detection only — telling you which provider blocked you,
+              not how to solve a challenge. The resolution paths (alternative
+              IPs, full browser rendering, retries) live inside the API. Result:
+              fewer retries, cleaner data, predictable behavior at scale.
             </CardBody>
             <CardLink href='/blog/antibot-detection-at-scale'>
               Read the antibot breakdown →
@@ -448,14 +448,16 @@ const ThreeInOne = () => (
 
         <Card>
           <CardSide>
-            <CardKicker>03 · CAPTCHA bypass</CardKicker>
+            <CardKicker>03 · CAPTCHA handling</CardKicker>
             <CardTitle>Challenges, not in your billing</CardTitle>
           </CardSide>
           <CardMain>
             <CardBody>
               Most CAPTCHAs never appear when requests look like a real browser
-              with a clean residential IP. When they do, the same pipeline
-              handles them — no third-party CAPTCHA solver in your stack.
+              with a clean residential IP. When a challenge does surface, the
+              detect-and-route pipeline adapts — escalating to full browser
+              rendering or alternative IPs — so you never need a third-party
+              CAPTCHA solver in your stack.
             </CardBody>
             <ChipRow items={CAPTCHA_PROVIDERS} />
           </CardMain>
@@ -627,7 +629,7 @@ const Diagram = () => (
         >
           <Node>
             <NodeLabel>Your code</NodeLabel>
-            <NodeSub>screenshot · pdf · meta · data</NodeSub>
+            <NodeSub>metadata · html · markdown</NodeSub>
           </Node>
           <Arrow />
           <NodeActive>
@@ -695,8 +697,9 @@ const CodeExample = () => (
         Default: automatic resolution
       </SubheadBase>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
-        Send the request as you normally would. On any Pro request, the proxy
-        layer engages automatically when the target requires it.
+        Send the request as you normally would. On any Pro metadata, HTML, or
+        markdown request, the proxy layer engages automatically when the target
+        requires it.
       </BodyText>
 
       <CodeEditor
@@ -708,7 +711,7 @@ const CodeExample = () => (
 
 const { data } = await mql(
   'https://www.bloomberg.com',
-  { screenshot: true, apiKey: process.env.MICROLINK_API_KEY }
+  { apiKey: process.env.MICROLINK_API_KEY }
 )`}
       </CodeEditor>
     </SectionInner>
@@ -753,9 +756,16 @@ const { data } = await mql('https://geolocation.microlink.io', {
       </CodeEditor>
 
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
-        <InlineLink href='/docs/guides/common/proxy#bring-your-own-proxy'>
-          Full bring-your-own proxy guide →
-        </InlineLink>
+        <ArrowLink
+          href='/docs/guides/common/proxy#bring-your-own-proxy'
+          css={theme({
+            color: 'secondary',
+            fontWeight: 'bold',
+            fontSize: [1, 1, 2, 2]
+          })}
+        >
+          Full bring-your-own proxy guide
+        </ArrowLink>
       </Box>
     </SectionInner>
   </Section>
@@ -779,9 +789,9 @@ const Verifying = () => (
       </SubheadBase>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         Every proxied response carries an <CodeInline>x-fetch-mode</CodeInline>{' '}
-        header prefixed with <CodeInline>proxy-</CodeInline>. That header is
-        your proof the request went through the resolution layer — and that you
-        are being billed under the Pro plan.
+        header ending in <CodeInline>-proxy</CodeInline>. That suffix is your
+        proof the request went through the resolution layer — and that you are
+        being billed under the Pro plan.
       </BodyText>
 
       <ResponseCard aria-label='Example response headers when a proxy was used'>
@@ -790,7 +800,7 @@ const Verifying = () => (
           x-pricing-plan: pro
         </ResponseLine>
         <ResponseLine highlight comment='request went through proxy'>
-          x-fetch-mode: prerender-proxy
+          x-fetch-mode: fetch-proxy
         </ResponseLine>
         <ResponseLine>x-cache-ttl: 86400000</ResponseLine>
         <ResponseLine>x-cache-status: BYPASS</ResponseLine>
@@ -825,6 +835,30 @@ const FAQ_ITEMS = [
     )
   },
   {
+    question: 'Does this work with screenshots and PDFs too?',
+    text: 'Not yet. Automatic proxy resolution currently runs on metadata, HTML scraping, and markdown requests. For screenshots and PDFs we recommend bringing your own proxy via the proxy parameter, or contacting us at hello@microlink.io so we can enable your use case.',
+    answer: (
+      <>
+        <div>
+          Not yet. Automatic proxy resolution currently runs on metadata, HTML
+          scraping, and markdown requests — the use cases that ship with most
+          scraping pipelines.
+        </div>
+        <div>
+          For screenshots and PDFs we recommend two options: pass your own
+          residential proxy on the <CodeInline>proxy</CodeInline> parameter (see
+          the{' '}
+          <Link href='/docs/guides/common/proxy#bring-your-own-proxy'>
+            bring-your-own proxy guide
+          </Link>
+          ), or write to us at{' '}
+          <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link> so we
+          can enable your use case.
+        </div>
+      </>
+    )
+  },
+  {
     question: 'Which antibot systems does Microlink handle?',
     text: 'The detection layer covers Cloudflare, DataDome, Akamai Bot Manager, PerimeterX, Kasada, Imperva, AWS WAF, Vercel Attack Mode and Shape Security. The detection logic is open source as is-antibot. Resolution is well-tested across the Top 500 most popular sites worldwide. Read the engineering breakdown at /blog/antibot-detection-at-scale.',
     answer: (
@@ -854,7 +888,7 @@ const FAQ_ITEMS = [
   },
   {
     question: 'Does this handle CAPTCHAs too?',
-    text: 'Yes. Most CAPTCHAs do not surface when requests look like a real browser routed through a clean residential IP — including reCAPTCHA v2, reCAPTCHA v3, hCaptcha, FunCaptcha, GeeTest and Cloudflare Turnstile. When a challenge does appear, the same pipeline absorbs it. There is no separate CAPTCHA solver in your billing.',
+    text: 'Yes. Most CAPTCHAs do not surface when requests look like a real browser routed through a clean residential IP — including reCAPTCHA v2, reCAPTCHA v3, hCaptcha, FunCaptcha, GeeTest and Cloudflare Turnstile. When a challenge does appear, the detect-and-route pipeline adapts — escalating to full browser rendering or alternative IPs — so you do not need a third-party CAPTCHA solver in your stack.',
     answer: (
       <>
         <div>
@@ -864,21 +898,21 @@ const FAQ_ITEMS = [
           Turnstile.
         </div>
         <div>
-          When a challenge does appear, the same pipeline absorbs it. There is
-          no separate CAPTCHA solver in your billing.
+          When a challenge does appear, the detect-and-route pipeline adapts —
+          escalating to full browser rendering or alternative IPs — so you do
+          not need a third-party CAPTCHA solver in your stack.
         </div>
       </>
     )
   },
   {
     question: 'How do I confirm a proxy was actually used?',
-    text: 'Check the x-fetch-mode response header. Any value prefixed with proxy- (for example prerender-proxy or fetch-proxy) means the request was routed through the proxy layer. The x-pricing-plan header on the same response will read pro.',
+    text: 'Check the x-fetch-mode response header. Any value ending in -proxy (for example fetch-proxy) means the request was routed through the proxy layer. The x-pricing-plan header on the same response will read pro.',
     answer: (
       <>
         <div>
           Check the <CodeInline>x-fetch-mode</CodeInline> response header. Any
-          value prefixed with <CodeInline>proxy-</CodeInline> — for example{' '}
-          <CodeInline>prerender-proxy</CodeInline> or{' '}
+          value ending in <CodeInline>-proxy</CodeInline> — for example{' '}
           <CodeInline>fetch-proxy</CodeInline> — means the request was routed
           through the proxy layer.
         </div>
@@ -907,7 +941,6 @@ const FAQSection = () => (
           py: SECTION_PY,
           px: SECTION_PX
         })}
-        title='Questions'
         questions={FAQ_ITEMS}
       />
     </Box>
@@ -943,25 +976,26 @@ const CtaSection = () => (
         })}
       >
         Pick the volume that matches your traffic. Automatic proxy resolution,
-        antibot bypass, and CAPTCHA handling are included on every Pro plan.
+        antibot detection, and CAPTCHA handling are included on every Pro plan
+        for metadata, HTML, and markdown requests.
       </Caption>
       <Flex
         css={theme({
-          pt: [3, 4, 4, 4],
+          py: [3, 4, 4, 4],
           justifyContent: 'center',
           alignItems: 'center'
         })}
       >
-        <Link
+        <ArrowLink
           href='/pricing'
           css={theme({
             color: 'secondary',
             fontWeight: 'bold',
-            fontSize: [1, 2, 2, 2]
+            fontSize: [2, 2, 3, 3]
           })}
         >
-          See Pro pricing →
-        </Link>
+          See Pro pricing
+        </ArrowLink>
       </Flex>
     </SectionInner>
   </Section>
@@ -991,7 +1025,7 @@ const ProxyFeaturePage = () => (
 export const Head = () => (
   <Meta
     title='Automatic Proxy Resolution for Headless Browsers'
-    description='Microlink Pro auto-resolves proxies, bypasses Cloudflare, DataDome, Akamai antibots and absorbs CAPTCHAs. One parameter replaces three scraping vendors.'
+    description='Microlink Pro auto-resolves proxies, detects Cloudflare, DataDome and Akamai antibots and absorbs CAPTCHAs on metadata, HTML and markdown requests. One parameter replaces three scraping vendors.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
