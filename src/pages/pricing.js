@@ -15,6 +15,7 @@ import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import FeatherIcon from 'components/icons/Feather'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
+import ArrowLink from 'components/patterns/ArrowLink'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
@@ -384,7 +385,7 @@ const ComparisonHeaderPlanCell = styled(ComparisonPlanCell)`
 `
 
 const ComparisonProHeaderPlanCell = styled(ComparisonHeaderPlanCell)`
-  ${theme({ bg: 'black05', color: 'pink7' })}
+  ${theme({ bg: 'black05', color: 'secondary' })}
 `
 
 const renderComparisonValue = value => {
@@ -393,7 +394,7 @@ const renderComparisonValue = value => {
       <FeatherIcon
         icon={CheckIcon}
         size='18px'
-        css={theme({ color: 'pink7' })}
+        css={theme({ color: 'secondary' })}
         aria-label='Included'
       />
     )
@@ -433,7 +434,7 @@ const MobileComparisonStack = ({ plan, planIndex }) => (
         borderBottom: 1,
         borderBottomColor: 'black10'
       })}
-      style={{ color: planIndex === 1 ? colors.pink7 : colors.black }}
+      style={{ color: planIndex === 1 ? colors.secondary : colors.black }}
     >
       {plan}
     </Text>
@@ -485,7 +486,7 @@ const Comparison = () => (
       >
         Compare every feature,
         <LineBreak />
-        side by <span css={theme({ color: 'pink7' })}>side</span>.
+        side by <span css={theme({ color: 'secondary' })}>side</span>.
       </Subhead>
       <Caption
         forwardedAs='div'
@@ -511,17 +512,15 @@ const Comparison = () => (
               Feature
             </ComparisonHeaderLabelCell>
             {PLAN_NAMES.map((name, i) =>
-              i === 1
-                ? (
-                  <ComparisonProHeaderPlanCell role='columnheader' key={name}>
-                    {name}
-                  </ComparisonProHeaderPlanCell>
-                  )
-                : (
-                  <ComparisonHeaderPlanCell role='columnheader' key={name}>
-                    {name}
-                  </ComparisonHeaderPlanCell>
-                  )
+              i === 1 ? (
+                <ComparisonProHeaderPlanCell role='columnheader' key={name}>
+                  {name}
+                </ComparisonProHeaderPlanCell>
+              ) : (
+                <ComparisonHeaderPlanCell role='columnheader' key={name}>
+                  {name}
+                </ComparisonHeaderPlanCell>
+              )
             )}
           </ComparisonHeaderRow>
         </Box>
@@ -532,17 +531,15 @@ const Comparison = () => (
                 {label}
               </ComparisonLabelCell>
               {values.map((value, i) =>
-                i === 1
-                  ? (
-                    <ComparisonProPlanCell role='cell' key={i}>
-                      {renderComparisonValue(value)}
-                    </ComparisonProPlanCell>
-                    )
-                  : (
-                    <ComparisonPlanCell role='cell' key={i}>
-                      {renderComparisonValue(value)}
-                    </ComparisonPlanCell>
-                    )
+                i === 1 ? (
+                  <ComparisonProPlanCell role='cell' key={i}>
+                    {renderComparisonValue(value)}
+                  </ComparisonProPlanCell>
+                ) : (
+                  <ComparisonPlanCell role='cell' key={i}>
+                    {renderComparisonValue(value)}
+                  </ComparisonPlanCell>
+                )
               )}
             </ComparisonRow>
           ))}
@@ -642,21 +639,21 @@ const CAPABILITIES = [
     title: 'Configurable cache (TTL)',
     description:
       'Tune cache lifetime per request. Cached hits are served from the edge and billed at a fraction of the price.',
-    href: '/docs/api/parameters/ttl'
+    href: '/feature/ttl'
   },
   {
     icon: HeaderIcon,
     title: 'Custom HTTP headers',
     description:
       'Forward auth tokens, cookies, or any custom headers. Reach private dashboards, gated content, and authenticated APIs.',
-    href: '/docs/guides/common/private-pages'
+    href: '/feature/headers'
   },
   {
     icon: ProxyIcon,
     title: 'Automatic proxy resolution',
     description:
       'Bypass geo-restrictions and avoid IP blocks with rotating residential proxies. Pick the country, we handle the rest.',
-    href: '/docs/api/parameters/proxy'
+    href: '/feature/proxy'
   },
   {
     icon: ShieldXIcon,
@@ -675,7 +672,7 @@ const CapabilityIcon = styled(Flex)`
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0,
-    color: 'pink7',
+    color: 'secondary',
     bg: 'pinkest'
   })}
 `
@@ -719,16 +716,15 @@ const CapabilityTile = ({ icon, title, description, href }) => (
       </Text>
       {href && (
         <Box css={theme({ pt: 1 })}>
-          <Link
+          <ArrowLink
             href={href}
             css={theme({
               fontSize: [0, 0, 1, 1],
-              fontWeight: 'bold',
-              color: 'pink7'
+              fontWeight: 'bold'
             })}
           >
-            Read the docs →
-          </Link>
+            Read the docs
+          </ArrowLink>
         </Box>
       )}
     </Flex>
@@ -764,7 +760,7 @@ const Capabilities = () => (
       >
         Everything you need,
         <LineBreak />
-        in <span css={theme({ color: 'pink7' })}>one API call</span>.
+        in <span css={theme({ color: 'secondary' })}>one API call</span>.
       </Subhead>
       <Caption
         forwardedAs='div'
@@ -848,7 +844,7 @@ const BvbBullet = ({ children, kind }) => (
     <FeatherIcon
       css={theme({
         flexShrink: 0,
-        color: kind === 'buy' ? 'pink7' : 'black40'
+        color: kind === 'buy' ? 'secondary' : 'black40'
       })}
       icon={kind === 'buy' ? CheckIcon : XIcon}
       size='16px'
@@ -889,7 +885,8 @@ const BuildVsBuy = () => (
         titleize={false}
         css={theme({ fontSize: ['28px', '34px', '42px', '46px'] })}
       >
-        Build it, or just <span css={theme({ color: 'pink7' })}>call it</span>.
+        Build it, or just{' '}
+        <span css={theme({ color: 'secondary' })}>call it</span>.
       </Subhead>
       <Caption
         forwardedAs='div'
@@ -948,7 +945,7 @@ const BuildVsBuy = () => (
             fontSize: 0,
             fontWeight: 'bold',
             letterSpacing: 2,
-            color: 'pink7',
+            color: 'secondary',
             textTransform: 'uppercase'
           })}
         >
@@ -1034,7 +1031,7 @@ const TestimonialCard = styled(Flex)`
 const QuoteGlyph = styled(Text)`
   ${theme({
     fontSize: ['54px', '54px', '64px', '64px'],
-    color: 'pink7',
+    color: 'secondary',
     fontWeight: 'bold',
     lineHeight: 0
   })}
@@ -1053,7 +1050,7 @@ const Avatar = styled(Flex)`
     alignItems: 'center',
     justifyContent: 'center',
     bg: 'pinkest',
-    color: 'pink7',
+    color: 'secondary',
     fontWeight: 'bold',
     fontSize: 1,
     flexShrink: 0
@@ -1126,7 +1123,7 @@ const Testimonials = () => (
         css={theme({ fontSize: ['28px', '34px', '42px', '46px'] })}
       >
         Loved by teams in{' '}
-        <span css={theme({ color: 'pink7' })}>production</span>.
+        <span css={theme({ color: 'secondary' })}>production</span>.
       </Subhead>
       <Caption
         forwardedAs='div'
@@ -1506,7 +1503,7 @@ const ctaCharAnim = index => {
   const off = on + CTA_CHAR_PCT
   return keyframes`
     0%, ${on}%, ${off}%, 100% { color: inherit; }
-    ${on + 0.01}%, ${off - 0.01}% { color: ${colors.pink7}; }
+    ${on + 0.01}%, ${off - 0.01}% { color: ${colors.secondary}; }
   `
 }
 
@@ -1523,14 +1520,14 @@ const CtaChar = styled('span')`
 
 const ctaNowAnim = keyframes`
   0%, ${CTA_SWEEP_PCT}% { color: inherit; }
-  ${CTA_SWEEP_PCT + 0.01}%, 100% { color: ${colors.pink7}; }
+  ${CTA_SWEEP_PCT + 0.01}%, 100% { color: ${colors.secondary}; }
 `
 
 const CtaNow = styled('span')`
   animation: ${ctaNowAnim} ${CTA_DURATION}s step-end infinite;
   @media (prefers-reduced-motion: reduce) {
     animation: none;
-    color: ${colors.pink7};
+    color: ${colors.secondary};
   }
 `
 
