@@ -156,8 +156,8 @@ const Hero = () => (
           m: 0
         })}
       >
-        <span css={theme({ color: 'secondary' })}>Proxy:</span> Get past
-        antibots and CAPTCHAs by default
+        <span css={theme({ color: 'secondary' })}>Residential Proxy API:</span>{' '}
+        Bypass Antibots & CAPTCHAs
       </Text>
       <Caption
         forwardedAs='p'
@@ -170,10 +170,11 @@ const Hero = () => (
           mx: 0
         })}
       >
-        Routes blocked requests through a rotating residential proxy, identifies
-        which antibot or CAPTCHA provider is in front of the page, and picks the
-        resolution path required for that specific block. Runs on metadata,
-        HTML, and markdown requests.
+        Zero-config web unblocker. The API auto-detects when a target is
+        blocking, routes the call through a rotating residential pool, and picks
+        the resolution path for that specific antibot or CAPTCHA provider —
+        well-tested across the Top 500 most popular sites worldwide. Available
+        on metadata, HTML, and markdown requests.
       </Caption>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <ArrowLink
@@ -184,7 +185,7 @@ const Hero = () => (
             fontSize: [1, 1, 2, 2]
           })}
         >
-          See Pro pricing
+          Start Scraping with Pro
         </ArrowLink>
       </Box>
     </SectionInner>
@@ -215,7 +216,9 @@ const FigureImage = styled('img')`
 const WhatItDoes = () => (
   <Section css={theme({ pt: [3, 3, 4, 4], pb: [4, 4, 5, 5] })}>
     <SectionInner>
-      <Eyebrow css={theme({ pb: 3, display: 'block' })}>What it does</Eyebrow>
+      <Eyebrow css={theme({ pb: 3, display: 'block' })}>
+        The Web Unblocker
+      </Eyebrow>
       <BodyText>
         When the API detects that a target site is blocking a request, the call
         is automatically routed through a rotating residential proxy pool. The
@@ -341,7 +344,7 @@ const CardLink = styled(Link)`
 `
 
 const ChipRow = ({ items }) => (
-  <Flex css={theme({ flexWrap: 'wrap', gap: 2 })}>
+  <Flex css={theme({ flexWrap: 'wrap', gap: 2, py: 3 })}>
     {items.map(item => (
       <ProviderChip key={item}>{item}</ProviderChip>
     ))}
@@ -374,7 +377,7 @@ const ThreeInOne = () => (
     <SectionInner>
       <Box css={theme({ pb: [4, 4, 5, 5], maxWidth: layout.large })}>
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>
-          Three problems, one parameter
+          Three subscriptions → one parameter
         </Eyebrow>
         <SubheadBase
           css={theme({
@@ -384,11 +387,14 @@ const ThreeInOne = () => (
             lineHeight: 0
           })}
         >
-          What you would otherwise stitch together
+          Stop paying three vendors for one job
         </SubheadBase>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
-          Sold separately by most scraping vendors. On Microlink Pro it is the
-          same parameter, the same API key, the same dashboard.
+          A residential proxy, an antibot detector, and a CAPTCHA solver are
+          typically three separate vendor contracts, three SDKs in your{' '}
+          <CodeInline>package.json</CodeInline>, and three lines on your monthly
+          bill. Pro folds them into the same API key — fewer integration paths,
+          fewer renewals to negotiate, lower stack complexity per request.
         </BodyText>
       </Box>
 
@@ -406,10 +412,17 @@ const ThreeInOne = () => (
           </CardSide>
           <CardMain>
             <CardBody>
-              A fresh IP per request from a residential pool. If a proxy is
-              blocked or throttled, the request is retried from a different one.
-              Geo-aware routing kicks in when the target serves different
-              content per region — no setup required.
+              A fresh residential IP per request, with automatic retry from a
+              different IP on block or throttle. Geo-aware routing kicks in when
+              the target serves different content per region — no setup
+              required.
+            </CardBody>
+            <CardBody>
+              <strong>Success rate:</strong> well-tested across the{' '}
+              <Link href='/blog/microlink-proxy-how-it-works'>
+                Top 500 most popular sites worldwide
+              </Link>
+              .
             </CardBody>
           </CardMain>
         </Card>
@@ -813,17 +826,18 @@ const Verifying = () => (
 const FAQ_ITEMS = [
   {
     question: 'Do I need to bring my own proxy?',
-    text: 'No. Automatic proxy resolution is included on every Pro plan. If you have a dedicated residential proxy you want to keep using — for example a fixed country IP — pass it on the proxy parameter; see the bring-your-own proxy guide at /docs/guides/common/proxy#bring-your-own-proxy.',
+    text: 'No — the residential proxy is included on every Pro plan, so you cancel one vendor contract on day one. If you already have a dedicated residential proxy you want to keep using (for example a fixed country IP), pass it on the proxy parameter; see the bring-your-own proxy guide at /docs/guides/common/proxy#bring-your-own-proxy.',
     answer: (
       <>
         <div>
-          No. Automatic proxy resolution is included on every{' '}
+          No — the residential proxy is included on every{' '}
           <Link href='/pricing'>Pro plan</Link>, so the default request needs no
-          extra configuration.
+          extra configuration and one residential-proxy bill comes off your
+          stack on day one.
         </div>
         <div>
-          If you have a dedicated residential proxy you want to keep using — for
-          example a fixed country IP — pass it on the{' '}
+          If you already have a dedicated residential proxy you want to keep
+          using — for example a fixed country IP — pass it on the{' '}
           <CodeInline>proxy</CodeInline> parameter. The{' '}
           <Link href='/docs/guides/common/proxy#bring-your-own-proxy'>
             bring-your-own proxy guide
@@ -858,18 +872,18 @@ const FAQ_ITEMS = [
     )
   },
   {
-    question: 'Which antibot systems does Microlink handle?',
-    text: 'The detection layer covers Cloudflare, DataDome, Akamai Bot Manager, PerimeterX, Kasada, Imperva, AWS WAF, Vercel Attack Mode and Shape Security. The detection logic is open source as is-antibot. Resolution is well-tested across the Top 500 most popular sites worldwide. Read the engineering breakdown at /blog/antibot-detection-at-scale.',
+    question: 'Which antibot systems does Microlink bypass?',
+    text: 'Nine major providers: Cloudflare, DataDome, Akamai Bot Manager, PerimeterX, Kasada, Imperva / Incapsula, AWS WAF, Vercel Attack Mode and Shape Security. The detection logic is open source as is-antibot, so you can audit it yourself. Resolution is well-tested across the Top 500 most popular sites worldwide — read the engineering breakdown at /blog/antibot-detection-at-scale.',
     answer: (
       <>
         <div>
-          The detection layer covers Cloudflare, DataDome, Akamai Bot Manager,
-          PerimeterX, Kasada, Imperva, AWS WAF, Vercel Attack Mode and Shape
-          Security. The detection logic is open source as{' '}
+          Nine major providers: Cloudflare, DataDome, Akamai Bot Manager,
+          PerimeterX, Kasada, Imperva / Incapsula, AWS WAF, Vercel Attack Mode
+          and Shape Security. The detection logic is open source as{' '}
           <Link href='https://github.com/microlinkhq/is-antibot'>
             is-antibot
           </Link>
-          , so you can audit it yourself.
+          , so you can audit the matchers yourself.
         </div>
         <div>
           Resolution is well-tested across the{' '}
@@ -886,20 +900,20 @@ const FAQ_ITEMS = [
     )
   },
   {
-    question: 'Does this handle CAPTCHAs too?',
-    text: 'Yes. Most CAPTCHAs do not surface when requests look like a real browser routed through a clean residential IP — including reCAPTCHA v2, reCAPTCHA v3, hCaptcha, FunCaptcha, GeeTest and Cloudflare Turnstile. When a challenge does appear, the detect-and-route pipeline adapts — escalating to full browser rendering or alternative IPs — so you do not need a third-party CAPTCHA solver in your stack.',
+    question: 'Does this bypass CAPTCHAs too?',
+    text: 'Yes — and you remove a second vendor from your stack. Most CAPTCHAs never surface when requests look like a real browser routed through a clean residential IP, including reCAPTCHA v2, reCAPTCHA v3, hCaptcha, FunCaptcha, GeeTest and Cloudflare Turnstile. When a challenge does appear, the detect-and-route pipeline adapts — escalating to full browser rendering or alternative IPs — so a third-party CAPTCHA solver is never needed in your stack.',
     answer: (
       <>
         <div>
-          Yes. Most CAPTCHAs do not surface when requests look like a real
-          browser routed through a clean residential IP — including reCAPTCHA
-          v2, reCAPTCHA v3, hCaptcha, FunCaptcha, GeeTest and Cloudflare
-          Turnstile.
+          Yes — and you remove a second vendor from your stack. Most CAPTCHAs
+          never surface when requests look like a real browser routed through a
+          clean residential IP — including reCAPTCHA v2, reCAPTCHA v3, hCaptcha,
+          FunCaptcha, GeeTest and Cloudflare Turnstile.
         </div>
         <div>
           When a challenge does appear, the detect-and-route pipeline adapts —
-          escalating to full browser rendering or alternative IPs — so you do
-          not need a third-party CAPTCHA solver in your stack.
+          escalating to full browser rendering or alternative IPs — so a
+          third-party CAPTCHA solver is never needed in your stack.
         </div>
       </>
     )
@@ -993,7 +1007,7 @@ const CtaSection = () => (
             fontSize: [2, 2, 3, 3]
           })}
         >
-          See Pro pricing
+          Start Scraping with Pro
         </ArrowLink>
       </Flex>
     </SectionInner>
@@ -1023,8 +1037,8 @@ const ProxyFeaturePage = () => (
 
 export const Head = () => (
   <Meta
-    title='Automatic Proxy Resolution for Headless Browsers'
-    description='Microlink Pro auto-resolves proxies, detects Cloudflare, DataDome and Akamai antibots and absorbs CAPTCHAs on metadata, HTML and markdown requests. One parameter replaces three scraping vendors.'
+    title='Residential Proxy API: Bypass Antibots & CAPTCHAs'
+    description='Residential Proxy API that bypasses Cloudflare, DataDome, Akamai antibots and reCAPTCHA, hCaptcha, Cloudflare Turnstile on metadata, HTML and markdown scraping requests. Zero-config web unblocker — one parameter replaces three vendors.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
