@@ -180,7 +180,7 @@ const Hero = () => (
         <ArrowLink
           href='/pricing'
           css={theme({
-            color: 'secondary',
+            color: 'link',
             fontWeight: 'bold',
             fontSize: [2, 2, 3, 3]
           })}
@@ -771,7 +771,7 @@ const { data } = await mql('https://geolocation.microlink.io', {
         <ArrowLink
           href='/docs/guides/common/proxy#bring-your-own-proxy'
           css={theme({
-            color: 'secondary',
+            color: 'link',
             fontWeight: 'bold',
             fontSize: [1, 1, 2, 2]
           })}
@@ -1002,7 +1002,7 @@ const CtaSection = () => (
         <ArrowLink
           href='/pricing'
           css={theme({
-            color: 'secondary',
+            color: 'link',
             fontWeight: 'bold',
             fontSize: [2, 2, 3, 3]
           })}

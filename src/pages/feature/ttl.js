@@ -180,12 +180,12 @@ const Hero = () => (
         <ArrowLink
           href='/pricing'
           css={theme({
-            color: 'secondary',
+            color: 'link',
             fontWeight: 'bold',
             fontSize: [2, 2, 3, 3]
           })}
         >
-          Cache your way to a smaller bill
+          Start saving with cached requests
         </ArrowLink>
       </Box>
     </SectionInner>
@@ -396,7 +396,7 @@ const TwoInOne = () => (
               <ArrowLink
                 href='/docs/api/parameters/ttl'
                 css={theme({
-                  color: 'secondary',
+                  color: 'link',
                   fontWeight: 'bold',
                   fontSize: [0, 1, 1, 1]
                 })}
@@ -433,7 +433,7 @@ const TwoInOne = () => (
               <ArrowLink
                 href='/docs/api/parameters/staleTtl'
                 css={theme({
-                  color: 'secondary',
+                  color: 'link',
                   fontWeight: 'bold',
                   fontSize: [0, 1, 1, 1]
                 })}
@@ -470,7 +470,7 @@ const TwoInOne = () => (
               <ArrowLink
                 href='/docs/guides/common/caching'
                 css={theme({
-                  color: 'secondary',
+                  color: 'link',
                   fontWeight: 'bold',
                   fontSize: [0, 1, 1, 1]
                 })}
@@ -815,7 +815,7 @@ const { data } = await mql('https://example.com', {
         <ArrowLink
           href='/docs/guides/common/caching'
           css={theme({
-            color: 'secondary',
+            color: 'link',
             fontWeight: 'bold',
             fontSize: [1, 1, 2, 2]
           })}
@@ -870,7 +870,7 @@ const { data } = await mql('https://example.com', {
         <ArrowLink
           href='/docs/api/parameters/force'
           css={theme({
-            color: 'secondary',
+            color: 'link',
             fontWeight: 'bold',
             fontSize: [1, 1, 2, 2]
           })}
@@ -1175,12 +1175,12 @@ const CtaSection = () => (
         <ArrowLink
           href='/pricing'
           css={theme({
-            color: 'secondary',
+            color: 'link',
             fontWeight: 'bold',
             fontSize: [2, 2, 3, 3]
           })}
         >
-          Cache your way to a smaller bill
+          Start saving with cached requests
         </ArrowLink>
       </Flex>
     </SectionInner>

@@ -179,7 +179,7 @@ const Hero = () => (
         <ArrowLink
           href='/pricing'
           css={theme({
-            color: 'secondary',
+            color: 'link',
             fontWeight: 'bold',
             fontSize: [2, 2, 3, 3]
           })}
@@ -381,7 +381,7 @@ const TwoChannels = () => (
               <ArrowLink
                 href='/docs/api/parameters/headers'
                 css={theme({
-                  color: 'secondary',
+                  color: 'link',
                   fontWeight: 'bold',
                   fontSize: [0, 1, 1, 1]
                 })}
@@ -414,7 +414,7 @@ const TwoChannels = () => (
               <ArrowLink
                 href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'
                 css={theme({
-                  color: 'secondary',
+                  color: 'link',
                   fontWeight: 'bold',
                   fontSize: [0, 1, 1, 1]
                 })}
@@ -671,7 +671,7 @@ const { data } = await mql(
         <ArrowLink
           href='/docs/guides/common/private-pages'
           css={theme({
-            color: 'secondary',
+            color: 'link',
             fontWeight: 'bold',
             fontSize: [1, 1, 2, 2]
           })}
@@ -877,7 +877,7 @@ const CtaSection = () => (
         <ArrowLink
           href='/pricing'
           css={theme({
-            color: 'secondary',
+            color: 'link',
             fontWeight: 'bold',
             fontSize: [2, 2, 3, 3]
           })}
