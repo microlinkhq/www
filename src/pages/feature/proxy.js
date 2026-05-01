@@ -199,9 +199,16 @@ const Hero = () => (
   </Section>
 )
 
-/* ─── Hero image ─────────────────────────────────────────────────────────── */
+/* ─── Inline figure ──────────────────────────────────────────────────────── */
 
-const HeroImageEl = styled('img')`
+const Figure = styled('figure')`
+  ${theme({
+    m: 0,
+    py: [4, 4, 5, 5]
+  })}
+`
+
+const FigureImage = styled('img')`
   ${theme({
     display: 'block',
     width: '100%',
@@ -211,28 +218,13 @@ const HeroImageEl = styled('img')`
   })}
 `
 
-const HeroImage = () => (
-  <Section css={theme({ pt: 0 })}>
-    <SectionInner>
-      <HeroImageEl
-        src='/images/proxy.png'
-        alt='Microlink Pro proxy: rotating residential pool, antibot bypass and CAPTCHA handling on a single API'
-        width='1200'
-        height='870'
-        loading='eager'
-        decoding='async'
-      />
-    </SectionInner>
-  </Section>
-)
-
 /* ─── What it does ───────────────────────────────────────────────────────── */
 
 const WhatItDoes = () => (
   <Section css={theme({ pt: [3, 3, 4, 4], pb: [4, 4, 5, 5] })}>
     <SectionInner>
       <Eyebrow css={theme({ pb: 3, display: 'block' })}>What it does</Eyebrow>
-      <BodyText css={theme({ pb: 3 })}>
+      <BodyText>
         When the API detects that a target site is blocking a headless request,
         the call is automatically routed through a rotating residential proxy
         pool. The same pipeline absorbs antibot challenges and CAPTCHA gates, so
@@ -240,6 +232,16 @@ const WhatItDoes = () => (
         arriving even when the target sits behind Cloudflare, DataDome, or
         Akamai.
       </BodyText>
+      <Figure>
+        <FigureImage
+          src='/images/proxy.png'
+          alt='Microlink Pro proxy: rotating residential pool, antibot bypass and CAPTCHA handling on a single API'
+          width='1200'
+          height='870'
+          loading='lazy'
+          decoding='async'
+        />
+      </Figure>
       <BodyText>
         It is included on every <Link href='/pricing'>Pro plan</Link>. No
         separate vendor, no per-challenge surcharge, no infrastructure to
@@ -583,7 +585,7 @@ const ResponseLine = ({ children, highlight, comment }) => (
     <Text
       as='span'
       css={theme({
-        color: highlight ? 'pink3' : 'white70',
+        color: highlight ? 'pink3' : 'white',
         fontFamily: 'mono',
         fontSize: 0
       })}
@@ -594,7 +596,7 @@ const ResponseLine = ({ children, highlight, comment }) => (
       <Text
         as='span'
         css={theme({
-          color: 'white50',
+          color: 'white60',
           fontFamily: 'mono',
           fontSize: 0
         })}
@@ -974,7 +976,6 @@ const ProxyFeaturePage = () => (
       <Hero />
       <Diagram />
       <WhatItDoes />
-      <HeroImage />
       <ThreeInOne />
       <CodeExample />
       <BringYourOwn />
