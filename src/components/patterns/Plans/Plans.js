@@ -425,22 +425,13 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
           <Box css={theme({ pt: [3, 3, 4, 4] })}>
             <PlanCheck accent='pink7'>Everything in Free</PlanCheck>
             <PlanCheck accent='pink7'>
-              <Link href='/docs/api/parameters/ttl'>Configurable TTL</Link>
+              <Link href='/feature/proxy'>Automatic proxy resolution</Link>
             </PlanCheck>
             <PlanCheck accent='pink7'>
-              <Link href='/docs/guides/common/private-pages'>
-                Custom HTTP headers
-              </Link>
+              <Link href='/feature/ttl'>Configurable TTL</Link>
             </PlanCheck>
             <PlanCheck accent='pink7'>
-              <Link href='/docs/api/parameters/proxy'>
-                Automatic proxy resolution
-              </Link>
-            </PlanCheck>
-            <PlanCheck accent='pink7'>
-              <Link href='/docs/api/parameters/adblock'>
-                Adblock & cookie banners
-              </Link>
+              <Link href='/feature/headers'>Custom HTTP headers</Link>
             </PlanCheck>
             <PlanCheck accent='pink7'>Priority email support</PlanCheck>
           </Box>
@@ -498,6 +489,11 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
             </PlanCheck>
             <PlanCheck>
               <Link href='/blog/edge-cdn'>Global edge cache</Link>
+            </PlanCheck>
+            <PlanCheck>
+              <Link href='/docs/api/parameters/adblock'>
+                Adblock & cookie banners
+              </Link>
             </PlanCheck>
             <PlanCheck>
               <Link href='/community'>Community support</Link>
