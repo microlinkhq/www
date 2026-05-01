@@ -230,7 +230,7 @@ const WhatItDoes = () => (
       </BodyText>
       <Figure>
         <FigureImage
-          src='/images/proxy.png'
+          src='/images/proxy-diagram.png'
           alt='Microlink Pro proxy: rotating residential pool, antibot bypass and CAPTCHA handling on a single API'
           width='1200'
           height='870'
@@ -746,7 +746,7 @@ const BringYourOwn = () => (
           lineHeight: 0
         })}
       >
-        Already pay for a residential proxy?
+        Already paying for a residential proxy?
       </SubheadBase>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         If you have a dedicated provider or need a fixed country IP, pass the
