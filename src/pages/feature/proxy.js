@@ -46,7 +46,7 @@ const SectionInner = styled(Box)`
 
 const Eyebrow = styled(Text)`
   ${theme({
-    color: 'pink7',
+    color: 'secondary',
     fontFamily: 'mono',
     fontSize: 1,
     fontWeight: 'bold',
@@ -75,7 +75,7 @@ const BodyText = props => (
 
 const InlineLink = styled(Link)`
   ${theme({
-    color: 'pink7',
+    color: 'secondary',
     fontWeight: 'bold',
     fontSize: [0, 1, 1, 1]
   })}
@@ -86,7 +86,7 @@ const ProTag = styled(Box)`
   align-items: center;
   ${theme({
     bg: 'pinkest',
-    color: 'pink7',
+    color: 'secondary',
     fontFamily: 'mono',
     fontSize: 0,
     fontWeight: 'bold',
@@ -187,7 +187,7 @@ const Hero = () => (
         <ArrowLink
           href='/pricing'
           css={theme({
-            color: 'pink7',
+            color: 'secondary',
             fontWeight: 'bold',
             fontSize: [1, 1, 2, 2]
           })}
@@ -322,7 +322,7 @@ const CardKicker = styled(Text)`
     fontFamily: 'mono',
     fontSize: 0,
     fontWeight: 'bold',
-    color: 'pink7',
+    color: 'secondary',
     letterSpacing: '0.08em',
     textTransform: 'uppercase'
   })}
@@ -338,7 +338,7 @@ const CardBody = styled(Text)`
 
 const CardLink = styled(Link)`
   ${theme({
-    color: 'pink7',
+    color: 'secondary',
     fontWeight: 'bold',
     fontSize: [0, 1, 1, 1]
   })}
@@ -484,7 +484,7 @@ const Node = styled(Box)`
 const NodeActive = styled(Node)`
   ${theme({
     bg: 'pinkest',
-    borderColor: 'pink7'
+    borderColor: 'secondary'
   })}
 `
 
@@ -560,7 +560,7 @@ const ShieldChip = styled(Text).attrs({ as: 'span' })`
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: ${colors.pink7};
+    background: ${colors.secondary};
   }
 `
 
@@ -611,7 +611,9 @@ const Diagram = () => (
       <Box
         css={theme({
           bg: 'transparent',
-          p: [3, 4, 4, 5]
+          pt: [3, 4, 4, 5],
+          px: [3, 3, 4, 4],
+          pb: 0
         })}
       >
         <Flex
@@ -627,7 +629,9 @@ const Diagram = () => (
           </Node>
           <Arrow />
           <NodeActive>
-            <NodeLabel css={theme({ color: 'pink7' })}>Microlink</NodeLabel>
+            <NodeLabel css={theme({ color: 'secondary' })}>
+              Microlink Pro
+            </NodeLabel>
             <NodeSub>detects need for proxy</NodeSub>
           </NodeActive>
           <Arrow />
@@ -921,8 +925,9 @@ const CtaSection = () => (
           lineHeight: 0
         })}
       >
-        Stop renting <span css={theme({ color: 'pink7' })}>three vendors</span>{' '}
-        for one job.
+        Stop renting{' '}
+        <span css={theme({ color: 'secondary' })}>three vendors</span> for one
+        job.
       </SubheadBase>
       <Caption
         forwardedAs='p'
@@ -948,7 +953,7 @@ const CtaSection = () => (
         <Link
           href='/pricing'
           css={theme({
-            color: 'pink7',
+            color: 'secondary',
             fontWeight: 'bold',
             fontSize: [1, 2, 2, 2]
           })}
