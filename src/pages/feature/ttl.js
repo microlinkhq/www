@@ -156,10 +156,8 @@ const Hero = () => (
           m: 0
         })}
       >
-        <span css={theme({ color: 'secondary' })}>
-          Cache TTL & Stale Revalidation:
-        </span>{' '}
-        Cache hits don't count toward your plan
+        <span css={theme({ color: 'secondary' })}>Cache TTL:</span> A
+        configurable cache, served from the edge
       </Text>
       <Caption
         forwardedAs='p'
@@ -197,7 +195,7 @@ const Hero = () => (
 /* ─── What it does ───────────────────────────────────────────────────────── */
 
 const WhatItDoes = () => (
-  <Section css={theme({ pt: [3, 3, 4, 4], pb: [4, 4, 5, 5] })}>
+  <Section css={theme({ pt: 0, pb: [4, 4, 5, 5] })}>
     <SectionInner>
       <Eyebrow css={theme({ pb: 3, display: 'block' })}>
         Cache hits are free
@@ -308,15 +306,6 @@ const CardBody = styled(Text)`
   })}
 `
 
-const CardLink = styled(Link)`
-  ${theme({
-    color: 'secondary',
-    fontWeight: 'bold',
-    fontSize: [0, 1, 1, 1]
-  })}
-  margin-top: auto;
-`
-
 const ChipRow = ({ items }) => (
   <Flex css={theme({ flexWrap: 'wrap', gap: 2, py: 3 })}>
     {items.map(item => (
@@ -403,9 +392,18 @@ const TwoInOne = () => (
               content that essentially never changes. The effective lifetime
               always echoes back as <CodeInline>x-cache-ttl</CodeInline>.
             </CardBody>
-            <CardLink href='/docs/api/parameters/ttl'>
-              Read the ttl reference →
-            </CardLink>
+            <Box css={theme({ mt: 'auto' })}>
+              <ArrowLink
+                href='/docs/api/parameters/ttl'
+                css={theme({
+                  color: 'secondary',
+                  fontWeight: 'bold',
+                  fontSize: [0, 1, 1, 1]
+                })}
+              >
+                Read the ttl reference
+              </ArrowLink>
+            </Box>
           </CardMain>
         </Card>
 
@@ -431,9 +429,18 @@ const TwoInOne = () => (
               The <CodeInline>staleTtl</CodeInline> value cannot exceed{' '}
               <CodeInline>ttl</CodeInline>.
             </CardBody>
-            <CardLink href='/docs/api/parameters/staleTtl'>
-              Read the staleTtl reference →
-            </CardLink>
+            <Box css={theme({ mt: 'auto' })}>
+              <ArrowLink
+                href='/docs/api/parameters/staleTtl'
+                css={theme({
+                  color: 'secondary',
+                  fontWeight: 'bold',
+                  fontSize: [0, 1, 1, 1]
+                })}
+              >
+                Read the staleTtl reference
+              </ArrowLink>
+            </Box>
           </CardMain>
         </Card>
 
@@ -459,9 +466,18 @@ const TwoInOne = () => (
               when a TTL needs to grow, shrink, or pivot to{' '}
               <CodeInline>staleTtl</CodeInline>.
             </CardBody>
-            <CardLink href='/docs/guides/common/caching'>
-              Read the caching guide →
-            </CardLink>
+            <Box css={theme({ mt: 'auto' })}>
+              <ArrowLink
+                href='/docs/guides/common/caching'
+                css={theme({
+                  color: 'secondary',
+                  fontWeight: 'bold',
+                  fontSize: [0, 1, 1, 1]
+                })}
+              >
+                Read the caching guide
+              </ArrowLink>
+            </Box>
           </CardMain>
         </Card>
       </Flex>
@@ -655,8 +671,7 @@ const Diagram = () => (
       <Box
         css={theme({
           bg: 'transparent',
-          pt: [3, 4, 4, 5],
-          px: [3, 3, 4, 4],
+          py: [3, 3, 4, 4],
           pb: 0
         })}
       >
@@ -677,7 +692,7 @@ const Diagram = () => (
               alignSelf: 'center'
             })}
           >
-            same cache, every output:
+            Same cache, every output:
           </Text>
           {CACHED_WORKFLOWS.map(item => (
             <ProviderChip key={item}>{item}</ProviderChip>
