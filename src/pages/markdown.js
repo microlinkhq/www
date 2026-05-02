@@ -45,11 +45,16 @@ import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
+import Plans, {
+  CurrencyContext,
+  useCurrency
+} from 'components/patterns/Plans/Plans'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
 import { useHealthcheck } from 'components/hook/use-healthcheck'
+import { useSiteMetadata } from 'components/hook/use-site-meta'
 import { ApiErrorBody } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError } from 'helpers/api-error'
 import { extractDomain } from 'helpers/extract-domain'
@@ -1550,39 +1555,37 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </CopyButton>
               </DocumentFooter>
             </DocumentViewer>
@@ -1687,28 +1690,26 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {hasValue
-          ? (
-            <>
-              <TimingHighlight key={key}>{value}</TimingHighlight>
-              <Caption
-                forwardedAs='div'
-                css={theme({
-                  ml: 1,
-                  color: 'white',
-                  display: 'inline',
-                  fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
-                })}
-                titleize={false}
-              >
-                {unit}
-              </Caption>
-            </>
-            )
-          : (
-              '—'
-            )}
+        {hasValue ? (
+          <>
+            <TimingHighlight key={key}>{value}</TimingHighlight>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                ml: 1,
+                color: 'white',
+                display: 'inline',
+                fontWeight: 'bold',
+                fontSize: ['22px', '28px', '32px', '32px']
+              })}
+              titleize={false}
+            >
+              {unit}
+            </Caption>
+          </>
+        ) : (
+          '—'
+        )}
       </Subhead>
       <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
         <Caps css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}>
@@ -3157,7 +3158,8 @@ const Capabilities = () => {
                   size='1'
                   value={capDisplayValue}
                   onChange={e =>
-                    setCapUrl(ensureProtocol(stripProtocol(e.target.value)))}
+                    setCapUrl(ensureProtocol(stripProtocol(e.target.value)))
+                  }
                   onFocus={() => {
                     setCapFocused(true)
                     setCapHasInteracted(true)
@@ -3493,185 +3495,60 @@ const Capabilities = () => {
   )
 }
 
-const PricingCheck = ({ children }) => (
-  <Flex css={theme({ alignItems: 'center', pt: 2 })}>
-    <FeatherIcon
-      css={theme({ display: 'inline-flex', pr: 2 })}
-      icon={CheckIcon}
-    />
-    <Text as='span' css={theme({ fontSize: [1, 1, '18px', '18px'] })}>
-      {children}
-    </Text>
-  </Flex>
-)
+// --- Pricing ---
 
-const PricingCard = styled(Flex)`
-  ${theme({
-    flexDirection: 'column',
-    borderRadius: 3,
-    bg: 'white',
-    px: [3, 3, 4, 4],
-    py: [3, 3, 4, 4],
-    flex: 1,
-    minWidth: 0,
-    maxWidth: ['100%', '100%', '380px', '380px']
-  })}
-  border: ${borders[1]};
-  box-shadow: 0 2px 8px ${colors.black05};
-`
+const Pricing = () => {
+  const { canonicalUrl, stripeKey } = useSiteMetadata()
+  const currencyState = useCurrency()
 
-const Pricing = () => (
-  <Container
-    as='section'
-    id='pricing'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: '100%',
-      bg: 'pinky',
-      py: SECTION_VERTICAL_SPACING
-    })}
-  >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: ['34px', '42px', '54px', '62px'] })}
-    >
-      Free to start, scales when ready
-    </Subhead>
-    <Caption
-      forwardedAs='div'
-      css={theme({
-        pt: [3, 3, 4, 4],
-        px: [4, 4, 4, 0],
-        maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
-      })}
-    >
-      No login required. No credit card needed. URL to markdown API free to use
-      — just start calling it.
-    </Caption>
-    <Flex
-      css={theme({
-        pt: [4, 4, 5, 5],
-        px: [4, 4, 5, 5],
-        flexDirection: ['column', 'column', 'row', 'row'],
-        justifyContent: 'center',
-        gap: [3, 3, 4, 4],
-        width: ['100%', '420px', '100%', '100%']
-      })}
-    >
-      <PricingCard css={theme({ borderColor: 'black10' })}>
-        <Text
-          as='h3'
-          css={theme({
-            fontSize: ['20px', '20px', '24px', '24px'],
-            fontWeight: 'bold',
-            m: 0
-          })}
-        >
-          Free
-        </Text>
-        <Flex css={theme({ alignItems: 'baseline', pt: 2, gap: 1 })}>
-          <Text
-            css={theme({
-              fontSize: ['32px', '32px', '38px', '38px'],
-              fontWeight: 'bold',
-              lineHeight: 0
-            })}
-          >
-            $0
-          </Text>
-          <Text css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}>
-            /month
-          </Text>
-        </Flex>
-        <Text
-          css={theme({
-            pt: 2,
-            fontSize: [1, 1, '18px', '18px']
-          })}
-        >
-          Markdown API free — 50 requests/day, no login, no credit card.
-        </Text>
-        <Box css={theme({ pt: 3 })}>
-          <PricingCheck>Markdown extraction</PricingCheck>
-          <PricingCheck>CSS selector scoping</PricingCheck>
-          <PricingCheck>Metadata + YAML frontmatter</PricingCheck>
-          <PricingCheck>Adblock & cookie banners</PricingCheck>
-          <PricingCheck>Headless browser rendering</PricingCheck>
-        </Box>
-        <Flex
-          css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
-        >
-          <ArrowLink href='/docs/guides/markdown'>Get started free</ArrowLink>
-        </Flex>
-      </PricingCard>
-
-      <PricingCard
-        css={[
-          theme({ borderColor: 'transparent' }),
-          {
-            background: `linear-gradient(${colors.white}, ${colors.white}) padding-box, ${gradient} border-box`,
-            border: '2px solid transparent'
-          }
-        ]}
+  return (
+    <CurrencyContext.Provider value={currencyState}>
+      <Box
+        as='section'
+        id='pricing'
+        css={theme({
+          bg: 'pinky'
+        })}
       >
-        <Text
-          as='h3'
+        <Container
           css={theme({
-            fontSize: ['20px', '20px', '24px', '24px'],
-            fontWeight: 'bold',
-            m: 0
+            alignItems: 'center',
+            maxWidth: '100%',
+            pt: SECTION_VERTICAL_SPACING
           })}
         >
-          Pro
-        </Text>
-        <Flex css={theme({ alignItems: 'baseline', pt: 2, gap: 1 })}>
-          <Text
+          <Subhead
+            variant='gradient'
+            css={theme({ fontSize: ['34px', '42px', '54px', '62px'] })}
+          >
+            Free to start, scales when ready
+          </Subhead>
+          <Caption
+            forwardedAs='div'
             css={theme({
-              fontSize: ['32px', '32px', '38px', '38px'],
-              fontWeight: 'bold',
-              lineHeight: 0
+              pt: [3, 3, 4, 4],
+              px: [4, 4, 4, 0],
+              maxWidth: [
+                layout.small,
+                layout.small,
+                layout.normal,
+                layout.normal
+              ]
             })}
           >
-            €39
-          </Text>
-          <Text css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}>
-            /month
-          </Text>
-        </Flex>
-        <Text
-          css={theme({
-            pt: 2,
-            fontSize: [1, 1, '18px', '18px']
-          })}
-        >
-          46,000 requests/month for production workloads.
-        </Text>
-        <Box css={theme({ pt: 3 })}>
-          <PricingCheck>Everything in Free</PricingCheck>
-          <PricingCheck>
-            <Link href='/docs/guides/common/proxy'>
-              Automatic proxy resolution
-            </Link>
-          </PricingCheck>
-          <PricingCheck>
-            <Link href='/docs/api/parameters/headers'>Custom HTTP headers</Link>
-          </PricingCheck>
-          <PricingCheck>
-            <Link href='/docs/api/parameters/ttl'>Configurable TTL</Link>
-          </PricingCheck>
-          <PricingCheck>
-            <Link href='/docs/api/parameters/proxy'>Antibot protection</Link>
-          </PricingCheck>
-        </Box>
-        <Flex
-          css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
-        >
-          <ArrowLink href='/pricing'>See all plans</ArrowLink>
-        </Flex>
-      </PricingCard>
-    </Flex>
-  </Container>
-)
+            No login required. No credit card needed. URL to markdown API free
+            to use — just start calling it.
+          </Caption>
+        </Container>
+        <Plans
+          canonicalUrl={canonicalUrl}
+          stripeKey={stripeKey}
+          footer='compare'
+        />
+      </Box>
+    </CurrencyContext.Provider>
+  )
+}
 
 const CTA_DURATION = 6.2
 const CTA_SWEEP_PCT = (1.2 / CTA_DURATION) * 100
