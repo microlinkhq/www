@@ -29,7 +29,6 @@ import Text from 'components/elements/Text'
 import LineBreak from 'components/elements/LineBreak'
 
 import { Check as CheckIcon, Star as StarIcon } from 'react-feather'
-import FeatherIcon from 'components/icons/Feather'
 import { Focus as FocusIcon } from 'components/icons/Focus'
 import { PDF as PDFIcon } from 'components/icons/PDF'
 import { rotate, dash, fadeInDown, highlight } from 'components/keyframes'
@@ -40,12 +39,17 @@ import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
+import Plans, {
+  CurrencyContext,
+  useCurrency
+} from 'components/patterns/Plans/Plans'
 import Microlink from 'components/patterns/Microlink/Microlink'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
 import { useHealthcheck } from 'components/hook/use-healthcheck'
+import { useSiteMetadata } from 'components/hook/use-site-meta'
 import {
   ApiErrorTitle,
   ApiErrorBody
@@ -3687,171 +3691,58 @@ const Clients = () => (
 
 // --- Pricing ---
 
-const PricingCheck = ({ children }) => (
-  <Flex css={theme({ alignItems: 'center', pt: 2 })}>
-    <FeatherIcon
-      css={theme({ display: 'inline-flex', pr: 2 })}
-      icon={CheckIcon}
-    />
-    <Text as='span' css={theme({ fontSize: [1, 1, '18px', '18px'] })}>
-      {children}
-    </Text>
-  </Flex>
-)
+const Pricing = () => {
+  const { canonicalUrl, stripeKey } = useSiteMetadata()
+  const currencyState = useCurrency()
 
-const PricingCard = styled(Flex)`
-  ${theme({
-    flexDirection: 'column',
-    borderRadius: 3,
-    bg: 'white',
-    px: [3, 3, 4, 4],
-    py: [3, 3, 4, 4],
-    flex: 1,
-    minWidth: 0,
-    maxWidth: ['100%', '100%', '380px', '380px']
-  })}
-  border: ${borders[1]};
-  box-shadow: 0 2px 8px ${colors.black05};
-`
-
-const Pricing = () => (
-  <Container
-    as='section'
-    id='pricing'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: '100%',
-      bg: 'pinky',
-      py: SECTION_VERTICAL_SPACING
-    })}
-  >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: ['34px', '42px', '54px', '62px'] })}
-    >
-      Start free, scale when ready
-    </Subhead>
-    <Caption
-      forwardedAs='div'
-      css={theme({
-        pt: [3, 3, 4, 4],
-        px: [4, 4, 4, 0],
-        maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
-      })}
-    >
-      No login required. No credit card needed. The website metadata API is free
-      to use — just start calling it.
-    </Caption>
-    <Flex
-      css={theme({
-        pt: [4, 4, 5, 5],
-        px: [4, 4, 5, 5],
-        flexDirection: ['column', 'column', 'row', 'row'],
-        justifyContent: 'center',
-        gap: [3, 3, 4, 4],
-        width: ['100%', '420px', '100%', '100%']
-      })}
-    >
-      <PricingCard css={theme({ borderColor: 'black10' })}>
-        <Text
-          css={theme({
-            fontSize: ['20px', '20px', '24px', '24px'],
-            fontWeight: 'bold'
-          })}
-        >
-          Free
-        </Text>
-        <Flex css={theme({ alignItems: 'baseline', pt: 2, gap: 1 })}>
-          <Text
-            css={theme({
-              fontSize: ['32px', '32px', '38px', '38px'],
-              fontWeight: 'bold',
-              lineHeight: 0
-            })}
-          >
-            $0
-          </Text>
-          <Text css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}>
-            /month
-          </Text>
-        </Flex>
-        <Text css={theme({ pt: 2, fontSize: [1, 1, '18px', '18px'] })}>
-          Free metadata API — 50 requests/day, no login, no credit card.
-        </Text>
-        <Box css={theme({ pt: 3 })}>
-          <PricingCheck>Unified metadata extraction</PricingCheck>
-          <PricingCheck>Open Graph, Twitter, JSON-LD, oEmbed</PricingCheck>
-          <PricingCheck>Color palette & logo detection</PricingCheck>
-          <PricingCheck>Screenshots, PDF, and more</PricingCheck>
-          <PricingCheck>Full browser control</PricingCheck>
-        </Box>
-        <Flex
-          css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
-        >
-          <ArrowLink href='/docs/guides/metadata'>Get started free</ArrowLink>
-        </Flex>
-      </PricingCard>
-
-      <PricingCard
-        css={[
-          theme({ borderColor: 'transparent' }),
-          {
-            background: `linear-gradient(${colors.white}, ${colors.white}) padding-box, ${gradient} border-box`,
-            border: '2px solid transparent'
-          }
-        ]}
+  return (
+    <CurrencyContext.Provider value={currencyState}>
+      <Box
+        as='section'
+        id='pricing'
+        css={theme({
+          bg: 'pinky'
+        })}
       >
-        <Text
+        <Container
           css={theme({
-            fontSize: ['20px', '20px', '24px', '24px'],
-            fontWeight: 'bold'
+            alignItems: 'center',
+            maxWidth: '100%',
+            pt: SECTION_VERTICAL_SPACING
           })}
         >
-          Pro
-        </Text>
-        <Flex css={theme({ alignItems: 'baseline', pt: 2, gap: 1 })}>
-          <Text
+          <Subhead
+            variant='gradient'
+            css={theme({ fontSize: ['34px', '42px', '54px', '62px'] })}
+          >
+            Start free, scale when ready
+          </Subhead>
+          <Caption
+            forwardedAs='div'
             css={theme({
-              fontSize: ['32px', '32px', '38px', '38px'],
-              fontWeight: 'bold',
-              lineHeight: 0
+              pt: [3, 3, 4, 4],
+              px: [4, 4, 4, 0],
+              maxWidth: [
+                layout.small,
+                layout.small,
+                layout.normal,
+                layout.normal
+              ]
             })}
           >
-            &euro;39
-          </Text>
-          <Text css={theme({ color: 'black60', fontSize: [0, 0, 1, 1] })}>
-            /month
-          </Text>
-        </Flex>
-        <Text css={theme({ pt: 2, fontSize: [1, 1, '18px', '18px'] })}>
-          46,000 requests/month for production metadata workloads.
-        </Text>
-        <Box css={theme({ pt: 3 })}>
-          <PricingCheck>Everything in Free</PricingCheck>
-          <PricingCheck>
-            <Link href='/docs/guides/common/proxy'>
-              Automatic proxy resolution
-            </Link>
-          </PricingCheck>
-          <PricingCheck>
-            <Link href='/docs/api/parameters/headers'>Custom HTTP headers</Link>
-          </PricingCheck>
-          <PricingCheck>
-            <Link href='/docs/api/parameters/ttl'>Configurable TTL</Link>
-          </PricingCheck>
-          <PricingCheck>
-            <Link href='/docs/api/parameters/proxy'>Antibot protection</Link>
-          </PricingCheck>
-        </Box>
-        <Flex
-          css={theme({ pt: 4, fontSize: ['18px', '18px', '20px', '20px'] })}
-        >
-          <ArrowLink href='/pricing'>See all plans</ArrowLink>
-        </Flex>
-      </PricingCard>
-    </Flex>
-  </Container>
-)
+            No login required. No credit card needed. The website metadata API
+            is free to use — just start calling it.
+          </Caption>
+        </Container>
+        <Plans
+          canonicalUrl={canonicalUrl}
+          stripeKey={stripeKey}
+          footer='compare'
+        />
+      </Box>
+    </CurrencyContext.Provider>
+  )
+}
 
 // --- Open Source ---
 

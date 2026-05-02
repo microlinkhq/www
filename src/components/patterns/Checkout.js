@@ -9,6 +9,30 @@ import React, { useState, useRef, useEffect } from 'react'
 import { gradient, theme } from 'theme'
 import { trackEvent } from 'helpers/plausible'
 
+const PRODUCT_LANDING_SLUGS = [
+  'metadata',
+  'screenshot',
+  'pdf',
+  'markdown',
+  'logo',
+  'sdk',
+  'insights'
+]
+
+function resolveBuyEventLocation () {
+  const raw = window.location.pathname
+  const pathname = raw.endsWith('/') && raw.length > 1 ? raw.slice(0, -1) : raw
+  if (pathname === '/' || pathname === '') return 'home'
+  if (pathname === '/pricing') return 'pricing'
+  for (const slug of PRODUCT_LANDING_SLUGS) {
+    if (pathname === `/${slug}` || pathname.startsWith(`/${slug}/`)) {
+      return slug
+    }
+  }
+  const [first] = pathname.slice(1).split('/')
+  return first || 'other'
+}
+
 const loadingCss = `
   &&&:disabled {
     background: ${gradient};
@@ -38,9 +62,7 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
 
   const handleCheckout = async () => {
     setIsLoading(true)
-    const location =
-      window.location.pathname === '/pricing' ? 'pricing' : 'home'
-    trackEvent('buy', { location })
+    trackEvent('buy', { location: resolveBuyEventLocation() })
 
     try {
       const { data } = await fetch(`${apiEndpoint}/payment/session`, {
