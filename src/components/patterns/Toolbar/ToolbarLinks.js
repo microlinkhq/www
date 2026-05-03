@@ -14,6 +14,7 @@ import { BookImage as BookImageIcon } from 'components/icons/BookImage'
 import {
   Layers,
   BarChart2,
+  Code,
   Image,
   Map,
   Users,
@@ -160,6 +161,12 @@ export const NAVIGATION_SECTIONS = [
     description: 'APIs and tooling to turn any URL into structured output.',
     columns: 3,
     items: [
+      createNavigationItem({
+        label: 'Embed',
+        href: '/embed',
+        description: 'Turn any URL into a rich, embeddable card',
+        icon: Code
+      }),
       createNavigationItem({
         label: 'Markdown',
         href: '/markdown',

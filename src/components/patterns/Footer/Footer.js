@@ -23,6 +23,7 @@ const FOOTER_COLUMNS = [
   {
     title: 'Products',
     links: [
+      { label: 'Embed', href: '/embed' },
       { label: 'Insights', href: '/insights' },
       { label: 'Logo', href: '/logo' },
       { label: 'Markdown', href: '/markdown' },
