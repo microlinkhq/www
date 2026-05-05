@@ -1,6 +1,6 @@
 # Template
 
-This is the canonical template for `src/pages/customers/<slug>.js`. It mirrors `src/pages/customers/example.js` exactly but every author-supplied value has been replaced by a `{{TOKEN}}` placeholder.
+This is the canonical template for `src/pages/customers/<slug>.js`. It mirrors `src/pages/customers/example.js` exactly. Every author-supplied value is a `{{TOKEN}}` placeholder.
 
 The skill fills these in after gathering all answers in steps 1–8 of the workflow.
 
@@ -10,6 +10,7 @@ The skill fills these in after gathering all answers in steps 1–8 of the workf
 
 - `{{CUSTOMER_NAME}}` — display name, used in H1 span and copy. e.g. `Vercel`
 - `{{CUSTOMER_NAME_LOWER}}` — same but lowercased, used in prose like "About vercel". Capitalize naturally where it starts a sentence.
+- `{{CUSTOMER_DOMAIN}}` — bare hostname (no protocol, no path), e.g. `vercel.com`. Used for the About-section "Visit <domain>" link, the ThanksSection logo path (`/images/clients/<CUSTOMER_DOMAIN>.svg`), and the ThanksSection logo link target (`https://<CUSTOMER_DOMAIN>`).
 
 ### Accent (resolved via `references/accent-colors.md`)
 
@@ -17,26 +18,29 @@ The skill fills these in after gathering all answers in steps 1–8 of the workf
 - `{{ACCENT_BG_SOFT}}`    — e.g. `teal0`
 - `{{ACCENT_BG_EDGE}}`    — e.g. `teal1`
 - `{{ACCENT_HIGHLIGHT}}`  — e.g. `teal5`
+- `{{ACCENT_RGB}}`        — e.g. `12, 166, 120` — comma-separated RGB triplet of the `*7` shade. Used in the CTA panel's translucent background.
 
 ### Hero
 
 - `{{HERO_HEADLINE}}`   — what comes after `{{CUSTOMER_NAME}}:` in the H1.
 - `{{HERO_INTRO}}`      — one or two sentence caption.
 - `{{HERO_CTA_HREF}}`   — resolved via `references/cta-routing.md`.
-- `{{HERO_CTA_LABEL}}`  — resolved via `references/cta-routing.md`.
+- `{{HERO_CTA_LABEL}}`  — resolved via `references/cta-routing.md`. MUST differ from `{{CTA_LABEL}}`.
 
 ### About the customer
 
+- `{{ABOUT_HERO_IMAGE_BLOCK}}`   — optional: the wide hero/website screenshot at the top of the section (Variant A or empty).
 - `{{ABOUT_SUBHEAD}}`            — one-line description of what the customer does.
 - `{{ABOUT_PARA_1}}`             — first paragraph (research from website).
+- `{{ABOUT_SCREENSHOT_BLOCK}}`   — primary screenshot between paragraphs 1 and 2 (Variant A `Figure`+`FigureImage` or Variant B `FigurePlaceholder`).
 - `{{ABOUT_PARA_2}}`             — second paragraph (research from website).
-- `{{ABOUT_SCREENSHOT_BLOCK}}`   — either a `Figure`+`FigureImage` block (if user provided an image path) or a `Figure`+`FigurePlaceholder` block labelled with the customer name. See "Conditional blocks" below.
+- `{{TESTIMONIAL_RENDER}}`       — `<Testimonial />` (or empty if no testimonial). Nested INSIDE `AboutCustomer`, after the external website link.
 
 ### How they use Microlink
 
 - `{{HOW_SUBHEAD}}`        — short headline summarizing what Microlink powers for them.
 - `{{HOW_PARA_1}}`         — paragraph before the diagram.
-- `{{HOW_DIAGRAM_BLOCK}}`  — either a flow diagram (ported from `proxy.js`) or an image figure or a placeholder. See "Conditional blocks".
+- `{{HOW_DIAGRAM_BLOCK}}`  — flow / image / placeholder. See "Conditional blocks".
 - `{{HOW_PARA_2}}`         — paragraph after the diagram.
 
 ### Why Microlink
@@ -49,27 +53,40 @@ The skill fills these in after gathering all answers in steps 1–8 of the workf
 - `{{WHY_CARD_2_KICKER}}` / `{{WHY_CARD_2_TITLE}}` / `{{WHY_CARD_2_BODY}}`
 - `{{WHY_CARD_3_KICKER}}` / `{{WHY_CARD_3_TITLE}}` / `{{WHY_CARD_3_BODY}}`
 
-### Testimonial (optional)
+### Testimonial
 
-- `{{TESTIMONIAL_SECTION}}`        — the entire `<Testimonial />` styled-component block + the `Testimonial` component definition. Empty string if no testimonial.
-- `{{TESTIMONIAL_RENDER}}`         — `<Testimonial />` line inside the page composition. Empty string if no testimonial.
+- `{{TESTIMONIAL_SECTION}}`        — the entire `Testimonial` component definition + styled components. Empty string if no testimonial.
+- `{{TESTIMONIAL_QUOTE}}`          — quote text (or bracketed placeholder text if Step 5 used `placeholder` mode).
+- `{{TESTIMONIAL_AUTHOR_NAME}}`    — author display name (or `[Author Name]` for placeholder mode).
+- `{{TESTIMONIAL_AUTHOR_ROLE}}`    — role / job title.
+- `{{TESTIMONIAL_AUTHOR_COMPANY}}` — company (defaults to `{{CUSTOMER_NAME}}`).
+- `{{TESTIMONIAL_AUTHOR_INITIALS}}` — uppercased initials of the author's first and last name (e.g. `SC`). Rendered inside `AuthorAvatar`. For placeholder mode, use `[X]`.
+- `{{TESTIMONIAL_PLACEHOLDER_COMMENT}}` — `{/* TODO: replace placeholder testimonial before publishing */}` or empty string.
 
 ### More customer stories carousel (auto-detected)
 
-- `{{MORE_CUSTOMERS_SECTION}}`     — the entire styled-component block + `MORE_CUSTOMERS` array + `MoreCustomers` component. Empty string if fewer than 2 other customer pages exist.
-- `{{MORE_CUSTOMERS_RENDER}}`      — `<MoreCustomers />` line. Empty string if removed.
+- `{{MORE_CUSTOMERS_SECTION}}`     — entire styled-component block + `MORE_CUSTOMERS` array + `MoreCustomers` component. Empty if <2 sibling pages.
+- `{{MORE_CUSTOMERS_RENDER}}`      — `<MoreCustomers />` line. Empty if removed.
+- `{{MORE_CUSTOMERS_ENTRIES}}`     — comma-separated array entries.
 
 ### CTA
 
-- `{{CTA_HEADLINE_PREFIX}}` — e.g. `Ready to ship with`
-- `{{CTA_HEADLINE_ACCENT}}` — accent-colored span content, e.g. `Microlink` (default) or product name like `screenshots`
+- `{{CTA_HEADLINE_PREFIX}}` — e.g. `Ready to ship with`, `Ready to ship link`
+- `{{CTA_HEADLINE_ACCENT}}` — accent-colored span content, e.g. `Microlink`, `previews`, `screenshots`
 - `{{CTA_BODY}}`            — short closing line.
 - `{{CTA_HREF}}`            — same logic as Hero, may differ.
-- `{{CTA_LABEL}}`           — broader label than the hero.
+- `{{CTA_LABEL}}`           — broader label than the hero. MUST differ from `{{HERO_CTA_LABEL}}`.
+
+### Thanks
+
+- `{{THANKS_LOGO_BLOCK}}`     — `<Link>` wrapping `<ThanksLogo>` if customer SVG is available, otherwise empty.
+- `{{THANKS_LOGO_SRC}}`       — `/images/clients/<CUSTOMER_DOMAIN>.svg`.
+- `{{THANKS_LOGO_WIDTH}}` / `{{THANKS_LOGO_HEIGHT}}` — intrinsic SVG viewBox dimensions.
+- `{{THANKS_USE_CASE_SHORT}}` — short noun-phrase about the use case, e.g. `link previews across their platform`, `Open Graph images for every deployment`.
 
 ### Head / SEO
 
-- `{{HEAD_TITLE}}`        — e.g. `How {{CUSTOMER_NAME}} uses Microlink`
+- `{{HEAD_TITLE}}`        — format: `{{CUSTOMER_NAME}}: <one-line use case> · Microlink`
 - `{{HEAD_DESCRIPTION}}`  — 1-2 sentence summary, no marketing fluff.
 
 ## Full template
@@ -237,7 +254,8 @@ const Hero = () => (
           textAlign: 'left',
           letterSpacing: '-0.01em',
           lineHeight: 0,
-          m: 0
+          m: 0,
+          scrollMarginTop: 4
         })}
       >
         <span css={theme({ color: ACCENT.text })}>{{CUSTOMER_NAME}}:</span>{' '}
@@ -274,36 +292,6 @@ const Hero = () => (
 
 /* ─── About the customer ─────────────────────────────────────────────────── */
 
-const AboutCustomer = () => (
-  <Section css={theme({ pt: [3, 3, 4, 4], pb: [4, 4, 5, 5] })}>
-    <SectionInner>
-      <Eyebrow css={theme({ pb: 3, display: 'block' })}>
-        About {{CUSTOMER_NAME}}
-      </Eyebrow>
-      <SubheadBase
-        css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          pb: [3, 3, 4, 4]
-        })}
-      >
-        {{ABOUT_SUBHEAD}}
-      </SubheadBase>
-      <BodyText>
-        {{ABOUT_PARA_1}}
-      </BodyText>
-      {{ABOUT_SCREENSHOT_BLOCK}}
-      <BodyText>
-        {{ABOUT_PARA_2}}
-      </BodyText>
-    </SectionInner>
-  </Section>
-)
-
-/* ─── How they use Microlink ─────────────────────────────────────────────── */
-
 const Figure = styled('figure')`
   ${theme({
     m: 0,
@@ -317,7 +305,9 @@ const FigureImage = styled('img')`
     width: '100%',
     maxWidth: '600px',
     height: 'auto',
-    mx: 'auto'
+    mx: 'auto',
+    borderRadius: 3,
+    boxShadow: 1
   })}
 `
 
@@ -341,6 +331,55 @@ const FigurePlaceholder = styled(Box)`
     textTransform: 'uppercase'
   })}
 `
+
+const AboutCustomer = () => (
+  <Section css={theme({ pt: [3, 3, 4, 4], pb: [4, 4, 5, 5] })}>
+    <SectionInner>
+      {{ABOUT_HERO_IMAGE_BLOCK}}
+      <Eyebrow css={theme({ pb: 3, display: 'block' })}>
+        About {{CUSTOMER_NAME}}
+      </Eyebrow>
+      <SubheadBase
+        css={theme({
+          fontSize: ['24px', '28px', '34px', '38px'],
+          textAlign: 'left',
+          letterSpacing: '-0.01em',
+          lineHeight: 0,
+          pb: [3, 3, 4, 4]
+        })}
+      >
+        {{ABOUT_SUBHEAD}}
+      </SubheadBase>
+      <BodyText>
+        {{ABOUT_PARA_1}}
+      </BodyText>
+      {{ABOUT_SCREENSHOT_BLOCK}}
+      <BodyText>
+        {{ABOUT_PARA_2}}
+      </BodyText>
+      <Box css={theme({ pt: 2, pb: [3, 3, 4, 4] })}>
+        <Text
+          as='a'
+          href='https://{{CUSTOMER_DOMAIN}}'
+          target='_blank'
+          rel='noopener'
+          css={theme({
+            color: ACCENT.text,
+            fontWeight: 'bold',
+            fontSize: [1, 2, 2, 2],
+            textDecoration: 'underline'
+          })}
+        >
+          Visit {{CUSTOMER_DOMAIN}}
+        </Text>
+      </Box>
+      {{TESTIMONIAL_PLACEHOLDER_COMMENT}}
+      {{TESTIMONIAL_RENDER}}
+    </SectionInner>
+  </Section>
+)
+
+/* ─── How they use Microlink ─────────────────────────────────────────────── */
 
 const HowTheyUseIt = () => (
   <Section css={theme({ pb: 5 })}>
@@ -511,7 +550,17 @@ const WhyMicrolink = () => (
 /* ─── CTA ────────────────────────────────────────────────────────────────── */
 
 const CtaSection = () => (
-  <Section>
+  <Section
+    css={`
+      background-color: rgba({{ACCENT_RGB}}, 0.06);
+      ${theme({
+        borderTop: 1,
+        borderTopColor: ACCENT.bgEdge,
+        borderBottom: 1,
+        borderBottomColor: ACCENT.bgEdge
+      })}
+    `}
+  >
     <SectionInner css={theme({ textAlign: 'center' })}>
       <SubheadBase
         css={theme({
@@ -539,7 +588,7 @@ const CtaSection = () => (
       </Caption>
       <Flex
         css={theme({
-          py: [3, 4, 4, 4],
+          pt: [3, 4, 4, 4],
           justifyContent: 'center',
           alignItems: 'center'
         })}
@@ -559,6 +608,40 @@ const CtaSection = () => (
   </Section>
 )
 
+/* ─── Thanks ─────────────────────────────────────────────────────────────── */
+
+const ThanksLogo = styled('img')`
+  ${theme({
+    display: 'block',
+    width: 'auto',
+    height: '32px',
+    mx: 'auto'
+  })}
+`
+
+const ThanksSection = () => (
+  <Section css={theme({ pt: 5, pb: [3, 3, 4, 4] })}>
+    <SectionInner css={theme({ textAlign: 'center', maxWidth: layout.small })}>
+      <Box css={theme({ pt: [3, 3, 4, 4], pb: [2, 2, 3, 3] })}>
+        {{THANKS_LOGO_BLOCK}}
+      </Box>
+      <Caption
+        forwardedAs='p'
+        titleize={false}
+        css={theme({
+          color: 'black70',
+          fontSize: [0, 1],
+          maxWidth: layout.small,
+          mx: 'auto'
+        })}
+      >
+        <b>Thank you to the {{CUSTOMER_NAME}} team</b> for letting us share their
+        use case, and for choosing Microlink to power {{THANKS_USE_CASE_SHORT}}.
+      </Caption>
+    </SectionInner>
+  </Section>
+)
+
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
 const CustomerStoryPage = () => (
@@ -568,10 +651,10 @@ const CustomerStoryPage = () => (
       <Hero />
       <AboutCustomer />
       <HowTheyUseIt />
-      {{TESTIMONIAL_RENDER}}
       <WhyMicrolink />
       {{MORE_CUSTOMERS_RENDER}}
       <CtaSection />
+      <ThanksSection />
     </Box>
   </Layout>
 )
@@ -594,24 +677,44 @@ export default CustomerStoryPage
 
 These blocks substitute into a single `{{TOKEN}}` slot. The skill picks one variant per token.
 
+### `{{ABOUT_HERO_IMAGE_BLOCK}}`
+
+Variant A — user provided a wider hero image (step 6c yes):
+
+```jsx
+<Figure css={theme({ pt: 0 })}>
+  <FigureImage
+    src='{{ABOUT_HERO_IMAGE_SRC}}'
+    alt='{{CUSTOMER_NAME}} platform'
+    width='{{ABOUT_HERO_IMAGE_WIDTH}}'
+    height='{{ABOUT_HERO_IMAGE_HEIGHT}}'
+    loading='eager'
+    decoding='async'
+    css={theme({ maxWidth: '800px' })}
+  />
+</Figure>
+```
+
+Variant B — empty (step 6c no): the token is replaced with the empty string and the section starts directly with the Eyebrow.
+
 ### `{{ABOUT_SCREENSHOT_BLOCK}}`
 
-Variant A — user provided an image path:
+Variant A — user provided a primary screenshot (step 6a yes):
 
 ```jsx
 <Figure>
   <FigureImage
     src='{{ABOUT_IMAGE_SRC}}'
     alt='{{CUSTOMER_NAME}} using Microlink'
-    width='1200'
-    height='870'
+    width='{{ABOUT_IMAGE_WIDTH}}'
+    height='{{ABOUT_IMAGE_HEIGHT}}'
     loading='lazy'
     decoding='async'
   />
 </Figure>
 ```
 
-Variant B — no image:
+Variant B — no screenshot (step 6a no):
 
 ```jsx
 <Figure>
@@ -699,7 +802,7 @@ const Arrow = () => (
 )
 ```
 
-The diagram block itself goes inside `HowTheyUseIt`:
+Inside `HowTheyUseIt`:
 
 ```jsx
 <Figure>
@@ -715,7 +818,7 @@ The diagram block itself goes inside `HowTheyUseIt`:
 </Figure>
 ```
 
-`{{NODES}}` is the rendered list of `<Node>` / `<NodeActive>` separated by `<Arrow />`. Each node has a `NodeLabel` (the user-supplied label) and an optional `NodeSub` (caption). Exactly one node should be `NodeActive` — it's the Microlink node by default.
+`{{NODES}}` is the rendered list of `<Node>` / `<NodeActive>` separated by `<Arrow />`. Each node has a `NodeLabel` and an optional `NodeSub`. Exactly one node should be `NodeActive`.
 
 Variant B — image figure:
 
@@ -724,15 +827,15 @@ Variant B — image figure:
   <FigureImage
     src='{{HOW_IMAGE_SRC}}'
     alt='{{HOW_IMAGE_ALT}}'
-    width='1200'
-    height='870'
+    width='{{HOW_IMAGE_WIDTH}}'
+    height='{{HOW_IMAGE_HEIGHT}}'
     loading='lazy'
     decoding='async'
   />
 </Figure>
 ```
 
-Variant C — placeholder (user has no diagram yet):
+Variant C — placeholder:
 
 ```jsx
 <Figure>
@@ -742,9 +845,9 @@ Variant C — placeholder (user has no diagram yet):
 </Figure>
 ```
 
-### `{{TESTIMONIAL_SECTION}}` / `{{TESTIMONIAL_RENDER}}`
+### `{{TESTIMONIAL_SECTION}}` / `{{TESTIMONIAL_RENDER}}` / `{{TESTIMONIAL_PLACEHOLDER_COMMENT}}`
 
-If a testimonial exists, expand to:
+If a real or placeholder testimonial exists, expand `{{TESTIMONIAL_SECTION}}` to:
 
 ```jsx
 /* ─── Testimonial ────────────────────────────────────────────────────────── */
@@ -772,7 +875,6 @@ const Quote = styled(Text).attrs({ as: 'blockquote' })`
   ${theme({
     m: 0,
     color: 'black',
-    fontFamily: 'serif',
     fontSize: ['16px', '17px', '19px', '20px'],
     fontStyle: 'italic',
     fontWeight: 'normal',
@@ -784,7 +886,6 @@ const Quote = styled(Text).attrs({ as: 'blockquote' })`
 const QuoteMark = styled(Text).attrs({ as: 'span', 'aria-hidden': 'true' })`
   ${theme({
     color: ACCENT.text,
-    fontFamily: 'serif',
     fontSize: ['28px', '32px', '36px', '40px'],
     fontWeight: 'bold',
     lineHeight: 0,
@@ -807,7 +908,16 @@ const AuthorAvatar = styled(Box)`
     borderRadius: '50%',
     width: '36px',
     height: '36px',
-    flex: '0 0 auto'
+    flex: '0 0 auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: ACCENT.text,
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'bold',
+    letterSpacing: '0.04em',
+    textTransform: 'uppercase'
   })}
 `
 
@@ -829,33 +939,36 @@ const AuthorRole = styled(Text)`
 `
 
 const Testimonial = () => (
-  <Section css={theme({ pt: 0 })}>
-    <SectionInner>
-      <TestimonialCard as='figure'>
-        <QuoteMark>“</QuoteMark>
-        <Quote>
-          {{TESTIMONIAL_QUOTE}}
-        </Quote>
-        <Author as='figcaption'>
-          <AuthorAvatar aria-hidden='true' />
-          <Box>
-            <AuthorName>{{TESTIMONIAL_AUTHOR_NAME}}</AuthorName>
-            <AuthorRole>{{TESTIMONIAL_AUTHOR_ROLE}} · {{TESTIMONIAL_AUTHOR_COMPANY}}</AuthorRole>
-          </Box>
-        </Author>
-      </TestimonialCard>
-    </SectionInner>
-  </Section>
+  <TestimonialCard as='figure' css={theme({ mt: [3, 3, 4, 4] })}>
+    <QuoteMark>“</QuoteMark>
+    <Quote>
+      {{TESTIMONIAL_QUOTE}}
+    </Quote>
+    <Author as='figcaption'>
+      <AuthorAvatar aria-hidden='true'>{{TESTIMONIAL_AUTHOR_INITIALS}}</AuthorAvatar>
+      <Box>
+        <AuthorName>{{TESTIMONIAL_AUTHOR_NAME}}</AuthorName>
+        <AuthorRole>{{TESTIMONIAL_AUTHOR_ROLE}} · {{TESTIMONIAL_AUTHOR_COMPANY}}</AuthorRole>
+      </Box>
+    </Author>
+  </TestimonialCard>
 )
 ```
 
-And `{{TESTIMONIAL_RENDER}}` becomes `<Testimonial />`.
+Note: the `Testimonial` component does NOT render its own `<Section>` / `<SectionInner>` wrapper because it's nested INSIDE `AboutCustomer`'s `<SectionInner>`. The `mt` margin on the card provides separation from the external website link above it.
 
-If there is NO testimonial, both tokens are replaced with empty strings (no comment block, no styled components, no render line). Zero dead code.
+`{{TESTIMONIAL_RENDER}}` = `<Testimonial />` (or empty string if no testimonial).
 
-### `{{MORE_CUSTOMERS_SECTION}}` / `{{MORE_CUSTOMERS_RENDER}}`
+`{{TESTIMONIAL_PLACEHOLDER_COMMENT}}`:
+- Real testimonial: empty string.
+- Placeholder testimonial: `{/* TODO: replace placeholder testimonial before publishing */}`.
+- No testimonial: empty string.
 
-If there are 2+ other customer pages (excluding `example.js` and the file being created), expand to:
+If there is NO testimonial, all three tokens are empty strings (no comment block, no styled components, no render line, no comment). Zero dead code.
+
+### `{{MORE_CUSTOMERS_SECTION}}` / `{{MORE_CUSTOMERS_RENDER}}` / `{{MORE_CUSTOMERS_ENTRIES}}`
+
+If there are 2+ other customer pages (excluding `example.js` and the file being created), expand `{{MORE_CUSTOMERS_SECTION}}` to:
 
 ```jsx
 /* ─── More customer stories carousel ─────────────────────────────────────── */
@@ -998,13 +1111,55 @@ const MoreCustomers = () => (
 )
 ```
 
-`{{MORE_CUSTOMERS_ENTRIES}}` is a comma-separated list of objects auto-built from globbing `src/pages/customers/*.js`:
+`{{MORE_CUSTOMERS_ENTRIES}}` is the comma-separated list of objects, one per sibling page:
 
 ```js
 { slug: 'vercel', name: 'Vercel', blurb: 'Open Graph images for every deployment.' },
 { slug: 'linear', name: 'Linear', blurb: 'Issue thumbnails and link previews at scale.' }
 ```
 
-If fewer than 2 entries are found, BOTH `{{MORE_CUSTOMERS_SECTION}}` and `{{MORE_CUSTOMERS_RENDER}}` become empty strings.
+`{{MORE_CUSTOMERS_RENDER}}` is `<MoreCustomers />` (positioned BETWEEN `<WhyMicrolink />` and `<CtaSection />`).
 
-`{{MORE_CUSTOMERS_RENDER}}` (when present) is `<MoreCustomers />`.
+If <2 sibling pages, all three tokens become empty strings — no carousel, no array, no render line.
+
+### `{{THANKS_LOGO_BLOCK}}`
+
+Both variants render a plain anchor (`<Text as='a'>`) with `target='_blank' rel='noopener'` — NOT the repo `Link` component. This is required so the customer's site retains the backlink follow + referrer signal (see "External-link rule" in `SKILL.md`).
+
+Variant A — customer SVG logo available at `static/images/clients/<CUSTOMER_DOMAIN>.svg`:
+
+```jsx
+<Text as='a' href='https://{{CUSTOMER_DOMAIN}}' target='_blank' rel='noopener'>
+  <ThanksLogo
+    src='{{THANKS_LOGO_SRC}}'
+    alt='{{CUSTOMER_NAME}}'
+    width='{{THANKS_LOGO_WIDTH}}'
+    height='{{THANKS_LOGO_HEIGHT}}'
+    loading='lazy'
+    decoding='async'
+  />
+</Text>
+```
+
+Variant B — no logo (text-only ThanksSection): the token becomes:
+
+```jsx
+<Text
+  as='a'
+  href='https://{{CUSTOMER_DOMAIN}}'
+  target='_blank'
+  rel='noopener'
+  css={theme({
+    color: ACCENT.text,
+    fontWeight: 'bold',
+    fontSize: [1, 2, 2, 2],
+    textDecoration: 'underline'
+  })}
+>
+  {{CUSTOMER_NAME}}
+</Text>
+```
+
+(A simple link to the customer's site, no image.)
+
+If `ThanksSection` is omitted entirely: remove the entire `ThanksSection` component, the `ThanksLogo` styled component, and the `<ThanksSection />` render line. (The skill should rarely choose this — the thank-you note is the more important part and works fine without a logo.)

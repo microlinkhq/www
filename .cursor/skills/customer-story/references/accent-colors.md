@@ -1,17 +1,19 @@
 # Accent colors
 
-Customer pages use a 4-token `ACCENT` object. Every value MUST resolve to a token defined in `src/theme/index.js`. Never invent or extend the ramp.
+Customer pages use a 4-token `ACCENT` object plus an `ACCENT_RGB` triplet (for the CTA panel's translucent background tint). Every value MUST resolve to a token defined in `src/theme/index.js`. Never invent or extend the ramp.
 
 ## Allowed ramps
 
-| User-facing name | text     | bgSoft   | bgEdge   | highlight |
-| ---------------- | -------- | -------- | -------- | --------- |
-| teal (default)   | `teal7`  | `teal0`  | `teal1`  | `teal5`   |
-| blue             | `blue7`  | `blue0`  | `blue1`  | `blue5`   |
-| cyan             | `cyan7`  | `cyan0`  | `cyan1`  | `cyan5`   |
-| green            | `green7` | `green0` | `green1` | `green5`  |
-| orange           | `orange7`| `orange0`| `orange1`| `orange5` |
-| yellow           | `yellow7`| `yellow0`| `yellow1`| `yellow5` |
+| User-facing name | text     | bgSoft   | bgEdge   | highlight | `*7` hex   | `ACCENT_RGB`        |
+| ---------------- | -------- | -------- | -------- | --------- | ---------- | ------------------- |
+| teal (default)   | `teal7`  | `teal0`  | `teal1`  | `teal5`   | `#0ca678`  | `12, 166, 120`      |
+| blue             | `blue7`  | `blue0`  | `blue1`  | `blue5`   | `#1c7ed6`  | `28, 126, 214`      |
+| cyan             | `cyan7`  | `cyan0`  | `cyan1`  | `cyan5`   | `#1098ad`  | `16, 152, 173`      |
+| green            | `green7` | `green0` | `green1` | `green5`  | `#37b24d`  | `55, 178, 77`       |
+| orange           | `orange7`| `orange0`| `orange1`| `orange5` | `#f76707`  | `247, 103, 7`       |
+| yellow           | `yellow7`| `yellow0`| `yellow1`| `yellow5` | `#f59f00`  | `245, 159, 0`       |
+
+The `*7` hex and `ACCENT_RGB` triplet are derived directly from `src/theme/index.js`. If the theme's color values change, this table MUST be updated to match.
 
 ## Forbidden
 
@@ -20,18 +22,20 @@ Customer pages use a 4-token `ACCENT` object. Every value MUST resolve to a toke
 
 ## Output shape
 
-After the user picks a name, render the `ACCENT` constant exactly like this:
+After the user picks a name, render the `ACCENT` constant exactly like this (orange shown as example):
 
 ```js
 const ACCENT = {
-  text: 'teal7',
-  bgSoft: 'teal0',
-  bgEdge: 'teal1',
-  highlight: 'teal5'
+  text: 'orange7',
+  bgSoft: 'orange0',
+  bgEdge: 'orange1',
+  highlight: 'orange5'
 }
 ```
 
 The four properties MUST appear in this order. Never inline the values elsewhere in the file — every consumer reads from `ACCENT.text`, `ACCENT.bgSoft`, `ACCENT.bgEdge`, or `ACCENT.highlight`.
+
+The `ACCENT_RGB` triplet is NOT part of the `ACCENT` constant; it's substituted directly into the CTA's `background-color: rgba({{ACCENT_RGB}}, 0.06)` string. This is the only raw `background-color` allowed on a customer page (no theme token expresses translucent accent tints).
 
 ## Default
 
@@ -48,3 +52,5 @@ If the user gives a brand color (e.g. "our brand is mint green"), map it to the 
 - coral, rust → `orange`
 
 If the user's brand is in the pink/red family, do NOT use `pink`. Offer `orange` as the closest non-reserved ramp and ask the user to confirm.
+
+If the user provides a hex value (e.g. `#F66C06`), DO NOT inline it. Map the hue to the closest allowed ramp from the table above. Explain to the user that custom hex values aren't allowed (the design system requires token-backed values). The closest match is almost always within visual perception threshold of the brand color.

@@ -160,7 +160,8 @@ const Hero = () => (
           textAlign: 'left',
           letterSpacing: '-0.01em',
           lineHeight: 0,
-          m: 0
+          m: 0,
+          scrollMarginTop: 4
         })}
       >
         <span css={theme({ color: ACCENT.text })}>[Customer Name]:</span>{' '}
@@ -189,11 +190,158 @@ const Hero = () => (
             fontSize: [2, 2, 3, 3]
           })}
         >
-          Build your own integration
+          See how they integrated Microlink
         </ArrowLink>
       </Box>
     </SectionInner>
   </Section>
+)
+
+/* ─── Figures (shared by About + How sections) ───────────────────────────── */
+
+const Figure = styled('figure')`
+  ${theme({
+    m: 0,
+    py: [4, 4, 5, 5]
+  })}
+`
+
+const FigureImage = styled('img')`
+  ${theme({
+    display: 'block',
+    width: '100%',
+    maxWidth: '600px',
+    height: 'auto',
+    mx: 'auto',
+    borderRadius: 3,
+    boxShadow: 1
+  })}
+`
+
+const FigurePlaceholder = styled(Box)`
+  ${theme({
+    bg: ACCENT.bgSoft,
+    border: 1,
+    borderColor: ACCENT.bgEdge,
+    borderRadius: 3,
+    width: '100%',
+    maxWidth: '600px',
+    mx: 'auto',
+    py: [4, 4, 5, 5],
+    px: 3,
+    color: ACCENT.text,
+    fontFamily: 'mono',
+    fontSize: 1,
+    fontWeight: 'bold',
+    letterSpacing: '0.08em',
+    textAlign: 'center',
+    textTransform: 'uppercase'
+  })}
+`
+
+/* ─── Testimonial ────────────────────────────────────────────────────────── */
+
+const TestimonialCard = styled(Box)`
+  ${theme({
+    bg: 'white',
+    border: 1,
+    borderColor: 'black10',
+    borderLeft: '4px solid',
+    borderLeftColor: ACCENT.highlight,
+    borderRadius: 3,
+    p: [3, 3, 4, 4],
+    width: '100%',
+    maxWidth: layout.small,
+    mx: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: [2, 2, 3, 3]
+  })}
+  box-shadow: 0 1px 2px ${colors.black05};
+`
+
+const Quote = styled(Text).attrs({ as: 'blockquote' })`
+  ${theme({
+    m: 0,
+    color: 'black',
+    fontSize: ['16px', '17px', '19px', '20px'],
+    fontStyle: 'italic',
+    fontWeight: 'normal',
+    lineHeight: 2,
+    letterSpacing: '-0.005em'
+  })}
+`
+
+const QuoteMark = styled(Text).attrs({ as: 'span', 'aria-hidden': 'true' })`
+  ${theme({
+    color: ACCENT.text,
+    fontSize: ['28px', '32px', '36px', '40px'],
+    fontWeight: 'bold',
+    lineHeight: 0,
+    display: 'block'
+  })}
+`
+
+const Author = styled(Flex)`
+  ${theme({
+    alignItems: 'center',
+    gap: 3
+  })}
+`
+
+const AuthorAvatar = styled(Box)`
+  ${theme({
+    bg: ACCENT.bgSoft,
+    border: 1,
+    borderColor: ACCENT.bgEdge,
+    borderRadius: '50%',
+    width: '36px',
+    height: '36px',
+    flex: '0 0 auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: ACCENT.text,
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'bold',
+    letterSpacing: '0.04em',
+    textTransform: 'uppercase'
+  })}
+`
+
+const AuthorName = styled(Text)`
+  ${theme({
+    color: 'black',
+    fontSize: 1,
+    fontWeight: 'bold',
+    lineHeight: 1
+  })}
+`
+
+const AuthorRole = styled(Text)`
+  ${theme({
+    color: 'black60',
+    fontSize: 0,
+    pt: 1
+  })}
+`
+
+const Testimonial = () => (
+  <TestimonialCard as='figure' css={theme({ mt: [3, 3, 4, 4] })}>
+    <QuoteMark>“</QuoteMark>
+    <Quote>
+      [Pull-quote from the customer about why Microlink works for them. One to
+      three sentences. Placeholder copy.]
+    </Quote>
+    <Author as='figcaption'>
+      <AuthorAvatar aria-hidden='true'>[X]</AuthorAvatar>
+      <Box>
+        <AuthorName>[Author Name]</AuthorName>
+        <AuthorRole>[Role] · [Company]</AuthorRole>
+      </Box>
+    </Author>
+  </TestimonialCard>
 )
 
 /* ─── About the customer ─────────────────────────────────────────────────── */
@@ -221,46 +369,36 @@ const AboutCustomer = () => (
       </BodyText>
       <Figure>
         <FigurePlaceholder aria-hidden='true'>
-          [Screenshot of the customer using Microlink]
+          [Screenshot of [Customer] using Microlink]
         </FigurePlaceholder>
       </Figure>
       <BodyText>
         [Second paragraph adding context — scale, traction, why this matters.
         Placeholder copy.]
       </BodyText>
+      <Box css={theme({ pt: 2, pb: [3, 3, 4, 4] })}>
+        <Text
+          as='a'
+          href='https://example.com'
+          target='_blank'
+          rel='noopener'
+          css={theme({
+            color: ACCENT.text,
+            fontWeight: 'bold',
+            fontSize: [1, 2, 2, 2],
+            textDecoration: 'underline'
+          })}
+        >
+          Visit example.com
+        </Text>
+      </Box>
+      {/* TODO: replace placeholder testimonial before publishing */}
+      <Testimonial />
     </SectionInner>
   </Section>
 )
 
 /* ─── How they use Microlink ─────────────────────────────────────────────── */
-
-const Figure = styled('figure')`
-  ${theme({
-    m: 0,
-    py: [4, 4, 5, 5]
-  })}
-`
-
-const FigurePlaceholder = styled(Box)`
-  ${theme({
-    bg: ACCENT.bgSoft,
-    border: 1,
-    borderColor: ACCENT.bgEdge,
-    borderRadius: 3,
-    width: '100%',
-    maxWidth: '600px',
-    mx: 'auto',
-    py: [4, 4, 5, 5],
-    px: 3,
-    color: ACCENT.text,
-    fontFamily: 'mono',
-    fontSize: 1,
-    fontWeight: 'bold',
-    letterSpacing: '0.08em',
-    textAlign: 'center',
-    textTransform: 'uppercase'
-  })}
-`
 
 const HowTheyUseIt = () => (
   <Section css={theme({ pb: 5 })}>
@@ -431,108 +569,6 @@ const WhyMicrolink = () => (
   </Section>
 )
 
-/* ─── Testimonial ────────────────────────────────────────────────────────── */
-
-const TestimonialCard = styled(Box)`
-  ${theme({
-    bg: 'white',
-    border: 1,
-    borderColor: 'black10',
-    borderLeft: '4px solid',
-    borderLeftColor: ACCENT.highlight,
-    borderRadius: 3,
-    p: [3, 3, 4, 4],
-    width: '100%',
-    maxWidth: layout.small,
-    mx: 'auto',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: [2, 2, 3, 3]
-  })}
-  box-shadow: 0 1px 2px ${colors.black05};
-`
-
-const Quote = styled(Text).attrs({ as: 'blockquote' })`
-  ${theme({
-    m: 0,
-    color: 'black',
-    fontFamily: 'serif',
-    fontSize: ['16px', '17px', '19px', '20px'],
-    fontStyle: 'italic',
-    fontWeight: 'normal',
-    lineHeight: 2,
-    letterSpacing: '-0.005em'
-  })}
-`
-
-const QuoteMark = styled(Text).attrs({ as: 'span', 'aria-hidden': 'true' })`
-  ${theme({
-    color: ACCENT.text,
-    fontFamily: 'serif',
-    fontSize: ['28px', '32px', '36px', '40px'],
-    fontWeight: 'bold',
-    lineHeight: 0,
-    display: 'block'
-  })}
-`
-
-const Author = styled(Flex)`
-  ${theme({
-    alignItems: 'center',
-    gap: 3
-  })}
-`
-
-const AuthorAvatar = styled(Box)`
-  ${theme({
-    bg: ACCENT.bgSoft,
-    border: 1,
-    borderColor: ACCENT.bgEdge,
-    borderRadius: '50%',
-    width: '36px',
-    height: '36px',
-    flex: '0 0 auto'
-  })}
-`
-
-const AuthorName = styled(Text)`
-  ${theme({
-    color: 'black',
-    fontSize: 1,
-    fontWeight: 'bold',
-    lineHeight: 1
-  })}
-`
-
-const AuthorRole = styled(Text)`
-  ${theme({
-    color: 'black60',
-    fontSize: 0,
-    pt: 1
-  })}
-`
-
-const Testimonial = () => (
-  <Section css={theme({ pt: 0 })}>
-    <SectionInner>
-      <TestimonialCard as='figure'>
-        <QuoteMark>“</QuoteMark>
-        <Quote>
-          [Pull-quote from the customer about why Microlink works for them. One
-          to three sentences. Placeholder copy.]
-        </Quote>
-        <Author as='figcaption'>
-          <AuthorAvatar aria-hidden='true' />
-          <Box>
-            <AuthorName>[Author Name]</AuthorName>
-            <AuthorRole>[Role] · [Company]</AuthorRole>
-          </Box>
-        </Author>
-      </TestimonialCard>
-    </SectionInner>
-  </Section>
-)
-
 /* ─── More customer stories carousel ─────────────────────────────────────── */
 
 const CarouselTrack = styled(Flex)`
@@ -662,7 +698,7 @@ const MoreCustomers = () => (
             lineHeight: 0
           })}
         >
-          [How other teams ship with Microlink]
+          See how other teams ship with Microlink
         </SubheadBase>
       </Box>
 
@@ -689,7 +725,17 @@ const MoreCustomers = () => (
 /* ─── CTA ────────────────────────────────────────────────────────────────── */
 
 const CtaSection = () => (
-  <Section>
+  <Section
+    css={`
+      background-color: rgba(12, 166, 120, 0.06);
+      ${theme({
+        borderTop: 1,
+        borderTopColor: ACCENT.bgEdge,
+        borderBottom: 1,
+        borderBottomColor: ACCENT.bgEdge
+      })}
+    `}
+  >
     <SectionInner css={theme({ textAlign: 'center' })}>
       <SubheadBase
         css={theme({
@@ -718,7 +764,7 @@ const CtaSection = () => (
       </Caption>
       <Flex
         css={theme({
-          py: [3, 4, 4, 4],
+          pt: [3, 4, 4, 4],
           justifyContent: 'center',
           alignItems: 'center'
         })}
@@ -738,6 +784,66 @@ const CtaSection = () => (
   </Section>
 )
 
+/* ─── Thanks ─────────────────────────────────────────────────────────────── */
+
+const ThanksLogo = styled('img')`
+  ${theme({
+    display: 'block',
+    width: 'auto',
+    height: '32px',
+    mx: 'auto'
+  })}
+`
+
+const ThanksSection = () => (
+  <Section css={theme({ pt: 5, pb: [3, 3, 4, 4] })}>
+    <SectionInner css={theme({ textAlign: 'center', maxWidth: layout.small })}>
+      <Box css={theme({ pt: [3, 3, 4, 4], pb: [2, 2, 3, 3] })}>
+        <Text
+          as='a'
+          href='https://example.com'
+          target='_blank'
+          rel='noopener'
+          css={theme({
+            color: ACCENT.text,
+            fontWeight: 'bold',
+            fontSize: [1, 2, 2, 2],
+            textDecoration: 'underline'
+          })}
+        >
+          [Customer]
+        </Text>
+        {/* When a customer SVG logo exists at /images/clients/<domain>.svg,
+            replace the link above with:
+        <Text as='a' href='https://example.com' target='_blank' rel='noopener'>
+          <ThanksLogo
+            src='/images/clients/example.com.svg'
+            alt='[Customer]'
+            width='258'
+            height='52'
+            loading='lazy'
+            decoding='async'
+          />
+        </Text>
+        */}
+      </Box>
+      <Caption
+        forwardedAs='p'
+        titleize={false}
+        css={theme({
+          color: 'black70',
+          fontSize: [0, 1],
+          maxWidth: layout.small,
+          mx: 'auto'
+        })}
+      >
+        <b>Thank you to the [Customer] team</b> for letting us share their use
+        case, and for choosing Microlink to power [their primary use case].
+      </Caption>
+    </SectionInner>
+  </Section>
+)
+
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
 const CustomerStoryPage = () => (
@@ -747,10 +853,10 @@ const CustomerStoryPage = () => (
       <Hero />
       <AboutCustomer />
       <HowTheyUseIt />
-      <Testimonial />
       <WhyMicrolink />
       <MoreCustomers />
       <CtaSection />
+      <ThanksSection />
     </Box>
   </Layout>
 )
@@ -759,7 +865,7 @@ const CustomerStoryPage = () => (
 
 export const Head = () => (
   <Meta
-    title='[Customer] customer story'
+    title='[Customer]: [one-line use case] · Microlink'
     description='[Placeholder description — how this customer uses Microlink to power their product.]'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'

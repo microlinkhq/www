@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
-import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
@@ -160,7 +159,8 @@ const Hero = () => (
           textAlign: 'left',
           letterSpacing: '-0.01em',
           lineHeight: 0,
-          m: 0
+          m: 0,
+          scrollMarginTop: 4
         })}
       >
         <span css={theme({ color: ACCENT.text })}>MyMahi:</span> Rich link
@@ -243,17 +243,20 @@ const AboutCustomer = () => (
         of digital products used by schools across both countries.
       </BodyText>
       <Box css={theme({ pt: 2, pb: 0 })}>
-        <Link
+        <Text
+          as='a'
           href='https://mymahi.com'
-          externalIcon
+          target='_blank'
+          rel='noopener'
           css={theme({
             color: ACCENT.text,
             fontWeight: 'bold',
-            fontSize: [1, 2, 2, 2]
+            fontSize: [1, 2, 2, 2],
+            textDecoration: 'underline'
           })}
         >
           Visit mymahi.com
-        </Link>
+        </Text>
       </Box>
       <Testimonial />
     </SectionInner>
@@ -700,7 +703,7 @@ const ThanksSection = () => (
   <Section css={theme({ pt: 5, pb: [3, 3, 4, 4] })}>
     <SectionInner css={theme({ textAlign: 'center', maxWidth: layout.small })}>
       <Box css={theme({ pt: [3, 3, 4, 4], pb: [2, 2, 3, 3] })}>
-        <Link href='https://mymahi.com'>
+        <Text as='a' href='https://mymahi.com' target='_blank' rel='noopener'>
           <ThanksLogo
             src='/images/clients/mymahi.com.svg'
             alt='MyMahi'
@@ -709,7 +712,7 @@ const ThanksSection = () => (
             loading='lazy'
             decoding='async'
           />
-        </Link>
+        </Text>
       </Box>
       <Caption
         forwardedAs='p'
@@ -733,7 +736,7 @@ const ThanksSection = () => (
 const CtaSection = () => (
   <Section
     css={`
-      background-color: rgba(246, 108, 6, 0.06);
+      background-color: rgba(247, 103, 7, 0.06);
       ${theme({
         borderTop: 1,
         borderTopColor: ACCENT.bgEdge,

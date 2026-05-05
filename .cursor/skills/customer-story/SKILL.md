@@ -1,6 +1,6 @@
 ---
 name: customer-story
-description: Create a new customer use-case landing page under `src/pages/customers/` from `example.js`, asking the user step-by-step for every placeholder (customer name, accent color, website to research, how they use Microlink, optional testimonial, diagram style, CTA target). Use when the user says "new customer story", "add a customer page", "customer landing", "[Customer] use case", "customer use case", or asks to scaffold a `customers/<slug>.js` page.
+description: Create a new customer use-case landing page under `src/pages/customers/` from `example.js`, asking the user step-by-step for every placeholder (customer name, accent color, website to research, how they use Microlink, optional testimonial, diagram style, screenshots, CTA target, customer logo). Use when the user says "new customer story", "add a customer page", "customer landing", "[Customer] use case", "customer use case", or asks to scaffold a `customers/<slug>.js` page.
 ---
 
 # Customer Story
@@ -12,19 +12,46 @@ The goal is not generic "story" copy. The goal is a repo-native page that:
 - mirrors the structure of `src/pages/customers/example.js` exactly
 - swaps the default teal accent for a customer-specific accent only when the user asks
 - researches the customer honestly from their website (no invented metrics, no invented features)
-- automatically links the new page into the existing customer-stories carousel
+- automatically links the new page into the existing customer-stories carousel when 2+ siblings exist
 - routes the CTA to the most relevant Microlink product page based on the use case
+- closes with a customer logo + thank-you note acknowledging the customer
 
 ## Read First
 
 Before planning or editing, read these in order:
 
-1. `src/pages/customers/example.js` — the canonical structural reference.
+1. `src/pages/customers/example.js` — the canonical structural reference. It is kept in sync with this skill.
 2. `.cursor/skills/customer-story/references/template.md` — the literal template with `{{TOKEN}}` placeholders.
-3. `.cursor/skills/customer-story/references/accent-colors.md` — allowed ramps and the `ACCENT` shape.
+3. `.cursor/skills/customer-story/references/accent-colors.md` — allowed ramps, the `ACCENT` shape, and the `ACCENT_RGB` triplet table for the CTA background tint.
 4. `.cursor/skills/customer-story/references/cta-routing.md` — use-case → product href mapping.
 5. `src/pages/feature/proxy.js` — only when the user picks the **flow** diagram style; copy `Node` / `NodeActive` / `NodeLabel` / `NodeSub` / `Arrow` primitives from lines 484–693.
 6. `AGENTS.md` — repo-wide style rules (`theme({...})`, design tokens, accessibility).
+
+## Canonical section order
+
+Every customer page renders exactly these sections in this order:
+
+```
+Hero
+AboutCustomer
+  ├─ Eyebrow + Subhead
+  ├─ Body paragraph 1
+  ├─ Primary screenshot (between paragraphs)
+  ├─ Body paragraph 2
+  ├─ External link to customer website (Visit <domain>)
+  └─ Testimonial card (nested inside AboutCustomer)
+HowTheyUseIt
+  ├─ Eyebrow + Subhead
+  ├─ Body paragraph 1
+  ├─ Diagram (flow / image / placeholder)
+  └─ Body paragraph 2
+WhyMicrolink (3 numbered cards)
+MoreCustomers (only when ≥2 sibling pages exist; otherwise omitted)
+CtaSection (full-width soft accent panel)
+ThanksSection (logo + acknowledgement; last block on the page)
+```
+
+`Testimonial` is nested at the END of `AboutCustomer`, NOT rendered as a top-level page section. `ThanksSection` is the LAST visual block on the page, AFTER the CTA.
 
 ## Hard Rules
 
@@ -32,15 +59,39 @@ These are non-negotiable.
 
 - Never write the file before completing all steps below and getting explicit user confirmation in the final summary step.
 - Never invent customer claims, metrics, headcount, funding, scale, or product features. If the customer's website doesn't say it, ask the user.
-- Never ship placeholder-only copy. By the end, every `{{TOKEN}}` MUST be replaced with concrete content (or the corresponding section MUST be removed).
+- Never ship placeholder-only copy in `Hero`, `AboutCustomer`, `HowTheyUseIt`, `WhyMicrolink`, `CtaSection`, or `ThanksSection`. By the end, every `{{TOKEN}}` in those sections MUST be replaced with concrete content (or the corresponding section MUST be removed if the rules below allow it).
+- **Testimonial placeholder is allowed under strict conditions** (see "Testimonial rules" below). Other sections are NOT allowed to ship as placeholders.
 - Never use a slug of `example`, an empty slug, or a slug that already exists in `src/pages/customers/`. If the user requests a slug that collides, stop and ask.
 - Never use the `pink` / `secondary` / `pinky` / `pinkest` accent — those are reserved for `src/pages/feature/*.js`. Customer pages MUST use one of the ramps in `references/accent-colors.md`.
 - Never inline accent token strings (`'teal7'` etc.) outside the `ACCENT` constant. All consumers read from `ACCENT.text` / `ACCENT.bgSoft` / `ACCENT.bgEdge` / `ACCENT.highlight`.
 - Never leave dead code. If the user says "no testimonial", remove the entire `Testimonial` component, all its styled components, the comment block, AND the `<Testimonial />` render line. Same rule for `MoreCustomers` when fewer than 2 sibling pages exist.
 - Never add or modify FAQ structured data. Customer pages do not have FAQ sections.
 - Never run prettier, prettier-standard, or any repo-level formatter. This repo's formatter can rewrite unrelated files. Verification is `npx eslint src/pages/customers/<slug>.js` only.
-- Never modify `src/pages/customers/example.js`. It is the live template.
 - Never edit `.cursor/skills/customer-story/references/*.md` as part of running the skill. Only the SKILL author maintains those.
+- Hero CTA label and Bottom CTA label MUST be different strings. The Hero invites action specific to the customer's outcome ("See how they integrated metadata"); the bottom CTA is broader ("Start extracting metadata"). Identical labels are rejected.
+- Animation rule: customer pages MUST NOT add motion/animation that ignores `prefers-reduced-motion`. The current template has no animation; if a future change adds one, it MUST honor reduced-motion or be reverted.
+- The `<h1>` in `Hero` MUST set `scrollMarginTop` so deep-linking and skip-to-content land cleanly.
+- Do NOT override the `<main>` landmark. `<Layout>` already wraps content in `<main id='main-content'>` and provides a Skip-to-content link.
+- The `StoryTag` text is locked to `Customer story`. Do NOT change to "Case study" / "Success story" / etc. — visual consistency across customer pages.
+- **External links to the customer's website MUST preserve backlink value.** Do NOT use the repo `<Link>` component for external links to the customer's site. The repo `Link` HOC unconditionally appends `rel='noopener noreferrer'` to all external links — and `noreferrer` is treated by Google as `nofollow` for SEO purposes, killing the link-equity benefit for the customer. Customer pages instead use a plain anchor: `<Text as='a' href='https://<domain>' target='_blank' rel='noopener'>`. This keeps the security benefit of `noopener` (prevents tab-nabbing) while preserving referrer + follow signals so the customer's site receives the SEO backlink. This rule applies to BOTH the About-section "Visit <domain>" link AND the ThanksSection logo/name link.
+
+## Testimonial rules
+
+Default: real quote from a real person at the customer.
+
+A **placeholder testimonial** is allowed only under ALL of these conditions:
+
+1. The user explicitly asks for a placeholder (e.g. "leave a placeholder", "I'll add the quote later").
+2. The author name MUST NOT be a real, identifiable person from the customer's team. Use generic placeholders like `[Author Name]`, `[Role]`, `[Company]` — never invent words attributed to a real CTO/founder/employee.
+3. The quote text is obviously placeholder copy in square brackets, e.g. `[Customer testimonial — pull-quote about why Microlink works for them.]`
+4. A code comment is added directly above the `<Testimonial />` render line:
+
+   ```jsx
+   {/* TODO: replace placeholder testimonial before publishing */}
+   <Testimonial />
+   ```
+
+If the user wants to attribute a real person (real name + role) but doesn't have a quote yet, the skill MUST refuse and offer two options instead: (a) wait for the real quote, or (b) draft a quote in the person's voice using only verifiable facts already on the page, marked `DRAFT — pending approval` in a code comment, to be sent to that person for sign-off before merging.
 
 ## Workflow
 
@@ -53,19 +104,23 @@ flowchart TD
     Q3 --> R1["Research site via WebFetch"]
     R1 --> Q4[4. How they use Microlink]
     Q4 --> Q5["5. Testimonial?"]
-    Q5 -->|yes| Q5b[Quote + author + role + company]
+    Q5 -->|real quote| Q5a[Quote + author + role + company]
+    Q5 -->|placeholder| Q5b[Confirm placeholder rules]
     Q5 -->|no| Q6
-    Q5b --> Q6[6a. About-section screenshot?]
-    Q6 --> Q6b[6b. Diagram style for HowTheyUseIt]
+    Q5a --> Q6
+    Q5b --> Q6
+    Q6[6a. Primary screenshot] --> Q6b[6b. Diagram style for HowTheyUseIt]
     Q6b -->|flow| Q6c[Ask for nodes + active node]
     Q6b -->|image| Q6d[Ask for image path]
-    Q6b -->|placeholder| Q7
-    Q6c --> Q7[7. CTA target inference]
-    Q6d --> Q7
-    Q7 --> R2[Auto-detect sibling customer pages]
+    Q6b -->|placeholder| Q6e
+    Q6c --> Q6e[6c. Optional second hero image]
+    Q6d --> Q6e
+    Q6e --> Q7[7. CTA target inference]
+    Q7 --> Q7b[7b. Customer logo for ThanksSection]
+    Q7b --> R2[Auto-detect sibling customer pages]
     R2 --> Q8[8. Final summary + confirm]
     Q8 -->|confirmed| W[Write file]
-    W --> V[Run eslint, report]
+    W --> V[Run eslint, verify, report]
 ```
 
 ### Step 1 — Customer name + slug
@@ -85,7 +140,7 @@ Wait for confirmation before moving on.
 
 Ask: "What accent color? (default: teal — also available: blue, cyan, green, orange, yellow). Skip pink/red — those are reserved for feature pages."
 
-If the user gives a brand name or hex, map it to the closest allowed ramp using `references/accent-colors.md`. If the closest match is `pink` or unsupported, offer the closest non-reserved alternative and ask the user to confirm.
+If the user gives a brand name or hex, map it to the closest allowed ramp using `references/accent-colors.md`. If the user requests a custom hex, refuse politely (the design system requires token-backed values) and propose the closest allowed ramp.
 
 Resolve to:
 
@@ -98,6 +153,8 @@ const ACCENT = {
 }
 ```
 
+Also resolve the `ACCENT_RGB` triplet from the table in `references/accent-colors.md` (used in the CTA background tint).
+
 ### Step 3 — Customer website
 
 Ask: "What's the customer's website URL?"
@@ -106,8 +163,9 @@ After the user answers:
 
 - Use `WebFetch` to read the homepage.
 - If accessible, also `WebFetch` `/about`, `/product`, `/customers`, `/pricing` (only the ones that exist; don't 404-spam).
-- Build a small notes ledger of: what they do (one line), who their users are (one line), 2–3 verifiable facts (e.g. "B2B issue tracker for software teams", "founded 2019, raised Series B").
-- Do NOT use this ledger to invent claims. It's the source for `{{ABOUT_SUBHEAD}}`, `{{ABOUT_PARA_1}}`, `{{ABOUT_PARA_2}}` in step 8.
+- Build a small notes ledger of: what they do (one line), who their users are (one line), 2–3 verifiable facts.
+- Save the **domain** (e.g. `mymahi.com`, `vercel.com`) — this is `{{CUSTOMER_DOMAIN}}` and drives both the About-section external link and the ThanksSection logo path.
+- Do NOT use this ledger to invent claims. It's the source for `{{ABOUT_*}}` paragraphs.
 - If the site is paywalled, JS-heavy, or returns no extractable content, stop and ask the user for a 2-paragraph "about" description directly.
 
 ### Step 4 — How they use Microlink
@@ -116,43 +174,45 @@ Ask: "Briefly describe how they use Microlink. (Which products: screenshot / met
 
 The user's answer feeds:
 
-- `{{HOW_SUBHEAD}}` — propose one short headline (e.g. "Open Graph images for every deployment"). Confirm with the user before locking it.
+- `{{HOW_SUBHEAD}}` — propose one short headline. Confirm with the user before locking it.
 - `{{HOW_PARA_1}}` — paragraph before the diagram, describing the integration in flowing prose.
-- `{{HOW_PARA_2}}` — paragraph after the diagram, describing operational impact (what it replaced, who owns it, scale).
+- `{{HOW_PARA_2}}` — paragraph after the diagram, describing operational impact.
 - `{{WHY_SUBHEAD}}` — short headline framing the three reasons.
 - `{{WHY_LEAD}}` — lead-in paragraph.
 - The three numbered cards `{{WHY_CARD_1_*}}` / `{{WHY_CARD_2_*}}` / `{{WHY_CARD_3_*}}` — propose kicker (one or two words like `Reliability`, `Performance`, `Cost`, `Stack simplicity`), title (a short sentence), and body (2–3 sentences each). Show all three together and ask the user to confirm or edit.
 
-The keywords from the user's answer are also used in step 7 for CTA inference. Save them.
+The keywords are also used in step 7 for CTA inference, and in the ThanksSection acknowledgement copy. Save them.
 
-### Step 5 — Testimonial (optional)
+### Step 5 — Testimonial
 
-Ask: "Do you have a testimonial / quote from someone at the customer? (yes/no)"
+Ask: "Do you have a testimonial / quote from someone at the customer? (yes / placeholder / no)"
 
-**If no:** mark `{{TESTIMONIAL_SECTION}}` and `{{TESTIMONIAL_RENDER}}` as empty strings. The whole testimonial block (component, styled components, comment header, render line) is removed. Move on.
+**If `no`:** mark `{{TESTIMONIAL_SECTION}}` and `{{TESTIMONIAL_RENDER}}` as empty strings. The whole testimonial block is removed.
 
-**If yes:** ask in this single message:
+**If `placeholder`:** apply the testimonial placeholder rules above. Render the section with bracketed placeholder text and a `{/* TODO: replace placeholder testimonial before publishing */}` comment above the render line. Do NOT use a real person's name.
+
+**If `yes`:** ask in this single message:
 
 ```
 Provide:
-- Quote (the exact text — keep it 1–3 sentences)
+- Quote (1–3 sentences, the exact text)
 - Author name
 - Role / job title
 - Company (defaults to <CUSTOMER_NAME>)
 ```
 
-Use straight ASCII for everything except the leading `“` smart quote (the template renders it via `<QuoteMark>` so the quote text itself does NOT include curly quotes). Trim whitespace. If the quote ends with `."`, strip the trailing quote — `<Quote>` already wraps it semantically.
+Use straight ASCII for everything except the leading `“` smart quote (the template renders it via `<QuoteMark>` so the quote text itself does NOT include curly quotes). Trim whitespace. If the quote ends with `."`, strip the trailing quote. The quote uses the page's default sans (Inter) with `fontStyle: 'italic'` — do NOT use a serif font. The `AuthorAvatar` displays the author's initials (first letter of first + last name) in `fontFamily: 'mono'`, `color: ACCENT.text`, centered via flex; keep `aria-hidden='true'` so screen readers don't double-read the name.
 
 ### Step 6 — Visual assets
 
-This step has two sub-questions, asked one at a time.
+This step has three sub-questions, asked one at a time.
 
-#### 6a. About-section screenshot
+#### 6a. Primary screenshot (About / How sections)
 
-Ask: "Do you have a screenshot of the customer using Microlink (a UI screenshot of their product showing the Microlink-rendered output)? (image path / no)"
+Ask: "Do you have a screenshot of the customer using Microlink (a UI screenshot showing the Microlink-rendered output)? (image path / no)"
 
-- If `no`: `{{ABOUT_SCREENSHOT_BLOCK}}` becomes Variant B (`FigurePlaceholder` labelled `[Screenshot of <CustomerName> using Microlink]`).
-- If image path: `{{ABOUT_SCREENSHOT_BLOCK}}` becomes Variant A (`Figure` + `FigureImage`). Use `alt='<CustomerName> using Microlink'`. Default `width='1200' height='870'` unless the user provides different dimensions.
+- If image path: validate the file exists at `static/<path>` (or `public/<path>`). Read its actual pixel dimensions with `sips -g pixelWidth -g pixelHeight <file>` so the `width`/`height` attributes are accurate (CLS-safe per AGENTS.md). The image is rendered between paragraphs 1 and 2 of `AboutCustomer` (canonical slot). Default `loading='lazy'`, `decoding='async'`. The styled `FigureImage` already applies `borderRadius: 3` and `boxShadow: 1`.
+- If `no`: render a `FigurePlaceholder` labelled `[Screenshot of <CustomerName> using Microlink]`.
 
 #### 6b. How-they-use diagram
 
@@ -160,11 +220,18 @@ Ask: "How should we visualize the integration? (flow / image / placeholder)"
 
 - **flow** — Ask, in one message: "Provide 3–4 nodes left-to-right (e.g. `Their backend → Microlink → Target site → Their UI`). Mark which one is the highlighted Microlink node (default: the one labeled `Microlink`)." Optionally ask: "Each node may have a one-line caption — provide them or skip."
 
-  Build the diagram block per `references/template.md` Variant A. Add the `Node`, `NodeActive`, `NodeLabel`, `NodeSub`, `Arrow` styled components ABOVE the `HowTheyUseIt` definition (right after `FigurePlaceholder`). These are ported from `src/pages/feature/proxy.js` lines 484–554, with `secondary` swapped for `ACCENT.text` and `pinkest` swapped for `ACCENT.bgSoft`. Do NOT port `ResponseCard`, `ResponseLine`, or `ShieldChip` — those are specific to the proxy page.
+  Build the diagram block per `references/template.md` Variant A. Add the `Node`, `NodeActive`, `NodeLabel`, `NodeSub`, `Arrow` styled components ABOVE the `HowTheyUseIt` definition, after `FigurePlaceholder`. These are ported from `src/pages/feature/proxy.js` lines 484–554, with `secondary` swapped for `ACCENT.text` and `pinkest` swapped for `ACCENT.bgSoft`. Do NOT port `ResponseCard`, `ResponseLine`, or `ShieldChip` — proxy-specific.
 
-- **image** — Ask: "Image path (under `/images/...` or a `cdnUrl(...)` key)?". Use Variant B with `alt={{HOW_IMAGE_ALT}}` proposed from the use-case headline.
+- **image** — Ask: "Image path?". Use Variant B with `alt={{HOW_IMAGE_ALT}}` proposed from the use-case headline. Read intrinsic dimensions with `sips`.
 
 - **placeholder** — Use Variant C with text `[<CustomerName> integration diagram]`.
+
+#### 6c. Optional second hero image
+
+Ask: "Do you have a wider hero/website shot of the customer's product to show above the About section? (image path / no — optional)"
+
+- If image path: render with `maxWidth: '800px'` (override the default 600px), `loading='eager'` (LCP-friendly because it's near the top), placed as the FIRST child of `AboutCustomer`'s `SectionInner` (before the Eyebrow). Read intrinsic dimensions with `sips`.
+- If `no`: skip — `AboutCustomer` starts directly with the Eyebrow.
 
 ### Step 7 — CTA target inference
 
@@ -174,8 +241,8 @@ Propose to the user, in one message:
 
 ```
 CTA targets:
-- Hero: <HERO_CTA_HREF> with label "<HERO_CTA_LABEL>"
-- Bottom: <CTA_HREF> with label "<CTA_LABEL>"
+- Hero (specific outcome): <HERO_CTA_HREF> with label "<HERO_CTA_LABEL>"
+- Bottom (broad invite):  <CTA_HREF>   with label "<CTA_LABEL>"
 
 CTA headline: "Ready to ship with <accent>Microlink</accent>?"
 (or, if a single product dominates: "Ready to ship <accent>screenshots</accent>?")
@@ -183,9 +250,16 @@ CTA headline: "Ready to ship with <accent>Microlink</accent>?"
 Confirm or override.
 ```
 
-The user MAY override either href, either label, or the headline accent word. Never silently change them.
+The user MAY override either href, either label, or the headline accent word. Hero label and Bottom label MUST be different strings.
 
 If the customer uses two or more Microlink products, route the Hero CTA to the primary one and use `/pricing` for the bottom CTA. Mention the secondary product in `{{CTA_BODY}}`.
+
+### Step 7b — Customer logo for ThanksSection
+
+Ask: "Do you have an SVG logo for the customer at `static/images/clients/<domain>.svg`? (yes / no)"
+
+- If `yes`: use `/images/clients/<CUSTOMER_DOMAIN>.svg` as the `ThanksLogo` source. Read its intrinsic dimensions for `width`/`height` attributes. The logo is rendered FIRST inside the ThanksSection, above the acknowledgement paragraph.
+- If `no`: ask whether to (a) ship a text-only ThanksSection — render the customer name as a styled `<Link>` in the same slot the logo would occupy (still FIRST, above the paragraph) — or (b) omit the ThanksSection entirely. Default: (a) — the thank-you note is the more important part, and the slot ordering stays consistent.
 
 ### Step 8 — Auto-detect sibling customer pages
 
@@ -204,20 +278,24 @@ This runs without a user question.
   { slug: 'vercel', name: 'Vercel', blurb: 'Open Graph images for every deployment.' }
   ```
 
-- If 0 or 1 entries result, set both `{{MORE_CUSTOMERS_SECTION}}` and `{{MORE_CUSTOMERS_RENDER}}` to empty strings — the entire carousel section is removed (component, styled components, MORE_CUSTOMERS array, comment header, render line). The page renders without an empty carousel.
-- If 2+ entries, fill `{{MORE_CUSTOMERS_ENTRIES}}` (comma-separated, one entry per line, indented to match) and `{{MORE_CUSTOMERS_RENDER}}` becomes `<MoreCustomers />`.
+- If 0 or 1 entries result, set both `{{MORE_CUSTOMERS_SECTION}}` and `{{MORE_CUSTOMERS_RENDER}}` to empty strings — the entire carousel section is removed.
+- If 2+ entries, fill `{{MORE_CUSTOMERS_ENTRIES}}` and `{{MORE_CUSTOMERS_RENDER}}` becomes `<MoreCustomers />`. It renders BETWEEN `<WhyMicrolink />` and `<CtaSection />`.
 
 ### Step 9 — Final summary + confirmation
 
-Show the user a 7-line summary and stop. Do NOT write the file yet.
+Show the user a summary and stop. Do NOT write the file yet.
 
 ```
 Ready to write src/pages/customers/<slug>.js:
   Customer:    <CUSTOMER_NAME>
+  Domain:      <CUSTOMER_DOMAIN>
   Slug:        /customers/<slug>
-  Accent:      <ramp> (text=<ramp>7, bgSoft=<ramp>0, bgEdge=<ramp>1, highlight=<ramp>5)
-  Testimonial: yes / no
+  Accent:      <ramp> (text=<ramp>7, bgSoft=<ramp>0, bgEdge=<ramp>1, highlight=<ramp>5; rgb=<R,G,B>)
+  Testimonial: real / placeholder / no
+  Primary screenshot: yes (<path>) / no
   Diagram:     flow / image / placeholder
+  Second hero image: yes (<path>) / no
+  Customer logo: yes (<path>) / no (text-only thanks) / omitted
   Hero CTA:    <HERO_CTA_LABEL> → <HERO_CTA_HREF>
   Bottom CTA:  <CTA_LABEL> → <CTA_HREF>
   Sibling stories linked in carousel: <count> (or "section omitted")
@@ -232,13 +310,25 @@ Only after explicit "yes" / "go" / "ship it" / equivalent: substitute every `{{T
 When materializing the template:
 
 - Preserve every `theme({...})` call exactly as in the template. Do not introduce raw CSS where the template uses tokens.
-- Preserve the section order: `Hero` → `AboutCustomer` → `HowTheyUseIt` → `Testimonial` (if present) → `WhyMicrolink` → `MoreCustomers` (if present) → `CtaSection`.
-- Preserve all imports. If the testimonial section is omitted, all its imports remain valid (it shares `Box`, `Flex`, `Text`, `theme`, `colors`, `layout`). No cleanup needed beyond the section block itself.
-- If the diagram is **flow** style, ensure `breakpoints` is imported (it's already in the template's first line).
-- If the diagram is **flow** style and `Arrow` is used, the `<svg>` block stays exactly as in the proxy.js source — do NOT alter the path or strokeWidth.
-- If the diagram is **image** style, no extra styled components are added (the template already declares `Figure` and `FigureImage`).
+- Preserve the canonical section order documented above.
+- Preserve all imports. If sections are omitted, prune unused imports (e.g. drop `Link` from imports if neither MoreCustomers, the About-section external link, nor ThanksSection use it — but in the canonical structure, all three use it, so `Link` is always imported).
+- The `<h1>` in `Hero` MUST include `scrollMarginTop: 4` (or equivalent `scroll-margin-top` token) so deep-links land cleanly.
+- The CTA `<Section>` background uses the `ACCENT_RGB` triplet at 6% opacity:
+  ```jsx
+  <Section
+    css={`
+      background-color: rgba({{ACCENT_RGB}}, 0.06);
+      ${theme({ borderTop: 1, borderTopColor: ACCENT.bgEdge, borderBottom: 1, borderBottomColor: ACCENT.bgEdge })}
+    `}
+  >
+  ```
+  This is the ONLY raw `background-color` allowed on a customer page (no equivalent token exists for translucent accent tints).
+- The CTA inner `<Flex>` wrapping the ArrowLink uses `pt: [3, 4, 4, 4]` (NOT `py`). The `Section` primitive's own `py: SECTION_PY` already provides bottom padding; using `py` here would double up the bottom and break top/bottom symmetry.
+- The `Testimonial` component's `Quote` uses `fontStyle: 'italic'` but the page default sans (Inter) — do NOT add `fontFamily: 'serif'`. The `QuoteMark` similarly stays on the default sans. The `AuthorAvatar` renders the author's initials (e.g. `SC` for Stefan Charsley), styled `fontFamily: 'mono'`, `color: ACCENT.text`, centered via flex, with `aria-hidden='true'`.
+- The About-section external link uses a plain anchor (`<Text as='a' target='_blank' rel='noopener'>`, NOT the repo `Link` component — see external-link rule above), label `Visit <CUSTOMER_DOMAIN>`, color `ACCENT.text`, `textDecoration: 'underline'`, and sits between body paragraph 2 and the Testimonial.
+- The `ThanksSection` is the LAST top-level section in the page composition, after `<CtaSection />`. Inside it: centered logo FIRST (wrapped in `<Text as='a' href='https://<CUSTOMER_DOMAIN>' target='_blank' rel='noopener'>` per the external-link rule above; height capped at 32px), then the acknowledgement paragraph (with `<b>Thank you to the <CUSTOMER_NAME> team</b>` as bold opening clause, smaller `fontSize: [0, 1]`). The section uses `pt: 5` for generous breathing room below the CTA panel; the logo wrapper Box uses `pt: [3, 3, 4, 4]` and `pb: [2, 2, 3, 3]` to space it cleanly between the section top and the paragraph below.
+- The `Head` `<title>` uses the format: `<CUSTOMER_NAME>: <one-line use case> · Microlink`. Example: `MyMahi: rich link previews for Newsfeed posts · Microlink`. This is more distinct in browser tabs and search results than `How <CUSTOMER_NAME> uses Microlink`.
 - The `Head` `image` stays as `cdnUrl('banner/screenshot.jpeg')` unless the user supplies a customer-specific OG banner.
-- The `<title>` should be unique and descriptive. Default: `How <CUSTOMER_NAME> uses Microlink`.
 
 ## Verification
 
@@ -247,10 +337,13 @@ After writing:
 1. Run `npx eslint src/pages/customers/<slug>.js`.
 2. If eslint reports errors, fix them in-place. Common errors:
    - Unused imports (e.g. `breakpoints` if no flow diagram → remove from import line)
-   - Unused variables (e.g. `Link` if MoreCustomers is omitted and no other Link usage)
+   - Unused variables
    - Missing `key` props in any list rendering
 3. Re-run eslint until clean.
-4. Do NOT run prettier or any other formatter.
+4. Verify NO `{{TOKEN}}` placeholders remain in the output (grep for `{{`).
+5. Verify the page composition includes (in order, modulo conditional sections): `<Hero />`, `<AboutCustomer />`, `<HowTheyUseIt />`, `<WhyMicrolink />`, optional `<MoreCustomers />`, `<CtaSection />`, `<ThanksSection />`.
+6. Verify Hero CTA label ≠ Bottom CTA label.
+7. Do NOT run prettier or any other formatter.
 
 ## Output Back to the User
 
@@ -258,11 +351,11 @@ After writing successfully, report:
 
 - Filename: `src/pages/customers/<slug>.js`
 - Route: `/customers/<slug>`
-- Sections rendered (Hero, About, How, Testimonial?, Why, MoreCustomers?, CTA)
-- Accent color used
-- CTA targets
+- Sections rendered (Hero, About w/ Testimonial?, How, Why, MoreCustomers?, CTA, Thanks)
+- Accent color used (incl. RGB triplet)
+- CTA targets (Hero + Bottom, confirmed different)
 - Sibling stories linked (count + slugs)
-- Anything still flagged as `[brackets]` in the file (should be zero — flag if any remain)
+- Anything still flagged as `[brackets]` in the file (should be zero outside an approved Testimonial placeholder)
 - Suggested next steps (e.g. "add a real banner image to `Head`'s `image` prop", "supply a screenshot for the About section", "schedule a follow-up to refresh sibling carousel when a new story is added")
 
 ## Improving an Existing Customer Story
@@ -285,3 +378,4 @@ If the user asks to update an existing `src/pages/customers/<slug>.js`:
 - Do not add a `customers/index.js` listing page as part of this skill — that is a separate task.
 - Do not edit the toolbar or footer to add a `/customers` link as part of this skill.
 - Do not run any formatter. Verification is eslint-only on the single new file.
+- Do not attribute invented words to a real, named person from the customer's team. The placeholder testimonial rules forbid this; refuse and offer a draft-for-approval flow instead.
