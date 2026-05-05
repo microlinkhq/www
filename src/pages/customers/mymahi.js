@@ -808,9 +808,9 @@ const CustomerStoryPage = () => (
 
 export const Head = () => (
   <Meta
-    title='MyMahi: Rich link previews for every Newsfeed post · Microlink'
+    title='MyMahi: Rich link previews for every Newsfeed post'
     description="MyMahi powers rich link previews in its Newsfeed with Microlink's Metadata API, caching the results in its own database for fast reads."
-    image='/images/clients/mymahi-web.png'
+    image='https://microlink.io/images/clients/mymahi-web.png'
     schemaType='WebPage'
   />
 )

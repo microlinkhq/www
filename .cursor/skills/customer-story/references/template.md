@@ -86,7 +86,7 @@ The skill fills these in after gathering all answers in steps 1–8 of the workf
 
 ### Head / SEO
 
-- `{{HEAD_TITLE}}`        — format: `{{CUSTOMER_NAME}}: <one-line use case> · Microlink`
+- `{{HEAD_TITLE}}`        — format: `{{CUSTOMER_NAME}}: <one-line use case>` — NO brand suffix. The `Meta` component automatically appends ` — Microlink`; adding ` · Microlink` here would duplicate the brand. End-user-visible result: `{{CUSTOMER_NAME}}: <one-line use case> — Microlink` rendered by `Meta`, not authored.
 - `{{HEAD_DESCRIPTION}}`  — 1-2 sentence summary, no marketing fluff.
 
 ## Full template

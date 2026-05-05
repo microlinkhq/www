@@ -867,7 +867,7 @@ const CustomerStoryPage = () => (
 
 export const Head = () => (
   <Meta
-    title='[Customer]: [one-line use case] · Microlink'
+    title='[Customer]: [one-line use case]'
     description='[Placeholder description — how this customer uses Microlink to power their product.]'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
