@@ -66,7 +66,7 @@ These are non-negotiable.
 - Never inline accent token strings (`'teal7'` etc.) outside the `ACCENT` constant. All consumers read from `ACCENT.text` / `ACCENT.bgSoft` / `ACCENT.bgEdge` / `ACCENT.highlight`.
 - Never leave dead code. If the user says "no testimonial", remove the entire `Testimonial` component, all its styled components, the comment block, AND the `<Testimonial />` render line. Same rule for `MoreCustomers` when fewer than 2 sibling pages exist.
 - Never add or modify FAQ structured data. Customer pages do not have FAQ sections.
-- Never run prettier, prettier-standard, or any repo-level formatter. This repo's formatter can rewrite unrelated files. Verification is `npx eslint src/pages/customers/<slug>.js` only.
+- Never run prettier, prettier-standard, or any repo-level formatter. This repo's formatter can rewrite unrelated files. Verification is `npx standard src/pages/customers/<slug>.js` (the project uses JavaScript Standard Style — see `package.json` `"lint": "standard"`). Bare `npx eslint` may pass even when `standard` reports errors, because they use different rule sets.
 - Never edit `.cursor/skills/customer-story/references/*.md` as part of running the skill. Only the SKILL author maintains those.
 - Hero CTA label and Bottom CTA label MUST be different strings. The Hero invites action specific to the customer's outcome ("See how they integrated metadata"); the bottom CTA is broader ("Start extracting metadata"). Identical labels are rejected.
 - Animation rule: customer pages MUST NOT add motion/animation that ignores `prefers-reduced-motion`. The current template has no animation; if a future change adds one, it MUST honor reduced-motion or be reverted.
@@ -334,12 +334,12 @@ When materializing the template:
 
 After writing:
 
-1. Run `npx eslint src/pages/customers/<slug>.js`.
-2. If eslint reports errors, fix them in-place. Common errors:
+1. Run `npx standard src/pages/customers/<slug>.js`. (The project's lint script is `npm run lint` → `standard`. Bare `npx eslint` is NOT sufficient — `standard` enforces JavaScript Standard Style rules that bare eslint won't catch.)
+2. If standard reports errors, fix them in-place. Common errors:
    - Unused imports (e.g. `breakpoints` if no flow diagram → remove from import line)
-   - Unused variables
+   - Unused variables (e.g. styled components declared but only referenced inside JSX comments — these need either real usage or an `// eslint-disable-next-line no-unused-vars` directive when intentional, like in `example.js`'s placeholder mode)
    - Missing `key` props in any list rendering
-3. Re-run eslint until clean.
+3. Re-run `standard` until clean.
 4. Verify NO `{{TOKEN}}` placeholders remain in the output (grep for `{{`).
 5. Verify the page composition includes (in order, modulo conditional sections): `<Hero />`, `<AboutCustomer />`, `<HowTheyUseIt />`, `<WhyMicrolink />`, optional `<MoreCustomers />`, `<CtaSection />`, `<ThanksSection />`.
 6. Verify Hero CTA label ≠ Bottom CTA label.

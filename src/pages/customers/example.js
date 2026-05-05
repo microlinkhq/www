@@ -206,6 +206,7 @@ const Figure = styled('figure')`
   })}
 `
 
+// eslint-disable-next-line no-unused-vars
 const FigureImage = styled('img')`
   ${theme({
     display: 'block',
@@ -786,6 +787,7 @@ const CtaSection = () => (
 
 /* ─── Thanks ─────────────────────────────────────────────────────────────── */
 
+// eslint-disable-next-line no-unused-vars
 const ThanksLogo = styled('img')`
   ${theme({
     display: 'block',
