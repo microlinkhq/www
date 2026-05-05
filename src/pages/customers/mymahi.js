@@ -697,7 +697,7 @@ const ThanksLogo = styled('img')`
 `
 
 const ThanksSection = () => (
-  <Section css={theme({ pt: 4, pb: [3, 3, 4, 4] })}>
+  <Section css={theme({ pt: 5, pb: [3, 3, 4, 4] })}>
     <SectionInner css={theme({ textAlign: 'center', maxWidth: layout.small })}>
       <Box css={theme({ pt: [3, 3, 4, 4], pb: [2, 2, 3, 3] })}>
         <Link href='https://mymahi.com'>
