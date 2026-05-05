@@ -13,7 +13,6 @@ import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 
 import { withTitle } from 'helpers/hoc/with-title'
-import { cdnUrl } from 'helpers/cdn-url'
 
 const Caption = withTitle(CaptionBase)
 
@@ -213,7 +212,7 @@ const AboutCustomer = () => (
           css={theme({ maxWidth: layout.normal })}
         />
       </Figure>
-      <Eyebrow css={theme({ pb: 3, pt: 2, display: 'block' })}>
+      <Eyebrow css={theme({ pb: 3, pt: 3, display: 'block' })}>
         About MyMahi
       </Eyebrow>
       <SubheadBase
@@ -357,7 +356,7 @@ const Arrow = () => (
 )
 
 const HowTheyUseIt = () => (
-  <Section css={theme({ pb: 5, pt: 4 })}>
+  <Section css={theme({ pb: 5, pt: 5 })}>
     <SectionInner>
       <Eyebrow css={theme({ pb: 2, display: 'block' })}>
         How they use Microlink
@@ -666,26 +665,21 @@ const AuthorRole = styled(Text)`
 `
 
 const Testimonial = () => (
-  <Section css={theme({ pt: 5 })}>
-    <SectionInner>
-      <TestimonialCard as='figure'>
-        <QuoteMark>“</QuoteMark>
-        <Quote>
-          Microlink.io is the engine behind our Newsfeed previews. It provides
-          the metadata we need to keep our platform visual and engaging, while
-          giving us the flexibility to store and refresh data for maximum
-          performance.
-        </Quote>
-        <Author as='figcaption'>
-          <AuthorAvatar aria-hidden='true'>SC</AuthorAvatar>
-          <Box>
-            <AuthorName>Stefan Charsley</AuthorName>
-            <AuthorRole>CTO · MyMahi</AuthorRole>
-          </Box>
-        </Author>
-      </TestimonialCard>
-    </SectionInner>
-  </Section>
+  <TestimonialCard as='figure' css={theme({ my: [4, 4, 5, 5] })}>
+    <QuoteMark>“</QuoteMark>
+    <Quote>
+      Microlink.io is the engine behind our Newsfeed previews. It provides the
+      metadata we need to keep our platform visual and engaging, while giving us
+      the flexibility to store and refresh data for maximum performance.
+    </Quote>
+    <Author as='figcaption'>
+      <AuthorAvatar aria-hidden='true'>SC</AuthorAvatar>
+      <Box>
+        <AuthorName>Stefan Charsley</AuthorName>
+        <AuthorRole>CTO · MyMahi</AuthorRole>
+      </Box>
+    </Author>
+  </TestimonialCard>
 )
 
 /* ─── Thanks ─────────────────────────────────────────────────────────────── */
@@ -814,9 +808,9 @@ const CustomerStoryPage = () => (
 
 export const Head = () => (
   <Meta
-    title='How MyMahi uses Microlink'
+    title='MyMahi: Rich link previews for every Newsfeed post · Microlink'
     description="MyMahi powers rich link previews in its Newsfeed with Microlink's Metadata API, caching the results in its own database for fast reads."
-    image={cdnUrl('banner/screenshot.jpeg')}
+    image='/images/clients/mymahi-web.png'
     schemaType='WebPage'
   />
 )

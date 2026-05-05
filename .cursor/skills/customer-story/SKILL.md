@@ -120,7 +120,7 @@ flowchart TD
     Q7b --> R2[Auto-detect sibling customer pages]
     R2 --> Q8[8. Final summary + confirm]
     Q8 -->|confirmed| W[Write file]
-    W --> V[Run eslint, verify, report]
+    W --> V[Run standard, verify, report]
 ```
 
 ### Step 1 — Customer name + slug
@@ -311,7 +311,28 @@ When materializing the template:
 
 - Preserve every `theme({...})` call exactly as in the template. Do not introduce raw CSS where the template uses tokens.
 - Preserve the canonical section order documented above.
-- Preserve all imports. If sections are omitted, prune unused imports (e.g. drop `Link` from imports if neither MoreCustomers, the About-section external link, nor ThanksSection use it — but in the canonical structure, all three use it, so `Link` is always imported).
+
+### Pruning rules (proactive — apply during materialization, before the file is written)
+
+The template is the **maximal** form, declaring every styled component the canonical structure can use. A real customer page picks one variant per conditional block and consequently ends up with some declarations unused. The skill MUST prune these BEFORE writing the file — `standard` will reject any unused declaration with `no-unused-vars`. Do NOT use `// eslint-disable-next-line` to silence these in generated customer pages; the directive itself is allowed only in `example.js` (the live reference template, which intentionally keeps the full surface for documentation).
+
+Apply this matrix when materializing:
+
+| Declaration | Drop when… |
+|---|---|
+| `FigureImage` (styled `<img>`) | `{{ABOUT_HERO_IMAGE_BLOCK}}` is empty AND `{{ABOUT_SCREENSHOT_BLOCK}}` is Variant B (placeholder) AND `{{HOW_DIAGRAM_BLOCK}}` is NOT Variant B (image). I.e. no real image is rendered anywhere. |
+| `FigurePlaceholder` (styled `<Box>`) | All three slots use real images, OR `{{HOW_DIAGRAM_BLOCK}}` is Variant A (flow). I.e. no `[bracketed placeholder]` figure is rendered anywhere. |
+| `Figure` (styled `<figure>`) | NEVER drop — every non-trivial customer page uses `<Figure>` at least once (always wraps the screenshot or diagram). |
+| `Node`, `NodeActive`, `NodeLabel`, `NodeSub`, `Arrow` (flow-diagram primitives) | `{{HOW_DIAGRAM_BLOCK}}` is NOT Variant A (flow). Drop ALL FIVE together — they form a single block. |
+| `breakpoints` import | `{{HOW_DIAGRAM_BLOCK}}` is NOT Variant A (no `Arrow` to use it) AND `{{MORE_CUSTOMERS_SECTION}}` is empty (no `CarouselTrack` to use it). |
+| `Link` import | All three of: `{{MORE_CUSTOMERS_SECTION}}` is empty, the About-section external link uses `<Text as='a'>` (always, per the external-link rule), and the ThanksSection logo/name link uses `<Text as='a'>` (always). In the canonical structure with the new external-link rule, `Link` is ONLY needed when `MoreCustomers` is rendered. **Drop the import if MoreCustomers is omitted.** |
+| `cdnUrl` import | The user replaced the `Head`'s `image` prop with a customer-specific path (e.g. `/images/clients/<slug>-web.png`) instead of the default `cdnUrl('banner/screenshot.jpeg')`. **Drop the import.** Conversely, if the default is kept, `cdnUrl` MUST stay. |
+| `TestimonialCard`, `Quote`, `QuoteMark`, `Author`, `AuthorAvatar`, `AuthorName`, `AuthorRole`, `Testimonial` | The user said "no testimonial" in step 5. Drop ALL EIGHT together. |
+| `CarouselTrack`, `CarouselCard`, `LogoPlaceholder`, `CarouselCardName`, `CarouselCardBlurb`, `CarouselCardLink`, `MORE_CUSTOMERS`, `MoreCustomers` | <2 sibling pages exist. Drop ALL EIGHT together. |
+| `ThanksLogo` (styled `<img>`) | The customer logo SVG is unavailable AND ThanksSection falls back to text-only mode. Drop the styled component AND its declaration. |
+| `ThanksSection` component + render line | The user explicitly opted to omit ThanksSection in step 7b. |
+
+After pruning, run `npx standard` to catch any case the matrix missed. Common slip: dropping a styled component but leaving its supporting import (e.g. dropping `Arrow` but leaving `breakpoints`).
 - The `<h1>` in `Hero` MUST include `scrollMarginTop: 4` (or equivalent `scroll-margin-top` token) so deep-links land cleanly.
 - The CTA `<Section>` background uses the `ACCENT_RGB` triplet at 6% opacity:
   ```jsx
@@ -324,6 +345,7 @@ When materializing the template:
   ```
   This is the ONLY raw `background-color` allowed on a customer page (no equivalent token exists for translucent accent tints).
 - The CTA inner `<Flex>` wrapping the ArrowLink uses `pt: [3, 4, 4, 4]` (NOT `py`). The `Section` primitive's own `py: SECTION_PY` already provides bottom padding; using `py` here would double up the bottom and break top/bottom symmetry.
+- The `Testimonial` component MUST NOT render its own `<Section>` or `<SectionInner>` wrappers. It is nested directly inside `AboutCustomer`'s `<SectionInner>` and inherits that section's padding + max-width. The component renders ONLY `<TestimonialCard as='figure' css={theme({ mt: [3, 3, 4, 4] })}>` as its outer element. Adding `<Section>`/`<SectionInner>` wrappers would double horizontal padding (the parent `SectionInner` already constrains width) and double vertical padding (the parent `Section` already provides `py: SECTION_PY`), breaking the card's alignment with the rest of the About-section content. The `mt` margin on the card itself provides the only separation needed from the external website link above it.
 - The `Testimonial` component's `Quote` uses `fontStyle: 'italic'` but the page default sans (Inter) — do NOT add `fontFamily: 'serif'`. The `QuoteMark` similarly stays on the default sans. The `AuthorAvatar` renders the author's initials (e.g. `SC` for Stefan Charsley), styled `fontFamily: 'mono'`, `color: ACCENT.text`, centered via flex, with `aria-hidden='true'`.
 - The About-section external link uses a plain anchor (`<Text as='a' target='_blank' rel='noopener'>`, NOT the repo `Link` component — see external-link rule above), label `Visit <CUSTOMER_DOMAIN>`, color `ACCENT.text`, `textDecoration: 'underline'`, and sits between body paragraph 2 and the Testimonial.
 - The `ThanksSection` is the LAST top-level section in the page composition, after `<CtaSection />`. Inside it: centered logo FIRST (wrapped in `<Text as='a' href='https://<CUSTOMER_DOMAIN>' target='_blank' rel='noopener'>` per the external-link rule above; height capped at 32px), then the acknowledgement paragraph (with `<b>Thank you to the <CUSTOMER_NAME> team</b>` as bold opening clause, smaller `fontSize: [0, 1]`). The section uses `pt: 5` for generous breathing room below the CTA panel; the logo wrapper Box uses `pt: [3, 3, 4, 4]` and `pb: [2, 2, 3, 3]` to space it cleanly between the section top and the paragraph below.
@@ -336,9 +358,9 @@ After writing:
 
 1. Run `npx standard src/pages/customers/<slug>.js`. (The project's lint script is `npm run lint` → `standard`. Bare `npx eslint` is NOT sufficient — `standard` enforces JavaScript Standard Style rules that bare eslint won't catch.)
 2. If standard reports errors, fix them in-place. Common errors:
-   - Unused imports (e.g. `breakpoints` if no flow diagram → remove from import line)
-   - Unused variables (e.g. styled components declared but only referenced inside JSX comments — these need either real usage or an `// eslint-disable-next-line no-unused-vars` directive when intentional, like in `example.js`'s placeholder mode)
+   - Unused imports / unused styled components — see the **Pruning rules** matrix in Writing Rules. Most `no-unused-vars` errors mean the matrix wasn't applied during materialization. Fix by removing the declaration, NOT by adding `// eslint-disable-next-line` (that escape hatch is only allowed in `example.js`, which intentionally keeps the full template surface).
    - Missing `key` props in any list rendering
+   - Unused parameters in callback signatures
 3. Re-run `standard` until clean.
 4. Verify NO `{{TOKEN}}` placeholders remain in the output (grep for `{{`).
 5. Verify the page composition includes (in order, modulo conditional sections): `<Hero />`, `<AboutCustomer />`, `<HowTheyUseIt />`, `<WhyMicrolink />`, optional `<MoreCustomers />`, `<CtaSection />`, `<ThanksSection />`.
@@ -367,7 +389,7 @@ If the user asks to update an existing `src/pages/customers/<slug>.js`:
 3. Run only the steps that target the user's request (e.g. "swap the accent" → step 2 only; "add a testimonial" → step 5 only).
 4. For step 8, re-run the sibling auto-detection — sibling pages may have been added since the original write.
 5. Apply changes via `StrReplace`. Never rewrite the whole file unless the user explicitly asks for a full regeneration.
-6. Run `npx eslint` after edits.
+6. Run `npx standard src/pages/customers/<slug>.js` after edits — same verification as a fresh write (see the Verification section above).
 
 ## Final Guardrails
 
@@ -377,5 +399,5 @@ If the user asks to update an existing `src/pages/customers/<slug>.js`:
 - Do not split a single customer story into multiple pages.
 - Do not add a `customers/index.js` listing page as part of this skill — that is a separate task.
 - Do not edit the toolbar or footer to add a `/customers` link as part of this skill.
-- Do not run any formatter. Verification is eslint-only on the single new file.
+- Do not run any formatter. Verification is `npx standard` on the single new file (see the Verification section).
 - Do not attribute invented words to a real, named person from the customer's team. The placeholder testimonial rules forbid this; refuse and offer a draft-for-approval flow instead.
