@@ -22,6 +22,7 @@ jobs:
           head: vercel
           routes: |
             - '/'
+            - '/styleguide'
           threshold: "0.005"
           microlink-api-key: ${{ secrets.MICROLINK_API_KEY }}
           s3-config: ${{ secrets.S3_CONFIG }}
