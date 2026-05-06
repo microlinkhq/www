@@ -68,7 +68,7 @@ These are non-negotiable.
 - Never add or modify FAQ structured data. Customer pages do not have FAQ sections.
 - Never run prettier, prettier-standard, or any repo-level formatter. This repo's formatter can rewrite unrelated files. Verification is `npx standard src/pages/customers/<slug>.js` (the project uses JavaScript Standard Style — see `package.json` `"lint": "standard"`). Bare `npx eslint` may pass even when `standard` reports errors, because they use different rule sets.
 - Never edit `.cursor/skills/customer-story/references/*.md` as part of running the skill. Only the SKILL author maintains those.
-- Hero CTA label and Bottom CTA label MUST be different strings. The Hero invites action specific to the customer's outcome ("See how they integrated metadata"); the bottom CTA is broader ("Start extracting metadata"). Identical labels are rejected.
+- Hero CTA label and Bottom CTA label MUST be different strings. The Hero invites action specific to the product the customer integrated and ALWAYS follows the format `See how to integrate <product noun>` (e.g. "See how to integrate metadata", "See how to integrate screenshots", "See how to integrate PDFs"). The bottom CTA is broader and uses the action-oriented label from the cta-routing table (e.g. "Start extracting metadata", "Start capturing screenshots"). Identical labels are rejected.
 - Animation rule: customer pages MUST NOT add motion/animation that ignores `prefers-reduced-motion`. The current template has no animation; if a future change adds one, it MUST honor reduced-motion or be reverted.
 - The `<h1>` in `Hero` MUST set `scrollMarginTop` so deep-linking and skip-to-content land cleanly.
 - Do NOT override the `<main>` landmark. `<Layout>` already wraps content in `<main id='main-content'>` and provides a Skip-to-content link.
@@ -241,8 +241,8 @@ Propose to the user, in one message:
 
 ```
 CTA targets:
-- Hero (specific outcome): <HERO_CTA_HREF> with label "<HERO_CTA_LABEL>"
-- Bottom (broad invite):  <CTA_HREF>   with label "<CTA_LABEL>"
+- Hero (specific product): <HERO_CTA_HREF> with label "See how to integrate <product noun>"
+- Bottom (broad invite):   <CTA_HREF>   with label "<CTA_LABEL>"
 
 CTA headline: "Ready to ship with <accent>Microlink</accent>?"
 (or, if a single product dominates: "Ready to ship <accent>screenshots</accent>?")
@@ -250,7 +250,7 @@ CTA headline: "Ready to ship with <accent>Microlink</accent>?"
 Confirm or override.
 ```
 
-The user MAY override either href, either label, or the headline accent word. Hero label and Bottom label MUST be different strings.
+The Hero label MUST follow the `See how to integrate <product noun>` template — the `<product noun>` is the same noun used in the bottom CTA's action label (e.g. `metadata`, `screenshots`, `PDFs`, `markdown`, `brand logos`, `performance audits`). The user MAY override either href, the headline accent word, or the bottom label. Hero label and Bottom label MUST be different strings.
 
 If the customer uses two or more Microlink products, route the Hero CTA to the primary one and use `/pricing` for the bottom CTA. Mention the secondary product in `{{CTA_BODY}}`.
 
@@ -334,18 +334,18 @@ Apply this matrix when materializing:
 
 After pruning, run `npx standard` to catch any case the matrix missed. Common slip: dropping a styled component but leaving its supporting import (e.g. dropping `Arrow` but leaving `breakpoints`).
 - The `<h1>` in `Hero` MUST include `scrollMarginTop: 4` (or equivalent `scroll-margin-top` token) so deep-links land cleanly.
-- The CTA `<Section>` background uses the `ACCENT_RGB` triplet at 6% opacity:
+- The CTA `<Section>` background uses the `ACCENT_RGB` triplet at 6% opacity, AND the section MUST include `mt: 5` to create breathing room from the preceding `WhyMicrolink` (or `MoreCustomers`) section. Without this top margin, the soft accent panel sits flush against the previous section and looks visually cramped.
   ```jsx
   <Section
     css={`
       background-color: rgba({{ACCENT_RGB}}, 0.06);
-      ${theme({ borderTop: 1, borderTopColor: ACCENT.bgEdge, borderBottom: 1, borderBottomColor: ACCENT.bgEdge })}
+      ${theme({ borderTop: 1, borderTopColor: ACCENT.bgEdge, borderBottom: 1, borderBottomColor: ACCENT.bgEdge, mt: 5 })}
     `}
   >
   ```
   This is the ONLY raw `background-color` allowed on a customer page (no equivalent token exists for translucent accent tints).
 - The CTA inner `<Flex>` wrapping the ArrowLink uses `pt: [3, 4, 4, 4]` (NOT `py`). The `Section` primitive's own `py: SECTION_PY` already provides bottom padding; using `py` here would double up the bottom and break top/bottom symmetry.
-- The `Testimonial` component MUST NOT render its own `<Section>` or `<SectionInner>` wrappers. It is nested directly inside `AboutCustomer`'s `<SectionInner>` and inherits that section's padding + max-width. The component renders ONLY `<TestimonialCard as='figure' css={theme({ mt: [3, 3, 4, 4] })}>` as its outer element. Adding `<Section>`/`<SectionInner>` wrappers would double horizontal padding (the parent `SectionInner` already constrains width) and double vertical padding (the parent `Section` already provides `py: SECTION_PY`), breaking the card's alignment with the rest of the About-section content. The `mt` margin on the card itself provides the only separation needed from the external website link above it.
+- The `Testimonial` component MUST NOT render its own `<Section>` or `<SectionInner>` wrappers. It is nested directly inside `AboutCustomer`'s `<SectionInner>` and inherits that section's padding + max-width. The component renders ONLY `<TestimonialCard as='figure' css={theme({ my: [4, 4, 5, 5] })}>` as its outer element. Adding `<Section>`/`<SectionInner>` wrappers would double horizontal padding (the parent `SectionInner` already constrains width) and double vertical padding (the parent `Section` already provides `py: SECTION_PY`), breaking the card's alignment with the rest of the About-section content. Use `my` (vertical margin top AND bottom) at the responsive scale `[4, 4, 5, 5]` — this gives the card breathing room both above (from the external website link) and below (from the next section, since `AboutCustomer` typically uses `pb: 0` to let the card carry the trailing space). Never use `mt` only — the card needs symmetric vertical spacing to read as its own block. This matches the established pattern in `mymahi.js`.
 - The `Testimonial` component's `Quote` uses `fontStyle: 'italic'` but the page default sans (Inter) — do NOT add `fontFamily: 'serif'`. The `QuoteMark` similarly stays on the default sans. The `AuthorAvatar` renders the author's initials (e.g. `SC` for Stefan Charsley), styled `fontFamily: 'mono'`, `color: ACCENT.text`, centered via flex, with `aria-hidden='true'`.
 - The About-section external link uses a plain anchor (`<Text as='a' target='_blank' rel='noopener'>`, NOT the repo `Link` component — see external-link rule above), label `Visit <CUSTOMER_DOMAIN>`, color `ACCENT.text`, `textDecoration: 'underline'`, and sits between body paragraph 2 and the Testimonial.
 - The `ThanksSection` is the LAST top-level section in the page composition, after `<CtaSection />`. Inside it: centered logo FIRST (wrapped in `<Text as='a' href='https://<CUSTOMER_DOMAIN>' target='_blank' rel='noopener'>` per the external-link rule above; height capped at 32px), then the acknowledgement paragraph (with `<b>Thank you to the <CUSTOMER_NAME> team</b>` as bold opening clause, smaller `fontSize: [0, 1]`). The section uses `pt: 5` for generous breathing room below the CTA panel; the logo wrapper Box uses `pt: [3, 3, 4, 4]` and `pb: [2, 2, 3, 3]` to space it cleanly between the section top and the paragraph below.

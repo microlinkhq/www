@@ -557,7 +557,8 @@ const CtaSection = () => (
         borderTop: 1,
         borderTopColor: ACCENT.bgEdge,
         borderBottom: 1,
-        borderBottomColor: ACCENT.bgEdge
+        borderBottomColor: ACCENT.bgEdge,
+        mt: 5
       })}
     `}
   >
@@ -939,7 +940,7 @@ const AuthorRole = styled(Text)`
 `
 
 const Testimonial = () => (
-  <TestimonialCard as='figure' css={theme({ mt: [3, 3, 4, 4] })}>
+  <TestimonialCard as='figure' css={theme({ my: [4, 4, 5, 5] })}>
     <QuoteMark>“</QuoteMark>
     <Quote>
       {{TESTIMONIAL_QUOTE}}
@@ -955,7 +956,7 @@ const Testimonial = () => (
 )
 ```
 
-Note: the `Testimonial` component does NOT render its own `<Section>` / `<SectionInner>` wrapper because it's nested INSIDE `AboutCustomer`'s `<SectionInner>`. The `mt` margin on the card provides separation from the external website link above it.
+Note: the `Testimonial` component does NOT render its own `<Section>` / `<SectionInner>` wrapper because it's nested INSIDE `AboutCustomer`'s `<SectionInner>`. The `my: [4, 4, 5, 5]` margin on the card provides separation BOTH above (from the external website link) AND below (from the next section) — matching the spacing used in `mymahi.js`. Always use `my` (vertical), never `mt` only.
 
 `{{TESTIMONIAL_RENDER}}` = `<Testimonial />` (or empty string if no testimonial).
 

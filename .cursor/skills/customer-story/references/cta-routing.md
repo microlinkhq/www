@@ -25,9 +25,16 @@ Match keywords from the user's description (case-insensitive). First match wins,
 
 ## CTA copy rules
 
-- The Hero CTA label and the bottom CTA label SHOULD be different (Hero invites action specific to the customer's outcome; bottom CTA is broader). Example pair:
-  - Hero: "See how they integrated screenshots"
+- The Hero CTA label ALWAYS follows the format `See how to integrate <product noun>`. The `<product noun>` is the same noun used in the bottom CTA's "Suggested label" column (e.g. `metadata`, `screenshots`, `PDFs`, `markdown`, `brand logos`, `performance audits`). The bottom CTA uses the broader action-oriented label from the table.
+- Hero CTA label and bottom CTA label MUST be different. Example pair:
+  - Hero: "See how to integrate screenshots"
   - Bottom: "Start capturing screenshots"
+- Other examples:
+  - `/metadata` → Hero "See how to integrate metadata" / Bottom "Start extracting metadata"
+  - `/pdf` → Hero "See how to integrate PDFs" / Bottom "Start generating PDFs"
+  - `/markdown` → Hero "See how to integrate markdown" / Bottom "Start scraping to markdown"
+  - `/logo` → Hero "See how to integrate brand logos" / Bottom "Start fetching brand logos"
+  - `/insights` → Hero "See how to integrate performance audits" / Bottom "Start auditing performance"
 - Both labels are sentence case, no terminal period, no emoji.
 - Keep labels under 6 words.
 - Never use "Get started for free" — this repo's voice is more direct.
@@ -45,11 +52,11 @@ Hero CTA (inside `Hero` component):
     fontSize: [2, 2, 3, 3]
   })}
 >
-  See how they integrated screenshots
+  See how to integrate screenshots
 </ArrowLink>
 ```
 
-Bottom CTA (inside `CtaSection` component): same `ArrowLink` shape with the broader label.
+Bottom CTA (inside `CtaSection` component): same `ArrowLink` shape with the broader label from the table above.
 
 The CTA section's headline retains the accent span pattern:
 
