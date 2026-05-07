@@ -17,6 +17,7 @@ import { findDemoLinkById } from 'helpers/demo-links'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
+import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
@@ -37,7 +38,6 @@ import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
 import Block from 'components/patterns/Block/Block'
 import Microlink from 'components/patterns/Microlink/Microlink'
-import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import Plans, {
   CurrencyContext,
   useCurrency
@@ -1323,6 +1323,23 @@ const Capabilities = () => (
 
 // ─── Code Example ─────────────────────────────────────────────────────────────
 
+const CODE_EXAMPLE_SNIPPET = `
+import Microlink from '@microlink/react'
+
+<Microlink
+  url='https://www.instagram.com/p/BeV6tOhFUor/',
+  apiKey='YOUR_API_KEY'
+/>
+`
+
+const CodeExampleWrap = styled(Box)`
+  ${theme({ width: '100%' })};
+  & > div:first-child {
+    width: 100%;
+    box-shadow: 0 8px 32px ${colors.black10};
+  }
+`
+
 const CodeExample = () => (
   <Container
     as='section'
@@ -1334,45 +1351,60 @@ const CodeExample = () => (
       px: [3, 4, 5, 5]
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: ['34px', '42px', '54px', '62px'] })}
-    >
-      Copy. Paste. Embed.
-    </Subhead>
-    <Caption
-      forwardedAs='div'
-      css={theme({
-        pt: [3, 3, 4, 4],
-        px: [4, 4, 4, 0],
-        maxWidth: layout.normal
-      })}
-    >
-      Same response shape from the API — pick your favorite client. From the
-      command line to Go, every snippet returns a normalized embed payload you
-      can render anywhere.
-    </Caption>
     <Flex
       css={theme({
-        pt: [4, 4, 5, 5],
         width: '100%',
-        maxWidth: layout.large,
+        my: 4,
+        maxWidth: HERO_LAYOUT.maxWidth,
         mx: 'auto',
-        px: [3, 3, 0, 0]
+        flexDirection: ['column', 'column', 'column', 'row'],
+        alignItems: ['center', 'center', 'center', 'stretch'],
+        gap: [4, 4, 5, HERO_LAYOUT.gap[3]]
       })}
     >
-      <Box css={{ width: '100%' }}>
-        <MultiCodeEditorInteractive
-          height={320}
-          mqlCode={{
-            url: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
-            audio: true,
-            video: true,
-            iframe: true,
-            meta: true
-          }}
-        />
-      </Box>
+      <Flex
+        css={theme({
+          width: ['100%', '100%', '100%', '50%'],
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: ['center', 'center', 'center', 'flex-start']
+        })}
+      >
+        <Subhead
+          variant='gradient'
+          css={theme({
+            fontSize: [3, 3, 4, 4],
+            textAlign: ['center', 'center', 'center', 'left'],
+            width: '100%'
+          })}
+        >
+          Copy. Paste. Embed.
+        </Subhead>
+        <Caption
+          forwardedAs='div'
+          css={theme({
+            pt: [3, 3, 4, 4],
+            maxWidth: layout.normal,
+            fontSize: [1, 1, 2, 2],
+            textAlign: ['center', 'center', 'center', 'left']
+          })}
+        >
+          Same response shape from the API — pick your favorite client. From the
+          command line to Go, every snippet returns a normalized embed payload
+          you can render anywhere.
+        </Caption>
+      </Flex>
+      <Flex
+        css={theme({
+          width: ['100%', '100%', '100%', '50%'],
+          flexDirection: 'column',
+          justifyContent: 'center'
+        })}
+      >
+        <CodeExampleWrap>
+          <CodeEditor language='jsx'>{CODE_EXAMPLE_SNIPPET}</CodeEditor>
+        </CodeExampleWrap>
+      </Flex>
     </Flex>
   </Container>
 )
