@@ -671,10 +671,6 @@ const ProvidersTrack = styled(Flex)`
   animation: ${marqueeScroll} ${MARQUEE_DURATION} linear infinite;
   will-change: transform;
 
-  ${ProvidersMarquee}:hover & {
-    animation-play-state: paused;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     animation: none;
     flex-wrap: wrap;
