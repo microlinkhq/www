@@ -773,6 +773,267 @@ const Providers = () => {
   )
 }
 
+// ─── Capabilities ─────────────────────────────────────────────────────────────
+
+const CAPABILITIES = [
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <circle cx='12' cy='12' r='10' />
+        <line x1='2' y1='12' x2='22' y2='12' />
+        <path d='M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z' />
+      </svg>
+    ),
+    title: 'One component, every URL',
+    description:
+      '280+ verified oEmbed providers normalized into a single response. YouTube, Spotify, X, GitHub, Figma, CodeSandbox — and the long tail — all served by the same drop-in.'
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <ellipse cx='12' cy='5' rx='9' ry='3' />
+        <path d='M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5' />
+        <path d='M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6' />
+      </svg>
+    ),
+    title: 'One unified API',
+    description:
+      'A single endpoint, one normalized payload. We resolve oEmbed, Open Graph, JSON-LD, and headless rendering — you only deal with the result.'
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <polygon points='12 2 2 7 12 12 22 7 12 2' />
+        <polyline points='2 17 12 22 22 17' />
+        <polyline points='2 12 12 17 22 12' />
+      </svg>
+    ),
+    title: 'Card or iframe — your call',
+    description:
+      'Toggle the media prop to render a static rich card or an interactive iframe (real YouTube player, Spotify track, Tweet widget). Same data, two presentations.'
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <polyline points='16 18 22 12 16 6' />
+        <polyline points='8 6 2 12 8 18' />
+      </svg>
+    ),
+    title: 'Anywhere you ship',
+    description:
+      'React, Vue, and vanilla packages share the same props and CSS hooks. Under 10KB, polyfill-free, framework-agnostic — swap stacks without rewriting markup.'
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2' />
+      </svg>
+    ),
+    title: 'Lazy by default',
+    description:
+      'IntersectionObserver defers the API call until the embed enters the viewport. Pages with hundreds of embeds still hit a fast first paint.'
+  },
+  {
+    icon: (
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <line x1='4' y1='21' x2='4' y2='14' />
+        <line x1='4' y1='10' x2='4' y2='3' />
+        <line x1='12' y1='21' x2='12' y2='12' />
+        <line x1='12' y1='8' x2='12' y2='3' />
+        <line x1='20' y1='21' x2='20' y2='16' />
+        <line x1='20' y1='12' x2='20' y2='3' />
+        <line x1='1' y1='14' x2='7' y2='14' />
+        <line x1='9' y1='8' x2='15' y2='8' />
+        <line x1='17' y1='16' x2='23' y2='16' />
+      </svg>
+    ),
+    title: 'Theme without forking',
+    description:
+      'CSS variables (--microlink-*) and stable BEM class names for theming. No fork, no styled-components contract — just CSS you already know.'
+  }
+]
+
+const CapabilityItem = styled(Flex)`
+  ${theme({ gap: 2, alignItems: 'flex-start' })};
+`
+
+const CapabilityIcon = styled(Flex)`
+  ${theme({
+    width: space[4],
+    height: space[4],
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    color: 'teal7'
+  })};
+`
+
+const CapabilitiesPlaceholder = styled(Flex)`
+  ${theme({
+    width: '100%',
+    minHeight: ['320px', '360px', '420px', '480px'],
+    borderRadius: 3,
+    bg: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'black40',
+    fontFamily: 'mono',
+    fontSize: 1
+  })};
+  border: ${borders[1]} dashed ${colors.black20};
+`
+
+const Capabilities = () => (
+  <Container
+    id='capabilities'
+    as='section'
+    css={theme({
+      alignItems: 'center',
+      maxWidth: '100%',
+      bg: 'pinky',
+      px: [3, 3, 4, 5],
+      py: SECTION_VERTICAL_SPACING
+    })}
+  >
+    <Flex
+      css={theme({
+        width: '100%',
+        maxWidth: HERO_LAYOUT.maxWidth,
+        mx: 'auto',
+        flexDirection: ['column', 'column', 'column', 'row'],
+        alignItems: ['center', 'center', 'center', 'stretch'],
+        gap: [4, 4, 5, HERO_LAYOUT.gap[3]]
+      })}
+    >
+      <Flex
+        css={theme({
+          width: ['100%', '100%', '100%', HERO_LAYOUT.mainWidth],
+          pt: [4, 4, 5, 0],
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        })}
+      >
+        <CapabilitiesPlaceholder>{/* dynamic example */}</CapabilitiesPlaceholder>
+      </Flex>
+      <Flex
+        css={theme({
+          flexDirection: 'column',
+          width: ['100%', '100%', '100%', HERO_LAYOUT.secondaryWidth],
+          justifyContent: 'center',
+          alignItems: ['center', 'center', 'center', 'flex-start'],
+          gap: [3, 3, 4, 4]
+        })}
+      >
+        <Subhead
+          css={theme({
+            fontSize: [3, 4, 4, 4],
+            textAlign: ['center', 'center', 'center', 'left'],
+            width: '100%'
+          })}
+        >
+          Everything to embed,
+          <LineBreak />
+          <span css={theme({ color: 'teal7' })}>one component away</span>
+        </Subhead>
+        <Flex
+          css={[
+            theme({ gap: [3, 3, 3, 4], width: '100%' }),
+            {
+              flexDirection: 'column',
+              '@media (min-width: 768px) and (max-width: 1199px)': {
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                '& > *': { width: 'calc(50% - 12px)' }
+              }
+            }
+          ]}
+        >
+          {CAPABILITIES.map(({ icon, title, description }) => (
+            <CapabilityItem key={title}>
+              <CapabilityIcon>{icon}</CapabilityIcon>
+              <Flex css={theme({ flexDirection: 'column', gap: 1 })}>
+                <Text
+                  css={theme({
+                    fontWeight: 'bold',
+                    fontSize: [1, 1, 2, 2]
+                  })}
+                >
+                  {title}
+                </Text>
+                <Text css={theme({ fontSize: [0, 0, 1, 1] })}>
+                  {description}
+                </Text>
+              </Flex>
+            </CapabilityItem>
+          ))}
+        </Flex>
+      </Flex>
+    </Flex>
+  </Container>
+)
+
 // ─── Code Example ─────────────────────────────────────────────────────────────
 
 const CodeExample = () => (
@@ -1948,6 +2209,7 @@ const EmbedPage = () => {
                 onSubmit={doFetch}
               />
               <Providers />
+              <Capabilities />
               <CodeExample />
               <Clients />
               <Pricing />
