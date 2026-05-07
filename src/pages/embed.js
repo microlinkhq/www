@@ -560,39 +560,37 @@ const Hero = function Hero ({
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </HeroCopyButton>
               </HeroApiBar>
             </HeroPreviewShell>
@@ -929,20 +927,309 @@ const CapabilityIcon = styled(Flex)`
   })};
 `
 
-const CapabilitiesPlaceholder = styled(Flex)`
+const CAPABILITIES_DEMO_URL = 'https://www.youtube.com/watch?v=9P6rdqiybaw'
+
+const ExampleShell = styled(Box)`
   ${theme({
     width: '100%',
-    minHeight: ['320px', '360px', '420px', '480px'],
-    borderRadius: 3,
     bg: 'white',
+    borderRadius: 3,
+    overflow: 'hidden'
+  })};
+  box-shadow: 0 8px 32px ${colors.black10};
+`
+
+const ExampleToolbar = styled(Flex)`
+  ${theme({
+    width: '100%',
+    px: [2, 3, 3, 3],
+    py: 2,
     alignItems: 'center',
     justifyContent: 'center',
-    color: 'black40',
-    fontFamily: 'mono',
-    fontSize: 1
+    gap: 2,
+    bg: 'white',
+    flexWrap: 'wrap'
   })};
-  border: ${borders[1]} dashed ${colors.black20};
+  border-bottom: ${borders[1]} ${colors.black05};
 `
+
+const ToggleGroup = styled(Flex)`
+  ${theme({ alignItems: 'center', gap: 0 })};
+  background: ${colors.black05};
+  padding: 2px;
+  border-radius: ${radii[3]};
+`
+
+const ToggleButton = styled('button')`
+  ${theme({
+    px: 2,
+    py: 1,
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'bold'
+  })};
+  letter-spacing: 0;
+  background: ${({ $active }) => ($active ? colors.white : 'transparent')};
+  color: ${({ $active }) => ($active ? colors.black : colors.black60)};
+  box-shadow: ${({ $active }) =>
+    $active ? `0 1px 2px ${colors.black10}` : 'none'};
+  border: none;
+  border-radius: ${radii[2]};
+  cursor: pointer;
+  transition: color ${transition.short}, background ${transition.short};
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  &:hover {
+    color: ${colors.black};
+  }
+
+  &:focus-visible {
+    outline: ${borders[2]} ${colors.black40};
+    outline-offset: ${radii[1]};
+  }
+`
+
+const ExampleBody = styled(Box)`
+  ${theme({
+    width: '100%',
+    height: ['320px', '360px', '400px', '440px'],
+    bg: 'white'
+  })};
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`
+
+const ExampleIframeFrame = styled(Box)`
+  ${theme({
+    width: '100%',
+    px: [2, 3, 4, 4],
+    py: [3, 3, 4, 4]
+  })};
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  & iframe {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: ${radii[2]};
+    background: ${colors.black05};
+  }
+
+  & .microlink_card,
+  & .microlink_card__iframe,
+  & .microlink_card__iframe iframe {
+    width: 100%;
+    max-width: 100%;
+  }
+`
+
+const ExampleFooter = styled(Flex)`
+  ${theme({
+    width: '100%',
+    bg: 'white',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 2,
+    px: [2, 3, 3, 3],
+    py: '10px',
+    minWidth: 0
+  })};
+  border-top: ${borders[1]} ${colors.black05};
+`
+
+const ExampleFooterText = styled('span')`
+  ${theme({
+    fontSize: ['13px', '13px', '14px', '14px'],
+    fontFamily: 'mono',
+    letterSpacing: 0,
+    flex: 1,
+    minWidth: 0,
+    color: 'black70'
+  })};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  strong {
+    color: ${colors.black};
+    font-weight: bold;
+  }
+`
+
+const ExampleCopyButton = styled('button')`
+  ${theme({
+    bg: 'transparent',
+    p: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    color: 'black60'
+  })};
+  border: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: color ${transition.short}, transform ${transition.short};
+
+  &:hover {
+    color: ${colors.black};
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: ${borders[2]} ${colors.black40};
+    outline-offset: ${radii[2]};
+    border-radius: ${radii[2]};
+  }
+
+  svg.icon-check {
+    color: ${colors.green5};
+  }
+`
+
+const InteractiveExample = () => {
+  const [source, setSource] = useState('iframe')
+  const [isCopied, setIsCopied] = useState(false)
+  const copyTimerRef = useRef(null)
+
+  const iframeHtml = DEMO_LINK?.data?.iframe?.html || ''
+
+  const apiUrl = `https://api.microlink.io?url=${CAPABILITIES_DEMO_URL}&iframe`
+  const sdkLine = `<Microlink url='${CAPABILITIES_DEMO_URL}' />`
+  const copyText = source === 'iframe' ? apiUrl : sdkLine
+
+  const handleCopy = () => {
+    const markCopied = () => {
+      setIsCopied(true)
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current)
+      copyTimerRef.current = setTimeout(() => setIsCopied(false), 1500)
+    }
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard
+        .writeText(copyText)
+        .then(markCopied)
+        .catch(() => {
+          if (fallbackCopy(copyText)) markCopied()
+        })
+    } else if (fallbackCopy(copyText)) {
+      markCopied()
+    }
+  }
+
+  return (
+    <ExampleShell>
+      <ExampleToolbar>
+        <ToggleGroup role='tablist' aria-label='Embed source'>
+          <ToggleButton
+            type='button'
+            role='tab'
+            aria-selected={source === 'iframe'}
+            $active={source === 'iframe'}
+            onClick={() => setSource('iframe')}
+          >
+            iframe
+          </ToggleButton>
+          <ToggleButton
+            type='button'
+            role='tab'
+            aria-selected={source === 'sdk'}
+            $active={source === 'sdk'}
+            onClick={() => setSource('sdk')}
+          >
+            SDK
+          </ToggleButton>
+        </ToggleGroup>
+      </ExampleToolbar>
+      <ExampleBody>
+        {source === 'iframe' ? (
+          <ExampleIframeFrame
+            dangerouslySetInnerHTML={{ __html: iframeHtml }}
+          />
+        ) : (
+          <ExampleIframeFrame>
+            <Microlink
+              key={`sdk-${CAPABILITIES_DEMO_URL}`}
+              url={CAPABILITIES_DEMO_URL}
+              size='large'
+              media={['video', 'audio', 'image', 'logo']}
+              fetchData={false}
+              setData={() => DEMO_LINK?.data}
+            />
+          </ExampleIframeFrame>
+        )}
+      </ExampleBody>
+      <ExampleFooter>
+        <ExampleFooterText>
+          {source === 'iframe' ? (
+            <>
+              {`https://api.microlink.io?url=${CAPABILITIES_DEMO_URL}`}
+              <strong>&iframe</strong>
+            </>
+          ) : (
+            <>
+              <strong>{"<Microlink url='"}</strong>
+              {CAPABILITIES_DEMO_URL}
+              <strong>{"' />"}</strong>
+            </>
+          )}
+        </ExampleFooterText>
+        <ExampleCopyButton
+          type='button'
+          onClick={handleCopy}
+          aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
+        >
+          {isCopied ? (
+            <svg
+              className='icon-check'
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='none'
+              aria-hidden='true'
+            >
+              <path
+                d='M3 8l3.5 3.5L13 4.5'
+                stroke='currentColor'
+                strokeWidth='1.8'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+          ) : (
+            <svg
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='currentColor'
+              aria-hidden='true'
+            >
+              <path
+                fillRule='evenodd'
+                d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+              />
+            </svg>
+          )}
+        </ExampleCopyButton>
+      </ExampleFooter>
+    </ExampleShell>
+  )
+}
 
 const Capabilities = () => (
   <Container
@@ -968,19 +1255,19 @@ const Capabilities = () => (
     >
       <Flex
         css={theme({
-          width: ['100%', '100%', '100%', HERO_LAYOUT.mainWidth],
+          width: ['100%', '100%', '100%', '50%'],
           pt: [4, 4, 5, 0],
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center'
         })}
       >
-        <CapabilitiesPlaceholder>{/* dynamic example */}</CapabilitiesPlaceholder>
+        <InteractiveExample />
       </Flex>
       <Flex
         css={theme({
           flexDirection: 'column',
-          width: ['100%', '100%', '100%', HERO_LAYOUT.secondaryWidth],
+          width: ['100%', '100%', '100%', '50%'],
           justifyContent: 'center',
           alignItems: ['center', 'center', 'center', 'flex-start'],
           gap: [3, 3, 4, 4]
