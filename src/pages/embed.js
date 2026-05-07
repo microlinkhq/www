@@ -5,27 +5,22 @@ import {
   theme,
   transition,
   fontSizes,
-  radii
+  radii,
+  space
 } from 'theme'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
-import { mqlCode } from 'helpers/mql-code'
 import { findDemoLinkById } from 'helpers/demo-links'
 
 import Box from 'components/elements/Box'
-import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
-import Card from 'components/elements/Card/Card'
-import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import Hide from 'components/elements/Hide'
-import Input from 'components/elements/Input/Input'
-import InputIcon from 'components/elements/Input/InputIcon'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -33,9 +28,6 @@ import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import { Check as CheckIcon, Star as StarIcon } from 'react-feather'
-import { JavaScript } from 'components/icons/JavaScript'
-import { _React as ReactIcon } from 'components/icons/React'
-import { Vue } from 'components/icons/Vue'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import CaptionBase from 'components/patterns/Caption/Caption'
@@ -44,7 +36,6 @@ import Features from 'components/patterns/Features/Features'
 import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
 import Microlink from 'components/patterns/Microlink/Microlink'
-import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import Plans, {
   CurrencyContext,
@@ -52,9 +43,7 @@ import Plans, {
 } from 'components/patterns/Plans/Plans'
 
 import { useMounted } from 'components/hook/use-mounted'
-import { useQueryState } from 'components/hook/use-query-state'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
-import { useUrlInput } from 'components/hook/use-url-input'
 
 import { withTitle } from 'helpers/hoc/with-title'
 
@@ -67,21 +56,20 @@ const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 const INITIAL_SUGGESTION = 'youtube'
 const DEMO_LINK = findDemoLinkById(INITIAL_SUGGESTION)
 
-const SUGGESTIONS = [
-  'instagram',
-  'soundcloud',
-  'spotify',
-  'youtube',
-  'theverge',
-  'github',
-  'medium'
+// Each demo showcases a distinct embed flavor (video, audio, photo, tweet,
+// alt-video, rich article).
+const HERO_DEMOS = [
+  { id: 'youtube', label: 'YouTube' },
+  { id: 'spotify', label: 'Spotify' },
+  { id: 'instagram', label: 'Instagram' },
+  { id: 'vimeo', label: 'Vimeo' },
+  { id: 'medium', label: 'Medium' }
 ]
-  .map(id => findDemoLinkById(id))
+  .map(({ id, label }) => {
+    const demo = findDemoLinkById(id)
+    return demo ? { id, label, url: demo.data.url, data: demo.data } : null
+  })
   .filter(Boolean)
-  .map(({ data }) => ({ value: data.url }))
-
-const MODES = ['preview', 'iframe']
-const TYPES = ['render', 'code']
 
 const HERO_LAYOUT = {
   maxWidth: ['100%', '100%', '100%', `calc(${layout.large} * 1.7)`],
@@ -113,9 +101,132 @@ const Caption = withTitle(CaptionBase)
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
-const HeroCard = styled(Card)`
-  width: 100%;
-  max-width: 100%;
+const HeroPreviewShell = styled(Box)`
+  ${theme({
+    width: '100%',
+    maxWidth: layout.large,
+    mx: 'auto',
+    bg: 'white',
+    borderRadius: 3,
+    overflow: 'hidden'
+  })};
+  box-shadow: 0 8px 32px ${colors.black10};
+`
+
+const HeroSelector = styled(Flex)`
+  ${theme({
+    width: '100%',
+    px: 4,
+    pt: 3,
+    pb: 3,
+    alignItems: 'center',
+    gap: 2,
+    flexWrap: 'wrap',
+    bg: 'white'
+  })};
+  border-bottom: ${borders[1]} ${colors.black05};
+`
+
+const SelectorButton = styled('button')`
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    px: 2,
+    py: 1,
+    borderRadius: 4,
+    bg: 'white',
+    fontFamily: 'mono',
+    fontSize: 0,
+    color: 'black70',
+    fontWeight: 'bold'
+  })};
+  border: ${borders[1]} ${colors.black10};
+  cursor: pointer;
+  letter-spacing: 0;
+  transition: color ${transition.short}, background ${transition.short},
+    border-color ${transition.short};
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  &:hover {
+    color: ${colors.black};
+    border-color: ${colors.black40};
+  }
+
+  &[aria-pressed='true'] {
+    color: ${colors.white};
+    background: ${colors.black};
+    border-color: ${colors.black};
+  }
+
+  &:focus-visible {
+    outline: ${borders[2]} ${colors.black40};
+    outline-offset: ${radii[1]};
+  }
+`
+
+const PaletteChip = styled('span')`
+  ${theme({ width: space[3], height: space[3], borderRadius: '50%' })};
+  display: inline-block;
+  background: ${({ $color }) => $color};
+  border: ${borders[1]} ${colors.black10};
+  box-shadow: 0 1px 3px ${colors.black10};
+`
+
+const LogoThumb = styled('span')`
+  ${theme({
+    display: 'inline-block',
+    width: space[4],
+    height: space[4],
+    borderRadius: '50%',
+    bg: 'white'
+  })};
+  background-image: ${({ $src }) => `url(${$src})`};
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: ${borders[1]} ${colors.black10};
+  box-shadow: 0 1px 3px ${colors.black10};
+  flex-shrink: 0;
+`
+
+const toColor = entry => {
+  if (!entry) return null
+  if (typeof entry === 'string') return entry
+  if (Array.isArray(entry)) return `rgb(${entry.join(',')})`
+  return entry.color || entry.rgb || null
+}
+
+const extractPalette = data => {
+  if (!data) return []
+  const candidates = [
+    data.palette,
+    data.image?.palette,
+    data.logo?.palette
+  ].filter(Boolean)
+  for (const candidate of candidates) {
+    if (Array.isArray(candidate) && candidate.length) return candidate
+  }
+  return []
+}
+
+const extractLogoUrl = data => {
+  if (!data) return null
+  const logo = data.logo
+  if (!logo) return null
+  if (typeof logo === 'string') return logo
+  return logo.url || null
+}
+
+const HeroPreviewBody = styled(Box)`
+  ${theme({
+    width: '100%',
+    bg: 'white',
+    p: [3, 3, 4, 4]
+  })};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .microlink_card,
   .microlink_card__iframe,
@@ -127,43 +238,147 @@ const HeroCard = styled(Card)`
 
 const LinkPreview = styled(Microlink)`
   --microlink-max-width: 100%;
-  --microlink-border-style: transparent;
   --microlink-hover-background-color: white;
+  width: 100%;
+  max-width: 100%;
 `
+
+const HeroApiBar = styled(Flex)`
+  ${theme({
+    width: '100%',
+    bg: 'white',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 2,
+    px: [2, 3, 3, 3],
+    py: '10px',
+    minWidth: 0
+  })};
+  border-top: ${borders[1]} ${colors.black05};
+`
+
+const HeroApiUrl = styled('span')`
+  ${theme({
+    fontSize: ['13px', '13px', '14px', '14px'],
+    fontFamily: 'mono',
+    letterSpacing: 0,
+    flex: 1,
+    minWidth: 0,
+    color: 'black70'
+  })};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  strong {
+    color: ${colors.black};
+    font-weight: bold;
+  }
+`
+
+const HeroCopyButton = styled('button')`
+  ${theme({
+    bg: 'transparent',
+    p: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    color: 'black60'
+  })};
+  border: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: color ${transition.short}, transform ${transition.short};
+
+  &:hover {
+    color: ${colors.black};
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: ${borders[2]} ${colors.black40};
+    outline-offset: ${radii[2]};
+    border-radius: ${radii[2]};
+  }
+
+  svg.icon-check {
+    color: ${colors.green5};
+  }
+`
+
+const fallbackCopy = text => {
+  try {
+    const el = document.createElement('textarea')
+    el.value = text
+    el.setAttribute('readonly', '')
+    el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0'
+    document.body.appendChild(el)
+    el.focus()
+    el.select()
+    const ok = document.execCommand('copy')
+    document.body.removeChild(el)
+    return ok
+  } catch {
+    return false
+  }
+}
 
 const Hero = function Hero ({
   data,
   isLoading,
   onSubmit,
-  query,
   heroLayout = HERO_LAYOUT
 }) {
   const isMounted = useMounted()
-  const [mode, setMode] = useState(MODES[0])
-  const [type, setType] = useState(TYPES[0])
+  const [isCopied, setIsCopied] = useState(false)
+  const copyTimerRef = useRef(null)
 
-  const queryUrl = query?.url || ''
-  const { iconQuery, inputUrl, setInputUrl, validInputUrl } =
-    useUrlInput(queryUrl)
+  const activeDemoId = HERO_DEMOS.find(d => d.url === data.url)?.id
 
-  const media = [
-    mode === 'iframe' && 'iframe',
-    'video',
-    'audio',
-    'image',
-    'logo'
-  ].filter(Boolean)
+  const handleDemoPick = demo => {
+    if (demo.url === data.url) return
+    trackEvent('demo submit', { product: 'embed' })
+    onSubmit(demo.url, { queryUrl: demo.url, syncQuery: false })
+  }
+
+  const palette = extractPalette(data).map(toColor).filter(Boolean).slice(0, 6)
+  const logoUrl = extractLogoUrl(data)
+
+  const apiUrl = `https://api.microlink.io?url=${data.url}`
+
+  const handleCopy = () => {
+    const markCopied = () => {
+      setIsCopied(true)
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current)
+      copyTimerRef.current = setTimeout(() => setIsCopied(false), 1500)
+    }
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard
+        .writeText(apiUrl)
+        .then(markCopied)
+        .catch(() => {
+          if (fallbackCopy(apiUrl)) markCopied()
+        })
+    } else if (fallbackCopy(apiUrl)) {
+      markCopied()
+    }
+  }
 
   return (
-    <Flex
+    <Container
       id='hero'
       as='section'
       css={theme({
-        flexDirection: 'column',
         alignItems: 'center',
-        pt: [3, 3, 1, 0],
-        pb: [4, 4, 5, 5],
-        px: [2, 3, 4, 5]
+        maxWidth: '100%',
+        px: [3, 3, 4, 5],
+        py: SECTION_VERTICAL_SPACING
       })}
     >
       <Flex
@@ -173,13 +388,13 @@ const Hero = function Hero ({
           mx: 'auto',
           flexDirection: ['column', 'column', 'column', 'row'],
           alignItems: ['center', 'center', 'center', 'stretch'],
-          gap: heroLayout.gap
+          gap: [4, 4, 5, heroLayout.gap[3]]
         })}
       >
         <Flex
           css={theme({
             flexDirection: 'column',
-            width: ['100%', '100%', '100%', heroLayout.secondaryWidth],
+            width: ['100%', '100%', '100%', '50%'],
             justifyContent: 'center',
             alignItems: ['center', 'center', 'center', 'flex-start']
           })}
@@ -188,13 +403,13 @@ const Hero = function Hero ({
             titleize={false}
             css={theme({
               px: [2, 3, 4, 0],
-              fontSize: [3, 3, 4, 4],
+              fontSize: [4, 4, 5, 5],
               maxWidth: ['100%', '100%', '100%', '640px'],
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            Embed any URL,{' '}
-            <span style={{ whiteSpace: 'nowrap' }}>anywhere on the web</span>
+            Embed SDK{' '}
+            <span style={{ whiteSpace: 'nowrap' }}>for the modern web</span>
           </Heading>
           <Caption
             forwardedAs='h2'
@@ -203,51 +418,13 @@ const Hero = function Hero ({
               pt: [3, 3, 4, 4],
               px: [1, 2, 4, 0],
               maxWidth: ['100%', layout.small, layout.small, '640px'],
-              fontSize: [2, 2, 2, 2],
+              fontSize: [2, 2, 3, 3],
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            Turn any link into a rich card or interactive embed — one SDK,{' '}
-            <Text as='span' css={{ color: ACCENT, fontWeight: 'bold' }}>
-              280+ providers
-            </Text>
-            , under 10KB.
+            Microlink turns any URL into a rich card or interactive iframe — one
+            drop-in component, 280+ providers, under 10KB.
           </Caption>
-
-          <Flex
-            as='form'
-            css={theme({
-              pt: [3, 3, 4, 4],
-              width: '100%',
-              justifyContent: ['center', 'center', 'center', 'flex-start'],
-              flexDirection: ['column', 'row', 'row', 'row'],
-              alignItems: 'center',
-              gap: [3, 2]
-            })}
-            onSubmit={event => {
-              event.preventDefault()
-              trackEvent('demo submit', { product: 'embed' })
-              const rawUrl = inputUrl.trim()
-              onSubmit(validInputUrl, { queryUrl: rawUrl })
-            }}
-          >
-            <Input
-              id='embed-demo-url'
-              css={theme({
-                fontSize: 2,
-                width: ['100%', 220, 220, 240]
-              })}
-              iconComponent={<InputIcon query={iconQuery} />}
-              placeholder='Paste any URL'
-              type='text'
-              suggestions={SUGGESTIONS}
-              value={inputUrl}
-              onChange={event => setInputUrl(event.target.value)}
-            />
-            <Button loading={isLoading}>
-              <Caps css={theme({ fontSize: 1 })}>Embed it</Caps>
-            </Button>
-          </Flex>
 
           <Flex
             css={theme({
@@ -255,8 +432,7 @@ const Hero = function Hero ({
               px: [4, 4, 4, 0],
               width: '100%',
               fontSize: [2, 2, 3, 3],
-              gap: [3, 4],
-              flexDirection: ['column', 'row', 'row', 'row'],
+              flexDirection: 'row',
               alignItems: 'center',
               justifyContent: ['center', 'center', 'center', 'flex-start']
             })}
@@ -264,216 +440,166 @@ const Hero = function Hero ({
             <ArrowLink href='/docs/sdk/getting-started/overview/'>
               Get Started
             </ArrowLink>
-            <ArrowLink href='https://github.com/microlinkhq/sdk'>
-              View on GitHub
-            </ArrowLink>
           </Flex>
         </Flex>
 
         <Flex
           css={theme({
-            width: ['100%', '100%', '100%', heroLayout.mainWidth],
+            width: ['100%', '100%', '100%', '50%'],
+            minWidth: 0,
             pt: [4, 4, 5, 0],
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            gap: [3, 3, 4, 4]
           })}
         >
           <Box
             css={theme({
-              display: 'inline-flex',
-              flexDirection: 'column',
-              maxWidth: ['100%', '95%', '85%', '100%'],
-              width: ['100%', '95%', '85%', '100%'],
-              position: 'relative'
+              width: '100%',
+              minWidth: 0
             })}
           >
-            <HeroCard
-              css={theme({
-                border: type === 'code' ? 'inherit' : undefined
-              })}
-            >
-              <Choose>
-                <Choose.When condition={type === 'render'}>
+            <HeroPreviewShell>
+              <HeroSelector role='radiogroup' aria-label='Pick a demo URL'>
+                {HERO_DEMOS.map(demo => {
+                  const isActive = activeDemoId === demo.id
+                  return (
+                    <SelectorButton
+                      key={demo.id}
+                      type='button'
+                      role='radio'
+                      aria-checked={isActive}
+                      aria-pressed={isActive}
+                      onClick={() => handleDemoPick(demo)}
+                    >
+                      {demo.label}
+                    </SelectorButton>
+                  )
+                })}
+              </HeroSelector>
+
+              <HeroPreviewBody>
+                <Box css={theme({ width: '100%' })}>
                   <LinkPreview
-                    key={`${data.url}_${media.join('_')}`}
+                    key={data.url}
                     loading={isLoading ? true : undefined}
                     size='large'
                     url={data.url}
                     fetchData={false}
                     setData={() => data}
-                    media={media}
+                    media={['video', 'audio', 'image', 'logo']}
                   />
-                </Choose.When>
-                <Choose.When condition={type === 'code'}>
-                  <MultiCodeEditor
-                    css={{ width: '100%' }}
-                    languages={mqlCode(
-                      data.url,
-                      {
-                        audio: true,
-                        video: true,
-                        iframe: mode === 'iframe',
-                        meta: true
-                      },
-                      `audio: true,
-    video: true,
-    iframe: ${mode === 'iframe'},
-    meta: true`
-                    )}
-                  />
-                </Choose.When>
-              </Choose>
-            </HeroCard>
-            <Flex
-              css={theme({
-                width: '100%',
-                pt: 3,
-                px: 1,
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexDirection: 'row'
-              })}
-            >
-              <Box>
-                {MODES.map(children => (
-                  <Card.Option
-                    key={children}
-                    value={mode}
-                    onClick={() => setMode(children)}
-                  >
-                    {children}
-                  </Card.Option>
-                ))}
-              </Box>
-              <Box>
-                {TYPES.map(children => (
-                  <Card.Option
-                    key={children}
-                    value={type}
-                    onClick={() => setType(children)}
-                  >
-                    {children}
-                  </Card.Option>
-                ))}
-              </Box>
-            </Flex>
+                  {(palette.length > 0 || logoUrl) && (
+                    <Flex
+                      css={theme({
+                        pt: [3, 3, 4, 4],
+                        alignItems: 'center',
+                        gap: 2,
+                        flexWrap: 'wrap'
+                      })}
+                      aria-label='Detected brand logo and palette'
+                    >
+                      {logoUrl && (
+                        <>
+                          <Caps
+                            css={theme({
+                              fontSize: 0,
+                              fontWeight: 'bold',
+                              color: 'black60',
+                              letterSpacing: 2,
+                              pr: 2
+                            })}
+                          >
+                            Logo
+                          </Caps>
+                          <LogoThumb
+                            $src={logoUrl}
+                            role='img'
+                            aria-label='Detected logo'
+                            title={logoUrl}
+                          />
+                        </>
+                      )}
+                      {palette.length > 0 && (
+                        <>
+                          <Caps
+                            css={theme({
+                              fontSize: 0,
+                              fontWeight: 'bold',
+                              color: 'black60',
+                              letterSpacing: 2,
+                              pl: logoUrl ? 3 : 0,
+                              pr: 2
+                            })}
+                          >
+                            Palette
+                          </Caps>
+                          {palette.map((color, i) => (
+                            <PaletteChip
+                              key={`${color}-${i}`}
+                              $color={color}
+                              aria-label={`Detected color ${color}`}
+                            />
+                          ))}
+                        </>
+                      )}
+                    </Flex>
+                  )}
+                </Box>
+              </HeroPreviewBody>
+
+              <HeroApiBar>
+                <HeroApiUrl>
+                  https://api.microlink.io?
+                  <strong>url={data.url}</strong>
+                </HeroApiUrl>
+                <HeroCopyButton
+                  type='button'
+                  onClick={handleCopy}
+                  aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
+                >
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
+                </HeroCopyButton>
+              </HeroApiBar>
+            </HeroPreviewShell>
           </Box>
         </Flex>
       </Flex>
       {!isMounted && null}
-    </Flex>
+    </Container>
   )
 }
-
-// ─── Integrations (compact) ───────────────────────────────────────────────────
-
-const INTEGRATIONS = [
-  {
-    Icon: ReactIcon,
-    name: 'React',
-    href: '/docs/sdk/integrations/react/',
-    install: '@microlink/react'
-  },
-  {
-    Icon: Vue,
-    name: 'Vue',
-    href: '/docs/sdk/integrations/vue/',
-    install: '@microlink/vue'
-  },
-  {
-    Icon: JavaScript,
-    name: 'Vanilla JS',
-    href: '/docs/sdk/integrations/vanilla/',
-    install: '@microlink/vanilla'
-  }
-]
-
-const IntegrationCard = styled(Link)`
-  ${theme({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: 2,
-    p: 3,
-    borderRadius: 4,
-    bg: 'white'
-  })};
-  border: ${borders[1]} ${colors.black10};
-  text-decoration: none;
-  color: inherit;
-  width: 180px;
-  transition: border-color ${transition.short}, box-shadow ${transition.short};
-
-  &:hover {
-    border-color: ${colors.black};
-    box-shadow: 0 8px 24px ${colors.black10};
-  }
-`
-
-const Integrations = () => (
-  <Container
-    as='section'
-    id='integrations'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: '100%',
-      py: SECTION_VERTICAL_SPACING,
-      px: [3, 4, 5, 5]
-    })}
-  >
-    <Subhead
-      css={theme({
-        fontSize: [3, 3, 4, 4],
-        textAlign: 'center'
-      })}
-    >
-      Built for every stack
-    </Subhead>
-    <Caption
-      forwardedAs='div'
-      css={theme({
-        pt: [2, 2, 3, 3],
-        px: [3, 4, 4, 0],
-        maxWidth: layout.normal,
-        fontSize: [1, 1, 2, 2]
-      })}
-    >
-      One consistent API across React, Vue, and vanilla JavaScript. Same props,
-      same CSS hooks, same {'<10KB'} bundle.
-    </Caption>
-
-    <Flex
-      css={theme({
-        pt: [3, 3, 4, 4],
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-        gap: 3
-      })}
-    >
-      {INTEGRATIONS.map(({ name, href, Icon, install }) => (
-        <IntegrationCard key={name} href={href}>
-          <Icon width='32px' />
-          <Text
-            css={theme({ color: 'black', fontWeight: 'bold', fontSize: 1 })}
-          >
-            {name}
-          </Text>
-          <Text
-            css={theme({
-              fontSize: 0,
-              fontFamily: 'mono',
-              color: 'black60',
-              textAlign: 'center'
-            })}
-          >
-            {install}
-          </Text>
-        </IntegrationCard>
-      ))}
-    </Flex>
-  </Container>
-)
 
 // ─── Providers Showcase ───────────────────────────────────────────────────────
 
@@ -1736,16 +1862,11 @@ export const Head = () => (
 // ─── Page Assembly ────────────────────────────────────────────────────────────
 
 const EmbedPage = () => {
-  const [query] = useQueryState()
-  const isMounted = useMounted()
-  const hasQuery = isMounted && !!query?.url
-
   return (
     <Layout>
-      <FetchProvider>
+      <FetchProvider mqlOpts={{ palette: true }}>
         {({ status, doFetch, data }) => {
-          const isLoading =
-            (hasQuery && status === 'initial') || status === 'fetching'
+          const isLoading = status === 'fetching'
           const unifiedData = data || DEMO_LINK.data
 
           return (
@@ -1754,9 +1875,7 @@ const EmbedPage = () => {
                 data={unifiedData}
                 isLoading={isLoading}
                 onSubmit={doFetch}
-                query={isMounted ? query : {}}
               />
-              <Integrations />
               <Providers />
               <CodeExample />
               <Clients />
