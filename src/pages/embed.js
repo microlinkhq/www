@@ -35,6 +35,7 @@ import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
+import Block from 'components/patterns/Block/Block'
 import Microlink from 'components/patterns/Microlink/Microlink'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import Plans, {
@@ -606,7 +607,6 @@ const Hero = function Hero ({
 const FEATURED_PROVIDERS = [
   'YouTube',
   'Spotify',
-  'Twitter / X',
   'Instagram',
   'TikTok',
   'GitHub',
@@ -631,8 +631,57 @@ const FEATURED_PROVIDERS = [
   'Observable',
   'Streamable',
   'Wistia',
-  'Loom'
+  'Loom',
+  'SlideShare',
+  'Kickstarter',
+  'DeviantArt',
+  'Imgur',
+  'Bandcamp'
 ]
+
+const MARQUEE_DURATION = '60s'
+
+const marqueeScroll = keyframes`
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+`
+
+const ProvidersMarquee = styled(Box)`
+  ${theme({ width: '100%', overflow: 'hidden' })};
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+`
+
+const ProvidersTrack = styled(Flex)`
+  ${theme({ alignItems: 'center', gap: 2 })};
+  width: max-content;
+  flex-wrap: nowrap;
+  animation: ${marqueeScroll} ${MARQUEE_DURATION} linear infinite;
+  will-change: transform;
+
+  ${ProvidersMarquee}:hover & {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
+`
 
 const ProviderChip = styled(Box)`
   ${theme({
@@ -640,67 +689,91 @@ const ProviderChip = styled(Box)`
     py: 2,
     borderRadius: 5,
     bg: 'white',
-    fontSize: [0, 1, 1, 1],
+    fontFamily: 'mono',
+    fontSize: 1,
     fontWeight: 'bold',
     color: 'black80'
   })};
   border: ${borders[1]} ${colors.black10};
   white-space: nowrap;
+  flex: 0 0 auto;
+  letter-spacing: 0;
+  line-height: 1;
 `
 
-const Providers = () => (
-  <Container
-    as='section'
-    id='providers'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: '100%',
-      py: SECTION_VERTICAL_SPACING,
-      px: [3, 4, 5, 5],
-      bg: 'pinky'
-    })}
-  >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: ['34px', '42px', '54px', '62px'] })}
-    >
-      280+ providers, one API
-    </Subhead>
-    <Caption
-      forwardedAs='div'
-      css={theme({
-        pt: [3, 3, 4, 4],
-        px: [4, 4, 4, 0],
-        maxWidth: layout.normal
-      })}
-    >
-      Every URL that implements <Link href='https://oembed.com'>oEmbed</Link> is
-      supported out of the box — from YouTube and Spotify to Figma and
-      CodeSandbox. New providers ship automatically; no client update required.
-    </Caption>
-
+const Providers = () => {
+  const blockOne = (
     <Flex
       css={theme({
-        pt: [4, 4, 5, 5],
-        gap: 2,
-        flexWrap: 'wrap',
+        flexDirection: 'column',
         justifyContent: 'center',
-        maxWidth: layout.large,
-        mx: 'auto'
+        alignItems: 'center',
+        textAlign: 'center'
       })}
     >
-      {FEATURED_PROVIDERS.map(name => (
-        <ProviderChip key={name}>{name}</ProviderChip>
-      ))}
+      <Subhead
+        css={theme({ fontSize: [2, 3, 3, '44px'], color: 'white', mb: 3 })}
+      >
+        280+ providers{' '}
+        <span css={theme({ display: 'block', color: 'white60' })}>
+          One drop-in component for every URL
+        </span>
+      </Subhead>
     </Flex>
+  )
 
-    <Box css={theme({ pt: [4, 4, 5, 5], fontSize: [2, 2, 3, 3] })}>
-      <ArrowLink href='/docs/api/parameters/iframe/#providers-supported'>
-        See full provider list
-      </ArrowLink>
-    </Box>
-  </Container>
-)
+  const blockTwo = (
+    <Flex
+      css={theme({
+        pt: [3, 3, 4, 4],
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%'
+      })}
+    >
+      <ProvidersMarquee aria-hidden='true'>
+        <ProvidersTrack>
+          {[...FEATURED_PROVIDERS, ...FEATURED_PROVIDERS].map((name, index) => (
+            <ProviderChip key={`${name}-${index}`}>{name}</ProviderChip>
+          ))}
+        </ProvidersTrack>
+      </ProvidersMarquee>
+    </Flex>
+  )
+
+  return (
+    <Block
+      forwardedAs='section'
+      id='providers'
+      flexDirection='column'
+      width='100%'
+      css={theme({
+        px: 4,
+        py: SECTION_VERTICAL_SPACING,
+        mt: 4,
+        width: '100%',
+        maxWidth: '100%',
+        backgroundImage: `radial-gradient(
+          circle at center right,
+          ${colors.teal9} 0%,
+          ${colors.teal9} 48%,
+          ${colors.teal8} 48%,
+          ${colors.teal8} 52%,
+          ${colors.teal7} 52%,
+          ${colors.teal7} 65%,
+          ${colors.teal6} 65%,
+          ${colors.teal6} 79%,
+          ${ACCENT} 79%,
+          ${ACCENT} 100%
+        )`,
+        borderTop: `${borders[1]} ${colors.white20}`,
+        borderBottom: `${borders[1]} ${colors.white20}`
+      })}
+      blockOne={blockOne}
+      blockTwo={blockTwo}
+    />
+  )
+}
 
 // ─── Code Example ─────────────────────────────────────────────────────────────
 
