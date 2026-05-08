@@ -218,6 +218,54 @@ const FigureImage = styled('img')`
   })}
 `
 
+const PreviewWrapper = styled(Box)`
+  ${theme({
+    position: 'relative',
+    width: '100%',
+    maxWidth: '400px',
+    mx: 'auto'
+  })}
+`
+
+const PreviewOverlayImage = styled(FigureImage)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.6s ease-in-out;
+  opacity: ${props => (props.$active ? 1 : 0)};
+`
+
+const PreviewCarousel = () => {
+  const [showSecond, setShowSecond] = React.useState(false)
+
+  React.useEffect(() => {
+    const id = setInterval(() => {
+      setShowSecond(prev => !prev)
+    }, 3000)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <PreviewWrapper>
+      <FigureImage
+        src='/images/clients/r-advertising-preview-1.png'
+        alt='R-Advertising prospect swipe deck'
+        loading='lazy'
+        decoding='async'
+      />
+      <PreviewOverlayImage
+        src='/images/clients/r-advertising-preview-2.png'
+        alt='R-Advertising prospect swipe deck'
+        loading='lazy'
+        decoding='async'
+        $active={showSecond}
+      />
+    </PreviewWrapper>
+  )
+}
+
 /* ─── Testimonial ────────────────────────────────────────────────────────── */
 
 const TestimonialCard = styled(Box)`
@@ -526,30 +574,7 @@ const HowTheyUseIt = () => (
         domain names becomes a visual queue the team can move through quickly.
       </BodyText>
       <Figure css={theme({ pb: 0 })}>
-        <Flex
-          css={theme({
-            alignItems: 'stretch',
-            gap: [2, 2, 3, 3],
-            flexDirection: ['column', 'column', 'row', 'row'],
-            maxWidth: layout.normal,
-            mx: 'auto'
-          })}
-        >
-          <FigureImage
-            src='/images/clients/r-advertising-preview-1.png'
-            alt='R-Advertising prospect swipe deck'
-            loading='lazy'
-            decoding='async'
-            css={theme({ flex: 1, minWidth: 0, maxWidth: '100%' })}
-          />
-          <FigureImage
-            src='/images/clients/r-advertising-preview-2.png'
-            alt='R-Advertising prospect swipe deck'
-            loading='lazy'
-            decoding='async'
-            css={theme({ flex: 1, minWidth: 0, maxWidth: '100%' })}
-          />
-        </Flex>
+        <PreviewCarousel />
       </Figure>
     </SectionInner>
   </Section>
