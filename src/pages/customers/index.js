@@ -1,4 +1,4 @@
-import { breakpoints, colors, layout, theme } from 'theme'
+import { breakpoints, colors, theme } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -9,15 +9,18 @@ import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import CaptionBase from 'components/patterns/Caption/Caption'
+import {
+  BodyText,
+  CUSTOMERS,
+  DashedGridOverlay,
+  Eyebrow,
+  Section,
+  SectionInner,
+  StoryTag
+} from 'components/patterns/CustomerStory'
 import Layout from 'components/patterns/Layout'
 
-import { withTitle } from 'helpers/hoc/with-title'
 import { cdnUrl } from 'helpers/cdn-url'
-
-const Caption = withTitle(CaptionBase)
-
-/* ─── Accent ─────────────────────────────────────────────────────────────── */
 
 const ACCENT = {
   text: 'orange7',
@@ -26,111 +29,13 @@ const ACCENT = {
   highlight: 'orange5'
 }
 
-/* ─── Layout primitives ──────────────────────────────────────────────────── */
-
-const SECTION_PX = [3, 3, 4, 4]
-const SECTION_PY = [3, 3, 4, 5]
-const SECTION_MAX_WIDTH = layout.large
-
-const Section = styled(Box)`
-  ${theme({
-    py: SECTION_PY,
-    px: SECTION_PX,
-    width: '100%'
-  })}
-`
-
-const SectionInner = styled(Box)`
-  ${theme({
-    width: '100%',
-    maxWidth: SECTION_MAX_WIDTH,
-    mx: 'auto'
-  })}
-`
-
-const Eyebrow = styled(Text)`
-  ${theme({
-    color: ACCENT.text,
-    fontFamily: 'mono',
-    fontSize: 1,
-    fontWeight: 'bold',
-    letterSpacing: '0.12em',
-    textTransform: 'uppercase'
-  })}
-`
-
-const StoryTag = styled(Box)`
-  display: inline-flex;
-  align-items: center;
-  ${theme({
-    bg: ACCENT.bgSoft,
-    color: ACCENT.text,
-    fontFamily: 'mono',
-    fontSize: 1,
-    fontWeight: 'bold',
-    letterSpacing: '0.08em',
-    px: '10px',
-    py: '4px',
-    borderRadius: '20px',
-    textTransform: 'uppercase'
-  })}
-`
-
-/* ─── Background overlay ─────────────────────────────────────────────────── */
-
-const DashedGridOverlay = styled(Box)`
-  ${theme({ position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 0 })}
-  height: 1200px;
-  pointer-events: none;
-  background-image: linear-gradient(
-      to right,
-      ${colors.gray2} 1px,
-      transparent 1px
-    ),
-    linear-gradient(to bottom, ${colors.gray2} 1px, transparent 1px);
-  background-size: 20px 20px;
-  background-position: 0 0, 0 0;
-  mask-image: repeating-linear-gradient(
-      to right,
-      #000 0px,
-      #000 3px,
-      transparent 3px,
-      transparent 8px
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      #000 0px,
-      #000 3px,
-      transparent 3px,
-      transparent 8px
-    ),
-    radial-gradient(ellipse 90% 80% at 50% 0%, #000 50%, transparent 100%);
-  -webkit-mask-image: repeating-linear-gradient(
-      to right,
-      #000 0px,
-      #000 3px,
-      transparent 3px,
-      transparent 8px
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      #000 0px,
-      #000 3px,
-      transparent 3px,
-      transparent 8px
-    ),
-    radial-gradient(ellipse 90% 80% at 50% 0%, #000 50%, transparent 100%);
-  mask-composite: intersect;
-  -webkit-mask-composite: source-in;
-`
-
 /* ─── Hero ───────────────────────────────────────────────────────────────── */
 
 const Hero = () => (
   <Section as='header' css={theme({ pt: [3, 3, 4, 4], pb: [3, 3, 4, 4] })}>
     <SectionInner>
       <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
-        <StoryTag>Customers</StoryTag>
+        <StoryTag accent={ACCENT}>Customers</StoryTag>
       </Flex>
       <Text
         as='h1'
@@ -148,20 +53,10 @@ const Hero = () => (
         Teams shipping with{' '}
         <span css={theme({ color: ACCENT.text })}>Microlink</span>
       </Text>
-      <Caption
-        forwardedAs='p'
-        titleize={false}
-        css={theme({
-          pt: [3, 3, 4, 4],
-          fontSize: [1, 2, 2, 2],
-          textAlign: 'left',
-          maxWidth: layout.large,
-          mx: 0
-        })}
-      >
+      <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
         Real customer stories — how teams ship link previews, screenshots, and
         metadata with Microlink in production.
-      </Caption>
+      </BodyText>
     </SectionInner>
   </Section>
 )
@@ -225,39 +120,17 @@ const CardBlurb = styled(Text)`
 
 const CardLink = styled(Link)`
   ${theme({
-    color: ACCENT.text,
     fontWeight: 'bold',
     fontSize: [0, 1, 1, 1]
   })}
   margin-top: auto;
 `
 
-const CUSTOMERS = [
-  {
-    slug: 'mymahi',
-    name: 'MyMahi',
-    blurb: 'Rich link previews for Newsfeed posts.',
-    icon: '/images/clients/mymahi-icon.png'
-  },
-  {
-    slug: 'r-advertising',
-    name: 'R-Advertising',
-    blurb: 'Tinder-style swipe deck for sales prospecting.',
-    icon: '/images/clients/r-advertising.com.png'
-  },
-  {
-    slug: 'luckynote',
-    name: 'Luckynote',
-    blurb: "Rich link previews in a 'message yourself' note app.",
-    icon: '/images/clients/luckynote-icon.png'
-  }
-]
-
 const CustomerGrid = () => (
   <Section>
     <SectionInner>
       <Box css={theme({ pb: [3, 3, 4, 4] })}>
-        <Eyebrow css={theme({ pb: 2, display: 'block' })}>
+        <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
           Customer stories
         </Eyebrow>
         <SubheadBase
@@ -287,7 +160,12 @@ const CustomerGrid = () => (
               <CardName>{name}</CardName>
             </Flex>
             <CardBlurb>{blurb}</CardBlurb>
-            <CardLink href={`/customers/${slug}`}>Read story →</CardLink>
+            <CardLink
+              href={`/customers/${slug}`}
+              css={theme({ color: ACCENT.text })}
+            >
+              Read story →
+            </CardLink>
           </Card>
         ))}
       </Grid>
