@@ -218,27 +218,6 @@ const FigureImage = styled('img')`
   })}
 `
 
-const FigurePlaceholder = styled(Box)`
-  ${theme({
-    bg: ACCENT.bgSoft,
-    border: 1,
-    borderColor: ACCENT.bgEdge,
-    borderRadius: 3,
-    width: '100%',
-    maxWidth: '600px',
-    mx: 'auto',
-    py: [4, 4, 5, 5],
-    px: 3,
-    color: ACCENT.text,
-    fontFamily: 'mono',
-    fontSize: 1,
-    fontWeight: 'bold',
-    letterSpacing: '0.08em',
-    textAlign: 'center',
-    textTransform: 'uppercase'
-  })}
-`
-
 /* ─── Testimonial ────────────────────────────────────────────────────────── */
 
 const TestimonialCard = styled(Box)`
@@ -376,7 +355,7 @@ const AboutCustomer = () => (
         Performance marketing across email, programmatic, data, outdoor, and
         influence — since 2006.
       </SubheadBase>
-      <BodyText>
+      <BodyText css={theme({ pb: [3, 3, 4, 4] })}>
         R-Advertising is a performance-driven digital marketing agency that has
         been activating multi-channel campaigns for brands since 2006. Their
         teams design and run acquisition, traffic, visibility, and
@@ -384,11 +363,6 @@ const AboutCustomer = () => (
         data, outdoor media, and influence — orchestrated together rather than
         treated as silos.
       </BodyText>
-      <Figure>
-        <FigurePlaceholder aria-hidden='true'>
-          [Screenshot of R-Advertising using Microlink]
-        </FigurePlaceholder>
-      </Figure>
       <BodyText>
         The agency supported 60 clients in 2024 across e-commerce, retail,
         travel, and enterprise — including Air France, Crédit Agricole,
@@ -551,6 +525,32 @@ const HowTheyUseIt = () => (
         and is worth contacting, or swipe past. What used to be a list of opaque
         domain names becomes a visual queue the team can move through quickly.
       </BodyText>
+      <Figure css={theme({ pb: 0 })}>
+        <Flex
+          css={theme({
+            alignItems: 'stretch',
+            gap: [2, 2, 3, 3],
+            flexDirection: ['column', 'column', 'row', 'row'],
+            maxWidth: layout.normal,
+            mx: 'auto'
+          })}
+        >
+          <FigureImage
+            src='/images/clients/r-advertising-preview-1.png'
+            alt='R-Advertising prospect swipe deck'
+            loading='lazy'
+            decoding='async'
+            css={theme({ flex: 1, minWidth: 0, maxWidth: '100%' })}
+          />
+          <FigureImage
+            src='/images/clients/r-advertising-preview-2.png'
+            alt='R-Advertising prospect swipe deck'
+            loading='lazy'
+            decoding='async'
+            css={theme({ flex: 1, minWidth: 0, maxWidth: '100%' })}
+          />
+        </Flex>
+      </Figure>
     </SectionInner>
   </Section>
 )
