@@ -8,7 +8,7 @@ import {
   radii,
   space
 } from 'theme'
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import { cdnUrl } from 'helpers/cdn-url'
@@ -37,6 +37,7 @@ import Features from 'components/patterns/Features/Features'
 import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
 import Block from 'components/patterns/Block/Block'
+import LinkPreviewRaw from '@microlink/react'
 import Microlink from 'components/patterns/Microlink/Microlink'
 import Plans, {
   CurrencyContext,
@@ -60,15 +61,40 @@ const DEMO_LINK = findDemoLinkById(INITIAL_SUGGESTION)
 // Each demo showcases a distinct embed flavor (video, audio, photo, tweet,
 // alt-video, rich article).
 const HERO_DEMOS = [
-  { id: 'youtube', label: 'YouTube' },
-  { id: 'spotify', label: 'Spotify' },
-  { id: 'instagram', label: 'Instagram' },
-  { id: 'vimeo', label: 'Vimeo' },
-  { id: 'medium', label: 'Medium' }
+  {
+    id: 'youtube',
+    label: 'YouTube',
+    icon: 'https://cdn.microlink.io/data/assets/youtube.com!watch!v=9P6rdqiybaw/logo.clearbit.com!youtube.com.png'
+  },
+  {
+    id: 'spotify',
+    label: 'Spotify',
+    icon: 'https://cdn.microlink.io/data/assets/open.spotify.com!track!1W2919zs8SBCLTrOB1ftQT/logo.clearbit.com!spotify.com.png'
+  },
+  {
+    id: 'instagram',
+    label: 'Instagram',
+    icon: 'https://cdn.microlink.io/data/assets/instagram.com!p!BvDTdWdnzkj/logo.clearbit.com!instagram.com.png'
+  },
+  {
+    id: 'vimeo',
+    label: 'Vimeo',
+    icon: 'https://cdn.microlink.io/data/assets/vimeo.com!186386161/logo.clearbit.com!vimeo.com.png'
+  },
+  {
+    id: 'producthunt',
+    label: 'Product Hunt',
+    icon: 'https://cdn.microlink.io/data/assets/producthunt.com!posts!macos-mojave/logo.clearbit.com!producthunt.com.png'
+  },
+  {
+    id: 'ted',
+    label: 'TED',
+    icon: 'https://cdn.microlink.io/data/assets/ted.com!talks!jia_jiang_what_i_learned_from_100_days_of_rejection/logo.clearbit.com!ted.com.png'
+  }
 ]
-  .map(({ id, label }) => {
-    const demo = findDemoLinkById(id)
-    return demo ? { id, label, url: demo.data.url, data: demo.data } : null
+  .map(demo => {
+    const found = findDemoLinkById(demo.id)
+    return found ? { ...demo, url: found.data.url, data: found.data } : null
   })
   .filter(Boolean)
 
@@ -78,6 +104,12 @@ const HERO_LAYOUT = {
   secondaryWidth: '45%',
   gap: [3, 3, 4, 5]
 }
+
+const PLACEHOLDER_CYCLE = ['https://vercel.com', 'https://unavatar.io']
+const TYPING_SPEED_MS = 80
+const INITIAL_DELAY_MS = 4000
+const HOLD_AFTER_TYPING_MS = 300
+const VIEW_PREVIEW_MS = 4000
 
 const COMPACT_NUMBER_FORMATTER = new Intl.NumberFormat('en-US', {
   notation: 'compact',
@@ -114,24 +146,88 @@ const HeroPreviewShell = styled(Box)`
   box-shadow: 0 8px 32px ${colors.black10};
 `
 
-const HeroSelector = styled(Flex)`
+const HeroInputBar = styled('form')`
   ${theme({
     width: '100%',
-    px: 4,
-    pt: 3,
-    pb: 3,
-    alignItems: 'center',
-    gap: 2,
-    flexWrap: 'wrap',
+    px: [2, 3, 3, 3],
+    py: '10px',
     bg: 'white'
   })};
+  display: flex;
+  align-items: center;
+  gap: 8px;
   border-bottom: ${borders[1]} ${colors.black05};
 `
 
-const SelectorButton = styled('button')`
+const HeroInput = styled('input')`
+  ${theme({
+    fontSize: ['13px', '13px', '14px', '14px'],
+    fontFamily: 'mono',
+    px: 2,
+    py: '8px',
+    color: 'black',
+    bg: 'white',
+    borderRadius: 4
+  })};
+  flex: 1;
+  min-width: 0;
+  border: ${borders[1]} ${colors.black10};
+  letter-spacing: 0;
+  outline: none;
+  transition: border-color ${transition.short};
+
+  &::placeholder {
+    color: ${colors.black40};
+  }
+
+  &:hover {
+    border-color: ${colors.black20};
+  }
+
+  &:focus-visible {
+    border-color: ${colors.black40};
+  }
+`
+
+const HeroPreviewButton = styled('button')`
+  ${theme({
+    px: 3,
+    py: '8px',
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'bold',
+    bg: 'black',
+    color: 'white',
+    borderRadius: 4
+  })};
+  border: ${borders[1]} ${colors.black};
+  cursor: pointer;
+  letter-spacing: 0;
+  flex-shrink: 0;
+  transition: opacity ${transition.short};
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:focus-visible {
+    outline: ${borders[2]} ${colors.black40};
+    outline-offset: ${radii[1]};
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+`
+
+const HeroDemoButton = styled('button')`
   ${theme({
     display: 'inline-flex',
     alignItems: 'center',
+    gap: 1,
     px: 2,
     py: 1,
     borderRadius: 4,
@@ -149,6 +245,15 @@ const SelectorButton = styled('button')`
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 
+  & img {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    object-fit: contain;
+    flex-shrink: 0;
+    background: ${colors.white};
+  }
+
   &:hover {
     color: ${colors.black};
     border-color: ${colors.black40};
@@ -165,59 +270,6 @@ const SelectorButton = styled('button')`
     outline-offset: ${radii[1]};
   }
 `
-
-const PaletteChip = styled('span')`
-  ${theme({ width: space[3], height: space[3], borderRadius: '50%' })};
-  display: inline-block;
-  background: ${({ $color }) => $color};
-  border: ${borders[1]} ${colors.black10};
-  box-shadow: 0 1px 3px ${colors.black10};
-`
-
-const LogoThumb = styled('span')`
-  ${theme({
-    display: 'inline-block',
-    width: space[4],
-    height: space[4],
-    borderRadius: '50%',
-    bg: 'white'
-  })};
-  background-image: ${({ $src }) => `url(${$src})`};
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  border: ${borders[1]} ${colors.black10};
-  box-shadow: 0 1px 3px ${colors.black10};
-  flex-shrink: 0;
-`
-
-const toColor = entry => {
-  if (!entry) return null
-  if (typeof entry === 'string') return entry
-  if (Array.isArray(entry)) return `rgb(${entry.join(',')})`
-  return entry.color || entry.rgb || null
-}
-
-const extractPalette = data => {
-  if (!data) return []
-  const candidates = [
-    data.palette,
-    data.image?.palette,
-    data.logo?.palette
-  ].filter(Boolean)
-  for (const candidate of candidates) {
-    if (Array.isArray(candidate) && candidate.length) return candidate
-  }
-  return []
-}
-
-const extractLogoUrl = data => {
-  if (!data) return null
-  const logo = data.logo
-  if (!logo) return null
-  if (typeof logo === 'string') return logo
-  return logo.url || null
-}
 
 const HeroPreviewBody = styled(Box)`
   ${theme({
@@ -237,12 +289,30 @@ const HeroPreviewBody = styled(Box)`
   }
 `
 
-const LinkPreview = styled(Microlink)`
+const LinkPreview = styled(LinkPreviewRaw)`
   --microlink-max-width: 100%;
   --microlink-hover-background-color: white;
   width: 100%;
   max-width: 100%;
 `
+
+const HERO_PREVIEW_MEDIA = ['video', 'audio', 'image', 'logo']
+
+const HeroPreview = React.memo(
+  function HeroPreview ({ url, data }) {
+    return (
+      <LinkPreview
+        key={url}
+        size='large'
+        url={url}
+        fetchData={false}
+        setData={() => data}
+        media={HERO_PREVIEW_MEDIA}
+      />
+    )
+  },
+  (prev, next) => prev.url === next.url
+)
 
 const HeroApiBar = styled(Flex)`
   ${theme({
@@ -338,18 +408,94 @@ const Hero = function Hero ({
 }) {
   const isMounted = useMounted()
   const [isCopied, setIsCopied] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+  const [placeholderText, setPlaceholderText] = useState(data.url || '')
   const copyTimerRef = useRef(null)
+  const userInteractedRef = useRef(false)
+  const onSubmitRef = useRef(onSubmit)
+  onSubmitRef.current = onSubmit
 
-  const activeDemoId = HERO_DEMOS.find(d => d.url === data.url)?.id
-
-  const handleDemoPick = demo => {
-    if (demo.url === data.url) return
-    trackEvent('demo submit', { product: 'embed' })
-    onSubmit(demo.url, { queryUrl: demo.url, syncQuery: false })
+  const handleInputChange = e => {
+    if (!userInteractedRef.current) {
+      userInteractedRef.current = true
+      setPlaceholderText(data.url)
+    }
+    setInputValue(e.target.value)
   }
 
-  const palette = extractPalette(data).map(toColor).filter(Boolean).slice(0, 6)
-  const logoUrl = extractLogoUrl(data)
+  useEffect(() => {
+    if (userInteractedRef.current) return
+    const timers = []
+    let previousUrl = data.url || ''
+    let timeOffset = INITIAL_DELAY_MS
+
+    PLACEHOLDER_CYCLE.forEach(nextUrl => {
+      // capture per-iteration so timer closures don't read the mutated outer var
+      const fromUrl = previousUrl
+      const toUrl = nextUrl
+
+      // erase the previous URL, char by char
+      const eraseStart = timeOffset
+      for (let i = 1; i <= fromUrl.length; i++) {
+        timers.push(
+          setTimeout(() => {
+            if (userInteractedRef.current) return
+            setPlaceholderText(fromUrl.slice(0, fromUrl.length - i))
+          }, eraseStart + i * TYPING_SPEED_MS)
+        )
+      }
+      timeOffset = eraseStart + fromUrl.length * TYPING_SPEED_MS
+
+      // type the next URL, char by char
+      const typeStart = timeOffset
+      for (let i = 1; i <= toUrl.length; i++) {
+        timers.push(
+          setTimeout(() => {
+            if (userInteractedRef.current) return
+            setPlaceholderText(toUrl.slice(0, i))
+          }, typeStart + i * TYPING_SPEED_MS)
+        )
+      }
+      timeOffset = typeStart + toUrl.length * TYPING_SPEED_MS
+
+      // fetch after a brief hold so the typed URL is readable
+      timers.push(
+        setTimeout(() => {
+          if (userInteractedRef.current) return
+          onSubmitRef.current(toUrl, { queryUrl: toUrl, syncQuery: false })
+        }, timeOffset + HOLD_AFTER_TYPING_MS)
+      )
+
+      timeOffset += HOLD_AFTER_TYPING_MS + VIEW_PREVIEW_MS
+      previousUrl = toUrl
+    })
+
+    return () => timers.forEach(clearTimeout)
+  }, [])
+
+  const normalizeInputUrl = raw => {
+    const trimmed = (raw || '').trim()
+    if (!trimmed) return null
+    const withProtocol = /^https?:\/\//i.test(trimmed)
+      ? trimmed
+      : `https://${trimmed}`
+    try {
+      const parsed = new URL(withProtocol)
+      if (!parsed.hostname.includes('.')) return null
+      return parsed.href
+    } catch {
+      return null
+    }
+  }
+
+  const handleInputSubmit = e => {
+    e.preventDefault()
+    if (isLoading) return
+    const normalized = normalizeInputUrl(inputValue)
+    if (!normalized || normalized === data.url) return
+    trackEvent('demo submit', { product: 'embed' })
+    onSubmit(normalized, { queryUrl: normalized, syncQuery: false })
+  }
 
   const apiUrl = `https://api.microlink.io?url=${data.url}`
 
@@ -462,91 +608,31 @@ const Hero = function Hero ({
             })}
           >
             <HeroPreviewShell>
-              <HeroSelector role='radiogroup' aria-label='Pick a demo URL'>
-                {HERO_DEMOS.map(demo => {
-                  const isActive = activeDemoId === demo.id
-                  return (
-                    <SelectorButton
-                      key={demo.id}
-                      type='button'
-                      role='radio'
-                      aria-checked={isActive}
-                      aria-pressed={isActive}
-                      onClick={() => handleDemoPick(demo)}
-                    >
-                      {demo.label}
-                    </SelectorButton>
-                  )
-                })}
-              </HeroSelector>
+              <HeroInputBar onSubmit={handleInputSubmit}>
+                <HeroInput
+                  type='text'
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  placeholder={placeholderText}
+                  aria-label='URL to preview'
+                  spellCheck={false}
+                  autoComplete='off'
+                  autoCorrect='off'
+                  autoCapitalize='off'
+                />
+                <HeroPreviewButton
+                  type='submit'
+                  disabled={isLoading}
+                  aria-label={isLoading ? 'Loading preview' : 'Preview URL'}
+                  aria-busy={isLoading}
+                >
+                  {isLoading ? 'Loading…' : 'Preview'}
+                </HeroPreviewButton>
+              </HeroInputBar>
 
               <HeroPreviewBody>
                 <Box css={theme({ width: '100%' })}>
-                  <LinkPreview
-                    key={data.url}
-                    loading={isLoading ? true : undefined}
-                    size='large'
-                    url={data.url}
-                    fetchData={false}
-                    setData={() => data}
-                    media={['video', 'audio', 'image', 'logo']}
-                  />
-                  {(palette.length > 0 || logoUrl) && (
-                    <Flex
-                      css={theme({
-                        pt: [3, 3, 4, 4],
-                        alignItems: 'center',
-                        gap: 2,
-                        flexWrap: 'wrap'
-                      })}
-                      aria-label='Detected brand logo and palette'
-                    >
-                      {logoUrl && (
-                        <>
-                          <Caps
-                            css={theme({
-                              fontSize: 0,
-                              fontWeight: 'bold',
-                              color: 'black60',
-                              letterSpacing: 2,
-                              pr: 2
-                            })}
-                          >
-                            Logo
-                          </Caps>
-                          <LogoThumb
-                            $src={logoUrl}
-                            role='img'
-                            aria-label='Detected logo'
-                            title={logoUrl}
-                          />
-                        </>
-                      )}
-                      {palette.length > 0 && (
-                        <>
-                          <Caps
-                            css={theme({
-                              fontSize: 0,
-                              fontWeight: 'bold',
-                              color: 'black60',
-                              letterSpacing: 2,
-                              pl: logoUrl ? 3 : 0,
-                              pr: 2
-                            })}
-                          >
-                            Palette
-                          </Caps>
-                          {palette.map((color, i) => (
-                            <PaletteChip
-                              key={`${color}-${i}`}
-                              $color={color}
-                              aria-label={`Detected color ${color}`}
-                            />
-                          ))}
-                        </>
-                      )}
-                    </Flex>
-                  )}
+                  <HeroPreview url={data.url} data={data} />
                 </Box>
               </HeroPreviewBody>
 
@@ -560,39 +646,37 @@ const Hero = function Hero ({
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </HeroCopyButton>
               </HeroApiBar>
             </HeroPreviewShell>
@@ -882,34 +966,6 @@ const CAPABILITIES = [
     title: 'Lazy by default',
     description:
       'IntersectionObserver defers the API call until the embed enters the viewport. Pages with hundreds of embeds still hit a fast first paint.'
-  },
-  {
-    icon: (
-      <svg
-        width='20'
-        height='20'
-        viewBox='0 0 24 24'
-        fill='none'
-        stroke='currentColor'
-        strokeWidth='2'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        aria-hidden='true'
-      >
-        <line x1='4' y1='21' x2='4' y2='14' />
-        <line x1='4' y1='10' x2='4' y2='3' />
-        <line x1='12' y1='21' x2='12' y2='12' />
-        <line x1='12' y1='8' x2='12' y2='3' />
-        <line x1='20' y1='21' x2='20' y2='16' />
-        <line x1='20' y1='12' x2='20' y2='3' />
-        <line x1='1' y1='14' x2='7' y2='14' />
-        <line x1='9' y1='8' x2='15' y2='8' />
-        <line x1='17' y1='16' x2='23' y2='16' />
-      </svg>
-    ),
-    title: 'Theme without forking',
-    description:
-      'CSS variables (--microlink-*) and stable BEM class names for theming. No fork, no styled-components contract — just CSS you already know.'
   }
 ]
 
@@ -929,15 +985,15 @@ const CapabilityIcon = styled(Flex)`
   })};
 `
 
-const CAPABILITIES_DEMO_URL = 'https://www.youtube.com/watch?v=9P6rdqiybaw'
-
 const ExampleShell = styled(Box)`
   ${theme({
     width: '100%',
+    maxWidth: '100%',
     bg: 'white',
     borderRadius: 3,
     overflow: 'hidden'
   })};
+  min-width: 0;
   box-shadow: 0 8px 32px ${colors.black10};
 `
 
@@ -1003,13 +1059,18 @@ const ExampleBody = styled(Box)`
   position: relative;
 `
 
+const EXAMPLE_PREVIEW_MAX_WIDTH = '620px'
+
 const ExampleIframeFrame = styled(Box)`
   ${theme({
     width: '100%',
+    maxWidth: '100%',
     px: [2, 3, 4, 4],
-    py: [3, 3, 4, 4]
+    pt: [3, 3, 4, 4],
+    pb: [1, 1, 2, 2]
   })};
   flex: 1;
+  min-width: 0;
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -1018,11 +1079,10 @@ const ExampleIframeFrame = styled(Box)`
   overflow: hidden;
 
   & iframe {
+    display: block;
+    width: 100%;
+    max-width: ${EXAMPLE_PREVIEW_MAX_WIDTH};
     height: 100%;
-    width: auto;
-    max-width: 100%;
-    max-height: 100%;
-    aspect-ratio: 16 / 9;
     border: 0;
     border-radius: ${radii[2]};
     background: ${colors.black05};
@@ -1032,8 +1092,22 @@ const ExampleIframeFrame = styled(Box)`
   & .microlink_card__iframe,
   & .microlink_card__iframe iframe {
     width: 100%;
-    max-width: 100%;
+    max-width: ${EXAMPLE_PREVIEW_MAX_WIDTH};
   }
+`
+
+const ExampleDemoSelector = styled(Flex)`
+  ${theme({
+    width: '100%',
+    px: [2, 3, 3, 3],
+    pt: 0,
+    pb: [3, 3, 4, 4],
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 1,
+    flexWrap: 'wrap',
+    bg: 'white'
+  })};
 `
 
 const ExampleFooter = styled(Flex)`
@@ -1107,13 +1181,15 @@ const ExampleCopyButton = styled('button')`
 
 const InteractiveExample = () => {
   const [source, setSource] = useState('iframe')
+  const [activeDemo, setActiveDemo] = useState(HERO_DEMOS[0])
   const [isCopied, setIsCopied] = useState(false)
   const copyTimerRef = useRef(null)
 
-  const iframeHtml = DEMO_LINK?.data?.iframe?.html || ''
+  const demoUrl = activeDemo.url
+  const iframeHtml = activeDemo.data?.iframe?.html || ''
 
-  const apiUrl = `https://api.microlink.io?url=${CAPABILITIES_DEMO_URL}&iframe`
-  const sdkLine = `<Microlink url='${CAPABILITIES_DEMO_URL}' />`
+  const apiUrl = `https://api.microlink.io?url=${demoUrl}&iframe`
+  const sdkLine = `<Microlink url='${demoUrl}' />`
   const copyText = source === 'iframe' ? apiUrl : sdkLine
 
   const handleCopy = () => {
@@ -1159,80 +1235,93 @@ const InteractiveExample = () => {
         </ToggleGroup>
       </ExampleToolbar>
       <ExampleBody>
-        {source === 'iframe'
-          ? (
-            <ExampleIframeFrame
-              dangerouslySetInnerHTML={{ __html: iframeHtml }}
+        {source === 'iframe' ? (
+          <ExampleIframeFrame
+            key={`iframe-${demoUrl}`}
+            dangerouslySetInnerHTML={{ __html: iframeHtml }}
+          />
+        ) : (
+          <ExampleIframeFrame>
+            <Microlink
+              key={`sdk-${demoUrl}`}
+              url={demoUrl}
+              size='large'
+              media={['video', 'audio', 'image', 'logo']}
+              fetchData={false}
+              setData={() => activeDemo.data}
             />
-            )
-          : (
-            <ExampleIframeFrame>
-              <Microlink
-                key={`sdk-${CAPABILITIES_DEMO_URL}`}
-                url={CAPABILITIES_DEMO_URL}
-                size='large'
-                media={['video', 'audio', 'image', 'logo']}
-                fetchData={false}
-                setData={() => DEMO_LINK?.data}
-              />
-            </ExampleIframeFrame>
-            )}
+          </ExampleIframeFrame>
+        )}
       </ExampleBody>
+      <ExampleDemoSelector role='radiogroup' aria-label='Pick an example URL'>
+        {HERO_DEMOS.map(demo => {
+          const isActive = activeDemo.id === demo.id
+          return (
+            <HeroDemoButton
+              key={demo.id}
+              type='button'
+              role='radio'
+              aria-checked={isActive}
+              aria-pressed={isActive}
+              onClick={() => setActiveDemo(demo)}
+            >
+              <img src={demo.icon} alt='' loading='lazy' decoding='async' />
+              <span>{demo.label}</span>
+            </HeroDemoButton>
+          )
+        })}
+      </ExampleDemoSelector>
       <ExampleFooter>
         <ExampleFooterText>
-          {source === 'iframe'
-            ? (
-              <>
-                {`https://api.microlink.io?url=${CAPABILITIES_DEMO_URL}`}
-                <strong>&iframe</strong>
-              </>
-              )
-            : (
-              <>
-                <strong>{"<Microlink url='"}</strong>
-                {CAPABILITIES_DEMO_URL}
-                <strong>{"' />"}</strong>
-              </>
-              )}
+          {source === 'iframe' ? (
+            <>
+              {`https://api.microlink.io?url=${demoUrl}`}
+              <strong>&iframe</strong>
+            </>
+          ) : (
+            <>
+              <strong>{"<Microlink url='"}</strong>
+              {demoUrl}
+              <strong>{"' />"}</strong>
+            </>
+          )}
         </ExampleFooterText>
         <ExampleCopyButton
           type='button'
           onClick={handleCopy}
           aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
         >
-          {isCopied
-            ? (
-              <svg
-                className='icon-check'
-                width='16'
-                height='16'
-                viewBox='0 0 16 16'
-                fill='none'
-                aria-hidden='true'
-              >
-                <path
-                  d='M3 8l3.5 3.5L13 4.5'
-                  stroke='currentColor'
-                  strokeWidth='1.8'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-              </svg>
-              )
-            : (
-              <svg
-                width='16'
-                height='16'
-                viewBox='0 0 16 16'
-                fill='currentColor'
-                aria-hidden='true'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                />
-              </svg>
-              )}
+          {isCopied ? (
+            <svg
+              className='icon-check'
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='none'
+              aria-hidden='true'
+            >
+              <path
+                d='M3 8l3.5 3.5L13 4.5'
+                stroke='currentColor'
+                strokeWidth='1.8'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+          ) : (
+            <svg
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='currentColor'
+              aria-hidden='true'
+            >
+              <path
+                fillRule='evenodd'
+                d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+              />
+            </svg>
+          )}
         </ExampleCopyButton>
       </ExampleFooter>
     </ExampleShell>
@@ -1264,6 +1353,7 @@ const Capabilities = () => (
       <Flex
         css={theme({
           width: ['100%', '100%', '100%', '50%'],
+          minWidth: 0,
           pt: [4, 4, 5, 0],
           flexDirection: 'column',
           justifyContent: 'center',
@@ -1292,6 +1382,21 @@ const Capabilities = () => (
           <LineBreak />
           <span css={theme({ color: 'teal7' })}>one component away</span>
         </Subhead>
+        <Text
+          css={theme({
+            fontSize: [1, 1, 2, 2],
+            color: 'black80',
+            lineHeight: 1.5,
+            textAlign: ['center', 'center', 'center', 'left'],
+            width: '100%'
+          })}
+        >
+          Choose the <strong>iframe</strong> for a quick, native HTML snippet
+          that works anywhere without a library. Or, choose our{' '}
+          <strong>SDK</strong> to create a unified experience; it enriches every
+          URL with a consistent UI/UX, turning messy links into high-performance
+          components for music, video, and more.
+        </Text>
         <Flex
           css={[
             theme({ gap: [3, 3, 3, 4], width: '100%' }),
@@ -2523,7 +2628,7 @@ export const Head = () => (
 const EmbedPage = () => {
   return (
     <Layout>
-      <FetchProvider mqlOpts={{ palette: true }}>
+      <FetchProvider>
         {({ status, doFetch, data }) => {
           const isLoading = status === 'fetching'
           const unifiedData = data || DEMO_LINK.data
