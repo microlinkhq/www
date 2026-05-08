@@ -13,7 +13,6 @@ import styled, { keyframes } from 'styled-components'
 
 import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
-import { findDemoLinkById } from 'helpers/demo-links'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
@@ -55,48 +54,176 @@ import ossData from '../../data/oss.json'
 const ACCENT = colors.teal7
 const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 
-const INITIAL_SUGGESTION = 'youtube'
-const DEMO_LINK = findDemoLinkById(INITIAL_SUGGESTION)
-
 // Each demo showcases a distinct embed flavor (video, audio, photo, tweet,
 // alt-video, rich article).
+const YOUTUBE_DEMO_DATA = {
+  title: 'Wormholes Explained – Breaking Spacetime',
+  description:
+    'To support Kurzgesagt and learn more about Brilliant, go to https://www.brilliant.org/nutshell and sign up for free.',
+  url: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
+  publisher: 'YouTube',
+  author: 'Kurzgesagt – In a Nutshell',
+  image: {
+    url: 'https://cdn.microlink.io/data/assets/youtube.com!watch!v=9P6rdqiybaw/img.youtube.com!vi!9P6rdqiybaw!maxresdefault.jpg.jpg',
+    palette: ['#C004F9', '#EEEEA7', '#25047C', '#740296', '#808018', '#2C0494'],
+    background_color: '#EEEEA7',
+    color: '#AC04DF',
+    alternative_color: '#2C0494'
+  },
+  logo: {
+    url: 'https://cdn.microlink.io/data/assets/youtube.com!watch!v=9P6rdqiybaw/logo.clearbit.com!youtube.com.png',
+    palette: ['#FC0404', '#FC8484', '#830101', '#970101', '#950303'],
+    background_color: '#FC0404',
+    color: '#320000'
+  },
+  iframe: {
+    html: '<iframe width="480" height="270" src="https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+    scripts: []
+  }
+}
+
+const SPOTIFY_DEMO_DATA = {
+  title: 'Beat It',
+  description: 'Spotify Web',
+  url: 'https://open.spotify.com/track/3BovdzfaX4jb5KFQwoPfAw',
+  publisher: 'Spotify',
+  author: 'Michael Jackson',
+  image: {
+    url: 'https://image-cdn-ak.spotifycdn.com/image/ab67616d0000b27332a7d87248d1b75463483df5',
+    palette: ['#D6D4C4', '#9FABA8', '#877563', '#171C1E', '#7B9096', '#5B6A67'],
+    background_color: '#D6D4C4',
+    color: '#171C1E',
+    alternative_color: '#625548'
+  },
+  logo: {
+    url: 'https://open.spotifycdn.com/cdn/images/favicon32.b64ecc03.png',
+    palette: ['#1ED760', '#1ED860', '#1ED961', '#1EDB62', '#1EDA61'],
+    background_color: '#1ED760',
+    color: '#0C5526'
+  },
+  iframe: {
+    html: '<iframe style="border-radius: 12px" width="100%" height="152" title="Spotify Embed: Beat It" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" src="https://open.spotify.com/embed/track/3BovdzfaX4jb5KFQwoPfAw?utm_source=oembed"></iframe>',
+    scripts: []
+  }
+}
+
+const VIMEO_DEMO_DATA = {
+  title: "Converse All Star Modern - Director's Cut",
+  description:
+    'Past meets present is the main concept of the new Converse collection. Inspired by a particular environment each sneaker get transformed from the original retro version to a totally brand new one.',
+  url: 'https://vimeo.com/186386161',
+  publisher: 'vimeo.com',
+  author: 'pleid',
+  image: {
+    url: 'https://cdn.microlink.io/data/assets/vimeo.com!186386161/i.vimeocdn.com!filter!overlay!src0=https!i.vimeocdn.com!video!596415462_1280x720.jpg&src1=https!f.vi',
+    palette: ['#9E6039', '#EBD6B9', '#4E220E', '#A3724F', '#CCBCA9', '#554029'],
+    background_color: '#EBD6B9',
+    color: '#4E220E',
+    alternative_color: '#824F2F'
+  },
+  logo: {
+    url: 'https://cdn.microlink.io/data/assets/vimeo.com!186386161/logo.clearbit.com!vimeo.com.png',
+    palette: ['#887676', '#C1B7B7', '#473D3D', '#545454', '#514747'],
+    background_color: '#887676',
+    color: '#0F0D0D'
+  },
+  iframe: {
+    html: '<iframe src="https://player.vimeo.com/video/186386161?app_id=122963" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="Converse All Star Modern"></iframe>',
+    scripts: []
+  }
+}
+
+const PRODUCTHUNT_DEMO_DATA = {
+  title:
+    'macOS Mojave - The next generation of software for Macs | Product Hunt',
+  description:
+    'Stay better focused on your work in Dark Mode. Automatically organize files using Stacks. Take more kinds of screenshots with less effort.',
+  url: 'https://www.producthunt.com/posts/macos-mojave',
+  publisher: 'Product Hunt',
+  image: {
+    url: 'https://cdn.microlink.io/data/assets/producthunt.com!posts!macos-mojave/ph-files.imgix.net!871df586-9f3b-41ce-8335-e01993da117a!auto=format&fit=crop&h=512&w=1024.jpg',
+    palette: ['#3AACC6', '#FAE4C2', '#A06C24', '#5E86B1', '#D1AB9D', '#334054'],
+    background_color: '#FAE4C2',
+    color: '#236878',
+    alternative_color: '#8C5F20'
+  },
+  logo: {
+    url: 'https://cdn.microlink.io/data/assets/producthunt.com!posts!macos-mojave/logo.clearbit.com!producthunt.com.png',
+    palette: ['#DC542C', '#ECA494', '#712812', '#832E15', '#812A17'],
+    background_color: '#DC542C',
+    color: '#2C1007'
+  },
+  iframe: {
+    html: '<iframe style="border: none;" src="https://cards.producthunt.com/cards/posts/128194?v=1" width="500" height="405" frameborder="0" scrolling="no" allowfullscreen></iframe>',
+    scripts: []
+  }
+}
+
+const TED_DEMO_DATA = {
+  title: 'What I learned from 100 days of rejection',
+  description:
+    'Jia Jiang adventures boldly into a territory so many of us fear: rejection. By seeking out rejection for 100 days -- from asking a stranger to borrow $100 to requesting a "burger refill" at a restaurant.',
+  url: 'https://www.ted.com/talks/jia_jiang_what_i_learned_from_100_days_of_rejection',
+  publisher: 'ted.com',
+  author: 'Jia Jiang',
+  image: {
+    url: 'https://cdn.microlink.io/data/assets/ted.com!talks!jia_jiang_what_i_learned_from_100_days_of_rejection/pi.tedcdn.com!r!talkstar-photos.s3.amazonaws.com!uploads!c4a42ee3-cf78-419d-88a0-cd5194b4432a!JiaJia',
+    palette: ['#AE6C4C', '#DAAA94', '#795C0F', '#AB7462', '#C8ACCC', '#263253'],
+    background_color: '#AE6C4C',
+    color: '#140F02',
+    alternative_color: '#FFFFFF'
+  },
+  logo: {
+    url: 'https://cdn.microlink.io/data/assets/ted.com!talks!jia_jiang_what_i_learned_from_100_days_of_rejection/logo.clearbit.com!ted.com.png',
+    palette: ['#E42C1C', '#F49A93', '#76160E', '#881910', '#8A170E'],
+    background_color: '#E42C1C',
+    color: '#100302'
+  },
+  iframe: {
+    html: '<iframe src="https://embed.ted.com/talks/jia_jiang_what_i_learned_from_100_days_of_rejection" width="560" height="316" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>',
+    scripts: []
+  }
+}
+
+const DEMO_LINK = { data: YOUTUBE_DEMO_DATA }
+
 const HERO_DEMOS = [
   {
     id: 'youtube',
     label: 'YouTube',
-    icon: 'https://cdn.microlink.io/data/assets/youtube.com!watch!v=9P6rdqiybaw/logo.clearbit.com!youtube.com.png'
+    url: YOUTUBE_DEMO_DATA.url,
+    icon: 'https://cdn.microlink.io/data/assets/youtube.com!watch!v=9P6rdqiybaw/logo.clearbit.com!youtube.com.png',
+    data: YOUTUBE_DEMO_DATA
   },
   {
     id: 'spotify',
     label: 'Spotify',
-    icon: 'https://cdn.microlink.io/data/assets/open.spotify.com!track!1W2919zs8SBCLTrOB1ftQT/logo.clearbit.com!spotify.com.png'
-  },
-  {
-    id: 'instagram',
-    label: 'Instagram',
-    icon: 'https://cdn.microlink.io/data/assets/instagram.com!p!BvDTdWdnzkj/logo.clearbit.com!instagram.com.png'
+    url: SPOTIFY_DEMO_DATA.url,
+    icon: 'https://cdn.microlink.io/data/assets/open.spotify.com!track!1W2919zs8SBCLTrOB1ftQT/logo.clearbit.com!spotify.com.png',
+    data: SPOTIFY_DEMO_DATA
   },
   {
     id: 'vimeo',
     label: 'Vimeo',
-    icon: 'https://cdn.microlink.io/data/assets/vimeo.com!186386161/logo.clearbit.com!vimeo.com.png'
+    url: VIMEO_DEMO_DATA.url,
+    icon: 'https://cdn.microlink.io/data/assets/vimeo.com!186386161/logo.clearbit.com!vimeo.com.png',
+    data: VIMEO_DEMO_DATA
   },
   {
     id: 'producthunt',
     label: 'Product Hunt',
-    icon: 'https://cdn.microlink.io/data/assets/producthunt.com!posts!macos-mojave/logo.clearbit.com!producthunt.com.png'
+    url: PRODUCTHUNT_DEMO_DATA.url,
+    icon: 'https://cdn.microlink.io/data/assets/producthunt.com!posts!macos-mojave/logo.clearbit.com!producthunt.com.png',
+    data: PRODUCTHUNT_DEMO_DATA
   },
   {
     id: 'ted',
     label: 'TED',
-    icon: 'https://cdn.microlink.io/data/assets/ted.com!talks!jia_jiang_what_i_learned_from_100_days_of_rejection/logo.clearbit.com!ted.com.png'
+    url: TED_DEMO_DATA.url,
+    icon: 'https://cdn.microlink.io/data/assets/ted.com!talks!jia_jiang_what_i_learned_from_100_days_of_rejection/logo.clearbit.com!ted.com.png',
+    data: TED_DEMO_DATA
   }
 ]
-  .map(demo => {
-    const found = findDemoLinkById(demo.id)
-    return found ? { ...demo, url: found.data.url, data: found.data } : null
-  })
-  .filter(Boolean)
 
 const HERO_LAYOUT = {
   maxWidth: ['100%', '100%', '100%', `calc(${layout.large} * 1.7)`],
@@ -1440,7 +1567,7 @@ const CODE_EXAMPLE_SNIPPET = `
 import Microlink from '@microlink/react'
 
 <Microlink
-  url='https://www.instagram.com/p/BeV6tOhFUor/',
+  url='https://www.youtube.com/watch?v=9P6rdqiybaw',
   apiKey='YOUR_API_KEY'
 />
 `
