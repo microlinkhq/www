@@ -1,5 +1,6 @@
 import {
   borders,
+  fonts,
   layout,
   colors,
   theme,
@@ -27,7 +28,13 @@ import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import { Check as CheckIcon, Star as StarIcon } from 'react-feather'
+import {
+  Check as CheckIcon,
+  Heart as HeartIcon,
+  MessageCircle as MessageIcon,
+  Repeat as RepeatIcon,
+  Star as StarIcon
+} from 'react-feather'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import CaptionBase from 'components/patterns/Caption/Caption'
@@ -773,39 +780,37 @@ const Hero = function Hero ({
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </HeroCopyButton>
               </HeroApiBar>
             </HeroPreviewShell>
@@ -1364,25 +1369,23 @@ const InteractiveExample = () => {
         </ToggleGroup>
       </ExampleToolbar>
       <ExampleBody>
-        {source === 'iframe'
-          ? (
-            <ExampleIframeFrame
-              key={`iframe-${demoUrl}`}
-              dangerouslySetInnerHTML={{ __html: iframeHtml }}
+        {source === 'iframe' ? (
+          <ExampleIframeFrame
+            key={`iframe-${demoUrl}`}
+            dangerouslySetInnerHTML={{ __html: iframeHtml }}
+          />
+        ) : (
+          <ExampleIframeFrame>
+            <Microlink
+              key={`sdk-${demoUrl}`}
+              url={demoUrl}
+              size='large'
+              media={['video', 'audio', 'image', 'logo']}
+              fetchData={false}
+              setData={() => activeDemo.data}
             />
-            )
-          : (
-            <ExampleIframeFrame>
-              <Microlink
-                key={`sdk-${demoUrl}`}
-                url={demoUrl}
-                size='large'
-                media={['video', 'audio', 'image', 'logo']}
-                fetchData={false}
-                setData={() => activeDemo.data}
-              />
-            </ExampleIframeFrame>
-            )}
+          </ExampleIframeFrame>
+        )}
       </ExampleBody>
       <ExampleDemoSelector role='radiogroup' aria-label='Pick an example URL'>
         {HERO_DEMOS.map(demo => {
@@ -1404,59 +1407,55 @@ const InteractiveExample = () => {
       </ExampleDemoSelector>
       <ExampleFooter>
         <ExampleFooterText>
-          {source === 'iframe'
-            ? (
-              <>
-                {`https://api.microlink.io?url=${demoUrl}`}
-                <strong>&iframe</strong>
-              </>
-              )
-            : (
-              <>
-                <strong>{"<Microlink url='"}</strong>
-                {demoUrl}
-                <strong>{"' />"}</strong>
-              </>
-              )}
+          {source === 'iframe' ? (
+            <>
+              {`https://api.microlink.io?url=${demoUrl}`}
+              <strong>&iframe</strong>
+            </>
+          ) : (
+            <>
+              <strong>{"<Microlink url='"}</strong>
+              {demoUrl}
+              <strong>{"' />"}</strong>
+            </>
+          )}
         </ExampleFooterText>
         <ExampleCopyButton
           type='button'
           onClick={handleCopy}
           aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
         >
-          {isCopied
-            ? (
-              <svg
-                className='icon-check'
-                width='16'
-                height='16'
-                viewBox='0 0 16 16'
-                fill='none'
-                aria-hidden='true'
-              >
-                <path
-                  d='M3 8l3.5 3.5L13 4.5'
-                  stroke='currentColor'
-                  strokeWidth='1.8'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-              </svg>
-              )
-            : (
-              <svg
-                width='16'
-                height='16'
-                viewBox='0 0 16 16'
-                fill='currentColor'
-                aria-hidden='true'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                />
-              </svg>
-              )}
+          {isCopied ? (
+            <svg
+              className='icon-check'
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='none'
+              aria-hidden='true'
+            >
+              <path
+                d='M3 8l3.5 3.5L13 4.5'
+                stroke='currentColor'
+                strokeWidth='1.8'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+          ) : (
+            <svg
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='currentColor'
+              aria-hidden='true'
+            >
+              <path
+                fillRule='evenodd'
+                d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+              />
+            </svg>
+          )}
         </ExampleCopyButton>
       </ExampleFooter>
     </ExampleShell>
@@ -1656,6 +1655,813 @@ const CodeExample = () => (
     </Flex>
   </Container>
 )
+
+// ─── Live Preview ─────────────────────────────────────────────────────────────
+
+const PREVIEW_URL = 'https://stripe.com'
+const PREVIEW_INTERVAL_MS = 3000
+const PREVIEW_FADE_MS = 560
+
+const PREVIEW_FALLBACK = {
+  title: 'Financial Infrastructure to Grow Your Revenue',
+  description:
+    'Join the millions of companies of all sizes that use Stripe online and in person to accept payments, send payouts, automate financial processes, and ultimately grow revenue.',
+  url: 'https://stripe.com',
+  publisher: 'Stripe',
+  author: 'Stripe',
+  image: {
+    url: '',
+    palette: ['#635BFF', '#0A2540', '#F6F9FC']
+  },
+  logo: {
+    url: ''
+  }
+}
+
+const PreviewMedia = ({ src, palette, alt = '', style }) => {
+  const [errored, setErrored] = useState(false)
+  const fallbackBg = palette?.[0] || colors.black05
+  if (!src || errored) {
+    return <div style={{ ...style, background: fallbackBg }} />
+  }
+  return (
+    <div style={{ ...style, overflow: 'hidden' }}>
+      <img
+        src={src}
+        alt={alt}
+        onError={() => setErrored(true)}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          display: 'block'
+        }}
+      />
+    </div>
+  )
+}
+
+const HeroCard = ({ data }) => (
+  <div
+    style={{
+      width: '100%',
+      maxWidth: 460,
+      background: '#fff',
+      borderRadius: 12,
+      overflow: 'hidden',
+      border: `1px solid ${colors.black10}`,
+      boxShadow: `0 8px 32px ${colors.black10}`,
+      fontFamily: fonts.sans
+    }}
+  >
+    <PreviewMedia
+      src={data.image?.url}
+      palette={data.image?.palette}
+      style={{ width: '100%', aspectRatio: '16 / 9' }}
+    />
+    <div style={{ padding: '14px 16px' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          marginBottom: 6
+        }}
+      >
+        {data.logo?.url && (
+          <img
+            src={data.logo.url}
+            alt=''
+            style={{ width: 16, height: 16, borderRadius: 4 }}
+          />
+        )}
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: colors.black60,
+            letterSpacing: 1,
+            textTransform: 'uppercase'
+          }}
+        >
+          {data.publisher}
+        </span>
+      </div>
+      <div
+        style={{
+          fontSize: 16,
+          fontWeight: 700,
+          color: colors.black,
+          lineHeight: 1.3,
+          marginBottom: 4
+        }}
+      >
+        {data.title}
+      </div>
+      <div
+        style={{
+          fontSize: 13,
+          color: colors.black70,
+          lineHeight: 1.5,
+          display: '-webkit-box',
+          WebkitLineClamp: 3,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden'
+        }}
+      >
+        {data.description}
+      </div>
+    </div>
+  </div>
+)
+
+const OneLineCard = ({ data }) => (
+  <div
+    style={{
+      width: '100%',
+      maxWidth: 460,
+      background: '#fff',
+      padding: '10px 14px',
+      borderRadius: 10,
+      border: `1px solid ${colors.black10}`,
+      boxShadow: `0 4px 16px ${colors.black10}`,
+      display: 'flex',
+      alignItems: 'center',
+      gap: 10,
+      fontFamily: fonts.sans
+    }}
+  >
+    {data.logo?.url ? (
+      <img
+        src={data.logo.url}
+        alt=''
+        style={{ width: 20, height: 20, borderRadius: 4, flexShrink: 0 }}
+      />
+    ) : (
+      <div
+        style={{
+          width: 20,
+          height: 20,
+          borderRadius: 4,
+          flexShrink: 0,
+          background: data.image?.palette?.[0] || colors.black10
+        }}
+      />
+    )}
+    <span
+      style={{
+        fontSize: 13,
+        fontWeight: 700,
+        color: colors.black,
+        whiteSpace: 'nowrap',
+        flexShrink: 0
+      }}
+    >
+      {data.publisher}
+    </span>
+    <span
+      style={{
+        fontSize: 13,
+        color: colors.black70,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        flex: 1,
+        minWidth: 0
+      }}
+    >
+      {data.title}
+    </span>
+    <span
+      style={{
+        fontSize: 12,
+        color: colors.black50,
+        fontFamily: fonts.mono,
+        flexShrink: 0
+      }}
+    >
+      stripe.com
+    </span>
+  </div>
+)
+
+const TelegramCard = ({ data }) => {
+  const accent = data.image?.palette?.[0] || '#635BFF'
+  return (
+    <div
+      style={{
+        width: '100%',
+        maxWidth: 380,
+        background: '#fff',
+        borderRadius: 18,
+        padding: '12px 14px 12px 22px',
+        position: 'relative',
+        border: `1px solid ${colors.black10}`,
+        boxShadow: `0 4px 18px ${colors.black10}`,
+        fontFamily: fonts.sans
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          left: 12,
+          top: 14,
+          bottom: 14,
+          width: 3,
+          borderRadius: 2,
+          background: accent
+        }}
+      />
+      <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              color: accent,
+              marginBottom: 2
+            }}
+          >
+            {data.publisher}
+          </div>
+          <div
+            style={{
+              fontSize: 14,
+              fontWeight: 700,
+              color: colors.black,
+              lineHeight: 1.3,
+              marginBottom: 4
+            }}
+          >
+            {data.title}
+          </div>
+          <div
+            style={{
+              fontSize: 13,
+              color: colors.black70,
+              lineHeight: 1.4,
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden'
+            }}
+          >
+            {data.description}
+          </div>
+        </div>
+        <PreviewMedia
+          src={data.image?.url}
+          palette={data.image?.palette}
+          style={{
+            width: 64,
+            height: 64,
+            borderRadius: 8,
+            flexShrink: 0
+          }}
+        />
+      </div>
+    </div>
+  )
+}
+
+const TwitterCard = ({ data }) => (
+  <div
+    style={{
+      width: '100%',
+      maxWidth: 460,
+      background: '#fff',
+      borderRadius: 14,
+      overflow: 'hidden',
+      border: `1px solid ${colors.black10}`,
+      boxShadow: `0 4px 16px ${colors.black10}`,
+      display: 'flex',
+      minHeight: 140,
+      fontFamily: fonts.sans
+    }}
+  >
+    <PreviewMedia
+      src={data.image?.url}
+      palette={data.image?.palette}
+      style={{ width: 140, flexShrink: 0, alignSelf: 'stretch' }}
+    />
+    <div
+      style={{
+        padding: 14,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 4,
+        flex: 1,
+        minWidth: 0,
+        justifyContent: 'center'
+      }}
+    >
+      <span
+        style={{
+          fontSize: 11,
+          color: colors.black60,
+          fontFamily: fonts.mono
+        }}
+      >
+        stripe.com
+      </span>
+      <div
+        style={{
+          fontSize: 14,
+          fontWeight: 700,
+          color: colors.black,
+          lineHeight: 1.3,
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden'
+        }}
+      >
+        {data.title}
+      </div>
+      <div
+        style={{
+          fontSize: 12,
+          color: colors.black70,
+          lineHeight: 1.4,
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden'
+        }}
+      >
+        {data.description}
+      </div>
+    </div>
+  </div>
+)
+
+const NotificationCard = ({ data }) => (
+  <div
+    style={{
+      width: '100%',
+      maxWidth: 380,
+      padding: '12px 14px',
+      borderRadius: 16,
+      background: 'rgba(255, 255, 255, 0.92)',
+      backdropFilter: 'blur(20px) saturate(180%)',
+      WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+      border: `1px solid ${colors.black10}`,
+      boxShadow: `0 12px 40px ${colors.black20}`,
+      display: 'flex',
+      gap: 10,
+      alignItems: 'flex-start',
+      fontFamily: fonts.sans
+    }}
+  >
+    {data.logo?.url ? (
+      <img
+        src={data.logo.url}
+        alt=''
+        style={{ width: 36, height: 36, borderRadius: 8, flexShrink: 0 }}
+      />
+    ) : (
+      <div
+        style={{
+          width: 36,
+          height: 36,
+          borderRadius: 8,
+          flexShrink: 0,
+          background: data.image?.palette?.[0] || colors.black10
+        }}
+      />
+    )}
+    <div style={{ flex: 1, minWidth: 0 }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 2,
+          gap: 8
+        }}
+      >
+        <span style={{ fontSize: 12, fontWeight: 700, color: colors.black }}>
+          {data.publisher}
+        </span>
+        <span style={{ fontSize: 11, color: colors.black50 }}>now</span>
+      </div>
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 700,
+          color: colors.black,
+          lineHeight: 1.3,
+          marginBottom: 2
+        }}
+      >
+        {data.title}
+      </div>
+      <div
+        style={{
+          fontSize: 12,
+          color: colors.black70,
+          lineHeight: 1.4,
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden'
+        }}
+      >
+        {data.description}
+      </div>
+    </div>
+  </div>
+)
+
+const ChatBubbleCard = ({ data }) => {
+  const accent = data.image?.palette?.[0] || '#635BFF'
+  return (
+    <div
+      style={{
+        width: '100%',
+        maxWidth: 320,
+        fontFamily: fonts.sans
+      }}
+    >
+      <div
+        style={{
+          background: '#d9fdd3',
+          borderRadius: 12,
+          borderTopRightRadius: 4,
+          padding: 5,
+          boxShadow: '0 1px 1.5px rgba(0, 0, 0, 0.13)',
+          position: 'relative'
+        }}
+      >
+        <div
+          style={{
+            background: 'rgba(0, 0, 0, 0.06)',
+            borderRadius: 8,
+            overflow: 'hidden',
+            marginBottom: 2,
+            paddingLeft: 8,
+            position: 'relative'
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: 3,
+              background: accent
+            }}
+          />
+          <PreviewMedia
+            src={data.image?.url}
+            palette={data.image?.palette}
+            style={{ width: '100%', aspectRatio: '2 / 1' }}
+          />
+          <div style={{ padding: '6px 10px 8px 8px' }}>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                color: colors.black,
+                lineHeight: 1.3,
+                marginBottom: 2,
+                display: '-webkit-box',
+                WebkitLineClamp: 1,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden'
+              }}
+            >
+              {data.title}
+            </div>
+            <div
+              style={{
+                fontSize: 11,
+                color: colors.black70,
+                lineHeight: 1.4,
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden'
+              }}
+            >
+              {data.description}
+            </div>
+          </div>
+        </div>
+        <div
+          style={{
+            padding: '4px 8px 0 8px',
+            fontSize: 14,
+            color: colors.black,
+            lineHeight: 1.4
+          }}
+        >
+          Check this webpage!{' '}
+          <span style={{ color: '#027eb5', textDecoration: 'underline' }}>
+            stripe.com
+          </span>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            gap: 3,
+            padding: '0 8px 2px',
+            fontSize: 10,
+            color: 'rgba(0, 0, 0, 0.45)'
+          }}
+        >
+          <span>12:34</span>
+          <span style={{ color: '#53bdeb', fontSize: 12, lineHeight: 1 }}>
+            ✓✓
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const TweetCard = ({ data }) => {
+  const accent = '#1d9bf0'
+  return (
+    <div
+      style={{
+        width: '100%',
+        maxWidth: 480,
+        fontFamily: fonts.sans,
+        background: '#fff',
+        borderRadius: 16,
+        border: `1px solid ${colors.black10}`,
+        boxShadow: `0 4px 16px ${colors.black10}`,
+        padding: '14px 16px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: '50%',
+            background: '#000',
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <span
+            style={{
+              color: '#fff',
+              fontWeight: 700,
+              fontSize: 18,
+              lineHeight: 1
+            }}
+          >
+            m
+          </span>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+            flexWrap: 'wrap',
+            minWidth: 0,
+            flex: 1
+          }}
+        >
+          <span style={{ fontSize: 14, fontWeight: 700, color: colors.black }}>
+            Microlink
+          </span>
+          <span style={{ fontSize: 14, color: colors.black50 }}>
+            @microlinkhq · 2h
+          </span>
+        </div>
+      </div>
+      <div style={{ fontSize: 14, color: colors.black, lineHeight: 1.4 }}>
+        Embed any URL with rich previews — try it with{' '}
+        <span style={{ color: accent }}>stripe.com</span>
+      </div>
+      <div
+        style={{
+          borderRadius: 14,
+          overflow: 'hidden',
+          border: `1px solid ${colors.black10}`
+        }}
+      >
+        <PreviewMedia
+          src={data.image?.url}
+          palette={data.image?.palette}
+          style={{ width: '100%', aspectRatio: '2 / 1' }}
+        />
+        <div style={{ padding: '10px 12px', background: '#fff' }}>
+          <div style={{ fontSize: 12, color: colors.black50, marginBottom: 2 }}>
+            stripe.com
+          </div>
+          <div
+            style={{
+              fontSize: 14,
+              fontWeight: 700,
+              color: colors.black,
+              lineHeight: 1.3,
+              marginBottom: 2,
+              display: '-webkit-box',
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden'
+            }}
+          >
+            {data.title}
+          </div>
+          <div
+            style={{
+              fontSize: 12,
+              color: colors.black70,
+              lineHeight: 1.4,
+              display: '-webkit-box',
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden'
+            }}
+          >
+            {data.description}
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          fontSize: 12,
+          color: colors.black50,
+          paddingTop: 2,
+          gap: 12
+        }}
+      >
+        <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <MessageIcon size={14} aria-hidden='true' /> 24
+        </span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <RepeatIcon size={14} aria-hidden='true' /> 188
+        </span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <HeartIcon size={14} aria-hidden='true' /> 1.2k
+        </span>
+      </div>
+    </div>
+  )
+}
+
+const PREVIEW_VARIANTS = [
+  HeroCard,
+  OneLineCard,
+  TelegramCard,
+  TwitterCard,
+  NotificationCard,
+  ChatBubbleCard,
+  TweetCard
+]
+
+const PreviewStage = styled(Box)`
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${theme({ minHeight: ['320px', '360px', '400px', '400px'] })};
+`
+
+const PreviewLayer = styled(Box)`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  transition: opacity ${PREVIEW_FADE_MS}ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform ${PREVIEW_FADE_MS}ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter ${PREVIEW_FADE_MS}ms cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: ${({ $active }) => ($active ? 1 : 0)};
+  transform: ${({ $active }) => ($active ? 'scale(1)' : 'scale(0.96)')};
+  filter: ${({ $active }) => ($active ? 'blur(0)' : 'blur(6px)')};
+  pointer-events: ${({ $active }) => ($active ? 'auto' : 'none')};
+
+  @media (prefers-reduced-motion: reduce) {
+    transform: none;
+    filter: none;
+    transition: opacity ${PREVIEW_FADE_MS}ms ease;
+  }
+`
+
+const LivePreview = () => {
+  const [data, setData] = useState(PREVIEW_FALLBACK)
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    let cancelled = false
+    fetch(`https://api.microlink.io/?url=${encodeURIComponent(PREVIEW_URL)}`)
+      .then(r => r.json())
+      .then(json => {
+        if (cancelled) return
+        if (json?.status === 'success' && json.data) setData(json.data)
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex(i => (i + 1) % PREVIEW_VARIANTS.length)
+    }, PREVIEW_INTERVAL_MS)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <Container
+      as='section'
+      id='live-preview'
+      css={theme({
+        alignItems: 'center',
+        maxWidth: '100%',
+        py: SECTION_VERTICAL_SPACING,
+        px: [3, 4, 5, 5]
+      })}
+    >
+      <Flex
+        css={theme({
+          width: '100%',
+          my: 4,
+          maxWidth: HERO_LAYOUT.maxWidth,
+          mx: 'auto',
+          flexDirection: ['column', 'column', 'column', 'row'],
+          alignItems: ['center', 'center', 'center', 'stretch'],
+          gap: [4, 4, 5, HERO_LAYOUT.gap[3]]
+        })}
+      >
+        <Flex
+          css={theme({
+            width: ['100%', '100%', '100%', '50%'],
+            flexDirection: 'column',
+            justifyContent: 'center'
+          })}
+        >
+          <PreviewStage>
+            {PREVIEW_VARIANTS.map((Variant, i) => (
+              <PreviewLayer
+                key={i}
+                $active={i === index}
+                aria-hidden={i !== index}
+              >
+                <Variant data={data} />
+              </PreviewLayer>
+            ))}
+          </PreviewStage>
+        </Flex>
+        <Flex
+          css={theme({
+            width: ['100%', '100%', '100%', '50%'],
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: ['center', 'center', 'center', 'flex-start']
+          })}
+        >
+          <Subhead
+            variant='gradient'
+            css={theme({
+              fontSize: [3, 3, 4, 4],
+              textAlign: ['center', 'center', 'center', 'left'],
+              width: '100%'
+            })}
+          >
+            Create your own previews
+          </Subhead>
+          <Caption
+            forwardedAs='div'
+            css={theme({
+              pt: [3, 3, 4, 4],
+              maxWidth: layout.normal,
+              fontSize: [1, 1, 2, 2],
+              textAlign: ['center', 'center', 'center', 'left']
+            })}
+          >
+            One call to the Microlink API returns every piece of metadata you
+            need — title, description, image, logo, palette, publisher. Style it
+            however you want and ship previews that feel native to your design
+            system.
+          </Caption>
+        </Flex>
+      </Flex>
+    </Container>
+  )
+}
 
 // ─── Clients ──────────────────────────────────────────────────────────────────
 
@@ -2778,6 +3584,7 @@ const EmbedPage = () => {
               <Providers />
               <Capabilities />
               <CodeExample />
+              <LivePreview />
               <Clients />
               <Pricing />
               <OpenSource />
