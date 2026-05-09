@@ -17,6 +17,7 @@ import { trackEvent } from 'helpers/plausible'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
+import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
@@ -2776,7 +2777,8 @@ const OpenSource = () => (
     css={theme({
       alignItems: 'center',
       width: '100%',
-      py: [5, 5, 5, 6],
+      pt: 0,
+      pb: [5, 5, 5, 6],
       px: [1, 1, 5, 5]
     })}
   >
@@ -2967,6 +2969,113 @@ const OpenSource = () => (
             Explore on GitHub
           </ArrowLink>
         </Flex>
+      </Flex>
+    </Flex>
+  </Container>
+)
+
+// ─── SDK ──────────────────────────────────────────────────────────────────────
+
+const SDK_CODE_SNIPPET = `
+import Microlink from '@microlink/react'
+
+<Microlink
+  url='https://www.youtube.com/watch?v=9P6rdqiybaw'
+  apiKey='YOUR_API_KEY',
+  size='large'
+/>
+`
+
+const SdkCodeWrap = styled(Box)`
+  ${theme({ width: '100%' })};
+  & > div:first-child {
+    width: 100%;
+    box-shadow: 0 8px 32px ${colors.black10};
+  }
+`
+
+const SdkSection = () => (
+  <Container
+    as='section'
+    id='sdk'
+    css={theme({
+      alignItems: 'center',
+      width: '100%',
+      py: [5, 5, 5, 6],
+      px: [1, 1, 5, 5]
+    })}
+  >
+    <Flex
+      css={theme({
+        width: '100%',
+        maxWidth: HERO_LAYOUT.maxWidth,
+        mx: 'auto',
+        flexDirection: ['column', 'column', 'column', 'row'],
+        alignItems: ['center', 'center', 'center', 'stretch'],
+        gap: HERO_LAYOUT.gap
+      })}
+    >
+      <Flex
+        css={theme({
+          flexDirection: 'column',
+          width: ['100%', '100%', '100%', HERO_LAYOUT.secondaryWidth],
+          justifyContent: 'center',
+          alignItems: ['center', 'center', 'center', 'flex-start']
+        })}
+      >
+        <Subhead
+          css={theme({
+            textAlign: ['center', 'center', 'center', 'left'],
+            fontSize: [3, 3, 4, 4],
+            width: '100%'
+          })}
+        >
+          A drop-in <span css={{ color: ACCENT }}>SDK</span>,
+          <br />
+          ready in seconds
+        </Subhead>
+        <Caption
+          css={theme({
+            pt: [3, 3, 4, 4],
+            px: [4, 4, 4, 0],
+            maxWidth: [
+              layout.small,
+              layout.small,
+              layout.normal,
+              layout.normal
+            ],
+            textAlign: ['center', 'center', 'center', 'left']
+          })}
+        >
+          The Microlink SDK turns any URL into a beautiful preview card. One
+          component, 280+ providers, under 10KB — works in React, Vue, and
+          vanilla JavaScript.
+        </Caption>
+        <Flex
+          css={theme({
+            pt: [3, 3, 4, 4],
+            width: '100%',
+            justifyContent: ['center', 'center', 'center', 'flex-start']
+          })}
+        >
+          <ArrowLink
+            href='/sdk'
+            css={theme({ fontSize: ['20px', '20px', '24px', '24px'] })}
+          >
+            Explore the SDK
+          </ArrowLink>
+        </Flex>
+      </Flex>
+      <Flex
+        css={theme({
+          width: ['100%', '100%', '100%', HERO_LAYOUT.mainWidth],
+          flexDirection: 'column',
+          justifyContent: 'center'
+        })}
+      >
+        <SdkCodeWrap>
+          <CodeEditor language='jsx'>{SDK_CODE_SNIPPET}</CodeEditor>
+        </SdkCodeWrap>
       </Flex>
     </Flex>
   </Container>
@@ -3497,6 +3606,7 @@ const EmbedPage = () => {
               <CopyPasteEmbed />
               <Clients />
               <Pricing />
+              <SdkSection />
               <OpenSource />
               <Hide breakpoints={[0]}>
                 <Features
