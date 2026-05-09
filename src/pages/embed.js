@@ -17,7 +17,6 @@ import { trackEvent } from 'helpers/plausible'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
-import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
@@ -1568,94 +1567,6 @@ const Capabilities = () => (
   </Container>
 )
 
-// ─── Code Example ─────────────────────────────────────────────────────────────
-
-const CODE_EXAMPLE_SNIPPET = `
-import Microlink from '@microlink/react'
-
-<Microlink
-  url='https://www.youtube.com/watch?v=9P6rdqiybaw',
-  apiKey='YOUR_API_KEY'
-/>
-`
-
-const CodeExampleWrap = styled(Box)`
-  ${theme({ width: '100%' })};
-  & > div:first-child {
-    width: 100%;
-    box-shadow: 0 8px 32px ${colors.black10};
-  }
-`
-
-const CodeExample = () => (
-  <Container
-    as='section'
-    id='code-example'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: '100%',
-      py: SECTION_VERTICAL_SPACING,
-      px: [3, 4, 5, 5]
-    })}
-  >
-    <Flex
-      css={theme({
-        width: '100%',
-        my: 4,
-        maxWidth: HERO_LAYOUT.maxWidth,
-        mx: 'auto',
-        flexDirection: ['column', 'column', 'column', 'row'],
-        alignItems: ['center', 'center', 'center', 'stretch'],
-        gap: [4, 4, 5, HERO_LAYOUT.gap[3]]
-      })}
-    >
-      <Flex
-        css={theme({
-          width: ['100%', '100%', '100%', '50%'],
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: ['center', 'center', 'center', 'flex-start']
-        })}
-      >
-        <Subhead
-          variant='gradient'
-          css={theme({
-            fontSize: [3, 3, 4, 4],
-            textAlign: ['center', 'center', 'center', 'left'],
-            width: '100%'
-          })}
-        >
-          Copy. Paste. Embed.
-        </Subhead>
-        <Caption
-          forwardedAs='div'
-          css={theme({
-            pt: [3, 3, 4, 4],
-            maxWidth: layout.normal,
-            fontSize: [1, 1, 2, 2],
-            textAlign: ['center', 'center', 'center', 'left']
-          })}
-        >
-          Same response shape from the API — pick your favorite client. From the
-          command line to Go, every snippet returns a normalized embed payload
-          you can render anywhere.
-        </Caption>
-      </Flex>
-      <Flex
-        css={theme({
-          width: ['100%', '100%', '100%', '50%'],
-          flexDirection: 'column',
-          justifyContent: 'center'
-        })}
-      >
-        <CodeExampleWrap>
-          <CodeEditor language='jsx'>{CODE_EXAMPLE_SNIPPET}</CodeEditor>
-        </CodeExampleWrap>
-      </Flex>
-    </Flex>
-  </Container>
-)
-
 // ─── Live Preview ─────────────────────────────────────────────────────────────
 
 const PREVIEW_URL = 'https://stripe.com'
@@ -2359,7 +2270,7 @@ const PreviewLayer = styled(Box)`
   }
 `
 
-const LivePreview = () => {
+const CopyPasteEmbed = () => {
   const [data, setData] = useState(PREVIEW_FALLBACK)
   const [index, setIndex] = useState(0)
 
@@ -2387,7 +2298,7 @@ const LivePreview = () => {
   return (
     <Container
       as='section'
-      id='live-preview'
+      id='copy-paste-embed'
       css={theme({
         alignItems: 'center',
         maxWidth: '100%',
@@ -2398,19 +2309,52 @@ const LivePreview = () => {
       <Flex
         css={theme({
           width: '100%',
-          my: 4,
           maxWidth: HERO_LAYOUT.maxWidth,
           mx: 'auto',
-          flexDirection: ['column', 'column', 'column', 'row'],
-          alignItems: ['center', 'center', 'center', 'stretch'],
+          flexDirection: ['column', 'column', 'row', 'row'],
+          alignItems: 'center',
+          justifyContent: 'center',
           gap: [4, 4, 5, HERO_LAYOUT.gap[3]]
         })}
       >
         <Flex
           css={theme({
-            width: ['100%', '100%', '100%', '50%'],
+            width: ['100%', '100%', '50%', '50%'],
             flexDirection: 'column',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            alignItems: ['center', 'center', 'flex-start', 'flex-start']
+          })}
+        >
+          <Subhead
+            variant='gradient'
+            css={theme({
+              fontSize: [3, 4, 5, 5],
+              textAlign: ['center', 'center', 'left', 'left'],
+              width: '100%'
+            })}
+          >
+            Copy. Paste. Embed.
+          </Subhead>
+          <Caption
+            forwardedAs='div'
+            css={theme({
+              pt: [3, 3, 4, 4],
+              maxWidth: layout.normal,
+              fontSize: [1, 1, 2, 2],
+              textAlign: ['center', 'center', 'left', 'left']
+            })}
+          >
+            One API call returns every piece of metadata you need — title,
+            description, image, logo, palette. Pick your favorite client and
+            ship previews that feel native to your design system.
+          </Caption>
+        </Flex>
+        <Flex
+          css={theme({
+            width: ['100%', '100%', '50%', '50%'],
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
           })}
         >
           <PreviewStage>
@@ -2424,39 +2368,6 @@ const LivePreview = () => {
               </PreviewLayer>
             ))}
           </PreviewStage>
-        </Flex>
-        <Flex
-          css={theme({
-            width: ['100%', '100%', '100%', '50%'],
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: ['center', 'center', 'center', 'flex-start']
-          })}
-        >
-          <Subhead
-            variant='gradient'
-            css={theme({
-              fontSize: [3, 3, 4, 4],
-              textAlign: ['center', 'center', 'center', 'left'],
-              width: '100%'
-            })}
-          >
-            Create your own previews
-          </Subhead>
-          <Caption
-            forwardedAs='div'
-            css={theme({
-              pt: [3, 3, 4, 4],
-              maxWidth: layout.normal,
-              fontSize: [1, 1, 2, 2],
-              textAlign: ['center', 'center', 'center', 'left']
-            })}
-          >
-            One call to the Microlink API returns every piece of metadata you
-            need — title, description, image, logo, palette, publisher. Style it
-            however you want and ship previews that feel native to your design
-            system.
-          </Caption>
         </Flex>
       </Flex>
     </Container>
@@ -3583,8 +3494,7 @@ const EmbedPage = () => {
               />
               <Providers />
               <Capabilities />
-              <CodeExample />
-              <LivePreview />
+              <CopyPasteEmbed />
               <Clients />
               <Pricing />
               <OpenSource />
