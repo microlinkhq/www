@@ -381,8 +381,8 @@ After writing:
 4. Verify NO `{{TOKEN}}` placeholders remain in the output (grep for `{{`).
 5. Verify the page composition includes (in order): `<Hero />`, `<AboutCustomer />`, `<HowTheyUseIt />`, `<WhyMicrolink />`, `<CtaSection />`, `<MoreCustomers />`, `<ThanksSection />`.
 6. Verify the new entry was added to `src/components/patterns/CustomerStory/customers.js`.
-6. Verify Hero CTA label ≠ Bottom CTA label.
-7. Do NOT run prettier or any other formatter.
+7. Verify Hero CTA label ≠ Bottom CTA label.
+8. Do NOT run prettier or any other formatter.
 
 ## Output Back to the User
 

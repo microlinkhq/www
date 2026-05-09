@@ -116,13 +116,13 @@ const PreviewCarousel = () => {
     <PreviewWrapper>
       <FigureImage
         src='/images/clients/r-advertising-preview-1.png'
-        alt='R-Advertising prospect swipe deck'
+        alt='R-Advertising prospect deck'
         loading='lazy'
         decoding='async'
       />
       <PreviewOverlayImage
         src='/images/clients/r-advertising-preview-2.png'
-        alt='R-Advertising prospect swipe deck'
+        alt='R-Advertising prospect deck swiping'
         loading='lazy'
         decoding='async'
         $active={showSecond}
