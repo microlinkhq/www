@@ -62,14 +62,14 @@ const AuthorAvatarBase = styled(Box)`
   ${theme({
     border: 1,
     borderRadius: '50%',
-    width: '36px',
-    height: '36px',
+    width: '50px',
+    height: '50px',
     flex: '0 0 auto',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     fontFamily: 'mono',
-    fontSize: 0,
+    fontSize: '18px',
     fontWeight: 'bold',
     letterSpacing: '0.04em',
     textTransform: 'uppercase'
@@ -129,29 +129,27 @@ export const Testimonial = ({
       {quote}
     </Quote>
     <Author as='figcaption'>
-      {avatar
-        ? (
-          <AuthorAvatarImage
-            src={avatar}
-            alt={author}
-            width='50'
-            height='50'
-            loading='lazy'
-            decoding='async'
-          />
-          )
-        : (
-          <AuthorAvatarBase
-            aria-hidden='true'
-            css={theme({
-              bg: accent.bgSoft,
-              borderColor: accent.bgEdge,
-              color: accent.text
-            })}
-          >
-            {initials}
-          </AuthorAvatarBase>
-          )}
+      {avatar ? (
+        <AuthorAvatarImage
+          src={avatar}
+          alt={author}
+          width='50'
+          height='50'
+          loading='lazy'
+          decoding='async'
+        />
+      ) : (
+        <AuthorAvatarBase
+          aria-hidden='true'
+          css={theme({
+            bg: accent.bgSoft,
+            borderColor: accent.bgEdge,
+            color: accent.text
+          })}
+        >
+          {initials}
+        </AuthorAvatarBase>
+      )}
       <Box>
         <AuthorName>{author}</AuthorName>
         <AuthorRole>
