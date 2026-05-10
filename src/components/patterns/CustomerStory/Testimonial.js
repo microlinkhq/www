@@ -129,27 +129,29 @@ export const Testimonial = ({
       {quote}
     </Quote>
     <Author as='figcaption'>
-      {avatar ? (
-        <AuthorAvatarImage
-          src={avatar}
-          alt={author}
-          width='50'
-          height='50'
-          loading='lazy'
-          decoding='async'
-        />
-      ) : (
-        <AuthorAvatarBase
-          aria-hidden='true'
-          css={theme({
-            bg: accent.bgSoft,
-            borderColor: accent.bgEdge,
-            color: accent.text
-          })}
-        >
-          {initials}
-        </AuthorAvatarBase>
-      )}
+      {avatar
+        ? (
+          <AuthorAvatarImage
+            src={avatar}
+            alt={author}
+            width='50'
+            height='50'
+            loading='lazy'
+            decoding='async'
+          />
+          )
+        : (
+          <AuthorAvatarBase
+            aria-hidden='true'
+            css={theme({
+              bg: accent.bgSoft,
+              borderColor: accent.bgEdge,
+              color: accent.text
+            })}
+          >
+            {initials}
+          </AuthorAvatarBase>
+          )}
       <Box>
         <AuthorName>{author}</AuthorName>
         <AuthorRole>
