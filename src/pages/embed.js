@@ -3035,6 +3035,7 @@ const SdkSection = () => (
           ready in seconds
         </Subhead>
         <Caption
+          titleize={false}
           css={theme({
             pt: [3, 3, 4, 4],
             px: [4, 4, 4, 0],
