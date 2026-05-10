@@ -41,11 +41,14 @@ const QuoteMarkBase = styled(Text).attrs({
   'aria-hidden': 'true'
 })`
   ${theme({
-    fontSize: ['28px', '32px', '36px', '40px'],
+    fontSize: ['32px', '36px', '40px', '44px'],
     fontWeight: 'bold',
-    lineHeight: 0,
-    display: 'block'
+    fontStyle: 'normal',
+    display: 'inline',
+    mr: 1
   })}
+  line-height: 0;
+  vertical-align: -0.25em;
 `
 
 const Author = styled(Flex)`
@@ -73,6 +76,19 @@ const AuthorAvatarBase = styled(Box)`
   })}
 `
 
+const AuthorAvatarImage = styled('img')`
+  ${theme({
+    border: 1,
+    borderColor: 'black10',
+    borderRadius: '50%',
+    width: '50px',
+    height: '50px',
+    flex: '0 0 auto',
+    display: 'block'
+  })}
+  object-fit: cover;
+`
+
 const AuthorName = styled(Text)`
   ${theme({
     color: 'black',
@@ -97,6 +113,7 @@ export const Testimonial = ({
   role,
   company,
   initials,
+  avatar,
   maxWidth = layout.small
 }) => (
   <TestimonialCardBase
@@ -107,19 +124,32 @@ export const Testimonial = ({
       my: [4, 4, 5, 5]
     })}
   >
-    <QuoteMarkBase css={theme({ color: accent.text })}>“</QuoteMarkBase>
-    <Quote>{quote}</Quote>
+    <Quote>
+      <QuoteMarkBase css={theme({ color: accent.text })}>“</QuoteMarkBase>
+      {quote}
+    </Quote>
     <Author as='figcaption'>
-      <AuthorAvatarBase
-        aria-hidden='true'
-        css={theme({
-          bg: accent.bgSoft,
-          borderColor: accent.bgEdge,
-          color: accent.text
-        })}
-      >
-        {initials}
-      </AuthorAvatarBase>
+      {avatar ? (
+        <AuthorAvatarImage
+          src={avatar}
+          alt={author}
+          width='50'
+          height='50'
+          loading='lazy'
+          decoding='async'
+        />
+      ) : (
+        <AuthorAvatarBase
+          aria-hidden='true'
+          css={theme({
+            bg: accent.bgSoft,
+            borderColor: accent.bgEdge,
+            color: accent.text
+          })}
+        >
+          {initials}
+        </AuthorAvatarBase>
+      )}
       <Box>
         <AuthorName>{author}</AuthorName>
         <AuthorRole>

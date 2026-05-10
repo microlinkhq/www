@@ -57,8 +57,8 @@ const Hero = () => (
           scrollMarginTop: 4
         })}
       >
-        <span css={theme({ color: ACCENT.text })}>Luckynote:</span> rich link
-        previews in a chat-style note app
+        <span css={theme({ color: ACCENT.text })}>Luckynote:</span> Rich Link
+        Previews in a Chat-Style Note App
       </Text>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
         How a "message yourself" notes app turns every URL into a tappable
@@ -144,11 +144,13 @@ const AboutCustomer = () => (
       </Box>
       <Testimonial
         accent={ACCENT}
-        quote="Microlink turns messy URLs into beautiful, tappable previews instantly. It's the fastest way to add professional polish to a cross-platform app."
+        maxWidth={layout.normal}
+        quote="Microlink turns messy URLs into beautiful previews instantly. It's the fastest way to add professional polish to our cross-platform app. On top of that, every time I had an idea of additional info that could be fetched, the team responded promptly, and we found a way to integrate it. It feels like the service is also growing with the customers' needs."
         author='Uros Durdevic'
         role='Founder'
         company='Luckynote'
         initials='UD'
+        avatar='https://unavatar.io/x/lucky_uros'
       />
     </SectionInner>
   </Section>
@@ -197,13 +199,13 @@ const HowTheyUseIt = () => (
       </BodyText>
       <Figure>
         <FigureImage
-          src='/images/clients/luckynote-preview.jpg'
+          src='/images/clients/luckynote-preview.png'
           alt='Luckynote using Microlink'
           width='1080'
           height='2201'
           loading='lazy'
           decoding='async'
-          css={theme({ maxWidth: '400px' })}
+          css={theme({ maxWidth: '900px', boxShadow: 'none' })}
         />
       </Figure>
     </SectionInner>
