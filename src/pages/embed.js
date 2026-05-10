@@ -58,7 +58,7 @@ import { withTitle } from 'helpers/hoc/with-title'
 import analyticsData from '../../data/analytics.json'
 import ossData from '../../data/oss.json'
 
-const ACCENT = colors.teal7
+const ACCENT = '#3e55ff'
 const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 
 // Each demo showcases a distinct embed flavor (video, audio, photo, tweet,
@@ -971,14 +971,14 @@ const Providers = () => {
         maxWidth: '100%',
         backgroundImage: `radial-gradient(
           circle at center right,
-          ${colors.teal9} 0%,
-          ${colors.teal9} 48%,
-          ${colors.teal8} 48%,
-          ${colors.teal8} 52%,
-          ${colors.teal7} 52%,
-          ${colors.teal7} 65%,
-          ${colors.teal6} 65%,
-          ${colors.teal6} 79%,
+          ${colors.blue9} 0%,
+          ${colors.blue9} 48%,
+          ${colors.blue8} 48%,
+          ${colors.blue8} 52%,
+          ${colors.blue7} 52%,
+          ${colors.blue7} 65%,
+          ${colors.blue6} 65%,
+          ${colors.blue6} 79%,
           ${ACCENT} 79%,
           ${ACCENT} 100%
         )`,
@@ -1114,9 +1114,9 @@ const CapabilityIcon = styled(Flex)`
     borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
-    flexShrink: 0,
-    color: 'teal7'
+    flexShrink: 0
   })};
+  color: ${ACCENT};
 `
 
 const ExampleShell = styled(Box)`
@@ -1514,7 +1514,7 @@ const Capabilities = () => (
         >
           One API call,
           <LineBreak />
-          <span css={theme({ color: 'teal7' })}>every embed</span>
+          <span css={{ color: ACCENT }}>every embed</span>
         </Subhead>
         <Text
           css={theme({
