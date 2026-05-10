@@ -718,9 +718,7 @@ const Hero = function Hero ({
               justifyContent: ['center', 'center', 'center', 'flex-start']
             })}
           >
-            <ArrowLink href='/docs/sdk/getting-started/overview/'>
-              Get Started
-            </ArrowLink>
+            <ArrowLink href='/docs/guides/embed'>Get Started</ArrowLink>
           </Flex>
         </Flex>
 
@@ -3219,7 +3217,7 @@ const CallToAction = () => (
         })}
       >
         <ArrowLink
-          href='/docs/sdk/getting-started/overview/'
+          href='/docs/guides/embed'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
           Get started free
@@ -3642,7 +3640,7 @@ const EmbedPage = () => {
                     <>
                       One SDK, every provider, under 10KB. Embed any URL with
                       easy integration via the{' '}
-                      <Link href='/docs/sdk/getting-started/overview/'>
+                      <Link href='/docs/guides/embed/sdk'>
                         Microlink SDK documentation
                       </Link>
                       .
