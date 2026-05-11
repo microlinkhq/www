@@ -50,20 +50,18 @@ const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 const SECTION_MAX_WIDTH = '1200px'
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=9P6rdqiybaw'
+const SPOTIFY_URL = 'https://open.spotify.com/track/3BovdzfaX4jb5KFQwoPfAw'
 const VERCEL_URL = 'https://vercel.com/home'
 const SOUNDCLOUD_URL =
   'https://soundcloud.com/beautybrainsp/beauty-brain-swag-bandicoot'
-const GITHUB_URL = 'https://github.com/cleanbrowsing/dnsperftest'
-const INSTAGRAM_URL = 'https://www.instagram.com/p/BvDTdWdnzkj'
+const GITHUB_URL = 'https://github.com/balderdashy/sails'
+const INSTAGRAM_URL = 'https://www.instagram.com/p/BeV6tOhFUor/'
 const STRIPE_URL = 'https://stripe.com'
 
 const INTEGRATIONS = [
   { logo: 'React', url: '/docs/sdk/integrations/react/' },
   { logo: 'Vue', url: '/docs/sdk/integrations/vue/' },
-  { logo: 'JavaScript', url: '/docs/sdk/integrations/vanilla/' },
-  { logo: 'Jekyll', url: '/docs/sdk/integrations/jekyll/' },
-  { logo: 'Hugo', url: '/docs/sdk/getting-started/overview/' },
-  { logo: 'Eleventy', url: '/docs/sdk/getting-started/overview/' }
+  { logo: 'JavaScript', url: '/docs/sdk/integrations/vanilla/' }
 ]
 
 const Icons = {
@@ -208,8 +206,6 @@ const PreviewFrame = styled(Box)`
     overflow: 'hidden',
     p: [3, 3, 4, 4]
   })}
-  border: ${borders[1]} ${colors.black10};
-  box-shadow: 0 2px 8px ${colors.black05};
 
   .microlink_card,
   .microlink_card__iframe,
@@ -587,7 +583,7 @@ const Sizes = () => (
           <Microlink url={VERCEL_URL} size='normal' media='logo' />
           <CaptionMono css={theme({ mb: 5 })}>size="normal"</CaptionMono>
           <Microlink url={VERCEL_URL} size='large' />
-          <CaptionMono css={theme({ mb: 3 })}>size="large"</CaptionMono>
+          <CaptionMono>size="large"</CaptionMono>
         </PreviewFrame>
       </Flex>
     </Flex>
@@ -624,18 +620,21 @@ const Media = () => (
         justifyContent: 'center'
       })}
     >
-      {MEDIA_VARIANTS.map(({ media, url, label }) => (
+      {MEDIA_VARIANTS.map(({ media, url, label }, index) => (
         <Flex
           key={label}
           css={theme({
             flexDirection: 'column',
             alignItems: 'center',
-            flex: [
-              '1 1 100%',
-              '1 1 100%',
-              '1 1 calc(50% - 16px)',
-              '1 1 calc(33.333% - 24px)'
-            ],
+            flex:
+              index === 4
+                ? ['1 1 100%', '1 1 100%', '0 1 50%', '0 1 50%']
+                : [
+                  '1 1 100%',
+                  '1 1 100%',
+                  '1 1 calc(50% - 16px)',
+                  '1 1 calc(50% - 16px)'
+                ],
             minWidth: 0
           })}
         >
@@ -762,30 +761,56 @@ const Lazy = () => (
       }
       caption='Lazy loading is on by default. Pass IntersectionObserver options to fine-tune the trigger.'
     />
-    <SplitRow>
-      <SplitCol>
+    <Flex
+      css={theme({
+        width: '100%',
+        maxWidth: SECTION_MAX_WIDTH,
+        mx: 'auto',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: [3, 3, 4, 5]
+      })}
+    >
+      <Box
+        css={theme({
+          width: '100%',
+          minWidth: 0,
+          display: 'flex',
+          justifyContent: 'center'
+        })}
+      >
         <MultiCodeEditor
           languages={{
             React: `<Microlink
-  url='${YOUTUBE_URL}'
+  url='${SPOTIFY_URL}'
   lazy={{ threshold: 0.5 }}
+  media='audio'
 />`,
             Vue: `<Microlink
-  url="${YOUTUBE_URL}"
+  url="${SPOTIFY_URL}"
   :lazy="{ threshold: 0.5 }"
+  media='audio'
 />`,
             Vanilla: `microlink('.link-preview', {
   lazy: { threshold: 0.5 }
+  media='audio'
 })`
           }}
         />
-      </SplitCol>
-      <SplitCol>
-        <PreviewFrame>
-          <Microlink url={YOUTUBE_URL} lazy={{ threshold: 0.5 }} />
-        </PreviewFrame>
-      </SplitCol>
-    </SplitRow>
+      </Box>
+      <PreviewFrame
+        css={theme({
+          width: '100%',
+          maxWidth: '650px',
+          minWidth: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        })}
+      >
+        <Microlink url={SPOTIFY_URL} lazy={{ threshold: 0.5 }} media='audio' />
+      </PreviewFrame>
+    </Flex>
   </SectionContainer>
 )
 
@@ -802,34 +827,49 @@ const CustomData = () => (
       }
       caption='Pass setData to merge or replace fields. Disable fetchData to skip the network call entirely.'
     />
-    <SplitRow>
-      <SplitCol>
+    <Flex
+      css={theme({
+        width: '100%',
+        maxWidth: SECTION_MAX_WIDTH,
+        mx: 'auto',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: [3, 3, 4, 5]
+      })}
+    >
+      <Box
+        css={theme({
+          width: '100%',
+          minWidth: 0,
+          display: 'flex',
+          justifyContent: 'center'
+        })}
+      >
         <CodeEditor language='jsx'>
           {`import Microlink from '@microlink/react'
 
 <Microlink
-  url='${INSTAGRAM_URL}'
-  setData={{
-    title: 'SENTRY ACTIVATED',
-    description: 'Are humans worth it?',
-    publisher: 'HAL 9000'
-  }}
+  url='https://www.instagram.com/p/BeV6tOhFUor/'
+  setData={{ title: 'SENTRY ACTIVATED' }}
 />`}
         </CodeEditor>
-      </SplitCol>
-      <SplitCol>
-        <PreviewFrame>
-          <Microlink
-            url={INSTAGRAM_URL}
-            setData={{
-              title: 'SENTRY ACTIVATED',
-              description: 'Are humans worth it?',
-              publisher: 'HAL 9000'
-            }}
-          />
-        </PreviewFrame>
-      </SplitCol>
-    </SplitRow>
+      </Box>
+      <PreviewFrame
+        css={theme({
+          width: '100%',
+          maxWidth: '650px',
+          minWidth: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        })}
+      >
+        <Microlink
+          url={INSTAGRAM_URL}
+          setData={{ title: 'SENTRY ACTIVATED' }}
+        />
+      </PreviewFrame>
+    </Flex>
   </SectionContainer>
 )
 
@@ -855,8 +895,24 @@ const Styling = () => (
       }
       caption='No CSS is injected into your app. Override the defaults with a few custom properties or target the BEM classes directly.'
     />
-    <SplitRow>
-      <SplitCol>
+    <Flex
+      css={theme({
+        width: '100%',
+        maxWidth: SECTION_MAX_WIDTH,
+        mx: 'auto',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: [3, 3, 4, 5]
+      })}
+    >
+      <Box
+        css={theme({
+          width: '100%',
+          minWidth: 0,
+          display: 'flex',
+          justifyContent: 'center'
+        })}
+      >
         <CodeEditor language='css'>
           {`.microlink_card {
   --microlink-background-color: #0b0d10;
@@ -866,15 +922,18 @@ const Styling = () => (
   --microlink-hover-border-color: #fa5252;
 }`}
         </CodeEditor>
-      </SplitCol>
-      <SplitCol>
-        <PreviewFrame>
-          <StyledMicrolinkWrap>
-            <Microlink url={VERCEL_URL} media='logo' size='large' />
-          </StyledMicrolinkWrap>
-        </PreviewFrame>
-      </SplitCol>
-    </SplitRow>
+      </Box>
+      <PreviewFrame
+        css={theme({
+          width: '100%',
+          maxWidth: '650px'
+        })}
+      >
+        <StyledMicrolinkWrap>
+          <Microlink url={VERCEL_URL} media='logo' size='normal' />
+        </StyledMicrolinkWrap>
+      </PreviewFrame>
+    </Flex>
   </SectionContainer>
 )
 
@@ -898,70 +957,30 @@ const ApiKey = () => (
         </>
       }
     />
-    <SplitRow>
-      <SplitCol>
-        <MultiCodeEditor
-          languages={{
-            React: `<Microlink
+    <Flex
+      css={theme({
+        width: '100%',
+        maxWidth: SECTION_MAX_WIDTH,
+        mx: 'auto',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: [3, 3, 4, 5]
+      })}
+    >
+      <MultiCodeEditor
+        languages={{
+          React: `<Microlink
   url='${YOUTUBE_URL}'
   apiKey='YOUR_API_KEY'
 />`,
-            Vue: `// register globally with a default key
+          Vue: `// register globally with a default key
 Vue.use(Microlink, { apiKey: 'YOUR_API_KEY' })`,
-            Vanilla: `microlink('.link-preview', {
+          Vanilla: `microlink('.link-preview', {
   apiKey: 'YOUR_API_KEY'
 })`
-          }}
-        />
-      </SplitCol>
-      <SplitCol>
-        <Flex
-          css={theme({
-            flexDirection: 'column',
-            gap: 3,
-            p: [3, 3, 4, 4],
-            bg: 'white',
-            borderRadius: 3
-          })}
-          style={{
-            border: `${borders[1]} ${colors.black10}`,
-            boxShadow: `0 2px 8px ${colors.black05}`
-          }}
-        >
-          <Text
-            css={theme({
-              fontSize: [1, 1, 2, 2],
-              fontWeight: 'bold',
-              color: 'black'
-            })}
-          >
-            What you unlock
-          </Text>
-          {[
-            'Up to millions of requests / month',
-            'Configurable TTL & stale-while-revalidate',
-            'Custom HTTP headers for private pages',
-            'Automatic proxy resolution'
-          ].map(line => (
-            <Flex key={line} css={theme({ alignItems: 'center', gap: 2 })}>
-              <Box
-                css={theme({
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  bg: ACCENT,
-                  flexShrink: 0
-                })}
-              />
-              <Text css={theme({ fontSize: 1, color: 'black70' })}>{line}</Text>
-            </Flex>
-          ))}
-          <Box css={theme({ pt: 1 })}>
-            <ArrowLink href='/pricing'>See plans</ArrowLink>
-          </Box>
-        </Flex>
-      </SplitCol>
-    </SplitRow>
+        }}
+      />
+    </Flex>
   </SectionContainer>
 )
 
