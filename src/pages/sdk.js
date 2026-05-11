@@ -36,7 +36,7 @@ import Layout from 'components/patterns/Layout'
 import Microlink from 'components/patterns/Microlink/Microlink'
 import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
 
-import { borders, colors, layout, space, theme } from 'theme'
+import { colors, layout, space, theme } from 'theme'
 
 // ─── HOCs ────────────────────────────────────────────────────────────────────
 
@@ -213,25 +213,6 @@ const PreviewFrame = styled(Box)`
     width: 100%;
     max-width: 100%;
   }
-`
-
-const SplitRow = styled(Flex)`
-  ${theme({
-    width: '100%',
-    maxWidth: SECTION_MAX_WIDTH,
-    mx: 'auto',
-    flexDirection: ['column', 'column', 'column', 'row'],
-    alignItems: ['stretch', 'stretch', 'stretch', 'flex-start'],
-    gap: [3, 3, 4, 5]
-  })}
-`
-
-const SplitCol = styled(Box)`
-  ${theme({
-    flex: 1,
-    minWidth: 0,
-    width: '100%'
-  })}
 `
 
 const CaptionMono = styled(Text)`
@@ -630,11 +611,11 @@ const Media = () => (
               index === 4
                 ? ['1 1 100%', '1 1 100%', '0 1 50%', '0 1 50%']
                 : [
-                  '1 1 100%',
-                  '1 1 100%',
-                  '1 1 calc(50% - 16px)',
-                  '1 1 calc(50% - 16px)'
-                ],
+                    '1 1 100%',
+                    '1 1 100%',
+                    '1 1 calc(50% - 16px)',
+                    '1 1 calc(50% - 16px)'
+                  ],
             minWidth: 0
           })}
         >
