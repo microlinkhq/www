@@ -553,8 +553,6 @@ const BasicUsage = () => (
 
 // ─── 5. Sizes ────────────────────────────────────────────────────────────────
 
-const SIZES = ['small', 'normal', 'large']
-
 const Sizes = () => (
   <SectionContainer id='size'>
     <SectionHead
