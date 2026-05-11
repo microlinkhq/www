@@ -57,79 +57,29 @@ const Hero = () => (
           scrollMarginTop: 4
         })}
       >
-        <span css={theme({ color: ACCENT.text })}>R-Advertising:</span> Sales
-        prospecting as a Tinder-style swipe deck
+        <span css={theme({ color: ACCENT.text })}>Luckynote:</span> Rich Link
+        Previews in a Chat-Style Note App
       </Text>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
-        How a performance-marketing agency built an internal tool that turns
-        every prospect into a swipeable card — with Microlink generating the
-        website screenshot behind every "right" or "left" decision.
+        How a "message yourself" notes app turns every URL into a tappable
+        preview card — with Microlink generating the metadata behind every link
+        saved.
       </BodyText>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <ArrowLink
-          href='/screenshot'
+          href='/metadata'
           css={theme({
             color: 'link',
             fontWeight: 'bold',
             fontSize: [2, 2, 3, 3]
           })}
         >
-          See how to integrate screenshots
+          See how to integrate metadata
         </ArrowLink>
       </Box>
     </SectionInner>
   </Section>
 )
-
-/* ─── Preview carousel (mobile crossfade) ────────────────────────────────── */
-
-const PreviewWrapper = styled(Box)`
-  ${theme({
-    position: 'relative',
-    width: '100%',
-    maxWidth: '400px',
-    mx: 'auto'
-  })}
-`
-
-const PreviewOverlayImage = styled(FigureImage)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: opacity 0.6s ease-in-out;
-  opacity: ${props => (props.$active ? 1 : 0)};
-`
-
-const PreviewCarousel = () => {
-  const [showSecond, setShowSecond] = React.useState(false)
-
-  React.useEffect(() => {
-    const id = setInterval(() => {
-      setShowSecond(prev => !prev)
-    }, 3000)
-    return () => clearInterval(id)
-  }, [])
-
-  return (
-    <PreviewWrapper>
-      <FigureImage
-        src='/images/clients/r-advertising-preview-1.png'
-        alt='R-Advertising prospect deck'
-        loading='lazy'
-        decoding='async'
-      />
-      <PreviewOverlayImage
-        src='/images/clients/r-advertising-preview-2.png'
-        alt='R-Advertising prospect deck swiping'
-        loading='lazy'
-        decoding='async'
-        $active={showSecond}
-      />
-    </PreviewWrapper>
-  )
-}
 
 /* ─── About the customer ─────────────────────────────────────────────────── */
 
@@ -138,17 +88,17 @@ const AboutCustomer = () => (
     <SectionInner>
       <Figure css={theme({ pt: 0, pb: 5 })}>
         <FigureImage
-          src='/images/clients/r-advertising-web.png'
-          alt='R-Advertising platform'
-          width='2816'
-          height='1920'
+          src='/images/clients/luckynote-web.png'
+          alt='Luckynote platform'
+          width='1200'
+          height='818'
           loading='eager'
           decoding='async'
-          css={theme({ maxWidth: layout.normal })}
+          css={theme({ maxWidth: '800px' })}
         />
       </Figure>
-      <Eyebrow accent={ACCENT} css={theme({ pb: 3, pt: 3, display: 'block' })}>
-        About R-Advertising
+      <Eyebrow accent={ACCENT} css={theme({ pb: 3, display: 'block' })}>
+        About Luckynote
       </Eyebrow>
       <SubheadBase
         css={theme({
@@ -159,28 +109,27 @@ const AboutCustomer = () => (
           pb: [3, 3, 4, 4]
         })}
       >
-        Performance marketing across email, programmatic, data, outdoor, and
-        influence — since 2006.
+        A "message yourself" note-taking app for ideas, links, and tasks across
+        iOS, Android, and Web.
       </SubheadBase>
-      <BodyText css={theme({ pb: [3, 3, 4, 4] })}>
-        R-Advertising is a performance-driven digital marketing agency that has
-        been activating multi-channel campaigns for brands since 2006. Their
-        teams design and run acquisition, traffic, visibility, and
-        lead-generation programs across email and SMS, programmatic advertising,
-        data, outdoor media, and influence — orchestrated together rather than
-        treated as silos.
+      <BodyText css={theme({ pb: 4 })}>
+        Luckynote is a note-taking app built around a simple idea: you write to
+        yourself, like you'd message a friend, and your ideas, links, and tasks
+        live in one chat-style interface. It's designed for the kind of saving
+        people already do in WhatsApp, Telegram, or the iOS Notes app — except
+        in Luckynote those saves stay organized, synced, and easy to find again.
       </BodyText>
       <BodyText>
-        The agency supported 60 clients in 2024 across e-commerce, retail,
-        travel, and enterprise — including Air France, Crédit Agricole,
-        Printemps, Showroom Privé, and French Bee — and operates a proprietary
-        database of more than 20 million qualified profiles that feeds the
-        targeting layer of every campaign.
+        The app runs on iOS, Android, and the web, with a Chrome extension that
+        drops anything you find online straight into your inbox. The free tier
+        includes unlimited folders, sync across all devices, and Lucky Actions —
+        the app's smart message handling — and is loved by 6,000+ users at a 4.6
+        rating.
       </BodyText>
       <Box css={theme({ pt: 2, pb: [3, 3, 4, 4] })}>
         <Text
           as='a'
-          href='https://r-advertising.com'
+          href='https://luckynote.io'
           target='_blank'
           rel='noopener'
           css={theme({
@@ -190,16 +139,18 @@ const AboutCustomer = () => (
             textDecoration: 'underline'
           })}
         >
-          Visit r-advertising.com
+          Visit luckynote.io
         </Text>
       </Box>
       <Testimonial
         accent={ACCENT}
-        quote="Microlink's screenshot API allowed us to create an engaging, swipe-based interface for our sales team to qualify prospects at a glance. It's transformed our internal workflow."
-        author='François Pacot'
-        role='CEO'
-        company='R-Advertising'
-        initials='FP'
+        maxWidth={layout.normal}
+        quote="Microlink turns messy URLs into beautiful previews instantly. It's the fastest way to add professional polish to our cross-platform app. On top of that, every time I had an idea of additional info that could be fetched, the team responded promptly, and we found a way to integrate it. It feels like the service is also growing with the customers' needs."
+        author='Uros Durdevic'
+        role='Founder'
+        company='Luckynote'
+        initials='UD'
+        avatar='https://unavatar.io/x/lucky_uros'
       />
     </SectionInner>
   </Section>
@@ -208,7 +159,7 @@ const AboutCustomer = () => (
 /* ─── How they use Microlink ─────────────────────────────────────────────── */
 
 const HowTheyUseIt = () => (
-  <Section css={theme({ pb: 5 })}>
+  <Section css={theme({ pb: 0 })}>
     <SectionInner>
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         How they use Microlink
@@ -221,34 +172,41 @@ const HowTheyUseIt = () => (
           lineHeight: 0
         })}
       >
-        A Tinder-style swipe deck for sales prospecting
+        A rich preview behind every link pasted into a note
       </SubheadBase>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
-        R-Advertising's sales team works through long lists of candidate
-        prospects every week. To make that work feel less like a spreadsheet and
-        more like the apps the team actually uses, the agency built an internal
-        tool that turns each prospect into a card the salesperson can swipe
-        right or left — exactly like Tinder. The card shows what the prospect's
-        website actually looks like.
+        When a user writes a note that contains a URL, Luckynote calls
+        Microlink's Metadata API and gets back the page's title, description,
+        and preview image in a single request. That metadata feeds straight into
+        the card the user sees right next to the message — so the link arrives
+        with context, not just a domain name.
       </BodyText>
       <FlowDiagram
         accent={ACCENT}
         nodes={[
-          { label: 'Prospect list', sub: 'Domains to evaluate' },
-          { label: 'Microlink', sub: 'Screenshot generated', active: true },
-          { label: 'Swipe card', sub: 'Card with site preview' },
-          { label: 'Salesperson', sub: 'Right or left swipe' }
+          { label: 'Note with link', sub: 'URL pasted into chat' },
+          { label: 'Luckynote', sub: 'Detects link' },
+          { label: 'Microlink', sub: 'Metadata extracted', active: true },
+          { label: 'Preview card', sub: 'Rendered inline' }
         ]}
       />
       <BodyText>
-        Microlink generates the screenshot for every prospect on demand,
-        rendered the way a real visitor would see the site. The salesperson can
-        decide in a fraction of a second whether the company looks like a fit
-        and is worth contacting, or swipe past. What used to be a list of opaque
-        domain names becomes a visual queue the team can move through quickly.
+        What used to be an opaque URL becomes a tappable preview the user can
+        scan in a glance. The same Microlink endpoint serves Luckynote's iOS
+        app, Android app, web app, and Chrome extension — Microlink works just
+        as well from a native HTTP client on Swift or Kotlin as it does from the
+        browser, so there's no preview logic to duplicate per platform.
       </BodyText>
-      <Figure css={theme({ pb: 0 })}>
-        <PreviewCarousel />
+      <Figure>
+        <FigureImage
+          src='/images/clients/luckynote-preview.png'
+          alt='Luckynote using Microlink'
+          width='1080'
+          height='2201'
+          loading='lazy'
+          decoding='async'
+          css={theme({ maxWidth: '900px', boxShadow: 'none' })}
+        />
       </Figure>
     </SectionInner>
   </Section>
@@ -271,12 +229,12 @@ const WhyMicrolink = () => (
             lineHeight: 0
           })}
         >
-          A screenshot API that fits behind an internal tool
+          A metadata API that ships to web and native, no SDK required
         </SubheadBase>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
-          Building an internal tool isn't where R-Advertising's engineering time
-          should go on rendering pipelines and browser pools. They reached for
-          Microlink for three reasons.
+          Building rich previews for every URL in every note shouldn't require
+          an in-house rendering pipeline. Luckynote reached for Microlink for
+          three reasons.
         </BodyText>
       </Box>
 
@@ -291,22 +249,22 @@ const WhyMicrolink = () => (
           accent={ACCENT}
           number={1}
           kicker='Speed to ship'
-          title='From idea to swipe deck without a rendering pipeline.'
-          body="The prospecting tool exists because the screenshot work didn't have to be built from scratch. A single API call returns a website's screenshot in a format the swipe deck can drop straight onto a card — no headless browsers to operate, no queue, no infrastructure for the team to maintain."
+          title='Link previews from day one — no metadata pipeline to build.'
+          body='The chat-style notes feel only works if a pasted URL renders as a real preview, not a string of characters. A single API call returns the title, description, and image Luckynote needs to draw the card — no headless browser, no scraping rules, no infrastructure to keep alive.'
         />
         <WhyCard
           accent={ACCENT}
           number={2}
-          kicker='Visual fidelity'
-          title='What the salesperson sees is what a customer sees.'
-          body='The whole premise of the swipe deck is judging a prospect at a glance, so the screenshot has to look like a real visit to the site. Microlink renders the page with the layout, fonts, and imagery a normal browser would, which is what makes "right or left" a meaningful decision instead of a guess from a URL.'
+          kicker='Web + native'
+          title='One endpoint behind iOS, Android, and the web.'
+          body="Microlink is a plain HTTP + JSON API, so Luckynote's iOS app, Android app, web app, and Chrome extension all hit the same endpoint — no platform-specific SDK to maintain, no rendering layer per surface. A link saved from an iPhone, a Pixel, or the browser comes back with the same preview, every time."
         />
         <WhyCard
           accent={ACCENT}
           number={3}
-          kicker='Internal-tool fit'
-          title='Right-sized for an internal use case.'
-          body="This isn't a customer-facing product — it's a tool the sales team uses every day. Microlink's hosted API and simple integration mean the agency can run it as a small line in their internal stack without operating any rendering infrastructure of their own."
+          kicker='Hands-off operations'
+          title="An API the team doesn't have to babysit."
+          body="Luckynote's engineering time goes into the notes experience, not into operating a rendering pipeline. Microlink's hosted API absorbs the messy edge cases — paywalls, JS-heavy pages, malformed Open Graph tags — so the app gets a clean preview for every URL the user pastes."
         />
       </Flex>
     </SectionInner>
@@ -319,7 +277,7 @@ const ThanksLogo = styled('img')`
   ${theme({
     display: 'block',
     width: 'auto',
-    height: '96px',
+    height: '32px',
     mx: 'auto'
   })}
 `
@@ -328,17 +286,12 @@ const ThanksSection = () => (
   <Section css={theme({ pt: 0, pb: [3, 3, 4, 4] })}>
     <SectionInner css={theme({ textAlign: 'center', maxWidth: layout.small })}>
       <Box css={theme({ pt: [3, 3, 4, 4], pb: [2, 2, 3, 3] })}>
-        <Text
-          as='a'
-          href='https://r-advertising.com'
-          target='_blank'
-          rel='noopener'
-        >
+        <Text as='a' href='https://luckynote.io' target='_blank' rel='noopener'>
           <ThanksLogo
-            src='/images/clients/r-advertising.com.png'
-            alt='R-Advertising'
-            width='300'
-            height='300'
+            src='/images/clients/luckynote.io.svg'
+            alt='Luckynote'
+            width='129'
+            height='24'
             loading='lazy'
             decoding='async'
           />
@@ -354,9 +307,9 @@ const ThanksSection = () => (
           mx: 'auto'
         })}
       >
-        <b>Thank you to the R-Advertising team</b> for letting us share their
-        use case, and for choosing Microlink to power the screenshots in their
-        internal sales prospecting tool.
+        <b>Thank you to the Luckynote team</b> for letting us share their use
+        case, and for choosing Microlink to power link previews across their
+        notes app.
       </Caption>
     </SectionInner>
   </Section>
@@ -374,13 +327,13 @@ const CustomerStoryPage = () => (
       <WhyMicrolink />
       <CtaSection
         accent={ACCENT}
-        headlinePrefix='Ready to ship'
-        headlineAccent='screenshots'
-        body='Capture pixel-accurate screenshots of any URL with a single API call — drop them straight into an internal tool, the way R-Advertising does.'
-        href='/screenshot'
-        label='Start capturing screenshots'
+        headlinePrefix='Ready to ship link'
+        headlineAccent='previews'
+        body='Extract titles, descriptions, and images from any URL with a single API call — drop them straight into your product, the way Luckynote does.'
+        href='/metadata'
+        label='Start extracting metadata'
       />
-      <MoreCustomers accent={ACCENT} currentSlug='r-advertising' />
+      <MoreCustomers accent={ACCENT} currentSlug='luckynote' />
       <ThanksSection />
     </Box>
   </Layout>
@@ -390,8 +343,8 @@ const CustomerStoryPage = () => (
 
 export const Head = () => (
   <Meta
-    title='R-Advertising: Tinder-style sales prospecting'
-    description="R-Advertising's sales team picks prospects on a swipe deck of website screenshots, generated on demand by Microlink, instead of staring at a spreadsheet of URLs."
+    title="Luckynote: rich link previews in a 'message yourself' note app"
+    description="Luckynote uses Microlink's Metadata API to turn every URL pasted into a note into a tappable preview card — on iOS, Android, Web, and the Chrome extension."
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
   />

@@ -1,6 +1,6 @@
 ---
 name: customer-story
-description: Create a new customer use-case landing page under `src/pages/customers/` from `example.js`, asking the user step-by-step for every placeholder (customer name, accent color, website to research, how they use Microlink, optional testimonial, diagram style, screenshots, CTA target, customer logo). Use when the user says "new customer story", "add a customer page", "customer landing", "[Customer] use case", "customer use case", or asks to scaffold a `customers/<slug>.js` page.
+description: Create a new customer use-case landing page under `src/pages/customers/` from the shared `CustomerStory` module, asking the user step-by-step for every placeholder (customer name, accent color, website to research, how they use Microlink, optional testimonial, diagram style, screenshots, CTA target, customer logo). Use when the user says "new customer story", "add a customer page", "customer landing", "[Customer] use case", "customer use case", or asks to scaffold a `customers/<slug>.js` page.
 ---
 
 # Customer Story
@@ -9,10 +9,10 @@ Build a new customer use-case landing page at `src/pages/customers/<slug>.js`.
 
 The goal is not generic "story" copy. The goal is a repo-native page that:
 
-- mirrors the structure of `src/pages/customers/example.js` exactly
+- composes shared building blocks from `src/components/patterns/CustomerStory/` (no styled-component duplication)
 - swaps the default teal accent for a customer-specific accent only when the user asks
 - researches the customer honestly from their website (no invented metrics, no invented features)
-- automatically links the new page into the existing customer-stories carousel when 2+ siblings exist
+- automatically links the new page into the existing customer-stories carousel via the `CUSTOMERS` registry
 - routes the CTA to the most relevant Microlink product page based on the use case
 - closes with a customer logo + thank-you note acknowledging the customer
 
@@ -20,12 +20,33 @@ The goal is not generic "story" copy. The goal is a repo-native page that:
 
 Before planning or editing, read these in order:
 
-1. `src/pages/customers/example.js` — the canonical structural reference. It is kept in sync with this skill.
-2. `.cursor/skills/customer-story/references/template.md` — the literal template with `{{TOKEN}}` placeholders.
-3. `.cursor/skills/customer-story/references/accent-colors.md` — allowed ramps, the `ACCENT` shape, and the `ACCENT_RGB` triplet table for the CTA background tint.
-4. `.cursor/skills/customer-story/references/cta-routing.md` — use-case → product href mapping.
-5. `src/pages/feature/proxy.js` — only when the user picks the **flow** diagram style; copy `Node` / `NodeActive` / `NodeLabel` / `NodeSub` / `Arrow` primitives from lines 484–693.
+1. `src/components/patterns/CustomerStory/index.js` — barrel export of every shared component. The customer page consumes from here.
+2. `src/pages/customers/luckynote.js` — a current, fully-fleshed-out reference page. Mirror its structure.
+3. `.cursor/skills/customer-story/references/template.md` — the literal template with `{{TOKEN}}` placeholders.
+4. `.cursor/skills/customer-story/references/accent-colors.md` — allowed ramps and the `ACCENT` shape.
+5. `.cursor/skills/customer-story/references/cta-routing.md` — use-case → product href mapping.
 6. `AGENTS.md` — repo-wide style rules (`theme({...})`, design tokens, accessibility).
+
+## Shared module
+
+All cross-page primitives live in `src/components/patterns/CustomerStory/`. The customer page imports them by name. **Do NOT re-declare these locally.**
+
+| Export | What it is |
+|---|---|
+| `CUSTOMERS` | Single registry of all customer story metadata (slug, name, blurb, icon). |
+| `Section`, `SectionInner`, `BodyText`, `Caption`, `Figure`, `FigureImage` | Layout primitives (no accent dependency). |
+| `SECTION_PX`, `SECTION_PY`, `SECTION_MAX_WIDTH` | Spacing constants. |
+| `DashedGridOverlay` | Decorative dotted-grid background. |
+| `StoryTag`, `Eyebrow` | Accent-aware chrome. Pass `accent={ACCENT}`. |
+| `Testimonial` | Composed from props (`accent`, `quote`, `author`, `role`, `company`, `initials`, optional `maxWidth`). |
+| `MoreCustomers` | Reads from `CUSTOMERS`, filters out `currentSlug`. Self-omits when fewer than 2 siblings remain. |
+| `CtaSection` | Accent-tinted CTA panel. Looks up the RGB triplet from `accent.text`. Optional `mt` prop (default `5`). |
+| `WhyCard` | One numbered card. Pass `accent`, `number`, `kicker`, `title`, `body`. |
+| `FlowDiagram` | Renders boxes-and-arrows. Pass `accent` and a `nodes` array (`{ label, sub, active? }`). |
+
+The customer page declares the `ACCENT` constant locally, then composes the inline section components (`Hero`, `AboutCustomer`, `HowTheyUseIt`, `WhyMicrolink`, `ThanksSection`) using the shared primitives. The customer page also declares a small `ThanksLogo` styled `<img>` locally because logo `height` varies per customer.
+
+When adding a new customer, **also add an entry to `src/components/patterns/CustomerStory/customers.js`**. The `MoreCustomers` carousel and the `/customers` index page both read from it.
 
 ## Canonical section order
 
@@ -45,13 +66,13 @@ HowTheyUseIt
   ├─ Body paragraph 1
   ├─ Diagram (flow / image / placeholder)
   └─ Body paragraph 2
-WhyMicrolink (3 numbered cards)
-MoreCustomers (only when ≥2 sibling pages exist; otherwise omitted)
-CtaSection (full-width soft accent panel)
+WhyMicrolink (3 <WhyCard /> instances)
+CtaSection (full-width soft accent panel — shared component)
+MoreCustomers (shared component, self-renders only when ≥2 siblings exist)
 ThanksSection (logo + acknowledgement; last block on the page)
 ```
 
-`Testimonial` is nested at the END of `AboutCustomer`, NOT rendered as a top-level page section. `ThanksSection` is the LAST visual block on the page, AFTER the CTA.
+`Testimonial` is nested at the END of `AboutCustomer`, NOT rendered as a top-level page section. `ThanksSection` is the LAST visual block on the page, AFTER `MoreCustomers`. The `MoreCustomers` carousel sits between the CTA panel and the Thanks block.
 
 ## Hard Rules
 
@@ -64,11 +85,12 @@ These are non-negotiable.
 - Never use a slug of `example`, an empty slug, or a slug that already exists in `src/pages/customers/`. If the user requests a slug that collides, stop and ask.
 - Never use the `pink` / `secondary` / `pinky` / `pinkest` accent — those are reserved for `src/pages/feature/*.js`. Customer pages MUST use one of the ramps in `references/accent-colors.md`.
 - Never inline accent token strings (`'teal7'` etc.) outside the `ACCENT` constant. All consumers read from `ACCENT.text` / `ACCENT.bgSoft` / `ACCENT.bgEdge` / `ACCENT.highlight`.
-- Never leave dead code. If the user says "no testimonial", remove the entire `Testimonial` component, all its styled components, the comment block, AND the `<Testimonial />` render line. Same rule for `MoreCustomers` when fewer than 2 sibling pages exist.
+- Never leave dead code. If the user says "no testimonial", drop the `Testimonial` import AND the `<Testimonial />` render line in `AboutCustomer`. (The styled components live in the shared module, so nothing else to remove.) `MoreCustomers` self-omits when fewer than 2 siblings remain — leave it imported and rendered.
 - Never add or modify FAQ structured data. Customer pages do not have FAQ sections.
 - Never run prettier, prettier-standard, or any repo-level formatter. This repo's formatter can rewrite unrelated files. Verification is `npx standard src/pages/customers/<slug>.js` (the project uses JavaScript Standard Style — see `package.json` `"lint": "standard"`). Bare `npx eslint` may pass even when `standard` reports errors, because they use different rule sets.
 - Never edit `.cursor/skills/customer-story/references/*.md` as part of running the skill. Only the SKILL author maintains those.
 - Hero CTA label and Bottom CTA label MUST be different strings. The Hero invites action specific to the product the customer integrated and ALWAYS follows the format `See how to integrate <product noun>` (e.g. "See how to integrate metadata", "See how to integrate screenshots", "See how to integrate PDFs"). The bottom CTA is broader and uses the action-oriented label from the cta-routing table (e.g. "Start extracting metadata", "Start capturing screenshots"). Identical labels are rejected.
+- The Hero `<h1>` MUST be written in **Title Case** (e.g. "Luckynote: Rich Link Previews in a Chat-Style Note App"), not sentence case. The customer name keeps its native casing. Title Case applies only to the on-page H1 — the `<Head>` `title` stays in sentence case (different copy register, SEO-oriented).
 - Animation rule: customer pages MUST NOT add motion/animation that ignores `prefers-reduced-motion`. The current template has no animation; if a future change adds one, it MUST honor reduced-motion or be reverted.
 - The `<h1>` in `Hero` MUST set `scrollMarginTop` so deep-linking and skip-to-content land cleanly.
 - Do NOT override the `<main>` landmark. `<Layout>` already wraps content in `<main id='main-content'>` and provides a Skip-to-content link.
@@ -117,9 +139,9 @@ flowchart TD
     Q6d --> Q6e
     Q6e --> Q7[7. CTA target inference]
     Q7 --> Q7b[7b. Customer logo for ThanksSection]
-    Q7b --> R2[Auto-detect sibling customer pages]
-    R2 --> Q8[8. Final summary + confirm]
-    Q8 -->|confirmed| W[Write file]
+    Q7b --> R2[8. Append entry to CustomerStory/customers.js]
+    R2 --> Q9[9. Final summary + confirm]
+    Q9 -->|confirmed| W[Write file]
     W --> V[Run standard, verify, report]
 ```
 
@@ -153,7 +175,7 @@ const ACCENT = {
 }
 ```
 
-Also resolve the `ACCENT_RGB` triplet from the table in `references/accent-colors.md` (used in the CTA background tint).
+The `ACCENT_RGB` triplet is no longer threaded through the page — the shared `CtaSection` looks it up internally from `accent.text`. The triplet table still lives in `references/accent-colors.md` for reference and is mirrored in `src/components/patterns/CustomerStory/CtaSection.js`. **If a new accent ramp is added to `accent-colors.md`, mirror it in `CtaSection.js`.**
 
 ### Step 3 — Customer website
 
@@ -201,7 +223,7 @@ Provide:
 - Company (defaults to <CUSTOMER_NAME>)
 ```
 
-Use straight ASCII for everything except the leading `“` smart quote (the template renders it via `<QuoteMark>` so the quote text itself does NOT include curly quotes). Trim whitespace. If the quote ends with `."`, strip the trailing quote. The quote uses the page's default sans (Inter) with `fontStyle: 'italic'` — do NOT use a serif font. The `AuthorAvatar` displays the author's initials (first letter of first + last name) in `fontFamily: 'mono'`, `color: ACCENT.text`, centered via flex; keep `aria-hidden='true'` so screen readers don't double-read the name.
+Use straight ASCII for everything except the leading `“` smart quote (rendered by the shared `Testimonial` as the first INLINE child inside the `<blockquote>` — so the quote text passed in must NOT include a leading curly quote). Trim whitespace. If the quote ends with `."`, strip the trailing quote. The quote uses the page's default sans (Inter) with `fontStyle: 'italic'` — do NOT use a serif font. The opening `<QuoteMarkBase>` glyph is sized 32–44px responsive, bold, accent-colored, with `line-height: 0` + `vertical-align: -0.25em` so it visually hangs with the first line WITHOUT pushing the next line of text down — do NOT change this to `display: block` (the previous behavior wasted vertical space). The `AuthorAvatar` displays the author's initials (first letter of first + last name) in `fontFamily: 'mono'`, `color: ACCENT.text`, centered via flex inside a **50×50** circular container; keep `aria-hidden='true'` so screen readers don't double-read the name.
 
 ### Step 6 — Visual assets
 
@@ -261,25 +283,26 @@ Ask: "Do you have an SVG logo for the customer at `static/images/clients/<domain
 - If `yes`: use `/images/clients/<CUSTOMER_DOMAIN>.svg` as the `ThanksLogo` source. Read its intrinsic dimensions for `width`/`height` attributes. The logo is rendered FIRST inside the ThanksSection, above the acknowledgement paragraph.
 - If `no`: ask whether to (a) ship a text-only ThanksSection — render the customer name as a styled `<Link>` in the same slot the logo would occupy (still FIRST, above the paragraph) — or (b) omit the ThanksSection entirely. Default: (a) — the thank-you note is the more important part, and the slot ordering stays consistent.
 
-### Step 8 — Auto-detect sibling customer pages
+### Step 8 — Add the customer to the shared registry
 
 This runs without a user question.
 
-- Glob `src/pages/customers/*.js`.
-- Filter out `example.js` and `<slug>.js` (the file being created).
-- For each remaining file:
-  - Read the file.
-  - Extract the customer name with a regex against the H1 span: `<span css={theme\(\{ color: ACCENT\.text \}\)\}>([^<]+):</span>`. Strip the trailing colon.
-  - Extract a one-line blurb. Prefer the `Head`'s `description` attribute, truncated to ~80 chars at a word boundary. Fallback: the first BodyText paragraph in `AboutCustomer`.
-  - Use the filename (without `.js`) as the `slug`.
-- Build the `MORE_CUSTOMERS` array entries:
+Open `src/components/patterns/CustomerStory/customers.js` and append a new entry to the `CUSTOMERS` array:
 
-  ```js
-  { slug: 'vercel', name: 'Vercel', blurb: 'Open Graph images for every deployment.' }
-  ```
+```js
+{
+  slug: '<slug>',
+  name: '<CUSTOMER_NAME>',
+  blurb: '<one-line summary, ~10 words, period>',
+  icon: '/images/clients/<icon-file>'
+}
+```
 
-- If 0 or 1 entries result, set both `{{MORE_CUSTOMERS_SECTION}}` and `{{MORE_CUSTOMERS_RENDER}}` to empty strings — the entire carousel section is removed.
-- If 2+ entries, fill `{{MORE_CUSTOMERS_ENTRIES}}` and `{{MORE_CUSTOMERS_RENDER}}` becomes `<MoreCustomers />`. It renders BETWEEN `<WhyMicrolink />` and `<CtaSection />`.
+Derive the blurb from the use-case description in step 4 — keep it under ~70 characters.
+
+The `MoreCustomers` component reads from this registry, filters out the current page (via `currentSlug` prop), and self-omits when fewer than 2 siblings remain. The `/customers` index page also reads from the same registry. Single source of truth — never duplicate the array.
+
+If the customer's icon file isn't yet on disk at `static/images/clients/<icon-file>`, ask the user to drop it in or pick an existing fallback. Square icons sized 64–512px work best (rendered at 40×40 with `object-fit: cover`).
 
 ### Step 9 — Final summary + confirmation
 
@@ -290,7 +313,7 @@ Ready to write src/pages/customers/<slug>.js:
   Customer:    <CUSTOMER_NAME>
   Domain:      <CUSTOMER_DOMAIN>
   Slug:        /customers/<slug>
-  Accent:      <ramp> (text=<ramp>7, bgSoft=<ramp>0, bgEdge=<ramp>1, highlight=<ramp>5; rgb=<R,G,B>)
+  Accent:      <ramp> (text=<ramp>7, bgSoft=<ramp>0, bgEdge=<ramp>1, highlight=<ramp>5)
   Testimonial: real / placeholder / no
   Primary screenshot: yes (<path>) / no
   Diagram:     flow / image / placeholder
@@ -298,7 +321,7 @@ Ready to write src/pages/customers/<slug>.js:
   Customer logo: yes (<path>) / no (text-only thanks) / omitted
   Hero CTA:    <HERO_CTA_LABEL> → <HERO_CTA_HREF>
   Bottom CTA:  <CTA_LABEL> → <CTA_HREF>
-  Sibling stories linked in carousel: <count> (or "section omitted")
+  Registry update: append entry to CustomerStory/customers.js
 
 Confirm to write?
 ```
@@ -312,43 +335,36 @@ When materializing the template:
 - Preserve every `theme({...})` call exactly as in the template. Do not introduce raw CSS where the template uses tokens.
 - Preserve the canonical section order documented above.
 
-### Pruning rules (proactive — apply during materialization, before the file is written)
+### Pruning rules (only the imports change)
 
-The template is the **maximal** form, declaring every styled component the canonical structure can use. A real customer page picks one variant per conditional block and consequently ends up with some declarations unused. The skill MUST prune these BEFORE writing the file — `standard` will reject any unused declaration with `no-unused-vars`. Do NOT use `// eslint-disable-next-line` to silence these in generated customer pages; the directive itself is allowed only in `example.js` (the live reference template, which intentionally keeps the full surface for documentation).
+Because most styled components live in the shared module, the customer page is mostly a composition of imports + customer copy. Pruning is now limited to **which named imports** to take from the shared module. Only import what the page actually renders. `standard` will reject unused imports with `no-unused-vars`.
 
-Apply this matrix when materializing:
-
-| Declaration | Drop when… |
+| Shared import | Drop when… |
 |---|---|
-| `FigureImage` (styled `<img>`) | `{{ABOUT_HERO_IMAGE_BLOCK}}` is empty AND `{{ABOUT_SCREENSHOT_BLOCK}}` is Variant B (placeholder) AND `{{HOW_DIAGRAM_BLOCK}}` is NOT Variant B (image). I.e. no real image is rendered anywhere. |
-| `FigurePlaceholder` (styled `<Box>`) | All three slots use real images, OR `{{HOW_DIAGRAM_BLOCK}}` is Variant A (flow). I.e. no `[bracketed placeholder]` figure is rendered anywhere. |
-| `Figure` (styled `<figure>`) | NEVER drop — every non-trivial customer page uses `<Figure>` at least once (always wraps the screenshot or diagram). |
-| `Node`, `NodeActive`, `NodeLabel`, `NodeSub`, `Arrow` (flow-diagram primitives) | `{{HOW_DIAGRAM_BLOCK}}` is NOT Variant A (flow). Drop ALL FIVE together — they form a single block. |
-| `breakpoints` import | `{{HOW_DIAGRAM_BLOCK}}` is NOT Variant A (no `Arrow` to use it) AND `{{MORE_CUSTOMERS_SECTION}}` is empty (no `CarouselTrack` to use it). |
-| `Link` import | All three of: `{{MORE_CUSTOMERS_SECTION}}` is empty, the About-section external link uses `<Text as='a'>` (always, per the external-link rule), and the ThanksSection logo/name link uses `<Text as='a'>` (always). In the canonical structure with the new external-link rule, `Link` is ONLY needed when `MoreCustomers` is rendered. **Drop the import if MoreCustomers is omitted.** |
-| `cdnUrl` import | The user replaced the `Head`'s `image` prop with a non-CDN absolute URL (e.g. `https://microlink.io/images/clients/<slug>-web.png`) instead of the default `cdnUrl('banner/screenshot.jpeg')`. **Drop the import.** Conversely, if the default or any `cdnUrl(...)` form is kept, `cdnUrl` MUST stay. |
-| `TestimonialCard`, `Quote`, `QuoteMark`, `Author`, `AuthorAvatar`, `AuthorName`, `AuthorRole`, `Testimonial` | The user said "no testimonial" in step 5. Drop ALL EIGHT together. |
-| `CarouselTrack`, `CarouselCard`, `LogoPlaceholder`, `CarouselCardName`, `CarouselCardBlurb`, `CarouselCardLink`, `MORE_CUSTOMERS`, `MoreCustomers` | <2 sibling pages exist. Drop ALL EIGHT together. |
-| `ThanksLogo` (styled `<img>`) | The customer logo SVG is unavailable AND ThanksSection falls back to text-only mode. Drop the styled component AND its declaration. |
-| `ThanksSection` component + render line | The user explicitly opted to omit ThanksSection in step 7b. |
+| `Testimonial` | The user said "no testimonial" in step 5. |
+| `FigureImage` | The page renders no `<img>` figures (uncommon — most pages use at least one). |
+| `FigurePlaceholder` | This export does NOT live in the shared module; declare it locally only when the About screenshot or How diagram is the placeholder variant. Do NOT import it. |
+| `FlowDiagram` | The diagram is `image` or `placeholder` variant — no flow chart on the page. |
+| `WhyCard` | NEVER drop — every customer page renders three Why cards. |
+| `MoreCustomers` | NEVER drop — the component self-omits when fewer than 2 siblings exist, so it's safe to always render. |
+| `CtaSection` | NEVER drop — every customer page closes with the CTA panel. |
+| `BodyText`, `Section`, `SectionInner`, `Eyebrow`, `StoryTag`, `DashedGridOverlay` | NEVER drop — every customer page uses each of these. |
+| `Caption` | Drop if the page's `ThanksSection` uses `BodyText` for the thank-you paragraph instead of the centered Caption. (The default template uses Caption.) |
+| `Figure` | NEVER drop if any image figure renders. Drop only if both diagram and About screenshot are absent (very unusual). |
 
-After pruning, run `npx standard` to catch any case the matrix missed. Common slip: dropping a styled component but leaving its supporting import (e.g. dropping `Arrow` but leaving `breakpoints`).
+Local imports also worth pruning:
+
+| Local import | Drop when… |
+|---|---|
+| `cdnUrl` import | The user replaced the `Head`'s `image` prop with a non-CDN absolute URL. Conversely, if `cdnUrl(...)` is kept anywhere, the import MUST stay. |
+| `styled` import | The page declares no local styled components. (Rare — at minimum, `ThanksLogo` is local.) |
+
+After pruning, run `npx standard src/pages/customers/<slug>.js` to catch any case the matrix missed.
 - The `<h1>` in `Hero` MUST include `scrollMarginTop: 4` (or equivalent `scroll-margin-top` token) so deep-links land cleanly.
-- The CTA `<Section>` background uses the `ACCENT_RGB` triplet at 6% opacity, AND the section MUST include `mt: 5` to create breathing room from the preceding `WhyMicrolink` (or `MoreCustomers`) section. Without this top margin, the soft accent panel sits flush against the previous section and looks visually cramped.
-  ```jsx
-  <Section
-    css={`
-      background-color: rgba({{ACCENT_RGB}}, 0.06);
-      ${theme({ borderTop: 1, borderTopColor: ACCENT.bgEdge, borderBottom: 1, borderBottomColor: ACCENT.bgEdge, mt: 5 })}
-    `}
-  >
-  ```
-  This is the ONLY raw `background-color` allowed on a customer page (no equivalent token exists for translucent accent tints).
-- The CTA inner `<Flex>` wrapping the ArrowLink uses `pt: [3, 4, 4, 4]` (NOT `py`). The `Section` primitive's own `py: SECTION_PY` already provides bottom padding; using `py` here would double up the bottom and break top/bottom symmetry.
-- The `Testimonial` component MUST NOT render its own `<Section>` or `<SectionInner>` wrappers. It is nested directly inside `AboutCustomer`'s `<SectionInner>` and inherits that section's padding + max-width. The component renders ONLY `<TestimonialCard as='figure' css={theme({ my: [4, 4, 5, 5] })}>` as its outer element. Adding `<Section>`/`<SectionInner>` wrappers would double horizontal padding (the parent `SectionInner` already constrains width) and double vertical padding (the parent `Section` already provides `py: SECTION_PY`), breaking the card's alignment with the rest of the About-section content. Use `my` (vertical margin top AND bottom) at the responsive scale `[4, 4, 5, 5]` — this gives the card breathing room both above (from the external website link) and below (from the next section, since `AboutCustomer` typically uses `pb: 0` to let the card carry the trailing space). Never use `mt` only — the card needs symmetric vertical spacing to read as its own block. This matches the established pattern in `mymahi.js`.
-- The `Testimonial` component's `Quote` uses `fontStyle: 'italic'` but the page default sans (Inter) — do NOT add `fontFamily: 'serif'`. The `QuoteMark` similarly stays on the default sans. The `AuthorAvatar` renders the author's initials (e.g. `SC` for Stefan Charsley), styled `fontFamily: 'mono'`, `color: ACCENT.text`, centered via flex, with `aria-hidden='true'`.
+- **CtaSection (shared)** owns the accent-tinted background, border, and `mt: 5` default top-margin. Pass `mt={0}` to the shared component if the preceding `WhyMicrolink` section already carries heavy bottom padding (see `mymahi.js`'s `pb: 6` example). The accent RGB triplet is looked up internally from `accent.text` — no need to thread `ACCENT_RGB` from the page.
+- **Testimonial (shared)** is nested directly inside `AboutCustomer`'s `<SectionInner>`. It does NOT render its own Section wrapper. The card's `my: [4, 4, 5, 5]` margin gives breathing room above and below; `AboutCustomer` typically sets `pb: 0` so the card carries the trailing space. If a customer's testimonial copy is long, pass `maxWidth={layout.normal}` to widen it (default is `layout.small`). The Quote is italic but uses the page default sans (Inter) — never serif. The opening quote glyph renders **inline** inside the blockquote (not as a separate block sibling above it); its `line-height: 0` keeps the line box collapsed so the first line of the quote sits flush below the card's top padding. The author avatar is **50×50** for both the initials variant and the image variant — do not regress to 36×36.
 - The About-section external link uses a plain anchor (`<Text as='a' target='_blank' rel='noopener'>`, NOT the repo `Link` component — see external-link rule above), label `Visit <CUSTOMER_DOMAIN>`, color `ACCENT.text`, `textDecoration: 'underline'`, and sits between body paragraph 2 and the Testimonial.
-- The `ThanksSection` is the LAST top-level section in the page composition, after `<CtaSection />`. Inside it: centered logo FIRST (wrapped in `<Text as='a' href='https://<CUSTOMER_DOMAIN>' target='_blank' rel='noopener'>` per the external-link rule above; height capped at 32px), then the acknowledgement paragraph (with `<b>Thank you to the <CUSTOMER_NAME> team</b>` as bold opening clause, smaller `fontSize: [0, 1]`). The section uses `pt: 5` for generous breathing room below the CTA panel; the logo wrapper Box uses `pt: [3, 3, 4, 4]` and `pb: [2, 2, 3, 3]` to space it cleanly between the section top and the paragraph below.
+- The `ThanksSection` is the LAST visual block on the page, after `MoreCustomers`. The section is declared inline in the page (logo height varies). Inside it: the centered logo FIRST (wrapped in `<Text as='a' ...>` per the external-link rule above), then the acknowledgement paragraph in `<Caption>` styled with `fontSize: [0, 1]` and `<b>Thank you to the <CUSTOMER_NAME> team</b>` as the bold opening clause. The section uses `pt: 0` (the inner `Box` already pads via `pt: [3, 3, 4, 4]`).
 - The `Head` `<title>` uses the format: `<CUSTOMER_NAME>: <one-line use case>`. Example: `MyMahi: rich link previews for Newsfeed posts`. This is more distinct in browser tabs and search results than `How <CUSTOMER_NAME> uses Microlink`. **Do NOT append ` · Microlink` or any brand-suffix variant to the title** — the `Meta` component automatically appends ` — Microlink` (em-dash + site name from metadata, see `src/components/elements/Meta/Meta.js` line 111: `${title} — ${name}`). Adding the brand manually duplicates it in the rendered `<title>`, Open Graph title, Twitter card, and JSON-LD. The end-user-visible result MUST be `<CUSTOMER_NAME>: <one-line use case> — Microlink` rendered by `Meta`, not authored.
 - The `Head` `image` stays as `cdnUrl('banner/screenshot.jpeg')` unless the user supplies a customer-specific OG banner.
 - The `Head` `image` value MUST be a fully-qualified absolute URL. The `Meta` component writes `image` directly into `og:image`, `twitter:image`, and `itemProp='image'` tags with no transformation (see `src/components/elements/Meta/Meta.js` lines 153/160/169/179). Open Graph and Twitter Card scrapers reject relative URLs and the social preview will fail. Acceptable forms: (a) `cdnUrl('path/to/asset.png')` for assets hosted on `https://cdn.microlink.io` (preferred — matches every other repo page), or (b) a literal `https://microlink.io/images/...` URL for assets in `static/images/` that haven't been uploaded to the CDN. NEVER use a bare `/images/...` relative path.
@@ -359,14 +375,15 @@ After writing:
 
 1. Run `npx standard src/pages/customers/<slug>.js`. (The project's lint script is `npm run lint` → `standard`. Bare `npx eslint` is NOT sufficient — `standard` enforces JavaScript Standard Style rules that bare eslint won't catch.)
 2. If standard reports errors, fix them in-place. Common errors:
-   - Unused imports / unused styled components — see the **Pruning rules** matrix in Writing Rules. Most `no-unused-vars` errors mean the matrix wasn't applied during materialization. Fix by removing the declaration, NOT by adding `// eslint-disable-next-line` (that escape hatch is only allowed in `example.js`, which intentionally keeps the full template surface).
+   - Unused imports — see the **Pruning rules** matrix above. Most `no-unused-vars` errors mean an unused import remained. Fix by removing the import, NOT by adding `// eslint-disable-next-line`.
    - Missing `key` props in any list rendering
    - Unused parameters in callback signatures
 3. Re-run `standard` until clean.
 4. Verify NO `{{TOKEN}}` placeholders remain in the output (grep for `{{`).
-5. Verify the page composition includes (in order, modulo conditional sections): `<Hero />`, `<AboutCustomer />`, `<HowTheyUseIt />`, `<WhyMicrolink />`, optional `<MoreCustomers />`, `<CtaSection />`, `<ThanksSection />`.
-6. Verify Hero CTA label ≠ Bottom CTA label.
-7. Do NOT run prettier or any other formatter.
+5. Verify the page composition includes (in order): `<Hero />`, `<AboutCustomer />`, `<HowTheyUseIt />`, `<WhyMicrolink />`, `<CtaSection />`, `<MoreCustomers />`, `<ThanksSection />`.
+6. Verify the new entry was added to `src/components/patterns/CustomerStory/customers.js`.
+7. Verify Hero CTA label ≠ Bottom CTA label.
+8. Do NOT run prettier or any other formatter.
 
 ## Output Back to the User
 
@@ -374,7 +391,7 @@ After writing successfully, report:
 
 - Filename: `src/pages/customers/<slug>.js`
 - Route: `/customers/<slug>`
-- Sections rendered (Hero, About w/ Testimonial?, How, Why, MoreCustomers?, CTA, Thanks)
+- Sections rendered (Hero, About w/ Testimonial?, How, Why, CTA, MoreCustomers?, Thanks)
 - Accent color used (incl. RGB triplet)
 - CTA targets (Hero + Bottom, confirmed different)
 - Sibling stories linked (count + slugs)

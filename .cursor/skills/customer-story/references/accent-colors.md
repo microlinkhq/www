@@ -13,7 +13,7 @@ Customer pages use a 4-token `ACCENT` object plus an `ACCENT_RGB` triplet (for t
 | orange           | `orange7`| `orange0`| `orange1`| `orange5` | `#f76707`  | `247, 103, 7`       |
 | yellow           | `yellow7`| `yellow0`| `yellow1`| `yellow5` | `#f59f00`  | `245, 159, 0`       |
 
-The `*7` hex and `ACCENT_RGB` triplet are derived directly from `src/theme/index.js`. If the theme's color values change, this table MUST be updated to match.
+The `*7` hex and `ACCENT_RGB` triplet are derived directly from `src/theme/index.js`. If the theme's color values change, this table MUST be updated to match. The triplet table is also mirrored in `src/components/patterns/CustomerStory/CtaSection.js` (used to render the CTA panel's translucent background tint). When a new ramp is added here, mirror it there too.
 
 ## Forbidden
 
@@ -35,11 +35,11 @@ const ACCENT = {
 
 The four properties MUST appear in this order. Never inline the values elsewhere in the file — every consumer reads from `ACCENT.text`, `ACCENT.bgSoft`, `ACCENT.bgEdge`, or `ACCENT.highlight`.
 
-The `ACCENT_RGB` triplet is NOT part of the `ACCENT` constant; it's substituted directly into the CTA's `background-color: rgba({{ACCENT_RGB}}, 0.06)` string. This is the only raw `background-color` allowed on a customer page (no theme token expresses translucent accent tints).
+The `ACCENT_RGB` triplet is NOT part of the `ACCENT` constant. The shared `<CtaSection>` looks it up internally from `accent.text`, so customer pages never need to thread it through props.
 
 ## Default
 
-If the user does not specify a brand color, use `teal`. This matches the live template at `src/pages/customers/example.js` and is the established default for customer stories.
+If the user does not specify a brand color, use `teal`. This is the documented default for customer stories.
 
 ## Picking by brand
 
