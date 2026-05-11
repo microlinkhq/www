@@ -50,12 +50,12 @@ const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 const SECTION_MAX_WIDTH = '1200px'
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=9P6rdqiybaw'
-const THEVERGE_URL =
-  'https://www.theverge.com/2017/10/27/16145498/insecure-broad-city-high-maintenance-web-series-hbo-comedy-central'
+const VERCEL_URL = 'https://vercel.com/home'
 const SOUNDCLOUD_URL =
   'https://soundcloud.com/beautybrainsp/beauty-brain-swag-bandicoot'
 const GITHUB_URL = 'https://github.com/cleanbrowsing/dnsperftest'
-const INSTAGRAM_URL = 'https://www.instagram.com/p/BvDTdWdnzkj/'
+const INSTAGRAM_URL = 'https://www.instagram.com/p/BvDTdWdnzkj'
+const STRIPE_URL = 'https://stripe.com'
 
 const INTEGRATIONS = [
   { logo: 'React', url: '/docs/sdk/integrations/react/' },
@@ -577,22 +577,21 @@ const Sizes = () => (
         gap: [4, 4, 5, 5]
       })}
     >
-      {SIZES.map(size => (
-        <Flex
-          key={size}
-          css={theme({
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%',
-            maxWidth: '650px'
-          })}
-        >
-          <PreviewFrame>
-            <Microlink url={THEVERGE_URL} media='logo' size={size} />
-          </PreviewFrame>
-          <CaptionMono>{`size="${size}"`}</CaptionMono>
-        </Flex>
-      ))}
+      <Flex
+        css={theme({
+          flexDirection: 'column',
+          alignItems: 'center'
+        })}
+      >
+        <PreviewFrame css={theme({ pt: 4, border: 'none', boxShadow: 'none' })}>
+          <Microlink url={VERCEL_URL} size='small' media='logo' />
+          <CaptionMono css={theme({ mb: 5 })}>size="small"</CaptionMono>
+          <Microlink url={VERCEL_URL} size='normal' media='logo' />
+          <CaptionMono css={theme({ mb: 5 })}>size="normal"</CaptionMono>
+          <Microlink url={VERCEL_URL} size='large' />
+          <CaptionMono css={theme({ mb: 3 })}>size="large"</CaptionMono>
+        </PreviewFrame>
+      </Flex>
     </Flex>
   </SectionContainer>
 )
@@ -600,7 +599,7 @@ const Sizes = () => (
 // ─── 6. Media types ──────────────────────────────────────────────────────────
 
 const MEDIA_VARIANTS = [
-  { media: 'image', url: THEVERGE_URL, label: 'image' },
+  { media: 'image', url: STRIPE_URL, label: 'image' },
   { media: 'logo', url: GITHUB_URL, label: 'logo' },
   { media: 'video', url: YOUTUBE_URL, label: 'video' },
   { media: 'audio', url: SOUNDCLOUD_URL, label: 'audio' },
@@ -688,7 +687,7 @@ const Direction = () => (
           })}
         >
           <PreviewFrame>
-            <Microlink url={THEVERGE_URL} media='logo' direction={dir} />
+            <Microlink url={VERCEL_URL} media='logo' direction={dir} />
           </PreviewFrame>
           <CaptionMono>{`direction="${dir}"`}</CaptionMono>
         </Flex>
@@ -873,7 +872,7 @@ const Styling = () => (
       <SplitCol>
         <PreviewFrame>
           <StyledMicrolinkWrap>
-            <Microlink url={THEVERGE_URL} media='logo' size='large' />
+            <Microlink url={VERCEL_URL} media='logo' size='large' />
           </StyledMicrolinkWrap>
         </PreviewFrame>
       </SplitCol>
