@@ -14,11 +14,9 @@ import {
 } from 'react-feather'
 
 import { cdnUrl } from 'helpers/cdn-url'
-import { trackEvent } from 'helpers/plausible'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import Box from 'components/elements/Box'
-import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Card from 'components/elements/Card/Card'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
@@ -204,7 +202,9 @@ const PreviewFrame = styled(Box)`
     bg: 'white',
     borderRadius: 3,
     overflow: 'hidden',
-    p: [3, 3, 4, 4]
+    px: [3, 3, 4, 4],
+    pt: [3, 3, 4, 4],
+    pb: 1
   })}
 
   .microlink_card,
@@ -281,21 +281,12 @@ const Hero = () => (
         gap: [2, 3, 3, 3],
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: ['column', 'row', 'row', 'row']
+        flexDirection: ['column', 'row', 'row', 'row'],
+        fontSize: [2, 2, 3, 3]
       })}
     >
-      <Button
-        as='a'
-        href='/docs/sdk/getting-started/overview/'
-        variant='black'
-        data-event-location='SDK'
-        data-event-name='Hero · Read the docs'
-        onClick={() => trackEvent('sdk cta', { cta: 'docs' })}
-      >
-        <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>Read the docs</Caps>
-      </Button>
-      <ArrowLink href='https://github.com/microlinkhq/sdk'>
-        See on GitHub
+      <ArrowLink href='/docs/sdk/getting-started/overview/'>
+        Read the docs
       </ArrowLink>
     </Flex>
   </Container>
@@ -466,7 +457,8 @@ const Install = () => (
         maxWidth: layout.normal,
         mx: 'auto',
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        pb: 4
       })}
     >
       <MultiCodeEditor
@@ -478,6 +470,7 @@ const Install = () => (
         }}
       />
     </Box>
+    <Link href='https://github.com/microlinkhq/sdk'>See on GitHub</Link>
   </SectionContainer>
 )
 
@@ -611,11 +604,11 @@ const Media = () => (
               index === 4
                 ? ['1 1 100%', '1 1 100%', '0 1 50%', '0 1 50%']
                 : [
-                    '1 1 100%',
-                    '1 1 100%',
-                    '1 1 calc(50% - 16px)',
-                    '1 1 calc(50% - 16px)'
-                  ],
+                  '1 1 100%',
+                  '1 1 100%',
+                  '1 1 calc(50% - 16px)',
+                  '1 1 calc(50% - 16px)'
+                ],
             minWidth: 0
           })}
         >
@@ -736,7 +729,8 @@ const Lazy = () => (
       eyebrow='lazy'
       title={
         <>
-          Only fetch when the card{' '}
+          Only fetch when the card
+          <br />
           <span css={theme({ color: ACCENT })}>scrolls into view</span>.
         </>
       }
@@ -752,6 +746,18 @@ const Lazy = () => (
         gap: [3, 3, 4, 5]
       })}
     >
+      <PreviewFrame
+        css={theme({
+          width: '100%',
+          maxWidth: '650px',
+          minWidth: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        })}
+      >
+        <Microlink url={SPOTIFY_URL} lazy={{ threshold: 0.5 }} media='audio' />
+      </PreviewFrame>
       <Box
         css={theme({
           width: '100%',
@@ -779,18 +785,6 @@ const Lazy = () => (
           }}
         />
       </Box>
-      <PreviewFrame
-        css={theme({
-          width: '100%',
-          maxWidth: '650px',
-          minWidth: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
-        })}
-      >
-        <Microlink url={SPOTIFY_URL} lazy={{ threshold: 0.5 }} media='audio' />
-      </PreviewFrame>
     </Flex>
   </SectionContainer>
 )
@@ -818,6 +812,24 @@ const CustomData = () => (
         gap: [3, 3, 4, 5]
       })}
     >
+      <PreviewFrame
+        css={theme({
+          width: '100%',
+          maxWidth: '650px',
+          minWidth: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        })}
+      >
+        <Microlink
+          url={INSTAGRAM_URL}
+          setData={{
+            title: 'Hi there, friend.',
+            description: 'Replace the description with anything you want.'
+          }}
+        />
+      </PreviewFrame>
       <Box
         css={theme({
           width: '100%',
@@ -831,25 +843,10 @@ const CustomData = () => (
 
 <Microlink
   url='https://www.instagram.com/p/BeV6tOhFUor/'
-  setData={{ title: 'SENTRY ACTIVATED' }}
+  setData={{ title: 'Hi there, friend.', description: 'Replace the description with anything you want.' }}
 />`}
         </CodeEditor>
       </Box>
-      <PreviewFrame
-        css={theme({
-          width: '100%',
-          maxWidth: '650px',
-          minWidth: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
-        })}
-      >
-        <Microlink
-          url={INSTAGRAM_URL}
-          setData={{ title: 'SENTRY ACTIVATED' }}
-        />
-      </PreviewFrame>
     </Flex>
   </SectionContainer>
 )
@@ -860,8 +857,8 @@ const StyledMicrolinkWrap = styled(Box)`
   --microlink-background-color: #0b0d10;
   --microlink-color: #ffffff;
   --microlink-border: 1px solid #1f2329;
-  --microlink-hover-background-color: #14171c;
-  --microlink-hover-border-color: ${colors.red6};
+  --microlink-hover-background-color: #1f2329;
+  --microlink-hover-border-color: ${colors.yellow};
 `
 
 const Styling = () => (
@@ -886,6 +883,16 @@ const Styling = () => (
         gap: [3, 3, 4, 5]
       })}
     >
+      <PreviewFrame
+        css={theme({
+          width: '100%',
+          maxWidth: '650px'
+        })}
+      >
+        <StyledMicrolinkWrap>
+          <Microlink url={VERCEL_URL} media='logo' size='normal' />
+        </StyledMicrolinkWrap>
+      </PreviewFrame>
       <Box
         css={theme({
           width: '100%',
@@ -899,21 +906,11 @@ const Styling = () => (
   --microlink-background-color: #0b0d10;
   --microlink-color: #ffffff;
   --microlink-border: 1px solid #1f2329;
-  --microlink-hover-background-color: #14171c;
-  --microlink-hover-border-color: #fa5252;
+  --microlink-hover-background-color: #1f2329;
+  --microlink-hover-border-color: #fcc419;
 }`}
         </CodeEditor>
       </Box>
-      <PreviewFrame
-        css={theme({
-          width: '100%',
-          maxWidth: '650px'
-        })}
-      >
-        <StyledMicrolinkWrap>
-          <Microlink url={VERCEL_URL} media='logo' size='normal' />
-        </StyledMicrolinkWrap>
-      </PreviewFrame>
     </Flex>
   </SectionContainer>
 )
@@ -1029,65 +1026,9 @@ const Integrations = () => (
     </Flex>
     <Box css={theme({ fontSize: [2, 2, 3], pt: [4, 4, 5, 5] })}>
       <ArrowLink href='/docs/sdk/getting-started/overview/'>
-        See more integrations
+        Read the docs
       </ArrowLink>
     </Box>
-  </SectionContainer>
-)
-
-// ─── 14. CTA ─────────────────────────────────────────────────────────────────
-
-const Cta = () => (
-  <SectionContainer id='cta'>
-    <Flex
-      css={theme({
-        flexDirection: 'column',
-        alignItems: 'center',
-        textAlign: 'center',
-        width: '100%',
-        maxWidth: layout.normal,
-        mx: 'auto'
-      })}
-    >
-      <Subhead
-        titleize={false}
-        css={theme({
-          fontSize: ['28px', '34px', '42px', '46px']
-        })}
-      >
-        Start with the <span css={theme({ color: ACCENT })}>SDK</span> in
-        minutes.
-      </Subhead>
-      <Caption
-        forwardedAs='div'
-        titleize={false}
-        css={theme({ pt: [3, 3, 4, 4], fontSize: [1, 2, 2, 2] })}
-      >
-        Read the overview, copy the snippets, and ship link previews today.
-      </Caption>
-      <Flex
-        css={theme({
-          pt: [4, 4, 5, 5],
-          flexDirection: ['column', 'row', 'row', 'row'],
-          gap: [2, 3, 3, 3],
-          alignItems: 'center',
-          justifyContent: 'center'
-        })}
-      >
-        <Button
-          as='a'
-          href='/docs/sdk/getting-started/overview/'
-          variant='black'
-          data-event-location='SDK'
-          data-event-name='Footer CTA · Read the docs'
-          onClick={() => trackEvent('sdk cta', { cta: 'footer-docs' })}
-        >
-          <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>Read the docs</Caps>
-        </Button>
-        <ArrowLink href='/docs/guides/embed/'>Embed guide</ArrowLink>
-        <ArrowLink href='https://github.com/microlinkhq/sdk'>GitHub</ArrowLink>
-      </Flex>
-    </Flex>
   </SectionContainer>
 )
 
@@ -1120,7 +1061,6 @@ const SdkPage = () => (
       <Styling />
       <ApiKey />
       <Integrations />
-      <Cta />
     </Box>
   </Layout>
 )
