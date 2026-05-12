@@ -780,39 +780,37 @@ const Hero = function Hero ({
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </HeroCopyButton>
               </HeroApiBar>
             </HeroPreviewShell>
@@ -1137,31 +1135,31 @@ const ExampleToolbar = styled(Flex)`
   ${theme({
     width: '100%',
     px: [2, 3, 3, 3],
-    py: 2,
+    pt: 3,
     alignItems: 'center',
     justifyContent: 'center',
     gap: 2,
     bg: 'white',
     flexWrap: 'wrap'
   })};
-  border-bottom: ${borders[1]} ${colors.black05};
 `
 
 const ToggleGroup = styled(Flex)`
   ${theme({ alignItems: 'center', gap: 0 })};
   background: ${colors.black05};
-  padding: 2px;
+  padding: 4px;
   border-radius: ${radii[3]};
 `
 
 const ToggleButton = styled('button')`
   ${theme({
-    px: 2,
-    py: 1,
+    px: [3, 3, 4, 4],
+    py: 2,
     fontFamily: 'mono',
-    fontSize: 0,
+    fontSize: 1,
     fontWeight: 'bold'
   })};
+  min-width: 60px;
   letter-spacing: 0;
   background: ${({ $active }) => ($active ? colors.white : 'transparent')};
   color: ${({ $active }) => ($active ? colors.black : colors.black60)};
@@ -1202,7 +1200,7 @@ const ExampleIframeFrame = styled(Box)`
     width: '100%',
     maxWidth: '100%',
     px: [2, 3, 4, 4],
-    pt: [3, 3, 4, 4],
+    pt: [2, 2, 3, 3],
     pb: [1, 1, 2, 2]
   })};
   flex: 1;
@@ -1218,10 +1216,8 @@ const ExampleIframeFrame = styled(Box)`
     display: block;
     width: 100%;
     max-width: ${EXAMPLE_PREVIEW_MAX_WIDTH};
-    height: 100%;
     border: 0;
     border-radius: ${radii[2]};
-    background: ${colors.black05};
   }
 
   & .microlink_card,
@@ -1316,7 +1312,7 @@ const ExampleCopyButton = styled('button')`
 `
 
 const InteractiveExample = () => {
-  const [source, setSource] = useState('iframe')
+  const [source, setSource] = useState('custom')
   const [activeDemo, setActiveDemo] = useState(HERO_DEMOS[0])
   const [isCopied, setIsCopied] = useState(false)
   const copyTimerRef = useRef(null)
@@ -1325,8 +1321,10 @@ const InteractiveExample = () => {
   const iframeHtml = activeDemo.data?.iframe?.html || ''
 
   const apiUrl = `https://api.microlink.io?url=${demoUrl}&iframe`
+  const metadataUrl = `https://api.microlink.io?url=${demoUrl}`
   const sdkLine = `<Microlink url='${demoUrl}' />`
-  const copyText = source === 'iframe' ? apiUrl : sdkLine
+  const copyText =
+    source === 'iframe' ? apiUrl : source === 'sdk' ? sdkLine : metadataUrl
 
   const handleCopy = () => {
     const markCopied = () => {
@@ -1353,11 +1351,11 @@ const InteractiveExample = () => {
           <ToggleButton
             type='button'
             role='tab'
-            aria-selected={source === 'iframe'}
-            $active={source === 'iframe'}
-            onClick={() => setSource('iframe')}
+            aria-selected={source === 'custom'}
+            $active={source === 'custom'}
+            onClick={() => setSource('custom')}
           >
-            iframe
+            Custom
           </ToggleButton>
           <ToggleButton
             type='button'
@@ -1368,28 +1366,41 @@ const InteractiveExample = () => {
           >
             SDK
           </ToggleButton>
+          <ToggleButton
+            type='button'
+            role='tab'
+            aria-selected={source === 'iframe'}
+            $active={source === 'iframe'}
+            onClick={() => setSource('iframe')}
+          >
+            Iframe
+          </ToggleButton>
         </ToggleGroup>
       </ExampleToolbar>
       <ExampleBody>
-        {source === 'iframe'
-          ? (
-            <ExampleIframeFrame
-              key={`iframe-${demoUrl}`}
-              dangerouslySetInnerHTML={{ __html: iframeHtml }}
+        {source === 'iframe' && (
+          <ExampleIframeFrame
+            key={`iframe-${demoUrl}`}
+            dangerouslySetInnerHTML={{ __html: iframeHtml }}
+          />
+        )}
+        {source === 'sdk' && (
+          <ExampleIframeFrame>
+            <Microlink
+              key={`sdk-${demoUrl}`}
+              url={demoUrl}
+              size='large'
+              media={['video', 'audio', 'image', 'logo']}
+              fetchData={false}
+              setData={() => activeDemo.data}
             />
-            )
-          : (
-            <ExampleIframeFrame>
-              <Microlink
-                key={`sdk-${demoUrl}`}
-                url={demoUrl}
-                size='large'
-                media={['video', 'audio', 'image', 'logo']}
-                fetchData={false}
-                setData={() => activeDemo.data}
-              />
-            </ExampleIframeFrame>
-            )}
+          </ExampleIframeFrame>
+        )}
+        {source === 'custom' && (
+          <ExampleIframeFrame>
+            <HeroCard key={`custom-${demoUrl}`} data={activeDemo.data} />
+          </ExampleIframeFrame>
+        )}
       </ExampleBody>
       <ExampleDemoSelector role='radiogroup' aria-label='Pick an example URL'>
         {HERO_DEMOS.map(demo => {
@@ -1411,59 +1422,62 @@ const InteractiveExample = () => {
       </ExampleDemoSelector>
       <ExampleFooter>
         <ExampleFooterText>
-          {source === 'iframe'
-            ? (
-              <>
-                {`https://api.microlink.io?url=${demoUrl}`}
-                <strong>&iframe</strong>
-              </>
-              )
-            : (
-              <>
-                <strong>{"<Microlink url='"}</strong>
-                {demoUrl}
-                <strong>{"' />"}</strong>
-              </>
-              )}
+          {source === 'iframe' && (
+            <>
+              {`https://api.microlink.io?url=${demoUrl}`}
+              <strong>&iframe</strong>
+            </>
+          )}
+          {source === 'sdk' && (
+            <>
+              <strong>{"<Microlink url='"}</strong>
+              {demoUrl}
+              <strong>{"' />"}</strong>
+            </>
+          )}
+          {source === 'custom' && (
+            <>
+              <strong>https://api.microlink.io</strong>
+              {`?url=${demoUrl}`}
+            </>
+          )}
         </ExampleFooterText>
         <ExampleCopyButton
           type='button'
           onClick={handleCopy}
           aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
         >
-          {isCopied
-            ? (
-              <svg
-                className='icon-check'
-                width='16'
-                height='16'
-                viewBox='0 0 16 16'
-                fill='none'
-                aria-hidden='true'
-              >
-                <path
-                  d='M3 8l3.5 3.5L13 4.5'
-                  stroke='currentColor'
-                  strokeWidth='1.8'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-              </svg>
-              )
-            : (
-              <svg
-                width='16'
-                height='16'
-                viewBox='0 0 16 16'
-                fill='currentColor'
-                aria-hidden='true'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                />
-              </svg>
-              )}
+          {isCopied ? (
+            <svg
+              className='icon-check'
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='none'
+              aria-hidden='true'
+            >
+              <path
+                d='M3 8l3.5 3.5L13 4.5'
+                stroke='currentColor'
+                strokeWidth='1.8'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+          ) : (
+            <svg
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='currentColor'
+              aria-hidden='true'
+            >
+              <path
+                fillRule='evenodd'
+                d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+              />
+            </svg>
+          )}
         </ExampleCopyButton>
       </ExampleFooter>
     </ExampleShell>
@@ -1598,6 +1612,14 @@ const PREVIEW_FALLBACK = {
   }
 }
 
+const getHostname = url => {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '')
+  } catch {
+    return ''
+  }
+}
+
 const PreviewMedia = ({ src, palette, alt = '', style }) => {
   const [errored, setErrored] = useState(false)
   const fallbackBg = palette?.[0] || colors.black05
@@ -1711,25 +1733,23 @@ const OneLineCard = ({ data }) => (
       fontFamily: fonts.sans
     }}
   >
-    {data.logo?.url
-      ? (
-        <img
-          src={data.logo.url}
-          alt=''
-          style={{ width: 20, height: 20, borderRadius: 4, flexShrink: 0 }}
-        />
-        )
-      : (
-        <div
-          style={{
-            width: 20,
-            height: 20,
-            borderRadius: 4,
-            flexShrink: 0,
-            background: data.image?.palette?.[0] || colors.black10
-          }}
-        />
-        )}
+    {data.logo?.url ? (
+      <img
+        src={data.logo.url}
+        alt=''
+        style={{ width: 20, height: 20, borderRadius: 4, flexShrink: 0 }}
+      />
+    ) : (
+      <div
+        style={{
+          width: 20,
+          height: 20,
+          borderRadius: 4,
+          flexShrink: 0,
+          background: data.image?.palette?.[0] || colors.black10
+        }}
+      />
+    )}
     <span
       style={{
         fontSize: 13,
@@ -1762,7 +1782,7 @@ const OneLineCard = ({ data }) => (
         flexShrink: 0
       }}
     >
-      stripe.com
+      {getHostname(data.url) || 'stripe.com'}
     </span>
   </div>
 )
@@ -1884,7 +1904,7 @@ const TwitterCard = ({ data }) => (
           fontFamily: fonts.mono
         }}
       >
-        stripe.com
+        {getHostname(data.url) || 'stripe.com'}
       </span>
       <div
         style={{
@@ -1935,25 +1955,23 @@ const NotificationCard = ({ data }) => (
       fontFamily: fonts.sans
     }}
   >
-    {data.logo?.url
-      ? (
-        <img
-          src={data.logo.url}
-          alt=''
-          style={{ width: 36, height: 36, borderRadius: 8, flexShrink: 0 }}
-        />
-        )
-      : (
-        <div
-          style={{
-            width: 36,
-            height: 36,
-            borderRadius: 8,
-            flexShrink: 0,
-            background: data.image?.palette?.[0] || colors.black10
-          }}
-        />
-        )}
+    {data.logo?.url ? (
+      <img
+        src={data.logo.url}
+        alt=''
+        style={{ width: 36, height: 36, borderRadius: 8, flexShrink: 0 }}
+      />
+    ) : (
+      <div
+        style={{
+          width: 36,
+          height: 36,
+          borderRadius: 8,
+          flexShrink: 0,
+          background: data.image?.palette?.[0] || colors.black10
+        }}
+      />
+    )}
     <div style={{ flex: 1, minWidth: 0 }}>
       <div
         style={{
@@ -2083,7 +2101,7 @@ const ChatBubbleCard = ({ data }) => {
         >
           Check this webpage!{' '}
           <span style={{ color: '#027eb5', textDecoration: 'underline' }}>
-            stripe.com
+            {getHostname(data.url) || 'stripe.com'}
           </span>
         </div>
         <div
@@ -2372,11 +2390,11 @@ const CopyPasteEmbed = () => {
               gap: [3, 4, 4, 4]
             })}
           >
-            <ArrowLink href='/docs/guides/embed/custom-previews-with-ai'>
-              Generate with AI
+            <ArrowLink href='/docs/guides/embed/custom-previews-with-ai#the-base-prompt'>
+              Generate previews with a prompt
             </ArrowLink>
             <ArrowLink href='/docs/guides/embed/metadata-api'>
-              Build it yourself
+              Build the preview yourself
             </ArrowLink>
           </Flex>
         </Flex>
