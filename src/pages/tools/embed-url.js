@@ -1112,15 +1112,17 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
           <ArrowRight size={16} />
         </OmniboxConvertButton>
       </OmniboxWrapper>
-      {urlError ? (
-        <Text
-          id='embed-url-error'
-          role='alert'
-          css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
-        >
-          {urlError}
-        </Text>
-      ) : null}
+      {urlError
+        ? (
+          <Text
+            id='embed-url-error'
+            role='alert'
+            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+          >
+            {urlError}
+          </Text>
+          )
+        : null}
     </Box>
   )
 }
@@ -1129,11 +1131,13 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
 
 const PreviewPane = ({ html, hasIframe }) => (
   <ResultPane>
-    {hasIframe ? (
-      <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
-    ) : (
-      <EmbedPreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
-    )}
+    {hasIframe
+      ? (
+        <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
+        )
+      : (
+        <EmbedPreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
+        )}
   </ResultPane>
 )
 
@@ -1294,11 +1298,13 @@ const HtmlPane = ({ html }) => {
           aria-label={copied ? 'Copied!' : 'Copy HTML to clipboard'}
           title={copied ? 'Copied!' : 'Copy HTML'}
         >
-          {copied ? (
-            <Check size={14} className='icon-check' />
-          ) : (
-            <Clipboard size={14} />
-          )}
+          {copied
+            ? (
+              <Check size={14} className='icon-check' />
+              )
+            : (
+              <Clipboard size={14} />
+              )}
         </IconCopyButton>
       </PaneHeader>
       <InlineCodePre>
@@ -1368,8 +1374,7 @@ const LayoutTab = ({ config, set }) => (
           max='10'
           value={config.border}
           onChange={e =>
-            set('border', Math.max(0, Number(e.target.value) || 0))
-          }
+            set('border', Math.max(0, Number(e.target.value) || 0))}
         />
       </FormRow>
       <FormRow>
@@ -1380,8 +1385,7 @@ const LayoutTab = ({ config, set }) => (
           max='40'
           value={config.radius}
           onChange={e =>
-            set('radius', Math.max(0, Number(e.target.value) || 0))
-          }
+            set('radius', Math.max(0, Number(e.target.value) || 0))}
         />
       </FormRow>
       <FormRow>
@@ -1453,8 +1457,7 @@ const FontsTab = ({ config, set }) => (
         max='3'
         value={config.lineHeight}
         onChange={e =>
-          set('lineHeight', Math.max(1, Number(e.target.value) || 1))
-        }
+          set('lineHeight', Math.max(1, Number(e.target.value) || 1))}
       />
     </FormRow>
 
@@ -1670,11 +1673,13 @@ const ResultArea = ({
               />
             </Text>
           </Text>
-          {getErrorMeta(error?.code).showRetry ? (
-            <Button onClick={onRetry}>
-              <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-            </Button>
-          ) : null}
+          {getErrorMeta(error?.code).showRetry
+            ? (
+              <Button onClick={onRetry}>
+                <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+              </Button>
+              )
+            : null}
         </FadeIn>
       </PaperSheet>
     )
@@ -1696,13 +1701,17 @@ const ResultArea = ({
         alignItems: 'stretch'
       })}
     >
-      {!hasIframe && hasSavedPreset ? (
-        <SavedPresetIndicator onReset={onReset} />
-      ) : null}
+      {!hasIframe && hasSavedPreset
+        ? (
+          <SavedPresetIndicator onReset={onReset} />
+          )
+        : null}
       <ResultGrid>
-        {!hasIframe ? (
-          <ConfigEditor config={config} setConfig={setConfig} />
-        ) : null}
+        {!hasIframe
+          ? (
+            <ConfigEditor config={config} setConfig={setConfig} />
+            )
+          : null}
         <PreviewColumn>
           <PreviewPane html={html} hasIframe={hasIframe} />
         </PreviewColumn>
@@ -2073,13 +2082,15 @@ const UseCasesSection = () => (
               </Flex>
             ))}
           </Box>
-          {link ? (
-            <Box css={theme({ pt: 3 })}>
-              <Link href={link.href} aria-label={link.alt}>
-                {link.text}
-              </Link>
-            </Box>
-          ) : null}
+          {link
+            ? (
+              <Box css={theme({ pt: 3 })}>
+                <Link href={link.href} aria-label={link.alt}>
+                  {link.text}
+                </Link>
+              </Box>
+              )
+            : null}
         </Box>
       ))}
     </Box>
