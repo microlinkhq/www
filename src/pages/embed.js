@@ -1007,14 +1007,16 @@ const CAPABILITIES = [
         strokeLinejoin='round'
         aria-hidden='true'
       >
-        <circle cx='12' cy='12' r='10' />
-        <line x1='2' y1='12' x2='22' y2='12' />
-        <path d='M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z' />
+        <polyline points='14 2 18 6 7 17 3 17 3 13 14 2' />
+        <line x1='3' y1='22' x2='21' y2='22' />
       </svg>
     ),
-    title: 'One API, every URL',
+    title: 'Custom card from the metadata',
     description:
-      '280+ verified oEmbed providers normalized into a single response. YouTube, Spotify, X, GitHub, Figma, CodeSandbox — and the long tail — all served by the same endpoint.'
+      'Call the API for any URL and use the normalized fields — title, description, image, logo, palette — to render previews with your own HTML and CSS.',
+    links: [
+      { label: 'Custom embed guide', href: '/docs/guides/embed/metadata-api' }
+    ]
   },
   {
     icon: (
@@ -1029,36 +1031,15 @@ const CAPABILITIES = [
         strokeLinejoin='round'
         aria-hidden='true'
       >
-        <ellipse cx='12' cy='5' rx='9' ry='3' />
-        <path d='M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5' />
-        <path d='M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6' />
+        <path d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z' />
+        <polyline points='3.27 6.96 12 12.01 20.73 6.96' />
+        <line x1='12' y1='22.08' x2='12' y2='12' />
       </svg>
     ),
-    title: 'Normalized payload',
+    title: 'Microlink SDK component',
     description:
-      'A single endpoint, one consistent shape. We resolve oEmbed, Open Graph, JSON-LD, and headless rendering — you only deal with the result.'
-  },
-  {
-    icon: (
-      <svg
-        width='20'
-        height='20'
-        viewBox='0 0 24 24'
-        fill='none'
-        stroke='currentColor'
-        strokeWidth='2'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        aria-hidden='true'
-      >
-        <polygon points='12 2 2 7 12 12 22 7 12 2' />
-        <polyline points='2 17 12 22 22 17' />
-        <polyline points='2 12 12 17 22 12' />
-      </svg>
-    ),
-    title: 'Card or iframe — your call',
-    description:
-      "Pass `iframe=true` for the provider's real player (YouTube, Spotify, Tweet) or use the metadata fields to build a custom card. Same data, two presentations."
+      'Drop in <Microlink /> for React, Vue, or vanilla JS — under 10KB, lazy-loaded by default. Pass any URL and let the SDK fetch, theme, and render it. Customizable through props, CSS variables, and stable BEM class hooks.',
+    links: [{ label: 'Explore the SDK', href: '/sdk' }]
   },
   {
     icon: (
@@ -1077,29 +1058,10 @@ const CAPABILITIES = [
         <polyline points='8 6 2 12 8 18' />
       </svg>
     ),
-    title: 'Anywhere you ship',
+    title: 'Iframe attribute from the response',
     description:
-      'Plain HTTPS GET — call it from any backend, edge runtime, browser, or static site. Optional SDKs for React, Vue, and vanilla JS share the same props.'
-  },
-  {
-    icon: (
-      <svg
-        width='20'
-        height='20'
-        viewBox='0 0 24 24'
-        fill='none'
-        stroke='currentColor'
-        strokeWidth='2'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        aria-hidden='true'
-      >
-        <polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2' />
-      </svg>
-    ),
-    title: 'Edge-cached, lazy ready',
-    description:
-      'Responses are served from 240+ CloudFlare edge nodes, and the SDK lazy-loads embeds with IntersectionObserver. Pages with hundreds of embeds still hit a fast first paint.'
+      "The API response includes a ready-to-paste HTML snippet — the provider's real player. Drop it straight into your markup. Works across 280+ supported webpages: YouTube, Spotify, Vimeo, X, TikTok, Canva, Figma...",
+    links: [{ label: 'Iframe guide', href: '/docs/guides/embed/iframe' }]
   }
 ]
 
@@ -1534,9 +1496,9 @@ const Capabilities = () => (
             width: '100%'
           })}
         >
-          One API call,
+          Three ways to embed
           <LineBreak />
-          <span css={{ color: ACCENT }}>every embed</span>
+          <span css={{ color: ACCENT }}>any URL</span>
         </Subhead>
         <Text
           css={theme({
@@ -1547,26 +1509,17 @@ const Capabilities = () => (
             width: '100%'
           })}
         >
-          Call the API for a ready-to-paste <strong>iframe</strong> or
-          normalized data you can render however you want — see the{' '}
-          <Link href='/docs/guides/embed'>embed guide</Link>. Prefer to skip the
-          markup? Drop in the optional <Link href='/sdk'>Microlink SDK</Link>{' '}
-          and let one component fetch, theme, and render it for you.
+          Same API, three rendering paths. Build a fully custom card from the
+          metadata, drop in the SDK component, or paste the iframe attribute the
+          response already returns — pick whichever fits your stack.
         </Text>
         <Flex
           css={[
             theme({ gap: [3, 3, 3, 4], width: '100%' }),
-            {
-              flexDirection: 'column',
-              '@media (min-width: 768px) and (max-width: 1199px)': {
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                '& > *': { width: 'calc(50% - 12px)' }
-              }
-            }
+            { flexDirection: 'column' }
           ]}
         >
-          {CAPABILITIES.map(({ icon, title, description }) => (
+          {CAPABILITIES.map(({ icon, title, description, links }) => (
             <CapabilityItem key={title}>
               <CapabilityIcon>{icon}</CapabilityIcon>
               <Flex css={theme({ flexDirection: 'column', gap: 1 })}>
@@ -1581,6 +1534,22 @@ const Capabilities = () => (
                 <Text css={theme({ fontSize: [0, 0, 1, 1] })}>
                   {description}
                 </Text>
+                {links && (
+                  <Flex
+                    css={theme({
+                      pt: 1,
+                      gap: 3,
+                      flexWrap: 'wrap',
+                      fontSize: [1, 1, 2, 2]
+                    })}
+                  >
+                    {links.map(({ label, href }) => (
+                      <Link key={href} href={href}>
+                        {label}
+                      </Link>
+                    ))}
+                  </Flex>
+                )}
               </Flex>
             </CapabilityItem>
           ))}
@@ -3420,6 +3389,26 @@ const TOP_FAQ_ITEMS = [
           any CSS-in-JS library, you can wrap the component to apply additional
           styles per instance — see the{' '}
           <Link href='/docs/sdk/getting-started/styling/'>styling guide</Link>.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'What if a URL has no image to preview?',
+    text: 'Microlink can capture a screenshot on demand by passing screenshot=true on the embed request. The response includes a screenshot field with the rendered capture, so you can use it as a fallback whenever the source page has no Open Graph image, low-quality artwork, or missing oEmbed media — every URL ends up with a usable visual.',
+    answer: (
+      <>
+        <div>
+          Pass <code>screenshot=true</code> on the embed request and Microlink
+          renders the page in a real browser, returning the capture under{' '}
+          <code>data.screenshot.url</code>. Use it as the fallback whenever{' '}
+          <code>data.image</code> is missing or low quality — every URL ends up
+          with a usable visual.
+        </div>
+        <div>
+          See the <Link href='/screenshot'>screenshot API</Link> for full
+          options — full page, dark mode, device emulation, viewport, and
+          format.
         </div>
       </>
     )
