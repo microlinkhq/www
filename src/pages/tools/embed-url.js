@@ -649,6 +649,8 @@ const EditorShell = styled(PaperSheet)`
   ${theme({ width: '100%' })}
   min-width: 0;
   flex: 1 1 0;
+  border: none;
+  box-shadow: none;
 `
 
 const EditorTabBar = styled(Flex)`
@@ -870,6 +872,8 @@ const ResultPane = styled(PaperSheet)`
   ${theme({ width: '100%' })}
   min-width: 0;
   height: ${PREVIEW_HEIGHT_MOBILE};
+  border: none;
+  box-shadow: none;
 
   @media (min-width: ${MOBILE_BP}px) {
     flex: 1 1 0;
@@ -1125,9 +1129,6 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
 
 const PreviewPane = ({ html, hasIframe }) => (
   <ResultPane>
-    <PaneHeader>
-      <PaneLabel as='span'>Preview</PaneLabel>
-    </PaneHeader>
     {hasIframe ? (
       <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
     ) : (
@@ -1314,8 +1315,27 @@ const HtmlPane = ({ html }) => {
 
 const LayoutTab = ({ config, set }) => (
   <Box>
+    <SectionHeader>Card style</SectionHeader>
+    <VariantSelector
+      role='radiogroup'
+      aria-label='Card style'
+      css={{ marginBottom: 8 }}
+    >
+      {CARD_VARIANTS.map(({ id, label }) => (
+        <VariantButton
+          key={id}
+          role='radio'
+          aria-checked={config.variant === id}
+          $active={config.variant === id}
+          onClick={() => set('variant', id)}
+        >
+          {label}
+        </VariantButton>
+      ))}
+    </VariantSelector>
+
     <SectionHeader>Elements to include</SectionHeader>
-    <Box>
+    <Box css={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
       {ELEMENT_FIELDS.map(({ id, label }) => (
         <CheckboxWrap key={id}>
           <input
@@ -1333,59 +1353,65 @@ const LayoutTab = ({ config, set }) => (
           onChange={e => set('metaBefore', e.target.checked)}
         />
         <Text css={theme({ fontSize: 1, color: 'black80' })}>
-          Display meta before title
+          Meta before title
         </Text>
       </CheckboxWrap>
     </Box>
 
     <SectionHeader>Frame</SectionHeader>
-    <FormRow>
-      <FormLabel>Border</FormLabel>
-      <NumberField
-        type='number'
-        min='0'
-        max='10'
-        value={config.border}
-        onChange={e => set('border', Math.max(0, Number(e.target.value) || 0))}
-      />
-    </FormRow>
-    <FormRow>
-      <FormLabel>Radius</FormLabel>
-      <NumberField
-        type='number'
-        min='0'
-        max='40'
-        value={config.radius}
-        onChange={e => set('radius', Math.max(0, Number(e.target.value) || 0))}
-      />
-    </FormRow>
-    <FormRow>
-      <FormLabel>Shadow</FormLabel>
-      <SelectField
-        value={config.shadow}
-        onChange={e => set('shadow', e.target.value)}
-      >
-        {SHADOW_OPTIONS.map(o => (
-          <option key={o.id} value={o.id}>
-            {o.label}
-          </option>
-        ))}
-      </SelectField>
-    </FormRow>
-    <FormRow>
-      <FormLabel>Shadow color</FormLabel>
-      <Flex css={{ gap: 8, alignItems: 'center' }}>
-        <ColorField
-          value={config.shadowColor}
-          onChange={e => set('shadowColor', e.target.value)}
+    <Box>
+      <FormRow>
+        <FormLabel>Border</FormLabel>
+        <NumberField
+          type='number'
+          min='0'
+          max='10'
+          value={config.border}
+          onChange={e =>
+            set('border', Math.max(0, Number(e.target.value) || 0))
+          }
         />
-        <ColorFieldHex
-          type='text'
-          value={config.shadowColor}
-          onChange={e => set('shadowColor', e.target.value)}
+      </FormRow>
+      <FormRow>
+        <FormLabel>Radius</FormLabel>
+        <NumberField
+          type='number'
+          min='0'
+          max='40'
+          value={config.radius}
+          onChange={e =>
+            set('radius', Math.max(0, Number(e.target.value) || 0))
+          }
         />
-      </Flex>
-    </FormRow>
+      </FormRow>
+      <FormRow>
+        <FormLabel>Shadow</FormLabel>
+        <SelectField
+          value={config.shadow}
+          onChange={e => set('shadow', e.target.value)}
+        >
+          {SHADOW_OPTIONS.map(o => (
+            <option key={o.id} value={o.id}>
+              {o.label}
+            </option>
+          ))}
+        </SelectField>
+      </FormRow>
+      <FormRow>
+        <FormLabel>Color</FormLabel>
+        <Flex css={{ gap: 8, alignItems: 'center' }}>
+          <ColorField
+            value={config.shadowColor}
+            onChange={e => set('shadowColor', e.target.value)}
+          />
+          <ColorFieldHex
+            type='text'
+            value={config.shadowColor}
+            onChange={e => set('shadowColor', e.target.value)}
+          />
+        </Flex>
+      </FormRow>
+    </Box>
   </Box>
 )
 
@@ -1525,9 +1551,6 @@ const ConfigEditor = ({ config, setConfig }) => {
 
   return (
     <EditorShell>
-      <PaneHeader>
-        <PaneLabel as='span'>Customize</PaneLabel>
-      </PaneHeader>
       <EditorTabBar>
         {EDITOR_TABS.map(({ id, label }) => (
           <EditorTab
@@ -1681,25 +1704,6 @@ const ResultArea = ({
           <ConfigEditor config={config} setConfig={setConfig} />
         ) : null}
         <PreviewColumn>
-          {!hasIframe ? (
-            <Flex css={{ width: '100%' }}>
-              <VariantSelector role='radiogroup' aria-label='Card style'>
-                {CARD_VARIANTS.map(({ id, label }) => (
-                  <VariantButton
-                    key={id}
-                    role='radio'
-                    aria-checked={config.variant === id}
-                    $active={config.variant === id}
-                    onClick={() =>
-                      setConfig(prev => ({ ...prev, variant: id }))
-                    }
-                  >
-                    {label}
-                  </VariantButton>
-                ))}
-              </VariantSelector>
-            </Flex>
-          ) : null}
           <PreviewPane html={html} hasIframe={hasIframe} />
         </PreviewColumn>
       </ResultGrid>
