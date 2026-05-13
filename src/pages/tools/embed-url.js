@@ -1095,6 +1095,45 @@ const SmallActionButton = styled(Box).attrs({ as: 'button', type: 'button' })`
   }
 `
 
+const ViewToggle = styled(Flex)`
+  ${theme({ gap: '4px', p: '4px' })}
+  background: ${colors.black05};
+  border-radius: 10px;
+  align-items: center;
+  flex-shrink: 0;
+`
+
+const ViewToggleButton = styled(Box).attrs({ as: 'button', type: 'button' })`
+  ${theme({
+    fontFamily: 'sans',
+    fontSize: 1,
+    fontWeight: 'bold',
+    px: 3,
+    py: '8px',
+    borderRadius: '8px',
+    cursor: 'pointer'
+  })}
+  min-width: 110px;
+  text-align: center;
+  border: none;
+  background: ${({ $active }) => ($active ? colors.white : 'transparent')};
+  color: ${({ $active }) => ($active ? colors.black : colors.black60)};
+  box-shadow: ${({ $active }) =>
+    $active ? '0 1px 2px rgba(0, 0, 0, 0.08)' : 'none'};
+  transition: background ${transition.short}, color ${transition.short};
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    color: ${colors.black};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
+`
+
 const UnitFieldWrap = styled(Box)`
   position: relative;
   display: inline-flex;
@@ -1514,58 +1553,52 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
           <ArrowRight size={16} />
         </OmniboxConvertButton>
       </OmniboxWrapper>
-      {urlError
-        ? (
-          <Text
-            id='embed-url-error'
-            role='alert'
-            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
-          >
-            {urlError}
-          </Text>
-          )
-        : !url.trim()
-            ? (
-              <Text
-                css={theme({
-                  fontFamily: 'sans',
-                  color: 'black60',
-                  fontSize: 0,
-                  pt: 2,
-                  pl: 3
-                })}
+      {urlError ? (
+        <Text
+          id='embed-url-error'
+          role='alert'
+          css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+        >
+          {urlError}
+        </Text>
+      ) : !url.trim() ? (
+        <Text
+          css={theme({
+            fontFamily: 'sans',
+            color: 'black60',
+            fontSize: 0,
+            pt: 2,
+            pl: 3
+          })}
+        >
+          <Box as='span' css={{ marginRight: 4 }}>
+            Try:
+          </Box>
+          {EXAMPLE_URLS.map((example, i) => (
+            <React.Fragment key={example}>
+              <ExampleUrlButton
+                onClick={() => handleExampleClick(example)}
+                disabled={isLoading}
               >
-                <Box as='span' css={{ marginRight: 4 }}>
-                  Try:
+                {example}
+              </ExampleUrlButton>
+              {i < EXAMPLE_URLS.length - 1 ? (
+                <Box
+                  as='span'
+                  aria-hidden='true'
+                  css={{
+                    marginLeft: 6,
+                    marginRight: 6,
+                    color: colors.black30
+                  }}
+                >
+                  ·
                 </Box>
-                {EXAMPLE_URLS.map((example, i) => (
-                  <React.Fragment key={example}>
-                    <ExampleUrlButton
-                      onClick={() => handleExampleClick(example)}
-                      disabled={isLoading}
-                    >
-                      {example}
-                    </ExampleUrlButton>
-                    {i < EXAMPLE_URLS.length - 1
-                      ? (
-                        <Box
-                          as='span'
-                          aria-hidden='true'
-                          css={{
-                            marginLeft: 6,
-                            marginRight: 6,
-                            color: colors.black30
-                          }}
-                        >
-                          ·
-                        </Box>
-                        )
-                      : null}
-                  </React.Fragment>
-                ))}
-              </Text>
-              )
-            : null}
+              ) : null}
+            </React.Fragment>
+          ))}
+        </Text>
+      ) : null}
     </Box>
   )
 }
@@ -1574,16 +1607,14 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
 
 const PreviewPane = ({ html, hasIframe, hoverTarget }) => (
   <ResultPane>
-    {hasIframe
-      ? (
-        <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
-        )
-      : (
-        <EmbedPreviewFrame
-          data-hover-target={hoverTarget || undefined}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-        )}
+    {hasIframe ? (
+      <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
+    ) : (
+      <EmbedPreviewFrame
+        data-hover-target={hoverTarget || undefined}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    )}
   </ResultPane>
 )
 
@@ -1730,13 +1761,11 @@ const HtmlPane = ({ html }) => {
             }
             aria-live='polite'
           >
-            {copied
-              ? (
-                <Check size={14} color={colors.green5} />
-                )
-              : (
-                <Clipboard size={14} />
-                )}
+            {copied ? (
+              <Check size={14} color={colors.green5} />
+            ) : (
+              <Clipboard size={14} />
+            )}
             <span>{copied ? 'Copied!' : 'Copy code'}</span>
           </SmallActionButton>
         </Flex>
@@ -1807,35 +1836,33 @@ const LayoutTab = ({ config, set, setHoverTarget }) => {
                 </Text>
               </CheckboxWrap>
             ))}
-            {group.id === 'content'
-              ? (
-                <Flex css={{ alignItems: 'center' }} {...hover('meta')}>
-                  <CheckboxWrap>
-                    <input
-                      type='checkbox'
-                      checked={!!config.metaBefore}
-                      onChange={e => set('metaBefore', e.target.checked)}
-                    />
-                    <Text css={theme({ fontSize: 1, color: 'black80' })}>
-                      Site name on top
-                    </Text>
-                  </CheckboxWrap>
-                  <Tooltip
-                    aria-label='Help: show site name above title'
-                    content={
-                      <Tooltip.Content>
-                        When enabled, the site name appears above the title —
-                        useful for branded previews.
-                      </Tooltip.Content>
+            {group.id === 'content' ? (
+              <Flex css={{ alignItems: 'center' }} {...hover('meta')}>
+                <CheckboxWrap>
+                  <input
+                    type='checkbox'
+                    checked={!!config.metaBefore}
+                    onChange={e => set('metaBefore', e.target.checked)}
+                  />
+                  <Text css={theme({ fontSize: 1, color: 'black80' })}>
+                    Site name on top
+                  </Text>
+                </CheckboxWrap>
+                <Tooltip
+                  aria-label='Help: show site name above title'
+                  content={
+                    <Tooltip.Content>
+                      When enabled, the site name appears above the title —
+                      useful for branded previews.
+                    </Tooltip.Content>
                   }
-                  >
-                    <HelpIconWrap>
-                      <HelpCircle size={13} />
-                    </HelpIconWrap>
-                  </Tooltip>
-                </Flex>
-                )
-              : null}
+                >
+                  <HelpIconWrap>
+                    <HelpCircle size={13} />
+                  </HelpIconWrap>
+                </Tooltip>
+              </Flex>
+            ) : null}
           </Box>
         ))}
       </Box>
@@ -1870,7 +1897,8 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                 step='1'
                 value={config.border}
                 onChange={e =>
-                  set('border', Math.max(0, Number(e.target.value) || 0))}
+                  set('border', Math.max(0, Number(e.target.value) || 0))
+                }
                 aria-label='Border width'
               />
               <UnitFieldWrap>
@@ -1880,7 +1908,8 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                   max='10'
                   value={config.border}
                   onChange={e =>
-                    set('border', Math.max(0, Number(e.target.value) || 0))}
+                    set('border', Math.max(0, Number(e.target.value) || 0))
+                  }
                   aria-label='Border width in pixels'
                 />
                 <UnitSuffix aria-hidden='true'>px</UnitSuffix>
@@ -1918,7 +1947,8 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                 step='1'
                 value={config.radius}
                 onChange={e =>
-                  set('radius', Math.max(0, Number(e.target.value) || 0))}
+                  set('radius', Math.max(0, Number(e.target.value) || 0))
+                }
                 aria-label='Border radius'
               />
               <UnitFieldWrap>
@@ -1928,7 +1958,8 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                   max='40'
                   value={config.radius}
                   onChange={e =>
-                    set('radius', Math.max(0, Number(e.target.value) || 0))}
+                    set('radius', Math.max(0, Number(e.target.value) || 0))
+                  }
                   aria-label='Border radius in pixels'
                 />
                 <UnitSuffix aria-hidden='true'>px</UnitSuffix>
@@ -2032,7 +2063,8 @@ const FontsTab = ({ config, set, setHoverTarget }) => {
           max='3'
           value={config.lineHeight}
           onChange={e =>
-            set('lineHeight', Math.max(1, Number(e.target.value) || 1))}
+            set('lineHeight', Math.max(1, Number(e.target.value) || 1))
+          }
         />
       </FormRow>
 
@@ -2176,6 +2208,11 @@ const ResultArea = ({
   hasSavedPreset
 }) => {
   const [hoverTarget, setHoverTarget] = useState(null)
+  const [useCard, setUseCard] = useState(false)
+
+  useEffect(() => {
+    setUseCard(false)
+  }, [data])
 
   if (isLoading) {
     return (
@@ -2248,13 +2285,11 @@ const ResultArea = ({
               />
             </Text>
           </Text>
-          {getErrorMeta(error?.code).showRetry
-            ? (
-              <Button onClick={onRetry}>
-                <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-              </Button>
-              )
-            : null}
+          {getErrorMeta(error?.code).showRetry ? (
+            <Button onClick={onRetry}>
+              <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+            </Button>
+          ) : null}
         </FadeIn>
       </PaperSheet>
     )
@@ -2262,14 +2297,15 @@ const ResultArea = ({
 
   if (!data) return null
 
-  const hasIframe = Boolean(data.iframe?.html)
+  const apiHasIframe = Boolean(data.iframe?.html)
+  const showCard = useCard || !apiHasIframe
   const previewHtml = compactHtml(
-    hasIframe
-      ? data.iframe.html
-      : buildCardHtml(data, config, { instrument: true })
+    showCard
+      ? buildCardHtml(data, config, { instrument: true })
+      : data.iframe.html
   )
   const copyHtml = compactHtml(
-    hasIframe ? data.iframe.html : buildCardHtml(data, config)
+    showCard ? buildCardHtml(data, config) : data.iframe.html
   )
 
   return (
@@ -2281,40 +2317,60 @@ const ResultArea = ({
         alignItems: 'stretch'
       })}
     >
+      {apiHasIframe ? (
+        <Flex css={{ justifyContent: 'center', width: '100%' }}>
+          <ViewToggle role='radiogroup' aria-label='Preview format'>
+            <ViewToggleButton
+              role='radio'
+              aria-checked={!useCard}
+              $active={!useCard}
+              onClick={() => setUseCard(false)}
+            >
+              Iframe
+            </ViewToggleButton>
+            <ViewToggleButton
+              role='radio'
+              aria-checked={useCard}
+              $active={useCard}
+              onClick={() => setUseCard(true)}
+            >
+              Card
+            </ViewToggleButton>
+          </ViewToggle>
+        </Flex>
+      ) : null}
       <ResultGrid>
-        {!hasIframe
-          ? (
-            <ConfigEditor
-              config={config}
-              setConfig={setConfig}
-              setHoverTarget={setHoverTarget}
-            />
-            )
-          : null}
+        {showCard ? (
+          <ConfigEditor
+            config={config}
+            setConfig={setConfig}
+            setHoverTarget={setHoverTarget}
+          />
+        ) : null}
         <PreviewColumn>
           <Flex
             css={{
               alignItems: 'center',
               justifyContent: 'space-between',
-              minHeight: 28
+              gap: 8,
+              minHeight: 28,
+              flexWrap: 'wrap'
             }}
           >
             <PreviewSectionLabel as='span'>Live preview</PreviewSectionLabel>
-            {!hasIframe && hasSavedPreset
-              ? (
-                <SmallActionButton
-                  onClick={onReset}
-                  aria-label='Reset all preview settings to defaults'
-                >
-                  <RotateCcw size={14} />
-                  Reset to defaults
-                </SmallActionButton>
-                )
-              : null}
+            {showCard && hasSavedPreset ? (
+              <SmallActionButton
+                onClick={onReset}
+                aria-label='Reset all preview settings to defaults'
+              >
+                <RotateCcw size={14} />
+                Reset to defaults
+              </SmallActionButton>
+            ) : null}
           </Flex>
           <PreviewPane
             html={previewHtml}
-            hasIframe={hasIframe}
+            hasIframe={!showCard}
             hoverTarget={hoverTarget}
           />
         </PreviewColumn>
@@ -2466,33 +2522,31 @@ const EmbedTool = () => {
           </ResultsExpandWrapper>
         </Box>
       </Flex>
-      {showPresetToast
-        ? (
-          <Toast role='status' aria-live='polite'>
-            <Check size={14} color={colors.green5} />
-            <Text as='span' css={{ flex: 1 }}>
-              Custom style applied from your saved preset
-            </Text>
-            <Box
-              as='button'
-              type='button'
-              onClick={dismissPresetToast}
-              aria-label='Dismiss'
-              css={{
-                background: 'transparent',
-                border: 'none',
-                color: colors.black40,
-                cursor: 'pointer',
-                padding: '2px 4px',
-                fontSize: '14px',
-                lineHeight: 1
-              }}
-            >
-              ×
-            </Box>
-          </Toast>
-          )
-        : null}
+      {showPresetToast ? (
+        <Toast role='status' aria-live='polite'>
+          <Check size={14} color={colors.green5} />
+          <Text as='span' css={{ flex: 1 }}>
+            Custom style applied from your saved preset
+          </Text>
+          <Box
+            as='button'
+            type='button'
+            onClick={dismissPresetToast}
+            aria-label='Dismiss'
+            css={{
+              background: 'transparent',
+              border: 'none',
+              color: colors.black40,
+              cursor: 'pointer',
+              padding: '2px 4px',
+              fontSize: '14px',
+              lineHeight: 1
+            }}
+          >
+            ×
+          </Box>
+        </Toast>
+      ) : null}
     </Container>
   )
 }
@@ -2743,15 +2797,13 @@ const UseCasesSection = () => (
               </Flex>
             ))}
           </Box>
-          {link
-            ? (
-              <Box css={theme({ pt: 3 })}>
-                <Link href={link.href} aria-label={link.alt}>
-                  {link.text}
-                </Link>
-              </Box>
-              )
-            : null}
+          {link ? (
+            <Box css={theme({ pt: 3 })}>
+              <Link href={link.href} aria-label={link.alt}>
+                {link.text}
+              </Link>
+            </Box>
+          ) : null}
         </Box>
       ))}
     </Box>
