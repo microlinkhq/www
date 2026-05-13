@@ -21,8 +21,8 @@ import {
   Activity,
   Maximize,
   Zap,
-  Film,
-  FileText
+  FileText,
+  Link2
 } from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
@@ -225,11 +225,11 @@ export const NAVIGATION_SECTIONS = [
         icon: CameraIcon
       }),
       createNavigationItem({
-        label: 'Bulk Screenshots',
-        href: '/tools/website-screenshot/bulk',
+        label: 'Sharing Debugger',
+        href: '/tools/sharing-debugger',
         actively: 'exact',
-        description: 'Capture multiple websites as screenshots in one go',
-        icon: BookImageIcon
+        description: 'Preview social cards before publishing links',
+        icon: BugIcon
       }),
       createNavigationItem({
         label: 'Website to PDF',
@@ -239,25 +239,18 @@ export const NAVIGATION_SECTIONS = [
         icon: FileText
       }),
       createNavigationItem({
-        label: 'Bulk URLs to PDFs',
-        href: '/tools/website-to-pdf/bulk',
-        actively: 'exact',
-        description: 'Convert multiple URLs to PDFs at once',
-        icon: Layers
-      }),
-      createNavigationItem({
-        label: 'Sharing Debugger',
-        href: '/tools/sharing-debugger',
-        actively: 'exact',
-        description: 'Preview social cards before publishing links',
-        icon: BugIcon
-      }),
-      createNavigationItem({
         label: 'URL to Markdown',
         href: '/tools/url-to-markdown',
         actively: 'exact',
         description: 'Convert any URL to a markdown file',
         icon: MarkdownIcon
+      }),
+      createNavigationItem({
+        label: 'Embed URL',
+        href: '/tools/embed-url',
+        actively: 'exact',
+        description: 'Turn any URL into an embeddable rich card',
+        icon: Link2
       }),
       createNavigationItem({
         label: 'Full Page Screenshot',
@@ -267,11 +260,18 @@ export const NAVIGATION_SECTIONS = [
         icon: Maximize
       }),
       createNavigationItem({
-        label: 'Animated Screenshot',
-        href: '/tools/website-screenshot/animated',
+        label: 'Bulk Screenshots',
+        href: '/tools/website-screenshot/bulk',
         actively: 'exact',
-        description: 'Generate animated screenshots',
-        icon: Film
+        description: 'Capture multiple websites as screenshots in one go',
+        icon: BookImageIcon
+      }),
+      createNavigationItem({
+        label: 'Bulk URLs to PDFs',
+        href: '/tools/website-to-pdf/bulk',
+        actively: 'exact',
+        description: 'Convert multiple URLs to PDFs at once',
+        icon: Layers
       })
     ]
   },

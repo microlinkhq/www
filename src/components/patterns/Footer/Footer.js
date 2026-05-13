@@ -46,6 +46,7 @@ const FOOTER_COLUMNS = [
   {
     title: 'Resources',
     links: [
+      { label: 'SDK', href: '/sdk' },
       { label: 'Blog', href: '/blog' },
       { label: 'Changelog', href: '/changelog' },
       { label: 'Community', href: '/community' },
@@ -83,9 +84,9 @@ const FOOTER_COLUMNS = [
   {
     title: 'Tools',
     links: [
-      { label: 'SDK', href: '/sdk' },
       { label: 'Sharing Debugger', href: '/tools/sharing-debugger' },
       { label: 'Website Screenshot', href: '/tools/website-screenshot' },
+      { label: 'Embed URL', href: '/tools/embed-url' },
       { label: 'URL to Markdown', href: '/tools/url-to-markdown' },
       { label: 'Website to PDF', href: '/tools/website-to-pdf' },
       { label: 'Bulk Screenshots', href: '/tools/website-screenshot/bulk' },
