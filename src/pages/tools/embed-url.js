@@ -40,6 +40,7 @@ import {
   ApiErrorBody
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
+import { buildLocalEmbedResponse } from 'helpers/embed-providers'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import {
@@ -174,6 +175,27 @@ const escText = value =>
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
 
+const CARD_TEXT_LIMITS = {
+  large: { title: 90, description: 220 },
+  small: { title: 60, description: 140 }
+}
+
+const truncate = (text, max) => {
+  const str = String(text ?? '')
+  if (str.length <= max) return str
+  const slice = str.slice(0, max - 1)
+  const trimmed = slice.replace(/\s+\S*$/, '')
+  return `${trimmed || slice}…`
+}
+
+const imageLogoFallbackAttr = logoUrl =>
+  logoUrl
+    ? `onerror="this.onerror=null;this.src='${logoUrl.replace(
+      /'/g,
+      '&#39;'
+    )}';this.style.objectFit='contain';this.style.padding='15%'" `
+    : ''
+
 const pickFallbackBg = data => data?.image?.palette?.[0] || 'rgba(0,0,0,0.05)'
 
 const hexToRgba = (hex, alpha) => {
@@ -286,15 +308,22 @@ const buildMetaPieces = (data, s) => {
 const buildLargeCard = (data, s) => {
   const href = escAttr(data?.url || '')
   const imageUrl = data?.image?.url ? escAttr(data.image.url) : ''
-  const title = escText(data?.title || '')
+  const logoUrl = data?.logo?.url ? escAttr(data.logo.url) : ''
+  const title = escText(
+    truncate(data?.title || '', CARD_TEXT_LIMITS.large.title)
+  )
   const description = s.elements.description
-    ? escText(data?.description || '')
+    ? escText(
+      truncate(data?.description || '', CARD_TEXT_LIMITS.large.description)
+    )
     : ''
   const fallbackBg = escAttr(pickFallbackBg(data))
   const metaHtml = buildMetaPieces(data, s)
 
   const mediaInner = imageUrl
-    ? `<img src="${imageUrl}" alt="" style="width:100%;height:100%;object-fit:cover;display:block" />`
+    ? `<img src="${imageUrl}" alt="" ${imageLogoFallbackAttr(
+      logoUrl
+    )}style="width:100%;height:100%;object-fit:cover;display:block" />`
     : ''
 
   const titleHtml = `<div${de(s, 'headline')} style="font-size:${
@@ -330,6 +359,7 @@ const buildLargeCard = (data, s) => {
 const buildWideCard = (data, s) => {
   const href = escAttr(data?.url || '')
   const imageUrl = data?.image?.url ? escAttr(data.image.url) : ''
+  const logoUrl = data?.logo?.url ? escAttr(data.logo.url) : ''
   const title = escText(data?.title || '')
   const description = s.elements.description
     ? escText(data?.description || '')
@@ -338,7 +368,9 @@ const buildWideCard = (data, s) => {
   const metaHtml = buildMetaPieces(data, s)
 
   const mediaInner = imageUrl
-    ? `<img src="${imageUrl}" alt="" style="width:100%;height:100%;object-fit:cover;display:block" />`
+    ? `<img src="${imageUrl}" alt="" ${imageLogoFallbackAttr(
+      logoUrl
+    )}style="width:100%;height:100%;object-fit:cover;display:block" />`
     : ''
 
   const titleHtml = `<div${de(s, 'headline')} style="font-size:${
@@ -374,9 +406,13 @@ const buildWideCard = (data, s) => {
 const buildSmallCard = (data, s) => {
   const href = escAttr(data?.url || '')
   const logoUrl = data?.logo?.url ? escAttr(data.logo.url) : ''
-  const title = escText(data?.title || '')
+  const title = escText(
+    truncate(data?.title || '', CARD_TEXT_LIMITS.small.title)
+  )
   const description = s.elements.description
-    ? escText(data?.description || '')
+    ? escText(
+      truncate(data?.description || '', CARD_TEXT_LIMITS.small.description)
+    )
     : ''
   const fallbackBg = escAttr(pickFallbackBg(data))
 
@@ -2509,6 +2545,14 @@ const EmbedTool = () => {
     setData(null)
     setLastUrl(nextUrl)
 
+    const localFallback = buildLocalEmbedResponse(nextUrl)
+    if (localFallback) {
+      if (requestId !== requestIdRef.current) return
+      setData(localFallback)
+      setIsLoading(false)
+      return
+    }
+
     try {
       const response = await mql(nextUrl, {
         iframe: true,
@@ -2519,6 +2563,13 @@ const EmbedTool = () => {
       setData(response.data || null)
     } catch (err) {
       if (requestId !== requestIdRef.current) return
+      if (err?.code === 'EPROXYNEEDED') {
+        const fallback = buildLocalEmbedResponse(nextUrl)
+        if (fallback) {
+          setData(fallback)
+          return
+        }
+      }
       setError(normalizeApiError.fromMql(err, 'Failed to fetch embed.'))
     } finally {
       if (requestId === requestIdRef.current) setIsLoading(false)
