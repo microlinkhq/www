@@ -31,7 +31,7 @@ const buildYouTubeResponse = (url, videoId) => ({
     palette: ['#FF0000', '#0F0F0F']
   },
   logo: {
-    url: `https://www.youtube.com/s/desktop/47009d78/img/favicon_144x144.png`
+    url: 'https://www.youtube.com/s/desktop/47009d78/img/favicon_144x144.png'
   },
   iframe: {
     html: youtubeIframeHtml(videoId),
@@ -94,7 +94,7 @@ const buildFigmaResponse = (url, parsed) => ({
     palette: ['#1E1E1E', '#F24E1E']
   },
   logo: {
-    url: `https://static.figma.com/app/icon/2/icon-256.png`
+    url: 'https://static.figma.com/app/icon/2/icon-256.png'
   },
   iframe: {
     html: figmaIframeHtml(url),
