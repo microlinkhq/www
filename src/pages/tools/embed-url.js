@@ -175,14 +175,6 @@ const escText = value =>
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
 
-const getHostnameFromUrl = url => {
-  try {
-    return new URL(url).hostname.replace(/^www\./, '')
-  } catch {
-    return ''
-  }
-}
-
 const pickFallbackBg = data => data?.image?.palette?.[0] || 'rgba(0,0,0,0.05)'
 
 const hexToRgba = (hex, alpha) => {
@@ -339,9 +331,6 @@ const buildLargeCard = (data, s) => {
 const buildWideCard = (data, s) => {
   const href = escAttr(data?.url || '')
   const imageUrl = data?.image?.url ? escAttr(data.image.url) : ''
-  const hostname = escText(
-    getHostnameFromUrl(data?.url) || data?.publisher || ''
-  )
   const title = escText(data?.title || '')
   const description = s.elements.description
     ? escText(data?.description || '')
@@ -353,11 +342,6 @@ const buildWideCard = (data, s) => {
     ? `<img src="${imageUrl}" alt="" style="width:100%;height:100%;object-fit:cover;display:block" />`
     : ''
 
-  const hostnameHtml = `<span${de(s, 'hostname')} style="font-size:${
-    s.websiteSize
-  }px;color:${s.palette.website};font-family:${
-    FONT_FAMILIES.mono
-  }">${hostname}</span>`
   const titleHtml = `<div${de(s, 'headline')} style="font-size:${
     s.headlineSize
   }px;font-weight:${s.fontWeight};color:${s.palette.headline};line-height:${
@@ -372,8 +356,8 @@ const buildWideCard = (data, s) => {
     : ''
 
   const body = s.metaBefore
-    ? `${hostnameHtml}${metaHtml}${titleHtml}${descriptionHtml}`
-    : `${titleHtml}${descriptionHtml}${hostnameHtml}${metaHtml}`
+    ? `${metaHtml}${titleHtml}${descriptionHtml}`
+    : `${titleHtml}${descriptionHtml}${metaHtml}`
 
   return `<a${de(
     s,
@@ -429,9 +413,7 @@ const buildSmallCard = (data, s) => {
       ? `<span${de(s, 'date')} style="font-size:${s.metaSize}px;color:${
         s.palette.meta
       }">${escText(formatDate(data.date))}</span>`
-      : `<span${de(s, 'date')} style="font-size:${s.metaSize}px;color:${
-        s.palette.meta
-      }">now</span>`
+      : ''
 
   const metaRow =
     publisherText || authorText
@@ -719,9 +701,9 @@ const IframePreviewFrame = styled(EmbedPreviewFrame)`
 const VariantSelector = styled(Flex)`
   ${theme({ gap: 1, p: 1 })}
   background: ${colors.black05};
-  border-radius: 999px;
-  align-items: center;
-  flex-wrap: wrap;
+  border-radius: 10px;
+  align-items: stretch;
+  width: 100%;
 `
 
 const VariantButton = styled(Box).attrs({ as: 'button', type: 'button' })`
@@ -729,16 +711,23 @@ const VariantButton = styled(Box).attrs({ as: 'button', type: 'button' })`
     fontFamily: 'sans',
     fontSize: 0,
     fontWeight: 'bold',
-    px: 3,
-    py: '6px',
-    borderRadius: '999px',
+    px: 2,
+    py: 2,
+    borderRadius: '8px',
     cursor: 'pointer'
   })}
+  flex: 1 1 0;
+  min-width: 0;
   border: none;
   background: ${({ $active }) => ($active ? colors.white : 'transparent')};
   color: ${({ $active }) => ($active ? colors.black : colors.black60)};
   box-shadow: ${({ $active }) =>
     $active ? '0 1px 2px rgba(0, 0, 0, 0.08)' : 'none'};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   transition: background ${transition.short}, color ${transition.short};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -756,6 +745,134 @@ const VariantButton = styled(Box).attrs({ as: 'button', type: 'button' })`
     outline-offset: 2px;
   }
 `
+
+const VariantThumb = styled(Box).withConfig({
+  shouldForwardProp: prop => prop !== '$active'
+})`
+  width: 64px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid ${({ $active }) => ($active ? colors.link : colors.black10)};
+  background: white;
+  overflow: hidden;
+  display: flex;
+  flex-shrink: 0;
+  box-shadow: ${({ $active }) =>
+    $active ? `0 0 0 1px ${colors.link}` : 'none'};
+  transition: border-color ${transition.short}, box-shadow ${transition.short};
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`
+
+const ThumbImage = styled(Box)`
+  background: linear-gradient(135deg, ${colors.black20}, ${colors.black05});
+  flex-shrink: 0;
+`
+
+const ThumbBar = styled(Box)`
+  background: ${colors.black10};
+  border-radius: 1px;
+  height: 3px;
+`
+
+const ThumbSlot = styled(Box)`
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+`
+
+const VariantPreview = ({ id, active }) => {
+  if (id === 'large') {
+    return (
+      <ThumbSlot>
+        <VariantThumb
+          $active={active}
+          css={{ height: 40, flexDirection: 'column' }}
+        >
+          <ThumbImage css={{ height: 18, width: '100%' }} />
+          <Box
+            css={{
+              flex: 1,
+              padding: '3px 4px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              justifyContent: 'center'
+            }}
+          >
+            <ThumbBar css={{ width: '80%' }} />
+            <ThumbBar css={{ width: '55%' }} />
+          </Box>
+        </VariantThumb>
+      </ThumbSlot>
+    )
+  }
+  if (id === 'wide') {
+    return (
+      <ThumbSlot>
+        <VariantThumb
+          $active={active}
+          css={{ height: 26, flexDirection: 'row' }}
+        >
+          <ThumbImage css={{ width: 20, height: '100%' }} />
+          <Box
+            css={{
+              flex: 1,
+              padding: '4px 5px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              justifyContent: 'center'
+            }}
+          >
+            <ThumbBar css={{ width: '85%' }} />
+            <ThumbBar css={{ width: '60%' }} />
+          </Box>
+        </VariantThumb>
+      </ThumbSlot>
+    )
+  }
+  return (
+    <ThumbSlot>
+      <VariantThumb
+        $active={active}
+        css={{
+          height: 22,
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: '3px 4px',
+          gap: 5
+        }}
+      >
+        <Box
+          css={{
+            width: 12,
+            height: 12,
+            borderRadius: 3,
+            background: colors.black10,
+            flexShrink: 0
+          }}
+        />
+        <Box
+          css={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+            justifyContent: 'center'
+          }}
+        >
+          <ThumbBar css={{ width: '90%' }} />
+          <ThumbBar css={{ width: '60%' }} />
+        </Box>
+      </VariantThumb>
+    </ThumbSlot>
+  )
+}
 
 const EditorShell = styled(PaperSheet)`
   ${theme({ width: '100%' })}
@@ -1640,17 +1757,21 @@ const LayoutTab = ({ config, set, setHoverTarget }) => {
         aria-label='Card style'
         css={{ marginBottom: 8 }}
       >
-        {CARD_VARIANTS.map(({ id, label }) => (
-          <VariantButton
-            key={id}
-            role='radio'
-            aria-checked={config.variant === id}
-            $active={config.variant === id}
-            onClick={() => set('variant', id)}
-          >
-            {label}
-          </VariantButton>
-        ))}
+        {CARD_VARIANTS.map(({ id, label }) => {
+          const isActive = config.variant === id
+          return (
+            <VariantButton
+              key={id}
+              role='radio'
+              aria-checked={isActive}
+              $active={isActive}
+              onClick={() => set('variant', id)}
+            >
+              <VariantPreview id={id} active={isActive} />
+              {label}
+            </VariantButton>
+          )
+        })}
       </VariantSelector>
 
       <SectionHeader>Elements to include</SectionHeader>
