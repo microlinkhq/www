@@ -8,7 +8,8 @@ import {
   Clipboard,
   Check,
   Loader,
-  RotateCcw
+  RotateCcw,
+  HelpCircle
 } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
@@ -21,7 +22,6 @@ import { Button } from 'components/elements/Button/Button'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
-import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
@@ -88,19 +88,30 @@ const THEME_OPTIONS = [
   { id: 'dark', label: 'Dark theme' }
 ]
 
-const ELEMENT_FIELDS = [
-  { id: 'description', label: 'Description' },
-  { id: 'siteIcon', label: 'Site icon' },
-  { id: 'siteName', label: 'Site name' },
-  { id: 'authorTopic', label: 'Author / topic' },
-  { id: 'date', label: 'Date' }
+const ELEMENT_GROUPS = [
+  {
+    id: 'identity',
+    label: 'Identity',
+    fields: [
+      { id: 'siteIcon', label: 'Site icon' },
+      { id: 'siteName', label: 'Site name' },
+      { id: 'authorTopic', label: 'Author / topic' }
+    ]
+  },
+  {
+    id: 'content',
+    label: 'Content',
+    fields: [
+      { id: 'description', label: 'Description' },
+      { id: 'date', label: 'Date' }
+    ]
+  }
 ]
 
 const COLOR_FIELDS = [
   { id: 'headline', label: 'Headline' },
   { id: 'description', label: 'Description' },
-  { id: 'meta', label: 'Meta' },
-  { id: 'website', label: 'Website' },
+  { id: 'meta', label: 'Website' },
   { id: 'background', label: 'Background' },
   { id: 'border', label: 'Border' }
 ]
@@ -231,18 +242,22 @@ const resolveStyle = config => {
   }
 }
 
+const de = (s, kind) => (s.instrument ? ` data-element="${kind}"` : '')
+
 const buildMetaPieces = (data, s) => {
   const pieces = []
   if (s.elements.siteIcon && data?.logo?.url) {
     pieces.push(
-      `<img src="${escAttr(data.logo.url)}" alt="" style="width:${
+      `<img${de(s, 'siteIcon')} src="${escAttr(
+        data.logo.url
+      )}" alt="" style="width:${s.metaSize + 4}px;height:${
         s.metaSize + 4
-      }px;height:${s.metaSize + 4}px;border-radius:4px;flex-shrink:0" />`
+      }px;border-radius:4px;flex-shrink:0" />`
     )
   }
   if (s.elements.siteName && data?.publisher) {
     pieces.push(
-      `<span style="font-size:${s.metaSize}px;font-weight:${
+      `<span${de(s, 'siteName')} style="font-size:${s.metaSize}px;font-weight:${
         s.fontWeight
       };color:${
         s.palette.meta
@@ -253,7 +268,7 @@ const buildMetaPieces = (data, s) => {
   }
   if (s.elements.authorTopic && data?.author) {
     pieces.push(
-      `<span style="font-size:${s.metaSize}px;color:${
+      `<span${de(s, 'authorTopic')} style="font-size:${s.metaSize}px;color:${
         s.palette.meta
       }">${escText(data.author)}</span>`
     )
@@ -262,14 +277,17 @@ const buildMetaPieces = (data, s) => {
     const dateStr = formatDate(data.date)
     if (dateStr) {
       pieces.push(
-        `<span style="font-size:${s.metaSize}px;color:${
+        `<span${de(s, 'date')} style="font-size:${s.metaSize}px;color:${
           s.palette.meta
         }">${escText(dateStr)}</span>`
       )
     }
   }
   if (!pieces.length) return ''
-  return `<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:${
+  return `<div${de(
+    s,
+    'meta'
+  )} style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:${
     s.metaSize + 4
   }px">${pieces.join('')}</div>`
 }
@@ -288,16 +306,31 @@ const buildLargeCard = (data, s) => {
     ? `<img src="${imageUrl}" alt="" style="width:100%;height:100%;object-fit:cover;display:block" />`
     : ''
 
-  const titleHtml = `<div style="font-size:${s.headlineSize}px;font-weight:${s.fontWeight};color:${s.palette.headline};line-height:${s.lineHeight};margin:0">${title}</div>`
+  const titleHtml = `<div${de(s, 'headline')} style="font-size:${
+    s.headlineSize
+  }px;font-weight:${s.fontWeight};color:${s.palette.headline};line-height:${
+    s.lineHeight
+  };margin:0">${title}</div>`
   const descriptionHtml = description
-    ? `<div style="font-size:${s.descriptionSize}px;color:${s.palette.description};line-height:${s.lineHeight};display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0">${description}</div>`
+    ? `<div${de(s, 'description')} style="font-size:${
+      s.descriptionSize
+    }px;color:${s.palette.description};line-height:${
+      s.lineHeight
+    };display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0">${description}</div>`
     : ''
 
   const body = s.metaBefore
     ? `${metaHtml}${titleHtml}${descriptionHtml}`
     : `${titleHtml}${descriptionHtml}${metaHtml}`
 
-  return `<a href="${href}" target="_blank" rel="noopener noreferrer" style="display:block;text-decoration:none;color:inherit;width:100%;max-width:460px;background:${s.palette.background};border-radius:${s.radius};overflow:hidden;border:${s.border};box-shadow:${s.shadow};font-family:${s.fontFamily}">
+  return `<a${de(
+    s,
+    'frame'
+  )} href="${href}" target="_blank" rel="noopener noreferrer" style="display:block;text-decoration:none;color:inherit;width:100%;max-width:460px;background:${
+    s.palette.background
+  };border-radius:${s.radius};overflow:hidden;border:${s.border};box-shadow:${
+    s.shadow
+  };font-family:${s.fontFamily}">
   <div style="width:100%;aspect-ratio:16 / 9;background:${fallbackBg};overflow:hidden">${mediaInner}</div>
   <div style="padding:14px 16px;display:flex;flex-direction:column;gap:6px">${body}</div>
 </a>`
@@ -320,17 +353,36 @@ const buildWideCard = (data, s) => {
     ? `<img src="${imageUrl}" alt="" style="width:100%;height:100%;object-fit:cover;display:block" />`
     : ''
 
-  const hostnameHtml = `<span style="font-size:${s.websiteSize}px;color:${s.palette.website};font-family:${FONT_FAMILIES.mono}">${hostname}</span>`
-  const titleHtml = `<div style="font-size:${s.headlineSize}px;font-weight:${s.fontWeight};color:${s.palette.headline};line-height:${s.lineHeight};display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${title}</div>`
+  const hostnameHtml = `<span${de(s, 'hostname')} style="font-size:${
+    s.websiteSize
+  }px;color:${s.palette.website};font-family:${
+    FONT_FAMILIES.mono
+  }">${hostname}</span>`
+  const titleHtml = `<div${de(s, 'headline')} style="font-size:${
+    s.headlineSize
+  }px;font-weight:${s.fontWeight};color:${s.palette.headline};line-height:${
+    s.lineHeight
+  };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${title}</div>`
   const descriptionHtml = description
-    ? `<div style="font-size:${s.descriptionSize}px;color:${s.palette.description};line-height:${s.lineHeight};display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${description}</div>`
+    ? `<div${de(s, 'description')} style="font-size:${
+      s.descriptionSize
+    }px;color:${s.palette.description};line-height:${
+      s.lineHeight
+    };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${description}</div>`
     : ''
 
   const body = s.metaBefore
     ? `${hostnameHtml}${metaHtml}${titleHtml}${descriptionHtml}`
     : `${titleHtml}${descriptionHtml}${hostnameHtml}${metaHtml}`
 
-  return `<a href="${href}" target="_blank" rel="noopener noreferrer" style="display:flex;text-decoration:none;color:inherit;width:100%;max-width:460px;min-height:140px;background:${s.palette.background};border-radius:${s.radius};overflow:hidden;border:${s.border};box-shadow:${s.shadow};font-family:${s.fontFamily}">
+  return `<a${de(
+    s,
+    'frame'
+  )} href="${href}" target="_blank" rel="noopener noreferrer" style="display:flex;text-decoration:none;color:inherit;width:100%;max-width:460px;min-height:140px;background:${
+    s.palette.background
+  };border-radius:${s.radius};overflow:hidden;border:${s.border};box-shadow:${
+    s.shadow
+  };font-family:${s.fontFamily}">
   <div style="width:140px;flex-shrink:0;align-self:stretch;background:${fallbackBg};overflow:hidden">${mediaInner}</div>
   <div style="padding:14px;display:flex;flex-direction:column;gap:4px;flex:1;min-width:0;justify-content:center">${body}</div>
 </a>`
@@ -349,45 +401,58 @@ const buildSmallCard = (data, s) => {
   const iconNode = !showIcon
     ? ''
     : logoUrl
-      ? `<img src="${logoUrl}" alt="" style="width:36px;height:36px;border-radius:8px;flex-shrink:0" />`
-      : `<div style="width:36px;height:36px;border-radius:8px;flex-shrink:0;background:${fallbackBg}"></div>`
+      ? `<img${de(
+        s,
+        'siteIcon'
+      )} src="${logoUrl}" alt="" style="width:36px;height:36px;border-radius:8px;flex-shrink:0" />`
+      : `<div${de(
+        s,
+        'siteIcon'
+      )} style="width:36px;height:36px;border-radius:8px;flex-shrink:0;background:${fallbackBg}"></div>`
 
   const publisherText =
     s.elements.siteName && data?.publisher
-      ? `<span style="font-size:${s.metaSize + 1}px;font-weight:${
-        s.fontWeight
-      };color:${s.palette.meta}">${escText(data.publisher)}</span>`
+      ? `<span${de(s, 'siteName')} style="font-size:${
+        s.metaSize + 1
+      }px;font-weight:${s.fontWeight};color:${s.palette.meta}">${escText(
+        data.publisher
+      )}</span>`
       : ''
   const authorText =
     s.elements.authorTopic && data?.author
-      ? `<span style="font-size:${s.metaSize}px;color:${
+      ? `<span${de(s, 'authorTopic')} style="font-size:${s.metaSize}px;color:${
         s.palette.meta
       }">· ${escText(data.author)}</span>`
       : ''
   const dateText =
     s.elements.date && data?.date
-      ? `<span style="font-size:${s.metaSize}px;color:${
+      ? `<span${de(s, 'date')} style="font-size:${s.metaSize}px;color:${
         s.palette.meta
       }">${escText(formatDate(data.date))}</span>`
-      : `<span style="font-size:${s.metaSize}px;color:${s.palette.meta}">now</span>`
+      : `<span${de(s, 'date')} style="font-size:${s.metaSize}px;color:${
+        s.palette.meta
+      }">now</span>`
 
   const metaRow =
     publisherText || authorText
-      ? `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;gap:8px">
+      ? `<div${de(
+        s,
+        'meta'
+      )} style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;gap:8px">
       <span style="display:flex;align-items:center;gap:4px;min-width:0;overflow:hidden">${publisherText}${authorText}</span>
       ${dateText}
     </div>`
       : ''
 
-  const titleHtml = `<div style="font-size:${
+  const titleHtml = `<div${de(s, 'headline')} style="font-size:${
     s.headlineSize - 3
   }px;font-weight:${s.fontWeight};color:${s.palette.headline};line-height:${
     s.lineHeight
   };margin-bottom:2px">${title}</div>`
   const descriptionHtml = description
-    ? `<div style="font-size:${s.descriptionSize - 1}px;color:${
-      s.palette.description
-    };line-height:${
+    ? `<div${de(s, 'description')} style="font-size:${
+      s.descriptionSize - 1
+    }px;color:${s.palette.description};line-height:${
       s.lineHeight
     };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${description}</div>`
     : ''
@@ -396,7 +461,16 @@ const buildSmallCard = (data, s) => {
     ? `${metaRow}${titleHtml}${descriptionHtml}`
     : `${titleHtml}${descriptionHtml}${metaRow}`
 
-  return `<a href="${href}" target="_blank" rel="noopener noreferrer" style="display:flex;text-decoration:none;color:inherit;gap:10px;align-items:flex-start;width:100%;max-width:380px;padding:12px 14px;border-radius:${s.radius};background:${s.palette.background};-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:${s.border};box-shadow:${s.shadow};font-family:${s.fontFamily}">
+  return `<a${de(
+    s,
+    'frame'
+  )} href="${href}" target="_blank" rel="noopener noreferrer" style="display:flex;text-decoration:none;color:inherit;gap:10px;align-items:flex-start;width:100%;max-width:380px;padding:12px 14px;border-radius:${
+    s.radius
+  };background:${
+    s.palette.background
+  };-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:${
+    s.border
+  };box-shadow:${s.shadow};font-family:${s.fontFamily}">
   ${iconNode}
   <div style="flex:1;min-width:0">${body}</div>
 </a>`
@@ -408,10 +482,12 @@ const CARD_VARIANTS = [
   { id: 'small', label: 'Compact cover', build: buildSmallCard }
 ]
 
-const buildCardHtml = (data, config) => {
+const buildCardHtml = (data, config, { instrument = false } = {}) => {
   const variant =
     CARD_VARIANTS.find(v => v.id === config.variant) || CARD_VARIANTS[0]
-  return variant.build(data, resolveStyle(config))
+  const s = resolveStyle(config)
+  s.instrument = instrument
+  return variant.build(data, s)
 }
 
 const isSameConfig = (a, b) => {
@@ -578,16 +654,52 @@ const PaperSheet = styled(Box)`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
 `
 
+const HOVER_HIGHLIGHT_KINDS = [
+  'frame',
+  'headline',
+  'description',
+  'meta',
+  'siteIcon',
+  'siteName',
+  'authorTopic',
+  'date',
+  'hostname'
+]
+
+const HOVER_FADE_KINDS = HOVER_HIGHLIGHT_KINDS.filter(k => k !== 'frame')
+
 const EmbedPreviewFrame = styled(Box)`
-  ${theme({ p: 3 })}
+  ${theme({ p: 3, pt: '24px' })}
   flex: 1;
   min-width: 0;
   min-height: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   overflow: auto;
   background: #fff;
+
+  & [data-element] {
+    transition: opacity 200ms ease, outline-color 200ms ease;
+  }
+
+  ${HOVER_HIGHLIGHT_KINDS.map(
+    kind => `
+    &[data-hover-target='${kind}'] [data-element='${kind}'] {
+      outline: 2px dashed ${colors.link};
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+  `
+  ).join('\n')}
+
+  ${HOVER_FADE_KINDS.map(
+    kind => `
+    &[data-hover-target='${kind}'] [data-element]:not([data-element='${kind}']):not(:has([data-element])) {
+      opacity: 0.7;
+    }
+  `
+  ).join('\n')}
 `
 
 const IframePreviewFrame = styled(EmbedPreviewFrame)`
@@ -651,6 +763,10 @@ const EditorShell = styled(PaperSheet)`
   flex: 1 1 0;
   border: none;
   box-shadow: none;
+
+  @media (min-width: ${MOBILE_BP}px) {
+    min-height: ${PREVIEW_HEIGHT};
+  }
 `
 
 const EditorTabBar = styled(Flex)`
@@ -695,16 +811,6 @@ const EditorBody = styled(Box)`
   background: #fff;
 `
 
-const PresetIndicator = styled(Flex)`
-  ${theme({ px: 3, py: 2, gap: 2, width: '100%' })}
-  align-items: center;
-  justify-content: space-between;
-  background: ${colors.pinkest};
-  border: 1px solid ${colors.black05};
-  border-radius: 8px;
-  flex-shrink: 0;
-`
-
 const SectionHeader = styled(Caps)`
   ${theme({
     fontSize: 0,
@@ -715,6 +821,20 @@ const SectionHeader = styled(Caps)`
   })}
   display: block;
   letter-spacing: 1px;
+`
+
+const GroupLabel = styled(Caps)`
+  ${theme({ fontSize: 0, color: 'black40', pt: 2, pb: '4px' })}
+  display: block;
+  letter-spacing: 0.6px;
+  font-weight: 500;
+`
+
+const PreviewSectionLabel = styled(Caps)`
+  ${theme({ fontSize: 0, color: 'black60', pb: 1 })}
+  display: block;
+  letter-spacing: 1px;
+  font-weight: 700;
 `
 
 const FormRow = styled(Flex)`
@@ -858,6 +978,155 @@ const SmallActionButton = styled(Box).attrs({ as: 'button', type: 'button' })`
   }
 `
 
+const UnitFieldWrap = styled(Box)`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  & input {
+    padding-right: 26px;
+    width: 80px;
+  }
+`
+
+const RangeInput = styled.input.attrs({ type: 'range' })`
+  flex: 1;
+  min-width: 80px;
+  accent-color: ${colors.link};
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+`
+
+const ChipButton = styled(Box)
+  .attrs({ as: 'button', type: 'button' })
+  .withConfig({
+    shouldForwardProp: prop => prop !== '$active'
+  })`
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    px: '8px',
+    py: '2px',
+    borderRadius: '999px',
+    cursor: 'pointer'
+  })}
+  border: 1px solid
+    ${({ $active }) => ($active ? colors.link : colors.black10)};
+  background: ${({ $active }) => ($active ? colors.link : 'white')};
+  color: ${({ $active }) => ($active ? 'white' : colors.black60)};
+  line-height: 1.4;
+  transition: background ${transition.short}, color ${transition.short},
+    border-color ${transition.short};
+  touch-action: manipulation;
+
+  &:hover {
+    border-color: ${({ $active }) => ($active ? colors.link : colors.black40)};
+    color: ${({ $active }) => ($active ? 'white' : colors.black)};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
+`
+
+const UnitSuffix = styled.span`
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: ${colors.black40};
+  font-size: 11px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+`
+
+const HelpIconWrap = styled(Box).attrs({ as: 'span' })`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  margin-left: 4px;
+  color: ${colors.black40};
+  line-height: 0;
+
+  &:hover {
+    color: ${colors.black80};
+  }
+`
+
+const ExampleUrlButton = styled(Box).attrs({ as: 'button', type: 'button' })`
+  ${theme({
+    fontFamily: 'sans',
+    fontSize: 0,
+    color: 'black60'
+  })}
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: ${colors.black10};
+  text-underline-offset: 2px;
+  transition: color ${transition.short};
+  touch-action: manipulation;
+
+  &:hover {
+    color: ${colors.black};
+    text-decoration-color: ${colors.black40};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+`
+
+const toastInAnimation = keyframes`
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+`
+
+const Toast = styled(Flex)`
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  ${theme({ px: 3, py: 2, gap: 2 })}
+  align-items: center;
+  background: white;
+  border: 1px solid ${colors.black10};
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  color: ${colors.black80};
+  animation: ${toastInAnimation} 200ms ease-out;
+  max-width: calc(100vw - 48px);
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`
+
+const CopiedFlash = styled.span.withConfig({
+  shouldForwardProp: prop => prop !== '$visible'
+})`
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 12px;
+  color: ${colors.green5};
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+  transition: opacity 300ms ease-out;
+  pointer-events: none;
+`
+
 const ResultGrid = styled(Flex)`
   ${theme({ gap: 3, width: '100%' })}
   flex-direction: column;
@@ -872,12 +1141,14 @@ const ResultPane = styled(PaperSheet)`
   ${theme({ width: '100%' })}
   min-width: 0;
   height: ${PREVIEW_HEIGHT_MOBILE};
+  min-height: ${PREVIEW_HEIGHT_MOBILE};
   border: none;
   box-shadow: none;
 
   @media (min-width: ${MOBILE_BP}px) {
-    flex: 1 1 0;
+    flex: 1 0 ${PREVIEW_HEIGHT};
     height: ${PREVIEW_HEIGHT};
+    min-height: ${PREVIEW_HEIGHT};
   }
 `
 
@@ -888,10 +1159,6 @@ const PaneHeader = styled(Flex)`
   border-bottom: 1px solid ${colors.black05};
   background: #fafafa;
   flex-shrink: 0;
-`
-
-const PaneLabel = styled(Caps)`
-  ${theme({ fontSize: 0, color: 'black60', fontWeight: 'bold' })}
 `
 
 const OmniboxWrapper = styled(Flex)`
@@ -1059,6 +1326,8 @@ const ResultsExpandInner = styled(Box)`
 
 /* ─── Omnibar (input + submit) ─────────────────────────── */
 
+const EXAMPLE_URLS = ['github.com', 'stripe.com', 'vercel.com']
+
 const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
   const [urlError, setUrlError] = useState('')
 
@@ -1076,16 +1345,28 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
     return prependHttp(trimmed)
   }
 
-  const handleSubmit = useCallback(() => {
-    const next = normalizeUrl(url)
-    if (!next || !isUrl(next)) {
-      setUrlError('Please enter a valid URL (e.g., example.com)')
-      return
-    }
-    setUrl(next)
-    setUrlError('')
-    onSubmit(next)
-  }, [url, setUrl, onSubmit])
+  const handleSubmit = useCallback(
+    nextValue => {
+      const raw = typeof nextValue === 'string' ? nextValue : url
+      const next = normalizeUrl(raw)
+      if (!next || !isUrl(next)) {
+        setUrlError('Please enter a valid URL (e.g., example.com)')
+        return
+      }
+      setUrl(next)
+      setUrlError('')
+      onSubmit(next)
+    },
+    [url, setUrl, onSubmit]
+  )
+
+  const handleExampleClick = useCallback(
+    example => {
+      if (isLoading) return
+      handleSubmit(example)
+    },
+    [handleSubmit, isLoading]
+  )
 
   return (
     <Box css={{ width: '100%' }}>
@@ -1107,37 +1388,77 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
           aria-describedby={urlError ? 'embed-url-error' : undefined}
           aria-invalid={!!urlError}
         />
-        <OmniboxConvertButton onClick={handleSubmit} disabled={isLoading}>
-          <span className='omnibox-btn-label'>Embed</span>
+        <OmniboxConvertButton
+          onClick={() => handleSubmit()}
+          disabled={isLoading}
+          aria-label='Generate preview'
+        >
+          <span className='omnibox-btn-label'>Generate preview</span>
           <ArrowRight size={16} />
         </OmniboxConvertButton>
       </OmniboxWrapper>
-      {urlError
-        ? (
-          <Text
-            id='embed-url-error'
-            role='alert'
-            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
-          >
-            {urlError}
-          </Text>
-          )
-        : null}
+      {urlError ? (
+        <Text
+          id='embed-url-error'
+          role='alert'
+          css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+        >
+          {urlError}
+        </Text>
+      ) : !url.trim() ? (
+        <Text
+          css={theme({
+            fontFamily: 'sans',
+            color: 'black60',
+            fontSize: 0,
+            pt: 2,
+            pl: 3
+          })}
+        >
+          <Box as='span' css={{ marginRight: 4 }}>
+            Try:
+          </Box>
+          {EXAMPLE_URLS.map((example, i) => (
+            <React.Fragment key={example}>
+              <ExampleUrlButton
+                onClick={() => handleExampleClick(example)}
+                disabled={isLoading}
+              >
+                {example}
+              </ExampleUrlButton>
+              {i < EXAMPLE_URLS.length - 1 ? (
+                <Box
+                  as='span'
+                  aria-hidden='true'
+                  css={{
+                    marginLeft: 6,
+                    marginRight: 6,
+                    color: colors.black30
+                  }}
+                >
+                  ·
+                </Box>
+              ) : null}
+            </React.Fragment>
+          ))}
+        </Text>
+      ) : null}
     </Box>
   )
 }
 
 /* ─── Result Panes ─────────────────────────────────────── */
 
-const PreviewPane = ({ html, hasIframe }) => (
+const PreviewPane = ({ html, hasIframe, hoverTarget }) => (
   <ResultPane>
-    {hasIframe
-      ? (
-        <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
-        )
-      : (
-        <EmbedPreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
-        )}
+    {hasIframe ? (
+      <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
+    ) : (
+      <EmbedPreviewFrame
+        data-hover-target={hoverTarget || undefined}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    )}
   </ResultPane>
 )
 
@@ -1226,37 +1547,6 @@ const HighlightedHtml = ({ html }) => {
   return <>{tokens}</>
 }
 
-const IconCopyButton = styled(Box).attrs({ as: 'button', type: 'button' })`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  border: 1px solid ${colors.black10};
-  background: white;
-  color: ${colors.black60};
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background ${transition.short}, color ${transition.short};
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-
-  &:hover {
-    background: ${colors.black05};
-    color: ${colors.black};
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
-
-  & .icon-check {
-    color: ${colors.green5};
-  }
-`
-
 const InlineCodePre = styled.pre`
   ${theme({ m: 0, px: 3, py: 2 })}
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
@@ -1286,26 +1576,43 @@ const HtmlPane = ({ html }) => {
     trackEvent('embed copy')
     toClipboard({ copy: html, text: Tooltip.TEXT.COPIED('HTML') })
     setCopied(true)
-    setTimeout(() => setCopied(false), 1500)
+    setTimeout(() => setCopied(false), 2000)
   }, [html, toClipboard])
 
   return (
     <PaperSheet css={{ width: '100%' }}>
       <PaneHeader>
-        <PaneLabel as='span'>HTML</PaneLabel>
-        <IconCopyButton
-          onClick={handleCopy}
-          aria-label={copied ? 'Copied!' : 'Copy HTML to clipboard'}
-          title={copied ? 'Copied!' : 'Copy HTML'}
+        <Text
+          as='h3'
+          css={theme({
+            fontFamily: 'sans',
+            fontSize: 1,
+            fontWeight: 'bold',
+            color: 'black80',
+            m: 0
+          })}
         >
-          {copied
-            ? (
-              <Check size={14} className='icon-check' />
-              )
-            : (
+          Your embed code
+        </Text>
+        <Flex css={{ alignItems: 'center', gap: 8 }}>
+          <CopiedFlash $visible={copied} aria-hidden='true'>
+            Copied!
+          </CopiedFlash>
+          <SmallActionButton
+            onClick={handleCopy}
+            aria-label={
+              copied ? 'Copied to clipboard' : 'Copy embed code to clipboard'
+            }
+            aria-live='polite'
+          >
+            {copied ? (
+              <Check size={14} color={colors.green5} />
+            ) : (
               <Clipboard size={14} />
-              )}
-        </IconCopyButton>
+            )}
+            <span>{copied ? 'Copied!' : 'Copy code'}</span>
+          </SmallActionButton>
+        </Flex>
       </PaneHeader>
       <InlineCodePre>
         <code>
@@ -1319,175 +1626,324 @@ const HtmlPane = ({ html }) => {
 
 /* ─── Config Editor Tabs ───────────────────────────────── */
 
-const LayoutTab = ({ config, set }) => (
-  <Box>
-    <SectionHeader>Card style</SectionHeader>
-    <VariantSelector
-      role='radiogroup'
-      aria-label='Card style'
-      css={{ marginBottom: 8 }}
-    >
-      {CARD_VARIANTS.map(({ id, label }) => (
-        <VariantButton
-          key={id}
-          role='radio'
-          aria-checked={config.variant === id}
-          $active={config.variant === id}
-          onClick={() => set('variant', id)}
-        >
-          {label}
-        </VariantButton>
-      ))}
-    </VariantSelector>
+const LayoutTab = ({ config, set, setHoverTarget }) => {
+  const hover = target => ({
+    onMouseEnter: () => setHoverTarget(target),
+    onMouseLeave: () => setHoverTarget(null)
+  })
 
-    <SectionHeader>Elements to include</SectionHeader>
-    <Box css={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-      {ELEMENT_FIELDS.map(({ id, label }) => (
-        <CheckboxWrap key={id}>
-          <input
-            type='checkbox'
-            checked={!!config.elements[id]}
-            onChange={e => set(`elements.${id}`, e.target.checked)}
-          />
-          <Text css={theme({ fontSize: 1, color: 'black80' })}>{label}</Text>
-        </CheckboxWrap>
-      ))}
-      <CheckboxWrap>
-        <input
-          type='checkbox'
-          checked={!!config.metaBefore}
-          onChange={e => set('metaBefore', e.target.checked)}
-        />
-        <Text css={theme({ fontSize: 1, color: 'black80' })}>
-          Meta before title
-        </Text>
-      </CheckboxWrap>
-    </Box>
-
-    <SectionHeader>Frame</SectionHeader>
+  return (
     <Box>
-      <FormRow>
-        <FormLabel>Border</FormLabel>
-        <NumberField
-          type='number'
-          min='0'
-          max='10'
-          value={config.border}
-          onChange={e =>
-            set('border', Math.max(0, Number(e.target.value) || 0))}
-        />
-      </FormRow>
-      <FormRow>
-        <FormLabel>Radius</FormLabel>
-        <NumberField
-          type='number'
-          min='0'
-          max='40'
-          value={config.radius}
-          onChange={e =>
-            set('radius', Math.max(0, Number(e.target.value) || 0))}
-        />
-      </FormRow>
-      <FormRow>
-        <FormLabel>Shadow</FormLabel>
+      <SectionHeader>Card style</SectionHeader>
+      <VariantSelector
+        role='radiogroup'
+        aria-label='Card style'
+        css={{ marginBottom: 8 }}
+      >
+        {CARD_VARIANTS.map(({ id, label }) => (
+          <VariantButton
+            key={id}
+            role='radio'
+            aria-checked={config.variant === id}
+            $active={config.variant === id}
+            onClick={() => set('variant', id)}
+          >
+            {label}
+          </VariantButton>
+        ))}
+      </VariantSelector>
+
+      <SectionHeader>Elements to include</SectionHeader>
+      <Box
+        css={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          columnGap: 16
+        }}
+      >
+        {ELEMENT_GROUPS.map(group => (
+          <Box key={group.id}>
+            <GroupLabel as='span'>{group.label}</GroupLabel>
+            {group.fields.map(({ id, label }) => (
+              <CheckboxWrap key={id} {...hover(id)}>
+                <input
+                  type='checkbox'
+                  checked={!!config.elements[id]}
+                  onChange={e => set(`elements.${id}`, e.target.checked)}
+                />
+                <Text css={theme({ fontSize: 1, color: 'black80' })}>
+                  {label}
+                </Text>
+              </CheckboxWrap>
+            ))}
+            {group.id === 'content' ? (
+              <Flex css={{ alignItems: 'center' }} {...hover('meta')}>
+                <CheckboxWrap>
+                  <input
+                    type='checkbox'
+                    checked={!!config.metaBefore}
+                    onChange={e => set('metaBefore', e.target.checked)}
+                  />
+                  <Text css={theme({ fontSize: 1, color: 'black80' })}>
+                    Site name on top
+                  </Text>
+                </CheckboxWrap>
+                <Tooltip
+                  aria-label='Help: show site name above title'
+                  content={
+                    <Tooltip.Content>
+                      When enabled, the site name appears above the title —
+                      useful for branded previews.
+                    </Tooltip.Content>
+                  }
+                >
+                  <HelpIconWrap>
+                    <HelpCircle size={13} />
+                  </HelpIconWrap>
+                </Tooltip>
+              </Flex>
+            ) : null}
+          </Box>
+        ))}
+      </Box>
+    </Box>
+  )
+}
+
+const FrameTab = ({ config, set, setHoverTarget }) => {
+  const hover = target => ({
+    onMouseEnter: () => setHoverTarget(target),
+    onMouseLeave: () => setHoverTarget(null)
+  })
+
+  return (
+    <Box>
+      <SectionHeader>Frame</SectionHeader>
+      <Box>
+        <FormRow css={{ alignItems: 'flex-start' }} {...hover('frame')}>
+          <FormLabel css={{ paddingTop: 6 }}>Border</FormLabel>
+          <Flex
+            css={{
+              flexDirection: 'column',
+              alignItems: 'stretch',
+              gap: 6,
+              minWidth: 200
+            }}
+          >
+            <Flex css={{ alignItems: 'center', gap: 8 }}>
+              <RangeInput
+                min='0'
+                max='10'
+                step='1'
+                value={config.border}
+                onChange={e =>
+                  set('border', Math.max(0, Number(e.target.value) || 0))
+                }
+                aria-label='Border width'
+              />
+              <UnitFieldWrap>
+                <NumberField
+                  type='number'
+                  min='0'
+                  max='10'
+                  value={config.border}
+                  onChange={e =>
+                    set('border', Math.max(0, Number(e.target.value) || 0))
+                  }
+                  aria-label='Border width in pixels'
+                />
+                <UnitSuffix aria-hidden='true'>px</UnitSuffix>
+              </UnitFieldWrap>
+            </Flex>
+            <Flex css={{ gap: 4, flexWrap: 'wrap' }}>
+              {[0, 1, 2, 4].map(v => (
+                <ChipButton
+                  key={v}
+                  $active={config.border === v}
+                  onClick={() => set('border', v)}
+                  aria-label={`Border ${v} pixels`}
+                  aria-pressed={config.border === v}
+                >
+                  {v}
+                </ChipButton>
+              ))}
+            </Flex>
+          </Flex>
+        </FormRow>
+        <FormRow css={{ alignItems: 'flex-start' }} {...hover('frame')}>
+          <FormLabel css={{ paddingTop: 6 }}>Radius</FormLabel>
+          <Flex
+            css={{
+              flexDirection: 'column',
+              alignItems: 'stretch',
+              gap: 6,
+              minWidth: 200
+            }}
+          >
+            <Flex css={{ alignItems: 'center', gap: 8 }}>
+              <RangeInput
+                min='0'
+                max='32'
+                step='1'
+                value={config.radius}
+                onChange={e =>
+                  set('radius', Math.max(0, Number(e.target.value) || 0))
+                }
+                aria-label='Border radius'
+              />
+              <UnitFieldWrap>
+                <NumberField
+                  type='number'
+                  min='0'
+                  max='40'
+                  value={config.radius}
+                  onChange={e =>
+                    set('radius', Math.max(0, Number(e.target.value) || 0))
+                  }
+                  aria-label='Border radius in pixels'
+                />
+                <UnitSuffix aria-hidden='true'>px</UnitSuffix>
+              </UnitFieldWrap>
+            </Flex>
+            <Flex css={{ gap: 4, flexWrap: 'wrap' }}>
+              {[0, 4, 8, 16, 24].map(v => (
+                <ChipButton
+                  key={v}
+                  $active={config.radius === v}
+                  onClick={() => set('radius', v)}
+                  aria-label={`Radius ${v} pixels`}
+                  aria-pressed={config.radius === v}
+                >
+                  {v}
+                </ChipButton>
+              ))}
+            </Flex>
+          </Flex>
+        </FormRow>
+        <FormRow {...hover('frame')}>
+          <FormLabel>Shadow</FormLabel>
+          <SelectField
+            value={config.shadow}
+            onChange={e => set('shadow', e.target.value)}
+          >
+            {SHADOW_OPTIONS.map(o => (
+              <option key={o.id} value={o.id}>
+                {o.label}
+              </option>
+            ))}
+          </SelectField>
+        </FormRow>
+        <FormRow {...hover('frame')}>
+          <FormLabel>Color</FormLabel>
+          <Flex css={{ gap: 8, alignItems: 'center' }}>
+            <ColorField
+              value={config.shadowColor}
+              onChange={e => set('shadowColor', e.target.value)}
+            />
+            <ColorFieldHex
+              type='text'
+              value={config.shadowColor}
+              onChange={e => set('shadowColor', e.target.value)}
+            />
+          </Flex>
+        </FormRow>
+      </Box>
+    </Box>
+  )
+}
+
+const FONT_SIZE_FIELDS = [
+  { key: 'headlineSize', label: 'Headline', target: 'headline' },
+  { key: 'descriptionSize', label: 'Description', target: 'description' },
+  { key: 'metaSize', label: 'Meta', target: 'meta' },
+  { key: 'websiteSize', label: 'Website', target: 'hostname' }
+]
+
+const FontsTab = ({ config, set, setHoverTarget }) => {
+  const hover = target => ({
+    onMouseEnter: () => setHoverTarget(target),
+    onMouseLeave: () => setHoverTarget(null)
+  })
+
+  return (
+    <Box>
+      <SectionHeader>Typography</SectionHeader>
+      <FormRow {...hover('frame')}>
+        <FormLabel>Base font</FormLabel>
         <SelectField
-          value={config.shadow}
-          onChange={e => set('shadow', e.target.value)}
+          value={config.fontBase}
+          onChange={e => set('fontBase', e.target.value)}
         >
-          {SHADOW_OPTIONS.map(o => (
+          {FONT_FAMILY_OPTIONS.map(o => (
             <option key={o.id} value={o.id}>
               {o.label}
             </option>
           ))}
         </SelectField>
       </FormRow>
-      <FormRow>
-        <FormLabel>Color</FormLabel>
-        <Flex css={{ gap: 8, alignItems: 'center' }}>
-          <ColorField
-            value={config.shadowColor}
-            onChange={e => set('shadowColor', e.target.value)}
-          />
-          <ColorFieldHex
-            type='text'
-            value={config.shadowColor}
-            onChange={e => set('shadowColor', e.target.value)}
-          />
-        </Flex>
+      <FormRow {...hover('frame')}>
+        <FormLabel>Weight</FormLabel>
+        <SelectField
+          value={config.fontWeight}
+          onChange={e => set('fontWeight', e.target.value)}
+        >
+          {FONT_WEIGHT_OPTIONS.map(o => (
+            <option key={o.id} value={o.id}>
+              {o.label}
+            </option>
+          ))}
+        </SelectField>
       </FormRow>
-    </Box>
-  </Box>
-)
-
-const FontsTab = ({ config, set }) => (
-  <Box>
-    <SectionHeader>Typography</SectionHeader>
-    <FormRow>
-      <FormLabel>Base font</FormLabel>
-      <SelectField
-        value={config.fontBase}
-        onChange={e => set('fontBase', e.target.value)}
-      >
-        {FONT_FAMILY_OPTIONS.map(o => (
-          <option key={o.id} value={o.id}>
-            {o.label}
-          </option>
-        ))}
-      </SelectField>
-    </FormRow>
-    <FormRow>
-      <FormLabel>Weight</FormLabel>
-      <SelectField
-        value={config.fontWeight}
-        onChange={e => set('fontWeight', e.target.value)}
-      >
-        {FONT_WEIGHT_OPTIONS.map(o => (
-          <option key={o.id} value={o.id}>
-            {o.label}
-          </option>
-        ))}
-      </SelectField>
-    </FormRow>
-    <FormRow>
-      <FormLabel>Line height</FormLabel>
-      <NumberField
-        type='number'
-        step='0.1'
-        min='1'
-        max='3'
-        value={config.lineHeight}
-        onChange={e =>
-          set('lineHeight', Math.max(1, Number(e.target.value) || 1))}
-      />
-    </FormRow>
-
-    <SectionHeader>Sizes (px)</SectionHeader>
-    {[
-      { key: 'headlineSize', label: 'Headline' },
-      { key: 'descriptionSize', label: 'Description' },
-      { key: 'metaSize', label: 'Meta' },
-      { key: 'websiteSize', label: 'Website' }
-    ].map(({ key, label }) => (
-      <FormRow key={key}>
-        <FormLabel>{label}</FormLabel>
+      <FormRow {...hover('frame')}>
+        <FormLabel>Line height</FormLabel>
         <NumberField
           type='number'
-          min='8'
-          max='48'
-          value={config[key]}
-          onChange={e => set(key, Math.max(8, Number(e.target.value) || 8))}
+          step='0.1'
+          min='1'
+          max='3'
+          value={config.lineHeight}
+          onChange={e =>
+            set('lineHeight', Math.max(1, Number(e.target.value) || 1))
+          }
         />
       </FormRow>
-    ))}
-  </Box>
-)
 
-const ColorsTab = ({ config, set }) => {
+      <SectionHeader>Sizes (px)</SectionHeader>
+      {FONT_SIZE_FIELDS.map(({ key, label, target }) => (
+        <FormRow key={key} {...hover(target)}>
+          <FormLabel>{label}</FormLabel>
+          <NumberField
+            type='number'
+            min='8'
+            max='48'
+            value={config[key]}
+            onChange={e => set(key, Math.max(8, Number(e.target.value) || 8))}
+          />
+        </FormRow>
+      ))}
+    </Box>
+  )
+}
+
+const COLOR_TARGET_MAP = {
+  headline: 'headline',
+  description: 'description',
+  meta: 'meta',
+  website: 'hostname',
+  background: 'frame',
+  border: 'frame'
+}
+
+const ColorsTab = ({ config, set, setHoverTarget }) => {
   const themeKey = config.theme === 'dark' ? 'darkColors' : 'lightColors'
+  const hover = target => ({
+    onMouseEnter: () => setHoverTarget(target),
+    onMouseLeave: () => setHoverTarget(null)
+  })
   return (
     <Box>
       <SectionHeader>Theme</SectionHeader>
-      <Flex css={{ width: '100%' }}>
+      <Flex css={theme({ width: '100%', pb: 3, pt: 1 })} {...hover('frame')}>
         <VariantSelector role='radiogroup' aria-label='Theme'>
           {THEME_OPTIONS.map(({ id, label }) => (
             <VariantButton
@@ -1507,7 +1963,7 @@ const ColorsTab = ({ config, set }) => {
         {config.theme === 'dark' ? 'Dark theme colors' : 'Light theme colors'}
       </SectionHeader>
       {COLOR_FIELDS.map(({ id, label }) => (
-        <FormRow key={id}>
+        <FormRow key={id} {...hover(COLOR_TARGET_MAP[id])}>
           <FormLabel>{label}</FormLabel>
           <Flex css={{ gap: 8, alignItems: 'center' }}>
             <ColorField
@@ -1528,11 +1984,12 @@ const ColorsTab = ({ config, set }) => {
 
 const EDITOR_TABS = [
   { id: 'layout', label: 'Layout', Component: LayoutTab },
+  { id: 'frame', label: 'Frame', Component: FrameTab },
   { id: 'fonts', label: 'Fonts', Component: FontsTab },
   { id: 'colors', label: 'Colors', Component: ColorsTab }
 ]
 
-const ConfigEditor = ({ config, setConfig }) => {
+const ConfigEditor = ({ config, setConfig, setHoverTarget }) => {
   const [tab, setTab] = useState('layout')
 
   const set = useCallback(
@@ -1567,23 +2024,11 @@ const ConfigEditor = ({ config, setConfig }) => {
         ))}
       </EditorTabBar>
       <EditorBody>
-        <ActiveTab config={config} set={set} />
+        <ActiveTab config={config} set={set} setHoverTarget={setHoverTarget} />
       </EditorBody>
     </EditorShell>
   )
 }
-
-const SavedPresetIndicator = ({ onReset }) => (
-  <PresetIndicator>
-    <Text css={theme({ fontSize: 1, color: 'black80', fontFamily: 'sans' })}>
-      Custom style applied from your saved preset.
-    </Text>
-    <SmallActionButton onClick={onReset}>
-      <RotateCcw size={14} />
-      Reset to defaults
-    </SmallActionButton>
-  </PresetIndicator>
-)
 
 const PreviewColumn = styled(Flex)`
   ${theme({ gap: 2, width: '100%' })}
@@ -1602,6 +2047,8 @@ const ResultArea = ({
   onReset,
   hasSavedPreset
 }) => {
+  const [hoverTarget, setHoverTarget] = useState(null)
+
   if (isLoading) {
     return (
       <PaperSheet
@@ -1673,13 +2120,11 @@ const ResultArea = ({
               />
             </Text>
           </Text>
-          {getErrorMeta(error?.code).showRetry
-            ? (
-              <Button onClick={onRetry}>
-                <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-              </Button>
-              )
-            : null}
+          {getErrorMeta(error?.code).showRetry ? (
+            <Button onClick={onRetry}>
+              <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+            </Button>
+          ) : null}
         </FadeIn>
       </PaperSheet>
     )
@@ -1688,7 +2133,12 @@ const ResultArea = ({
   if (!data) return null
 
   const hasIframe = Boolean(data.iframe?.html)
-  const html = compactHtml(
+  const previewHtml = compactHtml(
+    hasIframe
+      ? data.iframe.html
+      : buildCardHtml(data, config, { instrument: true })
+  )
+  const copyHtml = compactHtml(
     hasIframe ? data.iframe.html : buildCardHtml(data, config)
   )
 
@@ -1701,22 +2151,41 @@ const ResultArea = ({
         alignItems: 'stretch'
       })}
     >
-      {!hasIframe && hasSavedPreset
-        ? (
-          <SavedPresetIndicator onReset={onReset} />
-          )
-        : null}
       <ResultGrid>
-        {!hasIframe
-          ? (
-            <ConfigEditor config={config} setConfig={setConfig} />
-            )
-          : null}
+        {!hasIframe ? (
+          <ConfigEditor
+            config={config}
+            setConfig={setConfig}
+            setHoverTarget={setHoverTarget}
+          />
+        ) : null}
         <PreviewColumn>
-          <PreviewPane html={html} hasIframe={hasIframe} />
+          <Flex
+            css={{
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              minHeight: 28
+            }}
+          >
+            <PreviewSectionLabel as='span'>Live preview</PreviewSectionLabel>
+            {!hasIframe && hasSavedPreset ? (
+              <SmallActionButton
+                onClick={onReset}
+                aria-label='Reset all preview settings to defaults'
+              >
+                <RotateCcw size={14} />
+                Reset to defaults
+              </SmallActionButton>
+            ) : null}
+          </Flex>
+          <PreviewPane
+            html={previewHtml}
+            hasIframe={hasIframe}
+            hoverTarget={hoverTarget}
+          />
         </PreviewColumn>
       </ResultGrid>
-      <HtmlPane html={html} />
+      <HtmlPane html={copyHtml} />
     </Flex>
   )
 }
@@ -1734,8 +2203,10 @@ const EmbedTool = () => {
     LOCAL_STORAGE_KEY,
     null
   )
+  const [showPresetToast, setShowPresetToast] = useState(false)
   const hydratedRef = useRef(false)
   const requestIdRef = useRef(0)
+  const toastTimerRef = useRef(null)
 
   useEffect(() => {
     if (hydratedRef.current) return
@@ -1743,8 +2214,25 @@ const EmbedTool = () => {
     hydratedRef.current = true
     if (!isSameConfig(storedConfig, DEFAULT_CONFIG)) {
       setConfigInternal(storedConfig)
+      setShowPresetToast(true)
+      toastTimerRef.current = setTimeout(() => setShowPresetToast(false), 3000)
     }
   }, [storedConfig])
+
+  useEffect(
+    () => () => {
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current)
+    },
+    []
+  )
+
+  const dismissPresetToast = useCallback(() => {
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current)
+      toastTimerRef.current = null
+    }
+    setShowPresetToast(false)
+  }, [])
 
   const setConfig = useCallback(
     updater => {
@@ -1816,7 +2304,7 @@ const EmbedTool = () => {
         css={theme({
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 3,
+          gap: [4, 4, 5, 5],
           width: '100%'
         })}
       >
@@ -1844,6 +2332,31 @@ const EmbedTool = () => {
           </ResultsExpandWrapper>
         </Box>
       </Flex>
+      {showPresetToast ? (
+        <Toast role='status' aria-live='polite'>
+          <Check size={14} color={colors.green5} />
+          <Text as='span' css={{ flex: 1 }}>
+            Custom style applied from your saved preset
+          </Text>
+          <Box
+            as='button'
+            type='button'
+            onClick={dismissPresetToast}
+            aria-label='Dismiss'
+            css={{
+              background: 'transparent',
+              border: 'none',
+              color: colors.black40,
+              cursor: 'pointer',
+              padding: '2px 4px',
+              fontSize: '14px',
+              lineHeight: 1
+            }}
+          >
+            ×
+          </Box>
+        </Toast>
+      ) : null}
     </Container>
   )
 }
@@ -1868,7 +2381,7 @@ const Hero = () => (
         fontSize: [3, '35px', '40px', '50px']
       })}
     >
-      Embed Any URL <LineBreak breakpoints={[0, 1]} /> in One Click
+      Embed Builder
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -1879,9 +2392,21 @@ const Hero = () => (
         fontSize: [2, 2, '26px', '28px']
       })}
     >
-      Paste any URL and get a ready-to-paste HTML embed — <br />
-      iframe attribute when supported, Microlink SDK card for the long tail.
+      Paste a URL, customize the look, copy the embed code.
     </Caption>
+    <Text
+      css={theme({
+        pt: 2,
+        px: 3,
+        fontSize: 1,
+        color: 'black60',
+        fontFamily: 'sans',
+        textAlign: 'center'
+      })}
+    >
+      Returns an iframe attribute when supported, or a Microlink SDK card for
+      the long tail. <Link href='/docs/guides/embed'>Learn more</Link>.
+    </Text>
   </Flex>
 )
 
@@ -2082,15 +2607,13 @@ const UseCasesSection = () => (
               </Flex>
             ))}
           </Box>
-          {link
-            ? (
-              <Box css={theme({ pt: 3 })}>
-                <Link href={link.href} aria-label={link.alt}>
-                  {link.text}
-                </Link>
-              </Box>
-              )
-            : null}
+          {link ? (
+            <Box css={theme({ pt: 3 })}>
+              <Link href={link.href} aria-label={link.alt}>
+                {link.text}
+              </Link>
+            </Box>
+          ) : null}
         </Box>
       ))}
     </Box>
