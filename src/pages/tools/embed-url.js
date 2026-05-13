@@ -7,7 +7,6 @@ import {
   Code,
   Clipboard,
   Check,
-  Loader,
   RotateCcw,
   HelpCircle
 } from 'react-feather'
@@ -685,13 +684,14 @@ const EmbedPreviewFrame = styled(Box)`
 `
 
 const IframePreviewFrame = styled(EmbedPreviewFrame)`
-  overflow: hidden;
+  overflow: visible;
+  align-items: stretch;
+  height: auto;
+  min-height: 0;
 
   & iframe {
     display: block;
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
+    max-width: 100%;
     border: 0;
     border-radius: 6px;
     background: ${colors.black05};
@@ -1293,18 +1293,24 @@ const ResultGrid = styled(Flex)`
   }
 `
 
-const ResultPane = styled(PaperSheet)`
+const ResultPane = styled(PaperSheet).withConfig({
+  shouldForwardProp: prop => prop !== '$autoHeight'
+})`
   ${theme({ width: '100%' })}
   min-width: 0;
-  height: ${PREVIEW_HEIGHT_MOBILE};
-  min-height: ${PREVIEW_HEIGHT_MOBILE};
   border: none;
   box-shadow: none;
+  overflow: ${({ $autoHeight }) => ($autoHeight ? 'visible' : 'hidden')};
+  height: ${({ $autoHeight }) =>
+    $autoHeight ? 'auto' : PREVIEW_HEIGHT_MOBILE};
+  min-height: ${({ $autoHeight }) =>
+    $autoHeight ? '0' : PREVIEW_HEIGHT_MOBILE};
 
   @media (min-width: ${MOBILE_BP}px) {
-    flex: 1 0 ${PREVIEW_HEIGHT};
-    height: ${PREVIEW_HEIGHT};
-    min-height: ${PREVIEW_HEIGHT};
+    flex: ${({ $autoHeight }) =>
+      $autoHeight ? '1 1 auto' : `1 0 ${PREVIEW_HEIGHT}`};
+    height: ${({ $autoHeight }) => ($autoHeight ? 'auto' : PREVIEW_HEIGHT)};
+    min-height: ${({ $autoHeight }) => ($autoHeight ? '0' : PREVIEW_HEIGHT)};
   }
 `
 
@@ -1426,18 +1432,43 @@ const OmniboxConvertButton = styled(Box).attrs({
   }
 `
 
-const spinAnimation = keyframes`
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-`
+const LOADING_MESSAGES = [
+  'Reaching the URL.',
+  'Reading the metadata.',
+  'Detecting the provider.',
+  'Generating the embed.',
+  'Polishing the preview.'
+]
 
-const SpinningLoader = styled(Loader)`
-  animation: ${spinAnimation} 1s linear infinite;
+const LOADING_MESSAGE_INTERVAL_MS = 3000
 
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-`
+const LoadingMessage = () => {
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex(i => (i + 1) % LOADING_MESSAGES.length)
+    }, LOADING_MESSAGE_INTERVAL_MS)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <Box aria-live='polite' aria-atomic='true'>
+      <FadeIn key={index}>
+        <Text
+          css={theme({
+            color: 'black50',
+            fontSize: 1,
+            fontFamily: 'sans',
+            textAlign: 'center'
+          })}
+        >
+          {LOADING_MESSAGES[index]}
+        </Text>
+      </FadeIn>
+    </Box>
+  )
+}
 
 const LoadingDot = styled.span`
   display: inline-block;
@@ -1605,18 +1636,25 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
 
 /* ─── Result Panes ─────────────────────────────────────── */
 
-const PreviewPane = ({ html, hasIframe, hoverTarget }) => (
-  <ResultPane>
-    {hasIframe ? (
-      <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
-    ) : (
-      <EmbedPreviewFrame
-        data-hover-target={hoverTarget || undefined}
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-    )}
-  </ResultPane>
-)
+const PreviewPane = ({ html, hasIframe, hoverTarget, scripts }) => {
+  useEffect(() => {
+    if (!hasIframe) return
+    injectIframeScripts(scripts)
+  }, [hasIframe, scripts, html])
+
+  return (
+    <ResultPane $autoHeight={hasIframe}>
+      {hasIframe ? (
+        <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
+      ) : (
+        <EmbedPreviewFrame
+          data-hover-target={hoverTarget || undefined}
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      )}
+    </ResultPane>
+  )
+}
 
 const compactHtml = html =>
   String(html || '')
@@ -1624,6 +1662,41 @@ const compactHtml = html =>
     .replace(/>\s+</g, '><')
     .replace(/ {2,}/g, ' ')
     .trim()
+
+const serializeIframeScripts = scripts => {
+  if (!Array.isArray(scripts) || scripts.length === 0) return ''
+  return scripts
+    .filter(s => s && s.src)
+    .map(({ src, async, charset }) => {
+      const attrs = [`src="${escAttr(src)}"`]
+      if (async) attrs.push('async')
+      if (charset) attrs.push(`charset="${escAttr(charset)}"`)
+      return `<script ${attrs.join(' ')}></script>`
+    })
+    .join('')
+}
+
+const SCRIPT_MARKER_ATTR = 'data-microlink-embed-src'
+
+const injectIframeScripts = scripts => {
+  if (typeof document === 'undefined') return
+  if (!Array.isArray(scripts) || scripts.length === 0) return
+  scripts.forEach(({ src, async, charset }) => {
+    if (!src) return
+    const escaped = src.replace(/"/g, '\\"')
+    if (
+      document.head.querySelector(`script[${SCRIPT_MARKER_ATTR}="${escaped}"]`)
+    ) {
+      return
+    }
+    const s = document.createElement('script')
+    s.src = src
+    s.setAttribute(SCRIPT_MARKER_ATTR, src)
+    if (async) s.async = true
+    if (charset) s.setAttribute('charset', charset)
+    document.head.appendChild(s)
+  })
+}
 
 const HL_COLORS = {
   punct: '#6a737d',
@@ -2232,19 +2305,8 @@ const ResultArea = ({
             flex: 1
           })}
         >
-          <SpinningLoader size={28} color={colors.black60} />
-          <Text
-            css={theme({
-              color: 'black80',
-              fontSize: 2,
-              fontFamily: 'sans',
-              pt: 3
-            })}
-            aria-live='polite'
-          >
-            Fetching embed
-          </Text>
-          <Flex css={{ gap: '5px', marginTop: space[2] }}>
+          <LoadingMessage />
+          <Flex css={{ gap: '5px', marginTop: space[4] }}>
             <LoadingDot />
             <LoadingDot />
             <LoadingDot />
@@ -2299,13 +2361,16 @@ const ResultArea = ({
 
   const apiHasIframe = Boolean(data.iframe?.html)
   const showCard = useCard || !apiHasIframe
+  const iframeScripts = data.iframe?.scripts
   const previewHtml = compactHtml(
     showCard
       ? buildCardHtml(data, config, { instrument: true })
       : data.iframe.html
   )
   const copyHtml = compactHtml(
-    showCard ? buildCardHtml(data, config) : data.iframe.html
+    showCard
+      ? buildCardHtml(data, config)
+      : `${data.iframe.html}${serializeIframeScripts(iframeScripts)}`
   )
 
   return (
@@ -2372,6 +2437,7 @@ const ResultArea = ({
             html={previewHtml}
             hasIframe={!showCard}
             hoverTarget={hoverTarget}
+            scripts={!showCard ? iframeScripts : undefined}
           />
         </PreviewColumn>
       </ResultGrid>
