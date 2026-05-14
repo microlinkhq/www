@@ -12,7 +12,7 @@ import {
 } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import mql from '@microlink/mql'
 
 import Box from 'components/elements/Box'
@@ -154,7 +154,6 @@ const DEFAULT_CONFIG = {
   headlineSize: 16,
   descriptionSize: 13,
   metaSize: 11,
-  websiteSize: 12,
   theme: 'light',
   lightColors: { ...DEFAULT_LIGHT_COLORS },
   darkColors: { ...DEFAULT_DARK_COLORS }
@@ -246,7 +245,6 @@ const resolveStyle = config => {
     headlineSize: config.headlineSize,
     descriptionSize: config.descriptionSize,
     metaSize: config.metaSize,
-    websiteSize: config.websiteSize,
     border: `${config.border}px solid ${palette.border}`,
     radius: `${config.radius}px`,
     shadow: resolveShadow(config.shadow, config.shadowColor),
@@ -1578,6 +1576,165 @@ const LOADING_MESSAGES = [
 
 const LOADING_MESSAGE_INTERVAL_MS = 3000
 
+const SKELETON_VARIANTS = ['large', 'wide', 'small']
+const SKELETON_CYCLE_MS = 2400
+
+const skeletonShimmer = keyframes`
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+`
+
+const SKELETON_TRANSITION = '500ms cubic-bezier(0.4, 0, 0.2, 1)'
+const SKELETON_BLOCK_BG = css`
+  background: linear-gradient(90deg, #efefef 0%, #e4e4e4 50%, #efefef 100%);
+  background-size: 200% 100%;
+  animation: ${skeletonShimmer} 1.6s ease-in-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background: #ececec;
+  }
+`
+
+const SkeletonImage = styled(Box)`
+  position: absolute;
+  ${SKELETON_BLOCK_BG}
+  transition:
+    top ${SKELETON_TRANSITION},
+    left ${SKELETON_TRANSITION},
+    right ${SKELETON_TRANSITION},
+    width ${SKELETON_TRANSITION},
+    height ${SKELETON_TRANSITION},
+    border-radius ${SKELETON_TRANSITION};
+`
+
+const SkeletonBody = styled(Box)`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: top ${SKELETON_TRANSITION}, left ${SKELETON_TRANSITION},
+    right ${SKELETON_TRANSITION}, bottom ${SKELETON_TRANSITION},
+    padding ${SKELETON_TRANSITION}, gap ${SKELETON_TRANSITION};
+`
+
+const SkeletonLine = styled(Box).withConfig({
+  shouldForwardProp: prop => !['$width', '$height'].includes(prop)
+})`
+  ${SKELETON_BLOCK_BG}
+  height: ${({ $height = 10 }) => `${$height}px`};
+  width: ${({ $width = '100%' }) => $width};
+  border-radius: 4px;
+  transition: width ${SKELETON_TRANSITION}, height ${SKELETON_TRANSITION};
+`
+
+const SkeletonStage = styled(Box)`
+  width: 100%;
+  max-width: 380px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const SkeletonCard = styled(Box).withConfig({
+  shouldForwardProp: prop => prop !== '$variant'
+})`
+  position: relative;
+  width: 100%;
+  background: #fff;
+  border: 1px solid ${colors.black10};
+  overflow: hidden;
+  transition: height ${SKELETON_TRANSITION},
+    border-radius ${SKELETON_TRANSITION};
+
+  &[data-variant='large'] {
+    height: 260px;
+    border-radius: 8px;
+  }
+  &[data-variant='wide'] {
+    height: 140px;
+    border-radius: 8px;
+  }
+  &[data-variant='small'] {
+    height: 64px;
+    border-radius: 12px;
+  }
+
+  &[data-variant='large'] ${SkeletonImage} {
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 56.25%;
+    border-radius: 0;
+  }
+  &[data-variant='wide'] ${SkeletonImage} {
+    top: 0;
+    left: 0;
+    width: 140px;
+    height: 100%;
+    border-radius: 0;
+  }
+  &[data-variant='small'] ${SkeletonImage} {
+    top: 14px;
+    left: 14px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+  }
+
+  &[data-variant='large'] ${SkeletonBody} {
+    top: 56.25%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 14px 16px;
+    gap: 8px;
+  }
+  &[data-variant='wide'] ${SkeletonBody} {
+    top: 0;
+    left: 140px;
+    right: 0;
+    bottom: 0;
+    padding: 14px;
+    gap: 8px;
+  }
+  &[data-variant='small'] ${SkeletonBody} {
+    top: 14px;
+    left: 60px;
+    right: 14px;
+    bottom: 14px;
+    padding: 0;
+    gap: 6px;
+  }
+`
+
+const SkeletonLoader = () => {
+  const [variantIndex, setVariantIndex] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setVariantIndex(i => (i + 1) % SKELETON_VARIANTS.length)
+    }, SKELETON_CYCLE_MS)
+    return () => clearInterval(id)
+  }, [])
+
+  const variant = SKELETON_VARIANTS[variantIndex]
+
+  return (
+    <SkeletonStage aria-hidden='true'>
+      <SkeletonCard data-variant={variant}>
+        <SkeletonImage />
+        <SkeletonBody>
+          <SkeletonLine $width='72%' $height={12} />
+          <SkeletonLine $width='95%' $height={10} />
+          <SkeletonLine $width='45%' $height={10} />
+        </SkeletonBody>
+      </SkeletonCard>
+    </SkeletonStage>
+  )
+}
+
 const LoadingMessage = () => {
   const [index, setIndex] = useState(0)
 
@@ -1605,30 +1762,6 @@ const LoadingMessage = () => {
     </Box>
   )
 }
-
-const LoadingDot = styled.span`
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: ${colors.black30};
-  animation: ${keyframes`
-    0%, 80%, 100% { opacity: 0.2; }
-    40% { opacity: 1; }
-  `} 1.4s ease-in-out infinite;
-
-  &:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  &:nth-child(3) {
-    animation-delay: 0.4s;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-    opacity: 0.5;
-  }
-`
 
 const ResultsExpandWrapper = styled(Box).withConfig({
   shouldForwardProp: prop => !['$expanded'].includes(prop)
@@ -1720,58 +1853,52 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
           <ArrowRight size={16} />
         </OmniboxConvertButton>
       </OmniboxWrapper>
-      {urlError
-        ? (
-          <Text
-            id='embed-url-error'
-            role='alert'
-            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
-          >
-            {urlError}
-          </Text>
-          )
-        : !url.trim()
-            ? (
-              <Text
-                css={theme({
-                  fontFamily: 'sans',
-                  color: 'black60',
-                  fontSize: 0,
-                  pt: 2,
-                  pl: 3
-                })}
+      {urlError ? (
+        <Text
+          id='embed-url-error'
+          role='alert'
+          css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+        >
+          {urlError}
+        </Text>
+      ) : !url.trim() ? (
+        <Text
+          css={theme({
+            fontFamily: 'sans',
+            color: 'black60',
+            fontSize: 0,
+            pt: 2,
+            pl: 3
+          })}
+        >
+          <Box as='span' css={{ marginRight: 4 }}>
+            Try:
+          </Box>
+          {EXAMPLE_URLS.map((example, i) => (
+            <React.Fragment key={example}>
+              <ExampleUrlButton
+                onClick={() => handleExampleClick(example)}
+                disabled={isLoading}
               >
-                <Box as='span' css={{ marginRight: 4 }}>
-                  Try:
+                {example}
+              </ExampleUrlButton>
+              {i < EXAMPLE_URLS.length - 1 ? (
+                <Box
+                  as='span'
+                  aria-hidden='true'
+                  css={{
+                    marginLeft: 6,
+                    marginRight: 6,
+                    color: colors.black30
+                  }}
+                >
+                  ·
                 </Box>
-                {EXAMPLE_URLS.map((example, i) => (
-                  <React.Fragment key={example}>
-                    <ExampleUrlButton
-                      onClick={() => handleExampleClick(example)}
-                      disabled={isLoading}
-                    >
-                      {example}
-                    </ExampleUrlButton>
-                    {i < EXAMPLE_URLS.length - 1
-                      ? (
-                        <Box
-                          as='span'
-                          aria-hidden='true'
-                          css={{
-                            marginLeft: 6,
-                            marginRight: 6,
-                            color: colors.black30
-                          }}
-                        >
-                          ·
-                        </Box>
-                        )
-                      : null}
-                  </React.Fragment>
-                ))}
-              </Text>
-              )
-            : null}
+              ) : null}
+            </React.Fragment>
+          ))}
+        </Text>
+      ) : null}
     </Box>
   )
 }
@@ -1850,17 +1977,15 @@ const PreviewPane = ({
 
   return (
     <ResultPane $autoHeight={hasIframe}>
-      {hasIframe
-        ? (
-          <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
-          )
-        : (
-          <EmbedPreviewFrame
-            ref={cardRef}
-            data-hover-target={hoverTarget || undefined}
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
-          )}
+      {hasIframe ? (
+        <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
+      ) : (
+        <EmbedPreviewFrame
+          ref={cardRef}
+          data-hover-target={hoverTarget || undefined}
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      )}
     </ResultPane>
   )
 }
@@ -2055,13 +2180,11 @@ const HtmlPane = ({ html }) => {
             }
             aria-live='polite'
           >
-            {copied
-              ? (
-                <Check size={14} color={colors.green5} />
-                )
-              : (
-                <Clipboard size={14} />
-                )}
+            {copied ? (
+              <Check size={14} color={colors.green5} />
+            ) : (
+              <Clipboard size={14} />
+            )}
             <span>{copied ? 'Copied!' : 'Copy code'}</span>
           </SmallActionButton>
         </Flex>
@@ -2132,35 +2255,33 @@ const LayoutTab = ({ config, set, setHoverTarget }) => {
                 </Text>
               </CheckboxWrap>
             ))}
-            {group.id === 'content'
-              ? (
-                <Flex css={{ alignItems: 'center' }} {...hover('meta')}>
-                  <CheckboxWrap>
-                    <input
-                      type='checkbox'
-                      checked={!!config.metaBefore}
-                      onChange={e => set('metaBefore', e.target.checked)}
-                    />
-                    <Text css={theme({ fontSize: 1, color: 'black80' })}>
-                      Site name on top
-                    </Text>
-                  </CheckboxWrap>
-                  <Tooltip
-                    aria-label='Help: show site name above title'
-                    content={
-                      <Tooltip.Content>
-                        When enabled, the site name appears above the title —
-                        useful for branded previews.
-                      </Tooltip.Content>
+            {group.id === 'content' ? (
+              <Flex css={{ alignItems: 'center' }} {...hover('meta')}>
+                <CheckboxWrap>
+                  <input
+                    type='checkbox'
+                    checked={!!config.metaBefore}
+                    onChange={e => set('metaBefore', e.target.checked)}
+                  />
+                  <Text css={theme({ fontSize: 1, color: 'black80' })}>
+                    Site name on top
+                  </Text>
+                </CheckboxWrap>
+                <Tooltip
+                  aria-label='Help: show site name above title'
+                  content={
+                    <Tooltip.Content>
+                      When enabled, the site name appears above the title —
+                      useful for branded previews.
+                    </Tooltip.Content>
                   }
-                  >
-                    <HelpIconWrap>
-                      <HelpCircle size={13} />
-                    </HelpIconWrap>
-                  </Tooltip>
-                </Flex>
-                )
-              : null}
+                >
+                  <HelpIconWrap>
+                    <HelpCircle size={13} />
+                  </HelpIconWrap>
+                </Tooltip>
+              </Flex>
+            ) : null}
           </Box>
         ))}
       </Box>
@@ -2195,7 +2316,8 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                 step='1'
                 value={config.border}
                 onChange={e =>
-                  set('border', Math.max(0, Number(e.target.value) || 0))}
+                  set('border', Math.max(0, Number(e.target.value) || 0))
+                }
                 aria-label='Border width'
               />
               <UnitFieldWrap>
@@ -2205,7 +2327,8 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                   max='10'
                   value={config.border}
                   onChange={e =>
-                    set('border', Math.max(0, Number(e.target.value) || 0))}
+                    set('border', Math.max(0, Number(e.target.value) || 0))
+                  }
                   aria-label='Border width in pixels'
                 />
                 <UnitSuffix aria-hidden='true'>px</UnitSuffix>
@@ -2243,7 +2366,8 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                 step='1'
                 value={config.radius}
                 onChange={e =>
-                  set('radius', Math.max(0, Number(e.target.value) || 0))}
+                  set('radius', Math.max(0, Number(e.target.value) || 0))
+                }
                 aria-label='Border radius'
               />
               <UnitFieldWrap>
@@ -2253,7 +2377,8 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                   max='40'
                   value={config.radius}
                   onChange={e =>
-                    set('radius', Math.max(0, Number(e.target.value) || 0))}
+                    set('radius', Math.max(0, Number(e.target.value) || 0))
+                  }
                   aria-label='Border radius in pixels'
                 />
                 <UnitSuffix aria-hidden='true'>px</UnitSuffix>
@@ -2309,8 +2434,7 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
 const FONT_SIZE_FIELDS = [
   { key: 'headlineSize', label: 'Headline', target: 'headline' },
   { key: 'descriptionSize', label: 'Description', target: 'description' },
-  { key: 'metaSize', label: 'Meta', target: 'meta' },
-  { key: 'websiteSize', label: 'Website', target: 'hostname' }
+  { key: 'metaSize', label: 'Website', target: 'meta' }
 ]
 
 const FontsTab = ({ config, set, setHoverTarget }) => {
@@ -2357,7 +2481,8 @@ const FontsTab = ({ config, set, setHoverTarget }) => {
           max='3'
           value={config.lineHeight}
           onChange={e =>
-            set('lineHeight', Math.max(1, Number(e.target.value) || 1))}
+            set('lineHeight', Math.max(1, Number(e.target.value) || 1))
+          }
         />
       </FormRow>
 
@@ -2553,6 +2678,8 @@ const ResultArea = ({
       <PaperSheet
         css={{
           height: PREVIEW_HEIGHT_MOBILE,
+          border: 'none',
+          boxShadow: 'none',
           [`@media (min-width: ${MOBILE_BP}px)`]: { height: PREVIEW_HEIGHT }
         }}
       >
@@ -2563,15 +2690,13 @@ const ResultArea = ({
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            flex: 1
+            flex: 1,
+            px: 3,
+            gap: 4
           })}
         >
+          <SkeletonLoader />
           <LoadingMessage />
-          <Flex css={{ gap: '5px', marginTop: space[4] }}>
-            <LoadingDot />
-            <LoadingDot />
-            <LoadingDot />
-          </Flex>
         </FadeIn>
       </PaperSheet>
     )
@@ -2608,13 +2733,11 @@ const ResultArea = ({
               />
             </Text>
           </Text>
-          {getErrorMeta(error?.code).showRetry
-            ? (
-              <Button onClick={onRetry}>
-                <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-              </Button>
-              )
-            : null}
+          {getErrorMeta(error?.code).showRetry ? (
+            <Button onClick={onRetry}>
+              <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+            </Button>
+          ) : null}
         </FadeIn>
       </PaperSheet>
     )
@@ -2647,61 +2770,57 @@ const ResultArea = ({
         alignItems: 'stretch'
       })}
     >
-      {apiHasIframe
-        ? (
-          <Flex
-            css={{
-              flexDirection: 'column',
-              alignItems: 'center',
-              width: '100%',
-              gap: 6
-            }}
-          >
-            <ViewToggle role='radiogroup' aria-label='Preview format'>
-              <ViewToggleButton
-                role='radio'
-                aria-checked={!useCard}
-                $active={!useCard}
-                onClick={() => setUseCard(false)}
-              >
-                Iframe
-              </ViewToggleButton>
-              <ViewToggleButton
-                role='radio'
-                aria-checked={useCard}
-                $active={useCard}
-                onClick={() => setUseCard(true)}
-              >
-                Card
-              </ViewToggleButton>
-            </ViewToggle>
-            <Text
-              css={theme({
-                fontSize: 0,
-                color: 'black50',
-                fontFamily: 'sans',
-                textAlign: 'center',
-                maxWidth: '320px',
-                lineHeight: 1.5
-              })}
+      {apiHasIframe ? (
+        <Flex
+          css={{
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%',
+            gap: 6
+          }}
+        >
+          <ViewToggle role='radiogroup' aria-label='Preview format'>
+            <ViewToggleButton
+              role='radio'
+              aria-checked={!useCard}
+              $active={!useCard}
+              onClick={() => setUseCard(false)}
             >
-              {useCard
-                ? 'A preview card you can theme and edit inline.'
-                : "The provider's native player — drop it in as-is."}
-            </Text>
-          </Flex>
-          )
-        : null}
+              Iframe
+            </ViewToggleButton>
+            <ViewToggleButton
+              role='radio'
+              aria-checked={useCard}
+              $active={useCard}
+              onClick={() => setUseCard(true)}
+            >
+              Card
+            </ViewToggleButton>
+          </ViewToggle>
+          <Text
+            css={theme({
+              fontSize: 0,
+              color: 'black50',
+              fontFamily: 'sans',
+              textAlign: 'center',
+              maxWidth: '320px',
+              lineHeight: 1.5
+            })}
+          >
+            {useCard
+              ? 'A preview card you can theme and edit inline.'
+              : "The provider's native player — drop it in as-is."}
+          </Text>
+        </Flex>
+      ) : null}
       <ResultGrid>
-        {showCard
-          ? (
-            <ConfigEditor
-              config={config}
-              setConfig={setConfig}
-              setHoverTarget={setHoverTarget}
-            />
-            )
-          : null}
+        {showCard ? (
+          <ConfigEditor
+            config={config}
+            setConfig={setConfig}
+            setHoverTarget={setHoverTarget}
+          />
+        ) : null}
         <PreviewColumn>
           <Flex
             css={{
@@ -2713,17 +2832,15 @@ const ResultArea = ({
             }}
           >
             <PreviewSectionLabel as='span'>Live preview</PreviewSectionLabel>
-            {showCard && (hasSavedPreset || hasEdits)
-              ? (
-                <SmallActionButton
-                  onClick={handleReset}
-                  aria-label='Reset all preview settings and edits to defaults'
-                >
-                  <RotateCcw size={14} />
-                  Reset to defaults
-                </SmallActionButton>
-                )
-              : null}
+            {showCard && (hasSavedPreset || hasEdits) ? (
+              <SmallActionButton
+                onClick={handleReset}
+                aria-label='Reset all preview settings and edits to defaults'
+              >
+                <RotateCcw size={14} />
+                Reset to defaults
+              </SmallActionButton>
+            ) : null}
           </Flex>
           <PreviewWithHint
             onMouseEnter={showCard ? handlePreviewMouseEnter : undefined}
@@ -2735,17 +2852,15 @@ const ResultArea = ({
               scripts={!showCard ? iframeScripts : undefined}
               onEditField={onEditField}
             />
-            {showCard && editHint !== 'idle'
-              ? (
-                <EditDiscoveryPopover
-                  role='status'
-                  aria-live='polite'
-                  $leaving={editHint === 'leaving'}
-                >
-                  Click any text to edit it
-                </EditDiscoveryPopover>
-                )
-              : null}
+            {showCard && editHint !== 'idle' ? (
+              <EditDiscoveryPopover
+                role='status'
+                aria-live='polite'
+                $leaving={editHint === 'leaving'}
+              >
+                Click any text to edit it
+              </EditDiscoveryPopover>
+            ) : null}
           </PreviewWithHint>
         </PreviewColumn>
       </ResultGrid>
@@ -3129,15 +3244,13 @@ const UseCasesSection = () => (
               </Flex>
             ))}
           </Box>
-          {link
-            ? (
-              <Box css={theme({ pt: 3 })}>
-                <Link href={link.href} aria-label={link.alt}>
-                  {link.text}
-                </Link>
-              </Box>
-              )
-            : null}
+          {link ? (
+            <Box css={theme({ pt: 3 })}>
+              <Link href={link.href} aria-label={link.alt}>
+                {link.text}
+              </Link>
+            </Box>
+          ) : null}
         </Box>
       ))}
     </Box>
