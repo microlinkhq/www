@@ -1720,52 +1720,58 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
           <ArrowRight size={16} />
         </OmniboxConvertButton>
       </OmniboxWrapper>
-      {urlError ? (
-        <Text
-          id='embed-url-error'
-          role='alert'
-          css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
-        >
-          {urlError}
-        </Text>
-      ) : !url.trim() ? (
-        <Text
-          css={theme({
-            fontFamily: 'sans',
-            color: 'black60',
-            fontSize: 0,
-            pt: 2,
-            pl: 3
-          })}
-        >
-          <Box as='span' css={{ marginRight: 4 }}>
-            Try:
-          </Box>
-          {EXAMPLE_URLS.map((example, i) => (
-            <React.Fragment key={example}>
-              <ExampleUrlButton
-                onClick={() => handleExampleClick(example)}
-                disabled={isLoading}
+      {urlError
+        ? (
+          <Text
+            id='embed-url-error'
+            role='alert'
+            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+          >
+            {urlError}
+          </Text>
+          )
+        : !url.trim()
+            ? (
+              <Text
+                css={theme({
+                  fontFamily: 'sans',
+                  color: 'black60',
+                  fontSize: 0,
+                  pt: 2,
+                  pl: 3
+                })}
               >
-                {example}
-              </ExampleUrlButton>
-              {i < EXAMPLE_URLS.length - 1 ? (
-                <Box
-                  as='span'
-                  aria-hidden='true'
-                  css={{
-                    marginLeft: 6,
-                    marginRight: 6,
-                    color: colors.black30
-                  }}
-                >
-                  ·
+                <Box as='span' css={{ marginRight: 4 }}>
+                  Try:
                 </Box>
-              ) : null}
-            </React.Fragment>
-          ))}
-        </Text>
-      ) : null}
+                {EXAMPLE_URLS.map((example, i) => (
+                  <React.Fragment key={example}>
+                    <ExampleUrlButton
+                      onClick={() => handleExampleClick(example)}
+                      disabled={isLoading}
+                    >
+                      {example}
+                    </ExampleUrlButton>
+                    {i < EXAMPLE_URLS.length - 1
+                      ? (
+                        <Box
+                          as='span'
+                          aria-hidden='true'
+                          css={{
+                            marginLeft: 6,
+                            marginRight: 6,
+                            color: colors.black30
+                          }}
+                        >
+                          ·
+                        </Box>
+                        )
+                      : null}
+                  </React.Fragment>
+                ))}
+              </Text>
+              )
+            : null}
     </Box>
   )
 }
@@ -1844,15 +1850,17 @@ const PreviewPane = ({
 
   return (
     <ResultPane $autoHeight={hasIframe}>
-      {hasIframe ? (
-        <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
-      ) : (
-        <EmbedPreviewFrame
-          ref={cardRef}
-          data-hover-target={hoverTarget || undefined}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      )}
+      {hasIframe
+        ? (
+          <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
+          )
+        : (
+          <EmbedPreviewFrame
+            ref={cardRef}
+            data-hover-target={hoverTarget || undefined}
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+          )}
     </ResultPane>
   )
 }
@@ -2047,11 +2055,13 @@ const HtmlPane = ({ html }) => {
             }
             aria-live='polite'
           >
-            {copied ? (
-              <Check size={14} color={colors.green5} />
-            ) : (
-              <Clipboard size={14} />
-            )}
+            {copied
+              ? (
+                <Check size={14} color={colors.green5} />
+                )
+              : (
+                <Clipboard size={14} />
+                )}
             <span>{copied ? 'Copied!' : 'Copy code'}</span>
           </SmallActionButton>
         </Flex>
@@ -2122,33 +2132,35 @@ const LayoutTab = ({ config, set, setHoverTarget }) => {
                 </Text>
               </CheckboxWrap>
             ))}
-            {group.id === 'content' ? (
-              <Flex css={{ alignItems: 'center' }} {...hover('meta')}>
-                <CheckboxWrap>
-                  <input
-                    type='checkbox'
-                    checked={!!config.metaBefore}
-                    onChange={e => set('metaBefore', e.target.checked)}
-                  />
-                  <Text css={theme({ fontSize: 1, color: 'black80' })}>
-                    Site name on top
-                  </Text>
-                </CheckboxWrap>
-                <Tooltip
-                  aria-label='Help: show site name above title'
-                  content={
-                    <Tooltip.Content>
-                      When enabled, the site name appears above the title —
-                      useful for branded previews.
-                    </Tooltip.Content>
+            {group.id === 'content'
+              ? (
+                <Flex css={{ alignItems: 'center' }} {...hover('meta')}>
+                  <CheckboxWrap>
+                    <input
+                      type='checkbox'
+                      checked={!!config.metaBefore}
+                      onChange={e => set('metaBefore', e.target.checked)}
+                    />
+                    <Text css={theme({ fontSize: 1, color: 'black80' })}>
+                      Site name on top
+                    </Text>
+                  </CheckboxWrap>
+                  <Tooltip
+                    aria-label='Help: show site name above title'
+                    content={
+                      <Tooltip.Content>
+                        When enabled, the site name appears above the title —
+                        useful for branded previews.
+                      </Tooltip.Content>
                   }
-                >
-                  <HelpIconWrap>
-                    <HelpCircle size={13} />
-                  </HelpIconWrap>
-                </Tooltip>
-              </Flex>
-            ) : null}
+                  >
+                    <HelpIconWrap>
+                      <HelpCircle size={13} />
+                    </HelpIconWrap>
+                  </Tooltip>
+                </Flex>
+                )
+              : null}
           </Box>
         ))}
       </Box>
@@ -2183,8 +2195,7 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                 step='1'
                 value={config.border}
                 onChange={e =>
-                  set('border', Math.max(0, Number(e.target.value) || 0))
-                }
+                  set('border', Math.max(0, Number(e.target.value) || 0))}
                 aria-label='Border width'
               />
               <UnitFieldWrap>
@@ -2194,8 +2205,7 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                   max='10'
                   value={config.border}
                   onChange={e =>
-                    set('border', Math.max(0, Number(e.target.value) || 0))
-                  }
+                    set('border', Math.max(0, Number(e.target.value) || 0))}
                   aria-label='Border width in pixels'
                 />
                 <UnitSuffix aria-hidden='true'>px</UnitSuffix>
@@ -2233,8 +2243,7 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                 step='1'
                 value={config.radius}
                 onChange={e =>
-                  set('radius', Math.max(0, Number(e.target.value) || 0))
-                }
+                  set('radius', Math.max(0, Number(e.target.value) || 0))}
                 aria-label='Border radius'
               />
               <UnitFieldWrap>
@@ -2244,8 +2253,7 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                   max='40'
                   value={config.radius}
                   onChange={e =>
-                    set('radius', Math.max(0, Number(e.target.value) || 0))
-                  }
+                    set('radius', Math.max(0, Number(e.target.value) || 0))}
                   aria-label='Border radius in pixels'
                 />
                 <UnitSuffix aria-hidden='true'>px</UnitSuffix>
@@ -2349,8 +2357,7 @@ const FontsTab = ({ config, set, setHoverTarget }) => {
           max='3'
           value={config.lineHeight}
           onChange={e =>
-            set('lineHeight', Math.max(1, Number(e.target.value) || 1))
-          }
+            set('lineHeight', Math.max(1, Number(e.target.value) || 1))}
         />
       </FormRow>
 
@@ -2601,11 +2608,13 @@ const ResultArea = ({
               />
             </Text>
           </Text>
-          {getErrorMeta(error?.code).showRetry ? (
-            <Button onClick={onRetry}>
-              <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-            </Button>
-          ) : null}
+          {getErrorMeta(error?.code).showRetry
+            ? (
+              <Button onClick={onRetry}>
+                <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+              </Button>
+              )
+            : null}
         </FadeIn>
       </PaperSheet>
     )
@@ -2638,57 +2647,61 @@ const ResultArea = ({
         alignItems: 'stretch'
       })}
     >
-      {apiHasIframe ? (
-        <Flex
-          css={{
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%',
-            gap: 6
-          }}
-        >
-          <ViewToggle role='radiogroup' aria-label='Preview format'>
-            <ViewToggleButton
-              role='radio'
-              aria-checked={!useCard}
-              $active={!useCard}
-              onClick={() => setUseCard(false)}
-            >
-              Iframe
-            </ViewToggleButton>
-            <ViewToggleButton
-              role='radio'
-              aria-checked={useCard}
-              $active={useCard}
-              onClick={() => setUseCard(true)}
-            >
-              Card
-            </ViewToggleButton>
-          </ViewToggle>
-          <Text
-            css={theme({
-              fontSize: 0,
-              color: 'black50',
-              fontFamily: 'sans',
-              textAlign: 'center',
-              maxWidth: '320px',
-              lineHeight: 1.5
-            })}
+      {apiHasIframe
+        ? (
+          <Flex
+            css={{
+              flexDirection: 'column',
+              alignItems: 'center',
+              width: '100%',
+              gap: 6
+            }}
           >
-            {useCard
-              ? 'A preview card you can theme and edit inline.'
-              : "The provider's native player — drop it in as-is."}
-          </Text>
-        </Flex>
-      ) : null}
+            <ViewToggle role='radiogroup' aria-label='Preview format'>
+              <ViewToggleButton
+                role='radio'
+                aria-checked={!useCard}
+                $active={!useCard}
+                onClick={() => setUseCard(false)}
+              >
+                Iframe
+              </ViewToggleButton>
+              <ViewToggleButton
+                role='radio'
+                aria-checked={useCard}
+                $active={useCard}
+                onClick={() => setUseCard(true)}
+              >
+                Card
+              </ViewToggleButton>
+            </ViewToggle>
+            <Text
+              css={theme({
+                fontSize: 0,
+                color: 'black50',
+                fontFamily: 'sans',
+                textAlign: 'center',
+                maxWidth: '320px',
+                lineHeight: 1.5
+              })}
+            >
+              {useCard
+                ? 'A preview card you can theme and edit inline.'
+                : "The provider's native player — drop it in as-is."}
+            </Text>
+          </Flex>
+          )
+        : null}
       <ResultGrid>
-        {showCard ? (
-          <ConfigEditor
-            config={config}
-            setConfig={setConfig}
-            setHoverTarget={setHoverTarget}
-          />
-        ) : null}
+        {showCard
+          ? (
+            <ConfigEditor
+              config={config}
+              setConfig={setConfig}
+              setHoverTarget={setHoverTarget}
+            />
+            )
+          : null}
         <PreviewColumn>
           <Flex
             css={{
@@ -2700,15 +2713,17 @@ const ResultArea = ({
             }}
           >
             <PreviewSectionLabel as='span'>Live preview</PreviewSectionLabel>
-            {showCard && (hasSavedPreset || hasEdits) ? (
-              <SmallActionButton
-                onClick={handleReset}
-                aria-label='Reset all preview settings and edits to defaults'
-              >
-                <RotateCcw size={14} />
-                Reset to defaults
-              </SmallActionButton>
-            ) : null}
+            {showCard && (hasSavedPreset || hasEdits)
+              ? (
+                <SmallActionButton
+                  onClick={handleReset}
+                  aria-label='Reset all preview settings and edits to defaults'
+                >
+                  <RotateCcw size={14} />
+                  Reset to defaults
+                </SmallActionButton>
+                )
+              : null}
           </Flex>
           <PreviewWithHint
             onMouseEnter={showCard ? handlePreviewMouseEnter : undefined}
@@ -2720,15 +2735,17 @@ const ResultArea = ({
               scripts={!showCard ? iframeScripts : undefined}
               onEditField={onEditField}
             />
-            {showCard && editHint !== 'idle' ? (
-              <EditDiscoveryPopover
-                role='status'
-                aria-live='polite'
-                $leaving={editHint === 'leaving'}
-              >
-                Click any text to edit it
-              </EditDiscoveryPopover>
-            ) : null}
+            {showCard && editHint !== 'idle'
+              ? (
+                <EditDiscoveryPopover
+                  role='status'
+                  aria-live='polite'
+                  $leaving={editHint === 'leaving'}
+                >
+                  Click any text to edit it
+                </EditDiscoveryPopover>
+                )
+              : null}
           </PreviewWithHint>
         </PreviewColumn>
       </ResultGrid>
@@ -3112,13 +3129,15 @@ const UseCasesSection = () => (
               </Flex>
             ))}
           </Box>
-          {link ? (
-            <Box css={theme({ pt: 3 })}>
-              <Link href={link.href} aria-label={link.alt}>
-                {link.text}
-              </Link>
-            </Box>
-          ) : null}
+          {link
+            ? (
+              <Box css={theme({ pt: 3 })}>
+                <Link href={link.href} aria-label={link.alt}>
+                  {link.text}
+                </Link>
+              </Box>
+              )
+            : null}
         </Box>
       ))}
     </Box>
