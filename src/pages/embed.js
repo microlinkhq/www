@@ -21,7 +21,6 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
-import Hide from 'components/elements/Hide'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -689,8 +688,7 @@ const Hero = function Hero ({
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            The Embed API{' '}
-            <span style={{ whiteSpace: 'nowrap' }}>for any URL</span>
+            Embed API <span style={{ whiteSpace: 'nowrap' }}>for any URL</span>
           </Heading>
           <Caption
             forwardedAs='h2'
@@ -704,8 +702,8 @@ const Hero = function Hero ({
             })}
           >
             One API call turns any URL into rich preview data and a
-            ready-to-paste iframe — 280+ providers, no scraping. Render it your
-            way, or drop in the optional SDK for zero-code embeds.
+            ready-to-paste iframe. 280+ oEmbed providers, no scraping,
+            edge-cached globally — built for developers.
           </Caption>
 
           <Flex
@@ -780,39 +778,37 @@ const Hero = function Hero ({
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </HeroCopyButton>
               </HeroApiBar>
             </HeroPreviewShell>
@@ -932,7 +928,7 @@ const Providers = () => {
       <Subhead
         css={theme({ fontSize: [2, 3, 3, '44px'], color: 'white', mb: 3 })}
       >
-        280+ providers{' '}
+        280+ embed providers{' '}
         <span css={theme({ display: 'block', color: 'white60' })}>
           One API call for every URL
         </span>
@@ -949,6 +945,27 @@ const Providers = () => {
         width: '100%'
       })}
     >
+      <Box
+        as='p'
+        css={{
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          padding: 0,
+          margin: '-1px',
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          border: 0
+        }}
+      >
+        Microlink supports embed for 280+ providers including YouTube, Spotify,
+        Twitter / X, Instagram, TikTok, GitHub, CodePen, CodeSandbox, Vimeo,
+        SoundCloud, Figma, Reddit, Pinterest, Flickr, Behance, Medium,
+        Sketchfab, Replit, Canva, TED, Dailymotion, Twitch, Mixcloud, Giphy,
+        Observable, Streamable, Wistia, Loom, SlideShare, Kickstarter,
+        DeviantArt, Imgur, Bandcamp, and more.
+      </Box>
       <ProvidersMarquee aria-hidden='true'>
         <ProvidersTrack>
           {[...FEATURED_PROVIDERS, ...FEATURED_PROVIDERS].map((name, index) => (
@@ -1411,39 +1428,37 @@ const InteractiveExample = () => {
           onClick={handleCopy}
           aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
         >
-          {isCopied
-            ? (
-              <svg
-                className='icon-check'
-                width='16'
-                height='16'
-                viewBox='0 0 16 16'
-                fill='none'
-                aria-hidden='true'
-              >
-                <path
-                  d='M3 8l3.5 3.5L13 4.5'
-                  stroke='currentColor'
-                  strokeWidth='1.8'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-              </svg>
-              )
-            : (
-              <svg
-                width='16'
-                height='16'
-                viewBox='0 0 16 16'
-                fill='currentColor'
-                aria-hidden='true'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                />
-              </svg>
-              )}
+          {isCopied ? (
+            <svg
+              className='icon-check'
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='none'
+              aria-hidden='true'
+            >
+              <path
+                d='M3 8l3.5 3.5L13 4.5'
+                stroke='currentColor'
+                strokeWidth='1.8'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+          ) : (
+            <svg
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='currentColor'
+              aria-hidden='true'
+            >
+              <path
+                fillRule='evenodd'
+                d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+              />
+            </svg>
+          )}
         </ExampleCopyButton>
       </ExampleFooter>
     </ExampleShell>
@@ -1500,9 +1515,9 @@ const Capabilities = () => (
             width: '100%'
           })}
         >
-          Three ways to embed
+          Three ways to embed any URL
           <LineBreak />
-          <span css={{ color: ACCENT }}>any URL</span>
+          <span css={{ color: ACCENT }}>on your website</span>
         </Subhead>
         <Text
           css={theme({
@@ -1706,25 +1721,23 @@ const OneLineCard = ({ data }) => (
       fontFamily: fonts.sans
     }}
   >
-    {data.logo?.url
-      ? (
-        <img
-          src={data.logo.url}
-          alt=''
-          style={{ width: 20, height: 20, borderRadius: 4, flexShrink: 0 }}
-        />
-        )
-      : (
-        <div
-          style={{
-            width: 20,
-            height: 20,
-            borderRadius: 4,
-            flexShrink: 0,
-            background: data.image?.palette?.[0] || colors.black10
-          }}
-        />
-        )}
+    {data.logo?.url ? (
+      <img
+        src={data.logo.url}
+        alt=''
+        style={{ width: 20, height: 20, borderRadius: 4, flexShrink: 0 }}
+      />
+    ) : (
+      <div
+        style={{
+          width: 20,
+          height: 20,
+          borderRadius: 4,
+          flexShrink: 0,
+          background: data.image?.palette?.[0] || colors.black10
+        }}
+      />
+    )}
     <span
       style={{
         fontSize: 13,
@@ -1930,25 +1943,23 @@ const NotificationCard = ({ data }) => (
       fontFamily: fonts.sans
     }}
   >
-    {data.logo?.url
-      ? (
-        <img
-          src={data.logo.url}
-          alt=''
-          style={{ width: 36, height: 36, borderRadius: 8, flexShrink: 0 }}
-        />
-        )
-      : (
-        <div
-          style={{
-            width: 36,
-            height: 36,
-            borderRadius: 8,
-            flexShrink: 0,
-            background: data.image?.palette?.[0] || colors.black10
-          }}
-        />
-        )}
+    {data.logo?.url ? (
+      <img
+        src={data.logo.url}
+        alt=''
+        style={{ width: 36, height: 36, borderRadius: 8, flexShrink: 0 }}
+      />
+    ) : (
+      <div
+        style={{
+          width: 36,
+          height: 36,
+          borderRadius: 8,
+          flexShrink: 0,
+          background: data.image?.palette?.[0] || colors.black10
+        }}
+      />
+    )}
     <div style={{ flex: 1, minWidth: 0 }}>
       <div
         style={{
@@ -2238,13 +2249,13 @@ const TweetCard = ({ data }) => {
 }
 
 const PREVIEW_VARIANTS = [
-  HeroCard,
-  OneLineCard,
-  TelegramCard,
-  TwitterCard,
-  NotificationCard,
-  ChatBubbleCard,
-  TweetCard
+  { component: HeroCard, name: 'Standard Rich Card Preview' },
+  { component: OneLineCard, name: 'Compact Inline Preview' },
+  { component: TelegramCard, name: 'Telegram Style Link Card' },
+  { component: TwitterCard, name: 'Twitter / X Summary Card' },
+  { component: NotificationCard, name: 'iOS Style Notification Card' },
+  { component: ChatBubbleCard, name: 'WhatsApp Style Chat Bubble' },
+  { component: TweetCard, name: 'Embedded Tweet Widget' }
 ]
 
 const PreviewStage = styled(Box)`
@@ -2343,6 +2354,19 @@ const CopyPasteEmbed = () => {
           >
             Copy. Paste. Embed.
           </Subhead>
+          <Text
+            as='h3'
+            css={theme({
+              fontSize: [1, 1, 2, 2],
+              color: 'black60',
+              fontWeight: 'bold',
+              pt: 2,
+              textAlign: ['center', 'center', 'left', 'left'],
+              width: '100%'
+            })}
+          >
+            Rich link preview snippets for any URL
+          </Text>
           <Caption
             forwardedAs='div'
             css={theme({
@@ -2384,12 +2408,23 @@ const CopyPasteEmbed = () => {
           })}
         >
           <PreviewStage>
-            {PREVIEW_VARIANTS.map((Variant, i) => (
+            {PREVIEW_VARIANTS.map(({ component: Variant, name }, i) => (
               <PreviewLayer
                 key={i}
                 $active={i === index}
                 aria-hidden={i !== index}
               >
+                <h3
+                  style={{
+                    position: 'absolute',
+                    width: 1,
+                    height: 1,
+                    overflow: 'hidden',
+                    clip: 'rect(0,0,0,0)'
+                  }}
+                >
+                  {name}
+                </h3>
                 <Variant data={data} />
               </PreviewLayer>
             ))}
@@ -2673,6 +2708,20 @@ const Pricing = () => {
             variant='gradient'
             css={theme({ fontSize: ['34px', '42px', '54px', '62px'] })}
           >
+            <Text
+              as='span'
+              css={theme({
+                display: 'block',
+                fontSize: [0, 1, 1, 1],
+                fontWeight: 'bold',
+                color: 'black60',
+                letterSpacing: 3,
+                textTransform: 'uppercase',
+                pb: 2
+              })}
+            >
+              Embed API Pricing
+            </Text>
             Start free, scale when ready
           </Subhead>
           <Caption
@@ -3055,9 +3104,9 @@ const SdkSection = () => (
             width: '100%'
           })}
         >
-          Don't want to write markup?
+          Embed SDK for React, Vue,
           <br />
-          <span css={{ color: ACCENT }}>Drop in the SDK</span>
+          <span css={{ color: ACCENT }}>and Vanilla JS</span>
         </Subhead>
         <Caption
           titleize={false}
@@ -3073,9 +3122,10 @@ const SdkSection = () => (
             textAlign: ['center', 'center', 'center', 'left']
           })}
         >
-          The Microlink SDK is the optional zero-code path on top of the API:
-          one component, 280+ providers, under 10KB — works in React, Vue, and
-          vanilla JavaScript.
+          The Microlink Embed SDK is the optional zero-code path on top of the
+          API. One component, 280+ providers, under 10KB — drop-in support for
+          React, Vue, and Vanilla JavaScript. Use it as a lightweight SDK when
+          you need rendered embeds in seconds.
         </Caption>
         <Flex
           css={theme({
@@ -3298,6 +3348,81 @@ const CallToAction = () => (
 // ─── Product Information (FAQ) ────────────────────────────────────────────────
 
 const TOP_FAQ_ITEMS = [
+  {
+    question: 'How does Microlink compare to Iframely?',
+    text: 'Microlink and Iframely both expose oEmbed under a single API. The main differences: Microlink is open source, ships an under-10KB drop-in SDK for React, Vue, and Vanilla JS, supports 280+ providers, and includes screenshot fallback for URLs with no oEmbed support — so every URL ends up with a usable visual. Microlink also offers a free tier with 50 requests per day, no signup required, making it a strong Iframely alternative for indie developers and production workloads alike.',
+    answer: (
+      <>
+        <div>
+          Microlink and Iframely both expose{' '}
+          <Link href='https://oembed.com'>oEmbed</Link> under a single API. The
+          main differences:
+        </div>
+        <Faq.List as='ul'>
+          <li>
+            Microlink is <b>open source</b> — read the source, fork it, ship a
+            PR.
+          </li>
+          <li>
+            Microlink ships an <b>under-10KB drop-in SDK</b> for React, Vue, and
+            Vanilla JS.
+          </li>
+          <li>
+            Microlink includes <b>screenshot fallback</b> for URLs with no
+            oEmbed support — every URL ends up with a usable visual.
+          </li>
+          <li>
+            Microlink offers a <b>free tier with 50 requests per day</b>, no
+            signup required.
+          </li>
+        </Faq.List>
+        <div>
+          For most use cases — embedding a YouTube video, a Spotify track, a
+          Tweet, a Figma board — Microlink is a drop-in Iframely alternative
+          with broader fallback coverage.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'Is there a free embed API?',
+    text: 'Yes. The Microlink Embed API is free with 50 requests per day — no login, no credit card, no setup. Cached responses served from 240+ Cloudflare edge locations do not count against your daily limit. For production workloads above the free tier, Pro plans start at €39 per month.',
+    answer: (
+      <>
+        <div>
+          Yes. The Microlink <b>Embed API is free with 50 requests per day</b> —
+          no login, no credit card, no setup. Cached responses served from 240+
+          Cloudflare edge locations do not count against your daily limit.
+        </div>
+        <div>
+          For production workloads above the free tier,{' '}
+          <Link href='/pricing'>Pro plans</Link> start at €39 per month with
+          higher rate limits, proxy rotation, and priority support.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'What is link unfurling and does Microlink support it?',
+    text: 'Link unfurling is the process of expanding a plain URL into a rich preview with title, description, image, and provider metadata — like Slack, Discord, and iMessage do automatically. Microlink is a link unfurling API: pass any URL and the response includes normalized metadata you can render as a card, an iframe, or feed into your own preview component. Use it to add link previews to chat apps, knowledge bases, dashboards, and CMS editors.',
+    answer: (
+      <>
+        <div>
+          <b>Link unfurling</b> is the process of expanding a plain URL into a
+          rich preview with title, description, image, and provider metadata —
+          like Slack, Discord, and iMessage do automatically.
+        </div>
+        <div>
+          Microlink is a <b>link unfurling API</b>: pass any URL and the
+          response includes normalized metadata you can render as a card, an
+          iframe, or feed into your own preview component. Use it to add link
+          previews to chat apps, knowledge bases, dashboards, and CMS editors —
+          see the <Link href='/docs/guides/embed'>embed guide</Link> for
+          runnable examples.
+        </div>
+      </>
+    )
+  },
   {
     question: 'What is an embed API and how is it different from oEmbed?',
     text: 'An embed API takes any URL as input and returns ready-to-render HTML, an iframe payload, or rich card metadata. oEmbed is the open spec most providers (YouTube, Spotify, Twitter) implement to expose embed data; Microlink consumes oEmbed where available and falls back to Open Graph, JSON-LD, and headless rendering everywhere else — so every URL returns a usable embed, even when the source does not implement oEmbed.',
@@ -3547,9 +3672,9 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Embed Any URL — Rich Cards & oEmbed for 280+ Providers'
+    title='Embed API for Any URL — Rich Cards & oEmbed (280+ Providers)'
     noSuffix
-    description='One API to embed any URL as a rich card or interactive iframe. 280+ oEmbed providers, free tier — plus an optional drop-in SDK for React, Vue, and vanilla JS.'
+    description='Embed API for any URL — get a rich card or interactive iframe in one HTTPS call. 280+ oEmbed providers, free tier, optional React / Vue / Vanilla JS SDK.'
     image={cdnUrl('banner/sdk.jpeg')}
     structured={{
       '@context': 'https://schema.org',
@@ -3558,14 +3683,8 @@ export const Head = () => (
           '@type': 'SoftwareApplication',
           '@id': 'https://microlink.io/embed',
           name: 'Microlink Embed API',
-          alternateName: [
-            'oEmbed API',
-            'Link Embed API',
-            'Rich Link Preview API',
-            'Microlink Embed SDK'
-          ],
           description:
-            'Embed any URL as a rich card or interactive iframe. The Microlink Embed API normalizes oEmbed across 280+ providers and ships an optional under-10KB SDK for React, Vue, and vanilla JavaScript.',
+            'Embed API for any URL — get a rich card or interactive iframe in one HTTPS call. 280+ oEmbed providers, free tier, optional under-10KB SDK for React, Vue, and Vanilla JavaScript. Built for developers.',
           url: 'https://microlink.io/embed',
           applicationCategory: ['DeveloperApplication', 'WebAPI'],
           operatingSystem: 'Web, Platform-Agnostic',
@@ -3575,6 +3694,19 @@ export const Head = () => (
             name: 'Microlink',
             url: 'https://microlink.io'
           },
+          audience: {
+            '@type': 'Audience',
+            audienceType: 'Developers, Software Engineers, Product Teams'
+          },
+          featureList: [
+            'Embed any URL as iframe HTML or rich card',
+            '280+ verified oEmbed providers',
+            'Plain HTTPS API, no SDK install required',
+            'Optional drop-in SDK for React, Vue, and Vanilla JavaScript',
+            'Edge-cached across 240+ Cloudflare locations',
+            'Screenshot fallback for URLs without oEmbed',
+            'Free tier with 50 requests per day'
+          ],
           isPartOf: {
             '@type': 'WebSite',
             '@id': 'https://microlink.io',
@@ -3593,13 +3725,11 @@ export const Head = () => (
             'embed api',
             'oembed api',
             'embed sdk',
-            'link embed',
+            'link embed api',
             'url to embed',
             'rich link preview',
-            'embed widget',
-            'iframely alternative',
-            'link unfurling',
-            'microlink sdk'
+            'link unfurling api',
+            'free embed api'
           ],
           interactionStatistic: {
             '@type': 'InteractionCounter',
@@ -3671,83 +3801,44 @@ const EmbedPage = () => {
               <Pricing />
               <SdkSection />
               <OpenSource />
-              <Hide breakpoints={[0]}>
-                <Features
-                  css={theme({ px: 4, pb: 5, pt: [5, 5, 6, 6] })}
-                  title={
-                    <Subhead
-                      css={theme({
+              <Features
+                css={theme({ px: 4, pb: 5, pt: [5, 5, 6, 6] })}
+                title={
+                  <Subhead
+                    css={theme({
+                      width: '100%',
+                      textAlign: 'left',
+                      fontSize: [
+                        4,
+                        4,
+                        `calc(${fontSizes[6]} - 1px)`,
+                        `calc(${fontSizes[6]} - 1px)`
+                      ]
+                    })}
+                  >
+                    The most complete embed API for developers,{' '}
+                    <span
+                      css={{
+                        display: 'block',
+                        color: ACCENT,
                         width: '100%',
-                        textAlign: 'left',
-                        fontSize: [
-                          4,
-                          4,
-                          `calc(${fontSizes[6]} - 1px)`,
-                          `calc(${fontSizes[6]} - 1px)`
-                        ]
-                      })}
+                        textAlign: 'left'
+                      }}
                     >
-                      The most complete embed API,{' '}
-                      <span
-                        css={{
-                          display: 'block',
-                          color: ACCENT,
-                          width: '100%',
-                          textAlign: 'left'
-                        }}
-                      >
-                        with no compromises.
-                      </span>
-                    </Subhead>
-                  }
-                  caption={
-                    <>
-                      One API, every provider, edge-cached worldwide. Step
-                      through the workflow in the{' '}
-                      <Link href='/docs/guides/embed'>embed guide</Link> — or
-                      skip the markup with the{' '}
-                      <Link href='/sdk'>Microlink SDK</Link>.
-                    </>
-                  }
-                  features={EMBED_FEATURES}
-                />
-              </Hide>
-              <Hide breakpoints={[1, 2, 3]}>
-                <Features
-                  css={theme({ px: 4, pb: 5, pt: [5, 5, 6, 6] })}
-                  title={
-                    <Subhead
-                      css={theme({
-                        width: '100%',
-                        textAlign: 'left',
-                        fontSize: 4
-                      })}
-                    >
-                      The most complete embed API,{' '}
-                      <span
-                        css={{
-                          display: 'block',
-                          color: ACCENT,
-                          width: '100%',
-                          textAlign: 'left'
-                        }}
-                      >
-                        with no compromises.
-                      </span>
-                    </Subhead>
-                  }
-                  caption={
-                    <>
-                      One API, every provider, edge-cached worldwide. Step
-                      through the workflow in the{' '}
-                      <Link href='/docs/guides/embed'>embed guide</Link> — or
-                      skip the markup with the{' '}
-                      <Link href='/sdk'>Microlink SDK</Link>.
-                    </>
-                  }
-                  features={EMBED_FEATURES}
-                />
-              </Hide>
+                      with no compromises.
+                    </span>
+                  </Subhead>
+                }
+                caption={
+                  <>
+                    One API, every provider, edge-cached worldwide. Step through
+                    the workflow in the{' '}
+                    <Link href='/docs/guides/embed'>embed guide</Link> — or skip
+                    the markup with the <Link href='/sdk'>Microlink SDK</Link>.
+                  </>
+                }
+                features={EMBED_FEATURES}
+              />
               <CallToAction />
               <ProductInformation />
             </>
