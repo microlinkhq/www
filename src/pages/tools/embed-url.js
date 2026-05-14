@@ -538,19 +538,19 @@ const HOW_IT_WORKS = [
     icon: Globe,
     title: 'Paste a link',
     description:
-      'YouTube, Spotify, Figma, a blog post, a tweet — drop in any URL and the preview loads instantly.'
+      'YouTube, Tiktok, Figma, a blog post, a tweet — drop in any URL and the preview loads instantly.'
   },
   {
     icon: Code,
     title: 'Tweak the preview',
     description:
-      'Click on the title, description, or any text to edit it. Switch card styles, fonts, and colors with a click.'
+      'Click on the title, description, or any text to edit it. Switch card styles, fonts, and colors.'
   },
   {
     icon: Clipboard,
     title: 'Copy the HTML',
     description:
-      'Paste the snippet into your blog, docs, newsletter, MDX, or any HTML editor. No script tags to wire up.'
+      'Paste the snippet into your blog, docs, newsletter, MDX, or any HTML editor.'
   }
 ]
 
@@ -1574,10 +1574,9 @@ const LOADING_MESSAGES = [
   'Almost ready.'
 ]
 
-const LOADING_MESSAGE_INTERVAL_MS = 3000
+const LOADING_TICK_MS = 2500
 
 const SKELETON_VARIANTS = ['large', 'wide', 'small']
-const SKELETON_CYCLE_MS = 2400
 
 const skeletonShimmer = keyframes`
   0% { background-position: 200% 0; }
@@ -1709,17 +1708,8 @@ const SkeletonCard = styled(Box).withConfig({
   }
 `
 
-const SkeletonLoader = () => {
-  const [variantIndex, setVariantIndex] = useState(0)
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setVariantIndex(i => (i + 1) % SKELETON_VARIANTS.length)
-    }, SKELETON_CYCLE_MS)
-    return () => clearInterval(id)
-  }, [])
-
-  const variant = SKELETON_VARIANTS[variantIndex]
+const SkeletonLoader = ({ tick = 0 }) => {
+  const variant = SKELETON_VARIANTS[tick % SKELETON_VARIANTS.length]
 
   return (
     <SkeletonStage aria-hidden='true'>
@@ -1735,15 +1725,8 @@ const SkeletonLoader = () => {
   )
 }
 
-const LoadingMessage = () => {
-  const [index, setIndex] = useState(0)
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setIndex(i => (i + 1) % LOADING_MESSAGES.length)
-    }, LOADING_MESSAGE_INTERVAL_MS)
-    return () => clearInterval(id)
-  }, [])
+const LoadingMessage = ({ tick = 0 }) => {
+  const index = tick % LOADING_MESSAGES.length
 
   return (
     <Box aria-live='polite' aria-atomic='true'>
@@ -1760,6 +1743,22 @@ const LoadingMessage = () => {
         </Text>
       </FadeIn>
     </Box>
+  )
+}
+
+const LoadingState = () => {
+  const [tick, setTick] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => setTick(t => t + 1), LOADING_TICK_MS)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <>
+      <SkeletonLoader tick={tick} />
+      <LoadingMessage tick={tick} />
+    </>
   )
 }
 
@@ -2695,8 +2694,7 @@ const ResultArea = ({
             gap: 4
           })}
         >
-          <SkeletonLoader />
-          <LoadingMessage />
+          <LoadingState />
         </FadeIn>
       </PaperSheet>
     )
