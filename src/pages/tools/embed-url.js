@@ -439,9 +439,11 @@ const buildSmallCard = (data, s) => {
       : ''
   const authorText =
     s.elements.authorTopic && data?.author
-      ? `<span${de(s, 'authorTopic')} style="font-size:${s.metaSize}px;color:${
+      ? `<span aria-hidden="true" style="font-size:${s.metaSize}px;color:${
         s.palette.meta
-      }">· ${escText(data.author)}</span>`
+      }">· </span><span${de(s, 'authorTopic')} style="font-size:${
+        s.metaSize
+      }px;color:${s.palette.meta}">${escText(data.author)}</span>`
       : ''
   const dateText =
     s.elements.date && data?.date
@@ -671,6 +673,15 @@ const PaperSheet = styled(Box)`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
 `
 
+const EDITABLE_FIELD_BY_ELEMENT = {
+  headline: 'title',
+  description: 'description',
+  siteName: 'publisher',
+  authorTopic: 'author'
+}
+
+const EDITABLE_KINDS = Object.keys(EDITABLE_FIELD_BY_ELEMENT)
+
 const HOVER_HIGHLIGHT_KINDS = [
   'frame',
   'headline',
@@ -717,6 +728,49 @@ const EmbedPreviewFrame = styled(Box)`
     }
   `
   ).join('\n')}
+
+  ${EDITABLE_KINDS.map(
+    kind => `
+    & [data-element='${kind}']:hover:not([contenteditable='true']) {
+      outline: 2px dashed ${colors.link};
+      outline-offset: 4px;
+      border-radius: 4px;
+      cursor: text;
+      position: relative;
+    }
+    & [data-element='${kind}']:hover:not([contenteditable='true'])::after {
+      content: 'Click to edit';
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      background: ${colors.black};
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      line-height: 1.4;
+      font-family: 'Inter', system-ui, sans-serif;
+      text-transform: none;
+      padding: 3px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 10;
+    }
+  `
+  ).join('\n')}
+
+  & [data-element][contenteditable='true'] {
+    outline: 2px solid ${colors.link};
+    outline-offset: 4px;
+    border-radius: 4px;
+    cursor: text;
+    -webkit-line-clamp: unset;
+    display: block;
+    max-height: none;
+    overflow: visible;
+    white-space: pre-wrap;
+  }
 `
 
 const IframePreviewFrame = styled(EmbedPreviewFrame)`
@@ -1620,82 +1674,139 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
           <ArrowRight size={16} />
         </OmniboxConvertButton>
       </OmniboxWrapper>
-      {urlError
-        ? (
-          <Text
-            id='embed-url-error'
-            role='alert'
-            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
-          >
-            {urlError}
-          </Text>
-          )
-        : !url.trim()
-            ? (
-              <Text
-                css={theme({
-                  fontFamily: 'sans',
-                  color: 'black60',
-                  fontSize: 0,
-                  pt: 2,
-                  pl: 3
-                })}
+      {urlError ? (
+        <Text
+          id='embed-url-error'
+          role='alert'
+          css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+        >
+          {urlError}
+        </Text>
+      ) : !url.trim() ? (
+        <Text
+          css={theme({
+            fontFamily: 'sans',
+            color: 'black60',
+            fontSize: 0,
+            pt: 2,
+            pl: 3
+          })}
+        >
+          <Box as='span' css={{ marginRight: 4 }}>
+            Try:
+          </Box>
+          {EXAMPLE_URLS.map((example, i) => (
+            <React.Fragment key={example}>
+              <ExampleUrlButton
+                onClick={() => handleExampleClick(example)}
+                disabled={isLoading}
               >
-                <Box as='span' css={{ marginRight: 4 }}>
-                  Try:
+                {example}
+              </ExampleUrlButton>
+              {i < EXAMPLE_URLS.length - 1 ? (
+                <Box
+                  as='span'
+                  aria-hidden='true'
+                  css={{
+                    marginLeft: 6,
+                    marginRight: 6,
+                    color: colors.black30
+                  }}
+                >
+                  ·
                 </Box>
-                {EXAMPLE_URLS.map((example, i) => (
-                  <React.Fragment key={example}>
-                    <ExampleUrlButton
-                      onClick={() => handleExampleClick(example)}
-                      disabled={isLoading}
-                    >
-                      {example}
-                    </ExampleUrlButton>
-                    {i < EXAMPLE_URLS.length - 1
-                      ? (
-                        <Box
-                          as='span'
-                          aria-hidden='true'
-                          css={{
-                            marginLeft: 6,
-                            marginRight: 6,
-                            color: colors.black30
-                          }}
-                        >
-                          ·
-                        </Box>
-                        )
-                      : null}
-                  </React.Fragment>
-                ))}
-              </Text>
-              )
-            : null}
+              ) : null}
+            </React.Fragment>
+          ))}
+        </Text>
+      ) : null}
     </Box>
   )
 }
 
 /* ─── Result Panes ─────────────────────────────────────── */
 
-const PreviewPane = ({ html, hasIframe, hoverTarget, scripts }) => {
+const PreviewPane = ({
+  html,
+  hasIframe,
+  hoverTarget,
+  scripts,
+  onEditField
+}) => {
+  const cardRef = useRef(null)
+
   useEffect(() => {
     if (!hasIframe) return
     injectIframeScripts(scripts)
   }, [hasIframe, scripts, html])
 
+  useEffect(() => {
+    if (hasIframe) return
+    const root = cardRef.current
+    if (!root || !onEditField) return
+
+    const onClick = e => {
+      const el = e.target.closest('[data-element]')
+      if (!el || !root.contains(el)) return
+      const kind = el.getAttribute('data-element')
+      const field = EDITABLE_FIELD_BY_ELEMENT[kind]
+      if (!field) return
+
+      e.preventDefault()
+      e.stopPropagation()
+
+      if (el.getAttribute('contenteditable') === 'true') return
+
+      el.setAttribute('contenteditable', 'true')
+      el.focus()
+      try {
+        const range = document.createRange()
+        range.selectNodeContents(el)
+        range.collapse(false)
+        const sel = window.getSelection()
+        sel.removeAllRanges()
+        sel.addRange(range)
+      } catch (_) {
+        // Selection API may not be available in some browsers — caret stays at start
+      }
+
+      const commit = () => {
+        el.removeEventListener('blur', commit)
+        el.removeEventListener('keydown', onKey)
+        el.removeAttribute('contenteditable')
+        const value = (el.textContent || '').replace(/\s+/g, ' ').trim()
+        onEditField(field, value)
+      }
+
+      const onKey = ev => {
+        if (ev.key === 'Enter' && !ev.shiftKey) {
+          ev.preventDefault()
+          el.blur()
+        } else if (ev.key === 'Escape') {
+          ev.preventDefault()
+          el.blur()
+        }
+      }
+
+      el.addEventListener('blur', commit)
+      el.addEventListener('keydown', onKey)
+    }
+
+    root.addEventListener('click', onClick)
+    return () => root.removeEventListener('click', onClick)
+  }, [hasIframe, html, onEditField])
+
   return (
     <ResultPane $autoHeight={hasIframe}>
-      {hasIframe
-        ? (
-          <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
-          )
-        : (
-          <EmbedPreviewFrame
-            data-hover-target={hoverTarget || undefined}
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
-          )}
+      {hasIframe ? (
+        <IframePreviewFrame dangerouslySetInnerHTML={{ __html: html }} />
+      ) : (
+        <EmbedPreviewFrame
+          ref={cardRef}
+          data-hover-target={hoverTarget || undefined}
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      )}
     </ResultPane>
   )
 }
@@ -1878,13 +1989,11 @@ const HtmlPane = ({ html }) => {
             }
             aria-live='polite'
           >
-            {copied
-              ? (
-                <Check size={14} color={colors.green5} />
-                )
-              : (
-                <Clipboard size={14} />
-                )}
+            {copied ? (
+              <Check size={14} color={colors.green5} />
+            ) : (
+              <Clipboard size={14} />
+            )}
             <span>{copied ? 'Copied!' : 'Copy code'}</span>
           </SmallActionButton>
         </Flex>
@@ -1955,35 +2064,33 @@ const LayoutTab = ({ config, set, setHoverTarget }) => {
                 </Text>
               </CheckboxWrap>
             ))}
-            {group.id === 'content'
-              ? (
-                <Flex css={{ alignItems: 'center' }} {...hover('meta')}>
-                  <CheckboxWrap>
-                    <input
-                      type='checkbox'
-                      checked={!!config.metaBefore}
-                      onChange={e => set('metaBefore', e.target.checked)}
-                    />
-                    <Text css={theme({ fontSize: 1, color: 'black80' })}>
-                      Site name on top
-                    </Text>
-                  </CheckboxWrap>
-                  <Tooltip
-                    aria-label='Help: show site name above title'
-                    content={
-                      <Tooltip.Content>
-                        When enabled, the site name appears above the title —
-                        useful for branded previews.
-                      </Tooltip.Content>
+            {group.id === 'content' ? (
+              <Flex css={{ alignItems: 'center' }} {...hover('meta')}>
+                <CheckboxWrap>
+                  <input
+                    type='checkbox'
+                    checked={!!config.metaBefore}
+                    onChange={e => set('metaBefore', e.target.checked)}
+                  />
+                  <Text css={theme({ fontSize: 1, color: 'black80' })}>
+                    Site name on top
+                  </Text>
+                </CheckboxWrap>
+                <Tooltip
+                  aria-label='Help: show site name above title'
+                  content={
+                    <Tooltip.Content>
+                      When enabled, the site name appears above the title —
+                      useful for branded previews.
+                    </Tooltip.Content>
                   }
-                  >
-                    <HelpIconWrap>
-                      <HelpCircle size={13} />
-                    </HelpIconWrap>
-                  </Tooltip>
-                </Flex>
-                )
-              : null}
+                >
+                  <HelpIconWrap>
+                    <HelpCircle size={13} />
+                  </HelpIconWrap>
+                </Tooltip>
+              </Flex>
+            ) : null}
           </Box>
         ))}
       </Box>
@@ -2018,7 +2125,8 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                 step='1'
                 value={config.border}
                 onChange={e =>
-                  set('border', Math.max(0, Number(e.target.value) || 0))}
+                  set('border', Math.max(0, Number(e.target.value) || 0))
+                }
                 aria-label='Border width'
               />
               <UnitFieldWrap>
@@ -2028,7 +2136,8 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                   max='10'
                   value={config.border}
                   onChange={e =>
-                    set('border', Math.max(0, Number(e.target.value) || 0))}
+                    set('border', Math.max(0, Number(e.target.value) || 0))
+                  }
                   aria-label='Border width in pixels'
                 />
                 <UnitSuffix aria-hidden='true'>px</UnitSuffix>
@@ -2066,7 +2175,8 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                 step='1'
                 value={config.radius}
                 onChange={e =>
-                  set('radius', Math.max(0, Number(e.target.value) || 0))}
+                  set('radius', Math.max(0, Number(e.target.value) || 0))
+                }
                 aria-label='Border radius'
               />
               <UnitFieldWrap>
@@ -2076,7 +2186,8 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                   max='40'
                   value={config.radius}
                   onChange={e =>
-                    set('radius', Math.max(0, Number(e.target.value) || 0))}
+                    set('radius', Math.max(0, Number(e.target.value) || 0))
+                  }
                   aria-label='Border radius in pixels'
                 />
                 <UnitSuffix aria-hidden='true'>px</UnitSuffix>
@@ -2180,7 +2291,8 @@ const FontsTab = ({ config, set, setHoverTarget }) => {
           max='3'
           value={config.lineHeight}
           onChange={e =>
-            set('lineHeight', Math.max(1, Number(e.target.value) || 1))}
+            set('lineHeight', Math.max(1, Number(e.target.value) || 1))
+          }
         />
       </FormRow>
 
@@ -2325,10 +2437,26 @@ const ResultArea = ({
 }) => {
   const [hoverTarget, setHoverTarget] = useState(null)
   const [useCard, setUseCard] = useState(false)
+  const [editOverrides, setEditOverrides] = useState({})
 
   useEffect(() => {
     setUseCard(false)
+    setEditOverrides({})
   }, [data])
+
+  const onEditField = useCallback((field, value) => {
+    setEditOverrides(prev => {
+      if ((prev[field] ?? '') === value) return prev
+      return { ...prev, [field]: value }
+    })
+  }, [])
+
+  const handleReset = useCallback(() => {
+    setEditOverrides({})
+    onReset()
+  }, [onReset])
+
+  const hasEdits = Object.keys(editOverrides).length > 0
 
   if (isLoading) {
     return (
@@ -2390,13 +2518,11 @@ const ResultArea = ({
               />
             </Text>
           </Text>
-          {getErrorMeta(error?.code).showRetry
-            ? (
-              <Button onClick={onRetry}>
-                <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-              </Button>
-              )
-            : null}
+          {getErrorMeta(error?.code).showRetry ? (
+            <Button onClick={onRetry}>
+              <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+            </Button>
+          ) : null}
         </FadeIn>
       </PaperSheet>
     )
@@ -2407,14 +2533,16 @@ const ResultArea = ({
   const apiHasIframe = Boolean(data.iframe?.html)
   const showCard = useCard || !apiHasIframe
   const iframeScripts = data.iframe?.scripts
+  const effectiveData =
+    Object.keys(editOverrides).length > 0 ? { ...data, ...editOverrides } : data
   const previewHtml = compactHtml(
     showCard
-      ? buildCardHtml(data, config, { instrument: true })
+      ? buildCardHtml(effectiveData, config, { instrument: true })
       : data.iframe.html
   )
   const copyHtml = compactHtml(
     showCard
-      ? buildCardHtml(data, config)
+      ? buildCardHtml(effectiveData, config)
       : `${data.iframe.html}${serializeIframeScripts(iframeScripts)}`
   )
 
@@ -2427,40 +2555,36 @@ const ResultArea = ({
         alignItems: 'stretch'
       })}
     >
-      {apiHasIframe
-        ? (
-          <Flex css={{ justifyContent: 'center', width: '100%' }}>
-            <ViewToggle role='radiogroup' aria-label='Preview format'>
-              <ViewToggleButton
-                role='radio'
-                aria-checked={!useCard}
-                $active={!useCard}
-                onClick={() => setUseCard(false)}
-              >
-                Iframe
-              </ViewToggleButton>
-              <ViewToggleButton
-                role='radio'
-                aria-checked={useCard}
-                $active={useCard}
-                onClick={() => setUseCard(true)}
-              >
-                Card
-              </ViewToggleButton>
-            </ViewToggle>
-          </Flex>
-          )
-        : null}
+      {apiHasIframe ? (
+        <Flex css={{ justifyContent: 'center', width: '100%' }}>
+          <ViewToggle role='radiogroup' aria-label='Preview format'>
+            <ViewToggleButton
+              role='radio'
+              aria-checked={!useCard}
+              $active={!useCard}
+              onClick={() => setUseCard(false)}
+            >
+              Iframe
+            </ViewToggleButton>
+            <ViewToggleButton
+              role='radio'
+              aria-checked={useCard}
+              $active={useCard}
+              onClick={() => setUseCard(true)}
+            >
+              Card
+            </ViewToggleButton>
+          </ViewToggle>
+        </Flex>
+      ) : null}
       <ResultGrid>
-        {showCard
-          ? (
-            <ConfigEditor
-              config={config}
-              setConfig={setConfig}
-              setHoverTarget={setHoverTarget}
-            />
-            )
-          : null}
+        {showCard ? (
+          <ConfigEditor
+            config={config}
+            setConfig={setConfig}
+            setHoverTarget={setHoverTarget}
+          />
+        ) : null}
         <PreviewColumn>
           <Flex
             css={{
@@ -2472,23 +2596,22 @@ const ResultArea = ({
             }}
           >
             <PreviewSectionLabel as='span'>Live preview</PreviewSectionLabel>
-            {showCard && hasSavedPreset
-              ? (
-                <SmallActionButton
-                  onClick={onReset}
-                  aria-label='Reset all preview settings to defaults'
-                >
-                  <RotateCcw size={14} />
-                  Reset to defaults
-                </SmallActionButton>
-                )
-              : null}
+            {showCard && (hasSavedPreset || hasEdits) ? (
+              <SmallActionButton
+                onClick={handleReset}
+                aria-label='Reset all preview settings and edits to defaults'
+              >
+                <RotateCcw size={14} />
+                Reset to defaults
+              </SmallActionButton>
+            ) : null}
           </Flex>
           <PreviewPane
             html={previewHtml}
             hasIframe={!showCard}
             hoverTarget={hoverTarget}
             scripts={!showCard ? iframeScripts : undefined}
+            onEditField={onEditField}
           />
         </PreviewColumn>
       </ResultGrid>
@@ -2654,33 +2777,31 @@ const EmbedTool = () => {
           </ResultsExpandWrapper>
         </Box>
       </Flex>
-      {showPresetToast
-        ? (
-          <Toast role='status' aria-live='polite'>
-            <Check size={14} color={colors.green5} />
-            <Text as='span' css={{ flex: 1 }}>
-              Custom style applied from your saved preset
-            </Text>
-            <Box
-              as='button'
-              type='button'
-              onClick={dismissPresetToast}
-              aria-label='Dismiss'
-              css={{
-                background: 'transparent',
-                border: 'none',
-                color: colors.black40,
-                cursor: 'pointer',
-                padding: '2px 4px',
-                fontSize: '14px',
-                lineHeight: 1
-              }}
-            >
-              ×
-            </Box>
-          </Toast>
-          )
-        : null}
+      {showPresetToast ? (
+        <Toast role='status' aria-live='polite'>
+          <Check size={14} color={colors.green5} />
+          <Text as='span' css={{ flex: 1 }}>
+            Custom style applied from your saved preset
+          </Text>
+          <Box
+            as='button'
+            type='button'
+            onClick={dismissPresetToast}
+            aria-label='Dismiss'
+            css={{
+              background: 'transparent',
+              border: 'none',
+              color: colors.black40,
+              cursor: 'pointer',
+              padding: '2px 4px',
+              fontSize: '14px',
+              lineHeight: 1
+            }}
+          >
+            ×
+          </Box>
+        </Toast>
+      ) : null}
     </Container>
   )
 }
@@ -2918,15 +3039,13 @@ const UseCasesSection = () => (
               </Flex>
             ))}
           </Box>
-          {link
-            ? (
-              <Box css={theme({ pt: 3 })}>
-                <Link href={link.href} aria-label={link.alt}>
-                  {link.text}
-                </Link>
-              </Box>
-              )
-            : null}
+          {link ? (
+            <Box css={theme({ pt: 3 })}>
+              <Link href={link.href} aria-label={link.alt}>
+                {link.text}
+              </Link>
+            </Box>
+          ) : null}
         </Box>
       ))}
     </Box>
