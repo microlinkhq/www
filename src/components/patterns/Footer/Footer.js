@@ -105,6 +105,7 @@ const FOOTER_COLUMNS = [
     title: 'Comparisons',
     links: [
       { label: 'vs ApiFlash', href: '/alternative/apiflash' },
+      { label: 'vs Iframely', href: '/alternative/iframely' },
       { label: 'vs ScreenshotAPI', href: '/alternative/screenshotapi' },
       { label: 'vs ScreenshotLayer', href: '/alternative/screenshotlayer' },
       { label: 'vs ScreenshotMachine', href: '/alternative/screenshotmachine' },
