@@ -778,37 +778,39 @@ const Hero = function Hero ({
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied ? (
-                    <svg
-                      className='icon-check'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M3 8l3.5 3.5L13 4.5'
-                        stroke='currentColor'
-                        strokeWidth='1.8'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='currentColor'
-                      aria-hidden='true'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                      />
-                    </svg>
-                  )}
+                  {isCopied
+                    ? (
+                      <svg
+                        className='icon-check'
+                        width='16'
+                        height='16'
+                        viewBox='0 0 16 16'
+                        fill='none'
+                        aria-hidden='true'
+                      >
+                        <path
+                          d='M3 8l3.5 3.5L13 4.5'
+                          stroke='currentColor'
+                          strokeWidth='1.8'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                      </svg>
+                      )
+                    : (
+                      <svg
+                        width='16'
+                        height='16'
+                        viewBox='0 0 16 16'
+                        fill='currentColor'
+                        aria-hidden='true'
+                      >
+                        <path
+                          fillRule='evenodd'
+                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                        />
+                      </svg>
+                      )}
                 </HeroCopyButton>
               </HeroApiBar>
             </HeroPreviewShell>
@@ -1104,12 +1106,13 @@ const ExampleShell = styled(Box)`
   ${theme({
     width: '100%',
     maxWidth: '100%',
-    bg: 'white',
     borderRadius: 3,
     overflow: 'hidden'
   })};
   min-width: 0;
-  box-shadow: 0 8px 32px ${colors.black10};
+  background: ${({ $flat }) => ($flat ? 'transparent' : colors.white)};
+  box-shadow: ${({ $flat }) =>
+    $flat ? 'none' : `0 8px 32px ${colors.black10}`};
 `
 
 const ExampleToolbar = styled(Flex)`
@@ -1292,7 +1295,7 @@ const ExampleCopyButton = styled('button')`
   }
 `
 
-const InteractiveExample = () => {
+export const InteractiveExample = ({ flat = false, hideFooter = false } = {}) => {
   const [source, setSource] = useState('custom')
   const [activeDemo, setActiveDemo] = useState(HERO_DEMOS[0])
   const [isCopied, setIsCopied] = useState(false)
@@ -1326,7 +1329,7 @@ const InteractiveExample = () => {
   }
 
   return (
-    <ExampleShell>
+    <ExampleShell $flat={flat}>
       <ExampleToolbar>
         <ToggleGroup role='tablist' aria-label='Embed source'>
           <ToggleButton
@@ -1401,66 +1404,70 @@ const InteractiveExample = () => {
           )
         })}
       </ExampleDemoSelector>
-      <ExampleFooter>
-        <ExampleFooterText>
-          {source === 'iframe' && (
-            <>
-              {`https://api.microlink.io?url=${demoUrl}`}
-              <strong>&iframe</strong>
-            </>
-          )}
-          {source === 'sdk' && (
-            <>
-              <strong>{"<Microlink url='"}</strong>
-              {demoUrl}
-              <strong>{"' />"}</strong>
-            </>
-          )}
-          {source === 'custom' && (
-            <>
-              <strong>https://api.microlink.io</strong>
-              {`?url=${demoUrl}`}
-            </>
-          )}
-        </ExampleFooterText>
-        <ExampleCopyButton
-          type='button'
-          onClick={handleCopy}
-          aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
-        >
-          {isCopied ? (
-            <svg
-              className='icon-check'
-              width='16'
-              height='16'
-              viewBox='0 0 16 16'
-              fill='none'
-              aria-hidden='true'
-            >
-              <path
-                d='M3 8l3.5 3.5L13 4.5'
-                stroke='currentColor'
-                strokeWidth='1.8'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              />
-            </svg>
-          ) : (
-            <svg
-              width='16'
-              height='16'
-              viewBox='0 0 16 16'
-              fill='currentColor'
-              aria-hidden='true'
-            >
-              <path
-                fillRule='evenodd'
-                d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-              />
-            </svg>
-          )}
-        </ExampleCopyButton>
-      </ExampleFooter>
+      {!hideFooter && (
+        <ExampleFooter>
+          <ExampleFooterText>
+            {source === 'iframe' && (
+              <>
+                {`https://api.microlink.io?url=${demoUrl}`}
+                <strong>&iframe</strong>
+              </>
+            )}
+            {source === 'sdk' && (
+              <>
+                <strong>{"<Microlink url='"}</strong>
+                {demoUrl}
+                <strong>{"' />"}</strong>
+              </>
+            )}
+            {source === 'custom' && (
+              <>
+                <strong>https://api.microlink.io</strong>
+                {`?url=${demoUrl}`}
+              </>
+            )}
+          </ExampleFooterText>
+          <ExampleCopyButton
+            type='button'
+            onClick={handleCopy}
+            aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
+          >
+            {isCopied
+              ? (
+                <svg
+                  className='icon-check'
+                  width='16'
+                  height='16'
+                  viewBox='0 0 16 16'
+                  fill='none'
+                  aria-hidden='true'
+                >
+                  <path
+                    d='M3 8l3.5 3.5L13 4.5'
+                    stroke='currentColor'
+                    strokeWidth='1.8'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  />
+                </svg>
+                )
+              : (
+                <svg
+                  width='16'
+                  height='16'
+                  viewBox='0 0 16 16'
+                  fill='currentColor'
+                  aria-hidden='true'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                  />
+                </svg>
+                )}
+          </ExampleCopyButton>
+        </ExampleFooter>
+      )}
     </ExampleShell>
   )
 }
@@ -1721,23 +1728,25 @@ const OneLineCard = ({ data }) => (
       fontFamily: fonts.sans
     }}
   >
-    {data.logo?.url ? (
-      <img
-        src={data.logo.url}
-        alt=''
-        style={{ width: 20, height: 20, borderRadius: 4, flexShrink: 0 }}
-      />
-    ) : (
-      <div
-        style={{
-          width: 20,
-          height: 20,
-          borderRadius: 4,
-          flexShrink: 0,
-          background: data.image?.palette?.[0] || colors.black10
-        }}
-      />
-    )}
+    {data.logo?.url
+      ? (
+        <img
+          src={data.logo.url}
+          alt=''
+          style={{ width: 20, height: 20, borderRadius: 4, flexShrink: 0 }}
+        />
+        )
+      : (
+        <div
+          style={{
+            width: 20,
+            height: 20,
+            borderRadius: 4,
+            flexShrink: 0,
+            background: data.image?.palette?.[0] || colors.black10
+          }}
+        />
+        )}
     <span
       style={{
         fontSize: 13,
@@ -1943,23 +1952,25 @@ const NotificationCard = ({ data }) => (
       fontFamily: fonts.sans
     }}
   >
-    {data.logo?.url ? (
-      <img
-        src={data.logo.url}
-        alt=''
-        style={{ width: 36, height: 36, borderRadius: 8, flexShrink: 0 }}
-      />
-    ) : (
-      <div
-        style={{
-          width: 36,
-          height: 36,
-          borderRadius: 8,
-          flexShrink: 0,
-          background: data.image?.palette?.[0] || colors.black10
-        }}
-      />
-    )}
+    {data.logo?.url
+      ? (
+        <img
+          src={data.logo.url}
+          alt=''
+          style={{ width: 36, height: 36, borderRadius: 8, flexShrink: 0 }}
+        />
+        )
+      : (
+        <div
+          style={{
+            width: 36,
+            height: 36,
+            borderRadius: 8,
+            flexShrink: 0,
+            background: data.image?.palette?.[0] || colors.black10
+          }}
+        />
+        )}
     <div style={{ flex: 1, minWidth: 0 }}>
       <div
         style={{
@@ -2289,7 +2300,7 @@ const PreviewLayer = styled(Box)`
   }
 `
 
-const CopyPasteEmbed = () => {
+export const PreviewVariantsShowcase = () => {
   const [data, setData] = useState(PREVIEW_FALLBACK)
   const [index, setIndex] = useState(0)
 
@@ -2315,125 +2326,129 @@ const CopyPasteEmbed = () => {
   }, [])
 
   return (
-    <Container
-      as='section'
-      id='copy-paste-embed'
+    <PreviewStage>
+      {PREVIEW_VARIANTS.map(({ component: Variant, name }, i) => (
+        <PreviewLayer
+          key={i}
+          $active={i === index}
+          aria-hidden={i !== index}
+        >
+          <h3
+            style={{
+              position: 'absolute',
+              width: 1,
+              height: 1,
+              overflow: 'hidden',
+              clip: 'rect(0,0,0,0)'
+            }}
+          >
+            {name}
+          </h3>
+          <Variant data={data} />
+        </PreviewLayer>
+      ))}
+    </PreviewStage>
+  )
+}
+
+const CopyPasteEmbed = () => (
+  <Container
+    as='section'
+    id='copy-paste-embed'
+    css={theme({
+      alignItems: 'center',
+      maxWidth: '100%',
+      py: SECTION_VERTICAL_SPACING,
+      px: [3, 4, 5, 5]
+    })}
+  >
+    <Flex
       css={theme({
+        width: '100%',
+        maxWidth: HERO_LAYOUT.maxWidth,
+        mx: 'auto',
+        flexDirection: ['column', 'column', 'row', 'row'],
         alignItems: 'center',
-        maxWidth: '100%',
-        py: SECTION_VERTICAL_SPACING,
-        px: [3, 4, 5, 5]
+        justifyContent: 'center',
+        gap: [4, 4, 5, HERO_LAYOUT.gap[3]]
       })}
     >
       <Flex
         css={theme({
-          width: '100%',
-          maxWidth: HERO_LAYOUT.maxWidth,
-          mx: 'auto',
-          flexDirection: ['column', 'column', 'row', 'row'],
-          alignItems: 'center',
+          width: ['100%', '100%', '50%', '50%'],
+          flexDirection: 'column',
           justifyContent: 'center',
-          gap: [4, 4, 5, HERO_LAYOUT.gap[3]]
+          alignItems: ['center', 'center', 'flex-start', 'flex-start']
         })}
       >
-        <Flex
+        <Subhead
+          variant='gradient'
           css={theme({
-            width: ['100%', '100%', '50%', '50%'],
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: ['center', 'center', 'flex-start', 'flex-start']
+            fontSize: [3, 4, 5, 5],
+            textAlign: ['center', 'center', 'left', 'left'],
+            width: '100%'
           })}
         >
-          <Subhead
-            variant='gradient'
-            css={theme({
-              fontSize: [3, 4, 5, 5],
-              textAlign: ['center', 'center', 'left', 'left'],
-              width: '100%'
-            })}
-          >
-            Copy. Paste. Embed.
-          </Subhead>
-          <Text
-            as='h3'
-            css={theme({
-              fontSize: [1, 1, 2, 2],
-              color: 'black60',
-              fontWeight: 'bold',
-              pt: 2,
-              textAlign: ['center', 'center', 'left', 'left'],
-              width: '100%'
-            })}
-          >
-            Rich link preview snippets for any URL
-          </Text>
-          <Caption
-            forwardedAs='div'
-            css={theme({
-              pt: [3, 3, 4, 4],
-              maxWidth: layout.normal,
-              fontSize: [1, 1, 2, 2],
-              textAlign: ['center', 'center', 'left', 'left']
-            })}
-          >
-            One API call returns every piece of metadata you need — title,
-            description, image, logo, palette. Render previews that feel native
-            to your design system, or ask your AI assistant to generate them
-            from the same data.
-          </Caption>
-          <Flex
-            css={theme({
-              pt: [3, 3, 4, 4],
-              fontSize: [1, 1, 2, 2],
-              flexDirection: ['column', 'row', 'row', 'row'],
-              alignItems: 'center',
-              justifyContent: ['center', 'center', 'flex-start', 'flex-start'],
-              gap: [3, 4, 4, 4]
-            })}
-          >
-            <ArrowLink href='/docs/guides/embed/custom-previews-with-ai#the-base-prompt'>
-              Generate previews with a prompt
-            </ArrowLink>
-            <ArrowLink href='/docs/guides/embed/metadata-api'>
-              Build the preview yourself
-            </ArrowLink>
-          </Flex>
-        </Flex>
-        <Flex
+          Copy. Paste. Embed.
+        </Subhead>
+        <Text
+          as='h3'
           css={theme({
-            width: ['100%', '100%', '50%', '50%'],
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
+            fontSize: [1, 1, 2, 2],
+            color: 'black60',
+            fontWeight: 'bold',
+            pt: 2,
+            textAlign: ['center', 'center', 'left', 'left'],
+            width: '100%'
           })}
         >
-          <PreviewStage>
-            {PREVIEW_VARIANTS.map(({ component: Variant, name }, i) => (
-              <PreviewLayer
-                key={i}
-                $active={i === index}
-                aria-hidden={i !== index}
-              >
-                <h3
-                  style={{
-                    position: 'absolute',
-                    width: 1,
-                    height: 1,
-                    overflow: 'hidden',
-                    clip: 'rect(0,0,0,0)'
-                  }}
-                >
-                  {name}
-                </h3>
-                <Variant data={data} />
-              </PreviewLayer>
-            ))}
-          </PreviewStage>
+          Rich link preview snippets for any URL
+        </Text>
+        <Caption
+          forwardedAs='div'
+          css={theme({
+            pt: [3, 3, 4, 4],
+            maxWidth: layout.normal,
+            fontSize: [1, 1, 2, 2],
+            textAlign: ['center', 'center', 'left', 'left']
+          })}
+        >
+          One API call returns every piece of metadata you need — title,
+          description, image, logo, palette. Render previews that feel native
+          to your design system, or ask your AI assistant to generate them
+          from the same data.
+        </Caption>
+        <Flex
+          css={theme({
+            pt: [3, 3, 4, 4],
+            fontSize: [1, 1, 2, 2],
+            flexDirection: ['column', 'row', 'row', 'row'],
+            alignItems: 'center',
+            justifyContent: ['center', 'center', 'flex-start', 'flex-start'],
+            gap: [3, 4, 4, 4]
+          })}
+        >
+          <ArrowLink href='/docs/guides/embed/custom-previews-with-ai#the-base-prompt'>
+            Generate previews with a prompt
+          </ArrowLink>
+          <ArrowLink href='/docs/guides/embed/metadata-api'>
+            Build the preview yourself
+          </ArrowLink>
         </Flex>
       </Flex>
-    </Container>
-  )
-}
+      <Flex
+        css={theme({
+          width: ['100%', '100%', '50%', '50%'],
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        })}
+      >
+        <PreviewVariantsShowcase />
+      </Flex>
+    </Flex>
+  </Container>
+)
 
 // ─── Clients ──────────────────────────────────────────────────────────────────
 
