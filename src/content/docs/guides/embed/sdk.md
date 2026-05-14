@@ -1,6 +1,6 @@
 ---
 title: 'Embed: SDK'
-description: 'The Microlink SDK turns any URL into a beautiful preview card or interactive iframe with one drop-in component. Available for React, Vue, and vanilla JavaScript, under 10KB, framework-agnostic.'
+description: 'The Microlink SDK turns any URL into a preview card or interactive iframe with one drop-in component. Available for React, Vue, and vanilla JavaScript, under 10KB, framework-agnostic.'
 ---
 
 import { Microlink } from 'components/markdown/Microlink'
@@ -8,7 +8,7 @@ import { Link } from 'components/elements/Link'
 
 The SDK is the fastest way to embed any URL: drop one component into your markup, pass a `url`, and get a live preview. It handles the API call, lazy-loading, the iframe-vs-card choice, and CSS theming.
 
-If you would rather render previews yourself, see <Link href='/docs/guides/embed/metadata-api' children='metadata API with custom HTML/CSS' />. If you only need the provider's native player, see <Link href='/docs/guides/embed/iframe' children='iframe parameter' />.
+Pick the SDK when you want something rendered today with zero markup decisions. If you would rather render previews yourself, see <Link href='/docs/guides/embed/metadata-api' children='metadata API with custom HTML/CSS' />. If you only need the provider's native player, see <Link href='/docs/guides/embed/iframe' children='iframe parameter' />.
 
 ## Quick start
 
@@ -21,10 +21,10 @@ npm install @microlink/react styled-components
 ```jsx
 import Microlink from '@microlink/react'
 
-<Microlink url='https://www.youtube.com/watch?v=9P6rdqiybaw' />
+<Microlink url='https://stripe.com' />
 ```
 
-<Microlink url='https://www.youtube.com/watch?v=9P6rdqiybaw' />
+<Microlink url='https://stripe.com' />
 
 #### Vue
 
@@ -57,13 +57,13 @@ export default { components: { Microlink } }
 </script>
 ```
 
-The vanilla integration is selector-driven — pass any CSS selector and the SDK replaces matching elements with previews. Pass options globally via the second argument, or per-element using `data-*` attributes.
+The vanilla integration is selector-driven — pass any CSS selector and the SDK replaces matching elements with previews.
 
-The full reference for each integration lives in <Link href='/docs/sdk/integrations/react' children='React' />, <Link href='/docs/sdk/integrations/vue' children='Vue' />, and <Link href='/docs/sdk/integrations/vanilla' children='Vanilla' />.
+For the full per-integration reference, see <Link href='/docs/sdk/integrations/react' children='React' />, <Link href='/docs/sdk/integrations/vue' children='Vue' />, and <Link href='/docs/sdk/integrations/vanilla' children='Vanilla' />.
 
 ## Card or iframe — your call
 
-Toggle the `media` prop to switch between a static rich card and the provider's interactive iframe:
+The single embed-relevant decision the SDK adds is the `media` prop. Toggle it to switch between a static rich card and the provider's interactive iframe:
 
 ```jsx
 // Static card — cheaper to render, better for long-scrolling pages
@@ -75,7 +75,7 @@ Toggle the `media` prop to switch between a static rich card and the provider's 
 
 <Microlink url='https://www.youtube.com/watch?v=9P6rdqiybaw' media='iframe' />
 
-`media` accepts a single value or an array describing a fallback cascade:
+`media` also accepts an array describing a fallback cascade:
 
 ```jsx
 <Microlink
@@ -84,118 +84,28 @@ Toggle the `media` prop to switch between a static rich card and the provider's 
 />
 ```
 
-The SDK picks the first field that exists in the response — so you ship one component that handles YouTube, Spotify, GitHub READMEs, and plain articles without branching. See the <Link href='/docs/sdk/parameters/media' children='media reference' />.
+The SDK picks the first field that exists in the response — so one component handles YouTube, Spotify, GitHub READMEs, and plain articles without branching. See the <Link href='/docs/sdk/parameters/media' children='media reference' />.
 
-## Pass any API parameter as a prop
+## Everything else lives in the SDK reference
 
-Every Microlink API parameter works as an SDK prop. The SDK forwards them to the API call:
+Every Microlink API parameter works as an SDK prop, and the SDK adds a few of its own:
 
-```jsx
-<Microlink
-  url='https://github.com/microlinkhq'
-  size='large'
-  contrast
-  palette
-/>
-```
+| Prop | What it does | Reference |
+|------|--------------|-----------|
+| `apiKey` | Authenticate requests for Pro features | <Link href='/docs/sdk/parameters/api-key' children='apiKey' /> |
+| `lazy` | Defer the API call until the card is in view (default `true`) | <Link href='/docs/sdk/parameters/lazy' children='lazy' /> |
+| `setData` / `fetchData` | Skip the runtime fetch when you already have the metadata (SSR, build-time crawls) | <Link href='/docs/sdk/parameters/set-data' children='setData' /> |
+| `size`, `contrast`, `direction` | Visual layout knobs | <Link href='/docs/sdk/parameters/size' children='size' /> |
+| Any API parameter (`screenshot`, `iframe`, `palette`, `meta`, ...) | Forwarded to the API call | <Link href='/docs/api/getting-started/overview' children='API parameters' /> |
 
-That covers <Link href='/docs/sdk/parameters/size' children='size' />, <Link href='/docs/sdk/parameters/contrast' children='contrast' />, <Link href='/docs/sdk/parameters/direction' children='direction' />, and any API parameter — `screenshot`, `iframe`, `meta`, `palette`, `headers`, `proxy`, etc.
+For the full prop list and styling (CSS variables, BEM classes, `styled-components` wrappers), see the <Link href='/docs/sdk/getting-started/overview' children='SDK overview' /> and <Link href='/docs/sdk/getting-started/styling' children='SDK styling' />.
 
-For the full prop list, see <Link href='/docs/sdk/getting-started/overview' children='SDK overview' />.
-
-## Authentication
-
-Pass your API key via `apiKey`:
-
-```jsx
-<Microlink
-  url='https://github.com/microlinkhq'
-  apiKey='YOUR_API_TOKEN'
-/>
-```
-
-For Vue, set the key once when registering the plugin:
-
-```js
-import Vue from 'vue'
-import Microlink from '@microlink/vue'
-
-Vue.use(Microlink, { apiKey: 'YOUR_API_TOKEN' })
-```
-
-The free tier allows 50 requests per day and does not need an API key. See <Link href='/docs/sdk/parameters/api-key' children='apiKey reference' />.
-
-## Lazy load by default
-
-The SDK ships with `lazy={true}` enabled. Each preview triggers its API call only when it scrolls into view, using `IntersectionObserver`. Pass options if you want to start fetching earlier:
-
-```jsx
-<Microlink url='...' lazy={{ rootMargin: '200px' }} />
-```
-
-Disable it entirely with `lazy={false}` when you need the data immediately. See <Link href='/docs/sdk/parameters/lazy' children='lazy reference' />.
-
-## Skip fetching with setData
-
-If you already have the metadata — from your own backend, a CMS, or a build-time crawl — pass it through `setData` and disable `fetchData`:
-
-```jsx
-<Microlink
-  url='https://example.com/post'
-  fetchData={false}
-  setData={{
-    title: 'My post',
-    description: 'Cached at build time',
-    image: { url: '/images/og/post.jpg' },
-    publisher: 'My Site'
-  }}
-/>
-```
-
-Useful for static sites and SSR — the API never gets called at runtime. See <Link href='/docs/sdk/parameters/set-data' children='setData reference' /> and <Link href='/docs/sdk/parameters/fetch-data' children='fetchData reference' />.
-
-## Style with CSS variables
-
-The SDK ships minimal default styles. Override them with CSS variables — no fork or wrapper needed:
-
-```css
-.microlink_card {
-  --microlink-background-color: #fff;
-  --microlink-border: 1px solid #e1e8ed;
-  --microlink-color: #181919;
-  --microlink-hover-background-color: #f5f8fa;
-  --microlink-max-width: 500px;
-}
-```
-
-For deeper customization, target the BEM classes (`microlink_card__content_title`, `microlink_card__media_image`, `microlink_card__media_video`, etc.). The full list lives in <Link href='/docs/sdk/getting-started/styling' children='SDK styling' />.
-
-For React, you can also pass `style` directly:
-
-```jsx
-<Microlink
-  url='...'
-  style={{ fontFamily: 'Inter, sans-serif', maxWidth: '100%' }}
-/>
-```
-
-Or wrap with `styled-components`:
-
-```jsx
-import styled from 'styled-components'
-
-const PreviewCard = styled(Microlink)`
-  font-family: 'Inter', sans-serif;
-  border-radius: 12px;
-  --microlink-max-width: 100%;
-`
-```
-
-## Choose between SDK and metadata API
+## Choose between SDK and the other approaches
 
 | If you want | Use |
 |-------------|-----|
 | A drop-in component, no boilerplate | SDK (this page) |
+| Pre-built layouts and AI prompts to match your design system | <Link href='/docs/guides/embed/custom-previews-with-ai' children='Generate custom previews with AI' /> |
 | Full control over markup, server-rendered HTML, no client JS | <Link href='/docs/guides/embed/metadata-api' children='Metadata API + custom HTML' /> |
 | Just the provider's native player or widget | <Link href='/docs/guides/embed/iframe' children='iframe parameter' /> |
 

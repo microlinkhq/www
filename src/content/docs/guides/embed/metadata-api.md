@@ -16,6 +16,8 @@ This is the right path when:
 - You're embedding inside an email, RSS feed, or static site generator.
 - You need to A/B test layouts without changing your data layer.
 
+Want ready-made layouts to paste into Cursor or Claude Code? See <Link href='/docs/guides/embed/custom-previews-with-ai' children='generate custom previews with AI' /> — six recipes (hero card, one-line, tweet-style, telegram-style, notification, chat bubble) built on the same payload this page documents.
+
 ## The minimum metadata call
 
 A bare metadata request returns everything most previews need:
@@ -170,15 +172,16 @@ The `embed` URL is publicly visible in HTML, CSS, and `<meta>` tags. Never put a
 
 For the full security model, see <Link href='/docs/guides/embed/private-pages-and-proxy' children='private pages and proxy' />.
 
-## Choose between metadata API and SDK
+## Choose between metadata API and the other approaches
 
 | If you need | Use |
 |-------------|-----|
 | Server-rendered HTML, no client-side JS, full control | Metadata API + custom HTML/CSS (this page) |
+| Pre-built layouts and prompts to feed your AI coding assistant | <Link href='/docs/guides/embed/custom-previews-with-ai' children='Generate custom previews with AI' /> |
 | A drop-in component with fetching, lazy-loading, and theming built in | <Link href='/docs/guides/embed/sdk' children='SDK' /> |
 | The provider's interactive player (real YouTube embed, Spotify track) | <Link href='/docs/guides/embed/iframe' children='iframe parameter' /> |
 
-Mixing them is fine — the metadata API powers all three.
+Mixing them is fine — the metadata API powers all four.
 
 ## Next step
 

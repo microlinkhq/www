@@ -29,7 +29,8 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import { InteractiveExample, PreviewVariantsShowcase } from 'pages/embed'
+import { PreviewVariantsShowcase } from 'components/pages/embed'
+import { InteractiveExample } from 'pages/embed'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -829,7 +830,8 @@ const Hero = () => (
         <ArrowLink
           href='/embed'
           onClick={() =>
-            trackEvent('alternative cta', { competitor: 'embedly' })}
+            trackEvent('alternative cta', { competitor: 'embedly' })
+          }
         >
           Get Started Free
         </ArrowLink>
@@ -1207,7 +1209,8 @@ const CTASection = () => (
         <ArrowLink
           href='/embed'
           onClick={() =>
-            trackEvent('alternative cta', { competitor: 'embedly' })}
+            trackEvent('alternative cta', { competitor: 'embedly' })
+          }
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
           Start Building Free
@@ -1386,7 +1389,8 @@ const TryItSection = () => (
         <Link
           href='/docs/guides/embed'
           onClick={() =>
-            trackEvent('alternative cta', { competitor: 'embedly' })}
+            trackEvent('alternative cta', { competitor: 'embedly' })
+          }
           css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
         >
           Start now for free

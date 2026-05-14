@@ -1,6 +1,6 @@
 ---
 title: 'Embed'
-description: 'Turn any URL into a rich preview, an interactive iframe, or a custom-styled card. Choose between the SDK, the oEmbed iframe, and metadata-driven HTML/CSS, and learn the right tool for each workflow.'
+description: 'Turn any URL into a rich preview, an interactive player, or a plain asset URL. Pick the SDK, the oEmbed iframe, or metadata-driven HTML — every approach starts from the same API call.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
@@ -8,27 +8,72 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
-Embedding with Microlink means turning a plain URL into something a reader can preview, play, or click — a card, an interactive iframe, or a hand-styled HTML block. Every approach starts from the same API call.
+Microlink turns any URL into a rich preview, an interactive player, or a plain asset URL — pick how it gets rendered.
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://www.youtube.com/watch?v=9P6rdqiybaw' }} />
 
 <Figcaption>The default response already returns the normalized fields — <code>title</code>, <code>description</code>, <code>image</code>, <code>logo</code>, <code>publisher</code> — needed to render any kind of preview.</Figcaption>
 
-You can stop there and render previews yourself, ask the API for a ready-to-paste oEmbed iframe, or drop in the SDK component and let it handle the rest.
+## Shortcut: drop in the SDK
 
-## Three ways to embed
+If you just want a preview rendered on the page, skip everything below and use the SDK. One component, one prop, no API call to write:
 
-| When you need | Use | Result |
-|---------------|-----|--------|
-| A drop-in component that handles fetching, caching, and rendering | <Link href='/docs/guides/embed/sdk' children='SDK' /> | One React/Vue/Vanilla component, themeable via CSS |
-| The provider's native interactive player (YouTube, Spotify, X, Vimeo) | <Link href='/docs/guides/embed/iframe' children='iframe parameter' /> | Ready-to-inject `html` + `scripts` from oEmbed |
-| Full control over markup and styling | <Link href='/docs/guides/embed/metadata-api' children='Metadata API + custom HTML' /> | Custom card built from `data.title`, `data.image.url`, `data.logo.url`… |
+```jsx
+import Microlink from '@microlink/react'
 
-Each approach is documented as its own guide below. They are not mutually exclusive — a single page can use the SDK for some links, custom HTML for hero blocks, and `iframe` for media that needs the original player.
+<Microlink url='https://stripe.com' />
+```
 
-## The response
+The SDK handles the API call, the iframe-vs-card decision, lazy-loading, and rendering. Available for React, Vue, and Vanilla JavaScript. See the <Link href='/docs/guides/embed/sdk' children='SDK guide' />.
 
-The free metadata response is the foundation for every embed:
+## Granular control: four steps
+
+When you need the provider's native player, your own HTML, server-rendered output, or any custom delivery, walk through the workflow below. The SDK is a higher-level wrapper around these same four steps — calling them yourself unlocks the full surface.
+
+1. **Call the API** with a `url`. Add `iframe: true`, `palette: true`, or `screenshot: true` when you also want the provider's player, brand colors, or a fresh capture.
+2. **Read the response.** Microlink returns normalized JSON with `data.title`, `data.image.url`, `data.logo.url`, plus the optional fields you asked for.
+3. **Pick how to render it** — the provider's native iframe, or your own HTML built from the JSON.
+4. **Render it.** Inject the iframe HTML, or paste the JSON into your template.
+
+The rest of this page walks through each step and links out to the subguide that fits the path you pick.
+
+## "Embed" means three things
+
+The word collides. To keep this guide unambiguous:
+
+| Where you see it | What it means |
+|------------------|---------------|
+| *Embed* in prose | The product workflow: rendering a URL as a preview |
+| `embed` in monospace | The API parameter that returns an asset (image, screenshot, logo, ...) as the response body |
+| The SDK component | The `<Microlink>` React, Vue, or Vanilla component that wraps the four-step workflow |
+
+Each section below states which one it means.
+
+## Step 1 — Call the API
+
+To run the JavaScript examples, install MQL:
+
+```bash
+npm install @microlink/mql --save
+```
+
+It works in Node.js, edge runtimes, and the browser. See the <Link href='/docs/mql/getting-started/installation' children='MQL installation guide' /> for environment-specific setup.
+
+If you call the API directly with `fetch`, `curl`, or any HTTP client, you do not need to install anything — every example also works as a plain HTTPS GET to `https://api.microlink.io`.
+
+Every example in this guide uses the same canonical shape:
+
+```js
+import mql from '@microlink/mql'
+
+const { data } = await mql('https://example.com', { /* options */ })
+```
+
+The options object is equivalent to a query string: `mql(url, { iframe: true })` is the same call as `?url=…&iframe=true`.
+
+## Step 2 — Read the response
+
+The base response is the foundation for every embed:
 
 ```json
 {
@@ -51,34 +96,58 @@ The free metadata response is the foundation for every embed:
 }
 ```
 
-Add `iframe: true` to get an `iframe` field with the provider's interactive embed. Add `palette: true` to get brand colors alongside every image. Add `screenshot: true` when the page has no usable `og:image` and you want a real capture instead.
+Three optional flags extend this response:
 
-## Pick a delivery shape
+| Add | You get |
+|-----|---------|
+| `iframe: true` | `data.iframe.html` + `data.iframe.scripts` — the provider's interactive embed (YouTube, Spotify, Twitter, ...) |
+| `palette: true` | Brand colors and contrast-checked color pairs on every image and logo |
+| `screenshot: true` | A fresh capture of the page under `data.screenshot.url`, useful when `og:image` is missing or bad |
 
-The `embed` parameter changes the *shape* of the response, not what the API extracts. It is independent of the SDK and the iframe parameter:
+## Step 3 — Pick how to render it
 
-| You want | Set |
-|----------|-----|
-| JSON with every field — your code reads `data.image.url` | Default — no `embed` |
-| The asset itself returned as the response body (HTML/CSS/Markdown `<img>`) | `embed=image.url`, `embed=screenshot.url`, `embed=logo.url`… |
+Two rendering approaches, same JSON underneath:
 
-Direct embed turns the API URL into a usable image src. Useful for `<meta property="og:image">`, README files, and CMS markdown. See the <Link href='/docs/api/parameters/embed' children='embed reference' /> for the full field list.
+| When you need | Use | Result |
+|---------------|-----|--------|
+| The provider's native interactive player (YouTube, Spotify, X, Vimeo) | <Link href='/docs/guides/embed/iframe' children='iframe parameter' /> | Ready-to-inject `html` + `scripts` from oEmbed |
+| Full control over markup and styling | <Link href='/docs/guides/embed/metadata-api' children='Metadata API + custom HTML' /> | Custom card built from `data.title`, `data.image.url`, `data.logo.url`… |
 
-## MQL installation
+They are not mutually exclusive — a single page can use custom HTML for hero blocks and `iframe` for media that needs the original player.
 
-To run the JavaScript examples, install `@microlink/mql`:
+If you want your AI coding assistant to write the custom HTML against your design system, see <Link href='/docs/guides/embed/custom-previews-with-ai' children='generate custom previews with AI' /> — it's a flavor of the custom-HTML approach with ready-to-paste prompts.
 
-```bash
-npm install @microlink/mql --save
+### Choosing between the two
+
+- **iframe parameter** when the URL has a real player (YouTube, Spotify) and you want *the provider's* widget, not a card.
+- **Metadata API + custom HTML** when previews must match your design system, you need server-rendered output, or you ship to environments without client JavaScript.
+
+(Still want the wrapper component instead? Jump back to the <Link href='/docs/guides/embed/sdk' children='SDK guide' />.)
+
+## Step 4 — Render it
+
+Each rendering approach has its own subguide with runnable examples — pick one and the rest of the guide is linear:
+
+- <Link href='/docs/guides/embed/iframe' children='iframe parameter' /> — inject `iframe.html` and load `iframe.scripts`.
+- <Link href='/docs/guides/embed/metadata-api' children='Metadata API with custom HTML/CSS' /> — render your own card from `data.*`.
+- <Link href='/docs/guides/embed/custom-previews-with-ai' children='Generate custom previews with AI' /> — prompt Cursor or Claude Code to write the markup.
+
+### Direct embed — skip the JSON
+
+If you only need a single asset URL (an image, a screenshot, a logo) in static markup, the `embed` parameter turns the API URL itself into that asset:
+
+```html
+<img
+  src="https://api.microlink.io?url=https://stripe.com&embed=image.url"
+  alt="Stripe"
+/>
 ```
 
-It works in Node.js, edge runtimes, and the browser. See the <Link href='/docs/mql/getting-started/installation' children='MQL installation guide' /> for environment-specific setup.
-
-If you call the API directly with `fetch`, `curl`, or any HTTP client, you do not need to install anything — every example here also works as a plain HTTPS GET to `https://api.microlink.io`.
+It is the same pipeline as before — `embed` just tells the API to return the field's content instead of wrapping it in JSON. Useful for `<meta property="og:image">`, READMEs, and CMS markdown. See the <Link href='/docs/api/parameters/embed' children='embed reference' /> for the full field list.
 
 ## Free tier and API key
 
-The Microlink API works without an API key. You get **50 free requests per day**, which is enough to build and ship a real embed integration.
+The Microlink API works without an API key. You get **50 free requests per day**, enough to build and ship a real embed integration.
 
 For production, a <ProBadge /> plan unlocks features that matter for embeds specifically: <Link href='/docs/api/parameters/ttl' children='configurable TTL' />, <Link href='/docs/api/parameters/staleTtl' children='stale-while-revalidate caching' />, <Link href='/docs/api/parameters/headers' children='custom headers' /> for private pages, and <Link href='/docs/api/parameters/proxy' children='proxy' /> for blocked or geofenced URLs.
 
@@ -93,17 +162,13 @@ To authenticate, pass your API key as `x-api-key`:
 
 See <Link href='/docs/api/basics/authentication' children='authentication' /> and <Link href='/docs/api/basics/rate-limit' children='rate limit' /> for the full details.
 
-## What's next
+## Cross-cutting concerns
 
-Pick the next step based on how you plan to ship embeds:
+These apply no matter which rendering approach you pick:
 
-- **<Link href='/docs/guides/embed/sdk' children='SDK' />** — drop a React, Vue, or Vanilla component into your app and let it handle fetching, lazy-loading, and rendering.
-- **<Link href='/docs/guides/embed/iframe' children='iframe parameter' />** — return ready-to-inject HTML and scripts from oEmbed providers (YouTube, Spotify, X, Vimeo, and 280+ more).
-- **<Link href='/docs/guides/embed/metadata-api' children='Metadata API with custom HTML/CSS' />** — render previews entirely in your own markup, with full control over layout, animation, and accessibility.
-- **<Link href='/docs/guides/embed/custom-previews-with-ai' children='Generate custom previews with AI' />** — paste prompts into Cursor, Claude Code, or your IDE assistant to generate previews styled to your project, no SDK required.
-- **<Link href='/docs/guides/embed/caching-and-performance' children='Caching and performance' />** — keep embeds fast at scale with TTL, stale-while-revalidate, and hot-cache patterns.
-- **<Link href='/docs/guides/embed/private-pages-and-proxy' children='Private pages and proxy' />** — embed authenticated dashboards, geofenced content, and pages protected by antibot systems.
-- **<Link href='/docs/guides/embed/troubleshooting' children='Troubleshooting' />** — debug missing iframes, broken images, hot-linking issues, and provider-specific quirks.
+- <Link href='/docs/guides/embed/caching-and-performance' children='Caching and performance' /> — keep embeds fast at scale with TTL, stale-while-revalidate, and hot-cache patterns.
+- <Link href='/docs/guides/embed/private-pages-and-proxy' children='Private pages and proxy' /> — embed authenticated dashboards, geofenced content, and pages protected by antibot systems.
+- <Link href='/docs/guides/embed/troubleshooting' children='Troubleshooting' /> — debug missing iframes, broken images, hot-linking issues, and provider-specific quirks.
 
 ## See also
 

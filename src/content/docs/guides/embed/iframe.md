@@ -10,17 +10,17 @@ import { Link } from 'components/elements/Link'
 
 The `iframe` parameter asks Microlink to discover the provider's official interactive embed for the target URL — a real YouTube player, a Spotify track, a Tweet widget, a Vimeo video. When discovery succeeds, the response includes a new `iframe` field with HTML and any required scripts.
 
-This is the right path when the goal is *the experience the source provides*: playable media, interactive widgets, or anything that is not just a thumbnail and title.
+This is the right path when the goal is *the experience the source provides*: playable media, interactive widgets, or anything that is not just a thumbnail and title. If you want a wrapper component that handles the injection for you, see <Link href='/docs/guides/embed/sdk' children='SDK' /> with `media='iframe'`. If you want a styled card built from JSON, see <Link href='/docs/guides/embed/metadata-api' children='metadata API + custom HTML' />.
 
 ## What the iframe field returns
 
 <MultiCodeEditorInteractive mqlCode={{
-  url: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
+  url: 'https://open.spotify.com/track/3BovdzfaX4jb5KFQwoPfAw',
   iframe: true
 }} />
 
 <Iframe
-  src="https://www.youtube-nocookie.com/embed/9P6rdqiybaw?feature=oembed"
+  src="https://open.spotify.com/embed/track/3BovdzfaX4jb5KFQwoPfAw?utm_source=oembed"
   allowFullScreen
 />
 
@@ -31,7 +31,7 @@ The `iframe` object has two subfields:
 ```json
 {
   "iframe": {
-    "html": "<iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed\" ...></iframe>",
+    "html": "<iframe width=\"100%\" height=\"152\" src=\"https://open.spotify.com/embed/track/3BovdzfaX4jb5KFQwoPfAw?utm_source=oembed\" ...></iframe>",
     "scripts": []
   }
 }
@@ -47,9 +47,9 @@ The simplest pattern: fetch the data server-side, pass `iframe.html` to the clie
 #### Vanilla JavaScript
 
 ```js
-const { data } = await fetch(
-  `https://api.microlink.io?url=${encodeURIComponent(url)}&iframe`
-).then(r => r.json())
+import mql from '@microlink/mql'
+
+const { data } = await mql(url, { iframe: true })
 
 document.getElementById('embed').innerHTML = data.iframe.html
 
@@ -67,23 +67,23 @@ The script step is what makes Twitter, Instagram, and similar widgets actually r
 #### React
 
 ```jsx
+import mql from '@microlink/mql'
+
 function ProviderEmbed ({ url }) {
   const [iframe, setIframe] = useState(null)
 
   useEffect(() => {
     let cancelled = false
-    fetch(`https://api.microlink.io?url=${encodeURIComponent(url)}&iframe`)
-      .then(r => r.json())
-      .then(({ data }) => {
-        if (cancelled) return
-        setIframe(data.iframe)
-        data.iframe?.scripts?.forEach(({ src, async }) => {
-          const s = document.createElement('script')
-          s.src = src
-          if (async) s.async = true
-          document.head.appendChild(s)
-        })
+    mql(url, { iframe: true }).then(({ data }) => {
+      if (cancelled) return
+      setIframe(data.iframe)
+      data.iframe?.scripts?.forEach(({ src, async }) => {
+        const s = document.createElement('script')
+        s.src = src
+        if (async) s.async = true
+        document.head.appendChild(s)
       })
+    })
     return () => { cancelled = true }
   }, [url])
 
@@ -125,7 +125,7 @@ The SDK and the iframe parameter are not alternatives — the SDK consumes the s
 The iframe parameter accepts an object that forwards consumer options to the oEmbed endpoint:
 
 <MultiCodeEditorInteractive mqlCode={{
-  url: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
+  url: 'https://open.spotify.com/track/3BovdzfaX4jb5KFQwoPfAw',
   iframe: {
     maxWidth: 350
   }
@@ -159,7 +159,7 @@ The full provider list lives in the <Link href='/docs/api/parameters/iframe#prov
 You usually want both — the iframe for playback, the metadata for the surrounding card frame:
 
 <MultiCodeEditorInteractive height={300} mqlCode={{
-  url: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
+  url: 'https://open.spotify.com/track/3BovdzfaX4jb5KFQwoPfAw',
   iframe: true,
   palette: true
 }} />

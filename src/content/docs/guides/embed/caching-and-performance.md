@@ -10,6 +10,8 @@ import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 Embeds are read-mostly. The same URL renders the same card thousands of times. Lean into that — cache aggressively and serve from the edge.
 
+This page covers embed-specific performance tactics. For the universal caching controls (`ttl`, `staleTtl`, `force`, and how to read cache headers), see <Link href='/docs/guides/common/caching' children='caching patterns' />.
+
 ## Embed-specific speedups
 
 The single biggest win for embed-only requests is matching the response shape to your renderer. Three patterns:
