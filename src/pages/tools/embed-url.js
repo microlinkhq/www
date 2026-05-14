@@ -2155,7 +2155,7 @@ const HtmlPane = ({ html }) => {
               m: 0
             })}
           >
-            Embed code
+            Embed code (HTML)
           </Text>
           <Text
             css={theme({
@@ -3029,7 +3029,7 @@ const Hero = () => (
         fontSize: [3, '35px', '40px', '50px']
       })}
     >
-      Embed Builder
+      Embed Code Generator
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -3040,7 +3040,8 @@ const Hero = () => (
         fontSize: [2, 2, '26px', '28px']
       })}
     >
-      Paste a link. Get an embed.
+      Turn any URL into an iframe embed or a custom preview card — copy the HTML
+      and paste it anywhere.
     </Caption>
   </Flex>
 )
@@ -3068,7 +3069,7 @@ const HowItWorks = () => (
         fontSize: [2, 3, 3, '28px']
       })}
     >
-      How to embed any URL as HTML
+      How to generate embed code for any URL
     </Caption>
     <Flex
       css={theme({
@@ -3112,7 +3113,7 @@ const Explanation = () => (
     })}
   >
     <Subhead css={theme({ fontSize: [3, '30px', '35px', '45px'] })}>
-      Why use this free URL embed tool?
+      Why this is the best embed code generator for any URL
     </Subhead>
     <Box
       css={theme({
@@ -3143,7 +3144,7 @@ const Explanation = () => (
       })}
     >
       <Text css={theme({ fontSize: 3, color: 'black' })}>
-        How can a URL embed tool be free?
+        How can an embed code generator be free?
       </Text>
       <Text
         css={theme({ fontSize: 2, color: 'black80', lineHeight: 2, mt: 2 })}
@@ -3173,7 +3174,7 @@ const UseCasesSection = () => (
       variant='gradient'
       css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
     >
-      Use cases for embedding URLs
+      What you can do with the embed link generator
     </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
       From documentation sites to newsletters to product dashboards — embedding
@@ -3304,7 +3305,7 @@ const Banner = () => (
     blockTwo={
       <Flex
         css={theme({
-          pt: [4, 4, 5, 5],
+          py: [4, 4, 5, 5],
           justifyContent: 'center',
           alignItems: 'flex-start',
           maxHeight: ['200px', '300px', '400px', '650px'],
@@ -3351,7 +3352,7 @@ const EmbedApiDocsCard = () => (
         <SectionIcon icon={Code} />
       </Flex>
       <Subhead css={theme({ fontSize: 4 })}>
-        Embed URL API Documentation
+        Embed Code Generator API Documentation
       </Subhead>
       <Caption
         css={theme({
@@ -3375,8 +3376,6 @@ const EmbedApiDocsCard = () => (
         })}
       >
         <ArrowLink href='/docs/guides/embed'>Embed guide</ArrowLink>
-        <ArrowLink href='/docs/guides/embed/iframe'>iframe parameter</ArrowLink>
-        <ArrowLink href='/sdk'>Microlink SDK</ArrowLink>
       </Flex>
     </Box>
   </Container>
@@ -3386,6 +3385,7 @@ const EmbedApiDocsCard = () => (
 
 const ProductInformation = () => (
   <Faq
+    title='FAQ'
     css={theme({
       fontSize: [1, 1, 1, 1],
       pt: [2, 2, 4, 4],
@@ -3396,7 +3396,62 @@ const ProductInformation = () => (
     })}
     questions={[
       {
-        question: 'What does the URL embed tool do?',
+        question: 'What is an embed code generator?',
+        answer: (
+          <>
+            <div>
+              An embed code generator turns a URL into ready-to-paste HTML so a
+              link appears as a rich preview — an interactive iframe player, a
+              card with the page's title, image, and description, or both —
+              instead of a plain text link.
+            </div>
+            <div>
+              This tool is a free embed code generator that works for any URL:
+              paste the link, pick iframe or card, customize the look, copy the
+              HTML.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'How do I generate embed code for a link?',
+        answer: (
+          <>
+            <div>
+              Paste your URL into the input above and press Generate. The tool
+              calls the <Link href='/embed'>Microlink Embed API</Link>, detects
+              whether the site exposes an iframe player, and returns the HTML
+              snippet. Click <strong>Copy code</strong> and paste it into any
+              HTML, MDX, or rich-text editor.
+            </div>
+            <div>
+              For sites without an iframe, the generator falls back to a
+              customizable preview card — same one-click copy.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'How is this different from an iframe maker?',
+        answer: (
+          <>
+            <div>
+              A traditional iframe maker only wraps a URL in an{' '}
+              <code>&lt;iframe src="..."&gt;</code> tag, which breaks for sites
+              that block framing (most major sites do).
+            </div>
+            <div>
+              This embed code generator detects the provider's real embed
+              endpoint via oEmbed for 280+ supported sites — YouTube, Spotify,
+              Vimeo, X, TikTok, Figma, CodePen and more — so the iframe actually
+              works. When no embed is available, it returns a styled preview
+              card instead of a broken frame.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'What does the embed code generator do?',
         answer: (
           <>
             <div>
@@ -3525,7 +3580,7 @@ const ProductInformation = () => (
         )
       },
       {
-        question: 'Is the embed tool free?',
+        question: 'Is the embed code generator free?',
         answer: (
           <>
             <div>
@@ -3569,30 +3624,40 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Free URL Embed Tool — Generate iframe HTML in One Click'
+    title='Embed Code Generator — Embed any URL as an Iframe or Card'
     noSuffix
-    description='Paste any URL and get a ready-to-paste HTML embed — iframe attribute from the Microlink API for 280+ providers, with a Microlink SDK card fallback for the long tail. Free, no login.'
+    description='Free embed code generator. Paste any URL — get a ready-to-paste iframe or custom preview card. Works for YouTube, Spotify, X, Figma, and 280+ providers. No signup.'
     image='https://cdn.microlink.io/banner/sdk.jpeg'
     structured={[
       {
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
         '@id': 'https://microlink.io/tools/embed-url',
-        name: 'URL Embed Tool',
+        name: 'Embed Code Generator',
         description:
-          'Free URL embed tool — paste any URL and get a ready-to-paste HTML embed. iframe attribute when supported, Microlink SDK card fallback otherwise. 280+ oEmbed providers.',
+          'Free embed code generator. Paste any URL — get a ready-to-paste iframe or custom preview card. Works for YouTube, Spotify, X, Figma, and 280+ providers. No signup.',
         url: 'https://microlink.io/tools/embed-url',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
+          'embed code generator',
+          'embed code maker',
+          'embed link',
+          'embed link generator',
           'embed url',
-          'url embed',
-          'url to iframe',
+          'embed a link',
+          'link embedder',
+          'iframe maker',
+          'iframe code generator',
+          'iframe embed code',
           'iframe generator',
-          'url preview',
-          'link preview',
-          'oembed',
+          'url to embed code',
+          'embed website',
+          'website embed code',
           'embed any url',
-          'embed link'
+          'create embed code',
+          'oembed generator',
+          'url preview',
+          'link preview'
         ],
         offers: {
           '@type': 'Offer',
@@ -3615,7 +3680,31 @@ export const Head = () => (
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'What does the URL embed tool do?',
+            name: 'What is an embed code generator?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "An embed code generator turns a URL into ready-to-paste HTML so a link appears as a rich preview — an interactive iframe player, a card with the page's title, image, and description, or both — instead of a plain text link. This tool is a free embed code generator that works for any URL."
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How do I generate embed code for a link?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Paste your URL into the input and press Generate. The tool calls the Microlink Embed API, detects whether the site exposes an iframe player, and returns the HTML snippet. Click Copy code and paste it into any HTML, MDX, or rich-text editor. For sites without an iframe, the generator falls back to a customizable preview card.'
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'How is this different from an iframe maker?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "A traditional iframe maker only wraps a URL in an iframe tag, which breaks for sites that block framing. This embed code generator detects the provider's real embed endpoint via oEmbed for 280+ supported sites, so the iframe actually works. When no embed is available, it returns a styled preview card instead of a broken frame."
+            }
+          },
+          {
+            '@type': 'Question',
+            name: 'What does the embed code generator do?',
             acceptedAnswer: {
               '@type': 'Answer',
               text: 'Paste any URL and the tool calls the Microlink Embed API with the iframe parameter. When the provider supports an iframe embed, you get the ready-to-paste HTML. For URLs without a player, the tool falls back to a Microlink SDK card preview with a vanilla SDK snippet.'
@@ -3665,7 +3754,7 @@ const EmbedUrlPage = () => (
       css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
-          Embed Any URL{' '}
+          Embed Any Link{' '}
           <span
             css={{
               display: 'block',
@@ -3674,7 +3763,7 @@ const EmbedUrlPage = () => (
               textAlign: 'left'
             }}
           >
-            iframes, cards, and oEmbed at scale.
+            iframe maker, link embedder, oEmbed at scale.
           </span>
         </Subhead>
       }
