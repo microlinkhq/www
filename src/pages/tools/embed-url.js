@@ -519,55 +519,55 @@ const isSameConfig = (a, b) => {
 
 const FEATURES_LIST = [
   {
-    title: 'Iframe HTML, Ready to Paste',
+    title: 'Real provider players',
     description:
-      "Add &iframe to any Microlink API call and the response includes a ready-to-paste HTML snippet — the provider's real player for 280+ webpages."
+      "YouTube, Spotify, Vimeo, X, Figma and 280+ more — get the site's actual interactive embed, ready to paste."
   },
   {
-    title: 'Card Fallback for Every URL',
+    title: 'Customize without code',
     description:
-      'When a URL has no oEmbed iframe, the tool falls back to a Microlink SDK card preview — same vanilla snippet works on any page.'
+      'Click any text in the preview to edit it. Switch card styles, fonts, and colors with toggles — no CSS to write.'
   },
   {
-    title: 'Edge-Cached, Free to Start',
+    title: 'Free, no signup, no key',
     description:
-      'Embed responses are cached on 240+ CloudFlare edge nodes. Free tier with 50 requests per day, no credit card.'
+      'Generate up to 50 embeds per day for free. No account, no API key, no watermark — paste the HTML and go.'
   }
 ]
 
 const HOW_IT_WORKS = [
   {
     icon: Globe,
-    title: 'Paste a URL',
+    title: 'Paste a link',
     description:
-      'Drop in any webpage — YouTube, Spotify, Vimeo, a blog post, a tweet, a docs page.'
+      'YouTube, Spotify, Figma, a blog post, a tweet — drop in any URL and the preview loads instantly.'
   },
   {
     icon: Code,
-    title: 'Get the HTML',
+    title: 'Tweak the preview',
     description:
-      'The Microlink API returns an iframe attribute when supported, or a Microlink SDK card for the long tail.'
+      'Click on the title, description, or any text to edit it. Switch card styles, fonts, and colors with a click.'
   },
   {
     icon: Clipboard,
-    title: 'Copy & Embed',
+    title: 'Copy the HTML',
     description:
-      'Copy the generated HTML into your markup, MDX, CMS, or newsletter. It just works.'
+      'Paste the snippet into your blog, docs, newsletter, MDX, or any HTML editor. No script tags to wire up.'
   }
 ]
 
 const REASON_TO_USE = [
   {
-    title: 'Embed Any URL',
+    title: 'Works for any link',
     description:
-      'Turn any link into a rich preview — iframe player when the provider supports it, or a Microlink card otherwise. No per-provider integration code.'
+      "Real iframe player when the site supports it, a clean preview card when it doesn't. One tool, every URL."
   },
   {
-    title: 'oEmbed Across 280+ Sites',
+    title: '280+ supported sites',
     description: (
       <>
-        Microlink consumes oEmbed where it exists and falls back to Open Graph,
-        JSON-LD, and headless rendering. See the full{' '}
+        YouTube, Spotify, Vimeo, X, Figma, TikTok, CodePen, and hundreds more —
+        see the full{' '}
         <Link href='/docs/api/parameters/iframe/#providers-supported'>
           provider list
         </Link>
@@ -576,36 +576,31 @@ const REASON_TO_USE = [
     )
   },
   {
-    title: 'Iframe Without the Pain',
-    description: (
-      <>
-        Skip provider-specific URL gymnastics. Pass the source URL, get back the
-        iframe HTML the provider already exposes — read the{' '}
-        <Link href='/docs/guides/embed/iframe'>iframe embed guide</Link>.
-      </>
-    )
-  },
-  {
-    title: 'Customizable Previews',
-    description: (
-      <>
-        For URLs without a player, the Microlink{' '}
-        <Link href='/sdk'>SDK component</Link> renders a themeable card —
-        controlled via CSS variables and BEM class hooks.
-      </>
-    )
-  },
-  {
-    title: 'Free + No Login',
+    title: 'Click-to-edit',
     description:
-      'Free embed tool with 50 requests per day. No account needed, no signup, no branding stripped.'
+      'Edit the title, description, author, and site name right in the preview. The copy snippet updates as you type.'
   },
   {
-    title: 'API Integration Ready',
+    title: 'Style it to match your site',
     description: (
       <>
-        Built on the <Link href='/embed'>Microlink Embed API</Link>. Use the
-        same endpoint from any backend, edge runtime, or SDK —{' '}
+        Pick a card layout, theme the colors, set fonts and borders — no CSS.
+        Power users can drop in the <Link href='/sdk'>Microlink SDK</Link> for
+        full control.
+      </>
+    )
+  },
+  {
+    title: 'Free, no signup',
+    description:
+      'Generate up to 50 embeds per day for free. No login, no API key, no branding stripped from the output.'
+  },
+  {
+    title: 'API for your app',
+    description: (
+      <>
+        Built on the <Link href='/embed'>Microlink Embed API</Link> — call the
+        same endpoint from any backend, edge runtime, or SDK like{' '}
         <Link href='https://www.npmjs.com/package/@microlink/mql'>
           @microlink/mql
         </Link>
@@ -708,7 +703,8 @@ const EmbedPreviewFrame = styled(Box)`
   background: #fff;
 
   & [data-element] {
-    transition: opacity 200ms ease, outline-color 200ms ease;
+    transition: opacity 200ms ease;
+    outline-color: ${colors.link};
   }
 
   ${HOVER_HIGHLIGHT_KINDS.map(
@@ -729,8 +725,9 @@ const EmbedPreviewFrame = styled(Box)`
   `
   ).join('\n')}
 
-  ${EDITABLE_KINDS.map(
-    kind => `
+  ${EDITABLE_KINDS.map(kind => {
+    const above = kind === 'description'
+    return `
     & [data-element='${kind}']:hover:not([contenteditable='true']) {
       outline: 2px dashed ${colors.link};
       outline-offset: 4px;
@@ -741,7 +738,7 @@ const EmbedPreviewFrame = styled(Box)`
     & [data-element='${kind}']:hover:not([contenteditable='true'])::after {
       content: 'Click to edit';
       position: absolute;
-      top: calc(100% + 6px);
+      ${above ? 'bottom: calc(100% + 6px);' : 'top: calc(100% + 6px);'}
       left: 0;
       background: ${colors.black};
       color: #fff;
@@ -756,9 +753,11 @@ const EmbedPreviewFrame = styled(Box)`
       white-space: nowrap;
       pointer-events: none;
       z-index: 10;
+      opacity: 0;
+      animation: editTipFadeIn 180ms ease-out 80ms forwards;
     }
   `
-  ).join('\n')}
+  }).join('\n')}
 
   & [data-element][contenteditable='true'] {
     outline: 2px solid ${colors.link};
@@ -770,6 +769,24 @@ const EmbedPreviewFrame = styled(Box)`
     max-height: none;
     overflow: visible;
     white-space: pre-wrap;
+  }
+
+  @keyframes editTipFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    & [data-element]:hover::after {
+      animation: none;
+      opacity: 1;
+    }
   }
 `
 
@@ -1042,6 +1059,62 @@ const PreviewSectionLabel = styled(Caps)`
   display: block;
   letter-spacing: 1px;
   font-weight: 700;
+`
+
+const editDiscoveryFadeIn = keyframes`
+  from { opacity: 0; transform: translate(-50%, 4px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+`
+
+const editDiscoveryFadeOut = keyframes`
+  from { opacity: 1; transform: translate(-50%, 0); }
+  to { opacity: 0; transform: translate(-50%, 4px); }
+`
+
+const EditDiscoveryPopover = styled(Box).withConfig({
+  shouldForwardProp: prop => prop !== '$leaving'
+})`
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background: ${colors.black};
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.1px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 20;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  animation: ${({ $leaving }) =>
+      $leaving ? editDiscoveryFadeOut : editDiscoveryFadeIn}
+    220ms ease-out both;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 7px;
+    height: 7px;
+    background: ${colors.black};
+    border-radius: 1px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`
+
+const PreviewWithHint = styled(Box)`
+  position: relative;
+  width: 100%;
 `
 
 const FormRow = styled(Flex)`
@@ -1335,33 +1408,6 @@ const ExampleUrlButton = styled(Box).attrs({ as: 'button', type: 'button' })`
   }
 `
 
-const toastInAnimation = keyframes`
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-`
-
-const Toast = styled(Flex)`
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 1000;
-  ${theme({ px: 3, py: 2, gap: 2 })}
-  align-items: center;
-  background: white;
-  border: 1px solid ${colors.black10};
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: 13px;
-  color: ${colors.black80};
-  animation: ${toastInAnimation} 200ms ease-out;
-  max-width: calc(100vw - 48px);
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-`
-
 const CopiedFlash = styled.span.withConfig({
   shouldForwardProp: prop => prop !== '$visible'
 })`
@@ -1523,11 +1569,11 @@ const OmniboxConvertButton = styled(Box).attrs({
 `
 
 const LOADING_MESSAGES = [
-  'Reaching the URL.',
-  'Reading the metadata.',
-  'Detecting the provider.',
-  'Generating the embed.',
-  'Polishing the preview.'
+  'Fetching the link.',
+  'Reading the page.',
+  'Looking for an embed.',
+  'Building your preview.',
+  'Almost ready.'
 ]
 
 const LOADING_MESSAGE_INTERVAL_MS = 3000
@@ -1966,18 +2012,30 @@ const HtmlPane = ({ html }) => {
   return (
     <PaperSheet css={{ width: '100%' }}>
       <PaneHeader>
-        <Text
-          as='h3'
-          css={theme({
-            fontFamily: 'sans',
-            fontSize: 1,
-            fontWeight: 'bold',
-            color: 'black80',
-            m: 0
-          })}
-        >
-          Your embed code
-        </Text>
+        <Flex css={{ flexDirection: 'column', gap: 2, minWidth: 0 }}>
+          <Text
+            as='h3'
+            css={theme({
+              fontFamily: 'sans',
+              fontSize: 1,
+              fontWeight: 'bold',
+              color: 'black80',
+              m: 0
+            })}
+          >
+            Embed code
+          </Text>
+          <Text
+            css={theme({
+              fontFamily: 'sans',
+              fontSize: 0,
+              color: 'black50',
+              m: 0
+            })}
+          >
+            Paste this HTML wherever you want the preview to appear.
+          </Text>
+        </Flex>
         <Flex css={{ alignItems: 'center', gap: 8 }}>
           <CopiedFlash $visible={copied} aria-hidden='true'>
             Copied!
@@ -2438,11 +2496,36 @@ const ResultArea = ({
   const [hoverTarget, setHoverTarget] = useState(null)
   const [useCard, setUseCard] = useState(false)
   const [editOverrides, setEditOverrides] = useState({})
+  const [editHint, setEditHint] = useState('idle')
+  const hintShownRef = useRef(false)
+  const hintTimerRef = useRef(null)
 
   useEffect(() => {
     setUseCard(false)
     setEditOverrides({})
+    hintShownRef.current = false
+    setEditHint('idle')
   }, [data])
+
+  useEffect(
+    () => () => {
+      if (hintTimerRef.current) clearTimeout(hintTimerRef.current)
+    },
+    []
+  )
+
+  const handlePreviewMouseEnter = useCallback(() => {
+    if (hintShownRef.current) return
+    hintShownRef.current = true
+    setEditHint('visible')
+    hintTimerRef.current = setTimeout(() => {
+      setEditHint('leaving')
+      hintTimerRef.current = setTimeout(() => {
+        setEditHint('idle')
+        hintTimerRef.current = null
+      }, 240)
+    }, 3500)
+  }, [])
 
   const onEditField = useCallback((field, value) => {
     setEditOverrides(prev => {
@@ -2556,7 +2639,14 @@ const ResultArea = ({
       })}
     >
       {apiHasIframe ? (
-        <Flex css={{ justifyContent: 'center', width: '100%' }}>
+        <Flex
+          css={{
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%',
+            gap: 6
+          }}
+        >
           <ViewToggle role='radiogroup' aria-label='Preview format'>
             <ViewToggleButton
               role='radio'
@@ -2575,6 +2665,20 @@ const ResultArea = ({
               Card
             </ViewToggleButton>
           </ViewToggle>
+          <Text
+            css={theme({
+              fontSize: 0,
+              color: 'black50',
+              fontFamily: 'sans',
+              textAlign: 'center',
+              maxWidth: '320px',
+              lineHeight: 1.5
+            })}
+          >
+            {useCard
+              ? 'A preview card you can theme and edit inline.'
+              : "The provider's native player — drop it in as-is."}
+          </Text>
         </Flex>
       ) : null}
       <ResultGrid>
@@ -2606,13 +2710,26 @@ const ResultArea = ({
               </SmallActionButton>
             ) : null}
           </Flex>
-          <PreviewPane
-            html={previewHtml}
-            hasIframe={!showCard}
-            hoverTarget={hoverTarget}
-            scripts={!showCard ? iframeScripts : undefined}
-            onEditField={onEditField}
-          />
+          <PreviewWithHint
+            onMouseEnter={showCard ? handlePreviewMouseEnter : undefined}
+          >
+            <PreviewPane
+              html={previewHtml}
+              hasIframe={!showCard}
+              hoverTarget={hoverTarget}
+              scripts={!showCard ? iframeScripts : undefined}
+              onEditField={onEditField}
+            />
+            {showCard && editHint !== 'idle' ? (
+              <EditDiscoveryPopover
+                role='status'
+                aria-live='polite'
+                $leaving={editHint === 'leaving'}
+              >
+                Click any text to edit it
+              </EditDiscoveryPopover>
+            ) : null}
+          </PreviewWithHint>
         </PreviewColumn>
       </ResultGrid>
       <HtmlPane html={copyHtml} />
@@ -2633,10 +2750,8 @@ const EmbedTool = () => {
     LOCAL_STORAGE_KEY,
     null
   )
-  const [showPresetToast, setShowPresetToast] = useState(false)
   const hydratedRef = useRef(false)
   const requestIdRef = useRef(0)
-  const toastTimerRef = useRef(null)
 
   useEffect(() => {
     if (hydratedRef.current) return
@@ -2644,25 +2759,8 @@ const EmbedTool = () => {
     hydratedRef.current = true
     if (!isSameConfig(storedConfig, DEFAULT_CONFIG)) {
       setConfigInternal(storedConfig)
-      setShowPresetToast(true)
-      toastTimerRef.current = setTimeout(() => setShowPresetToast(false), 3000)
     }
   }, [storedConfig])
-
-  useEffect(
-    () => () => {
-      if (toastTimerRef.current) clearTimeout(toastTimerRef.current)
-    },
-    []
-  )
-
-  const dismissPresetToast = useCallback(() => {
-    if (toastTimerRef.current) {
-      clearTimeout(toastTimerRef.current)
-      toastTimerRef.current = null
-    }
-    setShowPresetToast(false)
-  }, [])
 
   const setConfig = useCallback(
     updater => {
@@ -2777,31 +2875,6 @@ const EmbedTool = () => {
           </ResultsExpandWrapper>
         </Box>
       </Flex>
-      {showPresetToast ? (
-        <Toast role='status' aria-live='polite'>
-          <Check size={14} color={colors.green5} />
-          <Text as='span' css={{ flex: 1 }}>
-            Custom style applied from your saved preset
-          </Text>
-          <Box
-            as='button'
-            type='button'
-            onClick={dismissPresetToast}
-            aria-label='Dismiss'
-            css={{
-              background: 'transparent',
-              border: 'none',
-              color: colors.black40,
-              cursor: 'pointer',
-              padding: '2px 4px',
-              fontSize: '14px',
-              lineHeight: 1
-            }}
-          >
-            ×
-          </Box>
-        </Toast>
-      ) : null}
     </Container>
   )
 }
@@ -2837,7 +2910,7 @@ const Hero = () => (
         fontSize: [2, 2, '26px', '28px']
       })}
     >
-      Paste a URL, customize the look, copy the embed code.
+      Paste a link. Get an embed.
     </Caption>
   </Flex>
 )
@@ -3197,15 +3270,33 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Paste any URL and the tool calls the{' '}
-              <Link href='/embed'>Microlink Embed API</Link> with{' '}
-              <code>&iframe</code>. When the provider supports an iframe embed,
-              you get the ready-to-paste HTML right there.
+              Paste any link and the tool generates a ready-to-paste HTML
+              snippet. For sites with an interactive embed — YouTube, Spotify,
+              Figma, X, and 280+ more — you get the provider's real player. For
+              everything else, you get a clean preview card.
             </div>
             <div>
-              For URLs without a player, the tool falls back to a Microlink SDK
-              card preview — and the copy snippet ships with the vanilla SDK
-              script, so it works on any page out of the box.
+              You can customize the card right in the browser: click any text in
+              the preview to edit it, switch styles, fonts, and colors, then
+              copy the snippet and paste it into your blog, docs, MDX,
+              newsletter, or any HTML editor.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'Can I customize the preview before I copy it?',
+        answer: (
+          <>
+            <div>
+              Yes — switch to <strong>Card</strong> mode and the customization
+              panel appears. Pick a layout (Standard, Wide, Compact), choose
+              light or dark theme, tweak colors, fonts, sizes, and borders.
+            </div>
+            <div>
+              You can also <strong>click any text</strong> in the preview — the
+              title, description, site name, or author — and edit it inline. The
+              HTML snippet updates as you go.
             </div>
           </>
         )
