@@ -1378,31 +1378,20 @@ const HelpIconWrap = styled(Box).attrs({ as: 'span' })`
   }
 `
 
-const ExampleUrlButton = styled(Box).attrs({ as: 'button', type: 'button' })`
+const ExampleUrlText = styled(Box).attrs({ as: 'span' })`
   ${theme({
     fontFamily: 'sans',
     fontSize: 0,
     color: 'black60'
   })}
-  background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
   text-decoration: underline;
   text-decoration-color: ${colors.black10};
   text-underline-offset: 2px;
-  transition: color ${transition.short};
-  touch-action: manipulation;
+`
 
-  &:hover {
-    color: ${colors.black};
-    text-decoration-color: ${colors.black40};
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-    border-radius: 2px;
+const MobileHiddenInline = styled(Box).attrs({ as: 'span' })`
+  @media (max-width: ${MOBILE_BP - 1}px) {
+    display: none;
   }
 `
 
@@ -1781,7 +1770,13 @@ const ResultsExpandInner = styled(Box)`
 
 /* ─── Omnibar (input + submit) ─────────────────────────── */
 
-const EXAMPLE_URLS = ['youtube.com', 'tiktok.com', 'twitter.com', 'spotify.com']
+const EXAMPLE_URLS = [
+  { url: 'youtube.com' },
+  { url: 'tiktok.com' },
+  { url: 'twitter.com' },
+  { url: 'spotify.com', hideOnMobile: true },
+  { url: 'facebook.com', hideOnMobile: true }
+]
 
 const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
   const [urlError, setUrlError] = useState('')
@@ -1813,14 +1808,6 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
       onSubmit(next)
     },
     [url, setUrl, onSubmit]
-  )
-
-  const handleExampleClick = useCallback(
-    example => {
-      if (isLoading) return
-      handleSubmit(example)
-    },
-    [handleSubmit, isLoading]
   )
 
   return (
@@ -1873,29 +1860,27 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
           <Box as='span' css={{ marginRight: 4 }}>
             Try:
           </Box>
-          {EXAMPLE_URLS.map((example, i) => (
-            <React.Fragment key={example}>
-              <ExampleUrlButton
-                onClick={() => handleExampleClick(example)}
-                disabled={isLoading}
-              >
-                {example}
-              </ExampleUrlButton>
-              {i < EXAMPLE_URLS.length - 1 ? (
-                <Box
-                  as='span'
-                  aria-hidden='true'
-                  css={{
-                    marginLeft: 6,
-                    marginRight: 6,
-                    color: colors.black30
-                  }}
-                >
-                  ·
-                </Box>
-              ) : null}
-            </React.Fragment>
-          ))}
+          {EXAMPLE_URLS.map(({ url: example, hideOnMobile }, i) => {
+            const Wrapper = hideOnMobile ? MobileHiddenInline : React.Fragment
+            return (
+              <Wrapper key={example}>
+                {i > 0 ? (
+                  <Box
+                    as='span'
+                    aria-hidden='true'
+                    css={{
+                      marginLeft: 6,
+                      marginRight: 6,
+                      color: colors.black30
+                    }}
+                  >
+                    ·
+                  </Box>
+                ) : null}
+                <ExampleUrlText>{example}</ExampleUrlText>
+              </Wrapper>
+            )
+          })}
         </Text>
       ) : null}
     </Box>
