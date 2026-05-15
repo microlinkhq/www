@@ -140,6 +140,21 @@ const SectionContainer = ({ id, children, css: cssProp, ...props }) => (
   </Container>
 )
 
+const Eyebrow = ({ children, css: cssProp }) => (
+  <Caps
+    css={theme({
+      color: ACCENT,
+      fontWeight: 'bold',
+      fontSize: [0, 1, 1, 1],
+      pb: [2, 2, 3, 3],
+      letterSpacing: 2,
+      ...cssProp
+    })}
+  >
+    {children}
+  </Caps>
+)
+
 const SectionHead = ({
   eyebrow,
   title,
@@ -156,19 +171,7 @@ const SectionHead = ({
       pb: [4, 4, 5, 5]
     })}
   >
-    {eyebrow && (
-      <Caps
-        css={theme({
-          color: ACCENT,
-          fontWeight: 'bold',
-          fontSize: [0, 1, 1, 1],
-          pb: [2, 2, 3, 3],
-          letterSpacing: 2
-        })}
-      >
-        {eyebrow}
-      </Caps>
-    )}
+    {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
     <Subhead
       titleize={false}
       css={theme({
@@ -437,86 +440,75 @@ const Pillars = () => (
   </SectionContainer>
 )
 
-// ─── 3. Installation ─────────────────────────────────────────────────────────
+// ─── 3. Quickstart (install + basic usage) ───────────────────────────────────
 
-const Install = () => (
-  <SectionContainer id='install'>
+const Quickstart = () => (
+  <SectionContainer id='quickstart'>
     <SectionHead
-      eyebrow='Step 01 · Install'
       title={
         <>
-          Pick your stack, <span css={theme({ color: ACCENT })}>install</span>{' '}
-          once.
+          <span css={theme({ color: ACCENT })}>Install</span> once, pass a{' '}
+          <span css={theme({ color: ACCENT })}>url</span>, get a card.
         </>
       }
-      caption='The Vue and Vanilla builds wrap the React version, so the API stays the same.'
+      caption='Same API across React, Vue, and Vanilla — the SDK fetches the metadata, picks the best media, and renders a card that already looks good on any background.'
     />
     <Box
       css={theme({
         width: '100%',
         maxWidth: layout.normal,
-        mx: 'auto',
-        display: 'flex',
-        justifyContent: 'center',
-        pb: 4
+        mx: 'auto'
       })}
     >
-      <MultiCodeEditor
-        languages={{
-          React: 'npm install @microlink/react styled-components',
-          Vue: 'npm install @microlink/vue react react-dom styled-components',
-          Vanilla:
-            '<script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>'
-        }}
-      />
-    </Box>
-    <Link href='https://github.com/microlinkhq/sdk'>See on GitHub</Link>
-  </SectionContainer>
-)
+      <Box css={{ textAlign: 'center' }}>
+        <Eyebrow>Step 01 · Install</Eyebrow>
+      </Box>
+      <Box
+        css={theme({
+          display: 'flex',
+          justifyContent: 'center',
+          pb: [4, 4, 5, 5]
+        })}
+      >
+        <MultiCodeEditor
+          languages={{
+            React: 'npm install @microlink/react styled-components',
+            Vue: 'npm install @microlink/vue react react-dom styled-components',
+            Vanilla:
+              '<script src="https://cdn.jsdelivr.net/npm/@microlink/vanilla@latest/dist/microlink.min.js"></script>'
+          }}
+        />
+      </Box>
 
-// ─── 4. Basic usage (the simplest card) ──────────────────────────────────────
+      <Box css={{ textAlign: 'center' }}>
+        <Eyebrow>Step 02 · The basic card</Eyebrow>
+      </Box>
+      <Box
+        css={theme({
+          display: 'flex',
+          justifyContent: 'center',
+          pb: [3, 3, 4, 4]
+        })}
+      >
+        <MultiCodeEditor
+          languages={{
+            React: `import Microlink from '@microlink/react'
 
-const BasicUsage = () => (
-  <SectionContainer id='basic'>
-    <SectionHead
-      eyebrow='Step 02 · The basic card'
-      title={
-        <>
-          Pass a <span css={theme({ color: ACCENT })}>url</span>, get a card.
-        </>
-      }
-      caption={
-        <>
-          That&apos;s the whole API. The SDK fetches the metadata, picks the
-          best media, and renders a card that already looks good on any
-          background.
-        </>
-      }
-    />
-    <Box
-      css={theme({
-        width: '100%',
-        maxWidth: layout.normal,
-        mx: 'auto',
-        display: 'flex',
-        justifyContent: 'center'
-      })}
-    >
-      <MultiCodeEditor
-        languages={{
-          React: `import Microlink from '@microlink/react'
-
-<Microlink url='${YOUTUBE_URL}' />`,
-          Vue: `<template>
-  <Microlink url="${YOUTUBE_URL}" />
+<Microlink url='${STRIPE_URL}' />`,
+            Vue: `<template>
+  <Microlink url="${STRIPE_URL}" />
 </template>`,
-          Vanilla: `<a href="${YOUTUBE_URL}" class="link-preview"></a>
+            Vanilla: `<a href="${STRIPE_URL}" class="link-preview"></a>
 
 <script>
   microlink('.link-preview')
 </script>`
-        }}
-      />
+          }}
+        />
+      </Box>
+      <Box css={{ textAlign: 'center' }}>
+        <Link href='https://github.com/microlinkhq/sdk'>See on GitHub</Link>
+      </Box>
     </Box>
   </SectionContainer>
 )
@@ -604,11 +596,11 @@ const Media = () => (
               index === 4
                 ? ['1 1 100%', '1 1 100%', '0 1 50%', '0 1 50%']
                 : [
-                    '1 1 100%',
-                    '1 1 100%',
-                    '1 1 calc(50% - 16px)',
-                    '1 1 calc(50% - 16px)'
-                  ],
+                  '1 1 100%',
+                  '1 1 100%',
+                  '1 1 calc(50% - 16px)',
+                  '1 1 calc(50% - 16px)'
+                ],
             minWidth: 0
           })}
         >
@@ -824,6 +816,8 @@ const CustomData = () => (
       >
         <Microlink
           url={INSTAGRAM_URL}
+          media='video'
+          size='large'
           setData={{
             title: 'Hi there, friend.',
             description: 'Replace the description with anything you want.'
@@ -843,6 +837,8 @@ const CustomData = () => (
 
 <Microlink
   url='https://www.instagram.com/p/BeV6tOhFUor/'
+  media='video'
+  size='large'
   setData={{ title: 'Hi there, friend.', description: 'Replace the description with anything you want.' }}
 />`}
         </CodeEditor>
@@ -1050,8 +1046,7 @@ const SdkPage = () => (
     <Box css={theme({ position: 'relative', zIndex: 1 })}>
       <Hero />
       <Pillars />
-      <Install />
-      <BasicUsage />
+      <Quickstart />
       <Sizes />
       <Media />
       <Direction />
