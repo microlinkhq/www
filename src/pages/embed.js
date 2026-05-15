@@ -37,6 +37,8 @@ import Layout from 'components/patterns/Layout'
 import Block from 'components/patterns/Block/Block'
 import LinkPreviewRaw from '@microlink/react'
 import Microlink from 'components/patterns/Microlink/Microlink'
+import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
+import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 import { HeroCard, PreviewVariantsShowcase } from 'components/pages/embed'
 import Plans, {
   CurrencyContext,
@@ -780,39 +782,37 @@ const Hero = function Hero ({
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </HeroCopyButton>
               </HeroApiBar>
             </HeroPreviewShell>
@@ -1437,39 +1437,37 @@ export const InteractiveExample = ({
             onClick={handleCopy}
             aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
           >
-            {isCopied
-              ? (
-                <svg
-                  className='icon-check'
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='none'
-                  aria-hidden='true'
-                >
-                  <path
-                    d='M3 8l3.5 3.5L13 4.5'
-                    stroke='currentColor'
-                    strokeWidth='1.8'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
-                )
-              : (
-                <svg
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='currentColor'
-                  aria-hidden='true'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                  />
-                </svg>
-                )}
+            {isCopied ? (
+              <svg
+                className='icon-check'
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='none'
+                aria-hidden='true'
+              >
+                <path
+                  d='M3 8l3.5 3.5L13 4.5'
+                  stroke='currentColor'
+                  strokeWidth='1.8'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            ) : (
+              <svg
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='currentColor'
+                aria-hidden='true'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                />
+              </svg>
+            )}
           </ExampleCopyButton>
         </ExampleFooter>
       )}
@@ -2378,8 +2376,7 @@ const SdkSection = () => (
         >
           The Microlink Embed SDK is the optional zero-code path on top of the
           API. One component, 280+ providers, under 10KB — drop-in support for
-          React, Vue, and Vanilla JavaScript. Use it as a lightweight SDK when
-          you need rendered embeds in seconds.
+          React, Vue, and Vanilla JavaScript.
         </Caption>
         <Flex
           css={theme({
@@ -2877,6 +2874,110 @@ const TOP_FAQ_ITEMS = [
   }
 ]
 
+// ─── Playground (Try it live) ────────────────────────────────────────────────
+
+const PLAYGROUND_TOOL_PATHS = ['/tools/embed-url']
+const EMBEDDING_TOOLS =
+  TOOL_CATALOG.find(section => section.category === 'Embedding')?.tools ?? []
+const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.map(path =>
+  EMBEDDING_TOOLS.find(tool => tool.href === path)
+).filter(Boolean)
+
+const livePulse = keyframes`
+  0%, 62% { color: inherit; }
+  70%, 90% { color: ${ACCENT}; }
+  100% { color: inherit; }
+`
+
+const LiveText = styled('span')`
+  animation: ${livePulse} 1.5s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    color: ${ACCENT};
+  }
+`
+
+const Playground = () => {
+  return (
+    <Container
+      as='section'
+      id='playground'
+      css={theme({
+        alignItems: 'center',
+        width: '100%',
+        bg: 'pinky',
+        borderTop: `${borders[1]} ${colors.pinkest}`,
+        borderBottom: `${borders[1]} ${colors.pinkest}`,
+        pt: SECTION_VERTICAL_SPACING,
+        pb: SECTION_VERTICAL_SPACING,
+        px: [1, 1, 5, 5]
+      })}
+    >
+      <Flex
+        css={theme({
+          width: '100%',
+          mx: 'auto',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 3
+        })}
+      >
+        <Subhead
+          css={theme({
+            fontSize: ['28px', '36px', '46px', '46px'],
+            textAlign: 'center'
+          })}
+        >
+          Try it <LiveText>live</LiveText>, right now
+        </Subhead>
+        <Caption
+          css={theme({
+            px: [4, 4, 4, 0],
+            fontSize: ['20px', '20px', '24px', '24px'],
+            maxWidth: layout.large,
+            textAlign: 'center'
+          })}
+        >
+          Skip the setup. Our interactive embed url tool lets you test the embed
+          API instantly — paste any URL, configure options, and copy the ready
+          to paste embed code.
+        </Caption>
+
+        <Flex
+          css={theme({
+            width: '100%',
+            justifyContent: 'center',
+            maxWidth: layout.large,
+            pt: 4,
+            gap: [4, 4, 4, 4],
+            flexDirection: ['column', 'column', 'row', 'row'],
+            alignItems: ['center', 'center', 'stretch', 'stretch']
+          })}
+        >
+          {PLAYGROUND_TOOLS.map(tool => (
+            <Box
+              key={tool.href}
+              css={theme({
+                width: '100%',
+                maxWidth: ['550px', '550px', '720px', '720px'],
+                flex: [null, null, 1, 1]
+              })}
+            >
+              <FeaturedToolCard
+                {...tool}
+                cardCss={{ height: '100%' }}
+                titleCss={{ fontSize: [2, 2, 2, 2] }}
+                descriptionCss={{ color: 'black60' }}
+              />
+            </Box>
+          ))}
+        </Flex>
+      </Flex>
+    </Container>
+  )
+}
+
 const ProductInformation = () => (
   <Faq
     title='Product Information'
@@ -3043,6 +3144,7 @@ const EmbedPage = () => {
               <Pricing />
               <SdkSection />
               <OpenSource />
+              <Playground />
               <Features
                 css={theme({ px: 4, pb: 5, pt: [5, 5, 6, 6] })}
                 title={

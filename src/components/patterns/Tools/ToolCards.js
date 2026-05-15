@@ -99,13 +99,11 @@ const renderToolImage = ({ image, title, styles, transform }) => {
     transform
   })
 
-  return image.endsWith('.mp4')
-    ? (
-      <Video src={image} title={title} css={mediaCss} />
-      )
-    : (
-      <Image src={image} alt={title} css={mediaCss} />
-      )
+  return image.endsWith('.mp4') ? (
+    <Video src={image} title={title} css={mediaCss} />
+  ) : (
+    <Image src={image} alt={title} css={mediaCss} />
+  )
 }
 
 export const FeaturedToolCard = ({
@@ -114,6 +112,7 @@ export const FeaturedToolCard = ({
   href,
   icon: Icon,
   image,
+  preview: Preview,
   tags,
   styles = {},
   animation = [],
@@ -162,7 +161,11 @@ export const FeaturedToolCard = ({
             ...previewCss
           })}
         >
-          {renderToolImage({ image, title, styles, transform })}
+          {Preview ? (
+            <Preview />
+          ) : (
+            renderToolImage({ image, title, styles, transform })
+          )}
         </ImagePreview>
 
         <Flex
