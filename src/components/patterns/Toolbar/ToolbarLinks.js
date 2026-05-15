@@ -162,6 +162,12 @@ export const NAVIGATION_SECTIONS = [
     columns: 3,
     items: [
       createNavigationItem({
+        label: 'Screenshot',
+        href: '/screenshot',
+        description: 'Generate pixel-perfect captures for any URL',
+        icon: FocusIcon
+      }),
+      createNavigationItem({
         label: 'Embed',
         href: '/embed',
         description: 'Turn any URL into a rich, embeddable card',
@@ -178,12 +184,6 @@ export const NAVIGATION_SECTIONS = [
         href: '/metadata',
         description: 'Extract normalized metadata from any website',
         icon: MetascraperIcon
-      }),
-      createNavigationItem({
-        label: 'Screenshot',
-        href: '/screenshot',
-        description: 'Generate pixel-perfect captures for any URL',
-        icon: FocusIcon
       }),
       createNavigationItem({
         label: 'PDF',
