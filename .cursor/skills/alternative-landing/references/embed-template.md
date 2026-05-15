@@ -71,15 +71,16 @@ import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import { InteractiveExample, PreviewVariantsShowcase } from 'pages/embed'
+import { InteractiveExample } from 'pages/embed'
 ```
 
-The two embed-only imports are mandatory:
+The embed-only import is mandatory:
 
 - `InteractiveExample` — the Custom / SDK / Iframe toggle pulled from the embed landing.
-- `PreviewVariantsShowcase` — the auto-cycling Stripe preview variants from the embed landing.
 
-Both are exported from `src/pages/embed.js`. Do not duplicate their internals.
+It is exported from `src/pages/embed.js`. Do not duplicate its internals.
+
+> **Do not import `PreviewVariantsShowcase` on alternative pages.** It was used at the bottom of `TryItSection` on Iframely and Embedly and triggered a duplicate `stripe.com` API request on load. The showcase now lives only on the main `/embed` landing. Alternative pages end the `TryItSection` after the "Start now for free" link.
 
 ## Hero
 
@@ -99,7 +100,7 @@ If you find yourself wanting either off, you are deviating from the template —
 
 ## TryItSection
 
-The `TryItSection` replaces `MultiCodeEditorInteractive` (used by screenshot pages) with `PreviewVariantsShowcase` and reorders the children so the link comes before the visual:
+The `TryItSection` is a minimal text-and-link CTA. No preview showcase, no code editor:
 
 ```jsx
 const TryItSection = () => (
@@ -120,9 +121,6 @@ const TryItSection = () => (
           Start now for free
         </Link>
       </Flex>
-      <Flex css={theme({ pt: [4, 4, 5, 5], width: '100%', maxWidth: layout.large, mx: 'auto', flexDirection: 'column', alignItems: 'center' })}>
-        <PreviewVariantsShowcase />
-      </Flex>
     </SectionInner>
   </Section>
 )
@@ -130,9 +128,10 @@ const TryItSection = () => (
 
 Notice:
 
-- `useBreakpoint()` is **not** imported — the showcase handles its own sizing.
+- `useBreakpoint()` is **not** imported.
 - `MultiCodeEditorInteractive` is **not** imported.
-- The "Start now for free" link sits **above** the preview variants. This is the convention agreed for the Iframely page.
+- `PreviewVariantsShowcase` is **not** imported — see the note in the Imports section above.
+- The section ends after the "Start now for free" link; the FAQ section provides the vertical breathing room below.
 
 ## CTA targets
 
@@ -250,6 +249,26 @@ The Microlink pricing card must surface the proxy bundle in its feature list. If
 
 You may reword, but the proxy + antibot + CAPTCHA bundle line must stay visible.
 
+## FAQSection
+
+The FAQ section must declare an explicit `title='FAQ'` and use a top-only padding so it visibly separates from the `TryItSection` CTA above it (which no longer carries a preview showcase):
+
+```jsx
+const FAQSection = () => (
+  <Faq
+    title='FAQ'
+    css={theme({ pt: [5, 5, 6, 6], pb: 0 })}
+    questions={FAQ_ITEMS.map(({ question, answer }) => ({ question, answer }))}
+  />
+)
+```
+
+Notes:
+
+- The `title='FAQ'` heading is required — leaving it off makes the section land cold right after the CTA link with no visual anchor.
+- `pt: [5, 5, 6, 6]` is what creates the breathing room between the CTA link and the FAQ heading. Do not drop it back to `py: 0`.
+- `pb: 0` keeps the footer spacing unchanged.
+
 ## FAQ items
 
 Include one question dedicated to the proxy bundle, with a link to `/feature/proxy` and a mention of `is-antibot` (the open-source detection library on GitHub). Iframely's "Does Microlink really replace a separate proxy and CAPTCHA solver?" is the canonical example — paraphrase, do not copy.
@@ -307,6 +326,8 @@ Add the new page to `src/components/patterns/Footer/Footer.js` Comparisons list 
 ## Gotchas
 
 - **Do not use `<code css={theme({...})}>`.** This repo's `css` prop transform fails on `<code>` and throws "Element type is invalid". Use `<b>` or a styled component instead.
-- **Do not duplicate `HERO_DEMOS`, `PREVIEW_VARIANTS`, or the card variant components.** Import from `pages/embed`.
+- **Do not duplicate `HERO_DEMOS` or the card variant components.** Import from `pages/embed`. (Note: `PreviewVariantsShowcase` itself must not be rendered on alternative pages — see Imports and TryItSection.)
 - **The proxy section is no longer rendered as its own section on embed pages** (it was removed during Iframely review). Surface proxy claims through WhySwitch item 04, the comparison rows, the Microlink pricing card bullet, and the dedicated FAQ — not via a standalone section.
 - **`InteractiveExample` accepts `flat` and `hideFooter`** as boolean props. Both default to `false` (the embed.js page's normal styling). Always pass both on alternative pages.
+- **`PreviewVariantsShowcase` is forbidden on alternative pages.** It fires a `stripe.com` request on mount and the main `/embed` landing already loads it. Embedding it on Iframely/Embedly produced duplicate API calls and was removed.
+- **FAQ section needs `title='FAQ'` and `pt: [5, 5, 6, 6], pb: 0`.** Without those, the FAQ collapses into the CTA above it with no visual separation.

@@ -29,7 +29,6 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import { PreviewVariantsShowcase } from 'components/pages/embed'
 import { InteractiveExample } from 'pages/embed'
 
 const Heading = withTitle(HeadingBase)
@@ -830,7 +829,8 @@ const Hero = () => (
         <ArrowLink
           href='/embed'
           onClick={() =>
-            trackEvent('alternative cta', { competitor: 'embedly' })}
+            trackEvent('alternative cta', { competitor: 'embedly' })
+          }
         >
           Get Started Free
         </ArrowLink>
@@ -1208,7 +1208,8 @@ const CTASection = () => (
         <ArrowLink
           href='/embed'
           onClick={() =>
-            trackEvent('alternative cta', { competitor: 'embedly' })}
+            trackEvent('alternative cta', { competitor: 'embedly' })
+          }
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
           Start Building Free
@@ -1387,23 +1388,12 @@ const TryItSection = () => (
         <Link
           href='/docs/guides/embed'
           onClick={() =>
-            trackEvent('alternative cta', { competitor: 'embedly' })}
+            trackEvent('alternative cta', { competitor: 'embedly' })
+          }
           css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
         >
           Start now for free
         </Link>
-      </Flex>
-      <Flex
-        css={theme({
-          pt: [4, 4, 5, 5],
-          width: '100%',
-          maxWidth: layout.large,
-          mx: 'auto',
-          flexDirection: 'column',
-          alignItems: 'center'
-        })}
-      >
-        <PreviewVariantsShowcase />
       </Flex>
     </SectionInner>
   </Section>
@@ -1415,7 +1405,8 @@ const TryItSection = () => (
 
 const FAQSection = () => (
   <Faq
-    css={theme({ py: 0 })}
+    title='FAQ'
+    css={theme({ pt: [5, 5, 6, 6], pb: 0 })}
     questions={FAQ_ITEMS.map(({ question, answer }) => ({ question, answer }))}
   />
 )
