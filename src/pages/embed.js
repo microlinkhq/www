@@ -232,6 +232,7 @@ const HERO_LAYOUT = {
   gap: [3, 3, 4, 5]
 }
 
+const INITIAL_PLACEHOLDER_URL = 'https://stripe.com'
 const PLACEHOLDER_CYCLE = ['https://vercel.com', 'https://unavatar.io']
 const TYPING_SPEED_MS = 80
 const INITIAL_DELAY_MS = 4000
@@ -536,7 +537,9 @@ const Hero = function Hero ({
   const isMounted = useMounted()
   const [isCopied, setIsCopied] = useState(false)
   const [inputValue, setInputValue] = useState('')
-  const [placeholderText, setPlaceholderText] = useState(data.url || '')
+  const [placeholderText, setPlaceholderText] = useState(
+    INITIAL_PLACEHOLDER_URL
+  )
   const copyTimerRef = useRef(null)
   const userInteractedRef = useRef(false)
   const onSubmitRef = useRef(onSubmit)
@@ -552,8 +555,13 @@ const Hero = function Hero ({
 
   useEffect(() => {
     if (userInteractedRef.current) return
+    // fetch the initial URL so the preview card matches the placeholder
+    onSubmitRef.current(INITIAL_PLACEHOLDER_URL, {
+      queryUrl: INITIAL_PLACEHOLDER_URL,
+      syncQuery: false
+    })
     const timers = []
-    let previousUrl = data.url || ''
+    let previousUrl = INITIAL_PLACEHOLDER_URL
     let timeOffset = INITIAL_DELAY_MS
 
     PLACEHOLDER_CYCLE.forEach(nextUrl => {
@@ -772,39 +780,37 @@ const Hero = function Hero ({
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </HeroCopyButton>
               </HeroApiBar>
             </HeroPreviewShell>
@@ -1429,39 +1435,37 @@ export const InteractiveExample = ({
             onClick={handleCopy}
             aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
           >
-            {isCopied
-              ? (
-                <svg
-                  className='icon-check'
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='none'
-                  aria-hidden='true'
-                >
-                  <path
-                    d='M3 8l3.5 3.5L13 4.5'
-                    stroke='currentColor'
-                    strokeWidth='1.8'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
-                )
-              : (
-                <svg
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='currentColor'
-                  aria-hidden='true'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                  />
-                </svg>
-                )}
+            {isCopied ? (
+              <svg
+                className='icon-check'
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='none'
+                aria-hidden='true'
+              >
+                <path
+                  d='M3 8l3.5 3.5L13 4.5'
+                  stroke='currentColor'
+                  strokeWidth='1.8'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            ) : (
+              <svg
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='currentColor'
+                aria-hidden='true'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                />
+              </svg>
+            )}
           </ExampleCopyButton>
         </ExampleFooter>
       )}
@@ -2350,9 +2354,9 @@ const SdkSection = () => (
             width: '100%'
           })}
         >
-          Embed SDK for React, Vue,
+          For React, Vue, and Vanilla JS
           <br />
-          <span css={{ color: ACCENT }}>and Vanilla JS</span>
+          <span css={{ color: ACCENT }}>Embed SDK</span>
         </Subhead>
         <Caption
           titleize={false}
@@ -2595,37 +2599,25 @@ const CallToAction = () => (
 
 const TOP_FAQ_ITEMS = [
   {
-    question: 'How does Microlink compare to Iframely?',
-    text: 'Microlink and Iframely both expose oEmbed under a single API. The main differences: Microlink is open source, ships an under-10KB drop-in SDK for React, Vue, and Vanilla JS, supports 280+ providers, and includes screenshot fallback for URLs with no oEmbed support — so every URL ends up with a usable visual. Microlink also offers a free tier with 50 requests per day, no signup required, making it a strong Iframely alternative for indie developers and production workloads alike.',
+    question:
+      'Can Microlink preview URLs behind Cloudflare, antibot walls, or CAPTCHAs?',
+    text: 'Yes. Microlink routes requests through a rotating residential proxy network and renders pages in a real headless browser, so it can fetch URLs protected by Cloudflare, DataDome, PerimeterX, hCaptcha, reCAPTCHA, and similar anti-bot systems. The response shape stays identical — title, description, image, logo, iframe — so URLs that would normally return 403 or block a scraper still come back with a usable preview. Proxy rotation is available on Pro plans.',
     answer: (
       <>
         <div>
-          Microlink and Iframely both expose{' '}
-          <Link href='https://oembed.com'>oEmbed</Link> under a single API. The
-          main differences:
+          Yes. Microlink routes requests through a{' '}
+          <b>rotating residential proxy network</b> and renders pages in a real
+          headless browser. URLs gated by Cloudflare, DataDome, PerimeterX,
+          hCaptcha, reCAPTCHA, or similar anti-bot systems are fetched and
+          rendered the same way a real visitor sees them.
         </div>
-        <Faq.List as='ul'>
-          <li>
-            Microlink is <b>open source</b> — read the source, fork it, ship a
-            PR.
-          </li>
-          <li>
-            Microlink ships an <b>under-10KB drop-in SDK</b> for React, Vue, and
-            Vanilla JS.
-          </li>
-          <li>
-            Microlink includes <b>screenshot fallback</b> for URLs with no
-            oEmbed support — every URL ends up with a usable visual.
-          </li>
-          <li>
-            Microlink offers a <b>free tier with 50 requests per day</b>, no
-            signup required.
-          </li>
-        </Faq.List>
         <div>
-          For most use cases — embedding a YouTube video, a Spotify track, a
-          Tweet, a Figma board — Microlink is a drop-in Iframely alternative
-          with broader fallback coverage.
+          The response shape stays identical — title, description, image, logo,
+          iframe — so URLs that would normally return <code>403</code> or block
+          a scraper still come back with a usable preview. Proxy rotation is
+          part of <Link href='/pricing'>Pro plans</Link>; see the{' '}
+          <Link href='/docs/api/parameters/proxy'>proxy parameter</Link> for
+          configuration.
         </div>
       </>
     )

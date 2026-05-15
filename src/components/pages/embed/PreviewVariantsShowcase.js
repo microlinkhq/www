@@ -15,7 +15,6 @@ import {
   STRIPE_DEMO_DATA
 } from './PreviewCards'
 
-const PREVIEW_URL = 'https://stripe.com'
 const PREVIEW_INTERVAL_MS = 3000
 const PREVIEW_FADE_MS = 560
 
@@ -61,22 +60,7 @@ const PreviewLayer = styled(Box)`
 `
 
 export const PreviewVariantsShowcase = () => {
-  const [data, setData] = useState(STRIPE_DEMO_DATA)
   const [index, setIndex] = useState(0)
-
-  useEffect(() => {
-    let cancelled = false
-    fetch(`https://api.microlink.io/?url=${encodeURIComponent(PREVIEW_URL)}`)
-      .then(r => r.json())
-      .then(json => {
-        if (cancelled) return
-        if (json?.status === 'success' && json.data) setData(json.data)
-      })
-      .catch(() => {})
-    return () => {
-      cancelled = true
-    }
-  }, [])
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -100,7 +84,7 @@ export const PreviewVariantsShowcase = () => {
           >
             {name}
           </h3>
-          <Variant data={data} />
+          <Variant data={STRIPE_DEMO_DATA} />
         </PreviewLayer>
       ))}
     </PreviewStage>
