@@ -51,15 +51,18 @@ import mql from '@microlink/mql'
 
 const { data } = await mql(url, { iframe: true })
 
-document.getElementById('embed').innerHTML = data.iframe.html
+if (data.iframe) {
+  document.getElementById('embed').innerHTML = data.iframe.html
 
-data.iframe.scripts.forEach(({ src, async, charset }) => {
-  const script = document.createElement('script')
-  script.src = src
-  if (async) script.async = true
-  if (charset) script.charset = charset
-  document.head.appendChild(script)
-})
+  data.iframe.scripts.forEach(({ src, async, charset }) => {
+    if (document.querySelector(`script[src="${src}"]`)) return
+    const script = document.createElement('script')
+    script.src = src
+    if (async) script.async = true
+    if (charset) script.charset = charset
+    document.head.appendChild(script)
+  })
+}
 ```
 
 The script step is what makes Twitter, Instagram, and similar widgets actually render — without it you get unstyled blockquotes.
@@ -77,10 +80,12 @@ function ProviderEmbed ({ url }) {
     mql(url, { iframe: true }).then(({ data }) => {
       if (cancelled) return
       setIframe(data.iframe)
-      data.iframe?.scripts?.forEach(({ src, async }) => {
+      data.iframe?.scripts?.forEach(({ src, async, charset }) => {
+        if (document.querySelector(`script[src="${src}"]`)) return
         const s = document.createElement('script')
         s.src = src
         if (async) s.async = true
+        if (charset) s.charset = charset
         document.head.appendChild(s)
       })
     })
