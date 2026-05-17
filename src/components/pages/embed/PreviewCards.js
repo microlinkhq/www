@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { colors, fonts } from 'theme'
 import {
   Heart as HeartIcon,
@@ -32,6 +32,9 @@ const getHostname = url => {
 
 const PreviewMedia = ({ src, palette, alt = '', style }) => {
   const [errored, setErrored] = useState(false)
+  useEffect(() => {
+    setErrored(false)
+  }, [src])
   const fallbackBg = palette?.[0] || colors.black05
   if (!src || errored) {
     return <div style={{ ...style, background: fallbackBg }} />
@@ -143,25 +146,23 @@ export const OneLineCard = ({ data = STRIPE_DEMO_DATA }) => (
       fontFamily: fonts.sans
     }}
   >
-    {data.logo?.url
-      ? (
-        <img
-          src={data.logo.url}
-          alt=''
-          style={{ width: 20, height: 20, borderRadius: 4, flexShrink: 0 }}
-        />
-        )
-      : (
-        <div
-          style={{
-            width: 20,
-            height: 20,
-            borderRadius: 4,
-            flexShrink: 0,
-            background: data.image?.palette?.[0] || colors.black10
-          }}
-        />
-        )}
+    {data.logo?.url ? (
+      <img
+        src={data.logo.url}
+        alt=''
+        style={{ width: 20, height: 20, borderRadius: 4, flexShrink: 0 }}
+      />
+    ) : (
+      <div
+        style={{
+          width: 20,
+          height: 20,
+          borderRadius: 4,
+          flexShrink: 0,
+          background: data.image?.palette?.[0] || colors.black10
+        }}
+      />
+    )}
     <span
       style={{
         fontSize: 13,
@@ -367,25 +368,23 @@ export const NotificationCard = ({ data = STRIPE_DEMO_DATA }) => (
       fontFamily: fonts.sans
     }}
   >
-    {data.logo?.url
-      ? (
-        <img
-          src={data.logo.url}
-          alt=''
-          style={{ width: 36, height: 36, borderRadius: 8, flexShrink: 0 }}
-        />
-        )
-      : (
-        <div
-          style={{
-            width: 36,
-            height: 36,
-            borderRadius: 8,
-            flexShrink: 0,
-            background: data.image?.palette?.[0] || colors.black10
-          }}
-        />
-        )}
+    {data.logo?.url ? (
+      <img
+        src={data.logo.url}
+        alt=''
+        style={{ width: 36, height: 36, borderRadius: 8, flexShrink: 0 }}
+      />
+    ) : (
+      <div
+        style={{
+          width: 36,
+          height: 36,
+          borderRadius: 8,
+          flexShrink: 0,
+          background: data.image?.palette?.[0] || colors.black10
+        }}
+      />
+    )}
     <div style={{ flex: 1, minWidth: 0 }}>
       <div
         style={{
