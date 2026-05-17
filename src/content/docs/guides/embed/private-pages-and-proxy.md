@@ -88,8 +88,7 @@ You can also pass your own proxy URL when you have a residential or country-spec
 import mql from '@microlink/mql'
 
 const { data } = await mql('https://example.com/pricing', {
-  proxy: process.env.PROXY_URL,
-  meta: false
+  proxy: process.env.PROXY_URL
 })
 
 return data.screenshot.url // hand this to your embed renderer
