@@ -596,11 +596,11 @@ const Media = () => (
               index === 4
                 ? ['1 1 100%', '1 1 100%', '0 1 50%', '0 1 50%']
                 : [
-                    '1 1 100%',
-                    '1 1 100%',
-                    '1 1 calc(50% - 16px)',
-                    '1 1 calc(50% - 16px)'
-                  ],
+                  '1 1 100%',
+                  '1 1 100%',
+                  '1 1 calc(50% - 16px)',
+                  '1 1 calc(50% - 16px)'
+                ],
             minWidth: 0
           })}
         >
@@ -771,8 +771,8 @@ const Lazy = () => (
   media='audio'
 />`,
             Vanilla: `microlink('.link-preview', {
-  lazy: { threshold: 0.5 }
-  media='audio'
+  lazy: { threshold: 0.5 },
+  media: 'audio'
 })`
           }}
         />
