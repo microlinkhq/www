@@ -49,6 +49,38 @@ import Plans, {
   useCurrency
 } from 'components/patterns/Plans/Plans'
 
+import {
+  siBandcamp,
+  siBehance,
+  siCodesandbox,
+  siDailymotion,
+  siDeviantart,
+  siFigma,
+  siFlickr,
+  siGiphy,
+  siGithub,
+  siImgur,
+  siInstagram,
+  siKickstarter,
+  siLoom,
+  siMedium,
+  siMixcloud,
+  siObservable,
+  siPinterest,
+  siReddit,
+  siReplit,
+  siSketchfab,
+  siSlideshare,
+  siSoundcloud,
+  siSpotify,
+  siTed,
+  siTiktok,
+  siTwitch,
+  siVimeo,
+  siWistia,
+  siYoutube
+} from 'simple-icons'
+
 import { useMounted } from 'components/hook/use-mounted'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 
@@ -786,39 +818,37 @@ const Hero = function Hero ({
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </HeroCopyButton>
               </HeroApiBar>
             </HeroPreviewShell>
@@ -833,38 +863,35 @@ const Hero = function Hero ({
 // ─── Providers Showcase ───────────────────────────────────────────────────────
 
 const FEATURED_PROVIDERS = [
-  'YouTube',
-  'Spotify',
-  'Instagram',
-  'TikTok',
-  'GitHub',
-  'CodePen',
-  'CodeSandbox',
-  'Vimeo',
-  'SoundCloud',
-  'Figma',
-  'Reddit',
-  'Pinterest',
-  'Flickr',
-  'Behance',
-  'Medium',
-  'Sketchfab',
-  'Replit',
-  'Canva',
-  'TED',
-  'Dailymotion',
-  'Twitch',
-  'Mixcloud',
-  'Giphy',
-  'Observable',
-  'Streamable',
-  'Wistia',
-  'Loom',
-  'SlideShare',
-  'Kickstarter',
-  'DeviantArt',
-  'Imgur',
-  'Bandcamp'
+  { name: 'YouTube', icon: siYoutube },
+  { name: 'Spotify', icon: siSpotify },
+  { name: 'Instagram', icon: siInstagram },
+  { name: 'TikTok', icon: siTiktok },
+  { name: 'GitHub', icon: siGithub },
+  { name: 'CodeSandbox', icon: siCodesandbox },
+  { name: 'Vimeo', icon: siVimeo },
+  { name: 'SoundCloud', icon: siSoundcloud },
+  { name: 'Figma', icon: siFigma },
+  { name: 'Reddit', icon: siReddit },
+  { name: 'Pinterest', icon: siPinterest },
+  { name: 'Flickr', icon: siFlickr },
+  { name: 'Behance', icon: siBehance },
+  { name: 'Medium', icon: siMedium },
+  { name: 'Sketchfab', icon: siSketchfab },
+  { name: 'Replit', icon: siReplit },
+  { name: 'TED', icon: siTed },
+  { name: 'Dailymotion', icon: siDailymotion },
+  { name: 'Twitch', icon: siTwitch },
+  { name: 'Mixcloud', icon: siMixcloud },
+  { name: 'Giphy', icon: siGiphy },
+  { name: 'Observable', icon: siObservable },
+  { name: 'Wistia', icon: siWistia },
+  { name: 'Loom', icon: siLoom },
+  { name: 'SlideShare', icon: siSlideshare },
+  { name: 'Kickstarter', icon: siKickstarter },
+  { name: 'DeviantArt', icon: siDeviantart },
+  { name: 'Imgur', icon: siImgur },
+  { name: 'Bandcamp', icon: siBandcamp }
 ]
 
 const MARQUEE_DURATION = '60s'
@@ -907,7 +934,7 @@ const ProvidersTrack = styled(Flex)`
   }
 `
 
-const ProviderChip = styled(Box)`
+const ProviderChip = styled(Flex)`
   ${theme({
     px: 3,
     py: 2,
@@ -916,7 +943,9 @@ const ProviderChip = styled(Box)`
     fontFamily: 'mono',
     fontSize: 1,
     fontWeight: 'bold',
-    color: 'black80'
+    color: 'black80',
+    alignItems: 'center',
+    gap: 2
   })};
   border: ${borders[1]} ${colors.black10};
   white-space: nowrap;
@@ -924,6 +953,19 @@ const ProviderChip = styled(Box)`
   letter-spacing: 0;
   line-height: 1;
 `
+
+const ProviderIcon = ({ icon }) => (
+  <svg
+    aria-hidden='true'
+    viewBox='0 0 24 24'
+    width='14'
+    height='14'
+    fill={`#${icon.hex}`}
+    style={{ flexShrink: 0 }}
+  >
+    <path d={icon.path} />
+  </svg>
+)
 
 const Providers = () => {
   const blockOne = (
@@ -978,9 +1020,14 @@ const Providers = () => {
       </Box>
       <ProvidersMarquee aria-hidden='true'>
         <ProvidersTrack>
-          {[...FEATURED_PROVIDERS, ...FEATURED_PROVIDERS].map((name, index) => (
-            <ProviderChip key={`${name}-${index}`}>{name}</ProviderChip>
-          ))}
+          {[...FEATURED_PROVIDERS, ...FEATURED_PROVIDERS].map(
+            ({ name, icon }, index) => (
+              <ProviderChip key={`${name}-${index}`}>
+                <ProviderIcon icon={icon} />
+                {name}
+              </ProviderChip>
+            )
+          )}
         </ProvidersTrack>
       </ProvidersMarquee>
     </Flex>
@@ -1443,39 +1490,37 @@ export const InteractiveExample = ({
             onClick={handleCopy}
             aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
           >
-            {isCopied
-              ? (
-                <svg
-                  className='icon-check'
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='none'
-                  aria-hidden='true'
-                >
-                  <path
-                    d='M3 8l3.5 3.5L13 4.5'
-                    stroke='currentColor'
-                    strokeWidth='1.8'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
-                )
-              : (
-                <svg
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='currentColor'
-                  aria-hidden='true'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                  />
-                </svg>
-                )}
+            {isCopied ? (
+              <svg
+                className='icon-check'
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='none'
+                aria-hidden='true'
+              >
+                <path
+                  d='M3 8l3.5 3.5L13 4.5'
+                  stroke='currentColor'
+                  strokeWidth='1.8'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            ) : (
+              <svg
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='currentColor'
+                aria-hidden='true'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                />
+              </svg>
+            )}
           </ExampleCopyButton>
         </ExampleFooter>
       )}
