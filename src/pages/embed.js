@@ -67,6 +67,7 @@ import {
   siMixcloud,
   siObservable,
   siPinterest,
+  siProducthunt,
   siReddit,
   siReplit,
   siSketchfab,
@@ -230,35 +231,35 @@ const HERO_DEMOS = [
     id: 'youtube',
     label: 'YouTube',
     url: YOUTUBE_DEMO_DATA.url,
-    icon: 'https://cdn.microlink.io/data/assets/youtube.com!watch!v=9P6rdqiybaw/logo.clearbit.com!youtube.com.png',
+    icon: siYoutube,
     data: YOUTUBE_DEMO_DATA
   },
   {
     id: 'spotify',
     label: 'Spotify',
     url: SPOTIFY_DEMO_DATA.url,
-    icon: 'https://cdn.microlink.io/data/assets/open.spotify.com!track!1W2919zs8SBCLTrOB1ftQT/logo.clearbit.com!spotify.com.png',
+    icon: siSpotify,
     data: SPOTIFY_DEMO_DATA
   },
   {
     id: 'vimeo',
     label: 'Vimeo',
     url: VIMEO_DEMO_DATA.url,
-    icon: 'https://cdn.microlink.io/data/assets/vimeo.com!186386161/logo.clearbit.com!vimeo.com.png',
+    icon: siVimeo,
     data: VIMEO_DEMO_DATA
   },
   {
     id: 'producthunt',
     label: 'Product Hunt',
     url: PRODUCTHUNT_DEMO_DATA.url,
-    icon: 'https://cdn.microlink.io/data/assets/producthunt.com!posts!macos-mojave/logo.clearbit.com!producthunt.com.png',
+    icon: siProducthunt,
     data: PRODUCTHUNT_DEMO_DATA
   },
   {
     id: 'ted',
     label: 'TED',
     url: TED_DEMO_DATA.url,
-    icon: 'https://cdn.microlink.io/data/assets/ted.com!talks!jia_jiang_what_i_learned_from_100_days_of_rejection/logo.clearbit.com!ted.com.png',
+    icon: siTed,
     data: TED_DEMO_DATA
   }
 ]
@@ -393,7 +394,7 @@ const HeroDemoButton = styled('button')`
   ${theme({
     display: 'inline-flex',
     alignItems: 'center',
-    gap: 1,
+    gap: 2,
     px: 2,
     py: 1,
     borderRadius: 4,
@@ -411,13 +412,10 @@ const HeroDemoButton = styled('button')`
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 
-  & img {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    object-fit: contain;
+  & svg {
+    width: 14px;
+    height: 14px;
     flex-shrink: 0;
-    background: ${colors.white};
   }
 
   &:hover {
@@ -741,9 +739,9 @@ const Hero = function Hero ({
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            One API call turns any URL into rich preview data and a
-            ready-to-paste iframe. 280+ oEmbed providers, no scraping,
-            edge-cached globally — built for developers.
+            One API call turns any URL into a ready-to-paste iframe — YouTube
+            players, Spotify tracks, Tweet widgets, Figma boards, and 280+ more
+            oEmbed providers. No scraping, edge-cached globally — bevelopers.
           </Caption>
 
           <Flex
@@ -818,39 +816,37 @@ const Hero = function Hero ({
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </HeroCopyButton>
               </HeroApiBar>
             </HeroPreviewShell>
@@ -1458,7 +1454,13 @@ export const InteractiveExample = ({
               aria-pressed={isActive}
               onClick={() => setActiveDemo(demo)}
             >
-              <img src={demo.icon} alt='' loading='lazy' decoding='async' />
+              <svg
+                aria-hidden='true'
+                viewBox='0 0 24 24'
+                fill={isActive ? 'currentColor' : `#${demo.icon.hex}`}
+              >
+                <path d={demo.icon.path} />
+              </svg>
               <span>{demo.label}</span>
             </HeroDemoButton>
           )
@@ -1492,39 +1494,37 @@ export const InteractiveExample = ({
             onClick={handleCopy}
             aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
           >
-            {isCopied
-              ? (
-                <svg
-                  className='icon-check'
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='none'
-                  aria-hidden='true'
-                >
-                  <path
-                    d='M3 8l3.5 3.5L13 4.5'
-                    stroke='currentColor'
-                    strokeWidth='1.8'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
-                )
-              : (
-                <svg
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='currentColor'
-                  aria-hidden='true'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                  />
-                </svg>
-                )}
+            {isCopied ? (
+              <svg
+                className='icon-check'
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='none'
+                aria-hidden='true'
+              >
+                <path
+                  d='M3 8l3.5 3.5L13 4.5'
+                  stroke='currentColor'
+                  strokeWidth='1.8'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            ) : (
+              <svg
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='currentColor'
+                aria-hidden='true'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                />
+              </svg>
+            )}
           </ExampleCopyButton>
         </ExampleFooter>
       )}
@@ -1696,7 +1696,7 @@ const CopyPasteEmbed = () => (
             width: '100%'
           })}
         >
-          Rich link preview snippets for any URL
+          Ready-to-paste iframe snippets for any URL
         </Text>
         <Caption
           forwardedAs='div'
@@ -1869,7 +1869,7 @@ const Clients = () => (
       alignItems: 'center',
       maxWidth: layout.large,
       pt: [3, 3, 2, 2],
-      pb: [5, 5, 5, 5]
+      pb: [5, 5, 6, 6]
     })}
   >
     <Caps
@@ -2017,20 +2017,6 @@ const Pricing = () => {
             variant='gradient'
             css={theme({ fontSize: ['34px', '42px', '54px', '62px'] })}
           >
-            <Text
-              as='span'
-              css={theme({
-                display: 'block',
-                fontSize: [0, 1, 1, 1],
-                fontWeight: 'bold',
-                color: 'black60',
-                letterSpacing: 3,
-                textTransform: 'uppercase',
-                pb: 2
-              })}
-            >
-              Embed API Pricing
-            </Text>
             Start free, scale when ready
           </Subhead>
           <Caption
@@ -2498,14 +2484,14 @@ const EMBED_FEATURES = [
       'Embed responses are cached and distributed across 240+ edge locations powered by Cloudflare, ensuring sub-second link previews worldwide.'
   },
   {
-    title: 'Customizable to Your Design',
+    title: 'Customize the Embed Appearance',
     description:
-      'Build cards from the metadata fields with your own HTML/CSS, or theme the SDK through `--microlink-*` variables and BEM class hooks.'
+      "Theme the SDK component through `--microlink-*` CSS variables and BEM class hooks, or pass iframe attributes (width, height, theme) to control the provider's native player."
   },
   {
     title: 'Card or Iframe — Your Choice',
     description:
-      "Pass `iframe=true` to get the provider's real player (YouTube, Spotify, Tweet) or use the metadata fields to render a static rich card. Same data, two presentations."
+      "Pass `iframe=true` to get the provider's real player (YouTube, Spotify, Tweet) or use the metadata fields to render a static card. Same data, two presentations."
   },
   {
     title: 'Free to Start',
@@ -2599,8 +2585,8 @@ const CallToAction = () => (
           fontSize: [2, 2, 3, 3]
         })}
       >
-        Call the API directly for a ready-to-paste iframe and rich preview data,
-        or drop in the optional SDK for zero-code rendering. Free to start, no
+        Call the API directly for a ready-to-paste iframe and oEmbed payload, or
+        drop in the optional SDK for zero-code rendering. Free to start, no
         credit card, no commitment.
       </Caption>
       <Flex
@@ -2657,25 +2643,22 @@ const CallToAction = () => (
 
 const TOP_FAQ_ITEMS = [
   {
-    question:
-      'Can Microlink preview URLs behind Cloudflare, antibot walls, or CAPTCHAs?',
-    text: 'Yes. Microlink routes requests through a rotating residential proxy network and renders pages in a real headless browser, so it can fetch URLs protected by Cloudflare, DataDome, PerimeterX, hCaptcha, reCAPTCHA, and similar anti-bot systems. The response shape stays identical — title, description, image, logo, iframe — so URLs that would normally return 403 or block a scraper still come back with a usable preview. Proxy rotation is available on Pro plans.',
+    question: 'What is an embed API and how is it different from oEmbed?',
+    text: "An embed API takes any URL as input and returns ready-to-paste embed HTML, typically an iframe with the provider's native player or widget. oEmbed is the open spec most providers (YouTube, Spotify, Twitter) implement to expose embed data; Microlink consumes oEmbed where available and falls back to Open Graph, JSON-LD, and headless rendering everywhere else — so every URL returns a usable embed, even when the source does not implement oEmbed.",
     answer: (
       <>
         <div>
-          Yes. Microlink routes requests through a{' '}
-          <b>rotating residential proxy network</b> and renders pages in a real
-          headless browser. URLs gated by Cloudflare, DataDome, PerimeterX,
-          hCaptcha, reCAPTCHA, or similar anti-bot systems are fetched and
-          rendered the same way a real visitor sees them.
+          An <b>embed API</b> takes any URL as input and returns ready-to-paste
+          embed HTML, typically an iframe with the provider's native player or
+          widget. <Link href='https://oembed.com'>oEmbed</Link> is the open spec
+          that most providers (YouTube, Spotify, Twitter) implement to expose
+          embed data.
         </div>
         <div>
-          The response shape stays identical — title, description, image, logo,
-          iframe — so URLs that would normally return <code>403</code> or block
-          a scraper still come back with a usable preview. Proxy rotation is
-          part of <Link href='/pricing'>Pro plans</Link>; see the{' '}
-          <Link href='/docs/api/parameters/proxy'>proxy parameter</Link> for
-          configuration.
+          Microlink consumes oEmbed where available and falls back to Open
+          Graph, JSON-LD, and headless rendering everywhere else — so every URL
+          returns a usable embed, even when the source does not implement
+          oEmbed.
         </div>
       </>
     )
@@ -2694,48 +2677,6 @@ const TOP_FAQ_ITEMS = [
           For production workloads above the free tier,{' '}
           <Link href='/pricing'>Pro plans</Link> start at €39 per month with
           higher rate limits, proxy rotation, and priority support.
-        </div>
-      </>
-    )
-  },
-  {
-    question: 'What is link unfurling and does Microlink support it?',
-    text: 'Link unfurling is the process of expanding a plain URL into a rich preview with title, description, image, and provider metadata — like Slack, Discord, and iMessage do automatically. Microlink is a link unfurling API: pass any URL and the response includes normalized metadata you can render as a card, an iframe, or feed into your own preview component. Use it to add link previews to chat apps, knowledge bases, dashboards, and CMS editors.',
-    answer: (
-      <>
-        <div>
-          <b>Link unfurling</b> is the process of expanding a plain URL into a
-          rich preview with title, description, image, and provider metadata —
-          like Slack, Discord, and iMessage do automatically.
-        </div>
-        <div>
-          Microlink is a <b>link unfurling API</b>: pass any URL and the
-          response includes normalized metadata you can render as a card, an
-          iframe, or feed into your own preview component. Use it to add link
-          previews to chat apps, knowledge bases, dashboards, and CMS editors —
-          see the <Link href='/docs/guides/embed'>embed guide</Link> for
-          runnable examples.
-        </div>
-      </>
-    )
-  },
-  {
-    question: 'What is an embed API and how is it different from oEmbed?',
-    text: 'An embed API takes any URL as input and returns ready-to-render HTML, an iframe payload, or rich card metadata. oEmbed is the open spec most providers (YouTube, Spotify, Twitter) implement to expose embed data; Microlink consumes oEmbed where available and falls back to Open Graph, JSON-LD, and headless rendering everywhere else — so every URL returns a usable embed, even when the source does not implement oEmbed.',
-    answer: (
-      <>
-        <div>
-          An <b>embed API</b> takes any URL as input and returns ready-to-render
-          HTML, an iframe payload, or rich card metadata.{' '}
-          <Link href='https://oembed.com'>oEmbed</Link> is the open spec that
-          most providers (YouTube, Spotify, Twitter) implement to expose embed
-          data.
-        </div>
-        <div>
-          Microlink consumes oEmbed where available and falls back to Open
-          Graph, JSON-LD, and headless rendering everywhere else — so every URL
-          returns a usable embed, even when the source does not implement
-          oEmbed.
         </div>
       </>
     )
@@ -2795,6 +2736,56 @@ const TOP_FAQ_ITEMS = [
           <Link href='/docs/sdk/integrations/vue/'>Vue</Link>, and{' '}
           <Link href='/docs/sdk/integrations/vanilla/'>vanilla</Link> guides for
           deeper integration.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'How do I embed a TikTok or Instagram post on my site?',
+    text: 'Pass the TikTok or Instagram URL to the Microlink Embed API with iframe=true and the response includes the provider\'s native embed snippet — the same widget TikTok and Instagram ship via oEmbed. Drop the HTML into your page and the post renders inline, with native interactions preserved. The Microlink SDK does the same thing zero-code: <Microlink url="https://tiktok.com/..." media="iframe" />.',
+    answer: (
+      <>
+        <div>
+          Pass the TikTok or Instagram URL to the Microlink Embed API with{' '}
+          <code>iframe=true</code> and the response includes the provider's
+          native embed snippet — the same widget TikTok and Instagram ship via
+          oEmbed. Drop the HTML into your page and the post renders inline, with
+          native interactions preserved. See the{' '}
+          <Link href='/docs/guides/embed/iframe'>iframe guide</Link> for the
+          full request shape.
+        </div>
+        <div>
+          The <Link href='/sdk'>Microlink SDK</Link> does the same thing
+          zero-code:{' '}
+          <code>
+            {'<Microlink url="https://tiktok.com/..." media="iframe" />'}
+          </code>{' '}
+          — the component detects the provider, fetches the embed payload, and
+          renders the native player.
+        </div>
+      </>
+    )
+  },
+  {
+    question:
+      'Can Microlink preview URLs behind Cloudflare, antibot walls, or CAPTCHAs?',
+    text: 'Yes. Microlink routes requests through a rotating residential proxy network and renders pages in a real headless browser, so it can fetch URLs protected by Cloudflare, DataDome, PerimeterX, hCaptcha, reCAPTCHA, and similar anti-bot systems. The response shape stays identical — title, description, image, logo, iframe — so URLs that would normally return 403 or block a scraper still come back with a usable preview. Proxy rotation is available on Pro plans.',
+    answer: (
+      <>
+        <div>
+          Yes. Microlink routes requests through a{' '}
+          <b>rotating residential proxy network</b> and renders pages in a real
+          headless browser. URLs gated by Cloudflare, DataDome, PerimeterX,
+          hCaptcha, reCAPTCHA, or similar anti-bot systems are fetched and
+          rendered the same way a real visitor sees them.
+        </div>
+        <div>
+          The response shape stays identical — title, description, image, logo,
+          iframe — so URLs that would normally return <code>403</code> or block
+          a scraper still come back with a usable preview. Proxy rotation is
+          part of <Link href='/pricing'>Pro plans</Link>; see the{' '}
+          <Link href='/docs/api/parameters/proxy'>proxy parameter</Link> for
+          configuration.
         </div>
       </>
     )
@@ -3072,9 +3063,9 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Embed API for Any URL — Rich Cards & oEmbed (280+ Providers)'
+    title='Embed API for Any URL — oEmbed for 280+ Providers'
     noSuffix
-    description='Embed API for any URL — get a rich card or interactive iframe in one HTTPS call. 280+ oEmbed providers, free tier, optional React / Vue / Vanilla JS SDK.'
+    description='Embed API for any URL — get a ready-to-paste iframe and oEmbed payload in one HTTPS call. 280+ providers including YouTube, Spotify, Twitter, TikTok, Figma. Free tier, optional Rla JS SDK.'
     image={cdnUrl('banner/sdk.jpeg')}
     structured={{
       '@context': 'https://schema.org',
@@ -3084,7 +3075,7 @@ export const Head = () => (
           '@id': 'https://microlink.io/embed',
           name: 'Microlink Embed API',
           description:
-            'Embed API for any URL — get a rich card or interactive iframe in one HTTPS call. 280+ oEmbed providers, free tier, optional under-10KB SDK for React, Vue, and Vanilla JavaScript. Built for developers.',
+            'Embed API for any URL — get a ready-to-paste iframe and oEmbed payload in one HTTPS call. 280+ providers including YouTube, Spotify, Twitter, TikTok, Figma. Free tier, optional Rla JS SDK.',
           url: 'https://microlink.io/embed',
           applicationCategory: ['DeveloperApplication', 'WebAPI'],
           operatingSystem: 'Web, Platform-Agnostic',
@@ -3099,7 +3090,7 @@ export const Head = () => (
             audienceType: 'Developers, Software Engineers, Product Teams'
           },
           featureList: [
-            'Embed any URL as iframe HTML or rich card',
+            'Embed any URL as iframe HTML or oEmbed payload',
             '280+ verified oEmbed providers',
             'Plain HTTPS API, no SDK install required',
             'Optional drop-in SDK for React, Vue, and Vanilla JavaScript',
@@ -3125,10 +3116,11 @@ export const Head = () => (
             'embed api',
             'oembed api',
             'embed sdk',
-            'link embed api',
             'url to embed',
-            'rich link preview',
-            'link unfurling api',
+            'url to iframe',
+            'embed youtube api',
+            'embed tweet api',
+            'iframe generator api',
             'free embed api'
           ],
           interactionStatistic: {
