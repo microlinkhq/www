@@ -59,7 +59,7 @@ const toMarkdown = async url => {
     force: true
   })
 
-  return { markdown, duration: response.headers['x-response-time'] }
+  return { markdown, duration: response.headers.get('x-response-time') }
 }
 
 exports.createSchemaCustomization = ({ actions }) => {
