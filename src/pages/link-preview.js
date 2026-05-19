@@ -26,7 +26,12 @@ import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import { Check as CheckIcon, Star as StarIcon } from 'react-feather'
+import {
+  Check as CheckIcon,
+  Star as StarIcon,
+  Terminal as TerminalIcon,
+  X as CloseIcon
+} from 'react-feather'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import CaptionBase from 'components/patterns/Caption/Caption'
@@ -35,6 +40,10 @@ import Features from 'components/patterns/Features/Features'
 import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
 import Block from 'components/patterns/Block/Block'
+import NerdStatsOverlay, {
+  extractNerdStats,
+  buildMqlQuery
+} from 'components/patterns/NerdStats/NerdStats'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
@@ -112,10 +121,14 @@ const DEMO_LINK = { data: GITHUB_DEMO_DATA }
 const HeroPreviewShell = styled(Box)`
   ${theme({
     width: '100%',
-    maxWidth: layout.large,
+    maxWidth: '620px',
     mx: 'auto',
-    bg: 'transparent'
+    bg: 'white',
+    borderRadius: 3
   })};
+  border: ${borders[1]} ${colors.black10};
+  box-shadow: 0 1px 2px ${colors.black025};
+  overflow: hidden;
 `
 
 const HERO_INPUT_MAX_WIDTH = '480px'
@@ -123,10 +136,8 @@ const HERO_INPUT_MAX_WIDTH = '480px'
 const HeroInputBar = styled('form')`
   ${theme({
     width: '100%',
-    maxWidth: HERO_INPUT_MAX_WIDTH,
-    mx: 'auto',
-    px: 0,
-    py: '10px',
+    px: 3,
+    py: 2,
     bg: 'transparent'
   })};
   display: flex;
@@ -171,11 +182,11 @@ const HeroPreviewButton = styled('button')`
     fontFamily: 'mono',
     fontSize: 0,
     fontWeight: 'bold',
-    bg: 'black',
     color: 'white',
     borderRadius: 4
   })};
-  border: ${borders[1]} ${colors.black};
+  background: ${ACCENT};
+  border: ${borders[1]} ${ACCENT};
   cursor: pointer;
   letter-spacing: 0;
   flex-shrink: 0;
@@ -188,7 +199,7 @@ const HeroPreviewButton = styled('button')`
   }
 
   &:focus-visible {
-    outline: ${borders[2]} ${colors.black40};
+    outline: ${borders[2]} ${ACCENT};
     outline-offset: ${radii[1]};
   }
 
@@ -214,14 +225,15 @@ const HeroVariantBar = styled(Flex)`
   ${theme({
     width: '100%',
     px: [2, 3, 3, 3],
-    pt: [1, 2, 2, 2],
-    pb: 0,
+    pt: 2,
+    pb: 3,
     bg: 'transparent',
     gap: 1,
     alignItems: 'center',
     flexWrap: 'wrap',
     justifyContent: 'center'
   })};
+  border-bottom: ${borders[1]} ${colors.black10};
 `
 
 const VariantButton = styled('button')`
@@ -259,45 +271,44 @@ const HeroPreviewBody = styled(Box)`
   ${theme({
     width: '100%',
     bg: 'transparent',
-    px: [3, 3, 4, 4],
-    pt: [2, 2, 3, 3],
-    pb: [1, 1, 2, 2]
+    px: [4, 4, 5, 5],
+    py: [4, 4, 4, 4]
   })};
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 480px;
+  height: 460px;
   overflow: hidden;
 `
 
 const HeroApiBar = styled(Flex)`
   ${theme({
     width: '100%',
-    maxWidth: HERO_INPUT_MAX_WIDTH,
-    mx: 'auto',
-    bg: 'transparent',
+    bg: 'black025',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     gap: 2,
-    px: 0,
-    pt: 0,
-    pb: '10px',
+    px: 3,
+    py: 2,
     minWidth: 0
   })};
+  border-top: ${borders[1]} ${colors.black10};
 `
 
 const HeroApiUrl = styled('span')`
   ${theme({
-    fontSize: ['13px', '13px', '14px', '14px'],
+    fontSize: ['12px', '13px', '13px', '13px'],
     fontFamily: 'mono',
     letterSpacing: 0,
     minWidth: 0,
-    color: 'black70',
-    textAlign: 'center'
+    color: 'black60',
+    textAlign: 'left'
   })};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex: 1;
 
   strong {
     color: ${colors.black};
@@ -341,6 +352,60 @@ const HeroCopyButton = styled('button')`
   }
 `
 
+const HeroNerdButton = styled('button')`
+  ${theme({
+    p: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 2
+  })};
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 6;
+  background: ${({ $active }) => ($active ? colors.white10 : colors.white90)};
+  color: ${({ $active }) => ($active ? colors.white : colors.black60)};
+  border: ${borders[1]}
+    ${({ $active }) => ($active ? colors.white20 : colors.black10)};
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: color ${transition.short}, border-color ${transition.short},
+    background ${transition.short}, transform ${transition.short};
+
+  &:hover {
+    color: ${({ $active }) => ($active ? colors.white : colors.black)};
+    border-color: ${({ $active }) =>
+      $active ? colors.white40 : colors.black40};
+    background: ${({ $active }) => ($active ? colors.white20 : colors.white)};
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: ${borders[2]}
+      ${({ $active }) => ($active ? colors.white40 : colors.black40)};
+    outline-offset: ${radii[1]};
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  &:disabled:hover {
+    color: ${colors.black60};
+    border-color: ${colors.black10};
+    background: ${colors.white90};
+  }
+`
+
 const fallbackCopy = text => {
   try {
     const el = document.createElement('textarea')
@@ -363,7 +428,8 @@ const Hero = function Hero ({
   isLoading,
   onSubmit,
   chipId,
-  onChipChange
+  onChipChange,
+  response
 }) {
   return (
     <Container
@@ -457,6 +523,7 @@ const Hero = function Hero ({
             onSubmit={onSubmit}
             chipId={chipId}
             onChipChange={onChipChange}
+            response={response}
           />
         </Flex>
       </Flex>
@@ -830,9 +897,11 @@ const CapabilityTool = ({
   isLoading,
   onSubmit,
   chipId,
-  onChipChange
+  onChipChange,
+  response
 }) => {
   const [isCopied, setIsCopied] = useState(false)
+  const [showNerdStats, setShowNerdStats] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [placeholderText, setPlaceholderText] = useState(
     INITIAL_PLACEHOLDER_URL
@@ -910,6 +979,9 @@ const CapabilityTool = ({
   }
 
   const apiUrl = `https://api.microlink.io?url=${data.url}`
+  const nerdStats = extractNerdStats(response?.headers)
+  const nerdQuery = buildMqlQuery(data.url, { meta: true })
+  const nerdResponse = JSON.stringify(data, null, 2)
 
   const handleCopy = () => {
     const markCopied = () => {
@@ -974,6 +1046,27 @@ const CapabilityTool = ({
 
         <HeroPreviewBody>
           <CapabilityVariantPreview chipId={chipId} data={data} />
+          <HeroNerdButton
+            type='button'
+            $active={showNerdStats}
+            disabled={!nerdStats}
+            onClick={() => setShowNerdStats(s => !s)}
+            aria-label={showNerdStats ? 'Hide nerd stats' : 'Show nerd stats'}
+            aria-pressed={showNerdStats}
+          >
+            {showNerdStats ? (
+              <CloseIcon size={16} aria-hidden='true' />
+            ) : (
+              <TerminalIcon size={16} aria-hidden='true' />
+            )}
+          </HeroNerdButton>
+          {showNerdStats && nerdStats && (
+            <NerdStatsOverlay
+              stats={nerdStats}
+              mqlQuery={nerdQuery}
+              responseData={nerdResponse}
+            />
+          )}
         </HeroPreviewBody>
 
         <HeroApiBar>
@@ -986,39 +1079,37 @@ const CapabilityTool = ({
             onClick={handleCopy}
             aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
           >
-            {isCopied
-              ? (
-                <svg
-                  className='icon-check'
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='none'
-                  aria-hidden='true'
-                >
-                  <path
-                    d='M3 8l3.5 3.5L13 4.5'
-                    stroke='currentColor'
-                    strokeWidth='1.8'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
-                )
-              : (
-                <svg
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='currentColor'
-                  aria-hidden='true'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                  />
-                </svg>
-                )}
+            {isCopied ? (
+              <svg
+                className='icon-check'
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='none'
+                aria-hidden='true'
+              >
+                <path
+                  d='M3 8l3.5 3.5L13 4.5'
+                  stroke='currentColor'
+                  strokeWidth='1.8'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            ) : (
+              <svg
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='currentColor'
+                aria-hidden='true'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                />
+              </svg>
+            )}
           </HeroCopyButton>
         </HeroApiBar>
       </HeroPreviewShell>
@@ -2621,7 +2712,7 @@ export const Head = () => (
 
 // ─── Page Assembly ────────────────────────────────────────────────────────────
 
-const LinkPreviewBody = ({ status, doFetch, data }) => {
+const LinkPreviewBody = ({ status, doFetch, data, response }) => {
   const [chipId, setChipId] = useState('hero')
 
   const isLoading = status === 'fetching'
@@ -2635,6 +2726,7 @@ const LinkPreviewBody = ({ status, doFetch, data }) => {
         onSubmit={doFetch}
         chipId={chipId}
         onChipChange={setChipId}
+        response={response}
       />
       <Timings />
       <Capabilities data={unifiedData} />
