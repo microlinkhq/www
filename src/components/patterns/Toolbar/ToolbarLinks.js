@@ -22,6 +22,7 @@ import {
   Maximize,
   Zap,
   FileText,
+  Link as LinkIcon,
   Link2
 } from 'react-feather'
 import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
@@ -168,10 +169,10 @@ export const NAVIGATION_SECTIONS = [
         icon: FocusIcon
       }),
       createNavigationItem({
-        label: 'Embed',
-        href: '/embed',
-        description: 'Turn any URL into a rich, embeddable card',
-        icon: Code
+        label: 'Link Preview',
+        href: '/link-preview',
+        description: 'Turn any URL into a beautiful link preview',
+        icon: LinkIcon
       }),
       createNavigationItem({
         label: 'Markdown',
@@ -186,22 +187,28 @@ export const NAVIGATION_SECTIONS = [
         icon: MetascraperIcon
       }),
       createNavigationItem({
+        label: 'Embed',
+        href: '/embed',
+        description: 'Turn any URL into a rich, embeddable card',
+        icon: Code
+      }),
+      createNavigationItem({
         label: 'PDF',
         href: '/pdf',
         description: 'Create production-ready PDFs from live webpages',
         icon: PDFIcon
       }),
       createNavigationItem({
-        label: 'Insights',
-        href: '/insights',
-        description: 'Run lighthouse insights across pages at scale',
-        icon: LighthouseIcon
-      }),
-      createNavigationItem({
         label: 'Logo',
         href: '/logo',
         description: 'Fetch favicons and logos from websites',
         icon: Image
+      }),
+      createNavigationItem({
+        label: 'Insights',
+        href: '/insights',
+        description: 'Run lighthouse insights across pages at scale',
+        icon: LighthouseIcon
       }),
       createNavigationItem({
         label: 'Unavatar',

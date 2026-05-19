@@ -23,13 +23,14 @@ const FOOTER_COLUMNS = [
   {
     title: 'Products',
     links: [
-      { label: 'Embed', href: '/embed' },
-      { label: 'Insights', href: '/insights' },
-      { label: 'Logo', href: '/logo' },
+      { label: 'Screenshot', href: '/screenshot' },
+      { label: 'Link Preview', href: '/link-preview' },
       { label: 'Markdown', href: '/markdown' },
       { label: 'Metadata', href: '/metadata' },
+      { label: 'Embed', href: '/embed' },
       { label: 'PDF', href: '/pdf' },
-      { label: 'Screenshot', href: '/screenshot' },
+      { label: 'Logo', href: '/logo' },
+      { label: 'Insights', href: '/insights' },
       { label: 'Unavatar', href: 'https://unavatar.io' }
     ],
     sections: [
