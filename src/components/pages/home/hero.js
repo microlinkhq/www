@@ -86,10 +86,10 @@ const GRID_ITEMS = [
     href: '/screenshot'
   },
   {
-    title: 'Embed',
-    subtitle: 'Drop-in cards and iframes from any URL',
+    title: 'Link Preview',
+    subtitle: 'Beautiful previews for any URL',
     color: '#449bf8',
-    href: '/embed'
+    href: '/link-preview'
   },
   {
     title: 'Markdown',
