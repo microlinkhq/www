@@ -36,7 +36,6 @@ import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
 import Block from 'components/patterns/Block/Block'
 import LinkPreviewRaw from '@microlink/react'
-import Microlink from 'components/patterns/Microlink/Microlink'
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 import {
@@ -116,7 +115,7 @@ const YOUTUBE_DEMO_DATA = {
     color: '#320000'
   },
   iframe: {
-    html: '<iframe width="480" height="270" src="https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+    html: '<iframe width="640" height="360" src="https://www.youtube.com/embed/9P6rdqiybaw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
     scripts: []
   }
 }
@@ -172,32 +171,6 @@ const VIMEO_DEMO_DATA = {
   }
 }
 
-const PRODUCTHUNT_DEMO_DATA = {
-  title:
-    'macOS Mojave - The next generation of software for Macs | Product Hunt',
-  description:
-    'Stay better focused on your work in Dark Mode. Automatically organize files using Stacks. Take more kinds of screenshots with less effort.',
-  url: 'https://www.producthunt.com/posts/macos-mojave',
-  publisher: 'Product Hunt',
-  image: {
-    url: 'https://cdn.microlink.io/data/assets/producthunt.com!posts!macos-mojave/ph-files.imgix.net!871df586-9f3b-41ce-8335-e01993da117a!auto=format&fit=crop&h=512&w=1024.jpg',
-    palette: ['#3AACC6', '#FAE4C2', '#A06C24', '#5E86B1', '#D1AB9D', '#334054'],
-    background_color: '#FAE4C2',
-    color: '#236878',
-    alternative_color: '#8C5F20'
-  },
-  logo: {
-    url: 'https://cdn.microlink.io/data/assets/producthunt.com!posts!macos-mojave/logo.clearbit.com!producthunt.com.png',
-    palette: ['#DC542C', '#ECA494', '#712812', '#832E15', '#812A17'],
-    background_color: '#DC542C',
-    color: '#2C1007'
-  },
-  iframe: {
-    html: '<iframe style="border: none;" src="https://cards.producthunt.com/cards/posts/128194?v=1" width="500" height="405" frameborder="0" scrolling="no" allowfullscreen></iframe>',
-    scripts: []
-  }
-}
-
 const TED_DEMO_DATA = {
   title: 'What I learned from 100 days of rejection',
   description:
@@ -224,15 +197,92 @@ const TED_DEMO_DATA = {
   }
 }
 
+const SOUNDCLOUD_DEMO_DATA = {
+  title: 'Wake Me Up',
+  description:
+    "Avicii's 2013 anthem — over a billion plays on SoundCloud and counting. Uploaded by the official Avicii channel.",
+  url: 'https://soundcloud.com/aviciiofficial/wake-me-up',
+  publisher: 'SoundCloud',
+  author: 'Avicii',
+  image: {
+    url: 'https://api.microlink.io/?url=https%3A%2F%2Fsoundcloud.com%2Faviciiofficial%2Fwake-me-up&embed=image.url',
+    palette: ['#FF5500', '#1A1A1A', '#FFFFFF', '#FF7733', '#333333', '#FFB088'],
+    background_color: '#FF5500',
+    color: '#FFFFFF',
+    alternative_color: '#1A1A1A'
+  },
+  logo: {
+    url: 'https://api.microlink.io/?url=https%3A%2F%2Fsoundcloud.com&embed=logo.url',
+    palette: ['#FF5500', '#FF7733', '#CC4400', '#FFB088', '#993300'],
+    background_color: '#FF5500',
+    color: '#FFFFFF'
+  },
+  iframe: {
+    html: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/aviciiofficial/wake-me-up&color=%23ff5500&inverse=false&auto_play=false&show_user=true"></iframe>',
+    scripts: []
+  }
+}
+
+const PRODUCTHUNT_DEMO_DATA = {
+  lang: 'en',
+  title: 'Notion: The all-in-one workspace | Product Hunt',
+  description:
+    'Notion is an all-in-one workspace that combines note-taking, project management, and task organization. It allows users to create customized databases, documents, and calendars to streamline their personal and professional workflows.',
+  url: 'https://www.producthunt.com/products/notion',
+  publisher: 'Product Hunt',
+  author: 'Simon Last and Jake Teton-Landis and Gilbert Zhang',
+  image: {
+    url: 'https://ph-files.imgix.net/ec03bc21-2f1c-492f-aa41-69bee47d631a.jpeg?auto=format&fit=crop&frame=1&h=512&w=1024',
+    type: 'jpg',
+    size: 72322,
+    height: 512,
+    width: 1024,
+    size_pretty: '72.3 kB',
+    palette: ['#DA552F', '#FFFFFF', '#1A1A1A', '#FF7E5A', '#7E2F12', '#FFD9CB'],
+    background_color: '#DA552F',
+    color: '#FFFFFF',
+    alternative_color: '#1A1A1A'
+  },
+  logo: {
+    url: 'https://ph-static.imgix.net/ph-favicon-brand-500.ico',
+    type: 'ico',
+    size: 238142,
+    height: 240,
+    width: 240,
+    size_pretty: '238 kB',
+    palette: ['#DA552F', '#FF7E5A', '#7E2F12', '#FFD9CB', '#A03A1A'],
+    background_color: '#DA552F',
+    color: '#FFFFFF'
+  },
+  iframe: {
+    html: '<iframe style="border: none;" src="https://cards.producthunt.com/cards/products/notion" width="500" height="405" frameborder="0" scrolling="no" allowfullscreen></iframe>',
+    scripts: []
+  }
+}
+
 const DEMO_LINK = { data: STRIPE_DEMO_DATA }
 
 const HERO_DEMOS = [
   {
-    id: 'youtube',
-    label: 'YouTube',
-    url: YOUTUBE_DEMO_DATA.url,
-    icon: siYoutube,
-    data: YOUTUBE_DEMO_DATA
+    id: 'ted',
+    label: 'TED',
+    url: TED_DEMO_DATA.url,
+    icon: siTed,
+    data: TED_DEMO_DATA
+  },
+  {
+    id: 'soundcloud',
+    label: 'SoundCloud',
+    url: SOUNDCLOUD_DEMO_DATA.url,
+    icon: siSoundcloud,
+    data: SOUNDCLOUD_DEMO_DATA
+  },
+  {
+    id: 'producthunt',
+    label: 'Product Hunt',
+    url: PRODUCTHUNT_DEMO_DATA.url,
+    icon: siProducthunt,
+    data: PRODUCTHUNT_DEMO_DATA
   },
   {
     id: 'spotify',
@@ -249,18 +299,11 @@ const HERO_DEMOS = [
     data: VIMEO_DEMO_DATA
   },
   {
-    id: 'producthunt',
-    label: 'Product Hunt',
-    url: PRODUCTHUNT_DEMO_DATA.url,
-    icon: siProducthunt,
-    data: PRODUCTHUNT_DEMO_DATA
-  },
-  {
-    id: 'ted',
-    label: 'TED',
-    url: TED_DEMO_DATA.url,
-    icon: siTed,
-    data: TED_DEMO_DATA
+    id: 'youtube',
+    label: 'YouTube',
+    url: YOUTUBE_DEMO_DATA.url,
+    icon: siYoutube,
+    data: YOUTUBE_DEMO_DATA
   }
 ]
 
@@ -741,7 +784,8 @@ const Hero = function Hero ({
           >
             One API call turns any URL into a ready-to-paste iframe — YouTube
             players, Spotify tracks, Tweet widgets, Figma boards, and 280+ more
-            oEmbed providers. No scraping, edge-cached globally — bevelopers.
+            oEmbed providers. No scraping, edge-cached globally — built for
+            developers.
           </Caption>
 
           <Flex
@@ -816,39 +860,37 @@ const Hero = function Hero ({
                   onClick={handleCopy}
                   aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
                 >
-                  {isCopied
-                    ? (
-                      <svg
-                        className='icon-check'
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='none'
-                        aria-hidden='true'
-                      >
-                        <path
-                          d='M3 8l3.5 3.5L13 4.5'
-                          stroke='currentColor'
-                          strokeWidth='1.8'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                        />
-                      </svg>
-                      )
-                    : (
-                      <svg
-                        width='16'
-                        height='16'
-                        viewBox='0 0 16 16'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                        />
-                      </svg>
-                      )}
+                  {isCopied ? (
+                    <svg
+                      className='icon-check'
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      aria-hidden='true'
+                    >
+                      <path
+                        d='M3 8l3.5 3.5L13 4.5'
+                        stroke='currentColor'
+                        strokeWidth='1.8'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width='16'
+                      height='16'
+                      viewBox='0 0 16 16'
+                      fill='currentColor'
+                      aria-hidden='true'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                      />
+                    </svg>
+                  )}
                 </HeroCopyButton>
               </HeroApiBar>
             </HeroPreviewShell>
@@ -1083,16 +1125,14 @@ const CAPABILITIES = [
         strokeLinejoin='round'
         aria-hidden='true'
       >
-        <polyline points='14 2 18 6 7 17 3 17 3 13 14 2' />
-        <line x1='3' y1='22' x2='21' y2='22' />
+        <polyline points='16 18 22 12 16 6' />
+        <polyline points='8 6 2 12 8 18' />
       </svg>
     ),
-    title: 'Custom card from the metadata',
+    title: 'Iframe attribute from the response',
     description:
-      'Call the API for any URL and use the normalized fields — title, description, image, logo, palette — to render previews with your own HTML and CSS.',
-    links: [
-      { label: 'Custom embed guide', href: '/docs/guides/embed/metadata-api' }
-    ]
+      "The API response includes a ready-to-paste HTML snippet — the provider's real player. Drop it straight into your markup. Works across 280+ supported webpages: YouTube, Spotify, Vimeo, X, TikTok, Canva, Figma...",
+    links: [{ label: 'Iframe guide', href: '/docs/guides/embed/iframe' }]
   },
   {
     icon: (
@@ -1116,28 +1156,6 @@ const CAPABILITIES = [
     description:
       'Drop in <Microlink /> for React, Vue, or vanilla JS — under 10KB, lazy-loaded by default. Pass any URL and let the SDK fetch, theme, and render it. Customizable through props, CSS variables, and stable BEM class hooks.',
     links: [{ label: 'Explore the SDK', href: '/sdk' }]
-  },
-  {
-    icon: (
-      <svg
-        width='20'
-        height='20'
-        viewBox='0 0 24 24'
-        fill='none'
-        stroke='currentColor'
-        strokeWidth='2'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        aria-hidden='true'
-      >
-        <polyline points='16 18 22 12 16 6' />
-        <polyline points='8 6 2 12 8 18' />
-      </svg>
-    ),
-    title: 'Iframe attribute from the response',
-    description:
-      "The API response includes a ready-to-paste HTML snippet — the provider's real player. Drop it straight into your markup. Works across 280+ supported webpages: YouTube, Spotify, Vimeo, X, TikTok, Canva, Figma...",
-    links: [{ label: 'Iframe guide', href: '/docs/guides/embed/iframe' }]
   }
 ]
 
@@ -1354,7 +1372,7 @@ export const InteractiveExample = ({
   flat = false,
   hideFooter = false
 } = {}) => {
-  const [source, setSource] = useState('custom')
+  const [source, setSource] = useState('iframe')
   const [activeDemo, setActiveDemo] = useState(HERO_DEMOS[0])
   const [isCopied, setIsCopied] = useState(false)
   const copyTimerRef = useRef(null)
@@ -1362,7 +1380,7 @@ export const InteractiveExample = ({
   const demoUrl = activeDemo.url
   const iframeHtml = activeDemo.data?.iframe?.html || ''
 
-  const apiUrl = `https://api.microlink.io?url=${demoUrl}&iframe`
+  const apiUrl = `https://api.microlink.io?iframe&url=${demoUrl}`
   const metadataUrl = `https://api.microlink.io?url=${demoUrl}`
   const sdkLine = `<Microlink url='${demoUrl}' />`
   const copyText =
@@ -1393,11 +1411,11 @@ export const InteractiveExample = ({
           <ToggleButton
             type='button'
             role='tab'
-            aria-selected={source === 'custom'}
-            $active={source === 'custom'}
-            onClick={() => setSource('custom')}
+            aria-selected={source === 'iframe'}
+            $active={source === 'iframe'}
+            onClick={() => setSource('iframe')}
           >
-            Custom
+            Iframe
           </ToggleButton>
           <ToggleButton
             type='button'
@@ -1411,11 +1429,11 @@ export const InteractiveExample = ({
           <ToggleButton
             type='button'
             role='tab'
-            aria-selected={source === 'iframe'}
-            $active={source === 'iframe'}
-            onClick={() => setSource('iframe')}
+            aria-selected={source === 'custom'}
+            $active={source === 'custom'}
+            onClick={() => setSource('custom')}
           >
-            Iframe
+            Custom
           </ToggleButton>
         </ToggleGroup>
       </ExampleToolbar>
@@ -1428,13 +1446,13 @@ export const InteractiveExample = ({
         )}
         {source === 'sdk' && (
           <ExampleIframeFrame>
-            <Microlink
+            <LinkPreviewRaw
               key={`sdk-${demoUrl}`}
               url={demoUrl}
               size='large'
               media={['video', 'audio', 'image', 'logo']}
               fetchData={false}
-              setData={() => activeDemo.data}
+              setData={activeDemo.data}
             />
           </ExampleIframeFrame>
         )}
@@ -1473,8 +1491,8 @@ export const InteractiveExample = ({
           <ExampleFooterText>
             {source === 'iframe' && (
               <>
-                {`https://api.microlink.io?url=${demoUrl}`}
-                <strong>&iframe</strong>
+                <strong>https://api.microlink.io?iframe&url=</strong>
+                {demoUrl}
               </>
             )}
             {source === 'sdk' && (
@@ -1496,39 +1514,37 @@ export const InteractiveExample = ({
             onClick={handleCopy}
             aria-label={isCopied ? 'Copied!' : 'Copy to clipboard'}
           >
-            {isCopied
-              ? (
-                <svg
-                  className='icon-check'
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='none'
-                  aria-hidden='true'
-                >
-                  <path
-                    d='M3 8l3.5 3.5L13 4.5'
-                    stroke='currentColor'
-                    strokeWidth='1.8'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
-                )
-              : (
-                <svg
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='currentColor'
-                  aria-hidden='true'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                  />
-                </svg>
-                )}
+            {isCopied ? (
+              <svg
+                className='icon-check'
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='none'
+                aria-hidden='true'
+              >
+                <path
+                  d='M3 8l3.5 3.5L13 4.5'
+                  stroke='currentColor'
+                  strokeWidth='1.8'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            ) : (
+              <svg
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='currentColor'
+                aria-hidden='true'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                />
+              </svg>
+            )}
           </ExampleCopyButton>
         </ExampleFooter>
       )}
@@ -1545,7 +1561,7 @@ const Capabilities = () => (
       maxWidth: '100%',
       bg: 'pinky',
       px: [3, 3, 4, 5],
-      py: SECTION_VERTICAL_SPACING
+      py: [5, 5, 6, 6]
     })}
   >
     <Flex
@@ -1586,7 +1602,7 @@ const Capabilities = () => (
             width: '100%'
           })}
         >
-          Three ways to embed any URL
+          Two ways to embed any URL
           <LineBreak />
           <span css={{ color: ACCENT }}>on your website</span>
         </Subhead>
@@ -1599,9 +1615,9 @@ const Capabilities = () => (
             width: '100%'
           })}
         >
-          Same API, three rendering paths. Build a fully custom card from the
-          metadata, drop in the SDK component, or paste the iframe attribute the
-          response already returns — pick whichever fits your stack.
+          Same API, two rendering paths. Drop in the SDK component, or paste the
+          iframe attribute the response already returns — pick whichever fits
+          your stack.
         </Text>
         <Flex
           css={[
@@ -1644,6 +1660,18 @@ const Capabilities = () => (
             </CapabilityItem>
           ))}
         </Flex>
+        <Text
+          css={theme({
+            fontSize: [0, 0, 1, 1],
+            color: 'black60',
+            lineHeight: 1.5,
+            textAlign: ['center', 'center', 'center', 'left'],
+            width: '100%'
+          })}
+        >
+          Need raw metadata to build your own card instead? See the{' '}
+          <Link href='/link-preview'>Link Preview API</Link>.
+        </Text>
       </Flex>
     </Flex>
   </Container>
@@ -2354,7 +2382,7 @@ import Microlink from '@microlink/react'
 
 <Microlink
   url='https://www.youtube.com/watch?v=9P6rdqiybaw'
-  apiKey='YOUR_API_KEY',
+  apiKey='YOUR_API_KEY'
   size='large'
 />
 `
@@ -3069,7 +3097,7 @@ export const Head = () => (
   <Meta
     title='Embed API for Any URL — oEmbed for 280+ Providers'
     noSuffix
-    description='Embed API for any URL — get a ready-to-paste iframe and oEmbed payload in one HTTPS call. 280+ providers including YouTube, Spotify, Twitter, TikTok, Figma. Free tier, optional Rla JS SDK.'
+    description='Embed API for any URL — get a ready-to-paste iframe and oEmbed payload in one HTTPS call. 280+ providers including YouTube, Spotify, Twitter, TikTok, Figma. Free tier, optional React / Vue / Vanilla JS SDK.'
     image={cdnUrl('banner/sdk.jpeg')}
     structured={{
       '@context': 'https://schema.org',
@@ -3079,7 +3107,7 @@ export const Head = () => (
           '@id': 'https://microlink.io/embed',
           name: 'Microlink Embed API',
           description:
-            'Embed API for any URL — get a ready-to-paste iframe and oEmbed payload in one HTTPS call. 280+ providers including YouTube, Spotify, Twitter, TikTok, Figma. Free tier, optional Rla JS SDK.',
+            'Embed API for any URL — get a ready-to-paste iframe and oEmbed payload in one HTTPS call. 280+ providers including YouTube, Spotify, Twitter, TikTok, Figma. Free tier, optional React / Vue / Vanilla JS SDK.',
           url: 'https://microlink.io/embed',
           applicationCategory: ['DeveloperApplication', 'WebAPI'],
           operatingSystem: 'Web, Platform-Agnostic',

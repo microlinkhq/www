@@ -418,8 +418,9 @@ const Hero = function Hero ({
             })}
           >
             One HTTPS call returns normalized metadata for any URL — title,
-            description, image, logo, brand palette. Render link previews,
-            unfurl URLs, or build chat-style cards entirely in your own markup.
+            description, image, logo, brand palette. Build Slack-style unfurls,
+            Discord previews, iMessage cards, or your own custom layout —
+            entirely in your own markup.
           </Caption>
 
           <Flex
@@ -436,9 +437,6 @@ const Hero = function Hero ({
           >
             <ArrowLink href='/docs/guides/embed/metadata-api'>
               Build a link preview
-            </ArrowLink>
-            <ArrowLink href='/docs/guides/embed/custom-previews-with-ai'>
-              Generate with AI
             </ArrowLink>
           </Flex>
         </Flex>
@@ -734,9 +732,9 @@ const CAPABILITIES = [
         <path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' />
       </svg>
     ),
-    title: 'Proxy rotation included in Pro',
+    title: 'Captures URLs behind Cloudflare and CAPTCHAs',
     description:
-      'Every URL is rendered through a real headless browser routed via a rotating residential proxy network. Cloudflare, DataDome, PerimeterX, hCaptcha, reCAPTCHA — pages behind antibot walls and CAPTCHAs still come back with full metadata, so your previews stay perfect even when the source would block a scraper. Proxy rotation ships with every Pro plan.',
+      'Every URL is rendered through a real headless browser routed via a rotating residential proxy network. Cloudflare, DataDome, PerimeterX, hCaptcha, reCAPTCHA — pages behind antibot walls still come back with full metadata, so your previews stay perfect even when the source would block a scraper. Proxy rotation ships with every Pro plan.',
     links: [
       { label: 'Read about the proxy', href: '/docs/api/parameters/proxy' }
     ]
@@ -760,7 +758,13 @@ const CAPABILITIES = [
     ),
     title: 'JavaScript-rendered pages, captured',
     description:
-      'React, Vue, and Next.js sites that inject metadata at runtime are captured as a real visitor sees them — no stale SSR, no empty meta tags. Smart TTL caching keeps responses fresh against source changes while delivering sub-second previews from 240+ Cloudflare edge locations.'
+      'React, Vue, and Next.js sites that inject metadata at runtime are captured as a real visitor sees them — no stale SSR, no empty meta tags. Smart TTL caching keeps responses fresh against source changes while delivering sub-second previews from 240+ Cloudflare edge locations.',
+    links: [
+      {
+        label: 'Headless rendering docs',
+        href: '/docs/api/parameters/waitUntil'
+      }
+    ]
   }
 ]
 
@@ -982,39 +986,37 @@ const CapabilityTool = ({
             onClick={handleCopy}
             aria-label={isCopied ? 'Copied!' : 'Copy API URL'}
           >
-            {isCopied
-              ? (
-                <svg
-                  className='icon-check'
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='none'
-                  aria-hidden='true'
-                >
-                  <path
-                    d='M3 8l3.5 3.5L13 4.5'
-                    stroke='currentColor'
-                    strokeWidth='1.8'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
-                )
-              : (
-                <svg
-                  width='16'
-                  height='16'
-                  viewBox='0 0 16 16'
-                  fill='currentColor'
-                  aria-hidden='true'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
-                  />
-                </svg>
-                )}
+            {isCopied ? (
+              <svg
+                className='icon-check'
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='none'
+                aria-hidden='true'
+              >
+                <path
+                  d='M3 8l3.5 3.5L13 4.5'
+                  stroke='currentColor'
+                  strokeWidth='1.8'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            ) : (
+              <svg
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
+                fill='currentColor'
+                aria-hidden='true'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z'
+                />
+              </svg>
+            )}
           </HeroCopyButton>
         </HeroApiBar>
       </HeroPreviewShell>
@@ -1148,6 +1150,18 @@ const Capabilities = ({ data }) => (
           bubble, an iOS notification, a WhatsApp chat preview — same fields,
           your markup.
         </Text>
+        <Text
+          css={theme({
+            fontSize: [0, 0, 1, 1],
+            color: 'black60',
+            lineHeight: 1.5,
+            textAlign: ['center', 'center', 'center', 'left'],
+            width: '100%'
+          })}
+        >
+          Need a ready-to-paste iframe instead? See the{' '}
+          <Link href='/embed'>Embed API</Link>.
+        </Text>
         <Flex
           css={[
             theme({ gap: [3, 3, 3, 4], width: '100%' }),
@@ -1246,8 +1260,9 @@ const CopyPastePreview = ({ data }) => (
           })}
         >
           One API call returns every piece of metadata you need — title,
-          description, image, logo, palette. Render previews that feel native to
-          your design system.
+          description, image, logo, palette. Map those fields to your own
+          components — Slack hero cards, Telegram bubbles, iOS notifications,
+          WhatsApp chat previews — all from the same payload.
         </Caption>
         <Flex
           css={theme({
@@ -1615,7 +1630,7 @@ const REPOS = [
     name: 'sdk',
     org: 'microlinkhq',
     description:
-      'Drop-in React, Vue, and vanilla JS preview component. The same metadata payload, rendered without writing markup. Pairs with the embedding tool.',
+      'Drop-in React, Vue, and vanilla JS preview component. The same metadata payload, rendered without writing markup.',
     language: 'JavaScript',
     languageColor: colors.yellow3,
     stars: '616'
@@ -1958,8 +1973,8 @@ const Playground = () => (
         })}
       >
         Skip the setup. Paste any URL and our interactive tool returns the link
-        preview payload — copy the JSON, copy the ready-to-paste embed, or
-        prototype your own custom card.
+        preview payload — copy the JSON, copy individual fields, or prototype
+        your own card.
       </Caption>
 
       <Flex
@@ -2121,8 +2136,8 @@ const CallToAction = () => (
         })}
       >
         Call the link preview API directly for the metadata payload, then render
-        whatever card style fits your design system. Free to start, no credit
-        card, no commitment.
+        the card style that fits your product — hero, inline, chat bubble,
+        notification, or your own. Free to start, no credit card.
       </Caption>
       <Flex
         css={theme({
@@ -2142,7 +2157,7 @@ const CallToAction = () => (
           href='/docs/guides/embed/custom-previews-with-ai'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
-          Generate with AI
+          Generate preview UI with AI
         </ArrowLink>
       </Flex>
       <Flex
@@ -2241,13 +2256,34 @@ const TOP_FAQ_ITEMS = [
     )
   },
   {
+    question: 'How is this different from oEmbed or an embed API?',
+    text: "oEmbed is the open spec providers like YouTube, Spotify, and Twitter implement to expose ready-to-paste embed HTML — usually an interactive iframe. An embed API like Microlink's /embed product wraps oEmbed and falls back to scraping where the provider does not support it. The link preview API focuses on the underlying data: it returns the normalized metadata payload, and leaves the rendering entirely up to you. Choose link previews when you want to control the markup; choose embeds when you want the provider's native player.",
+    answer: (
+      <>
+        <div>
+          <Link href='https://oembed.com'>oEmbed</Link> is the open spec
+          providers like YouTube, Spotify, and Twitter implement to expose
+          ready-to-paste embed HTML — usually an interactive iframe. The{' '}
+          <Link href='/embed'>Microlink embed API</Link> wraps oEmbed and falls
+          back to scraping where the provider does not support it.
+        </div>
+        <div>
+          The link preview API focuses on the underlying data: it returns the
+          normalized metadata payload, and leaves the rendering entirely up to
+          you. Choose link previews when you want to control the markup; choose
+          embeds when you want the provider's native player.
+        </div>
+      </>
+    )
+  },
+  {
     question: 'How do I build a custom URL preview from the API response?',
-    text: 'Fetch the metadata payload from https://api.microlink.io?url=<your URL>, then read data.title, data.description, data.image.url, data.logo.url, data.publisher, and data.image.palette. Map those fields into your own markup — whatever HTML and CSS fits your design system. The metadata-api guide ships a worked example, and the custom-previews-with-ai guide includes six recipes (hero card, inline, tweet, telegram, notification, chat bubble) you can paste into Cursor or Claude Code.',
+    text: 'Fetch the metadata payload from https://api.microlink.io?url=YOUR_URL, then read data.title, data.description, data.image.url, data.logo.url, data.publisher, and data.image.palette. Map those fields into your own markup — whatever HTML and CSS fits your design system. The metadata-api guide ships a worked example, and the custom-previews-with-ai guide includes six recipes (hero card, inline, tweet, telegram, notification, chat bubble) you can paste into Cursor or Claude Code.',
     answer: (
       <>
         <div>
           Fetch the payload from{' '}
-          <code>https://api.microlink.io?url=&lt;URL&gt;</code> and read{' '}
+          <code>https://api.microlink.io?url=YOUR_URL</code> and read{' '}
           <code>data.title</code>, <code>data.description</code>,{' '}
           <code>data.image.url</code>, <code>data.logo.url</code>,{' '}
           <code>data.publisher</code>, and <code>data.image.palette</code>. Map
@@ -2290,27 +2326,6 @@ const TOP_FAQ_ITEMS = [
           rotation is <b>included with every Pro plan</b>; see the{' '}
           <Link href='/docs/api/parameters/proxy'>proxy parameter</Link> for
           configuration.
-        </div>
-      </>
-    )
-  },
-  {
-    question: 'How is this different from oEmbed or an embed API?',
-    text: "oEmbed is the open spec providers like YouTube, Spotify, and Twitter implement to expose ready-to-paste embed HTML — usually an interactive iframe. An embed API like Microlink's /embed product wraps oEmbed and falls back to scraping where the provider does not support it. The link preview API focuses on the underlying data: it returns the normalized metadata payload, and leaves the rendering entirely up to you. Choose link previews when you want to control the markup; choose embeds when you want the provider's native player.",
-    answer: (
-      <>
-        <div>
-          <Link href='https://oembed.com'>oEmbed</Link> is the open spec
-          providers like YouTube, Spotify, and Twitter implement to expose
-          ready-to-paste embed HTML — usually an interactive iframe. The{' '}
-          <Link href='/embed'>Microlink embed API</Link> wraps oEmbed and falls
-          back to scraping where the provider does not support it.
-        </div>
-        <div>
-          The link preview API focuses on the underlying data: it returns the
-          normalized metadata payload, and leaves the rendering entirely up to
-          you. Choose link previews when you want to control the markup; choose
-          embeds when you want the provider's native player.
         </div>
       </>
     )
@@ -2477,9 +2492,9 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Link Preview API for Developers. URL Preview & Link Unfurling'
+    title='Link Preview API — URL Unfurling & Open Graph Metadata'
     noSuffix
-    description='Link preview API — 50 req/day free — that turns any URL into a custom preview. Normalized metadata (Open Graph, Twitter Cards, JSON-LD, oEmbed) in one JSON call. URL preview, link unfurling, proxy rotation behind antibot walls.'
+    description='Link preview API that turns any URL into a custom preview card. Normalized metadata (Open Graph, Twitter Cards, JSON-LD, oEmbed) in one JSON call. Free tier, proxy rotation for URLs behind Cloudflare and CAPTCHAs. Built for developers.'
     image={cdnUrl('banner/meta.jpeg')}
     structured={{
       '@context': 'https://schema.org',

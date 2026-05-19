@@ -24,6 +24,36 @@ A bare metadata request returns everything most previews need:
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://stripe.com' }} />
 
+The response payload looks like this:
+
+```json
+"data": {
+  "title": "Stripe | Financial Infrastructure to Grow Your Revenue",
+  "description": "Stripe is a financial services platform that helps all types of businesses accept payments, build flexible billing models, and manage money movement.",
+  "url": "https://stripe.com/",
+  "publisher": "stripe.com",
+  "lang": "en",
+  "image": {
+    "url": "https://images.stripeassets.com/fzn2n1nzq965/XtX984S1GJVsVOXFC7kMu/01988281e867728dfb09aa7793a6e3b9/Stripe.jpg?q=80",
+    "type": "jpg",
+    "size": 312818,
+    "height": 1024,
+    "width": 2048,
+    "size_pretty": "313 kB"
+  },
+  "date": "2026-05-19T13:38:48.000Z",
+  "author": "Kurtis Moyer, Lead Product Manager of Payments, Mindbody",
+  "logo": {
+    "url": "https://images.stripeassets.com/fzn2n1nzq965/4vVgZi0ZMoEzOhkcv7EVwK/8cce6fdcf2733b2ec8e99548908847ed/favicon.png?w=180&h=180",
+    "type": "png",
+    "size": 3143,
+    "height": 180,
+    "width": 180,
+    "size_pretty": "3.14 kB"
+  }
+},
+```
+
 <Figcaption>The default response includes <code>title</code>, <code>description</code>, <code>image</code>, <code>logo</code>, <code>publisher</code>, and <code>url</code>.</Figcaption>
 
 Read those fields directly from `data` and pass them into your template. No SDK install, no script tag, no iframe.
