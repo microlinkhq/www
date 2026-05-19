@@ -16,7 +16,9 @@ const PRODUCT_LANDING_SLUGS = [
   'markdown',
   'logo',
   'sdk',
-  'insights'
+  'insights',
+  'link-preview',
+  'embed'
 ]
 
 function resolveBuyEventLocation () {
@@ -93,20 +95,18 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
       css={isLoading ? loadingCss : undefined}
       {...props}
     >
-      {isLoading
-        ? (
-          <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Spinner
-              color='white'
-              width='26px'
-              height='26px'
-              style={{ padding: 0 }}
-            />
-          </Flex>
-          )
-        : (
-          <Caps css={theme({ fontSize: [0, 0, 2, 2] })}>Buy</Caps>
-          )}
+      {isLoading ? (
+        <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Spinner
+            color='white'
+            width='26px'
+            height='26px'
+            style={{ padding: 0 }}
+          />
+        </Flex>
+      ) : (
+        <Caps css={theme({ fontSize: [0, 0, 2, 2] })}>Buy</Caps>
+      )}
     </Button>
   )
 }

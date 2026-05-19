@@ -9,4 +9,7 @@ export {
   STRIPE_DEMO_DATA
 } from './PreviewCards'
 
-export { PreviewVariantsShowcase } from './PreviewVariantsShowcase'
+export {
+  PreviewVariantsShowcase,
+  PREVIEW_VARIANTS
+} from './PreviewVariantsShowcase'
