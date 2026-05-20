@@ -29,7 +29,7 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import { InteractiveExample } from 'pages/embed'
+import { InteractiveExample } from 'components/pages/embed'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)

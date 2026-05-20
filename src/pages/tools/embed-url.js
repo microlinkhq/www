@@ -2007,7 +2007,7 @@ const serializeIframeScripts = scripts => {
 }
 
 const IFRAME_SANDBOX_PERMISSIONS =
-  'allow-scripts allow-popups allow-popups-to-escape-sandbox allow-forms allow-presentation'
+  'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-presentation'
 
 const RESIZE_MESSAGE_TYPE = 'microlink-embed-resize'
 

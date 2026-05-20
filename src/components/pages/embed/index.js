@@ -13,3 +13,5 @@ export {
   PreviewVariantsShowcase,
   PREVIEW_VARIANTS
 } from './PreviewVariantsShowcase'
+
+export { InteractiveExample } from './InteractiveExample'
