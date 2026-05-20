@@ -193,11 +193,11 @@ const HeroPreviewButton = styled('button')`
     fontFamily: 'mono',
     fontSize: 0,
     fontWeight: 'bold',
-    bg: 'black',
     color: 'white',
     borderRadius: 4
   })};
-  border: ${borders[1]} ${colors.black};
+  background: ${ACCENT};
+  border: ${borders[1]} ${ACCENT};
   cursor: pointer;
   letter-spacing: 0;
   flex-shrink: 0;
@@ -210,7 +210,7 @@ const HeroPreviewButton = styled('button')`
   }
 
   &:focus-visible {
-    outline: ${borders[2]} ${colors.black40};
+    outline: ${borders[2]} ${ACCENT};
     outline-offset: ${radii[1]};
   }
 
