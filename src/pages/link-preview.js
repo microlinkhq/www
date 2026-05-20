@@ -2867,7 +2867,7 @@ export const Head = () => (
 const LinkPreviewBody = ({ status, doFetch, data, response }) => {
   const [chipId, setChipId] = useState('hero')
 
-  const isLoading = status === 'fetching' || !data
+  const isLoading = status === 'fetching'
   const unifiedData = data
 
   return (
