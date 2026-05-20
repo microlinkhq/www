@@ -28,10 +28,10 @@ import {
 import Layout from 'components/patterns/Layout'
 
 const ACCENT = {
-  text: 'orange7',
-  bgSoft: 'orange0',
-  bgEdge: 'orange1',
-  highlight: 'orange5'
+  text: 'blue7',
+  bgSoft: 'blue0',
+  bgEdge: 'blue1',
+  highlight: 'blue5'
 }
 
 /* ─── Hero ───────────────────────────────────────────────────────────────── */
