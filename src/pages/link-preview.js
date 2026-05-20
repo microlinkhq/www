@@ -1046,7 +1046,7 @@ const CapabilityTool = ({
 
         <HeroPreviewBody>
           {data && (
-            <HeroPreviewFade>
+            <HeroPreviewFade key={data.url}>
               <CapabilityVariantPreview chipId={chipId} data={data} />
             </HeroPreviewFade>
           )}
