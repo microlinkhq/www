@@ -99,24 +99,6 @@ const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
-const GITHUB_DEMO_DATA = {
-  title: 'GitHub · Build and ship software on a single, collaborative platform',
-  description:
-    "Join the world's most widely adopted, AI-powered developer platform where millions of developers, businesses, and the largest open source community build software that advances humanity.",
-  url: 'https://github.com',
-  publisher: 'GitHub',
-  author: 'GitHub',
-  image: {
-    url: 'https://api.microlink.io/?url=https%3A%2F%2Fgithub.com&embed=image.url',
-    palette: ['#0D1117', '#F0F6FC', '#2F81F7', '#7EE787']
-  },
-  logo: {
-    url: 'https://api.microlink.io/?url=https%3A%2F%2Fgithub.com&embed=logo.url'
-  }
-}
-
-const DEMO_LINK = { data: GITHUB_DEMO_DATA }
-
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 const HeroPreviewShell = styled(Box)`
@@ -279,6 +261,21 @@ const HeroPreviewBody = styled(Box)`
   justify-content: center;
   height: 500px;
   overflow: hidden;
+`
+
+const heroPreviewFadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`
+
+const HeroPreviewFade = styled(Box)`
+  width: 100%;
+  height: 100%;
+  animation: ${heroPreviewFadeIn} 420ms ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 `
 
 const HeroApiBar = styled(Flex)`
@@ -913,7 +910,7 @@ const CapabilityTool = ({
   const handleInputChange = e => {
     if (!userInteractedRef.current) {
       userInteractedRef.current = true
-      setPlaceholderText(data.url || INITIAL_PLACEHOLDER_URL)
+      setPlaceholderText(data?.url || INITIAL_PLACEHOLDER_URL)
     }
     setInputValue(e.target.value)
   }
@@ -972,16 +969,19 @@ const CapabilityTool = ({
     e.preventDefault()
     if (isLoading) return
     const normalized = normalizeInputUrl(inputValue)
-    if (!normalized || normalized === data.url) return
+    if (!normalized || normalized === data?.url) return
     trackEvent('demo submit', { product: 'link-preview' })
     setShowNerdStats(false)
     onSubmit(normalized, { queryUrl: normalized, syncQuery: false })
   }
 
-  const apiUrl = `https://api.microlink.io?url=${encodeURIComponent(data.url)}`
-  const nerdStats = extractNerdStats(response?.headers)
-  const nerdQuery = buildMqlQuery(data.url, { meta: true })
-  const nerdResponse = JSON.stringify(data, null, 2)
+  const currentUrl = data?.url || INITIAL_PLACEHOLDER_URL
+  const apiUrl = `https://api.microlink.io?url=${encodeURIComponent(
+    currentUrl
+  )}`
+  const nerdStats = data ? extractNerdStats(response?.headers) : null
+  const nerdQuery = buildMqlQuery(currentUrl, { meta: true })
+  const nerdResponse = data ? JSON.stringify(data, null, 2) : ''
 
   const handleCopy = () => {
     const markCopied = () => {
@@ -1045,7 +1045,11 @@ const CapabilityTool = ({
         </HeroVariantBar>
 
         <HeroPreviewBody>
-          <CapabilityVariantPreview chipId={chipId} data={data} />
+          {data && (
+            <HeroPreviewFade>
+              <CapabilityVariantPreview chipId={chipId} data={data} />
+            </HeroPreviewFade>
+          )}
           <HeroNerdButton
             type='button'
             $active={showNerdStats}
@@ -1074,7 +1078,7 @@ const CapabilityTool = ({
         <HeroApiBar>
           <HeroApiUrl>
             https://api.microlink.io?
-            <strong>url={data.url}</strong>
+            <strong>url={currentUrl}</strong>
           </HeroApiUrl>
           <HeroCopyButton
             type='button'
@@ -1171,9 +1175,10 @@ const CapabilityPreviewStack = ({ data }) => {
   return (
     <CapabilityStackFrame aria-hidden='true'>
       <CapabilityStackInner>
-        {variants.map(({ id, component: Variant }) => (
-          <Variant key={id} data={data} />
-        ))}
+        {data &&
+          variants.map(({ id, component: Variant }) => (
+            <Variant key={id} data={data} />
+          ))}
       </CapabilityStackInner>
     </CapabilityStackFrame>
   )
@@ -1397,7 +1402,12 @@ const CopyPastePreview = ({ data }) => (
           }
         ]}
       >
-        <MultiCodeEditorInteractive height={220} mqlCode={{ url: data.url }} />
+        {data && (
+          <MultiCodeEditorInteractive
+            height={220}
+            mqlCode={{ url: data.url }}
+          />
+        )}
       </Flex>
     </Flex>
   </Container>
@@ -2857,8 +2867,8 @@ export const Head = () => (
 const LinkPreviewBody = ({ status, doFetch, data, response }) => {
   const [chipId, setChipId] = useState('hero')
 
-  const isLoading = status === 'fetching'
-  const unifiedData = data || DEMO_LINK.data
+  const isLoading = status === 'fetching' || !data
+  const unifiedData = data
 
   return (
     <>
