@@ -628,6 +628,40 @@ const ROUTES_GUIDES = [
         ]
       },
       {
+        name: 'Embed',
+        href: '/docs/guides/embed',
+        posts: [
+          {
+            name: 'SDK',
+            href: '/docs/guides/embed/sdk'
+          },
+          {
+            name: 'Iframe parameter',
+            href: '/docs/guides/embed/iframe'
+          },
+          {
+            name: 'Custom HTML/CSS',
+            href: '/docs/guides/embed/metadata-api'
+          },
+          {
+            name: 'Custom previews with AI',
+            href: '/docs/guides/embed/custom-previews-with-ai'
+          },
+          {
+            name: 'Caching and performance',
+            href: '/docs/guides/embed/caching-and-performance'
+          },
+          {
+            name: 'Private pages and proxy',
+            href: '/docs/guides/embed/private-pages-and-proxy'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/embed/troubleshooting'
+          }
+        ]
+      },
+      {
         name: 'Markdown',
         href: '/docs/guides/markdown',
         posts: [

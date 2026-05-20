@@ -16,7 +16,9 @@ const PRODUCT_LANDING_SLUGS = [
   'markdown',
   'logo',
   'sdk',
-  'insights'
+  'insights',
+  'link-preview',
+  'embed'
 ]
 
 function resolveBuyEventLocation () {

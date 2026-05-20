@@ -146,6 +146,12 @@ export const Head = () => (
               position: 8,
               url: 'https://microlink.io/tools/url-to-markdown',
               name: 'URL to Markdown'
+            },
+            {
+              '@type': 'ListItem',
+              position: 9,
+              url: 'https://microlink.io/tools/embed-url',
+              name: 'Embed URL'
             }
           ]
         },

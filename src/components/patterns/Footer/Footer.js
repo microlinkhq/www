@@ -23,12 +23,14 @@ const FOOTER_COLUMNS = [
   {
     title: 'Products',
     links: [
-      { label: 'Insights', href: '/insights' },
-      { label: 'Logo', href: '/logo' },
+      { label: 'Screenshot', href: '/screenshot' },
+      { label: 'Link Preview', href: '/link-preview' },
       { label: 'Markdown', href: '/markdown' },
       { label: 'Metadata', href: '/metadata' },
+      { label: 'Embed', href: '/embed' },
       { label: 'PDF', href: '/pdf' },
-      { label: 'Screenshot', href: '/screenshot' },
+      { label: 'Logo', href: '/logo' },
+      { label: 'Insights', href: '/insights' },
       { label: 'Unavatar', href: 'https://unavatar.io' }
     ],
     sections: [
@@ -45,6 +47,7 @@ const FOOTER_COLUMNS = [
   {
     title: 'Resources',
     links: [
+      { label: 'SDK', href: '/sdk' },
       { label: 'Blog', href: '/blog' },
       { label: 'Changelog', href: '/changelog' },
       { label: 'Community', href: '/community' },
@@ -82,9 +85,9 @@ const FOOTER_COLUMNS = [
   {
     title: 'Tools',
     links: [
-      { label: 'SDK', href: '/sdk' },
       { label: 'Sharing Debugger', href: '/tools/sharing-debugger' },
       { label: 'Website Screenshot', href: '/tools/website-screenshot' },
+      { label: 'Embed URL', href: '/tools/embed-url' },
       { label: 'URL to Markdown', href: '/tools/url-to-markdown' },
       { label: 'Website to PDF', href: '/tools/website-to-pdf' },
       { label: 'Bulk Screenshots', href: '/tools/website-screenshot/bulk' },
@@ -103,6 +106,8 @@ const FOOTER_COLUMNS = [
     title: 'Comparisons',
     links: [
       { label: 'vs ApiFlash', href: '/alternative/apiflash' },
+      { label: 'vs Embedly', href: '/alternative/embedly' },
+      { label: 'vs Iframely', href: '/alternative/iframely' },
       { label: 'vs ScreenshotAPI', href: '/alternative/screenshotapi' },
       { label: 'vs ScreenshotLayer', href: '/alternative/screenshotlayer' },
       { label: 'vs ScreenshotMachine', href: '/alternative/screenshotmachine' },

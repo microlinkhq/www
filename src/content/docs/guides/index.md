@@ -26,6 +26,7 @@ New to the API? Start with <Link href='/docs/guides/what-is-microlink' children=
 |-------------|------------|
 | Get an image of a website | <Link href='/docs/guides/screenshot' children='Screenshot' /> |
 | Scrape structured data from a page | <Link href='/docs/guides/data-extraction' children='Data extraction' /> |
+| Embed any URL as a card, iframe, or custom HTML preview | <Link href='/docs/guides/embed' children='Embed' /> |
 | Convert a page to Markdown | <Link href='/docs/guides/markdown' children='Markdown' /> |
 | Run custom JavaScript in a headless browser | <Link href='/docs/guides/function' children='Function' /> |
 | Turn a page into a PDF | <Link href='/docs/guides/pdf' children='PDF' /> |
@@ -98,6 +99,19 @@ Extract normalized metadata from any URL, narrow the field set to what you actua
 - <Link href='/docs/guides/metadata/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and metadata performance tips.
 - <Link href='/docs/guides/metadata/private-pages' children='Private pages' /> — extract metadata from authenticated or session-based pages safely.
 - <Link href='/docs/guides/metadata/troubleshooting' children='Troubleshooting' /> — fix missing fields, wrong variants, timeouts, and blocked sites.
+
+## Embed
+
+Turn any URL into a rich preview, an interactive iframe, or a custom-styled card. Pick the SDK for a drop-in component, the iframe parameter for the provider's native player, or the metadata API for full HTML/CSS control — and learn how to instruct an LLM agent to use Microlink for previews.
+
+- <Link href='/docs/guides/embed' children='Quickstart' /> — pick the right embed approach for your stack in under a minute.
+- <Link href='/docs/guides/embed/sdk' children='SDK' /> — drop in a React, Vue, or Vanilla component that handles fetching, lazy-loading, and rendering.
+- <Link href='/docs/guides/embed/iframe' children='iframe parameter' /> — return ready-to-inject oEmbed HTML and scripts for 280+ providers.
+- <Link href='/docs/guides/embed/metadata-api' children='Metadata API with custom HTML/CSS' /> — render previews entirely in your own markup.
+- <Link href='/docs/guides/embed/custom-previews-with-ai' children='Generate custom previews with AI' /> — paste prompts into Cursor, Claude Code, or your IDE assistant to build previews styled to your project — no SDK required.
+- <Link href='/docs/guides/embed/caching-and-performance' children='Caching and performance' /> — keep embeds fast at scale with TTL, stale-while-revalidate, and direct embed URLs.
+- <Link href='/docs/guides/embed/private-pages-and-proxy' children='Private pages and proxy' /> — embed authenticated dashboards, geofenced content, and antibot-protected sites.
+- <Link href='/docs/guides/embed/troubleshooting' children='Troubleshooting' /> — debug missing iframes, broken images, hot-linking, and provider-specific quirks.
 
 ## Insights
 
