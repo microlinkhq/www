@@ -30,6 +30,7 @@ import { Check as CheckIcon, Star as StarIcon } from 'react-feather'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import CaptionBase from 'components/patterns/Caption/Caption'
+import { CUSTOMERS } from 'components/patterns/CustomerStory'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import FetchProvider from 'components/patterns/FetchProvider'
@@ -1908,6 +1909,150 @@ const EMBED_FEATURES = [
   }
 ]
 
+// ─── Customer Stories ─────────────────────────────────────────────────────────
+
+const CUSTOMER_STORY_SLUGS = ['mymahi', 'luckynote']
+
+const CustomerStoryCard = styled('a')`
+  ${theme({
+    bg: 'white',
+    border: 1,
+    borderColor: 'black10',
+    borderRadius: 3,
+    p: [3, 3, 4, 4],
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 3,
+    textDecoration: 'none',
+    color: 'inherit'
+  })}
+  box-shadow: 0 1px 2px ${colors.black05};
+  transition: transform ${transition.short}, border-color ${transition.short};
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: ${colors.black20};
+  }
+
+  &:focus-visible {
+    outline: ${borders[2]} ${colors.link};
+    outline-offset: ${radii[1]};
+  }
+`
+
+const CustomerStoryGrid = styled(Box)`
+  display: grid;
+  grid-template-columns: 1fr;
+  ${theme({ gap: [3, 3, 4, 4], width: '100%', maxWidth: layout.normal })}
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`
+
+const CustomerStoryLogo = styled('img')`
+  ${theme({
+    display: 'block',
+    width: '40px',
+    height: '40px',
+    borderRadius: 2
+  })}
+  object-fit: cover;
+`
+
+const CustomerStories = () => {
+  const stories = CUSTOMER_STORY_SLUGS.map(slug =>
+    CUSTOMERS.find(c => c.slug === slug)
+  ).filter(Boolean)
+
+  if (stories.length === 0) return null
+
+  return (
+    <Container
+      id='customer-stories'
+      as='section'
+      css={theme({
+        alignItems: 'center',
+        maxWidth: layout.large,
+        pt: [2, 2, 1, 1],
+        pb: [5, 5, 6, 6]
+      })}
+    >
+      <Subhead
+        css={theme({
+          fontSize: [2, 2, 3, 3],
+          textAlign: 'center',
+          px: [4, 4, 4, 0]
+        })}
+      >
+        Already shipping in <span css={{ color: ACCENT }}>real products</span>
+      </Subhead>
+      <Caption
+        css={theme({
+          pt: [2, 2, 3, 3],
+          px: [4, 4, 4, 0],
+          maxWidth: layout.normal,
+          textAlign: 'center',
+          fontSize: [1, 1, 2, 2]
+        })}
+      >
+        How MyMahi powers its newsfeed and Luckynote unfurls links inside notes
+        — two short reads on the embed API in production.
+      </Caption>
+      <CustomerStoryGrid css={theme({ pt: [3, 3, 4, 4], px: [3, 4, 0, 0] })}>
+        {stories.map(({ slug, name, blurb, icon }) => (
+          <CustomerStoryCard
+            key={slug}
+            href={`/customers/${slug}`}
+            data-event-location='Embed'
+            data-event-name={`Customer Story ${name}`}
+          >
+            <Flex css={theme({ alignItems: 'center', gap: 2 })}>
+              <CustomerStoryLogo
+                src={icon}
+                alt=''
+                width='40'
+                height='40'
+                loading='lazy'
+                decoding='async'
+              />
+              <Text
+                css={theme({
+                  color: 'black',
+                  fontSize: 2,
+                  fontWeight: 'bold',
+                  lineHeight: 1
+                })}
+              >
+                {name}
+              </Text>
+            </Flex>
+            <Text
+              css={theme({
+                color: 'black70',
+                fontSize: 1,
+                lineHeight: 2
+              })}
+            >
+              {blurb}
+            </Text>
+            <Text
+              css={theme({
+                mt: 'auto',
+                fontSize: [0, 1, 1, 1],
+                fontWeight: 'bold',
+                color: ACCENT
+              })}
+            >
+              Read story →
+            </Text>
+          </CustomerStoryCard>
+        ))}
+      </CustomerStoryGrid>
+    </Container>
+  )
+}
+
 // ─── Call to Action ───────────────────────────────────────────────────────────
 
 const CTA_DURATION = 6.2
@@ -1948,7 +2093,7 @@ const CallToAction = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: '100%',
-      bg: 'white',
+      bg: 'pinky',
       py: SECTION_VERTICAL_SPACING
     })}
   >
@@ -2436,7 +2581,7 @@ const ProductInformation = () => (
     }
     css={theme({
       pb: [5, 5, 6, 6],
-      bg: 'pinky',
+      bg: 'white',
       borderTop: `${borders[1]} ${colors.pinkest}`,
       borderBottom: `${borders[1]} ${colors.pinkest}`
     })}
@@ -2630,6 +2775,7 @@ const EmbedPage = () => {
                 }
                 features={EMBED_FEATURES}
               />
+              <CustomerStories />
               <CallToAction />
               <ProductInformation />
             </>
