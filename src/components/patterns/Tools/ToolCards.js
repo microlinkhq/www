@@ -114,6 +114,7 @@ export const FeaturedToolCard = ({
   href,
   icon: Icon,
   image,
+  preview: Preview,
   tags,
   styles = {},
   animation = [],
@@ -162,7 +163,13 @@ export const FeaturedToolCard = ({
             ...previewCss
           })}
         >
-          {renderToolImage({ image, title, styles, transform })}
+          {Preview
+            ? (
+              <Preview />
+              )
+            : (
+                renderToolImage({ image, title, styles, transform })
+              )}
         </ImagePreview>
 
         <Flex

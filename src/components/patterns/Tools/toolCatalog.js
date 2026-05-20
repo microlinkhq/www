@@ -4,12 +4,14 @@ import {
   Layers,
   Smartphone,
   Film,
+  Code as CodeIcon,
   FileText as FileTextIcon
 } from 'react-feather'
 
 import { Camera as CameraIcon } from 'components/icons/Camera'
 import { BookImage as BookImageIcon } from 'components/icons/BookImage'
 import { Bug as BugIcon } from 'components/icons/Bug'
+import EmbedToolPreview from 'components/patterns/Tools/EmbedToolPreview'
 import { cdnUrl } from 'helpers/cdn-url'
 
 export const TOOLS = [
@@ -192,6 +194,22 @@ export const TOOLS = [
           transition: 'transform 768ms cubic-bezier(0.4, 0, 0.2, 1)',
           transformOrigin: 'top center'
         }
+      }
+    ]
+  },
+  {
+    category: 'Embedding',
+    description:
+      'Turn any URL into a ready-to-paste embed. Works with any link — for 280+ providers like YouTube, Spotify, X, and Figma you get the native preview straight from the source, and every other URL is rendered as a rich preview card.',
+    tools: [
+      {
+        title: 'Embed URL',
+        description:
+          'Paste any URL and copy a ready-to-paste embed. Works with any link: for YouTube, Spotify, X, Figma, and 280+ providers you get the native preview from the source; everything else is rendered as a rich preview card. No login required.',
+        href: '/tools/embed-url',
+        icon: CodeIcon,
+        preview: EmbedToolPreview,
+        featured: true
       }
     ]
   }

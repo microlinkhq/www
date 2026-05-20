@@ -30,7 +30,6 @@ import LineBreak from 'components/elements/LineBreak'
 
 import { Check as CheckIcon, Star as StarIcon } from 'react-feather'
 import { Focus as FocusIcon } from 'components/icons/Focus'
-import { PDF as PDFIcon } from 'components/icons/PDF'
 import { rotate, dash, fadeInDown, highlight } from 'components/keyframes'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Block from 'components/patterns/Block/Block'
@@ -2918,17 +2917,32 @@ const STACK_UTILITIES = [
     icon: <FocusIcon width='24' height='24' />
   },
   {
-    key: 'pdf',
-    eyebrow: 'Metadata × PDF',
-    title: 'Document-grade archives with provenance',
+    key: 'embed',
+    eyebrow: 'Metadata × Embed',
+    title: 'Rich previews and oEmbed players in one call',
     description:
-      'Convert any URL into a high-fidelity PDF and attach the unified metadata as machine-readable context — title, author, language, publication date, canonical URL. Perfect for legal archives, research evidence, and audit trails.',
-    href: '/pdf',
-    cta: 'Explore PDF API',
-    accentColor: 'rgb(224, 0, 172)',
-    accentSoft: colors.pink0,
-    apiCall: 'api.microlink.io?meta&pdf&url=',
-    icon: <PDFIcon width='24' height='24' />
+      'Pair the unified metadata with a ready-to-paste iframe from 280+ oEmbed providers — YouTube, Spotify, X, Vimeo, Figma, CodeSandbox. Render previews your way with the metadata fields, or drop in the optional SDK for zero-code embeds.',
+    href: '/embed',
+    cta: 'Explore Embed API',
+    accentColor: ACCENT,
+    accentSoft: colors.blue0,
+    apiCall: 'api.microlink.io?meta&iframe&url=',
+    icon: (
+      <svg
+        width='22'
+        height='22'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='1.8'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <rect x='3' y='5' width='18' height='14' rx='2' />
+        <polygon points='10 9 16 12 10 15' fill='currentColor' stroke='none' />
+      </svg>
+    )
   },
   {
     key: 'palette',
@@ -2938,8 +2952,8 @@ const STACK_UTILITIES = [
       'Add palette=true to extract dominant colors from the og:image or logo, and get the logo / favicon URLs in the same response. Theme link cards, chat unfurls, and notification UI to match the source — pixel by pixel, brand by brand.',
     href: '/logo',
     cta: 'Read palette docs',
-    accentColor: ACCENT,
-    accentSoft: colors.blue0,
+    accentColor: colors.cyan7,
+    accentSoft: colors.cyan0,
     apiCall: 'api.microlink.io?meta&palette&url=',
     icon: (
       <svg
