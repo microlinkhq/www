@@ -29,7 +29,7 @@ If you hit `ETIMEOUT` or `EBRWSRTIMEOUT`, reduce the amount of work before raisi
 
 Some sites block headless browsers, require a region-specific IP, or trigger antibot protection. In those cases, use `proxy`:
 
-<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://example.com', meta: false, proxy: 'https://myproxy:603f60f5@superproxy.cool:8001' }} />
+<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://example.com', meta: false, proxy: 'https://myproxy:603f60f5@superproxy.cool:8001', apiKey: 'YOUR_API_TOKEN' }} />
 
 <Figcaption>Use a proxy URL when the target site blocks headless traffic, geofences content, or rate-limits your origin.</Figcaption>
 

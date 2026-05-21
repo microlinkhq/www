@@ -46,7 +46,7 @@ The free endpoint resets daily. Pro plan resets depend on your billing cycle. Se
 
 For most production workflows, the best cache setup is:
 
-<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://example.com', ttl: '1d', staleTtl: 0 }} />
+<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://example.com', ttl: '1d', staleTtl: 0, apiKey: 'YOUR_API_TOKEN' }} />
 
 <Figcaption>Serve the cached response instantly, refresh in the background. This maximizes cache hits and minimizes user-facing latency.</Figcaption>
 

@@ -33,7 +33,7 @@ For the cache controls that apply to all workflows — `ttl`, `staleTtl`, `force
 
 A recommended production setup for screenshots:
 
-<MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://microlink.io', screenshot: true, meta: false, ttl: '1d', staleTtl: 0 }} />
+<MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://microlink.io', screenshot: true, meta: false, ttl: '1d', staleTtl: 0, apiKey: 'YOUR_API_TOKEN' }} />
 
 <Figcaption>Cache for a day, serve stale instantly while refreshing in the background. Requires a <ProBadge /> plan.</Figcaption>
 

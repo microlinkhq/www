@@ -20,7 +20,8 @@ This page shows the PDF-specific setup.
   meta: false,
   headers: {
     'Accept-Language': 'es-ES'
-  }
+  },
+  apiKey: 'YOUR_API_TOKEN'
 }} />
 
 <Figcaption>Good for locale and request shaping. For cookies or authorization tokens, use the <code>x-api-header-*</code> pattern described in <Link href='/docs/guides/common/private-pages' children='private pages patterns' />.</Figcaption>

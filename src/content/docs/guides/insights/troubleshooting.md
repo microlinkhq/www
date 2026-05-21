@@ -88,7 +88,8 @@ Some sites block headless browsers, require a region-specific IP, or trigger ant
       lighthouse: false
     },
     meta: false,
-    proxy: 'https://myproxy:603f60f5@superproxy.cool:8001'
+    proxy: 'https://myproxy:603f60f5@superproxy.cool:8001',
+    apiKey: 'YOUR_API_TOKEN'
   }}
 />
 

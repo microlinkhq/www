@@ -27,7 +27,8 @@ Use `headers` when the value is safe to appear in the URL:
   url: 'https://example.com',
   headers: {
     'Accept-Language': 'es-ES'
-  }
+  },
+  apiKey: 'YOUR_API_TOKEN'
 }} />
 
 <Figcaption>Good for locale and request shaping. Avoid putting cookies or authorization tokens here because query parameters are public.</Figcaption>
@@ -98,7 +99,8 @@ When the target site blocks headless browsers, geofences content, or triggers an
 
 <MultiCodeEditorInteractive height={210} mqlCode={{
   url: 'https://example.com',
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001'
+  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001',
+  apiKey: 'YOUR_API_TOKEN'
 }} />
 
 <Figcaption>Use a proxy URL when the target site blocks automation, needs a specific region, or rate-limits your origin.</Figcaption>

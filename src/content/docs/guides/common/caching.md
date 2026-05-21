@@ -23,7 +23,7 @@ See the <Link href='/docs/api/basics/cache' children='cache docs' /> for the ful
 
 Use `ttl` to control how long a response stays valid before expiring:
 
-<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://microlink.io', ttl: '1d' }} />
+<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://microlink.io', ttl: '1d', apiKey: 'YOUR_API_TOKEN' }} />
 
 <Figcaption>After the TTL expires, the next request generates a fresh response.</Figcaption>
 
@@ -52,7 +52,7 @@ The TTL is reflected in the `x-cache-ttl` response header. See the <Link href='/
 
 The `staleTtl` parameter serves the cached response immediately while refreshing it in the background:
 
-<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://microlink.io', ttl: '1d', staleTtl: 0 }} />
+<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://microlink.io', ttl: '1d', staleTtl: 0, apiKey: 'YOUR_API_TOKEN' }} />
 
 <Figcaption>With <code>staleTtl: 0</code>, every request serves the cached copy instantly and triggers a background refresh.</Figcaption>
 
