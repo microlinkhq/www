@@ -14,4 +14,6 @@ export {
   PREVIEW_VARIANTS
 } from './PreviewVariantsShowcase'
 
+export { IframePreviewsShowcase } from './IframePreviewsShowcase'
+
 export { InteractiveExample } from './InteractiveExample'

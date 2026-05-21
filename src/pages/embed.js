@@ -40,8 +40,8 @@ import LinkPreviewRaw from '@microlink/react'
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 import {
+  IframePreviewsShowcase,
   InteractiveExample,
-  PreviewVariantsShowcase,
   STRIPE_DEMO_DATA
 } from 'components/pages/embed'
 import Plans, {
@@ -1133,7 +1133,7 @@ const CopyPasteEmbed = () => (
           alignItems: 'center'
         })}
       >
-        <PreviewVariantsShowcase />
+        <IframePreviewsShowcase />
       </Flex>
     </Flex>
   </Container>
