@@ -181,10 +181,6 @@
       "destination": "/docs/api/basics/error-codes#emaxredirects"
     },
     {
-      "source": "/embed",
-      "destination": "/docs/api/parameters/embed"
-    },
-    {
       "source": "/emulation",
       "destination": "/docs/api/parameters/emulation"
     },
