@@ -36,4 +36,4 @@ x-cache-status: HIT
 cache-control: public, must-revalidate, max-age=0
 ```
 
-You can read [cache](/docs/api/basics/cache) section to know more about that.
+You can read the [cache](/docs/api/basics/cache) section to learn more.
