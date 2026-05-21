@@ -179,7 +179,7 @@ const YouTubePreview = () => (
 
 const SpotifyShell = styled(CardShell)`
   background: #121212;
-  border-color: #2a2a2a;
+  border: none;
 `
 
 const SpotifyArt = styled(Box)`
