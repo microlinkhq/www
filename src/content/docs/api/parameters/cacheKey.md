@@ -10,7 +10,7 @@ import { Type } from 'components/markdown/Type'
 Type: <Type children='<string>'/><br/>
 Default: <Type children='undefined'/>
 
-It extends the automatic [cache](/docs/api/basics/cache) key with a custom identifier over the target [url](/docs/api/parameters/url).
+It extends the automatic [cache](/docs/api/basics/cache) key with a custom identifier for the target [url](/docs/api/parameters/url).
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://microlink.io', screenshot: true, cacheKey: 'microlink-home' }} />
 
