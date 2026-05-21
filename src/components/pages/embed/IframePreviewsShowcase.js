@@ -528,5 +528,3 @@ export const IframePreviewsShowcase = () => {
     </Stage>
   )
 }
-
-export default IframePreviewsShowcase
