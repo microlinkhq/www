@@ -1102,30 +1102,26 @@ const CopyPasteEmbed = () => (
           css={theme({
             pt: [3, 3, 4, 4],
             maxWidth: layout.normal,
-            fontSize: [1, 1, 2, 2],
+            fontSize: [2, 2, 3, 3],
             textAlign: ['center', 'center', 'left', 'left']
           })}
         >
-          One API call returns every piece of metadata you need — title,
-          description, image, logo, palette. Render previews that feel native to
-          your design system, or ask your AI assistant to generate them from the
-          same data.
+          Pass any URL, get back the iframe HTML the provider ships via oEmbed.
+          No parsing, no fallback logic — drop it straight into your markup or
+          render it from the JSON response.
         </Caption>
         <Flex
           css={theme({
             pt: [3, 3, 4, 4],
-            fontSize: [1, 1, 2, 2],
+            fontSize: [2, 2, 3, 3],
             flexDirection: ['column', 'row', 'row', 'row'],
             alignItems: 'center',
             justifyContent: ['center', 'center', 'flex-start', 'flex-start'],
             gap: [3, 4, 4, 4]
           })}
         >
-          <ArrowLink href='/docs/guides/embed/custom-previews-with-ai#the-base-prompt'>
-            Generate previews with a prompt
-          </ArrowLink>
-          <ArrowLink href='/docs/guides/embed/metadata-api'>
-            Build the preview yourself
+          <ArrowLink href='/docs/guides/embed/iframe'>
+            Read the iframe guide
           </ArrowLink>
         </Flex>
       </Flex>
