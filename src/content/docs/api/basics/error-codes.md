@@ -29,6 +29,16 @@ Invalid API key. Make sure you are attaching your API key as `x-api-key` header.
 
 Ensure to [authenticate](/docs/api/basics/authentication/) your requests providing an API key attached as `x-api-key`.
 
+## ECACHEKEY
+
+**Message**
+
+You need a <ProBadge/> plan for using [cacheKey](/docs/api/parameters/cacheKey) query parameter.
+
+**Solution**
+
+See [pricing](/pricing) for upgrading your plan.
+
 ## EBRWSRTIMEOUT
 
 **Message**
