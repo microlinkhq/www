@@ -1050,6 +1050,11 @@ function MultiCodeEditorInteractive ({
     setActiveView(normalizedDefaultView)
   }, [normalizedDefaultView, url])
 
+  React.useEffect(() => {
+    if (!url) return
+    setCode(codeSnippets[currentLanguage] || '')
+  }, [url, currentLanguage])
+
   useEffect(() => {
     onLoadingChange?.(isLoading)
   }, [isLoading, onLoadingChange])
