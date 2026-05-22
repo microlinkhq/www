@@ -14,8 +14,7 @@
 
 ### April 2026
 
-- [Microlink](/): Revamped [pricing](/pricing) page.
-- [Microlink](/): Added [alternative](/alternative) comparison pages.
+- [Microlink](/): Added detailed [pricing](/pricing) page.
 - [Metascraper v5.50](https://metascraper.js.org): Added Reddit integration.
 - [Microlink API](/docs/api/getting-started/overview): Added [JSON](/docs/guides/data-extraction) data extraction support.
 - [Microlink API](/docs/api/getting-started/overview): Improved [markdown](/docs/api/parameters/markdown) table and code block rendering.
