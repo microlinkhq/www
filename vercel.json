@@ -147,6 +147,10 @@
       "destination": "/docs/api/basics/error-codes#ebrwsrtimeout"
     },
     {
+      "source": "/ecachekey",
+      "destination": "/docs/api/basics/error-codes#ecachekey"
+    },
+    {
       "source": "/eauth",
       "destination": "/docs/api/basics/error-codes#eauth"
     },

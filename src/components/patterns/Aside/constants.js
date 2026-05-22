@@ -231,6 +231,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/audio'
       },
       {
+        name: 'cacheKey',
+        href: '/docs/api/parameters/cacheKey'
+      },
+      {
         name: 'click',
         href: '/docs/api/parameters/click'
       },
