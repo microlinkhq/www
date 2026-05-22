@@ -113,7 +113,7 @@
     "gatsby"
   ],
   "dependencies": {
-    "@gatsbyjs/reach-router": "^2.0.1",
+    "@gatsbyjs/reach-router": "~2.0.1",
     "@kikobeats/use-query-state": "1.2.2",
     "@mdx-js/mdx": "~3.1.1",
     "@mdx-js/react": "~3.1.1",
@@ -152,7 +152,7 @@
     "jszip": "~3.10.1",
     "lodash": "~4.18.1",
     "microsoft-capitalize": "~1.0.8",
-    "mime": "^3.0.0",
+    "mime": "~3.0.0",
     "normalize.css": "~8.0.1",
     "p-map": "~7.0.4",
     "path-browserify": "~1.0.1",
@@ -161,7 +161,7 @@
     "postcss-focus": "~7.0.0",
     "prepend-http": "~4.0.0",
     "prettier": "2",
-    "prop-types": "^15.8.1",
+    "prop-types": "~15.8.1",
     "react": "18",
     "react-codecopy": "5.0.18",
     "react-compare-slider": "~3.1.0",

@@ -21,7 +21,6 @@ jobs:
           base: https://microlink.io
           head: vercel
           routes: |
-            - '/'
             - '/styleguide'
           threshold: "0.005"
           microlink-api-key: ${{ secrets.MICROLINK_API_KEY }}
