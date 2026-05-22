@@ -20,6 +20,7 @@
 - [Microlink API](/docs/api/getting-started/overview): Added [JSON](/docs/guides/data-extraction) data extraction support.
 - [Microlink API](/docs/api/getting-started/overview): Improved [markdown](/docs/api/parameters/markdown) table and code block rendering.
 - [Microlink API](/docs/api/getting-started/overview): Improved Reddit, Instagram, and LinkedIn URLs resolution.
+- [Microlink CLI](https://github.com/microlinkhq/cli): Added [headers](/docs/api/parameters/headers) support.
 - [unavatar.io](https://unavatar.io): Added [Pinterest](https://unavatar.io/pinterest), [Snapchat](https://unavatar.io/snapchat), [Discord](https://unavatar.io/discord), [Behance](https://unavatar.io/behance), [Threads](https://unavatar.io/threads), [Steam](https://unavatar.io/steam), [Tumblr](https://unavatar.io/tumblr), [Facebook](https://unavatar.io/facebook), [Flickr](https://unavatar.io/flickr), [Stack Overflow](https://unavatar.io/stackoverflow), [Buy Me a Coffee](https://unavatar.io/buymeacoffee), [Google Play](https://unavatar.io/googleplay), [Apple Store](https://unavatar.io/applestore), [Xbox Gamertag](https://unavatar.io/xboxgamertag), and [PSN Profiles](https://unavatar.io/psnprofiles) support.
 - [unavatar.io](https://unavatar.io): [GitHub](https://unavatar.io/github) now supports email avatar lookup.
 - [unavatar.io](https://unavatar.io): [Gravatar](https://unavatar.io/gravatar) now accepts pre-computed MD5/SHA256 hash as input.
