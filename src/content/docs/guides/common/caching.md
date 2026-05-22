@@ -66,6 +66,24 @@ This is the recommended production pattern. Your users always get an instant res
 
 See the <Link href='/docs/api/parameters/staleTtl' children='staleTtl reference' /> for all supported formats.
 
+## Separate cache entries <ProBadge />
+
+By default, the cache key is derived from the target URL and all recognized query parameters, so identical requests share one cached copy. Use `cacheKey` to append a custom identifier and split that copy into independent entries:
+
+<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://microlink.io', screenshot: true, cacheKey: 'variant-a' }} />
+
+<Figcaption>Two requests with the same parameters but different <code>cacheKey</code> values produce separate cache entries.</Figcaption>
+
+```bash
+# Two separate cache entries despite identical parameters
+https://pro.microlink.io?url=https://example.com&screenshot=true&cacheKey=variant-a
+https://pro.microlink.io?url=https://example.com&screenshot=true&cacheKey=variant-b
+```
+
+This is useful when you need distinct cached copies of the same request — for example, A/B testing screenshots, serving different audiences from the same URL, or namespacing cache entries per tenant.
+
+See the <Link href='/docs/api/parameters/cacheKey' children='cacheKey reference' /> for the full definition.
+
 ## Bypassing the cache
 
 Use `force: true` to skip the cache entirely and get a fresh response:
