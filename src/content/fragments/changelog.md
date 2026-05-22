@@ -4,7 +4,7 @@
 - [Microlink](/): Added [link-preview](/link-preview) page.
 - [Microlink](/): Added [customers](/customers) page.
 - [Microlink](/): Revamped [SDK](/sdk) landing.
-- [Microlink](/): Added feature landings for [proxy](/feature/proxy), [TTL](/feature/ttl), and [headers](/feature/headers).
+- [Microlink](/): Added feature landings for [proxy](/feature/proxy), [ttl](/feature/ttl), and [headers](/feature/headers).
 - [Microlink API](/docs/api/getting-started/overview): [function](/docs/api/parameters/function) now available for free users with resource limits.
 - [Microlink API](/docs/api/getting-started/overview): Added [cacheKey](/docs/api/parameters/cacheKey) query parameter (PRO).
 - [Microlink API](/docs/api/getting-started/overview): Improved [markdown](/docs/api/parameters/markdown) rendering.
