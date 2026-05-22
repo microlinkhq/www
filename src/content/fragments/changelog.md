@@ -1,3 +1,29 @@
+### May 2026
+
+- [Microlink](/): Added [embed](/embed) tool.
+- [Microlink](/): Added [link-preview](/link-preview) page.
+- [Microlink](/): Added [customers](/customers) page.
+- [Microlink](/): Revamped [SDK](/sdk) landing.
+- [Microlink](/): Added feature landings for [proxy](/feature/proxy), [ttl](/feature/ttl), and [headers](/feature/headers).
+- [Microlink API](/docs/api/getting-started/overview): Made [function](/docs/api/parameters/function) available for free users with resource limits.
+- [Microlink API](/docs/api/getting-started/overview): Added [cacheKey](/docs/api/parameters/cacheKey) query parameter (PRO).
+- [Microlink API](/docs/api/getting-started/overview): Improved [markdown](/docs/api/parameters/markdown) rendering.
+- [Microlink API](/docs/api/getting-started/overview): Improved Twitter/X URLs resolution.
+- [Browserless v13](https://browserless.js.org): Upgraded to Puppeteer 25.
+- [unavatar.io](https://unavatar.io): Added [npm](https://unavatar.io/npm), [Product Hunt](https://unavatar.io/producthunt), [Docker Hub](https://unavatar.io/dockerhub), [CodePen](https://unavatar.io/codepen), [Hugging Face](https://unavatar.io/huggingface), [Thingiverse](https://unavatar.io/thingiverse), and [Cults3D](https://unavatar.io/cults3d) support.
+
+### April 2026
+
+- [Microlink](/): Added detailed [pricing](/pricing) page.
+- [Metascraper v5.50](https://metascraper.js.org): Added Reddit integration.
+- [Microlink API](/docs/api/getting-started/overview): Added [JSON](/docs/guides/data-extraction) data extraction support.
+- [Microlink API](/docs/api/getting-started/overview): Improved [markdown](/docs/api/parameters/markdown) table and code block rendering.
+- [Microlink API](/docs/api/getting-started/overview): Improved Reddit, Instagram, and LinkedIn URLs resolution.
+- [Microlink CLI](https://github.com/microlinkhq/cli): Added [headers](/docs/api/parameters/headers) support.
+- [unavatar.io](https://unavatar.io): Added [Pinterest](https://unavatar.io/pinterest), [Snapchat](https://unavatar.io/snapchat), [Discord](https://unavatar.io/discord), [Behance](https://unavatar.io/behance), [Threads](https://unavatar.io/threads), [Steam](https://unavatar.io/steam), [Tumblr](https://unavatar.io/tumblr), [Facebook](https://unavatar.io/facebook), [Flickr](https://unavatar.io/flickr), [Stack Overflow](https://unavatar.io/stackoverflow), [Buy Me a Coffee](https://unavatar.io/buymeacoffee), [Google Play](https://unavatar.io/googleplay), [Apple Store](https://unavatar.io/applestore), [Xbox Gamertag](https://unavatar.io/xboxgamertag), and [PSN Profiles](https://unavatar.io/psnprofiles) support.
+- [unavatar.io](https://unavatar.io): [GitHub](https://unavatar.io/github) now supports email avatar lookup.
+- [unavatar.io](https://unavatar.io): [Gravatar](https://unavatar.io/gravatar) now accepts pre-computed MD5/SHA256 hash as input.
+
 ### March 2026
 
 - [Optimo](https://x.com/microlinkhq/status/2034224454033723796): Introduced Optimo.
