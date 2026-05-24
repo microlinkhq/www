@@ -684,12 +684,12 @@ const ROUTES_GUIDES = [
         href: '/docs/guides/function',
         posts: [
           {
-            name: 'Page interaction',
-            href: '/docs/guides/function/page-interaction'
+            name: 'Writing functions',
+            href: '/docs/guides/function/writing-functions'
           },
           {
-            name: 'NPM packages',
-            href: '/docs/guides/function/npm-packages'
+            name: 'Browser interaction',
+            href: '/docs/guides/function/browser-interaction'
           },
           {
             name: 'Profiling and performance',

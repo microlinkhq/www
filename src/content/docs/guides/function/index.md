@@ -26,79 +26,20 @@ Pass a JavaScript function and a target URL. The library sends it to the Microli
 ```js
 const microlink = require('@microlink/function')
 
-const getTitle = ({ page }) => page.title()
-const fn = microlink(getTitle)
-
+const fn = microlink(() => 40 + 2)
 const result = await fn('https://example.com')
 
 console.log(result.isFulfilled) // true
-console.log(result.value)       // 'Example Domain'
+console.log(result.value)       // 42
 ```
 
-<Figcaption>The function runs remotely after the page loads. The result includes the returned value at <code>result.value</code> and execution metrics at <code>result.profiling</code>.</Figcaption>
+<Figcaption>The function runs remotely. The result includes the returned value at <code>result.value</code> and execution metrics at <code>result.profiling</code>.</Figcaption>
 
-You can also try it interactively without installing anything:
+When your function references `page`, Microlink starts a headless browser and gives you full Puppeteer access:
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://developer.mozilla.org/en-US/docs/Web/API/Document/title',
   function: '({ page }) => page.title()',
-  meta: false
-}} />
-
-## Return any value
-
-Functions can return strings, numbers, booleans, arrays, or plain objects:
-
-```js
-const microlink = require('@microlink/function')
-
-const getStats = ({ page }) =>
-  page.title().then(title => ({
-    title,
-    length: title.length,
-    words: title.split(/\s+/)
-  }))
-
-const fn = microlink(getStats)
-const result = await fn('https://example.com')
-
-console.log(result.value)
-// { title: 'Example Domain', length: 14, words: ['Example', 'Domain'] }
-```
-
-Simple computed values work the same way:
-
-```js
-const fn = microlink(() => 40 + 2)
-const result = await fn('https://example.com')
-console.log(result.value) // 42
-```
-
-## Pass your own parameters
-
-Any extra parameter you include in the request is forwarded to the function as a property on the first argument:
-
-```js
-const microlink = require('@microlink/function')
-
-const greet = ({ name, greeting }) => `${greeting}, ${name}!`
-const fn = microlink(greet)
-
-const result = await fn('https://example.com', {
-  name: 'Kiko',
-  greeting: 'Hello'
-})
-
-console.log(result.value) // 'Hello, Kiko!'
-```
-
-<Figcaption>This is the simplest way to make one function reusable across different requests without changing the function code.</Figcaption>
-
-<MultiCodeEditorInteractive height={250} mqlCode={{
-  url: 'https://developer.mozilla.org/en-US/docs/Web/API/Document/title',
-  function: `({ page, label }) =>
-  page.title().then(title => ({ label, title }))`,
-  label: 'Current page title',
   meta: false
 }} />
 
@@ -116,7 +57,7 @@ For simpler extraction flows, start with <Link href='/docs/guides/data-extractio
 
 ## What's next
 
-- **[Page interaction](/docs/guides/function/page-interaction)** — Puppeteer helpers, execution contexts, and `page.evaluate`.
-- **[NPM packages](/docs/guides/function/npm-packages)** — use any npm dependency inside your function.
+- **[Writing functions](/docs/guides/function/writing-functions)** — return values, custom parameters, and npm packages.
+- **[Browser interaction](/docs/guides/function/browser-interaction)** — Puppeteer helpers, execution contexts, and browser automation.
 - **[Profiling and performance](/docs/guides/function/profiling-and-performance)** — understand execution phases, plan limits, and optimization.
 - **[Troubleshooting](/docs/guides/function/troubleshooting)** — error handling, resource errors, and common failure modes.
