@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import React, { useContext } from 'react'
-import { colors, theme, fonts, fontWeights } from 'theme'
+import { colors, theme, fontWeights } from 'theme'
 import { layout } from '../../theme'
 import { MarkdownContext } from './Context'
 import { withContainer } from 'helpers/hoc/with-container'
@@ -94,17 +94,7 @@ const StyledTd = styled(Text)`
   }
 
   code {
-    font-family: ${fonts.mono};
-    font-weight: ${fontWeights.normal};
-    font-size: 0.9em;
-    color: ${colors.secondary};
-    text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
     white-space: nowrap;
-
-    &::before,
-    &::after {
-      content: '\`';
-    }
   }
 `
 
