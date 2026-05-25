@@ -97,6 +97,7 @@ If `meta` stays enabled, your custom fields live alongside normalized metadata s
 | A repeated list of values | `selectorAll` | Returns an array instead of only the first match |
 | A structured object or list of objects | Nested `attr` rules | Keeps related fields grouped together |
 | Serialized page content | `attr: 'text'`, `attr: 'html'`, or `attr: 'markdown'` | Useful for indexing, content pipelines, and exports |
+| A JSON endpoint | `attr: 'json'` | Parses the response body and returns structured data |
 | A computed or awkward value | `evaluate` or fallback rules | Helps when one selector is not enough |
 
 If your main goal is HTML-to-Markdown conversion, jump to the dedicated <Link href='/docs/guides/markdown' children='Markdown guide' />. This guide focuses on the broader `data` utility.

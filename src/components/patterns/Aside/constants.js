@@ -231,6 +231,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/audio'
       },
       {
+        name: 'cacheKey',
+        href: '/docs/api/parameters/cacheKey'
+      },
+      {
         name: 'click',
         href: '/docs/api/parameters/click'
       },
@@ -678,7 +682,24 @@ const ROUTES_GUIDES = [
       {
         name: 'Function',
         href: '/docs/guides/function',
-        posts: []
+        posts: [
+          {
+            name: 'Writing functions',
+            href: '/docs/guides/function/writing-functions'
+          },
+          {
+            name: 'Browser interaction',
+            href: '/docs/guides/function/browser-interaction'
+          },
+          {
+            name: 'Profiling and performance',
+            href: '/docs/guides/function/profiling-and-performance'
+          },
+          {
+            name: 'Troubleshooting',
+            href: '/docs/guides/function/troubleshooting'
+          }
+        ]
       },
       {
         name: 'PDF',

@@ -1,4 +1,6 @@
 {
+  "installCommand": "NODE_ENV=development npm install --legacy-peer-deps",
+  "buildCommand": "npm run build",
   "headers": [
     {
       "source": "/static/(.*)",
@@ -143,6 +145,10 @@
     {
       "source": "/ebrwsrtimeout",
       "destination": "/docs/api/basics/error-codes#ebrwsrtimeout"
+    },
+    {
+      "source": "/ecachekey",
+      "destination": "/docs/api/basics/error-codes#ecachekey"
     },
     {
       "source": "/eauth",

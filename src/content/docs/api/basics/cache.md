@@ -41,3 +41,8 @@ There is two ways to setup the expiration:
 - [ttl](/docs/api/parameters/ttl): It sets the maximum quantity of time the value is considered valid.
 - [force](/docs/api/parameters/force): It invalidates the cache immediately, generating a new fresh cache copy.
 
+**Cache identity**
+
+The cache key is derived from the target URL and all recognized query parameters, so identical requests share one cached copy.
+
+- [cacheKey](/docs/api/parameters/cacheKey): It appends a custom identifier to the cache key, producing separate cache entries for otherwise identical requests.

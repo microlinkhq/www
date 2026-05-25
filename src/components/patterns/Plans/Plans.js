@@ -433,6 +433,9 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
             <PlanCheck accent='pink7'>
               <Link href='/feature/headers'>Custom HTTP headers</Link>
             </PlanCheck>
+            <PlanCheck accent='pink7'>
+              <Link href='/docs/api/parameters/cacheKey'>Custom cache key</Link>
+            </PlanCheck>
             <PlanCheck accent='pink7'>Priority email support</PlanCheck>
           </Box>
           <Box css={theme({ pt: [4, 4, 5, 5], mt: 'auto' })}>
