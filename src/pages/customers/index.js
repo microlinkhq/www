@@ -1,4 +1,4 @@
-import { breakpoints, colors, theme } from 'theme'
+import { breakpoints, colors, textGradient, theme } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -7,6 +7,7 @@ import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
+import LineBreak from 'components/elements/LineBreak'
 import Text from 'components/elements/Text'
 
 import {
@@ -29,8 +30,6 @@ const ACCENT = {
   highlight: 'blue5'
 }
 
-/* ─── Hero ───────────────────────────────────────────────────────────────── */
-
 const Hero = () => (
   <Section as='header' css={theme({ pt: [3, 3, 4, 4], pb: [3, 3, 4, 4] })}>
     <SectionInner>
@@ -50,18 +49,16 @@ const Hero = () => (
           scrollMarginTop: 4
         })}
       >
-        Teams shipping with{' '}
-        <span css={theme({ color: ACCENT.text })}>Microlink</span>
+        Companies shipping <LineBreak />
+        with <span css={textGradient}>Microlink</span>
       </Text>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
-        Real customer stories — how teams ship link previews, screenshots, and
-        metadata with Microlink in production.
+        Real customer stories — how companies ship link previews, screenshots,
+        and metadata with Microlink in production.
       </BodyText>
     </SectionInner>
   </Section>
 )
-
-/* ─── Customer grid ──────────────────────────────────────────────────────── */
 
 const Grid = styled(Box)`
   display: grid;
@@ -162,7 +159,7 @@ const CustomerGrid = () => (
             <CardBlurb>{blurb}</CardBlurb>
             <CardLink
               href={`/customers/${slug}`}
-              css={theme({ color: ACCENT.text })}
+              css={theme({ color: 'link' })}
             >
               Read story →
             </CardLink>
@@ -173,8 +170,6 @@ const CustomerGrid = () => (
   </Section>
 )
 
-/* ─── Page ───────────────────────────────────────────────────────────────── */
-
 const CustomersIndexPage = () => (
   <Layout css={theme({ position: 'relative' })}>
     <DashedGridOverlay aria-hidden='true' />
@@ -184,8 +179,6 @@ const CustomersIndexPage = () => (
     </Box>
   </Layout>
 )
-
-/* ─── Head / SEO ─────────────────────────────────────────────────────────── */
 
 export const Head = () => (
   <Meta
