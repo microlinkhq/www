@@ -283,7 +283,7 @@ const { data } = await mql('https://github.com', {
     test('should handle apiKey in cURL as header', () => {
       const result = mqlCode(testUrl, { apiKey: testApiKey, screenshot: true })
 
-      expect(result.cURL).toBe(`curl -G "https://api.microlink.io" \\
+      expect(result.cURL).toBe(`curl -G "https://pro.microlink.io" \\
   -H "x-api-key: ${testApiKey}" \\
   -d "url=https://github.com" \\
   -d "screenshot=true"`)
