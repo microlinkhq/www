@@ -5,12 +5,11 @@ import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import {
-  BodyText,
+  ACCENT,
   Caption,
   CtaSection,
   DashedGridOverlay,
@@ -21,26 +20,39 @@ import {
   MoreCustomers,
   Section,
   SectionInner,
-  StoryTag,
   Testimonial,
   WhyCard
 } from 'components/patterns/CustomerStory'
 import Layout from 'components/patterns/Layout'
 
-const ACCENT = {
-  text: 'blue7',
-  bgSoft: 'blue0',
-  bgEdge: 'blue1',
-  highlight: 'blue5'
-}
-
-/* ─── Hero ───────────────────────────────────────────────────────────────── */
-
 const Hero = () => (
   <Section as='header' css={theme({ pt: [3, 3, 4, 4], pb: [3, 3, 4, 4] })}>
     <SectionInner>
       <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
-        <StoryTag accent={ACCENT}>Customer story</StoryTag>
+        <img
+          src='/images/clients/mymahi-icon.png'
+          alt=''
+          width='40'
+          height='40'
+          css={theme({
+            display: 'block',
+            borderRadius: 2,
+            width: '40px',
+            height: '40px'
+          })}
+          style={{ objectFit: 'cover' }}
+          decoding='async'
+        />
+        <Text
+          css={theme({
+            color: 'black',
+            fontSize: 2,
+            fontWeight: 'bold',
+            lineHeight: 1
+          })}
+        >
+          MyMahi
+        </Text>
       </Flex>
       <Text
         as='h1'
@@ -55,14 +67,13 @@ const Hero = () => (
           scrollMarginTop: 4
         })}
       >
-        <span css={theme({ color: ACCENT.text })}>MyMahi:</span> Rich link
-        previews for every Newsfeed post
+        Rich link previews for every Newsfeed post
       </Text>
-      <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
+      <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         How a learner-focused platform used by schools across New Zealand and
         Australia uses Microlink's Metadata API to turn every shared link into a
         cached, fast-loading preview card.
-      </BodyText>
+      </Text>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <ArrowLink
           href='/metadata'
@@ -98,32 +109,24 @@ const AboutCustomer = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 3, pt: 3, display: 'block' })}>
         About MyMahi
       </Eyebrow>
-      <SubheadBase
-        css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          pb: [3, 3, 4, 4]
-        })}
-      >
+      <Text as='h2' css={theme({ pb: [3, 3, 4, 4] })}>
         Supporting learning, wellbeing, and future pathways for students across
         New Zealand and Australia.
-      </SubheadBase>
-      <BodyText css={theme({ pb: [3, 3, 4, 4] })}>
+      </Text>
+      <Text as='p' css={theme({ pb: [3, 3, 4, 4] })}>
         MyMahi is a self-management platform for learners. It puts students at
         the centre of their own story with tools for Digital Identity, a Digital
         Backpack to capture learning milestones, mentoring, wellbeing, and
         future pathways planning. The mentor dashboard is the backbone of the
         product, giving teachers a single place to connect with the learners
         they support.
-      </BodyText>
-      <BodyText>
+      </Text>
+      <Text as='p'>
         The platform is used in schools and centres of learning across New
         Zealand and Australia, and was successfully assessed by Safer
         Technologies 4 Schools (ST4S) in 2024 — a national standardised review
         of digital products used by schools across both countries.
-      </BodyText>
+      </Text>
       <Box css={theme({ pt: 2, pb: 0 })}>
         <Text
           as='a'
@@ -147,6 +150,7 @@ const AboutCustomer = () => (
         author='Stefan Charsley'
         role='CTO'
         company='MyMahi'
+        avatar='/images/clients/stefan-charsley.jpeg'
         initials='SC'
       />
     </SectionInner>
@@ -161,23 +165,14 @@ const HowTheyUseIt = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         How they use Microlink
       </Eyebrow>
-      <SubheadBase
-        css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
-        })}
-      >
-        Rich link previews for every Newsfeed post
-      </SubheadBase>
-      <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
+      <Text as='h2'>Rich link previews for every Newsfeed post</Text>
+      <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         When a teacher or mentor shares a link in the MyMahi Newsfeed, the
         platform calls Microlink's Metadata API to extract the page's title,
         description, and preview image. The result is hydrated into a card
         students recognise instantly — the same kind of preview they'd expect
         from any modern app.
-      </BodyText>
+      </Text>
       <FlowDiagram
         accent={ACCENT}
         nodes={[
@@ -187,14 +182,14 @@ const HowTheyUseIt = () => (
           { label: 'Newsfeed preview', sub: 'Rendered to learners' }
         ]}
       />
-      <BodyText>
+      <Text as='p'>
         Metadata is stored in MyMahi's database as soon as it's fetched, so
         subsequent renders of the Newsfeed are served straight from their own
         infrastructure. A background job periodically refreshes those records,
         keeping previews current without re-scraping on every read. The whole
         loop runs without anyone on the team maintaining a scraper, a headless
         browser pool, or an unfurl service.
-      </BodyText>
+      </Text>
       <Figure>
         <FigureImage
           src='/images/clients/mymahi-preview.png'
@@ -218,21 +213,12 @@ const WhyMicrolink = () => (
         <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
           Why Microlink
         </Eyebrow>
-        <SubheadBase
-          css={theme({
-            fontSize: ['24px', '28px', '34px', '38px'],
-            textAlign: 'left',
-            letterSpacing: '-0.01em',
-            lineHeight: 0
-          })}
-        >
-          Reliable link previews without the maintenance
-        </SubheadBase>
-        <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
+        <Text as='h2'>Reliable link previews without the maintenance</Text>
+        <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
           A small team supporting schools across New Zealand and Australia can't
           afford to babysit a metadata scraper. MyMahi reaches for Microlink for
           three reasons.
-        </BodyText>
+        </Text>
       </Box>
 
       <Flex
@@ -312,8 +298,6 @@ const ThanksSection = () => (
     </SectionInner>
   </Section>
 )
-
-/* ─── Page ───────────────────────────────────────────────────────────────── */
 
 const CustomerStoryPage = () => (
   <Layout css={theme({ position: 'relative' })}>

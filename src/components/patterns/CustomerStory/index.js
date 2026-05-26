@@ -1,11 +1,10 @@
-export { CUSTOMERS } from './customers'
+export { ACCENT, CUSTOMERS } from './customers'
 export {
   SECTION_PX,
   SECTION_PY,
   SECTION_MAX_WIDTH,
   Section,
   SectionInner,
-  BodyText,
   Caption,
   Figure,
   FigureImage
