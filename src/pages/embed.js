@@ -720,9 +720,13 @@ const ProvidersSlider = styled(BackgroundSliderContainer)`
 `
 
 const ProviderSliderRow = styled(Flex)`
-  ${theme({ alignItems: 'center', gap: [3, 3, 4, 4], pr: [3, 3, 4, 4] })};
-  display: inline-flex;
-  flex-wrap: nowrap;
+  ${theme({
+    alignItems: 'center',
+    gap: [3, 3, 4, 4],
+    pr: [3, 3, 4, 4],
+    display: 'inline-flex',
+    flexWrap: 'nowrap'
+  })};
 `
 
 const ProviderChip = styled(Flex)`
@@ -736,13 +740,14 @@ const ProviderChip = styled(Flex)`
     fontWeight: 'bold',
     color: 'black80',
     alignItems: 'center',
-    gap: 2
+    gap: 2,
+    border: 1,
+    borderColor: 'black10',
+    whiteSpace: 'nowrap',
+    flex: '0 0 auto',
+    letterSpacing: 0,
+    lineHeight: 1
   })};
-  border: ${borders[1]} ${colors.black10};
-  white-space: nowrap;
-  flex: 0 0 auto;
-  letter-spacing: 0;
-  line-height: 1;
 `
 
 const ProviderIcon = ({ icon }) => (
