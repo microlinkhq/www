@@ -498,7 +498,7 @@ const CardQuote = styled(Text)`
 `
 
 const CustomerGrid = () => (
-  <Section id='stories'>
+  <Section id='stories' css={theme({ scrollMarginTop: 4 })}>
     <SectionInner>
       <Eyebrow
         accent={ACCENT}
@@ -538,7 +538,11 @@ const CustomerGrid = () => (
               >
                 {blurb}
               </Text>
-              <CardQuote>“{quote}”</CardQuote>
+              <CardQuote>
+                “
+                {quote}
+                ”
+              </CardQuote>
               <Flex css={theme({ alignItems: 'center', gap: 2 })}>
                 {avatar
                   ? (
