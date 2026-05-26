@@ -1621,7 +1621,8 @@ const Omnibar = ({
   setUrl,
   onSubmit,
   isLoading,
-  exampleUrls = EXAMPLE_URLS
+  exampleUrls = EXAMPLE_URLS,
+  placeholder: placeholderProp
 }) => {
   const [urlError, setUrlError] = useState('')
 
@@ -1662,7 +1663,7 @@ const Omnibar = ({
           type='url'
           inputMode='url'
           autoComplete='url'
-          placeholder='Paste a URL…'
+          placeholder={placeholderProp || 'Paste a URL…'}
           value={url}
           onChange={handleUrlChange}
           onKeyDown={e => {
@@ -1693,7 +1694,7 @@ const Omnibar = ({
             {urlError}
           </Text>
           )
-        : !url.trim()
+        : !url.trim() && exampleUrls.length > 0
             ? (
               <Text
                 css={theme({
@@ -2747,8 +2748,8 @@ const ResultArea = ({
 
 /* ─── Main Tool Section ────────────────────────────────── */
 
-const EmbedTool = ({ initialUrl = '', exampleUrls } = {}) => {
-  const [url, setUrl] = useState(initialUrl)
+const EmbedTool = ({ initialUrl = '', exampleUrls, placeholder } = {}) => {
+  const [url, setUrl] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
@@ -2820,11 +2821,6 @@ const EmbedTool = ({ initialUrl = '', exampleUrls } = {}) => {
     }
   }, [])
 
-  useEffect(() => {
-    if (!initialUrl) return
-    executeSubmit(initialUrl)
-  }, [])
-
   const handleSubmit = useCallback(
     next => {
       executeSubmit(next)
@@ -2869,7 +2865,8 @@ const EmbedTool = ({ initialUrl = '', exampleUrls } = {}) => {
           setUrl={setUrl}
           onSubmit={handleSubmit}
           isLoading={isLoading}
-          exampleUrls={exampleUrls}
+          exampleUrls={initialUrl ? [] : exampleUrls}
+          placeholder={initialUrl || undefined}
         />
 
         <Box css={{ width: '100%' }}>

@@ -1,0 +1,91 @@
+import React from 'react'
+import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
+
+const data = {
+  name: 'HASH',
+  slug: 'hash',
+  color: '#666666',
+  exampleUrl: 'https://hash.ai',
+  metaTitle: 'HASH Embed Code Generator — Embed HASH Content',
+  metaDescription:
+    'Free HASH embed code generator. Paste any HASH URL — get a ready-to-paste embed or preview card. No signup.',
+  keywords: ['embed hash', 'hash embed code', 'hash embed generator'],
+  heroTitle: 'HASH Embed Code Generator',
+  heroSubtitle:
+    'Paste any HASH URL — get a ready-to-paste embed or preview card.',
+  howItWorksHeading: 'How to embed HASH content',
+  howItWorksSteps: [
+    { title: 'Paste a HASH link', description: 'Copy any hash.ai URL.' },
+    {
+      title: 'Get the embed code',
+      description:
+        'The tool detects the content type and generates the right embed HTML.'
+    },
+    {
+      title: 'Copy & paste',
+      description:
+        'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
+    }
+  ],
+  explanationHeading: 'Why use our HASH embed code generator',
+  reasons: [
+    {
+      title: 'No manual setup',
+      description: 'Paste any HASH link and get working embed HTML.'
+    },
+    {
+      title: 'HASH content',
+      description: 'The tool handles all HASH URL formats.'
+    },
+    {
+      title: 'Customizable preview card',
+      description:
+        'Switch to Card mode to customize colors, fonts, and layout before copying.'
+    },
+    {
+      title: 'Free, no signup',
+      description: 'Generate up to 50 embeds per day. No login, no API key.'
+    }
+  ],
+  features: [
+    {
+      title: 'Native embed',
+      description:
+        'Get the real HASH embed with full interactivity when available.'
+    },
+    {
+      title: 'All content types',
+      description: 'Works with all HASH URL formats and content types.'
+    },
+    {
+      title: 'Preview card fallback',
+      description:
+        'A styled preview card with title and image when native embedding is restricted.'
+    }
+  ],
+  relatedLinks: [
+    { href: '/tools/embed-url/youtube', label: 'YouTube' },
+    { href: '/tools/embed-url/providers', label: 'All providers' }
+  ],
+  faq: [
+    {
+      question: 'How do I embed HASH content on my website?',
+      answer: 'Paste any HASH URL into the tool and click Generate.'
+    },
+    {
+      question: 'Is the HASH embed generator free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
+    },
+    {
+      question: 'What if the HASH content is private?',
+      answer:
+        'The tool falls back to a styled preview card with the available metadata.'
+    }
+  ]
+}
+
+export const Head = () => providerHead(data)
+
+const Page = () => <ProviderSubtool {...data} />
+
+export default Page
