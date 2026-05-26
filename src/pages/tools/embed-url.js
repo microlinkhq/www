@@ -55,8 +55,6 @@ const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
-/* ─── Constants ────────────────────────────────────────── */
-
 const PREVIEW_HEIGHT = '450px'
 const PREVIEW_HEIGHT_MOBILE = '400px'
 
@@ -190,9 +188,9 @@ const truncate = (text, max) => {
 const imageLogoFallbackAttr = logoUrl =>
   logoUrl
     ? `onerror="this.onerror=null;this.src='${logoUrl.replace(
-      /'/g,
-      '&#39;'
-    )}';this.style.objectFit='contain';this.style.padding='15%'" `
+        /'/g,
+        '&#39;'
+      )}';this.style.objectFit='contain';this.style.padding='15%'" `
     : ''
 
 const pickFallbackBg = data => data?.image?.palette?.[0] || 'rgba(0,0,0,0.05)'
@@ -320,8 +318,8 @@ const buildLargeCard = (data, s) => {
 
   const mediaInner = imageUrl
     ? `<img src="${imageUrl}" alt="" ${imageLogoFallbackAttr(
-      logoUrl
-    )}style="width:100%;height:100%;object-fit:cover;display:block" />`
+        logoUrl
+      )}style="width:100%;height:100%;object-fit:cover;display:block" />`
     : ''
 
   const titleHtml = `<div${de(s, 'headline')} style="font-size:${
@@ -331,10 +329,10 @@ const buildLargeCard = (data, s) => {
   };margin:0">${title}</div>`
   const descriptionHtml = description
     ? `<div${de(s, 'description')} style="font-size:${
-      s.descriptionSize
-    }px;color:${s.palette.description};line-height:${
-      s.lineHeight
-    };display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0">${description}</div>`
+        s.descriptionSize
+      }px;color:${s.palette.description};line-height:${
+        s.lineHeight
+      };display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0">${description}</div>`
     : ''
 
   const body = s.metaBefore
@@ -367,8 +365,8 @@ const buildWideCard = (data, s) => {
 
   const mediaInner = imageUrl
     ? `<img src="${imageUrl}" alt="" ${imageLogoFallbackAttr(
-      logoUrl
-    )}style="width:100%;height:100%;object-fit:cover;display:block" />`
+        logoUrl
+      )}style="width:100%;height:100%;object-fit:cover;display:block" />`
     : ''
 
   const titleHtml = `<div${de(s, 'headline')} style="font-size:${
@@ -378,10 +376,10 @@ const buildWideCard = (data, s) => {
   };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${title}</div>`
   const descriptionHtml = description
     ? `<div${de(s, 'description')} style="font-size:${
-      s.descriptionSize
-    }px;color:${s.palette.description};line-height:${
-      s.lineHeight
-    };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${description}</div>`
+        s.descriptionSize
+      }px;color:${s.palette.description};line-height:${
+        s.lineHeight
+      };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${description}</div>`
     : ''
 
   const body = s.metaBefore
@@ -430,32 +428,32 @@ const buildSmallCard = (data, s) => {
   const publisherText =
     s.elements.siteName && data?.publisher
       ? `<span${de(s, 'siteName')} style="font-size:${
-        s.metaSize + 1
-      }px;font-weight:${s.fontWeight};color:${s.palette.meta}">${escText(
-        data.publisher
-      )}</span>`
+          s.metaSize + 1
+        }px;font-weight:${s.fontWeight};color:${s.palette.meta}">${escText(
+          data.publisher
+        )}</span>`
       : ''
   const authorText =
     s.elements.authorTopic && data?.author
       ? `<span aria-hidden="true" style="font-size:${s.metaSize}px;color:${
-        s.palette.meta
-      }">· </span><span${de(s, 'authorTopic')} style="font-size:${
-        s.metaSize
-      }px;color:${s.palette.meta}">${escText(data.author)}</span>`
+          s.palette.meta
+        }">· </span><span${de(s, 'authorTopic')} style="font-size:${
+          s.metaSize
+        }px;color:${s.palette.meta}">${escText(data.author)}</span>`
       : ''
   const dateText =
     s.elements.date && data?.date
       ? `<span${de(s, 'date')} style="font-size:${s.metaSize}px;color:${
-        s.palette.meta
-      }">${escText(formatDate(data.date))}</span>`
+          s.palette.meta
+        }">${escText(formatDate(data.date))}</span>`
       : ''
 
   const metaRow =
     publisherText || authorText
       ? `<div${de(
-        s,
-        'meta'
-      )} style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;gap:8px">
+          s,
+          'meta'
+        )} style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;gap:8px">
       <span style="display:flex;align-items:center;gap:4px;min-width:0;overflow:hidden">${publisherText}${authorText}</span>
       ${dateText}
     </div>`
@@ -468,10 +466,10 @@ const buildSmallCard = (data, s) => {
   };margin-bottom:2px">${title}</div>`
   const descriptionHtml = description
     ? `<div${de(s, 'description')} style="font-size:${
-      s.descriptionSize - 1
-    }px;color:${s.palette.description};line-height:${
-      s.lineHeight
-    };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${description}</div>`
+        s.descriptionSize - 1
+      }px;color:${s.palette.description};line-height:${
+        s.lineHeight
+      };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${description}</div>`
     : ''
 
   const body = s.metaBefore
@@ -1378,15 +1376,40 @@ const HelpIconWrap = styled(Box).attrs({ as: 'span' })`
   }
 `
 
-const ExampleUrlText = styled(Box).attrs({ as: 'span' })`
+const ExampleUrlButton = styled(Box).attrs({
+  as: 'button',
+  type: 'button'
+})`
   ${theme({
     fontFamily: 'sans',
     fontSize: 0,
-    color: 'black60'
+    color: 'black60',
+    cursor: 'pointer',
+    minHeight: '24px',
+    border: 0,
+    bg: 'transparent',
+    textDecoration: 'underline',
+    px: 0,
+    py: 0
   })}
-  text-decoration: underline;
   text-decoration-color: ${colors.black10};
   text-underline-offset: 2px;
+  touch-action: manipulation;
+
+  &:hover:not(:disabled) {
+    color: ${colors.black};
+    text-decoration-color: ${colors.black30};
+  }
+
+  &:disabled {
+    cursor: wait;
+    opacity: 0.7;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
 `
 
 const MobileHiddenInline = styled(Box).attrs({ as: 'span' })`
@@ -1768,8 +1791,6 @@ const ResultsExpandInner = styled(Box)`
   min-height: 0;
 `
 
-/* ─── Omnibar (input + submit) ─────────────────────────── */
-
 const EXAMPLE_URLS = [
   { url: 'youtube.com' },
   { url: 'tiktok.com' },
@@ -1873,16 +1894,22 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
                             as='span'
                             aria-hidden='true'
                             css={{
-                              marginLeft: 6,
-                              marginRight: 6,
-                              color: colors.black30
-                            }}
+                  marginLeft: 6,
+                  marginRight: 6,
+                  color: colors.black30
+                }}
                           >
-                            ·
+                      ·
                           </Box>
                           )
                         : null}
-                      <ExampleUrlText>{example}</ExampleUrlText>
+                      <ExampleUrlButton
+                        onClick={() => handleSubmit(example)}
+                        disabled={isLoading}
+                        aria-label={`Generate preview for ${example}`}
+                      >
+                        {example}
+                      </ExampleUrlButton>
                     </Wrapper>
                   )
                 })}
@@ -1892,8 +1919,6 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
     </Box>
   )
 }
-
-/* ─── Result Panes ─────────────────────────────────────── */
 
 const PreviewPane = ({
   html,
@@ -2226,8 +2251,6 @@ const HtmlPane = ({ html }) => {
     </PaperSheet>
   )
 }
-
-/* ─── Config Editor Tabs ───────────────────────────────── */
 
 const LayoutTab = ({ config, set, setHoverTarget }) => {
   const hover = target => ({
@@ -2903,8 +2926,6 @@ const ResultArea = ({
   )
 }
 
-/* ─── Main Tool Section ────────────────────────────────── */
-
 const EmbedTool = () => {
   const [url, setUrl] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -3045,8 +3066,6 @@ const EmbedTool = () => {
   )
 }
 
-/* ─── Hero Section ─────────────────────────────────────── */
-
 const Hero = () => (
   <Flex
     as='section'
@@ -3081,8 +3100,6 @@ const Hero = () => (
     </Caption>
   </Flex>
 )
-
-/* ─── How It Works ─────────────────────────────────────── */
 
 const HowItWorks = () => (
   <Container
@@ -3133,8 +3150,6 @@ const HowItWorks = () => (
     </Flex>
   </Container>
 )
-
-/* ─── Explanation ────────────────────────────────────── */
 
 const Explanation = () => (
   <Container
@@ -3192,8 +3207,6 @@ const Explanation = () => (
     </Caption>
   </Container>
 )
-
-/* ─── Use Cases ───────────────────────────────────────── */
 
 const UseCasesSection = () => (
   <Container
@@ -3294,8 +3307,6 @@ const UseCasesSection = () => (
   </Container>
 )
 
-/* ─── Banner ─────────────────────────────────────────── */
-
 const Banner = () => (
   <Block
     forwardedAs='section'
@@ -3363,8 +3374,6 @@ const Banner = () => (
     }
   />
 )
-
-/* ─── API Docs Card ───────────────────────────────────── */
 
 const EmbedApiDocsCard = () => (
   <Container
@@ -3658,8 +3667,6 @@ const ProductInformation = () => (
   />
 )
 
-/* ─── Page Head (SEO) ──────────────────────────────────── */
-
 export const Head = () => (
   <Meta
     title='Embed Code Generator — Embed any URL as an Iframe or Card'
@@ -3777,8 +3784,6 @@ export const Head = () => (
     ]}
   />
 )
-
-/* ─── Page Composition ─────────────────────────────────── */
 
 const EmbedUrlPage = () => (
   <Layout>
