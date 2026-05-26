@@ -5,12 +5,11 @@ import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import {
-  BodyText,
+  ACCENT,
   Caption,
   CtaSection,
   DashedGridOverlay,
@@ -21,7 +20,6 @@ import {
   MoreCustomers,
   Section,
   SectionInner,
-  StoryTag,
   Testimonial,
   WhyCard
 } from 'components/patterns/CustomerStory'
@@ -29,20 +27,34 @@ import Layout from 'components/patterns/Layout'
 
 import { cdnUrl } from 'helpers/cdn-url'
 
-const ACCENT = {
-  text: 'blue7',
-  bgSoft: 'blue0',
-  bgEdge: 'blue1',
-  highlight: 'blue5'
-}
-
-/* ─── Hero ───────────────────────────────────────────────────────────────── */
-
 const Hero = () => (
   <Section as='header' css={theme({ pt: [3, 3, 4, 4], pb: [3, 3, 4, 4] })}>
     <SectionInner>
       <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
-        <StoryTag accent={ACCENT}>Customer story</StoryTag>
+        <img
+          src='/images/clients/luckynote-icon.png'
+          alt=''
+          width='40'
+          height='40'
+          css={theme({
+            display: 'block',
+            borderRadius: 2,
+            width: '40px',
+            height: '40px'
+          })}
+          style={{ objectFit: 'cover' }}
+          decoding='async'
+        />
+        <Text
+          css={theme({
+            color: 'black',
+            fontSize: 2,
+            fontWeight: 'bold',
+            lineHeight: 1
+          })}
+        >
+          Luckynote
+        </Text>
       </Flex>
       <Text
         as='h1'
@@ -57,14 +69,13 @@ const Hero = () => (
           scrollMarginTop: 4
         })}
       >
-        <span css={theme({ color: ACCENT.text })}>Luckynote:</span> Rich Link
-        Previews in a Chat-Style Note App
+        Rich Link Previews in a Chat-Style Note App
       </Text>
-      <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
+      <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         How a "message yourself" notes app turns every URL into a tappable
         preview card — with Microlink generating the metadata behind every link
         saved.
-      </BodyText>
+      </Text>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <ArrowLink
           href='/metadata'
@@ -100,32 +111,24 @@ const AboutCustomer = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 3, display: 'block' })}>
         About Luckynote
       </Eyebrow>
-      <SubheadBase
-        css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          pb: [3, 3, 4, 4]
-        })}
-      >
+      <Text as='h2' css={theme({ pb: [3, 3, 4, 4] })}>
         A "message yourself" note-taking app for ideas, links, and tasks across
         iOS, Android, and Web.
-      </SubheadBase>
-      <BodyText css={theme({ pb: 4 })}>
+      </Text>
+      <Text as='p' css={theme({ pb: 4 })}>
         Luckynote is a note-taking app built around a simple idea: you write to
         yourself, like you'd message a friend, and your ideas, links, and tasks
         live in one chat-style interface. It's designed for the kind of saving
         people already do in WhatsApp, Telegram, or the iOS Notes app — except
         in Luckynote those saves stay organized, synced, and easy to find again.
-      </BodyText>
-      <BodyText>
+      </Text>
+      <Text as='p'>
         The app runs on iOS, Android, and the web, with a Chrome extension that
         drops anything you find online straight into your inbox. The free tier
         includes unlimited folders, sync across all devices, and Lucky Actions —
         the app's smart message handling — and is loved by 6,000+ users at a 4.6
         rating.
-      </BodyText>
+      </Text>
       <Box css={theme({ pt: 2, pb: [3, 3, 4, 4] })}>
         <Text
           as='a'
@@ -150,7 +153,7 @@ const AboutCustomer = () => (
         role='Founder'
         company='Luckynote'
         initials='UD'
-        avatar='https://unavatar.io/x/lucky_uros'
+        avatar='/images/clients/uros-durdevic.jpeg'
       />
     </SectionInner>
   </Section>
@@ -164,23 +167,14 @@ const HowTheyUseIt = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         How they use Microlink
       </Eyebrow>
-      <SubheadBase
-        css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
-        })}
-      >
-        A rich preview behind every link pasted into a note
-      </SubheadBase>
-      <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
+      <Text as='h2'>A rich preview behind every link pasted into a note</Text>
+      <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         When a user writes a note that contains a URL, Luckynote calls
         Microlink's Metadata API and gets back the page's title, description,
         and preview image in a single request. That metadata feeds straight into
         the card the user sees right next to the message — so the link arrives
         with context, not just a domain name.
-      </BodyText>
+      </Text>
       <FlowDiagram
         accent={ACCENT}
         nodes={[
@@ -190,13 +184,13 @@ const HowTheyUseIt = () => (
           { label: 'Preview card', sub: 'Rendered inline' }
         ]}
       />
-      <BodyText>
+      <Text as='p'>
         What used to be an opaque URL becomes a tappable preview the user can
         scan in a glance. The same Microlink endpoint serves Luckynote's iOS
         app, Android app, web app, and Chrome extension — Microlink works just
         as well from a native HTTP client on Swift or Kotlin as it does from the
         browser, so there's no preview logic to duplicate per platform.
-      </BodyText>
+      </Text>
       <Figure>
         <FigureImage
           src='/images/clients/luckynote-preview.png'
@@ -221,21 +215,14 @@ const WhyMicrolink = () => (
         <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
           Why Microlink
         </Eyebrow>
-        <SubheadBase
-          css={theme({
-            fontSize: ['24px', '28px', '34px', '38px'],
-            textAlign: 'left',
-            letterSpacing: '-0.01em',
-            lineHeight: 0
-          })}
-        >
+        <Text as='h2'>
           A metadata API that ships to web and native, no SDK required
-        </SubheadBase>
-        <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
+        </Text>
+        <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
           Building rich previews for every URL in every note shouldn't require
           an in-house rendering pipeline. Luckynote reached for Microlink for
           three reasons.
-        </BodyText>
+        </Text>
       </Box>
 
       <Flex
@@ -314,8 +301,6 @@ const ThanksSection = () => (
     </SectionInner>
   </Section>
 )
-
-/* ─── Page ───────────────────────────────────────────────────────────────── */
 
 const CustomerStoryPage = () => (
   <Layout css={theme({ position: 'relative' })}>

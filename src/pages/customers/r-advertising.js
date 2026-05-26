@@ -5,12 +5,11 @@ import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import {
-  BodyText,
+  ACCENT,
   Caption,
   CtaSection,
   DashedGridOverlay,
@@ -21,7 +20,6 @@ import {
   MoreCustomers,
   Section,
   SectionInner,
-  StoryTag,
   Testimonial,
   WhyCard
 } from 'components/patterns/CustomerStory'
@@ -29,20 +27,34 @@ import Layout from 'components/patterns/Layout'
 
 import { cdnUrl } from 'helpers/cdn-url'
 
-const ACCENT = {
-  text: 'blue7',
-  bgSoft: 'blue0',
-  bgEdge: 'blue1',
-  highlight: 'blue5'
-}
-
-/* ─── Hero ───────────────────────────────────────────────────────────────── */
-
 const Hero = () => (
   <Section as='header' css={theme({ pt: [3, 3, 4, 4], pb: [3, 3, 4, 4] })}>
     <SectionInner>
       <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
-        <StoryTag accent={ACCENT}>Customer story</StoryTag>
+        <img
+          src='/images/clients/r-advertising.com.png'
+          alt=''
+          width='40'
+          height='40'
+          css={theme({
+            display: 'block',
+            borderRadius: 2,
+            width: '40px',
+            height: '40px'
+          })}
+          style={{ objectFit: 'cover' }}
+          decoding='async'
+        />
+        <Text
+          css={theme({
+            color: 'black',
+            fontSize: 2,
+            fontWeight: 'bold',
+            lineHeight: 1
+          })}
+        >
+          R-Advertising
+        </Text>
       </Flex>
       <Text
         as='h1'
@@ -57,14 +69,13 @@ const Hero = () => (
           scrollMarginTop: 4
         })}
       >
-        <span css={theme({ color: ACCENT.text })}>R-Advertising:</span> Sales
-        prospecting as a Tinder-style swipe deck
+        Sales prospecting as a Tinder-style swipe deck
       </Text>
-      <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
+      <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         How a performance-marketing agency built an internal tool that turns
         every prospect into a swipeable card — with Microlink generating the
         website screenshot behind every "right" or "left" decision.
-      </BodyText>
+      </Text>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <ArrowLink
           href='/screenshot'
@@ -150,33 +161,25 @@ const AboutCustomer = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 3, pt: 3, display: 'block' })}>
         About R-Advertising
       </Eyebrow>
-      <SubheadBase
-        css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          pb: [3, 3, 4, 4]
-        })}
-      >
+      <Text as='h2' css={theme({ pb: [3, 3, 4, 4] })}>
         Performance marketing across email, programmatic, data, outdoor, and
         influence — since 2006.
-      </SubheadBase>
-      <BodyText css={theme({ pb: [3, 3, 4, 4] })}>
+      </Text>
+      <Text as='p' css={theme({ pb: [3, 3, 4, 4] })}>
         R-Advertising is a performance-driven digital marketing agency that has
         been activating multi-channel campaigns for brands since 2006. Their
         teams design and run acquisition, traffic, visibility, and
         lead-generation programs across email and SMS, programmatic advertising,
         data, outdoor media, and influence — orchestrated together rather than
         treated as silos.
-      </BodyText>
-      <BodyText>
+      </Text>
+      <Text as='p'>
         The agency supported 60 clients in 2024 across e-commerce, retail,
         travel, and enterprise — including Air France, Crédit Agricole,
         Printemps, Showroom Privé, and French Bee — and operates a proprietary
         database of more than 20 million qualified profiles that feeds the
         targeting layer of every campaign.
-      </BodyText>
+      </Text>
       <Box css={theme({ pt: 2, pb: [3, 3, 4, 4] })}>
         <Text
           as='a'
@@ -199,6 +202,7 @@ const AboutCustomer = () => (
         author='François Pacot'
         role='CEO'
         company='R-Advertising'
+        avatar='/images/clients/francois-pacot.jpeg'
         initials='FP'
       />
     </SectionInner>
@@ -213,24 +217,15 @@ const HowTheyUseIt = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         How they use Microlink
       </Eyebrow>
-      <SubheadBase
-        css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
-        })}
-      >
-        A Tinder-style swipe deck for sales prospecting
-      </SubheadBase>
-      <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
+      <Text as='h2'>A Tinder-style swipe deck for sales prospecting</Text>
+      <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         R-Advertising's sales team works through long lists of candidate
         prospects every week. To make that work feel less like a spreadsheet and
         more like the apps the team actually uses, the agency built an internal
         tool that turns each prospect into a card the salesperson can swipe
         right or left — exactly like Tinder. The card shows what the prospect's
         website actually looks like.
-      </BodyText>
+      </Text>
       <FlowDiagram
         accent={ACCENT}
         nodes={[
@@ -240,13 +235,13 @@ const HowTheyUseIt = () => (
           { label: 'Salesperson', sub: 'Right or left swipe' }
         ]}
       />
-      <BodyText>
+      <Text as='p'>
         Microlink generates the screenshot for every prospect on demand,
         rendered the way a real visitor would see the site. The salesperson can
         decide in a fraction of a second whether the company looks like a fit
         and is worth contacting, or swipe past. What used to be a list of opaque
         domain names becomes a visual queue the team can move through quickly.
-      </BodyText>
+      </Text>
       <Figure css={theme({ pb: 0 })}>
         <PreviewCarousel />
       </Figure>
@@ -263,21 +258,12 @@ const WhyMicrolink = () => (
         <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
           Why Microlink
         </Eyebrow>
-        <SubheadBase
-          css={theme({
-            fontSize: ['24px', '28px', '34px', '38px'],
-            textAlign: 'left',
-            letterSpacing: '-0.01em',
-            lineHeight: 0
-          })}
-        >
-          A screenshot API that fits behind an internal tool
-        </SubheadBase>
-        <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
+        <Text as='h2'>A screenshot API that fits behind an internal tool</Text>
+        <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
           Building an internal tool isn't where R-Advertising's engineering time
           should go on rendering pipelines and browser pools. They reached for
           Microlink for three reasons.
-        </BodyText>
+        </Text>
       </Box>
 
       <Flex
@@ -361,8 +347,6 @@ const ThanksSection = () => (
     </SectionInner>
   </Section>
 )
-
-/* ─── Page ───────────────────────────────────────────────────────────────── */
 
 const CustomerStoryPage = () => (
   <Layout css={theme({ position: 'relative' })}>

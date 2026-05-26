@@ -1,26 +1,12 @@
-import { layout, theme } from 'theme'
+import { colors, layout, theme } from 'theme'
 import React from 'react'
 
 import Flex from 'components/elements/Flex'
-import SubheadBase from 'components/elements/Subhead'
+import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
-import CaptionBase from 'components/patterns/Caption/Caption'
-
-import { withTitle } from 'helpers/hoc/with-title'
 
 import { Section, SectionInner } from './primitives'
-
-const Caption = withTitle(CaptionBase)
-
-const ACCENT_RGB = {
-  teal7: '12, 166, 120',
-  blue7: '28, 126, 214',
-  cyan7: '16, 152, 173',
-  green7: '55, 178, 77',
-  orange7: '247, 103, 7',
-  yellow7: '245, 159, 0'
-}
 
 export const CtaSection = ({
   accent,
@@ -31,11 +17,10 @@ export const CtaSection = ({
   label,
   mt = 5
 }) => {
-  const rgb = ACCENT_RGB[accent.text]
   return (
     <Section
       css={`
-        background-color: rgba(${rgb}, 0.06);
+        background-color: ${colors.link}0F;
         ${theme({
           borderTop: 1,
           borderTopColor: accent.bgEdge,
@@ -46,30 +31,30 @@ export const CtaSection = ({
       `}
     >
       <SectionInner css={theme({ textAlign: 'center' })}>
-        <SubheadBase
+        <Text
+          as='h2'
           css={theme({
             color: 'black',
             fontSize: ['28px', '32px', '40px', '46px'],
             letterSpacing: '-0.01em',
-            lineHeight: 0
+            lineHeight: 0,
+            fontWeight: 'bold'
           })}
         >
           {headlinePrefix}{' '}
           <span css={theme({ color: accent.text })}>{headlineAccent}</span>?
-        </SubheadBase>
-        <Caption
-          forwardedAs='p'
-          titleize={false}
+        </Text>
+        <Text
+          as='p'
           css={theme({
             color: 'black70',
             pt: [3, 3, 4, 4],
-            fontSize: [1, 2, 2, 2],
             maxWidth: layout.small,
             mx: 'auto'
           })}
         >
           {body}
-        </Caption>
+        </Text>
         <Flex
           css={theme({
             pt: [3, 4, 4, 4],

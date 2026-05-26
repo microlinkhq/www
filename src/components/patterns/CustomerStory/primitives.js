@@ -1,5 +1,4 @@
 import { layout, theme } from 'theme'
-import React from 'react'
 import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
@@ -29,24 +28,6 @@ export const SectionInner = styled(Box)`
     mx: 'auto'
   })}
 `
-
-export const BodyText = props => (
-  <Caption
-    forwardedAs='p'
-    titleize={false}
-    {...props}
-    css={[
-      theme({
-        fontSize: [1, 2, 2, 2],
-        textAlign: 'left',
-        maxWidth: layout.large,
-        mx: 0,
-        color: 'black'
-      }),
-      props.css
-    ]}
-  />
-)
 
 export const Figure = styled('figure')`
   ${theme({

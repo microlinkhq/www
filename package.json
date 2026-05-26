@@ -270,6 +270,8 @@
       "node scripts/blog-slugger.js",
       "node scripts/static-assets.js"
     ],
+    "*.{mp4,webm,mov}": "npx optimo",
+    "*.{png,jpg,jpeg,webp,avif,heic,gif,svg}": "npx optimo",
     "package.json": [
       "finepack"
     ]
