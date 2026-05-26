@@ -2921,7 +2921,7 @@ const STACK_UTILITIES = [
     eyebrow: 'Metadata × Embed',
     title: 'Rich previews and oEmbed players in one call',
     description:
-      'Pair the unified metadata with a ready-to-paste iframe from 280+ oEmbed providers — YouTube, Spotify, X, Vimeo, Figma, CodeSandbox. Render previews your way with the metadata fields, or drop in the optional SDK for zero-code embeds.',
+      'Pair the unified metadata with a ready-to-paste iframe from 380+ oEmbed providers — YouTube, Spotify, X, Vimeo, Figma, CodeSandbox. Render previews your way with the metadata fields, or drop in the optional SDK for zero-code embeds.',
     href: '/embed',
     cta: 'Explore Embed API',
     accentColor: ACCENT,

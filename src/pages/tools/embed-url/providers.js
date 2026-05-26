@@ -664,7 +664,7 @@ const Hero = () => (
         fontSize: [2, 2, '26px', '28px']
       })}
     >
-      Generate embed code for 280+ supported sites. Pick a provider below or use
+      Generate embed code for 380+ supported sites. Pick a provider below or use
       the <Link href='/embed'>Microlink Embed API</Link> to embed any URL at
       scale.
     </Caption>
@@ -821,7 +821,7 @@ const CatchAll = () => (
       })}
     >
       The <Link href='/tools/embed-url'>universal embed tool</Link> works for
-      any URL — 280+ oEmbed providers and a fallback card for everything else.
+      any URL — 380+ oEmbed providers and a fallback card for everything else.
     </Caption>
     <Box
       css={theme({
@@ -855,7 +855,7 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Over 280 verified oEmbed providers are supported, including
+              Over 380 verified oEmbed providers are supported, including
               YouTube, Instagram, Twitter / X, TikTok, Figma, Spotify, and many
               more. The list grows automatically — no SDK upgrade needed.
             </div>
@@ -907,9 +907,9 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Embed Code Providers — 280+ Supported Sites'
+    title='Embed Code Providers — 380+ Supported Sites'
     noSuffix
-    description='Browse 280+ supported embed providers. Generate embed code for YouTube, Instagram, Twitter, TikTok, Figma, and more — free, no signup.'
+    description='Browse 380+ supported embed providers. Generate embed code for YouTube, Instagram, Twitter, TikTok, Figma, and more — free, no signup.'
     image='https://cdn.microlink.io/banner/sdk.jpeg'
     structured={[
       {
@@ -918,7 +918,7 @@ export const Head = () => (
         '@id': 'https://microlink.io/tools/embed-url/providers',
         name: 'Embed Code Providers',
         description:
-          'Browse 280+ supported embed providers. Generate embed code for YouTube, Instagram, Twitter, TikTok, Figma, and more.',
+          'Browse 380+ supported embed providers. Generate embed code for YouTube, Instagram, Twitter, TikTok, Figma, and more.',
         url: 'https://microlink.io/tools/embed-url/providers',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
@@ -945,7 +945,7 @@ export const Head = () => (
             name: 'How many embed providers are supported?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Over 280 verified oEmbed providers are supported, including YouTube, Instagram, Twitter / X, TikTok, Figma, Spotify, and many more.'
+              text: 'Over 380 verified oEmbed providers are supported, including YouTube, Instagram, Twitter / X, TikTok, Figma, Spotify, and many more.'
             }
           },
           {

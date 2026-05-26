@@ -181,7 +181,7 @@ const COMPARISON_DATA = [
   },
   {
     feature: 'Publisher-specific embed catalog',
-    microlink: '280+ oEmbed providers',
+    microlink: '380+ oEmbed providers',
     iframely: '1,900+ publishers',
     note: 'Iframely maintains a deeper publisher catalog. Microlink covers the most common oEmbed providers plus universal Open Graph fallback.'
   },
@@ -662,12 +662,12 @@ const FAQ_ITEMS = [
         <div>
           What differs is publisher coverage breadth: Iframely advertises 1,900+
           publishers with proprietary discovery on top of oEmbed. Microlink
-          covers 280+ oEmbed providers plus a universal Open Graph and Twitter
+          covers 380+ oEmbed providers plus a universal Open Graph and Twitter
           Card fallback for anything else.
         </div>
       </>
     ),
-    text: "For oEmbed providers, yes. Microlink's embed API returns the provider iframe HTML plus normalized title, description, image, logo, and color palette. Iframely advertises 1,900+ publishers with proprietary discovery on top of oEmbed; Microlink covers 280+ oEmbed providers plus universal Open Graph and Twitter Card fallback."
+    text: "For oEmbed providers, yes. Microlink's embed API returns the provider iframe HTML plus normalized title, description, image, logo, and color palette. Iframely advertises 1,900+ publishers with proprietary discovery on top of oEmbed; Microlink covers 380+ oEmbed providers plus universal Open Graph and Twitter Card fallback."
   },
   {
     question: 'Why pick Microlink if Iframely covers more publishers?',

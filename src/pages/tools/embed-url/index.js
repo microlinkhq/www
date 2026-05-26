@@ -32,7 +32,7 @@ const FEATURES_LIST = [
   {
     title: 'Real provider players',
     description:
-      "YouTube, Spotify, Vimeo, X, Figma and 280+ more — get the site's actual interactive embed, ready to paste."
+      "YouTube, Spotify, Vimeo, X, Figma and 380+ more — get the site's actual interactive embed, ready to paste."
   },
   {
     title: 'Customize without code',
@@ -74,7 +74,7 @@ const REASON_TO_USE = [
       "Real iframe player when the site supports it, a clean preview card when it doesn't. One tool, every URL."
   },
   {
-    title: '280+ supported sites',
+    title: '380+ supported sites',
     description: (
       <>
         YouTube, Spotify, Vimeo, X, Figma, TikTok, CodePen, and hundreds more —
@@ -602,7 +602,7 @@ const ProductInformation = () => (
             </div>
             <div>
               This embed code generator detects the provider's real embed
-              endpoint via oEmbed for 280+ supported sites — YouTube, Spotify,
+              endpoint via oEmbed for 380+ supported sites — YouTube, Spotify,
               Vimeo, X, TikTok, Figma, CodePen and more — so the iframe actually
               works. When no embed is available, it returns a styled preview
               card instead of a broken frame.
@@ -617,7 +617,7 @@ const ProductInformation = () => (
             <div>
               Paste any link and the tool generates a ready-to-paste HTML
               snippet. For sites with an interactive embed — YouTube, Spotify,
-              Figma, X, and 280+ more — you get the provider's real player. For
+              Figma, X, and 380+ more — you get the provider's real player. For
               everything else, you get a clean preview card.
             </div>
             <div>
@@ -661,7 +661,7 @@ const ProductInformation = () => (
             </div>
             <div>
               No per-provider URL gymnastics — Microlink normalizes oEmbed
-              across 280+ supported sites.
+              across 380+ supported sites.
             </div>
           </>
         )
@@ -671,7 +671,7 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              280+ verified oEmbed providers including YouTube, Spotify, Twitter
+              380+ verified oEmbed providers including YouTube, Spotify, Twitter
               / X, Instagram, TikTok, GitHub, CodePen, CodeSandbox, Vimeo,
               SoundCloud, Figma, Reddit, Pinterest, Medium, TED, Twitch, and
               more. Browse our{' '}
@@ -790,7 +790,7 @@ export const Head = () => (
   <Meta
     title='Embed Code Generator — Embed any URL as an Iframe or Card'
     noSuffix
-    description='Free embed code generator. Paste any URL — get a ready-to-paste iframe or custom preview card. Works for YouTube, Spotify, X, Figma, and 280+ providers. No signup.'
+    description='Free embed code generator. Paste any URL — get a ready-to-paste iframe or custom preview card. Works for YouTube, Spotify, X, Figma, and 380+ providers. No signup.'
     image='https://cdn.microlink.io/banner/sdk.jpeg'
     structured={[
       {
@@ -799,7 +799,7 @@ export const Head = () => (
         '@id': 'https://microlink.io/tools/embed-url',
         name: 'Embed Code Generator',
         description:
-          'Free embed code generator. Paste any URL — get a ready-to-paste iframe or custom preview card. Works for YouTube, Spotify, X, Figma, and 280+ providers. No signup.',
+          'Free embed code generator. Paste any URL — get a ready-to-paste iframe or custom preview card. Works for YouTube, Spotify, X, Figma, and 380+ providers. No signup.',
         url: 'https://microlink.io/tools/embed-url',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
@@ -833,7 +833,7 @@ export const Head = () => (
           'Embed any URL as iframe HTML',
           'Microlink SDK card fallback',
           'Copy ready-to-paste HTML',
-          '280+ oEmbed providers',
+          '380+ oEmbed providers',
           'Edge-cached responses',
           'No login required'
         ]
@@ -863,7 +863,7 @@ export const Head = () => (
             name: 'How is this different from an iframe maker?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "A traditional iframe maker only wraps a URL in an iframe tag, which breaks for sites that block framing. This embed code generator detects the provider's real embed endpoint via oEmbed for 280+ supported sites, so the iframe actually works. When no embed is available, it returns a styled preview card instead of a broken frame."
+              text: "A traditional iframe maker only wraps a URL in an iframe tag, which breaks for sites that block framing. This embed code generator detects the provider's real embed endpoint via oEmbed for 380+ supported sites, so the iframe actually works. When no embed is available, it returns a styled preview card instead of a broken frame."
             }
           },
           {
@@ -879,7 +879,7 @@ export const Head = () => (
             name: 'How does the iframe parameter work?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "Pass &iframe on the Microlink API request. The response includes an iframe.html field with the provider's real player markup — YouTube, Spotify, Vimeo, X, TikTok, Figma, and the rest. Microlink normalizes oEmbed across 280+ supported sites."
+              text: "Pass &iframe on the Microlink API request. The response includes an iframe.html field with the provider's real player markup — YouTube, Spotify, Vimeo, X, TikTok, Figma, and the rest. Microlink normalizes oEmbed across 380+ supported sites."
             }
           },
           {

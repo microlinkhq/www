@@ -193,7 +193,7 @@ const COMPARISON_DATA = [
   },
   {
     feature: 'Publisher catalog size',
-    microlink: '280+ oEmbed providers',
+    microlink: '380+ oEmbed providers',
     embedly: '1,000+ providers',
     note: 'Embedly maintains a deeper publisher catalog. Microlink covers the most common oEmbed providers plus universal Open Graph fallback.'
   },
