@@ -1,3 +1,8 @@
+---
+name: generate-changelog
+description: Generate concise, user-facing changelog entries for Microlink by inspecting git commits across relevant repositories.
+---
+
 # Generate Changelog
 
 Generate concise, user-facing changelog entries for `src/content/fragments/changelog.md` by inspecting git commits across all Microlink repositories since the last changelog edit.

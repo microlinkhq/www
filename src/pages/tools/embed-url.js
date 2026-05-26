@@ -55,8 +55,6 @@ const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
-/* ─── Constants ────────────────────────────────────────── */
-
 const PREVIEW_HEIGHT = '450px'
 const PREVIEW_HEIGHT_MOBILE = '400px'
 
@@ -653,7 +651,16 @@ const USE_CASES = [
   }
 ]
 
-/* ─── Page-specific Styled Components ──────────────────── */
+const hoverProps = (setHoverTarget, target) => ({
+  onMouseEnter: () => setHoverTarget(target),
+  onMouseLeave: () => setHoverTarget(null)
+})
+
+const normalizeUrl = rawUrl => {
+  const trimmed = rawUrl.trim()
+  if (!trimmed) return ''
+  return prependHttp(trimmed)
+}
 
 const PaperSheet = styled(Box)`
   display: flex;
@@ -1378,15 +1385,40 @@ const HelpIconWrap = styled(Box).attrs({ as: 'span' })`
   }
 `
 
-const ExampleUrlText = styled(Box).attrs({ as: 'span' })`
+const ExampleUrlButton = styled(Box).attrs({
+  as: 'button',
+  type: 'button'
+})`
   ${theme({
     fontFamily: 'sans',
     fontSize: 0,
-    color: 'black60'
+    color: 'black60',
+    cursor: 'pointer',
+    minHeight: '24px',
+    border: 0,
+    bg: 'transparent',
+    textDecoration: 'underline',
+    px: 0,
+    py: 0
   })}
-  text-decoration: underline;
   text-decoration-color: ${colors.black10};
   text-underline-offset: 2px;
+  touch-action: manipulation;
+
+  &:hover:not(:disabled) {
+    color: ${colors.black};
+    text-decoration-color: ${colors.black30};
+  }
+
+  &:disabled {
+    cursor: wait;
+    opacity: 0.7;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
 `
 
 const MobileHiddenInline = styled(Box).attrs({ as: 'span' })`
@@ -1768,8 +1800,6 @@ const ResultsExpandInner = styled(Box)`
   min-height: 0;
 `
 
-/* ─── Omnibar (input + submit) ─────────────────────────── */
-
 const EXAMPLE_URLS = [
   { url: 'youtube.com' },
   { url: 'tiktok.com' },
@@ -1784,16 +1814,10 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
   const handleUrlChange = useCallback(
     e => {
       setUrl(e.target.value)
-      setUrlError(prev => (prev ? '' : prev))
+      setUrlError('')
     },
     [setUrl]
   )
-
-  const normalizeUrl = rawUrl => {
-    const trimmed = rawUrl.trim()
-    if (!trimmed) return ''
-    return prependHttp(trimmed)
-  }
 
   const handleSubmit = useCallback(
     nextValue => {
@@ -1839,61 +1863,60 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
           <ArrowRight size={16} />
         </OmniboxConvertButton>
       </OmniboxWrapper>
-      {urlError
-        ? (
-          <Text
-            id='embed-url-error'
-            role='alert'
-            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
-          >
-            {urlError}
-          </Text>
-          )
-        : !url.trim()
-            ? (
-              <Text
-                css={theme({
-                  fontFamily: 'sans',
-                  color: 'black60',
-                  fontSize: 0,
-                  pt: 2,
-                  pl: 3
-                })}
-              >
-                <Box as='span' css={{ marginRight: 4 }}>
-                  Try:
-                </Box>
-                {EXAMPLE_URLS.map(({ url: example, hideOnMobile }, i) => {
-                  const Wrapper = hideOnMobile ? MobileHiddenInline : React.Fragment
-                  return (
-                    <Wrapper key={example}>
-                      {i > 0
-                        ? (
-                          <Box
-                            as='span'
-                            aria-hidden='true'
-                            css={{
-                              marginLeft: 6,
-                              marginRight: 6,
-                              color: colors.black30
-                            }}
-                          >
-                            ·
-                          </Box>
-                          )
-                        : null}
-                      <ExampleUrlText>{example}</ExampleUrlText>
-                    </Wrapper>
-                  )
-                })}
-              </Text>
-              )
-            : null}
+      {urlError && (
+        <Text
+          id='embed-url-error'
+          role='alert'
+          css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+        >
+          {urlError}
+        </Text>
+      )}
+      {!urlError && !url.trim() && (
+        <Text
+          css={theme({
+            fontFamily: 'sans',
+            color: 'black60',
+            fontSize: 0,
+            pt: 2,
+            pl: 3
+          })}
+        >
+          <Box as='span' css={{ marginRight: 4 }}>
+            Try:
+          </Box>
+          {EXAMPLE_URLS.map(({ url: example, hideOnMobile }, i) => {
+            const Wrapper = hideOnMobile ? MobileHiddenInline : React.Fragment
+            return (
+              <Wrapper key={example}>
+                {i > 0 && (
+                  <Box
+                    as='span'
+                    aria-hidden='true'
+                    css={{
+                      marginLeft: 6,
+                      marginRight: 6,
+                      color: colors.black30
+                    }}
+                  >
+                    ·
+                  </Box>
+                )}
+                <ExampleUrlButton
+                  onClick={() => handleSubmit(example)}
+                  disabled={isLoading}
+                  aria-label={`Generate preview for ${example}`}
+                >
+                  {example}
+                </ExampleUrlButton>
+              </Wrapper>
+            )
+          })}
+        </Text>
+      )}
     </Box>
   )
 }
-
-/* ─── Result Panes ─────────────────────────────────────── */
 
 const PreviewPane = ({
   html,
@@ -1959,7 +1982,7 @@ const PreviewPane = ({
 
     root.addEventListener('click', onClick)
     return () => root.removeEventListener('click', onClick)
-  }, [hasIframe, html, onEditField])
+  }, [hasIframe, onEditField])
 
   return (
     <ResultPane $autoHeight={hasIframe}>
@@ -2227,13 +2250,8 @@ const HtmlPane = ({ html }) => {
   )
 }
 
-/* ─── Config Editor Tabs ───────────────────────────────── */
-
 const LayoutTab = ({ config, set, setHoverTarget }) => {
-  const hover = target => ({
-    onMouseEnter: () => setHoverTarget(target),
-    onMouseLeave: () => setHoverTarget(null)
-  })
+  const hover = target => hoverProps(setHoverTarget, target)
 
   return (
     <Box>
@@ -2320,10 +2338,7 @@ const LayoutTab = ({ config, set, setHoverTarget }) => {
 }
 
 const FrameTab = ({ config, set, setHoverTarget }) => {
-  const hover = target => ({
-    onMouseEnter: () => setHoverTarget(target),
-    onMouseLeave: () => setHoverTarget(null)
-  })
+  const hover = target => hoverProps(setHoverTarget, target)
 
   return (
     <Box>
@@ -2464,10 +2479,7 @@ const FONT_SIZE_FIELDS = [
 ]
 
 const FontsTab = ({ config, set, setHoverTarget }) => {
-  const hover = target => ({
-    onMouseEnter: () => setHoverTarget(target),
-    onMouseLeave: () => setHoverTarget(null)
-  })
+  const hover = target => hoverProps(setHoverTarget, target)
 
   return (
     <Box>
@@ -2539,10 +2551,7 @@ const COLOR_TARGET_MAP = {
 
 const ColorsTab = ({ config, set, setHoverTarget }) => {
   const themeKey = config.theme === 'dark' ? 'darkColors' : 'lightColors'
-  const hover = target => ({
-    onMouseEnter: () => setHoverTarget(target),
-    onMouseLeave: () => setHoverTarget(null)
-  })
+  const hover = target => hoverProps(setHoverTarget, target)
   return (
     <Box>
       <SectionHeader>Theme</SectionHeader>
@@ -2774,8 +2783,7 @@ const ResultArea = ({
   const apiHasIframe = Boolean(data.iframe?.html)
   const showCard = useCard || !apiHasIframe
   const iframeScripts = data.iframe?.scripts
-  const effectiveData =
-    Object.keys(editOverrides).length > 0 ? { ...data, ...editOverrides } : data
+  const effectiveData = hasEdits ? { ...data, ...editOverrides } : data
   const previewHtml = compactHtml(
     showCard
       ? buildCardHtml(effectiveData, config, { instrument: true })
@@ -2903,8 +2911,6 @@ const ResultArea = ({
   )
 }
 
-/* ─── Main Tool Section ────────────────────────────────── */
-
 const EmbedTool = () => {
   const [url, setUrl] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -2978,13 +2984,6 @@ const EmbedTool = () => {
     }
   }, [])
 
-  const handleSubmit = useCallback(
-    next => {
-      executeSubmit(next)
-    },
-    [executeSubmit]
-  )
-
   const handleRetry = useCallback(() => {
     if (lastUrl) executeSubmit(lastUrl)
   }, [lastUrl, executeSubmit])
@@ -3020,7 +3019,7 @@ const EmbedTool = () => {
         <Omnibar
           url={url}
           setUrl={setUrl}
-          onSubmit={handleSubmit}
+          onSubmit={executeSubmit}
           isLoading={isLoading}
         />
 
@@ -3044,8 +3043,6 @@ const EmbedTool = () => {
     </Container>
   )
 }
-
-/* ─── Hero Section ─────────────────────────────────────── */
 
 const Hero = () => (
   <Flex
@@ -3081,8 +3078,6 @@ const Hero = () => (
     </Caption>
   </Flex>
 )
-
-/* ─── How It Works ─────────────────────────────────────── */
 
 const HowItWorks = () => (
   <Container
@@ -3133,8 +3128,6 @@ const HowItWorks = () => (
     </Flex>
   </Container>
 )
-
-/* ─── Explanation ────────────────────────────────────── */
 
 const Explanation = () => (
   <Container
@@ -3192,8 +3185,6 @@ const Explanation = () => (
     </Caption>
   </Container>
 )
-
-/* ─── Use Cases ───────────────────────────────────────── */
 
 const UseCasesSection = () => (
   <Container
@@ -3294,8 +3285,6 @@ const UseCasesSection = () => (
   </Container>
 )
 
-/* ─── Banner ─────────────────────────────────────────── */
-
 const Banner = () => (
   <Block
     forwardedAs='section'
@@ -3364,8 +3353,6 @@ const Banner = () => (
   />
 )
 
-/* ─── API Docs Card ───────────────────────────────────── */
-
 const EmbedApiDocsCard = () => (
   <Container
     as='section'
@@ -3418,8 +3405,6 @@ const EmbedApiDocsCard = () => (
     </Box>
   </Container>
 )
-
-/* ─── Product Information (FAQ) ────────────────────────── */
 
 const ProductInformation = () => (
   <Faq
@@ -3658,8 +3643,6 @@ const ProductInformation = () => (
   />
 )
 
-/* ─── Page Head (SEO) ──────────────────────────────────── */
-
 export const Head = () => (
   <Meta
     title='Embed Code Generator — Embed any URL as an Iframe or Card'
@@ -3777,8 +3760,6 @@ export const Head = () => (
     ]}
   />
 )
-
-/* ─── Page Composition ─────────────────────────────────── */
 
 const EmbedUrlPage = () => (
   <Layout>
