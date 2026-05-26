@@ -194,6 +194,7 @@ const Hero = () => {
     clearInterval(intervalRef.current)
     clearTimeout(timeoutRef.current)
     if (i === index) {
+      setVisible(true)
       startInterval()
       return
     }
