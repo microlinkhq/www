@@ -175,9 +175,12 @@ const Hero = () => {
   }
 
   const goTo = i => {
-    if (i === index) return
     clearInterval(intervalRef.current)
     clearTimeout(timeoutRef.current)
+    if (i === index) {
+      startInterval()
+      return
+    }
     if (reducedMotion.current) {
       setIndex(i)
       return
