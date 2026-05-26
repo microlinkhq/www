@@ -1867,21 +1867,19 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
                   const Wrapper = hideOnMobile ? MobileHiddenInline : React.Fragment
                   return (
                     <Wrapper key={example}>
-                      {i > 0
-                        ? (
-                          <Box
-                            as='span'
-                            aria-hidden='true'
-                            css={{
-                              marginLeft: 6,
-                              marginRight: 6,
-                              color: colors.black30
-                            }}
-                          >
-                            ·
-                          </Box>
-                          )
-                        : null}
+                      {i > 0 && (
+                        <Box
+                          as='span'
+                          aria-hidden='true'
+                          css={{
+                            marginLeft: 6,
+                            marginRight: 6,
+                            color: colors.black30
+                          }}
+                        >
+                          ·
+                        </Box>
+                      )}
                       <ExampleUrlText>{example}</ExampleUrlText>
                     </Wrapper>
                   )
