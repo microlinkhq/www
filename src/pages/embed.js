@@ -15,6 +15,10 @@ import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 
 import Box from 'components/elements/Box'
+import {
+  BackgroundSlider,
+  BackgroundSliderContainer
+} from 'components/elements/BackgroundSlider/BackgroundSlider'
 import Caps from 'components/elements/Caps'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Container from 'components/elements/Container'
@@ -680,15 +684,25 @@ const FEATURED_PROVIDERS = [
   { name: 'Bandcamp', icon: siBandcamp }
 ]
 
-const MARQUEE_DURATION = '60s'
+const PROVIDER_SLIDER_ROWS = 3
+const PROVIDER_SLIDER_DURATION = 80
 
-const marqueeScroll = keyframes`
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
-`
+const PROVIDER_ROWS = Array.from(
+  { length: PROVIDER_SLIDER_ROWS },
+  (_, rowIndex) =>
+    FEATURED_PROVIDERS.filter(
+      (_, index) => index % PROVIDER_SLIDER_ROWS === rowIndex
+    )
+)
 
-const ProvidersMarquee = styled(Box)`
-  ${theme({ width: '100%', overflow: 'hidden' })};
+const ProvidersSlider = styled(BackgroundSliderContainer)`
+  ${theme({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 3,
+    width: '100%',
+    overflow: 'hidden'
+  })};
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0,
@@ -705,19 +719,10 @@ const ProvidersMarquee = styled(Box)`
   );
 `
 
-const ProvidersTrack = styled(Flex)`
-  ${theme({ alignItems: 'center', gap: 2 })};
-  width: max-content;
+const ProviderSliderRow = styled(Flex)`
+  ${theme({ alignItems: 'center', gap: [3, 3, 4, 4], pr: [3, 3, 4, 4] })};
+  display: inline-flex;
   flex-wrap: nowrap;
-  animation: ${marqueeScroll} ${MARQUEE_DURATION} linear infinite;
-  will-change: transform;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: center;
-  }
 `
 
 const ProviderChip = styled(Flex)`
@@ -725,7 +730,7 @@ const ProviderChip = styled(Flex)`
     px: 3,
     py: 2,
     borderRadius: 5,
-    bg: 'white',
+    bg: 'white80',
     fontFamily: 'mono',
     fontSize: 1,
     fontWeight: 'bold',
@@ -804,18 +809,24 @@ const Providers = () => {
         Observable, Streamable, Wistia, Loom, SlideShare, Kickstarter,
         DeviantArt, Imgur, Bandcamp, and more.
       </Box>
-      <ProvidersMarquee aria-hidden='true'>
-        <ProvidersTrack>
-          {[...FEATURED_PROVIDERS, ...FEATURED_PROVIDERS].map(
-            ({ name, icon }, index) => (
-              <ProviderChip key={`${name}-${index}`}>
-                <ProviderIcon icon={icon} />
-                {name}
-              </ProviderChip>
-            )
-          )}
-        </ProvidersTrack>
-      </ProvidersMarquee>
+      <ProvidersSlider aria-hidden='true'>
+        {PROVIDER_ROWS.map((providers, rowIndex) => (
+          <BackgroundSlider
+            key={rowIndex}
+            duration={PROVIDER_SLIDER_DURATION}
+            animationDirection={rowIndex % 2 === 0 ? 'reverse' : 'normal'}
+          >
+            <ProviderSliderRow>
+              {providers.map(({ name, icon }) => (
+                <ProviderChip key={name}>
+                  <ProviderIcon icon={icon} />
+                  {name}
+                </ProviderChip>
+              ))}
+            </ProviderSliderRow>
+          </BackgroundSlider>
+        ))}
+      </ProvidersSlider>
     </Flex>
   )
 
