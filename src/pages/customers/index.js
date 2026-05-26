@@ -1,6 +1,7 @@
 import { breakpoints, colors, speed, textGradient, theme } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
+import { Link as GatsbyLink } from 'gatsby'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
@@ -161,9 +162,11 @@ const Hero = () => {
   const intervalRef = useRef(null)
   const reducedMotion = useRef(false)
 
+  const pausedRef = useRef(false)
+
   const startInterval = () => {
     clearInterval(intervalRef.current)
-    if (reducedMotion.current) return
+    if (reducedMotion.current || pausedRef.current) return
     intervalRef.current = setInterval(() => {
       clearTimeout(timeoutRef.current)
       setVisible(false)
@@ -172,6 +175,18 @@ const Hero = () => {
         setVisible(true)
       }, speed.slowly)
     }, ROTATE_MS)
+  }
+
+  const pause = () => {
+    pausedRef.current = true
+    clearInterval(intervalRef.current)
+    clearTimeout(timeoutRef.current)
+    setVisible(true)
+  }
+
+  const resume = () => {
+    pausedRef.current = false
+    startInterval()
   }
 
   const goTo = i => {
@@ -264,10 +279,17 @@ const Hero = () => {
             </Box>
           </Box>
 
-          <Box>
+          <Box
+            onMouseEnter={pause}
+            onMouseLeave={resume}
+            onFocusCapture={pause}
+            onBlurCapture={e => {
+              if (!e.currentTarget.contains(e.relatedTarget)) resume()
+            }}
+          >
             <FeaturedCard
-              as='a'
-              href={`/customers/${current.slug}`}
+              as={GatsbyLink}
+              to={`/customers/${current.slug}`}
               css={{
                 textDecoration: 'none',
                 color: 'inherit',
