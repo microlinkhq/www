@@ -162,11 +162,14 @@ const Hero = () => {
   const intervalRef = useRef(null)
   const reducedMotion = useRef(false)
 
-  const pausedRef = useRef(false)
+  const hoveredRef = useRef(false)
+  const focusedRef = useRef(false)
+
+  const isPaused = () => hoveredRef.current || focusedRef.current
 
   const startInterval = () => {
     clearInterval(intervalRef.current)
-    if (reducedMotion.current || pausedRef.current) return
+    if (reducedMotion.current || isPaused()) return
     intervalRef.current = setInterval(() => {
       clearTimeout(timeoutRef.current)
       setVisible(false)
@@ -177,16 +180,14 @@ const Hero = () => {
     }, ROTATE_MS)
   }
 
-  const pause = () => {
-    pausedRef.current = true
+  const stop = () => {
     clearInterval(intervalRef.current)
     clearTimeout(timeoutRef.current)
     setVisible(true)
   }
 
-  const resume = () => {
-    pausedRef.current = false
-    startInterval()
+  const tryResume = () => {
+    if (!isPaused()) startInterval()
   }
 
   const goTo = i => {
@@ -280,11 +281,23 @@ const Hero = () => {
           </Box>
 
           <Box
-            onMouseEnter={pause}
-            onMouseLeave={resume}
-            onFocusCapture={pause}
+            onMouseEnter={() => {
+              hoveredRef.current = true
+              stop()
+            }}
+            onMouseLeave={() => {
+              hoveredRef.current = false
+              tryResume()
+            }}
+            onFocusCapture={() => {
+              focusedRef.current = true
+              stop()
+            }}
             onBlurCapture={e => {
-              if (!e.currentTarget.contains(e.relatedTarget)) resume()
+              if (!e.currentTarget.contains(e.relatedTarget)) {
+                focusedRef.current = false
+                tryResume()
+              }
             }}
           >
             <FeaturedCard
@@ -538,11 +551,7 @@ const CustomerGrid = () => (
               >
                 {blurb}
               </Text>
-              <CardQuote>
-                “
-                {quote}
-                ”
-              </CardQuote>
+              <CardQuote>“{quote}”</CardQuote>
               <Flex css={theme({ alignItems: 'center', gap: 2 })}>
                 {avatar
                   ? (
