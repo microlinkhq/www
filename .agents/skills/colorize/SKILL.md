@@ -1,6 +1,6 @@
 ---
 name: colorize
-description: Add strategic color to features that are too monochromatic or lack visual interest. Makes interfaces more engaging and expressive.
+description: Add strategic color to monochromatic interfaces.
 user-invokable: true
 args:
   - name: target

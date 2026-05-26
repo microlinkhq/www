@@ -1,6 +1,6 @@
 ---
 name: arrange
-description: Improve layout, spacing, and visual rhythm. Fixes monotonous grids, inconsistent spacing, and weak visual hierarchy to create intentional compositions.
+description: Fix layout, spacing, visual rhythm, and hierarchy.
 user-invokable: true
 args:
   - name: target

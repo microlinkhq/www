@@ -1,6 +1,6 @@
 ---
 name: critique
-description: Evaluate design effectiveness from a UX perspective. Assesses visual hierarchy, information architecture, emotional resonance, and overall design quality with actionable feedback.
+description: Evaluate design quality, hierarchy, architecture, and emotional resonance.
 user-invokable: true
 args:
   - name: area

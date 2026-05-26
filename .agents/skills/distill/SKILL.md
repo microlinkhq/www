@@ -1,6 +1,6 @@
 ---
 name: distill
-description: Strip designs to their essence by removing unnecessary complexity. Great design is simple, powerful, and clean.
+description: Strip designs to their essence by removing complexity.
 user-invokable: true
 args:
   - name: target

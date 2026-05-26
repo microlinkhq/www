@@ -1,6 +1,6 @@
 ---
 name: adapt
-description: Adapt designs to work across different screen sizes, devices, contexts, or platforms. Ensures consistent experience across varied environments.
+description: Make designs responsive across screen sizes, devices, and platforms.
 user-invokable: true
 args:
   - name: target

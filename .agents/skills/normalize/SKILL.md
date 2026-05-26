@@ -1,6 +1,6 @@
 ---
 name: normalize
-description: Normalize design to match your design system and ensure consistency
+description: Normalize design to match your design system.
 user-invokable: true
 args:
   - name: feature

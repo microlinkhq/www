@@ -1,6 +1,6 @@
 ---
 name: customer-story
-description: Create a new customer use-case landing page under `src/pages/customers/` from the shared `CustomerStory` module, asking the user step-by-step for every placeholder (customer name, accent color, website to research, how they use Microlink, optional testimonial, diagram style, screenshots, CTA target, customer logo). Use when the user says "new customer story", "add a customer page", "customer landing", "[Customer] use case", "customer use case", or asks to scaffold a `customers/<slug>.js` page.
+description: Scaffold a customer use-case page under src/pages/customers/ from CustomerStory module.
 ---
 
 # Customer Story

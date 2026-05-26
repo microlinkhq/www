@@ -1,6 +1,6 @@
 ---
 name: polish
-description: Final quality pass before shipping. Fixes alignment, spacing, consistency, and detail issues that separate good from great.
+description: Final pass before shipping — alignment, spacing, consistency, details.
 user-invokable: true
 args:
   - name: target
