@@ -24,8 +24,6 @@ import { cdnUrl } from 'helpers/cdn-url'
 
 const ROTATE_MS = 6000
 
-/* ─── Shared primitives ──────────────────────────────────────────────────── */
-
 const CompanyName = styled(Text)`
   ${theme({
     color: 'black',
@@ -70,8 +68,6 @@ const Initials = styled(Box).withConfig({
   height: ${({ size }) => size}px;
   font-size: ${({ size }) => Math.round(size * 0.36)}px;
 `
-
-/* ─── Hero ───────────────────────────────────────────────────────────────── */
 
 const HeroGrid = styled(Box)`
   display: grid;
@@ -131,17 +127,30 @@ const FadeContent = styled(Box)`
 const Dot = styled('button')`
   ${theme({
     border: 0,
-    borderRadius: '50%',
-    width: '8px',
-    height: '8px',
-    p: 0
+    p: 0,
+    width: '24px',
+    height: '24px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   })}
   cursor: pointer;
-  transition: background ${speed.quickly}ms ease;
-  background: ${({ $active }) => ($active ? colors.link : colors.black20)};
+  background: transparent;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transition: background ${speed.quickly}ms ease;
+    background: ${({ $active }) => ($active ? colors.link : colors.black20)};
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    transition: none;
+    &::before {
+      transition: none;
+    }
   }
 `
 
@@ -150,9 +159,11 @@ const Hero = () => {
   const [visible, setVisible] = useState(true)
   const timeoutRef = useRef(null)
   const intervalRef = useRef(null)
+  const reducedMotion = useRef(false)
 
   const startInterval = () => {
     clearInterval(intervalRef.current)
+    if (reducedMotion.current) return
     intervalRef.current = setInterval(() => {
       clearTimeout(timeoutRef.current)
       setVisible(false)
@@ -167,6 +178,10 @@ const Hero = () => {
     if (i === index) return
     clearInterval(intervalRef.current)
     clearTimeout(timeoutRef.current)
+    if (reducedMotion.current) {
+      setIndex(i)
+      return
+    }
     setVisible(false)
     timeoutRef.current = setTimeout(() => {
       setIndex(i)
@@ -176,8 +191,22 @@ const Hero = () => {
   }
 
   useEffect(() => {
+    const mql = window.matchMedia('(prefers-reduced-motion: reduce)')
+    reducedMotion.current = mql.matches
+    const onChange = () => {
+      reducedMotion.current = mql.matches
+      if (mql.matches) {
+        clearInterval(intervalRef.current)
+        clearTimeout(timeoutRef.current)
+        setVisible(true)
+      } else {
+        startInterval()
+      }
+    }
+    mql.addEventListener('change', onChange)
     startInterval()
     return () => {
+      mql.removeEventListener('change', onChange)
       clearInterval(intervalRef.current)
       clearTimeout(timeoutRef.current)
     }
@@ -232,90 +261,96 @@ const Hero = () => {
             </Box>
           </Box>
 
-          <FeaturedCard
-            as='a'
-            href={`/customers/${current.slug}`}
-            css={{
-              textDecoration: 'none',
-              color: 'inherit',
-              display: 'flex',
-              flexDirection: 'column'
-            }}
-          >
-            <FadeContent $visible={visible}>
-              <Flex
-                css={theme({
-                  alignItems: 'center',
-                  gap: 2,
-                  pb: [3, 3, 4, 4]
-                })}
-              >
-                <CompanyLogo
-                  src={current.icon}
-                  alt=''
-                  width='40'
-                  height='40'
-                  css={theme({ width: '40px', height: '40px' })}
-                  decoding='async'
-                />
-                <CompanyName>{current.name}</CompanyName>
-              </Flex>
+          <Box>
+            <FeaturedCard
+              as='a'
+              href={`/customers/${current.slug}`}
+              css={{
+                textDecoration: 'none',
+                color: 'inherit',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+            >
+              <FadeContent $visible={visible}>
+                <Flex
+                  css={theme({
+                    alignItems: 'center',
+                    gap: 2,
+                    pb: [3, 3, 4, 4]
+                  })}
+                >
+                  <CompanyLogo
+                    src={current.icon}
+                    alt=''
+                    width='40'
+                    height='40'
+                    css={theme({ width: '40px', height: '40px' })}
+                    decoding='async'
+                  />
+                  <CompanyName>{current.name}</CompanyName>
+                </Flex>
 
-              <FeaturedQuote>
-                <QuoteMark css={textGradient}>“</QuoteMark>
-                {current.quote}
-              </FeaturedQuote>
+                <FeaturedQuote>
+                  <QuoteMark css={textGradient}>”</QuoteMark>
+                  {current.quote}
+                </FeaturedQuote>
 
-              <Flex
-                css={theme({ alignItems: 'center', gap: 2, pt: [3, 3, 4, 4] })}
-              >
-                {current.avatar
-                  ? (
-                    <Avatar
-                      src={current.avatar}
-                      alt={current.author}
-                      width='44'
-                      height='44'
+                <Flex
+                  css={theme({
+                    alignItems: 'center',
+                    gap: 2,
+                    pt: [3, 3, 4, 4]
+                  })}
+                >
+                  {current.avatar
+                    ? (
+                      <Avatar
+                        src={current.avatar}
+                        alt={current.author}
+                        width='44'
+                        height='44'
+                        css={theme({
+                          width: '44px',
+                          height: '44px',
+                          border: 1,
+                          borderColor: 'black10'
+                        })}
+                        decoding='async'
+                      />
+                      )
+                    : (
+                      <Initials
+                        size={44}
+                        aria-hidden='true'
+                        css={theme({
+                          bg: ACCENT.bgSoft,
+                          borderColor: ACCENT.bgEdge,
+                          color: ACCENT.text,
+                          border: 1
+                        })}
+                      >
+                        {current.initials}
+                      </Initials>
+                      )}
+                  <Box>
+                    <Text
                       css={theme({
-                        width: '44px',
-                        height: '44px',
-                        border: 1,
-                        borderColor: 'black10'
-                      })}
-                      decoding='async'
-                    />
-                    )
-                  : (
-                    <Initials
-                      size={44}
-                      aria-hidden='true'
-                      css={theme({
-                        bg: ACCENT.bgSoft,
-                        borderColor: ACCENT.bgEdge,
-                        color: ACCENT.text,
-                        border: 1
+                        color: 'black',
+                        fontSize: 1,
+                        fontWeight: 'bold',
+                        lineHeight: 1
                       })}
                     >
-                      {current.initials}
-                    </Initials>
-                    )}
-                <Box>
-                  <Text
-                    css={theme({
-                      color: 'black',
-                      fontSize: 1,
-                      fontWeight: 'bold',
-                      lineHeight: 1
-                    })}
-                  >
-                    {current.author}
-                  </Text>
-                  <Text css={theme({ color: 'black60', fontSize: 0, pt: 1 })}>
-                    {current.role}, {current.name}
-                  </Text>
-                </Box>
-              </Flex>
-            </FadeContent>
+                      {current.author}
+                    </Text>
+                    <Text css={theme({ color: 'black60', fontSize: 0, pt: 1 })}>
+                      {current.role}, {current.name}
+                    </Text>
+                  </Box>
+                </Flex>
+              </FadeContent>
+            </FeaturedCard>
 
             <Flex
               css={theme({
@@ -329,21 +364,16 @@ const Hero = () => {
                   key={i}
                   $active={i === index}
                   aria-label={`Show ${CUSTOMERS[i].name} quote`}
-                  onClick={e => {
-                    e.preventDefault()
-                    goTo(i)
-                  }}
+                  onClick={() => goTo(i)}
                 />
               ))}
             </Flex>
-          </FeaturedCard>
+          </Box>
         </HeroGrid>
       </SectionInner>
     </Section>
   )
 }
-
-/* ─── Logo bar ───────────────────────────────────────────────────────────── */
 
 const LogoBarSection = styled(Section)`
   ${theme({
@@ -396,8 +426,6 @@ const LogoBar = () => (
     </SectionInner>
   </LogoBarSection>
 )
-
-/* ─── Customer grid ──────────────────────────────────────────────────────── */
 
 const Grid = styled(Box)`
   display: grid;
@@ -485,11 +513,7 @@ const CustomerGrid = () => (
               >
                 {blurb}
               </Text>
-              <CardQuote>
-                “
-                {quote}
-                ”
-              </CardQuote>
+              <CardQuote>“{quote}”</CardQuote>
               <Flex css={theme({ alignItems: 'center', gap: 2 })}>
                 {avatar
                   ? (

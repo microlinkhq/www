@@ -58,13 +58,4 @@ Hero CTA (inside `Hero` component):
 
 Bottom CTA (inside `CtaSection` component): same `ArrowLink` shape with the broader label from the table above.
 
-The CTA section's headline retains the accent span pattern:
-
-```jsx
-<SubheadBase ...>
-  Ready to ship with{' '}
-  <span css={theme({ color: ACCENT.text })}>Microlink</span>?
-</SubheadBase>
-```
-
-If the chosen target is not `/pricing`, the headline MAY be customized to mention the product (e.g. "Ready to ship screenshots?"), but only if the user agrees during the confirmation step.
+The CTA headline uses the accent span pattern via `headlinePrefix` + `headlineAccent` props on `<CtaSection>`. If the target is not `/pricing`, the headline MAY mention the product (e.g. `headlineAccent='screenshots'`).
