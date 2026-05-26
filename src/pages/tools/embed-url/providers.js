@@ -1,4 +1,4 @@
-import { borders, colors, layout, theme, transition } from 'theme'
+import { colors, layout, theme, transition } from 'theme'
 import React, { useState, useMemo } from 'react'
 import styled from 'styled-components'
 
@@ -69,6 +69,9 @@ import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
+
+import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
+import { TOOLS } from 'components/patterns/Tools/toolCatalog'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -457,7 +460,7 @@ const PROVIDERS = [
 
 const PAGE_SIZE = 40
 
-const ProviderIcon = ({ icon, color }) => {
+const ProviderIcon = ({ icon, color, name }) => {
   if (icon) {
     return (
       <svg
@@ -472,16 +475,27 @@ const ProviderIcon = ({ icon, color }) => {
       </svg>
     )
   }
+  const letter = (name || '?').charAt(0).toUpperCase()
   return (
-    <Box
-      css={{
+    <span
+      aria-hidden='true'
+      style={{
         width: 24,
         height: 24,
         borderRadius: '50%',
-        flexShrink: 0
+        flexShrink: 0,
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 12,
+        fontWeight: 700,
+        color: '#fff',
+        lineHeight: 1,
+        background: color || '#999'
       }}
-      style={{ background: color || colors.black40 }}
-    />
+    >
+      {letter}
+    </span>
   )
 }
 
@@ -651,7 +665,8 @@ const Hero = () => (
       })}
     >
       Generate embed code for 280+ supported sites. Pick a provider below or use
-      the <Link href='/tools/embed-url'>universal embed tool</Link> for any URL.
+      the <Link href='/embed'>Microlink Embed API</Link> to embed any URL at
+      scale.
     </Caption>
   </Flex>
 )
@@ -730,7 +745,7 @@ const ProviderGrid = () => {
                 href={`/tools/embed-url/${slug}`}
                 style={onCurrentPage ? undefined : { display: 'none' }}
               >
-                <ProviderIcon icon={icon} color={color} />
+                <ProviderIcon icon={icon} color={color} name={name} />
                 {name}
               </ProviderCardLink>
             )
@@ -791,9 +806,8 @@ const CatchAll = () => (
     css={theme({
       alignItems: 'center',
       textAlign: 'center',
-      pt: [4, 4, 5, 5],
-      pb: [4, 4, 5, 5],
-      bg: 'pinky'
+      pt: [5, 5, 6, 6],
+      pb: [4, 4, 5, 5]
     })}
   >
     <Subhead css={theme({ fontSize: [3, '30px', '35px', '45px'] })}>
@@ -806,23 +820,24 @@ const CatchAll = () => (
         fontSize: [2, 2, 3, 3]
       })}
     >
-      The <Link href='/tools/embed-url'>universal embed code generator</Link>{' '}
-      works for any URL — 280+ oEmbed providers and a fallback card for
-      everything else.
+      The <Link href='/tools/embed-url'>universal embed tool</Link> works for
+      any URL — 280+ oEmbed providers and a fallback card for everything else.
     </Caption>
-    <Text
+    <Box
       css={theme({
         pt: [3, 3, 4, 4],
-        fontSize: 1,
-        color: 'black60'
+        width: '100%',
+        maxWidth: layout.small,
+        mx: 'auto'
       })}
     >
-      See the full{' '}
-      <Link href='/docs/api/parameters/iframe/#providers-supported'>
-        provider list
-      </Link>{' '}
-      in the API docs.
-    </Text>
+      {(() => {
+        const embedTool = TOOLS.flatMap(c => c.tools).find(
+          t => t.href === '/tools/embed-url'
+        )
+        return embedTool ? <FeaturedToolCard {...embedTool} /> : null
+      })()}
+    </Box>
   </Container>
 )
 
@@ -831,11 +846,8 @@ const ProductInformation = () => (
     title='FAQ'
     css={theme({
       fontSize: [1, 1, 1, 1],
-      pt: [2, 2, 4, 4],
-      pb: 4,
-      bg: 'pinky',
-      borderTop: `${borders[1]} ${colors.pinkest}`,
-      borderBottom: `${borders[1]} ${colors.pinkest}`
+      pt: [5, 5, 6, 6],
+      pb: 4
     })}
     questions={[
       {
