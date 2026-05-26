@@ -1,6 +1,6 @@
 ---
 name: animate
-description: Review a feature and enhance it with purposeful animations, micro-interactions, and motion effects that improve usability and delight.
+description: Add animations, micro-interactions, and motion effects to a feature.
 user-invokable: true
 args:
   - name: target

@@ -1,6 +1,6 @@
 ---
 name: alternative-landing
-description: Create or improve competitor alternative landing pages under `src/pages/alternative/` for both screenshot-API competitors (e.g. ScreenshotOne, ApiFlash) and embed-API competitors (e.g. Iframely, Embedly). Use when the user mentions "alternative landing", "competitor page", "[Competitor] alternative", improving an existing alternative page, benchmark-based comparison copy, embed-API comparison, or anti-cannibalization for alternative pages.
+description: Create or improve competitor alternative pages under src/pages/alternative/.
 ---
 
 # Alternative Landing Pages

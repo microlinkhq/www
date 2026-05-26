@@ -1,6 +1,6 @@
 ---
 name: guide-authoring
-description: Create and revise workflow-first Microlink docs guides under `src/content/docs/guides`, turning API reference parameters into practical guide sets with runnable MDX examples, guide index/sidebar updates, ProBadge usage, and consistency checks against the API reference. Use when adding a guide for a Microlink utility, reviewing guide structure/content, or converting parameter docs into step-by-step workflows.
+description: Create or revise docs guides under src/content/docs/guides with runnable MDX examples.
 ---
 
 # Microlink Guide Authoring
