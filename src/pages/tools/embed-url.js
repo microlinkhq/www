@@ -188,9 +188,9 @@ const truncate = (text, max) => {
 const imageLogoFallbackAttr = logoUrl =>
   logoUrl
     ? `onerror="this.onerror=null;this.src='${logoUrl.replace(
-        /'/g,
-        '&#39;'
-      )}';this.style.objectFit='contain';this.style.padding='15%'" `
+      /'/g,
+      '&#39;'
+    )}';this.style.objectFit='contain';this.style.padding='15%'" `
     : ''
 
 const pickFallbackBg = data => data?.image?.palette?.[0] || 'rgba(0,0,0,0.05)'
@@ -318,8 +318,8 @@ const buildLargeCard = (data, s) => {
 
   const mediaInner = imageUrl
     ? `<img src="${imageUrl}" alt="" ${imageLogoFallbackAttr(
-        logoUrl
-      )}style="width:100%;height:100%;object-fit:cover;display:block" />`
+      logoUrl
+    )}style="width:100%;height:100%;object-fit:cover;display:block" />`
     : ''
 
   const titleHtml = `<div${de(s, 'headline')} style="font-size:${
@@ -329,10 +329,10 @@ const buildLargeCard = (data, s) => {
   };margin:0">${title}</div>`
   const descriptionHtml = description
     ? `<div${de(s, 'description')} style="font-size:${
-        s.descriptionSize
-      }px;color:${s.palette.description};line-height:${
-        s.lineHeight
-      };display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0">${description}</div>`
+      s.descriptionSize
+    }px;color:${s.palette.description};line-height:${
+      s.lineHeight
+    };display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0">${description}</div>`
     : ''
 
   const body = s.metaBefore
@@ -365,8 +365,8 @@ const buildWideCard = (data, s) => {
 
   const mediaInner = imageUrl
     ? `<img src="${imageUrl}" alt="" ${imageLogoFallbackAttr(
-        logoUrl
-      )}style="width:100%;height:100%;object-fit:cover;display:block" />`
+      logoUrl
+    )}style="width:100%;height:100%;object-fit:cover;display:block" />`
     : ''
 
   const titleHtml = `<div${de(s, 'headline')} style="font-size:${
@@ -376,10 +376,10 @@ const buildWideCard = (data, s) => {
   };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${title}</div>`
   const descriptionHtml = description
     ? `<div${de(s, 'description')} style="font-size:${
-        s.descriptionSize
-      }px;color:${s.palette.description};line-height:${
-        s.lineHeight
-      };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${description}</div>`
+      s.descriptionSize
+    }px;color:${s.palette.description};line-height:${
+      s.lineHeight
+    };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${description}</div>`
     : ''
 
   const body = s.metaBefore
@@ -428,32 +428,32 @@ const buildSmallCard = (data, s) => {
   const publisherText =
     s.elements.siteName && data?.publisher
       ? `<span${de(s, 'siteName')} style="font-size:${
-          s.metaSize + 1
-        }px;font-weight:${s.fontWeight};color:${s.palette.meta}">${escText(
-          data.publisher
-        )}</span>`
+        s.metaSize + 1
+      }px;font-weight:${s.fontWeight};color:${s.palette.meta}">${escText(
+        data.publisher
+      )}</span>`
       : ''
   const authorText =
     s.elements.authorTopic && data?.author
       ? `<span aria-hidden="true" style="font-size:${s.metaSize}px;color:${
-          s.palette.meta
-        }">· </span><span${de(s, 'authorTopic')} style="font-size:${
-          s.metaSize
-        }px;color:${s.palette.meta}">${escText(data.author)}</span>`
+        s.palette.meta
+      }">· </span><span${de(s, 'authorTopic')} style="font-size:${
+        s.metaSize
+      }px;color:${s.palette.meta}">${escText(data.author)}</span>`
       : ''
   const dateText =
     s.elements.date && data?.date
       ? `<span${de(s, 'date')} style="font-size:${s.metaSize}px;color:${
-          s.palette.meta
-        }">${escText(formatDate(data.date))}</span>`
+        s.palette.meta
+      }">${escText(formatDate(data.date))}</span>`
       : ''
 
   const metaRow =
     publisherText || authorText
       ? `<div${de(
-          s,
-          'meta'
-        )} style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;gap:8px">
+        s,
+        'meta'
+      )} style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;gap:8px">
       <span style="display:flex;align-items:center;gap:4px;min-width:0;overflow:hidden">${publisherText}${authorText}</span>
       ${dateText}
     </div>`
@@ -466,10 +466,10 @@ const buildSmallCard = (data, s) => {
   };margin-bottom:2px">${title}</div>`
   const descriptionHtml = description
     ? `<div${de(s, 'description')} style="font-size:${
-        s.descriptionSize - 1
-      }px;color:${s.palette.description};line-height:${
-        s.lineHeight
-      };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${description}</div>`
+      s.descriptionSize - 1
+    }px;color:${s.palette.description};line-height:${
+      s.lineHeight
+    };display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${description}</div>`
     : ''
 
   const body = s.metaBefore
@@ -651,7 +651,16 @@ const USE_CASES = [
   }
 ]
 
-/* ─── Page-specific Styled Components ──────────────────── */
+const hoverProps = (setHoverTarget, target) => ({
+  onMouseEnter: () => setHoverTarget(target),
+  onMouseLeave: () => setHoverTarget(null)
+})
+
+const normalizeUrl = rawUrl => {
+  const trimmed = rawUrl.trim()
+  if (!trimmed) return ''
+  return prependHttp(trimmed)
+}
 
 const PaperSheet = styled(Box)`
   display: flex;
@@ -1805,16 +1814,10 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
   const handleUrlChange = useCallback(
     e => {
       setUrl(e.target.value)
-      setUrlError(prev => (prev ? '' : prev))
+      setUrlError('')
     },
     [setUrl]
   )
-
-  const normalizeUrl = rawUrl => {
-    const trimmed = rawUrl.trim()
-    if (!trimmed) return ''
-    return prependHttp(trimmed)
-  }
 
   const handleSubmit = useCallback(
     nextValue => {
@@ -1860,62 +1863,57 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
           <ArrowRight size={16} />
         </OmniboxConvertButton>
       </OmniboxWrapper>
-      {urlError
-        ? (
-          <Text
-            id='embed-url-error'
-            role='alert'
-            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
-          >
-            {urlError}
-          </Text>
-          )
-        : !url.trim()
-            ? (
-              <Text
-                css={theme({
-                  fontFamily: 'sans',
-                  color: 'black60',
-                  fontSize: 0,
-                  pt: 2,
-                  pl: 3
-                })}
-              >
-                <Box as='span' css={{ marginRight: 4 }}>
-                  Try:
-                </Box>
-                {EXAMPLE_URLS.map(({ url: example, hideOnMobile }, i) => {
-                  const Wrapper = hideOnMobile ? MobileHiddenInline : React.Fragment
-                  return (
-                    <Wrapper key={example}>
-                      {i > 0
-                        ? (
-                          <Box
-                            as='span'
-                            aria-hidden='true'
-                            css={{
-                  marginLeft: 6,
-                  marginRight: 6,
-                  color: colors.black30
-                }}
-                          >
-                      ·
-                          </Box>
-                          )
-                        : null}
-                      <ExampleUrlButton
-                        onClick={() => handleSubmit(example)}
-                        disabled={isLoading}
-                        aria-label={`Generate preview for ${example}`}
-                      >
-                        {example}
-                      </ExampleUrlButton>
-                    </Wrapper>
-                  )
-                })}
-              </Text>
-              )
-            : null}
+      {urlError && (
+        <Text
+          id='embed-url-error'
+          role='alert'
+          css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+        >
+          {urlError}
+        </Text>
+      )}
+      {!urlError && !url.trim() && (
+        <Text
+          css={theme({
+            fontFamily: 'sans',
+            color: 'black60',
+            fontSize: 0,
+            pt: 2,
+            pl: 3
+          })}
+        >
+          <Box as='span' css={{ marginRight: 4 }}>
+            Try:
+          </Box>
+          {EXAMPLE_URLS.map(({ url: example, hideOnMobile }, i) => {
+            const Wrapper = hideOnMobile ? MobileHiddenInline : React.Fragment
+            return (
+              <Wrapper key={example}>
+                {i > 0 && (
+                  <Box
+                    as='span'
+                    aria-hidden='true'
+                    css={{
+                      marginLeft: 6,
+                      marginRight: 6,
+                      color: colors.black30
+                    }}
+                  >
+                    ·
+                  </Box>
+                )}
+                <ExampleUrlButton
+                  onClick={() => handleSubmit(example)}
+                  disabled={isLoading}
+                  aria-label={`Generate preview for ${example}`}
+                >
+                  {example}
+                </ExampleUrlButton>
+              </Wrapper>
+            )
+          })}
+        </Text>
+      )}
     </Box>
   )
 }
@@ -1984,7 +1982,7 @@ const PreviewPane = ({
 
     root.addEventListener('click', onClick)
     return () => root.removeEventListener('click', onClick)
-  }, [hasIframe, html, onEditField])
+  }, [hasIframe, onEditField])
 
   return (
     <ResultPane $autoHeight={hasIframe}>
@@ -2253,10 +2251,7 @@ const HtmlPane = ({ html }) => {
 }
 
 const LayoutTab = ({ config, set, setHoverTarget }) => {
-  const hover = target => ({
-    onMouseEnter: () => setHoverTarget(target),
-    onMouseLeave: () => setHoverTarget(null)
-  })
+  const hover = target => hoverProps(setHoverTarget, target)
 
   return (
     <Box>
@@ -2343,10 +2338,7 @@ const LayoutTab = ({ config, set, setHoverTarget }) => {
 }
 
 const FrameTab = ({ config, set, setHoverTarget }) => {
-  const hover = target => ({
-    onMouseEnter: () => setHoverTarget(target),
-    onMouseLeave: () => setHoverTarget(null)
-  })
+  const hover = target => hoverProps(setHoverTarget, target)
 
   return (
     <Box>
@@ -2487,10 +2479,7 @@ const FONT_SIZE_FIELDS = [
 ]
 
 const FontsTab = ({ config, set, setHoverTarget }) => {
-  const hover = target => ({
-    onMouseEnter: () => setHoverTarget(target),
-    onMouseLeave: () => setHoverTarget(null)
-  })
+  const hover = target => hoverProps(setHoverTarget, target)
 
   return (
     <Box>
@@ -2562,10 +2551,7 @@ const COLOR_TARGET_MAP = {
 
 const ColorsTab = ({ config, set, setHoverTarget }) => {
   const themeKey = config.theme === 'dark' ? 'darkColors' : 'lightColors'
-  const hover = target => ({
-    onMouseEnter: () => setHoverTarget(target),
-    onMouseLeave: () => setHoverTarget(null)
-  })
+  const hover = target => hoverProps(setHoverTarget, target)
   return (
     <Box>
       <SectionHeader>Theme</SectionHeader>
@@ -2797,8 +2783,7 @@ const ResultArea = ({
   const apiHasIframe = Boolean(data.iframe?.html)
   const showCard = useCard || !apiHasIframe
   const iframeScripts = data.iframe?.scripts
-  const effectiveData =
-    Object.keys(editOverrides).length > 0 ? { ...data, ...editOverrides } : data
+  const effectiveData = hasEdits ? { ...data, ...editOverrides } : data
   const previewHtml = compactHtml(
     showCard
       ? buildCardHtml(effectiveData, config, { instrument: true })
@@ -2999,13 +2984,6 @@ const EmbedTool = () => {
     }
   }, [])
 
-  const handleSubmit = useCallback(
-    next => {
-      executeSubmit(next)
-    },
-    [executeSubmit]
-  )
-
   const handleRetry = useCallback(() => {
     if (lastUrl) executeSubmit(lastUrl)
   }, [lastUrl, executeSubmit])
@@ -3041,7 +3019,7 @@ const EmbedTool = () => {
         <Omnibar
           url={url}
           setUrl={setUrl}
-          onSubmit={handleSubmit}
+          onSubmit={executeSubmit}
           isLoading={isLoading}
         />
 
@@ -3427,8 +3405,6 @@ const EmbedApiDocsCard = () => (
     </Box>
   </Container>
 )
-
-/* ─── Product Information (FAQ) ────────────────────────── */
 
 const ProductInformation = () => (
   <Faq
