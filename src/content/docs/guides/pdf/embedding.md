@@ -114,7 +114,7 @@ See the <Link href='/docs/api/parameters/filter' children='filter reference' /> 
 
 Use `filename` when the generated asset needs a readable, user-facing name:
 
-<MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications', pdf: true, meta: false, filename: 'rich-web-applications' }} />
+<MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications', pdf: true, meta: false, filename: 'rich-web-applications', apiKey: 'YOUR_API_TOKEN' }} />
 
 <Figcaption>Helpful for downloads, archives, generated reports, and user-visible document workflows.</Figcaption>
 

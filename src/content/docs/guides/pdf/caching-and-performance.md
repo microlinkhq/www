@@ -33,7 +33,7 @@ For the cache controls that apply to all workflows — `ttl`, `staleTtl`, `force
 
 A recommended production setup for generated PDFs:
 
-<MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications', pdf: true, meta: false, ttl: '1d', staleTtl: 0 }} />
+<MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://rauchg.com/2014/7-principles-of-rich-web-applications', pdf: true, meta: false, ttl: '1d', staleTtl: 0, apiKey: 'YOUR_API_TOKEN' }} />
 
 <Figcaption>Cache for a day, serve stale instantly while refreshing in the background. Requires a <ProBadge /> plan.</Figcaption>
 

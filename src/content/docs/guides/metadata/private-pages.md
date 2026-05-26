@@ -24,7 +24,8 @@ This page shows the metadata-specific setup.
     },
     headers: {
       'Accept-Language': 'es-ES'
-    }
+    },
+    apiKey: 'YOUR_API_TOKEN'
   }}
 />
 

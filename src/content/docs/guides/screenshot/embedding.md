@@ -52,7 +52,7 @@ Use the API URL directly as an `<img>` src:
 
 ```html
 <img
-  src="https://api.microlink.io?url=https://github.com/microlinkhq&screenshot&meta=false&embed=screenshot.url"
+  src="/images/image-1.png"
   alt="GitHub screenshot"
   loading="lazy"
 />
@@ -66,7 +66,7 @@ Use it as a `background-image`:
 
 ```css
 .hero {
-  background-image: url(https://api.microlink.io?url=https://github.com/microlinkhq&screenshot&meta=false&embed=screenshot.url);
+  background-image: url(/images/image-1.png);
   background-size: cover;
   background-position: center;
 }
@@ -77,7 +77,7 @@ Use it as a `background-image`:
 Standard Markdown image syntax works:
 
 ```md
-![GitHub](https://api.microlink.io?url=https://github.com/microlinkhq&screenshot&meta=false&embed=screenshot.url)
+![GitHub](/images/image-1.png)
 ```
 
 This is useful for documentation, README files, and any Markdown-based CMS.
@@ -132,7 +132,7 @@ See the <Link href='/docs/api/parameters/filter' children='filter reference' /> 
 
 The `filename` parameter lets you assign a meaningful name to the generated screenshot asset:
 
-<MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://github.com/microlinkhq', screenshot: true, meta: false, filename: 'github-microlink' }} />
+<MultiCodeEditorInteractive height={220} mqlCode={{ url: 'https://github.com/microlinkhq', screenshot: true, meta: false, filename: 'github-microlink', apiKey: 'YOUR_API_TOKEN' }} />
 
 <Figcaption>Helpful when you are downloading assets, organizing archives, or generating user-facing files with readable names.</Figcaption>
 

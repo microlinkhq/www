@@ -51,7 +51,8 @@ For non-sensitive values like locale or accept-language, the URL-based `headers`
   headers: {
     'Accept-Language': 'es-ES'
   },
-  embed: 'screenshot.url'
+  embed: 'screenshot.url',
+  apiKey: 'YOUR_API_TOKEN'
 }} />
 
 <Figcaption>The locale-aware capture is rendered for an embedding without leaking secrets.</Figcaption>
@@ -77,7 +78,8 @@ Pro plans include **automatic proxy resolution** — the API detects the antibot
   url: 'https://difficult-target.example',
   screenshot: true,
   meta: false,
-  embed: 'screenshot.url'
+  embed: 'screenshot.url',
+  apiKey: 'YOUR_API_TOKEN'
 }} />
 
 <Figcaption>On a Pro plan, the API quietly resolves the antibot when it detects one. The <code>x-fetch-mode</code> response header will be prefixed with <code>proxy-</code>.</Figcaption>

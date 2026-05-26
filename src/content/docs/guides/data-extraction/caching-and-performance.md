@@ -58,7 +58,8 @@ A recommended production setup for repeated extractions:
     },
     meta: false,
     ttl: '1d',
-    staleTtl: 0
+    staleTtl: 0,
+    apiKey: 'YOUR_API_TOKEN'
   }}
 />
 

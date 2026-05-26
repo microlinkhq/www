@@ -1,4 +1,8 @@
-const MICROLINK_API_URL = 'https://api.microlink.io'
+const MICROLINK_FREE_API_URL = 'https://api.microlink.io'
+const MICROLINK_PRO_API_URL = 'https://pro.microlink.io'
+
+const getApiUrl = apiKey =>
+  apiKey ? MICROLINK_PRO_API_URL : MICROLINK_FREE_API_URL
 
 /**
  * Generate code snippets for different languages and tools to call Microlink API
@@ -144,7 +148,7 @@ const generatePythonCode = (url, options = {}) => {
   // Build the Python code
   let pythonCode = `import requests
 
-url = "${MICROLINK_API_URL}/"
+url = "${getApiUrl(apiKey)}/"
 
 querystring = {
 ${querystringEntries}
@@ -216,7 +220,7 @@ const generateRubyCode = (url, options = {}) => {
   let rubyCode = `require 'uri'
 require 'net/http'
 
-base_url = "${MICROLINK_API_URL}/"
+base_url = "${getApiUrl(apiKey)}/"
 
 params = {
 ${paramsEntries}
@@ -287,7 +291,7 @@ const generatePhpCode = (url, options = {}) => {
   // Build the PHP code
   let phpCode = `<?php
 
-$baseUrl = "${MICROLINK_API_URL}/";
+$baseUrl = "${getApiUrl(apiKey)}/";
 
 $params = [
 ${paramsEntries}
@@ -389,7 +393,7 @@ import (
 )
 
 func main() {
-    baseURL := "${MICROLINK_API_URL}"
+    baseURL := "${getApiUrl(apiKey)}"
 
     u, err := url.Parse(baseURL)
     if err != nil {
@@ -512,7 +516,7 @@ const generateCurlCommand = (url, options = {}) => {
   }
 
   // Build the curl command with proper formatting
-  const parts = [`curl -G "${MICROLINK_API_URL}"`]
+  const parts = [`curl -G "${getApiUrl(apiKey)}"`]
 
   // Add API key header if present
   if (apiKey) {
@@ -533,7 +537,7 @@ const generateCurlCommand = (url, options = {}) => {
     return parts.join(' \\\n')
   } else {
     // Simple case - just the URL with no params
-    return `curl "${MICROLINK_API_URL}?url=${encodeURIComponent(url)}"`
+    return `curl "${getApiUrl(apiKey)}?url=${encodeURIComponent(url)}"`
   }
 }
 

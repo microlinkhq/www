@@ -52,7 +52,8 @@ Lighthouse reports rarely change minute-to-minute. Use `ttl` to cache the result
     },
     meta: false,
     ttl: '1d',
-    staleTtl: 0
+    staleTtl: 0,
+    apiKey: 'YOUR_API_TOKEN'
   }}
 />
 

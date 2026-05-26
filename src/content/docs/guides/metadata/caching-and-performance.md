@@ -49,7 +49,8 @@ A recommended production setup for metadata:
       description: true
     },
     ttl: '1d',
-    staleTtl: 0
+    staleTtl: 0,
+    apiKey: 'YOUR_API_TOKEN'
   }}
 />
 

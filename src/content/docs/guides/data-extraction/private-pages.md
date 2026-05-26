@@ -27,7 +27,8 @@ This page shows the data-extraction-specific setup.
     meta: false,
     headers: {
       'accept-language': 'en-US'
-    }
+    },
+    apiKey: 'YOUR_API_TOKEN'
   }}
 />
 

@@ -39,7 +39,8 @@ If you have a dedicated proxy service — for example a residential proxy with a
 
 <MultiCodeEditorInteractive height={210} mqlCode={{
   url: 'https://geolocation.microlink.io',
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001'
+  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001',
+  apiKey: 'YOUR_API_TOKEN'
 }} />
 
 <Figcaption>The <code>x-fetch-mode</code> response header will be prefixed with <code>proxy-*</code> when the request routes through your proxy.</Figcaption>
