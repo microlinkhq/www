@@ -2173,7 +2173,7 @@ const BulkPreview = ({
               </Box>
             </Box>
             <ProgressBarTrack>
-              <ProgressBarFill css={theme({ width: `${pct}%` })} />
+              <ProgressBarFill style={{ width: `${pct}%` }} />
             </ProgressBarTrack>
           </Flex>
           <Flex
