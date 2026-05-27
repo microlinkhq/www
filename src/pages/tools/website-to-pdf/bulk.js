@@ -1,6 +1,15 @@
 /* global fetch */
 
-import { borders, colors, layout, theme, transition, space } from 'theme'
+import {
+  borders,
+  colors,
+  fontSizes,
+  layout,
+  theme,
+  touchTargets,
+  transition,
+  space
+} from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
   AlertTriangle,
@@ -14,6 +23,7 @@ import {
   Globe,
   ArrowRight,
   HelpCircle,
+  Key,
   Settings,
   Trash2,
   X
@@ -88,8 +98,6 @@ const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
-/* ─── Compare Slider ──────────────────────────────────── */
-
 const CompareSliderBlock = styled('span')`
   display: block;
   ${theme({
@@ -161,8 +169,6 @@ const SettingsCompareSlider = () => {
     </CompareSliderBlock>
   )
 }
-
-/* ─── Constants ────────────────────────────────────────── */
 
 const PDF_HISTORY_KEY = 'pdf-history/bulk'
 const MAX_HISTORY_ITEMS = 50
@@ -244,7 +250,7 @@ const HOW_IT_WORKS = [
           print stylesheet, removing navigation and non-essential elements for a
           cleaner, ink-friendly document.
         </span>
-        <span style={{ display: 'block', paddingTop: '8px' }}>
+        <span style={{ display: 'block', paddingTop: space[2] }}>
           Adjust <b>Zoom scale</b> to control content size — values below 1
           shrink the page to fit more per sheet, while values above 1 enlarge
           text and images for easier reading.
@@ -350,8 +356,6 @@ const REASON_TO_USE = [
   }
 ]
 
-/* ─── Helpers ──────────────────────────────────────────── */
-
 const buildPdfFilename = sourceUrl => {
   try {
     const parsed = new URL(sourceUrl)
@@ -387,6 +391,7 @@ const formatDuration = (ms, { forceSeconds = false } = {}) => {
     const secs = Math.round(totalSeconds % 60)
     return `${mins}m ${secs}s`
   }
+  if (totalSeconds < 1) return `${Math.round(ms)} milliseconds`
   return `${totalSeconds.toFixed(3)} seconds`
 }
 
@@ -496,14 +501,14 @@ const AnimatedResultsList = ({ results }) => {
               ? (
                 <CheckCircle
                   size={14}
-                  color='#22c55e'
+                  color={colors.green6}
                   style={{ flexShrink: 0 }}
                 />
                 )
               : (
                 <AlertTriangle
                   size={14}
-                  color='#ef4444'
+                  color={colors.red7}
                   style={{ flexShrink: 0 }}
                 />
                 )}
@@ -831,8 +836,6 @@ const DeleteSelectedButton = styled(Flex).attrs({
   }
 `
 
-/* ─── Bulk Input & Progress ──────────────────────────── */
-
 const BulkTextarea = styled.textarea`
   width: 100%;
   min-height: 120px;
@@ -924,8 +927,6 @@ const AdvancedToggle = styled(Flex).attrs({ as: 'button', type: 'button' })`
     transition: transform 200ms ease;
   }
 `
-
-/* ─── Options Panel ────────────────────────────────────── */
 
 const OptionsPanel = ({
   options,
@@ -1354,7 +1355,7 @@ const OptionsPanel = ({
                     <HelpCircle
                       size={14}
                       color={colors.black40}
-                      style={{ marginLeft: '4px' }}
+                      style={{ marginLeft: space[1] }}
                     />
                   </Tooltip>
                 </Box>
@@ -1417,7 +1418,7 @@ const OptionsPanel = ({
                     <HelpCircle
                       size={14}
                       color={colors.black40}
-                      style={{ marginLeft: '4px' }}
+                      style={{ marginLeft: space[1] }}
                     />
                   </Tooltip>
                 </Box>
@@ -1452,7 +1453,7 @@ const OptionsPanel = ({
                     <HelpCircle
                       size={14}
                       color={colors.black40}
-                      style={{ marginLeft: '4px' }}
+                      style={{ marginLeft: space[1] }}
                     />
                   </Tooltip>
                 </Box>
@@ -1487,7 +1488,7 @@ const OptionsPanel = ({
                     <HelpCircle
                       size={14}
                       color={colors.black40}
-                      style={{ marginLeft: '4px' }}
+                      style={{ marginLeft: space[1] }}
                     />
                   </Tooltip>
                 </Box>
@@ -1545,8 +1546,6 @@ const OptionsPanel = ({
     </Box>
   )
 }
-
-/* ─── PDF History ────────────────────────────────────── */
 
 const PdfHistory = ({
   entries,
@@ -1671,9 +1670,9 @@ const PdfHistory = ({
               style={
                 confirmingDelete
                   ? {
-                      color: '#dc2626',
-                      borderColor: '#dc2626',
-                      background: '#fef2f2'
+                      color: colors.red8,
+                      borderColor: colors.red8,
+                      background: colors.red0
                     }
                   : undefined
               }
@@ -1733,8 +1732,10 @@ const PdfHistory = ({
                     onSelect(entry)
                   }
                 }}
-                style={
-                  disabled ? { opacity: 0.5, cursor: 'not-allowed' } : undefined
+                css={
+                  disabled
+                    ? theme({ opacity: 0.5, cursor: 'not-allowed' })
+                    : undefined
                 }
               >
                 <HistoryRowCheckbox
@@ -1797,7 +1798,152 @@ const PdfHistory = ({
   )
 }
 
-/* ─── Bulk Preview Panel ──────────────────────────────── */
+const ApiKeyFieldRow = styled(Flex)`
+  ${theme({ mt: 3, alignItems: 'center', justifyContent: 'center', gap: 2 })}
+`
+
+const ApiKeyInputWrap = styled(Flex)`
+  ${theme({
+    alignItems: 'center',
+    gap: 1,
+    flex: 1,
+    maxWidth: '280px',
+    borderRadius: 2,
+    px: 3,
+    bg: 'white',
+    minHeight: touchTargets.minHeight,
+    border: 1,
+    borderColor: 'yellow3'
+  })}
+  box-sizing: border-box;
+  &:focus-within {
+    border-color: ${colors.link};
+    box-shadow: 0 0 0 1px ${colors.link};
+  }
+`
+
+const ApiKeyNativeInput = styled.input`
+  ${theme({ fontFamily: 'sans', fontSize: 1, color: 'black80' })}
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+  width: 100%;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  &::-ms-reveal,
+  &::-ms-clear {
+    display: none;
+  }
+  &::-webkit-contacts-auto-fill-button {
+    display: none;
+  }
+`
+
+const ApiKeyField = ({ apiKey, onSetApiKey }) => {
+  const [tempKey, setTempKey] = useState('')
+
+  if (apiKey) {
+    return (
+      <ApiKeyFieldRow>
+        <ApiKeyInputWrap css={theme({ cursor: 'default' })}>
+          <Key size={12} color={colors.black60} style={{ flexShrink: 0 }} />
+          <Text
+            css={theme({ fontSize: 1, color: 'black60', fontFamily: 'mono' })}
+          >
+            {apiKey.slice(0, 5)}····
+          </Text>
+        </ApiKeyInputWrap>
+        <Button
+          onClick={() => onSetApiKey('')}
+          css={theme({ fontSize: 0 })}
+          variant='black'
+        >
+          <Caps css={theme({ fontSize: '11px' })}>Remove</Caps>
+        </Button>
+      </ApiKeyFieldRow>
+    )
+  }
+
+  return (
+    <ApiKeyFieldRow>
+      <ApiKeyInputWrap>
+        <Key size={12} color={colors.black40} style={{ flexShrink: 0 }} />
+        <ApiKeyNativeInput
+          type='text'
+          autoComplete='off'
+          spellCheck='false'
+          autoFocus
+          aria-label='API key'
+          placeholder='Paste your API key'
+          value={tempKey}
+          onChange={e => setTempKey(e.target.value)}
+          onKeyDown={e => {
+            if (e.key === 'Enter' && tempKey.trim()) {
+              onSetApiKey(tempKey.trim())
+              setTempKey('')
+            }
+          }}
+        />
+      </ApiKeyInputWrap>
+      <Button
+        disabled={!tempKey.trim()}
+        onClick={() => {
+          onSetApiKey(tempKey.trim())
+          setTempKey('')
+        }}
+        css={theme({ fontSize: 0 })}
+        variant='black'
+      >
+        <Caps css={theme({ fontSize: '11px' })}>Save</Caps>
+      </Button>
+    </ApiKeyFieldRow>
+  )
+}
+
+const ErrorRow = ({ r, isLast }) => (
+  <Flex
+    css={theme({
+      gap: 2,
+      py: '6px',
+      alignItems: 'flex-start',
+      borderBottom: isLast ? 0 : 1,
+      borderColor: 'black05'
+    })}
+  >
+    <X
+      size={14}
+      color={colors.red7}
+      style={{ flexShrink: 0, marginTop: space[1] }}
+    />
+    <Box css={{ minWidth: 0, flex: 1 }}>
+      <Text
+        css={theme({
+          fontSize: 0,
+          color: 'black80',
+          fontFamily: 'sans',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap'
+        })}
+      >
+        {r.url}
+      </Text>
+      <Text
+        css={theme({
+          fontSize: '11px',
+          color: 'black40',
+          fontFamily: 'sans',
+          pt: '2px'
+        })}
+      >
+        {r.error?.message}
+      </Text>
+    </Box>
+  </Flex>
+)
 
 const BulkPreview = ({
   bulkState,
@@ -1809,7 +1955,9 @@ const BulkPreview = ({
   isZipping,
   onReset,
   previewPdf,
-  onClosePreview
+  onClosePreview,
+  apiKey,
+  onSetApiKey
 }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [copied, setCopied] = useState(false)
@@ -1818,6 +1966,10 @@ const BulkPreview = ({
   const successCount = bulkResults.filter(r => r.success).length
   const failedResults = bulkResults.filter(r => !r.success)
   const hasRateLimit = failedResults.some(r => isRateLimited(r.error?.code))
+  const allRateLimited =
+    hasRateLimit &&
+    failedResults.every(r => isRateLimited(r.error?.code)) &&
+    successCount === 0
 
   if (previewPdf) {
     return (
@@ -2042,13 +2194,20 @@ const BulkPreview = ({
 
   /* bulkState === 'done' */
   return (
-    <PreviewCanvas>
+    <PreviewCanvas
+      css={
+        allRateLimited
+          ? theme({ bg: 'yellow0', borderColor: 'yellow3' })
+          : undefined
+      }
+    >
       <FadeIn
         key='done'
         css={theme({
           display: 'flex',
           flexDirection: 'column',
-          minHeight: ['380px', '380px', '520px']
+          minHeight: ['380px', '380px', '520px'],
+          overflowY: 'auto'
         })}
       >
         <Flex
@@ -2075,11 +2234,10 @@ const BulkPreview = ({
                     justifyContent: 'center'
                   })}
                   style={{
-                    background:
-                    'linear-gradient(225deg, #22c55e22 0%, #16a34a22 100%)'
+                    background: `linear-gradient(225deg, ${colors.green6}22 0%, ${colors.green8}22 100%)`
                   }}
                 >
-                  <CheckCircle size={28} color='#22c55e' />
+                  <CheckCircle size={28} color={colors.green6} />
                 </Box>
                 <Text
                   css={theme({
@@ -2123,34 +2281,37 @@ const BulkPreview = ({
               )
             : (
               <>
-                <Box
-                  css={theme({
-                    width: '56px',
-                    height: '56px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mt: 4
-                  })}
-                  style={{
-                    background:
-                    'linear-gradient(225deg, #f59e0b22 0%, #d9770622 100%)'
-                  }}
-                >
-                  <AlertTriangle size={28} color='#f59e0b' />
-                </Box>
-                <Text
-                  css={theme({
-                    fontSize: 3,
-                    fontWeight: 'bold',
-                    color: 'black80',
-                    fontFamily: 'sans'
-                  })}
-                >
-                  {successCount} of {bulkResults.length} PDFs ready
-                </Text>
-                {successCount > 0 && (
+                {!allRateLimited && (
+                  <Box
+                    css={theme({
+                      width: '56px',
+                      height: '56px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mt: 4
+                    })}
+                    style={{
+                      background: `linear-gradient(225deg, ${colors.yellow7}22 0%, ${colors.yellow9}22 100%)`
+                    }}
+                  >
+                    <AlertTriangle size={28} color={colors.yellow7} />
+                  </Box>
+                )}
+                {!allRateLimited && (
+                  <Text
+                    css={theme({
+                      fontSize: 3,
+                      fontWeight: 'bold',
+                      color: 'black80',
+                      fontFamily: 'sans'
+                    })}
+                  >
+                    {successCount} of {bulkResults.length} PDFs ready
+                  </Text>
+                )}
+                {!allRateLimited && successCount > 0 && (
                   <DownloadZipButton onClick={onDownloadZip} disabled={isZipping}>
                     {isZipping
                       ? (
@@ -2168,125 +2329,102 @@ const BulkPreview = ({
                         )}
                   </DownloadZipButton>
                 )}
-                <Box
-                  css={theme({
-                    width: '100%',
-                    maxWidth: '500px',
-                    textAlign: 'left',
-                    border: 1,
-                    borderColor: 'black10',
-                    borderRadius: 2,
-                    p: 3,
-                    bg: 'white'
-                  })}
-                >
-                  <Text
-                    css={theme({
-                      fontSize: 0,
-                      fontWeight: 'bold',
-                      color: 'black60',
-                      fontFamily: 'sans',
-                      pb: 2
-                    })}
-                  >
-                    Failed requests
-                  </Text>
-                  <Box
-                    css={theme({
-                      maxHeight: `${5 * 46}px`,
-                      overflowY: 'auto',
-                      overscrollBehavior: 'contain'
-                    })}
-                  >
-                    {failedResults.map((r, i) => (
-                      <Flex
-                        key={i}
-                        css={theme({
-                          gap: 2,
-                          py: '6px',
-                          alignItems: 'flex-start',
-                          borderBottom: i < failedResults.length - 1 ? 1 : 0,
-                          borderColor: 'black05'
-                        })}
-                      >
-                        <X
-                          size={14}
-                          color='#ef4444'
-                          style={{ flexShrink: 0, marginTop: '5px' }}
-                        />
-                        <Box css={{ minWidth: 0, flex: 1 }}>
-                          <Text
-                            css={theme({
-                              fontSize: 0,
-                              color: 'black80',
-                              fontFamily: 'sans',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap'
-                            })}
-                          >
-                            {r.url}
-                          </Text>
-                          <Text
-                            css={theme({
-                              fontSize: '11px',
-                              color: 'black40',
-                              fontFamily: 'sans',
-                              pt: '2px'
-                            })}
-                          >
-                            {r.error?.message}
-                          </Text>
-                        </Box>
-                      </Flex>
-                    ))}
-                  </Box>
-                </Box>
-                {hasRateLimit && (
+                {!allRateLimited && (
                   <Box
                     css={theme({
                       width: '100%',
                       maxWidth: '500px',
                       textAlign: 'left',
+                      border: 1,
+                      borderColor: 'black10',
                       borderRadius: 2,
                       p: 3,
-                      mb: 4
+                      bg: 'white'
                     })}
-                    style={{
-                      background: '#fffbeb',
-                      border: '1px solid #fef3c7'
-                    }}
                   >
                     <Text
                       css={theme({
-                        fontSize: 1,
+                        fontSize: 0,
+                        fontWeight: 'bold',
+                        color: 'black60',
+                        fontFamily: 'sans',
+                        pb: 2
+                      })}
+                    >
+                      Failed requests
+                    </Text>
+                    <Box
+                      css={theme({
+                        maxHeight: `${5 * 46}px`,
+                        overflowY: 'auto',
+                        overscrollBehavior: 'contain'
+                      })}
+                    >
+                      {failedResults.map((r, i) => (
+                        <ErrorRow
+                          key={i}
+                          r={r}
+                          isLast={i === failedResults.length - 1}
+                        />
+                      ))}
+                    </Box>
+                  </Box>
+                )}
+                {hasRateLimit && (
+                  <Flex
+                    css={theme({
+                      flexDirection: 'column',
+                      textAlign: 'left',
+                      maxWidth: layout.small,
+                      mb: 3
+                    })}
+                  >
+                    <Text
+                      css={theme({
                         fontWeight: 'bold',
                         fontFamily: 'sans',
-                        pb: 1
+                        color: 'yellow9'
                       })}
-                      style={{ color: '#92400e' }}
+                      style={{
+                        fontSize: allRateLimited ? fontSizes[2] : fontSizes[1],
+                        paddingBottom: allRateLimited ? space[2] : space[1]
+                      }}
                     >
                       Daily limit reached
                     </Text>
-                    <Text
-                      css={theme({
-                        fontSize: 0,
-                        fontFamily: 'sans',
-                        lineHeight: 2
-                      })}
-                      style={{ color: '#78350f' }}
-                    >
-                      Free users can generate up to 50 PDFs per day. Your limit
-                      will reset tomorrow. For unlimited access, check out our{' '}
-                      <Link href='/pricing'>API plans</Link> or write to{' '}
-                      <Link href='mailto:hello@microlink.io'>
-                        hello@microlink.io
-                      </Link>{' '}
-                      if you need something else.
-                    </Text>
-                  </Box>
+                    {[
+                      <React.Fragment key='limit'>
+                        Free users can generate up to 50 PDFs per day. Your limit
+                        will reset tomorrow.
+                      </React.Fragment>,
+                      <React.Fragment key='upgrade'>
+                        For unlimited access,{' '}
+                        <Link href='/pricing'>buy a plan</Link> or write to{' '}
+                        <Link href='mailto:hello@microlink.io'>
+                          hello@microlink.io
+                        </Link>{' '}
+                        if you need something else.
+                      </React.Fragment>
+                    ].map((item, index) => (
+                      <Text
+                        key={index}
+                        css={theme({
+                          fontFamily: 'sans',
+                          lineHeight: 2,
+                          mb: 3,
+                          color: 'yellow9'
+                        })}
+                        style={{
+                          fontSize: allRateLimited ? fontSizes[1] : fontSizes[0]
+                        }}
+                      >
+                        {item}
+                      </Text>
+                    ))}
+                    <ApiKeyField apiKey={apiKey} onSetApiKey={onSetApiKey} />
+                  </Flex>
                 )}
-                {(bulkTotalMs != null || bulkTotalBytes > 0) && (
+                {!allRateLimited && (bulkTotalMs != null || bulkTotalBytes > 0) && (
                   <Text
                     css={theme({
                       fontSize: 0,
@@ -2320,8 +2458,6 @@ const BulkPreview = ({
   )
 }
 
-/* ─── Main Tool Section ────────────────────────────────── */
-
 const PdfBatchTool = () => {
   const [options, setOptions] = useState({
     urlsText: '',
@@ -2349,7 +2485,40 @@ const PdfBatchTool = () => {
   const [bulkTotalMs, setBulkTotalMs] = useState(null)
   const [bulkTotalBytes, setBulkTotalBytes] = useState(null)
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('error') !== 'rate-limit') return
+    const fakeResults = [
+      {
+        url: 'https://example.com',
+        success: false,
+        duration: 150,
+        error: {
+          code: 'ERATE',
+          message:
+            'Your daily rate limit has been reached. Upgrade to a PRO plan.'
+        }
+      },
+      {
+        url: 'https://github.com',
+        success: false,
+        duration: 120,
+        error: { code: 'ERATE', message: 'Skipped — daily rate limit reached' }
+      },
+      {
+        url: 'https://google.com',
+        success: false,
+        duration: 110,
+        error: { code: 'ERATE', message: 'Skipped — daily rate limit reached' }
+      }
+    ]
+    setBulkState('done')
+    setBulkProgress({ current: 3, total: 3, currentUrl: '' })
+    setBulkResults(fakeResults)
+    setBulkTotalMs(380)
+  }, [])
+
+  const [localStorageData, setLocalStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(PDF_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
@@ -2368,6 +2537,13 @@ const PdfBatchTool = () => {
     })
     setHistoryReady(true)
   }, [setHistory])
+
+  const handleSetApiKey = useCallback(
+    key => {
+      setLocalStorageData(key ? { apiKey: key } : '')
+    },
+    [setLocalStorageData]
+  )
 
   const downloadZipFromEntries = useCallback(async selected => {
     if (selected.length === 0) return
@@ -2696,6 +2872,8 @@ const PdfBatchTool = () => {
             onReset={handleReset}
             previewPdf={previewPdf}
             onClosePreview={() => setPreviewPdf(null)}
+            apiKey={localStorageData?.apiKey}
+            onSetApiKey={handleSetApiKey}
           />
         </PreviewOuter>
       </ToolLayout>
@@ -2719,8 +2897,6 @@ const PdfBatchTool = () => {
     </Container>
   )
 }
-
-/* ─── Hero Section ─────────────────────────────────────── */
 
 const Hero = () => (
   <Flex
@@ -2757,8 +2933,6 @@ const Hero = () => (
     </Caption>
   </Flex>
 )
-
-/* ─── How It Works ─────────────────────────────────────── */
 
 const HowItWorks = () => (
   <Container
@@ -2872,8 +3046,6 @@ const HowItWorks = () => (
   </Container>
 )
 
-/* ─── Explanation ────────────────────────────────────── */
-
 const Explanation = () => (
   <Container
     as='section'
@@ -2936,8 +3108,6 @@ const Explanation = () => (
   </Container>
 )
 
-/* ─── Banner ─────────────────────────────────────────── */
-
 const Banner = () => (
   <Block
     forwardedAs='section'
@@ -2989,9 +3159,9 @@ const Banner = () => (
           justifyContent: 'center',
           alignItems: 'flex-start',
           maxHeight: ['200px', '300px', '400px', '650px'],
-          overflow: 'hidden'
+          overflow: 'hidden',
+          fontVariantNumeric: 'tabular-nums'
         })}
-        style={{ fontVariantNumeric: 'tabular-nums' }}
       >
         <img
           css={theme({
@@ -3004,8 +3174,6 @@ const Banner = () => (
     }
   />
 )
-
-/* ─── Use Cases ───────────────────────────────────────── */
 
 const USE_CASES = [
   {
@@ -3309,8 +3477,6 @@ const ProductInformation = () => (
   />
 )
 
-/* ─── API Docs Card ────────────────────────────────────── */
-
 const PdfApiDocsCard = () => (
   <Container
     as='section'
@@ -3358,8 +3524,6 @@ const PdfApiDocsCard = () => (
     </Box>
   </Container>
 )
-
-/* ─── Page Head (SEO) ──────────────────────────────────── */
 
 export const Head = () => (
   <Meta
@@ -3467,8 +3631,6 @@ export const Head = () => (
   />
 )
 
-/* ─── Page Component ───────────────────────────────────── */
-
 const WebsiteToPdfBatchPage = () => (
   <Layout>
     <Hero />
@@ -3483,12 +3645,12 @@ const WebsiteToPdfBatchPage = () => (
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
           Bulk URL to PDF API{' '}
           <span
-            css={{
+            css={theme({
               display: 'block',
-              color: '#fd494a',
+              color: 'red6',
               width: '100%',
               textAlign: 'left'
-            }}
+            })}
           >
             Batch Convert URLs at Scale.
           </span>
