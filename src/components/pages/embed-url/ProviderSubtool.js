@@ -1,4 +1,4 @@
-import { borders, colors, layout, theme } from 'theme'
+import { layout, theme } from 'theme'
 import React from 'react'
 import { Globe, Code, Clipboard } from 'react-feather'
 
@@ -152,40 +152,13 @@ const ExplanationSection = ({ heading, reasons }) => (
   </Container>
 )
 
-const RelatedLinksSection = ({ links }) => (
-  <Container
-    as='nav'
-    aria-label='Related embed tools'
-    css={theme({
-      textAlign: 'center',
-      pt: [4, 4, 5, 5],
-      pb: [3, 3, 4, 4]
-    })}
-  >
-    <Text css={theme({ fontSize: 1, color: 'black60' })}>
-      <Link href='/tools/embed-url'>Embed any URL</Link>
-      {' · '}
-      <Link href='/embed/providers'>Browse providers</Link>
-      {links.map(({ href, label }) => (
-        <React.Fragment key={href}>
-          {' · '}
-          <Link href={href}>{label}</Link>
-        </React.Fragment>
-      ))}
-    </Text>
-  </Container>
-)
-
 const FaqSection = ({ questions }) => (
   <Faq
     title='FAQ'
     css={theme({
       fontSize: [1, 1, 1, 1],
-      pt: [2, 2, 4, 4],
-      pb: 4,
-      bg: 'pinky',
-      borderTop: `${borders[1]} ${colors.pinkest}`,
-      borderBottom: `${borders[1]} ${colors.pinkest}`
+      pt: [5, 5, 6, 6],
+      pb: 4
     })}
     questions={questions.map(({ question, answer }) => ({
       question,
@@ -252,7 +225,6 @@ export const ProviderSubtool = ({
   explanationHeading,
   reasons,
   features,
-  relatedLinks,
   faq
 }) => (
   <Layout>
@@ -285,7 +257,6 @@ export const ProviderSubtool = ({
       }
       features={features}
     />
-    <RelatedLinksSection links={relatedLinks} />
     <FaqSection questions={faq} />
   </Layout>
 )

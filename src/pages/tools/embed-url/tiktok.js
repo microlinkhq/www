@@ -1,4 +1,4 @@
-import { borders, colors, layout, theme } from 'theme'
+import { layout, theme } from 'theme'
 import React from 'react'
 import { Globe, Code, Clipboard } from 'react-feather'
 
@@ -217,42 +217,13 @@ const Explanation = () => (
   </Container>
 )
 
-const RelatedLinks = () => (
-  <Container
-    as='nav'
-    aria-label='Related embed tools'
-    css={theme({
-      textAlign: 'center',
-      pt: [4, 4, 5, 5],
-      pb: [3, 3, 4, 4]
-    })}
-  >
-    <Text css={theme({ fontSize: 1, color: 'black60' })}>
-      <Link href='/tools/embed-url'>Embed any URL</Link>
-      {' · '}
-      <Link href='/embed/providers'>Browse providers</Link>
-      {' · '}
-      <Link href='/tools/embed-url/youtube'>YouTube</Link>
-      {' · '}
-      <Link href='/tools/embed-url/instagram'>Instagram</Link>
-      {' · '}
-      <Link href='/tools/embed-url/twitter-or-x'>Twitter / X</Link>
-      {' · '}
-      <Link href='/tools/embed-url/facebook'>Facebook</Link>
-    </Text>
-  </Container>
-)
-
 const ProductInformation = () => (
   <Faq
     title='FAQ'
     css={theme({
       fontSize: [1, 1, 1, 1],
-      pt: [2, 2, 4, 4],
-      pb: 4,
-      bg: 'pinky',
-      borderTop: `${borders[1]} ${colors.pinkest}`,
-      borderBottom: `${borders[1]} ${colors.pinkest}`
+      pt: [5, 5, 6, 6],
+      pb: 4
     })}
     questions={[
       {
@@ -413,7 +384,6 @@ const TikTokEmbedPage = () => (
       }
       features={FEATURES_LIST}
     />
-    <RelatedLinks />
     <ProductInformation />
   </Layout>
 )
