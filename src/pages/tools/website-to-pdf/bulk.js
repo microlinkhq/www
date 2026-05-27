@@ -1667,9 +1667,13 @@ const PdfHistory = ({
                   ? `Confirm deletion of ${selectedIds.length} PDFs`
                   : `Delete ${selectedIds.length} selected PDFs`
               }
-              css={
+              style={
                 confirmingDelete
-                  ? theme({ color: 'red8', borderColor: 'red8', bg: 'red0' })
+                  ? {
+                      color: colors.red8,
+                      borderColor: colors.red8,
+                      background: colors.red0
+                    }
                   : undefined
               }
             >
@@ -1812,6 +1816,10 @@ const ApiKeyInputWrap = styled(Flex)`
     borderColor: 'yellow3'
   })}
   box-sizing: border-box;
+  &:focus-within {
+    border-color: ${colors.link};
+    box-shadow: 0 0 0 1px ${colors.link};
+  }
 `
 
 const ApiKeyNativeInput = styled.input`
@@ -1868,6 +1876,7 @@ const ApiKeyField = ({ apiKey, onSetApiKey }) => {
           autoComplete='off'
           spellCheck='false'
           autoFocus
+          aria-label='API key'
           placeholder='Paste your API key'
           value={tempKey}
           onChange={e => setTempKey(e.target.value)}
