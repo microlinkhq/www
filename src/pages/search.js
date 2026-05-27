@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { colors, gradient, layout, theme, transition } from 'theme'
 import {
-  ArrowRight,
   Check,
   CheckCircle,
   ChevronDown,
@@ -12,8 +11,10 @@ import {
   GitMerge,
   Hexagon,
   MapPin,
+  Search as SearchIcon,
   Star,
-  Target
+  Target,
+  Zap
 } from 'react-feather'
 
 import Box from 'components/elements/Box'
@@ -1125,9 +1126,9 @@ const VerticalTabButton = styled('button').withConfig({
 
 const TutorialTimeline = styled(Box)`
   ${theme({
-    mt: [5, 5, 6, 6],
+    mt: 0,
     position: 'relative',
-    maxWidth: ['100%', '100%', layout.medium, layout.medium],
+    maxWidth: '100%',
     mx: 'auto'
   })};
 
@@ -1155,22 +1156,61 @@ const PageSection = styled(Container)`
   })};
 `
 
+const SectionCaption = ({ color, children, centered = false }) => (
+  <Flex
+    css={theme({
+      alignItems: 'center',
+      mb: 3,
+      justifyContent: centered ? 'center' : 'flex-start'
+    })}
+  >
+    <Flex
+      as='span'
+      css={theme({
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 2,
+        px: 3,
+        py: 2,
+        bg: 'white',
+        border: 1,
+        borderColor: color,
+        borderRadius: 5
+      })}
+    >
+      <Text
+        as='span'
+        css={theme({
+          m: 0,
+          color,
+          fontWeight: 'bold',
+          fontSize: [0, 0, 0, 0],
+          textTransform: 'uppercase',
+          letterSpacing: 2,
+          lineHeight: 0
+        })}
+      >
+        {children}
+      </Text>
+    </Flex>
+  </Flex>
+)
+
 const PricingCard = styled(Flex)`
   ${theme({
     flexDirection: 'column',
-    borderRadius: 3,
+    borderRadius: 4,
     bg: 'white',
     px: [3, 3, 4, 4],
     py: [3, 3, 4, 4],
     flex: 1,
     minWidth: 0,
-    maxWidth: ['100%', '100%', '400px', '400px'],
-    width: '100%'
+    maxWidth: ['100%', '100%', '520px', '520px'],
+    width: '100%',
+    border: 2,
+    borderColor: 'orange5',
+    boxShadow: 1
   })};
-  border: 2px solid transparent;
-  background: linear-gradient(${colors.white}, ${colors.white}) padding-box,
-    ${gradient} border-box;
-  box-shadow: 0 12px 32px ${colors.black10};
 `
 
 /* ────────────────────────── small display-only components ────────────────────────── */
@@ -1233,17 +1273,111 @@ const PricingCheck = ({ children }) => (
     <Box
       css={theme({
         display: 'inline-flex',
-        color: 'black',
+        color: 'orange7',
         flexShrink: 0
       })}
     >
       <Check size={16} aria-hidden='true' />
     </Box>
-    <Text as='span' css={theme({ fontSize: [1, 1, 2, 2], color: 'black90' })}>
+    <Text as='span' css={theme({ fontSize: [0, 0, 1, 1], color: 'black90' })}>
       {children}
     </Text>
   </Flex>
 )
+
+const RETRIEVAL_ICONS = {
+  markdown: FileText,
+  bolt: Zap,
+  search: SearchIcon
+}
+
+const RETRIEVAL_FEATURE_ACCENTS = {
+  blue: {
+    color: 'blue6',
+    bg: 'blue0',
+    borderColor: 'blue1'
+  },
+  teal: {
+    color: 'teal7',
+    bg: 'teal0',
+    borderColor: 'teal1'
+  }
+}
+
+const RetrievalFeatureCard = ({
+  icon,
+  accent,
+  title,
+  description,
+  divider = true
+}) => {
+  const Icon = RETRIEVAL_ICONS[icon]
+  const iconAccent = RETRIEVAL_FEATURE_ACCENTS[accent]
+
+  return (
+    <Flex
+      css={theme({
+        gap: [3, 3, 4, 5],
+        alignItems: 'flex-start'
+      })}
+    >
+      <Box
+        css={theme({
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: ['72px', '72px', '82px', '82px'],
+          height: ['72px', '72px', '82px', '82px'],
+          borderRadius: '50%',
+          flexShrink: 0,
+          border: 1,
+          borderColor: iconAccent.borderColor,
+          bg: iconAccent.bg,
+          color: iconAccent.color,
+          position: 'relative',
+          boxShadow: 0
+        })}
+      >
+        <Icon size={32} strokeWidth={2.25} aria-hidden='true' />
+      </Box>
+      <Box
+        css={theme({
+          minWidth: 0,
+          flex: 1,
+          pb: divider ? [4, 4, 5, 5] : 0,
+          borderBottom: divider ? 1 : 0,
+          borderBottomColor: 'black05'
+        })}
+      >
+        <Text
+          as='h3'
+          css={theme({
+            m: 0,
+            color: 'black',
+            fontWeight: 'bold',
+            fontSize: [2, 2, 2, 2],
+            lineHeight: 1,
+            letterSpacing: 0
+          })}
+        >
+          {title}
+        </Text>
+        <Text
+          as='p'
+          css={theme({
+            m: 0,
+            mt: 2,
+            color: 'black70',
+            fontSize: [1, 1, 1, 1],
+            lineHeight: 3
+          })}
+        >
+          {description}
+        </Text>
+      </Box>
+    </Flex>
+  )
+}
 
 const HostBrandIcon = ({ host, size = '20px' }) => {
   const brand = brandMatchFor(host)
@@ -1871,52 +2005,47 @@ const HeroResultCard = ({ result }) => {
 
 const INTEGRATION_TUTORIAL_STEPS = [
   {
-    step: 'STEP 01',
+    step: '1',
     title: 'Install and initialize',
     icon: Target,
     description:
-      'Install `@microlink/google`, add your Microlink API key, and create one client you can reuse across every supported search surface.',
+      'Install "@microlink/search", add your Microlink API key, and create one client you can reuse across every supported search surface.',
     panel: {
       type: 'code',
       language: 'bash',
-      content: `pnpm add @microlink/google
-
-export MICROLINK_API_KEY=your_api_key`
+      content: `npm i @microlink/search
+const search = new Search({ apiKey })`
     }
   },
   {
-    step: 'STEP 02',
+    step: '2',
     title: 'Run the first query',
     icon: Hexagon,
     description:
-      'Choose the surface you need with the `type` option and keep the same client shape for search, news, images, maps, shopping, and more.',
+      'Choose the surface you need with the type option and keep the client shape for search, news, images, maps, shopping, and more.',
     panel: {
       type: 'code',
       language: 'javascript',
-      content: `const google = require('@microlink/google')({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-      
-const page = await google('technical seo checklist', {
+      content: `const results = await search.query('ai agents', {
   type: 'search',
-  location: 'us',
-  period: 'week'
+  limit: 10,
+  parse: true
 })`
     }
   },
   {
-    step: 'STEP 03',
+    step: '3',
     title: 'Lazy-load the web',
     icon: GitMerge,
     description:
-      'Keep the first pass fast, then enrich only the winners. Browse lightweight result pages first and call `.markdown()` or `.html()` only for the top matches that deserve deeper inspection.',
+      'Keep the pipeline fast. When results only the summary, then use lightweight reads (snippets first) and "microlink/load" or HTML only for the few pages that deserve deeper inspection.',
     panel: {
       type: 'features',
       items: [
-        'Any result with a URL exposes `.markdown()` for LLM-ready Markdown on demand.',
-        'Call `.html()` only when your workflow actually needs raw page markup.',
-        'Just call `.next()` to fetch the next page.',
-        'Lazy-load the web: scan results at ~1s latency, then enrich only the top 3 matches.'
+        'Any surface. Any locale. International + LLM-ready Markdown on demand.',
+        "Get what you need, not what's default in every new agent run.",
+        'Load later — no empty run-pass load.',
+        'Long-term memorization = less fetching, more reasoning, less tokens.'
       ]
     }
   }
@@ -1924,10 +2053,10 @@ const page = await google('technical seo checklist', {
 
 // Step-specific editor heights keep the timeline's proportions.
 const TUTORIAL_CODE_HEIGHT_BY_TITLE = {
-  'Install and initialize': ['120px', '120px', '130px', '130px'],
-  'Run the first query': ['280px', '280px', '320px', '320px']
+  'Install and initialize': ['96px', '96px', '100px', '100px'],
+  'Run the first query': ['170px', '170px', '190px', '190px']
 }
-const TUTORIAL_CODE_HEIGHT_DEFAULT = ['180px', '180px', '200px', '200px']
+const TUTORIAL_CODE_HEIGHT_DEFAULT = ['160px', '160px', '180px', '180px']
 
 /* ────────────────────────── page ────────────────────────── */
 
@@ -1940,10 +2069,10 @@ const heroProofListItemCss = theme({
 })
 
 const HERO_PROOF_POINTS = [
-  '10 supported search surfaces in one client.',
-  'Structured results plus LLM-ready Markdown and HTML for top matches.',
-  'Structured results for prices, ratings, coordinates, and citations.',
-  'Proxy-backed requests from the first call.'
+  'No scraped content—purchase from chart.',
+  'Structured results plus LLM-ready Markdown and HTML for top websites.',
+  'Structured data for people, news, companies, and citations.',
+  'Proxy-freeout requests from the first call.'
 ]
 
 const GooglePage = () => {
@@ -2190,18 +2319,14 @@ const GooglePage = () => {
               gap: HERO_LAYOUT.gap
             })}
           >
-            <Flex
+            <Box
               css={theme({
-                flexDirection: 'column',
-                width: ['100%', '100%', '100%', HERO_LAYOUT.secondaryWidth],
-                justifyContent: 'center',
-                alignItems: ['center', 'center', 'center', 'flex-start']
+                width: ['100%', '100%', '100%', HERO_LAYOUT.secondaryWidth]
               })}
             >
               <Box css={theme({ px: [2, 3, 4, 0], width: '100%' })}>
                 <Text
                   as='h1'
-                  variant='gradient'
                   css={theme({
                     m: 0,
                     color: 'black',
@@ -2214,7 +2339,18 @@ const GooglePage = () => {
                     maxWidth: ['100%', '100%', '100%', '640px']
                   })}
                 >
-                  Search intelligence API for AI agents
+                  <span
+                    style={{
+                      background: gradient,
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text'
+                    }}
+                  >
+                    Search intelligence
+                  </span>
+                  <br />
+                  API for AI agents
                 </Text>
 
                 <Box
@@ -2240,21 +2376,24 @@ const GooglePage = () => {
               <Flex css={theme({ px: [4, 4, 4, 0], width: '100%' })}>
                 <ActionRow
                   css={theme({
-                    flexDirection: 'column',
+                    flexDirection: 'row',
                     flexWrap: 'nowrap',
-                    alignItems: ['center', 'center', 'center', 'flex-start'],
+                    alignItems: 'center',
                     justifyContent: ['center', 'center', 'center', 'flex-start']
                   })}
                 >
+                  <Button as='a' href='/pricing'>
+                    Get the API keys
+                  </Button>
                   <ArrowLink
-                    href='/pricing'
-                    css={theme({ fontSize: [2, 2, 3, 3] })}
+                    href={GUIDE_URL}
+                    css={theme({ fontSize: [1, 1, 2, 2] })}
                   >
-                    Get the API key
+                    View docs
                   </ArrowLink>
                 </ActionRow>
               </Flex>
-            </Flex>
+            </Box>
 
             <Flex
               css={theme({
@@ -2454,6 +2593,9 @@ const GooglePage = () => {
               mx: 'auto'
             })}
           >
+            <SectionCaption color='#3b82f6' centered>
+              Power your agents
+            </SectionCaption>
             <Text
               as='h2'
               css={theme({
@@ -2466,7 +2608,7 @@ const GooglePage = () => {
                 textAlign: 'center'
               })}
             >
-              One API for recurring{' '}
+              One API for recurring <br />
               <span css={theme({ color: '#3b82f6' })}>search workflows</span>
             </Text>
             <Text
@@ -2486,7 +2628,7 @@ const GooglePage = () => {
               tooling, and AI agents need less parser logic.
             </Text>
           </Box>
-          <Box as='section' css={theme({ px: [5, 5, 6, 6], mt: [4, 4, 5, 5] })}>
+          <Box as='section' css={theme({ mt: [4, 4, 5, 5] })}>
             <VerticalExampleShell $accentColor={activeVertical.accentColor}>
               <Flex
                 css={theme({
@@ -2546,7 +2688,7 @@ const GooglePage = () => {
                             })}
                           />
                         )}
-                        {vertical.name.replace(/^Google\s+/, '')}
+                        {vertical.name}
                       </VerticalTabButton>
                     )
                   })}
@@ -2596,7 +2738,7 @@ const GooglePage = () => {
                             lineHeight: 2
                           })}
                         >
-                          {activeVertical.name}
+                          Google Search
                         </Text>
                         <Text
                           as='p'
@@ -2774,472 +2916,591 @@ const GooglePage = () => {
         </Box>
       </PageSection>
 
-      <PageSection as='section' id='retrieval-workflows'>
-        <Box
+      <Box
+        as='section'
+        id='retrieval-workflows'
+        css={theme({ bg: 'white', py: 7 })}
+      >
+        <Container
           css={theme({
-            width: '100%',
-            maxWidth: ['100%', '100%', layout.large, layout.large],
-            mx: 'auto'
+            maxWidth: [
+              '100%',
+              '100%',
+              layout.large,
+              `calc(${layout.large} * 1.63)`
+            ],
+            pt: 0,
+            px: [3, 3, 0, 0]
           })}
         >
-          <Text
-            as='h2'
+          <Flex
             css={theme({
-              m: 0,
-              color: 'black',
-              fontWeight: 'bold',
-              letterSpacing: 1,
-              lineHeight: [1, 1, 0, 0],
-              fontSize: [4, 4, 5, 5],
-              textAlign: 'center'
-            })}
-          >
-            Built for retrieval loops,
-            <br />
-            <span css={theme({ color: '#dc2626' })}>not just result pages</span>
-          </Text>
-          <Text
-            as='p'
-            css={theme({
-              m: 0,
-              mt: [3, 3, 3, 3],
-              maxWidth: ['100%', '100%', layout.normal, layout.medium],
+              width: '100%',
+              maxWidth: [
+                '100%',
+                '100%',
+                layout.large,
+                `calc(${layout.large} * 1.63)`
+              ],
               mx: 'auto',
-              color: 'black80',
-              fontSize: [2, 2, 3, 3],
-              lineHeight: 2,
-              textAlign: 'center'
+              flexDirection: ['column', 'column', 'row', 'row'],
+              alignItems: ['stretch', 'stretch', 'center', 'center']
             })}
           >
-            Search stays lightweight on the first pass so technical workflows
-            can stay fast under real production load.
-          </Text>
-
-          <Box
-            as='ul'
-            css={theme({
-              mt: [4, 4, 5, 5],
-              p: 0,
-              listStyle: 'none',
-              width: '100%'
-            })}
-          >
-            <RetrievalCard
-              label={
-                <>
-                  A. The <code>.markdown()</code> helper
-                </>
-              }
-              title='Ship LLM-ready Markdown'
-              description='RAG pipelines rarely want raw HTML. They want cleaner text that is easier to embed, rerank, cite, and pass into prompts without wasting context on navigation or markup noise.'
+            <Box
+              css={theme({
+                width: ['100%', '100%', '42%', '42%'],
+                flexShrink: 0,
+                pt: [0, 0, 2, 2]
+              })}
             >
-              <BulletList>
-                <Bullet>
-                  Use <code>.markdown()</code> when the model needs readable,
-                  prompt-ready context.
-                </Bullet>
-                <Bullet>
-                  Keep <code>.html()</code> for DOM-aware extraction or custom
-                  downstream parsing.
-                </Bullet>
-              </BulletList>
-            </RetrievalCard>
-
-            <RetrievalCard
-              label='B. The two-step retrieval model'
-              title='Lazy-load the web'
-              description='Search works best as a two-step system: lightweight results first, deeper content second. That keeps the browse step snappy, then spends the heavier extraction cost only where confidence is already high.'
-            >
-              <BulletList>
-                <Bullet>
-                  Browse structured results at roughly search latency instead of
-                  fetching every page in full up front.
-                </Bullet>
-                <Bullet>
-                  Shortlist the top 3 sources, then call{' '}
-                  <code>.markdown()</code> or <code>.html()</code> only for
-                  those winners.
-                </Bullet>
-                <Bullet>
-                  Keep recurring jobs faster and cheaper because enrichment is
-                  opt-in, not mandatory.
-                </Bullet>
-              </BulletList>
-            </RetrievalCard>
-
-            <RetrievalCard
-              label='C. Advanced operators'
-              title='Turn Search into a document discovery engine'
-              description={
-                <>
-                  Combine operators like <code>site:</code> and{' '}
-                  <code>filetype:</code> to hunt for papers, docs, filings,
-                  changelogs, or PDFs before you enrich anything. That gives
-                  technical teams much tighter recall from the first query:
-                </>
-              }
-            >
-              <Box
-                as='ul'
+              <SectionCaption color={colors.red7}>
+                Built for agentic workflows
+              </SectionCaption>
+              <Text
+                as='h2'
                 css={theme({
                   m: 0,
-                  mt: [3, 3, 3, 3],
-                  p: 0,
-                  listStyle: 'none',
-                  display: 'grid',
-                  gap: 2
+                  color: 'black',
+                  fontWeight: 'bold',
+                  letterSpacing: 1,
+                  lineHeight: [1, 1, 0, 0],
+                  fontSize: [3, 4, 4, 4],
+                  textAlign: 'left'
                 })}
               >
-                <Flex
-                  as='li'
-                  css={theme({
-                    alignItems: 'flex-start',
-                    flexDirection: ['column', 'column', 'row', 'row'],
-                    gap: [1, 1, 2, 2],
-                    minWidth: 0
-                  })}
-                >
-                  <Flex
-                    css={theme({
-                      alignItems: 'center',
-                      flexWrap: 'wrap',
-                      gap: 1,
-                      minWidth: 0
-                    })}
-                  >
-                    <RetrievalCommandStrong>
-                      site:arxiv.org
-                    </RetrievalCommandStrong>
-                    <RetrievalCommandStrong>
-                      "deep learning"
-                    </RetrievalCommandStrong>
-                    <RetrievalCommandStrong>
-                      filetype:pdf
-                    </RetrievalCommandStrong>
-                  </Flex>
-                </Flex>
-              </Box>
+                Built for retrieval loops, <br />
+                <span css={theme({ color: 'red7' })}>
+                  not just result pages
+                </span>
+              </Text>
               <Text
                 as='p'
                 css={theme({
                   m: 0,
                   mt: 3,
-                  color: 'black70',
+                  color: 'black80',
                   fontSize: [1, 1, 2, 2],
-                  lineHeight: 2
+                  lineHeight: 2,
+                  textAlign: 'left',
+                  maxWidth: ['100%', '100%', layout.small, layout.small]
                 })}
               >
-                The hero example above now uses an operator-driven query so the
-                workflow reads like real technical research instead of a generic
-                web search.
+                Search stays lightweight on the first pass so technical
+                workflows can stay fast under real production load.
               </Text>
-            </RetrievalCard>
-          </Box>
-        </Box>
-      </PageSection>
+            </Box>
 
-      <PageSection as='section' id='pricing'>
-        <Text
-          as='h2'
-          css={theme({
-            m: 0,
-            color: 'black',
-            fontWeight: 'bold',
-            letterSpacing: 1,
-            lineHeight: [1, 1, 0, 0],
-            fontSize: [4, 4, 5, 5],
-            textAlign: 'center'
-          })}
-        >
-          One dollar,
-          <br />
-          <span css={theme({ color: '#ca8a04' })}>one thousand requests</span>
-        </Text>
-        <Text
-          as='p'
-          css={theme({
-            m: 0,
-            mt: [3, 3, 3, 3],
-            maxWidth: layout.normal,
-            mx: 'auto',
-            color: 'black80',
-            fontSize: [2, 2, 3, 3],
-            lineHeight: 2,
-            textAlign: 'center'
-          })}
-        >
-          Search has no free tier because reliable result collection depends on
-          managed proxy capacity, regional routing, and production safeguards on
-          every call.
-        </Text>
-
-        <Flex
-          css={theme({
-            pt: [4, 4, 5, 5],
-            px: [2, 2, 3, 3],
-            flexDirection: 'column',
-            justifyContent: 'stretch',
-            alignItems: 'center',
-            gap: [3, 3, 4, 4],
-            width: '100%'
-          })}
-        >
-          <PricingCard as='section'>
-            <Text
-              as='h3'
+            <Box
               css={theme({
-                m: 0,
-                color: 'black',
-                fontWeight: 'bold',
-                fontSize: ['20px', '20px', '24px', '24px']
+                width: ['100%', '100%', '58%', '58%'],
+                display: 'grid',
+                ml: 6,
+                gap: [4, 4, 5, 5]
               })}
             >
-              Pro
-            </Text>
+              <RetrievalFeatureCard
+                icon='markdown'
+                accent='blue'
+                title='Ship LLM-ready Markdown'
+                description='Rich previews with clean HTML. They work out of the box across inlined, remote, static, or navigation markup sites.'
+              />
+              <RetrievalFeatureCard
+                icon='bolt'
+                accent='blue'
+                title='Lazy-load the web'
+                description='Search more like a two-step system: lightweight results first, deeper content second. That keeps the pipeline snappy, the agents focused, and your costs down.'
+              />
+              <RetrievalFeatureCard
+                icon='search'
+                accent='teal'
+                title='Turn Search into a document discovery engine'
+                divider={false}
+                description={
+                  <>
+                    Combine operators like <code>site:</code>,{' '}
+                    <code>intitle:</code>, and <code>filetype:</code> to hunt
+                    for papers, docs, filings, changelogs, or PDFs before you
+                    spend anything.
+                  </>
+                }
+              />
+            </Box>
+          </Flex>
+        </Container>
+      </Box>
 
-            <Flex css={theme({ alignItems: 'baseline', pt: 2, gap: 1 })}>
+      <Box
+        as='section'
+        id='pricing'
+        css={theme({
+          bg: 'orange0',
+          py: [5, 5, 5, 5],
+          borderTop: 1,
+          borderBottom: 1,
+          borderColor: 'orange0'
+        })}
+      >
+        <Container
+          css={theme({
+            p: 0,
+            maxWidth: [
+              '100%',
+              '100%',
+              layout.large,
+              `calc(${layout.large} * 1.63)`
+            ]
+          })}
+        >
+          <Flex
+            css={theme({
+              flexDirection: ['column', 'column', 'row', 'row'],
+              alignItems: ['center', 'center', 'center', 'center'],
+              width: '100%'
+            })}
+          >
+            <Box
+              css={theme({
+                width: ['100%', '100%', '48%', '48%'],
+                flexShrink: 0
+              })}
+            >
+              <SectionCaption color={colors.orange7}>
+                Simple, predictable pricing
+              </SectionCaption>
               <Text
+                as='h2'
                 css={theme({
                   m: 0,
                   color: 'black',
-                  fontSize: ['32px', '32px', '38px', '38px'],
                   fontWeight: 'bold',
-                  lineHeight: 0
+                  letterSpacing: 1,
+                  lineHeight: [1, 1, 0, 0],
+                  fontSize: [3, 4, 4, 4],
+                  textAlign: 'left'
                 })}
               >
-                €39
+                One dollar,
+                <br />
+                <span css={theme({ color: 'orange7' })}>
+                  one thousand requests
+                </span>
               </Text>
               <Text
+                as='p'
                 css={theme({
                   m: 0,
-                  color: 'black60',
-                  fontSize: [0, 0, 1, 1]
+                  mt: 3,
+                  color: 'black80',
+                  fontSize: [1, 1, 2, 2],
+                  lineHeight: 2,
+                  textAlign: 'left',
+                  maxWidth: layout.small
                 })}
               >
-                /month
+                Search has no free tier because reliable result collection
+                depends on managed proxy capacity, regional routing, and
+                production safeguards on every call.
               </Text>
-            </Flex>
+            </Box>
 
-            <Text
+            <PricingCard as='section'>
+              <Text
+                as='h3'
+                css={theme({
+                  m: 0,
+                  color: 'black',
+                  fontWeight: 'bold',
+                  fontSize: [2, 2, 3, 3]
+                })}
+              >
+                Pro
+              </Text>
+
+              <Flex css={theme({ alignItems: 'baseline' })}>
+                <Text
+                  css={theme({
+                    color: 'black',
+                    fontSize: [4, 4, 5, 5],
+                    fontWeight: 'bold',
+                    lineHeight: 0,
+                    mb: 2
+                  })}
+                >
+                  $39
+                </Text>
+                <Text
+                  css={theme({
+                    m: 0,
+                    color: 'black60',
+                    fontSize: [0, 0, 1, 1]
+                  })}
+                >
+                  /month
+                </Text>
+              </Flex>
+
+              <Box>
+                <Text
+                  css={theme({
+                    color: 'black',
+                    fontWeight: 'bold',
+                    fontSize: [1, 1, 2, 2],
+                    lineHeight: 1
+                  })}
+                >
+                  40,000 requests/month included
+                </Text>
+              </Box>
+
+              <Box css={theme({ py: 4 })}>
+                <PricingCheck>Managed proxy-backed requests</PricingCheck>
+                <PricingCheck>10 requests saved as snippets</PricingCheck>
+                <PricingCheck>Structured normalized results</PricingCheck>
+                <PricingCheck>Location and geocode controls</PricingCheck>
+                <PricingCheck>
+                  Pagination with <code>next()</code>
+                </PricingCheck>
+                <PricingCheck>
+                  Optional plugins: Markdown or HTML via{' '}
+                  <code>microlink/html</code> and <code>microlink/md</code>
+                </PricingCheck>
+              </Box>
+
+              <Flex
+                css={theme({
+                  color: 'orange7',
+                  fontSize: ['18px', '18px', '20px', '20px']
+                })}
+              >
+                <ArrowLink
+                  href='/pricing'
+                  css={theme({
+                    fontWeight: 'bold'
+                  })}
+                >
+                  See all plans
+                </ArrowLink>
+              </Flex>
+            </PricingCard>
+          </Flex>
+        </Container>
+      </Box>
+
+      <Box
+        as='section'
+        id='google-api-integration'
+        css={theme({ bg: 'white', py: [5, 5, 5, 5] })}
+      >
+        <Container
+          css={theme({
+            p: 0,
+            maxWidth: [
+              '100%',
+              '100%',
+              layout.large,
+              `calc(${layout.large} * 1.63)`
+            ]
+          })}
+        >
+          <Flex
+            css={theme({
+              flexDirection: ['column', 'column', 'row', 'row'],
+              alignItems: ['center', 'center', 'center', 'center'],
+              width: '100%'
+            })}
+          >
+            <Box
               css={theme({
-                m: 0,
-                pt: 2,
-                color: 'black80',
-                fontSize: [1, 1, 2, 2],
-                lineHeight: 2
+                width: ['100%', '100%', '48%', '48%'],
+                flexShrink: 0
               })}
             >
-              46,000 requests/month
-            </Text>
+              <SectionCaption color={colors.green7}>
+                Automate without scraper debt
+              </SectionCaption>
+              <Text
+                as='h2'
+                css={theme({
+                  m: 0,
+                  color: 'black',
+                  fontWeight: 'bold',
+                  letterSpacing: 1,
+                  lineHeight: [1, 1, 0, 0],
+                  fontSize: [3, 3, '36px', '36px'],
+                  textAlign: 'left'
+                })}
+              >
+                Automate Web Discovery
+                <br />
+                <span css={theme({ color: 'green7' })}>
+                  without scraper debt
+                </span>
+              </Text>
+              <Text
+                as='p'
+                css={theme({
+                  m: 0,
+                  mt: 3,
+                  color: 'black80',
+                  fontSize: [1, 1, 2, 2],
+                  lineHeight: 2,
+                  textAlign: 'left',
+                  maxWidth: layout.small
+                })}
+              >
+                Initialize once, choose the surface you need, then paginate or
+                enrich only when a workflow needs more context.
+              </Text>
+            </Box>
 
-            <Box css={theme({ pt: 3 })}>
-              <PricingCheck>Managed proxy-backed requests</PricingCheck>
-              <PricingCheck>10 supported search surfaces</PricingCheck>
-              <PricingCheck>Structured normalized results</PricingCheck>
-              <PricingCheck>Location and period controls</PricingCheck>
-              <PricingCheck>
-                Pagination with <code>.next()</code>
-              </PricingCheck>
-              <PricingCheck>
-                Optional page Markdown or HTML via <code>.markdown()</code> and{' '}
-                <code>.html()</code>
-              </PricingCheck>
+            <Box
+              css={theme({
+                width: ['100%', '100%', '52%', '52%'],
+                minWidth: 0
+              })}
+            >
+              <TutorialTimeline>
+                {INTEGRATION_TUTORIAL_STEPS.map(step => (
+                  <TutorialStep key={step.step} step={step} />
+                ))}
+              </TutorialTimeline>
+
+              <ActionRow
+                css={theme({
+                  mt: [4, 4, 5, 5],
+                  ml: [0, 0, '104px', '104px'],
+                  justifyContent: 'flex-start'
+                })}
+              >
+                <Button as='a' href={PACKAGE_URL}>
+                  Add Web Discovery to your stack
+                </Button>
+                <ArrowLink href={GUIDE_URL}>Read the Search guide</ArrowLink>
+              </ActionRow>
+            </Box>
+          </Flex>
+        </Container>
+      </Box>
+
+      <Box
+        as='section'
+        id='final-cta'
+        css={theme({ bg: 'pinky', py: [5, 5, 6, 6] })}
+      >
+        <Container
+          css={theme({
+            maxWidth: layout.large,
+            px: [3, 3, 4, 4]
+          })}
+        >
+          <Flex
+            css={theme({
+              flexDirection: ['column', 'column', 'row', 'row'],
+              gap: [4, 4, 5, 6],
+              alignItems: ['center', 'center', 'center', 'center'],
+              width: '100%'
+            })}
+          >
+            <Box
+              css={theme({
+                width: ['100%', '100%', '45%', '45%'],
+                flexShrink: 0
+              })}
+            >
+              <SectionCaption color='#f59e0b'>
+                Connect everything
+              </SectionCaption>
+              <Text
+                as='h2'
+                css={theme({
+                  m: 0,
+                  color: 'black',
+                  fontWeight: 'bold',
+                  letterSpacing: 1,
+                  lineHeight: [1, 1, 0, 0],
+                  fontSize: [4, 4, 5, 5],
+                  textAlign: 'left'
+                })}
+              >
+                Plug <span css={theme({ color: '#f59e0b' })}>Microlink</span>
+                <br />
+                into your workflow
+              </Text>
+              <Text
+                as='p'
+                css={theme({
+                  m: 0,
+                  mt: 3,
+                  color: 'black80',
+                  fontSize: [1, 1, 2, 2],
+                  lineHeight: 2,
+                  textAlign: 'left'
+                })}
+              >
+                Combine Search with <Link href='/metadata'>Metadata</Link>,{' '}
+                <Link href='/screenshot'>Screenshot</Link>, and{' '}
+                <Link href='/markdown'>Markdown</Link> to turn discovered URLs
+                into richer outputs for structured fields, visual captures, and
+                AI-ready page context, all under the same paid Microlink plan.
+              </Text>
             </Box>
 
             <Flex
               css={theme({
-                pt: 4,
-                fontSize: ['18px', '18px', '20px', '20px']
+                width: ['100%', '100%', '55%', '55%'],
+                gap: [3, 3, 4, 4],
+                justifyContent: 'center',
+                flexWrap: 'wrap'
               })}
             >
-              <Link href='/pricing'>See all plans</Link>
+              {[
+                {
+                  label: 'Search',
+                  href: '/search',
+                  icon: (
+                    <svg
+                      width='32'
+                      height='32'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='currentColor'
+                      strokeWidth='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    >
+                      <circle cx='11' cy='11' r='8' />
+                      <line x1='21' y1='21' x2='16.65' y2='16.65' />
+                    </svg>
+                  ),
+                  color: '#3b82f6'
+                },
+                {
+                  label: 'Metadata',
+                  href: '/metadata',
+                  icon: (
+                    <svg
+                      width='32'
+                      height='32'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='currentColor'
+                      strokeWidth='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    >
+                      <polygon points='12 2 2 7 12 12 22 7 12 2' />
+                      <polyline points='2 17 12 22 22 17' />
+                      <polyline points='2 12 12 17 22 12' />
+                    </svg>
+                  ),
+                  color: '#f59e0b'
+                },
+                {
+                  label: 'Markdown',
+                  href: '/markdown',
+                  icon: (
+                    <Text
+                      as='span'
+                      css={theme({
+                        fontWeight: 'bold',
+                        fontSize: '20px',
+                        fontFamily: 'mono'
+                      })}
+                    >
+                      M↓
+                    </Text>
+                  ),
+                  color: '#000'
+                }
+              ].map(product => (
+                <Link
+                  key={product.label}
+                  href={product.href}
+                  css={theme({
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 3,
+                    p: 4,
+                    borderRadius: 4,
+                    bg: 'white',
+                    border: 1,
+                    borderColor: 'black10',
+                    minWidth: '140px',
+                    textDecoration: 'none',
+                    color: 'black',
+                    boxShadow: 1,
+                    transition: `border-color ${transition.short}`
+                  })}
+                >
+                  <Box
+                    css={theme({
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '56px',
+                      height: '56px',
+                      borderRadius: 3,
+                      border: 1,
+                      borderColor: 'black10'
+                    })}
+                    style={{ color: product.color }}
+                  >
+                    {product.icon}
+                  </Box>
+                  <Text
+                    as='span'
+                    css={theme({
+                      fontWeight: 'bold',
+                      fontSize: [1, 1, 2, 2]
+                    })}
+                  >
+                    {product.label}
+                  </Text>
+                </Link>
+              ))}
             </Flex>
-          </PricingCard>
-        </Flex>
-      </PageSection>
-
-      <PageSection as='section' id='google-api-integration'>
-        <Box
-          css={theme({
-            width: '100%',
-            maxWidth: ['100%', '100%', layout.normal, layout.medium]
-          })}
-        >
-          <Text
-            as='h2'
-            css={theme({
-              m: 0,
-              color: 'black',
-              fontWeight: 'bold',
-              letterSpacing: 1,
-              lineHeight: [1, 1, 0, 0],
-              fontSize: [4, 4, 5, 5],
-              textAlign: 'center'
-            })}
-          >
-            Automate Web Discovery
-            <br />
-            <span css={theme({ color: '#16a34a' })}>without scraper debt</span>
-          </Text>
-          <Text
-            as='p'
-            css={theme({
-              m: 0,
-              mt: [3, 3, 3, 3],
-              maxWidth: ['100%', '100%', layout.normal, layout.medium],
-              mx: 'auto',
-              color: 'black80',
-              fontSize: [2, 2, 3, 3],
-              lineHeight: 2,
-              textAlign: 'center'
-            })}
-          >
-            Initialize once, choose the surface you need, then paginate or
-            enrich only when a workflow needs more context.
-          </Text>
-
-          <TutorialTimeline>
-            {INTEGRATION_TUTORIAL_STEPS.map(step => (
-              <TutorialStep key={step.step} step={step} />
-            ))}
-          </TutorialTimeline>
-
-          <ActionRow
-            css={theme({ mt: [4, 4, 5, 5], justifyContent: 'flex-start' })}
-          >
-            <Button as='a' href={PACKAGE_URL}>
-              Add @microlink/google to your project
-            </Button>
-            <Button as='a' variant='white' href={GUIDE_URL}>
-              <Flex as='span' css={theme({ alignItems: 'center', gap: 2 })}>
-                Read the Search guide
-                <ArrowRight size={16} aria-hidden='true' />
-              </Flex>
-            </Button>
-          </ActionRow>
-        </Box>
-      </PageSection>
-
-      <PageSection as='section' id='final-cta'>
-        <Flex
-          css={theme({
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            px: [2, 2, 3, 3]
-          })}
-        >
-          <Text
-            as='h2'
-            css={theme({
-              m: 0,
-              color: 'black',
-              fontWeight: 'bold',
-              letterSpacing: 1,
-              lineHeight: [1, 1, 0, 0],
-              fontSize: [4, 4, 5, 5],
-              textAlign: 'center',
-              maxWidth: layout.medium
-            })}
-          >
-            Plug <span css={theme({ color: '#3b82f6' })}>Microlink</span>
-            <br />
-            into your workflow
-          </Text>
-          <Text
-            as='p'
-            css={theme({
-              m: 0,
-              mt: [3, 3, 3, 3],
-              color: 'black80',
-              fontSize: [2, 2, 3, 3],
-              lineHeight: 2,
-              textAlign: 'center',
-              maxWidth: [
-                layout.small,
-                layout.small,
-                layout.normal,
-                layout.normal
-              ]
-            })}
-          >
-            Combine Search with <Link href='/metadata'>Metadata</Link>,{' '}
-            <Link href='/screenshot'>Screenshot</Link>, and{' '}
-            <Link href='/markdown'>Markdown</Link> to turn discovered URLs into
-            richer outputs for structured fields, visual captures, and AI-ready
-            page content, all under the same paid Microlink plan.
-          </Text>
-
-          <ActionRow
-            css={theme({ mt: [4, 4, 5, 5], justifyContent: 'center' })}
-          >
-            <ArrowLink href='/pricing' css={theme({ fontSize: [2, 2, 3, 3] })}>
-              See all plans
-            </ArrowLink>
-          </ActionRow>
+          </Flex>
 
           <Flex
             css={theme({
               mt: [4, 4, 5, 5],
-              gap: [3, 3, 4, 4],
-              flexWrap: 'wrap',
               justifyContent: 'center'
             })}
           >
-            {FINAL_CTA_BADGES.map(label => (
-              <Flex
-                key={label}
-                css={theme({
-                  alignItems: 'center',
-                  gap: 1,
-                  color: 'black80',
-                  fontSize: [0, 0, 1, 1]
-                })}
-              >
-                <Check size={16} color={colors.close} aria-hidden='true' />
-                <Text as='span'>{label}</Text>
-              </Flex>
-            ))}
+            <ArrowLink href='/pricing' css={theme({ fontSize: [2, 2, 3, 3] })}>
+              See all plans
+            </ArrowLink>
           </Flex>
-        </Flex>
-      </PageSection>
+        </Container>
+      </Box>
 
-      <Faq
-        title='Product Information'
-        caption='Everything you need to know about Microlink Search, pricing, and supported search surfaces.'
-        css={theme({ mt: [5, 5, 6, 6], bg: 'white' })}
-        questions={FAQ_ENTRIES.map(({ question, answers }) => ({
-          question,
-          answer: (
-            <>
-              {answers.map((answer, index) => (
-                <div key={`${question}-${index}`}>{answer}</div>
-              ))}
-            </>
-          )
-        }))}
-      />
-      <Container
+      <Flex
         css={theme({
+          py: [4, 4, 5, 5],
+          gap: [3, 3, 5, 5],
+          flexWrap: 'wrap',
           justifyContent: 'center',
-          pt: [3, 3, 4, 4],
-          maxWidth: layout.small
+          borderTop: 1,
+          borderTopColor: 'black05'
         })}
       >
-        <Text
-          as='p'
-          css={theme({
-            m: 0,
-            color: 'black60',
-            fontSize: [0, 0, 1, 1],
-            lineHeight: 2,
-            textAlign: 'center'
-          })}
-        >
-          Google is a trademark of Google LLC. Microlink Search is an
-          independent product and is not affiliated with or endorsed by Google.
-        </Text>
-      </Container>
+        {FINAL_CTA_BADGES.map(label => (
+          <Flex
+            key={label}
+            css={theme({
+              alignItems: 'center',
+              gap: 2,
+              color: 'black80',
+              fontSize: [0, 0, 1, 1]
+            })}
+          >
+            <Check size={14} color={colors.black60} aria-hidden='true' />
+            <Text as='span'>{label}</Text>
+          </Flex>
+        ))}
+      </Flex>
     </Layout>
   )
 }
@@ -3334,7 +3595,6 @@ const TutorialStepContainer = styled(Box).attrs({ as: 'section' })`
 `
 
 const TutorialStep = ({ step }) => {
-  const Icon = step.icon
   return (
     <TutorialStepContainer>
       <Flex
@@ -3357,10 +3617,12 @@ const TutorialStep = ({ step }) => {
             color: 'white',
             position: 'relative',
             zIndex: 1,
+            fontWeight: 'bold',
+            fontSize: 2,
             boxShadow: 1
           })}
         >
-          <Icon size={18} aria-hidden='true' />
+          {step.step}
         </Box>
       </Flex>
 
@@ -3369,6 +3631,7 @@ const TutorialStep = ({ step }) => {
           as='p'
           css={theme({
             m: 0,
+            display: ['block', 'block', 'none', 'none'],
             color: 'black50',
             fontFamily: 'mono',
             fontSize: [0, 0, 1, 1],

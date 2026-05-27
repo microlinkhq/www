@@ -48,84 +48,71 @@ const SUPPORTED_GOOGLE_SERVICES = [
     id: 'patents',
     label: 'Google Patents',
     iconUrl: 'https://cdn.simpleicons.org/google'
-  },
-  {
-    id: 'autocomplete',
-    label: 'Google Autocomplete',
-    iconUrl: 'https://cdn.simpleicons.org/google'
   }
 ]
 
 const GOOGLE_VERTICALS = [
   {
     id: 'search',
-    name: 'Google Search',
+    name: 'Google',
     accentColor: 'blue6',
     description:
-      'Organic results with related searches, people also ask, and knowledge graph entities.'
+      'Found results for "ai agents" with structured data, ready for your workflow.'
   },
   {
     id: 'news',
-    name: 'Google News',
+    name: 'News',
     accentColor: 'red6',
     description:
       'Fresh article results with publisher metadata, timestamps, and thumbnails.'
   },
   {
     id: 'images',
-    name: 'Google Images',
-    accentColor: 'green6',
+    name: 'Bing',
+    accentColor: 'cyan6',
     description:
-      'Image results with original URLs, dimensions, and fields normalized for downstream usage.'
+      'Bing search results with normalized fields for downstream usage.'
   },
   {
     id: 'videos',
-    name: 'Google Videos',
-    accentColor: 'pink6',
+    name: 'Reddit',
+    accentColor: 'orange6',
     description:
-      'Video metadata with duration in milliseconds and output tuned for automation.'
+      'Reddit discussions and threads with structured comment metadata.'
   },
   {
     id: 'places',
-    name: 'Google Places',
-    accentColor: 'orange6',
+    name: 'YouTube',
+    accentColor: 'red6',
     description:
-      'Local business results with address, geocoordinates, and contact-level detail.'
+      'YouTube video results with duration, channel info, and engagement data.'
   },
   {
     id: 'maps',
-    name: 'Google Maps',
-    accentColor: 'cyan6',
+    name: 'X (Twitter)',
+    accentColor: 'black',
     description:
-      'Map listing coverage with richer location context for local SEO and discovery apps.'
+      'Posts and threads from X with engagement metrics and author context.'
   },
   {
     id: 'shopping',
-    name: 'Google Shopping',
-    accentColor: 'teal6',
-    description:
-      'Product listings with normalized prices, ratings, and merchant-friendly fields.'
+    name: 'LinkedIn',
+    accentColor: 'blue6',
+    description: 'LinkedIn profiles and posts with professional metadata.'
   },
   {
     id: 'scholar',
-    name: 'Google Scholar',
-    accentColor: 'indigo6',
+    name: 'GitHub',
+    accentColor: 'black',
     description:
-      'Academic paper results with citations and links for research and intelligence tooling.'
+      'GitHub repositories, issues, and discussions with structured metadata.'
   },
   {
     id: 'patents',
-    name: 'Google Patents',
+    name: 'Custom engine',
     accentColor: 'grape7',
     description:
-      'Patent records with ISO date formats and structured metadata ready for analysis.'
-  },
-  {
-    id: 'autocomplete',
-    name: 'Google Autocomplete',
-    accentColor: 'violet6',
-    description:
-      'Suggestion datasets for content ideation, demand modeling, and query expansion.'
+      'Bring your own search engine and get normalized structured output.'
   }
 ]
 
@@ -348,64 +335,46 @@ const GOOGLE_VERTICAL_EXAMPLES = {
   ],
   "hasNext": false
 }`
-  },
-  autocomplete: {
-    code: buildExample('javascript debounce', 'autocomplete'),
-    payload: `{
-  "results": [
-    {
-      "value": "javascript debounce"
-    }
-  ],
-  "hasNext": false
-}`
   }
 }
 
-const INSTALL_SNIPPET = `
-const page = await google('technical seo checklist', {
-  type: 'search',
-  location: 'us',
-  period: 'week'
+const INSTALL_SNIPPET = `const search = await microlink.search('ai agents', {
+  limit: 5,
+  parse: true,
+  output: 'all'
 })
 
-const result = await page.results[0]`
+console.log(search.organized)`
 
 const HERO_EXAMPLES = [
   {
     id: 'simple-search',
     title: 'Search Query',
-    description:
-      'Run a plain Google search query and get normalized result objects.',
+    description: 'Run a quick search and get structured, useful output.',
     code: INSTALL_SNIPPET,
     result: {
       variant: 'search',
       data: {
         title:
-          'Technical SEO Checklist for 2026: 34 Fixes for Rankings, Speed & AI …',
-        url: 'https://almcorp.com/blog/technical-seo-checklist/',
+          'TechCrunch Disrupt 2025: AI Present or Future for Startups, Speed & AI …',
+        url: 'https://techcrunch.com/2025/05/20/ai-agents-future',
         description:
-          'Use this technical SEO checklist to fix crawlability, indexing, Core Web Vitals, structured data, mobile SEO, and AI search visibility in 2026.'
+          "Leaders discuss the intersection of AI and startup innovation, practical tools, and what's next in 2025."
       }
     }
   },
   {
-    id: 'news-monitoring',
-    title: 'News Monitoring',
+    id: 'web-scraping',
+    title: 'Web Scraping',
     description:
-      'Track fresh articles by topic with Google News and weekly filtering.',
-    code: `
-const page = await google('artificial intelligence funding', {
-  type: 'news',
-  location: 'us',
-  period: 'week'
+      'Extract structured data from any website with built-in proxy rotation.',
+    code: `const results = await microlink.search('site:techcrunch.com AI startups', {
+  limit: 10,
+  parse: true,
+  output: 'structured'
 })
 
-const headlines = page.results.map(item => ({
-  title: item.title,
-  source: item.publisher,
-  publishedAt: item.date
-}))`,
+console.log(results.items)`,
     result: {
       variant: 'news',
       data: [
@@ -416,7 +385,7 @@ const headlines = page.results.map(item => ({
           date: '2026-04-18T09:12:00.000Z',
           url: 'https://techcrunch.com/2026/04/18/anthropic-series-f/',
           description:
-            'The round accelerates Claude’s enterprise rollout and new inference infrastructure partnerships.'
+            "The round accelerates Claude's enterprise rollout and new inference infrastructure partnerships."
         },
         {
           title:
@@ -443,17 +412,16 @@ const headlines = page.results.map(item => ({
     title: 'Local SEO',
     description:
       'Collect local pack and map-style entities for geo-targeted research.',
-    code: `
-const placesPage = await google('best coffee madrid', {
+    code: `const results = await microlink.search('best coffee madrid', {
   type: 'places',
-  location: 'es'
+  location: 'es',
+  parse: true
 })
 
-const leads = placesPage.results.map(result => ({
-  name: result.title,
-  rating: result.rating?.score,
-  reviews: result.rating?.reviews,
-  coordinates: result.coordinates
+const leads = results.map(r => ({
+  name: r.title,
+  rating: r.rating,
+  coordinates: r.coordinates
 }))`,
     result: {
       variant: 'places',
@@ -473,15 +441,15 @@ const leads = placesPage.results.map(result => ({
     title: 'Document Discovery',
     description:
       'Use search operators to find technical sources, then expand the best matches as Markdown or HTML.',
-    code: `
-const page = await google('site:arxiv.org "deep learning"')
+    code: `const results = await microlink.search('site:arxiv.org "deep learning"', {
+  output: 'all'
+})
 
-const topSources = await Promise.all(
-  page.results.slice(0, 3).map(async result => ({
-    title: result.title,
-    url: result.url,
-    markdown: await result.markdown(),
-    html: await result.html()
+const enriched = await Promise.all(
+  results.slice(0, 3).map(async r => ({
+    title: r.title,
+    url: r.url,
+    markdown: await r.markdown()
   }))
 )`,
     result: {
