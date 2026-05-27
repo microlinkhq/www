@@ -100,7 +100,8 @@ const FOOTER_COLUMNS = [
       {
         label: 'Animated Screenshot',
         href: '/tools/website-screenshot/animated'
-      }
+      },
+      { label: 'Embed Providers', href: '/embed/providers' }
     ]
   },
   {

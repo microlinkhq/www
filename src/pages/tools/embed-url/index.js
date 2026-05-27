@@ -78,8 +78,8 @@ const REASON_TO_USE = [
     description: (
       <>
         YouTube, Spotify, Vimeo, X, Figma, TikTok, CodePen, and hundreds more —
-        browse <Link href='/tools/embed-url/providers'>popular providers</Link>{' '}
-        or see the full{' '}
+        browse <Link href='/embed/providers'>popular providers</Link> or see the
+        full{' '}
         <Link href='/docs/api/parameters/iframe/#providers-supported'>
           provider list
         </Link>
@@ -675,10 +675,8 @@ const ProductInformation = () => (
               / X, Instagram, TikTok, GitHub, CodePen, CodeSandbox, Vimeo,
               SoundCloud, Figma, Reddit, Pinterest, Medium, TED, Twitch, and
               more. Browse our{' '}
-              <Link href='/tools/embed-url/providers'>
-                popular provider tools
-              </Link>{' '}
-              for dedicated embed generators.
+              <Link href='/embed/providers'>popular provider tools</Link> for
+              dedicated embed generators.
             </div>
             <div>
               See the{' '}

@@ -165,7 +165,7 @@ const RelatedLinksSection = ({ links }) => (
     <Text css={theme({ fontSize: 1, color: 'black60' })}>
       <Link href='/tools/embed-url'>Embed any URL</Link>
       {' · '}
-      <Link href='/tools/embed-url/providers'>Browse providers</Link>
+      <Link href='/embed/providers'>Browse providers</Link>
       {links.map(({ href, label }) => (
         <React.Fragment key={href}>
           {' · '}

@@ -915,11 +915,11 @@ export const Head = () => (
       {
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        '@id': 'https://microlink.io/tools/embed-url/providers',
+        '@id': 'https://microlink.io/embed/providers',
         name: 'Embed Code Providers',
         description:
           'Browse 380+ supported embed providers. Generate embed code for YouTube, Instagram, Twitter, TikTok, Figma, and more.',
-        url: 'https://microlink.io/tools/embed-url/providers',
+        url: 'https://microlink.io/embed/providers',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
           'embed code providers',

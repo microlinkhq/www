@@ -65,7 +65,7 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/tools/embed-url/providers', label: 'All providers' }
+    { href: '/embed/providers', label: 'All providers' }
   ],
   faq: [
     {

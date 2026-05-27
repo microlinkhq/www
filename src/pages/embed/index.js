@@ -86,8 +86,8 @@ import { useSiteMetadata } from 'components/hook/use-site-meta'
 
 import { withTitle } from 'helpers/hoc/with-title'
 
-import analyticsData from '../../data/analytics.json'
-import ossData from '../../data/oss.json'
+import analyticsData from '../../../data/analytics.json'
+import ossData from '../../../data/oss.json'
 
 const ACCENT = '#3e55ff'
 const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
