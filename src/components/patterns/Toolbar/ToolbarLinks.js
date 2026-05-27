@@ -148,7 +148,7 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
   createNavigationItem({
     label: 'Embed Providers',
     href: '/embed/providers',
-    description: '380+ embed-ready sites',
+    description: '300+ embed-ready sites',
     icon: GridIcon
   }),
   createNavigationItem({

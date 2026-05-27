@@ -200,12 +200,12 @@ export const TOOLS = [
   {
     category: 'Embedding',
     description:
-      'Turn any URL into a ready-to-paste embed. Works with any link — for 380+ providers like YouTube, Spotify, X, and Figma you get the native preview straight from the source, and every other URL is rendered as a rich preview card.',
+      'Turn any URL into a ready-to-paste embed. Works with any link — for 300+ providers like YouTube, Spotify, X, and Figma you get the native preview straight from the source, and every other URL is rendered as a rich preview card.',
     tools: [
       {
         title: 'Embed URL',
         description:
-          'Paste any URL and copy a ready-to-paste embed. Works with any link: for YouTube, Spotify, X, Figma, and 380+ providers you get the native preview from the source; everything else is rendered as a rich preview card. No login required.',
+          'Paste any URL and copy a ready-to-paste embed. Works with any link: for YouTube, Spotify, X, Figma, and 300+ providers you get the native preview from the source; everything else is rendered as a rich preview card. No login required.',
         href: '/tools/embed-url',
         icon: CodeIcon,
         preview: EmbedToolPreview,
