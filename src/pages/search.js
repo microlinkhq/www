@@ -39,6 +39,7 @@ import {
   GUIDE_URL,
   HERO_EXAMPLES,
   HERO_IMAGE,
+  PAGE_URL,
   PACKAGE_URL,
   STRUCTURED_DATA,
   SUPPORTED_GOOGLE_SERVICES
@@ -54,12 +55,12 @@ const HERO_LAYOUT = {
 }
 
 const VERTICAL_RESPONSE_HEIGHT = ['476px', '476px', '512px', '552px']
+const VERTICAL_RESULT_COUNT = 3
 const HERO_TYPING_OPTION_KEYS = ['type', 'location', 'period']
 const HERO_TYPE_CHAR_MS = 32
 const HERO_TYPE_GAP_MS = 260
 const HERO_TYPE_START_MS = 80
 const HERO_LOADING_MS = 1000
-const HERO_RESULT_COLLAPSED_PEEK = '64px'
 const HERO_RESULT_EXPANDED_MAX = '520px'
 const VERTICAL_OUTPUT_TABS = [
   { id: 'json', label: 'JSON' },
@@ -111,35 +112,6 @@ const parseJsonPayload = payload => {
   } catch {
     return {}
   }
-}
-
-const extractRequestConfig = code => {
-  if (!code) return { query: '', options: [] }
-  const queryMatch = code.match(/google\(\s*(['"])([\s\S]*?)\1/)
-  const optionsBlockMatch = code.match(/\{([\s\S]*?)\}/)
-
-  return {
-    query: queryMatch?.[2] ?? '',
-    options: Array.from(
-      optionsBlockMatch?.[1]?.matchAll(/(\w+)\s*:\s*(['"])([\s\S]*?)\2/g) ?? []
-    ).map(([, key, , value]) => ({ key, value }))
-  }
-}
-
-const buildRequestSnippet = ({ query, options }) => {
-  const serializedOptions = options.length
-    ? options.map(({ key, value }) => `  ${key}: '${value}'`).join(',\n')
-    : "  type: 'search'"
-
-  return `const google = require('@microlink/google')({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('${query}', {
-${serializedOptions}
-})
-
-console.log(page.results)`
 }
 
 const toPreviewItems = payload => {
@@ -385,26 +357,26 @@ const monogramOverrideFor = host => lookupHost(HOST_MONOGRAM_OVERRIDES, host)
 
 const createTablistKeyHandler =
   ({ items, onSelect, focusTab }) =>
-    (event, index) => {
-      const lastIndex = items.length - 1
-      let nextIndex = null
+  (event, index) => {
+    const lastIndex = items.length - 1
+    let nextIndex = null
 
-      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-        nextIndex = index === lastIndex ? 0 : index + 1
-      } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        nextIndex = index === 0 ? lastIndex : index - 1
-      } else if (event.key === 'Home') {
-        nextIndex = 0
-      } else if (event.key === 'End') {
-        nextIndex = lastIndex
-      }
-
-      if (nextIndex === null) return
-      event.preventDefault()
-      const nextId = items[nextIndex].id
-      onSelect(nextId)
-      if (focusTab) focusTab(nextId)
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      nextIndex = index === lastIndex ? 0 : index + 1
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      nextIndex = index === 0 ? lastIndex : index - 1
+    } else if (event.key === 'Home') {
+      nextIndex = 0
+    } else if (event.key === 'End') {
+      nextIndex = lastIndex
     }
+
+    if (nextIndex === null) return
+    event.preventDefault()
+    const nextId = items[nextIndex].id
+    onSelect(nextId)
+    if (focusTab) focusTab(nextId)
+  }
 
 /* ────────────────────────── styled primitives ────────────────────────── */
 
@@ -426,16 +398,16 @@ const ActionRow = styled(Flex)`
 
 const HeroExampleShell = styled(Box)`
   ${theme({
-    borderRadius: 4,
+    borderRadius: 5,
     border: 1,
-    borderColor: 'black10',
+    borderColor: 'black05',
     bg: 'white',
     overflow: 'hidden',
     minWidth: 0,
-    boxShadow: 1,
+    boxShadow: 2,
     display: 'flex',
     flexDirection: 'column',
-    height: ['auto', 'auto', '550px', '550px']
+    height: ['auto', 'auto', '620px', '620px']
   })};
 `
 
@@ -452,45 +424,41 @@ const Tab = styled('button').withConfig({
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
-    minHeight: '44px',
+    minHeight: '58px',
     px: [2, 3, 3, 4],
     py: 2,
-    border: 0,
+    border: 1,
+    borderColor: 'transparent',
     borderRight: 1,
     borderRightColor: 'black10',
-    bg: 'gray0',
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    bg: 'transparent',
     color: 'black60',
-    fontFamily: 'mono',
-    fontSize: [0, 1, 1, 1],
+    fontFamily: 'sans',
+    fontSize: [1, 1, 2, 2],
     fontWeight: 'normal',
     letterSpacing: 0,
     whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     cursor: 'pointer',
-    flex: 1,
+    width: '100%',
     minWidth: 0,
+    boxSizing: 'border-box',
     position: 'relative'
   })};
   ${({ $active }) =>
     theme({
       bg: $active ? 'white' : 'gray0',
+      borderColor: $active ? 'blue1' : 'transparent',
+      borderBottomColor: $active ? 'white' : 'transparent',
       color: $active ? 'black' : 'black60',
       fontWeight: $active ? 'bold' : 'normal'
     })};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   transition: background-color ${transition.short}, color ${transition.short};
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 2px;
-    background-color: ${({ $active }) =>
-      $active ? colors.black : 'transparent'};
-    transition: background-color ${transition.short};
-  }
 
   ${({ $withBottomGap }) =>
     $withBottomGap
@@ -528,7 +496,6 @@ const Tab = styled('button').withConfig({
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
-    &::before,
     &::after {
       transition: none;
     }
@@ -543,7 +510,9 @@ const HeroExampleCodePanel = styled(Box)`
     display: 'flex',
     flex: 1,
     overflow: 'auto',
-    height: ['420px', '420px', 'auto', 'auto']
+    height: ['420px', '420px', 'auto', 'auto'],
+    borderBottom: 1,
+    borderBottomColor: 'black05'
   })};
 
   .hero-code-caret {
@@ -575,118 +544,41 @@ const HeroResultDock = styled(Box)
   })
   .attrs({ 'aria-live': 'polite' })`
   ${theme({
-    position: 'absolute',
+    position: 'static',
     left: 0,
     right: 0,
     bottom: 0,
-    bg: 'white',
-    borderTop: 1,
-    borderTopColor: 'black10',
-    boxShadow: '0 -8px 24px rgba(0, 0, 0, 0.06)',
+    bg: 'transparent',
+    borderTop: 0,
+    boxShadow: 0,
     display: 'flex',
     flexDirection: 'column'
   })};
   display: ${({ $visible }) => ($visible ? 'flex' : 'none')};
 `
 
-const HeroResultStatusDot = styled(Box).withConfig({
-  shouldForwardProp: prop => prop !== '$loading'
-})`
+const HeroResultCardShell = styled(Box)`
   ${theme({
-    display: 'inline-block',
-    width: '8px',
-    height: '8px',
-    borderRadius: '9999px'
+    bg: 'white',
+    border: 1,
+    borderColor: 'black05',
+    borderRadius: 5,
+    boxShadow: 1,
+    overflow: 'hidden'
   })};
-  background-color: ${({ $loading }) =>
-    $loading ? colors.yellow6 : colors.green6};
-  ${({ $loading }) =>
-    $loading ? 'animation: heroResultPulse 1200ms ease-in-out infinite;' : ''};
-
-  @keyframes heroResultPulse {
-    0%,
-    100% {
-      opacity: 0.45;
-      transform: scale(0.9);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
 `
 
-const HeroResultBodyWrap = styled(Box).withConfig({
-  shouldForwardProp: prop => prop !== '$collapsed'
-})`
+const HeroResultBodyWrap = styled(Box)`
   overflow: hidden;
-  max-height: ${({ $collapsed }) =>
-    $collapsed ? HERO_RESULT_COLLAPSED_PEEK : HERO_RESULT_EXPANDED_MAX};
-  opacity: ${({ $collapsed }) => ($collapsed ? 0.6 : 1)};
+  max-height: ${HERO_RESULT_EXPANDED_MAX};
+  opacity: 1;
   transition: max-height 260ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 200ms ease;
-  -webkit-mask-image: ${({ $collapsed }) =>
-    $collapsed
-      ? `linear-gradient(to bottom, ${colors.black} 0, transparent 100%)`
-      : 'none'};
-  mask-image: ${({ $collapsed }) =>
-    $collapsed
-      ? `linear-gradient(to bottom, ${colors.black} 0, transparent 100%)`
-      : 'none'};
+  -webkit-mask-image: none;
+  mask-image: none;
 
   @media (prefers-reduced-motion: reduce) {
     transition: opacity 120ms linear;
-  }
-`
-
-const HeroResultToggle = styled('button').withConfig({
-  shouldForwardProp: prop => prop !== '$collapsed'
-})`
-  ${theme({
-    appearance: 'none',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '28px',
-    height: '28px',
-    p: 0,
-    m: 0,
-    borderRadius: '9999px',
-    bg: 'transparent',
-    color: 'black70'
-  })};
-  border: 1px solid ${colors.black10};
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  transition: color ${transition.short}, background-color ${transition.short},
-    border-color ${transition.short};
-
-  svg {
-    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
-    transform: rotate(${({ $collapsed }) => ($collapsed ? '180deg' : '0deg')});
-  }
-
-  &:hover {
-    color: ${colors.black};
-    background-color: ${colors.gray0};
-    border-color: ${colors.black20};
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-    svg {
-      transition: none;
-    }
   }
 `
 
@@ -998,26 +890,16 @@ const VerticalExampleShell = styled(Box).withConfig({
   shouldForwardProp: prop => prop !== '$accentColor'
 })`
   ${theme({
-    mt: 3,
-    borderRadius: 4,
+    mt: [4, 4, 5, 5],
+    borderRadius: 5,
     border: 1,
-    borderColor: 'black10',
+    borderColor: 'black05',
     bg: 'white',
     overflow: 'hidden',
     minWidth: 0,
-    boxShadow: 1
+    boxShadow: 2
   })};
   position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 2px;
-    background: ${({ $accentColor }) => colors[$accentColor] || colors.black};
-  }
 `
 
 const VerticalExampleGrid = styled(Box)`
@@ -1027,9 +909,9 @@ const VerticalExampleGrid = styled(Box)`
       '1fr',
       '1fr',
       '1fr',
-      'minmax(0, 0.96fr) minmax(0, 1.04fr)'
+      'minmax(0, 0.98fr) minmax(0, 1.02fr)'
     ],
-    gap: [3, 3, 3, 4],
+    gap: [3, 3, 4, 5],
     p: [3, 3, 4, 4],
     height: '100%'
   })};
@@ -1059,6 +941,76 @@ const VerticalPreviewContent = styled(Box)`
   }
 `
 
+const VerticalResultList = styled(Box).attrs({ as: 'ol' })`
+  ${theme({
+    m: 0,
+    p: 0,
+    pt: [3, 3, 4, 4],
+    display: 'grid',
+    gap: [3, 3, 4, 4],
+    listStyle: 'none'
+  })};
+`
+
+const VerticalResultNumber = styled(Flex).attrs({ as: 'span' })`
+  ${theme({
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: ['48px', '48px', '56px', '56px'],
+    height: ['48px', '48px', '56px', '56px'],
+    flexShrink: 0,
+    borderRadius: '9999px',
+    bg: 'blue0',
+    color: 'blue6',
+    fontFamily: 'mono',
+    fontSize: [2, 2, 3, 3],
+    fontWeight: 'bold',
+    lineHeight: 1
+  })};
+`
+
+const VerticalOutputTab = styled('button').withConfig({
+  shouldForwardProp: prop => prop !== '$active'
+})`
+  ${theme({
+    appearance: 'none',
+    minHeight: '44px',
+    px: [3, 3, 4, 4],
+    py: 2,
+    border: 0,
+    bg: 'transparent',
+    color: 'black80',
+    fontFamily: 'mono',
+    fontSize: [1, 1, 2, 2],
+    fontWeight: 'normal',
+    letterSpacing: 0,
+    lineHeight: 1,
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 2,
+    cursor: 'pointer'
+  })};
+  ${({ $active }) =>
+    theme({
+      color: $active ? 'black' : 'black70',
+      fontWeight: $active ? 'bold' : 'normal'
+    })};
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: color ${transition.short}, background-color ${transition.short};
+
+  &:hover {
+    color: ${colors.black};
+    background-color: ${colors.gray0};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: -2px;
+  }
+`
+
 const VerticalTabButton = styled('button').withConfig({
   shouldForwardProp: prop => !['$active', '$activeColor'].includes(prop)
 })`
@@ -1066,20 +1018,20 @@ const VerticalTabButton = styled('button').withConfig({
     appearance: 'none',
     display: 'inline-flex',
     alignItems: 'center',
-    gap: 2,
+    gap: 1,
+    position: 'relative',
     border: 1,
-    borderColor: 'black10',
-    borderRadius: 4,
-    bg: 'gray0',
-    py: 1,
+    borderColor: 'transparent',
+    borderRadius: 5,
+    bg: 'transparent',
+    py: 2,
     px: 2,
     minHeight: '36px',
     color: 'black80',
-    fontFamily: 'mono',
+    fontFamily: 'sans',
     fontWeight: 'normal',
     fontSize: [0, 0, 1, 1],
     lineHeight: 1,
-    textTransform: 'lowercase',
     letterSpacing: 0,
     whiteSpace: 'nowrap',
     textAlign: 'left',
@@ -1088,8 +1040,8 @@ const VerticalTabButton = styled('button').withConfig({
   })};
   ${({ $active, $activeColor }) =>
     theme({
-      borderColor: $active ? $activeColor : 'black10',
-      bg: $active ? 'white' : 'gray0',
+      borderColor: $active ? 'black05' : 'transparent',
+      bg: $active ? 'blue0' : 'transparent',
       color: $active ? 'black' : 'black80',
       fontWeight: $active ? 'bold' : 'normal'
     })};
@@ -1099,16 +1051,27 @@ const VerticalTabButton = styled('button').withConfig({
     background-color ${transition.short};
 
   &:hover {
-    border-color: ${colors.black20};
-    background-color: ${colors.white};
+    border-color: ${colors.black05};
+    background-color: ${colors.gray0};
     color: ${colors.black};
   }
   ${({ $active, $activeColor }) =>
     $active
       ? `
+    &::after {
+      content: '';
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: -13px;
+      height: 2px;
+      border-radius: 9999px;
+      background: ${colors[$activeColor] || $activeColor};
+    }
+
     &:hover {
-      border-color: ${colors[$activeColor] || $activeColor};
-      background-color: ${colors.white};
+      border-color: ${colors.black05};
+      background-color: ${colors.blue0};
       color: ${colors.black};
     }
   `
@@ -1807,42 +1770,42 @@ const HeroMapListItem = ({ item }) => (
 
       {(typeof item.latitude === 'number' ||
         typeof item.longitude === 'number') && (
-          <Box
+        <Box
+          css={theme({
+            mt: 2,
+            p: 2,
+            borderRadius: 3,
+            bg: 'gray0',
+            border: 1,
+            borderColor: 'black05'
+          })}
+        >
+          <Text
+            as='p'
             css={theme({
-              mt: 2,
-              p: 2,
-              borderRadius: 3,
-              bg: 'gray0',
-              border: 1,
-              borderColor: 'black05'
+              m: 0,
+              color: 'black50',
+              fontFamily: 'mono',
+              fontSize: [0, 0, 1, 1],
+              fontWeight: 'bold',
+              lineHeight: 1
             })}
           >
-            <Text
-              as='p'
-              css={theme({
-                m: 0,
-                color: 'black50',
-                fontFamily: 'mono',
-                fontSize: [0, 0, 1, 1],
-                fontWeight: 'bold',
-                lineHeight: 1
-              })}
-            >
-              Coordinates
-            </Text>
-            <Flex css={theme({ gap: 2, mt: 2, flexWrap: 'wrap' })}>
-              {typeof item.latitude === 'number' && (
-                <HeroResultBadgeSmall>
-                  lat · {formatCoordinate(item.latitude, 'N', 'S')}
-                </HeroResultBadgeSmall>
-              )}
-              {typeof item.longitude === 'number' && (
-                <HeroResultBadgeSmall>
-                  lng · {formatCoordinate(item.longitude, 'E', 'W')}
-                </HeroResultBadgeSmall>
-              )}
-            </Flex>
-          </Box>
+            Coordinates
+          </Text>
+          <Flex css={theme({ gap: 2, mt: 2, flexWrap: 'wrap' })}>
+            {typeof item.latitude === 'number' && (
+              <HeroResultBadgeSmall>
+                lat · {formatCoordinate(item.latitude, 'N', 'S')}
+              </HeroResultBadgeSmall>
+            )}
+            {typeof item.longitude === 'number' && (
+              <HeroResultBadgeSmall>
+                lng · {formatCoordinate(item.longitude, 'E', 'W')}
+              </HeroResultBadgeSmall>
+            )}
+          </Flex>
+        </Box>
       )}
 
       {item.place?.id && (
@@ -2084,7 +2047,6 @@ const GooglePage = () => {
   )
   const [activeOutputTab, setActiveOutputTab] = useState('json')
   const [heroPhase, setHeroPhase] = useState('typing')
-  const [heroResultCollapsed, setHeroResultCollapsed] = useState(false)
 
   const heroCodeRef = useRef(null)
 
@@ -2132,10 +2094,15 @@ const GooglePage = () => {
     [activeVerticalPayload]
   )
 
-  const activeVerticalRequestSnippet = useMemo(
-    () => buildRequestSnippet(extractRequestConfig(activeVerticalExample.code)),
-    [activeVerticalExample.code]
-  )
+  const activeVerticalResults = useMemo(() => {
+    const payloadResults = Array.isArray(activeVerticalPayload)
+      ? activeVerticalPayload
+      : activeVerticalPayload?.results
+
+    return Array.isArray(payloadResults)
+      ? payloadResults.slice(0, VERTICAL_RESULT_COUNT)
+      : []
+  }, [activeVerticalPayload])
 
   const activeVerticalPreview = useMemo(
     () => getVerticalPreviewResult(activeVertical.id, activeVerticalPayload),
@@ -2146,7 +2113,6 @@ const GooglePage = () => {
 
   useEffect(() => {
     setHeroPhase('typing')
-    setHeroResultCollapsed(false)
   }, [activeHeroExampleId])
 
   useEffect(() => {
@@ -2242,7 +2208,6 @@ const GooglePage = () => {
 
   const selectHeroExample = useCallback(tabId => {
     setHeroPhase('typing')
-    setHeroResultCollapsed(false)
     setActiveHeroExampleId(tabId)
   }, [])
 
@@ -2281,20 +2246,6 @@ const GooglePage = () => {
     []
   )
 
-  const toggleHeroResultCollapsed = useCallback(
-    () => setHeroResultCollapsed(value => !value),
-    []
-  )
-
-  /* ─── derived hero status label ─── */
-
-  const heroStatusLabel =
-    heroPhase === 'loading'
-      ? 'Running query…'
-      : Array.isArray(activeHeroExample.result?.data)
-        ? `200 OK · page.results (${activeHeroExample.result.data.length})`
-        : '200 OK · page.results[0]'
-
   return (
     <Layout>
       <HeroSection>
@@ -2310,18 +2261,32 @@ const GooglePage = () => {
         >
           <Flex
             css={theme({
+              display: ['flex', 'flex', 'flex', 'grid'],
               width: '100%',
               maxWidth: HERO_LAYOUT.maxWidth,
               px: [2, 3, 4, 4],
               mx: 'auto',
               flexDirection: ['column', 'column', 'column', 'row'],
+              gridTemplateColumns: [
+                '1fr',
+                '1fr',
+                '1fr',
+                'minmax(0, 0.45fr) minmax(0, 0.55fr)'
+              ],
               alignItems: ['center', 'center', 'center', 'stretch'],
               gap: HERO_LAYOUT.gap
             })}
           >
             <Box
               css={theme({
-                width: ['100%', '100%', '100%', HERO_LAYOUT.secondaryWidth]
+                width: '100%',
+                flex: [
+                  '0 0 auto',
+                  '0 0 auto',
+                  '0 0 auto',
+                  `0 0 ${HERO_LAYOUT.secondaryWidth}`
+                ],
+                minWidth: 0
               })}
             >
               <Box css={theme({ px: [2, 3, 4, 0], width: '100%' })}>
@@ -2397,7 +2362,14 @@ const GooglePage = () => {
 
             <Flex
               css={theme({
-                width: ['100%', '100%', '100%', HERO_LAYOUT.mainWidth],
+                width: '100%',
+                flex: [
+                  '0 0 auto',
+                  '0 0 auto',
+                  '0 0 auto',
+                  `0 0 ${HERO_LAYOUT.mainWidth}`
+                ],
+                minWidth: 0,
                 pt: [4, 4, 5, 0],
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -2416,12 +2388,20 @@ const GooglePage = () => {
                     role='tablist'
                     aria-label='Example scenarios'
                     css={theme({
-                      display: 'flex',
+                      display: 'grid',
+                      gridTemplateColumns: [
+                        'repeat(4, minmax(0, 1fr))',
+                        'repeat(4, minmax(0, 1fr))',
+                        'repeat(4, minmax(0, 1fr))',
+                        'repeat(4, minmax(0, 1fr))'
+                      ],
                       width: '100%',
-                      bg: 'gray0',
+                      bg: 'white',
                       borderBottom: 1,
                       borderBottomColor: 'black10',
-                      flexShrink: 0
+                      flexShrink: 0,
+                      overflowX: 'auto',
+                      overflowY: 'hidden'
                     })}
                   >
                     {HERO_EXAMPLES.map((example, index) => {
@@ -2439,7 +2419,8 @@ const GooglePage = () => {
                           tabIndex={isActive ? 0 : -1}
                           onClick={() => selectHeroExample(example.id)}
                           onKeyDown={event =>
-                            handleHeroExampleTabKeyDown(event, index)}
+                            handleHeroExampleTabKeyDown(event, index)
+                          }
                         >
                           {example.title}
                         </Tab>
@@ -2456,8 +2437,7 @@ const GooglePage = () => {
                       flexDirection: 'column',
                       flex: 1,
                       minWidth: 0,
-                      minHeight: 0,
-                      position: 'relative'
+                      minHeight: 0
                     })}
                   >
                     <Box
@@ -2493,10 +2473,10 @@ const GooglePage = () => {
                         showAction={false}
                         css={theme({
                           width: '100%',
-                          height: ['420px', '420px', '100%', '100%'],
+                          height: ['300px', '300px', '100%', '100%'],
                           border: 0,
                           borderRadius: 0,
-                          mt: '-24px'
+                          mt: '-14px'
                         })}
                       >
                         {activeHeroExample.code}
@@ -2507,69 +2487,25 @@ const GooglePage = () => {
                       $visible={heroPhase !== 'typing'}
                       aria-busy={heroPhase === 'loading' ? 'true' : 'false'}
                     >
-                      <Flex
-                        css={theme({
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          gap: 2,
-                          px: [3, 3, 4, 4],
-                          py: 2,
-                          bg: 'gray0',
-                          borderBottom: 1,
-                          borderBottomColor: 'black10'
-                        })}
-                      >
-                        <Flex
-                          as='span'
-                          css={theme({
-                            alignItems: 'center',
-                            gap: 2,
-                            color: 'black70',
-                            fontFamily: 'mono',
-                            fontSize: '14px',
-                            letterSpacing: 0,
-                            lineHeight: 1
-                          })}
-                        >
-                          <HeroResultStatusDot
-                            $loading={heroPhase === 'loading'}
-                          />
-                          {heroStatusLabel}
-                        </Flex>
-                        <HeroResultToggle
-                          type='button'
-                          onClick={toggleHeroResultCollapsed}
-                          aria-expanded={!heroResultCollapsed}
-                          aria-controls='hero-result-body'
-                          aria-label={
-                            heroResultCollapsed
-                              ? 'Expand results'
-                              : 'Collapse results'
-                          }
-                          $collapsed={heroResultCollapsed}
-                        >
-                          <ChevronDown size={16} aria-hidden='true' />
-                        </HeroResultToggle>
-                      </Flex>
-                      <HeroResultBodyWrap
-                        id='hero-result-body'
-                        $collapsed={heroResultCollapsed}
-                      >
+                      <HeroResultBodyWrap id='hero-result-body'>
                         <Box
                           css={theme({
-                            px: [3, 3, 4, 4],
-                            py: [3, 3, 3, 3],
-                            bg: 'white',
+                            p: [3, 3, 3, 3],
+                            bg: 'gray0',
                             overflow: 'hidden'
                           })}
                         >
-                          {heroPhase === 'loading'
-                            ? (
-                              <HeroResultSkeleton />
-                              )
-                            : (
-                              <HeroResultCard result={activeHeroExample.result} />
+                          <HeroResultCardShell>
+                            <Box css={theme({ p: [3, 3, 4, 4] })}>
+                              {heroPhase === 'loading' ? (
+                                <HeroResultSkeleton />
+                              ) : (
+                                <HeroResultCard
+                                  result={activeHeroExample.result}
+                                />
                               )}
+                            </Box>
+                          </HeroResultCardShell>
                         </Box>
                       </HeroResultBodyWrap>
                     </HeroResultDock>
@@ -2633,7 +2569,8 @@ const GooglePage = () => {
               <Flex
                 css={theme({
                   px: [3, 3, 4, 4],
-                  py: [3, 3, 3, 3],
+                  pt: [3, 3, 3, 3],
+                  pb: [3, 3, 4, 4],
                   alignItems: 'center',
                   justifyContent: 'flex-start',
                   gap: 2,
@@ -2650,11 +2587,13 @@ const GooglePage = () => {
                     pb: 0,
                     px: 0,
                     display: 'flex',
-                    flexWrap: 'wrap',
+                    flexWrap: 'nowrap',
                     alignItems: 'stretch',
                     justifyContent: 'flex-start',
-                    gap: 2,
+                    gap: [1, 1, 2, 2],
                     width: '100%',
+                    overflowX: 'auto',
+                    overflowY: 'hidden',
                     border: 0
                   })}
                 >
@@ -2673,7 +2612,8 @@ const GooglePage = () => {
                         aria-pressed={activeVertical.id === vertical.id}
                         onClick={() => setActiveVerticalId(vertical.id)}
                         onKeyDown={event =>
-                          handleVerticalTabKeyDown(event, index)}
+                          handleVerticalTabKeyDown(event, index)
+                        }
                       >
                         {verticalService && (
                           <Box
@@ -2682,8 +2622,8 @@ const GooglePage = () => {
                             alt=''
                             aria-hidden='true'
                             css={theme({
-                              width: '16px',
-                              height: '16px',
+                              width: '14px',
+                              height: '14px',
                               flexShrink: 0
                             })}
                           />
@@ -2701,31 +2641,28 @@ const GooglePage = () => {
                     alignSelf: 'stretch',
                     minHeight: 0,
                     height: VERTICAL_RESPONSE_HEIGHT,
-                    justifyContent: 'center'
+                    justifyContent: 'flex-start'
                   })}
                 >
                   <Box
                     css={theme({
-                      px: [2, 2, 3, 3],
-                      pt: [3, 3, 4, 4],
-                      pb: [3, 3, 3, 3],
+                      px: [1, 1, 2, 2],
+                      pt: [1, 1, 2, 2],
+                      pb: [3, 3, 4, 4],
                       borderBottom: 1,
-                      borderBottomColor: 'black05'
+                      borderBottomColor: 'black10'
                     })}
                   >
                     <Flex css={theme({ alignItems: 'center', gap: 3 })}>
                       {activeVerticalService && (
-                        <Box
-                          as='img'
-                          src={activeVerticalService.iconUrl}
-                          alt=''
-                          aria-hidden='true'
-                          css={theme({
-                            width: '36px',
-                            height: '36px',
-                            flexShrink: 0
-                          })}
-                        />
+                        <HeroResultBrand $size='64px'>
+                          <Box
+                            as='img'
+                            src={activeVerticalService.iconUrl}
+                            alt=''
+                            aria-hidden='true'
+                          />
+                        </HeroResultBrand>
                       )}
                       <Box css={theme({ minWidth: 0 })}>
                         <Text
@@ -2733,20 +2670,20 @@ const GooglePage = () => {
                           css={theme({
                             m: 0,
                             color: 'black',
-                            fontSize: [1, 1, 2, 2],
+                            fontSize: [2, 2, 3, 3],
                             fontWeight: 'bold',
-                            lineHeight: 2
+                            lineHeight: 1
                           })}
                         >
-                          Google Search
+                          {activeVerticalService?.label ?? activeVertical.name}
                         </Text>
                         <Text
                           as='p'
                           css={theme({
                             m: 0,
-                            mt: 1,
+                            mt: 2,
                             color: 'black70',
-                            fontSize: [0, 0, 1, 1],
+                            fontSize: [1, 1, 2, 2],
                             lineHeight: 2
                           })}
                         >
@@ -2758,35 +2695,102 @@ const GooglePage = () => {
 
                   <Box
                     css={theme({
-                      py: [2, 2, 3, 3],
+                      py: [3, 3, 4, 4],
                       px: [1, 1, 2, 2],
                       minWidth: 0,
                       flex: 1,
                       display: 'flex',
                       flexDirection: 'column',
-                      justifyContent: 'center',
+                      justifyContent: 'space-between',
                       minHeight: 0
                     })}
                   >
-                    <CodeEditor
-                      language='javascript'
-                      blinkCursor={false}
-                      showHeader={false}
-                      showWindowButtons={false}
-                      showTitle={false}
-                      showAction={false}
-                      showFade={false}
+                    <VerticalResultList>
+                      {activeVerticalResults.map((result, index) => {
+                        const source =
+                          result.source ||
+                          result.publisher ||
+                          result.site ||
+                          new URL(result.url || PAGE_URL).hostname
+                            .replace(/^www\./, '')
+                            .split('.')[0]
+                        const published = result.published || result.date
+
+                        return (
+                          <Flex
+                            as='li'
+                            key={`${result.title}-${index}`}
+                            css={theme({
+                              alignItems: 'flex-start',
+                              gap: 3,
+                              minWidth: 0
+                            })}
+                          >
+                            <VerticalResultNumber>
+                              {index + 1}
+                            </VerticalResultNumber>
+                            <Box css={theme({ minWidth: 0, pt: 1 })}>
+                              <Text
+                                as='p'
+                                css={theme({
+                                  m: 0,
+                                  color: 'black60',
+                                  fontSize: [0, 0, 1, 1],
+                                  lineHeight: 1
+                                })}
+                              >
+                                {source}
+                                {published ? ` · ${published}` : ''}
+                              </Text>
+                              <Text
+                                as='p'
+                                css={theme({
+                                  m: 0,
+                                  mt: 1,
+                                  color: 'link',
+                                  fontSize: [1, 1, 2, 2],
+                                  fontWeight: 'bold',
+                                  lineHeight: 1,
+                                  ...truncateLineCss
+                                })}
+                              >
+                                {result.title}
+                              </Text>
+                              <Text
+                                as='p'
+                                css={theme({
+                                  m: 0,
+                                  mt: 2,
+                                  color: 'black70',
+                                  fontSize: [0, 0, 1, 1],
+                                  lineHeight: 2,
+                                  ...truncateLineCss
+                                })}
+                              >
+                                {result.description}
+                              </Text>
+                            </Box>
+                          </Flex>
+                        )
+                      })}
+                    </VerticalResultList>
+
+                    <Link
+                      href={GUIDE_URL}
                       css={theme({
-                        width: '100%',
-                        height: 'auto',
-                        border: 0,
-                        borderRadius: 0,
-                        overflow: 'visible',
-                        pt: 2
+                        mt: 4,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 2,
+                        color: 'link',
+                        fontWeight: 'bold',
+                        fontSize: [1, 1, 2, 2],
+                        textDecoration: 'none'
                       })}
                     >
-                      {activeVerticalRequestSnippet}
-                    </CodeEditor>
+                      <span aria-hidden='true'>→</span>
+                      View all results (50)
+                    </Link>
                   </Box>
                 </VerticalExamplePanel>
 
@@ -2795,7 +2799,9 @@ const GooglePage = () => {
                     alignSelf: 'flex-start',
                     minHeight: 0,
                     height: VERTICAL_RESPONSE_HEIGHT,
-                    boxShadow: 1
+                    border: 1,
+                    borderColor: 'black10',
+                    boxShadow: 0
                   })}
                 >
                   <Box
@@ -2804,14 +2810,18 @@ const GooglePage = () => {
                     css={theme({
                       display: 'flex',
                       width: '100%',
-                      bg: 'gray0',
+                      alignItems: 'stretch',
+                      justifyContent: 'space-between',
+                      bg: 'white',
+                      borderBottom: 1,
+                      borderBottomColor: 'black10',
                       flexShrink: 0
                     })}
                   >
                     {VERTICAL_OUTPUT_TABS.map((tab, index) => {
                       const isActive = activeOutputTab === tab.id
                       return (
-                        <Tab
+                        <VerticalOutputTab
                           key={tab.id}
                           id={`vertical-output-tab-${tab.id}`}
                           type='button'
@@ -2822,93 +2832,95 @@ const GooglePage = () => {
                           tabIndex={isActive ? 0 : -1}
                           onClick={() => setActiveOutputTab(tab.id)}
                           onKeyDown={event =>
-                            handleOutputTabKeyDown(event, index)}
+                            handleOutputTabKeyDown(event, index)
+                          }
                         >
                           {tab.label}
-                        </Tab>
+                          {tab.id === 'preview' && (
+                            <ChevronDown size={16} aria-hidden='true' />
+                          )}
+                        </VerticalOutputTab>
                       )
                     })}
                   </Box>
 
-                  {activeOutputTab === 'json'
-                    ? (
+                  {activeOutputTab === 'json' ? (
+                    <Box
+                      id='vertical-output-panel-json'
+                      role='tabpanel'
+                      aria-labelledby='vertical-output-tab-json'
+                      css={theme({
+                        display: 'flex',
+                        flexDirection: 'column',
+                        flex: 1,
+                        minHeight: 0,
+                        height: '100%',
+                        py: [2, 2, 3, 3],
+                        px: 0
+                      })}
+                    >
+                      <CodeEditor
+                        language='json'
+                        showFade={false}
+                        showHeader={false}
+                        showWindowButtons={false}
+                        showTitle={false}
+                        showAction={false}
+                        css={theme({
+                          width: '100%',
+                          height: '100%',
+                          minHeight: 0,
+                          flex: 1,
+                          border: 0,
+                          borderRadius: 0,
+                          pt: 2
+                        })}
+                      >
+                        {activeVerticalPayloadText}
+                      </CodeEditor>
+                    </Box>
+                  ) : (
+                    <Box
+                      id='vertical-output-panel-preview'
+                      role='tabpanel'
+                      aria-labelledby='vertical-output-tab-preview'
+                      css={theme({
+                        borderTop: 1,
+                        borderTopColor: 'white',
+                        bg: 'white',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100%',
+                        minHeight: 0,
+                        flex: 1,
+                        minWidth: 0
+                      })}
+                    >
                       <Box
-                        id='vertical-output-panel-json'
-                        role='tabpanel'
-                        aria-labelledby='vertical-output-tab-json'
                         css={theme({
                           display: 'flex',
                           flexDirection: 'column',
                           flex: 1,
                           minHeight: 0,
-                          height: '100%',
-                          py: [2, 2, 3, 3],
-                          px: 0
+                          overflowY: 'auto',
+                          overflowX: 'hidden'
                         })}
                       >
-                        <CodeEditor
-                          language='json'
-                          showFade={false}
-                          showHeader={false}
-                          showWindowButtons={false}
-                          showTitle={false}
-                          showAction={false}
-                          css={theme({
-                            width: '100%',
-                            height: '100%',
-                            minHeight: 0,
-                            flex: 1,
-                            border: 0,
-                            borderRadius: 0,
-                            pt: 2
-                          })}
-                        >
-                          {activeVerticalPayloadText}
-                        </CodeEditor>
+                        <VerticalPreviewContent>
+                          <Box
+                            css={theme({
+                              px: [3, 3, 4, 4],
+                              py: 0,
+                              bg: 'white',
+                              overflow: 'hidden'
+                            })}
+                          >
+                            <HeroResultCard result={activeVerticalPreview} />
+                          </Box>
+                        </VerticalPreviewContent>
                       </Box>
-                      )
-                    : (
-                      <Box
-                        id='vertical-output-panel-preview'
-                        role='tabpanel'
-                        aria-labelledby='vertical-output-tab-preview'
-                        css={theme({
-                          borderTop: 1,
-                          borderTopColor: 'white',
-                          bg: 'white',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          height: '100%',
-                          minHeight: 0,
-                          flex: 1,
-                          minWidth: 0
-                        })}
-                      >
-                        <Box
-                          css={theme({
-                            display: 'flex',
-                            flexDirection: 'column',
-                            flex: 1,
-                            minHeight: 0,
-                            overflowY: 'auto',
-                            overflowX: 'hidden'
-                          })}
-                        >
-                          <VerticalPreviewContent>
-                            <Box
-                              css={theme({
-                                px: [3, 3, 4, 4],
-                                py: 0,
-                                bg: 'white',
-                                overflow: 'hidden'
-                              })}
-                            >
-                              <HeroResultCard result={activeVerticalPreview} />
-                            </Box>
-                          </VerticalPreviewContent>
-                        </Box>
-                      </Box>
-                      )}
+                    </Box>
+                  )}
                 </VerticalExamplePanel>
               </VerticalExampleGrid>
             </VerticalExampleShell>
@@ -3286,7 +3298,7 @@ const GooglePage = () => {
       <Box
         as='section'
         id='final-cta'
-        css={theme({ bg: 'pinky', py: [5, 5, 6, 6] })}
+        css={theme({ bg: 'blue0', py: [5, 5, 6, 6] })}
       >
         <Container
           css={theme({
@@ -3297,18 +3309,19 @@ const GooglePage = () => {
           <Flex
             css={theme({
               flexDirection: ['column', 'column', 'row', 'row'],
-              gap: [4, 4, 5, 6],
+              gap: [5, 5, 6, 7],
               alignItems: ['center', 'center', 'center', 'center'],
               width: '100%'
             })}
           >
             <Box
               css={theme({
-                width: ['100%', '100%', '45%', '45%'],
-                flexShrink: 0
+                width: ['100%', '100%', '38%', '38%'],
+                flexShrink: 0,
+                maxWidth: ['100%', '100%', '440px', '440px']
               })}
             >
-              <SectionCaption color='#f59e0b'>
+              <SectionCaption color='#3b82f6'>
                 Connect everything
               </SectionCaption>
               <Text
@@ -3318,14 +3331,16 @@ const GooglePage = () => {
                   color: 'black',
                   fontWeight: 'bold',
                   letterSpacing: 1,
-                  lineHeight: [1, 1, 0, 0],
-                  fontSize: [4, 4, 5, 5],
+                  lineHeight: 1,
+                  fontSize: [4, 4, '42px', '42px'],
                   textAlign: 'left'
                 })}
               >
-                Plug <span css={theme({ color: '#f59e0b' })}>Microlink</span>
+                Plug <span css={theme({ color: '#3b82f6' })}>Microlink</span>
                 <br />
-                into your workflow
+                <span css={theme({ whiteSpace: 'nowrap' })}>
+                  into your workflow
+                </span>
               </Text>
               <Text
                 as='p'
@@ -3346,132 +3361,141 @@ const GooglePage = () => {
               </Text>
             </Box>
 
-            <Flex
+            <Box
               css={theme({
-                width: ['100%', '100%', '55%', '55%'],
-                gap: [3, 3, 4, 4],
-                justifyContent: 'center',
-                flexWrap: 'wrap'
+                width: ['100%', '100%', '62%', '62%'],
+                minWidth: 0
               })}
             >
-              {[
-                {
-                  label: 'Search',
-                  href: '/search',
-                  icon: (
-                    <svg
-                      width='32'
-                      height='32'
-                      viewBox='0 0 24 24'
-                      fill='none'
-                      stroke='currentColor'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
+              <Flex
+                css={theme({
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: [3, 3, 4, 5],
+                  flexDirection: ['column', 'row', 'row', 'row'],
+                  position: 'relative'
+                })}
+              >
+                <Box
+                  aria-hidden='true'
+                  css={theme({
+                    display: ['none', 'block', 'block', 'block'],
+                    position: 'absolute',
+                    left: '20%',
+                    right: '20%',
+                    top: '50%',
+                    height: '2px',
+                    borderTop: 1,
+                    borderTopColor: 'blue2',
+                    zIndex: 0
+                  })}
+                  style={{ borderTopStyle: 'dotted' }}
+                />
+                {[
+                  {
+                    label: 'Search',
+                    href: '/search',
+                    icon: <SearchIcon size={58} strokeWidth={2} />
+                  },
+                  {
+                    label: 'Metadata',
+                    href: '/metadata',
+                    icon: <FileText size={54} strokeWidth={2} />
+                  },
+                  {
+                    label: 'Markdown',
+                    href: '/markdown',
+                    icon: (
+                      <Text
+                        as='span'
+                        css={theme({
+                          m: 0,
+                          color: 'blue6',
+                          fontWeight: 'bold',
+                          fontSize: [4, 4, 4, 4],
+                          fontFamily: 'mono',
+                          lineHeight: 1,
+                          border: 2,
+                          borderColor: 'blue6',
+                          borderRadius: 2,
+                          px: 2,
+                          py: 1
+                        })}
+                      >
+                        M↓
+                      </Text>
+                    )
+                  }
+                ].map(product => (
+                  <Box
+                    as='a'
+                    key={product.label}
+                    href={product.href}
+                    css={theme({
+                      position: 'relative',
+                      zIndex: 1,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 4,
+                      width: ['150px', '150px', '150px', '160px'],
+                      minWidth: ['150px', '150px', '150px', '160px'],
+                      height: ['190px', '190px', '200px', '210px'],
+                      borderRadius: 4,
+                      bg: 'white',
+                      border: 1,
+                      borderColor: 'black05',
+                      textDecoration: 'none',
+                      color: 'black',
+                      boxShadow: 1,
+                      transition: `border-color ${transition.short}`
+                    })}
+                  >
+                    <Box
+                      css={theme({
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'blue6',
+                        minHeight: '72px'
+                      })}
                     >
-                      <circle cx='11' cy='11' r='8' />
-                      <line x1='21' y1='21' x2='16.65' y2='16.65' />
-                    </svg>
-                  ),
-                  color: '#3b82f6'
-                },
-                {
-                  label: 'Metadata',
-                  href: '/metadata',
-                  icon: (
-                    <svg
-                      width='32'
-                      height='32'
-                      viewBox='0 0 24 24'
-                      fill='none'
-                      stroke='currentColor'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    >
-                      <polygon points='12 2 2 7 12 12 22 7 12 2' />
-                      <polyline points='2 17 12 22 22 17' />
-                      <polyline points='2 12 12 17 22 12' />
-                    </svg>
-                  ),
-                  color: '#f59e0b'
-                },
-                {
-                  label: 'Markdown',
-                  href: '/markdown',
-                  icon: (
+                      {product.icon}
+                    </Box>
                     <Text
                       as='span'
                       css={theme({
+                        color: 'black',
                         fontWeight: 'bold',
-                        fontSize: '20px',
-                        fontFamily: 'mono'
+                        fontSize: [1, 1, 2, 2],
+                        lineHeight: 1
                       })}
                     >
-                      M↓
+                      {product.label}
                     </Text>
-                  ),
-                  color: '#000'
-                }
-              ].map(product => (
-                <Link
-                  key={product.label}
-                  href={product.href}
+                  </Box>
+                ))}
+              </Flex>
+              <Flex
+                css={theme({
+                  mt: [4, 4, 5, 6],
+                  justifyContent: ['center', 'center', 'flex-start', 'flex-start'],
+                  pl: [0, 0, 0, 0]
+                })}
+              >
+                <ArrowLink
+                  href='/pricing'
                   css={theme({
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 3,
-                    p: 4,
-                    borderRadius: 4,
-                    bg: 'white',
-                    border: 1,
-                    borderColor: 'black10',
-                    minWidth: '140px',
-                    textDecoration: 'none',
-                    color: 'black',
-                    boxShadow: 1,
-                    transition: `border-color ${transition.short}`
+                    color: 'blue6',
+                    fontWeight: 'bold',
+                    fontSize: [1, 1, 2, 2]
                   })}
                 >
-                  <Box
-                    css={theme({
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '56px',
-                      height: '56px',
-                      borderRadius: 3,
-                      border: 1,
-                      borderColor: 'black10'
-                    })}
-                    style={{ color: product.color }}
-                  >
-                    {product.icon}
-                  </Box>
-                  <Text
-                    as='span'
-                    css={theme({
-                      fontWeight: 'bold',
-                      fontSize: [1, 1, 2, 2]
-                    })}
-                  >
-                    {product.label}
-                  </Text>
-                </Link>
-              ))}
-            </Flex>
-          </Flex>
-
-          <Flex
-            css={theme({
-              mt: [4, 4, 5, 5],
-              justifyContent: 'center'
-            })}
-          >
-            <ArrowLink href='/pricing' css={theme({ fontSize: [2, 2, 3, 3] })}>
-              See all plans
-            </ArrowLink>
+                  See all plans
+                </ArrowLink>
+              </Flex>
+            </Box>
           </Flex>
         </Container>
       </Box>
@@ -3591,6 +3615,20 @@ const TutorialStepContainer = styled(Box).attrs({ as: 'section' })`
 
   &:last-child {
     padding-bottom: 0;
+
+    &::after {
+      content: '';
+      ${theme({
+        display: ['none', 'none', 'block', 'block'],
+        position: 'absolute',
+        top: '44px',
+        bottom: 0,
+        left: '35px',
+        width: '2px',
+        bg: 'white',
+        zIndex: 1
+      })};
+    }
   }
 `
 
@@ -3602,6 +3640,7 @@ const TutorialStep = ({ step }) => {
         css={theme({
           display: ['none', 'none', 'flex', 'flex'],
           position: 'relative',
+          zIndex: 2,
           justifyContent: 'center'
         })}
       >

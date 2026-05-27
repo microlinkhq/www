@@ -1,27 +1,33 @@
 const GOOGLE_VERTICAL_EXAMPLES = {
   search: {
     code: `const page = await google(
-  'site:developer.mozilla.org fetch',
+  'ai agents',
   { type: 'search' }
 )`,
     payload: [
       {
-        title: 'Fetch API - MDN Web Docs',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API',
+        title: 'AI agents: The next wave of productivity',
+        url: 'https://techcrunch.com/2024/05/30/ai-agents/',
+        source: 'TechCrunch',
+        published: '30 May 2024',
         description:
-          'The Fetch API provides an interface for fetching resources (including across the network). It is a more powerful and flexible replacement for XMLHttpRequest.'
+          'Leaders discuss the intersection of AI and startup innovation...'
       },
       {
-        title: 'Using the Fetch API - MDN Web Docs',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch',
+        title: 'How AI agents are reshaping workflows',
+        url: 'https://venturebeat.com/ai/ai-agents/',
+        source: 'VentureBeat',
+        published: '28 May 2024',
         description:
-          'The Fetch API provides a JavaScript interface for making HTTP requests and processing the responses. Fetch is the modern replacement for XMLHttpRequest.'
+          'Exploring real-world use cases and platform strategies.'
       },
       {
-        title: 'Request - Web APIs - MDN Web Docs',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/API/Request',
+        title: 'Building reliable AI agent systems',
+        url: 'https://spectrum.ieee.org/ai-agents',
+        source: 'IEEE Spectrum',
+        published: '27 May 2024',
         description:
-          'The Request interface of the Fetch API represents a resource request. You can create a new Request object using the Request() constructor.'
+          'Best practices for retrieval, context, and evaluation.'
       },
       {
         title: 'Using Deferred Fetch - Web APIs | MDN',
