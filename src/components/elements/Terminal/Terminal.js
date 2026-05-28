@@ -42,10 +42,12 @@ to {
 const fromString = text => {
   if (Array.isArray(text)) return text
 
-  return text.split(/\r?\n/).map((item, index) => (
+  const lines = text.split(/\r?\n/)
+
+  return lines.map((item, index) => (
     <span key={index}>
       {item}
-      {'\n'}
+      {index < lines.length - 1 ? '\n' : null}
     </span>
   ))
 }
