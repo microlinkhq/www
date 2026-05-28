@@ -9,10 +9,15 @@ const List = props => (
   <Flex as='ul' css={theme({ flexDirection: 'column' })} {...props} />
 )
 
-const ListItem = ({ type = 'yes', alignItems = 'center', ...props }) => {
+const ListItem = ({
+  type = 'yes',
+  alignItems = 'center',
+  isLast,
+  ...props
+}) => {
   const isYes = type === 'yes'
   return (
-    <Flex as='li' css={theme({ alignItems, mb: 3 })}>
+    <Flex as='li' css={theme({ alignItems, mb: isLast ? 0 : 3 })}>
       <Flex
         css={theme({
           justifyContent: 'center',
@@ -24,6 +29,7 @@ const ListItem = ({ type = 'yes', alignItems = 'center', ...props }) => {
         <FeatherIcon
           icon={isYes ? CheckCircle : XCircle}
           color={isYes ? 'close' : 'gray'}
+          aria-hidden='true'
         />
       </Flex>
       <Text {...props} />
