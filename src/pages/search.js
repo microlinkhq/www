@@ -323,8 +323,7 @@ const GooglePage = () => {
                       aria-pressed={activeVertical.id === vertical.id}
                       onClick={() => setActiveVerticalId(vertical.id)}
                       onKeyDown={event =>
-                        handleVerticalTabKeyDown(event, index)
-                      }
+                        handleVerticalTabKeyDown(event, index)}
                     >
                       {verticalService && (
                         <Box
@@ -427,8 +426,7 @@ const GooglePage = () => {
                               $active={isActive}
                               aria-pressed={isActive}
                               onClick={() =>
-                                setActiveVerticalExampleIndex(index)
-                              }
+                                setActiveVerticalExampleIndex(index)}
                             >
                               <VerticalExampleOptionIcon
                                 $active={isActive}
@@ -564,8 +562,7 @@ const GooglePage = () => {
                             tabIndex={isActive ? 0 : -1}
                             onClick={() => setActiveOutputTab(tab.id)}
                             onKeyDown={event =>
-                              handleOutputTabKeyDown(event, index)
-                            }
+                              handleOutputTabKeyDown(event, index)}
                           >
                             {tab.label}
                           </VerticalOutputTab>

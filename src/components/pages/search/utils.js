@@ -280,26 +280,26 @@ export const monogramOverrideFor = host =>
 
 export const createTablistKeyHandler =
   ({ items, onSelect, focusTab }) =>
-  (event, index) => {
-    const lastIndex = items.length - 1
-    let nextIndex = null
+    (event, index) => {
+      const lastIndex = items.length - 1
+      let nextIndex = null
 
-    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-      nextIndex = index === lastIndex ? 0 : index + 1
-    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-      nextIndex = index === 0 ? lastIndex : index - 1
-    } else if (event.key === 'Home') {
-      nextIndex = 0
-    } else if (event.key === 'End') {
-      nextIndex = lastIndex
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+        nextIndex = index === lastIndex ? 0 : index + 1
+      } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+        nextIndex = index === 0 ? lastIndex : index - 1
+      } else if (event.key === 'Home') {
+        nextIndex = 0
+      } else if (event.key === 'End') {
+        nextIndex = lastIndex
+      }
+
+      if (nextIndex === null) return
+      event.preventDefault()
+      const nextId = items[nextIndex].id
+      onSelect(nextId)
+      if (focusTab) focusTab(nextId)
     }
-
-    if (nextIndex === null) return
-    event.preventDefault()
-    const nextId = items[nextIndex].id
-    onSelect(nextId)
-    if (focusTab) focusTab(nextId)
-  }
 
 export const extractHeroTypingTargets = code => {
   if (!code) return []
