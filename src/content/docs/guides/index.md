@@ -128,9 +128,12 @@ Analyze any site with Microlink Insights, choose between technology detection an
 
 ## Search
 
-Query public search surfaces as structured data with Microlink Search and the `@microlink/google` package. This guide focuses on the package workflow: install the client, choose the right surface, then paginate or expand only the results worth reading more deeply.
+Query public search surfaces as structured data with Microlink Search and the `@microlink/google` package. Ten surfaces, lazy content helpers, and a single interface for SEO, monitoring, research, and agent workflows.
 
-- <Link href='/docs/guides/search' children='Quickstart' /> — install `@microlink/google`, choose the right surface, and use pagination plus HTML or Markdown expansion in SEO, monitoring, and AI workflows.
+- <Link href='/docs/guides/search' children='Quickstart' /> — install `@microlink/google`, make your first query, choose a surface, paginate, and expand results.
+- <Link href='/docs/guides/search/search' children='Web Search' />, <Link href='/docs/guides/search/news' children='News' />, <Link href='/docs/guides/search/images' children='Images' />, <Link href='/docs/guides/search/videos' children='Videos' />, <Link href='/docs/guides/search/places' children='Places' />, <Link href='/docs/guides/search/maps' children='Maps' />, <Link href='/docs/guides/search/shopping' children='Shopping' />, <Link href='/docs/guides/search/scholar' children='Scholar' />, <Link href='/docs/guides/search/patents' children='Patents' />, <Link href='/docs/guides/search/autocomplete' children='Autocomplete' /> — result fields, examples, and guidance for each surface.
+- <Link href='/docs/guides/search/content-expansion' children='Content expansion' /> — fetch HTML or Markdown for individual results or the SERP page, and learn the two-step retrieval model.
+- <Link href='/docs/guides/search/patterns' children='Integration patterns' /> — agent tool calling, RAG pipelines, news monitoring, entity lookup, academic research, and product intelligence workflows.
 
 ## Common patterns
 

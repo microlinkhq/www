@@ -1099,7 +1099,7 @@ const GooglePage = () => {
                 <Button as='a' href={PACKAGE_URL}>
                   See @microlink/google
                 </Button>
-                <ArrowLink href={GUIDE_URL}>Read the guides</ArrowLink>
+                <ArrowLink href={GUIDE_URL}>View docs</ArrowLink>
               </ActionRow>
             </Box>
           </Flex>
