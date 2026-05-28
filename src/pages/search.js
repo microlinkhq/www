@@ -1,12 +1,20 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { colors, gradient, layout, theme, transition } from 'theme'
+import {
+  borders,
+  colors,
+  gradient,
+  layout,
+  radii,
+  theme,
+  transition
+} from 'theme'
 import {
   Check,
   CheckCircle,
-  ChevronDown,
   Clock,
   Code as CodeIcon,
+  Edit3,
   FileText,
   GitMerge,
   Hexagon,
@@ -39,7 +47,6 @@ import {
   GUIDE_URL,
   HERO_EXAMPLES,
   HERO_IMAGE,
-  PAGE_URL,
   PACKAGE_URL,
   STRUCTURED_DATA,
   SUPPORTED_GOOGLE_SERVICES
@@ -55,7 +62,6 @@ const HERO_LAYOUT = {
 }
 
 const VERTICAL_RESPONSE_HEIGHT = ['476px', '476px', '512px', '552px']
-const VERTICAL_RESULT_COUNT = 3
 const HERO_TYPING_OPTION_KEYS = ['type', 'location', 'period']
 const HERO_TYPE_CHAR_MS = 32
 const HERO_TYPE_GAP_MS = 260
@@ -149,6 +155,113 @@ const getVerticalPreviewResult = (verticalId, payload) => {
   const items = toPreviewItems(payload)
   const transform = VERTICAL_PREVIEW_TRANSFORMS[verticalId]
   return { variant: verticalId, data: transform ? transform(items) : items }
+}
+
+const getPayloadResults = payload => {
+  if (Array.isArray(payload)) return payload
+  if (payload && Array.isArray(payload.results)) return payload.results
+  return []
+}
+
+const getVerticalQuery = code => {
+  const match = code.match(/google\(\s*(['"])([\s\S]*?)\1/)
+  return match ? match[2] : 'ai agents'
+}
+
+const getVerticalExampleCode = (query, verticalId) =>
+  `const page = await google('${query}', { type: '${verticalId}' })`
+
+const VERTICAL_QUERY_EXAMPLES = {
+  search: [
+    {
+      query: 'ai agents',
+      description: 'Find current articles and guides about agent workflows.'
+    },
+    {
+      query: 'openclaw',
+      description: 'Track product, package, and documentation mentions.'
+    },
+    {
+      query: 'site:developer.mozilla.org fetch api',
+      description: 'Use operators to narrow results to a specific source.'
+    }
+  ],
+  news: [
+    {
+      query: 'openai api developers',
+      description: 'Monitor developer platform announcements.'
+    },
+    {
+      query: 'ai startups',
+      description: 'Follow market coverage across major publishers.'
+    },
+    {
+      query: 'search api',
+      description: 'Watch category news for search infrastructure.'
+    }
+  ],
+  images: [
+    {
+      query: 'kubernetes architecture diagram',
+      description: 'Collect diagrams with source attribution.'
+    },
+    {
+      query: 'ai agent workflow diagram',
+      description: 'Find visual references for technical explainers.'
+    },
+    {
+      query: 'search interface screenshot',
+      description: 'Gather UI references from indexed pages.'
+    }
+  ]
+}
+
+const DEFAULT_VERTICAL_QUERY_EXAMPLES = [
+  {
+    query: 'ai agents',
+    description: 'Run the default example for this Google surface.'
+  },
+  {
+    query: 'openclaw',
+    description: 'Swap the query while keeping the same response shape.'
+  },
+  {
+    query: 'microlink',
+    description: 'Inspect another query with the same product settings.'
+  }
+]
+
+const getVerticalExampleOptions = (verticalId, example) => {
+  const payload = parseJsonPayload(example.payload)
+  const results = getPayloadResults(payload)
+  const defaultQuery = getVerticalQuery(example.code || '')
+  const queryExamples =
+    VERTICAL_QUERY_EXAMPLES[verticalId] ?? DEFAULT_VERTICAL_QUERY_EXAMPLES
+  const normalizedExamples = queryExamples.map((item, index) =>
+    index === 0 && item.query !== defaultQuery
+      ? { ...item, query: defaultQuery }
+      : item
+  )
+
+  if (results.length === 0) {
+    return normalizedExamples.map(item => ({
+      id: item.query,
+      label: item.query,
+      description: item.description,
+      code: getVerticalExampleCode(item.query, verticalId),
+      payload: example.payload
+    }))
+  }
+
+  return normalizedExamples.map((item, index) => ({
+    id: item.query,
+    label: item.query,
+    description: item.description,
+    code: getVerticalExampleCode(item.query, verticalId),
+    payload: results.slice(index, index + 3).length
+      ? results.slice(index, index + 3)
+      : results.slice(0, 3)
+  }))
 }
 
 /* ────────────────────────── hero typing animation ────────────────────────── */
@@ -398,13 +511,9 @@ const ActionRow = styled(Flex)`
 
 const HeroExampleShell = styled(Box)`
   ${theme({
-    borderRadius: 5,
-    border: 1,
-    borderColor: 'black05',
     bg: 'white',
     overflow: 'hidden',
     minWidth: 0,
-    boxShadow: 2,
     display: 'flex',
     flexDirection: 'column',
     height: ['auto', 'auto', '620px', '620px']
@@ -451,7 +560,7 @@ const Tab = styled('button').withConfig({
   ${({ $active }) =>
     theme({
       bg: $active ? 'white' : 'gray0',
-      borderColor: $active ? 'blue1' : 'transparent',
+      borderColor: $active ? 'gray3' : 'transparent',
       borderBottomColor: $active ? 'white' : 'transparent',
       color: $active ? 'black' : 'black60',
       fontWeight: $active ? 'bold' : 'normal'
@@ -550,7 +659,6 @@ const HeroResultDock = styled(Box)
     bottom: 0,
     bg: 'transparent',
     borderTop: 0,
-    boxShadow: 0,
     display: 'flex',
     flexDirection: 'column'
   })};
@@ -563,8 +671,8 @@ const HeroResultCardShell = styled(Box)`
     border: 1,
     borderColor: 'black05',
     borderRadius: 5,
-    boxShadow: 1,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    height: ['260px', '260px', '280px', '280px']
   })};
 `
 
@@ -792,7 +900,8 @@ const HeroResultList = styled(Box).attrs({ as: 'ul', role: 'list' })`
     m: 0,
     p: 0,
     listStyle: 'none',
-    maxHeight: ['180px', '180px', '200px', '220px'],
+    height: '100%',
+    maxHeight: '100%',
     overflowY: 'auto',
     overflowX: 'hidden',
     mx: [-3, -3, -4, -4]
@@ -891,13 +1000,8 @@ const VerticalExampleShell = styled(Box).withConfig({
 })`
   ${theme({
     mt: [4, 4, 5, 5],
-    borderRadius: 5,
-    border: 1,
-    borderColor: 'black05',
-    bg: 'white',
     overflow: 'hidden',
-    minWidth: 0,
-    boxShadow: 2
+    minWidth: 0
   })};
   position: relative;
 `
@@ -911,8 +1015,8 @@ const VerticalExampleGrid = styled(Box)`
       '1fr',
       'minmax(0, 0.98fr) minmax(0, 1.02fr)'
     ],
-    gap: [3, 3, 4, 5],
-    p: [3, 3, 4, 4],
+    gap: [3, 3, 4, 4],
+    pt: 4,
     height: '100%'
   })};
 `
@@ -945,28 +1049,91 @@ const VerticalResultList = styled(Box).attrs({ as: 'ol' })`
   ${theme({
     m: 0,
     p: 0,
-    pt: [3, 3, 4, 4],
     display: 'grid',
-    gap: [3, 3, 4, 4],
+    gap: 0,
     listStyle: 'none'
   })};
+
+  > li {
+    ${theme({
+      py: [3, 3, 4, 4],
+      borderBottom: 1,
+      borderBottomColor: 'black10'
+    })};
+  }
+
+  > li:last-of-type {
+    border-bottom: 0;
+  }
 `
 
-const VerticalResultNumber = styled(Flex).attrs({ as: 'span' })`
+const VerticalExampleIcon = styled(Flex).attrs({ as: 'span' })`
   ${theme({
     alignItems: 'center',
     justifyContent: 'center',
-    width: ['48px', '48px', '56px', '56px'],
-    height: ['48px', '48px', '56px', '56px'],
+    width: ['44px', '44px', '48px', '48px'],
+    height: ['44px', '44px', '48px', '48px'],
     flexShrink: 0,
     borderRadius: '9999px',
-    bg: 'blue0',
-    color: 'blue6',
-    fontFamily: 'mono',
-    fontSize: [2, 2, 3, 3],
-    fontWeight: 'bold',
+    bg: 'white',
+    color: 'black70',
+    border: 1,
+    borderColor: 'black20',
     lineHeight: 1
   })};
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+`
+
+const VerticalExampleOptionIcon = styled(VerticalExampleIcon).withConfig({
+  shouldForwardProp: prop => prop !== '$active'
+})`
+  ${({ $active }) =>
+    theme({
+      color: $active ? 'link' : 'black70',
+      borderColor: $active ? 'link' : 'black20'
+    })};
+`
+
+const VerticalExampleOption = styled('button').withConfig({
+  shouldForwardProp: prop => prop !== '$active'
+})`
+  ${theme({
+    appearance: 'none',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: 3,
+    p: [3, 3, 4, 4],
+    bg: 'transparent',
+    border: 0,
+    borderBottom: 1,
+    borderBottomColor: 'black10',
+    color: 'black',
+    textAlign: 'left',
+    cursor: 'pointer'
+  })};
+  background-color: ${({ $active }) =>
+    $active ? colors.gray0 : 'transparent'};
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color ${transition.short}, color ${transition.short};
+
+  &:hover {
+    background-color: ${colors.gray0};
+  }
+
+  &:focus-visible {
+    outline: ${borders[2]} ${colors.link};
+    outline-offset: -2px;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
 `
 
 const VerticalOutputTab = styled('button').withConfig({
@@ -974,40 +1141,37 @@ const VerticalOutputTab = styled('button').withConfig({
 })`
   ${theme({
     appearance: 'none',
-    minHeight: '44px',
-    px: [3, 3, 4, 4],
-    py: 2,
-    border: 0,
-    bg: 'transparent',
-    color: 'black80',
+    px: 2,
+    py: 1,
     fontFamily: 'mono',
-    fontSize: [1, 1, 2, 2],
-    fontWeight: 'normal',
+    fontSize: 0,
+    fontWeight: 'bold',
+    borderRadius: 4,
     letterSpacing: 0,
     lineHeight: 1,
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 2,
+    gap: 1,
     cursor: 'pointer'
   })};
-  ${({ $active }) =>
-    theme({
-      color: $active ? 'black' : 'black70',
-      fontWeight: $active ? 'bold' : 'normal'
-    })};
+  background: ${({ $active }) => ($active ? colors.black : 'transparent')};
+  color: ${({ $active }) => ($active ? colors.white : colors.black70)};
+  border: ${borders[1]}
+    ${({ $active }) => ($active ? colors.black : colors.black10)};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: color ${transition.short}, background-color ${transition.short};
+  transition: background ${transition.short}, color ${transition.short},
+    border-color ${transition.short};
 
   &:hover {
-    color: ${colors.black};
-    background-color: ${colors.gray0};
+    color: ${({ $active }) => ($active ? colors.white : colors.black)};
+    border-color: ${({ $active }) => ($active ? colors.black : colors.black40)};
   }
 
   &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: -2px;
+    outline: ${borders[2]} ${colors.black40};
+    outline-offset: ${radii[1]};
   }
 `
 
@@ -1021,12 +1185,12 @@ const VerticalTabButton = styled('button').withConfig({
     gap: 1,
     position: 'relative',
     border: 1,
-    borderColor: 'transparent',
-    borderRadius: 5,
+    borderColor: 'black10',
+    borderRadius: 3,
     bg: 'transparent',
     py: 2,
-    px: 2,
-    minHeight: '36px',
+    px: 3,
+    minHeight: '40px',
     color: 'black80',
     fontFamily: 'sans',
     fontWeight: 'normal',
@@ -1040,9 +1204,9 @@ const VerticalTabButton = styled('button').withConfig({
   })};
   ${({ $active, $activeColor }) =>
     theme({
-      borderColor: $active ? 'black05' : 'transparent',
-      bg: $active ? 'blue0' : 'transparent',
-      color: $active ? 'black' : 'black80',
+      borderColor: $active ? 'black' : 'black10',
+      bg: $active ? 'black' : 'transparent',
+      color: $active ? 'white' : 'black80',
       fontWeight: $active ? 'bold' : 'normal'
     })};
   touch-action: manipulation;
@@ -1051,28 +1215,17 @@ const VerticalTabButton = styled('button').withConfig({
     background-color ${transition.short};
 
   &:hover {
-    border-color: ${colors.black05};
+    border-color: ${colors.black20};
     background-color: ${colors.gray0};
     color: ${colors.black};
   }
   ${({ $active, $activeColor }) =>
     $active
       ? `
-    &::after {
-      content: '';
-      position: absolute;
-      left: 16px;
-      right: 16px;
-      bottom: -13px;
-      height: 2px;
-      border-radius: 9999px;
-      background: ${colors[$activeColor] || $activeColor};
-    }
-
     &:hover {
-      border-color: ${colors.black05};
-      background-color: ${colors.blue0};
-      color: ${colors.black};
+      border-color: ${colors.black};
+      background-color: ${colors.black};
+      color: ${colors.white};
     }
   `
       : ''};
@@ -1171,8 +1324,7 @@ const PricingCard = styled(Flex)`
     maxWidth: ['100%', '100%', '520px', '520px'],
     width: '100%',
     border: 2,
-    borderColor: 'orange5',
-    boxShadow: 1
+    borderColor: 'orange5'
   })};
 `
 
@@ -1297,8 +1449,7 @@ const RetrievalFeatureCard = ({
           borderColor: iconAccent.borderColor,
           bg: iconAccent.bg,
           color: iconAccent.color,
-          position: 'relative',
-          boxShadow: 0
+          position: 'relative'
         })}
       >
         <Icon size={32} strokeWidth={2.25} aria-hidden='true' />
@@ -1972,12 +2123,14 @@ const INTEGRATION_TUTORIAL_STEPS = [
     title: 'Install and initialize',
     icon: Target,
     description:
-      'Install "@microlink/search", add your Microlink API key, and create one client you can reuse across every supported search surface.',
+      'Install "@microlink/google", add your Microlink API key, and create one client you can reuse across every supported search surface.',
     panel: {
       type: 'code',
       language: 'bash',
-      content: `npm i @microlink/search
-const search = new Search({ apiKey })`
+      content: `npm i @microlink/google
+const google = require('@microlink/google')({
+  apiKey: process.env.MICROLINK_API_KEY
+})`
     }
   },
   {
@@ -1989,26 +2142,26 @@ const search = new Search({ apiKey })`
     panel: {
       type: 'code',
       language: 'javascript',
-      content: `const results = await search.query('ai agents', {
-  type: 'search',
-  limit: 10,
-  parse: true
-})`
+      content: `const page = await google('ai agents', {
+  type: 'search'
+})
+
+console.log(page.results)`
     }
   },
   {
     step: '3',
-    title: 'Lazy-load the web',
+    title: 'Paginate and enrich',
     icon: GitMerge,
     description:
-      'Keep the pipeline fast. When results only the summary, then use lightweight reads (snippets first) and "microlink/load" or HTML only for the few pages that deserve deeper inspection.',
+      'Chain pages with .next() and fetch full markup with .html() or .markdown() only for the results that deserve deeper inspection.',
     panel: {
       type: 'features',
       items: [
         'Any surface. Any locale. International + LLM-ready Markdown on demand.',
-        "Get what you need, not what's default in every new agent run.",
-        'Load later — no empty run-pass load.',
-        'Long-term memorization = less fetching, more reasoning, less tokens.'
+        'Use .next() to paginate through all result pages.',
+        'Fetch .html() or .markdown() only when a workflow needs the full page.',
+        'Lightweight results first, deeper content second — less tokens, less cost.'
       ]
     }
   }
@@ -2016,8 +2169,8 @@ const search = new Search({ apiKey })`
 
 // Step-specific editor heights keep the timeline's proportions.
 const TUTORIAL_CODE_HEIGHT_BY_TITLE = {
-  'Install and initialize': ['96px', '96px', '100px', '100px'],
-  'Run the first query': ['170px', '170px', '190px', '190px']
+  'Install and initialize': ['140px', '140px', '150px', '150px'],
+  'Run the first query': ['200px', '200px', '220px', '220px']
 }
 const TUTORIAL_CODE_HEIGHT_DEFAULT = ['160px', '160px', '180px', '180px']
 
@@ -2028,14 +2181,16 @@ const heroProofListItemCss = theme({
   mb: 0,
   color: 'black80',
   fontSize: [1, 1, 2, 2],
-  justifyContent: ['center', 'center', 'center', 'flex-start']
+  textAlign: 'left',
+  alignItems: 'flex-start',
+  justifyContent: 'flex-start'
 })
 
 const HERO_PROOF_POINTS = [
-  'No scraped content—purchase from chart.',
+  'No scraped content — purchase from day one.',
   'Structured results plus LLM-ready Markdown and HTML for top websites.',
   'Structured data for people, news, companies, and citations.',
-  'Proxy-freeout requests from the first call.'
+  'Proxy-backed requests from the first call.'
 ]
 
 const GooglePage = () => {
@@ -2045,6 +2200,8 @@ const GooglePage = () => {
   const [activeVerticalId, setActiveVerticalId] = useState(
     GOOGLE_VERTICALS[0].id
   )
+  const [activeVerticalExampleIndex, setActiveVerticalExampleIndex] =
+    useState(0)
   const [activeOutputTab, setActiveOutputTab] = useState('json')
   const [heroPhase, setHeroPhase] = useState('typing')
 
@@ -2077,12 +2234,21 @@ const GooglePage = () => {
     [activeVertical.id]
   )
 
-  const activeVerticalExample = useMemo(
+  const baseVerticalExample = useMemo(
     () =>
       GOOGLE_VERTICAL_EXAMPLES_DATA[activeVertical.id] ??
       GOOGLE_VERTICAL_EXAMPLES[activeVertical.id] ?? { code: '', payload: '' },
     [activeVertical.id]
   )
+
+  const activeVerticalExamples = useMemo(
+    () => getVerticalExampleOptions(activeVertical.id, baseVerticalExample),
+    [activeVertical.id, baseVerticalExample]
+  )
+
+  const activeVerticalExample =
+    activeVerticalExamples[activeVerticalExampleIndex] ??
+    activeVerticalExamples[0] ?? { code: '', payload: '' }
 
   const activeVerticalPayload = useMemo(
     () => parseJsonPayload(activeVerticalExample.payload),
@@ -2093,16 +2259,6 @@ const GooglePage = () => {
     () => JSON.stringify(activeVerticalPayload, null, 2),
     [activeVerticalPayload]
   )
-
-  const activeVerticalResults = useMemo(() => {
-    const payloadResults = Array.isArray(activeVerticalPayload)
-      ? activeVerticalPayload
-      : activeVerticalPayload?.results
-
-    return Array.isArray(payloadResults)
-      ? payloadResults.slice(0, VERTICAL_RESULT_COUNT)
-      : []
-  }, [activeVerticalPayload])
 
   const activeVerticalPreview = useMemo(
     () => getVerticalPreviewResult(activeVertical.id, activeVerticalPayload),
@@ -2202,6 +2358,7 @@ const GooglePage = () => {
 
   useEffect(() => {
     setActiveOutputTab('json')
+    setActiveVerticalExampleIndex(0)
   }, [activeVerticalId])
 
   /* ─── stable handlers ─── */
@@ -2248,279 +2405,10 @@ const GooglePage = () => {
 
   return (
     <Layout>
-      <HeroSection>
-        <Flex
-          as='section'
-          id='hero'
-          css={theme({
-            flexDirection: 'column',
-            alignItems: 'center',
-            pt: [3, 3, 4, 4],
-            pb: [2, 2, 3, 3]
-          })}
-        >
-          <Flex
-            css={theme({
-              display: ['flex', 'flex', 'flex', 'grid'],
-              width: '100%',
-              maxWidth: HERO_LAYOUT.maxWidth,
-              px: [2, 3, 4, 4],
-              mx: 'auto',
-              flexDirection: ['column', 'column', 'column', 'row'],
-              gridTemplateColumns: [
-                '1fr',
-                '1fr',
-                '1fr',
-                'minmax(0, 0.45fr) minmax(0, 0.55fr)'
-              ],
-              alignItems: ['center', 'center', 'center', 'stretch'],
-              gap: HERO_LAYOUT.gap
-            })}
-          >
-            <Box
-              css={theme({
-                width: '100%',
-                flex: [
-                  '0 0 auto',
-                  '0 0 auto',
-                  '0 0 auto',
-                  `0 0 ${HERO_LAYOUT.secondaryWidth}`
-                ],
-                minWidth: 0
-              })}
-            >
-              <Box css={theme({ px: [2, 3, 4, 0], width: '100%' })}>
-                <Text
-                  as='h1'
-                  css={theme({
-                    m: 0,
-                    color: 'black',
-                    fontWeight: 'bold',
-                    letterSpacing: 1,
-                    lineHeight: [1, 1, 0, 0],
-                    fontSize: [4, 4, 5, 5],
-                    textAlign: ['center', 'center', 'center', 'left'],
-                    width: '100%',
-                    maxWidth: ['100%', '100%', '100%', '640px']
-                  })}
-                >
-                  <span
-                    style={{
-                      background: gradient,
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text'
-                    }}
-                  >
-                    Search intelligence
-                  </span>
-                  <br />
-                  API for AI agents
-                </Text>
-
-                <Box
-                  as='ul'
-                  css={theme({
-                    listStyle: 'none',
-                    p: 0,
-                    m: 0,
-                    mt: 4,
-                    display: 'grid',
-                    gap: 2,
-                    width: '100%'
-                  })}
-                >
-                  {HERO_PROOF_POINTS.map(point => (
-                    <List.Item key={point} css={heroProofListItemCss}>
-                      {point}
-                    </List.Item>
-                  ))}
-                </Box>
-              </Box>
-
-              <Flex css={theme({ px: [4, 4, 4, 0], width: '100%' })}>
-                <ActionRow
-                  css={theme({
-                    flexDirection: 'row',
-                    flexWrap: 'nowrap',
-                    alignItems: 'center',
-                    justifyContent: ['center', 'center', 'center', 'flex-start']
-                  })}
-                >
-                  <Button as='a' href='/pricing'>
-                    Get the API keys
-                  </Button>
-                  <ArrowLink
-                    href={GUIDE_URL}
-                    css={theme({ fontSize: [1, 1, 2, 2] })}
-                  >
-                    View docs
-                  </ArrowLink>
-                </ActionRow>
-              </Flex>
-            </Box>
-
-            <Flex
-              css={theme({
-                width: '100%',
-                flex: [
-                  '0 0 auto',
-                  '0 0 auto',
-                  '0 0 auto',
-                  `0 0 ${HERO_LAYOUT.mainWidth}`
-                ],
-                minWidth: 0,
-                pt: [4, 4, 5, 0],
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center'
-              })}
-            >
-              <Box
-                css={theme({
-                  maxWidth: ['100%', '95%', '85%', '100%'],
-                  width: ['100%', '95%', '85%', '100%'],
-                  minWidth: 0
-                })}
-              >
-                <HeroExampleShell>
-                  <Box
-                    role='tablist'
-                    aria-label='Example scenarios'
-                    css={theme({
-                      display: 'grid',
-                      gridTemplateColumns: [
-                        'repeat(4, minmax(0, 1fr))',
-                        'repeat(4, minmax(0, 1fr))',
-                        'repeat(4, minmax(0, 1fr))',
-                        'repeat(4, minmax(0, 1fr))'
-                      ],
-                      width: '100%',
-                      bg: 'white',
-                      borderBottom: 1,
-                      borderBottomColor: 'black10',
-                      flexShrink: 0,
-                      overflowX: 'auto',
-                      overflowY: 'hidden'
-                    })}
-                  >
-                    {HERO_EXAMPLES.map((example, index) => {
-                      const isActive = activeHeroExampleId === example.id
-                      return (
-                        <Tab
-                          key={example.id}
-                          id={`hero-example-tab-${example.id}`}
-                          type='button'
-                          role='tab'
-                          $active={isActive}
-                          $withBottomGap
-                          aria-selected={isActive}
-                          aria-controls={`hero-example-panel-${example.id}`}
-                          tabIndex={isActive ? 0 : -1}
-                          onClick={() => selectHeroExample(example.id)}
-                          onKeyDown={event =>
-                            handleHeroExampleTabKeyDown(event, index)
-                          }
-                        >
-                          {example.title}
-                        </Tab>
-                      )
-                    })}
-                  </Box>
-
-                  <Box
-                    role='tabpanel'
-                    id={`hero-example-panel-${activeHeroExample.id}`}
-                    aria-labelledby={`hero-example-tab-${activeHeroExample.id}`}
-                    css={theme({
-                      display: 'flex',
-                      flexDirection: 'column',
-                      flex: 1,
-                      minWidth: 0,
-                      minHeight: 0
-                    })}
-                  >
-                    <Box
-                      css={theme({
-                        bg: 'white',
-                        borderBottom: 1,
-                        borderBottomColor: 'black10',
-                        px: [3, 3, 4, 4],
-                        py: [2, 2, 3, 3],
-                        flexShrink: 0
-                      })}
-                    >
-                      <Text
-                        as='p'
-                        css={theme({
-                          m: 0,
-                          color: 'black',
-                          fontSize: [1, 1, 1, 1],
-                          lineHeight: 2
-                        })}
-                      >
-                        {activeHeroExample.description}
-                      </Text>
-                    </Box>
-
-                    <HeroExampleCodePanel ref={heroCodeRef}>
-                      <CodeEditor
-                        title='Node.js example'
-                        language='javascript'
-                        blinkCursor={false}
-                        showWindowButtons={false}
-                        showTitle={false}
-                        showAction={false}
-                        css={theme({
-                          width: '100%',
-                          height: ['300px', '300px', '100%', '100%'],
-                          border: 0,
-                          borderRadius: 0,
-                          mt: '-14px'
-                        })}
-                      >
-                        {activeHeroExample.code}
-                      </CodeEditor>
-                    </HeroExampleCodePanel>
-
-                    <HeroResultDock
-                      $visible={heroPhase !== 'typing'}
-                      aria-busy={heroPhase === 'loading' ? 'true' : 'false'}
-                    >
-                      <HeroResultBodyWrap id='hero-result-body'>
-                        <Box
-                          css={theme({
-                            p: [3, 3, 3, 3],
-                            bg: 'gray0',
-                            overflow: 'hidden'
-                          })}
-                        >
-                          <HeroResultCardShell>
-                            <Box css={theme({ p: [3, 3, 4, 4] })}>
-                              {heroPhase === 'loading' ? (
-                                <HeroResultSkeleton />
-                              ) : (
-                                <HeroResultCard
-                                  result={activeHeroExample.result}
-                                />
-                              )}
-                            </Box>
-                          </HeroResultCardShell>
-                        </Box>
-                      </HeroResultBodyWrap>
-                    </HeroResultDock>
-                  </Box>
-                </HeroExampleShell>
-              </Box>
-            </Flex>
-          </Flex>
-        </Flex>
-      </HeroSection>
-
-      <PageSection
+      <Container
         as='section'
         id='google-verticals'
-        css={theme({ pt: 6, maxWidth: HERO_LAYOUT.maxWidth })}
+        css={theme({ pt: 0, maxWidth: HERO_LAYOUT.maxWidth })}
       >
         <Box css={theme({ width: '100%', mx: 'auto' })}>
           <Box
@@ -2529,9 +2417,6 @@ const GooglePage = () => {
               mx: 'auto'
             })}
           >
-            <SectionCaption color='#3b82f6' centered>
-              Power your agents
-            </SectionCaption>
             <Text
               as='h2'
               css={theme({
@@ -2544,8 +2429,17 @@ const GooglePage = () => {
                 textAlign: 'center'
               })}
             >
-              One API for recurring <br />
-              <span css={theme({ color: '#3b82f6' })}>search workflows</span>
+              One API for AI <br />
+              <span
+                style={{
+                  background: gradient,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+              >
+                Search intelligence
+              </span>
             </Text>
             <Text
               as='p'
@@ -2564,19 +2458,13 @@ const GooglePage = () => {
               tooling, and AI agents need less parser logic.
             </Text>
           </Box>
-          <Box as='section' css={theme({ mt: [4, 4, 5, 5] })}>
+
+          <Box id='playground' as='section' css={theme({ mt: [4, 4, 5, 5] })}>
             <VerticalExampleShell $accentColor={activeVertical.accentColor}>
               <Flex
                 css={theme({
-                  px: [3, 3, 4, 4],
-                  pt: [3, 3, 3, 3],
-                  pb: [3, 3, 4, 4],
                   alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  gap: 2,
-                  bg: 'transparent',
-                  borderBottom: 1,
-                  borderBottomColor: 'black10'
+                  justifyContent: 'flex-start'
                 })}
               >
                 <Box
@@ -2589,7 +2477,12 @@ const GooglePage = () => {
                     display: 'flex',
                     flexWrap: 'nowrap',
                     alignItems: 'stretch',
-                    justifyContent: 'flex-start',
+                    justifyContent: [
+                      'flex-start',
+                      'flex-start',
+                      'center',
+                      'center'
+                    ],
                     gap: [1, 1, 2, 2],
                     width: '100%',
                     overflowX: 'auto',
@@ -2641,19 +2534,20 @@ const GooglePage = () => {
                     alignSelf: 'stretch',
                     minHeight: 0,
                     height: VERTICAL_RESPONSE_HEIGHT,
-                    justifyContent: 'flex-start'
+                    justifyContent: 'flex-start',
+                    border: 1,
+                    borderColor: 'black10'
                   })}
                 >
                   <Box
                     css={theme({
-                      px: [1, 1, 2, 2],
-                      pt: [1, 1, 2, 2],
-                      pb: [3, 3, 4, 4],
+                      px: [3, 3, 4, 4],
+                      py: [3, 3, 4, 4],
                       borderBottom: 1,
                       borderBottomColor: 'black10'
                     })}
                   >
-                    <Flex css={theme({ alignItems: 'center', gap: 3 })}>
+                    <Flex css={theme({ alignItems: 'flex-start', gap: 3 })}>
                       {activeVerticalService && (
                         <HeroResultBrand $size='64px'>
                           <Box
@@ -2695,8 +2589,7 @@ const GooglePage = () => {
 
                   <Box
                     css={theme({
-                      py: [3, 3, 4, 4],
-                      px: [1, 1, 2, 2],
+                      px: [3, 3, 4, 4],
                       minWidth: 0,
                       flex: 1,
                       display: 'flex',
@@ -2706,161 +2599,107 @@ const GooglePage = () => {
                     })}
                   >
                     <VerticalResultList>
-                      {activeVerticalResults.map((result, index) => {
-                        const source =
-                          result.source ||
-                          result.publisher ||
-                          result.site ||
-                          new URL(result.url || PAGE_URL).hostname
-                            .replace(/^www\./, '')
-                            .split('.')[0]
-                        const published = result.published || result.date
+                      {activeVerticalExamples.map((example, index) => {
+                        const isActive = index === activeVerticalExampleIndex
 
                         return (
-                          <Flex
-                            as='li'
-                            key={`${result.title}-${index}`}
-                            css={theme({
-                              alignItems: 'flex-start',
-                              gap: 3,
-                              minWidth: 0
-                            })}
-                          >
-                            <VerticalResultNumber>
-                              {index + 1}
-                            </VerticalResultNumber>
-                            <Box css={theme({ minWidth: 0, pt: 1 })}>
-                              <Text
-                                as='p'
-                                css={theme({
-                                  m: 0,
-                                  color: 'black60',
-                                  fontSize: [0, 0, 1, 1],
-                                  lineHeight: 1
-                                })}
+                          <Box as='li' key={example.id}>
+                            <VerticalExampleOption
+                              type='button'
+                              $active={isActive}
+                              aria-pressed={isActive}
+                              onClick={() => setActiveVerticalExampleIndex(index)}
+                            >
+                              <VerticalExampleOptionIcon
+                                $active={isActive}
+                                aria-hidden='true'
                               >
-                                {source}
-                                {published ? ` · ${published}` : ''}
-                              </Text>
-                              <Text
-                                as='p'
-                                css={theme({
-                                  m: 0,
-                                  mt: 1,
-                                  color: 'link',
-                                  fontSize: [1, 1, 2, 2],
-                                  fontWeight: 'bold',
-                                  lineHeight: 1,
-                                  ...truncateLineCss
-                                })}
-                              >
-                                {result.title}
-                              </Text>
-                              <Text
-                                as='p'
-                                css={theme({
-                                  m: 0,
-                                  mt: 2,
-                                  color: 'black70',
-                                  fontSize: [0, 0, 1, 1],
-                                  lineHeight: 2,
-                                  ...truncateLineCss
-                                })}
-                              >
-                                {result.description}
-                              </Text>
-                            </Box>
-                          </Flex>
+                                <Edit3 />
+                              </VerticalExampleOptionIcon>
+                              <Box css={theme({ minWidth: 0, pt: 1 })}>
+                                <Text
+                                  as='p'
+                                  css={theme({
+                                    m: 0,
+                                    color: isActive ? 'link' : 'black70',
+                                    fontSize: [1, 1, 2, 2],
+                                    fontWeight: 'bold',
+                                    lineHeight: 1
+                                  })}
+                                >
+                                  {example.label}
+                                </Text>
+                                <Text
+                                  as='p'
+                                  css={theme({
+                                    m: 0,
+                                    mt: 2,
+                                    color: 'black70',
+                                    fontSize: [0, 0, 1, 1],
+                                    lineHeight: 2
+                                  })}
+                                >
+                                  {example.description}
+                                </Text>
+                              </Box>
+                            </VerticalExampleOption>
+                          </Box>
                         )
                       })}
                     </VerticalResultList>
 
-                    <Link
-                      href={GUIDE_URL}
+                    <Text
+                      as='p'
                       css={theme({
-                        mt: 4,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 2,
-                        color: 'link',
-                        fontWeight: 'bold',
-                        fontSize: [1, 1, 2, 2],
-                        textDecoration: 'none'
+                        m: 0,
+                        mt: 'auto',
+                        pt: 3,
+                        color: 'black60',
+                        fontSize: [0, 0, 1, 1],
+                        textAlign: 'center',
+                        borderTop: 1,
+                        borderTopColor: 'black10'
                       })}
                     >
-                      <span aria-hidden='true'>→</span>
-                      View all results (50)
-                    </Link>
+                      Pick an example to update code and output
+                    </Text>
                   </Box>
                 </VerticalExamplePanel>
 
-                <VerticalExamplePanel
+                <Box
                   css={theme({
                     alignSelf: 'flex-start',
                     minHeight: 0,
                     height: VERTICAL_RESPONSE_HEIGHT,
-                    border: 1,
-                    borderColor: 'black10',
-                    boxShadow: 0
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 3
                   })}
                 >
-                  <Box
-                    role='tablist'
-                    aria-label='Output format'
+                  <VerticalExamplePanel
                     css={theme({
-                      display: 'flex',
-                      width: '100%',
-                      alignItems: 'stretch',
-                      justifyContent: 'space-between',
-                      bg: 'white',
-                      borderBottom: 1,
-                      borderBottomColor: 'black10',
+                      border: 1,
+                      borderColor: 'black10',
+                      height: ['160px', '160px', '180px', '190px'],
                       flexShrink: 0
                     })}
                   >
-                    {VERTICAL_OUTPUT_TABS.map((tab, index) => {
-                      const isActive = activeOutputTab === tab.id
-                      return (
-                        <VerticalOutputTab
-                          key={tab.id}
-                          id={`vertical-output-tab-${tab.id}`}
-                          type='button'
-                          role='tab'
-                          $active={isActive}
-                          aria-selected={isActive}
-                          aria-controls={`vertical-output-panel-${tab.id}`}
-                          tabIndex={isActive ? 0 : -1}
-                          onClick={() => setActiveOutputTab(tab.id)}
-                          onKeyDown={event =>
-                            handleOutputTabKeyDown(event, index)
-                          }
-                        >
-                          {tab.label}
-                          {tab.id === 'preview' && (
-                            <ChevronDown size={16} aria-hidden='true' />
-                          )}
-                        </VerticalOutputTab>
-                      )
-                    })}
-                  </Box>
-
-                  {activeOutputTab === 'json' ? (
                     <Box
-                      id='vertical-output-panel-json'
+                      id='vertical-output-panel-code'
                       role='tabpanel'
-                      aria-labelledby='vertical-output-tab-json'
+                      aria-label='Code example'
                       css={theme({
                         display: 'flex',
                         flexDirection: 'column',
                         flex: 1,
                         minHeight: 0,
                         height: '100%',
-                        py: [2, 2, 3, 3],
+                        py: [1, 1, 2, 2],
                         px: 0
                       })}
                     >
                       <CodeEditor
-                        language='json'
+                        language='javascript'
                         showFade={false}
                         showHeader={false}
                         showWindowButtons={false}
@@ -2873,60 +2712,193 @@ const GooglePage = () => {
                           flex: 1,
                           border: 0,
                           borderRadius: 0,
-                          pt: 2
+                          pt: 1
                         })}
                       >
-                        {activeVerticalPayloadText}
+                        {activeVerticalExample.code}
                       </CodeEditor>
                     </Box>
-                  ) : (
+                  </VerticalExamplePanel>
+
+                  <VerticalExamplePanel
+                    css={theme({
+                      border: 1,
+                      borderColor: 'black10',
+                      flex: 1,
+                      minHeight: 0
+                    })}
+                  >
                     <Box
-                      id='vertical-output-panel-preview'
-                      role='tabpanel'
-                      aria-labelledby='vertical-output-tab-preview'
+                      role='tablist'
+                      aria-label='Output format'
                       css={theme({
-                        borderTop: 1,
-                        borderTopColor: 'white',
-                        bg: 'white',
                         display: 'flex',
-                        flexDirection: 'column',
-                        height: '100%',
-                        minHeight: 0,
-                        flex: 1,
-                        minWidth: 0
+                        width: '100%',
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        gap: 2,
+                        bg: 'transparent',
+                        borderBottom: 1,
+                        borderBottomColor: 'black10',
+                        px: [3, 3, 4, 4],
+                        py: 3,
+                        flexShrink: 0
                       })}
                     >
+                      {VERTICAL_OUTPUT_TABS.map((tab, index) => {
+                        const isActive = activeOutputTab === tab.id
+                        return (
+                          <VerticalOutputTab
+                            key={tab.id}
+                            id={`vertical-output-tab-${tab.id}`}
+                            type='button'
+                            role='tab'
+                            $active={isActive}
+                            aria-selected={isActive}
+                            aria-controls={`vertical-output-panel-${tab.id}`}
+                            tabIndex={isActive ? 0 : -1}
+                            onClick={() => setActiveOutputTab(tab.id)}
+                            onKeyDown={event =>
+                              handleOutputTabKeyDown(event, index)
+                            }
+                          >
+                            {tab.label}
+                          </VerticalOutputTab>
+                        )
+                      })}
+                    </Box>
+
+                    {activeOutputTab === 'json' && (
                       <Box
+                        id='vertical-output-panel-json'
+                        role='tabpanel'
+                        aria-labelledby='vertical-output-tab-json'
                         css={theme({
                           display: 'flex',
                           flexDirection: 'column',
                           flex: 1,
                           minHeight: 0,
-                          overflowY: 'auto',
-                          overflowX: 'hidden'
+                          height: '100%',
+                          py: [2, 2, 3, 3],
+                          px: 0
                         })}
                       >
-                        <VerticalPreviewContent>
-                          <Box
-                            css={theme({
-                              px: [3, 3, 4, 4],
-                              py: 0,
-                              bg: 'white',
-                              overflow: 'hidden'
-                            })}
-                          >
-                            <HeroResultCard result={activeVerticalPreview} />
-                          </Box>
-                        </VerticalPreviewContent>
+                        <CodeEditor
+                          language='json'
+                          showFade={false}
+                          showHeader={false}
+                          showWindowButtons={false}
+                          showTitle={false}
+                          showAction={false}
+                          css={theme({
+                            width: '100%',
+                            height: '100%',
+                            minHeight: 0,
+                            flex: 1,
+                            border: 0,
+                            borderRadius: 0,
+                            pt: 2
+                          })}
+                        >
+                          {activeVerticalPayloadText}
+                        </CodeEditor>
                       </Box>
-                    </Box>
-                  )}
-                </VerticalExamplePanel>
+                    )}
+
+                    {activeOutputTab === 'preview' && (
+                      <Box
+                        id='vertical-output-panel-preview'
+                        role='tabpanel'
+                        aria-labelledby='vertical-output-tab-preview'
+                        css={theme({
+                          borderTop: 1,
+                          borderTopColor: 'white',
+                          bg: 'white',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          height: '100%',
+                          minHeight: 0,
+                          flex: 1,
+                          minWidth: 0
+                        })}
+                      >
+                        <Box
+                          css={theme({
+                            display: 'flex',
+                            flexDirection: 'column',
+                            flex: 1,
+                            minHeight: 0,
+                            overflowY: 'auto',
+                            overflowX: 'hidden'
+                          })}
+                        >
+                          <VerticalPreviewContent>
+                            <Box
+                              css={theme({
+                                px: [3, 3, 4, 4],
+                                py: 0,
+                                bg: 'white',
+                                overflow: 'hidden'
+                              })}
+                            >
+                              <HeroResultCard result={activeVerticalPreview} />
+                            </Box>
+                          </VerticalPreviewContent>
+                        </Box>
+                      </Box>
+                    )}
+                  </VerticalExamplePanel>
+                </Box>
               </VerticalExampleGrid>
             </VerticalExampleShell>
           </Box>
+
+          <Box id='features' as='section' css={theme({ mt: [4, 4, 5, 5] })}>
+            <Box
+              as='ul'
+              css={theme({
+                listStyle: 'none',
+                p: 0,
+                m: 0,
+                mt: 4,
+                width: 'max-content',
+                maxWidth: '100%',
+                mx: 'auto'
+              })}
+            >
+              {HERO_PROOF_POINTS.map(point => (
+                <List.Item key={point} css={heroProofListItemCss}>
+                  {point}
+                </List.Item>
+              ))}
+            </Box>
+          </Box>
+
+          <Box
+            id='cta'
+            css={theme({ display: 'flex', justifyContent: 'center' })}
+          >
+            <ActionRow
+              css={theme({
+                flexDirection: 'row',
+                flexWrap: 'nowrap',
+                alignItems: 'center',
+                justifyContent: 'center'
+              })}
+            >
+              <Button as='a' href='/pricing'>
+                Get the API keys
+              </Button>
+              <ArrowLink
+                href={GUIDE_URL}
+                css={theme({ fontSize: [1, 1, 2, 2] })}
+              >
+                View docs
+              </ArrowLink>
+            </ActionRow>
+          </Box>
         </Box>
-      </PageSection>
+      </Container>
 
       <Box
         as='section'
@@ -3055,7 +3027,7 @@ const GooglePage = () => {
       >
         <Container
           css={theme({
-            p: 0,
+            px: [3, 3, 4, 4],
             maxWidth: [
               '100%',
               '100%',
@@ -3302,13 +3274,19 @@ const GooglePage = () => {
       >
         <Container
           css={theme({
-            maxWidth: layout.large,
-            px: [3, 3, 4, 4]
+            p: 0,
+            maxWidth: [
+              '100%',
+              '100%',
+              layout.large,
+              `calc(${layout.large} * 1.63)`
+            ]
           })}
         >
           <Flex
             css={theme({
-              flexDirection: ['column', 'column', 'row', 'row'],
+              display: 'grid',
+              gridTemplateColumns: ['1fr', '1fr', '48% 52%', '48% 52%'],
               gap: [5, 5, 6, 7],
               alignItems: ['center', 'center', 'center', 'center'],
               width: '100%'
@@ -3316,12 +3294,12 @@ const GooglePage = () => {
           >
             <Box
               css={theme({
-                width: ['100%', '100%', '38%', '38%'],
+                width: '100%',
                 flexShrink: 0,
-                maxWidth: ['100%', '100%', '440px', '440px']
+                maxWidth: ['100%', '100%', layout.small, layout.small]
               })}
             >
-              <SectionCaption color='#3b82f6'>
+              <SectionCaption color={colors.blue6}>
                 Connect everything
               </SectionCaption>
               <Text
@@ -3336,7 +3314,7 @@ const GooglePage = () => {
                   textAlign: 'left'
                 })}
               >
-                Plug <span css={theme({ color: '#3b82f6' })}>Microlink</span>
+                Plug <span css={theme({ color: 'blue6' })}>Microlink</span>
                 <br />
                 <span css={theme({ whiteSpace: 'nowrap' })}>
                   into your workflow
@@ -3363,7 +3341,7 @@ const GooglePage = () => {
 
             <Box
               css={theme({
-                width: ['100%', '100%', '62%', '62%'],
+                width: '100%',
                 minWidth: 0
               })}
             >
@@ -3448,7 +3426,6 @@ const GooglePage = () => {
                       borderColor: 'black05',
                       textDecoration: 'none',
                       color: 'black',
-                      boxShadow: 1,
                       transition: `border-color ${transition.short}`
                     })}
                   >
@@ -3480,7 +3457,12 @@ const GooglePage = () => {
               <Flex
                 css={theme({
                   mt: [4, 4, 5, 6],
-                  justifyContent: ['center', 'center', 'flex-start', 'flex-start'],
+                  justifyContent: [
+                    'center',
+                    'center',
+                    'flex-start',
+                    'flex-start'
+                  ],
                   pl: [0, 0, 0, 0]
                 })}
               >
@@ -3657,8 +3639,7 @@ const TutorialStep = ({ step }) => {
             position: 'relative',
             zIndex: 1,
             fontWeight: 'bold',
-            fontSize: 2,
-            boxShadow: 1
+            fontSize: 2
           })}
         >
           {step.step}
@@ -3730,8 +3711,7 @@ const TutorialStepPanel = ({ panel, title }) => {
     borderColor: 'black10',
     borderRadius: 4,
     bg: 'white',
-    overflow: 'hidden',
-    boxShadow: 1
+    overflow: 'hidden'
   })
 
   if (panel.type === 'terminal') {

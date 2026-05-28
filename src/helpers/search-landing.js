@@ -68,59 +68,56 @@ const GOOGLE_VERTICALS = [
   },
   {
     id: 'images',
-    name: 'Bing',
+    name: 'Images',
     accentColor: 'cyan6',
     description:
-      'Bing search results with normalized fields for downstream usage.'
+      'Full-resolution image URLs with dimensions, thumbnails, and source attribution.'
   },
   {
     id: 'videos',
-    name: 'Reddit',
+    name: 'Videos',
     accentColor: 'orange6',
     description:
-      'Reddit discussions and threads with structured comment metadata.'
+      'Video metadata with duration, channel info, and publication dates.'
   },
   {
     id: 'places',
-    name: 'YouTube',
-    accentColor: 'red6',
+    name: 'Places',
+    accentColor: 'green6',
     description:
-      'YouTube video results with duration, channel info, and engagement data.'
+      'Local business listings with coordinates, ratings, and contact info.'
   },
   {
     id: 'maps',
-    name: 'X (Twitter)',
-    accentColor: 'black',
+    name: 'Maps',
+    accentColor: 'green6',
     description:
-      'Posts and threads from X with engagement metrics and author context.'
+      'Rich place metadata with ratings, opening hours, pricing, and place IDs.'
   },
   {
     id: 'shopping',
-    name: 'LinkedIn',
+    name: 'Shopping',
     accentColor: 'blue6',
-    description: 'LinkedIn profiles and posts with professional metadata.'
+    description:
+      'Product listings with parsed prices, merchant names, and structured ratings.'
   },
   {
     id: 'scholar',
-    name: 'GitHub',
-    accentColor: 'black',
+    name: 'Scholar',
+    accentColor: 'blue6',
     description:
-      'GitHub repositories, issues, and discussions with structured metadata.'
+      'Academic papers with citation counts, publication context, and PDF links.'
   },
   {
     id: 'patents',
-    name: 'Custom engine',
+    name: 'Patents',
     accentColor: 'grape7',
     description:
-      'Bring your own search engine and get normalized structured output.'
+      'Patent filings with priority dates, inventors, assignees, and figures.'
   }
 ]
 
-const buildExample = (query, type) => `'use strict'
-
-import createGoogleClient from '@microlink/google'
-
-const google = createGoogleClient({
+const buildExample = (query, type) => `const google = require('@microlink/google')({
   apiKey: process.env.MICROLINK_API_KEY
 })
 
@@ -338,13 +335,13 @@ const GOOGLE_VERTICAL_EXAMPLES = {
   }
 }
 
-const INSTALL_SNIPPET = `const search = await microlink.search('ai agents', {
-  limit: 5,
-  parse: true,
-  output: 'all'
+const INSTALL_SNIPPET = `const google = require('@microlink/google')({
+  apiKey: process.env.MICROLINK_API_KEY
 })
 
-console.log(search.organized)`
+const page = await google('ai agents')
+
+console.log(page.results)`
 
 const HERO_EXAMPLES = [
   {
@@ -354,27 +351,43 @@ const HERO_EXAMPLES = [
     code: INSTALL_SNIPPET,
     result: {
       variant: 'search',
-      data: {
-        title:
-          'TechCrunch Disrupt 2025: AI Present or Future for Startups, Speed & AI …',
-        url: 'https://techcrunch.com/2025/05/20/ai-agents-future',
-        description:
-          "Leaders discuss the intersection of AI and startup innovation, practical tools, and what's next in 2025."
-      }
+      data: [
+        {
+          title:
+            'TechCrunch Disrupt 2025: AI Present or Future for Startups, Speed & AI …',
+          url: 'https://techcrunch.com/2025/05/20/ai-agents-future',
+          description:
+            "Leaders discuss the intersection of AI and startup innovation, practical tools, and what's next in 2025."
+        },
+        {
+          title: 'AI agents: The next wave of productivity',
+          url: 'https://techcrunch.com/2024/05/30/ai-agents/',
+          description:
+            'Leaders discuss the intersection of AI and startup innovation...'
+        },
+        {
+          title: 'How AI agents are reshaping workflows',
+          url: 'https://venturebeat.com/ai/ai-agents/',
+          description: 'Exploring real-world use cases and platform strategies.'
+        }
+      ]
     }
   },
   {
-    id: 'web-scraping',
-    title: 'Web Scraping',
+    id: 'news-monitoring',
+    title: 'News Monitoring',
     description:
-      'Extract structured data from any website with built-in proxy rotation.',
-    code: `const results = await microlink.search('site:techcrunch.com AI startups', {
-  limit: 10,
-  parse: true,
-  output: 'structured'
+      'Pull current Google News results into monitoring and alerting workflows.',
+    code: `const google = require('@microlink/google')({
+  apiKey: process.env.MICROLINK_API_KEY
 })
 
-console.log(results.items)`,
+const page = await google('AI startups', {
+  type: 'news',
+  period: 'week'
+})
+
+console.log(page.results)`,
     result: {
       variant: 'news',
       data: [
@@ -412,17 +425,16 @@ console.log(results.items)`,
     title: 'Local SEO',
     description:
       'Collect local pack and map-style entities for geo-targeted research.',
-    code: `const results = await microlink.search('best coffee madrid', {
-  type: 'places',
-  location: 'es',
-  parse: true
+    code: `const google = require('@microlink/google')({
+  apiKey: process.env.MICROLINK_API_KEY
 })
 
-const leads = results.map(r => ({
-  name: r.title,
-  rating: r.rating,
-  coordinates: r.coordinates
-}))`,
+const page = await google('best coffee madrid', {
+  type: 'places',
+  location: 'es'
+})
+
+console.log(page.results[0])`,
     result: {
       variant: 'places',
       data: {
@@ -440,13 +452,15 @@ const leads = results.map(r => ({
     id: 'agent-enrichment',
     title: 'Document Discovery',
     description:
-      'Use search operators to find technical sources, then expand the best matches as Markdown or HTML.',
-    code: `const results = await microlink.search('site:arxiv.org "deep learning"', {
-  output: 'all'
+      'Use search operators to find technical sources, then expand the best matches with .html() or .markdown().',
+    code: `const google = require('@microlink/google')({
+  apiKey: process.env.MICROLINK_API_KEY
 })
 
+const page = await google('site:arxiv.org "deep learning"')
+
 const enriched = await Promise.all(
-  results.slice(0, 3).map(async r => ({
+  page.results.slice(0, 3).map(async r => ({
     title: r.title,
     url: r.url,
     markdown: await r.markdown()
