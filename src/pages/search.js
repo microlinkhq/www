@@ -9,7 +9,7 @@ import {
   Target
 } from 'react-feather'
 
-import { colors, gradient, layout, theme, transition } from 'theme'
+import { colors, layout, theme, transition } from 'theme'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -157,9 +157,25 @@ console.log(page.results)`
   }
 ]
 
+const HERO_ACCENT_GRADIENT = `linear-gradient(90deg, ${colors.pink8}, ${colors.pink9})`
+
+const visuallyHiddenCss = theme({
+  position: 'absolute',
+  width: '1px',
+  height: '1px',
+  p: 0,
+  m: '-1px',
+  overflow: 'hidden',
+  clip: 'rect(0, 0, 0, 0)',
+  whiteSpace: 'nowrap',
+  border: 0
+})
+
 const focusElement = id => {
   const el = typeof document !== 'undefined' && document.getElementById(id)
-  if (el) el.focus()
+  if (!el) return
+  el.focus()
+  el.scrollIntoView({ block: 'nearest', inline: 'nearest' })
 }
 
 const GooglePage = () => {
@@ -231,6 +247,29 @@ const GooglePage = () => {
     []
   )
 
+  const handleExampleKeyDown = useMemo(
+    () =>
+      createTablistKeyHandler({
+        items: activeVerticalExamples,
+        onSelect: id => {
+          const index = activeVerticalExamples.findIndex(
+            example => example.id === id
+          )
+          if (index >= 0) setActiveVerticalExampleIndex(index)
+        },
+        focusTab: id => focusElement(`vertical-example-${id}`)
+      }),
+    [activeVerticalExamples]
+  )
+
+  const activeSurfaceLabel = activeVerticalService?.label ?? activeVertical.name
+
+  const playgroundStatus = `Showing ${activeSurfaceLabel} example: ${activeVerticalExample.label}`
+
+  const codeExampleLabel = `Example code for ${activeSurfaceLabel}: ${activeVerticalExample.label}`
+
+  const jsonOutputLabel = `JSON response for ${activeSurfaceLabel}: ${activeVerticalExample.label}`
+
   return (
     <Layout>
       <Container
@@ -246,7 +285,7 @@ const GooglePage = () => {
             })}
           >
             <Text
-              as='h2'
+              as='h1'
               css={theme({
                 m: 0,
                 color: 'black',
@@ -258,16 +297,18 @@ const GooglePage = () => {
               })}
             >
               Search intelligence API <br />
-              <span
-                style={{
-                  background: gradient,
+              <Box
+                as='span'
+                css={theme({
+                  color: 'pink8',
+                  backgroundImage: HERO_ACCENT_GRADIENT,
+                  backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}
+                  WebkitTextFillColor: 'transparent'
+                })}
               >
                 for AI agents
-              </span>
+              </Box>
             </Text>
             <Text
               as='p'
@@ -287,7 +328,15 @@ const GooglePage = () => {
             </Text>
           </Box>
 
-          <Box id='playground' as='section' css={theme({ mt: [4, 4, 5, 5] })}>
+          <Box
+            id='playground'
+            as='section'
+            aria-label='Search surface playground'
+            css={theme({ mt: [4, 4, 5, 5] })}
+          >
+            <Text aria-live='polite' aria-atomic='true' css={visuallyHiddenCss}>
+              {playgroundStatus}
+            </Text>
             <VerticalExampleShell $accentColor={activeVertical.accentColor}>
               <VerticalTablist aria-label='Supported search surfaces'>
                 {GOOGLE_VERTICALS.map((vertical, index) => {
@@ -303,6 +352,7 @@ const GooglePage = () => {
                       $active={activeVertical.id === vertical.id}
                       $activeColor={vertical.accentColor}
                       aria-pressed={activeVertical.id === vertical.id}
+                      aria-controls='vertical-example-grid'
                       onClick={() => setActiveVerticalId(vertical.id)}
                       onKeyDown={event =>
                         handleVerticalTabKeyDown(event, index)}
@@ -358,7 +408,7 @@ const GooglePage = () => {
                       )}
                       <Box css={theme({ minWidth: 0 })}>
                         <Text
-                          as='h4'
+                          as='h3'
                           css={theme({
                             m: 0,
                             color: 'black',
@@ -367,7 +417,7 @@ const GooglePage = () => {
                             lineHeight: 1
                           })}
                         >
-                          {activeVerticalService?.label ?? activeVertical.name}
+                          {activeSurfaceLabel}
                         </Text>
                         <Text
                           as='p'
@@ -397,18 +447,24 @@ const GooglePage = () => {
                       minHeight: 0
                     })}
                   >
-                    <VerticalResultList>
+                    <VerticalResultList
+                      role='group'
+                      aria-label='Example queries'
+                    >
                       {activeVerticalExamples.map((example, index) => {
                         const isActive = index === activeVerticalExampleIndex
 
                         return (
                           <Box as='li' key={example.id}>
                             <VerticalExampleOption
+                              id={`vertical-example-${example.id}`}
                               type='button'
                               $active={isActive}
                               aria-pressed={isActive}
                               onClick={() =>
                                 setActiveVerticalExampleIndex(index)}
+                              onKeyDown={event =>
+                                handleExampleKeyDown(event, index)}
                             >
                               <VerticalExampleOptionIcon
                                 $active={isActive}
@@ -472,8 +528,7 @@ const GooglePage = () => {
                   >
                     <Box
                       id='vertical-output-panel-code'
-                      role='tabpanel'
-                      aria-label='Code example'
+                      aria-label={codeExampleLabel}
                       css={theme({
                         display: 'flex',
                         flexDirection: 'column',
@@ -490,6 +545,7 @@ const GooglePage = () => {
                         showWindowButtons={false}
                         showTitle={false}
                         showAction={false}
+                        aria-label={codeExampleLabel}
                         css={theme({
                           width: '100%',
                           height: '100%',
@@ -574,6 +630,7 @@ const GooglePage = () => {
                           showWindowButtons={false}
                           showTitle={false}
                           showAction={false}
+                          aria-label={jsonOutputLabel}
                           css={theme({
                             width: '100%',
                             height: '100%',
@@ -1290,7 +1347,9 @@ const GooglePage = () => {
           answer: (
             <>
               {answers.map((answer, index) => (
-                <div key={`${question}-${index}`}>{answer}</div>
+                <Text as='p' key={`${question}-${index}`} css={theme({ m: 0 })}>
+                  {answer}
+                </Text>
               ))}
             </>
           )

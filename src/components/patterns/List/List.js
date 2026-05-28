@@ -29,6 +29,7 @@ const ListItem = ({
         <FeatherIcon
           icon={isYes ? CheckCircle : XCircle}
           color={isYes ? 'close' : 'gray'}
+          aria-hidden='true'
         />
       </Flex>
       <Text {...props} />

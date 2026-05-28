@@ -311,7 +311,6 @@ export const TutorialStep = ({ step }) => (
         <Text
           as='span'
           css={theme({
-            display: ['inline', 'inline', 'none', 'none'],
             color: 'black50',
             fontFamily: 'mono',
             fontSize: [0, 0, 1, 1],
@@ -320,7 +319,7 @@ export const TutorialStep = ({ step }) => (
             mr: 1
           })}
         >
-          {step.step}/
+          {step.step}.
         </Text>
         {step.title}
       </Text>

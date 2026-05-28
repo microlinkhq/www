@@ -102,15 +102,10 @@ export const HeroResultPath = styled(Text).attrs({ as: 'span' })`
   min-width: 0;
 `
 
-export const HeroResultTitle = styled(Text).attrs({
-  as: 'button',
-  type: 'button'
-})`
+export const HeroResultTitle = styled(Text).attrs({ as: 'span' })`
   ${theme({
-    appearance: 'none',
     m: 0,
     mt: 2,
-    p: 0,
     display: 'block',
     maxWidth: '100%',
     color: 'link',
@@ -120,22 +115,8 @@ export const HeroResultTitle = styled(Text).attrs({
     lineHeight: 1,
     letterSpacing: 0,
     textAlign: 'left',
-    textDecoration: 'none',
-    ...truncateLineCss,
-    cursor: 'default'
+    ...truncateLineCss
   })};
-  background: transparent;
-  border: 0;
-
-  &:hover {
-    text-decoration: underline;
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
 `
 
 export const HeroResultDescription = styled(Text).attrs({ as: 'p' })`
@@ -262,14 +243,9 @@ export const HeroResultListItem = styled(Box).attrs({ as: 'li' })`
   }
 `
 
-export const HeroResultListTitle = styled(Text).attrs({
-  as: 'button',
-  type: 'button'
-})`
+export const HeroResultListTitle = styled(Text).attrs({ as: 'span' })`
   ${theme({
-    appearance: 'none',
     m: 0,
-    p: 0,
     display: 'block',
     maxWidth: '100%',
     color: 'link',
@@ -279,24 +255,10 @@ export const HeroResultListTitle = styled(Text).attrs({
     lineHeight: 1,
     letterSpacing: 0,
     textAlign: 'left',
-    textDecoration: 'none',
     ...truncateLineCss,
-    cursor: 'default'
+    flex: 1,
+    minWidth: 0
   })};
-  background: transparent;
-  border: 0;
-  flex: 1;
-  min-width: 0;
-
-  &:hover {
-    text-decoration: underline;
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
 `
 
 export const VerticalExampleShell = styled(Box).withConfig({

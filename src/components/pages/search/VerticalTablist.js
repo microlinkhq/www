@@ -19,7 +19,7 @@ const VerticalTablist = ({
     >
       <Flex
         ref={scrollRef}
-        role='tablist'
+        role='group'
         aria-label={ariaLabel}
         css={theme({
           flexWrap: 'nowrap',
