@@ -25,11 +25,10 @@ import List from 'components/patterns/List/List'
 import ArrowLink from 'components/patterns/ArrowLink'
 import LineBreak from 'components/elements/LineBreak'
 
-import GOOGLE_VERTICAL_EXAMPLES_DATA from 'helpers/google-examples'
+import GOOGLE_EXAMPLES from 'data/google-examples'
 import {
   FAQ_ENTRIES,
   GOOGLE_VERTICALS,
-  GOOGLE_VERTICAL_EXAMPLES,
   GUIDE_URL,
   HERO_IMAGE,
   PACKAGE_URL,
@@ -194,16 +193,13 @@ const GooglePage = () => {
       service => service.id === activeVertical.id
     ) ?? null
 
-  const baseVerticalExample = useMemo(
-    () =>
-      GOOGLE_VERTICAL_EXAMPLES_DATA[activeVertical.id] ??
-      GOOGLE_VERTICAL_EXAMPLES[activeVertical.id] ?? { code: '', payload: '' },
-    [activeVertical.id]
-  )
-
   const activeVerticalExamples = useMemo(
-    () => getVerticalExampleOptions(activeVertical.id, baseVerticalExample),
-    [activeVertical.id, baseVerticalExample]
+    () =>
+      getVerticalExampleOptions(
+        activeVertical.id,
+        GOOGLE_EXAMPLES[activeVertical.id]
+      ),
+    [activeVertical.id]
   )
 
   const activeVerticalExample = activeVerticalExamples[
@@ -1227,7 +1223,7 @@ const GooglePage = () => {
                     href: '/search',
                     icon: (
                       <SearchIcon
-                        size={58}
+                        size={54}
                         strokeWidth={2}
                         aria-hidden='true'
                       />
@@ -1254,17 +1250,21 @@ const GooglePage = () => {
                       <Text
                         as='span'
                         css={theme({
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
                           m: 0,
+                          width: '54px',
+                          height: '54px',
                           color: 'blue6',
                           fontWeight: 'bold',
-                          fontSize: [4, 4, 4, 4],
+                          fontSize: 2,
                           fontFamily: 'mono',
                           lineHeight: 1,
                           border: 2,
                           borderColor: 'blue6',
                           borderRadius: 2,
-                          px: 2,
-                          py: 1
+                          boxSizing: 'border-box'
                         })}
                       >
                         M↓
@@ -1285,13 +1285,30 @@ const GooglePage = () => {
                       minWidth: 0,
                       height: ['170px', '170px', '170px', '180px'],
                       borderRadius: 4,
-                      border: 0,
-                      boxShadow: `0 4px 12px ${colors.black05}`,
+                      bg: 'white',
+                      border: 1,
+                      borderColor: 'blue5',
                       textDecoration: 'none',
                       color: 'black',
-                      transition: `box-shadow ${transition.short}`,
-                      '&:hover': {
-                        boxShadow: `0 8px 24px ${colors.black10}`
+                      cursor: 'pointer',
+                      touchAction: 'manipulation',
+                      WebkitTapHighlightColor: 'transparent',
+                      transition: `transform ${transition.short}`,
+                      _hover: {
+                        transform: 'translateY(-4px)'
+                      },
+                      _active: {
+                        transform: 'translateY(-1px)'
+                      },
+                      '@media (prefers-reduced-motion: reduce)': {
+                        transition: 'none',
+                        transform: 'none',
+                        _hover: {
+                          transform: 'none'
+                        },
+                        _active: {
+                          transform: 'none'
+                        }
                       },
                       '&:focus-visible': {
                         outline: `2px solid ${colors.blue6}`,

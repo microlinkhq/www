@@ -67,17 +67,6 @@ export const getVerticalPreviewResult = (verticalId, payload) => {
   return { variant: verticalId, data: transform ? transform(items) : items }
 }
 
-const getPayloadResults = payload => {
-  if (Array.isArray(payload)) return payload
-  if (payload && Array.isArray(payload.results)) return payload.results
-  return []
-}
-
-const getVerticalQuery = code => {
-  const match = code.match(/google\(\s*(['"])([\s\S]*?)\1/)
-  return match ? match[2] : 'ai agents'
-}
-
 const createCode = code =>
   `const google = require('@microlink/google')({ apiKey: MICROLINK_API_KEY })
 
@@ -89,96 +78,25 @@ console.log(page.results)
 const getVerticalExampleCode = (query, verticalId) =>
   createCode(`const page = await google('${query}', { type: '${verticalId}' })`)
 
-const VERTICAL_QUERY_EXAMPLES = {
-  search: [
-    {
-      query: 'ai agents',
-      description: 'Find current articles and guides about agent workflows.'
-    },
-    {
-      query: 'openclaw',
-      description: 'Track product, package, and documentation mentions.'
-    },
-    {
-      query: 'site:developer.mozilla.org fetch api',
-      description: 'Use operators to narrow results to a specific source.'
-    }
-  ],
-  news: [
-    {
-      query: 'openai api developers',
-      description: 'Monitor developer platform announcements.'
-    },
-    {
-      query: 'ai startups',
-      description: 'Follow market coverage across major publishers.'
-    },
-    {
-      query: 'search api',
-      description: 'Watch category news for search infrastructure.'
-    }
-  ],
-  images: [
-    {
-      query: 'kubernetes architecture diagram',
-      description: 'Collect diagrams with source attribution.'
-    },
-    {
-      query: 'ai agent workflow diagram',
-      description: 'Find visual references for technical explainers.'
-    },
-    {
-      query: 'search interface screenshot',
-      description: 'Gather UI references from indexed pages.'
-    }
-  ]
-}
-
-const DEFAULT_VERTICAL_QUERY_EXAMPLES = [
-  {
-    query: 'ai agents',
-    description: 'Run the default example for this Google surface.'
-  },
-  {
-    query: 'openclaw',
-    description: 'Swap the query while keeping the same response shape.'
-  },
-  {
-    query: 'microlink',
-    description: 'Inspect another query with the same product settings.'
-  }
-]
-
-export const getVerticalExampleOptions = (verticalId, example) => {
-  const payload = parseJsonPayload(example.payload)
-  const results = getPayloadResults(payload)
-  const defaultQuery = getVerticalQuery(example.code || '')
-  const queryExamples =
-    VERTICAL_QUERY_EXAMPLES[verticalId] ?? DEFAULT_VERTICAL_QUERY_EXAMPLES
-  const normalizedExamples = queryExamples.map((item, index) =>
-    index === 0 && item.query !== defaultQuery
-      ? { ...item, query: defaultQuery }
-      : item
-  )
-
-  if (results.length === 0) {
-    return normalizedExamples.map(item => ({
-      id: item.query,
-      label: item.query,
-      description: item.description,
-      code: getVerticalExampleCode(item.query, verticalId),
-      payload: example.payload
-    }))
+export const getVerticalExampleOptions = (verticalId, examples) => {
+  if (!examples || examples.length === 0) {
+    return [
+      {
+        id: verticalId,
+        label: verticalId,
+        description: '',
+        code: getVerticalExampleCode(verticalId, verticalId),
+        payload: []
+      }
+    ]
   }
 
-  return normalizedExamples.map((item, index) => ({
-    id: item.query,
-    label: item.query,
-    description: item.description,
-    code: getVerticalExampleCode(item.query, verticalId),
-    payload: results.slice(index, index + 3).length
-      ? results.slice(index, index + 3)
-      : results.slice(0, 3)
+  return examples.map(example => ({
+    id: example.query,
+    label: example.query,
+    description: example.description,
+    code: getVerticalExampleCode(example.query, verticalId),
+    payload: example.payload
   }))
 }
 
