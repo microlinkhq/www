@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import {
-  Check,
   Edit3,
   FileText,
   GitMerge,
@@ -150,12 +149,6 @@ console.log(page.results)`
       ]
     }
   }
-]
-
-const FINAL_CTA_BADGES = [
-  'Paid from day one',
-  'Managed proxy layer included',
-  'Built for SEO and AI workflows'
 ]
 
 const focusElement = id => {
@@ -1293,31 +1286,6 @@ const GooglePage = () => {
         }))}
       />
 
-      <Flex
-        css={theme({
-          py: [4, 4, 5, 5],
-          gap: [3, 3, 5, 5],
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          borderTop: 1,
-          borderTopColor: 'black05'
-        })}
-      >
-        {FINAL_CTA_BADGES.map(label => (
-          <Flex
-            key={label}
-            css={theme({
-              alignItems: 'center',
-              gap: 2,
-              color: 'black80',
-              fontSize: [0, 0, 1, 1]
-            })}
-          >
-            <Check size={14} color={colors.black60} aria-hidden='true' />
-            <Text as='span'>{label}</Text>
-          </Flex>
-        ))}
-      </Flex>
       <Container
         css={theme({
           justifyContent: 'center',
