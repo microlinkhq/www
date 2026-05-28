@@ -17,7 +17,12 @@ import FeatherIcon from 'components/icons/Feather'
 
 import { BulletItem, TutorialStepContainer } from './'
 
-export const SectionCaption = ({ color, children, centered = false }) => (
+export const SectionCaption = ({
+  bg = 'white',
+  color,
+  children,
+  centered = false
+}) => (
   <Flex
     css={theme({
       alignItems: 'center',
@@ -33,7 +38,7 @@ export const SectionCaption = ({ color, children, centered = false }) => (
         gap: 2,
         px: 3,
         py: 2,
-        bg: 'white',
+        bg,
         border: 1,
         borderColor: color,
         borderRadius: 5
@@ -241,34 +246,32 @@ const TutorialStepPanel = ({ panel }) => {
 
 export const TutorialStep = ({ step }) => (
   <TutorialStepContainer>
-    <Flex
+    <Box
       aria-hidden='true'
       css={theme({
-        display: ['none', 'none', 'flex', 'flex'],
+        display: ['none', 'none', 'block', 'block'],
         position: 'relative',
         zIndex: 2,
-        justifyContent: 'center'
+        textAlign: 'center'
       })}
     >
-      <Box
+      <Text
+        as='span'
         css={theme({
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          display: 'inline-block',
           width: '44px',
           height: '44px',
-          borderRadius: '9999px',
+          lineHeight: '44px',
+          borderRadius: '50%',
           bg: 'gray9',
           color: 'white',
-          position: 'relative',
-          zIndex: 1,
           fontWeight: 'bold',
           fontSize: 2
         })}
       >
         {step.step}
-      </Box>
-    </Flex>
+      </Text>
+    </Box>
 
     <Box css={theme({ minWidth: 0 })}>
       <Text
@@ -289,7 +292,6 @@ export const TutorialStep = ({ step }) => (
         as='h3'
         css={theme({
           m: 0,
-          mt: 2,
           color: 'black',
           fontWeight: 'bold',
           fontSize: [2, 2, 3, 3],

@@ -5,6 +5,7 @@ import {
   FileText,
   GitMerge,
   Hexagon,
+  Image as ImageIcon,
   Search as SearchIcon,
   Target
 } from 'react-feather'
@@ -1060,14 +1061,12 @@ const GooglePage = () => {
         id='final-cta'
         css={theme({
           bg: 'blue0',
-          border: 1,
-          borderColor: 'blue5',
-          py: [5, 5, 6, 6]
+          py: [5, 5, 6, 7]
         })}
       >
         <Container
           css={theme({
-            p: 0,
+            px: 0,
             maxWidth: [
               '100%',
               '100%',
@@ -1076,22 +1075,29 @@ const GooglePage = () => {
             ]
           })}
         >
-          <Flex
+          <Box
             css={theme({
               display: 'grid',
-              gridTemplateColumns: ['1fr', '1fr', '48% 52%', '48% 52%'],
+              gridTemplateColumns: [
+                '1fr',
+                '1fr',
+                'minmax(0, 44fr) minmax(0, 56fr)',
+                'minmax(0, 44fr) minmax(0, 56fr)'
+              ],
               alignItems: 'center',
+              columnGap: [0, 0, 5, 6],
+              rowGap: [5, 5, 0, 0],
               width: '100%'
             })}
           >
             <Box
               css={theme({
                 width: '100%',
-                flexShrink: 0,
+                minWidth: 0,
                 maxWidth: ['100%', '100%', layout.small, layout.small]
               })}
             >
-              <SectionCaption color={colors.blue6}>
+              <SectionCaption bg='blue0' color={colors.blue6}>
                 Connect everything
               </SectionCaption>
               <Text
@@ -1120,52 +1126,61 @@ const GooglePage = () => {
                   color: 'black80',
                   fontSize: [1, 1, 2, 2],
                   lineHeight: 2,
-                  textAlign: 'left'
+                  textAlign: 'left',
+                  maxWidth: layout.small
                 })}
               >
-                Use Search to find URLs. Use{' '}
+                Use <Link href='/search'>Search</Link> to find URLs. Use{' '}
                 <Link href='/metadata'>Metadata</Link>,{' '}
                 <Link href='/screenshot'>Screenshot</Link>, or{' '}
                 <Link href='/markdown'>Markdown</Link> to extract what is on
                 them. Same API key, same plan.
               </Text>
+              <Flex css={theme({ mt: [4, 4, 5, 5] })}>
+                <ArrowLink
+                  href='/pricing'
+                  css={theme({
+                    color: 'blue6',
+                    fontWeight: 'bold',
+                    fontSize: [1, 1, 2, 2]
+                  })}
+                >
+                  See all plans
+                </ArrowLink>
+              </Flex>
             </Box>
 
-            <Box css={theme({ width: '100%', minWidth: 0 })}>
-              <Flex
+            <Box css={theme({ width: '100%', minWidth: 0, maxWidth: '100%' })}>
+              <Box
                 css={theme({
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: [3, 3, 4, 5],
-                  flexDirection: ['column', 'row', 'row', 'row'],
-                  position: 'relative'
+                  display: 'grid',
+                  gridTemplateColumns: [
+                    'repeat(2, minmax(0, 1fr))',
+                    'repeat(2, minmax(0, 1fr))',
+                    'repeat(4, minmax(0, 1fr))',
+                    'repeat(4, minmax(0, 1fr))'
+                  ],
+                  alignItems: 'stretch',
+                  gap: [3, 3, 2, 3],
+                  width: '100%',
+                  maxWidth: '100%'
                 })}
               >
-                <Box
-                  aria-hidden='true'
-                  css={theme({
-                    display: ['none', 'block', 'block', 'block'],
-                    position: 'absolute',
-                    left: '20%',
-                    right: '20%',
-                    top: '50%',
-                    height: '2px',
-                    borderTop: 1,
-                    borderTopColor: 'blue2',
-                    zIndex: 0
-                  })}
-                  style={{ borderTopStyle: 'dotted' }}
-                />
                 {[
                   {
                     label: 'Search',
                     href: '/search',
-                    icon: <SearchIcon size={58} strokeWidth={2} />
+                    icon: <SearchIcon size={58} strokeWidth={2} aria-hidden='true' />
                   },
                   {
                     label: 'Metadata',
                     href: '/metadata',
-                    icon: <FileText size={54} strokeWidth={2} />
+                    icon: <FileText size={54} strokeWidth={2} aria-hidden='true' />
+                  },
+                  {
+                    label: 'Screenshot',
+                    href: '/screenshot',
+                    icon: <ImageIcon size={54} strokeWidth={2} aria-hidden='true' />
                   },
                   {
                     label: 'Markdown',
@@ -1197,23 +1212,28 @@ const GooglePage = () => {
                     key={product.label}
                     href={product.href}
                     css={theme({
-                      position: 'relative',
-                      zIndex: 1,
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: 4,
-                      width: ['150px', '150px', '150px', '160px'],
-                      minWidth: ['150px', '150px', '150px', '160px'],
-                      height: ['190px', '190px', '200px', '210px'],
+                      width: '100%',
+                      minWidth: 0,
+                      height: ['170px', '170px', '170px', '180px'],
                       borderRadius: 4,
                       bg: 'white',
-                      border: 1,
-                      borderColor: 'black05',
+                      border: 0,
+                      boxShadow: `0 4px 12px ${colors.black05}`,
                       textDecoration: 'none',
                       color: 'black',
-                      transition: `border-color ${transition.short}`
+                      transition: `box-shadow ${transition.short}`,
+                      '&:hover': {
+                        boxShadow: `0 8px 24px ${colors.black10}`
+                      },
+                      '&:focus-visible': {
+                        outline: `2px solid ${colors.blue6}`,
+                        outlineOffset: '2px'
+                      }
                     })}
                   >
                     <Box
@@ -1240,26 +1260,9 @@ const GooglePage = () => {
                     </Text>
                   </Box>
                 ))}
-              </Flex>
-              <Flex
-                css={theme({
-                  mt: [4, 4, 5, 6],
-                  justifyContent: 'center'
-                })}
-              >
-                <ArrowLink
-                  href='/pricing'
-                  css={theme({
-                    color: 'blue6',
-                    fontWeight: 'bold',
-                    fontSize: [1, 1, 2, 2]
-                  })}
-                >
-                  See all plans
-                </ArrowLink>
-              </Flex>
+              </Box>
             </Box>
-          </Flex>
+          </Box>
         </Container>
       </Box>
 
