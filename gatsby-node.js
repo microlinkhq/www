@@ -37,8 +37,10 @@ const getTimestampForFile = fileNode => {
 }
 
 const githubUrl = (() => {
+  let cachedBranch
   return async filepath => {
-    const base = `https://github.com/microlinkhq/www/blob/${await branchName()}`
+    if (!cachedBranch) cachedBranch = branchName()
+    const base = `https://github.com/microlinkhq/www/blob/${await cachedBranch}`
     const relative = filepath.replace(process.cwd(), '')
     return base + relative
   }
