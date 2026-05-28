@@ -25,7 +25,7 @@ const VerticalTablist = ({
           flexWrap: 'nowrap',
           alignItems: 'stretch',
           justifyContent: ['flex-start', 'flex-start', 'center', 'center'],
-          gap: [1, 1, 2, 2],
+          gap: 2,
           width: '100%',
           overflowX: 'auto',
           overflowY: 'hidden',

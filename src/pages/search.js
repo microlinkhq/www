@@ -83,7 +83,11 @@ const MOBILE_SECTION_BLEED = {
   mx: [-3, -3, 0, 0]
 }
 
-const VERTICAL_RESPONSE_HEIGHT = '100%'
+const HERO_HEADING_FONT_SIZE = ['36px', '36px', 5, 5]
+const SECTION_HEADING_FONT_SIZE = ['36px', '42px', 4, 4]
+const SECTION_HEADING_FONT_SIZE_MEDIUM = ['36px', '42px', '36px', '36px']
+const SECTION_HEADING_FONT_SIZE_LARGE = ['36px', '42px', '42px', '42px']
+const PRICE_DISPLAY_FONT_SIZE = ['36px', '42px', 5, 5]
 
 const VERTICAL_OUTPUT_TABS = [
   { id: 'json', label: 'JSON' },
@@ -287,7 +291,7 @@ const GooglePage = () => {
                 fontWeight: 'bold',
                 letterSpacing: 1,
                 lineHeight: [1, 1, 0, 0],
-                fontSize: [4, 4, 5, 5],
+                fontSize: HERO_HEADING_FONT_SIZE,
                 textAlign: 'center'
               })}
             >
@@ -504,8 +508,8 @@ const GooglePage = () => {
                   css={theme({
                     alignSelf: 'stretch',
                     minHeight: 0,
-                    height: VERTICAL_RESPONSE_HEIGHT,
-                    maxHeight: '100%',
+                    height: ['auto', 'auto', 'auto', '100%'],
+                    maxHeight: ['none', 'none', 'none', '100%'],
                     flexDirection: 'column',
                     gap: 3,
                     overflow: 'hidden'
@@ -515,7 +519,7 @@ const GooglePage = () => {
                     css={theme({
                       border: 1,
                       borderColor: 'black10',
-                      height: ['160px', '160px', '180px', '190px'],
+                      height: ['auto', 'auto', 'auto', '190px'],
                       flexShrink: 0
                     })}
                   >
@@ -524,9 +528,9 @@ const GooglePage = () => {
                       aria-label={codeExampleLabel}
                       css={theme({
                         flexDirection: 'column',
-                        flex: 1,
+                        flex: ['none', 'none', 'none', 1],
                         minHeight: 0,
-                        height: '100%',
+                        height: ['auto', 'auto', 'auto', '100%'],
                         py: 3
                       })}
                     >
@@ -540,9 +544,9 @@ const GooglePage = () => {
                         aria-label={codeExampleLabel}
                         css={theme({
                           width: '100%',
-                          height: '100%',
+                          height: ['auto', 'auto', 'auto', '100%'],
                           minHeight: 0,
-                          flex: 1,
+                          flex: ['none', 'none', 'none', 1],
                           border: 0,
                           borderRadius: 0,
                           pt: 1
@@ -557,8 +561,8 @@ const GooglePage = () => {
                     css={theme({
                       border: 1,
                       borderColor: 'black10',
-                      flex: 1,
-                      minHeight: 0,
+                      flex: ['none', 'none', 'none', 1],
+                      minHeight: ['320px', '320px', '320px', 0],
                       overflow: 'hidden'
                     })}
                   >
@@ -608,9 +612,10 @@ const GooglePage = () => {
                         css={theme({
                           flexDirection: 'column',
                           flex: 1,
-                          minHeight: 0,
-                          height: 0,
-                          overflow: 'hidden',
+                          minHeight: ['280px', '280px', '280px', 0],
+                          height: ['auto', 'auto', 'auto', 0],
+                          maxHeight: ['480px', '480px', '480px', 'none'],
+                          overflow: ['auto', 'auto', 'auto', 'hidden'],
                           py: [2, 2, 3, 3]
                         })}
                       >
@@ -624,10 +629,15 @@ const GooglePage = () => {
                           aria-label={jsonOutputLabel}
                           css={theme({
                             width: '100%',
-                            height: '100%',
-                            minHeight: 0,
-                            flex: 1,
-                            overflowY: 'auto',
+                            height: ['auto', 'auto', 'auto', '100%'],
+                            minHeight: ['240px', '240px', '240px', 0],
+                            flex: ['none', 'none', 'none', 1],
+                            overflowY: [
+                              'visible',
+                              'visible',
+                              'visible',
+                              'auto'
+                            ],
                             overflowX: 'hidden',
                             border: 0,
                             borderRadius: 0,
@@ -646,8 +656,9 @@ const GooglePage = () => {
                         aria-labelledby='vertical-output-tab-preview'
                         css={theme({
                           flexDirection: 'column',
-                          height: 0,
-                          minHeight: 0,
+                          height: ['auto', 'auto', 'auto', 0],
+                          minHeight: ['280px', '280px', '280px', 0],
+                          maxHeight: ['480px', '480px', '480px', 'none'],
                           flex: 1,
                           minWidth: 0,
                           overflowY: 'auto',
@@ -672,7 +683,7 @@ const GooglePage = () => {
             </VerticalExampleShell>
           </Box>
 
-          <Box id='features' as='section' css={theme({ pt: 6 })}>
+          <Box id='features' as='section' css={theme({ pt: [5, 5, 6, 6] })}>
             <Box
               as='ul'
               css={theme({
@@ -726,7 +737,11 @@ const GooglePage = () => {
         </Box>
       </Container>
 
-      <Box as='section' id='retrieval-workflows' css={theme({ py: 6 })}>
+      <Box
+        as='section'
+        id='retrieval-workflows'
+        css={theme({ py: [5, 5, 6, 6] })}
+      >
         <Container
           css={theme({
             maxWidth: [
@@ -773,7 +788,7 @@ const GooglePage = () => {
                   fontWeight: 'bold',
                   letterSpacing: 1,
                   lineHeight: [1, 1, 0, 0],
-                  fontSize: [3, 4, 4, 4],
+                  fontSize: SECTION_HEADING_FONT_SIZE,
                   textAlign: 'left'
                 })}
               >
@@ -844,7 +859,7 @@ const GooglePage = () => {
         id='pricing'
         css={theme({
           bg: 'orange0',
-          py: 6,
+          py: [5, 5, 6, 6],
           borderTop: 1,
           borderBottom: 1,
           borderColor: 'orange5',
@@ -878,9 +893,7 @@ const GooglePage = () => {
                 minWidth: 0
               })}
             >
-              <SectionCaption color={colors.orange7}>
-                Simple, predictable pricing
-              </SectionCaption>
+              <SectionCaption color={colors.orange7}>Pricing</SectionCaption>
               <Text
                 as='h2'
                 css={theme({
@@ -889,7 +902,7 @@ const GooglePage = () => {
                   fontWeight: 'bold',
                   letterSpacing: 1,
                   lineHeight: [1, 1, 0, 0],
-                  fontSize: [3, 4, 4, 4],
+                  fontSize: SECTION_HEADING_FONT_SIZE,
                   textAlign: 'left'
                 })}
               >
@@ -934,7 +947,7 @@ const GooglePage = () => {
                 <Text
                   css={theme({
                     color: 'black',
-                    fontSize: [4, 4, 5, 5],
+                    fontSize: PRICE_DISPLAY_FONT_SIZE,
                     fontWeight: 'bold',
                     lineHeight: 0,
                     mb: 2
@@ -997,7 +1010,11 @@ const GooglePage = () => {
         </Container>
       </Box>
 
-      <Box as='section' id='google-api-integration' css={theme({ py: 6 })}>
+      <Box
+        as='section'
+        id='google-api-integration'
+        css={theme({ py: [5, 5, 6, 6] })}
+      >
         <Container
           css={theme({
             p: 0,
@@ -1036,7 +1053,7 @@ const GooglePage = () => {
                   fontWeight: 'bold',
                   letterSpacing: 1,
                   lineHeight: [1, 1, 0, 0],
-                  fontSize: [3, 3, '36px', '36px'],
+                  fontSize: SECTION_HEADING_FONT_SIZE_MEDIUM,
                   textAlign: 'left'
                 })}
               >
@@ -1110,7 +1127,7 @@ const GooglePage = () => {
           borderTop: 1,
           borderBottom: 1,
           borderColor: 'blue5',
-          py: 6,
+          py: [5, 5, 6, 6],
           ...MOBILE_SECTION_BLEED
         })}
       >
@@ -1158,16 +1175,14 @@ const GooglePage = () => {
                   color: 'black',
                   fontWeight: 'bold',
                   letterSpacing: 1,
-                  lineHeight: 1,
-                  fontSize: [4, 4, '42px', '42px'],
+                  lineHeight: [1, 1, 0, 0],
+                  fontSize: SECTION_HEADING_FONT_SIZE_LARGE,
                   textAlign: 'left'
                 })}
               >
                 Plug <span css={theme({ color: 'blue6' })}>Microlink</span>
                 <br />
-                <span css={theme({ whiteSpace: 'nowrap' })}>
-                  into your workflow
-                </span>
+                into your workflow
               </Text>
               <Text
                 as='p'

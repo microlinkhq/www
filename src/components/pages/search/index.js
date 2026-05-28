@@ -267,7 +267,7 @@ export const VerticalExampleShell = styled(Box).withConfig({
 })`
   ${theme({
     mt: [4, 4, 5, 5],
-    overflow: 'hidden',
+    overflow: ['visible', 'visible', 'visible', 'hidden'],
     minWidth: 0
   })};
   position: relative;
@@ -287,7 +287,7 @@ export const VerticalExampleGrid = styled(Box)`
     width: '100%',
     maxWidth: VERTICAL_EXAMPLE_GRID_MAX_WIDTH,
     mx: 'auto',
-    height: '100%'
+    height: ['auto', 'auto', 'auto', '100%']
   })};
 `
 
@@ -548,7 +548,7 @@ export const BulletItem = styled(Flex).attrs({ as: 'li' })`
   })};
 
   &:not(:first-of-type) {
-    ${theme({ mt: [2, 2, 3, 3] })};
+    ${theme({ mt: 3 })};
   }
 `
 
@@ -558,7 +558,7 @@ export const TutorialStepContainer = styled(Box).attrs({ as: 'section' })`
     display: 'grid',
     gridTemplateColumns: ['1fr', '1fr', '72px 1fr', '72px 1fr'],
     columnGap: [0, 0, 4, 4],
-    pb: [4, 4, 5, 5]
+    pb: 5
   })};
 
   &:last-child {

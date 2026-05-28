@@ -50,7 +50,7 @@ export const SectionCaption = ({
           m: 0,
           color,
           fontWeight: 'bold',
-          fontSize: [0, 0, 0, 0],
+          fontSize: ['10px', '10px', '12px', '12px'],
           textTransform: 'uppercase',
           letterSpacing: 2,
           lineHeight: 0
@@ -88,7 +88,7 @@ export const BulletList = ({ children }) => (
     as='ul'
     css={theme({
       m: 0,
-      mt: [3, 3, 4, 4],
+      mt: 4,
       p: 0,
       listStyle: 'none'
     })}
@@ -301,6 +301,7 @@ export const TutorialStep = ({ step }) => (
       <Text
         as='h3'
         css={theme({
+          pb: [3, 3, 0, 0],
           m: 0,
           color: 'black',
           fontWeight: 'bold',
