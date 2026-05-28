@@ -60,6 +60,8 @@ import {
   VerticalTabButton
 } from 'components/pages/search'
 
+import VerticalTablist from 'components/pages/search/VerticalTablist'
+
 import { HeroResultCard } from 'components/pages/search/ResultCards'
 
 import {
@@ -287,24 +289,7 @@ const GooglePage = () => {
 
           <Box id='playground' as='section' css={theme({ mt: [4, 4, 5, 5] })}>
             <VerticalExampleShell $accentColor={activeVertical.accentColor}>
-              <Flex
-                role='tablist'
-                aria-label='Supported search surfaces'
-                css={theme({
-                  flexWrap: 'nowrap',
-                  alignItems: 'stretch',
-                  justifyContent: [
-                    'flex-start',
-                    'flex-start',
-                    'center',
-                    'center'
-                  ],
-                  gap: [1, 1, 2, 2],
-                  width: '100%',
-                  overflowX: 'auto',
-                  overflowY: 'hidden'
-                })}
-              >
+              <VerticalTablist aria-label='Supported search surfaces'>
                 {GOOGLE_VERTICALS.map((vertical, index) => {
                   const verticalService = SUPPORTED_GOOGLE_SERVICES.find(
                     service => service.id === vertical.id
@@ -339,7 +324,7 @@ const GooglePage = () => {
                     </VerticalTabButton>
                   )
                 })}
-              </Flex>
+              </VerticalTablist>
 
               <VerticalExampleGrid id='vertical-example-grid'>
                 <VerticalExamplePanel
