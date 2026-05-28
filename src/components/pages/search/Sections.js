@@ -147,7 +147,10 @@ export const RetrievalFeatureCard = ({
     <Flex
       css={theme({
         gap: [3, 3, 4, 5],
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        minWidth: 0,
+        width: '100%',
+        pr: [3, 3, 0, 0]
       })}
     >
       <Box
@@ -155,8 +158,8 @@ export const RetrievalFeatureCard = ({
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: ['72px', '72px', '82px', '82px'],
-          height: ['72px', '72px', '82px', '82px'],
+          width: ['44px', '44px', '82px', '82px'],
+          height: ['44px', '44px', '82px', '82px'],
           borderRadius: '50%',
           flexShrink: 0,
           border: 1,
@@ -166,7 +169,19 @@ export const RetrievalFeatureCard = ({
           position: 'relative'
         })}
       >
-        <Icon size={32} strokeWidth={2.25} aria-hidden='true' />
+        <Box
+          css={theme({
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            '& svg': {
+              width: ['18px', '18px', '32px', '32px'],
+              height: ['18px', '18px', '32px', '32px']
+            }
+          })}
+        >
+          <Icon size={32} strokeWidth={2.25} aria-hidden='true' />
+        </Box>
       </Box>
       <Box css={theme({ minWidth: 0, flex: 1 })} {...props}>
         <Text
@@ -189,7 +204,8 @@ export const RetrievalFeatureCard = ({
             mt: 2,
             color: 'black70',
             fontSize: [1, 1, 1, 1],
-            lineHeight: 3
+            lineHeight: 3,
+            overflowWrap: 'break-word'
           })}
         >
           {description}
@@ -221,8 +237,16 @@ const TutorialStepPanel = ({ panel }) => {
 
   if (panel.language === 'bash') {
     return (
-      <Box css={theme({ mt: [3, 3, 4, 4] })}>
-        <Terminal>{panel.content}</Terminal>
+      <Box css={panelWrapperCss}>
+        <Terminal
+          css={theme({
+            width: '100%',
+            border: 0,
+            borderRadius: 0
+          })}
+        >
+          {panel.content}
+        </Terminal>
       </Box>
     )
   }
@@ -275,20 +299,6 @@ export const TutorialStep = ({ step }) => (
 
     <Box css={theme({ minWidth: 0 })}>
       <Text
-        as='p'
-        css={theme({
-          m: 0,
-          display: ['block', 'block', 'none', 'none'],
-          color: 'black50',
-          fontFamily: 'mono',
-          fontSize: [0, 0, 1, 1],
-          fontWeight: 'bold',
-          letterSpacing: 1
-        })}
-      >
-        {step.step}
-      </Text>
-      <Text
         as='h3'
         css={theme({
           m: 0,
@@ -298,6 +308,20 @@ export const TutorialStep = ({ step }) => (
           lineHeight: 1
         })}
       >
+        <Text
+          as='span'
+          css={theme({
+            display: ['inline', 'inline', 'none', 'none'],
+            color: 'black50',
+            fontFamily: 'mono',
+            fontSize: [0, 0, 1, 1],
+            fontWeight: 'bold',
+            letterSpacing: 1,
+            mr: 1
+          })}
+        >
+          {step.step}/
+        </Text>
         {step.title}
       </Text>
       <Text

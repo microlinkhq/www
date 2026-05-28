@@ -23,6 +23,7 @@ import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
 import List from 'components/patterns/List/List'
 import ArrowLink from 'components/patterns/ArrowLink'
+import LineBreak from 'components/elements/LineBreak'
 
 import GOOGLE_VERTICAL_EXAMPLES_DATA from 'helpers/google-examples'
 import {
@@ -75,6 +76,11 @@ const HERO_LAYOUT_MAX_WIDTH = [
   `calc(${layout.large} * 1.7)`
 ]
 
+// Counteract Layout Main px: [3, 3, 0] so tinted sections span edge-to-edge on mobile.
+const MOBILE_SECTION_BLEED = {
+  mx: [-3, -3, 0, 0]
+}
+
 const VERTICAL_RESPONSE_HEIGHT = '100%'
 
 const VERTICAL_OUTPUT_TABS = [
@@ -87,9 +93,7 @@ const heroProofListItemCss = theme({
   mb: 0,
   color: 'black80',
   fontSize: [1, 1, 2, 2],
-  textAlign: 'left',
-  alignItems: 'flex-start',
-  justifyContent: 'flex-start'
+  textAlign: 'left'
 })
 
 const HERO_PROOF_POINTS = [
@@ -337,7 +341,7 @@ const GooglePage = () => {
                 })}
               </Flex>
 
-              <VerticalExampleGrid>
+              <VerticalExampleGrid id='vertical-example-grid'>
                 <VerticalExamplePanel
                   css={theme({
                     alignSelf: 'flex-start',
@@ -654,6 +658,7 @@ const GooglePage = () => {
               {HERO_PROOF_POINTS.map((point, index) => (
                 <List.Item
                   key={point}
+                  alignItems='flex-start'
                   css={heroProofListItemCss}
                   $isLast={index === HERO_PROOF_POINTS.length - 1}
                 >
@@ -669,7 +674,8 @@ const GooglePage = () => {
                 flexDirection: 'row',
                 flexWrap: 'nowrap',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                gap: [4, 4, 0, 0]
               })}
             >
               <Button as='a' href='/pricing'>
@@ -689,7 +695,7 @@ const GooglePage = () => {
       <Box
         as='section'
         id='retrieval-workflows'
-        css={theme({ bg: 'white', py: 7 })}
+        css={theme({ bg: 'white', py: [6, 6, 7, 7] })}
       >
         <Container
           css={theme({
@@ -697,7 +703,7 @@ const GooglePage = () => {
               '100%',
               '100%',
               layout.large,
-              `calc(${layout.large} * 1.63)`
+              `calc(${layout.large} * 1.7)`
             ],
             pt: 0,
             px: [3, 3, 0, 0]
@@ -710,11 +716,13 @@ const GooglePage = () => {
                 '100%',
                 '100%',
                 layout.large,
-                `calc(${layout.large} * 1.63)`
+                `calc(${layout.large} * 1.7)`
               ],
               mx: 'auto',
+              minWidth: 0,
               flexDirection: ['column', 'column', 'row', 'row'],
-              alignItems: ['stretch', 'stretch', 'center', 'center']
+              alignItems: ['stretch', 'stretch', 'center', 'center'],
+              gap: [4, 4, 0, 0]
             })}
           >
             <Box
@@ -725,7 +733,7 @@ const GooglePage = () => {
               })}
             >
               <SectionCaption color={colors.red7}>
-                Built for retrieval loops, not just result pages
+                Agentic retrieval
               </SectionCaption>
               <Text
                 as='h2'
@@ -739,7 +747,7 @@ const GooglePage = () => {
                   textAlign: 'left'
                 })}
               >
-                Search first, <br />
+                Search first, <LineBreak breakpoints={[2, 3]} />
                 <span css={theme({ color: 'red7' })}>fetch later</span>
               </Text>
               <Text
@@ -762,8 +770,9 @@ const GooglePage = () => {
             <Box
               css={theme({
                 width: ['100%', '100%', '58%', '58%'],
+                minWidth: 0,
                 display: 'grid',
-                ml: 6,
+                ml: [0, 0, 6, 6],
                 gap: 4
               })}
             >
@@ -808,7 +817,8 @@ const GooglePage = () => {
           py: 6,
           borderTop: 1,
           borderBottom: 1,
-          borderColor: 'orange5'
+          borderColor: 'orange5',
+          ...MOBILE_SECTION_BLEED
         })}
       >
         <Container
@@ -818,7 +828,7 @@ const GooglePage = () => {
               '100%',
               '100%',
               layout.large,
-              `calc(${layout.large} * 1.63)`
+              `calc(${layout.large} * 1.7)`
             ]
           })}
         >
@@ -826,13 +836,16 @@ const GooglePage = () => {
             css={theme({
               flexDirection: ['column', 'column', 'row', 'row'],
               alignItems: ['center', 'center', 'flex-start', 'flex-start'],
-              width: '100%'
+              width: '100%',
+              minWidth: 0,
+              gap: [4, 4, 0, 0]
             })}
           >
             <Box
               css={theme({
                 width: ['100%', '100%', '48%', '48%'],
-                flexShrink: 0
+                flexShrink: 0,
+                minWidth: 0
               })}
             >
               <SectionCaption color={colors.orange7}>
@@ -966,7 +979,7 @@ const GooglePage = () => {
               '100%',
               '100%',
               layout.large,
-              `calc(${layout.large} * 1.63)`
+              `calc(${layout.large} * 1.7)`
             ]
           })}
         >
@@ -974,13 +987,16 @@ const GooglePage = () => {
             css={theme({
               flexDirection: ['column', 'column', 'row', 'row'],
               alignItems: ['center', 'center', 'flex-start', 'flex-start'],
-              width: '100%'
+              width: '100%',
+              minWidth: 0,
+              gap: [4, 4, 0, 0]
             })}
           >
             <Box
               css={theme({
                 width: ['100%', '100%', '48%', '48%'],
-                flexShrink: 0
+                flexShrink: 0,
+                minWidth: 0
               })}
             >
               <SectionCaption color={colors.green7}>
@@ -1037,13 +1053,19 @@ const GooglePage = () => {
                 css={theme({
                   mt: [4, 4, 5, 5],
                   ml: [0, 0, '104px', '104px'],
-                  justifyContent: 'flex-start'
+                  justifyContent: [
+                    'center',
+                    'center',
+                    'flex-start',
+                    'flex-start'
+                  ],
+                  gap: [4, 4, 0, 0]
                 })}
               >
                 <Button as='a' href={PACKAGE_URL}>
-                  Add @microlink/google to your project
+                  See @microlink/google
                 </Button>
-                <ArrowLink href={GUIDE_URL}>Read the Search guide</ArrowLink>
+                <ArrowLink href={GUIDE_URL}>Read the guides</ArrowLink>
               </ActionRow>
             </Box>
           </Flex>
@@ -1055,17 +1077,21 @@ const GooglePage = () => {
         id='final-cta'
         css={theme({
           bg: 'blue0',
-          py: [5, 5, 6, 7]
+          borderTop: 1,
+          borderBottom: 1,
+          borderColor: 'blue5',
+          py: [5, 5, 6, 7],
+          ...MOBILE_SECTION_BLEED
         })}
       >
         <Container
           css={theme({
-            px: 0,
+            px: [3, 3, 0, 0],
             maxWidth: [
               '100%',
               '100%',
               layout.large,
-              `calc(${layout.large} * 1.63)`
+              `calc(${layout.large} * 1.7)`
             ]
           })}
         >

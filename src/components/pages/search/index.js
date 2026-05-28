@@ -1,11 +1,18 @@
 import styled from 'styled-components'
-import { borders, colors, radii, theme, transition } from 'theme'
+import { borders, colors, layout, radii, theme, transition } from 'theme'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 
 import { truncateLineCss } from './utils'
+
+const VERTICAL_EXAMPLE_GRID_MAX_WIDTH = [
+  '100%',
+  '100%',
+  '100%',
+  `calc(${layout.large} * 1.7)`
+]
 
 export const ActionRow = styled(Flex)`
   ${theme({
@@ -314,6 +321,9 @@ export const VerticalExampleGrid = styled(Box)`
     ],
     gap: [3, 3, 4, 4],
     pt: 4,
+    width: '100%',
+    maxWidth: VERTICAL_EXAMPLE_GRID_MAX_WIDTH,
+    mx: 'auto',
     height: '100%'
   })};
 `
@@ -554,10 +564,12 @@ export const PricingCard = styled(Flex)`
     bg: 'white',
     px: [3, 3, 4, 4],
     py: [3, 3, 4, 4],
-    flex: 1,
+    flex: [0, 0, 1, 1],
     minWidth: 0,
-    maxWidth: ['100%', '100%', '520px', '520px'],
     width: '100%',
+    maxWidth: ['320px', '360px', '520px', '520px'],
+    mx: ['auto', 'auto', 0, 0],
+    alignSelf: ['center', 'center', 'stretch', 'stretch'],
     border: 1,
     borderColor: 'orange5'
   })};
