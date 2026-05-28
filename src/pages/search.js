@@ -94,10 +94,10 @@ const heroProofListItemCss = theme({
 })
 
 const HERO_PROOF_POINTS = [
-  '10 Google surfaces — Search, News, Maps, Shopping, Scholar, and more.',
-  'Structured JSON with optional Markdown and HTML for any result.',
-  'Managed proxies and regional routing on every request.',
-  'Pagination, geolocation, and time filters built in.'
+  '10 supported search surfaces in one client.',
+  'Structured results plus LLM-ready Markdown and HTML for top matches.',
+  'Structured results for prices, ratings, coordinates, and citations.',
+  'Proxy-backed requests from the first call.'
 ]
 
 const INTEGRATION_TUTORIAL_STEPS = [
@@ -106,11 +106,11 @@ const INTEGRATION_TUTORIAL_STEPS = [
     title: 'Install and initialize',
     icon: Target,
     description:
-      'Install @microlink/google and initialize with your API key. One client handles every Google surface.',
+      'Install @microlink/google, add your Microlink API key, and create one client you can reuse across every supported search surface.',
     panel: {
       type: 'code',
       language: 'bash',
-      content: 'npm i @microlink/google'
+      content: 'pnpm add @microlink/google'
     }
   },
   {
@@ -118,7 +118,7 @@ const INTEGRATION_TUTORIAL_STEPS = [
     title: 'Run the first query',
     icon: Hexagon,
     description:
-      'Pass a query and pick a surface with the type option. The response shape stays the same across search, news, images, maps, and more.',
+      'Choose the surface you need with the type option and keep the same client shape for search, news, images, maps, shopping, and more.',
     panel: {
       type: 'code',
       language: 'javascript',
@@ -136,26 +136,26 @@ console.log(page.results)`
   },
   {
     step: '3',
-    title: 'Paginate and enrich',
+    title: 'Lazy-load the web',
     icon: GitMerge,
     description:
-      'Chain pages with .next() and fetch full markup with .html() or .markdown() only for the results that deserve deeper inspection.',
+      'Keep the first pass fast, then enrich only the winners. Browse lightweight result pages first and call .markdown() or .html() only for the top matches that deserve deeper inspection.',
     panel: {
       type: 'features',
       items: [
-        'Any surface, any locale. LLM-ready Markdown on demand.',
-        'Use .next() to paginate through all result pages.',
-        'Fetch .html() or .markdown() only when a workflow needs the full page.',
-        'Lightweight results first, deeper content second — fewer tokens, lower cost.'
+        'Any result with a URL exposes .markdown() for LLM-ready Markdown on demand.',
+        'Call .html() only when your workflow actually needs raw page markup.',
+        'Just call .next() to fetch the next page.',
+        'Lazy-load the web: scan results at ~1s latency, then enrich only the top 3 matches.'
       ]
     }
   }
 ]
 
 const FINAL_CTA_BADGES = [
-  '10 Google surfaces in one client',
-  'Managed proxies included',
-  'Built for agents and retrieval pipelines'
+  'Paid from day one',
+  'Managed proxy layer included',
+  'Built for SEO and AI workflows'
 ]
 
 const focusElement = id => {
@@ -258,7 +258,7 @@ const GooglePage = () => {
                 textAlign: 'center'
               })}
             >
-              Google as an API <br />
+              Search intelligence API <br />
               <span
                 style={{
                   background: gradient,
@@ -283,7 +283,7 @@ const GooglePage = () => {
                 textAlign: 'center'
               })}
             >
-              One client for Search, News, Maps, Shopping, and Scholar.
+              One client for Search, News, Maps, Shopping, Scholar, and more.
               Structured output your agents can consume without parsing HTML.
             </Text>
           </Box>
@@ -680,7 +680,7 @@ const GooglePage = () => {
               })}
             >
               <Button as='a' href='/pricing'>
-                Get the API keys
+                Get the API key
               </Button>
               <ArrowLink
                 href={GUIDE_URL}
@@ -732,7 +732,7 @@ const GooglePage = () => {
               })}
             >
               <SectionCaption color={colors.red7}>
-                Built for agentic workflows
+                Built for retrieval loops, not just result pages
               </SectionCaption>
               <Text
                 as='h2'
@@ -761,8 +761,8 @@ const GooglePage = () => {
                   maxWidth: ['100%', '100%', layout.small, layout.small]
                 })}
               >
-                Start with lightweight results. Expand into full HTML or
-                Markdown only when your workflow needs deeper context.
+                Search stays lightweight on the first pass so technical
+                workflows can stay fast under real production load.
               </Text>
             </Box>
 
@@ -779,14 +779,14 @@ const GooglePage = () => {
                 accent='blue'
                 title='Ship LLM-ready Markdown'
                 css={theme({ pb: 4 })}
-                description='Every result can return its full page as clean Markdown or HTML. No extra parsing, no fragile selectors.'
+                description='RAG pipelines rarely want raw HTML. They want cleaner text that is easier to embed, rerank, cite, and pass into prompts without wasting context on navigation or markup noise.'
               />
               <RetrievalFeatureCard
                 icon='bolt'
                 accent='blue'
                 title='Lazy-load the web'
                 css={theme({ pb: 4 })}
-                description='Get structured results first, then fetch full-page content only for the URLs that matter. Your agent stays fast and your token budget stays low.'
+                description='Search works best as a two-step system: lightweight results first, deeper content second. That keeps the browse step snappy, then spends the heavier extraction cost only where confidence is already high.'
               />
               <RetrievalFeatureCard
                 icon='search'
@@ -795,9 +795,10 @@ const GooglePage = () => {
                 css={theme({ pb: 0 })}
                 description={
                   <>
-                    Use Google operators like <code>site:</code>,{' '}
-                    <code>intitle:</code>, and <code>filetype:</code> to find
-                    papers, docs, changelogs, and PDFs across the open web.
+                    Combine operators like <code>site:</code> and{' '}
+                    <code>filetype:</code> to hunt for papers, docs, filings,
+                    changelogs, or PDFs before you enrich anything. That gives
+                    technical teams much tighter recall from the first query.
                   </>
                 }
               />
@@ -874,9 +875,9 @@ const GooglePage = () => {
                   maxWidth: layout.small
                 })}
               >
-                Every request runs through managed proxies with regional
-                routing. That infrastructure is included from the first call —
-                no free tier, no surprises at scale.
+                Search has no free tier because reliable result collection
+                depends on managed proxy capacity, regional routing, and
+                production safeguards on every call.
               </Text>
             </Box>
 
@@ -903,7 +904,7 @@ const GooglePage = () => {
                     mb: 2
                   })}
                 >
-                  $39
+                  €39
                 </Text>
                 <Text
                   css={theme({
@@ -924,20 +925,19 @@ const GooglePage = () => {
                   lineHeight: 1
                 })}
               >
-                40,000 requests/month included
+                46,000 requests/month
               </Text>
 
               <Box css={theme({ py: 4 })}>
                 <PricingCheck>Managed proxy-backed requests</PricingCheck>
-                <PricingCheck>10 requests saved as snippets</PricingCheck>
+                <PricingCheck>10 supported search surfaces</PricingCheck>
                 <PricingCheck>Structured normalized results</PricingCheck>
-                <PricingCheck>Location and geocode controls</PricingCheck>
+                <PricingCheck>Location and period controls</PricingCheck>
                 <PricingCheck>
-                  Pagination with <code>next()</code>
+                  Pagination with <code>.next()</code>
                 </PricingCheck>
                 <PricingCheck>
-                  Optional plugins: Markdown or HTML via{' '}
-                  <code>microlink/html</code> and <code>microlink/md</code>
+                  Optional page Markdown or HTML enrichment
                 </PricingCheck>
               </Box>
 
@@ -990,7 +990,9 @@ const GooglePage = () => {
                 flexShrink: 0
               })}
             >
-              <SectionCaption color={colors.green7}>Get started</SectionCaption>
+              <SectionCaption color={colors.green7}>
+                Automate web discovery
+              </SectionCaption>
               <Text
                 as='h2'
                 css={theme({
@@ -1003,9 +1005,11 @@ const GooglePage = () => {
                   textAlign: 'left'
                 })}
               >
-                Three steps to
+                Automate Web Discovery
                 <br />
-                <span css={theme({ color: 'green7' })}>your first search</span>
+                <span css={theme({ color: 'green7' })}>
+                  without scraper debt
+                </span>
               </Text>
               <Text
                 as='p'
@@ -1019,8 +1023,8 @@ const GooglePage = () => {
                   maxWidth: layout.small
                 })}
               >
-                Install the package, pick a Google surface, and start getting
-                structured results. Paginate or enrich only when you need more.
+                Initialize once, choose the surface you need, then paginate or
+                enrich only when a workflow needs more context.
               </Text>
             </Box>
 
@@ -1044,9 +1048,9 @@ const GooglePage = () => {
                 })}
               >
                 <Button as='a' href={PACKAGE_URL}>
-                  Install @microlink/google
+                  Add @microlink/google to your project
                 </Button>
-                <ArrowLink href={GUIDE_URL}>Read the guide</ArrowLink>
+                <ArrowLink href={GUIDE_URL}>Read the Search guide</ArrowLink>
               </ActionRow>
             </Box>
           </Flex>
@@ -1127,11 +1131,11 @@ const GooglePage = () => {
                   maxWidth: layout.small
                 })}
               >
-                Use <Link href='/search'>Search</Link> to find URLs. Use{' '}
-                <Link href='/metadata'>Metadata</Link>,{' '}
-                <Link href='/screenshot'>Screenshot</Link>, or{' '}
-                <Link href='/markdown'>Markdown</Link> to extract what is on
-                them. Same API key, same plan.
+                Combine Search with <Link href='/metadata'>Metadata</Link>,{' '}
+                <Link href='/screenshot'>Screenshot</Link>, and{' '}
+                <Link href='/markdown'>Markdown</Link> to turn discovered URLs
+                into richer outputs for structured fields, visual captures, and
+                AI-ready page content, all under the same paid Microlink plan.
               </Text>
               <Flex css={theme({ mt: [4, 4, 5, 5] })}>
                 <ArrowLink
@@ -1167,17 +1171,27 @@ const GooglePage = () => {
                   {
                     label: 'Search',
                     href: '/search',
-                    icon: <SearchIcon size={58} strokeWidth={2} aria-hidden='true' />
+                    icon: (
+                      <SearchIcon
+                        size={58}
+                        strokeWidth={2}
+                        aria-hidden='true'
+                      />
+                    )
                   },
                   {
                     label: 'Metadata',
                     href: '/metadata',
-                    icon: <FileText size={54} strokeWidth={2} aria-hidden='true' />
+                    icon: (
+                      <FileText size={54} strokeWidth={2} aria-hidden='true' />
+                    )
                   },
                   {
                     label: 'Screenshot',
                     href: '/screenshot',
-                    icon: <ImageIcon size={54} strokeWidth={2} aria-hidden='true' />
+                    icon: (
+                      <ImageIcon size={54} strokeWidth={2} aria-hidden='true' />
+                    )
                   },
                   {
                     label: 'Markdown',
@@ -1265,7 +1279,7 @@ const GooglePage = () => {
 
       <Faq
         title='Product Information'
-        caption='Everything you need to know about Microlink Search, pricing, and supported surfaces.'
+        caption='Everything you need to know about Microlink Search, pricing, and supported search surfaces.'
         css={theme({ mt: [5, 5, 6, 6], bg: 'white' })}
         questions={FAQ_ENTRIES.map(({ question, answers }) => ({
           question,
@@ -1331,8 +1345,8 @@ const GooglePage = () => {
 
 export const Head = () => (
   <Meta
-    title='Google Search API for AI Agents and LLM Workflows'
-    description='Query Google Search, News, Maps, Shopping, and Scholar from one client. Get structured JSON your agents can use without parsing HTML.'
+    title='Search API for SEO, Monitoring, and AI Workflows'
+    description='Microlink Search is a paid search intelligence API for querying and normalizing public results from Google Search, News, Maps, Shopping, Scholar, and more.'
     image={HERO_IMAGE}
     structured={STRUCTURED_DATA}
   />

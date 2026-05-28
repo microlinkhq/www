@@ -117,7 +117,10 @@ const GOOGLE_VERTICALS = [
   }
 ]
 
-const buildExample = (query, type) => `const google = require('@microlink/google')({
+const buildExample = (
+  query,
+  type
+) => `const google = require('@microlink/google')({
   apiKey: process.env.MICROLINK_API_KEY
 })
 
@@ -520,57 +523,57 @@ const FAQ_ENTRIES = [
   {
     question: 'What is Microlink Search?',
     answers: [
-      'A paid API that queries Google Search, News, Maps, Shopping, Scholar, and more, then returns structured JSON you can use directly in agent workflows, SEO tools, or monitoring jobs.',
-      '@microlink/google is the Node.js client.'
+      'Microlink Search is a paid search intelligence API for querying and normalizing public results from multiple Google surfaces through one product.',
+      '@microlink/google is the Node.js client for integrating Search into your own SEO tooling, monitoring jobs, and AI workflows.'
     ]
   },
   {
     question: 'Is this an official Google product?',
     answers: [
-      'No. Search is an independent Microlink product built on top of public Google surfaces.',
+      'No. Search is an independent Microlink product that works on top of public Google surfaces.',
       'It is not affiliated with, endorsed by, or provided by Google.'
     ]
   },
   {
     question: 'Why is there no free tier?',
     answers: [
-      'Every request runs through managed proxies with regional routing.',
-      'That infrastructure costs money from the first call, so the pricing reflects it from the start.'
+      'Search starts on paid plans because reliable public-result collection depends on managed proxy capacity from the first request.',
+      'That cost is part of the product itself, so even small workloads use the same proxy-backed delivery model as production workloads.'
     ]
   },
   {
-    question: 'Which Google surfaces are supported?',
+    question: 'Which surfaces are supported?',
     answers: [
-      'Search, News, Images, Videos, Places, Maps, Shopping, Scholar, Patents, and Autocomplete — 10 surfaces in total.',
-      'The response shape stays the same across all of them.'
+      'You can query Google Search, Google News, Google Images, Google Videos, Google Places, Google Maps, Google Shopping, Google Scholar, Google Patents, and Google Autocomplete.',
+      'Each one keeps the same client shape so teams can ship faster with less parser logic and less provider-specific branching.'
     ]
   },
   {
-    question: 'What makes this different from other SERP APIs?',
+    question: 'What makes this different from a generic SERP API?',
     answers: [
-      'Normalized output across every surface, not raw provider-specific HTML.',
-      'Less cleanup, less branching, faster handoff into your agent or pipeline.'
+      'Search is designed around normalized output and reusable primitives instead of raw provider-specific payloads.',
+      'That means less cleanup for your codebase and faster handoff into rank tracking, market research, or agent pipelines.'
     ]
   },
   {
-    question: 'How do pagination and enrichment work?',
+    question: 'How do pagination and HTML enrichment work?',
     answers: [
-      'Call .next() on any result page to get the next one.',
-      'Call .html() or .markdown() on any result to fetch its full page content on demand.'
+      'Every result page can call `.next()` to fetch the following page, so pagination can be chained naturally.',
+      'Any result containing a URL can also expose `.html()` so you only fetch page markup when a workflow actually needs it.'
     ]
   },
   {
-    question: 'Does it work for AI agents?',
+    question: 'Is it a fit for SEO and AI workflows?',
     answers: [
-      'Yes. The google(query, options) interface is designed to wrap in tool definitions for agent frameworks, copilots, and orchestration systems.',
-      'Structured output reduces prompt complexity and post-processing.'
+      'Yes. Teams use Search for rank tracking, news monitoring, local research, query clustering, citation discovery, and agent enrichment.',
+      'The value is consistent structured output plus proxy-backed delivery for recurring public-result collection.'
     ]
   },
   {
-    question: 'Can I run international or localized queries?',
+    question: 'Can I run international or local queries?',
     answers: [
-      'Yes. Use the location option for regional results and period to filter by recency.',
-      'Works for multilingual SEO, geo-targeted research, and local business lookup.'
+      'Yes. You can use options like `location` and `period` to tune regional intent and recency for multilingual SEO and geo-specific analysis.',
+      'That makes the same integration model useful for local search intelligence as well as broader monitoring workflows.'
     ]
   }
 ]
@@ -580,23 +583,25 @@ const buildSchemas = () => {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     '@id': PAGE_URL,
-    name: 'Search',
+    name: 'Microlink Search',
     applicationCategory: ['DeveloperApplication', 'API'],
     operatingSystem: 'Any',
     url: PAGE_URL,
     image: HERO_IMAGE,
     description:
-      'Query Google Search, News, Maps, Shopping, and Scholar from one client. Get structured JSON your agents can use without parsing HTML.',
+      'Microlink Search is a paid search intelligence API for querying and normalizing public results from Google Search, News, Maps, Shopping, Scholar, and more.',
     keywords: [
       'search api',
       'serp api',
-      'google search api alternative',
-      'google news api alternative',
-      'local search api',
-      'shopping data api',
       'search intelligence api',
       'serp api alternative',
-      'ai seo data api'
+      'search api for ai agents',
+      'search api for seo',
+      'local search api',
+      'shopping data api',
+      'ai seo data api',
+      'rank tracking api',
+      'news monitoring api'
     ],
     offers: { '@type': 'Offer', url: 'https://microlink.io/pricing' },
     publisher: {
@@ -624,7 +629,7 @@ const buildSchemas = () => {
     '@id': `${PAGE_URL}#how-to`,
     name: 'How to integrate Microlink Search',
     description:
-      'Install @microlink/google, query any Google surface, and get structured JSON back. Paginate or enrich results for agents and pipelines.',
+      'Install @microlink/google, query any supported search surface, and get structured JSON back. Paginate or enrich results for SEO tooling, monitoring, and AI agent workflows.',
     step: INTEGRATION_HOW_TO_STEPS.map(step => ({
       '@type': 'HowToStep',
       name: step.title,
