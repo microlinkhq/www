@@ -52,8 +52,6 @@ import {
   SUPPORTED_GOOGLE_SERVICES
 } from 'helpers/search-landing'
 
-/* ────────────────────────── layout & timing constants ────────────────────────── */
-
 const HERO_LAYOUT = {
   maxWidth: ['100%', '100%', '100%', `calc(${layout.large} * 1.7)`],
   mainWidth: '55%',
@@ -61,7 +59,8 @@ const HERO_LAYOUT = {
   gap: [1, 1, 1, 5]
 }
 
-const VERTICAL_RESPONSE_HEIGHT = ['476px', '476px', '512px', '552px']
+const VERTICAL_RESPONSE_HEIGHT = '680px'
+
 const HERO_TYPING_OPTION_KEYS = ['type', 'location', 'period']
 const HERO_TYPE_CHAR_MS = 32
 const HERO_TYPE_GAP_MS = 260
@@ -72,8 +71,6 @@ const VERTICAL_OUTPUT_TABS = [
   { id: 'json', label: 'JSON' },
   { id: 'preview', label: 'Preview' }
 ]
-
-/* ────────────────────────── shared css snippets ────────────────────────── */
 
 // One-line text ellipsis used across many result fragments.
 const truncateLineCss = {
@@ -89,8 +86,6 @@ const tabletHelperTextCss = theme({
   lineHeight: 1,
   ...truncateLineCss
 })
-
-/* ────────────────────────── payload helpers ────────────────────────── */
 
 const shortenValueForEditor = value => {
   if (typeof value === 'string') {
@@ -264,8 +259,6 @@ const getVerticalExampleOptions = (verticalId, example) => {
   }))
 }
 
-/* ────────────────────────── hero typing animation ────────────────────────── */
-
 const extractHeroTypingTargets = code => {
   if (!code) return []
   const targets = []
@@ -367,8 +360,6 @@ const runHeroTypingSequence = (matches, prefersReducedMotion, onComplete) => {
   }
 }
 
-/* ────────────────────────── formatting helpers ────────────────────────── */
-
 const formatBytes = bytes => {
   if (typeof bytes !== 'number') return ''
   if (bytes < 1024) return `${bytes} B`
@@ -417,8 +408,6 @@ const buildBreadcrumb = url => {
   }
 }
 
-/* ────────────────────────── brand icon helpers ────────────────────────── */
-
 const HOST_BRAND_MAP = {
   'techcrunch.com': { icon: 'techcrunch', tint: '#FFFFFF' },
   'google.com': { icon: 'google', tint: '#FFFFFF' }
@@ -466,8 +455,6 @@ const lookupHost = (map, host) => {
 const brandMatchFor = host => lookupHost(HOST_BRAND_MAP, host)
 const monogramOverrideFor = host => lookupHost(HOST_MONOGRAM_OVERRIDES, host)
 
-/* ────────────────────────── shared tablist keyboard handler ────────────────────────── */
-
 const createTablistKeyHandler =
   ({ items, onSelect, focusTab }) =>
   (event, index) => {
@@ -490,8 +477,6 @@ const createTablistKeyHandler =
     onSelect(nextId)
     if (focusTab) focusTab(nextId)
   }
-
-/* ────────────────────────── styled primitives ────────────────────────── */
 
 // Outer hero wrapper — keeps overflow visible so drop shadows can peek.
 const HeroSection = styled(Box)`
@@ -1056,7 +1041,7 @@ const VerticalResultList = styled(Box).attrs({ as: 'ol' })`
 
   > li {
     ${theme({
-      py: [3, 3, 4, 4],
+      py: [2, 2, 3, 3],
       borderBottom: 1,
       borderBottomColor: 'black10'
     })};
@@ -1109,30 +1094,31 @@ const VerticalExampleOption = styled('button').withConfig({
     gap: 3,
     p: [3, 3, 4, 4],
     bg: 'transparent',
-    border: 0,
-    borderBottom: 1,
-    borderBottomColor: 'black10',
+    border: 1,
+    borderColor: 'transparent',
+    borderRadius: 3,
     color: 'black',
     textAlign: 'left',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    position: 'relative'
   })};
   background-color: ${({ $active }) =>
-    $active ? colors.gray0 : 'transparent'};
+    $active ? colors.blue0 : 'transparent'};
+  border-color: ${({ $active }) => ($active ? colors.link : 'transparent')};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: background-color ${transition.short}, color ${transition.short};
+  transition: background-color ${transition.short}, color ${transition.short},
+    border-color ${transition.short};
 
   &:hover {
-    background-color: ${colors.gray0};
+    background-color: ${({ $active }) =>
+      $active ? colors.blue0 : colors.gray0};
+    border-color: ${({ $active }) => ($active ? colors.link : colors.black10)};
   }
 
   &:focus-visible {
     outline: ${borders[2]} ${colors.link};
     outline-offset: -2px;
-  }
-
-  &:last-child {
-    border-bottom: 0;
   }
 `
 
@@ -1327,8 +1313,6 @@ const PricingCard = styled(Flex)`
     borderColor: 'orange5'
   })};
 `
-
-/* ────────────────────────── small display-only components ────────────────────────── */
 
 // Sibling spacing for bullets, used both in retrieval cards and the
 // tutorial feature list. Raw CSS keeps the responsive value working
@@ -1534,8 +1518,6 @@ const HeroResultSkeleton = () => (
     <HeroResultSkeletonLine $width='70%' $height='10px' />
   </Box>
 )
-
-/* ────────────────────────── hero result variants ────────────────────────── */
 
 const Dot = () => (
   <Text as='span' css={theme({ color: 'black50', fontSize: [0, 0, 1, 1] })}>
@@ -2115,15 +2097,13 @@ const HeroResultCard = ({ result }) => {
   return <SingleComponent data={data} />
 }
 
-/* ────────────────────────── page-level data ────────────────────────── */
-
 const INTEGRATION_TUTORIAL_STEPS = [
   {
     step: '1',
     title: 'Install and initialize',
     icon: Target,
     description:
-      'Install "@microlink/google", add your Microlink API key, and create one client you can reuse across every supported search surface.',
+      'Install @microlink/google and initialize with your API key. One client handles every Google surface.',
     panel: {
       type: 'code',
       language: 'bash',
@@ -2138,7 +2118,7 @@ const google = require('@microlink/google')({
     title: 'Run the first query',
     icon: Hexagon,
     description:
-      'Choose the surface you need with the type option and keep the client shape for search, news, images, maps, shopping, and more.',
+      'Pass a query and pick a surface with the type option. The response shape stays the same across search, news, images, maps, and more.',
     panel: {
       type: 'code',
       language: 'javascript',
@@ -2158,10 +2138,10 @@ console.log(page.results)`
     panel: {
       type: 'features',
       items: [
-        'Any surface. Any locale. International + LLM-ready Markdown on demand.',
+        'Any surface, any locale. LLM-ready Markdown on demand.',
         'Use .next() to paginate through all result pages.',
         'Fetch .html() or .markdown() only when a workflow needs the full page.',
-        'Lightweight results first, deeper content second — less tokens, less cost.'
+        'Lightweight results first, deeper content second — fewer tokens, lower cost.'
       ]
     }
   }
@@ -2174,8 +2154,6 @@ const TUTORIAL_CODE_HEIGHT_BY_TITLE = {
 }
 const TUTORIAL_CODE_HEIGHT_DEFAULT = ['160px', '160px', '180px', '180px']
 
-/* ────────────────────────── page ────────────────────────── */
-
 const heroProofListItemCss = theme({
   m: 0,
   mb: 0,
@@ -2187,10 +2165,10 @@ const heroProofListItemCss = theme({
 })
 
 const HERO_PROOF_POINTS = [
-  'No scraped content — purchase from day one.',
-  'Structured results plus LLM-ready Markdown and HTML for top websites.',
-  'Structured data for people, news, companies, and citations.',
-  'Proxy-backed requests from the first call.'
+  '10 Google surfaces — Search, News, Maps, Shopping, Scholar, and more.',
+  'Structured JSON with optional Markdown and HTML for any result.',
+  'Managed proxies and regional routing on every request.',
+  'Pagination, geolocation, and time filters built in.'
 ]
 
 const GooglePage = () => {
@@ -2246,8 +2224,9 @@ const GooglePage = () => {
     [activeVertical.id, baseVerticalExample]
   )
 
-  const activeVerticalExample =
-    activeVerticalExamples[activeVerticalExampleIndex] ??
+  const activeVerticalExample = activeVerticalExamples[
+    activeVerticalExampleIndex
+  ] ??
     activeVerticalExamples[0] ?? { code: '', payload: '' }
 
   const activeVerticalPayload = useMemo(
@@ -2429,7 +2408,7 @@ const GooglePage = () => {
                 textAlign: 'center'
               })}
             >
-              One API for AI <br />
+              Google as an API <br />
               <span
                 style={{
                   background: gradient,
@@ -2438,7 +2417,7 @@ const GooglePage = () => {
                   backgroundClip: 'text'
                 }}
               >
-                Search intelligence
+                for AI agents
               </span>
             </Text>
             <Text
@@ -2454,8 +2433,9 @@ const GooglePage = () => {
                 textAlign: 'center'
               })}
             >
-              Search keeps the output consistent so monitoring jobs, SEO
-              tooling, and AI agents need less parser logic.
+              One client for Search, News, Maps, Shopping, and Scholar.
+              Structured output your agents can consume without parsing
+              HTML.
             </Text>
           </Box>
 
@@ -2608,7 +2588,9 @@ const GooglePage = () => {
                               type='button'
                               $active={isActive}
                               aria-pressed={isActive}
-                              onClick={() => setActiveVerticalExampleIndex(index)}
+                              onClick={() =>
+                                setActiveVerticalExampleIndex(index)
+                              }
                             >
                               <VerticalExampleOptionIcon
                                 $active={isActive}
@@ -2647,22 +2629,6 @@ const GooglePage = () => {
                         )
                       })}
                     </VerticalResultList>
-
-                    <Text
-                      as='p'
-                      css={theme({
-                        m: 0,
-                        mt: 'auto',
-                        pt: 3,
-                        color: 'black60',
-                        fontSize: [0, 0, 1, 1],
-                        textAlign: 'center',
-                        borderTop: 1,
-                        borderTopColor: 'black10'
-                      })}
-                    >
-                      Pick an example to update code and output
-                    </Text>
                   </Box>
                 </VerticalExamplePanel>
 
@@ -2853,7 +2819,7 @@ const GooglePage = () => {
             </VerticalExampleShell>
           </Box>
 
-          <Box id='features' as='section' css={theme({ mt: [4, 4, 5, 5] })}>
+          <Box id='features' as='section' css={theme({ pt: [4, 4, 5, 5] })}>
             <Box
               as='ul'
               css={theme({
@@ -2866,8 +2832,12 @@ const GooglePage = () => {
                 mx: 'auto'
               })}
             >
-              {HERO_PROOF_POINTS.map(point => (
-                <List.Item key={point} css={heroProofListItemCss}>
+              {HERO_PROOF_POINTS.map((point, index) => (
+                <List.Item
+                  key={point}
+                  css={heroProofListItemCss}
+                  $isLast={index === HERO_PROOF_POINTS.length - 1}
+                >
                   {point}
                 </List.Item>
               ))}
@@ -2953,9 +2923,9 @@ const GooglePage = () => {
                   textAlign: 'left'
                 })}
               >
-                Built for retrieval loops, <br />
+                Search first, <br />
                 <span css={theme({ color: 'red7' })}>
-                  not just result pages
+                  fetch later
                 </span>
               </Text>
               <Text
@@ -2970,8 +2940,8 @@ const GooglePage = () => {
                   maxWidth: ['100%', '100%', layout.small, layout.small]
                 })}
               >
-                Search stays lightweight on the first pass so technical
-                workflows can stay fast under real production load.
+                Start with lightweight results. Expand into full HTML or
+                Markdown only when your workflow needs deeper context.
               </Text>
             </Box>
 
@@ -2987,13 +2957,13 @@ const GooglePage = () => {
                 icon='markdown'
                 accent='blue'
                 title='Ship LLM-ready Markdown'
-                description='Rich previews with clean HTML. They work out of the box across inlined, remote, static, or navigation markup sites.'
+                description='Every result can return its full page as clean Markdown or HTML. No extra parsing, no fragile selectors.'
               />
               <RetrievalFeatureCard
                 icon='bolt'
                 accent='blue'
                 title='Lazy-load the web'
-                description='Search more like a two-step system: lightweight results first, deeper content second. That keeps the pipeline snappy, the agents focused, and your costs down.'
+                description='Get structured results first, then fetch full-page content only for the URLs that matter. Your agent stays fast and your token budget stays low.'
               />
               <RetrievalFeatureCard
                 icon='search'
@@ -3002,10 +2972,9 @@ const GooglePage = () => {
                 divider={false}
                 description={
                   <>
-                    Combine operators like <code>site:</code>,{' '}
-                    <code>intitle:</code>, and <code>filetype:</code> to hunt
-                    for papers, docs, filings, changelogs, or PDFs before you
-                    spend anything.
+                    Use Google operators like <code>site:</code>,{' '}
+                    <code>intitle:</code>, and <code>filetype:</code> to find
+                    papers, docs, changelogs, and PDFs across the open web.
                   </>
                 }
               />
@@ -3082,9 +3051,9 @@ const GooglePage = () => {
                   maxWidth: layout.small
                 })}
               >
-                Search has no free tier because reliable result collection
-                depends on managed proxy capacity, regional routing, and
-                production safeguards on every call.
+                Every request runs through managed proxies with regional
+                routing. That infrastructure is included from the first
+                call — no free tier, no surprises at scale.
               </Text>
             </Box>
 
@@ -3201,7 +3170,7 @@ const GooglePage = () => {
               })}
             >
               <SectionCaption color={colors.green7}>
-                Automate without scraper debt
+                Get started
               </SectionCaption>
               <Text
                 as='h2'
@@ -3215,10 +3184,10 @@ const GooglePage = () => {
                   textAlign: 'left'
                 })}
               >
-                Automate Web Discovery
+                Three steps to
                 <br />
                 <span css={theme({ color: 'green7' })}>
-                  without scraper debt
+                  your first search
                 </span>
               </Text>
               <Text
@@ -3233,8 +3202,9 @@ const GooglePage = () => {
                   maxWidth: layout.small
                 })}
               >
-                Initialize once, choose the surface you need, then paginate or
-                enrich only when a workflow needs more context.
+                Install the package, pick a Google surface, and start
+                getting structured results. Paginate or enrich only when
+                you need more.
               </Text>
             </Box>
 
@@ -3258,7 +3228,7 @@ const GooglePage = () => {
                 })}
               >
                 <Button as='a' href={PACKAGE_URL}>
-                  Add Web Discovery to your stack
+                  Install @microlink/google
                 </Button>
                 <ArrowLink href={GUIDE_URL}>Read the Search guide</ArrowLink>
               </ActionRow>
@@ -3331,11 +3301,11 @@ const GooglePage = () => {
                   textAlign: 'left'
                 })}
               >
-                Combine Search with <Link href='/metadata'>Metadata</Link>,{' '}
-                <Link href='/screenshot'>Screenshot</Link>, and{' '}
-                <Link href='/markdown'>Markdown</Link> to turn discovered URLs
-                into richer outputs for structured fields, visual captures, and
-                AI-ready page context, all under the same paid Microlink plan.
+                Use Search to find URLs. Use{' '}
+                <Link href='/metadata'>Metadata</Link>,{' '}
+                <Link href='/screenshot'>Screenshot</Link>, or{' '}
+                <Link href='/markdown'>Markdown</Link> to extract what is on
+                them. Same API key, same plan.
               </Text>
             </Box>
 
@@ -3584,8 +3554,6 @@ const RetrievalCard = ({ label, title, description, children }) => (
   </RetrievalCardItem>
 )
 
-/* ────────────────────────── tutorial step ────────────────────────── */
-
 const TutorialStepContainer = styled(Box).attrs({ as: 'section' })`
   ${theme({
     position: 'relative',
@@ -3760,15 +3728,15 @@ const TutorialStepPanel = ({ panel, title }) => {
 }
 
 const FINAL_CTA_BADGES = [
-  'Paid from day one',
-  'Managed proxy layer included',
-  'Built for SEO and AI workflows'
+  '10 Google surfaces in one client',
+  'Managed proxies included',
+  'Built for agents and retrieval pipelines'
 ]
 
 export const Head = () => (
   <Meta
-    title='Search API for SEO, Monitoring, and AI Workflows'
-    description='Microlink Search is a paid search intelligence API for querying and normalizing public results from Google Search, News, Maps, Shopping, Scholar, and more.'
+    title='Google Search API for AI Agents and LLM Workflows'
+    description='Query Google Search, News, Maps, Shopping, and Scholar from one client. Get structured JSON your agents can use without parsing HTML.'
     image={HERO_IMAGE}
     structured={STRUCTURED_DATA}
   />
