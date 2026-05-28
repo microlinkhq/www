@@ -1408,7 +1408,7 @@ const RetrievalFeatureCard = ({
   accent,
   title,
   description,
-  divider = true
+  ...props
 }) => {
   const Icon = RETRIEVAL_ICONS[icon]
   const iconAccent = RETRIEVAL_FEATURE_ACCENTS[accent]
@@ -1441,11 +1441,9 @@ const RetrievalFeatureCard = ({
       <Box
         css={theme({
           minWidth: 0,
-          flex: 1,
-          pb: divider ? [4, 4, 5, 5] : 0,
-          borderBottom: divider ? 1 : 0,
-          borderBottomColor: 'black05'
+          flex: 1
         })}
+        {...props}
       >
         <Text
           as='h3'
@@ -2239,6 +2237,12 @@ const GooglePage = () => {
     [activeVerticalPayload]
   )
 
+  const activeVerticalDescription = useMemo(
+    () =>
+      `Found results for "${activeVerticalExample.label}" with structured data, ready for your workflow.`,
+    [activeVerticalExample.label]
+  )
+
   const activeVerticalPreview = useMemo(
     () => getVerticalPreviewResult(activeVertical.id, activeVerticalPayload),
     [activeVertical.id, activeVerticalPayload]
@@ -2434,8 +2438,7 @@ const GooglePage = () => {
               })}
             >
               One client for Search, News, Maps, Shopping, and Scholar.
-              Structured output your agents can consume without parsing
-              HTML.
+              Structured output your agents can consume without parsing HTML.
             </Text>
           </Box>
 
@@ -2561,7 +2564,7 @@ const GooglePage = () => {
                             lineHeight: 2
                           })}
                         >
-                          {activeVertical.description}
+                          {activeVerticalDescription}
                         </Text>
                       </Box>
                     </Flex>
@@ -2924,9 +2927,7 @@ const GooglePage = () => {
                 })}
               >
                 Search first, <br />
-                <span css={theme({ color: 'red7' })}>
-                  fetch later
-                </span>
+                <span css={theme({ color: 'red7' })}>fetch later</span>
               </Text>
               <Text
                 as='p'
@@ -2950,26 +2951,28 @@ const GooglePage = () => {
                 width: ['100%', '100%', '58%', '58%'],
                 display: 'grid',
                 ml: 6,
-                gap: [4, 4, 5, 5]
+                gap: 4
               })}
             >
               <RetrievalFeatureCard
                 icon='markdown'
                 accent='blue'
                 title='Ship LLM-ready Markdown'
+                css={theme({ pb: 4 })}
                 description='Every result can return its full page as clean Markdown or HTML. No extra parsing, no fragile selectors.'
               />
               <RetrievalFeatureCard
                 icon='bolt'
                 accent='blue'
                 title='Lazy-load the web'
+                css={theme({ pb: 4 })}
                 description='Get structured results first, then fetch full-page content only for the URLs that matter. Your agent stays fast and your token budget stays low.'
               />
               <RetrievalFeatureCard
                 icon='search'
                 accent='teal'
                 title='Turn Search into a document discovery engine'
-                divider={false}
+                css={theme({ pb: 0 })}
                 description={
                   <>
                     Use Google operators like <code>site:</code>,{' '}
@@ -3052,8 +3055,8 @@ const GooglePage = () => {
                 })}
               >
                 Every request runs through managed proxies with regional
-                routing. That infrastructure is included from the first
-                call — no free tier, no surprises at scale.
+                routing. That infrastructure is included from the first call —
+                no free tier, no surprises at scale.
               </Text>
             </Box>
 
@@ -3169,9 +3172,7 @@ const GooglePage = () => {
                 flexShrink: 0
               })}
             >
-              <SectionCaption color={colors.green7}>
-                Get started
-              </SectionCaption>
+              <SectionCaption color={colors.green7}>Get started</SectionCaption>
               <Text
                 as='h2'
                 css={theme({
@@ -3186,9 +3187,7 @@ const GooglePage = () => {
               >
                 Three steps to
                 <br />
-                <span css={theme({ color: 'green7' })}>
-                  your first search
-                </span>
+                <span css={theme({ color: 'green7' })}>your first search</span>
               </Text>
               <Text
                 as='p'
@@ -3202,9 +3201,8 @@ const GooglePage = () => {
                   maxWidth: layout.small
                 })}
               >
-                Install the package, pick a Google surface, and start
-                getting structured results. Paginate or enrich only when
-                you need more.
+                Install the package, pick a Google surface, and start getting
+                structured results. Paginate or enrich only when you need more.
               </Text>
             </Box>
 
@@ -3452,6 +3450,22 @@ const GooglePage = () => {
         </Container>
       </Box>
 
+      <Faq
+        title='Product Information'
+        caption='Everything you need to know about Microlink Search, pricing, and supported surfaces.'
+        css={theme({ mt: [5, 5, 6, 6], bg: 'white' })}
+        questions={FAQ_ENTRIES.map(({ question, answers }) => ({
+          question,
+          answer: (
+            <>
+              {answers.map((answer, index) => (
+                <div key={`${question}-${index}`}>{answer}</div>
+              ))}
+            </>
+          )
+        }))}
+      />
+
       <Flex
         css={theme({
           py: [4, 4, 5, 5],
@@ -3477,6 +3491,27 @@ const GooglePage = () => {
           </Flex>
         ))}
       </Flex>
+      <Container
+        css={theme({
+          justifyContent: 'center',
+          pt: [3, 3, 4, 4],
+          maxWidth: layout.small
+        })}
+      >
+        <Text
+          as='p'
+          css={theme({
+            m: 0,
+            color: 'black60',
+            fontSize: [0, 0, 1, 1],
+            lineHeight: 2,
+            textAlign: 'center'
+          })}
+        >
+          Google is a trademark of Google LLC. Microlink Search is an
+          independent product and is not affiliated with or endorsed by Google.
+        </Text>
+      </Container>
     </Layout>
   )
 }
