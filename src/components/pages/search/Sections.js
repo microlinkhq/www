@@ -10,17 +10,12 @@ import { layout, theme } from 'theme'
 
 import Box from 'components/elements/Box'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
+import Terminal from 'components/elements/Terminal/Terminal'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import FeatherIcon from 'components/icons/Feather'
 
 import { BulletItem, TutorialStepContainer } from './'
-
-const TUTORIAL_CODE_HEIGHT_BY_TITLE = {
-  'Install and initialize': ['140px', '140px', '150px', '150px'],
-  'Run the first query': ['200px', '200px', '220px', '220px']
-}
-const TUTORIAL_CODE_HEIGHT_DEFAULT = ['160px', '160px', '180px', '180px']
 
 export const SectionCaption = ({ color, children, centered = false }) => (
   <Flex
@@ -199,7 +194,7 @@ export const RetrievalFeatureCard = ({
   )
 }
 
-const TutorialStepPanel = ({ panel, title }) => {
+const TutorialStepPanel = ({ panel }) => {
   if (panel.type === 'features') {
     return (
       <BulletList>
@@ -219,24 +214,10 @@ const TutorialStepPanel = ({ panel, title }) => {
     overflow: 'hidden'
   })
 
-  if (panel.type === 'terminal') {
+  if (panel.language === 'bash') {
     return (
-      <Box css={panelWrapperCss}>
-        <Text
-          as='pre'
-          css={theme({
-            m: 0,
-            p: [3, 3, 4, 4],
-            bg: 'gray0',
-            color: 'black80',
-            fontFamily: 'mono',
-            fontSize: [0, 0, 1, 1],
-            lineHeight: 2,
-            whiteSpace: 'pre-wrap'
-          })}
-        >
-          {panel.content}
-        </Text>
+      <Box css={theme({ mt: [3, 3, 4, 4] })}>
+        <Terminal>{panel.content}</Terminal>
       </Box>
     )
   }
@@ -245,15 +226,9 @@ const TutorialStepPanel = ({ panel, title }) => {
     <Box css={panelWrapperCss}>
       <CodeEditor
         language={panel.language}
-        blinkCursor={false}
         showWindowButtons={false}
-        showTitle={false}
-        showAction={false}
         css={theme({
           width: '100%',
-          height:
-            TUTORIAL_CODE_HEIGHT_BY_TITLE[title] ??
-            TUTORIAL_CODE_HEIGHT_DEFAULT,
           border: 0,
           borderRadius: 0
         })}
@@ -337,7 +312,7 @@ export const TutorialStep = ({ step }) => (
         {step.description}
       </Text>
 
-      <TutorialStepPanel panel={step.panel} title={step.title} />
+      <TutorialStepPanel panel={step.panel} />
     </Box>
   </TutorialStepContainer>
 )

@@ -31,10 +31,10 @@ export const FadeBackground = styled(Box)`
   height: ${HEIGHT};
   width: 100%;
 
-  ${({ $position }) => {
+  ${({ $position, $offsetTop = '36px' }) => {
     switch ($position) {
       case 'top':
-        return `top: 36px; margin-bottom: -${HEIGHT};`
+        return `top: ${$offsetTop}; margin-bottom: -${HEIGHT};`
       case 'bottom':
         return `bottom: 0; margin-top: -${HEIGHT};`
       case 'left':

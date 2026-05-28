@@ -75,7 +75,7 @@ const HERO_LAYOUT_MAX_WIDTH = [
   `calc(${layout.large} * 1.7)`
 ]
 
-const VERTICAL_RESPONSE_HEIGHT = '680px'
+const VERTICAL_RESPONSE_HEIGHT = '100%'
 
 const VERTICAL_OUTPUT_TABS = [
   { id: 'json', label: 'JSON' },
@@ -109,10 +109,7 @@ const INTEGRATION_TUTORIAL_STEPS = [
     panel: {
       type: 'code',
       language: 'bash',
-      content: `npm i @microlink/google
-const google = require('@microlink/google')({
-  apiKey: process.env.MICROLINK_API_KEY
-})`
+      content: 'npm i @microlink/google'
     }
   },
   {
@@ -124,7 +121,12 @@ const google = require('@microlink/google')({
     panel: {
       type: 'code',
       language: 'javascript',
-      content: `const page = await google('ai agents', {
+      content: `
+      const google = require('@microlink/google')({
+        apiKey: process.env.MICROLINK_API_KEY
+      })
+
+      const page = await google('ai agents', {
   type: 'search'
 })
 
@@ -320,7 +322,8 @@ const GooglePage = () => {
                       aria-pressed={activeVertical.id === vertical.id}
                       onClick={() => setActiveVerticalId(vertical.id)}
                       onKeyDown={event =>
-                        handleVerticalTabKeyDown(event, index)}
+                        handleVerticalTabKeyDown(event, index)
+                      }
                     >
                       {verticalService && (
                         <Box
@@ -344,9 +347,9 @@ const GooglePage = () => {
               <VerticalExampleGrid>
                 <VerticalExamplePanel
                   css={theme({
-                    alignSelf: 'stretch',
+                    alignSelf: 'flex-start',
                     minHeight: 0,
-                    height: VERTICAL_RESPONSE_HEIGHT,
+                    height: 'auto',
                     justifyContent: 'flex-start',
                     border: 1,
                     borderColor: 'black10'
@@ -405,10 +408,10 @@ const GooglePage = () => {
                     css={theme({
                       px: [3, 3, 4, 4],
                       minWidth: 0,
-                      flex: 1,
+                      flex: 'none',
                       display: 'flex',
                       flexDirection: 'column',
-                      justifyContent: 'space-between',
+                      justifyContent: 'flex-start',
                       minHeight: 0
                     })}
                   >
@@ -423,7 +426,8 @@ const GooglePage = () => {
                               $active={isActive}
                               aria-pressed={isActive}
                               onClick={() =>
-                                setActiveVerticalExampleIndex(index)}
+                                setActiveVerticalExampleIndex(index)
+                              }
                             >
                               <VerticalExampleOptionIcon
                                 $active={isActive}
@@ -467,12 +471,14 @@ const GooglePage = () => {
 
                 <Box
                   css={theme({
-                    alignSelf: 'flex-start',
+                    alignSelf: 'stretch',
                     minHeight: 0,
                     height: VERTICAL_RESPONSE_HEIGHT,
+                    maxHeight: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 3
+                    gap: 3,
+                    overflow: 'hidden'
                   })}
                 >
                   <VerticalExamplePanel
@@ -493,7 +499,7 @@ const GooglePage = () => {
                         flex: 1,
                         minHeight: 0,
                         height: '100%',
-                        py: [1, 1, 2, 2]
+                        py: 3
                       })}
                     >
                       <CodeEditor
@@ -523,7 +529,8 @@ const GooglePage = () => {
                       border: 1,
                       borderColor: 'black10',
                       flex: 1,
-                      minHeight: 0
+                      minHeight: 0,
+                      overflow: 'hidden'
                     })}
                   >
                     <Flex
@@ -556,7 +563,8 @@ const GooglePage = () => {
                             tabIndex={isActive ? 0 : -1}
                             onClick={() => setActiveOutputTab(tab.id)}
                             onKeyDown={event =>
-                              handleOutputTabKeyDown(event, index)}
+                              handleOutputTabKeyDown(event, index)
+                            }
                           >
                             {tab.label}
                           </VerticalOutputTab>
@@ -574,7 +582,8 @@ const GooglePage = () => {
                           flexDirection: 'column',
                           flex: 1,
                           minHeight: 0,
-                          height: '100%',
+                          height: 0,
+                          overflow: 'hidden',
                           py: [2, 2, 3, 3]
                         })}
                       >
@@ -590,6 +599,8 @@ const GooglePage = () => {
                             height: '100%',
                             minHeight: 0,
                             flex: 1,
+                            overflowY: 'auto',
+                            overflowX: 'hidden',
                             border: 0,
                             borderRadius: 0,
                             pt: 2
@@ -609,7 +620,7 @@ const GooglePage = () => {
                           bg: 'white',
                           display: 'flex',
                           flexDirection: 'column',
-                          height: '100%',
+                          height: 0,
                           minHeight: 0,
                           flex: 1,
                           minWidth: 0,
@@ -802,15 +813,15 @@ const GooglePage = () => {
         id='pricing'
         css={theme({
           bg: 'orange0',
-          py: 5,
+          py: 6,
           borderTop: 1,
           borderBottom: 1,
-          borderColor: 'orange0'
+          borderColor: 'orange5'
         })}
       >
         <Container
           css={theme({
-            px: [3, 3, 4, 4],
+            py: 0,
             maxWidth: [
               '100%',
               '100%',
@@ -822,7 +833,7 @@ const GooglePage = () => {
           <Flex
             css={theme({
               flexDirection: ['column', 'column', 'row', 'row'],
-              alignItems: 'center',
+              alignItems: ['center', 'center', 'flex-start', 'flex-start'],
               width: '100%'
             })}
           >
@@ -971,7 +982,7 @@ const GooglePage = () => {
           <Flex
             css={theme({
               flexDirection: ['column', 'column', 'row', 'row'],
-              alignItems: 'center',
+              alignItems: ['center', 'center', 'flex-start', 'flex-start'],
               width: '100%'
             })}
           >
@@ -1037,7 +1048,7 @@ const GooglePage = () => {
                 <Button as='a' href={PACKAGE_URL}>
                   Install @microlink/google
                 </Button>
-                <ArrowLink href={GUIDE_URL}>Read the Search guide</ArrowLink>
+                <ArrowLink href={GUIDE_URL}>Read the guide</ArrowLink>
               </ActionRow>
             </Box>
           </Flex>
@@ -1047,7 +1058,12 @@ const GooglePage = () => {
       <Box
         as='section'
         id='final-cta'
-        css={theme({ bg: 'blue0', py: [5, 5, 6, 6] })}
+        css={theme({
+          bg: 'blue0',
+          border: 1,
+          borderColor: 'blue5',
+          py: [5, 5, 6, 6]
+        })}
       >
         <Container
           css={theme({
@@ -1064,7 +1080,6 @@ const GooglePage = () => {
             css={theme({
               display: 'grid',
               gridTemplateColumns: ['1fr', '1fr', '48% 52%', '48% 52%'],
-              gap: [5, 5, 6, 7],
               alignItems: 'center',
               width: '100%'
             })}

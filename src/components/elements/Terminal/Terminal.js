@@ -1,4 +1,4 @@
-import { theme, speed, toMs, timings, cx, colors, radii, borders } from 'theme'
+import { theme, speed, toMs, timings, cx, colors, radii, borders, space } from 'theme'
 import {
   FadeBackground,
   FadeBackgroundProvider
@@ -15,6 +15,7 @@ import Text from '../Text'
 import Box from '../Box'
 
 export const TerminalWindow = styled(Box)`
+  position: relative;
   overflow: auto;
   border-radius: ${radii[3]};
   border: ${borders[1]};
@@ -141,7 +142,7 @@ const TerminalTitleWrapper = styled('div')`
   display: flex;
   justify-content: center;
   flex: 1;
-  margin-left: -3rem;
+  margin-left: ${props => (props.$showWindowButtons ? '-3rem' : 0)};
 `
 
 const TerminalHeaderSpacer = styled('div')`
@@ -153,8 +154,8 @@ const TerminalWindowButtons = styled('div')`
   align-items: center;
 `
 
-export const TerminalTitle = ({ children }) => (
-  <TerminalTitleWrapper>
+export const TerminalTitle = ({ children, showWindowButtons = true }) => (
+  <TerminalTitleWrapper $showWindowButtons={showWindowButtons}>
     <Text
       css={theme({
         color: 'black40',
@@ -168,6 +169,7 @@ export const TerminalTitle = ({ children }) => (
 
 export const TerminalText = styled('div')`
   padding: 0 8px 8px 8px;
+  padding-top: ${props => (props.$compactAction ? space[3] : 0)};
   overflow: visible;
   font-size: 13px;
   line-height: 20px;
@@ -236,6 +238,13 @@ const TerminalProvider = ({
   ...props
 }) => {
   const containerRef = useRef(null)
+  const hasTitle = showTitle && title
+  const useCompactAction =
+    showHeader && !showWindowButtons && !hasTitle && showAction
+  const renderHeader =
+    showHeader &&
+    !useCompactAction &&
+    (showWindowButtons || hasTitle || showAction)
 
   return (
     <FadeBackgroundProvider containerRef={containerRef}>
@@ -244,7 +253,7 @@ const TerminalProvider = ({
         css={theme({ width: TERMINAL_WIDTH })}
         {...props}
       >
-        {showHeader && (
+        {renderHeader && (
           <TerminalHeader {...header}>
             {showWindowButtons && (
               <TerminalWindowButtons>
@@ -253,14 +262,35 @@ const TerminalProvider = ({
                 <TerminalButton.Green loading={loading} />
               </TerminalWindowButtons>
             )}
-            {showTitle && <TerminalTitle>{title}</TerminalTitle>}
-            {!showTitle && <TerminalHeaderSpacer aria-hidden='true' />}
+            {hasTitle && (
+              <TerminalTitle showWindowButtons={showWindowButtons}>
+                {title}
+              </TerminalTitle>
+            )}
+            {!hasTitle && showWindowButtons && (
+              <TerminalHeaderSpacer aria-hidden='true' />
+            )}
             {showAction && ActionComponent && <ActionComponent text={text} />}
           </TerminalHeader>
         )}
 
-        {showFade && <FadeBackground.Top />}
-        <TerminalText>{children}</TerminalText>
+        {useCompactAction && ActionComponent && (
+          <Box
+            css={theme({
+              position: 'absolute',
+              top: 2,
+              right: 2,
+              zIndex: 2
+            })}
+          >
+            <ActionComponent text={text} />
+          </Box>
+        )}
+
+        {showFade && (
+          <FadeBackground.Top $offsetTop={useCompactAction ? 0 : undefined} />
+        )}
+        <TerminalText $compactAction={useCompactAction}>{children}</TerminalText>
         {showFade && <FadeBackground.Bottom />}
       </TerminalWindow>
     </FadeBackgroundProvider>

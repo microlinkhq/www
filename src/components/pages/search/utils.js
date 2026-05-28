@@ -78,8 +78,16 @@ const getVerticalQuery = code => {
   return match ? match[2] : 'ai agents'
 }
 
+const createCode = code =>
+  `const google = require('@microlink/google')({ apiKey: MICROLINK_API_KEY })
+
+${code}
+
+console.log(page.results)
+`.trim()
+
 const getVerticalExampleCode = (query, verticalId) =>
-  `const page = await google('${query}', { type: '${verticalId}' })`
+  createCode(`const page = await google('${query}', { type: '${verticalId}' })`)
 
 const VERTICAL_QUERY_EXAMPLES = {
   search: [
@@ -272,26 +280,26 @@ export const monogramOverrideFor = host =>
 
 export const createTablistKeyHandler =
   ({ items, onSelect, focusTab }) =>
-    (event, index) => {
-      const lastIndex = items.length - 1
-      let nextIndex = null
+  (event, index) => {
+    const lastIndex = items.length - 1
+    let nextIndex = null
 
-      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-        nextIndex = index === lastIndex ? 0 : index + 1
-      } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        nextIndex = index === 0 ? lastIndex : index - 1
-      } else if (event.key === 'Home') {
-        nextIndex = 0
-      } else if (event.key === 'End') {
-        nextIndex = lastIndex
-      }
-
-      if (nextIndex === null) return
-      event.preventDefault()
-      const nextId = items[nextIndex].id
-      onSelect(nextId)
-      if (focusTab) focusTab(nextId)
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      nextIndex = index === lastIndex ? 0 : index + 1
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      nextIndex = index === 0 ? lastIndex : index - 1
+    } else if (event.key === 'Home') {
+      nextIndex = 0
+    } else if (event.key === 'End') {
+      nextIndex = lastIndex
     }
+
+    if (nextIndex === null) return
+    event.preventDefault()
+    const nextId = items[nextIndex].id
+    onSelect(nextId)
+    if (focusTab) focusTab(nextId)
+  }
 
 export const extractHeroTypingTargets = code => {
   if (!code) return []

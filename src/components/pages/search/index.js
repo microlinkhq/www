@@ -343,23 +343,15 @@ export const VerticalPreviewContent = styled(Box)`
 export const VerticalResultList = styled(Box).attrs({ as: 'ol' })`
   ${theme({
     m: 0,
-    p: 0,
+    px: 0,
+    py: [3, 3, 4, 4],
     display: 'grid',
-    gap: 0,
+    gap: [3, 3, 4, 4],
+    flex: 'none',
+    minHeight: 0,
+    alignContent: 'flex-start',
     listStyle: 'none'
   })};
-
-  > li {
-    ${theme({
-      py: [2, 2, 3, 3],
-      borderBottom: 1,
-      borderBottomColor: 'black10'
-    })};
-  }
-
-  > li:last-of-type {
-    border-bottom: 0;
-  }
 `
 
 export const VerticalExampleOptionIcon = styled(Flex)
@@ -410,9 +402,8 @@ export const VerticalExampleOption = styled('button').withConfig({
     cursor: 'pointer',
     position: 'relative'
   })};
-  background-color: ${({ $active }) =>
-    $active ? colors.blue0 : 'transparent'};
-  border-color: ${({ $active }) => ($active ? colors.link : 'transparent')};
+  background-color: ${({ $active }) => ($active ? colors.blue0 : colors.white)};
+  border-color: ${({ $active }) => ($active ? colors.link : colors.black10)};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   transition: background-color ${transition.short}, color ${transition.short},
@@ -421,7 +412,7 @@ export const VerticalExampleOption = styled('button').withConfig({
   &:hover {
     background-color: ${({ $active }) =>
       $active ? colors.blue0 : colors.gray0};
-    border-color: ${({ $active }) => ($active ? colors.link : colors.black10)};
+    border-color: ${({ $active }) => ($active ? colors.link : colors.black20)};
   }
 
   &:focus-visible {
@@ -567,7 +558,7 @@ export const PricingCard = styled(Flex)`
     minWidth: 0,
     maxWidth: ['100%', '100%', '520px', '520px'],
     width: '100%',
-    border: 2,
+    border: 1,
     borderColor: 'orange5'
   })};
 `
@@ -592,7 +583,7 @@ export const TutorialStepContainer = styled(Box).attrs({ as: 'section' })`
     display: 'grid',
     gridTemplateColumns: ['1fr', '1fr', '72px 1fr', '72px 1fr'],
     columnGap: [0, 0, 4, 4],
-    pb: [4, 4, 5, 6]
+    pb: [4, 4, 5, 5]
   })};
 
   &:last-child {
