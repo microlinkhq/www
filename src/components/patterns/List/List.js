@@ -16,12 +16,18 @@ const ListItem = ({
   ...props
 }) => {
   const isYes = type === 'yes'
+  const iconSize = [1, 1, 2, 2]
+
   return (
     <Flex as='li' css={theme({ alignItems, mb: isLast ? 0 : 3 })}>
       <Flex
         css={theme({
+          alignItems: 'center',
           justifyContent: 'center',
+          flexShrink: 0,
+          fontSize: [1, 1, 2, 2],
           mr: 2,
+          pt: alignItems === 'flex-start' ? '0.375em' : 0,
           width: [fontSizes[1], fontSizes[1], fontSizes[2], fontSizes[2]]
         })}
         as='span'
@@ -29,6 +35,7 @@ const ListItem = ({
         <FeatherIcon
           icon={isYes ? CheckCircle : XCircle}
           color={isYes ? 'close' : 'gray'}
+          size={iconSize}
           aria-hidden='true'
         />
       </Flex>

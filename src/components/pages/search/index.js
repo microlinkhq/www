@@ -7,16 +7,17 @@ import Text from 'components/elements/Text'
 
 import { truncateLineCss } from './utils'
 
+export const SEARCH_LAYOUT_WIDE_MAX_WIDTH = `calc(${layout.large} * 1.36)`
+
 const VERTICAL_EXAMPLE_GRID_MAX_WIDTH = [
   '100%',
   '100%',
   '100%',
-  `calc(${layout.large} * 1.7)`
+  SEARCH_LAYOUT_WIDE_MAX_WIDTH
 ]
 
 export const ActionRow = styled(Flex)`
   ${theme({
-    mt: 4,
     gap: [2, 2, 3, 3],
     flexWrap: 'wrap',
     alignItems: 'center',

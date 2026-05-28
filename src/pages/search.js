@@ -57,7 +57,8 @@ import {
   VerticalOutputTab,
   VerticalPreviewContent,
   VerticalResultList,
-  VerticalTabButton
+  VerticalTabButton,
+  SEARCH_LAYOUT_WIDE_MAX_WIDTH
 } from 'components/pages/search'
 
 import VerticalTablist from 'components/pages/search/VerticalTablist'
@@ -75,7 +76,7 @@ const HERO_LAYOUT_MAX_WIDTH = [
   '100%',
   '100%',
   '100%',
-  `calc(${layout.large} * 1.7)`
+  SEARCH_LAYOUT_WIDE_MAX_WIDTH
 ]
 
 // Counteract Layout Main px: [3, 3, 0] so tinted sections span edge-to-edge on mobile.
@@ -156,8 +157,6 @@ console.log(page.results)`
     }
   }
 ]
-
-const HERO_ACCENT_GRADIENT = `linear-gradient(90deg, ${colors.pink8}, ${colors.pink9})`
 
 const visuallyHiddenCss = theme({
   position: 'absolute',
@@ -296,19 +295,19 @@ const GooglePage = () => {
                 textAlign: 'center'
               })}
             >
-              Search intelligence API <br />
-              <Box
+              Give your AI agent <br />
+              <Text
                 as='span'
+                variant='gradient'
                 css={theme({
-                  color: 'pink8',
-                  backgroundImage: HERO_ACCENT_GRADIENT,
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
+                  fontSize: 'inherit',
+                  fontWeight: 'inherit',
+                  letterSpacing: 'inherit',
+                  lineHeight: 'inherit'
                 })}
               >
-                for AI agents
-              </Box>
+                eyes on the web
+              </Text>
             </Text>
             <Text
               as='p'
@@ -323,8 +322,8 @@ const GooglePage = () => {
                 textAlign: 'center'
               })}
             >
-              One client for Search, News, Maps, Shopping, Scholar, and more.
-              Structured output your agents can consume without parsing HTML.
+              Structured search results in ~1s. One client, normalized JSON for
+              tools, prompts, and RAG pipelines.
             </Text>
           </Box>
 
@@ -332,7 +331,7 @@ const GooglePage = () => {
             id='playground'
             as='section'
             aria-label='Search surface playground'
-            css={theme({ mt: [4, 4, 5, 5] })}
+            css={theme({ mt: 4 })}
           >
             <Text aria-live='polite' aria-atomic='true' css={visuallyHiddenCss}>
               {playgroundStatus}
@@ -436,12 +435,11 @@ const GooglePage = () => {
                     </Flex>
                   </Box>
 
-                  <Box
+                  <Flex
                     css={theme({
                       px: [3, 3, 4, 4],
                       minWidth: 0,
                       flex: 'none',
-                      display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'flex-start',
                       minHeight: 0
@@ -503,16 +501,15 @@ const GooglePage = () => {
                         )
                       })}
                     </VerticalResultList>
-                  </Box>
+                  </Flex>
                 </VerticalExamplePanel>
 
-                <Box
+                <Flex
                   css={theme({
                     alignSelf: 'stretch',
                     minHeight: 0,
                     height: VERTICAL_RESPONSE_HEIGHT,
                     maxHeight: '100%',
-                    display: 'flex',
                     flexDirection: 'column',
                     gap: 3,
                     overflow: 'hidden'
@@ -526,11 +523,10 @@ const GooglePage = () => {
                       flexShrink: 0
                     })}
                   >
-                    <Box
+                    <Flex
                       id='vertical-output-panel-code'
                       aria-label={codeExampleLabel}
                       css={theme({
-                        display: 'flex',
                         flexDirection: 'column',
                         flex: 1,
                         minHeight: 0,
@@ -558,7 +554,7 @@ const GooglePage = () => {
                       >
                         {activeVerticalExample.code}
                       </CodeEditor>
-                    </Box>
+                    </Flex>
                   </VerticalExamplePanel>
 
                   <VerticalExamplePanel
@@ -609,12 +605,11 @@ const GooglePage = () => {
                     </Flex>
 
                     {activeOutputTab === 'json' && (
-                      <Box
+                      <Flex
                         id='vertical-output-panel-json'
                         role='tabpanel'
                         aria-labelledby='vertical-output-tab-json'
                         css={theme({
-                          display: 'flex',
                           flexDirection: 'column',
                           flex: 1,
                           minHeight: 0,
@@ -645,17 +640,15 @@ const GooglePage = () => {
                         >
                           {JSON.stringify(activeVerticalPayload, null, 2)}
                         </CodeEditor>
-                      </Box>
+                      </Flex>
                     )}
 
                     {activeOutputTab === 'preview' && (
-                      <Box
+                      <Flex
                         id='vertical-output-panel-preview'
                         role='tabpanel'
                         aria-labelledby='vertical-output-tab-preview'
                         css={theme({
-                          bg: 'white',
-                          display: 'flex',
                           flexDirection: 'column',
                           height: 0,
                           minHeight: 0,
@@ -669,29 +662,27 @@ const GooglePage = () => {
                           <Box
                             css={theme({
                               px: [3, 3, 4, 4],
-                              bg: 'white',
                               overflow: 'hidden'
                             })}
                           >
                             <HeroResultCard result={activeVerticalPreview} />
                           </Box>
                         </VerticalPreviewContent>
-                      </Box>
+                      </Flex>
                     )}
                   </VerticalExamplePanel>
-                </Box>
+                </Flex>
               </VerticalExampleGrid>
             </VerticalExampleShell>
           </Box>
 
-          <Box id='features' as='section' css={theme({ pt: [4, 4, 5, 5] })}>
+          <Box id='features' as='section' css={theme({ pt: 6 })}>
             <Box
               as='ul'
               css={theme({
                 listStyle: 'none',
                 p: 0,
                 m: 0,
-                mt: 4,
                 width: 'max-content',
                 maxWidth: '100%',
                 mx: 'auto'
@@ -713,11 +704,13 @@ const GooglePage = () => {
           <Flex id='cta' css={theme({ justifyContent: 'center' })}>
             <ActionRow
               css={theme({
+                pt: 4,
                 flexDirection: 'row',
                 flexWrap: 'nowrap',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: [4, 4, 0, 0]
+                gap: [4, 4, 4, 4],
+                '& > *': { flexShrink: 0 }
               })}
             >
               <Button as='a' href='/pricing'>
@@ -725,7 +718,10 @@ const GooglePage = () => {
               </Button>
               <ArrowLink
                 href={GUIDE_URL}
-                css={theme({ fontSize: [1, 1, 2, 2] })}
+                css={theme({
+                  flexShrink: 0,
+                  fontSize: [1, 1, 2, 2]
+                })}
               >
                 View docs
               </ArrowLink>
@@ -734,18 +730,14 @@ const GooglePage = () => {
         </Box>
       </Container>
 
-      <Box
-        as='section'
-        id='retrieval-workflows'
-        css={theme({ bg: 'white', py: [6, 6, 7, 7] })}
-      >
+      <Box as='section' id='retrieval-workflows' css={theme({ py: 6 })}>
         <Container
           css={theme({
             maxWidth: [
               '100%',
               '100%',
               layout.large,
-              `calc(${layout.large} * 1.7)`
+              SEARCH_LAYOUT_WIDE_MAX_WIDTH
             ],
             pt: 0,
             px: [3, 3, 0, 0]
@@ -758,7 +750,7 @@ const GooglePage = () => {
                 '100%',
                 '100%',
                 layout.large,
-                `calc(${layout.large} * 1.7)`
+                SEARCH_LAYOUT_WIDE_MAX_WIDTH
               ],
               mx: 'auto',
               minWidth: 0,
@@ -870,7 +862,7 @@ const GooglePage = () => {
               '100%',
               '100%',
               layout.large,
-              `calc(${layout.large} * 1.7)`
+              SEARCH_LAYOUT_WIDE_MAX_WIDTH
             ]
           })}
         >
@@ -1009,11 +1001,7 @@ const GooglePage = () => {
         </Container>
       </Box>
 
-      <Box
-        as='section'
-        id='google-api-integration'
-        css={theme({ bg: 'white', py: 5 })}
-      >
+      <Box as='section' id='google-api-integration' css={theme({ py: 6 })}>
         <Container
           css={theme({
             p: 0,
@@ -1021,7 +1009,7 @@ const GooglePage = () => {
               '100%',
               '100%',
               layout.large,
-              `calc(${layout.large} * 1.7)`
+              SEARCH_LAYOUT_WIDE_MAX_WIDTH
             ]
           })}
         >
@@ -1095,13 +1083,17 @@ const GooglePage = () => {
                 css={theme({
                   mt: [4, 4, 5, 5],
                   ml: [0, 0, '104px', '104px'],
+                  flexDirection: 'row',
+                  flexWrap: 'nowrap',
+                  alignItems: 'center',
                   justifyContent: [
                     'center',
                     'center',
                     'flex-start',
                     'flex-start'
                   ],
-                  gap: [4, 4, 0, 0]
+                  gap: [4, 4, 4, 4],
+                  '& > *': { flexShrink: 0 }
                 })}
               >
                 <Button as='a' href={PACKAGE_URL}>
@@ -1122,18 +1114,19 @@ const GooglePage = () => {
           borderTop: 1,
           borderBottom: 1,
           borderColor: 'blue5',
-          py: [5, 5, 6, 7],
+          py: 6,
           ...MOBILE_SECTION_BLEED
         })}
       >
         <Container
           css={theme({
             px: [3, 3, 0, 0],
+            py: 0,
             maxWidth: [
               '100%',
               '100%',
               layout.large,
-              `calc(${layout.large} * 1.7)`
+              SEARCH_LAYOUT_WIDE_MAX_WIDTH
             ]
           })}
         >
@@ -1279,12 +1272,11 @@ const GooglePage = () => {
                     )
                   }
                 ].map(product => (
-                  <Box
+                  <Flex
                     as='a'
                     key={product.label}
                     href={product.href}
                     css={theme({
-                      display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -1293,7 +1285,6 @@ const GooglePage = () => {
                       minWidth: 0,
                       height: ['170px', '170px', '170px', '180px'],
                       borderRadius: 4,
-                      bg: 'white',
                       border: 0,
                       boxShadow: `0 4px 12px ${colors.black05}`,
                       textDecoration: 'none',
@@ -1330,7 +1321,7 @@ const GooglePage = () => {
                     >
                       {product.label}
                     </Text>
-                  </Box>
+                  </Flex>
                 ))}
               </Box>
             </Box>
@@ -1341,7 +1332,6 @@ const GooglePage = () => {
       <Faq
         title='Product Information'
         caption='Everything you need to know about Microlink Search, pricing, and supported search surfaces.'
-        css={theme({ mt: [5, 5, 6, 6], bg: 'white' })}
         questions={FAQ_ENTRIES.map(({ question, answers }) => ({
           question,
           answer: (
@@ -1383,8 +1373,8 @@ const GooglePage = () => {
 
 export const Head = () => (
   <Meta
-    title='Search API for SEO, Monitoring, and AI Workflows'
-    description='Microlink Search is a paid search intelligence API for querying and normalizing public results from Google Search, News, Maps, Shopping, Scholar, and more.'
+    title='Give Your AI Agent Eyes on the Web — Microlink Search API'
+    description='Structured search results in ~1s. One client, normalized JSON for AI agents, RAG pipelines, and any workflow that needs structured web data.'
     image={HERO_IMAGE}
     structured={STRUCTURED_DATA}
   />
