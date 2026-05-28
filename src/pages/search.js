@@ -1315,7 +1315,7 @@ const GooglePage = () => {
       <Container
         css={theme({
           justifyContent: 'center',
-          pt: [3, 3, 4, 4],
+          pt: 5,
           maxWidth: layout.small
         })}
       >
