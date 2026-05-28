@@ -311,12 +311,13 @@ export const TutorialStep = ({ step }) => (
         <Text
           as='span'
           css={theme({
+            display: ['inline', 'inline', 'none', 'none'],
             color: 'black50',
             fontFamily: 'mono',
             fontSize: [0, 0, 1, 1],
             fontWeight: 'bold',
             letterSpacing: 1,
-            mr: 1
+            mr: [1, 1, 0, 0]
           })}
         >
           {step.step}.
