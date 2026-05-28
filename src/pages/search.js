@@ -25,11 +25,10 @@ import List from 'components/patterns/List/List'
 import ArrowLink from 'components/patterns/ArrowLink'
 import LineBreak from 'components/elements/LineBreak'
 
-import GOOGLE_VERTICAL_EXAMPLES_DATA from 'helpers/google-examples'
+import GOOGLE_EXAMPLES from 'data/google-examples'
 import {
   FAQ_ENTRIES,
   GOOGLE_VERTICALS,
-  GOOGLE_VERTICAL_EXAMPLES,
   GUIDE_URL,
   HERO_IMAGE,
   PACKAGE_URL,
@@ -194,16 +193,13 @@ const GooglePage = () => {
       service => service.id === activeVertical.id
     ) ?? null
 
-  const baseVerticalExample = useMemo(
-    () =>
-      GOOGLE_VERTICAL_EXAMPLES_DATA[activeVertical.id] ??
-      GOOGLE_VERTICAL_EXAMPLES[activeVertical.id] ?? { code: '', payload: '' },
-    [activeVertical.id]
-  )
-
   const activeVerticalExamples = useMemo(
-    () => getVerticalExampleOptions(activeVertical.id, baseVerticalExample),
-    [activeVertical.id, baseVerticalExample]
+    () =>
+      getVerticalExampleOptions(
+        activeVertical.id,
+        GOOGLE_EXAMPLES[activeVertical.id]
+      ),
+    [activeVertical.id]
   )
 
   const activeVerticalExample = activeVerticalExamples[
