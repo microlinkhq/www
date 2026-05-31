@@ -1,4 +1,4 @@
-import { cx, radii, theme, fontSizes, lineHeights, fonts, space } from 'theme'
+import { cx, radii, theme, fontSizes, lineHeights } from 'theme'
 import { hideScrollbar, wordBreak } from 'helpers/style'
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
@@ -100,22 +100,31 @@ const CustomCodeBlock = styled.pre`
   background: ${props => (props.$theme === 'dark' ? cx('black') : cx('white'))};
   color: ${props => (props.$theme === 'dark' ? cx('white') : cx('black'))};
 
+  ${props =>
+    props.$blinkCursor &&
+    theme({ display: 'inline', m: 0, verticalAlign: 'top' })}
+
   code {
-    display: block;
-    white-space: pre;
-    overflow-x: auto;
-    padding-left: ${props => (props.$showLineNumbers ? '3rem' : '0')};
-    font-family: ${fonts.mono};
-    font-size: ${fontSizes[0]};
-    line-height: ${props =>
-      props.$language === 'bash' ? lineHeights[0] : lineHeights[4]};
+    ${props =>
+      theme({
+        display: props.$blinkCursor ? 'inline' : 'block',
+        whiteSpace: 'pre',
+        overflowX: 'auto',
+        pl: props.$showLineNumbers ? '3rem' : 0,
+        fontFamily: 'mono',
+        fontSize: 0,
+        lineHeight: props.$language === 'bash' ? 0 : 4
+      })}
     tab-size: 2;
   }
 
   .code-line {
-    display: inline-block;
-    width: 100%;
-    margin-bottom: ${space[1]};
+    ${props =>
+      theme({
+        display: props.$blinkCursor ? 'inline' : 'inline-block',
+        width: props.$blinkCursor ? 'auto' : '100%',
+        mb: 1
+      })}
   }
 
   .line-numbers {
@@ -147,7 +156,8 @@ export const Code = ({
   showLineNumbers,
   firstHighlightLine,
   lastHighlightLine,
-  language
+  language,
+  blinkCursor = false
 }) => {
   let highlightedHtml = highlight(children)
 
@@ -179,6 +189,7 @@ export const Code = ({
 
   return (
     <CustomCodeBlock
+      $blinkCursor={blinkCursor}
       $language={language}
       css={`
         ${String(highLightLinesSelector)} {
@@ -256,7 +267,7 @@ const CodeEditor = ({
   showLineNumbers = false,
   language: languageProp,
   title = '',
-  blinkCursor = false,
+  blinkCursor,
   autoHeight = false,
   ...props
 }) => {
@@ -284,6 +295,12 @@ const CodeEditor = ({
     highLightLinesSelector &&
     highLightLinesSelector[highLightLinesSelector.length - 1]
 
+  const showBlinkCursor =
+    blinkCursor === true ||
+    (blinkCursor !== false &&
+      ['bash', 'shell', 'sh'].includes(language) &&
+      !text.includes('\n'))
+
   return (
     <Terminal
       id={`codeditor-${hash(source)}`}
@@ -298,8 +315,9 @@ const CodeEditor = ({
       blinkCursor={false}
       {...props}
     >
-      <TerminalTextWrapper $blinkCursor={blinkCursor}>
+      <TerminalTextWrapper $blinkCursor={showBlinkCursor}>
         <Code
+          blinkCursor={showBlinkCursor}
           firstHighlightLine={firstHighlightLine}
           highlightLines={highlightLines}
           highLightLinesSelector={highLightLinesSelector}

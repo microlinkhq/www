@@ -6,7 +6,7 @@ import { colors } from 'theme'
 export const blinkCursorLayoutStyle = css`
   && {
     display: inline-block;
-    width: auto;
+    width: auto !important;
     max-width: 100%;
     vertical-align: top;
   }
