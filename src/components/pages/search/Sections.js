@@ -6,7 +6,7 @@ import {
   Search as SearchIcon,
   Zap
 } from 'react-feather'
-import { layout, theme } from 'theme'
+import { fontSizes, layout, space, theme } from 'theme'
 
 import Box from 'components/elements/Box'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
@@ -16,6 +16,9 @@ import Text from 'components/elements/Text'
 import FeatherIcon from 'components/icons/Feather'
 
 import { BulletItem, TutorialStepContainer } from './'
+
+const CAPTION_FONT_SIZE_10 = `calc(${fontSizes[0]} - ${space[1]})`
+const CAPTION_FONT_SIZE_12 = `calc(${fontSizes[1]} - ${space[1]})`
 
 export const SectionCaption = ({
   bg = 'white',
@@ -50,7 +53,12 @@ export const SectionCaption = ({
           m: 0,
           color,
           fontWeight: 'bold',
-          fontSize: ['10px', '10px', '12px', '12px'],
+          fontSize: [
+            CAPTION_FONT_SIZE_10,
+            CAPTION_FONT_SIZE_10,
+            CAPTION_FONT_SIZE_12,
+            CAPTION_FONT_SIZE_12
+          ],
           textTransform: 'uppercase',
           letterSpacing: 2,
           lineHeight: 0
