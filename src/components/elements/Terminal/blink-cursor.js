@@ -27,32 +27,28 @@ export const blinkCursorCodeLayoutStyle = css`
   }
 `
 
-const createBlinkCursorStyle = offsetLeft =>
-  css`
+export const blinkCursorStyle = css`
+  &::after {
+    left: -8px;
+    content: '';
+    animation-name: ${blink};
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+    animation-duration: 1s;
+    display: inline-block;
+    width: 1px;
+    height: 14px;
+    background: ${colors.secondary};
+    margin-left: 4px;
+    position: relative;
+    top: 2px;
+    margin-right: 1px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
     &::after {
-      left: ${offsetLeft}px;
-      content: '';
-      animation-name: ${blink};
-      animation-iteration-count: infinite;
-      animation-timing-function: cubic-bezier(1, 0, 0, 1);
-      animation-duration: 1s;
-      display: inline-block;
-      width: 1px;
-      height: 14px;
-      background: ${colors.secondary};
-      margin-left: 4px;
-      position: relative;
-      top: 2px;
-      margin-right: 1px;
+      animation: none;
+      opacity: 1;
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      &::after {
-        animation: none;
-        opacity: 1;
-      }
-    }
-  `
-
-export const blinkCursorStyle = createBlinkCursorStyle()
-export const blinkCursorCodeStyle = createBlinkCursorStyle(-8)
+  }
+`

@@ -14,7 +14,7 @@ import { getLanguageTheme } from './theme'
 
 import {
   blinkCursorCodeLayoutStyle,
-  blinkCursorCodeStyle
+  blinkCursorStyle
 } from '../Terminal/blink-cursor'
 import Terminal, { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
 
@@ -240,7 +240,7 @@ const TerminalTextWrapper = styled('div')`
   white-space: pre;
 
   ${props => props.$blinkCursor && blinkCursorCodeLayoutStyle}
-  ${props => props.$blinkCursor && blinkCursorCodeStyle}
+  ${props => props.$blinkCursor && blinkCursorStyle}
 `
 
 const getLanguage = ({ className, language, title }) => {
@@ -257,6 +257,7 @@ const CodeEditor = ({
   language: languageProp,
   title = '',
   blinkCursor = false,
+  autoHeight = false,
   ...props
 }) => {
   const className = getClassName(props)
@@ -288,7 +289,12 @@ const CodeEditor = ({
       id={`codeditor-${hash(source)}`}
       title={title}
       text={text}
-      css={theme({ width: TERMINAL_WIDTH })}
+      autoHeight={autoHeight}
+      css={theme(
+        autoHeight
+          ? { width: '100%', maxWidth: '100%' }
+          : { width: TERMINAL_WIDTH }
+      )}
       blinkCursor={false}
       {...props}
     >

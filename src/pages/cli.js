@@ -171,6 +171,7 @@ const TerminalFooterOutput = () => (
 const TerminalPreview = () => (
   <Terminal
     title='@microlink/cli'
+    text={`${CLI_COMMAND}${CLI_URL}${CLI_FLAGS}`}
     autoHeight
     showFade={false}
     blinkCursor={false}

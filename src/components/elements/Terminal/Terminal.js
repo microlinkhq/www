@@ -194,6 +194,10 @@ export const TerminalText = styled('div')`
     padding: 0 8px;
   }
 
+  div > span {
+    padding: 0 8px;
+  }
+
   > div {
     width: 100%;
   }
@@ -305,10 +309,11 @@ const Terminal = ({
   shellSymbol = false,
   blinkCursor = true,
   autoHeight = false,
+  text: textProp,
   ...props
 }) => {
   const content = typeof children === 'string' ? fromString(children) : children
-  const text = childrenTextAll(children)
+  const text = textProp ?? childrenTextAll(children)
 
   return (
     <TerminalProvider text={text} autoHeight={autoHeight} {...props}>
