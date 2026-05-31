@@ -6,7 +6,7 @@ description: 'Structured search results as JSON — no HTML parsing, no browser.
 
 import { Link } from 'components/elements/Link'
 
-Microlink Search turns public search surfaces into structured JSON through the [`@microlink/google`](https://www.npmjs.com/package/@microlink/google) Node.js client.
+Microlink Search turns public search surfaces into structured JSON through the [@microlink/google](https://www.npmjs.com/package/@microlink/google) Node.js client.
 
 No HTML parsing, no browser, no proxy fleet to manage. Send a query, get normalized results back. Microlink handles the infrastructure, rotation, and result extraction so your code stays focused on what to do with the data.
 
