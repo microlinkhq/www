@@ -23,7 +23,6 @@ import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
 import List from 'components/patterns/List/List'
 import ArrowLink from 'components/patterns/ArrowLink'
-import LineBreak from 'components/elements/LineBreak'
 
 import GOOGLE_EXAMPLES from 'data/google-examples'
 import {
@@ -792,7 +791,7 @@ const GooglePage = () => {
                   textAlign: 'left'
                 })}
               >
-                Search first, <LineBreak breakpoints={[2, 3]} />
+                Search first, <br />
                 <span css={theme({ color: 'red7' })}>fetch later</span>
               </Text>
               <Text

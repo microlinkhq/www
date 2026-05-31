@@ -146,6 +146,12 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
     icon: TerminalIcon
   }),
   createNavigationItem({
+    label: 'CLI',
+    href: '/cli',
+    description: 'Microlink from your terminal',
+    icon: TerminalIcon
+  }),
+  createNavigationItem({
     label: 'Geolocation',
     href: 'https://geolocation.microlink.io',
     description: 'IP & request insights',

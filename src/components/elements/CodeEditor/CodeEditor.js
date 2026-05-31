@@ -1,16 +1,21 @@
 import { cx, radii, theme, fontSizes, lineHeights, fonts, space } from 'theme'
 import { hideScrollbar, wordBreak } from 'helpers/style'
 import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 import { getLines } from 'helpers/get-lines'
+import { childrenTextAll } from 'helpers/children-text-all'
 import { prettier } from 'helpers/prettier'
 import { template } from 'helpers/template'
 import { highlight } from 'sugar-high'
-import styled from 'styled-components'
 import { hash } from 'helpers/hash'
 import range from 'lodash/range'
 
 import { getLanguageTheme } from './theme'
 
+import {
+  blinkCursorCodeLayoutStyle,
+  blinkCursorStyle
+} from '../Terminal/blink-cursor'
 import Terminal, { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
 
 const toAlias = (lang = '') => {
@@ -232,6 +237,10 @@ const TerminalTextWrapper = styled('div')`
   ${wordBreak};
   width: 100%;
   font-size: 14px;
+  white-space: pre;
+
+  ${props => props.$blinkCursor && blinkCursorCodeLayoutStyle}
+  ${props => props.$blinkCursor && blinkCursorStyle}
 `
 
 const getLanguage = ({ className, language, title }) => {
@@ -248,6 +257,7 @@ const CodeEditor = ({
   language: languageProp,
   title = '',
   blinkCursor = false,
+  autoHeight = false,
   ...props
 }) => {
   const className = getClassName(props)
@@ -256,16 +266,17 @@ const CodeEditor = ({
     getLanguage({ className, language: languageProp, title })
   )
 
-  const initialText = template(children).trim()
+  const source = childrenTextAll(children)
+  const initialText = template(source).trim()
   const [text, setText] = useState(initialText)
 
   useEffect(() => {
     const formatCode = async () => {
-      const formatted = await prettier(template(children), language)
+      const formatted = await prettier(template(source), language)
       setText(formatted.trim())
     }
     formatCode()
-  }, [children, language])
+  }, [source, language])
 
   const highLightLinesSelector = generateHighlightLines(highlightLines)
   const firstHighlightLine = highLightLinesSelector && highLightLinesSelector[0]
@@ -275,14 +286,19 @@ const CodeEditor = ({
 
   return (
     <Terminal
-      id={`codeditor-${hash(children)}`}
+      id={`codeditor-${hash(source)}`}
       title={title}
       text={text}
-      css={theme({ width: TERMINAL_WIDTH })}
-      blinkCursor={blinkCursor}
+      autoHeight={autoHeight}
+      css={theme(
+        autoHeight
+          ? { width: '100%', maxWidth: '100%' }
+          : { width: TERMINAL_WIDTH }
+      )}
+      blinkCursor={false}
       {...props}
     >
-      <TerminalTextWrapper>
+      <TerminalTextWrapper $blinkCursor={blinkCursor}>
         <Code
           firstHighlightLine={firstHighlightLine}
           highlightLines={highlightLines}
