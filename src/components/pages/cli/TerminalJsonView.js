@@ -172,6 +172,9 @@ const jsonViewCss = theme({
     padding: 0,
     margin: 0
   },
+  '& .react-json-view div > span': {
+    padding: 0
+  },
   '& .pretty-json-container > .object-content > .object-key-val': {
     paddingTop: 0,
     paddingBottom: 0,
@@ -179,12 +182,30 @@ const jsonViewCss = theme({
     marginLeft: 0,
     borderLeft: '0 !important'
   },
-  '& .pretty-json-container > .object-content > .object-key-val .icon-container':
-    {
-      width: '14px',
-      marginLeft: 0,
-      paddingLeft: 0
-    },
+  '& .icon-container': {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    verticalAlign: 'baseline',
+    position: 'relative',
+    top: '1px',
+    width: '14px',
+    height: '1em',
+    lineHeight: 1,
+    marginLeft: 0,
+    paddingLeft: 0,
+    flexShrink: 0
+  },
+  '& .expanded-icon, & .collapsed-icon': {
+    display: 'inline-flex',
+    alignItems: 'center',
+    lineHeight: 1
+  },
+  '& .expanded-icon svg, & .collapsed-icon svg': {
+    display: 'block',
+    verticalAlign: 'middle',
+    paddingLeft: '0 !important'
+  },
   '& .object-key-val .object-key-val': {
     paddingTop: 0,
     paddingBottom: 0,
