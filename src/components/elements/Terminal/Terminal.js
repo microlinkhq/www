@@ -17,7 +17,7 @@ import { childrenTextAll } from 'helpers/children-text-all'
 import styled, { css, keyframes } from 'styled-components'
 import { aspectRatio } from 'helpers/aspect-ratio'
 import { wordBreak } from 'helpers/style'
-import { blinkCursorLayoutStyle, createBlinkCursorStyle } from './blink-cursor'
+import { blinkCursorLayoutStyle, blinkCursorStyle } from './blink-cursor'
 import React, { useRef } from 'react'
 
 import CodeCopy from '../Codecopy'
@@ -29,9 +29,9 @@ export const TerminalWindow = styled(Box)`
   overflow: auto;
   border-radius: ${radii[3]};
   border: ${borders[1]};
-  border-color: ${props => cx(props.$theme === 'dark' ? 'black' : 'black10')};
-  background: ${props => cx(props.$theme === 'dark' ? 'black' : 'white')};
-  color: ${props => cx(props.$theme === 'dark' ? 'white70' : 'black')};
+  border-color: ${cx('black10')};
+  background: ${cx('white')};
+  color: ${cx('black')};
 `
 
 export const { width: TERMINAL_WIDTH, height: TERMINAL_HEIGHT } = aspectRatio([
@@ -64,12 +64,9 @@ const fromString = text => {
 }
 
 const TerminalHeader = styled('div')`
-  background: ${props => cx(props.$theme === 'dark' ? 'black95' : 'white')};
+  background: white;
   border-top-right-radius: ${radii[3]};
   border-top-left-radius: ${radii[3]};
-  border-bottom: ${props => (props.$theme === 'dark' ? borders[1] : 'none')};
-  border-bottom-color: ${props =>
-    props.$theme === 'dark' ? cx('white10') : 'transparent'};
   display: flex;
   align-items: center;
   padding: 1rem;
@@ -167,15 +164,11 @@ const TerminalWindowButtons = styled('div')`
   align-items: center;
 `
 
-export const TerminalTitle = ({
-  children,
-  showWindowButtons = true,
-  $theme = 'light'
-}) => (
+export const TerminalTitle = ({ children, showWindowButtons = true }) => (
   <TerminalTitleWrapper $showWindowButtons={showWindowButtons}>
     <Text
       css={theme({
-        color: $theme === 'dark' ? 'white50' : 'black40',
+        color: 'black40',
         fontSize: 0
       })}
     >
@@ -220,7 +213,7 @@ const TerminalTextWrapper = styled('div')`
     content: ${props => (props.$shellSymbol ? `'${props.$shellSymbol} '` : '')};
   }
   ${props => props.$blinkCursor && blinkCursorLayoutStyle}
-  ${props => props.$blinkCursor && createBlinkCursorStyle()}
+  ${props => props.$blinkCursor && blinkCursorStyle}
 `
 
 const TerminalProvider = ({
@@ -236,7 +229,6 @@ const TerminalProvider = ({
   showTitle = true,
   showAction = true,
   autoHeight = false,
-  theme: terminalTheme = 'light',
   ...props
 }) => {
   const containerRef = useRef(null)
@@ -247,38 +239,20 @@ const TerminalProvider = ({
     showHeader &&
     !useCompactAction &&
     (showWindowButtons || hasTitle || showAction)
-  const isDark = terminalTheme === 'dark'
-  const fadeColor = isDark ? colors.black : colors.white
 
   return (
     <FadeBackgroundProvider containerRef={containerRef}>
       <TerminalWindow
         ref={containerRef}
-        $theme={terminalTheme}
-        css={theme({
-          ...(autoHeight
+        css={theme(
+          autoHeight
             ? { width: '100%', height: 'auto', minHeight: 0 }
-            : { width: TERMINAL_WIDTH }),
-          ...(isDark
-            ? { bg: 'black', color: 'white70', borderColor: 'black' }
-            : { bg: 'white', color: 'black', borderColor: 'black10' })
-        })}
+            : { width: TERMINAL_WIDTH }
+        )}
         {...props}
       >
         {renderHeader && (
-          <TerminalHeader
-            $theme={terminalTheme}
-            css={
-              isDark
-                ? theme({
-                  bg: 'black95',
-                  borderBottom: 1,
-                  borderBottomColor: 'white10'
-                })
-                : undefined
-            }
-            {...header}
-          >
+          <TerminalHeader {...header}>
             {showWindowButtons && (
               <TerminalWindowButtons>
                 <TerminalButton.Red loading={loading} />
@@ -287,10 +261,7 @@ const TerminalProvider = ({
               </TerminalWindowButtons>
             )}
             {hasTitle && (
-              <TerminalTitle
-                $theme={terminalTheme}
-                showWindowButtons={showWindowButtons}
-              >
+              <TerminalTitle showWindowButtons={showWindowButtons}>
                 {title}
               </TerminalTitle>
             )}
@@ -315,10 +286,7 @@ const TerminalProvider = ({
         )}
 
         {showFade && (
-          <FadeBackground.Top
-            $fadeColor={fadeColor}
-            $offsetTop={useCompactAction ? 0 : undefined}
-          />
+          <FadeBackground.Top $offsetTop={useCompactAction ? 0 : undefined} />
         )}
         <TerminalText
           $compactAction={useCompactAction}
@@ -326,7 +294,7 @@ const TerminalProvider = ({
         >
           {children}
         </TerminalText>
-        {showFade && <FadeBackground.Bottom $fadeColor={fadeColor} />}
+        {showFade && <FadeBackground.Bottom />}
       </TerminalWindow>
     </FadeBackgroundProvider>
   )
@@ -336,7 +304,6 @@ const Terminal = ({
   children,
   shellSymbol = false,
   blinkCursor = true,
-  colorScheme = 'light',
   autoHeight = false,
   ...props
 }) => {
@@ -344,12 +311,7 @@ const Terminal = ({
   const text = childrenTextAll(children)
 
   return (
-    <TerminalProvider
-      text={text}
-      theme={colorScheme}
-      autoHeight={autoHeight}
-      {...props}
-    >
+    <TerminalProvider text={text} autoHeight={autoHeight} {...props}>
       <TerminalTextWrapper
         $shellSymbol={shellSymbol}
         $blinkCursor={blinkCursor}

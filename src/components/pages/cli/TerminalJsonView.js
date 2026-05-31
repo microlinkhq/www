@@ -47,7 +47,7 @@ const HN_DATA = {
   }
 }
 
-export const CLI_RESPONSE = {
+const CLI_RESPONSE = {
   request: {
     url: 'https://pro.microlink.io/?url=https%3A%2F%2Fnews.ycombinator.com%2F',
     headers: {
@@ -122,55 +122,35 @@ export const CLI_RESPONSE = {
   }
 }
 
-const CLI_TERMINAL_JSON_THEMES = {
-  dark: {
-    base00: 'rgba(0, 0, 0, 0)',
-    base01: colors.black95,
-    base02: colors.white10,
-    base03: colors.white50,
-    base04: colors.white50,
-    base05: colors.white70,
-    base06: colors.white70,
-    base07: colors.white70,
-    base08: colors.red6,
-    base09: colors.green6,
-    base0A: colors.white50,
-    base0B: colors.blue4,
-    base0C: colors.violet4,
-    base0D: colors.white70,
-    base0E: colors.green5,
-    base0F: colors.blue4
-  },
-  light: {
-    base00: 'rgba(0, 0, 0, 0)',
-    base01: colors.white,
-    base02: colors.black10,
-    base03: colors.black50,
-    base04: colors.black50,
-    base05: colors.black80,
-    base06: colors.black,
-    base07: colors.black,
-    base08: colors.red6,
-    base09: colors.green6,
-    base0A: colors.black50,
-    base0B: colors.blue6,
-    base0C: colors.violet4,
-    base0D: colors.black80,
-    base0E: colors.green5,
-    base0F: colors.blue6
-  }
+const CLI_TERMINAL_JSON_THEME = {
+  base00: 'rgba(0, 0, 0, 0)',
+  base01: colors.white,
+  base02: colors.black10,
+  base03: colors.black50,
+  base04: colors.black50,
+  base05: colors.black80,
+  base06: colors.black,
+  base07: colors.black,
+  base08: colors.red6,
+  base09: colors.green6,
+  base0A: colors.black50,
+  base0B: colors.blue6,
+  base0C: colors.violet4,
+  base0D: colors.black80,
+  base0E: colors.green5,
+  base0F: colors.blue6
 }
 
-export const CLI_JSON_DEFAULT_EXPAND_LEVEL = 2
+const JSON_DEFAULT_EXPAND_LEVEL = 2
 
 // react-json-view only applies shouldCollapse when collapsed > depth; +1 unlocks
 // per-field control at the deepest default level (e.g. response.body).
-const CLI_JSON_COLLAPSED_DEPTH = CLI_JSON_DEFAULT_EXPAND_LEVEL + 1
+const JSON_COLLAPSED_DEPTH = JSON_DEFAULT_EXPAND_LEVEL + 1
 
 const collapseField = field => {
   const namespaceDepth = field.namespace?.length ?? 0
 
-  if (namespaceDepth <= CLI_JSON_DEFAULT_EXPAND_LEVEL) return false
+  if (namespaceDepth <= JSON_DEFAULT_EXPAND_LEVEL) return false
 
   if (field.name === 'body') return false
 
@@ -180,45 +160,42 @@ const collapseField = field => {
   )
 }
 
-const rootJsonSelector =
-  '& .pretty-json-container > .object-content > .object-key-val'
-
-const jsonViewCss = (nestedBorderColor = colors.white10) =>
-  theme({
-    fontFamily: 'mono',
-    fontSize: '13px',
-    lineHeight: '20px',
-    '& .react-json-view': {
-      backgroundColor: 'transparent !important',
-      fontFamily: 'inherit',
-      fontSize: 'inherit',
-      lineHeight: 'inherit',
-      padding: 0,
-      margin: 0
-    },
-    [`${rootJsonSelector}`]: {
-      paddingTop: 0,
-      paddingBottom: 0,
-      paddingLeft: '0 !important',
-      marginLeft: 0,
-      borderLeft: '0 !important'
-    },
-    [`${rootJsonSelector} .icon-container`]: {
+const jsonViewCss = theme({
+  fontFamily: 'mono',
+  fontSize: '13px',
+  lineHeight: '20px',
+  '& .react-json-view': {
+    backgroundColor: 'transparent !important',
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    padding: 0,
+    margin: 0
+  },
+  '& .pretty-json-container > .object-content > .object-key-val': {
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: '0 !important',
+    marginLeft: 0,
+    borderLeft: '0 !important'
+  },
+  '& .pretty-json-container > .object-content > .object-key-val .icon-container':
+    {
       width: '14px',
       marginLeft: 0,
       paddingLeft: 0
     },
-    '& .object-key-val .object-key-val': {
-      paddingTop: 0,
-      paddingBottom: 0,
-      borderLeft: `1px solid ${nestedBorderColor}`
-    },
-    '& .brace-row, & .icon-container': {
-      cursor: 'pointer'
-    }
-  })
+  '& .object-key-val .object-key-val': {
+    paddingTop: 0,
+    paddingBottom: 0,
+    borderLeft: `1px solid ${colors.black10}`
+  },
+  '& .brace-row, & .icon-container': {
+    cursor: 'pointer'
+  }
+})
 
-const TerminalJsonView = ({ colorScheme = 'dark' }) => {
+const TerminalJsonView = () => {
   const [ReactJson, setReactJson] = useState(null)
 
   useEffect(() => {
@@ -235,17 +212,13 @@ const TerminalJsonView = ({ colorScheme = 'dark' }) => {
 
   if (!ReactJson) return null
 
-  const isDark = colorScheme === 'dark'
-
   return (
-    <Box css={jsonViewCss(isDark ? colors.white10 : colors.black10)}>
+    <Box css={jsonViewCss}>
       <ReactJson
         src={CLI_RESPONSE}
         name={false}
-        theme={
-          CLI_TERMINAL_JSON_THEMES[colorScheme] ?? CLI_TERMINAL_JSON_THEMES.dark
-        }
-        collapsed={CLI_JSON_COLLAPSED_DEPTH}
+        theme={CLI_TERMINAL_JSON_THEME}
+        collapsed={JSON_COLLAPSED_DEPTH}
         shouldCollapse={collapseField}
         collapseStringsAfterLength={72}
         quotesOnKeys={false}

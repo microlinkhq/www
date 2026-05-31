@@ -14,7 +14,7 @@ import { getLanguageTheme } from './theme'
 
 import {
   blinkCursorCodeLayoutStyle,
-  createBlinkCursorStyle
+  blinkCursorCodeStyle
 } from '../Terminal/blink-cursor'
 import Terminal, { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
 
@@ -240,7 +240,7 @@ const TerminalTextWrapper = styled('div')`
   white-space: pre;
 
   ${props => props.$blinkCursor && blinkCursorCodeLayoutStyle}
-  ${props => props.$blinkCursor && createBlinkCursorStyle(-8)}
+  ${props => props.$blinkCursor && blinkCursorCodeStyle}
 `
 
 const getLanguage = ({ className, language, title }) => {

@@ -41,7 +41,7 @@ const CLI_FLAGS = ' --json'
 
 const INSTALL_SNIPPET = 'npm install @microlink/cli --global'
 
-const TerminalToken = ({ children, color = 'white70' }) => (
+const TerminalToken = ({ children, color }) => (
   <Text
     as='span'
     css={theme({
@@ -102,7 +102,8 @@ const HERO_FEATURES = [
       <TerminalPromptIcon
         width={FEATURE_ICON_SIZE}
         height={FEATURE_ICON_SIZE}
-        style={{ color: colors.red7 }}
+        color={colors.red7}
+        aria-hidden='true'
       />
     )
   },
@@ -170,16 +171,10 @@ const TerminalFooterOutput = () => (
 const TerminalPreview = () => (
   <Terminal
     title='@microlink/cli'
-    colorScheme='light'
     autoHeight
     showFade={false}
     blinkCursor={false}
-    css={theme({
-      width: '100%',
-      maxWidth: '100%',
-      height: 'auto',
-      minHeight: 0
-    })}
+    css={theme({ width: '100%', maxWidth: '100%' })}
     aria-label='Example Microlink CLI terminal output'
   >
     <Text
@@ -200,7 +195,7 @@ const TerminalPreview = () => (
       {CLI_FLAGS}
     </Text>
     <TerminalGap />
-    <TerminalJsonView colorScheme='light' />
+    <TerminalJsonView />
     <TerminalGap />
     <TerminalFooterOutput />
   </Terminal>
