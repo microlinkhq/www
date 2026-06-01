@@ -1,12 +1,19 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import {
+  Award,
+  BookOpen,
   Edit3,
   FileText,
   GitMerge,
   Hexagon,
   Image as ImageIcon,
-  Search as SearchIcon,
-  Target
+  Map,
+  MapPin,
+  Search,
+  ShoppingBag,
+  Target,
+  Type,
+  Video
 } from 'react-feather'
 
 import { colors, layout, theme, transition } from 'theme'
@@ -92,6 +99,33 @@ const VERTICAL_OUTPUT_TABS = [
   { id: 'json', label: 'JSON' },
   { id: 'preview', label: 'Preview' }
 ]
+
+// Neutral, license-clean icons per surface (no Google/YouTube brand marks).
+const SURFACE_ICONS = {
+  search: Search,
+  news: FileText,
+  images: ImageIcon,
+  videos: Video,
+  places: MapPin,
+  maps: Map,
+  shopping: ShoppingBag,
+  scholar: BookOpen,
+  patents: Award,
+  autocomplete: Type
+}
+
+const SurfaceIcon = ({ icon, size, style }) => {
+  const Icon = SURFACE_ICONS[icon]
+  return Icon
+    ? (
+      <Icon
+        size={size}
+        aria-hidden='true'
+        style={{ display: 'block', flexShrink: 0, ...style }}
+      />
+      )
+    : null
+}
 
 const heroProofListItemCss = theme({
   m: 0,
@@ -294,7 +328,7 @@ const GooglePage = () => {
                 textAlign: 'center'
               })}
             >
-              Give your AI agent <br />
+              The Google™ Search API <br />
               <Text
                 as='span'
                 variant='gradient'
@@ -305,7 +339,7 @@ const GooglePage = () => {
                   lineHeight: 'inherit'
                 })}
               >
-                eyes on the web
+                for AI Agents
               </Text>
             </Text>
             <Text
@@ -321,15 +355,15 @@ const GooglePage = () => {
                 textAlign: 'center'
               })}
             >
-              Structured search results in ~1s. One client, normalized JSON for
-              tools, prompts, and RAG pipelines.
+              Scrape Google search results in ~1s via a unified API. One client,
+              normalized JSON for tools, prompts, and RAG pipelines.
             </Text>
           </Box>
 
           <Box
             id='playground'
             as='section'
-            aria-label='Search surface playground'
+            aria-label='Google SERP API playground'
             css={theme({ mt: 4 })}
           >
             <Text aria-live='polite' aria-atomic='true' css={visuallyHiddenCss}>
@@ -356,16 +390,10 @@ const GooglePage = () => {
                         handleVerticalTabKeyDown(event, index)}
                     >
                       {verticalService && (
-                        <Box
-                          as='img'
-                          src={verticalService.iconUrl}
-                          alt=''
-                          aria-hidden='true'
-                          css={theme({
-                            width: '14px',
-                            height: '14px',
-                            flexShrink: 0
-                          })}
+                        <SurfaceIcon
+                          icon={verticalService.icon}
+                          size={14}
+                          style={{ marginTop: '-1px', marginRight: '2px' }}
                         />
                       )}
                       {vertical.name}
@@ -396,11 +424,9 @@ const GooglePage = () => {
                     <Flex css={theme({ alignItems: 'flex-start', gap: 3 })}>
                       {activeVerticalService && (
                         <HeroResultBrand $size='64px'>
-                          <Box
-                            as='img'
-                            src={activeVerticalService.iconUrl}
-                            alt=''
-                            aria-hidden='true'
+                          <SurfaceIcon
+                            icon={activeVerticalService.icon}
+                            size={28}
                           />
                         </HeroResultBrand>
                       )}
@@ -777,7 +803,7 @@ const GooglePage = () => {
               })}
             >
               <SectionCaption color={colors.red7}>
-                Agentic retrieval
+                Automated SERP Data
               </SectionCaption>
               <Text
                 as='h2'
@@ -791,7 +817,7 @@ const GooglePage = () => {
                   textAlign: 'left'
                 })}
               >
-                Search first, <br />
+                Scrape Google first, <br />
                 <span css={theme({ color: 'red7' })}>fetch later</span>
               </Text>
               <Text
@@ -1042,7 +1068,7 @@ const GooglePage = () => {
               })}
             >
               <SectionCaption color={colors.green7}>
-                Automate web discovery
+                Google SERP Scraper
               </SectionCaption>
               <Text
                 as='h2'
@@ -1233,17 +1259,6 @@ const GooglePage = () => {
               >
                 {[
                   {
-                    label: 'Search',
-                    href: '/search',
-                    icon: (
-                      <SearchIcon
-                        size={54}
-                        strokeWidth={2}
-                        aria-hidden='true'
-                      />
-                    )
-                  },
-                  {
                     label: 'Metadata',
                     href: '/metadata',
                     icon: (
@@ -1404,8 +1419,8 @@ const GooglePage = () => {
 
 export const Head = () => (
   <Meta
-    title='Give Your AI Agent Eyes on the Web — Microlink Search API'
-    description='Structured search results in ~1s. One client, normalized JSON for AI agents, RAG pipelines, and any workflow that needs structured web data.'
+    title='Google Search API (SERP) for AI Agents | Microlink'
+    description='Scrape Google Search results in ~1s. A reliable Google SERP API delivering normalized JSON for RAG pipelines, LLM tools, and developer workflows.'
     image={HERO_IMAGE}
     structured={STRUCTURED_DATA}
   />

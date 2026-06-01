@@ -7,47 +7,52 @@ const SUPPORTED_GOOGLE_SERVICES = [
   {
     id: 'search',
     label: 'Google Search',
-    iconUrl: 'https://cdn.simpleicons.org/google'
+    icon: 'search'
   },
   {
     id: 'news',
     label: 'Google News',
-    iconUrl: 'https://cdn.simpleicons.org/googlenews'
+    icon: 'news'
   },
   {
     id: 'images',
     label: 'Google Images',
-    iconUrl: 'https://cdn.simpleicons.org/google'
+    icon: 'images'
   },
   {
     id: 'videos',
     label: 'Google Videos',
-    iconUrl: 'https://cdn.simpleicons.org/youtube'
+    icon: 'videos'
   },
   {
     id: 'places',
     label: 'Google Places',
-    iconUrl: 'https://cdn.simpleicons.org/googlemaps'
+    icon: 'places'
   },
   {
     id: 'maps',
     label: 'Google Maps',
-    iconUrl: 'https://cdn.simpleicons.org/googlemaps'
+    icon: 'maps'
   },
   {
     id: 'shopping',
     label: 'Google Shopping',
-    iconUrl: 'https://cdn.simpleicons.org/google'
+    icon: 'shopping'
   },
   {
     id: 'scholar',
     label: 'Google Scholar',
-    iconUrl: 'https://cdn.simpleicons.org/googlescholar'
+    icon: 'scholar'
   },
   {
     id: 'patents',
     label: 'Google Patents',
-    iconUrl: 'https://cdn.simpleicons.org/google'
+    icon: 'patents'
+  },
+  {
+    id: 'autocomplete',
+    label: 'Google Autocomplete',
+    icon: 'autocomplete'
   }
 ]
 
@@ -114,6 +119,13 @@ const GOOGLE_VERTICALS = [
     accentColor: 'grape7',
     description:
       'Patent filings with priority dates, inventors, assignees, and figures.'
+  },
+  {
+    id: 'autocomplete',
+    name: 'Autocomplete',
+    accentColor: 'teal6',
+    description:
+      'Query suggestions for keyword research and query expansion before heavier searches.'
   }
 ]
 
@@ -280,24 +292,6 @@ const enriched = await Promise.all(
   }
 ]
 
-const INTEGRATION_HOW_TO_STEPS = [
-  {
-    title: 'Install and initialize',
-    description:
-      'Install `@microlink/google`, then initialize with your Microlink API key.'
-  },
-  {
-    title: 'Query a supported surface',
-    description:
-      'Send your query with optional `type`, `location`, and `period` options to target intent.'
-  },
-  {
-    title: 'Paginate or enrich',
-    description:
-      'Use `.next()` for additional result pages and `.markdown()` or `.html()` when a source deserves deeper extraction.'
-  }
-]
-
 const FAQ_ENTRIES = [
   {
     question: 'What is Microlink Search?',
@@ -363,7 +357,7 @@ const buildSchemas = () => {
     '@type': 'SoftwareApplication',
     '@id': PAGE_URL,
     name: 'Microlink Search',
-    applicationCategory: ['DeveloperApplication', 'API'],
+    applicationCategory: 'DeveloperApplication',
     operatingSystem: 'Any',
     url: PAGE_URL,
     image: HERO_IMAGE,
@@ -382,7 +376,13 @@ const buildSchemas = () => {
       'rank tracking api',
       'news monitoring api'
     ],
-    offers: { '@type': 'Offer', url: 'https://microlink.io/pricing' },
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'EUR',
+      lowPrice: '39',
+      offerCount: 6,
+      url: 'https://microlink.io/pricing'
+    },
     publisher: {
       '@type': 'Organization',
       name: 'Microlink',
@@ -399,20 +399,6 @@ const buildSchemas = () => {
       '@type': 'ListItem',
       position: index + 1,
       name: item.name
-    }))
-  }
-
-  const howToSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'HowTo',
-    '@id': `${PAGE_URL}#how-to`,
-    name: 'How to integrate Microlink Search',
-    description:
-      'Install @microlink/google, query any supported search surface, and get structured JSON back. Paginate or enrich results for SEO tooling, monitoring, and AI agent workflows.',
-    step: INTEGRATION_HOW_TO_STEPS.map(step => ({
-      '@type': 'HowToStep',
-      name: step.title,
-      text: step.description
     }))
   }
 
@@ -445,7 +431,6 @@ const buildSchemas = () => {
   return [
     softwareApplicationSchema,
     itemListSchema,
-    howToSchema,
     faqSchema,
     breadcrumbSchema
   ]
