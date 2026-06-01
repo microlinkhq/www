@@ -7,7 +7,7 @@ import { Story } from 'story'
 import FlickeringBackground from './FlickeringBackground'
 
 const FlickeringBackgroundStory = () => (
-  <Story name='FlickeringBackground' height='100vh' width='100%'>
+  <Story name='FlickeringBackground' css={theme({ height: '100vh', width: '100%' })}>
     <FlickeringBackground>
       <Flex
         css={theme({

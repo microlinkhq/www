@@ -17,7 +17,7 @@ const DotsBackgroundStory = () => {
   const toggleAnimate = () => setAnimate(!animate)
 
   return (
-    <Story name='DotsBackground' height='100vh' width='100%'>
+    <Story name='DotsBackground' css={theme({ height: '100vh', width: '100%' })}>
       <Box css={theme({ mb: 4, width: 650 })}>
         <Button onClick={toggleTheme}>toggle theme</Button>
         <Button css={theme({ ml: 2 })} onClick={toggleAnimate}>

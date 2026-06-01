@@ -56,7 +56,7 @@ const PaletteRange = ({ name: keyword }) => (
 export default { title: 'Theme/Colors' }
 
 export const Default = () => (
-  <Story name='Colors' width='100%'>
+  <Story name='Colors' css={theme({ width: '100%' })}>
     <Palette
       name='others'
       keywords={['link', 'secondary', 'primary', 'pinky', 'pinkest']}

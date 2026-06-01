@@ -1,4 +1,5 @@
 import React from 'react'
+import { theme } from 'theme'
 import { Story } from 'story'
 import Footer from './Footer'
 
@@ -13,7 +14,7 @@ export default () => (
 export default { title: 'Patterns/Footer' }
 
 export const Default = () => (
-  <Story name='Footer' code={code} style={{ width: '100%' }}>
+  <Story name='Footer' code={code} css={theme({ width: '100%' })}>
     <Footer />
   </Story>
 )

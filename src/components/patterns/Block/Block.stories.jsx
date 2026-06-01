@@ -10,7 +10,7 @@ export default { title: 'Patterns/Block' }
 
 export const Default = () => (
   <>
-    <Story name='Block' width='100%'>
+    <Story name='Block' css={theme({ width: '100%' })}>
       <Block
         top={
           <Box css={theme({ bg: 'pink', borderRadius: 2, borderColor: 'gray' })}>
@@ -62,7 +62,7 @@ export const Default = () => (
         }
       />
     </Story>
-    <Story name="Block flexDirection='column'" width='100%'>
+    <Story name="Block flexDirection='column'" css={theme({ width: '100%' })}>
       <Block
         flexDirection='column'
         top={
@@ -116,7 +116,7 @@ export const Default = () => (
         }
       />
     </Story>
-    <Story name="Block flexDirection='row-reverse'" width='100%'>
+    <Story name="Block flexDirection='row-reverse'" css={theme({ width: '100%' })}>
       <Block
         flexDirection='row-reverse'
         top={

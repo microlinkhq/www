@@ -8,7 +8,7 @@ export default { title: 'Patterns/Faq' }
 
 export const Default = () => (
   <>
-    <Story name='Faq' width='100%'>
+    <Story name='Faq' css={theme({ width: '100%' })}>
       <Faq
         title='Product Information'
         caption='All you need to know.'

@@ -18,7 +18,7 @@ export default () => (
 export default { title: 'Patterns/List' }
 
 export const Default = () => (
-  <Story name='List' code={code} style={{ width: '100%' }}>
+  <Story name='List' code={code} css={theme({ width: '100%' })}>
     <List css={theme({ px: [3, 0], mt: 4, mb: 3 })}>
       <List.Item>Add it to an existing website or app.</List.Item>
       <List.Item>
