@@ -223,8 +223,8 @@
   ],
   "scripts": {
     "build": "NODE_ENV=production gatsby build",
-    "build-storybook": "NODE_ENV=production storybook build",
     "build:data": "DEBUG=data:providers* node scripts/fetch-data",
+    "build:storybook": "NODE_ENV=production storybook build",
     "build:timestamps": "node scripts/git-timestamps.js",
     "clean": "npm run clean:build && npm run clean:data && rm -rf node_modules",
     "clean:build": "gatsby clean",
@@ -234,6 +234,7 @@
     "lint": "standard",
     "postinstall": "npm run transpile",
     "postrelease": "npm run release:tags && npm run release:github",
+    "pre:build:storybook": "npm run build:data",
     "prebuild": "npm run build:data",
     "predev": "npm run build:data",
     "pretest": "npm run lint",
