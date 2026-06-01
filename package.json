@@ -202,6 +202,7 @@
     "pretty-bytes": "latest",
     "prop-types": "~15.8.1",
     "puppeteer": "latest",
+    "react-refresh": "latest",
     "rgb-hex": "latest",
     "simple-git-hooks": "latest",
     "standard": "latest",
