@@ -236,7 +236,6 @@
     "postrelease": "npm run release:tags && npm run release:github",
     "prebuild": "npm run build:data",
     "predev": "npm run build:data",
-    "prepare": "simple-git-hooks",
     "pretest": "npm run lint",
     "preversion": "git-authors-cli && git add package.json",
     "release": "standard-version -a",
