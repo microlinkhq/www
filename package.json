@@ -188,7 +188,7 @@
     "@storybook/addon-a11y": "~6.5.16",
     "@storybook/addon-console": "3.0.0",
     "@storybook/addon-essentials": "~6.5.16",
-    "@storybook/builder-webpack5": "~6.5.16",
+    "@storybook/builder-webpack5": "~10.4.1",
     "@storybook/manager-webpack5": "~6.5.16",
     "@storybook/react": "~6.5.16",
     "@styled-system/prop-types": "~5.1.5",
