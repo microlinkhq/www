@@ -312,7 +312,7 @@ const GooglePage = () => {
         <Box css={theme({ width: '100%', mx: 'auto' })}>
           <Box
             css={theme({
-              maxWidth: ['100%', '100%', layout.normal, layout.medium],
+              maxWidth: ['100%', '100%', layout.normal, layout.large],
               mx: 'auto'
             })}
           >
@@ -328,7 +328,7 @@ const GooglePage = () => {
                 textAlign: 'center'
               })}
             >
-              The Google™ Search API <br />
+              The Google Search API <br />
               <Text
                 as='span'
                 variant='gradient'
