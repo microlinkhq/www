@@ -1,6 +1,5 @@
 {
   "installCommand": "NODE_ENV=development npm install --legacy-peer-deps",
-  "buildCommand": "npm run build",
   "headers": [
     {
       "source": "/static/(.*)",
