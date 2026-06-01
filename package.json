@@ -185,12 +185,8 @@
   "devDependencies": {
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
-    "@storybook/addon-a11y": "~6.5.16",
-    "@storybook/addon-console": "3.0.0",
-    "@storybook/addon-essentials": "~6.5.16",
-    "@storybook/builder-webpack5": "~6.5.16",
-    "@storybook/manager-webpack5": "~6.5.16",
-    "@storybook/react": "~6.5.16",
+    "@storybook/addon-a11y": "latest",
+    "@storybook/react-webpack5": "latest",
     "@styled-system/prop-types": "~5.1.5",
     "contrast": "latest",
     "debug-logfmt": "latest",
@@ -210,6 +206,7 @@
     "simple-git-hooks": "latest",
     "standard": "latest",
     "standard-version": "latest",
+    "storybook": "latest",
     "tinyspawn": "latest",
     "vitest": "latest"
   },
@@ -226,7 +223,7 @@
   ],
   "scripts": {
     "build": "NODE_ENV=production gatsby build",
-    "build-storybook": "NODE_ENV=production build-storybook",
+    "build-storybook": "NODE_ENV=production storybook build",
     "build:data": "DEBUG=data:providers* node scripts/fetch-data",
     "build:timestamps": "node scripts/git-timestamps.js",
     "clean": "npm run clean:build && npm run clean:data && rm -rf node_modules",
@@ -245,7 +242,7 @@
     "release": "standard-version -a",
     "release:github": "github-generate-release",
     "release:tags": "git push --follow-tags origin HEAD:master",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "storybook dev -p 6006",
     "test": "vitest --no-watch",
     "transpile": "echo \"export { getApiUrl } from '@microlink/mql'\" | esbuild --bundle --target=ES2019 --format=esm --minify-whitespace --minify-identifiers > src/helpers/get-api-url.js",
     "update": "ncu -i"

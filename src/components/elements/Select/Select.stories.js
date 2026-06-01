@@ -1,6 +1,5 @@
 import Select from './Select'
 import Text from '../Text'
-import { storiesOf } from '@storybook/react'
 import React, { useState } from 'react'
 import { Story } from 'story'
 import { theme } from 'theme'
@@ -96,7 +95,9 @@ export default () => (
   </Select>
 )`
 
-storiesOf('Elements', module).add('Select', () => (
+export default { title: 'Elements/Select' }
+
+export const Default = () => (
   <Story name='Select' code={code}>
     <Text
       css={theme({
@@ -123,4 +124,4 @@ storiesOf('Elements', module).add('Select', () => (
       />
     </Text>
   </Story>
-))
+)

@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import Aside from './Aside'
 
@@ -110,8 +109,10 @@ const routes = {
   [API]: ROUTES_PATH
 }
 
-storiesOf('Patterns', module).add('Aside', () => (
+export default { title: 'Patterns/Aside' }
+
+export const Default = () => (
   <Story name='Aside'>
     <Aside routes={routes} activeRouteName={SDK} />
   </Story>
-))
+)

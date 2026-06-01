@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import Announcement from './Announcement'
 
@@ -20,7 +19,9 @@ export default () => (
 )
 `
 
-storiesOf('Patterns', module).add('Announcement', () => (
+export default { title: 'Patterns/Announcement' }
+
+export const Default = () => (
   <Story name='Announcement' code={code}>
     <Announcement
       data-event-location='Home'
@@ -30,4 +31,4 @@ storiesOf('Patterns', module).add('Announcement', () => (
       Speed, meet simplicity. Introducing <b>Microlink PDF</b>
     </Announcement>
   </Story>
-))
+)

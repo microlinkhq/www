@@ -1,6 +1,5 @@
 import Text from 'components/elements/Text'
 import Flex from 'components/elements/Flex'
-import { storiesOf } from '@storybook/react'
 import React from 'react'
 import { Story } from 'story'
 
@@ -25,6 +24,6 @@ const FlickeringBackgroundStory = () => (
   </Story>
 )
 
-storiesOf('Patterns', module).add('FlickeringBackground', () => (
-  <FlickeringBackgroundStory />
-))
+export default { title: 'Patterns/FlickeringBackground' }
+
+export const Default = () => <FlickeringBackgroundStory />

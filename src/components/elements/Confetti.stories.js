@@ -1,4 +1,3 @@
-import { storiesOf } from '@storybook/react'
 import React, { useState } from 'react'
 import { Story } from 'story'
 import { theme } from 'theme'
@@ -76,4 +75,6 @@ const ConfettiStory = () => {
   )
 }
 
-storiesOf('Elements', module).add(storyName, () => <ConfettiStory />)
+export default { title: 'Elements/Confetti' }
+
+export const Default = () => <ConfettiStory />

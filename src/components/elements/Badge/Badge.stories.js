@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import Badge from './Badge'
 
@@ -11,8 +10,10 @@ export default () => (
 )
 `
 
-storiesOf('Elements', module).add('Badge', () => (
+export default { title: 'Elements/Badge' }
+
+export const Default = () => (
   <Story name='Badge' code={code}>
     <Badge>PRO</Badge>
   </Story>
-))
+)

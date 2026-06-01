@@ -1,4 +1,3 @@
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import React from 'react'
 
@@ -34,4 +33,6 @@ const ImageStory = () => {
   )
 }
 
-storiesOf('Elements', module).add(storyName, () => <ImageStory />)
+export default { title: 'Elements/Image' }
+
+export const Default = () => <ImageStory />

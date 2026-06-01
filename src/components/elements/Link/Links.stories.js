@@ -2,7 +2,6 @@ import Box from '../Box'
 import Flex from '../Flex'
 import { Link } from '.'
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import { theme } from 'theme'
 
@@ -36,7 +35,9 @@ export default () => (
 )
 `
 
-storiesOf('Elements', module).add('Link', () => (
+export default { title: 'Elements/Link' }
+
+export const Default = () => (
   <>
     {variants.map(({ name, props }) => (
       <Story key={name} name={name} code={createCode(props)}>
@@ -68,4 +69,4 @@ storiesOf('Elements', module).add('Link', () => (
       </Story>
     ))}
   </>
-))
+)

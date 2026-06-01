@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { storiesOf } from '@storybook/react'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import SubheadBase from 'components/elements/Subhead'
@@ -54,4 +53,6 @@ function LogoStories () {
   )
 }
 
-storiesOf('Logos', module).add('All', () => <LogoStories />)
+export default { title: 'Logos/All' }
+
+export const Default = () => <LogoStories />

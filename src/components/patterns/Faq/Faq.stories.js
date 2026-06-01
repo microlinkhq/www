@@ -1,11 +1,12 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import { theme } from 'theme'
 import Text from 'components/elements/Text'
 import Faq from './Faq'
 
-storiesOf('Patterns', module).add('Faq', () => (
+export default { title: 'Patterns/Faq' }
+
+export const Default = () => (
   <>
     <Story name='Faq' width='100%'>
       <Faq
@@ -39,4 +40,4 @@ storiesOf('Patterns', module).add('Faq', () => (
       />
     </Story>
   </>
-))
+)

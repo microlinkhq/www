@@ -1,7 +1,6 @@
 import Placeholder from './Placeholder'
 import Flex from '../Flex'
 import { aspectRatio } from 'helpers/aspect-ratio'
-import { storiesOf } from '@storybook/react'
 import { theme } from 'theme'
 import { Story } from 'story'
 import React from 'react'
@@ -30,4 +29,6 @@ const PlaceholderStory = () => {
   )
 }
 
-storiesOf('Elements', module).add(storyName, () => <PlaceholderStory />)
+export default { title: 'Elements/Placeholder' }
+
+export const Default = () => <PlaceholderStory />

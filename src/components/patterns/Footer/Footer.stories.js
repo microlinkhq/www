@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import Footer from './Footer'
 
@@ -11,8 +10,10 @@ export default () => (
 )
 `
 
-storiesOf('Patterns', module).add('Footer', () => (
+export default { title: 'Patterns/Footer' }
+
+export const Default = () => (
   <Story name='Footer' code={code} style={{ width: '100%' }}>
     <Footer />
   </Story>
-))
+)

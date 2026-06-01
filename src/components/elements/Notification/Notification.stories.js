@@ -1,4 +1,3 @@
-import { storiesOf } from '@storybook/react'
 import React, { useState } from 'react'
 import { Story } from 'story'
 import { theme } from 'theme'
@@ -71,4 +70,6 @@ const NotificationStory = () => {
   )
 }
 
-storiesOf('Elements', module).add(storyName, () => <NotificationStory />)
+export default { title: 'Elements/Notification' }
+
+export const Default = () => <NotificationStory />

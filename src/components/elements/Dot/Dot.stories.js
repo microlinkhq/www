@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import Dot from './Dot'
 import Box from '../Box'
 import { Story } from 'story'
@@ -30,4 +29,6 @@ const DotStory = () => {
   )
 }
 
-storiesOf('Elements', module).add(storyName, () => <DotStory />)
+export default { title: 'Elements/Dot' }
+
+export const Default = () => <DotStory />

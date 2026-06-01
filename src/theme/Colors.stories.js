@@ -3,7 +3,6 @@ import Text from 'components/elements/Text'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import { withTitle } from 'helpers/hoc/with-title'
-import { storiesOf } from '@storybook/react'
 import contrast from 'contrast'
 import range from 'lodash/range'
 import { colors } from 'theme'
@@ -52,7 +51,9 @@ const PaletteRange = ({ name: keyword }) => (
   <Palette name={keyword} keywords={range(9).map(n => `${keyword}${n}`)} />
 )
 
-storiesOf('Theme', module).add('Colors', () => (
+export default { title: 'Theme/Colors' }
+
+export const Default = () => (
   <Story mt={0} name='Colors' width='100%'>
     <Palette
       name='others'
@@ -110,4 +111,4 @@ storiesOf('Theme', module).add('Colors', () => (
     <PaletteRange name='green' />
     <PaletteRange name='teal' />
   </Story>
-))
+)

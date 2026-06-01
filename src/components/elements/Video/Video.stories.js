@@ -1,4 +1,3 @@
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import React from 'react'
 
@@ -27,4 +26,6 @@ const VideoStory = () => {
   )
 }
 
-storiesOf('Elements', module).add(storyName, () => <VideoStory />)
+export default { title: 'Elements/Video' }
+
+export const Default = () => <VideoStory />

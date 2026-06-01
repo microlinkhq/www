@@ -1,5 +1,4 @@
 import { Microlink } from 'components/logos'
-import { storiesOf } from '@storybook/react'
 import { theme, transition } from 'theme'
 import styled from 'styled-components'
 import range from 'lodash/range'
@@ -39,7 +38,9 @@ export default () => (
   </BackgroundSliderContainer>
 )`
 
-storiesOf('Elements', module).add('BackgroundSlider', () => (
+export default { title: 'Elements/BackgroundSlider' }
+
+export const Default = () => (
   <Story name='BackgroundSlider' code={code}>
     <BackgroundSliderContainer css={theme({ p: 0, maxWidth: '100%' })}>
       <BackgroundSlider duration={80} animationDirection='reverse'>
@@ -65,4 +66,4 @@ storiesOf('Elements', module).add('BackgroundSlider', () => (
       </BackgroundSlider>
     </BackgroundSliderContainer>
   </Story>
-))
+)

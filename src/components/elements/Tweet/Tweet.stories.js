@@ -1,4 +1,3 @@
-import { storiesOf } from '@storybook/react'
 import React, { useState } from 'react'
 import { Story } from 'story'
 import { theme } from 'theme'
@@ -133,4 +132,6 @@ const TweetStory = () => {
   )
 }
 
-storiesOf('Elements', module).add(storyName, () => <TweetStory />)
+export default { title: 'Elements/Tweet' }
+
+export const Default = () => <TweetStory />

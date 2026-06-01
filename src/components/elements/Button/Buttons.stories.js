@@ -2,7 +2,6 @@ import Caps from '../Caps'
 import Flex from '../Flex'
 import Button from './Button'
 import React, { useState, createElement } from 'react'
-import { storiesOf } from '@storybook/react'
 import { theme } from 'theme'
 
 import { Story } from 'story'
@@ -54,7 +53,9 @@ const BuyButton = ({
   )
 }
 
-storiesOf('Elements', module).add('Button', () => (
+export default { title: 'Elements/Button' }
+
+export const Default = () => (
   <Story name='Button' code={code}>
     <Flex css={theme({ pb: 4 })}>
       <Button variant='gradient' css={theme({ mx: 3 })}>
@@ -92,4 +93,4 @@ storiesOf('Elements', module).add('Button', () => (
       </Flex>
     ))}
   </Story>
-))
+)

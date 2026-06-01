@@ -1,12 +1,13 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 import Block from './Block'
 
-storiesOf('Patterns', module).add('Block', () => (
+export default { title: 'Patterns/Block' }
+
+export const Default = () => (
   <>
     <Story name='Block' width='100%'>
       <Block
@@ -113,4 +114,4 @@ storiesOf('Patterns', module).add('Block', () => (
       />
     </Story>
   </>
-))
+)

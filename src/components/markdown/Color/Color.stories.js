@@ -1,4 +1,3 @@
-import { storiesOf } from '@storybook/react'
 import Text from '../../elements/Text'
 import { Color } from './Color'
 import { Story } from 'story'
@@ -24,7 +23,9 @@ export default () => (
 )
 `
 
-storiesOf('Elements', module).add('Color', () => (
+export default { title: 'Elements/Color' }
+
+export const Default = () => (
   <Story name='Color' code={code}>
     <Text>
       The color <Color>red</Color> is my favorite
@@ -39,4 +40,4 @@ storiesOf('Elements', module).add('Color', () => (
       The color <Color>rgb(21, 20, 26)</Color> is my favorite
     </Text>
   </Story>
-))
+)

@@ -6,7 +6,6 @@ import Label from 'components/elements/Label'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Legend from 'components/patterns/Legend/Legend'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import { theme } from 'theme'
 
@@ -68,7 +67,9 @@ export default () => (
   </Fragment>
 )`
 
-storiesOf('Theme', module).add('Typography', () => (
+export default { title: 'Theme/Typography' }
+
+export const Default = () => (
   <>
     <Story name='Heading' code={codeHeading}>
       <Heading titleize={false}>Browser as API</Heading>
@@ -97,4 +98,4 @@ storiesOf('Theme', module).add('Typography', () => (
       <Caps css={theme({ fontSize: 0 })}>See More</Caps>
     </Story>
   </>
-))
+)

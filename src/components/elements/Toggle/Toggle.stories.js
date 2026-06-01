@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import Toggle from './Toggle'
 
@@ -15,8 +14,10 @@ export default () => (
 
 const children = ['SDK', 'MQL', 'API']
 
-storiesOf('Elements', module).add('Toggle', () => (
+export default { title: 'Elements/Toggle' }
+
+export const Default = () => (
   <Story name='Toggle' code={code}>
     <Toggle defaultValue='MQL'>{children}</Toggle>
   </Story>
-))
+)

@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import List from './List'
 
@@ -15,7 +14,9 @@ export default () => (
 )
 `
 
-storiesOf('Patterns', module).add('List', () => (
+export default { title: 'Patterns/List' }
+
+export const Default = () => (
   <Story name='List' code={code} style={{ width: '100%' }}>
     <List px={[3, 0]} mt={4} mb={3}>
       <List.Item>Add it to an existing website or app.</List.Item>
@@ -25,4 +26,4 @@ storiesOf('Patterns', module).add('List', () => (
       <List.Item>Lightweight build size.</List.Item>
     </List>
   </Story>
-))
+)

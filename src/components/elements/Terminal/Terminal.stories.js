@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import Image from '../Image/Image'
 import Box from '../Box'
 import Text from '../Text'
@@ -33,7 +32,9 @@ const SpanLabel = styled.span`
   text-transform: uppercase;
 `
 
-storiesOf('Elements', module).add('Terminal', () => (
+export default { title: 'Elements/Terminal' }
+
+export const Default = () => (
   <Story name='Terminal' code={code}>
     <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
       {'<Terminal />'}
@@ -83,4 +84,4 @@ storiesOf('Elements', module).add('Terminal', () => (
       </Box>
     </Terminal>
   </Story>
-))
+)

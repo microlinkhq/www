@@ -1,12 +1,13 @@
 import MultiCodeEditorInteractive from './MultiCodeEditorInteractive'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
-import { storiesOf } from '@storybook/react'
 import { theme } from 'theme'
 import { Story } from 'story'
 import React from 'react'
 
-storiesOf('Elements', module).add('MultiCodeEditor', () => (
+export default { title: 'Elements/MultiCodeEditor' }
+
+export const Default = () => (
   <Story name='MultiCodeEditor'>
     <Box css={theme({ mb: 4, width: 650 })}>
       <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
@@ -39,4 +40,4 @@ storiesOf('Elements', module).add('MultiCodeEditor', () => (
       />
     </Box>
   </Story>
-))
+)

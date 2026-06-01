@@ -1,4 +1,3 @@
-import { storiesOf } from '@storybook/react'
 import Box from 'components/elements/Box'
 import { Story } from 'story'
 import React from 'react'
@@ -46,7 +45,9 @@ const DATA = {
   url: 'https://x.com/futurism/status/882987478541533189'
 }
 
-storiesOf('Patterns', module).add('Microlink', () => (
+export default { title: 'Patterns/Microlink' }
+
+export const Default = () => (
   <Story
     name='Microlink'
     code={code}
@@ -56,4 +57,4 @@ storiesOf('Patterns', module).add('Microlink', () => (
     <Box my={3} />
     <Microlink url={DATA.url} size='large' setData={DATA} media='image' />
   </Story>
-))
+)

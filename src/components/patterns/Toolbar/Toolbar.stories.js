@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import Toolbar from './Toolbar'
 
@@ -11,8 +10,10 @@ export default () => (
 )
 `
 
-storiesOf('Patterns', module).add('Toolbar', () => (
+export default { title: 'Patterns/Toolbar' }
+
+export const Default = () => (
   <Story name='Toolbar' code={code}>
     <Toolbar />
   </Story>
-))
+)

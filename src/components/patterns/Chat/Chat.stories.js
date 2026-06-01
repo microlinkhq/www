@@ -1,5 +1,4 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import Chat from './Chat'
 
@@ -11,8 +10,10 @@ export default () => (
 )
 `
 
-storiesOf('Patterns', module).add('Chat', () => (
+export default { title: 'Patterns/Chat' }
+
+export const Default = () => (
   <Story name='Chat' code={code}>
     <Chat />
   </Story>
-))
+)

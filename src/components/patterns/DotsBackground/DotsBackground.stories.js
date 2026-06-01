@@ -2,7 +2,6 @@ import { Button } from 'components/elements/Button/Button'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 import Flex from 'components/elements/Flex'
-import { storiesOf } from '@storybook/react'
 import React, { useState } from 'react'
 import { Story } from 'story'
 
@@ -47,6 +46,6 @@ const DotsBackgroundStory = () => {
   )
 }
 
-storiesOf('Patterns', module).add('DotsBackground', () => (
-  <DotsBackgroundStory />
-))
+export default { title: 'Patterns/DotsBackground' }
+
+export const Default = () => <DotsBackgroundStory />

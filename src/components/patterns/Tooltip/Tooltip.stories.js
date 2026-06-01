@@ -2,7 +2,6 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
-import { storiesOf } from '@storybook/react'
 import { theme } from 'theme'
 import { Story } from 'story'
 import React from 'react'
@@ -36,7 +35,9 @@ const tooltipsOpts = {
   trigger: 'manual'
 }
 
-storiesOf('Elements', module).add('Tooltip', () => (
+export default { title: 'Elements/Tooltip' }
+
+export const Default = () => (
   <Story name='Tooltip' code={code}>
     <Box css={theme({ pl: 5 })}>
       <Flex css={theme({ pt: 5 })}>
@@ -46,4 +47,4 @@ storiesOf('Elements', module).add('Tooltip', () => (
       </Flex>
     </Box>
   </Story>
-))
+)

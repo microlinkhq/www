@@ -2,7 +2,6 @@ import Flex from '../Flex'
 import Box from '../Box'
 import CodeEditor from '../CodeEditor/CodeEditor'
 import { Iframe } from './Iframe'
-import { storiesOf } from '@storybook/react'
 import { Story } from 'story'
 import { theme } from 'theme'
 import React from 'react'
@@ -20,7 +19,9 @@ export default () => (
 )
 `
 
-storiesOf('Elements', module).add('Iframe', () => (
+export default { title: 'Elements/Iframe' }
+
+export const Default = () => (
   <Story name='Iframe' code={code}>
     <Flex flexDirection='column'>
       <Box>
@@ -35,4 +36,4 @@ storiesOf('Elements', module).add('Iframe', () => (
       </Box>
     </Flex>
   </Story>
-))
+)

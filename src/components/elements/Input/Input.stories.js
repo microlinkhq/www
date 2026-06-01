@@ -1,4 +1,3 @@
-import { storiesOf } from '@storybook/react'
 import { serializeFmt } from 'helpers/prettier'
 import Input from './Input'
 import InputIcon from './InputIcon'
@@ -36,7 +35,9 @@ const Form = props => (
   />
 )
 
-storiesOf('Elements', module).add('Input', () => (
+export default { title: 'Elements/Input' }
+
+export const Default = () => (
   <>
     {createStory('Input', {
       type: 'email',
@@ -56,4 +57,4 @@ storiesOf('Elements', module).add('Input', () => (
       suggestions: [{ value: 'you@gmail.com' }, { value: 'you@hotmail.com' }]
     })}
   </>
-))
+)

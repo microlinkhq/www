@@ -1,7 +1,6 @@
 import Text from '../Text'
 import Box from '../Box'
 import CodeEditor from './CodeEditor'
-import { storiesOf } from '@storybook/react'
 import { theme } from 'theme'
 import { Story } from 'story'
 import React from 'react'
@@ -121,7 +120,9 @@ const jsonCode = JSON.stringify(
   2
 )
 
-storiesOf('Elements', module).add('CodeEditor', () => (
+export default { title: 'Elements/CodeEditor' }
+
+export const Default = () => (
   <Story name='CodeEditor'>
     <Box css={theme({ mb: 4 })}>
       <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
@@ -150,4 +151,4 @@ storiesOf('Elements', module).add('CodeEditor', () => (
       </CodeEditor>
     </Box>
   </Story>
-))
+)
