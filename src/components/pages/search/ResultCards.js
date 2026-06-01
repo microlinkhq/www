@@ -159,12 +159,7 @@ const HeroPlacesResultCard = ({ data }) => (
   <Box>
     <Flex css={theme({ alignItems: 'center', gap: 2, minWidth: 0 })}>
       <HeroResultBrand $size='28px' $tint={colors.white}>
-        <img
-          src='https://cdn.simpleicons.org/googlemaps'
-          alt=''
-          aria-hidden='true'
-          loading='lazy'
-        />
+        <MapPin size={16} aria-hidden='true' />
       </HeroResultBrand>
       <Text
         as='span'
