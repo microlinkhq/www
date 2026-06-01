@@ -4,18 +4,29 @@ import esbuild from 'esbuild'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+function normalizeModulePath (id) {
+  return id.split('?')[0].split('#')[0].replace(/\\/g, '/')
+}
+
+function isSrcJsModule (id, srcRoot) {
+  const filepath = normalizeModulePath(id)
+  if (!filepath.endsWith('.js')) return false
+  const root = srcRoot.replace(/\\/g, '/')
+  return filepath.startsWith(`${root}/`)
+}
+
 function jsxInJsPlugin () {
   const srcRoot = path.resolve(__dirname, '../src')
   return {
     name: 'jsx-in-js',
     enforce: 'pre',
     async transform (code, id) {
-      if (!id.endsWith('.js') || !id.startsWith(srcRoot)) return
+      if (!isSrcJsModule(id, srcRoot)) return
       if (!code.includes('<')) return
       const result = await esbuild.transform(code, {
         loader: 'jsx',
         jsx: 'automatic',
-        sourcefile: id
+        sourcefile: normalizeModulePath(id)
       })
       return { code: result.code, map: result.map }
     }

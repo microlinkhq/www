@@ -13,7 +13,9 @@ export function Story ({ name, children, code, ...props }) {
         {`<${name} />`}
       </Subhead>
       <Box data-story='content' py={4} {...props}>
-        {children}
+        <Box display={['block', 'inline']}>
+          {children}
+        </Box>
       </Box>
       {code && (
         <Box mt={3}>
