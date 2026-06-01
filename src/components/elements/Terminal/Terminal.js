@@ -1,4 +1,14 @@
-import { theme, speed, toMs, timings, cx, colors, radii, borders } from 'theme'
+import {
+  theme,
+  speed,
+  toMs,
+  timings,
+  cx,
+  colors,
+  radii,
+  borders,
+  space
+} from 'theme'
 import {
   FadeBackground,
   FadeBackgroundProvider
@@ -6,8 +16,8 @@ import {
 import { childrenTextAll } from 'helpers/children-text-all'
 import styled, { css, keyframes } from 'styled-components'
 import { aspectRatio } from 'helpers/aspect-ratio'
-import { blink } from 'components/keyframes'
 import { wordBreak } from 'helpers/style'
+import { blinkCursorLayoutStyle, blinkCursorStyle } from './blink-cursor'
 import React, { useRef } from 'react'
 
 import CodeCopy from '../Codecopy'
@@ -15,6 +25,7 @@ import Text from '../Text'
 import Box from '../Box'
 
 export const TerminalWindow = styled(Box)`
+  position: relative;
   overflow: auto;
   border-radius: ${radii[3]};
   border: ${borders[1]};
@@ -39,15 +50,18 @@ to {
 }
 `
 
-const fromString = text =>
-  Array.isArray(text)
-    ? text
-    : text.split(/\r?\n/).map((item, index) => (
-      <span key={index}>
-        {item}
-        {'\n'}
-      </span>
-    ))
+const fromString = text => {
+  if (Array.isArray(text)) return text
+
+  const lines = text.split(/\r?\n/)
+
+  return lines.map((item, index) => (
+    <span key={index}>
+      {item}
+      {index < lines.length - 1 ? '\n' : null}
+    </span>
+  ))
+}
 
 const TerminalHeader = styled('div')`
   background: white;
@@ -138,11 +152,20 @@ const TerminalTitleWrapper = styled('div')`
   display: flex;
   justify-content: center;
   flex: 1;
-  margin-left: -3rem;
+  margin-left: ${props => (props.$showWindowButtons ? '-3rem' : 0)};
 `
 
-export const TerminalTitle = ({ children }) => (
-  <TerminalTitleWrapper>
+const TerminalHeaderSpacer = styled('div')`
+  flex: 1;
+`
+
+const TerminalWindowButtons = styled('div')`
+  display: flex;
+  align-items: center;
+`
+
+export const TerminalTitle = ({ children, showWindowButtons = true }) => (
+  <TerminalTitleWrapper $showWindowButtons={showWindowButtons}>
     <Text
       css={theme({
         color: 'black40',
@@ -155,7 +178,10 @@ export const TerminalTitle = ({ children }) => (
 )
 
 export const TerminalText = styled('div')`
-  padding: 0 8px 8px 8px;
+  padding: ${props =>
+    props.$autoHeight ? `${space[3]} 8px` : '0 8px 8px 8px'};
+  padding-top: ${props =>
+    props.$compactAction || props.$autoHeight ? space[3] : 0};
   overflow: visible;
   font-size: 13px;
   line-height: 20px;
@@ -164,8 +190,11 @@ export const TerminalText = styled('div')`
   align-items: center;
   position: relative;
 
-  div > span,
   code > span {
+    padding: 0 8px;
+  }
+
+  div > span {
     padding: 0 8px;
   }
 
@@ -179,25 +208,6 @@ export const TerminalText = styled('div')`
   })}
 `
 
-const blinkCursorStyle = css`
-  &::after {
-    left: -8px;
-    content: '';
-    animation-name: ${blink};
-    animation-iteration-count: infinite;
-    animation-timing-function: cubic-bezier(1, 0, 0, 1);
-    animation-duration: 1s;
-    display: inline-block;
-    width: 1px;
-    height: 14px;
-    background: ${colors.secondary};
-    margin-left: 4px;
-    position: relative;
-    top: 2px;
-    margin-right: 1px;
-  }
-`
-
 const TerminalTextWrapper = styled('div')`
   ${wordBreak};
   overflow: auto;
@@ -206,6 +216,7 @@ const TerminalTextWrapper = styled('div')`
   &::before {
     content: ${props => (props.$shellSymbol ? `'${props.$shellSymbol} '` : '')};
   }
+  ${props => props.$blinkCursor && blinkCursorLayoutStyle}
   ${props => props.$blinkCursor && blinkCursorStyle}
 `
 
@@ -216,28 +227,78 @@ const TerminalProvider = ({
   loading = false,
   title,
   header,
+  showFade = true,
+  showHeader = true,
+  showWindowButtons = true,
+  showTitle = true,
+  showAction = true,
+  autoHeight = false,
   ...props
 }) => {
   const containerRef = useRef(null)
+  const hasTitle = showTitle && title
+  const useCompactAction =
+    showHeader && !showWindowButtons && !hasTitle && showAction
+  const renderHeader =
+    showHeader &&
+    !useCompactAction &&
+    (showWindowButtons || hasTitle || showAction)
 
   return (
     <FadeBackgroundProvider containerRef={containerRef}>
       <TerminalWindow
         ref={containerRef}
-        css={theme({ width: TERMINAL_WIDTH })}
+        css={theme(
+          autoHeight
+            ? { width: '100%', height: 'auto', minHeight: 0 }
+            : { width: TERMINAL_WIDTH }
+        )}
         {...props}
       >
-        <TerminalHeader {...header}>
-          <TerminalButton.Red loading={loading} />
-          <TerminalButton.Yellow loading={loading} />
-          <TerminalButton.Green loading={loading} />
-          <TerminalTitle>{title}</TerminalTitle>
-          <ActionComponent text={text} />
-        </TerminalHeader>
+        {renderHeader && (
+          <TerminalHeader {...header}>
+            {showWindowButtons && (
+              <TerminalWindowButtons>
+                <TerminalButton.Red loading={loading} />
+                <TerminalButton.Yellow loading={loading} />
+                <TerminalButton.Green loading={loading} />
+              </TerminalWindowButtons>
+            )}
+            {hasTitle && (
+              <TerminalTitle showWindowButtons={showWindowButtons}>
+                {title}
+              </TerminalTitle>
+            )}
+            {!hasTitle && showWindowButtons && (
+              <TerminalHeaderSpacer aria-hidden='true' />
+            )}
+            {showAction && ActionComponent && <ActionComponent text={text} />}
+          </TerminalHeader>
+        )}
 
-        <FadeBackground.Top />
-        <TerminalText>{children}</TerminalText>
-        <FadeBackground.Bottom />
+        {useCompactAction && ActionComponent && (
+          <Box
+            css={theme({
+              position: 'absolute',
+              top: 2,
+              right: 2,
+              zIndex: 2
+            })}
+          >
+            <ActionComponent text={text} />
+          </Box>
+        )}
+
+        {showFade && (
+          <FadeBackground.Top $offsetTop={useCompactAction ? 0 : undefined} />
+        )}
+        <TerminalText
+          $compactAction={useCompactAction}
+          $autoHeight={autoHeight}
+        >
+          {children}
+        </TerminalText>
+        {showFade && <FadeBackground.Bottom />}
       </TerminalWindow>
     </FadeBackgroundProvider>
   )
@@ -247,13 +308,15 @@ const Terminal = ({
   children,
   shellSymbol = false,
   blinkCursor = true,
+  autoHeight = false,
+  text: textProp,
   ...props
 }) => {
   const content = typeof children === 'string' ? fromString(children) : children
-  const text = childrenTextAll(children)
+  const text = textProp ?? childrenTextAll(children)
 
   return (
-    <TerminalProvider text={text} {...props}>
+    <TerminalProvider text={text} autoHeight={autoHeight} {...props}>
       <TerminalTextWrapper
         $shellSymbol={shellSymbol}
         $blinkCursor={blinkCursor}

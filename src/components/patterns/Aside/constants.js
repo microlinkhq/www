@@ -788,6 +788,60 @@ const ROUTES_GUIDES = [
         ]
       },
       {
+        name: 'Search',
+        href: '/docs/guides/search',
+        posts: [
+          {
+            name: 'Web Search',
+            href: '/docs/guides/search/search'
+          },
+          {
+            name: 'News',
+            href: '/docs/guides/search/news'
+          },
+          {
+            name: 'Images',
+            href: '/docs/guides/search/images'
+          },
+          {
+            name: 'Videos',
+            href: '/docs/guides/search/videos'
+          },
+          {
+            name: 'Places',
+            href: '/docs/guides/search/places'
+          },
+          {
+            name: 'Maps',
+            href: '/docs/guides/search/maps'
+          },
+          {
+            name: 'Shopping',
+            href: '/docs/guides/search/shopping'
+          },
+          {
+            name: 'Scholar',
+            href: '/docs/guides/search/scholar'
+          },
+          {
+            name: 'Patents',
+            href: '/docs/guides/search/patents'
+          },
+          {
+            name: 'Autocomplete',
+            href: '/docs/guides/search/autocomplete'
+          },
+          {
+            name: 'Content expansion',
+            href: '/docs/guides/search/content-expansion'
+          },
+          {
+            name: 'Integration patterns',
+            href: '/docs/guides/search/patterns'
+          }
+        ]
+      },
+      {
         name: 'Common patterns',
         href: '/docs/guides/common/caching',
         posts: [

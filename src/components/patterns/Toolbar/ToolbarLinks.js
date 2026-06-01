@@ -17,6 +17,7 @@ import {
   Code,
   Image,
   Map,
+  Search as SearchIcon,
   Users,
   Activity,
   Maximize,
@@ -152,6 +153,12 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
     icon: GridIcon
   }),
   createNavigationItem({
+    label: 'CLI',
+    href: '/cli',
+    description: 'Microlink from your terminal',
+    icon: TerminalIcon
+  }),
+  createNavigationItem({
     label: 'Geolocation',
     href: 'https://geolocation.microlink.io',
     description: 'IP & request insights',
@@ -198,6 +205,12 @@ export const NAVIGATION_SECTIONS = [
         href: '/embed',
         description: 'Turn any URL into a rich, embeddable card',
         icon: Code
+      }),
+      createNavigationItem({
+        label: 'Search API',
+        href: '/search',
+        description: 'Turn Google results into structured data',
+        icon: SearchIcon
       }),
       createNavigationItem({
         label: 'PDF',

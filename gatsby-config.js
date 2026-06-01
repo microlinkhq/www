@@ -3,6 +3,8 @@
 const { URL } = require('url')
 const path = require('path')
 
+const isDev = (process.env.NODE_ENV || 'development') === 'development'
+
 const log = (...args) => {
   if (process.env.DEBUG) {
     console.log(...args)
@@ -21,7 +23,7 @@ const {
 module.exports = {
   trailingSlash: 'never',
   flags: {
-    DEV_SSR: true, // better 1:1 production behavior
+    DEV_SSR: process.env.DEV_SSR === 'true',
     FAST_DEV: true,
     PARALLEL_SOURCING: true,
     PRESERVE_FILE_DOWNLOAD_CACHE: true
@@ -53,7 +55,6 @@ module.exports = {
   plugins: [
     'gatsby-plugin-styled-components',
     'gatsby-plugin-catch-links',
-    'gatsby-transformer-javascript-frontmatter',
     {
       resolve: 'gatsby-plugin-sass',
       options: {
@@ -71,7 +72,7 @@ module.exports = {
         path: path.join(__dirname, 'data')
       }
     },
-    {
+    !isDev && {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: path.join(__dirname, 'src/pages'),
