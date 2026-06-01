@@ -1,81 +1,69 @@
-const path = require('path')
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import esbuild from 'esbuild'
 
-module.exports = {
-  stories: ['../src/**/*.stories.js'],
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+function jsxInJsPlugin () {
+  const srcRoot = path.resolve(__dirname, '../src')
+  return {
+    name: 'jsx-in-js',
+    enforce: 'pre',
+    async transform (code, id) {
+      if (!id.endsWith('.js') || !id.startsWith(srcRoot)) return
+      if (!code.includes('<')) return
+      const result = await esbuild.transform(code, {
+        loader: 'jsx',
+        jsx: 'automatic',
+        sourcefile: id
+      })
+      return { code: result.code, map: result.map }
+    }
+  }
+}
+
+export default {
+  stories: ['../src/**/*.stories.jsx'],
   addons: ['@storybook/addon-a11y'],
-  framework: '@storybook/react-webpack5',
+  framework: '@storybook/react-vite',
   core: {
     disableTelemetry: true
   },
-  webpackFinal: async config => {
-    config.module.rules[0].exclude = /core-js/
+  viteFinal: async config => {
+    const src = path.resolve(__dirname, '../src')
 
-    config.module.rules.push({
-      test: /\.(js)$/,
-      use: [
-        {
-          loader: require.resolve('babel-loader'),
-          options: {
-            presets: [
-              require.resolve('@babel/preset-react'),
-              require.resolve('@babel/preset-env')
-            ],
-            plugins: [
-              require.resolve('@babel/plugin-proposal-class-properties'),
-              require.resolve('babel-plugin-remove-graphql-queries'),
-              require.resolve('babel-plugin-react-docgen'),
-              require.resolve('babel-plugin-styled-components')
-            ]
-          }
-        }
-      ],
-      exclude: /node_modules\/(?!(gatsby|gatsby-script)\/)/
-    })
+    config.resolve = config.resolve || {}
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@reach/router': path.resolve(
+        __dirname,
+        '../node_modules/@gatsbyjs/reach-router'
+      ),
+      story: path.resolve(src, 'story.jsx'),
+      theme: path.resolve(src, 'theme'),
+      components: path.resolve(src, 'components'),
+      helpers: path.resolve(src, 'helpers')
+    }
 
-    config.module.rules.push({
-      test: /\.s[ac]ss$/i,
-      oneOf: [
-        {
-          test: /\.module\.s?css$/,
-          use: [
-            {
-              loader: 'style-loader',
-              options: {
-                esModule: true,
-                modules: {
-                  namedExport: true
-                }
-              }
-            },
-            {
-              loader: 'css-loader',
-              options: {
-                esModule: true,
-                modules: {
-                  namedExport: true
-                }
-              }
-            },
-            'sass-loader'
-          ]
-        },
-        {
-          use: ['style-loader', 'css-loader', 'sass-loader']
-        }
-      ]
-    })
+    config.plugins = config.plugins || []
+    config.plugins.push(jsxInJsPlugin())
 
-    config.resolve.alias['@reach/router'] = path.resolve(
-      __dirname,
-      '../node_modules/@gatsbyjs/reach-router'
-    )
+    const jsxModuleTypes = { '.js': 'jsx' }
 
-    config.resolve.mainFields = ['browser', 'module', 'main']
+    config.build = config.build || {}
+    config.build.rollupOptions = config.build.rollupOptions || {}
+    config.build.rollupOptions.moduleTypes = {
+      ...config.build.rollupOptions.moduleTypes,
+      ...jsxModuleTypes
+    }
 
-    config.resolve.modules = [
-      ...config.resolve.modules,
-      path.resolve(__dirname, '../src')
-    ]
+    config.optimizeDeps = config.optimizeDeps || {}
+    config.optimizeDeps.rolldownOptions =
+      config.optimizeDeps.rolldownOptions || {}
+    config.optimizeDeps.rolldownOptions.moduleTypes = {
+      ...config.optimizeDeps.rolldownOptions.moduleTypes,
+      ...jsxModuleTypes
+    }
 
     return config
   }
