@@ -23,7 +23,7 @@ export default { title: 'Elements/Iframe' }
 
 export const Default = () => (
   <Story name='Iframe' code={code}>
-    <Flex flexDirection='column'>
+    <Flex css={theme({ flexDirection: 'column' })}>
       <Box>
         <Iframe
           width={CodeEditor.width}

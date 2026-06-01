@@ -5,7 +5,7 @@ import Box from 'components/elements/Box'
 import { withTitle } from 'helpers/hoc/with-title'
 import contrast from 'contrast'
 import range from 'lodash/range'
-import { colors } from 'theme'
+import { colors, theme } from 'theme'
 import { Story } from 'story'
 import rgbHex from 'rgb-hex'
 import React from 'react'
@@ -25,22 +25,24 @@ const contrastColor = color => {
 }
 
 const Palette = ({ name, keywords }) => (
-  <Box as='section' pt={5}>
-    <Subhead textAlign='left' pb={3}>
+  <Box as='section' css={theme({ pt: 5 })}>
+    <Subhead css={theme({ textAlign: 'left', pb: 3 })}>
       {name}
     </Subhead>
-    <Flex flexDirection='column'>
+    <Flex css={theme({ flexDirection: 'column' })}>
       {keywords.map(keyword => (
         <Flex
-          color={contrastColor(colors[keyword])}
-          justifyContent='space-between'
-          px={5}
-          py={4}
+          css={theme({
+            color: contrastColor(colors[keyword]),
+            justifyContent: 'space-between',
+            px: 5,
+            py: 4,
+            bg: keyword
+          })}
           key={keyword}
-          bg={keyword}
         >
-          <Text fontSize={3}>{keyword}</Text>
-          <Text fontSize={3}>{toHex(colors[keyword])}</Text>
+          <Text css={theme({ fontSize: 3 })}>{keyword}</Text>
+          <Text css={theme({ fontSize: 3 })}>{toHex(colors[keyword])}</Text>
         </Flex>
       ))}
     </Flex>
@@ -54,7 +56,7 @@ const PaletteRange = ({ name: keyword }) => (
 export default { title: 'Theme/Colors' }
 
 export const Default = () => (
-  <Story mt={0} name='Colors' width='100%'>
+  <Story name='Colors' width='100%'>
     <Palette
       name='others'
       keywords={['link', 'secondary', 'primary', 'pinky', 'pinkest']}
@@ -102,7 +104,7 @@ export const Default = () => (
     <PaletteRange name='cyan' />
     <PaletteRange name='indigo' />
     <PaletteRange name='violet' />
-    <PaletteRange name='fuschia' />
+    <PaletteRange name='grape' />
     <PaletteRange name='pink' />
     <PaletteRange name='red' />
     <PaletteRange name='orange' />

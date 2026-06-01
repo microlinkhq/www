@@ -90,7 +90,7 @@ export const Default = () => (
       </Text>
     </Story>
     <Story name='Label' code={codeLabel}>
-      <Label display='inline' suffix='/day'>
+      <Label css={theme({ display: 'inline' })} suffix='/day'>
         reqs
       </Label>
     </Story>

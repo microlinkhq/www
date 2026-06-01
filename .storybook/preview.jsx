@@ -1,7 +1,7 @@
 import { LocationProvider } from '@gatsbyjs/reach-router'
 import { ThemeProvider } from 'styled-components'
 import Flex from 'components/elements/Flex'
-import themeSpec from 'theme'
+import themeSpec, { theme } from 'theme'
 import React from 'react'
 
 global.___loader = {
@@ -20,10 +20,12 @@ export const decorators = [
     <ThemeProvider theme={themeSpec}>
       <LocationProvider>
         <Flex
-          p={3}
-          justifyContent='center'
-          alignItems='baseline'
-          flexDirection='column'
+          css={theme({
+            p: 3,
+            justifyContent: 'center',
+            alignItems: 'baseline',
+            flexDirection: 'column'
+          })}
         >
           <Story />
         </Flex>

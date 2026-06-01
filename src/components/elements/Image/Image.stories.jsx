@@ -1,4 +1,5 @@
 import { Story } from 'story'
+import { theme } from 'theme'
 import React from 'react'
 
 import Image from './Image'
@@ -19,7 +20,7 @@ export default () => (
 const ImageStory = () => {
   return (
     <Story name={storyName} code={code}>
-      <Flex flexDirection='row' justifyContent='center'>
+      <Flex css={theme({ flexDirection: 'row', justifyContent: 'center' })}>
         <Image
           alt='example image'
           css={{

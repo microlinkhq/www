@@ -1,4 +1,5 @@
 import Box from 'components/elements/Box'
+import { theme } from 'theme'
 import { Story } from 'story'
 import React from 'react'
 
@@ -13,7 +14,7 @@ const url = 'https://x.com/futurism/status/882987478541533189'
 export default () => (
   <Fragment>
     <Microlink url={url} />
-    <Box my={3} />
+    <Box css={theme({ my: 3 })} />
     <Microlink size='large' url={url} />
   </Fragment>
 )
@@ -54,7 +55,7 @@ export const Default = () => (
     style={{ display: 'flex', width: '100%' }}
   >
     <Microlink url={DATA.url} setData={DATA} media='image' />
-    <Box my={3} />
+    <Box css={theme({ my: 3 })} />
     <Microlink url={DATA.url} size='large' setData={DATA} media='image' />
   </Story>
 )

@@ -4,6 +4,7 @@ import Flex from 'components/elements/Flex'
 import SubheadBase from 'components/elements/Subhead'
 import { withTitle } from 'helpers/hoc/with-title'
 import { LogoBrand } from 'components/logos'
+import { theme } from 'theme'
 
 const Subhead = withTitle(SubheadBase)
 
@@ -28,10 +29,12 @@ function LogoStories () {
       <Flex>
         {states.map((state, index) => (
           <Flex
-            mr={index + 1 === states.length ? 0 : 5}
+            css={theme({
+              mr: index + 1 === states.length ? 0 : 5,
+              flexDirection: 'column',
+              alignItems: 'baseline'
+            })}
             as='section'
-            flexDirection='column'
-            alignItems='baseline'
             key={state}
           >
             <Subhead>{state}</Subhead>
@@ -41,7 +44,10 @@ function LogoStories () {
                 props['data-hover'] = true
               }
               return (
-                <Flex py={3} alignItems='center' key={`${logoName}_${state}`}>
+                <Flex
+                  css={theme({ py: 3, alignItems: 'center' })}
+                  key={`${logoName}_${state}`}
+                >
                   <LogoComponent ratio={ratio} {...props} />
                 </Flex>
               )

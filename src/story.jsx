@@ -2,6 +2,7 @@ import Box from 'components/elements/Box'
 import SubheadBase from 'components/elements/Subhead'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import { withTitle } from 'helpers/hoc/with-title'
+import { theme } from 'theme'
 import React from 'react'
 
 const Subhead = withTitle(SubheadBase)
@@ -9,22 +10,36 @@ const Subhead = withTitle(SubheadBase)
 export function Story ({ name, children, code, ...props }) {
   return (
     <>
-      <Subhead titleize={false} fontSize={3} textAlign='left'>
+      <Subhead
+        titleize={false}
+        css={theme({
+          fontSize: 3,
+          textAlign: 'left'
+        })}
+      >
         {`<${name} />`}
       </Subhead>
-      <Box data-story='content' py={4} {...props}>
-        <Box display={['block', 'inline']}>
+      <Box
+        data-story='content'
+        css={theme({
+          py: 4
+        })}
+        {...props}
+      >
+        <Box
+          css={theme({
+            display: ['block', 'inline']
+          })}
+        >
           {children}
         </Box>
       </Box>
       {code && (
-        <Box mt={3}>
-          <CodeEditor language='jsx'>
-            {code}
-          </CodeEditor>
-        </Box>
+        <CodeEditor language='jsx' css={theme({ ml: 4 })}>
+          {code}
+        </CodeEditor>
       )}
-      <Box pb={5} />
+      <Box css={theme({ pb: 5 })} />
     </>
   )
 }
