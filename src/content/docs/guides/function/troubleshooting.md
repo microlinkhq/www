@@ -35,6 +35,7 @@ When a function exceeds its plan limits, the API returns a descriptive error ins
 | `MemoryError`      | Function memory usage exceeded the plan limit                   |
 | `CodeSizeError`    | Function code exceeds the 1024 bytes free plan limit            |
 | `ConcurrencyError` | Too many concurrent function executions for the free plan (1 per IP) |
+| `OutgoingRequestError` | Function made a cross-origin network request on the free plan        |
 
 Each error message is plan-aware:
 
@@ -84,6 +85,12 @@ Each error message is plan-aware:
 
 1. Wait for the current function execution to finish before sending another request.
 2. Upgrade to pro for unlimited concurrency.
+
+**OutgoingRequestError** — the function made a cross-origin network request on the free plan:
+
+1. Remove any `fetch`, `XMLHttpRequest`, or WebSocket calls to external domains.
+2. Same-origin requests (relative URLs or same host as the target URL) are always allowed.
+3. Upgrade to pro for unrestricted outgoing requests.
 
 ## General debugging
 
