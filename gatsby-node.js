@@ -77,7 +77,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   `)
 }
 
-exports.onCreateWebpackConfig = ({ actions }) => {
+exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   actions.setWebpackConfig({
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
@@ -86,6 +86,17 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       }
     }
   })
+
+  if (stage === 'develop' || stage === 'develop-html') {
+    const config = getConfig()
+    config.devtool = 'eval'
+    if (config.cache && config.cache.type === 'filesystem') {
+      config.cache.maxMemoryGenerations = 1
+      config.cache.compression = 'gzip'
+      config.cache.allowCollectingMemory = true
+    }
+    actions.replaceWebpackConfig(config)
+  }
 }
 
 exports.onPostBuild = async ({ graphql, reporter }) => {
