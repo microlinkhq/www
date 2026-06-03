@@ -4,27 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'GIPHY',
   slug: 'giphy',
-  color: '#FF6666',
+  color: '#00CCFF',
   exampleUrl: 'https://giphy.com/gifs/reaction-l3q2K5jinAlChoCLS',
   metaTitle: 'GIPHY Embed Code Generator — Embed GIFs & Stickers',
   metaDescription:
-    'Free GIPHY embed code generator. Paste any GIPHY URL — get a ready-to-paste embed for GIFs and stickers. No signup.',
+    'Free GIPHY embed code generator. Paste any GIPHY URL — get a ready-to-paste embed for GIFs, stickers, and Clips. No signup.',
   keywords: [
     'embed giphy',
     'giphy embed code',
     'giphy embed code generator',
-    'embed gif',
+    'embed giphy gif',
+    'embed giphy sticker',
     'giphy gif embed html',
     'giphy embed for website'
   ],
   heroTitle: 'GIPHY Embed Code Generator',
   heroSubtitle:
-    'Paste any GIPHY URL — get a ready-to-paste embed for GIFs and stickers.',
-  howItWorksHeading: 'How to embed GIPHY content',
+    'Paste any GIPHY URL — get a ready-to-paste embed for GIFs, stickers, and Clips.',
+  howItWorksHeading: 'How to embed a GIPHY GIF',
   howItWorksSteps: [
     {
       title: 'Paste a GIPHY link',
-      description: 'Copy any GIPHY URL — GIFs, stickers, and clips.'
+      description:
+        'Copy any giphy.com URL — GIF pages, stickers, and GIPHY Clips all work.'
     },
     {
       title: 'Get the embed code',
@@ -42,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any GIPHY link and get working embed HTML.'
+        'Skip digging through the share menu. Paste any GIPHY link and get working embed HTML.'
     },
     {
-      title: 'All GIPHY content',
+      title: 'GIFs, stickers & Clips',
       description:
-        'Works with GIFs, stickers, and clips — the tool handles all GIPHY URL formats.'
+        'Works with animated GIFs, transparent stickers, and GIPHY Clips — the tool handles all GIPHY URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -64,43 +66,53 @@ const data = {
     {
       title: 'Native GIPHY embed',
       description:
-        'Get the real GIPHY player with auto-playing GIF and attribution.'
+        'Get the real GIPHY embed with the auto-playing, looping GIF and GIPHY attribution.'
     },
     {
-      title: 'GIFs, stickers & clips',
+      title: 'Stickers and Clips',
       description:
-        'Standard GIFs, stickers, and GIPHY Clips — all content types are supported.'
+        'Transparent stickers and short GIPHY Clips embed alongside standard animated GIFs.'
     },
     {
-      title: 'Responsive sizing',
+      title: 'Preview card fallback',
       description:
-        'The embedded GIF scales to fit any container width while maintaining aspect ratio.'
+        'A styled preview card with title and image when native embedding is restricted.'
     }
   ],
   relatedLinks: [
     {
-      href: '/tools/embed-url/imgur',
-      label: 'Imgur'
+      href: '/tools/embed-url/coub',
+      label: 'Coub'
     },
     {
-      href: '/tools/embed-url/instagram',
-      label: 'Instagram'
+      href: '/tools/embed-url/gifnote',
+      label: 'Gifnote'
     },
     {
-      href: '/tools/embed-url/tiktok',
-      label: 'TikTok'
+      href: '/tools/embed-url/flickr',
+      label: 'Flickr'
     }
   ],
   faq: [
     {
-      question: 'How do I embed a GIPHY GIF?',
+      question: 'How do I embed a GIPHY GIF on my website?',
       answer:
-        'Paste any GIPHY URL into the tool and click Generate. You will get a ready-to-paste embed.'
+        'Paste any GIPHY URL into the tool and click Generate. You will get a ready-to-paste embed for the GIF.'
+    },
+    {
+      question: 'Can I embed GIPHY stickers and Clips?',
+      answer:
+        'Yes. Animated GIFs, transparent stickers, and GIPHY Clips are all supported.'
     },
     {
       question: 'Does the GIF autoplay?',
       answer:
         'Yes. The embedded GIF plays automatically in a loop, just like on GIPHY.'
+    },
+    {
+      question: 'What if a GIF cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card with the title and image so you always get something to paste.'
     },
     {
       question: 'Is this free?',

@@ -4,22 +4,33 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Celero',
   slug: 'celero',
-  color: '#666666',
-  exampleUrl: 'https://celero.io',
-  metaTitle: 'Celero Embed Code Generator — Embed Celero Content',
+  color: '#0E6EFF',
+  exampleUrl: 'https://embeds.celero.io/s/4602bc43',
+  metaTitle: 'Celero Embed Code Generator — Embed Celero Microsites',
   metaDescription:
-    'Free Celero embed code generator. Paste any Celero URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed celero', 'celero embed code', 'celero embed generator'],
+    'Free Celero embed code generator. Paste a Celero microsite URL — get a ready-to-paste embed or styled preview card. No signup.',
+  keywords: [
+    'embed celero',
+    'celero embed code',
+    'celero embed code generator',
+    'embed celero microsite',
+    'celero iframe code',
+    'celero oembed',
+    'celero microsite embed'
+  ],
   heroTitle: 'Celero Embed Code Generator',
   heroSubtitle:
-    'Paste any Celero URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Celero content',
+    'Paste a Celero microsite URL — get a ready-to-paste embed or styled preview card.',
+  howItWorksHeading: 'How to embed a Celero microsite',
   howItWorksSteps: [
-    { title: 'Paste a Celero link', description: 'Copy any celero.io URL.' },
+    {
+      title: 'Paste a Celero link',
+      description:
+        'Copy the share link to your published celero.io microsite — the URL from the Share menu or an embeds.celero.io link.'
+    },
     {
       title: 'Get the embed code',
-      description:
-        'The tool detects the content type and generates the right embed HTML.'
+      description: 'The tool reads the page and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +42,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Celero link and get working embed HTML.'
+      description:
+        'Skip digging through the Share menu and oEmbed options. Paste a Celero link and get working embed HTML.'
     },
     {
-      title: 'Celero content',
-      description: 'The tool handles all Celero URL formats.'
+      title: 'Works with microsites',
+      description:
+        'Embed interactive Celero microsites built from your Canva, Figma, Adobe, Office, PDF, or Google Drive content.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Celero embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive microsite embed',
       description:
-        'Get the real Celero embed with full interactivity when available.'
+        'Embed the Celero microsite so visitors can scroll, watch, and interact without leaving your site.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Celero URL formats and content types.'
+      title: 'Responsive layout',
+      description:
+        'The embed adapts to your page width so it looks right on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -65,21 +80,28 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/twitter-or-x', label: 'Twitter / X' }
   ],
   faq: [
     {
-      question: 'How do I embed Celero content on my website?',
-      answer: 'Paste any Celero URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Celero embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Celero content is private?',
+      question: 'How do I embed a Celero microsite on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Open your Celero microsite, copy its share link, paste it into the tool, and click Generate to get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'What Celero content can I embed?',
+      answer:
+        'Published Celero microsites, including those built from Canva designs, Figma files, PDFs, slides, and other imported content.'
+    },
+    {
+      question: 'What if the Celero microsite is private or unpublished?',
+      answer:
+        'Embedding needs a publicly accessible link. If the microsite cannot be reached, the tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

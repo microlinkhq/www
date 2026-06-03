@@ -2,32 +2,37 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Appforcestudio',
+  name: 'AppForce Studio',
   slug: 'appforcestudio',
-  color: '#666666',
+  color: '#5BBE01',
   exampleUrl: 'https://appforcestudio.com',
   metaTitle:
-    'Appforcestudio Embed Code Generator — Embed Appforcestudio Content',
+    'AppForce Studio Embed Code Generator — Embed AppForce Studio Links',
   metaDescription:
-    'Free Appforcestudio embed code generator. Paste any Appforcestudio URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free AppForce Studio embed code generator. Paste any appforcestudio.com URL — get a clean preview card with title, image, and description. No signup.',
   keywords: [
     'embed appforcestudio',
     'appforcestudio embed code',
-    'appforcestudio embed generator'
+    'appforcestudio embed generator',
+    'embed appforcestudio link',
+    'appforcestudio preview card',
+    'appforcestudio link card',
+    'appforce studio embed'
   ],
-  heroTitle: 'Appforcestudio Embed Code Generator',
+  heroTitle: 'AppForce Studio Embed Code Generator',
   heroSubtitle:
-    'Paste any Appforcestudio URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Appforcestudio content',
+    'Paste an AppForce Studio URL — get a clean preview card with the page title, image, and description.',
+  howItWorksHeading: 'How to embed an AppForce Studio link',
   howItWorksSteps: [
     {
-      title: 'Paste a Appforcestudio link',
-      description: 'Copy any appforcestudio.com URL.'
+      title: 'Paste an AppForce Studio link',
+      description:
+        'Copy any appforcestudio.com URL — a page, post, or shared link.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the page metadata and builds a preview card with the title, image, and description.'
     },
     {
       title: 'Copy & paste',
@@ -35,15 +40,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Appforcestudio embed code generator',
+  explanationHeading: 'Why use our AppForce Studio embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Appforcestudio link and get working embed HTML.'
+      description:
+        'Paste any AppForce Studio link and get a ready-to-paste preview card — no markup to write by hand.'
     },
     {
-      title: 'Appforcestudio content',
-      description: 'The tool handles all Appforcestudio URL formats.'
+      title: 'Clean link previews',
+      description:
+        'The tool pulls the page title, image, and description so the link looks polished wherever you paste it.'
     },
     {
       title: 'Customizable preview card',
@@ -52,19 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 AppForce Studio embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Title, image & description',
       description:
-        'Get the real Appforcestudio embed with full interactivity when available.'
+        'The preview card surfaces the page metadata so readers see what the link is before they click.'
     },
     {
-      title: 'All content types',
+      title: 'Responsive layout',
       description:
-        'Works with all Appforcestudio URL formats and content types.'
+        'The card adapts to your layout — inline in a paragraph or full-width as a feature block.'
     },
     {
       title: 'Preview card fallback',
@@ -73,22 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/figma', label: 'Figma' },
+    { href: '/tools/embed-url/framer', label: 'Framer' },
+    { href: '/tools/embed-url/canva', label: 'Canva' }
   ],
   faq: [
     {
-      question: 'How do I embed Appforcestudio content on my website?',
-      answer: 'Paste any Appforcestudio URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Appforcestudio embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Appforcestudio content is private?',
+      question: 'How do I embed an AppForce Studio link on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any appforcestudio.com URL into the tool and click Generate. You will get a ready-to-paste preview card.'
+    },
+    {
+      question: 'What does the AppForce Studio embed look like?',
+      answer:
+        'It is a styled preview card built from the page metadata — title, image, and description — that links back to the original page.'
+    },
+    {
+      question: 'Can I customize the AppForce Studio preview card?',
+      answer:
+        'Yes. Switch to Card mode to adjust colors, fonts, and layout before you copy the embed code.'
+    },
+    {
+      question: 'What if the AppForce Studio page is private?',
+      answer:
+        'If a page is not publicly accessible, the tool can only use the metadata it can reach, so private pages may not generate a full preview.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

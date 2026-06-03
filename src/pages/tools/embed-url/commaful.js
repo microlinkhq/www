@@ -4,29 +4,36 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Commaful',
   slug: 'commaful',
-  color: '#666666',
-  exampleUrl: 'https://commaful.com',
-  metaTitle: 'Commaful Embed Code Generator — Embed Commaful Content',
+  color: '#00c6c6',
+  exampleUrl: 'https://commaful.com/play/aknier/the-mountain/',
+  metaTitle:
+    'Commaful Embed Code Generator — Embed Short Stories & Visual Poetry',
   metaDescription:
-    'Free Commaful embed code generator. Paste any Commaful URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Commaful embed code generator. Paste a Commaful story or poetry URL to get a ready-to-paste embed or preview card. No signup.',
   keywords: [
     'embed commaful',
     'commaful embed code',
-    'commaful embed generator'
+    'embed commaful story',
+    'embed commaful poetry',
+    'commaful embed generator',
+    'commaful story embed',
+    'embed visual story commaful',
+    'commaful flash fiction embed'
   ],
   heroTitle: 'Commaful Embed Code Generator',
   heroSubtitle:
-    'Paste any Commaful URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Commaful content',
+    'Paste a Commaful story or poem URL to get a ready-to-paste embed or a customizable preview card.',
+  howItWorksHeading: 'How to embed Commaful stories',
   howItWorksSteps: [
     {
       title: 'Paste a Commaful link',
-      description: 'Copy any commaful.com URL.'
+      description:
+        'Copy any commaful.com URL — a visual story, poem, or fanfiction from a /play/ page.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the story title, cover image, and author, then generates the embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -38,11 +45,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Commaful link and get working embed HTML.'
+      description:
+        'Paste a Commaful link and get working embed HTML in one step.'
     },
     {
-      title: 'Commaful content',
-      description: 'The tool handles all Commaful URL formats.'
+      title: 'Built for visual stories',
+      description:
+        'Surfaces the cover art, title, and author behind each Commaful short story or poem.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +60,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Commaful embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Story-aware preview',
       description:
-        'Get the real Commaful embed with full interactivity when available.'
+        'Pulls the page-by-page visual story metadata, including its image and headline.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Commaful URL formats and content types.'
+      title: 'Works across content',
+      description:
+        'Handles Commaful short stories, visual poetry, and fanfiction URLs alike.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +82,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/tumblr', label: 'Tumblr' },
+    { href: '/tools/embed-url/wordpress-com', label: 'WordPress.com' },
+    { href: '/tools/embed-url/sutori', label: 'Sutori' }
   ],
   faq: [
     {
-      question: 'How do I embed Commaful content on my website?',
-      answer: 'Paste any Commaful URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Commaful embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Commaful content is private?',
+      question: 'How do I embed a Commaful story on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any commaful.com story or poem URL into the tool and click Generate to get embed HTML you can paste anywhere.'
+    },
+    {
+      question: 'What kind of Commaful content can I embed?',
+      answer:
+        'Commaful short stories, visual poetry, and fanfiction from /play/ pages all work, including the story cover image and title.'
+    },
+    {
+      question: 'What if the Commaful story is private or unavailable?',
+      answer:
+        'The tool falls back to a styled preview card built from whatever public metadata is available.'
+    },
+    {
+      question: 'Can I change how the Commaful embed looks?',
+      answer:
+        'Yes — switch to Card mode to customize the colors, fonts, and layout before you copy the code.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

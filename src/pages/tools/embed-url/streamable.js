@@ -4,29 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Streamable',
   slug: 'streamable',
-  color: '#0B79E3',
-  exampleUrl: 'https://streamable.com',
-  metaTitle: 'Streamable Embed Code Generator — Embed Videos and clips',
+  color: '#0F90FA',
+  exampleUrl: 'https://streamable.com/hn8hq',
+  metaTitle: 'Streamable Embed Code Generator — Embed Videos & Clips',
   metaDescription:
-    'Free Streamable embed code generator. Paste any Streamable URL — get a ready-to-paste embed for videos and clips. No signup.',
+    'Free Streamable embed code generator. Paste any Streamable URL — get a ready-to-paste iframe player for uploaded videos and clips. No signup.',
   keywords: [
     'embed streamable',
     'streamable embed code',
-    'streamable video embed'
+    'streamable embed code generator',
+    'embed streamable video',
+    'streamable iframe code',
+    'streamable video player embed',
+    'embed streamable clip'
   ],
   heroTitle: 'Streamable Embed Code Generator',
   heroSubtitle:
-    'Paste any Streamable URL — get a ready-to-paste embed for videos and clips.',
-  howItWorksHeading: 'How to embed Streamable content',
+    'Paste any Streamable URL — get a ready-to-paste iframe player for your uploaded videos and clips.',
+  howItWorksHeading: 'How to embed a Streamable video',
   howItWorksSteps: [
     {
       title: 'Paste a Streamable link',
-      description: 'Copy any streamable.com URL — videos and clips.'
+      description:
+        'Copy any streamable.com video link — short share URLs like streamable.com/abc123 all work.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the video and generates the right responsive iframe embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -39,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Streamable link and get working embed HTML.'
+        'Skip digging through the player menu. Paste any Streamable link and get working embed HTML.'
     },
     {
-      title: 'All Streamable content',
+      title: 'Works with every clip',
       description:
-        'Works with videos and clips — the tool handles all Streamable URL formats.'
+        'Handles Streamable share URLs automatically, so any uploaded video or clip embeds cleanly.'
     },
     {
       title: 'Customizable preview card',
@@ -54,18 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Streamable embeds per day. No login, no API key.'
+        'Generate up to 50 Streamable embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Streamable player',
       description:
-        'Get the real Streamable embed with full interactivity when available.'
+        'Get the real Streamable video player with playback controls and fullscreen support.'
     },
     {
-      title: 'All videos and clips',
-      description: 'Works with videos and clips — all Streamable content types.'
+      title: 'Responsive video embed',
+      description:
+        'The iframe scales to fit your layout so your clips look right on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -75,22 +81,33 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/coub', label: 'Coub' }
   ],
   faq: [
     {
-      question: 'How do I embed Streamable content on my website?',
+      question: 'How do I embed a Streamable video on my website?',
       answer:
-        'Paste any Streamable URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any Streamable URL into the tool and click Generate. You will get a ready-to-paste iframe player.'
     },
     {
-      question: 'Is the Streamable embed generator free?',
+      question: 'What Streamable links can I embed?',
+      answer:
+        'Any public Streamable video share link works, such as streamable.com/abc123.'
+    },
+    {
+      question: 'Is the video player responsive?',
+      answer:
+        'Yes. The generated iframe scales to fit your container so the video looks right on any screen size.'
+    },
+    {
+      question: 'What if the Streamable video is private?',
+      answer:
+        'Private or restricted videos cannot be embedded natively, so the tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Streamable content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

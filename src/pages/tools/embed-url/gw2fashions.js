@@ -2,31 +2,37 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Gw2fashions',
+  name: 'GW2Fashions',
   slug: 'gw2fashions',
-  color: '#666666',
-  exampleUrl: 'https://gw2fashions.com',
-  metaTitle: 'Gw2fashions Embed Code Generator — Embed Gw2fashions Content',
+  color: '#AA0404',
+  exampleUrl: 'https://gw2fashions.com/',
+  metaTitle:
+    'GW2Fashions Embed Code Generator — Embed Guild Wars 2 Fashion Templates',
   metaDescription:
-    'Free Gw2fashions embed code generator. Paste any Gw2fashions URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free GW2Fashions embed code generator. Paste a gw2fashions.com URL to get a ready-to-paste embed or styled preview card for Guild Wars 2 fashion looks. No signup.',
   keywords: [
     'embed gw2fashions',
     'gw2fashions embed code',
-    'gw2fashions embed generator'
+    'gw2fashions embed code generator',
+    'embed guild wars 2 fashion',
+    'gw2 fashion template embed',
+    'gw2fashions iframe code',
+    'embed gw2 outfit'
   ],
-  heroTitle: 'Gw2fashions Embed Code Generator',
+  heroTitle: 'GW2Fashions Embed Code Generator',
   heroSubtitle:
-    'Paste any Gw2fashions URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Gw2fashions content',
+    'Paste a GW2Fashions URL to get a ready-to-paste embed or preview card for Guild Wars 2 fashion templates.',
+  howItWorksHeading: 'How to embed GW2Fashions content',
   howItWorksSteps: [
     {
-      title: 'Paste a Gw2fashions link',
-      description: 'Copy any gw2fashions.com URL.'
+      title: 'Paste a GW2Fashions link',
+      description:
+        'Copy any gw2fashions.com URL for a Guild Wars 2 fashion template or shared look.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the page and generates ready-to-paste embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -34,15 +40,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Gw2fashions embed code generator',
+  explanationHeading: 'Why use our GW2Fashions embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Gw2fashions link and get working embed HTML.'
+      description:
+        'Skip writing markup by hand. Paste a GW2Fashions link and get working embed HTML.'
     },
     {
-      title: 'Gw2fashions content',
-      description: 'The tool handles all Gw2fashions URL formats.'
+      title: 'Share your looks',
+      description:
+        'Embed Guild Wars 2 fashion templates straight into guides, wikis, and community posts.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 GW2Fashions embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Fashion template embeds',
       description:
-        'Get the real Gw2fashions embed with full interactivity when available.'
+        'Turn a gw2fashions.com link into an embed for the shared Guild Wars 2 look.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Gw2fashions URL formats and content types.'
+      title: 'Responsive output',
+      description:
+        'The generated embed adapts to your page width so it fits any layout.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/deviantart-com',
+      label: 'DeviantArt'
+    },
+    {
+      href: '/tools/embed-url/behance',
+      label: 'Behance'
+    },
+    {
+      href: '/tools/embed-url/flickr',
+      label: 'Flickr'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Gw2fashions content on my website?',
-      answer: 'Paste any Gw2fashions URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Gw2fashions embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Gw2fashions content is private?',
+      question: 'How do I embed a GW2Fashions look on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a gw2fashions.com URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'What is GW2Fashions?',
+      answer:
+        'GW2Fashions is a community tool for creating and sharing Guild Wars 2 fashion templates — outfit, armor, and dye combinations for your characters.'
+    },
+    {
+      question: 'What if the look cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card with the title and image so you always get something to paste.'
+    },
+    {
+      question: 'Is the embed responsive?',
+      answer:
+        'Yes. The generated embed adjusts to the width of your page so it works on desktop and mobile.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

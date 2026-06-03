@@ -4,32 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Flourish',
   slug: 'flourish',
-  color: '#3654FF',
-  exampleUrl: 'https://public.flourish.studio/visualisation/1234567/',
-  metaTitle: 'Flourish Embed Code Generator — Embed Charts & Visualizations',
+  color: '#1364E2',
+  exampleUrl: 'https://public.flourish.studio/visualisation/1077576/',
+  metaTitle: 'Flourish Embed Code Generator — Embed Charts & Data Stories',
   metaDescription:
-    'Free Flourish embed code generator. Paste any Flourish URL — get a ready-to-paste iframe for charts, maps, and data stories. No signup.',
+    'Free Flourish embed code generator. Paste any Flourish URL — get a ready-to-paste iframe for interactive charts, maps, and animated data stories. No signup.',
   keywords: [
     'embed flourish',
     'flourish embed code',
-    'flourish embed generator',
-    'flourish iframe',
+    'flourish embed code generator',
+    'flourish iframe code',
     'embed flourish chart',
+    'embed flourish story',
     'flourish visualization embed'
   ],
   heroTitle: 'Flourish Embed Code Generator',
   heroSubtitle:
-    'Paste any Flourish URL — get a ready-to-paste iframe for charts, maps, and data stories.',
+    'Paste any Flourish URL — get a ready-to-paste iframe for interactive charts, maps, and animated data stories.',
   howItWorksHeading: 'How to embed Flourish content',
   howItWorksSteps: [
     {
       title: 'Paste a Flourish link',
-      description: 'Copy any Flourish URL — charts, maps, and data stories.'
+      description:
+        'Copy any public.flourish.studio URL — a visualisation or a multi-step data story.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the visualisation and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -47,7 +49,7 @@ const data = {
     {
       title: 'All Flourish content',
       description:
-        'Works with charts, maps, and data stories — the tool handles all Flourish URL formats.'
+        'Works with visualisations and data stories — the tool handles all Flourish URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -64,16 +66,17 @@ const data = {
     {
       title: 'Interactive visualizations',
       description:
-        'Get a fully interactive Flourish embed — tooltips, animations, and filters all work.'
+        'Get the live Flourish embed — tooltips, animations, and bar chart races all play in place.'
     },
     {
       title: 'Charts, maps & stories',
       description:
-        'Bar charts, maps, scatter plots, and data stories — all Flourish visualization types work.'
+        'Bar chart races, line charts, maps, scatter plots, and scrollytelling stories all work.'
     },
     {
-      title: 'Responsive iframe',
-      description: 'The embedded visualization adapts to any container width.'
+      title: 'Preview card fallback',
+      description:
+        'A styled preview card with title and image when native embedding is restricted.'
     }
   ],
   relatedLinks: [
@@ -82,23 +85,34 @@ const data = {
       label: 'Datawrapper'
     },
     {
-      href: '/tools/embed-url/google-maps',
-      label: 'Google Maps'
+      href: '/tools/embed-url/infogram',
+      label: 'Infogram'
     },
     {
-      href: '/tools/embed-url/airtable',
-      label: 'Airtable'
+      href: '/tools/embed-url/observable',
+      label: 'Observable'
     }
   ],
   faq: [
     {
-      question: 'How do I embed a Flourish chart?',
-      answer: 'Paste any Flourish public URL into the tool and click Generate.'
+      question: 'How do I embed a Flourish chart on my website?',
+      answer:
+        'Paste the public.flourish.studio URL of your published visualisation into the tool and click Generate. You will get a ready-to-paste iframe.'
     },
     {
-      question: 'Are interactions preserved?',
+      question: 'Can I embed a Flourish data story?',
       answer:
-        'Yes. Tooltips, animations, and interactive features work in the embed.'
+        'Yes. Both single visualisations and multi-step data stories are supported.'
+    },
+    {
+      question: 'Are interactions and animations preserved?',
+      answer:
+        'Yes. Tooltips, filters, animations, and bar chart race playback all work inside the embed.'
+    },
+    {
+      question: 'What if the visualisation is private?',
+      answer:
+        'Only published, public Flourish visualisations can be embedded. Unpublished or private projects will fall back to a preview card.'
     },
     {
       question: 'Is this free?',

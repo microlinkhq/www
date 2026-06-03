@@ -2,24 +2,37 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Fite',
+  name: 'FITE',
   slug: 'fite',
-  color: '#666666',
-  exampleUrl: 'https://fite.tv',
-  metaTitle: 'Fite Embed Code Generator — Embed Fite Content',
+  color: '#E61414',
+  exampleUrl: 'https://www.fite.tv/watch/gcw-tournament-of-survival-11/2pjpn/',
+  metaTitle: 'FITE Embed Code Generator — Embed Combat Sports & PPV Events',
   metaDescription:
-    'Free Fite embed code generator. Paste any Fite URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed fite', 'fite embed code', 'fite embed generator'],
-  heroTitle: 'Fite Embed Code Generator',
+    'Free FITE embed code generator. Paste a FITE TV (TrillerTV) event URL — get a ready-to-paste preview card for boxing, MMA, wrestling, and PPV streams. No signup.',
+  keywords: [
+    'embed fite',
+    'fite embed code',
+    'fite embed code generator',
+    'embed fite tv event',
+    'fite tv preview card',
+    'trillertv embed',
+    'embed ppv event',
+    'fite combat sports embed'
+  ],
+  heroTitle: 'FITE Embed Code Generator',
   heroSubtitle:
-    'Paste any Fite URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Fite content',
+    'Paste a FITE TV event URL — get a ready-to-paste preview card for boxing, MMA, wrestling, and PPV streams.',
+  howItWorksHeading: 'How to embed a FITE event',
   howItWorksSteps: [
-    { title: 'Paste a Fite link', description: 'Copy any fite.tv URL.' },
+    {
+      title: 'Paste a FITE link',
+      description:
+        'Copy any fite.tv or trillertv.com event, watch, or category URL.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the event metadata and generates a styled preview card you can paste anywhere.'
     },
     {
       title: 'Copy & paste',
@@ -27,15 +40,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Fite embed code generator',
+  explanationHeading: 'Why use our FITE embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Fite link and get working embed HTML.'
+      description:
+        'Skip writing markup by hand. Paste a FITE event link and get a clean, ready-to-paste embed.'
     },
     {
-      title: 'Fite content',
-      description: 'The tool handles all Fite URL formats.'
+      title: 'Built for combat sports',
+      description:
+        'Works with FITE TV (now TrillerTV) pages for boxing, MMA, wrestling, kickboxing, and live PPV events.'
     },
     {
       title: 'Customizable preview card',
@@ -44,42 +59,56 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 FITE embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Event preview card',
       description:
-        'Get the real Fite embed with full interactivity when available.'
+        'A styled card with the event title, poster art, and link back to FITE so readers can watch the stream.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Fite URL formats and content types.'
+      title: 'Boxing, MMA & wrestling',
+      description:
+        'Point it at any FITE event or category page — combat sports, motorsports, and live music PPVs are all supported.'
     },
     {
       title: 'Preview card fallback',
       description:
-        'A styled preview card with title and image when native embedding is restricted.'
+        'FITE PPV streams are not publicly embeddable, so the tool builds a styled preview card with title and image instead.'
     }
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/ustream', label: 'Ustream' },
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' }
   ],
   faq: [
     {
-      question: 'How do I embed Fite content on my website?',
-      answer: 'Paste any Fite URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Fite embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Fite content is private?',
+      question: 'How do I embed a FITE event on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a FITE TV (or TrillerTV) event URL into the tool and click Generate. You will get a ready-to-paste preview card linking to the event.'
+    },
+    {
+      question: 'Can I embed the live FITE PPV stream itself?',
+      answer:
+        'No. FITE PPV and live streams require a purchase or subscription and are not publicly embeddable, so the tool generates a preview card that links viewers to FITE instead.'
+    },
+    {
+      question: 'What does the preview card show?',
+      answer:
+        'It shows the event title, poster image, and a link back to the FITE page where visitors can watch or buy the stream.'
+    },
+    {
+      question: 'Does it work with TrillerTV links?',
+      answer:
+        'Yes. FITE was rebranded as TrillerTV, so both fite.tv and trillertv.com event URLs work.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

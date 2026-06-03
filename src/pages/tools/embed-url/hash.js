@@ -4,22 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'HASH',
   slug: 'hash',
-  color: '#666666',
-  exampleUrl: 'https://hash.ai',
-  metaTitle: 'HASH Embed Code Generator — Embed HASH Content',
+  color: '#0A9EC0',
+  exampleUrl: 'https://core.hash.ai/@hash/wildfires-regrowth',
+  metaTitle: 'HASH Embed Code Generator — Embed HASH Simulations',
   metaDescription:
-    'Free HASH embed code generator. Paste any HASH URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed hash', 'hash embed code', 'hash embed generator'],
+    'Free HASH embed code generator. Paste a core.hash.ai simulation URL — get a ready-to-paste embed or styled preview card. No signup.',
+  keywords: [
+    'embed hash',
+    'hash embed code',
+    'hash embed code generator',
+    'embed hash simulation',
+    'hash ai embed',
+    'core.hash.ai embed',
+    'hash simulation iframe'
+  ],
   heroTitle: 'HASH Embed Code Generator',
   heroSubtitle:
-    'Paste any HASH URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed HASH content',
+    'Paste a HASH simulation URL — get a ready-to-paste embed or styled preview card.',
+  howItWorksHeading: 'How to embed a HASH simulation',
   howItWorksSteps: [
-    { title: 'Paste a HASH link', description: 'Copy any hash.ai URL.' },
+    {
+      title: 'Paste a HASH link',
+      description:
+        'Copy a core.hash.ai simulation URL, such as a published @user/project page.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the HASH page and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any HASH link and get working embed HTML.'
+      description:
+        'Paste a HASH simulation link and get working embed HTML in one step.'
     },
     {
-      title: 'HASH content',
-      description: 'The tool handles all HASH URL formats.'
+      title: 'Built for HASH simulations',
+      description:
+        'Handles core.hash.ai simulation URLs so you can share interactive models inline.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 HASH embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native HASH embed',
       description:
-        'Get the real HASH embed with full interactivity when available.'
+        'Get the real HASH embed so visitors can view the simulation directly on your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all HASH URL formats and content types.'
+      title: 'Responsive layout',
+      description:
+        'The embed adapts to your page width for clean placement on any site.'
     },
     {
       title: 'Preview card fallback',
@@ -65,21 +81,28 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/twitter-or-x', label: 'Twitter / X' },
+    { href: '/tools/embed-url/codepen', label: 'CodePen' }
   ],
   faq: [
     {
-      question: 'How do I embed HASH content on my website?',
-      answer: 'Paste any HASH URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the HASH embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the HASH content is private?',
+      question: 'How do I embed a HASH simulation on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a core.hash.ai simulation URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'Which HASH URLs are supported?',
+      answer:
+        'Public HASH simulation pages on core.hash.ai, including @user/project URLs.'
+    },
+    {
+      question: 'What if the HASH page cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card built from the available title and image metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

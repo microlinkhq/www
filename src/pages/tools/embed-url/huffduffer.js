@@ -4,29 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Huffduffer',
   slug: 'huffduffer',
-  color: '#666666',
-  exampleUrl: 'https://huffduffer.com',
-  metaTitle: 'Huffduffer Embed Code Generator — Embed Huffduffer Content',
+  color: '#456789',
+  exampleUrl: 'https://huffduffer.com/adactio',
+  metaTitle: 'Huffduffer Embed Code Generator — Embed Audio Feeds & Profiles',
   metaDescription:
-    'Free Huffduffer embed code generator. Paste any Huffduffer URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Huffduffer embed code generator. Paste a Huffduffer profile, tag, or audio URL and get ready-to-paste embed HTML for your personal podcast feed. No signup.',
   keywords: [
     'embed huffduffer',
     'huffduffer embed code',
-    'huffduffer embed generator'
+    'huffduffer embed code generator',
+    'embed huffduffer feed',
+    'huffduffer profile embed',
+    'huffduffer audio embed',
+    'embed huffduffer podcast'
   ],
   heroTitle: 'Huffduffer Embed Code Generator',
   heroSubtitle:
-    'Paste any Huffduffer URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Huffduffer content',
+    'Paste a Huffduffer profile, tag, or audio link and get ready-to-paste embed HTML for your personal podcast feed.',
+  howItWorksHeading: 'How to embed Huffduffer audio',
   howItWorksSteps: [
     {
       title: 'Paste a Huffduffer link',
-      description: 'Copy any huffduffer.com URL.'
+      description:
+        'Copy any huffduffer.com URL — a user profile, a tag feed, or an individual huffduffed audio item.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the page and generates the right embed HTML or a styled preview card.'
     },
     {
       title: 'Copy & paste',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Huffduffer link and get working embed HTML.'
+      description:
+        'Skip writing markup by hand. Paste any Huffduffer link and get working embed HTML.'
     },
     {
-      title: 'Huffduffer content',
-      description: 'The tool handles all Huffduffer URL formats.'
+      title: 'Profiles, tags & items',
+      description:
+        'Works with user profiles, per-tag podcast feeds, and single huffduffed audio items.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Huffduffer embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Share found sounds',
       description:
-        'Get the real Huffduffer embed with full interactivity when available.'
+        'Embed a curated Huffduffer collection so readers can play the audio you bookmarked.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Huffduffer URL formats and content types.'
+      title: 'Tag-based feeds',
+      description:
+        'Huffduffer creates a podcast feed for every tag — embed any of them on your page.'
     },
     {
       title: 'Preview card fallback',
@@ -71,28 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/soundcloud',
+      label: 'SoundCloud'
+    },
+    {
+      href: '/tools/embed-url/podbean',
+      label: 'Podbean'
+    },
+    {
+      href: '/tools/embed-url/clyp',
+      label: 'Clyp'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Huffduffer content on my website?',
-      answer: 'Paste any Huffduffer URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Huffduffer embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Huffduffer content is private?',
+      question: 'How do I embed a Huffduffer profile on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any huffduffer.com URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'Can I embed a single huffduffed audio item?',
+      answer:
+        'Yes. Individual audio items, user profiles, and per-tag podcast feeds are all supported.'
+    },
+    {
+      question: 'What if Huffduffer cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card showing the title and image that links to the original page.'
+    },
+    {
+      question: 'Does the embed play the audio?',
+      answer:
+        'Huffduffer points to audio hosted elsewhere on the web, so playback depends on the original source allowing it.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const HuffdufferPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default HuffdufferPage

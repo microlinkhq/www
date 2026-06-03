@@ -2,31 +2,36 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Customerdb',
+  name: 'CustomerDB',
   slug: 'customerdb',
-  color: '#666666',
+  color: '#1A1A1A',
   exampleUrl: 'https://customerdb.com',
-  metaTitle: 'Customerdb Embed Code Generator — Embed Customerdb Content',
+  metaTitle: 'CustomerDB Embed Code Generator — Embed CustomerDB Links',
   metaDescription:
-    'Free Customerdb embed code generator. Paste any Customerdb URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free CustomerDB embed code generator. Paste a customerdb.com URL — get a ready-to-paste embed or a styled preview card with title and image. No signup.',
   keywords: [
     'embed customerdb',
     'customerdb embed code',
-    'customerdb embed generator'
+    'customerdb embed code generator',
+    'customerdb link preview',
+    'customerdb preview card',
+    'embed customerdb link',
+    'customerdb iframe code'
   ],
-  heroTitle: 'Customerdb Embed Code Generator',
+  heroTitle: 'CustomerDB Embed Code Generator',
   heroSubtitle:
-    'Paste any Customerdb URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Customerdb content',
+    'Paste a CustomerDB URL — get a ready-to-paste embed, or a styled preview card when native embedding is not available.',
+  howItWorksHeading: 'How to embed a CustomerDB link',
   howItWorksSteps: [
     {
-      title: 'Paste a Customerdb link',
-      description: 'Copy any customerdb.com URL.'
+      title: 'Paste a CustomerDB link',
+      description:
+        'Copy a customerdb.com URL from your browser and paste it into the tool.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool checks the link and generates the embed HTML, or a styled preview card if no native embed is available.'
     },
     {
       title: 'Copy & paste',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Customerdb embed code generator',
+  explanationHeading: 'Why use our CustomerDB embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Customerdb link and get working embed HTML.'
+      description:
+        'Paste a CustomerDB link and get ready-to-paste HTML — no markup to write by hand.'
     },
     {
-      title: 'Customerdb content',
-      description: 'The tool handles all Customerdb URL formats.'
+      title: 'Always renders something',
+      description:
+        'When a link cannot be embedded natively, you still get a clean preview card with title and image.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 CustomerDB embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Paste-and-go embed HTML',
       description:
-        'Get the real Customerdb embed with full interactivity when available.'
+        'Drop in a CustomerDB URL and copy the generated HTML — no manual iframe editing required.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Customerdb URL formats and content types.'
+      title: 'Responsive output',
+      description:
+        'The generated embed and preview card scale to fit the width of your page or container.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/totango', label: 'Totango' },
+    { href: '/tools/embed-url/mixpanel', label: 'Mixpanel' },
+    { href: '/tools/embed-url/hubspot', label: 'HubSpot' }
   ],
   faq: [
     {
-      question: 'How do I embed Customerdb content on my website?',
-      answer: 'Paste any Customerdb URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Customerdb embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Customerdb content is private?',
+      question: 'How do I embed a CustomerDB link on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a CustomerDB URL into the tool and click Generate. You will get ready-to-paste HTML to drop into your page.'
+    },
+    {
+      question: 'What if CustomerDB does not support a native embed?',
+      answer:
+        'The tool falls back to a styled preview card built from the link metadata, such as its title and image.'
+    },
+    {
+      question: 'What if the CustomerDB link is private?',
+      answer:
+        'Private or restricted links may not expose embeddable content. In that case the tool returns the best available preview card from public metadata.'
+    },
+    {
+      question: 'Is the embed responsive?',
+      answer:
+        'Yes. The generated embed and preview card scale to fit the width of their container on desktop and mobile.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

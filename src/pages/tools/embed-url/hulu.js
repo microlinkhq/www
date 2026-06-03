@@ -5,24 +5,34 @@ const data = {
   name: 'Hulu',
   slug: 'hulu',
   color: '#1CE783',
-  exampleUrl: 'https://hulu.com',
-  metaTitle: 'Hulu Embed Code Generator — Embed Shows and movies',
+  exampleUrl:
+    'https://www.hulu.com/series/only-murders-in-the-building-ef31c7e1-cd0f-4e07-848d-1cbfedb50ddf',
+  metaTitle: 'Hulu Embed Code Generator — Embed Show & Movie Link Cards',
   metaDescription:
-    'Free Hulu embed code generator. Paste any Hulu URL — get a ready-to-paste embed for shows and movies. No signup.',
-  keywords: ['embed hulu', 'hulu embed code', 'hulu video embed'],
+    'Free Hulu embed code generator. Paste a Hulu series or movie URL — get a styled preview card with title, image, and description. No signup.',
+  keywords: [
+    'embed hulu',
+    'hulu embed code',
+    'hulu embed code generator',
+    'embed hulu show',
+    'embed hulu link',
+    'hulu preview card',
+    'share hulu link'
+  ],
   heroTitle: 'Hulu Embed Code Generator',
   heroSubtitle:
-    'Paste any Hulu URL — get a ready-to-paste embed for shows and movies.',
-  howItWorksHeading: 'How to embed Hulu content',
+    'Paste a Hulu series or movie URL — get a styled preview card with the title, artwork, and description ready to paste.',
+  howItWorksHeading: 'How to embed a Hulu link',
   howItWorksSteps: [
     {
       title: 'Paste a Hulu link',
-      description: 'Copy any hulu.com URL — shows and movies.'
+      description:
+        'Copy any hulu.com URL — series, movie, or episode pages all work.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the page metadata and builds a styled preview card with the title, image, and description.'
     },
     {
       title: 'Copy & paste',
@@ -33,14 +43,14 @@ const data = {
   explanationHeading: 'Why use our Hulu embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
+      title: 'Preview card, not a player',
       description:
-        'Skip the manual URL conversion. Paste any Hulu link and get working embed HTML.'
+        'Hulu does not offer public iframe embeds of its shows, so the tool generates a clean link preview card instead of a playable video.'
     },
     {
-      title: 'All Hulu content',
+      title: 'Works with any Hulu URL',
       description:
-        'Works with shows and movies — the tool handles all Hulu URL formats.'
+        'Paste a series, movie, or episode link from hulu.com and get a card built from the page title, artwork, and description.'
     },
     {
       title: 'Customizable preview card',
@@ -50,18 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Hulu embeds per day. No login, no API key.'
+        'Generate up to 50 Hulu embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Rich link preview',
       description:
-        'Get the real Hulu embed with full interactivity when available.'
+        'A styled card pulls the show or movie title, poster image, and description straight from the Hulu page.'
     },
     {
-      title: 'All shows and movies',
-      description: 'Works with shows and movies — all Hulu content types.'
+      title: 'Responsive layout',
+      description:
+        'The card scales to fit your content width, from inline placement to full-width feature blocks.'
     },
     {
       title: 'Preview card fallback',
@@ -70,29 +81,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/youtube',
+      label: 'YouTube'
+    },
+    {
+      href: '/tools/embed-url/vimeo',
+      label: 'Vimeo'
+    },
+    {
+      href: '/tools/embed-url/dailymotion',
+      label: 'Dailymotion'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Hulu content on my website?',
+      question: 'Can I embed a playable Hulu video on my website?',
       answer:
-        'Paste any Hulu URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'No. Hulu does not provide public iframe embeds for its shows or movies, so playback is not possible outside Hulu. The tool generates a styled preview card that links back to Hulu instead.'
     },
     {
-      question: 'Is the Hulu embed generator free?',
+      question: 'What does the Hulu embed actually produce?',
+      answer:
+        'A preview card built from the page metadata — the title, poster image, and description — with a link to the Hulu page where viewers can watch.'
+    },
+    {
+      question: 'Which Hulu URLs are supported?',
+      answer:
+        'Any public hulu.com link works, including series, movie, and episode pages. Paste the URL and the tool reads the available metadata.'
+    },
+    {
+      question: 'Can I customize how the card looks?',
+      answer:
+        'Yes. Switch to Card mode to adjust colors, fonts, and layout before copying the HTML.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Hulu content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const HuluPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default HuluPage

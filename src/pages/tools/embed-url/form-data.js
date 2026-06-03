@@ -4,29 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Form-Data',
   slug: 'form-data',
-  color: '#666666',
+  color: '#14B8A6',
   exampleUrl: 'https://form-data.com',
-  metaTitle: 'Form-Data Embed Code Generator — Embed Form-Data Content',
+  metaTitle: 'Form-Data Embed Code Generator — Embed Forms',
   metaDescription:
-    'Free Form-Data embed code generator. Paste any Form-Data URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Form-Data embed code generator. Paste a Form-Data URL — get a ready-to-paste embed for forms, or a styled preview card. No signup.',
   keywords: [
     'embed form-data',
     'form-data embed code',
-    'form-data embed generator'
+    'form-data embed code generator',
+    'embed form-data form',
+    'form-data iframe code',
+    'form-data form embed',
+    'embed online form'
   ],
   heroTitle: 'Form-Data Embed Code Generator',
   heroSubtitle:
-    'Paste any Form-Data URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Form-Data content',
+    'Paste a Form-Data URL — get a ready-to-paste embed for your form, or a styled preview card.',
+  howItWorksHeading: 'How to embed a Form-Data form',
   howItWorksSteps: [
     {
       title: 'Paste a Form-Data link',
-      description: 'Copy any form-data.com URL.'
+      description:
+        'Copy a form-data.com link to the form or page you want to embed.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the content and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Form-Data link and get working embed HTML.'
+      description:
+        'Skip hand-writing embed markup. Paste a Form-Data link and get working HTML.'
     },
     {
-      title: 'Form-Data content',
-      description: 'The tool handles all Form-Data URL formats.'
+      title: 'Drop forms anywhere',
+      description:
+        'Add a Form-Data form to a page that has no native form builder of its own.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Form-Data embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native form embed',
       description:
-        'Get the real Form-Data embed with full interactivity when available.'
+        'Get the real Form-Data embed so visitors can fill out and submit the form in place.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Form-Data URL formats and content types.'
+      title: 'Responsive output',
+      description:
+        'The generated embed adapts to your layout for both desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,29 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/poll-daddy', label: 'Polldaddy' },
+    { href: '/tools/embed-url/embedery', label: 'Embedery' },
+    { href: '/tools/embed-url/pinpoll', label: 'Pinpoll' }
   ],
   faq: [
     {
-      question: 'How do I embed Form-Data content on my website?',
-      answer: 'Paste any Form-Data URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Form-Data embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Form-Data content is private?',
+      question: 'How do I embed a Form-Data form on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a Form-Data URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'Can visitors submit the form from the embed?',
+      answer:
+        'When the native embed is available, the form stays fully interactive so visitors can fill it out and submit in place.'
+    },
+    {
+      question: 'What if the link cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card built from the available title and image metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

@@ -4,25 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'CodePen',
   slug: 'codepen',
-  color: '#000000',
-  exampleUrl: 'https://codepen.io',
-  metaTitle: 'CodePen Embed Code Generator — Embed Pens',
+  color: '#131417',
+  exampleUrl: 'https://codepen.io/Mamboleoo/pen/XWJPxpZ',
+  metaTitle:
+    'CodePen Embed Code Generator — Embed Pens, Projects & Collections',
   metaDescription:
-    'Free CodePen embed code generator. Paste any CodePen URL — get a ready-to-paste embed for pens, collections, and projects. No signup.',
+    'Free CodePen embed code generator. Paste any CodePen URL — get a ready-to-paste iframe for Pens, Projects, and Collections with a live preview. No signup.',
   keywords: [
     'embed codepen',
+    'embed codepen pen',
     'codepen embed code',
-    'codepen pen embed',
-    'codepen iframe'
+    'codepen embed code generator',
+    'codepen iframe code',
+    'embed codepen collection',
+    'codepen embed html'
   ],
   heroTitle: 'CodePen Embed Code Generator',
   heroSubtitle:
-    'Paste any CodePen URL — get a ready-to-paste embed for pens, collections, and projects.',
+    'Paste any CodePen URL — get a ready-to-paste iframe for Pens, Projects, and Collections with a live, interactive preview.',
   howItWorksHeading: 'How to embed CodePen content',
   howItWorksSteps: [
     {
       title: 'Paste a CodePen link',
-      description: 'Copy any codepen.io URL — pens, collections, and projects.'
+      description:
+        'Copy any codepen.io URL — a Pen, a Project, or a Collection.'
     },
     {
       title: 'Get the embed code',
@@ -40,12 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any CodePen link and get working embed HTML.'
+        'Skip opening the Embed Builder on CodePen. Paste any Pen link and get working embed HTML.'
     },
     {
-      title: 'All CodePen content',
+      title: 'Live, interactive preview',
       description:
-        'Works with pens, collections, and projects — the tool handles all CodePen URL formats.'
+        'The embed runs the actual Pen — readers can see the HTML, CSS, and JS result and tweak the code inline.'
     },
     {
       title: 'Customizable preview card',
@@ -55,19 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 CodePen embeds per day. No login, no API key.'
+        'Generate up to 50 CodePen embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Editable, runnable Pens',
       description:
-        'Get the real CodePen embed with full interactivity when available.'
+        'The embed shows the rendered result plus the HTML, CSS, and JS tabs, so readers can run and edit the code.'
     },
     {
-      title: 'All pens',
+      title: 'Pens, Projects & Collections',
       description:
-        'Works with pens, collections, and projects — all CodePen content types.'
+        'Individual Pens, full Projects, and Collections of Pens — the tool handles all CodePen URL formats.'
     },
     {
       title: 'Preview card fallback',
@@ -76,23 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/codesandbox',
+      label: 'CodeSandbox'
+    },
+    {
+      href: '/tools/embed-url/replit',
+      label: 'Replit'
+    },
+    {
+      href: '/tools/embed-url/observable',
+      label: 'Observable'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed CodePen content on my website?',
+      question: 'How do I embed a CodePen Pen on my website?',
       answer:
-        'Paste any CodePen URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any codepen.io Pen URL into the tool and click Generate. You will get a ready-to-paste iframe with a live preview.'
     },
     {
-      question: 'Is the CodePen embed generator free?',
+      question: 'Can I embed CodePen Projects and Collections?',
+      answer:
+        'Yes. Pens, Projects, and Collections are all supported — the tool detects the type from the URL.'
+    },
+    {
+      question: 'Is the embedded Pen editable?',
+      answer:
+        'Yes. The embed shows the live result alongside the HTML, CSS, and JS tabs, so readers can run and edit the code inline.'
+    },
+    {
+      question: 'What happens if a Pen cannot be embedded directly?',
+      answer:
+        'If native embedding is restricted, the tool falls back to a styled preview card with the title and image that links to the Pen.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the CodePen content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

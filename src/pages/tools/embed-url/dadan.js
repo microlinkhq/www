@@ -4,22 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Dadan',
   slug: 'dadan',
-  color: '#666666',
-  exampleUrl: 'https://dadan.io',
-  metaTitle: 'Dadan Embed Code Generator — Embed Dadan Content',
+  color: '#7065FA',
+  exampleUrl: 'https://app.dadan.io/share/sample-video',
+  metaTitle: 'Dadan Embed Code Generator — Embed Screen & Webcam Videos',
   metaDescription:
-    'Free Dadan embed code generator. Paste any Dadan URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed dadan', 'dadan embed code', 'dadan embed generator'],
+    'Free Dadan embed code generator. Paste a Dadan share link — get a ready-to-paste responsive player for screen recordings and webcam video messages. No signup.',
+  keywords: [
+    'embed dadan',
+    'dadan embed code',
+    'dadan embed code generator',
+    'embed dadan video',
+    'dadan iframe code',
+    'dadan screen recording embed',
+    'embed dadan video message'
+  ],
   heroTitle: 'Dadan Embed Code Generator',
   heroSubtitle:
-    'Paste any Dadan URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Dadan content',
+    'Paste a Dadan share link — get a ready-to-paste responsive player for screen recordings and webcam video messages.',
+  howItWorksHeading: 'How to embed a Dadan video',
   howItWorksSteps: [
-    { title: 'Paste a Dadan link', description: 'Copy any dadan.io URL.' },
+    {
+      title: 'Paste a Dadan link',
+      description:
+        'Copy a Dadan share link from app.dadan.io — screen recordings, webcam captures, and video messages.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the shared Dadan video and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Dadan link and get working embed HTML.'
+      description:
+        'Skip the embed dialog. Paste any Dadan share link and get working embed HTML.'
     },
     {
-      title: 'Dadan content',
-      description: 'The tool handles all Dadan URL formats.'
+      title: 'Async video messages',
+      description:
+        'Drop screen recordings and webcam video messages straight into knowledge bases, docs, and pages.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Dadan embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Dadan player',
       description:
-        'Get the real Dadan embed with full interactivity when available.'
+        'Get the real Dadan player with playback controls for screen and webcam recordings.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Dadan URL formats and content types.'
+      title: 'Responsive embeds',
+      description:
+        'The player scales to fit your layout, looking right on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -64,28 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/loom',
+      label: 'Loom'
+    },
+    {
+      href: '/tools/embed-url/vidyard',
+      label: 'Vidyard'
+    },
+    {
+      href: '/tools/embed-url/wistia',
+      label: 'Wistia'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Dadan content on my website?',
-      answer: 'Paste any Dadan URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Dadan embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Dadan content is private?',
+      question: 'How do I embed a Dadan video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste your Dadan share link into the tool and click Generate. You will get a ready-to-paste embed for the video.'
+    },
+    {
+      question: 'What kind of Dadan videos can I embed?',
+      answer:
+        'Screen recordings, webcam captures, and async video messages shared from Dadan are all supported.'
+    },
+    {
+      question: 'Can I embed a private or password-protected Dadan video?',
+      answer:
+        'Only videos shared with a public link can be embedded. Password-protected or expired links will not render.'
+    },
+    {
+      question: 'What if the video cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card with the video title and thumbnail that you can customize before copying.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const DadanPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default DadanPage

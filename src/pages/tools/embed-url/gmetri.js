@@ -2,24 +2,37 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Gmetri',
+  name: 'GMetri',
   slug: 'gmetri',
-  color: '#666666',
-  exampleUrl: 'https://gmetri.com',
-  metaTitle: 'Gmetri Embed Code Generator — Embed Gmetri Content',
+  color: '#303fe1',
+  exampleUrl: 'https://gmetri_demo.gmetri.com/gmetri_event_vr_public',
+  metaTitle: 'GMetri Embed Code Generator — Embed VR & 3D XR Experiences',
   metaDescription:
-    'Free Gmetri embed code generator. Paste any Gmetri URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed gmetri', 'gmetri embed code', 'gmetri embed generator'],
-  heroTitle: 'Gmetri Embed Code Generator',
+    'Free GMetri embed code generator. Paste a GMetri experience URL — get a ready-to-paste iframe for VR, 3D, and interactive XR experiences. No signup.',
+  keywords: [
+    'embed gmetri',
+    'gmetri embed code',
+    'gmetri embed code generator',
+    'embed gmetri experience',
+    'gmetri iframe code',
+    'embed vr experience',
+    'embed gmetri vr',
+    'gmetri xr embed'
+  ],
+  heroTitle: 'GMetri Embed Code Generator',
   heroSubtitle:
-    'Paste any Gmetri URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Gmetri content',
+    'Paste a GMetri experience URL — get a ready-to-paste iframe for VR, 3D, and interactive XR experiences.',
+  howItWorksHeading: 'How to embed a GMetri experience',
   howItWorksSteps: [
-    { title: 'Paste a Gmetri link', description: 'Copy any gmetri.com URL.' },
+    {
+      title: 'Paste a GMetri link',
+      description:
+        'Copy the public deployment URL of your published GMetri experience.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the experience and generates the right iframe embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -27,15 +40,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Gmetri embed code generator',
+  explanationHeading: 'Why use our GMetri embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Gmetri link and get working embed HTML.'
+      description:
+        'Skip digging through the Publish tab. Paste a GMetri deployment link and get working embed HTML.'
     },
     {
-      title: 'Gmetri content',
-      description: 'The tool handles all Gmetri URL formats.'
+      title: 'Immersive XR content',
+      description:
+        'Embed interactive VR, 3D, and 360 experiences built on GMetri right inside your page.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 GMetri embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native interactive embed',
       description:
-        'Get the real Gmetri embed with full interactivity when available.'
+        'Get the real GMetri iframe so visitors can explore the experience with full interactivity.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Gmetri URL formats and content types.'
+      title: 'Responsive sizing',
+      description:
+        'The embed scales to fit your layout, keeping the experience playable across screen sizes.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/sketchfab', label: 'Sketchfab' },
+    { href: '/tools/embed-url/matterport', label: 'Matterport' },
+    { href: '/tools/embed-url/assemblrworld', label: 'Assemblr World' }
   ],
   faq: [
     {
-      question: 'How do I embed Gmetri content on my website?',
-      answer: 'Paste any Gmetri URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Gmetri embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Gmetri content is private?',
+      question: 'How do I embed a GMetri experience on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the public deployment URL of your GMetri experience into the tool and click Generate. You will get a ready-to-paste iframe.'
+    },
+    {
+      question: 'What kind of content can I embed?',
+      answer:
+        'Interactive VR, 3D, 360, and other XR experiences created and published on the GMetri platform.'
+    },
+    {
+      question: 'My experience is private — will it embed?',
+      answer:
+        'The deployment must have its Public option turned on to embed. Otherwise the tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is the embedded experience interactive?',
+      answer:
+        'Yes. The native iframe keeps the experience fully interactive so visitors can navigate it directly on your page.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

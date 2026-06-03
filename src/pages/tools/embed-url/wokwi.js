@@ -4,25 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Wokwi',
   slug: 'wokwi',
-  color: '#3751C7',
-  exampleUrl: 'https://wokwi.com',
-  metaTitle: 'Wokwi Embed Code Generator — Embed Arduino and ESP32 simulations',
+  color: '#2196F3',
+  exampleUrl: 'https://wokwi.com/projects/297779324291908105',
+  metaTitle: 'Wokwi Embed Code Generator — Embed Arduino & ESP32 Simulations',
   metaDescription:
-    'Free Wokwi embed code generator. Paste any Wokwi URL — get a ready-to-paste embed for Arduino and ESP32 simulations. No signup.',
-  keywords: ['embed wokwi', 'wokwi embed code', 'wokwi simulation embed'],
+    'Free Wokwi embed code generator. Paste any Wokwi project URL — get a ready-to-paste iframe for Arduino, ESP32, and Raspberry Pi Pico simulations. No signup.',
+  keywords: [
+    'embed wokwi',
+    'wokwi embed code',
+    'wokwi embed code generator',
+    'embed wokwi project',
+    'wokwi iframe code',
+    'embed arduino simulation',
+    'embed esp32 simulator'
+  ],
   heroTitle: 'Wokwi Embed Code Generator',
   heroSubtitle:
-    'Paste any Wokwi URL — get a ready-to-paste embed for Arduino and ESP32 simulations.',
-  howItWorksHeading: 'How to embed Wokwi content',
+    'Paste any Wokwi project URL — get a ready-to-paste iframe for Arduino, ESP32, and Raspberry Pi Pico simulations.',
+  howItWorksHeading: 'How to embed a Wokwi project',
   howItWorksSteps: [
     {
       title: 'Paste a Wokwi link',
-      description: 'Copy any wokwi.com URL — Arduino and ESP32 simulations.'
+      description:
+        'Copy any wokwi.com/projects URL — Arduino, ESP32, STM32, and Raspberry Pi Pico simulations.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the project and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -35,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Wokwi link and get working embed HTML.'
+        'Skip writing the iframe by hand. Paste any Wokwi project link and get working embed HTML.'
     },
     {
-      title: 'All Wokwi content',
+      title: 'All Wokwi simulations',
       description:
-        'Works with Arduino and ESP32 simulations — the tool handles all Wokwi URL formats.'
+        'Works with Arduino, ESP32, STM32, and Raspberry Pi Pico projects — the tool handles all Wokwi URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -50,19 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Wokwi embeds per day. No login, no API key.'
+        'Generate up to 50 Wokwi embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive simulator embed',
       description:
-        'Get the real Wokwi embed with full interactivity when available.'
+        'Get the real Wokwi iframe so readers can run the circuit and edit the code right on your page.'
     },
     {
-      title: 'All Arduino and ESP32 simulations',
+      title: 'Microcontrollers & sensors',
       description:
-        'Works with Arduino and ESP32 simulations — all Wokwi content types.'
+        'Embeds projects built around ESP32, Arduino, STM32, and Raspberry Pi Pico with their wired-up parts.'
     },
     {
       title: 'Preview card fallback',
@@ -71,23 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/codepen', label: 'CodePen' },
+    { href: '/tools/embed-url/codesandbox', label: 'CodeSandbox' },
+    { href: '/tools/embed-url/replit', label: 'Replit' }
   ],
   faq: [
     {
-      question: 'How do I embed Wokwi content on my website?',
+      question: 'How do I embed a Wokwi project on my website?',
       answer:
-        'Paste any Wokwi URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any Wokwi project URL into the tool and click Generate. You will get a ready-to-paste iframe embed.'
     },
     {
-      question: 'Is the Wokwi embed generator free?',
+      question: 'What kinds of Wokwi projects can I embed?',
+      answer:
+        'Arduino, ESP32, STM32, and Raspberry Pi Pico simulations — including their wiring, sensors, and displays.'
+    },
+    {
+      question: 'Can readers run and edit the code in the embed?',
+      answer:
+        'Yes. The native Wokwi iframe is interactive, so visitors can start the simulation and tweak the code in place.'
+    },
+    {
+      question: 'What if the Wokwi project is private?',
+      answer:
+        'Only public projects can be embedded. For restricted links the tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Wokwi content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

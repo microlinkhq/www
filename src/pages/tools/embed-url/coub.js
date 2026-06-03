@@ -4,25 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Coub',
   slug: 'coub',
-  color: '#2BA9E1',
-  exampleUrl: 'https://coub.com',
-  metaTitle: 'Coub Embed Code Generator — Embed Looping videos',
+  color: '#002EFF',
+  exampleUrl: 'https://coub.com/view/31p758',
+  metaTitle: 'Coub Embed Code Generator — Embed Looping Videos',
   metaDescription:
-    'Free Coub embed code generator. Paste any Coub URL — get a ready-to-paste embed for looping videos. No signup.',
-  keywords: ['embed coub', 'coub embed code', 'coub video embed'],
+    'Free Coub embed code generator. Paste any Coub URL — get a ready-to-paste iframe player for looping short videos with sound. No signup.',
+  keywords: [
+    'embed coub',
+    'coub embed code',
+    'coub embed code generator',
+    'embed coub video',
+    'coub iframe code',
+    'coub looping video embed',
+    'embed coub loop'
+  ],
   heroTitle: 'Coub Embed Code Generator',
   heroSubtitle:
-    'Paste any Coub URL — get a ready-to-paste embed for looping videos.',
-  howItWorksHeading: 'How to embed Coub content',
+    'Paste any Coub URL — get a ready-to-paste iframe player for looping short videos with sound.',
+  howItWorksHeading: 'How to embed a Coub video',
   howItWorksSteps: [
     {
       title: 'Paste a Coub link',
-      description: 'Copy any coub.com URL — looping videos.'
+      description:
+        'Copy any coub.com link — a /view URL for an individual looping video.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the Coub and generates the right iframe embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -35,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Coub link and get working embed HTML.'
+        'Skip digging through the share menu. Paste any Coub link and get working embed HTML.'
     },
     {
-      title: 'All Coub content',
+      title: 'Seamless looping playback',
       description:
-        'Works with looping videos — the tool handles all Coub URL formats.'
+        'The embed keeps Coub native short-loop playback with its synced audio track intact.'
     },
     {
       title: 'Customizable preview card',
@@ -50,18 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Coub embeds per day. No login, no API key.'
+        'Generate up to 50 Coub embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Coub player',
       description:
-        'Get the real Coub embed with full interactivity when available.'
+        'Get the real Coub player with the seamless loop and its synchronized audio track.'
     },
     {
-      title: 'All looping videos',
-      description: 'Works with looping videos — all Coub content types.'
+      title: 'Responsive iframe',
+      description:
+        'The looping video embed adapts to your layout so it fits cleanly on any page.'
     },
     {
       title: 'Preview card fallback',
@@ -70,29 +80,44 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/youtube',
+      label: 'YouTube'
+    },
+    {
+      href: '/tools/embed-url/giphy',
+      label: 'Giphy'
+    },
+    {
+      href: '/tools/embed-url/vimeo',
+      label: 'Vimeo'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Coub content on my website?',
+      question: 'How do I embed a Coub on my website?',
       answer:
-        'Paste any Coub URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any coub.com /view URL into the tool and click Generate. You will get a ready-to-paste iframe player.'
     },
     {
-      question: 'Is the Coub embed generator free?',
+      question: 'Does the embed keep the looping and sound?',
+      answer:
+        'Yes. The native Coub player loops the clip seamlessly and plays its synced audio track, just like on coub.com.'
+    },
+    {
+      question: 'What if a Coub cannot be embedded natively?',
+      answer:
+        'If native embedding is restricted, switch to Card mode for a styled preview card with the title and image.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Coub content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const CoubPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default CoubPage

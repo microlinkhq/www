@@ -4,27 +4,32 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Apple Music',
   slug: 'apple-music',
-  color: '#FA243C',
-  exampleUrl: 'https://music.apple.com/album/1440833098',
-  metaTitle: 'Apple Music Embed Code Generator — Embed Songs & Albums',
+  color: '#FC3C44',
+  exampleUrl:
+    'https://music.apple.com/us/playlist/rap-life/pl.abe8ba42278f4ef490e3a9fc5ec8e8c5',
+  metaTitle:
+    'Apple Music Embed Code Generator — Embed Songs, Albums & Playlists',
   metaDescription:
-    'Free Apple Music embed code generator. Paste any Apple Music URL — get a ready-to-paste iframe player for songs, albums, and playlists. No signup.',
+    'Free Apple Music embed code generator. Paste any music.apple.com URL — get a ready-to-paste player for songs, albums, playlists, and music videos. No signup.',
   keywords: [
     'embed apple music',
     'apple music embed code',
-    'apple music embed generator',
-    'apple music iframe',
+    'apple music embed code generator',
     'embed apple music playlist',
-    'apple music player embed'
+    'embed apple music album',
+    'apple music iframe code',
+    'apple music player embed',
+    'embed apple music song'
   ],
   heroTitle: 'Apple Music Embed Code Generator',
   heroSubtitle:
-    'Free Apple Music embed code generator. Paste any Apple Music URL — get a ready-to-paste iframe player for songs, albums, and playlists.',
+    'Paste any Apple Music URL — get a ready-to-paste player for songs, albums, playlists, and music videos.',
   howItWorksHeading: 'How to embed Apple Music content',
   howItWorksSteps: [
     {
-      title: 'Paste a Apple Music link',
-      description: 'Copy any Apple Music URL — songs, albums, and playlists.'
+      title: 'Paste an Apple Music link',
+      description:
+        'Copy any music.apple.com URL — songs, albums, playlists, or music videos.'
     },
     {
       title: 'Get the embed code',
@@ -42,12 +47,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Apple Music link and get working embed HTML.'
+        'Skip digging through the Share menu for embed code. Paste any Apple Music link and get working embed HTML.'
     },
     {
       title: 'All Apple Music content',
       description:
-        'Works with songs, albums, and playlists — the tool handles all Apple Music URL formats.'
+        'Works with songs, albums, playlists, and music videos — the tool handles every music.apple.com URL format.'
     },
     {
       title: 'Customizable preview card',
@@ -64,17 +69,17 @@ const data = {
     {
       title: 'Native Apple Music player',
       description:
-        'Get the real Apple Music player with album art and playback controls.'
+        'Get the real Apple Music player with album art, track list, and play controls.'
     },
     {
       title: 'Songs, albums & playlists',
       description:
-        'Individual songs, full albums, and curated playlists — all Apple Music content types work.'
+        'Individual songs, full albums, curated playlists, and music videos — all Apple Music content types work.'
     },
     {
-      title: 'Preview clips',
+      title: 'Preview card fallback',
       description:
-        'The embedded player plays preview clips for non-subscribers.'
+        'A styled preview card with title and image when native embedding is restricted.'
     }
   ],
   relatedLinks: [
@@ -87,18 +92,30 @@ const data = {
       label: 'SoundCloud'
     },
     {
-      href: '/tools/embed-url/bandcamp',
-      label: 'Bandcamp'
+      href: '/tools/embed-url/mixcloud',
+      label: 'Mixcloud'
     }
   ],
   faq: [
     {
-      question: 'How do I embed Apple Music on my website?',
-      answer: 'Paste any Apple Music URL into the tool and click Generate.'
+      question: 'How do I embed an Apple Music playlist on my website?',
+      answer:
+        'Paste any music.apple.com URL into the tool and click Generate. You will get a ready-to-paste player you can drop into any page.'
     },
     {
-      question: 'Can I embed Apple Music playlists?',
-      answer: 'Yes. Songs, albums, and playlists are all supported.'
+      question: 'What Apple Music content can I embed?',
+      answer:
+        'Songs, albums, playlists, and music videos are all supported — paste any Apple Music link and the tool handles the rest.'
+    },
+    {
+      question: 'Does the embed play full songs?',
+      answer:
+        'The embed plays roughly 30-second previews for non-subscribers. Apple Music subscribers who are signed in get full playback.'
+    },
+    {
+      question: 'What if a link cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card with the title and artwork, which you can customize in Card mode before copying.'
     },
     {
       question: 'Is this free?',
@@ -109,6 +126,6 @@ const data = {
 
 export const Head = () => providerHead(data)
 
-const ApplemusicPage = () => <ProviderSubtool {...data} />
+const Page = () => <ProviderSubtool {...data} />
 
-export default ApplemusicPage
+export default Page

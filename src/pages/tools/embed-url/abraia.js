@@ -4,22 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Abraia',
   slug: 'abraia',
-  color: '#666666',
-  exampleUrl: 'https://abraia.me',
-  metaTitle: 'Abraia Embed Code Generator — Embed Abraia Content',
+  color: '#FFCC00',
+  exampleUrl:
+    'https://store.abraia.me/05bf471cbb3f9fa9ed785718e6f60e28/Tests/PexelsVideos2795392/index.html',
+  metaTitle: 'Abraia Embed Code Generator — Embed Optimized Images & Videos',
   metaDescription:
-    'Free Abraia embed code generator. Paste any Abraia URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed abraia', 'abraia embed code', 'abraia embed generator'],
+    'Free Abraia embed code generator. Paste an abraia.me link to your optimized image, HLS video, or hosted media — get a ready-to-paste preview card. No signup.',
+  keywords: [
+    'embed abraia',
+    'abraia embed code',
+    'abraia embed code generator',
+    'embed abraia video',
+    'embed abraia image',
+    'abraia preview card',
+    'abraia.me embed'
+  ],
   heroTitle: 'Abraia Embed Code Generator',
   heroSubtitle:
-    'Paste any Abraia URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Abraia content',
+    'Paste an abraia.me link to an optimized image, HLS video, or hosted media file — get ready-to-paste embed HTML.',
+  howItWorksHeading: 'How to embed Abraia media',
   howItWorksSteps: [
-    { title: 'Paste a Abraia link', description: 'Copy any abraia.me URL.' },
+    {
+      title: 'Paste an Abraia link',
+      description:
+        'Copy any abraia.me or store.abraia.me URL — optimized images, HLS videos, or hosted media files.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the page metadata and generates a styled preview card you can drop anywhere.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Abraia link and get working embed HTML.'
+      description:
+        'Skip building markup by hand. Paste an Abraia link and get working embed HTML in one click.'
     },
     {
-      title: 'Abraia content',
-      description: 'The tool handles all Abraia URL formats.'
+      title: 'Optimized images & videos',
+      description:
+        'Abraia delivers compressed, web-ready images and adaptive-bitrate (HLS) video — the preview reflects whatever the link points to.'
     },
     {
       title: 'Customizable preview card',
@@ -44,42 +59,56 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Abraia embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Preview card for hosted media',
       description:
-        'Get the real Abraia embed with full interactivity when available.'
+        'Abraia has no standard public embed API, so the tool builds a styled preview card from the page title and thumbnail — clean and ready to paste.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Abraia URL formats and content types.'
+      title: 'Images, video & multimedia',
+      description:
+        'Works with Abraia-optimized photos, HLS video pages, and other media hosted on the abraia.me cloud.'
     },
     {
-      title: 'Preview card fallback',
+      title: 'Responsive output',
       description:
-        'A styled preview card with title and image when native embedding is restricted.'
+        'The generated card adapts to your layout so it looks right on mobile and desktop.'
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/flickr', label: 'Flickr' },
+    { href: '/tools/embed-url/smugmug', label: 'SmugMug' },
+    { href: '/tools/embed-url/sketchfab', label: 'Sketchfab' }
   ],
   faq: [
     {
-      question: 'How do I embed Abraia content on my website?',
-      answer: 'Paste any Abraia URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Abraia embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Abraia content is private?',
+      question: 'How do I embed Abraia media on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste an abraia.me link into the tool and click Generate. You will get a ready-to-paste preview card for the optimized image or video.'
+    },
+    {
+      question: 'Does Abraia have a native embed code?',
+      answer:
+        'Abraia is an image and video optimization cloud, not a social platform, and does not publish a standard public embed API. The tool generates a styled preview card from the page metadata instead.'
+    },
+    {
+      question: 'What kinds of Abraia content can I embed?',
+      answer:
+        'Optimized images, adaptive-bitrate (HLS) videos, and other media hosted on the abraia.me cloud — anything reachable by a public URL.'
+    },
+    {
+      question: 'What if the Abraia link is private or restricted?',
+      answer:
+        'If the page is not publicly reachable, the tool falls back to a styled preview card using whatever metadata is available.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

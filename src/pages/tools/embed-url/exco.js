@@ -2,24 +2,37 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Exco',
+  name: 'EX.CO',
   slug: 'exco',
-  color: '#666666',
-  exampleUrl: 'https://exco.com',
-  metaTitle: 'Exco Embed Code Generator — Embed Exco Content',
+  color: '#6B8EF7',
+  exampleUrl: 'https://content.ex.co/glossary',
+  metaTitle: 'EX.CO Embed Code Generator — Embed Video Units, Polls & Quizzes',
   metaDescription:
-    'Free Exco embed code generator. Paste any Exco URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed exco', 'exco embed code', 'exco embed generator'],
-  heroTitle: 'Exco Embed Code Generator',
+    'Free EX.CO embed code generator. Paste an EX.CO URL — get a ready-to-paste embed for video units, polls, and quizzes, or a preview card. No signup.',
+  keywords: [
+    'embed exco',
+    'exco embed code',
+    'exco embed generator',
+    'embed exco video',
+    'embed exco poll',
+    'embed exco quiz',
+    'exco player embed',
+    'exco interactive content embed'
+  ],
+  heroTitle: 'EX.CO Embed Code Generator',
   heroSubtitle:
-    'Paste any Exco URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Exco content',
+    'Paste an EX.CO URL to get ready-to-paste embed HTML for its video units, polls, and quizzes — or a preview card.',
+  howItWorksHeading: 'How to embed EX.CO content',
   howItWorksSteps: [
-    { title: 'Paste a Exco link', description: 'Copy any exco.com URL.' },
+    {
+      title: 'Paste an EX.CO link',
+      description:
+        'Copy any ex.co, player.ex.co, or content.ex.co link to a video unit, poll, or quiz.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the EX.CO content and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -27,15 +40,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Exco embed code generator',
+  explanationHeading: 'Why use our EX.CO embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Exco link and get working embed HTML.'
+      title: 'No dashboard required',
+      description:
+        'Paste an EX.CO link and get working embed HTML — no need to copy tags from the EX.CO editor.'
     },
     {
-      title: 'Exco content',
-      description: 'The tool handles all Exco URL formats.'
+      title: 'Interactive content ready',
+      description:
+        'Handles EX.CO video units, polls, and quizzes so the interactive experience stays intact.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 EX.CO embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native player embed',
       description:
-        'Get the real Exco embed with full interactivity when available.'
+        'Get the real EX.CO player with full interactivity for video units, polls, and quizzes when available.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Exco URL formats and content types.'
+      title: 'Responsive output',
+      description:
+        'The embed adapts to its container so EX.CO content fits cleanly on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/ceros', label: 'Ceros' },
+    { href: '/tools/embed-url/poll-daddy', label: 'Polldaddy' },
+    { href: '/tools/embed-url/brightcove', label: 'Brightcove' }
   ],
   faq: [
     {
-      question: 'How do I embed Exco content on my website?',
-      answer: 'Paste any Exco URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Exco embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Exco content is private?',
+      question: 'How do I embed EX.CO content on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste an EX.CO URL into the tool and click Generate. It returns ready-to-paste embed HTML for the video unit, poll, or quiz.'
+    },
+    {
+      question: 'What types of EX.CO content can I embed?',
+      answer:
+        'EX.CO interactive units such as video players, polls, and quizzes, as well as their playlist-driven video experiences.'
+    },
+    {
+      question: 'Does the embed keep EX.CO interactivity?',
+      answer:
+        'Yes. When a native embed is available, the EX.CO player loads with its full interactive experience like voting in polls or answering quizzes.'
+    },
+    {
+      question: 'What if the EX.CO content is private or restricted?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

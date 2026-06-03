@@ -4,25 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Spreaker',
   slug: 'spreaker',
-  color: '#F5C910',
-  exampleUrl: 'https://spreaker.com',
-  metaTitle: 'Spreaker Embed Code Generator — Embed Podcast episodes and shows',
+  color: '#C5202D',
+  exampleUrl: 'https://www.spreaker.com/episode/12794242',
+  metaTitle: 'Spreaker Embed Code Generator — Embed Podcast Episodes & Shows',
   metaDescription:
-    'Free Spreaker embed code generator. Paste any Spreaker URL — get a ready-to-paste embed for podcast episodes and shows. No signup.',
-  keywords: ['embed spreaker', 'spreaker embed code', 'spreaker podcast embed'],
+    'Free Spreaker embed code generator. Paste any Spreaker URL — get a ready-to-paste player for podcast episodes and shows. No signup.',
+  keywords: [
+    'embed spreaker',
+    'spreaker embed code',
+    'spreaker embed code generator',
+    'embed spreaker episode',
+    'embed spreaker podcast',
+    'spreaker player embed',
+    'spreaker iframe code'
+  ],
   heroTitle: 'Spreaker Embed Code Generator',
   heroSubtitle:
-    'Paste any Spreaker URL — get a ready-to-paste embed for podcast episodes and shows.',
+    'Paste any Spreaker URL — get a ready-to-paste player for podcast episodes and shows.',
   howItWorksHeading: 'How to embed Spreaker content',
   howItWorksSteps: [
     {
       title: 'Paste a Spreaker link',
-      description: 'Copy any spreaker.com URL — podcast episodes and shows.'
+      description:
+        'Copy any spreaker.com URL — single episode pages or full show pages.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects whether the link is an episode or a show and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -35,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Spreaker link and get working embed HTML.'
+        'Skip building the widget markup by hand. Paste any Spreaker link and get working embed HTML.'
     },
     {
-      title: 'All Spreaker content',
+      title: 'Episodes and shows',
       description:
-        'Works with podcast episodes and shows — the tool handles all Spreaker URL formats.'
+        'Works with single-episode players and full-show players — the tool handles both Spreaker URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -50,19 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Spreaker embeds per day. No login, no API key.'
+        'Generate up to 50 Spreaker embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Spreaker player',
       description:
-        'Get the real Spreaker embed with full interactivity when available.'
+        'Get the real Spreaker widget player with cover art and audio playback controls.'
     },
     {
-      title: 'All podcast episodes and shows',
+      title: 'Responsive embeds',
       description:
-        'Works with podcast episodes and shows — all Spreaker content types.'
+        'The player fills its container width, so episode and show embeds fit any layout.'
     },
     {
       title: 'Preview card fallback',
@@ -71,29 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/podbean',
+      label: 'Podbean'
+    },
+    {
+      href: '/tools/embed-url/simplecast',
+      label: 'Simplecast'
+    },
+    {
+      href: '/tools/embed-url/soundcloud',
+      label: 'SoundCloud'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Spreaker content on my website?',
+      question: 'How do I embed a Spreaker episode on my website?',
       answer:
-        'Paste any Spreaker URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any Spreaker episode URL into the tool and click Generate. You will get a ready-to-paste player you can drop into any page.'
     },
     {
-      question: 'Is the Spreaker embed generator free?',
+      question: 'Can I embed a whole Spreaker show?',
+      answer:
+        'Yes. Paste a show page URL and the tool generates a player for the show instead of a single episode.'
+    },
+    {
+      question: 'Does the embed play the full episode?',
+      answer:
+        'Yes. The native Spreaker player streams the full episode audio with standard playback controls.'
+    },
+    {
+      question: 'What if the episode is private or unlisted?',
+      answer:
+        'Native embedding needs a public episode. For restricted items, switch to Card mode to generate a styled preview card instead.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Spreaker content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const SpreakerPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default SpreakerPage

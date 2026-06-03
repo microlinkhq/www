@@ -4,18 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Demofly',
   slug: 'demofly',
-  color: '#666666',
+  color: '#111111',
   exampleUrl: 'https://demofly.com',
-  metaTitle: 'Demofly Embed Code Generator — Embed Demofly Content',
+  metaTitle: 'Demofly Embed Code Generator — Embed Interactive Demos',
   metaDescription:
-    'Free Demofly embed code generator. Paste any Demofly URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed demofly', 'demofly embed code', 'demofly embed generator'],
+    'Free Demofly embed code generator. Paste a Demofly demo URL — get ready-to-paste embed HTML or a styled preview card. No signup.',
+  keywords: [
+    'embed demofly',
+    'demofly embed code',
+    'demofly embed code generator',
+    'embed demofly demo',
+    'demofly iframe code',
+    'demofly interactive demo embed',
+    'demofly walkthrough embed'
+  ],
   heroTitle: 'Demofly Embed Code Generator',
   heroSubtitle:
-    'Paste any Demofly URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Demofly content',
+    'Paste a Demofly demo URL — get ready-to-paste embed HTML or a styled preview card.',
+  howItWorksHeading: 'How to embed a Demofly demo',
   howItWorksSteps: [
-    { title: 'Paste a Demofly link', description: 'Copy any demofly.com URL.' },
+    {
+      title: 'Paste a Demofly link',
+      description:
+        'Copy the share URL of any demofly.com interactive demo or walkthrough.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Demofly link and get working embed HTML.'
+      description:
+        'Paste any Demofly link and get working embed HTML — no code to write.'
     },
     {
-      title: 'Demofly content',
-      description: 'The tool handles all Demofly URL formats.'
+      title: 'Interactive demos',
+      description:
+        'Built for sharing Demofly interactive product demos and walkthroughs on any page.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Demofly embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native demo embed',
       description:
-        'Get the real Demofly embed with full interactivity when available.'
+        'Get the interactive Demofly demo embedded in-page when the provider allows it.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Demofly URL formats and content types.'
+      title: 'Responsive layout',
+      description:
+        'The embed adapts to your container width so demos stay readable on any screen.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/loom',
+      label: 'Loom'
+    },
+    {
+      href: '/tools/embed-url/clueso',
+      label: 'Clueso'
+    },
+    {
+      href: '/tools/embed-url/vidyard',
+      label: 'Vidyard'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Demofly content on my website?',
-      answer: 'Paste any Demofly URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Demofly embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Demofly content is private?',
+      question: 'How do I embed a Demofly demo on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Demofly demo URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'What kind of Demofly content can I embed?',
+      answer:
+        'Demofly interactive product demos and walkthroughs shared via a demofly.com link.'
+    },
+    {
+      question: 'Is the embed responsive?',
+      answer:
+        'Yes. The embed adapts to its container so the demo stays readable across screen sizes.'
+    },
+    {
+      question: 'What if the demo is private or cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

@@ -2,20 +2,33 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Dtube',
+  name: 'DTube',
   slug: 'dtube',
-  color: '#666666',
-  exampleUrl: 'https://d.tube',
-  metaTitle: 'Dtube Embed Code Generator — Embed Dtube Content',
+  color: '#F01A30',
+  exampleUrl: 'https://d.tube/watch/XSZsGcPNdoAEraL8FNq3uF',
+  metaTitle: 'DTube Embed Code Generator — Embed Videos & Channels',
   metaDescription:
-    'Free Dtube embed code generator. Paste any Dtube URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed dtube', 'dtube embed code', 'dtube embed generator'],
-  heroTitle: 'Dtube Embed Code Generator',
+    'Free DTube embed code generator. Paste any d.tube URL — get a ready-to-paste embed for decentralized videos and channels, or a preview card. No signup.',
+  keywords: [
+    'embed dtube',
+    'dtube embed code',
+    'dtube embed code generator',
+    'embed dtube video',
+    'dtube iframe code',
+    'dtube video embed',
+    'embed dtube channel',
+    'decentralized video embed'
+  ],
+  heroTitle: 'DTube Embed Code Generator',
   heroSubtitle:
-    'Paste any Dtube URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Dtube content',
+    'Paste any DTube URL — get a ready-to-paste embed for decentralized videos and channels.',
+  howItWorksHeading: 'How to embed a DTube video',
   howItWorksSteps: [
-    { title: 'Paste a Dtube link', description: 'Copy any d.tube URL.' },
+    {
+      title: 'Paste a DTube link',
+      description:
+        'Copy any d.tube URL — individual videos and channel pages both work.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -27,15 +40,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Dtube embed code generator',
+  explanationHeading: 'Why use our DTube embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Dtube link and get working embed HTML.'
+      description:
+        'Skip building the emb.d.tube player URL by hand. Paste any DTube link and get working embed HTML.'
     },
     {
-      title: 'Dtube content',
-      description: 'The tool handles all Dtube URL formats.'
+      title: 'Videos and channels',
+      description:
+        'Works with individual DTube videos and channel pages — the tool handles the d.tube URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 DTube embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native DTube player',
       description:
-        'Get the real Dtube embed with full interactivity when available.'
+        'Get the real DTube video player with playback controls when an embed is available.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Dtube URL formats and content types.'
+      title: 'Decentralized video',
+      description:
+        'DTube videos are hosted on a peer-to-peer network — the generated embed loads the same player viewers see on d.tube.'
     },
     {
       title: 'Preview card fallback',
@@ -65,21 +82,33 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/odysee', label: 'Odysee' },
+    { href: '/tools/embed-url/rumble', label: 'Rumble' }
   ],
   faq: [
     {
-      question: 'How do I embed Dtube content on my website?',
-      answer: 'Paste any Dtube URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Dtube embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Dtube content is private?',
+      question: 'How do I embed a DTube video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any d.tube video URL into the tool and click Generate. You will get a ready-to-paste embed for the DTube player.'
+    },
+    {
+      question: 'Can I embed a DTube channel?',
+      answer:
+        'Yes. Both individual videos and channel pages are supported — paste the d.tube URL and the tool detects the content type.'
+    },
+    {
+      question: 'What is DTube?',
+      answer:
+        'DTube is a decentralized video platform where videos are stored on a peer-to-peer network rather than central servers, with content surfaced through the Hive and Steem blockchains.'
+    },
+    {
+      question: 'What if the video has no native embed?',
+      answer:
+        'The tool falls back to a styled preview card with the title and image, which you can customize before copying.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

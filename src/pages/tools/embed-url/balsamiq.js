@@ -4,29 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Balsamiq',
   slug: 'balsamiq',
-  color: '#CC0000',
-  exampleUrl: 'https://balsamiq.cloud',
-  metaTitle: 'Balsamiq Embed Code Generator — Embed Wireframes and mockups',
+  color: '#AE1C59',
+  exampleUrl: 'https://balsamiq.cloud/s1xupvp/p9ozsjm',
+  metaTitle: 'Balsamiq Embed Code Generator — Embed Wireframes & Mockups',
   metaDescription:
-    'Free Balsamiq embed code generator. Paste any Balsamiq URL — get a ready-to-paste embed for wireframes and mockups. No signup.',
+    'Free Balsamiq embed code generator. Paste a Balsamiq Cloud public review link — get a ready-to-paste embed for your wireframes and mockups. No signup.',
   keywords: [
     'embed balsamiq',
     'balsamiq embed code',
-    'balsamiq wireframe embed'
+    'balsamiq embed code generator',
+    'embed balsamiq wireframe',
+    'balsamiq cloud embed',
+    'embed balsamiq mockup',
+    'balsamiq public review embed',
+    'balsamiq iframe code'
   ],
   heroTitle: 'Balsamiq Embed Code Generator',
   heroSubtitle:
-    'Paste any Balsamiq URL — get a ready-to-paste embed for wireframes and mockups.',
-  howItWorksHeading: 'How to embed Balsamiq content',
+    'Paste a Balsamiq Cloud public review link — get a ready-to-paste embed for your wireframes and mockups.',
+  howItWorksHeading: 'How to embed a Balsamiq wireframe',
   howItWorksSteps: [
     {
       title: 'Paste a Balsamiq link',
-      description: 'Copy any balsamiq.cloud URL — wireframes and mockups.'
+      description:
+        'Copy a balsamiq.cloud public review, presentation, or board URL with public reviews enabled.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool resolves the oEmbed-supported link and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -39,12 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Balsamiq link and get working embed HTML.'
+        'Skip the manual oEmbed wiring. Paste any Balsamiq Cloud link and get working embed HTML.'
     },
     {
-      title: 'All Balsamiq content',
+      title: 'Interactive wireframes',
       description:
-        'Works with wireframes and mockups — the tool handles all Balsamiq URL formats.'
+        'Readers can navigate your low-fidelity mockups with zoom and full-screen controls, not a flat screenshot.'
     },
     {
       title: 'Customizable preview card',
@@ -54,19 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Balsamiq embeds per day. No login, no API key.'
+        'Generate up to 50 Balsamiq embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Balsamiq embed',
       description:
-        'Get the real Balsamiq embed with full interactivity when available.'
+        'Get the real Balsamiq Cloud viewer with board navigation, zoom, and full-screen presentation mode.'
     },
     {
-      title: 'All wireframes and mockups',
+      title: 'Wireframes & mockups',
       description:
-        'Works with wireframes and mockups — all Balsamiq content types.'
+        'Works with public review projects, presentations, and individual boards — your low-fidelity designs stay interactive.'
     },
     {
       title: 'Preview card fallback',
@@ -75,23 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/figma', label: 'Figma' },
+    { href: '/tools/embed-url/whimsical', label: 'Whimsical' },
+    { href: '/tools/embed-url/cacoo', label: 'Cacoo' }
   ],
   faq: [
     {
-      question: 'How do I embed Balsamiq content on my website?',
+      question: 'How do I embed a Balsamiq wireframe on my website?',
       answer:
-        'Paste any Balsamiq URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Enable Public Reviews on your Balsamiq Cloud project, copy the public review link, paste it into the tool, and click Generate to get a ready-to-paste embed snippet.'
     },
     {
-      question: 'Is the Balsamiq embed generator free?',
+      question: 'What Balsamiq links can I embed?',
+      answer:
+        'Public review project links, full-screen presentation links, and individual board URLs all work, as long as Public Reviews is enabled on the project.'
+    },
+    {
+      question: 'Why does my Balsamiq link not embed?',
+      answer:
+        'Balsamiq only allows embedding when Public Reviews is turned on in the project Sharing Settings. Private projects fall back to a styled preview card.'
+    },
+    {
+      question: 'What if the Balsamiq project is private?',
+      answer:
+        'The tool falls back to a styled preview card with the available metadata, since private projects cannot be embedded natively.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Balsamiq content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

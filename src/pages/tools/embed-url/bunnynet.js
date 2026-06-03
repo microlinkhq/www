@@ -4,26 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Bunny.net',
   slug: 'bunnynet',
-  color: '#666666',
-  exampleUrl: 'https://bunny.net',
-  metaTitle: 'Bunny.net Embed Code Generator — Embed Bunny.net Content',
+  color: '#FF7A53',
+  exampleUrl:
+    'https://player.mediadelivery.net/embed/256380/d9d9ab1f-fc9f-4488-9c26-4ffc653c0024',
+  metaTitle: 'Bunny.net Embed Code Generator — Embed Bunny Stream Videos',
   metaDescription:
-    'Free Bunny.net embed code generator. Paste any Bunny.net URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Bunny.net embed code generator. Paste a Bunny Stream video URL — get a ready-to-paste responsive iframe player for your site. No signup.',
   keywords: [
     'embed bunny.net',
     'bunny.net embed code',
-    'bunny.net embed generator'
+    'bunny stream embed code',
+    'embed bunny stream video',
+    'bunny.net iframe code',
+    'bunny stream player embed',
+    'mediadelivery embed'
   ],
   heroTitle: 'Bunny.net Embed Code Generator',
   heroSubtitle:
-    'Paste any Bunny.net URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Bunny.net content',
+    'Paste a Bunny Stream video URL — get a ready-to-paste iframe player you can drop into any page.',
+  howItWorksHeading: 'How to embed a Bunny.net video',
   howItWorksSteps: [
-    { title: 'Paste a Bunny.net link', description: 'Copy any bunny.net URL.' },
+    {
+      title: 'Paste a Bunny.net link',
+      description:
+        'Copy a Bunny Stream player URL from player.mediadelivery.net or iframe.mediadelivery.net.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the Bunny Stream player and generates the right iframe HTML.'
     },
     {
       title: 'Copy & paste',
@@ -35,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Bunny.net link and get working embed HTML.'
+      description:
+        'Skip building the iframe by hand. Paste a Bunny Stream link and get working embed HTML.'
     },
     {
-      title: 'Bunny.net content',
-      description: 'The tool handles all Bunny.net URL formats.'
+      title: 'Responsive by default',
+      description:
+        'The generated player scales to fit your layout instead of locking to a fixed pixel size.'
     },
     {
       title: 'Customizable preview card',
@@ -48,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Bunny.net embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Bunny Stream player',
       description:
-        'Get the real Bunny.net embed with full interactivity when available.'
+        'Get the real Bunny Stream HTML5 player with adaptive bitrate playback and standard controls.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Bunny.net URL formats and content types.'
+      title: 'Works on any site',
+      description:
+        'The iframe drops into static sites, blogs, and CMS platforms without extra scripts.'
     },
     {
       title: 'Preview card fallback',
@@ -68,28 +81,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/vimeo',
+      label: 'Vimeo'
+    },
+    {
+      href: '/tools/embed-url/wistia',
+      label: 'Wistia'
+    },
+    {
+      href: '/tools/embed-url/brightcove',
+      label: 'Brightcove'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Bunny.net content on my website?',
-      answer: 'Paste any Bunny.net URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Bunny.net embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Bunny.net content is private?',
+      question: 'How do I embed a Bunny Stream video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste your Bunny Stream player URL into the tool and click Generate. You will get a ready-to-paste iframe player.'
+    },
+    {
+      question: 'What Bunny.net URLs are supported?',
+      answer:
+        'Bunny Stream player links on player.mediadelivery.net and the legacy iframe.mediadelivery.net are supported.'
+    },
+    {
+      question: 'Is the embedded player responsive?',
+      answer:
+        'Yes. The generated iframe is set to scale with its container so the video fits any screen size.'
+    },
+    {
+      question: 'What if a video cannot be embedded natively?',
+      answer:
+        'If native embedding is restricted, switch to Card mode to generate a styled preview card with the title and thumbnail.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const BunnynetPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default BunnynetPage

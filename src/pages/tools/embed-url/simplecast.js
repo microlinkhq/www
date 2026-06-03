@@ -4,30 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Simplecast',
   slug: 'simplecast',
-  color: '#F5B724',
-  exampleUrl: 'https://simplecast.com',
-  metaTitle:
-    'Simplecast Embed Code Generator — Embed Podcast episodes and shows',
+  color: '#E66E50',
+  exampleUrl: 'https://armchairexpert.simplecast.com/episodes/980a207c',
+  metaTitle: 'Simplecast Embed Code Generator — Embed Podcast Episodes & Shows',
   metaDescription:
-    'Free Simplecast embed code generator. Paste any Simplecast URL — get a ready-to-paste embed for podcast episodes and shows. No signup.',
+    'Free Simplecast embed code generator. Paste any Simplecast URL — get a ready-to-paste web player for podcast episodes and shows. No signup.',
   keywords: [
     'embed simplecast',
     'simplecast embed code',
-    'simplecast podcast embed'
+    'simplecast embed code generator',
+    'embed simplecast episode',
+    'simplecast player embed',
+    'simplecast iframe code',
+    'embed simplecast podcast'
   ],
   heroTitle: 'Simplecast Embed Code Generator',
   heroSubtitle:
-    'Paste any Simplecast URL — get a ready-to-paste embed for podcast episodes and shows.',
-  howItWorksHeading: 'How to embed Simplecast content',
+    'Paste any Simplecast URL — get a ready-to-paste web player for your podcast episodes and shows.',
+  howItWorksHeading: 'How to embed a Simplecast episode',
   howItWorksSteps: [
     {
       title: 'Paste a Simplecast link',
-      description: 'Copy any simplecast.com URL — podcast episodes and shows.'
+      description:
+        'Copy any simplecast.com URL — a show page or an individual episode link.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects whether it is an episode or a show and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -40,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Simplecast link and get working embed HTML.'
+        'Skip digging through promotion pages for embed snippets. Paste any Simplecast link and get working embed HTML.'
     },
     {
-      title: 'All Simplecast content',
+      title: 'Episodes and shows',
       description:
-        'Works with podcast episodes and shows — the tool handles all Simplecast URL formats.'
+        'Works with single episode links and full show pages — the tool handles both Simplecast URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -55,19 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Simplecast embeds per day. No login, no API key.'
+        'Generate up to 50 Simplecast embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Simplecast player',
       description:
-        'Get the real Simplecast embed with full interactivity when available.'
+        'Get the real Simplecast web player with cover art, playback controls, and a progress bar.'
     },
     {
-      title: 'All podcast episodes and shows',
+      title: 'Responsive embed',
       description:
-        'Works with podcast episodes and shows — all Simplecast content types.'
+        'The player scales to fit your column width, so episodes look right on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -76,23 +80,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/podbean',
+      label: 'Podbean'
+    },
+    {
+      href: '/tools/embed-url/spreaker',
+      label: 'Spreaker'
+    },
+    {
+      href: '/tools/embed-url/soundcloud',
+      label: 'SoundCloud'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Simplecast content on my website?',
+      question: 'How do I embed a Simplecast episode on my website?',
       answer:
-        'Paste any Simplecast URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any Simplecast episode URL into the tool and click Generate. You will get a ready-to-paste web player.'
     },
     {
-      question: 'Is the Simplecast embed generator free?',
+      question: 'Can I embed a whole show instead of one episode?',
+      answer:
+        'Yes. Paste a Simplecast show page URL and the tool generates an embed for the full show.'
+    },
+    {
+      question: 'Can I embed a private or unlisted episode?',
+      answer:
+        'Private and unlisted episodes are not publicly accessible, so they cannot be embedded. Only published, public episodes work.'
+    },
+    {
+      question: 'What if the episode cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card showing the episode title and image, which you can customize in Card mode.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Simplecast content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

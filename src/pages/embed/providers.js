@@ -52,7 +52,8 @@ import {
   siTed,
   siTumblr,
   siWistia,
-  siWordpress
+  siWordpress,
+  siHubspot
 } from 'simple-icons'
 
 import Box from 'components/elements/Box'
@@ -108,6 +109,7 @@ const PROVIDERS = [
   { name: 'SoundCloud', slug: 'soundcloud', icon: siSoundcloud },
   { name: 'Behance', slug: 'behance', icon: siBehance },
   { name: 'Kickstarter', slug: 'kickstarter', icon: siKickstarter },
+  { name: 'HubSpot', slug: 'hubspot', icon: siHubspot },
   { name: 'Miro', slug: 'miro', icon: siMiro },
   {
     name: 'Microsoft',

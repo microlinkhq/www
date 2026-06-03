@@ -2,28 +2,36 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Gloriatv',
+  name: 'Gloria.tv',
   slug: 'gloriatv',
-  color: '#666666',
-  exampleUrl: 'https://gloria.tv',
-  metaTitle: 'Gloriatv Embed Code Generator — Embed Gloriatv Content',
+  color: '#1A73E8',
+  exampleUrl: 'https://gloria.tv/post/uufLZ3Xvo9hz33UBrRSSzjATS',
+  metaTitle: 'Gloria.tv Embed Code Generator — Embed Catholic Videos',
   metaDescription:
-    'Free Gloriatv embed code generator. Paste any Gloriatv URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Gloria.tv embed code generator. Paste any Gloria.tv URL — get ready-to-paste embed HTML for Catholic videos, homilies, and news posts. No signup.',
   keywords: [
-    'embed gloriatv',
-    'gloriatv embed code',
-    'gloriatv embed generator'
+    'embed gloria.tv',
+    'gloria.tv embed code',
+    'gloria.tv embed code generator',
+    'embed gloria.tv video',
+    'gloria.tv iframe code',
+    'gloria.tv video embed',
+    'embed catholic video'
   ],
-  heroTitle: 'Gloriatv Embed Code Generator',
+  heroTitle: 'Gloria.tv Embed Code Generator',
   heroSubtitle:
-    'Paste any Gloriatv URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Gloriatv content',
+    'Paste any Gloria.tv URL — get ready-to-paste embed HTML for Catholic videos, homilies, and news posts.',
+  howItWorksHeading: 'How to embed a Gloria.tv video',
   howItWorksSteps: [
-    { title: 'Paste a Gloriatv link', description: 'Copy any gloria.tv URL.' },
+    {
+      title: 'Paste a Gloria.tv link',
+      description:
+        'Copy any gloria.tv URL — video and post links from the Catholic video-sharing platform.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the Gloria.tv content and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -31,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Gloriatv embed code generator',
+  explanationHeading: 'Why use our Gloria.tv embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Gloriatv link and get working embed HTML.'
+      description:
+        'Skip the manual embed steps. Paste any Gloria.tv link and get working embed HTML.'
     },
     {
-      title: 'Gloriatv content',
-      description: 'The tool handles all Gloriatv URL formats.'
+      title: 'Built for Catholic content',
+      description:
+        'Works with Gloria.tv videos, homilies, and news posts — the tool handles the URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -48,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Gloria.tv embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Gloria.tv player',
       description:
-        'Get the real Gloriatv embed with full interactivity when available.'
+        'Get the real Gloria.tv player so visitors can watch the video right where you embed it.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Gloriatv URL formats and content types.'
+      title: 'Videos, homilies & news',
+      description:
+        'Embed homilies, Catholic news, and other content shared on the gloria.tv portal.'
     },
     {
       title: 'Preview card fallback',
@@ -68,28 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/youtube',
+      label: 'YouTube'
+    },
+    {
+      href: '/tools/embed-url/faithlifetv',
+      label: 'Faithlife TV'
+    },
+    {
+      href: '/tools/embed-url/dailymotion',
+      label: 'Dailymotion'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Gloriatv content on my website?',
-      answer: 'Paste any Gloriatv URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Gloriatv embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Gloriatv content is private?',
+      question: 'How do I embed a Gloria.tv video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any Gloria.tv URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'What kind of Gloria.tv content can I embed?',
+      answer:
+        'Gloria.tv is a Catholic video-sharing and news platform. You can embed its videos, homilies, and news posts.'
+    },
+    {
+      question: 'What if the video cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card with the title and image that links to the original Gloria.tv page.'
+    },
+    {
+      question: 'Is the embed responsive?',
+      answer:
+        'Yes. The generated embed adapts to the width of its container, so it works on desktop and mobile.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const GloriatvPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default GloriatvPage

@@ -4,22 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Homey',
   slug: 'homey',
-  color: '#666666',
-  exampleUrl: 'https://homey.app',
-  metaTitle: 'Homey Embed Code Generator — Embed Homey Content',
+  color: '#2CCCE5',
+  exampleUrl: 'https://flow.homey.app/share/3a0c5e2f',
+  metaTitle: 'Homey Embed Code Generator — Embed Smart Home Flows',
   metaDescription:
-    'Free Homey embed code generator. Paste any Homey URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed homey', 'homey embed code', 'homey embed generator'],
+    'Free Homey embed code generator. Paste a shared Homey Flow link — get a ready-to-paste embed or preview card for your home automation. No signup.',
+  keywords: [
+    'embed homey',
+    'homey embed code',
+    'homey embed code generator',
+    'embed homey flow',
+    'homey flow embed',
+    'share homey flow',
+    'homey automation embed'
+  ],
   heroTitle: 'Homey Embed Code Generator',
   heroSubtitle:
-    'Paste any Homey URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Homey content',
+    'Paste a shared Homey Flow link and get a ready-to-paste embed or preview card for your smart home automation.',
+  howItWorksHeading: 'How to embed a Homey Flow',
   howItWorksSteps: [
-    { title: 'Paste a Homey link', description: 'Copy any homey.app URL.' },
+    {
+      title: 'Paste a Homey link',
+      description:
+        'Copy a shared Flow link from flow.homey.app — open a Flow, choose Share, and copy the URL.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the link and generates the embed HTML, or a styled preview card as a fallback.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Homey link and get working embed HTML.'
+      description:
+        'Skip digging through the Homey share dialog. Paste the link and get clean embed HTML in one step.'
     },
     {
-      title: 'Homey content',
-      description: 'The tool handles all Homey URL formats.'
+      title: 'Built for shared Flows',
+      description:
+        'Designed around Homey Flow share links from flow.homey.app so you can showcase your home automation.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Homey embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Smart home automation',
       description:
-        'Get the real Homey embed with full interactivity when available.'
+        'Homey is a smart home hub from Athom, and Flows are the automations that connect your devices.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Homey URL formats and content types.'
+      title: 'Shareable Flow links',
+      description:
+        'Works with the share links Homey generates for individual Flows, so readers can see how they are built.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
+    { href: '/tools/embed-url/ifttt', label: 'IFTTT' },
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/twitter-or-x', label: 'X (Twitter)' }
   ],
   faq: [
     {
-      question: 'How do I embed Homey content on my website?',
-      answer: 'Paste any Homey URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Homey embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Homey content is private?',
+      question: 'How do I embed a Homey Flow on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Open a Flow at flow.homey.app, choose Share to get a link, then paste that link into the tool and click Generate.'
+    },
+    {
+      question: 'What is a Homey Flow?',
+      answer:
+        'A Flow is an automation in the Homey smart home app that links devices and conditions together to control your home.'
+    },
+    {
+      question: 'Can I embed a private Flow?',
+      answer:
+        'Homey share links are magic links, so anyone with the link can view the Flow. Links you have not shared cannot be embedded.'
+    },
+    {
+      question: 'What if the Flow cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image so you always get something to paste.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

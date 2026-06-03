@@ -4,30 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'SlideShare',
   slug: 'slideshare',
-  color: '#008AB7',
-  exampleUrl: 'https://slideshare.net',
-  metaTitle: 'SlideShare Embed Code Generator — Embed Presentations',
+  color: '#0077B5',
+  exampleUrl:
+    'https://www.slideshare.net/slideshow/unicef-branding-toolkit/5207527',
+  metaTitle: 'SlideShare Embed Code Generator — Embed Slide Decks & Documents',
   metaDescription:
-    'Free SlideShare embed code generator. Paste any SlideShare URL — get a ready-to-paste embed for presentations, documents, and infographics. No signup.',
+    'Free SlideShare embed code generator. Paste any SlideShare URL — get a ready-to-paste embed for slide decks, presentations, documents, and infographics. No signup.',
   keywords: [
     'embed slideshare',
     'slideshare embed code',
-    'slideshare presentation embed'
+    'slideshare embed code generator',
+    'embed slideshare presentation',
+    'slideshare iframe code',
+    'embed slideshare slides',
+    'slideshare slide deck embed'
   ],
   heroTitle: 'SlideShare Embed Code Generator',
   heroSubtitle:
-    'Paste any SlideShare URL — get a ready-to-paste embed for presentations, documents, and infographics.',
-  howItWorksHeading: 'How to embed SlideShare content',
+    'Paste any SlideShare URL — get a ready-to-paste embed for slide decks, presentations, documents, and infographics.',
+  howItWorksHeading: 'How to embed a SlideShare presentation',
   howItWorksSteps: [
     {
       title: 'Paste a SlideShare link',
       description:
-        'Copy any slideshare.net URL — presentations, documents, and infographics.'
+        'Copy any slideshare.net URL — slide decks, presentations, documents, and infographics.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the SlideShare deck and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -40,12 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any SlideShare link and get working embed HTML.'
+        'Skip digging through the SlideShare share menu. Paste any link and get working embed HTML.'
     },
     {
       title: 'All SlideShare content',
       description:
-        'Works with presentations, documents, and infographics — the tool handles all SlideShare URL formats.'
+        'Works with slide decks, presentations, documents, and infographics — the tool handles all SlideShare URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -55,19 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 SlideShare embeds per day. No login, no API key.'
+        'Generate up to 50 SlideShare embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native SlideShare viewer',
       description:
-        'Get the real SlideShare embed with full interactivity when available.'
+        'Get the real SlideShare player so readers can flip through every slide inline.'
     },
     {
-      title: 'All presentations',
+      title: 'Responsive slide embed',
       description:
-        'Works with presentations, documents, and infographics — all SlideShare content types.'
+        'The embed scales to fit your layout — full-width on desktop and readable on mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -76,23 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/speakerdeck',
+      label: 'Speaker Deck'
+    },
+    {
+      href: '/tools/embed-url/scribd',
+      label: 'Scribd'
+    },
+    {
+      href: '/tools/embed-url/prezi',
+      label: 'Prezi'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed SlideShare content on my website?',
+      question: 'How do I embed a SlideShare presentation on my website?',
       answer:
-        'Paste any SlideShare URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any SlideShare URL into the tool and click Generate. You will get a ready-to-paste embed for the slide deck.'
     },
     {
-      question: 'Is the SlideShare embed generator free?',
+      question: 'What SlideShare content can I embed?',
+      answer:
+        'Slide decks, presentations, documents, and infographics hosted on slideshare.net are all supported.'
+    },
+    {
+      question: 'Can visitors flip through the slides in the embed?',
+      answer:
+        'Yes. The native SlideShare viewer lets readers page through every slide without leaving your site.'
+    },
+    {
+      question: 'What if the SlideShare deck is private or restricted?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the SlideShare content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

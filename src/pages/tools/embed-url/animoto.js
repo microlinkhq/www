@@ -4,25 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Animoto',
   slug: 'animoto',
-  color: '#3781F6',
-  exampleUrl: 'https://animoto.com',
-  metaTitle: 'Animoto Embed Code Generator — Embed Videos and slideshows',
+  color: '#2BA8CB',
+  exampleUrl: 'https://animoto.com/play/cWFQVN9hCqGv7Tbb9Nn0DA',
+  metaTitle: 'Animoto Embed Code Generator — Embed Slideshow Videos',
   metaDescription:
-    'Free Animoto embed code generator. Paste any Animoto URL — get a ready-to-paste embed for videos and slideshows. No signup.',
-  keywords: ['embed animoto', 'animoto embed code', 'animoto video embed'],
+    'Free Animoto embed code generator. Paste an Animoto video URL — get a ready-to-paste iframe player for your slideshows and marketing videos. No signup.',
+  keywords: [
+    'embed animoto',
+    'animoto embed code',
+    'animoto embed code generator',
+    'embed animoto video',
+    'animoto iframe code',
+    'animoto video embed',
+    'embed animoto slideshow'
+  ],
   heroTitle: 'Animoto Embed Code Generator',
   heroSubtitle:
-    'Paste any Animoto URL — get a ready-to-paste embed for videos and slideshows.',
-  howItWorksHeading: 'How to embed Animoto content',
+    'Paste an Animoto video URL — get a ready-to-paste iframe player for your slideshows and marketing videos.',
+  howItWorksHeading: 'How to embed an Animoto video',
   howItWorksSteps: [
     {
-      title: 'Paste a Animoto link',
-      description: 'Copy any animoto.com URL — videos and slideshows.'
+      title: 'Paste an Animoto link',
+      description:
+        'Copy any animoto.com/play link from your video Share page and paste it in.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the Animoto video and generates the right embed HTML automatically.'
     },
     {
       title: 'Copy & paste',
@@ -35,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Animoto link and get working embed HTML.'
+        'Skip digging through the Share menu. Paste any Animoto link and get working embed HTML.'
     },
     {
-      title: 'All Animoto content',
+      title: 'Built for video',
       description:
-        'Works with videos and slideshows — the tool handles all Animoto URL formats.'
+        'Works with Animoto slideshow and marketing videos so they play right where you embed them.'
     },
     {
       title: 'Customizable preview card',
@@ -50,19 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Animoto embeds per day. No login, no API key.'
+        'Generate up to 50 Animoto embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Animoto player',
       description:
-        'Get the real Animoto embed with full interactivity when available.'
+        'Get the real Animoto video player with playback controls right inside your page.'
     },
     {
-      title: 'All videos and slideshows',
+      title: 'Responsive embed',
       description:
-        'Works with videos and slideshows — all Animoto content types.'
+        'The video player scales to fit your layout on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,29 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/animatron',
+      label: 'Animatron'
+    },
+    {
+      href: '/tools/embed-url/wavevideo',
+      label: 'Wave.video'
+    },
+    {
+      href: '/tools/embed-url/youtube',
+      label: 'YouTube'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Animoto content on my website?',
+      question: 'How do I embed an Animoto video on my website?',
       answer:
-        'Paste any Animoto URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste your animoto.com/play URL into the tool and click Generate. You will get a ready-to-paste iframe player.'
     },
     {
-      question: 'Is the Animoto embed generator free?',
+      question: 'Where do I find my Animoto video link?',
+      answer:
+        'Open your video in Animoto, click Share beneath the player, and copy the link. It looks like animoto.com/play/your-video-id.'
+    },
+    {
+      question: 'Is the embedded video responsive?',
+      answer:
+        'Yes. The Animoto player scales to fit your container so it looks right on desktop and mobile.'
+    },
+    {
+      question: 'What if the video cannot be embedded natively?',
+      answer:
+        'Switch to Card mode and the tool generates a styled preview card with the title and thumbnail instead.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Animoto content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const AnimotoPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default AnimotoPage

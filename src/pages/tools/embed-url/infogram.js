@@ -5,20 +5,30 @@ const data = {
   name: 'Infogram',
   slug: 'infogram',
   color: '#00C9A2',
-  exampleUrl: 'https://infogram.com',
-  metaTitle: 'Infogram Embed Code Generator — Embed Infographics',
+  exampleUrl: 'https://infogram.com/world-blood-donor-day-1h0r6rz87xmzl4e',
+  metaTitle:
+    'Infogram Embed Code Generator — Embed Infographics, Charts & Reports',
   metaDescription:
-    'Free Infogram embed code generator. Paste any Infogram URL — get a ready-to-paste embed for infographics, charts, and dashboards. No signup.',
-  keywords: ['embed infogram', 'infogram embed code', 'infogram chart embed'],
+    'Free Infogram embed code generator. Paste any Infogram URL — get a ready-to-paste embed for interactive infographics, charts, maps, and reports. No signup.',
+  keywords: [
+    'embed infogram',
+    'infogram embed code',
+    'infogram embed code generator',
+    'embed infogram chart',
+    'embed infogram infographic',
+    'infogram iframe code',
+    'embed infogram report',
+    'infogram interactive chart embed'
+  ],
   heroTitle: 'Infogram Embed Code Generator',
   heroSubtitle:
-    'Paste any Infogram URL — get a ready-to-paste embed for infographics, charts, and dashboards.',
+    'Paste any Infogram URL — get a ready-to-paste embed for interactive infographics, charts, maps, and reports.',
   howItWorksHeading: 'How to embed Infogram content',
   howItWorksSteps: [
     {
-      title: 'Paste a Infogram link',
+      title: 'Paste an Infogram link',
       description:
-        'Copy any infogram.com URL — infographics, charts, and dashboards.'
+        'Copy any infogram.com URL — interactive infographics, charts, maps, and reports.'
     },
     {
       title: 'Get the embed code',
@@ -36,12 +46,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Infogram link and get working embed HTML.'
+        'Skip digging through the Share menu. Paste any Infogram link and get working embed HTML.'
     },
     {
       title: 'All Infogram content',
       description:
-        'Works with infographics, charts, and dashboards — the tool handles all Infogram URL formats.'
+        'Works with infographics, charts, maps, and reports — the tool handles all Infogram URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -51,19 +61,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Infogram embeds per day. No login, no API key.'
+        'Generate up to 50 Infogram embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native interactive embed',
       description:
-        'Get the real Infogram embed with full interactivity when available.'
+        'Get the real Infogram embed with hover tooltips, animated charts, and interactivity intact.'
     },
     {
-      title: 'All infographics',
+      title: 'Infographics, charts & maps',
       description:
-        'Works with infographics, charts, and dashboards — all Infogram content types.'
+        'Interactive infographics, charts, maps, dashboards, and reports — all Infogram content types work.'
     },
     {
       title: 'Preview card fallback',
@@ -72,23 +82,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/flourish', label: 'Flourish' },
+    { href: '/tools/embed-url/datawrapper', label: 'Datawrapper' },
+    { href: '/tools/embed-url/chartblocks', label: 'ChartBlocks' }
   ],
   faq: [
     {
-      question: 'How do I embed Infogram content on my website?',
+      question: 'How do I embed an Infogram infographic on my website?',
       answer:
-        'Paste any Infogram URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any Infogram URL into the tool and click Generate. You will get a ready-to-paste embed you can drop into any HTML editor.'
     },
     {
-      question: 'Is the Infogram embed generator free?',
+      question: 'What types of Infogram content can I embed?',
+      answer:
+        'Interactive infographics, charts, maps, dashboards, and reports are all supported.'
+    },
+    {
+      question: 'Does the embed stay interactive?',
+      answer:
+        'Yes. When the native embed is available, hover tooltips, animations, and clickable elements work just like on infogram.com.'
+    },
+    {
+      question: 'What if the Infogram project is private?',
+      answer:
+        'Only public projects can be embedded. For private or unpublished projects, the tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Infogram content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

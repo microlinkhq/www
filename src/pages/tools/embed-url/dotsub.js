@@ -4,22 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Dotsub',
   slug: 'dotsub',
-  color: '#666666',
-  exampleUrl: 'https://dotsub.com',
-  metaTitle: 'Dotsub Embed Code Generator — Embed Dotsub Content',
+  color: '#425CCF',
+  exampleUrl: 'https://dotsub.com/view/4ac48fd2-e5e1-4257-908c-31449ec4c8bf',
+  metaTitle: 'Dotsub Embed Code Generator — Embed Subtitled Videos',
   metaDescription:
-    'Free Dotsub embed code generator. Paste any Dotsub URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed dotsub', 'dotsub embed code', 'dotsub embed generator'],
+    'Free Dotsub embed code generator. Paste a Dotsub video URL — get a ready-to-paste player with multilingual subtitles and captions for your site. No signup.',
+  keywords: [
+    'embed dotsub',
+    'dotsub embed code',
+    'dotsub embed code generator',
+    'embed dotsub video',
+    'dotsub iframe code',
+    'dotsub subtitled video embed',
+    'embed dotsub player'
+  ],
   heroTitle: 'Dotsub Embed Code Generator',
   heroSubtitle:
-    'Paste any Dotsub URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Dotsub content',
+    'Paste a Dotsub video URL — get a ready-to-paste player with multilingual subtitles and captions.',
+  howItWorksHeading: 'How to embed a Dotsub video',
   howItWorksSteps: [
-    { title: 'Paste a Dotsub link', description: 'Copy any dotsub.com URL.' },
+    {
+      title: 'Paste a Dotsub link',
+      description:
+        'Copy a dotsub.com video URL — typically a dotsub.com/view link to a subtitled video.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the video and generates the right embed HTML for the captioned player.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Dotsub link and get working embed HTML.'
+      description:
+        'Skip digging through Dotsub embed options. Paste a link and get working embed HTML.'
     },
     {
-      title: 'Dotsub content',
-      description: 'The tool handles all Dotsub URL formats.'
+      title: 'Keeps subtitles and captions',
+      description:
+        'The embedded player carries the video together with its multilingual subtitles and captions.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Dotsub embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Subtitled video player',
       description:
-        'Get the real Dotsub embed with full interactivity when available.'
+        'Get the Dotsub player with the video and its on-screen subtitles and captions.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Dotsub URL formats and content types.'
+      title: 'Multilingual captions',
+      description:
+        'Viewers can pick from the languages your Dotsub video has been subtitled into.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/youtube',
+      label: 'YouTube'
+    },
+    {
+      href: '/tools/embed-url/vimeo',
+      label: 'Vimeo'
+    },
+    {
+      href: '/tools/embed-url/brightcove',
+      label: 'Brightcove'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Dotsub content on my website?',
-      answer: 'Paste any Dotsub URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Dotsub embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Dotsub content is private?',
+      question: 'How do I embed a Dotsub video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste your Dotsub video URL into the tool and click Generate. You will get a ready-to-paste player you can drop into any page.'
+    },
+    {
+      question: 'Do the subtitles and captions come through in the embed?',
+      answer:
+        'Yes. The embedded Dotsub player includes the video together with its subtitles and captions.'
+    },
+    {
+      question: 'Can viewers switch subtitle languages in the embed?',
+      answer:
+        'If the video has been subtitled into multiple languages on Dotsub, viewers can choose their language from the player.'
+    },
+    {
+      question: 'What if a Dotsub video cannot be embedded?',
+      answer:
+        'If native embedding is restricted, switch to Card mode to generate a styled preview card with the title and image instead.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

@@ -4,22 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Hopvue',
   slug: 'hopvue',
-  color: '#666666',
-  exampleUrl: 'https://hopvue.com',
+  color: '#111111',
+  exampleUrl: 'https://www.hopvue.com',
   metaTitle: 'Hopvue Embed Code Generator — Embed Hopvue Content',
   metaDescription:
-    'Free Hopvue embed code generator. Paste any Hopvue URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed hopvue', 'hopvue embed code', 'hopvue embed generator'],
+    'Free Hopvue embed code generator. Paste a Hopvue URL to get ready-to-paste embed HTML, or a styled preview card when native embedding is unavailable. No signup.',
+  keywords: [
+    'embed hopvue',
+    'hopvue embed code',
+    'hopvue embed code generator',
+    'hopvue iframe code',
+    'hopvue embed html',
+    'embed hopvue link',
+    'hopvue preview card'
+  ],
   heroTitle: 'Hopvue Embed Code Generator',
   heroSubtitle:
-    'Paste any Hopvue URL — get a ready-to-paste embed or preview card.',
+    'Paste a Hopvue URL — get ready-to-paste embed HTML, or a styled preview card as a fallback.',
   howItWorksHeading: 'How to embed Hopvue content',
   howItWorksSteps: [
-    { title: 'Paste a Hopvue link', description: 'Copy any hopvue.com URL.' },
+    {
+      title: 'Paste a Hopvue link',
+      description:
+        'Copy any hopvue.com URL from your browser and drop it into the tool.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the link and generates the right embed HTML, or a preview card when no native embed is offered.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Hopvue link and get working embed HTML.'
+      description:
+        'Skip writing embed markup by hand. Paste any Hopvue link and get working HTML back.'
     },
     {
-      title: 'Hopvue content',
-      description: 'The tool handles all Hopvue URL formats.'
+      title: 'Works with any Hopvue URL',
+      description:
+        'Paste a link from any hopvue.com page and the tool figures out how to embed it.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Hopvue embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native embed when available',
       description:
-        'Get the real Hopvue embed with full interactivity when available.'
+        'When Hopvue offers a native embed for the link, you get the real embed with its full interactivity.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Hopvue URL formats and content types.'
+      title: 'Responsive output',
+      description:
+        'The generated embed adapts to your page width so it sits cleanly in any layout.'
     },
     {
       title: 'Preview card fallback',
@@ -65,21 +81,33 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' }
   ],
   faq: [
     {
       question: 'How do I embed Hopvue content on my website?',
-      answer: 'Paste any Hopvue URL into the tool and click Generate.'
+      answer:
+        'Paste any hopvue.com URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
     },
     {
-      question: 'Is the Hopvue embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Which Hopvue links work?',
+      answer:
+        'Any public hopvue.com link works. The tool reads the link and generates the right embed HTML for it.'
+    },
+    {
+      question: 'What if the Hopvue link cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card built from the available title and image metadata.'
     },
     {
       question: 'What if the Hopvue content is private?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Private or restricted content cannot be embedded. The tool shows a preview card with whatever public metadata is available.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

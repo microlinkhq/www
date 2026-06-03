@@ -4,22 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Sketch',
   slug: 'sketch',
-  color: '#666666',
-  exampleUrl: 'https://sketch.com',
-  metaTitle: 'Sketch Embed Code Generator — Embed Sketch Content',
+  color: '#FDAD00',
+  exampleUrl: 'https://www.sketch.com/s/GybzO',
+  metaTitle: 'Sketch Embed Code Generator — Embed Designs & Prototypes',
   metaDescription:
-    'Free Sketch embed code generator. Paste any Sketch URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed sketch', 'sketch embed code', 'sketch embed generator'],
+    'Free Sketch embed code generator. Paste a Sketch share link — get a ready-to-paste embed for designs, frames, and prototypes. No signup.',
+  keywords: [
+    'embed sketch',
+    'sketch embed code',
+    'sketch embed code generator',
+    'embed sketch prototype',
+    'embed sketch design',
+    'sketch iframe code',
+    'sketch document embed'
+  ],
   heroTitle: 'Sketch Embed Code Generator',
   heroSubtitle:
-    'Paste any Sketch URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Sketch content',
+    'Paste a Sketch share link — get a ready-to-paste embed for designs, frames, and prototypes.',
+  howItWorksHeading: 'How to embed a Sketch document',
   howItWorksSteps: [
-    { title: 'Paste a Sketch link', description: 'Copy any sketch.com URL.' },
+    {
+      title: 'Paste a Sketch link',
+      description:
+        'Copy a public sketch.com share link to a document, frame, or prototype.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the shared document and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Sketch link and get working embed HTML.'
+      description:
+        'Skip iFramely and oEmbed wrangling. Paste a Sketch link and get working embed HTML.'
     },
     {
-      title: 'Sketch content',
-      description: 'The tool handles all Sketch URL formats.'
+      title: 'Designs & prototypes',
+      description:
+        'Works with shared documents, individual frames, and interactive prototypes from your Workspace.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Sketch embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive Sketch embed',
       description:
-        'Get the real Sketch embed with full interactivity when available.'
+        'Get the real interactive preview — viewers can browse frames, zoom, and toggle dark mode.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Sketch URL formats and content types.'
+      title: 'Documents, frames & prototypes',
+      description:
+        'Embed a full document, a single frame, or a clickable prototype shared from your Workspace.'
     },
     {
       title: 'Preview card fallback',
@@ -64,28 +80,40 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/figma', label: 'Figma' },
+    { href: '/tools/embed-url/framer', label: 'Framer' },
+    { href: '/tools/embed-url/zeplin', label: 'Zeplin' }
   ],
   faq: [
     {
-      question: 'How do I embed Sketch content on my website?',
-      answer: 'Paste any Sketch URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Sketch embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Sketch content is private?',
+      question: 'How do I embed a Sketch document on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a public sketch.com share link into the tool and click Generate. You will get a ready-to-paste embed.'
+    },
+    {
+      question: 'Can I embed a Sketch prototype?',
+      answer:
+        'Yes. Shared documents, individual frames, and interactive prototypes are all supported.'
+    },
+    {
+      question: 'Does the embed stay interactive?',
+      answer:
+        'Yes. The native Sketch preview lets viewers browse frames, zoom, and toggle dark mode without a Workspace account.'
+    },
+    {
+      question: 'What if my Sketch document is private?',
+      answer:
+        'The document must be set so anyone with the link can view it. Otherwise the tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const SketchPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default SketchPage

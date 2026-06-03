@@ -4,24 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Clipland',
   slug: 'clipland',
-  color: '#666666',
-  exampleUrl: 'https://clipland.com',
-  metaTitle: 'Clipland Embed Code Generator — Embed Clipland Content',
+  color: '#1A2B3C',
+  exampleUrl: 'https://www.clipland.com/Summary/800006693/',
+  metaTitle:
+    'Clipland Embed Code Generator — Embed Music Videos, Short Films & Commercials',
   metaDescription:
-    'Free Clipland embed code generator. Paste any Clipland URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Clipland embed code generator. Paste any Clipland URL — get a ready-to-paste embed or preview card for music videos, short films, trailers, and TV commercials. No signup.',
   keywords: [
     'embed clipland',
     'clipland embed code',
-    'clipland embed generator'
+    'clipland embed code generator',
+    'embed clipland music video',
+    'embed clipland short film',
+    'embed clipland commercial',
+    'clipland video embed'
   ],
   heroTitle: 'Clipland Embed Code Generator',
   heroSubtitle:
-    'Paste any Clipland URL — get a ready-to-paste embed or preview card.',
+    'Paste any Clipland URL — get a ready-to-paste embed or preview card for music videos, short films, trailers, and TV commercials.',
   howItWorksHeading: 'How to embed Clipland content',
   howItWorksSteps: [
     {
       title: 'Paste a Clipland link',
-      description: 'Copy any clipland.com URL.'
+      description:
+        'Copy any clipland.com title URL — music videos, short films, movie trailers, and TV commercials.'
     },
     {
       title: 'Get the embed code',
@@ -38,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Clipland link and get working embed HTML.'
+      description:
+        'Skip digging through page source. Paste any Clipland link and get working embed HTML.'
     },
     {
-      title: 'Clipland content',
-      description: 'The tool handles all Clipland URL formats.'
+      title: 'All Clipland content',
+      description:
+        'Works with music videos, short films, movie trailers, and TV commercials from the Clipland archive.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Clipland embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Clipland player',
       description:
-        'Get the real Clipland embed with full interactivity when available.'
+        'Get the real Clipland video player with the clip and its title when embedding is available.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Clipland URL formats and content types.'
+      title: 'Videos, films & commercials',
+      description:
+        'Music videos, short films, movie trailers, and TV commercials from the Clipland database all work.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/youtube',
+      label: 'YouTube'
+    },
+    {
+      href: '/tools/embed-url/vimeo',
+      label: 'Vimeo'
+    },
+    {
+      href: '/tools/embed-url/dailymotion',
+      label: 'Dailymotion'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Clipland content on my website?',
-      answer: 'Paste any Clipland URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Clipland embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Clipland content is private?',
+      question: 'How do I embed a Clipland video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any Clipland title URL into the tool and click Generate. You will get a ready-to-paste embed.'
+    },
+    {
+      question: 'What types of Clipland content can I embed?',
+      answer:
+        'Music videos, short films, movie trailers, and TV commercials from the Clipland archive are all supported.'
+    },
+    {
+      question: 'What if the clip cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image metadata.'
+    },
+    {
+      question: 'Does the embed adapt to my layout?',
+      answer:
+        'Yes. The generated embed is responsive and fits the width of the container you paste it into.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

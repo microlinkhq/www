@@ -2,35 +2,38 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'New York Times',
+  name: 'The New York Times',
   slug: 'new-york-times',
   color: '#000000',
-  exampleUrl: 'https://www.nytimes.com/2024/01/01/world/example.html',
-  metaTitle: 'New York Times Embed Code Generator — Embed NYT Articles',
+  exampleUrl:
+    'https://www.nytimes.com/interactive/2019/08/14/magazine/1619-america-slavery.html',
+  metaTitle: 'New York Times Embed Code Generator — Embed NYT Article Cards',
   metaDescription:
-    'Free New York Times embed code generator. Paste any NYT URL — get a preview card with headline, image, and summary. No signup.',
+    'Free New York Times embed code generator. Paste any NYT article URL — get a styled preview card with the headline, image, and summary. No signup.',
   keywords: [
     'embed new york times',
     'nyt embed code',
-    'new york times embed generator',
+    'new york times embed code generator',
     'embed nyt article',
-    'nytimes preview card',
-    'new york times embed html'
+    'new york times article card',
+    'nytimes link preview',
+    'embed new york times article',
+    'nyt preview card generator'
   ],
   heroTitle: 'New York Times Embed Code Generator',
   heroSubtitle:
-    'Free New York Times embed code generator. Paste any NYT URL — get a preview card with headline, image, and summary.',
-  howItWorksHeading: 'How to embed New York Times content',
+    'Paste any New York Times article URL — get a styled preview card with the headline, image, and summary, ready to paste anywhere.',
+  howItWorksHeading: 'How to embed a New York Times article',
   howItWorksSteps: [
     {
       title: 'Paste a New York Times link',
       description:
-        'Copy any New York Times URL — news articles and opinion pieces.'
+        'Copy any nytimes.com article URL — news, opinion, or interactive features.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the article metadata and builds a preview card you can paste as HTML.'
     },
     {
       title: 'Copy & paste',
@@ -41,14 +44,14 @@ const data = {
   explanationHeading: 'Why use our New York Times embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
+      title: 'No iframe needed',
       description:
-        'Skip the manual URL conversion. Paste any New York Times link and get working embed HTML.'
+        'The New York Times does not offer public iframe embeds, so the tool builds a clean preview card from the article instead.'
     },
     {
-      title: 'All New York Times content',
+      title: 'Pulls real article metadata',
       description:
-        'Works with news articles and opinion pieces — the tool handles all New York Times URL formats.'
+        'Headline, lead image, and summary are read straight from the nytimes.com page you paste.'
     },
     {
       title: 'Customizable preview card',
@@ -58,49 +61,60 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 New York Times embeds per day. No login, no API key, no watermarks.'
+        'Generate up to 50 The New York Times embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Rich article previews',
+      title: 'Styled article cards',
       description:
-        'Get a preview card with headline, image, and article summary from the New York Times.'
+        'A polished link card with the NYT headline, featured image, and summary that links back to the original story.'
     },
     {
-      title: 'News, opinion & multimedia',
+      title: 'News, opinion & interactives',
       description:
-        'News articles, op-eds, and multimedia stories — all NYT content types work.'
+        'Works with nytimes.com news articles, op-eds, and interactive features — anywhere a public URL exists.'
     },
     {
-      title: 'Clean metadata',
+      title: 'Preview card fallback',
       description:
-        'Title, author, and featured image are extracted from the article.'
+        'A styled preview card with title and image when native embedding is restricted.'
     }
   ],
   relatedLinks: [
     {
-      href: '/tools/embed-url/cnn',
-      label: 'CNN'
+      href: '/tools/embed-url/deseretnews',
+      label: 'Deseret News'
     },
     {
-      href: '/tools/embed-url/bbc',
-      label: 'BBC'
+      href: '/tools/embed-url/reddit',
+      label: 'Reddit'
     },
     {
-      href: '/tools/embed-url/usa-today',
-      label: 'USA TODAY'
+      href: '/tools/embed-url/microsoft',
+      label: 'Microsoft'
     }
   ],
   faq: [
     {
-      question: 'How do I embed a New York Times article?',
-      answer: 'Paste any nytimes.com URL into the tool and click Generate.'
+      question: 'How do I embed a New York Times article on my website?',
+      answer:
+        'Paste any nytimes.com article URL into the tool and click Generate. You get a styled preview card you can paste as HTML.'
     },
     {
-      question: 'Does the embed show the full article?',
+      question: 'Can I embed the full New York Times article with an iframe?',
       answer:
-        'The embed shows a preview card. Readers click through for the full article.'
+        'No. The New York Times does not provide a public iframe embed, so the tool generates a preview card with the headline, image, and summary that links to the original article.'
+    },
+    {
+      question: 'What does the preview card include?',
+      answer:
+        'The card shows the article headline, lead image, and summary, and links back to the full story on nytimes.com.'
+    },
+    {
+      question: 'Does it work with paywalled articles?',
+      answer:
+        'It uses the public metadata The New York Times exposes for each URL, so the card renders even when the full article is behind the paywall.'
     },
     {
       question: 'Is this free?',
@@ -111,6 +125,6 @@ const data = {
 
 export const Head = () => providerHead(data)
 
-const NewyorktimesPage = () => <ProviderSubtool {...data} />
+const Page = () => <ProviderSubtool {...data} />
 
-export default NewyorktimesPage
+export default Page

@@ -4,26 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Zeplin',
   slug: 'zeplin',
-  color: '#FDBD39',
-  exampleUrl: 'https://zeplin.io',
-  metaTitle:
-    'Zeplin Embed Code Generator — Embed Design specs and style guides',
+  color: '#F69833',
+  exampleUrl: 'https://scene.zeplin.io/project/55e80ad1b0a7da160ff25004',
+  metaTitle: 'Zeplin Embed Code Generator — Embed Design Handoffs',
   metaDescription:
-    'Free Zeplin embed code generator. Paste any Zeplin URL — get a ready-to-paste embed for design specs and style guides. No signup.',
-  keywords: ['embed zeplin', 'zeplin embed code', 'zeplin design embed'],
+    'Free Zeplin embed code generator. Paste a public Zeplin Scene project link — get a ready-to-paste embed of screens, specs, and styleguides. No signup.',
+  keywords: [
+    'embed zeplin',
+    'zeplin embed code',
+    'zeplin embed code generator',
+    'embed zeplin project',
+    'zeplin scene embed',
+    'zeplin design handoff embed',
+    'embed zeplin styleguide'
+  ],
   heroTitle: 'Zeplin Embed Code Generator',
   heroSubtitle:
-    'Paste any Zeplin URL — get a ready-to-paste embed for design specs and style guides.',
-  howItWorksHeading: 'How to embed Zeplin content',
+    'Paste a public Zeplin Scene project link — get a ready-to-paste embed of your design handoff, screens, and specs.',
+  howItWorksHeading: 'How to embed Zeplin designs',
   howItWorksSteps: [
     {
       title: 'Paste a Zeplin link',
-      description: 'Copy any zeplin.io URL — design specs and style guides.'
+      description:
+        'Copy a public scene.zeplin.io project link from the Share menu in Zeplin.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the shared project and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -36,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Zeplin link and get working embed HTML.'
+        'Skip digging through Zeplin share settings. Paste a public project link and get working embed HTML.'
     },
     {
-      title: 'All Zeplin content',
+      title: 'Share design handoffs anywhere',
       description:
-        'Works with design specs and style guides — the tool handles all Zeplin URL formats.'
+        'Surface screens, specs, and styleguides in docs and posts without sending people back into Zeplin.'
     },
     {
       title: 'Customizable preview card',
@@ -51,19 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Zeplin embeds per day. No login, no API key.'
+        'Generate up to 50 Zeplin embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Public Scene projects',
       description:
-        'Get the real Zeplin embed with full interactivity when available.'
+        'Works with publicly shared Zeplin Scene links so readers can browse the handoff in place.'
     },
     {
-      title: 'All design specs and style guides',
+      title: 'Screens, specs & styleguides',
       description:
-        'Works with design specs and style guides — all Zeplin content types.'
+        'Show off connected screens, design specs, colors, and text styles from the shared project.'
     },
     {
       title: 'Preview card fallback',
@@ -72,29 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/figma',
+      label: 'Figma'
+    },
+    {
+      href: '/tools/embed-url/sketch',
+      label: 'Sketch'
+    },
+    {
+      href: '/tools/embed-url/framer',
+      label: 'Framer'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Zeplin content on my website?',
+      question: 'How do I embed a Zeplin project on my website?',
       answer:
-        'Paste any Zeplin URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Share your Zeplin project publicly to get a Scene link, paste that URL into the tool, and click Generate to get ready-to-paste embed HTML.'
     },
     {
-      question: 'Is the Zeplin embed generator free?',
+      question: 'What Zeplin content can I embed?',
+      answer:
+        'Publicly shared Scene projects, including their screens, design specs, colors, and styleguides.'
+    },
+    {
+      question: 'Can I embed a private Zeplin project?',
+      answer:
+        'No. Only projects you have shared publicly via a Zeplin Scene link can be embedded, since private projects require a login.'
+    },
+    {
+      question: 'What if the project will not embed?',
+      answer:
+        'Switch to Card mode to generate a styled preview card with the project title and image instead.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Zeplin content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const ZeplinPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default ZeplinPage

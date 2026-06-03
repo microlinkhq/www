@@ -4,31 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Observable',
   slug: 'observable',
-  color: '#3B5FC0',
-  exampleUrl: 'https://observablehq.com',
-  metaTitle:
-    'Observable Embed Code Generator — Embed Notebooks and data visualizations',
+  color: '#4269D0',
+  exampleUrl: 'https://observablehq.com/@d3/bar-chart-transitions',
+  metaTitle: 'Observable Embed Code Generator — Embed Notebooks & D3 Charts',
   metaDescription:
-    'Free Observable embed code generator. Paste any Observable URL — get a ready-to-paste embed for notebooks and data visualizations. No signup.',
+    'Free Observable embed code generator. Paste any Observable URL — get a ready-to-paste iframe for interactive notebooks, D3 charts, and data visualizations. No signup.',
   keywords: [
     'embed observable',
     'observable embed code',
-    'observable notebook embed'
+    'observable embed code generator',
+    'embed observable notebook',
+    'observable notebook iframe',
+    'embed observable chart',
+    'observable d3 embed'
   ],
   heroTitle: 'Observable Embed Code Generator',
   heroSubtitle:
-    'Paste any Observable URL — get a ready-to-paste embed for notebooks and data visualizations.',
-  howItWorksHeading: 'How to embed Observable content',
+    'Paste any Observable URL — get a ready-to-paste iframe for interactive notebooks, D3 charts, and data visualizations.',
+  howItWorksHeading: 'How to embed an Observable notebook',
   howItWorksSteps: [
     {
-      title: 'Paste a Observable link',
+      title: 'Paste an Observable link',
       description:
-        'Copy any observablehq.com URL — notebooks and data visualizations.'
+        'Copy any observablehq.com URL — interactive notebooks, D3 charts, and data visualizations.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the notebook and generates the right iframe embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -41,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Observable link and get working embed HTML.'
+        'Skip writing the iframe by hand. Paste any Observable link and get working embed HTML.'
     },
     {
-      title: 'All Observable content',
+      title: 'Keeps notebooks interactive',
       description:
-        'Works with notebooks and data visualizations — the tool handles all Observable URL formats.'
+        'Embedded notebooks stay live and reactive — readers can interact with the visualization, not just view a screenshot.'
     },
     {
       title: 'Customizable preview card',
@@ -56,19 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Observable embeds per day. No login, no API key.'
+        'Generate up to 50 Observable embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Live interactive notebook',
       description:
-        'Get the real Observable embed with full interactivity when available.'
+        'Get the real Observable notebook embed with reactive cells and full D3 interactivity intact.'
     },
     {
-      title: 'All notebooks and data visualizations',
+      title: 'Notebooks, charts & data viz',
       description:
-        'Works with notebooks and data visualizations — all Observable content types.'
+        'Works with full notebooks and individual cells — D3 charts, maps, and exploratory data visualizations all embed cleanly.'
     },
     {
       title: 'Preview card fallback',
@@ -77,23 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/datawrapper', label: 'Datawrapper' },
+    { href: '/tools/embed-url/flourish', label: 'Flourish' },
+    { href: '/tools/embed-url/infogram', label: 'Infogram' }
   ],
   faq: [
     {
-      question: 'How do I embed Observable content on my website?',
+      question: 'How do I embed an Observable notebook on my website?',
       answer:
-        'Paste any Observable URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any observablehq.com URL into the tool and click Generate. You will get a ready-to-paste iframe that renders the live notebook.'
     },
     {
-      question: 'Is the Observable embed generator free?',
+      question: 'Can I embed a single cell instead of the whole notebook?',
+      answer:
+        'Yes. Observable supports embedding individual cells, so you can show just one D3 chart or visualization rather than the entire notebook.'
+    },
+    {
+      question: 'Is the embedded notebook still interactive?',
+      answer:
+        'Yes. The notebook stays reactive inside the iframe, so viewers can use inputs and explore the data visualization directly.'
+    },
+    {
+      question: 'What if the Observable notebook is private?',
+      answer:
+        'Private or unlisted notebooks cannot be embedded natively. The tool falls back to a styled preview card with the available title and image.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Observable content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

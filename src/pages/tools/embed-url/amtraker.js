@@ -4,29 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Amtraker',
   slug: 'amtraker',
-  color: '#666666',
-  exampleUrl: 'https://amtraker.com',
-  metaTitle: 'Amtraker Embed Code Generator — Embed Amtraker Content',
+  color: '#111111',
+  exampleUrl: 'https://amtraker.com/trains/4',
+  metaTitle: 'Amtraker Embed Code Generator — Embed Live Amtrak Train Maps',
   metaDescription:
-    'Free Amtraker embed code generator. Paste any Amtraker URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Amtraker embed code generator. Paste an amtraker.com train or station link to get a ready-to-paste live train map or preview card. No signup.',
   keywords: [
     'embed amtraker',
     'amtraker embed code',
-    'amtraker embed generator'
+    'embed amtraker train map',
+    'embed amtrak train tracker',
+    'amtraker live map embed',
+    'embed live train tracker',
+    'amtraker embed generator',
+    'amtrak train tracking embed'
   ],
   heroTitle: 'Amtraker Embed Code Generator',
   heroSubtitle:
-    'Paste any Amtraker URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Amtraker content',
+    'Paste an Amtraker train or station URL to get a ready-to-paste live train map or preview card.',
+  howItWorksHeading: 'How to embed an Amtraker train map',
   howItWorksSteps: [
     {
-      title: 'Paste a Amtraker link',
-      description: 'Copy any amtraker.com URL.'
+      title: 'Paste an Amtraker link',
+      description:
+        'Copy any amtraker.com URL — a train page like /trains/4, a station, or a route on the live tracker.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the Amtraker page and generates a responsive embed that shows the live train location and status.'
     },
     {
       title: 'Copy & paste',
@@ -37,12 +43,14 @@ const data = {
   explanationHeading: 'Why use our Amtraker embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Amtraker link and get working embed HTML.'
+      title: 'Live train tracking',
+      description:
+        'Embed the real-time map that follows Amtrak, Brightline, and VIA Rail trains with arrival times and status.'
     },
     {
-      title: 'Amtraker content',
-      description: 'The tool handles all Amtraker URL formats.'
+      title: 'No manual setup',
+      description:
+        'Paste an amtraker.com link and get working embed HTML — no iframe wrangling required.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Amtraker embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Live map embed',
       description:
-        'Get the real Amtraker embed with full interactivity when available.'
+        'Show the interactive Amtraker map with the train position, route, and live arrival estimates.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Amtraker URL formats and content types.'
+      title: 'Responsive sizing',
+      description:
+        'The embed scales to fit your layout so the train tracker stays usable on phones and desktops.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/naturalatlas', label: 'Natural Atlas' },
+    { href: '/tools/embed-url/scribblemaps', label: 'Scribble Maps' },
+    { href: '/tools/embed-url/storymaps', label: 'StoryMaps' }
   ],
   faq: [
     {
-      question: 'How do I embed Amtraker content on my website?',
-      answer: 'Paste any Amtraker URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Amtraker embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Amtraker content is private?',
+      question: 'How do I embed an Amtraker train map on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste an amtraker.com train or station URL into the tool and click Generate, then copy the embed code into your page.'
+    },
+    {
+      question: 'What can I track with an embedded Amtraker map?',
+      answer:
+        'Amtraker tracks Amtrak, Brightline, and VIA Rail trains, so the embed can show a live train location, route, and estimated arrival times.'
+    },
+    {
+      question: 'Does the embedded map stay live?',
+      answer:
+        'Yes — the native embed loads the live Amtraker tracker, so positions and arrival estimates update the same way they do on amtraker.com.'
+    },
+    {
+      question: 'What if the map cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card with the page title and image so you still get a clean, shareable block.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

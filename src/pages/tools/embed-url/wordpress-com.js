@@ -2,27 +2,36 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'WordPress',
+  name: 'WordPress.com',
   slug: 'wordpress-com',
   color: '#21759B',
-  exampleUrl: 'https://wordpress.com',
-  metaTitle: 'WordPress Embed Code Generator — Embed Posts',
+  exampleUrl: 'https://wordpress.com/blog/2026/05/26/wordpress-7-0-armstrong/',
+  metaTitle: 'WordPress.com Embed Code Generator — Embed Posts & Pages',
   metaDescription:
-    'Free WordPress embed code generator. Paste any WordPress URL — get a ready-to-paste embed for posts, pages, and blogs. No signup.',
-  keywords: ['embed wordpress', 'wordpress embed code', 'wordpress post embed'],
-  heroTitle: 'WordPress Embed Code Generator',
+    'Free WordPress.com embed code generator. Paste any WordPress.com post or page URL — get a ready-to-paste rich preview card or oEmbed. No signup.',
+  keywords: [
+    'embed wordpress.com',
+    'wordpress.com embed code',
+    'wordpress.com embed code generator',
+    'embed wordpress post',
+    'embed wordpress.com blog post',
+    'wordpress.com oembed',
+    'embed wordpress page'
+  ],
+  heroTitle: 'WordPress.com Embed Code Generator',
   heroSubtitle:
-    'Paste any WordPress URL — get a ready-to-paste embed for posts, pages, and blogs.',
-  howItWorksHeading: 'How to embed WordPress content',
+    'Paste any WordPress.com post or page URL — get a ready-to-paste rich preview card or native oEmbed.',
+  howItWorksHeading: 'How to embed WordPress.com content',
   howItWorksSteps: [
     {
-      title: 'Paste a WordPress link',
-      description: 'Copy any wordpress.com URL — posts, pages, and blogs.'
+      title: 'Paste a WordPress.com link',
+      description:
+        'Copy any wordpress.com post or page URL, including hosted blogs on the wordpress.com domain.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the post and generates a rich preview card, or the native oEmbed when available.'
     },
     {
       title: 'Copy & paste',
@@ -30,17 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our WordPress embed code generator',
+  explanationHeading: 'Why use our WordPress.com embed code generator',
   reasons: [
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any WordPress link and get working embed HTML.'
+        'Skip hunting for shortcodes or oEmbed endpoints. Paste any WordPress.com link and get working embed HTML.'
     },
     {
-      title: 'All WordPress content',
+      title: 'Posts and pages',
       description:
-        'Works with posts, pages, and blogs — the tool handles all WordPress URL formats.'
+        'Works with WordPress.com blog posts and pages, pulling the title, image, and description automatically.'
     },
     {
       title: 'Customizable preview card',
@@ -50,19 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 WordPress embeds per day. No login, no API key.'
+        'Generate up to 50 WordPress.com embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native oEmbed support',
       description:
-        'Get the real WordPress embed with full interactivity when available.'
+        'WordPress.com posts expose oEmbed, so you can get the platform-provided embed when it is available.'
     },
     {
-      title: 'All posts',
+      title: 'Rich preview cards',
       description:
-        'Works with posts, pages, and blogs — all WordPress content types.'
+        'Generate a clean card with the post title, featured image, and excerpt that adapts to any layout.'
     },
     {
       title: 'Preview card fallback',
@@ -71,29 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/tumblr',
+      label: 'Tumblr'
+    },
+    {
+      href: '/tools/embed-url/buttondown',
+      label: 'Buttondown'
+    },
+    {
+      href: '/tools/embed-url/reddit',
+      label: 'Reddit'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed WordPress content on my website?',
+      question: 'How do I embed a WordPress.com post on my website?',
       answer:
-        'Paste any WordPress URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any WordPress.com post URL into the tool and click Generate. You will get a ready-to-paste embed or preview card.'
     },
     {
-      question: 'Is the WordPress embed generator free?',
+      question: 'Can I embed WordPress.com pages as well as posts?',
+      answer:
+        'Yes. Both WordPress.com blog posts and static pages work, and the tool pulls the title, image, and description.'
+    },
+    {
+      question: 'Does it use the WordPress.com oEmbed?',
+      answer:
+        'When a WordPress.com post exposes oEmbed, the tool can return that native embed. Otherwise it builds a rich preview card.'
+    },
+    {
+      question: 'What if the post cannot be natively embedded?',
+      answer:
+        'The tool falls back to a styled preview card with the post title and featured image so you always get something to paste.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the WordPress content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const WordPressComPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default WordPressComPage

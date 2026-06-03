@@ -4,25 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Odysee',
   slug: 'odysee',
-  color: '#F1583A',
-  exampleUrl: 'https://odysee.com',
-  metaTitle: 'Odysee Embed Code Generator — Embed Videos and channels',
+  color: '#CA004B',
+  exampleUrl: 'https://odysee.com/@Odysee:8/FutureofOdyseeVideo:0',
+  metaTitle: 'Odysee Embed Code Generator — Embed Videos & Channels',
   metaDescription:
-    'Free Odysee embed code generator. Paste any Odysee URL — get a ready-to-paste embed for videos and channels. No signup.',
-  keywords: ['embed odysee', 'odysee embed code', 'odysee video embed'],
+    'Free Odysee embed code generator. Paste any odysee.com URL — get a ready-to-paste iframe player for videos and channels on the LBRY network. No signup.',
+  keywords: [
+    'embed odysee',
+    'odysee embed code',
+    'odysee embed code generator',
+    'embed odysee video',
+    'odysee iframe code',
+    'odysee video player embed',
+    'embed odysee channel'
+  ],
   heroTitle: 'Odysee Embed Code Generator',
   heroSubtitle:
-    'Paste any Odysee URL — get a ready-to-paste embed for videos and channels.',
-  howItWorksHeading: 'How to embed Odysee content',
+    'Paste any Odysee URL — get a ready-to-paste iframe player for videos and channels on the decentralized LBRY network.',
+  howItWorksHeading: 'How to embed an Odysee video',
   howItWorksSteps: [
     {
-      title: 'Paste a Odysee link',
-      description: 'Copy any odysee.com URL — videos and channels.'
+      title: 'Paste an Odysee link',
+      description:
+        'Copy any odysee.com URL — a video at odysee.com/@channel/video or a channel page.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the Odysee video and generates the matching $/embed iframe HTML.'
     },
     {
       title: 'Copy & paste',
@@ -35,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Odysee link and get working embed HTML.'
+        'Skip building the $/embed URL by hand. Paste any Odysee link and get working embed HTML.'
     },
     {
-      title: 'All Odysee content',
+      title: 'Videos and channels',
       description:
-        'Works with videos and channels — the tool handles all Odysee URL formats.'
+        'Works with individual videos and channel URLs — the tool handles the odysee.com link format.'
     },
     {
       title: 'Customizable preview card',
@@ -50,18 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Odysee embeds per day. No login, no API key.'
+        'Generate up to 50 Odysee embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Odysee player',
       description:
-        'Get the real Odysee embed with full interactivity when available.'
+        'Get the real Odysee video player with playback controls, served from the LBRY network.'
     },
     {
-      title: 'All videos and channels',
-      description: 'Works with videos and channels — all Odysee content types.'
+      title: 'Responsive iframe',
+      description:
+        'The embed scales to fit your layout so the video looks right on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -70,29 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/youtube',
+      label: 'YouTube'
+    },
+    {
+      href: '/tools/embed-url/rumble',
+      label: 'Rumble'
+    },
+    {
+      href: '/tools/embed-url/dtube',
+      label: 'DTube'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Odysee content on my website?',
+      question: 'How do I embed an Odysee video on my website?',
       answer:
-        'Paste any Odysee URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any Odysee video URL into the tool and click Generate. You will get a ready-to-paste iframe player.'
     },
     {
-      question: 'Is the Odysee embed generator free?',
+      question: 'What Odysee content can I embed?',
+      answer:
+        'Individual videos work best. You can also paste channel URLs, and the tool will generate the matching embed.'
+    },
+    {
+      question: 'What if a video cannot be embedded natively?',
+      answer:
+        'If native embedding is restricted, switch to Card mode to get a styled preview card with the title and thumbnail instead.'
+    },
+    {
+      question: 'Is Odysee decentralized?',
+      answer:
+        'Yes. Odysee is built on the LBRY blockchain and serves content from a decentralized network. The embed loads the standard Odysee player.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Odysee content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const OdyseePage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default OdyseePage

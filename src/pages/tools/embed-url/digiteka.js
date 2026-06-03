@@ -4,29 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Digiteka',
   slug: 'digiteka',
-  color: '#666666',
-  exampleUrl: 'https://digiteka.com',
-  metaTitle: 'Digiteka Embed Code Generator — Embed Digiteka Content',
+  color: '#C70D56',
+  exampleUrl: 'https://www.ultimedia.com/default/index/videogeneric/id/z5k5rk',
+  metaTitle: 'Digiteka Embed Code Generator — Embed Premium Videos',
   metaDescription:
-    'Free Digiteka embed code generator. Paste any Digiteka URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Digiteka embed code generator. Paste an Ultimedia by Digiteka video URL — get a ready-to-paste player for premium news, sports, and entertainment videos. No signup.',
   keywords: [
     'embed digiteka',
     'digiteka embed code',
-    'digiteka embed generator'
+    'digiteka embed code generator',
+    'embed digiteka video',
+    'ultimedia embed code',
+    'digiteka video player embed',
+    'embed ultimedia video'
   ],
   heroTitle: 'Digiteka Embed Code Generator',
   heroSubtitle:
-    'Paste any Digiteka URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Digiteka content',
+    'Paste an Ultimedia by Digiteka video URL — get a ready-to-paste player for premium news, sports, and entertainment videos.',
+  howItWorksHeading: 'How to embed a Digiteka video',
   howItWorksSteps: [
     {
       title: 'Paste a Digiteka link',
-      description: 'Copy any digiteka.com URL.'
+      description:
+        'Copy any Ultimedia by Digiteka video URL from ultimedia.com or a publisher page that hosts the player.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the video and generates the right embed HTML for the Digiteka player.'
     },
     {
       title: 'Copy & paste',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Digiteka link and get working embed HTML.'
+      description:
+        'Skip digging through publisher pages for the player code. Paste a Digiteka link and get working embed HTML.'
     },
     {
-      title: 'Digiteka content',
-      description: 'The tool handles all Digiteka URL formats.'
+      title: 'Premium video catalog',
+      description:
+        'Works with Digiteka premium video distribution — news, sports, entertainment, music, and lifestyle clips.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Digiteka embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Digiteka player',
       description:
-        'Get the real Digiteka embed with full interactivity when available.'
+        'Get the real Ultimedia by Digiteka video player with playback controls.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Digiteka URL formats and content types.'
+      title: 'Responsive video',
+      description:
+        'The player scales to your layout so videos look right on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/dailymotion', label: 'Dailymotion' },
+    { href: '/tools/embed-url/brightcove', label: 'Brightcove' },
+    { href: '/tools/embed-url/youtube', label: 'YouTube' }
   ],
   faq: [
     {
-      question: 'How do I embed Digiteka content on my website?',
-      answer: 'Paste any Digiteka URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Digiteka embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Digiteka content is private?',
+      question: 'How do I embed a Digiteka video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste an Ultimedia by Digiteka video URL into the tool and click Generate. You will get a ready-to-paste player you can drop into any page.'
+    },
+    {
+      question: 'What kind of videos does Digiteka distribute?',
+      answer:
+        'Digiteka is a French premium video distribution and monetization platform offering news, sports, entertainment, music, and lifestyle videos through its Ultimedia network.'
+    },
+    {
+      question: 'Is the embed responsive?',
+      answer:
+        'Yes. The generated player scales with its container so videos display correctly on desktop and mobile.'
+    },
+    {
+      question: 'What if the video cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card with the title and image so you always get something to paste.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

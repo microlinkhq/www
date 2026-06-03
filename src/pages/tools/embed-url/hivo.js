@@ -2,24 +2,36 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Hivo',
+  name: 'HIVO',
   slug: 'hivo',
-  color: '#666666',
-  exampleUrl: 'https://hivo.co',
-  metaTitle: 'Hivo Embed Code Generator — Embed Hivo Content',
+  color: '#1F42FB',
+  exampleUrl: 'https://hivo.co/product/digital-asset-management',
+  metaTitle: 'HIVO Embed Code Generator — Embed Assets & Brand Pages',
   metaDescription:
-    'Free Hivo embed code generator. Paste any Hivo URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed hivo', 'hivo embed code', 'hivo embed generator'],
-  heroTitle: 'Hivo Embed Code Generator',
+    'Free HIVO embed code generator. Paste a HIVO shared asset or brand page URL — get a ready-to-paste preview card for your site. No signup.',
+  keywords: [
+    'embed hivo',
+    'hivo embed code',
+    'hivo embed code generator',
+    'embed hivo asset',
+    'hivo shared link embed',
+    'hivo brand page embed',
+    'hivo digital asset management embed'
+  ],
+  heroTitle: 'HIVO Embed Code Generator',
   heroSubtitle:
-    'Paste any Hivo URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Hivo content',
+    'Paste a HIVO shared asset or brand page URL — get a ready-to-paste preview card for your site.',
+  howItWorksHeading: 'How to embed a HIVO asset',
   howItWorksSteps: [
-    { title: 'Paste a Hivo link', description: 'Copy any hivo.co URL.' },
+    {
+      title: 'Paste a HIVO link',
+      description:
+        'Copy a public hivo.co URL — a shared asset link, public CDN link, or brand guidelines page.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the page metadata and builds a clean preview card you can drop anywhere.'
     },
     {
       title: 'Copy & paste',
@@ -27,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Hivo embed code generator',
+  explanationHeading: 'Why use our HIVO embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Hivo link and get working embed HTML.'
+      description:
+        'Skip building markup by hand. Paste a HIVO link and get working embed HTML.'
     },
     {
-      title: 'Hivo content',
-      description: 'The tool handles all Hivo URL formats.'
+      title: 'Works with shared links',
+      description:
+        'Turn HIVO shared asset links, public CDN links, and brand pages into a tidy on-page preview.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 HIVO embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Brand & asset previews',
       description:
-        'Get the real Hivo embed with full interactivity when available.'
+        'Surface the title and preview image from HIVO brand pages and shared digital assets.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Hivo URL formats and content types.'
+      title: 'Responsive layout',
+      description:
+        'The preview card scales to fit your content column on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/hubspot-bynder',
+      label: 'HubSpot Bynder'
+    },
+    {
+      href: '/tools/embed-url/filestage',
+      label: 'Filestage'
+    },
+    {
+      href: '/tools/embed-url/getty-images',
+      label: 'Getty Images'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Hivo content on my website?',
-      answer: 'Paste any Hivo URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Hivo embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Hivo content is private?',
+      question: 'How do I embed a HIVO asset on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a public HIVO URL into the tool and click Generate. You will get a ready-to-paste preview card linking back to the asset.'
+    },
+    {
+      question: 'What HIVO links work?',
+      answer:
+        'Public hivo.co links work best — shared asset links, public CDN links, and brand guidelines pages.'
+    },
+    {
+      question: 'Does HIVO have a native embed?',
+      answer:
+        'HIVO is mainly a private, login-based asset library, so the tool builds a styled preview card from public page metadata rather than a native player.'
+    },
+    {
+      question: 'What about private or password-protected assets?',
+      answer:
+        'Assets behind a login or password cannot be read. Use a public shared link or public CDN link so the tool can generate a preview.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

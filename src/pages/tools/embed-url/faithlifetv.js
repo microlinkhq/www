@@ -2,31 +2,37 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Faithlifetv',
+  name: 'Faithlife TV',
   slug: 'faithlifetv',
-  color: '#666666',
-  exampleUrl: 'https://faithlifetv.com',
-  metaTitle: 'Faithlifetv Embed Code Generator — Embed Faithlifetv Content',
+  color: '#1E91D6',
+  exampleUrl: 'https://faithlifetv.com/items/1277582',
+  metaTitle:
+    'Faithlife TV Embed Code Generator — Embed Christian Videos & Courses',
   metaDescription:
-    'Free Faithlifetv embed code generator. Paste any Faithlifetv URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Faithlife TV embed code generator. Paste any Faithlife TV URL — get ready-to-paste embed HTML for Christian movies, documentaries, and Bible courses. No signup.',
   keywords: [
-    'embed faithlifetv',
-    'faithlifetv embed code',
-    'faithlifetv embed generator'
+    'embed faithlife tv',
+    'faithlife tv embed code',
+    'faithlife tv embed code generator',
+    'embed faithlife tv video',
+    'faithlife tv iframe code',
+    'faithlife tv video embed',
+    'embed christian video faithlife tv'
   ],
-  heroTitle: 'Faithlifetv Embed Code Generator',
+  heroTitle: 'Faithlife TV Embed Code Generator',
   heroSubtitle:
-    'Paste any Faithlifetv URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Faithlifetv content',
+    'Paste any Faithlife TV URL — get ready-to-paste embed HTML for Christian movies, documentaries, kids shows, and Bible video courses.',
+  howItWorksHeading: 'How to embed a Faithlife TV video',
   howItWorksSteps: [
     {
-      title: 'Paste a Faithlifetv link',
-      description: 'Copy any faithlifetv.com URL.'
+      title: 'Paste a Faithlife TV link',
+      description:
+        'Copy any faithlifetv.com item URL — movies, documentaries, kids shows, or Bible video courses.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the Faithlife TV video and generates the right embed HTML for you.'
     },
     {
       title: 'Copy & paste',
@@ -34,15 +40,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Faithlifetv embed code generator',
+  explanationHeading: 'Why use our Faithlife TV embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Faithlifetv link and get working embed HTML.'
+      description:
+        'Skip digging through share menus. Paste any Faithlife TV link and get working embed HTML instantly.'
     },
     {
-      title: 'Faithlifetv content',
-      description: 'The tool handles all Faithlifetv URL formats.'
+      title: 'All Faithlife TV content',
+      description:
+        'Works with Christian movies, documentaries, kids programming, and Logos Bible video courses.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Faithlife TV embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Faithlife TV player',
       description:
-        'Get the real Faithlifetv embed with full interactivity when available.'
+        'Get the real Faithlife TV video player with playback controls right inside your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Faithlifetv URL formats and content types.'
+      title: 'Movies, courses & documentaries',
+      description:
+        'Feature films, faith-based kids shows, documentaries, and seminary-level video courses all work.'
     },
     {
       title: 'Preview card fallback',
@@ -71,28 +81,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/youtube',
+      label: 'YouTube'
+    },
+    {
+      href: '/tools/embed-url/vimeo',
+      label: 'Vimeo'
+    },
+    {
+      href: '/tools/embed-url/gloriatv',
+      label: 'Gloria.tv'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Faithlifetv content on my website?',
-      answer: 'Paste any Faithlifetv URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Faithlifetv embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Faithlifetv content is private?',
+      question: 'How do I embed a Faithlife TV video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any Faithlife TV item URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'What Faithlife TV content can I embed?',
+      answer:
+        'Christian movies, documentaries, faith-based kids shows, and Logos Bible video courses are all supported.'
+    },
+    {
+      question: 'Can I embed private or subscriber-only videos?',
+      answer:
+        'Only publicly viewable Faithlife TV items embed reliably. Videos behind a Faithlife TV Plus subscription may require viewers to be signed in.'
+    },
+    {
+      question: 'What happens if a video cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card showing the title and thumbnail that links back to Faithlife TV.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const FaithlifeTVPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default FaithlifeTVPage

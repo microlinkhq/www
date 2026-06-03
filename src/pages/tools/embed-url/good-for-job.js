@@ -4,29 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Good for Job',
   slug: 'good-for-job',
-  color: '#666666',
-  exampleUrl: 'https://good-for-job.com',
-  metaTitle: 'Good for Job Embed Code Generator — Embed Good for Job Content',
+  color: '#18181B',
+  exampleUrl:
+    'https://www.good-for-job.jp/slides/89821a75-bb64-4da5-983d-2419643b1a32',
+  metaTitle: 'Good for Job Embed Code Generator — Embed Recruitment Slides',
   metaDescription:
-    'Free Good for Job embed code generator. Paste any Good for Job URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Good for Job embed code generator. Paste a Good for Job slide URL — get a ready-to-paste iframe for recruitment pitch decks, or a preview card. No signup.',
   keywords: [
     'embed good for job',
     'good for job embed code',
-    'good for job embed generator'
+    'good for job embed code generator',
+    'embed good for job slides',
+    'good for job iframe code',
+    'good for job slide embed',
+    'embed recruitment pitch deck'
   ],
   heroTitle: 'Good for Job Embed Code Generator',
   heroSubtitle:
-    'Paste any Good for Job URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Good for Job content',
+    'Paste a Good for Job slide URL — get a ready-to-paste iframe for recruitment pitch decks.',
+  howItWorksHeading: 'How to embed a Good for Job slide',
   howItWorksSteps: [
     {
       title: 'Paste a Good for Job link',
-      description: 'Copy any good-for-job.com URL.'
+      description:
+        'Copy a slide URL from good-for-job.jp, such as a /slides/ link.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the slide and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -38,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Good for Job link and get working embed HTML.'
+      description:
+        'Skip writing iframe markup by hand. Paste a Good for Job slide link and get working embed HTML.'
     },
     {
-      title: 'Good for Job content',
-      description: 'The tool handles all Good for Job URL formats.'
+      title: 'Recruitment pitch decks',
+      description:
+        'Built for Good for Job slide decks — the presentation materials companies share to attract candidates.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Good for Job embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native slide embed',
       description:
-        'Get the real Good for Job embed with full interactivity when available.'
+        'Get the real Good for Job slide iframe so visitors can view the pitch deck inline.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Good for Job URL formats and content types.'
+      title: 'Responsive layout',
+      description:
+        'The embed fits your page so the slide deck stays readable across screen sizes.'
     },
     {
       title: 'Preview card fallback',
@@ -72,21 +82,28 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/behance', label: 'Behance' }
   ],
   faq: [
     {
-      question: 'How do I embed Good for Job content on my website?',
-      answer: 'Paste any Good for Job URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Good for Job embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Good for Job content is private?',
+      question: 'How do I embed a Good for Job slide on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a Good for Job slide URL into the tool and click Generate. You will get a ready-to-paste iframe embed.'
+    },
+    {
+      question: 'What is Good for Job?',
+      answer:
+        'Good for Job (good-for-job.jp) is a Japanese platform where companies publish recruitment pitch decks to attract job candidates.'
+    },
+    {
+      question: 'What if native embedding is not available?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

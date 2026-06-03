@@ -4,30 +4,36 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Geometry Viewer',
   slug: 'geometryviewer',
-  color: '#666666',
-  exampleUrl: 'https://geometryviewer.com',
-  metaTitle:
-    'Geometry Viewer Embed Code Generator — Embed Geometry Viewer Content',
+  color: '#0D1117',
+  exampleUrl:
+    'https://geometryviewer.com/?url=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb',
+  metaTitle: 'Geometry Viewer Embed Code Generator — Embed 3D Models',
   metaDescription:
-    'Free Geometry Viewer embed code generator. Paste any Geometry Viewer URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Geometry Viewer embed code generator. Paste a geometryviewer.com link — get a ready-to-paste embed for interactive STL, OBJ, GLTF, GLB, and 3MF 3D models. No signup.',
   keywords: [
     'embed geometry viewer',
     'geometry viewer embed code',
-    'geometry viewer embed generator'
+    'geometry viewer embed code generator',
+    'embed geometryviewer 3d model',
+    'geometry viewer iframe code',
+    'embed stl model',
+    'embed glb model',
+    'embed 3d model'
   ],
   heroTitle: 'Geometry Viewer Embed Code Generator',
   heroSubtitle:
-    'Paste any Geometry Viewer URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Geometry Viewer content',
+    'Paste a geometryviewer.com link — get a ready-to-paste embed for an interactive 3D model viewer.',
+  howItWorksHeading: 'How to embed a Geometry Viewer model',
   howItWorksSteps: [
     {
       title: 'Paste a Geometry Viewer link',
-      description: 'Copy any geometryviewer.com URL.'
+      description:
+        'Copy a geometryviewer.com share link to a 3D model — STL, OBJ, GLTF, GLB, or 3MF.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the Geometry Viewer link and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -39,11 +45,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Geometry Viewer link and get working embed HTML.'
+      description:
+        'Skip writing markup by hand. Paste any Geometry Viewer link and get working embed HTML.'
     },
     {
-      title: 'Geometry Viewer content',
-      description: 'The tool handles all Geometry Viewer URL formats.'
+      title: 'Interactive 3D models',
+      description:
+        'Embed models visitors can spin, pinch, and zoom right inside your page — no app or install.'
     },
     {
       title: 'Customizable preview card',
@@ -52,19 +60,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Geometry Viewer embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive 3D viewer',
       description:
-        'Get the real Geometry Viewer embed with full interactivity when available.'
+        'Embed the live Geometry Viewer so readers can rotate, pinch, and zoom the model in the browser.'
     },
     {
-      title: 'All content types',
+      title: 'STL, OBJ, GLTF, GLB & 3MF',
       description:
-        'Works with all Geometry Viewer URL formats and content types.'
+        'Common 3D and 3D-printing formats are supported, with the file type detected automatically.'
     },
     {
       title: 'Preview card fallback',
@@ -73,28 +82,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/sketchfab',
+      label: 'Sketchfab'
+    },
+    {
+      href: '/tools/embed-url/matterport',
+      label: 'Matterport'
+    },
+    {
+      href: '/tools/embed-url/briovr',
+      label: 'BrioVR'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Geometry Viewer content on my website?',
-      answer: 'Paste any Geometry Viewer URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Geometry Viewer embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Geometry Viewer content is private?',
+      question: 'How do I embed a Geometry Viewer model on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a geometryviewer.com link into the tool and click Generate. You will get a ready-to-paste embed for the 3D viewer.'
+    },
+    {
+      question: 'Which 3D file formats does it support?',
+      answer:
+        'Geometry Viewer handles common formats including STL, OBJ, GLTF, GLB, and 3MF, detected automatically from the file.'
+    },
+    {
+      question: 'Can visitors rotate and zoom the model?',
+      answer:
+        'Yes. The embedded viewer is interactive, so readers can spin, pinch, and zoom the model without any app or install.'
+    },
+    {
+      question: 'What if the model cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card with the title and an image so you still get a clean, linkable result.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const GeometryViewerPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default GeometryViewerPage

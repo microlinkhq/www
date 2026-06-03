@@ -4,29 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Codepoints',
   slug: 'codepoints',
-  color: '#666666',
-  exampleUrl: 'https://codepoints.net',
-  metaTitle: 'Codepoints Embed Code Generator — Embed Codepoints Content',
+  color: '#222222',
+  exampleUrl: 'https://codepoints.net/U+1F600',
+  metaTitle: 'Codepoints Embed Code Generator — Embed Unicode Characters',
   metaDescription:
-    'Free Codepoints embed code generator. Paste any Codepoints URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Codepoints embed code generator. Paste any codepoints.net URL — get a ready-to-paste preview card for a Unicode character or block. No signup.',
   keywords: [
     'embed codepoints',
     'codepoints embed code',
-    'codepoints embed generator'
+    'codepoints embed code generator',
+    'embed unicode character',
+    'codepoints.net embed',
+    'embed codepoint',
+    'unicode character preview'
   ],
   heroTitle: 'Codepoints Embed Code Generator',
   heroSubtitle:
-    'Paste any Codepoints URL — get a ready-to-paste embed or preview card.',
+    'Paste any codepoints.net URL — get a ready-to-paste preview card for a Unicode character, block, or plane.',
   howItWorksHeading: 'How to embed Codepoints content',
   howItWorksSteps: [
     {
       title: 'Paste a Codepoints link',
-      description: 'Copy any codepoints.net URL.'
+      description:
+        'Copy any codepoints.net URL — a single code point like U+1F600, a Unicode block, or a search result.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the page metadata and generates a styled preview card you can paste anywhere.'
     },
     {
       title: 'Copy & paste',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Codepoints link and get working embed HTML.'
+      description:
+        'Paste any codepoints.net link and get clean preview-card HTML — no screenshots, no markup by hand.'
     },
     {
-      title: 'Codepoints content',
-      description: 'The tool handles all Codepoints URL formats.'
+      title: 'Unicode reference at a glance',
+      description:
+        'Share a code point, character name, or Unicode block without sending readers off your page.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Codepoints embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Code point preview',
       description:
-        'Get the real Codepoints embed with full interactivity when available.'
+        'Surfaces the character, its U+ code point, and name pulled from the codepoints.net page title and metadata.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Codepoints URL formats and content types.'
+      title: 'Works across the catalog',
+      description:
+        'Single code points, Unicode blocks, planes, and search pages all resolve to a clean preview card.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/codepen', label: 'CodePen' },
+    { href: '/tools/embed-url/codesandbox', label: 'CodeSandbox' },
+    { href: '/tools/embed-url/replit', label: 'Replit' }
   ],
   faq: [
     {
-      question: 'How do I embed Codepoints content on my website?',
-      answer: 'Paste any Codepoints URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Codepoints embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Codepoints content is private?',
+      question: 'How do I embed a Codepoints page on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any codepoints.net URL into the tool and click Generate. You will get a ready-to-paste preview card.'
+    },
+    {
+      question: 'What Codepoints URLs are supported?',
+      answer:
+        'Single code points such as codepoints.net/U+1F600, Unicode blocks, planes, and search result pages all work.'
+    },
+    {
+      question: 'Does Codepoints provide a native embed?',
+      answer:
+        'Codepoints.net is a Unicode reference and does not offer a native embed, so the tool generates a styled preview card from the page metadata instead.'
+    },
+    {
+      question: 'Can I customize the preview card?',
+      answer:
+        'Yes. Switch to Card mode to adjust colors, fonts, and layout before you copy the embed code.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

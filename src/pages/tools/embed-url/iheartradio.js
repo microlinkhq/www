@@ -5,24 +5,29 @@ const data = {
   name: 'iHeartRadio',
   slug: 'iheartradio',
   color: '#C6002B',
-  exampleUrl: 'https://iheart.com',
-  metaTitle: 'iHeartRadio Embed Code Generator — Embed Stations',
+  exampleUrl: 'https://www.iheart.com/podcast/51-the-breakfast-club-24992238/',
+  metaTitle:
+    'iHeartRadio Embed Code Generator — Embed Stations, Podcasts & Playlists',
   metaDescription:
-    'Free iHeartRadio embed code generator. Paste any iHeartRadio URL — get a ready-to-paste embed for stations, podcasts, and playlists. No signup.',
+    'Free iHeartRadio embed code generator. Paste any iHeart URL — get a ready-to-paste widget for live stations, podcasts, and playlists. No signup.',
   keywords: [
     'embed iheartradio',
     'iheartradio embed code',
+    'iheartradio embed code generator',
+    'embed iheartradio podcast',
+    'embed iheartradio station',
+    'iheartradio widget embed',
     'iheartradio player embed'
   ],
   heroTitle: 'iHeartRadio Embed Code Generator',
   heroSubtitle:
-    'Paste any iHeartRadio URL — get a ready-to-paste embed for stations, podcasts, and playlists.',
+    'Paste any iHeartRadio URL — get a ready-to-paste widget for live stations, podcasts, and playlists.',
   howItWorksHeading: 'How to embed iHeartRadio content',
   howItWorksSteps: [
     {
-      title: 'Paste a iHeartRadio link',
+      title: 'Paste an iHeartRadio link',
       description:
-        'Copy any iheart.com URL — stations, podcasts, and playlists.'
+        'Copy any iheart.com URL — live stations, artist stations, podcasts, and playlists.'
     },
     {
       title: 'Get the embed code',
@@ -40,12 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any iHeartRadio link and get working embed HTML.'
+        'Skip hunting for the share icon on the player. Paste any iHeart link and get working embed HTML.'
     },
     {
       title: 'All iHeartRadio content',
       description:
-        'Works with stations, podcasts, and playlists — the tool handles all iHeartRadio URL formats.'
+        'Works with live stations, artist stations, podcasts, and playlists — the tool handles all iHeart URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -55,19 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 iHeartRadio embeds per day. No login, no API key.'
+        'Generate up to 50 iHeartRadio embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native iHeart widget',
       description:
-        'Get the real iHeartRadio embed with full interactivity when available.'
+        'Get the real iHeartRadio web widget with playback controls for stations, podcasts, and playlists.'
     },
     {
-      title: 'All stations',
+      title: 'Responsive player',
       description:
-        'Works with stations, podcasts, and playlists — all iHeartRadio content types.'
+        'The iHeart widget is fully responsive and adapts its size to fit any space on the page.'
     },
     {
       title: 'Preview card fallback',
@@ -76,23 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/spotify',
+      label: 'Spotify'
+    },
+    {
+      href: '/tools/embed-url/soundcloud',
+      label: 'SoundCloud'
+    },
+    {
+      href: '/tools/embed-url/podbean',
+      label: 'Podbean'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed iHeartRadio content on my website?',
+      question: 'How do I embed an iHeartRadio podcast on my website?',
       answer:
-        'Paste any iHeartRadio URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any iHeart.com URL into the tool and click Generate. You will get a ready-to-paste widget snippet.'
     },
     {
-      question: 'Is the iHeartRadio embed generator free?',
+      question: 'Can I embed iHeartRadio live stations and playlists?',
+      answer:
+        'Yes. Live stations, artist stations, podcasts, and playlists are all supported.'
+    },
+    {
+      question: 'Is the iHeart widget responsive?',
+      answer:
+        'Yes. The iHeart widget is fully responsive and you can adjust the width and height to fit your layout.'
+    },
+    {
+      question: 'What if the iHeartRadio content cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the iHeartRadio content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

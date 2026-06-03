@@ -4,20 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Audius',
   slug: 'audius',
-  color: '#CC0FE0',
-  exampleUrl: 'https://audius.co',
-  metaTitle: 'Audius Embed Code Generator — Embed Tracks and playlists',
+  color: '#7e1bcc',
+  exampleUrl: 'https://audius.co/paulineherr/true-colors',
+  metaTitle: 'Audius Embed Code Generator — Embed Tracks & Playlists',
   metaDescription:
-    'Free Audius embed code generator. Paste any Audius URL — get a ready-to-paste embed for tracks and playlists. No signup.',
-  keywords: ['embed audius', 'audius embed code', 'audius player embed'],
+    'Free Audius embed code generator. Paste any Audius URL — get a ready-to-paste player for tracks, albums, playlists, and artist profiles. No signup.',
+  keywords: [
+    'embed audius',
+    'audius embed code',
+    'audius embed code generator',
+    'embed audius track',
+    'embed audius playlist',
+    'audius iframe code',
+    'audius player embed',
+    'embed audius album'
+  ],
   heroTitle: 'Audius Embed Code Generator',
   heroSubtitle:
-    'Paste any Audius URL — get a ready-to-paste embed for tracks and playlists.',
+    'Paste any Audius URL — get a ready-to-paste player for tracks, albums, playlists, and artist profiles.',
   howItWorksHeading: 'How to embed Audius content',
   howItWorksSteps: [
     {
-      title: 'Paste a Audius link',
-      description: 'Copy any audius.co URL — tracks and playlists.'
+      title: 'Paste an Audius link',
+      description:
+        'Copy any audius.co URL — a track, album, playlist, or artist profile.'
     },
     {
       title: 'Get the embed code',
@@ -35,12 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Audius link and get working embed HTML.'
+        'Skip digging through the Audius share menu. Paste any link and get working embed HTML instantly.'
     },
     {
       title: 'All Audius content',
       description:
-        'Works with tracks and playlists — the tool handles all Audius URL formats.'
+        'Works with tracks, albums, playlists, and artist profiles — the tool handles every audius.co URL format.'
     },
     {
       title: 'Customizable preview card',
@@ -50,18 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Audius embeds per day. No login, no API key.'
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Audius player',
       description:
-        'Get the real Audius embed with full interactivity when available.'
+        'Get the real Audius player with artwork and streaming playback straight from the decentralized network.'
     },
     {
-      title: 'All tracks and playlists',
-      description: 'Works with tracks and playlists — all Audius content types.'
+      title: 'Tracks, albums & playlists',
+      description:
+        'Individual tracks, full albums, playlists, and artist profiles — every Audius content type works.'
     },
     {
       title: 'Preview card fallback',
@@ -70,23 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/soundcloud',
+      label: 'SoundCloud'
+    },
+    {
+      href: '/tools/embed-url/spotify',
+      label: 'Spotify'
+    },
+    {
+      href: '/tools/embed-url/audiomack',
+      label: 'Audiomack'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Audius content on my website?',
+      question: 'How do I embed an Audius track on my website?',
       answer:
-        'Paste any Audius URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any audius.co URL into the tool and click Generate. You will get a ready-to-paste player you can drop into any page.'
     },
     {
-      question: 'Is the Audius embed generator free?',
+      question: 'Can I embed Audius playlists and albums?',
+      answer:
+        'Yes. Tracks, albums, playlists, and artist profiles are all supported.'
+    },
+    {
+      question: 'Why does Audius work well for embedding music?',
+      answer:
+        'Audius is a decentralized, artist-owned streaming platform, so embeds stream directly from the network with takedown protection and no third-party gatekeeping.'
+    },
+    {
+      question: 'What happens if a track cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card showing the title and artwork, with a link back to the original Audius page.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Audius content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

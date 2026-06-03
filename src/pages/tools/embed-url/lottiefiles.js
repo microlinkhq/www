@@ -5,28 +5,34 @@ const data = {
   name: 'LottieFiles',
   slug: 'lottiefiles',
   color: '#00DDB3',
-  exampleUrl: 'https://lottiefiles.com',
-  metaTitle: 'LottieFiles Embed Code Generator — Embed Lottie animations',
+  exampleUrl:
+    'https://lottiefiles.com/free-animation/animated-play-button-Dd3YRSY70M',
+  metaTitle: 'LottieFiles Embed Code Generator — Embed Lottie Animations',
   metaDescription:
-    'Free LottieFiles embed code generator. Paste any LottieFiles URL — get a ready-to-paste embed for Lottie animations. No signup.',
+    'Free LottieFiles embed code generator. Paste any LottieFiles animation URL — get ready-to-paste HTML to embed lightweight, scalable Lottie motion graphics. No signup.',
   keywords: [
     'embed lottiefiles',
     'lottiefiles embed code',
-    'lottie animation embed'
+    'lottiefiles embed code generator',
+    'embed lottie animation',
+    'lottie animation embed code',
+    'embed lottiefiles animation',
+    'lottiefiles iframe code'
   ],
   heroTitle: 'LottieFiles Embed Code Generator',
   heroSubtitle:
-    'Paste any LottieFiles URL — get a ready-to-paste embed for Lottie animations.',
-  howItWorksHeading: 'How to embed LottieFiles content',
+    'Paste any LottieFiles animation URL — get ready-to-paste HTML to embed lightweight, scalable Lottie motion graphics on your site.',
+  howItWorksHeading: 'How to embed a LottieFiles animation',
   howItWorksSteps: [
     {
       title: 'Paste a LottieFiles link',
-      description: 'Copy any lottiefiles.com URL — Lottie animations.'
+      description:
+        'Copy a public animation URL from lottiefiles.com — free-animation pages and shared animation links both work.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the animation and generates the right embed HTML so the motion graphic plays inline.'
     },
     {
       title: 'Copy & paste',
@@ -39,12 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any LottieFiles link and get working embed HTML.'
+        'Skip the script tags and player config. Paste any LottieFiles link and get working embed HTML.'
     },
     {
-      title: 'All LottieFiles content',
+      title: 'Lightweight motion graphics',
       description:
-        'Works with Lottie animations — the tool handles all LottieFiles URL formats.'
+        'Lottie animations are vector-based and scalable, so they stay crisp at any size without heavy video files.'
     },
     {
       title: 'Customizable preview card',
@@ -54,19 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 LottieFiles embeds per day. No login, no API key.'
+        'Generate up to 50 LottieFiles embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Lottie playback',
       description:
-        'Get the real LottieFiles embed with full interactivity when available.'
+        'Get the real animation playing inline with autoplay and loop, just like on LottieFiles.'
     },
     {
-      title: 'All Lottie animations',
+      title: 'Scales to any layout',
       description:
-        'Works with Lottie animations — all LottieFiles content types.'
+        'Vector Lottie animations render sharp on any screen and adapt responsively to your container.'
     },
     {
       title: 'Preview card fallback',
@@ -75,29 +81,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/figma',
+      label: 'Figma'
+    },
+    {
+      href: '/tools/embed-url/giphy',
+      label: 'Giphy'
+    },
+    {
+      href: '/tools/embed-url/framer',
+      label: 'Framer'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed LottieFiles content on my website?',
+      question: 'How do I embed a LottieFiles animation on my website?',
       answer:
-        'Paste any LottieFiles URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste a public LottieFiles animation URL into the tool and click Generate. You will get a ready-to-paste embed you can drop into any page.'
     },
     {
-      question: 'Is the LottieFiles embed generator free?',
+      question: 'What kind of content can I embed from LottieFiles?',
+      answer:
+        'Lottie animations — the lightweight, vector-based motion graphics used for icons, loaders, illustrations, and UI effects on web and apps.'
+    },
+    {
+      question: 'Can I embed a private animation?',
+      answer:
+        'No. The animation must be public or shared via a public link. Private animations are not accessible to the tool.'
+    },
+    {
+      question: 'What if the animation cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card with the animation title and a thumbnail image so you still get a clean result to paste.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the LottieFiles content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const LottieFilesPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default LottieFilesPage

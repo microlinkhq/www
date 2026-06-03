@@ -4,30 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Circle Zero Eight',
   slug: 'circlezeroeight',
-  color: '#666666',
-  exampleUrl: 'https://cze.io',
+  color: '#111111',
+  exampleUrl: 'https://www.circlezeroeight.com/sport/tony-hawk',
   metaTitle:
-    'Circle Zero Eight Embed Code Generator — Embed Circle Zero Eight Content',
+    'Circle Zero Eight Embed Code Generator — Embed Sport & Culture Articles',
   metaDescription:
-    'Free Circle Zero Eight embed code generator. Paste any Circle Zero Eight URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Circle Zero Eight embed code generator. Paste a circlezeroeight.com article URL — get a ready-to-paste embed or styled preview card. No signup.',
   keywords: [
     'embed circle zero eight',
     'circle zero eight embed code',
-    'circle zero eight embed generator'
+    'circle zero eight embed generator',
+    'embed circlezeroeight article',
+    'circlezeroeight.com embed',
+    'circle zero eight magazine embed',
+    'circle zero eight link preview'
   ],
   heroTitle: 'Circle Zero Eight Embed Code Generator',
   heroSubtitle:
-    'Paste any Circle Zero Eight URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Circle Zero Eight content',
+    'Paste a Circle Zero Eight article URL — get a ready-to-paste embed or styled preview card.',
+  howItWorksHeading: 'How to embed a Circle Zero Eight article',
   howItWorksSteps: [
     {
       title: 'Paste a Circle Zero Eight link',
-      description: 'Copy any cze.io URL.'
+      description:
+        'Copy any circlezeroeight.com URL — sport, style, and culture features or interviews.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the article metadata and generates ready-to-paste embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -40,11 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Paste any Circle Zero Eight link and get working embed HTML.'
+        'Paste any Circle Zero Eight link and get working embed HTML — no copy-pasting metadata by hand.'
     },
     {
-      title: 'Circle Zero Eight content',
-      description: 'The tool handles all Circle Zero Eight URL formats.'
+      title: 'Built for editorial content',
+      description:
+        'Pulls the headline and lead image from sport, style, and culture features so the embed looks right.'
     },
     {
       title: 'Customizable preview card',
@@ -53,19 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Circle Zero Eight embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Article link previews',
       description:
-        'Get the real Circle Zero Eight embed with full interactivity when available.'
+        'Turns a Circle Zero Eight feature or interview into a clean preview with title, image, and link.'
     },
     {
-      title: 'All content types',
+      title: 'Sport, style & culture',
       description:
-        'Works with all Circle Zero Eight URL formats and content types.'
+        'Works across the magazine sections — athlete interviews, fashion editorials, and culture stories.'
     },
     {
       title: 'Preview card fallback',
@@ -75,22 +82,33 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/sketchfab', label: 'Sketchfab' }
   ],
   faq: [
     {
-      question: 'How do I embed Circle Zero Eight content on my website?',
+      question: 'How do I embed a Circle Zero Eight article on my website?',
       answer:
-        'Paste any Circle Zero Eight URL into the tool and click Generate.'
+        'Paste any circlezeroeight.com URL into the tool and click Generate. You will get a ready-to-paste embed or preview card.'
     },
     {
-      question: 'Is the Circle Zero Eight embed generator free?',
+      question: 'What kind of content does Circle Zero Eight publish?',
+      answer:
+        'Circle Zero Eight is a magazine fusing sport, style, and culture, with feature interviews, photo editorials, and cultural stories.'
+    },
+    {
+      question: 'What does the preview card show?',
+      answer:
+        'The card uses the article metadata — headline, lead image, and link — so readers can click through to the full story.'
+    },
+    {
+      question: 'Does the embed work for any Circle Zero Eight page?',
+      answer:
+        'It works with public sport, style, and culture article URLs. Pages without readable metadata fall back to a basic preview card.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Circle Zero Eight content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

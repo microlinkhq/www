@@ -2,26 +2,33 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Omnystudio',
+  name: 'Omny Studio',
   slug: 'omnystudio',
-  color: '#666666',
-  exampleUrl: 'https://omnystudio.com',
-  metaTitle: 'Omnystudio Embed Code Generator — Embed Omnystudio Content',
+  color: '#43A9E0',
+  exampleUrl:
+    'https://omny.fm/shows/fun-kids/kaye-umansky-author-of-witch-in-winter-chats-to-be',
+  metaTitle:
+    'Omny Studio Embed Code Generator — Embed Podcast Clips & Playlists',
   metaDescription:
-    'Free Omnystudio embed code generator. Paste any Omnystudio URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Omny Studio embed code generator. Paste any omny.fm URL — get a ready-to-paste audio player for podcast clips, episodes, and playlists. No signup.',
   keywords: [
-    'embed omnystudio',
-    'omnystudio embed code',
-    'omnystudio embed generator'
+    'embed omny studio',
+    'omny studio embed code',
+    'omny studio embed code generator',
+    'embed omny.fm player',
+    'omny studio iframe code',
+    'embed omny studio podcast',
+    'embed omny studio playlist'
   ],
-  heroTitle: 'Omnystudio Embed Code Generator',
+  heroTitle: 'Omny Studio Embed Code Generator',
   heroSubtitle:
-    'Paste any Omnystudio URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Omnystudio content',
+    'Paste any omny.fm URL — get a ready-to-paste audio player for podcast clips, episodes, and playlists.',
+  howItWorksHeading: 'How to embed Omny Studio content',
   howItWorksSteps: [
     {
-      title: 'Paste a Omnystudio link',
-      description: 'Copy any omnystudio.com URL.'
+      title: 'Paste an Omny Studio link',
+      description:
+        'Copy any omny.fm URL — a podcast clip, episode, or playlist from a show page.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +41,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Omnystudio embed code generator',
+  explanationHeading: 'Why use our Omny Studio embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Omnystudio link and get working embed HTML.'
+      description:
+        'Skip digging through the Omny Studio share menu. Paste any omny.fm link and get working embed HTML.'
     },
     {
-      title: 'Omnystudio content',
-      description: 'The tool handles all Omnystudio URL formats.'
+      title: 'Clips, episodes & playlists',
+      description:
+        'Works with individual clips, full episodes, and curated playlists — the tool handles all omny.fm URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +60,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Omny Studio embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Omny Studio player',
       description:
-        'Get the real Omnystudio embed with full interactivity when available.'
+        'Get the real omny.fm audio player with cover art, playback controls, and scrubbing.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Omnystudio URL formats and content types.'
+      title: 'Clips, episodes & playlists',
+      description:
+        'Single clips, full episodes, and multi-episode playlists all generate the matching embed player.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +82,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/podbean',
+      label: 'Podbean'
+    },
+    {
+      href: '/tools/embed-url/spreaker',
+      label: 'Spreaker'
+    },
+    {
+      href: '/tools/embed-url/acast',
+      label: 'Acast'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Omnystudio content on my website?',
-      answer: 'Paste any Omnystudio URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Omnystudio embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Omnystudio content is private?',
+      question: 'How do I embed an Omny Studio podcast on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any omny.fm URL into the tool and click Generate. You will get a ready-to-paste audio player.'
+    },
+    {
+      question: 'Can I embed an Omny Studio playlist?',
+      answer:
+        'Yes. Single clips, full episodes, and playlists from a show page are all supported.'
+    },
+    {
+      question: 'What if the Omny Studio episode is unlisted or restricted?',
+      answer:
+        'Restricted or private content cannot be embedded, so the tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is the embedded player responsive?',
+      answer:
+        'Yes. The omny.fm player adapts to its container, so it scales to fit your page layout.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

@@ -5,28 +5,35 @@ const data = {
   name: 'Buttondown',
   slug: 'buttondown',
   color: '#0069FF',
-  exampleUrl: 'https://buttondown.com',
-  metaTitle: 'Buttondown Embed Code Generator — Embed Newsletters and archives',
+  exampleUrl:
+    'https://buttondown.com/where-to-post/archive/launching-on-product-hunt/',
+  metaTitle:
+    'Buttondown Embed Code Generator — Embed Newsletter Issues & Archives',
   metaDescription:
-    'Free Buttondown embed code generator. Paste any Buttondown URL — get a ready-to-paste embed for newsletters and archives. No signup.',
+    'Free Buttondown embed code generator. Paste a public newsletter issue or archive URL and get a ready-to-paste preview card with title and image. No signup.',
   keywords: [
     'embed buttondown',
     'buttondown embed code',
-    'buttondown newsletter embed'
+    'embed buttondown newsletter',
+    'buttondown issue embed',
+    'buttondown archive embed',
+    'embed buttondown email',
+    'buttondown newsletter preview card'
   ],
   heroTitle: 'Buttondown Embed Code Generator',
   heroSubtitle:
-    'Paste any Buttondown URL — get a ready-to-paste embed for newsletters and archives.',
-  howItWorksHeading: 'How to embed Buttondown content',
+    'Paste a public Buttondown newsletter issue or archive URL to generate a clean preview card you can drop into any page.',
+  howItWorksHeading: 'How to embed a Buttondown newsletter',
   howItWorksSteps: [
     {
       title: 'Paste a Buttondown link',
-      description: 'Copy any buttondown.com URL — newsletters and archives.'
+      description:
+        'Copy a public buttondown.com archive URL — a single newsletter issue (/archive/your-issue/) or a full archive index.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the issue title, author, and preview image, then generates a styled preview card linking to the post.'
     },
     {
       title: 'Copy & paste',
@@ -39,12 +46,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Buttondown link and get working embed HTML.'
+        'Buttondown has no per-issue iframe embed, so we build a tidy preview card from the public archive page automatically.'
     },
     {
-      title: 'All Buttondown content',
+      title: 'Works with issues and archives',
       description:
-        'Works with newsletters and archives — the tool handles all Buttondown URL formats.'
+        'Paste a single newsletter issue or your full archive index — both buttondown.com/username and custom-domain archives work.'
     },
     {
       title: 'Customizable preview card',
@@ -54,19 +61,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Buttondown embeds per day. No login, no API key.'
+        'Generate up to 50 Buttondown embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Newsletter preview card',
       description:
-        'Get the real Buttondown embed with full interactivity when available.'
+        'Pulls the issue title, author, and cover image from the public archive into a clean linked card.'
     },
     {
-      title: 'All newsletters and archives',
+      title: 'Responsive by default',
       description:
-        'Works with newsletters and archives — all Buttondown content types.'
+        'The generated card scales to its container, so it looks right on blogs, docs, and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -75,23 +82,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/kit', label: 'Kit' },
+    { href: '/tools/embed-url/wordpress-com', label: 'WordPress.com' },
+    { href: '/tools/embed-url/tumblr', label: 'Tumblr' }
   ],
   faq: [
     {
-      question: 'How do I embed Buttondown content on my website?',
+      question: 'How do I embed a Buttondown newsletter on my website?',
       answer:
-        'Paste any Buttondown URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste a public Buttondown archive URL into the tool and click Generate. You will get a ready-to-paste preview card linking back to the issue.'
+    },
+    {
+      question: 'Does Buttondown have a native iframe embed?',
+      answer:
+        'Buttondown does not offer a per-issue iframe embed. We generate a styled preview card from the public archive page so you can still share the issue inline.'
+    },
+    {
+      question: 'Can I embed a single issue or the whole archive?',
+      answer:
+        'Both. Paste a single issue URL like buttondown.com/username/archive/issue-slug/, or the archive index URL to link to the newsletter as a whole.'
+    },
+    {
+      question: 'What if the newsletter issue is private or subscriber-only?',
+      answer:
+        'Issues gated to subscribers are not publicly readable, so the tool falls back to a basic preview card with whatever metadata is available.'
     },
     {
       question: 'Is the Buttondown embed generator free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Buttondown content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

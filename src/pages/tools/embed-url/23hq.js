@@ -4,18 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: '23hq',
   slug: '23hq',
-  color: '#666666',
-  exampleUrl: 'https://23hq.com',
-  metaTitle: '23hq Embed Code Generator — Embed 23hq Content',
+  color: '#333333',
+  exampleUrl: 'https://www.23hq.com/Guide/photo/68898389',
+  metaTitle: '23hq Embed Code Generator — Embed Photos & Albums',
   metaDescription:
-    'Free 23hq embed code generator. Paste any 23hq URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed 23hq', '23hq embed code', '23hq embed generator'],
+    'Free 23hq embed code generator. Paste any 23hq.com URL — get a ready-to-paste embed or preview card for photos and albums. No signup.',
+  keywords: [
+    'embed 23hq',
+    '23hq embed code',
+    '23hq embed code generator',
+    'embed 23hq photo',
+    'embed 23hq album',
+    '23hq photo embed',
+    '23hq iframe code'
+  ],
   heroTitle: '23hq Embed Code Generator',
   heroSubtitle:
-    'Paste any 23hq URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed 23hq content',
+    'Paste a 23hq photo or album URL — get a ready-to-paste embed or preview card in seconds.',
+  howItWorksHeading: 'How to embed 23hq photos',
   howItWorksSteps: [
-    { title: 'Paste a 23hq link', description: 'Copy any 23hq.com URL.' },
+    {
+      title: 'Paste a 23hq link',
+      description:
+        'Copy any 23hq.com URL — individual photos, albums, or a member photoblog.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any 23hq link and get working embed HTML.'
+      description:
+        'Skip building markup by hand. Paste any 23hq link and get working embed HTML.'
     },
     {
-      title: '23hq content',
-      description: 'The tool handles all 23hq URL formats.'
+      title: 'Photos and albums',
+      description:
+        'Works with single photos and full albums shared on the 23 photo sharing community.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 23hq embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Photo preview with metadata',
       description:
-        'Get the real 23hq embed with full interactivity when available.'
+        'Pull the photo image, title, and member details straight from the 23hq page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all 23hq URL formats and content types.'
+      title: 'Responsive layout',
+      description:
+        'The generated embed scales to fit your column width across desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/flickr', label: 'Flickr' },
+    { href: '/tools/embed-url/smugmug', label: 'SmugMug' },
+    { href: '/tools/embed-url/deviantart-com', label: 'DeviantArt' }
   ],
   faq: [
     {
-      question: 'How do I embed 23hq content on my website?',
-      answer: 'Paste any 23hq URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the 23hq embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the 23hq content is private?',
+      question: 'How do I embed a 23hq photo on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any 23hq.com photo URL into the tool and click Generate. You will get a ready-to-paste embed.'
+    },
+    {
+      question: 'Can I embed a 23hq album?',
+      answer:
+        'Yes. Both individual photos and full albums shared on 23hq are supported.'
+    },
+    {
+      question: 'What if the 23hq photo is private?',
+      answer:
+        'Private or restricted photos cannot be embedded. The tool falls back to a styled preview card with whatever public metadata is available.'
+    },
+    {
+      question: 'Is the embed responsive?',
+      answer:
+        'Yes. The generated embed scales to fit the width of your blog, CMS, or page layout.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

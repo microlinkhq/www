@@ -2,31 +2,36 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Dreambroker',
+  name: 'Dream Broker',
   slug: 'dreambroker',
-  color: '#666666',
-  exampleUrl: 'https://dreambroker.com',
-  metaTitle: 'Dreambroker Embed Code Generator — Embed Dreambroker Content',
+  color: '#175EEB',
+  exampleUrl: 'https://references.dreambroker.com/channel/git8d4fc/bh1t9nkm',
+  metaTitle: 'Dream Broker Embed Code Generator — Embed Studio Videos',
   metaDescription:
-    'Free Dreambroker embed code generator. Paste any Dreambroker URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Dream Broker embed code generator. Paste any Dream Broker Studio video URL — get a ready-to-paste iframe player or preview card. No signup.',
   keywords: [
-    'embed dreambroker',
-    'dreambroker embed code',
-    'dreambroker embed generator'
+    'embed dream broker',
+    'dream broker embed code',
+    'dream broker embed code generator',
+    'embed dream broker video',
+    'dream broker studio embed',
+    'dream broker iframe code',
+    'dream broker video embed'
   ],
-  heroTitle: 'Dreambroker Embed Code Generator',
+  heroTitle: 'Dream Broker Embed Code Generator',
   heroSubtitle:
-    'Paste any Dreambroker URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Dreambroker content',
+    'Paste any Dream Broker Studio video URL — get a ready-to-paste iframe player or preview card.',
+  howItWorksHeading: 'How to embed a Dream Broker video',
   howItWorksSteps: [
     {
-      title: 'Paste a Dreambroker link',
-      description: 'Copy any dreambroker.com URL.'
+      title: 'Paste a Dream Broker link',
+      description:
+        'Copy any dreambroker.com channel video URL — the /channel/ links Dream Broker Studio generates for sharing.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the Dream Broker video and generates the right iframe embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Dreambroker embed code generator',
+  explanationHeading: 'Why use our Dream Broker embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Dreambroker link and get working embed HTML.'
+      description:
+        'Skip digging through Studio for share settings. Paste any Dream Broker link and get working embed HTML.'
     },
     {
-      title: 'Dreambroker content',
-      description: 'The tool handles all Dreambroker URL formats.'
+      title: 'Built for Studio videos',
+      description:
+        'Works with the channel video URLs Dream Broker Studio produces for websites, intranets, and LMS pages.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Dream Broker embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Dream Broker player',
       description:
-        'Get the real Dreambroker embed with full interactivity when available.'
+        'Get the real Dream Broker Studio HTML5 player with full playback controls when the video is shareable.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Dreambroker URL formats and content types.'
+      title: 'Responsive iframe',
+      description:
+        'The embed scales to its container, so Dream Broker videos stay sharp on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/brightcove',
+      label: 'Brightcove'
+    },
+    {
+      href: '/tools/embed-url/wistia',
+      label: 'Wistia'
+    },
+    {
+      href: '/tools/embed-url/vidyard',
+      label: 'Vidyard'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Dreambroker content on my website?',
-      answer: 'Paste any Dreambroker URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Dreambroker embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Dreambroker content is private?',
+      question: 'How do I embed a Dream Broker video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any Dream Broker channel video URL into the tool and click Generate. You will get a ready-to-paste iframe player.'
+    },
+    {
+      question: 'Which Dream Broker links work?',
+      answer:
+        'Dream Broker Studio channel video URLs from dreambroker.com (and subdomains like references.dreambroker.com) are supported.'
+    },
+    {
+      question: 'What if the Dream Broker video is private or restricted?',
+      answer:
+        'Studio videos can be locked with passwords, sign-in, or IP rules. When native embedding is restricted, the tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is the embed responsive?',
+      answer:
+        'Yes. The generated iframe scales to its container so the video looks right on any screen size.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

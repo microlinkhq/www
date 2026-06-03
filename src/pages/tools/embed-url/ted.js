@@ -4,30 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'TED',
   slug: 'ted',
-  color: '#E62B1E',
-  exampleUrl: 'https://ted.com',
-  metaTitle: 'TED Embed Code Generator — Embed Talks and playlists',
+  color: '#EB0028',
+  exampleUrl:
+    'https://www.ted.com/talks/sir_ken_robinson_do_schools_kill_creativity',
+  metaTitle: 'TED Embed Code Generator — Embed TED Talk Videos',
   metaDescription:
-    'Free TED embed code generator. Paste any TED URL — get a ready-to-paste embed for talks and playlists. No signup.',
+    'Free TED embed code generator. Paste any TED Talk URL — get a ready-to-paste iframe player for talks from ted.com. No signup.',
   keywords: [
-    'embed ted talk',
+    'embed ted',
     'ted embed code',
-    'ted talk embed',
-    'ted video embed'
+    'ted embed code generator',
+    'embed ted talk',
+    'embed ted talk video',
+    'ted iframe code',
+    'ted talk player embed'
   ],
   heroTitle: 'TED Embed Code Generator',
   heroSubtitle:
-    'Paste any TED URL — get a ready-to-paste embed for talks and playlists.',
-  howItWorksHeading: 'How to embed TED content',
+    'Paste any TED Talk URL — get a ready-to-paste iframe player for talks from ted.com.',
+  howItWorksHeading: 'How to embed a TED Talk',
   howItWorksSteps: [
     {
       title: 'Paste a TED link',
-      description: 'Copy any ted.com URL — talks and playlists.'
+      description:
+        'Copy any ted.com Talk URL straight from the talk page or the Share button.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the TED Talk and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -40,12 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any TED link and get working embed HTML.'
+        'Skip rewriting the URL or digging through the Share menu. Paste any TED link and get working embed HTML.'
     },
     {
-      title: 'All TED content',
+      title: 'Real TED video player',
       description:
-        'Works with talks and playlists — the tool handles all TED URL formats.'
+        'Get the native TED player so visitors can watch the full talk without leaving your page.'
     },
     {
       title: 'Customizable preview card',
@@ -54,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 TED embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 TED embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native TED player',
       description:
-        'Get the real TED embed with full interactivity when available.'
+        'Get the real TED video player with full playback controls and the talk title.'
     },
     {
-      title: 'All talks and playlists',
-      description: 'Works with talks and playlists — all TED content types.'
+      title: 'Responsive embeds',
+      description:
+        'The TED player scales to fit your layout, from full-width articles to narrow sidebars.'
     },
     {
       title: 'Preview card fallback',
@@ -74,23 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/youtube',
+      label: 'YouTube'
+    },
+    {
+      href: '/tools/embed-url/vimeo',
+      label: 'Vimeo'
+    },
+    {
+      href: '/tools/embed-url/dailymotion',
+      label: 'Dailymotion'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed TED content on my website?',
+      question: 'How do I embed a TED Talk on my website?',
       answer:
-        'Paste any TED URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any ted.com Talk URL into the tool and click Generate. You will get a ready-to-paste iframe player.'
     },
     {
-      question: 'Is the TED embed generator free?',
+      question: 'Does the embed play the full talk?',
+      answer:
+        'Yes. The native TED player streams the full talk with standard playback controls.'
+    },
+    {
+      question: 'Is the TED embed responsive?',
+      answer:
+        'Yes. The player scales to the width of its container, so it works on desktop and mobile layouts.'
+    },
+    {
+      question: 'What if a talk cannot be embedded?',
+      answer:
+        'If native embedding is restricted, switch to Card mode to get a styled preview card with the talk title and image.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the TED content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

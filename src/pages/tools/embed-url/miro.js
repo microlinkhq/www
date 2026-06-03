@@ -4,32 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Miro',
   slug: 'miro',
-  color: '#050038',
-  exampleUrl: 'https://miro.com/app/board/1234567890=/',
+  color: '#FFDD33',
+  exampleUrl: 'https://miro.com/app/board/o9J_kkQxX78=/',
   metaTitle: 'Miro Embed Code Generator — Embed Boards & Whiteboards',
   metaDescription:
-    'Free Miro embed code generator. Paste any Miro URL — get a ready-to-paste iframe for whiteboards and collaboration boards. No signup.',
+    'Free Miro embed code generator. Paste any Miro board URL — get a ready-to-paste iframe for interactive whiteboards, diagrams, and templates. No signup.',
   keywords: [
     'embed miro',
     'miro embed code',
-    'miro embed generator',
-    'miro iframe',
+    'miro embed code generator',
     'embed miro board',
-    'miro whiteboard embed'
+    'miro whiteboard embed',
+    'miro iframe code',
+    'embed miro diagram'
   ],
   heroTitle: 'Miro Embed Code Generator',
   heroSubtitle:
-    'Paste any Miro URL — get a ready-to-paste iframe for whiteboards and collaboration boards.',
-  howItWorksHeading: 'How to embed Miro content',
+    'Paste any Miro board URL — get a ready-to-paste iframe for interactive whiteboards, diagrams, and templates.',
+  howItWorksHeading: 'How to embed a Miro board',
   howItWorksSteps: [
     {
       title: 'Paste a Miro link',
-      description: 'Copy any Miro URL — boards and whiteboards.'
+      description:
+        'Copy any public miro.com board, diagram, or Miroverse template link.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the board and generates the right live-embed iframe.'
     },
     {
       title: 'Copy & paste',
@@ -42,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Miro link and get working embed HTML.'
+        'Skip building the live-embed iframe by hand. Paste any Miro link and get working embed HTML.'
     },
     {
-      title: 'All Miro content',
+      title: 'All Miro boards',
       description:
-        'Works with boards and whiteboards — the tool handles all Miro URL formats.'
+        'Works with whiteboards, diagrams, and Miroverse templates — the tool handles Miro board URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -62,19 +64,19 @@ const data = {
   ],
   features: [
     {
-      title: 'Interactive whiteboard',
+      title: 'Interactive board embed',
       description:
-        'Get an interactive Miro board embed — users can zoom, pan, and navigate.'
+        'Get the real Miro live embed so viewers can zoom, pan, and explore the board.'
     },
     {
-      title: 'Boards & templates',
+      title: 'Whiteboards & diagrams',
       description:
-        'Collaboration boards, templates, and shared views — all Miro link types work.'
+        'Brainstorms, flowcharts, mind maps, and Miroverse templates all embed cleanly.'
     },
     {
-      title: 'Responsive iframe',
+      title: 'Preview card fallback',
       description:
-        'The embedded board adapts to your layout and supports touch gestures.'
+        'A styled preview card with title and image when native embedding is restricted.'
     }
   ],
   relatedLinks: [
@@ -83,23 +85,34 @@ const data = {
       label: 'Figma'
     },
     {
-      href: '/tools/embed-url/lucid',
-      label: 'Lucid'
+      href: '/tools/embed-url/whimsical',
+      label: 'Whimsical'
     },
     {
-      href: '/tools/embed-url/notion',
-      label: 'Notion'
+      href: '/tools/embed-url/cacoo',
+      label: 'Cacoo'
     }
   ],
   faq: [
     {
-      question: 'How do I embed a Miro board?',
-      answer: 'Paste any Miro board URL into the tool and click Generate.'
+      question: 'How do I embed a Miro board on my website?',
+      answer:
+        'Paste any public Miro board URL into the tool and click Generate. You will get a ready-to-paste live-embed iframe.'
     },
     {
-      question: 'Can viewers interact with the board?',
+      question: 'Can viewers interact with the embedded board?',
       answer:
-        'Yes. The embedded board supports zooming, panning, and navigation.'
+        'Yes. The Miro live embed lets viewers zoom, pan, and navigate the board directly inside the iframe.'
+    },
+    {
+      question: 'Does the board need to be public?',
+      answer:
+        'The board must be shared publicly or set to anyone-with-the-link for the embed to display. Private boards will not load for viewers.'
+    },
+    {
+      question: 'What if the board cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card showing the board title and image, which you can customize before copying.'
     },
     {
       question: 'Is this free?',

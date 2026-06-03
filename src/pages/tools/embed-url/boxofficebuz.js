@@ -2,26 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Boxofficebuz',
+  name: 'Box Office Buz',
   slug: 'boxofficebuz',
-  color: '#666666',
-  exampleUrl: 'https://boxofficebuz.com',
-  metaTitle: 'Boxofficebuz Embed Code Generator — Embed Boxofficebuz Content',
+  color: '#1A1A1A',
+  exampleUrl: 'https://boxofficebuz.com/movie/home',
+  metaTitle: 'Box Office Buz Embed Code Generator — Embed Movies & Trailers',
   metaDescription:
-    'Free Boxofficebuz embed code generator. Paste any Boxofficebuz URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Box Office Buz embed code generator. Paste any boxofficebuz.com URL — get a ready-to-paste embed or preview card for movies, trailers, and celebrities. No signup.',
   keywords: [
+    'embed box office buz',
+    'box office buz embed code',
+    'box office buz embed code generator',
     'embed boxofficebuz',
     'boxofficebuz embed code',
-    'boxofficebuz embed generator'
+    'embed box office buz trailer',
+    'box office buz movie embed'
   ],
-  heroTitle: 'Boxofficebuz Embed Code Generator',
+  heroTitle: 'Box Office Buz Embed Code Generator',
   heroSubtitle:
-    'Paste any Boxofficebuz URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Boxofficebuz content',
+    'Paste any Box Office Buz URL — get a ready-to-paste embed or preview card for movies, trailers, and celebrity coverage.',
+  howItWorksHeading: 'How to embed Box Office Buz content',
   howItWorksSteps: [
     {
-      title: 'Paste a Boxofficebuz link',
-      description: 'Copy any boxofficebuz.com URL.'
+      title: 'Paste a Box Office Buz link',
+      description:
+        'Copy any boxofficebuz.com URL — movie pages, trailers, posters, and celebrity coverage.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Boxofficebuz embed code generator',
+  explanationHeading: 'Why use our Box Office Buz embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Boxofficebuz link and get working embed HTML.'
+      description:
+        'Paste any Box Office Buz link and get working embed HTML — no markup to write by hand.'
     },
     {
-      title: 'Boxofficebuz content',
-      description: 'The tool handles all Boxofficebuz URL formats.'
+      title: 'Movie and entertainment content',
+      description:
+        'Works with movie, TV, trailer, and celebrity pages from boxofficebuz.com.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Box Office Buz embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native embed when available',
       description:
-        'Get the real Boxofficebuz embed with full interactivity when available.'
+        'Get the real Box Office Buz embed with its title, image, and link back to the source page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Boxofficebuz URL formats and content types.'
+      title: 'Movies, trailers & celebrities',
+      description:
+        'Embed movie pages, trailers, posters, and celebrity coverage from boxofficebuz.com.'
     },
     {
       title: 'Preview card fallback',
@@ -72,21 +81,28 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/twitter-or-x', label: 'X (Twitter)' }
   ],
   faq: [
     {
-      question: 'How do I embed Boxofficebuz content on my website?',
-      answer: 'Paste any Boxofficebuz URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Boxofficebuz embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Boxofficebuz content is private?',
+      question: 'How do I embed Box Office Buz content on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any boxofficebuz.com URL into the tool and click Generate. You will get a ready-to-paste embed or preview card.'
+    },
+    {
+      question: 'What kind of Box Office Buz content can I embed?',
+      answer:
+        'Box Office Buz covers movies, TV, trailers, posters, and celebrity news, and those pages can be embedded.'
+    },
+    {
+      question: 'What if a native embed is not available?',
+      answer:
+        'The tool falls back to a styled preview card with the available title, image, and link.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

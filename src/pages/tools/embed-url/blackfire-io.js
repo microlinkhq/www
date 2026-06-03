@@ -2,31 +2,37 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Blackfire Io',
+  name: 'Blackfire.io',
   slug: 'blackfire-io',
-  color: '#25282B',
-  exampleUrl: 'https://blackfire.io',
-  metaTitle: 'Blackfire Io Embed Code Generator — Embed Performance profiles',
+  color: '#65319E',
+  exampleUrl:
+    'https://blackfire.io/profiles/01e44337-ae51-465b-95ce-fb5fff3f73b7/graph',
+  metaTitle: 'Blackfire.io Embed Code Generator — Embed Profiles & Reports',
   metaDescription:
-    'Free Blackfire Io embed code generator. Paste any Blackfire Io URL — get a ready-to-paste embed for performance profiles. No signup.',
+    'Free Blackfire.io embed code generator. Paste a Blackfire profile or report URL — get a ready-to-paste preview card linking to the call graph. No signup.',
   keywords: [
     'embed blackfire',
     'blackfire embed code',
-    'blackfire profile embed'
+    'blackfire embed code generator',
+    'embed blackfire profile',
+    'blackfire profile preview',
+    'blackfire report embed',
+    'embed blackfire.io'
   ],
-  heroTitle: 'Blackfire Io Embed Code Generator',
+  heroTitle: 'Blackfire.io Embed Code Generator',
   heroSubtitle:
-    'Paste any Blackfire Io URL — get a ready-to-paste embed for performance profiles.',
-  howItWorksHeading: 'How to embed Blackfire Io content',
+    'Paste a Blackfire.io profile or report URL — get a ready-to-paste preview card that links straight to the performance call graph.',
+  howItWorksHeading: 'How to embed a Blackfire.io profile',
   howItWorksSteps: [
     {
-      title: 'Paste a Blackfire Io link',
-      description: 'Copy any blackfire.io URL — performance profiles.'
+      title: 'Paste a Blackfire.io link',
+      description:
+        'Copy a public blackfire.io URL — a shared performance profile, comparison, or report.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the page metadata and builds a clean preview card you can drop anywhere.'
     },
     {
       title: 'Copy & paste',
@@ -34,17 +40,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Blackfire Io embed code generator',
+  explanationHeading: 'Why use our Blackfire.io embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
+      title: 'Share profiles cleanly',
       description:
-        'Skip the manual URL conversion. Paste any Blackfire Io link and get working embed HTML.'
+        'Turn a raw blackfire.io profile link into a tidy preview card with title and image instead of a bare URL.'
     },
     {
-      title: 'All Blackfire Io content',
+      title: 'Great for performance write-ups',
       description:
-        'Works with performance profiles — the tool handles all Blackfire Io URL formats.'
+        'Reference a specific profile or before/after comparison in a blog post or postmortem with a card that links back to the full graph.'
     },
     {
       title: 'Customizable preview card',
@@ -54,19 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Blackfire Io embeds per day. No login, no API key.'
+        'Generate up to 50 Blackfire.io embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Profile & report preview cards',
       description:
-        'Get the real Blackfire Io embed with full interactivity when available.'
+        'Profiles, comparisons, and reports each become a preview card that links to the live call graph on blackfire.io.'
     },
     {
-      title: 'All performance profiles',
+      title: 'Works with public profiles',
       description:
-        'Works with performance profiles — all Blackfire Io content types.'
+        'Point it at any publicly shared blackfire.io profile URL and the card pulls the page title and image automatically.'
     },
     {
       title: 'Preview card fallback',
@@ -75,23 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/codepen',
+      label: 'CodePen'
+    },
+    {
+      href: '/tools/embed-url/replit',
+      label: 'Replit'
+    },
+    {
+      href: '/tools/embed-url/codesandbox',
+      label: 'CodeSandbox'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Blackfire Io content on my website?',
+      question: 'How do I embed a Blackfire.io profile on my website?',
       answer:
-        'Paste any Blackfire Io URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste a public blackfire.io profile URL into the tool and click Generate. You will get a ready-to-paste preview card that links to the call graph.'
     },
     {
-      question: 'Is the Blackfire Io embed generator free?',
+      question: 'Does this show the interactive call graph inline?',
+      answer:
+        'No. Blackfire.io profiles are not served as a native inline embed, so the tool generates a styled preview card that links to the full graph on blackfire.io.'
+    },
+    {
+      question: 'What kinds of Blackfire.io links work?',
+      answer:
+        'Public profiles, comparisons, and reports all work — anything with a shareable blackfire.io URL.'
+    },
+    {
+      question: 'Can I embed a private profile?',
+      answer:
+        'No. Only profiles you have shared publicly can be previewed, since the tool reads the public page metadata.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Blackfire Io content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

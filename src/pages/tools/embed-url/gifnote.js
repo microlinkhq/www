@@ -4,18 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Gifnote',
   slug: 'gifnote',
-  color: '#666666',
-  exampleUrl: 'https://gifnote.com',
-  metaTitle: 'Gifnote Embed Code Generator — Embed Gifnote Content',
+  color: '#000000',
+  exampleUrl: 'https://www.gifnote.com',
+  metaTitle: 'Gifnote Embed Code Generator — Embed Music GIFs & Songbytes',
   metaDescription:
-    'Free Gifnote embed code generator. Paste any Gifnote URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed gifnote', 'gifnote embed code', 'gifnote embed generator'],
+    'Free Gifnote embed code generator. Paste a Gifnote URL — get a ready-to-paste embed or preview card for music GIFs and Songbytes. No signup.',
+  keywords: [
+    'embed gifnote',
+    'gifnote embed code',
+    'gifnote embed code generator',
+    'embed gifnote songbyte',
+    'gifnote music gif embed',
+    'embed gifnote gif',
+    'gifnote iframe code'
+  ],
   heroTitle: 'Gifnote Embed Code Generator',
   heroSubtitle:
-    'Paste any Gifnote URL — get a ready-to-paste embed or preview card.',
+    'Paste a Gifnote URL — get a ready-to-paste embed or preview card for music GIFs and Songbytes.',
   howItWorksHeading: 'How to embed Gifnote content',
   howItWorksSteps: [
-    { title: 'Paste a Gifnote link', description: 'Copy any gifnote.com URL.' },
+    {
+      title: 'Paste a Gifnote link',
+      description:
+        'Copy a gifnote.com URL for a music GIF or Songbyte — a short licensed music clip paired with a GIF, photo, or video.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Gifnote link and get working embed HTML.'
+      description:
+        'Skip the manual markup. Paste a Gifnote link and get working embed HTML.'
     },
     {
-      title: 'Gifnote content',
-      description: 'The tool handles all Gifnote URL formats.'
+      title: 'Music GIFs and Songbytes',
+      description:
+        'Built for Gifnote content — GIFs paired with short, licensed music clips known as Songbytes.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Gifnote embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Gifnote embed',
       description:
-        'Get the real Gifnote embed with full interactivity when available.'
+        'Get the real Gifnote embed with the music GIF and its paired Songbyte clip when available.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Gifnote URL formats and content types.'
+      title: 'Responsive output',
+      description:
+        'The embed adapts to your layout so it stays tidy on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/giphy', label: 'GIPHY' },
+    { href: '/tools/embed-url/coub', label: 'Coub' },
+    { href: '/tools/embed-url/songlink', label: 'Songlink' }
   ],
   faq: [
     {
       question: 'How do I embed Gifnote content on my website?',
-      answer: 'Paste any Gifnote URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Gifnote embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Gifnote content is private?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a Gifnote URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'What is a Songbyte?',
+      answer:
+        'A Songbyte is a short, licensed music clip from Gifnote that can be paired with a GIF, photo, or video.'
+    },
+    {
+      question: 'What if native embedding is not available?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image.'
+    },
+    {
+      question: 'Will the embed be responsive?',
+      answer:
+        'Yes. The generated embed adapts to your layout so it displays well on desktop and mobile.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

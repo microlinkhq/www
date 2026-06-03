@@ -4,30 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'HubSpot Bynder',
   slug: 'hubspot-bynder',
-  color: '#666666',
-  exampleUrl: 'https://bynder.com',
-  metaTitle:
-    'HubSpot Bynder Embed Code Generator — Embed HubSpot Bynder Content',
+  color: '#00AAFF',
+  exampleUrl:
+    'https://assets.getbynder.com/m/695ee06d2eccd8ca/original/Bynder-brand-asset.jpg',
+  metaTitle: 'HubSpot Bynder Embed Code Generator — Embed Bynder DAM Assets',
   metaDescription:
-    'Free HubSpot Bynder embed code generator. Paste any HubSpot Bynder URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free HubSpot Bynder embed code generator. Paste a Bynder asset URL — get a clean, ready-to-paste preview card for images and videos. No signup.',
   keywords: [
-    'embed hubspot bynder',
-    'hubspot bynder embed code',
-    'hubspot bynder embed generator'
+    'embed bynder',
+    'bynder embed code',
+    'hubspot bynder embed',
+    'embed bynder asset',
+    'bynder dam embed',
+    'embed bynder image',
+    'bynder embed code generator'
   ],
   heroTitle: 'HubSpot Bynder Embed Code Generator',
   heroSubtitle:
-    'Paste any HubSpot Bynder URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed HubSpot Bynder content',
+    'Paste a Bynder asset URL — get a clean, ready-to-paste preview card for your digital asset management images and videos.',
+  howItWorksHeading: 'How to embed a Bynder asset',
   howItWorksSteps: [
     {
-      title: 'Paste a HubSpot Bynder link',
-      description: 'Copy any bynder.com URL.'
+      title: 'Paste a Bynder link',
+      description:
+        'Copy a public asset URL from your Bynder portal — typically a getbynder.com link to an image or video.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the asset and generates a styled preview card you can drop into any page.'
     },
     {
       title: 'Copy & paste',
@@ -39,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any HubSpot Bynder link and get working embed HTML.'
+      description:
+        'Skip writing markup by hand. Paste a Bynder asset link and get working preview HTML.'
     },
     {
-      title: 'HubSpot Bynder content',
-      description: 'The tool handles all HubSpot Bynder URL formats.'
+      title: 'Built for DAM assets',
+      description:
+        'Designed for Bynder digital asset management links — images and videos shared from your brand portal.'
     },
     {
       title: 'Customizable preview card',
@@ -52,19 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 HubSpot Bynder embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Clean preview card',
       description:
-        'Get the real HubSpot Bynder embed with full interactivity when available.'
+        'Turn a Bynder asset link into a tidy card with the asset title and image — no portal login required to view.'
     },
     {
-      title: 'All content types',
+      title: 'Images and videos',
       description:
-        'Works with all HubSpot Bynder URL formats and content types.'
+        'Works with the image and video assets Bynder distributes, including HubSpot-synced brand files.'
     },
     {
       title: 'Preview card fallback',
@@ -73,22 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/hubspot',
+      label: 'HubSpot'
+    },
+    {
+      href: '/tools/embed-url/hivo',
+      label: 'HIVO'
+    },
+    {
+      href: '/tools/embed-url/getty-images',
+      label: 'Getty Images'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed HubSpot Bynder content on my website?',
-      answer: 'Paste any HubSpot Bynder URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the HubSpot Bynder embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the HubSpot Bynder content is private?',
+      question: 'How do I embed a Bynder asset on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a public Bynder asset URL into the tool and click Generate. You will get a ready-to-paste preview card for the image or video.'
+    },
+    {
+      question: 'What Bynder content can I embed?',
+      answer:
+        'Public images and videos shared from a Bynder portal, including assets synced to HubSpot, work best with the preview card.'
+    },
+    {
+      question: 'Does Bynder offer a native iframe embed?',
+      answer:
+        'Bynder assets are served as direct portal and CDN links rather than oEmbed players, so the tool generates a styled preview card instead.'
+    },
+    {
+      question: 'Can I embed private or restricted assets?',
+      answer:
+        'No. The asset must be publicly accessible. Private or login-only Bynder assets cannot be read by the tool.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

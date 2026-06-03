@@ -4,29 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Filestage',
   slug: 'filestage',
-  color: '#666666',
-  exampleUrl: 'https://filestage.io',
-  metaTitle: 'Filestage Embed Code Generator — Embed Filestage Content',
+  color: '#00C261',
+  exampleUrl: 'https://filestage.io/file-proofing/',
+  metaTitle:
+    'Filestage Embed Code Generator — Embed Video, Document & Image Review Links',
   metaDescription:
-    'Free Filestage embed code generator. Paste any Filestage URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Filestage embed code generator. Paste a Filestage review link — get a ready-to-paste embed or a styled preview card for video, document, image, and audio proofs. No signup.',
   keywords: [
     'embed filestage',
     'filestage embed code',
-    'filestage embed generator'
+    'filestage embed code generator',
+    'embed filestage review link',
+    'filestage preview card',
+    'filestage proofing embed',
+    'embed filestage video'
   ],
   heroTitle: 'Filestage Embed Code Generator',
   heroSubtitle:
-    'Paste any Filestage URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Filestage content',
+    'Paste a Filestage review link — get a ready-to-paste embed or a styled preview card for your video, document, image, and audio proofs.',
+  howItWorksHeading: 'How to embed a Filestage review link',
   howItWorksSteps: [
     {
       title: 'Paste a Filestage link',
-      description: 'Copy any filestage.io URL.'
+      description:
+        'Copy any filestage.io URL — review links for videos, documents, images, audio, and live websites.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the link and generates a preview card with the title and image so you can drop it anywhere.'
     },
     {
       title: 'Copy & paste',
@@ -38,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Filestage link and get working embed HTML.'
+      description:
+        'Skip building markup by hand. Paste a Filestage review link and get clean, ready-to-paste HTML.'
     },
     {
-      title: 'Filestage content',
-      description: 'The tool handles all Filestage URL formats.'
+      title: 'Built for proofing links',
+      description:
+        'Filestage review links are private by design, so the tool renders a tidy preview card you can share publicly.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Filestage embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Clean preview card',
       description:
-        'Get the real Filestage embed with full interactivity when available.'
+        'A styled card with the page title, description, and thumbnail that links straight to your Filestage proof.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Filestage URL formats and content types.'
+      title: 'All proof types',
+      description:
+        'Works with review links for video, documents, images, audio, and interactive HTML on filestage.io.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' },
+    { href: '/tools/embed-url/scribd', label: 'Scribd' }
   ],
   faq: [
     {
-      question: 'How do I embed Filestage content on my website?',
-      answer: 'Paste any Filestage URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Filestage embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Filestage content is private?',
+      question: 'How do I embed a Filestage review link on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any filestage.io URL into the tool and click Generate. You will get a ready-to-paste preview card that links to the proof.'
+    },
+    {
+      question: 'What Filestage content types are supported?',
+      answer:
+        'Filestage handles video, documents, images, audio, and interactive HTML proofs, and the tool builds a preview card for any of them.'
+    },
+    {
+      question: 'Can I embed a private Filestage review link?',
+      answer:
+        'Filestage review links are private and may be password protected. The tool builds a preview card from the available metadata rather than exposing the proof itself.'
+    },
+    {
+      question: 'What if no native Filestage embed is available?',
+      answer:
+        'The tool falls back to a styled preview card with the title and image, which you can customize in Card mode.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

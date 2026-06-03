@@ -5,26 +5,29 @@ const data = {
   name: 'Reddit',
   slug: 'reddit',
   color: '#FF4500',
-  exampleUrl: 'https://www.reddit.com/r/webdev/comments/example',
-  metaTitle: 'Reddit Embed Code Generator — Embed Posts & Comments',
+  exampleUrl:
+    'https://www.reddit.com/r/IAmA/comments/z1c9z/i_am_barack_obama_president_of_the_united_states/',
+  metaTitle: 'Reddit Embed Code Generator — Embed Posts, Comments & Threads',
   metaDescription:
-    'Free Reddit embed code generator. Paste any Reddit URL — get a ready-to-paste embed for posts, comments, and threads. No signup.',
+    'Free Reddit embed code generator. Paste any Reddit URL — get ready-to-paste embed HTML for posts, comments, and threads. No signup.',
   keywords: [
-    'embed reddit post',
+    'embed reddit',
     'reddit embed code',
     'reddit embed code generator',
+    'embed reddit post',
     'embed reddit comment',
-    'reddit post embed html',
-    'reddit embed for website'
+    'embed reddit thread',
+    'reddit post embed html'
   ],
   heroTitle: 'Reddit Embed Code Generator',
   heroSubtitle:
-    'Paste any Reddit URL — get a ready-to-paste embed for posts, comments, and threads.',
+    'Paste any Reddit URL — get ready-to-paste embed HTML for posts, comments, and threads.',
   howItWorksHeading: 'How to embed Reddit content',
   howItWorksSteps: [
     {
       title: 'Paste a Reddit link',
-      description: 'Copy any Reddit URL — posts, comments, and threads.'
+      description:
+        'Copy any reddit.com URL — a post, a single comment, or an entire thread.'
     },
     {
       title: 'Get the embed code',
@@ -42,7 +45,7 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Reddit link and get working embed HTML.'
+        'Skip the blockquote and widgets.js script wiring. Paste any Reddit link and get working embed HTML.'
     },
     {
       title: 'All Reddit content',
@@ -64,17 +67,17 @@ const data = {
     {
       title: 'Native Reddit embed',
       description:
-        'Get the real Reddit post embed with votes, author, subreddit, and comment count.'
+        'Get the real Reddit embed with the post title, author, subreddit, votes, and a link back to the thread.'
     },
     {
       title: 'Posts & comments',
       description:
-        'Post URLs, direct comment links, and cross-posts — the tool handles all Reddit URL formats.'
+        'Embed an entire post or a single comment — both Reddit content types are supported.'
     },
     {
       title: 'Preview card fallback',
       description:
-        'A styled card with title and subreddit info when the native embed is restricted.'
+        'A styled preview card with title and image when native embedding is restricted.'
     }
   ],
   relatedLinks: [
@@ -83,24 +86,34 @@ const data = {
       label: 'Twitter / X'
     },
     {
-      href: '/tools/embed-url/facebook',
-      label: 'Facebook'
+      href: '/tools/embed-url/bluesky',
+      label: 'Bluesky'
     },
     {
-      href: '/tools/embed-url/telegram',
-      label: 'Telegram'
+      href: '/tools/embed-url/tumblr',
+      label: 'Tumblr'
     }
   ],
   faq: [
     {
-      question: 'How do I embed a Reddit post?',
+      question: 'How do I embed a Reddit post on my website?',
       answer:
-        'Paste any Reddit post URL into the tool and click Generate. You will get a ready-to-paste embed.'
+        'Paste any Reddit post URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
     },
     {
-      question: 'Can I embed Reddit comments?',
+      question: 'Can I embed a single Reddit comment?',
       answer:
-        'Yes. Link directly to a comment and the tool will generate an embed for that specific comment.'
+        'Yes. Link directly to a comment and the tool will generate an embed for that specific comment, alongside full posts and threads.'
+    },
+    {
+      question: 'What if the post cannot be embedded natively?',
+      answer:
+        'Switch to Card mode to get a styled preview card with the title and image when native embedding is restricted.'
+    },
+    {
+      question: 'Can I embed posts from private or NSFW subreddits?',
+      answer:
+        'Only publicly viewable posts can be embedded. Posts in private subreddits and some restricted content are not available.'
     },
     {
       question: 'Is this free?',

@@ -2,22 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'KakaoTV',
+  name: 'Kakao TV',
   slug: 'kakaotv',
-  color: '#666666',
-  exampleUrl: 'https://tv.kakao.com',
-  metaTitle: 'KakaoTV Embed Code Generator — Embed KakaoTV Content',
+  color: '#FEE500',
+  exampleUrl: 'https://tv.kakao.com/channel/3089974/cliplink/406384573',
+  metaTitle: 'Kakao TV Embed Code Generator — Embed Videos, Live & Clips',
   metaDescription:
-    'Free KakaoTV embed code generator. Paste any KakaoTV URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed kakaotv', 'kakaotv embed code', 'kakaotv embed generator'],
-  heroTitle: 'KakaoTV Embed Code Generator',
+    'Free Kakao TV embed code generator. Paste any tv.kakao.com URL — get a ready-to-paste player for videos, live streams, and clips, or a preview card. No signup.',
+  keywords: [
+    'embed kakao tv',
+    'kakao tv embed code',
+    'kakao tv embed code generator',
+    'embed kakao tv video',
+    'kakao tv iframe code',
+    'embed kakao tv clip',
+    'kakao tv player embed'
+  ],
+  heroTitle: 'Kakao TV Embed Code Generator',
   heroSubtitle:
-    'Paste any KakaoTV URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed KakaoTV content',
+    'Paste any Kakao TV URL — get a ready-to-paste player for videos, live streams, and clips.',
+  howItWorksHeading: 'How to embed a Kakao TV video',
   howItWorksSteps: [
     {
-      title: 'Paste a KakaoTV link',
-      description: 'Copy any tv.kakao.com URL.'
+      title: 'Paste a Kakao TV link',
+      description:
+        'Copy any tv.kakao.com URL — channel videos, live streams, and clip links.'
     },
     {
       title: 'Get the embed code',
@@ -30,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our KakaoTV embed code generator',
+  explanationHeading: 'Why use our Kakao TV embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any KakaoTV link and get working embed HTML.'
+      description:
+        'Skip the manual URL conversion. Paste any Kakao TV link and get working embed HTML.'
     },
     {
-      title: 'KakaoTV content',
-      description: 'The tool handles all KakaoTV URL formats.'
+      title: 'Videos, live & clips',
+      description:
+        'Works with Kakao TV original shows, live broadcasts, and clip links — the tool handles the tv.kakao.com URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -47,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Kakao TV embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Kakao TV player',
       description:
-        'Get the real KakaoTV embed with full interactivity when available.'
+        'Get the real Kakao TV player with playback controls when the video allows embedding.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all KakaoTV URL formats and content types.'
+      title: 'Responsive video embed',
+      description:
+        'The player scales to fit your layout, from inline placement to full-width feature spots.'
     },
     {
       title: 'Preview card fallback',
@@ -67,28 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/naver-tv',
+      label: 'Naver TV'
+    },
+    {
+      href: '/tools/embed-url/youtube',
+      label: 'YouTube'
+    },
+    {
+      href: '/tools/embed-url/afreecatv',
+      label: 'AfreecaTV'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed KakaoTV content on my website?',
-      answer: 'Paste any KakaoTV URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the KakaoTV embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the KakaoTV content is private?',
+      question: 'How do I embed a Kakao TV video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any tv.kakao.com URL into the tool and click Generate. You will get a ready-to-paste player embed.'
+    },
+    {
+      question: 'Can I embed Kakao TV live streams and clips?',
+      answer:
+        'Yes. Channel videos, live broadcasts, and clip links from tv.kakao.com are all supported.'
+    },
+    {
+      question: 'What if the Kakao TV video cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card with the title and thumbnail when native embedding is restricted.'
+    },
+    {
+      question: 'Does the embed work on mobile?',
+      answer:
+        'Yes. The Kakao TV player is responsive and scales to fit phones, tablets, and desktop layouts.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const KakaoTVPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default KakaoTVPage

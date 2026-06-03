@@ -4,22 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Heyzine',
   slug: 'heyzine',
-  color: '#666666',
-  exampleUrl: 'https://heyzine.com',
-  metaTitle: 'Heyzine Embed Code Generator — Embed Heyzine Content',
+  color: '#19A975',
+  exampleUrl: 'https://heyzine.com/flip-book/c220f02c6b.html',
+  metaTitle: 'Heyzine Embed Code Generator — Embed Flipbooks',
   metaDescription:
-    'Free Heyzine embed code generator. Paste any Heyzine URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed heyzine', 'heyzine embed code', 'heyzine embed generator'],
+    'Free Heyzine embed code generator. Paste any Heyzine flipbook URL — get a ready-to-paste iframe for your page-flip PDF publications. No signup.',
+  keywords: [
+    'embed heyzine',
+    'heyzine embed code',
+    'heyzine embed code generator',
+    'embed heyzine flipbook',
+    'heyzine iframe code',
+    'embed flipbook',
+    'heyzine flipbook embed'
+  ],
   heroTitle: 'Heyzine Embed Code Generator',
   heroSubtitle:
-    'Paste any Heyzine URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Heyzine content',
+    'Paste any Heyzine flipbook URL — get a ready-to-paste iframe for your interactive page-flip PDF publications.',
+  howItWorksHeading: 'How to embed a Heyzine flipbook',
   howItWorksSteps: [
-    { title: 'Paste a Heyzine link', description: 'Copy any heyzine.com URL.' },
+    {
+      title: 'Paste a Heyzine link',
+      description:
+        'Copy any heyzine.com flip-book URL — the public reader link to your published flipbook.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the flipbook and generates the right embed HTML for your page.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Heyzine link and get working embed HTML.'
+      description:
+        'Skip digging through the share menu. Paste any Heyzine link and get working embed HTML.'
     },
     {
-      title: 'Heyzine content',
-      description: 'The tool handles all Heyzine URL formats.'
+      title: 'Interactive page-flip reader',
+      description:
+        'Embeds the real Heyzine reader with realistic page-turn, slide, and cover-flow effects.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Heyzine embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native flipbook reader',
       description:
-        'Get the real Heyzine embed with full interactivity when available.'
+        'Get the real Heyzine reader so visitors can flip through your PDF pages right on your site.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Heyzine URL formats and content types.'
+      title: 'Responsive embed',
+      description:
+        'The flipbook adapts to all device sizes and screen orientations for desktop and mobile readers.'
     },
     {
       title: 'Preview card fallback',
@@ -64,28 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/issuu',
+      label: 'Issuu'
+    },
+    {
+      href: '/tools/embed-url/yumpu',
+      label: 'Yumpu'
+    },
+    {
+      href: '/tools/embed-url/scribd',
+      label: 'Scribd'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Heyzine content on my website?',
-      answer: 'Paste any Heyzine URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Heyzine embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Heyzine content is private?',
+      question: 'How do I embed a Heyzine flipbook on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste your Heyzine flip-book URL into the tool and click Generate. You will get a ready-to-paste iframe for your page.'
+    },
+    {
+      question: 'What content does Heyzine embed?',
+      answer:
+        'Heyzine turns PDFs into interactive page-flip flipbooks and can include videos, audio, images, and links inside the publication.'
+    },
+    {
+      question: 'Is the embedded flipbook responsive?',
+      answer:
+        'Yes. The Heyzine reader adapts to all screen sizes, so it works on desktop, tablet, and mobile.'
+    },
+    {
+      question: 'What if the flipbook cannot be embedded?',
+      answer:
+        'If a flipbook is password-protected or domain-restricted, switch to Card mode to get a styled preview card with the title and cover image.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const HeyzinePage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default HeyzinePage

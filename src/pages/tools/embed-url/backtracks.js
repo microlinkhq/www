@@ -4,29 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Backtracks',
   slug: 'backtracks',
-  color: '#666666',
-  exampleUrl: 'https://backtracks.fm',
-  metaTitle: 'Backtracks Embed Code Generator — Embed Backtracks Content',
+  color: '#2EDBAD',
+  exampleUrl:
+    'https://player.backtracks.fm/backtracks/backtracks/m/player-example',
+  metaTitle: 'Backtracks Embed Code Generator — Embed Podcast Players',
   metaDescription:
-    'Free Backtracks embed code generator. Paste any Backtracks URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Backtracks embed code generator. Paste a Backtracks player URL — get a ready-to-paste podcast player for episodes and shows. No signup.',
   keywords: [
     'embed backtracks',
     'backtracks embed code',
-    'backtracks embed generator'
+    'backtracks embed code generator',
+    'embed backtracks player',
+    'backtracks podcast player embed',
+    'backtracks iframe code',
+    'embed backtracks episode'
   ],
   heroTitle: 'Backtracks Embed Code Generator',
   heroSubtitle:
-    'Paste any Backtracks URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Backtracks content',
+    'Paste a Backtracks player URL — get a ready-to-paste podcast player for episodes and shows.',
+  howItWorksHeading: 'How to embed a Backtracks podcast player',
   howItWorksSteps: [
     {
       title: 'Paste a Backtracks link',
-      description: 'Copy any backtracks.fm URL.'
+      description:
+        'Copy any player.backtracks.fm URL — episode pages and show players both work.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the Backtracks player and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -38,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Backtracks link and get working embed HTML.'
+      description:
+        'Skip the embedder script and data attributes. Paste any Backtracks link and get working embed HTML.'
     },
     {
-      title: 'Backtracks content',
-      description: 'The tool handles all Backtracks URL formats.'
+      title: 'Episodes and shows',
+      description:
+        'Works with single episode players and full show players — the tool handles Backtracks player URLs.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Backtracks embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Backtracks player',
       description:
-        'Get the real Backtracks embed with full interactivity when available.'
+        'Get the real Backtracks audio player with cover art, playback controls, and timeline.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Backtracks URL formats and content types.'
+      title: 'Responsive playback',
+      description:
+        'The player adapts to your layout so listeners can play episodes inline on any device.'
     },
     {
       title: 'Preview card fallback',
@@ -71,28 +81,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/podbean',
+      label: 'Podbean'
+    },
+    {
+      href: '/tools/embed-url/spreaker',
+      label: 'Spreaker'
+    },
+    {
+      href: '/tools/embed-url/simplecast',
+      label: 'Simplecast'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Backtracks content on my website?',
-      answer: 'Paste any Backtracks URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Backtracks embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Backtracks content is private?',
+      question: 'How do I embed a Backtracks podcast player on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste your Backtracks player URL into the tool and click Generate. You will get a ready-to-paste podcast player.'
+    },
+    {
+      question: 'Can I embed a full show as well as a single episode?',
+      answer:
+        'Yes. Both single episode players and full show players from player.backtracks.fm are supported.'
+    },
+    {
+      question: 'Will the player work on mobile?',
+      answer:
+        'Yes. The Backtracks player is responsive and adapts to your layout so listeners can play episodes on any device.'
+    },
+    {
+      question: 'What if the player cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card with the title and cover image, which you can customize in Card mode.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const BacktracksPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default BacktracksPage

@@ -4,18 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Dalexni',
   slug: 'dalexni',
-  color: '#666666',
-  exampleUrl: 'https://dalexni.com',
-  metaTitle: 'Dalexni Embed Code Generator — Embed Dalexni Content',
+  color: '#1A1A1A',
+  exampleUrl: 'https://dalexni.com/i/sample',
+  metaTitle: 'Dalexni Embed Code Generator — Embed Images & Videos',
   metaDescription:
-    'Free Dalexni embed code generator. Paste any Dalexni URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed dalexni', 'dalexni embed code', 'dalexni embed generator'],
+    'Free Dalexni embed code generator. Paste a Dalexni URL — get a ready-to-paste embed for hosted images and videos, or a preview card. No signup.',
+  keywords: [
+    'embed dalexni',
+    'dalexni embed code',
+    'dalexni embed code generator',
+    'embed dalexni image',
+    'embed dalexni video',
+    'dalexni iframe code',
+    'dalexni image embed'
+  ],
   heroTitle: 'Dalexni Embed Code Generator',
   heroSubtitle:
-    'Paste any Dalexni URL — get a ready-to-paste embed or preview card.',
+    'Paste a Dalexni URL — get a ready-to-paste embed for hosted images and videos.',
   howItWorksHeading: 'How to embed Dalexni content',
   howItWorksSteps: [
-    { title: 'Paste a Dalexni link', description: 'Copy any dalexni.com URL.' },
+    {
+      title: 'Paste a Dalexni link',
+      description:
+        'Copy a dalexni.com URL for a hosted image or video (for example, a dalexni.com/i/ link).'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Dalexni link and get working embed HTML.'
+      description:
+        'Skip the manual markup. Paste a Dalexni link and get working embed HTML.'
     },
     {
-      title: 'Dalexni content',
-      description: 'The tool handles all Dalexni URL formats.'
+      title: 'Images and videos',
+      description:
+        'Works with the images and videos hosted on Dalexni — paste the link and the tool handles the rest.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Dalexni embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Dalexni embed',
       description:
-        'Get the real Dalexni embed with full interactivity when available.'
+        'Get the real Dalexni embed for a hosted image or video when one is available.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Dalexni URL formats and content types.'
+      title: 'Responsive output',
+      description:
+        'The embed adapts to your page width so media stays readable on any screen.'
     },
     {
       title: 'Preview card fallback',
@@ -65,21 +81,28 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/twitter-or-x', label: 'Twitter / X' }
   ],
   faq: [
     {
       question: 'How do I embed Dalexni content on my website?',
-      answer: 'Paste any Dalexni URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Dalexni embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Dalexni content is private?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a Dalexni URL into the tool and click Generate. You will get a ready-to-paste embed for the hosted image or video.'
+    },
+    {
+      question: 'What can I embed from Dalexni?',
+      answer:
+        'Dalexni hosts images and videos, so you can embed the media behind a dalexni.com link.'
+    },
+    {
+      question: 'What if the Dalexni content is private or unavailable?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata, such as the title and image.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

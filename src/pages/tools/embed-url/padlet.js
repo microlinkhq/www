@@ -4,20 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Padlet',
   slug: 'padlet',
-  color: '#E03997',
-  exampleUrl: 'https://padlet.com',
-  metaTitle: 'Padlet Embed Code Generator — Embed Boards and walls',
+  color: '#FF4081',
+  exampleUrl:
+    'https://padlet.com/gallerytemplates/board-examples-re4mdv6hltsgef9b',
+  metaTitle: 'Padlet Embed Code Generator — Embed Boards & Walls',
   metaDescription:
-    'Free Padlet embed code generator. Paste any Padlet URL — get a ready-to-paste embed for boards and walls. No signup.',
-  keywords: ['embed padlet', 'padlet embed code', 'padlet board embed'],
+    'Free Padlet embed code generator. Paste any Padlet URL — get a ready-to-paste embed for collaborative boards, walls, maps, and timelines. No signup.',
+  keywords: [
+    'embed padlet',
+    'padlet embed code',
+    'padlet embed code generator',
+    'embed padlet board',
+    'padlet iframe code',
+    'embed padlet wall',
+    'padlet board embed'
+  ],
   heroTitle: 'Padlet Embed Code Generator',
   heroSubtitle:
-    'Paste any Padlet URL — get a ready-to-paste embed for boards and walls.',
-  howItWorksHeading: 'How to embed Padlet content',
+    'Paste any Padlet URL — get a ready-to-paste embed for collaborative boards, walls, maps, and timelines.',
+  howItWorksHeading: 'How to embed a Padlet board',
   howItWorksSteps: [
     {
       title: 'Paste a Padlet link',
-      description: 'Copy any padlet.com URL — boards and walls.'
+      description:
+        'Copy any padlet.com URL — collaborative boards, walls, maps, and timelines.'
     },
     {
       title: 'Get the embed code',
@@ -38,9 +48,9 @@ const data = {
         'Skip the manual URL conversion. Paste any Padlet link and get working embed HTML.'
     },
     {
-      title: 'All Padlet content',
+      title: 'All Padlet layouts',
       description:
-        'Works with boards and walls — the tool handles all Padlet URL formats.'
+        'Works with walls, grids, shelves, maps, and timelines — the tool handles all Padlet URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -50,18 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Padlet embeds per day. No login, no API key.'
+        'Generate up to 50 Padlet embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native interactive board',
       description:
-        'Get the real Padlet embed with full interactivity when available.'
+        'Get the real Padlet embed so readers can scroll posts, open attachments, and react in place.'
     },
     {
-      title: 'All boards and walls',
-      description: 'Works with boards and walls — all Padlet content types.'
+      title: 'Walls, maps & timelines',
+      description:
+        'Every Padlet layout works — walls, grids, shelves, maps, and timelines render responsively.'
     },
     {
       title: 'Preview card fallback',
@@ -70,23 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/miro', label: 'Miro' },
+    { href: '/tools/embed-url/whimsical', label: 'Whimsical' },
+    { href: '/tools/embed-url/wizer-me', label: 'Wizer.me' }
   ],
   faq: [
     {
-      question: 'How do I embed Padlet content on my website?',
+      question: 'How do I embed a Padlet board on my website?',
       answer:
         'Paste any Padlet URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
     },
     {
-      question: 'Is the Padlet embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Which Padlet layouts can I embed?',
+      answer:
+        'All of them — walls, grids, shelves, maps, and timelines are supported.'
     },
     {
-      question: 'What if the Padlet content is private?',
+      question: 'Can readers interact with the embedded board?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Yes. The native embed keeps the board interactive so visitors can scroll posts and open attachments. Whether they can add posts depends on the board permissions you set in Padlet.'
+    },
+    {
+      question: 'What if the Padlet board is private?',
+      answer:
+        'Private or password-protected boards cannot be embedded interactively, so the tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

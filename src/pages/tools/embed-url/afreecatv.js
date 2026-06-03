@@ -4,24 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'AfreecaTV',
   slug: 'afreecatv',
-  color: '#666666',
-  exampleUrl: 'https://afreecatv.com',
-  metaTitle: 'AfreecaTV Embed Code Generator — Embed AfreecaTV Content',
+  color: '#0045FF',
+  exampleUrl: 'https://vod.afreecatv.com/player/45221914',
+  metaTitle: 'AfreecaTV Embed Code Generator — Embed Live Streams & VOD',
   metaDescription:
-    'Free AfreecaTV embed code generator. Paste any AfreecaTV URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free AfreecaTV (SOOP) embed code generator. Paste any AfreecaTV URL — get a ready-to-paste player for live streams and VOD replays. No signup.',
   keywords: [
     'embed afreecatv',
     'afreecatv embed code',
-    'afreecatv embed generator'
+    'afreecatv embed code generator',
+    'embed afreecatv live stream',
+    'afreecatv iframe code',
+    'afreecatv player embed',
+    'embed afreecatv vod',
+    'embed soop video'
   ],
   heroTitle: 'AfreecaTV Embed Code Generator',
   heroSubtitle:
-    'Paste any AfreecaTV URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed AfreecaTV content',
+    'Paste any AfreecaTV (SOOP) URL — get a ready-to-paste player for live streams and VOD replays.',
+  howItWorksHeading: 'How to embed an AfreecaTV video',
   howItWorksSteps: [
     {
-      title: 'Paste a AfreecaTV link',
-      description: 'Copy any afreecatv.com URL.'
+      title: 'Paste an AfreecaTV link',
+      description:
+        'Copy any afreecatv.com or sooplive.co.kr URL — live channels or VOD replays.'
     },
     {
       title: 'Get the embed code',
@@ -38,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any AfreecaTV link and get working embed HTML.'
+      description:
+        'Skip the manual URL conversion. Paste any AfreecaTV link and get working embed HTML.'
     },
     {
-      title: 'AfreecaTV content',
-      description: 'The tool handles all AfreecaTV URL formats.'
+      title: 'Live streams and VOD',
+      description:
+        'Works with live broadcasts and on-demand replays — the tool handles AfreecaTV and SOOP URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 AfreecaTV embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native AfreecaTV player',
       description:
-        'Get the real AfreecaTV embed with full interactivity when available.'
+        'Get the real AfreecaTV player for live broadcasts and VOD replays with playback controls.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all AfreecaTV URL formats and content types.'
+      title: 'Responsive embed',
+      description:
+        'The player adapts to your layout so streams and replays look right on any screen size.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/sooplive',
+      label: 'SoopLive'
+    },
+    {
+      href: '/tools/embed-url/kakaotv',
+      label: 'KakaoTV'
+    },
+    {
+      href: '/tools/embed-url/naver-tv',
+      label: 'Naver TV'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed AfreecaTV content on my website?',
-      answer: 'Paste any AfreecaTV URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the AfreecaTV embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the AfreecaTV content is private?',
+      question: 'How do I embed an AfreecaTV video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any AfreecaTV URL into the tool and click Generate. You will get a ready-to-paste player.'
+    },
+    {
+      question: 'Does it work with SOOP URLs?',
+      answer:
+        'Yes. AfreecaTV rebranded to SOOP, so both afreecatv.com and sooplive.co.kr links are supported.'
+    },
+    {
+      question: 'Can I embed live streams and VOD replays?',
+      answer:
+        'Yes. Both live broadcasts and on-demand VOD replays are supported.'
+    },
+    {
+      question: 'What if the AfreecaTV content is private or offline?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

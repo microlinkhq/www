@@ -4,24 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Audioboom',
   slug: 'audioboom',
-  color: '#666666',
-  exampleUrl: 'https://audioboom.com',
-  metaTitle: 'Audioboom Embed Code Generator — Embed Audioboom Content',
+  color: '#1A1A1A',
+  exampleUrl:
+    'https://audioboom.com/posts/4285299-living-in-the-mountains-for-three-months',
+  metaTitle: 'Audioboom Embed Code Generator — Embed Podcast Episodes',
   metaDescription:
-    'Free Audioboom embed code generator. Paste any Audioboom URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Audioboom embed code generator. Paste an Audioboom URL — get a ready-to-paste player for podcast episodes and channels. No signup.',
   keywords: [
     'embed audioboom',
     'audioboom embed code',
-    'audioboom embed generator'
+    'audioboom embed code generator',
+    'embed audioboom episode',
+    'audioboom player embed',
+    'audioboom iframe code',
+    'embed audioboom podcast'
   ],
   heroTitle: 'Audioboom Embed Code Generator',
   heroSubtitle:
-    'Paste any Audioboom URL — get a ready-to-paste embed or preview card.',
+    'Paste an Audioboom URL — get a ready-to-paste player for podcast episodes and channels.',
   howItWorksHeading: 'How to embed Audioboom content',
   howItWorksSteps: [
     {
-      title: 'Paste a Audioboom link',
-      description: 'Copy any audioboom.com URL.'
+      title: 'Paste an Audioboom link',
+      description:
+        'Copy any audioboom.com URL — episode (post) links or channel pages.'
     },
     {
       title: 'Get the embed code',
@@ -38,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Audioboom link and get working embed HTML.'
+      description:
+        'Skip hunting for the embed button on Audioboom. Paste any link and get working embed HTML.'
     },
     {
-      title: 'Audioboom content',
-      description: 'The tool handles all Audioboom URL formats.'
+      title: 'Episodes and channels',
+      description:
+        'Works with individual episodes and full podcast channels — the tool handles both Audioboom URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Audioboom embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Audioboom player',
       description:
-        'Get the real Audioboom embed with full interactivity when available.'
+        'Get the real Audioboom player with cover art, playback controls, and a scrubber.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Audioboom URL formats and content types.'
+      title: 'Episodes and channels',
+      description:
+        'A single-episode player for inline listening or a channel player that lists a show’s latest episodes.'
     },
     {
       title: 'Preview card fallback',
@@ -71,28 +81,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/podbean',
+      label: 'Podbean'
+    },
+    {
+      href: '/tools/embed-url/spreaker',
+      label: 'Spreaker'
+    },
+    {
+      href: '/tools/embed-url/acast',
+      label: 'Acast'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Audioboom content on my website?',
-      answer: 'Paste any Audioboom URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Audioboom embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Audioboom content is private?',
+      question: 'How do I embed an Audioboom episode on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste an Audioboom episode URL into the tool and click Generate. You will get a ready-to-paste player you can drop into any page.'
+    },
+    {
+      question: 'Can I embed a whole Audioboom channel?',
+      answer:
+        'Yes. Both individual episode (post) links and full channel pages are supported.'
+    },
+    {
+      question: 'What happens if the native player cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card with the episode title and artwork, which you can customize in Card mode.'
+    },
+    {
+      question: 'Is the embedded player responsive?',
+      answer:
+        'Yes. The Audioboom player scales to the width of its container, so it fits both desktop and mobile layouts.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const AudioboomPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default AudioboomPage

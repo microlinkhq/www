@@ -2,29 +2,37 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'amCharts',
+  name: 'amCharts Live Editor',
   slug: 'amcharts-live-editor',
-  color: '#3CABFF',
-  exampleUrl: 'https://live.amcharts.com',
+  color: '#72ACD9',
+  exampleUrl: 'https://live.amcharts.com/g4NWF/',
   metaTitle:
-    'amCharts Embed Code Generator — Embed Charts and data visualizations',
+    'amCharts Live Editor Embed Code Generator — Embed Interactive Charts',
   metaDescription:
-    'Free amCharts embed code generator. Paste any amCharts URL — get a ready-to-paste embed for charts and data visualizations. No signup.',
-  keywords: ['embed amcharts', 'amcharts embed code', 'amcharts chart embed'],
-  heroTitle: 'amCharts Embed Code Generator',
+    'Free amCharts Live Editor embed code generator. Paste a live.amcharts.com URL — get a ready-to-paste iframe for interactive charts and data visualizations. No signup.',
+  keywords: [
+    'embed amcharts live editor',
+    'amcharts live editor embed code',
+    'amcharts embed code generator',
+    'embed amcharts chart',
+    'amcharts iframe code',
+    'embed interactive chart',
+    'amcharts chart embed'
+  ],
+  heroTitle: 'amCharts Live Editor Embed Code Generator',
   heroSubtitle:
-    'Paste any amCharts URL — get a ready-to-paste embed for charts and data visualizations.',
-  howItWorksHeading: 'How to embed amCharts content',
+    'Paste an amCharts Live Editor URL — get a ready-to-paste iframe for interactive charts and data visualizations.',
+  howItWorksHeading: 'How to embed an amCharts Live Editor chart',
   howItWorksSteps: [
     {
-      title: 'Paste a amCharts link',
+      title: 'Paste an amCharts Live Editor link',
       description:
-        'Copy any live.amcharts.com URL — charts and data visualizations.'
+        'Copy any live.amcharts.com chart URL — line, bar, pie, and other interactive chart types.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the chart URL and generates the iframe embed HTML for you.'
     },
     {
       title: 'Copy & paste',
@@ -32,17 +40,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our amCharts embed code generator',
+  explanationHeading: 'Why use our amCharts Live Editor embed code generator',
   reasons: [
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any amCharts link and get working embed HTML.'
+        'Skip digging through the share dialog. Paste a live.amcharts.com link and get working embed HTML.'
     },
     {
-      title: 'All amCharts content',
+      title: 'Interactive charts intact',
       description:
-        'Works with charts and data visualizations — the tool handles all amCharts URL formats.'
+        'The embedded chart keeps its tooltips, legends, and hover interactions exactly as built in the editor.'
     },
     {
       title: 'Customizable preview card',
@@ -52,19 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 amCharts embeds per day. No login, no API key.'
+        'Generate up to 50 amCharts Live Editor embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native interactive chart',
       description:
-        'Get the real amCharts embed with full interactivity when available.'
+        'Get the real amCharts Live Editor chart with live tooltips, legends, and animations.'
     },
     {
-      title: 'All charts and data visualizations',
+      title: 'All chart types',
       description:
-        'Works with charts and data visualizations — all amCharts content types.'
+        'Line, column, bar, pie, and other data visualizations published from the Live Editor all work.'
     },
     {
       title: 'Preview card fallback',
@@ -73,23 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/datawrapper',
+      label: 'Datawrapper'
+    },
+    {
+      href: '/tools/embed-url/infogram',
+      label: 'Infogram'
+    },
+    {
+      href: '/tools/embed-url/chartblocks',
+      label: 'ChartBlocks'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed amCharts content on my website?',
+      question: 'How do I embed an amCharts Live Editor chart on my website?',
       answer:
-        'Paste any amCharts URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste your live.amcharts.com chart URL into the tool and click Generate. You will get a ready-to-paste iframe embed.'
     },
     {
-      question: 'Is the amCharts embed generator free?',
+      question: 'Which amCharts chart types can I embed?',
+      answer:
+        'Any public chart published from the Live Editor — line, column, bar, pie, and other interactive visualizations.'
+    },
+    {
+      question: 'Does the embedded chart stay interactive?',
+      answer:
+        'Yes. The native embed keeps tooltips, legends, and hover interactions just like the original chart.'
+    },
+    {
+      question: 'What if the chart is private or unpublished?',
+      answer:
+        'Only public Live Editor charts can be embedded natively. For others the tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the amCharts content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

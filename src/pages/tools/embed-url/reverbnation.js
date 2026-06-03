@@ -5,23 +5,29 @@ const data = {
   name: 'ReverbNation',
   slug: 'reverbnation',
   color: '#E43526',
-  exampleUrl: 'https://reverbnation.com',
-  metaTitle: 'ReverbNation Embed Code Generator — Embed Songs and artist pages',
+  exampleUrl: 'https://www.reverbnation.com/scottyandthereverbs',
+  metaTitle:
+    'ReverbNation Embed Code Generator — Embed Songs & Artist Profiles',
   metaDescription:
-    'Free ReverbNation embed code generator. Paste any ReverbNation URL — get a ready-to-paste embed for songs and artist pages. No signup.',
+    'Free ReverbNation embed code generator. Paste any ReverbNation URL — get a ready-to-paste player widget for songs and independent artist profiles. No signup.',
   keywords: [
     'embed reverbnation',
     'reverbnation embed code',
-    'reverbnation player embed'
+    'reverbnation embed code generator',
+    'embed reverbnation song',
+    'embed reverbnation artist',
+    'reverbnation player widget',
+    'reverbnation widget embed'
   ],
   heroTitle: 'ReverbNation Embed Code Generator',
   heroSubtitle:
-    'Paste any ReverbNation URL — get a ready-to-paste embed for songs and artist pages.',
+    'Paste any ReverbNation URL — get a ready-to-paste player widget for songs and independent artist profiles.',
   howItWorksHeading: 'How to embed ReverbNation content',
   howItWorksSteps: [
     {
       title: 'Paste a ReverbNation link',
-      description: 'Copy any reverbnation.com URL — songs and artist pages.'
+      description:
+        'Copy any reverbnation.com URL — independent artist profiles and song pages.'
     },
     {
       title: 'Get the embed code',
@@ -39,12 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any ReverbNation link and get working embed HTML.'
+        'Skip digging through the Share menu. Paste any ReverbNation link and get working embed HTML.'
     },
     {
-      title: 'All ReverbNation content',
+      title: 'Songs and artist profiles',
       description:
-        'Works with songs and artist pages — the tool handles all ReverbNation URL formats.'
+        'Works with individual song pages and full independent artist profiles on reverbnation.com.'
     },
     {
       title: 'Customizable preview card',
@@ -54,19 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 ReverbNation embeds per day. No login, no API key.'
+        'Generate up to 50 ReverbNation embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native player widget',
       description:
-        'Get the real ReverbNation embed with full interactivity when available.'
+        'Get the real ReverbNation player widget with artwork and playback controls when available.'
     },
     {
-      title: 'All songs and artist pages',
+      title: 'Songs and artist profiles',
       description:
-        'Works with songs and artist pages — all ReverbNation content types.'
+        'Individual songs and full independent artist profiles — the tool handles ReverbNation URL formats.'
     },
     {
       title: 'Preview card fallback',
@@ -75,23 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/soundcloud',
+      label: 'SoundCloud'
+    },
+    {
+      href: '/tools/embed-url/audiomack',
+      label: 'Audiomack'
+    },
+    {
+      href: '/tools/embed-url/audius',
+      label: 'Audius'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed ReverbNation content on my website?',
+      question: 'How do I embed a ReverbNation song on my website?',
       answer:
-        'Paste any ReverbNation URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any ReverbNation URL into the tool and click Generate. You will get a ready-to-paste player widget.'
     },
     {
-      question: 'Is the ReverbNation embed generator free?',
+      question: 'Can I embed an artist profile?',
+      answer:
+        'Yes. Both individual song pages and full independent artist profiles are supported.'
+    },
+    {
+      question: 'Does the embed play the music?',
+      answer:
+        'Yes. The native ReverbNation player widget includes playback controls so visitors can listen in place.'
+    },
+    {
+      question: 'What if native embedding is restricted?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the ReverbNation content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

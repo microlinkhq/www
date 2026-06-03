@@ -5,24 +5,33 @@ const data = {
   name: 'Rumble',
   slug: 'rumble',
   color: '#85C742',
-  exampleUrl: 'https://rumble.com',
-  metaTitle: 'Rumble Embed Code Generator — Embed Videos and channels',
+  exampleUrl: 'https://rumble.com/embed/vn7nxp/',
+  metaTitle: 'Rumble Embed Code Generator — Embed Videos & Channels',
   metaDescription:
-    'Free Rumble embed code generator. Paste any Rumble URL — get a ready-to-paste embed for videos and channels. No signup.',
-  keywords: ['embed rumble', 'rumble embed code', 'rumble video embed'],
+    'Free Rumble embed code generator. Paste any Rumble URL — get a ready-to-paste video player for videos and channels. No signup.',
+  keywords: [
+    'embed rumble',
+    'rumble embed code',
+    'rumble embed code generator',
+    'embed rumble video',
+    'rumble video embed',
+    'rumble iframe code',
+    'rumble player embed'
+  ],
   heroTitle: 'Rumble Embed Code Generator',
   heroSubtitle:
-    'Paste any Rumble URL — get a ready-to-paste embed for videos and channels.',
-  howItWorksHeading: 'How to embed Rumble content',
+    'Paste any Rumble URL — get a ready-to-paste video player for videos and channels.',
+  howItWorksHeading: 'How to embed a Rumble video',
   howItWorksSteps: [
     {
       title: 'Paste a Rumble link',
-      description: 'Copy any rumble.com URL — videos and channels.'
+      description:
+        'Copy any rumble.com URL — individual videos or channel pages.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the video and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -35,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Rumble link and get working embed HTML.'
+        'Skip digging through the Rumble embed menu. Paste any Rumble link and get working embed HTML.'
     },
     {
-      title: 'All Rumble content',
+      title: 'Videos and channels',
       description:
-        'Works with videos and channels — the tool handles all Rumble URL formats.'
+        'Works with individual videos and channel pages — the tool handles Rumble URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -50,18 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Rumble embeds per day. No login, no API key.'
+        'Generate up to 50 Rumble embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Rumble player',
       description:
-        'Get the real Rumble embed with full interactivity when available.'
+        'Get the real Rumble video player with playback controls and full interactivity.'
     },
     {
-      title: 'All videos and channels',
-      description: 'Works with videos and channels — all Rumble content types.'
+      title: 'Responsive video embed',
+      description:
+        'The player scales to fit your layout, from inline placement to full-width feature slots.'
     },
     {
       title: 'Preview card fallback',
@@ -70,29 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/youtube',
+      label: 'YouTube'
+    },
+    {
+      href: '/tools/embed-url/dailymotion',
+      label: 'Dailymotion'
+    },
+    {
+      href: '/tools/embed-url/odysee',
+      label: 'Odysee'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Rumble content on my website?',
+      question: 'How do I embed a Rumble video on my website?',
       answer:
-        'Paste any Rumble URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any Rumble URL into the tool and click Generate. You will get a ready-to-paste video player you can drop into any HTML editor.'
     },
     {
-      question: 'Is the Rumble embed generator free?',
+      question: 'Can I embed a Rumble channel?',
+      answer:
+        'Yes. Both individual videos and channel pages are supported — the tool detects the content and generates the right embed.'
+    },
+    {
+      question: 'Is the Rumble player responsive?',
+      answer:
+        'Yes. The embedded player scales to the width of its container, so it stays watchable on phones, tablets, and desktops.'
+    },
+    {
+      question: 'What if the Rumble video is private or restricted?',
+      answer:
+        'When native embedding is not available, the tool falls back to a styled preview card with the title and image.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Rumble content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const RumblePage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default RumblePage

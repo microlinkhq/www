@@ -4,25 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Framer',
   slug: 'framer',
-  color: '#0055FF',
-  exampleUrl: 'https://framer.com',
-  metaTitle: 'Framer Embed Code Generator — Embed Prototypes and sites',
+  color: '#0099FF',
+  exampleUrl: 'https://pearl.framer.website/',
+  metaTitle: 'Framer Embed Code Generator — Embed Published Sites & Prototypes',
   metaDescription:
-    'Free Framer embed code generator. Paste any Framer URL — get a ready-to-paste embed for prototypes and sites. No signup.',
-  keywords: ['embed framer', 'framer embed code', 'framer prototype embed'],
+    'Free Framer embed code generator. Paste a Framer URL — get a ready-to-paste iframe for published sites, landing pages, and prototypes. No signup.',
+  keywords: [
+    'embed framer',
+    'framer embed code',
+    'framer embed code generator',
+    'embed framer site',
+    'embed framer prototype',
+    'framer iframe code',
+    'embed framer website',
+    'framer landing page embed'
+  ],
   heroTitle: 'Framer Embed Code Generator',
   heroSubtitle:
-    'Paste any Framer URL — get a ready-to-paste embed for prototypes and sites.',
+    'Paste a Framer URL — get a ready-to-paste iframe for published sites, landing pages, and prototypes.',
   howItWorksHeading: 'How to embed Framer content',
   howItWorksSteps: [
     {
       title: 'Paste a Framer link',
-      description: 'Copy any framer.com URL — prototypes and sites.'
+      description:
+        'Copy a published Framer URL — framer.website sites, custom domains, and live prototypes all work.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the page and generates a responsive iframe you can drop into any layout.'
     },
     {
       title: 'Copy & paste',
@@ -35,12 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Framer link and get working embed HTML.'
+        'Skip writing iframe markup by hand. Paste any Framer link and get working embed HTML.'
     },
     {
-      title: 'All Framer content',
+      title: 'Sites and prototypes',
       description:
-        'Works with prototypes and sites — the tool handles all Framer URL formats.'
+        'Works with published Framer websites, landing pages, and interactive prototypes.'
     },
     {
       title: 'Customizable preview card',
@@ -50,18 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Framer embeds per day. No login, no API key.'
+        'Generate up to 50 Framer embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Live, interactive embed',
       description:
-        'Get the real Framer embed with full interactivity when available.'
+        'Embed the real published Framer page so visitors can scroll and interact with it inline.'
     },
     {
-      title: 'All prototypes and sites',
-      description: 'Works with prototypes and sites — all Framer content types.'
+      title: 'Responsive iframe',
+      description:
+        'The embed adapts to your container width so the Framer page looks right on any screen.'
     },
     {
       title: 'Preview card fallback',
@@ -70,29 +81,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/figma',
+      label: 'Figma'
+    },
+    {
+      href: '/tools/embed-url/sketch',
+      label: 'Sketch'
+    },
+    {
+      href: '/tools/embed-url/canva',
+      label: 'Canva'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Framer content on my website?',
+      question: 'How do I embed a Framer site on my website?',
       answer:
-        'Paste any Framer URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste your published Framer URL into the tool and click Generate. You will get a ready-to-paste iframe.'
     },
     {
-      question: 'Is the Framer embed generator free?',
+      question: 'Can I embed a Framer prototype?',
+      answer:
+        'Yes. Published Framer sites, landing pages, and interactive prototypes are all supported.'
+    },
+    {
+      question: 'What if my Framer page cannot be embedded?',
+      answer:
+        'Some pages block iframe embedding through HTTP headers. When that happens, switch to Card mode to generate a styled preview card with the title and image instead.'
+    },
+    {
+      question: 'Is the embedded Framer page interactive?',
+      answer:
+        'Yes. The native embed loads the live published page, so visitors can scroll and interact with it just like the original.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Framer content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const FramerPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default FramerPage

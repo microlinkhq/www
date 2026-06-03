@@ -4,25 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'BitChute',
   slug: 'bitchute',
-  color: '#EF4137',
-  exampleUrl: 'https://bitchute.com',
-  metaTitle: 'BitChute Embed Code Generator — Embed Videos and channels',
+  color: '#EF4138',
+  exampleUrl: 'https://www.bitchute.com/video/NaAv9dGN1JtI/',
+  metaTitle: 'BitChute Embed Code Generator — Embed Videos & Channels',
   metaDescription:
-    'Free BitChute embed code generator. Paste any BitChute URL — get a ready-to-paste embed for videos and channels. No signup.',
-  keywords: ['embed bitchute', 'bitchute embed code', 'bitchute video embed'],
+    'Free BitChute embed code generator. Paste any BitChute URL — get a ready-to-paste iframe player for videos and channels. No signup.',
+  keywords: [
+    'embed bitchute',
+    'bitchute embed code',
+    'bitchute embed code generator',
+    'embed bitchute video',
+    'bitchute iframe code',
+    'bitchute video embed',
+    'embed bitchute channel'
+  ],
   heroTitle: 'BitChute Embed Code Generator',
   heroSubtitle:
-    'Paste any BitChute URL — get a ready-to-paste embed for videos and channels.',
-  howItWorksHeading: 'How to embed BitChute content',
+    'Paste any BitChute URL — get a ready-to-paste iframe player for videos and channels.',
+  howItWorksHeading: 'How to embed a BitChute video',
   howItWorksSteps: [
     {
       title: 'Paste a BitChute link',
-      description: 'Copy any bitchute.com URL — videos and channels.'
+      description:
+        'Copy any bitchute.com URL — video pages and channel links both work.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the video and generates the right iframe embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -35,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any BitChute link and get working embed HTML.'
+        'Skip swapping the URL path by hand. Paste any BitChute link and get working embed HTML.'
     },
     {
-      title: 'All BitChute content',
+      title: 'Videos and channels',
       description:
-        'Works with videos and channels — the tool handles all BitChute URL formats.'
+        'Works with individual video pages and channel links — the tool handles BitChute URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -50,19 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 BitChute embeds per day. No login, no API key.'
+        'Generate up to 50 BitChute embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native BitChute player',
       description:
-        'Get the real BitChute embed with full interactivity when available.'
+        'Get the real BitChute iframe player with playback controls, straight from bitchute.com.'
     },
     {
-      title: 'All videos and channels',
+      title: 'Responsive embed',
       description:
-        'Works with videos and channels — all BitChute content types.'
+        'The iframe adapts to your layout so the video scales cleanly on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,29 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/youtube',
+      label: 'YouTube'
+    },
+    {
+      href: '/tools/embed-url/rumble',
+      label: 'Rumble'
+    },
+    {
+      href: '/tools/embed-url/odysee',
+      label: 'Odysee'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed BitChute content on my website?',
+      question: 'How do I embed a BitChute video on my website?',
       answer:
-        'Paste any BitChute URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any BitChute video URL into the tool and click Generate. You will get a ready-to-paste iframe player.'
     },
     {
-      question: 'Is the BitChute embed generator free?',
+      question: 'Can I embed a BitChute channel?',
+      answer:
+        'You can paste channel links, but BitChute provides a native iframe player for individual videos. For best results, use a specific video URL.'
+    },
+    {
+      question: 'What if the video cannot be embedded?',
+      answer:
+        'If native embedding is restricted, switch to Card mode to generate a styled preview card with the video title and thumbnail instead.'
+    },
+    {
+      question: 'Is the embed responsive?',
+      answer:
+        'Yes. The iframe scales to fit your container so the video looks right on desktop and mobile.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the BitChute content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const BitChutePage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default BitChutePage

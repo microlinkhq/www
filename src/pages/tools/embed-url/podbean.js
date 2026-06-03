@@ -4,20 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Podbean',
   slug: 'podbean',
-  color: '#6CBB47',
-  exampleUrl: 'https://podbean.com',
-  metaTitle: 'Podbean Embed Code Generator — Embed Podcast episodes and shows',
+  color: '#428200',
+  exampleUrl:
+    'https://podcast.podbean.com/e/podbean-amplified-s2e1-live-at-podcast-movement/',
+  metaTitle: 'Podbean Embed Code Generator — Embed Episodes & Podcasts',
   metaDescription:
-    'Free Podbean embed code generator. Paste any Podbean URL — get a ready-to-paste embed for podcast episodes and shows. No signup.',
-  keywords: ['embed podbean', 'podbean embed code', 'podbean podcast embed'],
+    'Free Podbean embed code generator. Paste any Podbean URL — get a ready-to-paste iframe player for episodes, podcasts, and playlists. No signup.',
+  keywords: [
+    'embed podbean',
+    'podbean embed code',
+    'podbean embed code generator',
+    'embed podbean episode',
+    'podbean player embed',
+    'podbean iframe code',
+    'embed podbean podcast'
+  ],
   heroTitle: 'Podbean Embed Code Generator',
   heroSubtitle:
-    'Paste any Podbean URL — get a ready-to-paste embed for podcast episodes and shows.',
+    'Paste any Podbean URL — get a ready-to-paste iframe player for episodes, podcasts, and playlists.',
   howItWorksHeading: 'How to embed Podbean content',
   howItWorksSteps: [
     {
       title: 'Paste a Podbean link',
-      description: 'Copy any podbean.com URL — podcast episodes and shows.'
+      description:
+        'Copy any podbean.com URL — single episodes, full podcasts, or playlists.'
     },
     {
       title: 'Get the embed code',
@@ -33,14 +43,14 @@ const data = {
   explanationHeading: 'Why use our Podbean embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
+      title: 'No dashboard needed',
       description:
-        'Skip the manual URL conversion. Paste any Podbean link and get working embed HTML.'
+        'Skip digging through the Podbean dashboard for the Share and Embed button. Paste a link and get working embed HTML.'
     },
     {
       title: 'All Podbean content',
       description:
-        'Works with podcast episodes and shows — the tool handles all Podbean URL formats.'
+        'Works with single episodes, full podcasts, and playlists — the tool handles Podbean URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -50,19 +60,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Podbean embeds per day. No login, no API key.'
+        'Generate up to 50 Podbean embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Podbean player',
       description:
-        'Get the real Podbean embed with full interactivity when available.'
+        'Get the real Podbean audio player with cover art, playback controls, and download and share buttons.'
     },
     {
-      title: 'All podcast episodes and shows',
+      title: 'Episodes, podcasts & playlists',
       description:
-        'Works with podcast episodes and shows — all Podbean content types.'
+        'Single episodes, an entire podcast feed, or a playlist — all Podbean content types work.'
     },
     {
       title: 'Preview card fallback',
@@ -71,23 +81,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/spreaker',
+      label: 'Spreaker'
+    },
+    {
+      href: '/tools/embed-url/simplecast',
+      label: 'Simplecast'
+    },
+    {
+      href: '/tools/embed-url/soundcloud',
+      label: 'SoundCloud'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Podbean content on my website?',
+      question: 'How do I embed a Podbean episode on my website?',
       answer:
-        'Paste any Podbean URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any Podbean URL into the tool and click Generate. You will get a ready-to-paste iframe player.'
     },
     {
-      question: 'Is the Podbean embed generator free?',
+      question: 'Can I embed a whole Podbean podcast?',
+      answer:
+        'Yes. Single episodes, full podcast feeds, and playlists are all supported.'
+    },
+    {
+      question: 'What if the episode is private or unlisted?',
+      answer:
+        'Native embedding only works for public episodes. For restricted content the tool falls back to a preview card with the title and image.'
+    },
+    {
+      question: 'Does the embedded player work on mobile?',
+      answer:
+        'Yes. The Podbean player is responsive and adapts to the width of your page on phones and tablets.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Podbean content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

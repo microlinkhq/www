@@ -4,22 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Chroco',
   slug: 'chroco',
-  color: '#666666',
-  exampleUrl: 'https://chroco.ooo',
-  metaTitle: 'Chroco Embed Code Generator — Embed Chroco Content',
+  color: '#619989',
+  exampleUrl: 'https://chroco.ooo/u/blue_islands/t/mwukgmoqugiaw',
+  metaTitle: 'Chroco Embed Code Generator — Embed Timelines',
   metaDescription:
-    'Free Chroco embed code generator. Paste any Chroco URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed chroco', 'chroco embed code', 'chroco embed generator'],
+    'Free Chroco embed code generator. Paste a chroco.ooo timeline URL — get a ready-to-paste embed or styled preview card. No signup.',
+  keywords: [
+    'embed chroco',
+    'chroco embed code',
+    'chroco embed code generator',
+    'embed chroco timeline',
+    'chroco iframe code',
+    'chroco timeline embed',
+    'chroco.ooo embed'
+  ],
   heroTitle: 'Chroco Embed Code Generator',
   heroSubtitle:
-    'Paste any Chroco URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Chroco content',
+    'Paste a Chroco timeline URL — get a ready-to-paste embed or a styled preview card.',
+  howItWorksHeading: 'How to embed a Chroco timeline',
   howItWorksSteps: [
-    { title: 'Paste a Chroco link', description: 'Copy any chroco.ooo URL.' },
+    {
+      title: 'Paste a Chroco link',
+      description:
+        'Copy a chroco.ooo timeline or story URL from your browser address bar.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the timeline and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Chroco link and get working embed HTML.'
+      description:
+        'Skip building the iframe by hand. Paste a Chroco link and get working embed HTML.'
     },
     {
-      title: 'Chroco content',
-      description: 'The tool handles all Chroco URL formats.'
+      title: 'Share your timeline',
+      description:
+        'Put a Chroco portfolio or story timeline directly on your own page or blog.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Chroco embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native timeline embed',
       description:
-        'Get the real Chroco embed with full interactivity when available.'
+        'Get the interactive Chroco timeline view rendered inline on your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Chroco URL formats and content types.'
+      title: 'Timelines & stories',
+      description:
+        'Works with chroco.ooo timeline and story URLs that arrange bookmarks chronologically.'
     },
     {
       title: 'Preview card fallback',
@@ -65,21 +81,33 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/figma', label: 'Figma' }
   ],
   faq: [
     {
-      question: 'How do I embed Chroco content on my website?',
-      answer: 'Paste any Chroco URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Chroco embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Chroco content is private?',
+      question: 'How do I embed a Chroco timeline on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste a chroco.ooo timeline URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'What kind of Chroco content can I embed?',
+      answer:
+        'Chroco timelines and stories, which arrange bookmarked links and records into a chronological view.'
+    },
+    {
+      question: 'What if the Chroco timeline is private?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is the embed responsive?',
+      answer:
+        'Yes. The embed fits its container, and the preview card adapts to your page layout.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

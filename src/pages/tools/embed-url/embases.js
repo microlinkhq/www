@@ -4,22 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Embases',
   slug: 'embases',
-  color: '#666666',
-  exampleUrl: 'https://embases.com',
-  metaTitle: 'Embases Embed Code Generator — Embed Embases Content',
+  color: '#000000',
+  exampleUrl: 'https://www.embases.com',
+  metaTitle:
+    'Embases Embed Code Generator — Embed Charts & Data Visualizations',
   metaDescription:
-    'Free Embases embed code generator. Paste any Embases URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed embases', 'embases embed code', 'embases embed generator'],
+    'Free Embases embed code generator. Paste an Embases chart URL — get a ready-to-paste responsive iframe or styled preview card. No signup.',
+  keywords: [
+    'embed embases',
+    'embases embed code',
+    'embases embed code generator',
+    'embed embases chart',
+    'embases iframe code',
+    'embases chart embed',
+    'embed embases dashboard'
+  ],
   heroTitle: 'Embases Embed Code Generator',
   heroSubtitle:
-    'Paste any Embases URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Embases content',
+    'Paste an Embases chart URL — get a ready-to-paste responsive iframe for your charts and data visualizations.',
+  howItWorksHeading: 'How to embed an Embases chart',
   howItWorksSteps: [
-    { title: 'Paste a Embases link', description: 'Copy any embases.com URL.' },
+    {
+      title: 'Paste an Embases link',
+      description:
+        'Copy a chart or data visualization URL from embases.com and paste it in.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the content and generates the right responsive iframe HTML.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Embases link and get working embed HTML.'
+      description:
+        'Skip the manual embed steps. Paste an Embases link and get working iframe HTML.'
     },
     {
-      title: 'Embases content',
-      description: 'The tool handles all Embases URL formats.'
+      title: 'Responsive charts',
+      description:
+        'Embases charts are built to be responsive, so they fit neatly into any page width.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Embases embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive chart embeds',
       description:
-        'Get the real Embases embed with full interactivity when available.'
+        'Get an embed for Embases charts and data visualizations, with the live interactivity intact when available.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Embases URL formats and content types.'
+      title: 'Fits any layout',
+      description:
+        'The responsive iframe adapts to your container, from narrow sidebars to full-width sections.'
     },
     {
       title: 'Preview card fallback',
@@ -65,21 +82,33 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/twitter-or-x', label: 'Twitter / X' }
   ],
   faq: [
     {
-      question: 'How do I embed Embases content on my website?',
-      answer: 'Paste any Embases URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Embases embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Embases content is private?',
+      question: 'How do I embed an Embases chart on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste your Embases chart URL into the tool and click Generate. You will get a ready-to-paste responsive iframe.'
+    },
+    {
+      question: 'What kind of Embases content can I embed?',
+      answer:
+        'Embases charts and data visualizations, such as line, bar, area, and KPI charts.'
+    },
+    {
+      question: 'Will the embedded chart stay responsive?',
+      answer:
+        'Yes. Embases charts are designed to be responsive, so the embed adjusts to the width of your page.'
+    },
+    {
+      question: 'What if the Embases chart cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

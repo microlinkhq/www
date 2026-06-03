@@ -166,6 +166,38 @@ export const embedBreadcrumb = ({ name, slug }) => ({
   ]
 })
 
+const RelatedLinks = ({ links }) => {
+  if (!links || links.length === 0) return null
+  return (
+    <Container
+      as='section'
+      id='related-tools'
+      css={theme({ alignItems: 'center', pb: [4, 4, 5, 5], pt: [2, 2, 3, 3] })}
+    >
+      <Flex
+        css={theme({
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 2,
+          fontSize: 1,
+          color: 'black60'
+        })}
+      >
+        <Text css={theme({ fontWeight: 'bold', color: 'black80' })}>
+          Related tools:
+        </Text>
+        {links.map(({ href, label }, i) => (
+          <React.Fragment key={href}>
+            {i > 0 && <Text css={theme({ color: 'black30' })}>·</Text>}
+            <Link href={href}>{label}</Link>
+          </React.Fragment>
+        ))}
+      </Flex>
+    </Container>
+  )
+}
+
 export const providerHead = ({
   name,
   slug,
@@ -222,7 +254,8 @@ export const ProviderSubtool = ({
   explanationHeading,
   reasons,
   features,
-  faq
+  faq,
+  relatedLinks
 }) => (
   <Layout>
     <Hero title={heroTitle} subtitle={heroSubtitle} />
@@ -259,5 +292,6 @@ export const ProviderSubtool = ({
       features={features}
     />
     <FaqSection questions={faq} />
+    <RelatedLinks links={relatedLinks} />
   </Layout>
 )

@@ -2,31 +2,36 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Ethfiddle',
+  name: 'EthFiddle',
   slug: 'ethfiddle',
-  color: '#666666',
-  exampleUrl: 'https://ethfiddle.com',
-  metaTitle: 'Ethfiddle Embed Code Generator — Embed Ethfiddle Content',
+  color: '#1BC98E',
+  exampleUrl: 'https://ethfiddle.com/2Rx8cQdEx3',
+  metaTitle: 'EthFiddle Embed Code Generator — Embed Solidity Snippets',
   metaDescription:
-    'Free Ethfiddle embed code generator. Paste any Ethfiddle URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free EthFiddle embed code generator. Paste an ethfiddle.com URL — get ready-to-paste HTML for your syntax-highlighted Solidity smart contract snippets. No signup.',
   keywords: [
     'embed ethfiddle',
     'ethfiddle embed code',
-    'ethfiddle embed generator'
+    'ethfiddle embed code generator',
+    'embed solidity code snippet',
+    'ethfiddle iframe code',
+    'embed smart contract code',
+    'embed solidity ethfiddle'
   ],
-  heroTitle: 'Ethfiddle Embed Code Generator',
+  heroTitle: 'EthFiddle Embed Code Generator',
   heroSubtitle:
-    'Paste any Ethfiddle URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Ethfiddle content',
+    'Paste an EthFiddle URL — get ready-to-paste HTML for your syntax-highlighted Solidity smart contract snippets.',
+  howItWorksHeading: 'How to embed an EthFiddle snippet',
   howItWorksSteps: [
     {
-      title: 'Paste a Ethfiddle link',
-      description: 'Copy any ethfiddle.com URL.'
+      title: 'Paste an EthFiddle link',
+      description:
+        'Copy any ethfiddle.com snippet URL — the permalink to a shared Solidity fiddle.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the EthFiddle snippet and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Ethfiddle embed code generator',
+  explanationHeading: 'Why use our EthFiddle embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Ethfiddle link and get working embed HTML.'
+      description:
+        'Skip the oEmbed API call. Paste any EthFiddle link and get working embed HTML.'
     },
     {
-      title: 'Ethfiddle content',
-      description: 'The tool handles all Ethfiddle URL formats.'
+      title: 'Built for Solidity',
+      description:
+        'Share syntax-highlighted Solidity smart contract code that readers can review inline.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 EthFiddle embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native EthFiddle snippet',
       description:
-        'Get the real Ethfiddle embed with full interactivity when available.'
+        'Get the real EthFiddle embed with syntax highlighting for your shared Solidity code.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Ethfiddle URL formats and content types.'
+      title: 'Responsive embed',
+      description:
+        'The snippet embed scales to fit your column width, so code stays readable on any screen.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/codepen',
+      label: 'CodePen'
+    },
+    {
+      href: '/tools/embed-url/codesandbox',
+      label: 'CodeSandbox'
+    },
+    {
+      href: '/tools/embed-url/replit',
+      label: 'Replit'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Ethfiddle content on my website?',
-      answer: 'Paste any Ethfiddle URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Ethfiddle embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Ethfiddle content is private?',
+      question: 'How do I embed an EthFiddle snippet on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste an ethfiddle.com snippet URL into the tool and click Generate. You will get a ready-to-paste embed for the snippet.'
+    },
+    {
+      question: 'What can I embed from EthFiddle?',
+      answer:
+        'Shared Solidity code snippets — the syntax-highlighted smart contract fiddles you save and share on ethfiddle.com.'
+    },
+    {
+      question: 'Does the embed keep syntax highlighting?',
+      answer:
+        'Yes. The native EthFiddle embed shows your Solidity code with the same syntax highlighting as the snippet page.'
+    },
+    {
+      question: 'What if a snippet cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card with the snippet title and image so you still get a clean, shareable block.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

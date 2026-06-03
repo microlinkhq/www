@@ -2,31 +2,37 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Assemblrworld',
+  name: 'Assemblr World',
   slug: 'assemblrworld',
-  color: '#666666',
-  exampleUrl: 'https://assemblrworld.com',
-  metaTitle: 'Assemblrworld Embed Code Generator — Embed Assemblrworld Content',
+  color: '#0066FF',
+  exampleUrl: 'https://studio.assemblrworld.com/explore',
+  metaTitle: 'Assemblr World Embed Code Generator — Embed 3D & AR Projects',
   metaDescription:
-    'Free Assemblrworld embed code generator. Paste any Assemblrworld URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Assemblr World embed code generator. Paste an Assemblr World project link to get a ready-to-paste 3D/AR embed or preview card. No signup.',
   keywords: [
-    'embed assemblrworld',
-    'assemblrworld embed code',
-    'assemblrworld embed generator'
+    'embed assemblr world',
+    'embed assemblr world ar',
+    'assemblr world embed code',
+    'assemblr world embed generator',
+    'embed assemblr 3d project',
+    'assemblr studio embed',
+    'embed ar project',
+    'embed 3d model assemblr'
   ],
-  heroTitle: 'Assemblrworld Embed Code Generator',
+  heroTitle: 'Assemblr World Embed Code Generator',
   heroSubtitle:
-    'Paste any Assemblrworld URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Assemblrworld content',
+    'Paste an Assemblr World project link to get ready-to-paste embed HTML for your interactive 3D and AR experience.',
+  howItWorksHeading: 'How to embed an Assemblr World project',
   howItWorksSteps: [
     {
-      title: 'Paste a Assemblrworld link',
-      description: 'Copy any assemblrworld.com URL.'
+      title: 'Paste an Assemblr World link',
+      description:
+        'Copy a published project link from studio.assemblrworld.com or an asblr.app share URL.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects your Assemblr World project and generates the interactive 3D/AR embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -34,15 +40,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Assemblrworld embed code generator',
+  explanationHeading: 'Why use our Assemblr World embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Assemblrworld link and get working embed HTML.'
+      description:
+        'Paste a published Assemblr World project link and get working embed HTML — no need to dig through the Share panel.'
     },
     {
-      title: 'Assemblrworld content',
-      description: 'The tool handles all Assemblrworld URL formats.'
+      title: 'Interactive 3D & AR',
+      description:
+        'Embed Assemblr World scenes so visitors can rotate, zoom, and explore the 3D and AR content right on your page.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Assemblr World embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native interactive embed',
       description:
-        'Get the real Assemblrworld embed with full interactivity when available.'
+        'Get the real Assemblr World viewer so visitors can pan, rotate, and zoom the 3D/AR scene without leaving your site.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Assemblrworld URL formats and content types.'
+      title: 'Responsive viewer',
+      description:
+        'The embed scales to fit blog posts, course pages, and documentation across desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/sketchfab', label: 'Sketchfab' },
+    { href: '/tools/embed-url/matterport', label: 'Matterport' },
+    { href: '/tools/embed-url/briovr', label: 'BrioVR' }
   ],
   faq: [
     {
-      question: 'How do I embed Assemblrworld content on my website?',
-      answer: 'Paste any Assemblrworld URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Assemblrworld embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Assemblrworld content is private?',
+      question: 'How do I embed an Assemblr World project on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Publish your project in Assemblr Studio, copy its share link, then paste it into the tool to get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'What content can I embed from Assemblr World?',
+      answer:
+        'Interactive 3D and AR projects built in Assemblr Studio, including scenes with 3D models, animations, and clickable buttons.'
+    },
+    {
+      question: 'Can visitors interact with the embedded 3D scene?',
+      answer:
+        'Yes. The native viewer lets people rotate, zoom, and explore the scene directly inside the embed.'
+    },
+    {
+      question: 'What if the project is private or cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card with the project title and image so you still have something clean to paste.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

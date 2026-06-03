@@ -2,24 +2,36 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Everviz',
+  name: 'everviz',
   slug: 'everviz',
-  color: '#666666',
-  exampleUrl: 'https://everviz.com',
-  metaTitle: 'Everviz Embed Code Generator — Embed Everviz Content',
+  color: '#28277E',
+  exampleUrl: 'https://app.everviz.com/embed/DBYC7mj-4/',
+  metaTitle: 'everviz Embed Code Generator — Embed Charts, Maps & Tables',
   metaDescription:
-    'Free Everviz embed code generator. Paste any Everviz URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed everviz', 'everviz embed code', 'everviz embed generator'],
-  heroTitle: 'Everviz Embed Code Generator',
+    'Free everviz embed code generator. Paste any everviz URL — get a ready-to-paste iframe for interactive charts, maps, and tables. No signup.',
+  keywords: [
+    'embed everviz',
+    'everviz embed code',
+    'everviz embed code generator',
+    'embed everviz chart',
+    'everviz iframe code',
+    'embed everviz map',
+    'everviz interactive chart embed'
+  ],
+  heroTitle: 'everviz Embed Code Generator',
   heroSubtitle:
-    'Paste any Everviz URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Everviz content',
+    'Paste any everviz URL — get a ready-to-paste iframe for interactive charts, maps, and tables.',
+  howItWorksHeading: 'How to embed an everviz chart',
   howItWorksSteps: [
-    { title: 'Paste a Everviz link', description: 'Copy any everviz.com URL.' },
+    {
+      title: 'Paste an everviz link',
+      description:
+        'Copy any published app.everviz.com URL — interactive charts, maps, or tables.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the visualization and generates the right iframe embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -27,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Everviz embed code generator',
+  explanationHeading: 'Why use our everviz embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Everviz link and get working embed HTML.'
+      description:
+        'Skip digging through the publishing panel. Paste any everviz link and get working embed HTML.'
     },
     {
-      title: 'Everviz content',
-      description: 'The tool handles all Everviz URL formats.'
+      title: 'Charts, maps & tables',
+      description:
+        'Works with everviz interactive charts, maps, and data tables built on the Highcharts engine.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 everviz embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native interactive embed',
       description:
-        'Get the real Everviz embed with full interactivity when available.'
+        'Get the real everviz iframe with tooltips, hover states, and full Highcharts interactivity.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Everviz URL formats and content types.'
+      title: 'Responsive visualizations',
+      description:
+        'Charts, maps, and tables scale to fit your layout across desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/datawrapper',
+      label: 'Datawrapper'
+    },
+    {
+      href: '/tools/embed-url/infogram',
+      label: 'Infogram'
+    },
+    {
+      href: '/tools/embed-url/chartblocks',
+      label: 'ChartBlocks'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Everviz content on my website?',
-      answer: 'Paste any Everviz URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Everviz embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Everviz content is private?',
+      question: 'How do I embed an everviz chart on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any published everviz URL into the tool and click Generate. You will get a ready-to-paste iframe embed.'
+    },
+    {
+      question: 'What everviz content can I embed?',
+      answer:
+        'Interactive charts, maps, and data tables published from app.everviz.com are all supported.'
+    },
+    {
+      question: 'Are the embedded charts interactive?',
+      answer:
+        'Yes. The native iframe keeps everviz tooltips, hover states, and Highcharts interactivity intact.'
+    },
+    {
+      question: 'What if the everviz visualization is private?',
+      answer:
+        'If native embedding is restricted, the tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

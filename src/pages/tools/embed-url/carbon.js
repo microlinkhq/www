@@ -4,25 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Carbon',
   slug: 'carbon',
-  color: '#666666',
-  exampleUrl: 'https://carbon.now.sh',
-  metaTitle: 'Carbon Embed Code Generator — Embed Carbon Content',
+  color: '#121212',
+  exampleUrl: 'https://carbon.now.sh/MCojkuzwoNJO8QUyPCQI',
+  metaTitle: 'Carbon Embed Code Generator — Embed Source Code Snippets',
   metaDescription:
-    'Free Carbon embed code generator. Paste any Carbon URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed carbon', 'carbon embed code', 'carbon embed generator'],
+    'Free Carbon embed code generator. Paste any carbon.now.sh URL — get a ready-to-paste iframe of your beautiful source code snippet or a preview card. No signup.',
+  keywords: [
+    'embed carbon',
+    'carbon embed code',
+    'carbon embed code generator',
+    'embed carbon.now.sh',
+    'carbon iframe code',
+    'embed code snippet image',
+    'carbon now sh embed'
+  ],
   heroTitle: 'Carbon Embed Code Generator',
   heroSubtitle:
-    'Paste any Carbon URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Carbon content',
+    'Paste any carbon.now.sh URL — get a ready-to-paste iframe of your beautiful source code snippet.',
+  howItWorksHeading: 'How to embed a Carbon snippet',
   howItWorksSteps: [
     {
       title: 'Paste a Carbon link',
-      description: 'Copy any carbon.now.sh URL.'
+      description:
+        'Copy any carbon.now.sh URL — a shared snippet or an /embed link.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the snippet and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -34,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Carbon link and get working embed HTML.'
+      description:
+        'Skip building the iframe by hand. Paste any Carbon link and get working embed HTML.'
     },
     {
-      title: 'Carbon content',
-      description: 'The tool handles all Carbon URL formats.'
+      title: 'Beautiful code images',
+      description:
+        'Embed the polished, syntax-highlighted code snippet exactly as it looks on carbon.now.sh.'
     },
     {
       title: 'Customizable preview card',
@@ -47,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Carbon embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Carbon embed',
       description:
-        'Get the real Carbon embed with full interactivity when available.'
+        'Get the real carbon.now.sh embed with the styled, syntax-highlighted snippet when available.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Carbon URL formats and content types.'
+      title: 'Snippets & gists',
+      description:
+        'Works with saved Carbon snippets and embedded GitHub gists rendered as code images.'
     },
     {
       title: 'Preview card fallback',
@@ -67,22 +80,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/codepen',
+      label: 'CodePen'
+    },
+    {
+      href: '/tools/embed-url/codesandbox',
+      label: 'CodeSandbox'
+    },
+    {
+      href: '/tools/embed-url/replit',
+      label: 'Replit'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Carbon content on my website?',
-      answer: 'Paste any Carbon URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Carbon embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Carbon content is private?',
+      question: 'How do I embed a Carbon snippet on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any carbon.now.sh URL into the tool and click Generate. You will get a ready-to-paste iframe of your code snippet.'
+    },
+    {
+      question: 'Can I embed a Carbon snippet or a GitHub gist?',
+      answer:
+        'Yes. Saved Carbon snippets and snippets created from a GitHub gist both work via the carbon.now.sh/embed URL.'
+    },
+    {
+      question: 'Is the embedded code selectable?',
+      answer:
+        'Carbon embeds render the snippet as a styled code image, so readers see the highlighted code and can copy it from the embed.'
+    },
+    {
+      question: 'What if the snippet cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card with the title and image so you can still share it.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

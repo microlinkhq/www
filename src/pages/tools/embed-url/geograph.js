@@ -4,29 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Geograph',
   slug: 'geograph',
-  color: '#666666',
-  exampleUrl: 'https://geograph.org.uk',
-  metaTitle: 'Geograph Embed Code Generator — Embed Geograph Content',
+  color: '#000066',
+  exampleUrl: 'https://www.geograph.org.uk/photo/3390013',
+  metaTitle: 'Geograph Embed Code Generator — Embed British Isles Photos',
   metaDescription:
-    'Free Geograph embed code generator. Paste any Geograph URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Geograph embed code generator. Paste any geograph.org.uk photo URL — get a ready-to-paste embed for geographically tagged British Isles photographs. No signup.',
   keywords: [
     'embed geograph',
     'geograph embed code',
-    'geograph embed generator'
+    'geograph embed code generator',
+    'embed geograph photo',
+    'geograph iframe code',
+    'embed geograph grid square photo',
+    'geograph britain ireland embed'
   ],
   heroTitle: 'Geograph Embed Code Generator',
   heroSubtitle:
-    'Paste any Geograph URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Geograph content',
+    'Paste any Geograph URL — get a ready-to-paste embed for geographically tagged photographs of the British Isles.',
+  howItWorksHeading: 'How to embed a Geograph photo',
   howItWorksSteps: [
     {
       title: 'Paste a Geograph link',
-      description: 'Copy any geograph.org.uk URL.'
+      description:
+        'Copy any geograph.org.uk URL — individual photo pages and grid square references both work.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the photo page and generates the right embed HTML for it.'
     },
     {
       title: 'Copy & paste',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Geograph link and get working embed HTML.'
+      description:
+        'Skip building markup by hand. Paste any Geograph link and get working embed HTML.'
     },
     {
-      title: 'Geograph content',
-      description: 'The tool handles all Geograph URL formats.'
+      title: 'Keeps the photo credit',
+      description:
+        'Geograph photos are Creative Commons with attribution — the embed surfaces the title and photographer so credit stays intact.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 Geograph embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'British Isles photography',
       description:
-        'Get the real Geograph embed with full interactivity when available.'
+        'Embed geographically tagged photos covering every square kilometre of Great Britain and Ireland.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Geograph URL formats and content types.'
+      title: 'Responsive image embed',
+      description:
+        'The embed adapts to your layout so the photo scales cleanly on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,28 +80,49 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/flickr',
+      label: 'Flickr'
+    },
+    {
+      href: '/tools/embed-url/naturalatlas',
+      label: 'Natural Atlas'
+    },
+    {
+      href: '/tools/embed-url/smugmug',
+      label: 'SmugMug'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Geograph content on my website?',
-      answer: 'Paste any Geograph URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Geograph embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Geograph content is private?',
+      question: 'How do I embed a Geograph photo on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any geograph.org.uk photo URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'What can I embed from Geograph?',
+      answer:
+        'Individual photo pages and grid square references work — the geographically tagged photographs of the British Isles that Geograph hosts.'
+    },
+    {
+      question: 'Does the embed keep the photographer attribution?',
+      answer:
+        'Yes. Geograph images are Creative Commons with attribution, so the embed surfaces the title and photographer credit.'
+    },
+    {
+      question: 'What if a photo cannot be embedded natively?',
+      answer:
+        'The tool falls back to a styled preview card showing the photo title and image, which you can customize in Card mode.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
 
 export const Head = () => providerHead(data)
 
-const Page = () => <ProviderSubtool {...data} />
+const GeographPage = () => <ProviderSubtool {...data} />
 
-export default Page
+export default GeographPage

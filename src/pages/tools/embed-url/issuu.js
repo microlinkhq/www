@@ -4,31 +4,35 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Issuu',
   slug: 'issuu',
-  color: '#0071D1',
-  exampleUrl: 'https://issuu.com',
-  metaTitle: 'Issuu Embed Code Generator — Embed Publications',
+  color: '#F36D5D',
+  exampleUrl:
+    'https://issuu.com/digital.magazine/docs/arts-collections-volume-1-2024',
+  metaTitle: 'Issuu Embed Code Generator — Embed Flipbooks & Magazines',
   metaDescription:
-    'Free Issuu embed code generator. Paste any Issuu URL — get a ready-to-paste embed for publications, magazines, and catalogs. No signup.',
+    'Free Issuu embed code generator. Paste any Issuu URL — get a ready-to-paste flipbook reader for magazines, catalogs, and digital publications. No signup.',
   keywords: [
     'embed issuu',
     'issuu embed code',
-    'issuu publication embed',
-    'issuu flipbook embed'
+    'issuu embed code generator',
+    'embed issuu publication',
+    'issuu flipbook embed',
+    'issuu iframe code',
+    'embed issuu magazine'
   ],
   heroTitle: 'Issuu Embed Code Generator',
   heroSubtitle:
-    'Paste any Issuu URL — get a ready-to-paste embed for publications, magazines, and catalogs.',
-  howItWorksHeading: 'How to embed Issuu content',
+    'Paste any Issuu URL — get a ready-to-paste flipbook reader for magazines, catalogs, and digital publications.',
+  howItWorksHeading: 'How to embed an Issuu publication',
   howItWorksSteps: [
     {
-      title: 'Paste a Issuu link',
+      title: 'Paste an Issuu link',
       description:
-        'Copy any issuu.com URL — publications, magazines, and catalogs.'
+        'Copy any issuu.com publication URL — magazines, catalogs, brochures, and reports.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool reads the publication and generates the flipbook reader embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -41,12 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Issuu link and get working embed HTML.'
+        'Skip digging through Issuu share menus. Paste any publication link and get working embed HTML.'
     },
     {
-      title: 'All Issuu content',
+      title: 'Interactive flipbook reader',
       description:
-        'Works with publications, magazines, and catalogs — the tool handles all Issuu URL formats.'
+        'Embed the real page-flip reader so visitors can browse the full publication without leaving your page.'
     },
     {
       title: 'Customizable preview card',
@@ -56,44 +60,64 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Issuu embeds per day. No login, no API key.'
+        'Generate up to 50 Issuu embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native flipbook reader',
       description:
-        'Get the real Issuu embed with full interactivity when available.'
+        'Get the real Issuu reader with page-flip navigation, zoom, and fullscreen.'
     },
     {
-      title: 'All publications',
+      title: 'Magazines, catalogs & brochures',
       description:
-        'Works with publications, magazines, and catalogs — all Issuu content types.'
+        'Works with any public Issuu publication — magazines, catalogs, brochures, and reports.'
     },
     {
       title: 'Preview card fallback',
       description:
-        'A styled preview card with title and image when native embedding is restricted.'
+        'A styled preview card with title and cover image when native embedding is restricted.'
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/scribd',
+      label: 'Scribd'
+    },
+    {
+      href: '/tools/embed-url/slideshare',
+      label: 'SlideShare'
+    },
+    {
+      href: '/tools/embed-url/yumpu',
+      label: 'Yumpu'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Issuu content on my website?',
+      question: 'How do I embed an Issuu publication on my website?',
       answer:
-        'Paste any Issuu URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste any Issuu publication URL into the tool and click Generate. You will get a ready-to-paste flipbook reader embed.'
     },
     {
-      question: 'Is the Issuu embed generator free?',
+      question: 'What content can I embed from Issuu?',
+      answer:
+        'Any public Issuu publication — magazines, catalogs, brochures, reports, and other flipbooks.'
+    },
+    {
+      question: 'Is the embedded reader interactive?',
+      answer:
+        'Yes. The native embed keeps page-flip navigation, zoom, and fullscreen so readers can browse the whole publication.'
+    },
+    {
+      question: 'What if the publication is private or unlisted?',
+      answer:
+        'Private publications cannot be embedded. The tool falls back to a styled preview card with the available title and cover image.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Issuu content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

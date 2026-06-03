@@ -5,31 +5,34 @@ const data = {
   name: 'Naver TV',
   slug: 'naver-tv',
   color: '#03C75A',
-  exampleUrl: 'https://tv.naver.com/v/1234567',
-  metaTitle: 'Naver TV Embed Code Generator — Embed Korean Videos',
+  exampleUrl: 'https://tv.naver.com/v/81652',
+  metaTitle: 'Naver TV Embed Code Generator — Embed Videos & Channels',
   metaDescription:
-    'Free Naver TV embed code generator. Paste any Naver TV URL — get a ready-to-paste iframe or preview card. No signup.',
+    'Free Naver TV embed code generator. Paste any tv.naver.com URL — get ready-to-paste embed HTML for videos, clips, and channels. No signup.',
   keywords: [
     'embed naver tv',
     'naver tv embed code',
-    'naver tv embed generator',
-    'naver video embed',
+    'naver tv embed code generator',
     'embed naver tv video',
-    'naver tv iframe'
+    'naver tv iframe code',
+    'naver tv player embed',
+    'embed tv.naver.com video',
+    'naver tv channel embed'
   ],
   heroTitle: 'Naver TV Embed Code Generator',
   heroSubtitle:
-    'Free Naver TV embed code generator. Paste any Naver TV URL — get a ready-to-paste iframe or preview card.',
-  howItWorksHeading: 'How to embed Naver TV content',
+    'Paste any Naver TV URL — get ready-to-paste embed HTML for videos, clips, and channels from tv.naver.com.',
+  howItWorksHeading: 'How to embed a Naver TV video',
   howItWorksSteps: [
     {
       title: 'Paste a Naver TV link',
-      description: 'Copy any Naver TV URL — videos and channels.'
+      description:
+        'Copy any tv.naver.com URL — video and clip links like /v/, plus channel pages.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the Naver TV content and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -45,9 +48,9 @@ const data = {
         'Skip the manual URL conversion. Paste any Naver TV link and get working embed HTML.'
     },
     {
-      title: 'All Naver TV content',
+      title: 'Korean video, made easy',
       description:
-        'Works with videos and channels — the tool handles all Naver TV URL formats.'
+        'Naver TV is a Korean video platform — drop in a link and embed its videos and clips without a Korean account.'
     },
     {
       title: 'Customizable preview card',
@@ -62,44 +65,55 @@ const data = {
   ],
   features: [
     {
-      title: 'Native Naver player',
+      title: 'Native Naver TV player',
       description:
-        'Get the real Naver TV video player with full playback controls.'
+        'Get the real Naver TV player so visitors can watch the video right on your page.'
     },
     {
-      title: 'Any Naver TV link',
+      title: 'Videos, clips & channels',
       description:
-        'Regular videos, live streams, and channel content — the tool handles all Naver TV formats.'
+        'Works with Naver TV video and clip pages as well as channel links.'
     },
     {
       title: 'Preview card fallback',
       description:
-        'A styled card with thumbnail and title when direct embedding is not available.'
+        'A styled preview card with title and image when native embedding is restricted.'
     }
   ],
   relatedLinks: [
+    {
+      href: '/tools/embed-url/kakaotv',
+      label: 'Kakao TV'
+    },
     {
       href: '/tools/embed-url/youtube',
       label: 'YouTube'
     },
     {
-      href: '/tools/embed-url/bilibili',
-      label: 'Bilibili'
-    },
-    {
-      href: '/tools/embed-url/vimeo',
-      label: 'Vimeo'
+      href: '/tools/embed-url/afreecatv',
+      label: 'AfreecaTV'
     }
   ],
   faq: [
     {
-      question: 'How do I embed a Naver TV video?',
+      question: 'How do I embed a Naver TV video on my website?',
       answer:
-        'Paste any Naver TV URL into the tool and click Generate to get the embed code.'
+        'Paste any tv.naver.com URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
     },
     {
-      question: 'Does this work with Naver TV live streams?',
-      answer: 'Yes. Live streams and recorded videos are both supported.'
+      question: 'Can I embed a Naver TV channel?',
+      answer:
+        'Yes. Both individual video and clip links and channel pages from tv.naver.com are supported.'
+    },
+    {
+      question: 'What happens if a video cannot be embedded?',
+      answer:
+        'If native embedding is restricted, the tool falls back to a styled preview card with the video title and thumbnail that links back to Naver TV.'
+    },
+    {
+      question: 'Do I need a Naver account to embed videos?',
+      answer:
+        'No. You just paste the public Naver TV URL — no Naver login or API key is required.'
     },
     {
       question: 'Is this free?',
@@ -110,6 +124,6 @@ const data = {
 
 export const Head = () => providerHead(data)
 
-const NavertvPage = () => <ProviderSubtool {...data} />
+const Page = () => <ProviderSubtool {...data} />
 
-export default NavertvPage
+export default Page

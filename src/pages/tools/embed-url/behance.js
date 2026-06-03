@@ -5,27 +5,28 @@ const data = {
   name: 'Behance',
   slug: 'behance',
   color: '#1769FF',
-  exampleUrl: 'https://www.behance.net/gallery/1234567/Project-Name',
+  exampleUrl: 'https://www.behance.net/gallery/250416249/Japan-Revisited',
   metaTitle: 'Behance Embed Code Generator — Embed Projects & Portfolios',
   metaDescription:
-    'Free Behance embed code generator. Paste any Behance URL — get a ready-to-paste embed for design projects and portfolios. No signup.',
+    'Free Behance embed code generator. Paste any Behance URL — get a ready-to-paste embed for creative projects and portfolios. No signup.',
   keywords: [
     'embed behance',
     'behance embed code',
-    'behance embed generator',
+    'behance embed code generator',
     'embed behance project',
     'behance portfolio embed',
+    'behance project embed',
     'behance embed html'
   ],
   heroTitle: 'Behance Embed Code Generator',
   heroSubtitle:
-    'Paste any Behance URL — get a ready-to-paste embed for design projects and portfolios.',
-  howItWorksHeading: 'How to embed Behance content',
+    'Paste any Behance URL — get a ready-to-paste embed for creative projects and portfolios.',
+  howItWorksHeading: 'How to embed a Behance project',
   howItWorksSteps: [
     {
       title: 'Paste a Behance link',
       description:
-        'Copy any Behance URL — projects, portfolios, and moodboards.'
+        'Copy any behance.net URL — project galleries and creative portfolios.'
     },
     {
       title: 'Get the embed code',
@@ -46,9 +47,9 @@ const data = {
         'Skip the manual URL conversion. Paste any Behance link and get working embed HTML.'
     },
     {
-      title: 'All Behance content',
+      title: 'Projects & portfolios',
       description:
-        'Works with projects, portfolios, and moodboards — the tool handles all Behance URL formats.'
+        'Works with project galleries and creative portfolios — the tool handles Behance URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -65,41 +66,53 @@ const data = {
     {
       title: 'Rich project previews',
       description:
-        'Get a preview card with project cover image, title, and creator info.'
+        'Get a preview card with the project cover image, title, and creator name.'
     },
     {
       title: 'Projects & portfolios',
       description:
-        'Individual projects, portfolios, and moodboard links — all Behance content types work.'
+        'Project galleries and creative portfolios from behance.net are supported.'
     },
     {
-      title: 'High-quality images',
+      title: 'Preview card fallback',
       description:
-        'Preview images are pulled at the highest available resolution from Behance.'
+        'A styled preview card with title and image when native embedding is restricted.'
     }
   ],
   relatedLinks: [
     {
+      href: '/tools/embed-url/deviantart-com',
+      label: 'DeviantArt'
+    },
+    {
+      href: '/tools/embed-url/sketchfab',
+      label: 'Sketchfab'
+    },
+    {
       href: '/tools/embed-url/figma',
       label: 'Figma'
-    },
-    {
-      href: '/tools/embed-url/canva',
-      label: 'Canva'
-    },
-    {
-      href: '/tools/embed-url/pinterest',
-      label: 'Pinterest'
     }
   ],
   faq: [
     {
-      question: 'How do I embed a Behance project?',
-      answer: 'Paste any Behance project URL into the tool and click Generate.'
+      question: 'How do I embed a Behance project on my website?',
+      answer:
+        'Paste any Behance project URL into the tool and click Generate. You will get a ready-to-paste embed.'
     },
     {
-      question: 'Can I embed Behance portfolios?',
-      answer: 'Yes. Project and portfolio URLs are both supported.'
+      question: 'Can I embed a Behance portfolio?',
+      answer:
+        'Yes. Project gallery and creative portfolio URLs from behance.net are both supported.'
+    },
+    {
+      question: 'What does the preview card show?',
+      answer:
+        'When native embedding is restricted, the tool generates a styled card with the project cover image, title, and creator name.'
+    },
+    {
+      question: 'Are private or draft projects supported?',
+      answer:
+        'No. Only public, published Behance projects can be embedded, since private and draft work is not accessible.'
     },
     {
       question: 'Is this free?',

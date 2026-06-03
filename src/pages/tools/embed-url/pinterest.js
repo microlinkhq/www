@@ -4,9 +4,9 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Pinterest',
   slug: 'pinterest',
-  color: '#BD081C',
-  exampleUrl: 'https://www.pinterest.com/pin/1234567890',
-  metaTitle: 'Pinterest Embed Code Generator — Embed Pins & Boards',
+  color: '#E60023',
+  exampleUrl: 'https://www.pinterest.com/pin/675751119058067486/',
+  metaTitle: 'Pinterest Embed Code Generator — Embed Pins, Boards & Profiles',
   metaDescription:
     'Free Pinterest embed code generator. Paste any Pinterest URL — get a ready-to-paste embed for pins, boards, and profiles. No signup.',
   keywords: [
@@ -14,7 +14,9 @@ const data = {
     'pinterest embed code',
     'pinterest embed code generator',
     'embed pinterest board',
+    'embed pinterest profile',
     'pinterest pin embed html',
+    'pinterest widget code',
     'pinterest embed for website'
   ],
   heroTitle: 'Pinterest Embed Code Generator',
@@ -24,12 +26,13 @@ const data = {
   howItWorksSteps: [
     {
       title: 'Paste a Pinterest link',
-      description: 'Copy any Pinterest URL — pins, boards, and profiles.'
+      description:
+        'Copy any pinterest.com URL — individual pins, boards, or profile pages.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects whether the link is a pin, board, or profile and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -42,12 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Pinterest link and get working embed HTML.'
+        'Skip the Pinterest widget builder and script tags. Paste any link and get working embed HTML.'
     },
     {
-      title: 'All Pinterest content',
+      title: 'Pins, boards & profiles',
       description:
-        'Works with pins, boards, and profiles — the tool handles all Pinterest URL formats.'
+        'Works with individual pins, full boards, and profile pages — the tool handles every Pinterest URL format.'
     },
     {
       title: 'Customizable preview card',
@@ -62,19 +65,19 @@ const data = {
   ],
   features: [
     {
-      title: 'Rich pin embeds',
+      title: 'Native pin embeds',
       description:
-        'Get the real Pinterest pin embed with image, description, and save button.'
+        'Get the real Pinterest embed showing the pin image, title, description, and Save button.'
     },
     {
-      title: 'Pins, boards & profiles',
+      title: 'Boards and profiles',
       description:
-        'Individual pins, boards, and profile URLs — the tool handles all Pinterest link formats.'
+        'Embed an entire board or a creator profile to surface a grid of pins alongside your content.'
     },
     {
       title: 'Preview card fallback',
       description:
-        'A styled card with image and description when the native embed is restricted.'
+        'A styled preview card with title and image when native embedding is restricted.'
     }
   ],
   relatedLinks: [
@@ -83,8 +86,8 @@ const data = {
       label: 'Instagram'
     },
     {
-      href: '/tools/embed-url/behance',
-      label: 'Behance'
+      href: '/tools/embed-url/tumblr',
+      label: 'Tumblr'
     },
     {
       href: '/tools/embed-url/flickr',
@@ -93,14 +96,24 @@ const data = {
   ],
   faq: [
     {
-      question: 'How do I embed a Pinterest pin?',
+      question: 'How do I embed a Pinterest pin on my website?',
       answer:
-        'Paste any Pinterest pin URL into the tool and click Generate. You will get a ready-to-paste embed.'
+        'Paste any Pinterest pin URL into the tool and click Generate. You will get a ready-to-paste embed showing the pin image and details.'
     },
     {
-      question: 'Can I embed a Pinterest board?',
+      question: 'Can I embed a Pinterest board or profile?',
       answer:
-        'Yes. Board URLs generate a board widget or a preview card showing board details.'
+        'Yes. Board and profile URLs generate a widget or a preview card that surfaces pins from that board or creator.'
+    },
+    {
+      question: 'Can I embed a private or secret pin?',
+      answer:
+        'No. Only public pins, boards, and profiles can be embedded. Secret boards and pins are not accessible to the embed.'
+    },
+    {
+      question: 'What if the native Pinterest embed is blocked?',
+      answer:
+        'Switch to Card mode to get a styled preview card with the pin title and image that you can customize and paste anywhere.'
     },
     {
       question: 'Is this free?',
