@@ -10,7 +10,6 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import Box from 'components/elements/Box'
 
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
@@ -18,8 +17,12 @@ import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 
-import { StepCard, SectionIcon, UseCaseCard } from 'components/pages/screenshot'
-import { EmbedTool } from 'components/pages/embed-url'
+import { StepCard, SectionIcon } from 'components/pages/screenshot'
+import {
+  EmbedTool,
+  WhyChoose,
+  embedBreadcrumb
+} from 'components/pages/embed-url'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -180,44 +183,6 @@ const HowItWorks = () => (
   </Container>
 )
 
-const Explanation = () => (
-  <Container
-    as='section'
-    id='why-choose'
-    css={theme({
-      alignItems: 'center',
-      pb: [4, 4, 5, 5],
-      pt: [4, 4, 5, 5],
-      mt: [3, 3, 4, 4],
-      bg: 'pinky'
-    })}
-  >
-    <Subhead css={theme({ fontSize: [3, '30px', '35px', '45px'] })}>
-      Why use our YouTube embed code generator
-    </Subhead>
-    <Box
-      css={theme({
-        display: 'grid',
-        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr'],
-        gap: 3,
-        pt: [4, 4, 5, 5],
-        maxWidth: [layout.normal, layout.normal, layout.large, layout.large]
-      })}
-    >
-      {REASON_TO_USE.map(({ title, description }) => (
-        <UseCaseCard key={title}>
-          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 1 })}>
-            {title}
-          </Caps>
-          <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-            {description}
-          </Text>
-        </UseCaseCard>
-      ))}
-    </Box>
-  </Container>
-)
-
 const ProductInformation = () => (
   <Faq
     title='FAQ'
@@ -305,6 +270,7 @@ export const Head = () => (
         description:
           'Free YouTube embed code generator. Paste any YouTube URL and get a ready-to-paste iframe player or custom preview card.',
         url: 'https://microlink.io/tools/embed-url/youtube',
+        image: 'https://cdn.microlink.io/banner/sdk.jpeg',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
           'embed youtube video',
@@ -332,7 +298,7 @@ export const Head = () => (
             name: 'How do I embed a YouTube video on my website?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "Paste any YouTube URL into the tool and click Generate. You'll get a ready-to-paste iframe HTML snippet. Copy it and add it to your HTML, blog, CMS, or MDX file."
+              text: "Paste any YouTube URL into the tool above and click Generate. You'll get a ready-to-paste iframe HTML snippet. Copy it and add it to your HTML, blog, CMS, or MDX file."
             }
           },
           {
@@ -340,7 +306,7 @@ export const Head = () => (
             name: 'Does this work with YouTube Shorts?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. Paste any YouTube Shorts URL and the tool will extract the video ID and generate the correct embed code.'
+              text: 'Yes. Paste any YouTube Shorts URL and the tool will extract the video ID and generate the correct embed code. Shorts are embedded as standard YouTube players.'
             }
           },
           {
@@ -348,7 +314,7 @@ export const Head = () => (
             name: 'Can I embed a YouTube playlist?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. Paste a playlist URL and the tool generates an embed player that loads the full playlist.'
+              text: 'Yes. Paste a playlist URL and the tool generates an embed player that loads the full playlist. Viewers can navigate between videos directly in the player.'
             }
           },
           {
@@ -358,9 +324,18 @@ export const Head = () => (
               '@type': 'Answer',
               text: 'Yes — 50 requests per day, no login, no credit card. YouTube embeds are resolved instantly from cache after the first request.'
             }
+          },
+          {
+            '@type': 'Question',
+            name: 'What if the video blocks embedding?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: "If the video owner has disabled embedding, the tool falls back to a rich preview card showing the thumbnail, title, and channel. You can customize the card's style before copying."
+            }
           }
         ]
-      }
+      },
+      embedBreadcrumb({ name: 'YouTube', slug: 'youtube' })
     ]}
   />
 )
@@ -370,7 +345,11 @@ const YouTubeEmbedPage = () => (
     <Hero />
     <EmbedTool initialUrl={EXAMPLE_URL} />
     <HowItWorks />
-    <Explanation />
+    <WhyChoose
+      heading='Why use our YouTube embed code generator'
+      reasons={REASON_TO_USE}
+      accentColor='#FF0000'
+    />
     <Features
       css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={

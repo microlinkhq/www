@@ -10,7 +10,6 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import Box from 'components/elements/Box'
 
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
@@ -18,8 +17,9 @@ import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 
-import { StepCard, SectionIcon, UseCaseCard } from 'components/pages/screenshot'
+import { StepCard, SectionIcon } from 'components/pages/screenshot'
 import { EmbedTool } from 'components/pages/embed-url'
+import WhyChoose from './WhyChoose'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -114,44 +114,6 @@ const HowItWorksSection = ({ heading, steps }) => (
   </Container>
 )
 
-const ExplanationSection = ({ heading, reasons }) => (
-  <Container
-    as='section'
-    id='why-choose'
-    css={theme({
-      alignItems: 'center',
-      pb: [4, 4, 5, 5],
-      pt: [4, 4, 5, 5],
-      mt: [3, 3, 4, 4],
-      bg: 'pinky'
-    })}
-  >
-    <Subhead css={theme({ fontSize: [3, '30px', '35px', '45px'] })}>
-      {heading}
-    </Subhead>
-    <Box
-      css={theme({
-        display: 'grid',
-        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr'],
-        gap: 3,
-        pt: [4, 4, 5, 5],
-        maxWidth: [layout.normal, layout.normal, layout.large, layout.large]
-      })}
-    >
-      {reasons.map(({ title, description }) => (
-        <UseCaseCard key={title}>
-          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 1 })}>
-            {title}
-          </Caps>
-          <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-            {description}
-          </Text>
-        </UseCaseCard>
-      ))}
-    </Box>
-  </Container>
-)
-
 const FaqSection = ({ questions }) => (
   <Faq
     title='FAQ'
@@ -170,6 +132,39 @@ const FaqSection = ({ questions }) => (
     }))}
   />
 )
+
+// Breadcrumb trail (Home › Tools › Embed URL › Provider) shared by every
+// embed-url subtool page so the BreadcrumbList schema stays consistent.
+export const embedBreadcrumb = ({ name, slug }) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://microlink.io'
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Tools',
+      item: 'https://microlink.io/tools'
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Embed URL',
+      item: 'https://microlink.io/tools/embed-url'
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      name,
+      item: `https://microlink.io/tools/embed-url/${slug}`
+    }
+  ]
+})
 
 export const providerHead = ({
   name,
@@ -192,6 +187,7 @@ export const providerHead = ({
         name: metaTitle.split(' — ')[0],
         description: metaDescription,
         url: `https://microlink.io/tools/embed-url/${slug}`,
+        image: 'https://cdn.microlink.io/banner/sdk.jpeg',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords,
         offers: {
@@ -204,12 +200,13 @@ export const providerHead = ({
       {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: faq.slice(0, 4).map(({ question, answer }) => ({
+        mainEntity: faq.map(({ question, answer }) => ({
           '@type': 'Question',
           name: question,
           acceptedAnswer: { '@type': 'Answer', text: answer }
         }))
-      }
+      },
+      embedBreadcrumb({ name: name || metaTitle.split(' — ')[0], slug })
     ]}
   />
 )
@@ -231,7 +228,11 @@ export const ProviderSubtool = ({
     <Hero title={heroTitle} subtitle={heroSubtitle} />
     <EmbedTool initialUrl={exampleUrl} />
     <HowItWorksSection heading={howItWorksHeading} steps={howItWorksSteps} />
-    <ExplanationSection heading={explanationHeading} reasons={reasons} />
+    <WhyChoose
+      heading={explanationHeading}
+      reasons={reasons}
+      accentColor={color}
+    />
     <Features
       css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={

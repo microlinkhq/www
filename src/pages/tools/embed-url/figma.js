@@ -10,7 +10,6 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import Box from 'components/elements/Box'
 
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
@@ -18,8 +17,12 @@ import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 
-import { StepCard, SectionIcon, UseCaseCard } from 'components/pages/screenshot'
-import { EmbedTool } from 'components/pages/embed-url'
+import { StepCard, SectionIcon } from 'components/pages/screenshot'
+import {
+  EmbedTool,
+  WhyChoose,
+  embedBreadcrumb
+} from 'components/pages/embed-url'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -174,44 +177,6 @@ const HowItWorks = () => (
   </Container>
 )
 
-const Explanation = () => (
-  <Container
-    as='section'
-    id='why-choose'
-    css={theme({
-      alignItems: 'center',
-      pb: [4, 4, 5, 5],
-      pt: [4, 4, 5, 5],
-      mt: [3, 3, 4, 4],
-      bg: 'pinky'
-    })}
-  >
-    <Subhead css={theme({ fontSize: [3, '30px', '35px', '45px'] })}>
-      Why use our Figma embed code generator
-    </Subhead>
-    <Box
-      css={theme({
-        display: 'grid',
-        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr'],
-        gap: 3,
-        pt: [4, 4, 5, 5],
-        maxWidth: [layout.normal, layout.normal, layout.large, layout.large]
-      })}
-    >
-      {REASON_TO_USE.map(({ title, description }) => (
-        <UseCaseCard key={title}>
-          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 1 })}>
-            {title}
-          </Caps>
-          <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-            {description}
-          </Text>
-        </UseCaseCard>
-      ))}
-    </Box>
-  </Container>
-)
-
 const ProductInformation = () => (
   <Faq
     title='FAQ'
@@ -286,6 +251,7 @@ export const Head = () => (
         description:
           'Free Figma embed code generator. Paste any Figma URL and get a ready-to-paste iframe for designs, prototypes, and FigJam boards.',
         url: 'https://microlink.io/tools/embed-url/figma',
+        image: 'https://cdn.microlink.io/banner/sdk.jpeg',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
           'embed figma',
@@ -321,7 +287,7 @@ export const Head = () => (
             name: 'Does the prototype work in the embed?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. Figma prototypes are fully interactive inside the iframe. Users can click through flows, navigate frames, and interact with the design.'
+              text: 'Yes. Figma prototypes are fully interactive inside the iframe. Users can click through flows, navigate frames, and interact with the design just like in Figma.'
             }
           },
           {
@@ -341,7 +307,8 @@ export const Head = () => (
             }
           }
         ]
-      }
+      },
+      embedBreadcrumb({ name: 'Figma', slug: 'figma' })
     ]}
   />
 )
@@ -351,7 +318,11 @@ const FigmaEmbedPage = () => (
     <Hero />
     <EmbedTool initialUrl={EXAMPLE_URL} />
     <HowItWorks />
-    <Explanation />
+    <WhyChoose
+      heading='Why use our Figma embed code generator'
+      reasons={REASON_TO_USE}
+      accentColor='#F24E1E'
+    />
     <Features
       css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={

@@ -10,7 +10,6 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import Box from 'components/elements/Box'
 
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
@@ -18,8 +17,12 @@ import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 
-import { StepCard, SectionIcon, UseCaseCard } from 'components/pages/screenshot'
-import { EmbedTool } from 'components/pages/embed-url'
+import { StepCard, SectionIcon } from 'components/pages/screenshot'
+import {
+  EmbedTool,
+  WhyChoose,
+  embedBreadcrumb
+} from 'components/pages/embed-url'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -179,44 +182,6 @@ const HowItWorks = () => (
   </Container>
 )
 
-const Explanation = () => (
-  <Container
-    as='section'
-    id='why-choose'
-    css={theme({
-      alignItems: 'center',
-      pb: [4, 4, 5, 5],
-      pt: [4, 4, 5, 5],
-      mt: [3, 3, 4, 4],
-      bg: 'pinky'
-    })}
-  >
-    <Subhead css={theme({ fontSize: [3, '30px', '35px', '45px'] })}>
-      Why use our Instagram embed code generator
-    </Subhead>
-    <Box
-      css={theme({
-        display: 'grid',
-        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr'],
-        gap: 3,
-        pt: [4, 4, 5, 5],
-        maxWidth: [layout.normal, layout.normal, layout.large, layout.large]
-      })}
-    >
-      {REASON_TO_USE.map(({ title, description }) => (
-        <UseCaseCard key={title}>
-          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 1 })}>
-            {title}
-          </Caps>
-          <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-            {description}
-          </Text>
-        </UseCaseCard>
-      ))}
-    </Box>
-  </Container>
-)
-
 const ProductInformation = () => (
   <Faq
     title='FAQ'
@@ -292,6 +257,7 @@ export const Head = () => (
         description:
           'Free Instagram embed code generator. Paste any Instagram URL and get a ready-to-paste embed for posts, reels, and stories.',
         url: 'https://microlink.io/tools/embed-url/instagram',
+        image: 'https://cdn.microlink.io/banner/sdk.jpeg',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
           'embed instagram post',
@@ -319,7 +285,7 @@ export const Head = () => (
             name: 'How do I embed an Instagram post on my website?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "Paste any Instagram post URL into the tool and click Generate. You'll get a ready-to-paste HTML snippet with the real Instagram embed."
+              text: "Paste any Instagram post URL into the tool above and click Generate. You'll get a ready-to-paste HTML snippet with the real Instagram embed. Copy it and add it to your site."
             }
           },
           {
@@ -332,14 +298,23 @@ export const Head = () => (
           },
           {
             '@type': 'Question',
+            name: 'Why does the embed show a preview card instead of the post?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'If the Instagram account is private or the post restricts embedding, the tool falls back to a rich preview card with the available metadata. You can customize the card before copying.'
+            }
+          },
+          {
+            '@type': 'Question',
             name: 'Is the Instagram embed generator free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes — 50 requests per day, no login, no credit card. Cached responses do not count against your limit.'
+              text: "Yes — 50 requests per day, no login, no credit card. Cached responses don't count against your limit."
             }
           }
         ]
-      }
+      },
+      embedBreadcrumb({ name: 'Instagram', slug: 'instagram' })
     ]}
   />
 )
@@ -349,7 +324,11 @@ const InstagramEmbedPage = () => (
     <Hero />
     <EmbedTool initialUrl={EXAMPLE_URL} />
     <HowItWorks />
-    <Explanation />
+    <WhyChoose
+      heading='Why use our Instagram embed code generator'
+      reasons={REASON_TO_USE}
+      accentColor='#E4405F'
+    />
     <Features
       css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={

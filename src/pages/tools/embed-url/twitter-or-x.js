@@ -10,7 +10,6 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import Box from 'components/elements/Box'
 
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
@@ -18,8 +17,12 @@ import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 
-import { StepCard, SectionIcon, UseCaseCard } from 'components/pages/screenshot'
-import { EmbedTool } from 'components/pages/embed-url'
+import { StepCard, SectionIcon } from 'components/pages/screenshot'
+import {
+  EmbedTool,
+  WhyChoose,
+  embedBreadcrumb
+} from 'components/pages/embed-url'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -180,44 +183,6 @@ const HowItWorks = () => (
   </Container>
 )
 
-const Explanation = () => (
-  <Container
-    as='section'
-    id='why-choose'
-    css={theme({
-      alignItems: 'center',
-      pb: [4, 4, 5, 5],
-      pt: [4, 4, 5, 5],
-      mt: [3, 3, 4, 4],
-      bg: 'pinky'
-    })}
-  >
-    <Subhead css={theme({ fontSize: [3, '30px', '35px', '45px'] })}>
-      Why use our Twitter embed code generator
-    </Subhead>
-    <Box
-      css={theme({
-        display: 'grid',
-        gridTemplateColumns: ['1fr', '1fr', '1fr 1fr', '1fr 1fr'],
-        gap: 3,
-        pt: [4, 4, 5, 5],
-        maxWidth: [layout.normal, layout.normal, layout.large, layout.large]
-      })}
-    >
-      {REASON_TO_USE.map(({ title, description }) => (
-        <UseCaseCard key={title}>
-          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 2, fontSize: 1 })}>
-            {title}
-          </Caps>
-          <Text css={theme({ fontSize: 1, color: 'black60', lineHeight: 2 })}>
-            {description}
-          </Text>
-        </UseCaseCard>
-      ))}
-    </Box>
-  </Container>
-)
-
 const ProductInformation = () => (
   <Faq
     title='FAQ'
@@ -306,6 +271,7 @@ export const Head = () => (
         description:
           'Free Twitter embed code generator. Paste any tweet or X post URL and get a ready-to-paste embed or custom preview card.',
         url: 'https://microlink.io/tools/embed-url/twitter-or-x',
+        image: 'https://cdn.microlink.io/banner/sdk.jpeg',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
           'embed tweet',
@@ -359,9 +325,18 @@ export const Head = () => (
               '@type': 'Answer',
               text: 'Yes — 50 requests per day, no login, no credit card. Tweet embeds are resolved instantly from cache after the first request.'
             }
+          },
+          {
+            '@type': 'Question',
+            name: 'What if the tweet is deleted?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'If the tweet has been deleted or the account is suspended, the tool falls back to a preview card with whatever metadata is still available. The embed will show a notice that the tweet is no longer available.'
+            }
           }
         ]
-      }
+      },
+      embedBreadcrumb({ name: 'Twitter / X', slug: 'twitter-or-x' })
     ]}
   />
 )
@@ -371,7 +346,11 @@ const TwitterEmbedPage = () => (
     <Hero />
     <EmbedTool initialUrl={EXAMPLE_URL} />
     <HowItWorks />
-    <Explanation />
+    <WhyChoose
+      heading='Why use our Twitter embed code generator'
+      reasons={REASON_TO_USE}
+      accentColor='#1DA1F2'
+    />
     <Features
       css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={

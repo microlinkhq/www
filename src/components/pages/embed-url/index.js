@@ -1,2 +1,7 @@
 export { EmbedTool, EXAMPLE_URLS } from './EmbedTool'
-export { ProviderSubtool, providerHead } from './ProviderSubtool'
+export {
+  ProviderSubtool,
+  providerHead,
+  embedBreadcrumb
+} from './ProviderSubtool'
+export { default as WhyChoose } from './WhyChoose'
