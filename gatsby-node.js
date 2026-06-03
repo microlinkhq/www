@@ -157,6 +157,7 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
 // index plus the providers below locally; all of them still ship in production.
 const DEV_PROVIDER_ALLOWLIST = new Set([
   'youtube',
+  'instagram',
   'spotify',
   'vimeo',
   'figma',
