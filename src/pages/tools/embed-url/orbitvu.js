@@ -4,18 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Orbitvu',
   slug: 'orbitvu',
-  color: '#666666',
+  color: '#FF6600',
   exampleUrl: 'https://orbitvu.co',
-  metaTitle: 'Orbitvu Embed Code Generator — Embed Orbitvu Content',
+  metaTitle: 'Orbitvu Embed Code Generator — Embed 360° Product Views',
   metaDescription:
-    'Free Orbitvu embed code generator. Paste any Orbitvu URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed orbitvu', 'orbitvu embed code', 'orbitvu embed generator'],
+    'Free Orbitvu embed code generator. Paste any Orbitvu URL — get a ready-to-paste embed for 360° interactive product views and spins. No signup.',
+  keywords: [
+    'embed orbitvu',
+    'orbitvu embed code',
+    'orbitvu embed code generator',
+    'embed orbitvu 360',
+    'orbitvu iframe code',
+    'orbitvu spin embed',
+    'embed orbitvu product view'
+  ],
   heroTitle: 'Orbitvu Embed Code Generator',
   heroSubtitle:
-    'Paste any Orbitvu URL — get a ready-to-paste embed or preview card.',
+    'Paste any Orbitvu URL — get a ready-to-paste embed for 360° interactive product views and spins.',
   howItWorksHeading: 'How to embed Orbitvu content',
   howItWorksSteps: [
-    { title: 'Paste a Orbitvu link', description: 'Copy any orbitvu.co URL.' },
+    {
+      title: 'Paste an Orbitvu link',
+      description:
+        'Copy the URL of an Orbitvu 360° product view or spin and paste it into the field.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -30,12 +42,14 @@ const data = {
   explanationHeading: 'Why use our Orbitvu embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Orbitvu link and get working embed HTML.'
+      title: 'Interactive 360° views, no setup',
+      description:
+        'Paste an Orbitvu link and get an embed that lets shoppers rotate and zoom the product right on your page.'
     },
     {
-      title: 'Orbitvu content',
-      description: 'The tool handles all Orbitvu URL formats.'
+      title: 'Built for product photography',
+      description:
+        'Drop spins straight into product pages so customers can inspect every angle before they buy.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Rotatable 360° spins',
       description:
-        'Get the real Orbitvu embed with full interactivity when available.'
+        'Embed interactive Orbitvu spins so visitors can drag to rotate the product through a full turn.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Orbitvu URL formats and content types.'
+      title: 'Zoomable product views',
+      description:
+        'Keep zoom and pan controls intact so shoppers can study fine product detail inside your page.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/smugmug', label: 'SmugMug' },
+    { href: '/tools/embed-url/behance', label: 'Behance' },
+    { href: '/tools/embed-url/abraia', label: 'Abraia' }
   ],
   faq: [
     {
-      question: 'How do I embed Orbitvu content on my website?',
-      answer: 'Paste any Orbitvu URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Orbitvu embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Orbitvu content is private?',
+      question: 'How do I embed an Orbitvu 360° view on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the product view URL into the tool, click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Can visitors rotate and zoom the embedded product?',
+      answer:
+        'Yes. The embed keeps the interactive spin controls so visitors can rotate and zoom the product.'
+    },
+    {
+      question: 'Does the Orbitvu embed work on product pages and mobile?',
+      answer:
+        'Yes. The generated embed is responsive and runs on store product pages, phones, and tablets.'
+    },
+    {
+      question: 'What if the Orbitvu view is private?',
+      answer:
+        'The tool falls back to a styled preview card with whatever metadata is still available.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

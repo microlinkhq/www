@@ -6,16 +6,28 @@ const data = {
   slug: 'parta',
   color: '#666666',
   exampleUrl: 'https://parta.io',
-  metaTitle: 'Parta Embed Code Generator — Embed Parta Content',
+  metaTitle: 'Parta Embed Code Generator — Embed Parta Pages & Shared Content',
   metaDescription:
-    'Free Parta embed code generator. Paste any Parta URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed parta', 'parta embed code', 'parta embed generator'],
+    'Free Parta embed code generator. Paste any Parta URL — get a ready-to-paste embed for pages and shared content, or a styled preview card. No signup.',
+  keywords: [
+    'embed parta',
+    'parta embed code',
+    'parta embed code generator',
+    'embed parta page',
+    'parta iframe code',
+    'parta link embed',
+    'embed parta content'
+  ],
   heroTitle: 'Parta Embed Code Generator',
   heroSubtitle:
-    'Paste any Parta URL — get a ready-to-paste embed or preview card.',
+    'Paste any Parta URL — get a ready-to-paste embed for pages and shared content, or a styled preview card.',
   howItWorksHeading: 'How to embed Parta content',
   howItWorksSteps: [
-    { title: 'Paste a Parta link', description: 'Copy any parta.io URL.' },
+    {
+      title: 'Paste a Parta link',
+      description:
+        'Copy any Parta page or shared content URL and drop it into the field.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Parta link and get working embed HTML.'
+      description:
+        'Paste any Parta link and get working embed HTML — no need to dig through page settings or sharing menus.'
     },
     {
-      title: 'Parta content',
-      description: 'The tool handles all Parta URL formats.'
+      title: 'Pages and shared content',
+      description:
+        'Embed Parta pages and shared content with a single link, in the layout your site expects.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Responsive embed',
       description:
-        'Get the real Parta embed with full interactivity when available.'
+        'Generated embeds scale to fit your container so Parta content looks right on desktop and mobile.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Parta URL formats and content types.'
+      title: 'Works in any editor',
+      description:
+        'Plain HTML output that pastes into WordPress, Ghost, Notion exports, or any CMS that accepts embeds.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/raindrop', label: 'Raindrop' },
+    { href: '/tools/embed-url/curated', label: 'Curated' },
+    { href: '/tools/embed-url/pastery', label: 'Pastery' }
   ],
   faq: [
     {
       question: 'How do I embed Parta content on my website?',
-      answer: 'Paste any Parta URL into the tool and click Generate.'
+      answer:
+        'Paste any Parta URL into the tool and click Generate. Copy the resulting HTML and paste it wherever you want the embed to appear.'
     },
     {
-      question: 'Is the Parta embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'What kind of Parta links can I embed?',
+      answer:
+        'You can embed Parta pages and shared content links. The tool reads the URL and picks the right embed format automatically.'
     },
     {
       question: 'What if the Parta content is private?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'If the content cannot be embedded directly, the tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Will the embed stay responsive?',
+      answer:
+        'Yes. The generated markup is responsive and adapts to the width of the container it sits in.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

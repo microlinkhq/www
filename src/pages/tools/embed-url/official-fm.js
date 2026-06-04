@@ -2,26 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Official Fm',
+  name: 'Official.fm',
   slug: 'official-fm',
-  color: '#666666',
+  color: '#E91E63',
   exampleUrl: 'https://official.fm',
-  metaTitle: 'Official Fm Embed Code Generator — Embed Official Fm Content',
+  metaTitle: 'Official.fm Embed Code Generator — Embed Tracks & Playlists',
   metaDescription:
-    'Free Official Fm embed code generator. Paste any Official Fm URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Official.fm embed code generator. Paste any Official.fm URL — get a ready-to-paste player for tracks, playlists, and artist pages. No signup.',
   keywords: [
-    'embed official fm',
-    'official fm embed code',
-    'official fm embed generator'
+    'embed official.fm',
+    'official.fm embed code',
+    'official.fm embed code generator',
+    'embed official.fm track',
+    'official.fm iframe code',
+    'official.fm player embed',
+    'embed official.fm playlist'
   ],
-  heroTitle: 'Official Fm Embed Code Generator',
+  heroTitle: 'Official.fm Embed Code Generator',
   heroSubtitle:
-    'Paste any Official Fm URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Official Fm content',
+    'Paste any Official.fm URL — get a ready-to-paste player for tracks, playlists, and artist pages.',
+  howItWorksHeading: 'How to embed Official.fm content',
   howItWorksSteps: [
     {
-      title: 'Paste a Official Fm link',
-      description: 'Copy any official.fm URL.'
+      title: 'Paste an Official.fm link',
+      description:
+        'Copy the URL of any Official.fm track, playlist, or artist page and drop it into the field.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Official Fm embed code generator',
+  explanationHeading: 'Why use our Official.fm embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Official Fm link and get working embed HTML.'
+      title: 'Tracks and playlists in one tool',
+      description:
+        'Paste a single track or a full playlist link and get a working player without touching any code.'
     },
     {
-      title: 'Official Fm content',
-      description: 'The tool handles all Official Fm URL formats.'
+      title: 'Handles every Official.fm URL format',
+      description:
+        'Works with track pages, playlist links, and artist profiles so you never have to hunt for embed settings.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Streaming track player',
       description:
-        'Get the real Official Fm embed with full interactivity when available.'
+        'Embed an inline player so visitors can listen to Official.fm tracks without leaving your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Official Fm URL formats and content types.'
+      title: 'Playlist and artist support',
+      description:
+        'Share full playlists or an artist page and let listeners browse the whole collection in place.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/soundcloud', label: 'SoundCloud' },
+    { href: '/tools/embed-url/spotify', label: 'Spotify' },
+    { href: '/tools/embed-url/audiomack', label: 'Audiomack' }
   ],
   faq: [
     {
-      question: 'How do I embed Official Fm content on my website?',
-      answer: 'Paste any Official Fm URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Official Fm embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Official Fm content is private?',
+      question: 'How do I embed an Official.fm track on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the track URL into the tool, click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Can I embed a full Official.fm playlist?',
+      answer:
+        'Yes. Paste a playlist link and the tool builds a player that plays the entire set.'
+    },
+    {
+      question: 'Does the embedded player keep working on mobile?',
+      answer:
+        'Yes. The generated player is responsive and plays back on phones, tablets, and desktops.'
+    },
+    {
+      question: 'What if an Official.fm track is private or removed?',
+      answer:
+        'The tool falls back to a styled preview card with whatever metadata is still available.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

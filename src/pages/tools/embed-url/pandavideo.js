@@ -2,26 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Pandavideo',
+  name: 'Panda Video',
   slug: 'pandavideo',
-  color: '#666666',
+  color: '#2D3436',
   exampleUrl: 'https://pandavideo.com',
-  metaTitle: 'Pandavideo Embed Code Generator — Embed Pandavideo Content',
+  metaTitle: 'Panda Video Embed Code Generator — Embed Hosted Videos & Courses',
   metaDescription:
-    'Free Pandavideo embed code generator. Paste any Pandavideo URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Panda Video embed code generator. Paste any Panda Video URL — get a ready-to-paste secure player for hosted videos and course lessons. No signup.',
   keywords: [
-    'embed pandavideo',
-    'pandavideo embed code',
-    'pandavideo embed generator'
+    'embed panda video',
+    'panda video embed code',
+    'panda video embed code generator',
+    'embed panda video player',
+    'panda video iframe code',
+    'embed panda video course',
+    'panda video player embed'
   ],
-  heroTitle: 'Pandavideo Embed Code Generator',
+  heroTitle: 'Panda Video Embed Code Generator',
   heroSubtitle:
-    'Paste any Pandavideo URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Pandavideo content',
+    'Paste any Panda Video URL — get a ready-to-paste secure player for hosted videos and course lessons.',
+  howItWorksHeading: 'How to embed Panda Video content',
   howItWorksSteps: [
     {
-      title: 'Paste a Pandavideo link',
-      description: 'Copy any pandavideo.com URL.'
+      title: 'Paste a Panda Video link',
+      description:
+        'Copy the URL of any hosted video or course lesson and drop it into the field.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Pandavideo embed code generator',
+  explanationHeading: 'Why use our Panda Video embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Pandavideo link and get working embed HTML.'
+      description:
+        'Paste any Panda Video link and get the player embed without digging through the dashboard for share settings.'
     },
     {
-      title: 'Pandavideo content',
-      description: 'The tool handles all Pandavideo URL formats.'
+      title: 'Built for course creators',
+      description:
+        'Drop hosted videos and lessons into your course site, membership area, or landing page in seconds.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Secure video player',
       description:
-        'Get the real Pandavideo embed with full interactivity when available.'
+        'Generates the Panda Video player embed so your hosted videos stream with the platform protections intact.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Pandavideo URL formats and content types.'
+      title: 'Responsive playback',
+      description:
+        'The player scales to fit any container, keeping a correct aspect ratio on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' },
+    { href: '/tools/embed-url/sproutvideo', label: 'SproutVideo' }
   ],
   faq: [
     {
-      question: 'How do I embed Pandavideo content on my website?',
-      answer: 'Paste any Pandavideo URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Pandavideo embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Pandavideo content is private?',
+      question: 'How do I embed a Panda Video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the video or lesson URL into the tool and click Generate. Copy the resulting HTML and paste it wherever you want the player to appear.'
+    },
+    {
+      question: 'Can I embed full courses or just single videos?',
+      answer:
+        'You can embed individual hosted videos and course lessons. Paste the link for the specific video you want to show.'
+    },
+    {
+      question: 'Does the embedded player stay secure?',
+      answer:
+        'Yes. The tool produces the native Panda Video player embed, so playback runs through the platform with its protections in place.'
+    },
+    {
+      question: 'Will the player be responsive?',
+      answer:
+        'Yes. The generated markup keeps the correct aspect ratio and adapts to the width of its container.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

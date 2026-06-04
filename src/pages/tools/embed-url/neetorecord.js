@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'neetoRecord',
   slug: 'neetorecord',
-  color: '#666666',
+  color: '#4F46E5',
   exampleUrl: 'https://neetorecord.com',
-  metaTitle: 'neetoRecord Embed Code Generator — Embed neetoRecord Content',
+  metaTitle: 'neetoRecord Embed Code Generator — Embed Screen Recordings',
   metaDescription:
-    'Free neetoRecord embed code generator. Paste any neetoRecord URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free neetoRecord embed code generator. Paste any neetoRecord URL — get a ready-to-paste player for screen recordings and video messages. No signup.',
   keywords: [
     'embed neetorecord',
     'neetorecord embed code',
-    'neetorecord embed generator'
+    'neetorecord embed code generator',
+    'embed neetorecord video',
+    'embed screen recording',
+    'neetorecord iframe code',
+    'neetorecord player embed'
   ],
   heroTitle: 'neetoRecord Embed Code Generator',
   heroSubtitle:
-    'Paste any neetoRecord URL — get a ready-to-paste embed or preview card.',
+    'Paste any neetoRecord URL — get a ready-to-paste player for screen recordings and async video messages.',
   howItWorksHeading: 'How to embed neetoRecord content',
   howItWorksSteps: [
     {
       title: 'Paste a neetoRecord link',
-      description: 'Copy any neetorecord.com URL.'
+      description:
+        'Copy the share URL of any neetoRecord screen recording or video message and paste it into the tool.'
     },
     {
       title: 'Get the embed code',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any neetoRecord link and get working embed HTML.'
+      description:
+        'Paste a neetoRecord share link and get working player HTML in one step.'
     },
     {
-      title: 'neetoRecord content',
-      description: 'The tool handles all neetoRecord URL formats.'
+      title: 'Built for async video messages',
+      description:
+        'Tuned for neetoRecord screen and camera recordings, so quick walkthroughs play inline wherever you embed them.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Screen recording embeds',
       description:
-        'Get the real neetoRecord embed with full interactivity when available.'
+        'Embed neetoRecord screen recordings directly in docs, tickets, or help articles with a responsive player.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all neetoRecord URL formats and content types.'
+      title: 'Video message support',
+      description:
+        'Drop async video messages into emails, knowledge bases, or project pages so teammates can watch in place.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' },
+    { href: '/tools/embed-url/dadan', label: 'Dadan' }
   ],
   faq: [
     {
-      question: 'How do I embed neetoRecord content on my website?',
-      answer: 'Paste any neetoRecord URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the neetoRecord embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the neetoRecord content is private?',
+      question: 'How do I embed a neetoRecord recording on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Copy the neetoRecord share URL, paste it into the tool, then copy the generated HTML into your page.'
+    },
+    {
+      question: 'Can I embed a neetoRecord video message in a help doc?',
+      answer:
+        'Yes. Paste the share link and the tool produces a responsive player you can drop into any HTML editor or knowledge base.'
+    },
+    {
+      question: 'Will the embedded recording play inline?',
+      answer:
+        'Yes. The generated player lets viewers watch the screen recording directly on your page without leaving it.'
+    },
+    {
+      question: 'What if a neetoRecord link is private?',
+      answer:
+        'When native embedding is restricted, the tool falls back to a styled preview card linking to the original recording.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

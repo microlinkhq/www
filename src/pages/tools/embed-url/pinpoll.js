@@ -4,18 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Pinpoll',
   slug: 'pinpoll',
-  color: '#666666',
-  exampleUrl: 'https://pinpoll.com',
-  metaTitle: 'Pinpoll Embed Code Generator — Embed Pinpoll Content',
+  color: '#FF5A5F',
+  exampleUrl: 'https://www.pinpoll.com',
+  metaTitle: 'Pinpoll Embed Code Generator — Embed Polls & Quizzes',
   metaDescription:
-    'Free Pinpoll embed code generator. Paste any Pinpoll URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed pinpoll', 'pinpoll embed code', 'pinpoll embed generator'],
+    'Free Pinpoll embed code generator. Paste any Pinpoll URL — get a ready-to-paste widget for polls, quizzes, and surveys. No signup.',
+  keywords: [
+    'embed pinpoll',
+    'pinpoll embed code',
+    'pinpoll embed code generator',
+    'embed pinpoll poll',
+    'pinpoll quiz embed',
+    'pinpoll survey embed',
+    'pinpoll widget embed'
+  ],
   heroTitle: 'Pinpoll Embed Code Generator',
   heroSubtitle:
-    'Paste any Pinpoll URL — get a ready-to-paste embed or preview card.',
+    'Paste any Pinpoll URL — get a ready-to-paste widget for polls, quizzes, and surveys.',
   howItWorksHeading: 'How to embed Pinpoll content',
   howItWorksSteps: [
-    { title: 'Paste a Pinpoll link', description: 'Copy any pinpoll.com URL.' },
+    {
+      title: 'Paste a Pinpoll link',
+      description:
+        'Copy the URL of your Pinpoll poll, quiz, or survey and paste it in.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Pinpoll link and get working embed HTML.'
+      description:
+        'Turn any Pinpoll link into a working interactive widget without touching the dashboard.'
     },
     {
-      title: 'Pinpoll content',
-      description: 'The tool handles all Pinpoll URL formats.'
+      title: 'Keep readers engaged',
+      description:
+        'Drop live polls, quizzes, and surveys into your articles to boost reader interaction.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive widget embed',
       description:
-        'Get the real Pinpoll embed with full interactivity when available.'
+        'Get the live Pinpoll widget so visitors can vote and answer right inside your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Pinpoll URL formats and content types.'
+      title: 'Polls, quizzes, and surveys',
+      description:
+        'Works across Pinpoll content types, from quick single-question polls to full surveys.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/poll-daddy', label: 'Poll Daddy' },
+    { href: '/tools/embed-url/quiz-biz', label: 'Quiz Biz' },
+    { href: '/tools/embed-url/insticator', label: 'Insticator' }
   ],
   faq: [
     {
-      question: 'How do I embed Pinpoll content on my website?',
-      answer: 'Paste any Pinpoll URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Pinpoll embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Pinpoll content is private?',
+      question: 'How do I embed a Pinpoll poll on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Pinpoll URL into the tool, click Generate, then copy the HTML and paste it into your page where you want the poll to appear.'
+    },
+    {
+      question: 'Can readers vote directly in the embedded widget?',
+      answer:
+        'Yes. The native embed keeps the widget interactive so visitors can vote and answer without leaving your page.'
+    },
+    {
+      question: 'Does this work with quizzes and surveys too?',
+      answer:
+        'It does. The tool handles Pinpoll polls, quizzes, and surveys and generates the right embed for each.'
+    },
+    {
+      question: 'What if the widget cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card with the title and image and a link to the original content.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

@@ -4,18 +4,31 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'NFB',
   slug: 'nfb-ca',
-  color: '#666666',
-  exampleUrl: 'https://nfb.ca',
-  metaTitle: 'NFB Embed Code Generator — Embed NFB Content',
+  color: '#E4002B',
+  exampleUrl: 'https://www.nfb.ca',
+  metaTitle:
+    'NFB Embed Code Generator — Embed Films, Documentaries & Animation',
   metaDescription:
-    'Free NFB embed code generator. Paste any NFB URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed nfb', 'nfb embed code', 'nfb embed generator'],
+    'Free NFB embed code generator. Paste any nfb.ca URL — get a ready-to-paste player for films, documentaries, and animation. No signup.',
+  keywords: [
+    'embed nfb',
+    'nfb embed code',
+    'nfb embed code generator',
+    'embed nfb film',
+    'embed nfb documentary',
+    'nfb iframe code',
+    'national film board embed'
+  ],
   heroTitle: 'NFB Embed Code Generator',
   heroSubtitle:
-    'Paste any NFB URL — get a ready-to-paste embed or preview card.',
+    'Paste any NFB URL — get a ready-to-paste player for films, documentaries, and animation from the National Film Board of Canada.',
   howItWorksHeading: 'How to embed NFB content',
   howItWorksSteps: [
-    { title: 'Paste a NFB link', description: 'Copy any nfb.ca URL.' },
+    {
+      title: 'Paste an NFB link',
+      description:
+        'Copy the URL of any nfb.ca film, documentary, or animation and paste it into the tool.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any NFB link and get working embed HTML.'
+      description:
+        'Paste an NFB link and get working player HTML — no need to dig through the page for embed options.'
     },
     {
-      title: 'NFB content',
-      description: 'The tool handles all NFB URL formats.'
+      title: 'Built for the NFB film collection',
+      description:
+        'Tuned for the National Film Board free streaming catalogue, so documentaries, films, and animation render cleanly on your page.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Film and documentary embeds',
       description:
-        'Get the real NFB embed with full interactivity when available.'
+        'Embed full NFB films and documentaries with a responsive player for classrooms, articles, or research pages.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all NFB URL formats and content types.'
+      title: 'Animation support',
+      description:
+        'Showcase NFB animated shorts inline so visitors can watch without leaving your site.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/dailymotion', label: 'Dailymotion' },
+    { href: '/tools/embed-url/youtube', label: 'YouTube' }
   ],
   faq: [
     {
-      question: 'How do I embed NFB content on my website?',
-      answer: 'Paste any NFB URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the NFB embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the NFB content is private?',
+      question: 'How do I embed an NFB film on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Copy the nfb.ca film URL, paste it into the tool, then copy the generated HTML into your page.'
+    },
+    {
+      question: 'Can I embed NFB documentaries in a lesson or article?',
+      answer:
+        'Yes. Paste the documentary URL and the tool produces a responsive player you can drop into any page or LMS.'
+    },
+    {
+      question: 'Does it work with NFB animated films?',
+      answer:
+        'Yes. NFB animation is detected automatically and embedded with a player and its title.'
+    },
+    {
+      question: 'What if an NFB title cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card with the title, image, and a link to watch on nfb.ca.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

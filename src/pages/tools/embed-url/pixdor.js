@@ -4,18 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Pixdor',
   slug: 'pixdor',
-  color: '#666666',
+  color: '#00A36C',
   exampleUrl: 'https://pixdor.com',
-  metaTitle: 'Pixdor Embed Code Generator — Embed Pixdor Content',
+  metaTitle: 'Pixdor Embed Code Generator — Embed Interactive Maps',
   metaDescription:
-    'Free Pixdor embed code generator. Paste any Pixdor URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed pixdor', 'pixdor embed code', 'pixdor embed generator'],
+    'Free Pixdor embed code generator. Paste any Pixdor URL — get a ready-to-paste embed for interactive maps and markers. No signup.',
+  keywords: [
+    'embed pixdor',
+    'pixdor embed code',
+    'pixdor embed code generator',
+    'embed pixdor map',
+    'pixdor interactive map embed',
+    'pixdor iframe code',
+    'pixdor map embed'
+  ],
   heroTitle: 'Pixdor Embed Code Generator',
   heroSubtitle:
-    'Paste any Pixdor URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Pixdor content',
+    'Paste any Pixdor URL — get a ready-to-paste embed for interactive maps and markers.',
+  howItWorksHeading: 'How to embed Pixdor maps',
   howItWorksSteps: [
-    { title: 'Paste a Pixdor link', description: 'Copy any pixdor.com URL.' },
+    {
+      title: 'Paste a Pixdor link',
+      description:
+        'Copy the URL of your Pixdor interactive map and paste it in.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Pixdor link and get working embed HTML.'
+      description:
+        'Turn any Pixdor map link into a working embed without configuring tiles or scripts.'
     },
     {
-      title: 'Pixdor content',
-      description: 'The tool handles all Pixdor URL formats.'
+      title: 'Keep maps interactive',
+      description:
+        'Readers can pan, zoom, and click markers right inside your page.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native map embed',
       description:
-        'Get the real Pixdor embed with full interactivity when available.'
+        'Get the real Pixdor map so visitors can explore markers and locations in place.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Pixdor URL formats and content types.'
+      title: 'Responsive sizing',
+      description:
+        'The map scales to fit any column width and stays usable on mobile screens.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/naturalatlas', label: 'Natural Atlas' },
+    { href: '/tools/embed-url/storymaps', label: 'StoryMaps' },
+    { href: '/tools/embed-url/datawrapper', label: 'Datawrapper' }
   ],
   faq: [
     {
-      question: 'How do I embed Pixdor content on my website?',
-      answer: 'Paste any Pixdor URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Pixdor embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Pixdor content is private?',
+      question: 'How do I embed a Pixdor map on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Pixdor URL into the tool, click Generate, then copy the HTML and paste it where you want the map to appear.'
+    },
+    {
+      question: 'Can visitors interact with the embedded map?',
+      answer:
+        'Yes. The native embed keeps the map interactive so people can pan, zoom, and click markers without leaving your page.'
+    },
+    {
+      question: 'Will the map work on mobile devices?',
+      answer:
+        'It does. The generated embed is responsive and adjusts to the available width on phones and tablets.'
+    },
+    {
+      question: 'What if the map cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card with the title and image and a link to the original map.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

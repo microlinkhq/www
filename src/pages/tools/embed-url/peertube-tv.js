@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'PeerTube',
   slug: 'peertube-tv',
-  color: '#666666',
+  color: '#F1680D',
   exampleUrl: 'https://peertube.tv',
-  metaTitle: 'PeerTube Embed Code Generator — Embed PeerTube Content',
+  metaTitle: 'PeerTube Embed Code Generator — Embed Videos & Channels',
   metaDescription:
-    'Free PeerTube embed code generator. Paste any PeerTube URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free PeerTube embed code generator. Paste any PeerTube URL — get a ready-to-paste player for videos and channels across the federated network. No signup.',
   keywords: [
     'embed peertube',
     'peertube embed code',
-    'peertube embed generator'
+    'peertube embed code generator',
+    'embed peertube video',
+    'peertube iframe code',
+    'peertube player embed',
+    'embed peertube channel'
   ],
   heroTitle: 'PeerTube Embed Code Generator',
   heroSubtitle:
-    'Paste any PeerTube URL — get a ready-to-paste embed or preview card.',
+    'Paste any PeerTube URL — get a ready-to-paste player for videos and channels across the federated network.',
   howItWorksHeading: 'How to embed PeerTube content',
   howItWorksSteps: [
     {
       title: 'Paste a PeerTube link',
-      description: 'Copy any peertube.tv URL.'
+      description:
+        'Copy any PeerTube video or channel URL from any instance and drop it into the field.'
     },
     {
       title: 'Get the embed code',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any PeerTube link and get working embed HTML.'
+      description:
+        'Paste any PeerTube link and get working embed HTML without opening the share dialog on each instance.'
     },
     {
-      title: 'PeerTube content',
-      description: 'The tool handles all PeerTube URL formats.'
+      title: 'Works across instances',
+      description:
+        'PeerTube is decentralized and federated, and the tool generates the right player for videos and channels on any instance.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Privacy-friendly player',
       description:
-        'Get the real PeerTube embed with full interactivity when available.'
+        'Embed videos from the free, open PeerTube network without the tracking that comes with mainstream video hosts.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all PeerTube URL formats and content types.'
+      title: 'Videos and channels',
+      description:
+        'Generate embeds for single videos or full channels, keeping the correct aspect ratio for playback.'
     },
     {
       title: 'Preview card fallback',
@@ -72,21 +81,33 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/dailymotion', label: 'Dailymotion' }
   ],
   faq: [
     {
-      question: 'How do I embed PeerTube content on my website?',
-      answer: 'Paste any PeerTube URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the PeerTube embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the PeerTube content is private?',
+      question: 'How do I embed a PeerTube video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the PeerTube video URL into the tool and click Generate. Copy the resulting HTML and paste it wherever you want the player to appear.'
+    },
+    {
+      question: 'Does it work with any PeerTube instance?',
+      answer:
+        'Yes. PeerTube is federated, so the tool generates the right embed for videos and channels hosted on any instance.'
+    },
+    {
+      question: 'Can I embed a whole channel?',
+      answer:
+        'Yes. Paste a channel URL to embed the channel, or a single video URL to embed just that video.'
+    },
+    {
+      question: 'Is PeerTube embedding privacy-friendly?',
+      answer:
+        'PeerTube is an open, decentralized platform, so embeds avoid the ad and tracking layers common to mainstream video hosts.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

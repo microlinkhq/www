@@ -2,26 +2,30 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Plusdocs',
+  name: 'Plus',
   slug: 'plusdocs',
-  color: '#666666',
+  color: '#6366F1',
   exampleUrl: 'https://plusdocs.com',
-  metaTitle: 'Plusdocs Embed Code Generator — Embed Plusdocs Content',
+  metaTitle: 'Plus Embed Code Generator — Embed Live Snapshots',
   metaDescription:
-    'Free Plusdocs embed code generator. Paste any Plusdocs URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Plus embed code generator. Paste any Plus URL — get a ready-to-paste embed for live Snapshots of web pages and dashboards. No signup.',
   keywords: [
-    'embed plusdocs',
+    'embed plus',
+    'plus embed code',
+    'plus embed code generator',
+    'embed plus snapshot',
     'plusdocs embed code',
-    'plusdocs embed generator'
+    'plus dashboard embed',
+    'plus live snapshot embed'
   ],
-  heroTitle: 'Plusdocs Embed Code Generator',
+  heroTitle: 'Plus Embed Code Generator',
   heroSubtitle:
-    'Paste any Plusdocs URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Plusdocs content',
+    'Paste any Plus URL — get a ready-to-paste embed for live Snapshots of web pages and dashboards.',
+  howItWorksHeading: 'How to embed Plus Snapshots',
   howItWorksSteps: [
     {
-      title: 'Paste a Plusdocs link',
-      description: 'Copy any plusdocs.com URL.'
+      title: 'Paste a Plus link',
+      description: 'Copy the URL of your Plus Snapshot and paste it in.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +38,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Plusdocs embed code generator',
+  explanationHeading: 'Why use our Plus embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Plusdocs link and get working embed HTML.'
+      description:
+        'Turn any Plus Snapshot link into a working embed without screenshots or manual exports.'
     },
     {
-      title: 'Plusdocs content',
-      description: 'The tool handles all Plusdocs URL formats.'
+      title: 'Snapshots stay up to date',
+      description:
+        'Embed a live Snapshot so the dashboard or page refreshes wherever it is shared.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Live Snapshot embed',
       description:
-        'Get the real Plusdocs embed with full interactivity when available.'
+        'Get the real Plus Snapshot so the latest view of a page or dashboard appears in place.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Plusdocs URL formats and content types.'
+      title: 'Web pages and dashboards',
+      description:
+        'Works across Plus Snapshots, from single web pages to live app dashboards.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/canva', label: 'Canva' },
+    { href: '/tools/embed-url/beautiful', label: 'Beautiful.ai' },
+    { href: '/tools/embed-url/speakerdeck', label: 'SpeakerDeck' }
   ],
   faq: [
     {
-      question: 'How do I embed Plusdocs content on my website?',
-      answer: 'Paste any Plusdocs URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Plusdocs embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Plusdocs content is private?',
+      question: 'How do I embed a Plus Snapshot on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Plus URL into the tool, click Generate, then copy the HTML and paste it where you want the Snapshot to appear.'
+    },
+    {
+      question: 'Does the embedded Snapshot stay up to date?',
+      answer:
+        'Yes. A live Snapshot keeps refreshing, so the embedded page or dashboard shows the latest view.'
+    },
+    {
+      question: 'Can I embed a dashboard with Plus?',
+      answer:
+        'You can. Plus captures Snapshots of web pages and app dashboards, and the tool generates an embed for each.'
+    },
+    {
+      question: 'What if the Snapshot cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card with the title and image and a link to the original Snapshot.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

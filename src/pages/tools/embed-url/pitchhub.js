@@ -2,26 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Pitchhub',
+  name: 'PitchHub',
   slug: 'pitchhub',
-  color: '#666666',
+  color: '#5A31F4',
   exampleUrl: 'https://pitchhub.com',
-  metaTitle: 'Pitchhub Embed Code Generator — Embed Pitchhub Content',
+  metaTitle: 'PitchHub Embed Code Generator — Embed Pitch Decks',
   metaDescription:
-    'Free Pitchhub embed code generator. Paste any Pitchhub URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free PitchHub embed code generator. Paste any PitchHub URL — get a ready-to-paste embed for pitch decks and presentations. No signup.',
   keywords: [
     'embed pitchhub',
     'pitchhub embed code',
-    'pitchhub embed generator'
+    'pitchhub embed code generator',
+    'embed pitchhub deck',
+    'pitchhub presentation embed',
+    'pitchhub iframe code',
+    'pitchhub pitch deck embed'
   ],
-  heroTitle: 'Pitchhub Embed Code Generator',
+  heroTitle: 'PitchHub Embed Code Generator',
   heroSubtitle:
-    'Paste any Pitchhub URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Pitchhub content',
+    'Paste any PitchHub URL — get a ready-to-paste embed for pitch decks and presentations.',
+  howItWorksHeading: 'How to embed PitchHub decks',
   howItWorksSteps: [
     {
-      title: 'Paste a Pitchhub link',
-      description: 'Copy any pitchhub.com URL.'
+      title: 'Paste a PitchHub link',
+      description:
+        'Copy the URL of your PitchHub deck or presentation and paste it in.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Pitchhub embed code generator',
+  explanationHeading: 'Why use our PitchHub embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Pitchhub link and get working embed HTML.'
+      description:
+        'Turn any PitchHub deck link into a working embed without exporting slides or files.'
     },
     {
-      title: 'Pitchhub content',
-      description: 'The tool handles all Pitchhub URL formats.'
+      title: 'Always shows the latest version',
+      description:
+        'The embed points to your live deck, so updates show up wherever it is shared.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native deck embed',
       description:
-        'Get the real Pitchhub embed with full interactivity when available.'
+        'Get the real PitchHub viewer so readers can flip through every slide in place.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Pitchhub URL formats and content types.'
+      title: 'Decks and presentations',
+      description:
+        'Works across PitchHub content, from short pitch decks to longer presentations.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/speakerdeck', label: 'SpeakerDeck' },
+    { href: '/tools/embed-url/beautiful', label: 'Beautiful.ai' },
+    { href: '/tools/embed-url/canva', label: 'Canva' }
   ],
   faq: [
     {
-      question: 'How do I embed Pitchhub content on my website?',
-      answer: 'Paste any Pitchhub URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Pitchhub embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Pitchhub content is private?',
+      question: 'How do I embed a PitchHub deck on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the PitchHub URL into the tool, click Generate, then copy the HTML and paste it where you want the deck to appear.'
+    },
+    {
+      question: 'Can readers page through the slides in the embed?',
+      answer:
+        'Yes. The native embed keeps the deck interactive so visitors can move through the slides without leaving your page.'
+    },
+    {
+      question: 'Will the embed update when I edit my deck?',
+      answer:
+        'The embed links to your live PitchHub deck, so changes you publish appear in the embedded version too.'
+    },
+    {
+      question: 'What if the deck cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card with the title and image and a link to the original deck.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

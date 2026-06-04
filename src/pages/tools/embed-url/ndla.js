@@ -2,20 +2,32 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Ndla',
+  name: 'NDLA',
   slug: 'ndla',
-  color: '#666666',
+  color: '#1B6CA8',
   exampleUrl: 'https://ndla.no',
-  metaTitle: 'Ndla Embed Code Generator — Embed Ndla Content',
+  metaTitle: 'NDLA Embed Code Generator — Embed Learning Resources & Videos',
   metaDescription:
-    'Free Ndla embed code generator. Paste any Ndla URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed ndla', 'ndla embed code', 'ndla embed generator'],
-  heroTitle: 'Ndla Embed Code Generator',
+    'Free NDLA embed code generator. Paste any ndla.no URL — get a ready-to-paste embed for learning resources, articles, and videos. No signup.',
+  keywords: [
+    'embed ndla',
+    'ndla embed code',
+    'ndla embed code generator',
+    'embed ndla article',
+    'embed ndla video',
+    'ndla iframe code',
+    'embed ndla learning resource'
+  ],
+  heroTitle: 'NDLA Embed Code Generator',
   heroSubtitle:
-    'Paste any Ndla URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Ndla content',
+    'Paste any NDLA URL — get a ready-to-paste embed for learning resources, articles, and videos from the Norwegian Digital Learning Arena.',
+  howItWorksHeading: 'How to embed NDLA content',
   howItWorksSteps: [
-    { title: 'Paste a Ndla link', description: 'Copy any ndla.no URL.' },
+    {
+      title: 'Paste an NDLA link',
+      description:
+        'Copy the URL of any ndla.no learning resource, article, or video and paste it into the tool.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -27,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Ndla embed code generator',
+  explanationHeading: 'Why use our NDLA embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Ndla link and get working embed HTML.'
+      description:
+        'Skip digging through page source for embed snippets — paste an NDLA link and get working HTML instantly.'
     },
     {
-      title: 'Ndla content',
-      description: 'The tool handles all Ndla URL formats.'
+      title: 'Built for open educational resources',
+      description:
+        'Designed for NDLA free learning material, so articles, videos, and interactive resources render cleanly inside your page.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Learning resource embeds',
       description:
-        'Get the real Ndla embed with full interactivity when available.'
+        'Embed full NDLA learning resources and articles so students can read and interact without leaving your site.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Ndla URL formats and content types.'
+      title: 'Video support',
+      description:
+        'Drop NDLA videos straight into lessons, course pages, or LMS modules with a responsive player.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/learningapps-org', label: 'LearningApps' },
+    { href: '/tools/embed-url/wizer-me', label: 'Wizer.me' },
+    { href: '/tools/embed-url/codehs', label: 'CodeHS' }
   ],
   faq: [
     {
-      question: 'How do I embed Ndla content on my website?',
-      answer: 'Paste any Ndla URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Ndla embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Ndla content is private?',
+      question: 'How do I embed an NDLA learning resource on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Copy the ndla.no resource URL, paste it into the tool, then copy the generated HTML into your page.'
+    },
+    {
+      question: 'Can I embed NDLA videos in my lessons?',
+      answer:
+        'Yes. Paste the video URL and the tool generates a responsive player you can drop into any lesson or LMS page.'
+    },
+    {
+      question: 'Does it work with NDLA articles?',
+      answer:
+        'Yes. NDLA articles are detected automatically and embedded with their title, text, and media.'
+    },
+    {
+      question: 'What if an NDLA resource cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card with the title, image, and a link to the original resource.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
