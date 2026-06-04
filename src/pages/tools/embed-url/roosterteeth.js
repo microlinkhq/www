@@ -2,26 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Roosterteeth',
+  name: 'Rooster Teeth',
   slug: 'roosterteeth',
-  color: '#666666',
+  color: '#F04C23',
   exampleUrl: 'https://roosterteeth.com',
-  metaTitle: 'Roosterteeth Embed Code Generator — Embed Roosterteeth Content',
+  metaTitle:
+    'Rooster Teeth Embed Code Generator — Embed Videos, Series & Podcasts',
   metaDescription:
-    'Free Roosterteeth embed code generator. Paste any Roosterteeth URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Rooster Teeth embed code generator. Paste any Rooster Teeth URL — get a ready-to-paste embed for videos, series, and podcasts. No signup.',
   keywords: [
-    'embed roosterteeth',
-    'roosterteeth embed code',
-    'roosterteeth embed generator'
+    'embed rooster teeth',
+    'rooster teeth embed code',
+    'rooster teeth embed code generator',
+    'embed rooster teeth video',
+    'rooster teeth iframe code',
+    'rooster teeth podcast embed',
+    'embed rooster teeth series'
   ],
-  heroTitle: 'Roosterteeth Embed Code Generator',
+  heroTitle: 'Rooster Teeth Embed Code Generator',
   heroSubtitle:
-    'Paste any Roosterteeth URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Roosterteeth content',
+    'Paste any Rooster Teeth URL — get a ready-to-paste embed for videos, series, and podcasts.',
+  howItWorksHeading: 'How to embed Rooster Teeth content',
   howItWorksSteps: [
     {
-      title: 'Paste a Roosterteeth link',
-      description: 'Copy any roosterteeth.com URL.'
+      title: 'Paste a Rooster Teeth link',
+      description: 'Copy any roosterteeth.com video, series, or podcast URL.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Roosterteeth embed code generator',
+  explanationHeading: 'Why use our Rooster Teeth embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Roosterteeth link and get working embed HTML.'
+      description:
+        'Paste any Rooster Teeth link and get working embed HTML in one click — no markup to write by hand.'
     },
     {
-      title: 'Roosterteeth content',
-      description: 'The tool handles all Roosterteeth URL formats.'
+      title: 'Videos, series, and podcasts',
+      description:
+        'One tool handles Rooster Teeth original videos, full series, and podcast episodes from a single link.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Video player embeds',
       description:
-        'Get the real Roosterteeth embed with full interactivity when available.'
+        'Embed Rooster Teeth videos and series episodes with a responsive player that scales to your layout.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Roosterteeth URL formats and content types.'
+      title: 'Podcast embeds',
+      description:
+        'Drop in Rooster Teeth podcast episodes so visitors can listen without leaving your page.'
     },
     {
       title: 'Preview card fallback',
@@ -72,21 +81,33 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/dailymotion', label: 'Dailymotion' }
   ],
   faq: [
     {
-      question: 'How do I embed Roosterteeth content on my website?',
-      answer: 'Paste any Roosterteeth URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Roosterteeth embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Roosterteeth content is private?',
+      question: 'How do I embed a Rooster Teeth video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the roosterteeth.com URL into the tool, click Generate, then copy the embed HTML into your page.'
+    },
+    {
+      question: 'Can I embed Rooster Teeth podcasts as well as videos?',
+      answer:
+        'Yes. The tool detects videos, series, and podcast episodes and builds the right embed for each.'
+    },
+    {
+      question: 'Is the embedded player responsive?',
+      answer:
+        'Yes. The player scales to fit your container so it looks right on desktop and mobile.'
+    },
+    {
+      question: 'What if the content cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

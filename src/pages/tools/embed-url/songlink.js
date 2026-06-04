@@ -4,22 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Songlink',
   slug: 'songlink',
-  color: '#666666',
+  color: '#5C67F2',
   exampleUrl: 'https://song.link',
-  metaTitle: 'Songlink Embed Code Generator — Embed Songlink Content',
+  metaTitle: 'Songlink Embed Code Generator — Embed Smart Music Links',
   metaDescription:
-    'Free Songlink embed code generator. Paste any Songlink URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Songlink embed code generator. Paste any Songlink (Odesli) URL — get a ready-to-paste embed for smart music links to songs and albums. No signup.',
   keywords: [
     'embed songlink',
     'songlink embed code',
-    'songlink embed generator'
+    'songlink embed code generator',
+    'embed odesli',
+    'songlink iframe code',
+    'smart music link embed',
+    'embed song.link'
   ],
   heroTitle: 'Songlink Embed Code Generator',
   heroSubtitle:
-    'Paste any Songlink URL — get a ready-to-paste embed or preview card.',
+    'Paste any Songlink URL — get a ready-to-paste embed for smart links that open a song or album in any streaming service.',
   howItWorksHeading: 'How to embed Songlink content',
   howItWorksSteps: [
-    { title: 'Paste a Songlink link', description: 'Copy any song.link URL.' },
+    {
+      title: 'Paste a Songlink link',
+      description:
+        'Copy any song.link or album.link URL from Songlink (Odesli).'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -35,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Songlink link and get working embed HTML.'
+      description:
+        'Paste any Songlink URL and get working embed HTML — no copy-pasting markup by hand.'
     },
     {
-      title: 'Songlink content',
-      description: 'The tool handles all Songlink URL formats.'
+      title: 'One link, every service',
+      description:
+        'Let visitors open the track or album in Spotify, Apple Music, or whatever streaming app they prefer.'
     },
     {
       title: 'Customizable preview card',
@@ -48,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Smart song links',
       description:
-        'Get the real Songlink embed with full interactivity when available.'
+        'Embed a single-track smart link that routes each listener to their chosen music service.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Songlink URL formats and content types.'
+      title: 'Album smart links',
+      description:
+        'Works with full album smart links so fans can stream the whole release anywhere.'
     },
     {
       title: 'Preview card fallback',
@@ -68,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/spotify', label: 'Spotify' },
+    { href: '/tools/embed-url/soundcloud', label: 'SoundCloud' },
+    { href: '/tools/embed-url/apple-music', label: 'Apple Music' }
   ],
   faq: [
     {
-      question: 'How do I embed Songlink content on my website?',
-      answer: 'Paste any Songlink URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Songlink embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Songlink content is private?',
+      question: 'How do I embed a Songlink smart link on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the song.link or album.link URL into the tool and click Generate. You get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'Does it work for both songs and albums?',
+      answer:
+        'Yes. Both single-track and album smart links are detected and embedded correctly.'
+    },
+    {
+      question: 'Why use a Songlink instead of a single streaming link?',
+      answer:
+        'A smart link lets every visitor open the music in their preferred service rather than forcing one platform.'
+    },
+    {
+      question: 'What if Songlink cannot match a streaming service?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

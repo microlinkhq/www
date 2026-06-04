@@ -4,18 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Screenr',
   slug: 'screenr',
-  color: '#666666',
+  color: '#5BA329',
   exampleUrl: 'https://screenr.com',
-  metaTitle: 'Screenr Embed Code Generator — Embed Screenr Content',
+  metaTitle: 'Screenr Embed Code Generator — Embed Screencasts',
   metaDescription:
-    'Free Screenr embed code generator. Paste any Screenr URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed screenr', 'screenr embed code', 'screenr embed generator'],
+    'Free Screenr embed code generator. Paste any Screenr URL — get a ready-to-paste embed for web-based screencasts. No signup, no API key.',
+  keywords: [
+    'embed screenr',
+    'screenr embed code',
+    'screenr embed code generator',
+    'embed screenr screencast',
+    'screenr iframe code',
+    'screenr player embed',
+    'screenr screencast embed'
+  ],
   heroTitle: 'Screenr Embed Code Generator',
   heroSubtitle:
-    'Paste any Screenr URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Screenr content',
+    'Paste any Screenr URL — get a ready-to-paste embed for web-based screencasts.',
+  howItWorksHeading: 'How to embed Screenr screencasts',
   howItWorksSteps: [
-    { title: 'Paste a Screenr link', description: 'Copy any screenr.com URL.' },
+    {
+      title: 'Paste a Screenr link',
+      description:
+        'Copy the URL of any screencast recorded with Screenr and drop it in.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Screenr link and get working embed HTML.'
+      description:
+        'No need to track down the original share options — paste a Screenr link and get working HTML instantly.'
     },
     {
-      title: 'Screenr content',
-      description: 'The tool handles all Screenr URL formats.'
+      title: 'Built for screencasts',
+      description:
+        'Screenr was a web-based screen recorder for creating and sharing screencasts, and the tool resolves its links for you.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Screencast playback',
       description:
-        'Get the real Screenr embed with full interactivity when available.'
+        'Turns a Screenr link into an embeddable player so visitors can watch the recording inline.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Screenr URL formats and content types.'
+      title: 'Responsive output',
+      description:
+        'The generated embed scales to fit any container so screencasts look right at any width.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' },
+    { href: '/tools/embed-url/dadan', label: 'Dadan' }
   ],
   faq: [
     {
-      question: 'How do I embed Screenr content on my website?',
-      answer: 'Paste any Screenr URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Screenr embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Screenr content is private?',
+      question: 'How do I embed a Screenr screencast on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Screenr URL into the tool and click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'What kind of content does Screenr host?',
+      answer:
+        'Screenr was a web-based screen recorder, so its links point to screencasts recorded and shared through the service.'
+    },
+    {
+      question: 'Will the embedded screencast be responsive?',
+      answer:
+        'Yes — the generated code adapts to the width of its container so the player looks right on any device.'
+    },
+    {
+      question: 'What if the Screenr screencast is unavailable?',
+      answer:
+        'The tool falls back to a styled preview card with the available metadata so your layout stays intact.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

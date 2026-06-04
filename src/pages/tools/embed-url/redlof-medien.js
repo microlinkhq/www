@@ -6,22 +6,27 @@ const data = {
   slug: 'redlof-medien',
   color: '#666666',
   exampleUrl: 'https://redlof.de',
-  metaTitle: 'Redlof Medien Embed Code Generator — Embed Redlof Medien Content',
+  metaTitle:
+    'Redlof Medien Embed Code Generator — Embed Pages & Shared Content',
   metaDescription:
-    'Free Redlof Medien embed code generator. Paste any Redlof Medien URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Redlof Medien embed code generator. Paste any Redlof Medien URL — get a ready-to-paste embed or preview card for pages and shared content. No signup.',
   keywords: [
     'embed redlof medien',
     'redlof medien embed code',
-    'redlof medien embed generator'
+    'redlof medien embed code generator',
+    'redlof medien iframe code',
+    'embed redlof.de',
+    'redlof medien page embed',
+    'redlof medien link embed'
   ],
   heroTitle: 'Redlof Medien Embed Code Generator',
   heroSubtitle:
-    'Paste any Redlof Medien URL — get a ready-to-paste embed or preview card.',
+    'Paste any Redlof Medien URL — get a ready-to-paste embed or preview card for pages and shared content.',
   howItWorksHeading: 'How to embed Redlof Medien content',
   howItWorksSteps: [
     {
       title: 'Paste a Redlof Medien link',
-      description: 'Copy any redlof.de URL.'
+      description: 'Copy any redlof.de page or shared content URL.'
     },
     {
       title: 'Get the embed code',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Redlof Medien link and get working embed HTML.'
+      description:
+        'Paste any Redlof Medien link and get working embed HTML in one click — no markup to write by hand.'
     },
     {
-      title: 'Redlof Medien content',
-      description: 'The tool handles all Redlof Medien URL formats.'
+      title: 'Works with any shared link',
+      description:
+        'Point the tool at a Redlof Medien page or shared content URL and it figures out the best way to display it.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Page embeds',
       description:
-        'Get the real Redlof Medien embed with full interactivity when available.'
+        'Embed Redlof Medien pages and shared content with a clean, responsive frame.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Redlof Medien URL formats and content types.'
+      title: 'Automatic metadata',
+      description:
+        'The tool pulls the title, description, and image from the link so the embed looks right out of the box.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/raindrop', label: 'Raindrop' },
+    { href: '/tools/embed-url/curated', label: 'Curated' },
+    { href: '/tools/embed-url/pastery', label: 'Pastery' }
   ],
   faq: [
     {
       question: 'How do I embed Redlof Medien content on my website?',
-      answer: 'Paste any Redlof Medien URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Redlof Medien embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Redlof Medien content is private?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Redlof Medien URL into the tool, click Generate, then copy the embed HTML into your page.'
+    },
+    {
+      question: 'What kind of Redlof Medien links can I embed?',
+      answer:
+        'Any Redlof Medien page or shared content link. The tool detects what is behind the URL and builds the embed for you.'
+    },
+    {
+      question: 'Will the embed stay up to date with the source page?',
+      answer:
+        'The native embed reflects the live page, so it updates as the source content changes.'
+    },
+    {
+      question: 'What if the link cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

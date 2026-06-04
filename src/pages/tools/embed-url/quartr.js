@@ -4,18 +4,31 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Quartr',
   slug: 'quartr',
-  color: '#666666',
+  color: '#6A5BFF',
   exampleUrl: 'https://quartr.com',
-  metaTitle: 'Quartr Embed Code Generator — Embed Quartr Content',
+  metaTitle:
+    'Quartr Embed Code Generator — Embed Earnings Calls & Presentations',
   metaDescription:
-    'Free Quartr embed code generator. Paste any Quartr URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed quartr', 'quartr embed code', 'quartr embed generator'],
+    'Free Quartr embed code generator. Paste any Quartr URL — get a ready-to-paste embed for earnings calls, investor presentations, and transcripts. No signup.',
+  keywords: [
+    'embed quartr',
+    'quartr embed code',
+    'quartr embed code generator',
+    'embed earnings call',
+    'quartr iframe code',
+    'embed investor presentation',
+    'quartr transcript embed'
+  ],
   heroTitle: 'Quartr Embed Code Generator',
   heroSubtitle:
-    'Paste any Quartr URL — get a ready-to-paste embed or preview card.',
+    'Paste any Quartr URL — get a ready-to-paste embed for earnings calls, investor presentations, and transcripts.',
   howItWorksHeading: 'How to embed Quartr content',
   howItWorksSteps: [
-    { title: 'Paste a Quartr link', description: 'Copy any quartr.com URL.' },
+    {
+      title: 'Paste a Quartr link',
+      description:
+        'Copy the URL of any earnings call, investor presentation, or transcript and drop it in.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Quartr link and get working embed HTML.'
+      description:
+        'Skip the manual URL conversion. Paste any Quartr link and get working embed HTML in seconds.'
     },
     {
-      title: 'Quartr content',
-      description: 'The tool handles all Quartr URL formats.'
+      title: 'Built for investor-relations content',
+      description:
+        'Handles earnings calls, investor presentations, and transcripts for public companies.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Earnings call embeds',
       description:
-        'Get the real Quartr embed with full interactivity when available.'
+        'Embed earnings calls so readers can listen and follow along inside your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Quartr URL formats and content types.'
+      title: 'Presentation & transcript embeds',
+      description:
+        'Drop investor presentations and transcripts into research notes, reports, or articles.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/datawrapper', label: 'Datawrapper' },
+    { href: '/tools/embed-url/speakerdeck', label: 'Speaker Deck' },
+    { href: '/tools/embed-url/chartblocks', label: 'ChartBlocks' }
   ],
   faq: [
     {
-      question: 'How do I embed Quartr content on my website?',
-      answer: 'Paste any Quartr URL into the tool and click Generate.'
+      question: 'How do I embed a Quartr earnings call on my site?',
+      answer:
+        'Paste the earnings call URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
     },
     {
-      question: 'Is the Quartr embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Can I embed investor presentations and transcripts?',
+      answer:
+        'Yes. Paste the presentation or transcript URL and the generator produces an embed for it.'
     },
     {
-      question: 'What if the Quartr content is private?',
+      question: 'Which companies does this work with?',
+      answer:
+        'It works with any public-company content available on Quartr, across the supported URL formats.'
+    },
+    {
+      question: 'What if the Quartr content is restricted?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

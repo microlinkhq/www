@@ -2,26 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Screencast',
+  name: 'Screencast.com',
   slug: 'screencast-com',
-  color: '#666666',
-  exampleUrl: 'https://screencast.com',
-  metaTitle: 'Screencast Embed Code Generator — Embed Screencast Content',
+  color: '#1D9BD7',
+  exampleUrl: 'https://www.screencast.com',
+  metaTitle: 'Screencast.com Embed Code Generator — Embed Recordings & Images',
   metaDescription:
-    'Free Screencast embed code generator. Paste any Screencast URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Screencast.com embed code generator. Paste any Screencast.com URL — get a ready-to-paste embed for screen recordings, videos, and images. No signup.',
   keywords: [
-    'embed screencast',
-    'screencast embed code',
-    'screencast embed generator'
+    'embed screencast.com',
+    'screencast.com embed code',
+    'screencast.com embed code generator',
+    'embed screencast video',
+    'screencast.com iframe code',
+    'embed snagit recording',
+    'embed camtasia video'
   ],
-  heroTitle: 'Screencast Embed Code Generator',
+  heroTitle: 'Screencast.com Embed Code Generator',
   heroSubtitle:
-    'Paste any Screencast URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Screencast content',
+    'Paste any Screencast.com URL — get a ready-to-paste embed for screen recordings, videos, and images.',
+  howItWorksHeading: 'How to embed Screencast.com content',
   howItWorksSteps: [
     {
-      title: 'Paste a Screencast link',
-      description: 'Copy any screencast.com URL.'
+      title: 'Paste a Screencast.com link',
+      description:
+        'Copy the URL of any recording, video, or image hosted on Screencast.com and drop it in.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Screencast embed code generator',
+  explanationHeading: 'Why use our Screencast.com embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Screencast link and get working embed HTML.'
+      description:
+        'No need to hunt for share or embed options inside Screencast.com — paste a link and get working HTML instantly.'
     },
     {
-      title: 'Screencast content',
-      description: 'The tool handles all Screencast URL formats.'
+      title: 'Made for Snagit and Camtasia',
+      description:
+        'Screencast.com hosts recordings and images created with TechSmith Snagit and Camtasia, and the tool resolves their URLs for you.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Recordings and images',
       description:
-        'Get the real Screencast embed with full interactivity when available.'
+        'Handles screen recordings, videos, and images shared through Screencast.com in one tool.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Screencast URL formats and content types.'
+      title: 'Responsive output',
+      description:
+        'The generated embed scales to fit any container so your content looks right at any width.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' },
+    { href: '/tools/embed-url/dadan', label: 'Dadan' }
   ],
   faq: [
     {
-      question: 'How do I embed Screencast content on my website?',
-      answer: 'Paste any Screencast URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Screencast embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Screencast content is private?',
+      question: 'How do I embed Screencast.com content on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Screencast.com URL into the tool and click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Can I embed both videos and images from Screencast.com?',
+      answer:
+        'Yes — the tool supports screen recordings, videos, and images hosted on Screencast.com.'
+    },
+    {
+      question: 'Does this work with Snagit and Camtasia uploads?',
+      answer:
+        'Yes — Screencast.com is the TechSmith service for sharing Snagit and Camtasia content, and the tool handles those links.'
+    },
+    {
+      question: 'What if the Screencast.com item is private?',
+      answer:
+        'The tool falls back to a styled preview card with the available metadata so your layout stays intact.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

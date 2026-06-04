@@ -2,24 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Quiz.biz',
+  name: 'Quiz-Biz',
   slug: 'quiz-biz',
-  color: '#666666',
+  color: '#F39C12',
   exampleUrl: 'https://quiz.biz',
-  metaTitle: 'Quiz.biz Embed Code Generator — Embed Quiz.biz Content',
+  metaTitle: 'Quiz-Biz Embed Code Generator — Embed Quizzes & Tests',
   metaDescription:
-    'Free Quiz.biz embed code generator. Paste any Quiz.biz URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Quiz-Biz embed code generator. Paste any quiz.biz URL — get a ready-to-paste embed for quizzes and tests. No signup.',
   keywords: [
     'embed quiz.biz',
     'quiz.biz embed code',
-    'quiz.biz embed generator'
+    'quiz.biz embed code generator',
+    'embed quiz',
+    'quiz.biz iframe code',
+    'embed online test',
+    'quiz.biz quiz embed'
   ],
-  heroTitle: 'Quiz.biz Embed Code Generator',
+  heroTitle: 'Quiz-Biz Embed Code Generator',
   heroSubtitle:
-    'Paste any Quiz.biz URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Quiz.biz content',
+    'Paste any quiz.biz URL — get a ready-to-paste embed for quizzes and tests.',
+  howItWorksHeading: 'How to embed Quiz-Biz content',
   howItWorksSteps: [
-    { title: 'Paste a Quiz.biz link', description: 'Copy any quiz.biz URL.' },
+    {
+      title: 'Paste a Quiz-Biz link',
+      description: 'Copy the URL of any quiz.biz quiz or test and drop it in.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,15 +38,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Quiz.biz embed code generator',
+  explanationHeading: 'Why use our Quiz-Biz embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Quiz.biz link and get working embed HTML.'
+      description:
+        'Skip the manual URL conversion. Paste any quiz.biz link and get working embed HTML in seconds.'
     },
     {
-      title: 'Quiz.biz content',
-      description: 'The tool handles all Quiz.biz URL formats.'
+      title: 'Built for quizzes and tests',
+      description:
+        'Handles quiz.biz quizzes and tests so visitors can play along right inside your page.'
     },
     {
       title: 'Customizable preview card',
@@ -48,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Quiz embeds',
       description:
-        'Get the real Quiz.biz embed with full interactivity when available.'
+        'Embed interactive quiz.biz quizzes so readers can take them without leaving your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Quiz.biz URL formats and content types.'
+      title: 'Test embeds',
+      description:
+        'Drop quiz.biz tests into lessons, articles, or landing pages to engage your audience.'
     },
     {
       title: 'Preview card fallback',
@@ -68,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/poll-daddy', label: 'PollDaddy' },
+    { href: '/tools/embed-url/pinpoll', label: 'Pinpoll' },
+    { href: '/tools/embed-url/learningapps-org', label: 'LearningApps' }
   ],
   faq: [
     {
-      question: 'How do I embed Quiz.biz content on my website?',
-      answer: 'Paste any Quiz.biz URL into the tool and click Generate.'
+      question: 'How do I embed a quiz.biz quiz on my website?',
+      answer:
+        'Paste the quiz URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
     },
     {
-      question: 'Is the Quiz.biz embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Can I embed quiz.biz tests too?',
+      answer:
+        'Yes. Paste the test URL and the generator produces an embed you can drop into any page.'
     },
     {
-      question: 'What if the Quiz.biz content is private?',
+      question: 'Can visitors take the quiz directly in my page?',
+      answer:
+        'When a native embed is available, the quiz stays interactive so visitors can answer in place.'
+    },
+    {
+      question: 'What if the quiz.biz content is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

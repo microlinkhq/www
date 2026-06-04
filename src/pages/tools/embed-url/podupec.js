@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Pod UPEC',
   slug: 'podupec',
-  color: '#666666',
+  color: '#003B71',
   exampleUrl: 'https://pod.u-pec.fr',
-  metaTitle: 'Pod UPEC Embed Code Generator — Embed Pod UPEC Content',
+  metaTitle: 'Pod UPEC Embed Code Generator — Embed Lecture Videos & Podcasts',
   metaDescription:
-    'Free Pod UPEC embed code generator. Paste any Pod UPEC URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Pod UPEC embed code generator. Paste any pod.u-pec.fr URL — get a ready-to-paste player for lecture videos and podcasts from Université Paris-Est Créteil. No signup.',
   keywords: [
     'embed pod upec',
     'pod upec embed code',
-    'pod upec embed generator'
+    'pod u-pec embed generator',
+    'embed esup-pod upec',
+    'pod upec iframe code',
+    'embed lecture video upec',
+    'pod upec player embed'
   ],
   heroTitle: 'Pod UPEC Embed Code Generator',
   heroSubtitle:
-    'Paste any Pod UPEC URL — get a ready-to-paste embed or preview card.',
+    'Paste any pod.u-pec.fr URL — get a ready-to-paste player for lecture recordings and academic podcasts from Université Paris-Est Créteil.',
   howItWorksHeading: 'How to embed Pod UPEC content',
   howItWorksSteps: [
     {
       title: 'Paste a Pod UPEC link',
-      description: 'Copy any pod.u-pec.fr URL.'
+      description:
+        'Copy the URL of any lecture video or podcast from pod.u-pec.fr and paste it into the field.'
     },
     {
       title: 'Get the embed code',
@@ -37,12 +42,14 @@ const data = {
   explanationHeading: 'Why use our Pod UPEC embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Pod UPEC link and get working embed HTML.'
+      title: 'Built for Esup-Pod',
+      description:
+        'Tuned for the Esup-Pod platform run by Université Paris-Est Créteil, so academic video URLs resolve into a working player.'
     },
     {
-      title: 'Pod UPEC content',
-      description: 'The tool handles all Pod UPEC URL formats.'
+      title: 'Lectures and podcasts in one place',
+      description:
+        'Handles both recorded lectures and audio podcasts hosted on pod.u-pec.fr with the correct player for each.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Responsive lecture player',
       description:
-        'Get the real Pod UPEC embed with full interactivity when available.'
+        'The embedded video scales to fit your page so recorded lectures stay watchable on any screen size.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Pod UPEC URL formats and content types.'
+      title: 'Academic podcast support',
+      description:
+        'Audio podcasts published on Pod UPEC embed with their native player and metadata.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/podulille', label: 'Pod Université de Lille' },
+    { href: '/tools/embed-url/poduparis1', label: 'Pod Université Paris 1' },
+    { href: '/tools/embed-url/nanoo', label: 'Nanoo' }
   ],
   faq: [
     {
-      question: 'How do I embed Pod UPEC content on my website?',
-      answer: 'Paste any Pod UPEC URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Pod UPEC embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Pod UPEC content is private?',
+      question: 'How do I embed a Pod UPEC lecture on my site?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the pod.u-pec.fr lecture URL into the tool, click Generate, then copy the embed code into your page.'
+    },
+    {
+      question: 'Can I embed podcasts as well as videos?',
+      answer:
+        'Yes. Both lecture videos and audio podcasts from Pod UPEC are supported, each with the right player.'
+    },
+    {
+      question: 'Is Pod UPEC part of Esup-Pod?',
+      answer:
+        'Yes. It is an Esup-Pod instance run by Université Paris-Est Créteil for hosting educational videos and podcasts.'
+    },
+    {
+      question: 'What happens if a recording is private or restricted?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image instead of a broken player.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

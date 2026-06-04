@@ -4,18 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Screen9',
   slug: 'screen9',
-  color: '#666666',
+  color: '#1E88E5',
   exampleUrl: 'https://screen9.com',
-  metaTitle: 'Screen9 Embed Code Generator — Embed Screen9 Content',
+  metaTitle: 'Screen9 Embed Code Generator — Embed Business Video',
   metaDescription:
-    'Free Screen9 embed code generator. Paste any Screen9 URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed screen9', 'screen9 embed code', 'screen9 embed generator'],
+    'Free Screen9 embed code generator. Paste any Screen9 URL — get a ready-to-paste player for hosted business video. No signup, no API key.',
+  keywords: [
+    'embed screen9',
+    'screen9 embed code',
+    'screen9 embed code generator',
+    'embed screen9 video',
+    'screen9 iframe code',
+    'screen9 player embed',
+    'screen9 video embed'
+  ],
   heroTitle: 'Screen9 Embed Code Generator',
   heroSubtitle:
-    'Paste any Screen9 URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Screen9 content',
+    'Paste any Screen9 URL — get a ready-to-paste player for hosted business video.',
+  howItWorksHeading: 'How to embed Screen9 video',
   howItWorksSteps: [
-    { title: 'Paste a Screen9 link', description: 'Copy any screen9.com URL.' },
+    {
+      title: 'Paste a Screen9 link',
+      description:
+        'Copy the URL of any video hosted on the Screen9 online video platform and drop it in.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Screen9 link and get working embed HTML.'
+      description:
+        'Skip digging through the Screen9 dashboard for embed snippets — paste a link and get working HTML instantly.'
     },
     {
-      title: 'Screen9 content',
-      description: 'The tool handles all Screen9 URL formats.'
+      title: 'Built for business video',
+      description:
+        'Screen9 is an online video platform for hosting and securely delivering business video. The tool resolves its player URLs for you.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Responsive video player',
       description:
-        'Get the real Screen9 embed with full interactivity when available.'
+        'The generated embed scales to fit any container, from a full-width article to a narrow sidebar.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Screen9 URL formats and content types.'
+      title: 'Hosted business video',
+      description:
+        'Works with video managed and delivered through the Screen9 online video platform.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/brightcove', label: 'Brightcove' },
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' }
   ],
   faq: [
     {
-      question: 'How do I embed Screen9 content on my website?',
-      answer: 'Paste any Screen9 URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Screen9 embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Screen9 content is private?',
+      question: 'How do I embed a Screen9 video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Screen9 video URL into the tool and click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'What kind of content can I embed from Screen9?',
+      answer:
+        'Screen9 is an online video platform for business video, so you can embed any hosted video your account has access to.'
+    },
+    {
+      question: 'Will the embedded player be responsive?',
+      answer:
+        'Yes — the generated code adapts to the width of its container so the player looks right on any device.'
+    },
+    {
+      question: 'What if the Screen9 video is private or restricted?',
+      answer:
+        'The tool falls back to a styled preview card with the available metadata so your layout stays intact.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

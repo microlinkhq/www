@@ -6,16 +6,28 @@ const data = {
   slug: 'sizzle',
   color: '#666666',
   exampleUrl: 'https://sizzle.gg',
-  metaTitle: 'Sizzle Embed Code Generator — Embed Sizzle Content',
+  metaTitle: 'Sizzle Embed Code Generator — Embed Sizzle Pages',
   metaDescription:
-    'Free Sizzle embed code generator. Paste any Sizzle URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed sizzle', 'sizzle embed code', 'sizzle embed generator'],
+    'Free Sizzle embed code generator. Paste any Sizzle URL — get a ready-to-paste embed for pages and shared content. No signup.',
+  keywords: [
+    'embed sizzle',
+    'sizzle embed code',
+    'sizzle embed code generator',
+    'embed sizzle page',
+    'sizzle iframe code',
+    'sizzle embed link',
+    'sizzle page embed'
+  ],
   heroTitle: 'Sizzle Embed Code Generator',
   heroSubtitle:
-    'Paste any Sizzle URL — get a ready-to-paste embed or preview card.',
+    'Paste any Sizzle URL — get a ready-to-paste embed for pages and shared content.',
   howItWorksHeading: 'How to embed Sizzle content',
   howItWorksSteps: [
-    { title: 'Paste a Sizzle link', description: 'Copy any sizzle.gg URL.' },
+    {
+      title: 'Paste a Sizzle link',
+      description:
+        'Copy any Sizzle page or shared URL and paste it into the tool.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Sizzle link and get working embed HTML.'
+      description:
+        'Paste any Sizzle link and get working embed HTML without writing markup by hand.'
     },
     {
-      title: 'Sizzle content',
-      description: 'The tool handles all Sizzle URL formats.'
+      title: 'Works with any Sizzle URL',
+      description:
+        'Handles Sizzle pages and shared content so the embed renders cleanly on your site.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Page and link embeds',
       description:
-        'Get the real Sizzle embed with full interactivity when available.'
+        'Turns any Sizzle URL into a clean embed you can place inside your own pages.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Sizzle URL formats and content types.'
+      title: 'Responsive output',
+      description:
+        'The generated embed scales to fit articles, sidebars, and mobile layouts.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/raindrop', label: 'Raindrop' },
+    { href: '/tools/embed-url/curated', label: 'Curated' },
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' }
   ],
   faq: [
     {
       question: 'How do I embed Sizzle content on my website?',
-      answer: 'Paste any Sizzle URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Sizzle embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Sizzle content is private?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Sizzle URL into the tool, click Generate, then copy the embed HTML into your page.'
+    },
+    {
+      question: 'What kind of Sizzle links can I embed?',
+      answer:
+        'The tool accepts Sizzle pages and shared URLs and generates an embed you can drop anywhere.'
+    },
+    {
+      question: 'Does the embed work on mobile?',
+      answer:
+        'Yes. The generated embed is responsive and adapts to phones, tablets, and desktop layouts.'
+    },
+    {
+      question: 'What if the Sizzle content cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card with whatever metadata is available.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

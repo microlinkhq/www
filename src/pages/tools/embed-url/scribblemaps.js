@@ -2,26 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Scribblemaps',
+  name: 'Scribble Maps',
   slug: 'scribblemaps',
-  color: '#666666',
-  exampleUrl: 'https://scribblemaps.com',
-  metaTitle: 'Scribblemaps Embed Code Generator — Embed Scribblemaps Content',
+  color: '#2E7D32',
+  exampleUrl: 'https://www.scribblemaps.com',
+  metaTitle: 'Scribble Maps Embed Code Generator — Embed Custom Maps',
   metaDescription:
-    'Free Scribblemaps embed code generator. Paste any Scribblemaps URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Scribble Maps embed code generator. Paste any Scribble Maps URL — get a ready-to-paste embed for custom, annotated maps. No signup.',
   keywords: [
-    'embed scribblemaps',
-    'scribblemaps embed code',
-    'scribblemaps embed generator'
+    'embed scribble maps',
+    'scribble maps embed code',
+    'scribble maps embed code generator',
+    'embed custom map',
+    'scribble maps iframe code',
+    'embed annotated map',
+    'scribble maps map embed'
   ],
-  heroTitle: 'Scribblemaps Embed Code Generator',
+  heroTitle: 'Scribble Maps Embed Code Generator',
   heroSubtitle:
-    'Paste any Scribblemaps URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Scribblemaps content',
+    'Paste any Scribble Maps URL — get a ready-to-paste embed for custom, annotated maps.',
+  howItWorksHeading: 'How to embed Scribble Maps maps',
   howItWorksSteps: [
     {
-      title: 'Paste a Scribblemaps link',
-      description: 'Copy any scribblemaps.com URL.'
+      title: 'Paste a Scribble Maps link',
+      description:
+        'Copy the URL of any custom map you have drawn or annotated in Scribble Maps and drop it in.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Scribblemaps embed code generator',
+  explanationHeading: 'Why use our Scribble Maps embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Scribblemaps link and get working embed HTML.'
+      description:
+        'Skip the export and share menus — paste a Scribble Maps link and get working embed HTML instantly.'
     },
     {
-      title: 'Scribblemaps content',
-      description: 'The tool handles all Scribblemaps URL formats.'
+      title: 'Built for custom maps',
+      description:
+        'Scribble Maps lets you draw, annotate, and create custom maps, and the tool turns those map links into clean embeds.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive map embed',
       description:
-        'Get the real Scribblemaps embed with full interactivity when available.'
+        'Keeps your drawings, markers, and annotations intact so visitors can pan and zoom the live map.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Scribblemaps URL formats and content types.'
+      title: 'Responsive output',
+      description:
+        'The generated embed scales to fit any container so maps look right on any screen size.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/naturalatlas', label: 'Natural Atlas' },
+    { href: '/tools/embed-url/storymaps', label: 'StoryMaps' },
+    { href: '/tools/embed-url/datawrapper', label: 'Datawrapper' }
   ],
   faq: [
     {
-      question: 'How do I embed Scribblemaps content on my website?',
-      answer: 'Paste any Scribblemaps URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Scribblemaps embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Scribblemaps content is private?',
+      question: 'How do I embed a Scribble Maps map on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Scribble Maps URL into the tool and click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Do my drawings and annotations stay on the embedded map?',
+      answer:
+        'Yes — the embed keeps the custom drawings, markers, and annotations from your Scribble Maps map.'
+    },
+    {
+      question: 'Will the embedded map be responsive?',
+      answer:
+        'Yes — the generated code adapts to the width of its container so the map looks right on any device.'
+    },
+    {
+      question: 'What if the Scribble Maps map is private?',
+      answer:
+        'The tool falls back to a styled preview card with the available metadata so your layout stays intact.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

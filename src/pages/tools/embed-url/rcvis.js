@@ -2,20 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Rcvis',
+  name: 'RCVis',
   slug: 'rcvis',
-  color: '#666666',
+  color: '#2E86DE',
   exampleUrl: 'https://rcvis.com',
-  metaTitle: 'Rcvis Embed Code Generator — Embed Rcvis Content',
+  metaTitle: 'RCVis Embed Code Generator — Embed Ranked-Choice Visualizations',
   metaDescription:
-    'Free Rcvis embed code generator. Paste any Rcvis URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed rcvis', 'rcvis embed code', 'rcvis embed generator'],
-  heroTitle: 'Rcvis Embed Code Generator',
+    'Free RCVis embed code generator. Paste any RCVis URL — get a ready-to-paste embed for round-by-round ranked-choice voting charts and tabulation visualizations. No signup.',
+  keywords: [
+    'embed rcvis',
+    'rcvis embed code',
+    'rcvis embed code generator',
+    'embed ranked choice voting results',
+    'rcvis iframe code',
+    'embed rcv visualization',
+    'ranked choice chart embed'
+  ],
+  heroTitle: 'RCVis Embed Code Generator',
   heroSubtitle:
-    'Paste any Rcvis URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Rcvis content',
+    'Paste any RCVis URL — get a ready-to-paste embed for round-by-round ranked-choice voting charts and tabulation visualizations.',
+  howItWorksHeading: 'How to embed RCVis content',
   howItWorksSteps: [
-    { title: 'Paste a Rcvis link', description: 'Copy any rcvis.com URL.' },
+    {
+      title: 'Paste an RCVis link',
+      description: 'Copy any rcvis.com election visualization URL.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -27,15 +38,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Rcvis embed code generator',
+  explanationHeading: 'Why use our RCVis embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Rcvis link and get working embed HTML.'
+      description:
+        'Paste an RCVis election link and get working embed HTML in one click — no API keys or markup to write by hand.'
     },
     {
-      title: 'Rcvis content',
-      description: 'The tool handles all Rcvis URL formats.'
+      title: 'Interactive round-by-round results',
+      description:
+        'Embed the live RCVis visualization so readers can step through each tabulation round and explore how votes transfer.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Ranked-choice charts',
       description:
-        'Get the real Rcvis embed with full interactivity when available.'
+        'Embed RCVis round-by-round charts that show vote transfers and eliminations across each tabulation round.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Rcvis URL formats and content types.'
+      title: 'Tabulation visualizations',
+      description:
+        'Display full RCV tabulation results, including Sankey-style flows and bar charts, directly on your page.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/datawrapper', label: 'Datawrapper' },
+    { href: '/tools/embed-url/chartblocks', label: 'ChartBlocks' },
+    { href: '/tools/embed-url/infoveave', label: 'Infoveave' }
   ],
   faq: [
     {
-      question: 'How do I embed Rcvis content on my website?',
-      answer: 'Paste any Rcvis URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Rcvis embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Rcvis content is private?',
+      question: 'How do I embed an RCVis election visualization on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the rcvis.com URL of the visualization into the tool, click Generate, then copy the embed HTML into your page.'
+    },
+    {
+      question: 'Can readers interact with the embedded ranked-choice charts?',
+      answer:
+        'Yes. The native embed keeps the round-by-round interactivity so visitors can step through each tabulation round.'
+    },
+    {
+      question: 'Which RCVis content types are supported?',
+      answer:
+        'Ranked-choice voting result visualizations, including round-by-round charts and tabulation views.'
+    },
+    {
+      question: 'What if a visualization is private or cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

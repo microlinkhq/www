@@ -2,20 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'QTpi',
+  name: 'QtPi',
   slug: 'qtpi',
   color: '#666666',
   exampleUrl: 'https://qtpi.gg',
-  metaTitle: 'QTpi Embed Code Generator — Embed QTpi Content',
+  metaTitle: 'QtPi Embed Code Generator — Embed Pages & Shared Content',
   metaDescription:
-    'Free QTpi embed code generator. Paste any QTpi URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed qtpi', 'qtpi embed code', 'qtpi embed generator'],
-  heroTitle: 'QTpi Embed Code Generator',
+    'Free QtPi embed code generator. Paste any QtPi URL — get a ready-to-paste embed for pages and shared content. No signup.',
+  keywords: [
+    'embed qtpi',
+    'qtpi embed code',
+    'qtpi embed code generator',
+    'embed qtpi page',
+    'qtpi iframe code',
+    'qtpi link embed',
+    'qtpi shared content embed'
+  ],
+  heroTitle: 'QtPi Embed Code Generator',
   heroSubtitle:
-    'Paste any QTpi URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed QTpi content',
+    'Paste any QtPi URL — get a ready-to-paste embed for pages and shared content.',
+  howItWorksHeading: 'How to embed QtPi content',
   howItWorksSteps: [
-    { title: 'Paste a QTpi link', description: 'Copy any qtpi.gg URL.' },
+    {
+      title: 'Paste a QtPi link',
+      description: 'Copy any QtPi page or shared content URL and drop it in.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -27,15 +38,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our QTpi embed code generator',
+  explanationHeading: 'Why use our QtPi embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any QTpi link and get working embed HTML.'
+      description:
+        'Skip the manual URL conversion. Paste any QtPi link and get working embed HTML in seconds.'
     },
     {
-      title: 'QTpi content',
-      description: 'The tool handles all QTpi URL formats.'
+      title: 'Works with any QtPi link',
+      description:
+        'Handles QtPi pages and shared content across the supported URL formats.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Page embeds',
       description:
-        'Get the real QTpi embed with full interactivity when available.'
+        'Embed QtPi pages directly into your articles, docs, or website.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all QTpi URL formats and content types.'
+      title: 'Shared content support',
+      description:
+        'Turn any shared QtPi link into a clean, ready-to-paste embed.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/raindrop', label: 'Raindrop.io' },
+    { href: '/tools/embed-url/curated', label: 'Curated' },
+    { href: '/tools/embed-url/pastery', label: 'Pastery' }
   ],
   faq: [
     {
-      question: 'How do I embed QTpi content on my website?',
-      answer: 'Paste any QTpi URL into the tool and click Generate.'
+      question: 'How do I embed QtPi content on my website?',
+      answer:
+        'Paste any QtPi URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
     },
     {
-      question: 'Is the QTpi embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Which QtPi links can I embed?',
+      answer:
+        'You can embed QtPi pages and shared content links across the supported URL formats.'
     },
     {
-      question: 'What if the QTpi content is private?',
+      question: 'Where can I paste the embed code?',
+      answer:
+        'Anywhere that accepts HTML — your blog, docs, CMS, or a custom HTML editor.'
+    },
+    {
+      question: 'What if the QtPi content is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

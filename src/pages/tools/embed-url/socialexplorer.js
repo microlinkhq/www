@@ -2,27 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Socialexplorer',
+  name: 'Social Explorer',
   slug: 'socialexplorer',
-  color: '#666666',
+  color: '#1565C0',
   exampleUrl: 'https://socialexplorer.com',
-  metaTitle:
-    'Socialexplorer Embed Code Generator — Embed Socialexplorer Content',
+  metaTitle: 'Social Explorer Embed Code Generator — Embed Maps & Reports',
   metaDescription:
-    'Free Socialexplorer embed code generator. Paste any Socialexplorer URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Social Explorer embed code generator. Paste any Social Explorer URL — get a ready-to-paste embed for interactive data maps and demographic reports. No signup.',
   keywords: [
-    'embed socialexplorer',
-    'socialexplorer embed code',
-    'socialexplorer embed generator'
+    'embed social explorer',
+    'social explorer embed code',
+    'social explorer embed code generator',
+    'embed social explorer map',
+    'social explorer iframe code',
+    'demographic map embed',
+    'embed census data map'
   ],
-  heroTitle: 'Socialexplorer Embed Code Generator',
+  heroTitle: 'Social Explorer Embed Code Generator',
   heroSubtitle:
-    'Paste any Socialexplorer URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Socialexplorer content',
+    'Paste any Social Explorer URL — get a ready-to-paste embed for interactive data maps and demographic reports.',
+  howItWorksHeading: 'How to embed Social Explorer content',
   howItWorksSteps: [
     {
-      title: 'Paste a Socialexplorer link',
-      description: 'Copy any socialexplorer.com URL.'
+      title: 'Paste a Social Explorer link',
+      description:
+        'Copy any socialexplorer.com URL — an interactive map or a demographic report.'
     },
     {
       title: 'Get the embed code',
@@ -35,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Socialexplorer embed code generator',
+  explanationHeading: 'Why use our Social Explorer embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Socialexplorer link and get working embed HTML.'
+      description:
+        'Paste any Social Explorer link and get working embed HTML — no share dialogs to hunt through.'
     },
     {
-      title: 'Socialexplorer content',
-      description: 'The tool handles all Socialexplorer URL formats.'
+      title: 'Interactive data, intact',
+      description:
+        'Keep maps and reports fully interactive so readers can pan, zoom, and explore the demographics inline.'
     },
     {
       title: 'Customizable preview card',
@@ -52,19 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive data maps',
       description:
-        'Get the real Socialexplorer embed with full interactivity when available.'
+        'Embed live Social Explorer maps so visitors can explore census and demographic layers.'
     },
     {
-      title: 'All content types',
+      title: 'Demographic reports',
       description:
-        'Works with all Socialexplorer URL formats and content types.'
+        'Drop full data reports into articles, dashboards, or research pages.'
     },
     {
       title: 'Preview card fallback',
@@ -73,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/datawrapper', label: 'Datawrapper' },
+    { href: '/tools/embed-url/naturalatlas', label: 'Natural Atlas' },
+    { href: '/tools/embed-url/chartblocks', label: 'ChartBlocks' }
   ],
   faq: [
     {
-      question: 'How do I embed Socialexplorer content on my website?',
-      answer: 'Paste any Socialexplorer URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Socialexplorer embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Socialexplorer content is private?',
+      question: 'How do I embed a Social Explorer map on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Social Explorer map URL into the tool and click Generate. You get ready-to-paste embed HTML for the interactive map.'
+    },
+    {
+      question: 'Can I embed a demographic report too?',
+      answer:
+        'Yes. Paste the report URL and the tool produces an embed that keeps the data tables and visuals intact.'
+    },
+    {
+      question: 'Will the embedded map stay interactive?',
+      answer:
+        'When native embedding is supported, readers can pan, zoom, and switch layers right inside your page.'
+    },
+    {
+      question: 'What if the Social Explorer content needs a subscription?',
+      answer:
+        'The tool falls back to a styled preview card built from the available public metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

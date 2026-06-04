@@ -4,16 +4,19 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Raindrop.io',
   slug: 'raindrop',
-  color: '#3290EC',
+  color: '#0B7FED',
   exampleUrl: 'https://raindrop.io',
-  metaTitle:
-    'Raindrop.io Embed Code Generator — Embed Bookmarks and collections',
+  metaTitle: 'Raindrop.io Embed Code Generator — Embed Bookmarks & Collections',
   metaDescription:
     'Free Raindrop.io embed code generator. Paste any Raindrop.io URL — get a ready-to-paste embed for bookmarks and collections. No signup.',
   keywords: [
     'embed raindrop',
     'raindrop embed code',
-    'raindrop collection embed'
+    'raindrop embed code generator',
+    'embed raindrop collection',
+    'raindrop iframe code',
+    'embed bookmark list',
+    'raindrop bookmark embed'
   ],
   heroTitle: 'Raindrop.io Embed Code Generator',
   heroSubtitle:
@@ -22,7 +25,8 @@ const data = {
   howItWorksSteps: [
     {
       title: 'Paste a Raindrop.io link',
-      description: 'Copy any raindrop.io URL — bookmarks and collections.'
+      description:
+        'Copy the URL of any Raindrop.io bookmark or collection and drop it in.'
     },
     {
       title: 'Get the embed code',
@@ -40,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Raindrop.io link and get working embed HTML.'
+        'Skip the manual URL conversion. Paste any Raindrop.io link and get working embed HTML in seconds.'
     },
     {
-      title: 'All Raindrop.io content',
+      title: 'Built for bookmarks and collections',
       description:
-        'Works with bookmarks and collections — the tool handles all Raindrop.io URL formats.'
+        'Handles Raindrop.io bookmarks and shared collections so readers can browse your saved links.'
     },
     {
       title: 'Customizable preview card',
@@ -55,19 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Raindrop.io embeds per day. No login, no API key.'
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Collection embeds',
       description:
-        'Get the real Raindrop.io embed with full interactivity when available.'
+        'Embed a full Raindrop.io collection so visitors can explore every saved link in one place.'
     },
     {
-      title: 'All bookmarks and collections',
+      title: 'Single bookmark embeds',
       description:
-        'Works with bookmarks and collections — all Raindrop.io content types.'
+        'Turn an individual Raindrop.io bookmark into a clean, ready-to-paste embed.'
     },
     {
       title: 'Preview card fallback',
@@ -76,23 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/curated', label: 'Curated' },
+    { href: '/tools/embed-url/pastery', label: 'Pastery' },
+    { href: '/tools/embed-url/behance', label: 'Behance' }
   ],
   faq: [
     {
-      question: 'How do I embed Raindrop.io content on my website?',
+      question: 'How do I embed a Raindrop.io collection on my website?',
       answer:
-        'Paste any Raindrop.io URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste the collection URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
     },
     {
-      question: 'Is the Raindrop.io embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Can I embed a single Raindrop.io bookmark?',
+      answer:
+        'Yes. Paste the bookmark URL and the generator produces an embed you can drop into any page.'
+    },
+    {
+      question: 'Does the collection need to be public?',
+      answer:
+        'Public collections embed natively. For private links the tool shows a preview card instead.'
     },
     {
       question: 'What if the Raindrop.io content is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

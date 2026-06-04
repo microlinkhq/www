@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Show the Way',
   slug: 'show-the-way',
-  color: '#666666',
+  color: '#2E7D32',
   exampleUrl: 'https://showtheway.io',
-  metaTitle: 'Show the Way Embed Code Generator — Embed Show the Way Content',
+  metaTitle: 'Show the Way Embed Code Generator — Embed Maps & Directions',
   metaDescription:
-    'Free Show the Way embed code generator. Paste any Show the Way URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Show the Way embed code generator. Paste any Show the Way URL — get a ready-to-paste embed for maps and directions. No signup.',
   keywords: [
     'embed show the way',
     'show the way embed code',
-    'show the way embed generator'
+    'show the way embed code generator',
+    'embed show the way map',
+    'show the way iframe code',
+    'embed show the way directions',
+    'show the way map embed'
   ],
   heroTitle: 'Show the Way Embed Code Generator',
   heroSubtitle:
-    'Paste any Show the Way URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Show the Way content',
+    'Paste any Show the Way URL — get a ready-to-paste embed for maps, directions, and wayfinding.',
+  howItWorksHeading: 'How to embed Show the Way maps',
   howItWorksSteps: [
     {
       title: 'Paste a Show the Way link',
-      description: 'Copy any showtheway.io URL.'
+      description:
+        'Copy the URL of any Show the Way map or set of directions and paste it into the tool.'
     },
     {
       title: 'Get the embed code',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Show the Way link and get working embed HTML.'
+      description:
+        'Paste any Show the Way link and get working embed HTML without copying iframe code by hand.'
     },
     {
-      title: 'Show the Way content',
-      description: 'The tool handles all Show the Way URL formats.'
+      title: 'Built for maps and directions',
+      description:
+        'Handles Show the Way maps and wayfinding so the interactive view loads correctly on your page.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive map embed',
       description:
-        'Get the real Show the Way embed with full interactivity when available.'
+        'Embeds Show the Way maps with pan and zoom so readers can explore the route in place.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Show the Way URL formats and content types.'
+      title: 'Responsive layout',
+      description:
+        'The generated embed scales to fit articles, landing pages, and mobile screens.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/naturalatlas', label: 'Natural Atlas' },
+    { href: '/tools/embed-url/scribblemaps', label: 'Scribble Maps' },
+    { href: '/tools/embed-url/storymaps', label: 'StoryMaps' }
   ],
   faq: [
     {
-      question: 'How do I embed Show the Way content on my website?',
-      answer: 'Paste any Show the Way URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Show the Way embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Show the Way content is private?',
+      question: 'How do I embed a Show the Way map on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Show the Way URL into the tool, click Generate, then copy the embed HTML into your page.'
+    },
+    {
+      question: 'Can I embed directions and wayfinding?',
+      answer:
+        'Yes. The tool works with Show the Way maps and directions, generating an embed you can drop anywhere.'
+    },
+    {
+      question: 'Does the map stay interactive once embedded?',
+      answer:
+        'When native embedding is supported, the map keeps its pan and zoom controls inside your page.'
+    },
+    {
+      question: 'What if the Show the Way map is private?',
+      answer:
+        'The tool falls back to a styled preview card with whatever metadata is available.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

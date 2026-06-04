@@ -2,26 +2,30 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'SoopLive',
+  name: 'SOOP',
   slug: 'sooplive',
-  color: '#666666',
+  color: '#0F62FE',
   exampleUrl: 'https://sooplive.co.kr',
-  metaTitle: 'SoopLive Embed Code Generator — Embed SoopLive Content',
+  metaTitle: 'SOOP Embed Code Generator — Embed Live Streams & VODs',
   metaDescription:
-    'Free SoopLive embed code generator. Paste any SoopLive URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free SOOP embed code generator. Paste any SOOP (formerly AfreecaTV) URL — get a ready-to-paste embed for live streams and VODs. No signup.',
   keywords: [
-    'embed sooplive',
-    'sooplive embed code',
-    'sooplive embed generator'
+    'embed soop',
+    'soop embed code',
+    'soop embed code generator',
+    'embed soop live stream',
+    'soop iframe code',
+    'embed afreecatv',
+    'embed soop vod'
   ],
-  heroTitle: 'SoopLive Embed Code Generator',
+  heroTitle: 'SOOP Embed Code Generator',
   heroSubtitle:
-    'Paste any SoopLive URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed SoopLive content',
+    'Paste any SOOP URL — get a ready-to-paste embed for live streams and VODs from the platform formerly known as AfreecaTV.',
+  howItWorksHeading: 'How to embed SOOP content',
   howItWorksSteps: [
     {
-      title: 'Paste a SoopLive link',
-      description: 'Copy any sooplive.co.kr URL.'
+      title: 'Paste a SOOP link',
+      description: 'Copy any SOOP URL — a live broadcast or a saved VOD.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +38,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our SoopLive embed code generator',
+  explanationHeading: 'Why use our SOOP embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any SoopLive link and get working embed HTML.'
+      description:
+        'Paste any SOOP link and get working embed HTML without wrestling with the player markup.'
     },
     {
-      title: 'SoopLive content',
-      description: 'The tool handles all SoopLive URL formats.'
+      title: 'Built for live and esports',
+      description:
+        'Drop live gaming broadcasts and esports streams straight into match pages, recaps, or team sites.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Live stream embeds',
       description:
-        'Get the real SoopLive embed with full interactivity when available.'
+        'Embed an in-progress SOOP broadcast so visitors can watch the live feed inline.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all SoopLive URL formats and content types.'
+      title: 'VOD playback',
+      description:
+        'Works with saved VODs so past streams stay watchable on your page.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
+    { href: '/tools/embed-url/ustream', label: 'Ustream' },
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' }
   ],
   faq: [
     {
-      question: 'How do I embed SoopLive content on my website?',
-      answer: 'Paste any SoopLive URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the SoopLive embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the SoopLive content is private?',
+      question: 'How do I embed a SOOP live stream on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the SOOP broadcast URL into the tool and click Generate. You get ready-to-paste embed HTML for the live feed.'
+    },
+    {
+      question: 'Can I embed a SOOP VOD?',
+      answer:
+        'Yes. Paste a VOD URL and the tool produces an embed that plays the recorded stream.'
+    },
+    {
+      question: 'Is SOOP the same as AfreecaTV?',
+      answer:
+        'Yes. SOOP is the rebranded name of AfreecaTV, and the tool handles its stream and VOD URLs.'
+    },
+    {
+      question: 'What if the SOOP stream is offline or restricted?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

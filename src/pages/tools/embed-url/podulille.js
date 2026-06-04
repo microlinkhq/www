@@ -2,26 +2,32 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Pod Lille',
+  name: 'Pod Université de Lille',
   slug: 'podulille',
-  color: '#666666',
+  color: '#E2001A',
   exampleUrl: 'https://pod.univ-lille.fr',
-  metaTitle: 'Pod Lille Embed Code Generator — Embed Pod Lille Content',
+  metaTitle:
+    'Pod Université de Lille Embed Code Generator — Embed Lecture Videos & Podcasts',
   metaDescription:
-    'Free Pod Lille embed code generator. Paste any Pod Lille URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Pod Université de Lille embed code generator. Paste any pod.univ-lille.fr URL — get a ready-to-paste player for lecture videos and podcasts. No signup.',
   keywords: [
-    'embed pod lille',
-    'pod lille embed code',
-    'pod lille embed generator'
+    'embed pod univ lille',
+    'pod univ-lille embed code',
+    'pod université de lille embed generator',
+    'embed esup-pod lille',
+    'pod lille iframe code',
+    'embed lecture video lille',
+    'pod univ lille player embed'
   ],
-  heroTitle: 'Pod Lille Embed Code Generator',
+  heroTitle: 'Pod Université de Lille Embed Code Generator',
   heroSubtitle:
-    'Paste any Pod Lille URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Pod Lille content',
+    'Paste any pod.univ-lille.fr URL — get a ready-to-paste player for lecture recordings and academic podcasts.',
+  howItWorksHeading: 'How to embed Pod Université de Lille content',
   howItWorksSteps: [
     {
       title: 'Paste a Pod Lille link',
-      description: 'Copy any pod.univ-lille.fr URL.'
+      description:
+        'Copy the URL of any lecture video or podcast from pod.univ-lille.fr and paste it into the field.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +40,18 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Pod Lille embed code generator',
+  explanationHeading:
+    'Why use our Pod Université de Lille embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Pod Lille link and get working embed HTML.'
+      title: 'Built for Esup-Pod',
+      description:
+        'Tuned for the Esup-Pod platform that Université de Lille runs, so academic video URLs resolve into a working player.'
     },
     {
-      title: 'Pod Lille content',
-      description: 'The tool handles all Pod Lille URL formats.'
+      title: 'Lectures and podcasts in one place',
+      description:
+        'Handles both recorded lectures and audio podcasts hosted on pod.univ-lille.fr with the correct player for each.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +60,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Responsive lecture player',
       description:
-        'Get the real Pod Lille embed with full interactivity when available.'
+        'The embedded video scales to fit your page so recorded lectures stay watchable on any screen size.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Pod Lille URL formats and content types.'
+      title: 'Academic podcast support',
+      description:
+        'Audio podcasts published on Pod Université de Lille embed with their native player and metadata.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +82,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/poduparis1', label: 'Pod Université Paris 1' },
+    { href: '/tools/embed-url/podupec', label: 'Pod UPEC' },
+    { href: '/tools/embed-url/saooti', label: 'Saooti' }
   ],
   faq: [
     {
-      question: 'How do I embed Pod Lille content on my website?',
-      answer: 'Paste any Pod Lille URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Pod Lille embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Pod Lille content is private?',
+      question: 'How do I embed a Pod Université de Lille lecture on my site?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the pod.univ-lille.fr lecture URL into the tool, click Generate, then copy the embed code into your page.'
+    },
+    {
+      question: 'Can I embed podcasts as well as videos?',
+      answer:
+        'Yes. Both lecture videos and audio podcasts from Pod Université de Lille are supported, each with the right player.'
+    },
+    {
+      question: 'Is Pod Université de Lille part of Esup-Pod?',
+      answer:
+        'Yes. It is an Esup-Pod instance run by Université de Lille for hosting educational videos and podcasts.'
+    },
+    {
+      question: 'What happens if a recording is private or restricted?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image instead of a broken player.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

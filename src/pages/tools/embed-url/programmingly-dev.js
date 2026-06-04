@@ -4,24 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Programmingly',
   slug: 'programmingly-dev',
-  color: '#666666',
+  color: '#1F6FEB',
   exampleUrl: 'https://programmingly.dev',
-  metaTitle: 'Programmingly Embed Code Generator — Embed Programmingly Content',
+  metaTitle:
+    'Programmingly Embed Code Generator — Embed Code Snippets & Tutorials',
   metaDescription:
-    'Free Programmingly embed code generator. Paste any Programmingly URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Programmingly embed code generator. Paste any Programmingly URL — get a ready-to-paste embed for code snippets and coding tutorials. No signup.',
   keywords: [
     'embed programmingly',
     'programmingly embed code',
-    'programmingly embed generator'
+    'programmingly embed code generator',
+    'embed code snippet',
+    'programmingly iframe code',
+    'embed coding tutorial',
+    'programmingly snippet embed'
   ],
   heroTitle: 'Programmingly Embed Code Generator',
   heroSubtitle:
-    'Paste any Programmingly URL — get a ready-to-paste embed or preview card.',
+    'Paste any Programmingly URL — get a ready-to-paste embed for code snippets and coding tutorials.',
   howItWorksHeading: 'How to embed Programmingly content',
   howItWorksSteps: [
     {
       title: 'Paste a Programmingly link',
-      description: 'Copy any programmingly.dev URL.'
+      description:
+        'Copy the URL of any Programmingly code snippet or tutorial and drop it in.'
     },
     {
       title: 'Get the embed code',
@@ -38,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Programmingly link and get working embed HTML.'
+      description:
+        'Skip the manual URL conversion. Paste any Programmingly link and get working embed HTML in seconds.'
     },
     {
-      title: 'Programmingly content',
-      description: 'The tool handles all Programmingly URL formats.'
+      title: 'Built for developer content',
+      description:
+        'Handles code snippets and coding tutorials so readers can follow along right inside your page.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Code snippet embeds',
       description:
-        'Get the real Programmingly embed with full interactivity when available.'
+        'Embed Programmingly code snippets with readable syntax so visitors can study the source in context.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Programmingly URL formats and content types.'
+      title: 'Tutorial embeds',
+      description:
+        'Drop full coding tutorials into your articles, courses, or documentation pages.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/codepen', label: 'CodePen' },
+    { href: '/tools/embed-url/codesandbox', label: 'CodeSandbox' },
+    { href: '/tools/embed-url/codehs', label: 'CodeHS' }
   ],
   faq: [
     {
-      question: 'How do I embed Programmingly content on my website?',
-      answer: 'Paste any Programmingly URL into the tool and click Generate.'
+      question: 'How do I embed a Programmingly code snippet on my site?',
+      answer:
+        'Paste the snippet URL into the tool and click Generate. You will get ready-to-paste embed HTML.'
     },
     {
-      question: 'Is the Programmingly embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Can I embed Programmingly coding tutorials?',
+      answer:
+        'Yes. Paste the tutorial URL and the generator produces an embed you can drop into any page.'
+    },
+    {
+      question: 'Will the embedded code keep its syntax formatting?',
+      answer:
+        'When a native embed is available, the snippet renders with its original formatting intact.'
     },
     {
       question: 'What if the Programmingly content is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
