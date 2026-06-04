@@ -4,29 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Infoveave',
   slug: 'infoveave',
-  color: '#666666',
+  color: '#3F51B5',
   exampleUrl: 'https://infoveave.net',
-  metaTitle: 'Infoveave Embed Code Generator — Embed Infoveave Content',
+  metaTitle: 'Infoveave Embed Code Generator — Embed Dashboards & Reports',
   metaDescription:
-    'Free Infoveave embed code generator. Paste any Infoveave URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Infoveave embed code generator. Paste any Infoveave URL — get a ready-to-paste embed for interactive dashboards, reports, and infographics. No signup.',
   keywords: [
     'embed infoveave',
     'infoveave embed code',
-    'infoveave embed generator'
+    'infoveave embed code generator',
+    'embed infoveave dashboard',
+    'infoveave iframe code',
+    'embed data dashboard',
+    'infoveave report embed'
   ],
   heroTitle: 'Infoveave Embed Code Generator',
   heroSubtitle:
-    'Paste any Infoveave URL — get a ready-to-paste embed or preview card.',
+    'Paste any Infoveave URL — get a ready-to-paste embed for interactive dashboards, reports, and infographics.',
   howItWorksHeading: 'How to embed Infoveave content',
   howItWorksSteps: [
     {
-      title: 'Paste a Infoveave link',
-      description: 'Copy any infoveave.net URL.'
+      title: 'Paste an Infoveave link',
+      description:
+        'Copy any infoveave.net URL — a dashboard, report, or infographic.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the asset and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Infoveave link and get working embed HTML.'
+      description:
+        'Paste any Infoveave link and get working embed HTML — no exporting charts by hand.'
     },
     {
-      title: 'Infoveave content',
-      description: 'The tool handles all Infoveave URL formats.'
+      title: 'Dashboards & reports',
+      description:
+        'Works with Infoveave dashboards, reports, and infographics built from your data.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive dashboard',
       description:
-        'Get the real Infoveave embed with full interactivity when available.'
+        'Keep the live Infoveave dashboard so readers can filter and drill into the data.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Infoveave URL formats and content types.'
+      title: 'Reports & infographics',
+      description:
+        'Dashboards, reports, and infographics from the Infoveave platform all embed cleanly.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/datawrapper',
+      label: 'Datawrapper'
+    },
+    {
+      href: '/tools/embed-url/chartblocks',
+      label: 'ChartBlocks'
+    },
+    {
+      href: '/tools/embed-url/amcharts-live-editor',
+      label: 'amCharts'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Infoveave content on my website?',
-      answer: 'Paste any Infoveave URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Infoveave embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Infoveave content is private?',
+      question: 'How do I embed an Infoveave dashboard on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any Infoveave URL into the tool and click Generate. You will get a ready-to-paste embed for the dashboard.'
+    },
+    {
+      question: 'What is Infoveave?',
+      answer:
+        'Infoveave is a data analytics platform for building dashboards, reports, and infographics from your data.'
+    },
+    {
+      question: 'Can readers interact with the embedded dashboard?',
+      answer:
+        'When the dashboard supports live embedding, readers can filter and drill into the data directly in the page.'
+    },
+    {
+      question: 'What if the dashboard cannot be embedded?',
+      answer:
+        'Switch to Card mode to get a styled preview card with the title and image instead.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

@@ -2,31 +2,35 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Imenupro',
+  name: 'iMenuPro',
   slug: 'imenupro',
-  color: '#666666',
-  exampleUrl: 'https://imenupro.com',
-  metaTitle: 'Imenupro Embed Code Generator — Embed Imenupro Content',
+  color: '#C0392B',
+  exampleUrl: 'https://www.imenupro.com',
+  metaTitle: 'iMenuPro Embed Code Generator — Embed Restaurant Menus',
   metaDescription:
-    'Free Imenupro embed code generator. Paste any Imenupro URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free iMenuPro embed code generator. Paste any iMenuPro URL — get a ready-to-paste embed for your restaurant menu. No signup.',
   keywords: [
     'embed imenupro',
     'imenupro embed code',
-    'imenupro embed generator'
+    'imenupro embed code generator',
+    'embed restaurant menu',
+    'imenupro iframe code',
+    'online menu embed',
+    'imenupro menu embed'
   ],
-  heroTitle: 'Imenupro Embed Code Generator',
+  heroTitle: 'iMenuPro Embed Code Generator',
   heroSubtitle:
-    'Paste any Imenupro URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Imenupro content',
+    'Paste any iMenuPro URL — get a ready-to-paste embed for your restaurant menu.',
+  howItWorksHeading: 'How to embed iMenuPro content',
   howItWorksSteps: [
     {
-      title: 'Paste a Imenupro link',
-      description: 'Copy any imenupro.com URL.'
+      title: 'Paste an iMenuPro link',
+      description: 'Copy any iMenuPro URL — your published online menu.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the menu and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -34,15 +38,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Imenupro embed code generator',
+  explanationHeading: 'Why use our iMenuPro embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Imenupro link and get working embed HTML.'
+      description:
+        'Paste your iMenuPro link and get working embed HTML for your restaurant website.'
     },
     {
-      title: 'Imenupro content',
-      description: 'The tool handles all Imenupro URL formats.'
+      title: 'Online restaurant menus',
+      description:
+        'Works with the digital menus you design and publish in iMenuPro.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Live online menu',
       description:
-        'Get the real Imenupro embed with full interactivity when available.'
+        'Embed the live iMenuPro menu so updates you publish show up automatically.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Imenupro URL formats and content types.'
+      title: 'Menus & specials',
+      description:
+        'Full menus, drink lists, and daily specials designed in iMenuPro all embed cleanly.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +79,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/canva',
+      label: 'Canva'
+    },
+    {
+      href: '/tools/embed-url/beautiful',
+      label: 'Beautiful.ai'
+    },
+    {
+      href: '/tools/embed-url/whimsical',
+      label: 'Whimsical'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Imenupro content on my website?',
-      answer: 'Paste any Imenupro URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Imenupro embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Imenupro content is private?',
+      question: 'How do I embed my iMenuPro menu on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste your iMenuPro URL into the tool and click Generate. You will get a ready-to-paste embed for the menu.'
+    },
+    {
+      question: 'What is iMenuPro?',
+      answer:
+        'iMenuPro is menu-design software that lets restaurants create and publish online menus.'
+    },
+    {
+      question: 'Will the embedded menu stay up to date?',
+      answer:
+        'When the live menu supports embedding, changes you publish in iMenuPro appear automatically in the embed.'
+    },
+    {
+      question: 'What if the menu cannot be embedded?',
+      answer:
+        'Switch to Card mode to get a styled preview card with the title and image instead.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

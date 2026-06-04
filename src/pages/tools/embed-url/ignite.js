@@ -4,22 +4,33 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Ignite',
   slug: 'ignite',
-  color: '#666666',
+  color: '#E8420A',
   exampleUrl: 'https://ignite.com',
   metaTitle: 'Ignite Embed Code Generator — Embed Ignite Content',
   metaDescription:
-    'Free Ignite embed code generator. Paste any Ignite URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed ignite', 'ignite embed code', 'ignite embed generator'],
+    'Free Ignite embed code generator. Paste any Ignite URL — get a ready-to-paste embed for talks, slides, and shared content. No signup.',
+  keywords: [
+    'embed ignite',
+    'ignite embed code',
+    'ignite embed code generator',
+    'embed ignite talk',
+    'ignite iframe code',
+    'ignite slides embed',
+    'ignite html embed'
+  ],
   heroTitle: 'Ignite Embed Code Generator',
   heroSubtitle:
-    'Paste any Ignite URL — get a ready-to-paste embed or preview card.',
+    'Paste any Ignite URL — get a ready-to-paste embed for talks, slides, and shared content.',
   howItWorksHeading: 'How to embed Ignite content',
   howItWorksSteps: [
-    { title: 'Paste a Ignite link', description: 'Copy any ignite.com URL.' },
+    {
+      title: 'Paste an Ignite link',
+      description: 'Copy any Ignite URL — a talk, slide deck, or shared page.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the content and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +42,12 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Ignite link and get working embed HTML.'
+      description: 'Paste any Ignite link and get working embed HTML instantly.'
     },
     {
-      title: 'Ignite content',
-      description: 'The tool handles all Ignite URL formats.'
+      title: 'Talks & slides',
+      description:
+        'Works with Ignite talks, slide decks, and shared content pages.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +56,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Ignite embed',
       description:
-        'Get the real Ignite embed with full interactivity when available.'
+        'Get the real Ignite embed with its player or viewer kept intact.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Ignite URL formats and content types.'
+      title: 'Talks & decks',
+      description:
+        'Ignite talks, slide decks, and shared pages all embed cleanly.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +78,42 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/speakerdeck',
+      label: 'Speaker Deck'
+    },
+    {
+      href: '/tools/embed-url/beautiful',
+      label: 'Beautiful.ai'
+    },
+    {
+      href: '/tools/embed-url/canva',
+      label: 'Canva'
+    }
   ],
   faq: [
     {
       question: 'How do I embed Ignite content on my website?',
-      answer: 'Paste any Ignite URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Ignite embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Ignite content is private?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any Ignite URL into the tool and click Generate. You will get a ready-to-paste embed.'
+    },
+    {
+      question: 'What Ignite content can I embed?',
+      answer: 'Talks, slide decks, and shared content pages from Ignite.'
+    },
+    {
+      question: 'Does the embed keep the original player?',
+      answer:
+        'Yes. When the content supports embedding, the native Ignite player or viewer is preserved.'
+    },
+    {
+      question: 'What if the content cannot be embedded?',
+      answer:
+        'Switch to Card mode to get a styled preview card with the title and image instead.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

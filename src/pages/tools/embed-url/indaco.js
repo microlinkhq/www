@@ -4,25 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Indaco',
   slug: 'indaco',
-  color: '#666666',
+  color: '#1B4F8A',
   exampleUrl: 'https://player.indacolive.com',
-  metaTitle: 'Indaco Embed Code Generator — Embed Indaco Content',
+  metaTitle: 'Indaco Embed Code Generator — Embed Live & On-Demand Video',
   metaDescription:
-    'Free Indaco embed code generator. Paste any Indaco URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed indaco', 'indaco embed code', 'indaco embed generator'],
+    'Free Indaco embed code generator. Paste any Indaco Live URL — get a ready-to-paste player for live streams and on-demand video. No signup.',
+  keywords: [
+    'embed indaco',
+    'indaco embed code',
+    'indaco embed code generator',
+    'embed indaco live',
+    'indaco iframe code',
+    'indaco live stream embed',
+    'indaco video embed'
+  ],
   heroTitle: 'Indaco Embed Code Generator',
   heroSubtitle:
-    'Paste any Indaco URL — get a ready-to-paste embed or preview card.',
+    'Paste any Indaco Live URL — get a ready-to-paste player for live streams and on-demand video.',
   howItWorksHeading: 'How to embed Indaco content',
   howItWorksSteps: [
     {
-      title: 'Paste a Indaco link',
-      description: 'Copy any player.indacolive.com URL.'
+      title: 'Paste an Indaco link',
+      description:
+        'Copy any player.indacolive.com URL — a live stream or on-demand video.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the stream and generates the right player embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -34,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Indaco link and get working embed HTML.'
+      description:
+        'Paste any Indaco Live link and get working player embed HTML instantly.'
     },
     {
-      title: 'Indaco content',
-      description: 'The tool handles all Indaco URL formats.'
+      title: 'Live & on-demand',
+      description:
+        'Works with Indaco Live streams as well as recorded on-demand video.'
     },
     {
       title: 'Customizable preview card',
@@ -47,42 +58,65 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Indaco player',
       description:
-        'Get the real Indaco embed with full interactivity when available.'
+        'Get the real Indaco Live player with its playback controls and live indicator.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Indaco URL formats and content types.'
+      title: 'Streams & recordings',
+      description:
+        'Live broadcasts and on-demand recordings from Indaco Live both embed cleanly.'
     },
     {
       title: 'Preview card fallback',
       description:
-        'A styled preview card with title and image when native embedding is restricted.'
+        'A styled preview card with title and thumbnail when native embedding is restricted.'
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/ustream',
+      label: 'Ustream'
+    },
+    {
+      href: '/tools/embed-url/vidyard',
+      label: 'Vidyard'
+    },
+    {
+      href: '/tools/embed-url/brightcove',
+      label: 'Brightcove'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Indaco content on my website?',
-      answer: 'Paste any Indaco URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Indaco embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Indaco content is private?',
+      question: 'How do I embed an Indaco video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any Indaco Live URL into the tool and click Generate. You will get a ready-to-paste player.'
+    },
+    {
+      question: 'What is Indaco?',
+      answer:
+        'Indaco Live is a streaming platform for broadcasting live events and serving on-demand video.'
+    },
+    {
+      question: 'Can I embed both live streams and recordings?',
+      answer:
+        'Yes. Live broadcasts and on-demand recordings are both supported — just paste the link.'
+    },
+    {
+      question: 'What if a video cannot be embedded?',
+      answer:
+        'Switch to Card mode to get a styled preview card with the title and thumbnail instead.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

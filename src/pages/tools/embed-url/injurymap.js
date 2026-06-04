@@ -4,29 +4,34 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Injurymap',
   slug: 'injurymap',
-  color: '#666666',
-  exampleUrl: 'https://injurymap.com',
-  metaTitle: 'Injurymap Embed Code Generator — Embed Injurymap Content',
+  color: '#00A99D',
+  exampleUrl: 'https://www.injurymap.com',
+  metaTitle: 'Injurymap Embed Code Generator — Embed Exercise Videos',
   metaDescription:
-    'Free Injurymap embed code generator. Paste any Injurymap URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Injurymap embed code generator. Paste any Injurymap URL — get a ready-to-paste embed for guided exercise videos and recovery programs. No signup.',
   keywords: [
     'embed injurymap',
     'injurymap embed code',
-    'injurymap embed generator'
+    'injurymap embed code generator',
+    'embed exercise video',
+    'injurymap iframe code',
+    'physiotherapy video embed',
+    'injurymap exercise embed'
   ],
   heroTitle: 'Injurymap Embed Code Generator',
   heroSubtitle:
-    'Paste any Injurymap URL — get a ready-to-paste embed or preview card.',
+    'Paste any Injurymap URL — get a ready-to-paste embed for guided exercise videos and recovery programs.',
   howItWorksHeading: 'How to embed Injurymap content',
   howItWorksSteps: [
     {
-      title: 'Paste a Injurymap link',
-      description: 'Copy any injurymap.com URL.'
+      title: 'Paste an Injurymap link',
+      description:
+        'Copy any injurymap.com URL — a guided exercise or recovery program.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the exercise and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Injurymap link and get working embed HTML.'
+      description:
+        'Paste any Injurymap link and get working embed HTML instantly.'
     },
     {
-      title: 'Injurymap content',
-      description: 'The tool handles all Injurymap URL formats.'
+      title: 'Exercises & programs',
+      description:
+        'Works with Injurymap guided exercises and the recovery programs that group them.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Guided exercise video',
       description:
-        'Get the real Injurymap embed with full interactivity when available.'
+        'Embed the Injurymap exercise demonstration so readers can follow the movement along.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Injurymap URL formats and content types.'
+      title: 'Exercises & recovery plans',
+      description:
+        'Individual exercises and full recovery programs from Injurymap both embed cleanly.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/wistia',
+      label: 'Wistia'
+    },
+    {
+      href: '/tools/embed-url/vidyard',
+      label: 'Vidyard'
+    },
+    {
+      href: '/tools/embed-url/synthesia',
+      label: 'Synthesia'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Injurymap content on my website?',
-      answer: 'Paste any Injurymap URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Injurymap embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Injurymap content is private?',
+      question: 'How do I embed an Injurymap exercise on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any Injurymap URL into the tool and click Generate. You will get a ready-to-paste embed for the exercise.'
+    },
+    {
+      question: 'What is Injurymap?',
+      answer:
+        'Injurymap is a physiotherapy app that provides guided exercise videos and recovery programs for pain and injury.'
+    },
+    {
+      question: 'What Injurymap content can I embed?',
+      answer:
+        'Guided exercise demonstrations and the recovery programs that group them together.'
+    },
+    {
+      question: 'What if an exercise cannot be embedded?',
+      answer:
+        'Switch to Card mode to get a styled preview card with the title and image instead.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
