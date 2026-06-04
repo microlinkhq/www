@@ -4,24 +4,28 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Overflow',
   slug: 'overflow-io',
-  color: '#666666',
+  color: '#7C4DFF',
   exampleUrl: 'https://overflow.io',
-  metaTitle: 'Overflow Embed Code Generator — Embed Overflow Content',
+  metaTitle: 'Overflow Embed Code Generator — Embed User Flow Diagrams',
   metaDescription:
-    'Free Overflow embed code generator. Paste any Overflow URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Overflow embed code generator. Paste any overflow.io URL — get a ready-to-paste player for interactive, playable user-flow diagrams. No signup.',
   keywords: [
     'embed overflow',
     'overflow embed code',
-    'overflow embed generator'
+    'overflow embed code generator',
+    'embed overflow user flow',
+    'overflow iframe code',
+    'overflow flow diagram embed',
+    'embed overflow.io'
   ],
   heroTitle: 'Overflow Embed Code Generator',
   heroSubtitle:
-    'Paste any Overflow URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Overflow content',
+    'Paste any overflow.io URL — get a ready-to-paste player for interactive, playable user-flow diagrams.',
+  howItWorksHeading: 'How to embed Overflow user flows',
   howItWorksSteps: [
     {
-      title: 'Paste a Overflow link',
-      description: 'Copy any overflow.io URL.'
+      title: 'Paste an Overflow link',
+      description: 'Copy the share URL of any overflow.io user-flow diagram.'
     },
     {
       title: 'Get the embed code',
@@ -37,12 +41,14 @@ const data = {
   explanationHeading: 'Why use our Overflow embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Overflow link and get working embed HTML.'
+      title: 'Keep flows interactive',
+      description:
+        'Embed playable Overflow user-flow diagrams so readers can click through the journey instead of viewing a flat screenshot.'
     },
     {
-      title: 'Overflow content',
-      description: 'The tool handles all Overflow URL formats.'
+      title: 'Perfect for design handoff',
+      description:
+        'Drop live flows into specs, design docs, and case studies so stakeholders explore the full path on their own.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Playable flow embeds',
       description:
-        'Get the real Overflow embed with full interactivity when available.'
+        'Render shared Overflow diagrams as an interactive player your audience can navigate end to end.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Overflow URL formats and content types.'
+      title: 'Responsive sizing',
+      description:
+        'Embeds scale to fit articles, documentation, and design portfolios on any screen.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/whimsical', label: 'Whimsical' },
+    { href: '/tools/embed-url/cacoo', label: 'Cacoo' },
+    { href: '/tools/embed-url/balsamiq', label: 'Balsamiq' }
   ],
   faq: [
     {
-      question: 'How do I embed Overflow content on my website?',
-      answer: 'Paste any Overflow URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Overflow embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Overflow content is private?',
+      question: 'How do I embed an Overflow user flow on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the overflow.io share URL into the tool and click Generate to get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'Can people interact with the embedded flow?',
+      answer:
+        'Yes — when the diagram supports native embedding, viewers can click through the user flow directly inside your page.'
+    },
+    {
+      question: 'What if my Overflow flow is private?',
+      answer:
+        'Private or restricted flows fall back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Where can I paste the Overflow embed code?',
+      answer:
+        'Anywhere that accepts HTML — blog posts, design docs, CMS pages, knowledge bases, and portfolio sites.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

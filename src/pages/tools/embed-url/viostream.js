@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Viostream',
   slug: 'viostream',
-  color: '#666666',
+  color: '#00AEEF',
   exampleUrl: 'https://viostream.com',
-  metaTitle: 'Viostream Embed Code Generator — Embed Viostream Content',
+  metaTitle: 'Viostream Embed Code Generator — Embed Business Videos',
   metaDescription:
-    'Free Viostream embed code generator. Paste any Viostream URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Viostream embed code generator. Paste any Viostream URL — get a ready-to-paste player for your hosted business video. No signup.',
   keywords: [
     'embed viostream',
     'viostream embed code',
-    'viostream embed generator'
+    'viostream embed code generator',
+    'embed viostream video',
+    'viostream iframe code',
+    'viostream player embed',
+    'viostream business video embed'
   ],
   heroTitle: 'Viostream Embed Code Generator',
   heroSubtitle:
-    'Paste any Viostream URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Viostream content',
+    'Paste any Viostream URL — get a ready-to-paste player for your hosted business video, ready for any page.',
+  howItWorksHeading: 'How to embed Viostream videos',
   howItWorksSteps: [
     {
       title: 'Paste a Viostream link',
-      description: 'Copy any viostream.com URL.'
+      description:
+        'Copy the URL of any Viostream video and paste it into the box.'
     },
     {
       title: 'Get the embed code',
@@ -37,12 +42,14 @@ const data = {
   explanationHeading: 'Why use our Viostream embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Viostream link and get working embed HTML.'
+      title: 'Built for business video',
+      description:
+        'Generate clean embeds for Viostream-hosted corporate, training, and event video without touching the admin console.'
     },
     {
-      title: 'Viostream content',
-      description: 'The tool handles all Viostream URL formats.'
+      title: 'Works with secure delivery',
+      description:
+        'Output plays the hosted Viostream player so your enterprise streaming and access controls stay in place.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native business video embed',
       description:
-        'Get the real Viostream embed with full interactivity when available.'
+        'Get the real Viostream player with full playback controls when embedding is supported.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Viostream URL formats and content types.'
+      title: 'Intranet and CMS ready',
+      description:
+        'Lightweight iframe HTML drops cleanly into corporate sites, intranets, and CMS editors.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/brightcove', label: 'Brightcove' },
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' }
   ],
   faq: [
     {
-      question: 'How do I embed Viostream content on my website?',
-      answer: 'Paste any Viostream URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Viostream embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Viostream content is private?',
+      question: 'How do I embed a Viostream video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Viostream video URL into the tool, click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Does this work with secured Viostream video?',
+      answer:
+        'The embed loads the hosted Viostream player, so any access controls configured on the video still apply.'
+    },
+    {
+      question: 'Can I use the embed on a corporate intranet?',
+      answer:
+        'Yes. The output is standard iframe HTML that drops into intranets, corporate sites, and most CMS editors.'
+    },
+    {
+      question: 'What if the Viostream video cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

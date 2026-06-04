@@ -2,20 +2,32 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Znipe',
+  name: 'Znipe.tv',
   slug: 'znipe',
-  color: '#666666',
+  color: '#00E5C5',
   exampleUrl: 'https://znipe.tv',
-  metaTitle: 'Znipe Embed Code Generator — Embed Znipe Content',
+  metaTitle: 'Znipe.tv Embed Code Generator — Embed Esports Video Streams',
   metaDescription:
-    'Free Znipe embed code generator. Paste any Znipe URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed znipe', 'znipe embed code', 'znipe embed generator'],
-  heroTitle: 'Znipe Embed Code Generator',
+    'Free Znipe.tv embed code generator. Paste any Znipe.tv URL — get a ready-to-paste embed for multi-angle and on-demand esports video streams. No signup.',
+  keywords: [
+    'embed znipe',
+    'znipe embed code',
+    'znipe embed code generator',
+    'embed znipe stream',
+    'znipe iframe code',
+    'znipe tv video embed',
+    'embed esports stream'
+  ],
+  heroTitle: 'Znipe.tv Embed Code Generator',
   heroSubtitle:
-    'Paste any Znipe URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Znipe content',
+    'Paste any Znipe.tv URL — get a ready-to-paste embed for multi-angle and on-demand esports video streams.',
+  howItWorksHeading: 'How to embed Znipe.tv streams',
   howItWorksSteps: [
-    { title: 'Paste a Znipe link', description: 'Copy any znipe.tv URL.' },
+    {
+      title: 'Paste a Znipe.tv link',
+      description:
+        'Copy the URL of any esports stream or video on demand from znipe.tv and paste it above.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -27,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Znipe embed code generator',
+  explanationHeading: 'Why use our Znipe.tv embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Znipe link and get working embed HTML.'
+      description:
+        'Skip digging through the player menu for share options. Paste a Znipe.tv link and get working embed HTML.'
     },
     {
-      title: 'Znipe content',
-      description: 'The tool handles all Znipe URL formats.'
+      title: 'Multi-angle esports playback',
+      description:
+        'The embed keeps the Znipe.tv player intact so viewers can switch angles and watch on-demand content in place.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Esports video embed',
       description:
-        'Get the real Znipe embed with full interactivity when available.'
+        'Embed the Znipe.tv player so esports streams and replays play directly inside your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Znipe URL formats and content types.'
+      title: 'On-demand support',
+      description:
+        'Works with both live esports streams and on-demand video so past matches stay watchable.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/sooplive', label: 'SOOP' },
+    { href: '/tools/embed-url/toornament', label: 'Toornament' },
+    { href: '/tools/embed-url/youtube', label: 'YouTube' }
   ],
   faq: [
     {
-      question: 'How do I embed Znipe content on my website?',
-      answer: 'Paste any Znipe URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Znipe embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Znipe content is private?',
+      question: 'How do I embed a Znipe.tv stream on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the stream URL into the tool, click Generate, then copy the HTML into your page or CMS.'
+    },
+    {
+      question: 'Can viewers switch camera angles in the embed?',
+      answer:
+        'Yes. The embed keeps the Znipe.tv player intact, so multi-angle controls remain available to viewers.'
+    },
+    {
+      question: 'Does it work with on-demand esports videos?',
+      answer:
+        'It does. The tool embeds both live streams and on-demand esports content from Znipe.tv.'
+    },
+    {
+      question: 'What if the stream is restricted?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

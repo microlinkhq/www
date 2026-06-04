@@ -6,16 +6,28 @@ const data = {
   slug: 'videfit',
   color: '#666666',
   exampleUrl: 'https://videfit.com',
-  metaTitle: 'Videfit Embed Code Generator — Embed Videfit Content',
+  metaTitle: 'Videfit Embed Code Generator — Embed Videfit Videos',
   metaDescription:
-    'Free Videfit embed code generator. Paste any Videfit URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed videfit', 'videfit embed code', 'videfit embed generator'],
+    'Free Videfit embed code generator. Paste any Videfit URL — get a ready-to-paste video player you can drop into any page. No signup.',
+  keywords: [
+    'embed videfit',
+    'videfit embed code',
+    'videfit embed code generator',
+    'embed videfit video',
+    'videfit iframe code',
+    'videfit player embed',
+    'videfit video embed'
+  ],
   heroTitle: 'Videfit Embed Code Generator',
   heroSubtitle:
-    'Paste any Videfit URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Videfit content',
+    'Paste any Videfit URL — get a ready-to-paste video player you can drop into a blog, docs, or any CMS.',
+  howItWorksHeading: 'How to embed Videfit videos',
   howItWorksSteps: [
-    { title: 'Paste a Videfit link', description: 'Copy any videfit.com URL.' },
+    {
+      title: 'Paste a Videfit link',
+      description:
+        'Copy the URL of any Videfit video and paste it into the box.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Videfit link and get working embed HTML.'
+      description:
+        'Skip digging through page source for an embed tag. Paste a link and get working HTML instantly.'
     },
     {
-      title: 'Videfit content',
-      description: 'The tool handles all Videfit URL formats.'
+      title: 'Responsive video player',
+      description:
+        'The generated player scales to fit any column width so videos look right on desktop and mobile.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native video embed',
       description:
-        'Get the real Videfit embed with full interactivity when available.'
+        'Get the real Videfit player with full playback controls when embedding is supported.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Videfit URL formats and content types.'
+      title: 'Clean responsive markup',
+      description:
+        'Output is lightweight iframe HTML that works in static sites, blogs, and CMS editors.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' },
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' }
   ],
   faq: [
     {
-      question: 'How do I embed Videfit content on my website?',
-      answer: 'Paste any Videfit URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Videfit embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Videfit content is private?',
+      question: 'How do I embed a Videfit video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Videfit video URL into the tool, click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Will the Videfit player be responsive?',
+      answer:
+        'Yes. The generated embed scales to its container so it stays readable on phones and desktops.'
+    },
+    {
+      question: 'Can I customize how the embed looks?',
+      answer:
+        'Use Card mode to adjust colors, fonts, and layout, or use the native player for full playback controls.'
+    },
+    {
+      question: 'What if the Videfit video cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

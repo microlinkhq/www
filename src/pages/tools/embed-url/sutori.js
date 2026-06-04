@@ -4,18 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Sutori',
   slug: 'sutori',
-  color: '#666666',
+  color: '#2EC4B6',
   exampleUrl: 'https://sutori.com',
-  metaTitle: 'Sutori Embed Code Generator — Embed Sutori Content',
+  metaTitle: 'Sutori Embed Code Generator — Embed Interactive Timelines',
   metaDescription:
-    'Free Sutori embed code generator. Paste any Sutori URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed sutori', 'sutori embed code', 'sutori embed generator'],
+    'Free Sutori embed code generator. Paste any Sutori URL — get a ready-to-paste embed for interactive timelines and classroom stories. No signup.',
+  keywords: [
+    'embed sutori',
+    'sutori embed code',
+    'sutori embed code generator',
+    'embed sutori timeline',
+    'embed interactive timeline',
+    'sutori iframe code',
+    'sutori story embed'
+  ],
   heroTitle: 'Sutori Embed Code Generator',
   heroSubtitle:
-    'Paste any Sutori URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Sutori content',
+    'Paste any Sutori URL — get a ready-to-paste embed for interactive timelines and classroom stories.',
+  howItWorksHeading: 'How to embed Sutori timelines',
   howItWorksSteps: [
-    { title: 'Paste a Sutori link', description: 'Copy any sutori.com URL.' },
+    {
+      title: 'Paste a Sutori link',
+      description:
+        'Copy the URL of any Sutori timeline or story and drop it into the field.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -30,12 +42,14 @@ const data = {
   explanationHeading: 'Why use our Sutori embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Sutori link and get working embed HTML.'
+      title: 'Built for interactive timelines',
+      description:
+        'Turn any Sutori timeline or story into an embed your readers can scroll and explore.'
     },
     {
-      title: 'Sutori content',
-      description: 'The tool handles all Sutori URL formats.'
+      title: 'Great for classrooms and LMS',
+      description:
+        'Drop instructional stories into a course page, learning platform, or class blog with one paste.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive timeline embed',
       description:
-        'Get the real Sutori embed with full interactivity when available.'
+        'Embed Sutori interactive timelines and stories so visitors can move through them in place.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Sutori URL formats and content types.'
+      title: 'Education-friendly',
+      description:
+        'Works well inside LMS pages and classroom sites where Sutori stories are commonly shared.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/learningapps-org', label: 'LearningApps' },
+    { href: '/tools/embed-url/wizer-me', label: 'Wizer.me' },
+    { href: '/tools/embed-url/storymaps', label: 'StoryMaps' }
   ],
   faq: [
     {
-      question: 'How do I embed Sutori content on my website?',
-      answer: 'Paste any Sutori URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Sutori embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Sutori content is private?',
+      question: 'How do I embed a Sutori timeline on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Sutori URL into the tool, click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Can students interact with the embedded timeline?',
+      answer:
+        'Yes. When native embedding is available, the timeline stays scrollable and interactive inline.'
+    },
+    {
+      question: 'Will a Sutori embed work inside my LMS?',
+      answer:
+        'Most learning platforms accept iframe embeds, so the generated code drops in like any HTML block.'
+    },
+    {
+      question: 'What if the Sutori story is set to private?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

@@ -2,26 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Zingsoft',
+  name: 'ZingSoft',
   slug: 'zingsoft',
-  color: '#666666',
+  color: '#FF6F61',
   exampleUrl: 'https://zingsoft.com',
-  metaTitle: 'Zingsoft Embed Code Generator — Embed Zingsoft Content',
+  metaTitle: 'ZingSoft Embed Code Generator — Embed Interactive Charts',
   metaDescription:
-    'Free Zingsoft embed code generator. Paste any Zingsoft URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free ZingSoft embed code generator. Paste any ZingSoft URL — get a ready-to-paste embed for interactive charts and data visualizations built with ZingChart and ZingGrid. No signup.',
   keywords: [
     'embed zingsoft',
     'zingsoft embed code',
-    'zingsoft embed generator'
+    'zingsoft embed code generator',
+    'embed zingchart',
+    'zingsoft iframe code',
+    'zinggrid embed',
+    'embed interactive chart'
   ],
-  heroTitle: 'Zingsoft Embed Code Generator',
+  heroTitle: 'ZingSoft Embed Code Generator',
   heroSubtitle:
-    'Paste any Zingsoft URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Zingsoft content',
+    'Paste any ZingSoft URL — get a ready-to-paste embed for interactive charts and data visualizations built with ZingChart and ZingGrid.',
+  howItWorksHeading: 'How to embed ZingSoft charts',
   howItWorksSteps: [
     {
-      title: 'Paste a Zingsoft link',
-      description: 'Copy any zingsoft.com URL.'
+      title: 'Paste a ZingSoft link',
+      description:
+        'Copy the URL of any chart or visualization from zingsoft.com and paste it above.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Zingsoft embed code generator',
+  explanationHeading: 'Why use our ZingSoft embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Zingsoft link and get working embed HTML.'
+      description:
+        'No need to copy script tags or wire up the chart yourself. Paste a ZingSoft link and get working embed HTML.'
     },
     {
-      title: 'Zingsoft content',
-      description: 'The tool handles all Zingsoft URL formats.'
+      title: 'Keeps charts interactive',
+      description:
+        'The embed preserves ZingChart and ZingGrid interactivity so readers can hover, sort, and explore the data in place.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive chart embed',
       description:
-        'Get the real Zingsoft embed with full interactivity when available.'
+        'Embed ZingChart visualizations so tooltips, zooming, and other interactions stay live inside your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Zingsoft URL formats and content types.'
+      title: 'Data grid support',
+      description:
+        'Works with ZingGrid data tables as well as charts, keeping sorting and filtering intact.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,37 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/datawrapper', label: 'Datawrapper' },
+    { href: '/tools/embed-url/chartblocks', label: 'ChartBlocks' },
+    {
+      href: '/tools/embed-url/amcharts-live-editor',
+      label: 'amCharts Live Editor'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Zingsoft content on my website?',
-      answer: 'Paste any Zingsoft URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Zingsoft embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Zingsoft content is private?',
+      question: 'How do I embed a ZingSoft chart on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the chart URL into the tool, click Generate, then copy the HTML into your page or CMS.'
+    },
+    {
+      question: 'Will the embedded chart stay interactive?',
+      answer:
+        'Yes. The embed keeps ZingChart and ZingGrid interactions live so readers can hover, sort, and zoom in place.'
+    },
+    {
+      question: 'Does it work with both ZingChart and ZingGrid?',
+      answer:
+        'It does. The tool embeds interactive charts as well as ZingGrid data tables.'
+    },
+    {
+      question: 'What if the visualization is private?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

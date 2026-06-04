@@ -2,20 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Tvcf',
+  name: 'TVCF',
   slug: 'tvcf',
   color: '#666666',
   exampleUrl: 'https://tvcf.co.kr',
-  metaTitle: 'Tvcf Embed Code Generator — Embed Tvcf Content',
+  metaTitle: 'TVCF Embed Code Generator — Embed TVCF Videos',
   metaDescription:
-    'Free Tvcf embed code generator. Paste any Tvcf URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed tvcf', 'tvcf embed code', 'tvcf embed generator'],
-  heroTitle: 'Tvcf Embed Code Generator',
+    'Free TVCF embed code generator. Paste any TVCF URL — get a ready-to-paste video embed or preview card. No signup.',
+  keywords: [
+    'embed tvcf',
+    'tvcf embed code',
+    'tvcf embed code generator',
+    'embed tvcf video',
+    'tvcf iframe code',
+    'tvcf video player embed',
+    'tvcf video embed'
+  ],
+  heroTitle: 'TVCF Embed Code Generator',
   heroSubtitle:
-    'Paste any Tvcf URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Tvcf content',
+    'Paste any TVCF URL — get a ready-to-paste video embed or preview card.',
+  howItWorksHeading: 'How to embed TVCF videos',
   howItWorksSteps: [
-    { title: 'Paste a Tvcf link', description: 'Copy any tvcf.co.kr URL.' },
+    {
+      title: 'Paste a TVCF link',
+      description: 'Copy any tvcf.co.kr video URL from your browser.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -27,15 +38,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Tvcf embed code generator',
+  explanationHeading: 'Why use our TVCF embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Tvcf link and get working embed HTML.'
+      description:
+        'Paste any TVCF link and get a working video embed in seconds — no markup to write by hand.'
     },
     {
-      title: 'Tvcf content',
-      description: 'The tool handles all Tvcf URL formats.'
+      title: 'Built for video links',
+      description:
+        'The tool reads each TVCF page and builds a player embed for the video it finds.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native video embed',
       description:
-        'Get the real Tvcf embed with full interactivity when available.'
+        'Get the real TVCF player with full playback controls whenever the video supports it.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Tvcf URL formats and content types.'
+      title: 'Responsive player',
+      description:
+        'The embed scales to fit your layout so TVCF videos play cleanly on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -65,21 +80,33 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/dailymotion', label: 'Dailymotion' }
   ],
   faq: [
     {
-      question: 'How do I embed Tvcf content on my website?',
-      answer: 'Paste any Tvcf URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Tvcf embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Tvcf content is private?',
+      question: 'How do I embed a TVCF video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the TVCF URL into the tool, click Generate, then copy the HTML it produces into your page.'
+    },
+    {
+      question: 'Which TVCF links work with this tool?',
+      answer:
+        'Any public tvcf.co.kr video URL works. The tool reads the page and builds an embed from what it finds.'
+    },
+    {
+      question: 'Will the TVCF video stay responsive on mobile?',
+      answer:
+        'Yes. The generated embed scales to the width of your page so the player works on any screen size.'
+    },
+    {
+      question: 'What if the TVCF video cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card built from the available video metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

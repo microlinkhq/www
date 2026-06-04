@@ -2,20 +2,32 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Voxsnap',
+  name: 'VoxSnap',
   slug: 'voxsnap',
-  color: '#666666',
+  color: '#FF6B35',
   exampleUrl: 'https://voxsnap.com',
-  metaTitle: 'Voxsnap Embed Code Generator — Embed Voxsnap Content',
+  metaTitle: 'VoxSnap Embed Code Generator — Embed Audio Articles',
   metaDescription:
-    'Free Voxsnap embed code generator. Paste any Voxsnap URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed voxsnap', 'voxsnap embed code', 'voxsnap embed generator'],
-  heroTitle: 'Voxsnap Embed Code Generator',
+    'Free VoxSnap embed code generator. Paste any VoxSnap URL — get a ready-to-paste audio player for spoken versions of your articles. No signup.',
+  keywords: [
+    'embed voxsnap',
+    'voxsnap embed code',
+    'voxsnap embed code generator',
+    'embed voxsnap audio',
+    'voxsnap iframe code',
+    'voxsnap audio player embed',
+    'embed audio article'
+  ],
+  heroTitle: 'VoxSnap Embed Code Generator',
   heroSubtitle:
-    'Paste any Voxsnap URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Voxsnap content',
+    'Paste any VoxSnap URL — get a ready-to-paste audio player for spoken versions of your articles.',
+  howItWorksHeading: 'How to embed VoxSnap audio',
   howItWorksSteps: [
-    { title: 'Paste a Voxsnap link', description: 'Copy any voxsnap.com URL.' },
+    {
+      title: 'Paste a VoxSnap link',
+      description:
+        'Copy the URL of any VoxSnap audio article and drop it into the field.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -27,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Voxsnap embed code generator',
+  explanationHeading: 'Why use our VoxSnap embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Voxsnap link and get working embed HTML.'
+      title: 'Made for audio articles',
+      description:
+        'Turn the spoken VoxSnap version of an article into an embeddable player so readers can listen instead of read.'
     },
     {
-      title: 'Voxsnap content',
-      description: 'The tool handles all Voxsnap URL formats.'
+      title: 'No manual setup',
+      description:
+        'Skip the embed-snippet hunt. Paste a VoxSnap link and get working audio HTML in one step.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Inline audio player',
       description:
-        'Get the real Voxsnap embed with full interactivity when available.'
+        'Embed the VoxSnap player so visitors can press play and hear the narrated article on the page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Voxsnap URL formats and content types.'
+      title: 'Publisher-ready output',
+      description:
+        'Generates clean HTML that fits article templates, newsletters, and content management systems.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/trinityaudio', label: 'Trinity Audio' },
+    { href: '/tools/embed-url/soundcloud', label: 'SoundCloud' },
+    { href: '/tools/embed-url/spotify', label: 'Spotify' }
   ],
   faq: [
     {
-      question: 'How do I embed Voxsnap content on my website?',
-      answer: 'Paste any Voxsnap URL into the tool and click Generate.'
+      question: 'How do I embed a VoxSnap audio article on my site?',
+      answer:
+        'Paste the VoxSnap URL into the tool and click Generate. You will get a ready-to-paste audio player snippet.'
     },
     {
-      question: 'Is the Voxsnap embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Does the player keep playing the narrated article?',
+      answer:
+        'Yes. The embed loads the live VoxSnap player so the spoken article streams directly in your page.'
     },
     {
-      question: 'What if the Voxsnap content is private?',
+      question: 'Where can I paste the VoxSnap embed?',
+      answer:
+        'Anywhere that accepts HTML — blog posts, article templates, newsletters, or your CMS.'
+    },
+    {
+      question: 'What if the VoxSnap audio is unavailable?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

@@ -4,18 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Typlog',
   slug: 'typlog',
-  color: '#666666',
+  color: '#1A1A1A',
   exampleUrl: 'https://typlog.com',
-  metaTitle: 'Typlog Embed Code Generator — Embed Typlog Content',
+  metaTitle: 'Typlog Embed Code Generator — Embed Blog Posts & Podcasts',
   metaDescription:
-    'Free Typlog embed code generator. Paste any Typlog URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed typlog', 'typlog embed code', 'typlog embed generator'],
+    'Free Typlog embed code generator. Paste any Typlog URL — get a ready-to-paste embed for blog posts and podcast episodes. No signup.',
+  keywords: [
+    'embed typlog',
+    'typlog embed code',
+    'typlog embed code generator',
+    'embed typlog podcast',
+    'embed typlog blog post',
+    'typlog iframe code',
+    'typlog episode embed'
+  ],
   heroTitle: 'Typlog Embed Code Generator',
   heroSubtitle:
-    'Paste any Typlog URL — get a ready-to-paste embed or preview card.',
+    'Paste any Typlog URL — get a ready-to-paste embed for blog posts and podcast episodes.',
   howItWorksHeading: 'How to embed Typlog content',
   howItWorksSteps: [
-    { title: 'Paste a Typlog link', description: 'Copy any typlog.com URL.' },
+    {
+      title: 'Paste a Typlog link',
+      description: 'Copy a Typlog blog post or podcast episode URL.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -30,12 +41,14 @@ const data = {
   explanationHeading: 'Why use our Typlog embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Typlog link and get working embed HTML.'
+      title: 'Posts and podcasts in one tool',
+      description:
+        'Embed Typlog blog articles or podcast episodes from a single URL — the tool picks the right format.'
     },
     {
-      title: 'Typlog content',
-      description: 'The tool handles all Typlog URL formats.'
+      title: 'No manual setup',
+      description:
+        'Paste a Typlog link and get working embed HTML in seconds — no markup to write by hand.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Podcast player embed',
       description:
-        'Get the real Typlog embed with full interactivity when available.'
+        'Embed a Typlog episode with an inline audio player so visitors can listen without leaving your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Typlog URL formats and content types.'
+      title: 'Blog post embed',
+      description:
+        'Turn a Typlog article link into a clean embedded card with title, summary, and image.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/buttondown', label: 'Buttondown' },
+    { href: '/tools/embed-url/soundcloud', label: 'SoundCloud' },
+    { href: '/tools/embed-url/saooti', label: 'Saooti' }
   ],
   faq: [
     {
-      question: 'How do I embed Typlog content on my website?',
-      answer: 'Paste any Typlog URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Typlog embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Typlog content is private?',
+      question: 'How do I embed a Typlog podcast episode on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the episode URL into the tool, click Generate, then copy the HTML to add an inline audio player.'
+    },
+    {
+      question: 'Can I embed a Typlog blog post too?',
+      answer:
+        'Yes. Paste a Typlog article URL and the tool builds an embedded card with the title, summary, and image.'
+    },
+    {
+      question: 'Will the Typlog audio player work on mobile?',
+      answer:
+        'Yes. The generated player is responsive and works across desktop and mobile browsers.'
+    },
+    {
+      question: 'What if the Typlog content cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card built from the available post or episode metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

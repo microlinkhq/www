@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'TickCounter',
   slug: 'tickcounter',
-  color: '#666666',
+  color: '#FF9800',
   exampleUrl: 'https://tickcounter.com',
-  metaTitle: 'TickCounter Embed Code Generator — Embed TickCounter Content',
+  metaTitle: 'TickCounter Embed Code Generator — Embed Countdown Timers',
   metaDescription:
-    'Free TickCounter embed code generator. Paste any TickCounter URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free TickCounter embed code generator. Paste any TickCounter URL — get a ready-to-paste widget for countdown timers, count-up timers, and clocks. No signup.',
   keywords: [
     'embed tickcounter',
     'tickcounter embed code',
-    'tickcounter embed generator'
+    'tickcounter embed code generator',
+    'embed countdown timer',
+    'tickcounter iframe code',
+    'countdown timer embed',
+    'embed tickcounter clock'
   ],
   heroTitle: 'TickCounter Embed Code Generator',
   heroSubtitle:
-    'Paste any TickCounter URL — get a ready-to-paste embed or preview card.',
+    'Paste any TickCounter URL — get a ready-to-paste widget for countdown timers, count-up timers, and clocks.',
   howItWorksHeading: 'How to embed TickCounter content',
   howItWorksSteps: [
     {
       title: 'Paste a TickCounter link',
-      description: 'Copy any tickcounter.com URL.'
+      description:
+        'Copy the URL of any TickCounter countdown, count-up timer, or clock and paste it in.'
     },
     {
       title: 'Get the embed code',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any TickCounter link and get working embed HTML.'
+      description:
+        'Skip the dashboard. Paste a TickCounter link and get working embed HTML in one step.'
     },
     {
-      title: 'TickCounter content',
-      description: 'The tool handles all TickCounter URL formats.'
+      title: 'Timers and clocks',
+      description:
+        'Handles countdown timers, count-up timers, and live clocks from any TickCounter URL.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Live countdown widget',
       description:
-        'Get the real TickCounter embed with full interactivity when available.'
+        'Embed a ticking countdown or count-up timer that updates in real time on your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all TickCounter URL formats and content types.'
+      title: 'Clock support',
+      description:
+        'Drop in a live clock for any time zone alongside your countdowns.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/raindrop', label: 'Raindrop' },
+    { href: '/tools/embed-url/curated', label: 'Curated' },
+    { href: '/tools/embed-url/datawrapper', label: 'Datawrapper' }
   ],
   faq: [
     {
-      question: 'How do I embed TickCounter content on my website?',
-      answer: 'Paste any TickCounter URL into the tool and click Generate.'
+      question: 'How do I embed a TickCounter countdown on my website?',
+      answer:
+        'Paste the TickCounter URL into the tool, click Generate, then copy the HTML into your page.'
     },
     {
-      question: 'Is the TickCounter embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Does the embedded timer keep counting down live?',
+      answer:
+        'Yes. The native widget ticks in real time so visitors always see an accurate countdown.'
     },
     {
-      question: 'What if the TickCounter content is private?',
+      question: 'Can I embed a count-up timer or a clock too?',
+      answer:
+        'Yes. The tool supports countdown timers, count-up timers, and live clocks from TickCounter.'
+    },
+    {
+      question: 'What if the TickCounter timer is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

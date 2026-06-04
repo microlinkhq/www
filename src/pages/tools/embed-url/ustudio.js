@@ -2,20 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Ustudio',
+  name: 'uStudio',
   slug: 'ustudio',
-  color: '#666666',
+  color: '#F26522',
   exampleUrl: 'https://ustudio.com',
-  metaTitle: 'Ustudio Embed Code Generator — Embed Ustudio Content',
+  metaTitle: 'uStudio Embed Code Generator — Embed Business Video & Podcasts',
   metaDescription:
-    'Free Ustudio embed code generator. Paste any Ustudio URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed ustudio', 'ustudio embed code', 'ustudio embed generator'],
-  heroTitle: 'Ustudio Embed Code Generator',
+    'Free uStudio embed code generator. Paste any uStudio URL — get a ready-to-paste embed for business video and podcast content. No signup.',
+  keywords: [
+    'embed ustudio',
+    'ustudio embed code',
+    'ustudio embed code generator',
+    'embed ustudio video',
+    'embed ustudio podcast',
+    'ustudio iframe code',
+    'ustudio player embed'
+  ],
+  heroTitle: 'uStudio Embed Code Generator',
   heroSubtitle:
-    'Paste any Ustudio URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Ustudio content',
+    'Paste any uStudio URL — get a ready-to-paste embed for business video and podcast content.',
+  howItWorksHeading: 'How to embed uStudio content',
   howItWorksSteps: [
-    { title: 'Paste a Ustudio link', description: 'Copy any ustudio.com URL.' },
+    {
+      title: 'Paste a uStudio link',
+      description: 'Copy the URL for a uStudio video or podcast.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -27,15 +38,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Ustudio embed code generator',
+  explanationHeading: 'Why use our uStudio embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Ustudio link and get working embed HTML.'
+      title: 'Video and podcasts in one tool',
+      description:
+        'Embed uStudio business video or podcast content from a single URL — the tool picks the right player.'
     },
     {
-      title: 'Ustudio content',
-      description: 'The tool handles all Ustudio URL formats.'
+      title: 'No manual setup',
+      description:
+        'Paste a uStudio link and get working embed HTML in seconds — no markup to write by hand.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Business video embed',
       description:
-        'Get the real Ustudio embed with full interactivity when available.'
+        'Embed a uStudio video with full playback controls so teams can watch directly in your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Ustudio URL formats and content types.'
+      title: 'Podcast player embed',
+      description:
+        'Turn a uStudio podcast link into an inline audio player visitors can listen to in place.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +79,35 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/brightcove', label: 'Brightcove' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' }
   ],
   faq: [
     {
-      question: 'How do I embed Ustudio content on my website?',
-      answer: 'Paste any Ustudio URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Ustudio embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Ustudio content is private?',
+      question: 'How do I embed a uStudio video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the uStudio URL into the tool, click Generate, then copy the HTML it produces into your page.'
+    },
+    {
+      question: 'Can I embed a uStudio podcast as well?',
+      answer:
+        'Yes. Paste a uStudio podcast URL and the tool builds an inline audio player for the episode.'
+    },
+    {
+      question: 'Will the uStudio player be responsive on mobile?',
+      answer:
+        'Yes. The generated embed scales to the width of your page so it works on desktop and mobile.'
+    },
+    {
+      question:
+        'What if the uStudio content is restricted and cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card built from the available content metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

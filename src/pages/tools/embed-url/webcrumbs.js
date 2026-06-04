@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Webcrumbs',
   slug: 'webcrumbs',
-  color: '#666666',
+  color: '#111827',
   exampleUrl: 'https://webcrumbs.org',
-  metaTitle: 'Webcrumbs Embed Code Generator — Embed Webcrumbs Content',
+  metaTitle: 'Webcrumbs Embed Code Generator — Embed Web Components & Code',
   metaDescription:
-    'Free Webcrumbs embed code generator. Paste any Webcrumbs URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Webcrumbs embed code generator. Paste any Webcrumbs URL — get a ready-to-paste embed for open-source web components and frontend code. No signup.',
   keywords: [
     'embed webcrumbs',
     'webcrumbs embed code',
-    'webcrumbs embed generator'
+    'webcrumbs embed code generator',
+    'embed webcrumbs component',
+    'webcrumbs iframe code',
+    'webcrumbs code embed',
+    'embed web component'
   ],
   heroTitle: 'Webcrumbs Embed Code Generator',
   heroSubtitle:
-    'Paste any Webcrumbs URL — get a ready-to-paste embed or preview card.',
+    'Paste any Webcrumbs URL — get a ready-to-paste embed for open-source web components and frontend code.',
   howItWorksHeading: 'How to embed Webcrumbs content',
   howItWorksSteps: [
     {
       title: 'Paste a Webcrumbs link',
-      description: 'Copy any webcrumbs.org URL.'
+      description:
+        'Copy the URL of any Webcrumbs component or code snippet and drop it into the field.'
     },
     {
       title: 'Get the embed code',
@@ -37,12 +42,14 @@ const data = {
   explanationHeading: 'Why use our Webcrumbs embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Webcrumbs link and get working embed HTML.'
+      title: 'Built for web components',
+      description:
+        'Turn a Webcrumbs component or frontend snippet into an embeddable preview you can show in docs and tutorials.'
     },
     {
-      title: 'Webcrumbs content',
-      description: 'The tool handles all Webcrumbs URL formats.'
+      title: 'No manual setup',
+      description:
+        'Skip copying markup by hand. Paste a Webcrumbs link and get working embed HTML in one step.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Component preview embed',
       description:
-        'Get the real Webcrumbs embed with full interactivity when available.'
+        'Embed a live preview of a Webcrumbs web component so readers can see the UI on your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Webcrumbs URL formats and content types.'
+      title: 'Code snippet support',
+      description:
+        'Works with shared Webcrumbs frontend code, handy for write-ups, documentation, and demos.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/codepen', label: 'CodePen' },
+    { href: '/tools/embed-url/codesandbox', label: 'CodeSandbox' },
+    { href: '/tools/embed-url/codehs', label: 'CodeHS' }
   ],
   faq: [
     {
-      question: 'How do I embed Webcrumbs content on my website?',
-      answer: 'Paste any Webcrumbs URL into the tool and click Generate.'
+      question: 'How do I embed a Webcrumbs component on my site?',
+      answer:
+        'Paste the Webcrumbs URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
     },
     {
-      question: 'Is the Webcrumbs embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Can I embed Webcrumbs code snippets?',
+      answer:
+        'Yes. Paste the link to a shared component or snippet and the tool generates the matching embed.'
     },
     {
-      question: 'What if the Webcrumbs content is private?',
+      question: 'Where can I paste the Webcrumbs embed?',
+      answer:
+        'Anywhere that accepts HTML — blog posts, documentation, tutorials, or your CMS.'
+    },
+    {
+      question: 'What if the Webcrumbs content is unavailable?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

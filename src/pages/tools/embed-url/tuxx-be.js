@@ -6,16 +6,27 @@ const data = {
   slug: 'tuxx-be',
   color: '#666666',
   exampleUrl: 'https://tuxx.be',
-  metaTitle: 'Tuxx Embed Code Generator — Embed Tuxx Content',
+  metaTitle: 'Tuxx Embed Code Generator — Embed Pages & Shared Content',
   metaDescription:
-    'Free Tuxx embed code generator. Paste any Tuxx URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed tuxx', 'tuxx embed code', 'tuxx embed generator'],
+    'Free Tuxx embed code generator. Paste any Tuxx URL — get a ready-to-paste embed or preview card for pages and shared content. No signup.',
+  keywords: [
+    'embed tuxx',
+    'tuxx embed code',
+    'tuxx embed code generator',
+    'embed tuxx page',
+    'tuxx iframe code',
+    'tuxx link embed',
+    'embed tuxx content'
+  ],
   heroTitle: 'Tuxx Embed Code Generator',
   heroSubtitle:
-    'Paste any Tuxx URL — get a ready-to-paste embed or preview card.',
+    'Paste any Tuxx URL — get a ready-to-paste embed or preview card for pages and shared content.',
   howItWorksHeading: 'How to embed Tuxx content',
   howItWorksSteps: [
-    { title: 'Paste a Tuxx link', description: 'Copy any tuxx.be URL.' },
+    {
+      title: 'Paste a Tuxx link',
+      description: 'Copy any tuxx.be URL from your browser address bar.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +42,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Tuxx link and get working embed HTML.'
+      description:
+        'Paste any Tuxx link and get working embed HTML in seconds — no markup to write by hand.'
     },
     {
-      title: 'Tuxx content',
-      description: 'The tool handles all Tuxx URL formats.'
+      title: 'Handles every Tuxx URL',
+      description:
+        'The tool reads each Tuxx page and builds the right embed for the content it finds.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native embed when available',
       description:
-        'Get the real Tuxx embed with full interactivity when available.'
+        'Get the real Tuxx embed with full interactivity whenever the page supports it.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Tuxx URL formats and content types.'
+      title: 'Clean responsive output',
+      description:
+        'Embed code adapts to the width of your page so Tuxx content looks right on any device.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/raindrop', label: 'Raindrop' },
+    { href: '/tools/embed-url/curated', label: 'Curated' },
+    { href: '/tools/embed-url/pastery', label: 'Pastery' }
   ],
   faq: [
     {
-      question: 'How do I embed Tuxx content on my website?',
-      answer: 'Paste any Tuxx URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Tuxx embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Tuxx content is private?',
+      question: 'How do I embed a Tuxx page on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Tuxx URL into the tool, click Generate, then copy the HTML it produces into your page.'
+    },
+    {
+      question: 'Which Tuxx links work with this tool?',
+      answer:
+        'Any public tuxx.be URL works. The tool reads the page and builds an embed from what it finds.'
+    },
+    {
+      question: 'Can I customize how the Tuxx embed looks?',
+      answer:
+        'Yes. Use Card mode to adjust colors, fonts, and layout before copying the code.'
+    },
+    {
+      question: 'What if the Tuxx page cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card built from the available page metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

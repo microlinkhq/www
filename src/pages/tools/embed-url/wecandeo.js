@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Wecandeo',
   slug: 'wecandeo',
-  color: '#666666',
+  color: '#1E88E5',
   exampleUrl: 'https://wecandeo.com',
-  metaTitle: 'Wecandeo Embed Code Generator — Embed Wecandeo Content',
+  metaTitle: 'Wecandeo Embed Code Generator — Embed Hosted Video',
   metaDescription:
-    'Free Wecandeo embed code generator. Paste any Wecandeo URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Wecandeo embed code generator. Paste any Wecandeo URL — get a ready-to-paste player for hosted online video. No signup.',
   keywords: [
     'embed wecandeo',
     'wecandeo embed code',
-    'wecandeo embed generator'
+    'wecandeo embed code generator',
+    'embed wecandeo video',
+    'wecandeo iframe code',
+    'wecandeo video player embed',
+    'embed hosted video'
   ],
   heroTitle: 'Wecandeo Embed Code Generator',
   heroSubtitle:
-    'Paste any Wecandeo URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Wecandeo content',
+    'Paste any Wecandeo URL — get a ready-to-paste player for hosted online video.',
+  howItWorksHeading: 'How to embed Wecandeo video',
   howItWorksSteps: [
     {
       title: 'Paste a Wecandeo link',
-      description: 'Copy any wecandeo.com URL.'
+      description:
+        'Copy the URL of any Wecandeo hosted video and drop it into the field.'
     },
     {
       title: 'Get the embed code',
@@ -37,12 +42,14 @@ const data = {
   explanationHeading: 'Why use our Wecandeo embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Wecandeo link and get working embed HTML.'
+      title: 'Made for hosted video',
+      description:
+        'Turn a Wecandeo video link into an embeddable player you can drop onto landing pages and product docs.'
     },
     {
-      title: 'Wecandeo content',
-      description: 'The tool handles all Wecandeo URL formats.'
+      title: 'No manual setup',
+      description:
+        'Skip the share-menu steps. Paste a Wecandeo link and get working embed HTML in one go.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Hosted video player',
       description:
-        'Get the real Wecandeo embed with full interactivity when available.'
+        'Embed the Wecandeo player so visitors can watch your hosted video inline on any page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Wecandeo URL formats and content types.'
+      title: 'Delivery-ready output',
+      description:
+        'Generates clean HTML that fits websites, landing pages, and content management systems.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/brightcove', label: 'Brightcove' },
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' }
   ],
   faq: [
     {
-      question: 'How do I embed Wecandeo content on my website?',
-      answer: 'Paste any Wecandeo URL into the tool and click Generate.'
+      question: 'How do I embed a Wecandeo video on my site?',
+      answer:
+        'Paste the Wecandeo URL into the tool and click Generate. You will get a ready-to-paste player snippet.'
     },
     {
-      question: 'Is the Wecandeo embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Does the embed stream the hosted video directly?',
+      answer:
+        'Yes. The embed loads the live Wecandeo player so the video plays right inside your page.'
     },
     {
-      question: 'What if the Wecandeo content is private?',
+      question: 'Where can I paste the Wecandeo embed?',
+      answer:
+        'Anywhere that accepts HTML — blog posts, landing pages, documentation, or your CMS.'
+    },
+    {
+      question: 'What if the Wecandeo video is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

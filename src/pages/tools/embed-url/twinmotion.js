@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Twinmotion',
   slug: 'twinmotion',
-  color: '#666666',
+  color: '#2D2D2D',
   exampleUrl: 'https://twinmotion.unrealengine.com',
-  metaTitle: 'Twinmotion Embed Code Generator — Embed Twinmotion Content',
+  metaTitle: 'Twinmotion Embed Code Generator — Embed 3D Visualizations',
   metaDescription:
-    'Free Twinmotion embed code generator. Paste any Twinmotion URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Twinmotion embed code generator. Paste any Twinmotion URL — get a ready-to-paste embed for interactive 3D visualizations and presentations. No signup.',
   keywords: [
     'embed twinmotion',
     'twinmotion embed code',
-    'twinmotion embed generator'
+    'twinmotion embed code generator',
+    'embed twinmotion presentation',
+    'twinmotion iframe code',
+    'embed 3d visualization',
+    'twinmotion render embed'
   ],
   heroTitle: 'Twinmotion Embed Code Generator',
   heroSubtitle:
-    'Paste any Twinmotion URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Twinmotion content',
+    'Paste any Twinmotion URL — get a ready-to-paste embed for interactive 3D visualizations and presentations.',
+  howItWorksHeading: 'How to embed Twinmotion visualizations',
   howItWorksSteps: [
     {
       title: 'Paste a Twinmotion link',
-      description: 'Copy any twinmotion.unrealengine.com URL.'
+      description:
+        'Copy the share URL for your Twinmotion presentation or render.'
     },
     {
       title: 'Get the embed code',
@@ -37,12 +42,14 @@ const data = {
   explanationHeading: 'Why use our Twinmotion embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Twinmotion link and get working embed HTML.'
+      title: 'Share interactive 3D anywhere',
+      description:
+        'Drop a Twinmotion presentation into any web page so clients can explore the model in the browser.'
     },
     {
-      title: 'Twinmotion content',
-      description: 'The tool handles all Twinmotion URL formats.'
+      title: 'No manual setup',
+      description:
+        'Paste a Twinmotion share link and get working embed HTML in seconds — no markup to write by hand.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive presentation embed',
       description:
-        'Get the real Twinmotion embed with full interactivity when available.'
+        'Embed Twinmotion 3D presentations with full pan, orbit, and walkthrough controls in the page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Twinmotion URL formats and content types.'
+      title: 'Responsive viewport',
+      description:
+        'The embed scales to your layout so architectural visualizations look sharp on any screen.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,35 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/briovr', label: 'BrioVR' },
+    { href: '/tools/embed-url/assemblrworld', label: 'Assemblr World' },
+    { href: '/tools/embed-url/icosa-gallery', label: 'Icosa Gallery' }
   ],
   faq: [
     {
-      question: 'How do I embed Twinmotion content on my website?',
-      answer: 'Paste any Twinmotion URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Twinmotion embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Twinmotion content is private?',
+      question: 'How do I embed a Twinmotion presentation on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Twinmotion share URL into the tool, click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Can visitors interact with the 3D model in the embed?',
+      answer:
+        'Yes. When the presentation supports it, viewers can orbit, pan, and move through the scene right in the page.'
+    },
+    {
+      question: 'Will the Twinmotion embed work on mobile?',
+      answer:
+        'The embed scales to the width of your page so 3D visualizations stay usable on tablets and phones.'
+    },
+    {
+      question:
+        'What if the Twinmotion presentation cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card built from the available presentation metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

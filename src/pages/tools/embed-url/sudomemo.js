@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Sudomemo',
   slug: 'sudomemo',
-  color: '#666666',
+  color: '#E60012',
   exampleUrl: 'https://sudomemo.net',
-  metaTitle: 'Sudomemo Embed Code Generator — Embed Sudomemo Content',
+  metaTitle: 'Sudomemo Embed Code Generator — Embed Flipnote Animations',
   metaDescription:
-    'Free Sudomemo embed code generator. Paste any Sudomemo URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Sudomemo embed code generator. Paste any Sudomemo URL — get a ready-to-paste player for Flipnote animations and creator pages. No signup.',
   keywords: [
     'embed sudomemo',
     'sudomemo embed code',
-    'sudomemo embed generator'
+    'sudomemo embed code generator',
+    'embed flipnote',
+    'embed flipnote animation',
+    'sudomemo iframe code',
+    'sudomemo flipnote player embed'
   ],
   heroTitle: 'Sudomemo Embed Code Generator',
   heroSubtitle:
-    'Paste any Sudomemo URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Sudomemo content',
+    'Paste any Sudomemo URL — get a ready-to-paste player for Flipnote animations and creator pages.',
+  howItWorksHeading: 'How to embed Sudomemo Flipnotes',
   howItWorksSteps: [
     {
       title: 'Paste a Sudomemo link',
-      description: 'Copy any sudomemo.net URL.'
+      description:
+        'Copy the URL of any Flipnote or creator page from sudomemo.net and drop it into the field.'
     },
     {
       title: 'Get the embed code',
@@ -37,12 +42,14 @@ const data = {
   explanationHeading: 'Why use our Sudomemo embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Sudomemo link and get working embed HTML.'
+      title: 'Made for Flipnote animations',
+      description:
+        'Turn any Sudomemo Flipnote link into an animation player you can drop into a page in seconds.'
     },
     {
-      title: 'Sudomemo content',
-      description: 'The tool handles all Sudomemo URL formats.'
+      title: 'Handles every Sudomemo link',
+      description:
+        'Works with individual Flipnote pages and creator profiles, no need to hunt for embed settings.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Flipnote animation player',
       description:
-        'Get the real Sudomemo embed with full interactivity when available.'
+        'Embed Flipnote animations created with Nintendo Flipnote Studio straight from Sudomemo.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Sudomemo URL formats and content types.'
+      title: 'Creator page support',
+      description:
+        'Link to a creator profile and showcase their Flipnotes in a clean, responsive frame.'
     },
     {
       title: 'Preview card fallback',
@@ -72,21 +81,33 @@ const data = {
   ],
   relatedLinks: [
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/vlipsy', label: 'Vlipsy' }
   ],
   faq: [
     {
-      question: 'How do I embed Sudomemo content on my website?',
-      answer: 'Paste any Sudomemo URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Sudomemo embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Sudomemo content is private?',
+      question: 'How do I embed a Sudomemo Flipnote on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Flipnote URL into the tool, click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Can I embed a whole Sudomemo creator page?',
+      answer:
+        'Yes. Paste a creator profile link and the tool builds an embed that points to their Flipnotes.'
+    },
+    {
+      question: 'Will the Flipnote animation actually play in the embed?',
+      answer:
+        'When Sudomemo allows native embedding the animation plays inline; otherwise you get a preview card.'
+    },
+    {
+      question: 'Do I need a Sudomemo account to use this?',
+      answer:
+        'No account is required. Just paste a public Sudomemo link and generate the code.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

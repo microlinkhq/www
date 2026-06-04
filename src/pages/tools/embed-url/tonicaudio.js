@@ -2,26 +2,30 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Tonicaudio',
+  name: 'Tonic Audio',
   slug: 'tonicaudio',
   color: '#666666',
   exampleUrl: 'https://tonicaudio.com',
-  metaTitle: 'Tonicaudio Embed Code Generator — Embed Tonicaudio Content',
+  metaTitle: 'Tonic Audio Embed Code Generator — Embed Audio Tracks',
   metaDescription:
-    'Free Tonicaudio embed code generator. Paste any Tonicaudio URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Tonic Audio embed code generator. Paste any Tonic Audio URL — get a ready-to-paste audio player or preview card. No signup.',
   keywords: [
-    'embed tonicaudio',
-    'tonicaudio embed code',
-    'tonicaudio embed generator'
+    'embed tonic audio',
+    'tonic audio embed code',
+    'tonic audio embed code generator',
+    'embed tonic audio track',
+    'tonic audio iframe code',
+    'tonic audio player embed',
+    'embed audio track'
   ],
-  heroTitle: 'Tonicaudio Embed Code Generator',
+  heroTitle: 'Tonic Audio Embed Code Generator',
   heroSubtitle:
-    'Paste any Tonicaudio URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Tonicaudio content',
+    'Paste any Tonic Audio URL — get a ready-to-paste audio player for tracks, or a styled preview card.',
+  howItWorksHeading: 'How to embed Tonic Audio content',
   howItWorksSteps: [
     {
-      title: 'Paste a Tonicaudio link',
-      description: 'Copy any tonicaudio.com URL.'
+      title: 'Paste a Tonic Audio link',
+      description: 'Copy the URL of any Tonic Audio track and paste it in.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +38,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Tonicaudio embed code generator',
+  explanationHeading: 'Why use our Tonic Audio embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Tonicaudio link and get working embed HTML.'
+      description:
+        'Skip the dashboard. Paste a Tonic Audio link and get working embed HTML in one step.'
     },
     {
-      title: 'Tonicaudio content',
-      description: 'The tool handles all Tonicaudio URL formats.'
+      title: 'Audio playback',
+      description:
+        'Generate a player that streams Tonic Audio tracks directly inside your page.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Inline audio player',
       description:
-        'Get the real Tonicaudio embed with full interactivity when available.'
+        'Embed a player so visitors can listen to Tonic Audio tracks without leaving your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Tonicaudio URL formats and content types.'
+      title: 'Responsive layout',
+      description:
+        'The generated player scales to fit any column width across desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/soundcloud', label: 'SoundCloud' },
+    { href: '/tools/embed-url/spotify', label: 'Spotify' },
+    { href: '/tools/embed-url/audiomack', label: 'Audiomack' }
   ],
   faq: [
     {
-      question: 'How do I embed Tonicaudio content on my website?',
-      answer: 'Paste any Tonicaudio URL into the tool and click Generate.'
+      question: 'How do I embed a Tonic Audio track on my website?',
+      answer:
+        'Paste the Tonic Audio URL into the tool, click Generate, then copy the HTML into your page.'
     },
     {
-      question: 'Is the Tonicaudio embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Can visitors play the audio directly on my page?',
+      answer:
+        'Yes. The embedded player streams the track inline so visitors can listen without leaving.'
     },
     {
-      question: 'What if the Tonicaudio content is private?',
+      question: 'Is the embedded player responsive?',
+      answer:
+        'Yes. The player adapts to the width of its container on both desktop and mobile.'
+    },
+    {
+      question: 'What if the Tonic Audio content is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

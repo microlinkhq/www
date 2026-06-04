@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Zoomable',
   slug: 'zoomable',
-  color: '#666666',
+  color: '#2196F3',
   exampleUrl: 'https://zoomable.ca',
-  metaTitle: 'Zoomable Embed Code Generator — Embed Zoomable Content',
+  metaTitle: 'Zoomable Embed Code Generator — Embed Deep-Zoom Images',
   metaDescription:
-    'Free Zoomable embed code generator. Paste any Zoomable URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Zoomable embed code generator. Paste any Zoomable URL — get a ready-to-paste embed for very high-resolution, pannable and zoomable images. No signup.',
   keywords: [
     'embed zoomable',
     'zoomable embed code',
-    'zoomable embed generator'
+    'zoomable embed code generator',
+    'embed zoomable image',
+    'zoomable iframe code',
+    'deep zoom image embed',
+    'embed high resolution image'
   ],
   heroTitle: 'Zoomable Embed Code Generator',
   heroSubtitle:
-    'Paste any Zoomable URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Zoomable content',
+    'Paste any Zoomable URL — get a ready-to-paste embed for very high-resolution, pannable and zoomable images.',
+  howItWorksHeading: 'How to embed Zoomable images',
   howItWorksSteps: [
     {
       title: 'Paste a Zoomable link',
-      description: 'Copy any zoomable.ca URL.'
+      description:
+        'Copy the URL of any deep-zoom image hosted on Zoomable and paste it above.'
     },
     {
       title: 'Get the embed code',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Zoomable link and get working embed HTML.'
+      description:
+        'No need to configure the deep-zoom viewer by hand. Paste a Zoomable link and get working embed HTML.'
     },
     {
-      title: 'Zoomable content',
-      description: 'The tool handles all Zoomable URL formats.'
+      title: 'Pan and zoom preserved',
+      description:
+        'The embed keeps the deep-zoom viewer intact so visitors can pan and zoom into very high-resolution detail in place.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Deep-zoom image embed',
       description:
-        'Get the real Zoomable embed with full interactivity when available.'
+        'Embed the Zoomable viewer so high-resolution images stay pannable and zoomable inside your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Zoomable URL formats and content types.'
+      title: 'High-resolution support',
+      description:
+        'Works with very large images, serving detail on demand so the full picture loads smoothly.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/smugmug', label: 'SmugMug' },
+    { href: '/tools/embed-url/behance', label: 'Behance' },
+    { href: '/tools/embed-url/abraia', label: 'Abraia' }
   ],
   faq: [
     {
-      question: 'How do I embed Zoomable content on my website?',
-      answer: 'Paste any Zoomable URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Zoomable embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Zoomable content is private?',
+      question: 'How do I embed a Zoomable image on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the image URL into the tool, click Generate, then copy the HTML into your page or CMS.'
+    },
+    {
+      question: 'Can visitors pan and zoom the embedded image?',
+      answer:
+        'Yes. The embed keeps the deep-zoom viewer intact so viewers can pan and zoom into fine detail.'
+    },
+    {
+      question: 'Does it handle very high-resolution images?',
+      answer:
+        'It does. Zoomable serves detail on demand, so large, high-resolution images load smoothly in the embed.'
+    },
+    {
+      question: 'What if the image is private?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

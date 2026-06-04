@@ -4,24 +4,28 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'StoryMaps',
   slug: 'storymaps',
-  color: '#666666',
+  color: '#007AC2',
   exampleUrl: 'https://storymaps.arcgis.com',
-  metaTitle: 'StoryMaps Embed Code Generator — Embed StoryMaps Content',
+  metaTitle: 'StoryMaps Embed Code Generator — Embed Interactive Story Maps',
   metaDescription:
-    'Free StoryMaps embed code generator. Paste any StoryMaps URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free StoryMaps embed code generator. Paste any Esri StoryMaps URL — get a ready-to-paste embed for interactive maps with narrative, images, and media. No signup.',
   keywords: [
     'embed storymaps',
     'storymaps embed code',
-    'storymaps embed generator'
+    'storymaps embed code generator',
+    'embed esri storymaps',
+    'storymaps iframe code',
+    'arcgis storymaps embed',
+    'embed interactive story map'
   ],
   heroTitle: 'StoryMaps Embed Code Generator',
   heroSubtitle:
-    'Paste any StoryMaps URL — get a ready-to-paste embed or preview card.',
+    'Paste any Esri StoryMaps URL — get a ready-to-paste embed for interactive, place-based stories.',
   howItWorksHeading: 'How to embed StoryMaps content',
   howItWorksSteps: [
     {
       title: 'Paste a StoryMaps link',
-      description: 'Copy any storymaps.arcgis.com URL.'
+      description: 'Copy the share URL of any Esri StoryMaps story.'
     },
     {
       title: 'Get the embed code',
@@ -37,12 +41,14 @@ const data = {
   explanationHeading: 'Why use our StoryMaps embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any StoryMaps link and get working embed HTML.'
+      title: 'Keep maps interactive',
+      description:
+        'Embed live StoryMaps so readers can pan, zoom, and scroll through the narrative instead of viewing a static image.'
     },
     {
-      title: 'StoryMaps content',
-      description: 'The tool handles all StoryMaps URL formats.'
+      title: 'Tell place-based stories inline',
+      description:
+        'Bring interactive maps, text, images, and multimedia together right inside your article or report.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive map embeds',
       description:
-        'Get the real StoryMaps embed with full interactivity when available.'
+        'Render the full Esri StoryMaps experience with scrollable narrative and explorable maps.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all StoryMaps URL formats and content types.'
+      title: 'Responsive sizing',
+      description:
+        'Embeds scale to fit blogs, news sites, and reports across desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/naturalatlas', label: 'Natural Atlas' },
+    { href: '/tools/embed-url/scribblemaps', label: 'Scribble Maps' },
+    { href: '/tools/embed-url/socialexplorer', label: 'Social Explorer' }
   ],
   faq: [
     {
-      question: 'How do I embed StoryMaps content on my website?',
-      answer: 'Paste any StoryMaps URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the StoryMaps embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the StoryMaps content is private?',
+      question: 'How do I embed a StoryMaps story on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Esri StoryMaps share URL into the tool and click Generate to get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'Will the embedded map stay interactive?',
+      answer:
+        'Yes — when the story supports native embedding, readers can pan, zoom, and scroll through it inside your page.'
+    },
+    {
+      question: 'What if the StoryMaps story is private?',
+      answer:
+        'Private or unshared stories fall back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Where can I paste the StoryMaps embed code?',
+      answer:
+        'Anywhere that accepts HTML — blog posts, news articles, reports, and CMS pages.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

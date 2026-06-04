@@ -4,24 +4,28 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Streamio',
   slug: 'streamio',
-  color: '#666666',
+  color: '#1E88E5',
   exampleUrl: 'https://streamio.com',
-  metaTitle: 'Streamio Embed Code Generator — Embed Streamio Content',
+  metaTitle: 'Streamio Embed Code Generator — Embed Hosted Video',
   metaDescription:
-    'Free Streamio embed code generator. Paste any Streamio URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Streamio embed code generator. Paste any Streamio URL — get a ready-to-paste video player for hosted video. No signup.',
   keywords: [
     'embed streamio',
     'streamio embed code',
-    'streamio embed generator'
+    'streamio embed code generator',
+    'embed streamio video',
+    'streamio iframe code',
+    'streamio video player embed',
+    'streamio player embed'
   ],
   heroTitle: 'Streamio Embed Code Generator',
   heroSubtitle:
-    'Paste any Streamio URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Streamio content',
+    'Paste any Streamio URL — get a ready-to-paste player for hosted video.',
+  howItWorksHeading: 'How to embed Streamio video',
   howItWorksSteps: [
     {
       title: 'Paste a Streamio link',
-      description: 'Copy any streamio.com URL.'
+      description: 'Copy the URL of any video hosted on Streamio.'
     },
     {
       title: 'Get the embed code',
@@ -37,12 +41,14 @@ const data = {
   explanationHeading: 'Why use our Streamio embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Streamio link and get working embed HTML.'
+      title: 'Drop-in video player',
+      description:
+        'Embed Streamio-hosted video with a working player — no need to dig through platform settings for markup.'
     },
     {
-      title: 'Streamio content',
-      description: 'The tool handles all Streamio URL formats.'
+      title: 'Reliable delivery',
+      description:
+        'Built on Streamio video hosting, so playback stays smooth across blogs, landing pages, and product sites.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native video embeds',
       description:
-        'Get the real Streamio embed with full interactivity when available.'
+        'Render the real Streamio player with full playback controls inside your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Streamio URL formats and content types.'
+      title: 'Responsive sizing',
+      description:
+        'The player scales to fit articles, docs, and pages across desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/brightcove', label: 'Brightcove' },
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' }
   ],
   faq: [
     {
-      question: 'How do I embed Streamio content on my website?',
-      answer: 'Paste any Streamio URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Streamio embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Streamio content is private?',
+      question: 'How do I embed a Streamio video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Streamio video URL into the tool and click Generate to get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'Does the embed include playback controls?',
+      answer:
+        'Yes — native embeds render the Streamio player with standard playback controls.'
+    },
+    {
+      question: 'What if the Streamio video is private?',
+      answer:
+        'Private or restricted videos fall back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Where can I paste the Streamio embed code?',
+      answer:
+        'Anywhere that accepts HTML — blog posts, landing pages, docs, and CMS pages.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

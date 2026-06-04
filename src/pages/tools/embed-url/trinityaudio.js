@@ -2,26 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Trinityaudio',
+  name: 'Trinity Audio',
   slug: 'trinityaudio',
-  color: '#666666',
+  color: '#00C2A8',
   exampleUrl: 'https://trinityaudio.ai',
-  metaTitle: 'Trinityaudio Embed Code Generator — Embed Trinityaudio Content',
+  metaTitle: 'Trinity Audio Embed Code Generator — Embed Article Audio',
   metaDescription:
-    'Free Trinityaudio embed code generator. Paste any Trinityaudio URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Trinity Audio embed code generator. Paste any Trinity Audio URL — get a ready-to-paste audio player for the spoken version of an article. No signup.',
   keywords: [
-    'embed trinityaudio',
-    'trinityaudio embed code',
-    'trinityaudio embed generator'
+    'embed trinity audio',
+    'trinity audio embed code',
+    'trinity audio embed code generator',
+    'embed article audio player',
+    'trinity audio iframe code',
+    'text to audio embed',
+    'embed audio version of article'
   ],
-  heroTitle: 'Trinityaudio Embed Code Generator',
+  heroTitle: 'Trinity Audio Embed Code Generator',
   heroSubtitle:
-    'Paste any Trinityaudio URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Trinityaudio content',
+    'Paste any Trinity Audio URL — get a ready-to-paste audio player for the spoken version of an article.',
+  howItWorksHeading: 'How to embed Trinity Audio content',
   howItWorksSteps: [
     {
-      title: 'Paste a Trinityaudio link',
-      description: 'Copy any trinityaudio.ai URL.'
+      title: 'Paste a Trinity Audio link',
+      description:
+        'Copy the URL of any Trinity Audio article player and paste it in.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Trinityaudio embed code generator',
+  explanationHeading: 'Why use our Trinity Audio embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Trinityaudio link and get working embed HTML.'
+      description:
+        'Skip the dashboard. Paste a Trinity Audio link and get working embed HTML in one step.'
     },
     {
-      title: 'Trinityaudio content',
-      description: 'The tool handles all Trinityaudio URL formats.'
+      title: 'Listen to articles',
+      description:
+        'Give readers an audio version of your article with a player they can press play on.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Text-to-audio player',
       description:
-        'Get the real Trinityaudio embed with full interactivity when available.'
+        'Embed a player that reads the article aloud so visitors can listen instead of reading.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Trinityaudio URL formats and content types.'
+      title: 'Publisher friendly',
+      description:
+        'Drop the player into any blog post or CMS to boost engagement and time on page.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/voxsnap', label: 'VoxSnap' },
+    { href: '/tools/embed-url/soundcloud', label: 'SoundCloud' },
+    { href: '/tools/embed-url/spotify', label: 'Spotify' }
   ],
   faq: [
     {
-      question: 'How do I embed Trinityaudio content on my website?',
-      answer: 'Paste any Trinityaudio URL into the tool and click Generate.'
+      question: 'How do I embed a Trinity Audio player on my website?',
+      answer:
+        'Paste the Trinity Audio URL into the tool, click Generate, then copy the HTML into your page.'
     },
     {
-      question: 'Is the Trinityaudio embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Does the player read my article out loud?',
+      answer:
+        'Yes. Trinity Audio turns the article text into an audio version visitors can listen to.'
     },
     {
-      question: 'What if the Trinityaudio content is private?',
+      question: 'Where can I place the embedded player?',
+      answer:
+        'Anywhere that accepts HTML — paste it into a blog post, article template, or CMS block.'
+    },
+    {
+      question: 'What if the Trinity Audio content is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

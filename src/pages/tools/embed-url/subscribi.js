@@ -4,24 +4,28 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Subscribi',
   slug: 'subscribi',
-  color: '#666666',
+  color: '#2D6CDF',
   exampleUrl: 'https://subscribi.io',
-  metaTitle: 'Subscribi Embed Code Generator — Embed Subscribi Content',
+  metaTitle: 'Subscribi Embed Code Generator — Embed Subscription Forms',
   metaDescription:
-    'Free Subscribi embed code generator. Paste any Subscribi URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Subscribi embed code generator. Paste any Subscribi URL — get a ready-to-paste embed for subscription forms and newsletter signups. No signup.',
   keywords: [
     'embed subscribi',
     'subscribi embed code',
-    'subscribi embed generator'
+    'subscribi embed code generator',
+    'embed subscribi form',
+    'subscribi iframe code',
+    'subscribi newsletter embed',
+    'embed subscription form'
   ],
   heroTitle: 'Subscribi Embed Code Generator',
   heroSubtitle:
-    'Paste any Subscribi URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Subscribi content',
+    'Paste any Subscribi URL — get a ready-to-paste embed for subscription forms and newsletter signups.',
+  howItWorksHeading: 'How to embed Subscribi forms',
   howItWorksSteps: [
     {
       title: 'Paste a Subscribi link',
-      description: 'Copy any subscribi.io URL.'
+      description: 'Copy the URL of any Subscribi form or newsletter page.'
     },
     {
       title: 'Get the embed code',
@@ -37,12 +41,14 @@ const data = {
   explanationHeading: 'Why use our Subscribi embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Subscribi link and get working embed HTML.'
+      title: 'Capture signups inline',
+      description:
+        'Embed Subscribi subscription forms directly in your content so readers can subscribe without leaving the page.'
     },
     {
-      title: 'Subscribi content',
-      description: 'The tool handles all Subscribi URL formats.'
+      title: 'Grow your newsletter',
+      description:
+        'Place newsletter signups across posts and landing pages to turn more visitors into subscribers.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Subscription form embeds',
       description:
-        'Get the real Subscribi embed with full interactivity when available.'
+        'Render Subscribi signup forms inline so visitors can join your list right where they are reading.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Subscribi URL formats and content types.'
+      title: 'Responsive sizing',
+      description:
+        'Forms scale to fit blog posts, landing pages, and sidebars on any device.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/buttondown', label: 'Buttondown' },
+    { href: '/tools/embed-url/curated', label: 'Curated' },
+    { href: '/tools/embed-url/raindrop', label: 'Raindrop' }
   ],
   faq: [
     {
-      question: 'How do I embed Subscribi content on my website?',
-      answer: 'Paste any Subscribi URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Subscribi embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Subscribi content is private?',
+      question: 'How do I embed a Subscribi form on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Subscribi URL into the tool and click Generate to get ready-to-paste embed HTML.'
+    },
+    {
+      question: 'Can I embed newsletter signups?',
+      answer:
+        'Yes — paste a Subscribi subscription form or newsletter URL and the tool builds the right embed for it.'
+    },
+    {
+      question: 'What if the Subscribi page is restricted?',
+      answer:
+        'Restricted pages fall back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Where can I paste the Subscribi embed code?',
+      answer:
+        'Anywhere that accepts HTML — blog posts, landing pages, docs, and CMS pages.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'They Said So',
   slug: 'they-said-so',
-  color: '#666666',
+  color: '#34495E',
   exampleUrl: 'https://theysaidso.com',
-  metaTitle: 'They Said So Embed Code Generator — Embed They Said So Content',
+  metaTitle: 'They Said So Embed Code Generator — Embed Quotes',
   metaDescription:
-    'Free They Said So embed code generator. Paste any They Said So URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free They Said So embed code generator. Paste any They Said So URL — get a ready-to-paste embed for famous and inspirational quotes. No signup.',
   keywords: [
     'embed they said so',
     'they said so embed code',
-    'they said so embed generator'
+    'they said so embed code generator',
+    'embed quote',
+    'embed inspirational quote',
+    'they said so iframe code',
+    'they said so quote embed'
   ],
   heroTitle: 'They Said So Embed Code Generator',
   heroSubtitle:
-    'Paste any They Said So URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed They Said So content',
+    'Paste any They Said So URL — get a ready-to-paste embed for famous and inspirational quotes.',
+  howItWorksHeading: 'How to embed They Said So quotes',
   howItWorksSteps: [
     {
       title: 'Paste a They Said So link',
-      description: 'Copy any theysaidso.com URL.'
+      description:
+        'Copy the URL of any quote from theysaidso.com and drop it into the field.'
     },
     {
       title: 'Get the embed code',
@@ -37,12 +42,14 @@ const data = {
   explanationHeading: 'Why use our They Said So embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any They Said So link and get working embed HTML.'
+      title: 'Built for quotes',
+      description:
+        'Turn any They Said So quote link into a clean, shareable block you can drop into a page.'
     },
     {
-      title: 'They Said So content',
-      description: 'The tool handles all They Said So URL formats.'
+      title: 'Perfect for blogs and footers',
+      description:
+        'Add a famous or inspirational quote to a post, sidebar, or page footer with one paste.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Quote embed',
       description:
-        'Get the real They Said So embed with full interactivity when available.'
+        'Embed famous and inspirational quotes from They Said So in a tidy, readable layout.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all They Said So URL formats and content types.'
+      title: 'Lightweight and fast',
+      description:
+        'A compact embed that adds a quote without slowing your page down.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/pastery', label: 'Pastery' },
+    { href: '/tools/embed-url/raindrop', label: 'Raindrop' },
+    { href: '/tools/embed-url/curated', label: 'Curated' }
   ],
   faq: [
     {
-      question: 'How do I embed They Said So content on my website?',
-      answer: 'Paste any They Said So URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the They Said So embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the They Said So content is private?',
+      question: 'How do I embed a They Said So quote on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the quote URL into the tool, click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Can I add a quote to my blog sidebar or footer?',
+      answer:
+        'Yes. The generated block drops into any HTML area, including sidebars and footers.'
+    },
+    {
+      question: 'Will the quote keep its attribution?',
+      answer:
+        'The embed shows the quote text along with the author when that detail is available.'
+    },
+    {
+      question: 'Can I restyle the quote before copying?',
+      answer:
+        'Switch to Card mode to adjust colors, fonts, and layout before you copy the code.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

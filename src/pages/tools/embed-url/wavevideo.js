@@ -4,20 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Wave.video',
   slug: 'wavevideo',
-  color: '#2D60FF',
+  color: '#2D9CDB',
   exampleUrl: 'https://wave.video',
-  metaTitle: 'Wave.video Embed Code Generator — Embed Videos and live streams',
+  metaTitle: 'Wave.video Embed Code Generator — Embed Videos & Live Streams',
   metaDescription:
-    'Free Wave.video embed code generator. Paste any Wave.video URL — get a ready-to-paste embed for videos and live streams. No signup.',
-  keywords: ['embed wave video', 'wave video embed code', 'wave video embed'],
+    'Free Wave.video embed code generator. Paste any Wave.video URL — get a ready-to-paste player for hosted videos and live streams. No signup.',
+  keywords: [
+    'embed wave video',
+    'wave video embed code',
+    'wave video embed code generator',
+    'embed wave video stream',
+    'wave video iframe code',
+    'wave video player embed',
+    'embed wave video live stream'
+  ],
   heroTitle: 'Wave.video Embed Code Generator',
   heroSubtitle:
-    'Paste any Wave.video URL — get a ready-to-paste embed for videos and live streams.',
+    'Paste any Wave.video URL — get a ready-to-paste player for hosted videos and live streams.',
   howItWorksHeading: 'How to embed Wave.video content',
   howItWorksSteps: [
     {
       title: 'Paste a Wave.video link',
-      description: 'Copy any wave.video URL — videos and live streams.'
+      description:
+        'Copy the URL of any Wave.video video or live stream and drop it into the field.'
     },
     {
       title: 'Get the embed code',
@@ -33,14 +42,14 @@ const data = {
   explanationHeading: 'Why use our Wave.video embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
+      title: 'Video and live stream ready',
       description:
-        'Skip the manual URL conversion. Paste any Wave.video link and get working embed HTML.'
+        'Whether the link is a hosted Wave.video clip or a live stream, the tool builds the matching player embed.'
     },
     {
-      title: 'All Wave.video content',
+      title: 'No manual setup',
       description:
-        'Works with videos and live streams — the tool handles all Wave.video URL formats.'
+        'Skip the share-menu steps. Paste a Wave.video link and get working embed HTML in one go.'
     },
     {
       title: 'Customizable preview card',
@@ -50,19 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Wave.video embeds per day. No login, no API key.'
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Hosted video player',
       description:
-        'Get the real Wave.video embed with full interactivity when available.'
+        'Embed the Wave.video player so visitors can watch your hosted videos inline on any page.'
     },
     {
-      title: 'All videos and live streams',
+      title: 'Live stream embedding',
       description:
-        'Works with videos and live streams — all Wave.video content types.'
+        'Works with Wave.video live streams, letting your audience tune in directly from your site.'
     },
     {
       title: 'Preview card fallback',
@@ -71,23 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' },
+    { href: '/tools/embed-url/synthesia', label: 'Synthesia' }
   ],
   faq: [
     {
-      question: 'How do I embed Wave.video content on my website?',
+      question: 'How do I embed a Wave.video video on my site?',
       answer:
-        'Paste any Wave.video URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste the Wave.video URL into the tool and click Generate. You will get a ready-to-paste player snippet.'
     },
     {
-      question: 'Is the Wave.video embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Can I embed a Wave.video live stream?',
+      answer:
+        'Yes. Paste the live stream link and the tool generates an embed that plays the stream inline.'
+    },
+    {
+      question: 'Where can I paste the Wave.video embed?',
+      answer:
+        'Anywhere that accepts HTML — blog posts, landing pages, documentation, or your CMS.'
     },
     {
       question: 'What if the Wave.video content is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

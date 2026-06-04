@@ -2,27 +2,32 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Web3 Is Going Great',
+  name: 'Web3 is Going Just Great',
   slug: 'web3isgoinggreat',
-  color: '#666666',
+  color: '#E8453C',
   exampleUrl: 'https://web3isgoinggreat.com',
   metaTitle:
-    'Web3 Is Going Great Embed Code Generator — Embed Web3 Is Going Great Content',
+    'Web3 is Going Just Great Embed Code Generator — Embed Timeline Entries',
   metaDescription:
-    'Free Web3 Is Going Great embed code generator. Paste any Web3 Is Going Great URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free embed code generator for Web3 is Going Just Great. Paste any timeline entry URL — get a ready-to-paste card for crypto scams, hacks, and failures. No signup.',
   keywords: [
-    'embed web3 is going great',
-    'web3 is going great embed code',
-    'web3 is going great embed generator'
+    'embed web3 is going just great',
+    'web3 is going just great embed code',
+    'web3 is going just great embed code generator',
+    'embed web3 timeline entry',
+    'web3 is going just great iframe code',
+    'molly white timeline embed',
+    'embed crypto timeline'
   ],
-  heroTitle: 'Web3 Is Going Great Embed Code Generator',
+  heroTitle: 'Web3 is Going Just Great Embed Code Generator',
   heroSubtitle:
-    'Paste any Web3 Is Going Great URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Web3 Is Going Great content',
+    'Paste any timeline entry URL — get a ready-to-paste card for crypto scams, hacks, and failures tracked by Molly White.',
+  howItWorksHeading: 'How to embed Web3 is Going Just Great entries',
   howItWorksSteps: [
     {
-      title: 'Paste a Web3 Is Going Great link',
-      description: 'Copy any web3isgoinggreat.com URL.'
+      title: 'Paste a timeline entry link',
+      description:
+        'Copy the URL of any Web3 is Going Just Great timeline entry and drop it into the field.'
     },
     {
       title: 'Get the embed code',
@@ -35,16 +40,18 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Web3 Is Going Great embed code generator',
+  explanationHeading:
+    'Why use our Web3 is Going Just Great embed code generator',
   reasons: [
+    {
+      title: 'Made for timeline entries',
+      description:
+        'Turn any entry from the crypto-and-web3 failure timeline into a clean card you can cite inside your own articles.'
+    },
     {
       title: 'No manual setup',
       description:
-        'Paste any Web3 Is Going Great link and get working embed HTML.'
-    },
-    {
-      title: 'Web3 Is Going Great content',
-      description: 'The tool handles all Web3 Is Going Great URL formats.'
+        'Skip copying screenshots. Paste an entry link and get working embed HTML in one step.'
     },
     {
       title: 'Customizable preview card',
@@ -53,19 +60,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Timeline entry card',
       description:
-        'Get the real Web3 Is Going Great embed with full interactivity when available.'
+        'Embed a single entry with its headline, date, and summary so readers see the incident at a glance.'
     },
     {
-      title: 'All content types',
+      title: 'Source-friendly format',
       description:
-        'Works with all Web3 Is Going Great URL formats and content types.'
+        'Generates tidy HTML that fits reporting, newsletters, and reference posts that link back to the original entry.'
     },
     {
       title: 'Preview card fallback',
@@ -74,23 +82,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/sutori', label: 'Sutori' },
+    { href: '/tools/embed-url/storymaps', label: 'StoryMaps' },
+    { href: '/tools/embed-url/raindrop', label: 'Raindrop' }
   ],
   faq: [
     {
-      question: 'How do I embed Web3 Is Going Great content on my website?',
+      question: 'How do I embed a Web3 is Going Just Great entry?',
       answer:
-        'Paste any Web3 Is Going Great URL into the tool and click Generate.'
+        'Paste the timeline entry URL into the tool and click Generate. You will get a ready-to-paste card snippet.'
     },
     {
-      question: 'Is the Web3 Is Going Great embed generator free?',
+      question: 'Can I embed more than one timeline entry?',
+      answer:
+        'Run each entry URL through the tool to get a separate embed card for every incident you want to feature.'
+    },
+    {
+      question: 'Where can I paste the entry embed?',
+      answer:
+        'Anywhere that accepts HTML — blog posts, reports, documentation, or your CMS.'
+    },
+    {
+      question: 'Will the embed link back to the original entry?',
+      answer:
+        'Yes. The card keeps the source link so readers can open the full entry on the timeline.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Web3 Is Going Great content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

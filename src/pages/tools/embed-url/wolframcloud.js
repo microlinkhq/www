@@ -4,24 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Wolfram Cloud',
   slug: 'wolframcloud',
-  color: '#666666',
+  color: '#DD1100',
   exampleUrl: 'https://wolframcloud.com',
-  metaTitle: 'Wolfram Cloud Embed Code Generator — Embed Wolfram Cloud Content',
+  metaTitle:
+    'Wolfram Cloud Embed Code Generator — Embed Notebooks & Computations',
   metaDescription:
-    'Free Wolfram Cloud embed code generator. Paste any Wolfram Cloud URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Wolfram Cloud embed code generator. Paste any Wolfram Cloud URL — get a ready-to-paste embed for interactive Wolfram Notebooks and computations. No signup.',
   keywords: [
     'embed wolfram cloud',
     'wolfram cloud embed code',
-    'wolfram cloud embed generator'
+    'wolfram cloud embed code generator',
+    'embed wolfram notebook',
+    'wolfram cloud iframe code',
+    'wolfram notebook embed',
+    'embed wolfram computation'
   ],
   heroTitle: 'Wolfram Cloud Embed Code Generator',
   heroSubtitle:
-    'Paste any Wolfram Cloud URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Wolfram Cloud content',
+    'Paste any Wolfram Cloud URL — get a ready-to-paste embed for interactive Wolfram Notebooks and computations.',
+  howItWorksHeading: 'How to embed Wolfram Cloud notebooks',
   howItWorksSteps: [
     {
       title: 'Paste a Wolfram Cloud link',
-      description: 'Copy any wolframcloud.com URL.'
+      description:
+        'Copy the URL of any notebook or computation hosted on wolframcloud.com and paste it above.'
     },
     {
       title: 'Get the embed code',
@@ -38,11 +44,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Wolfram Cloud link and get working embed HTML.'
+      description:
+        'No need to wire up the cloud object yourself. Paste a Wolfram Cloud link and get working embed HTML.'
     },
     {
-      title: 'Wolfram Cloud content',
-      description: 'The tool handles all Wolfram Cloud URL formats.'
+      title: 'Keeps computations live',
+      description:
+        'The embed preserves interactive, computable documents so readers can run and explore the notebook in place.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive notebook embed',
       description:
-        'Get the real Wolfram Cloud embed with full interactivity when available.'
+        'Embed Wolfram Notebooks so the interactive, computable content stays usable inside your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Wolfram Cloud URL formats and content types.'
+      title: 'Computation support',
+      description:
+        'Works with hosted Wolfram computations as well as full notebooks deployed to the cloud.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/marimo', label: 'marimo' },
+    { href: '/tools/embed-url/jovian', label: 'Jovian' },
+    { href: '/tools/embed-url/codesandbox', label: 'CodeSandbox' }
   ],
   faq: [
     {
-      question: 'How do I embed Wolfram Cloud content on my website?',
-      answer: 'Paste any Wolfram Cloud URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Wolfram Cloud embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Wolfram Cloud content is private?',
+      question: 'How do I embed a Wolfram Notebook on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Wolfram Cloud URL into the tool, click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Will the embedded notebook stay interactive?',
+      answer:
+        'Yes. The embed keeps the computable document live so readers can interact with and run it in place.'
+    },
+    {
+      question: 'Can I embed a single computation instead of a full notebook?',
+      answer:
+        'You can. The tool works with both hosted Wolfram computations and complete cloud notebooks.'
+    },
+    {
+      question: 'What if the cloud object is private?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

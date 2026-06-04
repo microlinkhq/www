@@ -2,20 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Vlipsy',
+  name: 'VLIPSY',
   slug: 'vlipsy',
-  color: '#666666',
+  color: '#6C5CE7',
   exampleUrl: 'https://vlipsy.com',
-  metaTitle: 'Vlipsy Embed Code Generator — Embed Vlipsy Content',
+  metaTitle: 'VLIPSY Embed Code Generator — Embed Short Video Clips',
   metaDescription:
-    'Free Vlipsy embed code generator. Paste any Vlipsy URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed vlipsy', 'vlipsy embed code', 'vlipsy embed generator'],
-  heroTitle: 'Vlipsy Embed Code Generator',
+    'Free VLIPSY embed code generator. Paste any VLIPSY URL — get a ready-to-paste player for short, shareable video clips. No signup.',
+  keywords: [
+    'embed vlipsy',
+    'vlipsy embed code',
+    'vlipsy embed code generator',
+    'embed vlipsy clip',
+    'vlipsy iframe code',
+    'vlipsy player embed',
+    'vlipsy video clip embed'
+  ],
+  heroTitle: 'VLIPSY Embed Code Generator',
   heroSubtitle:
-    'Paste any Vlipsy URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Vlipsy content',
+    'Paste any VLIPSY URL — get a ready-to-paste player for short, shareable clips, reactions, and quotes.',
+  howItWorksHeading: 'How to embed VLIPSY clips',
   howItWorksSteps: [
-    { title: 'Paste a Vlipsy link', description: 'Copy any vlipsy.com URL.' },
+    {
+      title: 'Paste a VLIPSY link',
+      description: 'Copy the URL of any VLIPSY clip and paste it into the box.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -27,15 +38,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Vlipsy embed code generator',
+  explanationHeading: 'Why use our VLIPSY embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Vlipsy link and get working embed HTML.'
+      title: 'Perfect for short clips',
+      description:
+        'Drop in reaction clips, quotes, and memorable moments without writing any markup yourself.'
     },
     {
-      title: 'Vlipsy content',
-      description: 'The tool handles all Vlipsy URL formats.'
+      title: 'Lightweight player',
+      description:
+        'Short VLIPSY clips embed as a compact looping player that fits neatly inside posts and chats.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native clip embed',
       description:
-        'Get the real Vlipsy embed with full interactivity when available.'
+        'Get the real VLIPSY player with full playback controls when embedding is supported.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Vlipsy URL formats and content types.'
+      title: 'Compact responsive markup',
+      description:
+        'Lightweight iframe HTML keeps short clips snappy in blogs, forums, and CMS editors.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
+    { href: '/tools/embed-url/streamable', label: 'Streamable' },
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/sudomemo', label: 'Sudomemo' }
   ],
   faq: [
     {
-      question: 'How do I embed Vlipsy content on my website?',
-      answer: 'Paste any Vlipsy URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Vlipsy embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Vlipsy content is private?',
+      question: 'How do I embed a VLIPSY clip on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the VLIPSY clip URL into the tool, click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Are VLIPSY clips good for reactions and quotes?',
+      answer:
+        'Yes. VLIPSY focuses on short, shareable moments, and the compact player is ideal for posts and chats.'
+    },
+    {
+      question: 'Can I customize how the embed looks?',
+      answer:
+        'Use Card mode to adjust colors, fonts, and layout, or use the native player for full playback controls.'
+    },
+    {
+      question: 'What if the VLIPSY clip cannot be embedded?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

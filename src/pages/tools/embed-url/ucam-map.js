@@ -2,26 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Cambridge Map',
+  name: 'University of Cambridge Map',
   slug: 'ucam-map',
-  color: '#666666',
+  color: '#A3C1AD',
   exampleUrl: 'https://map.cam.ac.uk',
-  metaTitle: 'Cambridge Map Embed Code Generator — Embed Cambridge Map Content',
+  metaTitle:
+    'University of Cambridge Map Embed Code Generator — Embed Maps & Locations',
   metaDescription:
-    'Free Cambridge Map embed code generator. Paste any Cambridge Map URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free University of Cambridge Map embed code generator. Paste any Cambridge map URL — get a ready-to-paste embed for interactive maps and locations. No signup.',
   keywords: [
     'embed cambridge map',
+    'university of cambridge map embed',
     'cambridge map embed code',
-    'cambridge map embed generator'
+    'cambridge map embed code generator',
+    'embed cambridge location',
+    'cambridge map iframe code',
+    'cambridge campus map embed'
   ],
-  heroTitle: 'Cambridge Map Embed Code Generator',
+  heroTitle: 'University of Cambridge Map Embed Code Generator',
   heroSubtitle:
-    'Paste any Cambridge Map URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Cambridge Map content',
+    'Paste any Cambridge map URL — get a ready-to-paste embed for interactive maps and locations.',
+  howItWorksHeading: 'How to embed a Cambridge map',
   howItWorksSteps: [
     {
-      title: 'Paste a Cambridge Map link',
-      description: 'Copy any map.cam.ac.uk URL.'
+      title: 'Paste a Cambridge map link',
+      description: 'Copy a map.cam.ac.uk URL for a location or view.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Cambridge Map embed code generator',
+  explanationHeading: 'Why use our Cambridge map embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Cambridge Map link and get working embed HTML.'
+      title: 'Show locations in context',
+      description:
+        'Embed an interactive Cambridge map so visitors can find a building or location without leaving your page.'
     },
     {
-      title: 'Cambridge Map content',
-      description: 'The tool handles all Cambridge Map URL formats.'
+      title: 'No manual setup',
+      description:
+        'Paste a Cambridge map link and get working embed HTML in seconds — no markup to write by hand.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive map embed',
       description:
-        'Get the real Cambridge Map embed with full interactivity when available.'
+        'Embed a pannable, zoomable Cambridge map so readers can explore the area right in your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Cambridge Map URL formats and content types.'
+      title: 'Responsive sizing',
+      description:
+        'The map scales to your layout so it stays usable on desktop, tablet, and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/naturalatlas', label: 'Natural Atlas' },
+    { href: '/tools/embed-url/scribblemaps', label: 'Scribble Maps' },
+    { href: '/tools/embed-url/storymaps', label: 'StoryMaps' }
   ],
   faq: [
     {
-      question: 'How do I embed Cambridge Map content on my website?',
-      answer: 'Paste any Cambridge Map URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Cambridge Map embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Cambridge Map content is private?',
+      question: 'How do I embed a Cambridge map on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the map.cam.ac.uk URL into the tool, click Generate, then copy the HTML it produces into your page.'
+    },
+    {
+      question: 'Can visitors pan and zoom the embedded map?',
+      answer:
+        'Yes. When the map supports it, viewers can pan and zoom to explore locations directly in the embed.'
+    },
+    {
+      question: 'Will the Cambridge map stay responsive on mobile?',
+      answer:
+        'Yes. The generated embed scales to the width of your page so the map works on any screen size.'
+    },
+    {
+      question: 'What if the Cambridge map cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card built from the available map metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

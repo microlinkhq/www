@@ -2,20 +2,32 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Vlive',
+  name: 'V LIVE',
   slug: 'vlive',
-  color: '#666666',
+  color: '#18D6B0',
   exampleUrl: 'https://vlive.tv',
-  metaTitle: 'Vlive Embed Code Generator — Embed Vlive Content',
+  metaTitle: 'V LIVE Embed Code Generator — Embed V LIVE Broadcasts',
   metaDescription:
-    'Free Vlive embed code generator. Paste any Vlive URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed vlive', 'vlive embed code', 'vlive embed generator'],
-  heroTitle: 'Vlive Embed Code Generator',
+    'Free V LIVE embed code generator. Paste any V LIVE URL — get a ready-to-paste player for broadcasts and videos. No signup.',
+  keywords: [
+    'embed vlive',
+    'vlive embed code',
+    'vlive embed code generator',
+    'embed vlive video',
+    'vlive iframe code',
+    'vlive player embed',
+    'vlive broadcast embed'
+  ],
+  heroTitle: 'V LIVE Embed Code Generator',
   heroSubtitle:
-    'Paste any Vlive URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Vlive content',
+    'Paste any V LIVE URL — get a ready-to-paste player for celebrity broadcasts and videos.',
+  howItWorksHeading: 'How to embed V LIVE videos',
   howItWorksSteps: [
-    { title: 'Paste a Vlive link', description: 'Copy any vlive.tv URL.' },
+    {
+      title: 'Paste a V LIVE link',
+      description:
+        'Copy the URL of any V LIVE broadcast or video and paste it into the box.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -27,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Vlive embed code generator',
+  explanationHeading: 'Why use our V LIVE embed code generator',
   reasons: [
     {
-      title: 'No manual setup',
-      description: 'Paste any Vlive link and get working embed HTML.'
+      title: 'Made for fan posts',
+      description:
+        'Share celebrity and K-pop broadcasts in your fan blog or wiki without writing any embed markup.'
     },
     {
-      title: 'Vlive content',
-      description: 'The tool handles all Vlive URL formats.'
+      title: 'Handles broadcasts and videos',
+      description:
+        'Works with both live broadcast replays and regular V LIVE videos from a single pasted link.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native broadcast embed',
       description:
-        'Get the real Vlive embed with full interactivity when available.'
+        'Get the real V LIVE player with full playback controls when embedding is supported.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Vlive URL formats and content types.'
+      title: 'Blog and wiki ready',
+      description:
+        'Lightweight iframe HTML drops cleanly into fan blogs, wikis, and CMS editors.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
+    { href: '/tools/embed-url/sooplive', label: 'SOOP Live' },
     { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/znipe', label: 'Znipe' }
   ],
   faq: [
     {
-      question: 'How do I embed Vlive content on my website?',
-      answer: 'Paste any Vlive URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Vlive embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Vlive content is private?',
+      question: 'How do I embed a V LIVE video on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the V LIVE URL into the tool, click Generate, then copy the HTML into your page.'
+    },
+    {
+      question: 'Can I embed both broadcasts and regular videos?',
+      answer:
+        'Yes. The tool handles live broadcast replays and standard V LIVE videos from a single link.'
+    },
+    {
+      question: 'Will old V LIVE links still work?',
+      answer:
+        'When a video is no longer available, the tool falls back to a styled preview card with the saved metadata.'
+    },
+    {
+      question: 'Can I customize how the embed looks?',
+      answer:
+        'Use Card mode to adjust colors, fonts, and layout, or use the native player for full playback controls.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

@@ -4,22 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Yumpu',
   slug: 'yumpu',
-  color: '#D72E26',
+  color: '#4CAF50',
   exampleUrl: 'https://yumpu.com',
-  metaTitle:
-    'Yumpu Embed Code Generator — Embed Digital publications and flipbooks',
+  metaTitle: 'Yumpu Embed Code Generator — Embed Digital Magazines & Flipbooks',
   metaDescription:
-    'Free Yumpu embed code generator. Paste any Yumpu URL — get a ready-to-paste embed for digital publications and flipbooks. No signup.',
-  keywords: ['embed yumpu', 'yumpu embed code', 'yumpu flipbook embed'],
+    'Free Yumpu embed code generator. Paste any Yumpu URL — get a ready-to-paste embed for digital flipbook magazines converted from PDFs. No signup.',
+  keywords: [
+    'embed yumpu',
+    'yumpu embed code',
+    'yumpu embed code generator',
+    'embed yumpu flipbook',
+    'yumpu iframe code',
+    'yumpu magazine embed',
+    'embed digital flipbook'
+  ],
   heroTitle: 'Yumpu Embed Code Generator',
   heroSubtitle:
-    'Paste any Yumpu URL — get a ready-to-paste embed for digital publications and flipbooks.',
-  howItWorksHeading: 'How to embed Yumpu content',
+    'Paste any Yumpu URL — get a ready-to-paste embed for digital flipbook magazines converted from PDFs.',
+  howItWorksHeading: 'How to embed Yumpu flipbooks',
   howItWorksSteps: [
     {
       title: 'Paste a Yumpu link',
       description:
-        'Copy any yumpu.com URL — digital publications and flipbooks.'
+        'Copy the URL of any published Yumpu magazine or flipbook from yumpu.com and paste it above.'
     },
     {
       title: 'Get the embed code',
@@ -37,12 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Skip the manual URL conversion. Paste any Yumpu link and get working embed HTML.'
+        'Skip the share dialog and iframe wrangling. Paste a Yumpu link and get working embed HTML instantly.'
     },
     {
-      title: 'All Yumpu content',
+      title: 'Page-flip reading experience',
       description:
-        'Works with digital publications and flipbooks — the tool handles all Yumpu URL formats.'
+        'The embed keeps the digital flipbook intact so visitors can flip through pages just like the original magazine.'
     },
     {
       title: 'Customizable preview card',
@@ -52,19 +59,19 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 50 Yumpu embeds per day. No login, no API key.'
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Flipbook magazine embed',
       description:
-        'Get the real Yumpu embed with full interactivity when available.'
+        'Embed Yumpu digital magazines with the full page-turning flipbook viewer inside your page.'
     },
     {
-      title: 'All digital publications and flipbooks',
+      title: 'PDF-based publications',
       description:
-        'Works with digital publications and flipbooks — all Yumpu content types.'
+        'Works with magazines and catalogs Yumpu converts from PDFs into digital flipbooks.'
     },
     {
       title: 'Preview card fallback',
@@ -73,23 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/speakerdeck', label: 'Speaker Deck' },
+    { href: '/tools/embed-url/behance', label: 'Behance' },
+    { href: '/tools/embed-url/smugmug', label: 'SmugMug' }
   ],
   faq: [
     {
-      question: 'How do I embed Yumpu content on my website?',
+      question: 'How do I embed a Yumpu flipbook on my website?',
       answer:
-        'Paste any Yumpu URL into the tool and click Generate. You will get a ready-to-paste embed snippet.'
+        'Paste the magazine URL into the tool, click Generate, then copy the HTML into your page or CMS.'
     },
     {
-      question: 'Is the Yumpu embed generator free?',
+      question: 'Will readers be able to flip through the pages?',
+      answer:
+        'Yes. The embed keeps the flipbook viewer intact so visitors can turn pages as in the published edition.'
+    },
+    {
+      question: 'Does it work with magazines made from PDFs?',
+      answer:
+        'It does. Yumpu turns PDFs into digital flipbooks, and the tool embeds those published magazines directly.'
+    },
+    {
+      question: 'What if the publication is private?',
+      answer:
+        'The tool falls back to a styled preview card built from the available metadata.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Yumpu content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }
