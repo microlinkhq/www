@@ -89,8 +89,8 @@ const data = {
       label: 'SoundCloud'
     },
     {
-      href: '/tools/embed-url/bandcamp',
-      label: 'Bandcamp'
+      href: '/tools/embed-url/audiomack',
+      label: 'Audiomack'
     }
   ],
   faq: [

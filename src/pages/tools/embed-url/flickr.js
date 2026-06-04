@@ -79,8 +79,8 @@ const data = {
   ],
   relatedLinks: [
     {
-      href: '/tools/embed-url/imgur',
-      label: 'Imgur'
+      href: '/tools/embed-url/smugmug',
+      label: 'SmugMug'
     },
     {
       href: '/tools/embed-url/pinterest',

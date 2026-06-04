@@ -87,8 +87,8 @@ const data = {
       label: 'Behance'
     },
     {
-      href: '/tools/embed-url/adobe-xd',
-      label: 'Adobe XD'
+      href: '/tools/embed-url/zeplin',
+      label: 'Zeplin'
     }
   ],
   faq: [
