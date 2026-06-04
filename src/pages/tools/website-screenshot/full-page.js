@@ -929,9 +929,9 @@ const Banner = () => (
         }}
       >
         <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
-          Screenshot API{' '}
+          Need it at scale?{' '}
           <span css={theme({ display: 'block', color: 'white60' })}>
-            for developers
+            Use the Screenshot API
           </span>
         </Subhead>
       </Flex>
@@ -947,13 +947,15 @@ const Banner = () => (
         })}
         style={{ fontVariantNumeric: 'tabular-nums' }}
       >
-        <img
-          css={theme({
-            width: ['300px', '500px', '700px', '900px']
-          })}
-          src='/images/screenshot-tool-landing.png'
-          alt='Screenshot API'
-        />
+        <Link href='/screenshot' aria-label='Microlink Screenshot API'>
+          <img
+            css={theme({
+              width: ['300px', '500px', '700px', '900px']
+            })}
+            src='/images/screenshot-tool-landing.png'
+            alt='Microlink Screenshot API landing'
+          />
+        </Link>
       </Flex>
     }
   />
@@ -1143,11 +1145,9 @@ const ProductInformation = () => (
           <>
             <div>
               Absolutely. The tool is built on the{' '}
-              <Link href='/docs/guides/screenshot/customizing-output#full-page-screenshots'>
-                Microlink Screenshot API
-              </Link>
-              , which provides a simple REST endpoint. Integrate with any
-              language — Node.js, Python, Ruby, or plain cURL.
+              <Link href='/screenshot'>Microlink Screenshot API</Link>, which
+              provides a simple REST endpoint. Integrate with any language —
+              Node.js, Python, Ruby, or plain cURL.
             </div>
             <div>
               Use the{' '}
@@ -1295,7 +1295,7 @@ const WebsiteScreenshotPage = () => (
       css={theme({ px: 4, pt: [5, 5, 6, 6] })}
       title={
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
-          Website Screenshot API{' '}
+          Automate full-page captures at scale{' '}
           <span
             css={{
               display: 'block',
@@ -1304,7 +1304,7 @@ const WebsiteScreenshotPage = () => (
               textAlign: 'left'
             }}
           >
-            for Automated Captures.
+            with no infrastructure to run.
           </span>
         </Subhead>
       }
@@ -1312,8 +1312,8 @@ const WebsiteScreenshotPage = () => (
         <>
           No servers to maintain, no load balancers, no paying for capacity you
           don't use. Microlink lets you spend more time building and less time
-          configuring — easy integration via <Link href='/screenshot'>API</Link>
-          .
+          configuring — easy integration via{' '}
+          <Link href='/screenshot'>Screenshot API</Link>.
         </>
       }
       features={FEATURES_LIST}
