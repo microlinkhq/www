@@ -1,5 +1,5 @@
 {
-  "installCommand": "NODE_ENV=development npm install --legacy-peer-deps",
+  "installCommand": "npm i -g pnpm@latest-11 && NODE_ENV=development pnpm install",
   "headers": [
     {
       "source": "/static/(.*)",
