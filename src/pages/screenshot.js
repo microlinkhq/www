@@ -109,7 +109,7 @@ const FEATURES = [
   {
     title: 'Language-Agnostic API',
     description:
-      'A single REST endpoint designed for developers. Pass any link to our URL screenshot API and integrate in minutes using our official SDKs for Node.js, Python, Ruby, and Go, or standard HTTP requests.'
+      'A single REST endpoint designed for developers. Pass any URL and integrate in minutes using our official SDKs for Node.js, Python, Ruby, and Go, or standard HTTP requests.'
   },
   {
     title: 'Full Headless Browser Control',
@@ -129,7 +129,7 @@ const FEATURES = [
   {
     title: 'Optimized Output Formats',
     description:
-      'Our website capture API exports directly to WebP, JPEG, or PNG formats with configurable compression. Optimize image payloads for web performance without sacrificing visual fidelity.'
+      'Export directly to WebP, JPEG, or PNG formats with configurable compression. Optimize image payloads for web performance without sacrificing visual fidelity.'
   },
   {
     title: 'Zero-Config Integration',
@@ -1035,9 +1035,9 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            The website screenshot service that turns any URL into a
-            pixel-perfect image. Capture site screenshots with full browser
-            control, device emulation, and professional output.
+            The screenshot API that turns any URL into a pixel-perfect image.
+            Capture screenshots with full browser control, device emulation, and
+            professional output.
           </Caption>
           <Flex
             css={theme({
@@ -2091,9 +2091,8 @@ const Playground = () => {
             textAlign: 'center'
           })}
         >
-          Skip the setup. Our interactive screenshot url tool lets you test the
-          screenshot API instantly — paste any URL, configure options, and see
-          the result in real time.
+          Skip the setup. Test the screenshot API instantly — paste any URL,
+          configure options, and see the result in real time.
         </Caption>
 
         <Flex
@@ -2340,7 +2339,7 @@ const Benchmark = () => (
           px: [4, 4, 4, 0]
         })}
       >
-        Benchmarked against every major web screenshot API provider.
+        Benchmarked against every major screenshot API provider.
         <br />
         From cold start to pixel delivery, Microlink consistently finishes
         first.
@@ -2723,7 +2722,7 @@ const CodeExample = () => {
               width: '100%'
             })}
           >
-            Website capture API <LineBreak /> in{' '}
+            Screenshot API <LineBreak /> in{' '}
             <TypedLanguage>
               {typedLanguage}
               <TypedCursor aria-hidden='true'>|</TypedCursor>
@@ -2743,8 +2742,8 @@ const CodeExample = () => {
               ]
             })}
           >
-            Microlink screenshot API delivers enterprise-grade screen capture
-            API through a developer-friendly web screenshot service.
+            Capture any URL with a single REST endpoint — official SDKs and
+            copy-paste examples for every major language.
           </Caption>
           <Flex
             css={theme({
@@ -2922,7 +2921,7 @@ const CAPABILITIES = [
     ),
     title: 'Fastest screenshot API',
     description:
-      'Sub-second cached responses with P95 cold starts under 3 seconds. The fastest site screenshot API with a global edge network for low latency worldwide.'
+      'Sub-second cached responses with P95 cold starts under 3 seconds. Served from a global edge network for low latency worldwide.'
   },
   {
     icon: (
@@ -2962,7 +2961,7 @@ const CAPABILITIES = [
     ),
     title: 'Full browser control',
     description:
-      'Inject CSS, execute JavaScript, click elements, scroll, wait for selectors — a complete screen capture API to automate any interaction before capture.'
+      'Inject CSS, execute JavaScript, click elements, scroll, wait for selectors — full control to automate any interaction before capture.'
   },
   {
     icon: (
@@ -3435,7 +3434,7 @@ const ProductInformation = () => {
           answer: (
             <>
               <div>
-                Absolutely. Our HTML screenshot API provides complete{' '}
+                Absolutely. Our screenshot API provides complete{' '}
                 <Link href='/docs/guides/screenshot/browser-settings'>
                   browser control
                 </Link>
@@ -3666,9 +3665,9 @@ const ScreenshotPage = () => {
         caption={
           <>
             No more servers to maintain, load balancers, or paying for capacity
-            you don’t use — our screenshot service API lets you spend more time
-            building, less time configuring, with easy integration via{' '}
-            <Link href='/docs/guides/screenshot'>web screenshot API</Link>.
+            you don’t use — spend more time building, less time configuring,
+            with easy integration via{' '}
+            <Link href='/docs/guides/screenshot'>screenshot API</Link>.
           </>
         }
         features={FEATURES}
