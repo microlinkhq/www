@@ -6,16 +6,27 @@ const data = {
   slug: 'lumiere',
   color: '#666666',
   exampleUrl: 'https://lumiere.com',
-  metaTitle: 'Lumiere Embed Code Generator — Embed Lumiere Content',
+  metaTitle: 'Lumiere Embed Code Generator — Embed Videos',
   metaDescription:
-    'Free Lumiere embed code generator. Paste any Lumiere URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed lumiere', 'lumiere embed code', 'lumiere embed generator'],
+    'Free Lumiere embed code generator. Paste any Lumiere URL — get a ready-to-paste video player or preview card. No signup.',
+  keywords: [
+    'embed lumiere',
+    'lumiere embed code',
+    'lumiere embed code generator',
+    'embed lumiere video',
+    'lumiere video embed',
+    'lumiere iframe code',
+    'lumiere player embed'
+  ],
   heroTitle: 'Lumiere Embed Code Generator',
   heroSubtitle:
-    'Paste any Lumiere URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Lumiere content',
+    'Paste any Lumiere URL — get a ready-to-paste video player or preview card.',
+  howItWorksHeading: 'How to embed Lumiere videos',
   howItWorksSteps: [
-    { title: 'Paste a Lumiere link', description: 'Copy any lumiere.com URL.' },
+    {
+      title: 'Paste a Lumiere link',
+      description: 'Copy the URL of any Lumiere video.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +42,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Lumiere link and get working embed HTML.'
+      description:
+        'Skip writing the player markup by hand. Paste any Lumiere link and get working embed HTML instantly.'
     },
     {
-      title: 'Lumiere content',
-      description: 'The tool handles all Lumiere URL formats.'
+      title: 'Video-ready output',
+      description:
+        'Lumiere videos embed as an inline player so visitors can watch without leaving your page.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Inline video player',
       description:
-        'Get the real Lumiere embed with full interactivity when available.'
+        'Embed the native Lumiere player with playback controls right inside your content.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Lumiere URL formats and content types.'
+      title: 'Responsive sizing',
+      description:
+        'The player keeps its aspect ratio and scales cleanly across desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/wistia', label: 'Wistia' },
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' }
   ],
   faq: [
     {
-      question: 'How do I embed Lumiere content on my website?',
-      answer: 'Paste any Lumiere URL into the tool and click Generate.'
+      question: 'How do I embed a Lumiere video on my website?',
+      answer:
+        'Paste the Lumiere video URL into the tool and click Generate, then copy the embed HTML into your site.'
     },
     {
-      question: 'Is the Lumiere embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Will the video play directly in my page?',
+      answer:
+        'Yes. The native embed renders an inline player so visitors can watch without leaving your page.'
     },
     {
-      question: 'What if the Lumiere content is private?',
+      question: 'Do I need a Lumiere account to embed a video?',
+      answer:
+        'No account is required. A public Lumiere video URL is enough to generate the embed code.'
+    },
+    {
+      question: 'What if the Lumiere video is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

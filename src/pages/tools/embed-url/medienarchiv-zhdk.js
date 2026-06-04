@@ -4,25 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Medienarchiv ZHdK',
   slug: 'medienarchiv-zhdk',
-  color: '#666666',
+  color: '#000000',
   exampleUrl: 'https://medienarchiv.zhdk.ch',
   metaTitle:
-    'Medienarchiv ZHdK Embed Code Generator — Embed Medienarchiv ZHdK Content',
+    'Medienarchiv ZHdK Embed Code Generator — Embed Archive Images, Video & Audio',
   metaDescription:
-    'Free Medienarchiv ZHdK embed code generator. Paste any Medienarchiv ZHdK URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Medienarchiv ZHdK embed code generator. Paste any medienarchiv.zhdk.ch URL — get a ready-to-paste embed for archived images, video, and audio. No signup.',
   keywords: [
     'embed medienarchiv zhdk',
     'medienarchiv zhdk embed code',
-    'medienarchiv zhdk embed generator'
+    'medienarchiv zhdk embed code generator',
+    'embed zhdk media archive',
+    'medienarchiv zhdk iframe code',
+    'embed zhdk video',
+    'embed zhdk image'
   ],
   heroTitle: 'Medienarchiv ZHdK Embed Code Generator',
   heroSubtitle:
-    'Paste any Medienarchiv ZHdK URL — get a ready-to-paste embed or preview card.',
+    'Paste any Medienarchiv ZHdK URL — get a ready-to-paste embed for archived images, video, and audio from the Zurich University of the Arts.',
   howItWorksHeading: 'How to embed Medienarchiv ZHdK content',
   howItWorksSteps: [
     {
       title: 'Paste a Medienarchiv ZHdK link',
-      description: 'Copy any medienarchiv.zhdk.ch URL.'
+      description:
+        'Copy any medienarchiv.zhdk.ch URL for an image, video, or audio entry.'
     },
     {
       title: 'Get the embed code',
@@ -40,11 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Paste any Medienarchiv ZHdK link and get working embed HTML.'
+        'Paste any Medienarchiv ZHdK link and get working embed HTML in seconds.'
     },
     {
-      title: 'Medienarchiv ZHdK content',
-      description: 'The tool handles all Medienarchiv ZHdK URL formats.'
+      title: 'Built for archive media',
+      description:
+        'Handles the images, video, and audio held in the ZHdK media archive of student and faculty works.'
     },
     {
       title: 'Customizable preview card',
@@ -53,19 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Image, video & audio',
       description:
-        'Get the real Medienarchiv ZHdK embed with full interactivity when available.'
+        'Embed archived images, video clips, and audio recordings from the collection.'
     },
     {
-      title: 'All content types',
+      title: 'Responsive player',
       description:
-        'Works with all Medienarchiv ZHdK URL formats and content types.'
+        'The generated embed scales to fit the column width of your page or article.'
     },
     {
       title: 'Preview card fallback',
@@ -74,23 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/smugmug', label: 'SmugMug' },
+    { href: '/tools/embed-url/behance', label: 'Behance' },
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' }
   ],
   faq: [
     {
       question: 'How do I embed Medienarchiv ZHdK content on my website?',
       answer:
-        'Paste any Medienarchiv ZHdK URL into the tool and click Generate.'
+        'Paste the medienarchiv.zhdk.ch URL into the tool, click Generate, and copy the embed HTML into your page.'
     },
     {
-      question: 'Is the Medienarchiv ZHdK embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Medienarchiv ZHdK content is private?',
+      question: 'What kinds of media can I embed?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Archived images, video, and audio from the Zurich University of the Arts media archive.'
+    },
+    {
+      question: 'What if an entry in the archive is private?',
+      answer:
+        'Private or access-restricted entries fall back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Will the embed stay responsive on mobile?',
+      answer:
+        'Yes. The generated player adapts to the available width so it looks right on phones, tablets, and desktops.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

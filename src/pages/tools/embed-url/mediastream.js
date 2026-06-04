@@ -4,24 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Mediastream',
   slug: 'mediastream',
-  color: '#666666',
+  color: '#00B5E2',
   exampleUrl: 'https://mediastream.com',
-  metaTitle: 'Mediastream Embed Code Generator — Embed Mediastream Content',
+  metaTitle: 'Mediastream Embed Code Generator — Embed Live & On-Demand Video',
   metaDescription:
-    'Free Mediastream embed code generator. Paste any Mediastream URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Mediastream embed code generator. Paste any Mediastream URL — get a ready-to-paste player for live and on-demand video. No signup.',
   keywords: [
     'embed mediastream',
     'mediastream embed code',
-    'mediastream embed generator'
+    'mediastream embed code generator',
+    'embed mediastream video',
+    'mediastream live stream embed',
+    'mediastream iframe code',
+    'mediastream player embed'
   ],
   heroTitle: 'Mediastream Embed Code Generator',
   heroSubtitle:
-    'Paste any Mediastream URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Mediastream content',
+    'Paste any Mediastream URL — get a ready-to-paste player for live and on-demand video.',
+  howItWorksHeading: 'How to embed Mediastream video',
   howItWorksSteps: [
     {
       title: 'Paste a Mediastream link',
-      description: 'Copy any mediastream.com URL.'
+      description:
+        'Copy the URL of any Mediastream live stream or on-demand video.'
     },
     {
       title: 'Get the embed code',
@@ -38,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Mediastream link and get working embed HTML.'
+      description:
+        'Skip the player config by hand. Paste any Mediastream link and get working embed HTML instantly.'
     },
     {
-      title: 'Mediastream content',
-      description: 'The tool handles all Mediastream URL formats.'
+      title: 'Live and on-demand',
+      description:
+        'Works for both Mediastream live streams and on-demand video, generating the right player either way.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Inline OTT player',
       description:
-        'Get the real Mediastream embed with full interactivity when available.'
+        'Embed the native Mediastream player with playback controls directly inside your content.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Mediastream URL formats and content types.'
+      title: 'Live stream support',
+      description:
+        'Drop in a live broadcast and viewers can watch the stream in place as it airs.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/brightcove', label: 'Brightcove' },
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' },
+    { href: '/tools/embed-url/ustream', label: 'Ustream' }
   ],
   faq: [
     {
-      question: 'How do I embed Mediastream content on my website?',
-      answer: 'Paste any Mediastream URL into the tool and click Generate.'
+      question: 'How do I embed Mediastream video on my website?',
+      answer:
+        'Paste the Mediastream URL into the tool and click Generate, then copy the embed HTML into your site.'
     },
     {
-      question: 'Is the Mediastream embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Can I embed a Mediastream live stream?',
+      answer:
+        'Yes. The tool generates a player for both live streams and on-demand video so viewers can watch in place.'
+    },
+    {
+      question: 'Do I need a Mediastream account to embed video?',
+      answer:
+        'No account is required. A public Mediastream URL is enough to generate the embed code.'
     },
     {
       question: 'What if the Mediastream content is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

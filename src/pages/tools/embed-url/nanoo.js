@@ -2,20 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Nanoo',
+  name: 'nanoo.tv',
   slug: 'nanoo',
-  color: '#666666',
+  color: '#E2001A',
   exampleUrl: 'https://nanoo.tv',
-  metaTitle: 'Nanoo Embed Code Generator — Embed Nanoo Content',
+  metaTitle: 'nanoo.tv Embed Code Generator — Embed Educational Video & Audio',
   metaDescription:
-    'Free Nanoo embed code generator. Paste any Nanoo URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed nanoo', 'nanoo embed code', 'nanoo embed generator'],
-  heroTitle: 'Nanoo Embed Code Generator',
+    'Free nanoo.tv embed code generator. Paste any nanoo.tv URL — get a ready-to-paste player for educational video and audio. No signup.',
+  keywords: [
+    'embed nanoo.tv',
+    'nanoo.tv embed code',
+    'nanoo.tv embed code generator',
+    'embed nanoo video',
+    'nanoo.tv iframe code',
+    'nanoo.tv player embed',
+    'embed educational video'
+  ],
+  heroTitle: 'nanoo.tv Embed Code Generator',
   heroSubtitle:
-    'Paste any Nanoo URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Nanoo content',
+    'Paste any nanoo.tv URL — get a ready-to-paste player for educational video and audio.',
+  howItWorksHeading: 'How to embed nanoo.tv content',
   howItWorksSteps: [
-    { title: 'Paste a Nanoo link', description: 'Copy any nanoo.tv URL.' },
+    {
+      title: 'Paste a nanoo.tv link',
+      description: 'Copy the URL of any nanoo.tv video or audio recording.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -27,15 +38,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Nanoo embed code generator',
+  explanationHeading: 'Why use our nanoo.tv embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Nanoo link and get working embed HTML.'
+      description:
+        'Paste any nanoo.tv link and get working embed HTML in one step.'
     },
     {
-      title: 'Nanoo content',
-      description: 'The tool handles all Nanoo URL formats.'
+      title: 'Made for teaching material',
+      description:
+        'Embed archived classroom video and audio so students can watch it inside your course page.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Video & audio player',
       description:
-        'Get the real Nanoo embed with full interactivity when available.'
+        'Embed nanoo.tv recordings as an inline player for video and audio teaching content.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Nanoo URL formats and content types.'
+      title: 'Built for schools',
+      description:
+        'Drop archived media into learning platforms, course sites, and university pages.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' },
+    { href: '/tools/embed-url/brightcove', label: 'Brightcove' },
+    { href: '/tools/embed-url/vidyard', label: 'Vidyard' }
   ],
   faq: [
     {
-      question: 'How do I embed Nanoo content on my website?',
-      answer: 'Paste any Nanoo URL into the tool and click Generate.'
+      question: 'How do I embed nanoo.tv content on my website?',
+      answer:
+        'Paste the nanoo.tv URL into the tool and click Generate to get embeddable HTML.'
     },
     {
-      question: 'Is the Nanoo embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'What kind of nanoo.tv content can I embed?',
+      answer:
+        'Educational video and audio archived on nanoo.tv for teaching and learning.'
     },
     {
-      question: 'What if the Nanoo content is private?',
+      question: 'Can I embed nanoo.tv media in a learning platform?',
+      answer:
+        'Yes — paste the generated HTML into your LMS, course page, or any HTML editor.'
+    },
+    {
+      question: 'What if the nanoo.tv recording is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

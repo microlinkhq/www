@@ -2,26 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Naturalatlas',
+  name: 'Natural Atlas',
   slug: 'naturalatlas',
-  color: '#666666',
+  color: '#2E7D32',
   exampleUrl: 'https://naturalatlas.com',
-  metaTitle: 'Naturalatlas Embed Code Generator — Embed Naturalatlas Content',
+  metaTitle:
+    'Natural Atlas Embed Code Generator — Embed Topo Maps & Place Pages',
   metaDescription:
-    'Free Naturalatlas embed code generator. Paste any Naturalatlas URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Natural Atlas embed code generator. Paste any Natural Atlas URL — get a ready-to-paste embed for topographic maps and outdoor place pages. No signup.',
   keywords: [
-    'embed naturalatlas',
-    'naturalatlas embed code',
-    'naturalatlas embed generator'
+    'embed natural atlas',
+    'natural atlas embed code',
+    'natural atlas embed code generator',
+    'embed topo map',
+    'natural atlas iframe code',
+    'natural atlas map embed',
+    'embed trail map'
   ],
-  heroTitle: 'Naturalatlas Embed Code Generator',
+  heroTitle: 'Natural Atlas Embed Code Generator',
   heroSubtitle:
-    'Paste any Naturalatlas URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Naturalatlas content',
+    'Paste any Natural Atlas URL — get a ready-to-paste embed for topographic maps, trails, peaks, and outdoor place pages.',
+  howItWorksHeading: 'How to embed Natural Atlas content',
   howItWorksSteps: [
     {
-      title: 'Paste a Naturalatlas link',
-      description: 'Copy any naturalatlas.com URL.'
+      title: 'Paste a Natural Atlas link',
+      description: 'Copy the URL of any Natural Atlas map or place page.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Naturalatlas embed code generator',
+  explanationHeading: 'Why use our Natural Atlas embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Naturalatlas link and get working embed HTML.'
+      description:
+        'Paste any Natural Atlas link and get working embed HTML in one step.'
     },
     {
-      title: 'Naturalatlas content',
-      description: 'The tool handles all Naturalatlas URL formats.'
+      title: 'Built for maps & places',
+      description:
+        'Embed topographic maps and place pages for trails, peaks, and lakes right inside your content.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Topographic map embed',
       description:
-        'Get the real Naturalatlas embed with full interactivity when available.'
+        'Turn a Natural Atlas map link into an interactive topo map you can drop on any page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Naturalatlas URL formats and content types.'
+      title: 'Great for trip guides',
+      description:
+        'Embed trail, peak, and lake place pages into hiking blogs, travel guides, and outdoor sites.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/datawrapper', label: 'Datawrapper' },
+    { href: '/tools/embed-url/smugmug', label: 'SmugMug' },
+    { href: '/tools/embed-url/behance', label: 'Behance' }
   ],
   faq: [
     {
-      question: 'How do I embed Naturalatlas content on my website?',
-      answer: 'Paste any Naturalatlas URL into the tool and click Generate.'
+      question: 'How do I embed a Natural Atlas map on my website?',
+      answer:
+        'Paste the Natural Atlas URL into the tool and click Generate to get embeddable HTML.'
     },
     {
-      question: 'Is the Naturalatlas embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'What kind of Natural Atlas content can I embed?',
+      answer:
+        'Topographic maps and place pages for trails, peaks, lakes, and other outdoor locations.'
     },
     {
-      question: 'What if the Naturalatlas content is private?',
+      question: 'Will the embedded map stay interactive?',
+      answer:
+        'When the source supports it, the native embed keeps panning and zoom; otherwise a preview card is shown.'
+    },
+    {
+      question: 'What if the Natural Atlas page is unavailable?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

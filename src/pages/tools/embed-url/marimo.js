@@ -2,20 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Marimo',
+  name: 'marimo',
   slug: 'marimo',
-  color: '#666666',
+  color: '#1F6FEB',
   exampleUrl: 'https://marimo.io',
-  metaTitle: 'Marimo Embed Code Generator — Embed Marimo Content',
+  metaTitle: 'marimo Embed Code Generator — Embed Interactive Python Notebooks',
   metaDescription:
-    'Free Marimo embed code generator. Paste any Marimo URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed marimo', 'marimo embed code', 'marimo embed generator'],
-  heroTitle: 'Marimo Embed Code Generator',
+    'Free marimo embed code generator. Paste any marimo URL — get a ready-to-paste embed for interactive, runnable Python notebooks. No signup.',
+  keywords: [
+    'embed marimo',
+    'marimo embed code',
+    'marimo embed code generator',
+    'embed marimo notebook',
+    'marimo notebook embed',
+    'marimo iframe code',
+    'python notebook embed'
+  ],
+  heroTitle: 'marimo Embed Code Generator',
   heroSubtitle:
-    'Paste any Marimo URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Marimo content',
+    'Paste any marimo URL — get a ready-to-paste embed for interactive, runnable Python notebooks.',
+  howItWorksHeading: 'How to embed marimo notebooks',
   howItWorksSteps: [
-    { title: 'Paste a Marimo link', description: 'Copy any marimo.io URL.' },
+    {
+      title: 'Paste a marimo link',
+      description: 'Copy the URL of any shared marimo notebook.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -27,15 +38,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Marimo embed code generator',
+  explanationHeading: 'Why use our marimo embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Marimo link and get working embed HTML.'
+      description:
+        'Skip writing the iframe by hand. Paste any marimo link and get working embed HTML instantly.'
     },
     {
-      title: 'Marimo content',
-      description: 'The tool handles all Marimo URL formats.'
+      title: 'Interactive notebooks',
+      description:
+        'marimo notebooks embed as reactive, runnable Python so readers can explore the code in place.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Runnable Python in place',
       description:
-        'Get the real Marimo embed with full interactivity when available.'
+        'Embed the live marimo notebook so visitors can run cells and see reactive outputs without leaving your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Marimo URL formats and content types.'
+      title: 'Responsive sizing',
+      description:
+        'The notebook embed scales to its container and stays readable on desktop and mobile.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/codesandbox', label: 'CodeSandbox' },
+    { href: '/tools/embed-url/codepen', label: 'CodePen' },
+    { href: '/tools/embed-url/codehs', label: 'CodeHS' }
   ],
   faq: [
     {
-      question: 'How do I embed Marimo content on my website?',
-      answer: 'Paste any Marimo URL into the tool and click Generate.'
+      question: 'How do I embed a marimo notebook on my website?',
+      answer:
+        'Paste the marimo notebook URL into the tool and click Generate, then copy the embed HTML into your site.'
     },
     {
-      question: 'Is the Marimo embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'Can readers run the Python code in the embed?',
+      answer:
+        'Yes. The native embed renders the reactive marimo notebook, so visitors can run cells and see live outputs in place.'
     },
     {
-      question: 'What if the Marimo content is private?',
+      question: 'Do I need a marimo account to embed a notebook?',
+      answer:
+        'No account is required. A public marimo notebook URL is enough to generate the embed code.'
+    },
+    {
+      question: 'What if the marimo notebook is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

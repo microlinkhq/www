@@ -4,25 +4,29 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Nasjonalbiblioteket',
   slug: 'nasjonalbiblioteket',
-  color: '#666666',
+  color: '#00205B',
   exampleUrl: 'https://nb.no',
   metaTitle:
-    'Nasjonalbiblioteket Embed Code Generator — Embed Nasjonalbiblioteket Content',
+    'Nasjonalbiblioteket Embed Code Generator — Embed Digitized Books & Media',
   metaDescription:
-    'Free Nasjonalbiblioteket embed code generator. Paste any Nasjonalbiblioteket URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Nasjonalbiblioteket embed code generator. Paste any nb.no URL — get a ready-to-paste embed for digitized books, photos, and media. No signup.',
   keywords: [
     'embed nasjonalbiblioteket',
     'nasjonalbiblioteket embed code',
-    'nasjonalbiblioteket embed generator'
+    'nasjonalbiblioteket embed code generator',
+    'embed nb.no',
+    'nasjonalbiblioteket iframe code',
+    'embed digitized books',
+    'national library norway embed'
   ],
   heroTitle: 'Nasjonalbiblioteket Embed Code Generator',
   heroSubtitle:
-    'Paste any Nasjonalbiblioteket URL — get a ready-to-paste embed or preview card.',
+    'Paste any nb.no URL — get a ready-to-paste embed for digitized books, photos, and media from the National Library of Norway.',
   howItWorksHeading: 'How to embed Nasjonalbiblioteket content',
   howItWorksSteps: [
     {
       title: 'Paste a Nasjonalbiblioteket link',
-      description: 'Copy any nb.no URL.'
+      description: 'Copy the URL of any nb.no item from the digital collection.'
     },
     {
       title: 'Get the embed code',
@@ -40,11 +44,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Paste any Nasjonalbiblioteket link and get working embed HTML.'
+        'Paste any nb.no link and get working embed HTML in one step.'
     },
     {
-      title: 'Nasjonalbiblioteket content',
-      description: 'The tool handles all Nasjonalbiblioteket URL formats.'
+      title: 'Built for archive material',
+      description:
+        'Embed digitized books, photographs, maps, and manuscripts directly into your page.'
     },
     {
       title: 'Customizable preview card',
@@ -53,19 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Embed digitized items',
       description:
-        'Get the real Nasjonalbiblioteket embed with full interactivity when available.'
+        'Turn a nb.no link to a book, newspaper, photo, or map into clean embeddable HTML.'
     },
     {
-      title: 'All content types',
+      title: 'Perfect for research & history',
       description:
-        'Works with all Nasjonalbiblioteket URL formats and content types.'
+        'Cite and showcase primary sources from the National Library of Norway in articles and exhibits.'
     },
     {
       title: 'Preview card fallback',
@@ -74,23 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/smugmug', label: 'SmugMug' },
+    { href: '/tools/embed-url/behance', label: 'Behance' },
+    { href: '/tools/embed-url/vimeo', label: 'Vimeo' }
   ],
   faq: [
     {
       question: 'How do I embed Nasjonalbiblioteket content on my website?',
       answer:
-        'Paste any Nasjonalbiblioteket URL into the tool and click Generate.'
+        'Paste the nb.no URL into the tool and click Generate to get embeddable HTML.'
     },
     {
-      question: 'Is the Nasjonalbiblioteket embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'What kind of Nasjonalbiblioteket content can I embed?',
+      answer:
+        'Digitized books, newspapers, photographs, maps, manuscripts, and other media from the collection.'
     },
     {
-      question: 'What if the Nasjonalbiblioteket content is private?',
+      question: 'Can I use these embeds in research articles?',
+      answer:
+        'Yes — paste the generated HTML into your blog, CMS, or academic page to showcase primary sources.'
+    },
+    {
+      question: 'What if the Nasjonalbiblioteket item is restricted?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

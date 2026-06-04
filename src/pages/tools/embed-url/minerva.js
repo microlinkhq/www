@@ -4,18 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Minerva',
   slug: 'minerva',
-  color: '#666666',
+  color: '#5A31F4',
   exampleUrl: 'https://minerva.com',
-  metaTitle: 'Minerva Embed Code Generator — Embed Minerva Content',
+  metaTitle: 'Minerva Embed Code Generator — Embed Interactive How-To Guides',
   metaDescription:
-    'Free Minerva embed code generator. Paste any Minerva URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed minerva', 'minerva embed code', 'minerva embed generator'],
+    'Free Minerva embed code generator. Paste any Minerva URL — get a ready-to-paste embed for interactive, step-by-step how-to guides and walkthroughs. No signup.',
+  keywords: [
+    'embed minerva',
+    'minerva embed code',
+    'minerva embed code generator',
+    'embed minerva guide',
+    'minerva walkthrough embed',
+    'embed how-to guide',
+    'minerva iframe code'
+  ],
   heroTitle: 'Minerva Embed Code Generator',
   heroSubtitle:
-    'Paste any Minerva URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Minerva content',
+    'Paste any Minerva URL — get a ready-to-paste embed for interactive, step-by-step how-to guides and walkthroughs.',
+  howItWorksHeading: 'How to embed Minerva guides',
   howItWorksSteps: [
-    { title: 'Paste a Minerva link', description: 'Copy any minerva.com URL.' },
+    {
+      title: 'Paste a Minerva link',
+      description:
+        'Copy the URL of the Minerva guide or walkthrough you want to share.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +43,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Minerva link and get working embed HTML.'
+      description:
+        'Paste any Minerva link and get working embed HTML without writing iframe markup yourself.'
     },
     {
-      title: 'Minerva content',
-      description: 'The tool handles all Minerva URL formats.'
+      title: 'Built for interactive guides',
+      description:
+        'Embeds Minerva step-by-step how-to guides so readers can follow each step in place.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Step-by-step walkthroughs',
       description:
-        'Get the real Minerva embed with full interactivity when available.'
+        'Embed interactive guides that walk readers through a task one step at a time.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Minerva URL formats and content types.'
+      title: 'Responsive embed',
+      description:
+        'The generated guide scales to fit the column width of your page or documentation.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/speakerdeck', label: 'Speaker Deck' },
+    { href: '/tools/embed-url/learningapps-org', label: 'LearningApps' },
+    { href: '/tools/embed-url/codehs', label: 'CodeHS' }
   ],
   faq: [
     {
-      question: 'How do I embed Minerva content on my website?',
-      answer: 'Paste any Minerva URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Minerva embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Minerva content is private?',
+      question: 'How do I embed a Minerva guide on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the Minerva URL into the tool, click Generate, and copy the embed HTML into your page.'
+    },
+    {
+      question: 'What kind of content can I embed from Minerva?',
+      answer:
+        'Interactive, step-by-step how-to guides and walkthroughs created in Minerva.'
+    },
+    {
+      question: 'Can readers follow the steps inside the embed?',
+      answer:
+        'Yes. The embedded guide keeps its interactive steps so readers can move through it without leaving your page.'
+    },
+    {
+      question: 'What if a guide is private?',
+      answer:
+        'Private guides fall back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

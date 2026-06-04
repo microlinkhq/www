@@ -2,26 +2,32 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Mermaid Ink',
+  name: 'Mermaid.ink',
   slug: 'mermaid-ink',
-  color: '#666666',
+  color: '#FF3670',
   exampleUrl: 'https://mermaid.ink',
-  metaTitle: 'Mermaid Ink Embed Code Generator — Embed Mermaid Ink Content',
+  metaTitle:
+    'Mermaid.ink Embed Code Generator — Embed Mermaid Diagrams as Images',
   metaDescription:
-    'Free Mermaid Ink embed code generator. Paste any Mermaid Ink URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Mermaid.ink embed code generator. Paste any mermaid.ink URL — get a ready-to-paste embed for flowcharts, sequence diagrams, gantt charts, and more. No signup.',
   keywords: [
     'embed mermaid ink',
     'mermaid ink embed code',
-    'mermaid ink embed generator'
+    'mermaid ink embed code generator',
+    'embed mermaid diagram',
+    'mermaid diagram image embed',
+    'embed flowchart image',
+    'mermaid ink iframe code'
   ],
-  heroTitle: 'Mermaid Ink Embed Code Generator',
+  heroTitle: 'Mermaid.ink Embed Code Generator',
   heroSubtitle:
-    'Paste any Mermaid Ink URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Mermaid Ink content',
+    'Paste any Mermaid.ink URL — get a ready-to-paste embed for Mermaid diagrams rendered as shareable images: flowcharts, sequence diagrams, gantt charts, and more.',
+  howItWorksHeading: 'How to embed Mermaid.ink diagrams',
   howItWorksSteps: [
     {
-      title: 'Paste a Mermaid Ink link',
-      description: 'Copy any mermaid.ink URL.'
+      title: 'Paste a Mermaid.ink link',
+      description:
+        'Copy the mermaid.ink URL that renders your diagram definition.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +40,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Mermaid Ink embed code generator',
+  explanationHeading: 'Why use our Mermaid.ink embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Mermaid Ink link and get working embed HTML.'
+      description:
+        'Paste any Mermaid.ink link and get working embed HTML without hand-writing image tags.'
     },
     {
-      title: 'Mermaid Ink content',
-      description: 'The tool handles all Mermaid Ink URL formats.'
+      title: 'Built for Mermaid diagrams',
+      description:
+        'Embeds the rendered image of flowcharts, sequence diagrams, gantt charts, and other Mermaid definitions.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Diagram as image',
       description:
-        'Get the real Mermaid Ink embed with full interactivity when available.'
+        'Mermaid.ink renders the diagram to an image, so it shows up anywhere that allows images.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Mermaid Ink URL formats and content types.'
+      title: 'All diagram types',
+      description:
+        'Works with flowcharts, sequence diagrams, gantt charts, and the rest of the Mermaid syntax.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/whimsical', label: 'Whimsical' },
+    { href: '/tools/embed-url/cacoo', label: 'Cacoo' },
+    { href: '/tools/embed-url/datawrapper', label: 'Datawrapper' }
   ],
   faq: [
     {
-      question: 'How do I embed Mermaid Ink content on my website?',
-      answer: 'Paste any Mermaid Ink URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Mermaid Ink embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Mermaid Ink content is private?',
+      question: 'How do I embed a Mermaid.ink diagram on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste the mermaid.ink URL into the tool, click Generate, and copy the embed HTML into your page.'
+    },
+    {
+      question: 'What diagram types does Mermaid.ink support?',
+      answer:
+        'Mermaid.ink renders flowcharts, sequence diagrams, gantt charts, and other diagram types from Mermaid definitions.'
+    },
+    {
+      question: 'Is the diagram embedded as an image?',
+      answer:
+        'Yes. Mermaid.ink renders the Mermaid definition into an image, which you can embed anywhere images are allowed.'
+    },
+    {
+      question: 'Will the diagram stay sharp when scaled?',
+      answer:
+        'Mermaid.ink can serve crisp output, so the embedded diagram stays readable across screen sizes.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

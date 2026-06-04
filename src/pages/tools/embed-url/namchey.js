@@ -6,16 +6,27 @@ const data = {
   slug: 'namchey',
   color: '#666666',
   exampleUrl: 'https://namchey.com',
-  metaTitle: 'Namchey Embed Code Generator — Embed Namchey Content',
+  metaTitle: 'Namchey Embed Code Generator — Embed Namchey Pages',
   metaDescription:
-    'Free Namchey embed code generator. Paste any Namchey URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed namchey', 'namchey embed code', 'namchey embed generator'],
+    'Free Namchey embed code generator. Paste any Namchey URL — get a ready-to-paste embed or preview card for pages and shared content. No signup.',
+  keywords: [
+    'embed namchey',
+    'namchey embed code',
+    'namchey embed code generator',
+    'embed namchey page',
+    'namchey iframe code',
+    'namchey embed widget',
+    'embed namchey content'
+  ],
   heroTitle: 'Namchey Embed Code Generator',
   heroSubtitle:
-    'Paste any Namchey URL — get a ready-to-paste embed or preview card.',
+    'Paste any Namchey URL — get a ready-to-paste embed or preview card for pages and shared content.',
   howItWorksHeading: 'How to embed Namchey content',
   howItWorksSteps: [
-    { title: 'Paste a Namchey link', description: 'Copy any namchey.com URL.' },
+    {
+      title: 'Paste a Namchey link',
+      description: 'Copy the URL of any Namchey page or shared item.'
+    },
     {
       title: 'Get the embed code',
       description:
@@ -31,11 +42,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Namchey link and get working embed HTML.'
+      description:
+        'Paste any Namchey link and get working embed HTML in one step.'
     },
     {
-      title: 'Namchey content',
-      description: 'The tool handles all Namchey URL formats.'
+      title: 'Works with any Namchey URL',
+      description:
+        'Point the tool at a Namchey page and it builds the embed for you automatically.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Embed shared pages',
       description:
-        'Get the real Namchey embed with full interactivity when available.'
+        'Turn a Namchey page link into clean, embeddable HTML you can drop anywhere.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Namchey URL formats and content types.'
+      title: 'Consistent output',
+      description:
+        'Get the same reliable embed HTML for every Namchey link you paste.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +79,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/behance', label: 'Behance' },
+    { href: '/tools/embed-url/raindrop', label: 'Raindrop' },
+    { href: '/tools/embed-url/curated', label: 'Curated' }
   ],
   faq: [
     {
       question: 'How do I embed Namchey content on my website?',
-      answer: 'Paste any Namchey URL into the tool and click Generate.'
+      answer:
+        'Paste the Namchey URL into the tool and click Generate to get embeddable HTML.'
     },
     {
-      question: 'Is the Namchey embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
+      question: 'What kind of Namchey links can I embed?',
+      answer:
+        'Any public Namchey page or shared content link will produce an embed or preview card.'
     },
     {
-      question: 'What if the Namchey content is private?',
+      question: 'Do I need a Namchey account to embed a link?',
+      answer:
+        'No account is required — just paste a public Namchey URL and generate the code.'
+    },
+    {
+      question: 'What if the Namchey page is private?',
       answer:
         'The tool falls back to a styled preview card with the available metadata.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

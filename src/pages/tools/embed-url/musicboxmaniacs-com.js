@@ -4,25 +4,30 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Music Box Maniacs',
   slug: 'musicboxmaniacs-com',
-  color: '#666666',
+  color: '#C0392B',
   exampleUrl: 'https://musicboxmaniacs.com',
   metaTitle:
-    'Music Box Maniacs Embed Code Generator — Embed Music Box Maniacs Content',
+    'Music Box Maniacs Embed Code Generator — Embed Music Box Melodies',
   metaDescription:
-    'Free Music Box Maniacs embed code generator. Paste any Music Box Maniacs URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Music Box Maniacs embed code generator. Paste any musicboxmaniacs.com URL — get a ready-to-paste interactive player for music box melodies. No signup.',
   keywords: [
     'embed music box maniacs',
     'music box maniacs embed code',
-    'music box maniacs embed generator'
+    'music box maniacs embed code generator',
+    'embed music box melody',
+    'music box player embed',
+    'embed music box maniacs player',
+    'music box maniacs iframe code'
   ],
   heroTitle: 'Music Box Maniacs Embed Code Generator',
   heroSubtitle:
-    'Paste any Music Box Maniacs URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Music Box Maniacs content',
+    'Paste any Music Box Maniacs URL — get a ready-to-paste interactive player for music box melodies created and shared by the community.',
+  howItWorksHeading: 'How to embed Music Box Maniacs melodies',
   howItWorksSteps: [
     {
       title: 'Paste a Music Box Maniacs link',
-      description: 'Copy any musicboxmaniacs.com URL.'
+      description:
+        'Copy the musicboxmaniacs.com URL of the melody you want to share.'
     },
     {
       title: 'Get the embed code',
@@ -40,11 +45,12 @@ const data = {
     {
       title: 'No manual setup',
       description:
-        'Paste any Music Box Maniacs link and get working embed HTML.'
+        'Paste any Music Box Maniacs link and get working embed HTML in seconds.'
     },
     {
-      title: 'Music Box Maniacs content',
-      description: 'The tool handles all Music Box Maniacs URL formats.'
+      title: 'Built for music box melodies',
+      description:
+        'Embeds the community melodies from Music Box Maniacs with their interactive player intact.'
     },
     {
       title: 'Customizable preview card',
@@ -53,19 +59,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive player',
       description:
-        'Get the real Music Box Maniacs embed with full interactivity when available.'
+        'Embed the Music Box Maniacs player so visitors can play the melody right on your page.'
     },
     {
-      title: 'All content types',
+      title: 'Responsive embed',
       description:
-        'Works with all Music Box Maniacs URL formats and content types.'
+        'The generated player scales to fit the column width of your page or article.'
     },
     {
       title: 'Preview card fallback',
@@ -74,23 +81,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/soundcloud', label: 'SoundCloud' },
+    { href: '/tools/embed-url/spotify', label: 'Spotify' },
+    { href: '/tools/embed-url/audiomack', label: 'Audiomack' }
   ],
   faq: [
     {
-      question: 'How do I embed Music Box Maniacs content on my website?',
+      question: 'How do I embed a Music Box Maniacs melody on my website?',
       answer:
-        'Paste any Music Box Maniacs URL into the tool and click Generate.'
+        'Paste the musicboxmaniacs.com URL into the tool, click Generate, and copy the embed HTML into your page.'
     },
     {
-      question: 'Is the Music Box Maniacs embed generator free?',
+      question: 'Can visitors play the melody inside the embed?',
+      answer:
+        'Yes. The embed keeps the interactive player so visitors can play the music box melody without leaving your page.'
+    },
+    {
+      question: 'What kind of content can I embed?',
+      answer:
+        'Music box melodies created, played, and shared by the Music Box Maniacs community.'
+    },
+    {
+      question: 'Will the player stay responsive on mobile?',
+      answer:
+        'Yes. The generated embed adapts to the available width so it works on phones, tablets, and desktops.'
+    },
+    {
+      question: 'Is this free?',
       answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Music Box Maniacs content is private?',
-      answer:
-        'The tool falls back to a styled preview card with the available metadata.'
     }
   ]
 }

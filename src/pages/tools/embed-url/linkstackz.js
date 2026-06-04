@@ -2,26 +2,31 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Linkstackz',
+  name: 'LinkStackz',
   slug: 'linkstackz',
-  color: '#666666',
+  color: '#6C5CE7',
   exampleUrl: 'https://linkstackz.com',
-  metaTitle: 'Linkstackz Embed Code Generator — Embed Linkstackz Content',
+  metaTitle: 'LinkStackz Embed Code Generator — Embed Link-in-Bio Pages',
   metaDescription:
-    'Free Linkstackz embed code generator. Paste any Linkstackz URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free LinkStackz embed code generator. Paste any LinkStackz URL — get a ready-to-paste embed or preview card for your link-in-bio page. No signup.',
   keywords: [
     'embed linkstackz',
     'linkstackz embed code',
-    'linkstackz embed generator'
+    'linkstackz embed code generator',
+    'embed link in bio page',
+    'linkstackz iframe code',
+    'linkstackz page embed',
+    'linkstackz preview card'
   ],
-  heroTitle: 'Linkstackz Embed Code Generator',
+  heroTitle: 'LinkStackz Embed Code Generator',
   heroSubtitle:
-    'Paste any Linkstackz URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Linkstackz content',
+    'Paste any LinkStackz URL — get a ready-to-paste embed or preview card for your link-in-bio page.',
+  howItWorksHeading: 'How to embed LinkStackz content',
   howItWorksSteps: [
     {
-      title: 'Paste a Linkstackz link',
-      description: 'Copy any linkstackz.com URL.'
+      title: 'Paste a LinkStackz link',
+      description:
+        'Copy your linkstackz.com link-in-bio URL and paste it into the tool.'
     },
     {
       title: 'Get the embed code',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Linkstackz embed code generator',
+  explanationHeading: 'Why use our LinkStackz embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Linkstackz link and get working embed HTML.'
+      description:
+        'Paste your LinkStackz link and get working embed HTML — no copying snippets by hand.'
     },
     {
-      title: 'Linkstackz content',
-      description: 'The tool handles all Linkstackz URL formats.'
+      title: 'Built for link-in-bio pages',
+      description:
+        'Recognizes LinkStackz page URLs and pulls the title, avatar, and links so the embed mirrors your page.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Link-in-bio page detection',
       description:
-        'Get the real Linkstackz embed with full interactivity when available.'
+        'Identifies LinkStackz pages and builds an embed that shows your stacked links.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Linkstackz URL formats and content types.'
+      title: 'Avatar & title metadata',
+      description:
+        'Pulls your page title, avatar, and description so the embed represents your profile.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,34 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    { href: '/tools/embed-url/curated', label: 'Curated' },
+    { href: '/tools/embed-url/raindrop', label: 'Raindrop' },
+    { href: '/tools/embed-url/behance', label: 'Behance' }
   ],
   faq: [
     {
-      question: 'How do I embed Linkstackz content on my website?',
-      answer: 'Paste any Linkstackz URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Linkstackz embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Linkstackz content is private?',
+      question: 'How do I embed my LinkStackz page on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste your LinkStackz URL from linkstackz.com into the tool and click Generate to get the embed HTML.'
+    },
+    {
+      question: 'Will the embed show all of my links?',
+      answer:
+        'When your page exposes that data, the embed shows your stacked links along with the title and avatar.'
+    },
+    {
+      question: 'Can I embed any public LinkStackz page?',
+      answer:
+        'Yes — paste any public LinkStackz link-in-bio URL and the tool generates the matching embed.'
+    },
+    {
+      question: 'What if a LinkStackz page cannot be embedded directly?',
+      answer:
+        'The tool falls back to a styled preview card with the available title and image.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
