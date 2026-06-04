@@ -2,31 +2,36 @@ import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 
 const data = {
-  name: 'Insighttimer',
+  name: 'Insight Timer',
   slug: 'insighttimer',
-  color: '#666666',
+  color: '#00A0B0',
   exampleUrl: 'https://insighttimer.com',
-  metaTitle: 'Insighttimer Embed Code Generator — Embed Insighttimer Content',
+  metaTitle: 'Insight Timer Embed Code Generator — Embed Guided Meditations',
   metaDescription:
-    'Free Insighttimer embed code generator. Paste any Insighttimer URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Insight Timer embed code generator. Paste any Insight Timer URL — get a ready-to-paste player for guided meditations, tracks, and talks. No signup.',
   keywords: [
-    'embed insighttimer',
-    'insighttimer embed code',
-    'insighttimer embed generator'
+    'embed insight timer',
+    'insight timer embed code',
+    'insight timer embed code generator',
+    'embed guided meditation',
+    'insight timer iframe code',
+    'insight timer player embed',
+    'embed meditation audio'
   ],
-  heroTitle: 'Insighttimer Embed Code Generator',
+  heroTitle: 'Insight Timer Embed Code Generator',
   heroSubtitle:
-    'Paste any Insighttimer URL — get a ready-to-paste embed or preview card.',
-  howItWorksHeading: 'How to embed Insighttimer content',
+    'Paste any Insight Timer URL — get a ready-to-paste player for guided meditations, tracks, and talks.',
+  howItWorksHeading: 'How to embed Insight Timer content',
   howItWorksSteps: [
     {
-      title: 'Paste a Insighttimer link',
-      description: 'Copy any insighttimer.com URL.'
+      title: 'Paste an Insight Timer link',
+      description:
+        'Copy any insighttimer.com URL — a guided meditation, track, or talk.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the content and generates the right player embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -34,15 +39,17 @@ const data = {
         'Click Copy code, then paste the HTML into your blog, docs, CMS, or any HTML editor.'
     }
   ],
-  explanationHeading: 'Why use our Insighttimer embed code generator',
+  explanationHeading: 'Why use our Insight Timer embed code generator',
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Insighttimer link and get working embed HTML.'
+      description:
+        'Paste any Insight Timer link and get working player embed HTML instantly.'
     },
     {
-      title: 'Insighttimer content',
-      description: 'The tool handles all Insighttimer URL formats.'
+      title: 'Meditations & tracks',
+      description:
+        'Works with guided meditations, music tracks, and talks from Insight Timer.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +58,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native audio player',
       description:
-        'Get the real Insighttimer embed with full interactivity when available.'
+        'Get the Insight Timer player with artwork and playback controls so visitors can listen in place.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Insighttimer URL formats and content types.'
+      title: 'Meditations, music & talks',
+      description:
+        'Guided meditations, music tracks, and teacher talks from Insight Timer all embed cleanly.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +80,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/soundcloud',
+      label: 'SoundCloud'
+    },
+    {
+      href: '/tools/embed-url/spotify',
+      label: 'Spotify'
+    },
+    {
+      href: '/tools/embed-url/audiomack',
+      label: 'Audiomack'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Insighttimer content on my website?',
-      answer: 'Paste any Insighttimer URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Insighttimer embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Insighttimer content is private?',
+      question: 'How do I embed an Insight Timer meditation on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any Insight Timer URL into the tool and click Generate. You will get a ready-to-paste player.'
+    },
+    {
+      question: 'What is Insight Timer?',
+      answer:
+        'Insight Timer is a meditation app with a large free library of guided meditations, music tracks, and talks.'
+    },
+    {
+      question: 'What Insight Timer content can I embed?',
+      answer:
+        'Guided meditations, music tracks, and talks that are shared publicly on Insight Timer.'
+    },
+    {
+      question: 'What if a track cannot be embedded?',
+      answer:
+        'Switch to Card mode to get a styled preview card with the title and image instead.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

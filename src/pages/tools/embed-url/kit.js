@@ -4,22 +4,33 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Kit',
   slug: 'kit',
-  color: '#666666',
+  color: '#1B1B1B',
   exampleUrl: 'https://kit.co',
-  metaTitle: 'Kit Embed Code Generator — Embed Kit Content',
+  metaTitle: 'Kit Embed Code Generator — Embed Gear & Product Lists',
   metaDescription:
-    'Free Kit embed code generator. Paste any Kit URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed kit', 'kit embed code', 'kit embed generator'],
+    'Free Kit embed code generator. Paste any Kit (kit.co) URL — get a ready-to-paste embed for curated gear and product lists. No signup.',
+  keywords: [
+    'embed kit',
+    'kit co embed code',
+    'kit embed code generator',
+    'embed gear list',
+    'kit co iframe code',
+    'kit product list embed',
+    'embed kit co'
+  ],
   heroTitle: 'Kit Embed Code Generator',
   heroSubtitle:
-    'Paste any Kit URL — get a ready-to-paste embed or preview card.',
+    'Paste any Kit URL — get a ready-to-paste embed for curated gear and product lists.',
   howItWorksHeading: 'How to embed Kit content',
   howItWorksSteps: [
-    { title: 'Paste a Kit link', description: 'Copy any kit.co URL.' },
+    {
+      title: 'Paste a Kit link',
+      description: 'Copy any kit.co URL — a curated gear or product kit.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the kit and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +42,12 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Kit link and get working embed HTML.'
+      description: 'Paste any Kit link and get working embed HTML instantly.'
     },
     {
-      title: 'Kit content',
-      description: 'The tool handles all Kit URL formats.'
+      title: 'Curated gear lists',
+      description:
+        'Works with the curated kits of gear and product recommendations you build on kit.co.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +56,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Interactive gear kit',
       description:
-        'Get the real Kit embed with full interactivity when available.'
+        'Embed the live Kit so readers can browse every product in the list right on your page.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Kit URL formats and content types.'
+      title: 'Kits & product lists',
+      description:
+        'Curated gear kits and product recommendation lists from kit.co all embed cleanly.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +78,43 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/curated',
+      label: 'Curated'
+    },
+    {
+      href: '/tools/embed-url/raindrop',
+      label: 'Raindrop'
+    },
+    {
+      href: '/tools/embed-url/smugmug',
+      label: 'SmugMug'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Kit content on my website?',
-      answer: 'Paste any Kit URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Kit embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Kit content is private?',
+      question: 'How do I embed a Kit gear list on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any kit.co URL into the tool and click Generate. You will get a ready-to-paste embed for the kit.'
+    },
+    {
+      question: 'What is Kit?',
+      answer:
+        'Kit (kit.co) is a platform for building and sharing curated kits of gear and product recommendations.'
+    },
+    {
+      question: 'Can readers browse the products in the embed?',
+      answer:
+        'When the kit supports live embedding, readers can browse every product directly in the page.'
+    },
+    {
+      question: 'What if the kit cannot be embedded?',
+      answer:
+        'Switch to Card mode to get a styled preview card with the title and image instead.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

@@ -4,22 +4,33 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Juntos',
   slug: 'juntos',
-  color: '#666666',
+  color: '#7B2FF7',
   exampleUrl: 'https://juntos.live',
-  metaTitle: 'Juntos Embed Code Generator — Embed Juntos Content',
+  metaTitle: 'Juntos Embed Code Generator — Embed Live Streams & Events',
   metaDescription:
-    'Free Juntos embed code generator. Paste any Juntos URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed juntos', 'juntos embed code', 'juntos embed generator'],
+    'Free Juntos embed code generator. Paste any Juntos URL — get a ready-to-paste player for live streams and virtual events. No signup.',
+  keywords: [
+    'embed juntos',
+    'juntos embed code',
+    'juntos embed code generator',
+    'embed juntos live',
+    'juntos iframe code',
+    'juntos live stream embed',
+    'embed virtual event'
+  ],
   heroTitle: 'Juntos Embed Code Generator',
   heroSubtitle:
-    'Paste any Juntos URL — get a ready-to-paste embed or preview card.',
+    'Paste any Juntos URL — get a ready-to-paste player for live streams and virtual events.',
   howItWorksHeading: 'How to embed Juntos content',
   howItWorksSteps: [
-    { title: 'Paste a Juntos link', description: 'Copy any juntos.live URL.' },
+    {
+      title: 'Paste a Juntos link',
+      description: 'Copy any juntos.live URL — a live stream or event.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the stream and generates the right player embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +42,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Juntos link and get working embed HTML.'
+      description:
+        'Paste any Juntos link and get working player embed HTML instantly.'
     },
     {
-      title: 'Juntos content',
-      description: 'The tool handles all Juntos URL formats.'
+      title: 'Streams & events',
+      description:
+        'Works with Juntos live streams and the virtual events hosted on the platform.'
     },
     {
       title: 'Customizable preview card',
@@ -44,42 +57,64 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Juntos player',
       description:
-        'Get the real Juntos embed with full interactivity when available.'
+        'Get the real Juntos player with its playback controls and live indicator.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Juntos URL formats and content types.'
+      title: 'Live & on-demand',
+      description:
+        'Live broadcasts and recorded events from Juntos both embed cleanly.'
     },
     {
       title: 'Preview card fallback',
       description:
-        'A styled preview card with title and image when native embedding is restricted.'
+        'A styled preview card with title and thumbnail when native embedding is restricted.'
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/ustream',
+      label: 'Ustream'
+    },
+    {
+      href: '/tools/embed-url/vidyard',
+      label: 'Vidyard'
+    },
+    {
+      href: '/tools/embed-url/brightcove',
+      label: 'Brightcove'
+    }
   ],
   faq: [
     {
-      question: 'How do I embed Juntos content on my website?',
-      answer: 'Paste any Juntos URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Juntos embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Juntos content is private?',
+      question: 'How do I embed a Juntos stream on my website?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any Juntos URL into the tool and click Generate. You will get a ready-to-paste player.'
+    },
+    {
+      question: 'What Juntos content can I embed?',
+      answer: 'Live streams and virtual events hosted on Juntos.'
+    },
+    {
+      question: 'Can I embed both live and recorded events?',
+      answer:
+        'Yes. Live broadcasts and recorded events are both supported — just paste the link.'
+    },
+    {
+      question: 'What if a stream cannot be embedded?',
+      answer:
+        'Switch to Card mode to get a styled preview card with the title and thumbnail instead.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

@@ -4,29 +4,33 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Knowledgepad',
   slug: 'knowledgepad',
-  color: '#666666',
+  color: '#2D6CDF',
   exampleUrl: 'https://knowledgepad.co',
-  metaTitle: 'Knowledgepad Embed Code Generator — Embed Knowledgepad Content',
+  metaTitle: 'Knowledgepad Embed Code Generator — Embed Notes & Articles',
   metaDescription:
-    'Free Knowledgepad embed code generator. Paste any Knowledgepad URL — get a ready-to-paste embed or preview card. No signup.',
+    'Free Knowledgepad embed code generator. Paste any Knowledgepad URL — get a ready-to-paste embed for notes, articles, and knowledge pages. No signup.',
   keywords: [
     'embed knowledgepad',
     'knowledgepad embed code',
-    'knowledgepad embed generator'
+    'knowledgepad embed code generator',
+    'embed knowledge base',
+    'knowledgepad iframe code',
+    'knowledgepad note embed',
+    'embed knowledge page'
   ],
   heroTitle: 'Knowledgepad Embed Code Generator',
   heroSubtitle:
-    'Paste any Knowledgepad URL — get a ready-to-paste embed or preview card.',
+    'Paste any Knowledgepad URL — get a ready-to-paste embed for notes, articles, and knowledge pages.',
   howItWorksHeading: 'How to embed Knowledgepad content',
   howItWorksSteps: [
     {
       title: 'Paste a Knowledgepad link',
-      description: 'Copy any knowledgepad.co URL.'
+      description: 'Copy any knowledgepad.co URL — a note, article, or page.'
     },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the content and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -38,11 +42,13 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Knowledgepad link and get working embed HTML.'
+      description:
+        'Paste any Knowledgepad link and get working embed HTML instantly.'
     },
     {
-      title: 'Knowledgepad content',
-      description: 'The tool handles all Knowledgepad URL formats.'
+      title: 'Notes & articles',
+      description:
+        'Works with Knowledgepad notes, articles, and knowledge pages — the tool handles every URL.'
     },
     {
       title: 'Customizable preview card',
@@ -51,18 +57,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Knowledgepad embed',
       description:
-        'Get the real Knowledgepad embed with full interactivity when available.'
+        'Get the real Knowledgepad embed with its formatting and media kept intact when supported.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Knowledgepad URL formats and content types.'
+      title: 'Notes, articles & pages',
+      description:
+        'Notes, articles, and knowledge pages from Knowledgepad all embed cleanly.'
     },
     {
       title: 'Preview card fallback',
@@ -71,22 +79,42 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/pastery',
+      label: 'Pastery'
+    },
+    {
+      href: '/tools/embed-url/raindrop',
+      label: 'Raindrop'
+    },
+    {
+      href: '/tools/embed-url/curated',
+      label: 'Curated'
+    }
   ],
   faq: [
     {
       question: 'How do I embed Knowledgepad content on my website?',
-      answer: 'Paste any Knowledgepad URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Knowledgepad embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Knowledgepad content is private?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any Knowledgepad URL into the tool and click Generate. You will get a ready-to-paste embed.'
+    },
+    {
+      question: 'What Knowledgepad content can I embed?',
+      answer: 'Notes, articles, and knowledge pages published on Knowledgepad.'
+    },
+    {
+      question: 'Does the embed keep the formatting?',
+      answer:
+        'When the content supports embedding, the native Knowledgepad formatting and media are preserved.'
+    },
+    {
+      question: 'What if the content cannot be embedded?',
+      answer:
+        'Switch to Card mode to get a styled preview card with the title and image instead.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }

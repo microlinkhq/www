@@ -4,22 +4,33 @@ import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
 const data = {
   name: 'Knacki',
   slug: 'knacki',
-  color: '#666666',
+  color: '#E63946',
   exampleUrl: 'https://knacki.info',
   metaTitle: 'Knacki Embed Code Generator — Embed Knacki Content',
   metaDescription:
-    'Free Knacki embed code generator. Paste any Knacki URL — get a ready-to-paste embed or preview card. No signup.',
-  keywords: ['embed knacki', 'knacki embed code', 'knacki embed generator'],
+    'Free Knacki embed code generator. Paste any Knacki URL — get a ready-to-paste embed for pages, posts, and shared content. No signup.',
+  keywords: [
+    'embed knacki',
+    'knacki embed code',
+    'knacki embed code generator',
+    'embed knacki page',
+    'knacki iframe code',
+    'knacki post embed',
+    'knacki html embed'
+  ],
   heroTitle: 'Knacki Embed Code Generator',
   heroSubtitle:
-    'Paste any Knacki URL — get a ready-to-paste embed or preview card.',
+    'Paste any Knacki URL — get a ready-to-paste embed for pages, posts, and shared content.',
   howItWorksHeading: 'How to embed Knacki content',
   howItWorksSteps: [
-    { title: 'Paste a Knacki link', description: 'Copy any knacki.info URL.' },
+    {
+      title: 'Paste a Knacki link',
+      description: 'Copy any knacki.info URL — a page, post, or shared item.'
+    },
     {
       title: 'Get the embed code',
       description:
-        'The tool detects the content type and generates the right embed HTML.'
+        'The tool detects the content and generates the right embed HTML.'
     },
     {
       title: 'Copy & paste',
@@ -31,11 +42,12 @@ const data = {
   reasons: [
     {
       title: 'No manual setup',
-      description: 'Paste any Knacki link and get working embed HTML.'
+      description: 'Paste any Knacki link and get working embed HTML instantly.'
     },
     {
-      title: 'Knacki content',
-      description: 'The tool handles all Knacki URL formats.'
+      title: 'Pages & posts',
+      description:
+        'Works with Knacki pages, posts, and shared content — the tool handles every Knacki URL.'
     },
     {
       title: 'Customizable preview card',
@@ -44,18 +56,20 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description: 'Generate up to 50 embeds per day. No login, no API key.'
+      description:
+        'Generate up to 50 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
     {
-      title: 'Native embed',
+      title: 'Native Knacki embed',
       description:
-        'Get the real Knacki embed with full interactivity when available.'
+        'Get the real Knacki embed with its layout and media kept intact when supported.'
     },
     {
-      title: 'All content types',
-      description: 'Works with all Knacki URL formats and content types.'
+      title: 'Pages, posts & media',
+      description:
+        'Pages, posts, and shared media from Knacki all embed cleanly.'
     },
     {
       title: 'Preview card fallback',
@@ -64,22 +78,42 @@ const data = {
     }
   ],
   relatedLinks: [
-    { href: '/tools/embed-url/youtube', label: 'YouTube' },
-    { href: '/embed/providers', label: 'All providers' }
+    {
+      href: '/tools/embed-url/raindrop',
+      label: 'Raindrop'
+    },
+    {
+      href: '/tools/embed-url/curated',
+      label: 'Curated'
+    },
+    {
+      href: '/tools/embed-url/pastery',
+      label: 'Pastery'
+    }
   ],
   faq: [
     {
       question: 'How do I embed Knacki content on my website?',
-      answer: 'Paste any Knacki URL into the tool and click Generate.'
-    },
-    {
-      question: 'Is the Knacki embed generator free?',
-      answer: 'Yes — 50 requests per day, no login, no credit card.'
-    },
-    {
-      question: 'What if the Knacki content is private?',
       answer:
-        'The tool falls back to a styled preview card with the available metadata.'
+        'Paste any Knacki URL into the tool and click Generate. You will get a ready-to-paste embed.'
+    },
+    {
+      question: 'What Knacki content can I embed?',
+      answer: 'Pages, posts, and shared content published on Knacki.'
+    },
+    {
+      question: 'Does the embed keep the original layout?',
+      answer:
+        'When the content supports embedding, the native Knacki layout and media are preserved.'
+    },
+    {
+      question: 'What if the content cannot be embedded?',
+      answer:
+        'Switch to Card mode to get a styled preview card with the title and image instead.'
+    },
+    {
+      question: 'Is this free?',
+      answer: 'Yes — 50 requests per day, no login, no credit card.'
     }
   ]
 }
