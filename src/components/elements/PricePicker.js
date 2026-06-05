@@ -42,13 +42,13 @@ const overrideReqsPerMonth = (plan, reqsPerMonth) => {
 
 export const PLANS = [
   overrideReqsPerMonth(
-    { id: 'pro-1625-v3', ...createReqsLabels(1625) },
+    { id: 'pro-1_625k-v4', ...createReqsLabels(1625) },
     '46,000'
   ),
-  { id: 'pro-3k-v3', ...createReqsLabels(3000) },
-  { id: 'pro-5k-v3', ...createReqsLabels(5000) },
-  { id: 'pro-10k-v3', ...createReqsLabels(10000) },
-  { id: 'pro-15k-v3', ...createReqsLabels(15000) }
+  { id: 'pro-3k-v4', ...createReqsLabels(3000) },
+  { id: 'pro-5k-v4', ...createReqsLabels(5000) },
+  { id: 'pro-10k-v4', ...createReqsLabels(10000) },
+  { id: 'pro-15k-v4', ...createReqsLabels(15000) }
 ]
 
 export const DEFAULT_PLAN = PLANS[0]
