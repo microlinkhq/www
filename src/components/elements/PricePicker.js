@@ -31,9 +31,11 @@ const createReqsLabels = reqsPerDay => {
 const overrideReqsPerMonth = (plan, reqsPerMonth) => {
   const total = Number(reqsPerMonth.replace(/,/g, ''))
   const reqsPerDay = total / MONTH_DAYS
+  const pretty = Math.round(total / 1000)
   return {
     ...plan,
     reqsPerMonth,
+    reqsPerMonthPretty: `${formatNumber(pretty)}K`,
     monthlyPrice: calculateMonthlyPrice(reqsPerDay)
   }
 }
@@ -145,8 +147,10 @@ const TickLabel = styled(Text)`
   }
 `
 
+const DEFAULT_INDEX = PLANS.indexOf(DEFAULT_PLAN)
+
 const PricePicker = ({ onChange }) => {
-  const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(DEFAULT_INDEX)
   const max = PLANS.length - 1
 
   const handleChange = useCallback(
