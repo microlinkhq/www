@@ -210,7 +210,7 @@ export const providerHead = ({
     title={metaTitle}
     noSuffix
     description={metaDescription}
-    image='https://cdn.microlink.io/banner/sdk.jpeg'
+    image='https://cdn.microlink.io/logo/banner.jpeg'
     structured={[
       {
         '@context': 'https://schema.org',
@@ -219,7 +219,7 @@ export const providerHead = ({
         name: metaTitle.split(' — ')[0],
         description: metaDescription,
         url: `https://microlink.io/tools/embed-url/${slug}`,
-        image: 'https://cdn.microlink.io/banner/sdk.jpeg',
+        image: 'https://cdn.microlink.io/logo/banner.jpeg',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords,
         offers: {

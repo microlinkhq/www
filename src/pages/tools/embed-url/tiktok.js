@@ -248,7 +248,7 @@ export const Head = () => (
     title='TikTok Embed Code Generator — Embed TikTok Videos'
     noSuffix
     description='Free TikTok embed code generator. Paste any TikTok URL — get a ready-to-paste embed for videos and profiles. No signup, no API key.'
-    image='https://cdn.microlink.io/banner/sdk.jpeg'
+    image='https://cdn.microlink.io/logo/banner.jpeg'
     structured={[
       {
         '@context': 'https://schema.org',
@@ -258,7 +258,7 @@ export const Head = () => (
         description:
           'Free TikTok embed code generator. Paste any TikTok URL and get a ready-to-paste embed for videos and profiles.',
         url: 'https://microlink.io/tools/embed-url/tiktok',
-        image: 'https://cdn.microlink.io/banner/sdk.jpeg',
+        image: 'https://cdn.microlink.io/logo/banner.jpeg',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
           'embed tiktok video',

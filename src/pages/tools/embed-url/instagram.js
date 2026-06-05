@@ -247,7 +247,7 @@ export const Head = () => (
     title='Instagram Embed Code Generator — Embed Posts & Reels'
     noSuffix
     description='Free Instagram embed code generator. Paste any Instagram URL — get a ready-to-paste embed for posts, reels, and stories. No API setup, no signup.'
-    image='https://cdn.microlink.io/banner/sdk.jpeg'
+    image='https://cdn.microlink.io/logo/banner.jpeg'
     structured={[
       {
         '@context': 'https://schema.org',
@@ -257,7 +257,7 @@ export const Head = () => (
         description:
           'Free Instagram embed code generator. Paste any Instagram URL and get a ready-to-paste embed for posts, reels, and stories.',
         url: 'https://microlink.io/tools/embed-url/instagram',
-        image: 'https://cdn.microlink.io/banner/sdk.jpeg',
+        image: 'https://cdn.microlink.io/logo/banner.jpeg',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
           'embed instagram post',

@@ -248,7 +248,7 @@ export const Head = () => (
     title='Facebook Embed Code Generator — Embed Posts & Videos'
     noSuffix
     description='Free Facebook embed code generator. Paste any Facebook URL — get a ready-to-paste embed for posts, videos, and pages. No signup, no API key.'
-    image='https://cdn.microlink.io/banner/sdk.jpeg'
+    image='https://cdn.microlink.io/logo/banner.jpeg'
     structured={[
       {
         '@context': 'https://schema.org',
@@ -258,7 +258,7 @@ export const Head = () => (
         description:
           'Free Facebook embed code generator. Paste any Facebook URL and get a ready-to-paste embed for posts, videos, and pages.',
         url: 'https://microlink.io/tools/embed-url/facebook',
-        image: 'https://cdn.microlink.io/banner/sdk.jpeg',
+        image: 'https://cdn.microlink.io/logo/banner.jpeg',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
           'embed facebook post',

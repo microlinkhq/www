@@ -241,7 +241,7 @@ export const Head = () => (
     title='Figma Embed Code Generator — Embed Designs & Prototypes'
     noSuffix
     description='Free Figma embed code generator. Paste any Figma URL — get a ready-to-paste iframe for designs, prototypes, and FigJam boards. No signup.'
-    image='https://cdn.microlink.io/banner/sdk.jpeg'
+    image='https://cdn.microlink.io/logo/banner.jpeg'
     structured={[
       {
         '@context': 'https://schema.org',
@@ -251,7 +251,7 @@ export const Head = () => (
         description:
           'Free Figma embed code generator. Paste any Figma URL and get a ready-to-paste iframe for designs, prototypes, and FigJam boards.',
         url: 'https://microlink.io/tools/embed-url/figma',
-        image: 'https://cdn.microlink.io/banner/sdk.jpeg',
+        image: 'https://cdn.microlink.io/logo/banner.jpeg',
         applicationCategory: ['DeveloperApplication', 'UtilitiesApplication'],
         keywords: [
           'embed figma',

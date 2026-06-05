@@ -789,7 +789,7 @@ export const Head = () => (
     title='Embed Code Generator — Embed any URL as an Iframe or Card'
     noSuffix
     description='Free embed code generator. Paste any URL — get a ready-to-paste iframe or custom preview card. Works for YouTube, Spotify, X, Figma, and 300+ providers. No signup.'
-    image='https://cdn.microlink.io/banner/sdk.jpeg'
+    image='https://cdn.microlink.io/logo/banner.jpeg'
     structured={[
       {
         '@context': 'https://schema.org',
