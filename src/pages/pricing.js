@@ -19,13 +19,11 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
-import Plans, {
-  CURRENCIES,
-  CurrencyContext,
-  formatPrice,
-  useCurrency,
+import {
+  CurrencyProvider,
   useCurrencyContext
-} from 'components/patterns/Plans/Plans'
+} from 'components/hook/use-currency'
+import Plans, { CURRENCIES, formatPrice } from 'components/patterns/Plans/Plans'
 import { withTitle } from 'helpers/hoc/with-title'
 import { trackEvent } from 'helpers/plausible'
 import {
@@ -56,13 +54,13 @@ export const Head = () => {
     '@type': 'Offer',
     sku: id,
     name: `Pro · ${reqsPerMonth} requests / month`,
-    price: monthlyPrice.toFixed(2),
+    price: monthlyPrice.EUR.toFixed(2),
     priceCurrency: 'EUR',
     availability: 'https://schema.org/InStock',
     url: 'https://microlink.io/pricing',
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
-      price: monthlyPrice.toFixed(2),
+      price: monthlyPrice.EUR.toFixed(2),
       priceCurrency: 'EUR',
       billingIncrement: 1,
       unitCode: 'MON',
@@ -306,7 +304,7 @@ const COMPARISON_ROWS = [
   },
   {
     label: 'Monthly quota',
-    values: ['~1.5K req/month', '45K – 560K req/month', 'Millions+']
+    values: ['~1.5K req/month', '46K – 420K req/month', 'Millions+']
   },
   { label: 'Custom cache key', values: [false, true, true] },
   { label: 'Configurable TTL', values: [false, true, true] },
@@ -394,7 +392,7 @@ const renderComparisonValue = value => {
     return (
       <FeatherIcon
         icon={CheckIcon}
-        size='18px'
+        size='16px'
         css={theme({ color: 'secondary' })}
         aria-label='Included'
       />
@@ -831,17 +829,12 @@ const BvbCard = styled(Flex)`
 const BuildCard = styled(BvbCard)`
   ${theme({ bg: 'black05' })}
   border-color: ${colors.black10};
-  box-shadow: 0 1px 4px ${colors.black05};
 `
 
 const BuyCard = styled(BvbCard)`
   border: 2px solid transparent;
   background: linear-gradient(${colors.white}, ${colors.white}) padding-box,
     ${gradient} border-box;
-  box-shadow: 0 12px 32px ${colors.black10};
-  @media (min-width: 1024px) {
-    transform: translateY(-8px);
-  }
 `
 
 const BvbBullet = ({ children, kind }) => (
@@ -849,6 +842,7 @@ const BvbBullet = ({ children, kind }) => (
     <FeatherIcon
       css={theme({
         flexShrink: 0,
+        mt: '3px',
         color: kind === 'buy' ? 'secondary' : 'black40'
       })}
       icon={kind === 'buy' ? CheckIcon : XIcon}
@@ -907,7 +901,7 @@ const BuildVsBuy = () => (
         width: '100%',
         maxWidth: layout.large,
         flexDirection: ['column', 'column', 'row', 'row'],
-        alignItems: ['stretch', 'stretch', 'flex-start', 'flex-start'],
+        alignItems: 'stretch',
         gap: [3, 3, 4, 4]
       })}
     >
@@ -1539,7 +1533,7 @@ const CtaNow = styled('span')`
 const Cta = () => {
   const [currency] = useCurrencyContext()
   const { symbol } = CURRENCIES[currency]
-  const startingPrice = formatPrice(39, currency)
+  const startingPrice = formatPrice({ EUR: 39, USD: 49 }, currency)
   return (
     <Container
       as='section'
@@ -1619,9 +1613,8 @@ const Cta = () => {
 
 const PricingPage = () => {
   const { canonicalUrl, stripeKey } = useSiteMetadata()
-  const currencyState = useCurrency()
   return (
-    <CurrencyContext.Provider value={currencyState}>
+    <CurrencyProvider>
       <Layout css={theme({ position: 'relative' })}>
         <DashedGridOverlay aria-hidden='true' />
         <Box css={theme({ position: 'relative', zIndex: 1 })}>
@@ -1640,7 +1633,7 @@ const PricingPage = () => {
           <Cta />
         </Box>
       </Layout>
-    </CurrencyContext.Provider>
+    </CurrencyProvider>
   )
 }
 

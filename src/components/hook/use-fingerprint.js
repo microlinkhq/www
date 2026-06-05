@@ -1,10 +1,9 @@
 /* global fetch, localStorage */
 
 import { useState, useEffect } from 'react'
-
 import { once } from 'helpers/once'
 
-const STORAGE_KEY = 'fingerprint:v1'
+const STORAGE_KEY = 'fingerprint:v3'
 
 const getFingerprint = once(() =>
   fetch('https://geolocation.microlink.io')
@@ -13,6 +12,7 @@ const getFingerprint = once(() =>
       country: data.country.alpha2.toLowerCase(),
       ipAddress: data.ip.address
     }))
+    .catch(() => null)
 )
 
 export const useFingerprint = () => {
@@ -28,6 +28,7 @@ export const useFingerprint = () => {
   useEffect(() => {
     if (fingerprint) return
     getFingerprint().then(data => {
+      if (!data) return
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
       setFingerprint(data)
     })

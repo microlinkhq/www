@@ -13,6 +13,8 @@ import {
   Maximize2
 } from 'react-feather'
 
+import { once } from 'helpers/once'
+
 const pulse = keyframes`
   0%, 100% { opacity: 0.4; }
   50% { opacity: 0.7; }
@@ -89,11 +91,8 @@ const DEFAULT_ZOOM_INDEX = 2
 const PDFJS_CDN_VERSION = '4.10.38'
 const PDFJS_CDN_BASE = `https://unpkg.com/pdfjs-dist@${PDFJS_CDN_VERSION}`
 
-let pdfjsLibPromise = null
-
-function getPdfjsLib () {
+const getPdfjsLib = once(() => {
   if (typeof window === 'undefined') return Promise.resolve(null)
-  if (pdfjsLibPromise) return pdfjsLibPromise
 
   const cdnUrl = `${PDFJS_CDN_BASE}/build/pdf.min.mjs`
   const workerUrl = `${PDFJS_CDN_BASE}/build/pdf.worker.min.mjs`
@@ -102,16 +101,14 @@ function getPdfjsLib () {
   const blob = new Blob([loaderCode], { type: 'text/javascript' })
   const blobUrl = URL.createObjectURL(blob)
 
-  pdfjsLibPromise = import(/* webpackIgnore: true */ blobUrl).then(() => {
+  return import(/* webpackIgnore: true */ blobUrl).then(() => {
     URL.revokeObjectURL(blobUrl)
     const lib = window.__pdfjsLib
     if (!lib) throw new Error('pdfjs-dist failed to initialize')
     lib.GlobalWorkerOptions.workerSrc = workerUrl
     return lib
   })
-
-  return pdfjsLibPromise
-}
+})
 
 const PdfViewer = ({
   src,

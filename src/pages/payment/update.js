@@ -166,7 +166,7 @@ const PaymentUpdatePage = () => {
   )
 
   useEffect(() => {
-    if (paymentState === PAYMENT_STATE.redirected && fingerprint) {
+    if (paymentState === PAYMENT_STATE.redirected && fingerprint?.ipAddress) {
       fetchOnce(`${apiEndpoint}/payment/update`, {
         headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
         method: 'POST',
