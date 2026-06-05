@@ -1,18 +1,14 @@
-// Lazy load prettier for better bundle optimization
-let prettierPromise = null
+import { once } from './once'
 
-const loadPrettier = () => {
-  if (!prettierPromise) {
-    prettierPromise = Promise.all([
-      import('prettier/standalone'),
-      import('prettier/parser-babel')
-    ]).then(([{ format }, babel]) => ({
-      format,
-      babel: babel.default || babel
-    }))
-  }
-  return prettierPromise
-}
+const loadPrettier = once(() =>
+  Promise.all([
+    import('prettier/standalone'),
+    import('prettier/parser-babel')
+  ]).then(([{ format }, babel]) => ({
+    format,
+    babel: babel.default || babel
+  }))
+)
 
 /**
  * https://prettier.io/docs/en/options.html

@@ -48,10 +48,8 @@ import {
   InteractiveExample,
   STRIPE_DEMO_DATA
 } from 'components/pages/embed'
-import Plans, {
-  CurrencyContext,
-  useCurrency
-} from 'components/patterns/Plans/Plans'
+import { CurrencyProvider } from 'components/hook/use-currency'
+import Plans from 'components/patterns/Plans/Plans'
 
 import {
   siBandcamp,
@@ -1412,10 +1410,8 @@ const Clients = () => (
 
 const Pricing = () => {
   const { canonicalUrl, stripeKey } = useSiteMetadata()
-  const currencyState = useCurrency()
-
   return (
-    <CurrencyContext.Provider value={currencyState}>
+    <CurrencyProvider>
       <Box as='section' id='pricing' css={theme({ bg: 'pinky' })}>
         <Container
           css={theme({
@@ -1448,7 +1444,7 @@ const Pricing = () => {
           footer='compare'
         />
       </Box>
-    </CurrencyContext.Provider>
+    </CurrencyProvider>
   )
 }
 
