@@ -86,12 +86,7 @@ const PROVIDERS = [
   { name: 'Twitter / X', slug: 'twitter-or-x', icon: siX },
   { name: 'TikTok', slug: 'tiktok', icon: siTiktok },
   { name: 'Figma', slug: 'figma', icon: siFigma },
-  {
-    name: 'Datawrapper',
-    slug: 'datawrapper',
-    color: '#1D81A2',
-    logo: `${UNAVATAR}/datawrapper.de?token=${UNAVATAR_TOKEN}`
-  },
+  { name: 'Replit', slug: 'replit', icon: siReplit },
   { name: 'Facebook', slug: 'facebook', icon: siFacebook },
   { name: 'Loom', slug: 'loom', icon: siLoom },
   { name: 'Vimeo', slug: 'vimeo', icon: siVimeo },
@@ -101,7 +96,7 @@ const PROVIDERS = [
     color: '#00C4CC',
     logo: `${UNAVATAR}/canva.com?token=${UNAVATAR_TOKEN}`
   },
-  { name: 'Naver TV', slug: 'naver-tv', icon: siNaver },
+  { name: 'CodeSandbox', slug: 'codesandbox', icon: siCodesandbox },
   { name: 'Pinterest', slug: 'pinterest', icon: siPinterest },
   { name: 'Spotify', slug: 'spotify', icon: siSpotify },
   { name: 'Reddit', slug: 'reddit', icon: siReddit },
@@ -118,32 +113,22 @@ const PROVIDERS = [
     logo: `${UNAVATAR}/microsoft.com?token=${UNAVATAR_TOKEN}`
   },
   { name: 'Flickr', slug: 'flickr', icon: siFlickr },
-  {
-    name: 'Gyazo',
-    slug: 'gyazo',
-    color: '#6AC2E7',
-    logo: `${UNAVATAR}/gyazo.com?token=${UNAVATAR_TOKEN}`
-  },
-  {
-    name: 'Flourish',
-    slug: 'flourish',
-    color: '#3654FF',
-    logo: `${UNAVATAR}/public.flourish.studio?token=${UNAVATAR_TOKEN}`
-  },
+  { name: 'Framer', slug: 'framer', icon: siFramer },
+  { name: 'ElevenLabs', slug: 'elevenlabs', icon: siElevenlabs },
   { name: 'New York Times', slug: 'new-york-times', icon: siNewyorktimes },
   { name: 'Apple Music', slug: 'apple-music', icon: siApplemusic },
   { name: 'WordPress', slug: 'wordpress-com', icon: siWordpress },
   { name: 'Tumblr', slug: 'tumblr', icon: siTumblr },
   { name: 'Dailymotion', slug: 'dailymotion', icon: siDailymotion },
   {
-    name: 'Hulu',
-    slug: 'hulu',
-    color: '#1CE783',
-    logo: `${UNAVATAR}/hulu.com?token=${UNAVATAR_TOKEN}`
+    name: 'Getty Images',
+    slug: 'getty-images',
+    color: '#000000',
+    logo: `${UNAVATAR}/gettyimages.com?token=${UNAVATAR_TOKEN}`
   },
   { name: 'TED', slug: 'ted', icon: siTed },
   { name: 'Bluesky', slug: 'bluesky', icon: siBluesky },
-  { name: 'Microsoft Sway', slug: 'microsoft-sway', icon: siSway },
+  { name: 'Wistia', slug: 'wistia', icon: siWistia },
   {
     name: 'CodePen',
     slug: 'codepen',
@@ -162,10 +147,25 @@ const PROVIDERS = [
   { name: 'Issuu', slug: 'issuu', icon: siIssuu },
   { name: 'Rumble', slug: 'rumble', icon: siRumble },
   { name: 'iFixit', slug: 'ifixit', icon: siIfixit },
-  { name: 'Replit', slug: 'replit', icon: siReplit },
-  { name: 'CodeSandbox', slug: 'codesandbox', icon: siCodesandbox },
-  { name: 'Framer', slug: 'framer', icon: siFramer },
-  { name: 'ElevenLabs', slug: 'elevenlabs', icon: siElevenlabs },
+  {
+    name: 'Datawrapper',
+    slug: 'datawrapper',
+    color: '#1D81A2',
+    logo: `${UNAVATAR}/datawrapper.de?token=${UNAVATAR_TOKEN}`
+  },
+  { name: 'Naver TV', slug: 'naver-tv', icon: siNaver },
+  {
+    name: 'Gyazo',
+    slug: 'gyazo',
+    color: '#6AC2E7',
+    logo: `${UNAVATAR}/gyazo.com?token=${UNAVATAR_TOKEN}`
+  },
+  {
+    name: 'Flourish',
+    slug: 'flourish',
+    color: '#3654FF',
+    logo: `${UNAVATAR}/public.flourish.studio?token=${UNAVATAR_TOKEN}`
+  },
   {
     name: 'Brightcove',
     slug: 'brightcove',
@@ -173,10 +173,10 @@ const PROVIDERS = [
     logo: `${UNAVATAR}/brightcove.com?token=${UNAVATAR_TOKEN}`
   },
   {
-    name: 'Getty Images',
-    slug: 'getty-images',
-    color: '#000000',
-    logo: `${UNAVATAR}/gettyimages.com?token=${UNAVATAR_TOKEN}`
+    name: 'Hulu',
+    slug: 'hulu',
+    color: '#1CE783',
+    logo: `${UNAVATAR}/hulu.com?token=${UNAVATAR_TOKEN}`
   },
   { name: 'Mixcloud', slug: 'mixcloud', icon: siMixcloud },
   { name: 'iHeartRadio', slug: 'iheartradio', icon: siIheartradio },
@@ -195,7 +195,7 @@ const PROVIDERS = [
     color: '#7B57DF',
     logo: `${UNAVATAR}/whimsical.com?token=${UNAVATAR_TOKEN}`
   },
-  { name: 'Wistia', slug: 'wistia', icon: siWistia },
+  { name: 'Microsoft Sway', slug: 'microsoft-sway', icon: siSway },
   { name: 'LottieFiles', slug: 'lottiefiles', icon: siLottiefiles },
   {
     name: 'Vidyard',
