@@ -1035,9 +1035,8 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            The screenshot API that turns any URL into a pixel-perfect image.
-            Capture screenshots with full browser control, device emulation, and
-            professional output.
+            Turn any URL into a pixel-perfect image with one screenshot API call
+            — full browser control, device emulation, and professional output.
           </Caption>
           <Flex
             css={theme({
@@ -2846,8 +2845,8 @@ const Pricing = () => {
               ]
             })}
           >
-            No login required. No credit card needed. Screenshot API free to use
-            — just start calling it.
+            No signup, no API key, no credit card. The screenshot API is free to
+            start — just call the endpoint.
           </Caption>
         </Container>
         <Plans
@@ -2900,7 +2899,7 @@ const CAPABILITIES = [
     ),
     title: 'Any viewport, any device',
     description:
-      'Capture at any resolution with full device emulation — mobile, tablet, desktop, or custom viewports up to full-page.'
+      'Capture the full page or just the viewport — mobile, tablet, desktop, or custom widths, with full device emulation at any resolution.'
   },
   {
     icon: (
@@ -3667,7 +3666,7 @@ const ScreenshotPage = () => {
             No more servers to maintain, load balancers, or paying for capacity
             you don’t use — spend more time building, less time configuring,
             with easy integration via{' '}
-            <Link href='/docs/guides/screenshot'>screenshot API</Link>.
+            <Link href='/docs/guides/screenshot'>a single REST API</Link>.
           </>
         }
         features={FEATURES}
