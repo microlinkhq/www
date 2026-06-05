@@ -33,6 +33,7 @@ import { ShieldUser as ShieldUserIcon } from 'components/icons/ShieldUser'
 import { Terminal as TerminalIcon } from 'components/icons/Terminal'
 import { WandSparkles as WandSparklesIcon } from 'components/icons/WandSparkles'
 import { Globe as GlobeIcon } from 'components/icons/Globe'
+import { Grid as GridIcon } from 'components/icons/Grid'
 import { GitHub as GitHubBrand } from 'components/icons/GitHub'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import { theme } from 'theme'
@@ -144,6 +145,12 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
     href: '/sdk',
     description: 'Beautiful link previews',
     icon: TerminalIcon
+  }),
+  createNavigationItem({
+    label: 'Embed Providers',
+    href: '/embed/providers',
+    description: '300+ embed-ready sites',
+    icon: GridIcon
   }),
   createNavigationItem({
     label: 'CLI',

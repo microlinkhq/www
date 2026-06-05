@@ -152,6 +152,32 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
   }
 }
 
+// In development, the ~300 provider subtool pages under
+// /tools/embed-url/<provider>/ blow up the dev bundle. Build only the tool
+// index plus the providers below locally; all of them still ship in production.
+const DEV_PROVIDER_ALLOWLIST = new Set([
+  'youtube',
+  'instagram',
+  'spotify',
+  'vimeo',
+  'figma',
+  'twitter-or-x',
+  'tiktok',
+  'facebook',
+  'canva'
+])
+const EMBED_PROVIDER_PATH = /^\/tools\/embed-url\/([^/]+)\/?$/
+
+exports.onCreatePage = ({ page, actions }) => {
+  if (process.env.NODE_ENV !== 'development') return
+
+  const match = page.path.match(EMBED_PROVIDER_PATH)
+  if (!match) return // not a provider subtool page (keeps the tool index)
+  if (DEV_PROVIDER_ALLOWLIST.has(match[1])) return
+
+  actions.deletePage(page)
+}
+
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   return Promise.all([

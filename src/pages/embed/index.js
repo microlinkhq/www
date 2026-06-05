@@ -90,8 +90,8 @@ import { useSiteMetadata } from 'components/hook/use-site-meta'
 
 import { withTitle } from 'helpers/hoc/with-title'
 
-import analyticsData from '../../data/analytics.json'
-import ossData from '../../data/oss.json'
+import analyticsData from '../../../data/analytics.json'
+import ossData from '../../../data/oss.json'
 
 const ACCENT = '#3e55ff'
 const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
@@ -529,7 +529,7 @@ const Hero = function Hero ({
             })}
           >
             One API call turns any URL into a ready-to-paste iframe — YouTube
-            players, Spotify tracks, Tweet widgets, Figma boards, and 280+ more
+            players, Spotify tracks, Tweet widgets, Figma boards, and 300+ more
             oEmbed providers. No scraping, edge-cached globally — built for
             developers.
           </Caption>
@@ -776,7 +776,7 @@ const Providers = () => {
       <Subhead
         css={theme({ fontSize: [2, 3, 3, '44px'], color: 'white', mb: 3 })}
       >
-        280+ embed providers{' '}
+        300+ embed providers{' '}
         <span css={theme({ display: 'block', color: 'white60' })}>
           One API call for every URL
         </span>
@@ -807,7 +807,7 @@ const Providers = () => {
           border: 0
         }}
       >
-        Microlink supports embed for 280+ providers including YouTube, Spotify,
+        Microlink supports embed for 300+ providers including YouTube, Spotify,
         Twitter / X, Instagram, TikTok, GitHub, CodePen, CodeSandbox, Vimeo,
         SoundCloud, Figma, Reddit, Pinterest, Flickr, Behance, Medium,
         Sketchfab, Replit, Canva, TED, Dailymotion, Twitch, Mixcloud, Giphy,
@@ -891,7 +891,7 @@ const CAPABILITIES = [
     ),
     title: 'Iframe attribute from the response',
     description:
-      "The API response includes a ready-to-paste HTML snippet — the provider's real player. Drop it straight into your markup. Works across 280+ supported webpages: YouTube, Spotify, Vimeo, X, TikTok, Canva, Figma...",
+      "The API response includes a ready-to-paste HTML snippet — the provider's real player. Drop it straight into your markup. Works across 300+ supported webpages: YouTube, Spotify, Vimeo, X, TikTok, Canva, Figma...",
     links: [{ label: 'Iframe guide', href: '/docs/guides/embed/iframe' }]
   },
   {
@@ -1829,7 +1829,7 @@ const SdkSection = () => (
           })}
         >
           The Microlink Embed SDK is the optional zero-code path on top of the
-          API. One component, 280+ providers, under 10KB — drop-in support for
+          API. One component, 300+ providers, under 10KB — drop-in support for
           React, Vue, and Vanilla JavaScript.
         </Caption>
         <Flex
@@ -1877,7 +1877,7 @@ const EMBED_FEATURES = [
   {
     title: 'One Embed for Every URL',
     description:
-      'oEmbed parity across 280+ verified providers. YouTube, Spotify, Twitter, GitHub, Figma, CodeSandbox — one API call, every provider normalized into the same response shape.'
+      'oEmbed parity across 300+ verified providers. YouTube, Spotify, Twitter, GitHub, Figma, CodeSandbox — one API call, every provider normalized into the same response shape.'
   },
   {
     title: 'Plain HTTPS, No Library Required',
@@ -2238,11 +2238,11 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Which providers does Microlink support out of the box?',
-    text: 'Microlink supports 280+ verified providers via oEmbed including YouTube, Spotify, Twitter / X, Instagram, TikTok, GitHub, CodePen, CodeSandbox, Vimeo, SoundCloud, Figma, Reddit, Pinterest, Flickr, Behance, Medium, Sketchfab, Replit, Canva, TED, Twitch, Mixcloud, Giphy, and more. The full list is available in the iframe parameter docs and grows automatically — you do not need to update the SDK when a new provider is added.',
+    text: 'Microlink supports 300+ verified providers via oEmbed including YouTube, Spotify, Twitter / X, Instagram, TikTok, GitHub, CodePen, CodeSandbox, Vimeo, SoundCloud, Figma, Reddit, Pinterest, Flickr, Behance, Medium, Sketchfab, Replit, Canva, TED, Twitch, Mixcloud, Giphy, and more. The full list is available in the iframe parameter docs and grows automatically — you do not need to update the SDK when a new provider is added.',
     answer: (
       <>
         <div>
-          Microlink supports <b>280+ verified providers</b> via oEmbed —
+          Microlink supports <b>300+ verified providers</b> via oEmbed —
           YouTube, Spotify, Twitter / X, Instagram, TikTok, GitHub, CodePen,
           CodeSandbox, Vimeo, SoundCloud, Figma, Reddit, Pinterest, Behance,
           Medium, Sketchfab, Replit, Canva, TED, Twitch, Mixcloud, Giphy, and
@@ -2618,9 +2618,9 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Embed API for Any URL — oEmbed for 280+ Providers'
+    title='Embed API for Any URL — oEmbed for 300+ Providers'
     noSuffix
-    description='Embed API for any URL — get a ready-to-paste iframe and oEmbed payload in one HTTPS call. 280+ providers including YouTube, Spotify, Twitter, TikTok, Figma. Free tier, optional React / Vue / Vanilla JS SDK.'
+    description='Embed API for any URL — get a ready-to-paste iframe and oEmbed payload in one HTTPS call. 300+ providers including YouTube, Spotify, Twitter, TikTok, Figma. Free tier, optional React / Vue / Vanilla JS SDK.'
     image={cdnUrl('banner/sdk.jpeg')}
     structured={{
       '@context': 'https://schema.org',
@@ -2630,7 +2630,7 @@ export const Head = () => (
           '@id': 'https://microlink.io/embed',
           name: 'Microlink Embed API',
           description:
-            'Embed API for any URL — get a ready-to-paste iframe and oEmbed payload in one HTTPS call. 280+ providers including YouTube, Spotify, Twitter, TikTok, Figma. Free tier, optional React / Vue / Vanilla JS SDK.',
+            'Embed API for any URL — get a ready-to-paste iframe and oEmbed payload in one HTTPS call. 300+ providers including YouTube, Spotify, Twitter, TikTok, Figma. Free tier, optional React / Vue / Vanilla JS SDK.',
           url: 'https://microlink.io/embed',
           applicationCategory: ['DeveloperApplication', 'WebAPI'],
           operatingSystem: 'Web, Platform-Agnostic',
@@ -2646,7 +2646,7 @@ export const Head = () => (
           },
           featureList: [
             'Embed any URL as iframe HTML or oEmbed payload',
-            '280+ verified oEmbed providers',
+            '300+ verified oEmbed providers',
             'Plain HTTPS API, no SDK install required',
             'Optional drop-in SDK for React, Vue, and Vanilla JavaScript',
             'Edge-cached across 240+ Cloudflare locations',

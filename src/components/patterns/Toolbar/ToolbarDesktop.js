@@ -853,7 +853,10 @@ const ToolbarDesktop = () => {
                                   data-event-name={label}
                                   onClick={handleClosePanel}
                                   css={theme({
-                                    '> a': { padding: '6px 12px' },
+                                    '> a': {
+                                      padding: '6px 12px',
+                                      alignItems: 'center'
+                                    },
                                     whiteSpace: 'nowrap'
                                   })}
                                 >
@@ -866,6 +869,7 @@ const ToolbarDesktop = () => {
                                     }
                                     iconCss={theme({
                                       ...TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
+                                      top: '-2px',
                                       color: 'black60'
                                     })}
                                   />
