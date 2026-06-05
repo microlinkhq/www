@@ -20,6 +20,7 @@ import { withTitle } from 'helpers/hoc/with-title'
 import { StepCard, SectionIcon } from 'components/pages/screenshot'
 import { EmbedTool } from 'components/pages/embed-url'
 import WhyChoose from './WhyChoose'
+import { embedRobots } from './indexable'
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -211,6 +212,7 @@ export const providerHead = ({
     noSuffix
     description={metaDescription}
     image='https://cdn.microlink.io/logo/banner.jpeg'
+    robots={embedRobots(slug)}
     structured={[
       {
         '@context': 'https://schema.org',

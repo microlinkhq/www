@@ -21,7 +21,8 @@ import { StepCard, SectionIcon } from 'components/pages/screenshot'
 import {
   EmbedTool,
   WhyChoose,
-  embedBreadcrumb
+  embedBreadcrumb,
+  embedRobots
 } from 'components/pages/embed-url'
 
 const Heading = withTitle(HeadingBase)
@@ -261,6 +262,7 @@ export const Head = () => (
     noSuffix
     description='Free YouTube embed code generator. Paste any YouTube URL — get a ready-to-paste iframe or custom preview card. Works with videos, shorts, playlists, and live streams. No signup.'
     image='https://cdn.microlink.io/logo/banner.jpeg'
+    robots={embedRobots('youtube')}
     structured={[
       {
         '@context': 'https://schema.org',

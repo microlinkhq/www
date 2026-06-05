@@ -21,7 +21,8 @@ import { StepCard, SectionIcon } from 'components/pages/screenshot'
 import {
   EmbedTool,
   WhyChoose,
-  embedBreadcrumb
+  embedBreadcrumb,
+  embedRobots
 } from 'components/pages/embed-url'
 
 const Heading = withTitle(HeadingBase)
@@ -242,6 +243,7 @@ export const Head = () => (
     noSuffix
     description='Free Figma embed code generator. Paste any Figma URL — get a ready-to-paste iframe for designs, prototypes, and FigJam boards. No signup.'
     image='https://cdn.microlink.io/logo/banner.jpeg'
+    robots={embedRobots('figma')}
     structured={[
       {
         '@context': 'https://schema.org',

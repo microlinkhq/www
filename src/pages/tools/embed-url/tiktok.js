@@ -21,7 +21,8 @@ import { StepCard, SectionIcon } from 'components/pages/screenshot'
 import {
   EmbedTool,
   WhyChoose,
-  embedBreadcrumb
+  embedBreadcrumb,
+  embedRobots
 } from 'components/pages/embed-url'
 
 const Heading = withTitle(HeadingBase)
@@ -249,6 +250,7 @@ export const Head = () => (
     noSuffix
     description='Free TikTok embed code generator. Paste any TikTok URL — get a ready-to-paste embed for videos and profiles. No signup, no API key.'
     image='https://cdn.microlink.io/logo/banner.jpeg'
+    robots={embedRobots('tiktok')}
     structured={[
       {
         '@context': 'https://schema.org',

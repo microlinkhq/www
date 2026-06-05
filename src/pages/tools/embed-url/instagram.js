@@ -21,7 +21,8 @@ import { StepCard, SectionIcon } from 'components/pages/screenshot'
 import {
   EmbedTool,
   WhyChoose,
-  embedBreadcrumb
+  embedBreadcrumb,
+  embedRobots
 } from 'components/pages/embed-url'
 
 const Heading = withTitle(HeadingBase)
@@ -248,6 +249,7 @@ export const Head = () => (
     noSuffix
     description='Free Instagram embed code generator. Paste any Instagram URL — get a ready-to-paste embed for posts, reels, and stories. No API setup, no signup.'
     image='https://cdn.microlink.io/logo/banner.jpeg'
+    robots={embedRobots('instagram')}
     structured={[
       {
         '@context': 'https://schema.org',
