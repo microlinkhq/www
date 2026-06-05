@@ -8,6 +8,7 @@ import { author } from './author'
 import { locale } from './locale'
 import { date } from './date'
 import { buildFixSnippet } from './fix-snippet'
+import { buildLlmRepairPrompt } from './llm-repair-prompt'
 
 export const VALIDATOR_STATUS_OK = 'OK'
 export const VALIDATOR_STATUS_WARNING = 'WARNING'
@@ -29,6 +30,7 @@ export const VALIDATOR_STATUS = {
 }
 
 export { buildFixSnippet }
+export { buildLlmRepairPrompt }
 
 const FIELD_VALIDATORS = {
   title,
@@ -123,6 +125,7 @@ export const validate = metadata => {
       return {
         name: field.name,
         value: field.value,
+        displayValue: result?.displayValue ?? field.value,
         type: field.type,
         isNullable: field.isNullable,
         ...result

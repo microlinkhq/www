@@ -110,7 +110,7 @@ import mql from '@microlink/mql'
 const { data } = await mql('https://github.com/microlinkhq', { screenshot: true }) // easy peasy
 ```
 
-Explore our [docs](/docs/api/getting-started/overview) to see the full potential of browserless automation. Our infrastructure can even bypass the complex [anti bot protections](/blog/antibot-at-scale) used by major platforms.
+Explore our [docs](/docs/api/getting-started/overview) to see the full potential of browserless automation. Our infrastructure can even bypass the complex [anti bot protections](/blog/antibot-detection-at-scale) used by major platforms.
 
 
 ## The Verdict

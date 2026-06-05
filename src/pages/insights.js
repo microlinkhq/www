@@ -5,6 +5,7 @@ import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { cdnUrl } from 'helpers/cdn-url'
 import { normalizeUrl } from 'helpers/url-input'
+import { trackEvent } from 'helpers/plausible'
 import { toCurlSnippetOrEmpty } from 'helpers/curl-snippet'
 import { trimMs } from 'helpers/trim-ms'
 import humanizeUrl from 'humanize-url'
@@ -340,6 +341,7 @@ const LiveDemo = React.memo(function LiveDemo ({
           })}
           onSubmit={event => {
             event.preventDefault()
+            trackEvent('demo submit', { product: 'insights' })
             const rawUrl = inputUrl.trim()
             return onSubmit(normalizeUrl(rawUrl), { queryUrl: rawUrl })
           }}
@@ -987,7 +989,13 @@ export const Head = () => (
         { '@type': 'Thing', name: 'Web Performance Monitoring' },
         { '@type': 'Thing', name: 'Lighthouse Audits' },
         { '@type': 'Thing', name: 'Core Web Vitals' }
-      ]
+      ],
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+        description: 'Free tier with 50 conversions per day'
+      }
     }}
   />
 )

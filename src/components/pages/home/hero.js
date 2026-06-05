@@ -80,40 +80,46 @@ const Grid = styled(Flex)`
 
 const GRID_ITEMS = [
   {
-    title: 'Logo',
-    subtitle: 'Get and embed Favicons from any web',
-    color: '#d306aa',
-    href: '/logo'
-  },
-  {
     title: 'Screenshot',
-    subtitle: 'Turn websites into screenshots',
+    subtitle: 'Pixel-perfect captures of any web page',
     color: '#fd494a',
     href: '/screenshot'
   },
   {
-    title: 'SDK',
-    subtitle: 'Create beautiful link previews',
+    title: 'Link Preview',
+    subtitle: 'Beautiful previews for any URL',
     color: '#449bf8',
-    href: '/sdk'
+    href: '/link-preview'
   },
   {
-    title: 'Insights',
-    subtitle: 'Performance metrics powered by Lighthouse',
-    color: 'rgb(181, 0, 237)',
-    href: '/insights'
+    title: 'Markdown',
+    subtitle: 'Structured, AI-ready page content',
+    color: '#06c167',
+    href: '/markdown'
   },
   {
     title: 'Metadata',
-    subtitle: 'Get unified metadata',
+    subtitle: 'Normalized data from any website',
     color: '#3e55ff',
     href: '/metadata'
   },
   {
+    title: 'Search API',
+    subtitle: 'Turn Google results into structured data',
+    color: '#1c7ed6',
+    href: '/search'
+  },
+  {
     title: 'PDF',
-    subtitle: 'PDF made simple',
+    subtitle: 'Print-ready documents on demand',
     color: '#e000ac',
     href: '/pdf'
+  },
+  {
+    title: 'Logo',
+    subtitle: 'Favicons and brand marks at scale',
+    color: '#d306aa',
+    href: '/logo'
   }
 ]
 

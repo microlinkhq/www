@@ -87,5 +87,11 @@ export function extractBotName (ua) {
     }
   }
 
+  // Fallback: domain-style identifier before a slash (e.g., "4f.at/crawler" → "4f.at")
+  const domainSlashMatch = ua.match(/^([A-Za-z0-9][A-Za-z0-9._-]+)\/[A-Za-z]/)
+  if (domainSlashMatch) {
+    return cleanBotName(domainSlashMatch[1].toLowerCase())
+  }
+
   return null
 }

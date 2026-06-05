@@ -1,0 +1,43 @@
+import MultiCodeEditorInteractive from './MultiCodeEditorInteractive'
+import Box from 'components/elements/Box'
+import Text from 'components/elements/Text'
+import { theme } from 'theme'
+import { Story } from 'story'
+import React from 'react'
+
+export default { title: 'Elements/MultiCodeEditor' }
+
+export const Default = () => (
+  <Story name='MultiCodeEditor'>
+    <Box css={theme({ mb: 4, width: 650 })}>
+      <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
+        {'<MultiCodeEditor />'}
+      </Text>
+      <MultiCodeEditorInteractive
+        mqlCode={{ url: 'https://github.com/microlinkhq' }}
+      />
+      <Box css={theme({ py: 3 })} />
+      <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
+        {'<MultiCodeEditor /> (embed image)'}
+      </Text>
+      <MultiCodeEditorInteractive
+        mqlCode={{
+          url: 'https://news.ycombinator.com/item?id=13713480',
+          screenshot: true,
+          embed: 'screenshot.url'
+        }}
+      />
+      <Box css={theme({ py: 3 })} />
+      <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
+        {'<MultiCodeEditor /> (embed text)'}
+      </Text>
+      <MultiCodeEditorInteractive
+        mqlCode={{
+          url: 'https://news.ycombinator.com/item?id=13713480',
+          screenshot: true,
+          embed: 'title'
+        }}
+      />
+    </Box>
+  </Story>
+)

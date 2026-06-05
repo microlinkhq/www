@@ -71,9 +71,7 @@ console.log(data.response.fromCache)
 
 <Figcaption children='Caching feature is only available in the Node.js bundle.' />
 
-Consider to pass [keyv](https://www.npmjs.com/package/keyv) for supporting [most popular databases storages](https://github.com/lukechilds/keyv#official-storage-adapters)
-
-See [got#cache](https://www.npmjs.com/package/got#cache) to know more.
+Consider to pass [keyv](https://www.npmjs.com/package/keyv) for supporting [most popular databases storages](https://github.com/lukechilds/keyv#official-storage-adapters).
 
 <H5 titleize={false}>retry</H5>
 
@@ -82,13 +80,13 @@ Default: <Type children='2'/>
 
 Defines how many retries can be done before an API call is considered failed.
 
-See [got#retry](https://www.npmjs.com/package/got#retry) to know more.
+See [ky#retry](https://github.com/sindresorhus/ky#retry) to know more.
 
 <H4 titleize={false}>httpOptions</H4>
 
 Type: <Type children='<object>'/>
 
-Any additional option will be passed to [got](https://ghub.io/got) or [ky](https://github.com/sindresorhus/ky) that are the internal HTTP clients used for Node.js and browser respectively.
+Any additional option will be passed to [ky](https://github.com/sindresorhus/ky), the internal HTTP client used under the hood.
 
 That's necessary for some user workflow, e.g., passing [authentication](/docs/api/parameters/headers) headers without exposing credentials.
 

@@ -162,7 +162,7 @@ Just fire it up:
 node audit.js
 ```
 
-**A quick heads-up on rate limits:** If you're on the free plan, keep CONCURRENCY at 1. You'll avoid those annoying 429 errors. With a [Pro plan](/#pricing), you can crank it to 10 or 20 and blast through thousands of pages in minutes.
+**A quick heads-up on rate limits:** If you're on the free plan, keep CONCURRENCY at 1. You'll avoid those annoying 429 errors. With a [Pro plan](/pricing), you can crank it to 10 or 20 and blast through thousands of pages in minutes.
 
 ### What Makes This Actually Work
 

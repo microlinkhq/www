@@ -27,7 +27,7 @@ A detected technology is defined by:
   How sure technology is present on the site, scoring from <Type children="0"/> to <Type children="100"/>.
 - `logo` (e.g., <Type children="'https://www.wappalyzer.com/images/icons/CloudFlare.svg'"/>)<br/>
   The technology logo as URL.
-- `logo` (e.g., <Type children="'http://www.cloudflare.com'"/>)<br/>
+- `url` (e.g., <Type children="'http://www.cloudflare.com'"/>)<br/>
   The main website of the technology.
 - `categories` (e.g., <Type children="['PaaS', 'CDN']"/>)<br/>
   A list of keywords identified with similar technologies.

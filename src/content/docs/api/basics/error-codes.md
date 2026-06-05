@@ -29,6 +29,16 @@ Invalid API key. Make sure you are attaching your API key as `x-api-key` header.
 
 Ensure to [authenticate](/docs/api/basics/authentication/) your requests providing an API key attached as `x-api-key`.
 
+## ECACHEKEY
+
+**Message**
+
+You need a <ProBadge/> plan for using [cacheKey](/docs/api/parameters/cacheKey) query parameter.
+
+**Solution**
+
+See [pricing](/pricing) for upgrading your plan.
+
 ## EBRWSRTIMEOUT
 
 **Message**
@@ -61,7 +71,7 @@ You need a <ProBadge/> plan for using [filename](/docs/api/parameters/filename) 
 
 **Solution**
 
-See [pricing](/#pricing) for upgrading your plan.
+See [pricing](/pricing) for upgrading your plan.
 
 ## EFATALCLIENT
 
@@ -93,7 +103,7 @@ You need a <ProBadge/> plan for using [headers](/docs/api/parameters/headers) qu
 
 **Solution**
 
-See [pricing](/#pricing) for upgrading your plan.
+See [pricing](/pricing) for upgrading your plan.
 
 ## EINVALURL
 
@@ -134,6 +144,60 @@ The `ttl` value is invalid.
 **Solution**
 
 The [ttl](/docs/api/parameters/ttl) value should be a value between <Type children="'1m'"/> to <Type children="'31d'"/> range.
+
+## EINVALEVAL
+
+**Message**
+
+The `function` evaluation failed.
+
+**Solution**
+
+The [function](/docs/api/parameters/function) code was executed but failed during evaluation. This typically means your function threw an error or encountered a runtime exception. Check your function code for:
+
+- JavaScript runtime errors
+- Undefined variables or functions
+- Incorrect operations on the page data
+
+## EINVALFUNCTION
+
+**Message**
+
+The `function` code has a syntax error.
+
+**Solution**
+
+The [function](/docs/api/parameters/function) parameter contains invalid JavaScript syntax. Ensure your function:
+
+- Has valid JavaScript syntax
+- Uses proper function formatting (arrow function or regular function)
+- Doesn't contain syntax errors like missing brackets or semicolons
+
+## EINVALDATA
+
+**Message**
+
+The `data.<field>` has an invalid value (`<value>`). rule must be an object (or array of objects) with extraction options.
+
+Example:
+
+The `data.innerHTML` has an invalid value (empty). rule must be an object (or array of objects) with extraction options.
+
+**Solution**
+
+Use object rules for [data](/docs/api/parameters/data) extraction instead of primitive values.
+
+Valid:
+
+- `data.title.selector=h1`
+- `data.price.selector=.price&data.price.attr=text`
+- `data.links.selectorAll=a&data.links.attr=href`
+
+Invalid:
+
+- `data.innerHTML=`
+- `data.foo=html`
+- `data.bar=false`
 
 ## EINVALSTTL
 
@@ -189,7 +253,7 @@ You need a <ProBadge/> plan for using [proxy](/docs/api/parameters/proxy) query 
 
 **Solution**
 
-See [pricing](/#pricing) for upgrading your plan.
+See [pricing](/pricing) for upgrading your plan.
 
 ## EPROXYNEEDED
 
@@ -199,7 +263,7 @@ The URL provided uses antibot protection. Upgrade to a <ProBadge/> plan.
 
 **Solution**
 
-See [pricing](/#pricing) for upgrading your plan.
+See [pricing](/pricing) for upgrading your plan.
 
 ## ERATE
 
@@ -231,7 +295,7 @@ You need a <ProBadge/> plan for using [ttl](/docs/api/parameters/ttl) query para
 
 **Solution**
 
-See [pricing](/#pricing) for upgrading your plan.
+See [pricing](/pricing) for upgrading your plan.
 
 ## ESTTL
 
@@ -241,4 +305,4 @@ You need a <ProBadge/> plan for using [staleTtl](/docs/api/parameters/staleTtl) 
 
 **Solution**
 
-See [pricing](/#pricing) for upgrading your plan.
+See [pricing](/pricing) for upgrading your plan.

@@ -28,13 +28,26 @@ export const TOOLBAR_MENU_ITEM_ICON_STYLES = {
 export const TOOLBAR_MENU_ITEM_MEDIA_STYLES = {
   ...TOOLBAR_MENU_ITEM_ICON_STYLES,
   position: 'relative',
-  top: '6px'
+  top: '4px'
 }
 
 export const TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES = {
   ...TOOLBAR_MENU_ITEM_ICON_STYLES,
   position: 'relative',
   top: 0
+}
+
+const MENU_ITEM_MEDIA_LABEL_OVERRIDES = {
+  Markdown: { top: 0 },
+  Skills: { top: '2px' }
+}
+
+export const getMenuItemMediaStyles = (
+  label,
+  baseStyles = TOOLBAR_MENU_ITEM_MEDIA_STYLES
+) => {
+  const overrides = MENU_ITEM_MEDIA_LABEL_OVERRIDES[label]
+  return overrides ? { ...baseStyles, ...overrides } : baseStyles
 }
 
 export const TOOLBAR_MENU_ITEM_TITLE_STYLES = {

@@ -14,12 +14,20 @@ const FeatherIcon = ({
   animations = true,
   ...props
 }) => {
+  const dimensions = getWidth(size)
+
   return (
     <Flex
       css={theme({
+        alignItems: 'center',
         justifyContent: 'center',
-        width: getWidth(size),
-        height: '100%'
+        flexShrink: 0,
+        width: dimensions,
+        height: dimensions,
+        '& svg': {
+          width: '100%',
+          height: '100%'
+        }
       })}
       as='span'
       {...props}

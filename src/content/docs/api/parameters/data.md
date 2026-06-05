@@ -97,20 +97,22 @@ Use [selectorAll](/docs/mql/data/selectorAll) to extract multiple matching eleme
 
 For complex DOM structures, use [nested rules](/docs/mql/rules/nested) to organize your data hierarchically:
 
-<MultiCodeEditorInteractive 
+<MultiCodeEditorInteractive
   mqlCode={{
-    url: 'https://github.com/microlinkhq',
+    url: 'https://news.ycombinator.com',
     data: {
-    repos: { 
-      selectorAll: '.repo',
-      data: {
-        name: { selector: 'a', attr: 'text' },
-        description: { selector: 'p', attr: 'text' }
+      stories: {
+        selectorAll: '.athing',
+        attr: {
+          title: { selector: '.titleline > a', attr: 'text' },
+          href: { selector: '.titleline > a', attr: 'href' }
+        }
       }
     }
-  }
-  }} 
+  }}
 />
+
+<Figcaption children="Nested rules let each matched item return a structured object instead of a single value." />
 
 ## Fallback Values
 

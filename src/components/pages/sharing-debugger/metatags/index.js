@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { theme, space, layout } from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
@@ -8,29 +8,67 @@ import TimeAgo from 'react-timeago'
 import { formatDate } from 'helpers/format-date'
 import truncateUrl from 'truncate-url'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
+import { useClipboard } from 'components/hook/use-clipboard'
 import {
   VALIDATOR_STATUS,
+  VALIDATOR_STATUS_ERROR,
   VALIDATOR_STATUS_OK,
   buildFixSnippet,
+  buildLlmRepairPrompt,
   validate
 } from './validators'
 import { CodeInline } from 'components/markdown/CodeInline'
 import Choose from 'components/elements/Choose'
-import { CheckCircle, XCircle } from 'react-feather'
+import { CheckCircle, XCircle, ChevronDown, ChevronUp } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
+import { Clipboard as ClipboardIcon } from 'components/icons/Clipboard'
+import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
-export const Metatags = ({ metadata }) => {
+const ISSUE_WEIGHTS = {
+  title: 25,
+  description: 20,
+  image: 20,
+  url: 15,
+  logo: 10,
+  publisher: 5,
+  locale: 5,
+  author: 5,
+  date: 5
+}
+
+export const Metatags = ({
+  metadata,
+  shareResultUrl,
+  shareResultDisplayUrl
+}) => {
   const breakpoint = useBreakpoint()
+  const [ClipboardComponent, toClipboard] = useClipboard()
+  const [isPromptExpanded, setIsPromptExpanded] = useState(false)
   const TRUNCATE_URL_LENGTH = breakpoint === 0 ? 45 : 75
   const fields = validate(metadata)
   const issues = fields.filter(({ status }) => status !== VALIDATOR_STATUS_OK)
 
-  const score = 100 - issues.length * 10
+  const score = Math.max(
+    0,
+    100 -
+      issues.reduce((total, issue) => {
+        const weight = ISSUE_WEIGHTS[issue.name] || 5
+
+        return (
+          total +
+          (issue.status === VALIDATOR_STATUS_ERROR
+            ? weight
+            : Math.ceil(weight / 2))
+        )
+      }, 0)
+  )
   const fixSnippet = buildFixSnippet({ issues, metadata })
+  const llmRepairPrompt = buildLlmRepairPrompt({ issues, metadata })
 
   return (
     <Box css={theme({ m: 0 })}>
+      <ClipboardComponent />
       {issues.length > 0 && (
         <Box css={theme({ pt: 4 })}>
           <Box css={theme({ textAlign: 'center', pb: 3 })}>
@@ -49,8 +87,8 @@ export const Metatags = ({ metadata }) => {
               })}
             >
               {breakpoint === 0
-                ? 'Apply to your site & come back.'
-                : 'Copy the fix. Apply to your site & come back.'}
+                ? 'Fix the highest-impact tags first, then run it again.'
+                : 'Review the suggested tags, apply the fixes, then run the debugger again.'}
             </Text>
           </Box>
 
@@ -86,10 +124,24 @@ export const Metatags = ({ metadata }) => {
           </Text>
         </Box>
         {fields.map(
-          ({ name, isNullable, value, status, description, resume }, index) => {
+          (
+            {
+              name,
+              isNullable,
+              value,
+              displayValue,
+              status,
+              description,
+              resume
+            },
+            index
+          ) => {
             const length = value?.length || 0
             const color = VALIDATOR_STATUS[status].color
             const bg = VALIDATOR_STATUS[status].bg
+            const renderedValue = displayValue ?? value
+            const severity =
+              status === VALIDATOR_STATUS_ERROR ? 'Required' : 'Recommended'
 
             return (
               <Box
@@ -118,6 +170,18 @@ export const Metatags = ({ metadata }) => {
                     })}
                   >
                     {name}
+                  </Text>
+                  <Text
+                    as='span'
+                    css={theme({
+                      fontFamily: 'mono',
+                      fontSize: 0,
+                      color,
+                      fontWeight: 'bold'
+                    })}
+                  >
+                    {' • '}
+                    {severity}
                   </Text>
                   <Text
                     as='span'
@@ -163,10 +227,10 @@ export const Metatags = ({ metadata }) => {
                             condition={name === 'image'}
                             render={() => (
                               <>
-                                You should to add a{' '}
-                                <CodeInline>og:image</CodeInline> meta tag
-                                inside <CodeInline>head</CodeInline> tag in your
-                                HTML markup.
+                                Add an <CodeInline>og:image</CodeInline> meta
+                                tag inside your page{' '}
+                                <CodeInline>head</CodeInline> so social
+                                platforms can render a preview image.
                               </>
                             )}
                           />
@@ -174,19 +238,17 @@ export const Metatags = ({ metadata }) => {
                             condition={name === 'logo'}
                             render={() => (
                               <>
-                                You should to add a{' '}
-                                <CodeInline>/favicon</CodeInline> in your site,
-                                preferrable a png.
+                                Add standard favicon assets to your site so
+                                browsers and link previews can identify your
+                                brand more reliably.
                               </>
                             )}
                           />
                           <Choose.Otherwise
                             render={() => (
                               <>
-                                You should to add a{' '}
-                                <CodeInline>{name}</CodeInline> meta tag inside{' '}
-                                <CodeInline>head</CodeInline> tag in your HTML
-                                markup.
+                                Add a <CodeInline>{name}</CodeInline> meta tag
+                                inside your page <CodeInline>head</CodeInline>.
                               </>
                             )}
                           />
@@ -210,19 +272,228 @@ export const Metatags = ({ metadata }) => {
                       )}
                     />
                     <Choose.When
-                      condition={name === 'date'}
+                      condition={
+                        name === 'date' && status === VALIDATOR_STATUS_OK
+                      }
                       render={() => (
                         <>
                           {formatDate(value)} (<TimeAgo date={value} />)
                         </>
                       )}
                     />
-                    <Choose.Otherwise render={() => value} />
+                    <Choose.Otherwise
+                      render={() => renderedValue || `${length} length`}
+                    />
                   </Choose>
                 </Text>
               </Box>
             )
           }
+        )}
+
+        {llmRepairPrompt && (
+          <Box css={theme({ mt: [3, 4], px: [2, 0] })}>
+            <Box
+              css={theme({
+                mx: 'auto',
+                width: '100%',
+                maxWidth: layout.small
+              })}
+            >
+              <Flex
+                css={theme({
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  mb: 2,
+                  gap: 2
+                })}
+              >
+                <Box>
+                  <Text
+                    css={theme({
+                      fontSize: 1,
+                      fontWeight: 'bold',
+                      color: 'black'
+                    })}
+                  >
+                    Fix with an LLM
+                  </Text>
+                  <Text
+                    css={theme({
+                      fontSize: 0,
+                      color: 'black60',
+                      mt: 1
+                    })}
+                  >
+                    Copy this prompt or edit it before pasting it into your
+                    preferred model.
+                  </Text>
+                </Box>
+
+                <Flex
+                  css={theme({
+                    width: '100%',
+                    justifyContent: 'flex-start'
+                  })}
+                >
+                  <Text
+                    as='button'
+                    type='button'
+                    onClick={() => setIsPromptExpanded(value => !value)}
+                    css={theme({
+                      bg: 'transparent',
+                      border: 0,
+                      color: 'black60',
+                      fontSize: 0,
+                      fontWeight: 'bold',
+                      p: 0,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 1,
+                      flexShrink: 0,
+                      _hover: {
+                        color: 'black'
+                      },
+                      _focusVisible: {
+                        outline: '2px solid',
+                        outlineColor: 'link',
+                        outlineOffset: '2px',
+                        borderRadius: 2
+                      }
+                    })}
+                  >
+                    <FeatherIcon
+                      icon={isPromptExpanded ? ChevronUp : ChevronDown}
+                      color='currentColor'
+                      size='14px'
+                    />
+                    {isPromptExpanded ? 'Collapse prompt' : 'Show full prompt'}
+                  </Text>
+                </Flex>
+              </Flex>
+
+              <Box
+                css={theme({
+                  width: '100%',
+                  maxWidth: layout.small
+                })}
+              >
+                <CodeEditor
+                  language='markdown'
+                  css={theme({
+                    width: [
+                      `calc(100vw - ${space[4]})`,
+                      `calc(100vw - ${space[5]})`,
+                      '100%',
+                      '100%'
+                    ],
+                    maxWidth: '100%',
+                    maxHeight: isPromptExpanded ? 'none' : '180px'
+                  })}
+                >
+                  {llmRepairPrompt}
+                </CodeEditor>
+              </Box>
+            </Box>
+          </Box>
+        )}
+
+        {shareResultUrl && (
+          <Box css={theme({ mt: [3, 4], px: [2, 0] })}>
+            <Flex
+              css={theme({
+                mx: 'auto',
+                width: '100%',
+                maxWidth: layout.small,
+                flexDirection: 'column',
+                gap: 1,
+                bg: 'gray0',
+                border: 1,
+                borderColor: 'black10',
+                borderRadius: 3,
+                p: [2, 3]
+              })}
+            >
+              <Flex
+                css={theme({
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 2
+                })}
+              >
+                <Text
+                  css={theme({
+                    fontSize: 1,
+                    fontWeight: 'bold',
+                    color: 'black'
+                  })}
+                >
+                  Share this result
+                </Text>
+
+                <Tooltip
+                  type='copy'
+                  tabIndex={-1}
+                  tooltipsOpts={Tooltip.TEXT.OPTIONS}
+                  content={
+                    <Tooltip.Content>
+                      {Tooltip.TEXT.COPY('URL')}
+                    </Tooltip.Content>
+                  }
+                >
+                  <Flex
+                    as='button'
+                    type='button'
+                    aria-label='Copy share URL'
+                    onClick={() => {
+                      toClipboard({
+                        copy: shareResultUrl,
+                        text: 'Share URL copied'
+                      })
+                    }}
+                    css={theme({
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: '44px',
+                      minWidth: '44px',
+                      p: 1,
+                      border: 0,
+                      bg: 'transparent',
+                      color: 'black50',
+                      cursor: 'pointer',
+                      flexShrink: 0,
+                      _hover: {
+                        color: 'black'
+                      },
+                      _focusVisible: {
+                        outline: '2px solid',
+                        outlineColor: 'link',
+                        outlineOffset: '2px',
+                        borderRadius: 2
+                      }
+                    })}
+                  >
+                    <ClipboardIcon css={theme({ color: 'currentColor' })} />
+                  </Flex>
+                </Tooltip>
+              </Flex>
+
+              <Text
+                css={theme({
+                  fontSize: 0,
+                  color: 'black80',
+                  fontFamily: 'mono',
+                  wordBreak: 'break-all'
+                })}
+              >
+                {truncateUrl(
+                  shareResultDisplayUrl || shareResultUrl,
+                  breakpoint === 0 ? 60 : 90
+                )}
+              </Text>
+            </Flex>
+          </Box>
         )}
       </Box>
     </Box>

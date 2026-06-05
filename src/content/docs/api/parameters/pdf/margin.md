@@ -7,7 +7,7 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 import { Type, TypeContainer } from 'components/markdown/Type'
 import { Iframe } from 'components/markdown/Iframe'
 
-Type: <TypeContainer><Type children='<string>'/> | <Type children='<object'/></TypeContainer><br/>
+Type: <TypeContainer><Type children='<string>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children="'0.35cm'"/>
 
 It sets the paper margins for the [pdf](/docs/api/parameters/pdf) over the target [url](/docs/api/parameters/url).

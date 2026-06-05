@@ -55,8 +55,10 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
   const fetchData = useCallback(
     async (url, opts) => {
       try {
-        const { queryUrl, ...fetchOpts } = opts || {}
-        setQuery({ url: queryUrl || url, ...fetchOpts })
+        const { queryUrl, syncQuery = true, ...fetchOpts } = opts || {}
+        if (syncQuery) {
+          setQuery({ url: queryUrl || url, ...fetchOpts })
+        }
         setError(null)
         setStatus('fetching')
 
@@ -97,7 +99,7 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
 
     didInitialFetch.current = true
     if (isValidQueryUrl(url)) {
-      fetchData(withProtocol(url), { ...opts, queryUrl: url })
+      fetchData(withProtocol(url), { ...opts, queryUrl: url, syncQuery: false })
     }
   }, [query?.url, fetchData])
 
@@ -107,7 +109,7 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
       {!error && warning && (
         <Notification.Warning key={warning.id} {...warning} />
       )}
-      {children({ status, doFetch, data, response })}
+      {children({ status, doFetch, data, response, error, warning })}
     </>
   )
 }

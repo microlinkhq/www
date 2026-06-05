@@ -13,7 +13,7 @@ export const useOssTotalStars = () => {
     `
   )
 
-  return allOssJson.nodes.reduce(
+  return (allOssJson?.nodes || []).reduce(
     (total, repository) => total + (repository.stars || 0),
     0
   )

@@ -81,7 +81,6 @@ const Layout = ({
   children,
   onClick = noop,
   style,
-  isDark = false,
   ...props
 }) => {
   const breakpoint = useBreakpoint()
@@ -90,13 +89,13 @@ const Layout = ({
     <ThemeProvider theme={themeSpec}>
       <SkipLink />
       <Root data-breakpoint={breakpoint} onClick={onClick} style={style}>
-        <Toolbar as='header' isDark={isDark} style={style} />
+        <Toolbar as='header' style={style} />
         <Main as='main' id='main-content' tabIndex={-1} {...props}>
           {children}
         </Main>
         {footer && (
           <Box as='footer' className='hidden-print'>
-            <Footer isDark={isDark} {...footer} />
+            <Footer {...footer} />
           </Box>
         )}
       </Root>

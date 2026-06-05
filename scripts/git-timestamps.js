@@ -20,6 +20,9 @@ const INCLUDED_PREFIXES = ['src/content/', 'src/pages/']
 const isIncludedPath = value =>
   INCLUDED_PREFIXES.some(prefix => value.startsWith(prefix))
 
+const toDayTimestamp = date =>
+  `${date.toISOString().slice(0, 10)}T00:00:00.000Z`
+
 const buildTimestamps = async () => {
   const { stdout } = await $(
     'git -c core.quotePath=false log --reverse --format=%cI --name-only'
@@ -37,7 +40,7 @@ const buildTimestamps = async () => {
       const parsedDate = new Date(line)
       currentTimestamp = Number.isNaN(parsedDate.getTime())
         ? null
-        : parsedDate.toISOString()
+        : toDayTimestamp(parsedDate)
       continue
     }
 

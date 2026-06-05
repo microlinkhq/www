@@ -8,7 +8,7 @@ import Tabs from '../Tabs'
 import styled from 'styled-components'
 import { theme } from 'theme'
 
-export const SelectLanguage = ({ isDark, value, onClick, ...props }) => (
+export const SelectLanguage = ({ value, onClick, ...props }) => (
   <Tabs
     value={value}
     onClick={event => onClick(event.target.textContent)}
@@ -24,19 +24,12 @@ const Actions = styled(Flex)`
   margin-left: auto;
 `
 
-const ActionComponent = ({
-  setLanguage,
-  language,
-  languages,
-  text,
-  isDark
-}) => {
+const ActionComponent = ({ setLanguage, language, languages, text }) => {
   return (
     <>
       <Actions>
         <Box css={{ width: '100%' }}>
           <SelectLanguage
-            isDark={isDark}
             css={theme({ py: '2px' })}
             value={language}
             onClick={setLanguage}
@@ -45,7 +38,7 @@ const ActionComponent = ({
           </SelectLanguage>
         </Box>
       </Actions>
-      <CodeCopy isDark={isDark} text={text} />
+      <CodeCopy text={text} />
     </>
   )
 }

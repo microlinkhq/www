@@ -9,7 +9,7 @@ date: '2021-06-07'
 import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 
-All [Microlink Pro](#pricing) plans come with a built-in proxy layer that does automatic proxy resolution and rotation based on the input URL.
+All [Microlink Pro](/pricing) plans come with a built-in proxy layer that does automatic proxy resolution and rotation based on the input URL.
 
 ## What's wrong with URLs
 
@@ -40,7 +40,7 @@ Wouldn't it be nice if every time you want to retrieve data from any URL, the Mi
 
 That's exactly what **Microlink Proxy** layer does. No failures. No maintenance. You don't need to do anything additional. It just works™. 
 
-The **Microlink Proxy** is enabled for all [Microlink Pro](/#pricing) plans and it will handle all the situations for the [Top 500](https://github.com/Kikobeats/top-sites) most popular worldwide websites, in a transparent way, by default.
+The **Microlink Proxy** is enabled for all [Microlink Pro](/pricing) plans and it will handle all the situations for the [Top 500](https://github.com/Kikobeats/top-sites) most popular worldwide websites, in a transparent way, by default.
 
 Just for informational purposes, you can check if a specific request was resolved using the proxy layer by checking `x-fetch-mode` response header.
 

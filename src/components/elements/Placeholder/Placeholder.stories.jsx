@@ -1,0 +1,34 @@
+import Placeholder from './Placeholder'
+import Flex from '../Flex'
+import { aspectRatio } from 'helpers/aspect-ratio'
+import { theme } from 'theme'
+import { Story } from 'story'
+import React from 'react'
+
+const storyName = 'Placeholder'
+
+const code = `
+import Placeholder from './Placeholder'
+
+export default () => (
+  <Placeholder />
+)
+`
+const PlaceholderStory = () => {
+  return (
+    <Story name={storyName} code={code}>
+      <Flex css={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <Placeholder
+          css={theme({
+            width: aspectRatio.width,
+            height: aspectRatio.height
+          })}
+        />
+      </Flex>
+    </Story>
+  )
+}
+
+export default { title: 'Elements/Placeholder' }
+
+export const Default = () => <PlaceholderStory />

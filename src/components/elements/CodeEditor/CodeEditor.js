@@ -1,16 +1,21 @@
-import { cx, radii, theme, fontSizes, lineHeights, fonts, space } from 'theme'
+import { cx, radii, theme, fontSizes, lineHeights } from 'theme'
 import { hideScrollbar, wordBreak } from 'helpers/style'
 import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 import { getLines } from 'helpers/get-lines'
+import { childrenTextAll } from 'helpers/children-text-all'
 import { prettier } from 'helpers/prettier'
 import { template } from 'helpers/template'
 import { highlight } from 'sugar-high'
-import styled from 'styled-components'
 import { hash } from 'helpers/hash'
 import range from 'lodash/range'
 
 import { getLanguageTheme } from './theme'
 
+import {
+  blinkCursorCodeLayoutStyle,
+  blinkCursorStyle
+} from '../Terminal/blink-cursor'
 import Terminal, { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
 
 const toAlias = (lang = '') => {
@@ -95,22 +100,31 @@ const CustomCodeBlock = styled.pre`
   background: ${props => (props.$theme === 'dark' ? cx('black') : cx('white'))};
   color: ${props => (props.$theme === 'dark' ? cx('white') : cx('black'))};
 
+  ${props =>
+    props.$blinkCursor &&
+    theme({ display: 'inline', m: 0, verticalAlign: 'top' })}
+
   code {
-    display: block;
-    white-space: pre;
-    overflow-x: auto;
-    padding-left: ${props => (props.$showLineNumbers ? '3rem' : '0')};
-    font-family: ${fonts.mono};
-    font-size: ${fontSizes[0]};
-    line-height: ${props =>
-      props.$language === 'bash' ? lineHeights[0] : lineHeights[4]};
+    ${props =>
+      theme({
+        display: props.$blinkCursor ? 'inline' : 'block',
+        whiteSpace: 'pre',
+        overflowX: 'auto',
+        pl: props.$showLineNumbers ? '3rem' : 0,
+        fontFamily: 'mono',
+        fontSize: 0,
+        lineHeight: props.$language === 'bash' ? 0 : 4
+      })}
     tab-size: 2;
   }
 
   .code-line {
-    display: inline-block;
-    width: 100%;
-    margin-bottom: ${space[1]};
+    ${props =>
+      theme({
+        display: props.$blinkCursor ? 'inline' : 'inline-block',
+        width: props.$blinkCursor ? 'auto' : '100%',
+        mb: 1
+      })}
   }
 
   .line-numbers {
@@ -139,11 +153,11 @@ export const Code = ({
   children,
   highlightLines,
   highLightLinesSelector,
-  isDark,
   showLineNumbers,
   firstHighlightLine,
   lastHighlightLine,
-  language
+  language,
+  blinkCursor = false
 }) => {
   let highlightedHtml = highlight(children)
 
@@ -175,10 +189,11 @@ export const Code = ({
 
   return (
     <CustomCodeBlock
+      $blinkCursor={blinkCursor}
       $language={language}
       css={`
         ${String(highLightLinesSelector)} {
-          background: ${cx(isDark ? 'white05' : 'black05')};
+          background: ${cx('black05')};
         }
         ${String(firstHighlightLine)} {
           border-top-left-radius: ${radii[2]};
@@ -188,7 +203,7 @@ export const Code = ({
           border-bottom-left-radius: ${radii[2]};
           border-bottom-right-radius: ${radii[2]};
         }
-        ${getLanguageTheme(language, isDark ? 'dark' : 'light') || ''}
+        ${getLanguageTheme(language) || ''}
       `}
     >
       {showLineNumbers && (
@@ -233,6 +248,10 @@ const TerminalTextWrapper = styled('div')`
   ${wordBreak};
   width: 100%;
   font-size: 14px;
+  white-space: pre;
+
+  ${props => props.$blinkCursor && blinkCursorCodeLayoutStyle}
+  ${props => props.$blinkCursor && blinkCursorStyle}
 `
 
 const getLanguage = ({ className, language, title }) => {
@@ -246,10 +265,10 @@ const getLanguage = ({ className, language, title }) => {
 const CodeEditor = ({
   children,
   showLineNumbers = false,
-  isDark = false,
   language: languageProp,
   title = '',
-  blinkCursor = false,
+  blinkCursor,
+  autoHeight = false,
   ...props
 }) => {
   const className = getClassName(props)
@@ -258,16 +277,17 @@ const CodeEditor = ({
     getLanguage({ className, language: languageProp, title })
   )
 
-  const initialText = template(children).trim()
+  const source = childrenTextAll(children)
+  const initialText = template(source).trim()
   const [text, setText] = useState(initialText)
 
   useEffect(() => {
     const formatCode = async () => {
-      const formatted = await prettier(template(children), language)
+      const formatted = await prettier(template(source), language)
       setText(formatted.trim())
     }
     formatCode()
-  }, [children, language])
+  }, [source, language])
 
   const highLightLinesSelector = generateHighlightLines(highlightLines)
   const firstHighlightLine = highLightLinesSelector && highLightLinesSelector[0]
@@ -275,22 +295,32 @@ const CodeEditor = ({
     highLightLinesSelector &&
     highLightLinesSelector[highLightLinesSelector.length - 1]
 
+  const showBlinkCursor =
+    blinkCursor === true ||
+    (blinkCursor !== false &&
+      ['bash', 'shell', 'sh'].includes(language) &&
+      !text.includes('\n'))
+
   return (
     <Terminal
-      id={`codeditor-${hash(children)}-${isDark ? 'dark' : 'light'}`}
+      id={`codeditor-${hash(source)}`}
       title={title}
-      isDark={isDark}
       text={text}
-      css={theme({ width: TERMINAL_WIDTH })}
-      blinkCursor={blinkCursor}
+      autoHeight={autoHeight}
+      css={theme(
+        autoHeight
+          ? { width: '100%', maxWidth: '100%' }
+          : { width: TERMINAL_WIDTH }
+      )}
+      blinkCursor={false}
       {...props}
     >
-      <TerminalTextWrapper>
+      <TerminalTextWrapper $blinkCursor={showBlinkCursor}>
         <Code
+          blinkCursor={showBlinkCursor}
           firstHighlightLine={firstHighlightLine}
           highlightLines={highlightLines}
           highLightLinesSelector={highLightLinesSelector}
-          isDark={isDark}
           language={language}
           lastHighlightLine={lastHighlightLine}
           showLineNumbers={showLineNumbers}

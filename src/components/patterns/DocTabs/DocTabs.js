@@ -1,21 +1,24 @@
 import { Link } from 'components/elements/Link'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
+import { theme, transition } from 'theme'
 import Box from 'components/elements/Box'
 import styled from 'styled-components'
-import { theme } from 'theme'
 import React from 'react'
 
 import { DOC_TABS } from 'components/patterns/Aside/constants'
 
 const TabButton = styled(Link)`
+  transition: color ${transition.medium}, border-color ${transition.medium};
+
   ${theme({
     px: 3,
     py: 3,
     textDecoration: 'none',
     cursor: 'pointer',
     fontWeight: 500,
-    transition: 'all 0.2s ease'
+    borderBottom: 2,
+    borderBottomColor: 'transparent'
   })}
 
   &:hover {
@@ -24,8 +27,7 @@ const TabButton = styled(Link)`
 
   &.active {
     ${theme({
-      borderBottom: 2,
-      borderColor: 'black',
+      borderBottomColor: 'black',
       fontWeight: 600
     })}
   }

@@ -28,7 +28,12 @@ export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
       tag
         .decode()
         .then(() => setLoading(false))
-        .catch(error => console.error('[hook/with-lazy]', error))
+        .catch(error => {
+          console.error('[hook/with-lazy]', error)
+          if (typeof componentProps.onLazyError === 'function') {
+            componentProps.onLazyError(error)
+          }
+        })
     }, [compiledAttr])
 
     if (!componentProps[attr]) {

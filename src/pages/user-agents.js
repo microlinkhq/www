@@ -413,7 +413,7 @@ await page.goto('https://example.com')
                   </Link>
                   , and restricted platforms such as major social networks,
                   while scaling on demand. Pricing is pay-as-you-go and{' '}
-                  <Link href='https://microlink.io/#pricing'>
+                  <Link href='https://microlink.io/pricing'>
                     starts for free
                   </Link>
                   .

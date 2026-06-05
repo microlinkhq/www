@@ -12,10 +12,9 @@ import { linkStyle } from './base'
 const style = css`
   opacity: 0.65;
   display: inline-block;
-  color: ${({ isDark }) => (isDark ? colors.white80 : colors.black80)};
+  color: ${colors.black80};
   text-decoration: underline;
-  text-decoration-color: ${({ isDark }) =>
-    lighten(0.8, isDark ? colors.white80 : colors.black80)};
+  text-decoration-color: ${lighten(0.8, colors.black80)};
 
   /**
     * The text-decoration-thickness property does not work unless either
@@ -29,9 +28,7 @@ const style = css`
   text-decoration-thickness: 1px;
 `
 
-const LinkSolidWrapper = styled(Text).withConfig({
-  shouldForwardProp: prop => !['isDark'].includes(prop)
-})`
+const LinkSolidWrapper = styled(Text)`
   ${linkStyle};
   ${style};
 

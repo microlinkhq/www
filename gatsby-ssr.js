@@ -8,7 +8,24 @@ const VA_SCRIPT = isDevelopment
   ? 'https://cdn.vercel-insights.com/v1/script.debug.js'
   : '/_vercel/insights/script.js'
 
-exports.onRenderBody = ({ setPostBodyComponents }) => {
+exports.onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
+  if (!isDevelopment) {
+    setHeadComponents([
+      <script
+        key='plausible-script'
+        async
+        src='https://plausible.io/js/pa-9WGGaGH1_X9e8zH2gSymh.js'
+      />,
+      <script
+        key='plausible-init'
+        dangerouslySetInnerHTML={{
+          __html:
+            'window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()'
+        }}
+      />
+    ])
+  }
+
   setPostBodyComponents([
     <script
       key='va'

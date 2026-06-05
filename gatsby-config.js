@@ -3,6 +3,22 @@
 const { URL } = require('url')
 const path = require('path')
 
+const {
+  isEmbedIndexable
+} = require('./src/components/pages/embed-url/indexable')
+
+// Drop embed-url provider pages we deliberately keep out of the index
+// (noindex, follow) so the sitemap never sends Google a conflicting signal.
+// The hub (/tools/embed-url) and any non-provider page pass through untouched.
+const EMBED_PROVIDER_PATH = /^\/tools\/embed-url\/([^/]+)\/?$/
+const isSitemapAllowed = pagePath => {
+  const match = pagePath.match(EMBED_PROVIDER_PATH)
+  if (!match) return true
+  return isEmbedIndexable(match[1])
+}
+
+const isDev = (process.env.NODE_ENV || 'development') === 'development'
+
 const log = (...args) => {
   if (process.env.DEBUG) {
     console.log(...args)
@@ -21,7 +37,7 @@ const {
 module.exports = {
   trailingSlash: 'never',
   flags: {
-    DEV_SSR: true, // better 1:1 production behavior
+    DEV_SSR: process.env.DEV_SSR === 'true',
     FAST_DEV: true,
     PARALLEL_SOURCING: true,
     PRESERVE_FILE_DOWNLOAD_CACHE: true
@@ -53,7 +69,6 @@ module.exports = {
   plugins: [
     'gatsby-plugin-styled-components',
     'gatsby-plugin-catch-links',
-    'gatsby-transformer-javascript-frontmatter',
     {
       resolve: 'gatsby-plugin-sass',
       options: {
@@ -71,7 +86,7 @@ module.exports = {
         path: path.join(__dirname, 'data')
       }
     },
-    {
+    !isDev && {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: path.join(__dirname, 'src/pages'),
@@ -86,6 +101,13 @@ module.exports = {
       }
     },
     {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: path.join(__dirname, 'data/skills-content'),
+        name: 'skills-content'
+      }
+    },
+    {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
         siteUrl: CANONICAL_URL
@@ -97,7 +119,7 @@ module.exports = {
         extensions: ['.mdx', '.md'],
         mdxOptions: {
           remarkPlugins: [require('remark-gfm').default],
-          rehypePlugins: [require('rehype-slug').default]
+          rehypePlugins: [require('./src/plugins/rehype-slug-trim')]
         }
       }
     },
@@ -206,10 +228,12 @@ module.exports = {
             return []
           }
 
-          return allPages.map(page => {
-            const lastmod = mdxMap[page.path] || pagesMap[page.path] || null
-            return { ...page, lastmod }
-          })
+          return allPages
+            .filter(page => isSitemapAllowed(page.path))
+            .map(page => {
+              const lastmod = mdxMap[page.path] || pagesMap[page.path] || null
+              return { ...page, lastmod }
+            })
         },
         serialize: ({ path: url, lastmod }) => {
           if (!lastmod) {

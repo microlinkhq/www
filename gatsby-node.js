@@ -1,9 +1,15 @@
 'use strict'
 
-const { readFileSync, mkdirSync, writeFileSync } = require('node:fs')
+const {
+  existsSync,
+  readFileSync,
+  mkdirSync,
+  writeFileSync
+} = require('node:fs')
 const { createFilePath } = require('gatsby-source-filesystem')
 const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
+const { default: pMap } = require('p-map')
 const { getDomain } = require('tldts')
 const mql = require('@microlink/mql')
 const path = require('node:path')
@@ -31,8 +37,10 @@ const getTimestampForFile = fileNode => {
 }
 
 const githubUrl = (() => {
+  let cachedBranch
   return async filepath => {
-    const base = `https://github.com/microlinkhq/www/blob/${await branchName()}`
+    if (!cachedBranch) cachedBranch = branchName()
+    const base = `https://github.com/microlinkhq/www/blob/${await cachedBranch}`
     const relative = filepath.replace(process.cwd(), '')
     return base + relative
   }
@@ -40,7 +48,8 @@ const githubUrl = (() => {
 
 const toMarkdown = async url => {
   const {
-    data: { markdown }
+    data: { markdown },
+    response
   } = await mql(url, {
     apiKey: process.env.MICROLINK_API_KEY,
     data: {
@@ -51,7 +60,8 @@ const toMarkdown = async url => {
     meta: false,
     force: true
   })
-  return markdown
+
+  return { markdown, duration: response.headers.get('x-response-time') }
 }
 
 exports.createSchemaCustomization = ({ actions }) => {
@@ -60,11 +70,14 @@ exports.createSchemaCustomization = ({ actions }) => {
     type MdxFrontmatter {
       description: String
       authors: [String]
+      website: String
+      githubUrl: String
+      skillUrl: String
     }
   `)
 }
 
-exports.onCreateWebpackConfig = ({ actions }) => {
+exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   actions.setWebpackConfig({
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
@@ -73,6 +86,17 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       }
     }
   })
+
+  if (stage === 'develop' || stage === 'develop-html') {
+    const config = getConfig()
+    config.devtool = 'eval'
+    if (config.cache && config.cache.type === 'filesystem') {
+      config.cache.maxMemoryGenerations = 1
+      config.cache.compression = 'gzip'
+      config.cache.allowCollectingMemory = true
+    }
+    actions.replaceWebpackConfig(config)
+  }
 }
 
 exports.onPostBuild = async ({ graphql, reporter }) => {
@@ -94,8 +118,12 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
   }
 
   if (node.internal.type === 'Mdx') {
-    // MDX files are now in src/content/ directory
-    const slug = createFilePath({ node, getNode, basePath: 'src/content' })
+    const fileNode = getNode(node.parent)
+    const isSkillContent = fileNode?.sourceInstanceName === 'skills-content'
+    const slug = isSkillContent
+      ? `/skills/${fileNode.name}/`
+      : createFilePath({ node, getNode, basePath: 'src/content' })
+
     createNodeField({
       node,
       name: 'slug',
@@ -112,7 +140,6 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
           value: lastmod
         })
       } catch (_) {
-        const fileNode = getNode(node.parent)
         if (fileNode && fileNode.mtime) {
           createNodeField({
             node,
@@ -123,6 +150,32 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
       }
     }
   }
+}
+
+// In development, the ~300 provider subtool pages under
+// /tools/embed-url/<provider>/ blow up the dev bundle. Build only the tool
+// index plus the providers below locally; all of them still ship in production.
+const DEV_PROVIDER_ALLOWLIST = new Set([
+  'youtube',
+  'instagram',
+  'spotify',
+  'vimeo',
+  'figma',
+  'twitter-or-x',
+  'tiktok',
+  'facebook',
+  'canva'
+])
+const EMBED_PROVIDER_PATH = /^\/tools\/embed-url\/([^/]+)\/?$/
+
+exports.onCreatePage = ({ page, actions }) => {
+  if (process.env.NODE_ENV !== 'development') return
+
+  const match = page.path.match(EMBED_PROVIDER_PATH)
+  if (!match) return // not a provider subtool page (keeps the tool index)
+  if (DEV_PROVIDER_ALLOWLIST.has(match[1])) return
+
+  actions.deletePage(page)
 }
 
 exports.createPages = ({ graphql, actions }) => {
@@ -193,6 +246,7 @@ const createRecipesPages = async ({ createPage, recipes }) => {
 }
 
 const createMarkdownPages = async ({ graphql, createPage }) => {
+  const PAGE_SOURCES = new Set(['content', 'skills-content'])
   const query = `
   {
     allMdx {
@@ -205,6 +259,11 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
           fields {
             slug
           }
+          parent {
+            ... on File {
+              sourceInstanceName
+            }
+          }
           description: excerpt(pruneLength: 240)
           frontmatter {
             title
@@ -214,6 +273,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
             lastEdited
             isPro
             authors
+            website
+            githubUrl
+            skillUrl
           }
         }
       }
@@ -228,24 +290,48 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
   }
 
   const pages = result.data.allMdx.edges
-    .filter(({ node }) => !node.fields.slug.startsWith('/fragments/'))
+    .filter(({ node }) => {
+      const source = node.parent?.sourceInstanceName
+      const slug = node.fields?.slug || ''
+      return PAGE_SOURCES.has(source) && !slug.startsWith('/fragments/')
+    })
     .map(async ({ node }) => {
       const slug = node.fields.slug.replace(/\/+$/, '')
       const contentFilePath = node.internal.contentFilePath
       const lastEdited = await getLastModifiedDate(contentFilePath)
       const isBlogPage = node.fields.slug.startsWith('/blog/')
+      const isSkillPage = node.fields.slug.startsWith('/skills/')
+      const skillSlug = isSkillPage
+        ? node.fields.slug.split('/').filter(Boolean).pop()
+        : null
       const frontmatter = isBlogPage
-        ? {
-            ...node.frontmatter,
-            title: formatTitle(node.frontmatter.title)
-          }
+        ? { ...node.frontmatter, title: formatTitle(node.frontmatter.title) }
         : node.frontmatter
+      const templatePath = isSkillPage
+        ? path.resolve('./src/templates/skill.js')
+        : path.resolve('./src/templates/index.js')
+      const skillSourcePath =
+        skillSlug &&
+        path.resolve(
+          process.cwd(),
+          'data',
+          'skills-repo',
+          skillSlug,
+          'SKILL.md'
+        )
+      const rawContent = isSkillPage
+        ? existsSync(skillSourcePath)
+          ? readFileSync(skillSourcePath, 'utf8')
+          : readFileSync(contentFilePath, 'utf8')
+        : undefined
+
+      const component = isSkillPage
+        ? templatePath
+        : `${templatePath}?__contentFilePath=${contentFilePath}`
 
       return createPage({
         path: slug,
-        component: `${path.resolve(
-          './src/templates/index.js'
-        )}?__contentFilePath=${contentFilePath}`,
+        component,
         context: {
           id: node.id,
           description: node.frontmatter.description || node.description,
@@ -254,6 +340,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
           lastEdited,
           isBlogPage: node.fields.slug.startsWith('/blog/'),
           isDocPage: node.fields.slug.startsWith('/docs/'),
+          isSkillPage,
+          skillSlug,
+          rawContent,
           slug: node.fields.slug
         }
       })
@@ -263,6 +352,13 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
 }
 
 const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
+  const isPreviewDeployment = process.env.VERCEL_ENV === 'preview'
+
+  if (isPreviewDeployment) {
+    reporter.info('Skipping markdown generation on preview deployment')
+    return
+  }
+
   const query = `
   {
     allMdx(filter: { fields: { slug: { regex: "//docs//" } } }) {
@@ -289,17 +385,27 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
 
   const baseUrl =
     process.env.MICROLINK_MARKDOWN_BASE_URL || 'https://microlink.io'
+
   const pages = result.data.allMdx.edges
 
-  for (const { node } of pages) {
-    const slug = node.fields.slug.replace(/\/+$/, '')
-    const url = new URL(slug, baseUrl).toString()
-    const markdown = await toMarkdown(url)
-    const relative = `${slug.replace(/^\/+/, '')}.md`
-    const outputPath = path.join(process.cwd(), 'public', relative)
-    mkdirSync(path.dirname(outputPath), { recursive: true })
-    writeFileSync(outputPath, markdown || '')
-  }
+  const startTime = Date.now()
+  await pMap(
+    pages,
+    async ({ node }) => {
+      const slug = node.fields.slug.replace(/\/+$/, '')
+      const url = new URL(slug, baseUrl).toString()
+      const { markdown, duration } = await toMarkdown(url)
+      reporter.info(`Generating markdown for ${url} in ${duration}`)
+      const relative = `${slug.replace(/^\/+/, '')}.md`
+      const outputPath = path.join(process.cwd(), 'public', relative)
+      mkdirSync(path.dirname(outputPath), { recursive: true })
+      writeFileSync(outputPath, markdown || '')
+    },
+    { concurrency: 4 }
+  )
+  const duration = Date.now() - startTime
 
-  reporter.info(`Generated ${pages.length} docs markdown files`)
+  reporter.info(
+    `Generated ${pages.length} docs markdown files in ${duration}ms`
+  )
 }

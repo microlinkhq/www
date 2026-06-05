@@ -1,11 +1,52 @@
+### May 2026
+
+- [Microlink](/): Added [embed](/embed) tool.
+- [Microlink](/): Added [link-preview](/link-preview) page.
+- [Microlink](/): Added [customers](/customers) page.
+- [Microlink](/): Revamped [SDK](/sdk) landing.
+- [Microlink](/): Added feature landings for [proxy](/feature/proxy), [ttl](/feature/ttl), and [headers](/feature/headers).
+- [Microlink API](/docs/api/getting-started/overview): Made [function](/docs/api/parameters/function) available for free users with resource limits.
+- [Microlink API](/docs/api/getting-started/overview): Added [cacheKey](/docs/api/parameters/cacheKey) query parameter (PRO).
+- [Microlink API](/docs/api/getting-started/overview): Improved [markdown](/docs/api/parameters/markdown) rendering.
+- [Microlink API](/docs/api/getting-started/overview): Improved Twitter/X URLs resolution.
+- [Browserless v13](https://browserless.js.org): Upgraded to Puppeteer 25.
+- [unavatar.io](https://unavatar.io): Added [npm](https://unavatar.io/npm), [Product Hunt](https://unavatar.io/producthunt), [Docker Hub](https://unavatar.io/dockerhub), [CodePen](https://unavatar.io/codepen), [Hugging Face](https://unavatar.io/huggingface), [Thingiverse](https://unavatar.io/thingiverse), and [Cults3D](https://unavatar.io/cults3d) support.
+
+### April 2026
+
+- [Microlink](/): Added detailed [pricing](/pricing) page.
+- [Metascraper v5.50](https://metascraper.js.org): Added Reddit integration.
+- [Microlink API](/docs/api/getting-started/overview): Added [JSON](/docs/guides/data-extraction) data extraction support.
+- [Microlink API](/docs/api/getting-started/overview): Improved [markdown](/docs/api/parameters/markdown) table and code block rendering.
+- [Microlink API](/docs/api/getting-started/overview): Improved Reddit, Instagram, and LinkedIn URLs resolution.
+- [Microlink CLI](https://github.com/microlinkhq/cli): Added [headers](/docs/api/parameters/headers) support.
+- [unavatar.io](https://unavatar.io): Added [Pinterest](https://unavatar.io/pinterest), [Snapchat](https://unavatar.io/snapchat), [Discord](https://unavatar.io/discord), [Behance](https://unavatar.io/behance), [Threads](https://unavatar.io/threads), [Steam](https://unavatar.io/steam), [Tumblr](https://unavatar.io/tumblr), [Facebook](https://unavatar.io/facebook), [Flickr](https://unavatar.io/flickr), [Stack Overflow](https://unavatar.io/stackoverflow), [Buy Me a Coffee](https://unavatar.io/buymeacoffee), [Google Play](https://unavatar.io/googleplay), [Apple Store](https://unavatar.io/applestore), [Xbox Gamertag](https://unavatar.io/xboxgamertag), and [PSN Profiles](https://unavatar.io/psnprofiles) support.
+- [unavatar.io](https://unavatar.io): [GitHub](https://unavatar.io/github) now supports email avatar lookup.
+- [unavatar.io](https://unavatar.io): [Gravatar](https://unavatar.io/gravatar) now accepts pre-computed MD5/SHA256 hash as input.
+
+### March 2026
+
+- [Optimo](https://x.com/microlinkhq/status/2034224454033723796): Introduced Optimo.
+- [Microlink](/): Added [skills](/skills) page.
+- [Microlink API](/docs): Added [guides](/docs/guides).
+- [unavatar.io](https://unavatar.io): Added [Mastodon](https://unavatar.io/#/?id=mastodon) support.
+- [unavatar.io](https://unavatar.io): Added [LinkedIn](https://unavatar.io/#/?id=linkedin) support.
+
+### February 2026
+
+- [Microlink](/): Added [markdown](/markdown) page.
+- [Microlink Blog](/blog): Published [Documentation as markdown](/blog/documentation-as-markdown).
+- [Microlink Blog](/blog): Published [Microlink AdBlock now handles cookie banners](/blog/microlink-adblock-now-handles-cookie-banners).
+
 ### January 2025
 
 - [Microlink API](/docs/api/getting-started/overview): Improved [Dribbble](https://x.com/microlinkhq/status/2017919456463265976) URLs resolution.
 - [Microlink API](/docs/api/getting-started/overview): Better [Bluesky](https://x.com/microlinkhq/status/2016431365592437183) support.
+- [Microlink Tools](/tools): Added [sharing-debugger](/tools/sharing-debugger) page.
 
 ### December 2025
 
-- [Microlink API](/docs/api/getting-started/overview): Improved infrastructure for transparent [antibot](/blog/antibot-at-scale) resolution.
+- [Microlink API](/docs/api/getting-started/overview): Improved infrastructure for transparent [antibot](/blog/antibot-detection-at-scale) resolution.
 - [Metascraper](https://metascraper.js.org): Improved X integration (formerly Twitter).
 
 ### November 2025
@@ -234,7 +275,7 @@
 - [Metascraper v5.25.0](https://metascraper.js.org): Improved highest resolution logo detection and PWA manifest integration.
 - [Microlink Recipes](/recipes): Added [emails](/recipes/emails) recipe.
 - [Microlink MQL](/docs/mql/getting-started/overview): Added [email](/docs/mql/data/type) as type.
-- [Microlink Security](/.well-known/security.txt): Special thanks to [Daniel Wang](https://danielwang.dev) for improving service security.
+- [Microlink Security](/.well-known/security.txt): Special thanks to Daniel Wang for improving service security.
 - [Microlink API](/docs/api/getting-started/overview): Added [efatalclient](https://microlink.io/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](https://microlink.io/docs/api/basics/error-codes#eforbiddenurl) error codes.
 
 ### September 2021

@@ -1,4 +1,5 @@
 {
+  "installCommand": "NODE_ENV=development npm install --legacy-peer-deps",
   "headers": [
     {
       "source": "/static/(.*)",
@@ -54,7 +55,7 @@
       "headers": [
         {
           "key": "content-security-policy",
-          "value": "frame-src https://www.youtube-nocookie.com https://lighthouse.microlink.io https://cdn.microlink.io https://docs.google.com; frame-ancestors 'self'; upgrade-insecure-requests"
+          "value": "frame-src https:; frame-ancestors 'self'; upgrade-insecure-requests"
         },
         {
           "key": "cross-origin-opener-policy",
@@ -113,16 +114,16 @@
       "destination": "/docs/api/getting-started/overview"
     },
     {
+      "source": "/guides",
+      "destination": "/docs/guides"
+    },
+    {
       "source": "/audio",
       "destination": "/docs/api/parameters/audio"
     },
     {
       "source": "/cache",
       "destination": "/docs/api/basics/cache"
-    },
-    {
-      "source": "/cli",
-      "destination": "/docs/api/getting-started/cli"
     },
     {
       "source": "/codes",
@@ -139,6 +140,10 @@
     {
       "source": "/ebrwsrtimeout",
       "destination": "/docs/api/basics/error-codes#ebrwsrtimeout"
+    },
+    {
+      "source": "/ecachekey",
+      "destination": "/docs/api/basics/error-codes#ecachekey"
     },
     {
       "source": "/eauth",
@@ -175,10 +180,6 @@
     {
       "source": "/emaxredirects",
       "destination": "/docs/api/basics/error-codes#emaxredirects"
-    },
-    {
-      "source": "/embed",
-      "destination": "/docs/api/parameters/embed"
     },
     {
       "source": "/emulation",
@@ -255,10 +256,6 @@
     {
       "source": "/prerender",
       "destination": "/docs/api/parameters/prerender"
-    },
-    {
-      "source": "/pricing",
-      "destination": "/#pricing"
     },
     {
       "source": "/proxy",

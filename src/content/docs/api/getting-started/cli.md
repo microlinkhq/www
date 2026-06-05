@@ -3,15 +3,19 @@ title: 'CLI'
 description: 'Install and use the CLI to interact with the API from your terminal. Perform requests, authenticate via API keys, and format JSON output.'
 ---
 
-import { Terminal } from 'components/markdown/Terminal'
+import { CodeEditor } from 'components/markdown/CodeEditor'
 
 We provide a command-line interface for interacting with [Microlink API](/docs/api/getting-started/overview/) from your terminal, available as an [npm package](https://www.npmjs.com/package/@microlink/cli).
 
-<Terminal>npm install @microlink/cli --global</Terminal>
+<CodeEditor language='shell' autoHeight showFade={false} showTitle={false} blinkCursor>
+npm install @microlink/cli --global
+</CodeEditor>
 
 Alternatively, if you have [npx](https://www.npmjs.com/package/npx), you can just run it.
 
-<Terminal>npx install @microlink/cli --help</Terminal>
+<CodeEditor language='shell' autoHeight showFade={false} showTitle={false} blinkCursor>
+npx @microlink/cli --help
+</CodeEditor>
 
 After that, `microlink` command will be available in your system.
 

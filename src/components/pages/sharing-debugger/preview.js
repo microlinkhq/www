@@ -1,6 +1,7 @@
 import React from 'react'
 import { theme, layout } from 'theme'
 import { MoreVertical, Grid } from 'react-feather'
+import prependHttp from 'prepend-http'
 import Image from 'components/elements/Image/Image'
 import Text from 'components/elements/Text'
 import Flex from 'components/elements/Flex'
@@ -8,6 +9,61 @@ import Box from 'components/elements/Box'
 
 const FALLBACK_IMAGE =
   'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PC9zdmc+'
+
+const FALLBACK_TITLE = 'No title found'
+const FALLBACK_DESCRIPTION =
+  'No description was found. Add one to improve how this page appears when shared.'
+const FALLBACK_PUBLISHER = 'Unknown publisher'
+const FALLBACK_URL = 'No canonical URL found'
+const PREVIEW_TIME = '12:34'
+
+const getUrl = metadata =>
+  typeof metadata?.url === 'string' ? metadata.url.trim() : ''
+
+const getParsedUrl = metadata => {
+  const value = getUrl(metadata)
+
+  if (!value) return null
+
+  try {
+    return new URL(prependHttp(value))
+  } catch {
+    return null
+  }
+}
+
+const getHostname = metadata => getParsedUrl(metadata)?.hostname || ''
+
+const getTitle = metadata => {
+  const value = metadata?.title
+
+  return typeof value === 'string' && value.trim()
+    ? value.trim()
+    : FALLBACK_TITLE
+}
+
+const getGoogleTitle = metadata => {
+  const title = getTitle(metadata)
+
+  return title.includes(' — ') ? title.split(' — ')[1] : title
+}
+
+const getDescription = metadata => {
+  const value = metadata?.description
+
+  return typeof value === 'string' && value.trim()
+    ? value.trim()
+    : FALLBACK_DESCRIPTION
+}
+
+const getPublisher = metadata =>
+  metadata?.publisher || getHostname(metadata) || FALLBACK_PUBLISHER
+
+const getImageUrl = metadata => metadata?.image?.url || FALLBACK_IMAGE
+
+const getLogoUrl = metadata => metadata?.logo?.url || ''
+
+const getDisplayUrl = metadata => getUrl(metadata) || FALLBACK_URL
 
 const GoogleIcon = ({ size, ...props }) => (
   <Box
@@ -103,18 +159,15 @@ const TelegramIcon = ({ size, ...props }) => (
 )
 
 const GooglePreview = ({ metadata }) => {
-  const domain = (() => {
-    try {
-      return new URL(metadata.url).hostname
-    } catch (e) {
-      return ''
-    }
-  })()
+  const domain = getHostname(metadata)
+  const title = getGoogleTitle(metadata)
+  const url = getDisplayUrl(metadata)
+  const logoUrl = getLogoUrl(metadata)
 
   return (
     <Box>
       <Flex css={theme({ alignItems: 'center', mb: 2 })}>
-        {metadata.logo && (
+        {logoUrl && (
           <Flex
             css={theme({
               bg: 'white',
@@ -131,8 +184,8 @@ const GooglePreview = ({ metadata }) => {
             })}
           >
             <Image
-              src={metadata.logo.url}
-              alt={domain}
+              src={logoUrl}
+              alt={domain || 'Site logo'}
               width='18px'
               height='18px'
             />
@@ -158,7 +211,7 @@ const GooglePreview = ({ metadata }) => {
                 lineHeight: '18px'
               })}
             >
-              {metadata.url}
+              {url}
             </Text>
             <Flex css={theme({ ml: 1, color: 'black40' })}>
               <MoreVertical size={14} />
@@ -176,9 +229,7 @@ const GooglePreview = ({ metadata }) => {
           fontFamily: 'sans'
         })}
       >
-        {metadata.title.includes(' — ')
-          ? metadata.title.split(' — ')[1]
-          : metadata.title}
+        {title}
       </Text>
       <Text
         css={theme({
@@ -188,258 +239,283 @@ const GooglePreview = ({ metadata }) => {
           fontFamily: 'sans'
         })}
       >
-        {metadata.description}
+        {getDescription(metadata)}
       </Text>
     </Box>
   )
 }
 
-const XPreview = ({ metadata }) => (
-  <Box css={theme({ maxWidth: ['100%', layout.small] })}>
+const XPreview = ({ metadata }) => {
+  const title = getTitle(metadata)
+  const hostname = getHostname(metadata)
+
+  return (
+    <Box css={theme({ maxWidth: ['100%', layout.small] })}>
+      <Box
+        css={theme({
+          border: 1,
+          borderRadius: '12px',
+          overflow: 'hidden',
+          bg: 'white',
+          borderColor: 'black10',
+          position: 'relative'
+        })}
+      >
+        <Image
+          src={getImageUrl(metadata)}
+          alt={title}
+          css={theme({
+            width: '100%',
+            height: ['200px', '325px'],
+            display: 'block',
+            objectFit: 'scale-down'
+          })}
+        />
+        <Box
+          css={theme({
+            position: 'absolute',
+            bottom: '12px',
+            left: '12px',
+            px: '8px',
+            bg: 'rgba(0, 0, 0, 0.77)',
+            borderRadius: '4px',
+            maxWidth: 'calc(100% - 24px)'
+          })}
+        >
+          <Text
+            css={theme({
+              color: 'white',
+              fontSize: '13px',
+              fontFamily: 'sans',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              fontWeight: 'regular'
+            })}
+          >
+            {title}
+          </Text>
+        </Box>
+      </Box>
+      <Text
+        css={theme({
+          fontSize: '13px',
+          color: 'black40',
+          mt: 2,
+          fontFamily: 'sans'
+        })}
+      >
+        {hostname ? `From ${hostname}` : 'No URL found'}
+      </Text>
+    </Box>
+  )
+}
+
+const FacebookPreview = ({ metadata }) => {
+  const title = getTitle(metadata)
+  const hostname = getHostname(metadata)
+
+  return (
+    <Flex
+      css={theme({
+        border: 1,
+        overflow: 'hidden',
+        bg: 'white',
+        borderColor: 'black10',
+        maxWidth: ['100%', layout.small],
+        mx: 'auto',
+        height: ['300px', '400px'],
+        flexDirection: 'column'
+      })}
+    >
+      <Box css={theme({ height: ['200px', '310px'], bg: 'white' })}>
+        <Image
+          src={getImageUrl(metadata)}
+          alt={title}
+          css={theme({
+            width: '100%',
+            height: '100%',
+            objectFit: 'scale-down',
+            display: 'block'
+          })}
+        />
+      </Box>
+      <Flex
+        css={theme({
+          px: 3,
+          bg: '#F2F3F5',
+          borderTop: 1,
+          borderColor: 'black10',
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'center'
+        })}
+      >
+        <Text
+          css={theme({
+            color: '#606770',
+            fontSize: '12px',
+            textTransform: 'uppercase',
+            maxWidth: '80%',
+            mb: 1
+          })}
+        >
+          {hostname || 'No domain found'}
+        </Text>
+        <Text
+          css={theme({
+            fontWeight: 'bold',
+            color: '#1d2129',
+            fontSize: '16px',
+            maxWidth: '80%',
+            lineHeight: '20px'
+          })}
+        >
+          {title}
+        </Text>
+      </Flex>
+    </Flex>
+  )
+}
+
+const LinkedInPreview = ({ metadata }) => {
+  const title = getTitle(metadata)
+  const hostname = getHostname(metadata)
+
+  return (
     <Box
       css={theme({
         border: 1,
         borderRadius: '12px',
         overflow: 'hidden',
-        bg: 'white',
         borderColor: 'black10',
-        position: 'relative'
+        maxWidth: ['100%', layout.small],
+        mx: 'auto',
+        px: [2, 0]
       })}
     >
-      <Image
-        src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
-        alt={metadata.title}
-        css={theme({
-          width: '100%',
-          height: ['200px', '325px'],
-          display: 'block',
-          objectFit: 'scale-down'
-        })}
-      />
-      <Box
-        css={theme({
-          position: 'absolute',
-          bottom: '12px',
-          left: '12px',
-          px: '8px',
-          bg: 'rgba(0, 0, 0, 0.77)',
-          borderRadius: '4px',
-          maxWidth: 'calc(100% - 24px)'
-        })}
-      >
+      <Box css={theme({ height: ['200px', '310px'], bg: 'white' })}>
+        <Image
+          src={getImageUrl(metadata)}
+          alt={title}
+          css={theme({
+            width: '100%',
+            height: '100%',
+            objectFit: 'scale-down',
+            display: 'block'
+          })}
+        />
+      </Box>
+      <Box css={theme({ p: 3, bg: 'white' })}>
         <Text
           css={theme({
-            color: 'white',
-            fontSize: '13px',
+            fontWeight: 'bold',
+            fontSize: '14px',
+            color: 'black',
+            mb: '4px',
             fontFamily: 'sans',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            fontWeight: 'regular'
+            overflow: 'hidden'
           })}
         >
-          {metadata.title}
+          {title}
+        </Text>
+        <Text
+          css={theme({
+            color: 'black60',
+            fontSize: '12px',
+            fontFamily: 'sans'
+          })}
+        >
+          {hostname || 'No domain found'}
         </Text>
       </Box>
     </Box>
-    <Text
+  )
+}
+
+const SlackPreview = ({ metadata }) => {
+  const title = getTitle(metadata)
+  const publisher = getPublisher(metadata)
+  const logoUrl = getLogoUrl(metadata)
+  const imageUrl = getImageUrl(metadata)
+
+  return (
+    <Box
       css={theme({
-        fontSize: '13px',
-        color: 'black40',
-        mt: 2,
-        fontFamily: 'sans'
+        borderLeft: '4px solid',
+        borderColor: '#e8e8e8',
+        pl: [2, 3],
+        py: 1
       })}
     >
-      From {metadata.url ? new URL(metadata.url).hostname : ''}
-    </Text>
-  </Box>
-)
-
-const FacebookPreview = ({ metadata }) => (
-  <Flex
-    css={theme({
-      border: 1,
-      overflow: 'hidden',
-      bg: 'white',
-      borderColor: 'black10',
-      maxWidth: ['100%', layout.small],
-      mx: 'auto',
-      height: ['300px', '400px'],
-      flexDirection: 'column'
-    })}
-  >
-    <Box css={theme({ height: ['200px', '310px'], bg: 'white' })}>
-      <Image
-        src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
-        alt={metadata.title}
-        css={theme({
-          width: '100%',
-          height: '100%',
-          objectFit: 'scale-down',
-          display: 'block'
-        })}
-      />
-    </Box>
-    <Flex
-      css={theme({
-        px: 3,
-        bg: '#F2F3F5',
-        borderTop: 1,
-        borderColor: 'black10',
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center'
-      })}
-    >
+      <Flex css={theme({ alignItems: 'center', mb: 1, gap: 2 })}>
+        {logoUrl && (
+          <Image
+            src={logoUrl}
+            alt={publisher}
+            width='16px'
+            height='16px'
+            borderRadius='2px'
+          />
+        )}
+        <Text
+          css={theme({
+            fontWeight: 900,
+            color: 'rgb(29, 28, 29)',
+            fontSize: '15px',
+            fontFamily: 'sans'
+          })}
+        >
+          {publisher}
+        </Text>
+      </Flex>
       <Text
         css={theme({
-          color: '#606770',
-          fontSize: '12px',
-          textTransform: 'uppercase',
-          maxWidth: '80%',
-          mb: 1
-        })}
-      >
-        {metadata.url ? new URL(metadata.url).hostname : ''}
-      </Text>
-      <Text
-        css={theme({
-          fontWeight: 'bold',
-          color: '#1d2129',
-          fontSize: '16px',
-          maxWidth: '80%',
-          lineHeight: '20px'
-        })}
-      >
-        {metadata.title}
-      </Text>
-    </Flex>
-  </Flex>
-)
-
-const LinkedInPreview = ({ metadata }) => (
-  <Box
-    css={theme({
-      border: 1,
-      borderRadius: '12px',
-      overflow: 'hidden',
-      borderColor: 'black10',
-      maxWidth: ['100%', layout.small],
-      mx: 'auto',
-      px: [2, 0]
-    })}
-  >
-    <Box css={theme({ height: ['200px', '310px'], bg: 'white' })}>
-      <Image
-        src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
-        alt={metadata.title}
-        css={theme({
-          width: '100%',
-          height: '100%',
-          objectFit: 'scale-down',
-          display: 'block'
-        })}
-      />
-    </Box>
-    <Box css={theme({ p: 3, bg: 'white' })}>
-      <Text
-        css={theme({
-          fontWeight: 'bold',
-          fontSize: '14px',
-          color: 'black',
-          mb: '4px',
-          fontFamily: 'sans',
-          overflow: 'hidden'
-        })}
-      >
-        {metadata.title}
-      </Text>
-      <Text
-        css={theme({ color: 'black60', fontSize: '12px', fontFamily: 'sans' })}
-      >
-        {metadata.url ? new URL(metadata.url).hostname : ''}
-      </Text>
-    </Box>
-  </Box>
-)
-
-const SlackPreview = ({ metadata }) => (
-  <Box
-    css={theme({
-      borderLeft: '4px solid',
-      borderColor: '#e8e8e8',
-      pl: [2, 3],
-      py: 1
-    })}
-  >
-    <Flex css={theme({ alignItems: 'center', mb: 1, gap: 2 })}>
-      {metadata.logo && (
-        <Image
-          src={metadata.logo.url}
-          alt={metadata.publisher}
-          width='16px'
-          height='16px'
-          borderRadius='2px'
-        />
-      )}
-      <Text
-        css={theme({
-          fontWeight: 900,
-          color: 'rgb(29, 28, 29)',
+          fontWeight: 700,
+          color: 'rgb(18, 100, 163)',
           fontSize: '15px',
+          mb: '2px',
           fontFamily: 'sans'
         })}
       >
-        {metadata.publisher}
+        {title}
       </Text>
-    </Flex>
-    <Text
-      css={theme({
-        fontWeight: 700,
-        color: 'rgb(18, 100, 163)',
-        fontSize: '15px',
-        mb: '2px',
-        fontFamily: 'sans'
-      })}
-    >
-      {metadata.title}
-    </Text>
-    <Box css={theme({ mb: 2 })}>
-      <Text
+      <Box css={theme({ mb: 2 })}>
+        <Text
+          css={theme({
+            color: 'rgb(29, 28, 29)',
+            fontSize: '15px',
+            fontFamily: 'sans'
+          })}
+        >
+          {getDescription(metadata)}{' '}
+          {metadata.image &&
+            metadata.image.size_pretty &&
+            `(${metadata.image.size_pretty})`}
+        </Text>
+      </Box>
+      <Image
+        src={imageUrl}
+        alt={title}
         css={theme({
-          color: 'rgb(29, 28, 29)',
-          fontSize: '15px',
-          fontFamily: 'sans'
+          maxWidth: ['100%', '280px'],
+          maxHeight: '150px',
+          objectFit: 'cover',
+          borderRadius: '8px',
+          border: 1,
+          borderColor: 'black10'
         })}
-      >
-        {metadata.description}{' '}
-        {metadata.image &&
-          metadata.image.size_pretty &&
-          `(${metadata.image.size_pretty})`}
-      </Text>
+      />
     </Box>
-    <Image
-      src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
-      alt={metadata.title}
-      css={theme({
-        maxWidth: ['100%', '280px'],
-        maxHeight: '150px',
-        objectFit: 'cover',
-        borderRadius: '8px',
-        border: 1,
-        borderColor: 'black10'
-      })}
-    />
-  </Box>
-)
+  )
+}
 
 const WhatsAppPreview = ({ metadata }) => {
-  const domain = metadata.url ? new URL(metadata.url).hostname : ''
-  const time = new Date().toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false
-  })
+  const domain = getHostname(metadata)
+  const logoUrl = getLogoUrl(metadata)
+  const title = getTitle(metadata)
+  const description = getDescription(metadata)
+  const url = getDisplayUrl(metadata)
 
   return (
     <Box
@@ -460,8 +536,8 @@ const WhatsAppPreview = ({ metadata }) => {
         })}
       >
         <Image
-          src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
-          alt={metadata.title}
+          src={getImageUrl(metadata)}
+          alt={title}
           css={theme({ width: '100%', height: 'auto', display: 'block' })}
         />
         <Box css={theme({ p: '10px' })}>
@@ -474,7 +550,7 @@ const WhatsAppPreview = ({ metadata }) => {
               mb: 1
             })}
           >
-            {metadata.title}
+            {title}
           </Text>
           <Text
             css={theme({
@@ -483,7 +559,7 @@ const WhatsAppPreview = ({ metadata }) => {
               mb: 1
             })}
           >
-            {metadata.description}
+            {description}
           </Text>
           <Flex
             css={theme({
@@ -500,13 +576,8 @@ const WhatsAppPreview = ({ metadata }) => {
             >
               {domain}
             </Text>
-            {metadata.logo && (
-              <Image
-                src={metadata.logo.url}
-                alt={domain}
-                width='18px'
-                height='18px'
-              />
+            {logoUrl && (
+              <Image src={logoUrl} alt={domain} width='18px' height='18px' />
             )}
           </Flex>
         </Box>
@@ -532,7 +603,7 @@ const WhatsAppPreview = ({ metadata }) => {
             whiteSpace: 'nowrap'
           })}
         >
-          {metadata.url}
+          {url}
         </Text>
 
         <Flex
@@ -549,7 +620,7 @@ const WhatsAppPreview = ({ metadata }) => {
               color: '#8696a0'
             })}
           >
-            Edited {time}
+            Edited {PREVIEW_TIME}
           </Text>
           <Text
             css={theme({
@@ -565,39 +636,55 @@ const WhatsAppPreview = ({ metadata }) => {
   )
 }
 
-const TelegramPreview = ({ metadata }) => (
-  <Box
-    css={theme({
-      bg: '#766BC8',
-      p: 2,
-      borderRadius: '12px',
-      maxWidth: ['100%', `calc(${layout.small} * 0.75)`],
-      color: 'white',
-      fontFamily: 'sans'
-    })}
-  >
-    <Text
-      css={theme({
-        fontSize: '14px',
-        mb: 2,
-        textDecoration: 'underline',
-        cursor: 'pointer',
-        display: 'block'
-      })}
-    >
-      {metadata.url}
-    </Text>
+const TelegramPreview = ({ metadata }) => {
+  const title = getTitle(metadata)
+  const publisher = getPublisher(metadata)
+  const description = getDescription(metadata)
+  const url = getDisplayUrl(metadata)
 
+  return (
     <Box
       css={theme({
-        borderRadius: '3px',
-        borderLeft: '.1875rem solid white',
-        bg: '#8775DA',
+        bg: '#766BC8',
+        p: 2,
+        borderRadius: '12px',
+        maxWidth: ['100%', `calc(${layout.small} * 0.75)`],
         color: 'white',
-        p: 2
+        fontFamily: 'sans'
       })}
     >
-      {metadata.publisher && (
+      <Text
+        css={theme({
+          fontSize: '14px',
+          mb: 2,
+          textDecoration: 'underline',
+          cursor: 'pointer',
+          display: 'block'
+        })}
+      >
+        {url}
+      </Text>
+
+      <Box
+        css={theme({
+          borderRadius: '3px',
+          borderLeft: '.1875rem solid white',
+          bg: '#8775DA',
+          color: 'white',
+          p: 2
+        })}
+      >
+        {publisher && (
+          <Text
+            css={theme({
+              fontWeight: 'bold',
+              fontSize: '14px',
+              mb: '2px'
+            })}
+          >
+            {publisher}
+          </Text>
+        )}
         <Text
           css={theme({
             fontWeight: 'bold',
@@ -605,145 +692,139 @@ const TelegramPreview = ({ metadata }) => (
             mb: '2px'
           })}
         >
-          {metadata.publisher}
+          {title}
         </Text>
-      )}
-      <Text
+        <Box css={theme({ mb: 2 })}>
+          <Text
+            css={theme({
+              fontSize: '14px',
+              lineHeight: 1.4
+            })}
+          >
+            {description}
+          </Text>
+        </Box>
+        <Image
+          src={getImageUrl(metadata)}
+          alt={title}
+          css={theme({
+            borderRadius: '4px',
+            display: 'block'
+          })}
+        />
+      </Box>
+
+      <Flex
         css={theme({
-          fontWeight: 'bold',
-          fontSize: '14px',
-          mb: '2px'
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          mt: 1,
+          opacity: 0.8
         })}
       >
-        {metadata.title}
-      </Text>
-      <Box css={theme({ mb: 2 })}>
         <Text
           css={theme({
-            fontSize: '14px',
-            lineHeight: 1.4
+            fontSize: '11px',
+            mr: 1
           })}
         >
-          {metadata.description}
+          edited {PREVIEW_TIME}
         </Text>
-      </Box>
-      <Image
-        src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
-        alt={metadata.title}
-        css={theme({
-          borderRadius: '4px',
-          display: 'block'
-        })}
-      />
+        <Text
+          css={theme({
+            fontSize: '11px',
+            fontWeight: 'bold'
+          })}
+        >
+          ✓
+        </Text>
+      </Flex>
     </Box>
+  )
+}
 
-    <Flex
-      css={theme({
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        mt: 1,
-        opacity: 0.8
-      })}
-    >
-      <Text
-        css={theme({
-          fontSize: '11px',
-          mr: 1
-        })}
-      >
-        edited{' '}
-        {new Date().toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit'
-        })}
-      </Text>
-      <Text
-        css={theme({
-          fontSize: '11px',
-          fontWeight: 'bold'
-        })}
-      >
-        ✓
-      </Text>
-    </Flex>
-  </Box>
-)
+const DiscordPreview = ({ metadata }) => {
+  const title = getTitle(metadata)
+  const description = getDescription(metadata)
+  const publisher = getPublisher(metadata)
+  const url = getDisplayUrl(metadata)
 
-const DiscordPreview = ({ metadata }) => (
-  <Box
-    css={theme({
-      bg: '#313338',
-      p: [2, 3],
-      borderRadius: 4,
-      maxWidth: ['100%', '432px'],
-      fontFamily: 'sans'
-    })}
-  >
-    <Text
-      css={theme({
-        color: '#00A8FC',
-        fontSize: 1,
-        mb: 2,
-        '&:hover': { textDecoration: 'underline' },
-        cursor: 'pointer'
-      })}
-    >
-      {metadata.url}
-    </Text>
+  return (
     <Box
       css={theme({
-        bg: '#2B2D31',
-        p: 3,
-        borderRadius: 1,
-        maxWidth: 'fit-content'
+        bg: '#313338',
+        p: [2, 3],
+        borderRadius: 4,
+        maxWidth: ['100%', '432px'],
+        fontFamily: 'sans'
       })}
     >
-      {metadata.publisher && (
-        <Text
-          css={theme({
-            color: '#B5BAC1',
-            fontSize: '12px',
-            fontWeight: 500,
-            mb: 1
-          })}
-        >
-          {metadata.publisher}
-        </Text>
-      )}
       <Text
         css={theme({
           color: '#00A8FC',
           fontSize: 1,
-          fontWeight: 'bold',
           mb: 2,
           '&:hover': { textDecoration: 'underline' },
           cursor: 'pointer'
         })}
       >
-        {metadata.title}
+        {url}
       </Text>
-      <Text
+      <Box
         css={theme({
-          color: '#DBDEE1',
-          fontSize: 0,
-          lineHeight: '18px',
-          mb: 3
+          bg: '#2B2D31',
+          p: 3,
+          borderRadius: 1,
+          maxWidth: 'fit-content'
         })}
       >
-        {metadata.description}
-      </Text>
-      <Image
-        src={metadata.image ? metadata.image.url : FALLBACK_IMAGE}
-        alt={metadata.title}
-        css={theme({
-          borderRadius: 4,
-          maxWidth: '100%',
-          mt: 3
-        })}
-      />
+        {publisher && (
+          <Text
+            css={theme({
+              color: '#B5BAC1',
+              fontSize: '12px',
+              fontWeight: 500,
+              mb: 1
+            })}
+          >
+            {publisher}
+          </Text>
+        )}
+        <Text
+          css={theme({
+            color: '#00A8FC',
+            fontSize: 1,
+            fontWeight: 'bold',
+            mb: 2,
+            '&:hover': { textDecoration: 'underline' },
+            cursor: 'pointer'
+          })}
+        >
+          {title}
+        </Text>
+        <Text
+          css={theme({
+            color: '#DBDEE1',
+            fontSize: 0,
+            lineHeight: '18px',
+            mb: 3
+          })}
+        >
+          {description}
+        </Text>
+        <Image
+          src={getImageUrl(metadata)}
+          alt={title}
+          css={theme({
+            borderRadius: 4,
+            maxWidth: '100%',
+            mt: 3
+          })}
+        />
+      </Box>
     </Box>
-  </Box>
-)
+  )
+}
 
 export const PREVIEWS = {
   all: { name: 'All', component: null, icon: Grid },

@@ -4,8 +4,11 @@ description: Discover the story behind Microlink, from its Open Source roots wit
 ---
 
 import { Since } from 'components/markdown/Since'
+import { Image } from 'components/markdown/Image'
+import { Signature } from 'components/icons/Signature'
+import { Container } from 'helpers/hoc/with-container'
 
-## Automating the web, for the web.
+<Image src='/images/microlink.jpeg' hoverSrc='/images/microlink-eyes.jpeg' width={500} />
 
 Microlink is created by [Kiko](https://kikobeats.com) as a side project in 2017 (<Since from='2018' /> years ago).
 
@@ -16,6 +19,18 @@ We started to dig deeper and in order to get specific data from the HTML content
 Getting unified metadata is great, but it's not enough. We needed to get specific data from the HTML content behind any URL. So we built [MQL](/docs/mql/getting-started/overview), a client library to get easy to define data rules.
 
 All of this is running when you use [Microlink API](/docs/api/getting-started/overview), a service to automate any browser action.
+
+In January 2026, [Joseba](https://x.com/josebaseba) joined the team.
+
+Kiko and Joseba have known each other since 2012 — two friends who spent years following each other's work from a distance.
+
+In 2014, Joseba co-founded an ed-tech company where he served as CTO for a decade, eventually selling it in 2024. When the earn-out period ended, the decision to join Microlink was a no-brainer: a chance to build something meaningful again, alongside someone he trusted.
+
+Today, Kiko leads as CTO and Joseba as CPO. Both are here for the same reason — to take Microlink as far as it can go.
+
+<Container css={{ pt: 3, display: 'flex', justifyContent: 'center' }}>
+  <Signature width={200} />
+</Container>
 
 ## What we pursue
 

@@ -4,9 +4,9 @@ description: 'Generate high-fidelity screenshots of any website with a single AP
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
-import { Type } from 'components/markdown/Type'
+import { Type, TypeContainer } from 'components/markdown/Type'
 
-Type: <Type children='<boolean>'/><br/>
+Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
 Default: <Type children='false'/>
 
 It generates a screenshot over the target [url](/docs/api/parameters/url).
@@ -42,25 +42,12 @@ Also, combine it with [embed](/docs/api/parameters/embed) for inserting it as HT
 ```html
 <!-- Meta & SEO Tags  -->
 <meta
-  name="image"
-  content="/images/image-2.png"
-/>
-<meta
-  itemprop="image"
-  content="/images/image-1.png"
-/>
-<meta
   property="og:image"
   content="/images/image-1.png"
 />
-<meta
-  name="twitter:image"
-  content="/images/image-1.png"
-/>
-
 <!-- regular HTML Tags  -->
 <img
-  src="https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url"
+  src="/images/image-1.png"
 />
 ```
 
@@ -68,12 +55,12 @@ or inside CSS stylesheets:
 
 ```css
 .screenshot {
-  background-image: url(https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url);
+  background-image: url(/images/image-1.png);
 }
 ```
 
 even in Markdown:
 
 ```md
-![Screenshot](https://api.microlink.io?url=https://www.netflix.com/title/80057281&screenshot=true&meta=false&embed=screenshot.url)
+![Screenshot](/images/image-1.png)
 ```

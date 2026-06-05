@@ -10,7 +10,7 @@ Type: <Type children='<object>'/>
 
 It creates a beauty [screenshot](/docs/api/parameters/screenshot) composition using a browser overlay over the target [url](/docs/api/parameters/url).
 
-<Image src="https://cdn.microlink.io/docs/overlay.png" />
+<Image src="/images/overlay.png" />
 
 <MultiCodeEditorInteractive mqlCode={{
     url: 'https://www.apple.com/music',
@@ -32,4 +32,4 @@ Additionally, you can setup a `background` color, where the color can be defined
  
 - An hexadecimal/rgb/rgba color code (e.g., `'#F76698'`).
 - A [CSS gradient](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient) (e.g., `'linear-gradient(0deg, #330867 0%, #30CFD0 100%)'`).
-- An image url (e.g., `'https://source.unsplash.com/random/1920x1080'`).
+- An image url (e.g., `'https://picsum.photos/1920/1080'`).

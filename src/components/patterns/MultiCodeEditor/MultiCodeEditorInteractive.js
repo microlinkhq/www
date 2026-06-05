@@ -56,6 +56,14 @@ const Content = styled(TerminalText)`
   white-space: pre-wrap;
   word-break: break-word;
   ${theme(fontStyles)}
+
+  code {
+    ${theme({ display: 'block', whiteSpace: 'pre' })}
+  }
+
+  .code-line {
+    ${theme({ display: 'inline-block', width: '100%', mb: 1 })}
+  }
 `
 
 /**
@@ -1050,6 +1058,11 @@ function MultiCodeEditorInteractive ({
     setActiveView(normalizedDefaultView)
   }, [normalizedDefaultView, url])
 
+  React.useEffect(() => {
+    if (!url) return
+    setCode(codeSnippets[currentLanguage] || '')
+  }, [url, currentLanguage, codeSnippets])
+
   useEffect(() => {
     onLoadingChange?.(isLoading)
   }, [isLoading, onLoadingChange])
@@ -1180,6 +1193,7 @@ function MultiCodeEditorInteractive ({
       {/* Interactive UX layer */}
       <div>
         <Terminal
+          blinkCursor={false}
           text={getCurrentViewText()}
           ActionComponent={MemoizedActionComponent}
           css={theme({ width: TERMINAL_WIDTH })}
