@@ -179,8 +179,10 @@ const MediaPlaceholder = () => (
       py: [4, 4, 5, 5],
       width: '100%',
       bg: 'pinky',
-      borderTop: `${borders[1]} ${colors.black10}`,
-      borderBottom: `${borders[1]} ${colors.black10}`
+      borderTop: 1,
+      borderTopColor: 'black10',
+      borderBottom: 1,
+      borderBottomColor: 'black10'
     })}
   >
     <Flex
@@ -252,8 +254,10 @@ const ProductInformation = () => (
     css={theme({
       pt: [4, 4, 5, 5],
       pb: [4, 4, 5, 5],
-      borderTop: `${borders[1]} ${colors.black10}`,
-      borderBottom: `${borders[1]} ${colors.black10}`
+      borderTop: 1,
+      borderTopColor: 'black10',
+      borderBottom: 1,
+      borderBottomColor: 'black10'
     })}
     questions={[
       {
@@ -950,8 +954,8 @@ const examplesCss = `
     100% { transform: scale(1);    opacity: 1; box-shadow: 0 0 0 3px var(--card-accent), 0 0 10px var(--card-accent); }
   }
   @keyframes ex-tool-in {
-    from { letter-spacing: 0; }
-    to   { letter-spacing: 0.04em; }
+    from { transform: scaleX(1); }
+    to   { transform: scaleX(1.04); }
   }
   @keyframes ex-card-in {
     from { opacity: 0; transform: translateY(10px); }
@@ -979,6 +983,7 @@ const examplesCss = `
   }
   .ex-tool {
     transition: color 0.25s ease;
+    transform-origin: left center;
   }
   .ex-card:hover .ex-tool {
     color: var(--card-accent);
@@ -1025,6 +1030,20 @@ const examplesCss = `
   .ex-pill.active .ex-pill-dot {
     opacity: 1;
   }
+  @media (prefers-reduced-motion: reduce) {
+    .ex-card,
+    .ex-ball,
+    .ex-tool,
+    .ex-copy,
+    .ex-pill,
+    .ex-pill-dot {
+      animation: none !important;
+      transition: none !important;
+    }
+    .ex-card:hover .ex-ball {
+      opacity: 1;
+    }
+  }
 `
 
 const ExamplesGrid = () => {
@@ -1046,19 +1065,17 @@ const ExamplesGrid = () => {
     <>
       <style dangerouslySetInnerHTML={{ __html: examplesCss }} />
       <Box
-        css={{
+        css={theme({
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
+          gridTemplateColumns: [
+            'repeat(2, 1fr)',
+            'repeat(3, 1fr)',
+            'repeat(5, 1fr)'
+          ],
           gap: '8px',
-          marginTop: '32px',
-          marginBottom: '8px',
-          '@media screen and (min-width: 480px)': {
-            gridTemplateColumns: 'repeat(3, 1fr)'
-          },
-          '@media screen and (min-width: 768px)': {
-            gridTemplateColumns: 'repeat(5, 1fr)'
-          }
-        }}
+          mt: '32px',
+          mb: '8px'
+        })}
       >
         {TOOLS.map(({ tool, accent }) => (
           <button
@@ -1074,20 +1091,12 @@ const ExamplesGrid = () => {
         ))}
       </Box>
       <Box
-        css={{
+        css={theme({
           display: 'grid',
-          gridTemplateColumns: '1fr',
-          gap: '14px',
-          marginTop: '12px',
-          '@media screen and (min-width: 600px)': {
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '16px'
-          },
-          '@media screen and (min-width: 768px)': {
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '18px'
-          }
-        }}
+          gridTemplateColumns: ['1fr', 'repeat(2, 1fr)', 'repeat(3, 1fr)'],
+          gap: ['14px', '16px', '18px'],
+          mt: '12px'
+        })}
       >
         {visible.map((example, i) => (
           <Flex
@@ -1103,7 +1112,8 @@ const ExamplesGrid = () => {
               borderRadius: '12px',
               padding: '22px 24px',
               backgroundColor: 'white',
-              border: `1px solid ${colors.black10}`,
+              border: borders[1],
+              borderColor: colors.black10,
               '@media screen and (min-width: 768px)': {
                 gridColumn: example.span ? `span ${example.span}` : 'span 1'
               }
@@ -1154,7 +1164,8 @@ const ExamplesGrid = () => {
                 fontSize: '13px',
                 color: colors.black40,
                 lineHeight: 1.45,
-                borderTop: `1px solid ${colors.black10}`,
+                borderTop: borders[1],
+                borderTopColor: colors.black10,
                 paddingTop: '12px'
               }}
             >
@@ -1174,8 +1185,10 @@ const Examples = () => (
     css={theme({
       bg: 'pinky',
       pb: [5, 5, 6, 6],
-      borderTop: `${borders[1]} ${colors.black10}`,
-      borderBottom: `${borders[1]} ${colors.black10}`
+      borderTop: 1,
+      borderTopColor: 'black10',
+      borderBottom: 1,
+      borderBottomColor: 'black10'
     })}
   >
     <Container
@@ -1210,15 +1223,15 @@ const McpPage = () => (
     <Features
       css={theme({ px: 4, py: [5, 5, 6, 6] })}
       title={
-        <Subhead css={{ width: '100%', textAlign: 'left' }}>
+        <Subhead css={theme({ width: '100%', textAlign: 'left' })}>
           Ten tools.{' '}
           <span
-            css={{
+            css={theme({
               display: 'block',
               color: '#7B61FF',
               width: '100%',
               textAlign: 'left'
-            }}
+            })}
           >
             Zero boilerplate.
           </span>
