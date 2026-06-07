@@ -126,6 +126,10 @@
       "destination": "/docs/api/basics/cache"
     },
     {
+      "source": "/cli",
+      "destination": "/integrations/cli"
+    },
+    {
       "source": "/codes",
       "destination": "/docs/api/basics/error-codes"
     },
@@ -272,6 +276,10 @@
     {
       "source": "/scroll",
       "destination": "/docs/api/parameters/scroll"
+    },
+    {
+      "source": "/sdk",
+      "destination": "/integrations/sdk"
     },
     {
       "source": "/timeout",

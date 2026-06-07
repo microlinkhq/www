@@ -271,7 +271,8 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
             <PlanCheck>50 requests / day</PlanCheck>
             <PlanCheck>
               <Link href='/screenshot'>Screenshot</Link>,{' '}
-              <Link href='/pdf'>PDF</Link>, <Link href='/sdk'>SDK</Link>
+              <Link href='/pdf'>PDF</Link>,{' '}
+              <Link href='/integrations/sdk'>SDK</Link>
             </PlanCheck>
             <PlanCheck>
               <Link href='/metadata'>Metadata</Link>,{' '}

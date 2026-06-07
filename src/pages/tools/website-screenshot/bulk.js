@@ -1394,6 +1394,22 @@ const ScreenshotHistory = ({
 
 /* ─── Bulk Preview Panel ──────────────────────────────── */
 
+const failedUrlCss = theme({
+  fontSize: 0,
+  color: 'black80',
+  fontFamily: 'sans',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap'
+})
+
+const failedErrorCss = theme({
+  fontSize: '11px',
+  color: 'black40',
+  fontFamily: 'sans',
+  pt: '2px'
+})
+
 const BulkPreview = ({
   bulkState,
   bulkProgress,
@@ -1692,28 +1708,8 @@ const BulkPreview = ({
                           style={{ flexShrink: 0, marginTop: '5px' }}
                         />
                         <Box css={{ minWidth: 0, flex: 1 }}>
-                          <Text
-                            css={theme({
-                              fontSize: 0,
-                              color: 'black80',
-                              fontFamily: 'sans',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap'
-                            })}
-                          >
-                            {r.url}
-                          </Text>
-                          <Text
-                            css={theme({
-                              fontSize: '11px',
-                              color: 'black40',
-                              fontFamily: 'sans',
-                              pt: '2px'
-                            })}
-                          >
-                            {r.error?.message}
-                          </Text>
+                          <Text css={failedUrlCss}>{r.url}</Text>
+                          <Text css={failedErrorCss}>{r.error?.message}</Text>
                         </Box>
                       </Flex>
                     ))}

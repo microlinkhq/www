@@ -15,6 +15,7 @@ import {
   Layers,
   BarChart2,
   Code,
+  Codesandbox as CodesandboxIcon,
   Image,
   Map,
   Search as SearchIcon,
@@ -35,6 +36,7 @@ import { WandSparkles as WandSparklesIcon } from 'components/icons/WandSparkles'
 import { Globe as GlobeIcon } from 'components/icons/Globe'
 import { Grid as GridIcon } from 'components/icons/Grid'
 import { GitHub as GitHubBrand } from 'components/icons/GitHub'
+import { Brain as BrainIcon } from 'components/icons/Brain'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import { theme } from 'theme'
 import styled from 'styled-components'
@@ -142,8 +144,20 @@ export const SOCIAL_NAV_ITEMS = [
 export const TOOLS_INTEGRATIONS_ITEMS = [
   createNavigationItem({
     label: 'SDK',
-    href: '/sdk',
+    href: '/integrations/sdk',
     description: 'Beautiful link previews',
+    icon: CodesandboxIcon
+  }),
+  createNavigationItem({
+    label: 'MCP',
+    href: '/integrations/mcp',
+    description: 'Give your AI access to the Microlink API',
+    icon: BrainIcon
+  }),
+  createNavigationItem({
+    label: 'CLI',
+    href: '/integrations/cli',
+    description: 'Microlink from your terminal',
     icon: TerminalIcon
   }),
   createNavigationItem({
@@ -151,12 +165,6 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
     href: '/embed/providers',
     description: '300+ embed-ready sites',
     icon: GridIcon
-  }),
-  createNavigationItem({
-    label: 'CLI',
-    href: '/cli',
-    description: 'Microlink from your terminal',
-    icon: TerminalIcon
   }),
   createNavigationItem({
     label: 'Geolocation',

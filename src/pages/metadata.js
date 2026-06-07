@@ -2789,7 +2789,10 @@ const Capabilities = ({ currentUrl, currentData }) => {
               </CopyButton>
             </MetaApiBar>
           </Box>
-          <ArrowLink css={theme({ fontSize: [1, 1, 2, 2] })} href='/sdk'>
+          <ArrowLink
+            css={theme({ fontSize: [1, 1, 2, 2] })}
+            href='/integrations/sdk'
+          >
             Drop-in link previews in one line of code
           </ArrowLink>
         </Flex>
@@ -4662,12 +4665,12 @@ const ProductInformation = () => (
               In minutes. Visit our{' '}
               <Link href='/docs/guides/metadata'>documentation</Link> for
               interactive playground examples, official{' '}
-              <Link href='/sdk'>SDKs</Link> (Node.js, Python, Ruby, Go), and
-              copy-paste code snippets for any language.
+              <Link href='/integrations/sdk'>SDKs</Link> (Node.js, Python, Ruby,
+              Go), and copy-paste code snippets for any language.
             </div>
             <div>
-              The <Link href='/sdk'>Microlink SDK</Link> turns the metadata
-              response into a rendered link preview component with{' '}
+              The <Link href='/integrations/sdk'>Microlink SDK</Link> turns the
+              metadata response into a rendered link preview component with{' '}
               <Link href='/docs/api/parameters/iframe/#providers-supported'>
                 250+ verified providers
               </Link>{' '}

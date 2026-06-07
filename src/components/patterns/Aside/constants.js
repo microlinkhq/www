@@ -179,6 +179,10 @@ const ROUTES_API = [
       {
         name: 'CLI',
         href: '/docs/api/getting-started/cli'
+      },
+      {
+        name: 'MCP',
+        href: '/docs/api/getting-started/mcp'
       }
     ]
   },
