@@ -155,16 +155,16 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
     icon: BrainIcon
   }),
   createNavigationItem({
-    label: 'Embed Providers',
-    href: '/embed/providers',
-    description: '300+ embed-ready sites',
-    icon: GridIcon
-  }),
-  createNavigationItem({
     label: 'CLI',
     href: '/integrations/cli',
     description: 'Microlink from your terminal',
     icon: TerminalIcon
+  }),
+  createNavigationItem({
+    label: 'Embed Providers',
+    href: '/embed/providers',
+    description: '300+ embed-ready sites',
+    icon: GridIcon
   }),
   createNavigationItem({
     label: 'Geolocation',
