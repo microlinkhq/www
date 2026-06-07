@@ -49,10 +49,8 @@ import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
-import Plans, {
-  CurrencyContext,
-  useCurrency
-} from 'components/patterns/Plans/Plans'
+import { CurrencyProvider } from 'components/hook/use-currency'
+import Plans from 'components/patterns/Plans/Plans'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
@@ -2804,14 +2802,10 @@ const CodeExample = () => {
   )
 }
 
-// --- Pricing ---
-
 const Pricing = () => {
   const { canonicalUrl, stripeKey } = useSiteMetadata()
-  const currencyState = useCurrency()
-
   return (
-    <CurrencyContext.Provider value={currencyState}>
+    <CurrencyProvider>
       <Box
         as='section'
         id='pricing'
@@ -2855,7 +2849,7 @@ const Pricing = () => {
           footer='compare'
         />
       </Box>
-    </CurrencyContext.Provider>
+    </CurrencyProvider>
   )
 }
 

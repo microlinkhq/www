@@ -11,10 +11,8 @@ import { useSiteMetadata } from 'components/hook/use-site-meta'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
-import Plans, {
-  CurrencyContext,
-  useCurrency
-} from 'components/patterns/Plans/Plans'
+import { CurrencyProvider } from 'components/hook/use-currency'
+import Plans from 'components/patterns/Plans/Plans'
 import { layout, textGradient, theme } from 'theme'
 import React from 'react'
 
@@ -101,10 +99,8 @@ export const Head = () => {
 
 const HomePage = () => {
   const { canonicalUrl, stripeKey } = useSiteMetadata()
-  const currencyState = useCurrency()
-
   return (
-    <CurrencyContext.Provider value={currencyState}>
+    <CurrencyProvider>
       <Layout>
         <Hero>{({ color }) => <Overlay color={color} />}</Hero>
         <Analytics />
@@ -170,7 +166,7 @@ const HomePage = () => {
         />
         <Faqs />
       </Layout>
-    </CurrencyContext.Provider>
+    </CurrencyProvider>
   )
 }
 
