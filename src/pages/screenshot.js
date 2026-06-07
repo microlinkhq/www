@@ -3519,8 +3519,8 @@ const ProductInformation = () => {
                 In minutes. Visit our{' '}
                 <Link href='/docs/guides/screenshot'>documentation</Link> for
                 interactive playground examples, official{' '}
-                <Link href='/sdk'>SDKs</Link> (Node.js, Python, Ruby, Go), and
-                copy-paste code snippets.
+                <Link href='/integrations/sdk'>SDKs</Link> (Node.js, Python,
+                Ruby, Go), and copy-paste code snippets.
               </div>
               <div>
                 Need architectural advice or have custom requirements? Check our{' '}

@@ -915,7 +915,7 @@ const CAPABILITIES = [
     title: 'Microlink SDK component',
     description:
       'Drop in <Microlink /> for React, Vue, or vanilla JS — under 10KB, lazy-loaded by default. Pass any URL and let the SDK fetch, theme, and render it. Customizable through props, CSS variables, and stable BEM class hooks.',
-    links: [{ label: 'Explore the SDK', href: '/sdk' }]
+    links: [{ label: 'Explore the SDK', href: '/integrations/sdk' }]
   }
 ]
 
@@ -1843,7 +1843,7 @@ const SdkSection = () => (
           })}
         >
           <ArrowLink
-            href='/sdk'
+            href='/integrations/sdk'
             css={theme({ fontSize: ['20px', '20px', '24px', '24px'] })}
           >
             Explore the SDK
@@ -2159,7 +2159,7 @@ const CallToAction = () => (
           Read the embed guide
         </ArrowLink>
         <ArrowLink
-          href='/sdk'
+          href='/integrations/sdk'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
           Use the SDK
@@ -2265,8 +2265,8 @@ const TOP_FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Drop the <Link href='/sdk'>Microlink component</Link> into your markup
-          and pass the URL:
+          Drop the <Link href='/integrations/sdk'>Microlink component</Link>{' '}
+          into your markup and pass the URL:
         </div>
         <Faq.List as='ul'>
           <li>
@@ -2310,8 +2310,8 @@ const TOP_FAQ_ITEMS = [
           full request shape.
         </div>
         <div>
-          The <Link href='/sdk'>Microlink SDK</Link> does the same thing
-          zero-code:{' '}
+          The <Link href='/integrations/sdk'>Microlink SDK</Link> does the same
+          thing zero-code:{' '}
           <code>
             {'<Microlink url="https://tiktok.com/..." media="iframe" />'}
           </code>{' '}
@@ -2782,7 +2782,8 @@ const EmbedPage = () => {
                     One API, every provider, edge-cached worldwide. Step through
                     the workflow in the{' '}
                     <Link href='/docs/guides/embed'>embed guide</Link> — or skip
-                    the markup with the <Link href='/sdk'>Microlink SDK</Link>.
+                    the markup with the{' '}
+                    <Link href='/integrations/sdk'>Microlink SDK</Link>.
                   </>
                 }
                 features={EMBED_FEATURES}

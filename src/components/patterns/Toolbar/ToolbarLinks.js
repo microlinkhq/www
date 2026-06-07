@@ -15,6 +15,7 @@ import {
   Layers,
   BarChart2,
   Code,
+  Codesandbox as CodesandboxIcon,
   Image,
   Map,
   Search as SearchIcon,
@@ -143,9 +144,9 @@ export const SOCIAL_NAV_ITEMS = [
 export const TOOLS_INTEGRATIONS_ITEMS = [
   createNavigationItem({
     label: 'SDK',
-    href: '/sdk',
+    href: '/integrations/sdk',
     description: 'Beautiful link previews',
-    icon: TerminalIcon
+    icon: CodesandboxIcon
   }),
   createNavigationItem({
     label: 'MCP',
@@ -161,7 +162,7 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
   }),
   createNavigationItem({
     label: 'CLI',
-    href: '/cli',
+    href: '/integrations/cli',
     description: 'Microlink from your terminal',
     icon: TerminalIcon
   }),

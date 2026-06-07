@@ -274,6 +274,10 @@
       "destination": "/docs/api/parameters/scroll"
     },
     {
+      "source": "/sdk",
+      "destination": "/integrations/sdk"
+    },
+    {
       "source": "/timeout",
       "destination": "/docs/api/parameters/timeout"
     },
