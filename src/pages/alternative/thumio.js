@@ -1697,7 +1697,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $45
+              $49
               <Text
                 as='span'
                 css={theme({

@@ -823,7 +823,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Screenshot Machine Pro is listed at €59/month for 20,000 fresh screenshots with €0.003 per extra screenshot. Microlink's comparison tier is $45/month for 46,000 requests, which is more than 2\u00d7 the included monthly volume on the plan we compare here. Enterprise clients running millions of requests fund the infrastructure."
+    text: "Screenshot Machine Pro is listed at €59/month for 20,000 fresh screenshots with €0.003 per extra screenshot. Microlink's comparison tier is \u20ac39/month for 46,000 requests, which is more than 2\u00d7 the included monthly volume on the plan we compare here. Enterprise clients running millions of requests fund the infrastructure."
   },
   {
     question: 'Does Microlink have rate limits?',

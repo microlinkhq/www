@@ -228,7 +228,7 @@ const SCREENSHOTLAYER_PRO_PRICE = 59.99
 const SCREENSHOTLAYER_PRO_REQUESTS = 30000
 const SCREENSHOTLAYER_FREE_REQUESTS = 100
 const SCREENSHOTLAYER_OVERAGE_PER_10K = 79.99
-const MICROLINK_PRICE = 45
+const MICROLINK_PRICE = 49
 const MICROLINK_REQUESTS = 46000
 const MICROLINK_FREE_MONTHLY_EQUIVALENT = 1500
 const VOLUME_ADVANTAGE_PCT = Math.floor(
@@ -315,7 +315,7 @@ const FAQ_ITEMS = [
         <div>
           Screenshotlayer's highlighted Professional plan is{' '}
           <b>$59.99/month for 30,000 snapshots</b>. Microlink is{' '}
-          <b>$45/month for 46,000 requests</b>.
+          <b>$49/month for 46,000 requests</b>.
         </div>
         <div>
           That means Microlink gives you <b>{VOLUME_ADVANTAGE_PCT}% more</b>{' '}
@@ -326,7 +326,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: `Screenshotlayer's highlighted Professional plan is $59.99 per month for 30,000 snapshots. Microlink is $45 per month for 46,000 requests. That means Microlink gives you ${VOLUME_ADVANTAGE_PCT}% more monthly volume for ${PRICE_REDUCTION_PCT}% less, and Screenshotlayer's published overages are roughly $${SCREENSHOTLAYER_OVERAGE_PER_10K.toFixed(
+    text: `Screenshotlayer's highlighted Professional plan is $59.99 per month for 30,000 snapshots. Microlink is $49 per month for 46,000 requests. That means Microlink gives you ${VOLUME_ADVANTAGE_PCT}% more monthly volume for ${PRICE_REDUCTION_PCT}% less, and Screenshotlayer's published overages are roughly $${SCREENSHOTLAYER_OVERAGE_PER_10K.toFixed(
       2
     )} per extra 10,000 on Professional.`
   },
@@ -1382,12 +1382,12 @@ const WHY_SWITCH_ITEMS = [
   },
   {
     number: '02',
-    title: '53% more monthly volume for 25% less',
+    title: '53% more monthly volume for 18% less',
     description: (
       <>
         Screenshotlayer's highlighted Professional plan is{' '}
         <b>$59.99 for 30,000 snapshots</b>. Microlink is{' '}
-        <b>$45 for 46,000 requests</b>. That is{' '}
+        <b>$49 for 46,000 requests</b>. That is{' '}
         <b>{VOLUME_ADVANTAGE_PCT}% more included volume</b> while paying{' '}
         <b>{PRICE_REDUCTION_PCT}% less</b>.
       </>
@@ -1701,7 +1701,7 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        Compare Microlink's <b>46,000 requests for $45</b> with
+        Compare Microlink's <b>46,000 requests for $49</b> with
         Screenshotlayer's highlighted Professional plan at{' '}
         <b>30,000 snapshots for $59.99</b>.
       </Caption>
@@ -1747,7 +1747,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $45
+              $49
               <Text
                 as='span'
                 css={theme({
@@ -1877,7 +1877,7 @@ const PricingSection = () => (
         })}
       >
         This compares Screenshotlayer's highlighted Professional plan because it
-        is the closest public tier to Microlink's $45 plan by buyer intent and
+        is the closest public tier to Microlink's $49 plan by buyer intent and
         monthly volume. That is also where Screenshotlayer's rate limits and
         overages become much harder to ignore.
       </Text>
@@ -2064,7 +2064,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='Screenshotlayer Alternative for Higher Throughput and Lower Overage Risk'
-    description='Compare Microlink vs Screenshotlayer when plan caps, overages, and cold starts start to matter. Microlink gives you 46,000 requests for $45 versus Screenshotlayer 30,000 for $59.99, no per-minute cap, and lower average latency on the 6 shared benchmark URLs.'
+    description='Compare Microlink vs Screenshotlayer when plan caps, overages, and cold starts start to matter. Microlink gives you 46,000 requests for $49 versus Screenshotlayer 30,000 for $59.99, no per-minute cap, and lower average latency on the 6 shared benchmark URLs.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
@@ -2073,7 +2073,7 @@ export const Head = () => (
         '@type': 'WebPage',
         name: 'Screenshotlayer Alternative for Higher Throughput and Lower Overage Risk | Microlink',
         description:
-          'Compare Microlink and Screenshotlayer when bursty screenshot workloads start running into plan caps, overages, and slower cold starts. Microlink gives you 46,000 requests for $45 versus Screenshotlayer 30,000 for $59.99, no per-minute cap on paid plans, and lower average cold-start latency on the 6 shared benchmark URLs.',
+          'Compare Microlink and Screenshotlayer when bursty screenshot workloads start running into plan caps, overages, and slower cold starts. Microlink gives you 46,000 requests for $49 versus Screenshotlayer 30,000 for $59.99, no per-minute cap on paid plans, and lower average cold-start latency on the 6 shared benchmark URLs.',
         url: 'https://microlink.io/alternative/screenshotlayer',
         mainEntity: {
           '@type': 'SoftwareApplication',
