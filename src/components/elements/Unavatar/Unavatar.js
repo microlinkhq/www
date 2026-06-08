@@ -33,11 +33,15 @@ const FallbackIcon = ({ style }) => (
   </Box>
 )
 
+const UNAVATAR_TOKEN = 'pk_KV5QNd1MYyvoLZMkzLaikN'
+const UNAVATAR_FALLBACK =
+  'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
+
 const Unavatar = ({ query, ...props }) => {
   return (
     <StyledImage
       alt={`Logo for ${query}`}
-      src={`https://unavatar.io/${query}?fallback=data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==`}
+      src={`https://unavatar.io/${query}?token=${UNAVATAR_TOKEN}&fallback=${UNAVATAR_FALLBACK}`}
       {...props}
     />
   )
