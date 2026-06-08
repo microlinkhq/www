@@ -22,6 +22,7 @@ import Card from 'components/elements/Card/Card'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
+import HeadingBase from 'components/elements/Heading'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -38,6 +39,7 @@ import { colors, layout, space, theme } from 'theme'
 
 // ─── HOCs ────────────────────────────────────────────────────────────────────
 
+const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
@@ -253,8 +255,9 @@ const Hero = () => (
     >
       Microlink SDK
     </Caps>
-    <Subhead
+    <Heading
       titleize={false}
+      variant='unset'
       css={theme({
         fontSize: ['34px', '42px', '54px', '62px'],
         maxWidth: SECTION_MAX_WIDTH,
@@ -264,7 +267,7 @@ const Hero = () => (
       Beautiful link previews,
       <LineBreak />
       <span css={theme({ color: ACCENT })}>one component</span> away.
-    </Subhead>
+    </Heading>
 
     <Caption
       forwardedAs='div'
