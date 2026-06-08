@@ -69,6 +69,7 @@ import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
+import { UNAVATAR_TOKEN } from 'helpers/unavatar'
 
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS } from 'components/patterns/Tools/toolCatalog'
@@ -78,7 +79,6 @@ const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
 const UNAVATAR = 'https://unavatar.io'
-const UNAVATAR_TOKEN = 'pk_KV5QNd1MYyvoLZMkzLaikN'
 
 const PROVIDERS = [
   { name: 'YouTube', slug: 'youtube', icon: siYoutube },

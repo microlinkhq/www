@@ -6,6 +6,7 @@ import { theme } from 'theme'
 import { Globe } from 'react-feather'
 import FeatherIcon from '../../icons/Feather'
 import { getApiUrl } from 'helpers/get-api-url'
+import { UNAVATAR_TOKEN, UNAVATAR_FALLBACK } from 'helpers/unavatar'
 
 const StyledImage = styled(Image)`
   max-width: inherit;
@@ -37,7 +38,7 @@ const Unavatar = ({ query, ...props }) => {
   return (
     <StyledImage
       alt={`Logo for ${query}`}
-      src={`https://unavatar.io/${query}?fallback=data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==`}
+      src={`https://unavatar.io/${query}?token=${UNAVATAR_TOKEN}&fallback=${UNAVATAR_FALLBACK}`}
       {...props}
     />
   )

@@ -160,10 +160,10 @@ const Installation = () => (
           Cursor
         </Link>
         ,{' '}
-        <Link href='https://windsurf.com' logoIcon>
-          Windsurf
+        <Link href='https://openai.com/codex' logoIcon>
+          Codex
         </Link>
-        , and every other MCP-compatible client get access immediately.
+        , and every other MCP-compatible client gets access immediately.
       </Text>
     </Flex>
   </Container>

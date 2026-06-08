@@ -1,0 +1,4 @@
+export const UNAVATAR_TOKEN = 'pk_KV5QNd1MYyvoLZMkzLaikN'
+
+export const UNAVATAR_FALLBACK =
+  'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='

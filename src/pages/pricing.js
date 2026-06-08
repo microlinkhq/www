@@ -11,6 +11,7 @@ import { Link } from 'components/elements/Link'
 import LineBreak from 'components/elements/LineBreak'
 import Meta from 'components/elements/Meta/Meta'
 import { PLANS } from 'components/elements/PricePicker'
+import HeadingBase from 'components/elements/Heading'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import FeatherIcon from 'components/icons/Feather'
@@ -33,13 +34,13 @@ import {
   layout,
   radii,
   space,
-  textGradient,
   theme,
   transition
 } from 'theme'
 
 // ─── HOCs ────────────────────────────────────────────────────────────────────
 
+const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
@@ -268,7 +269,7 @@ const Hero = () => {
         px: [3, 3, 4, 4]
       })}
     >
-      <Subhead
+      <Heading
         titleize={false}
         css={theme({
           fontSize: ['34px', '42px', '54px', '62px'],
@@ -276,8 +277,8 @@ const Hero = () => {
           textAlign: 'center'
         })}
       >
-        Pricing built for <span css={textGradient}>builders</span>
-      </Subhead>
+        Pricing built for builders
+      </Heading>
 
       <Caption
         forwardedAs='div'
