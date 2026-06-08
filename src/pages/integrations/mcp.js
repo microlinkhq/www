@@ -163,7 +163,7 @@ const Installation = () => (
         <Link href='https://openai.com/codex' logoIcon>
           Codex
         </Link>
-        , and every other MCP-compatible client get access immediately.
+        , and every other MCP-compatible client gets access immediately.
       </Text>
     </Flex>
   </Container>
