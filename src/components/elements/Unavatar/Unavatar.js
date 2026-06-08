@@ -6,6 +6,7 @@ import { theme } from 'theme'
 import { Globe } from 'react-feather'
 import FeatherIcon from '../../icons/Feather'
 import { getApiUrl } from 'helpers/get-api-url'
+import { UNAVATAR_TOKEN, UNAVATAR_FALLBACK } from 'helpers/unavatar'
 
 const StyledImage = styled(Image)`
   max-width: inherit;
@@ -32,10 +33,6 @@ const FallbackIcon = ({ style }) => (
     <FeatherIcon icon={Globe} size={[1, 1, 1, 1]} />
   </Box>
 )
-
-const UNAVATAR_TOKEN = 'pk_KV5QNd1MYyvoLZMkzLaikN'
-const UNAVATAR_FALLBACK =
-  'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
 
 const Unavatar = ({ query, ...props }) => {
   return (
