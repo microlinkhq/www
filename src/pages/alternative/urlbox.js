@@ -775,18 +775,18 @@ const FAQ_ITEMS = [
         <div>
           Urlbox Hi-Fi is $49/month for 5,000 renders ($9.80 per 1,000). Urlbox
           Ultra is $99/month for 15,000 renders ($6.60 per 1,000). Microlink is
-          $45/month for 46,000 requests ($0.98 per 1,000) with no per-minute
+          $49/month for 46,000 requests ($1.07 per 1,000) with no per-minute
           rate limit.
         </div>
         <div>
-          At the $49 price point, Microlink delivers 9.2&times; more volume.
+          For the same $49, Microlink delivers 9.2&times; more volume.
           Enterprise clients running millions of requests fund the
           infrastructure, which is how indie devs get the same global edge
           network at these prices.
         </div>
       </>
     ),
-    text: 'Urlbox Hi-Fi is $49/month for 5,000 renders ($9.80 per 1,000). Urlbox Ultra is $99/month for 15,000 renders ($6.60 per 1,000). Microlink is $45/month for 46,000 requests ($0.98 per 1,000) with no per-minute rate limit. At the $49 price point, Microlink delivers 9.2\u00d7 more volume.'
+    text: 'Urlbox Hi-Fi is $49/month for 5,000 renders ($9.80 per 1,000). Urlbox Ultra is $99/month for 15,000 renders ($6.60 per 1,000). Microlink is $49/month for 46,000 requests ($1.07 per 1,000) with no per-minute rate limit. For the same $49, Microlink delivers 9.2\u00d7 more volume.'
   },
   {
     question: 'Does Microlink have rate limits?',
@@ -884,9 +884,9 @@ const Hero = () => (
       >
         <b>Urlbox</b> is a respected screenshot service with 10+&nbsp;years of
         experience. If you care about cost per render and broader browser
-        workflows under one key, <b>Microlink</b> gives you 46,000&nbsp;requests
-        for $45 versus 5,000 on Urlbox Hi-Fi for $49, while still benchmarking{' '}
-        <b>44% faster on average</b>.
+        workflows under one key, <b>Microlink</b> gives you, for the same $49,
+        46,000&nbsp;requests versus 5,000 on Urlbox Hi-Fi, while still
+        benchmarking <b>44% faster on average</b>.
       </Caption>
 
       <Flex
@@ -1329,11 +1329,11 @@ const SpeedSection = () => {
 const WHY_SWITCH_ITEMS = [
   {
     number: '01',
-    title: '9.2× more requests, $4\u00a0less',
+    title: '9.2× more requests, same price',
     description: (
       <>
         Urlbox Hi-Fi: 5,000 renders for <b>$49/month</b>. Microlink:{' '}
-        <b>46,000 requests for $45</b>. That{'\u2019'}s the volume Urlbox
+        <b>46,000 requests for $49</b>. That{'\u2019'}s the volume Urlbox
         charges $498&nbsp;for on its Business plan.
       </>
     )
@@ -1647,7 +1647,7 @@ const PricingSection = () => (
         css={theme({ pb: [2, 2, 3, 3], fontSize: [4, 4, 5, 5], pt: 3 })}
         titleize={false}
       >
-        More requests. <GradientText>Less money.</GradientText>
+        Same price. <GradientText>Way more volume.</GradientText>
       </Subhead>
       <Caption
         css={theme({
@@ -1657,7 +1657,7 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        Get <b>9.2&times; more</b> volume for $4&nbsp;less per month.
+        Get <b>9.2&times; more</b> volume for the same $49&nbsp;per month.
       </Caption>
 
       <Flex
@@ -1701,7 +1701,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $45
+              $49
               <Text
                 as='span'
                 css={theme({
@@ -1731,7 +1731,7 @@ const PricingSection = () => (
                 'No requests-per-minute cap',
                 '240+ edge nodes, 99.9%\u00a0SLA',
                 'Open-source core (MIT)',
-                '$0.98 per 1,000 requests'
+                '$1.07 per 1,000 requests'
               ].map(item => (
                 <Text
                   as='li'
@@ -2017,7 +2017,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='Urlbox Alternative for Better Cost Per Render'
-    description='Compare Microlink vs Urlbox on cost per render and broader browser workflows: 46,000 requests for $45 vs Urlbox Hi-Fi at 5,000 for $49, plus metadata, previews, and 44% faster average cold starts.'
+    description='Compare Microlink vs Urlbox on cost per render and broader browser workflows: for the same $49, 46,000 requests vs 5,000 on Urlbox Hi-Fi, plus metadata, previews, and 44% faster average cold starts.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
@@ -2026,7 +2026,7 @@ export const Head = () => (
         '@type': 'WebPage',
         name: 'Urlbox Alternative for Better Cost Per Render | Microlink',
         description:
-          'Compare Microlink and Urlbox when cost per render and broader browser workflows matter. Microlink is 44% faster on average, includes 46,000 requests at $45, and adds screenshots, PDF generation, metadata extraction, and more in one API.',
+          'Compare Microlink and Urlbox when cost per render and broader browser workflows matter. Microlink is 44% faster on average, includes 46,000 requests at $49, and adds screenshots, PDF generation, metadata extraction, and more in one API.',
         url: 'https://microlink.io/alternative/urlbox',
         mainEntity: {
           '@type': 'SoftwareApplication',

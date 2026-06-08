@@ -62,7 +62,7 @@ const CTA_LINK_FONT_SIZE = [
  */
 const PRICING = {
   microlink: {
-    price: 45,
+    price: 49,
     requests: 46000
   },
   embedly: {
@@ -417,7 +417,7 @@ const WHY_SWITCH_ITEMS = [
       <>
         Embedly's API plan starts at <b>$119/month for 10,000 Embed URLs</b> and
         a separate 10,000 Extract URLs on top. Microlink is{' '}
-        <b>$45/month for 46,000 requests</b> across every endpoint — about{' '}
+        <b>$49/month for 46,000 requests</b> across every endpoint — about{' '}
         <b>${MICROLINK_PRICE_PER_1000}/1,000</b> vs Embedly's{' '}
         <b>${EMBEDLY_API_PRICE_PER_1000}/1,000</b>. The gap widens the second
         you outgrow the entry tier.
@@ -459,7 +459,7 @@ const WHY_SWITCH_ITEMS = [
         the 9 antibot providers Microlink covers, Embedly has nothing to offer.
         Microlink Pro folds three normally-separate stacks — a{' '}
         <b>rotating residential proxy</b>, <b>antibot detection</b>, and{' '}
-        <b>CAPTCHA handling</b> — into the same $45 plan.
+        <b>CAPTCHA handling</b> — into the same $49 plan.
         <br />
         <br />
         <Link href='/feature/proxy'>See how the proxy works</Link>.
@@ -502,7 +502,7 @@ const HONESTY_ITEMS = [
   {
     title: 'Cards plan at $14/mo for low-volume sites',
     description:
-      "If you only need the JS card widget on a publisher site and do not call the API server-side, Embedly Cards at $14/month is a real entry point that Microlink does not match dollar-for-dollar. Microlink's free tier (50/day) covers most equivalent low-volume cases without a credit card, but the paid tier starts at $45."
+      "If you only need the JS card widget on a publisher site and do not call the API server-side, Embedly Cards at $14/month is a real entry point that Microlink does not match dollar-for-dollar. Microlink's free tier (50/day) covers most equivalent low-volume cases without a credit card, but the paid tier starts at $49."
   },
   {
     title: 'Display API for on-the-fly image optimization',
@@ -603,8 +603,8 @@ const FAQ_ITEMS = [
       <>
         <div>
           Embedly's API plan starts at $119/month for 10,000 Embed URLs, which
-          works out to about $${EMBEDLY_API_PRICE_PER_1000}/1,000. Microlink is
-          $45/month for 46,000 requests, or roughly $${MICROLINK_PRICE_PER_1000}
+          works out to about ${EMBEDLY_API_PRICE_PER_1000}/1,000. Microlink is
+          $49/month for 46,000 requests, or roughly ${MICROLINK_PRICE_PER_1000}
           /1,000. On a per-URL basis Microlink is roughly {PER_URL_MULTIPLIER}×
           cheaper at the entry tier.
         </div>
@@ -616,7 +616,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: `Embedly's API plan starts at $119/month for 10,000 Embed URLs, which works out to about $${EMBEDLY_API_PRICE_PER_1000}/1,000. Microlink is $45/month for 46,000 requests, or roughly $${MICROLINK_PRICE_PER_1000}/1,000. On a per-URL basis Microlink is roughly ${PER_URL_MULTIPLIER}× cheaper at the entry tier. The gap is not just the headline rate — Embedly bills Embed, Extract, and Display as three separate buckets; Microlink uses one shared bucket.`
+    text: `Embedly's API plan starts at $119/month for 10,000 Embed URLs, which works out to about $${EMBEDLY_API_PRICE_PER_1000}/1,000. Microlink is $49/month for 46,000 requests, or roughly $${MICROLINK_PRICE_PER_1000}/1,000. On a per-URL basis Microlink is roughly ${PER_URL_MULTIPLIER}× cheaper at the entry tier. The gap is not just the headline rate — Embedly bills Embed, Extract, and Display as three separate buckets; Microlink uses one shared bucket.`
   },
   {
     question: 'What is the difference between Embedly Cards and the API plan?',
@@ -811,7 +811,7 @@ const Hero = () => (
         <b>Embedly</b> charges <b>$119/month for 10,000 URLs</b> on its API
         plan, splits Embed and Extract into separate quotas, and caps every paid
         tier at <b>50 URLs/sec</b>. <b>Microlink</b> gives you{' '}
-        <b>46,000 requests for $45</b> across every endpoint — about{' '}
+        <b>46,000 requests for $49</b> across every endpoint — about{' '}
         <b>{PER_URL_MULTIPLIER}× cheaper per URL</b>, no rate-limit ceiling,
         plus a built-in residential proxy on the same plan.
       </Caption>
@@ -940,7 +940,7 @@ const PricingSection = () => (
       >
         More volume.
         <br />
-        <GradientText>One-third the spend.</GradientText>
+        <GradientText>Under half the spend.</GradientText>
       </Subhead>
       <Caption
         css={theme({
@@ -950,7 +950,7 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        <b>46,000 requests at $45</b> vs Embedly's <b>10,000 URLs at $119</b>.
+        <b>46,000 requests at $49</b> vs Embedly's <b>10,000 URLs at $119</b>.
       </Caption>
 
       <Flex
@@ -994,7 +994,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $45
+              $49
               <Text
                 as='span'
                 css={theme({
@@ -1126,7 +1126,7 @@ const PricingSection = () => (
         })}
       >
         Honest caveat: Embedly's <b>$14 Cards</b> plan is cheaper than
-        Microlink's $45 tier if your usage is purely client-side card widgets on
+        Microlink's $49 tier if your usage is purely client-side card widgets on
         a small publisher site. The comparison above is the API plan vs API plan
         match-up — that's where the {VOLUME_MULTIPLIER}× volume gap and the{' '}
         {PER_URL_MULTIPLIER}× per-URL gap actually show up.
@@ -1415,7 +1415,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='Embedly Alternative with Lower Per-URL Pricing'
-    description="Microlink gives you 46,000 requests for $45 versus Embedly's 10,000 URLs for $119 — roughly 12x cheaper per request, no 50 URLs/sec cap, plus a built-in residential proxy on the same plan."
+    description="Microlink gives you 46,000 requests for $49 versus Embedly's 10,000 URLs for $119 — roughly 11x cheaper per request, no 50 URLs/sec cap, plus a built-in residential proxy on the same plan."
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
@@ -1424,7 +1424,7 @@ export const Head = () => (
         '@type': 'WebPage',
         name: 'Embedly Alternative with Lower Per-URL Pricing | Microlink',
         description:
-          "Embedly's API plan starts at $119/month for 10,000 URLs and caps every plan at 50 URLs/sec. Microlink gives you 46,000 requests for $45 across every endpoint, no rate-limit ceiling, plus a built-in residential proxy on the same plan.",
+          "Embedly's API plan starts at $119/month for 10,000 URLs and caps every plan at 50 URLs/sec. Microlink gives you 46,000 requests for $49 across every endpoint, no rate-limit ceiling, plus a built-in residential proxy on the same plan.",
         url: 'https://microlink.io/alternative/embedly',
         mainEntity: {
           '@type': 'SoftwareApplication',

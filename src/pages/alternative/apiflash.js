@@ -704,16 +704,16 @@ const FAQ_ITEMS = [
       <>
         <div>
           ApiFlash Medium is $35/month for 10,000 screenshots. Microlink's
-          comparison tier is $45/month for 46,000 requests. That is 4.6&times;
-          more volume for $10 more per month.
+          comparison tier is $49/month for 46,000 requests. That is 4.6&times;
+          more volume for $14 more per month.
         </div>
         <div>
           On a per-request basis, that works out to about $0.0035 for ApiFlash
-          Medium versus about $0.00098 for Microlink's $45 tier.
+          Medium versus about $0.00107 for Microlink's $49 tier.
         </div>
       </>
     ),
-    text: "ApiFlash Medium is $35/month for 10,000 screenshots. Microlink's comparison tier is $45/month for 46,000 requests. That is 4.6× more volume for $10 more per month. On a per-request basis, that works out to about $0.0035 for ApiFlash Medium versus about $0.00098 for Microlink's $45 tier."
+    text: "ApiFlash Medium is $35/month for 10,000 screenshots. Microlink's comparison tier is $49/month for 46,000 requests. That is 4.6× more volume for $14 more per month. On a per-request basis, that works out to about $0.0035 for ApiFlash Medium versus about $0.00107 for Microlink's $49 tier."
   },
   {
     question: 'Can I migrate from ApiFlash urltoimage to Microlink quickly?',
@@ -1306,11 +1306,11 @@ const WHY_SWITCH_ITEMS = [
   },
   {
     number: '02',
-    title: '4.6× more monthly volume for $10 more',
+    title: '4.6× more monthly volume for $14 more',
     description: (
       <>
         ApiFlash Medium is <b>$35</b> for 10,000 screenshots. Microlink is{' '}
-        <b>$45 for 46,000 requests</b>. If your workload is already moving
+        <b>$49 for 46,000 requests</b>. If your workload is already moving
         beyond hobby usage, that price curve changes the economics fast.
       </>
     )
@@ -1604,7 +1604,7 @@ const PricingSection = () => (
         titleize={false}
       >
         More volume. <br />
-        <GradientText>Nearly the same spend.</GradientText>
+        <GradientText>Far less per screenshot.</GradientText>
       </Subhead>
       <Caption
         css={theme({
@@ -1614,7 +1614,8 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        Get <b>4.6&times; more</b> monthly volume for $10&nbsp;more.
+        Get <b>4.6&times; more</b> monthly volume at roughly{' '}
+        <b>3&times; lower</b> cost per screenshot.
       </Caption>
 
       <Flex
@@ -1658,7 +1659,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $45
+              $49
               <Text
                 as='span'
                 css={theme({
@@ -1688,7 +1689,7 @@ const PricingSection = () => (
                 'No per-minute cap on paid plans',
                 '240+ edge nodes, 99.9% SLA',
                 'Open-source core (MIT licensed)',
-                '~$0.00098/request on this tier'
+                '~$0.00107/request on this tier'
               ].map(item => (
                 <Text
                   as='li'
@@ -1788,8 +1789,8 @@ const PricingSection = () => (
         })}
       >
         This is the cleanest apples-to-apples comparison we found: ApiFlash's
-        Medium plan versus Microlink's $45 tier. The gap is small on monthly
-        spend and large on available volume, which is why this page focuses on
+        Medium plan versus Microlink's $49 tier. The gap is just $14 on monthly
+        spend and 4.6× on available volume, which is why this page focuses on
         production workloads instead of hobby usage.
       </Text>
     </SectionInner>
@@ -1973,7 +1974,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='ApiFlash Alternative for Production Screenshot Workloads'
-    description='Microlink cuts average cold-start latency by 56% vs ApiFlash, gives you 46,000 requests for $45 vs 10,000 for $35, and adds PDF, metadata, previews, and built-in antibot tooling.'
+    description='Microlink cuts average cold-start latency by 56% vs ApiFlash, gives you 46,000 requests for $49 vs 10,000 for $35, and adds PDF, metadata, previews, and built-in antibot tooling.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
@@ -1982,7 +1983,7 @@ export const Head = () => (
         '@type': 'WebPage',
         name: 'ApiFlash Alternative for Production Screenshot Workloads',
         description:
-          'Compare Microlink and ApiFlash for production screenshot workloads. Microlink cuts average cold-start latency by 56%, gives you 46,000 requests for $45 versus 10,000 screenshots for $35, and covers screenshots, PDF, metadata, previews, and remote JS from one API.',
+          'Compare Microlink and ApiFlash for production screenshot workloads. Microlink cuts average cold-start latency by 56%, gives you 46,000 requests for $49 versus 10,000 screenshots for $35, and covers screenshots, PDF, metadata, previews, and remote JS from one API.',
         url: 'https://microlink.io/alternative/apiflash',
         mainEntity: {
           '@type': 'SoftwareApplication',

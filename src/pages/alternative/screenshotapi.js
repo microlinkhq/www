@@ -1188,11 +1188,11 @@ const WHY_SWITCH_ITEMS = [
   },
   {
     number: '03',
-    title: '4.6× more requests for $16\u00a0more',
+    title: '4.6× more requests for $20\u00a0more',
     description: (
       <>
         ScreenshotAPI Startup: 10,000 screenshots for <b>$29/month</b>.
-        Microlink: <b>46,000 requests for $45</b>. Just $16&nbsp;more, 4.6× the
+        Microlink: <b>46,000 requests for $49</b>. Just $20&nbsp;more, 4.6× the
         volume, and every request covers screenshots, PDF, metadata, and more.
       </>
     )
@@ -1494,7 +1494,7 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        Get <b>4.6&times; more</b> for just $16&nbsp;more.
+        Get <b>4.6&times; more</b> for just $20&nbsp;more.
       </Caption>
 
       <Flex
@@ -1538,7 +1538,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $45
+              $49
               <Text
                 as='span'
                 css={theme({
@@ -1568,7 +1568,7 @@ const PricingSection = () => (
                 'No rate limit on any paid plan',
                 '240+ edge nodes, 99.9%\u00a0SLA',
                 'Open-source core (MIT licensed)',
-                '~$0.00098/request \u2014 9\u00d7 cheaper than ScreenshotAPI\u00a0Essentials'
+                '~$0.00107/request \u2014 8\u00d7 cheaper than ScreenshotAPI\u00a0Essentials'
               ].map(item => (
                 <Text
                   as='li'
@@ -1944,11 +1944,11 @@ const FAQSection = () => (
             <div>
               ScreenshotAPI Essentials: $9/month for 1,000&nbsp;screenshots at
               $0.009 each. Startup: $29/month for 10,000 with a 40&nbsp;req/min
-              cap. Microlink: $45/month for 46,000&nbsp;requests at ~$0.00098
+              cap. Microlink: $49/month for 46,000&nbsp;requests at ~$0.00107
               each, no per-minute cap.
             </div>
             <div>
-              Per request, Microlink is 9&times; cheaper than ScreenshotAPI
+              Per request, Microlink is 8&times; cheaper than ScreenshotAPI
               Essentials and 3&times; cheaper than Startup. Enterprise clients
               running millions of requests fund the infrastructure, which is how
               indie devs get the same global edge network at these prices.
@@ -2077,7 +2077,7 @@ export const Head = () => (
             name: 'How does ScreenshotAPI pricing compare to Microlink?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'ScreenshotAPI Startup is $29/month for 10,000 screenshots with a 40 req/min cap. Microlink is $45/month for 46,000 requests at ~$0.00098 each, with no per-minute rate limit. That is 4.6× more volume for $16 more, and 9× cheaper per request than ScreenshotAPI Essentials.'
+              text: 'ScreenshotAPI Startup is $29/month for 10,000 screenshots with a 40 req/min cap. Microlink is $49/month for 46,000 requests at ~$0.00107 each, with no per-minute rate limit. That is 4.6× more volume for $20 more, and 8× cheaper per request than ScreenshotAPI Essentials.'
             }
           },
           {

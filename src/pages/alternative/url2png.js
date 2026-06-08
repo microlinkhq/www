@@ -63,7 +63,7 @@ const CTA_LINK_FONT_SIZE = [
  */
 const PRICING = {
   microlink: {
-    price: 45,
+    price: 49,
     requests: 46000
   },
   url2png: {
@@ -246,7 +246,7 @@ const FAQ_ITEMS = [
         <div>
           URL2PNG's Killinit plan is <b>$199/month</b> for
           <b> 50,000 freshly generated screenshots</b>. Microlink's comparison
-          tier is <b>$45/month</b> for <b>46,000 requests</b>.
+          tier is <b>$49/month</b> for <b>46,000 requests</b>.
         </div>
         <div>
           That means Microlink gets you almost the same monthly volume for about{' '}
@@ -256,7 +256,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: `URL2PNG's Killinit plan is $199 per month for 50,000 freshly generated screenshots. Microlink's comparison tier is $45 per month for 46,000 requests. That gets you almost the same monthly volume for about ${PRICE_SAVINGS_PCT}% less spend. Per 1,000 requests, Microlink lands around $${MICROLINK_PRICE_PER_1000} versus $${URL2PNG_PRICE_PER_1000} on the URL2PNG plan.`
+    text: `URL2PNG's Killinit plan is $199 per month for 50,000 freshly generated screenshots. Microlink's comparison tier is $49 per month for 46,000 requests. That gets you almost the same monthly volume for about ${PRICE_SAVINGS_PCT}% less spend. Per 1,000 requests, Microlink lands around $${MICROLINK_PRICE_PER_1000} versus $${URL2PNG_PRICE_PER_1000} on the URL2PNG plan.`
   },
   {
     question: 'Can I evaluate Microlink without paying first?',
@@ -594,7 +594,7 @@ const WHY_SWITCH_ITEMS = [
     description: (
       <>
         URL2PNG prices <b>50,000 screenshots at $199/month</b>. Microlink gives
-        you <b>46,000 requests for $45/month</b>. That is almost the same volume
+        you <b>46,000 requests for $49/month</b>. That is almost the same volume
         for roughly <b>{PRICE_SAVINGS_PCT}% less spend</b>.
       </>
     )
@@ -804,7 +804,7 @@ const Hero = () => (
         more modern browser API with{' '}
         <b>PDFs, metadata, previews, harder-page tooling</b>, and far lower cost
         at higher volume, <b>Microlink</b> gives you{' '}
-        <b>46,000 requests for $45</b> versus URL2PNG's{' '}
+        <b>46,000 requests for $49</b> versus URL2PNG's{' '}
         <b>50,000 screenshots for $199</b>.
       </Caption>
 
@@ -985,7 +985,7 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        <b>46,000 requests at $45</b> with URL2PNG's{' '}
+        <b>46,000 requests at $49</b> with URL2PNG's{' '}
         <b>50,000 screenshots at $199</b>.
       </Caption>
 
@@ -1030,7 +1030,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $45
+              $49
               <Text
                 as='span'
                 css={theme({
@@ -1481,7 +1481,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='URL2PNG Alternative for a More Modern Screenshot API'
-    description='URL2PNG still covers simple screenshots, but Microlink gives you a free plan or 46,000 requests for $45 versus URL2PNG 50,000 for $199.'
+    description='URL2PNG still covers simple screenshots, but Microlink gives you a free plan or 46,000 requests for $49 versus URL2PNG 50,000 for $199.'
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
@@ -1490,7 +1490,7 @@ export const Head = () => (
         '@type': 'WebPage',
         name: 'URL2PNG Alternative for a More Modern Screenshot API | Microlink',
         description:
-          "Compare Microlink and URL2PNG on documented browser capabilities and pricing. Microlink adds PDF, metadata, previews, and harder-page tooling while giving you 46,000 requests for $45 versus URL2PNG's 50,000 screenshots for $199.",
+          "Compare Microlink and URL2PNG on documented browser capabilities and pricing. Microlink adds PDF, metadata, previews, and harder-page tooling while giving you 46,000 requests for $49 versus URL2PNG's 50,000 screenshots for $199.",
         url: 'https://microlink.io/alternative/url2png',
         mainEntity: {
           '@type': 'SoftwareApplication',

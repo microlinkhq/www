@@ -62,7 +62,7 @@ const CTA_LINK_FONT_SIZE = [
  */
 const PRICING = {
   microlink: {
-    price: 45,
+    price: 49,
     requests: 46000
   },
   iframely: {
@@ -417,12 +417,12 @@ const WHY_SWITCH_ITEMS = [
   },
   {
     number: '02',
-    title: `${VOLUME_MULTIPLIER}× more headroom for $4 less`,
+    title: `${VOLUME_MULTIPLIER}× more headroom for the same price`,
     description: (
       <>
         Iframely Business is <b>$49/month for 25,000 hits</b>. Microlink is{' '}
-        <b>$45/month for 46,000 requests</b>. On a per-request basis that is{' '}
-        <b>${MICROLINK_PRICE_PER_1000}/1,000</b> versus Iframely's{' '}
+        <b>$49/month for 46,000 requests</b>. Same price, but on a per-request
+        basis that is <b>${MICROLINK_PRICE_PER_1000}/1,000</b> versus Iframely's{' '}
         <b>${IFRAMELY_PRICE_PER_1000_HITS}/1,000 hits</b> entry rate.
       </>
     )
@@ -450,7 +450,7 @@ const WHY_SWITCH_ITEMS = [
         the 9 antibot providers Microlink covers, Iframely has nothing to offer.
         Microlink Pro folds three normally-separate stacks — a{' '}
         <b>rotating residential proxy</b>, <b>antibot detection</b>, and{' '}
-        <b>CAPTCHA handling</b> — into the same $45 plan.
+        <b>CAPTCHA handling</b> — into the same $49 plan.
         <br />
         <br />
         <Link href='/feature/proxy'>See how the proxy works</Link>.
@@ -593,8 +593,8 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Iframely Business is $49/month for 25,000 "hits". Microlink is
-          $45/month for 46,000 API requests. On a per-request basis that is
+          Iframely Business is $49/month for 25,000 "hits". Microlink is the
+          same $49/month for 46,000 API requests. On a per-request basis that is
           about ${MICROLINK_PRICE_PER_1000}/1,000 for Microlink versus $
           {IFRAMELY_PRICE_PER_1000_HITS}/1,000 hits for Iframely's first tier.
         </div>
@@ -606,7 +606,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: `Iframely Business is $49/month for 25,000 hits. Microlink is $45/month for 46,000 API requests. On a per-request basis that is about $${MICROLINK_PRICE_PER_1000}/1,000 for Microlink versus $${IFRAMELY_PRICE_PER_1000_HITS}/1,000 hits for Iframely's first tier. Iframely defines a hit as roughly an hour of URL activity that can map to 1-4 API calls. If your traffic re-views the same URLs heavily inside the same hour, the gap narrows. If your traffic is mostly unique URLs, Microlink is materially cheaper.`
+    text: `Iframely Business is $49/month for 25,000 hits. Microlink is the same $49/month for 46,000 API requests. On a per-request basis that is about $${MICROLINK_PRICE_PER_1000}/1,000 for Microlink versus $${IFRAMELY_PRICE_PER_1000_HITS}/1,000 hits for Iframely's first tier. Iframely defines a hit as roughly an hour of URL activity that can map to 1-4 API calls. If your traffic re-views the same URLs heavily inside the same hour, the gap narrows. If your traffic is mostly unique URLs, Microlink gives you far more headroom for the same money.`
   },
   {
     question: 'What exactly is a "hit" on Iframely?',
@@ -820,10 +820,10 @@ const Hero = () => (
         titleize={false}
       >
         <b>Iframely</b> bills in hits, caps every plan at 50 req/s, and stays
-        focused on rich-media embeds. <b>Microlink</b> gives you{' '}
-        <b>46,000 requests for $45</b> versus Iframely's{' '}
-        <b>25,000 hits for $49</b>, transparent per-request pricing, no
-        per-minute cap, plus screenshots, PDF, and metadata in the same API.
+        focused on rich-media embeds. For the same <b>$49</b>, <b>Microlink</b>{' '}
+        gives you <b>46,000 requests</b> versus Iframely's <b>25,000 hits</b>,
+        transparent per-request pricing, no per-minute cap, plus screenshots,
+        PDF, and metadata in the same API.
       </Caption>
 
       <Flex
@@ -960,7 +960,7 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        <b>46,000 requests at $45</b> vs Iframely's <b>25,000 hits at $49</b>.
+        <b>46,000 requests at $49</b> vs Iframely's <b>25,000 hits at $49</b>.
       </Caption>
 
       <Flex
@@ -1004,7 +1004,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $45
+              $49
               <Text
                 as='span'
                 css={theme({
@@ -1137,8 +1137,8 @@ const PricingSection = () => (
       >
         Honest caveat: Iframely's "hit" can cover 1-4 API calls. If your traffic
         re-loads the same URLs heavily inside an hour, the effective cost
-        narrows. For mostly-unique URL workloads, Microlink's $45 tier gives you{' '}
-        {VOLUME_MULTIPLIER}× more headroom for $4 less.
+        narrows. For mostly-unique URL workloads, Microlink's $49 tier gives you{' '}
+        {VOLUME_MULTIPLIER}× more headroom at the same price.
       </Text>
     </SectionInner>
   </Section>
@@ -1424,7 +1424,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='Iframely Alternative for a Developer-First Embed API'
-    description="Compare Microlink vs Iframely on pricing transparency and integration scope. Microlink gives you 46,000 requests for $45 versus Iframely's 25,000 hits for $49, no per-minute cap, plus screenshots, PDF, and metadata from one API."
+    description="Compare Microlink vs Iframely on pricing transparency and integration scope. For the same $49, Microlink gives you 46,000 requests versus Iframely's 25,000 hits, no per-minute cap, plus screenshots, PDF, and metadata from one API."
     image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
@@ -1433,7 +1433,7 @@ export const Head = () => (
         '@type': 'WebPage',
         name: 'Iframely Alternative for a Developer-First Embed API | Microlink',
         description:
-          "Iframely bills in hits and caps all plans at 50 req/s. Microlink gives you 46,000 requests for $45 vs Iframely's 25,000 hits for $49, transparent per-request pricing, no per-minute cap, plus screenshots, PDF, and metadata from one API.",
+          "Iframely bills in hits and caps all plans at 50 req/s. For the same $49, Microlink gives you 46,000 requests vs Iframely's 25,000 hits, transparent per-request pricing, no per-minute cap, plus screenshots, PDF, and metadata from one API.",
         url: 'https://microlink.io/alternative/iframely',
         mainEntity: {
           '@type': 'SoftwareApplication',

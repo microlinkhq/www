@@ -1153,11 +1153,11 @@ const WHY_SWITCH_ITEMS = [
   },
   {
     number: '03',
-    title: '4.6× more requests for 43% less',
+    title: '4.6× more requests for 38% less',
     description: (
       <>
         ScreenshotOne{'\u2019'}s recommended plan: 10,000 screenshots for{' '}
-        <b>$79/month</b>. Microlink: <b>46,000 requests for $45</b>. That
+        <b>$79/month</b>. Microlink: <b>46,000 requests for $49</b>. That
         {'\u2019'}s the volume ScreenshotOne charges $259&nbsp;for.
       </>
     )
@@ -1459,7 +1459,7 @@ const PricingSection = () => (
         })}
         titleize={false}
       >
-        Get <b>4.6&times; more</b> for 43% less.
+        Get <b>4.6&times; more</b> for 38% less.
       </Caption>
 
       <Flex
@@ -1503,7 +1503,7 @@ const PricingSection = () => (
               Microlink
             </Badge>
             <PriceAmount>
-              $45
+              $49
               <Text
                 as='span'
                 css={theme({
@@ -1908,8 +1908,8 @@ const FAQSection = () => (
             <div>
               ScreenshotOne's recommended plan is $79/month for
               10,000&nbsp;screenshots with an 80&nbsp;requests-per-minute cap.
-              Microlink's comparable plan is $45/month for 46,000&nbsp;requests
-              — 4.6× more volume for 43% less — with no per-minute rate limit.
+              Microlink's comparable plan is $49/month for 46,000&nbsp;requests
+              — 4.6× more volume for 38% less — with no per-minute rate limit.
             </div>
             <div>
               Microlink can offer lower prices because enterprise clients
@@ -2047,7 +2047,7 @@ export const Head = () => (
             name: 'How much does ScreenshotOne cost compared to Microlink?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "ScreenshotOne's recommended plan is $79/month for 10,000 screenshots with an 80 requests-per-minute cap. Microlink's comparable plan is $45/month for 46,000 requests — 4.6× more volume for 43% less — with no per-minute rate limit. Microlink can offer lower prices because enterprise clients running millions of requests a month cover the infrastructure cost."
+              text: "ScreenshotOne's recommended plan is $79/month for 10,000 screenshots with an 80 requests-per-minute cap. Microlink's comparable plan is $49/month for 46,000 requests — 4.6× more volume for 38% less — with no per-minute rate limit. Microlink can offer lower prices because enterprise clients running millions of requests a month cover the infrastructure cost."
             }
           },
           {
