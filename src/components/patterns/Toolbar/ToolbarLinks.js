@@ -24,6 +24,7 @@ import {
   Maximize,
   Zap,
   FileText,
+  Layout as LayoutIcon,
   Link as LinkIcon,
   Link2
 } from 'react-feather'
@@ -147,6 +148,12 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
     href: '/integrations/sdk',
     description: 'Beautiful link previews',
     icon: CodesandboxIcon
+  }),
+  createNavigationItem({
+    label: 'Component Builder',
+    href: '/integrations/builder',
+    description: 'Build a link preview for React, Vue, Angular, Svelte & JS',
+    icon: LayoutIcon
   }),
   createNavigationItem({
     label: 'MCP',

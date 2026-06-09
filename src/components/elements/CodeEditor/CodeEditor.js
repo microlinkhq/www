@@ -24,7 +24,11 @@ const toAlias = (lang = '') => {
     case 'vanilla':
       return 'html'
     case 'react':
+    case 'angular':
       return 'jsx'
+    case 'vue':
+    case 'svelte':
+      return 'html'
     case 'jekyll':
       return 'markdown'
     case 'curl':
