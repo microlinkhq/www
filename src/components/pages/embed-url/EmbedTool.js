@@ -2000,16 +2000,16 @@ const InlineCodePre = styled.pre`
   }
 `
 
-const HtmlPane = ({ html }) => {
+const HtmlPane = ({ html, provider }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [copied, setCopied] = useState(false)
 
   const handleCopy = useCallback(() => {
-    trackEvent('embed copy')
+    trackEvent('embed copy', { provider })
     toClipboard({ copy: html, text: Tooltip.TEXT.COPIED('HTML') })
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
-  }, [html, toClipboard])
+  }, [html, toClipboard, provider])
 
   return (
     <PaperSheet css={{ width: '100%' }}>
@@ -2491,7 +2491,8 @@ const ResultArea = ({
   config,
   setConfig,
   onReset,
-  hasSavedPreset
+  hasSavedPreset,
+  provider
 }) => {
   const [hoverTarget, setHoverTarget] = useState(null)
   const [useCard, setUseCard] = useState(false)
@@ -2741,14 +2742,19 @@ const ResultArea = ({
           </PreviewWithHint>
         </PreviewColumn>
       </ResultGrid>
-      <HtmlPane html={copyHtml} />
+      <HtmlPane html={copyHtml} provider={provider} />
     </Flex>
   )
 }
 
 /* ─── Main Tool Section ────────────────────────────────── */
 
-const EmbedTool = ({ initialUrl = '', exampleUrls, placeholder } = {}) => {
+const EmbedTool = ({
+  initialUrl = '',
+  exampleUrls,
+  placeholder,
+  provider = 'main'
+} = {}) => {
   const [url, setUrl] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
@@ -2782,44 +2788,47 @@ const EmbedTool = ({ initialUrl = '', exampleUrls, placeholder } = {}) => {
     [setStoredConfig]
   )
 
-  const executeSubmit = useCallback(async nextUrl => {
-    trackEvent('embed convert')
-    const requestId = ++requestIdRef.current
-    setIsLoading(true)
-    setError(null)
-    setData(null)
-    setLastUrl(nextUrl)
+  const executeSubmit = useCallback(
+    async nextUrl => {
+      trackEvent('embed convert', { provider })
+      const requestId = ++requestIdRef.current
+      setIsLoading(true)
+      setError(null)
+      setData(null)
+      setLastUrl(nextUrl)
 
-    const localFallback = buildLocalEmbedResponse(nextUrl)
-    if (localFallback) {
-      if (requestId !== requestIdRef.current) return
-      setData(localFallback)
-      setIsLoading(false)
-      return
-    }
-
-    try {
-      const response = await mql(nextUrl, {
-        iframe: true,
-        audio: true,
-        video: true
-      })
-      if (requestId !== requestIdRef.current) return
-      setData(response.data || null)
-    } catch (err) {
-      if (requestId !== requestIdRef.current) return
-      if (err?.code === 'EPROXYNEEDED') {
-        const fallback = buildLocalEmbedResponse(nextUrl)
-        if (fallback) {
-          setData(fallback)
-          return
-        }
+      const localFallback = buildLocalEmbedResponse(nextUrl)
+      if (localFallback) {
+        if (requestId !== requestIdRef.current) return
+        setData(localFallback)
+        setIsLoading(false)
+        return
       }
-      setError(normalizeApiError.fromMql(err, 'Failed to fetch embed.'))
-    } finally {
-      if (requestId === requestIdRef.current) setIsLoading(false)
-    }
-  }, [])
+
+      try {
+        const response = await mql(nextUrl, {
+          iframe: true,
+          audio: true,
+          video: true
+        })
+        if (requestId !== requestIdRef.current) return
+        setData(response.data || null)
+      } catch (err) {
+        if (requestId !== requestIdRef.current) return
+        if (err?.code === 'EPROXYNEEDED') {
+          const fallback = buildLocalEmbedResponse(nextUrl)
+          if (fallback) {
+            setData(fallback)
+            return
+          }
+        }
+        setError(normalizeApiError.fromMql(err, 'Failed to fetch embed.'))
+      } finally {
+        if (requestId === requestIdRef.current) setIsLoading(false)
+      }
+    },
+    [provider]
+  )
 
   const handleSubmit = useCallback(
     next => {
@@ -2881,6 +2890,7 @@ const EmbedTool = ({ initialUrl = '', exampleUrls, placeholder } = {}) => {
                 setConfig={setConfig}
                 onReset={handleResetConfig}
                 hasSavedPreset={hasSavedPreset}
+                provider={provider}
               />
             </ResultsExpandInner>
           </ResultsExpandWrapper>

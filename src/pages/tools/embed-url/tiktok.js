@@ -325,7 +325,7 @@ export const Head = () => (
 const TikTokEmbedPage = () => (
   <Layout>
     <Hero />
-    <EmbedTool initialUrl={EXAMPLE_URL} />
+    <EmbedTool initialUrl={EXAMPLE_URL} provider='tiktok' />
     <HowItWorks />
     <WhyChoose
       heading='Why use our TikTok embed code generator'

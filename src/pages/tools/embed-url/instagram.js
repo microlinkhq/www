@@ -324,7 +324,7 @@ export const Head = () => (
 const InstagramEmbedPage = () => (
   <Layout>
     <Hero />
-    <EmbedTool initialUrl={EXAMPLE_URL} />
+    <EmbedTool initialUrl={EXAMPLE_URL} provider='instagram' />
     <HowItWorks />
     <WhyChoose
       heading='Why use our Instagram embed code generator'

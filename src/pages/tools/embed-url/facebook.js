@@ -325,7 +325,7 @@ export const Head = () => (
 const FacebookEmbedPage = () => (
   <Layout>
     <Hero />
-    <EmbedTool initialUrl={EXAMPLE_URL} />
+    <EmbedTool initialUrl={EXAMPLE_URL} provider='facebook' />
     <HowItWorks />
     <WhyChoose
       heading='Why use our Facebook embed code generator'

@@ -247,6 +247,7 @@ export const providerHead = ({
 
 export const ProviderSubtool = ({
   name,
+  slug,
   color,
   exampleUrl,
   heroTitle,
@@ -261,7 +262,7 @@ export const ProviderSubtool = ({
 }) => (
   <Layout>
     <Hero title={heroTitle} subtitle={heroSubtitle} />
-    <EmbedTool initialUrl={exampleUrl} />
+    <EmbedTool initialUrl={exampleUrl} provider={slug} />
     <HowItWorksSection heading={howItWorksHeading} steps={howItWorksSteps} />
     <WhyChoose
       heading={explanationHeading}

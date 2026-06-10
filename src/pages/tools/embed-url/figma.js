@@ -318,7 +318,7 @@ export const Head = () => (
 const FigmaEmbedPage = () => (
   <Layout>
     <Hero />
-    <EmbedTool initialUrl={EXAMPLE_URL} />
+    <EmbedTool initialUrl={EXAMPLE_URL} provider='figma' />
     <HowItWorks />
     <WhyChoose
       heading='Why use our Figma embed code generator'
