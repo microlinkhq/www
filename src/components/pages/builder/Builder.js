@@ -1,6 +1,6 @@
 import { colors, theme, transition } from 'theme'
 import React, { useCallback, useMemo, useState } from 'react'
-import { ArrowRight, RotateCcw } from 'react-feather'
+import { ArrowRight, ChevronDown, RotateCcw } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
@@ -60,13 +60,6 @@ const BUILDER_DEFAULT_CONFIG = {
   height: 0
 }
 
-const TABS = [
-  { id: 'layout', label: 'Layout' },
-  { id: 'frame', label: 'Frame' },
-  { id: 'fonts', label: 'Fonts' },
-  { id: 'colors', label: 'Colors' }
-]
-
 // Shown in the live preview before (and if) the user fetches a real URL.
 const SAMPLE_DATA = {
   url: 'https://microlink.io',
@@ -79,6 +72,26 @@ const SAMPLE_DATA = {
   image: { url: cdnUrl('banner/sdk.jpeg'), palette: ['#e94560'] },
   logo: { url: 'https://icons.duckduckgo.com/ip3/microlink.io.ico' }
 }
+
+// The props the generated component exposes. Unlike the v0 reference — which
+// makes you pass every metadata field by hand — our component is self-contained:
+// give it a `url` and it fetches the metadata from Microlink itself.
+const COMPONENT_PROPS = [
+  {
+    name: 'url',
+    type: 'string',
+    required: true,
+    description:
+      'The link to preview. The component fetches its metadata from the Microlink API and renders the card you designed.'
+  },
+  {
+    name: 'apiKey',
+    type: 'string',
+    required: false,
+    description:
+      'Your Microlink Pro key. Switches requests to pro.microlink.io for higher rate limits and Pro features. Omit it to use the free tier.'
+  }
+]
 
 /* ─── Styled controls ──────────────────────────────────── */
 
@@ -117,25 +130,45 @@ const SegButton = styled(Box).attrs({ as: 'button', type: 'button' })`
   touch-action: manipulation;
 `
 
-const Tab = styled(Box).attrs({ as: 'button', type: 'button' })`
+const SectionHeader = styled(Box).attrs({ as: 'button', type: 'button' })`
   ${theme({
     fontFamily: 'sans',
     fontSize: 1,
     fontWeight: 'bold',
-    px: 2,
-    py: '12px',
-    cursor: 'pointer'
+    color: 'black',
+    py: '14px'
   })}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   background: transparent;
   border: none;
-  color: ${({ $active }) => ($active ? colors.black : colors.black60)};
-  border-bottom: 2px solid
-    ${({ $active }) => ($active ? colors.link : 'transparent')};
-  margin-bottom: -1px;
-  transition: color ${transition.short}, border-color ${transition.short};
+  cursor: pointer;
+  text-align: left;
+  transition: color ${transition.short};
 
   &:hover {
-    color: ${colors.black};
+    color: ${colors.black60};
+  }
+
+  & svg {
+    flex-shrink: 0;
+    color: ${colors.black40};
+    transition: transform ${transition.short};
+    transform: rotate(${({ $open }) => ($open ? '0deg' : '-90deg')});
+  }
+`
+
+const SectionBody = styled(Box)`
+  ${theme({ pb: 2 })}
+`
+
+const SectionDivider = styled(Box)`
+  border-top: 1px solid ${colors.black05};
+
+  &:first-child {
+    border-top: none;
   }
 `
 
@@ -370,6 +403,53 @@ const Grid = styled(Flex)`
   }
 `
 
+const InlineCode = styled.code`
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    px: 1,
+    py: '2px',
+    borderRadius: '4px',
+    color: 'black80'
+  })}
+  background: ${colors.black05};
+  white-space: nowrap;
+`
+
+const PropRow = styled(Flex)`
+  ${theme({ py: '10px', gap: 3 })}
+  flex-direction: column;
+  border-top: 1px solid ${colors.black05};
+
+  @media (min-width: ${MOBILE_BP}px) {
+    flex-direction: row;
+    align-items: baseline;
+  }
+`
+
+const PropName = styled(Flex)`
+  ${theme({ gap: 2 })}
+  align-items: baseline;
+  flex-shrink: 0;
+  width: 180px;
+`
+
+const PropPill = styled(Box)`
+  ${theme({
+    fontFamily: 'sans',
+    fontSize: '10px',
+    fontWeight: 'bold',
+    px: 1,
+    py: '1px',
+    borderRadius: '4px',
+    letterSpacing: 1
+  })}
+  text-transform: uppercase;
+  color: ${({ $required }) => ($required ? colors.link : colors.black40)};
+  background: ${({ $required }) =>
+    $required ? 'rgba(0, 102, 255, 0.08)' : colors.black05};
+`
+
 /* ─── Small control helpers ────────────────────────────── */
 
 const RangeField = ({ label, value, min, max, step = 1, suffix, onChange }) => (
@@ -456,7 +536,7 @@ const ColorRow = ({ label, value, onChange }) => (
 
 /* ─── Tabs ─────────────────────────────────────────────── */
 
-const LayoutTab = ({ config, set }) => (
+const LayoutSection = ({ config, set }) => (
   <Box>
     <SegmentedField
       label='Size'
@@ -486,7 +566,11 @@ const LayoutTab = ({ config, set }) => (
       suffix={config.height === 0 ? 'auto' : 'px'}
       onChange={height => set({ height })}
     />
-    <SectionLabel>Elements</SectionLabel>
+  </Box>
+)
+
+const ElementsSection = ({ config, set }) => (
+  <Box>
     {ELEMENT_GROUPS.map(group =>
       group.fields.map(({ id, label }) => (
         <CheckboxWrap key={id}>
@@ -511,7 +595,7 @@ const LayoutTab = ({ config, set }) => (
   </Box>
 )
 
-const FrameTab = ({ config, set }) => (
+const FrameSection = ({ config, set }) => (
   <Box>
     <RangeField
       label='Border'
@@ -543,7 +627,7 @@ const FrameTab = ({ config, set }) => (
   </Box>
 )
 
-const FontsTab = ({ config, set }) => (
+const TypographySection = ({ config, set }) => (
   <Box>
     <SelectRow
       label='Typeface'
@@ -592,7 +676,7 @@ const FontsTab = ({ config, set }) => (
   </Box>
 )
 
-const ColorsTab = ({ config, set }) => {
+const ColorsSection = ({ config, set }) => {
   const themeKey = config.theme === 'dark' ? 'darkColors' : 'lightColors'
   const palette = config[themeKey]
   return (
@@ -614,12 +698,23 @@ const ColorsTab = ({ config, set }) => {
   )
 }
 
-const TAB_COMPONENTS = {
-  layout: LayoutTab,
-  frame: FrameTab,
-  fonts: FontsTab,
-  colors: ColorsTab
-}
+const SECTIONS = [
+  { id: 'layout', label: 'Layout', Component: LayoutSection },
+  { id: 'elements', label: 'Elements', Component: ElementsSection },
+  { id: 'frame', label: 'Frame', Component: FrameSection },
+  { id: 'fonts', label: 'Typography', Component: TypographySection },
+  { id: 'colors', label: 'Colors', Component: ColorsSection }
+]
+
+const Section = ({ label, isOpen, onToggle, children }) => (
+  <SectionDivider>
+    <SectionHeader $open={isOpen} aria-expanded={isOpen} onClick={onToggle}>
+      {label}
+      <ChevronDown size={16} />
+    </SectionHeader>
+    {isOpen && <SectionBody>{children}</SectionBody>}
+  </SectionDivider>
+)
 
 /* ─── Omnibar ──────────────────────────────────────────── */
 
@@ -696,7 +791,18 @@ const Builder = () => {
   const [data, setData] = useState(SAMPLE_DATA)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-  const [tab, setTab] = useState('layout')
+  // Accordion: every section starts expanded so nothing is hidden by default.
+  const [openSections, setOpenSections] = useState(() =>
+    SECTIONS.map(s => s.id)
+  )
+
+  const toggleSection = useCallback(
+    id =>
+      setOpenSections(prev =>
+        prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]
+      ),
+    []
+  )
 
   const set = useCallback(
     patch =>
@@ -741,8 +847,6 @@ const Builder = () => {
     }
   }, [])
 
-  const ActiveTab = TAB_COMPONENTS[tab]
-
   return (
     <Box css={{ width: '100%' }}>
       <Box css={theme({ maxWidth: '720px', mx: 'auto', pb: 4 })}>
@@ -760,25 +864,25 @@ const Builder = () => {
       </Box>
 
       <Grid>
-        {/* Editor */}
+        {/* Editor — a stacked sidebar of collapsible setting sections */}
         <Card
           css={theme({
             width: ['100%', '100%', '380px', '380px'],
-            flexShrink: 0
+            flexShrink: 0,
+            alignSelf: 'flex-start'
           })}
         >
-          <Flex
-            css={theme({ px: 3, borderBottom: 1, borderColor: 'black05' })}
-            style={{ gap: 4 }}
-          >
-            {TABS.map(({ id, label }) => (
-              <Tab key={id} $active={tab === id} onClick={() => setTab(id)}>
-                {label}
-              </Tab>
+          <Box css={theme({ px: 3 })}>
+            {SECTIONS.map(({ id, label, Component }) => (
+              <Section
+                key={id}
+                label={label}
+                isOpen={openSections.includes(id)}
+                onToggle={() => toggleSection(id)}
+              >
+                <Component config={config} set={set} />
+              </Section>
             ))}
-          </Flex>
-          <Box css={theme({ px: 3, py: 2 })}>
-            <ActiveTab config={config} set={set} />
           </Box>
           <Flex
             css={theme({ px: 3, py: 2, borderTop: 1, borderColor: 'black05' })}
@@ -811,9 +915,58 @@ const Builder = () => {
       </Grid>
 
       {/* Generated component */}
-      <Box css={theme({ pt: 4 })}>
-        <SectionLabel>Copy your component</SectionLabel>
-        <MultiCodeEditor autoHeight languages={snippets} />
+      <Box css={theme({ pt: [4, 4, 5, 5] })}>
+        <SectionLabel>Component code</SectionLabel>
+        <Text css={theme({ fontSize: 1, color: 'black60', pb: 3 })}>
+          A single self-contained file — no SDK, no build step, no npm install.
+          Pick your framework, copy it in, and render it with a{' '}
+          <InlineCode>url</InlineCode>.
+        </Text>
+        {/* `maxHeight` keeps the snippet in a scrollable, fade-edged box instead
+            of one enormous block — the embedded runtime renderer is long. */}
+        <MultiCodeEditor
+          autoHeight
+          languages={snippets}
+          style={{ maxHeight: 460 }}
+        />
+      </Box>
+
+      {/* Usage */}
+      <Box css={theme({ pt: [4, 4, 5, 5] })}>
+        <SectionLabel>Usage</SectionLabel>
+        <Text css={theme({ fontSize: 1, color: 'black60', pb: 2 })}>
+          The component is self-contained: pass a <InlineCode>url</InlineCode>{' '}
+          and it fetches the metadata from Microlink and renders the card. Add
+          an <InlineCode>apiKey</InlineCode> to go Pro. These are the only props
+          it accepts:
+        </Text>
+        <Box css={theme({ pt: 1 })}>
+          {COMPONENT_PROPS.map(({ name, type, required, description }) => (
+            <PropRow key={name}>
+              <PropName>
+                <InlineCode>{name}</InlineCode>
+                <PropPill $required={required}>
+                  {required ? 'required' : 'optional'}
+                </PropPill>
+              </PropName>
+              <Box css={{ flex: 1, minWidth: 0 }}>
+                <Text
+                  css={theme({
+                    fontFamily: 'mono',
+                    fontSize: 0,
+                    color: 'black40',
+                    pb: 1
+                  })}
+                >
+                  {type}
+                </Text>
+                <Text css={theme({ fontSize: 1, color: 'black80' })}>
+                  {description}
+                </Text>
+              </Box>
+            </PropRow>
+          ))}
+        </Box>
       </Box>
     </Box>
   )
