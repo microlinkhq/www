@@ -346,7 +346,7 @@ export const Head = () => (
 const TwitterEmbedPage = () => (
   <Layout>
     <Hero />
-    <EmbedTool initialUrl={EXAMPLE_URL} />
+    <EmbedTool initialUrl={EXAMPLE_URL} provider='twitter-or-x' />
     <HowItWorks />
     <WhyChoose
       heading='Why use our Twitter embed code generator'

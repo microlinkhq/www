@@ -345,7 +345,7 @@ export const Head = () => (
 const YouTubeEmbedPage = () => (
   <Layout>
     <Hero />
-    <EmbedTool initialUrl={EXAMPLE_URL} />
+    <EmbedTool initialUrl={EXAMPLE_URL} provider='youtube' />
     <HowItWorks />
     <WhyChoose
       heading='Why use our YouTube embed code generator'

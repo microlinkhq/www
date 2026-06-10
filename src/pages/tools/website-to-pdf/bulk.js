@@ -65,6 +65,7 @@ import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError, isRateLimited } from 'helpers/api-error'
 import { withTitle } from 'helpers/hoc/with-title'
+import { trackEvent } from 'helpers/plausible'
 import {
   extractNerdStats,
   buildMqlQuery
@@ -1008,6 +1009,7 @@ const OptionsPanel = ({
     }
 
     setUrlError('')
+    trackEvent('pdf bulk generate', { count: normalized.length })
     onSubmit(normalized)
   }, [detectedUrls, onSubmit])
 
