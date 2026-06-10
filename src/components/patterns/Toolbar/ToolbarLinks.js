@@ -152,7 +152,6 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
   createNavigationItem({
     label: 'Component Builder',
     href: '/integrations/builder',
-    description: 'Build a link preview for React, Vue, Angular, Svelte & JS',
     icon: LayoutIcon
   }),
   createNavigationItem({
