@@ -9,7 +9,7 @@ Generate concise, user-facing changelog entries for `src/content/fragments/chang
 
 ## When to use
 
-Run this skill when you need to update the changelog with recent changes. It scans all relevant repos and produces entries grouped by month.
+Run this skill when you need to update the changelog with recent changes. It scans all relevant repos and produces entries grouped by month. The changelog is read **newest to oldest** — both across months and within each month section.
 
 ## Steps
 
@@ -95,16 +95,24 @@ cd <repo-path> && git log --format="%h %ad %s" --date=format:"%Y-%m-%d" --after=
 
 ### 5. Group by month and compose entries
 
-Group changes by month (`### Month YYYY`). Within each month, order entries by product:
+Group changes by month (`### Month YYYY`).
 
-1. `[Microlink](/)` — website pages, landings, tools
-2. `[Microlink API](/docs/api/getting-started/overview)` — API features and fixes
-3. `[Browserless](https://browserless.js.org)` — include version when relevant
-4. `[Metascraper](https://metascraper.js.org)` — include version when relevant
-5. `[Microlink MQL](/docs/mql/getting-started/overview)` — MQL changes
-6. `[Microlink SDK](/docs/sdk/getting-started/overview)` — SDK changes
-7. `[Microlink OSS](/oss)` — other OSS releases
-8. `[unavatar.io](https://unavatar.io)` — providers and features
+**Within each month, sort entries newest first (reverse chronological).** Use commit dates from the repo scans to determine order. When a change spans multiple repos on the same day, any stable order is fine — what matters is that earlier-in-the-month entries appear lower in the section.
+
+Do **not** group by product within a month. The reader scans top-to-bottom from most recent to oldest.
+
+When multiple user-facing changes ship on different dates under the same product (e.g., three dashboard updates across a week), prefer **one entry per change** so each line sits at the correct chronological position. Avoid rolling them into a single composite entry unless they shipped together.
+
+Product link conventions (for writing entries, not for ordering):
+
+- `[Microlink](/)` — website pages, landings, tools
+- `[Microlink API](/docs/api/getting-started/overview)` — API features and fixes
+- `[Browserless](https://browserless.js.org)` — include version when relevant
+- `[Metascraper](https://metascraper.js.org)` — include version when relevant
+- `[Microlink MQL](/docs/mql/getting-started/overview)` — MQL changes
+- `[Microlink SDK](/docs/sdk/getting-started/overview)` — SDK changes
+- `[Microlink OSS](/oss)` — other OSS releases
+- `[unavatar.io](https://unavatar.io)` — providers and features
 
 ### 6. Entry format rules
 
@@ -130,4 +138,6 @@ Show the proposed entries to the user before editing the file. Ask if any entrie
 
 ### 8. Insert into changelog
 
-Prepend the new month sections at the top of the file, before the first existing `### Month YYYY` header. Do not modify existing entries.
+- **New month**: prepend the `### Month YYYY` section at the top of the file, before the first existing month header. Sort all entries in that section newest first.
+- **Existing month**: merge new entries into the matching month section and **re-sort the entire section** newest first. Do not append new entries at the bottom — that puts the freshest changes last, which is the wrong reading order.
+- **Older months**: do not modify entries in months that are not being updated.

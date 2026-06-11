@@ -1,16 +1,23 @@
+### June 2026
+
+- [Microlink API](/docs/api/getting-started/overview): Improved [markdown](/docs/api/parameters/markdown) rendering by stripping non-content DOM.
+- [unavatar.io](https://unavatar.io): Added [Primal](https://unavatar.io/primal), [Hevy](https://unavatar.io/hevy), [Cursor](https://unavatar.io/cursor), [Strava](https://unavatar.io/strava), and [Raycast](https://unavatar.io/raycast) support.
+- [Microlink](/): Added [pricing](/pricing) currency auto-detection and adaptive pricing.
+
 ### May 2026
 
-- [Microlink](/): Added [embed](/embed) tool.
+- [Microlink](/): Added [CLI](/integrations/cli) page.
+- [Microlink](/): Added [search](/search) landing and [search guides](/docs/guides/search).
+- [Microlink](/): Expanded [embed](/embed) provider directory to 380+ providers.
+- [Microlink API](/docs): Added [function](/docs/guides/function) guide.
+- [Microlink API](/docs/api/getting-started/overview): Added [cacheKey](/docs/api/parameters/cacheKey) query parameter.
 - [Microlink](/): Added [link-preview](/link-preview) page.
-- [Microlink](/): Added [customers](/customers) page.
-- [Microlink](/): Revamped [SDK](/sdk) landing.
-- [Microlink](/): Added feature landings for [proxy](/feature/proxy), [ttl](/feature/ttl), and [headers](/feature/headers).
-- [Microlink API](/docs/api/getting-started/overview): Made [function](/docs/api/parameters/function) available for free users with resource limits.
-- [Microlink API](/docs/api/getting-started/overview): Added [cacheKey](/docs/api/parameters/cacheKey) query parameter (PRO).
-- [Microlink API](/docs/api/getting-started/overview): Improved [markdown](/docs/api/parameters/markdown) rendering.
-- [Microlink API](/docs/api/getting-started/overview): Improved Twitter/X URLs resolution.
 - [Browserless v13](https://browserless.js.org): Upgraded to Puppeteer 25.
+- [Microlink](/): Added [embed](/embed) tool.
+- [Microlink](/): Added [customers](/customers) page.
 - [unavatar.io](https://unavatar.io): Added [npm](https://unavatar.io/npm), [Product Hunt](https://unavatar.io/producthunt), [Docker Hub](https://unavatar.io/dockerhub), [CodePen](https://unavatar.io/codepen), [Hugging Face](https://unavatar.io/huggingface), [Thingiverse](https://unavatar.io/thingiverse), and [Cults3D](https://unavatar.io/cults3d) support.
+- [Microlink](/): Added feature landings for [proxy](/feature/proxy), [ttl](/feature/ttl), and [headers](/feature/headers).
+- [Microlink API](/docs/api/getting-started/overview): Improved Twitter/X URLs resolution.
 
 ### April 2026
 
