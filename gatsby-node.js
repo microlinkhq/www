@@ -401,7 +401,7 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
       mkdirSync(path.dirname(outputPath), { recursive: true })
       writeFileSync(outputPath, markdown || '')
     },
-    { concurrency: 4 }
+    { concurrency: 8 }
   )
   const duration = Date.now() - startTime
 
