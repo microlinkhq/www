@@ -45,6 +45,7 @@ const special = [
   'URLs',
   'waitFor',
   'waitUntil',
+  'WebGL',
   'width',
   'WordPress'
 ]
