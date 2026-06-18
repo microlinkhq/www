@@ -1,7 +1,6 @@
 import Analytics from 'components/pages/home/analytics'
 import Faqs from 'components/pages/home/faqs'
 import Hero from 'components/pages/home/hero'
-import Overlay from 'components/pages/home/overlay'
 import Meta from 'components/elements/Meta/Meta'
 import Container from 'components/elements/Container'
 import { Link } from 'components/elements/Link'
@@ -102,7 +101,7 @@ const HomePage = () => {
   return (
     <CurrencyProvider>
       <Layout>
-        <Hero>{({ color }) => <Overlay color={color} />}</Hero>
+        <Hero />
         <Analytics />
         <Features
           title={

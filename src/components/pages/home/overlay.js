@@ -22,7 +22,7 @@ const absolute = css`
   left: 0;
 `
 
-const Overlay = ({ color }) => {
+const Overlay = ({ color, start = '50%' }) => {
   const leftColor = color || '#8c1bab'
   const rightColor = color || '#f76698'
 
@@ -146,7 +146,11 @@ const Overlay = ({ color }) => {
       >
         <Box
           css={`
-            background: linear-gradient(to top, rgba(0, 0, 0, 0) 0px, #fff 50%);
+            background: linear-gradient(
+              to top,
+              rgba(0, 0, 0, 0) 0px,
+              #fff ${start}
+            );
             ${absolute};
             z-index: 1;
           `}
