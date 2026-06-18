@@ -179,6 +179,10 @@ const Overlay = ({ color, start = '50%' }) => {
               mask-position: 50% 0;
               animation: ${translation} 30s linear infinite;
               transition: background-image ${transition.medium};
+
+              @media (prefers-reduced-motion: reduce) {
+                animation: none;
+              }
             `}
           />
         </Box>

@@ -7,7 +7,7 @@ import Text from 'components/elements/Text'
 import Overlay from 'components/pages/home/overlay'
 import FeatherIcon from 'components/icons/Feather'
 import { WandSparkles } from 'components/icons/WandSparkles'
-import { transition, fonts, theme } from 'theme'
+import { transition, timings, fonts, theme } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 
@@ -43,10 +43,30 @@ const SYNTAX = {
 
 const reduceMotion = '@media (prefers-reduced-motion: reduce)'
 
+// smooth ease-out for position/scale changes (dropdown, sliding tab indicator)
+const EASE_SMOOTH = 'cubic-bezier(0.22, 1, 0.36, 1)'
+
 const pulse = keyframes`
   0% { box-shadow: 0 0 0 0 rgba(255,30,140,.45) }
   70% { box-shadow: 0 0 0 8px rgba(255,30,140,0) }
   100% { box-shadow: 0 0 0 0 rgba(255,30,140,0) }
+`
+
+const fadeIn = keyframes`
+  from { opacity: 0 }
+  to { opacity: 1 }
+`
+
+// first-paint reveal: gentle blurred rise + fade, staggered across the hero
+const riseIn = keyframes`
+  from { opacity: 0; transform: translateY(8px); filter: blur(3px) }
+  to { opacity: 1; transform: translateY(0); filter: blur(0) }
+`
+
+// slow highlight sweep that keeps the "live" label feeling alive
+const shimmer = keyframes`
+  0% { background-position: 100% 0 }
+  100% { background-position: 0% 0 }
 `
 
 /* ----------------------------- routing logic ----------------------------- */
@@ -242,8 +262,10 @@ const Section = styled.section`
   font-family: ${SANS};
   color: ${INK};
   -webkit-font-smoothing: antialiased;
-  padding: clamp(32px, 5vw, 72px) clamp(16px, 4vw, 40px)
-    clamp(96px, 14vw, 220px);
+
+  padding-right: clamp(16px, 4vw, 40px);
+  padding-bottom: clamp(96px, 14vw, 220px);
+  padding-left: clamp(16px, 4vw, 40px);
 `
 
 // the centered content column — Container gives flex-column + mx:auto; the
@@ -255,6 +277,36 @@ const Content = styled(Container)`
   align-items: center;
   text-align: center;
   padding: 0;
+
+  /* staggered first-paint reveal, top to bottom */
+  & > * {
+    animation: ${riseIn} 440ms ${timings.short} both;
+  }
+  & > *:nth-child(2) {
+    animation-delay: 45ms;
+  }
+  & > *:nth-child(3) {
+    animation-delay: 90ms;
+  }
+  & > *:nth-child(4) {
+    animation-delay: 135ms;
+  }
+  & > *:nth-child(5) {
+    animation-delay: 180ms;
+  }
+  & > *:nth-child(6) {
+    animation-delay: 225ms;
+  }
+  & > *:nth-child(7) {
+    animation-delay: 270ms;
+  }
+
+  /* reduced motion: keep the fade, drop the movement */
+  ${reduceMotion} {
+    & > * {
+      animation-name: ${fadeIn};
+    }
+  }
 `
 
 const PulseDot = styled(Dot)`
@@ -342,6 +394,11 @@ const VertChip = styled.div`
   border: 1px solid ${props => props.$border};
   border-radius: 10px;
   padding: 5px 9px 5px 6px;
+  transition: transform ${transition.short};
+
+  &:active {
+    transform: scale(0.98);
+  }
 `
 
 const RunButton = styled.button`
@@ -357,9 +414,15 @@ const RunButton = styled.button`
   flex-shrink: 0;
   transition: transform ${transition.short}, filter ${transition.short};
 
-  &:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.06);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+  }
+
+  &:active {
+    transform: scale(0.97);
   }
 `
 
@@ -375,11 +438,18 @@ const ExampleChip = styled.button`
   border: 1px solid #e4e4e8;
   padding: 8px 13px;
   border-radius: 999px;
-  transition: border-color ${transition.short}, color ${transition.short};
+  transition: border-color ${transition.short}, color ${transition.short},
+    transform ${transition.short};
 
-  &:hover {
-    border-color: ${props => props.$border};
-    color: ${INK};
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: ${props => props.$border};
+      color: ${INK};
+    }
+  }
+
+  &:active {
+    transform: scale(0.97);
   }
 `
 
@@ -395,23 +465,125 @@ const Panel = styled.div`
   box-shadow: 0 24px 60px -40px rgba(40, 10, 60, 0.35);
 `
 
+// the tab row owns positioning context for the sliding indicator
+const TabBar = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+`
+
 const TabButton = styled.button`
   cursor: pointer;
   border: none;
   background: transparent;
   font-family: ${SANS};
   font-size: 17px;
-  font-weight: ${props => (props.$active ? 600 : 500)};
+  /* weight stays constant so the active tab doesn't reflow its width and
+     shift its siblings — active is signalled by color + the sliding indicator */
+  font-weight: 500;
   color: ${props => (props.$active ? INK : '#8a8a90')};
   padding: 0 0 14px;
-  border-bottom: 2px solid ${props => (props.$active ? INK : 'transparent')};
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  transition: color ${transition.short};
+`
+
+// the active-tab underline that slides between tabs; JS writes its
+// transform/width from the active tab's offsetLeft/offsetWidth
+const TabIndicator = styled.span`
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: ${INK};
+  transform: translateX(0);
+  transition: transform 250ms ${EASE_SMOOTH}, width 250ms ${EASE_SMOOTH};
+  will-change: transform, width;
+  pointer-events: none;
+
+  ${reduceMotion} {
+    transition: none;
+  }
+`
+
+// origin-aware popover: scales in from the chip (bottom-left) on open and
+// scales back down on close — data-state drives both directions
+const VertMenu = styled(Box)`
+  transform-origin: bottom left;
+  will-change: transform, opacity;
+
+  &[data-state='pre'] {
+    opacity: 0;
+    transform: scale(0.97);
+    pointer-events: none;
+  }
+  &[data-state='open'] {
+    opacity: 1;
+    transform: scale(1);
+    transition: transform 250ms ${EASE_SMOOTH}, opacity 250ms ${EASE_SMOOTH};
+  }
+  &[data-state='closing'] {
+    opacity: 0;
+    transform: scale(0.99);
+    pointer-events: none;
+    transition: transform 150ms ${EASE_SMOOTH}, opacity 150ms ${EASE_SMOOTH};
+  }
+
+  ${reduceMotion} {
+    transition: none;
+  }
+`
+
+// fade the result body on tab change (opacity only — no layout motion)
+const TabContent = styled.div`
+  animation: ${fadeIn} ${transition.short};
+
+  ${reduceMotion} {
+    animation: none;
+  }
 `
 
 const Mono = styled(Text).attrs({ as: 'span' })`
   font-family: ${MONO};
+`
+
+// sweeps a highlight band across the label's glyphs (clip-to-text); the
+// ::before duplicates the text via data-text and only paints the moving band
+const ShimmerText = styled.span`
+  position: relative;
+  display: inline-block;
+  color: ${VIOLET};
+
+  &::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 40%,
+      rgba(255, 255, 255, 0.95) 50%,
+      transparent 60%,
+      transparent 100%
+    );
+    background-size: 220% 100%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: ${shimmer} 3.2s ease-in-out infinite;
+  }
+
+  ${reduceMotion} {
+    &::before {
+      animation: none;
+    }
+  }
 `
 
 const StatusPill = styled.span`
@@ -480,6 +652,42 @@ const ResultPanel = ({ tab, setTab, D }) => {
     { key: 'code', label: 'Code' }
   ]
 
+  const barRef = useRef(null)
+  const indicatorRef = useRef(null)
+  const firstPaint = useRef(true)
+
+  // slide the underline to the active tab; the first paint (and resize / font
+  // load) snaps without a transition so it doesn't animate in from zero width
+  useEffect(() => {
+    const move = animate => {
+      const bar = barRef.current
+      const pill = indicatorRef.current
+      const active = bar && bar.querySelector('[data-active="true"]')
+      if (!bar || !pill || !active) return
+      if (!animate) {
+        const prev = pill.style.transition
+        pill.style.transition = 'none'
+        pill.style.transform = `translateX(${active.offsetLeft}px)`
+        pill.style.width = `${active.offsetWidth}px`
+        pill.getBoundingClientRect() // force reflow so the snap isn't animated
+        pill.style.transition = prev
+      } else {
+        pill.style.transform = `translateX(${active.offsetLeft}px)`
+        pill.style.width = `${active.offsetWidth}px`
+      }
+    }
+
+    move(!firstPaint.current)
+    if (firstPaint.current && document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => move(false))
+    }
+    firstPaint.current = false
+
+    const onResize = () => move(false)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [tab])
+
   return (
     <Panel>
       {/* header */}
@@ -536,18 +744,14 @@ const ResultPanel = ({ tab, setTab, D }) => {
       </Flex>
 
       {/* tabs */}
-      <Flex
-        css={theme({
-          alignItems: 'center',
-          gap: 4,
-          pt: 3,
-          px: 3,
-          borderBottom: '1px solid #EFEFF1'
-        })}
+      <TabBar
+        ref={barRef}
+        css={theme({ pt: 3, px: 3, borderBottom: '1px solid #EFEFF1' })}
       >
         {tabs.map(t => (
           <TabButton
             key={t.key}
+            data-active={tab === t.key}
             $active={tab === t.key}
             onClick={() => setTab(t.key)}
           >
@@ -559,226 +763,229 @@ const ResultPanel = ({ tab, setTab, D }) => {
             )}
           </TabButton>
         ))}
-      </Flex>
+        <TabIndicator ref={indicatorRef} />
+      </TabBar>
 
-      {tab === 'data' && (
-        <Code
-          css={theme({
-            fontSize: 0,
-            lineHeight: 1.85,
-            color: SYNTAX.body
-          })}
-        >
-          {'{\n  '}
-          <Key>"status"</Key>: <Str>"success"</Str>,{'\n  '}
-          <Key>"data"</Key>: {'{\n    '}
-          <Key>"publisher"</Key>: <Str>"{D.domain}"</Str>,{'\n    '}
-          <Key>"lang"</Key>: <Str>"en"</Str>,{'\n    '}
-          <Key>"title"</Key>: <Str>"{D.title}"</Str>,{'\n    '}
-          <Key>"url"</Key>: <Str>"{D.fullUrl}"</Str>,{'\n    '}
-          <Key>"date"</Key>: <Str>"2026-06-16T20:42:11.000Z"</Str>,{'\n    '}
-          <Key>"image"</Key>: <Literal>null</Literal>,{'\n    '}
-          <Key>"description"</Key>: <Str>"{D.desc}"</Str>,{'\n    '}
-          <Key>"logo"</Key>: <Literal>null</Literal>
-          {'\n  },\n  '}
-          <Key>"statusCode"</Key>: <Num>200</Num>,{'\n  '}
-          <Key>"redirects"</Key>: []{'\n}'}
-        </Code>
-      )}
+      <TabContent key={tab}>
+        {tab === 'data' && (
+          <Code
+            css={theme({
+              fontSize: 0,
+              lineHeight: 1.85,
+              color: SYNTAX.body
+            })}
+          >
+            {'{\n  '}
+            <Key>"status"</Key>: <Str>"success"</Str>,{'\n  '}
+            <Key>"data"</Key>: {'{\n    '}
+            <Key>"publisher"</Key>: <Str>"{D.domain}"</Str>,{'\n    '}
+            <Key>"lang"</Key>: <Str>"en"</Str>,{'\n    '}
+            <Key>"title"</Key>: <Str>"{D.title}"</Str>,{'\n    '}
+            <Key>"url"</Key>: <Str>"{D.fullUrl}"</Str>,{'\n    '}
+            <Key>"date"</Key>: <Str>"2026-06-16T20:42:11.000Z"</Str>,{'\n    '}
+            <Key>"image"</Key>: <Literal>null</Literal>,{'\n    '}
+            <Key>"description"</Key>: <Str>"{D.desc}"</Str>,{'\n    '}
+            <Key>"logo"</Key>: <Literal>null</Literal>
+            {'\n  },\n  '}
+            <Key>"statusCode"</Key>: <Num>200</Num>,{'\n  '}
+            <Key>"redirects"</Key>: []{'\n}'}
+          </Code>
+        )}
 
-      {tab === 'headers' && (
-        <Box
-          css={theme({
-            pt: 2,
-            px: 3,
-            pb: 3,
-            maxHeight: '380px',
-            overflow: 'auto'
-          })}
-        >
-          {HEADER_ROWS.map(h => (
-            <Box
-              key={h.k}
+        {tab === 'headers' && (
+          <Box
+            css={theme({
+              pt: 2,
+              px: 3,
+              pb: 3,
+              maxHeight: '380px',
+              overflow: 'auto'
+            })}
+          >
+            {HEADER_ROWS.map(h => (
+              <Box
+                key={h.k}
+                css={theme({
+                  display: 'grid',
+                  gridTemplateColumns: '230px 1fr',
+                  gap: 3,
+                  py: 2,
+                  borderBottom: '1px solid #F2F2F4',
+                  fontFamily: 'mono',
+                  fontSize: 0
+                })}
+              >
+                <Box as='span' css={theme({ color: SYNTAX.number })}>
+                  {h.k}
+                </Box>
+                <Box
+                  as='span'
+                  css={theme({ color: SYNTAX.body, wordBreak: 'break-all' })}
+                >
+                  {h.v}
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        )}
+
+        {tab === 'timing' && (
+          <Box css={theme({ p: 3, maxHeight: '380px', overflow: 'auto' })}>
+            <Flex
               css={theme({
-                display: 'grid',
-                gridTemplateColumns: '230px 1fr',
-                gap: 3,
-                py: 2,
-                borderBottom: '1px solid #F2F2F4',
-                fontFamily: 'mono',
-                fontSize: 0
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                mb: 3
               })}
             >
-              <Box as='span' css={theme({ color: SYNTAX.number })}>
-                {h.k}
+              <Box
+                as='span'
+                css={theme({ fontSize: 1, fontWeight: 600, color: INK })}
+              >
+                Total server time
               </Box>
               <Box
                 as='span'
-                css={theme({ color: SYNTAX.body, wordBreak: 'break-all' })}
+                css={theme({ fontSize: 2, fontWeight: 'bold', color: INK })}
               >
-                {h.v}
+                35ms
               </Box>
-            </Box>
-          ))}
-        </Box>
-      )}
-
-      {tab === 'timing' && (
-        <Box css={theme({ p: 3, maxHeight: '380px', overflow: 'auto' })}>
-          <Flex
-            css={theme({
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              mb: 3
-            })}
-          >
-            <Box
-              as='span'
-              css={theme({ fontSize: 1, fontWeight: 600, color: INK })}
-            >
-              Total server time
-            </Box>
-            <Box
-              as='span'
-              css={theme({ fontSize: 2, fontWeight: 'bold', color: INK })}
-            >
-              35ms
-            </Box>
-          </Flex>
-          {TIMING_BARS.map(b => (
-            <Box key={b.name} css={theme({ mb: 3 })}>
-              <Flex
-                css={theme({
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  mb: 2
-                })}
-              >
-                <Mono css={theme({ fontSize: 0, color: INK })}>{b.name}</Mono>
-                <Mono css={theme({ fontSize: 0, color: SYNTAX.muted })}>
-                  {b.dur}
-                </Mono>
-              </Flex>
-              <Box
-                css={theme({
-                  height: '8px',
-                  borderRadius: '999px',
-                  background: '#F0F0F2',
-                  overflow: 'hidden'
-                })}
-              >
+            </Flex>
+            {TIMING_BARS.map(b => (
+              <Box key={b.name} css={theme({ mb: 3 })}>
+                <Flex
+                  css={theme({
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    mb: 2
+                  })}
+                >
+                  <Mono css={theme({ fontSize: 0, color: INK })}>{b.name}</Mono>
+                  <Mono css={theme({ fontSize: 0, color: SYNTAX.muted })}>
+                    {b.dur}
+                  </Mono>
+                </Flex>
                 <Box
                   css={theme({
-                    height: '100%',
+                    height: '8px',
                     borderRadius: '999px',
-                    width: b.pct,
-                    background: b.color
+                    background: '#F0F0F2',
+                    overflow: 'hidden'
                   })}
-                />
+                >
+                  <Box
+                    css={theme({
+                      height: '100%',
+                      borderRadius: '999px',
+                      width: b.pct,
+                      background: b.color
+                    })}
+                  />
+                </Box>
               </Box>
-            </Box>
-          ))}
-          <Box
-            css={theme({
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr 1fr',
-              gap: 2,
-              mt: 3,
-              pb: 2,
-              borderBottom: '1px solid #EFEFF1',
-              fontFamily: 'mono',
-              fontSize: 0,
-              letterSpacing: '.05em',
-              color: SYNTAX.muted,
-              textTransform: 'uppercase'
-            })}
-          >
-            <span>Metric</span>
-            <Box as='span' css={theme({ textAlign: 'right' })}>
-              Duration
-            </Box>
-            <Box as='span' css={theme({ textAlign: 'right' })}>
-              % of total
-            </Box>
-          </Box>
-          {TIMING_ROWS.map(r => (
+            ))}
             <Box
-              key={r.name}
               css={theme({
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr 1fr',
                 gap: 2,
-                py: 3,
-                borderBottom: '1px solid #F2F2F4',
+                mt: 3,
+                pb: 2,
+                borderBottom: '1px solid #EFEFF1',
                 fontFamily: 'mono',
                 fontSize: 0,
-                color: SYNTAX.body
+                letterSpacing: '.05em',
+                color: SYNTAX.muted,
+                textTransform: 'uppercase'
               })}
             >
-              <span>{r.name}</span>
-              <Box
-                as='span'
-                css={theme({ textAlign: 'right', color: SYNTAX.muted })}
-              >
-                {r.dur}
+              <span>Metric</span>
+              <Box as='span' css={theme({ textAlign: 'right' })}>
+                Duration
               </Box>
-              <Box
-                as='span'
-                css={theme({ textAlign: 'right', color: SYNTAX.muted })}
-              >
-                {r.pct}
+              <Box as='span' css={theme({ textAlign: 'right' })}>
+                % of total
               </Box>
             </Box>
-          ))}
-        </Box>
-      )}
-
-      {tab === 'code' && (
-        <Box>
-          <Box
-            css={theme({
-              fontFamily: 'mono',
-              fontSize: 0,
-              letterSpacing: '.06em',
-              color: SYNTAX.muted,
-              pt: 3,
-              px: 3
-            })}
-          >
-            JAVASCRIPT / NODE.JS
+            {TIMING_ROWS.map(r => (
+              <Box
+                key={r.name}
+                css={theme({
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr 1fr',
+                  gap: 2,
+                  py: 3,
+                  borderBottom: '1px solid #F2F2F4',
+                  fontFamily: 'mono',
+                  fontSize: 0,
+                  color: SYNTAX.body
+                })}
+              >
+                <span>{r.name}</span>
+                <Box
+                  as='span'
+                  css={theme({ textAlign: 'right', color: SYNTAX.muted })}
+                >
+                  {r.dur}
+                </Box>
+                <Box
+                  as='span'
+                  css={theme({ textAlign: 'right', color: SYNTAX.muted })}
+                >
+                  {r.pct}
+                </Box>
+              </Box>
+            ))}
           </Box>
-          <Code
-            css={theme({
-              pt: 3,
-              px: 3,
-              pb: 4,
-              fontSize: 0,
-              lineHeight: '2',
-              maxHeight: '340px',
-              color: INK
-            })}
-          >
-            <Num>import</Num> mql <Num>from</Num> <Str>'@microlink/mql'</Str>
-            {'\n\n'}
-            <Num>const</Num> {'{'} status, data, headers, redirects {'}'} ={' '}
-            <Num>await</Num> mql(
-            <Str>'{D.fullUrl}'</Str>, {'{ '}
-            <Num>{D.optName}</Num>: <Bool>true</Bool> {'})'}
-            {'\n\n'}
-            console.<Fn>log</Fn>(status){'     '}
-            <Comment>{"// => 'success'"}</Comment>
-            {'\n'}
-            console.<Fn>log</Fn>(data){'       '}
-            <Comment>{'// => response payload'}</Comment>
-            {'\n'}
-            console.<Fn>log</Fn>(headers){'    '}
-            <Comment>{'// => response headers'}</Comment>
-            {'\n'}
-            console.<Fn>log</Fn>(redirects){'  '}
-            <Comment>{'// => redirect chain'}</Comment>
-          </Code>
-        </Box>
-      )}
+        )}
+
+        {tab === 'code' && (
+          <Box>
+            <Box
+              css={theme({
+                fontFamily: 'mono',
+                fontSize: 0,
+                letterSpacing: '.06em',
+                color: SYNTAX.muted,
+                pt: 3,
+                px: 3
+              })}
+            >
+              JAVASCRIPT / NODE.JS
+            </Box>
+            <Code
+              css={theme({
+                pt: 3,
+                px: 3,
+                pb: 4,
+                fontSize: 0,
+                lineHeight: '2',
+                maxHeight: '340px',
+                color: INK
+              })}
+            >
+              <Num>import</Num> mql <Num>from</Num> <Str>'@microlink/mql'</Str>
+              {'\n\n'}
+              <Num>const</Num> {'{'} status, data, headers, redirects {'}'} ={' '}
+              <Num>await</Num> mql(
+              <Str>'{D.fullUrl}'</Str>, {'{ '}
+              <Num>{D.optName}</Num>: <Bool>true</Bool> {'})'}
+              {'\n\n'}
+              console.<Fn>log</Fn>(status){'     '}
+              <Comment>{"// => 'success'"}</Comment>
+              {'\n'}
+              console.<Fn>log</Fn>(data){'       '}
+              <Comment>{'// => response payload'}</Comment>
+              {'\n'}
+              console.<Fn>log</Fn>(headers){'    '}
+              <Comment>{'// => response headers'}</Comment>
+              {'\n'}
+              console.<Fn>log</Fn>(redirects){'  '}
+              <Comment>{'// => redirect chain'}</Comment>
+            </Code>
+          </Box>
+        )}
+      </TabContent>
     </Panel>
   )
 }
@@ -789,7 +996,8 @@ const Hero = () => {
   const [dText, setDText] = useState(CYCLE[0])
   const [dTab, setDTab] = useState('data')
   const [dVert, setDVert] = useState(null)
-  const [dVertMenu, setDVertMenu] = useState(false)
+  // null = unmounted; 'pre' → 'open' → 'closing' drives the popover transition
+  const [menuState, setMenuState] = useState(null)
   const anim = useRef({
     ci: 0,
     phase: 'pause',
@@ -798,13 +1006,40 @@ const Hero = () => {
     text: CYCLE[0]
   })
   const chipRef = useRef(null)
+  const menuTimer = useRef(null)
+  const menuRaf = useRef(null)
 
   const stopTyping = () => {
     anim.current.userTook = true
     clearTimeout(anim.current.timer)
   }
 
+  const openMenu = () => {
+    clearTimeout(menuTimer.current)
+    setMenuState('pre')
+    // two frames so the 'pre' (scaled-down) state paints before 'open' tweens
+    menuRaf.current = window.requestAnimationFrame(() => {
+      menuRaf.current = window.requestAnimationFrame(() => setMenuState('open'))
+    })
+  }
+
+  const closeMenu = () => {
+    clearTimeout(menuTimer.current)
+    window.cancelAnimationFrame(menuRaf.current)
+    setMenuState(s => (s ? 'closing' : s))
+    menuTimer.current = setTimeout(() => setMenuState(null), 150)
+  }
+
+  const toggleMenu = () => {
+    if (menuState === 'open' || menuState === 'pre') closeMenu()
+    else openMenu()
+  }
+
   useEffect(() => {
+    // respect reduced motion: keep a single static prompt, no auto-typing
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return undefined
+    }
     const a = anim.current
     const apply = t => {
       a.text = t
@@ -842,15 +1077,15 @@ const Hero = () => {
   }, [])
 
   useEffect(() => {
-    if (!dVertMenu) return undefined
+    if (menuState !== 'open') return undefined
     const onDown = e => {
       if (chipRef.current && !chipRef.current.contains(e.target)) {
-        setDVertMenu(false)
+        closeMenu()
       }
     }
     document.addEventListener('mousedown', onDown)
     return () => document.removeEventListener('mousedown', onDown)
-  }, [dVertMenu])
+  }, [menuState])
 
   const D = derive(dText, dVert)
 
@@ -859,14 +1094,14 @@ const Hero = () => {
     anim.current.text = e.target.value
     setDText(e.target.value)
     setDVert(null)
-    setDVertMenu(false)
+    closeMenu()
   }
 
   const pickExample = value => () => {
     stopTyping()
     anim.current.text = value
     setDVert(null)
-    setDVertMenu(false)
+    closeMenu()
     setDText(value)
   }
 
@@ -913,7 +1148,7 @@ const Hero = () => {
                 onClick={e => {
                   e.stopPropagation()
                   stopTyping()
-                  setDVertMenu(v => !v)
+                  toggleMenu()
                 }}
               >
                 <IconBadge
@@ -943,8 +1178,9 @@ const Hero = () => {
                 >
                   <path d='m6 9 6 6 6-6' />
                 </svg>
-                {dVertMenu && (
-                  <Box
+                {menuState && (
+                  <VertMenu
+                    data-state={menuState}
                     css={theme({
                       position: 'absolute',
                       bottom: 'calc(100% + 8px)',
@@ -966,7 +1202,7 @@ const Hero = () => {
                           onClick={e => {
                             e.stopPropagation()
                             setDVert(k)
-                            setDVertMenu(false)
+                            closeMenu()
                           }}
                           css={theme({
                             alignItems: 'center',
@@ -1017,7 +1253,7 @@ const Hero = () => {
                         </Flex>
                       )
                     })}
-                  </Box>
+                  </VertMenu>
                 )}
               </VertChip>
               {D.hasUrl && (
@@ -1078,7 +1314,7 @@ const Hero = () => {
           })}
         >
           <FeatherIcon icon={WandSparkles} size={0} color={VIOLET} />
-          Live response
+          <ShimmerText data-text='Live response'>Live response</ShimmerText>
         </Caps>
 
         <ResultPanel tab={dTab} setTab={setDTab} D={D} />
