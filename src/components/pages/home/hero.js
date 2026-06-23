@@ -311,16 +311,31 @@ const parseLocal = text => {
   return { vertical, url, hasUrl: !!url }
 }
 
-// when the prompt names no domain we run against example.com; the user can
-// type any domain to override it
-const DEFAULT_URL = 'https://example.com'
+// when the prompt names no domain we fall back to the same example URL each
+// product's documentation uses; the user can type any domain to override it
+const DEFAULT_URLS = {
+  screenshot: 'https://www.apple.com/music',
+  preview: 'https://news.ycombinator.com/item?id=13713480',
+  markdown: 'https://microlink.io/docs/api/getting-started/overview',
+  html: 'https://example.com',
+  text: 'https://en.wikipedia.org/wiki/Lorem_ipsum',
+  metadata: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
+  lighthouse: 'https://css-tricks.com/nerds-guide-color-web',
+  technologies: 'https://vercel.com',
+  function: 'https://example.com',
+  pdf: 'https://www.raycast.com',
+  logo: 'https://github.com',
+  video: 'https://www.w3schools.com/html/html5_video.asp',
+  audio: 'https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT'
+}
+const FALLBACK_URL = 'https://example.com'
 
 const derive = (text, override) => {
   const p = parseLocal(text)
   const v = override || p.vertical
   // the request honours the full path (e.g. vercel.com/blog); falls back to the
-  // default domain when the prompt doesn't include one
-  const fullUrl = p.url || DEFAULT_URL
+  // documentation example for the product when the prompt doesn't include one
+  const fullUrl = p.url || DEFAULT_URLS[v] || FALLBACK_URL
   const domain = fullUrl.replace(/^https?:\/\//, '').replace(/\/.*$/, '')
   const knownKey = Object.keys(PRESETS).find(k => fullUrl.includes(k))
   const known = knownKey ? PRESETS[knownKey] : null
