@@ -8,8 +8,9 @@ import Overlay from 'components/pages/home/overlay'
 import FeatherIcon from 'components/icons/Feather'
 import { WandSparkles } from 'components/icons/WandSparkles'
 import { transition, timings, fonts, theme } from 'theme'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
+import mql, { getApiUrl } from '@microlink/mql'
 
 import analyticsData from '../../../../data/analytics.json'
 
@@ -67,6 +68,18 @@ const riseIn = keyframes`
 const shimmer = keyframes`
   0% { background-position: 100% 0 }
   100% { background-position: 0% 0 }
+`
+
+// gentle opacity pulse for skeleton placeholders while a request is in-flight
+const skeletonPulse = keyframes`
+  0%, 100% { opacity: 1 }
+  50% { opacity: 0.45 }
+`
+
+// indeterminate bar that slides across the panel top during a request
+const loadingSlide = keyframes`
+  0% { transform: translateX(-100%) }
+  100% { transform: translateX(400%) }
 `
 
 /* ----------------------------- routing logic ----------------------------- */
@@ -131,6 +144,19 @@ const FLAGS = {
   search: 'q',
   pdf: 'pdf',
   logo: 'logo'
+}
+
+// the actual mql options sent per vertical — every one is a real API call that
+// returns real data; verticals without a dedicated free-tier flag fall back to
+// the default metadata response
+const REQUEST_OPTS = {
+  screenshot: { screenshot: true },
+  preview: { screenshot: true },
+  markdown: {},
+  metadata: {},
+  search: {},
+  pdf: { pdf: true },
+  logo: { palette: true }
 }
 
 const VERTICAL_ORDER = [
@@ -226,34 +252,64 @@ const derive = (text, override) => {
   }
 }
 
-const HEADER_ROWS = [
-  { k: 'cache-control', v: 'public, must-revalidate, max-age=76376' },
-  { k: 'content-length', v: '401' },
-  { k: 'content-type', v: 'application/json; charset=utf-8' },
-  { k: 'server-timing', v: 'total;dur=34,ssrf;dur=1,purge;dur=0' },
-  { k: 'x-cache-status', v: 'HIT' },
-  { k: 'x-fetch-mode', v: 'prerender' },
-  { k: 'x-fetch-time', v: '869ms' },
-  { k: 'x-pricing-plan', v: 'free' },
-  { k: 'x-rate-limit-limit', v: '50' },
-  { k: 'x-rate-limit-remaining', v: '48' },
-  { k: 'x-region', v: 'iad' },
-  { k: 'x-response-time', v: '34ms' }
+// palette cycled across the timing bars so each metric reads as its own colour
+const TIMING_COLORS = [
+  SYNTAX.string,
+  SYNTAX.number,
+  '#F59E0B',
+  '#EC4899',
+  VIOLET,
+  SYNTAX.fn
 ]
 
-const TIMING_BARS = [
-  { name: 'total', dur: '34.0ms', pct: '97%', color: '#16A34A' },
-  { name: 'ssrf', dur: '1.0ms', pct: '6%', color: '#2D7FF9' },
-  { name: 'purge', dur: '0.0ms', pct: '2%', color: '#F59E0B' },
-  { name: 'cfExtPri', dur: '0.0ms', pct: '2%', color: '#EC4899' }
-]
+// the fetch Response carries a Headers instance; flatten + sort it for display
+const headersToRows = headers => {
+  if (!headers) return []
+  const rows = []
+  if (typeof headers.forEach === 'function') {
+    headers.forEach((v, k) => rows.push({ k, v }))
+  } else {
+    Object.entries(headers).forEach(([k, v]) => rows.push({ k, v: String(v) }))
+  }
+  return rows.sort((a, b) => a.k.localeCompare(b.k))
+}
 
-const TIMING_ROWS = [
-  { name: 'total', dur: '34.0ms', pct: '97.1%' },
-  { name: 'ssrf', dur: '1.0ms', pct: '2.9%' },
-  { name: 'purge', dur: '0.0ms', pct: '0.0%' },
-  { name: 'cfExtPri', dur: '0.0ms', pct: '0.0%' }
-]
+// turn the `server-timing` header (e.g. "total;dur=34,ssrf;dur=1") into the
+// bars + rows the Timing tab renders
+const parseServerTiming = headers => {
+  const raw =
+    headers && typeof headers.get === 'function'
+      ? headers.get('server-timing')
+      : headers && headers['server-timing']
+  if (!raw) return { bars: [], rows: [], totalMs: null }
+
+  const entries = raw.split(',').map(part => {
+    const [name, ...rest] = part.split(';')
+    const dur = rest.find(p => p.trim().startsWith('dur='))
+    return { name: name.trim(), dur: dur ? parseFloat(dur.split('=')[1]) : 0 }
+  })
+
+  const total =
+    entries.find(e => e.name === 'total')?.dur ??
+    entries.reduce((sum, e) => sum + e.dur, 0)
+
+  const pct = dur => (total ? (dur / total) * 100 : 0)
+
+  const bars = entries.map((e, i) => ({
+    name: e.name,
+    dur: `${e.dur.toFixed(1)}ms`,
+    pct: `${Math.max(2, Math.round(pct(e.dur)))}%`,
+    color: TIMING_COLORS[i % TIMING_COLORS.length]
+  }))
+
+  const rows = entries.map(e => ({
+    name: e.name,
+    dur: `${e.dur.toFixed(1)}ms`,
+    pct: `${pct(e.dur).toFixed(1)}%`
+  }))
+
+  return { bars, rows, totalMs: total }
+}
 
 /* ------------------------------- presentation ------------------------------ */
 
@@ -424,6 +480,13 @@ const RunButton = styled.button`
   &:active {
     transform: scale(0.97);
   }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: default;
+    transform: none;
+    filter: none;
+  }
 `
 
 const ExampleChip = styled.button`
@@ -454,6 +517,7 @@ const ExampleChip = styled.button`
 `
 
 const Panel = styled.div`
+  position: relative;
   width: 100%;
   max-width: 980px;
   margin-top: 14px;
@@ -586,12 +650,18 @@ const ShimmerText = styled.span`
   }
 `
 
+const PILL_TONES = {
+  success: { color: SYNTAX.string, background: '#e7f7ed' },
+  error: { color: '#DC2626', background: '#FDECEC' },
+  loading: { color: VIOLET, background: 'rgba(155,38,214,.08)' }
+}
+
 const StatusPill = styled.span`
   font-family: ${MONO};
   font-size: 13px;
   font-weight: 500;
-  color: ${SYNTAX.string};
-  background: #e7f7ed;
+  color: ${p => (PILL_TONES[p.$tone] || PILL_TONES.success).color};
+  background: ${p => (PILL_TONES[p.$tone] || PILL_TONES.success).background};
   padding: 5px 12px;
   border-radius: 999px;
   white-space: nowrap;
@@ -607,6 +677,111 @@ const Code = styled.pre`
   overflow: auto;
 `
 
+// colours for each JSON token type, matched to the rest of the panel
+const JSON_COLORS = {
+  key: SYNTAX.key,
+  string: SYNTAX.string,
+  number: SYNTAX.number,
+  boolean: SYNTAX.boolean,
+  null: SYNTAX.literal
+}
+
+// matches a quoted string (optionally an object key when followed by a colon),
+// a literal (true/false/null) or a number — enough to colourise pretty JSON
+const JSON_TOKEN =
+  /("(?:\\.|[^"\\])*")(\s*:)?|\b(?:true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g
+
+// pretty-print + syntax-highlight a response payload without pulling in a
+// JSON-viewer dependency (keeps the homepage bundle lean and avoids the legacy
+// react-json-view warnings)
+const JsonView = ({ src }) => {
+  const text = JSON.stringify(src, null, 2)
+  const nodes = []
+  let last = 0
+  let key = 0
+  let match
+
+  while ((match = JSON_TOKEN.exec(text)) !== null) {
+    if (match.index > last) nodes.push(text.slice(last, match.index))
+    const token = match[0]
+
+    if (match[1] && match[2] !== undefined) {
+      // object key — colour the quoted name, leave the colon neutral
+      nodes.push(
+        <Box as='span' key={key++} css={{ color: JSON_COLORS.key }}>
+          {match[1]}
+        </Box>
+      )
+      nodes.push(match[2])
+    } else if (match[1]) {
+      nodes.push(
+        <Box as='span' key={key++} css={{ color: JSON_COLORS.string }}>
+          {token}
+        </Box>
+      )
+    } else {
+      const color =
+        token === 'true' || token === 'false'
+          ? JSON_COLORS.boolean
+          : token === 'null'
+            ? JSON_COLORS.null
+            : JSON_COLORS.number
+      nodes.push(
+        <Box as='span' key={key++} css={{ color }}>
+          {token}
+        </Box>
+      )
+    }
+
+    last = JSON_TOKEN.lastIndex
+  }
+  if (last < text.length) nodes.push(text.slice(last))
+
+  return (
+    <Code css={theme({ fontSize: 0, lineHeight: 1.85, color: SYNTAX.body })}>
+      {nodes}
+    </Code>
+  )
+}
+
+// indeterminate progress bar pinned to the panel header while a request runs
+const LoadingBar = styled.span`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 25%;
+  background: ${GRADIENT};
+  animation: ${loadingSlide} 1s ease-in-out infinite;
+  ${reduceMotion} {
+    animation: none;
+    width: 100%;
+    opacity: 0.4;
+  }
+`
+
+const SkeletonLine = styled.span`
+  display: block;
+  height: 12px;
+  border-radius: 6px;
+  background: #ececed;
+  animation: ${skeletonPulse} 1.2s ease-in-out infinite;
+  ${reduceMotion} {
+    animation: none;
+  }
+`
+
+const Skeleton = () => (
+  <Box css={theme({ p: '22px' })}>
+    {[92, 64, 78, 54, 70, 48, 60].map((w, i) => (
+      <SkeletonLine
+        key={i}
+        css={theme({ mb: 3, width: `${w}%`, animationDelay: `${i * 90}ms` })}
+      />
+    ))}
+  </Box>
+)
+
 const Glyph = ({ html, ...props }) => (
   <Box as='span' {...props} dangerouslySetInnerHTML={{ __html: html }} />
 )
@@ -619,15 +794,9 @@ const IconBadge = styled(Glyph)`
   flex-shrink: 0;
 `
 
-// syntax-highlight tokens for the Data/Code panels
-const Key = styled.span`
-  color: ${SYNTAX.key};
-`
+// syntax-highlight tokens for the Code panel
 const Str = styled.span`
   color: ${SYNTAX.string};
-`
-const Literal = styled.span`
-  color: ${SYNTAX.literal};
 `
 const Num = styled.span`
   color: ${SYNTAX.number};
@@ -644,11 +813,22 @@ const Comment = styled.span`
 
 /* --------------------------------- result -------------------------------- */
 
-const ResultPanel = ({ tab, setTab, D }) => {
+const ResultPanel = ({ tab, setTab, req }) => {
+  const { D, status, body, headerRows, bars, rows, totalMs } = req
+  const isLoading = status === 'loading'
+  const isError = status === 'error'
+  // the options actually sent for this vertical, so the snippet matches the
+  // GET line and the live request exactly
+  const optEntries = Object.keys(REQUEST_OPTS[D.vertical] || {})
+
   const tabs = [
     { key: 'data', label: 'Data' },
     { key: 'headers', label: 'Headers' },
-    { key: 'timing', label: 'Timing', badge: '4' },
+    {
+      key: 'timing',
+      label: 'Timing',
+      badge: bars && bars.length ? String(bars.length) : null
+    },
     { key: 'code', label: 'Code' }
   ]
 
@@ -688,8 +868,17 @@ const ResultPanel = ({ tab, setTab, D }) => {
     return () => window.removeEventListener('resize', onResize)
   }, [tab])
 
+  const statusTone = isError ? 'error' : isLoading ? 'loading' : 'success'
+  const statusText = isError
+    ? `${req.statusCode || ''} error`.trim()
+    : isLoading
+      ? 'running…'
+      : `${req.statusCode} ${body?.status || 'success'}`
+
   return (
     <Panel>
+      {isLoading && <LoadingBar />}
+
       {/* header */}
       <Flex
         css={theme({
@@ -711,8 +900,12 @@ const ResultPanel = ({ tab, setTab, D }) => {
           >
             Result
           </Box>
-          <StatusPill>200 success</StatusPill>
-          <Mono css={theme({ fontSize: 0, color: SYNTAX.muted })}>569ms</Mono>
+          <StatusPill $tone={statusTone}>{statusText}</StatusPill>
+          {req.elapsedMs != null && !isLoading && (
+            <Mono css={theme({ fontSize: 0, color: SYNTAX.muted })}>
+              {req.elapsedMs}ms
+            </Mono>
+          )}
         </Flex>
       </Flex>
 
@@ -739,7 +932,7 @@ const ResultPanel = ({ tab, setTab, D }) => {
           <Box as='span' css={theme({ color: SYNTAX.string, fontWeight: 600 })}>
             GET
           </Box>{' '}
-          https://api.microlink.io?url={D.encUrl}
+          {req.apiUrl}
         </Mono>
       </Flex>
 
@@ -766,180 +959,199 @@ const ResultPanel = ({ tab, setTab, D }) => {
         <TabIndicator ref={indicatorRef} />
       </TabBar>
 
-      <TabContent key={tab}>
-        {tab === 'data' && (
-          <Code
-            css={theme({
-              fontSize: 0,
-              lineHeight: 1.85,
-              color: SYNTAX.body
-            })}
-          >
-            {'{\n  '}
-            <Key>"status"</Key>: <Str>"success"</Str>,{'\n  '}
-            <Key>"data"</Key>: {'{\n    '}
-            <Key>"publisher"</Key>: <Str>"{D.domain}"</Str>,{'\n    '}
-            <Key>"lang"</Key>: <Str>"en"</Str>,{'\n    '}
-            <Key>"title"</Key>: <Str>"{D.title}"</Str>,{'\n    '}
-            <Key>"url"</Key>: <Str>"{D.fullUrl}"</Str>,{'\n    '}
-            <Key>"date"</Key>: <Str>"2026-06-16T20:42:11.000Z"</Str>,{'\n    '}
-            <Key>"image"</Key>: <Literal>null</Literal>,{'\n    '}
-            <Key>"description"</Key>: <Str>"{D.desc}"</Str>,{'\n    '}
-            <Key>"logo"</Key>: <Literal>null</Literal>
-            {'\n  },\n  '}
-            <Key>"statusCode"</Key>: <Num>200</Num>,{'\n  '}
-            <Key>"redirects"</Key>: []{'\n}'}
-          </Code>
-        )}
-
-        {tab === 'headers' && (
-          <Box
-            css={theme({
-              pt: 2,
-              px: 3,
-              pb: 3,
-              maxHeight: '380px',
-              overflow: 'auto'
-            })}
-          >
-            {HEADER_ROWS.map(h => (
-              <Box
-                key={h.k}
-                css={theme({
-                  display: 'grid',
-                  gridTemplateColumns: '230px 1fr',
-                  gap: 3,
-                  py: 2,
-                  borderBottom: '1px solid #F2F2F4',
-                  fontFamily: 'mono',
-                  fontSize: 0
-                })}
-              >
-                <Box as='span' css={theme({ color: SYNTAX.number })}>
-                  {h.k}
-                </Box>
-                <Box
-                  as='span'
-                  css={theme({ color: SYNTAX.body, wordBreak: 'break-all' })}
-                >
-                  {h.v}
-                </Box>
-              </Box>
-            ))}
+      <TabContent key={isError ? 'error' : tab}>
+        {isError && (
+          <Box css={theme({ p: 4 })}>
+            <Flex css={theme({ alignItems: 'center', gap: 2, mb: 2 })}>
+              <StatusPill $tone='error'>request failed</StatusPill>
+            </Flex>
+            <Mono
+              css={theme({
+                fontSize: 0,
+                color: SYNTAX.body,
+                lineHeight: 1.6,
+                wordBreak: 'break-word'
+              })}
+            >
+              {req.error}
+            </Mono>
           </Box>
         )}
 
-        {tab === 'timing' && (
-          <Box css={theme({ p: 3, maxHeight: '380px', overflow: 'auto' })}>
-            <Flex
-              css={theme({
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                mb: 3
-              })}
-            >
+        {!isError &&
+          tab === 'data' &&
+          (isLoading || !body ? <Skeleton /> : <JsonView src={body} />)}
+
+        {!isError &&
+          tab === 'headers' &&
+          (isLoading || !headerRows
+            ? (
+              <Skeleton />
+              )
+            : (
               <Box
-                as='span'
-                css={theme({ fontSize: 1, fontWeight: 600, color: INK })}
+                css={theme({
+                  pt: 2,
+                  px: 3,
+                  pb: 3,
+                  maxHeight: '380px',
+                  overflow: 'auto'
+                })}
               >
-                Total server time
+                {headerRows.map(h => (
+                  <Box
+                    key={h.k}
+                    css={theme({
+                      display: 'grid',
+                      gridTemplateColumns: '230px 1fr',
+                      gap: 3,
+                      py: 2,
+                      borderBottom: '1px solid #F2F2F4',
+                      fontFamily: 'mono',
+                      fontSize: 0
+                    })}
+                  >
+                    <Box as='span' css={theme({ color: SYNTAX.number })}>
+                      {h.k}
+                    </Box>
+                    <Box
+                      as='span'
+                      css={theme({ color: SYNTAX.body, wordBreak: 'break-all' })}
+                    >
+                      {h.v}
+                    </Box>
+                  </Box>
+                ))}
               </Box>
-              <Box
-                as='span'
-                css={theme({ fontSize: 2, fontWeight: 'bold', color: INK })}
-              >
-                35ms
-              </Box>
-            </Flex>
-            {TIMING_BARS.map(b => (
-              <Box key={b.name} css={theme({ mb: 3 })}>
-                <Flex
-                  css={theme({
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    mb: 2
-                  })}
-                >
-                  <Mono css={theme({ fontSize: 0, color: INK })}>{b.name}</Mono>
+              ))}
+
+        {!isError &&
+          tab === 'timing' &&
+          (isLoading || !bars
+            ? (
+              <Skeleton />
+              )
+            : bars.length === 0
+              ? (
+                <Box css={theme({ p: 4 })}>
                   <Mono css={theme({ fontSize: 0, color: SYNTAX.muted })}>
-                    {b.dur}
+                    No server-timing header on this response.
                   </Mono>
-                </Flex>
-                <Box
-                  css={theme({
-                    height: '8px',
-                    borderRadius: '999px',
-                    background: '#F0F0F2',
-                    overflow: 'hidden'
-                  })}
-                >
+                </Box>
+                )
+              : (
+                <Box css={theme({ p: 3, maxHeight: '380px', overflow: 'auto' })}>
+                  <Flex
+                    css={theme({
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      mb: 3
+                    })}
+                  >
+                    <Box
+                      as='span'
+                      css={theme({ fontSize: 1, fontWeight: 600, color: INK })}
+                    >
+                      Total server time
+                    </Box>
+                    <Box
+                      as='span'
+                      css={theme({ fontSize: 2, fontWeight: 'bold', color: INK })}
+                    >
+                      {totalMs != null ? `${Math.round(totalMs)}ms` : '—'}
+                    </Box>
+                  </Flex>
+                  {bars.map(b => (
+                    <Box key={b.name} css={theme({ mb: 3 })}>
+                      <Flex
+                        css={theme({
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          mb: 2
+                        })}
+                      >
+                        <Mono css={theme({ fontSize: 0, color: INK })}>
+                          {b.name}
+                        </Mono>
+                        <Mono css={theme({ fontSize: 0, color: SYNTAX.muted })}>
+                          {b.dur}
+                        </Mono>
+                      </Flex>
+                      <Box
+                        css={theme({
+                          height: '8px',
+                          borderRadius: '999px',
+                          background: '#F0F0F2',
+                          overflow: 'hidden'
+                        })}
+                      >
+                        <Box
+                          css={theme({
+                            height: '100%',
+                            borderRadius: '999px',
+                            width: b.pct,
+                            background: b.color
+                          })}
+                        />
+                      </Box>
+                    </Box>
+                  ))}
                   <Box
                     css={theme({
-                      height: '100%',
-                      borderRadius: '999px',
-                      width: b.pct,
-                      background: b.color
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 1fr 1fr',
+                      gap: 2,
+                      mt: 3,
+                      pb: 2,
+                      borderBottom: '1px solid #EFEFF1',
+                      fontFamily: 'mono',
+                      fontSize: 0,
+                      letterSpacing: '.05em',
+                      color: SYNTAX.muted,
+                      textTransform: 'uppercase'
                     })}
-                  />
+                  >
+                    <span>Metric</span>
+                    <Box as='span' css={theme({ textAlign: 'right' })}>
+                      Duration
+                    </Box>
+                    <Box as='span' css={theme({ textAlign: 'right' })}>
+                      % of total
+                    </Box>
+                  </Box>
+                  {rows.map(r => (
+                    <Box
+                      key={r.name}
+                      css={theme({
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr 1fr',
+                        gap: 2,
+                        py: 3,
+                        borderBottom: '1px solid #F2F2F4',
+                        fontFamily: 'mono',
+                        fontSize: 0,
+                        color: SYNTAX.body
+                      })}
+                    >
+                      <span>{r.name}</span>
+                      <Box
+                        as='span'
+                        css={theme({ textAlign: 'right', color: SYNTAX.muted })}
+                      >
+                        {r.dur}
+                      </Box>
+                      <Box
+                        as='span'
+                        css={theme({ textAlign: 'right', color: SYNTAX.muted })}
+                      >
+                        {r.pct}
+                      </Box>
+                    </Box>
+                  ))}
                 </Box>
-              </Box>
-            ))}
-            <Box
-              css={theme({
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr 1fr',
-                gap: 2,
-                mt: 3,
-                pb: 2,
-                borderBottom: '1px solid #EFEFF1',
-                fontFamily: 'mono',
-                fontSize: 0,
-                letterSpacing: '.05em',
-                color: SYNTAX.muted,
-                textTransform: 'uppercase'
-              })}
-            >
-              <span>Metric</span>
-              <Box as='span' css={theme({ textAlign: 'right' })}>
-                Duration
-              </Box>
-              <Box as='span' css={theme({ textAlign: 'right' })}>
-                % of total
-              </Box>
-            </Box>
-            {TIMING_ROWS.map(r => (
-              <Box
-                key={r.name}
-                css={theme({
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr 1fr',
-                  gap: 2,
-                  py: 3,
-                  borderBottom: '1px solid #F2F2F4',
-                  fontFamily: 'mono',
-                  fontSize: 0,
-                  color: SYNTAX.body
-                })}
-              >
-                <span>{r.name}</span>
-                <Box
-                  as='span'
-                  css={theme({ textAlign: 'right', color: SYNTAX.muted })}
-                >
-                  {r.dur}
-                </Box>
-                <Box
-                  as='span'
-                  css={theme({ textAlign: 'right', color: SYNTAX.muted })}
-                >
-                  {r.pct}
-                </Box>
-              </Box>
-            ))}
-          </Box>
-        )}
+                ))}
 
-        {tab === 'code' && (
+        {!isError && tab === 'code' && (
           <Box>
             <Box
               css={theme({
@@ -967,10 +1179,20 @@ const ResultPanel = ({ tab, setTab, D }) => {
               <Num>import</Num> mql <Num>from</Num> <Str>'@microlink/mql'</Str>
               {'\n\n'}
               <Num>const</Num> {'{'} status, data, headers, redirects {'}'} ={' '}
-              <Num>await</Num> mql(
-              <Str>'{D.fullUrl}'</Str>, {'{ '}
-              <Num>{D.optName}</Num>: <Bool>true</Bool> {'})'}
-              {'\n\n'}
+              <Num>await</Num> mql(<Str>'{D.fullUrl}'</Str>
+              {optEntries.length > 0 && (
+                <>
+                  , {'{ '}
+                  {optEntries.map((k, i) => (
+                    <React.Fragment key={k}>
+                      {i > 0 && ', '}
+                      <Num>{k}</Num>: <Bool>true</Bool>
+                    </React.Fragment>
+                  ))}
+                  {' }'}
+                </>
+              )}
+              ){'\n\n'}
               console.<Fn>log</Fn>(status){'     '}
               <Comment>{"// => 'success'"}</Comment>
               {'\n'}
@@ -998,6 +1220,18 @@ const Hero = () => {
   const [dVert, setDVert] = useState(null)
   // null = unmounted; 'pre' → 'open' → 'closing' drives the popover transition
   const [menuState, setMenuState] = useState(null)
+  // the executed request shown in the panel — decoupled from the live composer
+  // so the typing animation never disturbs the last result
+  const [req, setReq] = useState(() => {
+    const d = derive(CYCLE[0])
+    return {
+      status: 'loading',
+      D: d,
+      apiUrl: getApiUrl(d.fullUrl, REQUEST_OPTS[d.vertical] || {})[0]
+    }
+  })
+  // monotonic id so a slow response can't overwrite a newer one
+  const reqId = useRef(0)
   const anim = useRef({
     ci: 0,
     phase: 'pause',
@@ -1034,6 +1268,45 @@ const Hero = () => {
     if (menuState === 'open' || menuState === 'pre') closeMenu()
     else openMenu()
   }
+
+  // fire a real Microlink request for the given derived snapshot and stream the
+  // result (data / headers / timing) into the panel
+  const runRequest = useCallback(async snapshot => {
+    if (!snapshot.hasUrl) return
+    const opts = REQUEST_OPTS[snapshot.vertical] || {}
+    const apiUrl = getApiUrl(snapshot.fullUrl, opts)[0]
+    const id = ++reqId.current
+    setReq({ status: 'loading', D: snapshot, apiUrl })
+    const t0 = window.performance.now()
+    try {
+      const { response, ...body } = await mql(snapshot.fullUrl, opts)
+      if (id !== reqId.current) return
+      const headers = response && response.headers
+      const { bars, rows, totalMs } = parseServerTiming(headers)
+      setReq({
+        status: 'success',
+        D: snapshot,
+        apiUrl,
+        body,
+        headerRows: headersToRows(headers),
+        bars,
+        rows,
+        totalMs,
+        statusCode: (response && response.statusCode) || 200,
+        elapsedMs: Math.round(window.performance.now() - t0)
+      })
+    } catch (err) {
+      if (id !== reqId.current) return
+      setReq({
+        status: 'error',
+        D: snapshot,
+        apiUrl,
+        statusCode: err && err.statusCode,
+        error: (err && err.message) || 'The request could not be completed.',
+        elapsedMs: Math.round(window.performance.now() - t0)
+      })
+    }
+  }, [])
 
   useEffect(() => {
     // respect reduced motion: keep a single static prompt, no auto-typing
@@ -1087,7 +1360,18 @@ const Hero = () => {
     return () => document.removeEventListener('mousedown', onDown)
   }, [menuState])
 
+  // execute the default example once on mount so the panel shows live data
+  useEffect(() => {
+    runRequest(derive(CYCLE[0]))
+  }, [runRequest])
+
   const D = derive(dText, dVert)
+
+  const handleRun = () => {
+    stopTyping()
+    closeMenu()
+    runRequest(D)
+  }
 
   const onComposerChange = e => {
     stopTyping()
@@ -1126,7 +1410,10 @@ const Hero = () => {
             onChange={onComposerChange}
             onFocus={stopTyping}
             onKeyDown={e => {
-              if (e.key === 'Enter') e.target.blur()
+              if (e.key === 'Enter') {
+                e.target.blur()
+                handleRun()
+              }
             }}
             placeholder='Ask Microlink anything…'
             aria-label='Ask Microlink anything'
@@ -1260,7 +1547,12 @@ const Hero = () => {
                 <Mono css={theme({ fontSize: 0, color: VIOLET })}>{D.url}</Mono>
               )}
             </Flex>
-            <RunButton aria-label='Run'>
+            <RunButton
+              type='button'
+              aria-label='Run'
+              onClick={handleRun}
+              disabled={!D.hasUrl || req.status === 'loading'}
+            >
               <svg
                 width='20'
                 height='20'
@@ -1317,7 +1609,7 @@ const Hero = () => {
           <ShimmerText data-text='Live response'>Live response</ShimmerText>
         </Caps>
 
-        <ResultPanel tab={dTab} setTab={setDTab} D={D} />
+        <ResultPanel tab={dTab} setTab={setDTab} req={req} />
       </Content>
     </Section>
   )
