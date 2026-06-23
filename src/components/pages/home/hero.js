@@ -233,23 +233,23 @@ const VERTICAL_ORDER = [
 ]
 
 const CYCLE = [
-  'turn stripe.com into a PDF',
-  'take a screenshot of vercel.com',
-  'run a lighthouse report on github.com',
-  'detect the technologies of airbnb.com',
-  'extract the text of wikipedia.org',
-  'run a function on example.com',
-  'get the markdown of kikobeats.com',
-  'fetch the logo of figma.com'
+  'take a screenshot',
+  'create a PDF',
+  'run a lighthouse report',
+  'detect the technologies',
+  'extract the text',
+  'run a function',
+  'get the markdown',
+  'fetch the logo'
 ]
 
 const EXAMPLES = [
-  'take a screenshot of stripe.com',
-  'lighthouse report of vercel.com',
-  'technologies of github.com',
-  'run a function on example.com',
-  'markdown of kikobeats.com',
-  'logo of figma.com'
+  'take a screenshot',
+  'lighthouse report',
+  'detect technologies',
+  'run a function',
+  'extract markdown',
+  'fetch the logo'
 ]
 
 const parseLocal = text => {
@@ -311,16 +311,18 @@ const parseLocal = text => {
   return { vertical, url, hasUrl: !!url }
 }
 
+// when the prompt names no domain we run against example.com; the user can
+// type any domain to override it
+const DEFAULT_URL = 'https://example.com'
+
 const derive = (text, override) => {
   const p = parseLocal(text)
   const v = override || p.vertical
-  const url = p.url || ''
-  const domain =
-    url.replace(/^https?:\/\//, '').replace(/\/.*$/, '') || 'microlink.io'
-  // the request honours the full path (e.g. vercel.com/blog), while the bare
-  // domain is kept for brand/publisher display
-  const fullUrl = url || 'https://' + domain
-  const knownKey = Object.keys(PRESETS).find(k => url.includes(k))
+  // the request honours the full path (e.g. vercel.com/blog); falls back to the
+  // default domain when the prompt doesn't include one
+  const fullUrl = p.url || DEFAULT_URL
+  const domain = fullUrl.replace(/^https?:\/\//, '').replace(/\/.*$/, '')
+  const knownKey = Object.keys(PRESETS).find(k => fullUrl.includes(k))
   const known = knownKey ? PRESETS[knownKey] : null
   const brand = known
     ? known.brand
@@ -328,8 +330,8 @@ const derive = (text, override) => {
   return {
     vertical: v,
     label: LABELS[v],
-    url: url || '—',
-    hasUrl: p.hasUrl,
+    url: fullUrl,
+    hasUrl: true,
     domain,
     fullUrl,
     optName: FLAGS[v],
