@@ -447,12 +447,13 @@ const Markdown = ({ source }) => {
 
 /* ------------------------------- lighthouse ------------------------------- */
 
-// embed the official interactive Lighthouse report viewer for the target URL
-const LighthouseOutput = ({ url }) => (
+// embed the official Lighthouse report viewer; it expects the full Microlink
+// API request URL (the GET line) as its `url` param, not the bare target
+const LighthouseOutput = ({ apiUrl }) => (
   <Box
     as='iframe'
     title='Lighthouse report'
-    src={`https://lighthouse.microlink.io/?url=${encodeURIComponent(url)}`}
+    src={`https://lighthouse.microlink.io/?url=${encodeURIComponent(apiUrl)}`}
     css={theme({
       width: '100%',
       height: '560px',
@@ -881,7 +882,7 @@ const Output = ({ req }) => {
           )
 
     case 'lighthouse':
-      return <LighthouseOutput url={req.D.fullUrl} />
+      return <LighthouseOutput apiUrl={req.apiUrl} />
 
     case 'technologies':
       return <TechnologiesOutput technologies={data.insights?.technologies} />
