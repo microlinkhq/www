@@ -5,6 +5,7 @@ import Dot from 'components/elements/Dot/Dot'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import Overlay from 'components/pages/home/overlay'
+import Output from 'components/pages/home/output'
 import FeatherIcon from 'components/icons/Feather'
 import { WandSparkles } from 'components/icons/WandSparkles'
 import { transition, timings, fonts, theme } from 'theme'
@@ -152,7 +153,7 @@ const FLAGS = {
 const REQUEST_OPTS = {
   screenshot: { screenshot: true },
   preview: { screenshot: true },
-  markdown: {},
+  markdown: { data: { markdown: { attr: 'markdown' } } },
   metadata: {},
   search: {},
   pdf: { pdf: true },
@@ -230,6 +231,9 @@ const derive = (text, override) => {
   const url = p.url || ''
   const domain =
     url.replace(/^https?:\/\//, '').replace(/\/.*$/, '') || 'microlink.io'
+  // the request honours the full path (e.g. vercel.com/blog), while the bare
+  // domain is kept for brand/publisher display
+  const fullUrl = url || 'https://' + domain
   const knownKey = Object.keys(PRESETS).find(k => url.includes(k))
   const known = knownKey ? PRESETS[knownKey] : null
   const brand = known
@@ -242,9 +246,9 @@ const derive = (text, override) => {
     url: url || '—',
     hasUrl: p.hasUrl,
     domain,
-    fullUrl: 'https://' + domain,
+    fullUrl,
     optName: FLAGS[v],
-    encUrl: encodeURIComponent('https://' + domain),
+    encUrl: encodeURIComponent(fullUrl),
     vertBorder: override ? 'rgba(160,40,200,.45)' : '#EAEAEC',
     brand,
     title: known ? known.title : brand,
@@ -811,6 +815,27 @@ const Comment = styled.span`
   color: ${SYNTAX.muted};
 `
 
+// render an mql options value as colourised JS source (handles nested objects
+// like the markdown data rule, not just `{ flag: true }`)
+const renderJsValue = (value, keyBase) => {
+  if (typeof value === 'boolean') return <Bool>{String(value)}</Bool>
+  if (typeof value === 'number') return <Num>{value}</Num>
+  if (typeof value === 'string') return <Str>'{value}'</Str>
+  const entries = Object.entries(value)
+  return (
+    <>
+      {'{ '}
+      {entries.map(([k, v], i) => (
+        <React.Fragment key={`${keyBase}.${k}`}>
+          {i > 0 && ', '}
+          {k}: {renderJsValue(v, `${keyBase}.${k}`)}
+        </React.Fragment>
+      ))}
+      {' }'}
+    </>
+  )
+}
+
 /* --------------------------------- result -------------------------------- */
 
 const ResultPanel = ({ tab, setTab, req }) => {
@@ -819,9 +844,11 @@ const ResultPanel = ({ tab, setTab, req }) => {
   const isError = status === 'error'
   // the options actually sent for this vertical, so the snippet matches the
   // GET line and the live request exactly
-  const optEntries = Object.keys(REQUEST_OPTS[D.vertical] || {})
+  const opts = REQUEST_OPTS[D.vertical] || {}
+  const hasOpts = Object.keys(opts).length > 0
 
   const tabs = [
+    { key: 'output', label: 'Output' },
     { key: 'data', label: 'Data' },
     { key: 'headers', label: 'Headers' },
     {
@@ -977,6 +1004,10 @@ const ResultPanel = ({ tab, setTab, req }) => {
             </Mono>
           </Box>
         )}
+
+        {!isError &&
+          tab === 'output' &&
+          (isLoading || !body ? <Skeleton /> : <Output req={req} />)}
 
         {!isError &&
           tab === 'data' &&
@@ -1180,19 +1211,7 @@ const ResultPanel = ({ tab, setTab, req }) => {
               {'\n\n'}
               <Num>const</Num> {'{'} status, data, headers, redirects {'}'} ={' '}
               <Num>await</Num> mql(<Str>'{D.fullUrl}'</Str>
-              {optEntries.length > 0 && (
-                <>
-                  , {'{ '}
-                  {optEntries.map((k, i) => (
-                    <React.Fragment key={k}>
-                      {i > 0 && ', '}
-                      <Num>{k}</Num>: <Bool>true</Bool>
-                    </React.Fragment>
-                  ))}
-                  {' }'}
-                </>
-              )}
-              ){'\n\n'}
+              {hasOpts && <>, {renderJsValue(opts, 'opts')}</>}){'\n\n'}
               console.<Fn>log</Fn>(status){'     '}
               <Comment>{"// => 'success'"}</Comment>
               {'\n'}
@@ -1216,7 +1235,7 @@ const ResultPanel = ({ tab, setTab, req }) => {
 
 const Hero = () => {
   const [dText, setDText] = useState(CYCLE[0])
-  const [dTab, setDTab] = useState('data')
+  const [dTab, setDTab] = useState('output')
   const [dVert, setDVert] = useState(null)
   // null = unmounted; 'pre' → 'open' → 'closing' drives the popover transition
   const [menuState, setMenuState] = useState(null)
