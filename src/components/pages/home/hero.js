@@ -124,27 +124,53 @@ const ICONS = {
   search:
     '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',
   pdf: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>',
-  logo: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6z"/></svg>'
+  logo: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6z"/></svg>',
+  lighthouse:
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="m13.5 10.5 3-3"/></svg>',
+  technologies:
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>',
+  html: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+  text: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h11M4 18h14"/></svg>',
+  video:
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m16 10 6-3v10l-6-3"/></svg>',
+  audio:
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>',
+  function:
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>'
 }
 
 const LABELS = {
   screenshot: 'Screenshot',
   preview: 'Link preview',
   markdown: 'Markdown',
+  html: 'HTML',
+  text: 'Text',
   metadata: 'Metadata',
+  lighthouse: 'Lighthouse',
+  technologies: 'Technologies',
+  function: 'Function',
   search: 'Search',
   pdf: 'PDF',
-  logo: 'Logo'
+  logo: 'Logo',
+  video: 'Video',
+  audio: 'Audio'
 }
 
 const FLAGS = {
   screenshot: 'screenshot',
   preview: 'embed',
   markdown: 'markdown',
+  html: 'html',
+  text: 'text',
   metadata: 'meta',
+  lighthouse: 'insights',
+  technologies: 'insights',
+  function: 'function',
   search: 'q',
   pdf: 'pdf',
-  logo: 'logo'
+  logo: 'logo',
+  video: 'video',
+  audio: 'audio'
 }
 
 // the actual mql options sent per vertical — every one is a real API call that
@@ -154,35 +180,56 @@ const REQUEST_OPTS = {
   screenshot: { screenshot: true },
   preview: { screenshot: true },
   markdown: { data: { markdown: { attr: 'markdown' } } },
+  html: { data: { html: { attr: 'html' } }, meta: false },
+  text: { data: { text: { attr: 'text' } }, meta: false },
   metadata: {},
+  lighthouse: { insights: { lighthouse: true } },
+  technologies: { insights: { technologies: true } },
+  function: {
+    function: "({ page }) => page.$$eval('a', els => els.map(a => a.href))",
+    meta: false
+  },
   search: {},
   pdf: { pdf: true },
-  logo: { palette: true }
+  logo: { palette: true },
+  video: { video: true },
+  audio: { audio: true }
 }
 
 const VERTICAL_ORDER = [
   'screenshot',
   'preview',
   'markdown',
+  'html',
+  'text',
   'metadata',
-  'search',
+  'lighthouse',
+  'technologies',
+  'function',
   'pdf',
-  'logo'
+  'logo',
+  'video',
+  'audio'
 ]
 
 const CYCLE = [
   'turn stripe.com into a PDF',
   'take a screenshot of vercel.com',
-  'extract metadata from github.com',
-  'get the markdown of figma.com',
-  'fetch the logo of stripe.com'
+  'run a lighthouse report on github.com',
+  'detect the technologies of airbnb.com',
+  'extract the text of wikipedia.org',
+  'run a function on example.com',
+  'get the markdown of kikobeats.com',
+  'fetch the logo of figma.com'
 ]
 
 const EXAMPLES = [
   'take a screenshot of stripe.com',
-  'markdown of vercel.com/blog',
-  'logo of figma.com',
-  'metadata from github.com'
+  'lighthouse report of vercel.com',
+  'technologies of github.com',
+  'run a function on example.com',
+  'markdown of kikobeats.com',
+  'logo of figma.com'
 ]
 
 const parseLocal = text => {
@@ -195,12 +242,31 @@ const parseLocal = text => {
     ['pdf', /\bpdf\b|print|printable|to a doc|as a doc/],
     ['logo', /\blogo\b|favicon|brand ?mark|brand icon|\bicon of\b/],
     [
+      'lighthouse',
+      /lighthouse|performance|page ?speed|web ?vitals|\binsights?\b|audit|core web/
+    ],
+    [
+      'technologies',
+      /technolog|tech ?stack|built ?with|wappalyzer|frameworks? used|stack of/
+    ],
+    ['html', /\bhtml\b|raw html|page source|source code|markup/],
+    [
+      'function',
+      /\bfunction\b|run (a |some )?(code|js|script)|custom (js|code|script)|evaluate|execute|\$\$?eval/
+    ],
+    ['video', /\bvideo\b|\bmp4\b|extract video|video from/],
+    ['audio', /\baudio\b|\bmp3\b|\bsound\b|podcast/],
+    [
+      'text',
+      /plain ?text|readable text|extract (the )?text|just the text|\btext of\b|\btext from\b/
+    ],
+    [
       'metadata',
       /metadata|meta ?data|\bmeta\b|open ?graph|\bog:?\b|\bseo\b|title and description/
     ],
     [
       'markdown',
-      /markdown|\bmd\b|clean text|readable|article text|page content|content of|text of|in markdown/
+      /markdown|\bmd\b|clean text|readable|article text|page content|content of|in markdown/
     ],
     ['search', /\bsearch\b|google|serp|results for|look up|find .* (about|on)/],
     ['preview', /preview|unfurl|link ?card|rich card|\bembed\b/]

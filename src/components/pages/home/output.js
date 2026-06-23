@@ -445,6 +445,282 @@ const Markdown = ({ source }) => {
   return <Prose css={theme({ p: 4, fontSize: 1 })}>{blocks}</Prose>
 }
 
+/* ------------------------------- lighthouse ------------------------------- */
+
+// Lighthouse score bands — the same green / amber / red thresholds the
+// official report uses
+const scoreColor = score =>
+  score >= 0.9 ? '#16A34A' : score >= 0.5 ? '#F59E0B' : '#E0218A'
+
+const Gauge = ({ score, label }) => {
+  const radius = 26
+  const circumference = 2 * Math.PI * radius
+  const color = scoreColor(score)
+  return (
+    <Flex
+      css={theme({ flexDirection: 'column', alignItems: 'center', gap: 2 })}
+    >
+      <svg width='72' height='72' viewBox='0 0 64 64'>
+        <circle
+          cx='32'
+          cy='32'
+          r={radius}
+          fill='none'
+          stroke='#EFEFF1'
+          strokeWidth='5'
+        />
+        <circle
+          cx='32'
+          cy='32'
+          r={radius}
+          fill='none'
+          stroke={color}
+          strokeWidth='5'
+          strokeLinecap='round'
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference * (1 - score)}
+          transform='rotate(-90 32 32)'
+        />
+        <text
+          x='32'
+          y='33'
+          dominantBaseline='middle'
+          textAnchor='middle'
+          fontSize='17'
+          fontWeight='700'
+          fill={color}
+        >
+          {Math.round(score * 100)}
+        </text>
+      </svg>
+      <Box as='span' css={theme({ fontSize: 0, fontWeight: 600, color: INK })}>
+        {label}
+      </Box>
+    </Flex>
+  )
+}
+
+const LighthouseOutput = ({ lighthouse }) => {
+  const categories = Object.values(lighthouse?.categories || {}).filter(
+    c => typeof c.score === 'number'
+  )
+  if (categories.length === 0) {
+    return <Empty>No Lighthouse scores in this response.</Empty>
+  }
+  return (
+    <Box css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
+      <Flex
+        css={theme({
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          gap: 5
+        })}
+      >
+        {categories.map(c => (
+          <Gauge key={c.id} score={c.score} label={c.title} />
+        ))}
+      </Flex>
+    </Box>
+  )
+}
+
+/* ----------------------------- technologies ------------------------------- */
+
+const TechCard = styled(Flex)`
+  align-items: center;
+  gap: 10px;
+  width: 232px;
+  border: 1px solid ${BORDER};
+  border-radius: 10px;
+`
+
+const TechnologiesOutput = ({ technologies }) => {
+  if (!Array.isArray(technologies) || technologies.length === 0) {
+    return <Empty>No technologies detected on this page.</Empty>
+  }
+  return (
+    <Box css={theme({ p: 3, maxHeight: '480px', overflow: 'auto' })}>
+      <Flex
+        css={theme({
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          gap: 2
+        })}
+      >
+        {technologies.map(tech => (
+          <TechCard key={tech.name} css={theme({ p: 2 })}>
+            {tech.logo && (
+              <Box
+                as='img'
+                src={tech.logo}
+                alt=''
+                loading='lazy'
+                css={theme({
+                  width: '30px',
+                  height: '30px',
+                  objectFit: 'contain',
+                  flexShrink: 0
+                })}
+              />
+            )}
+            <Box css={theme({ overflow: 'hidden' })}>
+              <Box
+                as={tech.url ? 'a' : 'span'}
+                href={tech.url}
+                target='_blank'
+                rel='noopener noreferrer'
+                css={theme({
+                  display: 'block',
+                  fontSize: 0,
+                  fontWeight: 600,
+                  color: INK,
+                  textDecoration: 'none'
+                })}
+              >
+                {tech.name}
+              </Box>
+              {Array.isArray(tech.categories) && (
+                <Box
+                  as='span'
+                  css={theme({
+                    display: 'block',
+                    fontSize: '12px',
+                    color: MUTED,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
+                  })}
+                >
+                  {tech.categories.join(', ')}
+                </Box>
+              )}
+            </Box>
+          </TechCard>
+        ))}
+      </Flex>
+    </Box>
+  )
+}
+
+/* ---------------------------------- html ---------------------------------- */
+
+const HtmlOutput = ({ html }) => (
+  <Box
+    as='iframe'
+    title='HTML output'
+    srcDoc={html}
+    sandbox=''
+    css={theme({
+      width: '100%',
+      height: '520px',
+      border: 0,
+      display: 'block',
+      background: '#fff'
+    })}
+  />
+)
+
+/* ---------------------------------- text ---------------------------------- */
+
+const TextOutput = ({ text }) => (
+  <Box
+    css={theme({
+      p: 4,
+      maxHeight: '480px',
+      overflow: 'auto',
+      fontSize: 1,
+      lineHeight: 1.7,
+      color: BODY,
+      whiteSpace: 'pre-wrap',
+      wordBreak: 'break-word'
+    })}
+  >
+    {text}
+  </Box>
+)
+
+/* ------------------------------ video / audio ----------------------------- */
+
+const mediaUrl = media =>
+  typeof media === 'string' ? media : media && media.url
+
+const VideoOutput = ({ video }) => (
+  <Stage css={theme({ p: 4, maxHeight: '480px' })}>
+    <Box
+      as='video'
+      src={mediaUrl(video)}
+      controls
+      css={theme({
+        maxWidth: '100%',
+        maxHeight: '440px',
+        borderRadius: 4,
+        boxShadow: '0 18px 50px -22px rgba(40,10,60,.45)'
+      })}
+    />
+  </Stage>
+)
+
+const AudioOutput = ({ audio }) => (
+  <Box css={theme({ p: 5, display: 'flex', justifyContent: 'center' })}>
+    <Box as='audio' src={mediaUrl(audio)} controls css={{ width: '100%' }} />
+  </Box>
+)
+
+/* -------------------------------- function -------------------------------- */
+
+const CodeBlock = styled(Box)`
+  max-height: 480px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+`
+
+const FunctionOutput = ({ result }) => {
+  const value = result?.value
+  // an array of links is the canonical demo — render it as a clickable list
+  const isLinkList =
+    Array.isArray(value) && value.every(v => /^https?:\/\//.test(v))
+
+  if (isLinkList) {
+    return (
+      <Box css={theme({ p: 3, maxHeight: '480px', overflow: 'auto' })}>
+        {value.map((href, i) => (
+          <Box
+            key={i}
+            as='a'
+            href={href}
+            target='_blank'
+            rel='noopener noreferrer'
+            css={theme({
+              display: 'block',
+              fontFamily: 'mono',
+              fontSize: 0,
+              color: VIOLET,
+              textDecoration: 'none',
+              py: 2,
+              borderBottom: `1px solid ${BORDER}`,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap'
+            })}
+          >
+            {href}
+          </Box>
+        ))}
+      </Box>
+    )
+  }
+
+  return (
+    <CodeBlock
+      css={theme({ p: 4, fontFamily: 'mono', fontSize: 0, color: BODY })}
+    >
+      {JSON.stringify(value ?? result, null, 2)}
+    </CodeBlock>
+  )
+}
+
 /* ------------------------------- dispatcher ------------------------------- */
 
 const Empty = ({ children }) => (
@@ -500,6 +776,57 @@ const Output = ({ req }) => {
           )
         : (
           <Empty>No markdown in this response.</Empty>
+          )
+
+    case 'html':
+      return data.html
+        ? (
+          <HtmlOutput html={data.html} />
+          )
+        : (
+          <Empty>No HTML in this response.</Empty>
+          )
+
+    case 'text':
+      return data.text
+        ? (
+          <TextOutput text={data.text} />
+          )
+        : (
+          <Empty>No text in this response.</Empty>
+          )
+
+    case 'lighthouse':
+      return <LighthouseOutput lighthouse={data.insights?.lighthouse} />
+
+    case 'technologies':
+      return <TechnologiesOutput technologies={data.insights?.technologies} />
+
+    case 'function':
+      return data.function
+        ? (
+          <FunctionOutput result={data.function} />
+          )
+        : (
+          <Empty>The function returned no value.</Empty>
+          )
+
+    case 'video':
+      return mediaUrl(data.video)
+        ? (
+          <VideoOutput video={data.video} />
+          )
+        : (
+          <Empty>No video found on this page.</Empty>
+          )
+
+    case 'audio':
+      return mediaUrl(data.audio)
+        ? (
+          <AudioOutput audio={data.audio} />
+          )
+        : (
+          <Empty>No audio found on this page.</Empty>
           )
 
     default:
