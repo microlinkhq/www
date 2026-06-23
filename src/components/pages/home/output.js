@@ -670,21 +670,160 @@ const AudioOutput = ({ audio }) => (
 /* -------------------------------- function -------------------------------- */
 
 const CodeBlock = styled(Box)`
-  max-height: 480px;
+  max-height: 320px;
   overflow: auto;
   white-space: pre-wrap;
   word-break: break-word;
 `
 
-const FunctionOutput = ({ result }) => {
-  const value = result?.value
+// the four runtime phases the sandbox reports, in execution order
+const PHASE_META = [
+  ['install', 'Install', '#9A9AA0'],
+  ['build', 'Build', '#2D7FF9'],
+  ['spawn', 'Spawn', '#F59E0B'],
+  ['run', 'Run', '#16A34A']
+]
+
+const fmtMs = ms =>
+  ms == null ? '—' : ms >= 100 ? `${Math.round(ms)}ms` : `${ms.toFixed(1)}ms`
+
+const fmtBytes = bytes => {
+  if (bytes == null) return '—'
+  return bytes >= 1048576
+    ? `${(bytes / 1048576).toFixed(1)} MB`
+    : `${Math.max(1, Math.round(bytes / 1024))} KB`
+}
+
+const Stat = ({ label, value }) => (
+  <Box css={theme({ textAlign: 'center' })}>
+    <Box
+      as='span'
+      css={theme({
+        display: 'block',
+        fontFamily: 'mono',
+        fontSize: 3,
+        fontWeight: 'bold',
+        color: INK,
+        letterSpacing: '-.02em'
+      })}
+    >
+      {value}
+    </Box>
+    <Box
+      as='span'
+      css={theme({
+        fontSize: '11px',
+        letterSpacing: '.08em',
+        textTransform: 'uppercase',
+        color: MUTED
+      })}
+    >
+      {label}
+    </Box>
+  </Box>
+)
+
+const Dot = styled.span`
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+`
+
+// visualises the sandbox profiling: headline stats, a single stacked
+// execution timeline, and a per-phase duration breakdown
+const Profiling = ({ profiling }) => {
+  const { cpu, memory, size, phases = {} } = profiling
+  const total =
+    phases.total || PHASE_META.reduce((sum, [k]) => sum + (phases[k] || 0), 0)
+  const segments = PHASE_META.filter(([k]) => phases[k] > 0)
+  const pct = ms => (total ? (ms / total) * 100 : 0)
+
+  return (
+    <Box css={theme({ p: 4, borderBottom: `1px solid ${BORDER}` })}>
+      <Flex
+        css={theme({
+          justifyContent: 'space-around',
+          flexWrap: 'wrap',
+          gap: 3,
+          mb: 4
+        })}
+      >
+        <Stat label='Total' value={fmtMs(total)} />
+        <Stat label='CPU' value={fmtMs(cpu)} />
+        <Stat label='Memory' value={fmtBytes(memory)} />
+        <Stat label='Size' value={fmtBytes(size)} />
+      </Flex>
+
+      <Flex
+        css={theme({
+          height: '12px',
+          borderRadius: '999px',
+          overflow: 'hidden',
+          background: '#F0F0F2'
+        })}
+      >
+        {segments.map(([k, , color]) => (
+          <Box
+            key={k}
+            title={`${k} ${fmtMs(phases[k])}`}
+            css={{ width: `${pct(phases[k])}%`, background: color }}
+          />
+        ))}
+      </Flex>
+
+      <Box css={theme({ mt: 3 })}>
+        {segments.map(([k, label, color]) => (
+          <Flex
+            key={k}
+            css={theme({
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              py: 2,
+              borderBottom: `1px solid ${BORDER}`
+            })}
+          >
+            <Flex css={theme({ alignItems: 'center', gap: 2 })}>
+              <Dot css={{ background: color }} />
+              <Box as='span' css={theme({ fontSize: 0, color: INK })}>
+                {label}
+              </Box>
+            </Flex>
+            <Flex css={theme({ alignItems: 'center', gap: 3 })}>
+              <Box
+                as='span'
+                css={theme({ fontFamily: 'mono', fontSize: 0, color: BODY })}
+              >
+                {fmtMs(phases[k])}
+              </Box>
+              <Box
+                as='span'
+                css={theme({
+                  fontFamily: 'mono',
+                  fontSize: 0,
+                  color: MUTED,
+                  width: '42px',
+                  textAlign: 'right'
+                })}
+              >
+                {Math.round(pct(phases[k]))}%
+              </Box>
+            </Flex>
+          </Flex>
+        ))}
+      </Box>
+    </Box>
+  )
+}
+
+const FunctionValue = ({ value, result }) => {
   // an array of links is the canonical demo — render it as a clickable list
   const isLinkList =
     Array.isArray(value) && value.every(v => /^https?:\/\//.test(v))
 
   if (isLinkList) {
     return (
-      <Box css={theme({ p: 3, maxHeight: '480px', overflow: 'auto' })}>
+      <Box css={theme({ p: 3, maxHeight: '320px', overflow: 'auto' })}>
         {value.map((href, i) => (
           <Box
             key={i}
@@ -720,6 +859,13 @@ const FunctionOutput = ({ result }) => {
     </CodeBlock>
   )
 }
+
+const FunctionOutput = ({ result }) => (
+  <Box>
+    {result?.profiling && <Profiling profiling={result.profiling} />}
+    <FunctionValue value={result?.value} result={result} />
+  </Box>
+)
 
 /* ------------------------------- dispatcher ------------------------------- */
 
