@@ -447,83 +447,21 @@ const Markdown = ({ source }) => {
 
 /* ------------------------------- lighthouse ------------------------------- */
 
-// Lighthouse score bands — the same green / amber / red thresholds the
-// official report uses
-const scoreColor = score =>
-  score >= 0.9 ? '#16A34A' : score >= 0.5 ? '#F59E0B' : '#E0218A'
-
-const Gauge = ({ score, label }) => {
-  const radius = 26
-  const circumference = 2 * Math.PI * radius
-  const color = scoreColor(score)
-  return (
-    <Flex
-      css={theme({ flexDirection: 'column', alignItems: 'center', gap: 2 })}
-    >
-      <svg width='72' height='72' viewBox='0 0 64 64'>
-        <circle
-          cx='32'
-          cy='32'
-          r={radius}
-          fill='none'
-          stroke='#EFEFF1'
-          strokeWidth='5'
-        />
-        <circle
-          cx='32'
-          cy='32'
-          r={radius}
-          fill='none'
-          stroke={color}
-          strokeWidth='5'
-          strokeLinecap='round'
-          strokeDasharray={circumference}
-          strokeDashoffset={circumference * (1 - score)}
-          transform='rotate(-90 32 32)'
-        />
-        <text
-          x='32'
-          y='33'
-          dominantBaseline='middle'
-          textAnchor='middle'
-          fontSize='17'
-          fontWeight='700'
-          fill={color}
-        >
-          {Math.round(score * 100)}
-        </text>
-      </svg>
-      <Box as='span' css={theme({ fontSize: 0, fontWeight: 600, color: INK })}>
-        {label}
-      </Box>
-    </Flex>
-  )
-}
-
-const LighthouseOutput = ({ lighthouse }) => {
-  const categories = Object.values(lighthouse?.categories || {}).filter(
-    c => typeof c.score === 'number'
-  )
-  if (categories.length === 0) {
-    return <Empty>No Lighthouse scores in this response.</Empty>
-  }
-  return (
-    <Box css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
-      <Flex
-        css={theme({
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          gap: 5
-        })}
-      >
-        {categories.map(c => (
-          <Gauge key={c.id} score={c.score} label={c.title} />
-        ))}
-      </Flex>
-    </Box>
-  )
-}
+// embed the official interactive Lighthouse report viewer for the target URL
+const LighthouseOutput = ({ url }) => (
+  <Box
+    as='iframe'
+    title='Lighthouse report'
+    src={`https://lighthouse.microlink.io/?url=${encodeURIComponent(url)}`}
+    css={theme({
+      width: '100%',
+      height: '560px',
+      border: 0,
+      display: 'block',
+      background: '#fff'
+    })}
+  />
+)
 
 /* ----------------------------- technologies ------------------------------- */
 
@@ -943,7 +881,7 @@ const Output = ({ req }) => {
           )
 
     case 'lighthouse':
-      return <LighthouseOutput lighthouse={data.insights?.lighthouse} />
+      return <LighthouseOutput url={req.D.fullUrl} />
 
     case 'technologies':
       return <TechnologiesOutput technologies={data.insights?.technologies} />

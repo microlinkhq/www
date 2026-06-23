@@ -8,6 +8,22 @@ import Overlay from 'components/pages/home/overlay'
 import Output from 'components/pages/home/output'
 import FeatherIcon from 'components/icons/Feather'
 import { WandSparkles } from 'components/icons/WandSparkles'
+import { Focus } from 'components/icons/Focus'
+import { Markdown } from 'components/icons/Markdown'
+import { Metascraper } from 'components/icons/Metascraper'
+import { PDF } from 'components/icons/PDF'
+import { Lighthouse } from 'components/icons/Lighthouse'
+import { Terminal } from 'components/icons/Terminal'
+import {
+  Link as LinkIcon,
+  Code as CodeIcon,
+  Search as SearchIcon,
+  Image as ImageIcon,
+  Layers as LayersIcon,
+  AlignLeft as AlignLeftIcon,
+  Video as VideoIcon,
+  Music as MusicIcon
+} from 'react-feather'
 import { transition, timings, fonts, theme } from 'theme'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
@@ -112,31 +128,35 @@ const PRESETS = {
   }
 }
 
+// product icons — the same set the nav bar uses, so the hero stays consistent
+// with the Products menu (local Svg + react-feather glyphs)
 const ICONS = {
-  screenshot:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M7 5V3M17 5V3"/></svg>',
-  preview:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m21 16-4.5-4.5L7 21"/></svg>',
-  markdown:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M6 14V10l2 2 2-2v4M15 10v4M15 14l1.5 1.5L18 14"/></svg>',
-  metadata:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4H6a2 2 0 0 0-2 2v3a2 2 0 0 1-2 2 2 2 0 0 1 2 2v3a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v3a2 2 0 0 0 2 2 2 2 0 0 0-2 2v3a2 2 0 0 1-2 2h-2"/></svg>',
-  search:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',
-  pdf: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>',
-  logo: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6z"/></svg>',
-  lighthouse:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="m13.5 10.5 3-3"/></svg>',
-  technologies:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>',
-  html: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
-  text: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h11M4 18h14"/></svg>',
-  video:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m16 10 6-3v10l-6-3"/></svg>',
-  audio:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>',
-  function:
-    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>'
+  screenshot: Focus,
+  preview: LinkIcon,
+  markdown: Markdown,
+  html: CodeIcon,
+  text: AlignLeftIcon,
+  metadata: Metascraper,
+  lighthouse: Lighthouse,
+  technologies: LayersIcon,
+  function: Terminal,
+  search: SearchIcon,
+  pdf: PDF,
+  logo: ImageIcon,
+  video: VideoIcon,
+  audio: MusicIcon
+}
+
+// Metascraper ships its own coloured badge, so it must not sit inside the
+// gradient icon badge like the monochrome (currentColor) glyphs
+const SELF_BADGED = new Set(['metadata'])
+
+const VertGlyph = ({ vertical, size = 16 }) => {
+  const Icon = ICONS[vertical]
+  // px units are required: the local Svg icons size via styled-system `layout`,
+  // which drops bare numbers and lets the glyph balloon to fill its container
+  const px = `${size}px`
+  return Icon ? <Icon width={px} height={px} /> : null
 }
 
 const LABELS = {
@@ -308,7 +328,6 @@ const derive = (text, override) => {
   return {
     vertical: v,
     label: LABELS[v],
-    icon: ICONS[v],
     url: url || '—',
     hasUrl: p.hasUrl,
     domain,
@@ -852,11 +871,9 @@ const Skeleton = () => (
   </Box>
 )
 
-const Glyph = ({ html, ...props }) => (
-  <Box as='span' {...props} dangerouslySetInnerHTML={{ __html: html }} />
-)
-
-const IconBadge = styled(Glyph)`
+// rounded badge that holds a product glyph; the glyph inherits the badge's
+// `color` via currentColor
+const IconBadge = styled(Box)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1524,14 +1541,18 @@ const Hero = () => {
                 }}
               >
                 <IconBadge
-                  html={D.icon}
                   css={theme({
                     width: '24px',
                     height: '24px',
-                    background: GRADIENT,
+                    background: SELF_BADGED.has(D.vertical) ? 'none' : GRADIENT,
                     color: 'white'
                   })}
-                />
+                >
+                  <VertGlyph
+                    vertical={D.vertical}
+                    size={SELF_BADGED.has(D.vertical) ? 24 : 15}
+                  />
+                </IconBadge>
                 <Box
                   as='span'
                   css={theme({ fontSize: 0, fontWeight: 600, color: INK })}
@@ -1589,14 +1610,22 @@ const Hero = () => {
                           })}
                         >
                           <IconBadge
-                            html={ICONS[k]}
                             css={theme({
                               width: '26px',
                               height: '26px',
-                              background: active ? GRADIENT : '#EDEBF0',
+                              background: SELF_BADGED.has(k)
+                                ? 'none'
+                                : active
+                                  ? GRADIENT
+                                  : '#EDEBF0',
                               color: active ? '#fff' : '#9A9AA0'
                             })}
-                          />
+                          >
+                            <VertGlyph
+                              vertical={k}
+                              size={SELF_BADGED.has(k) ? 26 : 16}
+                            />
+                          </IconBadge>
                           <Box
                             as='span'
                             css={theme({
@@ -1669,10 +1698,9 @@ const Hero = () => {
               $border={D.vertBorder}
               onClick={pickExample(ex)}
             >
-              <Glyph
-                html={ICONS[parseLocal(ex).vertical]}
-                css={theme({ color: VIOLET, display: 'flex' })}
-              />
+              <Box as='span' css={theme({ color: VIOLET, display: 'flex' })}>
+                <VertGlyph vertical={parseLocal(ex).vertical} size={15} />
+              </Box>
               {ex}
             </ExampleChip>
           ))}
