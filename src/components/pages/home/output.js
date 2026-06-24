@@ -10,7 +10,6 @@ const VIOLET = '#9B26D6'
 const MUTED = '#9A9AA0'
 const BODY = '#3D3D42'
 const BORDER = '#EFEFF1'
-const CODE_BG = '#F6F6F7'
 const GRADIENT = 'linear-gradient(99deg,#FF1E8C,#B026E0)'
 const MONO = fonts.mono
 
@@ -198,264 +197,15 @@ const EmbedOutput = ({ url }) => (
   </Box>
 )
 
-/* ------------------------------- markdown -------------------------------- */
+/* --------------------------------- raw text -------------------------------- */
 
-// inline spans: image, link, bold, italic, inline code
-const INLINE =
-  /(!?)\[([^\]]*)\]\(([^)\s]+)[^)]*\)|\*\*([^*]+)\*\*|__([^_]+)__|\*([^*\s][^*]*?)\*|`([^`]+)`/g
-
-const renderInline = (text, keyBase) => {
-  const nodes = []
-  let last = 0
-  let i = 0
-  let m
-
-  INLINE.lastIndex = 0
-  while ((m = INLINE.exec(text)) !== null) {
-    if (m.index > last) nodes.push(text.slice(last, m.index))
-    const key = `${keyBase}-${i++}`
-
-    if (m[2] !== undefined && m[3]) {
-      if (m[1] === '!') {
-        nodes.push(
-          <Box
-            as='img'
-            key={key}
-            src={m[3]}
-            alt={m[2]}
-            loading='lazy'
-            css={theme({ maxWidth: '100%', borderRadius: 4, my: 2 })}
-          />
-        )
-      } else {
-        nodes.push(
-          <Box
-            as='a'
-            key={key}
-            href={m[3]}
-            target='_blank'
-            rel='noopener noreferrer'
-            css={theme({ color: VIOLET, textDecoration: 'none' })}
-          >
-            {m[2]}
-          </Box>
-        )
-      }
-    } else if (m[4] !== undefined || m[5] !== undefined) {
-      nodes.push(<strong key={key}>{m[4] !== undefined ? m[4] : m[5]}</strong>)
-    } else if (m[6] !== undefined) {
-      nodes.push(<em key={key}>{m[6]}</em>)
-    } else if (m[7] !== undefined) {
-      nodes.push(
-        <Box
-          as='code'
-          key={key}
-          css={theme({
-            fontFamily: 'mono',
-            fontSize: '13px',
-            background: CODE_BG,
-            borderRadius: 3,
-            px: 1,
-            py: '1px'
-          })}
-        >
-          {m[7]}
-        </Box>
-      )
-    }
-    last = INLINE.lastIndex
-  }
-  if (last < text.length) nodes.push(text.slice(last))
-  return nodes
-}
-
-const Prose = styled(Box)`
+// scrollable monospace block for raw source output (HTML / markdown)
+const RawText = styled(Box)`
   max-height: 480px;
   overflow: auto;
-  color: ${BODY};
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    color: ${INK};
-    line-height: 1.25;
-    margin: 1.4em 0 0.5em;
-    letter-spacing: -0.01em;
-  }
-  h1 {
-    font-size: 24px;
-  }
-  h2 {
-    font-size: 20px;
-  }
-  h3 {
-    font-size: 17px;
-  }
-  h4 {
-    font-size: 15px;
-  }
-  p {
-    margin: 0 0 0.9em;
-    line-height: 1.65;
-  }
-  ul,
-  ol {
-    margin: 0 0 0.9em;
-    padding-left: 1.3em;
-    line-height: 1.65;
-  }
-  li {
-    margin: 0.2em 0;
-  }
-  blockquote {
-    margin: 0 0 0.9em;
-    padding-left: 14px;
-    border-left: 3px solid ${BORDER};
-    color: ${MUTED};
-  }
-  pre {
-    margin: 0 0 0.9em;
-    padding: 14px 16px;
-    background: ${CODE_BG};
-    border-radius: 8px;
-    overflow: auto;
-    font-family: ${MONO};
-    font-size: 13px;
-    line-height: 1.6;
-  }
-  hr {
-    border: 0;
-    border-top: 1px solid ${BORDER};
-    margin: 1.4em 0;
-  }
-  a {
-    color: ${VIOLET};
-  }
-  & > *:first-child {
-    margin-top: 0;
-  }
+  white-space: pre-wrap;
+  word-break: break-word;
 `
-
-// strip a leading YAML frontmatter block (Microlink prepends page metadata)
-const stripFrontmatter = src =>
-  src.replace(/^\s*---\n[\s\S]*?\n---\n?/, '').trimStart()
-
-const Markdown = ({ source }) => {
-  const lines = stripFrontmatter(source.replace(/\r\n/g, '\n')).split('\n')
-  const blocks = []
-  let i = 0
-  let key = 0
-
-  const flushList = (items, ordered) => {
-    const Tag = ordered ? 'ol' : 'ul'
-    blocks.push(
-      <Tag key={`b-${key++}`}>
-        {items.map((item, idx) => (
-          <li key={idx}>{renderInline(item, `li-${key}-${idx}`)}</li>
-        ))}
-      </Tag>
-    )
-  }
-
-  while (i < lines.length) {
-    const line = lines[i]
-
-    // fenced code block
-    const fence = line.match(/^\s*```/)
-    if (fence) {
-      const buf = []
-      i++
-      while (i < lines.length && !/^\s*```/.test(lines[i])) buf.push(lines[i++])
-      i++ // closing fence
-      blocks.push(
-        <pre key={`b-${key++}`}>
-          <code>{buf.join('\n')}</code>
-        </pre>
-      )
-      continue
-    }
-
-    // blank line
-    if (/^\s*$/.test(line)) {
-      i++
-      continue
-    }
-
-    // heading
-    const heading = line.match(/^(#{1,6})\s+(.*)$/)
-    if (heading) {
-      const level = Math.min(heading[1].length, 4)
-      const Tag = `h${level}`
-      blocks.push(
-        <Tag key={`b-${key++}`}>{renderInline(heading[2], `h-${key}`)}</Tag>
-      )
-      i++
-      continue
-    }
-
-    // horizontal rule
-    if (/^\s*(\*\*\*|---|___)\s*$/.test(line)) {
-      blocks.push(<hr key={`b-${key++}`} />)
-      i++
-      continue
-    }
-
-    // blockquote
-    if (/^\s*>\s?/.test(line)) {
-      const buf = []
-      while (i < lines.length && /^\s*>\s?/.test(lines[i])) {
-        buf.push(lines[i].replace(/^\s*>\s?/, ''))
-        i++
-      }
-      blocks.push(
-        <blockquote key={`b-${key++}`}>
-          {renderInline(buf.join(' '), `q-${key}`)}
-        </blockquote>
-      )
-      continue
-    }
-
-    // unordered list
-    if (/^\s*[-*+]\s+/.test(line)) {
-      const items = []
-      while (i < lines.length && /^\s*[-*+]\s+/.test(lines[i])) {
-        items.push(lines[i].replace(/^\s*[-*+]\s+/, ''))
-        i++
-      }
-      flushList(items, false)
-      continue
-    }
-
-    // ordered list
-    if (/^\s*\d+\.\s+/.test(line)) {
-      const items = []
-      while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) {
-        items.push(lines[i].replace(/^\s*\d+\.\s+/, ''))
-        i++
-      }
-      flushList(items, true)
-      continue
-    }
-
-    // paragraph: gather consecutive plain lines
-    const buf = []
-    while (
-      i < lines.length &&
-      !/^\s*$/.test(lines[i]) &&
-      !/^\s*(#{1,6}\s|>|[-*+]\s|\d+\.\s|```)/.test(lines[i]) &&
-      !/^\s*(\*\*\*|---|___)\s*$/.test(lines[i])
-    ) {
-      buf.push(lines[i])
-      i++
-    }
-    blocks.push(
-      <p key={`b-${key++}`}>{renderInline(buf.join(' '), `p-${key}`)}</p>
-    )
-  }
-
-  return <Prose css={theme({ p: 4, fontSize: 1 })}>{blocks}</Prose>
-}
 
 /* ------------------------------- lighthouse ------------------------------- */
 
@@ -557,19 +307,9 @@ const TechnologiesOutput = ({ technologies }) => {
 /* ---------------------------------- html ---------------------------------- */
 
 const HtmlOutput = ({ html }) => (
-  <Box
-    as='iframe'
-    title='HTML output'
-    srcDoc={html}
-    sandbox=''
-    css={theme({
-      width: '100%',
-      height: '520px',
-      border: 0,
-      display: 'block',
-      background: '#fff'
-    })}
-  />
+  <RawText css={theme({ p: 4, fontFamily: 'mono', fontSize: 0, color: BODY })}>
+    {html}
+  </RawText>
 )
 
 /* ---------------------------------- text ---------------------------------- */
@@ -1308,7 +1048,11 @@ const Output = ({ req }) => {
     case 'markdown':
       return data.markdown
         ? (
-          <Markdown source={data.markdown} />
+          <RawText
+            css={theme({ p: 4, fontFamily: 'mono', fontSize: 0, color: BODY })}
+          >
+            {data.markdown}
+          </RawText>
           )
         : (
           <Empty>No markdown in this response.</Empty>
