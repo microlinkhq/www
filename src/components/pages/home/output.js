@@ -197,6 +197,114 @@ const EmbedOutput = ({ url }) => (
   </Box>
 )
 
+/* ------------------------------- metadata -------------------------------- */
+
+// the normalized metadata as a structured field list (vs the link-preview
+// card, which is the visual unfurl)
+const MetadataOutput = ({ data }) => {
+  const fields = [
+    ['title', data.title],
+    ['description', data.description],
+    ['author', data.author],
+    ['publisher', data.publisher],
+    ['date', data.date],
+    ['lang', data.lang],
+    ['url', data.url]
+  ].filter(([, value]) => value)
+  const media = [
+    ['image', data.image?.url],
+    ['logo', data.logo?.url]
+  ].filter(([, value]) => value)
+
+  return (
+    <Box css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
+      {fields.map(([label, value]) => (
+        <Flex
+          key={label}
+          css={theme({
+            gap: 3,
+            py: 2,
+            borderBottom: `1px solid ${BORDER}`
+          })}
+        >
+          <Box
+            as='span'
+            css={theme({
+              width: '108px',
+              flexShrink: 0,
+              fontFamily: 'mono',
+              fontSize: 0,
+              color: MUTED
+            })}
+          >
+            {label}
+          </Box>
+          {label === 'url'
+            ? (
+              <Box
+                as='a'
+                href={value}
+                target='_blank'
+                rel='noopener noreferrer'
+                css={theme({
+                  fontSize: 1,
+                  color: VIOLET,
+                  textDecoration: 'none',
+                  wordBreak: 'break-all'
+                })}
+              >
+                {value}
+              </Box>
+              )
+            : (
+              <Box
+                as='span'
+                css={theme({ fontSize: 1, color: BODY, lineHeight: 1.5 })}
+              >
+                {value}
+              </Box>
+              )}
+        </Flex>
+      ))}
+
+      {media.length > 0 && (
+        <Flex css={theme({ gap: 4, pt: 4, flexWrap: 'wrap' })}>
+          {media.map(([label, url]) => (
+            <Box key={label}>
+              <Box
+                as='span'
+                css={theme({
+                  display: 'block',
+                  fontFamily: 'mono',
+                  fontSize: 0,
+                  color: MUTED,
+                  mb: 2
+                })}
+              >
+                {label}
+              </Box>
+              <Box
+                as='img'
+                src={url}
+                alt={label}
+                loading='lazy'
+                css={theme({
+                  height: '72px',
+                  maxWidth: '160px',
+                  objectFit: 'contain',
+                  borderRadius: 6,
+                  border: `1px solid ${BORDER}`,
+                  background: '#fafafb'
+                })}
+              />
+            </Box>
+          ))}
+        </Flex>
+      )}
+    </Box>
+  )
+}
+
 /* --------------------------------- raw text -------------------------------- */
 
 // scrollable monospace block for raw source output (HTML / markdown)
@@ -1111,6 +1219,12 @@ const Output = ({ req }) => {
 
     case 'embed':
       return <EmbedOutput url={req.D.fullUrl} />
+
+    case 'metadata':
+      return <MetadataOutput data={data} />
+
+    case 'preview':
+      return <Card data={data} fallbackUrl={req.D.fullUrl} />
 
     default:
       return <Card data={data} fallbackUrl={req.D.fullUrl} />
