@@ -200,14 +200,20 @@ const REQUEST_OPTS = {
   screenshot: { screenshot: true },
   preview: { screenshot: true },
   markdown: { data: { markdown: { attr: 'markdown' } } },
-  html: { data: { html: { attr: 'html' } }, meta: false },
-  text: { data: { text: { attr: 'text' } }, meta: false },
+  html: { data: { html: { attr: 'html' } }, meta: false, ping: false },
+  text: { data: { text: { attr: 'text' } }, meta: false, ping: false },
   metadata: {},
-  lighthouse: { insights: { lighthouse: true } },
-  technologies: { insights: { technologies: true } },
+  // skip metadata + technology detection so the lighthouse audit resolves faster
+  lighthouse: {
+    insights: { lighthouse: true, technologies: false },
+    meta: false,
+    ping: false
+  },
+  technologies: { insights: { lighthouse: false, technologies: true } },
   function: {
     function: "({ page }) => page.$$eval('a', els => els.map(a => a.href))",
-    meta: false
+    meta: false,
+    ping: false
   },
   search: {},
   pdf: { pdf: true },
@@ -320,7 +326,7 @@ const DEFAULT_URLS = {
   html: 'https://example.com',
   text: 'https://en.wikipedia.org/wiki/Lorem_ipsum',
   metadata: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
-  lighthouse: 'https://css-tricks.com/nerds-guide-color-web',
+  lighthouse: 'https://simonwillison.net/2024/Oct/25/pelicans-on-a-bicycle/',
   technologies: 'https://vercel.com',
   function: 'https://example.com',
   pdf: 'https://www.raycast.com',
@@ -995,18 +1001,11 @@ const ResultPanel = ({ tab, setTab, req }) => {
     return () => window.removeEventListener('resize', onResize)
   }, [tab])
 
-  const statusTone = isError ? 'error' : isLoading ? 'loading' : 'success'
-  const statusText = isError
-    ? `${req.statusCode || ''} error`.trim()
-    : isLoading
-      ? 'running…'
-      : `${req.statusCode} ${body?.status || 'success'}`
-
   return (
     <Panel>
       {isLoading && <LoadingBar />}
 
-      {/* header */}
+      {/* header — status now lives in the "live response" label above */}
       <Flex
         css={theme({
           alignItems: 'center',
@@ -1027,7 +1026,6 @@ const ResultPanel = ({ tab, setTab, req }) => {
           >
             Result
           </Box>
-          <StatusPill $tone={statusTone}>{statusText}</StatusPill>
           {req.elapsedMs != null && !isLoading && (
             <Mono css={theme({ fontSize: 0, color: SYNTAX.muted })}>
               {req.elapsedMs}ms
@@ -1331,6 +1329,21 @@ const ResultPanel = ({ tab, setTab, req }) => {
   )
 }
 
+// the live-response label reports request status: a shimmering "running…"
+// while in flight, then the resolved status code (green) or error (red)
+const requestStatus = req => {
+  if (req.status === 'loading') {
+    return { text: 'running…', color: VIOLET, live: true }
+  }
+  if (req.status === 'error') {
+    return { text: `${req.statusCode || ''} error`.trim(), color: '#DC2626' }
+  }
+  return {
+    text: `${req.statusCode} ${req.body?.status || 'success'}`,
+    color: SYNTAX.string
+  }
+}
+
 /* ---------------------------------- hero --------------------------------- */
 
 const Hero = () => {
@@ -1485,6 +1498,7 @@ const Hero = () => {
   }, [runRequest])
 
   const D = derive(dText, dVert)
+  const liveStatus = requestStatus(req)
 
   const handleRun = () => {
     stopTyping()
@@ -1723,7 +1737,7 @@ const Hero = () => {
           ))}
         </Flex>
 
-        {/* live response */}
+        {/* live response — doubles as the request status reporter */}
         <Caps
           css={theme({
             display: 'inline-flex',
@@ -1732,11 +1746,19 @@ const Hero = () => {
             mt: 4,
             fontFamily: 'mono',
             fontSize: 0,
-            color: VIOLET
+            color: liveStatus.color
           })}
         >
-          <FeatherIcon icon={WandSparkles} size={0} color={VIOLET} />
-          <ShimmerText data-text='Live response'>Live response</ShimmerText>
+          <FeatherIcon icon={WandSparkles} size={0} color={liveStatus.color} />
+          {liveStatus.live
+            ? (
+              <ShimmerText data-text={liveStatus.text}>
+                {liveStatus.text}
+              </ShimmerText>
+              )
+            : (
+                liveStatus.text
+              )}
         </Caps>
 
         <ResultPanel tab={dTab} setTab={setDTab} req={req} />
