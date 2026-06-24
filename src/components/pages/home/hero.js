@@ -202,7 +202,7 @@ const FLAGS = {
 // the default metadata response
 const REQUEST_OPTS = {
   screenshot: { screenshot: true },
-  preview: { screenshot: true },
+  preview: {},
   embed: { iframe: true },
   markdown: { data: { markdown: { attr: 'markdown' } } },
   html: { data: { html: { attr: 'html' } }, meta: false, ping: false },
@@ -348,7 +348,7 @@ const parseLocal = text => {
 // product's documentation uses; the user can type any domain to override it
 const DEFAULT_URLS = {
   screenshot: 'https://www.apple.com/music',
-  preview: 'https://news.ycombinator.com/item?id=13713480',
+  preview: 'https://github.com/microlinkhq/metascraper',
   embed: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
   markdown: 'https://microlink.io/docs/api/getting-started/overview',
   html: 'https://example.com',
