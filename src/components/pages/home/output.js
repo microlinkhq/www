@@ -1,5 +1,6 @@
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
+import Microlink from 'components/patterns/Microlink/Microlink'
 import { theme, fonts } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
@@ -67,6 +68,7 @@ const LogoOutput = ({ logo, palette }) => (
       <Flex
         css={theme({
           alignItems: 'center',
+          justifyContent: 'center',
           gap: 2,
           flexWrap: 'wrap',
           p: 3,
@@ -186,6 +188,15 @@ const Card = ({ data, fallbackUrl }) => {
     </Box>
   )
 }
+
+/* --------------------------------- embed --------------------------------- */
+
+// the official embeddable SDK card (iframe / video / audio / image / logo)
+const EmbedOutput = ({ url }) => (
+  <Box css={theme({ p: 4, display: 'flex', justifyContent: 'center' })}>
+    <Microlink url={url} size='large' />
+  </Box>
+)
 
 /* ------------------------------- markdown -------------------------------- */
 
@@ -585,22 +596,6 @@ const TextOutput = ({ text }) => (
 const mediaUrl = media =>
   typeof media === 'string' ? media : media && media.url
 
-const VideoOutput = ({ video }) => (
-  <Stage css={theme({ p: 4, maxHeight: '480px' })}>
-    <Box
-      as='video'
-      src={mediaUrl(video)}
-      controls
-      css={theme({
-        maxWidth: '100%',
-        maxHeight: '440px',
-        borderRadius: 4,
-        boxShadow: '0 18px 50px -22px rgba(40,10,60,.45)'
-      })}
-    />
-  </Stage>
-)
-
 // m:ss
 const fmtTime = seconds => {
   if (!isFinite(seconds)) return '0:00'
@@ -666,16 +661,16 @@ const ProgressTrack = styled.div`
   cursor: pointer;
 `
 
-const PlayIcon = ({ playing }) =>
+const PlayIcon = ({ playing, size = 16 }) =>
   playing
     ? (
-      <svg width='16' height='16' viewBox='0 0 24 24' fill='#fff'>
+      <svg width={size} height={size} viewBox='0 0 24 24' fill='#fff'>
         <rect x='6' y='5' width='4' height='14' rx='1' />
         <rect x='14' y='5' width='4' height='14' rx='1' />
       </svg>
       )
     : (
-      <svg width='16' height='16' viewBox='0 0 24 24' fill='#fff'>
+      <svg width={size} height={size} viewBox='0 0 24 24' fill='#fff'>
         <path d='M8 5v14l11-7z' />
       </svg>
       )
@@ -863,6 +858,201 @@ const AudioOutput = ({ data }) => {
         preload='metadata'
         css={{ display: 'none' }}
       />
+    </Box>
+  )
+}
+
+/* --------------------------------- video --------------------------------- */
+
+const TitleBar = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
+  pointer-events: none;
+`
+
+const ControlBar = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 12px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+`
+
+const BarButton = styled.button`
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 150ms ease;
+  &:active {
+    transform: scale(0.9);
+  }
+`
+
+const PlayOverlay = styled.button`
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  background: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(2px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 4px;
+  transition: transform 150ms ease, background 150ms ease;
+  &:hover {
+    background: rgba(10, 10, 10, 0.72);
+  }
+  &:active {
+    transform: scale(0.94);
+  }
+`
+
+// framed video with a centered play overlay, a title bar, and an overlaid
+// transport / scrubber — built from the response metadata
+const VideoOutput = ({ data }) => {
+  const src = mediaUrl(data.video)
+  const videoRef = useRef(null)
+  const [playing, setPlaying] = useState(false)
+  const [current, setCurrent] = useState(0)
+  const [duration, setDuration] = useState(data.video?.duration || 0)
+
+  useEffect(() => {
+    const el = videoRef.current
+    if (!el) return undefined
+    const onTime = () => setCurrent(el.currentTime)
+    const onMeta = () => setDuration(el.duration)
+    const onPlay = () => setPlaying(true)
+    const onPause = () => setPlaying(false)
+    el.addEventListener('timeupdate', onTime)
+    el.addEventListener('loadedmetadata', onMeta)
+    el.addEventListener('play', onPlay)
+    el.addEventListener('pause', onPause)
+    return () => {
+      el.removeEventListener('timeupdate', onTime)
+      el.removeEventListener('loadedmetadata', onMeta)
+      el.removeEventListener('play', onPlay)
+      el.removeEventListener('pause', onPause)
+    }
+  }, [src])
+
+  const toggle = () => {
+    const el = videoRef.current
+    if (!el) return
+    if (el.paused) el.play().catch(() => {})
+    else el.pause()
+  }
+
+  const seek = event => {
+    const el = videoRef.current
+    if (!el || !duration) return
+    const rect = event.currentTarget.getBoundingClientRect()
+    const ratio = Math.min(
+      1,
+      Math.max(0, (event.clientX - rect.left) / rect.width)
+    )
+    el.currentTime = ratio * duration
+    setCurrent(el.currentTime)
+  }
+
+  const pct = duration ? (current / duration) * 100 : 0
+  const title = [data.title, data.publisher].filter(Boolean).join(' · ')
+
+  return (
+    <Box css={theme({ p: 4 })}>
+      <Box
+        css={theme({
+          position: 'relative',
+          maxWidth: '640px',
+          mx: 'auto',
+          borderRadius: 8,
+          overflow: 'hidden',
+          background: '#000',
+          boxShadow: '0 18px 50px -22px rgba(40,10,60,.45)'
+        })}
+      >
+        <Box
+          as='video'
+          ref={videoRef}
+          src={src}
+          playsInline
+          preload='metadata'
+          onClick={toggle}
+          css={{
+            display: 'block',
+            width: '100%',
+            maxHeight: '440px',
+            cursor: 'pointer'
+          }}
+        />
+
+        {title && <TitleBar>{title}</TitleBar>}
+
+        {!playing && (
+          <PlayOverlay type='button' onClick={toggle} aria-label='Play'>
+            <PlayIcon playing={false} size={26} />
+          </PlayOverlay>
+        )}
+
+        <ControlBar>
+          <BarButton
+            type='button'
+            onClick={toggle}
+            aria-label={playing ? 'Pause' : 'Play'}
+          >
+            <PlayIcon playing={playing} size={18} />
+          </BarButton>
+          <ProgressTrack
+            onClick={seek}
+            css={{ background: 'rgba(255,255,255,0.3)' }}
+          >
+            <Box
+              css={{
+                height: '100%',
+                borderRadius: '999px',
+                background: GRADIENT,
+                width: `${pct}%`
+              }}
+            />
+          </ProgressTrack>
+          <Box
+            as='span'
+            css={{
+              fontFamily: MONO,
+              fontSize: '13px',
+              color: '#fff',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            {fmtTime(current)} / {fmtTime(duration)}
+          </Box>
+        </ControlBar>
+      </Box>
     </Box>
   )
 }
@@ -1160,7 +1350,7 @@ const Output = ({ req }) => {
     case 'video':
       return mediaUrl(data.video)
         ? (
-          <VideoOutput video={data.video} />
+          <VideoOutput data={data} />
           )
         : (
           <Empty>No video found on this page.</Empty>
@@ -1174,6 +1364,9 @@ const Output = ({ req }) => {
         : (
           <Empty>No audio found on this page.</Empty>
           )
+
+    case 'embed':
+      return <EmbedOutput url={req.D.fullUrl} />
 
     default:
       return <Card data={data} fallbackUrl={req.D.fullUrl} />

@@ -20,6 +20,7 @@ import {
   Search as SearchIcon,
   Image as ImageIcon,
   Layers as LayersIcon,
+  Layout as LayoutIcon,
   AlignLeft as AlignLeftIcon,
   Video as VideoIcon,
   Music as MusicIcon
@@ -133,6 +134,7 @@ const PRESETS = {
 const ICONS = {
   screenshot: Focus,
   preview: LinkIcon,
+  embed: LayoutIcon,
   markdown: Markdown,
   html: CodeIcon,
   text: AlignLeftIcon,
@@ -162,6 +164,7 @@ const VertGlyph = ({ vertical, size = 16 }) => {
 const LABELS = {
   screenshot: 'Screenshot',
   preview: 'Link preview',
+  embed: 'Embed',
   markdown: 'Markdown',
   html: 'HTML',
   text: 'Text',
@@ -179,6 +182,7 @@ const LABELS = {
 const FLAGS = {
   screenshot: 'screenshot',
   preview: 'embed',
+  embed: 'iframe',
   markdown: 'markdown',
   html: 'html',
   text: 'text',
@@ -199,6 +203,7 @@ const FLAGS = {
 const REQUEST_OPTS = {
   screenshot: { screenshot: true },
   preview: { screenshot: true },
+  embed: { iframe: true },
   markdown: { data: { markdown: { attr: 'markdown' } } },
   html: { data: { html: { attr: 'html' } }, meta: false, ping: false },
   text: { data: { text: { attr: 'text' } }, meta: false, ping: false },
@@ -225,6 +230,7 @@ const REQUEST_OPTS = {
 const VERTICAL_ORDER = [
   'screenshot',
   'preview',
+  'embed',
   'markdown',
   'html',
   'text',
@@ -263,6 +269,7 @@ const EXAMPLES = [
 const PROMPTS = {
   screenshot: 'take a screenshot',
   preview: 'generate a link preview',
+  embed: 'embed a URL',
   markdown: 'get the markdown',
   html: 'get the HTML',
   text: 'extract the text',
@@ -314,7 +321,8 @@ const parseLocal = text => {
       /markdown|\bmd\b|clean text|readable|article text|page content|content of|in markdown/
     ],
     ['search', /\bsearch\b|google|serp|results for|look up|find .* (about|on)/],
-    ['preview', /preview|unfurl|link ?card|rich card|\bembed\b/]
+    ['embed', /\bembed\b|embeddable|\biframe\b|oembed/],
+    ['preview', /preview|unfurl|link ?card|rich card/]
   ]
   let vertical = 'screenshot'
   for (const [k, re] of rules) {
@@ -341,6 +349,7 @@ const parseLocal = text => {
 const DEFAULT_URLS = {
   screenshot: 'https://www.apple.com/music',
   preview: 'https://news.ycombinator.com/item?id=13713480',
+  embed: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
   markdown: 'https://microlink.io/docs/api/getting-started/overview',
   html: 'https://example.com',
   text: 'https://en.wikipedia.org/wiki/Lorem_ipsum',
@@ -576,6 +585,7 @@ const VertChip = styled.div`
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
   cursor: pointer;
   background: #fafafb;
   border: 1px solid ${props => props.$border};
@@ -704,10 +714,10 @@ const TabIndicator = styled.span`
   }
 `
 
-// origin-aware popover: scales in from the chip (bottom-left) on open and
+// origin-aware popover: scales in from the chip (top-left) on open and
 // scales back down on close — data-state drives both directions
 const VertMenu = styled(Box)`
-  transform-origin: bottom left;
+  transform-origin: top left;
   will-change: transform, opacity;
 
   &[data-state='pre'] {
@@ -1565,7 +1575,13 @@ const Hero = () => {
             })}
           >
             <Flex
-              css={theme({ alignItems: 'center', gap: 2, minHeight: '34px' })}
+              css={theme({
+                alignItems: 'center',
+                gap: 2,
+                minHeight: '34px',
+                flex: 1,
+                minWidth: 0
+              })}
             >
               <VertChip
                 ref={chipRef}
@@ -1612,7 +1628,7 @@ const Hero = () => {
                     data-state={menuState}
                     css={theme({
                       position: 'absolute',
-                      bottom: 'calc(100% + 8px)',
+                      top: 'calc(100% + 8px)',
                       left: 0,
                       zIndex: 30,
                       width: '230px',
@@ -1693,7 +1709,19 @@ const Hero = () => {
                 )}
               </VertChip>
               {D.hasUrl && (
-                <Mono css={theme({ fontSize: 0, color: VIOLET })}>{D.url}</Mono>
+                <Mono
+                  css={theme({
+                    fontSize: 0,
+                    color: VIOLET,
+                    flex: 1,
+                    minWidth: 0,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
+                  })}
+                >
+                  {D.url}
+                </Mono>
               )}
             </Flex>
             <RunButton
