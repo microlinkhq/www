@@ -1005,43 +1005,13 @@ const ResultPanel = ({ tab, setTab, req }) => {
     <Panel>
       {isLoading && <LoadingBar />}
 
-      {/* header — status now lives in the "live response" label above */}
-      <Flex
-        css={theme({
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          py: 3,
-          px: 3
-        })}
-      >
-        <Flex css={theme({ alignItems: 'center', gap: 3 })}>
-          <Box
-            as='span'
-            css={theme({
-              fontSize: 2,
-              fontWeight: 'bold',
-              letterSpacing: '-.02em',
-              color: INK
-            })}
-          >
-            Result
-          </Box>
-          {req.elapsedMs != null && !isLoading && (
-            <Mono css={theme({ fontSize: 0, color: SYNTAX.muted })}>
-              {req.elapsedMs}ms
-            </Mono>
-          )}
-        </Flex>
-      </Flex>
-
-      {/* GET url */}
+      {/* GET url — status + duration now live in the "live response" label */}
       <Flex
         css={theme({
           alignItems: 'center',
           gap: 3,
           py: 3,
           px: 3,
-          borderTop: '1px solid #EFEFF1',
           borderBottom: '1px solid #EFEFF1'
         })}
       >
@@ -1329,17 +1299,23 @@ const ResultPanel = ({ tab, setTab, req }) => {
   )
 }
 
+// format the round-trip duration as seconds once we cross 1s, else ms
+const fmtDuration = ms =>
+  ms >= 1000 ? `${(ms / 1000).toFixed(1)}s` : `${ms}ms`
+
 // the live-response label reports request status: a shimmering "running…"
-// while in flight, then the resolved status code (green) or error (red)
+// while in flight, then the resolved status code + duration (green) or error
+// (red) — it replaces the panel's own header
 const requestStatus = req => {
   if (req.status === 'loading') {
     return { text: 'running…', color: VIOLET, live: true }
   }
+  const took = req.elapsedMs != null ? ` in ${fmtDuration(req.elapsedMs)}` : ''
   if (req.status === 'error') {
-    return { text: `${req.statusCode || ''} error`.trim(), color: '#DC2626' }
+    return { text: `error${took}`, color: '#DC2626' }
   }
   return {
-    text: `${req.statusCode} ${req.body?.status || 'success'}`,
+    text: `${req.body?.status || 'success'}${took}`,
     color: SYNTAX.string
   }
 }
