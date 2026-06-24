@@ -4,7 +4,6 @@ import Microlink from 'components/patterns/Microlink/Microlink'
 import { theme, fonts } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Search as SearchIcon } from 'react-feather'
 
 const INK = '#0A0A0A'
 const VIOLET = '#9B26D6'
@@ -322,67 +321,102 @@ const ProBadge = styled.span`
   padding: 3px 10px;
 `
 
-// Search API is a Pro-only, query-based product, so it gets an upsell panel
-// rather than a URL response
-const SearchOutput = () => (
-  <Box css={theme({ py: 5, px: 4, textAlign: 'center' })}>
-    <Flex css={theme({ justifyContent: 'center', mb: 3 })}>
-      <Flex
-        css={theme({
-          width: '56px',
-          height: '56px',
-          borderRadius: '50%',
-          background: GRADIENT,
-          alignItems: 'center',
-          justifyContent: 'center'
-        })}
-      >
-        <SearchIcon color='#fff' size={26} />
-      </Flex>
-    </Flex>
-    <ProBadge>Pro</ProBadge>
+// Search API is Pro-only and query-based, so the free demo shows a static
+// example SERP for the "microlink" query with a Pro upsell header
+const SEARCH_RESULTS = [
+  {
+    title: 'Microlink — Enter a URL, Receive Information',
+    url: 'https://microlink.io',
+    snippet:
+      'Browser as an API. Turn any URL into structured data — metadata, screenshots, PDFs and more — with a single HTTP request.'
+  },
+  {
+    title: 'microlinkhq/metascraper — Get unified metadata · GitHub',
+    url: 'https://github.com/microlinkhq/metascraper',
+    snippet:
+      'Get unified metadata from websites using Open Graph, JSON-LD, RDFa, regular HTML metadata and a series of fallbacks.'
+  },
+  {
+    title: 'Microlink API — Documentation',
+    url: 'https://microlink.io/docs',
+    snippet:
+      'Automate browser actions, extract metadata, take screenshots and generate PDFs with a simple HTTP GET request.'
+  },
+  {
+    title: 'Microlink Q (@microlinkhq) · X',
+    url: 'https://x.com/microlinkhq',
+    snippet:
+      'Enter a URL, Receive Information. Turn websites into data with one API call.'
+  }
+]
+
+const SearchResult = ({ title, url, snippet }) => (
+  <Box css={theme({ mb: 4 })}>
     <Box
       as='span'
       css={theme({
         display: 'block',
-        fontSize: 3,
-        fontWeight: 'bold',
-        color: INK,
-        letterSpacing: '-.02em',
-        mt: 3
+        fontFamily: 'mono',
+        fontSize: 0,
+        color: '#16A34A',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap'
       })}
     >
-      Search API
-    </Box>
-    <Box
-      as='p'
-      css={theme({
-        maxWidth: '380px',
-        mx: 'auto',
-        mt: 2,
-        mb: 0,
-        fontSize: 1,
-        color: MUTED,
-        lineHeight: 1.5
-      })}
-    >
-      Turn Google Search, News, Images & Maps into structured data. Available on
-      the Pro plan.
+      {url}
     </Box>
     <Box
       as='a'
-      href='/search'
+      href={url}
+      target='_blank'
+      rel='noopener noreferrer'
       css={theme({
-        display: 'inline-block',
-        mt: 3,
-        fontSize: 1,
+        display: 'block',
+        fontSize: 2,
         fontWeight: 600,
         color: VIOLET,
-        textDecoration: 'none'
+        textDecoration: 'none',
+        mt: 1
       })}
     >
-      Learn more →
+      {title}
     </Box>
+    <Box
+      as='p'
+      css={theme({ m: 0, mt: 1, fontSize: 1, color: BODY, lineHeight: 1.5 })}
+    >
+      {snippet}
+    </Box>
+  </Box>
+)
+
+const SearchOutput = () => (
+  <Box css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
+    <Flex
+      css={theme({
+        alignItems: 'center',
+        gap: 2,
+        mb: 4,
+        pb: 3,
+        borderBottom: `1px solid ${BORDER}`
+      })}
+    >
+      <ProBadge>Pro</ProBadge>
+      <Box as='span' css={theme({ fontSize: 0, color: MUTED })}>
+        Example results — query live Google data on the{' '}
+        <Box
+          as='a'
+          href='/search'
+          css={theme({ color: VIOLET, textDecoration: 'none' })}
+        >
+          Pro plan
+        </Box>
+      </Box>
+    </Flex>
+    {SEARCH_RESULTS.map(result => (
+      <SearchResult key={result.url} {...result} />
+    ))}
   </Box>
 )
 
