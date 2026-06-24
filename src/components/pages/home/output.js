@@ -1,8 +1,8 @@
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import { theme, fonts } from 'theme'
-import React from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useRef, useState } from 'react'
+import styled, { keyframes } from 'styled-components'
 
 const INK = '#0A0A0A'
 const VIOLET = '#9B26D6'
@@ -10,6 +10,7 @@ const MUTED = '#9A9AA0'
 const BODY = '#3D3D42'
 const BORDER = '#EFEFF1'
 const CODE_BG = '#F6F6F7'
+const GRADIENT = 'linear-gradient(99deg,#FF1E8C,#B026E0)'
 const MONO = fonts.mono
 
 /* ------------------------------ media renderers ----------------------------- */
@@ -600,11 +601,271 @@ const VideoOutput = ({ video }) => (
   </Stage>
 )
 
-const AudioOutput = ({ audio }) => (
-  <Box css={theme({ p: 5, display: 'flex', justifyContent: 'center' })}>
-    <Box as='audio' src={mediaUrl(audio)} controls css={{ width: '100%' }} />
-  </Box>
-)
+// m:ss
+const fmtTime = seconds => {
+  if (!isFinite(seconds)) return '0:00'
+  const m = Math.floor(seconds / 60)
+  const s = Math.floor(seconds % 60)
+  return `${m}:${String(s).padStart(2, '0')}`
+}
+
+// bouncing equalizer bars — a nod to the classic mini-player look
+const eq = keyframes`
+  0%, 100% { transform: scaleY(0.35) }
+  50% { transform: scaleY(1) }
+`
+
+const EqBar = styled.span`
+  display: block;
+  width: 3px;
+  height: 18px;
+  border-radius: 2px;
+  background: ${GRADIENT};
+  transform-origin: bottom;
+  animation: ${eq} 0.9s ease-in-out infinite;
+  animation-play-state: ${props => (props.$playing ? 'running' : 'paused')};
+  &:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  &:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  &:nth-child(4) {
+    animation-delay: 0.45s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`
+
+const PlayButton = styled.button`
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  background: ${GRADIENT};
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 150ms ease, filter 150ms ease;
+  &:hover {
+    filter: brightness(1.06);
+  }
+  &:active {
+    transform: scale(0.94);
+  }
+`
+
+const ProgressTrack = styled.div`
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: ${BORDER};
+  cursor: pointer;
+`
+
+const PlayIcon = ({ playing }) =>
+  playing
+    ? (
+      <svg width='16' height='16' viewBox='0 0 24 24' fill='#fff'>
+        <rect x='6' y='5' width='4' height='14' rx='1' />
+        <rect x='14' y='5' width='4' height='14' rx='1' />
+      </svg>
+      )
+    : (
+      <svg width='16' height='16' viewBox='0 0 24 24' fill='#fff'>
+        <path d='M8 5v14l11-7z' />
+      </svg>
+      )
+
+// a compact, mini-winamp style player built from the response metadata:
+// album art, title / author, transport, scrubber and an equalizer
+const AudioOutput = ({ data }) => {
+  const src = mediaUrl(data.audio)
+  const audioRef = useRef(null)
+  const [playing, setPlaying] = useState(false)
+  const [current, setCurrent] = useState(0)
+  const [duration, setDuration] = useState(data.audio?.duration || 0)
+
+  useEffect(() => {
+    const el = audioRef.current
+    if (!el) return undefined
+    const onTime = () => setCurrent(el.currentTime)
+    const onMeta = () => setDuration(el.duration)
+    const onEnd = () => {
+      setPlaying(false)
+      setCurrent(0)
+    }
+    el.addEventListener('timeupdate', onTime)
+    el.addEventListener('loadedmetadata', onMeta)
+    el.addEventListener('ended', onEnd)
+    return () => {
+      el.removeEventListener('timeupdate', onTime)
+      el.removeEventListener('loadedmetadata', onMeta)
+      el.removeEventListener('ended', onEnd)
+    }
+  }, [src])
+
+  const toggle = () => {
+    const el = audioRef.current
+    if (!el) return
+    if (el.paused) {
+      el.play()
+        .then(() => setPlaying(true))
+        .catch(() => {})
+    } else {
+      el.pause()
+      setPlaying(false)
+    }
+  }
+
+  const seek = event => {
+    const el = audioRef.current
+    if (!el || !duration) return
+    const rect = event.currentTarget.getBoundingClientRect()
+    const ratio = Math.min(
+      1,
+      Math.max(0, (event.clientX - rect.left) / rect.width)
+    )
+    el.currentTime = ratio * duration
+    setCurrent(el.currentTime)
+  }
+
+  const pct = duration ? (current / duration) * 100 : 0
+  const image = data.image?.url
+  const title = data.title || 'Audio'
+  const subtitle = [data.author, data.publisher].filter(Boolean).join(' · ')
+
+  return (
+    <Box css={theme({ p: 4 })}>
+      <Flex
+        css={theme({
+          maxWidth: '480px',
+          mx: 'auto',
+          alignItems: 'center',
+          gap: 3,
+          p: 3,
+          border: `1px solid ${BORDER}`,
+          borderRadius: 12,
+          background: '#fff',
+          boxShadow: '0 18px 50px -28px rgba(40,10,60,.4)'
+        })}
+      >
+        {image && (
+          <Box
+            as='img'
+            src={image}
+            alt={title}
+            loading='lazy'
+            css={theme({
+              width: '76px',
+              height: '76px',
+              borderRadius: 8,
+              objectFit: 'cover',
+              flexShrink: 0,
+              boxShadow: '0 6px 18px -8px rgba(40,10,60,.45)'
+            })}
+          />
+        )}
+
+        <Box css={theme({ flex: 1, minWidth: 0 })}>
+          <Flex
+            css={theme({
+              alignItems: 'flex-start',
+              justifyContent: 'space-between',
+              gap: 2
+            })}
+          >
+            <Box css={theme({ minWidth: 0 })}>
+              <Box
+                as='span'
+                css={theme({
+                  display: 'block',
+                  fontSize: 1,
+                  fontWeight: 'bold',
+                  color: INK,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap'
+                })}
+              >
+                {title}
+              </Box>
+              {subtitle && (
+                <Box
+                  as='span'
+                  css={theme({
+                    display: 'block',
+                    fontSize: 0,
+                    color: MUTED,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
+                  })}
+                >
+                  {subtitle}
+                </Box>
+              )}
+            </Box>
+            <Flex
+              css={theme({
+                alignItems: 'flex-end',
+                gap: '3px',
+                height: '18px',
+                flexShrink: 0
+              })}
+            >
+              {[0, 1, 2, 3].map(i => (
+                <EqBar key={i} $playing={playing} />
+              ))}
+            </Flex>
+          </Flex>
+
+          <Flex css={theme({ alignItems: 'center', gap: 2, mt: 3 })}>
+            <PlayButton
+              type='button'
+              onClick={toggle}
+              aria-label={playing ? 'Pause' : 'Play'}
+            >
+              <PlayIcon playing={playing} />
+            </PlayButton>
+            <ProgressTrack onClick={seek}>
+              <Box
+                css={{
+                  height: '100%',
+                  borderRadius: '999px',
+                  background: GRADIENT,
+                  width: `${pct}%`
+                }}
+              />
+            </ProgressTrack>
+            <Box
+              as='span'
+              css={theme({
+                fontFamily: 'mono',
+                fontSize: 0,
+                color: MUTED,
+                whiteSpace: 'nowrap'
+              })}
+            >
+              {fmtTime(current)} / {fmtTime(duration)}
+            </Box>
+          </Flex>
+        </Box>
+      </Flex>
+
+      <Box
+        as='audio'
+        ref={audioRef}
+        src={src}
+        preload='metadata'
+        css={{ display: 'none' }}
+      />
+    </Box>
+  )
+}
 
 /* -------------------------------- function -------------------------------- */
 
@@ -908,7 +1169,7 @@ const Output = ({ req }) => {
     case 'audio':
       return mediaUrl(data.audio)
         ? (
-          <AudioOutput audio={data.audio} />
+          <AudioOutput data={data} />
           )
         : (
           <Empty>No audio found on this page.</Empty>
