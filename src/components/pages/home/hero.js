@@ -554,6 +554,11 @@ const Badge = styled.span`
 `
 
 const Composer = styled.div`
+  position: relative;
+  /* lift above the later hero rows (chips, live-response, panel) so the
+     downward product menu isn't covered — each row is its own stacking
+     context from the entrance animation's lingering filter */
+  z-index: 20;
   width: 100%;
   max-width: 680px;
   margin-top: 38px;
