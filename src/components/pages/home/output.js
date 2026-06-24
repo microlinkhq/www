@@ -1,6 +1,8 @@
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Microlink from 'components/patterns/Microlink/Microlink'
+import { HeroSearchResultCard } from 'components/pages/search/ResultCards'
+import GOOGLE_EXAMPLES from 'data/google-examples'
 import { theme, fonts } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
@@ -321,75 +323,9 @@ const ProBadge = styled.span`
   padding: 3px 10px;
 `
 
-// Search API is Pro-only and query-based, so the free demo shows a static
-// example SERP for the "microlink" query with a Pro upsell header
-const SEARCH_RESULTS = [
-  {
-    title: 'Microlink — Enter a URL, Receive Information',
-    url: 'https://microlink.io',
-    snippet:
-      'Browser as an API. Turn any URL into structured data — metadata, screenshots, PDFs and more — with a single HTTP request.'
-  },
-  {
-    title: 'microlinkhq/metascraper — Get unified metadata · GitHub',
-    url: 'https://github.com/microlinkhq/metascraper',
-    snippet:
-      'Get unified metadata from websites using Open Graph, JSON-LD, RDFa, regular HTML metadata and a series of fallbacks.'
-  },
-  {
-    title: 'Microlink API — Documentation',
-    url: 'https://microlink.io/docs',
-    snippet:
-      'Automate browser actions, extract metadata, take screenshots and generate PDFs with a simple HTTP GET request.'
-  },
-  {
-    title: 'Microlink Q (@microlinkhq) · X',
-    url: 'https://x.com/microlinkhq',
-    snippet:
-      'Enter a URL, Receive Information. Turn websites into data with one API call.'
-  }
-]
-
-const SearchResult = ({ title, url, snippet }) => (
-  <Box css={theme({ mb: 4 })}>
-    <Box
-      as='span'
-      css={theme({
-        display: 'block',
-        fontFamily: 'mono',
-        fontSize: 0,
-        color: '#16A34A',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap'
-      })}
-    >
-      {url}
-    </Box>
-    <Box
-      as='a'
-      href={url}
-      target='_blank'
-      rel='noopener noreferrer'
-      css={theme({
-        display: 'block',
-        fontSize: 2,
-        fontWeight: 600,
-        color: VIOLET,
-        textDecoration: 'none',
-        mt: 1
-      })}
-    >
-      {title}
-    </Box>
-    <Box
-      as='p'
-      css={theme({ m: 0, mt: 1, fontSize: 1, color: BODY, lineHeight: 1.5 })}
-    >
-      {snippet}
-    </Box>
-  </Box>
-)
+// Search API is Pro + query-based; the free demo replays a recorded example
+// (the same data the /search page uses), rendered with the real result card
+const SEARCH_EXAMPLE = GOOGLE_EXAMPLES.search[0]
 
 const SearchOutput = () => (
   <Box css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
@@ -414,9 +350,11 @@ const SearchOutput = () => (
         </Box>
       </Box>
     </Flex>
-    {SEARCH_RESULTS.map(result => (
-      <SearchResult key={result.url} {...result} />
-    ))}
+    <Flex css={theme({ flexDirection: 'column', gap: 4 })}>
+      {SEARCH_EXAMPLE.payload.slice(0, 4).map(result => (
+        <HeroSearchResultCard key={result.url} data={result} />
+      ))}
+    </Flex>
   </Box>
 )
 

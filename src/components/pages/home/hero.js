@@ -29,8 +29,13 @@ import { transition, timings, fonts, theme } from 'theme'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import mql, { getApiUrl } from '@microlink/mql'
+import GOOGLE_EXAMPLES from 'data/google-examples'
 
 import analyticsData from '../../../../data/analytics.json'
+
+// Search API is Pro + query-based; the free demo replays a real recorded
+// example (same data the /search page uses) instead of a live request
+const SEARCH_EXAMPLE = GOOGLE_EXAMPLES.search[0]
 
 // round the request count down to the nearest 50 (e.g. 778M → 750M) so the
 // hero shows a clean, never-overstated figure rather than the exact number
@@ -358,7 +363,9 @@ const DEFAULT_URLS = {
   lighthouse: 'https://simonwillison.net/2024/Oct/25/pelicans-on-a-bicycle/',
   technologies: 'https://vercel.com',
   function: 'https://example.com',
-  search: 'https://www.google.com/search?q=microlink',
+  search: `https://www.google.com/search?q=${encodeURIComponent(
+    SEARCH_EXAMPLE.query
+  )}`,
   pdf: 'https://www.raycast.com',
   logo: 'https://github.com',
   video: 'https://www.w3schools.com/html/html5_video.asp',
@@ -1417,6 +1424,34 @@ const Hero = () => {
   // result (data / headers / timing) into the panel
   const runRequest = useCallback(async snapshot => {
     if (!snapshot.hasUrl) return
+
+    // Search API is Pro + query-based: replay the recorded example instead of
+    // a live request, so the panel shows real search results (not page metadata)
+    if (snapshot.vertical === 'search') {
+      setReq({
+        status: 'success',
+        D: snapshot,
+        apiUrl: `https://pro.microlink.io/?url=${encodeURIComponent(
+          snapshot.fullUrl
+        )}`,
+        body: {
+          status: 'success',
+          data: {
+            query: SEARCH_EXAMPLE.query,
+            results: SEARCH_EXAMPLE.payload
+          },
+          statusCode: 200
+        },
+        headerRows: [],
+        bars: [],
+        rows: [],
+        totalMs: null,
+        statusCode: 200,
+        elapsedMs: 0
+      })
+      return
+    }
+
     const opts = REQUEST_OPTS[snapshot.vertical] || {}
     const apiUrl = getApiUrl(snapshot.fullUrl, opts)[0]
     const id = ++reqId.current
