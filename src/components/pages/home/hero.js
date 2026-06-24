@@ -258,6 +258,25 @@ const EXAMPLES = [
   'fetch the logo'
 ]
 
+// composer prompt written into the input when a product is picked from the
+// dropdown — each phrase parses back to its own vertical
+const PROMPTS = {
+  screenshot: 'take a screenshot',
+  preview: 'generate a link preview',
+  markdown: 'get the markdown',
+  html: 'get the HTML',
+  text: 'extract the text',
+  metadata: 'extract the metadata',
+  lighthouse: 'run a lighthouse report',
+  technologies: 'detect the technologies',
+  function: 'run a function',
+  search: 'search the web',
+  pdf: 'create a PDF',
+  logo: 'fetch the logo',
+  video: 'detect the video',
+  audio: 'detect the audio'
+}
+
 const parseLocal = text => {
   const t = (text || '').toLowerCase()
   const rules = [
@@ -1498,6 +1517,16 @@ const Hero = () => {
     setDText(value)
   }
 
+  // picking a product from the dropdown rewrites the composer prompt to match
+  const pickVertical = k => {
+    const prompt = PROMPTS[k] || ''
+    stopTyping()
+    anim.current.text = prompt
+    setDText(prompt)
+    setDVert(k)
+    closeMenu()
+  }
+
   return (
     <Section id='hero'>
       <Overlay start='60%' />
@@ -1601,8 +1630,7 @@ const Hero = () => {
                           key={k}
                           onClick={e => {
                             e.stopPropagation()
-                            setDVert(k)
-                            closeMenu()
+                            pickVertical(k)
                           }}
                           css={theme({
                             alignItems: 'center',
