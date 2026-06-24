@@ -4,6 +4,7 @@ import Microlink from 'components/patterns/Microlink/Microlink'
 import { theme, fonts } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
+import { Search as SearchIcon } from 'react-feather'
 
 const INK = '#0A0A0A'
 const VIOLET = '#9B26D6'
@@ -304,6 +305,86 @@ const MetadataOutput = ({ data }) => {
     </Box>
   )
 }
+
+/* -------------------------------- search --------------------------------- */
+
+const ProBadge = styled.span`
+  display: inline-flex;
+  align-items: center;
+  font-family: ${MONO};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: ${GRADIENT};
+  border-radius: 999px;
+  padding: 3px 10px;
+`
+
+// Search API is a Pro-only, query-based product, so it gets an upsell panel
+// rather than a URL response
+const SearchOutput = () => (
+  <Box css={theme({ py: 5, px: 4, textAlign: 'center' })}>
+    <Flex css={theme({ justifyContent: 'center', mb: 3 })}>
+      <Flex
+        css={theme({
+          width: '56px',
+          height: '56px',
+          borderRadius: '50%',
+          background: GRADIENT,
+          alignItems: 'center',
+          justifyContent: 'center'
+        })}
+      >
+        <SearchIcon color='#fff' size={26} />
+      </Flex>
+    </Flex>
+    <ProBadge>Pro</ProBadge>
+    <Box
+      as='span'
+      css={theme({
+        display: 'block',
+        fontSize: 3,
+        fontWeight: 'bold',
+        color: INK,
+        letterSpacing: '-.02em',
+        mt: 3
+      })}
+    >
+      Search API
+    </Box>
+    <Box
+      as='p'
+      css={theme({
+        maxWidth: '380px',
+        mx: 'auto',
+        mt: 2,
+        mb: 0,
+        fontSize: 1,
+        color: MUTED,
+        lineHeight: 1.5
+      })}
+    >
+      Turn Google Search, News, Images & Maps into structured data. Available on
+      the Pro plan.
+    </Box>
+    <Box
+      as='a'
+      href='/search'
+      css={theme({
+        display: 'inline-block',
+        mt: 3,
+        fontSize: 1,
+        fontWeight: 600,
+        color: VIOLET,
+        textDecoration: 'none'
+      })}
+    >
+      Learn more →
+    </Box>
+  </Box>
+)
 
 /* --------------------------------- raw text -------------------------------- */
 
@@ -1225,6 +1306,9 @@ const Output = ({ req }) => {
 
     case 'preview':
       return <Card data={data} fallbackUrl={req.D.fullUrl} />
+
+    case 'search':
+      return <SearchOutput />
 
     default:
       return <Card data={data} fallbackUrl={req.D.fullUrl} />
