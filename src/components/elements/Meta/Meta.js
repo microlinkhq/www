@@ -7,7 +7,7 @@ import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useMemo } from 'react'
 import { generateStructuredData } from './structured'
 import { toDate } from 'helpers/to-date'
-import { ogImageUrl } from 'helpers/og'
+import { imageUrl as ogImageUrl } from '@microlink/og/sitemap'
 
 const getPage = ({ pathname }) => pathname.replace(/\/+$/, '').substring(1)
 

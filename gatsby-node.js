@@ -17,8 +17,7 @@ const path = require('node:path')
 const { getLastModifiedDate, branchName } = require('./src/helpers/git')
 const { title: formatTitle } = require('./src/helpers/title')
 const generateOgCards = require('@microlink/og/generate')
-const { slug } = require('@microlink/og/sitemap')
-const { ogImagePath } = require('./src/helpers/og')
+const { slug, imagePath } = require('@microlink/og/sitemap')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
@@ -127,7 +126,7 @@ const generateOgImages = async ({ graphql, reporter }) => {
 
   const pathnames = result.data.allSitePage.nodes
     .map(node => node.path)
-    .filter(ogImagePath) // drop Gatsby internals (/404, app shell, …)
+    .filter(imagePath) // drop Gatsby internals (/404, app shell, …)
 
   let cards
   try {
