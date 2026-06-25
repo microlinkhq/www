@@ -1,6 +1,11 @@
 import capitalize from 'microsoft-capitalize'
 
 const special = [
+  'ApiFlash',
+  'ScreenshotAPI',
+  'Screenshotmachine',
+  'ScreenshotOne',
+  'URL2PNG',
   'AI',
   'apiKey',
   'APIs',

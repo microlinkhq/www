@@ -66,7 +66,7 @@ export const Head = ({ pageContext }) => {
 
   return (
     <Meta
-      title={`${title} AI Agent Skill`}
+      title={`Agent Skill: ${title}`}
       description={description}
       schemaType='TechArticle'
       publishedDate={publishedDate}
