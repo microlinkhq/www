@@ -7,6 +7,7 @@ import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useMemo } from 'react'
 import { generateStructuredData } from './structured'
 import { toDate } from 'helpers/to-date'
+import { ogImageUrl } from 'helpers/og'
 
 const getPage = ({ pathname }) => pathname.replace(/\/+$/, '').substring(1)
 
@@ -30,7 +31,6 @@ const mergeMeta = (props, location, metadata) => {
     dataLabel2,
     dataValue1,
     dataValue2,
-    image,
     logo,
     name,
     noSuffix,
@@ -47,6 +47,11 @@ const mergeMeta = (props, location, metadata) => {
   const description = props.description || metadata.description || headline
 
   const url = location ? `${siteUrl}${location.pathname}` : siteUrl
+
+  // Prefer an explicit `image` prop, else the per-page card generated at build
+  // time (`public/og/<slug>.png`), falling back to the default banner.
+  const image =
+    props.image || ogImageUrl(location?.pathname, siteUrl) || metadata.image
 
   const author = normalizeAuthor(inputAuthors, fallbackAuthor)
 

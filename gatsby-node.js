@@ -16,6 +16,8 @@ const path = require('node:path')
 
 const { getLastModifiedDate, branchName } = require('./src/helpers/git')
 const { title: formatTitle } = require('./src/helpers/title')
+const generateOgCards = require('@microlink/og/generate')
+const { ogImagePath } = require('./src/helpers/og')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
@@ -101,6 +103,30 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
 
 exports.onPostBuild = async ({ graphql, reporter }) => {
   await createDocsMarkdownFiles({ graphql, reporter })
+  await generateOgImages({ graphql, reporter })
+}
+
+// Render an OG card for every page into `public/og/<slug>.png` so the images
+// ship as static files with the build; `Meta.js` points `og:image` at them.
+const generateOgImages = async ({ graphql, reporter }) => {
+  const result = await graphql('{ allSitePage { nodes { path } } }')
+  if (result.errors) {
+    reporter.warn('Skipping OG images: ' + result.errors)
+    return
+  }
+
+  const pathnames = result.data.allSitePage.nodes
+    .map(node => node.path)
+    .filter(ogImagePath) // drop Gatsby internals (/404, app shell, …)
+
+  const cards = await generateOgCards({
+    pathnames,
+    outDir: path.join(process.cwd(), 'public', 'og'),
+    onError: (pathname, error) =>
+      reporter.warn(`OG ${pathname}: ${error.message}`)
+  })
+
+  reporter.info(`Generated ${cards.length} OG images`)
 }
 
 exports.onCreateNode = async ({ node, getNode, actions }) => {
