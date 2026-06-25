@@ -23,7 +23,14 @@ const normalizeAuthor = (authors, fallbackAuthor) => {
 }
 
 const mergeMeta = (props, location, metadata) => {
-  const { siteUrl, video, twitter, headline, author: fallbackAuthor } = metadata
+  const {
+    siteUrl,
+    ogImageBase,
+    video,
+    twitter,
+    headline,
+    author: fallbackAuthor
+  } = metadata
   const title = props.title || getTitle(location) || headline
 
   let {
@@ -49,9 +56,13 @@ const mergeMeta = (props, location, metadata) => {
   const url = location ? `${siteUrl}${location.pathname}` : siteUrl
 
   // Prefer an explicit `image` prop, else the per-page card generated at build
-  // time (`public/og/<slug>.png`), falling back to the default banner.
+  // time (`public/og/<slug>.png`), falling back to the default banner. The card
+  // lives on the deploy host (`ogImageBase`), which differs from the canonical
+  // `siteUrl` on preview deployments.
   const image =
-    props.image || ogImageUrl(location?.pathname, siteUrl) || metadata.image
+    props.image ||
+    ogImageUrl(location?.pathname, ogImageBase || siteUrl) ||
+    metadata.image
 
   const author = normalizeAuthor(inputAuthors, fallbackAuthor)
 

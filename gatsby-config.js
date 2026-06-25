@@ -31,7 +31,8 @@ const {
   PAYMENT_ENDPOINT,
   SITE_URL,
   CANONICAL_URL,
-  CDN_URL
+  CDN_URL,
+  OG_IMAGE_BASE
 } = require('./env')
 
 module.exports = {
@@ -51,6 +52,7 @@ module.exports = {
       'Turn any URL into structured data. The all-in-one API for browser automation: screenshots, PDFs, scraping, and link previews. No infrastructure to manage.',
     siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
+    ogImageBase: OG_IMAGE_BASE,
     twitter: '@microlinkhq',
     image: new URL('logo/banner.jpeg', CDN_URL).toString(),
     logo: new URL('logo/logo.png', CDN_URL).toString(),

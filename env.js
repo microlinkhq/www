@@ -39,8 +39,18 @@ const SITE_URL = isDev
 
 const CANONICAL_URL = isDev ? DEV_URL : ALIAS_URL
 
+// `og:image` must resolve to a real file. On Vercel previews the cards only
+// exist on the preview host, so point the image base there; canonical/og:url
+// stay on the production domain. Everywhere else it matches SITE_URL.
+const previewHost = process.env.VERCEL_BRANCH_URL || process.env.VERCEL_URL
+const OG_IMAGE_BASE =
+  process.env.VERCEL_ENV === 'preview' && previewHost
+    ? `https://${previewHost}`
+    : SITE_URL
+
 module.exports = {
   ...process.env,
   SITE_URL,
-  CANONICAL_URL
+  CANONICAL_URL,
+  OG_IMAGE_BASE
 }
