@@ -119,14 +119,19 @@ const generateOgImages = async ({ graphql, reporter }) => {
     .map(node => node.path)
     .filter(ogImagePath) // drop Gatsby internals (/404, app shell, …)
 
-  const cards = await generateOgCards({
-    pathnames,
-    outDir: path.join(process.cwd(), 'public', 'og'),
-    onError: (pathname, error) =>
-      reporter.warn(`OG ${pathname}: ${error.message}`)
-  })
-
-  reporter.info(`Generated ${cards.length} OG images`)
+  // Never fail the build: per-card errors go to `onError`, and a fatal error
+  // (e.g. the output directory can't be created) is logged and swallowed.
+  try {
+    const cards = await generateOgCards({
+      pathnames,
+      outDir: path.join(process.cwd(), 'public', 'og'),
+      onError: (pathname, error) =>
+        reporter.warn(`OG ${pathname}: ${error.message}`)
+    })
+    reporter.info(`Generated ${cards.length} OG images`)
+  } catch (error) {
+    reporter.warn(`Skipping OG images: ${error.message}`)
+  }
 }
 
 exports.onCreateNode = async ({ node, getNode, actions }) => {

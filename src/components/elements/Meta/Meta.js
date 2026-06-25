@@ -57,12 +57,10 @@ const mergeMeta = (props, location, metadata) => {
 
   // Prefer an explicit `image` prop, else the per-page card generated at build
   // time (`public/og/<slug>.png`), falling back to the default banner. The card
-  // lives on the deploy host (`ogImageBase`), which differs from the canonical
-  // `siteUrl` on preview deployments.
+  // lives on the deploy host (`ogImageBase`) — empty in dev, and distinct from
+  // the canonical `siteUrl` on preview deployments.
   const image =
-    props.image ||
-    ogImageUrl(location?.pathname, ogImageBase || siteUrl) ||
-    metadata.image
+    props.image || ogImageUrl(location?.pathname, ogImageBase) || metadata.image
 
   const author = normalizeAuthor(inputAuthors, fallbackAuthor)
 

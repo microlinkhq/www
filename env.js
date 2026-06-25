@@ -39,12 +39,15 @@ const SITE_URL = isDev
 
 const CANONICAL_URL = isDev ? DEV_URL : ALIAS_URL
 
-// `og:image` must resolve to a real file. On Vercel previews the cards only
-// exist on the preview host, so point the image base there; canonical/og:url
-// stay on the production domain. Everywhere else it matches SITE_URL.
+// `og:image` must resolve to a real file. The cards are only written by
+// `gatsby build`, so in `gatsby develop` there's no base (callers fall back to
+// the default banner). On Vercel previews the cards live on the preview host
+// (requires Vercel's system env vars to be exposed; absent that, this safely
+// degrades to the production domain). Canonical/og:url always stay on prod.
 const previewHost = process.env.VERCEL_BRANCH_URL || process.env.VERCEL_URL
-const OG_IMAGE_BASE =
-  process.env.VERCEL_ENV === 'preview' && previewHost
+const OG_IMAGE_BASE = isDev
+  ? ''
+  : process.env.VERCEL_ENV === 'preview' && previewHost
     ? `https://${previewHost}`
     : SITE_URL
 
