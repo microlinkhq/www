@@ -17,6 +17,7 @@ const path = require('node:path')
 const { getLastModifiedDate, branchName } = require('./src/helpers/git')
 const { title: formatTitle } = require('./src/helpers/title')
 const generateOgCards = require('@microlink/og/generate')
+const { slug } = require('@microlink/og/sitemap')
 const { ogImagePath } = require('./src/helpers/og')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
@@ -108,30 +109,55 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
 
 // Render an OG card for every page into `public/og/<slug>.png` so the images
 // ship as static files with the build; `Meta.js` points `og:image` at them.
+//
+// `Meta.js` references every page's card optimistically — it renders before
+// this step and can't check the filesystem. So this step enforces the other
+// half of the contract: if any referenced card is missing (generation skipped,
+// crashed, or a card failed to render), fail the build instead of shipping
+// dangling `/og/<slug>.png` URLs that render as broken previews — the banner
+// fallback can't kick in once the HTML is already built.
 const generateOgImages = async ({ graphql, reporter }) => {
   const result = await graphql('{ allSitePage { nodes { path } } }')
   if (result.errors) {
-    reporter.warn('Skipping OG images: ' + result.errors)
-    return
+    return reporter.panicOnBuild(
+      'OG images: failed to query pages',
+      result.errors
+    )
   }
 
   const pathnames = result.data.allSitePage.nodes
     .map(node => node.path)
     .filter(ogImagePath) // drop Gatsby internals (/404, app shell, …)
 
-  // Never fail the build: per-card errors go to `onError`, and a fatal error
-  // (e.g. the output directory can't be created) is logged and swallowed.
+  let cards
   try {
-    const cards = await generateOgCards({
+    cards = await generateOgCards({
       pathnames,
       outDir: path.join(process.cwd(), 'public', 'og'),
       onError: (pathname, error) =>
         reporter.warn(`OG ${pathname}: ${error.message}`)
     })
-    reporter.info(`Generated ${cards.length} OG images`)
   } catch (error) {
-    reporter.warn(`Skipping OG images: ${error.message}`)
+    return reporter.panicOnBuild(
+      `OG images: generation failed — ${error.message}`
+    )
   }
+
+  const expected = [...new Set(pathnames.map(slug))]
+  const generated = new Set(cards.map(card => card.slug))
+  const missing = expected.filter(name => !generated.has(name))
+
+  if (missing.length) {
+    return reporter.panicOnBuild(
+      `OG images: ${missing.length}/${expected.length} cards failed to generate ` +
+        `(e.g. ${missing
+          .slice(0, 5)
+          .join(', ')}). Pages reference /og/<slug>.png, ` +
+        'so missing cards would ship as broken previews.'
+    )
+  }
+
+  reporter.info(`Generated ${cards.length} OG images`)
 }
 
 exports.onCreateNode = async ({ node, getNode, actions }) => {
