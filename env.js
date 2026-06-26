@@ -40,16 +40,20 @@ const SITE_URL = isDev
 const CANONICAL_URL = isDev ? DEV_URL : ALIAS_URL
 
 // `og:image` must resolve to a real file. The cards are only written by
-// `gatsby build`, so in `gatsby develop` there's no base (callers fall back to
-// the default banner). On Vercel previews the cards live on the preview host
-// (requires Vercel's system env vars to be exposed; absent that, this safely
-// degrades to the production domain). Canonical/og:url always stay on prod.
+// `gatsby build`, so the base is whatever host actually serves them:
+//   - production  → the canonical domain (SITE_URL)
+//   - preview     → that deployment's own host (the cards live only there)
+//   - anything else (dev, or a preview with no host) → empty, so callers fall
+//     back to the default banner instead of a URL that 404s.
+// Canonical / og:url always stay on the production domain.
 const previewHost = process.env.VERCEL_BRANCH_URL || process.env.VERCEL_URL
 const OG_IMAGE_BASE = isDev
   ? ''
-  : process.env.VERCEL_ENV === 'preview' && previewHost
-    ? `https://${previewHost}`
-    : SITE_URL
+  : process.env.VERCEL_ENV === 'production'
+    ? SITE_URL
+    : previewHost
+      ? `https://${previewHost}`
+      : ''
 
 module.exports = {
   ...process.env,
