@@ -41,13 +41,16 @@ const CANONICAL_URL = isDev ? DEV_URL : ALIAS_URL
 
 // Base host for `og:image`, which must resolve to a real card file: the
 // canonical domain in production, the deployment's own host on a preview (the
-// cards live only there), and empty everywhere else (dev, or a preview with no
-// host) so callers fall back to the banner instead of a 404. Canonical/og:url
-// stay on production. VERCEL_URL (unique per deployment) is preferred over
+// cards live only there), and empty everywhere else so callers fall back to the
+// banner instead of a 404. `gatsby develop` doesn't generate cards, so it must
+// stay empty even if VERCEL_URL leaked into the local env (e.g. `vercel env
+// pull`) — hence the explicit `isDev` guard. Canonical/og:url stay on
+// production. VERCEL_URL (unique per deployment) is preferred over
 // VERCEL_BRANCH_URL (a branch alias that floats to the latest deploy).
 const previewHost = process.env.VERCEL_URL || process.env.VERCEL_BRANCH_URL
-const OG_IMAGE_BASE =
-  process.env.VERCEL_ENV === 'production'
+const OG_IMAGE_BASE = isDev
+  ? ''
+  : process.env.VERCEL_ENV === 'production'
     ? SITE_URL
     : previewHost
       ? `https://${previewHost}`
