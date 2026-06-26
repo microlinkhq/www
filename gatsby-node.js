@@ -109,10 +109,10 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
 // ship as static files with the build; `Meta.js` points `og:image` at them for
 // pages without an explicit `image` prop.
 //
-// A total failure (the page query fails, or generation throws and produces no
-// cards) panics the build — every `og:image` would be broken. Individual cards
-// that fail are only warned: most pages carry an explicit banner image and
-// never reference their card, so one missing card shouldn't block a deploy.
+// The build fails only on a total failure (the page query fails, generation
+// crashes, or every card fails) — then every `og:image` would be broken. A
+// single failed card just warns: most pages carry an explicit banner image and
+// never reference their card, so one miss shouldn't block a deploy.
 const generateOgImages = async ({ graphql, reporter }) => {
   const result = await graphql('{ allSitePage { nodes { path } } }')
   if (result.errors) {
@@ -140,17 +140,19 @@ const generateOgImages = async ({ graphql, reporter }) => {
     )
   }
 
-  const expected = [...new Set(pathnames.map(slug))]
-  const generated = new Set(cards.map(card => card.slug))
-  const missing = expected.filter(name => !generated.has(name))
+  // `generate` dedupes by slug and returns one entry per card it wrote, so its
+  // count vs the unique expected count tells us what failed. Each failure was
+  // already logged via `onError`; only a *total* failure fails the build.
+  const expected = new Set(pathnames.map(slug)).size
 
-  if (missing.length) {
+  if (cards.length === 0 && expected > 0) {
+    return reporter.panicOnBuild('OG images: every card failed to generate')
+  }
+
+  if (cards.length < expected) {
     reporter.warn(
-      `OG images: ${missing.length}/${expected.length} cards did not generate ` +
-        `(e.g. ${missing
-          .slice(0, 5)
-          .join(', ')}). Pages with an explicit image ` +
-        'are unaffected; any page relying on its card will show a broken og:image.'
+      `OG images: ${expected - cards.length}/${expected} cards did not ` +
+        'generate (see the warnings above).'
     )
   }
 
