@@ -16,8 +16,7 @@ const path = require('node:path')
 
 const { getLastModifiedDate, branchName } = require('./src/helpers/git')
 const { title: formatTitle } = require('./src/helpers/title')
-const generateOgCards = require('@microlink/og/generate')
-const { slug, imagePath } = require('@microlink/og/sitemap')
+const { generate: generateOgCards, slug, imagePath } = require('@microlink/og')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
