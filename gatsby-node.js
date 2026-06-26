@@ -84,6 +84,16 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
       fallback: {
         path: require.resolve('path-browserify')
+      },
+      alias: {
+        // Meta imports @microlink/og only for its pure URL helpers. Point every
+        // webpack bundle — browser *and* SSR/HTML — at the package's browser
+        // entry so the native renderer (takumi) is never bundled. gatsby-node
+        // itself runs in raw Node and still gets the full module.
+        '@microlink/og$': path.join(
+          path.dirname(require.resolve('@microlink/og')),
+          'index.browser.js'
+        )
       }
     }
   })
