@@ -46,7 +46,11 @@ const CANONICAL_URL = isDev ? DEV_URL : ALIAS_URL
 //   - anything else (dev, or a preview with no host) → empty, so callers fall
 //     back to the default banner instead of a URL that 404s.
 // Canonical / og:url always stay on the production domain.
-const previewHost = process.env.VERCEL_BRANCH_URL || process.env.VERCEL_URL
+//
+// Prefer VERCEL_URL (unique per deployment) over VERCEL_BRANCH_URL (a branch
+// alias that floats to the latest deploy) so a card always resolves to the
+// exact deployment that generated it.
+const previewHost = process.env.VERCEL_URL || process.env.VERCEL_BRANCH_URL
 const OG_IMAGE_BASE = isDev
   ? ''
   : process.env.VERCEL_ENV === 'production'

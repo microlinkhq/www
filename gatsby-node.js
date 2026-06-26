@@ -116,14 +116,13 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
 }
 
 // Render an OG card for every page into `public/og/<slug>.png` so the images
-// ship as static files with the build; `Meta.js` points `og:image` at them.
+// ship as static files with the build; `Meta.js` points `og:image` at them for
+// pages without an explicit `image` prop.
 //
-// `Meta.js` references every page's card optimistically — it renders before
-// this step and can't check the filesystem. So this step enforces the other
-// half of the contract: if any referenced card is missing (generation skipped,
-// crashed, or a card failed to render), fail the build instead of shipping
-// dangling `/og/<slug>.png` URLs that render as broken previews — the banner
-// fallback can't kick in once the HTML is already built.
+// A total failure (the page query fails, or generation throws and produces no
+// cards) panics the build — every `og:image` would be broken. Individual cards
+// that fail are only warned: most pages carry an explicit banner image and
+// never reference their card, so one missing card shouldn't block a deploy.
 const generateOgImages = async ({ graphql, reporter }) => {
   const result = await graphql('{ allSitePage { nodes { path } } }')
   if (result.errors) {
@@ -156,12 +155,12 @@ const generateOgImages = async ({ graphql, reporter }) => {
   const missing = expected.filter(name => !generated.has(name))
 
   if (missing.length) {
-    return reporter.panicOnBuild(
-      `OG images: ${missing.length}/${expected.length} cards failed to generate ` +
+    reporter.warn(
+      `OG images: ${missing.length}/${expected.length} cards did not generate ` +
         `(e.g. ${missing
           .slice(0, 5)
-          .join(', ')}). Pages reference /og/<slug>.png, ` +
-        'so missing cards would ship as broken previews.'
+          .join(', ')}). Pages with an explicit image ` +
+        'are unaffected; any page relying on its card will show a broken og:image.'
     )
   }
 
