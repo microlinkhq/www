@@ -110,15 +110,20 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
 // — e.g. "Model Context Protocol (MCP)" instead of the slug-derived "Mcp" — the
 // way the URL-mode service does. @microlink/og cleans and merges them over the
 // slug-derived base; a page whose HTML can't be read falls back to the slug.
+// `fromCodePoint` (not `fromCharCode`) so astral entities like `&#x1F680;`
+// (🚀) round-trip; out-of-range values decode to nothing rather than throwing.
+const entityChar = (code, radix) => {
+  const cp = parseInt(code, radix)
+  return cp <= 0x10ffff ? String.fromCodePoint(cp) : ''
+}
+
 const decodeEntities = value =>
   value
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
-    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(code))
-    .replace(/&#x([\da-f]+);/gi, (_, code) =>
-      String.fromCharCode(parseInt(code, 16))
-    )
+    .replace(/&#(\d+);/g, (_, code) => entityChar(code, 10))
+    .replace(/&#x([\da-f]+);/gi, (_, code) => entityChar(code, 16))
     .replace(/&amp;/g, '&')
 
 const ogContent = (html, name) => {
