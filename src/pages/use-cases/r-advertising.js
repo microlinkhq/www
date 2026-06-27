@@ -25,8 +25,6 @@ import {
 } from 'components/patterns/CustomerStory'
 import Layout from 'components/patterns/Layout'
 
-import { cdnUrl } from 'helpers/cdn-url'
-
 const Hero = () => (
   <Section as='header' css={theme({ pt: [3, 3, 4, 4], pb: [3, 3, 4, 4] })}>
     <SectionInner>
@@ -376,7 +374,6 @@ export const Head = () => (
   <Meta
     title='R-Advertising: Tinder-style sales prospecting'
     description="R-Advertising's sales team picks prospects on a swipe deck of website screenshots, generated on demand by Microlink, instead of staring at a spreadsheet of URLs."
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
   />
 )

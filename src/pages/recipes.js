@@ -6,7 +6,6 @@ import CaptionBase from 'components/patterns/Caption/Caption'
 import { formatNumber } from 'helpers/format-number'
 import React, { useState, useEffect } from 'react'
 import { issueUrl } from 'helpers/issue-url'
-import { cdnUrl } from 'helpers/cdn-url'
 import kebabCase from 'lodash/kebabCase'
 import FeatherIcon from 'components/icons/Feather'
 import { getDomain } from 'tldts'
@@ -42,10 +41,7 @@ const width = [...Array(4).keys()].map(() => CARD_WIDTH)
 const maxWidth = width.map(w => toPx(toRaw(space[3]) * 4 + w * CARDS_PER_ROW))
 
 export const Head = () => (
-  <Meta
-    description='Just start with code. Instant integration, automating any site in a few lines.'
-    image={cdnUrl('banner/recipes.jpeg')}
-  />
+  <Meta description='Just start with code. Instant integration, automating any site in a few lines.' />
 )
 
 const RecipesPage = () => {

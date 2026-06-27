@@ -3,7 +3,6 @@ import React, { useMemo } from 'react'
 import { issueUrl } from 'helpers/issue-url'
 import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
-import { cdnUrl } from 'helpers/cdn-url'
 import { toCurlSnippet } from 'helpers/curl-snippet'
 import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
@@ -915,7 +914,6 @@ export const Head = () => (
   <Meta
     title='Always guaranteed Logo detection'
     description='Extract & Embed Website Logos. Automatic detection with comprehensive metadata, color palettes, and sizing information. Zero setup required.'
-    image={cdnUrl('banner/logo.jpeg')}
     schemaType='SoftwareApplication'
     structured={{
       '@context': 'https://schema.org',

@@ -11,7 +11,6 @@ import {
   radii
 } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
 import styled, { css, keyframes } from 'styled-components'
@@ -4746,7 +4745,6 @@ export const Head = () => (
     title='Website Metadata API. URL to Metadata & Link Preview'
     noSuffix
     description='Website metadata API - 50 req/day free - that turns any URL to metadata: Open Graph, JSON-LD, Twitter Cards, link preview & URL preview in one JSON call.'
-    image={cdnUrl('banner/meta.jpeg')}
     structured={{
       '@context': 'https://schema.org',
       '@graph': [

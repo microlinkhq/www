@@ -15,7 +15,6 @@ import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import styled, { css } from 'styled-components'
 import React from 'react'
@@ -1425,7 +1424,6 @@ export const Head = () => (
   <Meta
     title='Iframely Alternative for a Developer-First Embed API'
     description="Compare Microlink vs Iframely on pricing transparency and integration scope. For the same $49, Microlink gives you 46,000 requests versus Iframely's 25,000 hits, no per-minute cap, plus screenshots, PDF, and metadata from one API."
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

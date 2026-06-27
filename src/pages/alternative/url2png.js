@@ -15,7 +15,6 @@ import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import styled, { css } from 'styled-components'
 import React from 'react'
@@ -1482,7 +1481,6 @@ export const Head = () => (
   <Meta
     title='URL2PNG Alternative for a More Modern Screenshot API'
     description='URL2PNG still covers simple screenshots, but Microlink gives you a free plan or 46,000 requests for $49 versus URL2PNG 50,000 for $199.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

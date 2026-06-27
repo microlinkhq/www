@@ -6,7 +6,6 @@ import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Flex from 'components/elements/Flex'
 import Markdown from 'components/markdown'
-import { cdnUrl } from 'helpers/cdn-url'
 import { layout, theme } from 'theme'
 import React from 'react'
 
@@ -17,10 +16,7 @@ const Heading = withTitle(HeadingBase)
 const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
-  <Meta
-    description='We’re constantly improving the platform. See here notable changes in our lineup of products & improvements over the time.'
-    image={cdnUrl('banner/changelog.jpeg')}
-  />
+  <Meta description='We’re constantly improving the platform. See here notable changes in our lineup of products & improvements over the time.' />
 )
 
 const ChangelogPage = () => {

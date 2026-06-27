@@ -9,7 +9,6 @@ import {
   radii
 } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
 import styled, { css, keyframes } from 'styled-components'
@@ -3922,7 +3921,6 @@ export const Head = () => (
   <Meta
     title='URL to Markdown API — Free, no login required'
     description='Convert any web page to clean markdown. Built for AI agents, RAG pipelines, and LLM ingestion reducing token usage by 80%. No login required.'
-    image={cdnUrl('logo/banner.jpeg')}
     structured={{
       '@context': 'https://schema.org',
       '@graph': [

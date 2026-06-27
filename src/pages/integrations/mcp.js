@@ -426,7 +426,6 @@ export const Head = () => (
   <Meta
     title='Microlink MCP — Web scraping & browser tools for AI agents'
     description='Give Claude, Cursor, and any MCP client screenshots, PDFs, web scraping, markdown, and metadata extraction. One config block, nine browser tools, zero boilerplate.'
-    image={cdnUrl('logo/banner.jpeg')}
     noSuffix
     structured={[
       {

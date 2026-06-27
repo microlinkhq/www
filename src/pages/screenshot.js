@@ -3535,7 +3535,6 @@ export const Head = () => (
   <Meta
     title='Website Screenshot API — Convert URL to Image'
     description='Capture pixel-perfect website screenshots with one API call. Free to start. Sub-second responses, full headless browser control, device emulation & ad-blocking.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     structured={{
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',

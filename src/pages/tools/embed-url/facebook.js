@@ -249,7 +249,6 @@ export const Head = () => (
     title='Facebook Embed Code Generator — Embed Posts & Videos'
     noSuffix
     description='Free Facebook embed code generator. Paste any Facebook URL — get a ready-to-paste embed for posts, videos, and pages. No signup, no API key.'
-    image='https://cdn.microlink.io/logo/banner.jpeg'
     robots={embedRobots('facebook')}
     structured={[
       {

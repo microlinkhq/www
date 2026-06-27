@@ -1,7 +1,6 @@
 import ClusterMonitor from 'components/patterns/ClusterMonitor/ClusterMonitor'
 import Layout from 'components/patterns/Layout'
 import { useQueryState } from 'components/hook/use-query-state'
-import { cdnUrl } from 'helpers/cdn-url'
 import React from 'react'
 import { theme as themeProp } from 'theme'
 
@@ -27,10 +26,7 @@ const Monospace = props => (
 )
 
 export const Head = () => (
-  <Meta
-    description='Real-time data of the Microlink systems performance.'
-    image={cdnUrl('banner/status.jpeg')}
-  />
+  <Meta description='Real-time data of the Microlink systems performance.' />
 )
 
 const StatusPage = () => {

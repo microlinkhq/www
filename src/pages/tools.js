@@ -14,7 +14,6 @@ import { FeaturedToolCard, ToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS } from 'components/patterns/Tools/toolCatalog'
 
 import { withTitle } from 'helpers/hoc/with-title'
-import { cdnUrl } from 'helpers/cdn-url'
 
 const Heading = withTitle(HeadingBase)
 const Caption = withTitle(CaptionBase)
@@ -85,7 +84,6 @@ export const Head = () => (
   <Meta
     title='Free Online Tools for Developers'
     description='A curated collection of free developer tools by Microlink. Screenshot generators, metadata debuggers, and more. No login required.'
-    image={cdnUrl('banner/tools.jpeg')}
     schemaType='SoftwareApplication'
     structured={[
       {

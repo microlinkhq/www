@@ -6,7 +6,6 @@ import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Chat from 'components/patterns/Chat/Chat'
-import { cdnUrl } from 'helpers/cdn-url'
 import { layout, theme } from 'theme'
 import React from 'react'
 
@@ -15,10 +14,7 @@ const Heading = withTitle(HeadingBase)
 const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
-  <Meta
-    description='Direct support via chat with guaranteed response from exclusive top-tier engineers.'
-    image={cdnUrl('banner/community.jpeg')}
-  />
+  <Meta description='Direct support via chat with guaranteed response from exclusive top-tier engineers.' />
 )
 
 const CommunityPage = () => (

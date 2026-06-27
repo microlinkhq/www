@@ -16,7 +16,6 @@ import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import styled, { css } from 'styled-components'
 import React from 'react'
@@ -2065,7 +2064,6 @@ export const Head = () => (
   <Meta
     title='Screenshotlayer Alternative for Higher Throughput and Lower Overage Risk'
     description='Compare Microlink vs Screenshotlayer when plan caps, overages, and cold starts start to matter. Microlink gives you 46,000 requests for $49 versus Screenshotlayer 30,000 for $59.99, no per-minute cap, and lower average latency on the 6 shared benchmark URLs.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

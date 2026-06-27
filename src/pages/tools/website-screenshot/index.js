@@ -1664,7 +1664,6 @@ export const Head = () => (
     title='Website Screenshot Generator - Free URL Screen Capture'
     noSuffix
     description='Generate high-quality website screenshots from any URL. Free, no-login online screen capture tool powered by a fast, reliable, and high resolution API.'
-    image='https://cdn.microlink.io/banner/screenshot.jpeg' // TODO: generate banner
     schemaType='SoftwareApplication'
     structured={[
       {

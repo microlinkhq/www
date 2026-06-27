@@ -3,7 +3,6 @@ import React, { useMemo } from 'react'
 import { useMounted } from 'components/hook/use-mounted'
 import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
-import { cdnUrl } from 'helpers/cdn-url'
 import { normalizeUrl } from 'helpers/url-input'
 import { trackEvent } from 'helpers/plausible'
 import { toCurlSnippetOrEmpty } from 'helpers/curl-snippet'
@@ -964,7 +963,6 @@ export const Head = () => (
   <Meta
     title='Automated Web Performance Insights'
     description='Track web speed & website quality over time. Monitor website performance automatically. Get Lighthouse-powered speed insights & quality metrics in real-time. Track Core Web Vitals, SEO scores & more.'
-    image={cdnUrl('banner/insights.jpeg')}
     schemaType='SoftwareApplication'
     structured={{
       '@context': 'https://schema.org',

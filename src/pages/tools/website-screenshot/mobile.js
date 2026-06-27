@@ -1287,7 +1287,6 @@ export const Head = () => (
     title='Mobile Website Screenshot Generator — Free Online Tool'
     noSuffix
     description='Take full page screen capture mobile screenshots of any website. Test responsive designs across real device sizes. Free online tool + Screenshot API.'
-    image='https://cdn.microlink.io/banner/screenshot.jpeg'
     schemaType='SoftwareApplication'
     structured={[
       {

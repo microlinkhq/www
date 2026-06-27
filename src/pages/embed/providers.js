@@ -2158,7 +2158,6 @@ export const Head = () => (
     title='Embed Code Providers — 300+ Supported Sites'
     noSuffix
     description='Browse 300+ supported embed providers. Generate embed code for YouTube, Instagram, Twitter, TikTok, Figma, and more — free, no signup.'
-    image='https://cdn.microlink.io/banner/sdk.jpeg'
     structured={[
       {
         '@context': 'https://schema.org',

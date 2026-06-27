@@ -248,7 +248,6 @@ export const Head = () => (
     title='Instagram Embed Code Generator — Embed Posts & Reels'
     noSuffix
     description='Free Instagram embed code generator. Paste any Instagram URL — get a ready-to-paste embed for posts, reels, and stories. No API setup, no signup.'
-    image='https://cdn.microlink.io/logo/banner.jpeg'
     robots={embedRobots('instagram')}
     structured={[
       {

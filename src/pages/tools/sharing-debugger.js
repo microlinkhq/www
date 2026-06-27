@@ -3,7 +3,6 @@ import { theme, layout } from 'theme'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 import Meta from 'components/elements/Meta/Meta'
-import { cdnUrl } from 'helpers/cdn-url'
 import { Hero } from 'components/pages/sharing-debugger/hero'
 import Faq from 'components/patterns/Faq/Faq'
 import { Link } from 'components/elements/Link'
@@ -285,7 +284,6 @@ export const Head = () => (
     title='Sharing Debugger Tool: Free Open Graph & Meta Tags Validator'
     description='Validate Open Graph, Twitter Cards, JSON-LD, and meta tags for any URL. Preview how your links appear on Facebook, WhatsApp, X, LinkedIn, and Slack.'
     noSuffix
-    image={cdnUrl('banner/sharing-debugger.jpeg')}
     schemaType='SoftwareApplication'
     structured={[
       {

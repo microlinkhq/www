@@ -1,7 +1,6 @@
 import React from 'react'
 import { Clipboard, Code, Monitor } from 'react-feather'
 
-import { cdnUrl } from 'helpers/cdn-url'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import Box from 'components/elements/Box'
@@ -514,7 +513,6 @@ export const Head = () => (
   <Meta
     title='CLI'
     description='Use the Microlink API from your terminal. Install @microlink/cli, pass any URL, inspect pretty output, JSON payloads, headers, cache status, and timing.'
-    image={cdnUrl('banner/cli.png')}
     schemaType='SoftwareApplication'
     structured={[
       {

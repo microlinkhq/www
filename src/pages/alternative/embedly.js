@@ -15,7 +15,6 @@ import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import styled, { css } from 'styled-components'
 import React from 'react'
@@ -1416,7 +1415,6 @@ export const Head = () => (
   <Meta
     title='Embedly Alternative with Lower Per-URL Pricing'
     description="Microlink gives you 46,000 requests for $49 versus Embedly's 10,000 URLs for $119 — roughly 11x cheaper per request, no 50 URLs/sec cap, plus a built-in residential proxy on the same plan."
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

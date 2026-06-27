@@ -1617,7 +1617,6 @@ export const Head = () => (
     title='Animated Screenshot Tool — Free Online Animated Screen Capture'
     noSuffix
     description='Take a free animated screenshot of any website online. Capture animated web pages as MP4 video — no login, no install. Our online animated screen capture tool records any webpage in seconds.'
-    image='https://cdn.microlink.io/banner/screenshot.jpeg'
     schemaType='SoftwareApplication'
     structured={[
       {

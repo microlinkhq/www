@@ -242,7 +242,6 @@ export const Head = () => (
     title='Figma Embed Code Generator — Embed Designs & Prototypes'
     noSuffix
     description='Free Figma embed code generator. Paste any Figma URL — get a ready-to-paste iframe for designs, prototypes, and FigJam boards. No signup.'
-    image='https://cdn.microlink.io/logo/banner.jpeg'
     robots={embedRobots('figma')}
     structured={[
       {

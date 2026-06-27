@@ -1,7 +1,6 @@
 import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import Meta from 'components/elements/Meta/Meta'
-import { cdnUrl } from 'helpers/cdn-url'
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
 
@@ -48,9 +47,6 @@ export const Head = ({ pageContext, location }) => {
           ? 'Microlink Guides'
           : 'Microlink Docs'
         : 'Microlink Blog',
-      image: isDocPage
-        ? cdnUrl('banner/docs.jpeg')
-        : cdnUrl('banner/blog.jpeg'),
       title: isDocPage
         ? activeRouteName === 'Guides'
           ? frontmatter.title || ''

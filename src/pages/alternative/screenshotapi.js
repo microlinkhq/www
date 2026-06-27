@@ -16,7 +16,6 @@ import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import styled, { css } from 'styled-components'
 import React from 'react'
@@ -2014,7 +2013,6 @@ export const Head = () => (
   <Meta
     title='ScreenshotAPI Alternative for Metadata, Previews, and More'
     description='ScreenshotAPI already covers screenshots, PDFs, bulk capture, and scraping. Microlink adds metadata, link previews, and remote JS in the same API while benchmarking 33% faster on average.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

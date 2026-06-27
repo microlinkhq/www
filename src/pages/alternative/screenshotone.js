@@ -16,7 +16,6 @@ import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import styled, { css } from 'styled-components'
 import React from 'react'
@@ -1976,7 +1975,6 @@ export const Head = () => (
   <Meta
     title='ScreenshotOne Alternative for Faster Cold Starts'
     description='Microlink benchmarks 88% faster on average than ScreenshotOne, with up to 2× faster full-page captures plus screenshots, PDF, metadata, and link previews in one API.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

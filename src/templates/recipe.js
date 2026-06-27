@@ -15,7 +15,6 @@ import React, { useState, useEffect } from 'react'
 import { Logo } from 'components/pages/recipes'
 import FeatherIcon from 'components/icons/Feather'
 import { Eye } from 'react-feather'
-import { cdnUrl } from 'helpers/cdn-url'
 
 const Heading = withTitle(HeadingBase)
 
@@ -48,7 +47,6 @@ export const Head = ({ pageContext }) => (
   <Meta
     title={`Microlink Recipe: ${pageContext.name}`}
     description={pageContext.description}
-    image={cdnUrl('banner/recipes.jpeg')}
   />
 )
 

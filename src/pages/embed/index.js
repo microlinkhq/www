@@ -11,7 +11,6 @@ import {
 import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 
 import Box from 'components/elements/Box'
@@ -2626,7 +2625,6 @@ export const Head = () => (
     title='Embed API for Any URL — oEmbed for 300+ Providers'
     noSuffix
     description='Embed API for any URL — get a ready-to-paste iframe and oEmbed payload in one HTTPS call. 300+ providers including YouTube, Spotify, Twitter, TikTok, Figma. Free tier, optional React / Vue / Vanilla JS SDK.'
-    image={cdnUrl('banner/sdk.jpeg')}
     structured={{
       '@context': 'https://schema.org',
       '@graph': [

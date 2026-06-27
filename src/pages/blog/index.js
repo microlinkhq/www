@@ -6,7 +6,6 @@ import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import { useBlogIndex } from 'components/hook/use-blog-index'
-import { cdnUrl } from 'helpers/cdn-url'
 import React from 'react'
 import { BlogPostList } from 'components/pages/blog/blog-posts'
 
@@ -15,10 +14,7 @@ const Heading = withTitle(HeadingBase)
 const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
-  <Meta
-    description='Engineering details through Microlink.'
-    image={cdnUrl('banner/blog.jpeg')}
-  />
+  <Meta description='Engineering details through Microlink.' />
 )
 
 const PageBlog = () => {

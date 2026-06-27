@@ -2186,7 +2186,6 @@ export const Head = () => (
     title='Save Webpage as PDF — Free Online HTML to PDF Converter'
     noSuffix
     description='Convert any webpage url to PDF instantly. Free online tool with custom margins, paper sizes, and API access. No login required. Try it now.'
-    image='https://cdn.microlink.io/banner/pdf.jpeg'
     schemaType='SoftwareApplication'
     structured={[
       {

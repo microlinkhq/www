@@ -22,8 +22,6 @@ import {
 import { USE_CASES } from 'components/patterns/UseCaseStory'
 import Layout from 'components/patterns/Layout'
 
-import { cdnUrl } from 'helpers/cdn-url'
-
 const ROTATE_MS = 6000
 
 const CompanyName = styled(Text)`
@@ -673,7 +671,6 @@ export const Head = () => (
   <Meta
     title='Use cases: how teams build with Microlink'
     description='Real customer stories plus practical, copy-pasteable use cases — see how teams ship link previews, screenshots, and metadata with Microlink.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
   />
 )

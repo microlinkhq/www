@@ -249,7 +249,6 @@ export const Head = () => (
     title='TikTok Embed Code Generator — Embed TikTok Videos'
     noSuffix
     description='Free TikTok embed code generator. Paste any TikTok URL — get a ready-to-paste embed for videos and profiles. No signup, no API key.'
-    image='https://cdn.microlink.io/logo/banner.jpeg'
     robots={embedRobots('tiktok')}
     structured={[
       {

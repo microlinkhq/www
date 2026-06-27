@@ -3532,7 +3532,6 @@ export const Head = () => (
     title='Bulk Download PDF from URL List — Batch Webpage Converter'
     noSuffix
     description='Free online tool to bulk convert multiple URLs to PDF. Paste your URL list, batch process up to 50 web pages, and download them all as a single ZIP file.'
-    image='https://cdn.microlink.io/banner/pdf.jpeg'
     schemaType='SoftwareApplication'
     structured={[
       {

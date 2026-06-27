@@ -18,7 +18,6 @@ import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
 
 import { withTitle } from 'helpers/hoc/with-title'
-import { cdnUrl } from 'helpers/cdn-url'
 
 const Caption = withTitle(CaptionBase)
 
@@ -1039,7 +1038,6 @@ export const Head = () => (
   <Meta
     title='Residential Proxy API: Bypass Antibots & CAPTCHAs'
     description='Residential Proxy API that bypasses Cloudflare, DataDome, Akamai antibots and reCAPTCHA, hCaptcha, Cloudflare Turnstile on metadata, HTML and markdown scraping requests. Zero-config web unblocker — one parameter replaces three vendors.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

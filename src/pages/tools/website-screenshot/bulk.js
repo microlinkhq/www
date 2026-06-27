@@ -2765,7 +2765,6 @@ export const Head = () => (
     title='Bulk website screenshot tool — capture up to 50 URLs at once'
     noSuffix
     description='Free bulk website screenshot tool. Paste up to 50 URLs, capture every page at once, and download all screenshots as a ZIP. No login required. Powered by Microlink screenshot API.'
-    image='https://cdn.microlink.io/banner/screenshot.jpeg'
     schemaType='SoftwareApplication'
     structured={[
       {

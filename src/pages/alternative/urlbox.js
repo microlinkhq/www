@@ -16,7 +16,6 @@ import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import styled, { css } from 'styled-components'
 import React from 'react'
@@ -2018,7 +2017,6 @@ export const Head = () => (
   <Meta
     title='Urlbox Alternative for Better Cost Per Render'
     description='Compare Microlink vs Urlbox on cost per render and broader browser workflows: for the same $49, 46,000 requests vs 5,000 on Urlbox Hi-Fi, plus metadata, previews, and 44% faster average cold starts.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

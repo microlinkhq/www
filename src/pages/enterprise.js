@@ -5,7 +5,6 @@ import Layout from 'components/patterns/Layout'
 import { layout, theme as themeProp } from 'theme'
 import Markdown from 'components/markdown'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import { useClipboard } from 'components/hook/use-clipboard'
 import React from 'react'
@@ -25,10 +24,7 @@ const Heading = withTitle(HeadingBase)
 const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
-  <Meta
-    description='Microlink Enterprise: dedicated API infrastructure, isolated browser pool, global CDN, and priority support for high-volume customers.'
-    image={cdnUrl('banner/enterprise.jpeg')}
-  />
+  <Meta description='Microlink Enterprise: dedicated API infrastructure, isolated browser pool, global CDN, and priority support for high-volume customers.' />
 )
 
 const EnterprisePage = () => {

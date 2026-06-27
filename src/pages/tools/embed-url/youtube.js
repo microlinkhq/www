@@ -261,7 +261,6 @@ export const Head = () => (
     title='YouTube Embed Code Generator — Embed Any YouTube Video'
     noSuffix
     description='Free YouTube embed code generator. Paste any YouTube URL — get a ready-to-paste iframe or custom preview card. Works with videos, shorts, playlists, and live streams. No signup.'
-    image='https://cdn.microlink.io/logo/banner.jpeg'
     robots={embedRobots('youtube')}
     structured={[
       {

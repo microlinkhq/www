@@ -1210,7 +1210,6 @@ export const Head = () => (
     title='Full Page Screenshot — Capture Any Website Instantly Free'
     noSuffix
     description='Take a full page screenshot of any website in seconds. Just paste a URL and capture the entire webpage. Free, fast, no extension needed. Try it now.'
-    image='https://cdn.microlink.io/banner/screenshot.jpeg'
     schemaType='SoftwareApplication'
     structured={[
       {

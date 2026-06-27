@@ -16,7 +16,6 @@ import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import styled, { css } from 'styled-components'
 import React from 'react'
@@ -1975,7 +1974,6 @@ export const Head = () => (
   <Meta
     title='ApiFlash Alternative for Production Screenshot Workloads'
     description='Microlink cuts average cold-start latency by 56% vs ApiFlash, gives you 46,000 requests for $49 vs 10,000 for $35, and adds PDF, metadata, previews, and built-in antibot tooling.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

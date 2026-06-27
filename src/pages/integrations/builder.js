@@ -1,5 +1,4 @@
 import { borders, colors, gradient, layout, theme, transition } from 'theme'
-import { cdnUrl } from 'helpers/cdn-url'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Check, Copy } from 'react-feather'
 import styled from 'styled-components'
@@ -567,7 +566,6 @@ export const Head = () => (
   <Meta
     title='Link Preview Component Builder — React, Vue, Svelte, Astro & TS'
     description='Visually design a link preview card, then copy or download a zero-dependency component for React, TypeScript, Vue, Angular, Svelte, Astro, and Vanilla JS. Fetches metadata from the Microlink API; pass an apiKey for Pro.'
-    image={cdnUrl('banner/sdk.jpeg')}
     structured={[
       {
         '@context': 'https://schema.org',

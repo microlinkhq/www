@@ -3502,7 +3502,6 @@ export const Head = () => (
   <Meta
     title='HTML to PDF API - Convert URL to PDF Document'
     description='Convert HTML or any URL to PDF with a single REST API call. Features custom margins, headless control, and edge caching. 50 free requests/day.'
-    image='https://cdn.microlink.io/banner/pdf.jpeg'
     structured={{
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',

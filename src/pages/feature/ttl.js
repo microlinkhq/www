@@ -18,7 +18,6 @@ import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
 
 import { withTitle } from 'helpers/hoc/with-title'
-import { cdnUrl } from 'helpers/cdn-url'
 
 const Caption = withTitle(CaptionBase)
 
@@ -1212,7 +1211,6 @@ export const Head = () => (
   <Meta
     title='Cache TTL & Stale-While-Revalidate API'
     description='Cache hits never count against your Microlink plan quota — every HIT is free, including expensive screenshot and PDF renders. Tune cache lifetime per request with ttl (1 minute to 31 days) and eliminate cold-start latency with staleTtl. A unified cache + CloudFlare edge cache plus stale-while-revalidate, applied uniformly to metadata, HTML, markdown, screenshots, PDFs, insights, and data extraction.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

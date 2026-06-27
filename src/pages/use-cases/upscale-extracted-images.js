@@ -23,8 +23,6 @@ import {
 } from 'components/patterns/UseCaseStory'
 import Layout from 'components/patterns/Layout'
 
-import { cdnUrl } from 'helpers/cdn-url'
-
 /* ─── Inline link to the partner ─────────────────────────────────────────── */
 
 const InlineLink = styled('a')`
@@ -396,7 +394,6 @@ export const Head = () => (
   <Meta
     title='Extract images from any URL and upscale them with AI'
     description='Microlink extracts the main image of any web page; Magnific upscales it with AI to a print-ready resolution — URL in, URL out, no re-uploading.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
   />
 )

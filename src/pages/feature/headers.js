@@ -18,7 +18,6 @@ import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
 
 import { withTitle } from 'helpers/hoc/with-title'
-import { cdnUrl } from 'helpers/cdn-url'
 
 const Caption = withTitle(CaptionBase)
 
@@ -912,7 +911,6 @@ export const Head = () => (
   <Meta
     title='Custom HTTP Headers API'
     description='Forward any HTTP header to the target page on Microlink Pro. Use the headers parameter for non-sensitive values like Accept-Language and User-Agent; use x-api-header-* request headers for cookies, bearer tokens, and other secrets that must never appear in the URL. Works uniformly across metadata, HTML, markdown, screenshots, PDFs, insights, and data extraction.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

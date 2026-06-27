@@ -16,7 +16,6 @@ import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import styled, { css } from 'styled-components'
 import React from 'react'
@@ -2164,7 +2163,6 @@ export const Head = () => (
   <Meta
     title='Thum.io Alternative for Final Screenshots and Modern Browser Control'
     description='Thum.io is clever for ultra-cheap streamed thumbnails. Microlink is built for final screenshots, selectors, PDFs, metadata, and blocked-page workloads, with 6× lower average cold-start latency in our April 2026 benchmark.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

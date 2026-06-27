@@ -25,8 +25,6 @@ import {
 } from 'components/patterns/CustomerStory'
 import Layout from 'components/patterns/Layout'
 
-import { cdnUrl } from 'helpers/cdn-url'
-
 const Hero = () => (
   <Section as='header' css={theme({ pt: [3, 3, 4, 4], pb: [3, 3, 4, 4] })}>
     <SectionInner>
@@ -330,7 +328,6 @@ export const Head = () => (
   <Meta
     title="Luckynote: rich link previews in a 'message yourself' note app"
     description="Luckynote uses Microlink's Metadata API to turn every URL pasted into a note into a tappable preview card — on iOS, Android, Web, and the Chrome extension."
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
   />
 )

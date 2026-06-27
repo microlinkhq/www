@@ -2697,7 +2697,6 @@ export const Head = () => (
     title='Free URL to Markdown Converter — Extract Clean Web Content'
     noSuffix
     description='Free and no login required online tool to convert any URL into structured Markdown. Automatically strip ads and navbars. Copy, edit, or download instantly.'
-    image='https://cdn.microlink.io/banner/api.jpeg'
     structured={[
       {
         '@context': 'https://schema.org',

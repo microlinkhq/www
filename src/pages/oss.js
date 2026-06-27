@@ -10,7 +10,6 @@ import CaptionBase from 'components/patterns/Caption/Caption'
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import Layout from 'components/patterns/Layout'
 import { formatNumber } from 'helpers/format-number'
-import { cdnUrl } from 'helpers/cdn-url'
 import { useOss } from 'components/hook/use-oss'
 import { layout, theme } from 'theme'
 import React from 'react'
@@ -24,7 +23,6 @@ export const Head = () => (
   <Meta
     title='Open Source Software'
     description='Open Source Sustainability.'
-    image={cdnUrl('banner/oss.jpeg')}
   />
 )
 

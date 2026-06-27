@@ -262,7 +262,6 @@ export const Head = () => (
     title='Twitter Embed Code Generator — Embed Tweets & X Posts'
     noSuffix
     description='Free Twitter embed code generator. Paste any tweet or X post URL — get a ready-to-paste embed. Works with tweets, threads, and quoted posts. No signup.'
-    image='https://cdn.microlink.io/logo/banner.jpeg'
     robots={embedRobots('twitter-or-x')}
     structured={[
       {

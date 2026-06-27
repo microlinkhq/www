@@ -16,7 +16,6 @@ import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import styled, { css } from 'styled-components'
 import React from 'react'
@@ -2053,7 +2052,6 @@ export const Head = () => (
   <Meta
     title='Screenshot Machine Alternative for Broader Browser Workflows'
     description='Screenshot Machine is great for simple screenshots and PDFs. Microlink benchmarks 33% faster on average and adds metadata, link previews, remote JS, and 46,000 requests on its €39 tier.'
-    image={cdnUrl('banner/screenshot.jpeg')}
     schemaType='WebPage'
     structured={[
       {

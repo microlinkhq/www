@@ -13,7 +13,6 @@ import {
   Sliders as SlidersIcon
 } from 'react-feather'
 
-import { cdnUrl } from 'helpers/cdn-url'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import Box from 'components/elements/Box'
@@ -1037,7 +1036,6 @@ export const Head = () => (
   <Meta
     title='SDK'
     description='Beautiful link previews in one component. Microlink SDK turns any URL into a rich, themeable preview for React, Vue, and Vanilla — under 10 KB.'
-    image={cdnUrl('banner/sdk.jpeg')}
   />
 )
 

@@ -10,7 +10,6 @@ import {
 import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
 
@@ -2745,7 +2744,6 @@ export const Head = () => (
     title='Link Preview API — URL Unfurling & Open Graph Metadata'
     noSuffix
     description='Link preview API that turns any URL into a custom preview card. Normalized metadata (Open Graph, Twitter Cards, JSON-LD, oEmbed) in one JSON call. Free tier, proxy rotation for URLs behind Cloudflare and CAPTCHAs. Built for developers.'
-    image={cdnUrl('banner/meta.jpeg')}
     structured={{
       '@context': 'https://schema.org',
       '@graph': [
