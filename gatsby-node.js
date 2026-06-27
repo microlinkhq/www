@@ -129,7 +129,10 @@ const ogContent = (html, name) => {
 }
 
 const pageMetadata = pathname => {
-  const file = path.join(process.cwd(), 'public', pathname, 'index.html')
+  // `pathname` is a route ("/integrations/mcp", "/"); strip the leading slash
+  // so it joins as a relative segment under public/.
+  const relativePath = pathname.replace(/^\//, '')
+  const file = path.join(process.cwd(), 'public', relativePath, 'index.html')
   let html
   try {
     html = readFileSync(file, 'utf8')
