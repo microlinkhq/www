@@ -105,14 +105,49 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
   await generateOgImages({ graphql, reporter })
 }
 
+// Each page's built HTML already carries its real og:title/og:description (set
+// by Meta). Read them back so the card renders from the page's actual metadata
+// — e.g. "Model Context Protocol (MCP)" instead of the slug-derived "Mcp" — the
+// way the URL-mode service does. @microlink/og cleans and merges them over the
+// slug-derived base; a page whose HTML can't be read falls back to the slug.
+const decodeEntities = value =>
+  value
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(code))
+    .replace(/&#x([\da-f]+);/gi, (_, code) =>
+      String.fromCharCode(parseInt(code, 16))
+    )
+    .replace(/&amp;/g, '&')
+
+const ogContent = (html, name) => {
+  const match = html.match(
+    new RegExp(`<meta property="og:${name}" content="([^"]*)"`)
+  )
+  return match ? decodeEntities(match[1]) : undefined
+}
+
+const pageMetadata = pathname => {
+  const file = path.join(process.cwd(), 'public', pathname, 'index.html')
+  let html
+  try {
+    html = readFileSync(file, 'utf8')
+  } catch {
+    return undefined
+  }
+  return {
+    title: ogContent(html, 'title'),
+    description: ogContent(html, 'description')
+  }
+}
+
 // Render an OG card for every page into `public/og/<slug>.png` so the images
-// ship as static files with the build; `Meta.js` points `og:image` at them for
-// pages without an explicit `image` prop.
+// ship as static files with the build; `Meta.js` points `og:image` at them.
 //
 // The build fails only on a total failure (the page query fails, generation
-// crashes, or every card fails) — then every `og:image` would be broken. A
-// single failed card just warns: most pages carry an explicit banner image and
-// never reference their card, so one miss shouldn't block a deploy.
+// crashes, or every card fails). A single failed card just warns rather than
+// blocking the deploy — render failures are rare and isolated.
 const generateOgImages = async ({ graphql, reporter }) => {
   const result = await graphql('{ allSitePage { nodes { path } } }')
   if (result.errors) {
@@ -131,6 +166,7 @@ const generateOgImages = async ({ graphql, reporter }) => {
     cards = await generateOgCards({
       pathnames,
       outDir: path.join(process.cwd(), 'public', 'og'),
+      metadata: pageMetadata,
       onError: (pathname, error) =>
         reporter.warn(`OG ${pathname}: ${error.message}`)
     })
