@@ -1,10 +1,9 @@
 import tpl from 'lodash/template'
-import { cdnUrl } from './cdn-url'
 
 import dataDemoLinks from '../../data/demo-links'
 
 const demolinks = dataDemoLinks.reduce((acc, { id, data }) => {
-  const screenshot = { url: cdnUrl(`screenshot/${id}.png`) }
+  const screenshot = { url: `https://cdn.microlink.io/screenshot/${id}.png` }
   acc[id] = { ...data, screenshot }
   return acc
 }, {})

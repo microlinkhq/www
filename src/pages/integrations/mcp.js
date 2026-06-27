@@ -1,5 +1,4 @@
 import { borders, layout, colors, fonts, theme } from 'theme'
-import { cdnUrl } from 'helpers/cdn-url'
 import React, { useState, useMemo, useCallback } from 'react'
 
 import Box from 'components/elements/Box'
@@ -477,7 +476,7 @@ export const Head = () => (
         name: 'Microlink MCP in action',
         description:
           'See how Claude and other AI agents use Microlink MCP to take screenshots, convert pages to markdown, and scrape structured data through natural language.',
-        thumbnailUrl: cdnUrl('logo/banner.jpeg'),
+        thumbnailUrl: 'https://cdn.microlink.io/logo/banner.jpeg',
         contentUrl: 'https://cdn.microlink.io/mcp/codex.mp4',
         uploadDate: '2025-02-01',
         publisher: {

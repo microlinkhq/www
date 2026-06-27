@@ -12,7 +12,6 @@ import { Camera as CameraIcon } from 'components/icons/Camera'
 import { BookImage as BookImageIcon } from 'components/icons/BookImage'
 import { Bug as BugIcon } from 'components/icons/Bug'
 import EmbedToolPreview from 'components/patterns/Tools/EmbedToolPreview'
-import { cdnUrl } from 'helpers/cdn-url'
 
 export const TOOLS = [
   {
@@ -26,7 +25,7 @@ export const TOOLS = [
           'The fastest way to capture any website. Paste a URL, pick a viewport, and get a high-resolution PNG or JPEG in seconds. Supports custom overlays and backgrounds.',
         href: '/tools/website-screenshot',
         icon: CameraIcon,
-        image: cdnUrl('screenshot/browser/dark/apple.png'),
+        image: 'https://cdn.microlink.io/screenshot/browser/dark/apple.png',
         featured: true,
         animation: [
           'scale(1.67) translateY(16%)',
@@ -93,7 +92,7 @@ export const TOOLS = [
           'Capture an animated screenshot of any website. Get a GIF or MP4 file in seconds with the motion that the webpage has. Create rich previews.',
         href: '/tools/website-screenshot/animated',
         icon: Film,
-        image: cdnUrl('www/tools/animated-screenshot.mp4'),
+        image: 'https://cdn.microlink.io/www/tools/animated-screenshot.mp4',
         animation: ['scale(1.2) translateY(10%)', 'scale(1)'],
         styles: {
           width: ['90%', '90%', '80%', '80%'],

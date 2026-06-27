@@ -10,7 +10,6 @@ import {
   radii
 } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
-import { cdnUrl } from 'helpers/cdn-url'
 import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
 import styled, { css, keyframes } from 'styled-components'
@@ -68,7 +67,7 @@ import analyticsData from '../../data/analytics.json'
 import ossData from '../../data/oss.json'
 
 const FIRST_URL = 'https://apple.com'
-const FIRST_IMAGE_URL = cdnUrl('www/apple.png')
+const FIRST_IMAGE_URL = 'https://cdn.microlink.io/www/apple.png'
 const COMPACT_NUMBER_FORMATTER = new Intl.NumberFormat('en-US', {
   notation: 'compact',
   maximumFractionDigits: 1
