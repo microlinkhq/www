@@ -150,8 +150,9 @@ const pageMetadata = pathname => {
   }
 }
 
-// Render an OG card for every page into `public/og/<slug>.png` so the images
-// ship as static files with the build; `Meta.js` points `og:image` at them.
+// Render an OG card for every page into `public/images/og/<slug>.png` so the
+// images ship as plain static files (served at /images/og/<slug>.png, like any
+// other /images asset); `Meta.js` points `og:image` at them.
 //
 // The build fails only on a total failure (the page query fails, generation
 // crashes, or every card fails). A single failed card just warns rather than
@@ -173,7 +174,7 @@ const generateOgImages = async ({ graphql, reporter }) => {
   try {
     cards = await generateOgCards({
       pathnames,
-      outDir: path.join(process.cwd(), 'public', 'og'),
+      outDir: path.join(process.cwd(), 'public', 'images', 'og'),
       metadata: pageMetadata,
       onError: (pathname, error) =>
         reporter.warn(`OG ${pathname}: ${error.message}`)

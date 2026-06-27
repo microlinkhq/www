@@ -7,7 +7,7 @@ import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useMemo } from 'react'
 import { generateStructuredData } from './structured'
 import { toDate } from 'helpers/to-date'
-import { imageUrl as ogImageUrl } from '@microlink/og'
+import { ogImageUrl } from 'helpers/og'
 
 const getPage = ({ pathname }) => pathname.replace(/\/+$/, '').substring(1)
 
@@ -56,9 +56,9 @@ const mergeMeta = (props, location, metadata) => {
   const url = location ? `${siteUrl}${location.pathname}` : siteUrl
 
   // Prefer an explicit `image` prop, else the per-page card generated at build
-  // time (`public/og/<slug>.png`), falling back to the default banner. The card
-  // lives on the deploy host (`ogImageBase`) — empty in dev, and distinct from
-  // the canonical `siteUrl` on preview deployments.
+  // time (served at `/images/og/<slug>.png`), falling back to the default
+  // banner. The card lives on the deploy host (`ogImageBase`) — empty in dev,
+  // and distinct from the canonical `siteUrl` on preview deployments.
   const image =
     props.image || ogImageUrl(location?.pathname, ogImageBase) || metadata.image
 
