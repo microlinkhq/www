@@ -430,11 +430,11 @@ export const Head = () => (
       {
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        '@id': 'https://microlink.io/mcp',
+        '@id': 'https://microlink.io/integrations/mcp',
         name: 'Microlink MCP',
         description:
           'An MCP server that gives Claude, Cursor, and any AI client access to screenshots, PDFs, web scraping, markdown conversion, and metadata extraction. One config block, nine browser tools.',
-        url: 'https://microlink.io/mcp',
+        url: 'https://microlink.io/integrations/mcp',
         applicationCategory: ['DeveloperApplication', 'API'],
         keywords: [
           'MCP server',
@@ -488,8 +488,8 @@ export const Head = () => (
       {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        '@id': 'https://microlink.io/mcp#faq',
-        url: 'https://microlink.io/mcp',
+        '@id': 'https://microlink.io/integrations/mcp#faq',
+        url: 'https://microlink.io/integrations/mcp',
         mainEntity: [
           {
             '@type': 'Question',
