@@ -150,14 +150,24 @@ const pageMetadata = pathname => {
   }
 }
 
-// Render an OG card for every page into `public/images/og/<slug>.png` so the
-// images ship as plain static files (served at /images/og/<slug>.png, like any
-// other /images asset); `Meta.js` points `og:image` at them.
+// Render an OG card for every page into `static/images/og/<slug>.png`. They're
+// committed to the repo (and optimized via the pre-commit `optimo` hook), then
+// served as plain static files at /images/og/<slug>.png — Gatsby copies the
+// committed `static/` cards into `public/`, and `Meta.js` points `og:image` at
+// them. Because they're committed, generation is a local step: on CI we skip it
+// and serve whatever is checked in (regenerating there would only overwrite the
+// optimized cards with unoptimized ones, after the static→public copy already
+// ran). Run a local build to refresh the cards, then commit them.
 //
 // The build fails only on a total failure (the page query fails, generation
 // crashes, or every card fails). A single failed card just warns rather than
 // blocking the deploy — render failures are rare and isolated.
 const generateOgImages = async ({ graphql, reporter }) => {
+  if (process.env.CI || process.env.VERCEL) {
+    return reporter.info('OG images: using committed cards (skipped on CI)')
+  }
+
+  const outDir = path.join(process.cwd(), 'static', 'images', 'og')
   const result = await graphql('{ allSitePage { nodes { path } } }')
   if (result.errors) {
     return reporter.panicOnBuild(
@@ -174,7 +184,7 @@ const generateOgImages = async ({ graphql, reporter }) => {
   try {
     cards = await generateOgCards({
       pathnames,
-      outDir: path.join(process.cwd(), 'public', 'images', 'og'),
+      outDir,
       metadata: pageMetadata,
       onError: (pathname, error) =>
         reporter.warn(`OG ${pathname}: ${error.message}`)
