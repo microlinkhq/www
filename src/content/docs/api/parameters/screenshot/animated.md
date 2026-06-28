@@ -14,7 +14,7 @@ It records a short video of the target [url](/docs/api/parameters/url) instead o
 
 <Video src="/images/screenshot-animated.mp4" />
 
-<MultiCodeEditorInteractive mqlCode={{ url: 'https://superpower.com', screenshot: { animated: true } }} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://threejs.org/examples/webgl_animation_skinning_blending', screenshot: { animated: true } }} />
 
 When it's enabled, the `screenshot` data field includes an `animated` object pointing to the generated video:
 
@@ -31,8 +31,8 @@ When it's enabled, the `screenshot` data field includes an `animated` object poi
         "codec": "avc1.640028",
         "width": 1280,
         "height": 800,
-        "size": 72516,
-        "size_pretty": "72.5 kB"
+        "size": 256874,
+        "size_pretty": "257 kB"
       }
     }
   },
@@ -50,7 +50,7 @@ Pass an object to tune the recording:
 | `fps`      | `<number>` | `60`    | Frames per second. Max `60`.                                         |
 | `type`     | `<string>` | `'mp4'` | Video container: `'mp4'` (H.264) or `'webm'` (VP9).                  |
 
-<MultiCodeEditorInteractive mqlCode={{ url: 'https://superpower.com', screenshot: { animated: { duration: '8s', fps: 30 } } }} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://threejs.org/examples/webgl_animation_skinning_blending', screenshot: { animated: { duration: '8s', fps: 30 } } }} />
 
 The recording starts at navigation, so the first moments capture the page loading before the content settles.
 
