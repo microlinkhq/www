@@ -371,6 +371,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/screenshot',
         posts: [
           {
+            name: 'animated',
+            href: '/docs/api/parameters/screenshot/animated'
+          },
+          {
             name: 'codeScheme',
             href: '/docs/api/parameters/screenshot/codeScheme'
           },

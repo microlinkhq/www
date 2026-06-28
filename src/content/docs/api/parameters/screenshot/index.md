@@ -33,7 +33,7 @@ When it's enabled, a new `screenshot` data field will be part of the response pa
 }
 ```
 
-You can configure different specific options, such as [element](/docs/api/parameters/screenshot/element) or [overlay](/docs/api/parameters/screenshot/overlay):
+You can configure different specific options, such as [element](/docs/api/parameters/screenshot/element) or [overlay](/docs/api/parameters/screenshot/overlay), or record a short video instead of a static image with [animated](/docs/api/parameters/screenshot/animated):
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://www.netflix.com/title/80057281', screenshot: true, element: "#section-hero" }} />
 
