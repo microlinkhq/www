@@ -10,7 +10,6 @@ import FeatherIcon from 'components/icons/Feather'
 import { WandSparkles } from 'components/icons/WandSparkles'
 import { Focus } from 'components/icons/Focus'
 import { Markdown } from 'components/icons/Markdown'
-import { Metascraper } from 'components/icons/Metascraper'
 import { PDF } from 'components/icons/PDF'
 import { Lighthouse } from 'components/icons/Lighthouse'
 import { Terminal } from 'components/icons/Terminal'
@@ -22,6 +21,7 @@ import {
   Layers as LayersIcon,
   Layout as LayoutIcon,
   AlignLeft as AlignLeftIcon,
+  Tag as TagIcon,
   Video as VideoIcon,
   Film as FilmIcon,
   Music as MusicIcon
@@ -145,7 +145,7 @@ const ICONS = {
   markdown: Markdown,
   html: CodeIcon,
   text: AlignLeftIcon,
-  metadata: Metascraper,
+  metadata: TagIcon,
   lighthouse: Lighthouse,
   technologies: LayersIcon,
   function: Terminal,
@@ -155,10 +155,6 @@ const ICONS = {
   video: VideoIcon,
   audio: MusicIcon
 }
-
-// Metascraper ships its own coloured badge, so it must not sit inside the
-// gradient icon badge like the monochrome (currentColor) glyphs
-const SELF_BADGED = new Set(['metadata'])
 
 const VertGlyph = ({ vertical, size = 16 }) => {
   const Icon = ICONS[vertical]
@@ -978,7 +974,7 @@ const menuItemActive = css`
   ${MenuLabel} {
     font-weight: 600;
   }
-  ${MenuBadge}:not([data-self]) {
+  ${MenuBadge} {
     background: ${GRADIENT};
     color: #fff;
   }
@@ -1696,14 +1692,11 @@ const Hero = () => {
                   css={theme({
                     width: '24px',
                     height: '24px',
-                    background: SELF_BADGED.has(D.vertical) ? 'none' : GRADIENT,
+                    background: GRADIENT,
                     color: 'white'
                   })}
                 >
-                  <VertGlyph
-                    vertical={D.vertical}
-                    size={SELF_BADGED.has(D.vertical) ? 24 : 15}
-                  />
+                  <VertGlyph vertical={D.vertical} size={15} />
                 </IconBadge>
                 <Box
                   as='span'
@@ -1741,7 +1734,6 @@ const Hero = () => {
                   >
                     {VERTICAL_ORDER.map(k => {
                       const active = k === D.vertical
-                      const selfBadged = SELF_BADGED.has(k)
                       return (
                         <MenuItem
                           key={k}
@@ -1751,16 +1743,8 @@ const Hero = () => {
                             pickVertical(k)
                           }}
                         >
-                          <MenuBadge
-                            data-self={selfBadged || undefined}
-                            css={
-                              selfBadged ? { background: 'none' } : undefined
-                            }
-                          >
-                            <VertGlyph
-                              vertical={k}
-                              size={selfBadged ? 26 : 16}
-                            />
+                          <MenuBadge>
+                            <VertGlyph vertical={k} size={16} />
                           </MenuBadge>
                           <MenuLabel>{LABELS[k]}</MenuLabel>
                           {active && (
