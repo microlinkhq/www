@@ -38,7 +38,6 @@ const special = [
   'ScreenshotAPI',
   'Screenshotmachine',
   'ScreenshotOne',
-  'ScreenshotOne',
   'scroll',
   'SDK',
   'SEO',
