@@ -28,7 +28,7 @@ import {
 } from 'react-feather'
 import { transition, timings, fonts, theme } from 'theme'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import mql, { getApiUrl } from '@microlink/mql'
 import GOOGLE_EXAMPLES from 'data/google-examples'
 
@@ -957,6 +957,52 @@ const IconBadge = styled(Box)`
   flex-shrink: 0;
 `
 
+/* ----------------------------- product menu ----------------------------- */
+
+const MenuBadge = styled(IconBadge)`
+  width: 26px;
+  height: 26px;
+  background: #edebf0;
+  color: #9a9aa0;
+`
+
+const MenuLabel = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+  color: ${INK};
+`
+
+// the active item's look — reused on hover (without the trailing check icon)
+const menuItemActive = css`
+  background: rgba(255, 30, 140, 0.06);
+  ${MenuLabel} {
+    font-weight: 600;
+  }
+  ${MenuBadge}:not([data-self]) {
+    background: ${GRADIENT};
+    color: #fff;
+  }
+`
+
+const MenuItem = styled(Flex)`
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  transition: background ${transition.short};
+
+  &[data-active='true'] {
+    ${menuItemActive}
+  }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      ${menuItemActive}
+    }
+  }
+`
+
 // syntax-highlight tokens for the Code panel
 const Str = styled.span`
   color: ${SYNTAX.string};
@@ -1587,6 +1633,8 @@ const Hero = () => {
     setDText(prompt)
     setDVert(k)
     closeMenu()
+    // run it immediately so the panel reflects the picked product
+    runRequest(derive(prompt, k))
   }
 
   return (
@@ -1693,52 +1741,28 @@ const Hero = () => {
                   >
                     {VERTICAL_ORDER.map(k => {
                       const active = k === D.vertical
+                      const selfBadged = SELF_BADGED.has(k)
                       return (
-                        <Flex
+                        <MenuItem
                           key={k}
+                          data-active={active}
                           onClick={e => {
                             e.stopPropagation()
                             pickVertical(k)
                           }}
-                          css={theme({
-                            alignItems: 'center',
-                            gap: 2,
-                            py: 2,
-                            px: 2,
-                            borderRadius: 4,
-                            cursor: 'pointer',
-                            background: active
-                              ? 'rgba(255,30,140,.06)'
-                              : 'transparent'
-                          })}
                         >
-                          <IconBadge
-                            css={theme({
-                              width: '26px',
-                              height: '26px',
-                              background: SELF_BADGED.has(k)
-                                ? 'none'
-                                : active
-                                  ? GRADIENT
-                                  : '#EDEBF0',
-                              color: active ? '#fff' : '#9A9AA0'
-                            })}
+                          <MenuBadge
+                            data-self={selfBadged || undefined}
+                            css={
+                              selfBadged ? { background: 'none' } : undefined
+                            }
                           >
                             <VertGlyph
                               vertical={k}
-                              size={SELF_BADGED.has(k) ? 26 : 16}
+                              size={selfBadged ? 26 : 16}
                             />
-                          </IconBadge>
-                          <Box
-                            as='span'
-                            css={theme({
-                              fontSize: 0,
-                              fontWeight: active ? 600 : 500,
-                              color: INK
-                            })}
-                          >
-                            {LABELS[k]}
-                          </Box>
+                          </MenuBadge>
+                          <MenuLabel>{LABELS[k]}</MenuLabel>
                           {active && (
                             <svg
                               width='15'
@@ -1754,7 +1778,7 @@ const Hero = () => {
                               <path d='M20 6 9 17l-5-5' />
                             </svg>
                           )}
-                        </Flex>
+                        </MenuItem>
                       )
                     })}
                   </VertMenu>
