@@ -10,7 +10,7 @@ date: '2026-06-29'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Video } from 'components/markdown/Video'
-import { BrowserlessReport } from 'components/markdown/BrowserlessReport'
+import { BrowserlessReport } from 'components/pages/blog/webgl-without-a-gpu'
 
 WebGL is everywhere now: 3D maps, seat charts, product configurators, shader-art landing pages. It was also the slowest thing you could ask Microlink to [screenshot](/docs/api/parameters/screenshot). One Chrome flag fixed that.
 

@@ -7,7 +7,7 @@ import Box from 'components/elements/Box'
 import { withContainer } from 'helpers/hoc/with-container'
 import { theme } from 'theme'
 
-import report from './browserless-report.json'
+import report from './report.json'
 
 const CALL_SNIPPET = [
   "const browserless = require('browserless')",
