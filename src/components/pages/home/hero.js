@@ -23,6 +23,7 @@ import {
   Layout as LayoutIcon,
   AlignLeft as AlignLeftIcon,
   Video as VideoIcon,
+  Film as FilmIcon,
   Music as MusicIcon
 } from 'react-feather'
 import { transition, timings, fonts, theme } from 'theme'
@@ -138,6 +139,7 @@ const PRESETS = {
 // with the Products menu (local Svg + react-feather glyphs)
 const ICONS = {
   screenshot: Focus,
+  animated: FilmIcon,
   preview: LinkIcon,
   embed: LayoutIcon,
   markdown: Markdown,
@@ -168,6 +170,7 @@ const VertGlyph = ({ vertical, size = 16 }) => {
 
 const LABELS = {
   screenshot: 'Screenshot',
+  animated: 'Animated Screenshot',
   preview: 'Link preview',
   embed: 'Embed',
   markdown: 'Markdown',
@@ -186,6 +189,7 @@ const LABELS = {
 
 const FLAGS = {
   screenshot: 'screenshot',
+  animated: 'screenshot',
   preview: 'embed',
   embed: 'iframe',
   markdown: 'markdown',
@@ -207,6 +211,7 @@ const FLAGS = {
 // the default metadata response
 const REQUEST_OPTS = {
   screenshot: { screenshot: true },
+  animated: { screenshot: { animated: true } },
   preview: {},
   embed: { iframe: true },
   markdown: { data: { markdown: { attr: 'markdown' } } },
@@ -234,6 +239,7 @@ const REQUEST_OPTS = {
 
 const VERTICAL_ORDER = [
   'screenshot',
+  'animated',
   'preview',
   'embed',
   'markdown',
@@ -252,6 +258,7 @@ const VERTICAL_ORDER = [
 
 const CYCLE = [
   'take a screenshot',
+  'record an animated screenshot',
   'create a PDF',
   'run a lighthouse report',
   'detect the technologies',
@@ -274,6 +281,7 @@ const EXAMPLES = [
 // dropdown — each phrase parses back to its own vertical
 const PROMPTS = {
   screenshot: 'take a screenshot',
+  animated: 'record an animated screenshot',
   preview: 'generate a link preview',
   embed: 'embed a URL',
   markdown: 'get the markdown',
@@ -293,6 +301,7 @@ const PROMPTS = {
 const parseLocal = text => {
   const t = (text || '').toLowerCase()
   const rules = [
+    ['animated', /\banimated\b|animation|screen ?cast|\bgif\b|record/],
     [
       'screenshot',
       /screenshot|screen ?shot|capture|snap|take a (pic|photo|picture|shot)|image of|how .* looks?/
@@ -354,6 +363,7 @@ const parseLocal = text => {
 // product's documentation uses; the user can type any domain to override it
 const DEFAULT_URLS = {
   screenshot: 'https://www.apple.com/music',
+  animated: 'https://threejs.org/examples/webgl_animation_skinning_blending',
   preview: 'https://github.com/microlinkhq/metascraper',
   embed: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
   markdown: 'https://microlink.io/docs/api/getting-started/overview',

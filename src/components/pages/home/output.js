@@ -43,6 +43,26 @@ const ImageOutput = ({ url, alt, contain }) => (
   </Stage>
 )
 
+// an animated screenshot is a short looping clip — play it like a gif
+const AnimatedOutput = ({ url }) => (
+  <Stage css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
+    <Box
+      as='video'
+      src={url}
+      autoPlay
+      loop
+      muted
+      playsInline
+      css={theme({
+        maxWidth: '100%',
+        maxHeight: '440px',
+        borderRadius: 4,
+        boxShadow: '0 18px 50px -22px rgba(40,10,60,.45)'
+      })}
+    />
+  </Stage>
+)
+
 const Swatch = styled.span`
   width: 26px;
   height: 26px;
@@ -1183,6 +1203,15 @@ const Output = ({ req }) => {
           )
         : (
           <Empty>No screenshot in this response.</Empty>
+          )
+
+    case 'animated':
+      return data.screenshot?.animated?.url
+        ? (
+          <AnimatedOutput url={data.screenshot.animated.url} />
+          )
+        : (
+          <Empty>No animated screenshot in this response.</Empty>
           )
 
     case 'pdf':
