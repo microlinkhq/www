@@ -22,17 +22,24 @@ When it's enabled, the `screenshot` data field includes an `animated` object poi
 {
   "data": {
     "screenshot": {
+      "size_pretty": "619 kB",
+      "size": 618992,
+      "type": "png",
+      "url": "https://iad.microlink.io/2ov-NQjphkr40lNPhXkT0jrVDuFvuEt1DNa9csiaWFJcVb4NrTmMYXmA3FKIcXoR7xjHTr_etfTdKzHl3Bp-RA.png",
+      "width": 2560,
+      "height": 1600,
       "animated": {
-        "url": "https://microlink-cdn.s3.amazonaws.com/s/pjzG_NocJqnd2U/Ef2b6g9P944wI_.mp4",
         "duration": 5000,
         "duration_pretty": "5s",
         "fps": 60,
+        "size_pretty": "135 kB",
+        "size": 134930,
         "type": "mp4",
         "codec": "avc1.640028",
+        "backend": "screencast",
+        "url": "https://iad.microlink.io/bM7LYSDXoIZumb0MddoxP1NZCfmbSNNA9dJcjIdkpMoDPR1psJFGPi_q1TiYh5qIqtC-T2_0T5Tn4pkAjfZo8A.mp4",
         "width": 1280,
-        "height": 800,
-        "size": 256874,
-        "size_pretty": "257 kB"
+        "height": 800
       }
     }
   },
@@ -54,8 +61,14 @@ Pass an object to tune the recording:
 
 The recording starts at navigation, so the first moments capture the page loading before the content settles.
 
-Like a regular screenshot, the resulting video can be combined with [embed](/docs/api/parameters/embed) to insert it directly as HTML markup:
+Like a regular screenshot, it can be combined with [embed](/docs/api/parameters/embed) to serve the video directly from the API (the response body is the `video/mp4` itself), so you can drop the request URL straight into a `<video>` tag:
 
 ```html
-<video autoplay loop muted playsinline src="/images/image-1.mp4"></video>
+<video
+  autoplay
+  loop
+  muted
+  playsinline
+  src="https://api.microlink.io/?url=https://threejs.org/examples/webgl_animation_skinning_blending&meta=false&screenshot.animated=true&embed=screenshot.animated.url"
+></video>
 ```
