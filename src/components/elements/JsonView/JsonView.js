@@ -111,18 +111,33 @@ const JsonView = ({
   ...props
 }) => {
   const [ReactJson, setReactJson] = useState(null)
+  const [failed, setFailed] = useState(false)
 
   useEffect(() => {
     let cancelled = false
 
-    import('@microlink/react-json-view').then(module => {
-      if (!cancelled) setReactJson(() => module.default)
-    })
+    import('@microlink/react-json-view')
+      .then(module => {
+        if (!cancelled) setReactJson(() => module.default)
+      })
+      .catch(() => {
+        if (!cancelled) setFailed(true)
+      })
 
     return () => {
       cancelled = true
     }
   }, [])
+
+  // If the viewer chunk fails to load, degrade to plaintext JSON instead of
+  // rendering nothing.
+  if (failed) {
+    return (
+      <Box as='pre' css={jsonViewCss} {...props}>
+        {JSON.stringify(src, null, 2)}
+      </Box>
+    )
+  }
 
   if (!ReactJson) return null
 
