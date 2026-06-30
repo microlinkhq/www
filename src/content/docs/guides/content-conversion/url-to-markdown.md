@@ -1,6 +1,6 @@
 ---
-title: 'Convert any URL to Markdown'
-description: 'Use Microlink API to convert any public web page into Markdown, either inside JSON or as a direct Markdown response.'
+title: 'URL to Markdown'
+description: 'Use Microlink API to convert a public URL into Markdown, either inside JSON or as a direct Markdown response.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
@@ -77,4 +77,4 @@ For LLM and indexing workflows, `meta: true` prepends YAML frontmatter with norm
 
 ## Next step
 
-Use <Link href='/docs/guides/markdown/choosing-scope' children='Markdown: Choosing scope' /> when the output is noisy or incomplete. Use <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='Convert a PDF URL to Markdown' /> when the source URL is a PDF.
+Use <Link href='/docs/guides/markdown/choosing-scope' children='Markdown: Choosing scope' /> when the output is noisy or incomplete. Use <Link href='/docs/guides/content-conversion/url-to-text' children='URL to Text' /> when the consumer only needs readable text, or <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF URL to Markdown' /> when the source URL is a PDF.

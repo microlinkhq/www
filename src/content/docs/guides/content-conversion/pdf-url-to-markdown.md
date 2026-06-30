@@ -73,4 +73,4 @@ This works best for PDFs with an embedded text layer. If the PDF is only scanned
 
 ## Next step
 
-Use <Link href='/docs/guides/content-conversion/pdf-url-to-html' children='Convert a PDF URL to HTML' /> when you need markup instead. Use <Link href='/docs/guides/content-conversion/any-url-to-markdown' children='Convert any URL to Markdown' /> for web pages.
+Use <Link href='/docs/guides/content-conversion/pdf-url-to-html' children='PDF URL to HTML' /> when you need markup instead. Use <Link href='/docs/guides/content-conversion/url-to-markdown' children='URL to Markdown' /> for web pages.

@@ -77,4 +77,4 @@ This works best for PDFs with selectable text. Image-only scans may produce litt
 
 ## Next step
 
-Use <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='Convert a PDF URL to Markdown' /> when the consumer is an LLM, search index, or Markdown-native system. Use <Link href='/docs/guides/content-conversion/any-url-to-html' children='Convert any URL to HTML' /> for web pages.
+Use <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF URL to Markdown' /> when the consumer is an LLM, search index, or Markdown-native system. Use <Link href='/docs/guides/content-conversion/url-to-html' children='URL to HTML' /> for web pages.

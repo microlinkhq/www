@@ -12,16 +12,21 @@ const conversionGuides = [
   {
     href: '/docs/guides/content-conversion',
     title: 'Content conversion',
-    mustContain: ["attr: 'markdown'", "attr: 'html'"]
+    mustContain: ["attr: 'text'", "attr: 'markdown'", "attr: 'html'"]
   },
   {
-    href: '/docs/guides/content-conversion/any-url-to-markdown',
-    title: 'Convert any URL to Markdown',
+    href: '/docs/guides/content-conversion/url-to-text',
+    title: 'URL to Text',
+    mustContain: ['data.text.attr=text', "embed: 'text'"]
+  },
+  {
+    href: '/docs/guides/content-conversion/url-to-markdown',
+    title: 'URL to Markdown',
     mustContain: ['data.markdown.attr=markdown', "embed: 'markdown'"]
   },
   {
-    href: '/docs/guides/content-conversion/any-url-to-html',
-    title: 'Convert any URL to HTML',
+    href: '/docs/guides/content-conversion/url-to-html',
+    title: 'URL to HTML',
     mustContain: ['data.html.attr=html', "embed: 'html'"]
   },
   {
