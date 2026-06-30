@@ -77,4 +77,4 @@ For LLM and indexing workflows, `meta: true` prepends YAML frontmatter with norm
 
 ## Next step
 
-Use <Link href='/docs/guides/markdown/choosing-scope' children='Markdown: Choosing scope' /> when the output is noisy or incomplete. Use <Link href='/docs/guides/content-conversion/url-to-text' children='Web page to Text' /> when the consumer only needs readable text, or <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF file to Markdown' /> when the source URL points directly to a PDF file.
+Use <Link href='/docs/guides/data-extraction/page-preparation' children='Data extraction: Page preparation' /> when the output is noisy or incomplete. Use <Link href='/docs/guides/content-conversion/url-to-text' children='Web page to Text' /> when the consumer only needs readable text, or <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF file to Markdown' /> when the source URL points directly to a PDF file.

@@ -118,6 +118,30 @@
       "destination": "/docs/guides"
     },
     {
+      "source": "/docs/guides/markdown",
+      "destination": "/docs/guides/content-conversion/url-to-markdown"
+    },
+    {
+      "source": "/docs/guides/markdown/index.md",
+      "destination": "/docs/guides/content-conversion/url-to-markdown.md"
+    },
+    {
+      "source": "/docs/guides/markdown/choosing-scope",
+      "destination": "/docs/guides/data-extraction/page-preparation"
+    },
+    {
+      "source": "/docs/guides/markdown/choosing-scope.md",
+      "destination": "/docs/guides/data-extraction/page-preparation.md"
+    },
+    {
+      "source": "/docs/guides/markdown/delivery-and-response",
+      "destination": "/docs/guides/data-extraction/delivery-and-response"
+    },
+    {
+      "source": "/docs/guides/markdown/delivery-and-response.md",
+      "destination": "/docs/guides/data-extraction/delivery-and-response.md"
+    },
+    {
       "source": "/audio",
       "destination": "/docs/api/parameters/audio"
     },

@@ -100,7 +100,7 @@ If `meta` stays enabled, your custom fields live alongside normalized metadata s
 | A JSON endpoint | `attr: 'json'` | Parses the response body and returns structured data |
 | A computed or awkward value | `evaluate` or fallback rules | Helps when one selector is not enough |
 
-If your main goal is HTML-to-Markdown conversion, jump to the dedicated <Link href='/docs/guides/markdown' children='Markdown guide' />. This guide focuses on the broader `data` utility.
+If your main goal is HTML-to-Markdown conversion, jump to <Link href='/docs/guides/content-conversion/url-to-markdown' children='Web page to Markdown' />. This guide focuses on the broader `data` utility.
 
 ## Skip metadata for faster responses
 
@@ -176,6 +176,6 @@ Pick the next step based on the result you want:
 
 ## See also
 
-- <Link href='/docs/guides/markdown' children='Markdown' /> — if you want the extracted content as Markdown rather than raw text or HTML.
+- <Link href='/docs/guides/content-conversion/url-to-markdown' children='Web page to Markdown' /> — if you want the extracted content as Markdown rather than raw text or HTML.
 - <Link href='/docs/guides/metadata' children='Metadata' /> — if you only need standard link preview fields without custom rules.
 - <Link href='/docs/guides/function' children='Function' /> — if you need Puppeteer-level browser control beyond what `data` rules offer.

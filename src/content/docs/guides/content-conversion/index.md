@@ -79,6 +79,5 @@ That makes the API URL return the converted body directly instead of a JSON enve
 
 These pages are direct conversion recipes. Use the broader guides when you need more control:
 
-- <Link href='/docs/guides/markdown' children='Markdown' /> for scoping, frontmatter, and production Markdown delivery.
-- <Link href='/docs/guides/data-extraction' children='Data extraction' /> for nested fields, collections, typed values, JSON endpoints, and browser-side evaluation.
+- <Link href='/docs/guides/data-extraction' children='Data extraction' /> for selectors, scoping, nested fields, collections, typed values, JSON endpoints, and browser-side evaluation.
 - <Link href='/docs/guides/common/private-pages' children='Private pages' /> for cookies, authorization headers, and server-side proxying.

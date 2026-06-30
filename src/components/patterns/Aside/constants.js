@@ -704,20 +704,6 @@ const ROUTES_GUIDES = [
         ]
       },
       {
-        name: 'Markdown',
-        href: '/docs/guides/markdown',
-        posts: [
-          {
-            name: 'Choosing scope',
-            href: '/docs/guides/markdown/choosing-scope'
-          },
-          {
-            name: 'Delivery and response shaping',
-            href: '/docs/guides/markdown/delivery-and-response'
-          }
-        ]
-      },
-      {
         name: 'Function',
         href: '/docs/guides/function',
         posts: [

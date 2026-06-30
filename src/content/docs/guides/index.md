@@ -30,7 +30,6 @@ New to the API? Start with <Link href='/docs/guides/what-is-microlink' children=
 | Scrape structured data from a page | <Link href='/docs/guides/data-extraction' children='Data extraction' /> |
 | Embed any URL as a card, iframe, or custom HTML preview | <Link href='/docs/guides/embed' children='Embed' /> |
 | Convert a web page, PDF file, or JSON endpoint | <Link href='/docs/guides/content-conversion' children='Content conversion' /> |
-| Convert a page to Markdown | <Link href='/docs/guides/markdown' children='Markdown' /> |
 | Run custom JavaScript in a headless browser | <Link href='/docs/guides/function' children='Function' /> |
 | Turn a page into a PDF | <Link href='/docs/guides/pdf' children='PDF' /> |
 | Get link preview data (title, image, description) | <Link href='/docs/guides/metadata' children='Metadata' /> |
@@ -64,14 +63,6 @@ Extract exactly the fields you need from any page with Microlink API, shape the 
 - <Link href='/docs/guides/data-extraction/caching-and-performance' children='Caching and performance' /> — cache control, stale-while-revalidate, and extraction speed tips.
 - <Link href='/docs/guides/data-extraction/private-pages' children='Private pages' /> — extract data from authenticated or session-based pages safely.
 - <Link href='/docs/guides/data-extraction/troubleshooting' children='Troubleshooting' /> — fix empty fields, wrong selectors, timeouts, and blocked sites.
-
-## Markdown
-
-Convert full pages or scoped sections to Markdown. This guide is intentionally smaller than Data extraction: it covers the `attr: 'markdown'` workflow, then sends you to the deeper Data extraction pages whenever the topic becomes shared.
-
-- <Link href='/docs/guides/markdown' children='Quickstart' /> — your first Markdown extraction, plus the mental model that connects it to Data extraction.
-- <Link href='/docs/guides/markdown/choosing-scope' children='Choosing scope' /> — choose the right wrapper, prepare the page state, and fix noisy or incomplete Markdown.
-- <Link href='/docs/guides/markdown/delivery-and-response' children='Delivery and response shaping' /> — choose between JSON and direct Markdown responses, then apply the right performance and auth patterns.
 
 ## Content conversion
 

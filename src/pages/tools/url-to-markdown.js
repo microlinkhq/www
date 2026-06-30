@@ -172,7 +172,9 @@ const REASON_TO_USE = [
       <>
         Static sites, SPAs, JavaScript-rendered pages — it handles them all.
         Enable{' '}
-        <Link href='/docs/guides/markdown/choosing-scope'>prerendering</Link>{' '}
+        <Link href='/docs/guides/data-extraction/page-preparation'>
+          prerendering
+        </Link>{' '}
         for client-side apps. If the target page has bot protection,{' '}
         <Link href='/pricing'>pro plans</Link> can bypass it.
       </>
@@ -184,8 +186,8 @@ const REASON_TO_USE = [
       <>
         Extract the full page by default, or use an HTML selector to target
         specific sections. All matching elements are joined automatically.{' '}
-        <Link href='/docs/guides/markdown/choosing-scope'>
-          Learn about choosing scope
+        <Link href='/docs/guides/content-conversion/url-to-markdown#scope-noisy-pages'>
+          Learn about scoped Markdown
         </Link>
         .
       </>
@@ -221,9 +223,9 @@ const USE_CASES = [
       'Toggle metadata off when you only need the raw content'
     ],
     link: {
-      href: '/docs/guides/markdown',
-      alt: 'Markdown extraction guide',
-      text: 'Read the markdown guide'
+      href: '/docs/guides/content-conversion/url-to-markdown',
+      alt: 'URL to Markdown conversion guide',
+      text: 'Read the conversion guide'
     }
   },
   {
@@ -235,9 +237,9 @@ const USE_CASES = [
       'Edit extracted markdown before exporting'
     ],
     link: {
-      href: '/docs/guides/markdown/choosing-scope',
-      alt: 'Choosing scope guide for targeted extraction',
-      text: 'Learn about scope options'
+      href: '/docs/guides/content-conversion/url-to-markdown#scope-noisy-pages',
+      alt: 'Scoped Markdown conversion',
+      text: 'Learn about scoped extraction'
     }
   },
   {
@@ -2478,7 +2480,7 @@ const MarkdownApiDocsCard = () => (
           fontSize: 3
         })}
       >
-        Explore the full Markdown API guide with interactive examples, HTML
+        Explore the URL to Markdown guide with interactive examples, HTML
         selectors, caching strategies, and ready-to-use code snippets.
       </Caption>
       <Flex
@@ -2490,7 +2492,9 @@ const MarkdownApiDocsCard = () => (
           fontSize: [2, 2, 3, 3]
         })}
       >
-        <ArrowLink href='/docs/guides/markdown'>Getting started</ArrowLink>
+        <ArrowLink href='/docs/guides/content-conversion/url-to-markdown'>
+          Getting started
+        </ArrowLink>
       </Flex>
     </Box>
   </Container>
@@ -2545,8 +2549,8 @@ const ProductInformation = () => (
             <div>
               Use an <b>HTML Selector</b> in Advanced options to target the
               article or documentation body. See the{' '}
-              <Link href='/docs/guides/markdown/choosing-scope'>
-                choosing scope guide
+              <Link href='/docs/guides/content-conversion/url-to-markdown#scope-noisy-pages'>
+                Web page to Markdown guide
               </Link>{' '}
               for details.
             </div>
@@ -2579,8 +2583,8 @@ const ProductInformation = () => (
             </div>
             <div>
               Learn more in the{' '}
-              <Link href='/docs/guides/markdown/choosing-scope#prepare-the-page-before-conversion'>
-                choosing scope guide
+              <Link href='/docs/guides/data-extraction/page-preparation#wait-for-dynamic-content'>
+                page preparation guide
               </Link>
               .
             </div>
@@ -2639,8 +2643,8 @@ const ProductInformation = () => (
               </Link>{' '}
               SDK for Node.js, or hit the API directly from any HTTP client.
               Check the{' '}
-              <Link href='/docs/guides/markdown/delivery-and-response'>
-                delivery guide
+              <Link href='/docs/guides/data-extraction/delivery-and-response'>
+                data delivery guide
               </Link>{' '}
               for response formats.
             </div>
@@ -2660,8 +2664,8 @@ const ProductInformation = () => (
             <div>
               Uncheck <b>Use cache</b> if you need fresh content from a
               frequently updated page. Read the{' '}
-              <Link href='/docs/guides/markdown/delivery-and-response'>
-                delivery and response guide
+              <Link href='/docs/guides/data-extraction/delivery-and-response'>
+                data delivery guide
               </Link>{' '}
               for advanced caching strategies.
             </div>

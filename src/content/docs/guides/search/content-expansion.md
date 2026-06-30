@@ -121,4 +121,4 @@ This two-step pattern maps naturally to tool-calling agent loops. The model make
 - <Link href='/docs/guides/search' children='Search' /> — install the client and make your first query.
 - <Link href='/docs/guides/search/search' children='Web Search' />, <Link href='/docs/guides/search/news' children='News' />, <Link href='/docs/guides/search/scholar' children='Scholar' />, and more — field reference for each surface.
 - <Link href='/docs/guides/search/patterns' children='Integration patterns' /> — agent tool calling, RAG pipelines, and multi-step research workflows.
-- <Link href='/docs/guides/markdown' children='Markdown guide' /> — if you already have a URL and want to convert it to Markdown directly through the Microlink API.
+- <Link href='/docs/guides/content-conversion/url-to-markdown' children='Web page to Markdown' /> — if you already have a URL and want to convert it to Markdown directly through the Microlink API.

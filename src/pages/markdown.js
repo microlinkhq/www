@@ -1232,7 +1232,9 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
               justifyContent: ['center', 'center', 'center', 'flex-start']
             })}
           >
-            <ArrowLink href='/docs/guides/markdown'>Get Started</ArrowLink>
+            <ArrowLink href='/docs/guides/content-conversion/url-to-markdown'>
+              Get Started
+            </ArrowLink>
           </Flex>
         </Flex>
         <Flex
@@ -2321,7 +2323,7 @@ const TokenSavings = () => (
         Feed more content into every LLM call and cut inference costs at scale.
       </Caption>
       <ArrowLink
-        href='/docs/guides/markdown'
+        href='/docs/guides/content-conversion/url-to-markdown'
         css={theme({
           fontSize: ['22px', '24px', '26px', '26px'],
           color: 'white'
@@ -2715,7 +2717,9 @@ const CodeExample = () => {
               justifyContent: ['center', 'center', 'center', 'flex-start']
             })}
           >
-            <ArrowLink href='/docs/guides/markdown'>Read the docs</ArrowLink>
+            <ArrowLink href='/docs/guides/content-conversion/url-to-markdown'>
+              Read the docs
+            </ArrowLink>
           </Flex>
         </Flex>
         <Flex
@@ -3630,7 +3634,7 @@ const CallToAction = () => (
         })}
       >
         <ArrowLink
-          href='/docs/guides/markdown'
+          href='/docs/guides/content-conversion/url-to-markdown'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
           Get started free
@@ -3699,7 +3703,7 @@ const ProductInformation = () => {
               </div>
               <div>
                 Use it for{' '}
-                <Link href='/docs/guides/markdown'>
+                <Link href='/docs/guides/content-conversion/url-to-markdown'>
                   crawling, summarization, and RAG ingestion
                 </Link>{' '}
                 where clean text beats noisy HTML.
@@ -3720,7 +3724,7 @@ const ProductInformation = () => {
               </div>
               <div>
                 You can further tune extraction with{' '}
-                <Link href='/docs/guides/markdown/choosing-scope#start-with-the-smallest-useful-wrapper'>
+                <Link href='/docs/guides/content-conversion/url-to-markdown#scope-noisy-pages'>
                   CSS selector scoping
                 </Link>{' '}
                 to target only the content your agents need.
@@ -3758,7 +3762,7 @@ const ProductInformation = () => {
               <div>
                 Unlike solutions that require opt-in at the infrastructure
                 layer, Microlink works on the entire web immediately. See{' '}
-                <Link href='/docs/guides/markdown/delivery-and-response#use-a-fast-default-for-production'>
+                <Link href='/docs/guides/data-extraction/delivery-and-response'>
                   delivery and response
                 </Link>{' '}
                 for production configuration options.
@@ -3772,7 +3776,7 @@ const ProductInformation = () => {
             <>
               <div>
                 Absolutely. Use the{' '}
-                <Link href='/docs/guides/markdown/choosing-scope#start-with-the-smallest-useful-wrapper'>
+                <Link href='/docs/guides/content-conversion/url-to-markdown#scope-noisy-pages'>
                   selector parameter
                 </Link>{' '}
                 to target specific DOM elements — narrow to main, article, or
@@ -3811,8 +3815,10 @@ const ProductInformation = () => {
             <>
               <div>
                 In minutes. Visit our{' '}
-                <Link href='/docs/guides/markdown'>documentation</Link> for
-                interactive playground examples, official{' '}
+                <Link href='/docs/guides/content-conversion/url-to-markdown'>
+                  documentation
+                </Link>{' '}
+                for interactive playground examples, official{' '}
                 <Link href='/docs/mql/getting-started/overview'>
                   MQL client
                 </Link>{' '}
@@ -3842,7 +3848,7 @@ const ProductInformation = () => {
                 markdown output,{' '}
                 <Link href='/docs/api/parameters/ttl'>ttl</Link> for cache
                 control, and the data extraction rules for{' '}
-                <Link href='/docs/guides/markdown/choosing-scope'>
+                <Link href='/docs/guides/data-extraction/page-preparation'>
                   CSS selector scoping
                 </Link>
                 .
@@ -4144,7 +4150,7 @@ const MarkdownPage = () => {
             No more custom scrapers or brittle parsing — our URL to markdown API
             lets you convert any web page to markdown with easy integration via
             the{' '}
-            <Link href='/docs/guides/markdown'>
+            <Link href='/docs/guides/content-conversion/url-to-markdown'>
               URL to Markdown API documentation
             </Link>
             .

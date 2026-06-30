@@ -285,7 +285,7 @@ Now that you understand what Microlink does, pick the workflow that matches your
 - **<Link href='/docs/guides/data-extraction' children='Data extraction' />** — scrape structured data with CSS selectors.
 - **<Link href='/docs/guides/metadata' children='Metadata' />** — get normalized link preview data.
 - **<Link href='/docs/guides/pdf' children='PDF' />** — generate printable documents from any page.
-- **<Link href='/docs/guides/markdown' children='Markdown' />** — convert pages to clean Markdown.
+- **<Link href='/docs/guides/content-conversion/url-to-markdown' children='Web page to Markdown' />** — convert pages to clean Markdown.
 - **<Link href='/docs/guides/function' children='Function' />** — run JavaScript with full Puppeteer access.
 - **<Link href='/docs/guides/insights' children='Insights' />** — detect technologies or run Lighthouse audits.
 

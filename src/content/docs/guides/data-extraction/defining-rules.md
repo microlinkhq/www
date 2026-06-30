@@ -129,7 +129,7 @@ For example, a link field usually needs both:
 
 <Figcaption>Think of <code>attr</code> as “where to read from” and <code>type</code> as “what shape this value should have”.</Figcaption>
 
-If you specifically want HTML-to-Markdown serialization, see the <Link href='/docs/guides/markdown' children='Markdown guide' />.
+If you specifically want HTML-to-Markdown serialization, see <Link href='/docs/guides/content-conversion/url-to-markdown' children='Web page to Markdown' />.
 
 ## Extract JSON
 

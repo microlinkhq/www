@@ -119,9 +119,13 @@ https://microlink.io/docs/guides/metadata/page-preparation.md
 https://microlink.io/docs/guides/metadata/private-pages.md
 https://microlink.io/docs/guides/metadata/caching-and-performance.md
 https://microlink.io/docs/guides/metadata/troubleshooting.md
-https://microlink.io/docs/guides/markdown/index.md
-https://microlink.io/docs/guides/markdown/choosing-scope.md
-https://microlink.io/docs/guides/markdown/delivery-and-response.md
+https://microlink.io/docs/guides/content-conversion/index.md
+https://microlink.io/docs/guides/content-conversion/url-to-text.md
+https://microlink.io/docs/guides/content-conversion/url-to-markdown.md
+https://microlink.io/docs/guides/content-conversion/url-to-html.md
+https://microlink.io/docs/guides/content-conversion/pdf-url-to-markdown.md
+https://microlink.io/docs/guides/content-conversion/pdf-url-to-html.md
+https://microlink.io/docs/guides/content-conversion/json-endpoint-to-json.md
 https://microlink.io/docs/guides/data-extraction/index.md
 https://microlink.io/docs/guides/data-extraction/defining-rules.md
 https://microlink.io/docs/guides/data-extraction/delivery-and-response.md
