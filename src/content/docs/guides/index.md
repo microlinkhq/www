@@ -29,6 +29,7 @@ New to the API? Start with <Link href='/docs/guides/what-is-microlink' children=
 | Get an image of a website | <Link href='/docs/guides/screenshot' children='Screenshot' /> |
 | Scrape structured data from a page | <Link href='/docs/guides/data-extraction' children='Data extraction' /> |
 | Embed any URL as a card, iframe, or custom HTML preview | <Link href='/docs/guides/embed' children='Embed' /> |
+| Convert a URL or PDF URL into Markdown or HTML | <Link href='/docs/guides/content-conversion' children='Content conversion' /> |
 | Convert a page to Markdown | <Link href='/docs/guides/markdown' children='Markdown' /> |
 | Run custom JavaScript in a headless browser | <Link href='/docs/guides/function' children='Function' /> |
 | Turn a page into a PDF | <Link href='/docs/guides/pdf' children='PDF' /> |
@@ -71,6 +72,16 @@ Convert full pages or scoped sections to Markdown. This guide is intentionally s
 - <Link href='/docs/guides/markdown' children='Quickstart' /> — your first Markdown extraction, plus the mental model that connects it to Data extraction.
 - <Link href='/docs/guides/markdown/choosing-scope' children='Choosing scope' /> — choose the right wrapper, prepare the page state, and fix noisy or incomplete Markdown.
 - <Link href='/docs/guides/markdown/delivery-and-response' children='Delivery and response shaping' /> — choose between JSON and direct Markdown responses, then apply the right performance and auth patterns.
+
+## Content conversion
+
+Convert normal URLs and PDF URLs into Markdown or HTML with direct recipes that are easy to copy into a worker, ingestion pipeline, CMS import, or LLM flow.
+
+- <Link href='/docs/guides/content-conversion' children='Overview' /> - choose the right conversion recipe and response model.
+- <Link href='/docs/guides/content-conversion/any-url-to-markdown' children='Any URL to Markdown' /> - convert a public page into clean Markdown.
+- <Link href='/docs/guides/content-conversion/any-url-to-html' children='Any URL to HTML' /> - return full-page HTML or a scoped HTML fragment.
+- <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF URL to Markdown' /> - extract PDF text as Markdown.
+- <Link href='/docs/guides/content-conversion/pdf-url-to-html' children='PDF URL to HTML' /> - extract PDF content as HTML.
 
 ## Function
 

@@ -674,6 +674,28 @@ const ROUTES_GUIDES = [
         ]
       },
       {
+        name: 'Content conversion',
+        href: '/docs/guides/content-conversion',
+        posts: [
+          {
+            name: 'Any URL to Markdown',
+            href: '/docs/guides/content-conversion/any-url-to-markdown'
+          },
+          {
+            name: 'Any URL to HTML',
+            href: '/docs/guides/content-conversion/any-url-to-html'
+          },
+          {
+            name: 'PDF URL to Markdown',
+            href: '/docs/guides/content-conversion/pdf-url-to-markdown'
+          },
+          {
+            name: 'PDF URL to HTML',
+            href: '/docs/guides/content-conversion/pdf-url-to-html'
+          }
+        ]
+      },
+      {
         name: 'Markdown',
         href: '/docs/guides/markdown',
         posts: [
