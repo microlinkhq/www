@@ -14,9 +14,11 @@ const conversionGuides = [
     title: 'Content conversion',
     mustContain: [
       'direct PDF file URLs',
+      'JSON endpoints',
       "attr: 'text'",
       "attr: 'markdown'",
-      "attr: 'html'"
+      "attr: 'html'",
+      "attr: 'json'"
     ]
   },
   {
@@ -47,6 +49,16 @@ const conversionGuides = [
     href: '/docs/guides/content-conversion/pdf-url-to-html',
     title: 'PDF file to HTML',
     mustContain: ['direct PDF file URL', 'sample.pdf', 'data.html.attr=html']
+  },
+  {
+    href: '/docs/guides/content-conversion/json-endpoint-to-json',
+    title: 'JSON endpoint to JSON',
+    mustContain: [
+      'JSON endpoint',
+      "attr: 'json'",
+      'data.json.attr=json',
+      "embed: 'json'"
+    ]
   }
 ]
 

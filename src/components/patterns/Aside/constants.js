@@ -696,6 +696,10 @@ const ROUTES_GUIDES = [
           {
             name: 'PDF file to HTML',
             href: '/docs/guides/content-conversion/pdf-url-to-html'
+          },
+          {
+            name: 'JSON endpoint to JSON',
+            href: '/docs/guides/content-conversion/json-endpoint-to-json'
           }
         ]
       },

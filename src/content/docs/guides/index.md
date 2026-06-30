@@ -29,7 +29,7 @@ New to the API? Start with <Link href='/docs/guides/what-is-microlink' children=
 | Get an image of a website | <Link href='/docs/guides/screenshot' children='Screenshot' /> |
 | Scrape structured data from a page | <Link href='/docs/guides/data-extraction' children='Data extraction' /> |
 | Embed any URL as a card, iframe, or custom HTML preview | <Link href='/docs/guides/embed' children='Embed' /> |
-| Convert a URL or PDF URL into Markdown or HTML | <Link href='/docs/guides/content-conversion' children='Content conversion' /> |
+| Convert a web page, PDF file, or JSON endpoint | <Link href='/docs/guides/content-conversion' children='Content conversion' /> |
 | Convert a page to Markdown | <Link href='/docs/guides/markdown' children='Markdown' /> |
 | Run custom JavaScript in a headless browser | <Link href='/docs/guides/function' children='Function' /> |
 | Turn a page into a PDF | <Link href='/docs/guides/pdf' children='PDF' /> |
@@ -75,7 +75,7 @@ Convert full pages or scoped sections to Markdown. This guide is intentionally s
 
 ## Content conversion
 
-Convert web page URLs and direct PDF file URLs into text, Markdown, or HTML with direct recipes that are easy to copy into a worker, ingestion pipeline, CMS import, or LLM flow.
+Convert web page URLs, direct PDF file URLs, and JSON endpoints into text, Markdown, HTML, or structured JSON with direct recipes that are easy to copy into a worker, ingestion pipeline, CMS import, or LLM flow.
 
 - <Link href='/docs/guides/content-conversion' children='Overview' /> - choose the right conversion recipe and response model.
 - <Link href='/docs/guides/content-conversion/url-to-text' children='Web page to Text' /> - convert a web page into readable plain text.
@@ -83,6 +83,7 @@ Convert web page URLs and direct PDF file URLs into text, Markdown, or HTML with
 - <Link href='/docs/guides/content-conversion/url-to-html' children='Web page to HTML' /> - return full-page HTML or a scoped HTML fragment.
 - <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF file to Markdown' /> - extract a direct PDF file URL as Markdown.
 - <Link href='/docs/guides/content-conversion/pdf-url-to-html' children='PDF file to HTML' /> - extract a direct PDF file URL as HTML.
+- <Link href='/docs/guides/content-conversion/json-endpoint-to-json' children='JSON endpoint to JSON' /> - parse a JSON endpoint response as structured data.
 
 ## Function
 
