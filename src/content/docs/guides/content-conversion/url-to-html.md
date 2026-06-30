@@ -1,6 +1,6 @@
 ---
-title: 'URL to HTML'
-description: 'Use Microlink API to fetch, render, and return HTML from a public URL, either as JSON or as a direct HTML response.'
+title: 'Web page to HTML'
+description: 'Use Microlink API to fetch, render, and return HTML from a web page URL, either as JSON or as a direct HTML response.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
@@ -96,4 +96,4 @@ When the initial HTML is empty because the page is client-rendered, turn on brow
 
 ## Next step
 
-Use <Link href='/docs/guides/data-extraction/page-preparation' children='Data extraction: Page preparation' /> for waits, clicks, scrolling, browser settings, and CSS cleanup. Use <Link href='/docs/guides/content-conversion/url-to-text' children='URL to Text' /> when the consumer only needs readable text, or <Link href='/docs/guides/content-conversion/pdf-url-to-html' children='PDF URL to HTML' /> when the source URL is a PDF.
+Use <Link href='/docs/guides/data-extraction/page-preparation' children='Data extraction: Page preparation' /> for waits, clicks, scrolling, browser settings, and CSS cleanup. Use <Link href='/docs/guides/content-conversion/url-to-text' children='Web page to Text' /> when the consumer only needs readable text, or <Link href='/docs/guides/content-conversion/pdf-url-to-html' children='PDF file to HTML' /> when the source URL points directly to a PDF file.

@@ -1,13 +1,13 @@
 ---
-title: 'Convert a PDF URL to HTML'
-description: 'Use Microlink API to read a PDF URL and return extracted HTML markup, either inside JSON or as a direct HTML response.'
+title: 'PDF file to HTML'
+description: 'Use Microlink API to read a direct PDF file URL and return extracted HTML markup, either inside JSON or as a direct HTML response.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 
-When the source URL is a PDF, Microlink can still expose an HTML DOM for extraction. Request `attr: 'html'` to return the converted markup.
+When the source URL points directly to a PDF file, Microlink can still expose an HTML DOM for extraction. Request `attr: 'html'` to return the converted markup.
 
 <MultiCodeEditorInteractive
   height={300}
@@ -77,4 +77,4 @@ This works best for PDFs with selectable text. Image-only scans may produce litt
 
 ## Next step
 
-Use <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF URL to Markdown' /> when the consumer is an LLM, search index, or Markdown-native system. Use <Link href='/docs/guides/content-conversion/url-to-html' children='URL to HTML' /> for web pages.
+Use <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF file to Markdown' /> when the consumer is an LLM, search index, or Markdown-native system. Use <Link href='/docs/guides/content-conversion/url-to-html' children='Web page to HTML' /> for web pages.

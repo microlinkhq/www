@@ -75,14 +75,14 @@ Convert full pages or scoped sections to Markdown. This guide is intentionally s
 
 ## Content conversion
 
-Convert normal URLs and PDF URLs into text, Markdown, or HTML with direct recipes that are easy to copy into a worker, ingestion pipeline, CMS import, or LLM flow.
+Convert web page URLs and direct PDF file URLs into text, Markdown, or HTML with direct recipes that are easy to copy into a worker, ingestion pipeline, CMS import, or LLM flow.
 
 - <Link href='/docs/guides/content-conversion' children='Overview' /> - choose the right conversion recipe and response model.
-- <Link href='/docs/guides/content-conversion/url-to-text' children='URL to Text' /> - convert a public page into readable plain text.
-- <Link href='/docs/guides/content-conversion/url-to-markdown' children='URL to Markdown' /> - convert a public page into clean Markdown.
-- <Link href='/docs/guides/content-conversion/url-to-html' children='URL to HTML' /> - return full-page HTML or a scoped HTML fragment.
-- <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF URL to Markdown' /> - extract PDF text as Markdown.
-- <Link href='/docs/guides/content-conversion/pdf-url-to-html' children='PDF URL to HTML' /> - extract PDF content as HTML.
+- <Link href='/docs/guides/content-conversion/url-to-text' children='Web page to Text' /> - convert a web page into readable plain text.
+- <Link href='/docs/guides/content-conversion/url-to-markdown' children='Web page to Markdown' /> - convert a web page into clean Markdown.
+- <Link href='/docs/guides/content-conversion/url-to-html' children='Web page to HTML' /> - return full-page HTML or a scoped HTML fragment.
+- <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF file to Markdown' /> - extract a direct PDF file URL as Markdown.
+- <Link href='/docs/guides/content-conversion/pdf-url-to-html' children='PDF file to HTML' /> - extract a direct PDF file URL as HTML.
 
 ## Function
 

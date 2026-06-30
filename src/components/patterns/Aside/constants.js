@@ -678,23 +678,23 @@ const ROUTES_GUIDES = [
         href: '/docs/guides/content-conversion',
         posts: [
           {
-            name: 'URL to Text',
+            name: 'Web page to Text',
             href: '/docs/guides/content-conversion/url-to-text'
           },
           {
-            name: 'URL to Markdown',
+            name: 'Web page to Markdown',
             href: '/docs/guides/content-conversion/url-to-markdown'
           },
           {
-            name: 'URL to HTML',
+            name: 'Web page to HTML',
             href: '/docs/guides/content-conversion/url-to-html'
           },
           {
-            name: 'PDF URL to Markdown',
+            name: 'PDF file to Markdown',
             href: '/docs/guides/content-conversion/pdf-url-to-markdown'
           },
           {
-            name: 'PDF URL to HTML',
+            name: 'PDF file to HTML',
             href: '/docs/guides/content-conversion/pdf-url-to-html'
           }
         ]

@@ -1,6 +1,6 @@
 ---
-title: 'URL to Text'
-description: 'Use Microlink API to convert a public URL into readable plain text, either inside JSON or as a direct text response.'
+title: 'Web page to Text'
+description: 'Use Microlink API to convert a web page URL into readable plain text, either inside JSON or as a direct text response.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
@@ -81,4 +81,4 @@ Use a selector when the page has navigation, footers, or other text that should 
 
 ## Next step
 
-Use <Link href='/docs/guides/content-conversion/url-to-markdown' children='URL to Markdown' /> when you need document structure, or <Link href='/docs/guides/content-conversion/url-to-html' children='URL to HTML' /> when you need markup.
+Use <Link href='/docs/guides/content-conversion/url-to-markdown' children='Web page to Markdown' /> when you need document structure, or <Link href='/docs/guides/content-conversion/url-to-html' children='Web page to HTML' /> when you need markup.

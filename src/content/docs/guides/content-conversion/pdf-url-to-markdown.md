@@ -1,13 +1,13 @@
 ---
-title: 'Convert a PDF URL to Markdown'
-description: 'Use Microlink API to read a PDF URL and return its extracted content as Markdown for search, LLM, and document workflows.'
+title: 'PDF file to Markdown'
+description: 'Use Microlink API to read a direct PDF file URL and return its extracted content as Markdown for search, LLM, and document workflows.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 
-PDF URLs use the same Markdown extraction rule as web pages. Set the PDF as `url`, then request a Markdown field with `attr: 'markdown'`.
+Direct PDF file URLs use the same Markdown extraction rule as web pages. Set the PDF file URL as `url`, then request a Markdown field with `attr: 'markdown'`.
 
 <MultiCodeEditorInteractive
   height={300}
@@ -73,4 +73,4 @@ This works best for PDFs with an embedded text layer. If the PDF is only scanned
 
 ## Next step
 
-Use <Link href='/docs/guides/content-conversion/pdf-url-to-html' children='PDF URL to HTML' /> when you need markup instead. Use <Link href='/docs/guides/content-conversion/url-to-markdown' children='URL to Markdown' /> for web pages.
+Use <Link href='/docs/guides/content-conversion/pdf-url-to-html' children='PDF file to HTML' /> when you need markup instead. Use <Link href='/docs/guides/content-conversion/url-to-markdown' children='Web page to Markdown' /> for web pages.

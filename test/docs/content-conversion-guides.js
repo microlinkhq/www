@@ -12,32 +12,41 @@ const conversionGuides = [
   {
     href: '/docs/guides/content-conversion',
     title: 'Content conversion',
-    mustContain: ["attr: 'text'", "attr: 'markdown'", "attr: 'html'"]
+    mustContain: [
+      'direct PDF file URLs',
+      "attr: 'text'",
+      "attr: 'markdown'",
+      "attr: 'html'"
+    ]
   },
   {
     href: '/docs/guides/content-conversion/url-to-text',
-    title: 'URL to Text',
+    title: 'Web page to Text',
     mustContain: ['data.text.attr=text', "embed: 'text'"]
   },
   {
     href: '/docs/guides/content-conversion/url-to-markdown',
-    title: 'URL to Markdown',
+    title: 'Web page to Markdown',
     mustContain: ['data.markdown.attr=markdown', "embed: 'markdown'"]
   },
   {
     href: '/docs/guides/content-conversion/url-to-html',
-    title: 'URL to HTML',
+    title: 'Web page to HTML',
     mustContain: ['data.html.attr=html', "embed: 'html'"]
   },
   {
     href: '/docs/guides/content-conversion/pdf-url-to-markdown',
-    title: 'Convert a PDF URL to Markdown',
-    mustContain: ['sample.pdf', 'data.markdown.attr=markdown']
+    title: 'PDF file to Markdown',
+    mustContain: [
+      'direct PDF file URL',
+      'sample.pdf',
+      'data.markdown.attr=markdown'
+    ]
   },
   {
     href: '/docs/guides/content-conversion/pdf-url-to-html',
-    title: 'Convert a PDF URL to HTML',
-    mustContain: ['sample.pdf', 'data.html.attr=html']
+    title: 'PDF file to HTML',
+    mustContain: ['direct PDF file URL', 'sample.pdf', 'data.html.attr=html']
   }
 ]
 
