@@ -698,6 +698,18 @@ const ROUTES_GUIDES = [
             href: '/docs/guides/content-conversion/pdf-url-to-html'
           },
           {
+            name: 'docx, xlsx, pptx to Text',
+            href: '/docs/guides/content-conversion/office-url-to-text'
+          },
+          {
+            name: 'docx, xlsx, pptx to Markdown',
+            href: '/docs/guides/content-conversion/office-url-to-markdown'
+          },
+          {
+            name: 'docx, xlsx, pptx to HTML',
+            href: '/docs/guides/content-conversion/office-url-to-html'
+          },
+          {
             name: 'JSON endpoint to JSON',
             href: '/docs/guides/content-conversion/json-endpoint-to-json'
           }

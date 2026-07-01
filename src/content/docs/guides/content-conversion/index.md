@@ -1,11 +1,11 @@
 ---
 title: 'Content conversion'
-description: 'Convert web page URLs, direct PDF file URLs, and JSON endpoints into text, Markdown, HTML, or structured JSON with Microlink API.'
+description: 'Convert web page URLs, direct PDF file URLs, docx, xlsx, pptx and other office documents, and JSON endpoints into text, Markdown, HTML, or structured JSON with Microlink API.'
 ---
 
 import { Link } from 'components/elements/Link'
 
-Microlink can turn a URL into the format your downstream system needs. The same `data` rule model works for normal web pages, direct PDF file URLs, and JSON endpoints:
+Microlink can turn a URL into the format your downstream system needs. The same `data` rule model works for normal web pages, direct PDF file URLs, `docx`/`xlsx`/`pptx` and other office documents, and JSON endpoints:
 
 - use `attr: 'text'` when the consumer wants readable plain text
 - use `attr: 'markdown'` when the consumer wants clean Markdown
@@ -14,7 +14,7 @@ Microlink can turn a URL into the format your downstream system needs. The same 
 - keep the default JSON response when an application needs metadata around the field
 - add `embed` when the API URL itself should return the converted field
 
-A PDF file URL and a JSON endpoint are still passed through the same `url` parameter. The difference is the source document: use the PDF file guides when the URL points directly to a PDF, such as a `.pdf` file or an `application/pdf` response. Use the JSON endpoint guide when the URL returns a JSON response, such as `application/json`.
+A PDF file URL, an office document, and a JSON endpoint are still passed through the same `url` parameter. The difference is the source document: use the PDF file guides when the URL points directly to a PDF, such as a `.pdf` file or an `application/pdf` response. Use the office file guides when the URL points to a `docx`, `xlsx`, `pptx`, `odt`, `rtf`, or `epub` document. Use the JSON endpoint guide when the URL returns a JSON response, such as `application/json`.
 
 ## Choose the guide
 
@@ -25,6 +25,9 @@ A PDF file URL and a JSON endpoint are still passed through the same `url` param
 | Web page URL | HTML | <Link href='/docs/guides/content-conversion/url-to-html' children='Web page to HTML' /> |
 | Direct PDF file URL | Markdown | <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF file to Markdown' /> |
 | Direct PDF file URL | HTML | <Link href='/docs/guides/content-conversion/pdf-url-to-html' children='PDF file to HTML' /> |
+| docx, xlsx, pptx… | Text | <Link href='/docs/guides/content-conversion/office-url-to-text' children='docx, xlsx, pptx to Text' /> |
+| docx, xlsx, pptx… | Markdown | <Link href='/docs/guides/content-conversion/office-url-to-markdown' children='docx, xlsx, pptx to Markdown' /> |
+| docx, xlsx, pptx… | HTML | <Link href='/docs/guides/content-conversion/office-url-to-html' children='docx, xlsx, pptx to HTML' /> |
 | JSON endpoint URL | JSON | <Link href='/docs/guides/content-conversion/json-endpoint-to-json' children='JSON endpoint to JSON' /> |
 
 ## The shared pattern
