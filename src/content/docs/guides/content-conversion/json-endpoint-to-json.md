@@ -7,7 +7,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 
-Use `attr: 'json'` when the target URL is already a JSON endpoint. Microlink fetches the URL, parses the full response body with `JSON.parse`, and returns native structured data instead of a string.
+Use [attr](/docs/mql/data/attr) with `json` when the target URL is already a JSON endpoint. Microlink fetches the URL, parses the full response body with `JSON.parse`, and returns native structured data instead of a string.
 
 <MultiCodeEditorInteractive
   height={300}
@@ -27,7 +27,7 @@ Use `attr: 'json'` when the target URL is already a JSON endpoint. Microlink fet
 
 ## Return JSON directly
 
-Add `embed: 'json'` when the API URL itself should return the parsed JSON field:
+Add [embed](/docs/api/parameters/embed) with `json` when the API URL itself should return the parsed JSON field:
 
 <MultiCodeEditorInteractive
   height={320}
@@ -54,7 +54,7 @@ https://api.microlink.io?url=https://pokeapi.co/api/v2/pokemon/pikachu&data.json
 
 ## Keep the whole response body
 
-`attr: 'json'` is whole-page only. Do not combine it with `selector` or `selectorAll`; Microlink parses the entire endpoint response.
+`attr: 'json'` is whole-page only. Do not combine it with [selector](/docs/mql/data/selector) or [selectorAll](/docs/mql/data/selectorAll); Microlink parses the entire endpoint response.
 
 ```js
 {
@@ -82,4 +82,4 @@ The original JSON shape is preserved as structured data. Strings that contain HT
 
 ## Next step
 
-Use <Link href='/docs/guides/data-extraction/defining-rules#extract-json' children='Data extraction: Extract JSON' /> for the full rule behavior. Use <Link href='/docs/guides/content-conversion/url-to-text' children='Web page to Text' /> when the source is an HTML page, or <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF file to Markdown' /> when the source URL points directly to a PDF file.
+Use <Link href='/docs/guides/data-extraction/defining-rules#extract-json' children='Data extraction: Extract JSON' /> for the full rule behavior. Use <Link href='/docs/guides/content-conversion/url-to-text' children='URL to Text' />, <Link href='/docs/guides/content-conversion/url-to-markdown' children='URL to Markdown' />, or <Link href='/docs/guides/content-conversion/url-to-html' children='URL to HTML' /> when the source is a web page, PDF, or office document instead of a JSON endpoint.

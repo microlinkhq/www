@@ -678,36 +678,16 @@ const ROUTES_GUIDES = [
         href: '/docs/guides/content-conversion',
         posts: [
           {
-            name: 'Web page to Text',
+            name: 'URL to Text',
             href: '/docs/guides/content-conversion/url-to-text'
           },
           {
-            name: 'Web page to Markdown',
+            name: 'URL to Markdown',
             href: '/docs/guides/content-conversion/url-to-markdown'
           },
           {
-            name: 'Web page to HTML',
+            name: 'URL to HTML',
             href: '/docs/guides/content-conversion/url-to-html'
-          },
-          {
-            name: 'PDF file to Markdown',
-            href: '/docs/guides/content-conversion/pdf-url-to-markdown'
-          },
-          {
-            name: 'PDF file to HTML',
-            href: '/docs/guides/content-conversion/pdf-url-to-html'
-          },
-          {
-            name: 'docx, xlsx, pptx to Text',
-            href: '/docs/guides/content-conversion/office-url-to-text'
-          },
-          {
-            name: 'docx, xlsx, pptx to Markdown',
-            href: '/docs/guides/content-conversion/office-url-to-markdown'
-          },
-          {
-            name: 'docx, xlsx, pptx to HTML',
-            href: '/docs/guides/content-conversion/office-url-to-html'
           },
           {
             name: 'JSON endpoint to JSON',
