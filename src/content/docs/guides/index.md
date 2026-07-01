@@ -66,14 +66,12 @@ Extract exactly the fields you need from any page with Microlink API, shape the 
 
 ## Content conversion
 
-Convert web page URLs, direct PDF file URLs, and JSON endpoints into text, Markdown, HTML, or structured JSON with direct recipes that are easy to copy into a worker, ingestion pipeline, CMS import, or LLM flow.
+Convert any URL — a web page, a direct PDF file, an office document such as `docx`, `xlsx`, or `pptx`, or a JSON endpoint — into text, Markdown, HTML, or structured JSON with direct recipes that are easy to copy into a worker, ingestion pipeline, CMS import, or LLM flow.
 
 - <Link href='/docs/guides/content-conversion' children='Overview' /> - choose the right conversion recipe and response model.
-- <Link href='/docs/guides/content-conversion/url-to-text' children='Web page to Text' /> - convert a web page into readable plain text.
-- <Link href='/docs/guides/content-conversion/url-to-markdown' children='Web page to Markdown' /> - convert a web page into clean Markdown.
-- <Link href='/docs/guides/content-conversion/url-to-html' children='Web page to HTML' /> - return full-page HTML or a scoped HTML fragment.
-- <Link href='/docs/guides/content-conversion/pdf-url-to-markdown' children='PDF file to Markdown' /> - extract a direct PDF file URL as Markdown.
-- <Link href='/docs/guides/content-conversion/pdf-url-to-html' children='PDF file to HTML' /> - extract a direct PDF file URL as HTML.
+- <Link href='/docs/guides/content-conversion/url-to-text' children='URL to Text' /> - convert any URL into readable plain text.
+- <Link href='/docs/guides/content-conversion/url-to-markdown' children='URL to Markdown' /> - convert any URL into clean Markdown.
+- <Link href='/docs/guides/content-conversion/url-to-html' children='URL to HTML' /> - return full-page HTML or a scoped HTML fragment.
 - <Link href='/docs/guides/content-conversion/json-endpoint-to-json' children='JSON endpoint to JSON' /> - parse a JSON endpoint response as structured data.
 
 ## Function
