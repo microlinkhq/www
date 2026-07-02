@@ -1,58 +1,12 @@
 import Container from 'components/elements/Container'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
+import { PRODUCTS, VERTICAL_ORDER } from 'components/pages/home/catalog'
 import { trackEvent } from 'helpers/plausible'
 import { transition, theme } from 'theme'
 import { setSaturation } from 'polished'
 import styled from 'styled-components'
 import React from 'react'
-
-// curated product line-up shown as an at-a-glance grid under the hero — each
-// card carries its own accent colour, reused for the hover glow + arrow
-const PRODUCTS = [
-  {
-    title: 'Screenshot',
-    subtitle: 'Pixel-perfect captures of any web page',
-    color: '#fd494a',
-    href: '/screenshot'
-  },
-  {
-    title: 'Link preview',
-    subtitle: 'Beautiful previews for any URL',
-    color: '#449bf8',
-    href: '/link-preview'
-  },
-  {
-    title: 'Markdown',
-    subtitle: 'Structured, AI-ready page content',
-    color: '#06c167',
-    href: '/markdown'
-  },
-  {
-    title: 'Metadata',
-    subtitle: 'Normalized data from any website',
-    color: '#3e55ff',
-    href: '/metadata'
-  },
-  {
-    title: 'Search API',
-    subtitle: 'Turn Google results into structured data',
-    color: '#1c7ed6',
-    href: '/search'
-  },
-  {
-    title: 'PDF',
-    subtitle: 'Print-ready documents on demand',
-    color: '#e000ac',
-    href: '/pdf'
-  },
-  {
-    title: 'Logo',
-    subtitle: 'Favicons and brand marks at scale',
-    color: '#d306aa',
-    href: '/logo'
-  }
-]
 
 // flex-wrap + centered so the trailing card in an incomplete row stays centered;
 // max-width sized to hold three 300px cards (+ their 8px margins) per row
@@ -129,11 +83,11 @@ const CardSubtitle = styled(Text)`
   color: #6a6a70;
 `
 
-const ProductCard = ({ title, subtitle, color, href }) => (
+const ProductCard = ({ label, description, color, href }) => (
   <Card
     href={href}
     $color={color}
-    onClick={() => trackEvent('home products grid', { product: title })}
+    onClick={() => trackEvent('home products grid', { product: label })}
   >
     <Arrow
       aria-hidden='true'
@@ -147,11 +101,13 @@ const ProductCard = ({ title, subtitle, color, href }) => (
       <line x1='7' y1='17' x2='17' y2='7' />
       <polyline points='7 7 17 7 17 17' />
     </Arrow>
-    <CardTitle as='span'>{title}</CardTitle>
-    <CardSubtitle as='span'>{subtitle}</CardSubtitle>
+    <CardTitle as='span'>{label}</CardTitle>
+    <CardSubtitle as='span'>{description}</CardSubtitle>
   </Card>
 )
 
+// render every product in the same order as the hero's product menu, straight
+// from the shared catalog, so the two surfaces always list the same set
 const Products = () => (
   <Container
     as='section'
@@ -163,8 +119,8 @@ const Products = () => (
     })}
   >
     <Grid>
-      {PRODUCTS.map(product => (
-        <ProductCard key={product.href} {...product} />
+      {VERTICAL_ORDER.map(vertical => (
+        <ProductCard key={vertical} {...PRODUCTS[vertical]} />
       ))}
     </Grid>
   </Container>

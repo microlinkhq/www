@@ -9,28 +9,13 @@ import Overlay from 'components/pages/home/overlay'
 import Output from 'components/pages/home/output'
 import FeatherIcon from 'components/icons/Feather'
 import { WandSparkles } from 'components/icons/WandSparkles'
-import { Focus } from 'components/icons/Focus'
-import { Markdown } from 'components/icons/Markdown'
-import { PDF } from 'components/icons/PDF'
-import { Lighthouse } from 'components/icons/Lighthouse'
-import { Terminal } from 'components/icons/Terminal'
 import {
-  Link as LinkIcon,
-  Code as CodeIcon,
-  Search as SearchIcon,
-  Image as ImageIcon,
-  Layers as LayersIcon,
-  Layout as LayoutIcon,
-  AlignLeft as AlignLeftIcon,
-  Tag as TagIcon,
-  Video as VideoIcon,
-  Film as FilmIcon,
-  Music as MusicIcon,
   Copy as CopyIcon,
   Check as CheckIcon,
   ArrowRight as ArrowRightIcon
 } from 'react-feather'
 import { Link } from 'components/elements/Link'
+import { PRODUCTS, VERTICAL_ORDER } from 'components/pages/home/catalog'
 import { trackEvent } from 'helpers/plausible'
 import { transition, timings, fonts, theme } from 'theme'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -114,74 +99,14 @@ const loadingSlide = keyframes`
 
 /* ----------------------------- routing logic ----------------------------- */
 
-// product icons — the same set the nav bar uses, so the hero stays consistent
-// with the Products menu (local Svg + react-feather glyphs)
-const ICONS = {
-  screenshot: Focus,
-  animated: FilmIcon,
-  preview: LinkIcon,
-  embed: LayoutIcon,
-  markdown: Markdown,
-  html: CodeIcon,
-  text: AlignLeftIcon,
-  metadata: TagIcon,
-  lighthouse: Lighthouse,
-  technologies: LayersIcon,
-  function: Terminal,
-  search: SearchIcon,
-  pdf: PDF,
-  logo: ImageIcon,
-  video: VideoIcon,
-  audio: MusicIcon
-}
-
+// product identity (icon, label, page, description, colour) lives in the shared
+// catalog so the product menu here and the homepage grid stay in lockstep
 const VertGlyph = ({ vertical, size = 16 }) => {
-  const Icon = ICONS[vertical]
+  const Icon = PRODUCTS[vertical] && PRODUCTS[vertical].icon
   // px units are required: the local Svg icons size via styled-system `layout`,
   // which drops bare numbers and lets the glyph balloon to fill its container
   const px = `${size}px`
   return Icon ? <Icon width={px} height={px} /> : null
-}
-
-const LABELS = {
-  screenshot: 'Screenshot',
-  animated: 'Animated Screenshot',
-  preview: 'Link preview',
-  embed: 'Embed',
-  markdown: 'Markdown',
-  html: 'HTML',
-  text: 'Text',
-  metadata: 'Metadata',
-  lighthouse: 'Lighthouse',
-  technologies: 'Technologies',
-  function: 'Function',
-  search: 'Search',
-  pdf: 'PDF',
-  logo: 'Logo',
-  video: 'Video',
-  audio: 'Audio'
-}
-
-// each product's landing page — the hero CTA deep-links here so a visitor can
-// go from the live demo straight to the product they just tried (marketing page
-// where one exists, the relevant API parameter doc otherwise)
-const PRODUCT_PAGE = {
-  screenshot: { href: '/screenshot', label: 'Screenshot API' },
-  animated: { href: '/screenshot', label: 'Screenshot API' },
-  preview: { href: '/link-preview', label: 'Link Preview API' },
-  embed: { href: '/embed', label: 'Embed API' },
-  markdown: { href: '/markdown', label: 'Markdown API' },
-  html: { href: '/docs/api/parameters/data', label: 'HTML API' },
-  text: { href: '/docs/api/parameters/data', label: 'Text API' },
-  metadata: { href: '/metadata', label: 'Metadata API' },
-  lighthouse: { href: '/insights', label: 'Insights API' },
-  technologies: { href: '/insights', label: 'Insights API' },
-  function: { href: '/docs/api/parameters/function', label: 'Function API' },
-  search: { href: '/search', label: 'Search API' },
-  pdf: { href: '/pdf', label: 'PDF API' },
-  logo: { href: '/logo', label: 'Logo API' },
-  video: { href: '/docs/api/parameters/video', label: 'Video API' },
-  audio: { href: '/docs/api/parameters/audio', label: 'Audio API' }
 }
 
 // installs Microlink's agent skill so any assistant can start making the calls
@@ -251,12 +176,6 @@ const REQUEST_OPTS = {
   video: { video: true },
   audio: { audio: true }
 }
-
-// menu order: products sorted alphabetically by their visible label, derived
-// from LABELS so adding a product keeps the list sorted automatically
-const VERTICAL_ORDER = Object.keys(LABELS).sort((a, b) =>
-  LABELS[a].localeCompare(LABELS[b])
-)
 
 const CYCLE = [
   'take a screenshot',
@@ -403,7 +322,7 @@ const derive = (text, override) => {
   const fullUrl = p.url || DEFAULT_URLS[v] || FALLBACK_URL
   return {
     vertical: v,
-    label: LABELS[v],
+    label: PRODUCTS[v].label,
     fullUrl,
     vertBorder: override ? 'rgba(160,40,200,.45)' : '#EAEAEC'
   }
@@ -1799,7 +1718,7 @@ const Hero = () => {
 
   const D = useMemo(() => derive(dText, dVert), [dText, dVert])
   const liveStatus = requestStatus(req)
-  const productPage = PRODUCT_PAGE[D.vertical] || PRODUCT_PAGE.screenshot
+  const productPage = PRODUCTS[D.vertical] || PRODUCTS.screenshot
 
   const handleRun = () => {
     // mirror the Run button's disabled state: Enter must not stack a second
@@ -2032,7 +1951,7 @@ const Hero = () => {
                           <MenuBadge>
                             <VertGlyph vertical={k} size={16} />
                           </MenuBadge>
-                          <MenuLabel>{LABELS[k]}</MenuLabel>
+                          <MenuLabel>{PRODUCTS[k].label}</MenuLabel>
                           {active && (
                             <svg
                               width='15'
@@ -2164,7 +2083,7 @@ const Hero = () => {
             {promptCopied ? 'Copied' : 'Copy prompt'}
           </CopyPromptButton>
           <ProductCta href={productPage.href} onClick={handleProductCta}>
-            Open {productPage.label}
+            Open {productPage.api}
             <ArrowRightIcon size={14} />
           </ProductCta>
         </HeroActions>
