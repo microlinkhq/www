@@ -738,29 +738,31 @@ const TabIndicator = styled.span`
 
 // origin-aware popover: scales in from the chip (top-left) on open and
 // scales back down on close — data-state drives both directions
+// centered under the composer (translateX(-50%)); reveals with a soft fade +
+// short downward slide — no corner scale, which looked skewed on a wide panel
 const VertMenu = styled(Box)`
-  transform-origin: top left;
   will-change: transform, opacity;
 
   &[data-state='pre'] {
     opacity: 0;
-    transform: scale(0.97);
+    transform: translateX(-50%) translateY(-8px);
     pointer-events: none;
   }
   &[data-state='open'] {
     opacity: 1;
-    transform: scale(1);
-    transition: transform 250ms ${EASE_SMOOTH}, opacity 250ms ${EASE_SMOOTH};
+    transform: translateX(-50%) translateY(0);
+    transition: opacity 200ms ${EASE_SMOOTH}, transform 220ms ${EASE_SMOOTH};
   }
   &[data-state='closing'] {
     opacity: 0;
-    transform: scale(0.99);
+    transform: translateX(-50%) translateY(-6px);
     pointer-events: none;
-    transition: transform 150ms ${EASE_SMOOTH}, opacity 150ms ${EASE_SMOOTH};
+    transition: opacity 140ms ${EASE_SMOOTH}, transform 160ms ${EASE_SMOOTH};
   }
 
   ${reduceMotion} {
     transition: none;
+    transform: translateX(-50%);
   }
 `
 
@@ -968,6 +970,7 @@ const MenuLabel = styled.span`
   font-size: 14px;
   font-weight: 500;
   color: ${INK};
+  white-space: nowrap;
 `
 
 // the active item's look — reused on hover (without the trailing check icon)
@@ -1719,6 +1722,13 @@ const Hero = () => {
                   strokeWidth='2.2'
                   strokeLinecap='round'
                   strokeLinejoin='round'
+                  css={theme({
+                    transition: `transform ${transition.short}`,
+                    transform:
+                      menuState === 'open' || menuState === 'pre'
+                        ? 'rotate(180deg)'
+                        : 'none'
+                  })}
                 >
                   <path d='m6 9 6 6 6-6' />
                 </svg>
@@ -1726,17 +1736,17 @@ const Hero = () => {
                   <VertMenu
                     data-state={menuState}
                     css={theme({
-                      // span the full composer width (anchored to Composer,
-                      // which is the nearest positioned ancestor)
+                      // centered under the composer; grows to fit the labels so
+                      // long product names stay on one line
                       position: 'absolute',
                       top: 'calc(100% + 8px)',
-                      left: 0,
-                      right: 0,
+                      left: '50%',
                       zIndex: 30,
+                      maxWidth: 'calc(100vw - 32px)',
                       display: 'grid',
                       // 16 products across 6 columns → 3 rows, natural
                       // left-to-right / top-to-bottom reading order
-                      gridTemplateColumns: 'repeat(6, minmax(0, 1fr))',
+                      gridTemplateColumns: 'repeat(6, max-content)',
                       gap: '2px',
                       background: 'white',
                       border: '1px solid #E6E4EA',
