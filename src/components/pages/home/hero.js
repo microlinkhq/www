@@ -1746,9 +1746,9 @@ const Hero = () => {
                     data-state={menuState}
                     css={theme({
                       display: 'grid',
-                      // 16 products across 6 columns → 3 rows, natural
+                      // 16 products across 3 columns → 6 rows, natural
                       // left-to-right / top-to-bottom reading order
-                      gridTemplateColumns: 'repeat(6, max-content)',
+                      gridTemplateColumns: 'repeat(3, max-content)',
                       gap: '2px',
                       background: 'white',
                       border: '1px solid #E6E4EA',
