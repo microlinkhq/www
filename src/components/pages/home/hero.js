@@ -960,12 +960,9 @@ const MenuLabel = styled.span`
   white-space: nowrap;
 `
 
-// the active item's look — reused on hover (without the trailing check icon)
-const menuItemActive = css`
+// tinted background + gradient badge — shared by the active item and hover
+const menuItemHighlight = css`
   background: rgba(255, 30, 140, 0.06);
-  ${MenuLabel} {
-    font-weight: 600;
-  }
   ${MenuBadge} {
     background: ${GRADIENT};
     color: #fff;
@@ -982,11 +979,15 @@ const MenuItem = styled(Flex)`
   transition: background ${transition.short};
 
   &[data-active='true'] {
-    ${menuItemActive}
+    ${menuItemHighlight}
+    // only the selected item bolds its label; hover keeps it 500
+    ${MenuLabel} {
+      font-weight: 600;
+    }
   }
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      ${menuItemActive}
+      ${menuItemHighlight}
     }
   }
 `
