@@ -13,42 +13,28 @@ const conversionGuides = [
     href: '/docs/guides/content-conversion',
     title: 'Content conversion',
     mustContain: [
-      'direct PDF file URLs',
-      'JSON endpoints',
-      "attr: 'text'",
-      "attr: 'markdown'",
-      "attr: 'html'",
-      "attr: 'json'"
+      'pdf',
+      'docx',
+      'xlsx',
+      'pptx',
+      'JSON endpoint',
+      "attr: 'markdown'"
     ]
   },
   {
     href: '/docs/guides/content-conversion/url-to-text',
-    title: 'Web page to Text',
-    mustContain: ['data.text.attr=text', "embed: 'text'"]
+    title: 'URL to Text',
+    mustContain: ['data.text.attr=text', "embed: 'text'", 'docx']
   },
   {
     href: '/docs/guides/content-conversion/url-to-markdown',
-    title: 'Web page to Markdown',
-    mustContain: ['data.markdown.attr=markdown', "embed: 'markdown'"]
+    title: 'URL to Markdown',
+    mustContain: ['data.markdown.attr=markdown', "embed: 'markdown'", 'docx']
   },
   {
     href: '/docs/guides/content-conversion/url-to-html',
-    title: 'Web page to HTML',
-    mustContain: ['data.html.attr=html', "embed: 'html'"]
-  },
-  {
-    href: '/docs/guides/content-conversion/pdf-url-to-markdown',
-    title: 'PDF file to Markdown',
-    mustContain: [
-      'direct PDF file URL',
-      'sample.pdf',
-      'data.markdown.attr=markdown'
-    ]
-  },
-  {
-    href: '/docs/guides/content-conversion/pdf-url-to-html',
-    title: 'PDF file to HTML',
-    mustContain: ['direct PDF file URL', 'sample.pdf', 'data.html.attr=html']
+    title: 'URL to HTML',
+    mustContain: ['data.html.attr=html', "embed: 'html'", 'docx']
   },
   {
     href: '/docs/guides/content-conversion/json-endpoint-to-json',
