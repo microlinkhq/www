@@ -1,6 +1,7 @@
 import Analytics from 'components/pages/home/analytics'
 import Faqs from 'components/pages/home/faqs'
 import Hero from 'components/pages/home/hero'
+import Products from 'components/pages/home/products'
 import Meta from 'components/elements/Meta/Meta'
 import Container from 'components/elements/Container'
 import { Link } from 'components/elements/Link'
@@ -102,6 +103,7 @@ const HomePage = () => {
     <CurrencyProvider>
       <Layout>
         <Hero />
+        <Products />
         <Analytics />
         <Features
           title={
