@@ -604,7 +604,6 @@ const ComposerInput = styled.input`
 `
 
 const VertChip = styled.div`
-  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -1727,14 +1726,17 @@ const Hero = () => {
                   <VertMenu
                     data-state={menuState}
                     css={theme({
+                      // span the full composer width (anchored to Composer,
+                      // which is the nearest positioned ancestor)
                       position: 'absolute',
                       top: 'calc(100% + 8px)',
                       left: 0,
+                      right: 0,
                       zIndex: 30,
                       display: 'grid',
                       // 16 products across 6 columns → 3 rows, natural
                       // left-to-right / top-to-bottom reading order
-                      gridTemplateColumns: 'repeat(6, minmax(140px, 1fr))',
+                      gridTemplateColumns: 'repeat(6, minmax(0, 1fr))',
                       gap: '2px',
                       background: 'white',
                       border: '1px solid #E6E4EA',
