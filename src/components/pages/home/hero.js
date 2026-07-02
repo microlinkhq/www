@@ -176,7 +176,7 @@ const LABELS = {
   lighthouse: 'Lighthouse',
   technologies: 'Technologies',
   function: 'Function',
-  search: 'Search API',
+  search: 'Search',
   pdf: 'PDF',
   logo: 'Logo',
   video: 'Video',
