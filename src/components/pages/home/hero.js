@@ -239,7 +239,7 @@ const PROMPTS = {
 const parseLocal = text => {
   const t = (text || '').toLowerCase()
   const rules = [
-    ['animated', /\banimated\b|animation|screen ?cast|\bgif\b|record/],
+    ['animated', /\banimated\b|animation|screen ?cast|\bgif\b|\brecord\b/],
     [
       'screenshot',
       /screenshot|screen ?shot|capture|snap|take a (pic|photo|picture|shot)|image of|how .* looks?/
@@ -1642,6 +1642,9 @@ const Hero = () => {
   const liveStatus = requestStatus(req)
 
   const handleRun = () => {
+    // mirror the Run button's disabled state: Enter must not stack a second
+    // request on top of one already in flight
+    if (req.status === 'loading') return
     stopTyping()
     closeMenu()
     runRequest(D)

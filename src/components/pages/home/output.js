@@ -929,19 +929,29 @@ const VideoOutput = ({ data }) => {
   useEffect(() => {
     const el = videoRef.current
     if (!el) return undefined
+    // a new src re-renders the <video> paused at 0; reset UI state so the
+    // transport/scrubber don't keep showing the previous clip as playing
+    setPlaying(false)
+    setCurrent(0)
     const onTime = () => setCurrent(el.currentTime)
     const onMeta = () => setDuration(el.duration)
     const onPlay = () => setPlaying(true)
     const onPause = () => setPlaying(false)
+    const onEnd = () => {
+      setPlaying(false)
+      setCurrent(0)
+    }
     el.addEventListener('timeupdate', onTime)
     el.addEventListener('loadedmetadata', onMeta)
     el.addEventListener('play', onPlay)
     el.addEventListener('pause', onPause)
+    el.addEventListener('ended', onEnd)
     return () => {
       el.removeEventListener('timeupdate', onTime)
       el.removeEventListener('loadedmetadata', onMeta)
       el.removeEventListener('play', onPlay)
       el.removeEventListener('pause', onPause)
+      el.removeEventListener('ended', onEnd)
     }
   }, [src])
 
