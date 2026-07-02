@@ -584,7 +584,37 @@ const ProgressTrack = styled.div`
   border-radius: 999px;
   background: ${BORDER};
   cursor: pointer;
+  &:focus-visible {
+    outline: 2px solid ${VIOLET};
+    outline-offset: 3px;
+  }
 `
+
+// keyboard seeking for the scrubber, per the WAI-ARIA APG slider pattern:
+// arrows/PageUp-Down step, Home/End jump to the ends
+const SEEK_STEP = 5
+const makeSeekKeyHandler = (mediaRef, duration, setCurrent) => e => {
+  const el = mediaRef.current
+  if (!el || !duration) return
+  let next = null
+  if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+    next = Math.min(duration, el.currentTime + SEEK_STEP)
+  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+    next = Math.max(0, el.currentTime - SEEK_STEP)
+  } else if (e.key === 'PageUp') {
+    next = Math.min(duration, el.currentTime + SEEK_STEP * 2)
+  } else if (e.key === 'PageDown') {
+    next = Math.max(0, el.currentTime - SEEK_STEP * 2)
+  } else if (e.key === 'Home') {
+    next = 0
+  } else if (e.key === 'End') {
+    next = duration
+  }
+  if (next === null) return
+  e.preventDefault()
+  el.currentTime = next
+  setCurrent(next)
+}
 
 const PlayIcon = ({ playing, size = 16 }) =>
   playing
@@ -761,7 +791,17 @@ const AudioOutput = ({ data }) => {
             >
               <PlayIcon playing={playing} />
             </PlayButton>
-            <ProgressTrack onClick={seek}>
+            <ProgressTrack
+              role='slider'
+              tabIndex={0}
+              aria-label='Seek audio'
+              aria-valuemin={0}
+              aria-valuemax={Math.round(duration) || 0}
+              aria-valuenow={Math.round(current)}
+              aria-valuetext={`${fmtTime(current)} of ${fmtTime(duration)}`}
+              onClick={seek}
+              onKeyDown={makeSeekKeyHandler(audioRef, duration, setCurrent)}
+            >
               <Box
                 css={{
                   height: '100%',
@@ -972,7 +1012,15 @@ const VideoOutput = ({ data }) => {
             <PlayIcon playing={playing} size={18} />
           </BarButton>
           <ProgressTrack
+            role='slider'
+            tabIndex={0}
+            aria-label='Seek video'
+            aria-valuemin={0}
+            aria-valuemax={Math.round(duration) || 0}
+            aria-valuenow={Math.round(current)}
+            aria-valuetext={`${fmtTime(current)} of ${fmtTime(duration)}`}
             onClick={seek}
+            onKeyDown={makeSeekKeyHandler(videoRef, duration, setCurrent)}
             css={{ background: 'rgba(255,255,255,0.3)' }}
           >
             <Box

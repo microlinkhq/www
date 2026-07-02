@@ -1,4 +1,5 @@
 import Box from 'components/elements/Box'
+import Spinner from 'components/elements/Spinner'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Dot from 'components/elements/Dot/Dot'
@@ -715,6 +716,12 @@ const TabButton = styled.button`
   align-items: center;
   gap: 8px;
   transition: color ${transition.short};
+
+  &:focus-visible {
+    outline: 2px solid ${VIOLET};
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
 `
 
 // the active-tab underline that slides between tabs; JS writes its
@@ -974,6 +981,10 @@ const MenuLabel = styled.span`
   font-weight: 500;
   color: ${INK};
   white-space: nowrap;
+  /* truncate rather than overflow when the grid track is squeezed on mobile */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 // tinted background + gradient badge — shared by the active item and hover
@@ -992,6 +1003,7 @@ const MenuItem = styled(Flex)`
   border-radius: 8px;
   cursor: pointer;
   width: 100%;
+  min-width: 0;
   border: 0;
   font: inherit;
   color: inherit;
@@ -1119,6 +1131,29 @@ const ResultPanel = ({ tab, setTab, req }) => {
     return () => window.removeEventListener('resize', onResize)
   }, [tab])
 
+  // WAI-ARIA APG tabs keyboard support: arrows wrap, Home/End jump to the ends;
+  // activation follows focus and moves the roving tabindex with it
+  const onTabKeyDown = e => {
+    const keys = tabs.map(t => t.key)
+    const i = keys.indexOf(tab)
+    let next = null
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      next = (i + 1) % keys.length
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      next = (i - 1 + keys.length) % keys.length
+    } else if (e.key === 'Home') {
+      next = 0
+    } else if (e.key === 'End') {
+      next = keys.length - 1
+    }
+    if (next === null) return
+    e.preventDefault()
+    setTab(keys[next])
+    const btns =
+      barRef.current && barRef.current.querySelectorAll('[role="tab"]')
+    if (btns && btns[next]) btns[next].focus()
+  }
+
   return (
     <Panel>
       {isLoading && <LoadingBar />}
@@ -1152,11 +1187,19 @@ const ResultPanel = ({ tab, setTab, req }) => {
       {/* tabs */}
       <TabBar
         ref={barRef}
+        role='tablist'
+        aria-label='Response views'
+        onKeyDown={onTabKeyDown}
         css={theme({ pt: 3, px: 3, borderBottom: '1px solid #EFEFF1' })}
       >
         {tabs.map(t => (
           <TabButton
             key={t.key}
+            id={`hero-tab-${t.key}`}
+            role='tab'
+            aria-selected={tab === t.key}
+            aria-controls='hero-tabpanel'
+            tabIndex={tab === t.key ? 0 : -1}
             data-active={tab === t.key}
             $active={tab === t.key}
             onClick={() => setTab(t.key)}
@@ -1172,7 +1215,13 @@ const ResultPanel = ({ tab, setTab, req }) => {
         <TabIndicator ref={indicatorRef} />
       </TabBar>
 
-      <TabContent key={isError ? 'error' : tab}>
+      <TabContent
+        key={isError ? 'error' : tab}
+        id='hero-tabpanel'
+        role='tabpanel'
+        aria-labelledby={`hero-tab-${tab}`}
+        tabIndex={0}
+      >
         {isError && (
           <Box css={theme({ p: 4 })}>
             <Flex css={theme({ alignItems: 'center', gap: 2, mb: 2 })}>
@@ -1630,6 +1679,15 @@ const Hero = () => {
     }
   }, [menuState])
 
+  // once the menu is fully open (and no longer aria-hidden), move focus to the
+  // selected item so arrow keys have a starting point for keyboard users
+  useEffect(() => {
+    if (menuState !== 'open') return
+    const el =
+      menuRef.current && menuRef.current.querySelector('[data-active="true"]')
+    if (el) el.focus()
+  }, [menuState])
+
   // execute the default example once on mount so the panel shows live data
   useEffect(() => {
     runRequest(derive(CYCLE[0]))
@@ -1672,8 +1730,30 @@ const Hero = () => {
     setDText(prompt)
     setDVert(k)
     closeMenu()
+    // return focus to the trigger so keyboard users aren't dropped to <body>
+    if (chipRef.current) chipRef.current.focus()
     // run it immediately so the panel reflects the picked product
     runRequest(derive(prompt, k))
+  }
+
+  // roving arrow-key navigation across the 3-column product grid (APG menu)
+  const MENU_COLS = 3
+  const onMenuKeyDown = e => {
+    const items = menuRef.current
+      ? Array.from(menuRef.current.querySelectorAll('[data-menuitem]'))
+      : []
+    if (items.length === 0) return
+    const i = items.indexOf(document.activeElement)
+    if (i < 0) return
+    let next = null
+    if (e.key === 'ArrowRight') next = Math.min(items.length - 1, i + 1)
+    else if (e.key === 'ArrowLeft') next = Math.max(0, i - 1)
+    else if (e.key === 'ArrowDown') { next = Math.min(items.length - 1, i + MENU_COLS) } else if (e.key === 'ArrowUp') next = Math.max(0, i - MENU_COLS)
+    else if (e.key === 'Home') next = 0
+    else if (e.key === 'End') next = items.length - 1
+    if (next === null) return
+    e.preventDefault()
+    items[next].focus()
   }
 
   return (
@@ -1804,11 +1884,15 @@ const Hero = () => {
                     data-state={menuState}
                     role='group'
                     aria-label='Products'
+                    onKeyDown={onMenuKeyDown}
                     css={theme({
                       display: 'grid',
                       // 16 products across 3 columns → 6 rows, natural
-                      // left-to-right / top-to-bottom reading order
-                      gridTemplateColumns: 'repeat(3, max-content)',
+                      // left-to-right / top-to-bottom reading order.
+                      // minmax(0, …) lets the tracks shrink (and labels
+                      // truncate) instead of overflowing the viewport on phones
+                      gridTemplateColumns: 'repeat(3, minmax(0, max-content))',
+                      maxWidth: '100%',
                       gap: '2px',
                       background: 'white',
                       border: '1px solid #E6E4EA',
@@ -1824,7 +1908,9 @@ const Hero = () => {
                           key={k}
                           as='button'
                           type='button'
+                          data-menuitem
                           data-active={active}
+                          tabIndex={active ? 0 : -1}
                           aria-current={active ? 'true' : undefined}
                           onClick={e => {
                             e.stopPropagation()
@@ -1876,21 +1962,33 @@ const Hero = () => {
             <RunButton
               type='button'
               aria-label='Run'
+              aria-busy={req.status === 'loading'}
               onClick={handleRun}
               disabled={!D.hasUrl || req.status === 'loading'}
             >
-              <svg
-                width='20'
-                height='20'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='#fff'
-                strokeWidth='2.4'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              >
-                <path d='M5 12h14M13 6l6 6-6 6' />
-              </svg>
+              {req.status === 'loading'
+                ? (
+                  <Spinner
+                    color='white'
+                    width='20px'
+                    height='20px'
+                    style={{ padding: 0 }}
+                  />
+                  )
+                : (
+                  <svg
+                    width='20'
+                    height='20'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='#fff'
+                    strokeWidth='2.4'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  >
+                    <path d='M5 12h14M13 6l6 6-6 6' />
+                  </svg>
+                  )}
             </RunButton>
           </Flex>
         </Composer>
