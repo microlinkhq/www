@@ -348,11 +348,14 @@ const parseLocal = text => {
     (text || '').match(
       /[a-z0-9][a-z0-9-]*(?:\.[a-z0-9-]+)*\.[a-z]{2,}(?:\/[^\s]*)?/i
     )
+  // `raw` keeps the domain exactly as typed (e.g. "github.com") so it can be
+  // preserved verbatim when switching products
+  const raw = m ? m[0] : ''
   if (m) {
     url = m[0]
     if (!/^https?:\/\//.test(url)) url = 'https://' + url
   }
-  return { vertical, url, hasUrl: !!url }
+  return { vertical, url, raw, hasUrl: !!url }
 }
 
 // when the prompt names no domain we fall back to the same example URL each
@@ -1621,9 +1624,13 @@ const Hero = () => {
     setDText(value)
   }
 
-  // picking a product from the dropdown rewrites the composer prompt to match
+  // picking a product from the dropdown rewrites the composer prompt to match,
+  // preserving whatever domain the user had typed (rule: keep it verbatim; if
+  // the input has none, emit the bare action and let the backend fall back)
   const pickVertical = k => {
-    const prompt = PROMPTS[k] || ''
+    const template = PROMPTS[k] || ''
+    const { raw } = parseLocal(dText)
+    const prompt = raw ? `${template} of ${raw}` : template
     stopTyping()
     anim.current.text = prompt
     setDText(prompt)
