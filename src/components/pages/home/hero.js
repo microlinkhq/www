@@ -25,8 +25,13 @@ import {
   Tag as TagIcon,
   Video as VideoIcon,
   Film as FilmIcon,
-  Music as MusicIcon
+  Music as MusicIcon,
+  Copy as CopyIcon,
+  Check as CheckIcon,
+  ArrowRight as ArrowRightIcon
 } from 'react-feather'
+import { Link } from 'components/elements/Link'
+import { trackEvent } from 'helpers/plausible'
 import { transition, timings, fonts, theme } from 'theme'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
@@ -155,6 +160,65 @@ const LABELS = {
   logo: 'Logo',
   video: 'Video',
   audio: 'Audio'
+}
+
+// each product's landing page — the hero CTA deep-links here so a visitor can
+// go from the live demo straight to the product they just tried (marketing page
+// where one exists, the relevant API parameter doc otherwise)
+const PRODUCT_PAGE = {
+  screenshot: { href: '/screenshot', label: 'Screenshot API' },
+  animated: { href: '/screenshot', label: 'Screenshot API' },
+  preview: { href: '/link-preview', label: 'Link Preview API' },
+  embed: { href: '/embed', label: 'Embed API' },
+  markdown: { href: '/markdown', label: 'Markdown API' },
+  html: { href: '/docs/api/parameters/data', label: 'HTML API' },
+  text: { href: '/docs/api/parameters/data', label: 'Text API' },
+  metadata: { href: '/metadata', label: 'Metadata API' },
+  lighthouse: { href: '/insights', label: 'Insights API' },
+  technologies: { href: '/insights', label: 'Insights API' },
+  function: { href: '/docs/api/parameters/function', label: 'Function API' },
+  search: { href: '/search', label: 'Search API' },
+  pdf: { href: '/pdf', label: 'PDF API' },
+  logo: { href: '/logo', label: 'Logo API' },
+  video: { href: '/docs/api/parameters/video', label: 'Video API' },
+  audio: { href: '/docs/api/parameters/audio', label: 'Audio API' }
+}
+
+// installs Microlink's agent skill so any assistant can start making the calls
+const SKILL_INSTALL =
+  'npx skills add https://github.com/microlinkhq/skills --skill microlink-api'
+
+// action phrase per product, written so "<task> <url>" reads as an instruction
+const AGENT_TASK = {
+  screenshot: 'capture a screenshot of',
+  animated: 'record an animated screenshot of',
+  preview: 'generate a link preview for',
+  embed: 'return an embeddable rich card for',
+  markdown: 'extract the content as markdown from',
+  html: 'get the rendered HTML of',
+  text: 'extract the readable text from',
+  metadata: 'extract the metadata from',
+  lighthouse: 'run a Lighthouse performance audit on',
+  technologies: 'detect the technologies used by',
+  function: 'run a custom function against',
+  search: 'search Google and return structured results',
+  pdf: 'generate a PDF of',
+  logo: 'fetch the logo of',
+  video: 'extract the video from',
+  audio: 'extract the audio from'
+}
+
+// the copied "prompt" is an agent-ready instruction: it tells an assistant to
+// use the Microlink API for the selected product against the current URL, and
+// bootstraps the skill so it can start immediately
+const agentPrompt = ({ vertical, fullUrl }) => {
+  const task =
+    vertical === 'search'
+      ? `search Google for "${SEARCH_EXAMPLE.query}" and return the structured results`
+      : `${
+        AGENT_TASK[vertical] || 'fetch data from'
+      } ${fullUrl} and return the structured result`
+  return `Using the Microlink API, ${task}.\n\nSet up Microlink for your agent first: ${SKILL_INSTALL}`
 }
 
 // the actual mql options sent per vertical — every one is a real API call that
@@ -624,6 +688,79 @@ const ExampleChip = styled.button`
 
   &:active {
     transform: scale(0.97);
+  }
+`
+
+// footer actions under the composer: copy the current prompt, or deep-link to
+// the page for whatever product is selected
+const HeroActions = styled(Flex)`
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+`
+
+const actionPill = css`
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: ${SANS};
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 999px;
+  transition: border-color ${transition.short}, color ${transition.short},
+    background ${transition.short}, transform ${transition.short};
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${VIOLET};
+    outline-offset: 2px;
+  }
+`
+
+const CopyPromptButton = styled.button`
+  ${actionPill};
+  color: #5a5a60;
+  background: #fff;
+  border: 1px solid #e4e4e8;
+
+  &[data-copied='true'] {
+    color: ${SYNTAX.string};
+    border-color: ${SYNTAX.string};
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: ${VIOLET};
+      color: ${INK};
+    }
+  }
+`
+
+const ProductCta = styled(Link)`
+  ${actionPill};
+  color: #fff;
+  background: ${GRADIENT};
+  border: 1px solid transparent;
+  box-shadow: 0 8px 20px -12px rgba(176, 38, 224, 0.75);
+
+  svg {
+    transition: transform ${transition.short};
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: #fff;
+      svg {
+        transform: translateX(2px);
+      }
+    }
   }
 `
 
@@ -1468,6 +1605,28 @@ const Hero = () => {
   const menuRef = useRef(null)
   const menuTimer = useRef(null)
   const menuRaf = useRef(null)
+  const [promptCopied, setPromptCopied] = useState(false)
+  const copyTimer = useRef(null)
+
+  useEffect(() => () => clearTimeout(copyTimer.current), [])
+
+  // copy an agent-ready instruction for the selected product so a visitor can
+  // paste it into their assistant and start using that Microlink capability
+  const copyPrompt = () => {
+    if (typeof navigator === 'undefined' || !navigator.clipboard) return
+    navigator.clipboard
+      .writeText(agentPrompt(D))
+      .then(() => {
+        trackEvent('hero copy prompt', { product: D.vertical })
+        setPromptCopied(true)
+        clearTimeout(copyTimer.current)
+        copyTimer.current = setTimeout(() => setPromptCopied(false), 1500)
+      })
+      .catch(() => {})
+  }
+
+  const handleProductCta = () =>
+    trackEvent('hero product cta', { product: D.vertical })
 
   const stopTyping = () => {
     anim.current.userTook = true
@@ -1640,6 +1799,7 @@ const Hero = () => {
 
   const D = useMemo(() => derive(dText, dVert), [dText, dVert])
   const liveStatus = requestStatus(req)
+  const productPage = PRODUCT_PAGE[D.vertical] || PRODUCT_PAGE.screenshot
 
   const handleRun = () => {
     // mirror the Run button's disabled state: Enter must not stack a second
@@ -1718,7 +1878,9 @@ const Hero = () => {
         <Headline>
           The web, <span>automated</span>
         </Headline>
-        <Subtitle>Everything your software needs from any URL.</Subtitle>
+        <Subtitle>
+          Everything your software needs from any URL. No credit card required.
+        </Subtitle>
 
         {/* composer */}
         <Composer>
@@ -1989,6 +2151,23 @@ const Hero = () => {
         </Caps>
 
         <ResultPanel tab={dTab} setTab={setDTab} req={req} />
+
+        {/* next steps: copy an agent prompt, or open the selected product */}
+        <HeroActions>
+          <CopyPromptButton
+            type='button'
+            data-copied={promptCopied}
+            onClick={copyPrompt}
+            aria-label={`Copy an agent prompt for the ${D.label} API`}
+          >
+            {promptCopied ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
+            {promptCopied ? 'Copied' : 'Copy prompt'}
+          </CopyPromptButton>
+          <ProductCta href={productPage.href} onClick={handleProductCta}>
+            Open {productPage.label}
+            <ArrowRightIcon size={14} />
+          </ProductCta>
+        </HeroActions>
       </Content>
     </Section>
   )
