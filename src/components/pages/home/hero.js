@@ -1731,7 +1731,11 @@ const Hero = () => {
                       top: 'calc(100% + 8px)',
                       left: 0,
                       zIndex: 30,
-                      width: '230px',
+                      display: 'grid',
+                      // 16 products across 6 columns → 3 rows, natural
+                      // left-to-right / top-to-bottom reading order
+                      gridTemplateColumns: 'repeat(6, minmax(140px, 1fr))',
+                      gap: '2px',
                       background: 'white',
                       border: '1px solid #E6E4EA',
                       borderRadius: 5,
