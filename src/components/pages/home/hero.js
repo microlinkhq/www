@@ -233,24 +233,11 @@ const REQUEST_OPTS = {
   audio: { audio: true }
 }
 
-const VERTICAL_ORDER = [
-  'screenshot',
-  'animated',
-  'preview',
-  'embed',
-  'markdown',
-  'html',
-  'text',
-  'metadata',
-  'lighthouse',
-  'technologies',
-  'function',
-  'search',
-  'pdf',
-  'logo',
-  'video',
-  'audio'
-]
+// menu order: products sorted alphabetically by their visible label, derived
+// from LABELS so adding a product keeps the list sorted automatically
+const VERTICAL_ORDER = Object.keys(LABELS).sort((a, b) =>
+  LABELS[a].localeCompare(LABELS[b])
+)
 
 const CYCLE = [
   'take a screenshot',
