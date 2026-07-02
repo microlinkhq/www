@@ -22,7 +22,10 @@ const absolute = css`
   left: 0;
 `
 
-const Overlay = ({ color, start = '50%' }) => {
+// memoized: the hero re-renders on every typewriter tick, but the overlay's
+// props are effectively static — skip re-running the polished color math and
+// re-building the gradient/mask css strings on each keystroke
+const Overlay = React.memo(({ color, start = '50%' }) => {
   const leftColor = color || '#8c1bab'
   const rightColor = color || '#f76698'
 
@@ -189,6 +192,6 @@ const Overlay = ({ color, start = '50%' }) => {
       </Box>
     </Box>
   )
-}
+})
 
 export default Overlay

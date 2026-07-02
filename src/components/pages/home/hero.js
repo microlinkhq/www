@@ -28,7 +28,7 @@ import {
   Music as MusicIcon
 } from 'react-feather'
 import { transition, timings, fonts, theme } from 'theme'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import mql, { getApiUrl } from '@microlink/mql'
 import GOOGLE_EXAMPLES from 'data/google-examples'
@@ -109,33 +109,6 @@ const loadingSlide = keyframes`
 
 /* ----------------------------- routing logic ----------------------------- */
 
-const PRESETS = {
-  stripe: {
-    domain: 'stripe.com',
-    brand: 'Stripe',
-    title: 'Stripe | Payment Processing Platform',
-    desc: 'Financial infrastructure to grow your revenue.'
-  },
-  github: {
-    domain: 'github.com',
-    brand: 'GitHub',
-    title: 'GitHub · Build and ship software',
-    desc: "The world's most widely adopted AI-powered developer platform."
-  },
-  vercel: {
-    domain: 'vercel.com',
-    brand: 'Vercel',
-    title: 'Vercel: Build and deploy the best web experiences',
-    desc: 'Frameworks, workflows, and infrastructure for the web.'
-  },
-  figma: {
-    domain: 'figma.com',
-    brand: 'Figma',
-    title: 'Figma: The collaborative interface design tool',
-    desc: 'Design, prototype, and gather feedback all in one place.'
-  }
-}
-
 // product icons — the same set the nav bar uses, so the hero stays consistent
 // with the Products menu (local Svg + react-feather glyphs)
 const ICONS = {
@@ -182,25 +155,6 @@ const LABELS = {
   logo: 'Logo',
   video: 'Video',
   audio: 'Audio'
-}
-
-const FLAGS = {
-  screenshot: 'screenshot',
-  animated: 'screenshot',
-  preview: 'embed',
-  embed: 'iframe',
-  markdown: 'markdown',
-  html: 'html',
-  text: 'text',
-  metadata: 'meta',
-  lighthouse: 'insights',
-  technologies: 'insights',
-  function: 'function',
-  search: 'q',
-  pdf: 'pdf',
-  logo: 'logo',
-  video: 'video',
-  audio: 'audio'
 }
 
 // the actual mql options sent per vertical — every one is a real API call that
@@ -370,31 +324,24 @@ const DEFAULT_URLS = {
 }
 const FALLBACK_URL = 'https://example.com'
 
+// example chips are a fixed list, so resolve each one's vertical once at module
+// load instead of re-parsing on every (typewriter-driven) Hero render
+const EXAMPLE_CHIPS = EXAMPLES.map(text => ({
+  text,
+  vertical: parseLocal(text).vertical
+}))
+
 const derive = (text, override) => {
   const p = parseLocal(text)
   const v = override || p.vertical
   // the request honours the full path (e.g. vercel.com/blog); falls back to the
   // documentation example for the product when the prompt doesn't include one
   const fullUrl = p.url || DEFAULT_URLS[v] || FALLBACK_URL
-  const domain = fullUrl.replace(/^https?:\/\//, '').replace(/\/.*$/, '')
-  const knownKey = Object.keys(PRESETS).find(k => fullUrl.includes(k))
-  const known = knownKey ? PRESETS[knownKey] : null
-  const brand = known
-    ? known.brand
-    : (domain.split('.')[0] || 'site').replace(/^./, c => c.toUpperCase())
   return {
     vertical: v,
     label: LABELS[v],
-    url: fullUrl,
-    hasUrl: true,
-    domain,
     fullUrl,
-    optName: FLAGS[v],
-    encUrl: encodeURIComponent(fullUrl),
-    vertBorder: override ? 'rgba(160,40,200,.45)' : '#EAEAEC',
-    brand,
-    title: known ? known.title : brand,
-    desc: known ? known.desc : 'Structured data resolved from ' + domain + '.'
+    vertBorder: override ? 'rgba(160,40,200,.45)' : '#EAEAEC'
   }
 }
 
@@ -1074,7 +1021,10 @@ const renderJsValue = (value, keyBase) => {
 
 /* --------------------------------- result -------------------------------- */
 
-const ResultPanel = ({ tab, setTab, req }) => {
+// memoized: the parent Hero re-renders on every typewriter tick, but the panel
+// only depends on the request + active tab, so skip re-rendering (and the
+// JSON.stringify + tokenizer work) while the composer text is animating
+const ResultPanel = React.memo(({ tab, setTab, req }) => {
   const { D, status, body, headerRows, bars, rows, totalMs } = req
   const isLoading = status === 'loading'
   const isError = status === 'error'
@@ -1464,7 +1414,7 @@ const ResultPanel = ({ tab, setTab, req }) => {
       </TabContent>
     </Panel>
   )
-}
+})
 
 // format the round-trip duration as seconds once we cross 1s, else ms
 const fmtDuration = ms =>
@@ -1548,8 +1498,6 @@ const Hero = () => {
   // fire a real Microlink request for the given derived snapshot and stream the
   // result (data / headers / timing) into the panel
   const runRequest = useCallback(async snapshot => {
-    if (!snapshot.hasUrl) return
-
     // Search API is Pro + query-based: replay the recorded example instead of
     // a live request, so the panel shows real search results (not page metadata)
     if (snapshot.vertical === 'search') {
@@ -1574,7 +1522,6 @@ const Hero = () => {
         bars: [],
         rows: [],
         totalMs: null,
-        statusCode: 200,
         elapsedMs: 0
       })
       return
@@ -1599,7 +1546,6 @@ const Hero = () => {
         bars,
         rows,
         totalMs,
-        statusCode: (response && response.statusCode) || 200,
         elapsedMs: Math.round(window.performance.now() - t0)
       })
     } catch (err) {
@@ -1608,7 +1554,6 @@ const Hero = () => {
         status: 'error',
         D: snapshot,
         apiUrl,
-        statusCode: err && err.statusCode,
         error: (err && err.message) || 'The request could not be completed.',
         elapsedMs: Math.round(window.performance.now() - t0)
       })
@@ -1693,7 +1638,7 @@ const Hero = () => {
     runRequest(derive(CYCLE[0]))
   }, [runRequest])
 
-  const D = derive(dText, dVert)
+  const D = useMemo(() => derive(dText, dVert), [dText, dVert])
   const liveStatus = requestStatus(req)
 
   const handleRun = () => {
@@ -1748,7 +1693,9 @@ const Hero = () => {
     let next = null
     if (e.key === 'ArrowRight') next = Math.min(items.length - 1, i + 1)
     else if (e.key === 'ArrowLeft') next = Math.max(0, i - 1)
-    else if (e.key === 'ArrowDown') { next = Math.min(items.length - 1, i + MENU_COLS) } else if (e.key === 'ArrowUp') next = Math.max(0, i - MENU_COLS)
+    else if (e.key === 'ArrowDown') {
+      next = Math.min(items.length - 1, i + MENU_COLS)
+    } else if (e.key === 'ArrowUp') next = Math.max(0, i - MENU_COLS)
     else if (e.key === 'Home') next = 0
     else if (e.key === 'End') next = items.length - 1
     if (next === null) return
@@ -1943,28 +1890,26 @@ const Hero = () => {
                   </VertMenu>
                 </Box>
               )}
-              {D.hasUrl && (
-                <Mono
-                  css={theme({
-                    fontSize: 0,
-                    color: VIOLET,
-                    flex: 1,
-                    minWidth: 0,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap'
-                  })}
-                >
-                  {D.url}
-                </Mono>
-              )}
+              <Mono
+                css={theme({
+                  fontSize: 0,
+                  color: VIOLET,
+                  flex: 1,
+                  minWidth: 0,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap'
+                })}
+              >
+                {D.fullUrl}
+              </Mono>
             </Flex>
             <RunButton
               type='button'
               aria-label='Run'
               aria-busy={req.status === 'loading'}
               onClick={handleRun}
-              disabled={!D.hasUrl || req.status === 'loading'}
+              disabled={req.status === 'loading'}
             >
               {req.status === 'loading'
                 ? (
@@ -2002,16 +1947,16 @@ const Hero = () => {
             justifyContent: 'center'
           })}
         >
-          {EXAMPLES.map(ex => (
+          {EXAMPLE_CHIPS.map(({ text, vertical }) => (
             <ExampleChip
-              key={ex}
+              key={text}
               $border={D.vertBorder}
-              onClick={pickExample(ex)}
+              onClick={pickExample(text)}
             >
               <Box as='span' css={theme({ color: VIOLET, display: 'flex' })}>
-                <VertGlyph vertical={parseLocal(ex).vertical} size={15} />
+                <VertGlyph vertical={vertical} size={15} />
               </Box>
-              {ex}
+              {text}
             </ExampleChip>
           ))}
         </Flex>
