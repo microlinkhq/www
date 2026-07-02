@@ -1448,6 +1448,7 @@ const Hero = () => {
     text: CYCLE[0]
   })
   const chipRef = useRef(null)
+  const menuRef = useRef(null)
   const menuTimer = useRef(null)
   const menuRaf = useRef(null)
 
@@ -1588,9 +1589,10 @@ const Hero = () => {
   useEffect(() => {
     if (menuState !== 'open') return undefined
     const onDown = e => {
-      if (chipRef.current && !chipRef.current.contains(e.target)) {
-        closeMenu()
-      }
+      // menu now lives outside VertChip, so check both refs before closing
+      const inChip = chipRef.current && chipRef.current.contains(e.target)
+      const inMenu = menuRef.current && menuRef.current.contains(e.target)
+      if (!inChip && !inMenu) closeMenu()
     }
     document.addEventListener('mousedown', onDown)
     return () => document.removeEventListener('mousedown', onDown)
@@ -1732,73 +1734,78 @@ const Hero = () => {
                 >
                   <path d='m6 9 6 6 6-6' />
                 </svg>
-                {menuState && (
-                  // outer wrapper centers the panel under the composer (static
-                  // translateX(-50%)); the inner VertMenu owns the reveal
-                  // animation, so centering and motion never fight
-                  <Box
+              </VertChip>
+              {menuState && (
+                // wrapper centers the panel under the composer (static
+                // translateX(-50%)); the inner VertMenu owns the reveal
+                // animation, so centering and motion never fight. Kept a
+                // sibling of VertChip (not a child) so the chip's :active
+                // scale transform never becomes the menu's containing block —
+                // otherwise the menu re-anchors to the chip and slides sideways
+                // for the length of that transform before snapping to center.
+                <Box
+                  ref={menuRef}
+                  css={theme({
+                    position: 'absolute',
+                    top: 'calc(100% + 8px)',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 30,
+                    width: 'max-content',
+                    maxWidth: 'calc(100vw - 32px)'
+                  })}
+                >
+                  <VertMenu
+                    data-state={menuState}
                     css={theme({
-                      position: 'absolute',
-                      top: 'calc(100% + 8px)',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      zIndex: 30,
-                      width: 'max-content',
-                      maxWidth: 'calc(100vw - 32px)'
+                      display: 'grid',
+                      // 16 products across 6 columns → 3 rows, natural
+                      // left-to-right / top-to-bottom reading order
+                      gridTemplateColumns: 'repeat(6, max-content)',
+                      gap: '2px',
+                      background: 'white',
+                      border: '1px solid #E6E4EA',
+                      borderRadius: 5,
+                      boxShadow: '0 24px 48px -20px rgba(40,10,60,.35)',
+                      p: 2
                     })}
                   >
-                    <VertMenu
-                      data-state={menuState}
-                      css={theme({
-                        display: 'grid',
-                        // 16 products across 6 columns → 3 rows, natural
-                        // left-to-right / top-to-bottom reading order
-                        gridTemplateColumns: 'repeat(6, max-content)',
-                        gap: '2px',
-                        background: 'white',
-                        border: '1px solid #E6E4EA',
-                        borderRadius: 5,
-                        boxShadow: '0 24px 48px -20px rgba(40,10,60,.35)',
-                        p: 2
-                      })}
-                    >
-                      {VERTICAL_ORDER.map(k => {
-                        const active = k === D.vertical
-                        return (
-                          <MenuItem
-                            key={k}
-                            data-active={active}
-                            onClick={e => {
-                              e.stopPropagation()
-                              pickVertical(k)
-                            }}
-                          >
-                            <MenuBadge>
-                              <VertGlyph vertical={k} size={16} />
-                            </MenuBadge>
-                            <MenuLabel>{LABELS[k]}</MenuLabel>
-                            {active && (
-                              <svg
-                                width='15'
-                                height='15'
-                                viewBox='0 0 24 24'
-                                fill='none'
-                                stroke={VIOLET}
-                                strokeWidth='3'
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
-                                css={theme({ ml: 'auto' })}
-                              >
-                                <path d='M20 6 9 17l-5-5' />
-                              </svg>
-                            )}
-                          </MenuItem>
-                        )
-                      })}
-                    </VertMenu>
-                  </Box>
-                )}
-              </VertChip>
+                    {VERTICAL_ORDER.map(k => {
+                      const active = k === D.vertical
+                      return (
+                        <MenuItem
+                          key={k}
+                          data-active={active}
+                          onClick={e => {
+                            e.stopPropagation()
+                            pickVertical(k)
+                          }}
+                        >
+                          <MenuBadge>
+                            <VertGlyph vertical={k} size={16} />
+                          </MenuBadge>
+                          <MenuLabel>{LABELS[k]}</MenuLabel>
+                          {active && (
+                            <svg
+                              width='15'
+                              height='15'
+                              viewBox='0 0 24 24'
+                              fill='none'
+                              stroke={VIOLET}
+                              strokeWidth='3'
+                              strokeLinecap='round'
+                              strokeLinejoin='round'
+                              css={theme({ ml: 'auto' })}
+                            >
+                              <path d='M20 6 9 17l-5-5' />
+                            </svg>
+                          )}
+                        </MenuItem>
+                      )
+                    })}
+                  </VertMenu>
+                </Box>
+              )}
               {D.hasUrl && (
                 <Mono
                   css={theme({
