@@ -579,23 +579,32 @@ const ComposerInput = styled.input`
   width: 100%;
   border: none;
   outline: none;
+  border-radius: 12px;
   font-family: ${SANS};
   font-size: 18px;
   color: ${INK};
   background: transparent;
   padding: 18px 18px 10px;
 
+  /* replace the removed outline with a keyboard-only focus ring */
+  &:focus-visible {
+    box-shadow: 0 0 0 3px rgba(155, 38, 214, 0.25);
+  }
+
   &::placeholder {
     color: #b3b3ba;
   }
 `
 
-const VertChip = styled.div`
+const VertChip = styled.button`
   display: inline-flex;
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
   cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
   background: #fafafb;
   border: 1px solid ${props => props.$border};
   border-radius: 10px;
@@ -604,6 +613,10 @@ const VertChip = styled.div`
 
   &:active {
     transform: scale(0.98);
+  }
+  &:focus-visible {
+    outline: 2px solid ${VIOLET};
+    outline-offset: 2px;
   }
 `
 
@@ -853,6 +866,9 @@ const JsonView = ({ src }) => {
   let key = 0
   let match
 
+  // JSON_TOKEN is a module-level /g regex shared across renders; reset its
+  // cursor so a prior interrupted pass can't start matching mid-string here
+  JSON_TOKEN.lastIndex = 0
   while ((match = JSON_TOKEN.exec(text)) !== null) {
     if (match.index > last) nodes.push(text.slice(last, match.index))
     const token = match[0]
@@ -975,9 +991,18 @@ const MenuItem = styled(Flex)`
   padding: 8px;
   border-radius: 8px;
   cursor: pointer;
+  width: 100%;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
   background: transparent;
   transition: background ${transition.short};
 
+  &:focus-visible {
+    outline: 2px solid ${VIOLET};
+    outline-offset: -2px;
+  }
   &[data-active='true'] {
     ${menuItemHighlight}
     // only the selected item bolds its label; hover keeps it 500
@@ -1014,7 +1039,12 @@ const Comment = styled.span`
 const renderJsValue = (value, keyBase) => {
   if (typeof value === 'boolean') return <Bool>{String(value)}</Bool>
   if (typeof value === 'number') return <Num>{value}</Num>
-  if (typeof value === 'string') return <Str>'{value}'</Str>
+  if (typeof value === 'string') {
+    // escape backslashes then single quotes so values containing quotes (e.g.
+    // the function vertical's page.$$eval('a', …)) render as valid JS source
+    const escaped = value.replace(/\\/g, '\\\\').replace(/'/g, "\\'")
+    return <Str>{`'${escaped}'`}</Str>
+  }
   const entries = Object.entries(value)
   return (
     <>
@@ -1474,6 +1504,9 @@ const Hero = () => {
     // Search API is Pro + query-based: replay the recorded example instead of
     // a live request, so the panel shows real search results (not page metadata)
     if (snapshot.vertical === 'search') {
+      // bump the request id so any live mql() call still in flight is treated
+      // as stale and can't overwrite this replayed result when it resolves
+      reqId.current += 1
       setReq({
         status: 'success',
         D: snapshot,
@@ -1582,8 +1615,19 @@ const Hero = () => {
       const inMenu = menuRef.current && menuRef.current.contains(e.target)
       if (!inChip && !inMenu) closeMenu()
     }
+    const onKey = e => {
+      // Escape closes the menu and returns focus to the trigger for keyboard use
+      if (e.key === 'Escape') {
+        closeMenu()
+        if (chipRef.current) chipRef.current.focus()
+      }
+    }
     document.addEventListener('mousedown', onDown)
-    return () => document.removeEventListener('mousedown', onDown)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDown)
+      document.removeEventListener('keydown', onKey)
+    }
   }, [menuState])
 
   // execute the default example once on mount so the panel shows live data
@@ -1680,7 +1724,11 @@ const Hero = () => {
             >
               <VertChip
                 ref={chipRef}
+                type='button'
                 $border={D.vertBorder}
+                aria-haspopup='true'
+                aria-expanded={menuState === 'open' || menuState === 'pre'}
+                aria-label={`Product: ${D.label}. Change product`}
                 onClick={e => {
                   e.stopPropagation()
                   stopTyping()
@@ -1712,15 +1760,23 @@ const Hero = () => {
                   strokeWidth='2.2'
                   strokeLinecap='round'
                   strokeLinejoin='round'
-                  css={theme({
-                    transition: `transform ${transition.short}`,
-                    transform:
-                      menuState === 'open' || menuState === 'pre'
-                        ? 'rotate(180deg)'
-                        : 'none'
-                  })}
+                  aria-hidden='true'
                 >
-                  <path d='m6 9 6 6 6-6' />
+                  {/* rotate on a <g> with transform-box: fill-box so the flip
+                      pivots around the glyph's own centre, not the SVG origin */}
+                  <g
+                    css={theme({
+                      transformBox: 'fill-box',
+                      transformOrigin: 'center',
+                      transition: `transform ${transition.short}`,
+                      transform:
+                        menuState === 'open' || menuState === 'pre'
+                          ? 'rotate(180deg)'
+                          : 'none'
+                    })}
+                  >
+                    <path d='m6 9 6 6 6-6' />
+                  </g>
                 </svg>
               </VertChip>
               {menuState && (
@@ -1733,6 +1789,7 @@ const Hero = () => {
                 // for the length of that transform before snapping to center.
                 <Box
                   ref={menuRef}
+                  aria-hidden={menuState !== 'open'}
                   css={theme({
                     position: 'absolute',
                     top: 'calc(100% + 8px)',
@@ -1745,6 +1802,8 @@ const Hero = () => {
                 >
                   <VertMenu
                     data-state={menuState}
+                    role='group'
+                    aria-label='Products'
                     css={theme({
                       display: 'grid',
                       // 16 products across 3 columns → 6 rows, natural
@@ -1763,7 +1822,10 @@ const Hero = () => {
                       return (
                         <MenuItem
                           key={k}
+                          as='button'
+                          type='button'
                           data-active={active}
+                          aria-current={active ? 'true' : undefined}
                           onClick={e => {
                             e.stopPropagation()
                             pickVertical(k)
@@ -1783,6 +1845,7 @@ const Hero = () => {
                               strokeWidth='3'
                               strokeLinecap='round'
                               strokeLinejoin='round'
+                              aria-hidden='true'
                               css={theme({ ml: 'auto' })}
                             >
                               <path d='M20 6 9 17l-5-5' />

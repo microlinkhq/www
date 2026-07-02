@@ -42,12 +42,15 @@ export const withSpinner = ChildComponent => {
       const innerRef = useRef(null)
 
       useEffect(() => {
+        // re-run when loading flips: a component that starts in the loading
+        // state has no innerRef yet (SpinnerButton is rendered instead), so the
+        // mount-only measurement would leave width/height undefined forever
         if (innerRef.current) {
           const computed = window.getComputedStyle(innerRef.current)
           setWidth(parseInt(computed.getPropertyValue('width')))
           setHeight(parseInt(computed.getPropertyValue('height')))
         }
-      }, [])
+      }, [loading])
 
       if (!loading) {
         return (

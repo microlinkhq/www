@@ -446,7 +446,7 @@ const TechnologiesOutput = ({ technologies }) => {
                 })}
               />
             )}
-            <Box css={theme({ overflow: 'hidden' })}>
+            <Box css={theme({ flex: 1, minWidth: 0, overflow: 'hidden' })}>
               <Box
                 as={tech.url ? 'a' : 'span'}
                 href={tech.url}
@@ -572,6 +572,10 @@ const PlayButton = styled.button`
   &:active {
     transform: scale(0.94);
   }
+  &:focus-visible {
+    outline: 2px solid ${VIOLET};
+    outline-offset: 2px;
+  }
 `
 
 const ProgressTrack = styled.div`
@@ -608,18 +612,28 @@ const AudioOutput = ({ data }) => {
   useEffect(() => {
     const el = audioRef.current
     if (!el) return undefined
+    // a new src re-renders the <audio> paused at 0; reset UI state so the
+    // transport/equalizer don't keep showing the previous clip as playing
+    setPlaying(false)
+    setCurrent(0)
     const onTime = () => setCurrent(el.currentTime)
     const onMeta = () => setDuration(el.duration)
+    const onPlay = () => setPlaying(true)
+    const onPause = () => setPlaying(false)
     const onEnd = () => {
       setPlaying(false)
       setCurrent(0)
     }
     el.addEventListener('timeupdate', onTime)
     el.addEventListener('loadedmetadata', onMeta)
+    el.addEventListener('play', onPlay)
+    el.addEventListener('pause', onPause)
     el.addEventListener('ended', onEnd)
     return () => {
       el.removeEventListener('timeupdate', onTime)
       el.removeEventListener('loadedmetadata', onMeta)
+      el.removeEventListener('play', onPlay)
+      el.removeEventListener('pause', onPause)
       el.removeEventListener('ended', onEnd)
     }
   }, [src])
@@ -828,6 +842,11 @@ const BarButton = styled.button`
   &:active {
     transform: scale(0.9);
   }
+  &:focus-visible {
+    outline: 2px solid ${VIOLET};
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
 `
 
 const PlayOverlay = styled.button`
@@ -851,6 +870,10 @@ const PlayOverlay = styled.button`
   }
   &:active {
     transform: scale(0.94);
+  }
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
   }
 `
 
@@ -1005,6 +1028,10 @@ const fmtBytes = bytes => {
     : `${Math.max(1, Math.round(bytes / 1024))} KB`
 }
 
+// Microlink reports profiling.memory already in megabytes, so format it
+// directly instead of treating the value as raw bytes
+const fmtMB = mb => (mb == null ? '—' : `${Math.round(mb)} MB`)
+
 const Stat = ({ label, value }) => (
   <Box css={theme({ textAlign: 'center' })}>
     <Box
@@ -1062,7 +1089,7 @@ const Profiling = ({ profiling }) => {
       >
         <Stat label='Total' value={fmtMs(total)} />
         <Stat label='CPU' value={fmtMs(cpu)} />
-        <Stat label='Memory' value={fmtBytes(memory)} />
+        <Stat label='Memory' value={fmtMB(memory)} />
         <Stat label='Size' value={fmtBytes(size)} />
       </Flex>
 
@@ -1129,8 +1156,12 @@ const Profiling = ({ profiling }) => {
 
 const FunctionValue = ({ value, result }) => {
   // an array of links is the canonical demo — render it as a clickable list
+  // require at least one item: [].every(...) is vacuously true, which would
+  // render an empty box instead of falling back to the JSON output
   const isLinkList =
-    Array.isArray(value) && value.every(v => /^https?:\/\//.test(v))
+    Array.isArray(value) &&
+    value.length > 0 &&
+    value.every(v => /^https?:\/\//.test(v))
 
   if (isLinkList) {
     return (
