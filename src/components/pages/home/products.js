@@ -13,7 +13,7 @@ import React from 'react'
 const MONO = fonts.mono
 
 const tone = {
-  ink: '#0b1220',
+  ink: colors.black,
   ink900: '#111',
   muted: '#8b8f9a',
   faint: '#9aa0ab',
