@@ -5,17 +5,12 @@ import Container from 'components/elements/Container'
 import Dot from 'components/elements/Dot/Dot'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import Subhead from 'components/elements/Subhead'
+import Heading from 'components/elements/Heading'
 import Caption from 'components/patterns/Caption/Caption'
 import Overlay from 'components/pages/home/overlay'
 import Output from 'components/pages/home/output'
 import FeatherIcon from 'components/icons/Feather'
 import { WandSparkles } from 'components/icons/WandSparkles'
-import {
-  Copy as CopyIcon,
-  Check as CheckIcon,
-  ArrowRight as ArrowRightIcon
-} from 'react-feather'
 import { Link } from 'components/elements/Link'
 import { PRODUCTS, VERTICAL_ORDER } from 'components/pages/home/catalog'
 import { trackEvent } from 'helpers/plausible'
@@ -25,14 +20,16 @@ import styled, { css, keyframes } from 'styled-components'
 import mql, { getApiUrl } from '@microlink/mql'
 import GOOGLE_EXAMPLES from 'data/google-examples'
 
+import {
+  Copy as CopyIcon,
+  Check as CheckIcon,
+  ArrowRight as ArrowRightIcon
+} from 'react-feather'
+
 import analyticsData from '../../../../data/analytics.json'
 
-// Search API is Pro + query-based; the free demo replays a real recorded
-// example (same data the /search page uses) instead of a live request
 const SEARCH_EXAMPLE = GOOGLE_EXAMPLES.search[0]
 
-// round the request count down to the nearest 50 (e.g. 778M → 750M) so the
-// hero shows a clean, never-overstated figure rather than the exact number
 const reqsRounded = (() => {
   const [, value, unit] = analyticsData[0].reqs_pretty.match(/^([\d.]+)(\D+)$/)
   return `${Math.floor(Number(value) / 50) * 50}${unit}`
@@ -40,14 +37,12 @@ const reqsRounded = (() => {
 
 const PINK = '#FF1E8C'
 const VIOLET = '#9B26D6'
-const INK = '#0A0A0A'
+const INK = '#000'
 const GRADIENT = 'linear-gradient(99deg,#FF1E8C,#B026E0)'
 
 const SANS = fonts.sans
 const MONO = fonts.mono
 
-// response/syntax-highlight palette (kept literal — these don't map to theme
-// tokens and need to match the response viewer exactly)
 const SYNTAX = {
   key: '#0E9488',
   string: '#16A34A',
@@ -61,7 +56,6 @@ const SYNTAX = {
 
 const reduceMotion = '@media (prefers-reduced-motion: reduce)'
 
-// smooth ease-out for position/scale changes (dropdown, sliding tab indicator)
 const EASE_SMOOTH = 'cubic-bezier(0.22, 1, 0.36, 1)'
 
 const pulse = keyframes`
@@ -75,47 +69,35 @@ const fadeIn = keyframes`
   to { opacity: 1 }
 `
 
-// first-paint reveal: gentle blurred rise + fade, staggered across the hero
 const riseIn = keyframes`
   from { opacity: 0; transform: translateY(8px); filter: blur(3px) }
   to { opacity: 1; transform: translateY(0); filter: blur(0) }
 `
 
-// slow highlight sweep that keeps the "live" label feeling alive
 const shimmer = keyframes`
   0% { background-position: 100% 0 }
   100% { background-position: 0% 0 }
 `
 
-// gentle opacity pulse for skeleton placeholders while a request is in-flight
 const skeletonPulse = keyframes`
   0%, 100% { opacity: 1 }
   50% { opacity: 0.45 }
 `
 
-// indeterminate bar that slides across the panel top during a request
 const loadingSlide = keyframes`
   0% { transform: translateX(-100%) }
   100% { transform: translateX(400%) }
 `
 
-/* ----------------------------- routing logic ----------------------------- */
-
-// product identity (icon, label, page, description, colour) lives in the shared
-// catalog so the product menu here and the homepage grid stay in lockstep
 const VertGlyph = ({ vertical, size = 16 }) => {
   const Icon = PRODUCTS[vertical] && PRODUCTS[vertical].icon
-  // px units are required: the local Svg icons size via styled-system `layout`,
-  // which drops bare numbers and lets the glyph balloon to fill its container
   const px = `${size}px`
   return Icon ? <Icon width={px} height={px} /> : null
 }
 
-// installs Microlink's agent skill so any assistant can start making the calls
 const SKILL_INSTALL =
   'npx skills add https://github.com/microlinkhq/skills --skill microlink-api'
 
-// action phrase per product, written so "<task> <url>" reads as an instruction
 const AGENT_TASK = {
   screenshot: 'capture a screenshot of',
   animated: 'record an animated screenshot of',
@@ -135,9 +117,6 @@ const AGENT_TASK = {
   audio: 'extract the audio from'
 }
 
-// the copied "prompt" is an agent-ready instruction: it tells an assistant to
-// use the Microlink API for the selected product against the current URL, and
-// bootstraps the skill so it can start immediately
 const agentPrompt = ({ vertical, fullUrl }) => {
   const task =
     vertical === 'search'
@@ -148,9 +127,6 @@ const agentPrompt = ({ vertical, fullUrl }) => {
   return `Using the Microlink API, ${task}.\n\nSet up Microlink for your agent first: ${SKILL_INSTALL}`
 }
 
-// the actual mql options sent per vertical — every one is a real API call that
-// returns real data; verticals without a dedicated free-tier flag fall back to
-// the default metadata response
 const REQUEST_OPTS = {
   screenshot: { screenshot: true },
   animated: { screenshot: { animated: true } },
@@ -160,7 +136,6 @@ const REQUEST_OPTS = {
   html: { data: { html: { attr: 'html' } }, meta: false, ping: false },
   text: { data: { text: { attr: 'text' } }, meta: false, ping: false },
   metadata: {},
-  // skip metadata + technology detection so the lighthouse audit resolves faster
   lighthouse: {
     insights: { lighthouse: true, technologies: false },
     meta: false,
@@ -200,8 +175,6 @@ const EXAMPLES = [
   'fetch the logo'
 ]
 
-// composer prompt written into the input when a product is picked from the
-// dropdown — each phrase parses back to its own vertical
 const PROMPTS = {
   screenshot: 'take a screenshot',
   animated: 'record an animated screenshot',
@@ -275,8 +248,6 @@ const parseLocal = text => {
     (text || '').match(
       /[a-z0-9][a-z0-9-]*(?:\.[a-z0-9-]+)*\.[a-z]{2,}(?:\/[^\s]*)?/i
     )
-  // `raw` keeps the domain exactly as typed (e.g. "github.com") so it can be
-  // preserved verbatim when switching products
   const raw = m ? m[0] : ''
   if (m) {
     url = m[0]
@@ -285,8 +256,6 @@ const parseLocal = text => {
   return { vertical, url, raw, hasUrl: !!url }
 }
 
-// when the prompt names no domain we fall back to the same example URL each
-// product's documentation uses; the user can type any domain to override it
 const DEFAULT_URLS = {
   screenshot: 'https://www.apple.com/music',
   animated: 'https://sauron-webgl.vercel.app/',
@@ -309,8 +278,6 @@ const DEFAULT_URLS = {
 }
 const FALLBACK_URL = 'https://example.com'
 
-// example chips are a fixed list, so resolve each one's vertical once at module
-// load instead of re-parsing on every (typewriter-driven) Hero render
 const EXAMPLE_CHIPS = EXAMPLES.map(text => ({
   text,
   vertical: parseLocal(text).vertical
@@ -319,8 +286,6 @@ const EXAMPLE_CHIPS = EXAMPLES.map(text => ({
 const derive = (text, override) => {
   const p = parseLocal(text)
   const v = override || p.vertical
-  // the request honours the full path (e.g. vercel.com/blog); falls back to the
-  // documentation example for the product when the prompt doesn't include one
   const fullUrl = p.url || DEFAULT_URLS[v] || FALLBACK_URL
   return {
     vertical: v,
@@ -330,7 +295,6 @@ const derive = (text, override) => {
   }
 }
 
-// palette cycled across the timing bars so each metric reads as its own colour
 const TIMING_COLORS = [
   SYNTAX.string,
   SYNTAX.number,
@@ -340,7 +304,6 @@ const TIMING_COLORS = [
   SYNTAX.fn
 ]
 
-// the fetch Response carries a Headers instance; flatten + sort it for display
 const headersToRows = headers => {
   if (!headers) return []
   const rows = []
@@ -352,8 +315,6 @@ const headersToRows = headers => {
   return rows.sort((a, b) => a.k.localeCompare(b.k))
 }
 
-// turn the `server-timing` header (e.g. "total;dur=34,ssrf;dur=1") into the
-// bars + rows the Timing tab renders
 const parseServerTiming = headers => {
   const raw =
     headers && typeof headers.get === 'function'
@@ -389,11 +350,6 @@ const parseServerTiming = headers => {
   return { bars, rows, totalMs: total }
 }
 
-/* ------------------------------- presentation ------------------------------ */
-
-// fluid section padding: the side gutters and the tall bottom gap both scale
-// with the viewport. The gutter floor is the theme's space[3] (16px) token; the
-// fluid caps (40/96/220) sit off the discrete space scale on purpose.
 const GUTTER_X = `clamp(${space[3]}, 4vw, 40px)`
 const PADDING_BOTTOM = 'clamp(96px, 14vw, 220px)'
 
@@ -408,8 +364,6 @@ const Section = styled.section`
   padding-left: ${GUTTER_X};
 `
 
-// the centered content column — Container gives flex-column + mx:auto; the
-// outer <Section> owns the vertical/horizontal padding, so reset Container's
 const Content = styled(Container)`
   position: relative;
   z-index: 1;
@@ -418,7 +372,6 @@ const Content = styled(Container)`
   text-align: center;
   padding: 0;
 
-  /* staggered first-paint reveal, top to bottom */
   & > * {
     animation: ${riseIn} 440ms ${timings.short} both;
   }
@@ -441,7 +394,6 @@ const Content = styled(Container)`
     animation-delay: 270ms;
   }
 
-  /* reduced motion: keep the fade, drop the movement */
   ${reduceMotion} {
     & > * {
       animation-name: ${fadeIn};
@@ -476,9 +428,6 @@ const Badge = styled.span`
 
 const Composer = styled.div`
   position: relative;
-  /* lift above the later hero rows (chips, live-response, panel) so the
-     downward product menu isn't covered — each row is its own stacking
-     context from the entrance animation's lingering filter */
   z-index: 20;
   width: 100%;
   max-width: 680px;
@@ -502,7 +451,6 @@ const ComposerInput = styled.input`
   background: transparent;
   padding: 18px 18px 10px;
 
-  /* replace the removed outline with a keyboard-only focus ring */
   &:focus-visible {
     box-shadow: 0 0 0 3px rgba(155, 38, 214, 0.25);
   }
@@ -595,8 +543,6 @@ const ExampleChip = styled.button`
   }
 `
 
-// footer actions under the composer: copy the current prompt, or deep-link to
-// the page for whatever product is selected
 const HeroActions = styled(Flex)`
   align-items: center;
   justify-content: center;
@@ -681,7 +627,6 @@ const Panel = styled.div`
   box-shadow: 0 24px 60px -40px rgba(40, 10, 60, 0.35);
 `
 
-// the tab row owns positioning context for the sliding indicator
 const TabBar = styled.div`
   position: relative;
   display: flex;
@@ -695,8 +640,6 @@ const TabButton = styled.button`
   background: transparent;
   font-family: ${SANS};
   font-size: 17px;
-  /* weight stays constant so the active tab doesn't reflow its width and
-     shift its siblings — active is signalled by color + the sliding indicator */
   font-weight: 500;
   color: ${props => (props.$active ? INK : '#8a8a90')};
   padding: 0 0 14px;
@@ -712,8 +655,6 @@ const TabButton = styled.button`
   }
 `
 
-// the active-tab underline that slides between tabs; JS writes its
-// transform/width from the active tab's offsetLeft/offsetWidth
 const TabIndicator = styled.span`
   position: absolute;
   bottom: -1px;
@@ -731,10 +672,6 @@ const TabIndicator = styled.span`
   }
 `
 
-// origin-aware popover: scales in from the chip (top-left) on open and
-// scales back down on close — data-state drives both directions
-// centering is done with auto margins (see instance css) so the animated
-// transform is purely vertical — reveals with a soft fade + short slide-down
 const VertMenu = styled(Box)`
   will-change: transform, opacity;
 
@@ -761,7 +698,6 @@ const VertMenu = styled(Box)`
   }
 `
 
-// fade the result body on tab change (opacity only — no layout motion)
 const TabContent = styled.div`
   animation: ${fadeIn} ${transition.short};
 
@@ -774,8 +710,6 @@ const Mono = styled(Text).attrs({ as: 'span' })`
   font-family: ${MONO};
 `
 
-// sweeps a highlight band across the label's glyphs (clip-to-text); the
-// ::before duplicates the text via data-text and only paints the moving band
 const ShimmerText = styled.span`
   position: relative;
   display: inline-block;
@@ -837,7 +771,6 @@ const Code = styled.pre`
   overflow: auto;
 `
 
-// colours for each JSON token type, matched to the rest of the panel
 const JSON_COLORS = {
   key: SYNTAX.key,
   string: SYNTAX.string,
@@ -846,14 +779,9 @@ const JSON_COLORS = {
   null: SYNTAX.literal
 }
 
-// matches a quoted string (optionally an object key when followed by a colon),
-// a literal (true/false/null) or a number — enough to colourise pretty JSON
 const JSON_TOKEN =
   /("(?:\\.|[^"\\])*")(\s*:)?|\b(?:true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g
 
-// pretty-print + syntax-highlight a response payload without pulling in a
-// JSON-viewer dependency (keeps the homepage bundle lean and avoids the legacy
-// react-json-view warnings)
 const JsonView = ({ src }) => {
   const text = JSON.stringify(src, null, 2)
   const nodes = []
@@ -861,15 +789,12 @@ const JsonView = ({ src }) => {
   let key = 0
   let match
 
-  // JSON_TOKEN is a module-level /g regex shared across renders; reset its
-  // cursor so a prior interrupted pass can't start matching mid-string here
   JSON_TOKEN.lastIndex = 0
   while ((match = JSON_TOKEN.exec(text)) !== null) {
     if (match.index > last) nodes.push(text.slice(last, match.index))
     const token = match[0]
 
     if (match[1] && match[2] !== undefined) {
-      // object key — colour the quoted name, leave the colon neutral
       nodes.push(
         <Box as='span' key={key++} css={{ color: JSON_COLORS.key }}>
           {match[1]}
@@ -907,7 +832,6 @@ const JsonView = ({ src }) => {
   )
 }
 
-// indeterminate progress bar pinned to the panel header while a request runs
 const LoadingBar = styled.span`
   position: absolute;
   top: 0;
@@ -945,8 +869,6 @@ const Skeleton = () => (
   </Box>
 )
 
-// rounded badge that holds a product glyph; the glyph inherits the badge's
-// `color` via currentColor
 const IconBadge = styled(Box)`
   display: inline-flex;
   align-items: center;
@@ -954,8 +876,6 @@ const IconBadge = styled(Box)`
   border-radius: 7px;
   flex-shrink: 0;
 `
-
-/* ----------------------------- product menu ----------------------------- */
 
 const MenuBadge = styled(IconBadge)`
   width: 26px;
@@ -969,13 +889,11 @@ const MenuLabel = styled.span`
   font-weight: 500;
   color: ${INK};
   white-space: nowrap;
-  /* truncate rather than overflow when the grid track is squeezed on mobile */
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 `
 
-// tinted background + gradient badge — shared by the active item and hover
 const menuItemHighlight = css`
   background: rgba(255, 30, 140, 0.06);
   ${MenuBadge} {
@@ -1005,7 +923,6 @@ const MenuItem = styled(Flex)`
   }
   &[data-active='true'] {
     ${menuItemHighlight}
-    // only the selected item bolds its label; hover keeps it 500
     ${MenuLabel} {
       font-weight: 600;
     }
@@ -1017,7 +934,6 @@ const MenuItem = styled(Flex)`
   }
 `
 
-// syntax-highlight tokens for the Code panel
 const Str = styled.span`
   color: ${SYNTAX.string};
 `
@@ -1034,14 +950,10 @@ const Comment = styled.span`
   color: ${SYNTAX.muted};
 `
 
-// render an mql options value as colourised JS source (handles nested objects
-// like the markdown data rule, not just `{ flag: true }`)
 const renderJsValue = (value, keyBase) => {
   if (typeof value === 'boolean') return <Bool>{String(value)}</Bool>
   if (typeof value === 'number') return <Num>{value}</Num>
   if (typeof value === 'string') {
-    // escape backslashes then single quotes so values containing quotes (e.g.
-    // the function vertical's page.$$eval('a', …)) render as valid JS source
     const escaped = value.replace(/\\/g, '\\\\').replace(/'/g, "\\'")
     return <Str>{`'${escaped}'`}</Str>
   }
@@ -1060,17 +972,10 @@ const renderJsValue = (value, keyBase) => {
   )
 }
 
-/* --------------------------------- result -------------------------------- */
-
-// memoized: the parent Hero re-renders on every typewriter tick, but the panel
-// only depends on the request + active tab, so skip re-rendering (and the
-// JSON.stringify + tokenizer work) while the composer text is animating
 const ResultPanel = React.memo(({ tab, setTab, req }) => {
   const { D, status, body, headerRows, bars, rows, totalMs } = req
   const isLoading = status === 'loading'
   const isError = status === 'error'
-  // the options actually sent for this vertical, so the snippet matches the
-  // GET line and the live request exactly
   const opts = REQUEST_OPTS[D.vertical] || {}
   const hasOpts = Object.keys(opts).length > 0
 
@@ -1090,8 +995,6 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
   const indicatorRef = useRef(null)
   const firstPaint = useRef(true)
 
-  // slide the underline to the active tab; the first paint (and resize / font
-  // load) snaps without a transition so it doesn't animate in from zero width
   useEffect(() => {
     const move = animate => {
       const bar = barRef.current
@@ -1103,7 +1006,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
         pill.style.transition = 'none'
         pill.style.transform = `translateX(${active.offsetLeft}px)`
         pill.style.width = `${active.offsetWidth}px`
-        pill.getBoundingClientRect() // force reflow so the snap isn't animated
+        pill.getBoundingClientRect()
         pill.style.transition = prev
       } else {
         pill.style.transform = `translateX(${active.offsetLeft}px)`
@@ -1122,8 +1025,6 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
     return () => window.removeEventListener('resize', onResize)
   }, [tab])
 
-  // WAI-ARIA APG tabs keyboard support: arrows wrap, Home/End jump to the ends;
-  // activation follows focus and moves the roving tabindex with it
   const onTabKeyDown = e => {
     const keys = tabs.map(t => t.key)
     const i = keys.indexOf(tab)
@@ -1149,7 +1050,6 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
     <Panel>
       {isLoading && <LoadingBar />}
 
-      {/* GET url — status + duration now live in the "live response" label */}
       <Flex
         css={theme({
           alignItems: 'center',
@@ -1175,7 +1075,6 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
         </Mono>
       </Flex>
 
-      {/* tabs */}
       <TabBar
         ref={barRef}
         role='tablist'
@@ -1457,13 +1356,9 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
   )
 })
 
-// format the round-trip duration as seconds once we cross 1s, else ms
 const fmtDuration = ms =>
   ms >= 1000 ? `${(ms / 1000).toFixed(1)}s` : `${ms}ms`
 
-// the live-response label reports request status: a shimmering "running…"
-// while in flight, then the resolved status code + duration (green) or error
-// (red) — it replaces the panel's own header
 const requestStatus = req => {
   if (req.status === 'loading') {
     return { text: 'running…', color: VIOLET, live: true }
@@ -1478,16 +1373,11 @@ const requestStatus = req => {
   }
 }
 
-/* ---------------------------------- hero --------------------------------- */
-
 const Hero = () => {
   const [dText, setDText] = useState(CYCLE[0])
   const [dTab, setDTab] = useState('output')
   const [dVert, setDVert] = useState(null)
-  // null = unmounted; 'pre' → 'open' → 'closing' drives the popover transition
   const [menuState, setMenuState] = useState(null)
-  // the executed request shown in the panel — decoupled from the live composer
-  // so the typing animation never disturbs the last result
   const [req, setReq] = useState(() => {
     const d = derive(CYCLE[0])
     return {
@@ -1496,7 +1386,6 @@ const Hero = () => {
       apiUrl: getApiUrl(d.fullUrl, REQUEST_OPTS[d.vertical] || {})[0]
     }
   })
-  // monotonic id so a slow response can't overwrite a newer one
   const reqId = useRef(0)
   const anim = useRef({
     ci: 0,
@@ -1514,8 +1403,6 @@ const Hero = () => {
 
   useEffect(() => () => clearTimeout(copyTimer.current), [])
 
-  // copy an agent-ready instruction for the selected product so a visitor can
-  // paste it into their assistant and start using that Microlink capability
   const copyPrompt = () => {
     if (typeof navigator === 'undefined' || !navigator.clipboard) return
     navigator.clipboard
@@ -1540,7 +1427,6 @@ const Hero = () => {
   const openMenu = () => {
     clearTimeout(menuTimer.current)
     setMenuState('pre')
-    // two frames so the 'pre' (scaled-down) state paints before 'open' tweens
     menuRaf.current = window.requestAnimationFrame(() => {
       menuRaf.current = window.requestAnimationFrame(() => setMenuState('open'))
     })
@@ -1558,14 +1444,8 @@ const Hero = () => {
     else openMenu()
   }
 
-  // fire a real Microlink request for the given derived snapshot and stream the
-  // result (data / headers / timing) into the panel
   const runRequest = useCallback(async snapshot => {
-    // Search API is Pro + query-based: replay the recorded example instead of
-    // a live request, so the panel shows real search results (not page metadata)
     if (snapshot.vertical === 'search') {
-      // bump the request id so any live mql() call still in flight is treated
-      // as stale and can't overwrite this replayed result when it resolves
       reqId.current += 1
       setReq({
         status: 'success',
@@ -1624,7 +1504,6 @@ const Hero = () => {
   }, [])
 
   useEffect(() => {
-    // respect reduced motion: keep a single static prompt, no auto-typing
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return undefined
     }
@@ -1667,13 +1546,11 @@ const Hero = () => {
   useEffect(() => {
     if (menuState !== 'open') return undefined
     const onDown = e => {
-      // menu now lives outside VertChip, so check both refs before closing
       const inChip = chipRef.current && chipRef.current.contains(e.target)
       const inMenu = menuRef.current && menuRef.current.contains(e.target)
       if (!inChip && !inMenu) closeMenu()
     }
     const onKey = e => {
-      // Escape closes the menu and returns focus to the trigger for keyboard use
       if (e.key === 'Escape') {
         closeMenu()
         if (chipRef.current) chipRef.current.focus()
@@ -1687,8 +1564,6 @@ const Hero = () => {
     }
   }, [menuState])
 
-  // once the menu is fully open (and no longer aria-hidden), move focus to the
-  // selected item so arrow keys have a starting point for keyboard users
   useEffect(() => {
     if (menuState !== 'open') return
     const el =
@@ -1696,7 +1571,6 @@ const Hero = () => {
     if (el) el.focus()
   }, [menuState])
 
-  // execute the default example once on mount so the panel shows live data
   useEffect(() => {
     runRequest(derive(CYCLE[0]))
   }, [runRequest])
@@ -1706,8 +1580,6 @@ const Hero = () => {
   const productPage = PRODUCTS[D.vertical] || PRODUCTS.screenshot
 
   const handleRun = () => {
-    // mirror the Run button's disabled state: Enter must not stack a second
-    // request on top of one already in flight
     if (req.status === 'loading') return
     stopTyping()
     closeMenu()
@@ -1730,9 +1602,6 @@ const Hero = () => {
     setDText(value)
   }
 
-  // picking a product from the dropdown rewrites the composer prompt to match,
-  // preserving whatever domain the user had typed (rule: keep it verbatim; if
-  // the input has none, emit the bare action and let the backend fall back)
   const pickVertical = k => {
     const template = PROMPTS[k] || ''
     const { raw } = parseLocal(dText)
@@ -1742,13 +1611,10 @@ const Hero = () => {
     setDText(prompt)
     setDVert(k)
     closeMenu()
-    // return focus to the trigger so keyboard users aren't dropped to <body>
     if (chipRef.current) chipRef.current.focus()
-    // run it immediately so the panel reflects the picked product
     runRequest(derive(prompt, k))
   }
 
-  // roving arrow-key navigation across the 3-column product grid (APG menu)
   const MENU_COLS = 3
   const onMenuKeyDown = e => {
     const items = menuRef.current
@@ -1779,14 +1645,14 @@ const Hero = () => {
           Trusted by apps, agents & AI · {reqsRounded}+ requests / month
         </Badge>
 
-        <Subhead>
-          The web, <span>automated</span>
-        </Subhead>
-        <Caption>
+        <Heading variant={null}>
+          The web, <Heading as='span'>automated</Heading>
+        </Heading>
+
+        <Caption css={theme({ pt: 3 })}>
           Everything your software needs from any URL. No credit card required.
         </Caption>
 
-        {/* composer */}
         <Composer>
           <ComposerInput
             value={dText}
@@ -1858,8 +1724,6 @@ const Hero = () => {
                   strokeLinejoin='round'
                   aria-hidden='true'
                 >
-                  {/* rotate on a <g> with transform-box: fill-box so the flip
-                      pivots around the glyph's own centre, not the SVG origin */}
                   <g
                     css={theme({
                       transformBox: 'fill-box',
@@ -1876,13 +1740,6 @@ const Hero = () => {
                 </svg>
               </VertChip>
               {menuState && (
-                // wrapper centers the panel under the composer (static
-                // translateX(-50%)); the inner VertMenu owns the reveal
-                // animation, so centering and motion never fight. Kept a
-                // sibling of VertChip (not a child) so the chip's :active
-                // scale transform never becomes the menu's containing block —
-                // otherwise the menu re-anchors to the chip and slides sideways
-                // for the length of that transform before snapping to center.
                 <Box
                   ref={menuRef}
                   aria-hidden={menuState !== 'open'}
@@ -1903,10 +1760,6 @@ const Hero = () => {
                     onKeyDown={onMenuKeyDown}
                     css={theme({
                       display: 'grid',
-                      // 16 products across 3 columns → 6 rows, natural
-                      // left-to-right / top-to-bottom reading order.
-                      // minmax(0, …) lets the tracks shrink (and labels
-                      // truncate) instead of overflowing the viewport on phones
                       gridTemplateColumns: 'repeat(3, minmax(0, max-content))',
                       maxWidth: '100%',
                       gap: '2px',
@@ -2007,7 +1860,6 @@ const Hero = () => {
           </Flex>
         </Composer>
 
-        {/* example chips */}
         <Flex
           css={theme({
             gap: 2,
@@ -2030,7 +1882,6 @@ const Hero = () => {
           ))}
         </Flex>
 
-        {/* live response — doubles as the request status reporter */}
         <Caps
           css={theme({
             display: 'inline-flex',
@@ -2056,7 +1907,6 @@ const Hero = () => {
 
         <ResultPanel tab={dTab} setTab={setDTab} req={req} />
 
-        {/* next steps: copy an agent prompt, or open the selected product */}
         <HeroActions>
           <CopyPromptButton
             type='button'
