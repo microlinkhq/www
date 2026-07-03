@@ -351,7 +351,7 @@ const parseServerTiming = headers => {
 }
 
 const GUTTER_X = `clamp(${space[3]}, 4vw, 40px)`
-const PADDING_BOTTOM = 'clamp(96px, 14vw, 220px)'
+const PADDING_BOTTOM = 'clamp(64px, 10vw, 140px)'
 
 const Section = styled.section`
   position: relative;

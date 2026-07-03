@@ -73,7 +73,7 @@ const Production = () => (
     css={theme({
       bg: 'white',
       color: 'black',
-      pt: [5, 5, 6, 6]
+      pt: [4, 4, 5, 5]
     })}
   >
     <Box

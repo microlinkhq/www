@@ -115,6 +115,9 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 
 - SHOULD: Optical alignment; adjust ±1px when perception beats geometry
 - MUST: Deliberate alignment to grid/baseline/edges—no accidental placement
+- MUST: Space big page sections with the shared `SECTION_VERTICAL_SPACING = [4, 4, 5, 5]` rhythm (64px desktop) so the seam between adjacent components stays a consistent 128px; every product page already follows this.
+- NEVER: Rely on `Container`'s default `pt` for section spacing—set `pt`/`py` explicitly, or two padded sections stack into uneven 192–256px seams.
+- SHOULD: Reserve heavier padding (`[5, 5, 6, 6]`/128px) for full-bleed or colored emphasis bands, not plain content sections.
 - SHOULD: Balance icon/text lockups (weight/size/spacing/color)
 - MUST: Verify mobile, laptop, ultra-wide (simulate ultra-wide at 50% zoom)
 - MUST: Respect safe areas (`env(safe-area-inset-*)`)

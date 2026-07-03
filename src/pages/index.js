@@ -63,7 +63,7 @@ const HomePage = () => {
             alignItems: 'center',
             textAlign: 'center',
             maxWidth: '100%',
-            pt: [5, 5, 6, 6],
+            pt: [4, 4, 5, 5],
             px: [3, 3, 4, 4]
           })}
         >
