@@ -186,7 +186,7 @@ const PricePicker = ({ onChange }) => {
         </Text>
         <Text
           as='span'
-          css={theme({ fontSize: [0, 0, 1, 1], color: 'black60', pl: 1 })}
+          css={theme({ fontSize: [0, 0, 1, 1], color: 'black70', pl: 1 })}
         >
           requests / month
         </Text>

@@ -133,7 +133,7 @@ export const PriceTag = ({ prices, suffix = '/month', highlight = false }) => {
       >
         {amountNode}
       </Text>
-      <Text css={theme({ fontSize: [0, 0, 1, 1], color: 'black60' })}>
+      <Text css={theme({ fontSize: [0, 0, 1, 1], color: 'black70' })}>
         {suffix}
       </Text>
     </Flex>
@@ -188,7 +188,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
         <ProPricingCard css={theme({ order: [1, 1, 2, 2] })}>
           <PlanName>Pro</PlanName>
           <Text
-            css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black60' })}
+            css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black70' })}
           >
             For production workloads.
           </Text>
@@ -238,7 +238,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
               css={theme({
                 pt: 2,
                 fontSize: 0,
-                color: 'black60',
+                color: 'black70',
                 textAlign: 'center'
               })}
             >
@@ -250,7 +250,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
         <PricingCard css={theme({ order: [2, 2, 1, 1] })}>
           <PlanName>Free</PlanName>
           <Text
-            css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black60' })}
+            css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black70' })}
           >
             Try the API in seconds. No card.
           </Text>
@@ -260,7 +260,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
               css={theme({
                 pt: 2,
                 fontSize: 0,
-                color: 'black60',
+                color: 'black70',
                 fontVariantNumeric: 'tabular-nums'
               })}
             >
@@ -307,7 +307,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
         <PricingCard css={theme({ order: 3 })}>
           <PlanName>Enterprise</PlanName>
           <Text
-            css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black60' })}
+            css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black70' })}
           >
             Dedicated infra for high-volume.
           </Text>
@@ -325,7 +325,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
                 Custom
               </Text>
             </Flex>
-            <Text css={theme({ pt: 2, fontSize: 0, color: 'black60' })}>
+            <Text css={theme({ pt: 2, fontSize: 0, color: 'black70' })}>
               From {currencySymbol}
               {formatPrice(ENTERPRISE_PRICE, currency)} / month
             </Text>
@@ -383,7 +383,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 fontSize: [0, 0, 1, 1],
-                color: 'black60',
+                color: 'black70',
                 fontWeight: 'bold',
                 letterSpacing: 1
               })}
@@ -423,7 +423,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
                 fontSize: [1, 1, 2, 2]
               })}
             >
-              <Text as='span' css={theme({ color: 'black60' })}>
+              <Text as='span' css={theme({ color: 'black70' })}>
                 Need more details?
               </Text>
               <ArrowLink href='/pricing'>
