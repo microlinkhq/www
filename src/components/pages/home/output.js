@@ -3,16 +3,10 @@ import Flex from 'components/elements/Flex'
 import Microlink from 'components/patterns/Microlink/Microlink'
 import { HeroSearchResultCard } from 'components/pages/search/ResultCards'
 import GOOGLE_EXAMPLES from 'data/google-examples'
-import { theme, fonts, colors } from 'theme'
+import { theme, fonts, colors, gradient } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 
-const INK = colors.black
-const VIOLET = '#9B26D6'
-const MUTED = '#9A9AA0'
-const BODY = '#3D3D42'
-const BORDER = '#EFEFF1'
-const GRADIENT = 'linear-gradient(99deg,#FF1E8C,#B026E0)'
 const MONO = fonts.mono
 
 /* ------------------------------ media renderers ----------------------------- */
@@ -93,7 +87,7 @@ const LogoOutput = ({ logo, palette }) => (
           gap: 2,
           flexWrap: 'wrap',
           p: 3,
-          borderTop: `1px solid ${BORDER}`
+          borderTop: `1px solid ${colors.gray1}`
         })}
       >
         {palette.map(color => (
@@ -101,7 +95,7 @@ const LogoOutput = ({ logo, palette }) => (
             <Swatch css={{ background: color }} />
             <Box
               as='span'
-              css={theme({ fontFamily: 'mono', fontSize: 0, color: MUTED })}
+              css={theme({ fontFamily: 'mono', fontSize: 0, color: 'gray6' })}
             >
               {color}
             </Box>
@@ -135,7 +129,7 @@ const Card = ({ data, fallbackUrl }) => {
         css={theme({
           maxWidth: '520px',
           mx: 'auto',
-          border: `1px solid ${BORDER}`,
+          border: `1px solid ${colors.gray1}`,
           borderRadius: 8,
           overflow: 'hidden',
           boxShadow: '0 18px 50px -28px rgba(40,10,60,.4)'
@@ -152,7 +146,7 @@ const Card = ({ data, fallbackUrl }) => {
               maxHeight: '260px',
               objectFit: 'cover',
               display: 'block',
-              borderBottom: `1px solid ${BORDER}`
+              borderBottom: `1px solid ${colors.gray1}`
             })}
           />
         )}
@@ -172,7 +166,7 @@ const Card = ({ data, fallbackUrl }) => {
               css={theme({
                 fontFamily: 'mono',
                 fontSize: 0,
-                color: MUTED,
+                color: 'gray6',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap'
@@ -188,7 +182,7 @@ const Card = ({ data, fallbackUrl }) => {
                 display: 'block',
                 fontSize: 2,
                 fontWeight: 'bold',
-                color: INK,
+                color: 'black',
                 letterSpacing: '-.01em',
                 mb: data.description ? 2 : 0
               })}
@@ -199,7 +193,12 @@ const Card = ({ data, fallbackUrl }) => {
           {data.description && (
             <Box
               as='p'
-              css={theme({ m: 0, fontSize: 1, color: BODY, lineHeight: 1.5 })}
+              css={theme({
+                m: 0,
+                fontSize: 1,
+                color: 'gray8',
+                lineHeight: 1.5
+              })}
             >
               {data.description}
             </Box>
@@ -246,7 +245,7 @@ const MetadataOutput = ({ data }) => {
           css={theme({
             gap: 3,
             py: 2,
-            borderBottom: `1px solid ${BORDER}`
+            borderBottom: `1px solid ${colors.gray1}`
           })}
         >
           <Box
@@ -256,7 +255,7 @@ const MetadataOutput = ({ data }) => {
               flexShrink: 0,
               fontFamily: 'mono',
               fontSize: 0,
-              color: MUTED
+              color: 'gray6'
             })}
           >
             {label}
@@ -270,7 +269,7 @@ const MetadataOutput = ({ data }) => {
                 rel='noopener noreferrer'
                 css={theme({
                   fontSize: 1,
-                  color: VIOLET,
+                  color: 'grape7',
                   textDecoration: 'none',
                   wordBreak: 'break-all'
                 })}
@@ -281,7 +280,7 @@ const MetadataOutput = ({ data }) => {
             : (
               <Box
                 as='span'
-                css={theme({ fontSize: 1, color: BODY, lineHeight: 1.5 })}
+                css={theme({ fontSize: 1, color: 'gray8', lineHeight: 1.5 })}
               >
                 {value}
               </Box>
@@ -299,7 +298,7 @@ const MetadataOutput = ({ data }) => {
                   display: 'block',
                   fontFamily: 'mono',
                   fontSize: 0,
-                  color: MUTED,
+                  color: 'gray6',
                   mb: 2
                 })}
               >
@@ -315,7 +314,7 @@ const MetadataOutput = ({ data }) => {
                   maxWidth: '160px',
                   objectFit: 'contain',
                   borderRadius: 6,
-                  border: `1px solid ${BORDER}`,
+                  border: `1px solid ${colors.gray1}`,
                   background: '#fafafb'
                 })}
               />
@@ -338,7 +337,7 @@ const ProBadge = styled.span`
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #fff;
-  background: ${GRADIENT};
+  background: ${gradient};
   border-radius: 999px;
   padding: 3px 10px;
 `
@@ -355,16 +354,16 @@ const SearchOutput = () => (
         gap: 2,
         mb: 4,
         pb: 3,
-        borderBottom: `1px solid ${BORDER}`
+        borderBottom: `1px solid ${colors.gray1}`
       })}
     >
       <ProBadge>Pro</ProBadge>
-      <Box as='span' css={theme({ fontSize: 0, color: MUTED })}>
+      <Box as='span' css={theme({ fontSize: 0, color: 'gray6' })}>
         Example results — query live Google data on the{' '}
         <Box
           as='a'
           href='/search'
-          css={theme({ color: VIOLET, textDecoration: 'none' })}
+          css={theme({ color: 'grape7', textDecoration: 'none' })}
         >
           Pro plan
         </Box>
@@ -413,7 +412,7 @@ const TechCard = styled(Flex)`
   align-items: center;
   gap: 10px;
   width: 232px;
-  border: 1px solid ${BORDER};
+  border: 1px solid ${colors.gray1};
   border-radius: 10px;
 `
 
@@ -456,7 +455,7 @@ const TechnologiesOutput = ({ technologies }) => {
                   display: 'block',
                   fontSize: 0,
                   fontWeight: 600,
-                  color: INK,
+                  color: 'black',
                   textDecoration: 'none'
                 })}
               >
@@ -468,7 +467,7 @@ const TechnologiesOutput = ({ technologies }) => {
                   css={theme({
                     display: 'block',
                     fontSize: '12px',
-                    color: MUTED,
+                    color: 'gray6',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap'
@@ -488,7 +487,9 @@ const TechnologiesOutput = ({ technologies }) => {
 /* ---------------------------------- html ---------------------------------- */
 
 const HtmlOutput = ({ html }) => (
-  <RawText css={theme({ p: 4, fontFamily: 'mono', fontSize: 0, color: BODY })}>
+  <RawText
+    css={theme({ p: 4, fontFamily: 'mono', fontSize: 0, color: 'gray8' })}
+  >
     {html}
   </RawText>
 )
@@ -503,7 +504,7 @@ const TextOutput = ({ text }) => (
       overflow: 'auto',
       fontSize: 1,
       lineHeight: 1.7,
-      color: BODY,
+      color: 'gray8',
       whiteSpace: 'pre-wrap',
       wordBreak: 'break-word'
     })}
@@ -536,7 +537,7 @@ const EqBar = styled.span`
   width: 3px;
   height: 18px;
   border-radius: 2px;
-  background: ${GRADIENT};
+  background: ${gradient};
   transform-origin: bottom;
   animation: ${eq} 0.9s ease-in-out infinite;
   animation-play-state: ${props => (props.$playing ? 'running' : 'paused')};
@@ -561,7 +562,7 @@ const PlayButton = styled.button`
   border-radius: 50%;
   border: 0;
   cursor: pointer;
-  background: ${GRADIENT};
+  background: ${gradient};
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -573,7 +574,7 @@ const PlayButton = styled.button`
     transform: scale(0.94);
   }
   &:focus-visible {
-    outline: 2px solid ${VIOLET};
+    outline: 2px solid ${colors.grape7};
     outline-offset: 2px;
   }
 `
@@ -582,10 +583,10 @@ const ProgressTrack = styled.div`
   flex: 1;
   height: 6px;
   border-radius: 999px;
-  background: ${BORDER};
+  background: ${colors.gray1};
   cursor: pointer;
   &:focus-visible {
-    outline: 2px solid ${VIOLET};
+    outline: 2px solid ${colors.grape7};
     outline-offset: 3px;
   }
 `
@@ -707,7 +708,7 @@ const AudioOutput = ({ data }) => {
           alignItems: 'center',
           gap: 3,
           p: 3,
-          border: `1px solid ${BORDER}`,
+          border: `1px solid ${colors.gray1}`,
           borderRadius: 12,
           background: '#fff',
           boxShadow: '0 18px 50px -28px rgba(40,10,60,.4)'
@@ -745,7 +746,7 @@ const AudioOutput = ({ data }) => {
                   display: 'block',
                   fontSize: 1,
                   fontWeight: 'bold',
-                  color: INK,
+                  color: 'black',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap'
@@ -759,7 +760,7 @@ const AudioOutput = ({ data }) => {
                   css={theme({
                     display: 'block',
                     fontSize: 0,
-                    color: MUTED,
+                    color: 'gray6',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap'
@@ -806,7 +807,7 @@ const AudioOutput = ({ data }) => {
                 css={{
                   height: '100%',
                   borderRadius: '999px',
-                  background: GRADIENT,
+                  background: gradient,
                   width: `${pct}%`
                 }}
               />
@@ -816,7 +817,7 @@ const AudioOutput = ({ data }) => {
               css={theme({
                 fontFamily: 'mono',
                 fontSize: 0,
-                color: MUTED,
+                color: 'gray6',
                 whiteSpace: 'nowrap'
               })}
             >
@@ -883,7 +884,7 @@ const BarButton = styled.button`
     transform: scale(0.9);
   }
   &:focus-visible {
-    outline: 2px solid ${VIOLET};
+    outline: 2px solid ${colors.grape7};
     outline-offset: 2px;
     border-radius: 6px;
   }
@@ -1037,7 +1038,7 @@ const VideoOutput = ({ data }) => {
               css={{
                 height: '100%',
                 borderRadius: '999px',
-                background: GRADIENT,
+                background: gradient,
                 width: `${pct}%`
               }}
             />
@@ -1095,7 +1096,7 @@ const Stat = ({ label, value }) => (
         fontFamily: 'mono',
         fontSize: 3,
         fontWeight: 'bold',
-        color: INK,
+        color: 'black',
         letterSpacing: '-.02em'
       })}
     >
@@ -1107,7 +1108,7 @@ const Stat = ({ label, value }) => (
         fontSize: '11px',
         letterSpacing: '.08em',
         textTransform: 'uppercase',
-        color: MUTED
+        color: 'gray6'
       })}
     >
       {label}
@@ -1132,7 +1133,7 @@ const Profiling = ({ profiling }) => {
   const pct = ms => (total ? (ms / total) * 100 : 0)
 
   return (
-    <Box css={theme({ p: 4, borderBottom: `1px solid ${BORDER}` })}>
+    <Box css={theme({ p: 4, borderBottom: `1px solid ${colors.gray1}` })}>
       <Flex
         css={theme({
           justifyContent: 'space-around',
@@ -1172,19 +1173,19 @@ const Profiling = ({ profiling }) => {
               alignItems: 'center',
               justifyContent: 'space-between',
               py: 2,
-              borderBottom: `1px solid ${BORDER}`
+              borderBottom: `1px solid ${colors.gray1}`
             })}
           >
             <Flex css={theme({ alignItems: 'center', gap: 2 })}>
               <Dot css={{ background: color }} />
-              <Box as='span' css={theme({ fontSize: 0, color: INK })}>
+              <Box as='span' css={theme({ fontSize: 0, color: 'black' })}>
                 {label}
               </Box>
             </Flex>
             <Flex css={theme({ alignItems: 'center', gap: 3 })}>
               <Box
                 as='span'
-                css={theme({ fontFamily: 'mono', fontSize: 0, color: BODY })}
+                css={theme({ fontFamily: 'mono', fontSize: 0, color: 'gray8' })}
               >
                 {fmtMs(phases[k])}
               </Box>
@@ -1193,7 +1194,7 @@ const Profiling = ({ profiling }) => {
                 css={theme({
                   fontFamily: 'mono',
                   fontSize: 0,
-                  color: MUTED,
+                  color: 'gray6',
                   width: '42px',
                   textAlign: 'right'
                 })}
@@ -1231,10 +1232,10 @@ const FunctionValue = ({ value, result }) => {
               display: 'block',
               fontFamily: 'mono',
               fontSize: 0,
-              color: VIOLET,
+              color: 'grape7',
               textDecoration: 'none',
               py: 2,
-              borderBottom: `1px solid ${BORDER}`,
+              borderBottom: `1px solid ${colors.gray1}`,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap'
@@ -1249,7 +1250,7 @@ const FunctionValue = ({ value, result }) => {
 
   return (
     <CodeBlock
-      css={theme({ p: 4, fontFamily: 'mono', fontSize: 0, color: BODY })}
+      css={theme({ p: 4, fontFamily: 'mono', fontSize: 0, color: 'gray8' })}
     >
       {JSON.stringify(value ?? result, null, 2)}
     </CodeBlock>
@@ -1269,7 +1270,7 @@ const Empty = ({ children }) => (
   <Box css={theme({ p: 4 })}>
     <Box
       as='span'
-      css={theme({ fontFamily: 'mono', fontSize: 0, color: MUTED })}
+      css={theme({ fontFamily: 'mono', fontSize: 0, color: 'gray6' })}
     >
       {children}
     </Box>
@@ -1324,7 +1325,7 @@ const Output = ({ req }) => {
       return data.markdown
         ? (
           <RawText
-            css={theme({ p: 4, fontFamily: 'mono', fontSize: 0, color: BODY })}
+            css={theme({ p: 4, fontFamily: 'mono', fontSize: 0, color: 'gray8' })}
           >
             {data.markdown}
           </RawText>
