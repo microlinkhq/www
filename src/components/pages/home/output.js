@@ -3,11 +3,11 @@ import Flex from 'components/elements/Flex'
 import Microlink from 'components/patterns/Microlink/Microlink'
 import { HeroSearchResultCard } from 'components/pages/search/ResultCards'
 import GOOGLE_EXAMPLES from 'data/google-examples'
-import { theme, fonts } from 'theme'
+import { theme, fonts, colors } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 
-const INK = '#000'
+const INK = colors.black
 const VIOLET = '#9B26D6'
 const MUTED = '#9A9AA0'
 const BODY = '#3D3D42'
