@@ -1,35 +1,12 @@
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import { fonts, colors } from 'theme'
-import styled from 'styled-components'
+import { theme, textGradient, layout } from 'theme'
 import React from 'react'
 
-// "Production ready" wall: nine capability cards under a centered header. Each
-// card pairs a pre-rendered 3D glyph (static/images/icons/*.png) with a title +
-// blurb. The illustrations already bake in their own colored glow on a white
-// field, so cards stay pure white and the PNGs blend edge to edge.
-
-const SANS = fonts.sans
-
-const tone = {
-  ink: '#0b1220', // primary text
-  muted: '#6b7280', // secondary text
-  border: '#eef0f4', // card border
-  surface: colors.white // card fill (matches the icons' white field)
-}
-
-// headline accent: magenta→violet→blue sweep
 const HEAD_GRADIENT = 'linear-gradient(90deg,#e0479e,#8b5cf6 52%,#3e55ff)'
+const CARD_SHADOW = '0 6px 20px rgba(16,24,40,0.04)'
 
-const SHADOW_INK = '16, 24, 40'
-const shadow = {
-  card: `0 6px 20px rgba(${SHADOW_INK},0.04)`
-}
-
-const radius = { card: '22px' }
-
-// title, blurb + icon filename (served from static/ at /images/icons/*.png)
 const FEATURES = [
   {
     icon: 'cloud2',
@@ -87,135 +64,130 @@ const FEATURES = [
   }
 ]
 
-/* --------------------------------- header -------------------------------- */
-
-const Section = styled.section`
-  background: ${tone.surface};
-  font-family: ${SANS};
-  color: ${tone.ink};
-  padding-top: 40px;
-  -webkit-font-smoothing: antialiased;
-`
-
-const Heading = styled.h2`
-  font-size: clamp(34px, 6vw, 64px);
-  line-height: 1.03;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin: 0;
-  color: ${tone.ink};
-
-  .grad {
-    display: block;
-    background: ${HEAD_GRADIENT};
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-`
-
-const Subtitle = styled.p`
-  font-size: clamp(17px, 2.2vw, 21px);
-  line-height: 1.5;
-  color: ${tone.muted};
-  font-weight: 400;
-  max-width: 640px;
-  margin: 22px auto 0;
-`
-
-/* ---------------------------------- grid --------------------------------- */
-
-const Grid = styled.div`
-  max-width: 1180px;
-  margin: 56px auto 0;
-  padding: 0 clamp(16px, 4vw, 28px) 72px;
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
-`
-
-const Card = styled(Box)`
-  background: ${tone.surface};
-  border: 1px solid ${tone.border};
-  border-radius: ${radius.card};
-  padding: 28px 28px 32px;
-  box-shadow: ${shadow.card};
-`
-
-const IconWrap = styled(Flex)`
-  align-items: center;
-  justify-content: center;
-  height: 168px;
-  margin-bottom: 20px;
-`
-
-const Icon = styled.img`
-  max-height: 100%;
-  max-width: 82%;
-  object-fit: contain;
-`
-
-const Title = styled(Text).attrs({ as: 'h3' })`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: ${tone.ink};
-`
-
-const Desc = styled(Text).attrs({ as: 'p' })`
-  font-size: 15px;
-  line-height: 1.5;
-  color: ${tone.muted};
-  margin-top: 8px;
-`
-
-/* --------------------------------- section ------------------------------- */
-
 const Production = () => (
-  <Section id='features'>
+  <Box
+    as='section'
+    id='features'
+    css={theme({ bg: 'white', pt: 4, color: 'gray9' })}
+  >
     <Box
-      css={{
-        maxWidth: '900px',
-        margin: '0 auto',
+      css={theme({
+        maxWidth: layout.large,
+        mx: 'auto',
         textAlign: 'center',
-        padding: '0 24px'
-      }}
+        px: 3
+      })}
     >
-      <Heading>
+      <Text
+        as='h2'
+        css={theme({
+          m: 0,
+          fontSize: [3, 4, 5],
+          fontWeight: 'bold',
+          lineHeight: 0,
+          letterSpacing: 1,
+          color: 'gray9'
+        })}
+      >
         Production ready,
-        <span className='grad'>browser as a service</span>
-      </Heading>
+        <Box
+          as='span'
+          css={{
+            ...textGradient,
+            backgroundImage: HEAD_GRADIENT,
+            display: 'block'
+          }}
+        >
+          browser as a service
+        </Box>
+      </Text>
 
-      <Subtitle>
+      <Text
+        as='p'
+        css={theme({
+          mx: 'auto',
+          mt: 4,
+          maxWidth: layout.small,
+          fontSize: [1, 2],
+          lineHeight: 2,
+          color: 'gray7'
+        })}
+      >
         Microlink gives you a full-stack browser automation platform designed
         for real-world scale. Built to be fast, reliable, and effortless to
         integrate, so you can ship with confidence.
-      </Subtitle>
+      </Text>
     </Box>
 
-    <Grid>
+    <Box
+      css={theme({
+        maxWidth: '1180px',
+        mx: 'auto',
+        mt: 5,
+        px: [3, 3, 4],
+        pb: 5,
+        display: 'grid',
+        gap: 4,
+        gridTemplateColumns: [
+          '1fr',
+          'repeat(2, minmax(0, 1fr))',
+          'repeat(3, minmax(0, 1fr))'
+        ]
+      })}
+    >
       {FEATURES.map(({ icon, title, description }) => (
-        <Card key={title}>
-          <IconWrap>
-            <Icon
+        <Box
+          key={title}
+          css={theme({
+            bg: 'white',
+            p: 4,
+            border: 1,
+            borderColor: 'gray2',
+            borderRadius: 5,
+            boxShadow: CARD_SHADOW
+          })}
+        >
+          <Flex
+            css={theme({
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '168px',
+              mb: 3
+            })}
+          >
+            <Box
+              as='img'
               src={`/images/icons/${icon}.png`}
               alt={title}
               loading='lazy'
+              css={theme({
+                maxHeight: '100%',
+                maxWidth: '82%',
+                objectFit: 'contain'
+              })}
             />
-          </IconWrap>
-          <Title>{title}</Title>
-          <Desc>{description}</Desc>
-        </Card>
+          </Flex>
+          <Text
+            as='h3'
+            css={theme({
+              fontSize: 2,
+              fontWeight: 'bold',
+              lineHeight: 0,
+              color: 'gray9'
+            })}
+          >
+            {title}
+          </Text>
+          <Text
+            as='p'
+            css={theme({ mt: 2, fontSize: 1, lineHeight: 2, color: 'gray7' })}
+          >
+            {description}
+          </Text>
+        </Box>
       ))}
-    </Grid>
-  </Section>
+    </Box>
+  </Box>
 )
 
 export default Production
