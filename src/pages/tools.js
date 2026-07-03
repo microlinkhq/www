@@ -3,20 +3,15 @@ import React from 'react'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import { FeaturedToolCard, ToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS } from 'components/patterns/Tools/toolCatalog'
-
-import { withTitle } from 'helpers/hoc/with-title'
-
-const Heading = withTitle(HeadingBase)
-const Caption = withTitle(CaptionBase)
 
 const CategorySection = ({ category, description, tools }) => {
   const featured = tools.find(t => t.featured)
@@ -179,10 +174,9 @@ const ToolsPage = () => (
           justifyContent: 'center'
         }}
       >
-        <Heading titleize={false}>Microlink Tools</Heading>
+        <Heading>Microlink Tools</Heading>
         <Caption
           forwardedAs='h2'
-          titleize={false}
           css={theme({
             pt: [2],
             px: [4, null, 0],

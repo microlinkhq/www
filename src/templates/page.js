@@ -1,6 +1,6 @@
 import Choose from 'components/elements/Choose'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Text from 'components/elements/Text'
 import Box from 'components/elements/Box'
 import { PostFooter } from 'components/pages/blog/post-footer'
@@ -15,8 +15,6 @@ import { formatDate } from 'helpers/format-date'
 import { title as titleize } from 'helpers/title'
 import TimeAgo from 'react-timeago'
 import React from 'react'
-
-const Heading = withTitle(HeadingBase)
 
 const Caption = withTitle(CaptionBase)
 
@@ -81,10 +79,7 @@ const PageTemplate = ({
               </Caption>
             </Choose.When>
             <Choose.Otherwise>
-              <Heading
-                css={{ marginTop: 0, maxWidth: layout.large }}
-                titleize={false}
-              >
+              <Heading css={{ marginTop: 0, maxWidth: layout.large }}>
                 {title}
               </Heading>
               {lastEdited && (

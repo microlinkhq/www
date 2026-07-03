@@ -4,8 +4,7 @@ import { useFingerprint } from 'components/hook/use-fingerprint'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import { useQueryState } from 'components/hook/use-query-state'
 import { PAYMENT_STATE } from 'components/pages/payment/constants'
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import { loadStripe } from '@stripe/stripe-js/pure'
 import React, { useEffect, useState } from 'react'
@@ -28,7 +27,7 @@ import Caps from 'components/elements/Caps'
 import Confetti from 'components/elements/Confetti'
 import Container from 'components/elements/Container'
 import DotSpinner from 'components/elements/DotSpinner'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 
@@ -38,10 +37,6 @@ import {
   useStripe,
   useElements
 } from '@stripe/react-stripe-js'
-
-const Heading = withTitle(HeadingBase)
-
-const Caption = withTitle(CaptionBase)
 
 const fetchOnce = once(fetch)
 
@@ -196,10 +191,7 @@ const PaymentUpdatePage = () => {
         css={theme({ alignItems: 'center', justifyContent: 'center', pt: 2 })}
       >
         {paymentState === PAYMENT_STATE.success && <Confetti />}
-        <Heading
-          css={theme({ px: 5, maxWidth: layout.large })}
-          titleize={false}
-        >
+        <Heading css={theme({ px: 5, maxWidth: layout.large })}>
           {getTitle(isLoading ? PAYMENT_STATE.redirected : paymentState)}
         </Heading>
         <Caption
@@ -208,7 +200,6 @@ const PaymentUpdatePage = () => {
             px: [4, null, 0],
             maxWidth: layout.small
           })}
-          titleize={false}
         >
           {getCaption(
             isLoading ? PAYMENT_STATE.redirected : paymentState,

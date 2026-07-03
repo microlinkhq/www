@@ -2,7 +2,7 @@ import Meta from 'components/elements/Meta/Meta'
 import HeadingBase from 'components/elements/Heading'
 import Box from 'components/elements/Box'
 import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Flex from 'components/elements/Flex'
 import Markdown from 'components/markdown'
@@ -12,8 +12,6 @@ import React from 'react'
 import Content from '../content/fragments/changelog.md'
 
 const Heading = withTitle(HeadingBase)
-
-const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
   <Meta description='We’re constantly improving the platform. See here notable changes in our lineup of products & improvements over the time.' />
@@ -37,7 +35,6 @@ const ChangelogPage = () => {
             px: [4, null, 0],
             maxWidth: layout.small
           })}
-          titleize={false}
         >
           We’re constantly improving the platform. See here notable changes in
           our lineup of products & improvements over the time.

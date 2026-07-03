@@ -1,17 +1,12 @@
 import { layout, theme } from 'theme'
 import Meta from 'components/elements/Meta/Meta'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Flex from 'components/elements/Flex'
 import Layout from 'components/patterns/Layout'
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import { useBlogIndex } from 'components/hook/use-blog-index'
 import React from 'react'
 import { BlogPostList } from 'components/pages/blog/blog-posts'
-
-const Heading = withTitle(HeadingBase)
-
-const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
   <Meta description='Engineering details through Microlink.' />
@@ -28,9 +23,7 @@ const PageBlog = () => {
           alignItems: 'center'
         })}
       >
-        <Heading titleize={false} css={{ maxWidth: layout.large }}>
-          Blog
-        </Heading>
+        <Heading css={{ maxWidth: layout.large }}>Blog</Heading>
 
         <Caption
           forwardedAs='h2'
@@ -39,7 +32,6 @@ const PageBlog = () => {
             px: 4,
             maxWidth: layout.small
           })}
-          titleize={false}
         >
           Engineering details through Microlink.
         </Caption>

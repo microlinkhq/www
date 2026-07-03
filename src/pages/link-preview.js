@@ -17,7 +17,7 @@ import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Hide from 'components/elements/Hide'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
@@ -92,7 +92,6 @@ const getRepoStarsLabel = (repo, asNumber = false) => {
     : repo.stars
 }
 
-const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
@@ -454,7 +453,6 @@ const Hero = function Hero ({
           })}
         >
           <Heading
-            titleize={false}
             css={theme({
               px: [2, 3, 4, 0],
               fontSize: [4, 4, 5, 5],

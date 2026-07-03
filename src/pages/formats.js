@@ -1,7 +1,7 @@
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import Faq from 'components/patterns/Faq/Faq'
 import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import { cx, colors, borders, layout, theme } from 'theme'
 import FeatherIcon from 'components/icons/Feather'
@@ -24,7 +24,6 @@ import fileFormats from '../../data/formats'
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 
-const Caption = withTitle(CaptionBase)
 const [{ score }, formats] = fileFormats
 
 const SPACE = {
@@ -184,7 +183,6 @@ const FormatsPage = () => (
             px: 4,
             maxWidth: [layout.small, layout.small, layout.small, layout.small]
           })}
-          titleize={false}
         >
           Tested {formats.length} files, {score} resolved
         </Caption>

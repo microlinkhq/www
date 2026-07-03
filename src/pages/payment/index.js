@@ -1,5 +1,4 @@
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import React, { useState, useEffect } from 'react'
 import { useQueryState } from 'components/hook/use-query-state'
@@ -9,15 +8,11 @@ import { layout, theme } from 'theme'
 import Confetti from 'components/elements/Confetti'
 import Container from 'components/elements/Container'
 import DotSpinner from 'components/elements/DotSpinner'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 
 import { PAYMENT_STATE } from 'components/pages/payment/constants'
-
-const Heading = withTitle(HeadingBase)
-
-const Caption = withTitle(CaptionBase)
 
 const getTitle = paymentState => {
   switch (paymentState) {
@@ -74,10 +69,7 @@ const PaymentPage = () => {
     <Layout>
       <Container css={theme({ alignItems: 'center', pt: 2 })}>
         {paymentState === PAYMENT_STATE.success && <Confetti />}
-        <Heading
-          css={theme({ px: 5, maxWidth: layout.large })}
-          titleize={false}
-        >
+        <Heading css={theme({ px: 5, maxWidth: layout.large })}>
           {getTitle(paymentState)}
         </Heading>
         <Caption
@@ -86,7 +78,6 @@ const PaymentPage = () => {
             px: [4, null, 0],
             maxWidth: layout.small
           })}
-          titleize={false}
         >
           {getCaption(paymentState)}
         </Caption>

@@ -22,7 +22,7 @@ import Caps from 'components/elements/Caps'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -126,7 +126,6 @@ const getRepoStarsLabel = (repo, asNumber = false) => {
     : repo.stars
 }
 
-const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
@@ -504,7 +503,6 @@ const Hero = function Hero ({
           })}
         >
           <Heading
-            titleize={false}
             css={theme({
               px: [2, 3, 4, 0],
               fontSize: [4, 4, 5, 5],

@@ -1,12 +1,11 @@
 import FeatherIcon from 'components/icons/Feather'
 import Meta from 'components/elements/Meta/Meta'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import Layout from 'components/patterns/Layout'
 import { formatNumber } from 'helpers/format-number'
@@ -14,10 +13,6 @@ import { useOss } from 'components/hook/use-oss'
 import { layout, theme } from 'theme'
 import React from 'react'
 import { Star, AlertCircle } from 'react-feather'
-
-const Heading = withTitle(HeadingBase)
-
-const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
   <Meta
@@ -37,7 +32,7 @@ const OssPage = () => {
             alignItems: 'center'
           })}
         >
-          <Heading titleize={false} css={{ maxWidth: layout.large }}>
+          <Heading css={{ maxWidth: layout.large }}>
             Open Source Software
           </Heading>
 
@@ -48,7 +43,6 @@ const OssPage = () => {
               px: 4,
               maxWidth: layout.small
             })}
-            titleize={false}
           >
             It’s our great privilege to build our products using open source
             software (OSS) and we want to give the same effort back.

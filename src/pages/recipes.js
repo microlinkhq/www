@@ -2,7 +2,7 @@ import { space, layout, toPx, toRaw, theme } from 'theme'
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import { formatNumber } from 'helpers/format-number'
 import React, { useState, useEffect } from 'react'
 import { issueUrl } from 'helpers/issue-url'
@@ -18,7 +18,7 @@ import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Card from 'components/elements/Card/Card'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
@@ -26,10 +26,7 @@ import Text from 'components/elements/Text'
 
 import recipes from '../../data/recipes.json'
 
-const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
-
-const Caption = withTitle(CaptionBase)
 
 const allRecipesKeys = recipes.map(([key]) => key)
 
@@ -72,9 +69,7 @@ const RecipesPage = () => {
               justifyContent: 'center'
             }}
           >
-            <Heading titleize={false} css={{ maxWidth: layout.large }}>
-              Recipes
-            </Heading>
+            <Heading css={{ maxWidth: layout.large }}>Recipes</Heading>
             <Caption
               forwardedAs='h2'
               css={theme({
@@ -82,7 +77,6 @@ const RecipesPage = () => {
                 px: [4, null, 0],
                 maxWidth: layout.small
               })}
-              titleize={false}
             >
               Just start with code — Instant integration, automating any site in
               a few lines.

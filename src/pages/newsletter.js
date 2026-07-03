@@ -1,5 +1,5 @@
 import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import { layout, theme } from 'theme'
 import FeatherIcon from 'components/icons/Feather'
@@ -14,8 +14,6 @@ import Meta from 'components/elements/Meta/Meta'
 import { Mail } from 'react-feather'
 
 const Heading = withTitle(HeadingBase)
-
-const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
   <Meta description='Get early access & updates on new releases.' />
@@ -37,7 +35,6 @@ const NewsletterPage = () => (
           px: 4,
           maxWidth: layout.small
         })}
-        titleize={false}
       >
         Get early access & updates on new releases.
       </Caption>

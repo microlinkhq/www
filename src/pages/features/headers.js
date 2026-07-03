@@ -13,13 +13,9 @@ import Text from 'components/elements/Text'
 import { CodeInline } from 'components/markdown/CodeInline'
 
 import ArrowLink from 'components/patterns/ArrowLink'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
-
-import { withTitle } from 'helpers/hoc/with-title'
-
-const Caption = withTitle(CaptionBase)
 
 /* ─── Layout primitives ──────────────────────────────────────────────────── */
 
@@ -57,7 +53,6 @@ const Eyebrow = styled(Text)`
 const BodyText = props => (
   <Caption
     forwardedAs='p'
-    titleize={false}
     {...props}
     css={[
       theme({
@@ -160,7 +155,6 @@ const Hero = () => (
       </Text>
       <Caption
         forwardedAs='p'
-        titleize={false}
         css={theme({
           pt: [3, 3, 4, 4],
           fontSize: [1, 2, 2, 2],
@@ -852,7 +846,6 @@ const CtaSection = () => (
       </SubheadBase>
       <Caption
         forwardedAs='p'
-        titleize={false}
         css={theme({
           color: 'black70',
           pt: [3, 3, 4, 4],

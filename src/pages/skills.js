@@ -2,7 +2,7 @@ import { layout, theme } from 'theme'
 import FlickeringBackground from 'components/patterns/FlickeringBackground/FlickeringBackground'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import styled from 'styled-components'
 import React from 'react'
 
@@ -23,7 +23,6 @@ import {
 } from 'helpers/skills'
 
 const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const REQUEST_SKILL_URL = 'https://github.com/microlinkhq/skills/issues/new'
 const SKILLS_PAGE_DESCRIPTION =
@@ -306,7 +305,6 @@ const SkillsPage = () => (
           </Heading>
           <Caption
             forwardedAs='p'
-            titleize={false}
             css={theme({ pt: 3, px: 4, maxWidth: layout.small })}
           >
             A curated set of reusable skills built for AI agents.

@@ -1,5 +1,4 @@
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Layout from 'components/patterns/Layout'
@@ -8,17 +7,13 @@ import Text from 'components/elements/Text'
 import Box from 'components/elements/Box'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { layout, theme } from 'theme'
 import { formatNumber } from 'helpers/format-number'
 import React, { useState, useEffect } from 'react'
 import { Logo } from 'components/pages/recipes'
 import FeatherIcon from 'components/icons/Feather'
 import { Eye } from 'react-feather'
-
-const Heading = withTitle(HeadingBase)
-
-const Caption = withTitle(CaptionBase)
 
 const Description = recipe => {
   const { description, domain } = recipe
@@ -79,16 +74,12 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
             alignItems: 'center'
           })}
         >
-          <Heading
-            css={theme({ fontSize: 4, pt: [3, null, 4] })}
-            titleize={false}
-          >
+          <Heading css={theme({ fontSize: 4, pt: [3, null, 4] })}>
             <Name {...recipe} />
           </Heading>
 
           <Caption
             forwardedAs='h2'
-            titleize={false}
             css={theme({
               pt: 3,
               px: [4, null, 0],

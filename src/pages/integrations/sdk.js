@@ -13,34 +13,26 @@ import {
   Sliders as SlidersIcon
 } from 'react-feather'
 
-import { withTitle } from 'helpers/hoc/with-title'
-
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Card from 'components/elements/Card/Card'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Microlink from 'components/patterns/Microlink/Microlink'
 import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
 
 import { colors, layout, space, theme } from 'theme'
-
-// ─── HOCs ────────────────────────────────────────────────────────────────────
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -174,7 +166,6 @@ const SectionHead = ({
   >
     {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
     <Subhead
-      titleize={false}
       css={theme({
         fontSize: ['28px', '34px', '42px', '46px'],
         textAlign: align
@@ -185,7 +176,6 @@ const SectionHead = ({
     {caption && (
       <Caption
         forwardedAs='div'
-        titleize={false}
         css={theme({
           pt: [3, 3, 4, 4],
           fontSize: [1, 2, 2, 2],
@@ -255,7 +245,6 @@ const Hero = () => (
       Microlink SDK
     </Caps>
     <Heading
-      titleize={false}
       variant='unset'
       css={theme({
         fontSize: ['34px', '42px', '54px', '62px'],
@@ -270,7 +259,6 @@ const Hero = () => (
 
     <Caption
       forwardedAs='div'
-      titleize={false}
       css={theme({
         pt: [3, 3, 4, 4],
         maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
@@ -366,7 +354,6 @@ const Pillars = () => (
           Why the SDK
         </Caps>
         <Subhead
-          titleize={false}
           css={theme({
             fontSize: ['28px', '34px', '42px', '46px'],
             textAlign: ['center', 'center', 'center', 'left']
@@ -376,7 +363,6 @@ const Pillars = () => (
         </Subhead>
         <Caption
           forwardedAs='div'
-          titleize={false}
           css={theme({
             pt: [2, 2, 3, 3],
             fontSize: [1, 2, 2, 2],

@@ -1,8 +1,6 @@
 import React from 'react'
 import { Clipboard, Code, Monitor } from 'react-feather'
 
-import { withTitle } from 'helpers/hoc/with-title'
-
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
@@ -19,12 +17,10 @@ import { GitHub as GitHubIcon } from 'components/icons/GitHub'
 import { Terminal as TerminalPromptIcon } from 'components/icons/Terminal'
 import { SectionCaption } from 'components/pages/search/Sections'
 import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from 'components/pages/search'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 
 import { colors, layout, space, theme } from 'theme'
-
-const Caption = withTitle(CaptionBase)
 
 const ACCENT = 'red6'
 const HERO_LAYOUT_MAX_WIDTH = [
@@ -382,7 +378,6 @@ const Hero = () => (
         </Text>
         <Caption
           forwardedAs='p'
-          titleize={false}
           css={theme({
             pt: [3, 3, 4, 4],
             maxWidth: layout.small,

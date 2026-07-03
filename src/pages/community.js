@@ -3,15 +3,13 @@ import HeadingBase from 'components/elements/Heading'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Chat from 'components/patterns/Chat/Chat'
 import { layout, theme } from 'theme'
 import React from 'react'
 
 const Heading = withTitle(HeadingBase)
-
-const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
   <Meta description='Direct support via chat with guaranteed response from exclusive top-tier engineers.' />
@@ -34,7 +32,6 @@ const CommunityPage = () => (
           px: 4,
           maxWidth: layout.small
         })}
-        titleize={false}
       >
         Direct support via chat with guaranteed response from exclusive top-tier
         engineers.
