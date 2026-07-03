@@ -1,5 +1,10 @@
 Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEVER to guide decisions.
 
+## Code Style
+
+- NEVER: Add inline or block code comments. Let names and structure carry intent; the code should read on its own.
+- SHOULD: Rename or restructure instead of annotating when something is unclear.
+
 ### Tokenized Styling Syntax
 
 - MUST: Use scalable design tokens from `src/theme/index.js` for UI styling.
