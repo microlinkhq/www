@@ -174,7 +174,7 @@ const Title = styled(Text).attrs({ as: 'h3' })(
 )
 
 const Desc = styled(Text).attrs({ as: 'p' })(
-  theme({ fontSize: 0, lineHeight: 1, mt: 2, color: 'black60' })
+  theme({ fontSize: 0, lineHeight: 1, mt: 2, color: 'black70' })
 )
 
 const arrowPaths = (

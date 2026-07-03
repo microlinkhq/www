@@ -166,7 +166,7 @@ const Production = () => (
           </Text>
           <Text
             as='p'
-            css={theme({ mt: 2, fontSize: 1, lineHeight: 2, color: 'black60' })}
+            css={theme({ mt: 2, fontSize: 1, lineHeight: 2, color: 'black70' })}
           >
             {description}
           </Text>
