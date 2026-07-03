@@ -4,47 +4,31 @@ import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
 import { PRODUCTS } from 'components/pages/home/catalog'
 import { trackEvent } from 'helpers/plausible'
-import { transition, fonts, colors } from 'theme'
-import styled from 'styled-components'
+import { theme, transition, fonts, colors } from 'theme'
+import Heading from 'components/elements/Heading'
+import Caption from 'components/patterns/Caption/Caption'
+import styled, { css } from 'styled-components'
 import React from 'react'
 
-// This section replaces the old flat product grid with a bento-style "Features"
-// wall: one card per Microlink capability, each a link to its product page. The
-// card copy (label, description, href) is pulled from the shared catalog so this
-// grid and the hero's product menu never drift; the per-card accent + preview
-// visual live here since they're presentation specific to this surface.
-
-const SANS = fonts.sans
 const MONO = fonts.mono
 
-/* -------------------------------- tokens --------------------------------- */
-// The global theme scales (space / fontSizes / radii) are too coarse for this
-// bento's pixel spec, so the section's design system lives here as one source
-// of truth, deriving from the theme where a primitive already exists (fonts,
-// transition, colors.white). Recurring/semantic values are tokenized; genuinely
-// one-off illustration values (mock grays, brand fills, chart gradients) stay
-// inline as bespoke art rather than pretending to be design tokens.
-
 const tone = {
-  ink: '#0b1220', // primary text
-  ink900: '#111', // solid UI black (avatars, buttons, brand text)
-  muted: '#8b8f9a', // secondary text
-  faint: '#9aa0ab', // tertiary text (meta rows)
-  accent: '#7c3aed', // headline accent
+  ink: '#0b1220',
+  ink900: '#111',
+  muted: '#8b8f9a',
+  faint: '#9aa0ab',
   white: colors.white,
-  surface: colors.white, // card + panel fills
-  surfaceSoft: '#fafafb', // light code / document panels
-  surfaceDark: '#161821', // dark code panels
-  gridBg: colors.white, // section backdrop
-  neutral: '#f2f2f4', // faint chip / divider fill
-  border: '#eef0f4', // card + control borders
-  borderSoft: '#f0f0f2', // inner panel borders
-  arrow: '#c4c8cf', // idle link arrow
-  dotIdle: '#dcdce1', // window traffic light (idle)
-  dotActive: '#b06fe0' // window traffic light (active)
+  surface: colors.white,
+  surfaceSoft: '#fafafb',
+  surfaceDark: '#161821',
+  neutral: '#f2f2f4',
+  border: '#eef0f4',
+  borderSoft: '#f0f0f2',
+  arrow: '#c4c8cf',
+  dotIdle: '#dcdce1',
+  dotActive: '#b06fe0'
 }
 
-// syntax palette for the code / markup previews
 const syntax = {
   key: '#c026d3',
   str: '#16a34a',
@@ -61,15 +45,10 @@ const syntax = {
 const radius = {
   card: '22px',
   panel: '14px',
-  tile: '13px',
   inner: '12px',
-  chip: '9px',
   sm: '8px'
 }
 
-const HEAD_GRADIENT = 'linear-gradient(90deg,#c026d3,#db2777)'
-
-// one shared shadow ink keeps every elevation on the same tonal base
 const SHADOW_INK = '16, 24, 40'
 const shadow = {
   card: `0 6px 20px rgba(${SHADOW_INK}, 0.04)`,
@@ -84,7 +63,6 @@ const shadow = {
   rec: `0 8px 22px rgba(${SHADOW_INK}, 0.16)`
 }
 
-// per-vertical tile treatment: the rounded glyph badge's background + icon color
 const TILE = {
   metadata: { bg: '#efe9fe', color: '#7c3aed' },
   screenshot: { bg: '#fde7f1', color: '#ec4899' },
@@ -104,78 +82,44 @@ const TILE = {
   animated: { bg: '#e8ebfd', color: '#4f5bd5' }
 }
 
-/* --------------------------------- shell --------------------------------- */
+const Sparkle = styled.svg(theme({ mb: 3 }))
 
-const Section = styled.section`
-  background: ${tone.surface};
-  font-family: ${SANS};
-  color: ${tone.ink};
-  padding-top: 40px;
-  -webkit-font-smoothing: antialiased;
-`
+const GridArea = styled.div(
+  theme({ bg: 'white', mt: 5, pt: 4, pb: 5 }),
+  css`
+    padding-left: clamp(16px, 4vw, 28px);
+    padding-right: clamp(16px, 4vw, 28px);
+  `
+)
 
-const Sparkle = styled.svg`
-  margin-bottom: 18px;
-`
+const Grid = styled.div(
+  theme({ gap: 3 }),
+  css`
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  `
+)
 
-const Heading = styled.h2`
-  font-size: clamp(32px, 5.4vw, 54px);
-  line-height: 1.05;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin: 0;
-  color: ${tone.ink};
+const Row = styled.div(
+  theme({ gap: 3 }),
+  css`
+    display: grid;
+    grid-template-columns: repeat(${props => props.$cols}, minmax(0, 1fr));
 
-  .accent {
-    color: ${tone.accent};
-  }
-  .grad {
-    background: ${HEAD_GRADIENT};
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-`
+    @media (max-width: 980px) {
+      grid-template-columns: repeat(
+        ${props => Math.min(props.$cols, 2)},
+        minmax(0, 1fr)
+      );
+    }
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  `
+)
 
-const Subtitle = styled.p`
-  font-size: clamp(18px, 2.4vw, 24px);
-  color: ${tone.muted};
-  font-weight: 500;
-  margin: 18px 0 0;
-`
-
-const GridArea = styled.div`
-  background: ${tone.gridBg};
-  margin-top: 52px;
-  padding: 48px clamp(16px, 4vw, 28px) 68px;
-`
-
-const Grid = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-`
-
-// bento row: N equal tracks on desktop, collapsing to 2 then 1 as width drops
-const Row = styled.div`
-  display: grid;
-  gap: 22px;
-  grid-template-columns: repeat(${props => props.$cols}, minmax(0, 1fr));
-
-  @media (max-width: 980px) {
-    grid-template-columns: repeat(
-      ${props => Math.min(props.$cols, 2)},
-      minmax(0, 1fr)
-    );
-  }
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
-`
-
-// the external-link glyph in each card's top-right; animates on card hover
 const Arrow = styled.svg`
   width: 19px;
   height: 19px;
@@ -184,56 +128,60 @@ const Arrow = styled.svg`
   transition: color ${transition.medium}, transform ${transition.medium};
 `
 
-const Card = styled(Link)`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: ${tone.surface};
-  border: 1px solid ${tone.border};
-  border-radius: ${radius.card};
-  padding: 28px;
-  overflow: hidden;
-  color: ${tone.ink};
-  text-decoration: none;
-  box-shadow: ${shadow.card};
-  transition: border-color ${transition.medium}, box-shadow ${transition.medium},
-    transform ${transition.medium};
+const Card = styled(Link)(
+  theme({ p: 4 }),
+  css`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: ${tone.surface};
+    border: 1px solid ${tone.border};
+    border-radius: ${radius.card};
+    overflow: hidden;
+    color: ${tone.ink};
+    text-decoration: none;
+    box-shadow: ${shadow.card};
+    transition: border-color ${transition.medium},
+      box-shadow ${transition.medium}, transform ${transition.medium};
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      border-color: ${props => props.$accent};
-      transform: translateY(-3px);
-      box-shadow: ${shadow.cardHover};
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        border-color: ${props => props.$accent};
+        transform: translateY(-3px);
+        box-shadow: ${shadow.cardHover};
+      }
+      &:hover ${Arrow} {
+        color: ${tone.ink};
+        transform: translate(2px, -2px);
+      }
     }
-    &:hover ${Arrow} {
-      color: ${tone.ink};
-      transform: translate(2px, -2px);
-    }
-  }
-`
+  `
+)
 
-const IconTile = styled(Flex)`
-  width: 52px;
-  height: 52px;
-  border-radius: ${radius.panel};
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-`
+const IconTile = styled(Flex)(
+  theme({ borderRadius: 5 }),
+  css`
+    width: 52px;
+    height: 52px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  `
+)
 
-const Title = styled(Text).attrs({ as: 'h3' })`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 1.15;
-  color: ${tone.ink};
-`
+const Title = styled(Text).attrs({ as: 'h3' })(
+  theme({ fontSize: 2, fontWeight: 'bold', lineHeight: 0 }),
+  css`
+    color: ${tone.ink};
+  `
+)
 
-const Desc = styled(Text).attrs({ as: 'p' })`
-  font-size: 15px;
-  line-height: 1.4;
-  color: ${tone.muted};
-  margin-top: 6px;
-`
+const Desc = styled(Text).attrs({ as: 'p' })(
+  theme({ fontSize: 0, lineHeight: 1, mt: 2 }),
+  css`
+    color: ${tone.muted};
+  `
+)
 
 const arrowPaths = (
   <>
@@ -242,8 +190,6 @@ const arrowPaths = (
   </>
 )
 
-// common card frame: gradient tile + title + description + link arrow, with the
-// bespoke preview passed as children
 const Feature = ({ vertical, icon, children }) => {
   const { label, description, href } = PRODUCTS[vertical]
   const tile = TILE[vertical]
@@ -254,7 +200,7 @@ const Feature = ({ vertical, icon, children }) => {
       onClick={() => trackEvent('home products grid', { product: label })}
     >
       <Flex css={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
-        <Flex css={{ gap: '16px', alignItems: 'flex-start' }}>
+        <Flex css={theme({ gap: 3, alignItems: 'flex-start' })}>
           <IconTile css={{ background: tile.bg }}>{icon}</IconTile>
           <Box>
             <Title>{label}</Title>
@@ -278,31 +224,38 @@ const Feature = ({ vertical, icon, children }) => {
   )
 }
 
-/* ------------------------------ code previews ----------------------------- */
+const CodeBox = styled(Box)(
+  theme({
+    borderRadius: 5,
+    py: 3,
+    px: 3,
+    mt: 3,
+    fontFamily: 'mono',
+    fontSize: 0,
+    lineHeight: 4
+  }),
+  css`
+    background: ${tone.surfaceSoft};
+    border: 1px solid ${tone.borderSoft};
+    color: ${syntax.body};
+  `
+)
 
-const CodeBox = styled(Box)`
-  background: ${tone.surfaceSoft};
-  border: 1px solid ${tone.borderSoft};
-  border-radius: ${radius.panel};
-  padding: 20px 18px;
-  margin-top: 22px;
-  font-family: ${MONO};
-  font-size: 14px;
-  line-height: 1.9;
-  color: ${syntax.body};
-`
+const DarkBox = styled(Box)(
+  theme({
+    borderRadius: 5,
+    py: 3,
+    px: 3,
+    mt: 3,
+    fontFamily: 'mono',
+    fontSize: 0,
+    lineHeight: 4
+  }),
+  css`
+    background: ${tone.surfaceDark};
+  `
+)
 
-const DarkBox = styled(Box)`
-  background: ${tone.surfaceDark};
-  border-radius: ${radius.panel};
-  padding: 20px 18px;
-  margin-top: 22px;
-  font-family: ${MONO};
-  font-size: 13px;
-  line-height: 1.95;
-`
-
-// light-theme + dark-theme syntax spans, reused across the code cards
 const K = styled.span`
   color: ${syntax.key};
 `
@@ -445,10 +398,6 @@ const TextPreview = () => (
   </CodeBox>
 )
 
-/* ----------------------------- visual previews ---------------------------- */
-
-// Screenshot: three layered, rotated browser windows; the top one holds a mini
-// rendered landing page
 const ScreenshotPreview = () => (
   <Box css={{ position: 'relative', height: '260px', margin: '24px 8px 0' }}>
     <Box
@@ -556,7 +505,6 @@ const TrafficDot = styled.span`
   flex-shrink: 0;
 `
 
-// the three window "traffic light" dots shared by the browser-frame mocks
 const WindowDots = () => (
   <>
     <TrafficDot css={{ background: tone.dotActive }} />
@@ -572,14 +520,13 @@ const MiniButton = styled.span`
   border-radius: ${radius.sm};
 `
 
-// Embed: a YouTube-style rich card with a synthetic thumbnail
-const PreviewCard = styled(Box)`
-  border: 1px solid ${tone.borderSoft};
-  border-radius: ${radius.panel};
-  padding: 16px;
-  margin-top: 22px;
-  box-shadow: ${shadow.panel};
-`
+const PreviewCard = styled(Box)(
+  theme({ borderRadius: 5, p: 3, mt: 3 }),
+  css`
+    border: 1px solid ${tone.borderSoft};
+    box-shadow: ${shadow.panel};
+  `
+)
 
 const EmbedPreview = () => (
   <PreviewCard>
@@ -676,7 +623,6 @@ const Skel = styled.span`
   display: block;
 `
 
-// bottom-anchored decorative svg (mountain fill, chart baseline)
 const CornerSvg = styled.svg`
   position: absolute;
   bottom: 0;
@@ -716,7 +662,6 @@ const LinkPreview = () => (
   </PreviewCard>
 )
 
-// PDF: a document mock that bleeds off the card's bottom-right, tagged "PDF"
 const PdfPreview = () => (
   <Box css={{ position: 'relative', margin: '22px -28px -28px 20px' }}>
     <Box
@@ -779,9 +724,6 @@ const PdfPreview = () => (
   </Box>
 )
 
-// Logo: the real Microlink brand mark at three sizes + its extracted palette.
-// Both are the /logo page defaults — the CDN logo.svg and the DEFAULT_DATA
-// palette that page ships (palette + background/color/alternative, deduped).
 const LOGO_URI = 'https://cdn.microlink.io/logo/logo.svg'
 const LOGO_WIDTHS = ['56%', '38%', '20%']
 const LOGO_PALETTE = [
@@ -794,14 +736,15 @@ const LOGO_PALETTE = [
   '#3A0618'
 ]
 
-const LogoTile = styled(Flex)`
-  aspect-ratio: 1;
-  border-radius: ${radius.tile};
-  background: ${tone.surface};
-  border: 1px solid ${tone.border};
-  align-items: center;
-  justify-content: center;
-`
+const LogoTile = styled(Flex)(
+  theme({ borderRadius: 5, bg: 'white' }),
+  css`
+    aspect-ratio: 1;
+    border: 1px solid ${tone.border};
+    align-items: center;
+    justify-content: center;
+  `
+)
 
 const LogoImg = styled.img`
   display: block;
@@ -814,7 +757,7 @@ const Swatch = styled.span`
 `
 
 const LogoPreview = () => (
-  <Box css={{ marginTop: '22px' }}>
+  <Box css={theme({ mt: 3 })}>
     <Box
       css={{
         display: 'grid',
@@ -843,9 +786,8 @@ const LogoPreview = () => (
   </Box>
 )
 
-// Search: a Google-style SERP entry for the Microlink result
 const SearchPreview = () => (
-  <Box css={{ marginTop: '22px' }}>
+  <Box css={theme({ mt: 3 })}>
     <Flex
       css={{
         border: `1px solid ${tone.border}`,
@@ -927,16 +869,14 @@ const SearchPreview = () => (
   </Box>
 )
 
-// Technologies: detected stack, rendered as branded chips
-const Chip = styled(Flex)`
-  align-items: center;
-  gap: 7px;
-  border: 1px solid ${tone.border};
-  border-radius: ${radius.chip};
-  padding: 6px 11px;
-  font-size: 13px;
-  font-weight: 600;
-`
+const Chip = styled(Flex)(
+  theme({ gap: 2, borderRadius: 4, p: 2, fontSize: 0 }),
+  css`
+    align-items: center;
+    border: 1px solid ${tone.border};
+    font-weight: 600;
+  `
+)
 
 const TechPreview = () => (
   <Flex css={{ flexWrap: 'wrap', gap: '9px', marginTop: '24px' }}>
@@ -1003,7 +943,6 @@ const TechPreview = () => (
   </Flex>
 )
 
-// Lighthouse: the four circular category scores
 const LIGHTHOUSE = [
   ['98', 'Performance'],
   ['100', 'Accessibility'],
@@ -1043,11 +982,10 @@ const LighthousePreview = () => (
   </Flex>
 )
 
-// Video: a player still with a play affordance and scrubber
 const VideoPreview = () => (
   <Box
     css={{
-      marginTop: '22px',
+      ...theme({ mt: 3 }),
       borderRadius: radius.inner,
       overflow: 'hidden',
       position: 'relative',
@@ -1140,7 +1078,6 @@ const VideoPreview = () => (
   </Box>
 )
 
-// Audio: a waveform + transport row. Tall peaks take the accent tone.
 const WAVE = [
   30, 55, 80, 45, 95, 60, 35, 70, 50, 85, 40, 65, 30, 55, 45, 72, 38, 58
 ]
@@ -1201,9 +1138,8 @@ const AudioPreview = () => (
   </Box>
 )
 
-// Animated Screenshot: a browser window mock with a floating REC pill
 const AnimatedPreview = () => (
-  <Box css={{ position: 'relative', marginTop: '22px', paddingBottom: '16px' }}>
+  <Box css={theme({ position: 'relative', mt: 3, pb: 3 })}>
     <Box
       css={{
         background: tone.surface,
@@ -1329,9 +1265,6 @@ const AnimatedPreview = () => (
   </Box>
 )
 
-/* --------------------------------- icons --------------------------------- */
-// tile glyphs, drawn to match the mock; each inherits its tile's accent color
-
 const MetadataIcon = () => (
   <Box
     as='span'
@@ -1352,8 +1285,6 @@ const strokeIcon = {
   strokeLinejoin: 'round'
 }
 
-// shared 24x24 stroke frame; each glyph passes its size, stroke width and its
-// exact join set (most spread `strokeIcon`; a few need only one of cap/join)
 const Glyph = ({ size = 24, sw = 1.8, children, ...props }) => (
   <svg
     width={size}
@@ -1477,17 +1408,15 @@ const AnimatedIcon = () => (
   </Glyph>
 )
 
-/* -------------------------------- section -------------------------------- */
-
 const Products = () => (
-  <Section>
+  <Box>
     <Box
-      css={{
+      css={theme({
         maxWidth: '1180px',
-        margin: '0 auto',
+        mx: 'auto',
         textAlign: 'center',
-        padding: '0 24px'
-      }}
+        px: 4
+      })}
     >
       <Sparkle width='44' height='44' viewBox='0 0 24 24' fill='none'>
         <defs>
@@ -1506,11 +1435,12 @@ const Products = () => (
           opacity='0.85'
         />
       </Sparkle>
-      <Heading>
-        Everything <span className='accent'>your </span>
-        <span className='grad'>software</span> needs
+      <Heading variant={null}>
+        Everything <Heading as='span'>your software</Heading> needs
       </Heading>
-      <Subtitle>One simple API for all kinds of web data.</Subtitle>
+      <Caption forwardedAs='p' css={theme({ mt: 3 })}>
+        One simple API for all kinds of web data.
+      </Caption>
     </Box>
 
     <GridArea>
@@ -1582,7 +1512,7 @@ const Products = () => (
         </Row>
       </Grid>
     </GridArea>
-  </Section>
+  </Box>
 )
 
 export default Products
