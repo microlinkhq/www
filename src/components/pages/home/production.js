@@ -72,7 +72,7 @@ const Production = () => (
     id='features'
     css={theme({
       bg: 'white',
-      color: 'gray9',
+      color: 'black',
       pt: [5, 5, 6, 6]
     })}
   >
@@ -159,14 +159,14 @@ const Production = () => (
               fontSize: 2,
               fontWeight: 'bold',
               lineHeight: 0,
-              color: 'gray9'
+              color: 'black'
             })}
           >
             {title}
           </Text>
           <Text
             as='p'
-            css={theme({ mt: 2, fontSize: 1, lineHeight: 2, color: 'gray7' })}
+            css={theme({ mt: 2, fontSize: 1, lineHeight: 2, color: 'black60' })}
           >
             {description}
           </Text>

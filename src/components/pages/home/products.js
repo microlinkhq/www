@@ -170,17 +170,11 @@ const IconTile = styled(Flex)(
 )
 
 const Title = styled(Text).attrs({ as: 'h3' })(
-  theme({ fontSize: 2, fontWeight: 'bold', lineHeight: 0 }),
-  css`
-    color: ${tone.ink};
-  `
+  theme({ fontSize: 2, fontWeight: 'bold', lineHeight: 0, color: 'black' })
 )
 
 const Desc = styled(Text).attrs({ as: 'p' })(
-  theme({ fontSize: 0, lineHeight: 1, mt: 2 }),
-  css`
-    color: ${tone.muted};
-  `
+  theme({ fontSize: 0, lineHeight: 1, mt: 2, color: 'black60' })
 )
 
 const arrowPaths = (

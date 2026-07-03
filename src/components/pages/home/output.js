@@ -7,7 +7,7 @@ import { theme, fonts } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 
-const INK = '#0A0A0A'
+const INK = '#000'
 const VIOLET = '#9B26D6'
 const MUTED = '#9A9AA0'
 const BODY = '#3D3D42'
