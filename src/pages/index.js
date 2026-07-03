@@ -2,63 +2,18 @@ import Analytics from 'components/pages/home/analytics'
 import Faqs from 'components/pages/home/faqs'
 import Hero from 'components/pages/home/hero'
 import Products from 'components/pages/home/products'
+import Production from 'components/pages/home/production'
 import Meta from 'components/elements/Meta/Meta'
 import Container from 'components/elements/Container'
-import { Link } from 'components/elements/Link'
 import { withTitle } from 'helpers/hoc/with-title'
 import SubheadBase from 'components/elements/Subhead'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import CaptionBase from 'components/patterns/Caption/Caption'
-import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import { CurrencyProvider } from 'components/hook/use-currency'
 import Plans from 'components/patterns/Plans/Plans'
 import { layout, textGradient, theme } from 'theme'
 import React from 'react'
-
-const FEATURES = [
-  {
-    title: 'Powerful & Scalable',
-    description: 'Cloud-based solution with superior operational performance.'
-  },
-  {
-    title: 'Costless Solution',
-    description:
-      'Starts free. No upfront costs, scalable pricing as you go, growing with your business.'
-  },
-  {
-    title: 'Global CDN',
-    description:
-      'Edge storage distributed over +240 nodes backed by CloudFlare Network.'
-  },
-  {
-    title: 'Developer First',
-    description:
-      'For developers, with top-notch industry technologies, language-agnostic.'
-  },
-  {
-    title: 'Fully programmable',
-    description:
-      'Easy to integrate with any existing stack or cloud in just a few minutes.'
-  },
-  {
-    title: 'Declarative Usage',
-    description:
-      'Simple documentation and interactive code examples that enable quick implementations.'
-  },
-  {
-    title: 'Optimized hardware',
-    description: 'No servers to maintain; no shared browsers between requests.'
-  },
-  {
-    title: 'Built-in cache',
-    description: 'Enabled by default, no additional caching setup required.'
-  },
-  {
-    title: 'Security compliance',
-    description: 'Request isolation with no shared browsers between requests.'
-  }
-]
 
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
@@ -105,25 +60,7 @@ const HomePage = () => {
         <Hero />
         <Products />
         <Analytics />
-        <Features
-          title={
-            <Subhead style={{ textAlign: 'left' }}>
-              Production ready,{' '}
-              <span style={{ display: 'block', color: '#3e55ff' }}>
-                browser as a service
-              </span>
-            </Subhead>
-          }
-          caption={
-            <>
-              There are hidden costs to run your own infrastructure — Give your
-              team an extra boost in performance, ease of use, browser
-              automation made simple at cost pricing, full control via{' '}
-              <Link href='/docs/api/getting-started/overview'>API</Link>.
-            </>
-          }
-          features={FEATURES}
-        />
+        <Production />
         <Container
           as='section'
           css={theme({
