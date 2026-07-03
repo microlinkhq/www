@@ -17,7 +17,7 @@ import {
 import { Link } from 'components/elements/Link'
 import { PRODUCTS, VERTICAL_ORDER } from 'components/pages/home/catalog'
 import { trackEvent } from 'helpers/plausible'
-import { transition, timings, fonts, theme } from 'theme'
+import { transition, timings, fonts, space, theme } from 'theme'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import mql, { getApiUrl } from '@microlink/mql'
@@ -287,7 +287,7 @@ const parseLocal = text => {
 // product's documentation uses; the user can type any domain to override it
 const DEFAULT_URLS = {
   screenshot: 'https://www.apple.com/music',
-  animated: 'https://threejs.org/examples/webgl_animation_skinning_blending',
+  animated: 'https://sauron-webgl.vercel.app/',
   preview: 'https://github.com/microlinkhq/metascraper',
   embed: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
   markdown: 'https://microlink.io/docs/api/getting-started/overview',
@@ -389,15 +389,21 @@ const parseServerTiming = headers => {
 
 /* ------------------------------- presentation ------------------------------ */
 
+// fluid section padding: the side gutters and the tall bottom gap both scale
+// with the viewport. The gutter floor is the theme's space[3] (16px) token; the
+// fluid caps (40/96/220) sit off the discrete space scale on purpose.
+const GUTTER_X = `clamp(${space[3]}, 4vw, 40px)`
+const PADDING_BOTTOM = 'clamp(96px, 14vw, 220px)'
+
 const Section = styled.section`
   position: relative;
   font-family: ${SANS};
   color: ${INK};
   -webkit-font-smoothing: antialiased;
 
-  padding-right: clamp(16px, 4vw, 40px);
-  padding-bottom: clamp(96px, 14vw, 220px);
-  padding-left: clamp(16px, 4vw, 40px);
+  padding-right: ${GUTTER_X};
+  padding-bottom: ${PADDING_BOTTOM};
+  padding-left: ${GUTTER_X};
 `
 
 // the centered content column — Container gives flex-column + mx:auto; the

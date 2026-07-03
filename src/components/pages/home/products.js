@@ -1,32 +1,188 @@
-import Container from 'components/elements/Container'
+import Box from 'components/elements/Box'
+import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
-import { PRODUCTS, VERTICAL_ORDER } from 'components/pages/home/catalog'
+import { PRODUCTS } from 'components/pages/home/catalog'
 import { trackEvent } from 'helpers/plausible'
-import { transition, theme } from 'theme'
-import { setSaturation } from 'polished'
+import { transition, fonts, colors } from 'theme'
 import styled from 'styled-components'
 import React from 'react'
 
-// flex-wrap + centered so the trailing card in an incomplete row stays centered;
-// max-width sized to hold three 300px cards (+ their 8px margins) per row
-const Grid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  max-width: 984px;
-  margin: 0 auto;
+// This section replaces the old flat product grid with a bento-style "Features"
+// wall: one card per Microlink capability, each a link to its product page. The
+// card copy (label, description, href) is pulled from the shared catalog so this
+// grid and the hero's product menu never drift; the per-card accent + preview
+// visual live here since they're presentation specific to this surface.
+
+const SANS = fonts.sans
+const MONO = fonts.mono
+
+/* -------------------------------- tokens --------------------------------- */
+// The global theme scales (space / fontSizes / radii) are too coarse for this
+// bento's pixel spec, so the section's design system lives here as one source
+// of truth, deriving from the theme where a primitive already exists (fonts,
+// transition, colors.white). Recurring/semantic values are tokenized; genuinely
+// one-off illustration values (mock grays, brand fills, chart gradients) stay
+// inline as bespoke art rather than pretending to be design tokens.
+
+const tone = {
+  ink: '#0b1220', // primary text
+  ink900: '#111', // solid UI black (avatars, buttons, brand text)
+  muted: '#8b8f9a', // secondary text
+  faint: '#9aa0ab', // tertiary text (meta rows)
+  accent: '#7c3aed', // headline accent
+  white: colors.white,
+  surface: colors.white, // card + panel fills
+  surfaceSoft: '#fafafb', // light code / document panels
+  surfaceDark: '#161821', // dark code panels
+  gridBg: '#fff', // section backdrop
+  neutral: '#f2f2f4', // faint chip / divider fill
+  border: '#eef0f4', // card + control borders
+  borderSoft: '#f0f0f2', // inner panel borders
+  arrow: '#c4c8cf', // idle link arrow
+  dotIdle: '#dcdce1', // window traffic light (idle)
+  dotActive: '#b06fe0' // window traffic light (active)
+}
+
+// syntax palette for the code / markup previews
+const syntax = {
+  key: '#c026d3',
+  str: '#16a34a',
+  mdH1: '#4f5bd5',
+  mdH2: '#0284c7',
+  body: '#334155',
+  punc: '#7d8590',
+  tag: '#f472b6',
+  darkText: '#e6edf3',
+  darkStr: '#7ee787',
+  muted: '#64748b'
+}
+
+const radius = {
+  card: '22px',
+  panel: '14px',
+  tile: '13px',
+  inner: '12px',
+  chip: '9px',
+  sm: '8px'
+}
+
+const gradient = {
+  head: 'linear-gradient(90deg,#c026d3,#db2777)'
+}
+
+// one shared shadow ink keeps every elevation on the same tonal base
+const SHADOW_INK = '16, 24, 40'
+const shadow = {
+  card: `0 6px 20px rgba(${SHADOW_INK}, 0.04)`,
+  cardHover: `0 22px 46px -28px rgba(${SHADOW_INK}, 0.35)`,
+  panel: `0 4px 14px rgba(${SHADOW_INK}, 0.05)`,
+  soft: `0 3px 10px rgba(${SHADOW_INK}, 0.06)`,
+  softer: `0 3px 10px rgba(${SHADOW_INK}, 0.04)`,
+  window: `0 8px 22px rgba(${SHADOW_INK}, 0.06)`,
+  windowMid: `0 8px 22px rgba(${SHADOW_INK}, 0.07)`,
+  windowTop: `0 14px 34px rgba(${SHADOW_INK}, 0.13)`,
+  float: `0 8px 24px rgba(${SHADOW_INK}, 0.08)`,
+  rec: `0 8px 22px rgba(${SHADOW_INK}, 0.16)`
+}
+
+// per-vertical tile treatment: the rounded glyph badge's background + icon color
+const TILE = {
+  metadata: { bg: '#efe9fe', color: '#7c3aed' },
+  screenshot: { bg: '#fde7f1', color: '#ec4899' },
+  markdown: { bg: '#e8ebfd', color: '#4f5bd5' },
+  html: { bg: '#efe9fe', color: '#7c3aed' },
+  embed: { bg: '#e6f0fd', color: '#2f7ff0' },
+  preview: { bg: 'linear-gradient(135deg,#f0e9fb,#fbe9f3)', color: '#7c3aed' },
+  pdf: { bg: '#fde8ea', color: '#ef4b57' },
+  logo: { bg: '#fdf4d6', color: '#e0a90c' },
+  search: { bg: '#e6f0fd', color: '#2f7ff0' },
+  technologies: { bg: '#efe9fe', color: '#7c3aed' },
+  function: { bg: '#e3f6ea', color: '#16a34a' },
+  text: { bg: '#fdeede', color: '#f08a3c' },
+  lighthouse: { bg: '#e0f5ec', color: '#10b981' },
+  video: { bg: '#efe9fe', color: '#7c3aed' },
+  audio: { bg: '#fde7f1', color: '#ec4899' },
+  animated: { bg: '#e8ebfd', color: '#4f5bd5' }
+}
+
+/* --------------------------------- shell --------------------------------- */
+
+const Section = styled.section`
+  background: ${tone.surface};
+  font-family: ${SANS};
+  color: ${tone.ink};
+  padding-top: 40px;
+  -webkit-font-smoothing: antialiased;
 `
 
-// north-east arrow, rendered inline so its stroke follows the card's `color`
+const Sparkle = styled.svg`
+  margin-bottom: 18px;
+`
+
+const Heading = styled.h2`
+  font-size: clamp(32px, 5.4vw, 54px);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: ${tone.ink};
+
+  .accent {
+    color: ${tone.accent};
+  }
+  .grad {
+    background: ${gradient.head};
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+`
+
+const Subtitle = styled.p`
+  font-size: clamp(18px, 2.4vw, 24px);
+  color: ${tone.muted};
+  font-weight: 500;
+  margin: 18px 0 0;
+`
+
+const GridArea = styled.div`
+  background: ${tone.gridBg};
+  margin-top: 52px;
+  padding: 48px clamp(16px, 4vw, 28px) 68px;
+`
+
+const Grid = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+`
+
+// bento row: N equal tracks on desktop, collapsing to 2 then 1 as width drops
+const Row = styled.div`
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(${props => props.$cols}, minmax(0, 1fr));
+
+  @media (max-width: 980px) {
+    grid-template-columns: repeat(
+      ${props => Math.min(props.$cols, 2)},
+      minmax(0, 1fr)
+    );
+  }
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+`
+
+// the external-link glyph in each card's top-right; animates on card hover
 const Arrow = styled.svg`
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 18px;
-  height: 18px;
-  color: #b9b9c0;
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  color: ${tone.arrow};
   transition: color ${transition.medium}, transform ${transition.medium};
 `
 
@@ -34,96 +190,1478 @@ const Card = styled(Link)`
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 300px;
-  min-height: 208px;
-  margin: 8px;
-  padding: 32px 28px;
-  background: #fff;
-  border: 1px solid #eaeaec;
-  border-radius: 16px;
+  background: ${tone.surface};
+  border: 1px solid ${tone.border};
+  border-radius: ${radius.card};
+  padding: 28px;
+  overflow: hidden;
+  color: ${tone.ink};
   text-decoration: none;
+  box-shadow: ${shadow.card};
   transition: border-color ${transition.medium}, box-shadow ${transition.medium},
     transform ${transition.medium};
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      border-color: ${props => setSaturation(0.8, props.$color)};
+      border-color: ${props => props.$accent};
       transform: translateY(-3px);
-      box-shadow: 0 20px 44px -26px ${props => props.$color};
+      box-shadow: ${shadow.cardHover};
     }
-
     &:hover ${Arrow} {
-      color: ${props => props.$color};
+      color: ${tone.ink};
       transform: translate(2px, -2px);
     }
   }
-
-  @media (max-width: 640px) {
-    width: 100%;
-  }
 `
 
-const CardTitle = styled(Text)`
-  display: block;
-  font-size: 26px;
+const IconTile = styled(Flex)`
+  width: 52px;
+  height: 52px;
+  border-radius: ${radius.panel};
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+`
+
+const Title = styled(Text).attrs({ as: 'h3' })`
+  font-size: 21px;
   font-weight: 700;
-  letter-spacing: -0.01em;
-  color: #0a0a0a;
+  line-height: 1.15;
+  color: ${tone.ink};
 `
 
-const CardSubtitle = styled(Text)`
-  display: block;
-  margin-top: 12px;
-  max-width: 15em;
-  font-size: 17px;
+const Desc = styled(Text).attrs({ as: 'p' })`
+  font-size: 15px;
   line-height: 1.4;
-  color: #6a6a70;
+  color: ${tone.muted};
+  margin-top: 6px;
 `
 
-const ProductCard = ({ label, description, color, href }) => (
-  <Card
-    href={href}
-    $color={color}
-    onClick={() => trackEvent('home products grid', { product: label })}
-  >
-    <Arrow
-      aria-hidden='true'
-      viewBox='0 0 24 24'
-      fill='none'
-      stroke='currentColor'
-      strokeWidth='2'
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    >
-      <line x1='7' y1='17' x2='17' y2='7' />
-      <polyline points='7 7 17 7 17 17' />
-    </Arrow>
-    <CardTitle as='span'>{label}</CardTitle>
-    <CardSubtitle as='span'>{description}</CardSubtitle>
-  </Card>
+const arrowPaths = (
+  <>
+    <path d='M14 4h6v6M20 4l-8.5 8.5' />
+    <path d='M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5' />
+  </>
 )
 
-// render every product in the same order as the hero's product menu, straight
-// from the shared catalog, so the two surfaces always list the same set
-const Products = () => (
-  <Container
-    as='section'
-    css={theme({
-      maxWidth: '100%',
-      px: [3, 3, 3, 3],
-      pt: [4, 4, 5, 5],
-      pb: [4, 4, 5, 5]
-    })}
-  >
-    <Grid>
-      {VERTICAL_ORDER.map(vertical => (
-        <ProductCard key={vertical} {...PRODUCTS[vertical]} />
+// common card frame: gradient tile + title + description + link arrow, with the
+// bespoke preview passed as children
+const Feature = ({ vertical, icon, children }) => {
+  const { label, description, href } = PRODUCTS[vertical]
+  const tile = TILE[vertical]
+  return (
+    <Card
+      href={href}
+      $accent={tile.color}
+      onClick={() => trackEvent('home products grid', { product: label })}
+    >
+      <Flex css={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
+        <Flex css={{ gap: '16px', alignItems: 'flex-start' }}>
+          <IconTile css={{ background: tile.bg }}>{icon}</IconTile>
+          <Box>
+            <Title>{label}</Title>
+            <Desc>{description}</Desc>
+          </Box>
+        </Flex>
+        <Arrow
+          aria-hidden='true'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          strokeWidth='1.9'
+          strokeLinecap='round'
+          strokeLinejoin='round'
+        >
+          {arrowPaths}
+        </Arrow>
+      </Flex>
+      {children}
+    </Card>
+  )
+}
+
+/* ------------------------------ code previews ----------------------------- */
+
+const CodeBox = styled(Box)`
+  background: ${tone.surfaceSoft};
+  border: 1px solid ${tone.borderSoft};
+  border-radius: ${radius.panel};
+  padding: 20px 18px;
+  margin-top: 22px;
+  font-family: ${MONO};
+  font-size: 14px;
+  line-height: 1.9;
+  color: ${syntax.body};
+`
+
+const DarkBox = styled(Box)`
+  background: ${tone.surfaceDark};
+  border-radius: ${radius.panel};
+  padding: 20px 18px;
+  margin-top: 22px;
+  font-family: ${MONO};
+  font-size: 13px;
+  line-height: 1.95;
+`
+
+// light-theme + dark-theme syntax spans, reused across the code cards
+const K = styled.span`
+  color: ${syntax.key};
+`
+const V = styled.span`
+  color: ${syntax.str};
+`
+const Pn = styled.span`
+  color: ${syntax.punc};
+`
+const Tg = styled.span`
+  color: ${syntax.tag};
+`
+const Dt = styled.span`
+  color: ${syntax.darkText};
+`
+const Gr = styled.span`
+  color: ${syntax.darkStr};
+`
+
+const META_FIELDS = [
+  ['title', 'Microlink | The universal API'],
+  ['description', 'Turn any URL into data.'],
+  ['url', 'https://microlink.io'],
+  ['siteName', 'Microlink'],
+  ['image', 'https://microlink.io/og.png'],
+  ['author', 'Microlink'],
+  ['publishedTime', '2024-01-15T10:00:00Z']
+]
+
+const MetadataPreview = () => (
+  <CodeBox css={{ display: 'flex', gap: '18px', lineHeight: 1.95 }}>
+    <Box
+      as='span'
+      css={{
+        color: '#c4c4c8',
+        textAlign: 'right',
+        userSelect: 'none',
+        whiteSpace: 'pre'
+      }}
+    >
+      {'1\n2\n3\n4\n5\n6\n7\n8\n9'}
+    </Box>
+    <Box css={{ whiteSpace: 'pre', overflow: 'hidden' }}>
+      {'{\n'}
+      {META_FIELDS.map(([k, val], i) => (
+        <React.Fragment key={k}>
+          {'  '}
+          <K>&quot;{k}&quot;</K>: <V>&quot;{val}&quot;</V>
+          {i < META_FIELDS.length - 1 ? ',' : ''}
+          {'\n'}
+        </React.Fragment>
       ))}
-    </Grid>
-  </Container>
+      {'}'}
+    </Box>
+  </CodeBox>
+)
+
+const MarkdownPreview = () => (
+  <CodeBox>
+    <Box css={{ color: syntax.mdH1 }}># Microlink</Box>
+    <Box css={{ height: '14px' }} />
+    <Box>The universal API for web data.</Box>
+    <Box css={{ height: '14px' }} />
+    <Box css={{ color: syntax.mdH2 }}>## Features</Box>
+    <Box>- Built for speed</Box>
+    <Box>- Reliable interface</Box>
+  </CodeBox>
+)
+
+const HtmlPreview = () => (
+  <DarkBox css={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
+    <Box>
+      <Pn>&lt;</Pn>
+      <Tg>h1</Tg>
+      <Pn>&gt;</Pn>
+      <Dt>Microlink</Dt>
+      <Pn>&lt;/</Pn>
+      <Tg>h1</Tg>
+      <Pn>&gt;</Pn>
+    </Box>
+    <Box css={{ height: '10px' }} />
+    <Box>
+      <Pn>&lt;</Pn>
+      <Tg>p</Tg>
+      <Pn>&gt;</Pn>
+      <Dt>The universal API for</Dt>
+    </Box>
+    <Dt>&nbsp;&nbsp;web data.</Dt>
+    <Box css={{ height: '10px' }} />
+    <Box>
+      <Pn>&lt;</Pn>
+      <Tg>h2</Tg>
+      <Pn>&gt;</Pn>
+      <Dt>Features</Dt>
+      <Pn>&lt;/</Pn>
+      <Tg>h2</Tg>
+      <Pn>&gt;</Pn>
+    </Box>
+    <Box>
+      <Pn>&lt;</Pn>
+      <Tg>ul</Tg>
+      <Pn>&gt;</Pn>
+    </Box>
+    <Box>
+      &nbsp;&nbsp;<Pn>&lt;</Pn>
+      <Tg>li</Tg>
+      <Pn>&gt;</Pn>
+      <Dt>Built for speed</Dt>
+      <Pn>&lt;/</Pn>
+      <Tg>li</Tg>
+      <Pn>&gt;</Pn>
+    </Box>
+  </DarkBox>
+)
+
+const FunctionPreview = () => (
+  <DarkBox css={{ lineHeight: 1.9 }}>
+    <Box>
+      <Tg>export default async function</Tg>
+    </Box>
+    <Dt>
+      ({'{ page, $ }'}) {'{'}
+    </Dt>
+    <Box>
+      &nbsp;&nbsp;<Pn>const</Pn> <Dt>title = $(</Dt>
+      <Gr>&apos;h1&apos;</Gr>
+      <Dt>).text();</Dt>
+    </Box>
+    <Box>
+      &nbsp;&nbsp;<Tg>return</Tg> <Dt>{'{ title };'}</Dt>
+    </Box>
+    <Dt>{'}'}</Dt>
+  </DarkBox>
+)
+
+const TextPreview = () => (
+  <CodeBox css={{ fontSize: '13.5px', lineHeight: 1.85 }}>
+    Microlink makes it easy to extract clean, readable text from any web page.
+    No noise, just content — ready for your AI pipeline.
+  </CodeBox>
+)
+
+/* ----------------------------- visual previews ---------------------------- */
+
+// Screenshot: three layered, rotated browser windows; the top one holds a mini
+// rendered landing page
+const ScreenshotPreview = () => (
+  <Box css={{ position: 'relative', height: '260px', margin: '24px 8px 0' }}>
+    <Box
+      css={{
+        position: 'absolute',
+        left: '88px',
+        top: '34px',
+        right: '8px',
+        bottom: '-8px',
+        background: tone.surface,
+        border: `1px solid ${tone.border}`,
+        borderRadius: radius.panel,
+        boxShadow: shadow.window,
+        transform: 'rotate(2.5deg)'
+      }}
+    />
+    <Box
+      css={{
+        position: 'absolute',
+        left: '46px',
+        top: '18px',
+        right: '42px',
+        bottom: '10px',
+        background: tone.surface,
+        border: `1px solid ${tone.border}`,
+        borderRadius: radius.panel,
+        boxShadow: shadow.windowMid,
+        transform: 'rotate(1.2deg)'
+      }}
+    />
+    <Box
+      css={{
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        right: '84px',
+        bottom: '22px',
+        background: tone.surface,
+        border: `1px solid ${tone.border}`,
+        borderRadius: radius.panel,
+        boxShadow: shadow.windowTop,
+        overflow: 'hidden'
+      }}
+    >
+      <Flex
+        css={{
+          padding: '11px 16px',
+          gap: '7px',
+          alignItems: 'center',
+          borderBottom: `1px solid ${tone.neutral}`
+        }}
+      >
+        <TrafficDot css={{ background: tone.dotActive }} />
+        <TrafficDot />
+        <TrafficDot />
+      </Flex>
+      <Box css={{ padding: '22px 26px 26px', textAlign: 'center' }}>
+        <Flex
+          css={{
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            fontSize: '12px',
+            color: tone.muted,
+            marginBottom: '26px'
+          }}
+        >
+          <Box as='span' css={{ fontWeight: 700, color: tone.ink900 }}>
+            Microlink
+          </Box>
+          <span>Docs&nbsp;&nbsp;Guides&nbsp;&nbsp;Pricing</span>
+        </Flex>
+        <Box
+          css={{
+            fontSize: '26px',
+            fontWeight: 800,
+            lineHeight: 1.15,
+            letterSpacing: '-0.02em'
+          }}
+        >
+          The universal API
+          <br />
+          for web data.
+        </Box>
+        <Box
+          css={{ fontSize: '12px', color: tone.muted, margin: '12px 0 18px' }}
+        >
+          One API to turn any URL into structured data.
+        </Box>
+        <Flex css={{ gap: '10px', justifyContent: 'center' }}>
+          <MiniButton css={{ background: tone.ink900, color: tone.white }}>
+            Get started
+          </MiniButton>
+          <MiniButton css={{ background: tone.neutral, color: tone.ink900 }}>
+            See pricing
+          </MiniButton>
+        </Flex>
+      </Box>
+    </Box>
+  </Box>
+)
+
+const TrafficDot = styled.span`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: ${tone.dotIdle};
+  flex-shrink: 0;
+`
+
+const MiniButton = styled.span`
+  font-size: 12px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: ${radius.sm};
+`
+
+// Embed: a YouTube-style rich card with a synthetic thumbnail
+const PreviewCard = styled(Box)`
+  border: 1px solid ${tone.borderSoft};
+  border-radius: ${radius.panel};
+  padding: 16px;
+  margin-top: 22px;
+  box-shadow: ${shadow.panel};
+`
+
+const EmbedPreview = () => (
+  <PreviewCard>
+    <Flex css={{ alignItems: 'center', gap: '9px', marginBottom: '13px' }}>
+      <svg width='22' height='22' viewBox='0 0 24 24'>
+        <rect x='2' y='5' width='20' height='14' rx='4' fill='#ff0000' />
+        <path d='M10 8.5l5 3.5-5 3.5z' fill='#fff' />
+      </svg>
+      <Box as='span' css={{ fontWeight: 700, fontSize: '15px' }}>
+        YouTube
+      </Box>
+    </Flex>
+    <Box
+      css={{
+        borderRadius: radius.inner,
+        overflow: 'hidden',
+        position: 'relative',
+        aspectRatio: '16 / 9',
+        background: '#0a0a0d'
+      }}
+    >
+      <Box
+        css={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'radial-gradient(120% 90% at 50% 120%, #1c3a6e 0%, #12213f 40%, #08080c 75%)'
+        }}
+      />
+      <Box
+        as='span'
+        css={{
+          position: 'absolute',
+          top: '14px',
+          left: 0,
+          right: 0,
+          textAlign: 'center',
+          color: '#cfd8e6',
+          fontSize: '15px',
+          fontWeight: 500
+        }}
+      >
+        Introducing Gemini 1.5
+      </Box>
+      <Flex
+        css={{
+          position: 'absolute',
+          inset: 0,
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#2f5fa8',
+          fontSize: '72px',
+          fontWeight: 800,
+          letterSpacing: '-3px'
+        }}
+      >
+        1.5
+      </Flex>
+      <Flex
+        css={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%,-50%)',
+          width: '52px',
+          height: '37px',
+          borderRadius: '10px',
+          background: '#ff0000',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 4px 12px rgba(0,0,0,.4)'
+        }}
+      >
+        <svg width='16' height='16' viewBox='0 0 24 24' fill='#fff'>
+          <path d='M8 5v14l11-7z' />
+        </svg>
+      </Flex>
+    </Box>
+    <Box css={{ marginTop: '12px' }}>
+      <Box css={{ fontSize: '15px', fontWeight: 700 }}>
+        Introducing Gemini 1.5
+      </Box>
+      <Box css={{ fontSize: '13px', color: tone.faint, marginTop: '3px' }}>
+        Google Developers&nbsp;&nbsp;·&nbsp;&nbsp;1.2M views
+      </Box>
+    </Box>
+  </PreviewCard>
+)
+
+const Skel = styled.span`
+  height: 8px;
+  border-radius: 4px;
+  background: #eeeef1;
+  display: block;
+`
+
+// bottom-anchored decorative svg (mountain fill, chart baseline)
+const CornerSvg = styled.svg`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+`
+
+const LinkPreview = () => (
+  <PreviewCard css={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
+    <Box
+      css={{
+        width: '70px',
+        height: '70px',
+        borderRadius: '10px',
+        flexShrink: 0,
+        position: 'relative',
+        overflow: 'hidden',
+        background: 'linear-gradient(180deg,#f6a5c0,#c98bb8 45%,#3a3a63)'
+      }}
+    >
+      <CornerSvg
+        viewBox='0 0 70 70'
+        preserveAspectRatio='none'
+        width='70'
+        height='38'
+      >
+        <path d='M0 70 L22 34 L38 48 L52 30 L70 42 L70 70 Z' fill='#4a4a72' />
+        <path d='M0 70 L18 50 L40 58 L58 46 L70 54 L70 70 Z' fill='#38385c' />
+      </CornerSvg>
+    </Box>
+    <Box
+      css={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}
+    >
+      <Skel css={{ width: '80%', background: '#e7e7ea' }} />
+      <Skel css={{ width: '100%' }} />
+      <Skel css={{ width: '65%' }} />
+    </Box>
+  </PreviewCard>
+)
+
+// PDF: a document mock that bleeds off the card's bottom-right, tagged "PDF"
+const PdfPreview = () => (
+  <Box css={{ position: 'relative', margin: '22px -28px -28px 20px' }}>
+    <Box
+      css={{
+        background: tone.surfaceSoft,
+        border: `1px solid ${tone.border}`,
+        borderRight: 'none',
+        borderBottom: 'none',
+        borderRadius: `${radius.inner} 0 0 0`,
+        padding: '18px 18px 24px'
+      }}
+    >
+      <Skel
+        css={{
+          width: '34%',
+          height: '7px',
+          background: '#e8e8ec',
+          marginBottom: '8px'
+        }}
+      />
+      <Skel
+        css={{
+          width: '50%',
+          height: '7px',
+          background: '#e8e8ec',
+          marginBottom: '26px'
+        }}
+      />
+      <Box css={{ fontSize: '16px', fontWeight: 800, lineHeight: 1.3 }}>
+        Microlink
+        <br />
+        API Reference
+      </Box>
+      <Skel
+        css={{
+          width: '44%',
+          height: '7px',
+          background: '#e8e8ec',
+          marginTop: '18px'
+        }}
+      />
+    </Box>
+    <Box
+      as='span'
+      css={{
+        position: 'absolute',
+        top: '12px',
+        right: '28px',
+        background: '#ef4444',
+        color: tone.white,
+        fontWeight: 800,
+        fontSize: '12px',
+        padding: '6px 11px',
+        borderRadius: '7px',
+        boxShadow: '0 6px 14px rgba(239,68,68,.35)'
+      }}
+    >
+      PDF
+    </Box>
+  </Box>
+)
+
+// Logo: the real Microlink brand mark at three sizes + its extracted palette.
+// Both are the /logo page defaults — the CDN logo.svg and the DEFAULT_DATA
+// palette that page ships (palette + background/color/alternative, deduped).
+const LOGO_URI = 'https://cdn.microlink.io/logo/logo.svg'
+const LOGO_WIDTHS = ['56%', '38%', '20%']
+const LOGO_PALETTE = [
+  '#EC427C',
+  '#780C31',
+  '#F286AB',
+  '#644CA4',
+  '#8B0D38',
+  '#3D0618',
+  '#3A0618'
+]
+
+const LogoTile = styled(Flex)`
+  aspect-ratio: 1;
+  border-radius: ${radius.tile};
+  background: ${tone.surface};
+  border: 1px solid ${tone.border};
+  align-items: center;
+  justify-content: center;
+`
+
+const LogoImg = styled.img`
+  display: block;
+  height: auto;
+`
+
+const Swatch = styled.span`
+  flex: 1;
+  height: 34px;
+`
+
+const LogoPreview = () => (
+  <Box css={{ marginTop: '22px' }}>
+    <Box
+      css={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3,1fr)',
+        gap: '10px'
+      }}
+    >
+      {LOGO_WIDTHS.map((width, i) => (
+        <LogoTile key={i}>
+          <LogoImg src={LOGO_URI} alt='Microlink logo' css={{ width }} />
+        </LogoTile>
+      ))}
+    </Box>
+    <Flex
+      css={{
+        marginTop: '12px',
+        borderRadius: radius.sm,
+        overflow: 'hidden',
+        boxShadow: shadow.soft
+      }}
+    >
+      {LOGO_PALETTE.map(c => (
+        <Swatch key={c} css={{ background: c }} />
+      ))}
+    </Flex>
+  </Box>
+)
+
+// Search: a Google-style SERP entry for the Microlink result
+const SearchPreview = () => (
+  <Box css={{ marginTop: '22px' }}>
+    <Flex
+      css={{
+        border: `1px solid ${tone.border}`,
+        borderRadius: '20px',
+        padding: '9px 14px',
+        alignItems: 'center',
+        gap: '9px',
+        boxShadow: shadow.softer
+      }}
+    >
+      <svg
+        width='14'
+        height='14'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='#9aa0ab'
+        strokeWidth='2'
+        strokeLinecap='round'
+      >
+        <circle cx='11' cy='11' r='7' />
+        <path d='M21 21l-4.3-4.3' />
+      </svg>
+      <Box as='span' css={{ color: syntax.body, fontSize: '13px' }}>
+        best api for web data
+      </Box>
+    </Flex>
+    <Flex
+      css={{
+        gap: '16px',
+        fontSize: '12px',
+        color: tone.faint,
+        margin: '14px 2px 12px',
+        borderBottom: `1px solid ${tone.borderSoft}`,
+        paddingBottom: '8px'
+      }}
+    >
+      <Box
+        as='span'
+        css={{
+          color: '#2f7ff0',
+          fontWeight: 600,
+          borderBottom: '2px solid #2f7ff0',
+          paddingBottom: '9px',
+          marginBottom: '-9px'
+        }}
+      >
+        All
+      </Box>
+      <span>News</span>
+      <span>Images</span>
+    </Flex>
+    <Flex css={{ alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+      <Flex
+        css={{
+          width: '24px',
+          height: '24px',
+          borderRadius: '50%',
+          background: tone.ink900,
+          color: tone.white,
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontWeight: 800,
+          fontSize: '11px'
+        }}
+      >
+        M
+      </Flex>
+      <Box css={{ lineHeight: 1.1 }}>
+        <Box css={{ fontSize: '12px', fontWeight: 600 }}>Microlink</Box>
+        <Box css={{ fontSize: '11px', color: tone.faint }}>microlink.io</Box>
+      </Box>
+    </Flex>
+    <Box css={{ color: '#1a56db', fontSize: '15px', fontWeight: 600 }}>
+      Microlink — The universal API
+    </Box>
+    <Box css={{ color: syntax.muted, fontSize: '12.5px', marginTop: '3px' }}>
+      One API to turn any URL into structured data.
+    </Box>
+  </Box>
+)
+
+// Technologies: detected stack, rendered as branded chips
+const Chip = styled(Flex)`
+  align-items: center;
+  gap: 7px;
+  border: 1px solid ${tone.border};
+  border-radius: ${radius.chip};
+  padding: 6px 11px;
+  font-size: 13px;
+  font-weight: 600;
+`
+
+const TechPreview = () => (
+  <Flex css={{ flexWrap: 'wrap', gap: '9px', marginTop: '24px' }}>
+    <Chip>
+      <Flex
+        css={{
+          width: '16px',
+          height: '16px',
+          borderRadius: '50%',
+          background: '#000',
+          color: tone.white,
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '9px',
+          fontStyle: 'italic'
+        }}
+      >
+        N
+      </Flex>
+      Next.js
+    </Chip>
+    <Chip>
+      <svg width='15' height='15' viewBox='-11.5 -10.23 23 20.46'>
+        <circle r='2' fill='#61dafb' />
+        <g stroke='#61dafb' strokeWidth='1' fill='none'>
+          <ellipse rx='11' ry='4.2' />
+          <ellipse rx='11' ry='4.2' transform='rotate(60)' />
+          <ellipse rx='11' ry='4.2' transform='rotate(120)' />
+        </g>
+      </svg>
+      React
+    </Chip>
+    <Chip>
+      <svg width='15' height='15' viewBox='0 0 24 24' fill='#38bdf8'>
+        <path d='M12 6c-2.7 0-4.4 1.3-5 4 .9-1.2 2-1.7 3.2-1.4.7.2 1.2.7 1.8 1.3.9 1 2 2.1 4.3 2.1 2.7 0 4.4-1.3 5-4-.9 1.2-2 1.7-3.2 1.4-.7-.2-1.2-.7-1.8-1.3C15.4 7.1 14.3 6 12 6zM7 12c-2.7 0-4.4 1.3-5 4 .9-1.2 2-1.7 3.2-1.4.7.2 1.2.7 1.8 1.3.9 1 2 2.1 4.3 2.1 2.7 0 4.4-1.3 5-4-.9 1.2-2 1.7-3.2 1.4-.7-.2-1.2-.7-1.8-1.3C10.4 13.1 9.3 12 7 12z' />
+      </svg>
+      Tailwind
+    </Chip>
+    <Chip>
+      <svg width='14' height='14' viewBox='0 0 24 24' fill='#000'>
+        <path d='M12 2L2 20h20z' />
+      </svg>
+      Vercel
+    </Chip>
+    <Chip>
+      <Flex
+        css={{
+          width: '16px',
+          height: '16px',
+          borderRadius: '4px',
+          background: '#3178c6',
+          color: tone.white,
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '8px',
+          fontWeight: 800
+        }}
+      >
+        TS
+      </Flex>
+      TypeScript
+    </Chip>
+    <Chip css={{ color: tone.muted }}>+12</Chip>
+  </Flex>
+)
+
+// Lighthouse: the four circular category scores
+const LIGHTHOUSE = [
+  ['98', 'Performance'],
+  ['100', 'Accessibility'],
+  ['100', 'Best Practices'],
+  ['92', 'SEO']
+]
+
+const LighthousePreview = () => (
+  <Flex
+    css={{ justifyContent: 'space-between', gap: '6px', marginTop: '26px' }}
+  >
+    {LIGHTHOUSE.map(([score, label]) => (
+      <Box key={label} css={{ textAlign: 'center' }}>
+        <Flex
+          css={{
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            background: '#eaf7ee',
+            border: '3px solid #34c759',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 700,
+            fontSize: '18px',
+            color: '#1c9e46'
+          }}
+        >
+          {score}
+        </Flex>
+        <Box
+          css={{ fontSize: '11.5px', color: syntax.muted, marginTop: '8px' }}
+        >
+          {label}
+        </Box>
+      </Box>
+    ))}
+  </Flex>
+)
+
+// Video: a player still with a play affordance and scrubber
+const VideoPreview = () => (
+  <Box
+    css={{
+      marginTop: '22px',
+      borderRadius: radius.inner,
+      overflow: 'hidden',
+      position: 'relative',
+      height: '160px',
+      background: 'linear-gradient(150deg,#c9d6e8,#8ea4c4 55%,#3a4a63)'
+    }}
+  >
+    <Box
+      css={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: '70px',
+        background: 'linear-gradient(0deg,#2b384d,transparent)'
+      }}
+    />
+    <Flex
+      css={{
+        position: 'absolute',
+        inset: 0,
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      <Flex
+        css={{
+          width: '46px',
+          height: '46px',
+          borderRadius: '50%',
+          background: 'rgba(0,0,0,.4)',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <svg width='16' height='16' viewBox='0 0 24 24' fill='#fff'>
+          <path d='M8 5v14l11-7z' />
+        </svg>
+      </Flex>
+    </Flex>
+    <Flex
+      css={{
+        position: 'absolute',
+        bottom: '12px',
+        left: '14px',
+        right: '14px',
+        alignItems: 'center',
+        gap: '8px'
+      }}
+    >
+      <svg width='12' height='12' viewBox='0 0 24 24' fill='#fff'>
+        <path d='M8 5v14l11-7z' />
+      </svg>
+      <Box
+        as='span'
+        css={{ color: tone.white, fontSize: '11px', fontFamily: MONO }}
+      >
+        0:00
+      </Box>
+      <Box
+        as='span'
+        css={{
+          flex: 1,
+          height: '3px',
+          background: 'rgba(255,255,255,.35)',
+          borderRadius: '2px',
+          position: 'relative'
+        }}
+      >
+        <Box
+          as='span'
+          css={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: '22%',
+            background: tone.white,
+            borderRadius: '2px'
+          }}
+        />
+      </Box>
+      <Box
+        as='span'
+        css={{ color: tone.white, fontSize: '11px', fontFamily: MONO }}
+      >
+        1:03
+      </Box>
+    </Flex>
+  </Box>
+)
+
+// Audio: a waveform + transport row. Tall peaks take the accent tone.
+const WAVE = [
+  30, 55, 80, 45, 95, 60, 35, 70, 50, 85, 40, 65, 30, 55, 45, 72, 38, 58
+]
+
+const Bar = styled.span`
+  flex: 1;
+  border-radius: 2px;
+`
+
+const AudioPreview = () => (
+  <Box css={{ marginTop: '26px' }}>
+    <Flex
+      css={{
+        alignItems: 'center',
+        gap: '2px',
+        height: '52px',
+        marginBottom: '18px'
+      }}
+    >
+      {WAVE.map((h, i) => (
+        <Bar
+          key={i}
+          css={{ height: `${h}%`, background: h >= 80 ? '#ec4899' : '#e5b8d4' }}
+        />
+      ))}
+    </Flex>
+    <Flex css={{ alignItems: 'center', gap: '12px' }}>
+      <Flex
+        css={{
+          width: '34px',
+          height: '34px',
+          borderRadius: '50%',
+          background: tone.ink900,
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <svg width='13' height='13' viewBox='0 0 24 24' fill='#fff'>
+          <path d='M8 5v14l11-7z' />
+        </svg>
+      </Flex>
+      <Box
+        as='span'
+        css={{ fontFamily: MONO, fontSize: '12px', color: syntax.muted }}
+      >
+        0:00 / 3:24
+      </Box>
+      <Box
+        as='span'
+        css={{
+          flex: 1,
+          height: '3px',
+          background: '#ececef',
+          borderRadius: '2px'
+        }}
+      />
+    </Flex>
+  </Box>
+)
+
+// Animated Screenshot: a browser window mock with a floating REC pill
+const AnimatedPreview = () => (
+  <Box css={{ position: 'relative', marginTop: '22px', paddingBottom: '16px' }}>
+    <Box
+      css={{
+        background: tone.surface,
+        border: `1px solid ${tone.border}`,
+        borderRadius: radius.inner,
+        boxShadow: shadow.float,
+        overflow: 'hidden'
+      }}
+    >
+      <Flex
+        css={{
+          padding: '10px 14px',
+          gap: '7px',
+          borderBottom: '1px solid #f3f4f7'
+        }}
+      >
+        <TrafficDot css={{ background: tone.dotActive }} />
+        <TrafficDot />
+        <TrafficDot />
+      </Flex>
+      <Flex>
+        <Box
+          css={{
+            width: '62px',
+            padding: '14px 12px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+            flexShrink: 0
+          }}
+        >
+          {[80, 60, 72, 52, 66, 48, 60].map((w, i) => (
+            <Skel
+              key={i}
+              css={{
+                width: `${w}%`,
+                height: '6px',
+                background: i === 0 ? '#dfe3f5' : '#e9ecf7'
+              }}
+            />
+          ))}
+        </Box>
+        <Box css={{ flex: 1, padding: '14px 14px 18px' }}>
+          <Skel
+            css={{ width: '52%', background: '#e7eaf1', marginBottom: '11px' }}
+          />
+          <Box
+            css={{
+              height: '18px',
+              width: '100%',
+              background: 'linear-gradient(90deg,#a9c1f0,#c7d0f7)',
+              borderRadius: '5px',
+              marginBottom: '14px'
+            }}
+          />
+          <Box
+            css={{
+              height: '150px',
+              borderRadius: radius.sm,
+              position: 'relative',
+              overflow: 'hidden',
+              background: 'linear-gradient(180deg,#eef1f6,#e4e9f0)'
+            }}
+          >
+            <CornerSvg
+              viewBox='0 0 360 150'
+              preserveAspectRatio='none'
+              width='100%'
+              height='112'
+            >
+              <path
+                d='M0 150 L110 52 L188 92 L262 42 L322 78 L360 58 L360 150 Z'
+                fill='#9fb6cf'
+              />
+              <path
+                d='M0 150 L84 92 L160 116 L236 80 L302 108 L360 90 L360 150 Z'
+                fill='#6f93b0'
+                opacity='0.9'
+              />
+              <path
+                d='M0 150 L104 112 L192 132 L286 108 L360 128 L360 150 Z'
+                fill='#40606f'
+              />
+            </CornerSvg>
+          </Box>
+        </Box>
+      </Flex>
+    </Box>
+    <Flex
+      css={{
+        position: 'absolute',
+        bottom: 0,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        background: tone.surface,
+        borderRadius: '11px',
+        boxShadow: shadow.rec,
+        padding: '9px 18px',
+        alignItems: 'center',
+        gap: '10px',
+        fontFamily: MONO
+      }}
+    >
+      <Box
+        as='span'
+        css={{
+          width: '11px',
+          height: '11px',
+          borderRadius: '50%',
+          background: '#f0392b'
+        }}
+      />
+      <Box
+        as='span'
+        css={{
+          fontSize: '16px',
+          fontWeight: 600,
+          letterSpacing: '2px',
+          color: '#1f2733'
+        }}
+      >
+        REC 00:08
+      </Box>
+    </Flex>
+  </Box>
+)
+
+/* --------------------------------- icons --------------------------------- */
+// tile glyphs, drawn to match the mock; each inherits its tile's accent color
+
+const MetadataIcon = () => (
+  <Box
+    as='span'
+    css={{
+      fontFamily: MONO,
+      fontWeight: 700,
+      fontSize: '19px',
+      color: TILE.metadata.color
+    }}
+  >
+    {'{…}'}
+  </Box>
+)
+
+const strokeIcon = {
+  fill: 'none',
+  strokeLinecap: 'round',
+  strokeLinejoin: 'round'
+}
+
+const ScreenshotIcon = () => (
+  <svg
+    width='26'
+    height='26'
+    viewBox='0 0 24 24'
+    stroke={TILE.screenshot.color}
+    strokeWidth='1.8'
+    {...strokeIcon}
+  >
+    <rect x='3' y='7' width='18' height='13' rx='2.5' />
+    <circle cx='12' cy='13.5' r='3.2' />
+    <path d='M8.5 7l1.3-2.3h4.4L15.5 7' />
+  </svg>
+)
+
+const MarkdownIcon = () => (
+  <svg
+    width='26'
+    height='26'
+    viewBox='0 0 24 24'
+    stroke={TILE.markdown.color}
+    strokeWidth='1.7'
+    {...strokeIcon}
+  >
+    <rect x='3' y='6' width='18' height='12' rx='2' />
+    <path d='M6 15v-6l3 3 3-3v6M17 9v6M14.5 12.5 17 15l2.5-2.5' />
+  </svg>
+)
+
+const CodeIcon = ({ stroke }) => (
+  <svg
+    width='24'
+    height='24'
+    viewBox='0 0 24 24'
+    stroke={stroke}
+    strokeWidth='1.9'
+    {...strokeIcon}
+  >
+    <path d='M8 8l-4 4 4 4M16 8l4 4-4 4' />
+  </svg>
+)
+
+const EmbedIcon = () => (
+  <svg
+    width='25'
+    height='25'
+    viewBox='0 0 24 24'
+    stroke={TILE.embed.color}
+    strokeWidth='1.8'
+    {...strokeIcon}
+  >
+    <rect x='3' y='5' width='18' height='14' rx='2.5' />
+    <path d='M3 9.5h18' />
+  </svg>
+)
+
+const PreviewIcon = () => (
+  <svg
+    width='25'
+    height='25'
+    viewBox='0 0 24 24'
+    stroke='url(#mlLinkGrad)'
+    strokeWidth='1.9'
+    {...strokeIcon}
+  >
+    <defs>
+      <linearGradient id='mlLinkGrad' x1='0' y1='0' x2='1' y2='1'>
+        <stop offset='0' stopColor='#7c3aed' />
+        <stop offset='1' stopColor='#ec4899' />
+      </linearGradient>
+    </defs>
+    <path d='M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1' />
+    <path d='M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1' />
+  </svg>
+)
+
+const PdfIcon = () => (
+  <svg
+    width='23'
+    height='23'
+    viewBox='0 0 24 24'
+    stroke={TILE.pdf.color}
+    strokeWidth='1.8'
+    {...strokeIcon}
+  >
+    <path d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z' />
+    <path d='M14 3v5h5' />
+  </svg>
+)
+
+const LogoIcon = () => (
+  <svg
+    width='24'
+    height='24'
+    viewBox='0 0 24 24'
+    stroke={TILE.logo.color}
+    strokeWidth='1.8'
+    {...strokeIcon}
+  >
+    <rect x='3' y='4' width='18' height='16' rx='3' />
+    <circle cx='8.5' cy='9' r='1.5' />
+    <path d='M4 17l5-5 4 4 3-3 4 4' />
+  </svg>
+)
+
+const SearchIcon = () => (
+  <svg
+    width='23'
+    height='23'
+    viewBox='0 0 24 24'
+    stroke={TILE.search.color}
+    strokeWidth='1.9'
+    fill='none'
+    strokeLinecap='round'
+  >
+    <circle cx='11' cy='11' r='7' />
+    <path d='M21 21l-4.3-4.3' />
+  </svg>
+)
+
+const TechIcon = () => (
+  <svg
+    width='23'
+    height='23'
+    viewBox='0 0 24 24'
+    stroke={TILE.technologies.color}
+    strokeWidth='1.7'
+    fill='none'
+    strokeLinejoin='round'
+  >
+    <path d='M12 2l9 5-9 5-9-5z' />
+    <path d='M3 12l9 5 9-5M3 17l9 5 9-5' />
+  </svg>
+)
+
+const TextIcon = () => (
+  <svg
+    width='24'
+    height='24'
+    viewBox='0 0 24 24'
+    stroke={TILE.text.color}
+    strokeWidth='2'
+    {...strokeIcon}
+  >
+    <path d='M5 5h14M12 5v14M9 19h6' />
+  </svg>
+)
+
+const LighthouseIcon = () => (
+  <svg
+    width='25'
+    height='25'
+    viewBox='0 0 24 24'
+    stroke={TILE.lighthouse.color}
+    strokeWidth='1.8'
+    {...strokeIcon}
+  >
+    <path d='M4 18a8 8 0 0 1 16 0' />
+    <path d='M12 18l4-5' />
+  </svg>
+)
+
+const VideoIcon = () => (
+  <svg
+    width='24'
+    height='24'
+    viewBox='0 0 24 24'
+    stroke={TILE.video.color}
+    strokeWidth='1.8'
+    fill='none'
+    strokeLinejoin='round'
+  >
+    <rect x='3' y='5' width='18' height='14' rx='3' />
+    <path d='M10 9l5 3-5 3z' fill={TILE.video.color} stroke='none' />
+  </svg>
+)
+
+const AudioIcon = () => (
+  <svg
+    width='23'
+    height='23'
+    viewBox='0 0 24 24'
+    stroke={TILE.audio.color}
+    strokeWidth='1.8'
+    {...strokeIcon}
+  >
+    <path d='M9 18V5l10-2v13' />
+    <circle cx='6' cy='18' r='3' />
+    <circle cx='16' cy='16' r='3' />
+  </svg>
+)
+
+const AnimatedIcon = () => (
+  <svg
+    width='24'
+    height='24'
+    viewBox='0 0 24 24'
+    stroke={TILE.animated.color}
+    strokeWidth='1.7'
+    fill='none'
+    strokeLinejoin='round'
+  >
+    <rect x='8' y='3' width='13' height='10' rx='2' />
+    <rect x='3' y='8' width='13' height='13' rx='2' fill={TILE.animated.bg} />
+  </svg>
+)
+
+/* -------------------------------- section -------------------------------- */
+
+const Products = () => (
+  <Section>
+    <Box
+      css={{
+        maxWidth: '1180px',
+        margin: '0 auto',
+        textAlign: 'center',
+        padding: '0 24px'
+      }}
+    >
+      <Sparkle width='44' height='44' viewBox='0 0 24 24' fill='none'>
+        <defs>
+          <linearGradient id='mlSparkGrad' x1='0' y1='0' x2='1' y2='1'>
+            <stop offset='0' stopColor='#a855f7' />
+            <stop offset='1' stopColor='#d946ef' />
+          </linearGradient>
+        </defs>
+        <path
+          d='M12 2 L13.6 9.2 L21 12 L13.6 14.8 L12 22 L10.4 14.8 L3 12 L10.4 9.2 Z'
+          fill='url(#mlSparkGrad)'
+        />
+        <path
+          d='M20 3 L20.7 5.3 L23 6 L20.7 6.7 L20 9 L19.3 6.7 L17 6 L19.3 5.3 Z'
+          fill='url(#mlSparkGrad)'
+          opacity='0.85'
+        />
+      </Sparkle>
+      <Heading>
+        Everything <span className='accent'>your </span>
+        <span className='grad'>software</span> needs
+      </Heading>
+      <Subtitle>One simple API for all kinds of web data.</Subtitle>
+    </Box>
+
+    <GridArea>
+      <Grid>
+        <Row $cols={2}>
+          <Feature vertical='metadata' icon={<MetadataIcon />}>
+            <MetadataPreview />
+          </Feature>
+          <Feature vertical='screenshot' icon={<ScreenshotIcon />}>
+            <ScreenshotPreview />
+          </Feature>
+        </Row>
+
+        <Row $cols={4}>
+          <Feature vertical='markdown' icon={<MarkdownIcon />}>
+            <MarkdownPreview />
+          </Feature>
+          <Feature vertical='html' icon={<CodeIcon stroke={TILE.html.color} />}>
+            <HtmlPreview />
+          </Feature>
+          <Feature vertical='embed' icon={<EmbedIcon />}>
+            <EmbedPreview />
+          </Feature>
+          <Feature vertical='preview' icon={<PreviewIcon />}>
+            <LinkPreview />
+          </Feature>
+        </Row>
+
+        <Row $cols={4}>
+          <Feature vertical='pdf' icon={<PdfIcon />}>
+            <PdfPreview />
+          </Feature>
+          <Feature vertical='logo' icon={<LogoIcon />}>
+            <LogoPreview />
+          </Feature>
+          <Feature vertical='search' icon={<SearchIcon />}>
+            <SearchPreview />
+          </Feature>
+          <Feature vertical='technologies' icon={<TechIcon />}>
+            <TechPreview />
+          </Feature>
+        </Row>
+
+        <Row $cols={3}>
+          <Feature
+            vertical='function'
+            icon={<CodeIcon stroke={TILE.function.color} />}
+          >
+            <FunctionPreview />
+          </Feature>
+          <Feature vertical='text' icon={<TextIcon />}>
+            <TextPreview />
+          </Feature>
+          <Feature vertical='lighthouse' icon={<LighthouseIcon />}>
+            <LighthousePreview />
+          </Feature>
+        </Row>
+
+        <Row $cols={3}>
+          <Feature vertical='video' icon={<VideoIcon />}>
+            <VideoPreview />
+          </Feature>
+          <Feature vertical='audio' icon={<AudioIcon />}>
+            <AudioPreview />
+          </Feature>
+          <Feature vertical='animated' icon={<AnimatedIcon />}>
+            <AnimatedPreview />
+          </Feature>
+        </Row>
+      </Grid>
+    </GridArea>
+  </Section>
 )
 
 export default Products
