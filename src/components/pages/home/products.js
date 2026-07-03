@@ -35,7 +35,7 @@ const tone = {
   surface: colors.white, // card + panel fills
   surfaceSoft: '#fafafb', // light code / document panels
   surfaceDark: '#161821', // dark code panels
-  gridBg: '#fff', // section backdrop
+  gridBg: colors.white, // section backdrop
   neutral: '#f2f2f4', // faint chip / divider fill
   border: '#eef0f4', // card + control borders
   borderSoft: '#f0f0f2', // inner panel borders
@@ -67,9 +67,7 @@ const radius = {
   sm: '8px'
 }
 
-const gradient = {
-  head: 'linear-gradient(90deg,#c026d3,#db2777)'
-}
+const HEAD_GRADIENT = 'linear-gradient(90deg,#c026d3,#db2777)'
 
 // one shared shadow ink keeps every elevation on the same tonal base
 const SHADOW_INK = '16, 24, 40'
@@ -132,7 +130,7 @@ const Heading = styled.h2`
     color: ${tone.accent};
   }
   .grad {
-    background: ${gradient.head};
+    background: ${HEAD_GRADIENT};
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -503,9 +501,7 @@ const ScreenshotPreview = () => (
           borderBottom: `1px solid ${tone.neutral}`
         }}
       >
-        <TrafficDot css={{ background: tone.dotActive }} />
-        <TrafficDot />
-        <TrafficDot />
+        <WindowDots />
       </Flex>
       <Box css={{ padding: '22px 26px 26px', textAlign: 'center' }}>
         <Flex
@@ -559,6 +555,15 @@ const TrafficDot = styled.span`
   background: ${tone.dotIdle};
   flex-shrink: 0;
 `
+
+// the three window "traffic light" dots shared by the browser-frame mocks
+const WindowDots = () => (
+  <>
+    <TrafficDot css={{ background: tone.dotActive }} />
+    <TrafficDot />
+    <TrafficDot />
+  </>
+)
 
 const MiniButton = styled.span`
   font-size: 12px;
@@ -1215,9 +1220,7 @@ const AnimatedPreview = () => (
           borderBottom: '1px solid #f3f4f7'
         }}
       >
-        <TrafficDot css={{ background: tone.dotActive }} />
-        <TrafficDot />
-        <TrafficDot />
+        <WindowDots />
       </Flex>
       <Flex>
         <Box
@@ -1349,71 +1352,51 @@ const strokeIcon = {
   strokeLinejoin: 'round'
 }
 
-const ScreenshotIcon = () => (
+// shared 24x24 stroke frame; each glyph passes its size, stroke width and its
+// exact join set (most spread `strokeIcon`; a few need only one of cap/join)
+const Glyph = ({ size = 24, sw = 1.8, children, ...props }) => (
   <svg
-    width='26'
-    height='26'
+    width={size}
+    height={size}
     viewBox='0 0 24 24'
-    stroke={TILE.screenshot.color}
-    strokeWidth='1.8'
-    {...strokeIcon}
+    fill='none'
+    strokeWidth={sw}
+    {...props}
   >
+    {children}
+  </svg>
+)
+
+const ScreenshotIcon = () => (
+  <Glyph size={26} stroke={TILE.screenshot.color} {...strokeIcon}>
     <rect x='3' y='7' width='18' height='13' rx='2.5' />
     <circle cx='12' cy='13.5' r='3.2' />
     <path d='M8.5 7l1.3-2.3h4.4L15.5 7' />
-  </svg>
+  </Glyph>
 )
 
 const MarkdownIcon = () => (
-  <svg
-    width='26'
-    height='26'
-    viewBox='0 0 24 24'
-    stroke={TILE.markdown.color}
-    strokeWidth='1.7'
-    {...strokeIcon}
-  >
+  <Glyph size={26} sw={1.7} stroke={TILE.markdown.color} {...strokeIcon}>
     <rect x='3' y='6' width='18' height='12' rx='2' />
     <path d='M6 15v-6l3 3 3-3v6M17 9v6M14.5 12.5 17 15l2.5-2.5' />
-  </svg>
+  </Glyph>
 )
 
 const CodeIcon = ({ stroke }) => (
-  <svg
-    width='24'
-    height='24'
-    viewBox='0 0 24 24'
-    stroke={stroke}
-    strokeWidth='1.9'
-    {...strokeIcon}
-  >
+  <Glyph sw={1.9} stroke={stroke} {...strokeIcon}>
     <path d='M8 8l-4 4 4 4M16 8l4 4-4 4' />
-  </svg>
+  </Glyph>
 )
 
 const EmbedIcon = () => (
-  <svg
-    width='25'
-    height='25'
-    viewBox='0 0 24 24'
-    stroke={TILE.embed.color}
-    strokeWidth='1.8'
-    {...strokeIcon}
-  >
+  <Glyph size={25} stroke={TILE.embed.color} {...strokeIcon}>
     <rect x='3' y='5' width='18' height='14' rx='2.5' />
     <path d='M3 9.5h18' />
-  </svg>
+  </Glyph>
 )
 
 const PreviewIcon = () => (
-  <svg
-    width='25'
-    height='25'
-    viewBox='0 0 24 24'
-    stroke='url(#mlLinkGrad)'
-    strokeWidth='1.9'
-    {...strokeIcon}
-  >
+  <Glyph size={25} sw={1.9} stroke='url(#mlLinkGrad)' {...strokeIcon}>
     <defs>
       <linearGradient id='mlLinkGrad' x1='0' y1='0' x2='1' y2='1'>
         <stop offset='0' stopColor='#7c3aed' />
@@ -1422,138 +1405,76 @@ const PreviewIcon = () => (
     </defs>
     <path d='M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1' />
     <path d='M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1' />
-  </svg>
+  </Glyph>
 )
 
 const PdfIcon = () => (
-  <svg
-    width='23'
-    height='23'
-    viewBox='0 0 24 24'
-    stroke={TILE.pdf.color}
-    strokeWidth='1.8'
-    {...strokeIcon}
-  >
+  <Glyph size={23} stroke={TILE.pdf.color} {...strokeIcon}>
     <path d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z' />
     <path d='M14 3v5h5' />
-  </svg>
+  </Glyph>
 )
 
 const LogoIcon = () => (
-  <svg
-    width='24'
-    height='24'
-    viewBox='0 0 24 24'
-    stroke={TILE.logo.color}
-    strokeWidth='1.8'
-    {...strokeIcon}
-  >
+  <Glyph stroke={TILE.logo.color} {...strokeIcon}>
     <rect x='3' y='4' width='18' height='16' rx='3' />
     <circle cx='8.5' cy='9' r='1.5' />
     <path d='M4 17l5-5 4 4 3-3 4 4' />
-  </svg>
+  </Glyph>
 )
 
 const SearchIcon = () => (
-  <svg
-    width='23'
-    height='23'
-    viewBox='0 0 24 24'
-    stroke={TILE.search.color}
-    strokeWidth='1.9'
-    fill='none'
-    strokeLinecap='round'
-  >
+  <Glyph size={23} sw={1.9} stroke={TILE.search.color} strokeLinecap='round'>
     <circle cx='11' cy='11' r='7' />
     <path d='M21 21l-4.3-4.3' />
-  </svg>
+  </Glyph>
 )
 
 const TechIcon = () => (
-  <svg
-    width='23'
-    height='23'
-    viewBox='0 0 24 24'
+  <Glyph
+    size={23}
+    sw={1.7}
     stroke={TILE.technologies.color}
-    strokeWidth='1.7'
-    fill='none'
     strokeLinejoin='round'
   >
     <path d='M12 2l9 5-9 5-9-5z' />
     <path d='M3 12l9 5 9-5M3 17l9 5 9-5' />
-  </svg>
+  </Glyph>
 )
 
 const TextIcon = () => (
-  <svg
-    width='24'
-    height='24'
-    viewBox='0 0 24 24'
-    stroke={TILE.text.color}
-    strokeWidth='2'
-    {...strokeIcon}
-  >
+  <Glyph sw={2} stroke={TILE.text.color} {...strokeIcon}>
     <path d='M5 5h14M12 5v14M9 19h6' />
-  </svg>
+  </Glyph>
 )
 
 const LighthouseIcon = () => (
-  <svg
-    width='25'
-    height='25'
-    viewBox='0 0 24 24'
-    stroke={TILE.lighthouse.color}
-    strokeWidth='1.8'
-    {...strokeIcon}
-  >
+  <Glyph size={25} stroke={TILE.lighthouse.color} {...strokeIcon}>
     <path d='M4 18a8 8 0 0 1 16 0' />
     <path d='M12 18l4-5' />
-  </svg>
+  </Glyph>
 )
 
 const VideoIcon = () => (
-  <svg
-    width='24'
-    height='24'
-    viewBox='0 0 24 24'
-    stroke={TILE.video.color}
-    strokeWidth='1.8'
-    fill='none'
-    strokeLinejoin='round'
-  >
+  <Glyph stroke={TILE.video.color} strokeLinejoin='round'>
     <rect x='3' y='5' width='18' height='14' rx='3' />
     <path d='M10 9l5 3-5 3z' fill={TILE.video.color} stroke='none' />
-  </svg>
+  </Glyph>
 )
 
 const AudioIcon = () => (
-  <svg
-    width='23'
-    height='23'
-    viewBox='0 0 24 24'
-    stroke={TILE.audio.color}
-    strokeWidth='1.8'
-    {...strokeIcon}
-  >
+  <Glyph size={23} stroke={TILE.audio.color} {...strokeIcon}>
     <path d='M9 18V5l10-2v13' />
     <circle cx='6' cy='18' r='3' />
     <circle cx='16' cy='16' r='3' />
-  </svg>
+  </Glyph>
 )
 
 const AnimatedIcon = () => (
-  <svg
-    width='24'
-    height='24'
-    viewBox='0 0 24 24'
-    stroke={TILE.animated.color}
-    strokeWidth='1.7'
-    fill='none'
-    strokeLinejoin='round'
-  >
+  <Glyph sw={1.7} stroke={TILE.animated.color} strokeLinejoin='round'>
     <rect x='8' y='3' width='13' height='10' rx='2' />
     <rect x='3' y='8' width='13' height='13' rx='2' fill={TILE.animated.bg} />
-  </svg>
+  </Glyph>
 )
 
 /* -------------------------------- section -------------------------------- */
