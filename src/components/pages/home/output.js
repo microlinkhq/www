@@ -9,9 +9,6 @@ import styled, { keyframes } from 'styled-components'
 
 const MONO = fonts.mono
 
-/* ------------------------------ media renderers ----------------------------- */
-
-// neutral stage that lets a screenshot / logo breathe and sit centered
 const Stage = styled(Flex)`
   align-items: center;
   justify-content: center;
@@ -37,7 +34,6 @@ const ImageOutput = ({ url, alt, contain }) => (
   </Stage>
 )
 
-// an animated screenshot is a short looping clip — play it like a gif
 const AnimatedOutput = ({ url }) => (
   <Stage css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
     <Box
@@ -114,8 +110,6 @@ const PdfOutput = ({ url }) => (
     css={theme({ width: '100%', height: '520px', border: 0, display: 'block' })}
   />
 )
-
-/* ------------------------------ preview card ------------------------------- */
 
 const Card = ({ data, fallbackUrl }) => {
   const image = data.image?.url || data.screenshot?.url
@@ -209,19 +203,12 @@ const Card = ({ data, fallbackUrl }) => {
   )
 }
 
-/* --------------------------------- embed --------------------------------- */
-
-// the official embeddable SDK card (iframe / video / audio / image / logo)
 const EmbedOutput = ({ url }) => (
   <Box css={theme({ p: 4, display: 'flex', justifyContent: 'center' })}>
     <Microlink url={url} size='large' />
   </Box>
 )
 
-/* ------------------------------- metadata -------------------------------- */
-
-// the normalized metadata as a structured field list (vs the link-preview
-// card, which is the visual unfurl)
 const MetadataOutput = ({ data }) => {
   const fields = [
     ['title', data.title],
@@ -326,8 +313,6 @@ const MetadataOutput = ({ data }) => {
   )
 }
 
-/* -------------------------------- search --------------------------------- */
-
 const ProBadge = styled.span`
   display: inline-flex;
   align-items: center;
@@ -342,8 +327,6 @@ const ProBadge = styled.span`
   padding: 3px 10px;
 `
 
-// Search API is Pro + query-based; the free demo replays a recorded example
-// (the same data the /search page uses), rendered with the real result card
 const SEARCH_EXAMPLE = GOOGLE_EXAMPLES.search[0]
 
 const SearchOutput = () => (
@@ -377,9 +360,6 @@ const SearchOutput = () => (
   </Box>
 )
 
-/* --------------------------------- raw text -------------------------------- */
-
-// scrollable monospace block for raw source output (HTML / markdown)
 const RawText = styled(Box)`
   max-height: 480px;
   overflow: auto;
@@ -387,10 +367,6 @@ const RawText = styled(Box)`
   word-break: break-word;
 `
 
-/* ------------------------------- lighthouse ------------------------------- */
-
-// embed the official Lighthouse report viewer; it expects the full Microlink
-// API request URL (the GET line) as its `url` param, not the bare target
 const LighthouseOutput = ({ apiUrl }) => (
   <Box
     as='iframe'
@@ -405,8 +381,6 @@ const LighthouseOutput = ({ apiUrl }) => (
     })}
   />
 )
-
-/* ----------------------------- technologies ------------------------------- */
 
 const TechCard = styled(Flex)`
   align-items: center;
@@ -484,8 +458,6 @@ const TechnologiesOutput = ({ technologies }) => {
   )
 }
 
-/* ---------------------------------- html ---------------------------------- */
-
 const HtmlOutput = ({ html }) => (
   <RawText
     css={theme({ p: 4, fontFamily: 'mono', fontSize: 0, color: 'gray8' })}
@@ -493,8 +465,6 @@ const HtmlOutput = ({ html }) => (
     {html}
   </RawText>
 )
-
-/* ---------------------------------- text ---------------------------------- */
 
 const TextOutput = ({ text }) => (
   <Box
@@ -513,12 +483,9 @@ const TextOutput = ({ text }) => (
   </Box>
 )
 
-/* ------------------------------ video / audio ----------------------------- */
-
 const mediaUrl = media =>
   typeof media === 'string' ? media : media && media.url
 
-// m:ss
 const fmtTime = seconds => {
   if (!isFinite(seconds)) return '0:00'
   const m = Math.floor(seconds / 60)
@@ -526,7 +493,6 @@ const fmtTime = seconds => {
   return `${m}:${String(s).padStart(2, '0')}`
 }
 
-// bouncing equalizer bars — a nod to the classic mini-player look
 const eq = keyframes`
   0%, 100% { transform: scaleY(0.35) }
   50% { transform: scaleY(1) }
@@ -591,8 +557,6 @@ const ProgressTrack = styled.div`
   }
 `
 
-// keyboard seeking for the scrubber, per the WAI-ARIA APG slider pattern:
-// arrows/PageUp-Down step, Home/End jump to the ends
 const SEEK_STEP = 5
 const makeSeekKeyHandler = (mediaRef, duration, setCurrent) => e => {
   const el = mediaRef.current
@@ -631,8 +595,6 @@ const PlayIcon = ({ playing, size = 16 }) =>
       </svg>
       )
 
-// a compact, mini-winamp style player built from the response metadata:
-// album art, title / author, transport, scrubber and an equalizer
 const AudioOutput = ({ data }) => {
   const src = mediaUrl(data.audio)
   const audioRef = useRef(null)
@@ -643,8 +605,6 @@ const AudioOutput = ({ data }) => {
   useEffect(() => {
     const el = audioRef.current
     if (!el) return undefined
-    // a new src re-renders the <audio> paused at 0; reset UI state so the
-    // transport/equalizer don't keep showing the previous clip as playing
     setPlaying(false)
     setCurrent(0)
     const onTime = () => setCurrent(el.currentTime)
@@ -838,8 +798,6 @@ const AudioOutput = ({ data }) => {
   )
 }
 
-/* --------------------------------- video --------------------------------- */
-
 const TitleBar = styled.div`
   position: absolute;
   left: 0;
@@ -918,8 +876,6 @@ const PlayOverlay = styled.button`
   }
 `
 
-// framed video with a centered play overlay, a title bar, and an overlaid
-// transport / scrubber — built from the response metadata
 const VideoOutput = ({ data }) => {
   const src = mediaUrl(data.video)
   const videoRef = useRef(null)
@@ -930,8 +886,6 @@ const VideoOutput = ({ data }) => {
   useEffect(() => {
     const el = videoRef.current
     if (!el) return undefined
-    // a new src re-renders the <video> paused at 0; reset UI state so the
-    // transport/scrubber don't keep showing the previous clip as playing
     setPlaying(false)
     setCurrent(0)
     const onTime = () => setCurrent(el.currentTime)
@@ -1060,8 +1014,6 @@ const VideoOutput = ({ data }) => {
   )
 }
 
-/* -------------------------------- function -------------------------------- */
-
 const CodeBlock = styled(Box)`
   max-height: 320px;
   overflow: auto;
@@ -1069,7 +1021,6 @@ const CodeBlock = styled(Box)`
   word-break: break-word;
 `
 
-// the four runtime phases the sandbox reports, in execution order
 const PHASE_META = [
   ['install', 'Install', '#9A9AA0'],
   ['build', 'Build', '#2D7FF9'],
@@ -1123,8 +1074,6 @@ const Dot = styled.span`
   flex-shrink: 0;
 `
 
-// visualises the sandbox profiling: headline stats, a single stacked
-// execution timeline, and a per-phase duration breakdown
 const Profiling = ({ profiling }) => {
   const { cpu, memory, size, phases = {} } = profiling
   const total =
@@ -1210,9 +1159,6 @@ const Profiling = ({ profiling }) => {
 }
 
 const FunctionValue = ({ value, result }) => {
-  // an array of links is the canonical demo — render it as a clickable list
-  // require at least one item: [].every(...) is vacuously true, which would
-  // render an empty box instead of falling back to the JSON output
   const isLinkList =
     Array.isArray(value) &&
     value.length > 0 &&
@@ -1263,8 +1209,6 @@ const FunctionOutput = ({ result }) => (
     <FunctionValue value={result?.value} result={result} />
   </Box>
 )
-
-/* ------------------------------- dispatcher ------------------------------- */
 
 const Empty = ({ children }) => (
   <Box css={theme({ p: 4 })}>
