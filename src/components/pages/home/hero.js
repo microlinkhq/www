@@ -5,6 +5,8 @@ import Container from 'components/elements/Container'
 import Dot from 'components/elements/Dot/Dot'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
+import Subhead from 'components/elements/Subhead'
+import Caption from 'components/patterns/Caption/Caption'
 import Overlay from 'components/pages/home/overlay'
 import Output from 'components/pages/home/output'
 import FeatherIcon from 'components/icons/Feather'
@@ -456,29 +458,6 @@ const PulseDot = styled(Dot)`
   ${reduceMotion} {
     animation: none;
   }
-`
-
-const Headline = styled.h1`
-  font-size: clamp(36px, 6.5vw, 62px);
-  line-height: 1.04;
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  margin: 0;
-  color: ${INK};
-
-  span {
-    background: ${GRADIENT};
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-`
-
-const Subtitle = styled.p`
-  font-size: clamp(16px, 2.4vw, 19px);
-  color: #3d3d42;
-  margin: 18px 0 0;
-  line-height: 1.5;
 `
 
 const Badge = styled.span`
@@ -1800,12 +1779,12 @@ const Hero = () => {
           Trusted by apps, agents & AI · {reqsRounded}+ requests / month
         </Badge>
 
-        <Headline>
+        <Subhead>
           The web, <span>automated</span>
-        </Headline>
-        <Subtitle>
+        </Subhead>
+        <Caption>
           Everything your software needs from any URL. No credit card required.
-        </Subtitle>
+        </Caption>
 
         {/* composer */}
         <Composer>

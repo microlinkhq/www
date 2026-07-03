@@ -5,18 +5,14 @@ import Products from 'components/pages/home/products'
 import Production from 'components/pages/home/production'
 import Meta from 'components/elements/Meta/Meta'
 import Container from 'components/elements/Container'
-import { withTitle } from 'helpers/hoc/with-title'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
+import Caption from 'components/patterns/Caption/Caption'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
-import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import { CurrencyProvider } from 'components/hook/use-currency'
 import Plans from 'components/patterns/Plans/Plans'
 import { layout, textGradient, theme } from 'theme'
 import React from 'react'
-
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 export const Head = () => {
   const structuredData = JSON.stringify({
@@ -72,7 +68,6 @@ const HomePage = () => {
           })}
         >
           <Subhead
-            titleize={false}
             css={theme({
               fontSize: ['34px', '42px', '54px', '62px'],
               maxWidth: layout.large,
@@ -83,7 +78,6 @@ const HomePage = () => {
           </Subhead>
           <Caption
             forwardedAs='div'
-            titleize={false}
             css={theme({
               pt: [3, 3, 4, 4],
               maxWidth: [

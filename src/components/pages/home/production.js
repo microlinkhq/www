@@ -1,10 +1,12 @@
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import { theme, textGradient, layout } from 'theme'
+import { theme, layout } from 'theme'
+import Subhead from 'components/elements/Subhead'
+import Caption from 'components/patterns/Caption/Caption'
+
 import React from 'react'
 
-const HEAD_GRADIENT = 'linear-gradient(90deg,#e0479e,#8b5cf6 52%,#3e55ff)'
 const CARD_SHADOW = '0 6px 20px rgba(16,24,40,0.04)'
 
 const FEATURES = [
@@ -68,7 +70,11 @@ const Production = () => (
   <Box
     as='section'
     id='features'
-    css={theme({ bg: 'white', pt: 4, color: 'gray9' })}
+    css={theme({
+      bg: 'white',
+      color: 'gray9',
+      pt: [5, 5, 6, 6]
+    })}
   >
     <Box
       css={theme({
@@ -78,45 +84,25 @@ const Production = () => (
         px: 3
       })}
     >
-      <Text
-        as='h2'
-        css={theme({
-          m: 0,
-          fontSize: [3, 4, 5],
-          fontWeight: 'bold',
-          lineHeight: 0,
-          letterSpacing: 1,
-          color: 'gray9'
-        })}
-      >
+      <Subhead>
         Production ready,
-        <Box
-          as='span'
-          css={{
-            ...textGradient,
-            backgroundImage: HEAD_GRADIENT,
-            display: 'block'
-          }}
-        >
+        <br />
+        <Subhead variant='gradient' as='span'>
           browser as a service
-        </Box>
-      </Text>
+        </Subhead>
+      </Subhead>
 
-      <Text
-        as='p'
+      <Caption
+        forwardedAs='div'
         css={theme({
           mx: 'auto',
-          mt: 4,
-          maxWidth: layout.small,
-          fontSize: [1, 2],
-          lineHeight: 2,
-          color: 'gray7'
+          mt: 4
         })}
       >
         Microlink gives you a full-stack browser automation platform designed
         for real-world scale. Built to be fast, reliable, and effortless to
         integrate, so you can ship with confidence.
-      </Text>
+      </Caption>
     </Box>
 
     <Box
