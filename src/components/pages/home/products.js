@@ -710,7 +710,7 @@ const LinkPreview = () => (
         flex: 1,
         minHeight: '150px',
         overflow: 'hidden',
-        background: 'linear-gradient(135deg,#e7ddf4,#f3e4ee 55%,#fceef3)'
+        background: 'linear-gradient(180deg,#f6a5c0,#c98bb8 45%,#3a3a63)'
       }}
     >
       <Box
@@ -721,7 +721,7 @@ const LinkPreview = () => (
           width: '52px',
           height: '52px',
           borderRadius: '50%',
-          background: 'rgba(255,255,255,0.5)'
+          background: 'rgba(255,255,255,0.28)'
         }}
       />
       <CornerSvg
@@ -731,11 +731,11 @@ const LinkPreview = () => (
       >
         <path
           d='M0 200 L120 74 L196 128 L256 84 L322 120 L360 96 L360 200 Z'
-          fill='#c8bae1'
+          fill='#4a4a72'
         />
         <path
           d='M0 200 L84 122 L158 156 L232 110 L300 146 L360 124 L360 200 Z'
-          fill='#b3a1d4'
+          fill='#38385c'
         />
       </CornerSvg>
     </Box>
