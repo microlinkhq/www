@@ -11,7 +11,7 @@ import { useSiteMetadata } from 'components/hook/use-site-meta'
 import Layout from 'components/patterns/Layout'
 import { CurrencyProvider } from 'components/hook/use-currency'
 import Plans from 'components/patterns/Plans/Plans'
-import { layout, textGradient, theme } from 'theme'
+import { layout, theme } from 'theme'
 import React from 'react'
 
 export const Head = () => {
@@ -67,14 +67,11 @@ const HomePage = () => {
             px: [3, 3, 4, 4]
           })}
         >
-          <Subhead
-            css={theme({
-              fontSize: ['34px', '42px', '54px', '62px'],
-              maxWidth: layout.large,
-              textAlign: 'center'
-            })}
-          >
-            Pricing built for <span css={textGradient}>builders</span>
+          <Subhead css={theme({ maxWidth: layout.large })}>
+            Pricing built for{' '}
+            <Subhead variant='gradient' as='span'>
+              builders
+            </Subhead>
           </Subhead>
           <Caption
             forwardedAs='div'

@@ -21,13 +21,10 @@ describe('home products file conversion preview', () => {
   })
 
   test('keeps dashed paths free of middle circle artifacts', () => {
-    const preview = between(
-      'const FileConversionPreview',
-      'const ConversionIcon'
-    )
+    const preview = between('const FileConversionPreview', 'const Products')
 
     expect(preview).not.toMatch(/<circle\b/)
     expect(preview).toContain("width='126'")
-    expect(preview).toContain("minWidth: '1080px'")
+    expect(preview).toContain("minWidth: '980px'")
   })
 })

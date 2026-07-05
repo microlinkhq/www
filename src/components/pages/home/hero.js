@@ -14,7 +14,16 @@ import { WandSparkles } from 'components/icons/WandSparkles'
 import { Link } from 'components/elements/Link'
 import { PRODUCTS, VERTICAL_ORDER } from 'components/pages/home/catalog'
 import { trackEvent } from 'helpers/plausible'
-import { transition, timings, fonts, space, theme } from 'theme'
+import {
+  transition,
+  timings,
+  fonts,
+  space,
+  theme,
+  colors,
+  gradient
+} from 'theme'
+import { rgba } from 'polished'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import mql, { getApiUrl } from '@microlink/mql'
@@ -35,23 +44,26 @@ const reqsRounded = (() => {
   return `${Math.floor(Number(value) / 50) * 50}${unit}`
 })()
 
-const PINK = '#FF1E8C'
-const VIOLET = '#9B26D6'
-const INK = '#000'
-const GRADIENT = 'linear-gradient(99deg,#FF1E8C,#B026E0)'
+const PINK = colors.secondary
+const VIOLET = colors.grape7
+const INK = colors.black
+const GRADIENT = gradient
 
 const SANS = fonts.sans
 const MONO = fonts.mono
 
+const SUCCESS = colors.green8
+const ERROR = colors.red7
+
 const SYNTAX = {
-  key: '#0E9488',
-  string: '#16A34A',
-  literal: '#E8743B',
-  number: '#2D7FF9',
-  boolean: '#E0218A',
-  fn: '#1BA39C',
-  muted: '#9A9AA0',
-  body: '#3D3D42'
+  key: colors.link,
+  string: colors.gray9,
+  literal: colors.secondary,
+  number: colors.secondary,
+  boolean: colors.secondary,
+  fn: colors.link,
+  muted: colors.gray5,
+  body: colors.gray8
 }
 
 const reduceMotion = '@media (prefers-reduced-motion: reduce)'
@@ -59,9 +71,9 @@ const reduceMotion = '@media (prefers-reduced-motion: reduce)'
 const EASE_SMOOTH = 'cubic-bezier(0.22, 1, 0.36, 1)'
 
 const pulse = keyframes`
-  0% { box-shadow: 0 0 0 0 rgba(255,30,140,.45) }
-  70% { box-shadow: 0 0 0 8px rgba(255,30,140,0) }
-  100% { box-shadow: 0 0 0 0 rgba(255,30,140,0) }
+  0% { box-shadow: 0 0 0 0 ${rgba(colors.secondary, 0.45)} }
+  70% { box-shadow: 0 0 0 8px ${rgba(colors.secondary, 0)} }
+  100% { box-shadow: 0 0 0 0 ${rgba(colors.secondary, 0)} }
 `
 
 const fadeIn = keyframes`
@@ -291,17 +303,17 @@ const derive = (text, override) => {
     vertical: v,
     label: PRODUCTS[v].label,
     fullUrl,
-    vertBorder: override ? 'rgba(160,40,200,.45)' : '#EAEAEC'
+    vertBorder: override ? rgba(colors.grape7, 0.45) : colors.gray2
   }
 }
 
 const TIMING_COLORS = [
-  SYNTAX.string,
-  SYNTAX.number,
-  '#F59E0B',
-  '#EC4899',
-  VIOLET,
-  SYNTAX.fn
+  colors.green5,
+  colors.blue5,
+  colors.yellow5,
+  colors.pink5,
+  colors.grape5,
+  colors.teal5
 ]
 
 const headersToRows = headers => {
@@ -351,7 +363,7 @@ const parseServerTiming = headers => {
 }
 
 const GUTTER_X = `clamp(${space[3]}, 4vw, 40px)`
-const PADDING_BOTTOM = 'clamp(64px, 10vw, 140px)'
+const PADDING_BOTTOM = `clamp(${space[4]}, 5vw, ${space[5]})`
 
 const Section = styled.section`
   position: relative;
@@ -419,8 +431,8 @@ const Badge = styled.span`
   font-size: 14px;
   font-weight: 600;
   color: ${VIOLET};
-  background: rgba(255, 30, 140, 0.07);
-  border: 1px solid rgba(160, 40, 200, 0.18);
+  background: ${rgba(colors.secondary, 0.07)};
+  border: 1px solid ${rgba(colors.grape7, 0.18)};
   padding: 7px 16px;
   border-radius: 999px;
   margin-bottom: 26px;
@@ -433,7 +445,7 @@ const Composer = styled.div`
   max-width: 680px;
   margin-top: 38px;
   background: #fff;
-  border: 1px solid #e6e4ea;
+  border: 1px solid ${colors.gray2};
   border-radius: 18px;
   padding: 6px;
   box-shadow: 0 24px 60px -30px rgba(40, 10, 60, 0.4);
@@ -452,11 +464,11 @@ const ComposerInput = styled.input`
   padding: 18px 18px 10px;
 
   &:focus-visible {
-    box-shadow: 0 0 0 3px rgba(155, 38, 214, 0.25);
+    box-shadow: 0 0 0 3px ${rgba(colors.link, 0.25)};
   }
 
   &::placeholder {
-    color: #b3b3ba;
+    color: ${colors.gray4};
   }
 `
 
@@ -469,7 +481,7 @@ const VertChip = styled.button`
   font: inherit;
   color: inherit;
   text-align: left;
-  background: #fafafb;
+  background: ${colors.gray0};
   border: 1px solid ${props => props.$border};
   border-radius: 10px;
   padding: 5px 9px 5px 6px;
@@ -477,10 +489,6 @@ const VertChip = styled.button`
 
   &:active {
     transform: scale(0.98);
-  }
-  &:focus-visible {
-    outline: 2px solid ${VIOLET};
-    outline-offset: 2px;
   }
 `
 
@@ -523,9 +531,9 @@ const ExampleChip = styled.button`
   gap: 7px;
   font-family: ${SANS};
   font-size: 13px;
-  color: #5a5a60;
+  color: ${colors.gray7};
   background: #fff;
-  border: 1px solid #e4e4e8;
+  border: 1px solid ${colors.gray2};
   padding: 8px 13px;
   border-radius: 999px;
   transition: border-color ${transition.short}, color ${transition.short},
@@ -567,22 +575,17 @@ const actionPill = css`
   &:active {
     transform: scale(0.97);
   }
-
-  &:focus-visible {
-    outline: 2px solid ${VIOLET};
-    outline-offset: 2px;
-  }
 `
 
 const CopyPromptButton = styled.button`
   ${actionPill};
-  color: #5a5a60;
+  color: ${colors.gray7};
   background: #fff;
-  border: 1px solid #e4e4e8;
+  border: 1px solid ${colors.gray2};
 
   &[data-copied='true'] {
-    color: ${SYNTAX.string};
-    border-color: ${SYNTAX.string};
+    color: ${SUCCESS};
+    border-color: ${SUCCESS};
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -598,7 +601,7 @@ const ProductCta = styled(Link)`
   color: #fff;
   background: ${GRADIENT};
   border: 1px solid transparent;
-  box-shadow: 0 8px 20px -12px rgba(176, 38, 224, 0.75);
+  box-shadow: 0 8px 20px -12px ${rgba(colors.grape6, 0.75)};
 
   svg {
     transition: transform ${transition.short};
@@ -619,7 +622,7 @@ const Panel = styled.div`
   width: 100%;
   max-width: 980px;
   margin-top: 14px;
-  border: 1px solid #e9e7ec;
+  border: 1px solid ${colors.gray2};
   border-radius: 16px;
   overflow: hidden;
   background: #fff;
@@ -641,7 +644,7 @@ const TabButton = styled.button`
   font-family: ${SANS};
   font-size: 17px;
   font-weight: 500;
-  color: ${props => (props.$active ? INK : '#8a8a90')};
+  color: ${props => (props.$active ? INK : colors.gray6)};
   padding: 0 0 14px;
   display: inline-flex;
   align-items: center;
@@ -649,8 +652,6 @@ const TabButton = styled.button`
   transition: color ${transition.short};
 
   &:focus-visible {
-    outline: 2px solid ${VIOLET};
-    outline-offset: 2px;
     border-radius: 4px;
   }
 `
@@ -745,9 +746,9 @@ const ShimmerText = styled.span`
 `
 
 const PILL_TONES = {
-  success: { color: SYNTAX.string, background: '#e7f7ed' },
-  error: { color: '#DC2626', background: '#FDECEC' },
-  loading: { color: VIOLET, background: 'rgba(155,38,214,.08)' }
+  success: { color: SUCCESS, background: colors.green0 },
+  error: { color: ERROR, background: colors.red0 },
+  loading: { color: VIOLET, background: rgba(colors.grape7, 0.08) }
 }
 
 const StatusPill = styled.span`
@@ -851,7 +852,7 @@ const SkeletonLine = styled.span`
   display: block;
   height: 12px;
   border-radius: 6px;
-  background: #ececed;
+  background: ${colors.gray1};
   animation: ${skeletonPulse} 1.2s ease-in-out infinite;
   ${reduceMotion} {
     animation: none;
@@ -880,8 +881,8 @@ const IconBadge = styled(Box)`
 const MenuBadge = styled(IconBadge)`
   width: 26px;
   height: 26px;
-  background: #edebf0;
-  color: #9a9aa0;
+  background: ${colors.gray1};
+  color: ${colors.gray5};
 `
 
 const MenuLabel = styled.span`
@@ -895,7 +896,7 @@ const MenuLabel = styled.span`
 `
 
 const menuItemHighlight = css`
-  background: rgba(255, 30, 140, 0.06);
+  background: ${rgba(colors.secondary, 0.06)};
   ${MenuBadge} {
     background: ${GRADIENT};
     color: #fff;
@@ -918,7 +919,6 @@ const MenuItem = styled(Flex)`
   transition: background ${transition.short};
 
   &:focus-visible {
-    outline: 2px solid ${VIOLET};
     outline-offset: -2px;
   }
   &[data-active='true'] {
@@ -1056,7 +1056,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
           gap: 3,
           py: 3,
           px: 3,
-          borderBottom: '1px solid #EFEFF1'
+          borderBottom: `1px solid ${colors.gray1}`
         })}
       >
         <Mono
@@ -1068,7 +1068,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
             whiteSpace: 'nowrap'
           })}
         >
-          <Box as='span' css={theme({ color: SYNTAX.string, fontWeight: 600 })}>
+          <Box as='span' css={theme({ color: SUCCESS, fontWeight: 600 })}>
             GET
           </Box>{' '}
           {req.apiUrl}
@@ -1080,7 +1080,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
         role='tablist'
         aria-label='Response views'
         onKeyDown={onTabKeyDown}
-        css={theme({ pt: 3, px: 3, borderBottom: '1px solid #EFEFF1' })}
+        css={theme({ pt: 3, px: 3, borderBottom: `1px solid ${colors.gray1}` })}
       >
         {tabs.map(t => (
           <TabButton
@@ -1162,7 +1162,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                       gridTemplateColumns: '230px 1fr',
                       gap: 3,
                       py: 2,
-                      borderBottom: '1px solid #F2F2F4',
+                      borderBottom: `1px solid ${colors.gray1}`,
                       fontFamily: 'mono',
                       fontSize: 0
                     })}
@@ -1237,7 +1237,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                         css={theme({
                           height: '8px',
                           borderRadius: '999px',
-                          background: '#F0F0F2',
+                          background: colors.gray1,
                           overflow: 'hidden'
                         })}
                       >
@@ -1259,7 +1259,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                       gap: 2,
                       mt: 3,
                       pb: 2,
-                      borderBottom: '1px solid #EFEFF1',
+                      borderBottom: `1px solid ${colors.gray1}`,
                       fontFamily: 'mono',
                       fontSize: 0,
                       letterSpacing: '.05em',
@@ -1283,7 +1283,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                         gridTemplateColumns: '1fr 1fr 1fr',
                         gap: 2,
                         py: 3,
-                        borderBottom: '1px solid #F2F2F4',
+                        borderBottom: `1px solid ${colors.gray1}`,
                         fontFamily: 'mono',
                         fontSize: 0,
                         color: SYNTAX.body
@@ -1365,11 +1365,11 @@ const requestStatus = req => {
   }
   const took = req.elapsedMs != null ? ` in ${fmtDuration(req.elapsedMs)}` : ''
   if (req.status === 'error') {
-    return { text: `error${took}`, color: '#DC2626' }
+    return { text: `error${took}`, color: ERROR }
   }
   return {
     text: `${req.body?.status || 'success'}${took}`,
-    color: SYNTAX.string
+    color: SUCCESS
   }
 }
 
@@ -1645,8 +1645,11 @@ const Hero = () => {
           Trusted by apps, agents & AI · {reqsRounded}+ requests / month
         </Badge>
 
-        <Heading variant={null}>
-          The web, <Heading as='span'>automated</Heading>
+        <Heading variant={null} css={theme({ fontSize: [4, 4, 5, 5] })}>
+          The web,{' '}
+          <Heading as='span' css={theme({ fontSize: 'inherit' })}>
+            automated
+          </Heading>
         </Heading>
 
         <Caption css={theme({ pt: 3 })}>
@@ -1718,7 +1721,7 @@ const Hero = () => {
                   height='14'
                   viewBox='0 0 24 24'
                   fill='none'
-                  stroke='#9A9AA0'
+                  stroke={colors.gray5}
                   strokeWidth='2.2'
                   strokeLinecap='round'
                   strokeLinejoin='round'
@@ -1764,7 +1767,7 @@ const Hero = () => {
                       maxWidth: '100%',
                       gap: '2px',
                       background: 'white',
-                      border: '1px solid #E6E4EA',
+                      border: `1px solid ${colors.gray2}`,
                       borderRadius: 5,
                       boxShadow: '0 24px 48px -20px rgba(40,10,60,.35)',
                       p: 2

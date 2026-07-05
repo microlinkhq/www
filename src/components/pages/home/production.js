@@ -96,7 +96,7 @@ const Production = () => (
         forwardedAs='div'
         css={theme({
           mx: 'auto',
-          mt: 4
+          pt: [3, 3, 4, 4]
         })}
       >
         Microlink gives you a full-stack browser automation platform designed

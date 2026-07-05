@@ -5,50 +5,53 @@ import { Link } from 'components/elements/Link'
 import { PRODUCTS } from 'components/pages/home/catalog'
 import { FileType } from 'components/icons/FileType'
 import { trackEvent } from 'helpers/plausible'
-import { theme, transition, fonts, colors } from 'theme'
-import Heading from 'components/elements/Heading'
+import { theme, transition, fonts, colors, radii, layout } from 'theme'
+import Subhead from 'components/elements/Subhead'
 import Caption from 'components/patterns/Caption/Caption'
 import styled, { css } from 'styled-components'
+import { rgba } from 'polished'
 import React from 'react'
+import {
+  MousePointer as MousePointerIcon,
+  Package as PackageIcon,
+  Repeat as RepeatIcon
+} from 'react-feather'
 
 const MONO = fonts.mono
 const GAP = 4
 
 const tone = {
   ink: colors.black,
-  ink900: '#111',
-  muted: '#8b8f9a',
-  faint: '#9aa0ab',
+  ink900: colors.gray9,
+  muted: colors.gray6,
+  faint: colors.gray5,
   white: colors.white,
   surface: colors.white,
-  surfaceSoft: '#F7F7FB',
-  surfaceDark: '#161821',
-  neutral: '#f2f2f4',
-  border: '#eef0f4',
-  borderSoft: '#f0f0f2',
-  arrow: '#c4c8cf',
-  dotIdle: '#dcdce1',
-  dotActive: '#b06fe0'
+  surfaceSoft: colors.gray0,
+  surfaceDark: colors.gray9,
+  neutral: colors.gray1,
+  border: colors.gray2,
+  borderSoft: colors.gray1,
+  arrow: colors.gray4,
+  dotIdle: colors.gray3
 }
 
 const syntax = {
-  key: '#c026d3',
-  str: '#16a34a',
-  mdH1: '#4f5bd5',
-  mdH2: '#0284c7',
-  body: '#334155',
-  punc: '#7d8590',
-  tag: '#f472b6',
-  darkText: '#e6edf3',
-  darkStr: '#7ee787',
-  muted: '#64748b'
+  key: colors.link,
+  str: colors.gray9,
+  heading: colors.link,
+  body: colors.gray8,
+  punc: colors.gray,
+  tag: colors.secondary,
+  darkText: colors.white80,
+  darkStr: colors.green3,
+  muted: colors.gray6
 }
 
 const radius = {
-  card: '22px',
-  panel: '14px',
-  inner: '12px',
-  sm: '8px'
+  panel: radii[4],
+  inner: radii[4],
+  sm: radii[3]
 }
 
 const SHADOW_INK = '16, 24, 40'
@@ -66,65 +69,64 @@ const shadow = {
 }
 
 const TILE = {
-  metadata: { bg: '#efe9fe', color: '#7c3aed' },
-  screenshot: { bg: '#fde7f1', color: '#ec4899' },
-  markdown: { bg: '#e8ebfd', color: '#4f5bd5' },
-  html: { bg: '#efe9fe', color: '#7c3aed' },
-  embed: { bg: '#e6f0fd', color: '#2f7ff0' },
-  preview: { bg: 'linear-gradient(135deg,#f0e9fb,#fbe9f3)', color: '#7c3aed' },
-  pdf: { bg: '#fde8ea', color: '#ef4b57' },
-  logo: { bg: '#fdf4d6', color: '#e0a90c' },
-  search: { bg: '#e6f0fd', color: '#2f7ff0' },
-  technologies: { bg: '#efe9fe', color: '#7c3aed' },
-  function: { bg: '#e3f6ea', color: '#16a34a' },
-  text: { bg: '#fdeede', color: '#f08a3c' },
-  lighthouse: { bg: '#e0f5ec', color: '#10b981' },
-  video: { bg: '#efe9fe', color: '#7c3aed' },
-  audio: { bg: '#fde7f1', color: '#ec4899' },
-  animated: { bg: '#e8ebfd', color: '#4f5bd5' },
-  automation: { bg: '#fde7f1', color: '#ec4899' },
-  sdk: { bg: '#e6f0fd', color: '#2f7ff0' },
-  conversion: { bg: '#fde8e1', color: '#f2542d' }
+  metadata: { bg: colors.violet0, color: colors.violet7 },
+  screenshot: { bg: colors.pink0, color: colors.pink6 },
+  markdown: { bg: colors.indigo0, color: colors.indigo7 },
+  html: { bg: colors.violet0, color: colors.violet7 },
+  embed: { bg: colors.blue0, color: colors.blue7 },
+  preview: {
+    bg: `linear-gradient(135deg, ${colors.violet0}, ${colors.pink0})`,
+    color: colors.violet7
+  },
+  pdf: { bg: colors.red0, color: colors.red6 },
+  logo: { bg: colors.yellow0, color: colors.yellow7 },
+  search: { bg: colors.blue0, color: colors.blue7 },
+  technologies: { bg: colors.violet0, color: colors.violet7 },
+  function: { bg: colors.green0, color: colors.green8 },
+  text: { bg: colors.orange0, color: colors.orange6 },
+  lighthouse: { bg: colors.teal0, color: colors.teal7 },
+  video: { bg: colors.violet0, color: colors.violet7 },
+  audio: { bg: colors.pink0, color: colors.pink6 },
+  animated: { bg: colors.indigo0, color: colors.indigo7 },
+  automation: { bg: colors.pink0, color: colors.pink6 },
+  sdk: { bg: colors.blue0, color: colors.blue7 },
+  conversion: { bg: colors.orange0, color: colors.orange8 }
 }
 
 const EXTRA = {
   automation: {
     label: 'Browser Automations',
     description: 'Automate actions in the browser and extract results',
+    icon: MousePointerIcon,
     href: '/recipes'
   },
   sdk: {
     label: 'Microlink SDK',
     description: 'The official SDK to integrate Microlink in your app',
+    icon: PackageIcon,
     href: '/docs/sdk/getting-started/overview'
   },
   conversion: {
     label: 'File conversion',
     description: 'Convert any file into HTML, Markdown, or clean text',
+    icon: RepeatIcon,
     href: '/docs/api/parameters/data'
   }
 }
 
 const CATALOG = { ...PRODUCTS, ...EXTRA }
 
-const Sparkle = styled.svg(theme({ mb: 3 }))
-
-const GridArea = styled.div(
-  theme({ bg: 'white', mt: 5, pt: 4, pb: 5 }),
-  css`
-    padding-left: clamp(16px, 4vw, 28px);
-    padding-right: clamp(16px, 4vw, 28px);
-  `
-)
-
 const Grid = styled.div(
-  theme({ gap: GAP }),
-  css`
-    max-width: 1280px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-  `
+  theme({
+    maxWidth: '1180px',
+    mx: 'auto',
+    mt: 5,
+    px: [3, 3, 4],
+    pb: 5,
+    gap: GAP,
+    display: 'flex',
+    flexDirection: 'column'
+  })
 )
 
 const Row = styled.div(
@@ -151,18 +153,21 @@ const Arrow = styled.svg`
 `
 
 const Card = styled(Link)(
-  theme({ p: 4 }),
+  theme({
+    p: 4,
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    bg: 'white',
+    border: 1,
+    borderColor: 'gray2',
+    borderRadius: 5,
+    overflow: 'hidden',
+    color: 'black',
+    textDecoration: 'none',
+    boxShadow: shadow.card
+  }),
   css`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background: ${tone.surface};
-    border: 1px solid ${tone.border};
-    border-radius: ${radius.card};
-    overflow: hidden;
-    color: ${tone.ink};
-    text-decoration: none;
-    box-shadow: ${shadow.card};
     transition: border-color ${transition.medium},
       box-shadow ${transition.medium}, transform ${transition.medium};
 
@@ -181,14 +186,14 @@ const Card = styled(Link)(
 )
 
 const IconTile = styled(Flex)(
-  theme({ borderRadius: 5 }),
-  css`
-    width: 52px;
-    height: 52px;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  `
+  theme({
+    borderRadius: 4,
+    width: '52px',
+    height: '52px',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0
+  })
 )
 
 const Title = styled(Text).attrs({ as: 'h3' })(
@@ -206,8 +211,8 @@ const arrowPaths = (
   </>
 )
 
-const Feature = ({ vertical, icon, children }) => {
-  const { label, description, href } = CATALOG[vertical]
+const Feature = ({ vertical, children }) => {
+  const { label, description, icon: Icon, href } = CATALOG[vertical]
   const tile = TILE[vertical]
   return (
     <Card
@@ -217,7 +222,9 @@ const Feature = ({ vertical, icon, children }) => {
     >
       <Flex css={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
         <Flex css={theme({ gap: 3, alignItems: 'flex-start' })}>
-          <IconTile css={{ background: tile.bg }}>{icon}</IconTile>
+          <IconTile css={{ background: tile.bg, color: tile.color }}>
+            <Icon width='24px' height='24px' />
+          </IconTile>
           <Box>
             <Title>{label}</Title>
             <Desc>{description}</Desc>
@@ -308,7 +315,7 @@ const MetadataPreview = () => (
     <Box
       as='span'
       css={{
-        color: '#c4c4c8',
+        color: colors.gray4,
         textAlign: 'right',
         userSelect: 'none',
         whiteSpace: 'pre'
@@ -333,11 +340,11 @@ const MetadataPreview = () => (
 
 const MarkdownPreview = () => (
   <CodeBox>
-    <Box css={{ color: syntax.mdH1 }}># Microlink</Box>
+    <Box css={{ color: syntax.heading }}># Microlink</Box>
     <Box css={{ height: '14px' }} />
     <Box>The universal API for web data.</Box>
     <Box css={{ height: '14px' }} />
-    <Box css={{ color: syntax.mdH2 }}>## Features</Box>
+    <Box css={{ color: syntax.heading }}>## Features</Box>
     <Box>- Built for speed</Box>
     <Box>- Reliable interface</Box>
     <Box>- Structured output</Box>
@@ -419,7 +426,7 @@ const NodeLabel = ({ children }) => (
         width: '7px',
         height: '7px',
         borderRadius: '50%',
-        background: '#2f7ff0'
+        background: colors.link
       }}
     />
     <Box
@@ -824,15 +831,14 @@ const TrafficDot = styled.span`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: ${tone.dotIdle};
   flex-shrink: 0;
 `
 
 const WindowDots = () => (
   <>
-    <TrafficDot css={{ background: tone.dotActive }} />
-    <TrafficDot />
-    <TrafficDot />
+    <TrafficDot css={{ background: colors.fullscreen }} />
+    <TrafficDot css={{ background: colors.minimize }} />
+    <TrafficDot css={{ background: colors.close }} />
   </>
 )
 
@@ -942,7 +948,7 @@ const EmbedPreview = () => (
 const Skel = styled.span`
   height: 8px;
   border-radius: 4px;
-  background: #eeeef1;
+  background: ${colors.gray1};
   display: block;
 `
 
@@ -1013,10 +1019,12 @@ const LinkPreview = () => (
               height: '30px',
               borderRadius: '8px',
               flexShrink: 0,
-              background: '#dcdce1'
+              background: colors.gray3
             }}
           />
-          <Skel css={{ width: '34%', height: '9px', background: '#e0e0e5' }} />
+          <Skel
+            css={{ width: '34%', height: '9px', background: colors.gray2 }}
+          />
         </Flex>
         <Box css={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
           <Skel css={{ width: '100%' }} />
@@ -1047,7 +1055,7 @@ const PdfStage = styled(Box)(
         rgba(255, 255, 255, 0.95),
         transparent 34%
       ),
-      linear-gradient(155deg, #fff7f7 0%, #fff 44%, #fff1f1 100%);
+      linear-gradient(155deg, ${colors.red0} 0%, #fff 44%, ${colors.red0} 100%);
   `
 )
 
@@ -1367,7 +1375,7 @@ const SearchPreview = () => (
           height='14'
           viewBox='0 0 24 24'
           fill='none'
-          stroke='#9aa0ab'
+          stroke={colors.gray5}
           strokeWidth='2'
           strokeLinecap='round'
         >
@@ -1391,9 +1399,9 @@ const SearchPreview = () => (
         <Box
           as='span'
           css={{
-            color: '#2f7ff0',
+            color: colors.link,
             fontWeight: 600,
-            borderBottom: '2px solid #2f7ff0',
+            borderBottom: `2px solid ${colors.link}`,
             paddingBottom: '9px',
             marginBottom: '-9px'
           }}
@@ -1424,7 +1432,7 @@ const SearchPreview = () => (
           <Box css={{ fontSize: '11px', color: tone.faint }}>microlink.io</Box>
         </Box>
       </Flex>
-      <Box css={{ color: '#1a56db', fontSize: '15px', fontWeight: 600 }}>
+      <Box css={{ color: colors.link, fontSize: '15px', fontWeight: 600 }}>
         Microlink — The universal API
       </Box>
       <Box css={{ color: syntax.muted, fontSize: '12.5px', marginTop: '3px' }}>
@@ -1541,13 +1549,13 @@ const LighthousePreview = () => (
             width: '60px',
             height: '60px',
             borderRadius: '50%',
-            background: '#eaf7ee',
-            border: '3px solid #34c759',
+            background: colors.green0,
+            border: `3px solid ${colors.green5}`,
             alignItems: 'center',
             justifyContent: 'center',
             fontWeight: 700,
             fontSize: '18px',
-            color: '#1c9e46'
+            color: colors.green8
           }}
         >
           {score}
@@ -1680,7 +1688,10 @@ const AudioPreview = () => (
       {WAVE.map((h, i) => (
         <Bar
           key={i}
-          css={{ height: `${h}%`, background: h >= 80 ? '#ec4899' : '#e5b8d4' }}
+          css={{
+            height: `${h}%`,
+            background: h >= 80 ? colors.pink6 : colors.pink2
+          }}
         />
       ))}
     </Flex>
@@ -1710,7 +1721,7 @@ const AudioPreview = () => (
         css={{
           flex: 1,
           height: '3px',
-          background: '#ececef',
+          background: colors.gray2,
           borderRadius: '2px'
         }}
       />
@@ -1733,7 +1744,7 @@ const AnimatedPreview = () => (
         css={{
           padding: '10px 14px',
           gap: '7px',
-          borderBottom: '1px solid #f3f4f7'
+          borderBottom: `1px solid ${colors.gray1}`
         }}
       >
         <WindowDots />
@@ -1755,20 +1766,24 @@ const AnimatedPreview = () => (
               css={{
                 width: `${w}%`,
                 height: '6px',
-                background: i === 0 ? '#dfe3f5' : '#e9ecf7'
+                background: i === 0 ? colors.indigo1 : colors.gray1
               }}
             />
           ))}
         </Box>
         <Box css={{ flex: 1, padding: '14px 14px 18px' }}>
           <Skel
-            css={{ width: '52%', background: '#e7eaf1', marginBottom: '11px' }}
+            css={{
+              width: '52%',
+              background: colors.gray2,
+              marginBottom: '11px'
+            }}
           />
           <Box
             css={{
               height: '18px',
               width: '100%',
-              background: 'linear-gradient(90deg,#a9c1f0,#c7d0f7)',
+              background: `linear-gradient(90deg, ${colors.indigo2}, ${colors.indigo1})`,
               borderRadius: '5px',
               marginBottom: '14px'
             }}
@@ -1827,7 +1842,7 @@ const AnimatedPreview = () => (
           width: '11px',
           height: '11px',
           borderRadius: '50%',
-          background: '#f0392b'
+          background: colors.red7
         }}
       />
       <Box
@@ -1836,7 +1851,7 @@ const AnimatedPreview = () => (
           fontSize: '16px',
           fontWeight: 600,
           letterSpacing: '2px',
-          color: '#1f2733'
+          color: colors.gray9
         }}
       >
         REC 00:08
@@ -1845,150 +1860,7 @@ const AnimatedPreview = () => (
   </Box>
 )
 
-const MetadataIcon = () => (
-  <Box
-    as='span'
-    css={{
-      fontFamily: MONO,
-      fontWeight: 700,
-      fontSize: '19px',
-      color: TILE.metadata.color
-    }}
-  >
-    {'{…}'}
-  </Box>
-)
-
-const strokeIcon = {
-  fill: 'none',
-  strokeLinecap: 'round',
-  strokeLinejoin: 'round'
-}
-
-const Glyph = ({ size = 24, sw = 1.8, children, ...props }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox='0 0 24 24'
-    fill='none'
-    strokeWidth={sw}
-    {...props}
-  >
-    {children}
-  </svg>
-)
-
-const ScreenshotIcon = () => (
-  <Glyph size={26} stroke={TILE.screenshot.color} {...strokeIcon}>
-    <rect x='3' y='7' width='18' height='13' rx='2.5' />
-    <circle cx='12' cy='13.5' r='3.2' />
-    <path d='M8.5 7l1.3-2.3h4.4L15.5 7' />
-  </Glyph>
-)
-
-const MarkdownIcon = () => (
-  <Glyph size={26} sw={1.7} stroke={TILE.markdown.color} {...strokeIcon}>
-    <rect x='3' y='6' width='18' height='12' rx='2' />
-    <path d='M6 15v-6l3 3 3-3v6M17 9v6M14.5 12.5 17 15l2.5-2.5' />
-  </Glyph>
-)
-
-const CodeIcon = ({ stroke }) => (
-  <Glyph sw={1.9} stroke={stroke} {...strokeIcon}>
-    <path d='M8 8l-4 4 4 4M16 8l4 4-4 4' />
-  </Glyph>
-)
-
-const EmbedIcon = () => (
-  <Glyph size={25} stroke={TILE.embed.color} {...strokeIcon}>
-    <rect x='3' y='5' width='18' height='14' rx='2.5' />
-    <path d='M3 9.5h18' />
-  </Glyph>
-)
-
-const PreviewIcon = () => (
-  <Glyph size={25} sw={1.9} stroke='url(#mlLinkGrad)' {...strokeIcon}>
-    <defs>
-      <linearGradient id='mlLinkGrad' x1='0' y1='0' x2='1' y2='1'>
-        <stop offset='0' stopColor='#7c3aed' />
-        <stop offset='1' stopColor='#ec4899' />
-      </linearGradient>
-    </defs>
-    <path d='M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1' />
-    <path d='M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1' />
-  </Glyph>
-)
-
-const PdfIcon = () => (
-  <Glyph size={23} stroke={TILE.pdf.color} {...strokeIcon}>
-    <path d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z' />
-    <path d='M14 3v5h5' />
-  </Glyph>
-)
-
-const LogoIcon = () => (
-  <Glyph stroke={TILE.logo.color} {...strokeIcon}>
-    <rect x='3' y='4' width='18' height='16' rx='3' />
-    <circle cx='8.5' cy='9' r='1.5' />
-    <path d='M4 17l5-5 4 4 3-3 4 4' />
-  </Glyph>
-)
-
-const SearchIcon = () => (
-  <Glyph size={23} sw={1.9} stroke={TILE.search.color} strokeLinecap='round'>
-    <circle cx='11' cy='11' r='7' />
-    <path d='M21 21l-4.3-4.3' />
-  </Glyph>
-)
-
-const TechIcon = () => (
-  <Glyph
-    size={23}
-    sw={1.7}
-    stroke={TILE.technologies.color}
-    strokeLinejoin='round'
-  >
-    <path d='M12 2l9 5-9 5-9-5z' />
-    <path d='M3 12l9 5 9-5M3 17l9 5 9-5' />
-  </Glyph>
-)
-
-const TextIcon = () => (
-  <Glyph sw={2} stroke={TILE.text.color} {...strokeIcon}>
-    <path d='M5 5h14M12 5v14M9 19h6' />
-  </Glyph>
-)
-
-const LighthouseIcon = () => (
-  <Glyph size={25} stroke={TILE.lighthouse.color} {...strokeIcon}>
-    <path d='M4 18a8 8 0 0 1 16 0' />
-    <path d='M12 18l4-5' />
-  </Glyph>
-)
-
-const VideoIcon = () => (
-  <Glyph stroke={TILE.video.color} strokeLinejoin='round'>
-    <rect x='3' y='5' width='18' height='14' rx='3' />
-    <path d='M10 9l5 3-5 3z' fill={TILE.video.color} stroke='none' />
-  </Glyph>
-)
-
-const AudioIcon = () => (
-  <Glyph size={23} stroke={TILE.audio.color} {...strokeIcon}>
-    <path d='M9 18V5l10-2v13' />
-    <circle cx='6' cy='18' r='3' />
-    <circle cx='16' cy='16' r='3' />
-  </Glyph>
-)
-
-const AnimatedIcon = () => (
-  <Glyph sw={1.7} stroke={TILE.animated.color} strokeLinejoin='round'>
-    <rect x='8' y='3' width='13' height='10' rx='2' />
-    <rect x='3' y='8' width='13' height='13' rx='2' fill={TILE.animated.bg} />
-  </Glyph>
-)
-
-const STEP_COLOR = '#94a3b8'
+const STEP_COLOR = colors.gray5
 
 const stepIcon = {
   width: 22,
@@ -2135,27 +2007,6 @@ const SdkPreview = () => (
   </Flex>
 )
 
-const AutomationIcon = () => (
-  <Glyph size={24} sw={1.7} stroke={TILE.automation.color} {...strokeIcon}>
-    <rect x='3' y='4.5' width='18' height='14' rx='2.5' />
-    <path d='M3 8.5h18' />
-    <path
-      d='M9 11.5v7.2l2.1-2.1 1.2 2.8 1.5-.6-1.2-2.8h2.8z'
-      fill={TILE.automation.color}
-      stroke={TILE.automation.color}
-      strokeWidth='0.6'
-    />
-  </Glyph>
-)
-
-const SdkIcon = () => (
-  <Glyph size={23} sw={1.7} stroke={TILE.sdk.color} strokeLinejoin='round'>
-    <path d='M21 7.5 12 12 3 7.5 12 3z' />
-    <path d='M3 7.5v9L12 21l9-4.5v-9' />
-    <path d='M12 12v9' />
-  </Glyph>
-)
-
 const CONVERT_INPUTS = [
   { name: 'document.pdf', type: 'pdf' },
   { name: 'report.xlsx', type: 'xlsx' },
@@ -2172,13 +2023,13 @@ const OUT_ICON = {
 const CONVERT_OUTPUTS = [
   {
     label: 'HTML',
-    tile: '#e0d6fb',
+    tile: colors.violet1,
     icon: (
       <svg
         width='22'
         height='22'
         viewBox='0 0 24 24'
-        stroke='#6d3fe0'
+        stroke={colors.violet7}
         strokeWidth='1.9'
         {...OUT_ICON}
       >
@@ -2188,7 +2039,7 @@ const CONVERT_OUTPUTS = [
   },
   {
     label: 'Markdown',
-    tile: '#7c4dff',
+    tile: colors.violet6,
     icon: (
       <svg
         width='24'
@@ -2205,13 +2056,13 @@ const CONVERT_OUTPUTS = [
   },
   {
     label: 'Text',
-    tile: '#e0d6fb',
+    tile: colors.violet1,
     icon: (
       <svg
         width='22'
         height='22'
         viewBox='0 0 24 24'
-        stroke='#6d3fe0'
+        stroke={colors.violet7}
         strokeWidth='2'
         {...OUT_ICON}
       >
@@ -2221,13 +2072,13 @@ const CONVERT_OUTPUTS = [
   },
   {
     label: 'PDF',
-    tile: '#e0d6fb',
+    tile: colors.violet1,
     icon: (
       <svg
         width='21'
         height='21'
         viewBox='0 0 24 24'
-        stroke='#6d3fe0'
+        stroke={colors.violet7}
         strokeWidth='1.8'
         {...OUT_ICON}
       >
@@ -2244,7 +2095,7 @@ const CONV_LINE = colors.gray4
 const ConvCard = styled(Flex)(
   theme({
     bg: 'white',
-    width: '282px',
+    width: '260px',
     height: '68px',
     alignItems: 'center',
     gap: '18px',
@@ -2263,7 +2114,7 @@ const ConvCard = styled(Flex)(
 
 const ConvOut = styled(Flex)(
   theme({
-    width: '262px',
+    width: '250px',
     height: '68px',
     alignItems: 'center',
     gap: '18px',
@@ -2321,8 +2172,10 @@ const LogoNode = () => (
           width: '240px',
           height: '240px',
           borderRadius: '50%',
-          background:
-            'radial-gradient(circle, rgba(236,72,153,0.20), rgba(124,77,255,0.16) 42%, rgba(255,255,255,0) 72%)'
+          background: `radial-gradient(circle, ${rgba(
+            colors.pink6,
+            0.2
+          )}, ${rgba(colors.violet6, 0.16)} 42%, ${rgba(colors.white, 0)} 72%)`
         }),
         filter: 'blur(8px)'
       }}
@@ -2364,13 +2217,13 @@ const FileConversionPreview = () => (
     >
       <Box
         css={theme({
-          pt: '44px',
-          px: '34px',
+          pt: '40px',
+          px: 3,
           pb: '56px',
           overflowX: 'auto'
         })}
       >
-        <Box css={theme({ minWidth: '1080px' })}>
+        <Box css={theme({ minWidth: '980px' })}>
           <Flex css={theme({ alignItems: 'stretch', height: '332px' })}>
             <FlowColumn css={theme({ gap: '20px' })}>
               {CONVERT_INPUTS.map(f => (
@@ -2381,7 +2234,7 @@ const FileConversionPreview = () => (
               ))}
             </FlowColumn>
             <Box
-              css={theme({ position: 'relative', flex: 1, minWidth: '70px' })}
+              css={theme({ position: 'relative', flex: 1, minWidth: '50px' })}
             >
               {INPUT_Y.map(y => (
                 <DashRun key={y} css={theme({ right: 0, top: `${y - 1}px` })} />
@@ -2417,7 +2270,7 @@ const FileConversionPreview = () => (
               </g>
             </BusSvg>
             <Box
-              css={theme({ position: 'relative', flex: 1, minWidth: '70px' })}
+              css={theme({ position: 'relative', flex: 1, minWidth: '50px' })}
             >
               {OUTPUT_Y.map(y => (
                 <React.Fragment key={y}>
@@ -2457,138 +2310,110 @@ const FileConversionPreview = () => (
   </Box>
 )
 
-const ConversionIcon = () => (
-  <Glyph size={25} sw={1.7} stroke={TILE.conversion.color} {...strokeIcon}>
-    <path d='M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5z' />
-    <path d='M13.5 3v5.5H19' />
-    <path d='M9.2 13.4a3 3 0 0 1 5-1.1l.9.9' />
-    <path d='M15.3 11.4v1.9h-1.9' />
-    <path d='M14.8 16.1a3 3 0 0 1-5 1.1l-.9-.9' />
-    <path d='M8.7 18.1v-1.9h1.9' />
-  </Glyph>
-)
-
 const Products = () => (
-  <Box>
+  <Box as='section' css={theme({ pt: [4, 4, 5, 5] })}>
     <Box
       css={theme({
-        maxWidth: '1280px',
+        maxWidth: layout.large,
         mx: 'auto',
         textAlign: 'center',
-        px: 4
+        px: 3
       })}
     >
-      <Sparkle width='44' height='44' viewBox='0 0 24 24' fill='none'>
-        <defs>
-          <linearGradient id='mlSparkGrad' x1='0' y1='0' x2='1' y2='1'>
-            <stop offset='0' stopColor='#a855f7' />
-            <stop offset='1' stopColor='#d946ef' />
-          </linearGradient>
-        </defs>
-        <path
-          d='M12 2 L13.6 9.2 L21 12 L13.6 14.8 L12 22 L10.4 14.8 L3 12 L10.4 9.2 Z'
-          fill='url(#mlSparkGrad)'
-        />
-        <path
-          d='M20 3 L20.7 5.3 L23 6 L20.7 6.7 L20 9 L19.3 6.7 L17 6 L19.3 5.3 Z'
-          fill='url(#mlSparkGrad)'
-          opacity='0.85'
-        />
-      </Sparkle>
-      <Heading variant={null}>
-        Everything <Heading as='span'>your software</Heading> needs
-      </Heading>
-      <Caption forwardedAs='p' css={theme({ mt: 3 })}>
+      <Subhead>
+        Everything
+        <br />
+        <Subhead variant='gradient' as='span'>
+          your software
+        </Subhead>{' '}
+        needs
+      </Subhead>
+      <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4] })}>
         One simple API for all kinds of web data.
       </Caption>
     </Box>
 
-    <GridArea>
-      <Grid>
-        <Row $template='1.1fr 1fr'>
-          <Feature vertical='metadata' icon={<MetadataIcon />}>
-            <MetadataPreview />
-          </Feature>
-          <Feature vertical='markdown' icon={<MarkdownIcon />}>
-            <MarkdownPreview />
-          </Feature>
-        </Row>
-
-        <Row $template='1fr 1.3fr'>
-          <Feature vertical='pdf' icon={<PdfIcon />}>
-            <PdfPreview />
-          </Feature>
-          <Feature vertical='screenshot' icon={<ScreenshotIcon />}>
-            <ScreenshotPreview />
-          </Feature>
-        </Row>
-
-        <Row $template='5fr 3fr 4fr'>
-          <Feature vertical='html' icon={<CodeIcon stroke={TILE.html.color} />}>
-            <HtmlPreview />
-          </Feature>
-          <Feature vertical='embed' icon={<EmbedIcon />}>
-            <EmbedPreview />
-          </Feature>
-          <Feature vertical='preview' icon={<PreviewIcon />}>
-            <LinkPreview />
-          </Feature>
-        </Row>
-
-        <Feature vertical='conversion' icon={<ConversionIcon />}>
-          <FileConversionPreview />
+    <Grid>
+      <Row $template='1.1fr 1fr'>
+        <Feature vertical='metadata'>
+          <MetadataPreview />
         </Feature>
-
-        <Row $template='4fr 8fr'>
-          <Feature vertical='technologies' icon={<TechIcon />}>
-            <TechPreview />
-          </Feature>
-          <Feature
-            vertical='function'
-            icon={<CodeIcon stroke={TILE.function.color} />}
-          >
-            <FunctionPreview />
-          </Feature>
-        </Row>
-
-        <Feature vertical='search' icon={<SearchIcon />}>
-          <SearchPreview />
+        <Feature vertical='markdown'>
+          <MarkdownPreview />
         </Feature>
+      </Row>
 
-        <Row $template='8fr 4fr'>
-          <Feature vertical='automation' icon={<AutomationIcon />}>
-            <AutomationPreview />
-          </Feature>
-          <Feature vertical='sdk' icon={<SdkIcon />}>
-            <SdkPreview />
-          </Feature>
-        </Row>
+      <Row $template='1fr 1.3fr'>
+        <Feature vertical='pdf'>
+          <PdfPreview />
+        </Feature>
+        <Feature vertical='screenshot'>
+          <ScreenshotPreview />
+        </Feature>
+      </Row>
 
-        <Row $template='4fr 4fr 4fr'>
-          <Feature vertical='lighthouse' icon={<LighthouseIcon />}>
-            <LighthousePreview />
-          </Feature>
-          <Feature vertical='text' icon={<TextIcon />}>
-            <TextPreview />
-          </Feature>
-          <Feature vertical='animated' icon={<AnimatedIcon />}>
-            <AnimatedPreview />
-          </Feature>
-        </Row>
+      <Row $template='5fr 3fr 4fr'>
+        <Feature vertical='html'>
+          <HtmlPreview />
+        </Feature>
+        <Feature vertical='embed'>
+          <EmbedPreview />
+        </Feature>
+        <Feature vertical='preview'>
+          <LinkPreview />
+        </Feature>
+      </Row>
 
-        <Row $template='1fr 1fr 1fr'>
-          <Feature vertical='video' icon={<VideoIcon />}>
-            <VideoPreview />
-          </Feature>
-          <Feature vertical='audio' icon={<AudioIcon />}>
-            <AudioPreview />
-          </Feature>
-          <Feature vertical='logo' icon={<LogoIcon />}>
-            <LogoPreview />
-          </Feature>
-        </Row>
-      </Grid>
-    </GridArea>
+      <Feature vertical='conversion'>
+        <FileConversionPreview />
+      </Feature>
+
+      <Row $template='4fr 8fr'>
+        <Feature vertical='technologies'>
+          <TechPreview />
+        </Feature>
+        <Feature vertical='function'>
+          <FunctionPreview />
+        </Feature>
+      </Row>
+
+      <Feature vertical='search'>
+        <SearchPreview />
+      </Feature>
+
+      <Row $template='8fr 4fr'>
+        <Feature vertical='automation'>
+          <AutomationPreview />
+        </Feature>
+        <Feature vertical='sdk'>
+          <SdkPreview />
+        </Feature>
+      </Row>
+
+      <Row $template='4fr 4fr 4fr'>
+        <Feature vertical='lighthouse'>
+          <LighthousePreview />
+        </Feature>
+        <Feature vertical='text'>
+          <TextPreview />
+        </Feature>
+        <Feature vertical='animated'>
+          <AnimatedPreview />
+        </Feature>
+      </Row>
+
+      <Row $template='1fr 1fr 1fr'>
+        <Feature vertical='video'>
+          <VideoPreview />
+        </Feature>
+        <Feature vertical='audio'>
+          <AudioPreview />
+        </Feature>
+        <Feature vertical='logo'>
+          <LogoPreview />
+        </Feature>
+      </Row>
+    </Grid>
   </Box>
 )
 
