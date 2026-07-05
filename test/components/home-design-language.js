@@ -67,6 +67,11 @@ describe('home design language', () => {
     expect(hero.toLowerCase()).not.toContain('#b026e0')
   })
 
+  test('hero heading span forwards `as` so the gradient variant applies', () => {
+    expect(hero).toContain("<Heading forwardedAs='span'")
+    expect(hero).not.toMatch(/<Heading as='span' css=/)
+  })
+
   test('hero code panel speaks the docs syntax palette', () => {
     const syntax = hero.slice(
       hero.indexOf('const SYNTAX'),

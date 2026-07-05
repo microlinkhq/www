@@ -1647,13 +1647,13 @@ const Hero = () => {
 
         <Heading variant={null} css={theme({ fontSize: [4, 4, 5, 5] })}>
           The web,{' '}
-          <Heading as='span' css={theme({ fontSize: 'inherit' })}>
+          <Heading forwardedAs='span' css={theme({ fontSize: 'inherit' })}>
             automated
           </Heading>
         </Heading>
 
         <Caption css={theme({ pt: 3 })}>
-          Everything your software needs from any URL. No credit card required.
+          Everything coding agent needs from any URL. No credit card required.
         </Caption>
 
         <Composer>

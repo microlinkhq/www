@@ -171,6 +171,12 @@ const Card = styled(Link)(
     transition: border-color ${transition.medium},
       box-shadow ${transition.medium}, transform ${transition.medium};
 
+    > a {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
     @media (hover: hover) and (pointer: fine) {
       &:hover {
         border-color: ${props => props.$accent};
@@ -597,7 +603,7 @@ const TextOutputTile = styled(Flex)(
 
 const TextDocument = styled(Box)(
   theme({
-    p: [3, 3, 4],
+    p: 3,
     border: 1,
     borderColor: 'gray2',
     borderRadius: 5,
@@ -628,7 +634,7 @@ const TextDocHead = styled(Flex)(
   theme({
     alignItems: 'center',
     gap: 3,
-    mb: 4
+    mb: 3
   })
 )
 
@@ -665,9 +671,9 @@ const TextOutputCopy = styled(Box)(
   theme({
     fontFamily: 'mono',
     color: 'primary',
-    fontSize: ['15px', '16px', '17px'],
-    lineHeight: 3,
-    mb: 4
+    fontSize: ['15px', '15px', '16px'],
+    lineHeight: 2,
+    mb: 3
   }),
   css`
     letter-spacing: 0;
@@ -710,15 +716,8 @@ const TextPreview = () => (
         </Box>
       </TextDocHead>
       <TextOutputCopy>
-        Microlink makes it easy
-        <br />
-        to extract clean,
-        <br />
-        readable text from any
-        <br />
-        web page. No noise,
-        <br />
-        just AI-ready content.
+        Microlink makes it easy to extract clean, readable text from any web
+        page. No noise, just AI-ready content.
       </TextOutputCopy>
       <Box>
         <TextLine css={theme({ width: '78%', height: '8px' })} />
@@ -1467,7 +1466,15 @@ const Chip = styled(Flex)(
 )
 
 const TechPreview = () => (
-  <Flex css={{ flexWrap: 'wrap', gap: '9px', marginTop: '24px' }}>
+  <Flex
+    css={{
+      flex: 1,
+      flexWrap: 'wrap',
+      alignContent: 'center',
+      gap: '9px',
+      marginTop: '24px'
+    }}
+  >
     <Chip>
       <Flex
         css={{
@@ -1540,7 +1547,13 @@ const LIGHTHOUSE = [
 
 const LighthousePreview = () => (
   <Flex
-    css={{ justifyContent: 'space-between', gap: '6px', marginTop: '26px' }}
+    css={{
+      flex: 1,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: '6px',
+      marginTop: '26px'
+    }}
   >
     {LIGHTHOUSE.map(([score, label]) => (
       <Box key={label} css={{ textAlign: 'center' }}>
@@ -1760,7 +1773,7 @@ const AnimatedPreview = () => (
             flexShrink: 0
           }}
         >
-          {[80, 60, 72, 52, 66, 48, 60].map((w, i) => (
+          {[80, 60, 72, 52, 66].map((w, i) => (
             <Skel
               key={i}
               css={{
@@ -1790,7 +1803,7 @@ const AnimatedPreview = () => (
           />
           <Box
             css={{
-              height: '150px',
+              height: '110px',
               borderRadius: radius.sm,
               position: 'relative',
               overflow: 'hidden',
@@ -1801,7 +1814,7 @@ const AnimatedPreview = () => (
               viewBox='0 0 360 150'
               preserveAspectRatio='none'
               width='100%'
-              height='112'
+              height='82'
             >
               <path
                 d='M0 150 L110 52 L188 92 L262 42 L322 78 L360 58 L360 150 Z'
@@ -1947,31 +1960,39 @@ const Connector = () => (
 
 const AutomationPreview = () => (
   <Flex
-    css={{
-      alignItems: 'flex-start',
-      justifyContent: 'space-between',
-      gap: '4px',
-      marginTop: '30px'
-    }}
+    css={theme({
+      flex: 1,
+      mt: 3,
+      flexDirection: 'column',
+      justifyContent: 'center'
+    })}
   >
-    {FLOW_STEPS.map((step, i) => (
-      <React.Fragment key={step.label}>
-        <Box css={{ textAlign: 'center' }}>
-          <StepTile>{step.icon}</StepTile>
-          <Box
-            css={{
-              fontSize: '11.5px',
-              color: syntax.muted,
-              marginTop: '10px',
-              whiteSpace: 'nowrap'
-            }}
-          >
-            {step.label}
+    <Flex
+      css={{
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        gap: '4px'
+      }}
+    >
+      {FLOW_STEPS.map((step, i) => (
+        <React.Fragment key={step.label}>
+          <Box css={{ textAlign: 'center' }}>
+            <StepTile>{step.icon}</StepTile>
+            <Box
+              css={{
+                fontSize: '11.5px',
+                color: syntax.muted,
+                marginTop: '10px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              {step.label}
+            </Box>
           </Box>
-        </Box>
-        {i < FLOW_STEPS.length - 1 && <Connector />}
-      </React.Fragment>
-    ))}
+          {i < FLOW_STEPS.length - 1 && <Connector />}
+        </React.Fragment>
+      ))}
+    </Flex>
   </Flex>
 )
 
@@ -1996,7 +2017,15 @@ const LangBadge = styled(Flex)`
 `
 
 const SdkPreview = () => (
-  <Flex css={{ flexWrap: 'wrap', gap: '9px', marginTop: '24px' }}>
+  <Flex
+    css={{
+      flex: 1,
+      flexWrap: 'wrap',
+      alignContent: 'center',
+      gap: '9px',
+      marginTop: '24px'
+    }}
+  >
     {SDK_LANGS.map(l => (
       <Chip key={l.name}>
         <LangBadge css={{ background: l.bg, color: l.fg }}>{l.abbr}</LangBadge>
@@ -2324,7 +2353,7 @@ const Products = () => (
         Everything
         <br />
         <Subhead variant='gradient' as='span'>
-          your software
+          coding agent
         </Subhead>{' '}
         needs
       </Subhead>
@@ -2385,8 +2414,8 @@ const Products = () => (
         <Feature vertical='automation'>
           <AutomationPreview />
         </Feature>
-        <Feature vertical='sdk'>
-          <SdkPreview />
+        <Feature vertical='text'>
+          <TextPreview />
         </Feature>
       </Row>
 
@@ -2394,8 +2423,8 @@ const Products = () => (
         <Feature vertical='lighthouse'>
           <LighthousePreview />
         </Feature>
-        <Feature vertical='text'>
-          <TextPreview />
+        <Feature vertical='sdk'>
+          <SdkPreview />
         </Feature>
         <Feature vertical='animated'>
           <AnimatedPreview />
