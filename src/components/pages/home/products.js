@@ -11,6 +11,7 @@ import styled, { css } from 'styled-components'
 import React from 'react'
 
 const MONO = fonts.mono
+const GAP = 4
 
 const tone = {
   ink: colors.black,
@@ -93,7 +94,7 @@ const GridArea = styled.div(
 )
 
 const Grid = styled.div(
-  theme({ gap: 3 }),
+  theme({ gap: GAP }),
   css`
     max-width: 1200px;
     margin: 0 auto;
@@ -103,7 +104,7 @@ const Grid = styled.div(
 )
 
 const Row = styled.div(
-  theme({ gap: 3 }),
+  theme({ gap: GAP }),
   css`
     display: grid;
     grid-template-columns: repeat(${props => props.$cols}, minmax(0, 1fr));
