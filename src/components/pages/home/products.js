@@ -1926,7 +1926,11 @@ const LogoNode = () => (
         gap: '8px'
       }}
     >
-      <img src={LOGO_URI} alt='Microlink' width='40' height='40' />
+      <img
+        src={LOGO_URI}
+        alt='Microlink'
+        css={{ width: '46px', height: 'auto', display: 'block' }}
+      />
       <Box
         as='span'
         css={{
