@@ -499,108 +499,6 @@ const TextPreviewWrap = styled(Box)(
   })
 )
 
-const TextFlow = styled(Flex)(
-  theme({
-    alignItems: 'center',
-    gap: 2,
-    flexWrap: ['wrap', 'nowrap']
-  })
-)
-
-const TextFlowInput = styled(Flex)(
-  theme({
-    minWidth: 0,
-    flex: 1,
-    flexBasis: ['100%', 0],
-    height: '44px',
-    alignItems: 'center',
-    gap: 2,
-    px: 3,
-    border: 1,
-    borderColor: 'gray2',
-    borderRadius: 5,
-    bg: 'white',
-    color: 'black80',
-    fontWeight: 'bold',
-    fontSize: 0,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    boxShadow: shadow.softer
-  }),
-  css`
-    svg {
-      flex-shrink: 0;
-      stroke: ${syntax.muted};
-      stroke-width: 1.9;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    span {
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  `
-)
-
-const TextFlowArrow = styled.svg(
-  theme({
-    display: ['none', 'block'],
-    width: ['22px', '28px'],
-    height: '24px',
-    flexShrink: 0,
-    color: 'gray4'
-  }),
-  css`
-    stroke: currentColor;
-    stroke-width: 2.2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  `
-)
-
-const TextFlowOutput = styled(Flex)(
-  theme({
-    height: '44px',
-    alignItems: 'center',
-    gap: 2,
-    px: 2,
-    pr: 2,
-    border: 1,
-    borderColor: 'gray2',
-    borderRadius: 5,
-    bg: 'white',
-    boxShadow: shadow.softer,
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: [0, 0, 1],
-    whiteSpace: 'nowrap',
-    flexShrink: 0
-  })
-)
-
-const TextOutputTile = styled(Flex)(
-  theme({
-    width: ['30px', '30px', '34px'],
-    height: ['30px', '30px', '34px'],
-    borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-    bg: 'orange0',
-    color: 'orange6',
-    flexShrink: 0
-  }),
-  css`
-    svg {
-      stroke: currentColor;
-      stroke-width: 2.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-  `
-)
-
 const TextDocument = styled(Box)(
   theme({
     p: 3,
@@ -682,26 +580,6 @@ const TextOutputCopy = styled(Box)(
 
 const TextPreview = () => (
   <TextPreviewWrap>
-    <TextFlow>
-      <TextFlowInput>
-        <svg width='20' height='20' viewBox='0 0 24 24' fill='none'>
-          <circle cx='12' cy='12' r='9' />
-          <path d='M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9s-1.2 6.4-3.6 9M12 3c-2.4 2.6-3.6 5.6-3.6 9s1.2 6.4 3.6 9' />
-        </svg>
-        <Box as='span'>https://microlink.io</Box>
-      </TextFlowInput>
-      <TextFlowArrow aria-hidden='true' viewBox='0 0 42 24' fill='none'>
-        <path d='M2 12h34M25 2l11 10-11 10' />
-      </TextFlowArrow>
-      <TextFlowOutput>
-        <TextOutputTile>
-          <svg width='20' height='20' viewBox='0 0 24 24' fill='none'>
-            <path d='M5 5h14M12 5v14M9 19h6' />
-          </svg>
-        </TextOutputTile>
-        <Box as='span'>Text</Box>
-      </TextFlowOutput>
-    </TextFlow>
     <TextDocument>
       <TextDocHead>
         <TextDocTile>
@@ -1685,28 +1563,6 @@ const VideoPreview = () => (
         </Box>
       </Flex>
     </Box>
-    <Flex
-      css={theme({
-        alignItems: 'center',
-        gap: 2,
-        px: 3,
-        height: '44px',
-        border: 1,
-        borderColor: 'gray2',
-        borderRadius: 5,
-        bg: 'white',
-        boxShadow: shadow.softer,
-        fontFamily: 'mono',
-        fontSize: 0,
-        color: 'black80',
-        whiteSpace: 'nowrap'
-      })}
-    >
-      video.mp4
-      <Box as='span' css={theme({ ml: 'auto', color: 'gray6' })}>
-        1080p · 12.4&nbsp;MB
-      </Box>
-    </Flex>
   </Flex>
 )
 

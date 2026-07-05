@@ -11,15 +11,13 @@ const between = (start, end) =>
   source.slice(source.indexOf(start), source.indexOf(end))
 
 describe('home products text preview', () => {
-  test('shows the URL to text extraction flow before the document output', () => {
+  test('shows only the extracted document, no URL flow chrome', () => {
     const preview = between('const TextPreview', 'const ScreenshotPreview')
 
-    expect(preview).toContain('<TextFlowInput>')
-    expect(preview).toContain('https://microlink.io')
-    expect(preview).toContain('<TextFlowArrow')
-    expect(preview).toContain('<TextFlowOutput>')
     expect(preview).toContain('<TextDocument>')
+    expect(preview).not.toContain('<TextFlow')
     expect(preview).not.toContain('<CodeBox')
+    expect(source).not.toContain('const TextFlow')
   })
 
   test('keeps the extracted text sample visible', () => {
