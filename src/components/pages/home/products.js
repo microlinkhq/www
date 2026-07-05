@@ -643,37 +643,139 @@ const CornerSvg = styled.svg`
   left: 0;
 `
 
+const metaGlyph = {
+  width: 14,
+  height: 14,
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: '#9aa0ab',
+  strokeWidth: 1.8,
+  strokeLinecap: 'round',
+  strokeLinejoin: 'round'
+}
+
+const META_GLYPHS = [
+  <svg key='globe' {...metaGlyph}>
+    <circle cx='12' cy='12' r='9' />
+    <path d='M3 12h18M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18' />
+  </svg>,
+  <svg key='calendar' {...metaGlyph}>
+    <rect x='3' y='5' width='18' height='16' rx='2.5' />
+    <path d='M3 9.5h18M8 3v4M16 3v4' />
+  </svg>,
+  <svg key='clock' {...metaGlyph}>
+    <circle cx='12' cy='12' r='9' />
+    <path d='M12 7.5V12l3 2' />
+  </svg>,
+  <svg key='person' {...metaGlyph}>
+    <circle cx='12' cy='8' r='3.5' />
+    <path d='M5.5 20a6.5 6.5 0 0 1 13 0' />
+  </svg>
+]
+
+const MetaIcon = styled(Flex)`
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: ${tone.neutral};
+`
+
+const MetaDot = styled.span`
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: ${tone.dotIdle};
+`
+
 const LinkPreview = () => (
-  <PreviewCard css={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
+  <Box
+    css={{
+      ...theme({ mt: 3 }),
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      borderRadius: radius.panel,
+      border: `1px solid ${tone.borderSoft}`,
+      boxShadow: shadow.panel,
+      overflow: 'hidden'
+    }}
+  >
     <Box
       css={{
-        width: '70px',
-        height: '70px',
-        borderRadius: '10px',
-        flexShrink: 0,
         position: 'relative',
+        flex: 1,
+        minHeight: '150px',
         overflow: 'hidden',
-        background: 'linear-gradient(180deg,#f6a5c0,#c98bb8 45%,#3a3a63)'
+        background: 'linear-gradient(135deg,#e7ddf4,#f3e4ee 55%,#fceef3)'
       }}
     >
+      <Box
+        css={{
+          position: 'absolute',
+          top: '22px',
+          right: '26px',
+          width: '52px',
+          height: '52px',
+          borderRadius: '50%',
+          background: 'rgba(255,255,255,0.5)'
+        }}
+      />
       <CornerSvg
-        viewBox='0 0 70 70'
+        viewBox='0 0 360 200'
         preserveAspectRatio='none'
-        width='70'
-        height='38'
+        css={{ width: '100%', height: '68%' }}
       >
-        <path d='M0 70 L22 34 L38 48 L52 30 L70 42 L70 70 Z' fill='#4a4a72' />
-        <path d='M0 70 L18 50 L40 58 L58 46 L70 54 L70 70 Z' fill='#38385c' />
+        <path
+          d='M0 200 L120 74 L196 128 L256 84 L322 120 L360 96 L360 200 Z'
+          fill='#c8bae1'
+        />
+        <path
+          d='M0 200 L84 122 L158 156 L232 110 L300 146 L360 124 L360 200 Z'
+          fill='#b3a1d4'
+        />
       </CornerSvg>
     </Box>
-    <Box
-      css={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '9px' }}
-    >
-      <Skel css={{ width: '80%', background: '#e7e7ea' }} />
-      <Skel css={{ width: '100%' }} />
-      <Skel css={{ width: '65%' }} />
+    <Box css={{ padding: '16px 16px 0' }}>
+      <Flex css={{ alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
+        <Box
+          css={{
+            width: '30px',
+            height: '30px',
+            borderRadius: '8px',
+            flexShrink: 0,
+            background: '#dcdce1'
+          }}
+        />
+        <Skel css={{ width: '34%', height: '9px', background: '#e0e0e5' }} />
+      </Flex>
+      <Box css={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
+        <Skel css={{ width: '100%' }} />
+        <Skel css={{ width: '82%' }} />
+        <Skel css={{ width: '48%' }} />
+      </Box>
     </Box>
-  </PreviewCard>
+    <Flex
+      css={{
+        alignItems: 'center',
+        gap: '8px',
+        padding: '15px 16px',
+        marginTop: '18px',
+        borderTop: `1px solid ${tone.borderSoft}`
+      }}
+    >
+      {META_GLYPHS.map((glyph, i) => (
+        <React.Fragment key={glyph.key}>
+          {i > 0 && <MetaDot />}
+          <MetaIcon>{glyph}</MetaIcon>
+          <Skel css={{ width: '30px', flexShrink: 0 }} />
+        </React.Fragment>
+      ))}
+    </Flex>
+  </Box>
 )
 
 const PdfPreview = () => (
