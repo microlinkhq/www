@@ -82,7 +82,8 @@ const TILE = {
   audio: { bg: '#fde7f1', color: '#ec4899' },
   animated: { bg: '#e8ebfd', color: '#4f5bd5' },
   automation: { bg: '#fde7f1', color: '#ec4899' },
-  sdk: { bg: '#e6f0fd', color: '#2f7ff0' }
+  sdk: { bg: '#e6f0fd', color: '#2f7ff0' },
+  conversion: { bg: '#fde8e1', color: '#f2542d' }
 }
 
 const EXTRA = {
@@ -95,6 +96,11 @@ const EXTRA = {
     label: 'Microlink SDK',
     description: 'The official SDK to integrate Microlink in your app',
     href: '/docs/sdk/getting-started/overview'
+  },
+  conversion: {
+    label: 'File conversion',
+    description: 'Convert any file into HTML, Markdown, or clean text',
+    href: '/docs/api/parameters/data'
   }
 }
 
@@ -1721,6 +1727,269 @@ const SdkIcon = () => (
   </Glyph>
 )
 
+const CONVERT_INPUTS = [
+  { name: 'document.pdf', abbr: 'PDF', bg: '#e5252a' },
+  { name: 'report.xlsx', abbr: 'X', bg: '#1d7145' },
+  { name: 'guide.docx', abbr: 'W', bg: '#2b579a' },
+  { name: 'slides.pptx', abbr: 'P', bg: '#d24726' }
+]
+
+const CONVERT_OUTPUTS = [
+  {
+    label: 'HTML',
+    node: (
+      <svg
+        width='16'
+        height='16'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='#7c3aed'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      >
+        <path d='M8 8l-4 4 4 4M16 8l4 4-4 4' />
+      </svg>
+    )
+  },
+  { label: 'Markdown', node: 'M' },
+  { label: 'Text', node: 'T' }
+]
+
+const AppBadge = styled(Flex)`
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: ${tone.white};
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+`
+
+const FlowCard = styled(Flex)(
+  theme({ borderRadius: 5, bg: 'white' }),
+  css`
+    height: 52px;
+    align-items: center;
+    gap: 11px;
+    padding: 0 13px;
+    border: 1px solid ${tone.border};
+    box-shadow: ${shadow.softer};
+    font-size: 13px;
+    font-weight: 500;
+    color: ${tone.ink900};
+    white-space: nowrap;
+  `
+)
+
+const OutCard = styled(FlowCard)`
+  height: 60px;
+  background: #f6f4ff;
+  border-color: #e9e2fb;
+`
+
+const OutBadge = styled(Flex)`
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #ede9fe;
+  color: #7c3aed;
+  font-size: 14px;
+  font-weight: 800;
+`
+
+const FlowColumn = styled(Box)`
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+`
+
+const FlowLink = styled(Box)`
+  flex: 1;
+  min-width: 16px;
+  align-self: stretch;
+`
+
+const ConnectorSvg = styled.svg`
+  width: 100%;
+  height: 100%;
+`
+
+const ConvertHub = () => (
+  <Flex
+    css={{
+      flexShrink: 0,
+      alignSelf: 'center',
+      width: '62px',
+      height: '62px',
+      borderRadius: '16px',
+      background: tone.white,
+      boxShadow: shadow.float,
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}
+  >
+    <svg
+      width='30'
+      height='30'
+      viewBox='0 0 24 24'
+      fill='none'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M23 4v6h-6' stroke='#a855f7' />
+      <path d='M3.51 9a9 9 0 0 1 14.85-3.36L23 10' stroke='#a855f7' />
+      <path d='M1 20v-6h6' stroke='#ec4899' />
+      <path d='M20.49 15a9 9 0 0 1-14.85 3.36L1 14' stroke='#ec4899' />
+    </svg>
+  </Flex>
+)
+
+const FileConversionPreview = () => (
+  <Box
+    css={{
+      ...theme({ mt: 3 }),
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      borderRadius: radius.panel,
+      border: `1px solid ${tone.borderSoft}`,
+      background: tone.surfaceSoft,
+      overflow: 'hidden'
+    }}
+  >
+    <Box css={{ padding: '22px 24px', overflowX: 'auto' }}>
+      <Box css={{ minWidth: '620px' }}>
+        <Flex
+          css={{
+            justifyContent: 'space-between',
+            marginBottom: '18px',
+            fontSize: '11px',
+            fontWeight: 700,
+            letterSpacing: '0.08em'
+          }}
+        >
+          <Box as='span' css={{ color: tone.faint }}>
+            INPUT (URL)
+          </Box>
+          <Box as='span' css={{ color: '#7c3aed' }}>
+            OUTPUT
+          </Box>
+        </Flex>
+        <Flex css={{ alignItems: 'stretch', gap: '10px', height: '250px' }}>
+          <FlowColumn css={{ gap: '14px' }}>
+            {CONVERT_INPUTS.map(f => (
+              <FlowCard key={f.name}>
+                <AppBadge css={{ background: f.bg }}>{f.abbr}</AppBadge>
+                {f.name}
+              </FlowCard>
+            ))}
+          </FlowColumn>
+          <FlowLink>
+            <ConnectorSvg
+              viewBox='0 0 100 250'
+              preserveAspectRatio='none'
+              fill='none'
+              stroke='#c7ccd6'
+              strokeWidth='1.5'
+              strokeDasharray='5 5'
+              strokeLinecap='round'
+            >
+              <path d='M0 26 H60 V125 H100' />
+              <path d='M0 92 H60 V125 H100' />
+              <path d='M0 158 H60 V125 H100' />
+              <path d='M0 224 H60 V125 H100' />
+            </ConnectorSvg>
+          </FlowLink>
+          <ConvertHub />
+          <FlowLink>
+            <ConnectorSvg
+              viewBox='0 0 100 250'
+              preserveAspectRatio='none'
+              fill='none'
+              stroke='#c7ccd6'
+              strokeWidth='1.5'
+              strokeDasharray='5 5'
+              strokeLinecap='round'
+            >
+              <path d='M0 125 H40 V47 H92' />
+              <path d='M0 125 H40 V125 H92' />
+              <path d='M0 125 H40 V203 H92' />
+              <path d='M86 43 L94 47 L86 51' strokeDasharray='none' />
+              <path d='M86 121 L94 125 L86 129' strokeDasharray='none' />
+              <path d='M86 199 L94 203 L86 207' strokeDasharray='none' />
+            </ConnectorSvg>
+          </FlowLink>
+          <FlowColumn css={{ justifyContent: 'center', gap: '18px' }}>
+            {CONVERT_OUTPUTS.map(o => (
+              <OutCard key={o.label}>
+                <OutBadge>{o.node}</OutBadge>
+                {o.label}
+              </OutCard>
+            ))}
+          </FlowColumn>
+        </Flex>
+      </Box>
+    </Box>
+    <Flex
+      css={{
+        alignItems: 'flex-start',
+        gap: '14px',
+        padding: '20px 24px',
+        borderTop: `1px solid ${tone.borderSoft}`,
+        background: '#f5f3ff'
+      }}
+    >
+      <Flex
+        css={{
+          width: '44px',
+          height: '44px',
+          borderRadius: '12px',
+          background: '#ede9fe',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0
+        }}
+      >
+        <svg width='22' height='22' viewBox='0 0 24 24' fill='#7c3aed'>
+          <path d='M12 2 L13.6 9.2 L21 12 L13.6 14.8 L12 22 L10.4 14.8 L3 12 L10.4 9.2 Z' />
+        </svg>
+      </Flex>
+      <Box>
+        <Box css={{ fontWeight: 700, fontSize: '15px', color: tone.ink900 }}>
+          Smart conversion
+        </Box>
+        <Box
+          css={{
+            fontSize: '13px',
+            color: tone.muted,
+            marginTop: '4px',
+            lineHeight: 1.5
+          }}
+        >
+          Automatically detects file type, extracts content, and delivers clean,
+          structured output.
+        </Box>
+      </Box>
+    </Flex>
+  </Box>
+)
+
+const ConversionIcon = () => (
+  <Glyph size={25} sw={1.8} stroke={TILE.conversion.color} {...strokeIcon}>
+    <path d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z' />
+    <path d='M14 3v5h5' />
+    <path d='M9 13.5h5M9 13.5l1.6-1.6M14 16.5H9M14 16.5l-1.6 1.6' />
+  </Glyph>
+)
+
 const Products = () => (
   <Box>
     <Box
@@ -1781,6 +2050,10 @@ const Products = () => (
             <LinkPreview />
           </Feature>
         </Row>
+
+        <Feature vertical='conversion' icon={<ConversionIcon />}>
+          <FileConversionPreview />
+        </Feature>
 
         <Row $template='4fr 8fr'>
           <Feature vertical='technologies' icon={<TechIcon />}>
