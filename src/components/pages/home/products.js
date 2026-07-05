@@ -106,6 +106,85 @@ const EXTRA = {
 
 const CATALOG = { ...PRODUCTS, ...EXTRA }
 
+const BENEFITS = {
+  metadata: {
+    title: 'Normalized metadata',
+    copy: 'Returns title, description, image, author, and canonical page facts.'
+  },
+  markdown: {
+    title: 'AI-ready Markdown',
+    copy: 'Keeps the page structure readable without navigation or layout noise.'
+  },
+  pdf: {
+    title: 'Print-ready output',
+    copy: 'Turns any URL into a clean document with stable page layout.'
+  },
+  screenshot: {
+    title: 'Pixel-perfect capture',
+    copy: 'Renders the page in a real browser before generating the image.'
+  },
+  html: {
+    title: 'Rendered HTML',
+    copy: 'Delivers the final DOM after JavaScript, redirects, and browser work.'
+  },
+  embed: {
+    title: 'Embeddable media',
+    copy: 'Detects rich providers and returns a ready-to-use embed card.'
+  },
+  preview: {
+    title: 'Share-ready preview',
+    copy: 'Builds the title, description, image, and publisher context together.'
+  },
+  conversion: {
+    title: 'Smart conversion',
+    copy: 'Detects file type, extracts content, and delivers structured output.'
+  },
+  technologies: {
+    title: 'Tech stack insight',
+    copy: 'Identifies frameworks, libraries, analytics, and runtime services.'
+  },
+  function: {
+    title: 'Programmable browser',
+    copy: 'Runs custom code against the page and returns exactly what you need.'
+  },
+  search: {
+    title: 'Structured SERP data',
+    copy: 'Turns search result pages into clean rankable records.'
+  },
+  automation: {
+    title: 'Browser workflows',
+    copy: 'Chains navigation, clicks, waits, and extraction in one API call.'
+  },
+  sdk: {
+    title: 'Native integration',
+    copy: 'Gives every runtime a small client for calling Microlink directly.'
+  },
+  lighthouse: {
+    title: 'Audit-ready scores',
+    copy: 'Measures performance, accessibility, SEO, and best practices at scale.'
+  },
+  text: {
+    title: 'Clean text output',
+    copy: 'Extracts the main content and keeps it readable.'
+  },
+  animated: {
+    title: 'Motion capture',
+    copy: 'Records page interactions as GIF or video with browser fidelity.'
+  },
+  video: {
+    title: 'Video assets',
+    copy: 'Finds playable video sources and returns the useful media metadata.'
+  },
+  audio: {
+    title: 'Audio assets',
+    copy: 'Extracts audio sources, duration, and playable page context.'
+  },
+  logo: {
+    title: 'Brand-ready icons',
+    copy: 'Returns favicons and marks sized for product surfaces.'
+  }
+}
+
 const Sparkle = styled.svg(theme({ mb: 3 }))
 
 const GridArea = styled.div(
@@ -208,6 +287,7 @@ const arrowPaths = (
 const Feature = ({ vertical, icon, children }) => {
   const { label, description, href } = CATALOG[vertical]
   const tile = TILE[vertical]
+  const benefit = BENEFITS[vertical]
   return (
     <Card
       href={href}
@@ -235,9 +315,67 @@ const Feature = ({ vertical, icon, children }) => {
         </Arrow>
       </Flex>
       {children}
+      <FeatureFooter benefit={benefit} />
     </Card>
   )
 }
+
+const FeatureFooter = ({ benefit }) => (
+  <Footer>
+    <FooterIcon>
+      <svg width='24' height='24' viewBox='0 0 24 24' fill='currentColor'>
+        <path d='M11 2.5l1.5 5.2 5.2 1.5-5.2 1.5L11 15.9 9.5 10.7 4.3 9.2l5.2-1.5z' />
+        <path d='M18.5 13.5l.7 2.4 2.4.7-2.4.7-.7 2.4-.7-2.4-2.4-.7 2.4-.7z' />
+      </svg>
+    </FooterIcon>
+    <Box css={theme({ minWidth: 0 })}>
+      <FooterTitle>{benefit.title}</FooterTitle>
+      <FooterCopy>{benefit.copy}</FooterCopy>
+    </Box>
+  </Footer>
+)
+
+const Footer = styled(Flex)(
+  theme({
+    mt: 'auto',
+    pt: 3,
+    borderTop: 1,
+    borderTopColor: 'black05',
+    alignItems: 'flex-start',
+    gap: 3
+  })
+)
+
+const FooterIcon = styled(Flex)(
+  theme({
+    width: '44px',
+    height: '44px',
+    borderRadius: 5,
+    bg: 'violet0',
+    color: 'violet7',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0
+  })
+)
+
+const FooterTitle = styled(Text)(
+  theme({
+    fontSize: 1,
+    fontWeight: 'bold',
+    lineHeight: 0,
+    color: 'black'
+  })
+)
+
+const FooterCopy = styled(Text)(
+  theme({
+    mt: 1,
+    fontSize: 0,
+    lineHeight: 1,
+    color: 'black70'
+  })
+)
 
 const CodeBox = styled(Box)(
   theme({
@@ -475,11 +613,249 @@ const FunctionPreview = () => (
   </Flex>
 )
 
+const TextPreviewWrap = styled(Box)(
+  theme({
+    mt: 3,
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 3
+  })
+)
+
+const TextFlow = styled(Flex)(
+  theme({
+    alignItems: 'center',
+    gap: 2,
+    flexWrap: ['wrap', 'nowrap']
+  })
+)
+
+const TextFlowInput = styled(Flex)(
+  theme({
+    minWidth: 0,
+    flex: 1,
+    flexBasis: ['100%', 0],
+    height: '44px',
+    alignItems: 'center',
+    gap: 2,
+    px: 3,
+    border: 1,
+    borderColor: 'gray2',
+    borderRadius: 5,
+    bg: 'white',
+    color: 'black80',
+    fontWeight: 'bold',
+    fontSize: 0,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    boxShadow: shadow.softer
+  }),
+  css`
+    svg {
+      flex-shrink: 0;
+      stroke: ${syntax.muted};
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    span {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  `
+)
+
+const TextFlowArrow = styled.svg(
+  theme({
+    display: ['none', 'block'],
+    width: ['22px', '28px'],
+    height: '24px',
+    flexShrink: 0,
+    color: 'gray4'
+  }),
+  css`
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  `
+)
+
+const TextFlowOutput = styled(Flex)(
+  theme({
+    height: '44px',
+    alignItems: 'center',
+    gap: 2,
+    px: 2,
+    pr: 2,
+    border: 1,
+    borderColor: 'gray2',
+    borderRadius: 5,
+    bg: 'white',
+    boxShadow: shadow.softer,
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: [0, 0, 1],
+    whiteSpace: 'nowrap',
+    flexShrink: 0
+  })
+)
+
+const TextOutputTile = styled(Flex)(
+  theme({
+    width: ['30px', '30px', '34px'],
+    height: ['30px', '30px', '34px'],
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    bg: 'orange0',
+    color: 'orange6',
+    flexShrink: 0
+  }),
+  css`
+    svg {
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  `
+)
+
+const TextDocument = styled(Box)(
+  theme({
+    p: [3, 3, 4],
+    border: 1,
+    borderColor: 'gray2',
+    borderRadius: 5,
+    bg: 'white',
+    boxShadow: shadow.panel,
+    overflow: 'hidden'
+  }),
+  css`
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.92),
+        rgba(255, 255, 255, 0.98)
+      ),
+      radial-gradient(
+        circle at 18% 8%,
+        rgba(253, 126, 20, 0.08),
+        transparent 34%
+      ),
+      radial-gradient(
+        circle at 92% 16%,
+        rgba(51, 154, 240, 0.08),
+        transparent 36%
+      );
+  `
+)
+
+const TextDocHead = styled(Flex)(
+  theme({
+    alignItems: 'center',
+    gap: 3,
+    mb: 4
+  })
+)
+
+const TextDocTile = styled(Flex)(
+  theme({
+    width: '42px',
+    height: '42px',
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    bg: 'orange0',
+    color: 'orange6',
+    flexShrink: 0
+  }),
+  css`
+    svg {
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  `
+)
+
+const TextLine = styled(Box)(
+  theme({
+    height: '9px',
+    borderRadius: 4,
+    bg: 'gray2'
+  })
+)
+
+const TextOutputCopy = styled(Box)(
+  theme({
+    fontFamily: 'mono',
+    color: 'primary',
+    fontSize: ['15px', '16px', '17px'],
+    lineHeight: 3,
+    mb: 4
+  }),
+  css`
+    letter-spacing: 0;
+  `
+)
+
 const TextPreview = () => (
-  <CodeBox css={{ fontSize: '13.5px', lineHeight: 1.85 }}>
-    Microlink makes it easy to extract clean, readable text from any web page.
-    No noise, just content — ready for your AI pipeline.
-  </CodeBox>
+  <TextPreviewWrap>
+    <TextFlow>
+      <TextFlowInput>
+        <svg width='20' height='20' viewBox='0 0 24 24' fill='none'>
+          <circle cx='12' cy='12' r='9' />
+          <path d='M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9s-1.2 6.4-3.6 9M12 3c-2.4 2.6-3.6 5.6-3.6 9s1.2 6.4 3.6 9' />
+        </svg>
+        <Box as='span'>https://microlink.io</Box>
+      </TextFlowInput>
+      <TextFlowArrow aria-hidden='true' viewBox='0 0 42 24' fill='none'>
+        <path d='M2 12h34M25 2l11 10-11 10' />
+      </TextFlowArrow>
+      <TextFlowOutput>
+        <TextOutputTile>
+          <svg width='20' height='20' viewBox='0 0 24 24' fill='none'>
+            <path d='M5 5h14M12 5v14M9 19h6' />
+          </svg>
+        </TextOutputTile>
+        <Box as='span'>Text</Box>
+      </TextFlowOutput>
+    </TextFlow>
+    <TextDocument>
+      <TextDocHead>
+        <TextDocTile>
+          <svg width='18' height='18' viewBox='0 0 24 24' fill='none'>
+            <path d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z' />
+            <path d='M14 3v5h5M9 13h6M9 17h5' />
+          </svg>
+        </TextDocTile>
+        <Box>
+          <TextLine css={theme({ width: '92px' })} />
+          <TextLine css={theme({ width: '136px', mt: 2 })} />
+        </Box>
+      </TextDocHead>
+      <TextOutputCopy>
+        Microlink makes it easy
+        <br />
+        to extract clean,
+        <br />
+        readable text from any
+        <br />
+        web page. No noise,
+        <br />
+        just AI-ready content.
+      </TextOutputCopy>
+      <Box>
+        <TextLine css={theme({ width: '78%', height: '8px' })} />
+        <TextLine css={theme({ width: '58%', height: '8px', mt: 2 })} />
+      </Box>
+    </TextDocument>
+  </TextPreviewWrap>
 )
 
 const ScreenshotPreview = () => (
@@ -2231,57 +2607,6 @@ const FileConversionPreview = () => (
           </Flex>
         </Box>
       </Box>
-      <Flex
-        css={theme({
-          alignItems: 'flex-start',
-          gap: '24px',
-          pt: '28px',
-          px: '42px',
-          pb: '30px',
-          borderTop: 1,
-          borderTopColor: 'black05'
-        })}
-      >
-        <Flex
-          css={theme({
-            width: '62px',
-            height: '62px',
-            borderRadius: 5,
-            bg: 'violet1',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0
-          })}
-        >
-          <svg width='34' height='34' viewBox='0 0 24 24' fill={colors.violet7}>
-            <path d='M11 2.5l1.5 5.2 5.2 1.5-5.2 1.5L11 15.9 9.5 10.7 4.3 9.2l5.2-1.5z' />
-            <path d='M18.5 13.5l.7 2.4 2.4.7-2.4.7-.7 2.4-.7-2.4-2.4-.7 2.4-.7z' />
-          </svg>
-        </Flex>
-        <Box>
-          <Box
-            css={theme({
-              fontWeight: 'bold',
-              fontSize: '22px',
-              color: 'black'
-            })}
-          >
-            Smart conversion
-          </Box>
-          <Box
-            css={theme({
-              fontSize: '17px',
-              color: 'black70',
-              fontWeight: 'regular',
-              mt: '10px',
-              lineHeight: 1
-            })}
-          >
-            Automatically detects file type, extracts content, and delivers
-            clean, structured output.
-          </Box>
-        </Box>
-      </Flex>
     </Box>
   </Box>
 )
