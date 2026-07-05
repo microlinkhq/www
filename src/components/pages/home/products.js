@@ -244,6 +244,7 @@ const CodeBox = styled(Box)(
     lineHeight: 4
   }),
   css`
+    flex: 1;
     background: ${tone.surfaceSoft};
     border: 1px solid ${tone.borderSoft};
     color: ${syntax.body};
@@ -261,6 +262,7 @@ const DarkBox = styled(Box)(
     lineHeight: 4
   }),
   css`
+    flex: 1;
     background: ${tone.surfaceDark};
   `
 )
