@@ -20,7 +20,7 @@ const tone = {
   faint: '#9aa0ab',
   white: colors.white,
   surface: colors.white,
-  surfaceSoft: '#fafafb',
+  surfaceSoft: '#F7F7FB',
   surfaceDark: '#161821',
   neutral: '#f2f2f4',
   border: '#eef0f4',
@@ -339,50 +339,58 @@ const MarkdownPreview = () => (
   </CodeBox>
 )
 
+const HtmlTag = styled.span`
+  color: ${syntax.key};
+`
+
+const HtmlText = styled.span`
+  color: ${syntax.body};
+`
+
 const HtmlLi = ({ children }) => (
   <Box>
     &nbsp;&nbsp;<Pn>&lt;</Pn>
-    <Tg>li</Tg>
+    <HtmlTag>li</HtmlTag>
     <Pn>&gt;</Pn>
-    <Dt>{children}</Dt>
+    <HtmlText>{children}</HtmlText>
     <Pn>&lt;/</Pn>
-    <Tg>li</Tg>
+    <HtmlTag>li</HtmlTag>
     <Pn>&gt;</Pn>
   </Box>
 )
 
 const HtmlPreview = () => (
-  <DarkBox css={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
+  <CodeBox css={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
     <Box>
       <Pn>&lt;</Pn>
-      <Tg>h1</Tg>
+      <HtmlTag>h1</HtmlTag>
       <Pn>&gt;</Pn>
-      <Dt>Microlink</Dt>
+      <HtmlText>Microlink</HtmlText>
       <Pn>&lt;/</Pn>
-      <Tg>h1</Tg>
+      <HtmlTag>h1</HtmlTag>
       <Pn>&gt;</Pn>
     </Box>
     <Box css={{ height: '10px' }} />
     <Box>
       <Pn>&lt;</Pn>
-      <Tg>p</Tg>
+      <HtmlTag>p</HtmlTag>
       <Pn>&gt;</Pn>
-      <Dt>The universal API for</Dt>
+      <HtmlText>The universal API for</HtmlText>
     </Box>
-    <Dt>&nbsp;&nbsp;web data.</Dt>
+    <HtmlText>&nbsp;&nbsp;web data.</HtmlText>
     <Box css={{ height: '10px' }} />
     <Box>
       <Pn>&lt;</Pn>
-      <Tg>h2</Tg>
+      <HtmlTag>h2</HtmlTag>
       <Pn>&gt;</Pn>
-      <Dt>Features</Dt>
+      <HtmlText>Features</HtmlText>
       <Pn>&lt;/</Pn>
-      <Tg>h2</Tg>
+      <HtmlTag>h2</HtmlTag>
       <Pn>&gt;</Pn>
     </Box>
     <Box>
       <Pn>&lt;</Pn>
-      <Tg>ul</Tg>
+      <HtmlTag>ul</HtmlTag>
       <Pn>&gt;</Pn>
     </Box>
     <HtmlLi>Built for speed</HtmlLi>
@@ -390,10 +398,10 @@ const HtmlPreview = () => (
     <HtmlLi>Structured output</HtmlLi>
     <Box>
       <Pn>&lt;/</Pn>
-      <Tg>ul</Tg>
+      <HtmlTag>ul</HtmlTag>
       <Pn>&gt;</Pn>
     </Box>
-  </DarkBox>
+  </CodeBox>
 )
 
 const FunctionPreview = () => (
