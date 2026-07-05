@@ -1833,15 +1833,15 @@ const CONV_LINE = '#cbcfda'
 const ConvCard = styled(Flex)(
   theme({ bg: 'white' }),
   css`
-    width: 190px;
-    height: 52px;
+    width: 282px;
+    height: 68px;
     align-items: center;
-    gap: 12px;
-    padding: 0 15px;
+    gap: 18px;
+    padding: 0 20px;
     border: 1px solid ${tone.border};
-    border-radius: 14px;
-    box-shadow: ${shadow.panel};
-    font-size: 14px;
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(${SHADOW_INK}, 0.06);
+    font-size: 20px;
     font-weight: 600;
     color: #2b3040;
     white-space: nowrap;
@@ -1850,23 +1850,23 @@ const ConvCard = styled(Flex)(
 )
 
 const ConvOut = styled(Flex)`
-  width: 178px;
-  height: 52px;
+  width: 262px;
+  height: 68px;
   align-items: center;
-  gap: 12px;
-  padding: 0 15px;
-  border-radius: 14px;
+  gap: 18px;
+  padding: 0 18px;
+  border-radius: 18px;
   background: #efeafd;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 600;
   color: #2b3040;
   white-space: nowrap;
 `
 
 const OutTile = styled(Flex)`
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
@@ -1903,42 +1903,42 @@ const LogoNode = () => (
     <Box
       css={{
         position: 'absolute',
-        width: '152px',
-        height: '152px',
+        width: '240px',
+        height: '240px',
         borderRadius: '50%',
         background:
-          'radial-gradient(circle, rgba(236,72,153,0.22), rgba(124,77,255,0.14) 45%, rgba(255,255,255,0) 72%)',
-        filter: 'blur(6px)'
+          'radial-gradient(circle, rgba(236,72,153,0.20), rgba(124,77,255,0.16) 42%, rgba(255,255,255,0) 72%)',
+        filter: 'blur(8px)'
       }}
     />
     <Flex
       css={{
         position: 'relative',
-        width: '100px',
-        height: '100px',
-        borderRadius: '22px',
+        width: '136px',
+        height: '136px',
+        borderRadius: '24px',
         background: tone.white,
         boxShadow:
-          '0 14px 34px rgba(16,24,40,.16), 0 2px 6px rgba(16,24,40,.06)',
+          '0 18px 42px rgba(16,24,40,.16), 0 3px 8px rgba(16,24,40,.06)',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '8px'
+        gap: '7px'
       }}
     >
       <img
         src={LOGO_URI}
         alt='Microlink'
-        css={{ width: '46px', height: 'auto', display: 'block' }}
+        css={{ width: '60px', height: 'auto', display: 'block' }}
       />
       <Box
         as='span'
         css={{
           fontFamily: fonts.sans,
-          fontSize: '13px',
-          fontWeight: 600,
-          color: '#1f2733',
-          letterSpacing: '-0.01em'
+          fontSize: '21px',
+          fontWeight: 700,
+          color: '#111827',
+          lineHeight: 1
         }}
       >
         microlink
@@ -1947,145 +1947,137 @@ const LogoNode = () => (
   </Box>
 )
 
-const INPUT_Y = [26, 92, 158, 224]
-const OUTPUT_Y = [26, 92, 158, 224]
+const INPUT_Y = [34, 122, 210, 298]
+const OUTPUT_Y = [34, 122, 210, 298]
 
 const FileConversionPreview = () => (
   <Box css={{ ...theme({ mt: 3 }), flex: 1 }}>
     <Box
       css={{
-        border: '1px solid #ededf2',
+        border: '1px solid #e9ebf2',
         borderRadius: '24px',
-        padding: '28px 26px',
-        overflowX: 'auto'
+        overflow: 'hidden'
       }}
     >
-      <Box css={{ minWidth: '660px' }}>
-        <Flex css={{ alignItems: 'stretch', height: '250px' }}>
-          <FlowColumn css={{ gap: '14px' }}>
-            {CONVERT_INPUTS.map(f => (
-              <ConvCard key={f.name}>
-                <FileBadge abbr={f.abbr} bg={f.bg} />
-                {f.name}
-              </ConvCard>
-            ))}
-          </FlowColumn>
-          <Box css={{ position: 'relative', flex: 1, minWidth: '30px' }}>
-            {INPUT_Y.map(y => (
-              <DashRun key={y} css={{ right: 0, top: `${y - 1}px` }} />
-            ))}
-          </Box>
-          <BusSvg width='60' height='250' viewBox='0 0 60 250'>
-            <g
-              fill='none'
-              stroke={CONV_LINE}
-              strokeWidth='2'
-              strokeDasharray='6 7'
-              strokeLinecap='round'
-            >
-              <path d='M0 26 C 34 26 34 108 58 108' />
-              <path d='M0 92 C 34 92 34 108 58 108' />
-              <path d='M0 158 C 34 158 34 142 58 142' />
-              <path d='M0 224 C 34 224 34 142 58 142' />
-            </g>
-            <g fill={tone.white} stroke={CONV_LINE} strokeWidth='1.5'>
-              <circle cx='57' cy='108' r='3.5' />
-              <circle cx='57' cy='142' r='3.5' />
-            </g>
-          </BusSvg>
-          <LogoNode />
-          <BusSvg width='60' height='250' viewBox='0 0 60 250'>
-            <g
-              fill='none'
-              stroke={CONV_LINE}
-              strokeWidth='2'
-              strokeDasharray='6 7'
-              strokeLinecap='round'
-            >
-              <path d='M2 108 C 26 108 26 26 60 26' />
-              <path d='M2 108 C 26 108 26 92 60 92' />
-              <path d='M2 142 C 26 142 26 158 60 158' />
-              <path d='M2 142 C 26 142 26 224 60 224' />
-            </g>
-            <g fill={tone.white} stroke={CONV_LINE} strokeWidth='1.5'>
-              <circle cx='3' cy='108' r='3.5' />
-              <circle cx='3' cy='142' r='3.5' />
-            </g>
-          </BusSvg>
-          <Box css={{ position: 'relative', flex: 1, minWidth: '30px' }}>
-            {OUTPUT_Y.map(y => (
-              <React.Fragment key={y}>
-                <DashRun css={{ right: '9px', top: `${y - 1}px` }} />
-                <svg
-                  width='9'
-                  height='10'
-                  viewBox='0 0 9 10'
-                  fill='none'
-                  stroke='#c3c7d2'
-                  strokeWidth='1.7'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  css={{ position: 'absolute', right: 0, top: `${y - 5}px` }}
-                >
-                  <path d='M2 1 L7 5 L2 9' />
-                </svg>
-              </React.Fragment>
-            ))}
-          </Box>
-          <FlowColumn css={{ justifyContent: 'center', gap: '14px' }}>
-            {CONVERT_OUTPUTS.map(o => (
-              <ConvOut key={o.label}>
-                <OutTile css={{ background: o.tile }}>{o.icon}</OutTile>
-                {o.label}
-              </ConvOut>
-            ))}
-          </FlowColumn>
-        </Flex>
+      <Box css={{ padding: '44px 34px 56px', overflowX: 'auto' }}>
+        <Box css={{ minWidth: '1080px' }}>
+          <Flex css={{ alignItems: 'stretch', height: '332px' }}>
+            <FlowColumn css={{ gap: '20px' }}>
+              {CONVERT_INPUTS.map(f => (
+                <ConvCard key={f.name}>
+                  <FileBadge abbr={f.abbr} bg={f.bg} />
+                  {f.name}
+                </ConvCard>
+              ))}
+            </FlowColumn>
+            <Box css={{ position: 'relative', flex: 1, minWidth: '70px' }}>
+              {INPUT_Y.map(y => (
+                <DashRun key={y} css={{ right: 0, top: `${y - 1}px` }} />
+              ))}
+            </Box>
+            <BusSvg width='126' height='332' viewBox='0 0 126 332'>
+              <g
+                fill='none'
+                stroke={CONV_LINE}
+                strokeWidth='2'
+                strokeDasharray='6 7'
+                strokeLinecap='round'
+              >
+                <path d='M0 34 C 82 34 72 149 126 149' />
+                <path d='M0 122 C 78 122 72 149 126 149' />
+                <path d='M0 210 C 78 210 72 183 126 183' />
+                <path d='M0 298 C 82 298 72 183 126 183' />
+              </g>
+            </BusSvg>
+            <LogoNode />
+            <BusSvg width='126' height='332' viewBox='0 0 126 332'>
+              <g
+                fill='none'
+                stroke={CONV_LINE}
+                strokeWidth='2'
+                strokeDasharray='6 7'
+                strokeLinecap='round'
+              >
+                <path d='M0 149 C 54 149 44 34 126 34' />
+                <path d='M0 149 C 54 149 48 122 126 122' />
+                <path d='M0 183 C 54 183 48 210 126 210' />
+                <path d='M0 183 C 54 183 44 298 126 298' />
+              </g>
+            </BusSvg>
+            <Box css={{ position: 'relative', flex: 1, minWidth: '70px' }}>
+              {OUTPUT_Y.map(y => (
+                <React.Fragment key={y}>
+                  <DashRun css={{ right: '12px', top: `${y - 1}px` }} />
+                  <svg
+                    width='12'
+                    height='14'
+                    viewBox='0 0 12 14'
+                    fill='none'
+                    stroke='#c3c7d2'
+                    strokeWidth='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    css={{ position: 'absolute', right: 0, top: `${y - 7}px` }}
+                  >
+                    <path d='M2 1 L10 7 L2 13' />
+                  </svg>
+                </React.Fragment>
+              ))}
+            </Box>
+            <FlowColumn css={{ justifyContent: 'center', gap: '20px' }}>
+              {CONVERT_OUTPUTS.map(o => (
+                <ConvOut key={o.label}>
+                  <OutTile css={{ background: o.tile }}>{o.icon}</OutTile>
+                  {o.label}
+                </ConvOut>
+              ))}
+            </FlowColumn>
+          </Flex>
+        </Box>
       </Box>
-    </Box>
-    <Flex
-      css={{
-        alignItems: 'flex-start',
-        gap: '16px',
-        marginTop: '2px',
-        paddingTop: '22px',
-        borderTop: '1px solid #eeeef2'
-      }}
-    >
       <Flex
         css={{
-          width: '44px',
-          height: '44px',
-          borderRadius: '12px',
-          background: '#e9e3fb',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0
+          alignItems: 'flex-start',
+          gap: '24px',
+          padding: '28px 42px 30px',
+          borderTop: '1px solid #eeeef2'
         }}
       >
-        <svg width='24' height='24' viewBox='0 0 24 24' fill='#6d3fe0'>
-          <path d='M11 2.5l1.5 5.2 5.2 1.5-5.2 1.5L11 15.9 9.5 10.7 4.3 9.2l5.2-1.5z' />
-          <path d='M18.5 13.5l.7 2.4 2.4.7-2.4.7-.7 2.4-.7-2.4-2.4-.7 2.4-.7z' />
-        </svg>
-      </Flex>
-      <Box>
-        <Box css={{ fontWeight: 700, fontSize: '15px', color: tone.ink900 }}>
-          Smart conversion
-        </Box>
-        <Box
+        <Flex
           css={{
-            fontSize: '13px',
-            color: '#6b7180',
-            fontWeight: 500,
-            marginTop: '5px',
-            lineHeight: 1.45
+            width: '62px',
+            height: '62px',
+            borderRadius: '16px',
+            background: '#e9e3fb',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0
           }}
         >
-          Automatically detects file type, extracts content, and delivers clean,
-          structured output.
+          <svg width='34' height='34' viewBox='0 0 24 24' fill='#6d3fe0'>
+            <path d='M11 2.5l1.5 5.2 5.2 1.5-5.2 1.5L11 15.9 9.5 10.7 4.3 9.2l5.2-1.5z' />
+            <path d='M18.5 13.5l.7 2.4 2.4.7-2.4.7-.7 2.4-.7-2.4-2.4-.7 2.4-.7z' />
+          </svg>
+        </Flex>
+        <Box>
+          <Box css={{ fontWeight: 700, fontSize: '22px', color: tone.ink900 }}>
+            Smart conversion
+          </Box>
+          <Box
+            css={{
+              fontSize: '17px',
+              color: '#6b7180',
+              fontWeight: 500,
+              marginTop: '10px',
+              lineHeight: 1.45
+            }}
+          >
+            Automatically detects file type, extracts content, and delivers
+            clean, structured output.
+          </Box>
         </Box>
-      </Box>
-    </Flex>
+      </Flex>
+    </Box>
   </Box>
 )
 
