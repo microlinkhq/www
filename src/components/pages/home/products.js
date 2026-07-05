@@ -913,116 +913,58 @@ const LinkPreview = () => (
   </Box>
 )
 
-const PdfStage = styled(Box)(
-  theme({
-    mt: 3,
-    flex: 1,
-    position: 'relative',
-    overflow: 'hidden',
-    border: 1,
-    borderColor: 'red1',
-    borderRadius: 5,
-    p: [3, 3, 4],
-    minHeight: ['300px', '300px', '340px'],
-    bg: 'red0'
-  }),
-  css`
-    background: radial-gradient(
-        circle at 15% 10%,
-        rgba(255, 255, 255, 0.95),
-        transparent 34%
-      ),
-      linear-gradient(155deg, ${colors.red0} 0%, #fff 44%, ${colors.red0} 100%);
-  `
-)
-
-const PdfFlowCard = styled(Flex)(
+const PdfUrl = styled(Flex)(
   theme({
     alignItems: 'center',
-    bg: 'white',
-    border: 1,
-    borderColor: 'red1',
-    borderRadius: 5,
-    boxShadow: shadow.softer,
-    fontWeight: 'regular',
-    color: 'black80',
-    flexShrink: 0
-  })
-)
-
-const PdfUrl = styled(PdfFlowCard)(
-  theme({
     gap: 2,
-    height: '46px',
+    height: '48px',
     px: 3,
     minWidth: 0,
     flex: 1,
+    bg: 'gray0',
+    borderRadius: '9999px',
+    fontWeight: 'regular',
+    color: 'black80',
     fontSize: [0, 0, 1]
   })
 )
 
-const PdfOutput = styled(PdfFlowCard)(
+const PdfOutput = styled(Flex)(
   theme({
-    gap: 3,
-    height: '46px',
+    alignItems: 'center',
+    gap: 2,
+    height: '48px',
     px: 3,
+    bg: 'red0',
+    borderRadius: '9999px',
     fontSize: 1,
     fontWeight: 'bold',
     color: 'black',
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    flexShrink: 0
   })
 )
 
 const PdfSheet = styled(Box)(
   theme({
-    position: 'absolute',
-    left: ['20px', '24px', '34px'],
-    right: ['-34px', '-28px', '-18px'],
-    top: ['108px', '104px', '98px'],
-    bottom: ['-34px', '-34px', '-26px'],
-    border: 1,
-    borderColor: 'gray2',
-    borderRadius: '18px',
-    bg: 'white',
-    boxShadow: '0 26px 54px rgba(16,24,40,.12), 0 2px 8px rgba(16,24,40,.05)',
+    position: 'relative',
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: 3,
+    bg: 'gray1',
+    borderRadius: 5,
+    p: [3, 3, 4],
     overflow: 'hidden'
-  }),
-  css`
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0) 72%,
-        rgba(248, 249, 250, 0.72) 100%
-      );
-      pointer-events: none;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      right: -1px;
-      bottom: -1px;
-      width: 76px;
-      height: 76px;
-      border-top-left-radius: 24px;
-      background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.96) 0 45%,
-        rgba(226, 232, 240, 0.95) 46% 100%
-      );
-      box-shadow: -14px -14px 28px rgba(16, 24, 40, 0.12);
-    }
-  `
+  })
 )
 
 const PdfBadge = styled(Flex)(
   theme({
     alignItems: 'center',
     justifyContent: 'center',
-    bg: 'red6',
+    bg: 'red7',
     color: 'white',
     borderRadius: 4,
     fontWeight: 'bold',
@@ -1039,8 +981,30 @@ const PdfLineGrid = styled(Box)(
   })
 )
 
+const PdfFold = styled(Box)(
+  theme({
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    width: '56px',
+    height: '56px',
+    bg: 'white',
+    borderTopLeftRadius: 5,
+    boxShadow: '-10px -10px 24px rgba(16,24,40,0.08)'
+  })
+)
+
 const PdfPreview = () => (
-  <PdfStage aria-hidden='true'>
+  <Box
+    aria-hidden='true'
+    css={theme({
+      mt: 3,
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 3
+    })}
+  >
     <Flex css={theme({ alignItems: 'center', gap: 3 })}>
       <PdfUrl>
         <svg
@@ -1048,7 +1012,7 @@ const PdfPreview = () => (
           height='19'
           viewBox='0 0 24 24'
           fill='none'
-          stroke={colors.gray6}
+          stroke={colors.gray7}
           strokeWidth='2'
           strokeLinecap='round'
           strokeLinejoin='round'
@@ -1083,86 +1047,78 @@ const PdfPreview = () => (
         <path d='M2 11h24M18 3l8 8-8 8' />
       </svg>
       <PdfOutput>
-        <PdfBadge css={theme({ width: '30px', height: '30px', fontSize: 0 })}>
-          PDF
-        </PdfBadge>
+        <FileType type='pdf' size={30} />
         PDF
       </PdfOutput>
     </Flex>
 
     <PdfSheet>
-      <Box css={theme({ p: [3, 3, 4], position: 'relative', zIndex: 1 })}>
-        <Flex
+      <PdfBadge css={theme({ width: '52px', height: '30px', fontSize: 0 })}>
+        PDF
+      </PdfBadge>
+
+      <PdfLineGrid>
+        <Box css={theme({ minWidth: 0 })}>
+          <Skel css={theme({ width: '92%', bg: 'gray3', mb: 2 })} />
+          <Skel css={theme({ width: '64%', bg: 'gray3' })} />
+        </Box>
+        <Box css={theme({ display: ['none', 'none', 'block'] })}>
+          <Skel css={theme({ width: '90%', bg: 'gray3', mb: 2 })} />
+          <Skel css={theme({ width: '78%', bg: 'gray3', mb: 2 })} />
+          <Skel css={theme({ width: '42%', bg: 'gray3' })} />
+        </Box>
+      </PdfLineGrid>
+
+      <Flex css={theme({ alignItems: 'center', gap: 4 })}>
+        <Box
           css={theme({
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            mb: [3, 3, 4],
-            gap: 3
+            flex: 1,
+            minWidth: 0,
+            color: 'link',
+            fontSize: 2,
+            fontWeight: 'bold',
+            lineHeight: 0
           })}
         >
-          <PdfBadge css={theme({ width: '46px', height: '30px', fontSize: 0 })}>
-            PDF
-          </PdfBadge>
-          <Box css={theme({ flex: 1, maxWidth: '190px' })}>
-            <Skel css={theme({ width: '100%', bg: 'gray2', mb: 2 })} />
-            <Skel css={theme({ width: '74%', bg: 'gray2' })} />
-          </Box>
-        </Flex>
+          Microlink
+          <br />
+          API Reference
+        </Box>
+        <Box
+          css={theme({
+            width: ['96px', '96px', '128px'],
+            height: ['84px', '84px', '108px'],
+            flexShrink: 0,
+            borderRadius: 4,
+            bg: 'violet1',
+            overflow: 'hidden',
+            position: 'relative'
+          })}
+        >
+          <CornerSvg
+            viewBox='0 0 128 108'
+            preserveAspectRatio='none'
+            width='100%'
+            height='100%'
+          >
+            <circle cx='92' cy='32' r='13' fill={colors.violet3} />
+            <path
+              d='M0 108 L48 50 L82 86 L100 66 L128 94 L128 108 Z'
+              fill={colors.violet3}
+            />
+          </CornerSvg>
+        </Box>
+      </Flex>
 
-        <PdfLineGrid>
-          <Box css={theme({ minWidth: 0 })}>
-            <Box
-              css={theme({
-                color: 'link',
-                fontSize: [2, 2, 3],
-                fontWeight: 'bold',
-                lineHeight: 0,
-                mb: 3
-              })}
-            >
-              Microlink
-              <br />
-              API Reference
-            </Box>
-            <Skel css={theme({ width: '100%', bg: 'gray2', mb: 2 })} />
-            <Skel css={theme({ width: '82%', bg: 'gray2', mb: 2 })} />
-            <Skel css={theme({ width: '94%', bg: 'gray2', mb: 2 })} />
-            <Skel css={theme({ width: '62%', bg: 'gray2' })} />
-          </Box>
-          <Box css={theme({ display: ['none', 'none', 'block'] })}>
-            <Box
-              css={theme({
-                height: '112px',
-                border: 1,
-                borderColor: 'indigo1',
-                borderRadius: 5,
-                bg: 'indigo0',
-                overflow: 'hidden',
-                position: 'relative'
-              })}
-            >
-              <CornerSvg
-                viewBox='0 0 220 122'
-                preserveAspectRatio='none'
-                width='100%'
-                height='100%'
-              >
-                <path
-                  d='M0 122 L70 54 L122 84 L164 46 L220 88 L220 122 Z'
-                  fill={colors.indigo2}
-                />
-                <path
-                  d='M0 122 L86 74 L144 100 L184 74 L220 96 L220 122 Z'
-                  fill={colors.indigo1}
-                />
-                <circle cx='176' cy='34' r='17' fill={colors.indigo2} />
-              </CornerSvg>
-            </Box>
-          </Box>
-        </PdfLineGrid>
+      <Box css={theme({ maxWidth: '72%' })}>
+        <Skel css={theme({ width: '92%', bg: 'gray3', mb: 2 })} />
+        <Skel css={theme({ width: '76%', bg: 'gray3', mb: 2 })} />
+        <Skel css={theme({ width: '54%', bg: 'gray3' })} />
       </Box>
+
+      <PdfFold />
     </PdfSheet>
-  </PdfStage>
+  </Box>
 )
 
 const LOGO_URI = 'https://cdn.microlink.io/logo/logo.svg'

@@ -20,12 +20,14 @@ describe('home products PDF preview', () => {
     expect(preview).not.toContain("margin: '22px -28px -28px 20px'")
   })
 
-  test('keeps the generated sheet readable with a folded corner', () => {
+  test('keeps the generated sheet contained with a folded corner', () => {
     const sheet = between('const PdfSheet', 'const PdfBadge')
     const preview = between('const PdfPreview', 'const LOGO_URI')
 
-    expect(sheet).toContain("top: ['108px', '104px', '98px']")
-    expect(sheet).toContain('&::after')
+    expect(sheet).toContain("bg: 'gray1'")
+    expect(sheet).toContain("overflow: 'hidden'")
+    expect(sheet).not.toContain("position: 'absolute'")
+    expect(preview).toContain('<PdfFold />')
     expect(preview).toContain('Microlink')
     expect(preview).toContain('API Reference')
   })

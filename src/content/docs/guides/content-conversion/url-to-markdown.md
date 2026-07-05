@@ -6,7 +6,6 @@ description: 'Use Microlink API to convert any URL — a web page, a PDF, or a d
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
-import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 Use [attr](/docs/mql/data/attr) with `markdown` to serialize any URL as Markdown. This is the direct recipe for LLM ingestion, RAG pipelines, docs imports, and any workflow that should not carry raw HTML.
 
@@ -114,25 +113,7 @@ Point [url](/docs/api/parameters/url) at a YouTube video URL — `watch`, `youtu
 
 <Figcaption>Read the caption transcript from <code>data.transcript</code>.</Figcaption>
 
-Manual (human-authored) subtitles are preferred over automatic captions. Set `lang` to pick a caption language; it defaults to `en`, then falls back to the video's own language, then to the first available track.
-
-<MultiCodeEditorInteractive
-  height={280}
-  mqlCode={{
-    url: 'https://www.youtube.com/watch?v=tY2M2g-tG1Q',
-    lang: 'es',
-    data: {
-      transcript: {
-        attr: 'markdown'
-      }
-    },
-    meta: false
-  }}
-/>
-
-<Figcaption>Set <code>lang</code> to choose the caption language.</Figcaption>
-
-Because YouTube blocks datacenter traffic, transcript extraction runs through a residential proxy and is a <ProBadge /> feature. Videos without captions — and live, private, or age-restricted videos — return the standard metadata without a transcript body.
+The transcript is the video's own caption language — manual subtitles when the creator provided them, otherwise the auto-generated ones. Videos without captions, and live or private videos, return the standard metadata without a transcript body.
 
 ## Supported source formats
 
