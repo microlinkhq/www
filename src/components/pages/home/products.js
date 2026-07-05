@@ -404,24 +404,69 @@ const HtmlPreview = () => (
   </CodeBox>
 )
 
+const NodeLabel = ({ children }) => (
+  <Flex css={{ alignItems: 'center', gap: '7px', marginBottom: '12px' }}>
+    <Box
+      as='span'
+      css={{
+        width: '7px',
+        height: '7px',
+        borderRadius: '50%',
+        background: '#2f7ff0'
+      }}
+    />
+    <Box
+      as='span'
+      css={{
+        fontFamily: fonts.sans,
+        fontWeight: 600,
+        fontSize: '13px',
+        color: tone.ink900
+      }}
+    >
+      {children}
+    </Box>
+  </Flex>
+)
+
 const FunctionPreview = () => (
-  <DarkBox css={{ lineHeight: 1.9 }}>
-    <Box>
-      <Tg>export default async function</Tg>
-    </Box>
-    <Dt>
-      ({'{ page, $ }'}) {'{'}
-    </Dt>
-    <Box>
-      &nbsp;&nbsp;<Pn>const</Pn> <Dt>title = $(</Dt>
-      <Gr>&apos;h1&apos;</Gr>
-      <Dt>).text();</Dt>
-    </Box>
-    <Box>
-      &nbsp;&nbsp;<Tg>return</Tg> <Dt>{'{ title };'}</Dt>
-    </Box>
-    <Dt>{'}'}</Dt>
-  </DarkBox>
+  <Flex
+    css={theme({
+      mt: 3,
+      flex: 1,
+      gap: '14px',
+      flexDirection: ['column', 'column', 'row']
+    })}
+  >
+    <DarkBox css={{ marginTop: 0, flex: 1.7, lineHeight: 1.9 }}>
+      <Box>
+        <Tg>export default async function</Tg>
+      </Box>
+      <Dt>
+        ({'{ page, $ }'}) {'{'}
+      </Dt>
+      <Box>
+        &nbsp;&nbsp;<Pn>const</Pn> <Dt>title = $(</Dt>
+        <Gr>&apos;h1&apos;</Gr>
+        <Dt>).text();</Dt>
+      </Box>
+      <Box>
+        &nbsp;&nbsp;<Tg>return</Tg> <Dt>{'{ title };'}</Dt>
+      </Box>
+      <Dt>{'}'}</Dt>
+    </DarkBox>
+    <CodeBox
+      css={{ marginTop: 0, flex: 1, whiteSpace: 'pre', overflow: 'hidden' }}
+    >
+      <NodeLabel>Result</NodeLabel>
+      <Box>
+        {'{\n'}
+        {'  '}
+        <K>&quot;title&quot;</K>: <V>&quot;Microlink&quot;</V>
+        {'\n}'}
+      </Box>
+    </CodeBox>
+  </Flex>
 )
 
 const TextPreview = () => (
@@ -863,86 +908,110 @@ const LogoPreview = () => (
 )
 
 const SearchPreview = () => (
-  <Box css={theme({ mt: 3 })}>
-    <Flex
-      css={{
-        border: `1px solid ${tone.border}`,
-        borderRadius: '20px',
-        padding: '9px 14px',
-        alignItems: 'center',
-        gap: '9px',
-        boxShadow: shadow.softer
-      }}
-    >
-      <svg
-        width='14'
-        height='14'
-        viewBox='0 0 24 24'
-        fill='none'
-        stroke='#9aa0ab'
-        strokeWidth='2'
-        strokeLinecap='round'
-      >
-        <circle cx='11' cy='11' r='7' />
-        <path d='M21 21l-4.3-4.3' />
-      </svg>
-      <Box as='span' css={{ color: syntax.body, fontSize: '13px' }}>
-        best api for web data
-      </Box>
-    </Flex>
-    <Flex
-      css={{
-        gap: '16px',
-        fontSize: '12px',
-        color: tone.faint,
-        margin: '14px 2px 12px',
-        borderBottom: `1px solid ${tone.borderSoft}`,
-        paddingBottom: '8px'
-      }}
-    >
-      <Box
-        as='span'
-        css={{
-          color: '#2f7ff0',
-          fontWeight: 600,
-          borderBottom: '2px solid #2f7ff0',
-          paddingBottom: '9px',
-          marginBottom: '-9px'
-        }}
-      >
-        All
-      </Box>
-      <span>News</span>
-      <span>Images</span>
-    </Flex>
-    <Flex css={{ alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+  <Flex
+    css={theme({
+      mt: 3,
+      flex: 1,
+      gap: '24px',
+      flexDirection: ['column', 'column', 'row']
+    })}
+  >
+    <Box css={{ flex: 1 }}>
       <Flex
         css={{
-          width: '24px',
-          height: '24px',
-          borderRadius: '50%',
-          background: tone.ink900,
-          color: tone.white,
+          border: `1px solid ${tone.border}`,
+          borderRadius: '20px',
+          padding: '9px 14px',
           alignItems: 'center',
-          justifyContent: 'center',
-          fontWeight: 800,
-          fontSize: '11px'
+          gap: '9px',
+          boxShadow: shadow.softer
         }}
       >
-        M
+        <svg
+          width='14'
+          height='14'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='#9aa0ab'
+          strokeWidth='2'
+          strokeLinecap='round'
+        >
+          <circle cx='11' cy='11' r='7' />
+          <path d='M21 21l-4.3-4.3' />
+        </svg>
+        <Box as='span' css={{ color: syntax.body, fontSize: '13px' }}>
+          best api for web data
+        </Box>
       </Flex>
-      <Box css={{ lineHeight: 1.1 }}>
-        <Box css={{ fontSize: '12px', fontWeight: 600 }}>Microlink</Box>
-        <Box css={{ fontSize: '11px', color: tone.faint }}>microlink.io</Box>
+      <Flex
+        css={{
+          gap: '16px',
+          fontSize: '12px',
+          color: tone.faint,
+          margin: '14px 2px 12px',
+          borderBottom: `1px solid ${tone.borderSoft}`,
+          paddingBottom: '8px'
+        }}
+      >
+        <Box
+          as='span'
+          css={{
+            color: '#2f7ff0',
+            fontWeight: 600,
+            borderBottom: '2px solid #2f7ff0',
+            paddingBottom: '9px',
+            marginBottom: '-9px'
+          }}
+        >
+          All
+        </Box>
+        <span>News</span>
+        <span>Images</span>
+      </Flex>
+      <Flex css={{ alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+        <Flex
+          css={{
+            width: '24px',
+            height: '24px',
+            borderRadius: '50%',
+            background: tone.ink900,
+            color: tone.white,
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 800,
+            fontSize: '11px'
+          }}
+        >
+          M
+        </Flex>
+        <Box css={{ lineHeight: 1.1 }}>
+          <Box css={{ fontSize: '12px', fontWeight: 600 }}>Microlink</Box>
+          <Box css={{ fontSize: '11px', color: tone.faint }}>microlink.io</Box>
+        </Box>
+      </Flex>
+      <Box css={{ color: '#1a56db', fontSize: '15px', fontWeight: 600 }}>
+        Microlink — The universal API
       </Box>
-    </Flex>
-    <Box css={{ color: '#1a56db', fontSize: '15px', fontWeight: 600 }}>
-      Microlink — The universal API
+      <Box css={{ color: syntax.muted, fontSize: '12.5px', marginTop: '3px' }}>
+        One API to turn any URL into structured data.
+      </Box>
     </Box>
-    <Box css={{ color: syntax.muted, fontSize: '12.5px', marginTop: '3px' }}>
-      One API to turn any URL into structured data.
-    </Box>
-  </Box>
+    <CodeBox
+      css={{ marginTop: 0, flex: 1, whiteSpace: 'pre', overflow: 'hidden' }}
+    >
+      <NodeLabel>Structured data</NodeLabel>
+      <Box>
+        {'[\n  {\n'}
+        {'    '}
+        <K>&quot;title&quot;</K>: <V>&quot;Microlink&quot;</V>
+        {',\n    '}
+        <K>&quot;url&quot;</K>: <V>&quot;https://microlink.io&quot;</V>
+        {',\n    '}
+        <K>&quot;position&quot;</K>: <V>1</V>
+        {'\n  }\n]'}
+      </Box>
+    </CodeBox>
+  </Flex>
 )
 
 const Chip = styled(Flex)(
@@ -1689,7 +1758,7 @@ const Products = () => (
 
     <GridArea>
       <Grid>
-        <Row $template='1.35fr 1.2fr 1.55fr'>
+        <Row $template='4fr 3fr 5fr'>
           <Feature vertical='metadata' icon={<MetadataIcon />}>
             <MetadataPreview />
           </Feature>
@@ -1701,7 +1770,7 @@ const Products = () => (
           </Feature>
         </Row>
 
-        <Row $template='1.3fr 1.05fr 1.2fr'>
+        <Row $template='5fr 3fr 4fr'>
           <Feature vertical='html' icon={<CodeIcon stroke={TILE.html.color} />}>
             <HtmlPreview />
           </Feature>
@@ -1713,19 +1782,7 @@ const Products = () => (
           </Feature>
         </Row>
 
-        <Row $template='2.5fr 1fr 1fr'>
-          <Feature vertical='search' icon={<SearchIcon />}>
-            <SearchPreview />
-          </Feature>
-          <Feature vertical='pdf' icon={<PdfIcon />}>
-            <PdfPreview />
-          </Feature>
-          <Feature vertical='logo' icon={<LogoIcon />}>
-            <LogoPreview />
-          </Feature>
-        </Row>
-
-        <Row $template='1fr 1.75fr 1.1fr'>
+        <Row $template='4fr 8fr'>
           <Feature vertical='technologies' icon={<TechIcon />}>
             <TechPreview />
           </Feature>
@@ -1735,15 +1792,13 @@ const Products = () => (
           >
             <FunctionPreview />
           </Feature>
-          <Feature vertical='text' icon={<TextIcon />}>
-            <TextPreview />
-          </Feature>
         </Row>
 
-        <Row $template='1fr 1.35fr 1fr'>
-          <Feature vertical='lighthouse' icon={<LighthouseIcon />}>
-            <LighthousePreview />
-          </Feature>
+        <Feature vertical='search' icon={<SearchIcon />}>
+          <SearchPreview />
+        </Feature>
+
+        <Row $template='8fr 4fr'>
           <Feature vertical='automation' icon={<AutomationIcon />}>
             <AutomationPreview />
           </Feature>
@@ -1752,15 +1807,30 @@ const Products = () => (
           </Feature>
         </Row>
 
-        <Row $template='1fr 1fr 1fr'>
+        <Row $template='4fr 4fr 4fr'>
+          <Feature vertical='lighthouse' icon={<LighthouseIcon />}>
+            <LighthousePreview />
+          </Feature>
+          <Feature vertical='text' icon={<TextIcon />}>
+            <TextPreview />
+          </Feature>
+          <Feature vertical='animated' icon={<AnimatedIcon />}>
+            <AnimatedPreview />
+          </Feature>
+        </Row>
+
+        <Row $template='3fr 3fr 3fr 3fr'>
           <Feature vertical='video' icon={<VideoIcon />}>
             <VideoPreview />
           </Feature>
           <Feature vertical='audio' icon={<AudioIcon />}>
             <AudioPreview />
           </Feature>
-          <Feature vertical='animated' icon={<AnimatedIcon />}>
-            <AnimatedPreview />
+          <Feature vertical='pdf' icon={<PdfIcon />}>
+            <PdfPreview />
+          </Feature>
+          <Feature vertical='logo' icon={<LogoIcon />}>
+            <LogoPreview />
           </Feature>
         </Row>
       </Grid>
