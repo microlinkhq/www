@@ -47,7 +47,8 @@ export const DOC_TABS = [
   {
     name: 'CARDS',
     path: '/docs/cards/getting-started/overview'
-  }
+  },
+  { name: 'Skills ✨', path: '/skills' }
 ]
 
 const ROUTES_SDK = [
