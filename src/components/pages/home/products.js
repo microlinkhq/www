@@ -113,7 +113,7 @@ const GridArea = styled.div(
 const Grid = styled.div(
   theme({ gap: GAP }),
   css`
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -333,6 +333,8 @@ const MarkdownPreview = () => (
     <Box css={{ color: syntax.mdH2 }}>## Features</Box>
     <Box>- Built for speed</Box>
     <Box>- Reliable interface</Box>
+    <Box>- Structured output</Box>
+    <Box>- AI-ready content</Box>
   </CodeBox>
 )
 
