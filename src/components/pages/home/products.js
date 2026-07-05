@@ -643,54 +643,6 @@ const CornerSvg = styled.svg`
   left: 0;
 `
 
-const metaGlyph = {
-  width: 14,
-  height: 14,
-  viewBox: '0 0 24 24',
-  fill: 'none',
-  stroke: '#9aa0ab',
-  strokeWidth: 1.8,
-  strokeLinecap: 'round',
-  strokeLinejoin: 'round'
-}
-
-const META_GLYPHS = [
-  <svg key='globe' {...metaGlyph}>
-    <circle cx='12' cy='12' r='9' />
-    <path d='M3 12h18M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18' />
-  </svg>,
-  <svg key='calendar' {...metaGlyph}>
-    <rect x='3' y='5' width='18' height='16' rx='2.5' />
-    <path d='M3 9.5h18M8 3v4M16 3v4' />
-  </svg>,
-  <svg key='clock' {...metaGlyph}>
-    <circle cx='12' cy='12' r='9' />
-    <path d='M12 7.5V12l3 2' />
-  </svg>,
-  <svg key='person' {...metaGlyph}>
-    <circle cx='12' cy='8' r='3.5' />
-    <path d='M5.5 20a6.5 6.5 0 0 1 13 0' />
-  </svg>
-]
-
-const MetaIcon = styled(Flex)`
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  background: ${tone.neutral};
-`
-
-const MetaDot = styled.span`
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  background: ${tone.dotIdle};
-`
-
 const LinkPreview = () => (
   <Box
     css={{
@@ -739,7 +691,7 @@ const LinkPreview = () => (
         />
       </CornerSvg>
     </Box>
-    <Box css={{ padding: '16px 16px 0' }}>
+    <Box css={{ padding: '16px' }}>
       <Flex css={{ alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
         <Box
           css={{
@@ -758,23 +710,6 @@ const LinkPreview = () => (
         <Skel css={{ width: '48%' }} />
       </Box>
     </Box>
-    <Flex
-      css={{
-        alignItems: 'center',
-        gap: '8px',
-        padding: '15px 16px',
-        marginTop: '18px',
-        borderTop: `1px solid ${tone.borderSoft}`
-      }}
-    >
-      {META_GLYPHS.map((glyph, i) => (
-        <React.Fragment key={glyph.key}>
-          {i > 0 && <MetaDot />}
-          <MetaIcon>{glyph}</MetaIcon>
-          <Skel css={{ width: '30px', flexShrink: 0 }} />
-        </React.Fragment>
-      ))}
-    </Flex>
   </Box>
 )
 
