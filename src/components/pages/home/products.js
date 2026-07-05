@@ -789,66 +789,256 @@ const LinkPreview = () => (
   </Box>
 )
 
+const PdfStage = styled(Box)(
+  theme({
+    mt: 3,
+    flex: 1,
+    position: 'relative',
+    overflow: 'hidden',
+    border: 1,
+    borderColor: 'red1',
+    borderRadius: 5,
+    p: [3, 3, 4],
+    minHeight: ['300px', '300px', '340px'],
+    bg: 'red0'
+  }),
+  css`
+    background: radial-gradient(
+        circle at 15% 10%,
+        rgba(255, 255, 255, 0.95),
+        transparent 34%
+      ),
+      linear-gradient(155deg, #fff7f7 0%, #fff 44%, #fff1f1 100%);
+  `
+)
+
+const PdfFlowCard = styled(Flex)(
+  theme({
+    alignItems: 'center',
+    bg: 'white',
+    border: 1,
+    borderColor: 'red1',
+    borderRadius: 5,
+    boxShadow: shadow.softer,
+    fontWeight: 'regular',
+    color: 'black80',
+    flexShrink: 0
+  })
+)
+
+const PdfUrl = styled(PdfFlowCard)(
+  theme({
+    gap: 2,
+    height: '46px',
+    px: 3,
+    minWidth: 0,
+    flex: 1,
+    fontSize: [0, 0, 1]
+  })
+)
+
+const PdfOutput = styled(PdfFlowCard)(
+  theme({
+    gap: 3,
+    height: '46px',
+    px: 3,
+    fontSize: 1,
+    fontWeight: 'bold',
+    color: 'black',
+    whiteSpace: 'nowrap'
+  })
+)
+
+const PdfSheet = styled(Box)(
+  theme({
+    position: 'absolute',
+    left: ['20px', '24px', '34px'],
+    right: ['-34px', '-28px', '-18px'],
+    top: ['108px', '104px', '98px'],
+    bottom: ['-34px', '-34px', '-26px'],
+    border: 1,
+    borderColor: 'gray2',
+    borderRadius: '18px',
+    bg: 'white',
+    boxShadow: '0 26px 54px rgba(16,24,40,.12), 0 2px 8px rgba(16,24,40,.05)',
+    overflow: 'hidden'
+  }),
+  css`
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 72%,
+        rgba(248, 249, 250, 0.72) 100%
+      );
+      pointer-events: none;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: -1px;
+      bottom: -1px;
+      width: 76px;
+      height: 76px;
+      border-top-left-radius: 24px;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.96) 0 45%,
+        rgba(226, 232, 240, 0.95) 46% 100%
+      );
+      box-shadow: -14px -14px 28px rgba(16, 24, 40, 0.12);
+    }
+  `
+)
+
+const PdfBadge = styled(Flex)(
+  theme({
+    alignItems: 'center',
+    justifyContent: 'center',
+    bg: 'red6',
+    color: 'white',
+    borderRadius: 4,
+    fontWeight: 'bold',
+    boxShadow: '0 8px 18px rgba(240,62,62,.28)'
+  })
+)
+
+const PdfLineGrid = styled(Box)(
+  theme({
+    display: 'grid',
+    gridTemplateColumns: ['1fr', '1fr', '1fr 1fr'],
+    columnGap: 5,
+    rowGap: 3
+  })
+)
+
 const PdfPreview = () => (
-  <Box css={{ position: 'relative', margin: '22px -28px -28px 20px' }}>
-    <Box
-      css={{
-        background: tone.surfaceSoft,
-        border: `1px solid ${tone.border}`,
-        borderRight: 'none',
-        borderBottom: 'none',
-        borderRadius: `${radius.inner} 0 0 0`,
-        padding: '18px 18px 24px'
-      }}
-    >
-      <Skel
-        css={{
-          width: '34%',
-          height: '7px',
-          background: '#e8e8ec',
-          marginBottom: '8px'
-        }}
-      />
-      <Skel
-        css={{
-          width: '50%',
-          height: '7px',
-          background: '#e8e8ec',
-          marginBottom: '26px'
-        }}
-      />
-      <Box css={{ fontSize: '16px', fontWeight: 800, lineHeight: 1.3 }}>
-        Microlink
-        <br />
-        API Reference
+  <PdfStage aria-hidden='true'>
+    <Flex css={theme({ alignItems: 'center', gap: 3 })}>
+      <PdfUrl>
+        <svg
+          width='19'
+          height='19'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke={colors.gray6}
+          strokeWidth='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          css={theme({ flexShrink: 0 })}
+        >
+          <circle cx='12' cy='12' r='10' />
+          <path d='M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20' />
+        </svg>
+        <Box
+          as='span'
+          css={theme({
+            minWidth: 0,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap'
+          })}
+        >
+          https://microlink.io
+        </Box>
+      </PdfUrl>
+      <svg
+        width='30'
+        height='22'
+        viewBox='0 0 30 22'
+        fill='none'
+        stroke={colors.gray4}
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        css={theme({ flexShrink: 0, display: ['none', 'block'] })}
+      >
+        <path d='M2 11h24M18 3l8 8-8 8' />
+      </svg>
+      <PdfOutput>
+        <PdfBadge css={theme({ width: '30px', height: '30px', fontSize: 0 })}>
+          PDF
+        </PdfBadge>
+        PDF
+      </PdfOutput>
+    </Flex>
+
+    <PdfSheet>
+      <Box css={theme({ p: [3, 3, 4], position: 'relative', zIndex: 1 })}>
+        <Flex
+          css={theme({
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            mb: [3, 3, 4],
+            gap: 3
+          })}
+        >
+          <PdfBadge css={theme({ width: '46px', height: '30px', fontSize: 0 })}>
+            PDF
+          </PdfBadge>
+          <Box css={theme({ flex: 1, maxWidth: '190px' })}>
+            <Skel css={theme({ width: '100%', bg: 'gray2', mb: 2 })} />
+            <Skel css={theme({ width: '74%', bg: 'gray2' })} />
+          </Box>
+        </Flex>
+
+        <PdfLineGrid>
+          <Box css={theme({ minWidth: 0 })}>
+            <Box
+              css={theme({
+                color: 'link',
+                fontSize: [2, 2, 3],
+                fontWeight: 'bold',
+                lineHeight: 0,
+                mb: 3
+              })}
+            >
+              Microlink
+              <br />
+              API Reference
+            </Box>
+            <Skel css={theme({ width: '100%', bg: 'gray2', mb: 2 })} />
+            <Skel css={theme({ width: '82%', bg: 'gray2', mb: 2 })} />
+            <Skel css={theme({ width: '94%', bg: 'gray2', mb: 2 })} />
+            <Skel css={theme({ width: '62%', bg: 'gray2' })} />
+          </Box>
+          <Box css={theme({ display: ['none', 'none', 'block'] })}>
+            <Box
+              css={theme({
+                height: '112px',
+                border: 1,
+                borderColor: 'indigo1',
+                borderRadius: 5,
+                bg: 'indigo0',
+                overflow: 'hidden',
+                position: 'relative'
+              })}
+            >
+              <CornerSvg
+                viewBox='0 0 220 122'
+                preserveAspectRatio='none'
+                width='100%'
+                height='100%'
+              >
+                <path
+                  d='M0 122 L70 54 L122 84 L164 46 L220 88 L220 122 Z'
+                  fill={colors.indigo2}
+                />
+                <path
+                  d='M0 122 L86 74 L144 100 L184 74 L220 96 L220 122 Z'
+                  fill={colors.indigo1}
+                />
+                <circle cx='176' cy='34' r='17' fill={colors.indigo2} />
+              </CornerSvg>
+            </Box>
+          </Box>
+        </PdfLineGrid>
       </Box>
-      <Skel
-        css={{
-          width: '44%',
-          height: '7px',
-          background: '#e8e8ec',
-          marginTop: '18px'
-        }}
-      />
-    </Box>
-    <Box
-      as='span'
-      css={{
-        position: 'absolute',
-        top: '12px',
-        right: '28px',
-        background: '#ef4444',
-        color: tone.white,
-        fontWeight: 800,
-        fontSize: '12px',
-        padding: '6px 11px',
-        borderRadius: '7px',
-        boxShadow: '0 6px 14px rgba(239,68,68,.35)'
-      }}
-    >
-      PDF
-    </Box>
-  </Box>
+    </PdfSheet>
+  </PdfStage>
 )
 
 const LOGO_URI = 'https://cdn.microlink.io/logo/logo.svg'
