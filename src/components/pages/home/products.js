@@ -1588,6 +1588,7 @@ const VideoPreview = () => (
     css={theme({
       flex: 1,
       mt: 3,
+      gap: 3,
       flexDirection: 'column',
       justifyContent: 'center'
     })}
@@ -1597,7 +1598,7 @@ const VideoPreview = () => (
         borderRadius: radius.inner,
         overflow: 'hidden',
         position: 'relative',
-        height: '160px',
+        aspectRatio: '16 / 9',
         background: 'linear-gradient(150deg,#c9d6e8,#8ea4c4 55%,#3a4a63)'
       }}
     >
@@ -1684,6 +1685,28 @@ const VideoPreview = () => (
         </Box>
       </Flex>
     </Box>
+    <Flex
+      css={theme({
+        alignItems: 'center',
+        gap: 2,
+        px: 3,
+        height: '44px',
+        border: 1,
+        borderColor: 'gray2',
+        borderRadius: 5,
+        bg: 'white',
+        boxShadow: shadow.softer,
+        fontFamily: 'mono',
+        fontSize: 0,
+        color: 'black80',
+        whiteSpace: 'nowrap'
+      })}
+    >
+      video.mp4
+      <Box as='span' css={theme({ ml: 'auto', color: 'gray6' })}>
+        1080p · 12.4&nbsp;MB
+      </Box>
+    </Flex>
   </Flex>
 )
 
@@ -2439,8 +2462,8 @@ const Products = () => (
         <Feature vertical='video'>
           <VideoPreview />
         </Feature>
-        <Feature vertical='audio'>
-          <AudioPreview />
+        <Feature vertical='text'>
+          <TextPreview />
         </Feature>
         <Feature vertical='animated'>
           <AnimatedPreview />
@@ -2454,8 +2477,8 @@ const Products = () => (
         <Feature vertical='sdk'>
           <SdkPreview />
         </Feature>
-        <Feature vertical='text'>
-          <TextPreview />
+        <Feature vertical='audio'>
+          <AudioPreview />
         </Feature>
       </Row>
     </Grid>
