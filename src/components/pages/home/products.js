@@ -1797,6 +1797,12 @@ const CONVERT_INPUTS = [
   }
 ]
 
+const OUT_ICON = {
+  fill: 'none',
+  strokeLinecap: 'round',
+  strokeLinejoin: 'round'
+}
+
 const CONVERT_OUTPUTS = [
   {
     label: 'HTML',
@@ -1806,13 +1812,11 @@ const CONVERT_OUTPUTS = [
         width='22'
         height='22'
         viewBox='0 0 24 24'
-        fill='none'
         stroke='#6d3fe0'
-        strokeWidth='2.1'
-        strokeLinecap='round'
-        strokeLinejoin='round'
+        strokeWidth='1.9'
+        {...OUT_ICON}
       >
-        <path d='M8.5 8l-4 4 4 4M15.5 8l4 4-4 4' />
+        <path d='M8 8l-4 4 4 4M16 8l4 4-4 4' />
       </svg>
     )
   },
@@ -1821,16 +1825,15 @@ const CONVERT_OUTPUTS = [
     tile: '#7c4dff',
     icon: (
       <svg
-        width='23'
-        height='23'
+        width='24'
+        height='24'
         viewBox='0 0 24 24'
-        fill='none'
         stroke={tone.white}
-        strokeWidth='2'
-        strokeLinecap='round'
-        strokeLinejoin='round'
+        strokeWidth='1.7'
+        {...OUT_ICON}
       >
-        <path d='M6 16V8l3 3.4L12 8v8M16 8v5.5M13.6 11.6 16 14l2.4-2.4' />
+        <rect x='3' y='6' width='18' height='12' rx='2' />
+        <path d='M6 15v-6l3 3 3-3v6M17 9v6M14.5 12.5 17 15l2.5-2.5' />
       </svg>
     )
   },
@@ -1842,13 +1845,28 @@ const CONVERT_OUTPUTS = [
         width='22'
         height='22'
         viewBox='0 0 24 24'
-        fill='none'
         stroke='#6d3fe0'
-        strokeWidth='2.2'
-        strokeLinecap='round'
-        strokeLinejoin='round'
+        strokeWidth='2'
+        {...OUT_ICON}
       >
-        <path d='M5 6h14M12 6v12M9 18h6' />
+        <path d='M5 5h14M12 5v14M9 19h6' />
+      </svg>
+    )
+  },
+  {
+    label: 'PDF',
+    tile: '#e0d6fb',
+    icon: (
+      <svg
+        width='21'
+        height='21'
+        viewBox='0 0 24 24'
+        stroke='#6d3fe0'
+        strokeWidth='1.8'
+        {...OUT_ICON}
+      >
+        <path d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z' />
+        <path d='M14 3v5h5' />
       </svg>
     )
   }
@@ -1879,22 +1897,22 @@ const ConvCard = styled(Flex)(
 
 const ConvOut = styled(Flex)`
   width: 178px;
-  height: 56px;
+  height: 52px;
   align-items: center;
-  gap: 13px;
-  padding: 0 16px;
+  gap: 12px;
+  padding: 0 15px;
   border-radius: 14px;
   background: #efeafd;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   color: #2b3040;
   white-space: nowrap;
 `
 
 const OutTile = styled(Flex)`
-  width: 38px;
-  height: 38px;
-  border-radius: 11px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
@@ -1949,7 +1967,7 @@ const ConvertHub = () => (
 )
 
 const INPUT_Y = [26, 92, 158, 224]
-const OUTPUT_Y = [49, 125, 201]
+const OUTPUT_Y = [26, 92, 158, 224]
 
 const FileConversionPreview = () => (
   <Box css={{ ...theme({ mt: 3 }), flex: 1 }}>
@@ -2019,9 +2037,10 @@ const FileConversionPreview = () => (
             strokeDasharray='6 7'
             strokeLinecap='round'
           >
-            <path d='M0 125 H12 Q20 125 20 117 V57 Q20 49 28 49 H44' />
-            <path d='M0 125 H44' />
-            <path d='M0 125 H12 Q20 125 20 133 V193 Q20 201 28 201 H44' />
+            <path d='M0 125 H12 Q20 125 20 117 V34 Q20 26 28 26 H44' />
+            <path d='M0 125 H12 Q20 125 20 117 V100 Q20 92 28 92 H44' />
+            <path d='M0 125 H12 Q20 125 20 133 V150 Q20 158 28 158 H44' />
+            <path d='M0 125 H12 Q20 125 20 133 V216 Q20 224 28 224 H44' />
           </BusSvg>
           <Box css={{ position: 'relative', flex: 1, minWidth: '30px' }}>
             {OUTPUT_Y.map(y => (
@@ -2043,7 +2062,7 @@ const FileConversionPreview = () => (
               </React.Fragment>
             ))}
           </Box>
-          <FlowColumn css={{ justifyContent: 'center', gap: '20px' }}>
+          <FlowColumn css={{ justifyContent: 'center', gap: '14px' }}>
             {CONVERT_OUTPUTS.map(o => (
               <ConvOut key={o.label}>
                 <OutTile css={{ background: o.tile }}>{o.icon}</OutTile>
