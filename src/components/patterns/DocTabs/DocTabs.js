@@ -71,6 +71,7 @@ const DocTabs = ({ activeRouteName }) => {
               >
                 {tab.name}
               </Text>
+              {tab.icon && <tab.icon width='14px' height='14px' />}
             </Flex>
           </TabButton>
         ))}
