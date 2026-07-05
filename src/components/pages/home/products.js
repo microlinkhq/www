@@ -1584,99 +1584,107 @@ const LighthousePreview = () => (
 )
 
 const VideoPreview = () => (
-  <Box
-    css={{
-      ...theme({ mt: 3 }),
-      borderRadius: radius.inner,
-      overflow: 'hidden',
-      position: 'relative',
-      height: '160px',
-      background: 'linear-gradient(150deg,#c9d6e8,#8ea4c4 55%,#3a4a63)'
-    }}
+  <Flex
+    css={theme({
+      flex: 1,
+      mt: 3,
+      flexDirection: 'column',
+      justifyContent: 'center'
+    })}
   >
     <Box
       css={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: '70px',
-        background: 'linear-gradient(0deg,#2b384d,transparent)'
-      }}
-    />
-    <Flex
-      css={{
-        position: 'absolute',
-        inset: 0,
-        alignItems: 'center',
-        justifyContent: 'center'
+        borderRadius: radius.inner,
+        overflow: 'hidden',
+        position: 'relative',
+        height: '160px',
+        background: 'linear-gradient(150deg,#c9d6e8,#8ea4c4 55%,#3a4a63)'
       }}
     >
+      <Box
+        css={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: '70px',
+          background: 'linear-gradient(0deg,#2b384d,transparent)'
+        }}
+      />
       <Flex
         css={{
-          width: '46px',
-          height: '46px',
-          borderRadius: '50%',
-          background: 'rgba(0,0,0,.4)',
+          position: 'absolute',
+          inset: 0,
           alignItems: 'center',
           justifyContent: 'center'
         }}
       >
-        <svg width='16' height='16' viewBox='0 0 24 24' fill='#fff'>
-          <path d='M8 5v14l11-7z' />
-        </svg>
+        <Flex
+          css={{
+            width: '46px',
+            height: '46px',
+            borderRadius: '50%',
+            background: 'rgba(0,0,0,.4)',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <svg width='16' height='16' viewBox='0 0 24 24' fill='#fff'>
+            <path d='M8 5v14l11-7z' />
+          </svg>
+        </Flex>
       </Flex>
-    </Flex>
-    <Flex
-      css={{
-        position: 'absolute',
-        bottom: '12px',
-        left: '14px',
-        right: '14px',
-        alignItems: 'center',
-        gap: '8px'
-      }}
-    >
-      <svg width='12' height='12' viewBox='0 0 24 24' fill='#fff'>
-        <path d='M8 5v14l11-7z' />
-      </svg>
-      <Box
-        as='span'
-        css={{ color: tone.white, fontSize: '11px', fontFamily: MONO }}
-      >
-        0:00
-      </Box>
-      <Box
-        as='span'
+      <Flex
         css={{
-          flex: 1,
-          height: '3px',
-          background: 'rgba(255,255,255,.35)',
-          borderRadius: '2px',
-          position: 'relative'
+          position: 'absolute',
+          bottom: '12px',
+          left: '14px',
+          right: '14px',
+          alignItems: 'center',
+          gap: '8px'
         }}
       >
+        <svg width='12' height='12' viewBox='0 0 24 24' fill='#fff'>
+          <path d='M8 5v14l11-7z' />
+        </svg>
+        <Box
+          as='span'
+          css={{ color: tone.white, fontSize: '11px', fontFamily: MONO }}
+        >
+          0:00
+        </Box>
         <Box
           as='span'
           css={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            bottom: 0,
-            width: '22%',
-            background: tone.white,
-            borderRadius: '2px'
+            flex: 1,
+            height: '3px',
+            background: 'rgba(255,255,255,.35)',
+            borderRadius: '2px',
+            position: 'relative'
           }}
-        />
-      </Box>
-      <Box
-        as='span'
-        css={{ color: tone.white, fontSize: '11px', fontFamily: MONO }}
-      >
-        1:03
-      </Box>
-    </Flex>
-  </Box>
+        >
+          <Box
+            as='span'
+            css={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: '22%',
+              background: tone.white,
+              borderRadius: '2px'
+            }}
+          />
+        </Box>
+        <Box
+          as='span'
+          css={{ color: tone.white, fontSize: '11px', fontFamily: MONO }}
+        >
+          1:03
+        </Box>
+      </Flex>
+    </Box>
+  </Flex>
 )
 
 const WAVE = [
@@ -1689,7 +1697,15 @@ const Bar = styled.span`
 `
 
 const AudioPreview = () => (
-  <Box css={{ marginTop: '26px' }}>
+  <Box
+    css={theme({
+      flex: 1,
+      mt: '26px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    })}
+  >
     <Flex
       css={{
         alignItems: 'center',
@@ -2414,20 +2430,8 @@ const Products = () => (
         <Feature vertical='automation'>
           <AutomationPreview />
         </Feature>
-        <Feature vertical='text'>
-          <TextPreview />
-        </Feature>
-      </Row>
-
-      <Row $template='4fr 4fr 4fr'>
-        <Feature vertical='lighthouse'>
-          <LighthousePreview />
-        </Feature>
-        <Feature vertical='sdk'>
-          <SdkPreview />
-        </Feature>
-        <Feature vertical='animated'>
-          <AnimatedPreview />
+        <Feature vertical='logo'>
+          <LogoPreview />
         </Feature>
       </Row>
 
@@ -2438,8 +2442,20 @@ const Products = () => (
         <Feature vertical='audio'>
           <AudioPreview />
         </Feature>
-        <Feature vertical='logo'>
-          <LogoPreview />
+        <Feature vertical='animated'>
+          <AnimatedPreview />
+        </Feature>
+      </Row>
+
+      <Row $template='4fr 4fr 4fr'>
+        <Feature vertical='lighthouse'>
+          <LighthousePreview />
+        </Feature>
+        <Feature vertical='sdk'>
+          <SdkPreview />
+        </Feature>
+        <Feature vertical='text'>
+          <TextPreview />
         </Feature>
       </Row>
     </Grid>
