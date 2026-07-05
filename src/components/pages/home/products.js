@@ -2137,12 +2137,18 @@ const Products = () => (
 
     <GridArea>
       <Grid>
-        <Row $template='4fr 3fr 5fr'>
+        <Row $template='1.1fr 1fr'>
           <Feature vertical='metadata' icon={<MetadataIcon />}>
             <MetadataPreview />
           </Feature>
           <Feature vertical='markdown' icon={<MarkdownIcon />}>
             <MarkdownPreview />
+          </Feature>
+        </Row>
+
+        <Row $template='1fr 1.3fr'>
+          <Feature vertical='pdf' icon={<PdfIcon />}>
+            <PdfPreview />
           </Feature>
           <Feature vertical='screenshot' icon={<ScreenshotIcon />}>
             <ScreenshotPreview />
@@ -2202,15 +2208,12 @@ const Products = () => (
           </Feature>
         </Row>
 
-        <Row $template='3fr 3fr 3fr 3fr'>
+        <Row $template='1fr 1fr 1fr'>
           <Feature vertical='video' icon={<VideoIcon />}>
             <VideoPreview />
           </Feature>
           <Feature vertical='audio' icon={<AudioIcon />}>
             <AudioPreview />
-          </Feature>
-          <Feature vertical='pdf' icon={<PdfIcon />}>
-            <PdfPreview />
           </Feature>
           <Feature vertical='logo' icon={<LogoIcon />}>
             <LogoPreview />
