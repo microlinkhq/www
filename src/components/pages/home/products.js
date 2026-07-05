@@ -1727,75 +1727,29 @@ const SdkIcon = () => (
   </Glyph>
 )
 
-const FILE_RECT = { x: '2.5', y: '1.5', width: '19', height: '21', rx: '4.5' }
-
 const CONVERT_INPUTS = [
-  {
-    name: 'document.pdf',
-    icon: (
-      <svg width='27' height='27' viewBox='0 0 24 24'>
-        <rect {...FILE_RECT} fill='#f43f3f' />
-        <text
-          x='12'
-          y='15.4'
-          textAnchor='middle'
-          fontSize='6.6'
-          fontWeight='800'
-          fill={tone.white}
-          letterSpacing='0.2'
-        >
-          PDF
-        </text>
-      </svg>
-    )
-  },
-  {
-    name: 'report.xlsx',
-    icon: (
-      <svg width='27' height='27' viewBox='0 0 24 24'>
-        <rect {...FILE_RECT} fill='#1d7145' />
-        <path
-          d='M8 8l8 8M16 8l-8 8'
-          stroke={tone.white}
-          strokeWidth='1.9'
-          strokeLinecap='round'
-        />
-      </svg>
-    )
-  },
-  {
-    name: 'guide.docx',
-    icon: (
-      <svg width='27' height='27' viewBox='0 0 24 24'>
-        <rect {...FILE_RECT} fill='#2b579a' />
-        <path
-          d='M6.5 8l1.7 8 1.8-6 1.8 6 1.7-8'
-          fill='none'
-          stroke={tone.white}
-          strokeWidth='1.7'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-        />
-      </svg>
-    )
-  },
-  {
-    name: 'slides.pptx',
-    icon: (
-      <svg width='27' height='27' viewBox='0 0 24 24'>
-        <rect {...FILE_RECT} fill='#c43e1c' />
-        <path
-          d='M8 16V8h3a2.4 2.4 0 0 1 0 4.8H8'
-          fill='none'
-          stroke={tone.white}
-          strokeWidth='1.6'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-        />
-      </svg>
-    )
-  }
+  { name: 'document.pdf', abbr: 'PDF', bg: '#f43f3f' },
+  { name: 'report.xlsx', abbr: 'XLSX', bg: '#1d7145' },
+  { name: 'guide.docx', abbr: 'DOCX', bg: '#2b579a' },
+  { name: 'slides.pptx', abbr: 'PPTX', bg: '#c43e1c' }
 ]
+
+const FileBadge = ({ abbr, bg }) => (
+  <svg width='27' height='27' viewBox='0 0 24 24'>
+    <rect x='2.5' y='1.5' width='19' height='21' rx='4.5' fill={bg} />
+    <text
+      x='12'
+      y='14.7'
+      textAnchor='middle'
+      fontSize={abbr.length > 3 ? '4.7' : '6.6'}
+      fontWeight='800'
+      fill={tone.white}
+      letterSpacing='0.2'
+    >
+      {abbr}
+    </text>
+  </svg>
+)
 
 const OUT_ICON = {
   fill: 'none',
@@ -1935,35 +1889,58 @@ const DashRun = styled.span`
   background: ${CONV_DASH};
 `
 
-const ConvertHub = () => (
-  <Flex
+const LogoNode = () => (
+  <Box
     css={{
+      position: 'relative',
       flexShrink: 0,
       alignSelf: 'center',
-      width: '60px',
-      height: '60px',
-      borderRadius: '16px',
-      background: tone.white,
-      boxShadow: '0 12px 30px rgba(16,24,40,.14), 0 2px 6px rgba(16,24,40,.06)',
+      display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'
     }}
   >
-    <svg
-      width='30'
-      height='30'
-      viewBox='0 0 24 24'
-      fill='none'
-      strokeWidth='2.1'
-      strokeLinecap='round'
-      strokeLinejoin='round'
+    <Box
+      css={{
+        position: 'absolute',
+        width: '152px',
+        height: '152px',
+        borderRadius: '50%',
+        background:
+          'radial-gradient(circle, rgba(236,72,153,0.22), rgba(124,77,255,0.14) 45%, rgba(255,255,255,0) 72%)',
+        filter: 'blur(6px)'
+      }}
+    />
+    <Flex
+      css={{
+        position: 'relative',
+        width: '100px',
+        height: '100px',
+        borderRadius: '22px',
+        background: tone.white,
+        boxShadow:
+          '0 14px 34px rgba(16,24,40,.16), 0 2px 6px rgba(16,24,40,.06)',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '8px'
+      }}
     >
-      <path d='M5 8.5A8 8 0 0 1 19 7' stroke='#7c4dff' />
-      <path d='M19 3.2V7h-3.8' stroke='#7c4dff' />
-      <path d='M19 15.5A8 8 0 0 1 5 17' stroke='#ec4899' />
-      <path d='M5 20.8V17h3.8' stroke='#ec4899' />
-    </svg>
-  </Flex>
+      <img src={LOGO_URI} alt='Microlink' width='40' height='40' />
+      <Box
+        as='span'
+        css={{
+          fontFamily: fonts.sans,
+          fontSize: '13px',
+          fontWeight: 600,
+          color: '#1f2733',
+          letterSpacing: '-0.01em'
+        }}
+      >
+        microlink
+      </Box>
+    </Flex>
+  </Box>
 )
 
 const INPUT_Y = [26, 92, 158, 224]
@@ -1973,35 +1950,18 @@ const FileConversionPreview = () => (
   <Box css={{ ...theme({ mt: 3 }), flex: 1 }}>
     <Box
       css={{
-        background: '#f7f7fa',
         border: '1px solid #ededf2',
         borderRadius: '24px',
-        padding: '22px 24px 26px',
+        padding: '28px 26px',
         overflowX: 'auto'
       }}
     >
-      <Box css={{ minWidth: '640px' }}>
-        <Flex
-          css={{
-            justifyContent: 'space-between',
-            padding: '0 2px 14px',
-            fontSize: '11px',
-            fontWeight: 700,
-            letterSpacing: '0.12em'
-          }}
-        >
-          <Box as='span' css={{ color: '#9aa0ac' }}>
-            INPUT (URL)
-          </Box>
-          <Box as='span' css={{ color: '#7c4dff' }}>
-            OUTPUT
-          </Box>
-        </Flex>
+      <Box css={{ minWidth: '660px' }}>
         <Flex css={{ alignItems: 'stretch', height: '250px' }}>
           <FlowColumn css={{ gap: '14px' }}>
             {CONVERT_INPUTS.map(f => (
               <ConvCard key={f.name}>
-                {f.icon}
+                <FileBadge abbr={f.abbr} bg={f.bg} />
                 {f.name}
               </ConvCard>
             ))}
@@ -2011,36 +1971,42 @@ const FileConversionPreview = () => (
               <DashRun key={y} css={{ right: 0, top: `${y - 1}px` }} />
             ))}
           </Box>
-          <BusSvg
-            width='44'
-            height='250'
-            viewBox='0 0 44 250'
-            fill='none'
-            stroke={CONV_LINE}
-            strokeWidth='2'
-            strokeDasharray='6 7'
-            strokeLinecap='round'
-          >
-            <path d='M0 26 H8 Q16 26 16 34 V117 Q16 125 24 125 H44' />
-            <path d='M0 92 H8 Q16 92 16 100 V117 Q16 125 24 125 H44' />
-            <path d='M0 158 H8 Q16 158 16 150 V133 Q16 125 24 125 H44' />
-            <path d='M0 224 H8 Q16 224 16 216 V133 Q16 125 24 125 H44' />
+          <BusSvg width='60' height='250' viewBox='0 0 60 250'>
+            <g
+              fill='none'
+              stroke={CONV_LINE}
+              strokeWidth='2'
+              strokeDasharray='6 7'
+              strokeLinecap='round'
+            >
+              <path d='M0 26 C 34 26 34 108 58 108' />
+              <path d='M0 92 C 34 92 34 108 58 108' />
+              <path d='M0 158 C 34 158 34 142 58 142' />
+              <path d='M0 224 C 34 224 34 142 58 142' />
+            </g>
+            <g fill={tone.white} stroke={CONV_LINE} strokeWidth='1.5'>
+              <circle cx='57' cy='108' r='3.5' />
+              <circle cx='57' cy='142' r='3.5' />
+            </g>
           </BusSvg>
-          <ConvertHub />
-          <BusSvg
-            width='44'
-            height='250'
-            viewBox='0 0 44 250'
-            fill='none'
-            stroke={CONV_LINE}
-            strokeWidth='2'
-            strokeDasharray='6 7'
-            strokeLinecap='round'
-          >
-            <path d='M0 125 H12 Q20 125 20 117 V34 Q20 26 28 26 H44' />
-            <path d='M0 125 H12 Q20 125 20 117 V100 Q20 92 28 92 H44' />
-            <path d='M0 125 H12 Q20 125 20 133 V150 Q20 158 28 158 H44' />
-            <path d='M0 125 H12 Q20 125 20 133 V216 Q20 224 28 224 H44' />
+          <LogoNode />
+          <BusSvg width='60' height='250' viewBox='0 0 60 250'>
+            <g
+              fill='none'
+              stroke={CONV_LINE}
+              strokeWidth='2'
+              strokeDasharray='6 7'
+              strokeLinecap='round'
+            >
+              <path d='M2 108 C 26 108 26 26 60 26' />
+              <path d='M2 108 C 26 108 26 92 60 92' />
+              <path d='M2 142 C 26 142 26 158 60 158' />
+              <path d='M2 142 C 26 142 26 224 60 224' />
+            </g>
+            <g fill={tone.white} stroke={CONV_LINE} strokeWidth='1.5'>
+              <circle cx='3' cy='108' r='3.5' />
+              <circle cx='3' cy='142' r='3.5' />
+            </g>
           </BusSvg>
           <Box css={{ position: 'relative', flex: 1, minWidth: '30px' }}>
             {OUTPUT_Y.map(y => (
