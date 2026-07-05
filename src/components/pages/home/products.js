@@ -339,6 +339,18 @@ const MarkdownPreview = () => (
   </CodeBox>
 )
 
+const HtmlLi = ({ children }) => (
+  <Box>
+    &nbsp;&nbsp;<Pn>&lt;</Pn>
+    <Tg>li</Tg>
+    <Pn>&gt;</Pn>
+    <Dt>{children}</Dt>
+    <Pn>&lt;/</Pn>
+    <Tg>li</Tg>
+    <Pn>&gt;</Pn>
+  </Box>
+)
+
 const HtmlPreview = () => (
   <DarkBox css={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
     <Box>
@@ -373,13 +385,12 @@ const HtmlPreview = () => (
       <Tg>ul</Tg>
       <Pn>&gt;</Pn>
     </Box>
+    <HtmlLi>Built for speed</HtmlLi>
+    <HtmlLi>Reliable interface</HtmlLi>
+    <HtmlLi>Structured output</HtmlLi>
     <Box>
-      &nbsp;&nbsp;<Pn>&lt;</Pn>
-      <Tg>li</Tg>
-      <Pn>&gt;</Pn>
-      <Dt>Built for speed</Dt>
       <Pn>&lt;/</Pn>
-      <Tg>li</Tg>
+      <Tg>ul</Tg>
       <Pn>&gt;</Pn>
     </Box>
   </DarkBox>
@@ -645,69 +656,75 @@ const CornerSvg = styled.svg`
 
 const LinkPreview = () => (
   <Box
-    css={{
-      ...theme({ mt: 3 }),
+    css={theme({
+      pt: 3,
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
-      borderRadius: radius.panel,
-      border: `1px solid ${tone.borderSoft}`,
-      boxShadow: shadow.panel,
-      overflow: 'hidden'
-    }}
+      justifyContent: 'center'
+    })}
   >
     <Box
-      css={{
-        position: 'relative',
-        flex: 1,
-        minHeight: '150px',
-        overflow: 'hidden',
-        background: 'linear-gradient(180deg,#f6a5c0,#c98bb8 45%,#3a3a63)'
-      }}
+      css={theme({
+        borderRadius: radius.panel,
+        border: 1,
+        borderColor: tone.borderSoft,
+        boxShadow: shadow.panel,
+        overflow: 'hidden'
+      })}
     >
       <Box
         css={{
-          position: 'absolute',
-          top: '22px',
-          right: '26px',
-          width: '52px',
-          height: '52px',
-          borderRadius: '50%',
-          background: 'rgba(255,255,255,0.28)'
+          position: 'relative',
+          height: '168px',
+          overflow: 'hidden',
+          background: 'linear-gradient(180deg,#f6a5c0,#c98bb8 45%,#3a3a63)'
         }}
-      />
-      <CornerSvg
-        viewBox='0 0 360 200'
-        preserveAspectRatio='none'
-        css={{ width: '100%', height: '68%' }}
       >
-        <path
-          d='M0 200 L120 74 L196 128 L256 84 L322 120 L360 96 L360 200 Z'
-          fill='#4a4a72'
-        />
-        <path
-          d='M0 200 L84 122 L158 156 L232 110 L300 146 L360 124 L360 200 Z'
-          fill='#38385c'
-        />
-      </CornerSvg>
-    </Box>
-    <Box css={{ padding: '16px' }}>
-      <Flex css={{ alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
         <Box
           css={{
-            width: '30px',
-            height: '30px',
-            borderRadius: '8px',
-            flexShrink: 0,
-            background: '#dcdce1'
+            position: 'absolute',
+            top: '22px',
+            right: '26px',
+            width: '52px',
+            height: '52px',
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.28)'
           }}
         />
-        <Skel css={{ width: '34%', height: '9px', background: '#e0e0e5' }} />
-      </Flex>
-      <Box css={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
-        <Skel css={{ width: '100%' }} />
-        <Skel css={{ width: '82%' }} />
-        <Skel css={{ width: '48%' }} />
+        <CornerSvg
+          viewBox='0 0 360 200'
+          preserveAspectRatio='none'
+          css={{ width: '100%', height: '68%' }}
+        >
+          <path
+            d='M0 200 L120 74 L196 128 L256 84 L322 120 L360 96 L360 200 Z'
+            fill='#4a4a72'
+          />
+          <path
+            d='M0 200 L84 122 L158 156 L232 110 L300 146 L360 124 L360 200 Z'
+            fill='#38385c'
+          />
+        </CornerSvg>
+      </Box>
+      <Box css={{ padding: '16px' }}>
+        <Flex css={{ alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
+          <Box
+            css={{
+              width: '30px',
+              height: '30px',
+              borderRadius: '8px',
+              flexShrink: 0,
+              background: '#dcdce1'
+            }}
+          />
+          <Skel css={{ width: '34%', height: '9px', background: '#e0e0e5' }} />
+        </Flex>
+        <Box css={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
+          <Skel css={{ width: '100%' }} />
+          <Skel css={{ width: '82%' }} />
+          <Skel css={{ width: '48%' }} />
+        </Box>
       </Box>
     </Box>
   </Box>
