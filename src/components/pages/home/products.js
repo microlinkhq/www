@@ -80,8 +80,25 @@ const TILE = {
   lighthouse: { bg: '#e0f5ec', color: '#10b981' },
   video: { bg: '#efe9fe', color: '#7c3aed' },
   audio: { bg: '#fde7f1', color: '#ec4899' },
-  animated: { bg: '#e8ebfd', color: '#4f5bd5' }
+  animated: { bg: '#e8ebfd', color: '#4f5bd5' },
+  automation: { bg: '#fde7f1', color: '#ec4899' },
+  sdk: { bg: '#e6f0fd', color: '#2f7ff0' }
 }
+
+const EXTRA = {
+  automation: {
+    label: 'Browser Automations',
+    description: 'Automate actions in the browser and extract results',
+    href: '/recipes'
+  },
+  sdk: {
+    label: 'Microlink SDK',
+    description: 'The official SDK to integrate Microlink in your app',
+    href: '/docs/sdk/getting-started/overview'
+  }
+}
+
+const CATALOG = { ...PRODUCTS, ...EXTRA }
 
 const Sparkle = styled.svg(theme({ mb: 3 }))
 
@@ -107,16 +124,13 @@ const Row = styled.div(
   theme({ gap: GAP }),
   css`
     display: grid;
-    grid-template-columns: repeat(${props => props.$cols}, minmax(0, 1fr));
+    grid-template-columns: ${props => props.$template};
 
     @media (max-width: 980px) {
-      grid-template-columns: repeat(
-        ${props => Math.min(props.$cols, 2)},
-        minmax(0, 1fr)
-      );
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
     @media (max-width: 600px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   `
 )
@@ -186,7 +200,7 @@ const arrowPaths = (
 )
 
 const Feature = ({ vertical, icon, children }) => {
-  const { label, description, href } = PRODUCTS[vertical]
+  const { label, description, href } = CATALOG[vertical]
   const tile = TILE[vertical]
   return (
     <Card
@@ -1403,6 +1417,174 @@ const AnimatedIcon = () => (
   </Glyph>
 )
 
+const STEP_COLOR = '#94a3b8'
+
+const stepIcon = {
+  width: 22,
+  height: 22,
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: STEP_COLOR,
+  strokeWidth: 1.7,
+  strokeLinecap: 'round',
+  strokeLinejoin: 'round'
+}
+
+const FLOW_STEPS = [
+  {
+    label: 'Go to URL',
+    icon: (
+      <svg {...stepIcon}>
+        <path d='M22 2 11 13M22 2l-7 20-4-9-9-4z' />
+      </svg>
+    )
+  },
+  {
+    label: 'Click',
+    icon: (
+      <svg {...stepIcon}>
+        <path d='M4 4l7 16 2.3-6.7L20 11z' />
+        <path d='M14 14l5 5' />
+      </svg>
+    )
+  },
+  {
+    label: 'Wait',
+    icon: (
+      <svg {...stepIcon}>
+        <circle cx='12' cy='12' r='9' />
+        <path d='M12 7.5V12l3 2' />
+      </svg>
+    )
+  },
+  {
+    label: 'Extract data',
+    icon: (
+      <svg {...stepIcon}>
+        <ellipse cx='12' cy='5.5' rx='8' ry='3' />
+        <path d='M4 5.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6' />
+        <path d='M4 11.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6' />
+      </svg>
+    )
+  }
+]
+
+const StepTile = styled(Flex)(
+  theme({ borderRadius: 5, bg: 'white' }),
+  css`
+    width: 54px;
+    height: 54px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid ${tone.border};
+    box-shadow: ${shadow.softer};
+  `
+)
+
+const Connector = () => (
+  <Flex
+    css={{ flex: 1, alignItems: 'center', minWidth: '12px', marginTop: '27px' }}
+  >
+    <Box css={{ flex: 1, borderTop: `1.5px dashed ${tone.dotIdle}` }} />
+    <svg
+      width='7'
+      height='10'
+      viewBox='0 0 7 10'
+      fill='none'
+      stroke={tone.arrow}
+      strokeWidth='1.6'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <path d='M1 1l4 4-4 4' />
+    </svg>
+  </Flex>
+)
+
+const AutomationPreview = () => (
+  <Flex
+    css={{
+      alignItems: 'flex-start',
+      justifyContent: 'space-between',
+      gap: '4px',
+      marginTop: '30px'
+    }}
+  >
+    {FLOW_STEPS.map((step, i) => (
+      <React.Fragment key={step.label}>
+        <Box css={{ textAlign: 'center' }}>
+          <StepTile>{step.icon}</StepTile>
+          <Box
+            css={{
+              fontSize: '11.5px',
+              color: syntax.muted,
+              marginTop: '10px',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            {step.label}
+          </Box>
+        </Box>
+        {i < FLOW_STEPS.length - 1 && <Connector />}
+      </React.Fragment>
+    ))}
+  </Flex>
+)
+
+const SDK_LANGS = [
+  { name: 'TypeScript', abbr: 'TS', bg: '#3178c6', fg: tone.white },
+  { name: 'JavaScript', abbr: 'JS', bg: '#f7df1e', fg: tone.ink900 },
+  { name: 'Python', abbr: 'Py', bg: '#3776ab', fg: tone.white },
+  { name: 'PHP', abbr: 'php', bg: '#777bb3', fg: tone.white },
+  { name: 'Ruby', abbr: 'Rb', bg: '#cc342d', fg: tone.white },
+  { name: 'Go', abbr: 'Go', bg: '#00add8', fg: tone.white }
+]
+
+const LangBadge = styled(Flex)`
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 800;
+  flex-shrink: 0;
+`
+
+const SdkPreview = () => (
+  <Flex css={{ flexWrap: 'wrap', gap: '9px', marginTop: '24px' }}>
+    {SDK_LANGS.map(l => (
+      <Chip key={l.name}>
+        <LangBadge css={{ background: l.bg, color: l.fg }}>{l.abbr}</LangBadge>
+        {l.name}
+      </Chip>
+    ))}
+    <Chip css={{ color: tone.muted }}>+3</Chip>
+  </Flex>
+)
+
+const AutomationIcon = () => (
+  <Glyph size={24} sw={1.7} stroke={TILE.automation.color} {...strokeIcon}>
+    <rect x='3' y='4.5' width='18' height='14' rx='2.5' />
+    <path d='M3 8.5h18' />
+    <path
+      d='M9 11.5v7.2l2.1-2.1 1.2 2.8 1.5-.6-1.2-2.8h2.8z'
+      fill={TILE.automation.color}
+      stroke={TILE.automation.color}
+      strokeWidth='0.6'
+    />
+  </Glyph>
+)
+
+const SdkIcon = () => (
+  <Glyph size={23} sw={1.7} stroke={TILE.sdk.color} strokeLinejoin='round'>
+    <path d='M21 7.5 12 12 3 7.5 12 3z' />
+    <path d='M3 7.5v9L12 21l9-4.5v-9' />
+    <path d='M12 12v9' />
+  </Glyph>
+)
+
 const Products = () => (
   <Box>
     <Box
@@ -1440,19 +1622,19 @@ const Products = () => (
 
     <GridArea>
       <Grid>
-        <Row $cols={2}>
+        <Row $template='1.4fr 1fr 1.65fr'>
           <Feature vertical='metadata' icon={<MetadataIcon />}>
             <MetadataPreview />
+          </Feature>
+          <Feature vertical='markdown' icon={<MarkdownIcon />}>
+            <MarkdownPreview />
           </Feature>
           <Feature vertical='screenshot' icon={<ScreenshotIcon />}>
             <ScreenshotPreview />
           </Feature>
         </Row>
 
-        <Row $cols={4}>
-          <Feature vertical='markdown' icon={<MarkdownIcon />}>
-            <MarkdownPreview />
-          </Feature>
+        <Row $template='1.3fr 1.05fr 1.2fr'>
           <Feature vertical='html' icon={<CodeIcon stroke={TILE.html.color} />}>
             <HtmlPreview />
           </Feature>
@@ -1464,22 +1646,22 @@ const Products = () => (
           </Feature>
         </Row>
 
-        <Row $cols={4}>
+        <Row $template='2.5fr 1fr 1fr'>
+          <Feature vertical='search' icon={<SearchIcon />}>
+            <SearchPreview />
+          </Feature>
           <Feature vertical='pdf' icon={<PdfIcon />}>
             <PdfPreview />
           </Feature>
           <Feature vertical='logo' icon={<LogoIcon />}>
             <LogoPreview />
           </Feature>
-          <Feature vertical='search' icon={<SearchIcon />}>
-            <SearchPreview />
-          </Feature>
+        </Row>
+
+        <Row $template='1fr 1.75fr 1.1fr'>
           <Feature vertical='technologies' icon={<TechIcon />}>
             <TechPreview />
           </Feature>
-        </Row>
-
-        <Row $cols={3}>
           <Feature
             vertical='function'
             icon={<CodeIcon stroke={TILE.function.color} />}
@@ -1489,12 +1671,21 @@ const Products = () => (
           <Feature vertical='text' icon={<TextIcon />}>
             <TextPreview />
           </Feature>
+        </Row>
+
+        <Row $template='1fr 1.35fr 1fr'>
           <Feature vertical='lighthouse' icon={<LighthouseIcon />}>
             <LighthousePreview />
           </Feature>
+          <Feature vertical='automation' icon={<AutomationIcon />}>
+            <AutomationPreview />
+          </Feature>
+          <Feature vertical='sdk' icon={<SdkIcon />}>
+            <SdkPreview />
+          </Feature>
         </Row>
 
-        <Row $cols={3}>
+        <Row $template='1fr 1fr 1fr'>
           <Feature vertical='video' icon={<VideoIcon />}>
             <VideoPreview />
           </Feature>
