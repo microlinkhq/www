@@ -11,12 +11,13 @@ const between = (start, end) =>
   source.slice(source.indexOf(start), source.indexOf(end))
 
 describe('home products file conversion preview', () => {
-  test('keeps the Microlink center node lockup', () => {
+  test('keeps the Microlink center node circular and icon-only', () => {
     const logoNode = between('const LogoNode', 'const INPUT_Y')
 
-    expect(logoNode).toContain('microlink')
     expect(logoNode).toContain("width: '136px'")
     expect(logoNode).toContain("height: '136px'")
+    expect(logoNode).toContain("borderRadius: '50%'")
+    expect(logoNode).not.toMatch(/>\s*microlink\s*</)
   })
 
   test('keeps dashed paths free of middle circle artifacts', () => {

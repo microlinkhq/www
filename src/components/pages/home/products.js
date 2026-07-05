@@ -1920,14 +1920,12 @@ const LogoNode = () => (
         position: 'relative',
         width: '136px',
         height: '136px',
-        borderRadius: '24px',
+        borderRadius: '50%',
         bg: 'white',
         boxShadow:
           '0 18px 42px rgba(16,24,40,.16), 0 3px 8px rgba(16,24,40,.06)',
-        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        gap: '7px'
+        justifyContent: 'center'
       })}
     >
       <img
@@ -1935,18 +1933,6 @@ const LogoNode = () => (
         alt='Microlink'
         css={theme({ width: '60px', height: 'auto', display: 'block' })}
       />
-      <Box
-        as='span'
-        css={theme({
-          fontFamily: 'sans',
-          fontSize: 2,
-          fontWeight: 'bold',
-          color: 'black',
-          lineHeight: 0
-        })}
-      >
-        microlink
-      </Box>
     </Flex>
   </Box>
 )
