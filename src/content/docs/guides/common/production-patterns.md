@@ -18,7 +18,7 @@ These patterns apply once you move from prototyping to a production integration.
 | Staging / CI | `pro.microlink.io` | `x-api-key` header |
 | Production | `pro.microlink.io` | `x-api-key` header |
 
-The free endpoint has a soft limit of **50 requests per day**. The Pro endpoint uses your plan quota. Sending `x-api-key` to the free endpoint fails with `EPRO`.
+The free endpoint has a soft limit of **25 requests per day**. The Pro endpoint uses your plan quota. Sending `x-api-key` to the free endpoint fails with `EPRO`.
 
 See the <Link href='/docs/api/basics/endpoint' children='endpoint docs' /> and <Link href='/docs/api/basics/authentication' children='authentication docs' />.
 

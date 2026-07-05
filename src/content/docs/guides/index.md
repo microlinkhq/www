@@ -12,7 +12,7 @@ Every guide includes practical examples you can adapt quickly. Most API guides a
 
 ## Before you start
 
-The Microlink API works **without an API key** — you get **50 free requests per day**, no signup required. No API key is required to implement your code or to run the examples directly in your browser.
+The Microlink API works **without an API key** — you get **25 free requests per day**, no signup required. No API key is required to implement your code or to run the examples directly in your browser.
 
 Some features are marked with <ProBadge /> and require a paid plan. Everything else works on the free tier. See <Link href='/docs/api/basics/rate-limit' children='rate limit' /> and <Link href='/docs/api/basics/authentication' children='authentication' /> for details.
 

@@ -147,7 +147,7 @@ It is the same pipeline as before — `embed` just tells the API to return the f
 
 ## Free tier and API key
 
-The Microlink API works without an API key. You get **50 free requests per day**, enough to build and ship a real embed integration.
+The Microlink API works without an API key. You get **25 free requests per day**, enough to build and ship a real embed integration.
 
 For production, a <ProBadge /> plan unlocks features that matter for embeds specifically: <Link href='/docs/api/parameters/ttl' children='configurable TTL' />, <Link href='/docs/api/parameters/staleTtl' children='stale-while-revalidate caching' />, <Link href='/docs/api/parameters/headers' children='custom headers' /> for private pages, and <Link href='/docs/api/parameters/proxy' children='proxy' /> for blocked or geofenced URLs.
 

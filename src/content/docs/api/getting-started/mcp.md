@@ -26,7 +26,6 @@ Use this `mcpServers` entry:
       "command": "npx",
       "args": ["-y", "@microlink/mcp"],
       "env": {
-        // Optional. Free 50 reqs/day rate limit.
         "MICROLINK_API_KEY": "YOUR_MICROLINK_API_KEY"
       }
     }
@@ -35,7 +34,7 @@ Use this `mcpServers` entry:
 ```
 
 For higher/unlimited usage, get an API key at [microlink.io/#pricing](https://microlink.io/#pricing).  
-If no API key is provided, requests go to the free endpoint with a 50 requests/day limit.
+If no API key is provided, requests go to the free endpoint with a 25 requests/day limit.
 
 ## Usage
 

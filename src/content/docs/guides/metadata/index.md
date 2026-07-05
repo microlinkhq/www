@@ -123,7 +123,7 @@ That returns JSON. To return just one field directly, such as `title` or `image.
 
 ## Free tier and API key
 
-The Microlink API works without an API key. You get **50 free requests per day**, which is enough to test the full metadata workflow and most of the examples in this guide.
+The Microlink API works without an API key. You get **25 free requests per day**, which is enough to test the full metadata workflow and most of the examples in this guide.
 
 For production usage, you'll usually want a <ProBadge /> plan. It unlocks features such as [configurable TTL](/docs/api/parameters/ttl), [stale-while-revalidate caching](/docs/api/parameters/staleTtl), [custom headers](/docs/api/parameters/headers), and [proxy](/docs/api/parameters/proxy).
 

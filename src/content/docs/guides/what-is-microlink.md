@@ -263,7 +263,7 @@ See <Link href='/docs/guides/common/caching' children='caching patterns' /> for 
 
 ## Free to start, scales with you
 
-The API works **without an API key**. You get **50 free requests per day**, which is enough to build and test your integration. No signup, no credit card.
+The API works **without an API key**. You get **25 free requests per day**, which is enough to build and test your integration. No signup, no credit card.
 
 When you are ready for production, a <ProBadge /> plan unlocks higher quotas, configurable cache TTL, custom headers, proxy support, and priority rendering. See <Link href='/docs/api/basics/rate-limit' children='rate limit' /> and <Link href='/docs/api/basics/authentication' children='authentication' /> for details.
 

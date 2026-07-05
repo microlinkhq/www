@@ -57,7 +57,7 @@ const SITEMAP_URL = process.env.SITEMAP_URL || 'https://YOUR_WEB_PAGE.com/sitema
 const API_KEY = process.env.API_KEY; // Optional, but recommended to large sitemaps
 
 const CONCURRENCY = 1; // Keep it low for free tier
-const FREE_TIER_LIMIT = 50; // 50 requests per day for free tier
+const FREE_TIER_LIMIT = 25; // 25 requests per day for free tier
 const FIRST_BATCH = 0; // If the free tier gets small make batch by batch
 
 const validateUrl = async (url) => {

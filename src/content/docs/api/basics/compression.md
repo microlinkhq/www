@@ -26,10 +26,10 @@ x-rate-limit-reset: 1751097111
 x-pricing-plan: free
 x-region: iad
 x-fetch-mode: fetch
-x-rate-limit-remaining: 45
+x-rate-limit-remaining: 20
 x-cache-ttl: 86400000
 x-request-id: iad:2af5a47c-d15f-47a7-938e-6551fc81bf9c
-x-rate-limit-limit: 50
+x-rate-limit-limit: 25
 x-cache-status: HIT
 x-content-type-options: nosniff
 x-client-ip: 88.20.23.25

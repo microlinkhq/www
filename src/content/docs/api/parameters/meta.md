@@ -79,8 +79,8 @@ x-cache-status: MISS
 x-cache-ttl: 86400000
 x-fetch-mode: skipped
 x-pricing-plan: free
-x-rate-limit-limit: 50
-x-rate-limit-remaining: 49
+x-rate-limit-limit: 25
+x-rate-limit-remaining: 24
 x-rate-limit-reset: 1751787476
 x-request-id: iad:ba5a0c60-db4e-48c8-be6d-05ebaca22c61
 x-response-time: 5.1s
