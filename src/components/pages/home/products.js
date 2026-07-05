@@ -113,7 +113,7 @@ const GridArea = styled.div(
 const Grid = styled.div(
   theme({ gap: GAP }),
   css`
-    max-width: 1400px;
+    max-width: 1280px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -335,6 +335,7 @@ const MarkdownPreview = () => (
     <Box>- Reliable interface</Box>
     <Box>- Structured output</Box>
     <Box>- AI-ready content</Box>
+    <Box>- Clean formatting</Box>
   </CodeBox>
 )
 
@@ -1593,7 +1594,7 @@ const Products = () => (
   <Box>
     <Box
       css={theme({
-        maxWidth: '1180px',
+        maxWidth: '1280px',
         mx: 'auto',
         textAlign: 'center',
         px: 4
@@ -1626,7 +1627,7 @@ const Products = () => (
 
     <GridArea>
       <Grid>
-        <Row $template='1.4fr 1fr 1.65fr'>
+        <Row $template='1.35fr 1.2fr 1.55fr'>
           <Feature vertical='metadata' icon={<MetadataIcon />}>
             <MetadataPreview />
           </Feature>
