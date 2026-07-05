@@ -1727,81 +1727,177 @@ const SdkIcon = () => (
   </Glyph>
 )
 
+const FILE_RECT = { x: '2.5', y: '1.5', width: '19', height: '21', rx: '4.5' }
+
 const CONVERT_INPUTS = [
-  { name: 'document.pdf', abbr: 'PDF', bg: '#e5252a' },
-  { name: 'report.xlsx', abbr: 'X', bg: '#1d7145' },
-  { name: 'guide.docx', abbr: 'W', bg: '#2b579a' },
-  { name: 'slides.pptx', abbr: 'P', bg: '#d24726' }
+  {
+    name: 'document.pdf',
+    icon: (
+      <svg width='27' height='27' viewBox='0 0 24 24'>
+        <rect {...FILE_RECT} fill='#f43f3f' />
+        <text
+          x='12'
+          y='15.4'
+          textAnchor='middle'
+          fontSize='6.6'
+          fontWeight='800'
+          fill={tone.white}
+          letterSpacing='0.2'
+        >
+          PDF
+        </text>
+      </svg>
+    )
+  },
+  {
+    name: 'report.xlsx',
+    icon: (
+      <svg width='27' height='27' viewBox='0 0 24 24'>
+        <rect {...FILE_RECT} fill='#1d7145' />
+        <path
+          d='M8 8l8 8M16 8l-8 8'
+          stroke={tone.white}
+          strokeWidth='1.9'
+          strokeLinecap='round'
+        />
+      </svg>
+    )
+  },
+  {
+    name: 'guide.docx',
+    icon: (
+      <svg width='27' height='27' viewBox='0 0 24 24'>
+        <rect {...FILE_RECT} fill='#2b579a' />
+        <path
+          d='M6.5 8l1.7 8 1.8-6 1.8 6 1.7-8'
+          fill='none'
+          stroke={tone.white}
+          strokeWidth='1.7'
+          strokeLinecap='round'
+          strokeLinejoin='round'
+        />
+      </svg>
+    )
+  },
+  {
+    name: 'slides.pptx',
+    icon: (
+      <svg width='27' height='27' viewBox='0 0 24 24'>
+        <rect {...FILE_RECT} fill='#c43e1c' />
+        <path
+          d='M8 16V8h3a2.4 2.4 0 0 1 0 4.8H8'
+          fill='none'
+          stroke={tone.white}
+          strokeWidth='1.6'
+          strokeLinecap='round'
+          strokeLinejoin='round'
+        />
+      </svg>
+    )
+  }
 ]
 
 const CONVERT_OUTPUTS = [
   {
     label: 'HTML',
-    node: (
+    tile: '#e0d6fb',
+    icon: (
       <svg
-        width='16'
-        height='16'
+        width='22'
+        height='22'
         viewBox='0 0 24 24'
         fill='none'
-        stroke='#7c3aed'
+        stroke='#6d3fe0'
+        strokeWidth='2.1'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      >
+        <path d='M8.5 8l-4 4 4 4M15.5 8l4 4-4 4' />
+      </svg>
+    )
+  },
+  {
+    label: 'Markdown',
+    tile: '#7c4dff',
+    icon: (
+      <svg
+        width='23'
+        height='23'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke={tone.white}
         strokeWidth='2'
         strokeLinecap='round'
         strokeLinejoin='round'
       >
-        <path d='M8 8l-4 4 4 4M16 8l4 4-4 4' />
+        <path d='M6 16V8l3 3.4L12 8v8M16 8v5.5M13.6 11.6 16 14l2.4-2.4' />
       </svg>
     )
   },
-  { label: 'Markdown', node: 'M' },
-  { label: 'Text', node: 'T' }
+  {
+    label: 'Text',
+    tile: '#e0d6fb',
+    icon: (
+      <svg
+        width='22'
+        height='22'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='#6d3fe0'
+        strokeWidth='2.2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      >
+        <path d='M5 6h14M12 6v12M9 18h6' />
+      </svg>
+    )
+  }
 ]
 
-const AppBadge = styled(Flex)`
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: ${tone.white};
-  font-size: 8px;
-  font-weight: 800;
-  letter-spacing: -0.3px;
-`
+const CONV_DASH =
+  'repeating-linear-gradient(to right,#cbcfda 0 6px,transparent 6px 13px)'
+const CONV_LINE = '#cbcfda'
 
-const FlowCard = styled(Flex)(
-  theme({ borderRadius: 5, bg: 'white' }),
+const ConvCard = styled(Flex)(
+  theme({ bg: 'white' }),
   css`
+    width: 190px;
     height: 52px;
     align-items: center;
-    gap: 11px;
-    padding: 0 13px;
+    gap: 12px;
+    padding: 0 15px;
     border: 1px solid ${tone.border};
-    box-shadow: ${shadow.softer};
-    font-size: 13px;
-    font-weight: 500;
-    color: ${tone.ink900};
+    border-radius: 14px;
+    box-shadow: ${shadow.panel};
+    font-size: 14px;
+    font-weight: 600;
+    color: #2b3040;
     white-space: nowrap;
+    flex-shrink: 0;
   `
 )
 
-const OutCard = styled(FlowCard)`
-  height: 60px;
-  background: #f6f4ff;
-  border-color: #e9e2fb;
+const ConvOut = styled(Flex)`
+  width: 178px;
+  height: 56px;
+  align-items: center;
+  gap: 13px;
+  padding: 0 16px;
+  border-radius: 14px;
+  background: #efeafd;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2b3040;
+  white-space: nowrap;
 `
 
-const OutBadge = styled(Flex)`
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
+const OutTile = styled(Flex)`
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  background: #ede9fe;
-  color: #7c3aed;
-  font-size: 14px;
-  font-weight: 800;
 `
 
 const FlowColumn = styled(Box)`
@@ -1810,15 +1906,15 @@ const FlowColumn = styled(Box)`
   flex-direction: column;
 `
 
-const FlowLink = styled(Box)`
-  flex: 1;
-  min-width: 16px;
-  align-self: stretch;
+const BusSvg = styled.svg`
+  flex-shrink: 0;
 `
 
-const ConnectorSvg = styled.svg`
-  width: 100%;
-  height: 100%;
+const DashRun = styled.span`
+  position: absolute;
+  left: 0;
+  height: 2px;
+  background: ${CONV_DASH};
 `
 
 const ConvertHub = () => (
@@ -1826,11 +1922,11 @@ const ConvertHub = () => (
     css={{
       flexShrink: 0,
       alignSelf: 'center',
-      width: '62px',
-      height: '62px',
+      width: '60px',
+      height: '60px',
       borderRadius: '16px',
       background: tone.white,
-      boxShadow: shadow.float,
+      boxShadow: '0 12px 30px rgba(16,24,40,.14), 0 2px 6px rgba(16,24,40,.06)',
       alignItems: 'center',
       justifyContent: 'center'
     }}
@@ -1840,99 +1936,119 @@ const ConvertHub = () => (
       height='30'
       viewBox='0 0 24 24'
       fill='none'
-      strokeWidth='2'
+      strokeWidth='2.1'
       strokeLinecap='round'
       strokeLinejoin='round'
     >
-      <path d='M23 4v6h-6' stroke='#a855f7' />
-      <path d='M3.51 9a9 9 0 0 1 14.85-3.36L23 10' stroke='#a855f7' />
-      <path d='M1 20v-6h6' stroke='#ec4899' />
-      <path d='M20.49 15a9 9 0 0 1-14.85 3.36L1 14' stroke='#ec4899' />
+      <path d='M5 8.5A8 8 0 0 1 19 7' stroke='#7c4dff' />
+      <path d='M19 3.2V7h-3.8' stroke='#7c4dff' />
+      <path d='M19 15.5A8 8 0 0 1 5 17' stroke='#ec4899' />
+      <path d='M5 20.8V17h3.8' stroke='#ec4899' />
     </svg>
   </Flex>
 )
 
+const INPUT_Y = [26, 92, 158, 224]
+const OUTPUT_Y = [49, 125, 201]
+
 const FileConversionPreview = () => (
-  <Box
-    css={{
-      ...theme({ mt: 3 }),
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      borderRadius: radius.panel,
-      border: `1px solid ${tone.borderSoft}`,
-      background: tone.surfaceSoft,
-      overflow: 'hidden'
-    }}
-  >
-    <Box css={{ padding: '22px 24px', overflowX: 'auto' }}>
-      <Box css={{ minWidth: '620px' }}>
+  <Box css={{ ...theme({ mt: 3 }), flex: 1 }}>
+    <Box
+      css={{
+        background: '#f7f7fa',
+        border: '1px solid #ededf2',
+        borderRadius: '24px',
+        padding: '22px 24px 26px',
+        overflowX: 'auto'
+      }}
+    >
+      <Box css={{ minWidth: '640px' }}>
         <Flex
           css={{
             justifyContent: 'space-between',
-            marginBottom: '18px',
+            padding: '0 2px 14px',
             fontSize: '11px',
             fontWeight: 700,
-            letterSpacing: '0.08em'
+            letterSpacing: '0.12em'
           }}
         >
-          <Box as='span' css={{ color: tone.faint }}>
+          <Box as='span' css={{ color: '#9aa0ac' }}>
             INPUT (URL)
           </Box>
-          <Box as='span' css={{ color: '#7c3aed' }}>
+          <Box as='span' css={{ color: '#7c4dff' }}>
             OUTPUT
           </Box>
         </Flex>
-        <Flex css={{ alignItems: 'stretch', gap: '10px', height: '250px' }}>
+        <Flex css={{ alignItems: 'stretch', height: '250px' }}>
           <FlowColumn css={{ gap: '14px' }}>
             {CONVERT_INPUTS.map(f => (
-              <FlowCard key={f.name}>
-                <AppBadge css={{ background: f.bg }}>{f.abbr}</AppBadge>
+              <ConvCard key={f.name}>
+                {f.icon}
                 {f.name}
-              </FlowCard>
+              </ConvCard>
             ))}
           </FlowColumn>
-          <FlowLink>
-            <ConnectorSvg
-              viewBox='0 0 100 250'
-              preserveAspectRatio='none'
-              fill='none'
-              stroke='#c7ccd6'
-              strokeWidth='1.5'
-              strokeDasharray='5 5'
-              strokeLinecap='round'
-            >
-              <path d='M0 26 H60 V125 H100' />
-              <path d='M0 92 H60 V125 H100' />
-              <path d='M0 158 H60 V125 H100' />
-              <path d='M0 224 H60 V125 H100' />
-            </ConnectorSvg>
-          </FlowLink>
+          <Box css={{ position: 'relative', flex: 1, minWidth: '30px' }}>
+            {INPUT_Y.map(y => (
+              <DashRun key={y} css={{ right: 0, top: `${y - 1}px` }} />
+            ))}
+          </Box>
+          <BusSvg
+            width='44'
+            height='250'
+            viewBox='0 0 44 250'
+            fill='none'
+            stroke={CONV_LINE}
+            strokeWidth='2'
+            strokeDasharray='6 7'
+            strokeLinecap='round'
+          >
+            <path d='M0 26 H8 Q16 26 16 34 V117 Q16 125 24 125 H44' />
+            <path d='M0 92 H8 Q16 92 16 100 V117 Q16 125 24 125 H44' />
+            <path d='M0 158 H8 Q16 158 16 150 V133 Q16 125 24 125 H44' />
+            <path d='M0 224 H8 Q16 224 16 216 V133 Q16 125 24 125 H44' />
+          </BusSvg>
           <ConvertHub />
-          <FlowLink>
-            <ConnectorSvg
-              viewBox='0 0 100 250'
-              preserveAspectRatio='none'
-              fill='none'
-              stroke='#c7ccd6'
-              strokeWidth='1.5'
-              strokeDasharray='5 5'
-              strokeLinecap='round'
-            >
-              <path d='M0 125 H40 V47 H92' />
-              <path d='M0 125 H40 V125 H92' />
-              <path d='M0 125 H40 V203 H92' />
-              <path d='M86 43 L94 47 L86 51' strokeDasharray='none' />
-              <path d='M86 121 L94 125 L86 129' strokeDasharray='none' />
-              <path d='M86 199 L94 203 L86 207' strokeDasharray='none' />
-            </ConnectorSvg>
-          </FlowLink>
-          <FlowColumn css={{ justifyContent: 'center', gap: '18px' }}>
+          <BusSvg
+            width='44'
+            height='250'
+            viewBox='0 0 44 250'
+            fill='none'
+            stroke={CONV_LINE}
+            strokeWidth='2'
+            strokeDasharray='6 7'
+            strokeLinecap='round'
+          >
+            <path d='M0 125 H12 Q20 125 20 117 V57 Q20 49 28 49 H44' />
+            <path d='M0 125 H44' />
+            <path d='M0 125 H12 Q20 125 20 133 V193 Q20 201 28 201 H44' />
+          </BusSvg>
+          <Box css={{ position: 'relative', flex: 1, minWidth: '30px' }}>
+            {OUTPUT_Y.map(y => (
+              <React.Fragment key={y}>
+                <DashRun css={{ right: '9px', top: `${y - 1}px` }} />
+                <svg
+                  width='9'
+                  height='10'
+                  viewBox='0 0 9 10'
+                  fill='none'
+                  stroke='#c3c7d2'
+                  strokeWidth='1.7'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  css={{ position: 'absolute', right: 0, top: `${y - 5}px` }}
+                >
+                  <path d='M2 1 L7 5 L2 9' />
+                </svg>
+              </React.Fragment>
+            ))}
+          </Box>
+          <FlowColumn css={{ justifyContent: 'center', gap: '20px' }}>
             {CONVERT_OUTPUTS.map(o => (
-              <OutCard key={o.label}>
-                <OutBadge>{o.node}</OutBadge>
+              <ConvOut key={o.label}>
+                <OutTile css={{ background: o.tile }}>{o.icon}</OutTile>
                 {o.label}
-              </OutCard>
+              </ConvOut>
             ))}
           </FlowColumn>
         </Flex>
@@ -1941,10 +2057,10 @@ const FileConversionPreview = () => (
     <Flex
       css={{
         alignItems: 'flex-start',
-        gap: '14px',
-        padding: '20px 24px',
-        borderTop: `1px solid ${tone.borderSoft}`,
-        background: '#f5f3ff'
+        gap: '16px',
+        marginTop: '2px',
+        paddingTop: '22px',
+        borderTop: '1px solid #eeeef2'
       }}
     >
       <Flex
@@ -1952,14 +2068,15 @@ const FileConversionPreview = () => (
           width: '44px',
           height: '44px',
           borderRadius: '12px',
-          background: '#ede9fe',
+          background: '#e9e3fb',
           alignItems: 'center',
           justifyContent: 'center',
           flexShrink: 0
         }}
       >
-        <svg width='22' height='22' viewBox='0 0 24 24' fill='#7c3aed'>
-          <path d='M12 2 L13.6 9.2 L21 12 L13.6 14.8 L12 22 L10.4 14.8 L3 12 L10.4 9.2 Z' />
+        <svg width='24' height='24' viewBox='0 0 24 24' fill='#6d3fe0'>
+          <path d='M11 2.5l1.5 5.2 5.2 1.5-5.2 1.5L11 15.9 9.5 10.7 4.3 9.2l5.2-1.5z' />
+          <path d='M18.5 13.5l.7 2.4 2.4.7-2.4.7-.7 2.4-.7-2.4-2.4-.7 2.4-.7z' />
         </svg>
       </Flex>
       <Box>
@@ -1969,9 +2086,10 @@ const FileConversionPreview = () => (
         <Box
           css={{
             fontSize: '13px',
-            color: tone.muted,
-            marginTop: '4px',
-            lineHeight: 1.5
+            color: '#6b7180',
+            fontWeight: 500,
+            marginTop: '5px',
+            lineHeight: 1.45
           }}
         >
           Automatically detects file type, extracts content, and delivers clean,
@@ -1983,10 +2101,13 @@ const FileConversionPreview = () => (
 )
 
 const ConversionIcon = () => (
-  <Glyph size={25} sw={1.8} stroke={TILE.conversion.color} {...strokeIcon}>
-    <path d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z' />
-    <path d='M14 3v5h5' />
-    <path d='M9 13.5h5M9 13.5l1.6-1.6M14 16.5H9M14 16.5l-1.6 1.6' />
+  <Glyph size={25} sw={1.7} stroke={TILE.conversion.color} {...strokeIcon}>
+    <path d='M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5z' />
+    <path d='M13.5 3v5.5H19' />
+    <path d='M9.2 13.4a3 3 0 0 1 5-1.1l.9.9' />
+    <path d='M15.3 11.4v1.9h-1.9' />
+    <path d='M14.8 16.1a3 3 0 0 1-5 1.1l-.9-.9' />
+    <path d='M8.7 18.1v-1.9h1.9' />
   </Glyph>
 )
 
