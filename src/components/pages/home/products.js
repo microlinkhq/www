@@ -106,85 +106,6 @@ const EXTRA = {
 
 const CATALOG = { ...PRODUCTS, ...EXTRA }
 
-const BENEFITS = {
-  metadata: {
-    title: 'Normalized metadata',
-    copy: 'Returns title, description, image, author, and canonical page facts.'
-  },
-  markdown: {
-    title: 'AI-ready Markdown',
-    copy: 'Keeps the page structure readable without navigation or layout noise.'
-  },
-  pdf: {
-    title: 'Print-ready output',
-    copy: 'Turns any URL into a clean document with stable page layout.'
-  },
-  screenshot: {
-    title: 'Pixel-perfect capture',
-    copy: 'Renders the page in a real browser before generating the image.'
-  },
-  html: {
-    title: 'Rendered HTML',
-    copy: 'Delivers the final DOM after JavaScript, redirects, and browser work.'
-  },
-  embed: {
-    title: 'Embeddable media',
-    copy: 'Detects rich providers and returns a ready-to-use embed card.'
-  },
-  preview: {
-    title: 'Share-ready preview',
-    copy: 'Builds the title, description, image, and publisher context together.'
-  },
-  conversion: {
-    title: 'Smart conversion',
-    copy: 'Detects file type, extracts content, and delivers structured output.'
-  },
-  technologies: {
-    title: 'Tech stack insight',
-    copy: 'Identifies frameworks, libraries, analytics, and runtime services.'
-  },
-  function: {
-    title: 'Programmable browser',
-    copy: 'Runs custom code against the page and returns exactly what you need.'
-  },
-  search: {
-    title: 'Structured SERP data',
-    copy: 'Turns search result pages into clean rankable records.'
-  },
-  automation: {
-    title: 'Browser workflows',
-    copy: 'Chains navigation, clicks, waits, and extraction in one API call.'
-  },
-  sdk: {
-    title: 'Native integration',
-    copy: 'Gives every runtime a small client for calling Microlink directly.'
-  },
-  lighthouse: {
-    title: 'Audit-ready scores',
-    copy: 'Measures performance, accessibility, SEO, and best practices at scale.'
-  },
-  text: {
-    title: 'Clean text output',
-    copy: 'Extracts the main content and keeps it readable.'
-  },
-  animated: {
-    title: 'Motion capture',
-    copy: 'Records page interactions as GIF or video with browser fidelity.'
-  },
-  video: {
-    title: 'Video assets',
-    copy: 'Finds playable video sources and returns the useful media metadata.'
-  },
-  audio: {
-    title: 'Audio assets',
-    copy: 'Extracts audio sources, duration, and playable page context.'
-  },
-  logo: {
-    title: 'Brand-ready icons',
-    copy: 'Returns favicons and marks sized for product surfaces.'
-  }
-}
-
 const Sparkle = styled.svg(theme({ mb: 3 }))
 
 const GridArea = styled.div(
@@ -234,7 +155,6 @@ const Card = styled(Link)(
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 100%;
     background: ${tone.surface};
     border: 1px solid ${tone.border};
     border-radius: ${radius.card};
@@ -244,14 +164,6 @@ const Card = styled(Link)(
     box-shadow: ${shadow.card};
     transition: border-color ${transition.medium},
       box-shadow ${transition.medium}, transform ${transition.medium};
-
-    & > a {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      color: inherit;
-      text-decoration: none;
-    }
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
@@ -296,7 +208,6 @@ const arrowPaths = (
 const Feature = ({ vertical, icon, children }) => {
   const { label, description, href } = CATALOG[vertical]
   const tile = TILE[vertical]
-  const benefit = BENEFITS[vertical]
   return (
     <Card
       href={href}
@@ -324,69 +235,9 @@ const Feature = ({ vertical, icon, children }) => {
         </Arrow>
       </Flex>
       {children}
-      <FeatureFooter benefit={benefit} />
     </Card>
   )
 }
-
-const FeatureFooter = ({ benefit }) => (
-  <Footer>
-    <FooterIcon>
-      <svg width='24' height='24' viewBox='0 0 24 24' fill='currentColor'>
-        <path d='M11 2.5l1.5 5.2 5.2 1.5-5.2 1.5L11 15.9 9.5 10.7 4.3 9.2l5.2-1.5z' />
-        <path d='M18.5 13.5l.7 2.4 2.4.7-2.4.7-.7 2.4-.7-2.4-2.4-.7 2.4-.7z' />
-      </svg>
-    </FooterIcon>
-    <Box css={theme({ minWidth: 0 })}>
-      <FooterTitle>{benefit.title}</FooterTitle>
-      <FooterCopy>{benefit.copy}</FooterCopy>
-    </Box>
-  </Footer>
-)
-
-const Footer = styled(Flex)(
-  theme({
-    pt: 3,
-    borderTop: 1,
-    borderTopColor: 'black05',
-    alignItems: 'flex-start',
-    gap: 3
-  }),
-  css`
-    margin-top: auto;
-  `
-)
-
-const FooterIcon = styled(Flex)(
-  theme({
-    width: '44px',
-    height: '44px',
-    borderRadius: 5,
-    bg: 'violet0',
-    color: 'violet7',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0
-  })
-)
-
-const FooterTitle = styled(Text)(
-  theme({
-    fontSize: 1,
-    fontWeight: 'bold',
-    lineHeight: 0,
-    color: 'black'
-  })
-)
-
-const FooterCopy = styled(Text)(
-  theme({
-    mt: 1,
-    fontSize: 0,
-    lineHeight: 1,
-    color: 'black70'
-  })
-)
 
 const CodeBox = styled(Box)(
   theme({

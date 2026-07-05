@@ -22,34 +22,18 @@ describe('home products text preview', () => {
     expect(preview).not.toContain('<CodeBox')
   })
 
-  test('keeps the extracted text and clean output proof visible', () => {
+  test('keeps the extracted text sample visible', () => {
     const preview = between('const TextPreview', 'const ScreenshotPreview')
-    const benefits = between('const BENEFITS', 'const Sparkle')
 
     expect(preview).toContain('to extract clean,')
     expect(preview).toContain('just AI-ready content')
-    expect(benefits).toContain("title: 'Clean text output'")
-    expect(benefits).toContain("copy: 'Extracts the main content")
   })
 
-  test('renders one shared benefit footer for every product card', () => {
-    const card = between('const Card =', 'const IconTile')
-    const feature = between('const Feature =', 'const FeatureFooter')
-    const footer = between('const FeatureFooter', 'const Footer =')
-    const footerStyles = between('const Footer =', 'const FooterIcon')
-    const products = between('const Products =', 'export default Products')
-    const featureCount = [...products.matchAll(/<Feature\s/g)].length
-    const benefitCount = [
-      ...between('const BENEFITS', 'const Sparkle').matchAll(/title:/g)
-    ].length
+  test('does not render shared benefit footers in product cards', () => {
+    const feature = between('const Feature =', 'const CodeBox')
 
-    expect(card).toContain('height: 100%')
-    expect(card).toContain('& > a')
-    expect(card).toContain('flex-direction: column')
-    expect(feature).toContain('<FeatureFooter benefit={benefit} />')
-    expect(footer).toContain('<FooterTitle>{benefit.title}</FooterTitle>')
-    expect(footer).toContain('<FooterCopy>{benefit.copy}</FooterCopy>')
-    expect(footerStyles).toContain('margin-top: auto')
-    expect(benefitCount).toBe(featureCount)
+    expect(source).not.toContain('const BENEFITS')
+    expect(source).not.toContain('const FeatureFooter')
+    expect(feature).not.toContain('<FeatureFooter')
   })
 })
