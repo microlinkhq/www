@@ -234,6 +234,7 @@ const Card = styled(Link)(
     position: relative;
     display: flex;
     flex-direction: column;
+    height: 100%;
     background: ${tone.surface};
     border: 1px solid ${tone.border};
     border-radius: ${radius.card};
@@ -243,6 +244,14 @@ const Card = styled(Link)(
     box-shadow: ${shadow.card};
     transition: border-color ${transition.medium},
       box-shadow ${transition.medium}, transform ${transition.medium};
+
+    & > a {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      color: inherit;
+      text-decoration: none;
+    }
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
@@ -337,13 +346,15 @@ const FeatureFooter = ({ benefit }) => (
 
 const Footer = styled(Flex)(
   theme({
-    mt: 'auto',
     pt: 3,
     borderTop: 1,
     borderTopColor: 'black05',
     alignItems: 'flex-start',
     gap: 3
-  })
+  }),
+  css`
+    margin-top: auto;
+  `
 )
 
 const FooterIcon = styled(Flex)(

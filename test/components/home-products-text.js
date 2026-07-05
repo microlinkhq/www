@@ -33,17 +33,23 @@ describe('home products text preview', () => {
   })
 
   test('renders one shared benefit footer for every product card', () => {
+    const card = between('const Card =', 'const IconTile')
     const feature = between('const Feature =', 'const FeatureFooter')
     const footer = between('const FeatureFooter', 'const Footer =')
+    const footerStyles = between('const Footer =', 'const FooterIcon')
     const products = between('const Products =', 'export default Products')
     const featureCount = [...products.matchAll(/<Feature\s/g)].length
     const benefitCount = [
       ...between('const BENEFITS', 'const Sparkle').matchAll(/title:/g)
     ].length
 
+    expect(card).toContain('height: 100%')
+    expect(card).toContain('& > a')
+    expect(card).toContain('flex-direction: column')
     expect(feature).toContain('<FeatureFooter benefit={benefit} />')
     expect(footer).toContain('<FooterTitle>{benefit.title}</FooterTitle>')
     expect(footer).toContain('<FooterCopy>{benefit.copy}</FooterCopy>')
+    expect(footerStyles).toContain('margin-top: auto')
     expect(benefitCount).toBe(featureCount)
   })
 })
