@@ -531,7 +531,7 @@ const VertChip = styled.button`
   font: inherit;
   color: inherit;
   text-align: left;
-  background: ${colors.gray0};
+  background: #fff;
   border: 1px solid ${props => props.$border};
   border-radius: 10px;
   padding: 5px 9px 5px 6px;
@@ -928,11 +928,36 @@ const IconBadge = styled(Box)`
   flex-shrink: 0;
 `
 
+const GLYPH_STROKE_GRADIENT_ID = 'microlinkGlyphStroke'
+const GLYPH_FILL_GRADIENT_ID = 'microlinkGlyphFill'
+
+const GradientDefs = styled.svg`
+  position: absolute;
+  width: 0;
+  height: 0;
+`
+
+const glyphGradientFill = css`
+  svg[fill='none'] {
+    stroke: url(#${GLYPH_STROKE_GRADIENT_ID});
+  }
+
+  svg:not([fill='none']),
+  svg:not([fill='none']) * {
+    fill: url(#${GLYPH_FILL_GRADIENT_ID});
+  }
+`
+
+const GlyphBadge = styled(IconBadge)`
+  background: transparent;
+  ${glyphGradientFill}
+`
+
 const MenuBadge = styled(IconBadge)`
   width: 26px;
   height: 26px;
-  background: ${colors.gray1};
-  color: ${colors.gray5};
+  background: transparent;
+  ${glyphGradientFill}
 `
 
 const MenuLabel = styled.span`
@@ -947,10 +972,6 @@ const MenuLabel = styled.span`
 
 const menuItemHighlight = css`
   background: ${rgba(colors.secondary, 0.06)};
-  ${MenuBadge} {
-    background: ${GRADIENT};
-    color: #fff;
-  }
 `
 
 const MenuItem = styled(Flex)`
@@ -1690,6 +1711,25 @@ const Hero = () => {
 
   return (
     <Section id='hero'>
+      <GradientDefs aria-hidden='true' focusable='false'>
+        <linearGradient
+          id={GLYPH_STROKE_GRADIENT_ID}
+          gradientUnits='userSpaceOnUse'
+          x1='0'
+          y1='0'
+          x2='24'
+          y2='0'
+        >
+          <stop offset='0%' stopColor='#f76698' />
+          <stop offset='60%' stopColor='#c03fa2' />
+          <stop offset='100%' stopColor='#8c1bab' />
+        </linearGradient>
+        <linearGradient id={GLYPH_FILL_GRADIENT_ID} x1='0' y1='0' x2='1' y2='0'>
+          <stop offset='0%' stopColor='#f76698' />
+          <stop offset='60%' stopColor='#c03fa2' />
+          <stop offset='100%' stopColor='#8c1bab' />
+        </linearGradient>
+      </GradientDefs>
       <Overlay start='60%' />
       <Content>
         <Badge>
@@ -1764,16 +1804,9 @@ const Hero = () => {
                   toggleMenu()
                 }}
               >
-                <IconBadge
-                  css={theme({
-                    width: '24px',
-                    height: '24px',
-                    background: GRADIENT,
-                    color: 'white'
-                  })}
-                >
+                <GlyphBadge css={theme({ width: '24px', height: '24px' })}>
                   <VertGlyph vertical={D.vertical} size={15} />
-                </IconBadge>
+                </GlyphBadge>
                 <Box
                   as='span'
                   css={theme({ fontSize: 0, fontWeight: 600, color: INK })}
