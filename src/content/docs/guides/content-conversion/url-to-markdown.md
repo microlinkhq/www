@@ -94,6 +94,27 @@ If the full page includes navigation, footers, or cookie banners, scope the rule
 
 For LLM and indexing workflows, setting [meta](/docs/api/parameters/meta) to `true` prepends YAML frontmatter with normalized fields such as title, description, author, publisher, date, word count, and reading time. Keep `meta: false` when you only want the Markdown body.
 
+## YouTube videos
+
+Point [url](/docs/api/parameters/url) at a YouTube video URL — `watch`, `youtu.be`, `shorts`, or `embed` — and Microlink returns the video's caption transcript as the Markdown body, with `title`, `author`, `image`, and `date` resolved from the video metadata.
+
+<MultiCodeEditorInteractive
+  height={280}
+  mqlCode={{
+    url: 'https://www.youtube.com/watch?v=tY2M2g-tG1Q',
+    data: {
+      transcript: {
+        attr: 'markdown'
+      }
+    },
+    meta: false
+  }}
+/>
+
+<Figcaption>Read the caption transcript from <code>data.transcript</code>.</Figcaption>
+
+The transcript is the video's own caption language — manual subtitles when the creator provided them, otherwise the auto-generated ones. Videos without captions, and live or private videos, return the standard metadata without a transcript body.
+
 ## Supported source formats
 
 Any HTML page works. Direct file URLs are converted first: PDFs with a text layer, and the office formats `docx`, `xlsx`, `pptx`, `odt`, `rtf`, and `epub`. Image-only PDF scans, the legacy binary formats (`doc`, `xls`, `ppt`), and the OpenDocument spreadsheet and presentation formats (`ods`, `odp`) are not converted: the request still succeeds, but the field is left as the raw response instead of readable Markdown.
