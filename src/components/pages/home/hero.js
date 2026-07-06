@@ -13,6 +13,7 @@ import FeatherIcon from 'components/icons/Feather'
 import { WandSparkles } from 'components/icons/WandSparkles'
 import { Link } from 'components/elements/Link'
 import { PRODUCTS, VERTICAL_ORDER } from 'components/pages/home/catalog'
+import { blink } from 'components/keyframes'
 import { trackEvent } from 'helpers/plausible'
 import {
   transition,
@@ -180,9 +181,7 @@ const CYCLE = [
 
 const EXAMPLES = [
   'take a screenshot',
-  'lighthouse report',
   'detect technologies',
-  'run a function',
   'extract markdown',
   'fetch the logo'
 ]
@@ -438,6 +437,13 @@ const Badge = styled.span`
   margin-bottom: 26px;
 `
 
+const FORCE_FOCUS = false
+
+const composerFocus = css`
+  border-color: ${rgba(colors.grape7, 0.45)};
+  box-shadow: 0 0 6px 3px ${rgba(colors.grape7, 0.14)};
+`
+
 const Composer = styled.div`
   position: relative;
   z-index: 20;
@@ -448,8 +454,18 @@ const Composer = styled.div`
   border: 1px solid ${colors.gray2};
   border-radius: 18px;
   padding: 6px;
-  box-shadow: 0 24px 60px -30px rgba(40, 10, 60, 0.4);
+  box-shadow: 0 0 6px 0 ${rgba(colors.grape7, 0)};
   text-align: left;
+  transition: border-color ${transition.short}, box-shadow ${transition.short};
+
+  &:has(input:focus-visible),
+  &[data-force-focus='true'] {
+    ${composerFocus}
+  }
+
+  ${reduceMotion} {
+    transition: none;
+  }
 `
 
 const ComposerInput = styled.input`
@@ -463,12 +479,46 @@ const ComposerInput = styled.input`
   background: transparent;
   padding: 18px 18px 10px;
 
-  &:focus-visible {
-    box-shadow: 0 0 0 3px ${rgba(colors.link, 0.25)};
-  }
-
   &::placeholder {
     color: ${colors.gray4};
+  }
+`
+
+const InputWrap = styled.div`
+  position: relative;
+`
+
+const InputMirror = styled.div`
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 18px 18px 10px;
+  font-family: ${SANS};
+  font-size: 18px;
+  color: transparent;
+  white-space: pre;
+
+  span {
+    flex: none;
+    color: transparent;
+  }
+`
+
+const Caret = styled.span`
+  flex: none;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 1px;
+  border-radius: 1px;
+  background: ${colors.secondary};
+  animation: ${blink} 1s cubic-bezier(1, 0, 0, 1) infinite;
+
+  ${reduceMotion} {
+    animation: none;
+    opacity: 1;
   }
 `
 
@@ -1399,6 +1449,7 @@ const Hero = () => {
   const menuTimer = useRef(null)
   const menuRaf = useRef(null)
   const [promptCopied, setPromptCopied] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
   const copyTimer = useRef(null)
 
   useEffect(() => () => clearTimeout(copyTimer.current), [])
@@ -1578,9 +1629,10 @@ const Hero = () => {
   const D = useMemo(() => derive(dText, dVert), [dText, dVert])
   const liveStatus = requestStatus(req)
   const productPage = PRODUCTS[D.vertical] || PRODUCTS.screenshot
+  const canRun = dText.trim().length > 0 && req.status !== 'loading'
 
   const handleRun = () => {
-    if (req.status === 'loading') return
+    if (!canRun) return
     stopTyping()
     closeMenu()
     runRequest(D)
@@ -1656,20 +1708,32 @@ const Hero = () => {
           Everything coding agent needs from any URL. No credit card required.
         </Caption>
 
-        <Composer>
-          <ComposerInput
-            value={dText}
-            onChange={onComposerChange}
-            onFocus={stopTyping}
-            onKeyDown={e => {
-              if (e.key === 'Enter') {
-                e.target.blur()
-                handleRun()
-              }
-            }}
-            placeholder='Ask Microlink anything…'
-            aria-label='Ask Microlink anything'
-          />
+        <Composer data-force-focus={FORCE_FOCUS ? 'true' : undefined}>
+          <InputWrap>
+            <ComposerInput
+              value={dText}
+              onChange={onComposerChange}
+              onFocus={() => {
+                stopTyping()
+                setIsFocused(true)
+              }}
+              onBlur={() => setIsFocused(false)}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  e.target.blur()
+                  handleRun()
+                }
+              }}
+              placeholder='Ask Microlink anything…'
+              aria-label='Ask Microlink anything'
+            />
+            {!isFocused && dText && (
+              <InputMirror aria-hidden='true'>
+                <span>{dText}</span>
+                <Caret />
+              </InputMirror>
+            )}
+          </InputWrap>
           <Flex
             css={theme({
               alignItems: 'center',
@@ -1834,7 +1898,7 @@ const Hero = () => {
               aria-label='Run'
               aria-busy={req.status === 'loading'}
               onClick={handleRun}
-              disabled={req.status === 'loading'}
+              disabled={!canRun}
             >
               {req.status === 'loading'
                 ? (
@@ -1866,7 +1930,7 @@ const Hero = () => {
         <Flex
           css={theme({
             gap: 2,
-            mt: 4,
+            mt: 3,
             flexWrap: 'wrap',
             justifyContent: 'center'
           })}
