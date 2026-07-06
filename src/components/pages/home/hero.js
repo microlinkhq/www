@@ -1444,6 +1444,32 @@ const requestStatus = req => {
   }
 }
 
+const SHARE_QUERY_KEY = 'q'
+const SHARE_PRODUCT_KEY = 'product'
+
+const readSharedState = () => {
+  if (typeof window === 'undefined') return null
+  const params = new URLSearchParams(window.location.search)
+  const q = params.get(SHARE_QUERY_KEY)
+  if (!q || !q.trim()) return null
+  const product = params.get(SHARE_PRODUCT_KEY)
+  return { q, product: product && PRODUCTS[product] ? product : null }
+}
+
+const writeSharedState = (text, vertical) => {
+  if (typeof window === 'undefined') return
+  const params = new URLSearchParams(window.location.search)
+  params.set(SHARE_QUERY_KEY, text)
+  if (vertical) params.set(SHARE_PRODUCT_KEY, vertical)
+  else params.delete(SHARE_PRODUCT_KEY)
+  const { pathname, hash } = window.location
+  window.history.replaceState(
+    window.history.state,
+    '',
+    `${pathname}?${params.toString()}${hash}`
+  )
+}
+
 const Hero = () => {
   const [dText, setDText] = useState(CYCLE[0])
   const [dTab, setDTab] = useState('output')
@@ -1576,7 +1602,10 @@ const Hero = () => {
   }, [])
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (
+      readSharedState() ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
       return undefined
     }
     const a = anim.current
@@ -1644,7 +1673,16 @@ const Hero = () => {
   }, [menuState])
 
   useEffect(() => {
-    runRequest(derive(CYCLE[0]))
+    const shared = readSharedState()
+    if (shared) {
+      stopTyping()
+      anim.current.text = shared.q
+      setDText(shared.q)
+      setDVert(shared.product)
+      runRequest(derive(shared.q, shared.product))
+    } else {
+      runRequest(derive(CYCLE[0]))
+    }
   }, [runRequest])
 
   const D = useMemo(() => derive(dText, dVert), [dText, dVert])
@@ -1656,6 +1694,7 @@ const Hero = () => {
     if (!canRun) return
     stopTyping()
     closeMenu()
+    writeSharedState(dText, dVert)
     runRequest(D)
   }
 
@@ -1685,6 +1724,7 @@ const Hero = () => {
     setDVert(k)
     closeMenu()
     if (chipRef.current) chipRef.current.focus()
+    writeSharedState(prompt, k)
     runRequest(derive(prompt, k))
   }
 
