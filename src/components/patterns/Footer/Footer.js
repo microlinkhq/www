@@ -1,4 +1,5 @@
-import { layout, colors, theme, transition } from 'theme'
+import { layout, colors, theme, transition, fontWeights, fonts } from 'theme'
+import { track } from '@vercel/analytics'
 import { issueUrl } from 'helpers/issue-url'
 import FeatherIcon from 'components/icons/Feather'
 import React, { useState, useCallback } from 'react'
@@ -334,13 +335,48 @@ const activeColumns = FOOTER_COLUMNS.filter(
   col => col.links.length > 0 || (col.groups && col.groups.length > 0)
 )
 
+const GiantEmail = () => (
+  <Box
+    as='a'
+    href='mailto:hello@microlink.io'
+    onClick={() => track('Email', { location: 'Footer' })}
+    css={theme({
+      display: 'block',
+      overflow: 'hidden',
+      opacity: 0.08,
+      transition: `opacity ${transition.medium}`,
+      _hover: { opacity: 0.16 }
+    })}
+  >
+    <Box
+      as='svg'
+      viewBox='0 0 1000 130'
+      preserveAspectRatio='xMinYMax meet'
+      css={{ display: 'block', width: '100%', transform: 'translateY(14%)' }}
+    >
+      <text
+        x='0'
+        y='110'
+        textLength='1000'
+        lengthAdjust='spacingAndGlyphs'
+        fontFamily={fonts.sans}
+        fontSize='130'
+        fontWeight={fontWeights.bold}
+        fill={colors.black}
+      >
+        hello@microlink.io
+      </text>
+    </Box>
+  </Box>
+)
+
 const Footer = ({ ...props }) => {
   return (
     <Container
       css={theme({
         px: 0,
         maxWidth: layout.large,
-        pb: [5, 5, 6, 6]
+        pb: 5
       })}
     >
       <Box
@@ -439,6 +475,10 @@ const Footer = ({ ...props }) => {
             </Flex>
           </form>
         </Flex>
+
+        <Box css={theme({ mt: [4, 4, 5, 5] })}>
+          <GiantEmail />
+        </Box>
       </Box>
     </Container>
   )
