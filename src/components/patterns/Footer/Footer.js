@@ -339,6 +339,7 @@ const GiantEmail = () => (
   <Box
     as='a'
     href='mailto:hello@microlink.io'
+    aria-label='hello@microlink.io'
     onClick={() => track('Email', { location: 'Footer' })}
     css={theme({
       display: 'block',
@@ -352,7 +353,11 @@ const GiantEmail = () => (
       as='svg'
       viewBox='0 0 1000 130'
       preserveAspectRatio='xMinYMax meet'
-      css={{ display: 'block', width: '100%', transform: 'translateY(14%)' }}
+      css={theme({
+        display: 'block',
+        width: '100%',
+        transform: 'translateY(14%)'
+      })}
     >
       <text
         x='0'
