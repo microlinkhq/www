@@ -1090,6 +1090,26 @@ const OPEN_IN = [
   }
 ]
 
+const buildLaunchPrompt = (task, tool) =>
+  [
+    `Use the Microlink MCP server — specifically the \`microlink_${tool}\` tool — to do this:`,
+    '',
+    task,
+    '',
+    "If the Microlink MCP isn't installed yet, add it to your MCP client config and retry:",
+    '',
+    '{',
+    '  "mcpServers": {',
+    '    "microlink": {',
+    '      "command": "npx",',
+    '      "args": ["-y", "@microlink/mcp"]',
+    '    }',
+    '  }',
+    '}',
+    '',
+    'No API key needed for the free tier (50 requests/day). Setup guide: https://microlink.io/integrations/mcp'
+  ].join('\n')
+
 const TILT_MAX = 10
 
 const ExampleCard = ({ example, delay }) => {
@@ -1128,6 +1148,8 @@ const ExampleCard = ({ example, delay }) => {
     card.style.setProperty('--tilt-rx', '0deg')
     card.style.setProperty('--tilt-ry', '0deg')
   }, [])
+
+  const launchPrompt = buildLaunchPrompt(example.prompt, example.tool)
 
   return (
     <Box
@@ -1186,7 +1208,7 @@ const ExampleCard = ({ example, delay }) => {
               <a
                 key={client.name}
                 className='ex-open'
-                href={client.href(example.prompt)}
+                href={client.href(launchPrompt)}
                 target='_blank'
                 rel='noopener noreferrer'
                 aria-label={`Open this ${example.tool} prompt in ${client.name}`}
@@ -1196,7 +1218,7 @@ const ExampleCard = ({ example, delay }) => {
               </a>
             ))}
             <div className='ex-copy'>
-              <CodeCopy text={example.prompt} />
+              <CodeCopy text={launchPrompt} />
             </div>
           </Flex>
         </Flex>
