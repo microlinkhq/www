@@ -300,12 +300,14 @@ const ProductInformation = () => (
           <>
             <div>
               No API key required to get started. The free tier covers 25
-              requests per day — enough to explore all twenty tools.
+              requests per day — enough to explore the toolset. The one
+              exception is Search, which runs on paid plans and needs an API
+              key.
             </div>
             <div>
               Add your <Link href='/#pricing'>Microlink API key</Link> when you
-              need production volume, configurable TTL, custom headers, or proxy
-              support.
+              need Search, production volume, configurable TTL, custom headers,
+              or proxy support.
             </div>
           </>
         )
@@ -351,8 +353,8 @@ const ProductInformation = () => (
           <>
             <div>
               Yes. Start immediately with 25 free requests per day — no credit
-              card, no signup required. All twenty tools are available on the
-              free tier.
+              card, no signup required. Every tool except Search is available on
+              the free tier; Search runs on paid plans.
             </div>
             <div>
               When you need more throughput or pro features, upgrade to a paid
@@ -522,7 +524,7 @@ export const Head = () => (
             name: 'Do I need an API key?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'You can start using Microlink MCP without an API key. The free tier gives you enough requests to try out all capabilities. For production use, add your Microlink API key to unlock pro features.'
+              text: 'You can start using Microlink MCP without an API key. The free tier covers 25 requests per day — enough to try out the toolset. The one exception is Search, which runs on paid plans and needs an API key. Add your Microlink API key for Search, production volume, or pro features.'
             }
           },
           {
@@ -546,7 +548,7 @@ export const Head = () => (
             name: 'Is there a free tier?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. Microlink has a free tier that lets you use all API capabilities without a credit card. When you need more volume or pro features, upgrade to a paid plan at any time.'
+              text: 'Yes. Microlink has a free tier of 25 requests per day, no credit card required. Every tool except Search is available on the free tier; Search runs on paid plans. When you need more volume or pro features, upgrade to a paid plan at any time.'
             }
           },
           {
@@ -970,11 +972,11 @@ const examplesCss = `
     transform-style: preserve-3d;
     transition: box-shadow 0.25s ease,
       transform var(--tilt-return) var(--tilt-return-ease);
-    will-change: transform;
   }
   .ex-card.is-tilting {
     transition: box-shadow 0.25s ease,
       transform var(--tilt-follow) var(--tilt-follow-ease);
+    will-change: transform;
   }
   .ex-card:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.10), 0 24px 64px rgba(0,0,0,0.06);
@@ -1003,10 +1005,17 @@ const examplesCss = `
     display: inline-flex;
     align-items: center;
     opacity: 0.5;
+    border-radius: 4px;
     transition: opacity 0.2s ease;
   }
-  .ex-open:hover {
+  .ex-open:hover,
+  .ex-open:focus-visible {
     opacity: 1;
+  }
+  .ex-open:focus-visible,
+  .ex-pill:focus-visible {
+    outline: 2px solid var(--card-accent, var(--pill-accent, rgba(6,125,247,0.9)));
+    outline-offset: 2px;
   }
   .ex-ball {
     opacity: 0.35;
@@ -1090,25 +1099,42 @@ const OPEN_IN = [
   }
 ]
 
-const buildLaunchPrompt = (task, tool) =>
-  [
+const NEEDS_API_KEY = new Set(['search'])
+
+const mcpConfigLines = withKey => [
+  '{',
+  '  "mcpServers": {',
+  '    "microlink": {',
+  '      "command": "npx",',
+  `      "args": ["-y", "@microlink/mcp"]${withKey ? ',' : ''}`,
+  ...(withKey
+    ? [
+        '      "env": {',
+        '        "MICROLINK_API_KEY": "your-api-key"',
+        '      }'
+      ]
+    : []),
+  '    }',
+  '  }',
+  '}'
+]
+
+const buildLaunchPrompt = (task, tool) => {
+  const needsKey = NEEDS_API_KEY.has(tool)
+  return [
     `Use the Microlink MCP server — specifically the \`microlink_${tool}\` tool — to do this:`,
     '',
     task,
     '',
     "If the Microlink MCP isn't installed yet, add it to your MCP client config and retry:",
     '',
-    '{',
-    '  "mcpServers": {',
-    '    "microlink": {',
-    '      "command": "npx",',
-    '      "args": ["-y", "@microlink/mcp"]',
-    '    }',
-    '  }',
-    '}',
+    ...mcpConfigLines(needsKey),
     '',
-    'No API key needed for the free tier (25 requests/day). Setup guide: https://microlink.io/integrations/mcp'
+    needsKey
+      ? 'Search runs on paid plans, so it needs a Microlink API key — grab one at https://microlink.io/#pricing. Setup guide: https://microlink.io/integrations/mcp'
+      : 'No API key needed for the free tier (25 requests/day). Setup guide: https://microlink.io/integrations/mcp'
   ].join('\n')
+}
 
 const TILT_MAX = 10
 
