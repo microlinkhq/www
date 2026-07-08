@@ -4,6 +4,7 @@ import React, { useState, useMemo, useCallback, useRef } from 'react'
 import Box from 'components/elements/Box'
 import CodeCopy from 'components/elements/Codecopy'
 import Container from 'components/elements/Container'
+import InputIcon from 'components/elements/Input/InputIcon'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Video from 'components/elements/Video/Video'
@@ -998,6 +999,15 @@ const examplesCss = `
   .ex-card:hover .ex-copy {
     opacity: 1;
   }
+  .ex-open {
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+  }
+  .ex-open:hover {
+    opacity: 1;
+  }
   .ex-ball {
     opacity: 0.35;
   }
@@ -1055,6 +1065,7 @@ const examplesCss = `
     .ex-ball,
     .ex-tool,
     .ex-copy,
+    .ex-open,
     .ex-pill,
     .ex-pill-dot {
       animation: none !important;
@@ -1065,6 +1076,19 @@ const examplesCss = `
     }
   }
 `
+
+const OPEN_IN = [
+  {
+    name: 'Claude',
+    domain: 'claude.ai',
+    href: prompt => `https://claude.ai/new?q=${encodeURIComponent(prompt)}`
+  },
+  {
+    name: 'ChatGPT',
+    domain: 'chatgpt.com',
+    href: prompt => `https://chatgpt.com/?q=${encodeURIComponent(prompt)}`
+  }
+]
 
 const TILT_MAX = 10
 
@@ -1154,9 +1178,27 @@ const ExampleCard = ({ example, delay }) => {
           >
             {example.tool}
           </Text>
-          <div className='ex-copy' style={{ marginLeft: 'auto' }}>
-            <CodeCopy text={example.prompt} />
-          </div>
+          <Flex
+            className='ex-actions'
+            css={{ marginLeft: 'auto', alignItems: 'center', gap: '10px' }}
+          >
+            {OPEN_IN.map(client => (
+              <a
+                key={client.name}
+                className='ex-open'
+                href={client.href(example.prompt)}
+                target='_blank'
+                rel='noopener noreferrer'
+                aria-label={`Open this ${example.tool} prompt in ${client.name}`}
+                title={`Open in ${client.name}`}
+              >
+                <InputIcon width='15px' height='15px' query={client.domain} />
+              </a>
+            ))}
+            <div className='ex-copy'>
+              <CodeCopy text={example.prompt} />
+            </div>
+          </Flex>
         </Flex>
         <Text
           css={{
