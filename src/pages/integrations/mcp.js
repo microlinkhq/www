@@ -1,5 +1,5 @@
 import { borders, layout, colors, fonts, theme } from 'theme'
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useMemo, useCallback, useRef } from 'react'
 
 import Box from 'components/elements/Box'
 import CodeCopy from 'components/elements/Codecopy'
@@ -22,19 +22,14 @@ import Layout from 'components/patterns/Layout'
 
 const FEATURES = [
   {
-    title: 'extract',
-    description:
-      'The Swiss Army knife. Pull metadata, scrape custom fields with CSS selectors, capture a screenshot, generate a PDF, extract video, run Lighthouse — all in one request.'
-  },
-  {
     title: 'screenshot',
     description:
-      'Ask your AI to screenshot any page and get back a CDN URL in seconds. Full-page, device emulation, browser overlays, custom CSS/JS — every option the Microlink screenshot API offers.'
+      'Ask your AI to screenshot any page and get back a CDN URL in seconds. Full-page, element crops, animated capture, device emulation, browser overlays, custom CSS/JS.'
   },
   {
     title: 'pdf',
     description:
-      'Turn any URL into a downloadable PDF on demand. Your AI controls paper size, margins, orientation, and page range — no headless browser setup required.'
+      'Turn any URL into a downloadable PDF on demand. Your AI controls paper size, margins, orientation, scale, and page range — no headless browser setup required.'
   },
   {
     title: 'markdown',
@@ -42,29 +37,49 @@ const FEATURES = [
       'Any webpage, clean Markdown output. 80% fewer tokens than raw HTML. Feed articles, docs, and research straight into your LLM context window.'
   },
   {
-    title: 'text',
+    title: 'extract',
     description:
-      'Extract plain text from any URL, stripping all HTML and formatting. The lightest option when all you need is raw readable content.'
+      'The power tool. Scrape custom fields with CSS selectors and compose a screenshot, a PDF, and metadata in a single request. Structured JSON back.'
   },
   {
-    title: 'meta',
+    title: 'metadata',
     description:
-      'Fast, normalized metadata from any URL — title, description, author, date, image, and favicon. Lighter than extract when all you need are the basics.'
+      'Fast, normalized metadata from any URL — title, description, author, date, and image. Plus a dedicated logo tool for pulling brand assets.'
   },
   {
     title: 'video & audio',
     description:
-      'Extract a direct playable source from any media page. Video works with YouTube, Vimeo, TikTok, Instagram, and hundreds of other platforms. Audio covers SoundCloud, Spotify, Mixcloud, and more.'
+      'Extract a direct playable source from any media page. Video covers YouTube, Vimeo, TikTok, and Instagram; audio covers SoundCloud, Spotify, Mixcloud, and more.'
   },
   {
-    title: 'palette',
+    title: 'search',
     description:
-      'Dominant color palette from any page images, ranked by coverage. Returns hex codes plus WCAG-contrast-safe background and overlay colors for design work.'
+      'Google as structured data. Ranked results, knowledge graph, people-also-ask, and related searches — across news, images, videos, places, and shopping.'
   },
   {
-    title: 'insights',
+    title: 'function',
     description:
-      'Ask your AI to audit any site for performance, accessibility, SEO, and best practices via Lighthouse. Pairs with tech-stack detection via Wappalyzer.'
+      "Run your own JavaScript inside Microlink's server-side browser sandbox. Automate the clicks, scrolls, and scraping the API doesn't cover out of the box."
+  },
+  {
+    title: 'technologies',
+    description:
+      'Detect the full stack behind any site via Wappalyzer — frameworks, CDNs, analytics, and e-commerce platforms your competitors are running.'
+  },
+  {
+    title: 'lighthouse',
+    description:
+      'Audit any URL for performance, accessibility, best practices, and SEO with Google Lighthouse — every failing rule listed, before launch not after.'
+  },
+  {
+    title: 'collect',
+    description:
+      'Pull every link, image, video, audio source, or email address off a page in one call. Absolute, deduped arrays — ready to crawl or archive.'
+  },
+  {
+    title: 'embed',
+    description:
+      'Get the oEmbed-ready iframe for YouTube, Tweets, CodePen, and hundreds more — the markup plus the scripts it needs, no manual wiring.'
   }
 ]
 
@@ -284,7 +299,7 @@ const ProductInformation = () => (
           <>
             <div>
               No API key required to get started. The free tier covers 50
-              requests per day — enough to explore all ten tools.
+              requests per day — enough to explore all twenty tools.
             </div>
             <div>
               Add your <Link href='/#pricing'>Microlink API key</Link> when you
@@ -316,13 +331,15 @@ const ProductInformation = () => (
           <>
             <div>
               Screenshot any URL, generate a PDF, convert a webpage to clean
-              Markdown, pull normalized metadata, scrape custom fields with CSS
-              selectors, extract video or audio sources, run a Lighthouse audit,
-              detect a site&apos;s tech stack, and extract color palettes.
+              Markdown or HTML, pull normalized metadata and brand logos, scrape
+              custom fields with CSS selectors, extract video and audio sources,
+              collect every link, image, and email, run a Lighthouse audit,
+              detect a site&apos;s tech stack, search Google as structured data,
+              and run custom JavaScript in a browser sandbox.
             </div>
             <div>
-              All ten tools are available through natural language — no code, no
-              API calls, no configuration beyond the initial setup.
+              All twenty tools are available through natural language — no code,
+              no API calls, no configuration beyond the initial setup.
             </div>
           </>
         )
@@ -333,8 +350,8 @@ const ProductInformation = () => (
           <>
             <div>
               Yes. Start immediately with 50 free requests per day — no credit
-              card, no signup required. All ten tools are available on the free
-              tier.
+              card, no signup required. All twenty tools are available on the
+              free tier.
             </div>
             <div>
               When you need more throughput or pro features, upgrade to a paid
@@ -424,7 +441,7 @@ const ProductInformation = () => (
 export const Head = () => (
   <Meta
     title='Microlink MCP — Web scraping & browser tools for AI agents'
-    description='Give Claude, Cursor, and any MCP client screenshots, PDFs, web scraping, markdown, and metadata extraction. One config block, nine browser tools, zero boilerplate.'
+    description='Give Claude, Cursor, and any MCP client screenshots, PDFs, web scraping, markdown, metadata, media extraction, Lighthouse audits, and Google search. One config block, twenty tools, zero boilerplate.'
     noSuffix
     structured={[
       {
@@ -433,7 +450,7 @@ export const Head = () => (
         '@id': 'https://microlink.io/integrations/mcp',
         name: 'Microlink MCP',
         description:
-          'An MCP server that gives Claude, Cursor, and any AI client access to screenshots, PDFs, web scraping, markdown conversion, and metadata extraction. One config block, nine browser tools.',
+          'An MCP server that gives Claude, Cursor, and any AI client access to screenshots, PDFs, web scraping, markdown conversion, metadata, media extraction, Lighthouse audits, and structured Google search. One config block, twenty tools.',
         url: 'https://microlink.io/integrations/mcp',
         applicationCategory: ['DeveloperApplication', 'API'],
         keywords: [
@@ -520,7 +537,7 @@ export const Head = () => (
             name: 'What can my AI agent do with it?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "Screenshot any URL, generate a PDF, convert a webpage to clean Markdown, pull normalized metadata, scrape custom fields with CSS selectors, extract video or audio sources, run a Lighthouse audit, detect a site's tech stack, and extract color palettes — all through natural language."
+              text: "Screenshot any URL, generate a PDF, convert a webpage to clean Markdown or HTML, pull normalized metadata and brand logos, scrape custom fields with CSS selectors, extract video and audio sources, collect every link, image, and email, run a Lighthouse audit, detect a site's tech stack, search Google as structured data, and run custom JavaScript in a browser sandbox — all through natural language."
             }
           },
           {
@@ -553,10 +570,32 @@ export const Head = () => (
   />
 )
 
+const ACCENTS = {
+  screenshot: '#7B61FF',
+  pdf: '#EA407B',
+  embed: '#6366F1',
+  metadata: '#F97316',
+  logo: '#F59E0B',
+  markdown: '#00B4D8',
+  html: '#0EA5E9',
+  text: '#14B8A6',
+  video: '#F43F5E',
+  audio: '#D946EF',
+  links: '#3B82F6',
+  images: '#10B981',
+  videos: '#FB7185',
+  audios: '#C084FC',
+  emails: '#06B6D4',
+  technologies: '#A855F7',
+  lighthouse: '#EAB308',
+  search: '#22C55E',
+  function: '#64748B',
+  extract: '#067df7'
+}
+
 const EXAMPLES = [
   {
     tool: 'screenshot',
-    accent: '#7B61FF',
     prompt:
       'Screenshot the Stripe pricing page with a dark browser overlay and share it with the team',
     result:
@@ -564,106 +603,7 @@ const EXAMPLES = [
     span: 2
   },
   {
-    tool: 'markdown',
-    accent: '#00B4D8',
-    prompt:
-      'Read this research paper and summarise the key findings in bullet points',
-    result:
-      'Clean Markdown — 80 % fewer tokens than raw HTML — fed straight into the LLM context.'
-  },
-  {
-    tool: 'extract',
-    accent: '#067df7',
-    prompt:
-      'Scrape every pricing plan name and monthly price from this SaaS page',
-    result:
-      'Structured JSON with the exact fields you asked for, extracted via CSS selectors.'
-  },
-  {
-    tool: 'pdf',
-    accent: '#EA407B',
-    prompt:
-      'Convert this documentation page to an A4 PDF and send it to the client',
-    result:
-      'A print-ready PDF with full CSS rendering, hosted on CDN and available immediately.'
-  },
-  {
-    tool: 'insights',
-    accent: '#F59E0B',
-    prompt:
-      "Audit our competitor's homepage performance and tell me what stack they're running",
-    result:
-      'Lighthouse scores for performance, accessibility, SEO, plus tech-stack detection.'
-  },
-  {
-    tool: 'palette',
-    accent: '#10B981',
-    prompt: 'What are the exact brand colors used on linear.app?',
-    result:
-      'Hex codes ranked by dominance, plus WCAG-contrast-safe background and overlay colors.'
-  },
-  {
-    tool: 'video',
-    accent: '#F43F5E',
-    prompt:
-      'Extract the playable video URL from this YouTube page so I can embed it',
-    result:
-      'A direct playable source URL — works with YouTube, Vimeo, TikTok, and hundreds more.',
-    span: 2
-  },
-  {
-    tool: 'meta',
-    accent: '#F97316',
-    prompt:
-      'Fetch the title, OG image, and description for each of these 10 blog posts',
-    result:
-      'Normalized metadata for every URL — title, description, image, author, date, and favicon.'
-  },
-  {
-    tool: 'text',
-    accent: '#14B8A6',
-    prompt:
-      'Extract the plain text content of this article so I can count the words',
-    result:
-      'Raw readable text — no tags, no scripts, no noise — ready for analysis or summarisation.'
-  },
-  {
     tool: 'screenshot',
-    accent: '#7B61FF',
-    prompt:
-      'Capture a mobile view of twitter.com to see how the layout looks on a phone screen',
-    result:
-      'A screenshot taken at 390 x 844 mobile viewport — identical to what a real iPhone sees.',
-    hidden: true
-  },
-  {
-    tool: 'audio',
-    accent: '#D946EF',
-    prompt:
-      'Extract the audio stream from this SoundCloud track so I can embed it in our app',
-    result:
-      'A direct playable audio URL from SoundCloud — no API key, no scraping setup, no rate limits.'
-  },
-  {
-    tool: 'extract',
-    accent: '#067df7',
-    prompt:
-      'Get the metadata and a full-page screenshot of vercel.com in a single request',
-    result:
-      'Title, description, OG image, author, date — plus a screenshot URL — all in one call.',
-    span: 2
-  },
-  {
-    tool: 'screenshot',
-    accent: '#7B61FF',
-    prompt:
-      'Screenshot the dark-mode version of our app at 1440 px wide for the design review',
-    result:
-      'A full desktop-width capture at the exact viewport you need — dark scheme applied, CDN-hosted.'
-  },
-  {
-    tool: 'screenshot',
-    accent: '#7B61FF',
     prompt:
       'Take a full-page screenshot of our landing page and export it as a JPEG',
     result:
@@ -672,87 +612,29 @@ const EXAMPLES = [
   },
   {
     tool: 'screenshot',
-    accent: '#7B61FF',
     prompt:
       'Screenshot only the hero section of linear.app using its CSS selector',
     result:
-      'An element-level crop of exactly the DOM node you specified — nothing more, nothing less.',
+      'An element-level crop of exactly the DOM node you named — nothing more, nothing less.',
     hidden: true
   },
   {
     tool: 'screenshot',
-    accent: '#7B61FF',
     prompt:
-      'Take a screenshot of our staging site with a browser overlay for the pitch deck',
+      'Capture a mobile view of twitter.com at iPhone size for the design review',
     result:
-      'A polished browser-framed PNG that looks great in presentations — one CDN link, no fuss.',
-    hidden: true
-  },
-  {
-    tool: 'markdown',
-    accent: '#00B4D8',
-    prompt:
-      'Convert this Wikipedia article to Markdown so I can paste it into Notion',
-    result:
-      'Clean structured Markdown — headings, lists, links all preserved — ready to paste anywhere.',
-    hidden: true
-  },
-  {
-    tool: 'markdown',
-    accent: '#00B4D8',
-    prompt:
-      'Turn this changelog page into Markdown and summarise what changed in the last release',
-    result:
-      'Parsed Markdown fed to the LLM, which returns a concise summary of the latest version changes.',
-    hidden: true
-  },
-  {
-    tool: 'markdown',
-    accent: '#00B4D8',
-    prompt:
-      'Convert the React docs page to Markdown and find all the code examples',
-    result:
-      'Full-page Markdown with all code blocks intact — grep, filter, or pipe straight into your workflow.',
-    hidden: true
-  },
-  {
-    tool: 'extract',
-    accent: '#067df7',
-    prompt:
-      'Find all the author names and publish dates from this blog index page',
-    result:
-      'An array of structured objects — one per article — with author and date fields extracted via selectors.',
-    hidden: true
-  },
-  {
-    tool: 'extract',
-    accent: '#067df7',
-    prompt:
-      'Pull the job title, company, and LinkedIn URL from this profile page',
-    result:
-      'Structured JSON with every field you named — ready to push into your CRM or spreadsheet.',
-    hidden: true
-  },
-  {
-    tool: 'extract',
-    accent: '#067df7',
-    prompt:
-      'Extract the product name, SKU, and price from each item on this e-commerce page',
-    result:
-      'A clean JSON array — one object per product — with all the fields you specified.',
+      'A screenshot taken at 390 x 844 mobile viewport — identical to what a real iPhone sees.',
     hidden: true
   },
   {
     tool: 'pdf',
-    accent: '#EA407B',
-    prompt: 'Export this invoice page as a PDF so I can send it to accounting',
+    prompt:
+      'Convert this documentation page to an A4 PDF and send it to the client',
     result:
-      'A pixel-accurate PDF of the page at A4 size — fonts, tables, and layout fully rendered.',
-    hidden: true
+      'A print-ready PDF with full CSS rendering, hosted on CDN and available immediately.'
   },
   {
     tool: 'pdf',
-    accent: '#EA407B',
     prompt:
       'Generate a landscape PDF of this analytics dashboard for the board meeting',
     result:
@@ -761,132 +643,71 @@ const EXAMPLES = [
   },
   {
     tool: 'pdf',
-    accent: '#EA407B',
-    prompt: 'Save this terms-of-service page as a PDF for our legal records',
+    prompt: 'Export this invoice page as a PDF so I can send it to accounting',
     result:
-      'A print-ready PDF with correct pagination, hosted on CDN and ready to download or share.',
+      'A pixel-accurate A4 PDF — fonts, tables, and layout fully rendered, ready to download.',
     hidden: true
   },
   {
-    tool: 'insights',
-    accent: '#F59E0B',
-    prompt:
-      'Check our new landing page for accessibility issues before we ship',
+    tool: 'embed',
+    prompt: 'Give me the embeddable iframe for this YouTube video',
     result:
-      'Lighthouse accessibility score with every failing rule listed — fix before launch, not after.',
+      'oEmbed-ready { html, scripts } — drop it straight into your page, no manual markup.'
+  },
+  {
+    tool: 'embed',
+    prompt:
+      'Get the embed code for this Tweet so I can put it in our blog post',
+    result:
+      'The oEmbed HTML plus the script URLs it needs — rendered exactly like the source.',
     hidden: true
   },
   {
-    tool: 'insights',
-    accent: '#F59E0B',
+    tool: 'markdown',
     prompt:
-      'Run a performance audit on our checkout page and flag the biggest bottlenecks',
+      'Read this research paper and summarise the key findings in bullet points',
     result:
-      'Core Web Vitals breakdown — LCP, FID, CLS — with actionable suggestions for each.',
+      'Clean Markdown — 80 % fewer tokens than raw HTML — fed straight into the LLM context.'
+  },
+  {
+    tool: 'markdown',
+    prompt:
+      'Convert this Wikipedia article to Markdown so I can paste it into Notion',
+    result:
+      'Structured Markdown — headings, lists, links all preserved — ready to paste anywhere.',
     hidden: true
   },
   {
-    tool: 'insights',
-    accent: '#F59E0B',
+    tool: 'markdown',
     prompt:
-      'Detect what CMS our competitor is running and what analytics tools they use',
+      'Turn the React docs page into Markdown and find every code example',
     result:
-      'A full Wappalyzer tech-stack report — CMS, CDN, analytics, A/B testing tools, and more.',
+      'Full-page Markdown with all code blocks intact — grep, filter, or pipe into your workflow.',
     hidden: true
   },
   {
-    tool: 'palette',
-    accent: '#10B981',
+    tool: 'html',
     prompt:
-      'Extract the color palette from our hero image so I can build a matching UI',
+      'Get the raw HTML of this product page, scoped to the main article node',
     result:
-      'Dominant hex codes from the image ranked by coverage — ready to drop into your design system.',
-    hidden: true
+      'The page HTML scoped to your selector — server-rendered by a real browser, ready to parse.'
   },
   {
-    tool: 'palette',
-    accent: '#10B981',
-    prompt:
-      'What background color would be safest to use on top of the main image on stripe.com?',
+    tool: 'html',
+    prompt: 'Fetch the full HTML of this page after its JavaScript has run',
     result:
-      'The WCAG-contrast-safe overlay color — guaranteed readable text on any image background.',
-    hidden: true
-  },
-  {
-    tool: 'palette',
-    accent: '#10B981',
-    prompt:
-      'Give me the five most used colors on vercel.com so I can match our design',
-    result:
-      'Five dominant hex codes ranked by usage — with dark/light contrast-safe alternatives for each.',
-    hidden: true
-  },
-  {
-    tool: 'video',
-    accent: '#F43F5E',
-    prompt:
-      'Get the direct MP4 URL from this Vimeo embed so I can cache it locally',
-    result:
-      'A direct, playable MP4 source URL — no embed, no JavaScript, no rate limits.',
-    hidden: true
-  },
-  {
-    tool: 'video',
-    accent: '#F43F5E',
-    prompt:
-      'Extract the audio stream from this SoundCloud track so I can transcribe it',
-    result:
-      'A direct audio source URL from SoundCloud, Spotify, Mixcloud, or any supported platform.',
-    hidden: true
-  },
-  {
-    tool: 'video',
-    accent: '#F43F5E',
-    prompt:
-      'Pull the video source from this TikTok so I can use it in our montage',
-    result:
-      'A watermark-free direct video URL from TikTok — ready to download or pipe into ffmpeg.',
-    hidden: true
-  },
-  {
-    tool: 'meta',
-    accent: '#F97316',
-    prompt:
-      'Get the OG image and title for this URL so I can generate a link preview',
-    result:
-      'Open Graph image URL, title, and description — normalized and ready for your link preview component.',
-    hidden: true
-  },
-  {
-    tool: 'meta',
-    accent: '#F97316',
-    prompt:
-      'Check if this article has an author and publication date set in its metadata',
-    result:
-      'Parsed author name and ISO date from the page meta tags — null if not present, never guessed.',
-    hidden: true
-  },
-  {
-    tool: 'meta',
-    accent: '#F97316',
-    prompt:
-      "Pull the favicon URL from our competitor's site for the comparison table",
-    result:
-      'A direct favicon URL — upsized, normalized, and CDN-hosted — for any page you point at.',
+      'Fully-rendered HTML from a real browser — dynamic content included, not just the shell.',
     hidden: true
   },
   {
     tool: 'text',
-    accent: '#14B8A6',
     prompt:
-      'Pull the raw text from this job listing so I can parse requirements with an LLM',
+      'Extract the plain text content of this article so I can count the words',
     result:
-      'Plain text stripped of all HTML — just the readable content, ready for LLM processing.',
-    hidden: true
+      'Raw readable text — no tags, no scripts, no noise — ready for analysis or summarisation.'
   },
   {
     tool: 'text',
-    accent: '#14B8A6',
     prompt:
       'Extract the article body from this page without the nav or footer noise',
     result:
@@ -894,63 +715,237 @@ const EXAMPLES = [
     hidden: true
   },
   {
-    tool: 'text',
-    accent: '#14B8A6',
+    tool: 'metadata',
     prompt:
-      'Get the plain text of this product changelog so I can diff it against last month',
+      'Fetch the title, OG image, and description for each of these 10 blog posts',
     result:
-      'Raw text output — no markup, no scripts — ready to compare, diff, or feed into any tool.',
+      'Normalized metadata for every URL — title, description, image, author, date, and logo.'
+  },
+  {
+    tool: 'metadata',
+    prompt:
+      'Check if this article has an author and publication date in its metadata',
+    result:
+      'Parsed author name and ISO date from the page meta — null if absent, never guessed.',
+    hidden: true
+  },
+  {
+    tool: 'metadata',
+    prompt:
+      'Get the OG image and title for this URL so I can build a link preview',
+    result:
+      'Open Graph image, title, and description — normalized for your link-preview component.',
+    hidden: true
+  },
+  {
+    tool: 'logo',
+    prompt: 'Get the brand logo for stripe.com in a square shape',
+    result:
+      'The logo asset — url, type, and dimensions — with a square icon variant when you ask for one.'
+  },
+  {
+    tool: 'logo',
+    prompt:
+      'Pull the logo of every company in this list for our comparison table',
+    result:
+      'A direct, CDN-hosted logo URL per site — normalized and ready to render.',
+    hidden: true
+  },
+  {
+    tool: 'video',
+    prompt:
+      'Extract the playable video URL from this YouTube page so I can embed it',
+    result:
+      'A direct playable source URL — works with YouTube, Vimeo, TikTok, and hundreds more.',
+    span: 2
+  },
+  {
+    tool: 'video',
+    prompt:
+      'Get the direct MP4 from this Vimeo embed so I can cache it locally',
+    result:
+      'A direct, playable MP4 source URL — no embed, no JavaScript, no rate limits.',
+    hidden: true
+  },
+  {
+    tool: 'video',
+    prompt:
+      'Pull the video source from this TikTok so I can use it in our montage',
+    result:
+      'A watermark-free direct video URL — ready to download or pipe into ffmpeg.',
     hidden: true
   },
   {
     tool: 'audio',
-    accent: '#D946EF',
     prompt:
-      'Get the direct audio source from this Spotify episode so I can transcribe it',
+      'Extract the audio stream from this SoundCloud track so I can embed it',
     result:
-      'A direct audio stream URL from Spotify — ready to pipe into Whisper or any transcription tool.',
-    hidden: true
+      'A direct playable audio URL from SoundCloud — no API key, no scraping setup, no rate limits.'
   },
   {
     tool: 'audio',
-    accent: '#D946EF',
     prompt:
-      'Pull the audio file from this podcast episode page so I can process it offline',
+      'Get the audio source from this Spotify episode so I can transcribe it',
     result:
-      'A direct MP3 or AAC URL from any podcast host — download, transcribe, or archive with no friction.',
+      'A direct audio stream URL — ready to pipe into Whisper or any transcription tool.',
     hidden: true
   },
   {
-    tool: 'audio',
-    accent: '#D946EF',
-    prompt:
-      'Extract the audio from this Mixcloud mix so I can add it to our playlist',
+    tool: 'links',
+    prompt: 'Collect every link on this blog index page',
     result:
-      'A direct playable source from Mixcloud — works with hundreds of audio platforms out of the box.',
+      'An array of absolute, deduped URLs — scope it to a CSS selector when you need a subset.'
+  },
+  {
+    tool: 'links',
+    prompt: 'Get all the outbound links from this documentation page',
+    result:
+      'Every <a href> on the page, resolved to absolute URLs and deduplicated.',
+    hidden: true
+  },
+  {
+    tool: 'images',
+    prompt: 'Grab every image URL from this product gallery',
+    result:
+      'An array of absolute, deduped image URLs — scoped to a selector if you want just the gallery.'
+  },
+  {
+    tool: 'images',
+    prompt: 'Pull all the images from this article so I can archive them',
+    result:
+      'Every <img src> on the page, resolved to absolute URLs and deduplicated.',
+    hidden: true
+  },
+  {
+    tool: 'videos',
+    prompt: 'List every video source embedded on this page',
+    result:
+      'An array of absolute, deduped <video>/<source> URLs — the whole page, not just the primary one.'
+  },
+  {
+    tool: 'audios',
+    prompt: 'Collect every audio file linked on this podcast page',
+    result:
+      'An array of absolute, deduped <audio>/<source> URLs from across the page.'
+  },
+  {
+    tool: 'emails',
+    prompt: "Find every email address on this company's contact page",
+    result:
+      'A deduped array of addresses — pulled from mailto: links and plain text alike.'
+  },
+  {
+    tool: 'emails',
+    prompt: 'Scrape all the emails from this conference speakers page',
+    result:
+      'Every address on the page, from links and body text, deduplicated.',
+    hidden: true
+  },
+  {
+    tool: 'technologies',
+    prompt: "Detect what stack our competitor's site is running",
+    result:
+      'A Wappalyzer report — frameworks, CDNs, analytics, e-commerce platforms, and more.'
+  },
+  {
+    tool: 'technologies',
+    prompt: 'Tell me what CMS and analytics tools this site uses',
+    result:
+      'Detected technologies grouped by category — CMS, CDN, analytics, A/B testing.',
+    hidden: true
+  },
+  {
+    tool: 'lighthouse',
+    prompt:
+      'Audit our checkout page for performance and flag the biggest bottlenecks',
+    result:
+      'Lighthouse scores for performance, accessibility, best-practices, and SEO — with the failing rules.'
+  },
+  {
+    tool: 'lighthouse',
+    prompt:
+      'Check our new landing page for accessibility issues before we ship',
+    result:
+      'The Lighthouse accessibility score with every failing rule listed — fix before launch, not after.',
+    hidden: true
+  },
+  {
+    tool: 'search',
+    prompt:
+      'Search Google for the top MCP servers and give me structured results',
+    result:
+      'Ranked results — title, url, description — plus knowledge graph and related searches. Needs an API key.',
+    span: 2
+  },
+  {
+    tool: 'search',
+    prompt: 'Get the latest news about Anthropic as structured data',
+    result:
+      'News-vertical results with source and date — Google operators like site: work as-is. Needs an API key.',
+    hidden: true
+  },
+  {
+    tool: 'function',
+    prompt: 'Run a script on this page to grab the price after the JS loads',
+    result:
+      "Your JavaScript executed in Microlink's server-side browser — the return value comes straight back."
+  },
+  {
+    tool: 'function',
+    prompt: 'Scroll this infinite feed and return every post title',
+    result:
+      'Custom browser automation in a sandbox — you write the function, we run it and return the value.',
+    hidden: true
+  },
+  {
+    tool: 'extract',
+    prompt:
+      'Scrape every pricing plan name and monthly price from this SaaS page',
+    result:
+      'Structured JSON with the exact fields you asked for, extracted via CSS selectors.',
+    span: 2
+  },
+  {
+    tool: 'extract',
+    prompt:
+      'Get the metadata and a full-page screenshot of vercel.com in one request',
+    result:
+      'Title, description, OG image — plus a screenshot URL — all composed in a single call.',
+    hidden: true
+  },
+  {
+    tool: 'extract',
+    prompt: 'Pull the product name, SKU, and price for each item on this page',
+    result:
+      'A clean JSON array — one object per product — with every field you named.',
     hidden: true
   }
-]
+].map(example => ({ ...example, accent: ACCENTS[example.tool] }))
 
 const TOOLS = [
-  { tool: 'screenshot', accent: '#7B61FF' },
-  { tool: 'markdown', accent: '#00B4D8' },
-  { tool: 'extract', accent: '#067df7' },
-  { tool: 'pdf', accent: '#EA407B' },
-  { tool: 'insights', accent: '#F59E0B' },
-  { tool: 'palette', accent: '#10B981' },
-  { tool: 'video', accent: '#F43F5E' },
-  { tool: 'audio', accent: '#D946EF' },
-  { tool: 'meta', accent: '#F97316' },
-  { tool: 'text', accent: '#14B8A6' }
-]
+  'screenshot',
+  'pdf',
+  'embed',
+  'metadata',
+  'logo',
+  'markdown',
+  'html',
+  'text',
+  'video',
+  'audio',
+  'links',
+  'images',
+  'videos',
+  'audios',
+  'emails',
+  'technologies',
+  'lighthouse',
+  'search',
+  'function',
+  'extract'
+].map(tool => ({ tool, accent: ACCENTS[tool] }))
 
 const examplesCss = `
-  @keyframes ex-ball-on {
-    0%   { transform: scale(1);    opacity: 0.35; box-shadow: none; }
-    45%  { transform: scale(1.7);  opacity: 1; }
-    75%  { transform: scale(0.85); }
-    100% { transform: scale(1);    opacity: 1; box-shadow: 0 0 0 3px var(--card-accent), 0 0 10px var(--card-accent); }
-  }
   @keyframes ex-tool-in {
     from { transform: scaleX(1); }
     to   { transform: scaleX(1.04); }
@@ -959,12 +954,42 @@ const examplesCss = `
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  .ex-card {
-    transition: box-shadow 0.25s ease;
+  .ex-tilt {
+    --tilt-return: 1000ms;
+    --tilt-return-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --tilt-follow: 400ms;
+    --tilt-follow-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --tilt-glare-fade: 300ms;
+    perspective: 1000px;
     animation: ex-card-in 0.3s ease both;
+  }
+  .ex-card {
+    position: relative;
+    transform: rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg));
+    transform-style: preserve-3d;
+    transition: box-shadow 0.25s ease,
+      transform var(--tilt-return) var(--tilt-return-ease);
+    will-change: transform;
+  }
+  .ex-card.is-tilting {
+    transition: box-shadow 0.25s ease,
+      transform var(--tilt-follow) var(--tilt-follow-ease);
   }
   .ex-card:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.10), 0 24px 64px rgba(0,0,0,0.06);
+  }
+  .ex-glare {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(circle 200px at var(--tilt-gx, 50%) var(--tilt-gy, 50%),
+      var(--card-accent), transparent 70%);
+    transition: opacity var(--tilt-glare-fade) ease;
+  }
+  .ex-tilt.is-hover .ex-glare {
+    opacity: 0.1;
   }
   .ex-copy {
     opacity: 0;
@@ -975,9 +1000,6 @@ const examplesCss = `
   }
   .ex-ball {
     opacity: 0.35;
-  }
-  .ex-card:hover .ex-ball {
-    animation: ex-ball-on 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
   .ex-tool {
     transition: color 0.25s ease;
@@ -1024,11 +1046,11 @@ const examplesCss = `
     opacity: 0.4;
     transition: opacity 0.2s ease;
   }
-  .ex-pill:hover .ex-pill-dot,
   .ex-pill.active .ex-pill-dot {
     opacity: 1;
   }
   @media (prefers-reduced-motion: reduce) {
+    .ex-tilt,
     .ex-card,
     .ex-ball,
     .ex-tool,
@@ -1038,11 +1060,134 @@ const examplesCss = `
       animation: none !important;
       transition: none !important;
     }
-    .ex-card:hover .ex-ball {
-      opacity: 1;
+    .ex-card {
+      transform: none !important;
     }
   }
 `
+
+const TILT_MAX = 10
+
+const ExampleCard = ({ example, delay }) => {
+  const wrapRef = useRef(null)
+  const cardRef = useRef(null)
+
+  const handleMove = useCallback(e => {
+    if (e.pointerType && e.pointerType !== 'mouse') return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const wrap = wrapRef.current
+    const card = cardRef.current
+    if (!wrap || !card) return
+    const r = wrap.getBoundingClientRect()
+    const px = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width))
+    const py = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height))
+    wrap.classList.add('is-hover')
+    card.classList.add('is-tilting')
+    card.style.setProperty(
+      '--tilt-ry',
+      ((px - 0.5) * TILT_MAX).toFixed(2) + 'deg'
+    )
+    card.style.setProperty(
+      '--tilt-rx',
+      ((0.5 - py) * TILT_MAX).toFixed(2) + 'deg'
+    )
+    card.style.setProperty('--tilt-gx', (px * 100).toFixed(1) + '%')
+    card.style.setProperty('--tilt-gy', (py * 100).toFixed(1) + '%')
+  }, [])
+
+  const handleLeave = useCallback(() => {
+    const wrap = wrapRef.current
+    const card = cardRef.current
+    if (!wrap || !card) return
+    wrap.classList.remove('is-hover')
+    card.classList.remove('is-tilting')
+    card.style.setProperty('--tilt-rx', '0deg')
+    card.style.setProperty('--tilt-ry', '0deg')
+  }, [])
+
+  return (
+    <Box
+      ref={wrapRef}
+      className='ex-tilt'
+      onPointerMove={handleMove}
+      onPointerLeave={handleLeave}
+      style={{ animationDelay: `${delay}ms` }}
+      css={{
+        gridColumn: 'span 1',
+        '@media screen and (min-width: 768px)': {
+          gridColumn: example.span ? `span ${example.span}` : 'span 1'
+        }
+      }}
+    >
+      <Flex
+        ref={cardRef}
+        className='ex-card'
+        style={{ '--card-accent': example.accent }}
+        css={{
+          flexDirection: 'column',
+          height: '100%',
+          borderRadius: '12px',
+          padding: '22px 24px',
+          backgroundColor: 'white',
+          border: borders[1],
+          borderColor: colors.black10
+        }}
+      >
+        <Flex css={{ alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+          <Box
+            className='ex-ball'
+            css={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: example.accent,
+              flexShrink: 0
+            }}
+          />
+          <Text
+            className='ex-tool'
+            css={{
+              fontFamily: fonts.mono,
+              fontSize: '13px',
+              color: colors.black70
+            }}
+          >
+            {example.tool}
+          </Text>
+          <div className='ex-copy' style={{ marginLeft: 'auto' }}>
+            <CodeCopy text={example.prompt} />
+          </div>
+        </Flex>
+        <Text
+          css={{
+            fontSize: '17px',
+            fontWeight: 500,
+            color: colors.black80,
+            lineHeight: 1.5,
+            marginBottom: '16px',
+            flex: 1,
+            letterSpacing: '-0.01em'
+          }}
+        >
+          &ldquo;{example.prompt}&rdquo;
+        </Text>
+        <Text
+          css={{
+            fontSize: '13px',
+            color: colors.black40,
+            lineHeight: 1.45,
+            borderTop: borders[1],
+            borderTopColor: colors.black10,
+            paddingTop: '12px'
+          }}
+        >
+          {example.result}
+        </Text>
+        <span className='ex-glare' aria-hidden='true' />
+      </Flex>
+    </Box>
+  )
+}
 
 const ExamplesGrid = () => {
   const [active, setActive] = useState('all')
@@ -1097,79 +1242,11 @@ const ExamplesGrid = () => {
         })}
       >
         {visible.map((example, i) => (
-          <Flex
+          <ExampleCard
             key={`${active}-${example.tool}-${i}`}
-            className='ex-card'
-            style={{
-              '--card-accent': example.accent,
-              animationDelay: `${i * 35}ms`
-            }}
-            css={{
-              flexDirection: 'column',
-              gridColumn: 'span 1',
-              borderRadius: '12px',
-              padding: '22px 24px',
-              backgroundColor: 'white',
-              border: borders[1],
-              borderColor: colors.black10,
-              '@media screen and (min-width: 768px)': {
-                gridColumn: example.span ? `span ${example.span}` : 'span 1'
-              }
-            }}
-          >
-            <Flex
-              css={{ alignItems: 'center', gap: '8px', marginBottom: '16px' }}
-            >
-              <Box
-                className='ex-ball'
-                css={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  backgroundColor: example.accent,
-                  flexShrink: 0
-                }}
-              />
-              <Text
-                className='ex-tool'
-                css={{
-                  fontFamily: fonts.mono,
-                  fontSize: '13px',
-                  color: colors.black70
-                }}
-              >
-                {example.tool}
-              </Text>
-              <div className='ex-copy' style={{ marginLeft: 'auto' }}>
-                <CodeCopy text={example.prompt} />
-              </div>
-            </Flex>
-            <Text
-              css={{
-                fontSize: '17px',
-                fontWeight: 500,
-                color: colors.black80,
-                lineHeight: 1.5,
-                marginBottom: '16px',
-                flex: 1,
-                letterSpacing: '-0.01em'
-              }}
-            >
-              &ldquo;{example.prompt}&rdquo;
-            </Text>
-            <Text
-              css={{
-                fontSize: '13px',
-                color: colors.black40,
-                lineHeight: 1.45,
-                borderTop: borders[1],
-                borderTopColor: colors.black10,
-                paddingTop: '12px'
-              }}
-            >
-              {example.result}
-            </Text>
-          </Flex>
+            example={example}
+            delay={i * 35}
+          />
         ))}
       </Box>
     </>
@@ -1222,7 +1299,7 @@ const McpPage = () => (
       css={theme({ px: 4, py: [5, 5, 6, 6] })}
       title={
         <Subhead css={theme({ width: '100%', textAlign: 'left' })}>
-          Ten tools.{' '}
+          Twenty tools.{' '}
           <span
             css={theme({
               display: 'block',
