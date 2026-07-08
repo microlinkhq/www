@@ -11,7 +11,6 @@ import Overlay from 'components/pages/home/overlay'
 import Output from 'components/pages/home/output'
 import FeatherIcon from 'components/icons/Feather'
 import { WandSparkles } from 'components/icons/WandSparkles'
-import { Link } from 'components/elements/Link'
 import { PRODUCTS, VERTICAL_ORDER } from 'components/pages/home/catalog'
 import { blink } from 'components/keyframes'
 import { trackEvent } from 'helpers/plausible'
@@ -30,11 +29,7 @@ import styled, { css, keyframes } from 'styled-components'
 import mql, { getApiUrl } from '@microlink/mql'
 import GOOGLE_EXAMPLES from 'data/google-examples'
 
-import {
-  Copy as CopyIcon,
-  Check as CheckIcon,
-  ArrowRight as ArrowRightIcon
-} from 'react-feather'
+import { Copy as CopyIcon, Check as CheckIcon } from 'react-feather'
 
 import analyticsData from '../../../../data/analytics.json'
 
@@ -55,6 +50,7 @@ const MONO = fonts.mono
 
 const SUCCESS = colors.green8
 const ERROR = colors.red7
+const WARN = colors.orange7
 
 const SYNTAX = {
   key: colors.link,
@@ -646,27 +642,6 @@ const CopyPromptButton = styled.button`
   }
 `
 
-const ProductCta = styled(Link)`
-  ${actionPill};
-  color: #fff;
-  background: ${GRADIENT};
-  border: 1px solid transparent;
-  box-shadow: 0 8px 20px -12px ${rgba(colors.grape6, 0.75)};
-
-  svg {
-    transition: transform ${transition.short};
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      color: #fff;
-      svg {
-        transform: translateX(2px);
-      }
-    }
-  }
-`
-
 const Panel = styled.div`
   position: relative;
   width: 100%;
@@ -798,6 +773,7 @@ const ShimmerText = styled.span`
 const PILL_TONES = {
   success: { color: SUCCESS, background: colors.green0 },
   error: { color: ERROR, background: colors.red0 },
+  warning: { color: WARN, background: colors.orange0 },
   loading: { color: VIOLET, background: rgba(colors.grape7, 0.08) }
 }
 
@@ -810,6 +786,34 @@ const StatusPill = styled.span`
   padding: 5px 12px;
   border-radius: 999px;
   white-space: nowrap;
+`
+
+const RetryButton = styled.button`
+  ${actionPill};
+  color: ${colors.gray7};
+  background: #fff;
+  border: 1px solid ${colors.gray2};
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: ${VIOLET};
+      color: ${INK};
+    }
+  }
+`
+
+const RateLimitLink = styled.a`
+  font-family: ${SANS};
+  font-size: 13px;
+  font-weight: 500;
+  color: ${VIOLET};
+  text-decoration: none;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `
 
 const Code = styled.pre`
@@ -1043,10 +1047,12 @@ const renderJsValue = (value, keyBase) => {
   )
 }
 
-const ResultPanel = React.memo(({ tab, setTab, req }) => {
+const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
   const { D, status, body, headerRows, bars, rows, totalMs } = req
   const isLoading = status === 'loading'
   const isError = status === 'error'
+  const isRateLimited = status === 'rate-limited'
+  const hideTabs = isError || isRateLimited
   const opts = REQUEST_OPTS[D.vertical] || {}
   const hasOpts = Object.keys(opts).length > 0
 
@@ -1177,7 +1183,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
       </TabBar>
 
       <TabContent
-        key={isError ? 'error' : tab}
+        key={isError ? 'error' : isRateLimited ? 'rate-limited' : tab}
         id='hero-tabpanel'
         role='tabpanel'
         aria-labelledby={`hero-tab-${tab}`}
@@ -1201,15 +1207,56 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
           </Box>
         )}
 
-        {!isError &&
+        {isRateLimited && (
+          <Box css={theme({ p: 4 })}>
+            <Flex
+              css={theme({
+                alignItems: 'center',
+                gap: 2,
+                mb: 3,
+                flexWrap: 'wrap'
+              })}
+            >
+              <StatusPill $tone='warning'>rate limited</StatusPill>
+              {req.retryAt && (
+                <Mono css={theme({ fontSize: 0, color: SYNTAX.muted })}>
+                  retrying in <RetryCountdown retryAt={req.retryAt} />
+                </Mono>
+              )}
+            </Flex>
+            <Mono
+              css={theme({
+                fontSize: 0,
+                color: SYNTAX.body,
+                lineHeight: 1.6,
+                wordBreak: 'break-word'
+              })}
+            >
+              You&rsquo;ve hit the public demo rate limit.{' '}
+              {req.retryAt
+                ? 'Hang tight — this request retries automatically.'
+                : 'Get an API key for higher limits, or try again.'}
+            </Mono>
+            <Flex css={theme({ alignItems: 'center', gap: 2, mt: 3 })}>
+              {!req.retryAt && (
+                <RetryButton type='button' onClick={onRetry}>
+                  Try again
+                </RetryButton>
+              )}
+              <RateLimitLink href='/pricing'>View plans →</RateLimitLink>
+            </Flex>
+          </Box>
+        )}
+
+        {!hideTabs &&
           tab === 'output' &&
           (isLoading || !body ? <Skeleton /> : <Output req={req} />)}
 
-        {!isError &&
+        {!hideTabs &&
           tab === 'data' &&
           (isLoading || !body ? <Skeleton /> : <JsonView src={body} />)}
 
-        {!isError &&
+        {!hideTabs &&
           tab === 'headers' &&
           (isLoading || !headerRows
             ? (
@@ -1252,7 +1299,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
               </Box>
               ))}
 
-        {!isError &&
+        {!hideTabs &&
           tab === 'timing' &&
           (isLoading || !bars
             ? (
@@ -1378,7 +1425,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                 </Box>
                 ))}
 
-        {!isError && tab === 'code' && (
+        {!hideTabs && tab === 'code' && (
           <Box>
             <Box
               css={theme({
@@ -1430,9 +1477,41 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
 const fmtDuration = ms =>
   ms >= 1000 ? `${(ms / 1000).toFixed(1)}s` : `${ms}ms`
 
+const RATE_LIMIT_STATUS = 429
+const MAX_RATE_LIMIT_RETRIES = 3
+const DEFAULT_RETRY_AFTER = 5
+const MAX_AUTO_RETRY_WAIT = 30
+
+const parseRetryAfter = headers => {
+  const raw = headers && (headers['retry-after'] ?? headers['Retry-After'])
+  if (raw == null) return null
+  const secs = Number(raw)
+  if (Number.isFinite(secs)) return Math.max(0, Math.round(secs))
+  const at = Date.parse(raw)
+  return Number.isNaN(at)
+    ? null
+    : Math.max(0, Math.round((at - Date.now()) / 1000))
+}
+
+const RetryCountdown = ({ retryAt }) => {
+  const [now, setNow] = useState(() => Date.now())
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 500)
+    return () => clearInterval(id)
+  }, [])
+  return <>{Math.max(0, Math.ceil((retryAt - now) / 1000))}s</>
+}
+
 const requestStatus = req => {
   if (req.status === 'loading') {
     return { text: 'running…', color: VIOLET, live: true }
+  }
+  if (req.status === 'rate-limited') {
+    return {
+      text: req.retryAt ? 'rate limited · retrying…' : 'rate limited',
+      color: WARN,
+      live: !!req.retryAt
+    }
   }
   const took = req.elapsedMs != null ? ` in ${fmtDuration(req.elapsedMs)}` : ''
   if (req.status === 'error') {
@@ -1498,8 +1577,11 @@ const Hero = () => {
   const [promptCopied, setPromptCopied] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const copyTimer = useRef(null)
+  const retryTimer = useRef(null)
+  const retrySnapshot = useRef(null)
 
   useEffect(() => () => clearTimeout(copyTimer.current), [])
+  useEffect(() => () => clearTimeout(retryTimer.current), [])
 
   const copyPrompt = () => {
     if (typeof navigator === 'undefined' || !navigator.clipboard) return
@@ -1513,9 +1595,6 @@ const Hero = () => {
       })
       .catch(() => {})
   }
-
-  const handleProductCta = () =>
-    trackEvent('hero product cta', { product: D.vertical })
 
   const stopTyping = () => {
     anim.current.userTook = true
@@ -1542,7 +1621,8 @@ const Hero = () => {
     else openMenu()
   }
 
-  const runRequest = useCallback(async snapshot => {
+  const runRequest = useCallback(async (snapshot, attempt = 0) => {
+    clearTimeout(retryTimer.current)
     if (snapshot.vertical === 'search') {
       reqId.current += 1
       setReq({
@@ -1591,6 +1671,28 @@ const Hero = () => {
       })
     } catch (err) {
       if (id !== reqId.current) return
+      if (err && err.statusCode === RATE_LIMIT_STATUS) {
+        retrySnapshot.current = snapshot
+        const retryAfter = parseRetryAfter(err.headers) ?? DEFAULT_RETRY_AFTER
+        const willRetry =
+          attempt < MAX_RATE_LIMIT_RETRIES && retryAfter <= MAX_AUTO_RETRY_WAIT
+        if (willRetry) {
+          const waitMs = retryAfter * 1000
+          setReq({
+            status: 'rate-limited',
+            D: snapshot,
+            apiUrl,
+            retryAt: Date.now() + waitMs
+          })
+          retryTimer.current = setTimeout(
+            () => runRequest(snapshot, attempt + 1),
+            waitMs
+          )
+        } else {
+          setReq({ status: 'rate-limited', D: snapshot, apiUrl, retryAt: null })
+        }
+        return
+      }
       setReq({
         status: 'error',
         D: snapshot,
@@ -1687,7 +1789,6 @@ const Hero = () => {
 
   const D = useMemo(() => derive(dText, dVert), [dText, dVert])
   const liveStatus = requestStatus(req)
-  const productPage = PRODUCTS[D.vertical] || PRODUCTS.screenshot
   const canRun = dText.trim().length > 0 && req.status !== 'loading'
 
   const handleRun = () => {
@@ -1697,6 +1798,10 @@ const Hero = () => {
     writeSharedState(dText, dVert)
     runRequest(D)
   }
+
+  const handleRetry = useCallback(() => {
+    if (retrySnapshot.current) runRequest(retrySnapshot.current)
+  }, [runRequest])
 
   const onComposerChange = e => {
     stopTyping()
@@ -2045,7 +2150,12 @@ const Hero = () => {
               )}
         </Caps>
 
-        <ResultPanel tab={dTab} setTab={setDTab} req={req} />
+        <ResultPanel
+          tab={dTab}
+          setTab={setDTab}
+          req={req}
+          onRetry={handleRetry}
+        />
 
         <HeroActions>
           <CopyPromptButton
@@ -2057,10 +2167,6 @@ const Hero = () => {
             {promptCopied ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
             {promptCopied ? 'Copied' : 'Copy prompt'}
           </CopyPromptButton>
-          <ProductCta href={productPage.href} onClick={handleProductCta}>
-            Open {productPage.api}
-            <ArrowRightIcon size={14} />
-          </ProductCta>
         </HeroActions>
       </Content>
     </Section>
