@@ -1,6 +1,9 @@
 import { expect, describe, it } from 'vitest'
 
-import { roundPretty } from '../../scripts/fetch-data/providers/fetch-analytics'
+import {
+  roundPretty,
+  parseCdnEdges
+} from '../../scripts/fetch-data/providers/fetch-analytics'
 
 describe('roundPretty', () => {
   it('rounds down to the nearest 50 keeping the unit', () => {
@@ -14,5 +17,32 @@ describe('roundPretty', () => {
   it('handles decimal values', () => {
     expect(roundPretty('778.4M')).toBe('750M')
     expect(roundPretty('249.9M')).toBe('200M')
+  })
+})
+
+describe('parseCdnEdges', () => {
+  it('extracts the city count from the network summary', () => {
+    expect(
+      parseCdnEdges(
+        '<small data-cms-type="text">337 cities · 8 regions</small>'
+      )
+    ).toBe(337)
+  })
+
+  it('ignores per-region breakdown numbers before the summary', () => {
+    const html =
+      '<h6>55 cities</h6><p>North America</p><h6>67 cities</h6><p>Europe</p>' +
+      '<small data-cms-type="text">337 cities · 8 regions</small>'
+    expect(parseCdnEdges(html)).toBe(337)
+  })
+
+  it('handles thousands separators', () => {
+    expect(parseCdnEdges('1,024 cities · 12 regions')).toBe(1024)
+  })
+
+  it('throws when the summary is missing', () => {
+    expect(() => parseCdnEdges('<p>no network data here</p>')).toThrow(
+      'CDN_EDGES_NOT_FOUND'
+    )
   })
 })
