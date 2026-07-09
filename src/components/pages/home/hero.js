@@ -35,10 +35,7 @@ import analyticsData from '../../../../data/analytics.json'
 
 const SEARCH_EXAMPLE = GOOGLE_EXAMPLES.search[0]
 
-const reqsRounded = (() => {
-  const [, value, unit] = analyticsData[0].reqs_pretty.match(/^([\d.]+)(\D+)$/)
-  return `${Math.floor(Number(value) / 50) * 50}${unit}`
-})()
+const [{ reqs_pretty: reqsPretty }] = analyticsData
 
 const PINK = colors.secondary
 const VIOLET = colors.grape7
@@ -1879,7 +1876,7 @@ const Hero = () => {
       <Content>
         <Badge>
           <PulseDot />
-          Trusted by apps, agents & AI · {reqsRounded}+ requests / month
+          Trusted by apps, agents & AI · {reqsPretty}+ requests / month
         </Badge>
 
         <Heading variant={null} css={theme({ fontSize: [4, 4, 5, 5] })}>
