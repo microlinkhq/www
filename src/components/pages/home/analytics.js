@@ -55,7 +55,7 @@ const bytes = (() => {
 
 const stats = [
   { value: CDN_EDGES, name: 'CDN Edges' },
-  { value: reqsPretty, name: 'reqs per month' },
+  { value: `+${reqsPretty}`, name: 'reqs per month' },
   { value: bytes, name: 'data served' },
   { value: '99.9%', name: 'uptime' }
 ]
