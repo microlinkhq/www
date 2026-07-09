@@ -13,6 +13,7 @@ import {
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import styled, { css, keyframes } from 'styled-components'
 
 import Box from 'components/elements/Box'
@@ -86,8 +87,7 @@ const FEATURES = [
   },
   {
     title: 'Global Edge Delivery',
-    description:
-      'Metadata responses are cached and distributed across 240+ edge locations powered by Cloudflare, ensuring sub-second link previews and feed ingestion worldwide.'
+    description: `Metadata responses are cached and distributed across ${CDN_EDGES} edge locations powered by Cloudflare, ensuring sub-second link previews and feed ingestion worldwide.`
   },
   {
     title: 'Language-Agnostic REST API',
@@ -4714,8 +4714,8 @@ const ProductInformation = () => (
               <Link href='/status'>status page</Link>.
             </div>
             <div>
-              For latency: metadata responses are distributed via Cloudflare's
-              240+ edge locations, meaning{' '}
+              For latency: metadata responses are distributed via Cloudflare's{' '}
+              {CDN_EDGES} edge locations, meaning{' '}
               <Link href='/docs/api/parameters/ttl'>cached responses</Link> are
               delivered in milliseconds. Our optimized Chromium pool handles
               cold starts efficiently for consistent P95 performance.

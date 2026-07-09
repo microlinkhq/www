@@ -61,6 +61,7 @@ import {
   ApiErrorBody
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/plausible'
 import { withTitle } from 'helpers/hoc/with-title'
 
@@ -199,8 +200,7 @@ const MEDIA_TYPE_OPTIONS = [
 const FEATURES_LIST = [
   {
     title: 'Global CDN Delivery',
-    description:
-      'Every PDF you generate is served via a global CDN with 240+ edge locations. Save web pages as PDF and deliver them fast, anywhere in the world.'
+    description: `Every PDF you generate is served via a global CDN with ${CDN_EDGES} edge locations. Save web pages as PDF and deliver them fast, anywhere in the world.`
   },
   {
     title: 'Smart Caching',

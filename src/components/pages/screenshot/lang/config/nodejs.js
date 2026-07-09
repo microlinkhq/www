@@ -1,5 +1,6 @@
 import React from 'react'
 import { colors } from 'theme'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import { Link } from 'components/elements/Link'
 
 // Per-language configuration for the `/screenshot/<lang>` landing pages.
@@ -393,7 +394,7 @@ http
           'npm install @microlink/mql — pure JavaScript, zero binaries',
           'Runs anywhere: serverless, edge, containers, your laptop',
           'Autoscaled managed browser fleet with a 99.95% uptime SLA',
-          'Sub-second cached responses from 240+ edge locations',
+          `Sub-second cached responses from ${CDN_EDGES} edge locations`,
           'Built-in adblock removes ads & cookie banners automatically',
           'Full-page, device emulation, overlays & DOM interaction included'
         ]
@@ -455,8 +456,7 @@ http
       },
       {
         title: 'Global Edge Caching',
-        description:
-          'Repeat captures are served sub-second from 240+ edge locations, with configurable TTL to keep them fresh.'
+        description: `Repeat captures are served sub-second from ${CDN_EDGES} edge locations, with configurable TTL to keep them fresh.`
       },
       {
         title: 'Generous Free Tier',

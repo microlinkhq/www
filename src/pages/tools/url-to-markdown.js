@@ -1,3 +1,4 @@
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/plausible'
 import { borders, colors, layout, theme, transition, space } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
@@ -113,8 +114,7 @@ const stripNoisyMeta = md => {
 const FEATURES_LIST = [
   {
     title: 'Fast CDN Delivery',
-    description:
-      'Web to markdown conversion served via a global CDN with 240+ edge locations. Lightning-fast URL to md delivery anywhere in the world.'
+    description: `Web to markdown conversion served via a global CDN with ${CDN_EDGES} edge locations. Lightning-fast URL to md delivery anywhere in the world.`
   },
   {
     title: 'Smart Caching',

@@ -6,6 +6,7 @@ import { getApiUrl } from '@microlink/mql'
 import { toCurlSnippet } from 'helpers/curl-snippet'
 import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import humanizeUrl from 'humanize-url'
 import styled from 'styled-components'
 import { noop } from 'helpers/noop'
@@ -59,8 +60,7 @@ const FEATURES = [
   },
   {
     title: 'Global CDN Network',
-    description:
-      'Distributed across 240+ edge locations powered by Cloudflare. Lightning-fast logo detection from anywhere worldwide.'
+    description: `Distributed across ${CDN_EDGES} edge locations powered by Cloudflare. Lightning-fast logo detection from anywhere worldwide.`
   },
   {
     title: 'Smart Color Analysis',
@@ -873,7 +873,7 @@ const ProductInformation = () => {
             <>
               <div>
                 Built for enterprise scale with 99.9% uptime SLA. Our global CDN
-                network ensures lightning-fast responses from 240+ edge
+                network ensures lightning-fast responses from {CDN_EDGES} edge
                 locations worldwide. Smart caching keeps you updated while
                 maintaining optimal performance.
               </div>

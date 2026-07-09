@@ -1,4 +1,5 @@
 import { PriceMonthly } from 'components/markdown/PriceMonthly'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 
 The **Microlink Enterprise** plan is designed for customers who want to maximize Microlink's capabilities, unleashing maximum performance with dedicated hardware and seamless software integration with their existing infrastructure.
 
@@ -8,7 +9,7 @@ Running a **Microlink Enterprise** plan means:
 
 - Your own Microlink API endpoint, isolated from other customers, with your own dedicated pool of always-ready browsers.
 - Your own S3-like storage service for asset integration, with no time-to-live (TTL) restrictions.
-- Your own worldwide CDN distribution (240+ nodes around the world, powered by Cloudflare).
+- Your own worldwide CDN distribution ({CDN_EDGES} nodes around the world, powered by Cloudflare).
 - A dedicated support chat channel with direct access to the Microlink team.
 - Uptime SLA available on request.
 

@@ -4,6 +4,8 @@ description: Review the list of third-party subprocessors used by Microlink to p
 lastEdited: true
 ---
 
+import { CDN_EDGES } from 'helpers/cdn-edges'
+
 Microlink uses third-party subprocessors to process personal data on behalf of our customers. 
 
 As part of our commitment to transparency under the EU General Data Protection Regulation (GDPR), we maintain this comprehensive list of our data processing partners.
@@ -27,7 +29,7 @@ The following companies act as subprocessors and may have access to personal dat
 
 - **Services**: Content delivery network (CDN), DDoS protection, DNS  
 - **Data Types**: IP addresses, request logs, cached content  
-- **Location**: Global (240+ data centers worldwide)  
+- **Location**: Global ({CDN_EDGES} data centers worldwide)  
 - **Website**: [cloudflare.com](https://cloudflare.com)
 
 **Amazon Web Services Inc.**

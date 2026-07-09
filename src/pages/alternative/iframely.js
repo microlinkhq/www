@@ -10,6 +10,7 @@ import {
   breakpoints
 } from 'theme'
 import { withTitle } from 'helpers/hoc/with-title'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
@@ -164,7 +165,11 @@ const COMPARISON_DATA = [
     iframely: false,
     highlight: true
   },
-  { feature: '240+ CDN edge nodes', microlink: true, iframely: 'CDN cache' },
+  {
+    feature: `${CDN_EDGES} CDN edge nodes`,
+    microlink: true,
+    iframely: 'CDN cache'
+  },
   {
     feature: 'Per-minute rate limit on paid plans',
     microlink: 'None',
@@ -1032,7 +1037,7 @@ const PricingSection = () => (
                 'Rotating residential proxy + antibot bypass + CAPTCHA handling',
                 'Free: 25 requests/day, no credit card, no expiry',
                 'No per-minute cap on paid plans',
-                '240+ edge nodes, 99.9% SLA',
+                `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Open-source core (MIT licensed)',
                 `$${MICROLINK_PRICE_PER_1000} per 1,000 requests`
               ].map(item => (

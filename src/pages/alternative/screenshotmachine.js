@@ -30,6 +30,7 @@ import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { extractDomain } from 'helpers/extract-domain'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
 
@@ -712,7 +713,7 @@ const FAQ_ITEMS = [
         <div>
           Yes. Microlink's <Link href='/pricing'>free tier</Link> gives you
           25&nbsp;requests/day with no credit card and no time limit. Same API,
-          same quality, same 240+ edge network as paid plans.
+          same quality, same {CDN_EDGES} edge network as paid plans.
         </div>
         <div>
           Screenshot Machine also offers a free tier with 100&nbsp;fresh
@@ -722,7 +723,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Yes. Microlink's free tier gives you 25 requests/day with no credit card and no time limit. Same API, same quality, same 240+ edge network as paid plans. Screenshot Machine also offers a free tier with 100 fresh screenshots per month. Microlink's daily-reset model gives you up to 750 requests/month on free, which is 7.5\u00d7 more volume."
+    text: `Yes. Microlink's free tier gives you 25 requests/day with no credit card and no time limit. Same API, same quality, same ${CDN_EDGES} edge network as paid plans. Screenshot Machine also offers a free tier with 100 fresh screenshots per month. Microlink's daily-reset model gives you up to 750 requests/month on free, which is 7.5\u00d7 more volume.`
   },
   {
     question:
@@ -864,13 +865,13 @@ const FAQ_ITEMS = [
       <>
         <div>
           Microlink guarantees 99.9% uptime backed by a formal SLA. Requests are
-          served from 240+ Cloudflare edge nodes worldwide. Screenshot Machine
-          advertises 99.99% uptime on its SLA page, which is a strong
+          served from {CDN_EDGES} Cloudflare edge nodes worldwide. Screenshot
+          Machine advertises 99.99% uptime on its SLA page, which is a strong
           availability commitment.
         </div>
       </>
     ),
-    text: 'Microlink guarantees 99.9% uptime backed by a formal SLA. Requests are served from 240+ Cloudflare edge nodes worldwide. Screenshot Machine advertises 99.99% uptime on its SLA page, which is a strong availability commitment.'
+    text: `Microlink guarantees 99.9% uptime backed by a formal SLA. Requests are served from ${CDN_EDGES} Cloudflare edge nodes worldwide. Screenshot Machine advertises 99.99% uptime on its SLA page, which is a strong availability commitment.`
   }
 ]
 
@@ -1753,7 +1754,7 @@ const PricingSection = () => (
                 'Screenshots, PDF, metadata, link previews, remote\u00a0JS',
                 'Free: 25\u00a0requests/day, no credit card, no expiry',
                 'No per-minute cap on paid plans',
-                '240+ edge nodes, 99.9%\u00a0SLA',
+                `${CDN_EDGES} edge nodes, 99.9%\u00a0SLA`,
                 'Open-source core (MIT licensed)',
                 '~€0.00085/request on this tier'
               ].map(item => (

@@ -30,6 +30,7 @@ import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { extractDomain } from 'helpers/extract-domain'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
 
@@ -1530,7 +1531,7 @@ const PricingSection = () => (
                 'Screenshots + PDF + metadata + previews + remote\u00a0JS',
                 'Free tier: 25\u00a0requests/day, no credit card',
                 'No requests-per-minute cap',
-                '240+ edge nodes, 99.9%\u00a0SLA',
+                `${CDN_EDGES} edge nodes, 99.9%\u00a0SLA`,
                 'Open-source core (MIT)',
                 'Equivalent to ScreenshotOne\u2019s $259 plan by\u00a0volume'
               ].map(item => (
@@ -1814,8 +1815,8 @@ const FAQSection = () => (
             <div>
               Yes. Microlink's <Link href='/pricing'>free tier</Link> includes
               25&nbsp;requests/day with no credit card and no time limit. You
-              get the same API, the same quality, and the same 240+ edge network
-              as paid plans.
+              get the same API, the same quality, and the same {CDN_EDGES} edge
+              network as paid plans.
             </div>
             <div>
               ScreenshotOne also offers a free tier, but it's limited to
@@ -1956,9 +1957,9 @@ const FAQSection = () => (
           <>
             <div>
               Microlink guarantees 99.9% uptime backed by a formal SLA. Requests
-              are served from 240+ Cloudflare edge nodes worldwide, so latency
-              and availability stay consistent regardless of where the caller is
-              located.
+              are served from {CDN_EDGES} Cloudflare edge nodes worldwide, so
+              latency and availability stay consistent regardless of where the
+              caller is located.
             </div>
           </>
         )
@@ -2005,7 +2006,7 @@ export const Head = () => (
             name: 'Is there a free ScreenshotOne alternative?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "Yes. Microlink's free tier includes 25 requests/day with no credit card and no time limit. You get the same API, the same quality, and the same 240+ edge network as paid plans. ScreenshotOne also offers a free tier, but it's limited to 100 screenshots with no daily renewal — once they're gone, you need a paid plan."
+              text: `Yes. Microlink's free tier includes 25 requests/day with no credit card and no time limit. You get the same API, the same quality, and the same ${CDN_EDGES} edge network as paid plans. ScreenshotOne also offers a free tier, but it's limited to 100 screenshots with no daily renewal — once they're gone, you need a paid plan.`
             }
           },
           {
@@ -2069,7 +2070,7 @@ export const Head = () => (
             name: 'What uptime and SLA does Microlink guarantee?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Microlink guarantees 99.9% uptime backed by a formal SLA. Requests are served from 240+ Cloudflare edge nodes worldwide, so latency and availability stay consistent regardless of where the caller is located.'
+              text: `Microlink guarantees 99.9% uptime backed by a formal SLA. Requests are served from ${CDN_EDGES} Cloudflare edge nodes worldwide, so latency and availability stay consistent regardless of where the caller is located.`
             }
           }
         ]

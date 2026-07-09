@@ -2,6 +2,8 @@ import { borders, colors, layout, theme, space } from 'theme'
 import React from 'react'
 import { Globe, ArrowRight, Code, Clipboard } from 'react-feather'
 
+import { CDN_EDGES } from 'helpers/cdn-edges'
+
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
@@ -747,8 +749,8 @@ const ProductInformation = () => (
           <>
             <div>
               Yes — 25 requests per day, no login, no credit card. Cached
-              responses are served instantly from 240+ Cloudflare edge nodes and
-              don't count against your limit.
+              responses are served instantly from {CDN_EDGES} Cloudflare edge
+              nodes and don't count against your limit.
             </div>
             <div>
               For production volume, see <Link href='/pricing'>Pro plans</Link>.
@@ -892,7 +894,7 @@ export const Head = () => (
             name: 'Is the embed tool free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "Yes — 25 requests per day, no login, no credit card. Cached responses are served from 240+ Cloudflare edge nodes and don't count against your limit."
+              text: `Yes — 25 requests per day, no login, no credit card. Cached responses are served from ${CDN_EDGES} Cloudflare edge nodes and don't count against your limit.`
             }
           }
         ]

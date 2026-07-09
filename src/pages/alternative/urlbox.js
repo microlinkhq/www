@@ -30,6 +30,7 @@ import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { extractDomain } from 'helpers/extract-domain'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
 
@@ -676,7 +677,7 @@ const FAQ_ITEMS = [
         <div>
           Yes. Microlink's <Link href='/pricing'>free tier</Link> includes
           25&nbsp;requests/day with no credit card and no time limit. Same API,
-          same quality, same 240+ edge network as paid plans.
+          same quality, same {CDN_EDGES} edge network as paid plans.
         </div>
         <div>
           Urlbox does not offer a free plan. Its entry point is a 7-day free
@@ -685,7 +686,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Yes. Microlink's free tier includes 25 requests/day with no credit card and no time limit. Same API, same quality, same 240+ edge network as paid plans. Urlbox does not offer a free plan. Its entry point is a 7-day free trial on paid plans, after which you need a subscription starting at $19/month."
+    text: `Yes. Microlink's free tier includes 25 requests/day with no credit card and no time limit. Same API, same quality, same ${CDN_EDGES} edge network as paid plans. Urlbox does not offer a free plan. Its entry point is a 7-day free trial on paid plans, after which you need a subscription starting at $19/month.`
   },
   {
     question: 'How does Microlink compare to Urlbox for screenshot quality?',
@@ -833,13 +834,13 @@ const FAQ_ITEMS = [
       <>
         <div>
           Microlink guarantees 99.9% uptime backed by a formal SLA. Requests are
-          served from 240+ Cloudflare edge nodes worldwide, so latency and
-          availability stay consistent regardless of where the caller is
+          served from {CDN_EDGES} Cloudflare edge nodes worldwide, so latency
+          and availability stay consistent regardless of where the caller is
           located.
         </div>
       </>
     ),
-    text: 'Microlink guarantees 99.9% uptime backed by a formal SLA. Requests are served from 240+ Cloudflare edge nodes worldwide, so latency and availability stay consistent regardless of where the caller is located.'
+    text: `Microlink guarantees 99.9% uptime backed by a formal SLA. Requests are served from ${CDN_EDGES} Cloudflare edge nodes worldwide, so latency and availability stay consistent regardless of where the caller is located.`
   }
 ]
 
@@ -1728,7 +1729,7 @@ const PricingSection = () => (
                 'Screenshots + PDF + metadata + previews + remote\u00a0JS',
                 'Free tier: 25\u00a0requests/day, no credit card',
                 'No requests-per-minute cap',
-                '240+ edge nodes, 99.9%\u00a0SLA',
+                `${CDN_EDGES} edge nodes, 99.9%\u00a0SLA`,
                 'Open-source core (MIT)',
                 '$1.07 per 1,000 requests'
               ].map(item => (

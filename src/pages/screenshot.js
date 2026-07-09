@@ -62,6 +62,7 @@ import {
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError } from 'helpers/api-error'
 import { extractDomain } from 'helpers/extract-domain'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 
 import analyticsData from '../../data/analytics.json'
 import ossData from '../../data/oss.json'
@@ -100,8 +101,7 @@ const FEATURES = [
   },
   {
     title: 'Global Edge Delivery',
-    description:
-      'Assets are automatically cached and distributed across 240+ edge locations powered by Cloudflare, ensuring lightning-fast image delivery worldwide.'
+    description: `Assets are automatically cached and distributed across ${CDN_EDGES} edge locations powered by Cloudflare, ensuring lightning-fast image delivery worldwide.`
   },
   {
     title: 'Language-Agnostic API',
@@ -3458,8 +3458,8 @@ const ProductInformation = () => {
                 <Link href='/status'>status page</Link>.
               </div>
               <div>
-                For latency: assets are distributed via Cloudflare's 240+ edge
-                locations, meaning{' '}
+                For latency: assets are distributed via Cloudflare's {CDN_EDGES}{' '}
+                edge locations, meaning{' '}
                 <Link href='/docs/guides/screenshot/caching-and-performance'>
                   cached responses
                 </Link>{' '}

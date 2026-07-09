@@ -37,6 +37,7 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError } from 'helpers/api-error'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import { withTitle } from 'helpers/hoc/with-title'
 import {
   extractNerdStats,
@@ -95,8 +96,7 @@ const DEVICE_OPTIONS = [
 const FEATURES_LIST = [
   {
     title: 'Fast CDN Delivery',
-    description:
-      'Screenshots are served via a global CDN with 240+ edge locations. Lightning-fast delivery anywhere in the world.'
+    description: `Screenshots are served via a global CDN with ${CDN_EDGES} edge locations. Lightning-fast delivery anywhere in the world.`
   },
   {
     title: 'Smart Caching',

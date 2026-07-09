@@ -1,5 +1,6 @@
 import React from 'react'
 import { colors } from 'theme'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import { Link } from 'components/elements/Link'
 
 // Per-language configuration for /screenshot/php. PHP has no official Microlink
@@ -390,7 +391,7 @@ header('Location: ' . $res['data']['screenshot']['url']);`
           'One HTTP request — cURL or file_get_contents, no extension to add',
           'Runs anywhere: shared hosting, serverless, containers, your laptop',
           'Autoscaled managed browser fleet with a 99.95% uptime SLA',
-          'Sub-second cached responses from 240+ edge locations',
+          `Sub-second cached responses from ${CDN_EDGES} edge locations`,
           'Built-in adblock removes ads & cookie banners automatically',
           'Full-page, device emulation, overlays & DOM interaction included'
         ]

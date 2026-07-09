@@ -5,6 +5,7 @@ import Flex from 'components/elements/Flex'
 import SubheadBase from 'components/elements/Subhead'
 import Block from 'components/patterns/Block/Block'
 import { withTitle } from 'helpers/hoc/with-title'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import { colors, borders, theme } from 'theme'
 import styled from 'styled-components'
@@ -53,7 +54,7 @@ const bytes = (() => {
 })()
 
 const stats = [
-  { value: 240, name: 'CDN Edges' },
+  { value: CDN_EDGES, name: 'CDN Edges' },
   { value: reqsPretty, name: 'reqs per month' },
   { value: bytes, name: 'data served' },
   { value: '99.9%', name: 'uptime' }

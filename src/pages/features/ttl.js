@@ -2,6 +2,8 @@ import { breakpoints, colors, layout, theme } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
+import { CDN_EDGES } from 'helpers/cdn-edges'
+
 import Box from 'components/elements/Box'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Flex from 'components/elements/Flex'
@@ -203,7 +205,7 @@ const WhatItDoes = () => (
         <CodeInline>x-cache-status</CodeInline>) holds the shared copy per URL;
         a <strong>CloudFlare edge cache</strong> (
         <CodeInline>cf-cache-status</CodeInline>) serves it from the nearest of{' '}
-        <Link href='/blog/edge-cdn'>240+ edge nodes</Link>. Cold regions
+        <Link href='/blog/edge-cdn'>{CDN_EDGES} edge nodes</Link>. Cold regions
         auto-populate from the unified layer.
       </BodyText>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
@@ -738,7 +740,7 @@ const Diagram = () => (
               <NodeLabel css={theme({ color: 'secondary' })}>
                 CloudFlare edge
               </NodeLabel>
-              <NodeSub>nearest of 240+ nodes</NodeSub>
+              <NodeSub>nearest of {CDN_EDGES} nodes</NodeSub>
             </NodeActive>
             <Arrow />
             <Node>

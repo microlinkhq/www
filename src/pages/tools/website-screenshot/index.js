@@ -40,6 +40,7 @@ import {
 } from 'components/patterns/NerdStats/NerdStats'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError } from 'helpers/api-error'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/plausible'
 import { withTitle } from 'helpers/hoc/with-title'
 
@@ -169,8 +170,7 @@ const getWidthFromHeight = (height, aspectRatio) =>
 const FEATURES_LIST = [
   {
     title: 'Fast CDN Delivery',
-    description:
-      'Screenshots are served via a global CDN with 240+ edge locations. Lightning-fast delivery anywhere in the world.'
+    description: `Screenshots are served via a global CDN with ${CDN_EDGES} edge locations. Lightning-fast delivery anywhere in the world.`
   },
   {
     title: 'Smart Caching',

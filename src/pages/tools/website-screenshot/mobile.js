@@ -33,6 +33,7 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError } from 'helpers/api-error'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import { withTitle } from 'helpers/hoc/with-title'
 import {
   extractNerdStats,
@@ -164,8 +165,7 @@ const FEATURES_LIST = [
   },
   {
     title: 'Instant Mobile Captures',
-    description:
-      'Mobile screenshots are generated in seconds and served via a global CDN with 240+ edge locations. Cached responses are free.'
+    description: `Mobile screenshots are generated in seconds and served via a global CDN with ${CDN_EDGES} edge locations. Cached responses are free.`
   },
   {
     title: 'Mobile Screenshot API',

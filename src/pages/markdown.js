@@ -53,6 +53,7 @@ import { useSiteMetadata } from 'components/hook/use-site-meta'
 import { ApiErrorBody } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError } from 'helpers/api-error'
 import { extractDomain } from 'helpers/extract-domain'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import analyticsData from '../../data/analytics.json'
 import ossData from '../../data/oss.json'
 
@@ -2853,8 +2854,7 @@ const CAPABILITIES = [
       </svg>
     ),
     title: 'Sub-second cached responses',
-    description:
-      'Cached responses return in milliseconds from 240+ Cloudflare edge locations. Configure TTL caching rules to keep your content fresh with minimal latency.'
+    description: `Cached responses return in milliseconds from ${CDN_EDGES} Cloudflare edge locations. Configure TTL caching rules to keep your content fresh with minimal latency.`
   }
 ]
 

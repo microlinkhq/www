@@ -10,6 +10,7 @@ import {
   breakpoints
 } from 'theme'
 import { withTitle } from 'helpers/hoc/with-title'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
@@ -1774,7 +1775,7 @@ const PricingSection = () => (
                 'Screenshots + PDF + metadata + previews + remote JS',
                 'Free tier: 25 requests/day, no credit card',
                 'No per-minute cap on paid plans',
-                '240+ edge nodes, 99.9% SLA',
+                `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Built-in proxy + antibot tooling',
                 'Open-source core (MIT)'
               ].map(item => (

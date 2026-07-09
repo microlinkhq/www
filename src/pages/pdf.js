@@ -54,6 +54,7 @@ import {
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError } from 'helpers/api-error'
 import { extractDomain } from 'helpers/extract-domain'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 
 import analyticsData from '../../data/analytics.json'
 import ossData from '../../data/oss.json'
@@ -88,8 +89,7 @@ const FEATURES = [
   },
   {
     title: 'Global Edge Delivery',
-    description:
-      'PDFs are cached and distributed across 240+ edge locations powered by Cloudflare, ensuring lightning-fast document delivery worldwide.'
+    description: `PDFs are cached and distributed across ${CDN_EDGES} edge locations powered by Cloudflare, ensuring lightning-fast document delivery worldwide.`
   },
   {
     title: 'Language-Agnostic REST API',
@@ -3432,8 +3432,8 @@ const ProductInformation = () => (
               ? We support that too.
             </div>
             <div>
-              For latency: PDFs are distributed via Cloudflare's 240+ edge
-              locations, meaning{' '}
+              For latency: PDFs are distributed via Cloudflare's {CDN_EDGES}{' '}
+              edge locations, meaning{' '}
               <Link href='/docs/guides/pdf/caching-and-performance'>
                 cached responses
               </Link>{' '}

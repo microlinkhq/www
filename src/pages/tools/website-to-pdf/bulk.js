@@ -64,6 +64,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError, isRateLimited } from 'helpers/api-error'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import { withTitle } from 'helpers/hoc/with-title'
 import { trackEvent } from 'helpers/plausible'
 import {
@@ -3432,7 +3433,7 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              PDFs are cached on our global CDN (240+ edge locations) by
+              PDFs are cached on our global CDN ({CDN_EDGES} edge locations) by
               default. Cached responses are served instantly and{' '}
               <b>don't count against your daily limit</b>. Cache lasts for
               24&nbsp;hours. Re-run the same URL list and cached entries resolve

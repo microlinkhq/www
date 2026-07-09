@@ -26,6 +26,7 @@ import {
 } from 'components/hook/use-currency'
 import Plans, { CURRENCIES, formatPrice } from 'components/patterns/Plans/Plans'
 import { trackEvent } from 'helpers/plausible'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
   borders,
   colors,
@@ -783,7 +784,7 @@ const BUY_BULLETS = [
   'One HTTP call. No SDK to install, no daemon to run.',
   'Start at €0. Pay only for the volume you actually use.',
   'Zero ops: cache, proxies, adblock, retries baked in.',
-  '240+ edge nodes, 99.9% SLA, isolated browsers per request.',
+  `${CDN_EDGES} edge nodes, 99.9% SLA, isolated browsers per request.`,
   'Spend engineering time on your product, not on Chromium.'
 ]
 

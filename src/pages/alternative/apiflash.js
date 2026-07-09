@@ -10,6 +10,7 @@ import {
   breakpoints
 } from 'theme'
 import { withTitle } from 'helpers/hoc/with-title'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
@@ -415,7 +416,7 @@ const COMPARISON_DATA = [
     microlink: true,
     apiflash: false
   },
-  { feature: '240+ CDN edge nodes', microlink: true, apiflash: false },
+  { feature: `${CDN_EDGES} CDN edge nodes`, microlink: true, apiflash: false },
   { feature: 'MCP server', microlink: true, apiflash: false },
   { feature: 'Markdown conversion', microlink: true, apiflash: false },
   { feature: 'Lighthouse audits', microlink: true, apiflash: false },
@@ -1686,7 +1687,7 @@ const PricingSection = () => (
                 'Screenshots, PDF, metadata, link previews, remote JS',
                 'Free: 25 requests/day, no credit card, no expiry',
                 'No per-minute cap on paid plans',
-                '240+ edge nodes, 99.9% SLA',
+                `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Open-source core (MIT licensed)',
                 '~$0.00107/request on this tier'
               ].map(item => (

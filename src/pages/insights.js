@@ -7,6 +7,7 @@ import { normalizeUrl } from 'helpers/url-input'
 import { trackEvent } from 'helpers/plausible'
 import { toCurlSnippetOrEmpty } from 'helpers/curl-snippet'
 import { trimMs } from 'helpers/trim-ms'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import humanizeUrl from 'humanize-url'
 import get from 'dlv'
 
@@ -57,8 +58,7 @@ const FEATURES = [
   },
   {
     title: 'Global CDN Network',
-    description:
-      'Distributed across 240+ edge locations powered by Cloudflare. Lightning-fast performance insights from anywhere worldwide.'
+    description: `Distributed across ${CDN_EDGES} edge locations powered by Cloudflare. Lightning-fast performance insights from anywhere worldwide.`
   },
   {
     title: 'Developer-First API',

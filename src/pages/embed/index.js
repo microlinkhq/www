@@ -12,6 +12,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import { trackEvent } from 'helpers/plausible'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 
 import Box from 'components/elements/Box'
 import {
@@ -1884,8 +1885,7 @@ const EMBED_FEATURES = [
   },
   {
     title: 'Global Edge Delivery',
-    description:
-      'Embed responses are cached and distributed across 240+ edge locations powered by Cloudflare, ensuring sub-second link previews worldwide.'
+    description: `Embed responses are cached and distributed across ${CDN_EDGES} edge locations powered by Cloudflare, ensuring sub-second link previews worldwide.`
   },
   {
     title: 'Customize the Embed Appearance',
@@ -2213,13 +2213,14 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is there a free embed API?',
-    text: 'Yes. The Microlink Embed API is free with 25 requests per day — no login, no credit card, no setup. Cached responses served from 240+ Cloudflare edge locations do not count against your daily limit. For production workloads above the free tier, Pro plans start at €39 per month.',
+    text: `Yes. The Microlink Embed API is free with 25 requests per day — no login, no credit card, no setup. Cached responses served from ${CDN_EDGES} Cloudflare edge locations do not count against your daily limit. For production workloads above the free tier, Pro plans start at €39 per month.`,
     answer: (
       <>
         <div>
           Yes. The Microlink <b>Embed API is free with 25 requests per day</b> —
-          no login, no credit card, no setup. Cached responses served from 240+
-          Cloudflare edge locations do not count against your daily limit.
+          no login, no credit card, no setup. Cached responses served from{' '}
+          {CDN_EDGES} Cloudflare edge locations do not count against your daily
+          limit.
         </div>
         <div>
           For production workloads above the free tier,{' '}
@@ -2650,7 +2651,7 @@ export const Head = () => (
             '300+ verified oEmbed providers',
             'Plain HTTPS API, no SDK install required',
             'Optional drop-in SDK for React, Vue, and Vanilla JavaScript',
-            'Edge-cached across 240+ Cloudflare locations',
+            `Edge-cached across ${CDN_EDGES} Cloudflare locations`,
             'Screenshot fallback for URLs without oEmbed',
             'Free tier with 25 requests per day'
           ],

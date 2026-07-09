@@ -12,6 +12,7 @@ import styled, { keyframes } from 'styled-components'
 
 import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
@@ -815,8 +816,7 @@ const CAPABILITIES = [
       </svg>
     ),
     title: 'JavaScript-rendered pages, captured',
-    description:
-      'React, Vue, and Next.js sites that inject metadata at runtime are captured as a real visitor sees them — no stale SSR, no empty meta tags. Smart TTL caching keeps responses fresh against source changes while delivering sub-second previews from 240+ Cloudflare edge locations.',
+    description: `React, Vue, and Next.js sites that inject metadata at runtime are captured as a real visitor sees them — no stale SSR, no empty meta tags. Smart TTL caching keeps responses fresh against source changes while delivering sub-second previews from ${CDN_EDGES} Cloudflare edge locations.`,
     links: [
       {
         label: 'How prerendering works',
@@ -2279,8 +2279,7 @@ const LINK_PREVIEW_FEATURES = [
   },
   {
     title: 'Global Edge Delivery',
-    description:
-      'Link preview responses are cached and distributed across 240+ Cloudflare edge locations, ensuring sub-second URL previews and feed ingestion worldwide.'
+    description: `Link preview responses are cached and distributed across ${CDN_EDGES} Cloudflare edge locations, ensuring sub-second URL previews and feed ingestion worldwide.`
   },
   {
     title: 'Plain HTTPS, No SDK Required',
@@ -2476,14 +2475,14 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is there a free link preview API?',
-    text: 'Yes. The Microlink link preview API is free with 25 requests per day — no login, no credit card, no setup. Cached responses served from 240+ Cloudflare edge locations do not count against your daily limit. For production workloads, Pro plans start at €39 per month and include rotating proxy support, higher rate limits, and priority response.',
+    text: `Yes. The Microlink link preview API is free with 25 requests per day — no login, no credit card, no setup. Cached responses served from ${CDN_EDGES} Cloudflare edge locations do not count against your daily limit. For production workloads, Pro plans start at €39 per month and include rotating proxy support, higher rate limits, and priority response.`,
     answer: (
       <>
         <div>
           Yes. The Microlink{' '}
           <b>link preview API is free with 25 requests per day</b> — no login,
-          no credit card, no setup. Cached responses served from 240+ Cloudflare
-          edge locations do not count against your daily limit.
+          no credit card, no setup. Cached responses served from {CDN_EDGES}{' '}
+          Cloudflare edge locations do not count against your daily limit.
         </div>
         <div>
           For production workloads, <Link href='/pricing'>Pro plans</Link> start
@@ -2627,7 +2626,7 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'How fresh are the link previews?',
-    text: 'Every response is cached at the edge with a configurable TTL. By default Microlink keeps previews fresh by re-fetching the URL after the TTL window expires; you can override the TTL per request to balance freshness against latency. Cached responses are served from 240+ Cloudflare locations in milliseconds and do not count against your daily quota.',
+    text: `Every response is cached at the edge with a configurable TTL. By default Microlink keeps previews fresh by re-fetching the URL after the TTL window expires; you can override the TTL per request to balance freshness against latency. Cached responses are served from ${CDN_EDGES} Cloudflare locations in milliseconds and do not count against your daily quota.`,
     answer: (
       <>
         <div>
@@ -2638,8 +2637,9 @@ const TOP_FAQ_ITEMS = [
           to balance freshness against latency.
         </div>
         <div>
-          Cached responses are served from <b>240+ Cloudflare locations</b> in
-          milliseconds and do not count against your daily quota.
+          Cached responses are served from{' '}
+          <b>{CDN_EDGES} Cloudflare locations</b> in milliseconds and do not
+          count against your daily quota.
         </div>
       </>
     )
@@ -2667,7 +2667,7 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'How fast is the link preview API?',
-    text: 'Cold responses settle in the low-second range; cached responses return in milliseconds. We publish live P95 and average response times for the metadata endpoint on the status page. Cached responses are served globally from 240+ Cloudflare edge locations, and every plan ships with a 99.9% uptime SLA.',
+    text: `Cold responses settle in the low-second range; cached responses return in milliseconds. We publish live P95 and average response times for the metadata endpoint on the status page. Cached responses are served globally from ${CDN_EDGES} Cloudflare edge locations, and every plan ships with a 99.9% uptime SLA.`,
     answer: (
       <>
         <div>
@@ -2677,8 +2677,8 @@ const TOP_FAQ_ITEMS = [
         </div>
         <div>
           Cached responses are served globally from{' '}
-          <b>240+ Cloudflare edge locations</b>, and every plan ships with a{' '}
-          <b>99.9% uptime SLA</b>.
+          <b>{CDN_EDGES} Cloudflare edge locations</b>, and every plan ships
+          with a <b>99.9% uptime SLA</b>.
         </div>
       </>
     )
@@ -2776,7 +2776,7 @@ export const Head = () => (
             'Brand palette and image colors extraction',
             'Headless browser execution for JavaScript-rendered pages',
             'Rotating residential proxy for URLs behind Cloudflare and CAPTCHAs',
-            'Edge-cached across 240+ Cloudflare locations',
+            `Edge-cached across ${CDN_EDGES} Cloudflare locations`,
             'AI-friendly: pair with Cursor or Claude Code to generate previews',
             'Free tier with 25 requests per day'
           ],

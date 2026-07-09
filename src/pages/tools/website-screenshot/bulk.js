@@ -44,6 +44,7 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError, isRateLimited } from 'helpers/api-error'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import { withTitle } from 'helpers/hoc/with-title'
 import {
   extractNerdStats,
@@ -2729,8 +2730,8 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Screenshots are cached on our global CDN (240+ edge locations) by
-              default. Cached responses are served instantly and{' '}
+              Screenshots are cached on our global CDN ({CDN_EDGES} edge
+              locations) by default. Cached responses are served instantly and{' '}
               <b>don't count against your daily limit</b>. Cache lasts for
               24&nbsp;hours. Read the{' '}
               <Link href='/docs/guides/screenshot/caching-and-performance'>
