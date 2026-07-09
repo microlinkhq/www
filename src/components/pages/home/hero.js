@@ -1057,11 +1057,7 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
     { key: 'output', label: 'Output' },
     { key: 'data', label: 'Data' },
     { key: 'headers', label: 'Headers' },
-    {
-      key: 'timing',
-      label: 'Timing',
-      badge: bars && bars.length ? String(bars.length) : null
-    },
+    { key: 'timing', label: 'Timing' },
     { key: 'code', label: 'Code' }
   ]
 
@@ -1169,11 +1165,6 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
             onClick={() => setTab(t.key)}
           >
             {t.label}
-            {t.badge && (
-              <StatusPill css={theme({ fontSize: 0, py: 1, px: 2 })}>
-                {t.badge}
-              </StatusPill>
-            )}
           </TabButton>
         ))}
         <TabIndicator ref={indicatorRef} />
