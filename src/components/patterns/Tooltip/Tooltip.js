@@ -33,7 +33,7 @@ const TOOLTIPS_OPTS = {
 }
 
 const TippyTheme = styled(Tippy)`
-  box-shadow: ${shadows[0]};
+  box-shadow: ${shadows[2]};
   border-radius: ${radii[2]};
   background-color: ${colors.white};
   position: relative;

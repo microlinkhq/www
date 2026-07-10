@@ -1,13 +1,13 @@
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import { theme, layout } from 'theme'
+import { theme, layout, shadowInk } from 'theme'
 import Subhead from 'components/elements/Subhead'
 import Caption from 'components/patterns/Caption/Caption'
 
 import React from 'react'
 
-const CARD_SHADOW = '0 6px 20px rgba(16,24,40,0.04)'
+const CARD_SHADOW = `0 6px 20px rgba(${shadowInk}, 0.04)`
 
 const FEATURES = [
   {

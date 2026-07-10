@@ -1,7 +1,15 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Terminal } from 'react-feather'
-import { theme, borders, colors, radii, space, transition } from 'theme'
+import {
+  theme,
+  borders,
+  colors,
+  radii,
+  space,
+  transition,
+  shadows
+} from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 
@@ -396,7 +404,7 @@ const ToggleButton = styled.button`
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px ${colors.black10};
+    box-shadow: ${shadows[2]};
     background: ${({ $active }) => ($active ? colors.green1 : colors.black025)};
     border-color: ${({ $active }) =>
       $active ? colors.green5 : colors.black20};

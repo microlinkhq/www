@@ -7,7 +7,8 @@ import {
   fontSizes,
   space,
   radii,
-  breakpoints
+  breakpoints,
+  shadows
 } from 'theme'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
@@ -42,7 +43,7 @@ const RaceHero = styled(Box)`
     borderRadius: 4,
     bg: 'white',
     p: [3, 3, 4, 4],
-    boxShadow: `0 25px 50px ${colors.black10}, 0 0 0 1px ${colors.black05}`
+    boxShadow: `${shadows[4]}`
   })}
 
   & > div {

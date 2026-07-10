@@ -6,7 +6,8 @@ import {
   transition,
   fontSizes,
   space,
-  radii
+  radii,
+  shadows
 } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { trackEvent } from 'helpers/plausible'
@@ -184,7 +185,7 @@ const DocumentViewer = styled('div')`
   })};
   overflow: hidden;
   border: ${borders[1]} ${colors.black10};
-  box-shadow: 0 2px 8px ${colors.black05}, 0 12px 32px ${colors.black05};
+  box-shadow: ${shadows[3]};
 `
 
 const DocumentHeader = styled(Flex)`
@@ -528,7 +529,7 @@ const HistoryDropdown = styled('div')`
   right: 0;
   border: ${borders[1]} ${colors.black20};
   overflow: hidden;
-  box-shadow: 0 16px 40px ${colors.black20};
+  box-shadow: ${shadows[4]};
   z-index: 10;
 `
 
@@ -1927,7 +1928,7 @@ const RepoCard = styled('a')`
 
   &:hover {
     border-color: ${colors.black};
-    box-shadow: 0 8px 24px ${colors.black10};
+    box-shadow: ${shadows[3]};
 
     .repo-github-icon {
       fill: ${colors.black};
@@ -1946,7 +1947,7 @@ const RepoCardPrimary = styled(RepoCard)`
 
   &:hover {
     border-color: ${colors.black};
-    box-shadow: 0 8px 24px ${colors.black10};
+    box-shadow: ${shadows[3]};
   }
 `
 
@@ -2746,7 +2747,7 @@ const CodeExample = () => {
                   width: '100%'
                 },
                 '& > div > div:first-child': {
-                  boxShadow: `0 24px 64px ${colors.black20}, 0 4px 16px ${colors.black10}`
+                  boxShadow: `${shadows[4]}`
                 }
               }
             ]}

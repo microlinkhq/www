@@ -9,7 +9,8 @@ import {
   radii,
   borders,
   fontSizes,
-  breakpoints
+  breakpoints,
+  shadows
 } from 'theme'
 
 import Flex from 'components/elements/Flex'
@@ -155,9 +156,7 @@ const RaceContainerWrapper = styled('div')`
   border-radius: ${({ $flat }) => ($flat ? '0' : '14px')};
   padding: ${({ $flat }) => ($flat ? '0' : '32px 28px 40px')};
   box-shadow: ${({ $flat }) =>
-    $flat
-      ? 'none'
-      : `0 8px 32px ${colors.black10}, inset 0 1px 0 ${colors.white80}`};
+    $flat ? 'none' : `${shadows[3]}, inset 0 1px 0 ${colors.white80}`};
   overflow: hidden;
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {

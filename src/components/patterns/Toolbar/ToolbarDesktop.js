@@ -183,7 +183,7 @@ const MegaMenuPanel = styled(Box).withConfig({
   border: 1px solid ${colors.black10};
   border-radius: 20px;
   background: white;
-  box-shadow: ${shadows[2]};
+  box-shadow: ${shadows[4]};
   transform-origin: top center;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   transform: translateY(${({ isVisible }) => (isVisible ? '0px' : '-8px')})

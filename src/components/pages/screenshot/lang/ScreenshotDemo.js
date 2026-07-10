@@ -9,7 +9,8 @@ import {
   gradient,
   fontSizes,
   space,
-  radii
+  radii,
+  shadows
 } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { trackEvent } from 'helpers/plausible'
@@ -82,7 +83,7 @@ const BrowserWindow = styled('div')`
   })};
   overflow: hidden;
   border: ${borders[1]} ${colors.black05};
-  box-shadow: 0 8px 24px ${colors.black10};
+  box-shadow: ${shadows[3]};
 
   &:hover:not(:has(.screenshot-api-bar:hover)) .address-bar {
     background: ${colors.gray1};
@@ -154,7 +155,7 @@ const caretPulse = keyframes`
     background: ${colors.white};
   }
   50% {
-    box-shadow: 0 0 0 1px ${colors.black10};
+    box-shadow: ${shadows[0]};
     border-color: ${colors.black20};
     background: ${colors.white95};
   }
@@ -192,7 +193,7 @@ const AddressBar = styled(Flex)`
     css`
       background: ${colors.white};
       border-color: ${colors.black10};
-      box-shadow: 0 0 0 1px ${colors.black10};
+      box-shadow: ${shadows[0]};
     `}
 
   ${({ $isPulsing }) =>
@@ -207,13 +208,13 @@ const AddressBar = styled(Flex)`
     css`
       background: ${colors.white};
       border-color: ${colors.black10};
-      box-shadow: 0 0 0 1px ${colors.black10};
+      box-shadow: ${shadows[0]};
     `}
 
   &:focus-within {
     background: ${colors.white};
     border-color: ${colors.black10};
-    box-shadow: 0 0 0 1px ${colors.black10};
+    box-shadow: ${shadows[0]};
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -403,7 +404,7 @@ const HistoryDropdown = styled('div')`
   right: 0;
   border: ${borders[1]} ${colors.black20};
   overflow: hidden;
-  box-shadow: 0 16px 40px ${colors.black20};
+  box-shadow: ${shadows[4]};
   z-index: 10;
 `
 

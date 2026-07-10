@@ -1,4 +1,4 @@
-import { breakpoints, colors, theme } from 'theme'
+import { breakpoints, theme, shadows } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -20,7 +20,7 @@ const Node = styled(Box)`
     minWidth: [0, 0, '0', '0'],
     flex: ['0 0 auto', '0 0 auto', '1 1 0', '1 1 0']
   })}
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
   text-align: center;
 `
 

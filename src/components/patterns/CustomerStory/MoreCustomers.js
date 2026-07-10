@@ -1,4 +1,4 @@
-import { breakpoints, colors, theme } from 'theme'
+import { breakpoints, colors, theme, shadows } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -62,7 +62,7 @@ const CarouselCard = styled(Box)`
     flexDirection: 'column',
     gap: 3
   })}
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
   scroll-snap-align: start;
 `
 

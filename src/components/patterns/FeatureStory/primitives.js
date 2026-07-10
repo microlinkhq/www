@@ -3,7 +3,7 @@
 // DashedGridOverlay) are re-exported from the CustomerStory pattern via
 // index.js — only the feature-specific pieces live here.
 
-import { breakpoints, colors, layout, theme } from 'theme'
+import { breakpoints, layout, theme, shadows } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -73,7 +73,7 @@ export const Node = styled(Box)`
     minWidth: [0, 0, '0', '0'],
     flex: ['0 0 auto', '0 0 auto', '1 1 0', '1 1 0']
   })}
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
   text-align: center;
 `
 
@@ -221,7 +221,7 @@ export const Card = styled(Box)`
     gap: [3, 3, 4, 4],
     alignItems: 'stretch'
   })}
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
 `
 
 export const CardSide = styled(Box)`

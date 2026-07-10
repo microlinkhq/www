@@ -4,7 +4,7 @@ import Flex from './Flex'
 import Text from './Text'
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { colors, gradient, theme } from 'theme'
+import { colors, gradient, theme, shadows } from 'theme'
 
 const BASE_PLAN_PRICE = { EUR: 24, USD: 30 }
 
@@ -97,7 +97,7 @@ const SliderInput = styled('input')`
     border-radius: 50%;
     background: ${colors.white};
     border: 2px solid #c03fa2;
-    box-shadow: 0 1px 4px ${colors.black10};
+    box-shadow: ${shadows[1]};
     transition: transform 120ms ease, box-shadow 120ms ease;
   }
 
@@ -107,7 +107,7 @@ const SliderInput = styled('input')`
     border-radius: 50%;
     background: ${colors.white};
     border: 2px solid #c03fa2;
-    box-shadow: 0 1px 4px ${colors.black10};
+    box-shadow: ${shadows[1]};
     transition: transform 120ms ease, box-shadow 120ms ease;
   }
 

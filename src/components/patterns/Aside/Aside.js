@@ -27,7 +27,7 @@ const AsideButton = ({ title, iconComponent, ...props }) => (
 )
 
 const css = `
-  box-shadow: ${shadows[0]};
+  box-shadow: ${shadows[2]};
   background: white;
   z-index: 3;
   left: 0;

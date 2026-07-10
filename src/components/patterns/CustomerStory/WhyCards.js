@@ -1,4 +1,4 @@
-import { colors, theme } from 'theme'
+import { theme, shadows } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -19,7 +19,7 @@ const Card = styled(Box)`
     gap: [3, 3, 4, 4],
     alignItems: 'stretch'
   })}
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
 `
 
 const CardSide = styled(Box)`

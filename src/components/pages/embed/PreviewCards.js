@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { colors, fonts } from 'theme'
+import { colors, fonts, shadows } from 'theme'
 import {
   Heart as HeartIcon,
   MessageCircle as MessageIcon,
@@ -65,7 +65,7 @@ export const HeroCard = ({ data = STRIPE_DEMO_DATA }) => (
       borderRadius: 12,
       overflow: 'hidden',
       border: `1px solid ${colors.black10}`,
-      boxShadow: `0 8px 32px ${colors.black10}`,
+      boxShadow: `${shadows[3]}`,
       fontFamily: fonts.sans
     }}
   >
@@ -139,7 +139,7 @@ export const OneLineCard = ({ data = STRIPE_DEMO_DATA }) => (
       padding: '10px 14px',
       borderRadius: 10,
       border: `1px solid ${colors.black10}`,
-      boxShadow: `0 4px 16px ${colors.black10}`,
+      boxShadow: `${shadows[2]}`,
       display: 'flex',
       alignItems: 'center',
       gap: 10,
@@ -214,7 +214,7 @@ export const TelegramCard = ({ data = STRIPE_DEMO_DATA }) => {
         padding: '12px 14px 12px 22px',
         position: 'relative',
         border: `1px solid ${colors.black10}`,
-        boxShadow: `0 4px 18px ${colors.black10}`,
+        boxShadow: `${shadows[2]}`,
         fontFamily: fonts.sans
       }}
     >
@@ -290,7 +290,7 @@ export const TwitterCard = ({ data = STRIPE_DEMO_DATA }) => (
       borderRadius: 14,
       overflow: 'hidden',
       border: `1px solid ${colors.black10}`,
-      boxShadow: `0 4px 16px ${colors.black10}`,
+      boxShadow: `${shadows[2]}`,
       display: 'flex',
       minHeight: 140,
       fontFamily: fonts.sans
@@ -363,7 +363,7 @@ export const NotificationCard = ({ data = STRIPE_DEMO_DATA }) => (
       backdropFilter: 'blur(20px) saturate(180%)',
       WebkitBackdropFilter: 'blur(20px) saturate(180%)',
       border: `1px solid ${colors.black10}`,
-      boxShadow: `0 12px 40px ${colors.black20}`,
+      boxShadow: `${shadows[4]}`,
       display: 'flex',
       gap: 10,
       alignItems: 'flex-start',
@@ -553,7 +553,7 @@ export const TweetCard = ({ data = STRIPE_DEMO_DATA }) => {
         background: '#fff',
         borderRadius: 16,
         border: `1px solid ${colors.black10}`,
-        boxShadow: `0 4px 16px ${colors.black10}`,
+        boxShadow: `${shadows[2]}`,
         padding: '14px 16px',
         display: 'flex',
         flexDirection: 'column',

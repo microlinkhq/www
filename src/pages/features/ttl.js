@@ -1,4 +1,4 @@
-import { breakpoints, colors, layout, theme } from 'theme'
+import { breakpoints, colors, layout, theme, shadows } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -251,7 +251,7 @@ const Card = styled(Box)`
     gap: [3, 3, 4, 4],
     alignItems: 'stretch'
   })}
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
 `
 
 const CardSide = styled(Box)`
@@ -494,7 +494,7 @@ const Node = styled(Box)`
     minWidth: [0, 0, '0', '0'],
     flex: ['0 0 auto', '0 0 auto', '1 1 0', '1 1 0']
   })}
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
   text-align: center;
 `
 

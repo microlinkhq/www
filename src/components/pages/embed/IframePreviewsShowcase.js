@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { colors, theme } from 'theme'
+import { colors, theme, shadows } from 'theme'
 
 import Box from 'components/elements/Box'
 
@@ -44,7 +44,7 @@ const CardShell = styled(Box)`
   border: 1px solid ${colors.black10};
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: ${shadows[4]};
 `
 
 const TextLine = styled(Box)`

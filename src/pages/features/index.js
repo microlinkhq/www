@@ -1,4 +1,12 @@
-import { breakpoints, colors, layout, speed, textGradient, theme } from 'theme'
+import {
+  breakpoints,
+  colors,
+  layout,
+  speed,
+  textGradient,
+  theme,
+  shadows
+} from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { Link as GatsbyLink } from 'gatsby'
@@ -97,7 +105,7 @@ const FeaturedCard = styled(Box)`
     display: 'flex',
     flexDirection: 'column'
   })}
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
 `
 
 const FeaturedName = styled(Text)`
@@ -435,7 +443,7 @@ const Card = styled(Box)`
     flexDirection: 'column',
     gap: 3
   })}
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
 `
 
 const CardLink = styled(Link)`

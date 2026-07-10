@@ -219,17 +219,27 @@ export const cx = key => colors[key] || key
 export const gradient =
   'linear-gradient(90deg, #f76698, #c03fa2 60%, #8c1bab 100%)'
 
-export const shadowOffsets = ['0px 5px 10px 0px', '0 8px 30px', '0 30px 60px']
+export const shadowInk = '16, 24, 40'
 
-export const shadowColors = [
-  'rgba(0,0,0,0.12)',
-  'rgba(0,0,0,0.12)',
-  'rgba(0,0,0,0.12)'
+// Elevation ladder: 0 ring · 1 hairline · 2 small · 3 medium · 4 large.
+// Ambient layer ramps monotonically (.05 → .12), direct layer stays soft.
+export const shadows = [
+  `0 0 0 1px rgba(${shadowInk}, 0.1)`,
+  `0 1px 2px rgba(${shadowInk}, 0.05)`,
+  `0 1px 3px rgba(${shadowInk}, 0.04), 0 4px 16px rgba(${shadowInk}, 0.06)`,
+  `0 2px 6px rgba(${shadowInk}, 0.05), 0 8px 24px rgba(${shadowInk}, 0.08)`,
+  `0 8px 16px rgba(${shadowInk}, 0.06), 0 24px 56px rgba(${shadowInk}, 0.12)`
 ]
 
-export const shadows = shadowOffsets.map(
-  (shadow, index) => `${shadow} ${shadowColors[index]}`
-)
+// Alternative: the Untitled UI ladder for #101828 (same slots — swap the
+// array above for this one to compare).
+// export const shadows = [
+//   `0 0 0 1px rgba(${shadowInk}, 0.1)`,
+//   `0px 1px 2px rgba(${shadowInk}, 0.05)`,
+//   `0px 1px 3px rgba(${shadowInk}, 0.1), 0px 1px 2px rgba(${shadowInk}, 0.06)`,
+//   `0px 4px 8px -2px rgba(${shadowInk}, 0.1), 0px 2px 4px -2px rgba(${shadowInk}, 0.06)`,
+//   `0px 24px 48px -12px rgba(${shadowInk}, 0.18)`
+// ]
 
 export const lineHeights = [1.2, 1.45, 1.6, 1.75, 1.8]
 
@@ -312,7 +322,6 @@ const theme = {
   letterSpacings,
   lineHeights,
   radii,
-  shadowOffsets,
   shadows,
   sizes,
   space,

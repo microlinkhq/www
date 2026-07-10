@@ -1,4 +1,4 @@
-import { colors, layout, theme } from 'theme'
+import { layout, theme, shadows } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -21,7 +21,7 @@ const TestimonialCardBase = styled(Box)`
     flexDirection: 'column',
     gap: [2, 2, 3, 3]
   })}
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
 `
 
 const Quote = styled(Text).attrs({ as: 'blockquote' })`

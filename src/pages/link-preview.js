@@ -5,7 +5,8 @@ import {
   theme,
   transition,
   fontSizes,
-  radii
+  radii,
+  shadows
 } from 'theme'
 import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
@@ -1392,7 +1393,7 @@ const CopyPastePreview = ({ data }) => (
               width: '100%'
             },
             '& > div > div:first-child': {
-              boxShadow: `0 24px 64px ${colors.black20}, 0 4px 16px ${colors.black10}`
+              boxShadow: `${shadows[4]}`
             }
           }
         ]}
@@ -1678,7 +1679,7 @@ const CustomerStoryCard = styled('a')`
     textDecoration: 'none',
     color: 'inherit'
   })}
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
   transition: transform ${transition.short}, border-color ${transition.short};
 
   &:hover {
@@ -1902,7 +1903,7 @@ const RepoCard = styled('a')`
 
   &:hover {
     border-color: ${colors.black};
-    box-shadow: 0 8px 24px ${colors.black10};
+    box-shadow: ${shadows[3]};
 
     .repo-github-icon {
       fill: ${colors.black};
@@ -1921,7 +1922,7 @@ const RepoCardPrimary = styled(RepoCard)`
 
   &:hover {
     border-color: ${colors.black};
-    box-shadow: 0 8px 24px ${colors.black10};
+    box-shadow: ${shadows[3]};
   }
 `
 

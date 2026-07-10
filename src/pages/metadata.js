@@ -8,7 +8,8 @@ import {
   gradient,
   fontSizes,
   space,
-  radii
+  radii,
+  shadows
 } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { trackEvent } from 'helpers/plausible'
@@ -158,7 +159,7 @@ const BrowserWindow = styled('div')`
     position: 'relative'
   })};
   border: ${borders[1]} ${colors.black05};
-  box-shadow: 0 8px 24px ${colors.black10};
+  box-shadow: ${shadows[3]};
 
   &:hover:not(:has(.meta-api-bar:hover)) .address-bar {
     background: ${colors.gray1};
@@ -232,7 +233,7 @@ const caretPulse = keyframes`
     background: ${colors.white};
   }
   50% {
-    box-shadow: 0 0 0 1px ${colors.black10};
+    box-shadow: ${shadows[0]};
     border-color: ${colors.black20};
     background: ${colors.white95};
   }
@@ -270,7 +271,7 @@ const AddressBar = styled(Flex)`
     css`
       background: ${colors.white};
       border-color: ${colors.black10};
-      box-shadow: 0 0 0 1px ${colors.black10};
+      box-shadow: ${shadows[0]};
     `}
 
   ${({ $isPulsing }) =>
@@ -285,13 +286,13 @@ const AddressBar = styled(Flex)`
     css`
       background: ${colors.white};
       border-color: ${colors.black10};
-      box-shadow: 0 0 0 1px ${colors.black10};
+      box-shadow: ${shadows[0]};
     `}
 
   &:focus-within {
     background: ${colors.white};
     border-color: ${colors.black10};
-    box-shadow: 0 0 0 1px ${colors.black10};
+    box-shadow: ${shadows[0]};
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -534,7 +535,7 @@ const HistoryDropdown = styled('div')`
   right: 0;
   border: ${borders[1]} ${colors.black20};
   overflow: hidden;
-  box-shadow: 0 16px 40px ${colors.black20};
+  box-shadow: ${shadows[4]};
   z-index: 100;
 `
 
@@ -2485,7 +2486,7 @@ const PaletteChip = styled('span')`
   display: inline-block;
   background: ${({ $color }) => $color};
   border: ${borders[1]} ${colors.black10};
-  box-shadow: 0 1px 3px ${colors.black10};
+  box-shadow: ${shadows[1]};
 `
 
 const toColor = entry => {
@@ -2529,7 +2530,7 @@ const LogoThumb = styled('span')`
   background-repeat: no-repeat;
   background-position: center;
   border: ${borders[1]} ${colors.black10};
-  box-shadow: 0 1px 3px ${colors.black10};
+  box-shadow: ${shadows[1]};
   flex-shrink: 0;
 `
 
@@ -2623,7 +2624,7 @@ const Capabilities = ({ currentUrl, currentData }) => {
               width: ['100%', '100%', '80%', '100%'],
               borderRadius: 3,
               overflow: 'hidden',
-              boxShadow: `0 8px 32px ${colors.black10}`,
+              boxShadow: `${shadows[3]}`,
               bg: 'white'
             })}
           >
@@ -2989,7 +2990,7 @@ const StackCard = styled('a')`
   text-decoration: none;
   color: inherit;
   border: ${borders[1]} ${colors.black10};
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
   transition: transform ${transition.medium}, box-shadow ${transition.medium},
     border-color ${transition.medium};
   overflow: hidden;
@@ -3011,7 +3012,7 @@ const StackCard = styled('a')`
   &:hover,
   &:focus-visible {
     transform: translateY(-2px);
-    box-shadow: 0 12px 32px ${colors.black10};
+    box-shadow: ${shadows[3]};
     border-color: ${colors.black20};
   }
 
@@ -3438,7 +3439,7 @@ const CodeExample = ({ currentUrl }) => {
                   width: '100%'
                 },
                 '& > div > div:first-child': {
-                  boxShadow: `0 24px 64px ${colors.black20}, 0 4px 16px ${colors.black10}`
+                  boxShadow: `${shadows[4]}`
                 }
               }
             ]}
@@ -3808,7 +3809,7 @@ const RepoCard = styled('a')`
 
   &:hover {
     border-color: ${colors.black};
-    box-shadow: 0 8px 24px ${colors.black10};
+    box-shadow: ${shadows[3]};
 
     .repo-github-icon {
       fill: ${colors.black};
@@ -3827,7 +3828,7 @@ const RepoCardPrimary = styled(RepoCard)`
 
   &:hover {
     border-color: ${colors.black};
-    box-shadow: 0 8px 24px ${colors.black10};
+    box-shadow: ${shadows[3]};
   }
 `
 

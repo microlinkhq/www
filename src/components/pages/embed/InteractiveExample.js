@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { borders, colors, radii, theme, transition } from 'theme'
+import { borders, colors, radii, theme, transition, shadows } from 'theme'
 
 import LinkPreviewRaw from '@microlink/react'
 
@@ -300,8 +300,7 @@ const ExampleShell = styled(Box)`
   })};
   min-width: 0;
   background: ${({ $flat }) => ($flat ? 'transparent' : colors.white)};
-  box-shadow: ${({ $flat }) =>
-    $flat ? 'none' : `0 8px 32px ${colors.black10}`};
+  box-shadow: ${({ $flat }) => ($flat ? 'none' : `${shadows[3]}`)};
 `
 
 const ExampleToolbar = styled(Flex)`

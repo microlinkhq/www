@@ -35,7 +35,8 @@ import {
   radii,
   space,
   theme,
-  transition
+  transition,
+  shadows
 } from 'theme'
 
 const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
@@ -309,7 +310,7 @@ const COMPARISON_ROWS = [
 const ComparisonTable = styled(Box)`
   ${theme({ width: '100%', bg: 'white', borderRadius: 3, overflow: 'hidden' })}
   border: 1px solid ${colors.black10};
-  box-shadow: 0 2px 8px ${colors.black05};
+  box-shadow: ${shadows[1]};
 `
 
 const ComparisonRow = styled(Flex)`
@@ -988,10 +989,10 @@ const TestimonialCard = styled(Flex)`
     position: 'relative'
   })}
   border: ${borders[1]};
-  box-shadow: 0 2px 8px ${colors.black05};
+  box-shadow: ${shadows[1]};
   transition: box-shadow 200ms ease, transform 200ms ease;
   &:hover {
-    box-shadow: 0 8px 24px ${colors.black10};
+    box-shadow: ${shadows[3]};
     transform: translateY(-2px);
   }
 `

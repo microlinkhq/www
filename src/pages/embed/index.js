@@ -6,7 +6,8 @@ import {
   transition,
   fontSizes,
   radii,
-  space
+  space,
+  shadows
 } from 'theme'
 import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
@@ -141,7 +142,7 @@ const HeroPreviewShell = styled(Box)`
     borderRadius: 3,
     overflow: 'hidden'
   })};
-  box-shadow: 0 8px 32px ${colors.black10};
+  box-shadow: ${shadows[3]};
 `
 
 const HeroInputBar = styled('form')`
@@ -1500,7 +1501,7 @@ const RepoCard = styled('a')`
 
   &:hover {
     border-color: ${colors.black};
-    box-shadow: 0 8px 24px ${colors.black10};
+    box-shadow: ${shadows[3]};
 
     .repo-github-icon {
       fill: ${colors.black};
@@ -1519,7 +1520,7 @@ const RepoCardPrimary = styled(RepoCard)`
 
   &:hover {
     border-color: ${colors.black};
-    box-shadow: 0 8px 24px ${colors.black10};
+    box-shadow: ${shadows[3]};
   }
 `
 
@@ -1764,7 +1765,7 @@ const SdkCodeWrap = styled(Box)`
   ${theme({ width: '100%' })};
   & > div:first-child {
     width: 100%;
-    box-shadow: 0 8px 32px ${colors.black10};
+    box-shadow: ${shadows[3]};
   }
 `
 
@@ -1931,7 +1932,7 @@ const CustomerStoryCard = styled('a')`
     textDecoration: 'none',
     color: 'inherit'
   })}
-  box-shadow: 0 1px 2px ${colors.black05};
+  box-shadow: ${shadows[1]};
   transition: transform ${transition.short}, border-color ${transition.short};
 
   &:hover {
