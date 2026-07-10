@@ -161,40 +161,41 @@ const REQUEST_OPTS = {
 }
 
 const CYCLE = [
-  'take a screenshot of apple.com/music',
-  'create a PDF of raycast.com',
-  'run a lighthouse report of simonwillison.net',
-  'detect the technologies of vercel.com',
-  'extract the text of en.wikipedia.org',
-  'run a function of example.com',
-  'get the markdown of microlink.io/docs',
-  'get the logo of github.com'
+  'take screenshot of apple.com/music',
+  'create PDF of raycast.com',
+  'run lighthouse report of simonwillison.net',
+  'detect technologies of vercel.com',
+  'extract text of en.wikipedia.org',
+  'run function of example.com',
+  'get markdown of microlink.io/docs',
+  'get logo of github.com'
 ]
 
 const EXAMPLES = [
-  'take a screenshot',
-  'detect the technologies',
-  'get the markdown',
-  'get the logo'
+  'take screenshot',
+  'detect technologies',
+  'extract metadata',
+  'get markdown',
+  'get logo'
 ]
 
 const PROMPTS = {
-  screenshot: 'take a screenshot',
-  animated: 'record an animated screenshot',
-  preview: 'generate a link preview',
-  embed: 'embed a URL',
-  markdown: 'get the markdown',
-  html: 'get the HTML',
-  text: 'extract the text',
-  metadata: 'extract the metadata',
-  lighthouse: 'run a lighthouse report',
-  technologies: 'detect the technologies',
-  function: 'run a function',
+  screenshot: 'take screenshot',
+  animated: 'record animated screenshot',
+  preview: 'generate link preview',
+  embed: 'embed URL',
+  markdown: 'get markdown',
+  html: 'get HTML',
+  text: 'extract text',
+  metadata: 'extract metadata',
+  lighthouse: 'run lighthouse report',
+  technologies: 'detect technologies',
+  function: 'run function',
   search: 'search the web',
-  pdf: 'create a PDF',
-  logo: 'get brand',
-  video: 'detect the video',
-  audio: 'detect the audio'
+  pdf: 'create PDF',
+  logo: 'get logo',
+  video: 'detect video',
+  audio: 'detect audio'
 }
 
 const parseLocal = text => {
@@ -471,7 +472,8 @@ const ComposerInput = styled.input`
   border-radius: 12px;
   font-family: ${SANS};
   font-size: 18px;
-  color: ${INK};
+  color: transparent;
+  caret-color: ${INK};
   background: transparent;
   padding: 18px 18px 10px;
 
@@ -494,13 +496,21 @@ const InputMirror = styled.div`
   padding: 18px 18px 10px;
   font-family: ${SANS};
   font-size: 18px;
-  color: transparent;
+  color: ${INK};
   white-space: pre;
 
   span {
     flex: none;
-    color: transparent;
   }
+`
+
+const UrlTag = styled.span`
+  color: ${VIOLET};
+  background: ${rgba(colors.grape7, 0.08)};
+  box-shadow: inset 0 0 0 1px ${rgba(colors.grape7, 0.16)};
+  border-radius: 6px;
+  padding: 3px 4px;
+  margin: 0 -4px;
 `
 
 const Caret = styled.span`
@@ -1562,6 +1572,7 @@ const Hero = () => {
     text: CYCLE[0]
   })
   const chipRef = useRef(null)
+  const mirrorRef = useRef(null)
   const menuRef = useRef(null)
   const menuTimer = useRef(null)
   const menuRaf = useRef(null)
@@ -1782,6 +1793,17 @@ const Hero = () => {
   const liveStatus = requestStatus(req)
   const canRun = dText.trim().length > 0 && req.status !== 'loading'
 
+  const dSegments = useMemo(() => {
+    const { raw } = parseLocal(dText)
+    const index = raw ? dText.indexOf(raw) : -1
+    if (index === -1) return { before: dText, url: '', after: '' }
+    return {
+      before: dText.slice(0, index),
+      url: raw,
+      after: dText.slice(index + raw.length)
+    }
+  }, [dText])
+
   const handleRun = () => {
     if (!canRun) return
     stopTyping()
@@ -1894,6 +1916,11 @@ const Hero = () => {
             <ComposerInput
               value={dText}
               onChange={onComposerChange}
+              onScroll={e => {
+                if (mirrorRef.current) {
+                  mirrorRef.current.scrollLeft = e.target.scrollLeft
+                }
+              }}
               onFocus={() => {
                 stopTyping()
                 setIsFocused(true)
@@ -1908,10 +1935,12 @@ const Hero = () => {
               placeholder='Tell Microlink what to do…'
               aria-label='Tell Microlink what to do'
             />
-            {!isFocused && dText && (
-              <InputMirror aria-hidden='true'>
-                <span>{dText}</span>
-                <Caret />
+            {dText && (
+              <InputMirror ref={mirrorRef} aria-hidden='true'>
+                {dSegments.before && <span>{dSegments.before}</span>}
+                {dSegments.url && <UrlTag>{dSegments.url}</UrlTag>}
+                {dSegments.after && <span>{dSegments.after}</span>}
+                {!isFocused && <Caret />}
               </InputMirror>
             )}
           </InputWrap>
