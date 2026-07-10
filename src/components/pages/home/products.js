@@ -1919,13 +1919,13 @@ const CONVERT_OUTPUTS = [
   },
   {
     label: 'Markdown',
-    tile: colors.violet6,
+    tile: colors.violet1,
     icon: (
       <svg
         width='24'
         height='24'
         viewBox='0 0 24 24'
-        stroke={tone.white}
+        stroke={colors.violet7}
         strokeWidth='1.7'
         {...OUT_ICON}
       >
