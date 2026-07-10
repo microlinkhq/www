@@ -1331,7 +1331,7 @@ const LighthousePreview = () => (
         <Box
           css={{
             fontSize: '11.5px',
-            color: syntax.muted,
+            color: syntax.body,
             marginTop: '8px',
             whiteSpace: 'nowrap'
           }}
