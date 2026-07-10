@@ -166,7 +166,8 @@ const Card = styled(Link)(
     overflow: 'hidden',
     color: 'black',
     textDecoration: 'none',
-    boxShadow: shadow.card
+    boxShadow: shadow.card,
+    _hover: { color: 'black' }
   }),
   css`
     transition: border-color ${transition.medium},
