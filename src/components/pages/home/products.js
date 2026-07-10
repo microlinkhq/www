@@ -1987,10 +1987,11 @@ const PanelStack = ({ sheetBorder, children }) => (
 const FlowArrow = styled(Flex)`
   align-items: center;
   flex-shrink: 0;
+  margin: 0 16px;
 
   @media (max-width: 980px) {
     transform: rotate(90deg);
-    margin: 26px 0 12px;
+    margin: 14px 0;
   }
 `
 
@@ -2186,13 +2187,6 @@ const HtmlPreview = () => (
     <FlowRow>
       <DeniedSite />
       <FlowArrow aria-hidden='true'>
-        <Box
-          css={{
-            width: '18px',
-            height: '2px',
-            background: `linear-gradient(90deg, ${colors.violet1}, ${colors.violet5})`
-          }}
-        />
         <Flex
           css={{
             width: '28px',
@@ -2217,13 +2211,6 @@ const HtmlPreview = () => (
             <path d='M5 12h14M13 6l6 6-6 6' />
           </svg>
         </Flex>
-        <Box
-          css={{
-            width: '18px',
-            height: '2px',
-            background: colors.violet6
-          }}
-        />
       </FlowArrow>
       <CodePanel />
     </FlowRow>
