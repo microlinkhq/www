@@ -18,4 +18,8 @@ The physical servers associated with your Microlink API endpoint can be chosen f
 
 Enterprise pricing has two parts: an infrastructure subscription for your dedicated environment, plus a usage plan tier that follows the same model as **Microlink Pro**.
 
-Usage costs scale linearly with your traffic, so growth never changes your subscription, only the usage component. Annual commitments get a 10% discount. Final terms are negotiated based on your specific needs.
+Usage costs scale linearly with your traffic, so growth never changes your subscription, only the usage component. 
+
+Annual commitments get a 10% discount. 
+
+Final terms are negotiated based on your specific needs.

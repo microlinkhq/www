@@ -1875,7 +1875,7 @@ const Hero = () => {
       <Content>
         <Badge>
           <PulseDot />
-          Handling {reqsPretty}+ requests every month
+          Handling +{reqsPretty} requests every month
         </Badge>
 
         <Heading variant={null} css={theme({ fontSize: [4, 4, 5, 5] })}>
