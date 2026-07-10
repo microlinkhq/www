@@ -161,22 +161,21 @@ const REQUEST_OPTS = {
 }
 
 const CYCLE = [
-  'take a screenshot',
-  'record an animated screenshot',
-  'create a PDF',
-  'run a lighthouse report',
-  'detect the technologies',
-  'extract the text',
-  'run a function',
-  'get the markdown',
-  'fetch the logo'
+  'take a screenshot of apple.com/music',
+  'create a PDF of raycast.com',
+  'run a lighthouse report of simonwillison.net',
+  'detect the technologies of vercel.com',
+  'extract the text of en.wikipedia.org',
+  'run a function of example.com',
+  'get the markdown of microlink.io/docs',
+  'get the logo of github.com'
 ]
 
 const EXAMPLES = [
   'take a screenshot',
-  'detect technologies',
-  'get markdown',
-  'get brand'
+  'detect the technologies',
+  'get the markdown',
+  'get the logo'
 ]
 
 const PROMPTS = {
@@ -199,7 +198,17 @@ const PROMPTS = {
 }
 
 const parseLocal = text => {
-  const t = (text || '').toLowerCase()
+  const src = text || ''
+  const m =
+    src.match(/https?:\/\/[^\s]+/) ||
+    src.match(/[a-z0-9][a-z0-9-]*(?:\.[a-z0-9-]+)*\.[a-z]{2,}(?:\/[^\s]*)?/i)
+  const raw = m ? m[0] : ''
+  let url = ''
+  if (m) {
+    url = raw
+    if (!/^https?:\/\//.test(url)) url = 'https://' + url
+  }
+  const t = (raw ? src.replace(raw, ' ') : src).toLowerCase()
   const rules = [
     ['animated', /\banimated\b|animation|screen ?cast|\bgif\b|\brecord\b/],
     [
@@ -246,17 +255,6 @@ const parseLocal = text => {
       break
     }
   }
-  let url = ''
-  const m =
-    (text || '').match(/https?:\/\/[^\s]+/) ||
-    (text || '').match(
-      /[a-z0-9][a-z0-9-]*(?:\.[a-z0-9-]+)*\.[a-z]{2,}(?:\/[^\s]*)?/i
-    )
-  const raw = m ? m[0] : ''
-  if (m) {
-    url = m[0]
-    if (!/^https?:\/\//.test(url)) url = 'https://' + url
-  }
   return { vertical, url, raw, hasUrl: !!url }
 }
 
@@ -265,11 +263,11 @@ const DEFAULT_URLS = {
   animated: 'https://sauron-webgl.vercel.app/',
   preview: 'https://github.com/',
   embed: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
-  markdown: 'https://microlink.io/docs/api/getting-started/overview',
+  markdown: 'https://microlink.io/docs',
   html: 'https://example.com',
-  text: 'https://en.wikipedia.org/wiki/Lorem_ipsum',
+  text: 'https://en.wikipedia.org',
   metadata: 'https://github.com/',
-  lighthouse: 'https://simonwillison.net/2024/Oct/25/pelicans-on-a-bicycle/',
+  lighthouse: 'https://simonwillison.net',
   technologies: 'https://vercel.com',
   function: 'https://example.com',
   search: `https://www.google.com/search?q=${encodeURIComponent(
@@ -281,6 +279,8 @@ const DEFAULT_URLS = {
   audio: 'https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT'
 }
 const FALLBACK_URL = 'https://example.com'
+
+const shortUrl = url => url.replace(/^https?:\/\//, '').replace(/^www\./, '')
 
 const EXAMPLE_CHIPS = EXAMPLES.map(text => ({
   text,
@@ -1803,13 +1803,16 @@ const Hero = () => {
   }
 
   const pickExample = value => () => {
+    const { raw } = parseLocal(dText)
+    const fallback = DEFAULT_URLS[parseLocal(value).vertical] || FALLBACK_URL
+    const text = `${value} of ${raw || shortUrl(fallback)}`
     stopTyping()
-    anim.current.text = value
+    anim.current.text = text
     setDVert(null)
     closeMenu()
-    setDText(value)
-    writeSharedState(value, null)
-    runRequest(derive(value))
+    setDText(text)
+    writeSharedState(text, null)
+    runRequest(derive(text))
   }
 
   const pickVertical = k => {
@@ -2050,19 +2053,6 @@ const Hero = () => {
                   </VertMenu>
                 </Box>
               )}
-              <Mono
-                css={theme({
-                  fontSize: 0,
-                  color: VIOLET,
-                  flex: 1,
-                  minWidth: 0,
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap'
-                })}
-              >
-                {D.fullUrl}
-              </Mono>
             </Flex>
             <RunButton
               type='button'
