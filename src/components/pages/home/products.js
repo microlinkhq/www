@@ -1833,7 +1833,6 @@ const ConvCard = styled(Flex)(
     border: 1,
     borderColor: 'gray2',
     borderRadius: '18px',
-    boxShadow: `0 10px 24px rgba(${shadowInk}, 0.06)`,
     fontSize: 2,
     fontWeight: 'bold',
     color: 'primary',
@@ -2244,10 +2243,10 @@ const FileConversionPreview = () => (
                 strokeDasharray='6 7'
                 strokeLinecap='round'
               >
-                <path d='M0 34 C 82 34 72 149 126 149' />
-                <path d='M0 122 C 78 122 72 149 126 149' />
-                <path d='M0 210 C 78 210 72 183 126 183' />
-                <path d='M0 298 C 82 298 72 183 126 183' />
+                <path d='M0 34 C 82 34 72 166 126 166' />
+                <path d='M0 122 C 78 122 72 166 126 166' />
+                <path d='M0 210 C 78 210 72 166 126 166' />
+                <path d='M0 298 C 82 298 72 166 126 166' />
               </g>
             </BusSvg>
             <LogoNode />
@@ -2259,10 +2258,10 @@ const FileConversionPreview = () => (
                 strokeDasharray='6 7'
                 strokeLinecap='round'
               >
-                <path d='M0 149 C 54 149 44 34 126 34' />
-                <path d='M0 149 C 54 149 48 122 126 122' />
-                <path d='M0 183 C 54 183 48 210 126 210' />
-                <path d='M0 183 C 54 183 44 298 126 298' />
+                <path d='M0 166 C 54 166 44 34 126 34' />
+                <path d='M0 166 C 54 166 48 122 126 122' />
+                <path d='M0 166 C 54 166 48 210 126 210' />
+                <path d='M0 166 C 54 166 44 298 126 298' />
               </g>
             </BusSvg>
             <Box
