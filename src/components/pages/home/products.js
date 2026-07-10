@@ -1765,80 +1765,7 @@ const CONVERT_INPUTS = [
   { name: 'slides.pptx', type: 'pptx' }
 ]
 
-const OUT_ICON = {
-  fill: 'none',
-  strokeLinecap: 'round',
-  strokeLinejoin: 'round'
-}
-
-const CONVERT_OUTPUTS = [
-  {
-    label: 'HTML',
-    tile: colors.violet1,
-    icon: (
-      <svg
-        width='22'
-        height='22'
-        viewBox='0 0 24 24'
-        stroke={colors.violet7}
-        strokeWidth='1.9'
-        {...OUT_ICON}
-      >
-        <path d='M8 8l-4 4 4 4M16 8l4 4-4 4' />
-      </svg>
-    )
-  },
-  {
-    label: 'Markdown',
-    tile: colors.violet1,
-    icon: (
-      <svg
-        width='24'
-        height='24'
-        viewBox='0 0 24 24'
-        stroke={colors.violet7}
-        strokeWidth='1.7'
-        {...OUT_ICON}
-      >
-        <rect x='3' y='6' width='18' height='12' rx='2' />
-        <path d='M6 15v-6l3 3 3-3v6M17 9v6M14.5 12.5 17 15l2.5-2.5' />
-      </svg>
-    )
-  },
-  {
-    label: 'Text',
-    tile: colors.violet1,
-    icon: (
-      <svg
-        width='22'
-        height='22'
-        viewBox='0 0 24 24'
-        stroke={colors.violet7}
-        strokeWidth='2'
-        {...OUT_ICON}
-      >
-        <path d='M5 5h14M12 5v14M9 19h6' />
-      </svg>
-    )
-  },
-  {
-    label: 'PDF',
-    tile: colors.violet1,
-    icon: (
-      <svg
-        width='21'
-        height='21'
-        viewBox='0 0 24 24'
-        stroke={colors.violet7}
-        strokeWidth='1.8'
-        {...OUT_ICON}
-      >
-        <path d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z' />
-        <path d='M14 3v5h5' />
-      </svg>
-    )
-  }
-]
+const CONVERT_OUTPUTS = ['html', 'markdown', 'text', 'pdf']
 
 const CONV_DASH = `repeating-linear-gradient(to right,${colors.gray4} 0 6px,transparent 6px 13px)`
 const CONV_LINE = colors.gray4
@@ -2314,12 +2241,17 @@ const FileConversionPreview = () => (
               ))}
             </Box>
             <FlowColumn css={theme({ justifyContent: 'center', gap: '20px' })}>
-              {CONVERT_OUTPUTS.map(o => (
-                <ConvOut key={o.label}>
-                  <OutTile css={theme({ bg: o.tile })}>{o.icon}</OutTile>
-                  {o.label}
-                </ConvOut>
-              ))}
+              {CONVERT_OUTPUTS.map(vertical => {
+                const { label, icon: Icon } = PRODUCTS[vertical]
+                return (
+                  <ConvOut key={label}>
+                    <OutTile css={theme({ bg: 'violet1', color: 'violet7' })}>
+                      <Icon width='22px' height='22px' />
+                    </OutTile>
+                    {label}
+                  </ConvOut>
+                )
+              })}
             </FlowColumn>
           </Flex>
         </Box>

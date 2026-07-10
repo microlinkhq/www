@@ -27,4 +27,14 @@ describe('home products file conversion preview', () => {
     expect(preview).toContain("width='126'")
     expect(preview).toContain("minWidth: '980px'")
   })
+
+  test('output pills reuse the catalog product icons', () => {
+    expect(source).toContain(
+      "const CONVERT_OUTPUTS = ['html', 'markdown', 'text', 'pdf']"
+    )
+    const preview = between('const FileConversionPreview', 'const Products')
+    expect(preview).toContain('PRODUCTS[vertical]')
+    expect(preview).toContain("<Icon width='22px' height='22px' />")
+    expect(source).not.toContain('OUT_ICON')
+  })
 })
