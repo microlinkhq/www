@@ -3,6 +3,7 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
 import { PRODUCTS } from 'components/pages/home/catalog'
+import { IframePreviewsShowcase } from 'components/pages/embed/IframePreviewsShowcase'
 import { FileType } from 'components/icons/FileType'
 import { trackEvent } from 'helpers/plausible'
 import { theme, transition, fonts, colors, radii, layout } from 'theme'
@@ -726,100 +727,26 @@ const MiniButton = styled.span`
   border-radius: ${radius.sm};
 `
 
-const PreviewCard = styled(Box)(
-  theme({ borderRadius: 5, p: 3, mt: 3 }),
-  css`
-    border: 1px solid ${tone.borderSoft};
-    box-shadow: ${shadow.panel};
-  `
-)
-
 const EmbedPreview = () => (
-  <PreviewCard>
-    <Flex css={{ alignItems: 'center', gap: '9px', marginBottom: '13px' }}>
-      <svg width='22' height='22' viewBox='0 0 24 24'>
-        <rect x='2' y='5' width='20' height='14' rx='4' fill='#ff0000' />
-        <path d='M10 8.5l5 3.5-5 3.5z' fill='#fff' />
-      </svg>
-      <Box as='span' css={{ fontWeight: 700, fontSize: '15px' }}>
-        YouTube
-      </Box>
-    </Flex>
+  <Flex
+    css={theme({
+      mt: 3,
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center'
+    })}
+  >
     <Box
-      css={{
-        borderRadius: radius.inner,
-        overflow: 'hidden',
-        position: 'relative',
-        aspectRatio: '16 / 9',
-        background: '#0a0a0d'
-      }}
+      css={theme({
+        width: '100%',
+        maxWidth: ['300px', 'none', 'none', 'none']
+      })}
     >
-      <Box
-        css={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'radial-gradient(120% 90% at 50% 120%, #1c3a6e 0%, #12213f 40%, #08080c 75%)'
-        }}
+      <IframePreviewsShowcase
+        minHeight={['380px', '380px', '480px', '480px']}
       />
-      <Box
-        as='span'
-        css={{
-          position: 'absolute',
-          top: '14px',
-          left: 0,
-          right: 0,
-          textAlign: 'center',
-          color: '#cfd8e6',
-          fontSize: '15px',
-          fontWeight: 500
-        }}
-      >
-        Introducing Gemini 1.5
-      </Box>
-      <Flex
-        css={{
-          position: 'absolute',
-          inset: 0,
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#2f5fa8',
-          fontSize: '72px',
-          fontWeight: 800,
-          letterSpacing: '-3px'
-        }}
-      >
-        1.5
-      </Flex>
-      <Flex
-        css={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%,-50%)',
-          width: '52px',
-          height: '37px',
-          borderRadius: '10px',
-          background: '#ff0000',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 4px 12px rgba(0,0,0,.4)'
-        }}
-      >
-        <svg width='16' height='16' viewBox='0 0 24 24' fill='#fff'>
-          <path d='M8 5v14l11-7z' />
-        </svg>
-      </Flex>
     </Box>
-    <Box css={{ marginTop: '12px' }}>
-      <Box css={{ fontSize: '15px', fontWeight: 700 }}>
-        Introducing Gemini 1.5
-      </Box>
-      <Box css={{ fontSize: '13px', color: tone.faint, marginTop: '3px' }}>
-        Google Developers&nbsp;&nbsp;·&nbsp;&nbsp;1.2M views
-      </Box>
-    </Box>
-  </PreviewCard>
+  </Flex>
 )
 
 const Skel = styled.span`
@@ -2233,15 +2160,12 @@ const Products = () => (
         </Feature>
       </Row>
 
-      <Row $template='5fr 3fr 4fr'>
+      <Row $template='1fr 1fr'>
         <Feature vertical='html'>
           <HtmlPreview />
         </Feature>
         <Feature vertical='embed'>
           <EmbedPreview />
-        </Feature>
-        <Feature vertical='preview'>
-          <LinkPreview />
         </Feature>
       </Row>
 
@@ -2258,9 +2182,14 @@ const Products = () => (
         </Feature>
       </Row>
 
-      <Feature vertical='search'>
-        <SearchPreview />
-      </Feature>
+      <Row $template='8fr 4fr'>
+        <Feature vertical='search'>
+          <SearchPreview />
+        </Feature>
+        <Feature vertical='preview'>
+          <LinkPreview />
+        </Feature>
+      </Row>
 
       <Row $template='8fr 4fr'>
         <Feature vertical='automation'>
