@@ -1906,8 +1906,8 @@ const Hero = () => {
                   handleRun()
                 }
               }}
-              placeholder='Ask Microlink anything…'
-              aria-label='Ask Microlink anything'
+              placeholder='Tell Microlink what to do…'
+              aria-label='Tell Microlink what to do'
             />
             {!isFocused && dText && (
               <InputMirror aria-hidden='true'>
