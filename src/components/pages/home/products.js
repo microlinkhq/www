@@ -6,7 +6,16 @@ import { PRODUCTS } from 'components/pages/home/catalog'
 import { IframePreviewsShowcase } from 'components/pages/embed/IframePreviewsShowcase'
 import { FileType } from 'components/icons/FileType'
 import { trackEvent } from 'helpers/plausible'
-import { theme, transition, fonts, colors, radii, layout } from 'theme'
+import {
+  theme,
+  transition,
+  fonts,
+  colors,
+  radii,
+  layout,
+  shadows,
+  shadowInk
+} from 'theme'
 import Subhead from 'components/elements/Subhead'
 import Caption from 'components/patterns/Caption/Caption'
 import styled, { css } from 'styled-components'
@@ -55,18 +64,17 @@ const radius = {
   sm: radii[3]
 }
 
-const SHADOW_INK = '16, 24, 40'
 const shadow = {
-  card: `0 6px 20px rgba(${SHADOW_INK}, 0.04)`,
-  cardHover: `0 22px 46px -28px rgba(${SHADOW_INK}, 0.35)`,
-  panel: `0 4px 14px rgba(${SHADOW_INK}, 0.05)`,
-  soft: `0 3px 10px rgba(${SHADOW_INK}, 0.06)`,
-  softer: `0 3px 10px rgba(${SHADOW_INK}, 0.04)`,
-  window: `0 8px 22px rgba(${SHADOW_INK}, 0.06)`,
-  windowMid: `0 8px 22px rgba(${SHADOW_INK}, 0.07)`,
-  windowTop: `0 14px 34px rgba(${SHADOW_INK}, 0.13)`,
-  float: `0 8px 24px rgba(${SHADOW_INK}, 0.08)`,
-  rec: `0 8px 22px rgba(${SHADOW_INK}, 0.16)`
+  card: `0 6px 20px rgba(${shadowInk}, 0.04)`,
+  cardHover: `0 22px 46px -28px rgba(${shadowInk}, 0.35)`,
+  panel: `0 4px 14px rgba(${shadowInk}, 0.05)`,
+  soft: `0 3px 10px rgba(${shadowInk}, 0.06)`,
+  softer: `0 3px 10px rgba(${shadowInk}, 0.04)`,
+  window: shadows[3],
+  windowMid: `0 8px 22px rgba(${shadowInk}, 0.07)`,
+  windowTop: `0 14px 34px rgba(${shadowInk}, 0.13)`,
+  float: `0 8px 24px rgba(${shadowInk}, 0.08)`,
+  rec: `0 8px 22px rgba(${shadowInk}, 0.16)`
 }
 
 const TILE = {
@@ -543,102 +551,104 @@ const TextPreview = () => (
 )
 
 const ScreenshotPreview = () => (
-  <Box css={{ position: 'relative', height: '260px', margin: '24px 8px 0' }}>
-    <Box
-      css={{
-        position: 'absolute',
-        left: '88px',
-        top: '34px',
-        right: '8px',
-        bottom: '-8px',
-        background: tone.surface,
-        border: `1px solid ${tone.border}`,
-        borderRadius: radius.panel,
-        boxShadow: shadow.window,
-        transform: 'rotate(2.5deg)'
-      }}
-    />
-    <Box
-      css={{
-        position: 'absolute',
-        left: '46px',
-        top: '18px',
-        right: '42px',
-        bottom: '10px',
-        background: tone.surface,
-        border: `1px solid ${tone.border}`,
-        borderRadius: radius.panel,
-        boxShadow: shadow.windowMid,
-        transform: 'rotate(1.2deg)'
-      }}
-    />
-    <Box
-      css={{
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        right: '84px',
-        bottom: '22px',
-        background: tone.surface,
-        border: `1px solid ${tone.border}`,
-        borderRadius: radius.panel,
-        boxShadow: shadow.windowTop,
-        overflow: 'hidden'
-      }}
-    >
-      <Flex
+  <Flex css={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
+    <Box css={{ position: 'relative', height: '260px', margin: '24px 8px 0' }}>
+      <Box
         css={{
-          padding: '11px 16px',
-          gap: '7px',
-          alignItems: 'center',
-          borderBottom: `1px solid ${tone.neutral}`
+          position: 'absolute',
+          left: '88px',
+          top: '34px',
+          right: '8px',
+          bottom: '-8px',
+          background: tone.surface,
+          border: `1px solid ${tone.border}`,
+          borderRadius: radius.panel,
+          boxShadow: shadow.window,
+          transform: 'rotate(2.5deg)'
+        }}
+      />
+      <Box
+        css={{
+          position: 'absolute',
+          left: '46px',
+          top: '18px',
+          right: '42px',
+          bottom: '10px',
+          background: tone.surface,
+          border: `1px solid ${tone.border}`,
+          borderRadius: radius.panel,
+          boxShadow: shadow.windowMid,
+          transform: 'rotate(1.2deg)'
+        }}
+      />
+      <Box
+        css={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          right: '84px',
+          bottom: '22px',
+          background: tone.surface,
+          border: `1px solid ${tone.border}`,
+          borderRadius: radius.panel,
+          boxShadow: shadow.windowTop,
+          overflow: 'hidden'
         }}
       >
-        <WindowDots />
-      </Flex>
-      <Box css={{ padding: '22px 26px 26px', textAlign: 'center' }}>
         <Flex
           css={{
-            justifyContent: 'space-between',
+            padding: '11px 16px',
+            gap: '7px',
             alignItems: 'center',
-            fontSize: '12px',
-            color: tone.muted,
-            marginBottom: '26px'
+            borderBottom: `1px solid ${tone.neutral}`
           }}
         >
-          <Box as='span' css={{ fontWeight: 700, color: tone.ink900 }}>
-            Microlink
+          <WindowDots />
+        </Flex>
+        <Box css={{ padding: '22px 26px 26px', textAlign: 'center' }}>
+          <Flex
+            css={{
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              fontSize: '12px',
+              color: tone.muted,
+              marginBottom: '26px'
+            }}
+          >
+            <Box as='span' css={{ fontWeight: 700, color: tone.ink900 }}>
+              Microlink
+            </Box>
+            <span>Docs&nbsp;&nbsp;Guides&nbsp;&nbsp;Pricing</span>
+          </Flex>
+          <Box
+            css={{
+              fontSize: '26px',
+              fontWeight: 800,
+              lineHeight: 1.15,
+              letterSpacing: '-0.02em'
+            }}
+          >
+            The universal API
+            <br />
+            for web data.
           </Box>
-          <span>Docs&nbsp;&nbsp;Guides&nbsp;&nbsp;Pricing</span>
-        </Flex>
-        <Box
-          css={{
-            fontSize: '26px',
-            fontWeight: 800,
-            lineHeight: 1.15,
-            letterSpacing: '-0.02em'
-          }}
-        >
-          The universal API
-          <br />
-          for web data.
+          <Box
+            css={{ fontSize: '12px', color: tone.muted, margin: '12px 0 18px' }}
+          >
+            One API to turn any URL into structured data.
+          </Box>
+          <Flex css={{ gap: '10px', justifyContent: 'center' }}>
+            <MiniButton css={{ background: tone.ink900, color: tone.white }}>
+              Get started
+            </MiniButton>
+            <MiniButton css={{ background: tone.neutral, color: tone.ink900 }}>
+              See pricing
+            </MiniButton>
+          </Flex>
         </Box>
-        <Box
-          css={{ fontSize: '12px', color: tone.muted, margin: '12px 0 18px' }}
-        >
-          One API to turn any URL into structured data.
-        </Box>
-        <Flex css={{ gap: '10px', justifyContent: 'center' }}>
-          <MiniButton css={{ background: tone.ink900, color: tone.white }}>
-            Get started
-          </MiniButton>
-          <MiniButton css={{ background: tone.neutral, color: tone.ink900 }}>
-            See pricing
-          </MiniButton>
-        </Flex>
       </Box>
     </Box>
-  </Box>
+  </Flex>
 )
 
 const TrafficDot = styled.span`
@@ -816,10 +826,13 @@ const PdfSheet = styled(Box)(
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: 3,
-    bg: 'gray0',
+    bg: 'white',
+    border: 1,
+    borderColor: 'gray2',
     borderRadius: 5,
     p: [3, 3, 4],
-    overflow: 'hidden'
+    overflow: 'hidden',
+    boxShadow: shadow.window
   })
 )
 
@@ -853,7 +866,7 @@ const PdfFold = styled(Box)(
     height: '48px',
     borderTopLeftRadius: 5,
     background: `linear-gradient(to top left, ${colors.white} 0%, ${colors.white} 50%, ${colors.gray3} 50%, ${colors.gray1} 70%)`,
-    boxShadow: '-6px -6px 16px rgba(16,24,40,0.05)'
+    boxShadow: `-6px -6px 16px rgba(${shadowInk}, 0.05)`
   })
 )
 
@@ -1781,7 +1794,7 @@ const ConvCard = styled(Flex)(
     border: 1,
     borderColor: 'gray2',
     borderRadius: '18px',
-    boxShadow: `0 10px 24px rgba(${SHADOW_INK}, 0.06)`,
+    boxShadow: `0 10px 24px rgba(${shadowInk}, 0.06)`,
     fontSize: 2,
     fontWeight: 'bold',
     color: 'primary',
@@ -1865,8 +1878,7 @@ const LogoNode = () => (
         height: '136px',
         borderRadius: '50%',
         bg: 'white',
-        boxShadow:
-          '0 18px 42px rgba(16,24,40,.16), 0 3px 8px rgba(16,24,40,.06)',
+        boxShadow: `0 18px 42px rgba(${shadowInk}, 0.16), 0 3px 8px rgba(${shadowInk}, 0.06)`,
         alignItems: 'center',
         justifyContent: 'center'
       })}
