@@ -6,6 +6,7 @@ import GOOGLE_EXAMPLES from 'data/google-examples'
 import { theme, fonts, colors, gradient } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
+import { getApiUrl } from '@microlink/mql'
 
 const MONO = fonts.mono
 
@@ -34,24 +35,42 @@ const ImageOutput = ({ url, alt, contain }) => (
   </Stage>
 )
 
-const AnimatedOutput = ({ url }) => (
-  <Stage css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
-    <Box
-      as='video'
-      src={url}
-      autoPlay
-      loop
-      muted
-      playsInline
-      css={theme({
-        maxWidth: '100%',
-        maxHeight: '440px',
-        borderRadius: 4,
-        boxShadow: '0 18px 50px -22px rgba(40,10,60,.45)'
-      })}
-    />
-  </Stage>
-)
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  typeof window.matchMedia === 'function' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+const AnimatedOutput = ({ url }) => {
+  const videoRef = useRef(null)
+  const [reduced, setReduced] = useState(false)
+
+  useEffect(() => {
+    const isReduced = prefersReducedMotion()
+    setReduced(isReduced)
+    if (isReduced && videoRef.current) videoRef.current.pause()
+  }, [url])
+
+  return (
+    <Stage css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
+      <Box
+        as='video'
+        ref={videoRef}
+        src={url}
+        autoPlay={!reduced}
+        loop
+        muted
+        playsInline
+        controls={reduced}
+        css={theme({
+          maxWidth: '100%',
+          maxHeight: '440px',
+          borderRadius: 4,
+          boxShadow: '0 18px 50px -22px rgba(40,10,60,.45)'
+        })}
+      />
+    </Stage>
+  )
+}
 
 const Swatch = styled.span`
   width: 26px;
@@ -367,11 +386,16 @@ const RawText = styled(Box)`
   word-break: break-word;
 `
 
-const LighthouseOutput = ({ apiUrl }) => (
+const lighthouseViewerUrl = pageUrl =>
+  `https://lighthouse.microlink.io/?url=${encodeURIComponent(
+    getApiUrl(pageUrl, { insights: true, embed: 'insights.lighthouse' })[0]
+  )}`
+
+const LighthouseOutput = ({ url }) => (
   <Box
     as='iframe'
     title='Lighthouse report'
-    src={`https://lighthouse.microlink.io/?url=${encodeURIComponent(apiUrl)}`}
+    src={lighthouseViewerUrl(url)}
     css={theme({
       width: '100%',
       height: '560px',
@@ -1038,6 +1062,8 @@ const fmtBytes = bytes => {
     : `${Math.max(1, Math.round(bytes / 1024))} KB`
 }
 
+const fmtMb = mb => (mb == null ? '—' : `${Math.round(mb)} MB`)
+
 const Stat = ({ label, value }) => (
   <Box css={theme({ textAlign: 'center' })}>
     <Box
@@ -1093,7 +1119,7 @@ const Profiling = ({ profiling }) => {
       >
         <Stat label='Total' value={fmtMs(total)} />
         <Stat label='CPU' value={fmtMs(cpu)} />
-        <Stat label='Memory' value={fmtBytes(memory)} />
+        <Stat label='Memory' value={fmtMb(memory)} />
         <Stat label='Size' value={fmtBytes(size)} />
       </Flex>
 
@@ -1297,7 +1323,7 @@ const Output = ({ req }) => {
           )
 
     case 'lighthouse':
-      return <LighthouseOutput apiUrl={req.apiUrl} />
+      return <LighthouseOutput url={req.D.fullUrl} />
 
     case 'technologies':
       return <TechnologiesOutput technologies={data.insights?.technologies} />

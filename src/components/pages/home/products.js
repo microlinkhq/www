@@ -953,7 +953,7 @@ const PdfSheet = styled(Box)(
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: 3,
-    bg: 'gray1',
+    bg: 'gray0',
     borderRadius: 5,
     p: [3, 3, 4],
     overflow: 'hidden'

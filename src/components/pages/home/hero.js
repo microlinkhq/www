@@ -175,8 +175,8 @@ const CYCLE = [
 const EXAMPLES = [
   'take a screenshot',
   'detect technologies',
-  'extract markdown',
-  'fetch the logo'
+  'get markdown',
+  'get brand'
 ]
 
 const PROMPTS = {
@@ -193,7 +193,7 @@ const PROMPTS = {
   function: 'run a function',
   search: 'search the web',
   pdf: 'create a PDF',
-  logo: 'fetch the logo',
+  logo: 'get brand',
   video: 'detect the video',
   audio: 'detect the audio'
 }
@@ -207,7 +207,7 @@ const parseLocal = text => {
       /screenshot|screen ?shot|capture|snap|take a (pic|photo|picture|shot)|image of|how .* looks?/
     ],
     ['pdf', /\bpdf\b|print|printable|to a doc|as a doc/],
-    ['logo', /\blogo\b|favicon|brand ?mark|brand icon|\bicon of\b/],
+    ['logo', /\blogo\b|favicon|\bbrand\b|\bicon of\b/],
     [
       'lighthouse',
       /lighthouse|performance|page ?speed|web ?vitals|\binsights?\b|audit|core web/
@@ -263,12 +263,12 @@ const parseLocal = text => {
 const DEFAULT_URLS = {
   screenshot: 'https://www.apple.com/music',
   animated: 'https://sauron-webgl.vercel.app/',
-  preview: 'https://github.com/microlinkhq/metascraper',
+  preview: 'https://github.com/',
   embed: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
   markdown: 'https://microlink.io/docs/api/getting-started/overview',
   html: 'https://example.com',
   text: 'https://en.wikipedia.org/wiki/Lorem_ipsum',
-  metadata: 'https://github.com/microlinkhq/metascraper',
+  metadata: 'https://github.com/',
   lighthouse: 'https://simonwillison.net/2024/Oct/25/pelicans-on-a-bicycle/',
   technologies: 'https://vercel.com',
   function: 'https://example.com',
@@ -290,7 +290,10 @@ const EXAMPLE_CHIPS = EXAMPLES.map(text => ({
 const derive = (text, override) => {
   const p = parseLocal(text)
   const v = override || p.vertical
-  const fullUrl = p.url || DEFAULT_URLS[v] || FALLBACK_URL
+  const fullUrl =
+    v === 'search'
+      ? DEFAULT_URLS.search
+      : p.url || DEFAULT_URLS[v] || FALLBACK_URL
   return {
     vertical: v,
     label: PRODUCTS[v].label,
@@ -1805,6 +1808,8 @@ const Hero = () => {
     setDVert(null)
     closeMenu()
     setDText(value)
+    writeSharedState(value, null)
+    runRequest(derive(value))
   }
 
   const pickVertical = k => {
