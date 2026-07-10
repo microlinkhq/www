@@ -33,7 +33,7 @@ const Pricing = () => {
             maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
           })}
         >
-          Start free. No seats, no minimums, no surprises.
+          Start free, scale predictably. No seats, no minimums, no surprises.
         </Caption>
       </Container>
       <Plans

@@ -100,8 +100,8 @@ const Production = () => (
         })}
       >
         Behind every request, Microlink runs real web browsers in the cloud: we
-        open the page, do the work, and deliver the result. Fast anywhere in the
-        world, at any scale.
+        open the page, do the work, and deliver the result. Our largest
+        customers process 188 million requests a month.
       </Caption>
     </Box>
 

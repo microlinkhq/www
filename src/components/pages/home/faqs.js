@@ -103,6 +103,19 @@ const FAQs = props => (
         )
       },
       {
+        question: 'Can Microlink handle my traffic?',
+        answer: (
+          <>
+            <div>
+              Yes. The platform is built for production workloads and burst
+              traffic. We&rsquo;ve supported enterprise deployments processing
+              up to 188 million requests per month, with sustained daily traffic
+              of more than 6 million requests.
+            </div>
+          </>
+        )
+      },
+      {
         question: 'How do I know my plan usage?',
         answer: (
           <>
