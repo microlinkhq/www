@@ -1988,10 +1988,14 @@ const FlowArrow = styled(Flex)`
   align-items: center;
   flex-shrink: 0;
   margin: 0 16px;
+  position: relative;
+  top: 7px;
 
   @media (max-width: 980px) {
     transform: rotate(90deg);
     margin: 14px 0;
+    top: 0;
+    left: 7px;
   }
 `
 
