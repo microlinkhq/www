@@ -1317,7 +1317,10 @@ const LighthousePreview = () => (
     }}
   >
     {LIGHTHOUSE.map(([score, label]) => (
-      <Box key={label} css={{ textAlign: 'center' }}>
+      <Flex
+        key={label}
+        css={{ flexDirection: 'column', alignItems: 'center', width: '60px' }}
+      >
         <Flex
           css={{
             width: '60px',
@@ -1335,11 +1338,16 @@ const LighthousePreview = () => (
           {score}
         </Flex>
         <Box
-          css={{ fontSize: '11.5px', color: syntax.muted, marginTop: '8px' }}
+          css={{
+            fontSize: '11.5px',
+            color: syntax.muted,
+            marginTop: '8px',
+            whiteSpace: 'nowrap'
+          }}
         >
           {label}
         </Box>
-      </Box>
+      </Flex>
     ))}
   </Flex>
 )
