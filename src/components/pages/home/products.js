@@ -1990,12 +1990,11 @@ const FlowArrow = styled(Flex)`
   margin: 0 16px;
   position: relative;
   top: 7px;
+  left: 7px;
 
   @media (max-width: 980px) {
     transform: rotate(90deg);
     margin: 14px 0;
-    top: 0;
-    left: 7px;
   }
 `
 
