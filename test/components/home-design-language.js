@@ -8,7 +8,6 @@ const read = file =>
 const products = read('components/pages/home/products.js')
 const hero = read('components/pages/home/hero.js')
 const production = read('components/pages/home/production.js')
-const home = read('pages/index.js')
 
 describe('home design language', () => {
   test('products grid uses theme palette instead of a private one', () => {
@@ -83,8 +82,9 @@ describe('home design language', () => {
   })
 
   test('pricing header reuses the canonical Subhead gradient pattern', () => {
-    expect(home).toContain("<Subhead variant='gradient' as='span'>")
-    expect(home).not.toContain('textGradient')
-    expect(home).not.toContain("fontSize: ['34px'")
+    const pricing = read('components/pages/home/pricing.js')
+    expect(pricing).toContain("<Subhead variant='gradient' as='span'>")
+    expect(pricing).not.toContain('textGradient')
+    expect(pricing).not.toContain("fontSize: ['34px'")
   })
 })
