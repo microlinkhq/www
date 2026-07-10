@@ -497,19 +497,22 @@ const ComposerEditor = styled.div`
   }
 
   [data-url-tag] {
+    text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
     ${theme({
       display: 'inline-flex',
       alignItems: 'center',
-      gap: '6px',
-      color: 'blue7',
-      bg: rgba(colors.blue, 0.08),
-      boxShadow: `inset 0 0 0 1px ${rgba(colors.blue, 0.16)}`,
-      borderRadius: 3,
-      py: '3px',
-      px: '6px',
-      mx: '2px',
-      my: '-3px'
+      gap: '4px',
+      color: 'secondary',
+      fontFamily: 'mono',
+      fontWeight: 'normal',
+      fontSize: '0.9rem',
+      px: '4px'
     })};
+  }
+
+  [data-url-text]::before,
+  [data-url-text]::after {
+    content: '\`';
   }
 
   [data-url-action] {
@@ -580,7 +583,9 @@ const composerHtml = (segments, { caret }) => {
       LINK_ICON_SVG +
       CLOSE_ICON_SVG +
       '</span>' +
+      '<span data-url-text>' +
       escHtml(segments.url) +
+      '</span>' +
       '</span>'
   }
   if (segments.after) html += escHtml(segments.after)

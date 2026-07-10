@@ -78,8 +78,22 @@ describe('home hero prompts', () => {
       source.indexOf('const LINK_ICON_SVG')
     )
     expect(editor).toContain('[data-url-tag]')
-    expect(editor).toContain("color: 'blue7'")
     expect(editor).not.toContain('grape')
+  })
+
+  test('url chip uses the docs inline-code style', () => {
+    const editor = source.slice(
+      source.indexOf('const ComposerEditor'),
+      source.indexOf('const LINK_ICON_SVG')
+    )
+    const tag = editor.slice(editor.indexOf('[data-url-tag]'))
+    expect(tag).toContain("color: 'secondary'")
+    expect(tag).toContain("fontFamily: 'mono'")
+    expect(tag).toContain("fontWeight: 'normal'")
+    expect(tag).toContain("fontSize: '0.9rem'")
+    expect(tag).toContain('text-shadow: rgba(0, 0, 0, 0.05) 0px 1px')
+    expect(tag).toContain("content: '\\`'")
+    expect(source).toContain('<span data-url-text>')
   })
 
   test('url chip shows a link icon that swaps to a remove button', () => {
