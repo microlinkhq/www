@@ -68,34 +68,43 @@ describe('home hero prompts', () => {
     })
   })
 
-  test('composer wraps the URL segment in a tag over a transparent input', () => {
-    expect(source).toContain('const UrlTag')
-    expect(source).toContain('{dSegments.url}')
-    const input = source.slice(
-      source.indexOf('const ComposerInput'),
-      source.indexOf('const InputWrap')
+  test('composer renders the URL as an atomic chip in a contenteditable', () => {
+    expect(source).toContain('contentEditable')
+    expect(source).toContain('composerHtml(dSegments')
+    expect(source).toContain('contenteditable="false"')
+    expect(source).toContain('dangerouslySetInnerHTML')
+    const editor = source.slice(
+      source.indexOf('const ComposerEditor'),
+      source.indexOf('const LINK_ICON_SVG')
     )
-    expect(input).toContain('color: transparent')
-    expect(input).toContain('caret-color')
+    expect(editor).toContain('[data-url-tag]')
+    expect(editor).toContain("color: 'blue7'")
+    expect(editor).not.toContain('grape')
   })
 
-  test('url tag is blue with a logo that swaps to a remove button', () => {
-    const tag = source.slice(
-      source.indexOf('const UrlTag'),
-      source.indexOf('const Caret')
+  test('url chip shows a link icon that swaps to a remove button', () => {
+    expect(source).toContain('class="logo"')
+    expect(source).toContain('class="close"')
+    expect(source).toContain('aria-label="Remove URL"')
+    expect(source).toContain('removeUrl()')
+    const editor = source.slice(
+      source.indexOf('const ComposerEditor'),
+      source.indexOf('const LINK_ICON_SVG')
     )
-    expect(tag).toContain('colors.blue')
-    expect(tag).not.toContain('grape')
-    expect(tag).toContain('pointer-events: auto')
-    expect(source).toContain("aria-label='Remove URL'")
-    expect(source).toContain('onClick={removeUrl}')
-    expect(source).toContain("<LinkIcon className='logo'")
-    expect(source).toContain("<CloseIcon className='close'")
+    expect(editor).toContain('[data-url-action]:hover .logo')
+    expect(editor).toContain('[data-url-action]:hover .close')
     const remove = source.slice(
       source.indexOf('const removeUrl'),
       source.indexOf('const pickExample')
     )
     expect(remove).toContain('.replace(raw, ')
     expect(remove).toContain('.focus()')
+  })
+
+  test('caret survives re-renders via offset save and restore', () => {
+    expect(source).toContain('const getCaretOffset')
+    expect(source).toContain('const setCaretOffset')
+    expect(source).toContain('pendingCaret.current = getCaretOffset(el)')
+    expect(source).toContain('setCaretOffset(el, pendingCaret.current)')
   })
 })

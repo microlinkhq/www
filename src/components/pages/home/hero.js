@@ -14,27 +14,21 @@ import { WandSparkles } from 'components/icons/WandSparkles'
 import { PRODUCTS, VERTICAL_ORDER } from 'components/pages/home/catalog'
 import { blink } from 'components/keyframes'
 import { trackEvent } from 'helpers/plausible'
-import {
-  transition,
-  timings,
-  fonts,
-  space,
-  theme,
-  colors,
-  gradient
-} from 'theme'
+import { transition, timings, space, theme, colors, gradient } from 'theme'
 import { rgba } from 'polished'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import mql, { getApiUrl } from '@microlink/mql'
 import GOOGLE_EXAMPLES from 'data/google-examples'
 
-import {
-  Copy as CopyIcon,
-  Check as CheckIcon,
-  Link as LinkIcon,
-  X as CloseIcon
-} from 'react-feather'
+import { Copy as CopyIcon, Check as CheckIcon } from 'react-feather'
 
 import analyticsData from '../../../../data/analytics.json'
 
@@ -42,30 +36,29 @@ const SEARCH_EXAMPLE = GOOGLE_EXAMPLES.search[0]
 
 const [{ reqs_pretty: reqsPretty }] = analyticsData
 
-const PINK = colors.secondary
 const VIOLET = colors.grape7
 const INK = colors.black
 const GRADIENT = gradient
-
-const SANS = fonts.sans
-const MONO = fonts.mono
 
 const SUCCESS = colors.green8
 const ERROR = colors.red7
 const WARN = colors.orange7
 
 const SYNTAX = {
-  key: colors.link,
-  string: colors.gray9,
-  literal: colors.secondary,
-  number: colors.secondary,
-  boolean: colors.secondary,
-  fn: colors.link,
-  muted: colors.gray5,
-  body: colors.gray8
+  key: 'link',
+  string: 'gray9',
+  literal: 'secondary',
+  number: 'secondary',
+  boolean: 'secondary',
+  fn: 'link',
+  muted: 'gray5',
+  body: 'gray8'
 }
 
 const reduceMotion = '@media (prefers-reduced-motion: reduce)'
+
+const useIsomorphicLayoutEffect =
+  typeof window === 'undefined' ? useEffect : useLayoutEffect
 
 const EASE_SMOOTH = 'cubic-bezier(0.22, 1, 0.36, 1)'
 
@@ -308,14 +301,7 @@ const derive = (text, override) => {
   }
 }
 
-const TIMING_COLORS = [
-  colors.green5,
-  colors.blue5,
-  colors.yellow5,
-  colors.pink5,
-  colors.grape5,
-  colors.teal5
-]
+const TIMING_COLORS = ['green5', 'blue5', 'yellow5', 'pink5', 'grape5', 'teal5']
 
 const headersToRows = headers => {
   if (!headers) return []
@@ -367,23 +353,26 @@ const GUTTER_X = `clamp(${space[3]}, 4vw, 40px)`
 const PADDING_BOTTOM = `clamp(${space[4]}, 5vw, ${space[5]})`
 
 const Section = styled.section`
-  position: relative;
-  font-family: ${SANS};
-  color: ${INK};
   -webkit-font-smoothing: antialiased;
-
   padding-right: ${GUTTER_X};
   padding-bottom: ${PADDING_BOTTOM};
   padding-left: ${GUTTER_X};
+  ${theme({
+    position: 'relative',
+    fontFamily: 'sans',
+    color: 'black'
+  })};
 `
 
 const Content = styled(Container)`
-  position: relative;
-  z-index: 1;
-  max-width: 1080px;
-  align-items: center;
-  text-align: center;
-  padding: 0;
+  ${theme({
+    position: 'relative',
+    zIndex: 1,
+    maxWidth: '1080px',
+    alignItems: 'center',
+    textAlign: 'center',
+    p: 0
+  })};
 
   & > * {
     animation: ${riseIn} 440ms ${timings.short} both;
@@ -415,52 +404,63 @@ const Content = styled(Container)`
 `
 
 const PulseDot = styled(Dot)`
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: ${PINK};
   animation: ${pulse} 2s infinite;
+  ${theme({
+    width: '9px',
+    height: '9px',
+    borderRadius: '50%',
+    bg: 'secondary'
+  })};
   ${reduceMotion} {
     animation: none;
   }
 `
 
 const Badge = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 14px;
-  font-weight: 600;
-  color: ${VIOLET};
-  background: ${rgba(colors.secondary, 0.07)};
-  border: 1px solid ${rgba(colors.grape7, 0.18)};
-  padding: 7px 16px;
-  border-radius: 999px;
-  margin-bottom: 26px;
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '9px',
+    fontSize: 0,
+    fontWeight: 600,
+    color: 'grape7',
+    bg: rgba(colors.secondary, 0.07),
+    border: 1,
+    borderColor: rgba(colors.grape7, 0.18),
+    py: '7px',
+    px: 3,
+    borderRadius: '999px',
+    mb: '26px'
+  })};
 `
 
 const FORCE_FOCUS = false
 
 const composerFocus = css`
-  border-color: ${rgba(colors.grape7, 0.45)};
-  box-shadow: 0 0 6px 3px ${rgba(colors.grape7, 0.14)};
+  ${theme({
+    borderColor: rgba(colors.grape7, 0.45),
+    boxShadow: `0 0 6px 3px ${rgba(colors.grape7, 0.14)}`
+  })};
 `
 
 const Composer = styled.div`
-  position: relative;
-  z-index: 20;
-  width: 100%;
-  max-width: 680px;
-  margin-top: 38px;
-  background: #fff;
-  border: 1px solid ${colors.gray2};
-  border-radius: 18px;
-  padding: 6px;
-  box-shadow: 0 0 6px 0 ${rgba(colors.grape7, 0)};
-  text-align: left;
   transition: border-color ${transition.short}, box-shadow ${transition.short};
+  ${theme({
+    position: 'relative',
+    zIndex: 20,
+    width: '100%',
+    maxWidth: '680px',
+    mt: '38px',
+    bg: 'white',
+    border: 1,
+    borderColor: 'gray2',
+    borderRadius: '18px',
+    p: '6px',
+    boxShadow: `0 0 6px 0 ${rgba(colors.grape7, 0)}`,
+    textAlign: 'left'
+  })};
 
-  &:has(input:focus-visible),
+  &:has([contenteditable='true']:focus),
   &[data-force-focus='true'] {
     ${composerFocus}
   }
@@ -470,119 +470,186 @@ const Composer = styled.div`
   }
 `
 
-const ComposerInput = styled.input`
-  width: 100%;
-  border: none;
+const ComposerEditor = styled.div`
   outline: none;
-  border-radius: 12px;
-  font-family: ${SANS};
-  font-size: 18px;
-  color: transparent;
-  caret-color: ${INK};
-  background: transparent;
-  padding: 18px 18px 10px;
+  cursor: text;
+  scrollbar-width: none;
+  ${theme({
+    width: '100%',
+    fontFamily: 'sans',
+    fontSize: '18px',
+    color: 'black',
+    pt: '18px',
+    px: '18px',
+    pb: '10px',
+    whiteSpace: 'pre',
+    overflowX: 'auto',
+    overflowY: 'hidden'
+  })};
 
-  &::placeholder {
-    color: ${colors.gray4};
-  }
-`
-
-const InputWrap = styled.div`
-  position: relative;
-`
-
-const InputMirror = styled.div`
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  padding: 18px 18px 10px;
-  font-family: ${SANS};
-  font-size: 18px;
-  color: ${INK};
-  white-space: pre;
-
-  span {
-    flex: none;
-  }
-`
-
-const UrlTag = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: ${colors.blue7};
-  background: ${rgba(colors.blue, 0.08)};
-  box-shadow: inset 0 0 0 1px ${rgba(colors.blue, 0.16)};
-  border-radius: 6px;
-  padding: 3px 4px;
-  margin: 0 -4px;
-
-  span {
-    flex: none;
-  }
-`
-
-const UrlTagAction = styled.button`
-  pointer-events: auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-  width: 16px;
-  height: 16px;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  color: inherit;
-
-  .close {
+  &::-webkit-scrollbar {
     display: none;
   }
 
-  &:hover .logo,
-  &:focus-visible .logo {
+  &:empty::before {
+    content: attr(data-placeholder);
+    ${theme({ color: 'gray4' })};
+  }
+
+  [data-url-tag] {
+    ${theme({
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '6px',
+      color: 'blue7',
+      bg: rgba(colors.blue, 0.08),
+      boxShadow: `inset 0 0 0 1px ${rgba(colors.blue, 0.16)}`,
+      borderRadius: 3,
+      py: '3px',
+      px: '6px',
+      mx: '2px',
+      my: '-3px'
+    })};
+  }
+
+  [data-url-action] {
+    cursor: pointer;
+    ${theme({
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flex: 'none',
+      width: '16px',
+      height: '16px',
+      color: 'inherit'
+    })};
+  }
+
+  [data-url-action] .close {
     display: none;
   }
 
-  &:hover .close,
-  &:focus-visible .close {
+  [data-url-action]:hover .logo {
+    display: none;
+  }
+
+  [data-url-action]:hover .close {
     display: block;
   }
-`
 
-const Caret = styled.span`
-  flex: none;
-  width: 2px;
-  height: 1.05em;
-  margin-left: 1px;
-  border-radius: 1px;
-  background: ${colors.secondary};
-  animation: ${blink} 1s cubic-bezier(1, 0, 0, 1) infinite;
+  [data-caret] {
+    animation: ${blink} 1s cubic-bezier(1, 0, 0, 1) infinite;
+    ${theme({
+      display: 'inline-block',
+      width: '2px',
+      height: '1.05em',
+      ml: '1px',
+      verticalAlign: 'text-bottom',
+      borderRadius: '1px',
+      bg: 'secondary'
+    })};
+  }
 
   ${reduceMotion} {
-    animation: none;
-    opacity: 1;
+    [data-caret] {
+      animation: none;
+      opacity: 1;
+    }
   }
 `
 
+const LINK_ICON_SVG =
+  '<svg class="logo" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>'
+
+const CLOSE_ICON_SVG =
+  '<svg class="close" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>'
+
+const escHtml = value =>
+  String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+
+const composerHtml = (segments, { caret }) => {
+  let html = ''
+  if (segments.before) html += escHtml(segments.before)
+  if (segments.url) {
+    html +=
+      '<span data-url-tag contenteditable="false">' +
+      '<span data-url-action role="button" tabindex="-1" aria-label="Remove URL">' +
+      LINK_ICON_SVG +
+      CLOSE_ICON_SVG +
+      '</span>' +
+      escHtml(segments.url) +
+      '</span>'
+  }
+  if (segments.after) html += escHtml(segments.after)
+  if (caret) html += '<span data-caret aria-hidden="true"></span>'
+  return html
+}
+
+const readComposerText = el =>
+  (el.textContent || '').replace(/\u00a0/g, ' ').replace(/[\r\n]+/g, ' ')
+
+const getCaretOffset = el => {
+  const sel = window.getSelection()
+  if (!sel || sel.rangeCount === 0) return null
+  const range = sel.getRangeAt(0)
+  if (!el.contains(range.endContainer)) return null
+  const pre = range.cloneRange()
+  pre.selectNodeContents(el)
+  pre.setEnd(range.endContainer, range.endOffset)
+  return pre.toString().length
+}
+
+const setCaretOffset = (el, offset) => {
+  const sel = window.getSelection()
+  if (!sel) return
+  const range = document.createRange()
+  const walker = document.createTreeWalker(el, window.NodeFilter.SHOW_TEXT)
+  let remaining = offset
+  let placed = false
+  let node
+  while ((node = walker.nextNode())) {
+    const len = node.textContent.length
+    if (remaining <= len) {
+      const atomic =
+        node.parentElement && node.parentElement.closest('[data-url-tag]')
+      if (atomic) {
+        if (remaining === 0) range.setStartBefore(atomic)
+        else range.setStartAfter(atomic)
+      } else {
+        range.setStart(node, remaining)
+      }
+      placed = true
+      break
+    }
+    remaining -= len
+  }
+  if (!placed) range.selectNodeContents(el)
+  range.collapse(placed)
+  sel.removeAllRanges()
+  sel.addRange(range)
+}
+
 const VertChip = styled.button`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
   cursor: pointer;
   font: inherit;
   color: inherit;
-  text-align: left;
-  background: #fff;
   border: 1px solid ${props => props.$border};
-  border-radius: 10px;
-  padding: 5px 9px 5px 6px;
   transition: transform ${transition.short};
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 2,
+    flexShrink: 0,
+    textAlign: 'left',
+    bg: 'white',
+    borderRadius: '10px',
+    py: '5px',
+    pr: '9px',
+    pl: '6px'
+  })};
 
   &:active {
     transform: scale(0.98);
@@ -590,17 +657,19 @@ const VertChip = styled.button`
 `
 
 const RunButton = styled.button`
-  border: none;
   cursor: pointer;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
   background: ${GRADIENT};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
   transition: transform ${transition.short}, filter ${transition.short};
+  ${theme({
+    border: 0,
+    width: '42px',
+    height: '42px',
+    borderRadius: '12px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0
+  })};
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
@@ -623,23 +692,27 @@ const RunButton = styled.button`
 
 const ExampleChip = styled.button`
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: ${SANS};
-  font-size: 13px;
-  color: ${colors.gray7};
-  background: #fff;
-  border: 1px solid ${colors.gray2};
-  padding: 8px 13px;
-  border-radius: 999px;
   transition: border-color ${transition.short}, color ${transition.short},
     transform ${transition.short};
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '7px',
+    fontFamily: 'sans',
+    fontSize: '13px',
+    color: 'gray7',
+    bg: 'white',
+    border: 1,
+    borderColor: 'gray2',
+    py: 2,
+    px: '13px',
+    borderRadius: '999px'
+  })};
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       border-color: ${props => props.$border};
-      color: ${INK};
+      ${theme({ color: 'black' })};
     }
   }
 
@@ -649,25 +722,30 @@ const ExampleChip = styled.button`
 `
 
 const HeroActions = styled(Flex)`
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 22px;
-  flex-wrap: wrap;
+  ${theme({
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+    mt: '22px',
+    flexWrap: 'wrap'
+  })};
 `
 
 const actionPill = css`
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: ${SANS};
-  font-size: 13px;
-  font-weight: 500;
-  padding: 9px 16px;
-  border-radius: 999px;
   transition: border-color ${transition.short}, color ${transition.short},
     background ${transition.short}, transform ${transition.short};
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '7px',
+    fontFamily: 'sans',
+    fontSize: '13px',
+    fontWeight: 'regular',
+    py: '9px',
+    px: 3,
+    borderRadius: '999px'
+  })};
 
   &:active {
     transform: scale(0.97);
@@ -676,73 +754,85 @@ const actionPill = css`
 
 const CopyPromptButton = styled.button`
   ${actionPill};
-  color: ${colors.gray7};
-  background: #fff;
-  border: 1px solid ${colors.gray2};
+  ${theme({
+    color: 'gray7',
+    bg: 'white',
+    border: 1,
+    borderColor: 'gray2'
+  })};
 
   &[data-copied='true'] {
-    color: ${SUCCESS};
-    border-color: ${SUCCESS};
+    ${theme({ color: 'green8', borderColor: 'green8' })};
   }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      border-color: ${VIOLET};
-      color: ${INK};
+      ${theme({ borderColor: 'grape7', color: 'black' })};
     }
   }
 `
 
 const Panel = styled.div`
-  position: relative;
-  width: 100%;
-  max-width: 980px;
-  margin-top: 14px;
-  border: 1px solid ${colors.gray2};
-  border-radius: 16px;
-  overflow: hidden;
-  background: #fff;
-  text-align: left;
-  box-shadow: 0 24px 60px -40px rgba(40, 10, 60, 0.35);
+  ${theme({
+    position: 'relative',
+    width: '100%',
+    maxWidth: '980px',
+    mt: '14px',
+    border: 1,
+    borderColor: 'gray2',
+    borderRadius: 5,
+    overflow: 'hidden',
+    bg: 'white',
+    textAlign: 'left',
+    boxShadow: '0 24px 60px -40px rgba(40, 10, 60, 0.35)'
+  })};
 `
 
 const TabBar = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 28px;
+  ${theme({
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '28px'
+  })};
 `
 
 const TabButton = styled.button`
   cursor: pointer;
-  border: none;
-  background: transparent;
-  font-family: ${SANS};
-  font-size: 17px;
-  font-weight: 500;
   color: ${props => (props.$active ? INK : colors.gray6)};
-  padding: 0 0 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
   transition: color ${transition.short};
+  ${theme({
+    border: 0,
+    bg: 'transparent',
+    fontFamily: 'sans',
+    fontSize: '17px',
+    fontWeight: 'regular',
+    pt: 0,
+    px: 0,
+    pb: '14px',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 2
+  })};
 
   &:focus-visible {
-    border-radius: 4px;
+    ${theme({ borderRadius: 2 })};
   }
 `
 
 const TabIndicator = styled.span`
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  height: 2px;
-  width: 0;
-  background: ${INK};
   transform: translateX(0);
   transition: transform 250ms ${EASE_SMOOTH}, width 250ms ${EASE_SMOOTH};
   will-change: transform, width;
-  pointer-events: none;
+  ${theme({
+    position: 'absolute',
+    bottom: '-1px',
+    left: 0,
+    height: '2px',
+    width: 0,
+    bg: 'black',
+    pointerEvents: 'none'
+  })};
 
   ${reduceMotion} {
     transition: none;
@@ -784,13 +874,15 @@ const TabContent = styled.div`
 `
 
 const Mono = styled(Text).attrs({ as: 'span' })`
-  font-family: ${MONO};
+  ${theme({ fontFamily: 'mono' })};
 `
 
 const ShimmerText = styled.span`
-  position: relative;
-  display: inline-block;
-  color: ${VIOLET};
+  ${theme({
+    position: 'relative',
+    display: 'inline-block',
+    color: 'grape7'
+  })};
 
   &::before {
     content: attr(data-text);
@@ -829,36 +921,43 @@ const PILL_TONES = {
 }
 
 const StatusPill = styled.span`
-  font-family: ${MONO};
-  font-size: 13px;
-  font-weight: 500;
   color: ${p => (PILL_TONES[p.$tone] || PILL_TONES.success).color};
   background: ${p => (PILL_TONES[p.$tone] || PILL_TONES.success).background};
-  padding: 5px 12px;
-  border-radius: 999px;
-  white-space: nowrap;
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: '13px',
+    fontWeight: 'regular',
+    py: '5px',
+    px: '12px',
+    borderRadius: '999px',
+    whiteSpace: 'nowrap'
+  })};
 `
 
 const RetryButton = styled.button`
   ${actionPill};
-  color: ${colors.gray7};
-  background: #fff;
-  border: 1px solid ${colors.gray2};
+  ${theme({
+    color: 'gray7',
+    bg: 'white',
+    border: 1,
+    borderColor: 'gray2'
+  })};
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      border-color: ${VIOLET};
-      color: ${INK};
+      ${theme({ borderColor: 'grape7', color: 'black' })};
     }
   }
 `
 
 const RateLimitLink = styled.a`
-  font-family: ${SANS};
-  font-size: 13px;
-  font-weight: 500;
-  color: ${VIOLET};
-  text-decoration: none;
+  ${theme({
+    fontFamily: 'sans',
+    fontSize: '13px',
+    fontWeight: 'regular',
+    color: 'grape7',
+    textDecoration: 'none'
+  })};
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
@@ -868,13 +967,15 @@ const RateLimitLink = styled.a`
 `
 
 const Code = styled.pre`
-  margin: 0;
-  padding: 22px;
-  font-family: ${MONO};
-  white-space: pre-wrap;
-  word-break: break-word;
-  max-height: 380px;
-  overflow: auto;
+  ${theme({
+    m: 0,
+    p: '22px',
+    fontFamily: 'mono',
+    whiteSpace: 'pre-wrap',
+    wordBreak: 'break-word',
+    maxHeight: '380px',
+    overflow: 'auto'
+  })};
 `
 
 const JSON_COLORS = {
@@ -902,14 +1003,14 @@ const JsonView = ({ src }) => {
 
     if (match[1] && match[2] !== undefined) {
       nodes.push(
-        <Box as='span' key={key++} css={{ color: JSON_COLORS.key }}>
+        <Box as='span' key={key++} css={theme({ color: JSON_COLORS.key })}>
           {match[1]}
         </Box>
       )
       nodes.push(match[2])
     } else if (match[1]) {
       nodes.push(
-        <Box as='span' key={key++} css={{ color: JSON_COLORS.string }}>
+        <Box as='span' key={key++} css={theme({ color: JSON_COLORS.string })}>
           {token}
         </Box>
       )
@@ -921,7 +1022,7 @@ const JsonView = ({ src }) => {
             ? JSON_COLORS.null
             : JSON_COLORS.number
       nodes.push(
-        <Box as='span' key={key++} css={{ color }}>
+        <Box as='span' key={key++} css={theme({ color })}>
           {token}
         </Box>
       )
@@ -939,13 +1040,15 @@ const JsonView = ({ src }) => {
 }
 
 const LoadingBar = styled.span`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 2px;
-  width: 25%;
   background: ${GRADIENT};
   animation: ${loadingSlide} 1s ease-in-out infinite;
+  ${theme({
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '2px',
+    width: '25%'
+  })};
   ${reduceMotion} {
     animation: none;
     width: 100%;
@@ -954,11 +1057,13 @@ const LoadingBar = styled.span`
 `
 
 const SkeletonLine = styled.span`
-  display: block;
-  height: 12px;
-  border-radius: 6px;
-  background: ${colors.gray1};
   animation: ${skeletonPulse} 1.2s ease-in-out infinite;
+  ${theme({
+    display: 'block',
+    height: '12px',
+    borderRadius: 3,
+    bg: 'gray1'
+  })};
   ${reduceMotion} {
     animation: none;
   }
@@ -976,11 +1081,13 @@ const Skeleton = () => (
 )
 
 const IconBadge = styled(Box)`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 7px;
-  flex-shrink: 0;
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '7px',
+    flexShrink: 0
+  })};
 `
 
 const GLYPH_STROKE_GRADIENT_ID = 'microlinkGlyphStroke'
@@ -1004,45 +1111,47 @@ const glyphGradientFill = css`
 `
 
 const GlyphBadge = styled(IconBadge)`
-  background: transparent;
+  ${theme({ bg: 'transparent' })};
   ${glyphGradientFill}
 `
 
 const MenuBadge = styled(IconBadge)`
-  width: 26px;
-  height: 26px;
-  background: transparent;
+  ${theme({ width: '26px', height: '26px', bg: 'transparent' })};
   ${glyphGradientFill}
 `
 
 const MenuLabel = styled.span`
-  font-size: 14px;
-  font-weight: 500;
-  color: ${INK};
-  white-space: nowrap;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  ${theme({
+    fontSize: 0,
+    fontWeight: 'regular',
+    color: 'black',
+    whiteSpace: 'nowrap',
+    minWidth: 0,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  })};
 `
 
 const menuItemHighlight = css`
-  background: ${rgba(colors.secondary, 0.06)};
+  ${theme({ bg: rgba(colors.secondary, 0.06) })};
 `
 
 const MenuItem = styled(Flex)`
-  align-items: center;
-  gap: 8px;
-  padding: 8px;
-  border-radius: 8px;
   cursor: pointer;
-  width: 100%;
-  min-width: 0;
-  border: 0;
   font: inherit;
   color: inherit;
-  text-align: left;
-  background: transparent;
   transition: background ${transition.short};
+  ${theme({
+    alignItems: 'center',
+    gap: 2,
+    p: 2,
+    borderRadius: 4,
+    width: '100%',
+    minWidth: 0,
+    border: 0,
+    textAlign: 'left',
+    bg: 'transparent'
+  })};
 
   &:focus-visible {
     outline-offset: -2px;
@@ -1061,19 +1170,19 @@ const MenuItem = styled(Flex)`
 `
 
 const Str = styled.span`
-  color: ${SYNTAX.string};
+  ${theme({ color: SYNTAX.string })};
 `
 const Num = styled.span`
-  color: ${SYNTAX.number};
+  ${theme({ color: SYNTAX.number })};
 `
 const Bool = styled.span`
-  color: ${SYNTAX.boolean};
+  ${theme({ color: SYNTAX.boolean })};
 `
 const Fn = styled.span`
-  color: ${SYNTAX.fn};
+  ${theme({ color: SYNTAX.fn })};
 `
 const Comment = styled.span`
-  color: ${SYNTAX.muted};
+  ${theme({ color: SYNTAX.muted })};
 `
 
 const renderJsValue = (value, keyBase) => {
@@ -1180,7 +1289,8 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
           gap: 3,
           py: 3,
           px: 3,
-          borderBottom: `1px solid ${colors.gray1}`
+          borderBottom: 1,
+          borderBottomColor: 'gray1'
         })}
       >
         <Mono
@@ -1192,7 +1302,7 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
             whiteSpace: 'nowrap'
           })}
         >
-          <Box as='span' css={theme({ color: SUCCESS, fontWeight: 600 })}>
+          <Box as='span' css={theme({ color: 'green8', fontWeight: 600 })}>
             GET
           </Box>{' '}
           {req.apiUrl}
@@ -1204,7 +1314,12 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
         role='tablist'
         aria-label='Response views'
         onKeyDown={onTabKeyDown}
-        css={theme({ pt: 3, px: 3, borderBottom: `1px solid ${colors.gray1}` })}
+        css={theme({
+          pt: 3,
+          px: 3,
+          borderBottom: 1,
+          borderBottomColor: 'gray1'
+        })}
       >
         {tabs.map(t => (
           <TabButton
@@ -1322,7 +1437,8 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
                       gridTemplateColumns: '230px 1fr',
                       gap: 3,
                       py: 2,
-                      borderBottom: `1px solid ${colors.gray1}`,
+                      borderBottom: 1,
+                      borderBottomColor: 'gray1',
                       fontFamily: 'mono',
                       fontSize: 0
                     })}
@@ -1366,13 +1482,21 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
                   >
                     <Box
                       as='span'
-                      css={theme({ fontSize: 1, fontWeight: 600, color: INK })}
+                      css={theme({
+                        fontSize: 1,
+                        fontWeight: 600,
+                        color: 'black'
+                      })}
                     >
                       Total server time
                     </Box>
                     <Box
                       as='span'
-                      css={theme({ fontSize: 2, fontWeight: 'bold', color: INK })}
+                      css={theme({
+                        fontSize: 2,
+                        fontWeight: 'bold',
+                        color: 'black'
+                      })}
                     >
                       {totalMs != null ? `${Math.round(totalMs)}ms` : '—'}
                     </Box>
@@ -1386,7 +1510,7 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
                           mb: 2
                         })}
                       >
-                        <Mono css={theme({ fontSize: 0, color: INK })}>
+                        <Mono css={theme({ fontSize: 0, color: 'black' })}>
                           {b.name}
                         </Mono>
                         <Mono css={theme({ fontSize: 0, color: SYNTAX.muted })}>
@@ -1397,7 +1521,7 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
                         css={theme({
                           height: '8px',
                           borderRadius: '999px',
-                          background: colors.gray1,
+                          bg: 'gray1',
                           overflow: 'hidden'
                         })}
                       >
@@ -1406,7 +1530,7 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
                             height: '100%',
                             borderRadius: '999px',
                             width: b.pct,
-                            background: b.color
+                            bg: b.color
                           })}
                         />
                       </Box>
@@ -1419,7 +1543,8 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
                       gap: 2,
                       mt: 3,
                       pb: 2,
-                      borderBottom: `1px solid ${colors.gray1}`,
+                      borderBottom: 1,
+                      borderBottomColor: 'gray1',
                       fontFamily: 'mono',
                       fontSize: 0,
                       letterSpacing: '.05em',
@@ -1443,7 +1568,8 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
                         gridTemplateColumns: '1fr 1fr 1fr',
                         gap: 2,
                         py: 3,
-                        borderBottom: `1px solid ${colors.gray1}`,
+                        borderBottom: 1,
+                        borderBottomColor: 'gray1',
                         fontFamily: 'mono',
                         fontSize: 0,
                         color: SYNTAX.body
@@ -1489,7 +1615,7 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
                 fontSize: 0,
                 lineHeight: '2',
                 maxHeight: '340px',
-                color: INK
+                color: 'black'
               })}
             >
               <Num>import</Num> mql <Num>from</Num> <Str>'@microlink/mql'</Str>
@@ -1613,8 +1739,8 @@ const Hero = () => {
     text: CYCLE[0]
   })
   const chipRef = useRef(null)
-  const mirrorRef = useRef(null)
-  const inputRef = useRef(null)
+  const editorRef = useRef(null)
+  const pendingCaret = useRef(null)
   const menuRef = useRef(null)
   const menuTimer = useRef(null)
   const menuRaf = useRef(null)
@@ -1858,13 +1984,33 @@ const Hero = () => {
     if (retrySnapshot.current) runRequest(retrySnapshot.current)
   }, [runRequest])
 
-  const onComposerChange = e => {
+  const onEditorInput = () => {
+    const el = editorRef.current
+    if (!el) return
+    const text = readComposerText(el)
+    pendingCaret.current = getCaretOffset(el)
     stopTyping()
-    anim.current.text = e.target.value
-    setDText(e.target.value)
+    anim.current.text = text
+    setDText(text)
     setDVert(null)
     closeMenu()
   }
+
+  const onEditorPaste = e => {
+    e.preventDefault()
+    const text = (e.clipboardData?.getData('text/plain') || '').replace(
+      /[\r\n]+/g,
+      ' '
+    )
+    document.execCommand('insertText', false, text)
+  }
+
+  useIsomorphicLayoutEffect(() => {
+    const el = editorRef.current
+    if (!el || pendingCaret.current == null) return
+    if (document.activeElement === el) setCaretOffset(el, pendingCaret.current)
+    pendingCaret.current = null
+  })
 
   const removeUrl = () => {
     const { raw } = parseLocal(dText)
@@ -1872,12 +2018,12 @@ const Hero = () => {
     const text = dText.replace(raw, '').replace(/ {2,}/g, ' ')
     stopTyping()
     anim.current.text = text
+    if (editorRef.current) {
+      editorRef.current.focus()
+      pendingCaret.current = text.length
+    }
     setDText(text)
     writeSharedState(text, dVert)
-    if (inputRef.current) {
-      inputRef.current.focus()
-      inputRef.current.setSelectionRange(text.length, text.length)
-    }
   }
 
   const pickExample = value => () => {
@@ -1968,58 +2114,41 @@ const Hero = () => {
         </Caption>
 
         <Composer data-force-focus={FORCE_FOCUS ? 'true' : undefined}>
-          <InputWrap>
-            <ComposerInput
-              ref={inputRef}
-              value={dText}
-              onChange={onComposerChange}
-              onScroll={e => {
-                if (mirrorRef.current) {
-                  mirrorRef.current.scrollLeft = e.target.scrollLeft
-                }
-              }}
-              onFocus={() => {
-                stopTyping()
-                setIsFocused(true)
-              }}
-              onBlur={() => setIsFocused(false)}
-              onKeyDown={e => {
-                if (e.key === 'Enter') {
-                  e.target.blur()
-                  handleRun()
-                }
-              }}
-              placeholder='Tell Microlink what to do…'
-              aria-label='Tell Microlink what to do'
-            />
-            {dText && (
-              <InputMirror ref={mirrorRef}>
-                {dSegments.before && (
-                  <span aria-hidden='true'>{dSegments.before}</span>
-                )}
-                {dSegments.url && (
-                  <UrlTag>
-                    {!isFocused && (
-                      <UrlTagAction
-                        type='button'
-                        tabIndex={-1}
-                        aria-label='Remove URL'
-                        onClick={removeUrl}
-                      >
-                        <LinkIcon className='logo' size={13} />
-                        <CloseIcon className='close' size={14} />
-                      </UrlTagAction>
-                    )}
-                    <span aria-hidden='true'>{dSegments.url}</span>
-                  </UrlTag>
-                )}
-                {dSegments.after && (
-                  <span aria-hidden='true'>{dSegments.after}</span>
-                )}
-                {!isFocused && <Caret aria-hidden='true' />}
-              </InputMirror>
-            )}
-          </InputWrap>
+          <ComposerEditor
+            ref={editorRef}
+            contentEditable
+            suppressContentEditableWarning
+            role='textbox'
+            aria-multiline='false'
+            aria-label='Tell Microlink what to do'
+            data-placeholder='Tell Microlink what to do…'
+            spellCheck={false}
+            onInput={onEditorInput}
+            onPaste={onEditorPaste}
+            onMouseDown={e => {
+              if (e.target.closest('[data-url-action]')) e.preventDefault()
+            }}
+            onClick={e => {
+              if (e.target.closest('[data-url-action]')) removeUrl()
+            }}
+            onFocus={() => {
+              stopTyping()
+              setIsFocused(true)
+            }}
+            onBlur={() => setIsFocused(false)}
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                e.target.blur()
+                handleRun()
+              }
+            }}
+            dangerouslySetInnerHTML={{
+              __html: composerHtml(dSegments, {
+                caret: !isFocused && !!dText
+              })
+            }}
+          />
           <Flex
             css={theme({
               alignItems: 'center',
@@ -2055,7 +2184,7 @@ const Hero = () => {
                 </GlyphBadge>
                 <Box
                   as='span'
-                  css={theme({ fontSize: 0, fontWeight: 600, color: INK })}
+                  css={theme({ fontSize: 0, fontWeight: 600, color: 'black' })}
                 >
                   {D.label}
                 </Box>
@@ -2109,8 +2238,9 @@ const Hero = () => {
                       gridTemplateColumns: 'repeat(3, minmax(0, max-content))',
                       maxWidth: '100%',
                       gap: '2px',
-                      background: 'white',
-                      border: `1px solid ${colors.gray2}`,
+                      bg: 'white',
+                      border: 1,
+                      borderColor: 'gray2',
                       borderRadius: 5,
                       boxShadow: '0 24px 48px -20px rgba(40,10,60,.35)',
                       p: 2
@@ -2207,7 +2337,7 @@ const Hero = () => {
               $border={D.vertBorder}
               onClick={pickExample(text)}
             >
-              <Box as='span' css={theme({ color: VIOLET, display: 'flex' })}>
+              <Box as='span' css={theme({ color: 'grape7', display: 'flex' })}>
                 <VertGlyph vertical={vertical} size={15} />
               </Box>
               {text}

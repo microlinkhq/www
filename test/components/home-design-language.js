@@ -61,7 +61,7 @@ describe('home design language', () => {
 
   test('hero accents come from the theme, not a private gradient', () => {
     expect(hero).toContain('const GRADIENT = gradient')
-    expect(hero).toContain('const PINK = colors.secondary')
+    expect(hero).toContain("bg: 'secondary'")
     expect(hero.toLowerCase()).not.toContain('#ff1e8c')
     expect(hero.toLowerCase()).not.toContain('#9b26d6')
     expect(hero.toLowerCase()).not.toContain('#b026e0')
@@ -77,9 +77,9 @@ describe('home design language', () => {
       hero.indexOf('const SYNTAX'),
       hero.indexOf('const reduceMotion')
     )
-    expect(syntax).toContain('key: colors.link')
-    expect(syntax).toContain('boolean: colors.secondary')
-    expect(syntax).toContain('string: colors.gray9')
+    expect(syntax).toContain("key: 'link'")
+    expect(syntax).toContain("boolean: 'secondary'")
+    expect(syntax).toContain("string: 'gray9'")
   })
 
   test('pricing header reuses the canonical Subhead gradient pattern', () => {
