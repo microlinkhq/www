@@ -75,7 +75,7 @@ describe('home hero prompts', () => {
     expect(source).toContain('dangerouslySetInnerHTML')
     const editor = source.slice(
       source.indexOf('const ComposerEditor'),
-      source.indexOf('const LINK_ICON_SVG')
+      source.indexOf('const CLOSE_ICON_SVG')
     )
     expect(editor).toContain('[data-url-tag]')
     expect(editor).not.toContain('grape')
@@ -84,7 +84,7 @@ describe('home hero prompts', () => {
   test('url chip uses the docs inline-code style', () => {
     const editor = source.slice(
       source.indexOf('const ComposerEditor'),
-      source.indexOf('const LINK_ICON_SVG')
+      source.indexOf('const CLOSE_ICON_SVG')
     )
     const tag = editor.slice(editor.indexOf('[data-url-tag]'))
     expect(tag).toContain("color: 'secondary'")
@@ -92,21 +92,18 @@ describe('home hero prompts', () => {
     expect(tag).toContain("fontWeight: 'normal'")
     expect(tag).toContain("fontSize: '0.9rem'")
     expect(tag).toContain('text-shadow: rgba(0, 0, 0, 0.05) 0px 1px')
-    expect(tag).toContain("content: '\\`'")
-    expect(source).toContain('<span data-url-text>')
+    expect(tag).not.toContain('content:')
+    expect(source).not.toContain('LINK_ICON_SVG')
   })
 
-  test('url chip shows a link icon that swaps to a remove button', () => {
-    expect(source).toContain('class="logo"')
-    expect(source).toContain('class="close"')
+  test('url chip reveals a remove button on hover', () => {
     expect(source).toContain('aria-label="Remove URL"')
     expect(source).toContain('removeUrl()')
     const editor = source.slice(
       source.indexOf('const ComposerEditor'),
-      source.indexOf('const LINK_ICON_SVG')
+      source.indexOf('const CLOSE_ICON_SVG')
     )
-    expect(editor).toContain('[data-url-action]:hover .logo')
-    expect(editor).toContain('[data-url-action]:hover .close')
+    expect(editor).toContain('[data-url-tag]:hover [data-url-action]')
     const remove = source.slice(
       source.indexOf('const removeUrl'),
       source.indexOf('const pickExample')

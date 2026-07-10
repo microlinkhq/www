@@ -510,15 +510,10 @@ const ComposerEditor = styled.div`
     })};
   }
 
-  [data-url-text]::before,
-  [data-url-text]::after {
-    content: '\`';
-  }
-
   [data-url-action] {
     cursor: pointer;
     ${theme({
-      display: 'inline-flex',
+      display: 'none',
       alignItems: 'center',
       justifyContent: 'center',
       flex: 'none',
@@ -528,16 +523,8 @@ const ComposerEditor = styled.div`
     })};
   }
 
-  [data-url-action] .close {
-    display: none;
-  }
-
-  [data-url-action]:hover .logo {
-    display: none;
-  }
-
-  [data-url-action]:hover .close {
-    display: block;
+  [data-url-tag]:hover [data-url-action] {
+    display: inline-flex;
   }
 
   [data-caret] {
@@ -561,11 +548,8 @@ const ComposerEditor = styled.div`
   }
 `
 
-const LINK_ICON_SVG =
-  '<svg class="logo" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>'
-
 const CLOSE_ICON_SVG =
-  '<svg class="close" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>'
+  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>'
 
 const escHtml = value =>
   String(value)
@@ -579,12 +563,9 @@ const composerHtml = (segments, { caret }) => {
   if (segments.url) {
     html +=
       '<span data-url-tag contenteditable="false">' +
-      '<span data-url-action role="button" tabindex="-1" aria-label="Remove URL">' +
-      LINK_ICON_SVG +
-      CLOSE_ICON_SVG +
-      '</span>' +
-      '<span data-url-text>' +
       escHtml(segments.url) +
+      '<span data-url-action role="button" tabindex="-1" aria-label="Remove URL">' +
+      CLOSE_ICON_SVG +
       '</span>' +
       '</span>'
   }
