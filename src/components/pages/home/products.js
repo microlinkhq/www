@@ -1904,7 +1904,7 @@ const DashRun = styled.span(
   })
 )
 
-const LogoNode = ({ size = 136, glow = 240, logoWidth = 60 }) => (
+const LogoNode = () => (
   <Box
     css={theme({
       position: 'relative',
@@ -1919,8 +1919,8 @@ const LogoNode = ({ size = 136, glow = 240, logoWidth = 60 }) => (
       css={{
         ...theme({
           position: 'absolute',
-          width: `${glow}px`,
-          height: `${glow}px`,
+          width: '240px',
+          height: '240px',
           borderRadius: '50%',
           background: `radial-gradient(circle, ${rgba(
             colors.pink6,
@@ -1933,8 +1933,8 @@ const LogoNode = ({ size = 136, glow = 240, logoWidth = 60 }) => (
     <Flex
       css={theme({
         position: 'relative',
-        width: `${size}px`,
-        height: `${size}px`,
+        width: '136px',
+        height: '136px',
         borderRadius: '50%',
         bg: 'white',
         boxShadow:
@@ -1946,251 +1946,184 @@ const LogoNode = ({ size = 136, glow = 240, logoWidth = 60 }) => (
       <img
         src={LOGO_URI}
         alt='Microlink'
-        css={theme({
-          width: `${logoWidth}px`,
-          height: 'auto',
-          display: 'block'
-        })}
+        css={theme({ width: '60px', height: 'auto', display: 'block' })}
       />
     </Flex>
   </Box>
 )
 
-const FlowWindow = ({ borderColor, barColor, dotColor, children }) => (
-  <Box
-    css={theme({
-      bg: 'white',
-      border: 1,
-      borderColor,
-      borderRadius: radius.panel,
-      overflow: 'hidden',
-      boxShadow: shadow.softer
-    })}
-  >
-    <Flex css={theme({ py: '9px', px: '12px', gap: '6px', bg: barColor })}>
-      <TrafficDot css={theme({ width: '7px', height: '7px', bg: dotColor })} />
-      <TrafficDot css={theme({ width: '7px', height: '7px', bg: dotColor })} />
-      <TrafficDot css={theme({ width: '7px', height: '7px', bg: dotColor })} />
-    </Flex>
-    <Box css={{ padding: '16px 14px' }}>{children}</Box>
-  </Box>
-)
-
-const FlowHopBox = styled(Flex)`
-  align-items: center;
-  gap: 5px;
+const FlowArrow = styled.svg`
   flex-shrink: 0;
 
   @media (max-width: 980px) {
     transform: rotate(90deg);
+    margin: 16px 0;
   }
 `
 
-const FlowHop = ({ dotColor }) => (
-  <FlowHopBox>
-    <Box
-      as='span'
-      css={theme({
-        width: '8px',
-        height: '8px',
-        borderRadius: '50%',
-        bg: dotColor
-      })}
-    />
-    <svg
-      width='26'
-      height='12'
-      viewBox='0 0 26 12'
-      fill='none'
-      stroke={CONV_LINE}
-      strokeWidth='2'
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    >
-      <line x1='2' y1='6' x2='16' y2='6' strokeDasharray='6 7' />
-      <path d='M18 2l6 4-6 4' />
-    </svg>
-  </FlowHopBox>
-)
-
 const DeniedSite = () => (
-  <Box css={{ flex: 1, minWidth: 0, width: '100%' }}>
-    <FlowWindow
-      borderColor={colors.red1}
-      barColor={colors.red0}
-      dotColor={colors.red2}
+  <Box
+    css={{
+      flex: 1,
+      minWidth: 0,
+      width: '100%',
+      background: tone.surfaceSoft,
+      border: `1px solid ${tone.border}`,
+      borderRadius: radius.panel,
+      overflow: 'hidden'
+    }}
+  >
+    <Flex
+      css={{
+        padding: '9px 12px',
+        gap: '6px',
+        borderBottom: `1px solid ${tone.border}`
+      }}
     >
-      <Flex css={{ justifyContent: 'center', marginBottom: '10px' }}>
-        <svg width='34' height='34' viewBox='0 0 24 24' fill={colors.red5}>
-          <path d='M12 2l7 3v6c0 4.2-2.9 8.1-7 9-4.1-.9-7-4.8-7-9V5l7-3z' />
+      <TrafficDot
+        css={{ width: '7px', height: '7px', background: tone.arrow }}
+      />
+      <TrafficDot
+        css={{ width: '7px', height: '7px', background: tone.arrow }}
+      />
+      <TrafficDot
+        css={{ width: '7px', height: '7px', background: tone.arrow }}
+      />
+    </Flex>
+    <Box css={{ padding: '20px 16px 18px' }}>
+      <Flex css={{ justifyContent: 'center', marginBottom: '12px' }}>
+        <svg width='40' height='40' viewBox='0 0 24 24' fill='none'>
           <path
-            d='M9 9l6 6M15 9l-6 6'
-            stroke={tone.white}
-            strokeWidth='1.8'
-            strokeLinecap='round'
+            d='M12 2.5l7.5 3.2v5.8c0 4.5-3.1 8.6-7.5 9.7-4.4-1.1-7.5-5.2-7.5-9.7V5.7L12 2.5z'
+            fill={colors.violet1}
+            stroke={colors.violet6}
+            strokeWidth='1.1'
+          />
+          <rect
+            x='9'
+            y='11'
+            width='6'
+            height='5'
+            rx='1'
+            fill={colors.violet8}
+          />
+          <path
+            d='M9.6 11V9.6a2.4 2.4 0 0 1 4.8 0V11'
+            fill='none'
+            stroke={colors.violet8}
+            strokeWidth='1.3'
           />
         </svg>
       </Flex>
       <Box
         css={{
           textAlign: 'center',
-          fontSize: '13px',
+          fontSize: '12px',
           fontWeight: 700,
-          color: tone.ink900,
-          marginBottom: '14px'
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+          color: colors.gray8,
+          lineHeight: 1.4,
+          marginBottom: '18px'
         }}
       >
-        Access Denied
+        Anti-scraping
+        <br />
+        protection
       </Box>
-      <Flex css={{ flexDirection: 'column', gap: '8px', marginBottom: '14px' }}>
-        <Skel />
-        <Skel css={{ width: '82%' }} />
-        <Skel css={{ width: '55%' }} />
-      </Flex>
-      <Flex
-        css={{
-          alignItems: 'center',
-          gap: '8px',
-          background: colors.red0,
-          borderRadius: radius.sm,
-          padding: '9px 10px'
-        }}
-      >
-        <svg
-          width='16'
-          height='16'
-          viewBox='0 0 24 24'
-          fill={colors.red6}
-          css={{ flexShrink: 0 }}
-        >
-          <path d='M12 2l7 3v6c0 4.2-2.9 8.1-7 9-4.1-.9-7-4.8-7-9V5l7-3z' />
-          <path
-            d='M12 7v5M12 15.5v.5'
-            stroke={tone.white}
-            strokeWidth='2'
-            strokeLinecap='round'
-          />
-        </svg>
-        <Box
-          as='span'
+      <Flex css={{ gap: '12px', alignItems: 'flex-start' }}>
+        <Flex
           css={{
-            fontSize: '10px',
-            fontWeight: 600,
-            color: colors.red6,
-            lineHeight: 1.3
+            flex: 1,
+            flexDirection: 'column',
+            gap: '8px',
+            paddingTop: '2px'
           }}
         >
-          Anti-scraping protection
-        </Box>
+          <Skel css={{ background: colors.gray3 }} />
+          <Skel css={{ background: colors.gray3, width: '92%' }} />
+          <Skel css={{ background: colors.gray3, width: '62%' }} />
+        </Flex>
+        <Box
+          css={{
+            width: '56px',
+            height: '44px',
+            borderRadius: radius.sm,
+            background: colors.gray3,
+            flexShrink: 0
+          }}
+        />
       </Flex>
-    </FlowWindow>
-    <Box
-      css={{
-        marginTop: '10px',
-        fontSize: '12px',
-        color: tone.muted,
-        textAlign: 'center'
-      }}
-    >
-      Anti-scraping site
     </Box>
   </Box>
 )
 
-const RESULT_FEATURES = [
-  'Built for speed',
-  'Reliable interface',
-  'Structured output'
-]
-
-const ResultSite = () => (
-  <Box css={{ flex: 1.1, minWidth: 0, width: '100%' }}>
-    <FlowWindow
-      borderColor={colors.violet1}
-      barColor={colors.violet0}
-      dotColor={colors.violet2}
+const CodePanel = () => (
+  <Box
+    css={{
+      flex: 1.1,
+      minWidth: 0,
+      width: '100%',
+      position: 'relative',
+      paddingTop: '13px'
+    }}
+  >
+    <Box
+      css={{
+        position: 'absolute',
+        top: 0,
+        left: '13px',
+        background: colors.violet0,
+        border: `1px solid ${colors.violet1}`,
+        borderBottom: 'none',
+        borderRadius: '6px 6px 0 0',
+        padding: '3px 11px',
+        fontSize: '10px',
+        fontWeight: 600,
+        color: colors.violet7,
+        zIndex: 2
+      }}
     >
-      <Flex css={{ gap: '10px', alignItems: 'flex-start' }}>
-        <Flex
-          css={{
-            width: '46px',
-            height: '40px',
-            borderRadius: radius.sm,
-            background: colors.violet1,
-            flexShrink: 0,
-            overflow: 'hidden'
-          }}
-        >
-          <svg width='46' height='40' viewBox='0 0 92 78' fill='none'>
-            <circle cx='30' cy='26' r='9' fill={colors.violet3} />
-            <path d='M8 70l24-26 16 16 12-12 24 26z' fill={colors.violet3} />
-          </svg>
-        </Flex>
-        <Box css={{ minWidth: 0 }}>
-          <Box css={{ fontSize: '13px', fontWeight: 700, color: tone.ink900 }}>
-            Microlink
-          </Box>
-          <Box
-            css={{
-              fontSize: '11px',
-              color: tone.muted,
-              lineHeight: 1.35,
-              marginTop: '2px'
-            }}
-          >
-            The universal API for web data.
-          </Box>
-        </Box>
-      </Flex>
-      <Flex css={{ flexDirection: 'column', gap: '8px', margin: '14px 0' }}>
-        <Skel css={{ background: colors.violet1 }} />
-        <Skel css={{ background: colors.violet1 }} />
-        <Skel css={{ background: colors.violet1, width: '45%' }} />
-      </Flex>
+      HTML
+    </Box>
+    <Box
+      css={{
+        border: `1px solid ${colors.violet1}`,
+        borderRadius: radius.panel,
+        background: tone.surface,
+        padding: '16px 14px',
+        fontFamily: MONO,
+        fontSize: '11px',
+        lineHeight: 1.9,
+        color: colors.violet7,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden'
+      }}
+    >
+      <div>&lt;html&gt;</div>
+      <Box css={{ paddingLeft: '16px' }}>&lt;head&gt; … &lt;/head&gt;</Box>
+      <Box css={{ paddingLeft: '16px' }}>&lt;body&gt;</Box>
       <Box
         css={{
-          fontSize: '12px',
-          fontWeight: 700,
-          color: colors.violet7,
-          marginBottom: '10px'
+          background: colors.violet0,
+          borderRadius: '4px',
+          margin: '2px -6px',
+          padding: '2px 6px'
         }}
       >
-        Features
+        <Box css={{ paddingLeft: '20px' }}>
+          &lt;div class=
+          <Box as='span' css={{ color: colors.red6 }}>
+            &quot;content&quot;
+          </Box>
+          &gt;
+        </Box>
+        <Box css={{ paddingLeft: '36px' }}>…</Box>
+        <Box css={{ paddingLeft: '20px' }}>&lt;/div&gt;</Box>
       </Box>
-      <Flex css={{ flexDirection: 'column', gap: '9px' }}>
-        {RESULT_FEATURES.map(feature => (
-          <Flex key={feature} css={{ alignItems: 'center', gap: '8px' }}>
-            <Flex
-              css={{
-                width: '16px',
-                height: '16px',
-                borderRadius: '5px',
-                background: colors.violet6,
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0
-              }}
-            >
-              <svg
-                width='9'
-                height='9'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke={tone.white}
-                strokeWidth='3.5'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              >
-                <polyline points='4 12 10 18 20 6' />
-              </svg>
-            </Flex>
-            <Box as='span' css={{ fontSize: '11px', color: syntax.body }}>
-              {feature}
-            </Box>
-          </Flex>
-        ))}
-      </Flex>
-    </FlowWindow>
+      <Box css={{ paddingLeft: '16px' }}>&lt;/body&gt;</Box>
+      <div>&lt;/html&gt;</div>
+    </Box>
   </Box>
 )
 
@@ -2198,12 +2131,12 @@ const FlowRow = styled(Flex)`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  gap: 10px;
+  gap: 14px;
   padding: 8px 0;
 
   @media (max-width: 980px) {
     flex-direction: column;
-    gap: 16px;
+    gap: 0;
   }
 `
 
@@ -2211,10 +2144,21 @@ const HtmlPreview = () => (
   <Flex css={theme({ mt: 3, flex: 1, alignItems: 'center' })}>
     <FlowRow>
       <DeniedSite />
-      <FlowHop dotColor={colors.red5} />
-      <LogoNode size={64} glow={130} logoWidth={28} />
-      <FlowHop dotColor={colors.violet7} />
-      <ResultSite />
+      <FlowArrow
+        width='44'
+        height='14'
+        viewBox='0 0 44 14'
+        fill='none'
+        stroke={colors.violet6}
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        aria-hidden='true'
+      >
+        <line x1='2' y1='7' x2='32' y2='7' />
+        <path d='M31 2l9 5-9 5' />
+      </FlowArrow>
+      <CodePanel />
     </FlowRow>
   </Flex>
 )
