@@ -3,9 +3,7 @@ import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import { layout, theme as themeProp } from 'theme'
 import Markdown from 'components/markdown'
-import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import { trackEvent } from 'helpers/plausible'
-import { useClipboard } from 'components/hook/use-clipboard'
 import React from 'react'
 
 import Box from 'components/elements/Box'
@@ -14,7 +12,6 @@ import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Heading from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
-import Text from 'components/elements/Text'
 
 import Content from '../content/fragments/enterprise.md'
 
@@ -23,8 +20,6 @@ export const Head = () => (
 )
 
 const EnterprisePage = () => {
-  const [ClipboardComponent, toClipboard] = useClipboard()
-
   return (
     <DotsBackground>
       <Layout>
@@ -69,28 +64,6 @@ const EnterprisePage = () => {
               <Caps css={themeProp({ fontSize: 0 })}>Contact sales</Caps>
             </Button>
           </Box>
-          <Box css={themeProp({ pt: 2 })}>
-            <Text css={themeProp({ fontSize: 0, color: 'black60' })}>
-              or email us at{' '}
-              <Text
-                as='span'
-                onClick={() =>
-                  toClipboard({
-                    copy: 'hello@microlink.io',
-                    text: Tooltip.TEXT.COPIED('email')
-                  })}
-                css={themeProp({
-                  color: 'black',
-                  cursor: 'pointer',
-                  textDecoration: 'underline',
-                  fontSize: 1
-                })}
-              >
-                hello@microlink.io
-              </Text>
-            </Text>
-          </Box>
-          <ClipboardComponent />
         </Container>
       </Layout>
     </DotsBackground>
