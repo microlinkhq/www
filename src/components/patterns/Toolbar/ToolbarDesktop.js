@@ -37,6 +37,7 @@ import {
   TOOLBAR_CHEVRON_ICON_SIZE,
   TOOLBAR_LIST_RESET_STYLES,
   TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES,
+  TOOLBAR_MENU_ITEM_ICON_STYLES,
   TOOLBAR_MENU_ITEM_MEDIA_STYLES,
   TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
   TOOLBAR_MENU_ITEM_TITLE_STYLES,
@@ -940,7 +941,10 @@ const ToolbarDesktop = () => {
                                   data-event-name={label}
                                   onClick={handleClosePanel}
                                   css={theme({
-                                    '> a': { padding: '6px 12px' },
+                                    '> a': {
+                                      padding: '6px 12px',
+                                      alignItems: 'center'
+                                    },
                                     whiteSpace: 'normal'
                                   })}
                                 >
@@ -952,10 +956,7 @@ const ToolbarDesktop = () => {
                                       RESOURCE_MENU_ITEM_ICON_CLASSNAME
                                     }
                                     iconCss={theme(
-                                      getMenuItemMediaStyles(
-                                        label,
-                                        TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES
-                                      )
+                                      TOOLBAR_MENU_ITEM_ICON_STYLES
                                     )}
                                   />
                                   <Text

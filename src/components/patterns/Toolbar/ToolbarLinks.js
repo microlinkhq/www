@@ -20,6 +20,7 @@ import {
   Map,
   Search as SearchIcon,
   Sliders,
+  Tag as TagIcon,
   Users,
   Activity,
   Maximize,
@@ -29,7 +30,6 @@ import {
   Link as LinkIcon,
   Link2
 } from 'react-feather'
-import { Metascraper as MetascraperIcon } from 'components/icons/Metascraper'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
 import { PDF as PDFIcon } from 'components/icons/PDF'
 import { ShieldUser as ShieldUserIcon } from 'components/icons/ShieldUser'
@@ -213,7 +213,7 @@ export const NAVIGATION_SECTIONS = [
         label: 'Metadata',
         href: '/metadata',
         description: 'Extract normalized metadata from any website',
-        icon: MetascraperIcon
+        icon: TagIcon
       }),
       createNavigationItem({
         label: 'Embed',
