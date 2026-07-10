@@ -120,7 +120,7 @@ const FAQs = props => (
           <>
             <div>
               You can upgrade, downgrade, or cancel your plan at any time with
-              no further obligation from your dashboard at{' '}
+              no further obligation from{' '}
               <Link href='https://dashboard.microlink.io'>
                 dashboard.microlink.io
               </Link>
@@ -159,7 +159,7 @@ const FAQs = props => (
         answer: (
           <>
             <div>
-              Yes, at any time from your dashboard at{' '}
+              Yes, at any time from{' '}
               <Link href='https://dashboard.microlink.io'>
                 dashboard.microlink.io
               </Link>
