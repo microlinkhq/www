@@ -1953,109 +1953,149 @@ const LogoNode = () => (
   </Box>
 )
 
-const FlowArrow = styled.svg`
+const sheetStyle = borderColor => ({
+  position: 'absolute',
+  background: tone.surface,
+  border: `1px solid ${borderColor}`,
+  borderRadius: radius.panel
+})
+
+const PanelStack = ({ sheetBorder, children }) => (
+  <Box css={{ position: 'relative' }}>
+    <Box
+      css={{
+        ...sheetStyle(sheetBorder),
+        top: '14px',
+        left: '14px',
+        right: '-14px',
+        bottom: '-14px'
+      }}
+    />
+    <Box
+      css={{
+        ...sheetStyle(sheetBorder),
+        top: '7px',
+        left: '7px',
+        right: '-7px',
+        bottom: '-7px'
+      }}
+    />
+    <Box css={{ position: 'relative' }}>{children}</Box>
+  </Box>
+)
+
+const FlowArrow = styled(Flex)`
+  align-items: center;
   flex-shrink: 0;
 
   @media (max-width: 980px) {
     transform: rotate(90deg);
-    margin: 16px 0;
+    margin: 26px 0 12px;
   }
 `
 
 const DeniedSite = () => (
-  <Box
-    css={{
-      flex: 1,
-      minWidth: 0,
-      width: '100%',
-      background: tone.surfaceSoft,
-      border: `1px solid ${tone.border}`,
-      borderRadius: radius.panel,
-      overflow: 'hidden'
-    }}
-  >
-    <Flex
-      css={{
-        padding: '9px 12px',
-        gap: '6px',
-        borderBottom: `1px solid ${tone.border}`
-      }}
-    >
-      <TrafficDot
-        css={{ width: '7px', height: '7px', background: tone.arrow }}
-      />
-      <TrafficDot
-        css={{ width: '7px', height: '7px', background: tone.arrow }}
-      />
-      <TrafficDot
-        css={{ width: '7px', height: '7px', background: tone.arrow }}
-      />
-    </Flex>
-    <Box css={{ padding: '20px 16px 18px' }}>
-      <Flex css={{ justifyContent: 'center', marginBottom: '12px' }}>
-        <svg width='40' height='40' viewBox='0 0 24 24' fill='none'>
-          <path
-            d='M12 2.5l7.5 3.2v5.8c0 4.5-3.1 8.6-7.5 9.7-4.4-1.1-7.5-5.2-7.5-9.7V5.7L12 2.5z'
-            fill={colors.violet1}
-            stroke={colors.violet6}
-            strokeWidth='1.1'
-          />
-          <rect
-            x='9'
-            y='11'
-            width='6'
-            height='5'
-            rx='1'
-            fill={colors.violet8}
-          />
-          <path
-            d='M9.6 11V9.6a2.4 2.4 0 0 1 4.8 0V11'
-            fill='none'
-            stroke={colors.violet8}
-            strokeWidth='1.3'
-          />
-        </svg>
-      </Flex>
+  <Box css={{ flex: 1, minWidth: 0, width: '100%' }}>
+    <PanelStack sheetBorder={tone.border}>
       <Box
         css={{
-          textAlign: 'center',
-          fontSize: '12px',
-          fontWeight: 700,
-          letterSpacing: '0.04em',
-          textTransform: 'uppercase',
-          color: colors.gray8,
-          lineHeight: 1.4,
-          marginBottom: '18px'
+          background: tone.surface,
+          border: `1px solid ${tone.border}`,
+          borderRadius: radius.panel,
+          overflow: 'hidden'
         }}
       >
-        Anti-scraping
-        <br />
-        protection
-      </Box>
-      <Flex css={{ gap: '12px', alignItems: 'flex-start' }}>
         <Flex
           css={{
-            flex: 1,
-            flexDirection: 'column',
-            gap: '8px',
-            paddingTop: '2px'
+            padding: '9px 12px',
+            gap: '6px',
+            borderBottom: `1px solid ${tone.borderSoft}`
           }}
         >
-          <Skel css={{ background: colors.gray3 }} />
-          <Skel css={{ background: colors.gray3, width: '92%' }} />
-          <Skel css={{ background: colors.gray3, width: '62%' }} />
+          <TrafficDot
+            css={{ width: '7px', height: '7px', background: tone.arrow }}
+          />
+          <TrafficDot
+            css={{ width: '7px', height: '7px', background: tone.arrow }}
+          />
+          <TrafficDot
+            css={{ width: '7px', height: '7px', background: tone.arrow }}
+          />
         </Flex>
-        <Box
-          css={{
-            width: '56px',
-            height: '44px',
-            borderRadius: radius.sm,
-            background: colors.gray3,
-            flexShrink: 0
-          }}
-        />
-      </Flex>
-    </Box>
+        <Box css={{ padding: '20px 16px 18px' }}>
+          <Flex css={{ justifyContent: 'center', marginBottom: '12px' }}>
+            <svg width='46' height='46' viewBox='0 0 24 24' fill='none'>
+              <path
+                d='M12 2.5l7.5 3.2v5.8c0 4.5-3.1 8.6-7.5 9.7-4.4-1.1-7.5-5.2-7.5-9.7V5.7L12 2.5z'
+                fill={tone.white}
+                stroke={colors.violet6}
+                strokeWidth='1.3'
+              />
+              <path
+                d='M9.9 11.2V9.8a2.1 2.1 0 0 1 4.2 0v1.4'
+                fill='none'
+                stroke={colors.violet7}
+                strokeWidth='1.4'
+              />
+              <rect
+                x='8.7'
+                y='11'
+                width='6.6'
+                height='5.2'
+                rx='1.4'
+                fill={colors.violet7}
+              />
+              <circle cx='12' cy='13' r='0.9' fill={tone.white} />
+              <path
+                d='M12 13.7v1.1'
+                stroke={tone.white}
+                strokeWidth='0.9'
+                strokeLinecap='round'
+              />
+            </svg>
+          </Flex>
+          <Box
+            css={{
+              textAlign: 'center',
+              fontSize: '12px',
+              fontWeight: 700,
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase',
+              color: colors.gray8,
+              lineHeight: 1.4,
+              marginBottom: '18px'
+            }}
+          >
+            Anti-scraping
+            <br />
+            protection
+          </Box>
+          <Flex css={{ gap: '12px', alignItems: 'flex-start' }}>
+            <Flex
+              css={{
+                flex: 1,
+                flexDirection: 'column',
+                gap: '9px',
+                paddingTop: '2px'
+              }}
+            >
+              <Skel css={{ background: colors.gray2 }} />
+              <Skel css={{ background: colors.gray2, width: '92%' }} />
+              <Skel css={{ background: colors.gray2, width: '62%' }} />
+            </Flex>
+            <Box
+              css={{
+                width: '52px',
+                height: '48px',
+                borderRadius: radius.sm,
+                background: colors.gray2,
+                flexShrink: 0
+              }}
+            />
+          </Flex>
+        </Box>
+      </Box>
+    </PanelStack>
   </Box>
 )
 
@@ -2066,65 +2106,67 @@ const CodePanel = () => (
       minWidth: 0,
       width: '100%',
       position: 'relative',
-      paddingTop: '13px'
+      paddingTop: '14px'
     }}
   >
     <Box
       css={{
         position: 'absolute',
         top: 0,
-        left: '13px',
+        left: '18px',
         background: colors.violet0,
         border: `1px solid ${colors.violet1}`,
-        borderBottom: 'none',
-        borderRadius: '6px 6px 0 0',
-        padding: '3px 11px',
+        borderRadius: '7px',
+        padding: '4px 13px',
         fontSize: '10px',
-        fontWeight: 600,
+        fontWeight: 700,
+        letterSpacing: '0.02em',
         color: colors.violet7,
         zIndex: 2
       }}
     >
       HTML
     </Box>
-    <Box
-      css={{
-        border: `1px solid ${colors.violet1}`,
-        borderRadius: radius.panel,
-        background: tone.surface,
-        padding: '16px 14px',
-        fontFamily: MONO,
-        fontSize: '11px',
-        lineHeight: 1.9,
-        color: colors.violet7,
-        whiteSpace: 'nowrap',
-        overflow: 'hidden'
-      }}
-    >
-      <div>&lt;html&gt;</div>
-      <Box css={{ paddingLeft: '16px' }}>&lt;head&gt; … &lt;/head&gt;</Box>
-      <Box css={{ paddingLeft: '16px' }}>&lt;body&gt;</Box>
+    <PanelStack sheetBorder={colors.violet1}>
       <Box
         css={{
-          background: colors.violet0,
-          borderRadius: '4px',
-          margin: '2px -6px',
-          padding: '2px 6px'
+          border: `1px solid ${colors.violet1}`,
+          borderRadius: radius.panel,
+          background: tone.surface,
+          padding: '18px 16px 16px',
+          fontFamily: MONO,
+          fontSize: '11px',
+          lineHeight: 1.9,
+          color: colors.violet7,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden'
         }}
       >
-        <Box css={{ paddingLeft: '20px' }}>
-          &lt;div class=
-          <Box as='span' css={{ color: colors.red6 }}>
-            &quot;content&quot;
+        <div>&lt;html&gt;</div>
+        <Box css={{ paddingLeft: '16px' }}>&lt;head&gt; ... &lt;/head&gt;</Box>
+        <Box css={{ paddingLeft: '16px' }}>&lt;body&gt;</Box>
+        <Box
+          css={{
+            background: colors.violet0,
+            borderRadius: '6px',
+            margin: '3px -6px',
+            padding: '3px 6px'
+          }}
+        >
+          <Box css={{ paddingLeft: '20px' }}>
+            &lt;div class=
+            <Box as='span' css={{ color: colors.red6 }}>
+              &quot;content&quot;
+            </Box>
+            &gt;
           </Box>
-          &gt;
+          <Box css={{ paddingLeft: '36px' }}>...</Box>
+          <Box css={{ paddingLeft: '20px' }}>&lt;/div&gt;</Box>
         </Box>
-        <Box css={{ paddingLeft: '36px' }}>…</Box>
-        <Box css={{ paddingLeft: '20px' }}>&lt;/div&gt;</Box>
+        <Box css={{ paddingLeft: '16px' }}>&lt;/body&gt;</Box>
+        <div>&lt;/html&gt;</div>
       </Box>
-      <Box css={{ paddingLeft: '16px' }}>&lt;/body&gt;</Box>
-      <div>&lt;/html&gt;</div>
-    </Box>
+    </PanelStack>
   </Box>
 )
 
@@ -2132,12 +2174,10 @@ const FlowRow = styled(Flex)`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  gap: 14px;
-  padding: 8px 0;
+  padding: 8px 14px 22px 0;
 
   @media (max-width: 980px) {
     flex-direction: column;
-    gap: 0;
   }
 `
 
@@ -2145,19 +2185,45 @@ const HtmlPreview = () => (
   <Flex css={theme({ mt: 3, flex: 1, alignItems: 'center' })}>
     <FlowRow>
       <DeniedSite />
-      <FlowArrow
-        width='44'
-        height='14'
-        viewBox='0 0 44 14'
-        fill='none'
-        stroke={colors.violet6}
-        strokeWidth='2'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        aria-hidden='true'
-      >
-        <line x1='2' y1='7' x2='32' y2='7' />
-        <path d='M31 2l9 5-9 5' />
+      <FlowArrow aria-hidden='true'>
+        <Box
+          css={{
+            width: '18px',
+            height: '2px',
+            background: `linear-gradient(90deg, ${colors.violet1}, ${colors.violet5})`
+          }}
+        />
+        <Flex
+          css={{
+            width: '28px',
+            height: '28px',
+            borderRadius: '50%',
+            background: colors.violet0,
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0
+          }}
+        >
+          <svg
+            width='14'
+            height='14'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke={colors.violet7}
+            strokeWidth='2.6'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          >
+            <path d='M5 12h14M13 6l6 6-6 6' />
+          </svg>
+        </Flex>
+        <Box
+          css={{
+            width: '18px',
+            height: '2px',
+            background: colors.violet6
+          }}
+        />
       </FlowArrow>
       <CodePanel />
     </FlowRow>
