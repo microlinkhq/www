@@ -1841,22 +1841,6 @@ const ConvCard = styled(Flex)(
   })
 )
 
-const ConvOut = styled(Flex)(
-  theme({
-    width: '250px',
-    height: '68px',
-    alignItems: 'center',
-    gap: '18px',
-    px: '18px',
-    borderRadius: '18px',
-    bg: 'violet0',
-    fontSize: 2,
-    fontWeight: 'bold',
-    color: 'primary',
-    whiteSpace: 'nowrap'
-  })
-)
-
 const OutTile = styled(Flex)(
   theme({
     width: '46px',
@@ -2243,10 +2227,10 @@ const FileConversionPreview = () => (
                 strokeDasharray='6 7'
                 strokeLinecap='round'
               >
-                <path d='M0 34 C 82 34 72 166 126 166' />
-                <path d='M0 122 C 78 122 72 166 126 166' />
-                <path d='M0 210 C 78 210 72 166 126 166' />
-                <path d='M0 298 C 82 298 72 166 126 166' />
+                <path d='M126 166 C 72 166 82 34 0 34' />
+                <path d='M126 166 C 72 166 78 122 0 122' />
+                <path d='M126 166 C 72 166 78 210 0 210' />
+                <path d='M126 166 C 72 166 82 298 0 298' />
               </g>
             </BusSvg>
             <LogoNode />
@@ -2294,12 +2278,12 @@ const FileConversionPreview = () => (
               {CONVERT_OUTPUTS.map(vertical => {
                 const { label, icon: Icon } = PRODUCTS[vertical]
                 return (
-                  <ConvOut key={label}>
+                  <ConvCard key={label}>
                     <OutTile css={theme({ bg: 'violet1', color: 'violet7' })}>
                       <Icon width='22px' height='22px' />
                     </OutTile>
                     {label}
-                  </ConvOut>
+                  </ConvCard>
                 )
               })}
             </FlowColumn>
