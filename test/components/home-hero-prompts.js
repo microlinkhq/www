@@ -101,6 +101,16 @@ describe('home hero prompts', () => {
     expect(remove).toContain('.focus()')
   })
 
+  test('focusing mid-animation completes the current example', () => {
+    const focus = source.slice(
+      source.indexOf('const onEditorFocus'),
+      source.indexOf('useIsomorphicLayoutEffect(')
+    )
+    expect(focus).toContain('anim.current.userTook')
+    expect(focus).toContain('CYCLE[anim.current.ci]')
+    expect(focus).toContain('pendingCaret.current = target.length')
+  })
+
   test('caret survives re-renders via offset save and restore', () => {
     expect(source).toContain('const getCaretOffset')
     expect(source).toContain('const setCaretOffset')

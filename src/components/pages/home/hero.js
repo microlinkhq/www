@@ -2005,6 +2005,21 @@ const Hero = () => {
     document.execCommand('insertText', false, text)
   }
 
+  const onEditorFocus = () => {
+    if (!anim.current.userTook) {
+      const target = CYCLE[anim.current.ci]
+      stopTyping()
+      anim.current.text = target
+      if (dText !== target) {
+        setDText(target)
+        pendingCaret.current = target.length
+      }
+    } else {
+      stopTyping()
+    }
+    setIsFocused(true)
+  }
+
   useIsomorphicLayoutEffect(() => {
     const el = editorRef.current
     if (!el || pendingCaret.current == null) return
@@ -2131,10 +2146,7 @@ const Hero = () => {
             onClick={e => {
               if (e.target.closest('[data-url-action]')) removeUrl()
             }}
-            onFocus={() => {
-              stopTyping()
-              setIsFocused(true)
-            }}
+            onFocus={onEditorFocus}
             onBlur={() => setIsFocused(false)}
             onKeyDown={e => {
               if (e.key === 'Enter') {
