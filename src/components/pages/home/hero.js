@@ -1886,8 +1886,7 @@ const Hero = () => {
         </Heading>
 
         <Caption css={theme({ pt: 3 })}>
-          Everything you or your AI agent needs from any link. Try it below, no
-          signup required.
+          Everything your AI agent needs from any link. Try it, no signup.
         </Caption>
 
         <Composer data-force-focus={FORCE_FOCUS ? 'true' : undefined}>
