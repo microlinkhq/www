@@ -1875,13 +1875,13 @@ const Hero = () => {
       <Content>
         <Badge>
           <PulseDot />
-          Answering {reqsPretty}+ requests every month
+          Handling {reqsPretty}+ requests every month
         </Badge>
 
         <Heading variant={null} css={theme({ fontSize: [4, 4, 5, 5] })}>
-          Ask the web{' '}
+          The web,{' '}
           <Heading forwardedAs='span' css={theme({ fontSize: 'inherit' })}>
-            anything
+            automated
           </Heading>
         </Heading>
 

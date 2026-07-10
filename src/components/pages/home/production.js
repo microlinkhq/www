@@ -26,7 +26,7 @@ const FEATURES = [
     icon: 'cdn',
     title: 'Fast everywhere',
     description:
-      'Answers come from servers close to you, so requests stay quick anywhere in the world.'
+      'Results come from servers close to you, so requests stay quick anywhere in the world.'
   },
   {
     icon: 'developer',
@@ -56,7 +56,7 @@ const FEATURES = [
     icon: 'cache',
     title: 'Built-in cache',
     description:
-      'Ask the same thing twice and the answer comes back in milliseconds. You control how fresh it needs to be.'
+      'Run the same request twice and the result comes back in milliseconds. You control how fresh it needs to be.'
   },
   {
     icon: 'security',
@@ -100,8 +100,8 @@ const Production = () => (
         })}
       >
         Behind every request, Microlink runs real web browsers in the cloud: we
-        open the page, render it, and send back exactly what you asked for. Fast
-        anywhere in the world, at any scale.
+        open the page, do the work, and deliver the result. Fast anywhere in the
+        world, at any scale.
       </Caption>
     </Box>
 
