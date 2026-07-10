@@ -260,8 +260,7 @@ const CodeBox = styled(Box)(
     mt: 3,
     fontFamily: 'mono',
     fontSize: 0,
-    lineHeight: 4,
-    boxShadow: 2
+    lineHeight: 4
   }),
   css`
     flex: 1;
@@ -441,7 +440,6 @@ const TextDocument = styled(Box)(
     borderColor: 'gray2',
     borderRadius: 5,
     bg: 'white',
-    boxShadow: shadows[2],
     overflow: 'hidden'
   }),
   css`
@@ -553,7 +551,6 @@ const ScreenshotPreview = () => (
           background: tone.surface,
           border: `1px solid ${tone.border}`,
           borderRadius: radius.panel,
-          boxShadow: shadows[3],
           transform: 'rotate(2.5deg)'
         }}
       />
@@ -567,7 +564,6 @@ const ScreenshotPreview = () => (
           background: tone.surface,
           border: `1px solid ${tone.border}`,
           borderRadius: radius.panel,
-          boxShadow: shadows[3],
           transform: 'rotate(1.2deg)'
         }}
       />
@@ -581,7 +577,6 @@ const ScreenshotPreview = () => (
           background: tone.surface,
           border: `1px solid ${tone.border}`,
           borderRadius: radius.panel,
-          boxShadow: shadows[4],
           overflow: 'hidden'
         }}
       >
@@ -713,7 +708,6 @@ const LinkPreview = () => (
         borderRadius: radius.panel,
         border: 1,
         borderColor: tone.borderSoft,
-        boxShadow: shadows[2],
         overflow: 'hidden'
       })}
     >
@@ -821,8 +815,7 @@ const PdfSheet = styled(Box)(
     borderColor: 'gray2',
     borderRadius: 5,
     p: [3, 3, 4],
-    overflow: 'hidden',
-    boxShadow: shadows[3]
+    overflow: 'hidden'
   })
 )
 
@@ -1533,7 +1526,6 @@ const AnimatedPreview = () => (
         background: tone.surface,
         border: `1px solid ${tone.border}`,
         borderRadius: radius.inner,
-        boxShadow: shadows[3],
         overflow: 'hidden'
       }}
     >
@@ -1657,14 +1649,12 @@ const AnimatedPreview = () => (
   </Box>
 )
 
-const STEP_COLOR = colors.gray5
-
 const stepIcon = {
   width: 22,
   height: 22,
   viewBox: '0 0 24 24',
   fill: 'none',
-  stroke: STEP_COLOR,
+  stroke: colors.gray8,
   strokeWidth: 1.7,
   strokeLinecap: 'round',
   strokeLinejoin: 'round'
@@ -1765,7 +1755,7 @@ const AutomationPreview = () => (
             <Box
               css={{
                 fontSize: '11.5px',
-                color: syntax.muted,
+                color: syntax.body,
                 marginTop: '10px',
                 whiteSpace: 'nowrap'
               }}
@@ -1927,7 +1917,7 @@ const LogoNode = () => (
         height: '136px',
         borderRadius: '50%',
         bg: 'white',
-        boxShadow: `0 18px 42px rgba(${shadowInk}, 0.16), 0 3px 8px rgba(${shadowInk}, 0.06)`,
+        boxShadow: 0,
         alignItems: 'center',
         justifyContent: 'center'
       })}
