@@ -271,11 +271,12 @@ const CodeBox = styled(Box)(
     mt: 3,
     fontFamily: 'mono',
     fontSize: 0,
-    lineHeight: 4
+    lineHeight: 4,
+    boxShadow: 3
   }),
   css`
     flex: 1;
-    background: ${tone.surfaceSoft};
+    background: ${tone.surface};
     border: 1px solid ${tone.borderSoft};
     color: ${syntax.body};
   `
