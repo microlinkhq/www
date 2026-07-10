@@ -4,31 +4,48 @@ import { withContainer } from 'helpers/hoc/with-container'
 import ImageBase from 'components/elements/Image/Image'
 import React, { useState } from 'react'
 
-const _ImageBase = styled(ImageBase)(
+const StyledImage = styled(ImageBase)(
   theme({
-    borderRadius: '3px',
-    textAlign: 'center',
-    transition: 'opacity 0.2s ease'
+    borderRadius: '3px'
   })
 )
 
-const ImageWithContainer = withContainer(_ImageBase, {
+const SwapInPlace = styled('div')`
+  --icon-swap-start-scale: 1;
+`
+
+const containerProps = {
   css: {
     maxWidth: layout.small,
     display: 'flex',
     justifyContent: 'center'
   }
-})
+}
 
-export const Image = ({ src, hoverSrc, ...props }) => {
+const ImageWithContainer = withContainer(StyledImage, containerProps)
+
+const HoverSwapImage = ({ src, hoverSrc, ...props }) => {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <ImageWithContainer
-      src={isHovered && hoverSrc ? hoverSrc : src}
-      onMouseEnter={hoverSrc ? () => setIsHovered(true) : undefined}
-      onMouseLeave={hoverSrc ? () => setIsHovered(false) : undefined}
-      {...props}
-    />
+    <SwapInPlace
+      className='t-icon-swap'
+      data-state={isHovered ? 'b' : 'a'}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <StyledImage className='t-icon' data-icon='a' src={src} {...props} />
+      <StyledImage className='t-icon' data-icon='b' src={hoverSrc} {...props} />
+    </SwapInPlace>
   )
+}
+
+const HoverSwapImageWithContainer = withContainer(
+  HoverSwapImage,
+  containerProps
+)
+
+export const Image = props => {
+  if (props.hoverSrc) return <HoverSwapImageWithContainer {...props} />
+  return <ImageWithContainer {...props} />
 }
