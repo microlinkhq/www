@@ -29,7 +29,12 @@ import styled, { css, keyframes } from 'styled-components'
 import mql, { getApiUrl } from '@microlink/mql'
 import GOOGLE_EXAMPLES from 'data/google-examples'
 
-import { Copy as CopyIcon, Check as CheckIcon } from 'react-feather'
+import {
+  Copy as CopyIcon,
+  Check as CheckIcon,
+  Link as LinkIcon,
+  X as CloseIcon
+} from 'react-feather'
 
 import analyticsData from '../../../../data/analytics.json'
 
@@ -505,12 +510,48 @@ const InputMirror = styled.div`
 `
 
 const UrlTag = styled.span`
-  color: ${VIOLET};
-  background: ${rgba(colors.grape7, 0.08)};
-  box-shadow: inset 0 0 0 1px ${rgba(colors.grape7, 0.16)};
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: ${colors.blue7};
+  background: ${rgba(colors.blue, 0.08)};
+  box-shadow: inset 0 0 0 1px ${rgba(colors.blue, 0.16)};
   border-radius: 6px;
   padding: 3px 4px;
   margin: 0 -4px;
+
+  span {
+    flex: none;
+  }
+`
+
+const UrlTagAction = styled.button`
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+
+  .close {
+    display: none;
+  }
+
+  &:hover .logo,
+  &:focus-visible .logo {
+    display: none;
+  }
+
+  &:hover .close,
+  &:focus-visible .close {
+    display: block;
+  }
 `
 
 const Caret = styled.span`
@@ -1573,6 +1614,7 @@ const Hero = () => {
   })
   const chipRef = useRef(null)
   const mirrorRef = useRef(null)
+  const inputRef = useRef(null)
   const menuRef = useRef(null)
   const menuTimer = useRef(null)
   const menuRaf = useRef(null)
@@ -1824,6 +1866,20 @@ const Hero = () => {
     closeMenu()
   }
 
+  const removeUrl = () => {
+    const { raw } = parseLocal(dText)
+    if (!raw) return
+    const text = dText.replace(raw, '').replace(/ {2,}/g, ' ')
+    stopTyping()
+    anim.current.text = text
+    setDText(text)
+    writeSharedState(text, dVert)
+    if (inputRef.current) {
+      inputRef.current.focus()
+      inputRef.current.setSelectionRange(text.length, text.length)
+    }
+  }
+
   const pickExample = value => () => {
     const { raw } = parseLocal(dText)
     const fallback = DEFAULT_URLS[parseLocal(value).vertical] || FALLBACK_URL
@@ -1914,6 +1970,7 @@ const Hero = () => {
         <Composer data-force-focus={FORCE_FOCUS ? 'true' : undefined}>
           <InputWrap>
             <ComposerInput
+              ref={inputRef}
               value={dText}
               onChange={onComposerChange}
               onScroll={e => {
@@ -1936,11 +1993,30 @@ const Hero = () => {
               aria-label='Tell Microlink what to do'
             />
             {dText && (
-              <InputMirror ref={mirrorRef} aria-hidden='true'>
-                {dSegments.before && <span>{dSegments.before}</span>}
-                {dSegments.url && <UrlTag>{dSegments.url}</UrlTag>}
-                {dSegments.after && <span>{dSegments.after}</span>}
-                {!isFocused && <Caret />}
+              <InputMirror ref={mirrorRef}>
+                {dSegments.before && (
+                  <span aria-hidden='true'>{dSegments.before}</span>
+                )}
+                {dSegments.url && (
+                  <UrlTag>
+                    {!isFocused && (
+                      <UrlTagAction
+                        type='button'
+                        tabIndex={-1}
+                        aria-label='Remove URL'
+                        onClick={removeUrl}
+                      >
+                        <LinkIcon className='logo' size={13} />
+                        <CloseIcon className='close' size={14} />
+                      </UrlTagAction>
+                    )}
+                    <span aria-hidden='true'>{dSegments.url}</span>
+                  </UrlTag>
+                )}
+                {dSegments.after && (
+                  <span aria-hidden='true'>{dSegments.after}</span>
+                )}
+                {!isFocused && <Caret aria-hidden='true' />}
               </InputMirror>
             )}
           </InputWrap>

@@ -70,12 +70,32 @@ describe('home hero prompts', () => {
 
   test('composer wraps the URL segment in a tag over a transparent input', () => {
     expect(source).toContain('const UrlTag')
-    expect(source).toContain('<UrlTag>{dSegments.url}</UrlTag>')
+    expect(source).toContain('{dSegments.url}')
     const input = source.slice(
       source.indexOf('const ComposerInput'),
       source.indexOf('const InputWrap')
     )
     expect(input).toContain('color: transparent')
     expect(input).toContain('caret-color')
+  })
+
+  test('url tag is blue with a logo that swaps to a remove button', () => {
+    const tag = source.slice(
+      source.indexOf('const UrlTag'),
+      source.indexOf('const Caret')
+    )
+    expect(tag).toContain('colors.blue')
+    expect(tag).not.toContain('grape')
+    expect(tag).toContain('pointer-events: auto')
+    expect(source).toContain("aria-label='Remove URL'")
+    expect(source).toContain('onClick={removeUrl}')
+    expect(source).toContain("<LinkIcon className='logo'")
+    expect(source).toContain("<CloseIcon className='close'")
+    const remove = source.slice(
+      source.indexOf('const removeUrl'),
+      source.indexOf('const pickExample')
+    )
+    expect(remove).toContain('.replace(raw, ')
+    expect(remove).toContain('.focus()')
   })
 })
