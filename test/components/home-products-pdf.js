@@ -24,7 +24,7 @@ describe('home products PDF preview', () => {
     const sheet = between('const PdfSheet', 'const PdfBadge')
     const preview = between('const PdfPreview', 'const LOGO_URI')
 
-    expect(sheet).toContain("bg: 'gray1'")
+    expect(sheet).toContain("bg: 'gray0'")
     expect(sheet).toContain("overflow: 'hidden'")
     expect(sheet).not.toContain("position: 'absolute'")
     expect(preview).toContain('<PdfFold />')
