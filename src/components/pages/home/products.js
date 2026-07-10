@@ -1186,28 +1186,43 @@ const SearchPreview = () => (
         </Box>
       ))}
     </Box>
-    <CodeBox
-      css={{ marginTop: 0, flex: 1, whiteSpace: 'pre', overflow: 'hidden' }}
+    <Box
+      css={theme({
+        flex: 1,
+        position: 'relative',
+        minHeight: ['320px', '320px', 0, 0]
+      })}
     >
-      <NodeLabel>Structured data</NodeLabel>
-      <Box>
-        {'[\n'}
-        {SEARCH_RESULTS.map((result, i) => (
-          <React.Fragment key={result.url}>
-            {'  {\n    '}
-            <K>&quot;title&quot;</K>: <V>&quot;{result.title}&quot;</V>
-            {',\n    '}
-            <K>&quot;url&quot;</K>: <V>&quot;https://{result.url}&quot;</V>
-            {',\n    '}
-            <K>&quot;position&quot;</K>: <V>{i + 1}</V>
-            {'\n  }'}
-            {i < SEARCH_RESULTS.length - 1 ? ',' : ''}
-            {'\n'}
-          </React.Fragment>
-        ))}
-        ]
-      </Box>
-    </CodeBox>
+      <CodeBox
+        css={{
+          position: 'absolute',
+          inset: 0,
+          marginTop: 0,
+          whiteSpace: 'pre',
+          overflowX: 'hidden',
+          overflowY: 'auto'
+        }}
+      >
+        <NodeLabel>Structured data</NodeLabel>
+        <Box>
+          {'[\n'}
+          {SEARCH_RESULTS.map((result, i) => (
+            <React.Fragment key={result.url}>
+              {'  {\n    '}
+              <K>&quot;title&quot;</K>: <V>&quot;{result.title}&quot;</V>
+              {',\n    '}
+              <K>&quot;url&quot;</K>: <V>&quot;https://{result.url}&quot;</V>
+              {',\n    '}
+              <K>&quot;position&quot;</K>: <V>{i + 1}</V>
+              {'\n  }'}
+              {i < SEARCH_RESULTS.length - 1 ? ',' : ''}
+              {'\n'}
+            </React.Fragment>
+          ))}
+          ]
+        </Box>
+      </CodeBox>
+    </Box>
   </Flex>
 )
 
