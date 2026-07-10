@@ -44,7 +44,7 @@ const CardShell = styled(Box)`
   border: 1px solid ${colors.black10};
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: ${shadows[4]};
+  box-shadow: ${shadows[3]};
 `
 
 const TextLine = styled(Box)`
