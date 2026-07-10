@@ -64,18 +64,7 @@ const radius = {
   sm: radii[3]
 }
 
-const shadow = {
-  card: `0 6px 20px rgba(${shadowInk}, 0.04)`,
-  cardHover: `0 22px 46px -28px rgba(${shadowInk}, 0.35)`,
-  panel: `0 4px 14px rgba(${shadowInk}, 0.05)`,
-  soft: `0 3px 10px rgba(${shadowInk}, 0.06)`,
-  softer: `0 3px 10px rgba(${shadowInk}, 0.04)`,
-  window: shadows[3],
-  windowMid: `0 8px 22px rgba(${shadowInk}, 0.07)`,
-  windowTop: `0 14px 34px rgba(${shadowInk}, 0.13)`,
-  float: `0 8px 24px rgba(${shadowInk}, 0.08)`,
-  rec: `0 8px 22px rgba(${shadowInk}, 0.16)`
-}
+const CARD_HOVER_SHADOW = `0 22px 46px -28px rgba(${shadowInk}, 0.35)`
 
 const TILE = {
   metadata: { bg: colors.violet0, color: colors.violet7 },
@@ -174,7 +163,7 @@ const Card = styled(Link)(
     overflow: 'hidden',
     color: 'black',
     textDecoration: 'none',
-    boxShadow: shadow.card,
+    boxShadow: shadows[2],
     _hover: { color: 'black' }
   }),
   css`
@@ -191,7 +180,7 @@ const Card = styled(Link)(
       &:hover {
         border-color: ${props => props.$accent};
         transform: translateY(-3px);
-        box-shadow: ${shadow.cardHover};
+        box-shadow: ${CARD_HOVER_SHADOW};
       }
       &:hover ${Arrow} {
         color: ${tone.ink};
@@ -452,7 +441,7 @@ const TextDocument = styled(Box)(
     borderColor: 'gray2',
     borderRadius: 5,
     bg: 'white',
-    boxShadow: shadow.panel,
+    boxShadow: shadows[2],
     overflow: 'hidden'
   }),
   css`
@@ -564,7 +553,7 @@ const ScreenshotPreview = () => (
           background: tone.surface,
           border: `1px solid ${tone.border}`,
           borderRadius: radius.panel,
-          boxShadow: shadow.window,
+          boxShadow: shadows[3],
           transform: 'rotate(2.5deg)'
         }}
       />
@@ -578,7 +567,7 @@ const ScreenshotPreview = () => (
           background: tone.surface,
           border: `1px solid ${tone.border}`,
           borderRadius: radius.panel,
-          boxShadow: shadow.windowMid,
+          boxShadow: shadows[3],
           transform: 'rotate(1.2deg)'
         }}
       />
@@ -592,7 +581,7 @@ const ScreenshotPreview = () => (
           background: tone.surface,
           border: `1px solid ${tone.border}`,
           borderRadius: radius.panel,
-          boxShadow: shadow.windowTop,
+          boxShadow: shadows[4],
           overflow: 'hidden'
         }}
       >
@@ -724,7 +713,7 @@ const LinkPreview = () => (
         borderRadius: radius.panel,
         border: 1,
         borderColor: tone.borderSoft,
-        boxShadow: shadow.panel,
+        boxShadow: shadows[2],
         overflow: 'hidden'
       })}
     >
@@ -833,7 +822,7 @@ const PdfSheet = styled(Box)(
     borderRadius: 5,
     p: [3, 3, 4],
     overflow: 'hidden',
-    boxShadow: shadow.window
+    boxShadow: shadows[3]
   })
 )
 
@@ -1050,7 +1039,7 @@ const LogoPreview = () => (
         marginTop: '12px',
         borderRadius: radius.sm,
         overflow: 'hidden',
-        boxShadow: shadow.soft
+        boxShadow: shadows[2]
       }}
     >
       {LOGO_PALETTE.map(c => (
@@ -1104,7 +1093,7 @@ const SearchPreview = () => (
           padding: '9px 14px',
           alignItems: 'center',
           gap: '9px',
-          boxShadow: shadow.softer
+          boxShadow: shadows[1]
         }}
       >
         <svg
@@ -1544,7 +1533,7 @@ const AnimatedPreview = () => (
         background: tone.surface,
         border: `1px solid ${tone.border}`,
         borderRadius: radius.inner,
-        boxShadow: shadow.float,
+        boxShadow: shadows[3],
         overflow: 'hidden'
       }}
     >
@@ -1637,7 +1626,7 @@ const AnimatedPreview = () => (
         transform: 'translateX(-50%)',
         background: tone.surface,
         borderRadius: '11px',
-        boxShadow: shadow.rec,
+        boxShadow: shadows[3],
         padding: '9px 18px',
         alignItems: 'center',
         gap: '10px',
@@ -1729,7 +1718,7 @@ const StepTile = styled(Flex)(
     justify-content: center;
     flex-shrink: 0;
     border: 1px solid ${tone.border};
-    box-shadow: ${shadow.softer};
+    box-shadow: ${shadows[1]};
   `
 )
 
