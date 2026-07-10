@@ -816,7 +816,7 @@ const PdfSheet = styled(Box)(
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: 3,
-    bg: 'gray0',
+    bg: 'gray1',
     borderRadius: 5,
     p: [3, 3, 4],
     overflow: 'hidden'
@@ -849,11 +849,11 @@ const PdfFold = styled(Box)(
     position: 'absolute',
     right: 0,
     bottom: 0,
-    width: '56px',
-    height: '56px',
-    bg: 'white',
+    width: '48px',
+    height: '48px',
     borderTopLeftRadius: 5,
-    boxShadow: '-10px -10px 24px rgba(16,24,40,0.08)'
+    background: `linear-gradient(to top left, ${colors.white} 0%, ${colors.white} 50%, ${colors.gray3} 50%, ${colors.gray1} 70%)`,
+    boxShadow: '-6px -6px 16px rgba(16,24,40,0.05)'
   })
 )
 
