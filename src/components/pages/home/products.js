@@ -98,19 +98,19 @@ const EXTRA = {
     label: 'Browser Automations',
     description: 'Automate actions in the browser and extract results',
     icon: MousePointerIcon,
-    href: '/recipes'
+    href: '/docs/guides/function/browser-interaction'
   },
   sdk: {
     label: 'Microlink SDK',
     description: 'The official SDK to integrate Microlink in your app',
     icon: PackageIcon,
-    href: '/docs/sdk/getting-started/overview'
+    href: '/integrations/sdk'
   },
   conversion: {
     label: 'File conversion',
     description: 'Convert any file into HTML, Markdown, or clean text',
     icon: RepeatIcon,
-    href: '/docs/api/parameters/data'
+    href: '/docs/guides/content-conversion'
   }
 }
 
