@@ -1,6 +1,7 @@
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Microlink from 'components/patterns/Microlink/Microlink'
+import { HeroCard } from 'components/pages/embed/PreviewCards'
 import { HeroSearchResultCard } from 'components/pages/search/ResultCards'
 import GOOGLE_EXAMPLES from 'data/google-examples'
 import { theme, fonts, colors, gradient } from 'theme'
@@ -130,97 +131,11 @@ const PdfOutput = ({ url }) => (
   />
 )
 
-const Card = ({ data, fallbackUrl }) => {
-  const image = data.image?.url || data.screenshot?.url
-  const logo = data.logo?.url
-  const title = data.title || data.publisher || fallbackUrl
-  const link = data.url || fallbackUrl
-
-  return (
-    <Box css={theme({ p: 4 })}>
-      <Box
-        css={theme({
-          maxWidth: '520px',
-          mx: 'auto',
-          border: `1px solid ${colors.gray1}`,
-          borderRadius: 8,
-          overflow: 'hidden',
-          boxShadow: '0 18px 50px -28px rgba(40,10,60,.4)'
-        })}
-      >
-        {image && (
-          <Box
-            as='img'
-            src={image}
-            alt={title}
-            loading='lazy'
-            css={theme({
-              width: '100%',
-              maxHeight: '260px',
-              objectFit: 'cover',
-              display: 'block',
-              borderBottom: `1px solid ${colors.gray1}`
-            })}
-          />
-        )}
-        <Box css={theme({ p: 3 })}>
-          <Flex css={theme({ alignItems: 'center', gap: 2, mb: 2 })}>
-            {logo && (
-              <Box
-                as='img'
-                src={logo}
-                alt=''
-                loading='lazy'
-                css={theme({ width: '18px', height: '18px', borderRadius: 2 })}
-              />
-            )}
-            <Box
-              as='span'
-              css={theme({
-                fontFamily: 'mono',
-                fontSize: 0,
-                color: 'gray6',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap'
-              })}
-            >
-              {link}
-            </Box>
-          </Flex>
-          {title && (
-            <Box
-              as='span'
-              css={theme({
-                display: 'block',
-                fontSize: 2,
-                fontWeight: 'bold',
-                color: 'black',
-                letterSpacing: '-.01em',
-                mb: data.description ? 2 : 0
-              })}
-            >
-              {title}
-            </Box>
-          )}
-          {data.description && (
-            <Box
-              as='p'
-              css={theme({
-                m: 0,
-                fontSize: 1,
-                color: 'gray8',
-                lineHeight: 1.5
-              })}
-            >
-              {data.description}
-            </Box>
-          )}
-        </Box>
-      </Box>
-    </Box>
-  )
-}
+const Card = ({ data, fallbackUrl }) => (
+  <Flex css={theme({ p: 4, justifyContent: 'center' })}>
+    <HeroCard data={{ url: fallbackUrl, ...data }} />
+  </Flex>
+)
 
 const EmbedOutput = ({ url }) => (
   <Box css={theme({ p: 4, display: 'flex', justifyContent: 'center' })}>
