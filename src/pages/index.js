@@ -3,15 +3,10 @@ import Faqs from 'components/pages/home/faqs'
 import Hero from 'components/pages/home/hero'
 import Products from 'components/pages/home/products'
 import Production from 'components/pages/home/production'
+import Pricing from 'components/pages/home/pricing'
 import Meta from 'components/elements/Meta/Meta'
-import Container from 'components/elements/Container'
-import Subhead from 'components/elements/Subhead'
-import Caption from 'components/patterns/Caption/Caption'
-import { useSiteMetadata } from 'components/hook/use-site-meta'
 import Layout from 'components/patterns/Layout'
 import { CurrencyProvider } from 'components/hook/use-currency'
-import Plans from 'components/patterns/Plans/Plans'
-import { layout, theme } from 'theme'
 import React from 'react'
 
 export const Head = () => {
@@ -49,50 +44,14 @@ export const Head = () => {
 }
 
 const HomePage = () => {
-  const { canonicalUrl, stripeKey } = useSiteMetadata()
   return (
     <CurrencyProvider>
       <Layout>
         <Hero />
         <Products />
         <Analytics />
+        <Pricing />
         <Production />
-        <Container
-          as='section'
-          css={theme({
-            alignItems: 'center',
-            textAlign: 'center',
-            maxWidth: '100%',
-            pt: [4, 4, 5, 5],
-            px: [3, 3, 4, 4]
-          })}
-        >
-          <Subhead css={theme({ maxWidth: layout.large })}>
-            Pricing built for{' '}
-            <Subhead variant='gradient' as='span'>
-              builders
-            </Subhead>
-          </Subhead>
-          <Caption
-            forwardedAs='div'
-            css={theme({
-              pt: [3, 3, 4, 4],
-              maxWidth: [
-                layout.small,
-                layout.small,
-                layout.normal,
-                layout.normal
-              ]
-            })}
-          >
-            Start free. No seats, no minimums, no surprises.
-          </Caption>
-        </Container>
-        <Plans
-          canonicalUrl={canonicalUrl}
-          stripeKey={stripeKey}
-          footer='compare'
-        />
         <Faqs />
       </Layout>
     </CurrencyProvider>

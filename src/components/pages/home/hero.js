@@ -1875,7 +1875,7 @@ const Hero = () => {
       <Content>
         <Badge>
           <PulseDot />
-          Trusted by apps, agents & AI · {reqsPretty}+ requests / month
+          Trusted by hundreds of developers · {reqsPretty}+ requests / month
         </Badge>
 
         <Heading variant={null} css={theme({ fontSize: [4, 4, 5, 5] })}>
