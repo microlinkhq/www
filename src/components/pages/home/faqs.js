@@ -11,7 +11,7 @@ const FAQs = props => (
     caption='Frequently asked questions.'
     questions={[
       {
-        question: 'Can I use microlink for free?',
+        question: 'Can I use Microlink for free?',
         answer: (
           <>
             <div>
@@ -20,31 +20,29 @@ const FAQs = props => (
               use. It’s the best way to start using the service.
             </div>
             <div>
-              The free plan runs under some limitations to avoid abusive usage
-              of the platform, like burst rate, limited concurrency rate and
-              daily rate limit.
+              The free plan has limits to prevent abuse: burst rate,
+              concurrency, and a daily quota.
             </div>
             <div>
-              The free plan should be enough for small projects or low API
-              quota.
+              It should be enough for small projects or a low API quota.
             </div>
           </>
         )
       },
       {
-        question: 'How different is the free plan compared with the Pro plan?',
+        question: 'What’s the difference between the free and Pro plans?',
         answer: (
           <>
             <div>
-              The pro plan is ready to be used at scale, with better performance
-              and unlocked features such as{' '}
+              The Pro plan is built for scale, with better performance and
+              unlocked features such as{' '}
               <Link href='/docs/api/parameters/headers'>headers</Link>,{' '}
               <Link href='/docs/api/parameters/ttl'>ttl</Link> or{' '}
               <Link href='/docs/api/parameters/proxy'>proxy</Link>.
             </div>
             <div>
               A Pro plan comes with an associated API key and configurable
-              quota. You only pay as you need.
+              quota. You only pay for what you need.
             </div>
           </>
         )
@@ -66,7 +64,7 @@ const FAQs = props => (
           <>
             <div>
               After your payment, we send you the API key associated with the
-              email you signed up.
+              email you signed up with.
             </div>
             <div>
               The API key needs to be attached to all your requests:
@@ -121,10 +119,12 @@ const FAQs = props => (
         answer: (
           <>
             <div>
-              You can upgrade, downgrade, or cancel your monthly account at any
-              time with no further obligation by sending an email to{' '}
-              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>{' '}
-              with the email you signed up.
+              You can upgrade, downgrade, or cancel your plan at any time with
+              no further obligation from your dashboard at{' '}
+              <Link href='https://dashboard.microlink.io'>
+                dashboard.microlink.io
+              </Link>
+              .
             </div>
           </>
         )
@@ -134,9 +134,9 @@ const FAQs = props => (
         answer: (
           <>
             <div>
-              We use Stripe to process your payment. It’s the same payment
-              provider used in products such as Twitter, Pinterest, and Lyft. We
-              do not handle your credit card information directly.
+              We use Stripe to process your payment, the same payment provider
+              behind companies like Amazon, Shopify, and Zoom. We never see your
+              credit card information.
             </div>
           </>
         )
@@ -159,9 +159,11 @@ const FAQs = props => (
         answer: (
           <>
             <div>
-              Yes, by sending an email to{' '}
-              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
-              Your request will be processed within 24hrs.
+              Yes, at any time from your dashboard at{' '}
+              <Link href='https://dashboard.microlink.io'>
+                dashboard.microlink.io
+              </Link>
+              , no questions asked.
             </div>
           </>
         )

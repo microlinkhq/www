@@ -14,55 +14,55 @@ const FEATURES = [
     icon: 'cloud2',
     title: 'Powerful & scalable',
     description:
-      'Auto-scale infrastructure built for massive workloads. Handle millions of requests with ease.'
+      'Autoscaling infrastructure that absorbs traffic spikes. Go from one request to millions without changing your code.'
   },
   {
     icon: 'costless',
-    title: 'Costless solution',
+    title: 'Cost efficient',
     description:
-      'Optimized architecture and smart resource management deliver more value at a fraction of the cost.'
+      'Pay only for what you use. Optimized architecture keeps the price per request low as you scale.'
   },
   {
     icon: 'cdn',
     title: 'Global CDN',
     description:
-      'Distributed worldwide with a global CDN to ensure speed, reliability, and low latency wherever you are.'
+      'Responses served from edge locations around the world, so requests stay fast wherever your users are.'
   },
   {
     icon: 'developer',
     title: 'Developer first',
     description:
-      'Built by developers, for developers. Intuitive APIs, clear docs, and SDKs that make integration a breeze.'
+      'Clear docs, predictable responses, and SDKs for every major language. Integrate in minutes, not days.'
   },
   {
     icon: 'programmable',
     title: 'Fully programmable',
     description:
-      'Integrate with your stack. Use your favorite language and build exactly what you need.'
+      'Query parameters cover the common cases. Custom browser code covers everything else.'
   },
   {
     icon: 'declarative',
     title: 'Declarative usage',
     description:
-      'Simple, declarative API. Get results with a single request and spend less time on integration.'
+      'Describe what you want in a single GET request. No sessions, no state, no browser lifecycle to manage.'
   },
   {
     icon: 'hardware',
     title: 'Optimized hardware',
     description:
-      'High-performance infrastructure with modern CPUs and GPUs optimized for browser workloads.'
+      'Modern CPUs and GPUs tuned for browser workloads, so rendering stays fast under load.'
   },
   {
     icon: 'cache',
     title: 'Built-in cache',
     description:
-      'Intelligent caching layer for instant responses and reduced load. Because speed matters.'
+      'Repeated requests resolve from cache in milliseconds, with per-request control over freshness.'
   },
   {
     icon: 'security',
-    title: 'Security compliance',
+    title: 'Secure by design',
     description:
-      'Enterprise-grade security with compliance standards you can trust. Your data is in safe hands.'
+      'Every request runs in an isolated browser instance over TLS. Your traffic stays private.'
   }
 ]
 
@@ -99,9 +99,8 @@ const Production = () => (
           pt: [3, 3, 4, 4]
         })}
       >
-        Microlink gives you a full-stack browser automation platform designed
-        for real-world scale. Built to be fast, reliable, and effortless to
-        integrate, so you can ship with confidence.
+        A managed pool of headless browsers behind a single API. We handle the
+        scaling, the cache, and the CDN, so you never babysit Chrome again.
       </Caption>
     </Box>
 

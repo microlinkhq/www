@@ -1875,7 +1875,7 @@ const Hero = () => {
       <Content>
         <Badge>
           <PulseDot />
-          Trusted by hundreds of developers · {reqsPretty}+ requests / month
+          Live in production · {reqsPretty}+ requests every month
         </Badge>
 
         <Heading variant={null} css={theme({ fontSize: [4, 4, 5, 5] })}>
@@ -1886,7 +1886,8 @@ const Hero = () => {
         </Heading>
 
         <Caption css={theme({ pt: 3 })}>
-          Everything coding agent needs from any URL. No credit card required.
+          Everything your coding agent needs from any URL. Try it live, no
+          signup required.
         </Caption>
 
         <Composer data-force-focus={FORCE_FOCUS ? 'true' : undefined}>

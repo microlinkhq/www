@@ -2201,15 +2201,16 @@ const Products = () => (
       })}
     >
       <Subhead>
-        Everything
+        Turn any URL
         <br />
+        into{' '}
         <Subhead variant='gradient' as='span'>
-          coding agent
-        </Subhead>{' '}
-        needs
+          anything
+        </Subhead>
       </Subhead>
       <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4] })}>
-        One simple API for all kinds of web data.
+        Screenshots, PDFs, markdown, metadata & more. Every format, one simple
+        API.
       </Caption>
     </Box>
 

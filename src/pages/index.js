@@ -20,7 +20,7 @@ export const Head = () => {
     url: 'https://microlink.io',
     image: 'https://cdn.microlink.io/logo/logo.png',
     description:
-      'Microlink is a headless browser API that converts any URL into structured data, screenshots, previews and PDFs.',
+      'Microlink is a headless browser API that turns any URL into screenshots, PDFs, markdown, metadata, and structured data.',
     softwareHelp: 'https://microlink.io/docs',
     offers: {
       '@type': 'Offer',
