@@ -90,7 +90,6 @@ describe('home hero prompts', () => {
     expect(tag).toContain("color: 'secondary'")
     expect(tag).toContain("fontFamily: 'mono'")
     expect(tag).toContain("fontWeight: 'normal'")
-    expect(tag).toContain("fontSize: '0.9rem'")
     expect(tag).toContain('text-shadow: rgba(0, 0, 0, 0.05) 0px 1px')
     expect(tag).not.toContain('content:')
     expect(source).not.toContain('LINK_ICON_SVG')

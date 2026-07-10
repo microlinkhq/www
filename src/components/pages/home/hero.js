@@ -505,7 +505,6 @@ const ComposerEditor = styled.div`
       color: 'secondary',
       fontFamily: 'mono',
       fontWeight: 'normal',
-      fontSize: '0.9rem',
       px: '4px'
     })};
   }
