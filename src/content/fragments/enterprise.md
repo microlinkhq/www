@@ -1,4 +1,3 @@
-import { PriceMonthly } from 'components/markdown/PriceMonthly'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 
 The **Microlink Enterprise** plan is designed for customers who want to maximize Microlink's capabilities, unleashing maximum performance with dedicated hardware and seamless software integration with their existing infrastructure.
@@ -17,6 +16,6 @@ Running a **Microlink Enterprise** plan means:
 
 The physical servers associated with your Microlink API endpoint can be chosen from 8 locations (🇺🇸 New York, 🇺🇸 San Francisco, 🇳🇱 Amsterdam, 🇸🇬 Singapore, 🇬🇧 London, 🇩🇪 Frankfurt, 🇨🇦 Toronto, or 🇮🇳 Bangalore).
 
-The pricing model is the same as your **Microlink Pro** plan, plus an additional <PriceMonthly>500</PriceMonthly> for the dedicated infrastructure.
+Enterprise pricing has two parts: an infrastructure subscription for your dedicated environment, plus a usage plan tier that follows the same model as **Microlink Pro**.
 
 Pricing is flexible and tailored to your usage: the higher the volume, the lower the cost per 1,000 requests. Usage costs scale linearly, so traffic growth never changes your subscription, only the usage component. Annual commitments get a 10% discount. Final terms are negotiated based on your specific needs.
