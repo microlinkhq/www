@@ -272,7 +272,7 @@ const CodeBox = styled(Box)(
     fontFamily: 'mono',
     fontSize: 0,
     lineHeight: 4,
-    boxShadow: 3
+    boxShadow: 2
   }),
   css`
     flex: 1;
@@ -1060,6 +1060,33 @@ const LogoPreview = () => (
   </Box>
 )
 
+const SEARCH_RESULTS = [
+  {
+    name: 'Microlink',
+    domain: 'microlink.io',
+    url: 'microlink.io',
+    title: 'Microlink — The universal API',
+    description: 'One API to turn any URL into structured data.',
+    tint: colors.gray9
+  },
+  {
+    name: 'GitHub',
+    domain: 'github.com',
+    url: 'github.com/microlinkhq',
+    title: 'microlinkhq · GitHub',
+    description: 'Open source tools to turn websites into data.',
+    tint: colors.black
+  },
+  {
+    name: 'Hacker News',
+    domain: 'news.ycombinator.com',
+    url: 'news.ycombinator.com/item?id=1',
+    title: 'Show HN: Microlink API',
+    description: 'Extract structured data from any website.',
+    tint: colors.orange6
+  }
+]
+
 const SearchPreview = () => (
   <Flex
     css={theme({
@@ -1121,47 +1148,64 @@ const SearchPreview = () => (
         <span>News</span>
         <span>Images</span>
       </Flex>
-      <Flex css={{ alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-        <Flex
-          css={{
-            width: '24px',
-            height: '24px',
-            borderRadius: '50%',
-            background: tone.ink900,
-            color: tone.white,
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 800,
-            fontSize: '11px'
-          }}
-        >
-          M
-        </Flex>
-        <Box css={{ lineHeight: 1.1 }}>
-          <Box css={{ fontSize: '12px', fontWeight: 600 }}>Microlink</Box>
-          <Box css={{ fontSize: '11px', color: tone.faint }}>microlink.io</Box>
+      {SEARCH_RESULTS.map(result => (
+        <Box key={result.url} css={{ marginBottom: '14px' }}>
+          <Flex css={{ alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+            <Flex
+              css={{
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                background: result.tint,
+                color: tone.white,
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 800,
+                fontSize: '11px'
+              }}
+            >
+              {result.name[0]}
+            </Flex>
+            <Box css={{ lineHeight: 1.1 }}>
+              <Box css={{ fontSize: '12px', fontWeight: 600 }}>
+                {result.name}
+              </Box>
+              <Box css={{ fontSize: '11px', color: tone.faint }}>
+                {result.domain}
+              </Box>
+            </Box>
+          </Flex>
+          <Box css={{ color: colors.link, fontSize: '15px', fontWeight: 600 }}>
+            {result.title}
+          </Box>
+          <Box
+            css={{ color: syntax.muted, fontSize: '12.5px', marginTop: '3px' }}
+          >
+            {result.description}
+          </Box>
         </Box>
-      </Flex>
-      <Box css={{ color: colors.link, fontSize: '15px', fontWeight: 600 }}>
-        Microlink — The universal API
-      </Box>
-      <Box css={{ color: syntax.muted, fontSize: '12.5px', marginTop: '3px' }}>
-        One API to turn any URL into structured data.
-      </Box>
+      ))}
     </Box>
     <CodeBox
       css={{ marginTop: 0, flex: 1, whiteSpace: 'pre', overflow: 'hidden' }}
     >
       <NodeLabel>Structured data</NodeLabel>
       <Box>
-        {'[\n  {\n'}
-        {'    '}
-        <K>&quot;title&quot;</K>: <V>&quot;Microlink&quot;</V>
-        {',\n    '}
-        <K>&quot;url&quot;</K>: <V>&quot;https://microlink.io&quot;</V>
-        {',\n    '}
-        <K>&quot;position&quot;</K>: <V>1</V>
-        {'\n  }\n]'}
+        {'[\n'}
+        {SEARCH_RESULTS.map((result, i) => (
+          <React.Fragment key={result.url}>
+            {'  {\n    '}
+            <K>&quot;title&quot;</K>: <V>&quot;{result.title}&quot;</V>
+            {',\n    '}
+            <K>&quot;url&quot;</K>: <V>&quot;https://{result.url}&quot;</V>
+            {',\n    '}
+            <K>&quot;position&quot;</K>: <V>{i + 1}</V>
+            {'\n  }'}
+            {i < SEARCH_RESULTS.length - 1 ? ',' : ''}
+            {'\n'}
+          </React.Fragment>
+        ))}
+        ]
       </Box>
     </CodeBox>
   </Flex>
