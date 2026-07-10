@@ -2201,16 +2201,16 @@ const Products = () => (
       })}
     >
       <Subhead>
-        Turn any URL
+        Turn any link
         <br />
         into{' '}
         <Subhead variant='gradient' as='span'>
-          anything
+          what you need
         </Subhead>
       </Subhead>
       <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4] })}>
-        Screenshots, PDFs, markdown, metadata & more. Every format, one simple
-        API.
+        Screenshots, PDFs, clean text, data & more. One simple request, any
+        format.
       </Caption>
     </Box>
 

@@ -12,21 +12,21 @@ const CARD_SHADOW = '0 6px 20px rgba(16,24,40,0.04)'
 const FEATURES = [
   {
     icon: 'cloud2',
-    title: 'Powerful & scalable',
+    title: 'Grows with you',
     description:
-      'Autoscaling infrastructure that absorbs traffic spikes. Go from one request to millions without changing your code.'
+      'Capacity scales automatically with your traffic. One request or millions, everything keeps working.'
   },
   {
     icon: 'costless',
     title: 'Cost efficient',
     description:
-      'Pay only for what you use. Optimized architecture keeps the price per request low as you scale.'
+      'Pay only for what you use. Smart engineering keeps the price per request low as you grow.'
   },
   {
     icon: 'cdn',
-    title: 'Global CDN',
+    title: 'Fast everywhere',
     description:
-      'Responses served from edge locations around the world, so requests stay fast wherever your users are.'
+      'Answers come from servers close to you, so requests stay quick anywhere in the world.'
   },
   {
     icon: 'developer',
@@ -38,31 +38,31 @@ const FEATURES = [
     icon: 'programmable',
     title: 'Fully programmable',
     description:
-      'Query parameters cover the common cases. Custom browser code covers everything else.'
+      'Simple options cover the common cases. Custom browser code covers everything else.'
   },
   {
     icon: 'declarative',
-    title: 'Declarative usage',
+    title: 'Simple by design',
     description:
-      'Describe what you want in a single GET request. No sessions, no state, no browser lifecycle to manage.'
+      'Say what you want in a single request. No setup, no sessions, nothing to maintain.'
   },
   {
     icon: 'hardware',
     title: 'Optimized hardware',
     description:
-      'Modern CPUs and GPUs tuned for browser workloads, so rendering stays fast under load.'
+      'Modern hardware tuned for rendering web pages, so results stay fast even under heavy load.'
   },
   {
     icon: 'cache',
     title: 'Built-in cache',
     description:
-      'Repeated requests resolve from cache in milliseconds, with per-request control over freshness.'
+      'Ask the same thing twice and the answer comes back in milliseconds. You control how fresh it needs to be.'
   },
   {
     icon: 'security',
     title: 'Secure by design',
     description:
-      'Every request runs in an isolated browser instance over TLS. Your traffic stays private.'
+      'Every request runs in its own isolated browser over an encrypted connection. Your traffic stays private.'
   }
 ]
 
@@ -85,10 +85,10 @@ const Production = () => (
       })}
     >
       <Subhead>
-        Production ready,
+        From one request
         <br />
         <Subhead variant='gradient' as='span'>
-          browser as a service
+          to millions
         </Subhead>
       </Subhead>
 
@@ -99,8 +99,9 @@ const Production = () => (
           pt: [3, 3, 4, 4]
         })}
       >
-        A managed pool of headless browsers behind a single API. We handle the
-        scaling, the cache, and the CDN, so you never babysit Chrome again.
+        Behind every request, Microlink runs real web browsers in the cloud: we
+        open the page, render it, and send back exactly what you asked for. Fast
+        anywhere in the world, at any scale.
       </Caption>
     </Box>
 

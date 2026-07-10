@@ -1875,18 +1875,18 @@ const Hero = () => {
       <Content>
         <Badge>
           <PulseDot />
-          Live in production · {reqsPretty}+ requests every month
+          Answering {reqsPretty}+ requests every month
         </Badge>
 
         <Heading variant={null} css={theme({ fontSize: [4, 4, 5, 5] })}>
-          The web,{' '}
+          Ask the web{' '}
           <Heading forwardedAs='span' css={theme({ fontSize: 'inherit' })}>
-            automated
+            anything
           </Heading>
         </Heading>
 
         <Caption css={theme({ pt: 3 })}>
-          Everything your coding agent needs from any URL. Try it live, no
+          Everything you or your AI agent needs from any link. Try it below, no
           signup required.
         </Caption>
 

@@ -71,7 +71,7 @@ export const PRODUCTS = {
     label: 'Metadata',
     icon: TagIcon,
     href: '/metadata',
-    description: 'Normalized data from any website'
+    description: 'Title, description & images from any page'
   },
   lighthouse: {
     label: 'Lighthouse',
