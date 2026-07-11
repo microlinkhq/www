@@ -279,7 +279,7 @@ const PROMPTS = {
   animated: 'record animated screenshot',
   preview: 'generate link preview',
   embed: 'embed URL',
-  markdown: 'fetch markdown',
+  markdown: 'get markdown',
   html: 'get HTML',
   text: 'extract text',
   metadata: 'extract metadata',
@@ -551,7 +551,7 @@ const Badge = styled.span`
     alignItems: 'center',
     gap: '9px',
     fontSize: 0,
-    fontWeight: 'bold',
+    fontWeight: 'regular',
     bg: 'white',
     color: 'gray8',
     border: 1,
@@ -2160,7 +2160,9 @@ const Hero = () => {
         </Heading>
 
         <Caption css={theme({ pt: 3 })}>
-          Everything your AI agent needs from any link. Try it, no signup.
+          Everything your AI agent needs from any link: screenshots, PDFs, clean
+          markdown, and structured data through one simple API. Tell it what to
+          do below and try it live, no signup.
         </Caption>
 
         <Composer>
