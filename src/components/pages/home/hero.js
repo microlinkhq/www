@@ -919,22 +919,6 @@ const StatusPill = styled.span`
   })};
 `
 
-const RetryButton = styled.button`
-  ${actionPill};
-  ${theme({
-    color: 'gray7',
-    bg: 'white',
-    border: 1,
-    borderColor: 'gray2'
-  })};
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      ${theme({ borderColor: 'grape7', color: 'black' })};
-    }
-  }
-`
-
 const RateLimitLink = styled.a`
   ${theme({
     fontFamily: 'sans',
@@ -1192,7 +1176,7 @@ const renderJsValue = (value, keyBase) => {
   )
 }
 
-const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
+const ResultPanel = React.memo(({ tab, setTab, req }) => {
   const { D, status, body, headerRows, bars, rows, totalMs } = req
   const isLoading = status === 'loading'
   const isError = status === 'error'
@@ -1370,12 +1354,9 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
               })}
             >
               You&rsquo;ve hit the public demo rate limit. Get an API key for
-              higher limits, or try again.
+              higher limits.
             </Mono>
             <Flex css={theme({ alignItems: 'center', gap: 2, mt: 3 })}>
-              <RetryButton type='button' onClick={onRetry}>
-                Try again
-              </RetryButton>
               <RateLimitLink href='/pricing'>View plans →</RateLimitLink>
             </Flex>
           </Box>
@@ -1696,7 +1677,6 @@ const Hero = () => {
   const [promptCopied, setPromptCopied] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const copyTimer = useRef(null)
-  const retrySnapshot = useRef(null)
 
   useEffect(() => () => clearTimeout(copyTimer.current), [])
 
@@ -1788,7 +1768,6 @@ const Hero = () => {
     } catch (err) {
       if (id !== reqId.current) return
       if (err && err.statusCode === RATE_LIMIT_STATUS) {
-        retrySnapshot.current = snapshot
         setReq({ status: 'rate-limited', D: snapshot, apiUrl })
         return
       }
@@ -1908,10 +1887,6 @@ const Hero = () => {
     writeSharedState(dText, dVert)
     runRequest(D)
   }
-
-  const handleRetry = useCallback(() => {
-    if (retrySnapshot.current) runRequest(retrySnapshot.current)
-  }, [runRequest])
 
   const onEditorInput = () => {
     const el = editorRef.current
@@ -2309,12 +2284,7 @@ const Hero = () => {
               )}
         </Caps>
 
-        <ResultPanel
-          tab={dTab}
-          setTab={setDTab}
-          req={req}
-          onRetry={handleRetry}
-        />
+        <ResultPanel tab={dTab} setTab={setDTab} req={req} />
 
         <HeroActions>
           <CopyPromptButton
