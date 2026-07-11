@@ -4,21 +4,10 @@ const { identity, castArray, isEmpty } = require('lodash')
 const { readFile, writeFile } = require('fs/promises')
 const jsonFuture = require('json-future')
 
-const readExisting = async filepath => {
+const isReusable = async filepath => {
   try {
     const buffer = await readFile(filepath)
-    return buffer.byteLength === 0 ? undefined : buffer
-  } catch (_) {
-    return undefined
-  }
-}
-
-const isReusable = async (filepath, isFresh) => {
-  const buffer = await readExisting(filepath)
-  if (buffer === undefined) return false
-  if (isFresh === undefined) return true
-  try {
-    return isFresh(JSON.parse(buffer)) === true
+    return buffer.byteLength > 0
   } catch (_) {
     return false
   }
@@ -34,13 +23,13 @@ const fetchData = async url => {
   return { data, isJSON }
 }
 
-module.exports.fromUrl = async (url, { dist, mapper = identity, isFresh }) => {
-  if (await isReusable(dist, isFresh)) return
+module.exports.fromUrl = async (url, { dist, mapper = identity }) => {
+  if (await isReusable(dist)) return
   const { data, isJSON } = await fetchData(url)
   return isJSON
     ? jsonFuture.saveAsync(dist, castArray(mapper(data)))
     : writeFile(dist, data)
 }
 
-module.exports.fromCode = async (fn, { dist, isFresh }) =>
-  !(await isReusable(dist, isFresh)) && jsonFuture.saveAsync(dist, await fn())
+module.exports.fromCode = async (fn, { dist }) =>
+  !(await isReusable(dist)) && jsonFuture.saveAsync(dist, await fn())

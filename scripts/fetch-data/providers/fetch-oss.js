@@ -2,9 +2,11 @@
 
 const path = require('path')
 
+const DIST = path.resolve(__dirname, '../../../data/oss.json')
+
 module.exports = () =>
   require('../create-provider').fromUrl('https://oss.microlink.io', {
-    dist: path.resolve(__dirname, '../../../data/oss.json'),
+    dist: DIST,
     mapper: data =>
       data
         .map(item => {
@@ -22,3 +24,5 @@ module.exports = () =>
         })
         .filter(item => !item.fork && !!item.language && !!item.description)
   })
+
+module.exports.dist = DIST

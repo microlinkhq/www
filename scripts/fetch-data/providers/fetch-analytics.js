@@ -5,6 +5,7 @@ const path = require('path')
 const ANALYTICS_URL = 'https://analytics.microlink.io?domain=microlink.io'
 const CLOUDFLARE_NETWORK_URL = 'https://www.cloudflare.com/network/'
 const FALLBACK_CDN_EDGES = 330
+const DIST = path.resolve(__dirname, '../../../data/analytics.json')
 
 const roundPretty = pretty => {
   const match = String(pretty).match(/^([\d.]+)(\D+)$/)
@@ -35,15 +36,6 @@ const fetchCdnEdges = async () => {
   }
 }
 
-const isFresh = data =>
-  Array.isArray(data) &&
-  data.length > 0 &&
-  data.every(
-    entry =>
-      typeof entry.cdn_edges === 'number' &&
-      typeof entry.reqs_pretty === 'string'
-  )
-
 module.exports = () =>
   require('../create-provider').fromCode(
     async () => {
@@ -59,12 +51,9 @@ module.exports = () =>
         }
       ]
     },
-    {
-      dist: path.resolve(__dirname, '../../../data/analytics.json'),
-      isFresh
-    }
+    { dist: DIST }
   )
 
+module.exports.dist = DIST
 module.exports.roundPretty = roundPretty
 module.exports.parseCdnEdges = parseCdnEdges
-module.exports.isFresh = isFresh

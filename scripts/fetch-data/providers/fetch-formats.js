@@ -8,6 +8,7 @@ const { getType } = require('mime')
 const path = require('path')
 
 const MICROLINK_CDN_URL = 'https://cdn.microlink.io/file-examples'
+const DIST = path.resolve(__dirname, '../../../data/formats.json')
 
 const fileUrls = async () =>
   (await fetch(`${MICROLINK_CDN_URL}/index.json`).then(res => res.json())).map(
@@ -102,6 +103,6 @@ const fn = async () => {
 }
 
 module.exports = () =>
-  require('../create-provider').fromCode(fn, {
-    dist: path.resolve(__dirname, '../../../data/formats.json')
-  })
+  require('../create-provider').fromCode(fn, { dist: DIST })
+
+module.exports.dist = DIST

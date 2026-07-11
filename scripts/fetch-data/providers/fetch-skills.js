@@ -213,3 +213,5 @@ module.exports = async () => {
 
   return skills
 }
+
+module.exports.dist = [SKILLS_DATA_PATH, SKILLS_CONTENT_DIR, SKILLS_REPO_DIR]
