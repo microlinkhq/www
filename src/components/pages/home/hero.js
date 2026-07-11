@@ -158,6 +158,8 @@ const REQUEST_OPTS = {
   audio: { audio: true }
 }
 
+const INSTALL_COMMENT = '// npm install microlink.io'
+
 const CODE_TAB = {
   screenshot: {
     binding: 'screenshot',
@@ -1666,10 +1668,10 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
             })}
           >
             <Num>import</Num> createClient <Num>from</Num>{' '}
-            <Str>'microlink.io'</Str>
+            <Str>'microlink.io'</Str> <Comment>{INSTALL_COMMENT}</Comment>
             {'\n\n'}
-            <Num>const</Num> microlink = <Fn>createClient</Fn>()
-            {'\n\n'}
+            <Num>const</Num> microlink = <Fn>createClient</Fn>({'{'} apiKey:
+            process.env.MICROLINK_API_KEY {'}'}){'\n\n'}
             <Num>const</Num> {snippet.binding} = <Num>await</Num> microlink.
             <Fn>{snippet.method}</Fn>(
             {snippet.code
