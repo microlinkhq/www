@@ -66,7 +66,7 @@ export const PRODUCTS = {
     label: 'Text',
     icon: AlignLeftIcon,
     href: '/docs/api/parameters/data',
-    description: 'Clean, readable text from any page'
+    description: 'Clean, LLM-ready text from any page'
   },
   metadata: {
     label: 'Metadata',

@@ -21,7 +21,7 @@ export const Head = () => {
     url: 'https://microlink.io',
     image: 'https://cdn.microlink.io/logo/logo.png',
     description:
-      'Microlink is a web API that turns any link into screenshots, PDFs, clean text, and data, built for people and their AI agents.',
+      'Microlink is web automation infrastructure that turns any link into screenshots, PDFs, clean markdown, and structured data, built for people and their AI agents.',
     softwareHelp: 'https://microlink.io/docs',
     offers: {
       '@type': 'Offer',

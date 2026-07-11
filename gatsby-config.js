@@ -47,9 +47,9 @@ module.exports = {
     // Basic
     name: 'Microlink',
     author: 'Microlink HQ',
-    headline: 'Microlink | Everything your AI agent needs from any link',
+    headline: 'Microlink | AI-ready web automation infrastructure',
     description:
-      'Turn any link into screenshots, PDFs, clean text, and structured data with one simple API. Works with any AI agent or your own code. Try it, no signup.',
+      'AI-ready web automation infrastructure. Turn any link into screenshots, PDFs, clean markdown, and structured data with one API. Try it, no signup.',
     siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
     ogImageBase: OG_IMAGE_BASE,
