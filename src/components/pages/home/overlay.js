@@ -144,6 +144,7 @@ const Overlay = React.memo(({ start = '50%' }) => (
         ${absolute};
         z-index: -1;
         perspective: 1000px;
+        filter: blur(1px);
       `}
     >
       <Box
