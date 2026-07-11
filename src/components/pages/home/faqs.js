@@ -28,19 +28,19 @@ export const getFaqQuestions = () => {
       )
     },
     {
-      question: 'What’s the difference between the free and Pro plans?',
+      question: 'What’s the difference between the free and paid plans?',
       answer: (
         <>
           <div>
-            The Pro plan is built for scale, with better performance and
+            The paid plan is built for scale, with better performance and
             unlocked features such as{' '}
             <Link href='/docs/api/parameters/headers'>headers</Link>,{' '}
             <Link href='/docs/api/parameters/ttl'>ttl</Link> or{' '}
             <Link href='/docs/api/parameters/proxy'>proxy</Link>.
           </div>
           <div>
-            A Pro plan comes with an associated API key and configurable quota.
-            You only pay for what you need.
+            The Pro plan comes with an associated API key and configurable
+            quota. You only pay for what you need.
           </div>
         </>
       )
@@ -87,15 +87,6 @@ export const getFaqQuestions = () => {
       )
     },
     {
-      question: "What's your SLA level?",
-      answer: (
-        <div>
-          Our Service-Level Agreements commitment is 99.9% (three nines). You
-          can see the live <Link href='/status'>status</Link> of the service.
-        </div>
-      )
-    },
-    {
       question: 'Can Microlink handle my traffic?',
       answer: (
         <>
@@ -111,6 +102,15 @@ export const getFaqQuestions = () => {
             quota is the only limit.
           </div>
         </>
+      )
+    },
+    {
+      question: "What's your SLA level?",
+      answer: (
+        <div>
+          Our Service-Level Agreements commitment is 99.9% (three nines). You
+          can see the live <Link href='/status'>status</Link> of the service.
+        </div>
       )
     },
     {
