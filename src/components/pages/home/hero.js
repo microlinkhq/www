@@ -552,8 +552,8 @@ const Badge = styled.span`
     gap: '9px',
     fontSize: 0,
     fontWeight: 600,
-    color: 'gray7',
     bg: 'white',
+    color: 'gray6',
     border: 1,
     borderColor: 'gray2',
     py: '7px',
@@ -805,8 +805,8 @@ const ExampleChip = styled.button`
     gap: '7px',
     fontFamily: 'sans',
     fontSize: '13px',
-    color: 'gray7',
     bg: 'white',
+    color: 'gray7',
     border: 1,
     borderColor: 'gray2',
     py: 2,
@@ -860,8 +860,8 @@ const actionPill = css`
 const CopyPromptButton = styled.button`
   ${actionPill};
   ${theme({
-    color: 'gray7',
     bg: 'white',
+    color: 'gray7',
     border: 1,
     borderColor: 'gray2'
   })};
