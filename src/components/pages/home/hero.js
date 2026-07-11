@@ -279,7 +279,7 @@ const PROMPTS = {
   animated: 'record animated screenshot',
   preview: 'generate link preview',
   embed: 'embed URL',
-  markdown: 'get markdown',
+  markdown: 'fetch markdown',
   html: 'get HTML',
   text: 'extract text',
   metadata: 'extract metadata',
@@ -288,7 +288,7 @@ const PROMPTS = {
   function: 'run function',
   search: 'search the web',
   pdf: 'create PDF',
-  logo: 'get logo',
+  logo: 'grab logo',
   video: 'detect video',
   audio: 'detect audio'
 }
