@@ -7,9 +7,6 @@ const hexToRgb = hex => {
   return [0, 2, 4].map(i => parseInt(value.slice(i, i + 2), 16))
 }
 
-const composite = (fg, alpha, bg = [255, 255, 255]) =>
-  fg.map((channel, i) => Math.round(channel * alpha + bg[i] * (1 - alpha)))
-
 const relativeLuminance = rgb => {
   const [r, g, b] = rgb.map(channel => {
     const c = channel / 255
@@ -25,18 +22,18 @@ const contrast = (a, b) => {
   return (high + 0.05) / (low + 0.05)
 }
 
-const badgeBackground = composite(hexToRgb(colors.secondary), 0.07)
+const badgeBackground = [255, 255, 255]
 
 describe('home hero badge contrast', () => {
   test('badge text meets WCAG 1.4.3 AA for normal text (4.5:1)', () => {
     expect(
-      contrast(hexToRgb(colors.grape8), badgeBackground)
+      contrast(hexToRgb(colors.gray7), badgeBackground)
     ).toBeGreaterThanOrEqual(4.5)
   })
 
   test('pulse dot meets WCAG 1.4.11 non-text contrast (3:1)', () => {
     expect(
-      contrast(hexToRgb(colors.pink8), badgeBackground)
+      contrast(hexToRgb(colors.green8), badgeBackground)
     ).toBeGreaterThanOrEqual(3)
   })
 })

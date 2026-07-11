@@ -79,9 +79,9 @@ const useIsomorphicLayoutEffect =
 const EASE_SMOOTH = timings.smooth
 
 const pulse = keyframes`
-  0% { box-shadow: 0 0 0 0 ${rgba(colors.pink8, 0.45)} }
-  70% { box-shadow: 0 0 0 8px ${rgba(colors.pink8, 0)} }
-  100% { box-shadow: 0 0 0 0 ${rgba(colors.pink8, 0)} }
+  0% { box-shadow: 0 0 0 0 ${rgba(colors.green8, 0.45)} }
+  70% { box-shadow: 0 0 0 8px ${rgba(colors.green8, 0)} }
+  100% { box-shadow: 0 0 0 0 ${rgba(colors.green8, 0)} }
 `
 
 const fadeIn = keyframes`
@@ -538,7 +538,7 @@ const PulseDot = styled(Dot)`
     width: '9px',
     height: '9px',
     borderRadius: '50%',
-    bg: 'pink8'
+    bg: 'green8'
   })};
   ${reduceMotion} {
     animation: none;
@@ -552,10 +552,10 @@ const Badge = styled.span`
     gap: '9px',
     fontSize: 0,
     fontWeight: 600,
-    color: 'grape8',
-    bg: rgba(colors.secondary, 0.07),
+    color: 'gray7',
+    bg: 'white',
     border: 1,
-    borderColor: rgba(colors.grape7, 0.18),
+    borderColor: 'gray2',
     py: '7px',
     px: 3,
     borderRadius: '999px',
