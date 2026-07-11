@@ -2159,7 +2159,7 @@ const Hero = () => {
           </Heading>
         </Heading>
 
-        <Caption css={theme({ pt: 3 })}>
+        <Caption forwardedAs='p' css={theme({ pt: 3, mx: 6, fontSize: 2 })}>
           Everything your AI agent needs from any link: screenshots, PDFs, clean
           markdown, and structured data through one simple API. Tell it what to
           do below and try it live, no signup.
