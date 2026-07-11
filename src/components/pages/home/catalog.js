@@ -1,3 +1,4 @@
+import GOOGLE_EXAMPLES from 'data/google-examples'
 import { Focus } from 'components/icons/Focus'
 import { Markdown } from 'components/icons/Markdown'
 import { PDF } from 'components/icons/PDF'
@@ -128,3 +129,9 @@ export const PRODUCTS = {
 export const VERTICAL_ORDER = Object.keys(PRODUCTS).sort((a, b) =>
   PRODUCTS[a].label.localeCompare(PRODUCTS[b].label)
 )
+
+export const SEARCH_EXAMPLE = GOOGLE_EXAMPLES.search[0]
+
+export const HOME_CONTENT_WIDTH = '1180px'
+
+export const CAPACITY_REQUESTS_PER_MONTH = '188 million'

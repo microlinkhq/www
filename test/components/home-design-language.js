@@ -28,7 +28,7 @@ describe('home design language', () => {
 
   test('products grid matches the production section width and padding', () => {
     for (const source of [products, production]) {
-      expect(source).toContain("maxWidth: '1180px'")
+      expect(source).toContain('maxWidth: HOME_CONTENT_WIDTH')
       expect(source).toContain('px: [3, 3, 4]')
     }
     expect(products).not.toContain('1280px')
@@ -38,7 +38,7 @@ describe('home design language', () => {
   test('products section opens like every other home section', () => {
     expect(products).toContain('<Subhead>')
     expect(products).toContain("<Subhead variant='gradient' as='span'>")
-    expect(products).toContain('pt: [4, 4, 5, 5]')
+    expect(products).toContain('pt: SECTION_VERTICAL_SPACING')
     expect(products).not.toMatch(/<Heading\b/)
   })
 

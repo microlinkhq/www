@@ -2,7 +2,8 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
-import { PRODUCTS } from 'components/pages/home/catalog'
+import { HOME_CONTENT_WIDTH, PRODUCTS } from 'components/pages/home/catalog'
+import { Microlink } from 'components/logos'
 import { IframePreviewsShowcase } from 'components/pages/embed/IframePreviewsShowcase'
 import { FileType } from 'components/icons/FileType'
 import { trackEvent } from 'helpers/plausible'
@@ -14,7 +15,8 @@ import {
   radii,
   layout,
   shadows,
-  shadowInk
+  shadowInk,
+  SECTION_VERTICAL_SPACING
 } from 'theme'
 import Subhead from 'components/elements/Subhead'
 import Caption from 'components/patterns/Caption/Caption'
@@ -37,7 +39,6 @@ const tone = {
   faint: colors.gray5,
   white: colors.white,
   surface: colors.white,
-  surfaceSoft: colors.gray0,
   surfaceDark: colors.gray9,
   neutral: colors.gray1,
   border: colors.gray2,
@@ -60,7 +61,6 @@ const syntax = {
 
 const radius = {
   panel: radii[4],
-  inner: radii[4],
   sm: radii[3]
 }
 
@@ -116,7 +116,7 @@ const CATALOG = { ...PRODUCTS, ...EXTRA }
 
 const Grid = styled.div(
   theme({
-    maxWidth: '1180px',
+    maxWidth: HOME_CONTENT_WIDTH,
     mx: 'auto',
     mt: 5,
     px: [3, 3, 4],
@@ -980,7 +980,6 @@ const PdfPreview = () => (
   </Box>
 )
 
-const LOGO_URI = 'https://cdn.microlink.io/logo/logo.svg'
 const LOGO_WIDTHS = ['56%', '38%', '20%']
 const LOGO_PALETTE = [
   '#EC427C',
@@ -1023,7 +1022,11 @@ const LogoPreview = () => (
     >
       {LOGO_WIDTHS.map((width, i) => (
         <LogoTile key={i}>
-          <LogoImg src={LOGO_URI} alt='Microlink logo' css={{ width }} />
+          <LogoImg
+            src={Microlink.logoUri}
+            alt='Microlink logo'
+            css={{ width }}
+          />
         </LogoTile>
       ))}
     </Box>
@@ -1355,7 +1358,7 @@ const VideoPreview = () => (
   >
     <Box
       css={{
-        borderRadius: radius.inner,
+        borderRadius: radius.panel,
         overflow: 'hidden',
         position: 'relative',
         aspectRatio: '16 / 9',
@@ -1525,7 +1528,7 @@ const AnimatedPreview = () => (
       css={{
         background: tone.surface,
         border: `1px solid ${tone.border}`,
-        borderRadius: radius.inner,
+        borderRadius: radius.panel,
         overflow: 'hidden'
       }}
     >
@@ -1906,7 +1909,7 @@ const LogoNode = () => (
       })}
     >
       <img
-        src={LOGO_URI}
+        src={Microlink.logoUri}
         alt='Microlink'
         css={theme({ width: '60px', height: 'auto', display: 'block' })}
       />
@@ -2181,8 +2184,7 @@ const HtmlPreview = () => (
   </Flex>
 )
 
-const INPUT_Y = [34, 122, 210, 298]
-const OUTPUT_Y = [34, 122, 210, 298]
+const LANE_Y = [34, 122, 210, 298]
 
 const FileConversionPreview = () => (
   <Box css={theme({ mt: 3, flex: 1 })}>
@@ -2215,7 +2217,7 @@ const FileConversionPreview = () => (
             <Box
               css={theme({ position: 'relative', flex: 1, minWidth: '50px' })}
             >
-              {INPUT_Y.map(y => (
+              {LANE_Y.map(y => (
                 <DashRun key={y} css={theme({ right: 0, top: `${y - 1}px` })} />
               ))}
             </Box>
@@ -2251,7 +2253,7 @@ const FileConversionPreview = () => (
             <Box
               css={theme({ position: 'relative', flex: 1, minWidth: '50px' })}
             >
-              {OUTPUT_Y.map(y => (
+              {LANE_Y.map(y => (
                 <React.Fragment key={y}>
                   <DashRun css={theme({ right: '12px', top: `${y - 1}px` })} />
                   <svg
@@ -2295,7 +2297,7 @@ const FileConversionPreview = () => (
 )
 
 const Products = () => (
-  <Box as='section' css={theme({ pt: [4, 4, 5, 5] })}>
+  <Box as='section' css={theme({ pt: SECTION_VERTICAL_SPACING })}>
     <Box
       css={theme({
         maxWidth: layout.large,

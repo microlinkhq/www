@@ -3,7 +3,7 @@ import Subhead from 'components/elements/Subhead'
 import Caption from 'components/patterns/Caption/Caption'
 import Plans from 'components/patterns/Plans/Plans'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
-import { layout, theme } from 'theme'
+import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React from 'react'
 
 const Pricing = () => {
@@ -16,7 +16,7 @@ const Pricing = () => {
           alignItems: 'center',
           textAlign: 'center',
           maxWidth: '100%',
-          pt: [4, 4, 5, 5],
+          pt: SECTION_VERTICAL_SPACING,
           px: [3, 3, 4, 4]
         })}
       >

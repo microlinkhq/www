@@ -11,10 +11,28 @@ import Overlay from 'components/pages/home/overlay'
 import Output from 'components/pages/home/output'
 import FeatherIcon from 'components/icons/Feather'
 import { WandSparkles } from 'components/icons/WandSparkles'
-import { PRODUCTS, VERTICAL_ORDER } from 'components/pages/home/catalog'
+import {
+  PRODUCTS,
+  SEARCH_EXAMPLE,
+  VERTICAL_ORDER
+} from 'components/pages/home/catalog'
 import { blink } from 'components/keyframes'
 import { trackEvent } from 'helpers/plausible'
-import { transition, timings, space, theme, colors, gradient } from 'theme'
+import { escText } from 'helpers/link-card'
+import { parseServerTimingEntries } from 'helpers/server-timing'
+import {
+  REDUCED_MOTION_MEDIA,
+  prefersReducedMotion
+} from 'helpers/reduced-motion'
+import {
+  transition,
+  timings,
+  space,
+  theme,
+  colors,
+  gradient,
+  gradientStops
+} from 'theme'
 import { rgba } from 'polished'
 import React, {
   useCallback,
@@ -26,13 +44,10 @@ import React, {
 } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import mql, { getApiUrl } from '@microlink/mql'
-import GOOGLE_EXAMPLES from 'data/google-examples'
 
 import { Copy as CopyIcon, Check as CheckIcon } from 'react-feather'
 
 import analyticsData from '../../../../data/analytics.json'
-
-const SEARCH_EXAMPLE = GOOGLE_EXAMPLES.search[0]
 
 const [{ reqs_pretty: reqsPretty }] = analyticsData
 
@@ -55,12 +70,12 @@ const SYNTAX = {
   body: 'gray8'
 }
 
-const reduceMotion = '@media (prefers-reduced-motion: reduce)'
+const reduceMotion = REDUCED_MOTION_MEDIA
 
 const useIsomorphicLayoutEffect =
   typeof window === 'undefined' ? useEffect : useLayoutEffect
 
-const EASE_SMOOTH = 'cubic-bezier(0.22, 1, 0.36, 1)'
+const EASE_SMOOTH = timings.smooth
 
 const pulse = keyframes`
   0% { box-shadow: 0 0 0 0 ${rgba(colors.secondary, 0.45)} }
@@ -114,7 +129,6 @@ const AGENT_TASK = {
   lighthouse: 'run a Lighthouse performance audit on',
   technologies: 'detect the technologies used by',
   function: 'run a custom function against',
-  search: 'search Google and return structured results',
   pdf: 'generate a PDF of',
   logo: 'fetch the logo of',
   video: 'extract the video from',
@@ -125,11 +139,11 @@ const agentPrompt = ({ vertical, fullUrl }) => {
   const task =
     vertical === 'search'
       ? `search Google for "${SEARCH_EXAMPLE.query}" and return the structured results`
-      : `${
-        AGENT_TASK[vertical] || 'fetch data from'
-      } ${fullUrl} and return the structured result`
+      : `${AGENT_TASK[vertical]} ${fullUrl} and return the structured result`
   return `Using the Microlink API, ${task}.\n\nSet up Microlink for your agent first: ${SKILL_INSTALL}`
 }
+
+const FN_SNIPPET = "({ page }) => page.$$eval('a', els => els.map(a => a.href))"
 
 const REQUEST_OPTS = {
   screenshot: { screenshot: true },
@@ -147,7 +161,7 @@ const REQUEST_OPTS = {
   },
   technologies: { insights: { lighthouse: false, technologies: true } },
   function: {
-    function: "({ page }) => page.$$eval('a', els => els.map(a => a.href))",
+    function: FN_SNIPPET,
     meta: false,
     ping: false
   },
@@ -173,12 +187,6 @@ const CODE_TAB = {
     opts: { animated: true },
     log: 'animated.url',
     comment: 'hosted animation URL'
-  },
-  preview: {
-    binding: 'metadata',
-    method: 'metadata',
-    log: 'metadata.title',
-    comment: 'normalized page metadata'
   },
   embed: {
     binding: 'embed',
@@ -225,7 +233,7 @@ const CODE_TAB = {
   function: {
     binding: '{ value }',
     method: 'run',
-    code: "({ page }) => page.$$eval('a', els => els.map(a => a.href))",
+    code: FN_SNIPPET,
     log: 'value',
     comment: 'every link on the page'
   },
@@ -263,24 +271,7 @@ const CODE_TAB = {
   }
 }
 
-const CYCLE = [
-  'take screenshot of apple.com/music',
-  'create PDF of raycast.com',
-  'run lighthouse report of simonwillison.net',
-  'detect technologies of vercel.com',
-  'extract text of en.wikipedia.org',
-  'run function of example.com',
-  'get markdown of microlink.io/docs',
-  'get logo of github.com'
-]
-
-const EXAMPLES = [
-  'take screenshot',
-  'detect technologies',
-  'extract metadata',
-  'get markdown',
-  'get logo'
-]
+CODE_TAB.preview = CODE_TAB.metadata
 
 const PROMPTS = {
   screenshot: 'take screenshot',
@@ -301,6 +292,46 @@ const PROMPTS = {
   audio: 'detect audio'
 }
 
+const PARSE_RULES = [
+  ['animated', /\banimated\b|animation|screen ?cast|\bgif\b|\brecord\b/],
+  [
+    'screenshot',
+    /screenshot|screen ?shot|capture|snap|take a (pic|photo|picture|shot)|image of|how .* looks?/
+  ],
+  ['pdf', /\bpdf\b|print|printable|to a doc|as a doc/],
+  ['logo', /\blogo\b|favicon|\bbrand\b|\bicon of\b/],
+  [
+    'lighthouse',
+    /lighthouse|performance|page ?speed|web ?vitals|\binsights?\b|audit|core web/
+  ],
+  [
+    'technologies',
+    /technolog|tech ?stack|built ?with|wappalyzer|frameworks? used|stack of/
+  ],
+  ['html', /\bhtml\b|raw html|page source|source code|markup/],
+  [
+    'function',
+    /\bfunction\b|run (a |some )?(code|js|script)|custom (js|code|script)|evaluate|execute|\$\$?eval/
+  ],
+  ['video', /\bvideo\b|\bmp4\b|extract video|video from/],
+  ['audio', /\baudio\b|\bmp3\b|\bsound\b|podcast/],
+  [
+    'text',
+    /plain ?text|readable text|extract (the )?text|just the text|\btext of\b|\btext from\b/
+  ],
+  [
+    'metadata',
+    /metadata|meta ?data|\bmeta\b|open ?graph|\bog:?\b|\bseo\b|title and description/
+  ],
+  [
+    'markdown',
+    /markdown|\bmd\b|clean text|readable|article text|page content|content of|in markdown/
+  ],
+  ['search', /\bsearch\b|google|serp|results for|look up|find .* (about|on)/],
+  ['embed', /\bembed\b|embeddable|\biframe\b|oembed/],
+  ['preview', /preview|unfurl|link ?card|rich card/]
+]
+
 const parseLocal = text => {
   const src = text || ''
   const m =
@@ -313,47 +344,8 @@ const parseLocal = text => {
     if (!/^https?:\/\//.test(url)) url = 'https://' + url
   }
   const t = (raw ? src.replace(raw, ' ') : src).toLowerCase()
-  const rules = [
-    ['animated', /\banimated\b|animation|screen ?cast|\bgif\b|\brecord\b/],
-    [
-      'screenshot',
-      /screenshot|screen ?shot|capture|snap|take a (pic|photo|picture|shot)|image of|how .* looks?/
-    ],
-    ['pdf', /\bpdf\b|print|printable|to a doc|as a doc/],
-    ['logo', /\blogo\b|favicon|\bbrand\b|\bicon of\b/],
-    [
-      'lighthouse',
-      /lighthouse|performance|page ?speed|web ?vitals|\binsights?\b|audit|core web/
-    ],
-    [
-      'technologies',
-      /technolog|tech ?stack|built ?with|wappalyzer|frameworks? used|stack of/
-    ],
-    ['html', /\bhtml\b|raw html|page source|source code|markup/],
-    [
-      'function',
-      /\bfunction\b|run (a |some )?(code|js|script)|custom (js|code|script)|evaluate|execute|\$\$?eval/
-    ],
-    ['video', /\bvideo\b|\bmp4\b|extract video|video from/],
-    ['audio', /\baudio\b|\bmp3\b|\bsound\b|podcast/],
-    [
-      'text',
-      /plain ?text|readable text|extract (the )?text|just the text|\btext of\b|\btext from\b/
-    ],
-    [
-      'metadata',
-      /metadata|meta ?data|\bmeta\b|open ?graph|\bog:?\b|\bseo\b|title and description/
-    ],
-    [
-      'markdown',
-      /markdown|\bmd\b|clean text|readable|article text|page content|content of|in markdown/
-    ],
-    ['search', /\bsearch\b|google|serp|results for|look up|find .* (about|on)/],
-    ['embed', /\bembed\b|embeddable|\biframe\b|oembed/],
-    ['preview', /preview|unfurl|link ?card|rich card/]
-  ]
   let vertical = 'screenshot'
-  for (const [k, re] of rules) {
+  for (const [k, re] of PARSE_RULES) {
     if (re.test(t)) {
       vertical = k
       break
@@ -384,12 +376,51 @@ const DEFAULT_URLS = {
 }
 const FALLBACK_URL = 'https://example.com'
 
+const assertProductParity = (name, map, { except = [] } = {}) => {
+  const expected = Object.keys(PRODUCTS).filter(key => !except.includes(key))
+  const missing = expected.filter(key => !(key in map))
+  const extra = Object.keys(map).filter(key => !(key in PRODUCTS))
+  if (missing.length || extra.length) {
+    throw new Error(
+      `hero ${name} out of sync with PRODUCTS catalog (missing: ${
+        missing.join(', ') || 'none'
+      }; extra: ${extra.join(', ') || 'none'})`
+    )
+  }
+}
+
+assertProductParity('AGENT_TASK', AGENT_TASK, { except: ['search'] })
+assertProductParity('REQUEST_OPTS', REQUEST_OPTS)
+assertProductParity('CODE_TAB', CODE_TAB)
+assertProductParity('PROMPTS', PROMPTS)
+assertProductParity('DEFAULT_URLS', DEFAULT_URLS)
+assertProductParity('PARSE_RULES', Object.fromEntries(PARSE_RULES))
+
 const shortUrl = url => url.replace(/^https?:\/\//, '').replace(/^www\./, '')
 
-const EXAMPLE_CHIPS = EXAMPLES.map(text => ({
-  text,
-  vertical: parseLocal(text).vertical
-}))
+const promptFor = vertical =>
+  `${PROMPTS[vertical]} of ${shortUrl(DEFAULT_URLS[vertical])}`
+
+const CYCLE = [
+  'screenshot',
+  'pdf',
+  'lighthouse',
+  'technologies',
+  'text',
+  'function',
+  'markdown',
+  'logo'
+].map(promptFor)
+
+const EXAMPLE_CHIPS = [
+  'screenshot',
+  'technologies',
+  'metadata',
+  'markdown',
+  'logo'
+].map(vertical => ({ text: PROMPTS[vertical], vertical }))
+
+const VERT_BORDER_ACTIVE = rgba(colors.grape7, 0.45)
 
 const derive = (text, override) => {
   const p = parseLocal(text)
@@ -402,7 +433,7 @@ const derive = (text, override) => {
     vertical: v,
     label: PRODUCTS[v].label,
     fullUrl,
-    vertBorder: override ? rgba(colors.grape7, 0.45) : colors.gray2
+    vertBorder: override ? VERT_BORDER_ACTIVE : colors.gray2
   }
 }
 
@@ -411,26 +442,18 @@ const TIMING_COLORS = ['green5', 'blue5', 'yellow5', 'pink5', 'grape5', 'teal5']
 const headersToRows = headers => {
   if (!headers) return []
   const rows = []
-  if (typeof headers.forEach === 'function') {
-    headers.forEach((v, k) => rows.push({ k, v }))
-  } else {
-    Object.entries(headers).forEach(([k, v]) => rows.push({ k, v: String(v) }))
-  }
+  headers.forEach((v, k) => rows.push({ k, v }))
   return rows.sort((a, b) => a.k.localeCompare(b.k))
 }
 
 const parseServerTiming = headers => {
-  const raw =
-    headers && typeof headers.get === 'function'
-      ? headers.get('server-timing')
-      : headers && headers['server-timing']
+  const raw = headers && headers.get('server-timing')
   if (!raw) return { bars: [], rows: [], totalMs: null }
 
-  const entries = raw.split(',').map(part => {
-    const [name, ...rest] = part.split(';')
-    const dur = rest.find(p => p.trim().startsWith('dur='))
-    return { name: name.trim(), dur: dur ? parseFloat(dur.split('=')[1]) : 0 }
-  })
+  const entries = parseServerTimingEntries(raw).map(e => ({
+    name: e.name,
+    dur: e.dur ?? 0
+  }))
 
   const total =
     entries.find(e => e.name === 'total')?.dur ??
@@ -539,8 +562,6 @@ const Badge = styled.span`
   })};
 `
 
-const FORCE_FOCUS = false
-
 const composerFocus = css`
   ${theme({
     borderColor: rgba(colors.grape7, 0.45),
@@ -565,8 +586,7 @@ const Composer = styled.div`
     textAlign: 'left'
   })};
 
-  &:has([contenteditable='true']:focus),
-  &[data-force-focus='true'] {
+  &:has([contenteditable='true']:focus) {
     ${composerFocus}
   }
 
@@ -655,25 +675,19 @@ const ComposerEditor = styled.div`
 const CLOSE_ICON_SVG =
   '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>'
 
-const escHtml = value =>
-  String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-
 const composerHtml = (segments, { caret }) => {
   let html = ''
-  if (segments.before) html += escHtml(segments.before)
+  if (segments.before) html += escText(segments.before)
   if (segments.url) {
     html +=
       '<span data-url-tag contenteditable="false">' +
-      escHtml(segments.url) +
+      escText(segments.url) +
       '<span data-url-action role="button" tabindex="-1" aria-label="Remove URL">' +
       CLOSE_ICON_SVG +
       '</span>' +
       '</span>'
   }
-  if (segments.after) html += escHtml(segments.after)
+  if (segments.after) html += escText(segments.after)
   if (caret) html += '<span data-caret aria-hidden="true"></span>'
   return html
 }
@@ -1004,15 +1018,13 @@ const ShimmerText = styled.span`
 `
 
 const PILL_TONES = {
-  success: { color: SUCCESS, background: colors.green0 },
   error: { color: ERROR, background: colors.red0 },
-  warning: { color: WARN, background: colors.orange0 },
-  loading: { color: VIOLET, background: rgba(colors.grape7, 0.08) }
+  warning: { color: WARN, background: colors.orange0 }
 }
 
 const StatusPill = styled.span`
-  color: ${p => (PILL_TONES[p.$tone] || PILL_TONES.success).color};
-  background: ${p => (PILL_TONES[p.$tone] || PILL_TONES.success).background};
+  color: ${p => PILL_TONES[p.$tone].color};
+  background: ${p => PILL_TONES[p.$tone].background};
   ${theme({
     fontFamily: 'mono',
     fontSize: '13px',
@@ -1052,18 +1064,10 @@ const Code = styled.pre`
   })};
 `
 
-const JSON_COLORS = {
-  key: SYNTAX.key,
-  string: SYNTAX.string,
-  number: SYNTAX.number,
-  boolean: SYNTAX.boolean,
-  null: SYNTAX.literal
-}
-
 const JSON_TOKEN =
   /("(?:\\.|[^"\\])*")(\s*:)?|\b(?:true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g
 
-const JsonView = ({ src }) => {
+const tokenizeJson = src => {
   const text = JSON.stringify(src, null, 2)
   const nodes = []
   let last = 0
@@ -1077,24 +1081,24 @@ const JsonView = ({ src }) => {
 
     if (match[1] && match[2] !== undefined) {
       nodes.push(
-        <Box as='span' key={key++} css={theme({ color: JSON_COLORS.key })}>
+        <Box as='span' key={key++} css={theme({ color: SYNTAX.key })}>
           {match[1]}
         </Box>
       )
       nodes.push(match[2])
     } else if (match[1]) {
       nodes.push(
-        <Box as='span' key={key++} css={theme({ color: JSON_COLORS.string })}>
+        <Box as='span' key={key++} css={theme({ color: SYNTAX.string })}>
           {token}
         </Box>
       )
     } else {
       const color =
         token === 'true' || token === 'false'
-          ? JSON_COLORS.boolean
+          ? SYNTAX.boolean
           : token === 'null'
-            ? JSON_COLORS.null
-            : JSON_COLORS.number
+            ? SYNTAX.literal
+            : SYNTAX.number
       nodes.push(
         <Box as='span' key={key++} css={theme({ color })}>
           {token}
@@ -1105,6 +1109,17 @@ const JsonView = ({ src }) => {
     last = JSON_TOKEN.lastIndex
   }
   if (last < text.length) nodes.push(text.slice(last))
+  return nodes
+}
+
+const jsonNodesCache = new WeakMap()
+
+const JsonView = ({ src }) => {
+  let nodes = jsonNodesCache.get(src)
+  if (!nodes) {
+    nodes = tokenizeJson(src)
+    jsonNodesCache.set(src, nodes)
+  }
 
   return (
     <Code css={theme({ fontSize: 0, lineHeight: 1.85, color: SYNTAX.body })}>
@@ -1287,7 +1302,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
   const isError = status === 'error'
   const isRateLimited = status === 'rate-limited'
   const hideTabs = isError || isRateLimited
-  const snippet = CODE_TAB[D.vertical] || CODE_TAB.metadata
+  const snippet = CODE_TAB[D.vertical]
   const snippetArg = snippet.query ? SEARCH_EXAMPLE.query : D.fullUrl
 
   const tabs = [
@@ -1750,19 +1765,18 @@ const writeSharedState = (text, vertical) => {
   )
 }
 
+const loadingReq = snapshot => ({
+  status: 'loading',
+  D: snapshot,
+  apiUrl: getApiUrl(snapshot.fullUrl, REQUEST_OPTS[snapshot.vertical] || {})[0]
+})
+
 const Hero = () => {
   const [dText, setDText] = useState(CYCLE[0])
   const [dTab, setDTab] = useState('output')
   const [dVert, setDVert] = useState(null)
   const [menuState, setMenuState] = useState(null)
-  const [req, setReq] = useState(() => {
-    const d = derive(CYCLE[0])
-    return {
-      status: 'loading',
-      D: d,
-      apiUrl: getApiUrl(d.fullUrl, REQUEST_OPTS[d.vertical] || {})[0]
-    }
-  })
+  const [req, setReq] = useState(() => loadingReq(derive(CYCLE[0])))
   const reqId = useRef(0)
   const anim = useRef({
     ci: 0,
@@ -1780,6 +1794,7 @@ const Hero = () => {
   const [promptCopied, setPromptCopied] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const copyTimer = useRef(null)
+  const sectionRef = useRef(null)
 
   useEffect(() => () => clearTimeout(copyTimer.current), [])
 
@@ -1801,6 +1816,12 @@ const Hero = () => {
     clearTimeout(anim.current.timer)
   }
 
+  const takeOver = text => {
+    stopTyping()
+    anim.current.text = text
+    setDText(text)
+  }
+
   const openMenu = () => {
     clearTimeout(menuTimer.current)
     setMenuState('pre')
@@ -1816,8 +1837,10 @@ const Hero = () => {
     menuTimer.current = setTimeout(() => setMenuState(null), 150)
   }
 
+  const menuVisible = menuState === 'open' || menuState === 'pre'
+
   const toggleMenu = () => {
-    if (menuState === 'open' || menuState === 'pre') closeMenu()
+    if (menuVisible) closeMenu()
     else openMenu()
   }
 
@@ -1848,9 +1871,10 @@ const Hero = () => {
     }
 
     const opts = REQUEST_OPTS[snapshot.vertical] || {}
-    const apiUrl = getApiUrl(snapshot.fullUrl, opts)[0]
+    const loading = loadingReq(snapshot)
+    const { apiUrl } = loading
     const id = ++reqId.current
-    setReq({ status: 'loading', D: snapshot, apiUrl })
+    setReq(loading)
     const t0 = window.performance.now()
     try {
       const { response, ...body } = await mql(snapshot.fullUrl, opts)
@@ -1885,19 +1909,18 @@ const Hero = () => {
   }, [])
 
   useEffect(() => {
-    if (
-      readSharedState() ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ) {
+    if (readSharedState() || prefersReducedMotion()) {
       return undefined
     }
     const a = anim.current
+    a.paused = false
+    a.inView = true
     const apply = t => {
       a.text = t
       setDText(t)
     }
     const tick = () => {
-      if (a.userTook) return
+      if (a.userTook || a.paused) return
       if (a.phase === 'pause') {
         a.phase = 'deleting'
         a.timer = setTimeout(tick, 50)
@@ -1923,8 +1946,28 @@ const Hero = () => {
       a.phase = 'pause'
       a.timer = setTimeout(tick, 2600)
     }
+    const syncActivity = () => {
+      const shouldPause = document.hidden || !a.inView
+      if (shouldPause === a.paused) return
+      a.paused = shouldPause
+      clearTimeout(a.timer)
+      if (!shouldPause && !a.userTook) a.timer = setTimeout(tick, 600)
+    }
+    document.addEventListener('visibilitychange', syncActivity)
+    let observer
+    if (window.IntersectionObserver && sectionRef.current) {
+      observer = new window.IntersectionObserver(([entry]) => {
+        a.inView = entry.isIntersecting
+        syncActivity()
+      })
+      observer.observe(sectionRef.current)
+    }
     a.timer = setTimeout(tick, 2400)
-    return () => clearTimeout(a.timer)
+    return () => {
+      clearTimeout(a.timer)
+      document.removeEventListener('visibilitychange', syncActivity)
+      if (observer) observer.disconnect()
+    }
   }, [])
 
   useEffect(() => {
@@ -1958,9 +2001,7 @@ const Hero = () => {
   useEffect(() => {
     const shared = readSharedState()
     if (shared) {
-      stopTyping()
-      anim.current.text = shared.q
-      setDText(shared.q)
+      takeOver(shared.q)
       setDVert(shared.product)
       runRequest(derive(shared.q, shared.product))
     } else {
@@ -1996,9 +2037,7 @@ const Hero = () => {
     if (!el) return
     const text = readComposerText(el)
     pendingCaret.current = getCaretOffset(el)
-    stopTyping()
-    anim.current.text = text
-    setDText(text)
+    takeOver(text)
     setDVert(null)
     closeMenu()
   }
@@ -2015,12 +2054,8 @@ const Hero = () => {
   const onEditorFocus = () => {
     if (!anim.current.userTook) {
       const target = CYCLE[anim.current.ci]
-      stopTyping()
-      anim.current.text = target
-      if (dText !== target) {
-        setDText(target)
-        pendingCaret.current = target.length
-      }
+      if (dText !== target) pendingCaret.current = target.length
+      takeOver(target)
     } else {
       stopTyping()
     }
@@ -2038,13 +2073,11 @@ const Hero = () => {
     const { raw } = parseLocal(dText)
     if (!raw) return
     const text = dText.replace(raw, '').replace(/ {2,}/g, ' ')
-    stopTyping()
-    anim.current.text = text
     if (editorRef.current) {
       editorRef.current.focus()
       pendingCaret.current = text.length
     }
-    setDText(text)
+    takeOver(text)
     writeSharedState(text, dVert)
   }
 
@@ -2052,11 +2085,9 @@ const Hero = () => {
     const { raw } = parseLocal(dText)
     const fallback = DEFAULT_URLS[parseLocal(value).vertical] || FALLBACK_URL
     const text = `${value} of ${raw || shortUrl(fallback)}`
-    stopTyping()
-    anim.current.text = text
+    takeOver(text)
     setDVert(null)
     closeMenu()
-    setDText(text)
     writeSharedState(text, null)
     runRequest(derive(text))
   }
@@ -2065,9 +2096,7 @@ const Hero = () => {
     const template = PROMPTS[k] || ''
     const { raw } = parseLocal(dText)
     const prompt = raw ? `${template} of ${raw}` : template
-    stopTyping()
-    anim.current.text = prompt
-    setDText(prompt)
+    takeOver(prompt)
     setDVert(k)
     closeMenu()
     if (chipRef.current) chipRef.current.focus()
@@ -2097,7 +2126,7 @@ const Hero = () => {
   }
 
   return (
-    <Section id='hero'>
+    <Section id='hero' ref={sectionRef}>
       <GradientDefs aria-hidden='true' focusable='false'>
         <linearGradient
           id={GLYPH_STROKE_GRADIENT_ID}
@@ -2107,14 +2136,14 @@ const Hero = () => {
           x2='24'
           y2='0'
         >
-          <stop offset='0%' stopColor='#f76698' />
-          <stop offset='60%' stopColor='#c03fa2' />
-          <stop offset='100%' stopColor='#8c1bab' />
+          {gradientStops.map(([offset, stopColor]) => (
+            <stop key={offset} offset={offset} stopColor={stopColor} />
+          ))}
         </linearGradient>
         <linearGradient id={GLYPH_FILL_GRADIENT_ID} x1='0' y1='0' x2='1' y2='0'>
-          <stop offset='0%' stopColor='#f76698' />
-          <stop offset='60%' stopColor='#c03fa2' />
-          <stop offset='100%' stopColor='#8c1bab' />
+          {gradientStops.map(([offset, stopColor]) => (
+            <stop key={offset} offset={offset} stopColor={stopColor} />
+          ))}
         </linearGradient>
       </GradientDefs>
       <Overlay start='60%' />
@@ -2135,7 +2164,7 @@ const Hero = () => {
           Everything your AI agent needs from any link. Try it, no signup.
         </Caption>
 
-        <Composer data-force-focus={FORCE_FOCUS ? 'true' : undefined}>
+        <Composer>
           <ComposerEditor
             ref={editorRef}
             contentEditable
@@ -2190,7 +2219,7 @@ const Hero = () => {
                 type='button'
                 $border={D.vertBorder}
                 aria-haspopup='true'
-                aria-expanded={menuState === 'open' || menuState === 'pre'}
+                aria-expanded={menuVisible}
                 aria-label={`Product: ${D.label}. Change product`}
                 onClick={e => {
                   e.stopPropagation()
@@ -2223,10 +2252,7 @@ const Hero = () => {
                       transformBox: 'fill-box',
                       transformOrigin: 'center',
                       transition: `transform ${transition.short}`,
-                      transform:
-                        menuState === 'open' || menuState === 'pre'
-                          ? 'rotate(180deg)'
-                          : 'none'
+                      transform: menuVisible ? 'rotate(180deg)' : 'none'
                     })}
                   >
                     <path d='m6 9 6 6 6-6' />

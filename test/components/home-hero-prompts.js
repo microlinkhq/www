@@ -7,33 +7,59 @@ const source = fs.readFileSync(
   'utf8'
 )
 
-const extract = (start, end, name) =>
-  // eslint-disable-next-line no-new-func
-  new Function(
-    `${source.slice(
-      source.indexOf(start),
-      source.indexOf(end)
-    )}; return ${name}`
-  )()
+const slice = (start, end) =>
+  source.slice(source.indexOf(start), source.indexOf(end))
 
-const parseLocal = extract(
-  'const parseLocal',
-  'const DEFAULT_URLS',
+const evaluate = (code, name) =>
+  // eslint-disable-next-line no-new-func
+  new Function(`${code}; return ${name}`)()
+
+const PROMPTS = evaluate(slice('const PROMPTS', 'const PARSE_RULES'), 'PROMPTS')
+const parseLocal = evaluate(
+  slice('const PARSE_RULES', 'const DEFAULT_URLS'),
   'parseLocal'
 )
-const PROMPTS = extract('const PROMPTS', 'const parseLocal', 'PROMPTS')
-const CYCLE = extract('const CYCLE', 'const EXAMPLES', 'CYCLE')
-const EXAMPLES = extract('const EXAMPLES', 'const PROMPTS', 'EXAMPLES')
+
+const derived = name =>
+  evaluate(
+    [
+      "const SEARCH_EXAMPLE = { query: 'query' }",
+      slice('const PROMPTS', 'const PARSE_RULES'),
+      slice('const DEFAULT_URLS', 'const FALLBACK_URL'),
+      slice('const shortUrl', 'const VERT_BORDER_ACTIVE')
+    ].join('\n'),
+    name
+  )
+
+const CYCLE = derived('CYCLE')
+const EXAMPLE_CHIPS = derived('EXAMPLE_CHIPS')
+
+const MAPS = evaluate(
+  [
+    slice('const AGENT_TASK', 'const agentPrompt'),
+    slice('const FN_SNIPPET', 'const PROMPTS')
+  ].join('\n'),
+  '({ AGENT_TASK, REQUEST_OPTS, CODE_TAB })'
+)
 
 describe('home hero prompts', () => {
   test('example chips use the terse naming', () => {
-    expect(EXAMPLES).toEqual([
+    expect(EXAMPLE_CHIPS.map(chip => chip.text)).toEqual([
       'take screenshot',
       'detect technologies',
       'extract metadata',
       'get markdown',
       'get logo'
     ])
+  })
+
+  test('per-vertical maps stay key-synced with PROMPTS', () => {
+    const keys = Object.keys(PROMPTS).sort()
+    expect(Object.keys(MAPS.REQUEST_OPTS).sort()).toEqual(keys)
+    expect(Object.keys(MAPS.CODE_TAB).sort()).toEqual(keys)
+    expect(Object.keys(MAPS.AGENT_TASK).sort()).toEqual(
+      keys.filter(key => key !== 'search')
+    )
   })
 
   test('every product prompt parses back to its vertical', () => {
@@ -45,10 +71,16 @@ describe('home hero prompts', () => {
     }
   })
 
-  test('every example chip parses to the intended vertical', () => {
-    const want = ['screenshot', 'technologies', 'metadata', 'markdown', 'logo']
-    EXAMPLES.forEach((text, i) => {
-      expect(parseLocal(text).vertical).toBe(want[i])
+  test('every example chip parses to its own vertical', () => {
+    expect(EXAMPLE_CHIPS.map(chip => chip.vertical)).toEqual([
+      'screenshot',
+      'technologies',
+      'metadata',
+      'markdown',
+      'logo'
+    ])
+    EXAMPLE_CHIPS.forEach(({ text, vertical }) => {
+      expect(parseLocal(text).vertical).toBe(vertical)
     })
   })
 

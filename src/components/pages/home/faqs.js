@@ -2,11 +2,12 @@ import Box from 'components/elements/Box'
 import { Link } from 'components/elements/Link'
 import Faq from 'components/patterns/Faq/Faq'
 import React from 'react'
-import { theme } from 'theme'
+import { theme, SECTION_VERTICAL_SPACING } from 'theme'
+import { CAPACITY_REQUESTS_PER_MONTH } from 'components/pages/home/catalog'
 
 const FAQs = props => (
   <Faq
-    css={theme({ pt: [4, 4, 5, 5] })}
+    css={theme({ pt: SECTION_VERTICAL_SPACING })}
     title='FAQs'
     caption='Frequently asked questions.'
     questions={[
@@ -50,12 +51,10 @@ const FAQs = props => (
       {
         question: "What if I don't know how much API quota I need?",
         answer: (
-          <>
-            <div>
-              No problem, just start with the smallest pro plan, and at the
-              moment you need more, you can upgrade your plan.
-            </div>
-          </>
+          <div>
+            No problem, just start with the smallest pro plan, and at the moment
+            you need more, you can upgrade your plan.
+          </div>
         )
       },
       {
@@ -93,103 +92,87 @@ const FAQs = props => (
       {
         question: "What's your SLA level?",
         answer: (
-          <>
-            <div>
-              Our Service-Level Agreements commitment is 99.9% (three nines).{' '}
-              {'\n'}You can see the live <Link href='/status'>status</Link> of
-              the service.
-            </div>
-          </>
+          <div>
+            Our Service-Level Agreements commitment is 99.9% (three nines).{' '}
+            {'\n'}You can see the live <Link href='/status'>status</Link> of the
+            service.
+          </div>
         )
       },
       {
         question: 'Can Microlink handle my traffic?',
         answer: (
-          <>
-            <div>
-              Yes. The platform is built for production workloads and burst
-              traffic. We&rsquo;ve supported enterprise deployments processing
-              up to 188 million requests per month, with sustained daily traffic
-              of more than 6 million requests.
-            </div>
-          </>
+          <div>
+            Yes. The platform is built for production workloads and burst
+            traffic. We&rsquo;ve supported enterprise deployments processing up
+            to {CAPACITY_REQUESTS_PER_MONTH} requests per month, with sustained
+            daily traffic of more than 6 million requests.
+          </div>
         )
       },
       {
         question: 'How do I know my plan usage?',
         answer: (
-          <>
-            <div>
-              We notify you automatically when you reach 80% or more of your
-              usage plan, offering to upgrade your plan to one more suitable
-              based on your plan usage.
-            </div>
-          </>
+          <div>
+            We notify you automatically when you reach 80% or more of your usage
+            plan, offering to upgrade your plan to one more suitable based on
+            your plan usage.
+          </div>
         )
       },
       {
         question: 'What if I want to change my plan?',
         answer: (
-          <>
-            <div>
-              You can upgrade, downgrade, or cancel your plan at any time with
-              no further obligation from{' '}
-              <Link href='https://dashboard.microlink.io'>
-                dashboard.microlink.io
-              </Link>
-              .
-            </div>
-          </>
+          <div>
+            You can upgrade, downgrade, or cancel your plan at any time with no
+            further obligation from{' '}
+            <Link href='https://dashboard.microlink.io'>
+              dashboard.microlink.io
+            </Link>
+            .
+          </div>
         )
       },
       {
         question: 'How is the payment processed?',
         answer: (
-          <>
-            <div>
-              We use Stripe to process your payment, the same payment provider
-              behind companies like Amazon, Shopify, and Zoom. We never see your
-              credit card information.
-            </div>
-          </>
+          <div>
+            We use Stripe to process your payment, the same payment provider
+            behind companies like Amazon, Shopify, and Zoom. We never see your
+            credit card information.
+          </div>
         )
       },
       {
         question: 'Can I update my card details?',
         answer: (
-          <>
-            <div>
-              Yes, send an email to{' '}
-              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>{' '}
-              requesting the change. You will receive a link where you&apos;ll
-              be able to securely update your details.
-            </div>
-          </>
+          <div>
+            Yes, send an email to{' '}
+            <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>{' '}
+            requesting the change. You will receive a link where you&apos;ll be
+            able to securely update your details.
+          </div>
         )
       },
       {
         question: 'Can I cancel my subscription?',
         answer: (
-          <>
-            <div>
-              Yes, at any time from{' '}
-              <Link href='https://dashboard.microlink.io'>
-                dashboard.microlink.io
-              </Link>
-              , no questions asked.
-            </div>
-          </>
+          <div>
+            Yes, at any time from{' '}
+            <Link href='https://dashboard.microlink.io'>
+              dashboard.microlink.io
+            </Link>
+            , no questions asked.
+          </div>
         )
       },
       {
         question: 'Other questions?',
         answer: (
-          <>
-            <div key='other-questions'>
-              We’re always available at{' '}
-              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
-            </div>
-          </>
+          <div>
+            We’re always available at{' '}
+            <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
+          </div>
         )
       }
     ]}

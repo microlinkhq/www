@@ -1,15 +1,19 @@
 import Box from 'components/elements/Box'
+import Dot from 'components/elements/Dot/Dot'
 import Flex from 'components/elements/Flex'
 import Microlink from 'components/patterns/Microlink/Microlink'
 import { HeroCard } from 'components/pages/embed/PreviewCards'
 import { HeroSearchResultCard } from 'components/pages/search/ResultCards'
-import GOOGLE_EXAMPLES from 'data/google-examples'
+import { lighthouseViewerUrl } from 'helpers/lighthouse'
+import { prefersReducedMotion } from 'helpers/reduced-motion'
 import { theme, fonts, colors, gradient } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { getApiUrl } from '@microlink/mql'
 
 const MONO = fonts.mono
+
+const CARD_SHADOW = '0 18px 50px -22px rgba(40,10,60,.45)'
 
 const Stage = styled(Flex)`
   align-items: center;
@@ -30,16 +34,11 @@ const ImageOutput = ({ url, alt, contain }) => (
         maxHeight: '440px',
         objectFit: contain ? 'contain' : 'initial',
         borderRadius: 4,
-        boxShadow: '0 18px 50px -22px rgba(40,10,60,.45)'
+        boxShadow: CARD_SHADOW
       })}
     />
   </Stage>
 )
-
-const prefersReducedMotion = () =>
-  typeof window !== 'undefined' &&
-  typeof window.matchMedia === 'function' &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 const AnimatedOutput = ({ url }) => {
   const videoRef = useRef(null)
@@ -66,7 +65,7 @@ const AnimatedOutput = ({ url }) => {
           maxWidth: '100%',
           maxHeight: '440px',
           borderRadius: 4,
-          boxShadow: '0 18px 50px -22px rgba(40,10,60,.45)'
+          boxShadow: CARD_SHADOW
         })}
       />
     </Stage>
@@ -103,7 +102,8 @@ const LogoOutput = ({ logo, palette }) => (
           gap: 2,
           flexWrap: 'wrap',
           p: 3,
-          borderTop: `1px solid ${colors.gray1}`
+          borderTop: 1,
+          borderTopColor: 'gray1'
         })}
       >
         {palette.map(color => (
@@ -166,7 +166,8 @@ const MetadataOutput = ({ data }) => {
           css={theme({
             gap: 3,
             py: 2,
-            borderBottom: `1px solid ${colors.gray1}`
+            borderBottom: 1,
+            borderBottomColor: 'gray1'
           })}
         >
           <Box
@@ -235,7 +236,8 @@ const MetadataOutput = ({ data }) => {
                   maxWidth: '160px',
                   objectFit: 'contain',
                   borderRadius: 6,
-                  border: `1px solid ${colors.gray1}`,
+                  border: 1,
+                  borderColor: 'gray1',
                   background: '#fafafb'
                 })}
               />
@@ -261,9 +263,7 @@ const ProBadge = styled.span`
   padding: 3px 10px;
 `
 
-const SEARCH_EXAMPLE = GOOGLE_EXAMPLES.search[0]
-
-const SearchOutput = () => (
+const SearchOutput = ({ data }) => (
   <Box css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
     <Flex
       css={theme({
@@ -271,7 +271,8 @@ const SearchOutput = () => (
         gap: 2,
         mb: 4,
         pb: 3,
-        borderBottom: `1px solid ${colors.gray1}`
+        borderBottom: 1,
+        borderBottomColor: 'gray1'
       })}
     >
       <ProBadge>Pro</ProBadge>
@@ -287,7 +288,7 @@ const SearchOutput = () => (
       </Box>
     </Flex>
     <Flex css={theme({ flexDirection: 'column', gap: 4 })}>
-      {SEARCH_EXAMPLE.payload.slice(0, 4).map(result => (
+      {(data.results || []).slice(0, 4).map(result => (
         <HeroSearchResultCard key={result.url} data={result} />
       ))}
     </Flex>
@@ -301,16 +302,13 @@ const RawText = styled(Box)`
   word-break: break-word;
 `
 
-const lighthouseViewerUrl = pageUrl =>
-  `https://lighthouse.microlink.io/?url=${encodeURIComponent(
-    getApiUrl(pageUrl, { insights: true, embed: 'insights.lighthouse' })[0]
-  )}`
-
 const LighthouseOutput = ({ url }) => (
   <Box
     as='iframe'
     title='Lighthouse report'
-    src={lighthouseViewerUrl(url)}
+    src={lighthouseViewerUrl(
+      getApiUrl(url, { insights: true, embed: 'insights.lighthouse' })[0]
+    )}
     css={theme({
       width: '100%',
       height: '560px',
@@ -397,11 +395,11 @@ const TechnologiesOutput = ({ technologies }) => {
   )
 }
 
-const HtmlOutput = ({ html }) => (
+const MonoTextOutput = ({ text }) => (
   <RawText
     css={theme({ p: 4, fontFamily: 'mono', fontSize: 0, color: 'gray8' })}
   >
-    {html}
+    {text}
   </RawText>
 )
 
@@ -520,29 +518,13 @@ const makeSeekKeyHandler = (mediaRef, duration, setCurrent) => e => {
   setCurrent(next)
 }
 
-const PlayIcon = ({ playing, size = 16 }) =>
-  playing
-    ? (
-      <svg width={size} height={size} viewBox='0 0 24 24' fill='#fff'>
-        <rect x='6' y='5' width='4' height='14' rx='1' />
-        <rect x='14' y='5' width='4' height='14' rx='1' />
-      </svg>
-      )
-    : (
-      <svg width={size} height={size} viewBox='0 0 24 24' fill='#fff'>
-        <path d='M8 5v14l11-7z' />
-      </svg>
-      )
-
-const AudioOutput = ({ data }) => {
-  const src = mediaUrl(data.audio)
-  const audioRef = useRef(null)
+const useMediaPlayback = (mediaRef, src, initialDuration) => {
   const [playing, setPlaying] = useState(false)
   const [current, setCurrent] = useState(0)
-  const [duration, setDuration] = useState(data.audio?.duration || 0)
+  const [duration, setDuration] = useState(initialDuration || 0)
 
   useEffect(() => {
-    const el = audioRef.current
+    const el = mediaRef.current
     if (!el) return undefined
     setPlaying(false)
     setCurrent(0)
@@ -566,23 +548,17 @@ const AudioOutput = ({ data }) => {
       el.removeEventListener('pause', onPause)
       el.removeEventListener('ended', onEnd)
     }
-  }, [src])
+  }, [mediaRef, src])
 
   const toggle = () => {
-    const el = audioRef.current
+    const el = mediaRef.current
     if (!el) return
-    if (el.paused) {
-      el.play()
-        .then(() => setPlaying(true))
-        .catch(() => {})
-    } else {
-      el.pause()
-      setPlaying(false)
-    }
+    if (el.paused) el.play().catch(() => {})
+    else el.pause()
   }
 
   const seek = event => {
-    const el = audioRef.current
+    const el = mediaRef.current
     if (!el || !duration) return
     const rect = event.currentTarget.getBoundingClientRect()
     const ratio = Math.min(
@@ -592,6 +568,36 @@ const AudioOutput = ({ data }) => {
     el.currentTime = ratio * duration
     setCurrent(el.currentTime)
   }
+
+  return {
+    playing,
+    current,
+    duration,
+    toggle,
+    seek,
+    onSeekKeyDown: makeSeekKeyHandler(mediaRef, duration, setCurrent)
+  }
+}
+
+const PlayIcon = ({ playing, size = 16 }) =>
+  playing
+    ? (
+      <svg width={size} height={size} viewBox='0 0 24 24' fill='#fff'>
+        <rect x='6' y='5' width='4' height='14' rx='1' />
+        <rect x='14' y='5' width='4' height='14' rx='1' />
+      </svg>
+      )
+    : (
+      <svg width={size} height={size} viewBox='0 0 24 24' fill='#fff'>
+        <path d='M8 5v14l11-7z' />
+      </svg>
+      )
+
+const AudioOutput = ({ data }) => {
+  const src = mediaUrl(data.audio)
+  const audioRef = useRef(null)
+  const { playing, current, duration, toggle, seek, onSeekKeyDown } =
+    useMediaPlayback(audioRef, src, data.audio?.duration)
 
   const pct = duration ? (current / duration) * 100 : 0
   const image = data.image?.url
@@ -607,7 +613,8 @@ const AudioOutput = ({ data }) => {
           alignItems: 'center',
           gap: 3,
           p: 3,
-          border: `1px solid ${colors.gray1}`,
+          border: 1,
+          borderColor: 'gray1',
           borderRadius: 12,
           background: '#fff',
           boxShadow: '0 18px 50px -28px rgba(40,10,60,.4)'
@@ -700,7 +707,7 @@ const AudioOutput = ({ data }) => {
               aria-valuenow={Math.round(current)}
               aria-valuetext={`${fmtTime(current)} of ${fmtTime(duration)}`}
               onClick={seek}
-              onKeyDown={makeSeekKeyHandler(audioRef, duration, setCurrent)}
+              onKeyDown={onSeekKeyDown}
             >
               <Box
                 css={{
@@ -818,55 +825,8 @@ const PlayOverlay = styled.button`
 const VideoOutput = ({ data }) => {
   const src = mediaUrl(data.video)
   const videoRef = useRef(null)
-  const [playing, setPlaying] = useState(false)
-  const [current, setCurrent] = useState(0)
-  const [duration, setDuration] = useState(data.video?.duration || 0)
-
-  useEffect(() => {
-    const el = videoRef.current
-    if (!el) return undefined
-    setPlaying(false)
-    setCurrent(0)
-    const onTime = () => setCurrent(el.currentTime)
-    const onMeta = () => setDuration(el.duration)
-    const onPlay = () => setPlaying(true)
-    const onPause = () => setPlaying(false)
-    const onEnd = () => {
-      setPlaying(false)
-      setCurrent(0)
-    }
-    el.addEventListener('timeupdate', onTime)
-    el.addEventListener('loadedmetadata', onMeta)
-    el.addEventListener('play', onPlay)
-    el.addEventListener('pause', onPause)
-    el.addEventListener('ended', onEnd)
-    return () => {
-      el.removeEventListener('timeupdate', onTime)
-      el.removeEventListener('loadedmetadata', onMeta)
-      el.removeEventListener('play', onPlay)
-      el.removeEventListener('pause', onPause)
-      el.removeEventListener('ended', onEnd)
-    }
-  }, [src])
-
-  const toggle = () => {
-    const el = videoRef.current
-    if (!el) return
-    if (el.paused) el.play().catch(() => {})
-    else el.pause()
-  }
-
-  const seek = event => {
-    const el = videoRef.current
-    if (!el || !duration) return
-    const rect = event.currentTarget.getBoundingClientRect()
-    const ratio = Math.min(
-      1,
-      Math.max(0, (event.clientX - rect.left) / rect.width)
-    )
-    el.currentTime = ratio * duration
-    setCurrent(el.currentTime)
-  }
+  const { playing, current, duration, toggle, seek, onSeekKeyDown } =
+    useMediaPlayback(videoRef, src, data.video?.duration)
 
   const pct = duration ? (current / duration) * 100 : 0
   const title = [data.title, data.publisher].filter(Boolean).join(' · ')
@@ -881,7 +841,7 @@ const VideoOutput = ({ data }) => {
           borderRadius: 8,
           overflow: 'hidden',
           background: '#000',
-          boxShadow: '0 18px 50px -22px rgba(40,10,60,.45)'
+          boxShadow: CARD_SHADOW
         })}
       >
         <Box
@@ -924,7 +884,7 @@ const VideoOutput = ({ data }) => {
             aria-valuenow={Math.round(current)}
             aria-valuetext={`${fmtTime(current)} of ${fmtTime(duration)}`}
             onClick={seek}
-            onKeyDown={makeSeekKeyHandler(videoRef, duration, setCurrent)}
+            onKeyDown={onSeekKeyDown}
             css={{ background: 'rgba(255,255,255,0.3)' }}
           >
             <Box
@@ -1008,13 +968,6 @@ const Stat = ({ label, value }) => (
   </Box>
 )
 
-const Dot = styled.span`
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  flex-shrink: 0;
-`
-
 const Profiling = ({ profiling }) => {
   const { cpu, memory, size, phases = {} } = profiling
   const total =
@@ -1023,7 +976,7 @@ const Profiling = ({ profiling }) => {
   const pct = ms => (total ? (ms / total) * 100 : 0)
 
   return (
-    <Box css={theme({ p: 4, borderBottom: `1px solid ${colors.gray1}` })}>
+    <Box css={theme({ p: 4, borderBottom: 1, borderBottomColor: 'gray1' })}>
       <Flex
         css={theme({
           justifyContent: 'space-around',
@@ -1063,11 +1016,19 @@ const Profiling = ({ profiling }) => {
               alignItems: 'center',
               justifyContent: 'space-between',
               py: 2,
-              borderBottom: `1px solid ${colors.gray1}`
+              borderBottom: 1,
+              borderBottomColor: 'gray1'
             })}
           >
             <Flex css={theme({ alignItems: 'center', gap: 2 })}>
-              <Dot css={{ background: color }} />
+              <Dot
+                css={{
+                  width: '9px',
+                  height: '9px',
+                  flexShrink: 0,
+                  background: color
+                }}
+              />
               <Box as='span' css={theme({ fontSize: 0, color: 'black' })}>
                 {label}
               </Box>
@@ -1122,7 +1083,8 @@ const FunctionValue = ({ value, result }) => {
               color: 'grape7',
               textDecoration: 'none',
               py: 2,
-              borderBottom: `1px solid ${colors.gray1}`,
+              borderBottom: 1,
+              borderBottomColor: 'gray1',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap'
@@ -1209,11 +1171,7 @@ const Output = ({ req }) => {
     case 'markdown':
       return data.markdown
         ? (
-          <RawText
-            css={theme({ p: 4, fontFamily: 'mono', fontSize: 0, color: 'gray8' })}
-          >
-            {data.markdown}
-          </RawText>
+          <MonoTextOutput text={data.markdown} />
           )
         : (
           <Empty>No markdown in this response.</Empty>
@@ -1222,7 +1180,7 @@ const Output = ({ req }) => {
     case 'html':
       return data.html
         ? (
-          <HtmlOutput html={data.html} />
+          <MonoTextOutput text={data.html} />
           )
         : (
           <Empty>No HTML in this response.</Empty>
@@ -1276,11 +1234,8 @@ const Output = ({ req }) => {
     case 'metadata':
       return <MetadataOutput data={data} />
 
-    case 'preview':
-      return <Card data={data} fallbackUrl={req.D.fullUrl} />
-
     case 'search':
-      return <SearchOutput />
+      return <SearchOutput data={data} />
 
     default:
       return <Card data={data} fallbackUrl={req.D.fullUrl} />

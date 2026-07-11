@@ -1,7 +1,11 @@
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import { theme, layout } from 'theme'
+import { theme, layout, SECTION_VERTICAL_SPACING } from 'theme'
+import {
+  CAPACITY_REQUESTS_PER_MONTH,
+  HOME_CONTENT_WIDTH
+} from 'components/pages/home/catalog'
 import Subhead from 'components/elements/Subhead'
 import Caption from 'components/patterns/Caption/Caption'
 
@@ -71,7 +75,7 @@ const Production = () => (
     css={theme({
       bg: 'white',
       color: 'black',
-      pt: [4, 4, 5, 5]
+      pt: SECTION_VERTICAL_SPACING
     })}
   >
     <Box
@@ -99,13 +103,13 @@ const Production = () => (
       >
         Behind every request, Microlink runs real web browsers in the cloud: we
         open the page, do the work, and deliver the result. Our largest
-        customers process 188 million requests a month.
+        customers process {CAPACITY_REQUESTS_PER_MONTH} requests a month.
       </Caption>
     </Box>
 
     <Box
       css={theme({
-        maxWidth: '1180px',
+        maxWidth: HOME_CONTENT_WIDTH,
         mx: 'auto',
         mt: 5,
         px: [3, 3, 4],
