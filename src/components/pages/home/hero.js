@@ -1654,57 +1654,43 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                 ))}
 
         {!hideTabs && tab === 'code' && (
-          <Box>
-            <Box
-              css={theme({
-                fontFamily: 'mono',
-                fontSize: 0,
-                letterSpacing: '.06em',
-                color: SYNTAX.muted,
-                pt: 3,
-                px: 3
-              })}
-            >
-              JAVASCRIPT / NODE.JS
-            </Box>
-            <Code
-              css={theme({
-                pt: 3,
-                px: 3,
-                pb: 4,
-                fontSize: 0,
-                lineHeight: '2',
-                maxHeight: '340px',
-                color: 'black'
-              })}
-            >
-              <Num>import</Num> createClient <Num>from</Num>{' '}
-              <Str>'microlink.io'</Str>
-              {'\n\n'}
-              <Num>const</Num> microlink = <Fn>createClient</Fn>()
-              {'\n\n'}
-              <Num>const</Num> {snippet.binding} = <Num>await</Num> microlink.
-              <Fn>{snippet.method}</Fn>(
-              {snippet.code
-                ? (
-                  <>
-                    {'\n  '}
-                    <Str>'{snippetArg}'</Str>,{'\n  '}
-                    {snippet.code}
-                    {'\n'}
-                  </>
-                  )
-                : (
-                  <>
-                    <Str>'{snippetArg}'</Str>
-                    {snippet.opts && <>, {renderJsValue(snippet.opts, 'opts')}</>}
-                  </>
-                  )}
-              ){'\n\n'}
-              console.<Fn>log</Fn>({snippet.log}){' '}
-              <Comment>{`// => ${snippet.comment}`}</Comment>
-            </Code>
-          </Box>
+          <Code
+            css={theme({
+              pt: 4,
+              px: 3,
+              pb: 4,
+              fontSize: 0,
+              lineHeight: '2',
+              maxHeight: '340px',
+              color: 'black'
+            })}
+          >
+            <Num>import</Num> createClient <Num>from</Num>{' '}
+            <Str>'microlink.io'</Str>
+            {'\n\n'}
+            <Num>const</Num> microlink = <Fn>createClient</Fn>()
+            {'\n\n'}
+            <Num>const</Num> {snippet.binding} = <Num>await</Num> microlink.
+            <Fn>{snippet.method}</Fn>(
+            {snippet.code
+              ? (
+                <>
+                  {'\n  '}
+                  <Str>'{snippetArg}'</Str>,{'\n  '}
+                  {snippet.code}
+                  {'\n'}
+                </>
+                )
+              : (
+                <>
+                  <Str>'{snippetArg}'</Str>
+                  {snippet.opts && <>, {renderJsValue(snippet.opts, 'opts')}</>}
+                </>
+                )}
+            ){'\n\n'}
+            console.<Fn>log</Fn>({snippet.log}){' '}
+            <Comment>{`// => ${snippet.comment}`}</Comment>
+          </Code>
         )}
       </TabContent>
     </Panel>
