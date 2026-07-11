@@ -7,7 +7,9 @@ const CLOUDFLARE_NETWORK_URL = 'https://www.cloudflare.com/network/'
 const FALLBACK_CDN_EDGES = 330
 
 const roundPretty = pretty => {
-  const [, value, unit] = pretty.match(/^([\d.]+)(\D+)$/)
+  const match = String(pretty).match(/^([\d.]+)(\D+)$/)
+  if (match === null) throw new Error('ANALYTICS_PRETTY_UNEXPECTED')
+  const [, value, unit] = match
   return `${Math.floor(Number(value) / 50) * 50}${unit}`
 }
 

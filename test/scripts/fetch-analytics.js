@@ -18,6 +18,13 @@ describe('roundPretty', () => {
     expect(roundPretty('778.4M')).toBe('750M')
     expect(roundPretty('249.9M')).toBe('200M')
   })
+
+  it('throws on unexpected formats instead of writing garbage', () => {
+    expect(() => roundPretty('')).toThrow('ANALYTICS_PRETTY_UNEXPECTED')
+    expect(() => roundPretty('M778')).toThrow('ANALYTICS_PRETTY_UNEXPECTED')
+    expect(() => roundPretty(undefined)).toThrow('ANALYTICS_PRETTY_UNEXPECTED')
+    expect(() => roundPretty('778')).toThrow('ANALYTICS_PRETTY_UNEXPECTED')
+  })
 })
 
 describe('parseCdnEdges', () => {

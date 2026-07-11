@@ -1636,7 +1636,10 @@ const DEFAULT_RETRY_AFTER = 5
 const MAX_AUTO_RETRY_WAIT = 30
 
 const parseRetryAfter = headers => {
-  const raw = headers && (headers['retry-after'] ?? headers['Retry-After'])
+  const raw =
+    headers && typeof headers.get === 'function'
+      ? headers.get('retry-after')
+      : headers && (headers['retry-after'] ?? headers['Retry-After'])
   if (raw == null) return null
   const secs = Number(raw)
   if (Number.isFinite(secs)) return Math.max(0, Math.round(secs))
