@@ -1869,10 +1869,9 @@ const Hero = () => {
     const loading = loadingReq(snapshot)
     const { apiUrl } = loading
     const id = ++reqId.current
-    setReq(loading)
-    const t0 = window.performance.now()
 
     if (snapshot.fullUrl === DEFAULT_URLS[snapshot.vertical]) {
+      const cachedT0 = window.performance.now()
       const cached = await fetchDemoSnapshot(snapshot.vertical)
       if (id !== reqId.current) return
       if (cached && cached.body && cached.apiUrl === apiUrl) {
@@ -1880,13 +1879,15 @@ const Hero = () => {
           snapshotReq(
             snapshot,
             cached,
-            Math.round(window.performance.now() - t0)
+            Math.round(window.performance.now() - cachedT0) || undefined
           )
         )
         return
       }
     }
 
+    setReq(loading)
+    const t0 = window.performance.now()
     try {
       const { response, ...body } = await mql(snapshot.fullUrl, opts)
       if (id !== reqId.current) return

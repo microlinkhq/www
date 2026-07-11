@@ -116,6 +116,13 @@ describe('hero demo snapshot cache', () => {
     )
   })
 
+  test('snapshot runs never flash the loading state', () => {
+    const run = slice('const runRequest', 'const D = useMemo')
+    expect(run.indexOf('await fetchDemoSnapshot')).toBeLessThan(
+      run.indexOf('setReq(loading)')
+    )
+  })
+
   test('snapshot fetches are memoized per vertical', () => {
     const cache = slice('const demoSnapshots', 'const snapshotReq')
     expect(cache).toContain('demoSnapshots.get(vertical)')
