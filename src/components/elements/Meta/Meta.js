@@ -191,7 +191,7 @@ function Meta ({ structured, ...props }) {
       <meta name='twitter:description' content={description} />
       <meta name='twitter:site' content={twitter} />
       <meta name='twitter:domain' content={domain} />
-      <meta name='twitter:player:stream' content={video} />
+      {video && <meta name='twitter:player:stream' content={video} />}
       <meta name='twitter:image' content={image} />
       <meta name='twitter:creator' content={twitter} />
       <meta name='twitter:label1' content={dataLabel1} />
@@ -203,7 +203,7 @@ function Meta ({ structured, ...props }) {
       <meta property='og:title' content={fullTitle} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={image} />
-      <meta property='og:video:secure_url' content={video} />
+      {video && <meta property='og:video:secure_url' content={video} />}
       <meta property='og:logo' content={logo} />
       <meta property='og:site_name' content={name} />
       <meta property='og:locale' content='en_US' />

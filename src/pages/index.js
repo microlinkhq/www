@@ -1,5 +1,5 @@
 import Analytics from 'components/pages/home/analytics'
-import Faqs from 'components/pages/home/faqs'
+import Faqs, { getFaqQuestions } from 'components/pages/home/faqs'
 import Hero from 'components/pages/home/hero'
 import Products from 'components/pages/home/products'
 import Production from 'components/pages/home/production'
@@ -7,6 +7,7 @@ import Pricing from 'components/pages/home/pricing'
 import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
 import { CurrencyProvider } from 'components/hook/use-currency'
+import toPlainText from 'components/patterns/Faq/to-plain-text'
 import React from 'react'
 
 export const Head = () => {
@@ -35,10 +36,26 @@ export const Head = () => {
     sameAs: ['https://github.com/microlinkhq', 'https://x.com/microlinkhq']
   })
 
+  const faqStructuredData = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': 'https://microlink.io/#faq',
+    url: 'https://microlink.io',
+    mainEntity: getFaqQuestions().map(({ question, answer }) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: toPlainText(answer)
+      }
+    }))
+  })
+
   return (
     <>
       <Meta noSuffix />
       <script type='application/ld+json'>{structuredData}</script>
+      <script type='application/ld+json'>{faqStructuredData}</script>
     </>
   )
 }
