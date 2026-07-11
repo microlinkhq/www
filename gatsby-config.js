@@ -47,9 +47,9 @@ module.exports = {
     // Basic
     name: 'Microlink',
     author: 'Microlink HQ',
-    headline: 'Microlink | Turn Any Link into Screenshots, PDFs & Web Data',
+    headline: 'Microlink | Everything your AI agent needs from any link',
     description:
-      'Everything you or your AI agent needs from any link: screenshots, PDFs, clean text, and data. One simple API. Start free, no credit card.',
+      'Turn any link into screenshots, PDFs, clean text, and structured data with one simple API. Works with any AI agent or your own code. Try it, no signup.',
     siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
     ogImageBase: OG_IMAGE_BASE,
