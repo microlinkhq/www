@@ -7,6 +7,7 @@ import Flex from 'components/elements/Flex'
 import { withSlug } from 'helpers/hoc/with-slug'
 import { slug as slugger } from 'github-slugger'
 import Caption from '../Caption/Caption'
+import toParagraphs from './to-paragraphs'
 import { layout, space, theme } from 'theme'
 import styled from 'styled-components'
 
@@ -66,7 +67,7 @@ const Faq = ({
             return (
               <Text css={theme({ maxWidth: layout.small })} key={question}>
                 <Question index={index}>{question}</Question>
-                {React.Children.map(answer.props.children, (paraph, index) => (
+                {toParagraphs(answer).map((paraph, index) => (
                   <Text
                     css={theme({
                       pt: [3, 4, 4, 4]

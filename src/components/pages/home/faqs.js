@@ -93,9 +93,8 @@ const FAQs = props => (
         question: "What's your SLA level?",
         answer: (
           <div>
-            Our Service-Level Agreements commitment is 99.9% (three nines).{' '}
-            {'\n'}You can see the live <Link href='/status'>status</Link> of the
-            service.
+            Our Service-Level Agreements commitment is 99.9% (three nines). You
+            can see the live <Link href='/status'>status</Link> of the service.
           </div>
         )
       },
