@@ -343,7 +343,6 @@ const GiantEmail = () => (
     onClick={() => track('Email', { location: 'Footer' })}
     css={theme({
       display: 'block',
-      overflow: 'hidden',
       opacity: 0.08,
       transition: `opacity ${transition.medium}`,
       _hover: { opacity: 0.16 }
@@ -351,17 +350,16 @@ const GiantEmail = () => (
   >
     <Box
       as='svg'
-      viewBox='0 0 1000 130'
+      viewBox='0 0 1000 128'
       preserveAspectRatio='xMinYMax meet'
       css={theme({
         display: 'block',
-        width: '100%',
-        transform: 'translateY(14%)'
+        width: '100%'
       })}
     >
       <text
         x='0'
-        y='110'
+        y='100'
         textLength='1000'
         lengthAdjust='spacingAndGlyphs'
         fontFamily={fonts.sans}
