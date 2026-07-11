@@ -66,7 +66,7 @@ const fetchHeroDemo = async ({ client, dist = DIST } = {}) => {
     })
   )
   const snapshots = Object.fromEntries(entries.filter(Boolean))
-  if (Object.keys(snapshots).length === 0) {
+  if (snapshots.screenshot === undefined) {
     throw new Error('HERO_DEMO_UNAVAILABLE')
   }
   await writeFile(manifest, JSON.stringify(snapshots, null, 2))

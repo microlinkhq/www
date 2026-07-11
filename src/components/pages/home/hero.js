@@ -50,6 +50,7 @@ import mql, { getApiUrl } from '@microlink/mql'
 import { Copy as CopyIcon, Check as CheckIcon } from 'react-feather'
 
 import analyticsData from '../../../../data/analytics.json'
+import screenshotSnapshot from '../../../../static/data/hero-demo/screenshot.json'
 
 const [{ reqs_pretty: reqsPretty }] = analyticsData
 
@@ -1766,12 +1767,22 @@ const snapshotReq = (snapshot, cached, elapsedMs) => ({
   elapsedMs
 })
 
+if (typeof window !== 'undefined') {
+  demoSnapshots.set('screenshot', Promise.resolve(screenshotSnapshot))
+}
+
+const initialReq = snapshot =>
+  snapshot.vertical === 'screenshot' &&
+  screenshotSnapshot.apiUrl === loadingReq(snapshot).apiUrl
+    ? snapshotReq(snapshot, screenshotSnapshot)
+    : loadingReq(snapshot)
+
 const Hero = () => {
   const [dText, setDText] = useState(CYCLE[0])
   const [dTab, setDTab] = useState('output')
   const [dVert, setDVert] = useState(null)
   const [menuState, setMenuState] = useState(null)
-  const [req, setReq] = useState(() => loadingReq(derive(CYCLE[0])))
+  const [req, setReq] = useState(() => initialReq(derive(CYCLE[0])))
   const reqId = useRef(0)
   const anim = useRef({
     ci: 0,
@@ -2019,7 +2030,8 @@ const Hero = () => {
       setDVert(shared.product)
       runRequest(derive(shared.q, shared.product))
     } else {
-      runRequest(derive(CYCLE[0]))
+      const snapshot = derive(CYCLE[0])
+      if (initialReq(snapshot).status !== 'success') runRequest(snapshot)
     }
   }, [runRequest])
 

@@ -22,13 +22,15 @@ const Stage = styled(Flex)`
     22px 22px;
 `
 
-const ImageOutput = ({ url, alt, contain }) => (
+const ImageOutput = ({ url, alt, contain, width, height }) => (
   <Stage css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
     <Box
       as='img'
       src={url}
       alt={alt}
       loading='lazy'
+      width={width}
+      height={height}
       css={theme({
         maxWidth: '100%',
         maxHeight: '440px',
@@ -40,7 +42,7 @@ const ImageOutput = ({ url, alt, contain }) => (
   </Stage>
 )
 
-const AnimatedOutput = ({ url }) => {
+const AnimatedOutput = ({ url, width, height }) => {
   const videoRef = useRef(null)
   const [reduced, setReduced] = useState(false)
 
@@ -61,6 +63,8 @@ const AnimatedOutput = ({ url }) => {
         muted
         playsInline
         controls={reduced}
+        width={width}
+        height={height}
         css={theme({
           maxWidth: '100%',
           maxHeight: '440px',
@@ -1132,7 +1136,12 @@ const Output = ({ req }) => {
     case 'screenshot':
       return data.screenshot?.url
         ? (
-          <ImageOutput url={data.screenshot.url} alt='screenshot' />
+          <ImageOutput
+            url={data.screenshot.url}
+            alt='screenshot'
+            width={data.screenshot.width}
+            height={data.screenshot.height}
+          />
           )
         : (
           <Empty>No screenshot in this response.</Empty>
@@ -1141,7 +1150,11 @@ const Output = ({ req }) => {
     case 'animated':
       return data.screenshot?.animated?.url
         ? (
-          <AnimatedOutput url={data.screenshot.animated.url} />
+          <AnimatedOutput
+            url={data.screenshot.animated.url}
+            width={data.screenshot.animated.width}
+            height={data.screenshot.animated.height}
+          />
           )
         : (
           <Empty>No animated screenshot in this response.</Empty>

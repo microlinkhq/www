@@ -85,12 +85,21 @@ describe('fetch-hero-demo provider', () => {
 
   test('skips failing verticals but keeps the rest', async () => {
     const dist = await tmpDist()
-    const client = createClient({ failUrls: [DEMO_URLS.screenshot] })
+    const client = createClient({ failUrls: [DEMO_URLS.pdf] })
     await provider({ client, dist })
     const manifest = JSON.parse(readFileSync(path.join(dist, 'index.json')))
-    expect(manifest.screenshot).toBeUndefined()
-    expect(manifest.pdf).toBeDefined()
-    expect(existsSync(path.join(dist, 'screenshot.json'))).toBe(false)
+    expect(manifest.pdf).toBeUndefined()
+    expect(manifest.screenshot).toBeDefined()
+    expect(existsSync(path.join(dist, 'pdf.json'))).toBe(false)
+  })
+
+  test('the screenshot snapshot is required because the hero bundles it', async () => {
+    const dist = await tmpDist()
+    const client = createClient({ failUrls: [DEMO_URLS.screenshot] })
+    await expect(provider({ client, dist })).rejects.toThrow(
+      'HERO_DEMO_UNAVAILABLE'
+    )
+    expect(existsSync(path.join(dist, 'index.json'))).toBe(false)
   })
 
   test('fails loudly and writes no manifest when every fetch fails', async () => {

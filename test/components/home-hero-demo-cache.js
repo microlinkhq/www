@@ -138,15 +138,34 @@ describe('hero demo snapshot cache', () => {
     expect(source).not.toContain('requestIdleCallback')
   })
 
-  test('homepage preloads the first demo snapshot', () => {
+  test('the initial request is seeded from the bundled screenshot snapshot', () => {
+    expect(source).toContain(
+      "import screenshotSnapshot from '../../../../static/data/hero-demo/screenshot.json'"
+    )
+    expect(source).toContain(
+      "demoSnapshots.set('screenshot', Promise.resolve(screenshotSnapshot))"
+    )
+    expect(source).toContain('useState(() => initialReq(derive(CYCLE[0])))')
+    const initial = slice('const initialReq', 'const Hero =')
+    expect(initial).toContain(
+      'screenshotSnapshot.apiUrl === loadingReq(snapshot).apiUrl'
+    )
     const page = fs.readFileSync(
       path.join(process.cwd(), 'src/pages/index.js'),
       'utf8'
     )
-    expect(page).toContain("heroDemoRequests.heroDemoPath('screenshot')")
-    expect(page).toContain("rel='preload'")
-    expect(page).toContain("as='fetch'")
-    expect(page).toContain("crossOrigin='anonymous'")
+    expect(page).not.toContain('preload')
+  })
+
+  test('the bundled snapshot matches what the hero will request', () => {
+    const file = path.join(
+      process.cwd(),
+      'static/data/hero-demo/screenshot.json'
+    )
+    const snapshot = JSON.parse(fs.readFileSync(file))
+    expect(snapshot.apiUrl).toContain(encodeURIComponent(DEMO_URLS.screenshot))
+    expect(snapshot.body.status).toBe('success')
+    expect(snapshot.headers).toBeTypeOf('object')
   })
 
   test('snapshotReq rebuilds the full response state from a snapshot', () => {
