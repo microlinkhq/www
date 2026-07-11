@@ -2163,9 +2163,8 @@ const Hero = () => {
           forwardedAs='p'
           css={theme({ pt: 3, mx: [0, 0, 5, 6], fontSize: 2 })}
         >
-          Screenshots, PDFs, clean markdown, and structured data from any link.
-          One API, built to take whatever your agents throw at it. Try it below,
-          no signup.
+          Opens the page, does the work, returns the result. Any link, any
+          scale, no babysitting. Try it below, no signup.
         </Caption>
 
         <Composer>
