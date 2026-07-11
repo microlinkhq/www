@@ -551,9 +551,9 @@ const Badge = styled.span`
     alignItems: 'center',
     gap: '9px',
     fontSize: 0,
-    fontWeight: 600,
+    fontWeight: 'bold',
     bg: 'white',
-    color: 'gray6',
+    color: 'gray8',
     border: 1,
     borderColor: 'gray2',
     py: '7px',
@@ -1249,7 +1249,7 @@ const MenuItem = styled(Flex)`
   &[data-active='true'] {
     ${menuItemHighlight}
     ${MenuLabel} {
-      font-weight: 600;
+      ${theme({ fontWeight: 'bold' })};
     }
   }
   @media (hover: hover) and (pointer: fine) {
@@ -1392,7 +1392,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
             whiteSpace: 'nowrap'
           })}
         >
-          <Box as='span' css={theme({ color: 'green8', fontWeight: 600 })}>
+          <Box as='span' css={theme({ color: 'green8', fontWeight: 'bold' })}>
             GET
           </Box>{' '}
           {req.apiUrl}
@@ -1562,7 +1562,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                       as='span'
                       css={theme({
                         fontSize: 1,
-                        fontWeight: 600,
+                        fontWeight: 'bold',
                         color: 'black'
                       })}
                     >
@@ -2231,7 +2231,11 @@ const Hero = () => {
                 </GlyphBadge>
                 <Box
                   as='span'
-                  css={theme({ fontSize: 0, fontWeight: 600, color: 'black' })}
+                  css={theme({
+                    fontSize: 0,
+                    fontWeight: 'bold',
+                    color: 'black'
+                  })}
                 >
                   {D.label}
                 </Box>

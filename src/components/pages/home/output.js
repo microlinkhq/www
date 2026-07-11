@@ -365,7 +365,7 @@ const TechnologiesOutput = ({ technologies }) => {
                 css={theme({
                   display: 'block',
                   fontSize: 0,
-                  fontWeight: 600,
+                  fontWeight: 'bold',
                   color: 'black',
                   textDecoration: 'none'
                 })}
@@ -751,7 +751,7 @@ const TitleBar = styled.div`
   top: 0;
   padding: 12px 14px;
   font-size: 14px;
-  font-weight: 600;
+  ${theme({ fontWeight: 'bold' })};
   color: #fff;
   white-space: nowrap;
   overflow: hidden;

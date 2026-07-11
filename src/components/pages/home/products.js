@@ -373,7 +373,7 @@ const NodeLabel = ({ children }) => (
       as='span'
       css={{
         fontFamily: fonts.sans,
-        fontWeight: 600,
+        fontWeight: 'bold',
         fontSize: '13px',
         color: tone.ink900
       }}
@@ -653,7 +653,7 @@ const WindowDots = () => (
 
 const MiniButton = styled.span`
   font-size: 12px;
-  font-weight: 600;
+  ${theme({ fontWeight: 'bold' })};
   padding: 9px 18px;
   border-radius: ${radius.sm};
 `
@@ -1122,7 +1122,7 @@ const SearchPreview = () => (
           as='span'
           css={{
             color: colors.link,
-            fontWeight: 600,
+            fontWeight: 'bold',
             borderBottom: `2px solid ${colors.link}`,
             paddingBottom: '9px',
             marginBottom: '-9px'
@@ -1152,7 +1152,7 @@ const SearchPreview = () => (
               {result.name[0]}
             </Flex>
             <Box css={{ lineHeight: 1.1 }}>
-              <Box css={{ fontSize: '12px', fontWeight: 600 }}>
+              <Box css={{ fontSize: '12px', fontWeight: 'bold' }}>
                 {result.name}
               </Box>
               <Box css={{ fontSize: '11px', color: tone.faint }}>
@@ -1160,7 +1160,9 @@ const SearchPreview = () => (
               </Box>
             </Box>
           </Flex>
-          <Box css={{ color: colors.link, fontSize: '15px', fontWeight: 600 }}>
+          <Box
+            css={{ color: colors.link, fontSize: '15px', fontWeight: 'bold' }}
+          >
             {result.title}
           </Box>
           <Box
@@ -1216,7 +1218,7 @@ const Chip = styled(Flex)(
   css`
     align-items: center;
     border: 1px solid ${tone.border};
-    font-weight: 600;
+    ${theme({ fontWeight: 'bold' })};
   `
 )
 
@@ -1641,7 +1643,7 @@ const AnimatedPreview = () => (
         as='span'
         css={{
           fontSize: '16px',
-          fontWeight: 600,
+          fontWeight: 'bold',
           letterSpacing: '2px',
           color: colors.gray9
         }}
