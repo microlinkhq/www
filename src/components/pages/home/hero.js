@@ -2164,8 +2164,9 @@ const Hero = () => {
           css={theme({ pt: 3, mx: [0, 0, 5, 6], fontSize: 2 })}
         >
           Everything your AI agent needs from any link: screenshots, PDFs, clean
-          markdown, and structured data through one simple API. Tell it what to
-          do below and try it live, no signup.
+          markdown, and structured data through one simple API. Production
+          infrastructure built to take whatever your agents throw at it. Tell it
+          what to do below and try it live, no signup.
         </Caption>
 
         <Composer>

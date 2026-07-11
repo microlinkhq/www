@@ -98,12 +98,19 @@ export const getFaqQuestions = () => {
     {
       question: 'Can Microlink handle my traffic?',
       answer: (
-        <div>
-          Yes. The platform is built for production workloads and burst traffic.
-          We&rsquo;ve supported enterprise deployments processing up to{' '}
-          {CAPACITY_REQUESTS_PER_MONTH} requests per month, with sustained daily
-          traffic of more than 6 million requests.
-        </div>
+        <>
+          <div>
+            Yes. The platform is built for production workloads and the bursty
+            traffic agents generate: retries, loops, and parallel fan-outs.
+            We&rsquo;ve supported enterprise deployments processing up to{' '}
+            {CAPACITY_REQUESTS_PER_MONTH} requests per month, with sustained
+            daily traffic of more than 6 million requests.
+          </div>
+          <div>
+            No need to warn us before a spike or throttle on your side; your
+            quota is the only limit.
+          </div>
+        </>
       )
     },
     {

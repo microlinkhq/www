@@ -16,7 +16,7 @@ const FEATURES = [
     icon: 'cloud2',
     title: 'Grows with you',
     description:
-      'Capacity scales automatically with your traffic. One request or millions, everything keeps working.'
+      'Capacity scales automatically with your traffic. One request or millions, a single script or a fleet of agents, everything keeps working.'
   },
   {
     icon: 'costless',
@@ -101,9 +101,12 @@ const Production = () => (
           pt: [3, 3, 4, 4]
         })}
       >
-        Behind every request, Microlink runs real web browsers in the cloud: we
-        open the page, do the work, and deliver the result. Our largest
-        customers process {CAPACITY_REQUESTS_PER_MONTH} requests a month.
+        Microlink is the infrastructure between your agents and the web: behind
+        every request, a real browser in the cloud opens the page, does the
+        work, and delivers the result. Agents retry, loop, and fan out in
+        parallel; the platform is built to absorb exactly that traffic. Our
+        largest customers process {CAPACITY_REQUESTS_PER_MONTH} requests a
+        month, and nobody had to warn us first.
       </Caption>
     </Box>
 
