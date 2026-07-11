@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, test } from 'vitest'
+import heroDemoRequests from '../../src/components/pages/home/hero-demo-requests.js'
 
 const source = fs.readFileSync(
   path.join(process.cwd(), 'src/components/pages/home/hero.js'),
@@ -12,7 +13,7 @@ const slice = (start, end) =>
 
 const evaluate = (code, name) =>
   // eslint-disable-next-line no-new-func
-  new Function(`${code}; return ${name}`)()
+  new Function('heroDemoRequests', `${code}; return ${name}`)(heroDemoRequests)
 
 const PROMPTS = evaluate(slice('const PROMPTS', 'const PARSE_RULES'), 'PROMPTS')
 const parseLocal = evaluate(
@@ -36,8 +37,9 @@ const EXAMPLE_CHIPS = derived('EXAMPLE_CHIPS')
 
 const MAPS = evaluate(
   [
+    'const { FN_SNIPPET, REQUEST_OPTS } = heroDemoRequests',
     slice('const AGENT_TASK', 'const agentPrompt'),
-    slice('const FN_SNIPPET', 'const PROMPTS')
+    slice('const INSTALL_COMMENT', 'const PROMPTS')
   ].join('\n'),
   '({ AGENT_TASK, REQUEST_OPTS, CODE_TAB })'
 )

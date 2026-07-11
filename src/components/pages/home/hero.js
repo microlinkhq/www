@@ -16,6 +16,7 @@ import {
   SEARCH_EXAMPLE,
   VERTICAL_ORDER
 } from 'components/pages/home/catalog'
+import heroDemoRequests from 'components/pages/home/hero-demo-requests'
 import { blink } from 'components/keyframes'
 import { trackEvent } from 'helpers/plausible'
 import { isRateLimited } from 'helpers/api-error'
@@ -144,34 +145,7 @@ const agentPrompt = ({ vertical, fullUrl }) => {
   return `Using the Microlink API, ${task}.\n\nSet up Microlink for your agent first: ${SKILL_INSTALL}`
 }
 
-const FN_SNIPPET = "({ page }) => page.$$eval('a', els => els.map(a => a.href))"
-
-const REQUEST_OPTS = {
-  screenshot: { screenshot: true },
-  animated: { screenshot: { animated: true } },
-  preview: {},
-  embed: { iframe: true },
-  markdown: { data: { markdown: { attr: 'markdown' } } },
-  html: { data: { html: { attr: 'html' } }, meta: false, ping: false },
-  text: { data: { text: { attr: 'text' } }, meta: false, ping: false },
-  metadata: {},
-  lighthouse: {
-    insights: { lighthouse: true, technologies: false },
-    meta: false,
-    ping: false
-  },
-  technologies: { insights: { lighthouse: false, technologies: true } },
-  function: {
-    function: FN_SNIPPET,
-    meta: false,
-    ping: false
-  },
-  search: {},
-  pdf: { pdf: true },
-  logo: { palette: true },
-  video: { video: true },
-  audio: { audio: true }
-}
+const { FN_SNIPPET, REQUEST_OPTS, heroDemoPath } = heroDemoRequests
 
 const INSTALL_COMMENT = '// npm install microlink.io'
 
@@ -356,24 +330,10 @@ const parseLocal = text => {
 }
 
 const DEFAULT_URLS = {
-  screenshot: 'https://www.apple.com/music',
-  animated: 'https://sauron-webgl.vercel.app/',
-  preview: 'https://github.com/',
-  embed: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
-  markdown: 'https://microlink.io/docs',
-  html: 'https://example.com',
-  text: 'https://en.wikipedia.org',
-  metadata: 'https://github.com/',
-  lighthouse: 'https://simonwillison.net',
-  technologies: 'https://vercel.com',
-  function: 'https://example.com',
+  ...heroDemoRequests.DEMO_URLS,
   search: `https://www.google.com/search?q=${encodeURIComponent(
     SEARCH_EXAMPLE.query
-  )}`,
-  pdf: 'https://www.raycast.com',
-  logo: 'https://github.com',
-  video: 'https://www.w3schools.com/html/html5_video.asp',
-  audio: 'https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT'
+  )}`
 }
 const FALLBACK_URL = 'https://example.com'
 
@@ -442,13 +402,16 @@ const TIMING_COLORS = ['green5', 'blue5', 'yellow5', 'pink5', 'grape5', 'teal5']
 
 const headersToRows = headers => {
   if (!headers) return []
-  const rows = []
-  headers.forEach((v, k) => rows.push({ k, v }))
-  return rows.sort((a, b) => a.k.localeCompare(b.k))
+  const entries =
+    typeof headers.entries === 'function'
+      ? Array.from(headers.entries())
+      : Object.entries(headers)
+  return entries
+    .map(([k, v]) => ({ k, v }))
+    .sort((a, b) => a.k.localeCompare(b.k))
 }
 
-const parseServerTiming = headers => {
-  const raw = headers && headers.get('server-timing')
+const parseServerTiming = raw => {
   if (!raw) return { bars: [], rows: [], totalMs: null }
 
   const entries = parseServerTimingEntries(raw).map(e => ({
@@ -1770,6 +1733,38 @@ const loadingReq = snapshot => ({
   apiUrl: getApiUrl(snapshot.fullUrl, REQUEST_OPTS[snapshot.vertical] || {})[0]
 })
 
+const HEAVY_SNAPSHOTS = ['lighthouse']
+
+const demoSnapshots = new Map()
+
+const fetchDemoSnapshot = vertical => {
+  let promise = demoSnapshots.get(vertical)
+  if (!promise) {
+    promise = window
+      .fetch(heroDemoPath(vertical))
+      .then(res => (res.ok ? res.json() : null))
+      .catch(() => null)
+    demoSnapshots.set(vertical, promise)
+  }
+  return promise
+}
+
+const prefetchDemoSnapshots = () => {
+  Object.keys(heroDemoRequests.DEMO_URLS)
+    .filter(vertical => !HEAVY_SNAPSHOTS.includes(vertical))
+    .forEach(fetchDemoSnapshot)
+}
+
+const snapshotReq = (snapshot, cached, elapsedMs) => ({
+  status: 'success',
+  D: snapshot,
+  apiUrl: cached.apiUrl,
+  body: cached.body,
+  headerRows: headersToRows(cached.headers),
+  ...parseServerTiming((cached.headers || {})['server-timing']),
+  elapsedMs
+})
+
 const Hero = () => {
   const [dText, setDText] = useState(CYCLE[0])
   const [dTab, setDTab] = useState('output')
@@ -1796,6 +1791,16 @@ const Hero = () => {
   const sectionRef = useRef(null)
 
   useEffect(() => () => clearTimeout(copyTimer.current), [])
+
+  useEffect(() => {
+    if (navigator.connection && navigator.connection.saveData) return undefined
+    if ('requestIdleCallback' in window) {
+      const handle = window.requestIdleCallback(prefetchDemoSnapshots)
+      return () => window.cancelIdleCallback(handle)
+    }
+    const handle = window.setTimeout(prefetchDemoSnapshots, 2000)
+    return () => window.clearTimeout(handle)
+  }, [])
 
   const copyPrompt = () => {
     if (typeof navigator === 'undefined' || !navigator.clipboard) return
@@ -1875,11 +1880,29 @@ const Hero = () => {
     const id = ++reqId.current
     setReq(loading)
     const t0 = window.performance.now()
+
+    if (snapshot.fullUrl === DEFAULT_URLS[snapshot.vertical]) {
+      const cached = await fetchDemoSnapshot(snapshot.vertical)
+      if (id !== reqId.current) return
+      if (cached && cached.body && cached.apiUrl === apiUrl) {
+        setReq(
+          snapshotReq(
+            snapshot,
+            cached,
+            Math.round(window.performance.now() - t0)
+          )
+        )
+        return
+      }
+    }
+
     try {
       const { response, ...body } = await mql(snapshot.fullUrl, opts)
       if (id !== reqId.current) return
       const headers = response && response.headers
-      const { bars, rows, totalMs } = parseServerTiming(headers)
+      const { bars, rows, totalMs } = parseServerTiming(
+        headers && headers.get('server-timing')
+      )
       setReq({
         status: 'success',
         D: snapshot,

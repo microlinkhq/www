@@ -52,6 +52,7 @@ describe('clean', () => {
       'data/skills-content',
       'data/skills-repo',
       'data/skills.json',
+      'static/data/hero-demo',
       'static/user-agents.json'
     ])
   })

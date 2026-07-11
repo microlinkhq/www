@@ -4,6 +4,7 @@ import Hero from 'components/pages/home/hero'
 import Products from 'components/pages/home/products'
 import Production from 'components/pages/home/production'
 import Pricing from 'components/pages/home/pricing'
+import heroDemoRequests from 'components/pages/home/hero-demo-requests'
 import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
 import { CurrencyProvider } from 'components/hook/use-currency'
@@ -54,6 +55,12 @@ export const Head = () => {
   return (
     <>
       <Meta noSuffix />
+      <link
+        rel='preload'
+        as='fetch'
+        href={heroDemoRequests.heroDemoPath('screenshot')}
+        crossOrigin='anonymous'
+      />
       <script type='application/ld+json'>{structuredData}</script>
       <script type='application/ld+json'>{faqStructuredData}</script>
     </>
