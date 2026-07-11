@@ -2163,8 +2163,8 @@ const Hero = () => {
           forwardedAs='p'
           css={theme({ pt: 3, maxWidth: '32rem', fontSize: 2 })}
         >
-          Web automation infrastructure. Any link, any scale, nothing to
-          maintain. Try it below, no signup.
+          AI-ready web automation infrastructure. Any link, any scale, nothing
+          to maintain. Try it below, no signup.
         </Caption>
 
         <Composer>
