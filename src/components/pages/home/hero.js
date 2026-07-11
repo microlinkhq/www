@@ -2163,8 +2163,8 @@ const Hero = () => {
           forwardedAs='p'
           css={theme({ pt: 3, mx: [0, 0, 5, 6], fontSize: 2 })}
         >
-          Opens the page, does the work, returns the result. Any link, any
-          scale, no babysitting. Try it below, no signup.
+          The AI infrastructure for your coding agent. Any link, any scale, no
+          babysitting. Try it below, no signup.
         </Caption>
 
         <Composer>
