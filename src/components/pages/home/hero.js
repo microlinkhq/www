@@ -383,13 +383,22 @@ const EXAMPLE_CHIPS = [
 
 const VERT_BORDER_ACTIVE = rgba(colors.grape7, 0.45)
 
+const demoKey = url => shortUrl(url).replace(/\/$/, '')
+
+const canonicalDemoUrl = (url, vertical) => {
+  const demo = DEFAULT_URLS[vertical]
+  return demo && demoKey(url) === demoKey(demo) ? demo : url
+}
+
 const derive = (text, override) => {
   const p = parseLocal(text)
   const v = override || p.vertical
   const fullUrl =
     v === 'search'
       ? DEFAULT_URLS.search
-      : p.url || DEFAULT_URLS[v] || FALLBACK_URL
+      : p.url
+        ? canonicalDemoUrl(p.url, v)
+        : DEFAULT_URLS[v] || FALLBACK_URL
   return {
     vertical: v,
     label: PRODUCTS[v].label,
@@ -1733,8 +1742,6 @@ const loadingReq = snapshot => ({
   apiUrl: getApiUrl(snapshot.fullUrl, REQUEST_OPTS[snapshot.vertical] || {})[0]
 })
 
-const HEAVY_SNAPSHOTS = ['lighthouse']
-
 const demoSnapshots = new Map()
 
 const fetchDemoSnapshot = vertical => {
@@ -1747,12 +1754,6 @@ const fetchDemoSnapshot = vertical => {
     demoSnapshots.set(vertical, promise)
   }
   return promise
-}
-
-const prefetchDemoSnapshots = () => {
-  Object.keys(heroDemoRequests.DEMO_URLS)
-    .filter(vertical => !HEAVY_SNAPSHOTS.includes(vertical))
-    .forEach(fetchDemoSnapshot)
 }
 
 const snapshotReq = (snapshot, cached, elapsedMs) => ({
@@ -1791,16 +1792,6 @@ const Hero = () => {
   const sectionRef = useRef(null)
 
   useEffect(() => () => clearTimeout(copyTimer.current), [])
-
-  useEffect(() => {
-    if (navigator.connection && navigator.connection.saveData) return undefined
-    if ('requestIdleCallback' in window) {
-      const handle = window.requestIdleCallback(prefetchDemoSnapshots)
-      return () => window.cancelIdleCallback(handle)
-    }
-    const handle = window.setTimeout(prefetchDemoSnapshots, 2000)
-    return () => window.clearTimeout(handle)
-  }, [])
 
   const copyPrompt = () => {
     if (typeof navigator === 'undefined' || !navigator.clipboard) return

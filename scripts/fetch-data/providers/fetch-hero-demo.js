@@ -11,7 +11,6 @@ const {
 } = require('../../../src/components/pages/home/hero-demo-requests')
 
 const DIST = path.resolve(__dirname, '../../../static/data/hero-demo')
-const MANIFEST = path.join(DIST, 'index.json')
 
 const ATTEMPTS = 2
 
@@ -42,31 +41,35 @@ const fetchEntry = async (vertical, client) => {
   }
 }
 
-const isReusable = async () => {
+const isReusable = async manifest => {
   try {
-    const buffer = await readFile(MANIFEST)
+    const buffer = await readFile(manifest)
     return buffer.byteLength > 0
   } catch (_) {
     return false
   }
 }
 
-const fetchHeroDemo = async () => {
-  if (await isReusable()) return
-  await mkdir(DIST, { recursive: true })
+const fetchHeroDemo = async ({ client, dist = DIST } = {}) => {
+  const manifest = path.join(dist, 'index.json')
+  if (await isReusable(manifest)) return
+  await mkdir(dist, { recursive: true })
   const entries = await Promise.all(
     Object.keys(DEMO_URLS).map(async vertical => {
-      const entry = await fetchEntry(vertical)
+      const entry = await fetchEntry(vertical, client)
       if (entry === null) return null
       await writeFile(
-        path.join(DIST, `${vertical}.json`),
+        path.join(dist, `${vertical}.json`),
         JSON.stringify(entry)
       )
       return [vertical, entry.apiUrl]
     })
   )
-  const manifest = Object.fromEntries(entries.filter(Boolean))
-  await writeFile(MANIFEST, JSON.stringify(manifest, null, 2))
+  const snapshots = Object.fromEntries(entries.filter(Boolean))
+  if (Object.keys(snapshots).length === 0) {
+    throw new Error('HERO_DEMO_UNAVAILABLE')
+  }
+  await writeFile(manifest, JSON.stringify(snapshots, null, 2))
 }
 
 module.exports = fetchHeroDemo

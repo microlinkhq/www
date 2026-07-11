@@ -53,6 +53,53 @@ describe('hero demo requests module', () => {
   })
 })
 
+describe('hero demo url canonicalization', () => {
+  const shortUrl = url => url.replace(/^https?:\/\//, '').replace(/^www\./, '')
+
+  const derive = evaluate(
+    [
+      "const SEARCH_EXAMPLE = { query: 'query' }",
+      slice('const PARSE_RULES', 'const DEFAULT_URLS'),
+      slice('const DEFAULT_URLS', 'const FALLBACK_URL'),
+      "const FALLBACK_URL = 'https://example.com'",
+      slice('const shortUrl', 'const promptFor'),
+      slice('const demoKey', 'const TIMING_COLORS')
+    ].join('\n'),
+    'derive',
+    {
+      heroDemoRequests,
+      PRODUCTS: new Proxy({}, { get: () => ({ label: 'label' }) }),
+      colors: { gray2: '#eee' },
+      VERT_BORDER_ACTIVE: '#ccc'
+    }
+  )
+
+  test('every demo prompt derives back to the exact snapshot URL', () => {
+    for (const [vertical, url] of Object.entries(DEMO_URLS)) {
+      const derived = derive(`of ${shortUrl(url)}`, vertical)
+      expect({ vertical, fullUrl: derived.fullUrl }).toEqual({
+        vertical,
+        fullUrl: url
+      })
+    }
+  })
+
+  test('the initial cycle prompt hits the snapshot gate', () => {
+    const derived = derive('take screenshot of apple.com/music')
+    expect(derived.vertical).toBe('screenshot')
+    expect(derived.fullUrl).toBe(DEMO_URLS.screenshot)
+  })
+
+  test('user URLs that are not demos stay untouched', () => {
+    expect(derive('take screenshot of stripe.com').fullUrl).toBe(
+      'https://stripe.com'
+    )
+    expect(derive('take screenshot of www.apple.com/music/deep').fullUrl).toBe(
+      'https://www.apple.com/music/deep'
+    )
+  })
+})
+
 describe('hero demo snapshot cache', () => {
   test('runRequest serves demo URLs from the snapshot before hitting the API', () => {
     const run = slice('const runRequest', 'const D = useMemo')
@@ -70,12 +117,18 @@ describe('hero demo snapshot cache', () => {
   })
 
   test('snapshot fetches are memoized per vertical', () => {
-    const cache = slice('const demoSnapshots', 'const prefetchDemoSnapshots')
+    const cache = slice('const demoSnapshots', 'const snapshotReq')
     expect(cache).toContain('demoSnapshots.get(vertical)')
     expect(cache).toContain('demoSnapshots.set(vertical, promise)')
     expect(cache).toContain('heroDemoPath(vertical)')
     expect(cache).toContain('res.ok ? res.json() : null')
     expect(cache).toContain('.catch(() => null)')
+  })
+
+  test('snapshots load on demand only, never prefetched upfront', () => {
+    expect(source.match(/fetchDemoSnapshot\(/g)).toHaveLength(1)
+    expect(source).not.toContain('prefetchDemoSnapshots')
+    expect(source).not.toContain('requestIdleCallback')
   })
 
   test('homepage preloads the first demo snapshot', () => {
@@ -87,16 +140,6 @@ describe('hero demo snapshot cache', () => {
     expect(page).toContain("rel='preload'")
     expect(page).toContain("as='fetch'")
     expect(page).toContain("crossOrigin='anonymous'")
-  })
-
-  test('idle prefetch warms every light snapshot and respects saveData', () => {
-    expect(source).toContain("const HEAVY_SNAPSHOTS = ['lighthouse']")
-    const prefetch = slice('const prefetchDemoSnapshots', 'const snapshotReq')
-    expect(prefetch).toContain('HEAVY_SNAPSHOTS')
-    expect(prefetch).toContain('forEach(fetchDemoSnapshot)')
-    expect(source).toContain('navigator.connection.saveData')
-    expect(source).toContain('requestIdleCallback')
-    expect(source).toContain('cancelIdleCallback')
   })
 
   test('snapshotReq rebuilds the full response state from a snapshot', () => {
