@@ -39,8 +39,8 @@ export const getFaqQuestions = () => {
             <Link href='/docs/api/parameters/proxy'>proxy</Link>.
           </div>
           <div>
-            The Pro plan comes with an associated API key and configurable
-            quota. You only pay for what you need.
+            It comes with an associated API key and configurable quota. You only
+            pay for what you need.
           </div>
         </>
       )

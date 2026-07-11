@@ -4,7 +4,7 @@ const [{ cdn_edges: cdnEdges }] = analyticsData
 
 if (typeof cdnEdges !== 'number' || Number.isNaN(cdnEdges)) {
   throw new TypeError(
-    'cdn_edges missing from data/analytics.json — run `npm run build:data` to regenerate it'
+    'cdn_edges missing from data/analytics.json — run `npm run clean:data && npm run build:data` to regenerate it'
   )
 }
 
