@@ -35,6 +35,15 @@ const fetchCdnEdges = async () => {
   }
 }
 
+const isFresh = data =>
+  Array.isArray(data) &&
+  data.length > 0 &&
+  data.every(
+    entry =>
+      typeof entry.cdn_edges === 'number' &&
+      typeof entry.reqs_pretty === 'string'
+  )
+
 module.exports = () =>
   require('../create-provider').fromCode(
     async () => {
@@ -50,8 +59,12 @@ module.exports = () =>
         }
       ]
     },
-    { dist: path.resolve(__dirname, '../../../data/analytics.json') }
+    {
+      dist: path.resolve(__dirname, '../../../data/analytics.json'),
+      isFresh
+    }
   )
 
 module.exports.roundPretty = roundPretty
 module.exports.parseCdnEdges = parseCdnEdges
+module.exports.isFresh = isFresh
