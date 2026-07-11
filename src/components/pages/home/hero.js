@@ -1667,8 +1667,10 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
               color: 'black'
             })}
           >
+            <Comment>{INSTALL_COMMENT}</Comment>
+            {'\n'}
             <Num>import</Num> createClient <Num>from</Num>{' '}
-            <Str>'microlink.io'</Str> <Comment>{INSTALL_COMMENT}</Comment>
+            <Str>'microlink.io'</Str>
             {'\n\n'}
             <Num>const</Num> microlink = <Fn>createClient</Fn>({'{'} apiKey:
             process.env.MICROLINK_API_KEY {'}'}){'\n\n'}
@@ -1690,8 +1692,9 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                 </>
                 )}
             ){'\n\n'}
-            console.<Fn>log</Fn>({snippet.log}){' '}
-            <Comment>{`// => ${snippet.comment}`}</Comment>
+            <Comment>{`// ${snippet.comment}`}</Comment>
+            {'\n'}
+            console.<Fn>log</Fn>({snippet.log})
           </Code>
         )}
       </TabContent>
