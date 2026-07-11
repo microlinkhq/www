@@ -16,7 +16,7 @@ export default function HTML (props) {
         <link
           rel='preconnect'
           href='https://fonts.gstatic.com'
-          crossOrigin='true'
+          crossOrigin='anonymous'
         />
         <link
           rel='preconnect'
@@ -27,7 +27,7 @@ export default function HTML (props) {
         {props.headComponents}
 
         <link
-          as='font'
+          rel='stylesheet'
           href='https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;700&display=swap'
         />
 
