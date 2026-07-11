@@ -12,6 +12,7 @@ import {
 } from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
+import { parseServerTimingEntries } from 'helpers/server-timing'
 
 const NERD_STATS_STORAGE_KEY = 'screenshot-nerd-stats'
 
@@ -244,24 +245,17 @@ const formatValue = (key, value) => {
     }
   }
   if (key === 'server-timing') {
-    const entries = value
-      .split(',')
-      .map(s => s.trim())
-      .filter(s => s.includes(';dur='))
-      .map(s => {
-        const [name, ...rest] = s.split(';')
-        const dur = rest.find(p => p.startsWith('dur='))
-        return dur ? { name: name.trim(), ms: dur.replace('dur=', '') } : null
-      })
-      .filter(Boolean)
+    const entries = parseServerTimingEntries(value).filter(
+      entry => entry.dur != null
+    )
 
     if (entries.length === 0) return value
 
     return (
       <span css={{ display: 'flex', flexDirection: 'column', gap: space[1] }}>
-        {entries.map(({ name, ms }) => (
+        {entries.map(({ name, dur }) => (
           <span key={name}>
-            <span css={{ color: colors.green6 }}>{name}</span> {ms}
+            <span css={{ color: colors.green6 }}>{name}</span> {dur}
             ms
           </span>
         ))}

@@ -6,6 +6,7 @@ import { getApiUrl } from '@microlink/mql'
 import { normalizeUrl } from 'helpers/url-input'
 import { trackEvent } from 'helpers/plausible'
 import { toCurlSnippetOrEmpty } from 'helpers/curl-snippet'
+import { lighthouseViewerUrl } from 'helpers/lighthouse'
 import { trimMs } from 'helpers/trim-ms'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import humanizeUrl from 'humanize-url'
@@ -278,12 +279,9 @@ const LiveDemo = React.memo(function LiveDemo ({
   const snippetTechnologiesText = toCurlSnippetOrEmpty(embedTechnologiesUrl)
   const snippetInsightsText = toCurlSnippetOrEmpty(embedInsightsUrl)
 
-  const reportUrl = useMemo(() => {
-    if (!embedInsightsUrl) return ''
-    return `https://lighthouse.microlink.io/?url=${encodeURIComponent(
-      embedInsightsUrl
-    )}`
-  }, [embedInsightsUrl])
+  const reportUrl = embedInsightsUrl
+    ? lighthouseViewerUrl(embedInsightsUrl)
+    : ''
   const hasTechnologies = Array.isArray(technologies)
     ? technologies.length > 0
     : Boolean(technologies)

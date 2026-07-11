@@ -216,8 +216,15 @@ export const fonts = {
 
 export const cx = key => colors[key] || key
 
-export const gradient =
-  'linear-gradient(90deg, #f76698, #c03fa2 60%, #8c1bab 100%)'
+export const gradientStops = [
+  ['0%', '#f76698'],
+  ['60%', '#c03fa2'],
+  ['100%', '#8c1bab']
+]
+
+export const gradient = `linear-gradient(90deg, ${gradientStops
+  .map(([offset, color]) => (offset === '0%' ? color : `${color} ${offset}`))
+  .join(', ')})`
 
 export const shadowInk = '16, 24, 40'
 
@@ -256,8 +263,11 @@ export const speed = {
 export const timings = {
   short: 'cubic-bezier(.25,.8,.25,1)',
   medium: 'cubic-bezier(.25,.8,.25,1)',
-  long: 'cubic-bezier(.4, 0, .2, 1)'
+  long: 'cubic-bezier(.4, 0, .2, 1)',
+  smooth: 'cubic-bezier(0.22, 1, 0.36, 1)'
 }
+
+export const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 
 export const transition = {
   short: `${speed.quickly}ms ${timings.short}`,
