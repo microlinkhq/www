@@ -158,6 +158,109 @@ const REQUEST_OPTS = {
   audio: { audio: true }
 }
 
+const CODE_TAB = {
+  screenshot: {
+    binding: 'screenshot',
+    method: 'screenshot',
+    log: 'screenshot.url',
+    comment: 'hosted screenshot URL'
+  },
+  animated: {
+    binding: 'animated',
+    method: 'screenshot',
+    opts: { animated: true },
+    log: 'animated.url',
+    comment: 'hosted animation URL'
+  },
+  preview: {
+    binding: 'metadata',
+    method: 'metadata',
+    log: 'metadata.title',
+    comment: 'normalized page metadata'
+  },
+  embed: {
+    binding: 'embed',
+    method: 'embed',
+    log: 'embed.html',
+    comment: 'embeddable iframe markup'
+  },
+  markdown: {
+    binding: 'markdown',
+    method: 'markdown',
+    log: 'markdown',
+    comment: 'page content as Markdown'
+  },
+  html: {
+    binding: 'html',
+    method: 'html',
+    log: 'html',
+    comment: 'rendered HTML string'
+  },
+  text: {
+    binding: 'text',
+    method: 'text',
+    log: 'text',
+    comment: 'readable text string'
+  },
+  metadata: {
+    binding: 'metadata',
+    method: 'metadata',
+    log: 'metadata.title',
+    comment: 'normalized page metadata'
+  },
+  lighthouse: {
+    binding: 'report',
+    method: 'lighthouse',
+    log: 'report.categories',
+    comment: 'full Lighthouse report'
+  },
+  technologies: {
+    binding: 'technologies',
+    method: 'technologies',
+    log: 'technologies',
+    comment: "[{ name: 'Vercel', … }]"
+  },
+  function: {
+    binding: '{ value }',
+    method: 'run',
+    code: "({ page }) => page.$$eval('a', els => els.map(a => a.href))",
+    log: 'value',
+    comment: 'every link on the page'
+  },
+  search: {
+    binding: 'page',
+    method: 'search',
+    query: true,
+    log: 'page.results',
+    comment: '[{ title, url, description }, …]'
+  },
+  pdf: {
+    binding: 'pdf',
+    method: 'pdf',
+    log: 'pdf.url',
+    comment: 'hosted PDF URL'
+  },
+  logo: {
+    binding: 'logo',
+    method: 'logo',
+    opts: { palette: true },
+    log: 'logo.url',
+    comment: 'the brand logo URL'
+  },
+  video: {
+    binding: 'video',
+    method: 'video',
+    log: 'video.url',
+    comment: 'direct video file URL'
+  },
+  audio: {
+    binding: 'audio',
+    method: 'audio',
+    log: 'audio.url',
+    comment: 'direct audio file URL'
+  }
+}
+
 const CYCLE = [
   'take screenshot of apple.com/music',
   'create PDF of raycast.com',
@@ -1182,8 +1285,8 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
   const isError = status === 'error'
   const isRateLimited = status === 'rate-limited'
   const hideTabs = isError || isRateLimited
-  const opts = REQUEST_OPTS[D.vertical] || {}
-  const hasOpts = Object.keys(opts).length > 0
+  const snippet = CODE_TAB[D.vertical] || CODE_TAB.metadata
+  const snippetArg = snippet.query ? SEARCH_EXAMPLE.query : D.fullUrl
 
   const tabs = [
     { key: 'output', label: 'Output' },
@@ -1575,22 +1678,31 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                 color: 'black'
               })}
             >
-              <Num>import</Num> mql <Num>from</Num> <Str>'@microlink/mql'</Str>
+              <Num>import</Num> createClient <Num>from</Num>{' '}
+              <Str>'microlink.io'</Str>
               {'\n\n'}
-              <Num>const</Num> {'{'} status, data, headers, redirects {'}'} ={' '}
-              <Num>await</Num> mql(<Str>'{D.fullUrl}'</Str>
-              {hasOpts && <>, {renderJsValue(opts, 'opts')}</>}){'\n\n'}
-              console.<Fn>log</Fn>(status){'     '}
-              <Comment>{"// => 'success'"}</Comment>
-              {'\n'}
-              console.<Fn>log</Fn>(data){'       '}
-              <Comment>{'// => response payload'}</Comment>
-              {'\n'}
-              console.<Fn>log</Fn>(headers){'    '}
-              <Comment>{'// => response headers'}</Comment>
-              {'\n'}
-              console.<Fn>log</Fn>(redirects){'  '}
-              <Comment>{'// => redirect chain'}</Comment>
+              <Num>const</Num> microlink = <Fn>createClient</Fn>()
+              {'\n\n'}
+              <Num>const</Num> {snippet.binding} = <Num>await</Num> microlink.
+              <Fn>{snippet.method}</Fn>(
+              {snippet.code
+                ? (
+                  <>
+                    {'\n  '}
+                    <Str>'{snippetArg}'</Str>,{'\n  '}
+                    {snippet.code}
+                    {'\n'}
+                  </>
+                  )
+                : (
+                  <>
+                    <Str>'{snippetArg}'</Str>
+                    {snippet.opts && <>, {renderJsValue(snippet.opts, 'opts')}</>}
+                  </>
+                  )}
+              ){'\n\n'}
+              console.<Fn>log</Fn>({snippet.log}){' '}
+              <Comment>{`// => ${snippet.comment}`}</Comment>
             </Code>
           </Box>
         )}
