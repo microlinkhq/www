@@ -1360,11 +1360,6 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
               })}
             >
               <StatusPill $tone='warning'>rate limited</StatusPill>
-              {req.retryAt && (
-                <Mono css={theme({ fontSize: 0, color: SYNTAX.muted })}>
-                  retrying in <RetryCountdown retryAt={req.retryAt} />
-                </Mono>
-              )}
             </Flex>
             <Mono
               css={theme({
@@ -1374,17 +1369,13 @@ const ResultPanel = React.memo(({ tab, setTab, req, onRetry }) => {
                 wordBreak: 'break-word'
               })}
             >
-              You&rsquo;ve hit the public demo rate limit.{' '}
-              {req.retryAt
-                ? 'Hang tight — this request retries automatically.'
-                : 'Get an API key for higher limits, or try again.'}
+              You&rsquo;ve hit the public demo rate limit. Get an API key for
+              higher limits, or try again.
             </Mono>
             <Flex css={theme({ alignItems: 'center', gap: 2, mt: 3 })}>
-              {!req.retryAt && (
-                <RetryButton type='button' onClick={onRetry}>
-                  Try again
-                </RetryButton>
-              )}
+              <RetryButton type='button' onClick={onRetry}>
+                Try again
+              </RetryButton>
               <RateLimitLink href='/pricing'>View plans →</RateLimitLink>
             </Flex>
           </Box>
@@ -1631,43 +1622,13 @@ const fmtDuration = ms =>
   ms >= 1000 ? `${(ms / 1000).toFixed(1)}s` : `${ms}ms`
 
 const RATE_LIMIT_STATUS = 429
-const MAX_RATE_LIMIT_RETRIES = 3
-const DEFAULT_RETRY_AFTER = 5
-const MAX_AUTO_RETRY_WAIT = 30
-
-const parseRetryAfter = headers => {
-  const raw =
-    headers && typeof headers.get === 'function'
-      ? headers.get('retry-after')
-      : headers && (headers['retry-after'] ?? headers['Retry-After'])
-  if (raw == null) return null
-  const secs = Number(raw)
-  if (Number.isFinite(secs)) return Math.max(0, Math.round(secs))
-  const at = Date.parse(raw)
-  return Number.isNaN(at)
-    ? null
-    : Math.max(0, Math.round((at - Date.now()) / 1000))
-}
-
-const RetryCountdown = ({ retryAt }) => {
-  const [now, setNow] = useState(() => Date.now())
-  useEffect(() => {
-    const id = setInterval(() => setNow(Date.now()), 500)
-    return () => clearInterval(id)
-  }, [])
-  return <>{Math.max(0, Math.ceil((retryAt - now) / 1000))}s</>
-}
 
 const requestStatus = req => {
   if (req.status === 'loading') {
     return { text: 'running…', color: VIOLET, live: true }
   }
   if (req.status === 'rate-limited') {
-    return {
-      text: req.retryAt ? 'rate limited · retrying…' : 'rate limited',
-      color: WARN,
-      live: !!req.retryAt
-    }
+    return { text: 'rate limited', color: WARN }
   }
   const took = req.elapsedMs != null ? ` in ${fmtDuration(req.elapsedMs)}` : ''
   if (req.status === 'error') {
@@ -1735,11 +1696,9 @@ const Hero = () => {
   const [promptCopied, setPromptCopied] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const copyTimer = useRef(null)
-  const retryTimer = useRef(null)
   const retrySnapshot = useRef(null)
 
   useEffect(() => () => clearTimeout(copyTimer.current), [])
-  useEffect(() => () => clearTimeout(retryTimer.current), [])
 
   const copyPrompt = () => {
     if (typeof navigator === 'undefined' || !navigator.clipboard) return
@@ -1779,8 +1738,7 @@ const Hero = () => {
     else openMenu()
   }
 
-  const runRequest = useCallback(async (snapshot, attempt = 0) => {
-    clearTimeout(retryTimer.current)
+  const runRequest = useCallback(async snapshot => {
     if (snapshot.vertical === 'search') {
       reqId.current += 1
       setReq({
@@ -1831,24 +1789,7 @@ const Hero = () => {
       if (id !== reqId.current) return
       if (err && err.statusCode === RATE_LIMIT_STATUS) {
         retrySnapshot.current = snapshot
-        const retryAfter = parseRetryAfter(err.headers) ?? DEFAULT_RETRY_AFTER
-        const willRetry =
-          attempt < MAX_RATE_LIMIT_RETRIES && retryAfter <= MAX_AUTO_RETRY_WAIT
-        if (willRetry) {
-          const waitMs = retryAfter * 1000
-          setReq({
-            status: 'rate-limited',
-            D: snapshot,
-            apiUrl,
-            retryAt: Date.now() + waitMs
-          })
-          retryTimer.current = setTimeout(
-            () => runRequest(snapshot, attempt + 1),
-            waitMs
-          )
-        } else {
-          setReq({ status: 'rate-limited', D: snapshot, apiUrl, retryAt: null })
-        }
+        setReq({ status: 'rate-limited', D: snapshot, apiUrl })
         return
       }
       setReq({
