@@ -4,11 +4,11 @@ import { Markdown } from 'components/icons/Markdown'
 import { PDF } from 'components/icons/PDF'
 import { Lighthouse } from 'components/icons/Lighthouse'
 import { Terminal } from 'components/icons/Terminal'
+import { Shapes } from 'components/icons/Shapes'
 import {
   Link as LinkIcon,
   Code as CodeIcon,
   Search as SearchIcon,
-  Image as ImageIcon,
   Layers as LayersIcon,
   Layout as LayoutIcon,
   AlignLeft as AlignLeftIcon,
@@ -106,7 +106,7 @@ export const PRODUCTS = {
   },
   logo: {
     label: 'Logo',
-    icon: ImageIcon,
+    icon: Shapes,
     href: '/logo',
     description: 'Favicons and brand marks at scale'
   },
