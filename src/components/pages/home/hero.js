@@ -18,6 +18,7 @@ import {
 } from 'components/pages/home/catalog'
 import { blink } from 'components/keyframes'
 import { trackEvent } from 'helpers/plausible'
+import { isRateLimited } from 'helpers/api-error'
 import { escText } from 'helpers/link-card'
 import { parseServerTimingEntries } from 'helpers/server-timing'
 import {
@@ -1720,8 +1721,6 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
 const fmtDuration = ms =>
   ms >= 1000 ? `${(ms / 1000).toFixed(1)}s` : `${ms}ms`
 
-const RATE_LIMIT_STATUS = 429
-
 const requestStatus = req => {
   if (req.status === 'loading') {
     return { text: 'running…', color: VIOLET, live: true }
@@ -1894,7 +1893,7 @@ const Hero = () => {
       })
     } catch (err) {
       if (id !== reqId.current) return
-      if (err && err.statusCode === RATE_LIMIT_STATUS) {
+      if (err && (isRateLimited(err.statusCode) || isRateLimited(err.code))) {
         setReq({ status: 'rate-limited', D: snapshot, apiUrl })
         return
       }
