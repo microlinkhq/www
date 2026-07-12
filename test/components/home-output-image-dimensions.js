@@ -8,15 +8,19 @@ const source = fs.readFileSync(
 )
 
 describe('home output reserves media dimensions', () => {
-  test('screenshot image forwards intrinsic width and height', () => {
+  test('media boxes reserve a ratio-true box from intrinsic dimensions', () => {
+    expect(source).toContain('const mediaBox = (width, height)')
+    expect(source).toContain('min(100%, calc(440px * ')
+    expect(source).toContain('aspectRatio: ')
+    expect(source.match(/\.\.\.mediaBox\(width, height\)/g)).toHaveLength(2)
+  })
+
+  test('screenshot and animated outputs forward intrinsic dimensions', () => {
     expect(source).toContain(
-      'const ImageOutput = ({ url, alt, contain, width, height })'
+      'const ImageOutput = ({ url, alt, width, height })'
     )
     expect(source).toContain('width={data.screenshot.width}')
     expect(source).toContain('height={data.screenshot.height}')
-  })
-
-  test('animated video forwards intrinsic width and height', () => {
     expect(source).toContain('const AnimatedOutput = ({ url, width, height })')
     expect(source).toContain('width={data.screenshot.animated.width}')
     expect(source).toContain('height={data.screenshot.animated.height}')

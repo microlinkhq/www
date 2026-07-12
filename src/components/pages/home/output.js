@@ -22,19 +22,23 @@ const Stage = styled(Flex)`
     22px 22px;
 `
 
-const ImageOutput = ({ url, alt, contain, width, height }) => (
-  <Stage css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
+const mediaBox = (width, height) =>
+  width > 0 && height > 0
+    ? {
+        width: `min(100%, calc(440px * ${width / height}))`,
+        aspectRatio: `${width} / ${height}`
+      }
+    : { maxWidth: '100%', maxHeight: '440px' }
+
+const ImageOutput = ({ url, alt, width, height }) => (
+  <Stage css={theme({ p: 4, maxHeight: '504px', overflow: 'auto' })}>
     <Box
       as='img'
       src={url}
       alt={alt}
       loading='lazy'
-      width={width}
-      height={height}
       css={theme({
-        maxWidth: '100%',
-        maxHeight: '440px',
-        objectFit: contain ? 'contain' : 'initial',
+        ...mediaBox(width, height),
         borderRadius: 4,
         boxShadow: CARD_SHADOW
       })}
@@ -53,7 +57,7 @@ const AnimatedOutput = ({ url, width, height }) => {
   }, [url])
 
   return (
-    <Stage css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
+    <Stage css={theme({ p: 4, maxHeight: '504px', overflow: 'auto' })}>
       <Box
         as='video'
         ref={videoRef}
@@ -63,11 +67,8 @@ const AnimatedOutput = ({ url, width, height }) => {
         muted
         playsInline
         controls={reduced}
-        width={width}
-        height={height}
         css={theme({
-          maxWidth: '100%',
-          maxHeight: '440px',
+          ...mediaBox(width, height),
           borderRadius: 4,
           boxShadow: CARD_SHADOW
         })}
