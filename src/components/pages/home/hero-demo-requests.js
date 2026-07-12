@@ -49,7 +49,7 @@ const DEMO_URLS = {
 
 const INITIAL_VERTICAL = 'screenshot'
 
-const SNAPSHOT_SKIP = ['lighthouse']
+const SNAPSHOT_SKIP = ['embed', 'lighthouse']
 
 const SNAPSHOT_URLS = Object.fromEntries(
   Object.entries(DEMO_URLS).filter(

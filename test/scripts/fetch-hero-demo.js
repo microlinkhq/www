@@ -7,13 +7,13 @@ import provider from '../../scripts/fetch-data/providers/fetch-hero-demo.js'
 import heroDemoRequests from '../../src/components/pages/home/hero-demo-requests.js'
 
 const { DEMO_URLS, SNAPSHOT_URLS, REQUEST_OPTS } = heroDemoRequests
-const { ATTEMPTS, toEntry, fetchEntry, dist } = provider
+const { toEntry, dist } = provider
 
-const createClient = ({ failures = 0, failUrls = [] } = {}) => {
+const createClient = ({ failUrls = [] } = {}) => {
   let calls = 0
   const client = async url => {
     calls++
-    if (calls <= failures || failUrls.includes(url)) throw new Error('boom')
+    if (failUrls.includes(url)) throw new Error('boom')
     return {
       status: 'success',
       data: { url: 'https://example.com' },
@@ -50,20 +50,6 @@ describe('fetch-hero-demo provider', () => {
     expect(entry.headers).toEqual({ 'server-timing': 'total;dur=42' })
   })
 
-  test('fetchEntry retries once and recovers', async () => {
-    const client = createClient({ failures: 1 })
-    const entry = await fetchEntry('screenshot', client)
-    expect(entry).not.toBeNull()
-    expect(client.calls()).toBe(2)
-  })
-
-  test('fetchEntry returns null after exhausting attempts', async () => {
-    const client = createClient({ failures: ATTEMPTS })
-    const entry = await fetchEntry('screenshot', client)
-    expect(entry).toBeNull()
-    expect(client.calls()).toBe(ATTEMPTS)
-  })
-
   test('demo verticals never include search', () => {
     expect(DEMO_URLS.search).toBeUndefined()
     expect(REQUEST_OPTS.search).toEqual({})
@@ -80,50 +66,25 @@ describe('fetch-hero-demo provider', () => {
     for (const vertical of Object.keys(SNAPSHOT_URLS)) {
       expect(existsSync(path.join(dist, `${vertical}.json`))).toBe(true)
     }
-    expect(existsSync(path.join(dist, 'lighthouse.json'))).toBe(false)
     const before = client.calls()
     await provider({ client, dist })
     expect(client.calls()).toBe(before)
   })
 
-  test('skips failing verticals but keeps the rest', async () => {
-    const dist = await tmpDist()
-    const client = createClient({ failUrls: [DEMO_URLS.pdf] })
-    await provider({ client, dist })
-    const manifest = JSON.parse(readFileSync(path.join(dist, 'index.json')))
-    expect(manifest.pdf).toBeUndefined()
-    expect(manifest.screenshot).toBeDefined()
-    expect(existsSync(path.join(dist, 'pdf.json'))).toBe(false)
-  })
-
   test('removes stale snapshots for verticals no longer covered', async () => {
     const dist = await tmpDist()
-    await writeFile(path.join(dist, 'pdf.json'), '{}')
+    await writeFile(path.join(dist, 'embed.json'), '{}')
     await writeFile(path.join(dist, 'lighthouse.json'), '{}')
-    const client = createClient({ failUrls: [DEMO_URLS.pdf] })
-    await provider({ client, dist })
-    expect(existsSync(path.join(dist, 'pdf.json'))).toBe(false)
+    await provider({ client: createClient(), dist })
+    expect(existsSync(path.join(dist, 'embed.json'))).toBe(false)
     expect(existsSync(path.join(dist, 'lighthouse.json'))).toBe(false)
     expect(existsSync(path.join(dist, 'screenshot.json'))).toBe(true)
   })
 
-  test('the screenshot snapshot is required because the hero bundles it', async () => {
+  test('fails the build when any snapshot fetch fails', async () => {
     const dist = await tmpDist()
-    const client = createClient({ failUrls: [DEMO_URLS.screenshot] })
-    await expect(provider({ client, dist })).rejects.toThrow(
-      'HERO_DEMO_UNAVAILABLE'
-    )
+    const client = createClient({ failUrls: [DEMO_URLS.pdf] })
+    await expect(provider({ client, dist })).rejects.toThrow('boom')
     expect(existsSync(path.join(dist, 'index.json'))).toBe(false)
-  })
-
-  test('fails loudly and writes no manifest when every fetch fails', async () => {
-    const dist = await tmpDist()
-    const client = createClient({ failures: Infinity })
-    await expect(provider({ client, dist })).rejects.toThrow(
-      'HERO_DEMO_UNAVAILABLE'
-    )
-    expect(existsSync(path.join(dist, 'index.json'))).toBe(false)
-    await provider({ client: createClient(), dist })
-    expect(existsSync(path.join(dist, 'index.json'))).toBe(true)
   })
 })
