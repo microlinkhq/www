@@ -288,7 +288,7 @@ const ComboLabel = styled(Text)(
     py: 0,
     fontSize: [0, 0, 1, 1],
     lineHeight: 0,
-    color: 'gray6'
+    color: 'gray7'
   })
 )
 

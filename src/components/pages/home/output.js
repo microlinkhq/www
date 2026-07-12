@@ -129,7 +129,7 @@ const LogoOutput = ({ logo, palette }) => (
             <Swatch css={{ background: color }} />
             <Box
               as='span'
-              css={theme({ fontFamily: 'mono', fontSize: 0, color: 'gray6' })}
+              css={theme({ fontFamily: 'mono', fontSize: 0, color: 'gray7' })}
             >
               {color}
             </Box>
@@ -204,7 +204,7 @@ const MetadataOutput = ({ data }) => {
               flexShrink: 0,
               fontFamily: 'mono',
               fontSize: 0,
-              color: 'gray6'
+              color: 'gray7'
             })}
           >
             {label}
@@ -247,7 +247,7 @@ const MetadataOutput = ({ data }) => {
                   display: 'block',
                   fontFamily: 'mono',
                   fontSize: 0,
-                  color: 'gray6',
+                  color: 'gray7',
                   mb: 2
                 })}
               >
@@ -303,7 +303,7 @@ const SearchOutput = ({ data }) => (
       })}
     >
       <ProBadge>Pro</ProBadge>
-      <Box as='span' css={theme({ fontSize: 0, color: 'gray6' })}>
+      <Box as='span' css={theme({ fontSize: 0, color: 'gray7' })}>
         Example results — query live Google data on the{' '}
         <Box
           as='a'
@@ -411,7 +411,7 @@ const TechnologiesOutput = ({ technologies }) => {
                   css={theme({
                     display: 'block',
                     fontSize: 0,
-                    color: 'gray6',
+                    color: 'gray7',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap'
@@ -701,7 +701,7 @@ const AudioOutput = ({ data }) => {
                   css={theme({
                     display: 'block',
                     fontSize: 0,
-                    color: 'gray6',
+                    color: 'gray7',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap'
@@ -758,7 +758,7 @@ const AudioOutput = ({ data }) => {
               css={theme({
                 fontFamily: 'mono',
                 fontSize: 0,
-                color: 'gray6',
+                color: 'gray7',
                 whiteSpace: 'nowrap'
               })}
             >
@@ -997,7 +997,7 @@ const Stat = ({ label, value }) => (
         fontSize: '11px',
         letterSpacing: '.08em',
         textTransform: 'uppercase',
-        color: 'gray6'
+        color: 'gray7'
       })}
     >
       {label}
@@ -1082,7 +1082,7 @@ const Profiling = ({ profiling }) => {
                 css={theme({
                   fontFamily: 'mono',
                   fontSize: 0,
-                  color: 'gray6',
+                  color: 'gray7',
                   width: '42px',
                   textAlign: 'right'
                 })}
@@ -1157,7 +1157,7 @@ const Empty = ({ children }) => (
       css={theme({
         fontFamily: 'mono',
         fontSize: 0,
-        color: 'gray6',
+        color: 'gray7',
         my: 'auto'
       })}
     >

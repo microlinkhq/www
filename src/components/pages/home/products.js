@@ -35,7 +35,7 @@ const GAP = 4
 const tone = {
   ink: colors.black,
   ink900: colors.gray9,
-  muted: colors.gray6,
+  muted: colors.gray7,
   faint: colors.gray5,
   white: colors.white,
   surface: colors.white,
