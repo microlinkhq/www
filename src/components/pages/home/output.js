@@ -84,7 +84,14 @@ const Swatch = styled.span`
 `
 
 const LogoOutput = ({ logo, palette }) => (
-  <Box>
+  <Box
+    css={theme({
+      minHeight: 'inherit',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    })}
+  >
     <Stage css={theme({ p: 5, minHeight: '220px' })}>
       <Box
         as='img'
@@ -136,13 +143,28 @@ const PdfOutput = ({ url }) => (
 )
 
 const Card = ({ data, fallbackUrl }) => (
-  <Flex css={theme({ p: 4, justifyContent: 'center' })}>
+  <Flex
+    css={theme({
+      p: 4,
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: 'inherit'
+    })}
+  >
     <HeroCard data={{ url: fallbackUrl, ...data }} />
   </Flex>
 )
 
 const EmbedOutput = ({ url }) => (
-  <Box css={theme({ p: 4, display: 'flex', justifyContent: 'center' })}>
+  <Box
+    css={theme({
+      p: 4,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: 'inherit'
+    })}
+  >
     <Microlink url={url} size='large' />
   </Box>
 )
@@ -336,12 +358,22 @@ const TechnologiesOutput = ({ technologies }) => {
     return <Empty>No technologies detected on this page.</Empty>
   }
   return (
-    <Box css={theme({ p: 3, maxHeight: '480px', overflow: 'auto' })}>
+    <Box
+      css={theme({
+        p: 3,
+        maxHeight: '480px',
+        overflow: 'auto',
+        minHeight: 'inherit',
+        display: 'flex',
+        flexDirection: 'column'
+      })}
+    >
       <Flex
         css={theme({
           justifyContent: 'center',
           flexWrap: 'wrap',
-          gap: 2
+          gap: 2,
+          my: 'auto'
         })}
       >
         {technologies.map(tech => (
@@ -609,11 +641,20 @@ const AudioOutput = ({ data }) => {
   const subtitle = [data.author, data.publisher].filter(Boolean).join(' · ')
 
   return (
-    <Box css={theme({ p: 4 })}>
+    <Box
+      css={theme({
+        p: 4,
+        minHeight: 'inherit',
+        display: 'flex',
+        flexDirection: 'column'
+      })}
+    >
       <Flex
         css={theme({
           maxWidth: '480px',
           mx: 'auto',
+          my: 'auto',
+          width: '100%',
           alignItems: 'center',
           gap: 3,
           p: 3,
@@ -836,12 +877,21 @@ const VideoOutput = ({ data }) => {
   const title = [data.title, data.publisher].filter(Boolean).join(' · ')
 
   return (
-    <Box css={theme({ p: 4 })}>
+    <Box
+      css={theme({
+        p: 4,
+        minHeight: 'inherit',
+        display: 'flex',
+        flexDirection: 'column'
+      })}
+    >
       <Box
         css={theme({
           position: 'relative',
           maxWidth: '640px',
           mx: 'auto',
+          my: 'auto',
+          width: '100%',
           borderRadius: 8,
           overflow: 'hidden',
           background: '#000',
@@ -1118,10 +1168,22 @@ const FunctionOutput = ({ result }) => (
 )
 
 const Empty = ({ children }) => (
-  <Box css={theme({ p: 4 })}>
+  <Box
+    css={theme({
+      p: 4,
+      minHeight: 'inherit',
+      display: 'flex',
+      flexDirection: 'column'
+    })}
+  >
     <Box
       as='span'
-      css={theme({ fontFamily: 'mono', fontSize: 0, color: 'gray6' })}
+      css={theme({
+        fontFamily: 'mono',
+        fontSize: 0,
+        color: 'gray6',
+        my: 'auto'
+      })}
     >
       {children}
     </Box>
