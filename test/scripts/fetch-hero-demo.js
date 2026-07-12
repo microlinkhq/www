@@ -73,11 +73,11 @@ describe('fetch-hero-demo provider', () => {
 
   test('removes stale snapshots for verticals no longer covered', async () => {
     const dist = await tmpDist()
-    await writeFile(path.join(dist, 'embed.json'), '{}')
     await writeFile(path.join(dist, 'lighthouse.json'), '{}')
+    await writeFile(path.join(dist, 'retired.json'), '{}')
     await provider({ client: createClient(), dist })
-    expect(existsSync(path.join(dist, 'embed.json'))).toBe(false)
     expect(existsSync(path.join(dist, 'lighthouse.json'))).toBe(false)
+    expect(existsSync(path.join(dist, 'retired.json'))).toBe(false)
     expect(existsSync(path.join(dist, 'screenshot.json'))).toBe(true)
   })
 

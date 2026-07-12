@@ -33,7 +33,7 @@ const DEMO_URLS = {
   screenshot: 'https://www.apple.com/music',
   animated: 'https://sauron-webgl.vercel.app/',
   preview: 'https://github.com/',
-  embed: 'https://www.youtube.com/watch?v=9P6rdqiybaw',
+  embed: 'https://www.ted.com/talks/tim_berners_lee_the_next_web',
   markdown: 'https://microlink.io/docs',
   html: 'https://example.com',
   text: 'https://en.wikipedia.org',
@@ -49,7 +49,7 @@ const DEMO_URLS = {
 
 const INITIAL_VERTICAL = 'screenshot'
 
-const SNAPSHOT_SKIP = ['embed', 'lighthouse']
+const SNAPSHOT_SKIP = ['lighthouse']
 
 const SNAPSHOT_URLS = Object.fromEntries(
   Object.entries(DEMO_URLS).filter(

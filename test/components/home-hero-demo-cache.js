@@ -36,11 +36,10 @@ describe('hero demo requests module', () => {
 
   test('snapshots skip the demos that cannot be captured at build time', () => {
     expect(SNAPSHOT_URLS.lighthouse).toBeUndefined()
-    expect(SNAPSHOT_URLS.embed).toBeUndefined()
     expect(SNAPSHOT_URLS.search).toBeUndefined()
     expect(Object.keys(SNAPSHOT_URLS).sort()).toEqual(
       Object.keys(DEMO_URLS)
-        .filter(key => key !== 'lighthouse' && key !== 'embed')
+        .filter(key => key !== 'lighthouse')
         .sort()
     )
     expect(SNAPSHOT_URLS[INITIAL_VERTICAL]).toBe(DEMO_URLS[INITIAL_VERTICAL])
