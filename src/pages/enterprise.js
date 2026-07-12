@@ -39,9 +39,8 @@ const EnterprisePage = () => {
               maxWidth: layout.small
             })}
           >
-            The Microlink API on{' '}
-            <Annotation>dedicated infrastructure</Annotation>: your own
-            endpoint, browser pool, and worldwide CDN.
+            The Microlink API <Annotation>you own</Annotation>. Dedicated
+            endpoint, always-ready browsers, worldwide CDN.
           </Caption>
           <Box
             css={themeProp({
