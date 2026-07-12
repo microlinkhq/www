@@ -7,6 +7,7 @@ import React from 'react'
 const StyledCaption = styled(Text)(
   theme({
     ...commonHeadingStyles,
+    textWrap: 'pretty',
     lineHeight: 2,
     fontWeight: 'normal',
     fontSize: [2, 2, 3, 3]

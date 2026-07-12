@@ -30,7 +30,7 @@ export default function HTML (props) {
 
         <link
           rel='stylesheet'
-          href='https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;700&display=swap'
+          href='https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,400;0,500;0,700;1,400;1,500&display=swap'
         />
 
         <meta property='apple-mobile-web-app-capable' content='yes' />
