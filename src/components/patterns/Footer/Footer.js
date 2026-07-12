@@ -11,6 +11,7 @@ import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import Caps from 'components/elements/Caps'
 import Box from 'components/elements/Box'
+import Email from 'components/elements/Email'
 import { Button } from 'components/elements/Button/Button'
 import Flex from 'components/elements/Flex'
 import Input from 'components/elements/Input/Input'
@@ -357,7 +358,8 @@ const GiantEmail = () => (
         width: '100%'
       })}
     >
-      <text
+      <Email
+        as='text'
         x='0'
         y='100'
         textLength='1000'
@@ -368,7 +370,7 @@ const GiantEmail = () => (
         fill={colors.black}
       >
         hello@microlink.io
-      </text>
+      </Email>
     </Box>
   </Box>
 )

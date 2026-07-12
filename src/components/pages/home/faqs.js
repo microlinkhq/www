@@ -1,3 +1,4 @@
+import Email from 'components/elements/Email'
 import Box from 'components/elements/Box'
 import { Link } from 'components/elements/Link'
 import Faq from 'components/patterns/Faq/Faq'
@@ -151,7 +152,9 @@ export const getFaqQuestions = () => {
       answer: (
         <div>
           Yes, send an email to{' '}
-          <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>{' '}
+          <Link href='mailto:hello@microlink.io'>
+            <Email>hello@microlink.io</Email>
+          </Link>{' '}
           requesting the change. You will receive a link where you&apos;ll be
           able to securely update your details.
         </div>
@@ -174,7 +177,10 @@ export const getFaqQuestions = () => {
       answer: (
         <div>
           We’re always available at{' '}
-          <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
+          <Link href='mailto:hello@microlink.io'>
+            <Email>hello@microlink.io</Email>
+          </Link>
+          .
         </div>
       )
     }

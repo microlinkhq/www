@@ -10,6 +10,7 @@ import {
   transition,
   shadows
 } from 'theme'
+import Email from 'components/elements/Email'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import { parseServerTimingEntries } from 'helpers/server-timing'
@@ -514,7 +515,7 @@ const NerdStatsOverlay = ({ stats, mqlQuery, responseData }) => {
               textDecoration: 'none'
             }}
           >
-            Say hi at hello@microlink.io
+            Say hi at <Email>hello@microlink.io</Email>
           </a>
         </Box>
       </Flex>
