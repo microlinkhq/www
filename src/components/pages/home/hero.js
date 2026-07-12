@@ -147,7 +147,6 @@ const {
   INITIAL_VERTICAL,
   heroDemoPath,
   shortUrl,
-  demoKey,
   canonicalDemoUrl
 } = heroDemoRequests
 
@@ -383,10 +382,6 @@ const EXAMPLE_CHIPS = [
 ].map(vertical => ({ text: PROMPTS[vertical], vertical }))
 
 const VERT_BORDER_ACTIVE = rgba(colors.grape7, 0.45)
-
-const DEMO_KEYS = new Set(Object.values(DEFAULT_URLS).map(demoKey))
-
-const isDemoUrl = url => DEMO_KEYS.has(demoKey(url))
 
 const derive = (text, override) => {
   const p = parseLocal(text)
@@ -2091,8 +2086,10 @@ const Hero = () => {
   }
 
   const typedUrl = () => {
-    const { raw } = parseLocal(dText)
-    return raw && !isDemoUrl(raw) ? raw : null
+    const p = parseLocal(dText)
+    if (!p.raw) return null
+    const v = dVert || p.vertical
+    return canonicalDemoUrl(p.url, v) === DEFAULT_URLS[v] ? null : p.raw
   }
 
   const pickExample = value => () => {

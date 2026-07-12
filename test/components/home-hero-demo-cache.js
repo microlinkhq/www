@@ -179,7 +179,9 @@ describe('hero demo snapshot cache', () => {
 
   test('pickers fill the vertical demo URL unless the user typed one', () => {
     const pick = slice('const typedUrl', 'const MENU_COLS')
-    expect(pick).toContain('!isDemoUrl(raw)')
+    expect(pick).toContain(
+      'canonicalDemoUrl(p.url, v) === DEFAULT_URLS[v] ? null : p.raw'
+    )
     expect(pick).toContain('typedUrl() || shortUrl(DEFAULT_URLS[vertical])')
     expect(pick).toContain(
       "typedUrl() || (k !== 'search' && shortUrl(DEFAULT_URLS[k]))"
