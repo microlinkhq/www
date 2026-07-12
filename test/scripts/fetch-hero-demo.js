@@ -6,7 +6,7 @@ import { describe, expect, test } from 'vitest'
 import provider from '../../scripts/fetch-data/providers/fetch-hero-demo.js'
 import heroDemoRequests from '../../src/components/pages/home/hero-demo-requests.js'
 
-const { DEMO_URLS, REQUEST_OPTS } = heroDemoRequests
+const { DEMO_URLS, SNAPSHOT_URLS, REQUEST_OPTS } = heroDemoRequests
 const { ATTEMPTS, toEntry, fetchEntry, dist } = provider
 
 const createClient = ({ failures = 0, failUrls = [] } = {}) => {
@@ -74,10 +74,13 @@ describe('fetch-hero-demo provider', () => {
     const client = createClient()
     await provider({ client, dist })
     const manifest = JSON.parse(readFileSync(path.join(dist, 'index.json')))
-    expect(Object.keys(manifest).sort()).toEqual(Object.keys(DEMO_URLS).sort())
-    for (const vertical of Object.keys(DEMO_URLS)) {
+    expect(Object.keys(manifest).sort()).toEqual(
+      Object.keys(SNAPSHOT_URLS).sort()
+    )
+    for (const vertical of Object.keys(SNAPSHOT_URLS)) {
       expect(existsSync(path.join(dist, `${vertical}.json`))).toBe(true)
     }
+    expect(existsSync(path.join(dist, 'lighthouse.json'))).toBe(false)
     const before = client.calls()
     await provider({ client, dist })
     expect(client.calls()).toBe(before)

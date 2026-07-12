@@ -47,6 +47,34 @@ const DEMO_URLS = {
   audio: 'https://open.spotify.com/track/1W2919zs8SBCLTrOB1ftQT'
 }
 
+const INITIAL_VERTICAL = 'screenshot'
+
+const SNAPSHOT_SKIP = ['lighthouse']
+
+const SNAPSHOT_URLS = Object.fromEntries(
+  Object.entries(DEMO_URLS).filter(
+    ([vertical]) => !SNAPSHOT_SKIP.includes(vertical)
+  )
+)
+
 const heroDemoPath = vertical => `/data/hero-demo/${vertical}.json`
 
-module.exports = { FN_SNIPPET, REQUEST_OPTS, DEMO_URLS, heroDemoPath }
+const shortUrl = url => url.replace(/^https?:\/\//, '').replace(/^www\./, '')
+
+const demoKey = url => shortUrl(url).replace(/\/$/, '')
+
+const canonicalDemoUrl = (url, vertical) => {
+  const demo = DEMO_URLS[vertical]
+  return demo && demoKey(url) === demoKey(demo) ? demo : url
+}
+
+module.exports = {
+  FN_SNIPPET,
+  REQUEST_OPTS,
+  DEMO_URLS,
+  SNAPSHOT_URLS,
+  INITIAL_VERTICAL,
+  heroDemoPath,
+  shortUrl,
+  canonicalDemoUrl
+}

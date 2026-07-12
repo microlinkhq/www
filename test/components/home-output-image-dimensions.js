@@ -10,7 +10,8 @@ const source = fs.readFileSync(
 describe('home output reserves media dimensions', () => {
   test('media boxes reserve a ratio-true box from intrinsic dimensions', () => {
     expect(source).toContain('const mediaBox = (width, height)')
-    expect(source).toContain('min(100%, calc(440px * ')
+    expect(source).toContain('min(100%, calc(')
+    expect(source).toContain('MEDIA_MAX_HEIGHT')
     expect(source).toContain('aspectRatio: ')
     expect(source.match(/\.\.\.mediaBox\(width, height\)/g)).toHaveLength(2)
   })

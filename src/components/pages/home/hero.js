@@ -8,7 +8,7 @@ import Text from 'components/elements/Text'
 import Heading from 'components/elements/Heading'
 import Caption from 'components/patterns/Caption/Caption'
 import Overlay from 'components/pages/home/overlay'
-import Output from 'components/pages/home/output'
+import Output, { PANEL_HEIGHT } from 'components/pages/home/output'
 import FeatherIcon from 'components/icons/Feather'
 import { WandSparkles } from 'components/icons/WandSparkles'
 import {
@@ -140,7 +140,15 @@ const agentPrompt = ({ vertical, fullUrl }) => {
   return `Using the Microlink API, ${task}.\n\nSet up Microlink for your agent first: ${SKILL_INSTALL}`
 }
 
-const { FN_SNIPPET, REQUEST_OPTS, heroDemoPath } = heroDemoRequests
+const {
+  FN_SNIPPET,
+  REQUEST_OPTS,
+  SNAPSHOT_URLS,
+  INITIAL_VERTICAL,
+  heroDemoPath,
+  shortUrl,
+  canonicalDemoUrl
+} = heroDemoRequests
 
 const INSTALL_COMMENT = '// npm install microlink.io'
 
@@ -330,7 +338,6 @@ const DEFAULT_URLS = {
     SEARCH_EXAMPLE.query
   )}`
 }
-const FALLBACK_URL = 'https://example.com'
 
 const assertProductParity = (name, map, { except = [] } = {}) => {
   const expected = Object.keys(PRODUCTS).filter(key => !except.includes(key))
@@ -351,8 +358,6 @@ assertProductParity('CODE_TAB', CODE_TAB)
 assertProductParity('PROMPTS', PROMPTS)
 assertProductParity('DEFAULT_URLS', DEFAULT_URLS)
 assertProductParity('PARSE_RULES', Object.fromEntries(PARSE_RULES))
-
-const shortUrl = url => url.replace(/^https?:\/\//, '').replace(/^www\./, '')
 
 const promptFor = vertical =>
   `${PROMPTS[vertical]} of ${shortUrl(DEFAULT_URLS[vertical])}`
@@ -378,13 +383,6 @@ const EXAMPLE_CHIPS = [
 
 const VERT_BORDER_ACTIVE = rgba(colors.grape7, 0.45)
 
-const demoKey = url => shortUrl(url).replace(/\/$/, '')
-
-const canonicalDemoUrl = (url, vertical) => {
-  const demo = DEFAULT_URLS[vertical]
-  return demo && demoKey(url) === demoKey(demo) ? demo : url
-}
-
 const derive = (text, override) => {
   const p = parseLocal(text)
   const v = override || p.vertical
@@ -393,7 +391,7 @@ const derive = (text, override) => {
       ? DEFAULT_URLS.search
       : p.url
         ? canonicalDemoUrl(p.url, v)
-        : DEFAULT_URLS[v] || FALLBACK_URL
+        : DEFAULT_URLS[v]
   return {
     vertical: v,
     label: PRODUCTS[v].label,
@@ -406,11 +404,7 @@ const TIMING_COLORS = ['green5', 'blue5', 'yellow5', 'pink5', 'grape5', 'teal5']
 
 const headersToRows = headers => {
   if (!headers) return []
-  const entries =
-    typeof headers.entries === 'function'
-      ? Array.from(headers.entries())
-      : Object.entries(headers)
-  return entries
+  return Object.entries(headers)
     .map(([k, v]) => ({ k, v }))
     .sort((a, b) => a.k.localeCompare(b.k))
 }
@@ -928,7 +922,7 @@ const VertMenu = styled(Box)`
 
 const TabContent = styled.div`
   animation: ${fadeIn} ${transition.short};
-  ${theme({ minHeight: [null, null, '504px', '504px'] })};
+  ${theme({ minHeight: [null, null, PANEL_HEIGHT, PANEL_HEIGHT] })};
 
   ${reduceMotion} {
     animation: none;
@@ -1017,7 +1011,7 @@ const Code = styled.pre`
     fontFamily: 'mono',
     whiteSpace: 'pre-wrap',
     wordBreak: 'break-word',
-    maxHeight: '504px',
+    maxHeight: PANEL_HEIGHT,
     overflow: 'auto'
   })};
 `
@@ -1460,7 +1454,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                   pt: 2,
                   px: 3,
                   pb: 3,
-                  maxHeight: '504px',
+                  maxHeight: PANEL_HEIGHT,
                   overflow: 'auto'
                 })}
               >
@@ -1507,7 +1501,9 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                 </Box>
                 )
               : (
-                <Box css={theme({ p: 3, maxHeight: '504px', overflow: 'auto' })}>
+                <Box
+                  css={theme({ p: 3, maxHeight: PANEL_HEIGHT, overflow: 'auto' })}
+                >
                   <Flex
                     css={theme({
                       alignItems: 'center',
@@ -1636,7 +1632,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
               pb: 4,
               fontSize: 0,
               lineHeight: '2',
-              maxHeight: '504px',
+              maxHeight: PANEL_HEIGHT,
               color: 'black'
             })}
           >
@@ -1747,26 +1743,26 @@ const snapshotReq = (snapshot, cached, elapsedMs) => ({
   apiUrl: cached.apiUrl,
   body: cached.body,
   headerRows: headersToRows(cached.headers),
-  ...parseServerTiming((cached.headers || {})['server-timing']),
+  ...parseServerTiming(cached.headers['server-timing']),
   elapsedMs
 })
 
-if (typeof window !== 'undefined') {
-  demoSnapshots.set('screenshot', Promise.resolve(screenshotSnapshot))
-}
+demoSnapshots.set(INITIAL_VERTICAL, Promise.resolve(screenshotSnapshot))
 
-const initialReq = snapshot =>
-  snapshot.vertical === 'screenshot' &&
-  screenshotSnapshot.apiUrl === loadingReq(snapshot).apiUrl
-    ? snapshotReq(snapshot, screenshotSnapshot)
-    : loadingReq(snapshot)
+const INITIAL_SNAPSHOT = derive(CYCLE[0])
+
+const INITIAL_REQ =
+  INITIAL_SNAPSHOT.vertical === INITIAL_VERTICAL &&
+  screenshotSnapshot.apiUrl === loadingReq(INITIAL_SNAPSHOT).apiUrl
+    ? snapshotReq(INITIAL_SNAPSHOT, screenshotSnapshot)
+    : loadingReq(INITIAL_SNAPSHOT)
 
 const Hero = () => {
   const [dText, setDText] = useState(CYCLE[0])
   const [dTab, setDTab] = useState('output')
   const [dVert, setDVert] = useState(null)
   const [menuState, setMenuState] = useState(null)
-  const [req, setReq] = useState(() => initialReq(derive(CYCLE[0])))
+  const [req, setReq] = useState(INITIAL_REQ)
   const reqId = useRef(0)
   const anim = useRef({
     ci: 0,
@@ -1865,7 +1861,7 @@ const Hero = () => {
     const { apiUrl } = loading
     const id = ++reqId.current
 
-    if (snapshot.fullUrl === DEFAULT_URLS[snapshot.vertical]) {
+    if (snapshot.fullUrl === SNAPSHOT_URLS[snapshot.vertical]) {
       const cachedT0 = window.performance.now()
       const cached = await fetchDemoSnapshot(snapshot.vertical)
       if (id !== reqId.current) return
@@ -1886,21 +1882,16 @@ const Hero = () => {
     try {
       const { response, ...body } = await mql(snapshot.fullUrl, opts)
       if (id !== reqId.current) return
-      const headers = response && response.headers
-      const { bars, rows, totalMs } = parseServerTiming(
-        headers && headers.get('server-timing')
+      const headers = response
+        ? Object.fromEntries(response.headers.entries())
+        : null
+      setReq(
+        snapshotReq(
+          snapshot,
+          { apiUrl, body, headers: headers || {} },
+          Math.round(window.performance.now() - t0)
+        )
       )
-      setReq({
-        status: 'success',
-        D: snapshot,
-        apiUrl,
-        body,
-        headerRows: headersToRows(headers),
-        bars,
-        rows,
-        totalMs,
-        elapsedMs: Math.round(window.performance.now() - t0)
-      })
     } catch (err) {
       if (id !== reqId.current) return
       if (err && (isRateLimited(err.statusCode) || isRateLimited(err.code))) {
@@ -2013,9 +2004,8 @@ const Hero = () => {
       takeOver(shared.q)
       setDVert(shared.product)
       runRequest(derive(shared.q, shared.product))
-    } else {
-      const snapshot = derive(CYCLE[0])
-      if (initialReq(snapshot).status !== 'success') runRequest(snapshot)
+    } else if (INITIAL_REQ.status !== 'success') {
+      runRequest(INITIAL_SNAPSHOT)
     }
   }, [runRequest])
 
@@ -2092,7 +2082,7 @@ const Hero = () => {
   }
 
   const pickExample = value => () => {
-    const demoUrl = DEFAULT_URLS[parseLocal(value).vertical] || FALLBACK_URL
+    const demoUrl = DEFAULT_URLS[parseLocal(value).vertical]
     const text = `${value} of ${shortUrl(demoUrl)}`
     takeOver(text)
     setDVert(null)

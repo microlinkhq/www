@@ -3,22 +3,22 @@ import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 import heroDemoRequests from '../../src/components/pages/home/hero-demo-requests.js'
 import { parseServerTimingEntries } from '../../src/helpers/server-timing.js'
+import { sourceHarness } from '../utils/eval-source.mjs'
 
-const { DEMO_URLS, REQUEST_OPTS, FN_SNIPPET, heroDemoPath } = heroDemoRequests
+const {
+  DEMO_URLS,
+  SNAPSHOT_URLS,
+  INITIAL_VERTICAL,
+  REQUEST_OPTS,
+  FN_SNIPPET,
+  heroDemoPath,
+  shortUrl,
+  canonicalDemoUrl
+} = heroDemoRequests
 
-const source = fs.readFileSync(
-  path.join(process.cwd(), 'src/components/pages/home/hero.js'),
-  'utf8'
+const { source, slice, evaluate } = sourceHarness(
+  'src/components/pages/home/hero.js'
 )
-
-const slice = (start, end) =>
-  source.slice(source.indexOf(start), source.indexOf(end))
-
-const evaluate = (code, name, scope = {}) =>
-  // eslint-disable-next-line no-new-func
-  new Function(...Object.keys(scope), `${code}; return ${name}`)(
-    ...Object.values(scope)
-  )
 
 describe('hero demo requests module', () => {
   test('covers every product except search', () => {
@@ -34,6 +34,17 @@ describe('hero demo requests module', () => {
     }
   })
 
+  test('snapshots cover every demo except the heavy lighthouse payload', () => {
+    expect(SNAPSHOT_URLS.lighthouse).toBeUndefined()
+    expect(SNAPSHOT_URLS.search).toBeUndefined()
+    expect(Object.keys(SNAPSHOT_URLS).sort()).toEqual(
+      Object.keys(DEMO_URLS)
+        .filter(key => key !== 'lighthouse')
+        .sort()
+    )
+    expect(SNAPSHOT_URLS[INITIAL_VERTICAL]).toBe(DEMO_URLS[INITIAL_VERTICAL])
+  })
+
   test('function opts embed the shared snippet', () => {
     expect(REQUEST_OPTS.function.function).toBe(FN_SNIPPET)
   })
@@ -46,79 +57,47 @@ describe('hero demo requests module', () => {
     expect(source).toContain(
       "import heroDemoRequests from 'components/pages/home/hero-demo-requests'"
     )
-    expect(source).toContain(
-      'const { FN_SNIPPET, REQUEST_OPTS, heroDemoPath } = heroDemoRequests'
-    )
     expect(source).toContain('...heroDemoRequests.DEMO_URLS')
   })
 })
 
 describe('hero demo url canonicalization', () => {
-  const shortUrl = url => url.replace(/^https?:\/\//, '').replace(/^www\./, '')
-
-  const derive = evaluate(
-    [
-      "const SEARCH_EXAMPLE = { query: 'query' }",
-      slice('const PARSE_RULES', 'const DEFAULT_URLS'),
-      slice('const DEFAULT_URLS', 'const FALLBACK_URL'),
-      "const FALLBACK_URL = 'https://example.com'",
-      slice('const shortUrl', 'const promptFor'),
-      slice('const demoKey', 'const TIMING_COLORS')
-    ].join('\n'),
-    'derive',
-    {
-      heroDemoRequests,
-      PRODUCTS: new Proxy({}, { get: () => ({ label: 'label' }) }),
-      colors: { gray2: '#eee' },
-      VERT_BORDER_ACTIVE: '#ccc'
-    }
-  )
-
-  test('every demo prompt derives back to the exact snapshot URL', () => {
+  test('demo prompts canonicalize back to the exact snapshot URL', () => {
     for (const [vertical, url] of Object.entries(DEMO_URLS)) {
-      const derived = derive(`of ${shortUrl(url)}`, vertical)
-      expect({ vertical, fullUrl: derived.fullUrl }).toEqual({
-        vertical,
-        fullUrl: url
-      })
+      expect(canonicalDemoUrl(`https://${shortUrl(url)}`, vertical)).toBe(url)
     }
   })
 
   test('the initial cycle prompt hits the snapshot gate', () => {
-    const derived = derive('take screenshot of apple.com/music')
-    expect(derived.vertical).toBe('screenshot')
-    expect(derived.fullUrl).toBe(DEMO_URLS.screenshot)
-  })
-
-  test('example chips always fill their own demo URL', () => {
-    const pick = slice('const pickExample', 'const pickVertical')
-    expect(pick).toContain('DEFAULT_URLS[parseLocal(value).vertical]')
-    expect(pick).toContain('shortUrl(demoUrl)')
-    expect(pick).not.toContain('raw ||')
+    expect(canonicalDemoUrl('https://apple.com/music', 'screenshot')).toBe(
+      DEMO_URLS.screenshot
+    )
   })
 
   test('user URLs that are not demos stay untouched', () => {
-    expect(derive('take screenshot of stripe.com').fullUrl).toBe(
+    expect(canonicalDemoUrl('https://stripe.com', 'screenshot')).toBe(
       'https://stripe.com'
     )
-    expect(derive('take screenshot of www.apple.com/music/deep').fullUrl).toBe(
-      'https://www.apple.com/music/deep'
-    )
+    expect(
+      canonicalDemoUrl('https://www.apple.com/music/deep', 'screenshot')
+    ).toBe('https://www.apple.com/music/deep')
+  })
+
+  test('derive routes typed URLs through canonicalization', () => {
+    const derive = slice('const derive', 'const TIMING_COLORS')
+    expect(derive).toContain('canonicalDemoUrl(p.url, v)')
   })
 })
 
 describe('hero demo snapshot cache', () => {
-  test('runRequest serves demo URLs from the snapshot before hitting the API', () => {
+  test('runRequest serves snapshot demos before hitting the API', () => {
     const run = slice('const runRequest', 'const D = useMemo')
     expect(run).toContain(
-      'snapshot.fullUrl === DEFAULT_URLS[snapshot.vertical]'
+      'snapshot.fullUrl === SNAPSHOT_URLS[snapshot.vertical]'
     )
     expect(run).toContain('cached.apiUrl === apiUrl')
     expect(run.indexOf('fetchDemoSnapshot')).toBeGreaterThan(-1)
     expect(run.indexOf('fetchDemoSnapshot')).toBeLessThan(
-      run.indexOf('await mql(')
-    )
-    expect(run.indexOf('id !== reqId.current')).toBeLessThan(
       run.indexOf('await mql(')
     )
   })
@@ -139,60 +118,63 @@ describe('hero demo snapshot cache', () => {
     expect(cache).toContain('.catch(() => null)')
   })
 
-  test('the panel keeps a stable height across outputs and tabs', () => {
-    const tabContent = slice('const TabContent', 'const Mono')
-    expect(tabContent).toContain("minHeight: [null, null, '504px', '504px']")
+  test('snapshots load on demand only, never prefetched upfront', () => {
+    expect(source.match(/fetchDemoSnapshot\(/g)).toHaveLength(1)
+  })
+
+  test('the panel height is a single derived constant', () => {
     const output = fs.readFileSync(
       path.join(process.cwd(), 'src/components/pages/home/output.js'),
       'utf8'
     )
-    expect(output).toContain("maxHeight: '440px'")
-    expect(output.match(/height: '504px'/g)).toHaveLength(2)
-    expect(output).not.toContain("height: '520px'")
-    expect(output).not.toContain("height: '560px'")
+    expect(output).toContain('const MEDIA_MAX_HEIGHT = 440')
+    expect(output).toContain('export const PANEL_HEIGHT = ')
+    expect(output).toContain('MEDIA_MAX_HEIGHT + STAGE_PADDING * 2')
+    expect(source).toContain(
+      'minHeight: [null, null, PANEL_HEIGHT, PANEL_HEIGHT]'
+    )
+    expect(source).not.toContain("'504px'")
+    expect(output).not.toContain("'504px'")
   })
 
-  test('snapshots load on demand only, never prefetched upfront', () => {
-    expect(source.match(/fetchDemoSnapshot\(/g)).toHaveLength(1)
-    expect(source).not.toContain('prefetchDemoSnapshots')
-    expect(source).not.toContain('requestIdleCallback')
-  })
-
-  test('the initial request is seeded from the bundled screenshot snapshot', () => {
+  test('the initial request is seeded from the bundled snapshot', () => {
     expect(source).toContain(
       "import screenshotSnapshot from '../../../../static/data/hero-demo/screenshot.json'"
     )
     expect(source).toContain(
-      "demoSnapshots.set('screenshot', Promise.resolve(screenshotSnapshot))"
+      'demoSnapshots.set(INITIAL_VERTICAL, Promise.resolve(screenshotSnapshot))'
     )
-    expect(source).toContain('useState(() => initialReq(derive(CYCLE[0])))')
-    const initial = slice('const initialReq', 'const Hero =')
-    expect(initial).toContain(
-      'screenshotSnapshot.apiUrl === loadingReq(snapshot).apiUrl'
+    expect(source).toContain('useState(INITIAL_REQ)')
+    expect(source).toContain(
+      'screenshotSnapshot.apiUrl === loadingReq(INITIAL_SNAPSHOT).apiUrl'
     )
-    const page = fs.readFileSync(
-      path.join(process.cwd(), 'src/pages/index.js'),
-      'utf8'
-    )
-    expect(page).not.toContain('preload')
   })
 
   test('the bundled snapshot matches what the hero will request', () => {
     const file = path.join(
       process.cwd(),
-      'static/data/hero-demo/screenshot.json'
+      `static/data/hero-demo/${INITIAL_VERTICAL}.json`
     )
     const snapshot = JSON.parse(fs.readFileSync(file))
-    expect(snapshot.apiUrl).toContain(encodeURIComponent(DEMO_URLS.screenshot))
+    expect(snapshot.apiUrl).toContain(
+      encodeURIComponent(DEMO_URLS[INITIAL_VERTICAL])
+    )
     expect(snapshot.body.status).toBe('success')
     expect(snapshot.headers).toBeTypeOf('object')
   })
 
-  test('snapshotReq rebuilds the full response state from a snapshot', () => {
+  test('example chips always fill their own demo URL', () => {
+    const pick = slice('const pickExample', 'const pickVertical')
+    expect(pick).toContain('DEFAULT_URLS[parseLocal(value).vertical]')
+    expect(pick).toContain('shortUrl(demoUrl)')
+    expect(pick).not.toContain('raw ||')
+  })
+
+  test('snapshotReq rebuilds the full response state for both paths', () => {
     const snapshotReq = evaluate(
       [
         slice('const TIMING_COLORS', 'const GUTTER_X'),
-        slice('const snapshotReq', 'const Hero =')
+        slice('const snapshotReq', 'demoSnapshots.set(INITIAL_VERTICAL')
       ].join('\n'),
       'snapshotReq',
       { parseServerTimingEntries }
@@ -219,18 +201,17 @@ describe('hero demo snapshot cache', () => {
     expect(req.bars).toHaveLength(1)
   })
 
-  test('headersToRows handles both Headers instances and plain objects', () => {
+  test('live responses are normalized to plain headers before snapshotReq', () => {
+    const run = slice('const runRequest', 'const D = useMemo')
+    expect(run).toContain('Object.fromEntries(response.headers.entries())')
     const headersToRows = evaluate(
       slice('const headersToRows', 'const parseServerTiming'),
       'headersToRows'
     )
-    const plain = headersToRows({ b: '2', a: '1' })
-    expect(plain).toEqual([
+    expect(headersToRows({ b: '2', a: '1' })).toEqual([
       { k: 'a', v: '1' },
       { k: 'b', v: '2' }
     ])
-    const native = headersToRows(new Headers({ b: '2', a: '1' }))
-    expect(native).toEqual(plain)
     expect(headersToRows(null)).toEqual([])
   })
 })

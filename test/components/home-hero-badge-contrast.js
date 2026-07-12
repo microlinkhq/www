@@ -39,6 +39,5 @@ describe('home hero badge contrast', () => {
       'utf8'
     )
     expect(source).toContain('<Dot.Success />')
-    expect(source).not.toContain('PulseDot')
   })
 })

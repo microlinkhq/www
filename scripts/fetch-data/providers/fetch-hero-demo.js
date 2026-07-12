@@ -1,12 +1,15 @@
 'use strict'
 
-const { mkdir, readFile, writeFile } = require('fs/promises')
+const { mkdir, writeFile } = require('fs/promises')
 const debug = require('debug-logfmt')('data:providers')
 const mql = require('@microlink/mql')
 const path = require('path')
 
+const { isReusable } = require('../create-provider')
 const {
   DEMO_URLS,
+  SNAPSHOT_URLS,
+  INITIAL_VERTICAL,
   REQUEST_OPTS
 } = require('../../../src/components/pages/home/hero-demo-requests')
 
@@ -41,21 +44,12 @@ const fetchEntry = async (vertical, client) => {
   }
 }
 
-const isReusable = async manifest => {
-  try {
-    const buffer = await readFile(manifest)
-    return buffer.byteLength > 0
-  } catch (_) {
-    return false
-  }
-}
-
 const fetchHeroDemo = async ({ client, dist = DIST } = {}) => {
   const manifest = path.join(dist, 'index.json')
   if (await isReusable(manifest)) return
   await mkdir(dist, { recursive: true })
   const entries = await Promise.all(
-    Object.keys(DEMO_URLS).map(async vertical => {
+    Object.keys(SNAPSHOT_URLS).map(async vertical => {
       const entry = await fetchEntry(vertical, client)
       if (entry === null) return null
       await writeFile(
@@ -66,7 +60,7 @@ const fetchHeroDemo = async ({ client, dist = DIST } = {}) => {
     })
   )
   const snapshots = Object.fromEntries(entries.filter(Boolean))
-  if (snapshots.screenshot === undefined) {
+  if (snapshots[INITIAL_VERTICAL] === undefined) {
     throw new Error('HERO_DEMO_UNAVAILABLE')
   }
   await writeFile(manifest, JSON.stringify(snapshots, null, 2))

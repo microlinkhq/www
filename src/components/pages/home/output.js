@@ -6,7 +6,7 @@ import { HeroCard } from 'components/pages/embed/PreviewCards'
 import { HeroSearchResultCard } from 'components/pages/search/ResultCards'
 import { lighthouseViewerUrl } from 'helpers/lighthouse'
 import { prefersReducedMotion } from 'helpers/reduced-motion'
-import { theme, fonts, colors, gradient } from 'theme'
+import { theme, fonts, colors, gradient, space } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { getApiUrl } from '@microlink/mql'
@@ -14,6 +14,19 @@ import { getApiUrl } from '@microlink/mql'
 const MONO = fonts.mono
 
 const CARD_SHADOW = '0 18px 50px -22px rgba(40,10,60,.45)'
+
+const MEDIA_MAX_HEIGHT = 440
+const STAGE_PADDING = parseInt(space[4], 10)
+
+export const PANEL_HEIGHT = `${MEDIA_MAX_HEIGHT + STAGE_PADDING * 2}px`
+
+const PanelContent = styled(Box)`
+  ${theme({
+    minHeight: 'inherit',
+    display: 'flex',
+    flexDirection: 'column'
+  })};
+`
 
 const Stage = styled(Flex)`
   align-items: center;
@@ -25,13 +38,13 @@ const Stage = styled(Flex)`
 const mediaBox = (width, height) =>
   width > 0 && height > 0
     ? {
-        width: `min(100%, calc(440px * ${width / height}))`,
+        width: `min(100%, calc(${MEDIA_MAX_HEIGHT}px * ${width / height}))`,
         aspectRatio: `${width} / ${height}`
       }
-    : { maxWidth: '100%', maxHeight: '440px' }
+    : { maxWidth: '100%', maxHeight: `${MEDIA_MAX_HEIGHT}px` }
 
 const ImageOutput = ({ url, alt, width, height }) => (
-  <Stage css={theme({ p: 4, maxHeight: '504px', overflow: 'auto' })}>
+  <Stage css={theme({ p: 4, maxHeight: PANEL_HEIGHT, overflow: 'auto' })}>
     <Box
       as='img'
       src={url}
@@ -57,7 +70,7 @@ const AnimatedOutput = ({ url, width, height }) => {
   }, [url])
 
   return (
-    <Stage css={theme({ p: 4, maxHeight: '504px', overflow: 'auto' })}>
+    <Stage css={theme({ p: 4, maxHeight: PANEL_HEIGHT, overflow: 'auto' })}>
       <Box
         as='video'
         ref={videoRef}
@@ -85,14 +98,7 @@ const Swatch = styled.span`
 `
 
 const LogoOutput = ({ logo, palette }) => (
-  <Box
-    css={theme({
-      minHeight: 'inherit',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center'
-    })}
-  >
+  <PanelContent css={theme({ justifyContent: 'center' })}>
     <Stage css={theme({ p: 5, minHeight: '220px' })}>
       <Box
         as='img'
@@ -131,7 +137,7 @@ const LogoOutput = ({ logo, palette }) => (
         ))}
       </Flex>
     )}
-  </Box>
+  </PanelContent>
 )
 
 const PdfOutput = ({ url }) => (
@@ -139,35 +145,29 @@ const PdfOutput = ({ url }) => (
     as='iframe'
     src={url}
     title='PDF output'
-    css={theme({ width: '100%', height: '504px', border: 0, display: 'block' })}
+    css={theme({
+      width: '100%',
+      height: PANEL_HEIGHT,
+      border: 0,
+      display: 'block'
+    })}
   />
 )
 
 const Card = ({ data, fallbackUrl }) => (
-  <Flex
-    css={theme({
-      p: 4,
-      justifyContent: 'center',
-      alignItems: 'center',
-      minHeight: 'inherit'
-    })}
+  <PanelContent
+    css={theme({ p: 4, justifyContent: 'center', alignItems: 'center' })}
   >
     <HeroCard data={{ url: fallbackUrl, ...data }} />
-  </Flex>
+  </PanelContent>
 )
 
 const EmbedOutput = ({ url }) => (
-  <Box
-    css={theme({
-      p: 4,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      minHeight: 'inherit'
-    })}
+  <PanelContent
+    css={theme({ p: 4, justifyContent: 'center', alignItems: 'center' })}
   >
     <Microlink url={url} size='large' />
-  </Box>
+  </PanelContent>
 )
 
 const MetadataOutput = ({ data }) => {
@@ -186,7 +186,7 @@ const MetadataOutput = ({ data }) => {
   ].filter(([, value]) => value)
 
   return (
-    <Box css={theme({ p: 4, maxHeight: '504px', overflow: 'auto' })}>
+    <Box css={theme({ p: 4, maxHeight: PANEL_HEIGHT, overflow: 'auto' })}>
       {fields.map(([label, value]) => (
         <Flex
           key={label}
@@ -291,7 +291,7 @@ const ProBadge = styled.span`
 `
 
 const SearchOutput = ({ data }) => (
-  <Box css={theme({ p: 4, maxHeight: '504px', overflow: 'auto' })}>
+  <Box css={theme({ p: 4, maxHeight: PANEL_HEIGHT, overflow: 'auto' })}>
     <Flex
       css={theme({
         alignItems: 'center',
@@ -323,7 +323,7 @@ const SearchOutput = ({ data }) => (
 )
 
 const RawText = styled(Box)`
-  max-height: 504px;
+  max-height: ${PANEL_HEIGHT};
   overflow: auto;
   white-space: pre-wrap;
   word-break: break-word;
@@ -338,7 +338,7 @@ const LighthouseOutput = ({ url }) => (
     )}
     css={theme({
       width: '100%',
-      height: '504px',
+      height: PANEL_HEIGHT,
       border: 0,
       display: 'block',
       background: '#fff'
@@ -359,15 +359,8 @@ const TechnologiesOutput = ({ technologies }) => {
     return <Empty>No technologies detected on this page.</Empty>
   }
   return (
-    <Box
-      css={theme({
-        p: 3,
-        maxHeight: '504px',
-        overflow: 'auto',
-        minHeight: 'inherit',
-        display: 'flex',
-        flexDirection: 'column'
-      })}
+    <PanelContent
+      css={theme({ p: 3, maxHeight: PANEL_HEIGHT, overflow: 'auto' })}
     >
       <Flex
         css={theme({
@@ -428,7 +421,7 @@ const TechnologiesOutput = ({ technologies }) => {
           </TechCard>
         ))}
       </Flex>
-    </Box>
+    </PanelContent>
   )
 }
 
@@ -444,7 +437,7 @@ const TextOutput = ({ text }) => (
   <Box
     css={theme({
       p: 4,
-      maxHeight: '504px',
+      maxHeight: PANEL_HEIGHT,
       overflow: 'auto',
       fontSize: 1,
       lineHeight: 1.7,
@@ -642,14 +635,7 @@ const AudioOutput = ({ data }) => {
   const subtitle = [data.author, data.publisher].filter(Boolean).join(' · ')
 
   return (
-    <Box
-      css={theme({
-        p: 4,
-        minHeight: 'inherit',
-        display: 'flex',
-        flexDirection: 'column'
-      })}
-    >
+    <PanelContent css={theme({ p: 4 })}>
       <Flex
         css={theme({
           maxWidth: '480px',
@@ -786,7 +772,7 @@ const AudioOutput = ({ data }) => {
         preload='metadata'
         css={{ display: 'none' }}
       />
-    </Box>
+    </PanelContent>
   )
 }
 
@@ -878,14 +864,7 @@ const VideoOutput = ({ data }) => {
   const title = [data.title, data.publisher].filter(Boolean).join(' · ')
 
   return (
-    <Box
-      css={theme({
-        p: 4,
-        minHeight: 'inherit',
-        display: 'flex',
-        flexDirection: 'column'
-      })}
-    >
+    <PanelContent css={theme({ p: 4 })}>
       <Box
         css={theme({
           position: 'relative',
@@ -964,12 +943,12 @@ const VideoOutput = ({ data }) => {
           </Box>
         </ControlBar>
       </Box>
-    </Box>
+    </PanelContent>
   )
 }
 
 const CodeBlock = styled(Box)`
-  max-height: 504px;
+  max-height: ${PANEL_HEIGHT};
   overflow: auto;
   white-space: pre-wrap;
   word-break: break-word;
@@ -1169,14 +1148,7 @@ const FunctionOutput = ({ result }) => (
 )
 
 const Empty = ({ children }) => (
-  <Box
-    css={theme({
-      p: 4,
-      minHeight: 'inherit',
-      display: 'flex',
-      flexDirection: 'column'
-    })}
-  >
+  <PanelContent css={theme({ p: 4 })}>
     <Box
       as='span'
       css={theme({
@@ -1188,7 +1160,7 @@ const Empty = ({ children }) => (
     >
       {children}
     </Box>
-  </Box>
+  </PanelContent>
 )
 
 const Output = ({ req }) => {
