@@ -511,7 +511,7 @@ const PulseDot = styled(Dot)`
     width: '9px',
     height: '9px',
     borderRadius: '50%',
-    bg: 'green8'
+    bg: 'tel'
   })};
   ${reduceMotion} {
     animation: none;
@@ -883,8 +883,10 @@ const TabButton = styled.button`
     border: 0,
     bg: 'transparent',
     fontFamily: 'sans',
-    fontSize: '17px',
+    fontSize: 0,
     fontWeight: 'regular',
+    textTransform: 'uppercase',
+    letterSpacing: 2,
     pt: 0,
     px: 0,
     pb: '14px',
@@ -1034,7 +1036,7 @@ const Code = styled.pre`
     fontFamily: 'mono',
     whiteSpace: 'pre-wrap',
     wordBreak: 'break-word',
-    maxHeight: '380px',
+    maxHeight: '504px',
     overflow: 'auto'
   })};
 `
@@ -1477,7 +1479,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                   pt: 2,
                   px: 3,
                   pb: 3,
-                  maxHeight: '380px',
+                  maxHeight: '504px',
                   overflow: 'auto'
                 })}
               >
@@ -1524,7 +1526,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
                 </Box>
                 )
               : (
-                <Box css={theme({ p: 3, maxHeight: '380px', overflow: 'auto' })}>
+                <Box css={theme({ p: 3, maxHeight: '504px', overflow: 'auto' })}>
                   <Flex
                     css={theme({
                       alignItems: 'center',
@@ -1653,7 +1655,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
               pb: 4,
               fontSize: 0,
               lineHeight: '2',
-              maxHeight: '340px',
+              maxHeight: '504px',
               color: 'black'
             })}
           >

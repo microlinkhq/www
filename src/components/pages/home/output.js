@@ -186,7 +186,7 @@ const MetadataOutput = ({ data }) => {
   ].filter(([, value]) => value)
 
   return (
-    <Box css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
+    <Box css={theme({ p: 4, maxHeight: '504px', overflow: 'auto' })}>
       {fields.map(([label, value]) => (
         <Flex
           key={label}
@@ -291,7 +291,7 @@ const ProBadge = styled.span`
 `
 
 const SearchOutput = ({ data }) => (
-  <Box css={theme({ p: 4, maxHeight: '480px', overflow: 'auto' })}>
+  <Box css={theme({ p: 4, maxHeight: '504px', overflow: 'auto' })}>
     <Flex
       css={theme({
         alignItems: 'center',
@@ -323,7 +323,7 @@ const SearchOutput = ({ data }) => (
 )
 
 const RawText = styled(Box)`
-  max-height: 480px;
+  max-height: 504px;
   overflow: auto;
   white-space: pre-wrap;
   word-break: break-word;
@@ -362,7 +362,7 @@ const TechnologiesOutput = ({ technologies }) => {
     <Box
       css={theme({
         p: 3,
-        maxHeight: '480px',
+        maxHeight: '504px',
         overflow: 'auto',
         minHeight: 'inherit',
         display: 'flex',
@@ -444,7 +444,7 @@ const TextOutput = ({ text }) => (
   <Box
     css={theme({
       p: 4,
-      maxHeight: '480px',
+      maxHeight: '504px',
       overflow: 'auto',
       fontSize: 1,
       lineHeight: 1.7,
@@ -969,7 +969,7 @@ const VideoOutput = ({ data }) => {
 }
 
 const CodeBlock = styled(Box)`
-  max-height: 320px;
+  max-height: 504px;
   overflow: auto;
   white-space: pre-wrap;
   word-break: break-word;
