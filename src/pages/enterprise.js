@@ -39,7 +39,7 @@ const EnterprisePage = () => {
             })}
           >
             The Microlink API you own. Dedicated endpoint, always-ready
-            browsers, worldwide CDN.
+            infrastructure, worldwide distribution.
           </Caption>
           <Box
             css={themeProp({
