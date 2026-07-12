@@ -25,9 +25,9 @@ export const borders = [0, '1px solid', '2px solid', '2px dashed']
 // https://palx.jxnblk.com/067df7
 // https://github.com/yeun/open-color
 export const colors = {
-  link: 'oklch(0.567 0.192 256.035)',
-  hoverLink: 'oklch(0.487 0.166 256.035)',
-  secondary: 'oklch(0.59 0.209 4.55)',
+  link: '#0473e4',
+  hoverLink: '#015cba',
+  secondary: '#d92d6e',
   close: '#27C93F',
   minimize: '#FFBD2E',
   fullscreen: '#FF5F56',
