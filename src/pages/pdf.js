@@ -215,7 +215,7 @@ const NavArrow = styled('button')`
 
   &:not(:disabled) {
     cursor: pointer;
-    color: ${colors.gray6};
+    color: ${colors.gray7};
 
     &:hover {
       color: ${colors.gray8};
