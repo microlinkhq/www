@@ -1174,7 +1174,7 @@ const MenuLabel = styled.span`
 `
 
 const menuItemHighlight = css`
-  ${theme({ bg: rgba(colors.secondary, 0.06) })};
+  ${theme({ bg: `color-mix(in oklch, ${colors.secondary} 6%, transparent)` })};
 `
 
 const MenuItem = styled(Flex)`
