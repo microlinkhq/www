@@ -60,7 +60,8 @@ const InputWrapper = styled(Flex).withConfig({
   }
   &:focus-within {
     ${focusStyle};
-    box-shadow: 0px 0px 0px 4px ${colors.link}33;
+    box-shadow: 0px 0px 0px 4px
+      color-mix(in oklch, ${colors.link} 20%, transparent);
   }
 `
 

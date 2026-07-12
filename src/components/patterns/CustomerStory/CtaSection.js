@@ -20,7 +20,7 @@ export const CtaSection = ({
   return (
     <Section
       css={`
-        background-color: ${colors.link}0F;
+        background-color: color-mix(in oklch, ${colors.link} 6%, transparent);
         ${theme({
           borderTop: 1,
           borderTopColor: accent.bgEdge,

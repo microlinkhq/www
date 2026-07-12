@@ -1770,7 +1770,7 @@ const SearchInput = styled.input`
 
   &:focus {
     border-color: ${colors.link};
-    box-shadow: 0 0 0 3px ${colors.link}20;
+    box-shadow: 0 0 0 3px color-mix(in oklch, ${colors.link} 12.5%, transparent);
   }
 
   &::placeholder {
