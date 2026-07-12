@@ -23,8 +23,6 @@ const fetchData = async url => {
   return { data, isJSON }
 }
 
-module.exports.isReusable = isReusable
-
 module.exports.fromUrl = async (url, { dist, mapper = identity }) => {
   if (await isReusable(dist)) return
   const { data, isJSON } = await fetchData(url)

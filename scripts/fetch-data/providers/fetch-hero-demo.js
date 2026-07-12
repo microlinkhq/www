@@ -4,8 +4,6 @@ const { mkdir, readdir, rm, writeFile } = require('fs/promises')
 const mql = require('@microlink/mql')
 const path = require('path')
 
-const { isReusable } = require('../create-provider')
-
 const {
   DEMO_URLS,
   SNAPSHOT_URLS,
@@ -26,30 +24,32 @@ const toEntry = async (vertical, client = mql) => {
   }
 }
 
-const fetchHeroDemo = async ({ client, dist = DIST } = {}) => {
-  const manifest = path.join(dist, 'index.json')
-  if (await isReusable(manifest)) return
-  await mkdir(dist, { recursive: true })
-  const entries = await Promise.all(
-    Object.keys(SNAPSHOT_URLS).map(async vertical => {
-      const entry = await toEntry(vertical, client)
-      await writeFile(
-        path.join(dist, `${vertical}.json`),
-        JSON.stringify(entry)
+const fetchHeroDemo = ({ client, dist = DIST } = {}) =>
+  require('../create-provider').fromCode(
+    async () => {
+      await mkdir(dist, { recursive: true })
+      const entries = await Promise.all(
+        Object.keys(SNAPSHOT_URLS).map(async vertical => {
+          const entry = await toEntry(vertical, client)
+          await writeFile(
+            path.join(dist, `${vertical}.json`),
+            JSON.stringify(entry)
+          )
+          return [vertical, entry.apiUrl]
+        })
       )
-      return [vertical, entry.apiUrl]
-    })
+      const snapshots = Object.fromEntries(entries)
+      const stale = (await readdir(dist)).filter(
+        file =>
+          file.endsWith('.json') &&
+          file !== 'index.json' &&
+          snapshots[file.replace('.json', '')] === undefined
+      )
+      await Promise.all(stale.map(file => rm(path.join(dist, file))))
+      return snapshots
+    },
+    { dist: path.join(dist, 'index.json') }
   )
-  const snapshots = Object.fromEntries(entries)
-  const stale = (await readdir(dist)).filter(
-    file =>
-      file.endsWith('.json') &&
-      file !== 'index.json' &&
-      snapshots[file.replace('.json', '')] === undefined
-  )
-  await Promise.all(stale.map(file => rm(path.join(dist, file))))
-  await writeFile(manifest, JSON.stringify(snapshots, null, 2))
-}
 
 module.exports = fetchHeroDemo
 module.exports.dist = DIST
