@@ -1248,6 +1248,72 @@ const renderJsValue = (value, keyBase) => {
   )
 }
 
+const jsValueText = value => {
+  if (typeof value === 'string') {
+    return `'${value.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`
+  }
+  if (typeof value !== 'object' || value === null) return String(value)
+  return `{ ${Object.entries(value)
+    .map(([k, v]) => `${k}: ${jsValueText(v)}`)
+    .join(', ')} }`
+}
+
+const snippetText = (snippet, arg) => {
+  const call = snippet.code
+    ? `(\n  '${arg}',\n  ${snippet.code}\n)`
+    : `('${arg}'${snippet.opts ? `, ${jsValueText(snippet.opts)}` : ''})`
+  return [
+    INSTALL_COMMENT,
+    "import createClient from 'microlink.io'",
+    '',
+    'const microlink = createClient({ apiKey: process.env.MICROLINK_API_KEY })',
+    '',
+    `const ${snippet.binding} = await microlink.${snippet.method}${call}`,
+    '',
+    `// ${snippet.comment}`,
+    `console.log(${snippet.log})`
+  ].join('\n')
+}
+
+const copyPayload = (req, tab, snippet, snippetArg) => {
+  if (tab === 'headers') {
+    return (req.headerRows || []).map(({ k, v }) => `${k}: ${v}`).join('\n')
+  }
+  if (tab === 'timing') {
+    return (req.rows || [])
+      .map(({ name, dur, pct }) => `${name}  ${dur}  ${pct}`)
+      .join('\n')
+  }
+  if (tab === 'code') return snippetText(snippet, snippetArg)
+  return JSON.stringify(req.body, null, 2)
+}
+
+const CopyResultButton = styled.button`
+  cursor: pointer;
+  transition: color ${transition.short};
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: 0,
+    bg: 'transparent',
+    color: 'gray6',
+    p: 1,
+    pb: '14px',
+    borderRadius: 2
+  })};
+
+  &[data-copied='true'] {
+    ${theme({ color: 'green8' })};
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      ${theme({ color: 'black' })};
+    }
+  }
+`
+
 const ResultPanel = React.memo(({ tab, setTab, req }) => {
   const { D, status, body, headerRows, bars, rows, totalMs } = req
   const isLoading = status === 'loading'
@@ -1256,6 +1322,23 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
   const hideTabs = isError || isRateLimited
   const snippet = CODE_TAB[D.vertical]
   const snippetArg = snippet.query ? SEARCH_EXAMPLE.query : D.fullUrl
+
+  const [copied, setCopied] = useState(false)
+  const copiedTimer = useRef(null)
+  useEffect(() => () => clearTimeout(copiedTimer.current), [])
+
+  const copyResult = () => {
+    if (typeof navigator === 'undefined' || !navigator.clipboard) return
+    navigator.clipboard
+      .writeText(copyPayload(req, tab, snippet, snippetArg))
+      .then(() => {
+        trackEvent('hero copy result', { tab, product: D.vertical })
+        setCopied(true)
+        clearTimeout(copiedTimer.current)
+        copiedTimer.current = setTimeout(() => setCopied(false), 1500)
+      })
+      .catch(() => {})
+  }
 
   const tabs = [
     { key: 'output', label: 'Output' },
@@ -1350,35 +1433,50 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
         </Mono>
       </Flex>
 
-      <TabBar
-        ref={barRef}
-        role='tablist'
-        aria-label='Response views'
-        onKeyDown={onTabKeyDown}
+      <Flex
         css={theme({
+          alignItems: 'center',
+          justifyContent: 'space-between',
           pt: 3,
           px: 3,
           borderBottom: 1,
           borderBottomColor: 'gray1'
         })}
       >
-        {tabs.map(t => (
-          <TabButton
-            key={t.key}
-            id={`hero-tab-${t.key}`}
-            role='tab'
-            aria-selected={tab === t.key}
-            aria-controls='hero-tabpanel'
-            tabIndex={tab === t.key ? 0 : -1}
-            data-active={tab === t.key}
-            $active={tab === t.key}
-            onClick={() => setTab(t.key)}
+        <TabBar
+          ref={barRef}
+          role='tablist'
+          aria-label='Response views'
+          onKeyDown={onTabKeyDown}
+        >
+          {tabs.map(t => (
+            <TabButton
+              key={t.key}
+              id={`hero-tab-${t.key}`}
+              role='tab'
+              aria-selected={tab === t.key}
+              aria-controls='hero-tabpanel'
+              tabIndex={tab === t.key ? 0 : -1}
+              data-active={tab === t.key}
+              $active={tab === t.key}
+              onClick={() => setTab(t.key)}
+            >
+              {t.label}
+            </TabButton>
+          ))}
+          <TabIndicator ref={indicatorRef} />
+        </TabBar>
+        {!hideTabs && !isLoading && body && (
+          <CopyResultButton
+            type='button'
+            data-copied={copied}
+            aria-label='Copy result'
+            onClick={copyResult}
           >
-            {t.label}
-          </TabButton>
-        ))}
-        <TabIndicator ref={indicatorRef} />
-      </TabBar>
+            {copied ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
+          </CopyResultButton>
+        )}
+      </Flex>
 
       <TabContent
         key={isError ? 'error' : isRateLimited ? 'rate-limited' : tab}
