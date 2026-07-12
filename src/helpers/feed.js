@@ -1,4 +1,4 @@
-import { title as formatTitle } from './title'
+import { title as formatTitle } from './title.js'
 
 export const serializeBlogFeed = ({ siteUrl, nodes }) =>
   nodes.map(node => {
