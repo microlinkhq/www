@@ -8,6 +8,7 @@ import React, { useMemo } from 'react'
 import { generateStructuredData } from './structured'
 import { toDate } from 'helpers/to-date'
 import { ogImageUrl } from 'helpers/og'
+import { fullTitle as buildFullTitle } from 'helpers/full-title'
 
 const getPage = ({ pathname }) => pathname.replace(/\/+$/, '').substring(1)
 
@@ -53,6 +54,8 @@ const mergeMeta = (props, location, metadata) => {
 
   const description = props.description || metadata.description || headline
 
+  const fullTitle = buildFullTitle({ title, name, noSuffix })
+
   const url = location ? `${siteUrl}${location.pathname}` : siteUrl
 
   // twitter:domain expects the bare host (e.g. microlink.io), not a full URL.
@@ -71,7 +74,11 @@ const mergeMeta = (props, location, metadata) => {
   // and distinct from the canonical `siteUrl` on preview deployments.
   const image =
     props.image ||
-    ogImageUrl(location?.pathname, ogImageBase, `${title}\n${description}`) ||
+    ogImageUrl(
+      location?.pathname,
+      ogImageBase,
+      `${fullTitle}\n${description}`
+    ) ||
     metadata.image
 
   const author = normalizeAuthor(inputAuthors, fallbackAuthor)
@@ -94,12 +101,12 @@ const mergeMeta = (props, location, metadata) => {
     logo,
     name,
     title,
+    fullTitle,
     twitter,
     url,
     domain,
     video,
     robots,
-    noSuffix,
     publishedDate,
     modifiedDate,
     schemaType,
@@ -120,13 +127,12 @@ function Meta ({ structured, ...props }) {
     image,
     logo,
     name,
-    title,
+    fullTitle,
     twitter,
     url,
     domain,
     video,
     robots,
-    noSuffix,
     publishedDate,
     modifiedDate,
     schemaType,
@@ -135,8 +141,6 @@ function Meta ({ structured, ...props }) {
     () => mergeMeta(props, location, siteMetadata),
     [props, location, siteMetadata]
   )
-
-  const fullTitle = noSuffix ? title : `${title} — ${name}`
 
   const autoStructuredData = useMemo(
     () =>
