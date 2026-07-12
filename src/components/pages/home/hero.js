@@ -1275,7 +1275,7 @@ const snippetText = (snippet, arg) => {
   ].join('\n')
 }
 
-const copyPayload = (req, tab, snippet, snippetArg) => {
+const copyBody = (req, tab, snippet, snippetArg) => {
   if (tab === 'headers') {
     return (req.headerRows || []).map(({ k, v }) => `${k}: ${v}`).join('\n')
   }
@@ -1287,6 +1287,9 @@ const copyPayload = (req, tab, snippet, snippetArg) => {
   if (tab === 'code') return snippetText(snippet, snippetArg)
   return JSON.stringify(req.body, null, 2)
 }
+
+const copyPayload = (req, tab, snippet, snippetArg) =>
+  `// ${req.apiUrl}\n${copyBody(req, tab, snippet, snippetArg)}`
 
 const CopyResultButton = styled.button`
   cursor: pointer;
