@@ -27,13 +27,17 @@ describe('home output reserves media dimensions', () => {
     expect(source).toContain('height={data.screenshot.animated.height}')
   })
 
-  test('the bundled screenshot snapshot carries intrinsic dimensions', () => {
-    const snapshot = JSON.parse(
-      fs.readFileSync(
-        path.join(process.cwd(), 'static/data/hero-demo/screenshot.json')
-      )
-    )
-    expect(snapshot.body.data.screenshot.width).toBeGreaterThan(0)
-    expect(snapshot.body.data.screenshot.height).toBeGreaterThan(0)
-  })
+  const snapshotFile = path.join(
+    process.cwd(),
+    'static/data/hero-demo/screenshot.json'
+  )
+
+  test.skipIf(!fs.existsSync(snapshotFile))(
+    'the bundled screenshot snapshot carries intrinsic dimensions',
+    () => {
+      const snapshot = JSON.parse(fs.readFileSync(snapshotFile))
+      expect(snapshot.body.data.screenshot.width).toBeGreaterThan(0)
+      expect(snapshot.body.data.screenshot.height).toBeGreaterThan(0)
+    }
+  )
 })

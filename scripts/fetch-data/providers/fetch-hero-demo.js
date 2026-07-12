@@ -1,6 +1,6 @@
 'use strict'
 
-const { mkdir, writeFile } = require('fs/promises')
+const { mkdir, readdir, rm, writeFile } = require('fs/promises')
 const debug = require('debug-logfmt')('data:providers')
 const mql = require('@microlink/mql')
 const path = require('path')
@@ -63,6 +63,13 @@ const fetchHeroDemo = async ({ client, dist = DIST } = {}) => {
   if (snapshots[INITIAL_VERTICAL] === undefined) {
     throw new Error('HERO_DEMO_UNAVAILABLE')
   }
+  const stale = (await readdir(dist)).filter(
+    file =>
+      file.endsWith('.json') &&
+      file !== 'index.json' &&
+      snapshots[file.replace('.json', '')] === undefined
+  )
+  await Promise.all(stale.map(file => rm(path.join(dist, file))))
   await writeFile(manifest, JSON.stringify(snapshots, null, 2))
 }
 

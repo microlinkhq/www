@@ -1863,7 +1863,11 @@ const Hero = () => {
 
     if (snapshot.fullUrl === SNAPSHOT_URLS[snapshot.vertical]) {
       const cachedT0 = window.performance.now()
+      const loadingTimer = window.setTimeout(() => {
+        if (id === reqId.current) setReq(loading)
+      }, 150)
       const cached = await fetchDemoSnapshot(snapshot.vertical)
+      window.clearTimeout(loadingTimer)
       if (id !== reqId.current) return
       if (cached && cached.body && cached.apiUrl === apiUrl) {
         setReq(

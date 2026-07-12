@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs'
-import { mkdtemp } from 'node:fs/promises'
+import { mkdtemp, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { describe, expect, test } from 'vitest'
@@ -94,6 +94,17 @@ describe('fetch-hero-demo provider', () => {
     expect(manifest.pdf).toBeUndefined()
     expect(manifest.screenshot).toBeDefined()
     expect(existsSync(path.join(dist, 'pdf.json'))).toBe(false)
+  })
+
+  test('removes stale snapshots for verticals no longer covered', async () => {
+    const dist = await tmpDist()
+    await writeFile(path.join(dist, 'pdf.json'), '{}')
+    await writeFile(path.join(dist, 'lighthouse.json'), '{}')
+    const client = createClient({ failUrls: [DEMO_URLS.pdf] })
+    await provider({ client, dist })
+    expect(existsSync(path.join(dist, 'pdf.json'))).toBe(false)
+    expect(existsSync(path.join(dist, 'lighthouse.json'))).toBe(false)
+    expect(existsSync(path.join(dist, 'screenshot.json'))).toBe(true)
   })
 
   test('the screenshot snapshot is required because the hero bundles it', async () => {

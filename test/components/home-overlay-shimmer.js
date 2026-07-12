@@ -25,6 +25,9 @@ describe('home overlay grid shimmer', () => {
   })
 
   test('reduced motion still disables the translation', () => {
-    expect(source).toContain('@media (prefers-reduced-motion: reduce)')
+    const start = source.indexOf('@media (prefers-reduced-motion: reduce)')
+    expect(start).toBeGreaterThan(-1)
+    const block = source.slice(start, source.indexOf('}', start))
+    expect(block).toContain('animation: none')
   })
 })
