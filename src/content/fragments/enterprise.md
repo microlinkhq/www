@@ -1,7 +1,7 @@
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import Annotation from 'components/elements/Annotation'
 
-**Microlink Enterprise** is the Microlink API running on <Annotation type='underline' color='secondary'>hardware that serves only you</Annotation>. No shared capacity. No noisy neighbors. One environment, tuned for your workload, integrated with your existing infrastructure.
+**Microlink Enterprise** is the Microlink API running on <Annotation>hardware that serves only you</Annotation>. No shared capacity. No noisy neighbors. One environment, tuned for your workload, integrated with your existing infrastructure.
 
 When **Microlink Pro** starts hitting its limits, this is the next step.
 
@@ -11,11 +11,11 @@ Everything is yours:
 - Your own S3-like storage for assets, with no time-to-live (TTL) restrictions.
 - Your own worldwide CDN: {CDN_EDGES} nodes, powered by Cloudflare.
 - Priority support via email and Slack, with direct access to the Microlink team and a 12-hour maximum response time.
-- <Annotation type='box' color='secondary'>99.9% uptime SLA</Annotation>.
+- <Annotation>99.9% uptime SLA</Annotation>.
 - A GDPR-compliant [Data Processing Agreement](/dpa).
 - Enterprise onboarding and launch validation.
 
-Choose where your hardware lives, from <Annotation type='circle' color='secondary'>8 locations</Annotation>:
+Choose where your hardware lives, from <Annotation>8 locations</Annotation>:
 
 - 🇺🇸 New York
 - 🇺🇸 San Francisco

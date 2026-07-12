@@ -6,7 +6,6 @@ import Markdown from 'components/markdown'
 import { trackEvent } from 'helpers/plausible'
 import React from 'react'
 
-import Annotation from 'components/elements/Annotation'
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
@@ -39,8 +38,8 @@ const EnterprisePage = () => {
               maxWidth: layout.small
             })}
           >
-            The Microlink API <Annotation>you own</Annotation>. Dedicated
-            endpoint, always-ready browsers, worldwide CDN.
+            The Microlink API you own. Dedicated endpoint, always-ready
+            browsers, worldwide CDN.
           </Caption>
           <Box
             css={themeProp({
