@@ -38,7 +38,7 @@
       ]
     },
     {
-      "source": "/llms.txt",
+      "source": "/llms(-full)?.txt",
       "headers": [
         {
           "key": "X-Robots-Tag",
@@ -77,6 +77,10 @@
         {
           "key": "origin-agent-cluster",
           "value": "?1"
+        },
+        {
+          "key": "permissions-policy",
+          "value": "camera=(), microphone=(), geolocation=()"
         },
         {
           "key": "referrer-policy",

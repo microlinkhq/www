@@ -12,6 +12,7 @@ export default function HTML (props) {
           content='width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover'
         />
         <meta name='theme-color' content='#fff' />
+        <meta name='color-scheme' content='light' />
 
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link
@@ -60,6 +61,13 @@ export default function HTML (props) {
           href='https://cdn.microlink.io/logo/apple-touch-icon.png'
         />
         <link rel='manifest' href='https://cdn.microlink.io/site.webmanifest' />
+
+        <link
+          rel='alternate'
+          type='application/rss+xml'
+          title='Microlink Blog'
+          href='/rss.xml'
+        />
       </head>
       <body {...props.bodyAttributes}>
         {props.preBodyComponents}
