@@ -945,6 +945,7 @@ const VertMenu = styled(Box)`
 
 const TabContent = styled.div`
   animation: ${fadeIn} ${transition.short};
+  ${theme({ minHeight: [null, null, '504px', '504px'] })};
 
   ${reduceMotion} {
     animation: none;

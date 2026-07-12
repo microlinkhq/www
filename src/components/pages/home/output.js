@@ -131,7 +131,7 @@ const PdfOutput = ({ url }) => (
     as='iframe'
     src={url}
     title='PDF output'
-    css={theme({ width: '100%', height: '520px', border: 0, display: 'block' })}
+    css={theme({ width: '100%', height: '504px', border: 0, display: 'block' })}
   />
 )
 
@@ -315,7 +315,7 @@ const LighthouseOutput = ({ url }) => (
     )}
     css={theme({
       width: '100%',
-      height: '560px',
+      height: '504px',
       border: 0,
       display: 'block',
       background: '#fff'

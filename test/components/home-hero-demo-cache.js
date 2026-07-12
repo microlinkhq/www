@@ -132,6 +132,19 @@ describe('hero demo snapshot cache', () => {
     expect(cache).toContain('.catch(() => null)')
   })
 
+  test('the panel keeps a stable height across outputs and tabs', () => {
+    const tabContent = slice('const TabContent', 'const Mono')
+    expect(tabContent).toContain("minHeight: [null, null, '504px', '504px']")
+    const output = fs.readFileSync(
+      path.join(process.cwd(), 'src/components/pages/home/output.js'),
+      'utf8'
+    )
+    expect(output).toContain("maxHeight: '440px'")
+    expect(output.match(/height: '504px'/g)).toHaveLength(2)
+    expect(output).not.toContain("height: '520px'")
+    expect(output).not.toContain("height: '560px'")
+  })
+
   test('snapshots load on demand only, never prefetched upfront', () => {
     expect(source.match(/fetchDemoSnapshot\(/g)).toHaveLength(1)
     expect(source).not.toContain('prefetchDemoSnapshots')
