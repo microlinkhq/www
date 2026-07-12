@@ -90,6 +90,13 @@ describe('hero demo url canonicalization', () => {
     expect(derived.fullUrl).toBe(DEMO_URLS.screenshot)
   })
 
+  test('example chips always fill their own demo URL', () => {
+    const pick = slice('const pickExample', 'const pickVertical')
+    expect(pick).toContain('DEFAULT_URLS[parseLocal(value).vertical]')
+    expect(pick).toContain('shortUrl(demoUrl)')
+    expect(pick).not.toContain('raw ||')
+  })
+
   test('user URLs that are not demos stay untouched', () => {
     expect(derive('take screenshot of stripe.com').fullUrl).toBe(
       'https://stripe.com'

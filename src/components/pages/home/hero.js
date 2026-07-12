@@ -2092,9 +2092,8 @@ const Hero = () => {
   }
 
   const pickExample = value => () => {
-    const { raw } = parseLocal(dText)
-    const fallback = DEFAULT_URLS[parseLocal(value).vertical] || FALLBACK_URL
-    const text = `${value} of ${raw || shortUrl(fallback)}`
+    const demoUrl = DEFAULT_URLS[parseLocal(value).vertical] || FALLBACK_URL
+    const text = `${value} of ${shortUrl(demoUrl)}`
     takeOver(text)
     setDVert(null)
     closeMenu()
