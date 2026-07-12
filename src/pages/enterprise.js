@@ -39,8 +39,9 @@ const EnterprisePage = () => {
               maxWidth: layout.small
             })}
           >
-            For high-volume customers who've{' '}
-            <Annotation>outgrown shared infrastructure</Annotation>.
+            The Microlink API on{' '}
+            <Annotation>dedicated infrastructure</Annotation>: your own
+            endpoint, browser pool, and worldwide CDN.
           </Caption>
           <Box
             css={themeProp({

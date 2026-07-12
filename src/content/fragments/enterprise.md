@@ -14,7 +14,16 @@ Running a **Microlink Enterprise** plan means:
 - A GDPR-compliant [Data Processing Agreement](/dpa).
 - Enterprise onboarding and launch validation.
 
-The physical servers associated with your Microlink API endpoint can be chosen from 8 locations (🇺🇸 New York, 🇺🇸 San Francisco, 🇳🇱 Amsterdam, 🇸🇬 Singapore, 🇬🇧 London, 🇩🇪 Frankfurt, 🇨🇦 Toronto, or 🇮🇳 Bangalore).
+The physical servers associated with your Microlink API endpoint can be chosen from 8 locations:
+
+- 🇺🇸 New York
+- 🇺🇸 San Francisco
+- 🇳🇱 Amsterdam
+- 🇸🇬 Singapore
+- 🇬🇧 London
+- 🇩🇪 Frankfurt
+- 🇨🇦 Toronto
+- 🇮🇳 Bangalore
 
 Enterprise pricing has two parts: an infrastructure subscription for your dedicated environment, plus a usage plan tier that follows the same model as **Microlink Pro**.
 
