@@ -36,7 +36,7 @@ const tone = {
   ink: colors.black,
   ink900: colors.gray9,
   muted: colors.gray7,
-  faint: colors.gray5,
+  faint: colors.gray7,
   white: colors.white,
   surface: colors.white,
   surfaceDark: colors.gray9,
@@ -56,7 +56,7 @@ const syntax = {
   tag: colors.secondary,
   darkText: colors.white80,
   darkStr: colors.green3,
-  muted: colors.gray6
+  muted: colors.gray7
 }
 
 const radius = {
@@ -1097,7 +1097,7 @@ const SearchPreview = () => (
           height='14'
           viewBox='0 0 24 24'
           fill='none'
-          stroke={colors.gray5}
+          stroke={colors.gray6}
           strokeWidth='2'
           strokeLinecap='round'
         >
