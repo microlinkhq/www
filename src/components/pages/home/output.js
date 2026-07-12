@@ -162,11 +162,11 @@ const Card = ({ data, fallbackUrl }) => (
   </PanelContent>
 )
 
-const EmbedOutput = ({ url }) => (
+const EmbedOutput = ({ url, data }) => (
   <PanelContent
     css={theme({ p: 4, justifyContent: 'center', alignItems: 'center' })}
   >
-    <Microlink url={url} size='large' />
+    <Microlink url={url} size='large' fetchData={!data} setData={data} />
   </PanelContent>
 )
 
@@ -1277,7 +1277,7 @@ const Output = ({ req }) => {
           )
 
     case 'embed':
-      return <EmbedOutput url={req.D.fullUrl} />
+      return <EmbedOutput url={req.D.fullUrl} data={data} />
 
     case 'metadata':
       return <MetadataOutput data={data} />

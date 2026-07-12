@@ -177,11 +177,22 @@ describe('hero demo snapshot cache', () => {
     }
   )
 
-  test('example chips always fill their own demo URL', () => {
-    const pick = slice('const pickExample', 'const pickVertical')
-    expect(pick).toContain('DEFAULT_URLS[parseLocal(value).vertical]')
-    expect(pick).toContain('shortUrl(demoUrl)')
-    expect(pick).not.toContain('raw ||')
+  test('pickers fill the vertical demo URL unless the user typed one', () => {
+    const pick = slice('const typedUrl', 'const MENU_COLS')
+    expect(pick).toContain('!isDemoUrl(raw)')
+    expect(pick).toContain('typedUrl() || shortUrl(DEFAULT_URLS[vertical])')
+    expect(pick).toContain(
+      "typedUrl() || (k !== 'search' && shortUrl(DEFAULT_URLS[k]))"
+    )
+  })
+
+  test('demoKey treats protocol, www and trailing slash as equivalent', () => {
+    expect(heroDemoRequests.demoKey('https://www.apple.com/music/')).toBe(
+      heroDemoRequests.demoKey('http://apple.com/music')
+    )
+    expect(heroDemoRequests.demoKey('https://stripe.com')).not.toBe(
+      heroDemoRequests.demoKey('https://www.apple.com/music')
+    )
   })
 
   test('snapshotReq rebuilds the full response state for both paths', () => {

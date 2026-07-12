@@ -27,7 +27,7 @@ const Microlink = ({
   const demoLink = findDemoLinkByVariations(variations)
   const { data: demolinkData } = demoLink || {}
 
-  const _fetchData = fetchData || !demolinkData
+  const _fetchData = fetchData !== undefined ? fetchData : !demolinkData
 
   const _setData =
     typeof setData === 'function'

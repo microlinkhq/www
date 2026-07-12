@@ -76,5 +76,6 @@ module.exports = {
   INITIAL_VERTICAL,
   heroDemoPath,
   shortUrl,
+  demoKey,
   canonicalDemoUrl
 }

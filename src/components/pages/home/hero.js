@@ -147,6 +147,7 @@ const {
   INITIAL_VERTICAL,
   heroDemoPath,
   shortUrl,
+  demoKey,
   canonicalDemoUrl
 } = heroDemoRequests
 
@@ -382,6 +383,10 @@ const EXAMPLE_CHIPS = [
 ].map(vertical => ({ text: PROMPTS[vertical], vertical }))
 
 const VERT_BORDER_ACTIVE = rgba(colors.grape7, 0.45)
+
+const DEMO_KEYS = new Set(Object.values(DEFAULT_URLS).map(demoKey))
+
+const isDemoUrl = url => DEMO_KEYS.has(demoKey(url))
 
 const derive = (text, override) => {
   const p = parseLocal(text)
@@ -2085,9 +2090,15 @@ const Hero = () => {
     writeSharedState(text, dVert)
   }
 
+  const typedUrl = () => {
+    const { raw } = parseLocal(dText)
+    return raw && !isDemoUrl(raw) ? raw : null
+  }
+
   const pickExample = value => () => {
-    const demoUrl = DEFAULT_URLS[parseLocal(value).vertical]
-    const text = `${value} of ${shortUrl(demoUrl)}`
+    const vertical = parseLocal(value).vertical
+    const url = typedUrl() || shortUrl(DEFAULT_URLS[vertical])
+    const text = `${value} of ${url}`
     takeOver(text)
     setDVert(null)
     closeMenu()
@@ -2097,8 +2108,8 @@ const Hero = () => {
 
   const pickVertical = k => {
     const template = PROMPTS[k] || ''
-    const { raw } = parseLocal(dText)
-    const prompt = raw ? `${template} of ${raw}` : template
+    const url = typedUrl() || (k !== 'search' && shortUrl(DEFAULT_URLS[k]))
+    const prompt = url ? `${template} of ${url}` : template
     takeOver(prompt)
     setDVert(k)
     closeMenu()
