@@ -347,11 +347,13 @@ const LighthouseOutput = ({ url }) => (
 )
 
 const TechCard = styled(Flex)`
-  align-items: center;
-  gap: 10px;
-  width: 232px;
-  border: 1px solid ${colors.gray1};
-  border-radius: 10px;
+  ${theme({
+    alignItems: 'center',
+    gap: 3,
+    border: 1,
+    borderColor: 'gray1',
+    borderRadius: '10px'
+  })};
 `
 
 const TechnologiesOutput = ({ technologies }) => {
@@ -362,16 +364,17 @@ const TechnologiesOutput = ({ technologies }) => {
     <PanelContent
       css={theme({ p: 3, maxHeight: PANEL_HEIGHT, overflow: 'auto' })}
     >
-      <Flex
+      <Box
         css={theme({
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          gap: 2,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gap: 3,
+          width: '100%',
           my: 'auto'
         })}
       >
         {technologies.map(tech => (
-          <TechCard key={tech.name} css={theme({ p: 2 })}>
+          <TechCard key={tech.name} css={theme({ p: 3 })}>
             {tech.logo && (
               <Box
                 as='img'
@@ -379,8 +382,8 @@ const TechnologiesOutput = ({ technologies }) => {
                 alt=''
                 loading='lazy'
                 css={theme({
-                  width: '30px',
-                  height: '30px',
+                  width: '40px',
+                  height: '40px',
                   objectFit: 'contain',
                   flexShrink: 0
                 })}
@@ -394,7 +397,7 @@ const TechnologiesOutput = ({ technologies }) => {
                 rel='noopener noreferrer'
                 css={theme({
                   display: 'block',
-                  fontSize: 0,
+                  fontSize: 1,
                   fontWeight: 'bold',
                   color: 'black',
                   textDecoration: 'none'
@@ -407,7 +410,7 @@ const TechnologiesOutput = ({ technologies }) => {
                   as='span'
                   css={theme({
                     display: 'block',
-                    fontSize: '12px',
+                    fontSize: 0,
                     color: 'gray6',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
@@ -420,7 +423,7 @@ const TechnologiesOutput = ({ technologies }) => {
             </Box>
           </TechCard>
         ))}
-      </Flex>
+      </Box>
     </PanelContent>
   )
 }
