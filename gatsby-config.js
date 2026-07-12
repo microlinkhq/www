@@ -7,6 +7,8 @@ const {
   isEmbedIndexable
 } = require('./src/components/pages/embed-url/indexable')
 
+const { serializeBlogFeed } = require('./src/helpers/feed')
+
 // Drop embed-url provider pages we deliberately keep out of the index
 // (noindex, follow) so the sitemap never sends Google a conflicting signal.
 // The hub (/tools/embed-url) and any non-provider page pass through untouched.
@@ -246,6 +248,60 @@ module.exports = {
           }
           return { url, lastmod }
         }
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-feed',
+      options: {
+        query: `
+        {
+          site {
+            siteMetadata {
+              siteUrl
+            }
+          }
+        }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMdx } }) =>
+              serializeBlogFeed({
+                siteUrl: site.siteMetadata.siteUrl,
+                nodes: allMdx.nodes
+              }),
+            query: `
+            {
+              allMdx(
+                filter: { fields: { slug: { regex: "/blog/" } } }
+                sort: { frontmatter: { date: DESC } }
+              ) {
+                nodes {
+                  excerpt(pruneLength: 240)
+                  fields {
+                    slug
+                  }
+                  frontmatter {
+                    title
+                    description
+                    date
+                  }
+                }
+              }
+            }
+            `,
+            output: '/rss.xml',
+            title: 'Microlink Blog',
+            description: 'Engineering details through Microlink.',
+            language: 'en',
+            custom_namespaces: {
+              sy: 'http://purl.org/rss/1.0/modules/syndication/'
+            },
+            custom_elements: [
+              { 'sy:updatePeriod': 'weekly' },
+              { 'sy:updateFrequency': 1 }
+            ]
+          }
+        ]
       }
     }
   ].filter(Boolean)

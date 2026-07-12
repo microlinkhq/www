@@ -137,6 +137,7 @@
     "gatsby": "~5.15.0",
     "gatsby-plugin-canonical-urls": "~5.15.0",
     "gatsby-plugin-catch-links": "~5.16.0",
+    "gatsby-plugin-feed": "^5.16.0",
     "gatsby-plugin-mdx": "~5.15.0",
     "gatsby-plugin-sass": "~6.15.0",
     "gatsby-plugin-sitemap": "~6.15.0",
