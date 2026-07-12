@@ -70,7 +70,9 @@ const mergeMeta = (props, location, metadata) => {
   // banner. The card lives on the deploy host (`ogImageBase`) — empty in dev,
   // and distinct from the canonical `siteUrl` on preview deployments.
   const image =
-    props.image || ogImageUrl(location?.pathname, ogImageBase) || metadata.image
+    props.image ||
+    ogImageUrl(location?.pathname, ogImageBase, `${title}\n${description}`) ||
+    metadata.image
 
   const author = normalizeAuthor(inputAuthors, fallbackAuthor)
 

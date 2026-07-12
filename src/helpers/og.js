@@ -1,11 +1,16 @@
-// Build-time OG cards are written to `public/images/og/<slug>.png` and served
-// as plain static files at `/images/og/<slug>.png` — the same space as other
-// `/images/*` assets. `@microlink/og`'s `imagePath` returns `/og/<slug>.png`
-// (or null for pages that don't get a card, e.g. Gatsby internals); we serve
-// it under `/images`.
 import { imagePath } from '@microlink/og'
 
-export const ogImageUrl = (pathname, base) => {
+const fingerprint = content => {
+  let hash = 5381
+  for (let i = 0; i < content.length; i++) {
+    hash = ((hash << 5) + hash) ^ content.charCodeAt(i)
+  }
+  return (hash >>> 0).toString(36)
+}
+
+export const ogImageUrl = (pathname, base, content) => {
   const path = imagePath(pathname)
-  return base && path ? `${base}/images${path}` : null
+  if (!base || !path) return null
+  const url = `${base}/images${path}`
+  return content ? `${url}?v=${fingerprint(content)}` : url
 }
