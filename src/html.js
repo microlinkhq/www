@@ -61,13 +61,6 @@ export default function HTML (props) {
           href='https://cdn.microlink.io/logo/apple-touch-icon.png'
         />
         <link rel='manifest' href='https://cdn.microlink.io/site.webmanifest' />
-
-        <link
-          rel='alternate'
-          type='application/rss+xml'
-          title='Microlink Blog'
-          href='/rss.xml'
-        />
       </head>
       <body {...props.bodyAttributes}>
         {props.preBodyComponents}

@@ -264,6 +264,11 @@ module.exports = {
         `,
         feeds: [
           {
+            setup: ({ query: { site }, ...rest }) => ({
+              ...rest,
+              site_url: site.siteMetadata.siteUrl,
+              feed_url: `${site.siteMetadata.siteUrl}/rss.xml`
+            }),
             serialize: ({ query: { site, allMdx } }) =>
               serializeBlogFeed({
                 siteUrl: site.siteMetadata.siteUrl,
