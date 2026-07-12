@@ -80,12 +80,6 @@ const useIsomorphicLayoutEffect =
 
 const EASE_SMOOTH = timings.smooth
 
-const pulse = keyframes`
-  0% { box-shadow: 0 0 0 0 ${rgba(colors.green8, 0.45)} }
-  70% { box-shadow: 0 0 0 8px ${rgba(colors.green8, 0)} }
-  100% { box-shadow: 0 0 0 0 ${rgba(colors.green8, 0)} }
-`
-
 const fadeIn = keyframes`
   from { opacity: 0 }
   to { opacity: 1 }
@@ -502,19 +496,6 @@ const Content = styled(Container)`
     & > * {
       animation-name: ${fadeIn};
     }
-  }
-`
-
-const PulseDot = styled(Dot)`
-  animation: ${pulse} 2s infinite;
-  ${theme({
-    width: '9px',
-    height: '9px',
-    borderRadius: '50%',
-    bg: 'tel'
-  })};
-  ${reduceMotion} {
-    animation: none;
   }
 `
 
@@ -2178,7 +2159,7 @@ const Hero = () => {
       <Overlay start='60%' />
       <Content>
         <Badge>
-          <PulseDot />
+          <Dot.Success />
           Handling +{reqsPretty} requests every month
         </Badge>
 

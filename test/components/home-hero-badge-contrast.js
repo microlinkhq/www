@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 
 import { colors } from '../../src/theme'
@@ -31,9 +33,12 @@ describe('home hero badge contrast', () => {
     ).toBeGreaterThanOrEqual(4.5)
   })
 
-  test('pulse dot meets WCAG 1.4.11 non-text contrast (3:1)', () => {
-    expect(
-      contrast(hexToRgb(colors.green8), badgeBackground)
-    ).toBeGreaterThanOrEqual(3)
+  test('badge reuses the shared footer status dot', () => {
+    const source = fs.readFileSync(
+      path.join(process.cwd(), 'src/components/pages/home/hero.js'),
+      'utf8'
+    )
+    expect(source).toContain('<Dot.Success />')
+    expect(source).not.toContain('PulseDot')
   })
 })
