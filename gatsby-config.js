@@ -272,8 +272,9 @@ module.exports = {
             query: `
             {
               allMdx(
-                filter: { fields: { slug: { regex: "/blog/" } } }
+                filter: { fields: { slug: { regex: "/^\\/blog\\//" } } }
                 sort: { frontmatter: { date: DESC } }
+                limit: 25
               ) {
                 nodes {
                   excerpt(pruneLength: 240)
