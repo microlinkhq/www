@@ -38,7 +38,7 @@
       ]
     },
     {
-      "source": "/llms(-full)?.txt",
+      "source": "/llms.txt",
       "headers": [
         {
           "key": "X-Robots-Tag",

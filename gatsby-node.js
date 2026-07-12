@@ -16,12 +16,6 @@ const path = require('node:path')
 
 const { getLastModifiedDate, branchName } = require('./src/helpers/git')
 const { title: formatTitle } = require('./src/helpers/title')
-const {
-  extractHeader,
-  extractMarkdownUrls,
-  orderPages,
-  buildLlmsFullTxt
-} = require('./src/helpers/llms-full')
 const { generate: generateOgCards, slug, imagePath } = require('@microlink/og')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
@@ -496,7 +490,7 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
   const pages = result.data.allMdx.edges
 
   const startTime = Date.now()
-  const markdownPages = await pMap(
+  await pMap(
     pages,
     async ({ node }) => {
       const slug = node.fields.slug.replace(/\/+$/, '')
@@ -507,7 +501,6 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
       const outputPath = path.join(process.cwd(), 'public', relative)
       mkdirSync(path.dirname(outputPath), { recursive: true })
       writeFileSync(outputPath, markdown || '')
-      return { url: `${url}.md`, markdown }
     },
     { concurrency: 8 }
   )
@@ -516,22 +509,4 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
   reporter.info(
     `Generated ${pages.length} docs markdown files in ${duration}ms`
   )
-
-  const llmsTxt = readFileSync(
-    path.join(process.cwd(), 'static', 'llms.txt'),
-    'utf8'
-  )
-
-  writeFileSync(
-    path.join(process.cwd(), 'public', 'llms-full.txt'),
-    buildLlmsFullTxt({
-      header: extractHeader(llmsTxt),
-      pages: orderPages({
-        index: extractMarkdownUrls(llmsTxt),
-        pages: markdownPages
-      })
-    })
-  )
-
-  reporter.info('Generated llms-full.txt')
 }
