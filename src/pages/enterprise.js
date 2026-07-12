@@ -6,6 +6,7 @@ import Markdown from 'components/markdown'
 import { trackEvent } from 'helpers/plausible'
 import React from 'react'
 
+import Annotation from 'components/elements/Annotation'
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
@@ -38,7 +39,8 @@ const EnterprisePage = () => {
               maxWidth: layout.small
             })}
           >
-            For high-volume customers who've outgrown shared infrastructure.
+            For high-volume customers who've{' '}
+            <Annotation>outgrown shared infrastructure</Annotation>.
           </Caption>
           <Box
             css={themeProp({
