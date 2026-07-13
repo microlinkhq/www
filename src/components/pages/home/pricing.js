@@ -38,7 +38,10 @@ const Pricing = () => {
             maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
           })}
         >
-          Start free, scale predictably. No seats, no minimums, no surprises.
+          Start on the free plan and pay only for what you use as you grow.
+          Pricing is two numbers, a flat subscription plus usage that scales
+          with your traffic, so the bill tracks real requests. No per-seat fees,
+          no minimums, no surprise overages.
         </Caption>
       </Container>
       <Plans
