@@ -2,10 +2,7 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { theme, layout, SECTION_VERTICAL_SPACING } from 'theme'
-import {
-  CAPACITY_REQUESTS_PER_MONTH,
-  HOME_CONTENT_WIDTH
-} from 'components/pages/home/catalog'
+import { HOME_CONTENT_WIDTH } from 'components/pages/home/catalog'
 import Subhead from 'components/elements/Subhead'
 import Caption from 'components/patterns/Caption/Caption'
 
@@ -101,8 +98,8 @@ const Production = () => (
         })}
       >
         A real browser opens each page, does the work, and delivers the result.
-        Our largest customers run {CAPACITY_REQUESTS_PER_MONTH} requests a
-        month, and nobody had to warn us first.
+        It stays fast and reliable as your traffic scales, with nothing to
+        provision or babysit.
       </Caption>
     </Box>
 
