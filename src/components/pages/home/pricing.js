@@ -20,26 +20,23 @@ const Pricing = () => {
           px: [3, 3, 4, 4]
         })}
       >
-        <Subhead css={theme({ maxWidth: layout.large, fontSize: 4 })}>
-          Pricing built for{' '}
-          <Subhead
-            variant='gradient'
-            as='span'
-            css={theme({ fontSize: 'inherit' })}
-          >
-            builders
-          </Subhead>
+        <Subhead
+          variant='gradient'
+          css={theme({ maxWidth: layout.large, fontSize: 4 })}
+        >
+          Pricing built for builders
         </Subhead>
         <Caption
           forwardedAs='div'
           css={theme({
             pt: [3, 3, 4, 4],
             lineHeight: 1,
+            textWrap: 'balance',
             maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
           })}
         >
           Start free and pay only for what you use as you grow. No seats, no
-          minimums, and the bill scales with your traffic, nothing more.
+          minimums, no surprises.
         </Caption>
       </Container>
       <Plans

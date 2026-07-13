@@ -86,16 +86,8 @@ const Production = () => (
         px: 3
       })}
     >
-      <Subhead css={theme({ fontSize: 4 })}>
-        From one request
-        <br />
-        <Subhead
-          variant='gradient'
-          as='span'
-          css={theme({ fontSize: 'inherit' })}
-        >
-          to millions
-        </Subhead>
+      <Subhead variant='gradient' css={theme({ fontSize: 4 })}>
+        From one request to millions
       </Subhead>
 
       <Caption
@@ -103,12 +95,13 @@ const Production = () => (
         css={theme({
           mx: 'auto',
           pt: [3, 3, 4, 4],
-          lineHeight: 1
+          lineHeight: 1,
+          textWrap: 'balance',
+          maxWidth: layout.normal
         })}
       >
-        Microlink is the infrastructure between your agents and the web: a real
-        browser opens each page, does the work, and delivers the result. Our
-        largest customers process {CAPACITY_REQUESTS_PER_MONTH} requests a
+        A real browser opens each page, does the work, and delivers the result.
+        Our largest customers run {CAPACITY_REQUESTS_PER_MONTH} requests a
         month, and nobody had to warn us first.
       </Caption>
     </Box>
