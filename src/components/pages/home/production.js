@@ -106,10 +106,8 @@ const Production = () => (
           lineHeight: 1
         })}
       >
-        Microlink is the infrastructure between your agents and the web: behind
-        every request, a real browser in the cloud opens the page, does the
-        work, and delivers the result. Agents retry, loop, and fan out in
-        parallel; the platform is built to absorb exactly that traffic. Our
+        Microlink is the infrastructure between your agents and the web: a real
+        browser opens each page, does the work, and delivers the result. Our
         largest customers process {CAPACITY_REQUESTS_PER_MONTH} requests a
         month, and nobody had to warn us first.
       </Caption>

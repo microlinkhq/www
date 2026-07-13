@@ -2321,9 +2321,9 @@ const Products = () => (
         </Subhead>
       </Subhead>
       <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4], lineHeight: 1 })}>
-        Capture a screenshot, render a PDF, pull clean readable text, or extract
-        structured data, all from the same request. Tell Microlink the format
-        you need and it handles the browser work behind it.
+        Capture a screenshot, render a PDF, pull clean text, or extract
+        structured data, all from one request. Pick the format you need,
+        Microlink handles the rest.
       </Caption>
     </Box>
 

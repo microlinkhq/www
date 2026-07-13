@@ -2277,8 +2277,7 @@ const Hero = () => {
           css={theme({ pt: 3, maxWidth: '700px', lineHeight: 1 })}
         >
           Send any link and say what you want done. A real browser in the cloud
-          opens the page, does the work, and returns the result, from one
-          request to millions, with nothing to run or maintain.
+          does the work and returns the result, from one request to millions.
         </Caption>
 
         <Composer>
