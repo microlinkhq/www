@@ -2265,7 +2265,7 @@ const Hero = () => {
           Handling +{reqsPretty} requests every month
         </Badge>
 
-        <Heading variant={null} css={theme({ fontSize: [4, 4, 5, 5] })}>
+        <Heading variant={null} css={theme({ fontSize: [4, 4, 6, 7] })}>
           The web,{' '}
           <Heading forwardedAs='span' css={theme({ fontSize: 'inherit' })}>
             automated
