@@ -2265,7 +2265,7 @@ const Hero = () => {
           Handling +{reqsPretty} requests every month
         </Badge>
 
-        <Heading variant={null} css={theme({ fontSize: [4, 4, 6, 7] })}>
+        <Heading variant={null} css={theme({ fontSize: [4, 4, 5, 5] })}>
           The web,{' '}
           <Heading forwardedAs='span' css={theme({ fontSize: 'inherit' })}>
             automated
@@ -2274,7 +2274,7 @@ const Hero = () => {
 
         <Caption
           forwardedAs='p'
-          css={theme({ pt: 3, maxWidth: '32rem', fontSize: 2 })}
+          css={theme({ pt: 3, maxWidth: '700px', lineHeight: 1 })}
         >
           AI-ready web automation infrastructure. Any link, any scale, nothing
           to maintain. Try it below, no signup.

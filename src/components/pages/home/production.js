@@ -86,10 +86,14 @@ const Production = () => (
         px: 3
       })}
     >
-      <Subhead>
+      <Subhead css={theme({ fontSize: 4 })}>
         From one request
         <br />
-        <Subhead variant='gradient' as='span'>
+        <Subhead
+          variant='gradient'
+          as='span'
+          css={theme({ fontSize: 'inherit' })}
+        >
           to millions
         </Subhead>
       </Subhead>
@@ -98,7 +102,8 @@ const Production = () => (
         forwardedAs='div'
         css={theme({
           mx: 'auto',
-          pt: [3, 3, 4, 4]
+          pt: [3, 3, 4, 4],
+          lineHeight: 1
         })}
       >
         Microlink is the infrastructure between your agents and the web: behind

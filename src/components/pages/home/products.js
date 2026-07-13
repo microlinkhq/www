@@ -2308,15 +2308,19 @@ const Products = () => (
         px: 3
       })}
     >
-      <Subhead>
+      <Subhead css={theme({ fontSize: 4 })}>
         Turn any link
         <br />
         into{' '}
-        <Subhead variant='gradient' as='span'>
+        <Subhead
+          variant='gradient'
+          as='span'
+          css={theme({ fontSize: 'inherit' })}
+        >
           what you need
         </Subhead>
       </Subhead>
-      <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4] })}>
+      <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4], lineHeight: 1 })}>
         Screenshots, PDFs, clean text, data & more. One simple request, any
         format.
       </Caption>
