@@ -6,8 +6,6 @@ import Box from 'components/elements/Box'
 import { PostFooter } from 'components/pages/blog/post-footer'
 import { PostTitle } from 'components/pages/blog/post-title'
 import { PostAuthor } from 'components/pages/blog/post-author'
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Markdown, { H1, H2 } from 'components/markdown'
 import { textGradient, layout, theme } from 'theme'
@@ -15,8 +13,6 @@ import { formatDate } from 'helpers/format-date'
 import { title as titleize } from 'helpers/title'
 import TimeAgo from 'react-timeago'
 import React from 'react'
-
-const Caption = withTitle(CaptionBase)
 
 const PageTemplate = ({
   isBlogPage,
@@ -68,27 +64,23 @@ const PageTemplate = ({
                 </H2>
               )}
               <PostAuthor authorIds={authorList} />
-              <Caption
-                forwardedAs='p'
+              <Text
+                as='p'
                 css={theme({
-                  color: 'black60',
-                  fontSize: 2
+                  color: 'black60'
                 })}
               >
                 {formatDate(date)} (<TimeAgo date={date} />)
-              </Caption>
+              </Text>
             </Choose.When>
             <Choose.Otherwise>
               <Heading css={{ marginTop: 0, maxWidth: layout.large }}>
                 {title}
               </Heading>
               {lastEdited && (
-                <Caption
-                  forwardedAs='p'
-                  css={theme({ fontSize: 2, pt: 4, color: 'black60' })}
-                >
+                <Text as='p' css={theme({ pt: 4, color: 'black60' })}>
                   Last updated on {formatDate(lastEdited)}
-                </Caption>
+                </Text>
               )}
             </Choose.Otherwise>
           </Choose>

@@ -6,6 +6,7 @@ import { useQueryState } from 'components/hook/use-query-state'
 import React from 'react'
 import { layout, space, theme } from 'theme'
 import { Link } from 'components/elements/Link'
+import Text from 'components/elements/Text'
 import Terminal from 'components/elements/Terminal/Terminal'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Box from 'components/elements/Box'
@@ -104,12 +105,9 @@ const UserAgentsPage = () => {
           A self-updating list of the latest
           <br />& most common user agents.
         </Caption>
-        <Caption
-          forwardedAs='p'
-          css={theme({ fontSize: 2, pt: 3, color: 'black60' })}
-        >
+        <Text as='p' css={theme({ pt: 3, color: 'black60' })}>
           Last updated on {formatDate(new Date(userAgents.updatedAt))}
-        </Caption>
+        </Text>
 
         <Flex
           css={theme({

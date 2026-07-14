@@ -382,8 +382,7 @@ const Hero = () => (
             pt: [3, 3, 4, 4],
             maxWidth: layout.small,
             mx: ['auto', 'auto', 0, 0],
-            textAlign: ['center', 'center', 'left', 'left'],
-            lineHeight: 2
+            textAlign: ['center', 'center', 'left', 'left']
           })}
         >
           Install the global command, pass any URL, and inspect screenshots,

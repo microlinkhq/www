@@ -10,7 +10,6 @@ import Text from 'components/elements/Text'
 import ArrowLink from 'components/patterns/ArrowLink'
 import {
   ACCENT,
-  Caption,
   CtaSection,
   DashedGridOverlay,
   Eyebrow,
@@ -282,12 +281,11 @@ const ThanksSection = () => (
           />
         </Text>
       </Box>
-      <Caption
-        forwardedAs='p'
-        titleize={false}
+      <Text
+        as='p'
         css={theme({
           color: 'black70',
-          fontSize: [0, 1],
+          textAlign: 'center',
           maxWidth: layout.small,
           mx: 'auto'
         })}
@@ -295,7 +293,7 @@ const ThanksSection = () => (
         <b>Thank you to the Luckynote team</b> for letting us share their use
         case, and for choosing Microlink to power link previews across their
         notes app.
-      </Caption>
+      </Text>
     </SectionInner>
   </Section>
 )
