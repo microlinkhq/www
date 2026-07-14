@@ -357,8 +357,7 @@ export const ApiDocsCard = ({
           pt: [3, 3, 4, 4],
           justifyContent: 'center',
           gap: 3,
-          flexWrap: 'wrap',
-          fontSize: [2, 2, 3, 3]
+          flexWrap: 'wrap'
         })}
       >
         <ArrowLink href={guideHref}>Getting started</ArrowLink>

@@ -294,7 +294,6 @@ const Explanation = () => (
       css={theme({
         pt: [4, 4, 5, 5],
         px: [1, 1, 3, 3],
-        fontSize: '24px',
         maxWidth: layout.large
       })}
     >

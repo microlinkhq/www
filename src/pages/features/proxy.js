@@ -56,7 +56,6 @@ const BodyText = props => (
     {...props}
     css={[
       theme({
-        fontSize: [1, 2, 2, 2],
         textAlign: 'left',
         maxWidth: layout.large,
         mx: 0,
@@ -157,7 +156,6 @@ const Hero = () => (
         forwardedAs='p'
         css={theme({
           pt: [3, 3, 4, 4],
-          fontSize: [1, 2, 2, 2],
           textAlign: 'left',
           maxWidth: layout.large,
           mx: 0
@@ -975,7 +973,6 @@ const CtaSection = () => (
         css={theme({
           color: 'black70',
           pt: [3, 3, 4, 4],
-          fontSize: [1, 2, 2, 2],
           maxWidth: layout.small,
           mx: 'auto'
         })}

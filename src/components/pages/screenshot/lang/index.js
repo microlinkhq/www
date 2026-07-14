@@ -147,7 +147,6 @@ const SectionHead = ({ title, caption, maxWidth = CONTENT_WIDTH, pt }) => (
         titleize={false}
         css={theme({
           pt: [3, 3, 4, 4],
-          fontSize: [1, 2, 2, 2],
           textAlign: 'center',
           maxWidth: CONTENT_WIDTH,
           mx: 'auto'

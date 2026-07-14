@@ -1113,8 +1113,7 @@ const Hero = () => (
       css={theme({
         pt: [2, 2, 3, 3],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [2, 2, 3, '32px']
+        maxWidth: layout.large
       })}
     >
       Capture any animated web page as a video. Free, online, no sign-up.
@@ -1211,7 +1210,6 @@ const Explanation = () => (
       css={theme({
         pt: [4, 4, 5, 5],
         px: [1, 1, 3, 3],
-        fontSize: '24px',
         maxWidth: layout.large
       })}
     >

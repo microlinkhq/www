@@ -2300,7 +2300,6 @@ const HowItWorks = () => (
         pt: [3, 3, 4, 4],
         px: [1, 1, 3, 3],
         pb: [3, 3, 4, 4],
-        fontSize: '24px',
         maxWidth: layout.large
       })}
     >

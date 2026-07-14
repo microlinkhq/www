@@ -1905,8 +1905,7 @@ const CTASection = () => (
         css={theme({
           color: 'white80',
           pb: [3, 3, 4, 4],
-          maxWidth: layout.large,
-          fontSize: 2
+          maxWidth: layout.large
         })}
       >
         Your first{' '}

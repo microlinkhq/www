@@ -506,7 +506,6 @@ const CtaSection = () => (
         css={theme({
           color: 'black70',
           pt: [3, 3, 4, 4],
-          fontSize: [1, 2, 2, 2],
           maxWidth: layout.small,
           mx: 'auto'
         })}

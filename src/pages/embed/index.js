@@ -2493,7 +2493,6 @@ const Playground = () => {
         <Caption
           css={theme({
             px: [4, 4, 4, 0],
-            fontSize: ['20px', '20px', '24px', '24px'],
             maxWidth: layout.large,
             textAlign: 'center'
           })}

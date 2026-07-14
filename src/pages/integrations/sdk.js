@@ -177,7 +177,6 @@ const SectionHead = ({
         forwardedAs='div'
         css={theme({
           pt: [3, 3, 4, 4],
-          fontSize: [1, 2, 2, 2],
           textAlign: align,
           maxWidth: align === 'center' ? layout.normal : undefined,
           mx: align === 'center' ? 'auto' : undefined
@@ -362,7 +361,6 @@ const Pillars = () => (
           forwardedAs='div'
           css={theme({
             pt: [2, 2, 3, 3],
-            fontSize: [1, 2, 2, 2],
             textAlign: ['center', 'center', 'center', 'left']
           })}
         >

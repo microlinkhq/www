@@ -2214,7 +2214,6 @@ const Playground = () => {
         <Caption
           css={theme({
             px: [4, 4, 4, 0],
-            fontSize: ['20px', '20px', '24px', '24px'],
             maxWidth: layout.large,
             textAlign: 'center'
           })}
@@ -2309,7 +2308,6 @@ const TokenSavings = () => (
           color: 'white80',
           textAlign: 'center',
           width: '100%',
-          fontSize: [2, 2, '22px', '22px'],
           px: [4, 4, 4, 0]
         })}
       >
@@ -2691,7 +2689,6 @@ const CodeExample = () => {
             forwardedAs='div'
             css={theme({
               pt: [3, 3, 4, 4],
-              fontSize: [2, 2, 2, 2],
               textAlign: ['center', 'center', 'center', 'left'],
               maxWidth: [
                 layout.small,

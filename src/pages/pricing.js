@@ -464,10 +464,7 @@ const Comparison = () => (
         <LineBreak />
         side by <span css={theme({ color: 'secondary' })}>side</span>.
       </Subhead>
-      <Caption
-        forwardedAs='div'
-        css={theme({ pt: [3, 3, 4, 4], fontSize: [1, 2, 2, 2] })}
-      >
+      <Caption forwardedAs='div' css={theme({ pt: [3, 3, 4, 4] })}>
         Every paid plan unlocks the same toolbox. Pick the volume that matches
         your traffic — upgrade or downgrade in a click.
       </Caption>
@@ -741,7 +738,6 @@ const Capabilities = () => (
         forwardedAs='div'
         css={theme({
           pt: [3, 3, 4, 4],
-          fontSize: [1, 2, 2, 2],
           textAlign: 'left',
           maxWidth: layout.normal
         })}
@@ -853,10 +849,7 @@ const BuildVsBuy = () => (
         Build it, or just{' '}
         <span css={theme({ color: 'secondary' })}>call it</span>.
       </Subhead>
-      <Caption
-        forwardedAs='div'
-        css={theme({ pt: [3, 3, 4, 4], fontSize: [1, 2, 2, 2] })}
-      >
+      <Caption forwardedAs='div' css={theme({ pt: [3, 3, 4, 4] })}>
         We&apos;ve been running headless browsers in production since 2017. So
         you don&apos;t have to.
       </Caption>
@@ -1084,10 +1077,7 @@ const Testimonials = () => (
         Loved by teams in{' '}
         <span css={theme({ color: 'secondary' })}>production</span>.
       </Subhead>
-      <Caption
-        forwardedAs='div'
-        css={theme({ pt: [3, 3, 4, 4], fontSize: [1, 2, 2, 2] })}
-      >
+      <Caption forwardedAs='div' css={theme({ pt: [3, 3, 4, 4] })}>
         Engineers, founders and platform teams pick Microlink because it just
         works.
       </Caption>
@@ -1518,10 +1508,7 @@ const Cta = () => {
           ))}{' '}
           <CtaNow>now</CtaNow>.
         </Subhead>
-        <Caption
-          forwardedAs='div'
-          css={theme({ pt: [3, 3, 4, 4], fontSize: [1, 2, 2, 2] })}
-        >
+        <Caption forwardedAs='div' css={theme({ pt: [3, 3, 4, 4] })}>
           Free forever plan, no credit card. Pro plans start at {symbol}
           {startingPrice}/month — cancel anytime.
         </Caption>

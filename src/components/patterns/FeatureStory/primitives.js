@@ -31,7 +31,6 @@ export const BodyText = props => (
     {...props}
     css={[
       theme({
-        fontSize: [1, 2, 2, 2],
         textAlign: 'left',
         maxWidth: layout.large,
         mx: 0,

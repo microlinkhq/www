@@ -2,21 +2,16 @@ import Hide from 'components/elements/Hide'
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Block from 'components/patterns/Block/Block'
-import { withTitle } from 'helpers/hoc/with-title'
 import { CDN_EDGES } from 'helpers/cdn-edges'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import { colors, borders, theme } from 'theme'
 import styled from 'styled-components'
 import take from 'lodash/take'
 import React from 'react'
 
 import analyticsData from '../../../../data/analytics.json'
-
-const Subhead = withTitle(SubheadBase)
-
-const Caption = withTitle(CaptionBase)
 
 const [{ reqs_pretty: reqsPretty, bytes_pretty: bytesPretty }] = analyticsData
 

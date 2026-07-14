@@ -1670,8 +1670,7 @@ const CTASection = () => (
         css={theme({
           color: 'white',
           pb: [3, 3, 4, 4],
-          maxWidth: layout.large,
-          fontSize: 2
+          maxWidth: layout.large
         })}
         titleize={false}
       >
