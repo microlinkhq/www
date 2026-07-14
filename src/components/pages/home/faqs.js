@@ -192,7 +192,6 @@ const FAQs = props => (
   <Faq
     css={theme({ pt: SECTION_VERTICAL_SPACING })}
     title='FAQs'
-    titleSize={4}
     caption='Frequently asked questions.'
     questions={getFaqQuestions()}
     {...props}

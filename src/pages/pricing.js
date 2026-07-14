@@ -1269,7 +1269,6 @@ const Faqs = () => (
   <Faq
     title='Pricing FAQs'
     caption='Everything you need to know before you pick a plan.'
-    titleSize={['28px', '34px', '42px', '46px']}
     css={theme({
       bg: 'white',
       maxWidth: '100%',

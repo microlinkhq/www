@@ -2588,7 +2588,6 @@ const Playground = () => {
 const ProductInformation = () => (
   <Faq
     title='Product Information'
-    titleSize={['40px', 4, 5, 5]}
     caption={
       <>
         Everything you need to know about <LineBreak /> the Microlink Embed API

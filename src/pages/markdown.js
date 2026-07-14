@@ -3674,7 +3674,6 @@ const ProductInformation = () => {
   return (
     <Faq
       title='Product Information'
-      titleSize={['40px', 4, 5, 5]}
       caption={
         <>
           Everything you need to know about <LineBreak /> Microlink URL to

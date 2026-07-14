@@ -1865,7 +1865,6 @@ const FAQ_ITEMS = [
 const Faq = () => (
   <FaqComponent
     title='Frequently Asked Questions'
-    titleSize={[3, 3, 4, 4]}
     questions={FAQ_ITEMS}
     css={theme({ bg: 'pinky', maxWidth: '100%', py: [4, 4, 5, 5] })}
   />

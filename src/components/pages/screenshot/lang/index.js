@@ -562,7 +562,6 @@ const ScreenshotLang = ({ config }) => (
       <ToolCta tool={config.tool} />
       <Faq
         title={config.faq.title}
-        titleSize={['40px', 4, 5, 5]}
         caption={config.faq.caption}
         css={theme({ bg: 'transparent', pb: [4, 4, 5, 5] })}
         questions={config.faq.questions}
