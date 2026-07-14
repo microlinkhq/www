@@ -3,10 +3,6 @@ import { colors } from 'theme'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { Link } from 'components/elements/Link'
 
-// Per-language configuration for /screenshot/python. Python has no official
-// Microlink SDK, so every example calls the REST API over native HTTP (the
-// requests package, with the standard library as the zero-dependency option).
-
 const Accent = ({ children }) => (
   <span style={{ color: colors.red6 }}>{children}</span>
 )
@@ -18,9 +14,6 @@ const python = {
   lang: 'python',
   label: 'Python',
 
-  // ── SEO ──────────────────────────────────────────────────────────────────
-  // Owns the "python screenshot api" intent — distinct from the product page
-  // (/screenshot, "website screenshot api") and the other language spokes.
   meta: {
     title: 'Python Screenshot API — Capture Any Website in Code',
     description:
@@ -131,13 +124,11 @@ const python = {
     ]
   },
 
-  // ── Breadcrumb (visual) ───────────────────────────────────────────────────
   breadcrumb: [
     { label: 'Screenshot API', href: '/screenshot' },
     { label: 'Python' }
   ],
 
-  // ── Hero (centered, code-free) ────────────────────────────────────────────
   hero: {
     title: (
       <>
@@ -154,7 +145,6 @@ const python = {
     }
   },
 
-  // ── Quickstart steps (vertical, progressively deeper) ─────────────────────
   quickstart: {
     title: (
       <>
@@ -231,7 +221,6 @@ with open('screenshot.png', 'wb') as file:
     ]
   },
 
-  // ── Framework integration (tabbed) ────────────────────────────────────────
   framework: {
     title: (
       <>
@@ -333,7 +322,6 @@ print(data['screenshot']['url'])`
     ]
   },
 
-  // ── Why the API vs self-hosting a browser ─────────────────────────────────
   comparison: {
     title: (
       <>
@@ -370,7 +358,6 @@ print(data['screenshot']['url'])`
     ]
   },
 
-  // ── Features (Python-flavored) ────────────────────────────────────────────
   features: {
     title: (
       <>
@@ -434,7 +421,6 @@ print(data['screenshot']['url'])`
     ]
   },
 
-  // ── Try it live ───────────────────────────────────────────────────────────
   tool: {
     title: (
       <>
@@ -449,7 +435,6 @@ print(data['screenshot']['url'])`
     }
   },
 
-  // ── FAQ (Python-specific) ─────────────────────────────────────────────────
   faq: {
     title: 'Python Screenshot FAQ',
     caption: (
@@ -560,7 +545,6 @@ print(data['screenshot']['url'])`
     ]
   },
 
-  // ── Final CTA ─────────────────────────────────────────────────────────────
   cta: {
     title: (
       <>

@@ -131,8 +131,6 @@ const getRepoStarsLabel = (repo, asNumber = false) => {
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
-// ─── Hero ─────────────────────────────────────────────────────────────────────
-
 const HeroPreviewShell = styled(Box)`
   ${theme({
     width: '100%',
@@ -378,7 +376,6 @@ const Hero = function Hero ({
 
   useEffect(() => {
     if (userInteractedRef.current) return
-    // fetch the initial URL so the preview card matches the placeholder
     onSubmitRef.current(INITIAL_PLACEHOLDER_URL, {
       queryUrl: INITIAL_PLACEHOLDER_URL,
       syncQuery: false
@@ -388,11 +385,9 @@ const Hero = function Hero ({
     let timeOffset = INITIAL_DELAY_MS
 
     PLACEHOLDER_CYCLE.forEach(nextUrl => {
-      // capture per-iteration so timer closures don't read the mutated outer var
       const fromUrl = previousUrl
       const toUrl = nextUrl
 
-      // erase the previous URL, char by char
       const eraseStart = timeOffset
       for (let i = 1; i <= fromUrl.length; i++) {
         timers.push(
@@ -404,7 +399,6 @@ const Hero = function Hero ({
       }
       timeOffset = eraseStart + fromUrl.length * TYPING_SPEED_MS
 
-      // type the next URL, char by char
       const typeStart = timeOffset
       for (let i = 1; i <= toUrl.length; i++) {
         timers.push(
@@ -416,7 +410,6 @@ const Hero = function Hero ({
       }
       timeOffset = typeStart + toUrl.length * TYPING_SPEED_MS
 
-      // fetch after a brief hold so the typed URL is readable
       timers.push(
         setTimeout(() => {
           if (userInteractedRef.current) return
@@ -645,8 +638,6 @@ const Hero = function Hero ({
   )
 }
 
-// ─── Providers Showcase ───────────────────────────────────────────────────────
-
 const FEATURED_PROVIDERS = [
   { name: 'YouTube', icon: siYoutube },
   { name: 'Spotify', icon: siSpotify },
@@ -861,8 +852,6 @@ const Providers = () => {
     />
   )
 }
-
-// ─── Capabilities ─────────────────────────────────────────────────────────────
 
 const CAPABILITIES = [
   {
@@ -1145,8 +1134,6 @@ const CopyPasteEmbed = () => (
   </Container>
 )
 
-// ─── Clients ──────────────────────────────────────────────────────────────────
-
 const [
   {
     reqs_pretty: reqsPretty,
@@ -1398,8 +1385,6 @@ const Clients = () => (
   </Container>
 )
 
-// ─── Pricing ──────────────────────────────────────────────────────────────────
-
 const Pricing = () => {
   const { canonicalUrl, stripeKey } = useSiteMetadata()
   return (
@@ -1434,8 +1419,6 @@ const Pricing = () => {
     </CurrencyProvider>
   )
 }
-
-// ─── Open Source ──────────────────────────────────────────────────────────────
 
 const REPOS = [
   {
@@ -1736,8 +1719,6 @@ const OpenSource = () => (
   </Container>
 )
 
-// ─── SDK ──────────────────────────────────────────────────────────────────────
-
 const SDK_CODE_SNIPPET = `
 import Microlink from '@microlink/react'
 
@@ -1852,8 +1833,6 @@ const SdkSection = () => (
   </Container>
 )
 
-// ─── Features Grid ────────────────────────────────────────────────────────────
-
 const EMBED_FEATURES = [
   {
     title: 'One Embed for Every URL',
@@ -1900,8 +1879,6 @@ const EMBED_FEATURES = [
       'Step-by-step embed guide covering the API, the iframe parameter, custom HTML/CSS, and AI-generated previews — with runnable examples for every workflow.'
   }
 ]
-
-// ─── Customer Stories ─────────────────────────────────────────────────────────
 
 const CUSTOMER_STORY_SLUGS = ['mymahi', 'luckynote']
 
@@ -2043,8 +2020,6 @@ const CustomerStories = () => {
   )
 }
 
-// ─── Call to Action ───────────────────────────────────────────────────────────
-
 const CTA_DURATION = 6.2
 const CTA_SWEEP_PCT = (1.2 / CTA_DURATION) * 100
 const CTA_LEAD_TEXT = 'Embed'
@@ -2169,8 +2144,6 @@ const CallToAction = () => (
     </Flex>
   </Container>
 )
-
-// ─── Product Information (FAQ) ────────────────────────────────────────────────
 
 const TOP_FAQ_ITEMS = [
   {
@@ -2463,8 +2436,6 @@ const TOP_FAQ_ITEMS = [
   }
 ]
 
-// ─── Playground (Try it live) ────────────────────────────────────────────────
-
 const PLAYGROUND_TOOL_PATHS = ['/tools/embed-url']
 const EMBEDDING_TOOLS =
   TOOL_CATALOG.find(section => section.category === 'Embedding')?.tools ?? []
@@ -2598,8 +2569,6 @@ const ProductInformation = () => (
   />
 )
 
-// ─── Meta / SEO ───────────────────────────────────────────────────────────────
-
 export const Head = () => (
   <Meta
     title='Embed API for Any URL — oEmbed for 300+ Providers'
@@ -2706,8 +2675,6 @@ export const Head = () => (
     }}
   />
 )
-
-// ─── Page Assembly ────────────────────────────────────────────────────────────
 
 const EmbedPage = () => {
   return (

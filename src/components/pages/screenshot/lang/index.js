@@ -26,29 +26,21 @@ import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
 import ScreenshotDemo from './ScreenshotDemo'
 
-// Flattened tool catalog, so the playground section can pull the matching
-// FeaturedToolCard by href (same card the /screenshot landing renders).
 const ALL_TOOLS = TOOL_CATALOG.flatMap(section => section.tools)
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
-// Shared layout tokens — the page mirrors the /integrations/sdk landing: one
-// centered column, generous vertical rhythm, red accent on headline keywords.
 const ACCENT = 'red6'
 const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 const SECTION_MAX_WIDTH = '1100px'
 const CONTENT_WIDTH = layout.normal
 
-// Force the CodeEditor (and its header row) to fill its centered container.
 const CODE_FULL_WIDTH = {
   '& > div, & > div > div:first-child': { width: '100%' }
 }
 
-// ── Background pattern ────────────────────────────────────────────────────────
-// Dashed grid that fades out below the hero, lifted from the SDK landing so the
-// two pages read as a family.
 const DashedGridOverlay = styled(Box)`
   ${theme({ position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 0 })}
   height: 1200px;
@@ -95,7 +87,6 @@ const DashedGridOverlay = styled(Box)`
   -webkit-mask-composite: source-in;
 `
 
-// ── Shared primitives ─────────────────────────────────────────────────────────
 const SectionContainer = ({ id, children, css: cssProp, ...props }) => (
   <Container
     as='section'
@@ -202,7 +193,6 @@ const Breadcrumb = ({ items }) => (
   </Flex>
 )
 
-// ── Hero (centered, code-free) ────────────────────────────────────────────────
 const Hero = ({ hero, breadcrumb }) => (
   <Container
     as='section'
@@ -262,7 +252,6 @@ const Hero = ({ hero, breadcrumb }) => (
   </Container>
 )
 
-// ── Quickstart (vertical, progressively deeper code) ──────────────────────────
 const Quickstart = ({ quickstart }) => (
   <SectionContainer id='quickstart'>
     <SectionHead
@@ -310,9 +299,6 @@ const Quickstart = ({ quickstart }) => (
   </SectionContainer>
 )
 
-// ── Framework integration (tabbed) ────────────────────────────────────────────
-// The example labels double as MultiCodeEditor tabs, so the reader jumps between
-// frameworks in place. Vanilla Node.js is the last tab.
 const Framework = ({ framework }) => {
   const languages = framework.examples.reduce((acc, example) => {
     acc[example.label] = example.code.source
@@ -349,7 +335,6 @@ const Framework = ({ framework }) => {
   )
 }
 
-// ── Comparison ────────────────────────────────────────────────────────────────
 const ComparisonColumn = ({ column }) => {
   const positive = column.tone === 'positive'
   const Icon = positive ? CheckIcon : XIcon
@@ -429,7 +414,6 @@ const Comparison = ({ comparison }) => (
   </SectionContainer>
 )
 
-// ── Try it live ───────────────────────────────────────────────────────────────
 const ToolCta = ({ tool }) => {
   const card = ALL_TOOLS.find(item => item.href === tool.cta.href)
   return (
@@ -455,7 +439,6 @@ const ToolCta = ({ tool }) => {
   )
 }
 
-// ── Final CTA ─────────────────────────────────────────────────────────────────
 const FinalCta = ({ cta }) => (
   <SectionContainer id='get-started'>
     <Flex
@@ -528,7 +511,6 @@ const FinalCta = ({ cta }) => (
   </SectionContainer>
 )
 
-// ── Page + Head ───────────────────────────────────────────────────────────────
 const ScreenshotLang = ({ config }) => (
   <Layout css={theme({ position: 'relative' })}>
     <DashedGridOverlay aria-hidden='true' />

@@ -3,10 +3,6 @@ import { colors } from 'theme'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { Link } from 'components/elements/Link'
 
-// Per-language configuration for /screenshot/php. PHP has no official Microlink
-// SDK, so every example calls the REST API over native HTTP (file_get_contents
-// and the cURL extension that ship with PHP — no Composer package required).
-
 const Accent = ({ children }) => (
   <span style={{ color: colors.red6 }}>{children}</span>
 )
@@ -18,9 +14,6 @@ const php = {
   lang: 'php',
   label: 'PHP',
 
-  // ── SEO ──────────────────────────────────────────────────────────────────
-  // Owns the "php screenshot api" intent — distinct from the product page
-  // (/screenshot, "website screenshot api") and the other language spokes.
   meta: {
     title: 'PHP Screenshot API — Capture Any Website in Code',
     description:
@@ -131,13 +124,11 @@ const php = {
     ]
   },
 
-  // ── Breadcrumb (visual) ───────────────────────────────────────────────────
   breadcrumb: [
     { label: 'Screenshot API', href: '/screenshot' },
     { label: 'PHP' }
   ],
 
-  // ── Hero (centered, code-free) ────────────────────────────────────────────
   hero: {
     title: (
       <>
@@ -154,7 +145,6 @@ const php = {
     }
   },
 
-  // ── Quickstart steps (vertical, progressively deeper) ─────────────────────
   quickstart: {
     title: (
       <>
@@ -250,7 +240,6 @@ file_put_contents('screenshot.png', file_get_contents($image));`
     ]
   },
 
-  // ── Framework integration (tabbed) ────────────────────────────────────────
   framework: {
     title: (
       <>
@@ -362,7 +351,6 @@ header('Location: ' . $res['data']['screenshot']['url']);`
     ]
   },
 
-  // ── Why the API vs self-hosting a browser ─────────────────────────────────
   comparison: {
     title: (
       <>
@@ -399,7 +387,6 @@ header('Location: ' . $res['data']['screenshot']['url']);`
     ]
   },
 
-  // ── Features (PHP-flavored) ───────────────────────────────────────────────
   features: {
     title: (
       <>
@@ -463,7 +450,6 @@ header('Location: ' . $res['data']['screenshot']['url']);`
     ]
   },
 
-  // ── Try it live ───────────────────────────────────────────────────────────
   tool: {
     title: (
       <>
@@ -478,7 +464,6 @@ header('Location: ' . $res['data']['screenshot']['url']);`
     }
   },
 
-  // ── FAQ (PHP-specific) ────────────────────────────────────────────────────
   faq: {
     title: 'PHP Screenshot FAQ',
     caption: (
@@ -587,7 +572,6 @@ header('Location: ' . $res['data']['screenshot']['url']);`
     ]
   },
 
-  // ── Final CTA ─────────────────────────────────────────────────────────────
   cta: {
     title: (
       <>

@@ -3,11 +3,6 @@ import { colors } from 'theme'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { Link } from 'components/elements/Link'
 
-// Per-language configuration for the `/screenshot/<lang>` landing pages.
-// Everything language-specific lives here so `index.js` stays generic and a
-// new language (python, php, …) is just another config file + a page file.
-
-// Inline red accent for headline keywords, mirroring the /integrations/sdk page.
 const Accent = ({ children }) => (
   <span style={{ color: colors.red6 }}>{children}</span>
 )
@@ -19,9 +14,6 @@ const nodejs = {
   lang: 'nodejs',
   label: 'Node.js',
 
-  // ── SEO ──────────────────────────────────────────────────────────────────
-  // Intentionally distinct from the product page (/screenshot) so Google reads
-  // this as the Node.js how-to, not a duplicate of the product page.
   meta: {
     title: 'Node.js Screenshot API — Capture Any Website in Code',
     description:
@@ -132,13 +124,11 @@ const nodejs = {
     ]
   },
 
-  // ── Breadcrumb (visual) ───────────────────────────────────────────────────
   breadcrumb: [
     { label: 'Screenshot API', href: '/screenshot' },
     { label: 'Node.js' }
   ],
 
-  // ── Hero (centered, code-free) ────────────────────────────────────────────
   hero: {
     title: (
       <>
@@ -155,7 +145,6 @@ const nodejs = {
     }
   },
 
-  // ── Quickstart steps (vertical, progressively deeper) ─────────────────────
   quickstart: {
     title: (
       <>
@@ -230,10 +219,6 @@ await writeFile('screenshot.png', buffer)`
     ]
   },
 
-  // ── Framework integration (tabbed) ────────────────────────────────────────
-  // The same screenshot endpoint, written for the five most popular Node.js
-  // frameworks (vanilla Node.js last). The labels double as MultiCodeEditor
-  // tabs so the reader can jump between them.
   framework: {
     title: (
       <>
@@ -365,7 +350,6 @@ http
     ]
   },
 
-  // ── Why the API vs self-hosting Puppeteer ─────────────────────────────────
   comparison: {
     title: (
       <>
@@ -402,7 +386,6 @@ http
     ]
   },
 
-  // ── Features (Node-flavored) ──────────────────────────────────────────────
   features: {
     title: (
       <>
@@ -466,7 +449,6 @@ http
     ]
   },
 
-  // ── Try it live ───────────────────────────────────────────────────────────
   tool: {
     title: (
       <>
@@ -481,7 +463,6 @@ http
     }
   },
 
-  // ── FAQ (Node-specific) ───────────────────────────────────────────────────
   faq: {
     title: 'Node.js Screenshot FAQ',
     caption: (
@@ -594,7 +575,6 @@ http
     ]
   },
 
-  // ── Final CTA ─────────────────────────────────────────────────────────────
   cta: {
     title: (
       <>
@@ -611,8 +591,6 @@ http
     badges: ['No login needed', '25 reqs/day free', 'No credit card']
   },
 
-  // ── Sibling language pages (rendered when present) ────────────────────────
-  // Add { label: 'Python', href: '/screenshot/python' } etc. as they ship.
   siblings: []
 }
 
