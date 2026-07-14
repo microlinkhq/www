@@ -123,6 +123,8 @@ const FEATURES = [
 ]
 
 const PLAYGROUND_TOOL_PATHS = ['/tools/sharing-debugger']
+
+const CARD_TITLE_FONT_SIZE = [2, 2, 3, 3]
 const METADATA_TOOLS =
   TOOL_CATALOG.find(section => section.category === 'Metadata')?.tools ?? []
 const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.map(path =>
@@ -3247,7 +3249,7 @@ const Stack = ({ currentUrl }) => {
                   <Subhead
                     titleize={false}
                     css={theme({
-                      fontSize: [2, 2, 3, 3],
+                      fontSize: CARD_TITLE_FONT_SIZE,
                       textAlign: 'left'
                     })}
                   >

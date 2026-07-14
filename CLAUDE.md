@@ -24,6 +24,24 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: When a component needs responsive visibility, use responsive arrays (e.g. `display: ["none", "flex"]`) instead of hand-writing `@media` blocks that only change `display`. For `position: fixed`/`absolute` elements, always state the target `display` value explicitly (e.g. `"flex"`, `"block"`) because `inherit` resolves against the DOM parent, not the visual stacking context, and fixed/absolute elements are out of normal flow.
 - SHOULD: Keep raw CSS only for unsupported/states-only patterns (for example keyframes, browser-specific values, or dynamic runtime computed styles).
 
+### Typography Components
+
+The typography components own their size. Compose pages from them; do not restyle their size at the call site.
+
+| Component | Tag | Size (mobile → desktop) | Role |
+| --- | --- | --- | --- |
+| `Heading` | `h1` | 52 → 64 | Page title (gradient) |
+| `Subhead` | `h2` | 52 | Section title |
+| `Caption` | `h3` | 20 → 28 | Section/hero supporting text (the lead under a heading) |
+| `Text` | `div`/`p` | 16 → 20 | Body copy, card/inline text, meta lines |
+| `Caps` | `span` | 16 | Uppercase micro-labels |
+
+- MUST: Use `Heading`/`Subhead`/`Caption` for headings and supporting text, and `Text` for body/card/meta copy. The section pattern is `Subhead` (title) + `Caption` (supporting text).
+- NEVER: Pass `fontSize`, `lineHeight`, or `letterSpacing` to `Heading`, `Subhead`, or `Caption`. The component default carries them so every page stays consistent. Passing a size at the call site is the drift this repo spent PRs #2128–#2136 removing.
+- MUST: If text needs to be smaller than a section `Caption` (28px), it is body copy — use `Text`, not a shrunk `Caption`.
+- Sanctioned escapes only (each is a real, reviewed reason a heading needs a different size): `fontSize: 'inherit'` (a gradient sub-span tracking its parent), `forwardedAs='div'` (a stat-number display reusing the heading style), or a named `UPPER_SNAKE_CASE` constant (a deliberate, centrally-defined token, e.g. `CARD_TITLE_FONT_SIZE`, `SUBSECTION_TITLE_FONT_SIZE`).
+- ENFORCED: `test/typography-overrides.js` fails the build on any per-call override outside those escapes. Run `npm test`; do not weaken the test to pass — fix the call site.
+
 ## Interactions
 
 ### Keyboard
