@@ -1902,8 +1902,7 @@ const Hero = () => (
       css={theme({
         pt: [2, 2, 3, 3],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [2, 2, '26px', '28px']
+        maxWidth: layout.large
       })}
     >
       Generate embed code for 300+ supported sites. Pick a provider below or use

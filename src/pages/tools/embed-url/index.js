@@ -195,8 +195,7 @@ const Hero = () => (
       css={theme({
         pt: [2, 2, 3, 3],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [2, 2, '26px', '28px']
+        maxWidth: layout.large
       })}
     >
       Turn any URL into an iframe embed or a custom preview card — copy the HTML
@@ -224,8 +223,7 @@ const HowItWorks = () => (
       css={theme({
         pt: [3, 3, 4, 4],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [2, 3, 3, '28px']
+        maxWidth: layout.large
       })}
     >
       How to generate embed code for any URL
@@ -512,8 +510,7 @@ const EmbedApiDocsCard = () => (
         css={theme({
           pt: 3,
           maxWidth: layout.normal,
-          mx: 'auto',
-          fontSize: 3
+          mx: 'auto'
         })}
       >
         Read the full embed guide — iframe parameter, custom HTML/CSS,

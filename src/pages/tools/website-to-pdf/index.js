@@ -1517,8 +1517,7 @@ const Hero = () => (
       css={theme({
         pt: [2, 2, 3, 3],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [2, 2, '28px', '28px']
+        maxWidth: layout.large
       })}
     >
       Use our free online tool to turn any URL into a high-fidelity PDF
@@ -1547,8 +1546,7 @@ const HowItWorks = () => (
         pt: [3, 3, 4, 4],
         pb: [2, 2, 3, 3],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [3, 3, 3, '28px']
+        maxWidth: layout.large
       })}
     >
       How to save a webpage as PDF online
@@ -2145,9 +2143,7 @@ const PdfApiDocsCard = () => (
         <SectionIcon icon={Code} />
       </Flex>
       <Subhead>HTML to PDF API Documentation</Subhead>
-      <Caption
-        css={theme({ pt: 3, maxWidth: layout.normal, mx: 'auto', fontSize: 3 })}
-      >
+      <Caption css={theme({ pt: 3, maxWidth: layout.normal, mx: 'auto' })}>
         Convert any URL to a PDF document programmatically. Explore the full API
         reference, SDKs for every language, and ready-to-use code snippets.
       </Caption>

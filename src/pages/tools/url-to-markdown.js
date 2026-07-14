@@ -2151,8 +2151,7 @@ const Hero = () => (
       css={theme({
         pt: [2, 2, 3, 3],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [2, 2, '26px', '28px']
+        maxWidth: layout.large
       })}
     >
       Turn any URL into clean, structured markdown with metadata.
@@ -2180,8 +2179,7 @@ const HowItWorks = () => (
       css={theme({
         pt: [3, 3, 4, 4],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [2, 3, 3, '28px']
+        maxWidth: layout.large
       })}
     >
       How to convert a web page to markdown
@@ -2468,8 +2466,7 @@ const MarkdownApiDocsCard = () => (
         css={theme({
           pt: 3,
           maxWidth: layout.normal,
-          mx: 'auto',
-          fontSize: 3
+          mx: 'auto'
         })}
       >
         Explore the URL to Markdown guide with interactive examples, HTML

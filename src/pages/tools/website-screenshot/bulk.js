@@ -2241,8 +2241,7 @@ const Hero = () => (
       css={theme({
         pt: [2, 2, 3, 3],
         px: 3,
-        maxWidth: '100%',
-        fontSize: [2, 2, '24px', '28px']
+        maxWidth: '100%'
       })}
     >
       Paste up to 25 URLs, capture every page at once, and download all
@@ -2270,8 +2269,7 @@ const HowItWorks = () => (
       css={theme({
         pt: [3, 3, 4, 4],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [3, 3, 3, '28px']
+        maxWidth: layout.large
       })}
     >
       How to take bulk website screenshots

@@ -791,8 +791,7 @@ const SpeedSection = () => {
           css={theme({
             pb: [3, 3, 4, 4],
             maxWidth: layout.normal,
-            color: 'black80',
-            fontSize: 3
+            color: 'black80'
           })}
           titleize={false}
         >

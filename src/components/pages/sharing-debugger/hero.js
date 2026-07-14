@@ -190,8 +190,7 @@ export const Hero = () => {
                 forwardedAs='h2'
                 css={theme({
                   pt: '20px',
-                  px: [4, 0],
-                  fontSize: [2, 2, '25px', '25px']
+                  px: [4, 0]
                 })}
               >
                 Debug and validate metadata HTML markup, including Open Graph,

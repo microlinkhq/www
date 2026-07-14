@@ -2925,8 +2925,7 @@ const Hero = () => (
       css={theme({
         pt: [2, 2, 3, 3],
         px: 3,
-        maxWidth: '100%',
-        fontSize: [2, 2, '24px', '28px']
+        maxWidth: '100%'
       })}
     >
       Paste a URL list to batch convert up to 25 web pages into PDF documents.
@@ -2954,8 +2953,7 @@ const HowItWorks = () => (
         pt: [3, 3, 4, 4],
         pb: [2, 2, 3, 3],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [3, 3, 3, '28px']
+        maxWidth: layout.large
       })}
     >
       How to bulk download PDFs from a URL list
@@ -3493,9 +3491,7 @@ const PdfApiDocsCard = () => (
         <SectionIcon icon={FileText} />
       </Flex>
       <Subhead>Bulk URL to PDF API Documentation</Subhead>
-      <Caption
-        css={theme({ pt: 3, maxWidth: layout.normal, mx: 'auto', fontSize: 3 })}
-      >
+      <Caption css={theme({ pt: 3, maxWidth: layout.normal, mx: 'auto' })}>
         Automate batch URL to PDF conversion with a single REST call. Explore
         the full API reference with interactive examples, SDKs for every
         language, and ready-to-use code snippets for bulk processing.

@@ -38,9 +38,7 @@ const Stat = ({ value, name, isLast }) => (
         {value}
       </Subhead>
       <Caption css={theme({ pt: [2, 3, 3, 3], color: 'pink', opacity: 0.8 })}>
-        <Caps css={theme({ fontWeight: 'bold', fontSize: [0, 2, 3, 3] })}>
-          {name}
-        </Caps>
+        <Caps css={theme({ fontWeight: 'bold' })}>{name}</Caps>
       </Caption>
     </Flex>
     {!isLast && <Separator />}

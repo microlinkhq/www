@@ -1215,8 +1215,7 @@ const HowItWorks = () => (
       css={theme({
         pt: [3, 3, 4, 4],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [3, 3, 3, '28px']
+        maxWidth: layout.large
       })}
     >
       How to take a high quality screenshot of a website

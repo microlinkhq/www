@@ -123,8 +123,7 @@ const Hero = () => (
       css={theme({
         pt: [2, 2, 3, 3],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [2, 2, '26px', '28px']
+        maxWidth: layout.large
       })}
     >
       Paste any Facebook URL — get a ready-to-paste embed or custom preview card
@@ -150,8 +149,7 @@ const HowItWorks = () => (
       css={theme({
         pt: [3, 3, 4, 4],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [2, 3, 3, '28px']
+        maxWidth: layout.large
       })}
     >
       How to embed a Facebook post

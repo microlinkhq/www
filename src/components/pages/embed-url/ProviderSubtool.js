@@ -52,8 +52,7 @@ const Hero = ({ title, subtitle }) => (
       css={theme({
         pt: [2, 2, 3, 3],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [2, 2, '26px', '28px']
+        maxWidth: layout.large
       })}
     >
       {subtitle}
@@ -78,8 +77,7 @@ const HowItWorksSection = ({ heading, steps }) => (
       css={theme({
         pt: [3, 3, 4, 4],
         px: 3,
-        maxWidth: layout.large,
-        fontSize: [2, 3, 3, '28px']
+        maxWidth: layout.large
       })}
     >
       {heading}
