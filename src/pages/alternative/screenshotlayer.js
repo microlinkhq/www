@@ -64,14 +64,6 @@ const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
 const SPACE_12 = `calc(${space[3]} - ${space[1]})`
 const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
-const SPACE_6 = `calc(${space[2]} - ${radii[1]})`
-
-const CTA_TITLE_FONT_SIZE = [
-  `calc(${fontSizes[3]} + ${space[3]} - ${space[1]})`,
-  `calc(${fontSizes[4]} - ${space[1]})`,
-  fontSizes[4],
-  `calc(${fontSizes[4]} + ${SPACE_6})`
-]
 
 const CTA_LINK_FONT_SIZE = [
   `calc(${fontSizes[2]} + ${space[1]})`,
@@ -902,7 +894,6 @@ const Hero = () => (
         css={theme({
           textAlign: 'center',
           maxWidth: '100%',
-          fontSize: [4, 4, 5, 5],
           color: 'black'
         })}
       >
@@ -985,10 +976,7 @@ const ComparisonSection = () => (
     })}
   >
     <SectionInner>
-      <Subhead
-        css={theme({ pb: [2, 2, 3, 3], fontSize: [3, 3, 4, 4], pt: 4 })}
-        titleize={false}
-      >
+      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })} titleize={false}>
         <GradientText>Feature-by-Feature</GradientText> Comparison
       </Subhead>
       <Caption
@@ -1035,10 +1023,7 @@ const SpeedSection = () => {
       css={theme({ bg: 'white', pt: [3, 3, 4, 4] })}
     >
       <SectionInner>
-        <Subhead
-          css={theme({ pb: [2, 2, 3, 3], fontSize: [3, 3, 4, 4] })}
-          titleize={false}
-        >
+        <Subhead css={theme({ pb: [2, 2, 3, 3] })} titleize={false}>
           <GradientText>Almost 2&times; lower</GradientText> average cold-start
           latency
         </Subhead>
@@ -1603,10 +1588,7 @@ const HonestySection = () => (
     css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
   >
     <SectionInner>
-      <Subhead
-        css={theme({ pb: [4, 4, 5, 5], fontSize: [4, 4, 5, 5], pt: 3 })}
-        titleize={false}
-      >
+      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })} titleize={false}>
         Where <GradientText>Screenshotlayer</GradientText>
         <br /> Might Be the Right Choice
       </Subhead>
@@ -1688,10 +1670,7 @@ const HonestySection = () => (
 const PricingSection = () => (
   <Section as='section' id='pricing' css={theme({ py: 5 })}>
     <SectionInner>
-      <Subhead
-        css={theme({ pb: [2, 2, 3, 3], fontSize: [4, 4, 5, 5], pt: 3 })}
-        titleize={false}
-      >
+      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 3 })} titleize={false}>
         More headroom. <GradientText>Less cap math.</GradientText>
       </Subhead>
       <Caption
@@ -1925,8 +1904,7 @@ const CTASection = () => (
       <Subhead
         css={theme({
           color: 'white',
-          pb: [2, 2, 3, 3],
-          fontSize: [3, 3, 4, 4]
+          pb: [2, 2, 3, 3]
         })}
         titleize={false}
       >
@@ -1980,7 +1958,6 @@ const TryItSection = () => {
       <SectionInner>
         <Subhead
           css={theme({
-            fontSize: CTA_TITLE_FONT_SIZE,
             textAlign: 'center'
           })}
         >
