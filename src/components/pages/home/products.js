@@ -2308,22 +2308,12 @@ const Products = () => (
         px: 3
       })}
     >
-      <Subhead css={theme({ fontSize: 4 })}>
-        Turn any link
-        <br />
-        into{' '}
-        <Subhead
-          variant='gradient'
-          as='span'
-          css={theme({ fontSize: 'inherit' })}
-        >
-          what you need
-        </Subhead>
+      <Subhead variant='gradient' css={theme({ fontSize: 4 })}>
+        Turn the web into capabilities
       </Subhead>
       <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4], lineHeight: 1 })}>
-        Capture a screenshot, render a PDF, pull clean text, or extract
-        structured data, all from one request. Pick the format you need,
-        Microlink handles the rest.
+        Build features, not the infrastructure behind them. We handle everything
+        required to run them at scale.
       </Caption>
     </Box>
 

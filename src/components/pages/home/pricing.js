@@ -24,14 +24,13 @@ const Pricing = () => {
           variant='gradient'
           css={theme({ maxWidth: layout.large, fontSize: 4 })}
         >
-          Pricing built for builders
+          Simple to start. Ready to scale.
         </Subhead>
         <Caption
           forwardedAs='div'
           css={theme({
             pt: [3, 3, 4, 4],
             lineHeight: 1,
-            textWrap: 'balance',
             maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
           })}
         >

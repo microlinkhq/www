@@ -84,7 +84,7 @@ const Production = () => (
       })}
     >
       <Subhead variant='gradient' css={theme({ fontSize: 4 })}>
-        From one request to millions
+        Production-ready infrastructure
       </Subhead>
 
       <Caption
@@ -92,14 +92,11 @@ const Production = () => (
         css={theme({
           mx: 'auto',
           pt: [3, 3, 4, 4],
-          lineHeight: 1,
-          textWrap: 'balance',
-          maxWidth: layout.normal
+          lineHeight: 1
         })}
       >
-        A real browser opens each page, does the work, and delivers the result.
-        It stays fast and reliable as your traffic scales, with nothing to
-        provision or babysit.
+        From your first request to millions, the same infrastructure scales with
+        your business. No maintenance, no capacity planning, no surprises.
       </Caption>
     </Box>
 

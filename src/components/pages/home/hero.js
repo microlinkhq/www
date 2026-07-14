@@ -2267,17 +2267,17 @@ const Hero = () => {
 
         <Heading variant={null} css={theme({ fontSize: [4, 4, 5, 5] })}>
           The web,{' '}
-          <Heading forwardedAs='span' css={theme({ fontSize: 'inherit' })}>
-            automated
+          <Heading
+            forwardedAs='span'
+            css={theme({ fontSize: 'inherit', fontStyle: 'italic' })}
+          >
+            transformed
           </Heading>
         </Heading>
 
-        <Caption
-          forwardedAs='p'
-          css={theme({ pt: 3, maxWidth: '700px', lineHeight: 1 })}
-        >
-          Send any link and say what you want done. A real browser in the cloud
-          does the work and returns the result, from one request to millions.
+        <Caption forwardedAs='p' css={theme({ pt: 3, lineHeight: 1 })}>
+          AI-ready infrastructure for interacting with the web. Built on real
+          browsers. Exposed through a single API.
         </Caption>
 
         <Composer>

@@ -259,13 +259,14 @@ const Hero = () => {
       })}
     >
       <Heading
+        variant='gradient'
         css={theme({
           fontSize: ['34px', '42px', '54px', '62px'],
           maxWidth: layout.large,
           textAlign: 'center'
         })}
       >
-        Pricing built for builders
+        Simple to start. Ready to scale.
       </Heading>
 
       <Caption
