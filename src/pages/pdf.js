@@ -2812,7 +2812,6 @@ const OpenSource = () => (
               layout.normal,
               layout.normal
             ],
-            fontSize: [1, 1, 2, 2],
             textAlign: ['center', 'center', 'center', 'left']
           })}
         >

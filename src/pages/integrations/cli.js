@@ -383,7 +383,6 @@ const Hero = () => (
             maxWidth: layout.small,
             mx: ['auto', 'auto', 0, 0],
             textAlign: ['center', 'center', 'left', 'left'],
-            fontSize: [1, 1, 2, 2],
             lineHeight: 2
           })}
         >

@@ -1738,8 +1738,7 @@ const CustomerStories = () => {
           pt: [2, 2, 3, 3],
           px: [4, 4, 4, 0],
           maxWidth: layout.normal,
-          textAlign: 'center',
-          fontSize: [1, 1, 2, 2]
+          textAlign: 'center'
         })}
       >
         How MyMahi powers its newsfeed and Luckynote unfurls links inside notes

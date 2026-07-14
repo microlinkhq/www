@@ -2816,8 +2816,7 @@ const Capabilities = ({ currentUrl, currentData }) => {
             forwardedAs='div'
             css={theme({
               maxWidth: layout.small,
-              textAlign: ['center', 'center', 'center', 'left'],
-              fontSize: [1, 1, 2, 2]
+              textAlign: ['center', 'center', 'center', 'left']
             })}
           >
             Microlink returns a unified JSON response — plus the brand color
@@ -3257,15 +3256,13 @@ const Stack = ({ currentUrl }) => {
                   </Subhead>
                 </Flex>
               </Flex>
-              <Caption
-                forwardedAs='div'
+              <Text
                 css={theme({
-                  fontSize: [1, 1, 2, 2],
                   textAlign: 'left'
                 })}
               >
                 {item.description}
-              </Caption>
+              </Text>
               <StackApiCode $accent={item.accentColor}>
                 {renderStackApi(item.apiCall, currentUrl)}
               </StackApiCode>
@@ -4014,7 +4011,6 @@ const OpenSource = () => (
               layout.normal,
               layout.normal
             ],
-            fontSize: [1, 1, 2, 2],
             textAlign: ['center', 'center', 'center', 'left']
           })}
         >
