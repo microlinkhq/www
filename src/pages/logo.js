@@ -487,7 +487,7 @@ const Timings = () => {
         alignItems: 'center'
       }}
     >
-      <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+      <Subhead css={theme({ color: 'white' })}>
         Ready to use.{' '}
         <span css={theme({ display: 'block', color: 'white60' })}>
           Fast. Easy. Reliable.
@@ -725,7 +725,6 @@ const Resume = () => (
           <Subhead
             css={theme({
               pt: [4, 4, 4, 0],
-              fontSize: [3, 3, 4, 4],
               textAlign: 'left'
             })}
           >
@@ -753,7 +752,6 @@ const Resume = () => (
           <Subhead
             css={theme({
               pt: [4, 4, 4, 0],
-              fontSize: [3, 3, 4, 4],
               textAlign: 'left'
             })}
           >
@@ -800,7 +798,6 @@ const Resume = () => (
           <Subhead
             css={theme({
               pt: [4, 4, 4, 0],
-              fontSize: [3, 3, 4, 4],
               textAlign: 'left'
             })}
           >

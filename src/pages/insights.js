@@ -153,9 +153,7 @@ const Wappalyzer = ({ data }) => (
 
 const LighthouseReport = props => (
   <Flex css={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-    <Subhead css={theme({ textAlign: 'left', fontSize: 3 })}>
-      Lighthouse report
-    </Subhead>
+    <Subhead css={theme({ textAlign: 'left' })}>Lighthouse report</Subhead>
     <Box css={theme({ pt: 3 })}>
       <Text css={{ maxWidth: layout.normal }}>
         Powered by Google's{' '}
@@ -179,9 +177,7 @@ const TechnologyStack = ({ technologies }) => (
     as='section'
     css={{ flexDirection: 'column', alignItems: 'flex-start' }}
   >
-    <Subhead css={theme({ textAlign: 'left', fontSize: 3 })}>
-      Technology Stack
-    </Subhead>
+    <Subhead css={theme({ textAlign: 'left' })}>Technology Stack</Subhead>
     <Box css={theme({ pt: 3 })}>
       <Text css={{ maxWidth: layout.small }}>
         Comprehensive technology stack detection using advanced fingerprinting
@@ -487,7 +483,7 @@ const Timings = () => {
         alignItems: 'center'
       }}
     >
-      <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+      <Subhead css={theme({ color: 'white' })}>
         Performance metrics{' '}
         <span css={theme({ color: 'white60', display: 'block' })}>
           & SLA guarantees
@@ -703,7 +699,6 @@ const Resume = () => (
           <Subhead
             css={theme({
               pt: [4, 4, 4, 0],
-              fontSize: [3, 3, 4, 4],
               textAlign: 'left'
             })}
           >
@@ -740,7 +735,6 @@ const Resume = () => (
           <Subhead
             css={theme({
               pt: [4, 4, 4, 0],
-              fontSize: [3, 3, 4, 4],
               textAlign: 'left'
             })}
           >
@@ -789,7 +783,6 @@ const Resume = () => (
           <Subhead
             css={theme({
               pt: [4, 4, 4, 0],
-              fontSize: [3, 3, 4, 4],
               textAlign: 'left'
             })}
           >

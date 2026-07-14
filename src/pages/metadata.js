@@ -1717,7 +1717,6 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
               pt: [3, 3, 4, 4],
               px: [1, 2, 4, 0],
               maxWidth: ['100%', layout.small, layout.small, '640px'],
-              fontSize: 2,
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
@@ -4409,7 +4408,6 @@ const CallToAction = () => (
     >
       <Subhead
         css={theme({
-          fontSize: [4, 4, 5, 5],
           textAlign: 'center'
         })}
       >
@@ -4895,13 +4893,7 @@ const MetaPage = () => {
           <Subhead
             css={theme({
               width: '100%',
-              textAlign: 'left',
-              fontSize: [
-                4,
-                4,
-                `calc(${fontSizes[6]} - 1px)`,
-                `calc(${fontSizes[6]} - 1px)`
-              ]
+              textAlign: 'left'
             })}
           >
             The most complete website metadata API,{' '}

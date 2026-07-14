@@ -145,7 +145,6 @@ const SectionHead = ({ title, caption, maxWidth = CONTENT_WIDTH, pt }) => (
     <Subhead
       titleize={false}
       css={theme({
-        fontSize: ['28px', '34px', '42px', '46px'],
         textAlign: 'center'
       })}
     >
@@ -220,7 +219,6 @@ const Hero = ({ hero, breadcrumb }) => (
       titleize={false}
       variant='unset'
       css={theme({
-        fontSize: ['34px', '42px', '54px', '62px'],
         maxWidth: SECTION_MAX_WIDTH,
         textAlign: 'center'
       })}
@@ -472,7 +470,6 @@ const FinalCta = ({ cta }) => (
       <Subhead
         titleize={false}
         css={theme({
-          fontSize: ['28px', '34px', '42px', '46px'],
           textAlign: 'center'
         })}
       >
@@ -549,8 +546,7 @@ const ScreenshotLang = ({ config }) => (
             titleize={false}
             css={theme({
               width: '100%',
-              textAlign: 'left',
-              fontSize: ['28px', '34px', '42px', '46px']
+              textAlign: 'left'
             })}
           >
             {config.features.title}

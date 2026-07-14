@@ -459,7 +459,7 @@ const Comparison = () => (
         pb: [4, 4, 5, 5]
       })}
     >
-      <Subhead css={theme({ fontSize: ['28px', '34px', '42px', '46px'] })}>
+      <Subhead>
         Compare every feature,
         <LineBreak />
         side by <span css={theme({ color: 'secondary' })}>side</span>.
@@ -730,7 +730,6 @@ const Capabilities = () => (
     >
       <Subhead
         css={theme({
-          fontSize: ['28px', '34px', '42px', '46px'],
           textAlign: 'left'
         })}
       >
@@ -850,7 +849,7 @@ const BuildVsBuy = () => (
         pb: [4, 4, 5, 5]
       })}
     >
-      <Subhead css={theme({ fontSize: ['28px', '34px', '42px', '46px'] })}>
+      <Subhead>
         Build it, or just{' '}
         <span css={theme({ color: 'secondary' })}>call it</span>.
       </Subhead>
@@ -1081,7 +1080,7 @@ const Testimonials = () => (
         pb: [4, 4, 5, 5]
       })}
     >
-      <Subhead css={theme({ fontSize: ['28px', '34px', '42px', '46px'] })}>
+      <Subhead>
         Loved by teams in{' '}
         <span css={theme({ color: 'secondary' })}>production</span>.
       </Subhead>
@@ -1509,7 +1508,6 @@ const Cta = () => {
       >
         <Subhead
           css={theme({
-            fontSize: ['34px', '42px', '54px', '62px'],
             textAlign: 'center'
           })}
         >

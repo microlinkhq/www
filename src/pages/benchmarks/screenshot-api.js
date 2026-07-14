@@ -349,18 +349,6 @@ const NEGATIVE_SPACE_12 = `calc(${space[3]} * -0.75)`
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const BREAKPOINT_MEDIUM_MAX = `calc(${breakpoints[1]} - ${radii[1]} / 2)`
 const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4]} - ${space[3]} - ${space[2]})`
-const HERO_TITLE_FONT_SIZE = [
-  fontSizes[3],
-  `calc(${fontSizes[3]} + ${space[2]})`,
-  `calc(${fontSizes[4]} - ${space[1]})`,
-  fontSizes[4]
-]
-const SECTION_TITLE_FONT_SIZE = [
-  fontSizes[3],
-  `calc(${fontSizes[3]} + ${space[1]})`,
-  `calc(${fontSizes[3]} + ${space[3]} - ${space[1]})`,
-  `calc(${fontSizes[3]} + ${space[3]})`
-]
 const CAPTION_FONT_SIZE = [
   fontSizes[1],
   fontSizes[1],
@@ -372,12 +360,6 @@ const SUBSECTION_TITLE_FONT_SIZE = [
   `calc(${fontSizes[2]} + ${space[1]})`,
   fontSizes[3],
   fontSizes[3]
-]
-const CTA_TITLE_FONT_SIZE = [
-  `calc(${fontSizes[3]} + ${space[3]} - ${space[1]})`,
-  `calc(${fontSizes[4]} - ${space[1]})`,
-  fontSizes[4],
-  `calc(${fontSizes[4]} + ${SPACE_6})`
 ]
 const CTA_LINK_FONT_SIZE = [
   `calc(${fontSizes[2]} + ${space[1]})`,
@@ -621,7 +603,6 @@ const Hero = () => (
           variant='gradient'
           forwardedAs='h1'
           css={theme({
-            fontSize: HERO_TITLE_FONT_SIZE,
             textAlign: 'center'
           })}
         >
@@ -714,7 +695,6 @@ const Methodology = () => (
       <Subhead
         variant='gradient'
         css={theme({
-          fontSize: SECTION_TITLE_FONT_SIZE,
           textAlign: 'left'
         })}
       >
@@ -943,7 +923,6 @@ const CompetitorComparison = () => {
       >
         <Subhead
           css={theme({
-            fontSize: SECTION_TITLE_FONT_SIZE,
             textAlign: 'left'
           })}
         >
@@ -1296,7 +1275,6 @@ const CompetitorComparison = () => {
             <Subhead
               forwardedAs='h2'
               css={theme({
-                fontSize: SECTION_TITLE_FONT_SIZE,
                 color: 'black',
                 textAlign: 'left',
                 mt: [4, 4, 5, 5],
@@ -1565,7 +1543,6 @@ const WhyLatencyMatters = () => (
     >
       <Subhead
         css={theme({
-          fontSize: SECTION_TITLE_FONT_SIZE,
           color: 'black',
           textAlign: 'left'
         })}
@@ -1895,7 +1872,6 @@ const BottomCta = () => {
       >
         <Subhead
           css={theme({
-            fontSize: CTA_TITLE_FONT_SIZE,
             textAlign: 'center'
           })}
         >

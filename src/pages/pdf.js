@@ -1010,7 +1010,6 @@ const Hero = function Hero ({ onRequestTiming }) {
               pt: [3, 3, 4, 4],
               px: [1, 2, 4, 0],
               maxWidth: ['100%', layout.small, layout.small, '640px'],
-              fontSize: [2, 2, 2, 2],
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
@@ -3207,7 +3206,6 @@ const CallToAction = () => (
     >
       <Subhead
         css={theme({
-          fontSize: [4, 4, 5, 5],
           textAlign: 'center'
         })}
       >
@@ -3602,13 +3600,7 @@ const PdfPage = () => {
           <Subhead
             css={theme({
               width: '100%',
-              textAlign: 'left',
-              fontSize: [
-                4,
-                4,
-                `calc(${fontSizes[6]} - 1px)`,
-                `calc(${fontSizes[6]} - 1px)`
-              ]
+              textAlign: 'left'
             })}
           >
             The best HTML to PDF API,{' '}

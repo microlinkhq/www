@@ -520,7 +520,6 @@ const Hero = function Hero ({
               pt: [3, 3, 4, 4],
               px: [1, 2, 4, 0],
               maxWidth: ['100%', layout.small, layout.small, '640px'],
-              fontSize: [2, 2, 3, 3],
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
@@ -1974,7 +1973,6 @@ const CustomerStories = () => {
     >
       <Subhead
         css={theme({
-          fontSize: [2, 2, 3, 3],
           textAlign: 'center',
           px: [4, 4, 4, 0]
         })}
@@ -2102,7 +2100,6 @@ const CallToAction = () => (
     >
       <Subhead
         css={theme({
-          fontSize: [4, 4, 5, 5],
           textAlign: 'center'
         })}
       >
@@ -2744,13 +2741,7 @@ const EmbedPage = () => {
                   <Subhead
                     css={theme({
                       width: '100%',
-                      textAlign: 'left',
-                      fontSize: [
-                        4,
-                        4,
-                        `calc(${fontSizes[6]} - 1px)`,
-                        `calc(${fontSizes[6]} - 1px)`
-                      ]
+                      textAlign: 'left'
                     })}
                   >
                     The most complete embed API for developers,{' '}
