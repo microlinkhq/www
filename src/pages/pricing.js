@@ -258,14 +258,7 @@ const Hero = () => {
         px: [3, 3, 4, 4]
       })}
     >
-      <Heading
-        variant='gradient'
-        css={theme({
-          fontSize: ['34px', '42px', '54px', '62px'],
-          maxWidth: layout.large,
-          textAlign: 'center'
-        })}
-      >
+      <Heading css={theme({ maxWidth: layout.large })}>
         Simple to start. Ready to scale.
       </Heading>
 

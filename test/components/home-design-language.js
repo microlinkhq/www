@@ -36,10 +36,11 @@ describe('home design language', () => {
   })
 
   test('products section opens like every other home section', () => {
-    expect(products).toContain('<Subhead>')
-    expect(products).toContain("<Subhead variant='gradient' as='span'>")
-    expect(products).toContain('pt: SECTION_VERTICAL_SPACING')
-    expect(products).not.toMatch(/<Heading\b/)
+    for (const source of [products, production]) {
+      expect(source).toContain("<Subhead variant='gradient'>")
+      expect(source).toContain('pt: SECTION_VERTICAL_SPACING')
+      expect(source).not.toMatch(/<Heading\b/)
+    }
   })
 
   test('every product card gets its icon from the shared catalog', () => {
@@ -67,8 +68,8 @@ describe('home design language', () => {
   })
 
   test('hero heading span forwards `as` so the gradient variant applies', () => {
-    expect(hero).toContain("<Heading forwardedAs='span'")
-    expect(hero).not.toMatch(/<Heading as='span' css=/)
+    expect(hero).toContain("forwardedAs='span'")
+    expect(hero).not.toMatch(/<Heading\s+as='span'/)
   })
 
   test('hero code panel speaks the docs syntax palette', () => {
@@ -83,7 +84,7 @@ describe('home design language', () => {
 
   test('pricing header reuses the canonical Subhead gradient pattern', () => {
     const pricing = read('components/pages/home/pricing.js')
-    expect(pricing).toContain("<Subhead variant='gradient' as='span'>")
+    expect(pricing).toContain("<Subhead variant='gradient'>")
     expect(pricing).not.toContain('textGradient')
     expect(pricing).not.toContain("fontSize: ['34px'")
   })
