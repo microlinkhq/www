@@ -348,7 +348,7 @@ export const ApiDocsCard = ({
       >
         <SectionIcon icon={Code} />
       </Flex>
-      <Subhead css={theme({ fontSize: 4 })}>{title}</Subhead>
+      <Subhead>{title}</Subhead>
       <Caption
         css={theme({ pt: 3, maxWidth: layout.normal, mx: 'auto', fontSize: 3 })}
       >

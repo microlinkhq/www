@@ -74,7 +74,7 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
             alignItems: 'center'
           })}
         >
-          <Heading css={theme({ fontSize: 4, pt: [3, null, 4] })}>
+          <Heading css={theme({ pt: [3, null, 4] })}>
             <Name {...recipe} />
           </Heading>
 

@@ -1892,8 +1892,7 @@ const Hero = () => (
     <Heading
       css={theme({
         px: [3, 3],
-        maxWidth: layout.large,
-        fontSize: [5, '45px', '50px', '60px']
+        maxWidth: layout.large
       })}
     >
       Embed Code Providers
@@ -2058,9 +2057,7 @@ const CatchAll = () => (
       pb: [4, 4, 5, 5]
     })}
   >
-    <Subhead css={theme({ fontSize: [3, '30px', '35px', '45px'] })}>
-      Need another provider?
-    </Subhead>
+    <Subhead>Need another provider?</Subhead>
     <Caption
       css={theme({
         pt: [2, 2, 3, 3],

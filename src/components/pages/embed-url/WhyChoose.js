@@ -68,9 +68,7 @@ const WhyChoose = ({ heading, reasons, accentColor }) => {
         mt: [3, 3, 4, 4]
       })}
     >
-      <Subhead css={theme({ fontSize: [3, '30px', '35px', '45px'] })}>
-        {heading}
-      </Subhead>
+      <Subhead>{heading}</Subhead>
       <Box
         css={theme({
           display: 'grid',
