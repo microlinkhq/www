@@ -2215,7 +2215,7 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
         alignItems: 'center'
       })}
     >
-      <Subhead css={theme({ fontSize: [2, 3, 3, '44px'], color: 'white' })}>
+      <Subhead css={theme({ color: 'white' })}>
         Send the URL{' '}
         <span css={theme({ display: 'block', color: 'white60' })}>
           Get the metadata back
@@ -2805,7 +2805,6 @@ const Capabilities = ({ currentUrl, currentData }) => {
         >
           <Subhead
             css={theme({
-              fontSize: [3, 4, 4, 4],
               textAlign: ['center', 'center', 'center', 'left'],
               width: '100%'
             })}
@@ -3183,7 +3182,6 @@ const Stack = ({ currentUrl }) => {
           </Caps>
           <Subhead
             css={theme({
-              fontSize: [3, 3, 4, 5],
               textAlign: 'center'
             })}
           >
@@ -3373,7 +3371,6 @@ const CodeExample = ({ currentUrl }) => {
         >
           <Subhead
             css={theme({
-              fontSize: [3, 3, 4, 4],
               textAlign: ['center', 'center', 'center', 'left'],
               width: '100%'
             })}
@@ -3720,12 +3717,7 @@ const Pricing = () => {
             pt: SECTION_VERTICAL_SPACING
           })}
         >
-          <Subhead
-            variant='gradient'
-            css={theme({ fontSize: ['34px', '42px', '54px', '62px'] })}
-          >
-            Start free, scale when ready
-          </Subhead>
+          <Subhead variant='gradient'>Start free, scale when ready</Subhead>
           <Caption
             forwardedAs='div'
             css={theme({
@@ -4006,7 +3998,6 @@ const OpenSource = () => (
         <Subhead
           css={theme({
             textAlign: ['center', 'center', 'center', 'left'],
-            fontSize: [3, 3, 4, 4],
             width: '100%'
           })}
         >
@@ -4092,7 +4083,6 @@ const Playground = () => (
     >
       <Subhead
         css={theme({
-          fontSize: ['28px', '36px', '46px', '46px'],
           textAlign: 'center'
         })}
       >
@@ -4326,7 +4316,6 @@ const Benchmark = () => (
     >
       <Subhead
         css={theme({
-          fontSize: [3, 3, '44px', '44px'],
           color: 'white',
           textAlign: 'center'
         })}

@@ -535,7 +535,7 @@ const Timings = () => {
         alignItems: 'center'
       })}
     >
-      <Subhead css={theme({ fontSize: [2, 3, 3, '44px'], color: 'white' })}>
+      <Subhead css={theme({ color: 'white' })}>
         Fast link previews{' '}
         <span css={theme({ display: 'block', color: 'white60' })}>
           Cached at the edge, globally
@@ -1223,7 +1223,6 @@ const Capabilities = ({ data }) => (
       >
         <Subhead
           css={theme({
-            fontSize: [3, 4, 4, 4],
             textAlign: ['center', 'center', 'center', 'left'],
             width: '100%'
           })}
@@ -1339,7 +1338,6 @@ const CopyPastePreview = ({ data }) => (
         <Subhead
           variant='gradient'
           css={theme({
-            fontSize: [3, 4, 5, 5],
             textAlign: ['center', 'center', 'left', 'left'],
             width: '100%'
           })}
@@ -1818,12 +1816,7 @@ const Pricing = () => {
             pt: [5, 5, 6, 6]
           })}
         >
-          <Subhead
-            variant='gradient'
-            css={theme({ fontSize: ['34px', '42px', '54px', '62px'] })}
-          >
-            Start free, scale when ready
-          </Subhead>
+          <Subhead variant='gradient'>Start free, scale when ready</Subhead>
           <Caption
             forwardedAs='div'
             css={theme({
@@ -2104,7 +2097,6 @@ const OpenSource = () => (
         <Subhead
           css={theme({
             textAlign: ['center', 'center', 'center', 'left'],
-            fontSize: [3, 3, 4, 4],
             width: '100%'
           })}
         >
@@ -2201,7 +2193,6 @@ const Playground = () => (
     >
       <Subhead
         css={theme({
-          fontSize: ['28px', '36px', '46px', '46px'],
           textAlign: 'center'
         })}
       >
