@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import { Eyebrow } from 'components/patterns/CustomerStory/chrome'
@@ -120,16 +120,13 @@ export const MoreUseCases = ({ accent, currentSlug }) => {
           <Eyebrow accent={accent} css={theme({ pb: 2, display: 'block' })}>
             More use cases
           </Eyebrow>
-          <SubheadBase
+          <Subhead
             css={theme({
-              fontSize: ['24px', '28px', '34px', '38px'],
-              textAlign: 'center',
-              letterSpacing: '-0.01em',
-              lineHeight: 0
+              textAlign: 'center'
             })}
           >
             Explore more ways to build with Microlink
-          </SubheadBase>
+          </Subhead>
         </Box>
 
         <CarouselTrack

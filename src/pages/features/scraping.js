@@ -6,7 +6,8 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import { CodeInline } from 'components/markdown/CodeInline'
@@ -49,21 +50,10 @@ const Hero = () => (
       <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
         <PlanTag>Core feature · free tier</PlanTag>
       </Flex>
-      <Text
-        as='h1'
-        css={theme({
-          color: 'black',
-          fontWeight: 'bold',
-          fontSize: ['32px', '40px', '52px', '60px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          m: 0
-        })}
-      >
+      <Heading variant={null} css={theme({ textAlign: 'left' })}>
         <span css={theme({ color: 'secondary' })}>Data extraction:</span> turn
         any page into structured JSON
-      </Text>
+      </Heading>
       <Caption
         forwardedAs='p'
         titleize={false}
@@ -208,16 +198,13 @@ const RuleShapes = () => (
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>
           Three rule shapes → one parameter
         </Eyebrow>
-        <SubheadBase
+        <Subhead
           css={theme({
-            fontSize: ['24px', '28px', '34px', '38px'],
-            textAlign: 'left',
-            letterSpacing: '-0.01em',
-            lineHeight: 0
+            textAlign: 'left'
           })}
         >
           From a single field to a full collection
-        </SubheadBase>
+        </Subhead>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
           Every extraction rule is built from the same five properties —{' '}
           <CodeInline>selector</CodeInline>,{' '}
@@ -329,16 +316,13 @@ const CodeExampleSingle = () => (
   <Section>
     <SectionInner>
       <Eyebrow css={theme({ pb: 2, display: 'block' })}>Code</Eyebrow>
-      <SubheadBase
+      <Subhead
         css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          textAlign: 'left'
         })}
       >
         Your first extraction, two rules
-      </SubheadBase>
+      </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         Each key inside <CodeInline>data</CodeInline> is a field in the
         response. Here <CodeInline>headline</CodeInline> reads the text and{' '}
@@ -383,16 +367,13 @@ const CodeExampleCollection = () => (
   <Section>
     <SectionInner>
       <Eyebrow css={theme({ pb: 2, display: 'block' })}>Collections</Eyebrow>
-      <SubheadBase
+      <Subhead
         css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          textAlign: 'left'
         })}
       >
         Every match, as structured objects
-      </SubheadBase>
+      </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         <CodeInline>selectorAll</CodeInline> turns the rule into an array;
         nested <CodeInline>attr</CodeInline> rules run against each match. Add{' '}
@@ -448,16 +429,13 @@ const ProSection = () => (
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>
           When targets fight back
         </Eyebrow>
-        <SubheadBase
+        <Subhead
           css={theme({
-            fontSize: ['24px', '28px', '34px', '38px'],
-            textAlign: 'left',
-            letterSpacing: '-0.01em',
-            lineHeight: 0
+            textAlign: 'left'
           })}
         >
           Pro adds the unblocking layer
-        </SubheadBase>
+        </Subhead>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
           Extraction rules are half the job — the other half is getting the page
           to render at all. Every Pro plan bundles the pieces that keep scraping
@@ -733,16 +711,13 @@ const FAQSection = () => (
 const CtaSection = () => (
   <Section>
     <SectionInner css={theme({ textAlign: 'center' })}>
-      <SubheadBase
+      <Subhead
         css={theme({
-          color: 'black',
-          fontSize: ['28px', '32px', '40px', '46px'],
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          color: 'black'
         })}
       >
         Selectors in, <span css={theme({ color: 'secondary' })}>JSON out.</span>
-      </SubheadBase>
+      </Subhead>
       <Caption
         forwardedAs='p'
         titleize={false}

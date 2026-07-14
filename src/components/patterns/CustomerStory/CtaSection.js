@@ -2,6 +2,7 @@ import { colors, layout, theme } from 'theme'
 import React from 'react'
 
 import Flex from 'components/elements/Flex'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -31,19 +32,10 @@ export const CtaSection = ({
       `}
     >
       <SectionInner css={theme({ textAlign: 'center' })}>
-        <Text
-          as='h2'
-          css={theme({
-            color: 'black',
-            fontSize: ['28px', '32px', '40px', '46px'],
-            letterSpacing: '-0.01em',
-            lineHeight: 0,
-            fontWeight: 'bold'
-          })}
-        >
+        <Subhead css={theme({ color: 'black' })}>
           {headlinePrefix}{' '}
           <span css={theme({ color: accent.text })}>{headlineAccent}</span>?
-        </Text>
+        </Subhead>
         <Text
           as='p'
           css={theme({

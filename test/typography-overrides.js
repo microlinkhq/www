@@ -25,7 +25,7 @@ const isSanctioned = openingTag =>
   SANCTIONED.some(rule => rule.test(openingTag))
 
 const findOverrides = file => {
-  const open = new RegExp(`<(${COMPONENTS.join('|')})\\b`)
+  const open = new RegExp(`<(${COMPONENTS.join('|')})(Base)?\\b`)
   const lines = fs.readFileSync(file, 'utf8').split('\n')
   const hits = []
   let inTag = false

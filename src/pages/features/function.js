@@ -6,7 +6,8 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import { CodeInline } from 'components/markdown/CodeInline'
@@ -49,21 +50,10 @@ const Hero = () => (
       <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
         <PlanTag>Core feature · free tier</PlanTag>
       </Flex>
-      <Text
-        as='h1'
-        css={theme({
-          color: 'black',
-          fontWeight: 'bold',
-          fontSize: ['32px', '40px', '52px', '60px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          m: 0
-        })}
-      >
+      <Heading variant={null} css={theme({ textAlign: 'left' })}>
         <span css={theme({ color: 'secondary' })}>Browser functions:</span> your
         code, our headless browser
-      </Text>
+      </Heading>
       <Caption
         forwardedAs='p'
         titleize={false}
@@ -205,16 +195,13 @@ const ExecutionShapes = () => (
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>
           Three execution shapes → one parameter
         </Eyebrow>
-        <SubheadBase
+        <Subhead
           css={theme({
-            fontSize: ['24px', '28px', '34px', '38px'],
-            textAlign: 'left',
-            letterSpacing: '-0.01em',
-            lineHeight: 0
+            textAlign: 'left'
           })}
         >
           From a one-liner to full browser automation
-        </SubheadBase>
+        </Subhead>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
           Every function runs in the same sandboxed runtime — what you reference
           inside it decides how much machinery spins up. Pay the browser cost
@@ -324,16 +311,13 @@ const CodeExampleBrowser = () => (
   <Section>
     <SectionInner>
       <Eyebrow css={theme({ pb: 2, display: 'block' })}>Code</Eyebrow>
-      <SubheadBase
+      <Subhead
         css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          textAlign: 'left'
         })}
       >
         Puppeteer, without the infrastructure
-      </SubheadBase>
+      </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         The <CodeInline>@microlink/function</CodeInline> library handles
         serialization, compression, and the API call. Your function receives{' '}
@@ -375,16 +359,13 @@ const CodeExampleNpm = () => (
   <Section>
     <SectionInner>
       <Eyebrow css={theme({ pb: 2, display: 'block' })}>npm</Eyebrow>
-      <SubheadBase
+      <Subhead
         css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          textAlign: 'left'
         })}
       >
         Dependencies, resolved for you
-      </SubheadBase>
+      </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         Write <CodeInline>require()</CodeInline> as if you were on your own
         machine. The first run installs and caches; subsequent runs skip the
@@ -442,16 +423,13 @@ const PlansSection = () => (
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>
           Prototype free, scale on Pro
         </Eyebrow>
-        <SubheadBase
+        <Subhead
           css={theme({
-            fontSize: ['24px', '28px', '34px', '38px'],
-            textAlign: 'left',
-            letterSpacing: '-0.01em',
-            lineHeight: 0
+            textAlign: 'left'
           })}
         >
           The same runtime on every plan
-        </SubheadBase>
+        </Subhead>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
           Functions run on the free tier — enough to prototype workflows and
           every example on this page. Pro raises the execution limits and
@@ -683,16 +661,13 @@ const FAQSection = () => (
 const CtaSection = () => (
   <Section>
     <SectionInner css={theme({ textAlign: 'center' })}>
-      <SubheadBase
+      <Subhead
         css={theme({
-          color: 'black',
-          fontSize: ['28px', '32px', '40px', '46px'],
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          color: 'black'
         })}
       >
         Your code, <span css={theme({ color: 'secondary' })}>our browser.</span>
-      </SubheadBase>
+      </Subhead>
       <Caption
         forwardedAs='p'
         titleize={false}

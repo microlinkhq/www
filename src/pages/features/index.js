@@ -16,7 +16,8 @@ import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import LineBreak from 'components/elements/LineBreak'
-import SubheadBase from 'components/elements/Subhead'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -248,22 +249,10 @@ const Hero = () => {
             >
               Features
             </StoryTag>
-            <Text
-              as='h1'
-              css={theme({
-                color: 'black',
-                fontWeight: 'bold',
-                fontSize: ['32px', '40px', '52px', '60px'],
-                textAlign: 'left',
-                letterSpacing: '-0.01em',
-                lineHeight: 0,
-                m: 0,
-                scrollMarginTop: 4
-              })}
-            >
+            <Heading variant={null} css={theme({ textAlign: 'left' })}>
               Every parameter. <LineBreak />
               <span css={textGradient}>Every output.</span>
-            </Text>
+            </Heading>
             <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
               Production-grade capabilities — data extraction, proxy, caching,
               headers — that work uniformly across metadata, screenshots, PDFs,
@@ -489,17 +478,14 @@ const FeaturesGrid = () => (
 const CtaSection = () => (
   <Section>
     <SectionInner css={theme({ textAlign: 'center' })}>
-      <SubheadBase
+      <Subhead
         css={theme({
-          color: 'black',
-          fontSize: ['28px', '32px', '40px', '46px'],
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          color: 'black'
         })}
       >
         Built in,{' '}
         <span css={theme({ color: 'secondary' })}>not bolted on.</span>
-      </SubheadBase>
+      </Subhead>
       <Caption
         forwardedAs='p'
         titleize={false}

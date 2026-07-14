@@ -7,7 +7,8 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import { CodeInline } from 'components/markdown/CodeInline'
@@ -137,21 +138,10 @@ const Hero = () => (
       <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
         <ProTag>Pro feature</ProTag>
       </Flex>
-      <Text
-        as='h1'
-        css={theme({
-          color: 'black',
-          fontWeight: 'bold',
-          fontSize: ['32px', '40px', '52px', '60px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          m: 0
-        })}
-      >
+      <Heading variant={null} css={theme({ textAlign: 'left' })}>
         <span css={theme({ color: 'secondary' })}>Residential Proxy API:</span>{' '}
         Bypass Antibots & CAPTCHAs
-      </Text>
+      </Heading>
       <Caption
         forwardedAs='p'
         css={theme({
@@ -370,16 +360,13 @@ const ThreeInOne = () => (
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>
           Three subscriptions → one parameter
         </Eyebrow>
-        <SubheadBase
+        <Subhead
           css={theme({
-            fontSize: ['24px', '28px', '34px', '38px'],
-            textAlign: 'left',
-            letterSpacing: '-0.01em',
-            lineHeight: 0
+            textAlign: 'left'
           })}
         >
           Stop paying three vendors for one job
-        </SubheadBase>
+        </Subhead>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
           A residential proxy, an antibot detector, and a CAPTCHA solver are
           typically three separate vendor contracts, three SDKs in your{' '}
@@ -689,16 +676,13 @@ const CodeExample = () => (
   <Section>
     <SectionInner>
       <Eyebrow css={theme({ pb: 2, display: 'block' })}>Code</Eyebrow>
-      <SubheadBase
+      <Subhead
         css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          textAlign: 'left'
         })}
       >
         Default: automatic resolution
-      </SubheadBase>
+      </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         Send the request as you normally would. On any Pro metadata, HTML, or
         markdown request, the proxy layer engages automatically when the target
@@ -729,16 +713,13 @@ const BringYourOwn = () => (
       <Eyebrow css={theme({ pb: 2, display: 'block' })}>
         Bring your own proxy
       </Eyebrow>
-      <SubheadBase
+      <Subhead
         css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          textAlign: 'left'
         })}
       >
         Already paying for a residential proxy?
-      </SubheadBase>
+      </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         If you have a dedicated provider or need a fixed country IP, pass the
         proxy URL on the <CodeInline>proxy</CodeInline> parameter. Microlink
@@ -780,16 +761,13 @@ const Verifying = () => (
   <Section>
     <SectionInner>
       <Eyebrow css={theme({ pb: 2, display: 'block' })}>Verify</Eyebrow>
-      <SubheadBase
+      <Subhead
         css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          textAlign: 'left'
         })}
       >
         How to confirm a request was proxied
-      </SubheadBase>
+      </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         Every proxied response carries an <CodeInline>x-fetch-mode</CodeInline>{' '}
         header ending in <CodeInline>-proxy</CodeInline>. That suffix is your
@@ -956,18 +934,15 @@ const FAQSection = () => (
 const CtaSection = () => (
   <Section>
     <SectionInner css={theme({ textAlign: 'center' })}>
-      <SubheadBase
+      <Subhead
         css={theme({
-          color: 'black',
-          fontSize: ['28px', '32px', '40px', '46px'],
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          color: 'black'
         })}
       >
         Stop renting{' '}
         <span css={theme({ color: 'secondary' })}>three vendors</span> for one
         job.
-      </SubheadBase>
+      </Subhead>
       <Caption
         forwardedAs='p'
         css={theme({

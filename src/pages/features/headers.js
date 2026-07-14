@@ -7,7 +7,8 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import { CodeInline } from 'components/markdown/CodeInline'
@@ -137,21 +138,10 @@ const Hero = () => (
       <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
         <ProTag>Pro feature</ProTag>
       </Flex>
-      <Text
-        as='h1'
-        css={theme({
-          color: 'black',
-          fontWeight: 'bold',
-          fontSize: ['32px', '40px', '52px', '60px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          m: 0
-        })}
-      >
+      <Heading variant={null} css={theme({ textAlign: 'left' })}>
         <span css={theme({ color: 'secondary' })}>Custom HTTP Headers:</span>{' '}
         Forward any header, keep secrets safe
-      </Text>
+      </Heading>
       <Caption
         forwardedAs='p'
         css={theme({
@@ -325,16 +315,13 @@ const TwoChannels = () => (
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>
           Two channels → one feature
         </Eyebrow>
-        <SubheadBase
+        <Subhead
           css={theme({
-            fontSize: ['24px', '28px', '34px', '38px'],
-            textAlign: 'left',
-            letterSpacing: '-0.01em',
-            lineHeight: 0
+            textAlign: 'left'
           })}
         >
           Public values stay public, secrets stay private
-        </SubheadBase>
+        </Subhead>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
           The split exists for one reason: query strings are publicly visible —
           in browser history, in server logs, in URL embeds — while HTTPS
@@ -614,16 +601,13 @@ const CodeExample = () => (
   <Section>
     <SectionInner>
       <Eyebrow css={theme({ pb: 2, display: 'block' })}>Code</Eyebrow>
-      <SubheadBase
+      <Subhead
         css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          textAlign: 'left'
         })}
       >
         Recommended: server-side, secrets in process env
-      </SubheadBase>
+      </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         Public values go in the second argument (
         <CodeInline>headers</CodeInline>); private ones go in MQL's third
@@ -831,17 +815,14 @@ const FAQSection = () => (
 const CtaSection = () => (
   <Section>
     <SectionInner css={theme({ textAlign: 'center' })}>
-      <SubheadBase
+      <Subhead
         css={theme({
-          color: 'black',
-          fontSize: ['28px', '32px', '40px', '46px'],
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          color: 'black'
         })}
       >
         Public values,{' '}
         <span css={theme({ color: 'secondary' })}>private secrets.</span>
-      </SubheadBase>
+      </Subhead>
       <Caption
         forwardedAs='p'
         css={theme({

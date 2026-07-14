@@ -39,8 +39,9 @@ The typography components own their size. Compose pages from them; do not restyl
 - MUST: Use `Heading`/`Subhead`/`Caption` for headings and supporting text, and `Text` for body/card/meta copy. The section pattern is `Subhead` (title) + `Caption` (supporting text).
 - NEVER: Pass `fontSize`, `lineHeight`, or `letterSpacing` to `Heading`, `Subhead`, or `Caption`. The component default carries them so every page stays consistent. Passing a size at the call site is the drift this repo spent PRs #2128–#2136 removing.
 - MUST: If text needs to be smaller than a section `Caption` (28px), it is body copy — use `Text`, not a shrunk `Caption`.
+- MUST: Left-aligned editorial pages (`/features/*`, the `CustomerStory`/`UseCaseStory`/`ExtensionStory` patterns) use these SAME components — pass `textAlign: 'left'` (an allowed layout prop) and `variant={null}` for a plain, non-gradient `Heading`. Do not fork a parallel size system with `SubheadBase` + a custom `fontSize`; that drift was folded back in.
 - Sanctioned escapes only (each is a real, reviewed reason a heading needs a different size): `fontSize: 'inherit'` (a gradient sub-span tracking its parent), `forwardedAs='div'` (a stat-number display reusing the heading style), or a named `UPPER_SNAKE_CASE` constant (a deliberate, centrally-defined token, e.g. `CARD_TITLE_FONT_SIZE`, `SUBSECTION_TITLE_FONT_SIZE`).
-- ENFORCED: `test/typography-overrides.js` fails the build on any per-call override outside those escapes. Run `npm test`; do not weaken the test to pass — fix the call site.
+- ENFORCED: `test/typography-overrides.js` fails the build on any per-call override outside those escapes — including the raw `SubheadBase`/`HeadingBase`/`CaptionBase` import aliases, so renaming the import does not bypass it. Run `npm test`; do not weaken the test to pass — fix the call site.
 
 ## Interactions
 

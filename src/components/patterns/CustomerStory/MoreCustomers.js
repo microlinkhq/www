@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import { CUSTOMERS } from './customers'
@@ -119,16 +119,13 @@ export const MoreCustomers = ({ accent, currentSlug }) => {
           <Eyebrow accent={accent} css={theme({ pb: 2, display: 'block' })}>
             More customer stories
           </Eyebrow>
-          <SubheadBase
+          <Subhead
             css={theme({
-              fontSize: ['24px', '28px', '34px', '38px'],
-              textAlign: 'center',
-              letterSpacing: '-0.01em',
-              lineHeight: 0
+              textAlign: 'center'
             })}
           >
             See how other teams ship with Microlink
-          </SubheadBase>
+          </Subhead>
         </Box>
 
         <CarouselTrack

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import { Eyebrow } from 'components/patterns/CustomerStory/chrome'
@@ -99,16 +99,13 @@ export const MoreExtensions = ({ accent, currentSlug }) => {
           <Eyebrow accent={accent} css={theme({ pb: 2, display: 'block' })}>
             More extensions
           </Eyebrow>
-          <SubheadBase
+          <Subhead
             css={theme({
-              fontSize: ['24px', '28px', '34px', '38px'],
-              textAlign: 'center',
-              letterSpacing: '-0.01em',
-              lineHeight: 0
+              textAlign: 'center'
             })}
           >
             Bring Microlink everywhere you work
-          </SubheadBase>
+          </Subhead>
         </Box>
 
         <CardsRow role='list' aria-label='More extensions'>

@@ -6,7 +6,8 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import { CodeInline } from 'components/markdown/CodeInline'
@@ -49,21 +50,10 @@ const Hero = () => (
       <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
         <PlanTag>Core feature · free tier</PlanTag>
       </Flex>
-      <Text
-        as='h1'
-        css={theme({
-          color: 'black',
-          fontWeight: 'bold',
-          fontSize: ['32px', '40px', '52px', '60px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          m: 0
-        })}
-      >
+      <Heading variant={null} css={theme({ textAlign: 'left' })}>
         <span css={theme({ color: 'secondary' })}>Browser automation:</span>{' '}
         shape the page before you capture it
-      </Text>
+      </Heading>
       <Caption
         forwardedAs='p'
         titleize={false}
@@ -208,16 +198,13 @@ const ControlPlanes = () => (
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>
           Three control planes → one request
         </Eyebrow>
-        <SubheadBase
+        <Subhead
           css={theme({
-            fontSize: ['24px', '28px', '34px', '38px'],
-            textAlign: 'left',
-            letterSpacing: '-0.01em',
-            lineHeight: 0
+            textAlign: 'left'
           })}
         >
           Interact, emulate, rewrite
-        </SubheadBase>
+        </Subhead>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
           Each parameter is one query-string key — compose as many as you need
           on a single request, no scripting required. When declarative
@@ -332,16 +319,13 @@ const CodeExampleEmulate = () => (
   <Section>
     <SectionInner>
       <Eyebrow css={theme({ pb: 2, display: 'block' })}>Code</Eyebrow>
-      <SubheadBase
+      <Subhead
         css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          textAlign: 'left'
         })}
       >
         Dark mode, on an iPhone, without owning one
-      </SubheadBase>
+      </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         Device emulation and color-scheme forcing are single parameters — the
         screenshot below renders exactly what a dark-mode iPhone user would see.
@@ -384,16 +368,13 @@ const CodeExampleInteract = () => (
   <Section>
     <SectionInner>
       <Eyebrow css={theme({ pb: 2, display: 'block' })}>Interaction</Eyebrow>
-      <SubheadBase
+      <Subhead
         css={theme({
-          fontSize: ['24px', '28px', '34px', '38px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          textAlign: 'left'
         })}
       >
         Click first, wait, then extract
-      </SubheadBase>
+      </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         Interaction parameters compose with every output — here the browser
         clicks a tab, waits for the price to exist in the DOM, and only then
@@ -445,16 +426,13 @@ const CleanCaptures = () => (
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>
           Included on every plan
         </Eyebrow>
-        <SubheadBase
+        <Subhead
           css={theme({
-            fontSize: ['24px', '28px', '34px', '38px'],
-            textAlign: 'left',
-            letterSpacing: '-0.01em',
-            lineHeight: 0
+            textAlign: 'left'
           })}
         >
           Clean by default, unblockable on Pro
-        </SubheadBase>
+        </Subhead>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
           Every automation parameter on this page works on the free tier — they
           are part of the core rendering engine, not an add-on. Pro plans matter
@@ -684,17 +662,14 @@ const FAQSection = () => (
 const CtaSection = () => (
   <Section>
     <SectionInner css={theme({ textAlign: 'center' })}>
-      <SubheadBase
+      <Subhead
         css={theme({
-          color: 'black',
-          fontSize: ['28px', '32px', '40px', '46px'],
-          letterSpacing: '-0.01em',
-          lineHeight: 0
+          color: 'black'
         })}
       >
         Set the stage,{' '}
         <span css={theme({ color: 'secondary' })}>then capture it.</span>
-      </SubheadBase>
+      </Subhead>
       <Caption
         forwardedAs='p'
         titleize={false}
