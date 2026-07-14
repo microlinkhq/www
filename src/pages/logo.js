@@ -823,6 +823,7 @@ const ProductInformation = () => {
     <Faq
       title='Product Information'
       caption='All the details you need to know about the product.'
+      titleSize={['40px', 4, 5, 5]}
       css={theme({
         pb: [5, 5, 6, 6],
         bg: 'pinky',

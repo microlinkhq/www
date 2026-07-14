@@ -70,6 +70,7 @@ const HEADER = [
 const FAQs = props => (
   <Faq
     title='FAQs'
+    titleSize={['40px', 4, 5, 5]}
     caption='Frequently asked questions.'
     questions={[
       {
@@ -190,7 +191,7 @@ const FormatsPage = () => (
           css={theme({
             pt: [3, 3, 4, 4],
             flexDirection: 'column',
-            maxWidth: ['95vw', '95vw', undefined, undefined],
+            maxWidth: '95vw',
             overflowX: 'auto'
           })}
         >

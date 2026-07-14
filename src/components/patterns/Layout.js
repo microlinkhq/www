@@ -26,11 +26,14 @@ const TOOLBAR_HEIGHTS = [
 
 const SkipLinkAnchor = styled.a`
   position: absolute;
-  left: -9999px;
   top: auto;
+  left: 0;
   width: 1px;
   height: 1px;
   overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
   z-index: 9999;
   padding: 16px 24px;
   background: var(--link);
@@ -46,6 +49,9 @@ const SkipLinkAnchor = styled.a`
     width: auto;
     height: auto;
     overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
     outline: 2px solid var(--link);
     outline-offset: 2px;
   }

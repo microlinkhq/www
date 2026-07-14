@@ -998,7 +998,7 @@ const Hero = function Hero ({ onRequestTiming }) {
           <Heading
             css={theme({
               px: [2, 3, 4, 0],
-              fontSize: [3, 3, 4, 4],
+              fontSize: [3, 3, 5, 5],
               maxWidth: ['100%', '100%', '100%', '640px'],
               textAlign: ['center', 'center', 'center', 'left']
             })}
