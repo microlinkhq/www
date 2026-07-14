@@ -20,9 +20,7 @@ const Pricing = () => {
           px: [3, 3, 4, 4]
         })}
       >
-        <Subhead variant='gradient' css={theme({ maxWidth: layout.large })}>
-          Simple to start. Ready to scale.
-        </Subhead>
+        <Subhead variant='gradient'>Simple to start. Ready to scale.</Subhead>
         <Caption
           forwardedAs='div'
           css={theme({
