@@ -356,17 +356,13 @@ const SkillsPage = () => (
             })}
           >
             <Box css={theme({ pb: 3, textAlign: 'center' })}>
-              <Text
-                as='h2'
+              <Subhead
+                titleize={false}
                 id={`${category.id}-title`}
-                css={theme({
-                  fontWeight: 'bold',
-                  fontSize: [3, 4],
-                  m: 0
-                })}
+                css={theme({ m: 0 })}
               >
                 {category.title}
-              </Text>
+              </Subhead>
               <Text
                 css={theme({
                   color: 'black60'

@@ -10,6 +10,7 @@ import Terminal from 'components/elements/Terminal/Terminal'
 import Flex from 'components/elements/Flex'
 import LineBreak from 'components/elements/LineBreak'
 import Meta from 'components/elements/Meta/Meta'
+import Heading from 'components/elements/Heading'
 import Text from 'components/elements/Text'
 
 import TerminalJsonView from 'components/pages/cli/TerminalJsonView'
@@ -360,22 +361,14 @@ const Hero = () => (
             Microlink CLI
           </SectionCaption>
         </Flex>
-        <Text
-          as='h1'
-          css={theme({
-            m: 0,
-            color: 'black',
-            fontWeight: 'bold',
-            letterSpacing: 1,
-            lineHeight: [1, 1, 0, 0],
-            textAlign: ['center', 'center', 'left', 'left'],
-            fontSize: [3, 4, 4, 5]
-          })}
+        <Heading
+          variant={null}
+          css={theme({ textAlign: ['center', 'center', 'left', 'left'] })}
         >
           The Microlink API
           <LineBreak />
           in your <span css={theme({ color: ACCENT })}>terminal</span>.
-        </Text>
+        </Heading>
         <Caption
           forwardedAs='p'
           css={theme({

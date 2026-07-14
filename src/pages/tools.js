@@ -4,6 +4,7 @@ import React from 'react'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -21,19 +22,9 @@ const CategorySection = ({ category, description, tools }) => {
   return (
     <Box as='section' css={theme({ mb: [4, 4, 5, 5] })}>
       <Box css={theme({ mb: [3, 3, 4, 4] })}>
-        <Text
-          as='h2'
-          id={slug}
-          css={theme({
-            fontSize: [3, 3, '38px', '38px'],
-            fontWeight: 'bold',
-            color: 'black',
-            letterSpacing: 1,
-            scrollMarginTop: 4
-          })}
-        >
+        <Subhead id={slug} css={theme({ scrollMarginTop: 4 })}>
           {category}
-        </Text>
+        </Subhead>
         <Text
           css={theme({
             fontSize: [1, 1, 2, 2],
