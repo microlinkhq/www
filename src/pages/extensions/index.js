@@ -554,8 +554,7 @@ const ClosingCta = () => (
       <Subhead
         css={theme({
           color: 'black',
-          m: 0,
-          textAlign: 'left'
+          m: 0
         })}
       >
         Bring Microlink <span css={textGradient}>into your browser</span>

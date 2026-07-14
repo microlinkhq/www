@@ -22,7 +22,10 @@ const CategorySection = ({ category, description, tools }) => {
   return (
     <Box as='section' css={theme({ mb: [4, 4, 5, 5] })}>
       <Box css={theme({ mb: [3, 3, 4, 4] })}>
-        <Subhead id={slug} css={theme({ scrollMarginTop: 4 })}>
+        <Subhead
+          id={slug}
+          css={theme({ scrollMarginTop: 4, textAlign: 'left' })}
+        >
           {category}
         </Subhead>
         <Text
