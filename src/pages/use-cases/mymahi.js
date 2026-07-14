@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Meta from 'components/elements/Meta/Meta'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -53,21 +55,12 @@ const Hero = () => (
           MyMahi
         </Text>
       </Flex>
-      <Text
-        as='h1'
-        css={theme({
-          color: 'black',
-          fontWeight: 'bold',
-          fontSize: ['32px', '40px', '52px', '60px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          m: 0,
-          scrollMarginTop: 4
-        })}
+      <Heading
+        variant={null}
+        css={theme({ textAlign: 'left', scrollMarginTop: 4 })}
       >
         Rich link previews for every Newsfeed post
-      </Text>
+      </Heading>
       <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         How a learner-focused platform used by schools across New Zealand and
         Australia uses Microlink's Metadata API to turn every shared link into a
@@ -108,10 +101,10 @@ const AboutCustomer = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 3, pt: 3, display: 'block' })}>
         About MyMahi
       </Eyebrow>
-      <Text as='h2' css={theme({ pb: [3, 3, 4, 4] })}>
+      <Subhead css={theme({ pb: [3, 3, 4, 4], textAlign: 'left' })}>
         Supporting learning, wellbeing, and future pathways for students across
         New Zealand and Australia.
-      </Text>
+      </Subhead>
       <Text as='p' css={theme({ pb: [3, 3, 4, 4] })}>
         MyMahi is a self-management platform for learners. It puts students at
         the centre of their own story with tools for Digital Identity, a Digital
@@ -164,7 +157,9 @@ const HowTheyUseIt = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         How they use Microlink
       </Eyebrow>
-      <Text as='h2'>Rich link previews for every Newsfeed post</Text>
+      <Subhead css={theme({ textAlign: 'left' })}>
+        Rich link previews for every Newsfeed post
+      </Subhead>
       <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         When a teacher or mentor shares a link in the MyMahi Newsfeed, the
         platform calls Microlink's Metadata API to extract the page's title,
@@ -212,7 +207,9 @@ const WhyMicrolink = () => (
         <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
           Why Microlink
         </Eyebrow>
-        <Text as='h2'>Reliable link previews without the maintenance</Text>
+        <Subhead css={theme({ textAlign: 'left' })}>
+          Reliable link previews without the maintenance
+        </Subhead>
         <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
           A small team supporting schools across New Zealand and Australia can't
           afford to babysit a metadata scraper. MyMahi reaches for Microlink for

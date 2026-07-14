@@ -18,6 +18,8 @@ import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import LineBreak from 'components/elements/LineBreak'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -102,22 +104,13 @@ const Hero = () => (
           >
             Extensions
           </StoryTag>
-          <Text
-            as='h1'
-            css={theme({
-              color: 'black',
-              fontWeight: 'bold',
-              fontSize: ['32px', '40px', '52px', '60px'],
-              textAlign: 'left',
-              letterSpacing: '-0.01em',
-              lineHeight: 0,
-              m: 0,
-              scrollMarginTop: 4
-            })}
+          <Heading
+            variant={null}
+            css={theme({ textAlign: 'left', scrollMarginTop: 4 })}
           >
             Microlink, <LineBreak />
             <span css={textGradient}>right where you work.</span>
-          </Text>
+          </Heading>
           <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
             Capture screenshots and convert web pages to PDF without leaving
             your browser — powered by the same Microlink API that processes
@@ -390,19 +383,15 @@ const ExtensionsGrid = () => (
           <Box key={platform.id} css={theme({ pb: [3, 3, 4, 4] })}>
             <Flex css={theme({ alignItems: 'center', gap: 2 })}>
               <PlatformIcon size={20} color={colors.black80} />
-              <Text
-                as='h2'
+              <Subhead
                 css={theme({
                   color: 'black',
-                  fontSize: ['24px', '24px', '28px', '28px'],
-                  fontWeight: 'bold',
-                  letterSpacing: '-0.01em',
-                  lineHeight: 0,
-                  m: 0
+                  m: 0,
+                  textAlign: 'left'
                 })}
               >
                 {platform.label}
-              </Text>
+              </Subhead>
             </Flex>
             <Text
               as='p'
@@ -477,19 +466,15 @@ const ApiBand = () => (
           >
             Under the hood
           </Eyebrow>
-          <Text
-            as='h2'
+          <Subhead
             css={theme({
               color: 'white',
-              fontSize: ['24px', '28px', '34px', '38px'],
-              fontWeight: 'bold',
-              letterSpacing: '-0.01em',
-              lineHeight: 0,
-              m: 0
+              m: 0,
+              textAlign: 'left'
             })}
           >
             One API. Every surface.
-          </Text>
+          </Subhead>
           <Text
             as='p'
             css={theme({
@@ -566,19 +551,15 @@ const ClosingCta = () => (
     `}
   >
     <SectionInner css={theme({ textAlign: 'center' })}>
-      <Text
-        as='h2'
+      <Subhead
         css={theme({
           color: 'black',
-          fontSize: ['28px', '32px', '40px', '46px'],
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          fontWeight: 'bold',
-          m: 0
+          m: 0,
+          textAlign: 'left'
         })}
       >
         Bring Microlink <span css={textGradient}>into your browser</span>
-      </Text>
+      </Subhead>
       <Text
         as='p'
         css={theme({

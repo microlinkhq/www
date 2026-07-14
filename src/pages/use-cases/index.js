@@ -8,6 +8,7 @@ import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import LineBreak from 'components/elements/LineBreak'
+import Heading from 'components/elements/Heading'
 import Text from 'components/elements/Text'
 
 import {
@@ -244,22 +245,13 @@ const Hero = () => {
             >
               Customer stories
             </StoryTag>
-            <Text
-              as='h1'
-              css={theme({
-                color: 'black',
-                fontWeight: 'bold',
-                fontSize: ['32px', '40px', '52px', '60px'],
-                textAlign: 'left',
-                letterSpacing: '-0.01em',
-                lineHeight: 0,
-                m: 0,
-                scrollMarginTop: 4
-              })}
+            <Heading
+              variant={null}
+              css={theme({ textAlign: 'left', scrollMarginTop: 4 })}
             >
               Real teams. <LineBreak />
               <span css={textGradient}>Real results.</span>
-            </Text>
+            </Heading>
             <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
               See how companies use Microlink to ship rich link previews,
               screenshots, and metadata in production.

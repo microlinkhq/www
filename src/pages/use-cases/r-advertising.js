@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Meta from 'components/elements/Meta/Meta'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -53,21 +55,12 @@ const Hero = () => (
           R-Advertising
         </Text>
       </Flex>
-      <Text
-        as='h1'
-        css={theme({
-          color: 'black',
-          fontWeight: 'bold',
-          fontSize: ['32px', '40px', '52px', '60px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          m: 0,
-          scrollMarginTop: 4
-        })}
+      <Heading
+        variant={null}
+        css={theme({ textAlign: 'left', scrollMarginTop: 4 })}
       >
         Sales prospecting as a Tinder-style swipe deck
-      </Text>
+      </Heading>
       <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         How a performance-marketing agency built an internal tool that turns
         every prospect into a swipeable card — with Microlink generating the
@@ -158,10 +151,10 @@ const AboutCustomer = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 3, pt: 3, display: 'block' })}>
         About R-Advertising
       </Eyebrow>
-      <Text as='h2' css={theme({ pb: [3, 3, 4, 4] })}>
+      <Subhead css={theme({ pb: [3, 3, 4, 4], textAlign: 'left' })}>
         Performance marketing across email, programmatic, data, outdoor, and
         influence — since 2006.
-      </Text>
+      </Subhead>
       <Text as='p' css={theme({ pb: [3, 3, 4, 4] })}>
         R-Advertising is a performance-driven digital marketing agency that has
         been activating multi-channel campaigns for brands since 2006. Their
@@ -214,7 +207,9 @@ const HowTheyUseIt = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         How they use Microlink
       </Eyebrow>
-      <Text as='h2'>A Tinder-style swipe deck for sales prospecting</Text>
+      <Subhead css={theme({ textAlign: 'left' })}>
+        A Tinder-style swipe deck for sales prospecting
+      </Subhead>
       <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         R-Advertising's sales team works through long lists of candidate
         prospects every week. To make that work feel less like a spreadsheet and
@@ -255,7 +250,9 @@ const WhyMicrolink = () => (
         <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
           Why Microlink
         </Eyebrow>
-        <Text as='h2'>A screenshot API that fits behind an internal tool</Text>
+        <Subhead css={theme({ textAlign: 'left' })}>
+          A screenshot API that fits behind an internal tool
+        </Subhead>
         <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
           Building an internal tool isn't where R-Advertising's engineering time
           should go on rendering pipelines and browser pools. They reached for

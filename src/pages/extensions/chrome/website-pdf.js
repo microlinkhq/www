@@ -16,6 +16,8 @@ import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -84,22 +86,13 @@ const Hero = () => (
               Chrome extension
             </Caps>
           </ChromeChip>
-          <Text
-            as='h1'
-            css={theme({
-              color: 'black',
-              fontWeight: 'bold',
-              fontSize: ['32px', '40px', '52px', '60px'],
-              textAlign: 'left',
-              letterSpacing: '-0.01em',
-              lineHeight: 0,
-              m: 0,
-              scrollMarginTop: 4
-            })}
+          <Heading
+            variant={null}
+            css={theme({ textAlign: 'left', scrollMarginTop: 4 })}
           >
             Convert websites to PDF,{' '}
             <span css={theme({ color: ACCENT.text })}>100 at a time</span>
-          </Text>
+          </Heading>
           <Text
             as='p'
             css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.normal })}
@@ -159,9 +152,9 @@ const WhatItDoes = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 3, display: 'block' })}>
         What it does
       </Eyebrow>
-      <Text as='h2' css={theme({ pb: [3, 3, 4, 4] })}>
+      <Subhead css={theme({ pb: [3, 3, 4, 4], textAlign: 'left' })}>
         From a list of links to a ZIP of PDFs
-      </Text>
+      </Subhead>
       <Text as='p' css={theme({ pb: 4 })}>
         Archiving articles, saving invoices, snapshotting competitor pages —
         converting web pages to PDF one by one is slow, and browser print
@@ -220,9 +213,9 @@ const Features = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         Features
       </Eyebrow>
-      <Text as='h2' css={theme({ pb: [3, 3, 4, 4] })}>
+      <Subhead css={theme({ pb: [3, 3, 4, 4], textAlign: 'left' })}>
         Everything the online tool does, without the tab
-      </Text>
+      </Subhead>
       <FeatureGrid>
         {FEATURES.map(feature => (
           <FeatureCard key={feature.title} accent={ACCENT} {...feature} />
@@ -240,7 +233,9 @@ const HowItWorks = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         How it works
       </Eyebrow>
-      <Text as='h2'>Three steps, zero configuration</Text>
+      <Subhead css={theme({ textAlign: 'left' })}>
+        Three steps, zero configuration
+      </Subhead>
       <Flex
         css={theme({
           pt: [3, 3, 4, 4],
@@ -286,9 +281,9 @@ const Pricing = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         Pricing
       </Eyebrow>
-      <Text as='h2' css={theme({ pb: [3, 3, 4, 4] })}>
+      <Subhead css={theme({ pb: [3, 3, 4, 4], textAlign: 'left' })}>
         Free to install, built to scale
-      </Text>
+      </Subhead>
       <Text as='p' css={theme({ pb: 3 })}>
         The extension is free and includes <b>25 conversions per day</b> — no
         account, no credit card. It runs on the same infrastructure that

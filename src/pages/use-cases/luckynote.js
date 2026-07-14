@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Meta from 'components/elements/Meta/Meta'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -53,21 +55,12 @@ const Hero = () => (
           Luckynote
         </Text>
       </Flex>
-      <Text
-        as='h1'
-        css={theme({
-          color: 'black',
-          fontWeight: 'bold',
-          fontSize: ['32px', '40px', '52px', '60px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          m: 0,
-          scrollMarginTop: 4
-        })}
+      <Heading
+        variant={null}
+        css={theme({ textAlign: 'left', scrollMarginTop: 4 })}
       >
         Rich Link Previews in a Chat-Style Note App
-      </Text>
+      </Heading>
       <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         How a "message yourself" notes app turns every URL into a tappable
         preview card — with Microlink generating the metadata behind every link
@@ -108,10 +101,10 @@ const AboutCustomer = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 3, display: 'block' })}>
         About Luckynote
       </Eyebrow>
-      <Text as='h2' css={theme({ pb: [3, 3, 4, 4] })}>
+      <Subhead css={theme({ pb: [3, 3, 4, 4], textAlign: 'left' })}>
         A "message yourself" note-taking app for ideas, links, and tasks across
         iOS, Android, and Web.
-      </Text>
+      </Subhead>
       <Text as='p' css={theme({ pb: 4 })}>
         Luckynote is a note-taking app built around a simple idea: you write to
         yourself, like you'd message a friend, and your ideas, links, and tasks
@@ -164,7 +157,9 @@ const HowTheyUseIt = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         How they use Microlink
       </Eyebrow>
-      <Text as='h2'>A rich preview behind every link pasted into a note</Text>
+      <Subhead css={theme({ textAlign: 'left' })}>
+        A rich preview behind every link pasted into a note
+      </Subhead>
       <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         When a user writes a note that contains a URL, Luckynote calls
         Microlink's Metadata API and gets back the page's title, description,
@@ -212,9 +207,9 @@ const WhyMicrolink = () => (
         <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
           Why Microlink
         </Eyebrow>
-        <Text as='h2'>
+        <Subhead css={theme({ textAlign: 'left' })}>
           A metadata API that ships to web and native, no SDK required
-        </Text>
+        </Subhead>
         <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
           Building rich previews for every URL in every note shouldn't require
           an in-house rendering pipeline. Luckynote reached for Microlink for

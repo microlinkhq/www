@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Meta from 'components/elements/Meta/Meta'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
@@ -132,21 +134,12 @@ const Hero = () => (
           Microlink + Magnific
         </Text>
       </Flex>
-      <Text
-        as='h1'
-        css={theme({
-          color: 'black',
-          fontWeight: 'bold',
-          fontSize: ['32px', '40px', '52px', '60px'],
-          textAlign: 'left',
-          letterSpacing: '-0.01em',
-          lineHeight: 0,
-          m: 0,
-          scrollMarginTop: 4
-        })}
+      <Heading
+        variant={null}
+        css={theme({ textAlign: 'left', scrollMarginTop: 4 })}
       >
         Extract images from any URL and upscale them with AI
-      </Text>
+      </Heading>
       <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         Microlink returns the main image of any URL, along with its dimensions.
         When that image is too small for where it's going, Magnific upscales it
@@ -188,9 +181,9 @@ const WhatItDoes = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 3, display: 'block' })}>
         What it does
       </Eyebrow>
-      <Text as='h2' css={theme({ pb: [3, 3, 4, 4] })}>
+      <Subhead css={theme({ pb: [3, 3, 4, 4], textAlign: 'left' })}>
         From a URL to a high-resolution image
-      </Text>
+      </Subhead>
       <Text as='p' css={theme({ pb: 4 })}>
         Say you're pulling product shots, article images, or design references
         from pages you don't control. Microlink extracts the main image of any
@@ -217,7 +210,9 @@ const HowItWorks = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         How it works
       </Eyebrow>
-      <Text as='h2'>Two requests: extract, then upscale on demand</Text>
+      <Subhead css={theme({ textAlign: 'left' })}>
+        Two requests: extract, then upscale on demand
+      </Subhead>
       <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         First, ask Microlink for the page's main image and its dimensions. Then
         only when the resolution is below your target, send that hosted URL to
@@ -268,7 +263,9 @@ const WhyItWorks = () => (
         <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
           Why it works
         </Eyebrow>
-        <Text as='h2'>Why it fits together — and when it's worth it</Text>
+        <Subhead css={theme({ textAlign: 'left' })}>
+          Why it fits together — and when it's worth it
+        </Subhead>
         <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
           Both services speak URLs, and Microlink's metadata tells you whether
           the second call is even needed. Here's where that pays off.
@@ -349,9 +346,9 @@ const LearnMore = () => (
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         Learn more
       </Eyebrow>
-      <Text as='h2' css={theme({ pb: [3, 3, 4, 4] })}>
+      <Subhead css={theme({ pb: [3, 3, 4, 4], textAlign: 'left' })}>
         Docs and resources
-      </Text>
+      </Subhead>
       <Flex css={theme({ flexDirection: 'column', gap: 3 })}>
         <ResourceLink href='/metadata'>Microlink Metadata API</ResourceLink>
         <ResourceLink href='/docs'>Microlink docs</ResourceLink>
