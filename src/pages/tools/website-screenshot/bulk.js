@@ -2231,8 +2231,7 @@ const Hero = () => (
     <Heading
       css={theme({
         px: [3, 3],
-        maxWidth: layout.large,
-        fontSize: [3, '35px', '40px', '50px']
+        maxWidth: layout.large
       })}
     >
       Bulk website screenshots tool
@@ -2336,10 +2335,7 @@ const Explanation = () => (
       bg: 'pinky'
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
+    <Subhead variant='gradient'>
       Why use a bulk website screenshot tool?
     </Subhead>
     <Box
@@ -2403,7 +2399,7 @@ const Banner = () => (
           alignItems: 'center'
         }}
       >
-        <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+        <Subhead css={theme({ color: 'white' })}>
           Screenshot API{' '}
           <span css={theme({ display: 'block', color: 'white60' })}>
             for developers
@@ -2494,12 +2490,7 @@ const UseCases = () => (
       pt: [4, 4, 5, 5]
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
-      Who needs bulk website screenshots?
-    </Subhead>
+    <Subhead variant='gradient'>Who needs bulk website screenshots?</Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
       From site audits to competitive analysis, bulk screenshot capture saves
       time across every team.

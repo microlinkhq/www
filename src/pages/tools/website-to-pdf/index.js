@@ -1507,8 +1507,7 @@ const Hero = () => (
     <Heading
       css={theme({
         px: [3, 3],
-        maxWidth: layout.large,
-        fontSize: [3, '35px', '40px', '50px']
+        maxWidth: layout.large
       })}
     >
       Save HTML Webpage as PDF
@@ -1742,12 +1741,7 @@ const Explanation = () => (
       bg: 'pinky'
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
-      Why use our URL to PDF converter?
-    </Subhead>
+    <Subhead variant='gradient'>Why use our URL to PDF converter?</Subhead>
     <Box
       css={theme({
         display: 'grid',
@@ -1829,7 +1823,7 @@ const Banner = () => (
           alignItems: 'center'
         }}
       >
-        <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+        <Subhead css={theme({ color: 'white' })}>
           PDF API{' '}
           <span css={theme({ display: 'block', color: 'white60' })}>
             for developers
@@ -1873,12 +1867,7 @@ const UseCases = () => (
       pt: [4, 4, 5, 5]
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
-      Who saves web pages as PDF?
-    </Subhead>
+    <Subhead variant='gradient'>Who saves web pages as PDF?</Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.large })}>
       From archiving internet pages to converting HTML to PDF at scale,
       webpage-to-PDF conversion powers workflows across every industry.
@@ -2155,9 +2144,7 @@ const PdfApiDocsCard = () => (
       <Flex css={theme({ justifyContent: 'center', pb: 4 })}>
         <SectionIcon icon={Code} />
       </Flex>
-      <Subhead css={theme({ fontSize: 4 })}>
-        HTML to PDF API Documentation
-      </Subhead>
+      <Subhead>HTML to PDF API Documentation</Subhead>
       <Caption
         css={theme({ pt: 3, maxWidth: layout.normal, mx: 'auto', fontSize: 3 })}
       >

@@ -1177,8 +1177,7 @@ const Hero = () => (
     <Heading
       css={theme({
         px: [3, 3],
-        maxWidth: layout.large,
-        fontSize: [3, '35px', '40px', '50px']
+        maxWidth: layout.large
       })}
     >
       Generate Website <LineBreak breakpoints={[0, 1]} /> Screenshots Instantly
@@ -1284,12 +1283,7 @@ const Explanation = () => (
       bg: 'pinky'
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
-      Why choose our free screenshot tool?
-    </Subhead>
+    <Subhead variant='gradient'>Why choose our free screenshot tool?</Subhead>
     <Box
       css={theme({
         display: 'grid',
@@ -1351,7 +1345,7 @@ const Banner = () => (
           alignItems: 'center'
         }}
       >
-        <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+        <Subhead css={theme({ color: 'white' })}>
           Need it at scale?{' '}
           <span css={theme({ display: 'block', color: 'white60' })}>
             Use the Screenshot API
@@ -1442,12 +1436,7 @@ const UseCases = () => (
       pt: [4, 4, 5, 5]
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
-      Use cases for website screen capture
-    </Subhead>
+    <Subhead variant='gradient'>Use cases for website screen capture</Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
       From design reviews to automated testing, website screenshots power
       workflows across every team.

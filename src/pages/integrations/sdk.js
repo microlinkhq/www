@@ -167,7 +167,6 @@ const SectionHead = ({
     {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
     <Subhead
       css={theme({
-        fontSize: ['28px', '34px', '42px', '46px'],
         textAlign: align
       })}
     >
@@ -247,7 +246,6 @@ const Hero = () => (
     <Heading
       variant='unset'
       css={theme({
-        fontSize: ['34px', '42px', '54px', '62px'],
         maxWidth: SECTION_MAX_WIDTH,
         textAlign: 'center'
       })}
@@ -355,7 +353,6 @@ const Pillars = () => (
         </Caps>
         <Subhead
           css={theme({
-            fontSize: ['28px', '34px', '42px', '46px'],
             textAlign: ['center', 'center', 'center', 'left']
           })}
         >

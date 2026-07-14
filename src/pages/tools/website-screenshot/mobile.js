@@ -797,8 +797,7 @@ const Hero = () => (
     <Heading
       css={theme({
         px: [3, 3],
-        maxWidth: layout.large,
-        fontSize: [3, '35px', '40px', '50px']
+        maxWidth: layout.large
       })}
     >
       Mobile Website Screenshot Generator
@@ -901,12 +900,7 @@ const Explanation = () => (
       bg: 'pinky'
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '40px'] })}
-    >
-      Why choose our mobile screenshot tool?
-    </Subhead>
+    <Subhead variant='gradient'>Why choose our mobile screenshot tool?</Subhead>
     <Caption
       css={theme({
         pt: [3, 3, 4, 4],
@@ -980,7 +974,7 @@ const Banner = () => (
           alignItems: 'center'
         }}
       >
-        <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+        <Subhead css={theme({ color: 'white' })}>
           Screenshot API{' '}
           <span css={theme({ display: 'block', color: 'white60' })}>
             for developers
@@ -1078,10 +1072,7 @@ const UseCases = () => (
       pt: [4, 4, 5, 5]
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '40px'] })}
-    >
+    <Subhead variant='gradient'>
       Who Uses a Mobile Website Screenshot Generator?
     </Subhead>
     <Caption

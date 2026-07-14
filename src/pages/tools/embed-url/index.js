@@ -185,8 +185,7 @@ const Hero = () => (
     <Heading
       css={theme({
         px: [3, 3],
-        maxWidth: layout.large,
-        fontSize: [3, '35px', '40px', '50px']
+        maxWidth: layout.large
       })}
     >
       Embed Code Generator
@@ -272,9 +271,7 @@ const Explanation = () => (
       bg: 'pinky'
     })}
   >
-    <Subhead css={theme({ fontSize: [3, '30px', '35px', '45px'] })}>
-      Why this is the best embed code generator for any URL
-    </Subhead>
+    <Subhead>Why this is the best embed code generator for any URL</Subhead>
     <Box
       css={theme({
         display: 'grid',
@@ -330,10 +327,7 @@ const UseCasesSection = () => (
       pt: [4, 4, 5, 5]
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
+    <Subhead variant='gradient'>
       What you can do with the embed link generator
     </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
@@ -456,7 +450,7 @@ const Banner = () => (
           alignItems: 'center'
         }}
       >
-        <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+        <Subhead css={theme({ color: 'white' })}>
           Embed API{' '}
           <span css={theme({ display: 'block', color: 'white60' })}>
             for developers
@@ -513,9 +507,7 @@ const EmbedApiDocsCard = () => (
       <Flex css={theme({ justifyContent: 'center', pb: 4 })}>
         <SectionIcon icon={Code} />
       </Flex>
-      <Subhead css={theme({ fontSize: 4 })}>
-        Embed Code Generator API Documentation
-      </Subhead>
+      <Subhead>Embed Code Generator API Documentation</Subhead>
       <Caption
         css={theme({
           pt: 3,

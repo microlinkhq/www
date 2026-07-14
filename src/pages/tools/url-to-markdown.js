@@ -2141,8 +2141,7 @@ const Hero = () => (
     <Heading
       css={theme({
         px: [3, 3],
-        maxWidth: layout.large,
-        fontSize: [3, '35px', '40px', '50px']
+        maxWidth: layout.large
       })}
     >
       Website to Markdown <LineBreak breakpoints={[0, 1]} /> Converter
@@ -2228,9 +2227,7 @@ const Explanation = () => (
       bg: 'pinky'
     })}
   >
-    <Subhead css={theme({ fontSize: [3, '30px', '35px', '45px'] })}>
-      Why use this free URL to markdown tool?
-    </Subhead>
+    <Subhead>Why use this free URL to markdown tool?</Subhead>
     <Box
       css={theme({
         display: 'grid',
@@ -2287,10 +2284,7 @@ const UseCasesSection = () => (
       pt: [4, 4, 5, 5]
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
+    <Subhead variant='gradient'>
       Use cases for website to markdown conversion
     </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
@@ -2413,7 +2407,7 @@ const Banner = () => (
           alignItems: 'center'
         }}
       >
-        <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+        <Subhead css={theme({ color: 'white' })}>
           Markdown API{' '}
           <span css={theme({ display: 'block', color: 'white60' })}>
             for developers
@@ -2469,9 +2463,7 @@ const MarkdownApiDocsCard = () => (
       <Flex css={theme({ justifyContent: 'center', pb: 4 })}>
         <SectionIcon icon={Code} />
       </Flex>
-      <Subhead css={theme({ fontSize: 4 })}>
-        URL to Markdown API Documentation
-      </Subhead>
+      <Subhead>URL to Markdown API Documentation</Subhead>
       <Caption
         css={theme({
           pt: 3,

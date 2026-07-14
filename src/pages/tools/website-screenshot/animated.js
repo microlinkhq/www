@@ -1103,8 +1103,7 @@ const Hero = () => (
     <Heading
       css={theme({
         px: [3, 3],
-        maxWidth: layout.large,
-        fontSize: [3, '35px', '40px', '50px']
+        maxWidth: layout.large
       })}
     >
       Animated Screenshot Tool
@@ -1186,10 +1185,7 @@ const Explanation = () => (
       bg: 'pinky'
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
+    <Subhead variant='gradient'>
       Why use our online animated screenshot tool?
     </Subhead>
     <Box
@@ -1273,7 +1269,7 @@ const Banner = () => (
           alignItems: 'center'
         }}
       >
-        <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+        <Subhead css={theme({ color: 'white' })}>
           Animated Screenshot API{' '}
           <span css={theme({ display: 'block', color: 'white60' })}>
             for developers
@@ -1364,10 +1360,7 @@ const UseCases = () => (
       pt: [4, 4, 5, 5]
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
+    <Subhead variant='gradient'>
       Who uses our animated screen capture tool?
     </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.normal })}>

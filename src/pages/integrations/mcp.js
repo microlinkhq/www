@@ -105,8 +105,7 @@ const Hero = () => (
       css={theme({
         mt: [3, 3, 0, 0],
         maxWidth: layout.large,
-        textAlign: 'center',
-        fontSize: [3, 4, 4, 5]
+        textAlign: 'center'
       })}
     >
       The web browser your <br /> AI agent never had
@@ -220,8 +219,7 @@ const MediaPlaceholder = () => (
         <Subhead
           css={theme({
             mb: 3,
-            textAlign: ['center', 'center', 'center', 'left'],
-            fontSize: [3, 4, 4, 4]
+            textAlign: ['center', 'center', 'center', 'left']
           })}
           variant='gradient'
         >
@@ -1364,9 +1362,7 @@ const Examples = () => (
         px: [4, 4, 4, 4]
       })}
     >
-      <Subhead variant='gradient' css={theme({ fontSize: [3, 3, 4, 4] })}>
-        Unlock the web for your agents
-      </Subhead>
+      <Subhead variant='gradient'>Unlock the web for your agents</Subhead>
       <Caption
         css={theme({
           pt: [3, 3, 4, 4],

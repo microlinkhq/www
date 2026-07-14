@@ -711,8 +711,7 @@ const Hero = () => (
     <Heading
       css={theme({
         px: [3, 3],
-        maxWidth: layout.large,
-        fontSize: ['35px', '40px', '45px', '55px']
+        maxWidth: layout.large
       })}
     >
       Full Page Screenshot Tool
@@ -827,10 +826,7 @@ const Explanation = () => (
       bg: 'pinky'
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
+    <Subhead variant='gradient'>
       Why Choose Our Full Page Screen Capture Tool?
     </Subhead>
     <Box
@@ -929,7 +925,7 @@ const Banner = () => (
           alignItems: 'center'
         }}
       >
-        <Subhead css={theme({ fontSize: [3, 4, 6, 6], color: 'white' })}>
+        <Subhead css={theme({ color: 'white' })}>
           Need it at scale?{' '}
           <span css={theme({ display: 'block', color: 'white60' })}>
             Use the Screenshot API
@@ -1027,10 +1023,7 @@ const UseCases = () => (
       pt: [4, 4, 5, 5]
     })}
   >
-    <Subhead
-      variant='gradient'
-      css={theme({ fontSize: [3, '30px', '35px', '45px'] })}
-    >
+    <Subhead variant='gradient'>
       Who Needs Full Page Website Screenshots?
     </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>

@@ -237,8 +237,7 @@ const Hero = () => (
       css={theme({
         mt: [3, 3, 0, 0],
         maxWidth: layout.large,
-        textAlign: 'center',
-        fontSize: [3, 4, 4, 5]
+        textAlign: 'center'
       })}
     >
       Build your own <br /> link preview component
@@ -338,10 +337,7 @@ const HowItWorks = () => (
     })}
   >
     <Eyebrow>How it works</Eyebrow>
-    <Subhead
-      variant='gradient'
-      css={theme({ pt: 2, fontSize: [3, 3, 4, 4], textAlign: 'center' })}
-    >
+    <Subhead variant='gradient' css={theme({ pt: 2, textAlign: 'center' })}>
       Three steps to ship
     </Subhead>
     <Text
@@ -362,11 +358,7 @@ const HowItWorks = () => (
       {STEPS.map(({ title, description }, index) => (
         <StepCard key={title}>
           <StepBadge>{`0${index + 1}`}</StepBadge>
-          <Subhead
-            css={theme({ pt: 3, fontSize: [2, 2, 3, 3], textAlign: 'left' })}
-          >
-            {title}
-          </Subhead>
+          <Subhead css={theme({ pt: 3, textAlign: 'left' })}>{title}</Subhead>
           <Text
             css={theme({
               pt: 2,
@@ -482,10 +474,7 @@ const PromptSection = () => {
       })}
     >
       <Eyebrow>Use your AI coding agent</Eyebrow>
-      <Subhead
-        variant='gradient'
-        css={theme({ pt: 2, fontSize: [3, 3, 4, 4], textAlign: 'center' })}
-      >
+      <Subhead variant='gradient' css={theme({ pt: 2, textAlign: 'center' })}>
         Generate it with a prompt
       </Subhead>
       <Text
