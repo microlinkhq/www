@@ -507,12 +507,11 @@ const Hero = function Hero ({
           <Heading
             css={theme({
               px: [2, 3, 4, 0],
-              fontSize: [4, 4, 5, 5],
               maxWidth: ['100%', '100%', '100%', '640px'],
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            Embed API <span style={{ whiteSpace: 'nowrap' }}>for any URL</span>
+            Embed API for any URL
           </Heading>
           <Caption
             forwardedAs='h2'
