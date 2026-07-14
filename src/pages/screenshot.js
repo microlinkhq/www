@@ -1015,13 +1015,11 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
           <Heading
             css={theme({
               px: [2, 3, 4, 0],
-              fontSize: [3, 3, 5, 5],
               maxWidth: ['100%', '100%', '100%', '640px'],
               textAlign: ['center', 'center', 'center', 'left']
             })}
           >
-            Website <span style={{ whiteSpace: 'nowrap' }}>screenshot API</span>{' '}
-            <span style={{ whiteSpace: 'nowrap' }}>for developers</span>
+            Website screenshot API for developers
           </Heading>
           <Caption
             forwardedAs='h2'
