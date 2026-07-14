@@ -8,14 +8,15 @@ export const commonHeadingStyles = {
   letterSpacing: 1,
   lineHeight: 0,
   textAlign: 'center',
-  fontWeight: 'bold'
+  fontWeight: 'bold',
+  overflowWrap: 'break-word'
 }
 
 const StyledHeading = styled(Text)(
   theme({
     ...commonHeadingStyles,
     textWrap: 'balance',
-    fontSize: [3, 4]
+    fontSize: [4, 4, 5, 5]
   })
 )
 

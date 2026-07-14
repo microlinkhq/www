@@ -2308,10 +2308,8 @@ const Products = () => (
         px: 3
       })}
     >
-      <Subhead variant='gradient' css={theme({ fontSize: 4 })}>
-        Turn the web into capabilities
-      </Subhead>
-      <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4], lineHeight: 1 })}>
+      <Subhead variant='gradient'>Turn the web into capabilities</Subhead>
+      <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4] })}>
         Build features, not the infrastructure behind them. We handle everything
         required to run them at scale.
       </Caption>

@@ -8,7 +8,7 @@ const StyledCaption = styled(Text)(
   theme({
     ...commonHeadingStyles,
     textWrap: 'balance',
-    lineHeight: 2,
+    lineHeight: 1,
     fontWeight: 'normal',
     fontSize: [2, 2, 3, 3]
   })

@@ -2265,7 +2265,7 @@ const Hero = () => {
           Handling +{reqsPretty} requests every month
         </Badge>
 
-        <Heading variant={null} css={theme({ fontSize: [4, 4, 5, 5] })}>
+        <Heading variant={null}>
           The web,{' '}
           <Heading
             forwardedAs='span'
@@ -2275,7 +2275,7 @@ const Hero = () => {
           </Heading>
         </Heading>
 
-        <Caption forwardedAs='p' css={theme({ pt: 3, lineHeight: 1 })}>
+        <Caption forwardedAs='p' css={theme({ pt: 3 })}>
           AI-ready infrastructure for interacting with the web. Built on real
           browsers. Exposed through a single API.
         </Caption>

@@ -83,16 +83,13 @@ const Production = () => (
         px: 3
       })}
     >
-      <Subhead variant='gradient' css={theme({ fontSize: 4 })}>
-        Production-ready infrastructure
-      </Subhead>
+      <Subhead variant='gradient'>Production-ready infrastructure</Subhead>
 
       <Caption
         forwardedAs='div'
         css={theme({
           mx: 'auto',
-          pt: [3, 3, 4, 4],
-          lineHeight: 1
+          pt: [3, 3, 4, 4]
         })}
       >
         From your first request to millions, the same infrastructure scales with
