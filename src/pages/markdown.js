@@ -3604,8 +3604,7 @@ const CallToAction = () => (
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: [layout.small, layout.small, layout.normal, layout.normal],
-          textAlign: 'center',
-          fontSize: [2, 2, 3, 3]
+          textAlign: 'center'
         })}
       >
         Get 25&nbsp;requests/day free — our URL to markdown API needs no account

@@ -2064,8 +2064,7 @@ const CatchAll = () => (
     <Caption
       css={theme({
         pt: [2, 2, 3, 3],
-        maxWidth: layout.normal,
-        fontSize: [2, 2, 3, 3]
+        maxWidth: layout.normal
       })}
     >
       The <Link href='/tools/embed-url'>universal embed tool</Link> works for

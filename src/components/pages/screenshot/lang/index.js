@@ -230,7 +230,6 @@ const Hero = ({ hero, breadcrumb }) => (
       titleize={false}
       css={theme({
         pt: [3, 3, 4, 4],
-        fontSize: [2, 2, 3, 3],
         maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
       })}
     >
@@ -481,8 +480,7 @@ const FinalCta = ({ cta }) => (
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: [layout.small, layout.small, layout.normal, layout.normal],
-          textAlign: 'center',
-          fontSize: [2, 2, 3, 3]
+          textAlign: 'center'
         })}
       >
         {cta.caption}

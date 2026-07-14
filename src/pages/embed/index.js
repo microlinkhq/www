@@ -1109,7 +1109,6 @@ const CopyPasteEmbed = () => (
           css={theme({
             pt: [3, 3, 4, 4],
             maxWidth: layout.normal,
-            fontSize: [2, 2, 3, 3],
             textAlign: ['center', 'center', 'left', 'left']
           })}
         >
@@ -2115,8 +2114,7 @@ const CallToAction = () => (
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: [layout.small, layout.small, layout.normal, layout.normal],
-          textAlign: 'center',
-          fontSize: [2, 2, 3, 3]
+          textAlign: 'center'
         })}
       >
         Call the API directly for a ready-to-paste iframe and oEmbed payload, or
