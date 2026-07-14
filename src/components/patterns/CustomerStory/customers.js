@@ -44,5 +44,18 @@ export const CUSTOMERS = [
     role: 'Founder',
     avatar: '/images/clients/uros-durdevic.jpeg',
     initials: 'UD'
+  },
+  {
+    slug: 'handinger',
+    name: 'Handinger',
+    blurb: 'AI agents with live Google search and Maps.',
+    icon: '/images/clients/handinger-icon.png',
+    category: 'Search API',
+    quote:
+      'We are using Microlink to power Handinger agents. Thanks to Microlink, our agents can search the web, use Google Maps, and more.',
+    author: 'Pao Ramen',
+    role: 'Founder',
+    avatar: '/images/clients/pao-ramen.jpeg',
+    initials: 'PR'
   }
 ]
