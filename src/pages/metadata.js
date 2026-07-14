@@ -36,6 +36,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import Block from 'components/patterns/Block/Block'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
+import Subtext from 'components/patterns/Subtext/Subtext'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
@@ -2812,18 +2813,17 @@ const Capabilities = ({ currentUrl, currentData }) => {
             <LineBreak />
             <span css={{ color: ACCENT }}>that actually render</span>
           </Subhead>
-          <Caption
+          <Subtext
             forwardedAs='div'
             css={theme({
               maxWidth: layout.small,
-              textAlign: ['center', 'center', 'center', 'left'],
-              fontSize: [1, 1, 2, 2]
+              textAlign: ['center', 'center', 'center', 'left']
             })}
           >
             Microlink returns a unified JSON response — plus the brand color
             palette, logo, and favicon. Everything you need to render a
             pixel-perfect link preview or URL preview on the first try.
-          </Caption>
+          </Subtext>
           <Flex
             css={[
               theme({ gap: [3, 3, 3, 4], width: '100%' }),
@@ -3257,15 +3257,14 @@ const Stack = ({ currentUrl }) => {
                   </Subhead>
                 </Flex>
               </Flex>
-              <Caption
+              <Subtext
                 forwardedAs='div'
                 css={theme({
-                  fontSize: [1, 1, 2, 2],
                   textAlign: 'left'
                 })}
               >
                 {item.description}
-              </Caption>
+              </Subtext>
               <StackApiCode $accent={item.accentColor}>
                 {renderStackApi(item.apiCall, currentUrl)}
               </StackApiCode>
@@ -4004,7 +4003,7 @@ const OpenSource = () => (
           <br />
           trusted by developers
         </Subhead>
-        <Caption
+        <Subtext
           css={theme({
             pt: [3, 3, 4, 4],
             px: [4, 4, 4, 0],
@@ -4014,7 +4013,6 @@ const OpenSource = () => (
               layout.normal,
               layout.normal
             ],
-            fontSize: [1, 1, 2, 2],
             textAlign: ['center', 'center', 'center', 'left']
           })}
         >
@@ -4022,7 +4020,7 @@ const OpenSource = () => (
           <Link href='https://metascraper.js.org'>metascraper</Link>, our
           battle-tested open source library used by thousands of developers
           worldwide. You can inspect the code, contribute, or self-host it.
-        </Caption>
+        </Subtext>
         <Flex
           css={theme({
             pt: [3, 3, 4, 4],

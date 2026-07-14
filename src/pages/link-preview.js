@@ -36,6 +36,7 @@ import {
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import CaptionBase from 'components/patterns/Caption/Caption'
+import Subtext from 'components/patterns/Subtext/Subtext'
 import { CUSTOMERS } from 'components/patterns/CustomerStory'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
@@ -1733,18 +1734,17 @@ const CustomerStories = () => {
       >
         Already shipping in <span css={{ color: ACCENT }}>real products</span>
       </Subhead>
-      <Caption
+      <Subtext
         css={theme({
           pt: [2, 2, 3, 3],
           px: [4, 4, 4, 0],
           maxWidth: layout.normal,
-          textAlign: 'center',
-          fontSize: [1, 1, 2, 2]
+          textAlign: 'center'
         })}
       >
         How MyMahi powers its newsfeed and Luckynote unfurls links inside notes
         — two short reads on the link preview API in production.
-      </Caption>
+      </Subtext>
       <CustomerStoryGrid css={theme({ pt: [3, 3, 4, 4], px: [3, 4, 0, 0] })}>
         {stories.map(({ slug, name, blurb, icon }) => (
           <CustomerStoryCard

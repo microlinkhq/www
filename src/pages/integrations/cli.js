@@ -17,7 +17,7 @@ import { GitHub as GitHubIcon } from 'components/icons/GitHub'
 import { Terminal as TerminalPromptIcon } from 'components/icons/Terminal'
 import { SectionCaption } from 'components/pages/search/Sections'
 import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from 'components/pages/search'
-import Caption from 'components/patterns/Caption/Caption'
+import Subtext from 'components/patterns/Subtext/Subtext'
 import Layout from 'components/patterns/Layout'
 
 import { colors, layout, space, theme } from 'theme'
@@ -376,21 +376,20 @@ const Hero = () => (
           <LineBreak />
           in your <span css={theme({ color: ACCENT })}>terminal</span>.
         </Text>
-        <Caption
+        <Subtext
           forwardedAs='p'
           css={theme({
             pt: [3, 3, 4, 4],
             maxWidth: layout.small,
             mx: ['auto', 'auto', 0, 0],
             textAlign: ['center', 'center', 'left', 'left'],
-            fontSize: [1, 1, 2, 2],
             lineHeight: 2
           })}
         >
           Install the global command, pass any URL, and inspect screenshots,
           metadata, PDFs, cache status, timing, headers, and JSON payloads
           without leaving your shell.
-        </Caption>
+        </Subtext>
         <Flex
           css={theme({
             pt: [3, 3, 4, 4],
