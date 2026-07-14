@@ -24,35 +24,57 @@ const walk = dir =>
 const isSanctioned = openingTag =>
   SANCTIONED.some(rule => rule.test(openingTag))
 
-const findOverrides = file => {
-  const open = new RegExp(`<(${COMPONENTS.join('|')})(Base)?\\b`)
-  const lines = fs.readFileSync(file, 'utf8').split('\n')
-  const hits = []
-  let inTag = false
-  let comp = ''
-  let openingTag = ''
-  let start = 0
-  for (let i = 0; i < lines.length; i++) {
-    const match = lines[i].match(open)
-    if (!inTag && match) {
-      inTag = true
-      comp = match[1]
-      openingTag = ''
-      start = i
-    }
-    if (inTag) {
-      const tagEnd = lines[i].replace(/=>/g, '  ').indexOf('>')
-      const isTagClosed = tagEnd !== -1
-      openingTag += (isTagClosed ? lines[i].slice(0, tagEnd) : lines[i]) + '\n'
-      if (isTagClosed) {
-        if (PROP.test(openingTag) && !isSanctioned(openingTag)) {
-          hits.push(
-            `${path.relative(process.cwd(), file)}:${start + 1} <${comp}>`
-          )
-        }
-        inTag = false
+const tagEndAt = (src, from) => {
+  let depth = 0
+  let quote = null
+  const tmpl = []
+  for (let i = from; i < src.length; i++) {
+    const c = src[i]
+    if (quote) {
+      if (c === '\\') {
+        i++
+      } else if (quote === '`' && c === '$' && src[i + 1] === '{') {
+        tmpl.push(depth)
+        depth++
+        quote = null
+        i++
+      } else if (c === quote) {
+        quote = null
       }
+      continue
     }
+    if (c === "'" || c === '"' || c === '`') {
+      quote = c
+    } else if (c === '{' || c === '[' || c === '(') {
+      depth++
+    } else if (c === '}' || c === ']' || c === ')') {
+      depth--
+      if (tmpl.length && depth === tmpl[tmpl.length - 1]) {
+        tmpl.pop()
+        quote = '`'
+      }
+    } else if (c === '>' && depth === 0) {
+      return i
+    }
+  }
+  return -1
+}
+
+const findOverrides = file => {
+  const open = new RegExp(`<(${COMPONENTS.join('|')})(Base)?\\b`, 'g')
+  const src = fs.readFileSync(file, 'utf8')
+  const hits = []
+  let match
+  while ((match = open.exec(src))) {
+    const end = tagEndAt(src, open.lastIndex)
+    if (end === -1) break
+    const openingTag = src.slice(match.index, end + 1)
+    if (PROP.test(openingTag) && !isSanctioned(openingTag)) {
+      const line = src.slice(0, match.index).split('\n').length
+      const comp = match[1] + (match[2] || '')
+      hits.push(`${path.relative(process.cwd(), file)}:${line} <${comp}>`)
+    }
+    open.lastIndex = end + 1
   }
   return hits
 }
