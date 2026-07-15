@@ -1,4 +1,12 @@
-import { borders, colors, layout, theme, transition, space } from 'theme'
+import {
+  borders,
+  colors,
+  layout,
+  theme,
+  transition,
+  space,
+  SECTION_VERTICAL_SPACING
+} from 'theme'
 import React, { useState, useCallback, useEffect } from 'react'
 import {
   Camera,
@@ -1115,8 +1123,7 @@ const ScreenshotTool = () => {
       css={theme({
         px: ['16px', '25px'],
         maxWidth: ['100%', layout.normal, '1460px', '1460px'],
-        pb: [2, 2, 4, 4],
-        pt: [3, 3, 4, 5]
+        py: SECTION_VERTICAL_SPACING
       })}
     >
       <ToolLayout>
@@ -1172,7 +1179,7 @@ const Hero = () => (
       flexDirection: 'column',
       alignItems: 'center',
       pt: [1],
-      pb: [1]
+      pb: SECTION_VERTICAL_SPACING
     })}
   >
     <Heading
@@ -1205,9 +1212,7 @@ const HowItWorks = () => (
     css={theme({
       alignItems: 'center',
       width: '100%',
-      pt: 0,
-      pb: [2, 2, 3, 3],
-      mt: 2
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Subhead
@@ -1276,9 +1281,7 @@ const Explanation = () => (
     id='why-choose'
     css={theme({
       alignItems: 'center',
-      pb: [4, 4, 5, 5],
-      pt: [4, 4, 5, 5],
-      mt: [3, 3, 4, 4],
+      py: SECTION_VERTICAL_SPACING,
       bg: 'pinky'
     })}
   >
@@ -1316,8 +1319,7 @@ const Banner = () => (
     css={theme({
       px: 4,
       maxHeight: '800px',
-      pb: 0,
-      pt: 5,
+      py: SECTION_VERTICAL_SPACING,
       width: '100%',
       overflow: 'hidden',
       backgroundImage: `radial-gradient(
@@ -1431,8 +1433,7 @@ const UseCases = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [5, 5, 6, 6],
-      pt: [4, 4, 5, 5]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Subhead variant='gradient'>Use cases for website screen capture</Subhead>
@@ -1522,8 +1523,7 @@ const ProductInformation = () => (
   <Faq
     css={theme({
       fontSize: [1, 1, 1, 1],
-      pt: [2, 2, 4, 4],
-      pb: 4,
+      py: SECTION_VERTICAL_SPACING,
       bg: 'pinky',
       borderTop: `${borders[1]} ${colors.pinkest}`,
       borderBottom: `${borders[1]} ${colors.pinkest}`
@@ -1733,7 +1733,7 @@ const WebsiteScreenshotPage = () => (
     <UseCases />
     <Banner />
     <Features
-      css={theme({ px: 4, pt: [5, 5, 6, 6] })}
+      css={theme({ px: 4, py: SECTION_VERTICAL_SPACING })}
       title={
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
           Automate captures at scale{' '}
