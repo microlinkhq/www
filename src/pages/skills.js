@@ -1,4 +1,4 @@
-import { layout, theme } from 'theme'
+import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import FlickeringBackground from 'components/patterns/FlickeringBackground/FlickeringBackground'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
@@ -350,7 +350,7 @@ const SkillsPage = () => (
             css={theme({
               flexDirection: 'column',
               alignItems: 'center',
-              pt: [4, null, 5],
+              py: SECTION_VERTICAL_SPACING,
               width: '100%',
               maxWidth: layout.large
             })}
