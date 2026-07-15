@@ -1,4 +1,4 @@
-import { layout, theme } from 'theme'
+import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React from 'react'
 import { Globe, Code, Clipboard } from 'react-feather'
 
@@ -107,7 +107,7 @@ const Hero = () => (
       flexDirection: 'column',
       alignItems: 'center',
       pt: [1],
-      pb: [1]
+      pb: SECTION_VERTICAL_SPACING
     })}
   >
     <Heading
@@ -139,9 +139,7 @@ const HowItWorks = () => (
     css={theme({
       alignItems: 'center',
       width: '100%',
-      pt: 0,
-      pb: [2, 2, 3, 3],
-      mt: 2
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Subhead
@@ -185,8 +183,7 @@ const ProductInformation = () => (
     title='FAQ'
     css={theme({
       fontSize: [1, 1, 1, 1],
-      pt: [5, 5, 6, 6],
-      pb: 4
+      py: SECTION_VERTICAL_SPACING
     })}
     questions={[
       {
@@ -328,7 +325,7 @@ const FacebookEmbedPage = () => (
       accentColor='#1877F2'
     />
     <Features
-      css={theme({ px: 4, pt: [5, 5, 6, 6] })}
+      css={theme({ px: 4, py: SECTION_VERTICAL_SPACING })}
       title={
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
           Facebook Embed{' '}
