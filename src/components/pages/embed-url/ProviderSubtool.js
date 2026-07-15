@@ -1,4 +1,4 @@
-import { layout, theme } from 'theme'
+import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React from 'react'
 import { Globe, Code, Clipboard } from 'react-feather'
 
@@ -36,7 +36,7 @@ const Hero = ({ title, subtitle }) => (
       flexDirection: 'column',
       alignItems: 'center',
       pt: [1],
-      pb: [1]
+      pb: SECTION_VERTICAL_SPACING
     })}
   >
     <Heading
@@ -67,9 +67,7 @@ const HowItWorksSection = ({ heading, steps }) => (
     css={theme({
       alignItems: 'center',
       width: '100%',
-      pt: 0,
-      pb: [2, 2, 3, 3],
-      mt: 2
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Caption
@@ -117,8 +115,7 @@ const FaqSection = ({ questions }) => (
     title='FAQ'
     css={theme({
       fontSize: [1, 1, 1, 1],
-      pt: [5, 5, 6, 6],
-      pb: 4
+      py: SECTION_VERTICAL_SPACING
     })}
     questions={questions.map(({ question, answer }) => ({
       question,
@@ -170,7 +167,7 @@ const RelatedLinks = ({ links }) => {
     <Container
       as='section'
       id='related-tools'
-      css={theme({ alignItems: 'center', pb: [4, 4, 5, 5], pt: [2, 2, 3, 3] })}
+      css={theme({ alignItems: 'center', py: SECTION_VERTICAL_SPACING })}
     >
       <Flex
         css={theme({
@@ -267,7 +264,7 @@ export const ProviderSubtool = ({
       accentColor={color}
     />
     <Features
-      css={theme({ px: 4, pt: [5, 5, 6, 6] })}
+      css={theme({ px: 4, py: SECTION_VERTICAL_SPACING })}
       title={
         <Subhead css={{ width: '100%', textAlign: 'left' }}>
           {name} Embed{' '}

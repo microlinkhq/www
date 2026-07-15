@@ -1,5 +1,11 @@
 import { trackEvent } from 'helpers/plausible'
-import { colors, layout, theme, transition } from 'theme'
+import {
+  colors,
+  layout,
+  theme,
+  transition,
+  SECTION_VERTICAL_SPACING
+} from 'theme'
 import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react'
 import {
   ArrowRight,
@@ -2418,8 +2424,7 @@ const EmbedTool = ({
       css={theme({
         px: ['16px', '25px'],
         maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-        pb: [2, 2, 4, 4],
-        pt: [3, 3, 4, 5]
+        py: SECTION_VERTICAL_SPACING
       })}
     >
       <Flex
