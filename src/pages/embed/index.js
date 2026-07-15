@@ -1,4 +1,5 @@
 import {
+  SECTION_VERTICAL_SPACING,
   borders,
   layout,
   colors,
@@ -12,7 +13,7 @@ import {
 import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import { SECTION_VERTICAL_SPACING, trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/plausible'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 
 import Box from 'components/elements/Box'

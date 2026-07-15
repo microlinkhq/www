@@ -1,4 +1,5 @@
 import {
+  SECTION_VERTICAL_SPACING,
   borders,
   breakpoints,
   layout,
@@ -12,7 +13,7 @@ import {
   shadows
 } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
-import { SECTION_VERTICAL_SPACING, trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import styled, { css, keyframes } from 'styled-components'
