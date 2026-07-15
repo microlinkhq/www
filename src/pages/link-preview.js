@@ -16,6 +16,7 @@ import { trimMs } from 'helpers/trim-ms'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 
 import Box from 'components/elements/Box'
+import TimingsBand from 'components/patterns/Timings'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
@@ -41,7 +42,6 @@ import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
-import Block from 'components/patterns/Block/Block'
 import NerdStatsOverlay, {
   extractNerdStats,
   buildMqlQuery
@@ -684,19 +684,8 @@ const Timings = () => {
   )
 
   return (
-    <Block
-      forwardedAs='section'
-      id='timings'
-      flexDirection='column'
-      blockOne={blockOne}
-      blockTwo={blockTwo}
-      css={theme({
-        px: 4,
-        py: SECTION_VERTICAL_SPACING,
-        mt: 4,
-        width: '100%',
-        maxWidth: '100%',
-        backgroundImage: `radial-gradient(
+    <TimingsBand
+      accent={`radial-gradient(
           circle at center right,
           ${colors.blue9} 0%,
           ${colors.blue9} 48%,
@@ -708,10 +697,9 @@ const Timings = () => {
           ${colors.blue6} 79%,
           ${ACCENT} 79%,
           ${ACCENT} 100%
-        )`,
-        borderTop: `${borders[1]} ${colors.white20}`,
-        borderBottom: `${borders[1]} ${colors.white20}`
-      })}
+        )`}
+      title={blockOne}
+      stats={blockTwo}
     />
   )
 }

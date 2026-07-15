@@ -33,7 +33,7 @@ import { Check as CheckIcon, Star as StarIcon } from 'react-feather'
 import { Focus as FocusIcon } from 'components/icons/Focus'
 import { rotate, dash, fadeInDown, highlight } from 'components/keyframes'
 import ArrowLink from 'components/patterns/ArrowLink'
-import Block from 'components/patterns/Block/Block'
+import TimingsBand from 'components/patterns/Timings'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
@@ -2323,32 +2323,22 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
   )
 
   return (
-    <Block
-      forwardedAs='section'
-      id='timings'
-      flexDirection='column'
-      css={theme({
-        px: 4,
-        py: SECTION_VERTICAL_SPACING,
-        width: '100%',
-        backgroundImage: `radial-gradient(
-          circle at center right,
-          ${colors.blue9} 0%,
-          ${colors.blue9} 48%,
-          ${colors.blue8} 48%,
-          ${colors.blue8} 52%,
-          ${colors.blue7} 52%,
-          ${colors.blue7} 65%,
-          ${colors.blue6} 65%,
-          ${colors.blue6} 79%,
-          ${ACCENT} 79%,
-          ${ACCENT} 100%
-        )`,
-        borderTop: `${borders[1]} ${colors.white20}`,
-        borderBottom: `${borders[1]} ${colors.white20}`
-      })}
-      blockOne={blockOne}
-      blockTwo={blockTwo}
+    <TimingsBand
+      accent={`radial-gradient(
+        circle at center right,
+        ${colors.blue9} 0%,
+        ${colors.blue9} 48%,
+        ${colors.blue8} 48%,
+        ${colors.blue8} 52%,
+        ${colors.blue7} 52%,
+        ${colors.blue7} 65%,
+        ${colors.blue6} 65%,
+        ${colors.blue6} 79%,
+        ${ACCENT} 79%,
+        ${ACCENT} 100%
+      )`}
+      title={blockOne}
+      stats={blockTwo}
     />
   )
 }

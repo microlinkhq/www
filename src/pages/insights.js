@@ -8,6 +8,7 @@ import {
 } from 'theme'
 import React, { useMemo } from 'react'
 import { useMounted } from 'components/hook/use-mounted'
+import TimingsBand from 'components/patterns/Timings'
 import { useUrlInput } from 'components/hook/use-url-input'
 import { getApiUrl } from '@microlink/mql'
 import { normalizeUrl } from 'helpers/url-input'
@@ -627,20 +628,8 @@ const Timings = () => {
   )
 
   return (
-    <Block
-      forwardedAs='section'
-      id='timings'
-      flexDirection='column'
-      blockOne={blockOne}
-      blockTwo={blockTwo}
-      css={theme({
-        py: SECTION_VERTICAL_SPACING,
-        px: 4,
-        width: '100%',
-        borderTop: `${borders[1]} ${colors.white20}`,
-        borderBottom: `${borders[1]} ${colors.white20}`,
-        // https://www.gradientmagic.com/collection/radialstripes
-        backgroundImage: `radial-gradient(
+    <TimingsBand
+      accent={`radial-gradient(
           circle at top right,
           rgb(36, 9, 119) 0%,
           rgb(36, 9, 119) 48%,
@@ -652,8 +641,9 @@ const Timings = () => {
           rgb(145, 2, 208) 69%,
           rgb(181, 0, 237) 69%,
           rgb(181, 0, 237) 100%
-        )`
-      })}
+        )`}
+      title={blockOne}
+      stats={blockTwo}
     />
   )
 }

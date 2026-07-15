@@ -16,6 +16,7 @@ import { trimMs } from 'helpers/trim-ms'
 import styled, { css, keyframes } from 'styled-components'
 
 import Box from 'components/elements/Box'
+import TimingsBand from 'components/patterns/Timings'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
@@ -35,7 +36,6 @@ import {
 import { Check as CheckIcon, Star as StarIcon } from 'react-feather'
 import { rotate, dash, fadeInDown, highlight } from 'components/keyframes'
 import ArrowLink from 'components/patterns/ArrowLink'
-import Block from 'components/patterns/Block/Block'
 import { withTitle } from 'helpers/hoc/with-title'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
@@ -1674,15 +1674,8 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
   )
 
   return (
-    <Block
-      forwardedAs='section'
-      id='timings'
-      flexDirection='column'
-      css={theme({
-        px: 4,
-        py: SECTION_VERTICAL_SPACING,
-        width: '100%',
-        backgroundImage: `radial-gradient(
+    <TimingsBand
+      accent={`radial-gradient(
           circle at center right,
           ${colors.grape9} 0%,
           ${colors.grape9} 48%,
@@ -1694,12 +1687,9 @@ const Timings = ({ timingMs, timingUrl, timingHistory }) => {
           ${colors.pink7} 79%,
           ${ACCENT} 79%,
           ${ACCENT} 100%
-        )`,
-        borderTop: `${borders[1]} ${colors.white20}`,
-        borderBottom: `${borders[1]} ${colors.white20}`
-      })}
-      blockOne={blockOne}
-      blockTwo={blockTwo}
+        )`}
+      title={blockOne}
+      stats={blockTwo}
     />
   )
 }

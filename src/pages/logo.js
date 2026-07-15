@@ -10,6 +10,7 @@ import {
 import React, { useMemo } from 'react'
 import { issueUrl } from 'helpers/issue-url'
 import { useUrlInput } from 'components/hook/use-url-input'
+import TimingsBand from 'components/patterns/Timings'
 import { getApiUrl } from '@microlink/mql'
 import { toCurlSnippet } from 'helpers/curl-snippet'
 import { trackEvent } from 'helpers/plausible'
@@ -631,16 +632,8 @@ const Timings = () => {
   )
 
   return (
-    <Block
-      id='timings'
-      forwardedAs='section'
-      css={theme({
-        px: 4,
-        flexDirection: 'column',
-        py: SECTION_VERTICAL_SPACING,
-        width: '100%',
-        // https://www.gradientmagic.com/collection/radialstripes
-        backgroundImage: `
+    <TimingsBand
+      accent={`
           radial-gradient(
             circle at 69% 86%,
             rgba(165, 165, 165, 0.06) 0%,
@@ -675,12 +668,9 @@ const Timings = () => {
             rgba(10, 10, 10, 0.06) 100%
           ),
           linear-gradient(307deg, #d306aa, #030070);
-        `,
-        borderTop: `${borders[1]} ${colors.white20}`,
-        borderBottom: `${borders[1]} ${colors.white20}`
-      })}
-      blockOne={blockOne}
-      blockTwo={blockTwo}
+        `}
+      title={blockOne}
+      stats={blockTwo}
     />
   )
 }
