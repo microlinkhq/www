@@ -6,7 +6,7 @@ import Subhead from 'components/elements/Subhead'
 import Block from 'components/patterns/Block/Block'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import Caption from 'components/patterns/Caption/Caption'
-import { colors, borders, theme } from 'theme'
+import { colors, borders, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import styled from 'styled-components'
 import take from 'lodash/take'
 import React from 'react'
@@ -60,7 +60,7 @@ const Analytics = () => {
       id='analytics'
       css={theme({
         flexDirection: 'column',
-        pb: [5, 5, 6, 6],
+        py: SECTION_VERTICAL_SPACING,
         bg: 'black',
         borderTop: `${borders[1]} ${colors.white20}`,
         borderBottom: `${borders[1]} ${colors.white20}`

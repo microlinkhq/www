@@ -2299,7 +2299,7 @@ const FileConversionPreview = () => (
 )
 
 const Products = () => (
-  <Box as='section' css={theme({ pt: SECTION_VERTICAL_SPACING })}>
+  <Box as='section' css={theme({ py: SECTION_VERTICAL_SPACING })}>
     <Box
       css={theme({
         maxWidth: layout.large,

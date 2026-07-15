@@ -190,7 +190,7 @@ export const getFaqQuestions = () => {
 
 const FAQs = props => (
   <Faq
-    css={theme({ pt: SECTION_VERTICAL_SPACING })}
+    css={theme({ py: SECTION_VERTICAL_SPACING })}
     title='FAQs'
     caption='Frequently asked questions.'
     questions={getFaqQuestions()}

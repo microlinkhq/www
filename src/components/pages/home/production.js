@@ -72,7 +72,7 @@ const Production = () => (
     css={theme({
       bg: 'white',
       color: 'black',
-      pt: SECTION_VERTICAL_SPACING
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Box

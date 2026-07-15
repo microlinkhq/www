@@ -16,7 +16,7 @@ const Pricing = () => {
           alignItems: 'center',
           textAlign: 'center',
           maxWidth: '100%',
-          pt: SECTION_VERTICAL_SPACING,
+          py: SECTION_VERTICAL_SPACING,
           px: [3, 3, 4, 4]
         })}
       >
