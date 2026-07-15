@@ -828,7 +828,6 @@ const Providers = () => {
       css={theme({
         px: 4,
         py: SECTION_VERTICAL_SPACING,
-        mt: 4,
         width: '100%',
         maxWidth: '100%',
         backgroundImage: `radial-gradient(
@@ -926,7 +925,7 @@ const Capabilities = () => (
       maxWidth: '100%',
       bg: 'pinky',
       px: [3, 3, 4, 5],
-      py: [5, 5, 6, 6]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Flex
@@ -1256,8 +1255,7 @@ const Clients = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: layout.large,
-      pt: [3, 3, 2, 2],
-      pb: [5, 5, 6, 6]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Caps
@@ -1389,7 +1387,11 @@ const Pricing = () => {
   const { canonicalUrl, stripeKey } = useSiteMetadata()
   return (
     <CurrencyProvider>
-      <Box as='section' id='pricing' css={theme({ bg: 'pinky' })}>
+      <Box
+        as='section'
+        id='pricing'
+        css={theme({ bg: 'pinky', py: SECTION_VERTICAL_SPACING })}
+      >
         <Container
           css={theme({
             alignItems: 'center',
@@ -1523,8 +1525,7 @@ const OpenSource = () => (
     css={theme({
       alignItems: 'center',
       width: '100%',
-      pt: 0,
-      pb: [5, 5, 5, 6],
+      py: SECTION_VERTICAL_SPACING,
       px: [1, 1, 5, 5]
     })}
   >
@@ -1744,7 +1745,7 @@ const SdkSection = () => (
     css={theme({
       alignItems: 'center',
       width: '100%',
-      py: [5, 5, 5, 6],
+      py: SECTION_VERTICAL_SPACING,
       px: [1, 1, 5, 5]
     })}
   >
@@ -1943,8 +1944,7 @@ const CustomerStories = () => {
       css={theme({
         alignItems: 'center',
         maxWidth: layout.large,
-        pt: [2, 2, 1, 1],
-        pb: [5, 5, 6, 6]
+        py: SECTION_VERTICAL_SPACING
       })}
     >
       <Subhead
@@ -2546,7 +2546,7 @@ const ProductInformation = () => (
       </>
     }
     css={theme({
-      pb: [5, 5, 6, 6],
+      py: SECTION_VERTICAL_SPACING,
       bg: 'white',
       borderTop: `${borders[1]} ${colors.pinkest}`,
       borderBottom: `${borders[1]} ${colors.pinkest}`
@@ -2699,7 +2699,7 @@ const EmbedPage = () => {
               <OpenSource />
               <Playground />
               <Features
-                css={theme({ px: 4, pb: 5, pt: [5, 5, 6, 6] })}
+                css={theme({ px: 4, py: SECTION_VERTICAL_SPACING })}
                 title={
                   <Subhead
                     css={theme({
