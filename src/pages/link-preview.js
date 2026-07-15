@@ -11,7 +11,7 @@ import {
 import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import { trackEvent } from 'helpers/plausible'
+import { SECTION_VERTICAL_SPACING, trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 
@@ -62,7 +62,6 @@ import analyticsData from '../../data/analytics.json'
 import ossData from '../../data/oss.json'
 
 const ACCENT = '#3e55ff'
-const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 
 const HERO_LAYOUT = {
   maxWidth: ['100%', '100%', '100%', `calc(${layout.large} * 1.7)`],

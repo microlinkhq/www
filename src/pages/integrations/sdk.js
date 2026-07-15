@@ -1,7 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { JavaScript } from 'components/icons/JavaScript'
+import {
+  SECTION_VERTICAL_SPACING,
+  JavaScript
+} from 'components/icons/JavaScript'
 import { Jekyll } from 'components/icons/Jekyll'
 import { Vue } from 'components/icons/Vue'
 import { Hugo } from 'components/icons/Hugo'
@@ -37,7 +40,6 @@ import { colors, layout, space, theme } from 'theme'
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const ACCENT = 'red6'
-const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 const SECTION_MAX_WIDTH = '1200px'
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=9P6rdqiybaw'

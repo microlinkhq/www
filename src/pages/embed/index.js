@@ -12,7 +12,7 @@ import {
 import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import { trackEvent } from 'helpers/plausible'
+import { SECTION_VERTICAL_SPACING, trackEvent } from 'helpers/plausible'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 
 import Box from 'components/elements/Box'
@@ -93,7 +93,6 @@ import analyticsData from '../../../data/analytics.json'
 import ossData from '../../../data/oss.json'
 
 const ACCENT = '#3e55ff'
-const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 
 const DEMO_LINK = { data: STRIPE_DEMO_DATA }
 

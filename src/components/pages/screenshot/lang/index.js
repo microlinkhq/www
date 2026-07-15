@@ -1,4 +1,4 @@
-import { colors, layout, theme, borders } from 'theme'
+import { SECTION_VERTICAL_SPACING, colors, layout, theme, borders } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 import { Check as CheckIcon, X as XIcon } from 'react-feather'
@@ -33,7 +33,6 @@ const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
 const ACCENT = 'red6'
-const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 const SECTION_MAX_WIDTH = '1100px'
 const CONTENT_WIDTH = layout.normal
 

@@ -1,6 +1,10 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Check as CheckIcon, X as XIcon } from 'react-feather'
+import {
+  SECTION_VERTICAL_SPACING,
+  Check as CheckIcon,
+  X as XIcon
+} from 'react-feather'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -38,8 +42,6 @@ import {
   transition,
   shadows
 } from 'theme'
-
-const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 
 export const Head = () => {
   const proOffers = PLANS.map(({ id, monthlyPrice, reqsPerMonth }) => ({

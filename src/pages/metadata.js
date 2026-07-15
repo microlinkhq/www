@@ -12,7 +12,7 @@ import {
   shadows
 } from 'theme'
 import React, { useState, useCallback, useRef, useEffect } from 'react'
-import { trackEvent } from 'helpers/plausible'
+import { SECTION_VERTICAL_SPACING, trackEvent } from 'helpers/plausible'
 import { trimMs } from 'helpers/trim-ms'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import styled, { css, keyframes } from 'styled-components'
@@ -147,7 +147,6 @@ const HERO_LAYOUT = {
   secondaryWidth: '45%',
   gap: [1, 1, 1, 5]
 }
-const SECTION_VERTICAL_SPACING = [4, 4, 5, 5]
 
 // --- Styled Components ---
 
