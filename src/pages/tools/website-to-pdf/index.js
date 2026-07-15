@@ -1543,8 +1543,7 @@ const HowItWorks = () => (
       mt: 2
     })}
   >
-    <Caption
-      forwardedAs='h2'
+    <Subhead
       css={theme({
         pt: [3, 3, 4, 4],
         pb: [2, 2, 3, 3],
@@ -1553,7 +1552,7 @@ const HowItWorks = () => (
       })}
     >
       How to save a webpage as PDF online
-    </Caption>
+    </Subhead>
     <Box
       css={theme({
         display: 'flex',

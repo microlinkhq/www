@@ -2174,8 +2174,7 @@ const HowItWorks = () => (
       mt: 2
     })}
   >
-    <Caption
-      forwardedAs='h2'
+    <Subhead
       css={theme({
         pt: [3, 3, 4, 4],
         px: 3,
@@ -2183,7 +2182,7 @@ const HowItWorks = () => (
       })}
     >
       How to convert a web page to markdown
-    </Caption>
+    </Subhead>
     <Flex
       css={theme({
         flexDirection: 'row',

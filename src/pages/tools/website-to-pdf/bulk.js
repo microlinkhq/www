@@ -2950,8 +2950,7 @@ const HowItWorks = () => (
       mt: 2
     })}
   >
-    <Caption
-      forwardedAs='h2'
+    <Subhead
       css={theme({
         pt: [3, 3, 4, 4],
         pb: [2, 2, 3, 3],
@@ -2960,7 +2959,7 @@ const HowItWorks = () => (
       })}
     >
       How to bulk download PDFs from a URL list
-    </Caption>
+    </Subhead>
     <Box
       css={theme({
         display: 'flex',
