@@ -122,9 +122,10 @@ The typography components own their size. Compose pages from them; do not restyl
 
 - SHOULD: Optical alignment; adjust ±1px when perception beats geometry
 - MUST: Deliberate alignment to grid/baseline/edges—no accidental placement
-- MUST: Space big page sections with the shared `SECTION_VERTICAL_SPACING = [4, 4, 5, 5]` rhythm (64px desktop) so the seam between adjacent components stays a consistent 128px; every product page already follows this.
-- NEVER: Rely on `Container`'s default `pt` for section spacing—set `pt`/`py` explicitly, or two padded sections stack into uneven 192–256px seams.
-- SHOULD: Reserve heavier padding (`[5, 5, 6, 6]`/128px) for full-bleed or colored emphasis bands, not plain content sections.
+- MUST: Give every top-level `<section>` `py: SECTION_VERTICAL_SPACING` (imported from `theme`, `[4, 4, 5, 5]` = 64px top + 64px bottom on desktop) so the seam between any two adjacent sections is a uniform 128px. This holds for colored/full-bleed bands too (e.g. the `#timings` band) — they get 64/64 like everything else, NOT heavier padding. Heroes are the one exception: `pt` may be smaller (they sit under the nav), but keep `pb: SECTION_VERTICAL_SPACING`.
+- NEVER: Rely on `Container`'s default `pt` (128px) for section spacing, or hand-tune per-section values (`pt: [5, 5, 6, 6]`, `pb: [4, 4, 5, 5]`, `mt: 4`, raw `css={{…}}` bands, etc.). Those produce off-grid 40/68/144/192/256px seams — the drift PR #21xx normalized away. Route the section's vertical padding through the token instead.
+- NEVER: Re-declare `const SECTION_VERTICAL_SPACING` locally; import it from `theme`.
+- The repeated benchmark band is the shared `components/patterns/Timings` component (accent gradient / title / stats as props, `py` baked in) — reuse it, do not copy-paste a new local `Timings`.
 - SHOULD: Balance icon/text lockups (weight/size/spacing/color)
 - MUST: Verify mobile, laptop, ultra-wide (simulate ultra-wide at 50% zoom)
 - MUST: Respect safe areas (`env(safe-area-inset-*)`)
