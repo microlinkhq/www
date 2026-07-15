@@ -1,7 +1,14 @@
 /* global fetch, ResizeObserver */
 
 import { trackEvent } from 'helpers/plausible'
-import { colors, layout, theme, transition, space } from 'theme'
+import {
+  colors,
+  layout,
+  theme,
+  transition,
+  space,
+  SECTION_VERTICAL_SPACING
+} from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
   Camera,
@@ -327,9 +334,7 @@ export const ApiDocsCard = ({
     css={theme({
       alignItems: 'center',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [2, 2, 3, 3],
-      pt: [5, 5, 5, 5],
-      mb: [4, 4, 5, 5]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Box

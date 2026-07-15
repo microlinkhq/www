@@ -488,8 +488,7 @@ const EmbedApiDocsCard = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      py: SECTION_VERTICAL_SPACING,
-      mb: [4, 4, 5, 5]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Box
