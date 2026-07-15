@@ -2361,8 +2361,7 @@ const Clients = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: layout.large,
-      pt: [3, 3, 2, 2],
-      pb: [5, 5, 5, 5]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Caps
@@ -2494,7 +2493,8 @@ const Pricing = () => {
         as='section'
         id='pricing'
         css={theme({
-          bg: 'pinky'
+          bg: 'pinky',
+          py: SECTION_VERTICAL_SPACING
         })}
       >
         <Container
@@ -2633,7 +2633,7 @@ const OpenSource = () => (
     css={theme({
       alignItems: 'center',
       width: '100%',
-      py: [5, 5, 5, 6],
+      py: SECTION_VERTICAL_SPACING,
       px: [1, 1, 5, 5]
     })}
   >
@@ -2853,8 +2853,7 @@ const Playground = () => (
     css={theme({
       alignItems: 'center',
       width: '100%',
-      pt: [3, 3, 3, 3],
-      pb: SECTION_VERTICAL_SPACING,
+      py: SECTION_VERTICAL_SPACING,
       px: [1, 1, 5, 5]
     })}
   >
@@ -2952,10 +2951,11 @@ const SpeedLine = styled('div')`
 const Benchmark = () => (
   <section
     id='benchmark'
-    css={{
+    css={theme({
       position: 'relative',
       overflow: 'hidden',
       width: '100%',
+      py: SECTION_VERTICAL_SPACING,
       backgroundImage: `radial-gradient(
         circle at center right,
         #850ba7 0%,
@@ -2971,7 +2971,7 @@ const Benchmark = () => (
       )`,
       borderTop: `${borders[1]} ${colors.white20}`,
       borderBottom: `${borders[1]} ${colors.white20}`
-    }}
+    })}
   >
     <Box
       css={{
@@ -3278,7 +3278,7 @@ const ProductInformation = () => (
       </>
     }
     css={theme({
-      pb: [5, 5, 6, 6],
+      py: SECTION_VERTICAL_SPACING,
       bg: 'pinky',
       borderTop: `${borders[1]} ${colors.pinkest}`,
       borderBottom: `${borders[1]} ${colors.pinkest}`
@@ -3588,7 +3588,7 @@ const PdfPage = () => {
       <Playground />
       <Benchmark />
       <Features
-        css={theme({ px: 4, pb: 5, pt: [5, 5, 6, 6] })}
+        css={theme({ px: 4, py: SECTION_VERTICAL_SPACING })}
         title={
           <Subhead
             css={theme({
