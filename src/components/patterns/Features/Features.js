@@ -1,7 +1,7 @@
 import Container from 'components/elements/Container'
 import Box from 'components/elements/Box'
 import Hide from 'components/elements/Hide'
-import { layout, theme } from 'theme'
+import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React from 'react'
 
 import Grid from '../Grid'
@@ -14,6 +14,7 @@ const Features = ({ title, caption, features, ...props }) => {
       id='features'
       css={theme({
         alignItems: 'center',
+        py: SECTION_VERTICAL_SPACING,
         maxWidth: [layout.normal, layout.normal, layout.large, layout.large]
       })}
       {...props}

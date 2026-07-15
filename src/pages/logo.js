@@ -1,4 +1,12 @@
-import { toPx, borders, layout, colors, theme, fonts } from 'theme'
+import {
+  toPx,
+  borders,
+  layout,
+  colors,
+  theme,
+  fonts,
+  SECTION_VERTICAL_SPACING
+} from 'theme'
 import React, { useMemo } from 'react'
 import { issueUrl } from 'helpers/issue-url'
 import { useUrlInput } from 'components/hook/use-url-input'
@@ -629,7 +637,7 @@ const Timings = () => {
       css={theme({
         px: 4,
         flexDirection: 'column',
-        pb: [5, 5, 6, 6],
+        py: SECTION_VERTICAL_SPACING,
         width: '100%',
         // https://www.gradientmagic.com/collection/radialstripes
         backgroundImage: `
@@ -684,7 +692,7 @@ const Resume = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [5, 5, 6, 6]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Subhead css={theme({ px: [3, 3, 0, 0] })} variant='gradient'>
@@ -821,7 +829,7 @@ const ProductInformation = () => {
       title='Product Information'
       caption='All the details you need to know about the product.'
       css={theme({
-        pb: [5, 5, 6, 6],
+        py: SECTION_VERTICAL_SPACING,
         bg: 'pinky',
         borderTop: `${borders[1]} ${colors.pinkest}`,
         borderBottom: `${borders[1]} ${colors.pinkest}`
