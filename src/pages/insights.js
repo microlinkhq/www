@@ -1,4 +1,11 @@
-import { borders, breakpoints, layout, colors, theme } from 'theme'
+import {
+  borders,
+  breakpoints,
+  layout,
+  colors,
+  theme,
+  SECTION_VERTICAL_SPACING
+} from 'theme'
 import React, { useMemo } from 'react'
 import { useMounted } from 'components/hook/use-mounted'
 import { useUrlInput } from 'components/hook/use-url-input'
@@ -627,7 +634,7 @@ const Timings = () => {
       blockOne={blockOne}
       blockTwo={blockTwo}
       css={theme({
-        pb: [5, 5, 6, 6],
+        py: SECTION_VERTICAL_SPACING,
         px: 4,
         width: '100%',
         borderTop: `${borders[1]} ${colors.white20}`,
@@ -658,7 +665,7 @@ const Resume = () => (
     css={theme({
       alignItems: 'center',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pb: [5, 5, 6, 6]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Subhead css={theme({ px: [3, 3, 4, 4] })} variant='gradient'>
@@ -815,7 +822,7 @@ const ProductInformation = () => {
       title='Product Information'
       caption='All the details you need to know about the product.'
       css={theme({
-        pb: [5, 5, 6, 6],
+        py: SECTION_VERTICAL_SPACING,
         bg: 'pinky',
         borderTop: `${borders[1]} ${colors.pinkest}`,
         borderBottom: `${borders[1]} ${colors.pinkest}`
