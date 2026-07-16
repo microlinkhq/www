@@ -1,10 +1,6 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import {
-  SECTION_VERTICAL_SPACING,
-  Check as CheckIcon,
-  X as XIcon
-} from 'react-feather'
+import { Check as CheckIcon, X as XIcon } from 'react-feather'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -40,7 +36,8 @@ import {
   space,
   theme,
   transition,
-  shadows
+  shadows,
+  SECTION_VERTICAL_SPACING
 } from 'theme'
 
 export const Head = () => {
