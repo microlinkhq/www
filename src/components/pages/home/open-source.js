@@ -7,7 +7,7 @@ const OpenSource = () => (
   <OpenSourcePattern
     repos={['metascraper', 'browserless', 'unavatar']}
     accent={colors.link}
-    caption={`Every Microlink API is powered by open source: ${OSS_STATS.repos} repositories and ${OSS_STATS.stars} stars on GitHub. Read the source, contribute, or run it yourself.`}
+    caption={`Microlink is built in the open. Our ${OSS_STATS.repos} repositories have earned ${OSS_STATS.stars} GitHub stars. Read the source, contribute, or run the stack yourself.`}
     ctaHref='/oss'
     ctaLabel='Explore our open source'
   />

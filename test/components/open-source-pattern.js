@@ -67,6 +67,11 @@ describe('OpenSource pattern', () => {
     expect(home).toContain('accent={colors.link}')
     expect(home).toContain('OSS_STATS.repos')
     expect(home).toContain('OSS_STATS.stars')
+    expect(home).toContain('Microlink is built in the open.')
+    expect(home).toContain(
+      'repositories have earned $' + '{OSS_STATS.stars} GitHub stars.'
+    )
+    expect(home).not.toContain('Every Microlink API is powered by open source')
     expect(home).toContain("ctaHref='/oss'")
     for (const slug of ['metascraper', 'browserless', 'unavatar']) {
       expect(OSS_NAMES.has(slug), `${slug} missing from data/oss.json`).toBe(
