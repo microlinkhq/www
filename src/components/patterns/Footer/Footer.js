@@ -58,7 +58,7 @@ const FOOTER_COLUMNS = [
       { label: 'Changelog', href: '/changelog' },
       { label: 'Community', href: '/community' },
       { label: 'Benchmark', href: '/benchmarks/screenshot-api' },
-      { label: 'Open Source', href: '/oss' },
+      { label: 'Open Source', href: '/open-source' },
       { label: 'Skills', href: '/skills' },
       { label: 'User Agents', href: '/user-agents' },
       { label: 'Geolocation', href: 'https://geolocation.microlink.io' }

@@ -373,6 +373,10 @@
     {
       "source": "/feature/:path*",
       "destination": "/features/:path*"
+    },
+    {
+      "source": "/oss",
+      "destination": "/open-source"
     }
   ],
   "rewrites": [

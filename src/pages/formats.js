@@ -124,8 +124,8 @@ const FAQs = props => (
           <>
             <div>
               You can always run your own solution; Most of our software is{' '}
-              <Link href='/oss'>Open Source</Link>, so you can take them and
-              hosted from scratch.
+              <Link href='/open-source'>Open Source</Link>, so you can take them
+              and hosted from scratch.
             </div>
             <div>
               What we offer as part of our value proposition is a production

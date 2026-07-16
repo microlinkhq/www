@@ -11,6 +11,7 @@ import {
   radii,
   shadows,
   shadowInk,
+  textGradient,
   transition,
   SECTION_VERTICAL_SPACING
 } from 'theme'
@@ -333,7 +334,13 @@ const OpenSource = ({
               width: '100%'
             })}
           >
-            Built on <span css={{ color: accent }}>open source</span>,
+            Built on{' '}
+            <span
+              css={accent === 'gradient' ? textGradient : { color: accent }}
+            >
+              open source
+            </span>
+            ,
             <br />
             trusted by developers
           </Subhead>

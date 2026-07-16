@@ -64,7 +64,7 @@ describe('OpenSource pattern', () => {
       "import OpenSourcePattern, { OSS_STATS } from 'components/patterns/OpenSource'"
     )
     expect(home).toContain("repos={['metascraper', 'browserless', 'unavatar']}")
-    expect(home).toContain('accent={colors.link}')
+    expect(home).toContain("accent='gradient'")
     expect(home).toContain("Open source isn't just something we use:")
     expect(home).toContain(
       'technologies behind Microlink are developed in public'
@@ -72,7 +72,7 @@ describe('OpenSource pattern', () => {
     expect(home).toContain('Math.floor(OSS_STATS.repos / 10) * 10')
     expect(Math.floor(ossData.length / 10) * 10).toBe(50)
     expect(home).not.toContain('Every Microlink API is powered by open source')
-    expect(home).toContain("ctaHref='/oss'")
+    expect(home).toContain("ctaHref='/open-source'")
     for (const slug of ['metascraper', 'browserless', 'unavatar']) {
       expect(OSS_NAMES.has(slug), `${slug} missing from data/oss.json`).toBe(
         true

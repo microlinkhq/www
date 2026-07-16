@@ -343,7 +343,7 @@ export const NAVIGATION_SECTIONS = [
       }),
       createNavigationItem({
         label: 'Open Source',
-        href: '/oss',
+        href: '/open-source',
         description: 'Explore public projects powering Microlink tools',
         icon: AwardIcon
       }),
