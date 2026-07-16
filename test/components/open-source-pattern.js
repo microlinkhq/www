@@ -66,8 +66,9 @@ describe('OpenSource pattern', () => {
     expect(home).toContain("repos={['metascraper', 'browserless', 'unavatar']}")
     expect(home).toContain('accent={colors.link}')
     expect(home).toContain(
-      'Open source is how we give back to the web we build on.'
+      'Microlink is committed to the principles of open source development:'
     )
+    expect(home).toContain('engineers work together and share their solutions.')
     expect(home).toContain('projects we maintain in the open.')
     expect(home).not.toContain('Every Microlink API is powered by open source')
     expect(home).toContain("ctaHref='/oss'")
