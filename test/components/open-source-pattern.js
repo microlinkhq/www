@@ -65,11 +65,12 @@ describe('OpenSource pattern', () => {
     )
     expect(home).toContain("repos={['metascraper', 'browserless', 'unavatar']}")
     expect(home).toContain('accent={colors.link}')
-    expect(home).toContain("Open source isn't just something we use;")
+    expect(home).toContain("Open source isn't just something we use.")
     expect(home).toContain(
       'technologies behind Microlink are developed in public'
     )
-    expect(home).toContain('Math.round(OSS_STATS.repos / 10) * 10')
+    expect(home).toContain('Math.floor(OSS_STATS.repos / 10) * 10')
+    expect(Math.floor(ossData.length / 10) * 10).toBe(50)
     expect(home).not.toContain('Every Microlink API is powered by open source')
     expect(home).toContain("ctaHref='/oss'")
     for (const slug of ['metascraper', 'browserless', 'unavatar']) {
