@@ -65,7 +65,7 @@ describe('OpenSource pattern', () => {
     )
     expect(home).toContain("repos={['metascraper', 'browserless', 'unavatar']}")
     expect(home).toContain('accent={colors.link}')
-    expect(home).toContain("Open source isn't just something we use.")
+    expect(home).toContain("Open source isn't just something we use:")
     expect(home).toContain(
       'technologies behind Microlink are developed in public'
     )
