@@ -1,13 +1,13 @@
 import { colors } from 'theme'
 import React from 'react'
 
-import OpenSourcePattern, { OSS_STATS } from 'components/patterns/OpenSource'
+import OpenSourcePattern from 'components/patterns/OpenSource'
 
 const OpenSource = () => (
   <OpenSourcePattern
     repos={['metascraper', 'browserless', 'unavatar']}
     accent={colors.link}
-    caption={`Microlink is built in the open. Our ${OSS_STATS.repos} repositories have earned ${OSS_STATS.stars} GitHub stars. Read the source, contribute, or run the stack yourself.`}
+    caption='Open source is how we give back to the web we build on. These are a few of the projects we maintain in the open.'
     ctaHref='/oss'
     ctaLabel='Explore our open source'
   />

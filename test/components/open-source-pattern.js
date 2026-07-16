@@ -61,16 +61,14 @@ describe('OpenSource pattern', () => {
   test('homepage renders the shared section', () => {
     const home = read('src/components/pages/home/open-source.js')
     expect(home).toContain(
-      "import OpenSourcePattern, { OSS_STATS } from 'components/patterns/OpenSource'"
+      "import OpenSourcePattern from 'components/patterns/OpenSource'"
     )
     expect(home).toContain("repos={['metascraper', 'browserless', 'unavatar']}")
     expect(home).toContain('accent={colors.link}')
-    expect(home).toContain('OSS_STATS.repos')
-    expect(home).toContain('OSS_STATS.stars')
-    expect(home).toContain('Microlink is built in the open.')
     expect(home).toContain(
-      'repositories have earned $' + '{OSS_STATS.stars} GitHub stars.'
+      'Open source is how we give back to the web we build on.'
     )
+    expect(home).toContain('projects we maintain in the open.')
     expect(home).not.toContain('Every Microlink API is powered by open source')
     expect(home).toContain("ctaHref='/oss'")
     for (const slug of ['metascraper', 'browserless', 'unavatar']) {
