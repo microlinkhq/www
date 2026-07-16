@@ -38,7 +38,7 @@ describe('home design language', () => {
   test('products section opens like every other home section', () => {
     for (const source of [products, production]) {
       expect(source).toContain("<Subhead variant='gradient'>")
-      expect(source).toContain('pt: SECTION_VERTICAL_SPACING')
+      expect(source).toContain('py: SECTION_VERTICAL_SPACING')
       expect(source).not.toMatch(/<Heading\b/)
     }
   })
