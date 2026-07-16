@@ -63,7 +63,6 @@ const WhyChoose = ({ heading, reasons, accentColor }) => {
       id='why-choose'
       css={theme({
         alignItems: 'center',
-        pb: [4, 4, 5, 5],
         py: SECTION_VERTICAL_SPACING
       })}
     >
