@@ -3275,7 +3275,7 @@ const PdfPage = () => {
       <OpenSource
         repos={REPOS}
         accent={ACCENT}
-        caption='The Microlink PDF engine is powered by battle-tested open source libraries used by thousands of developers worldwide. Our HTML to PDF API open source foundation means you can explore the code, contribute, or run it yourself.'
+        caption='The Microlink PDF engine is powered by battle-tested open source libraries used by thousands of developers worldwide. Our HTML to PDF API is built on an open source foundation: explore the code, contribute, or run it yourself.'
       />
       <Playground />
       <Benchmark />

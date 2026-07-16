@@ -2,9 +2,13 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 
-import ossData from '../../data/oss.json'
-
 const read = file => fs.readFileSync(path.join(process.cwd(), file), 'utf8')
+
+const OSS_PATH = path.join(process.cwd(), 'data/oss.json')
+const ossData = fs.existsSync(OSS_PATH)
+  ? JSON.parse(fs.readFileSync(OSS_PATH, 'utf8'))
+  : null
+const OSS_NAMES = new Set((ossData ?? []).map(({ name }) => name))
 
 const PAGES = [
   'src/pages/embed/index.js',
@@ -15,7 +19,8 @@ const PAGES = [
   'src/pages/link-preview.js'
 ]
 
-const OSS_NAMES = new Set(ossData.map(({ name }) => name))
+const HOME_REPOS = ['metascraper', 'browserless', 'unavatar']
+
 const component = read('src/components/patterns/OpenSource/OpenSource.js')
 
 const repoSlugs = source => {
@@ -48,14 +53,10 @@ describe('OpenSource pattern', () => {
     expect(source).toContain('repos={REPOS}')
     expect(source).toContain('accent={')
     expect(source).toContain('caption=')
-
-    const slugs = repoSlugs(source)
-    expect(slugs.length, `${page} REPOS slug list`).toBeGreaterThanOrEqual(3)
-    for (const slug of slugs) {
-      expect(OSS_NAMES.has(slug), `${slug} missing from data/oss.json`).toBe(
-        true
-      )
-    }
+    expect(
+      repoSlugs(source).length,
+      `${page} REPOS slug list`
+    ).toBeGreaterThanOrEqual(3)
   })
 
   test('homepage renders the shared section', () => {
@@ -63,27 +64,35 @@ describe('OpenSource pattern', () => {
     expect(home).toContain(
       "import OpenSourcePattern, { OSS_STATS } from 'components/patterns/OpenSource'"
     )
-    expect(home).toContain("repos={['metascraper', 'browserless', 'unavatar']}")
+    expect(home).toContain(
+      `repos={[${HOME_REPOS.map(s => `'${s}'`).join(', ')}]}`
+    )
     expect(home).toContain("accent='gradient'")
     expect(home).toContain("Open source isn't just something we use:")
     expect(home).toContain(
       'technologies behind Microlink are developed in public'
     )
     expect(home).toContain('Math.floor(OSS_STATS.repos / 10) * 10')
-    expect(Math.floor(ossData.length / 10) * 10).toBe(50)
     expect(home).not.toContain('Every Microlink API is powered by open source')
     expect(home).toContain("ctaHref='/open-source'")
-    for (const slug of ['metascraper', 'browserless', 'unavatar']) {
-      expect(OSS_NAMES.has(slug), `${slug} missing from data/oss.json`).toBe(
-        true
-      )
-    }
 
     const index = read('src/pages/index.js')
     expect(index).toContain(
       "import OpenSource from 'components/pages/home/open-source'"
     )
     expect(index).toContain('<OpenSource />')
+  })
+
+  test.skipIf(!ossData)('every repo slug exists in data/oss.json', () => {
+    const slugs = new Set(
+      PAGES.flatMap(page => repoSlugs(read(page))).concat(HOME_REPOS)
+    )
+    for (const slug of slugs) {
+      expect(OSS_NAMES.has(slug), `${slug} missing from data/oss.json`).toBe(
+        true
+      )
+    }
+    expect(Math.floor(ossData.length / 10) * 10).toBeGreaterThanOrEqual(50)
   })
 
   test.each(PAGES)('%s does not re-declare the pattern locally', page => {

@@ -336,7 +336,9 @@ const OpenSource = ({
           >
             Built on{' '}
             <span
-              css={accent === 'gradient' ? textGradient : { color: accent }}
+              css={
+                accent === 'gradient' ? textGradient : theme({ color: accent })
+              }
             >
               open source
             </span>
