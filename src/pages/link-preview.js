@@ -1798,8 +1798,7 @@ const Pricing = () => {
         <Container
           css={theme({
             alignItems: 'center',
-            maxWidth: '100%',
-            pt: [5, 5, 6, 6]
+            maxWidth: '100%'
           })}
         >
           <Subhead variant='gradient'>Start free, scale when ready</Subhead>

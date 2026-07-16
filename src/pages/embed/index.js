@@ -1395,8 +1395,7 @@ const Pricing = () => {
         <Container
           css={theme({
             alignItems: 'center',
-            maxWidth: '100%',
-            pt: SECTION_VERTICAL_SPACING
+            maxWidth: '100%'
           })}
         >
           <Subhead variant='gradient'>Start free, scale when ready</Subhead>

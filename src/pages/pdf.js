@@ -2500,8 +2500,7 @@ const Pricing = () => {
         <Container
           css={theme({
             alignItems: 'center',
-            maxWidth: '100%',
-            pt: SECTION_VERTICAL_SPACING
+            maxWidth: '100%'
           })}
         >
           <Subhead variant='gradient'>Start free, scale when ready</Subhead>
@@ -3101,7 +3100,6 @@ const Benchmark = () => (
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        py: [4, 4, 5, 5],
         px: 4,
         gap: [3, 3, 4, 4]
       })}

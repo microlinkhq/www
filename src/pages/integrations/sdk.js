@@ -1,10 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import {
-  SECTION_VERTICAL_SPACING,
-  JavaScript
-} from 'components/icons/JavaScript'
+import { JavaScript } from 'components/icons/JavaScript'
 import { Jekyll } from 'components/icons/Jekyll'
 import { Vue } from 'components/icons/Vue'
 import { Hugo } from 'components/icons/Hugo'
@@ -35,7 +32,7 @@ import Layout from 'components/patterns/Layout'
 import Microlink from 'components/patterns/Microlink/Microlink'
 import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
 
-import { colors, layout, space, theme } from 'theme'
+import { colors, layout, space, theme, SECTION_VERTICAL_SPACING } from 'theme'
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -230,6 +227,7 @@ const Hero = () => (
       textAlign: 'center',
       maxWidth: '100%',
       pt: [3, 3, 4, 4],
+      pb: SECTION_VERTICAL_SPACING,
       px: [3, 3, 4, 4]
     })}
   >
@@ -319,7 +317,7 @@ const PillarIcon = styled(Flex)`
 `
 
 const Pillars = () => (
-  <SectionContainer id='why' css={theme({ mt: 4 })}>
+  <SectionContainer id='why'>
     <Flex
       css={theme({
         width: '100%',
