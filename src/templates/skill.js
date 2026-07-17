@@ -3,6 +3,7 @@ import { useClipboard } from 'components/hook/use-clipboard'
 import Heading from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
+import { DashedGridOverlay } from 'components/patterns/CustomerStory/DashedGridOverlay'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
@@ -173,9 +174,12 @@ const SkillTemplate = ({ pageContext }) => {
   const installCommand = getInstallCommand(skillSlug || title)
 
   return (
-    <Layout>
+    <Layout css={theme({ position: 'relative' })}>
+      <DashedGridOverlay aria-hidden='true' />
       <Flex
         css={theme({
+          position: 'relative',
+          zIndex: 1,
           px: 3,
           pt: [2, null, 3],
           pb: [4, 5],

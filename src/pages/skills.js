@@ -1,5 +1,6 @@
 import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import Layout from 'components/patterns/Layout'
+import { DashedGridOverlay } from 'components/patterns/CustomerStory/DashedGridOverlay'
 import { Sparkles } from 'components/icons/Sparkles'
 import FeatherIcon from 'components/icons/Feather'
 import React from 'react'
@@ -210,8 +211,16 @@ const RequestSkill = () => (
 )
 
 const SkillsPage = () => (
-  <Layout>
-    <Flex css={theme({ flexDirection: 'column', alignItems: 'center' })}>
+  <Layout css={theme({ position: 'relative' })}>
+    <DashedGridOverlay aria-hidden='true' />
+    <Flex
+      css={theme({
+        position: 'relative',
+        zIndex: 1,
+        flexDirection: 'column',
+        alignItems: 'center'
+      })}
+    >
       <Hero />
       <CategoryNav categories={groupedSkills} />
       <Flex
