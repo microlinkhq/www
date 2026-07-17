@@ -8,8 +8,10 @@ const source = fs.readFileSync(
 )
 
 describe('home output renders profiling memory as bytes', () => {
-  test('memory goes through the byte formatter', () => {
-    expect(source).toContain("<Stat label='Memory' value={fmtBytes(memory)} />")
+  test('memory goes through the memory formatter', () => {
+    expect(source).toContain(
+      "<Stat label='Memory' value={fmtMemory(memory)} />"
+    )
   })
 
   test('no formatter treats the raw value as megabytes', () => {
@@ -20,5 +22,11 @@ describe('home output renders profiling memory as bytes', () => {
     expect(source).toContain('const fmtBytes = bytes => {')
     expect(source).toContain('bytes >= 1048576')
     expect(source).toContain('(bytes / 1048576).toFixed(1)')
+  })
+
+  test('reads .used from the breakdown, and tolerates the legacy number', () => {
+    expect(source).toContain(
+      "typeof memory === 'number' ? memory : memory?.used"
+    )
   })
 })

@@ -974,6 +974,13 @@ const fmtBytes = bytes => {
     : `${Math.max(1, Math.round(bytes / 1024))} KB`
 }
 
+// `profiling.memory` used to be a lone RSS number, which included the ~43MB
+// Node.js baseline and so never approached zero. It is now a breakdown, and
+// `used` is the part the function is accountable for. The live API and cached
+// demo payloads can still carry the old shape, so accept both.
+const fmtMemory = memory =>
+  fmtBytes(typeof memory === 'number' ? memory : memory?.used)
+
 const Stat = ({ label, value }) => (
   <Box css={theme({ textAlign: 'center' })}>
     <Box
@@ -1022,7 +1029,7 @@ const Profiling = ({ profiling }) => {
       >
         <Stat label='Total' value={fmtMs(total)} />
         <Stat label='CPU' value={fmtMs(cpu)} />
-        <Stat label='Memory' value={fmtBytes(memory)} />
+        <Stat label='Memory' value={fmtMemory(memory)} />
         <Stat label='Size' value={fmtBytes(size)} />
       </Flex>
 

@@ -106,7 +106,7 @@ The result is wrapped under `data.function`:
       "profiling": {
         "phases": { "install": 0, "build": 120, "spawn": 45, "run": 890, "total": 1055 },
         "cpu": 234,
-        "memory": 69996544,
+        "memory": { "total": 69996544, "used": 2359296, "heap": 4410880, "external": 1742574 },
         "size": 156
       },
       "logging": {}
@@ -119,7 +119,7 @@ The result is wrapped under `data.function`:
 | ------------- | ----------------------------------------------------------------------------------------------- |
 | `isFulfilled` | `true` when the function completed without errors                                               |
 | `value`       | The return value on success, or `{ name, message }` on failure                                  |
-| `profiling`   | Execution metrics: phase durations (ms), CPU time (ms), resident memory at return (bytes), and code size (bytes) |
+| `profiling`   | Execution metrics: phase durations (ms), CPU time (ms), a memory breakdown (bytes), and code size (bytes) |
 | `logging`     | Captured console output from the function runtime                                               |
 
 The profiling phases are:

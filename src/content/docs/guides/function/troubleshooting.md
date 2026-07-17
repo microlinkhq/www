@@ -69,11 +69,13 @@ Each error message is plan-aware:
 2. Avoid CPU-intensive operations like large JSON parsing or complex regular expressions.
 3. Move heavy processing to your own server and use the function only for data extraction.
 
-**MemoryError** — the function exceeded its memory limit (16 MB free, 32 MB pro):
+**MemoryError** — the function exceeded its memory limit (16 MB free, 32 MB pro). The limit applies to the JavaScript heap, which is where objects, arrays, and strings live, and it is reported as `profiling.memory.heap`:
 
 1. Reduce the amount of data held in memory at once.
 2. Avoid loading entire pages into memory when you only need a small part.
 3. Use streaming or pagination patterns when dealing with large datasets.
+
+Binary data such as `Buffer` and typed arrays is allocated off the heap and is reported separately as `profiling.memory.external`. It does not count toward this limit, so a function returning large screenshots or PDFs is unlikely to hit `MemoryError`.
 
 **CodeSizeError** — the function code exceeds the 1024 bytes free plan limit:
 
