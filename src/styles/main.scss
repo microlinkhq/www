@@ -214,7 +214,7 @@ a.active {
 
 body {
   line-height: 1.5;
-  overflow-x: hidden;
+  overflow-x: clip;
   padding-left: env(safe-area-inset-left, 0);
   padding-right: env(safe-area-inset-right, 0);
 }

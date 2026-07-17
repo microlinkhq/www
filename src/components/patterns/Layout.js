@@ -64,7 +64,7 @@ const SkipLink = () => (
 const Root = styled(Flex)`
   ${themeProp({
     flexDirection: 'column',
-    'overflow-x': 'hidden',
+    'overflow-x': 'clip',
     'min-height': '100vh'
   })}
 `
