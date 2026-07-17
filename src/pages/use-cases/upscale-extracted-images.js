@@ -25,14 +25,10 @@ import {
 } from 'components/patterns/UseCaseStory'
 import Layout from 'components/patterns/Layout'
 
-/* ─── Inline link to the partner ─────────────────────────────────────────── */
-
 const InlineLink = styled('a')`
   ${theme({ color: 'link', fontWeight: 'bold' })}
   text-decoration: underline;
 `
-
-/* ─── Code blocks (replace the flow diagram) ─────────────────────────────── */
 
 const EXTRACT_SNIPPET = `import mql from '@microlink/mql'
 
@@ -103,8 +99,6 @@ const CodeBlock = ({ step, children }) => (
   </Box>
 )
 
-/* ─── Hero ───────────────────────────────────────────────────────────────── */
-
 const Hero = () => (
   <Section as='header' css={theme({ pt: [3, 3, 4, 4], pb: [3, 3, 4, 4] })}>
     <SectionInner>
@@ -162,8 +156,6 @@ const Hero = () => (
   </Section>
 )
 
-/* ─── What it does ───────────────────────────────────────────────────────── */
-
 const WhatItDoes = () => (
   <Section css={theme({ pt: [3, 3, 4, 4], pb: 0 })}>
     <SectionInner>
@@ -201,8 +193,6 @@ const WhatItDoes = () => (
     </SectionInner>
   </Section>
 )
-
-/* ─── How it works ───────────────────────────────────────────────────────── */
 
 const HowItWorks = () => (
   <Section id='how-it-works' css={theme({ scrollMarginTop: 4 })}>
@@ -249,8 +239,6 @@ const HowItWorks = () => (
     </SectionInner>
   </Section>
 )
-
-/* ─── Why it works ───────────────────────────────────────────────────────── */
 
 const UseCaseItem = styled(Text).attrs({ as: 'p' })`
   ${theme({ color: 'black70', lineHeight: 2 })}
@@ -324,8 +312,6 @@ const WhyItWorks = () => (
   </Section>
 )
 
-/* ─── Learn more ─────────────────────────────────────────────────────────── */
-
 const ResourceLink = ({ href, children }) => {
   const isExternal = href.startsWith('http')
   return (
@@ -384,8 +370,6 @@ const UseCaseUpscaleImagesPage = () => (
     </Box>
   </Layout>
 )
-
-/* ─── Head / SEO ─────────────────────────────────────────────────────────── */
 
 export const Head = () => (
   <Meta

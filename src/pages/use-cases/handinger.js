@@ -316,7 +316,6 @@ export const Head = () => (
   <Meta
     title='Handinger: real-time Google search for AI agents'
     description="Handinger's AI agents search the web and use Google Maps through Microlink's Google Search API — live, structured results powering every agent task."
-    image='https://microlink.io/images/clients/handinger-preview.png'
     schemaType='WebPage'
   />
 )

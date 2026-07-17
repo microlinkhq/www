@@ -82,8 +82,6 @@ const Hero = () => (
   </Section>
 )
 
-/* ─── Preview carousel (mobile crossfade) ────────────────────────────────── */
-
 const PreviewWrapper = styled(Box)`
   ${theme({
     position: 'relative',
@@ -131,8 +129,6 @@ const PreviewCarousel = () => {
     </PreviewWrapper>
   )
 }
-
-/* ─── About the customer ─────────────────────────────────────────────────── */
 
 const AboutCustomer = () => (
   <Section css={theme({ pt: [3, 3, 4, 4], pb: 0 })}>
@@ -199,8 +195,6 @@ const AboutCustomer = () => (
   </Section>
 )
 
-/* ─── How they use Microlink ─────────────────────────────────────────────── */
-
 const HowTheyUseIt = () => (
   <Section css={theme({ pb: 5 })}>
     <SectionInner>
@@ -240,8 +234,6 @@ const HowTheyUseIt = () => (
     </SectionInner>
   </Section>
 )
-
-/* ─── Why Microlink ──────────────────────────────────────────────────────── */
 
 const WhyMicrolink = () => (
   <Section>
@@ -292,8 +284,6 @@ const WhyMicrolink = () => (
     </SectionInner>
   </Section>
 )
-
-/* ─── Thanks ─────────────────────────────────────────────────────────────── */
 
 const ThanksLogo = styled('img')`
   ${theme({
@@ -362,8 +352,6 @@ const CustomerStoryPage = () => (
     </Box>
   </Layout>
 )
-
-/* ─── Head / SEO ─────────────────────────────────────────────────────────── */
 
 export const Head = () => (
   <Meta

@@ -82,8 +82,6 @@ const Hero = () => (
   </Section>
 )
 
-/* ─── About the customer ─────────────────────────────────────────────────── */
-
 const AboutCustomer = () => (
   <Section css={theme({ pt: [3, 3, 4, 4], pb: 0 })}>
     <SectionInner>
@@ -149,8 +147,6 @@ const AboutCustomer = () => (
   </Section>
 )
 
-/* ─── How they use Microlink ─────────────────────────────────────────────── */
-
 const HowTheyUseIt = () => (
   <Section css={theme({ pb: 5, pt: 5 })}>
     <SectionInner>
@@ -197,8 +193,6 @@ const HowTheyUseIt = () => (
     </SectionInner>
   </Section>
 )
-
-/* ─── Why Microlink ──────────────────────────────────────────────────────── */
 
 const WhyMicrolink = () => (
   <Section css={theme({ pt: 0, pb: 6 })}>
@@ -251,8 +245,6 @@ const WhyMicrolink = () => (
     </SectionInner>
   </Section>
 )
-
-/* ─── Thanks ─────────────────────────────────────────────────────────────── */
 
 const ThanksLogo = styled('img')`
   ${theme({
@@ -317,13 +309,10 @@ const CustomerStoryPage = () => (
   </Layout>
 )
 
-/* ─── Head / SEO ─────────────────────────────────────────────────────────── */
-
 export const Head = () => (
   <Meta
     title='MyMahi: Rich link previews for every Newsfeed post'
     description="MyMahi powers rich link previews in its Newsfeed with Microlink's Metadata API, caching the results in its own database for fast reads."
-    image='https://microlink.io/images/clients/mymahi-web.png'
     schemaType='WebPage'
   />
 )
