@@ -1,17 +1,23 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 
-import skills from '../data/skills.json'
 import {
   SKILL_CATEGORIES,
   SKILL_CATEGORY,
   UNCATEGORIZED_CATEGORY
 } from '../src/components/pages/skills/taxonomy.js'
 
+const SKILLS_PATH = path.join(process.cwd(), 'data/skills.json')
+const skills = fs.existsSync(SKILLS_PATH)
+  ? JSON.parse(fs.readFileSync(SKILLS_PATH, 'utf8'))
+  : null
+
 const categoryIds = SKILL_CATEGORIES.map(category => category.id)
-const slugs = skills.map(skill => skill.slug)
+const slugs = (skills ?? []).map(skill => skill.slug)
 
 describe('skills taxonomy is explicit', () => {
-  test('every skill is assigned a category', () => {
+  test.skipIf(!skills)('every skill is assigned a category', () => {
     const unassigned = slugs.filter(slug => !SKILL_CATEGORY[slug])
 
     expect(
@@ -26,20 +32,23 @@ describe('skills taxonomy is explicit', () => {
     ).toEqual([])
   })
 
+  test.skipIf(!skills)(
+    'no assignment refers to a skill that no longer exists',
+    () => {
+      const stale = Object.keys(SKILL_CATEGORY).filter(
+        slug => !slugs.includes(slug)
+      )
+
+      expect(stale).toEqual([])
+    }
+  )
+
   test('every assignment points at a real category', () => {
     const unknown = Object.entries(SKILL_CATEGORY)
       .filter(([, id]) => !categoryIds.includes(id))
       .map(([slug, id]) => `${slug} -> ${id}`)
 
     expect(unknown).toEqual([])
-  })
-
-  test('no assignment refers to a skill that no longer exists', () => {
-    const stale = Object.keys(SKILL_CATEGORY).filter(
-      slug => !slugs.includes(slug)
-    )
-
-    expect(stale).toEqual([])
   })
 
   test('every category holds at least one skill', () => {

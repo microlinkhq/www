@@ -3,11 +3,11 @@ import FeatherIcon from 'components/icons/Feather'
 import styled from 'styled-components'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import React from 'react'
+import React, { useRef } from 'react'
 
 import { useActiveSection } from 'components/hook/use-active-section'
 
-import { ACTIVE_SECTION_OFFSET, NAV_TOP } from './constants'
+import { NAV_TOP } from './constants'
 import {
   accentBand,
   accentBorder,
@@ -57,11 +57,13 @@ const CategoryChip = ({ category, isActive }) => (
 )
 
 const CategoryNav = ({ categories }) => {
+  const navRef = useRef(null)
   const ids = categories.map(category => category.id)
-  const activeId = useActiveSection(ids, { offset: ACTIVE_SECTION_OFFSET })
+  const activeId = useActiveSection(ids, navRef)
 
   return (
     <Flex
+      ref={navRef}
       as='nav'
       aria-label='Browse skills by workflow category'
       css={theme({

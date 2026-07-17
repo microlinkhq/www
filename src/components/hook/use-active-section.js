@@ -1,38 +1,44 @@
 import { useEffect, useState } from 'react'
 
-export const useActiveSection = (ids, { offset = 0 } = {}) => {
+export const useActiveSection = (ids, boundaryRef) => {
   const [activeId, setActiveId] = useState(ids[0])
   const key = ids.join(',')
 
   useEffect(() => {
     if (typeof window === 'undefined') return
-    if (!('IntersectionObserver' in window)) return
 
     const sectionIds = key.split(',')
-    const sections = sectionIds
-      .map(id => document.getElementById(id))
-      .filter(Boolean)
+    let frame
 
-    if (sections.length === 0) return
+    const update = () => {
+      frame = undefined
 
-    const intersecting = new Map()
+      const boundary = boundaryRef.current
+      const line = boundary ? boundary.getBoundingClientRect().bottom : 0
 
-    const observer = new window.IntersectionObserver(
-      entries => {
-        entries.forEach(entry =>
-          intersecting.set(entry.target.id, entry.isIntersecting)
-        )
+      const current = sectionIds.reduce((active, id) => {
+        const section = document.getElementById(id)
+        if (!section) return active
+        return section.getBoundingClientRect().top <= line + 1 ? id : active
+      }, sectionIds[0])
 
-        const topmost = sectionIds.find(id => intersecting.get(id))
-        if (topmost) setActiveId(topmost)
-      },
-      { rootMargin: `-${offset}px 0px -60% 0px` }
-    )
+      setActiveId(current)
+    }
 
-    sections.forEach(section => observer.observe(section))
+    const schedule = () => {
+      if (frame === undefined) frame = window.requestAnimationFrame(update)
+    }
 
-    return () => observer.disconnect()
-  }, [key, offset])
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+
+    return () => {
+      if (frame !== undefined) window.cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+    }
+  }, [key, boundaryRef])
 
   return activeId
 }

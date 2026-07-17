@@ -196,9 +196,10 @@ const RequestSkill = () => (
       </Text>
     </Box>
     <Button
-      onClick={() => {
-        window.open(REQUEST_SKILL_URL, '_blank', 'noopener noreferrer')
-      }}
+      as='a'
+      href={REQUEST_SKILL_URL}
+      target='_blank'
+      rel='noopener noreferrer'
     >
       <Flex
         css={theme({ alignItems: 'center', justifyContent: 'center', gap: 2 })}

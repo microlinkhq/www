@@ -19,8 +19,6 @@ export const SECTION_SCROLL_MARGIN = TOOLBAR_HEIGHTS.map(
   height => `calc(${height} + ${NAV_HEIGHT} + ${space[3]})`
 )
 
-export const ACTIVE_SECTION_OFFSET = 124
-
 export const CATEGORY_TITLE_FONT_SIZE = [2, 2, 3, 3]
 
 export const CATEGORY_ICON_TILE_SIZE = space[5]

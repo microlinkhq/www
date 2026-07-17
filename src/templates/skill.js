@@ -7,7 +7,7 @@ import { DashedGridOverlay } from 'components/patterns/CustomerStory/DashedGridO
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
-import { layout, theme } from 'theme'
+import { layout, theme, touchTargets } from 'theme'
 import { GitHub as GitHubIcon } from 'components/icons/GitHub'
 import { Link } from 'components/elements/Link'
 import React from 'react'
@@ -300,7 +300,7 @@ const SkillTemplate = ({ pageContext }) => {
                     css={theme({
                       px: 2,
                       py: 1,
-                      bg: 'black5',
+                      bg: 'black05',
                       borderRadius: 2,
                       color: 'black70',
                       fontSize: 0
@@ -371,10 +371,15 @@ const SkillTemplate = ({ pageContext }) => {
                   border: 0,
                   color: 'black40',
                   p: 0,
-                  ml: 3,
+                  ml: 2,
+                  minWidth: touchTargets.minHeight,
+                  minHeight: touchTargets.minHeight,
+                  flexShrink: 0,
                   cursor: 'pointer',
+                  touchAction: 'manipulation',
                   display: 'inline-flex',
-                  alignItems: 'center'
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 })}
               >
                 <ClipboardIcon />
@@ -406,9 +411,14 @@ const SkillTemplate = ({ pageContext }) => {
                     border: 0,
                     color: 'black40',
                     p: 0,
+                    minWidth: touchTargets.minHeight,
+                    minHeight: touchTargets.minHeight,
+                    flexShrink: 0,
                     cursor: 'pointer',
+                    touchAction: 'manipulation',
                     display: 'inline-flex',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    justifyContent: 'center'
                   })}
                 >
                   <ClipboardIcon />

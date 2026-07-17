@@ -15,8 +15,10 @@ const CardLink = styled(Link)`
   transition: border-color ${transition.medium}, box-shadow ${transition.medium},
     transform ${transition.medium};
 
-  &:hover {
-    transform: translateY(-2px);
+  @media (prefers-reduced-motion: no-preference) {
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 
   > a {
