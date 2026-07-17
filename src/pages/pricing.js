@@ -1,4 +1,4 @@
-import { DashedGridOverlay } from 'components/patterns/CustomerStory/DashedGridOverlay'
+import { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Check as CheckIcon, X as XIcon } from 'react-feather'

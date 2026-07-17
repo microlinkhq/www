@@ -11,6 +11,13 @@ export const DOCS_NAVBAR_HEIGHT = '74px'
 
 export const DOCS_LAYOUT_OFFSET = `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${DOCS_NAVBAR_HEIGHT})`
 
+export const TOOLBAR_PRIMARY_HEIGHTS = [
+  TOOLBAR_PRIMARY_MOBILE_HEIGHT,
+  TOOLBAR_PRIMARY_HEIGHT,
+  TOOLBAR_PRIMARY_HEIGHT,
+  TOOLBAR_PRIMARY_HEIGHT
+]
+
 const ToolbarBase = styled(Flex)`
   ${theme({
     justifyContent: 'center',
@@ -29,14 +36,7 @@ const Toolbar = ({ type = 'primary', ...props }) => {
   return (
     <ToolbarBase
       data-toolbar={type}
-      css={theme({
-        height: [
-          TOOLBAR_PRIMARY_MOBILE_HEIGHT,
-          TOOLBAR_PRIMARY_HEIGHT,
-          TOOLBAR_PRIMARY_HEIGHT,
-          TOOLBAR_PRIMARY_HEIGHT
-        ]
-      })}
+      css={theme({ height: TOOLBAR_PRIMARY_HEIGHTS })}
       {...props}
     />
   )

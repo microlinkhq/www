@@ -1,76 +1,45 @@
+import { getContrast, parseToRgb } from 'polished'
 import { describe, expect, test } from 'vitest'
 
-import { colors } from '../src/theme/index.js'
 import {
-  SKILL_CATEGORIES,
-  UNCATEGORIZED_CATEGORY,
+  colors,
   accentBand,
   accentIcon,
   accentText,
   accentTile
+} from '../src/theme/index.js'
+import {
+  SKILL_CATEGORIES,
+  UNCATEGORIZED_CATEGORY
 } from '../src/components/pages/skills/taxonomy.js'
 
 const BODY_TEXT = 4.5
 const LARGE_TEXT = 3
 const NON_TEXT = 3
 
-const parse = value => {
-  let match = value.match(/^#([0-9a-f]{6})$/i)
-  if (match) {
-    const n = parseInt(match[1], 16)
-    return [(n >> 16) & 255, (n >> 8) & 255, n & 255, 1]
-  }
-
-  match = value.match(/^#([0-9a-f]{3})$/i)
-  if (match) {
-    const [r, g, b] = match[1].split('')
-    return [parseInt(r + r, 16), parseInt(g + g, 16), parseInt(b + b, 16), 1]
-  }
-
-  match = value.match(/^rgba?\(([^)]+)\)$/)
-  if (match) {
-    const parts = match[1].split(',').map(part => parseFloat(part.trim()))
-    return [parts[0], parts[1], parts[2], parts[3] === undefined ? 1 : parts[3]]
-  }
-
-  throw new Error(`unsupported color: ${value}`)
+const token = name => {
+  const { red, green, blue, alpha = 1 } = parseToRgb(colors[name] || name)
+  return { red, green, blue, alpha }
 }
 
-const token = name => parse(colors[name] || name)
+const over = (source, backdrop) => ({
+  red: source.red * source.alpha + backdrop.red * (1 - source.alpha),
+  green: source.green * source.alpha + backdrop.green * (1 - source.alpha),
+  blue: source.blue * source.alpha + backdrop.blue * (1 - source.alpha),
+  alpha: 1
+})
 
-const over = (source, backdrop) => {
-  const alpha = source[3]
-  return [
-    source[0] * alpha + backdrop[0] * (1 - alpha),
-    source[1] * alpha + backdrop[1] * (1 - alpha),
-    source[2] * alpha + backdrop[2] * (1 - alpha),
-    1
-  ]
-}
+const toRgb = ({ red, green, blue }) =>
+  `rgb(${Math.round(red)}, ${Math.round(green)}, ${Math.round(blue)})`
 
-const luminance = ([r, g, b]) => {
-  const channel = value => {
-    const ratio = value / 255
-    return ratio <= 0.03928
-      ? ratio / 12.92
-      : Math.pow((ratio + 0.055) / 1.055, 2.4)
-  }
-  return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b)
-}
-
-const contrast = (foreground, backdrop) => {
-  const a = luminance(foreground)
-  const b = luminance(backdrop)
-  const [high, low] = a > b ? [a, b] : [b, a]
-  return (high + 0.05) / (low + 0.05)
-}
-
-const WHITE = parse('#fff')
+const WHITE = token('#fff')
 
 const onBackdrop = (fg, ...layers) => {
-  let backdrop = WHITE
-  for (const layer of layers) backdrop = over(token(layer), backdrop)
-  return contrast(over(token(fg), backdrop), backdrop)
+  const backdrop = layers.reduce(
+    (composited, layer) => over(token(layer), composited),
+    WHITE
+  )
+  return getContrast(toRgb(over(token(fg), backdrop)), toRgb(backdrop))
 }
 
 const accents = [...SKILL_CATEGORIES, UNCATEGORIZED_CATEGORY].map(category => [

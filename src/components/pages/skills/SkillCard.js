@@ -1,4 +1,10 @@
-import { theme, transition } from 'theme'
+import {
+  theme,
+  transition,
+  accentBand,
+  accentBorderHover,
+  accentIcon
+} from 'theme'
 import { ArrowRight } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
 import styled from 'styled-components'
@@ -9,7 +15,6 @@ import React from 'react'
 
 import { getSkillIcon } from './catalog'
 import { SKILL_ICON_TILE_SIZE } from './constants'
-import { accentBand, accentBorderHover, accentIcon } from './taxonomy'
 
 const CardLink = styled(Link)`
   transition: border-color ${transition.medium}, box-shadow ${transition.medium},
@@ -31,15 +36,7 @@ const CardLink = styled(Link)`
 `
 
 const SkillCard = ({ skill, accent, fallbackIcon }) => (
-  <Flex
-    as='li'
-    id={`skill-${skill.slug}`}
-    css={theme({
-      listStyle: 'none',
-      width: ['100%', '100%', 'calc(50% - 8px)', 'calc(50% - 8px)'],
-      minWidth: 0
-    })}
-  >
+  <Flex as='li' css={theme({ minWidth: 0 })}>
     <CardLink
       href={`/skills/${skill.slug}`}
       css={theme({

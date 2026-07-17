@@ -214,6 +214,21 @@ export const fonts = {
 
 export const cx = key => colors[key] || key
 
+const accentToken = step => accent => {
+  const key = `${accent}${step}`
+  if (colors[key] === undefined) {
+    throw new Error(`unknown accent "${accent}": no color token "${key}"`)
+  }
+  return key
+}
+
+export const accentBand = accentToken(0)
+export const accentTile = accentToken(1)
+export const accentBorder = accentToken(2)
+export const accentBorderHover = accentToken(3)
+export const accentIcon = accentToken(8)
+export const accentText = accentToken(9)
+
 export const gradientStops = [
   ['0%', '#f76698'],
   ['60%', '#c03fa2'],

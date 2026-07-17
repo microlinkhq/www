@@ -1,21 +1,9 @@
 import { space, touchTargets } from 'theme'
-import {
-  TOOLBAR_PRIMARY_HEIGHT,
-  TOOLBAR_PRIMARY_MOBILE_HEIGHT
-} from 'components/elements/Toolbar'
+import { TOOLBAR_PRIMARY_HEIGHTS } from 'components/elements/Toolbar'
 
-const TOOLBAR_HEIGHTS = [
-  TOOLBAR_PRIMARY_MOBILE_HEIGHT,
-  TOOLBAR_PRIMARY_HEIGHT,
-  TOOLBAR_PRIMARY_HEIGHT,
-  TOOLBAR_PRIMARY_HEIGHT
-]
+export const NAV_HEIGHT = `calc(${touchTargets.minHeight} + ${space[2]} * 2)`
 
-const NAV_HEIGHT = `calc(${touchTargets.minHeight} + ${space[2]} * 2)`
-
-export const NAV_TOP = TOOLBAR_HEIGHTS
-
-export const SECTION_SCROLL_MARGIN = TOOLBAR_HEIGHTS.map(
+export const SECTION_SCROLL_MARGIN = TOOLBAR_PRIMARY_HEIGHTS.map(
   height => `calc(${height} + ${NAV_HEIGHT} + ${space[3]})`
 )
 

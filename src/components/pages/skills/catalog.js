@@ -65,36 +65,22 @@ const SKILL_ICONS = {
 
 export const getSkillIcon = (slug, fallback) => SKILL_ICONS[slug] || fallback
 
-const withIcon = category => ({
+const withSkills = (category, skills) => ({
   ...category,
   icon: CATEGORY_ICONS[category.id],
-  skills: []
+  skills
 })
 
-export const groupedSkills = (() => {
-  const groups = SKILL_CATEGORIES.map(withIcon)
-  const byId = new Map(groups.map(category => [category.id, category]))
-  const uncategorized = []
+const skillsIn = id =>
+  enrichedSkills.filter(skill => SKILL_CATEGORY[skill.slug] === id)
 
-  enrichedSkills.forEach(skill => {
-    const group = byId.get(SKILL_CATEGORY[skill.slug])
+const uncategorizedSkills = enrichedSkills.filter(
+  skill => !SKILL_CATEGORY[skill.slug]
+)
 
-    if (group) {
-      group.skills.push(skill)
-      return
-    }
-
-    uncategorized.push(skill)
-  })
-
-  const nonEmptyGroups = groups.filter(category => category.skills.length > 0)
-
-  if (uncategorized.length > 0) {
-    nonEmptyGroups.push({
-      ...withIcon(UNCATEGORIZED_CATEGORY),
-      skills: uncategorized
-    })
-  }
-
-  return nonEmptyGroups
-})()
+export const groupedSkills = [
+  ...SKILL_CATEGORIES.map(category =>
+    withSkills(category, skillsIn(category.id))
+  ),
+  withSkills(UNCATEGORIZED_CATEGORY, uncategorizedSkills)
+].filter(category => category.skills.length > 0)

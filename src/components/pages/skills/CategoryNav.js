@@ -1,24 +1,33 @@
-import { theme, transition, layout, touchTargets } from 'theme'
-import FeatherIcon from 'components/icons/Feather'
-import styled from 'styled-components'
-import Flex from 'components/elements/Flex'
-import Text from 'components/elements/Text'
-import React, { useRef } from 'react'
-
-import { useActiveSection } from 'components/hook/use-active-section'
-
-import { NAV_TOP } from './constants'
 import {
+  theme,
+  transition,
+  layout,
+  touchTargets,
   accentBand,
   accentBorder,
   accentBorderHover,
   accentText
-} from './taxonomy'
+} from 'theme'
+import { TOOLBAR_PRIMARY_HEIGHTS } from 'components/elements/Toolbar'
+import { hideScrollbar } from 'helpers/style'
+import FeatherIcon from 'components/icons/Feather'
+import styled from 'styled-components'
+import Flex from 'components/elements/Flex'
+import Text from 'components/elements/Text'
+import React from 'react'
+
+import { useActiveSection } from 'components/hook/use-active-section'
+
+import { NAV_HEIGHT } from './constants'
 
 const Chip = styled(Text).attrs({ as: 'a' })`
   white-space: nowrap;
   transition: background-color ${transition.medium},
     border-color ${transition.medium}, color ${transition.medium};
+`
+
+const ChipScroller = styled(Flex)`
+  ${hideScrollbar};
 `
 
 const CategoryChip = ({ category, isActive }) => (
@@ -57,34 +66,33 @@ const CategoryChip = ({ category, isActive }) => (
 )
 
 const CategoryNav = ({ categories }) => {
-  const navRef = useRef(null)
   const ids = categories.map(category => category.id)
-  const activeId = useActiveSection(ids, navRef)
+  const activeId = useActiveSection(ids)
 
   return (
     <Flex
-      ref={navRef}
       as='nav'
       aria-label='Browse skills by workflow category'
       css={theme({
         position: 'sticky',
-        top: NAV_TOP,
+        top: TOOLBAR_PRIMARY_HEIGHTS,
         zIndex: 1,
         justifyContent: 'center',
+        alignItems: 'center',
         width: '100%',
-        py: 2,
+        height: NAV_HEIGHT,
         bg: 'white'
       })}
     >
-      <Flex
+      <ChipScroller
         css={theme({
           justifyContent: ['flex-start', 'flex-start', 'center', 'center'],
+          alignItems: 'center',
           width: '100%',
           maxWidth: layout.large,
           px: [3, 3, 0, 0],
           gap: 2,
-          flexWrap: ['nowrap', 'nowrap', 'wrap', 'wrap'],
-          overflowX: ['auto', 'auto', 'visible', 'visible']
+          overflowX: 'auto'
         })}
       >
         {categories.map(category => (
@@ -94,7 +102,7 @@ const CategoryNav = ({ categories }) => {
             isActive={category.id === activeId}
           />
         ))}
-      </Flex>
+      </ChipScroller>
     </Flex>
   )
 }

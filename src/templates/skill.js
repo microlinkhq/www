@@ -3,7 +3,7 @@ import { useClipboard } from 'components/hook/use-clipboard'
 import Heading from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
-import { DashedGridOverlay } from 'components/patterns/CustomerStory/DashedGridOverlay'
+import { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
@@ -156,6 +156,33 @@ export const Head = ({ pageContext }) => {
 }
 
 const Separator = () => <Box css={theme({ color: 'black60', px: 2 })}>|</Box>
+
+const CopyButton = ({ label, onClick, ml }) => (
+  <Text
+    as='button'
+    type='button'
+    aria-label={label}
+    title={label}
+    onClick={onClick}
+    css={theme({
+      bg: 'transparent',
+      border: 0,
+      color: 'black40',
+      p: 0,
+      ml,
+      minWidth: touchTargets.minHeight,
+      minHeight: touchTargets.minHeight,
+      flexShrink: 0,
+      cursor: 'pointer',
+      touchAction: 'manipulation',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    })}
+  >
+    <ClipboardIcon />
+  </Text>
+)
 
 const SkillTemplate = ({ pageContext }) => {
   const { frontmatter = {}, rawContent = '', skillSlug } = pageContext
@@ -355,35 +382,16 @@ const SkillTemplate = ({ pageContext }) => {
               >
                 {installCommand}
               </Text>
-              <Text
-                as='button'
-                type='button'
-                aria-label='Copy install command'
-                title='Copy install command'
+              <CopyButton
+                label='Copy install command'
+                ml={2}
                 onClick={() => {
                   toClipboard({
                     copy: installCommand,
                     text: 'Install command copied'
                   })
                 }}
-                css={theme({
-                  bg: 'transparent',
-                  border: 0,
-                  color: 'black40',
-                  p: 0,
-                  ml: 2,
-                  minWidth: touchTargets.minHeight,
-                  minHeight: touchTargets.minHeight,
-                  flexShrink: 0,
-                  cursor: 'pointer',
-                  touchAction: 'manipulation',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                })}
-              >
-                <ClipboardIcon />
-              </Text>
+              />
             </Flex>
           </Box>
 
@@ -398,31 +406,12 @@ const SkillTemplate = ({ pageContext }) => {
               })}
             >
               <Flex css={theme({ justifyContent: 'flex-end', pb: 2 })}>
-                <Text
-                  as='button'
-                  type='button'
-                  aria-label='Copy markdown'
-                  title='Copy markdown'
+                <CopyButton
+                  label='Copy markdown'
                   onClick={() => {
                     toClipboard({ copy: markdown, text: 'Markdown copied' })
                   }}
-                  css={theme({
-                    bg: 'transparent',
-                    border: 0,
-                    color: 'black40',
-                    p: 0,
-                    minWidth: touchTargets.minHeight,
-                    minHeight: touchTargets.minHeight,
-                    flexShrink: 0,
-                    cursor: 'pointer',
-                    touchAction: 'manipulation',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  })}
-                >
-                  <ClipboardIcon />
-                </Text>
+                />
               </Flex>
 
               <Text

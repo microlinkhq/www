@@ -1,4 +1,4 @@
-import { DashedGridOverlay } from 'components/patterns/CustomerStory/DashedGridOverlay'
+import { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
 import { SECTION_VERTICAL_SPACING, colors, layout, theme, borders } from 'theme'
 import React from 'react'
 import { Check as CheckIcon, X as XIcon } from 'react-feather'

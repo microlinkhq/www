@@ -1,5 +1,5 @@
 import { colors, theme, transition } from 'theme'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { ArrowRight, ChevronDown, RotateCcw } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import mql from '@microlink/mql'
 
 import Box from 'components/elements/Box'
+import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
@@ -37,15 +38,11 @@ const LOCAL_STORAGE_KEY = 'builder-config'
 // `100% - 2×(RAIL_WIDTH + RAIL_GAP)` (see `Content`) so it always stays clear of
 // the rail and visually centered — no matter the viewport.
 //
-// The rail is pinned (fixed) only while the builder section is in view — a
-// scroll effect (see `useRail`) flips `data-rail-mode` so it parks at the
-// section's top/bottom instead of floating over the hero or the steps/FAQ.
 const RAIL_WIDTH = 360
 const RAIL_GAP = 24
 const RAIL_BREAKPOINT = 1320
 const CONTENT_MAX_WIDTH = '760px'
-// Where the rail pins: navbar height (64px) + a 24px gap.
-const RAIL_TOP_OFFSET = 88
+const RAIL_TOP_OFFSET = `calc(${TOOLBAR_PRIMARY_HEIGHT} + ${RAIL_GAP}px)`
 
 const SIZE_OPTIONS = [
   { id: 'small', label: 'Small' },
@@ -424,15 +421,33 @@ const OmniboxButton = styled(Box).attrs({ as: 'button', type: 'button' })`
 `
 
 // Layout shell. The builder is a single centered column (`Content`); on wide
-// screens the settings rail is lifted out of flow and pinned to the left edge
-// of the viewport with position: fixed, so it stays visible while scrolling and
-// the centered column reads as the middle of the page.
+// screens the settings rail is lifted out of flow and docked to the left edge,
+// so it stays visible while scrolling and the centered column reads as the
+// middle of the page.
 const Root = styled(Box)`
   width: 100%;
 
-  /* Positioning context the rail parks against when it isn't pinned. */
+  /* Positioning context the rail docks against. */
   @media (min-width: ${RAIL_BREAKPOINT}px) {
     position: relative;
+  }
+`
+
+/* Spans the builder section at its left edge, so the rail inside can stick
+   against it: parked at the section's top before you reach it, pinned while
+   it is on screen, parked at its bottom once you pass. */
+const RailDock = styled(Box)`
+  display: contents;
+
+  @media (min-width: ${RAIL_BREAKPOINT}px) {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: ${RAIL_WIDTH}px;
+    z-index: 3;
+    pointer-events: none;
   }
 `
 
@@ -457,33 +472,15 @@ const SettingsRail = styled(Card)`
   align-self: flex-start;
 
   @media (min-width: ${RAIL_BREAKPOINT}px) {
-    position: absolute;
-    left: 0;
-    z-index: 3;
-    width: ${RAIL_WIDTH}px;
-    max-height: calc(100vh - ${RAIL_TOP_OFFSET}px - 24px);
+    position: sticky;
+    top: ${RAIL_TOP_OFFSET};
+    max-height: calc(100vh - ${RAIL_TOP_OFFSET} - ${RAIL_GAP}px);
     margin-bottom: 0;
     overflow-y: auto;
+    pointer-events: auto;
     border-left: 0;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-
-    /* before the section: parked at its top, scrolls up with the page */
-    &[data-rail-mode='top'] {
-      top: 0;
-    }
-
-    /* within the section: pinned to the viewport, always visible */
-    &[data-rail-mode='fixed'] {
-      position: fixed;
-      top: ${RAIL_TOP_OFFSET}px;
-    }
-
-    /* past the section: parked at its bottom, so it leaves before the steps */
-    &[data-rail-mode='bottom'] {
-      top: auto;
-      bottom: 0;
-    }
   }
 `
 
@@ -872,48 +869,6 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
 
 /* ─── Builder ──────────────────────────────────────────── */
 
-// Pins the settings rail while the builder section is on screen, parking it at
-// the section's top before you reach it and its bottom once you pass — the
-// reliable stand-in for position: sticky, which the page's overflow-x:hidden
-// ancestor would otherwise break. `recomputeKey` re-measures when the rail's
-// height changes (e.g. a section is expanded/collapsed).
-const useRail = recomputeKey => {
-  const boundsRef = useRef(null)
-  const railRef = useRef(null)
-  const [railMode, setRailMode] = useState('top')
-
-  useEffect(() => {
-    const bounds = boundsRef.current
-    const rail = railRef.current
-    if (!bounds || !rail) return
-
-    let frame = 0
-    const measure = () => {
-      frame = 0
-      const rect = bounds.getBoundingClientRect()
-      const railHeight = rail.offsetHeight
-      if (rect.top > RAIL_TOP_OFFSET) setRailMode('top')
-      else if (rect.bottom <= RAIL_TOP_OFFSET + railHeight) {
-        setRailMode('bottom')
-      } else setRailMode('fixed')
-    }
-    const onScroll = () => {
-      if (!frame) frame = window.requestAnimationFrame(measure)
-    }
-
-    measure()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame)
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
-    }
-  }, [recomputeKey])
-
-  return { boundsRef, railRef, railMode }
-}
-
 const Builder = () => {
   const [stored, setStored] = useLocalStorage(
     LOCAL_STORAGE_KEY,
@@ -945,9 +900,6 @@ const Builder = () => {
   const [error, setError] = useState('')
   // Accordion: only the Layout section starts open; the rest start collapsed.
   const [openSections, setOpenSections] = useState(['layout'])
-
-  // Rail docking: re-measure when the open sections change its height.
-  const { boundsRef, railRef, railMode } = useRail(openSections)
 
   const toggleSection = useCallback(
     id =>
@@ -1001,7 +953,7 @@ const Builder = () => {
   }, [])
 
   return (
-    <Root ref={boundsRef}>
+    <Root>
       <Content>
         <Box css={theme({ maxWidth: '720px', mx: 'auto', pb: 4 })}>
           <Omnibar
@@ -1017,32 +969,38 @@ const Builder = () => {
           )}
         </Box>
 
-        {/* Settings — a docked rail on the left on wide screens (pinned only
-            while the builder is in view), an inline card above the preview once
-            the layout stacks */}
-        <SettingsRail ref={railRef} data-rail-mode={railMode}>
-          <Box css={theme({ px: 3 })}>
-            {SECTIONS.map(({ id, label, Component }) => (
-              <Section
-                key={id}
-                label={label}
-                isOpen={openSections.includes(id)}
-                onToggle={() => toggleSection(id)}
-              >
-                <Component config={config} set={set} />
-              </Section>
-            ))}
-          </Box>
-          <Flex
-            css={theme({ px: 3, py: 2, borderTop: 1, borderColor: 'black05' })}
-            style={{ justifyContent: 'flex-end' }}
-          >
-            <GhostButton onClick={reset}>
-              <RotateCcw size={13} />
-              Reset
-            </GhostButton>
-          </Flex>
-        </SettingsRail>
+        {/* Settings — a docked rail on the left on wide screens, an inline card
+            above the preview once the layout stacks */}
+        <RailDock>
+          <SettingsRail>
+            <Box css={theme({ px: 3 })}>
+              {SECTIONS.map(({ id, label, Component }) => (
+                <Section
+                  key={id}
+                  label={label}
+                  isOpen={openSections.includes(id)}
+                  onToggle={() => toggleSection(id)}
+                >
+                  <Component config={config} set={set} />
+                </Section>
+              ))}
+            </Box>
+            <Flex
+              css={theme({
+                px: 3,
+                py: 2,
+                borderTop: 1,
+                borderColor: 'black05'
+              })}
+              style={{ justifyContent: 'flex-end' }}
+            >
+              <GhostButton onClick={reset}>
+                <RotateCcw size={13} />
+                Reset
+              </GhostButton>
+            </Flex>
+          </SettingsRail>
+        </RailDock>
 
         {/* Preview — centered, using the full width of the column */}
         <Card css={{ display: 'flex', flexDirection: 'column' }}>

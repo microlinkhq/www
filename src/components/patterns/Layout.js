@@ -10,19 +10,9 @@ import { useBreakpoint } from 'components/hook/use-breakpoint'
 
 import themeSpec, { theme as themeProp } from 'theme'
 
-import {
-  TOOLBAR_PRIMARY_HEIGHT,
-  TOOLBAR_PRIMARY_MOBILE_HEIGHT
-} from 'components/elements/Toolbar'
+import { TOOLBAR_PRIMARY_HEIGHTS } from 'components/elements/Toolbar'
 
 import 'styles/main.scss'
-
-const TOOLBAR_HEIGHTS = [
-  TOOLBAR_PRIMARY_MOBILE_HEIGHT,
-  TOOLBAR_PRIMARY_HEIGHT,
-  TOOLBAR_PRIMARY_HEIGHT,
-  TOOLBAR_PRIMARY_HEIGHT
-]
 
 const SkipLinkAnchor = styled.a`
   position: absolute;
@@ -71,7 +61,7 @@ const Root = styled(Flex)`
 
 const Main = styled(Box)`
   ${themeProp({
-    pt: TOOLBAR_HEIGHTS,
+    pt: TOOLBAR_PRIMARY_HEIGHTS,
     mt: [0, 0, 4],
     px: [3, 3, 0],
     flex: 1,

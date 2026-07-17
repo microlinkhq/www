@@ -13,7 +13,7 @@ export {
   Figure,
   FigureImage
 } from 'components/patterns/CustomerStory/primitives'
-export { DashedGridOverlay } from 'components/patterns/CustomerStory/DashedGridOverlay'
+export { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
 export { Eyebrow, StoryTag } from 'components/patterns/CustomerStory/chrome'
 export { CtaSection } from 'components/patterns/CustomerStory/CtaSection'
 export { WhyCard } from 'components/patterns/CustomerStory/WhyCards'

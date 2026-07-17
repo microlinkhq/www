@@ -1,10 +1,3 @@
-export const accentBand = accent => `${accent}0`
-export const accentTile = accent => `${accent}1`
-export const accentBorder = accent => `${accent}2`
-export const accentBorderHover = accent => `${accent}3`
-export const accentIcon = accent => `${accent}8`
-export const accentText = accent => `${accent}9`
-
 export const SKILL_CATEGORIES = [
   {
     id: 'apis',

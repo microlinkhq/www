@@ -1,8 +1,3 @@
-// Shared scaffolding for the /features/<slug> landing pages. The
-// accent-agnostic layout primitives (Section, SectionInner, Caption,
-// DashedGridOverlay) are re-exported from the CustomerStory pattern via
-// index.js — only the feature-specific pieces live here.
-
 import { breakpoints, layout, theme, shadows } from 'theme'
 import React from 'react'
 import styled from 'styled-components'

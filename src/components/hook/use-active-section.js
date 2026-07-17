@@ -1,26 +1,39 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-export const useActiveSection = (ids, boundaryRef) => {
+export const useActiveSection = ids => {
   const [activeId, setActiveId] = useState(ids[0])
+  const idsRef = useRef(ids)
+  idsRef.current = ids
+
   const key = ids.join(',')
 
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    const sectionIds = key.split(',')
+    const sections = idsRef.current
+      .map(id => document.getElementById(id))
+      .filter(Boolean)
+
+    let anchors = []
     let frame
+
+    const measure = () => {
+      anchors = sections.map(
+        section =>
+          parseFloat(window.getComputedStyle(section).scrollMarginTop) || 0
+      )
+    }
 
     const update = () => {
       frame = undefined
 
-      const boundary = boundaryRef.current
-      const line = boundary ? boundary.getBoundingClientRect().bottom : 0
-
-      const current = sectionIds.reduce((active, id) => {
-        const section = document.getElementById(id)
-        if (!section) return active
-        return section.getBoundingClientRect().top <= line + 1 ? id : active
-      }, sectionIds[0])
+      const current = sections.reduce(
+        (active, section, index) =>
+          section.getBoundingClientRect().top <= anchors[index] + 1
+            ? section.id
+            : active,
+        idsRef.current[0]
+      )
 
       setActiveId(current)
     }
@@ -29,16 +42,22 @@ export const useActiveSection = (ids, boundaryRef) => {
       if (frame === undefined) frame = window.requestAnimationFrame(update)
     }
 
+    const remeasure = () => {
+      measure()
+      schedule()
+    }
+
+    measure()
     update()
     window.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
+    window.addEventListener('resize', remeasure)
 
     return () => {
       if (frame !== undefined) window.cancelAnimationFrame(frame)
       window.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
+      window.removeEventListener('resize', remeasure)
     }
-  }, [key, boundaryRef])
+  }, [key])
 
   return activeId
 }

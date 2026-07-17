@@ -12,7 +12,7 @@ export {
   SectionInner,
   Caption
 } from 'components/patterns/CustomerStory/primitives'
-export { DashedGridOverlay } from 'components/patterns/CustomerStory/DashedGridOverlay'
+export { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
 export {
   Arrow,
   BodyText,

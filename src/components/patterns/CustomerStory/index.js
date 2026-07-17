@@ -9,7 +9,7 @@ export {
   Figure,
   FigureImage
 } from './primitives'
-export { DashedGridOverlay } from './DashedGridOverlay'
+export { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
 export { Eyebrow, StoryTag } from './chrome'
 export { Testimonial } from './Testimonial'
 export { MoreCustomers } from './MoreCustomers'

@@ -1,6 +1,6 @@
 import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import Layout from 'components/patterns/Layout'
-import { DashedGridOverlay } from 'components/patterns/CustomerStory/DashedGridOverlay'
+import { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
 import { Sparkles } from 'components/icons/Sparkles'
 import FeatherIcon from 'components/icons/Feather'
 import React from 'react'
@@ -188,8 +188,7 @@ const RequestSkill = () => (
         css={theme({
           color: 'black60',
           fontSize: 0,
-          pt: 2,
-          textAlign: ['center', 'center', 'left', 'left']
+          pt: 2
         })}
       >
         Request a skill and we’ll build it for you.

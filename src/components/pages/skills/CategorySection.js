@@ -1,4 +1,4 @@
-import { theme, layout } from 'theme'
+import { theme, layout, accentBand, accentIcon, accentTile } from 'theme'
 import FeatherIcon from 'components/icons/Feather'
 import SubheadBase from 'components/elements/Subhead'
 import { withTitle } from 'helpers/hoc/with-title'
@@ -13,7 +13,6 @@ import {
   CATEGORY_TITLE_FONT_SIZE,
   SECTION_SCROLL_MARGIN
 } from './constants'
-import { accentBand, accentIcon, accentTile } from './taxonomy'
 
 const Subhead = withTitle(SubheadBase)
 
@@ -80,7 +79,6 @@ const CategorySection = ({ category }) => (
             color: 'black60',
             fontSize: 0,
             lineHeight: 1,
-            textAlign: 'left',
             pt: 2
           })}
         >
@@ -88,7 +86,7 @@ const CategorySection = ({ category }) => (
         </Text>
       </Box>
     </Flex>
-    <Flex
+    <Box
       as='ul'
       css={theme({
         listStyle: 'none',
@@ -96,7 +94,8 @@ const CategorySection = ({ category }) => (
         p: 0,
         width: '100%',
         minWidth: 0,
-        flexWrap: 'wrap',
+        display: 'grid',
+        gridTemplateColumns: ['1fr', '1fr', 'repeat(2, 1fr)', 'repeat(2, 1fr)'],
         alignContent: 'flex-start',
         gap: 3
       })}
@@ -109,7 +108,7 @@ const CategorySection = ({ category }) => (
           fallbackIcon={category.icon}
         />
       ))}
-    </Flex>
+    </Box>
   </Flex>
 )
 

@@ -1,4 +1,4 @@
-import { DashedGridOverlay } from 'components/patterns/CustomerStory/DashedGridOverlay'
+import { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
 import { breakpoints, colors, layout, theme, shadows } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
