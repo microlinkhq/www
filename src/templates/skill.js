@@ -1,4 +1,3 @@
-import FlickeringBackground from 'components/patterns/FlickeringBackground/FlickeringBackground'
 import { Clipboard as ClipboardIcon } from 'components/icons/Clipboard'
 import { useClipboard } from 'components/hook/use-clipboard'
 import Heading from 'components/elements/Heading'
@@ -174,154 +173,212 @@ const SkillTemplate = ({ pageContext }) => {
   const installCommand = getInstallCommand(skillSlug || title)
 
   return (
-    <FlickeringBackground>
-      <Layout footer={{ style: { background: 'transparent' } }}>
-        <Flex
-          css={theme({
-            px: 3,
-            pt: [2, null, 3],
-            pb: [4, 5],
-            width: '100%',
-            flexDirection: 'column',
-            alignItems: 'center'
-          })}
-        >
-          <Box css={theme({ width: '100%', maxWidth: layout.large })}>
+    <Layout>
+      <Flex
+        css={theme({
+          px: 3,
+          pt: [2, null, 3],
+          pb: [4, 5],
+          width: '100%',
+          flexDirection: 'column',
+          alignItems: 'center'
+        })}
+      >
+        <Box css={theme({ width: '100%', maxWidth: layout.large })}>
+          <Flex
+            css={theme({
+              alignItems: 'center',
+              flexDirection: 'column',
+              pb: 4
+            })}
+          >
+            <Heading variant={null}>
+              Skill for <Heading as='span'>{title}</Heading>
+            </Heading>
             <Flex
               css={theme({
                 alignItems: 'center',
-                flexDirection: 'column',
-                pb: 4
+                gap: 2,
+                pt: 3,
+                flexWrap: 'wrap',
+                justifyContent: 'center'
               })}
             >
-              <Heading variant={null}>
-                Skill for <Heading as='span'>{title}</Heading>
-              </Heading>
-              <Flex
+              <Link href='/skills' css={theme({ fontSize: 1 })}>
+                Browse all skills
+              </Link>
+
+              {websiteUrl && (
+                <>
+                  <Separator />
+                  <Link
+                    href={websiteUrl}
+                    css={theme({ fontSize: 1 })}
+                    title='Open project website'
+                    prefetch={false}
+                    isInternal={false}
+                  >
+                    {websiteLabel}
+                  </Link>
+                </>
+              )}
+              {githubUrl && (
+                <>
+                  <Separator />
+                  <GitHubIcon css={theme({ color: 'gray8' })} />
+                  <Link
+                    href={githubUrl}
+                    css={theme({ fontSize: 1 })}
+                    title='Open project source code'
+                    prefetch={false}
+                    isInternal={false}
+                  >
+                    Project on GitHub
+                  </Link>
+                </>
+              )}
+
+              {skillSourceUrl && (
+                <>
+                  <Separator />
+                  <Link
+                    href={skillSourceUrl}
+                    css={theme({ fontSize: 1 })}
+                    title='Open skill definition source'
+                    prefetch={false}
+                    isInternal={false}
+                  >
+                    Edit this skill
+                  </Link>
+                </>
+              )}
+            </Flex>
+          </Flex>
+          <Text
+            as='p'
+            css={theme({
+              color: 'black60',
+              fontSize: [2, 3],
+              px: [0, 5],
+              textAlign: 'center'
+            })}
+          >
+            {summary}
+          </Text>
+
+          {triggerPhrases.length > 0 && (
+            <Box css={theme({ pt: 4 })}>
+              <Text
+                as='h2'
                 css={theme({
-                  alignItems: 'center',
-                  gap: 2,
-                  pt: 3,
-                  flexWrap: 'wrap',
-                  justifyContent: 'center'
+                  m: 0,
+                  fontWeight: 'bold',
+                  fontSize: [1, 2]
                 })}
               >
-                <Link href='/skills' css={theme({ fontSize: 1 })}>
-                  Browse all skills
-                </Link>
-
-                {websiteUrl && (
-                  <>
-                    <Separator />
-                    <Link
-                      href={websiteUrl}
-                      css={theme({ fontSize: 1 })}
-                      title='Open project website'
-                      prefetch={false}
-                      isInternal={false}
-                    >
-                      {websiteLabel}
-                    </Link>
-                  </>
-                )}
-                {githubUrl && (
-                  <>
-                    <Separator />
-                    <GitHubIcon css={theme({ color: 'gray8' })} />
-                    <Link
-                      href={githubUrl}
-                      css={theme({ fontSize: 1 })}
-                      title='Open project source code'
-                      prefetch={false}
-                      isInternal={false}
-                    >
-                      Project on GitHub
-                    </Link>
-                  </>
-                )}
-
-                {skillSourceUrl && (
-                  <>
-                    <Separator />
-                    <Link
-                      href={skillSourceUrl}
-                      css={theme({ fontSize: 1 })}
-                      title='Open skill definition source'
-                      prefetch={false}
-                      isInternal={false}
-                    >
-                      Edit this skill
-                    </Link>
-                  </>
-                )}
+                User intent
+              </Text>
+              <Flex
+                as='ul'
+                css={theme({
+                  listStyle: 'none',
+                  m: 0,
+                  p: 0,
+                  pt: 2,
+                  gap: 2,
+                  flexWrap: 'wrap'
+                })}
+              >
+                {triggerPhrases.map(trigger => (
+                  <Text
+                    as='li'
+                    key={trigger}
+                    css={theme({
+                      px: 2,
+                      py: 1,
+                      bg: 'black5',
+                      borderRadius: 2,
+                      color: 'black70',
+                      fontSize: 0
+                    })}
+                  >
+                    {trigger}
+                  </Text>
+                ))}
               </Flex>
+            </Box>
+          )}
+
+          <Text
+            as='h2'
+            css={theme({
+              pt: 5,
+              pb: 3,
+              fontWeight: 'bold',
+              fontSize: [1, 2]
+            })}
+          >
+            Installation
+          </Text>
+          <Box
+            css={theme({
+              bg: 'white',
+              border: 1,
+              borderColor: 'black10',
+              borderRadius: 3,
+              p: [3, 4]
+            })}
+          >
+            <Flex
+              css={theme({
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              })}
+            >
+              <Text
+                as='pre'
+                css={theme({
+                  m: 0,
+                  color: 'black80',
+                  fontFamily: 'mono',
+                  fontSize: 0
+                })}
+                style={{
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-word',
+                  flex: 1
+                }}
+              >
+                {installCommand}
+              </Text>
+              <Text
+                as='button'
+                type='button'
+                aria-label='Copy install command'
+                title='Copy install command'
+                onClick={() => {
+                  toClipboard({
+                    copy: installCommand,
+                    text: 'Install command copied'
+                  })
+                }}
+                css={theme({
+                  bg: 'transparent',
+                  border: 0,
+                  color: 'black40',
+                  p: 0,
+                  ml: 3,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center'
+                })}
+              >
+                <ClipboardIcon />
+              </Text>
             </Flex>
-            <Text
-              as='p'
-              css={theme({
-                color: 'black60',
-                fontSize: [2, 3],
-                px: [0, 5],
-                textAlign: 'center'
-              })}
-            >
-              {summary}
-            </Text>
+          </Box>
 
-            {triggerPhrases.length > 0 && (
-              <Box css={theme({ pt: 4 })}>
-                <Text
-                  as='h2'
-                  css={theme({
-                    m: 0,
-                    fontWeight: 'bold',
-                    fontSize: [1, 2]
-                  })}
-                >
-                  User intent
-                </Text>
-                <Flex
-                  as='ul'
-                  css={theme({
-                    listStyle: 'none',
-                    m: 0,
-                    p: 0,
-                    pt: 2,
-                    gap: 2,
-                    flexWrap: 'wrap'
-                  })}
-                >
-                  {triggerPhrases.map(trigger => (
-                    <Text
-                      as='li'
-                      key={trigger}
-                      css={theme({
-                        px: 2,
-                        py: 1,
-                        bg: 'black5',
-                        borderRadius: 2,
-                        color: 'black70',
-                        fontSize: 0
-                      })}
-                    >
-                      {trigger}
-                    </Text>
-                  ))}
-                </Flex>
-              </Box>
-            )}
-
-            <Text
-              as='h2'
-              css={theme({
-                pt: 5,
-                pb: 3,
-                fontWeight: 'bold',
-                fontSize: [1, 2]
-              })}
-            >
-              Installation
-            </Text>
+          <Box css={theme({ pt: 4 })}>
             <Box
               css={theme({
                 bg: 'white',
@@ -331,45 +388,20 @@ const SkillTemplate = ({ pageContext }) => {
                 p: [3, 4]
               })}
             >
-              <Flex
-                css={theme({
-                  alignItems: 'center',
-                  justifyContent: 'space-between'
-                })}
-              >
-                <Text
-                  as='pre'
-                  css={theme({
-                    m: 0,
-                    color: 'black80',
-                    fontFamily: 'mono',
-                    fontSize: 0
-                  })}
-                  style={{
-                    whiteSpace: 'pre-wrap',
-                    wordBreak: 'break-word',
-                    flex: 1
-                  }}
-                >
-                  {installCommand}
-                </Text>
+              <Flex css={theme({ justifyContent: 'flex-end', pb: 2 })}>
                 <Text
                   as='button'
                   type='button'
-                  aria-label='Copy install command'
-                  title='Copy install command'
+                  aria-label='Copy markdown'
+                  title='Copy markdown'
                   onClick={() => {
-                    toClipboard({
-                      copy: installCommand,
-                      text: 'Install command copied'
-                    })
+                    toClipboard({ copy: markdown, text: 'Markdown copied' })
                   }}
                   css={theme({
                     bg: 'transparent',
                     border: 0,
                     color: 'black40',
                     p: 0,
-                    ml: 3,
                     cursor: 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center'
@@ -378,95 +410,60 @@ const SkillTemplate = ({ pageContext }) => {
                   <ClipboardIcon />
                 </Text>
               </Flex>
-            </Box>
 
-            <Box css={theme({ pt: 4 })}>
-              <Box
+              <Text
+                as='pre'
                 css={theme({
-                  bg: 'white',
-                  border: 1,
-                  borderColor: 'black10',
-                  borderRadius: 3,
-                  p: [3, 4]
+                  m: 0,
+                  color: 'black80',
+                  fontFamily: 'mono',
+                  fontSize: 0
                 })}
+                style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}
               >
-                <Flex css={theme({ justifyContent: 'flex-end', pb: 2 })}>
-                  <Text
-                    as='button'
-                    type='button'
-                    aria-label='Copy markdown'
-                    title='Copy markdown'
-                    onClick={() => {
-                      toClipboard({ copy: markdown, text: 'Markdown copied' })
-                    }}
-                    css={theme({
-                      bg: 'transparent',
-                      border: 0,
-                      color: 'black40',
-                      p: 0,
-                      cursor: 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center'
-                    })}
-                  >
-                    <ClipboardIcon />
-                  </Text>
-                </Flex>
-
-                <Text
-                  as='pre'
-                  css={theme({
-                    m: 0,
-                    color: 'black80',
-                    fontFamily: 'mono',
-                    fontSize: 0
-                  })}
-                  style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}
-                >
-                  {markdown}
-                </Text>
-              </Box>
-            </Box>
-
-            {relatedSkills.length > 0 && (
-              <Box css={theme({ pt: 5 })}>
-                <Text
-                  as='h2'
-                  css={theme({
-                    m: 0,
-                    fontWeight: 'bold',
-                    fontSize: [1, 2]
-                  })}
-                >
-                  Related skills
-                </Text>
-                <Flex
-                  as='ul'
-                  css={theme({
-                    listStyle: 'none',
-                    m: 0,
-                    p: 0,
-                    pt: 2,
-                    gap: 3,
-                    flexWrap: 'wrap'
-                  })}
-                >
-                  {relatedSkills.map(skill => (
-                    <Text as='li' key={skill.slug} css={theme({ m: 0 })}>
-                      <Link href={`/skills/${skill.slug}`}>{skill.name}</Link>
-                    </Text>
-                  ))}
-                </Flex>
-              </Box>
-            )}
-
-            <Box css={theme({ pt: 3 })}>
-              <ClipboardComponent />
+                {markdown}
+              </Text>
             </Box>
           </Box>
-        </Flex>
-      </Layout>
-    </FlickeringBackground>
+
+          {relatedSkills.length > 0 && (
+            <Box css={theme({ pt: 5 })}>
+              <Text
+                as='h2'
+                css={theme({
+                  m: 0,
+                  fontWeight: 'bold',
+                  fontSize: [1, 2]
+                })}
+              >
+                Related skills
+              </Text>
+              <Flex
+                as='ul'
+                css={theme({
+                  listStyle: 'none',
+                  m: 0,
+                  p: 0,
+                  pt: 2,
+                  gap: 3,
+                  flexWrap: 'wrap'
+                })}
+              >
+                {relatedSkills.map(skill => (
+                  <Text as='li' key={skill.slug} css={theme({ m: 0 })}>
+                    <Link href={`/skills/${skill.slug}`}>{skill.name}</Link>
+                  </Text>
+                ))}
+              </Flex>
+            </Box>
+          )}
+
+          <Box css={theme({ pt: 3 })}>
+            <ClipboardComponent />
+          </Box>
+        </Box>
+      </Flex>
+    </Layout>
   )
 }
 

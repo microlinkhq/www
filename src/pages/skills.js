@@ -1,5 +1,4 @@
 import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
-import FlickeringBackground from 'components/patterns/FlickeringBackground/FlickeringBackground'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
 import Caption from 'components/patterns/Caption/Caption'
@@ -287,133 +286,131 @@ const SkillCard = ({ skill }) => (
 )
 
 const SkillsPage = () => (
-  <FlickeringBackground>
-    <Layout footer={{ style: { background: 'transparent' } }}>
-      <Flex css={theme({ flexDirection: 'column', alignItems: 'center' })}>
+  <Layout>
+    <Flex css={theme({ flexDirection: 'column', alignItems: 'center' })}>
+      <Flex
+        css={theme({
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center'
+        })}
+      >
+        <Heading variant={null} css={theme({ maxWidth: layout.large })}>
+          Microlink{' '}
+          <Heading titleize={false} as='span'>
+            SKILLS
+          </Heading>
+        </Heading>
+        <Caption
+          forwardedAs='p'
+          css={theme({ pt: 3, px: 4, maxWidth: layout.small })}
+        >
+          A curated set of reusable skills built for AI agents.
+        </Caption>
+        <Text
+          css={theme({
+            pt: 3,
+            px: 4,
+            maxWidth: layout.normal,
+            color: 'black60'
+          })}
+        >
+          Browse by workflow category, open individual skill pages for full
+          implementation details, and copy install commands directly.
+        </Text>
+      </Flex>
+
+      <Flex
+        as='nav'
+        aria-label='Browse skills by workflow category'
+        css={theme({
+          justifyContent: 'center',
+          pt: 3,
+          width: '100%',
+          maxWidth: layout.small,
+          flexWrap: 'wrap',
+          gap: 3
+        })}
+      >
+        {groupedSkills.map(category => (
+          <Link key={category.id} href={`/skills/#${category.id}`}>
+            {`${category.title} (${category.skills.length})`}
+          </Link>
+        ))}
+      </Flex>
+
+      {groupedSkills.map(category => (
         <Flex
+          as='section'
+          key={category.id}
+          id={category.id}
+          aria-labelledby={`${category.id}-title`}
           css={theme({
             flexDirection: 'column',
             alignItems: 'center',
-            textAlign: 'center'
-          })}
-        >
-          <Heading variant={null} css={theme({ maxWidth: layout.large })}>
-            Microlink{' '}
-            <Heading titleize={false} as='span'>
-              SKILLS
-            </Heading>
-          </Heading>
-          <Caption
-            forwardedAs='p'
-            css={theme({ pt: 3, px: 4, maxWidth: layout.small })}
-          >
-            A curated set of reusable skills built for AI agents.
-          </Caption>
-          <Text
-            css={theme({
-              pt: 3,
-              px: 4,
-              maxWidth: layout.normal,
-              color: 'black60'
-            })}
-          >
-            Browse by workflow category, open individual skill pages for full
-            implementation details, and copy install commands directly.
-          </Text>
-        </Flex>
-
-        <Flex
-          as='nav'
-          aria-label='Browse skills by workflow category'
-          css={theme({
-            justifyContent: 'center',
-            pt: 3,
-            width: '100%',
-            maxWidth: layout.small,
-            flexWrap: 'wrap',
-            gap: 3
-          })}
-        >
-          {groupedSkills.map(category => (
-            <Link key={category.id} href={`/skills/#${category.id}`}>
-              {`${category.title} (${category.skills.length})`}
-            </Link>
-          ))}
-        </Flex>
-
-        {groupedSkills.map(category => (
-          <Flex
-            as='section'
-            key={category.id}
-            id={category.id}
-            aria-labelledby={`${category.id}-title`}
-            css={theme({
-              flexDirection: 'column',
-              alignItems: 'center',
-              py: SECTION_VERTICAL_SPACING,
-              width: '100%',
-              maxWidth: layout.large
-            })}
-          >
-            <Box css={theme({ pb: 3, textAlign: 'center' })}>
-              <Subhead
-                titleize={false}
-                id={`${category.id}-title`}
-                css={theme({ m: 0 })}
-              >
-                {category.title}
-              </Subhead>
-              <Text
-                css={theme({
-                  color: 'black60'
-                })}
-              >
-                {category.description}
-              </Text>
-            </Box>
-            <Flex
-              as='ul'
-              css={theme({
-                listStyle: 'none',
-                m: 0,
-                p: 0,
-                pt: 3,
-                width: '100%',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between'
-              })}
-            >
-              {category.skills.map(skill => (
-                <SkillCard key={skill.slug} skill={skill} />
-              ))}
-            </Flex>
-          </Flex>
-        ))}
-
-        <Flex
-          css={theme({
-            pt: [5, null, 6],
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexDirection: ['column', null, 'row'],
+            py: SECTION_VERTICAL_SPACING,
             width: '100%',
             maxWidth: layout.large
           })}
         >
-          <Subhead>Miss a skill?</Subhead>
-          <Box css={theme({ pt: [4, null, 0] })}>
-            <Button
-              onClick={() => {
-                window.open(REQUEST_SKILL_URL, '_blank', 'noopener noreferrer')
-              }}
+          <Box css={theme({ pb: 3, textAlign: 'center' })}>
+            <Subhead
+              titleize={false}
+              id={`${category.id}-title`}
+              css={theme({ m: 0 })}
             >
-              <Caps>Request a Skill</Caps>
-            </Button>
+              {category.title}
+            </Subhead>
+            <Text
+              css={theme({
+                color: 'black60'
+              })}
+            >
+              {category.description}
+            </Text>
           </Box>
+          <Flex
+            as='ul'
+            css={theme({
+              listStyle: 'none',
+              m: 0,
+              p: 0,
+              pt: 3,
+              width: '100%',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between'
+            })}
+          >
+            {category.skills.map(skill => (
+              <SkillCard key={skill.slug} skill={skill} />
+            ))}
+          </Flex>
         </Flex>
+      ))}
+
+      <Flex
+        css={theme({
+          pt: [5, null, 6],
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexDirection: ['column', null, 'row'],
+          width: '100%',
+          maxWidth: layout.large
+        })}
+      >
+        <Subhead>Miss a skill?</Subhead>
+        <Box css={theme({ pt: [4, null, 0] })}>
+          <Button
+            onClick={() => {
+              window.open(REQUEST_SKILL_URL, '_blank', 'noopener noreferrer')
+            }}
+          >
+            <Caps>Request a Skill</Caps>
+          </Button>
+        </Box>
       </Flex>
-    </Layout>
-  </FlickeringBackground>
+    </Flex>
+  </Layout>
 )
 
 export default SkillsPage
