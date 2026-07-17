@@ -13,6 +13,7 @@ import {
   CATEGORY_TITLE_FONT_SIZE,
   SECTION_SCROLL_MARGIN
 } from './constants'
+import { accentBand, accentIcon, accentTile } from './taxonomy'
 
 const Subhead = withTitle(SubheadBase)
 
@@ -29,7 +30,7 @@ const CategorySection = ({ category }) => (
       width: '100%',
       maxWidth: layout.large,
       borderRadius: 5,
-      bg: `${category.accent}0`,
+      bg: accentBand(category.accent),
       scrollMarginTop: SECTION_SCROLL_MARGIN
     })}
   >
@@ -51,13 +52,13 @@ const CategorySection = ({ category }) => (
           width: CATEGORY_ICON_TILE_SIZE,
           height: CATEGORY_ICON_TILE_SIZE,
           borderRadius: 4,
-          bg: `${category.accent}1`
+          bg: accentTile(category.accent)
         })}
       >
         <FeatherIcon
           icon={category.icon}
           size={[2, 2, 3, 3]}
-          color={`${category.accent}7`}
+          color={accentIcon(category.accent)}
         />
       </Flex>
       <Box>

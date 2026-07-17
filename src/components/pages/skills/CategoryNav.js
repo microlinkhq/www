@@ -8,6 +8,12 @@ import React from 'react'
 import { useActiveSection } from 'components/hook/use-active-section'
 
 import { ACTIVE_SECTION_OFFSET, NAV_TOP } from './constants'
+import {
+  accentBand,
+  accentBorder,
+  accentBorderHover,
+  accentText
+} from './taxonomy'
 
 const Chip = styled(Text).attrs({ as: 'a' })`
   white-space: nowrap;
@@ -27,16 +33,16 @@ const CategoryChip = ({ category, isActive }) => (
       py: 2,
       minHeight: touchTargets.minHeight,
       border: 1,
-      borderColor: isActive ? `${category.accent}2` : 'black10',
+      borderColor: isActive ? accentBorder(category.accent) : 'black10',
       borderRadius: 3,
-      bg: isActive ? `${category.accent}0` : 'white',
-      color: isActive ? `${category.accent}7` : 'black60',
+      bg: isActive ? accentBand(category.accent) : 'white',
+      color: isActive ? accentText(category.accent) : 'black60',
       fontSize: 0,
       fontWeight: isActive ? 'bold' : 'normal',
       textDecoration: 'none',
       '&:hover': {
-        borderColor: isActive ? `${category.accent}3` : 'black20',
-        color: isActive ? `${category.accent}8` : 'black'
+        borderColor: isActive ? accentBorderHover(category.accent) : 'black20',
+        color: isActive ? accentText(category.accent) : 'black'
       }
     })}
   >
@@ -44,7 +50,7 @@ const CategoryChip = ({ category, isActive }) => (
       icon={category.icon}
       size={0}
       aria-hidden='true'
-      color={isActive ? `${category.accent}7` : 'black40'}
+      color={isActive ? accentText(category.accent) : 'black60'}
     />
     {`${category.title} (${category.skills.length})`}
   </Chip>

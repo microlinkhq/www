@@ -9,6 +9,7 @@ import React from 'react'
 
 import { getSkillIcon } from './catalog'
 import { SKILL_ICON_TILE_SIZE } from './constants'
+import { accentBand, accentBorderHover, accentIcon } from './taxonomy'
 
 const CardLink = styled(Link)`
   transition: border-color ${transition.medium}, box-shadow ${transition.medium},
@@ -52,7 +53,7 @@ const SkillCard = ({ skill, accent, fallbackIcon }) => (
         boxShadow: 1,
         textDecoration: 'none',
         '&:hover': {
-          borderColor: `${accent}3`,
+          borderColor: accentBorderHover(accent),
           boxShadow: 3
         }
       })}
@@ -67,13 +68,13 @@ const SkillCard = ({ skill, accent, fallbackIcon }) => (
             width: SKILL_ICON_TILE_SIZE,
             height: SKILL_ICON_TILE_SIZE,
             borderRadius: 3,
-            bg: `${accent}0`
+            bg: accentBand(accent)
           })}
         >
           <FeatherIcon
             icon={getSkillIcon(skill.slug, fallbackIcon)}
             size={1}
-            color={`${accent}7`}
+            color={accentIcon(accent)}
           />
         </Flex>
         <Flex css={theme({ flexDirection: 'column', gap: 2, minWidth: 0 })}>
@@ -110,7 +111,7 @@ const SkillCard = ({ skill, accent, fallbackIcon }) => (
           icon={ArrowRight}
           size={1}
           aria-hidden='true'
-          color={`${accent}6`}
+          color={accentIcon(accent)}
         />
       </Flex>
     </CardLink>
