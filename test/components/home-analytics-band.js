@@ -19,6 +19,8 @@ describe('home analytics band', () => {
       "const FAST_TITLE_FONT_SIZE = 'clamp(64px, 12vw, 180px)'"
     )
     expect(analytics).toContain("id='fast-anywhere-title'")
+    expect(analytics).toContain("top: ['-72px', '-72px', '-112px', '-112px']")
+    expect(analytics).not.toContain("borderRadius: '50%'")
   })
 
   test('keeps the production metrics compact and legible across screen sizes', () => {

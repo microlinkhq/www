@@ -113,13 +113,11 @@ const Analytics = () => (
       css={theme({
         position: 'absolute',
         zIndex: -1,
-        top: ['64px', '64px', '110px', '110px'],
+        top: ['-72px', '-72px', '-112px', '-112px'],
         left: '50%',
         width: '100%',
         maxWidth: '1536px',
-        transform: 'translateX(-50%)',
-        borderRadius: '50%',
-        boxShadow: `0 0 80px ${colors.pink3}`
+        transform: 'translateX(-50%)'
       })}
     />
     <Box
