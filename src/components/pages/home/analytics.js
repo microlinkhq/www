@@ -124,6 +124,29 @@ const Analytics = () => (
       aria-hidden='true'
       css={theme({
         position: 'absolute',
+        zIndex: 0,
+        top: ['64px', '64px', '96px', '96px'],
+        left: '50%',
+        width: '100%',
+        maxWidth: '1536px',
+        aspectRatio: 1,
+        opacity: 0.8,
+        pointerEvents: 'none',
+        transform: 'translateX(-50%)',
+        backgroundImage: `linear-gradient(90deg, ${colors.pink4}, ${colors.pink}, ${colors.grape6})`,
+        mixBlendMode: 'multiply',
+        maskImage: 'url(/images/upstash-globe-light.webp)',
+        maskSize: '100% 100%',
+        maskRepeat: 'no-repeat',
+        WebkitMaskImage: 'url(/images/upstash-globe-light.webp)',
+        WebkitMaskSize: '100% 100%',
+        WebkitMaskRepeat: 'no-repeat'
+      })}
+    />
+    <Box
+      aria-hidden='true'
+      css={theme({
+        position: 'absolute',
         zIndex: 1,
         right: 0,
         bottom: 0,

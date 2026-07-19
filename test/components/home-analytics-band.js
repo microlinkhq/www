@@ -21,6 +21,10 @@ describe('home analytics band', () => {
     expect(analytics).toContain("id='fast-anywhere-title'")
     expect(analytics).toContain("top: ['64px', '64px', '96px', '96px']")
     expect(analytics).not.toContain("borderRadius: '50%'")
+    expect(analytics).toContain(
+      "maskImage: 'url(/images/upstash-globe-light.webp)'"
+    )
+    expect(analytics).toContain("mixBlendMode: 'multiply'")
   })
 
   test('keeps the production metrics compact and legible across screen sizes', () => {
