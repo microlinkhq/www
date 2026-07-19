@@ -9,23 +9,23 @@ const analytics = fs.readFileSync(
 )
 
 describe('home analytics band', () => {
-  test('uses the supplied Fast Anywhere globe artwork', () => {
+  test('layers the supplied globe artwork behind the Fast Anywhere display title', () => {
     expect(
       fs.existsSync(path.join(root, 'static/images/fast-anywhere.png'))
     ).toBe(true)
+    expect(analytics).toContain("src='/images/fast-anywhere.png'")
+    expect(analytics).toContain("alt='Microlink’s global edge network'")
     expect(analytics).toContain(
-      "backgroundImage: 'url(/images/fast-anywhere.png)'"
+      "const FAST_TITLE_FONT_SIZE = 'clamp(64px, 12vw, 180px)'"
     )
+    expect(analytics).toContain("id='fast-anywhere-title'")
   })
 
-  test('keeps the production metrics legible across screen sizes', () => {
-    expect(analytics).toContain(
-      "<Subhead variant='gradient'>Fast Anywhere</Subhead>"
-    )
-    expect(analytics).toContain(
-      "gridTemplateColumns: ['1fr', '1fr', 'repeat(4, minmax(0, 1fr))']"
-    )
-    expect(analytics).toContain('borderLeft: isFirst ? 0 : [0, 0, 1, 1]')
+  test('keeps the production metrics compact and legible across screen sizes', () => {
+    expect(analytics).toContain("'repeat(4, minmax(0, 1fr))'")
     expect(analytics).toContain("fontVariantNumeric: 'tabular-nums'")
+    expect(analytics).toContain("height: ['320px', '400px', '500px', '500px']")
+    expect(analytics).toContain('linear-gradient(transparent,')
+    expect(analytics).toContain('colors.white')
   })
 })
