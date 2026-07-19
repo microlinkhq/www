@@ -107,13 +107,13 @@ const Analytics = () => (
     </Text>
     <Box
       as='img'
-      src='/images/fast-anywhere.png'
-      alt='Microlink’s global edge network'
+      src='/images/upstash-globe-light.webp'
+      alt='Global edge network'
       loading='lazy'
       css={theme({
         position: 'absolute',
         zIndex: -1,
-        top: ['-72px', '-72px', '-112px', '-112px'],
+        top: ['64px', '64px', '96px', '96px'],
         left: '50%',
         width: '100%',
         maxWidth: '1536px',
