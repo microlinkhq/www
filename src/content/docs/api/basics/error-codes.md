@@ -235,6 +235,18 @@ The target URL reached the maximum number of redirect after 10 times.
 
 Ensure the [url](/docs/api/parameters/url) provided reaches the destination URL in less than 10 hops.
 
+## EPDFTOOLARGE
+
+**Message**
+
+The target document is too large to render as a PDF within the time budget.
+
+**Solution**
+
+The [pdf](/docs/api/parameters/pdf) rendering could not finish before the request [timeout](/docs/api/parameters/timeout), even after splitting the document into parallel page ranges.
+
+Reduce the amount of content to rasterize with a smaller [pdf.scale](/docs/api/parameters/pdf), or split the source into shorter pages, and try again.
+
 ## EPRO
 
 **Message**

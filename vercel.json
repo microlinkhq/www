@@ -227,6 +227,10 @@
       "destination": "/docs/api/parameters/emulation"
     },
     {
+      "source": "/epdftoolarge",
+      "destination": "/docs/api/basics/error-codes#epdftoolarge"
+    },
+    {
       "source": "/epro",
       "destination": "/docs/api/basics/error-codes#epro"
     },

@@ -2,6 +2,7 @@ const ERROR_META = {
   ERATE: { title: 'Rate limit reached', showRetry: false },
   ETIMEOUT: { title: 'Request timed out', showRetry: true },
   EFATAL: { title: 'Processing failed', showRetry: true },
+  EPDFTOOLARGE: { title: 'Document too large', showRetry: false },
   EPROXYNEEDED: { title: 'Antibot detected', showRetry: false },
   EMPTY_MARKDOWN: {
     title: 'This URL couldn\u2019t be analyzed',
