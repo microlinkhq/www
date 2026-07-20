@@ -64,7 +64,10 @@ export const Head = ({ pageContext, location }) => {
               ])
             )
             const authorKeys = frontmatter.authors || []
-            return authorKeys.map(key => authorsByKey.get(key)).filter(Boolean)
+            return authorKeys.flatMap(key => {
+              const name = authorsByKey.get(key)
+              return name ? [name] : []
+            })
           })()
         : undefined
     }

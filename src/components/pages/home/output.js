@@ -1104,9 +1104,9 @@ const FunctionValue = ({ value, result }) => {
   if (isLinkList) {
     return (
       <Box css={theme({ p: 3, maxHeight: '320px', overflow: 'auto' })}>
-        {value.map((href, i) => (
+        {value.map(href => (
           <Box
-            key={i}
+            key={href}
             as='a'
             href={href}
             target='_blank'

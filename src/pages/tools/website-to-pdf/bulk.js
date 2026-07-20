@@ -1731,7 +1731,6 @@ const PdfHistory = ({
                 $active={entry.id === activeId}
                 tabIndex={disabled ? -1 : 0}
                 aria-label={`Load PDF of ${entry.settings.url}`}
-                aria-disabled={disabled || undefined}
                 onClick={() => !disabled && onSelect(entry)}
                 onKeyDown={e => {
                   if (!disabled && (e.key === 'Enter' || e.key === ' ')) {
@@ -2369,7 +2368,7 @@ const BulkPreview = ({
                     >
                       {failedResults.map((r, i) => (
                         <ErrorRow
-                          key={i}
+                          key={`${r.url}-${i}`}
                           r={r}
                           isLast={i === failedResults.length - 1}
                         />
@@ -2412,9 +2411,9 @@ const BulkPreview = ({
                         </Link>{' '}
                         if you need something else.
                       </React.Fragment>
-                    ].map((item, index) => (
+                    ].map(item => (
                       <Text
-                        key={index}
+                        key={item.key}
                         css={theme({
                           fontFamily: 'sans',
                           lineHeight: 2,

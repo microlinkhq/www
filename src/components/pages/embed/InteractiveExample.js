@@ -593,7 +593,6 @@ export const InteractiveExample = ({
               type='button'
               role='radio'
               aria-checked={isActive}
-              aria-pressed={isActive}
               onClick={() => setActiveDemo(demo)}
             >
               <svg

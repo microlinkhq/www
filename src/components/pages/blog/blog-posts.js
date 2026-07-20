@@ -90,7 +90,7 @@ export const BlogPostList = ({
               <Flex css={theme({ alignItems: 'center' })}>
                 {authorAvatars.map((avatar, index) => (
                   <Image
-                    key={`${avatar}-${index}`}
+                    key={avatar}
                     src={avatar}
                     alt={
                       authorNames?.[index]

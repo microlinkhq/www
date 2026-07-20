@@ -509,8 +509,8 @@ export const IframePreviewsShowcase = ({
 
   return (
     <Stage css={theme({ minHeight })}>
-      {PREVIEWS.map(({ component: Variant, name }, i) => (
-        <Layer key={i} $active={i === index} aria-hidden={i !== index}>
+      {PREVIEWS.map(({ id, component: Variant, name }, i) => (
+        <Layer key={id} $active={i === index} aria-hidden={i !== index}>
           <h3
             style={{
               position: 'absolute',

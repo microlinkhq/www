@@ -1382,8 +1382,8 @@ const GooglePage = () => {
           question,
           answer: (
             <>
-              {answers.map((answer, index) => (
-                <Text as='p' key={`${question}-${index}`} css={theme({ m: 0 })}>
+              {answers.map(answer => (
+                <Text as='p' key={answer} css={theme({ m: 0 })}>
                   {answer}
                 </Text>
               ))}

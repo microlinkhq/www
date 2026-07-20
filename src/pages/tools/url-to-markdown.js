@@ -1276,7 +1276,6 @@ const MarkdownHistory = ({
             $active={entry.id === activeId}
             tabIndex={disabled ? -1 : 0}
             aria-label={`Load markdown of ${entry.settings.url}`}
-            aria-disabled={disabled || undefined}
             onClick={() => !disabled && onSelect(entry)}
             onKeyDown={e => {
               if (!disabled && (e.key === 'Enter' || e.key === ' ')) {

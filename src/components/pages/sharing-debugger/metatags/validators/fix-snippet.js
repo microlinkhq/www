@@ -45,15 +45,13 @@ const buildPlaceholders = metadata => {
 }
 
 const addSection = (lines, title, content) => {
-  if (!content.length) return
+  if (!content.size) return
   if (lines.length) lines.push('')
   lines.push(`<!-- ${title} -->`, ...content)
 }
 
 const addUnique = (lines, ...entries) => {
-  entries.forEach(entry => {
-    if (!lines.includes(entry)) lines.push(entry)
-  })
+  entries.forEach(entry => lines.add(entry))
 }
 
 const getValue = (placeholders, name, value) =>
@@ -191,12 +189,12 @@ export const buildFixSnippet = ({ issues = [], metadata = {} } = {}) => {
       return groups
     },
     {
-      basic: [],
-      search: [],
-      schema: [],
-      twitter: [],
-      openGraph: [],
-      favicon: []
+      basic: new Set(),
+      search: new Set(),
+      schema: new Set(),
+      twitter: new Set(),
+      openGraph: new Set(),
+      favicon: new Set()
     }
   )
 

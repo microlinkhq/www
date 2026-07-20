@@ -342,11 +342,11 @@ const Hero = () => {
                 pt: 3
               })}
             >
-              {FEATURES.map((_, i) => (
+              {FEATURES.map((feature, i) => (
                 <Dot
-                  key={i}
+                  key={feature.name}
                   $active={i === index}
-                  aria-label={`Show ${FEATURES[i].name} feature`}
+                  aria-label={`Show ${feature.name} feature`}
                   onClick={() => goTo(i)}
                 />
               ))}

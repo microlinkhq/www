@@ -812,9 +812,10 @@ const CapabilityIcon = styled(Flex)`
 const CapabilityVariantPreview = React.memo(
   function CapabilityVariantPreview ({ chipId, data }) {
     const group = CHIP_GROUPS.find(g => g.id === chipId) || CHIP_GROUPS[0]
-    const variants = group.variantIds
-      .map(id => PREVIEW_VARIANTS.find(v => v.id === id))
-      .filter(Boolean)
+    const variants = group.variantIds.flatMap(id => {
+      const variant = PREVIEW_VARIANTS.find(v => v.id === id)
+      return variant ? [variant] : []
+    })
     return (
       <Flex
         css={theme({
@@ -1134,9 +1135,10 @@ const CapabilityStackInner = styled(Flex)`
 `
 
 const CapabilityPreviewStack = ({ data }) => {
-  const variants = CAPABILITY_STACK_VARIANT_IDS.map(id =>
-    PREVIEW_VARIANTS.find(v => v.id === id)
-  ).filter(Boolean)
+  const variants = CAPABILITY_STACK_VARIANT_IDS.flatMap(id => {
+    const variant = PREVIEW_VARIANTS.find(v => v.id === id)
+    return variant ? [variant] : []
+  })
   return (
     <CapabilityStackFrame aria-hidden='true'>
       <CapabilityStackInner>
@@ -1679,9 +1681,10 @@ const CustomerStoryLogo = styled('img')`
 `
 
 const CustomerStories = () => {
-  const stories = CUSTOMER_STORY_SLUGS.map(slug =>
-    CUSTOMERS.find(c => c.slug === slug)
-  ).filter(Boolean)
+  const stories = CUSTOMER_STORY_SLUGS.flatMap(slug => {
+    const story = CUSTOMERS.find(c => c.slug === slug)
+    return story ? [story] : []
+  })
 
   if (stories.length === 0) return null
 
@@ -1818,9 +1821,10 @@ const REPOS = ['metascraper', 'browserless', 'sdk']
 const PLAYGROUND_TOOL_PATHS = ['/tools/embed-url']
 const EMBEDDING_TOOLS =
   TOOL_CATALOG.find(section => section.category === 'Embedding')?.tools ?? []
-const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.map(path =>
-  EMBEDDING_TOOLS.find(tool => tool.href === path)
-).filter(Boolean)
+const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.flatMap(path => {
+  const tool = EMBEDDING_TOOLS.find(tool => tool.href === path)
+  return tool ? [tool] : []
+})
 
 const livePulse = keyframes`
   0%, 62% { color: inherit; }
@@ -2017,7 +2021,7 @@ const CallToAction = () => (
         })}
       >
         {CTA_LEAD_CHARS.map((char, i) => (
-          <CtaChar key={i} $i={i}>
+          <CtaChar key={`${char}-${i}`} $i={i}>
             {char}
           </CtaChar>
         ))}{' '}

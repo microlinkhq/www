@@ -1310,6 +1310,7 @@ const ExamplesGrid = () => {
       >
         {TOOLS.map(({ tool, accent }) => (
           <button
+            type='button'
             key={tool}
             data-tool={tool}
             className={`ex-pill${active === tool ? ' active' : ''}`}
@@ -1331,7 +1332,7 @@ const ExamplesGrid = () => {
       >
         {visible.map((example, i) => (
           <ExampleCard
-            key={`${active}-${example.tool}-${i}`}
+            key={`${active}-${example.prompt}`}
             example={example}
             delay={i * 35}
           />

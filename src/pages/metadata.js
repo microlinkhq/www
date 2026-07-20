@@ -111,9 +111,10 @@ const PLAYGROUND_TOOL_PATHS = ['/tools/sharing-debugger']
 const CARD_TITLE_FONT_SIZE = [2, 2, 3, 3]
 const METADATA_TOOLS =
   TOOL_CATALOG.find(section => section.category === 'Metadata')?.tools ?? []
-const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.map(path =>
-  METADATA_TOOLS.find(tool => tool.href === path)
-).filter(Boolean)
+const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.flatMap(path => {
+  const tool = METADATA_TOOLS.find(tool => tool.href === path)
+  return tool ? [tool] : []
+})
 
 const ACCENT = '#3e55ff'
 
@@ -955,7 +956,7 @@ const renderJson = (value, path = 'root', expanded, onToggle, indent = 0) => {
         <span className='json-punct'>[</span>
         {'\n'}
         {value.map((item, i) => (
-          <React.Fragment key={i}>
+          <React.Fragment key={`${path}.${i}`}>
             {padInner}
             {renderJson(item, `${path}.${i}`, expanded, onToggle, indent + 1)}
             {i < value.length - 1 && <span className='json-punct'>,</span>}
@@ -2538,8 +2539,10 @@ const Capabilities = ({ currentUrl, currentData }) => {
   }
 
   const palette = extractPalette(currentData)
-    .map(toColor)
-    .filter(Boolean)
+    .flatMap(entry => {
+      const color = toColor(entry)
+      return color ? [color] : []
+    })
     .slice(0, 6)
   const logoUrl = extractLogoUrl(currentData)
 
@@ -2638,9 +2641,9 @@ const Capabilities = ({ currentUrl, currentData }) => {
                       >
                         Palette
                       </Caps>
-                      {palette.map((color, i) => (
+                      {palette.map(color => (
                         <PaletteChip
-                          key={`${color}-${i}`}
+                          key={color}
                           $color={color}
                           aria-label={`Detected color ${color}`}
                         />
@@ -3081,7 +3084,7 @@ const renderStackApi = (apiCall, currentUrl) => {
       {parts.map((part, i) =>
         /^(meta&|screenshot|pdf|markdown|palette)$/.test(part)
           ? (
-            <span key={i} className='stack-api-param'>
+            <span key={`${part}-${i}`} className='stack-api-param'>
               {part}
             </span>
             )
@@ -4067,7 +4070,7 @@ const CallToAction = () => (
         })}
       >
         {CTA_LEAD_CHARS.map((char, i) => (
-          <CtaChar key={i} $i={i}>
+          <CtaChar key={`${char}-${i}`} $i={i}>
             {char}
           </CtaChar>
         ))}{' '}

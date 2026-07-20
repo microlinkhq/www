@@ -44,7 +44,7 @@ const Grid = ({
   ...props
 }) => (
   <>
-    {chunk(children, itemsPerRow).map((row, index) => (
+    {chunk(children, itemsPerRow).map(row => (
       <Flex
         as='ul'
         css={theme({
@@ -56,7 +56,7 @@ const Grid = ({
           ],
           pl: 0
         })}
-        key={index}
+        key={JSON.stringify(row[0])}
         {...props}
       >
         {row.map(rowProps => (

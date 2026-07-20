@@ -480,14 +480,13 @@ const generateCliCommand = (url, options = {}) => {
   const flattenedOptions = flattenObject(restOptions)
 
   const optionsString = Object.entries(flattenedOptions)
-    .map(([key, value]) => {
+    .flatMap(([key, value]) => {
       if (typeof value === 'boolean') {
-        return value ? `&${key}` : ''
+        return value ? `&${key}` : []
       }
       const escapedValue = escapeCliValue(value)
       return `&${key}=${escapedValue}`
     })
-    .filter(Boolean)
     .join('')
 
   // Add apiKey as a flag if present

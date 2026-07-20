@@ -145,9 +145,9 @@ const UserAgentsPage = () => {
             width: [`calc(100vw - ${space[4]})`, layout.small]
           })}
         >
-          {data.map((userAgent, index) => (
+          {data.map(userAgent => (
             <Box
-              key={`${userAgent}_${index}`}
+              key={userAgent}
               as='span'
               css={theme({
                 display: 'block',

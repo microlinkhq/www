@@ -106,9 +106,10 @@ const FEATURES = [
 const PLAYGROUND_TOOL_PATHS = ['/tools/url-to-markdown']
 const MARKDOWN_TOOLS =
   TOOL_CATALOG.find(section => section.category === 'Markdown')?.tools ?? []
-const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.map(path =>
-  MARKDOWN_TOOLS.find(tool => tool.href === path)
-).filter(Boolean)
+const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.flatMap(path => {
+  const tool = MARKDOWN_TOOLS.find(tool => tool.href === path)
+  return tool ? [tool] : []
+})
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -712,7 +713,7 @@ const highlightMarkdown = text => {
       inFrontmatter = fenceCount === 1
       if (fenceCount === 2) inFrontmatter = false
       return (
-        <span key={i}>
+        <span key={`${line}-${i}`}>
           <span className='md-meta-fence'>{line}</span>
           {'\n'}
         </span>
@@ -722,7 +723,7 @@ const highlightMarkdown = text => {
       const colonIdx = line.indexOf(':')
       if (colonIdx > 0) {
         return (
-          <span key={i}>
+          <span key={`${line}-${i}`}>
             <span className='md-meta-key'>{line.slice(0, colonIdx)}</span>:
             <span className='md-meta-value'>{line.slice(colonIdx + 1)}</span>
             {'\n'}
@@ -732,7 +733,7 @@ const highlightMarkdown = text => {
     }
     if (/^#{1,6}\s/.test(line)) {
       return (
-        <span key={i}>
+        <span key={`${line}-${i}`}>
           <span className='md-heading'>{line}</span>
           {'\n'}
         </span>
@@ -740,7 +741,7 @@ const highlightMarkdown = text => {
     }
     if (/^[-*]\s/.test(line)) {
       return (
-        <span key={i}>
+        <span key={`${line}-${i}`}>
           <span className='md-list'>{line.charAt(0)}</span>
           {line.slice(1)}
           {'\n'}
@@ -748,7 +749,7 @@ const highlightMarkdown = text => {
       )
     }
     return (
-      <span key={i}>
+      <span key={`${line}-${i}`}>
         {line}
         {'\n'}
       </span>
@@ -3248,7 +3249,7 @@ const CallToAction = () => (
         })}
       >
         {CTA_LEAD_CHARS.map((char, i) => (
-          <CtaChar key={i} $i={i}>
+          <CtaChar key={`${char}-${i}`} $i={i}>
             {char}
           </CtaChar>
         ))}{' '}

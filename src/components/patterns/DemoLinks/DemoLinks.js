@@ -32,12 +32,12 @@ const LogoWrap = styled(Box)`
 
 const DURATION = 60
 
-const logoIds = Object.keys(LogoBrand)
+const logoIds = new Set(Object.keys(LogoBrand))
 
 const DemoLinks = ({ children, chunkSize = 10, onClick }) => {
   // remove missing logos
   const links = children.filter(({ id }) => {
-    const hasLogo = logoIds.includes(id)
+    const hasLogo = logoIds.has(id)
     if (!hasLogo) console.warn(`DemoLinks: missing ${id} logo`)
     return hasLogo
   })

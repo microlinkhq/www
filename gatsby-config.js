@@ -232,12 +232,11 @@ module.exports = {
             return []
           }
 
-          return allPages
-            .filter(page => isSitemapAllowed(page.path))
-            .map(page => {
-              const lastmod = mdxMap[page.path] || pagesMap[page.path] || null
-              return { ...page, lastmod }
-            })
+          return allPages.flatMap(page => {
+            if (!isSitemapAllowed(page.path)) return []
+            const lastmod = mdxMap[page.path] || pagesMap[page.path] || null
+            return { ...page, lastmod }
+          })
         },
         serialize: ({ path: url, lastmod }) => {
           if (!lastmod) {

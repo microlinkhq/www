@@ -1329,7 +1329,6 @@ const ScreenshotHistory = ({
                 $active={entry.id === activeId}
                 tabIndex={disabled ? -1 : 0}
                 aria-label={`Load screenshot of ${entry.settings.url}`}
-                aria-disabled={disabled || undefined}
                 onClick={() => !disabled && onSelect(entry)}
                 onKeyDown={e => {
                   if (!disabled && (e.key === 'Enter' || e.key === ' ')) {
@@ -1703,7 +1702,7 @@ const BulkPreview = ({
                   >
                     {failedResults.map((r, i) => (
                       <Flex
-                        key={i}
+                        key={`${r.url}-${i}`}
                         css={theme({
                           gap: 2,
                           py: '6px',

@@ -461,12 +461,12 @@ const Comparison = () => (
               {values.map((value, i) =>
                 i === 1
                   ? (
-                    <ComparisonProPlanCell role='cell' key={i}>
+                    <ComparisonProPlanCell role='cell' key={PLAN_NAMES[i]}>
                       {renderComparisonValue(value)}
                     </ComparisonProPlanCell>
                     )
                   : (
-                    <ComparisonPlanCell role='cell' key={i}>
+                    <ComparisonPlanCell role='cell' key={PLAN_NAMES[i]}>
                       {renderComparisonValue(value)}
                     </ComparisonPlanCell>
                     )
@@ -1456,7 +1456,7 @@ const Cta = () => {
           })}
         >
           {CTA_LEAD_CHARS.map((char, i) => (
-            <CtaChar key={i} $i={i}>
+            <CtaChar key={`${char}-${i}`} $i={i}>
               {char}
             </CtaChar>
           ))}{' '}

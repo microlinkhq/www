@@ -340,7 +340,8 @@ const DEFAULT_URLS = {
 }
 
 const assertProductParity = (name, map, { except = [] } = {}) => {
-  const expected = Object.keys(PRODUCTS).filter(key => !except.includes(key))
+  const exceptSet = new Set(except)
+  const expected = Object.keys(PRODUCTS).filter(key => !exceptSet.has(key))
   const missing = expected.filter(key => !(key in map))
   const extra = Object.keys(map).filter(key => !(key in PRODUCTS))
   if (missing.length || extra.length) {
@@ -1114,7 +1115,7 @@ const Skeleton = () => (
   <Box css={theme({ p: '22px' })}>
     {[92, 64, 78, 54, 70, 48, 60].map((w, i) => (
       <SkeletonLine
-        key={i}
+        key={w}
         css={theme({ mb: 3, width: `${w}%`, animationDelay: `${i * 90}ms` })}
       />
     ))}

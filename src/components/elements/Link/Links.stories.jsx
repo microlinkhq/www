@@ -41,11 +41,11 @@ export const Default = () => (
   <>
     {variants.map(({ name, props }) => (
       <Story key={name} name={name} code={createCode(props)}>
-        {propsList.map((propItem, index) => (
-          <Flex key={`${name}:${index}`}>
+        {propsList.map(propItem => (
+          <Flex key={`${name}:${JSON.stringify(propItem)}`}>
             {states.map(state => (
               <Box
-                key={`${name}:${index}:${state}`}
+                key={`${name}:${JSON.stringify(propItem)}:${state}`}
                 css={theme({
                   display: ['block', 'inline'],
                   pr: 3,

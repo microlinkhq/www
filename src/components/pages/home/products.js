@@ -1020,8 +1020,8 @@ const LogoPreview = () => (
         gap: '10px'
       }}
     >
-      {LOGO_WIDTHS.map((width, i) => (
-        <LogoTile key={i}>
+      {LOGO_WIDTHS.map(width => (
+        <LogoTile key={width}>
           <LogoImg
             src={Microlink.logoUri}
             alt='Microlink logo'
@@ -1556,7 +1556,7 @@ const AnimatedPreview = () => (
         >
           {[80, 60, 72, 52, 66].map((w, i) => (
             <Skel
-              key={i}
+              key={w}
               css={{
                 width: `${w}%`,
                 height: '6px',

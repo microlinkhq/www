@@ -85,22 +85,25 @@ const serializeObject = (props, { quotes = true } = {}) => {
 }
 
 const formatHeaders = content => {
-  return content
-    .split('\n')
+  const lines = content.split('\n')
+
+  // Find the longest key to align properly
+  const maxKeyLength = Math.max(
+    ...lines.flatMap(line => {
+      const colonIndex = line.indexOf(':')
+      return colonIndex === -1
+        ? []
+        : line.substring(0, colonIndex).trim().length
+    })
+  )
+
+  return lines
     .map(line => {
       const colonIndex = line.indexOf(':')
       if (colonIndex === -1) return line
 
       const key = line.substring(0, colonIndex).trim()
       const value = line.substring(colonIndex + 1).trim()
-
-      // Find the longest key to align properly
-      const allLines = content.split('\n')
-      const maxKeyLength = Math.max(
-        ...allLines
-          .filter(l => l.includes(':'))
-          .map(l => l.substring(0, l.indexOf(':')).trim().length)
-      )
 
       return `${key.padEnd(maxKeyLength)} : ${value}`
     })

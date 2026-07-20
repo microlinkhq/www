@@ -911,57 +911,60 @@ const ToolbarDesktop = () => {
                           {section.description}
                         </Text>
                         <ResourcesListGrid as='ul'>
-                          {section.items
-                            .filter(({ label }) => label !== 'Blog')
-                            .map(
-                              ({
-                                label,
-                                href,
-                                actively,
-                                title,
-                                externalIcon,
-                                logo,
-                                icon: Icon
-                              }) => (
-                                <ResourcesMegaMenuItemLink
-                                  key={label}
-                                  forwardedAs='li'
-                                  href={href}
-                                  title={title}
-                                  actively={actively}
-                                  externalIcon={externalIcon}
-                                  data-event-location='Toolbar'
-                                  data-event-name={label}
-                                  onClick={handleClosePanel}
-                                  css={theme({
-                                    '> a': {
-                                      padding: '6px 12px',
-                                      alignItems: 'center'
-                                    },
-                                    whiteSpace: 'normal'
-                                  })}
-                                >
-                                  <ToolbarMenuItemMedia
-                                    label={label}
-                                    logo={logo}
-                                    icon={Icon}
-                                    iconClassName={
+                          {section.items.flatMap(
+                            ({
+                              label,
+                              href,
+                              actively,
+                              title,
+                              externalIcon,
+                              logo,
+                              icon: Icon
+                            }) =>
+                              label === 'Blog'
+                                ? (
+                                    []
+                                  )
+                                : (
+                                  <ResourcesMegaMenuItemLink
+                                    key={label}
+                                    forwardedAs='li'
+                                    href={href}
+                                    title={title}
+                                    actively={actively}
+                                    externalIcon={externalIcon}
+                                    data-event-location='Toolbar'
+                                    data-event-name={label}
+                                    onClick={handleClosePanel}
+                                    css={theme({
+                                      '> a': {
+                                        padding: '6px 12px',
+                                        alignItems: 'center'
+                                      },
+                                      whiteSpace: 'normal'
+                                    })}
+                                  >
+                                    <ToolbarMenuItemMedia
+                                      label={label}
+                                      logo={logo}
+                                      icon={Icon}
+                                      iconClassName={
                                       RESOURCE_MENU_ITEM_ICON_CLASSNAME
                                     }
-                                    iconCss={theme(
-                                      TOOLBAR_MENU_ITEM_ICON_STYLES
-                                    )}
-                                  />
-                                  <Text
-                                    as='span'
-                                    className='menu-item-title'
-                                    css={theme(TOOLBAR_MENU_ITEM_TITLE_STYLES)}
-                                  >
-                                    {label}
-                                  </Text>
-                                </ResourcesMegaMenuItemLink>
-                              )
-                            )}
+                                      iconCss={theme(
+                                        TOOLBAR_MENU_ITEM_ICON_STYLES
+                                      )}
+                                    />
+                                    <Text
+                                      as='span'
+                                      className='menu-item-title'
+                                      css={theme(TOOLBAR_MENU_ITEM_TITLE_STYLES)}
+                                    >
+                                      {label}
+                                    </Text>
+                                  </ResourcesMegaMenuItemLink>
+                                  )
+                          )}
                         </ResourcesListGrid>
                       </ResourcesListColumn>
                       {latestPosts.length > 0 && (

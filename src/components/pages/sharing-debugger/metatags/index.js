@@ -145,7 +145,7 @@ export const Metatags = ({
 
             return (
               <Box
-                key={index}
+                key={name}
                 css={theme({
                   mt: index > 0 ? 3 : 0,
                   mx: 'auto',

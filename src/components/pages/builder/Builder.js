@@ -667,6 +667,7 @@ const ElementsSection = ({ config, set }) => (
         <CheckboxWrap key={id}>
           <input
             type='checkbox'
+            aria-label={label}
             checked={!!config.elements[id]}
             onChange={e =>
               set({ elements: { ...config.elements, [id]: e.target.checked } })}
@@ -678,6 +679,7 @@ const ElementsSection = ({ config, set }) => (
     <CheckboxWrap>
       <input
         type='checkbox'
+        aria-label='Site name above title'
         checked={!!config.metaBefore}
         onChange={e => set({ metaBefore: e.target.checked })}
       />
@@ -1045,6 +1047,7 @@ const Builder = () => {
             <CheckboxWrap>
               <input
                 type='checkbox'
+                aria-label='Use Tailwind CSS classes'
                 checked={!!config.tailwind}
                 onChange={e => set({ tailwind: e.target.checked })}
               />

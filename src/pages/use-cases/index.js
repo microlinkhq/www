@@ -389,11 +389,11 @@ const Hero = () => {
                 pt: 3
               })}
             >
-              {CUSTOMERS.map((_, i) => (
+              {CUSTOMERS.map((customer, i) => (
                 <Dot
-                  key={i}
+                  key={customer.name}
                   $active={i === index}
-                  aria-label={`Show ${CUSTOMERS[i].name} quote`}
+                  aria-label={`Show ${customer.name} quote`}
                   onClick={() => goTo(i)}
                 />
               ))}

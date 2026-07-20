@@ -115,9 +115,10 @@ const PLAYGROUND_TOOL_PATHS = [
 ]
 const PDF_TOOLS =
   TOOL_CATALOG.find(section => section.category === 'PDF')?.tools ?? []
-const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.map(path =>
-  PDF_TOOLS.find(tool => tool.href === path)
-).filter(Boolean)
+const PLAYGROUND_TOOLS = PLAYGROUND_TOOL_PATHS.flatMap(path => {
+  const tool = PDF_TOOLS.find(tool => tool.href === path)
+  return tool ? [tool] : []
+})
 
 const ACCENT = 'rgb(224, 0, 172)'
 
@@ -2880,7 +2881,7 @@ const CallToAction = () => (
         })}
       >
         {CTA_LEAD_CHARS.map((char, i) => (
-          <CtaChar key={i} $i={i}>
+          <CtaChar key={`${char}-${i}`} $i={i}>
             {char}
           </CtaChar>
         ))}{' '}

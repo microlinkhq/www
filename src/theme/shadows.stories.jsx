@@ -19,11 +19,11 @@ const ShadowsStory = () => {
       })}
     >
       <Flex css={theme({ gap: 2, flexWrap: 'wrap', justifyContent: 'center' })}>
-        {shadows.map((_, index) => (
+        {shadows.map((shadow, index) => (
           <Box
             as='button'
             type='button'
-            key={index}
+            key={shadow}
             aria-pressed={level === index}
             onClick={() => setLevel(index)}
             css={theme({

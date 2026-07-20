@@ -31,9 +31,9 @@ export const PostAuthor = ({ authorIds = [] }) => {
     }
   `)
 
+  const authorIdSet = new Set(authorIds)
   const authors =
-    data?.allAuthorsYaml?.nodes?.filter(node => authorIds.includes(node.key)) ||
-    []
+    data?.allAuthorsYaml?.nodes?.filter(node => authorIdSet.has(node.key)) || []
 
   if (authors.length === 0) return null
 
@@ -48,10 +48,7 @@ export const PostAuthor = ({ authorIds = [] }) => {
       })}
     >
       {authors.map(author => (
-        <Flex
-          key={author.key}
-          css={theme({ alignItems: 'center', gap: 2 })}
-        >
+        <Flex key={author.key} css={theme({ alignItems: 'center', gap: 2 })}>
           <Image
             src={author.avatar}
             alt={`Avatar of ${author.name}`}

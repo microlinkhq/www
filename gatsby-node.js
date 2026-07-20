@@ -166,9 +166,9 @@ const generateOgImages = async ({ graphql, reporter }) => {
     )
   }
 
-  const pathnames = result.data.allSitePage.nodes
-    .map(node => node.path)
-    .filter(imagePath) // drop Gatsby internals (/404, app shell, …)
+  const pathnames = result.data.allSitePage.nodes.flatMap(
+    node => (imagePath(node.path) ? node.path : []) // drop Gatsby internals (/404, app shell, …)
+  )
 
   let cards
   try {
@@ -390,64 +390,60 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
     throw result.errors
   }
 
-  const pages = result.data.allMdx.edges
-    .filter(({ node }) => {
-      const source = node.parent?.sourceInstanceName
-      const slug = node.fields?.slug || ''
-      return PAGE_SOURCES.has(source) && !slug.startsWith('/fragments/')
-    })
-    .map(async ({ node }) => {
-      const slug = node.fields.slug.replace(/\/+$/, '')
-      const contentFilePath = node.internal.contentFilePath
-      const lastEdited = await getLastModifiedDate(contentFilePath)
-      const isBlogPage = node.fields.slug.startsWith('/blog/')
-      const isSkillPage = node.fields.slug.startsWith('/skills/')
-      const skillSlug = isSkillPage
-        ? node.fields.slug.split('/').filter(Boolean).pop()
-        : null
-      const frontmatter = isBlogPage
-        ? { ...node.frontmatter, title: formatTitle(node.frontmatter.title) }
-        : node.frontmatter
-      const templatePath = isSkillPage
-        ? path.resolve('./src/templates/skill.js')
-        : path.resolve('./src/templates/index.js')
-      const skillSourcePath =
-        skillSlug &&
-        path.resolve(
-          process.cwd(),
-          'data',
-          'skills-repo',
-          skillSlug,
-          'SKILL.md'
-        )
-      const rawContent = isSkillPage
-        ? existsSync(skillSourcePath)
-          ? readFileSync(skillSourcePath, 'utf8')
-          : readFileSync(contentFilePath, 'utf8')
-        : undefined
+  const createMdxPage = async node => {
+    const slug = node.fields.slug.replace(/\/+$/, '')
+    const contentFilePath = node.internal.contentFilePath
+    const lastEdited = await getLastModifiedDate(contentFilePath)
+    const isBlogPage = node.fields.slug.startsWith('/blog/')
+    const isSkillPage = node.fields.slug.startsWith('/skills/')
+    const skillSlug = isSkillPage
+      ? node.fields.slug.split('/').filter(Boolean).pop()
+      : null
+    const frontmatter = isBlogPage
+      ? { ...node.frontmatter, title: formatTitle(node.frontmatter.title) }
+      : node.frontmatter
+    const templatePath = isSkillPage
+      ? path.resolve('./src/templates/skill.js')
+      : path.resolve('./src/templates/index.js')
+    const skillSourcePath =
+      skillSlug &&
+      path.resolve(process.cwd(), 'data', 'skills-repo', skillSlug, 'SKILL.md')
+    const rawContent = isSkillPage
+      ? existsSync(skillSourcePath)
+        ? readFileSync(skillSourcePath, 'utf8')
+        : readFileSync(contentFilePath, 'utf8')
+      : undefined
 
-      const component = isSkillPage
-        ? templatePath
-        : `${templatePath}?__contentFilePath=${contentFilePath}`
+    const component = isSkillPage
+      ? templatePath
+      : `${templatePath}?__contentFilePath=${contentFilePath}`
 
-      return createPage({
-        path: slug,
-        component,
-        context: {
-          id: node.id,
-          description: node.frontmatter.description || node.description,
-          frontmatter,
-          githubUrl: await githubUrl(contentFilePath),
-          lastEdited,
-          isBlogPage: node.fields.slug.startsWith('/blog/'),
-          isDocPage: node.fields.slug.startsWith('/docs/'),
-          isSkillPage,
-          skillSlug,
-          rawContent,
-          slug: node.fields.slug
-        }
-      })
+    return createPage({
+      path: slug,
+      component,
+      context: {
+        id: node.id,
+        description: node.frontmatter.description || node.description,
+        frontmatter,
+        githubUrl: await githubUrl(contentFilePath),
+        lastEdited,
+        isBlogPage: node.fields.slug.startsWith('/blog/'),
+        isDocPage: node.fields.slug.startsWith('/docs/'),
+        isSkillPage,
+        skillSlug,
+        rawContent,
+        slug: node.fields.slug
+      }
     })
+  }
+
+  const pages = result.data.allMdx.edges.flatMap(({ node }) => {
+    const source = node.parent?.sourceInstanceName
+    const slug = node.fields?.slug || ''
+    return PAGE_SOURCES.has(source) && !slug.startsWith('/fragments/')
+      ? createMdxPage(node)
+      : []
+  })
 
   return Promise.all(pages)
 }

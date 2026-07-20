@@ -1406,8 +1406,9 @@ const compactHtml = html =>
 const serializeIframeScripts = scripts => {
   if (!Array.isArray(scripts) || scripts.length === 0) return ''
   return scripts
-    .filter(s => s && s.src)
-    .map(({ src, async, charset }) => {
+    .flatMap(script => {
+      if (!script || !script.src) return []
+      const { src, async, charset } = script
       const attrs = [`src="${escAttr(src)}"`]
       if (async) attrs.push('async')
       if (charset) attrs.push(`charset="${escAttr(charset)}"`)
@@ -1685,6 +1686,7 @@ const LayoutTab = ({ config, set, setHoverTarget }) => {
               <CheckboxWrap key={id} {...hover(id)}>
                 <input
                   type='checkbox'
+                  aria-label={label}
                   checked={!!config.elements[id]}
                   onChange={e => set(`elements.${id}`, e.target.checked)}
                 />
@@ -1699,6 +1701,7 @@ const LayoutTab = ({ config, set, setHoverTarget }) => {
                   <CheckboxWrap>
                     <input
                       type='checkbox'
+                      aria-label='Site name on top'
                       checked={!!config.metaBefore}
                       onChange={e => set('metaBefore', e.target.checked)}
                     />

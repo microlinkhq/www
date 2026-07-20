@@ -1120,7 +1120,7 @@ const RaceContainer = ({
                     <LaneTrack>
                       {isIntro && i === introHighlight && (
                         <IntroHighlightBar
-                          key={i}
+                          key={key}
                           style={{ background: serviceColors[key] }}
                         />
                       )}

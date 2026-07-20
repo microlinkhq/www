@@ -253,9 +253,9 @@ const OpenSource = ({
   ctaLabel = 'Explore on GitHub',
   ...props
 }) => {
-  const [primary, ...secondary] = repos
-    .map(name => REPOS_BY_NAME.get(name))
-    .filter(Boolean)
+  const [primary, ...secondary] = repos.flatMap(
+    name => REPOS_BY_NAME.get(name) || []
+  )
 
   return (
     <Container

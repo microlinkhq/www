@@ -39,12 +39,12 @@ export const useBlogIndex = () => {
 
   return map(get(allMdx, 'edges'), ({ node }) => {
     const authorKeys = node.frontmatter.authors || []
-    const authorAvatars = authorKeys
-      .map(key => authorsByKey.get(key)?.avatar)
-      .filter(Boolean)
-    const authorNames = authorKeys
-      .map(key => authorsByKey.get(key)?.name)
-      .filter(Boolean)
+    const authorAvatars = authorKeys.flatMap(
+      key => authorsByKey.get(key)?.avatar || []
+    )
+    const authorNames = authorKeys.flatMap(
+      key => authorsByKey.get(key)?.name || []
+    )
     return {
       ...node.fields,
       ...node.frontmatter,

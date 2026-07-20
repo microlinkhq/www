@@ -25,6 +25,36 @@
       {
         "files": ["src/helpers/skills.js"],
         "rules": ["deslop/unused-export"]
+      },
+      {
+        "files": ["package.json"],
+        "rules": ["deslop/unused-dependency"]
+      },
+      {
+        "files": [
+          "src/html.js",
+          "src/components/pages/builder/Builder.js",
+          "src/components/pages/builder/generators.js",
+          "src/components/pages/embed-url/EmbedTool.js",
+          "src/components/pages/embed/InteractiveExample.js",
+          "src/components/pages/home/hero.js"
+        ],
+        "rules": ["react-doctor/dangerous-html-sink"]
+      },
+      {
+        "files": ["src/helpers/get-api-url.js"],
+        "rules": ["react-doctor/insecure-crypto-risk"]
+      },
+      {
+        "files": ["gatsby-ssr.js"],
+        "rules": ["react-doctor/unsafe-json-in-html"]
+      },
+      {
+        "files": [
+          "src/pages/screenshot.js",
+          "src/components/pages/screenshot/lang/ScreenshotDemo.js"
+        ],
+        "rules": ["react-doctor/no-unknown-property"]
       }
     ]
   }

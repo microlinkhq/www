@@ -112,6 +112,7 @@ function ViewButton ({ view, activeView, onClick, isExpanded, disabled }) {
   return (
     <button
       id={buttonId}
+      type='button'
       disabled={disabled}
       onClick={onClick}
       aria-label={ariaLabel}
@@ -274,13 +275,21 @@ function InteractiveCodeEditor ({ activeLanguage, editable, code, setCode }) {
 
       {editable && (
         <Content
-          as='textarea'
+          forwardedAs='textarea'
           ref={textareaRef}
           value={code}
           onChange={e => setCode && setCode(e.target.value)}
           onScroll={handleScroll}
           aria-label='Edit code'
           aria-describedby='code-editor-help'
+          css={`
+            outline: none;
+
+            &:focus-visible {
+              outline: 2px solid ${colors.secondary};
+              outline-offset: -2px;
+            }
+          `}
           style={{
             position: 'absolute',
             top: 0,
@@ -290,7 +299,6 @@ function InteractiveCodeEditor ({ activeLanguage, editable, code, setCode }) {
             background: 'transparent',
             color: 'transparent',
             resize: 'none',
-            outline: 'none',
             border: 'none',
             caretColor: colors.secondary
           }}
@@ -803,6 +811,7 @@ const TerminalActions = React.memo(
       }}
     >
       <button
+        type='button'
         onClick={() => setShowApiKeyInput(!showApiKeyInput)}
         title={showApiKeyInput ? 'Hide API key input' : 'Show API key input'}
         aria-label={
@@ -848,6 +857,7 @@ const TerminalActions = React.memo(
         />
       </button>
       <button
+        type='button'
         onClick={handleOpenInBrowser}
         title='Open API request in browser'
         aria-label='Open API request in browser'

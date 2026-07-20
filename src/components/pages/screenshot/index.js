@@ -774,7 +774,7 @@ export const ScreenshotHistory = ({
       </Flex>
       <HistoryScrollContainer
         ref={scrollRef}
-        role='list'
+        role='listbox'
         aria-label={`${
           entityLabel.charAt(0).toUpperCase() + entityLabel.slice(1)
         } history`}
@@ -782,10 +782,11 @@ export const ScreenshotHistory = ({
         {entries.map(entry => (
           <HistoryThumbnail
             key={entry.id}
-            role='listitem'
+            role='option'
             $active={entry.id === activeId}
             tabIndex={disabled ? -1 : 0}
             aria-label={`Load ${entityLabel} of ${entry.settings.url}`}
+            aria-selected={entry.id === activeId}
             aria-disabled={disabled || undefined}
             onClick={() => !disabled && onSelect(entry)}
             onKeyDown={e => {

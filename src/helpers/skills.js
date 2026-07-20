@@ -93,8 +93,7 @@ export const getTriggerPhrases = value => {
   if (!useWhen) return []
 
   return splitTopLevelComma(useWhen)
-    .map(normalizeIntent)
-    .filter(Boolean)
+    .flatMap(intent => normalizeIntent(intent) || [])
     .slice(0, 6)
 }
 
@@ -140,12 +139,11 @@ export const getRelatedSkills = ({ skillSlug, description, limit = 3 }) => {
   const targetTokens = tokenize(`${skillSlug || ''} ${description || ''}`)
 
   const byScore = relatedSkillIndex
-    .filter(skill => skill.slug !== skillSlug)
-    .map(skill => ({
-      ...skill,
-      score: scoreOverlap(targetTokens, skill.tokens)
-    }))
-    .filter(skill => skill.score > 0)
+    .flatMap(skill => {
+      if (skill.slug === skillSlug) return []
+      const score = scoreOverlap(targetTokens, skill.tokens)
+      return score > 0 ? [{ ...skill, score }] : []
+    })
     .sort((left, right) => right.score - left.score)
     .slice(0, limit)
 
