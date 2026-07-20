@@ -32,6 +32,9 @@ describe('home analytics band', () => {
     expect(analytics).toContain("minWidth: 0, textAlign: 'center'")
     expect(analytics).toContain("fontVariantNumeric: 'tabular-nums'")
     expect(analytics).toContain("height: ['320px', '400px', '500px', '500px']")
+    expect(analytics).toContain(
+      'zIndex: 2,\n        right: 0,\n        bottom: SECTION_VERTICAL_SPACING'
+    )
     expect(analytics).toContain('linear-gradient(transparent,')
     expect(analytics).toContain('colors.white')
   })

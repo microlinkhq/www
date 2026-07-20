@@ -161,7 +161,7 @@ const Analytics = () => (
         position: 'absolute',
         zIndex: 2,
         right: 0,
-        bottom: 0,
+        bottom: SECTION_VERTICAL_SPACING,
         left: 0,
         px: [3, 3, 4, 4],
         pb: [3, 3, 4, 4]
