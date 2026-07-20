@@ -17,7 +17,7 @@ import { Star, AlertCircle } from 'react-feather'
 export const Head = () => (
   <Meta
     title='Open Source Software'
-    description='Open Source Sustainability.'
+    description='It’s our great privilege to build our products using open source software (OSS) and we want to give the same effort back.'
   />
 )
 
