@@ -184,7 +184,7 @@ export const ScenarioRow = ({ children }) => (
 
 /* ─── Cards ──────────────────────────────────────────────────────────────── */
 
-export const RuleChip = styled(Text).attrs({ as: 'span' })`
+const RuleChip = styled(Text).attrs({ as: 'span' })`
   ${theme({
     display: 'inline-flex',
     alignItems: 'center',

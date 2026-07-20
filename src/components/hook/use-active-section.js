@@ -1,16 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useActiveSection = ids => {
   const [activeId, setActiveId] = useState(ids[0])
-  const idsRef = useRef(ids)
-  idsRef.current = ids
 
   const key = ids.join(',')
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
-
-    const sections = idsRef.current
+    const sectionIds = key.split(',')
+    const sections = sectionIds
       .map(id => document.getElementById(id))
       .filter(Boolean)
 
@@ -32,7 +29,7 @@ export const useActiveSection = ids => {
           section.getBoundingClientRect().top <= anchors[index] + 1
             ? section.id
             : active,
-        idsRef.current[0]
+        sectionIds[0]
       )
 
       setActiveId(current)

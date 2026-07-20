@@ -29,7 +29,6 @@ export {
   NodeLabel,
   NodeSub,
   PlanTag,
-  RuleChip,
   ScenarioHeader,
   ScenarioRow
 } from './primitives'

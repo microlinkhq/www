@@ -11,7 +11,7 @@ const codeStyle = css`
   text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
 `
 
-export const StyledCodeInline = styled(Text)`
+const StyledCodeInline = styled(Text)`
   ${codeStyle};
   ${wordBreak};
   display: inline;

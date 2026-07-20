@@ -245,7 +245,6 @@ const PdfViewer = ({
 
   const canvasElements = useMemo(() => {
     if (totalPages === 0) return null
-    canvasRefs.current = new Array(totalPages)
 
     return Array.from({ length: totalPages }, (_, i) => (
       <PageCanvas
@@ -257,10 +256,6 @@ const PdfViewer = ({
       />
     ))
   }, [totalPages])
-
-  if (typeof window === 'undefined') {
-    return <Box style={style} className={className} {...rest} />
-  }
 
   if (error) {
     return (

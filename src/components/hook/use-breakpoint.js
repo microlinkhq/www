@@ -16,26 +16,15 @@ export function useBreakpoint () {
   const [breakpoint, setBreakpoint] = useState(rawBreakpoints.length - 1)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
-
-    const queries = rawBreakpoints.map(bp =>
-      window.matchMedia(`(max-width: ${bp - 1}px)`)
-    )
-
-    const handleChange = () => {
+    const handleResize = () => {
       setBreakpoint(calculateBreakpoint(window.innerWidth))
     }
 
-    queries.forEach(query => {
-      query.addEventListener('change', handleChange)
-    })
-
-    handleChange()
+    handleResize()
+    window.addEventListener('resize', handleResize)
 
     return () => {
-      queries.forEach(query => {
-        query.removeEventListener('change', handleChange)
-      })
+      window.removeEventListener('resize', handleResize)
     }
   }, [])
 

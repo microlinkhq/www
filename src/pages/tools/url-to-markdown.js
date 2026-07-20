@@ -84,6 +84,12 @@ const Caption = withTitle(CaptionBase)
 
 /* ─── Constants ────────────────────────────────────────── */
 
+const normalizeUrl = rawUrl => {
+  const trimmed = rawUrl.trim()
+  if (!trimmed) return ''
+  return prependHttp(trimmed)
+}
+
 const MAX_MARKDOWN_HISTORY = 20
 const PREVIEW_HEIGHT = '450px'
 const PREVIEW_HEIGHT_MOBILE = '400px'
@@ -1653,12 +1659,6 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
     [setOptions]
   )
 
-  const normalizeUrl = rawUrl => {
-    const trimmed = rawUrl.trim()
-    if (!trimmed) return ''
-    return prependHttp(trimmed)
-  }
-
   const handleSubmit = useCallback(() => {
     const url = normalizeUrl(options.url)
     if (!url || !isUrl(url)) {
@@ -1670,7 +1670,7 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
     setUrlError('')
     setShowPopover(false)
     onSubmit(url)
-  }, [options.url, onSubmit, normalizeUrl, setOptions])
+  }, [options.url, onSubmit, setOptions])
 
   return (
     <Box css={{ width: '100%' }}>
@@ -1801,18 +1801,6 @@ const MarkdownTool = () => {
     setSaveState(null)
   }, [])
 
-  const guardUnsavedEdits = useCallback(
-    action => {
-      if (hasUnsavedEdits) {
-        pendingActionRef.current = action
-        setShowUnsavedModal(true)
-        return true
-      }
-      return false
-    },
-    [hasUnsavedEdits]
-  )
-
   const handleModalSave = useCallback(() => {
     persistEdits(editedMarkdown)
     exitEditMode()
@@ -1836,12 +1824,16 @@ const MarkdownTool = () => {
   }, [])
 
   const markdownRef = useRef(markdown)
-  markdownRef.current = markdown
+
+  useEffect(() => {
+    markdownRef.current = markdown
+  }, [markdown])
 
   const handleToggleEdit = useCallback(() => {
     if (isEditing) {
       if (hasUnsavedEdits) {
-        guardUnsavedEdits(() => {})
+        pendingActionRef.current = null
+        setShowUnsavedModal(true)
         return
       }
       exitEditMode()
@@ -1850,7 +1842,7 @@ const MarkdownTool = () => {
     setEditedMarkdown(markdownRef.current || '')
     setSaveState(null)
     setIsEditing(true)
-  }, [isEditing, hasUnsavedEdits, guardUnsavedEdits, exitEditMode])
+  }, [isEditing, hasUnsavedEdits, exitEditMode])
 
   const executeSubmit = useCallback(
     async url => {
@@ -1961,10 +1953,14 @@ const MarkdownTool = () => {
 
   const handleSubmit = useCallback(
     url => {
-      if (guardUnsavedEdits(() => executeSubmit(url))) return
+      if (hasUnsavedEdits) {
+        pendingActionRef.current = () => executeSubmit(url)
+        setShowUnsavedModal(true)
+        return
+      }
       executeSubmit(url)
     },
-    [guardUnsavedEdits, executeSubmit]
+    [hasUnsavedEdits, executeSubmit]
   )
 
   const applyHistoryEntry = useCallback(entry => {
@@ -1990,10 +1986,14 @@ const MarkdownTool = () => {
 
   const handleHistorySelect = useCallback(
     entry => {
-      if (guardUnsavedEdits(() => applyHistoryEntry(entry))) return
+      if (hasUnsavedEdits) {
+        pendingActionRef.current = () => applyHistoryEntry(entry)
+        setShowUnsavedModal(true)
+        return
+      }
       applyHistoryEntry(entry)
     },
-    [guardUnsavedEdits, applyHistoryEntry]
+    [hasUnsavedEdits, applyHistoryEntry]
   )
 
   const handleHistoryDelete = useCallback(

@@ -1,8 +1,6 @@
-import { createContext, useContext } from 'react'
+import { createContext } from 'react'
 
 export const MarkdownContext = createContext({
   isBlogPage: false,
   isGuidesPage: false
 })
-
-export const useMarkdownContext = () => useContext(MarkdownContext)

@@ -9,10 +9,7 @@ export {
   STRIPE_DEMO_DATA
 } from './PreviewCards'
 
-export {
-  PreviewVariantsShowcase,
-  PREVIEW_VARIANTS
-} from './PreviewVariantsShowcase'
+export { PREVIEW_VARIANTS } from './PreviewVariantsShowcase'
 
 export { IframePreviewsShowcase } from './IframePreviewsShowcase'
 

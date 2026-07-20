@@ -1,4 +1,4 @@
-import { createElement, useEffect, useRef, useState } from 'react'
+import { createElement, useEffect, useState } from 'react'
 
 const DEFAULT_WAIT = 300
 
@@ -8,22 +8,31 @@ export const withDebounce = (Component, propNames) => {
       Object.fromEntries(propNames.map(p => [p, props[p]]))
     )
 
-    const timeouts = useRef({})
+    useEffect(
+      () => {
+        const pending = propNames.filter(
+          p => !Object.is(debounced[p], props[p])
+        )
+        if (pending.length === 0) return
 
-    useEffect(() => {
-      propNames.forEach(p => {
-        if (Object.is(debounced[p], props[p])) return
-
-        clearTimeout(timeouts.current[p])
-        timeouts.current[p] = setTimeout(() => {
-          setDebounced(prev =>
-            Object.is(prev[p], props[p]) ? prev : { ...prev, [p]: props[p] }
-          )
+        const timeout = setTimeout(() => {
+          setDebounced(prev => {
+            const next = { ...prev }
+            let changed = false
+            for (const p of pending) {
+              if (!Object.is(next[p], props[p])) {
+                next[p] = props[p]
+                changed = true
+              }
+            }
+            return changed ? next : prev
+          })
         }, DEFAULT_WAIT)
-      })
 
-      return () => Object.values(timeouts.current).forEach(clearTimeout)
-    }, [DEFAULT_WAIT, ...propNames.map(p => props[p])])
+        return () => clearTimeout(timeout)
+      },
+      propNames.map(p => props[p])
+    )
 
     return createElement(Component, { ...props, ...debounced })
   }

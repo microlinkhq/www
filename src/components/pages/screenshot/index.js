@@ -91,12 +91,12 @@ export const OptionLabel = styled(Label)`
   })}
 `
 
-export const SegmentedWrapper = styled(Flex)`
+const SegmentedWrapper = styled(Flex)`
   background: #eef1f5;
   ${theme({ borderRadius: 2, p: '3px' })}
 `
 
-export const SegmentedOption = styled(Box)
+const SegmentedOption = styled(Box)
   .withConfig({
     shouldForwardProp: prop => !['$active'].includes(prop)
   })
@@ -590,7 +590,7 @@ export const HistoryThumbnail = styled(Box).withConfig({
   }
 `
 
-export const ThumbnailDeleteButton = styled(Box).attrs({
+const ThumbnailDeleteButton = styled(Box).attrs({
   as: 'button',
   type: 'button'
 })`

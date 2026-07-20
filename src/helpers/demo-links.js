@@ -16,13 +16,6 @@ const demoLinksByUrl = new Map(demoLinks.map(item => [item.data.url, item]))
 export const findDemoLinkById = id => demoLinksById.get(id)
 
 /**
- * Find demo link by URL - O(1) lookup
- * @param {string} url - The URL to find
- * @returns {Object|undefined} The demo link object or undefined
- */
-export const findDemoLinkByUrl = url => demoLinksByUrl.get(url)
-
-/**
  * Find demo link by URL variations - O(n) where n is variations length
  * @param {string[]} variations - Array of URL variations to check
  * @returns {Object|undefined} The demo link object or undefined

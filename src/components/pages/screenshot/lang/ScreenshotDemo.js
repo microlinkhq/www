@@ -616,11 +616,8 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
         const normalized = ensureProtocol(url)
         setInputUrl(normalized)
         setHistory(h => addToHistory(h, normalized))
-        setNavStack(s => {
-          const next = [...s, normalized].slice(-MAX_HISTORY)
-          setNavIndex(next.length - 1)
-          return next
-        })
+        setNavStack(s => [...s, normalized].slice(-MAX_HISTORY))
+        setNavIndex(i + 1)
         const imageLoaded = new Promise(resolve => {
           imageLoadResolverRef.current = resolve
         })

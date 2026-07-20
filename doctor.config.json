@@ -1,0 +1,31 @@
+{
+  "ignore": {
+    "files": [".cache/**", "public/**"],
+    "overrides": [
+      {
+        "files": [
+          "src/pages/metadata.js",
+          "src/pages/embed/index.js",
+          "src/pages/link-preview.js"
+        ],
+        "rules": ["react-doctor/effect-needs-cleanup"]
+      },
+      {
+        "files": [
+          "src/html.js",
+          "src/components/markdown/**",
+          "src/components/elements/Annotation.js",
+          "src/components/icons/Signature.js",
+          "src/components/pages/blog/webgl-without-a-gpu/**",
+          "src/components/hook/healthcheck-fragment.js",
+          "src/components/hook/oss-fragment.js"
+        ],
+        "rules": ["deslop/unused-file"]
+      },
+      {
+        "files": ["src/helpers/skills.js"],
+        "rules": ["deslop/unused-export"]
+      }
+    ]
+  }
+}

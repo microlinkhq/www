@@ -24,7 +24,7 @@ import CodeCopy from '../Codecopy'
 import Text from '../Text'
 import Box from '../Box'
 
-export const TerminalWindow = styled(Box)`
+const TerminalWindow = styled(Box)`
   position: relative;
   overflow: auto;
   border-radius: ${radii[3]};
@@ -164,7 +164,7 @@ const TerminalWindowButtons = styled('div')`
   align-items: center;
 `
 
-export const TerminalTitle = ({ children, showWindowButtons = true }) => (
+const TerminalTitle = ({ children, showWindowButtons = true }) => (
   <TerminalTitleWrapper $showWindowButtons={showWindowButtons}>
     <Text
       css={theme({

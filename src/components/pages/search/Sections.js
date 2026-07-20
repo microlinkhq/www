@@ -70,7 +70,7 @@ export const SectionCaption = ({
   </Flex>
 )
 
-export const Bullet = ({ children }) => (
+const Bullet = ({ children }) => (
   <BulletItem>
     <FeatherIcon
       icon={CheckCircle}
@@ -91,7 +91,7 @@ export const Bullet = ({ children }) => (
   </BulletItem>
 )
 
-export const BulletList = ({ children }) => (
+const BulletList = ({ children }) => (
   <Box
     as='ul'
     css={theme({

@@ -364,7 +364,6 @@ const ToolbarDesktop = () => {
   const blogPosts = useBlogIndex()
   const headerRef = useRef(null)
   const closeTimeoutRef = useRef(null)
-  const renderedSectionTimeoutRef = useRef(null)
   const [openSection, setOpenSection] = useState(
     isStickySection ? DEBUG_STICKY_SECTION : ''
   )
@@ -389,19 +388,15 @@ const ToolbarDesktop = () => {
   useEffect(() => {
     return () => {
       clearTimeoutRef(closeTimeoutRef)
-      clearTimeoutRef(renderedSectionTimeoutRef)
     }
   }, [])
 
   useEffect(() => {
-    clearTimeoutRef(renderedSectionTimeoutRef)
-
     if (!openSection) {
-      renderedSectionTimeoutRef.current = setTimeout(() => {
+      const timeout = setTimeout(() => {
         setRenderedSection('')
-        renderedSectionTimeoutRef.current = null
       }, PANEL_EXIT_DURATION_MS)
-      return
+      return () => clearTimeout(timeout)
     }
 
     setRenderedSection(openSection)
@@ -464,16 +459,14 @@ const ToolbarDesktop = () => {
       setOpenSection(sectionId)
       return
     }
-    setOpenSection(currentId => {
-      let nextId = sectionId
+    let nextId = sectionId
 
-      if (!canUseHover()) {
-        nextId = currentId === sectionId ? '' : sectionId
-      }
+    if (!canUseHover()) {
+      nextId = openSection === sectionId ? '' : sectionId
+    }
 
-      setRenderedSection(nextId)
-      return nextId
-    })
+    setRenderedSection(nextId)
+    setOpenSection(nextId)
   }
 
   const renderLatestPostItem = post => (

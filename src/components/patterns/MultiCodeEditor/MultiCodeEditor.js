@@ -9,7 +9,7 @@ import Tabs from '../Tabs'
 import styled from 'styled-components'
 import { cx, theme } from 'theme'
 
-export const SelectLanguage = ({ value, onClick, ...props }) => (
+const SelectLanguage = ({ value, onClick, ...props }) => (
   <Tabs
     value={value}
     onClick={event => onClick(event.target.textContent)}

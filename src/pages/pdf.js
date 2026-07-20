@@ -774,11 +774,8 @@ const Hero = function Hero ({ onRequestTiming }) {
         const normalized = ensureProtocol(url)
         setInputUrl(normalized)
         setHistory(h => addToHistory(h, normalized))
-        setNavStack(s => {
-          const next = [...s, normalized].slice(-MAX_HISTORY)
-          setNavIndex(next.length - 1)
-          return next
-        })
+        setNavStack(s => [...s, normalized].slice(-MAX_HISTORY))
+        setNavIndex(i + 1)
         fetchPdf(normalized)
 
         await delay(8000)
@@ -1431,7 +1428,6 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
   const [displayMs, setDisplayMs] = useState(null)
   const [displayUrl, setDisplayUrl] = useState(null)
   const [key, setKey] = useState(0)
-  const idleTimerRef = useRef(null)
   const historyRef = useRef(timingHistory)
   const prevTimingMsRef = useRef(undefined)
   const displayUrlRef = useRef(null)
@@ -1459,23 +1455,15 @@ const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
     prevTimingMsRef.currentUrl = timingUrl
     show(timingMs, timingUrl)
 
-    if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
+    const idleTimer = setInterval(() => {
+      const history = historyRef.current
+      if (history.length < 3) return
+      const others = history.filter(e => e.url !== displayUrlRef.current)
+      const pick = others[Math.floor(Math.random() * others.length)]
+      show(pick.ms, pick.url)
+    }, 5000)
 
-    const scheduleIdle = () => {
-      idleTimerRef.current = setTimeout(() => {
-        const history = historyRef.current
-        if (history.length < 3) return
-        const others = history.filter(e => e.url !== displayUrlRef.current)
-        const pick = others[Math.floor(Math.random() * others.length)]
-        show(pick.ms, pick.url)
-        scheduleIdle()
-      }, 5000)
-    }
-    scheduleIdle()
-
-    return () => {
-      if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
-    }
+    return () => clearInterval(idleTimer)
   }, [timingMs, timingUrl, show])
 
   const hasValue = displayMs != null

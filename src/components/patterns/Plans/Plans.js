@@ -86,7 +86,7 @@ const PlanCheck = ({ children }) => (
   </Flex>
 )
 
-export const PriceTag = ({ prices, suffix = '/month', highlight = false }) => {
+const PriceTag = ({ prices, suffix = '/month', highlight = false }) => {
   const [currency] = useCurrencyContext()
   const { symbol, word } = CURRENCIES[currency]
   const amount = formatPrice(prices, currency)

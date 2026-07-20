@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components'
 import { transition, theme } from 'theme'
 
 import Microlink from './Microlink'
-import Slack from './Slack'
 
 const style = css`
   .logo {
@@ -797,8 +796,6 @@ export const TNW = styled(TNWBase)`
 `
 
 export { Microlink }
-
-export { Slack }
 
 export const LogoBrand = {
   amazon: Amazon,

@@ -16,23 +16,27 @@ const getFingerprint = once(() =>
 )
 
 export const useFingerprint = () => {
-  const [fingerprint, setFingerprint] = useState(() => {
-    try {
-      const data = localStorage.getItem(STORAGE_KEY)
-      return data ? JSON.parse(data) : null
-    } catch {
-      return null
-    }
-  })
+  const [fingerprint, setFingerprint] = useState(null)
 
   useEffect(() => {
-    if (fingerprint) return
+    try {
+      const data = localStorage.getItem(STORAGE_KEY)
+      if (data) {
+        setFingerprint(JSON.parse(data))
+        return
+      }
+    } catch {}
+
+    let active = true
     getFingerprint().then(data => {
-      if (!data) return
+      if (!active || !data) return
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
       setFingerprint(data)
     })
-  }, [fingerprint])
+    return () => {
+      active = false
+    }
+  }, [])
 
   return fingerprint
 }

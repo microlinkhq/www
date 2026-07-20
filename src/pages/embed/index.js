@@ -346,7 +346,10 @@ const Hero = function Hero ({
   const copyTimerRef = useRef(null)
   const userInteractedRef = useRef(false)
   const onSubmitRef = useRef(onSubmit)
-  onSubmitRef.current = onSubmit
+
+  useEffect(() => {
+    onSubmitRef.current = onSubmit
+  }, [onSubmit])
 
   const handleInputChange = e => {
     if (!userInteractedRef.current) {
@@ -357,12 +360,12 @@ const Hero = function Hero ({
   }
 
   useEffect(() => {
-    if (userInteractedRef.current) return
+    const timers = []
+    if (userInteractedRef.current) return () => timers.forEach(clearTimeout)
     onSubmitRef.current(INITIAL_PLACEHOLDER_URL, {
       queryUrl: INITIAL_PLACEHOLDER_URL,
       syncQuery: false
     })
-    const timers = []
     let previousUrl = INITIAL_PLACEHOLDER_URL
     let timeOffset = INITIAL_DELAY_MS
 

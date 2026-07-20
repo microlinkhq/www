@@ -896,5 +896,3 @@ export const ROUTES = {
   [API]: ROUTES_API,
   [GUIDES]: ROUTES_GUIDES
 }
-
-export const ALL_ROUTES_NAMES = Object.keys(ROUTES)
