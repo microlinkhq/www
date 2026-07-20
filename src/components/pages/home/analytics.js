@@ -24,7 +24,7 @@ const stats = [
 ]
 
 const Stat = ({ value, name }) => (
-  <Box css={theme({ minWidth: 0 })}>
+  <Box css={theme({ minWidth: 0, textAlign: 'center' })}>
     <Text
       forwardedAs='div'
       style={{ fontVariantNumeric: 'tabular-nums' }}

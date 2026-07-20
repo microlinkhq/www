@@ -29,6 +29,7 @@ describe('home analytics band', () => {
 
   test('keeps the production metrics compact and legible across screen sizes', () => {
     expect(analytics).toContain("'repeat(4, minmax(0, 1fr))'")
+    expect(analytics).toContain("minWidth: 0, textAlign: 'center'")
     expect(analytics).toContain("fontVariantNumeric: 'tabular-nums'")
     expect(analytics).toContain("height: ['320px', '400px', '500px', '500px']")
     expect(analytics).toContain('linear-gradient(transparent,')
