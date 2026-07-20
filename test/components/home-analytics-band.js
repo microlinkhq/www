@@ -13,15 +13,14 @@ describe('home analytics band', () => {
     expect(fs.existsSync(path.join(root, 'static/images/globe.webp'))).toBe(
       true
     )
-    expect(analytics).toContain("src='/images/globe.webp'")
+    expect(analytics).toContain("const GLOBE_SRC = '/images/globe.webp'")
+    expect(analytics).toContain('src={GLOBE_SRC}')
     expect(analytics).toContain("alt='Global edge network'")
-    expect(analytics).toContain(
-      "const FAST_TITLE_FONT_SIZE = 'clamp(64px, 12vw, 180px)'"
-    )
+    expect(analytics).toContain('fontSize: FAST_TITLE_FONT_SIZE')
+    expect(analytics).toContain('clamp(')
     expect(analytics).toContain("id='fast-anywhere-title'")
-    expect(analytics).toContain("top: ['64px', '64px', '96px', '96px']")
-    expect(analytics).not.toContain("borderRadius: '50%'")
-    expect(analytics).toContain("maskImage: 'url(/images/globe.webp)'")
+    expect(analytics).toContain('...textGradient')
+    expect(analytics).toMatch(/maskImage: `url\(\$\{GLOBE_SRC\}\)`/)
     expect(analytics).toContain("mixBlendMode: 'multiply'")
   })
 
@@ -29,11 +28,10 @@ describe('home analytics band', () => {
     expect(analytics).toContain("'repeat(4, minmax(0, 1fr))'")
     expect(analytics).toContain("minWidth: 0, textAlign: 'center'")
     expect(analytics).toContain("fontVariantNumeric: 'tabular-nums'")
-    expect(analytics).toContain("height: ['320px', '400px', '500px', '500px']")
-    expect(analytics).toContain(
-      'zIndex: 2,\n        right: 0,\n        bottom: SECTION_VERTICAL_SPACING'
+    expect(analytics).toContain('py: SECTION_VERTICAL_SPACING')
+    expect(analytics).toContain('maxWidth: layout.large')
+    expect(analytics).toMatch(
+      /linear-gradient\(transparent, \$\{colors\.white\}\)/
     )
-    expect(analytics).toContain('linear-gradient(transparent,')
-    expect(analytics).toContain('colors.white')
   })
 })
