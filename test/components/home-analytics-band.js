@@ -28,6 +28,7 @@ describe('home analytics band', () => {
     expect(analytics).toContain("'repeat(4, minmax(0, 1fr))'")
     expect(analytics).toContain("minWidth: 0, textAlign: 'center'")
     expect(analytics).toContain("fontVariantNumeric: 'tabular-nums'")
+    expect(analytics).toContain('\\u00a0')
     expect(analytics).toContain('py: SECTION_VERTICAL_SPACING')
     expect(analytics).toContain('maxWidth: layout.large')
     expect(analytics).toMatch(

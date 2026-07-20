@@ -21,7 +21,7 @@ const [{ reqs_pretty: reqsPretty, bytes_pretty: bytesPretty }] = analyticsData
 
 const bytes = (() => {
   const [value, unit] = bytesPretty.split(' ')
-  return `${Number(value).toFixed(0)}${unit}`
+  return `${Number(value).toFixed(0)}\u00a0${unit}`
 })()
 
 const stats = [
