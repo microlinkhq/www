@@ -9,11 +9,11 @@ const analytics = fs.readFileSync(
 )
 
 describe('home analytics band', () => {
-  test('layers the supplied Upstash globe artwork behind the Fast Anywhere display title', () => {
-    expect(
-      fs.existsSync(path.join(root, 'static/images/upstash-globe-light.webp'))
-    ).toBe(true)
-    expect(analytics).toContain("src='/images/upstash-globe-light.webp'")
+  test('layers the globe artwork behind the Fast Anywhere display title', () => {
+    expect(fs.existsSync(path.join(root, 'static/images/globe.webp'))).toBe(
+      true
+    )
+    expect(analytics).toContain("src='/images/globe.webp'")
     expect(analytics).toContain("alt='Global edge network'")
     expect(analytics).toContain(
       "const FAST_TITLE_FONT_SIZE = 'clamp(64px, 12vw, 180px)'"
@@ -21,9 +21,7 @@ describe('home analytics band', () => {
     expect(analytics).toContain("id='fast-anywhere-title'")
     expect(analytics).toContain("top: ['64px', '64px', '96px', '96px']")
     expect(analytics).not.toContain("borderRadius: '50%'")
-    expect(analytics).toContain(
-      "maskImage: 'url(/images/upstash-globe-light.webp)'"
-    )
+    expect(analytics).toContain("maskImage: 'url(/images/globe.webp)'")
     expect(analytics).toContain("mixBlendMode: 'multiply'")
   })
 

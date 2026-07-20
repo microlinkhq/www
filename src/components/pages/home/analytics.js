@@ -107,7 +107,7 @@ const Analytics = () => (
     </Text>
     <Box
       as='img'
-      src='/images/upstash-globe-light.webp'
+      src='/images/globe.webp'
       alt='Global edge network'
       loading='lazy'
       css={theme({
@@ -135,10 +135,10 @@ const Analytics = () => (
         transform: 'translateX(-50%)',
         backgroundImage: `linear-gradient(90deg, ${colors.pink4}, ${colors.pink}, ${colors.grape6})`,
         mixBlendMode: 'multiply',
-        maskImage: 'url(/images/upstash-globe-light.webp)',
+        maskImage: 'url(/images/globe.webp)',
         maskSize: '100% 100%',
         maskRepeat: 'no-repeat',
-        WebkitMaskImage: 'url(/images/upstash-globe-light.webp)',
+        WebkitMaskImage: 'url(/images/globe.webp)',
         WebkitMaskSize: '100% 100%',
         WebkitMaskRepeat: 'no-repeat'
       })}
