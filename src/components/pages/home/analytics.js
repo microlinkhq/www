@@ -62,7 +62,7 @@ const Analytics = () => (
       isolation: 'isolate',
       overflow: 'hidden',
       height: ['320px', '400px', '500px', '500px'],
-      py: SECTION_VERTICAL_SPACING,
+      my: SECTION_VERTICAL_SPACING,
       bg: 'white'
     })}
   >
@@ -88,7 +88,7 @@ const Analytics = () => (
       css={theme({
         position: 'absolute',
         zIndex: -2,
-        top: 0,
+        top: '-42px',
         left: '50%',
         width: 'max-content',
         color: 'secondary',
