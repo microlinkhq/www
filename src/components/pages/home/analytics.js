@@ -15,7 +15,7 @@ import analyticsData from '../../../../data/analytics.json'
 
 const GLOBE_SRC = '/images/globe.webp'
 
-const FAST_TITLE_FONT_SIZE = 'clamp(64px, 12vw, 180px)'
+const FAST_TITLE_FONT_SIZE = 'clamp(64px, 12vw, 128px)'
 
 const [{ reqs_pretty: reqsPretty, bytes_pretty: bytesPretty }] = analyticsData
 
@@ -97,7 +97,7 @@ const Analytics = () => (
         as='h2'
         css={theme({
           position: 'absolute',
-          top: '-42px',
+          top: ['0', '0', '-30px', '-30px'],
           left: '50%',
           width: 'max-content',
           fontSize: FAST_TITLE_FONT_SIZE,
