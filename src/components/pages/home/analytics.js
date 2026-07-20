@@ -190,18 +190,6 @@ const Analytics = () => (
           <Stat key={stat.name} {...stat} />
         ))}
       </Box>
-      <Text
-        forwardedAs='p'
-        css={theme({
-          pt: 1,
-          color: 'black50',
-          fontSize: 0,
-          fontStyle: 'italic',
-          textAlign: 'center'
-        })}
-      >
-        * monthly average
-      </Text>
     </Box>
   </Box>
 )
