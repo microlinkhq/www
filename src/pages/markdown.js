@@ -854,6 +854,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
         setInputUrl('https://' + url.slice(0, i))
       }
       await delay(250)
+      if (check()) return false
       setIsGlowing(false)
       return true
     }
@@ -997,7 +998,6 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
 
         if (!res.ok) {
           setError(normalizeApiError(json, res))
-          setIsLoading(false)
           return
         }
 
@@ -1018,7 +1018,6 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
           hasContentRef.current = true
           setMarkdownContent(typeof md === 'string' ? md : JSON.stringify(md))
         }
-        setIsLoading(false)
         if (fetchResolverRef.current) {
           fetchResolverRef.current()
           fetchResolverRef.current = null
@@ -1027,11 +1026,12 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
         if (err.name !== 'AbortError') {
           setError(normalizeApiError.fromNetwork(err))
         }
-        setIsLoading(false)
         if (fetchResolverRef.current) {
           fetchResolverRef.current()
           fetchResolverRef.current = null
         }
+      } finally {
+        setIsLoading(false)
       }
     },
     [onRequestTiming]
@@ -2532,25 +2532,30 @@ const Capabilities = () => {
         return { error: normalizeApiError.fromNetwork(err) }
       })
 
-    const [htmlResult, mdResult] = await Promise.all([htmlPromise, mdPromise])
+    let aborted = false
+    try {
+      const [htmlResult, mdResult] = await Promise.all([htmlPromise, mdPromise])
 
-    if (htmlResult.aborted || mdResult.aborted) return
+      aborted = Boolean(htmlResult.aborted || mdResult.aborted)
+      if (aborted) return
 
-    const capErr = htmlResult.error || mdResult.error
-    if (capErr) {
-      setCapError(capErr)
-      setCapLoading(false)
-      setCapHtmlLoading(false)
-      return
+      const capErr = htmlResult.error || mdResult.error
+      if (capErr) {
+        setCapError(capErr)
+        return
+      }
+
+      if (mdResult.md) {
+        capHasContentRef.current = true
+        setCapMarkdown(mdResult.md)
+      }
+      if (htmlResult.html) setCapHtml(htmlResult.html)
+    } finally {
+      if (!aborted) {
+        setCapLoading(false)
+        setCapHtmlLoading(false)
+      }
     }
-
-    if (mdResult.md) {
-      capHasContentRef.current = true
-      setCapMarkdown(mdResult.md)
-    }
-    if (htmlResult.html) setCapHtml(htmlResult.html)
-    setCapLoading(false)
-    setCapHtmlLoading(false)
   }, [])
 
   useEffect(() => {
@@ -3606,7 +3611,9 @@ export const Head = () => (
   />
 )
 
-const INITIAL_TIMING_MS = Math.floor(Math.random() * (25 - 14 + 1)) + 14
+const INITIAL_TIMING_MS = 14
+
+const randomTimingMs = () => Math.floor(Math.random() * (25 - 14 + 1)) + 14
 
 const MarkdownPage = () => {
   const [timingMs, setTimingMs] = useState(INITIAL_TIMING_MS)
@@ -3614,6 +3621,16 @@ const MarkdownPage = () => {
   const [timingHistory, setTimingHistory] = useState([
     { ms: INITIAL_TIMING_MS, url: 'https://stripe.com' }
   ])
+
+  useEffect(() => {
+    const ms = randomTimingMs()
+    setTimingMs(prev => (prev === INITIAL_TIMING_MS ? ms : prev))
+    setTimingHistory(prev =>
+      prev.map(entry =>
+        entry.ms === INITIAL_TIMING_MS ? { ...entry, ms } : entry
+      )
+    )
+  }, [])
 
   const handleRequestTiming = useCallback((ms, url) => {
     setTimingMs(ms)

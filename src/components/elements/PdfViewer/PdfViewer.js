@@ -197,6 +197,7 @@ const PdfViewer = ({
 
     const renderPages = async () => {
       const devicePixelRatio = window.devicePixelRatio || 1
+      let renderedCount = 0
 
       for (let i = 1; i <= totalPages; i++) {
         if (cancelled || renderIdRef.current !== currentRenderId) return
@@ -223,14 +224,12 @@ const PdfViewer = ({
           await page.render({ canvasContext: ctx, viewport }).promise
 
           if (cancelled || renderIdRef.current !== currentRenderId) return
-          setRenderedPages(prev => {
-            const next = prev + 1
-            if (next === totalPages && onLoad) onLoad()
-            return next
-          })
+          renderedCount += 1
+          setRenderedPages(renderedCount)
+          if (renderedCount === totalPages && onLoad) onLoad()
         } catch (err) {
           if (err?.name === 'RenderingCancelledException') return
-          if (!cancelled) {
+          if (!cancelled && renderIdRef.current === currentRenderId) {
             setError(err?.message || 'Failed to render page')
           }
         }

@@ -296,11 +296,16 @@ const CodeEditor = ({
   const [text, setText] = useState(initialText)
 
   useEffect(() => {
+    let cancelled = false
     const formatCode = async () => {
       const formatted = await prettier(template(source), language)
+      if (cancelled) return
       setText(formatted.trim())
     }
     formatCode()
+    return () => {
+      cancelled = true
+    }
   }, [source, language])
 
   const highLightLinesSelector = generateHighlightLines(highlightLines)

@@ -759,7 +759,7 @@ const RaceContainer = ({
   const [step, setStep] = useState(0)
   const [activeStep, setActiveStep] = useState(0)
   const [modeIndex, setModeIndex] = useState(0)
-  const [, setCumulativeTimes] = useState(initCumulativeTimes)
+  const cumulativeTimesRef = useRef(initCumulativeTimes())
   const [displayedCumulative, setDisplayedCumulative] =
     useState(initCumulativeTimes)
   const [rankedOrder, setRankedOrder] = useState(ALPHABETICAL_SERVICES)
@@ -792,64 +792,62 @@ const RaceContainer = ({
     const currentStep = stepRef.current
     const url = benchmarkData.testUrls[currentStep]?.url
 
-    setCumulativeTimes(prev => {
-      const next = { ...prev }
-      ALPHABETICAL_SERVICES.forEach(key => {
-        const d =
-          benchmarkData.results[key].perUrl.find(p => p.url === url)
-            ?.coldDuration || 0
-        next[key] = prev[key] + d
-      })
+    const prev = cumulativeTimesRef.current
+    const next = { ...prev }
+    ALPHABETICAL_SERVICES.forEach(key => {
+      const d =
+        benchmarkData.results[key].perUrl.find(p => p.url === url)
+          ?.coldDuration || 0
+      next[key] = prev[key] + d
+    })
+    cumulativeTimesRef.current = next
+
+    schedule(() => {
+      setIsSumming(true)
+      setDisplayedCumulative(next)
 
       schedule(() => {
-        setIsSumming(true)
-        setDisplayedCumulative(next)
+        setIsSumming(false)
+        const newOrder = getRankedOrder(next)
+        const orderChanged = newOrder.some(
+          (k, i) => k !== rankedOrderRef.current[i]
+        )
 
-        schedule(() => {
-          setIsSumming(false)
-          const newOrder = getRankedOrder(next)
-          const orderChanged = newOrder.some(
-            (k, i) => k !== rankedOrderRef.current[i]
-          )
-
-          const advance = () => {
-            setIsReordering(false)
-            const nextStep = currentStep + 1
-            if (nextStep >= benchmarkData.testUrls.length) {
-              setPhase('finished')
-            } else {
-              stepRef.current = nextStep
-              setActiveStep(nextStep)
-              setAnnouncingUrl(benchmarkData.testUrls[nextStep]?.url)
-              setIsAnnouncing(true)
-              schedule(() => {
-                schedule(() => {
-                  setIsAnnouncing(false)
-                  setAnnouncingUrl(null)
-                  setStep(nextStep)
-                  scheduleNextBars()
-                }, 300)
-              }, 1500)
-            }
-          }
-
-          if (orderChanged) {
-            schedule(() => {
-              setIsReordering(true)
-              setRankedOrder(newOrder)
-              rankedOrderRef.current = newOrder
-              schedule(advance, 2000)
-            }, 1000)
+        const advance = () => {
+          setIsReordering(false)
+          const nextStep = currentStep + 1
+          if (nextStep >= benchmarkData.testUrls.length) {
+            setPhase('finished')
           } else {
+            stepRef.current = nextStep
+            setActiveStep(nextStep)
+            setAnnouncingUrl(benchmarkData.testUrls[nextStep]?.url)
+            setIsAnnouncing(true)
+            schedule(() => {
+              schedule(() => {
+                setIsAnnouncing(false)
+                setAnnouncingUrl(null)
+                setStep(nextStep)
+                scheduleNextBars()
+              }, 300)
+            }, 1500)
+          }
+        }
+
+        if (orderChanged) {
+          schedule(() => {
+            setIsReordering(true)
             setRankedOrder(newOrder)
             rankedOrderRef.current = newOrder
-            schedule(advance, 500)
-          }
-        }, 1000)
-      }, 1500)
-
-      return next
-    })
+            schedule(advance, 2000)
+          }, 1000)
+        } else {
+          setRankedOrder(newOrder)
+          rankedOrderRef.current = newOrder
+          schedule(advance, 500)
+        }
+      }, 1000)
+    }, 1500)
   }, [schedule])
 
   const scheduleNext = useCallback(() => {
@@ -883,7 +881,7 @@ const RaceContainer = ({
 
       stepRef.current = targetStep
       setActiveStep(targetStep)
-      setCumulativeTimes(prevCum)
+      cumulativeTimesRef.current = prevCum
       setDisplayedCumulative(prevCum)
       setRankedOrder(order)
       rankedOrderRef.current = order
@@ -897,7 +895,7 @@ const RaceContainer = ({
           setStep(targetStep)
           const cum = getCumulativeAtStep(targetStep)
 
-          setCumulativeTimes(cum)
+          cumulativeTimesRef.current = cum
 
           schedule(() => {
             setIsSumming(true)
@@ -957,7 +955,7 @@ const RaceContainer = ({
     setStep(-1)
     setActiveStep(0)
     const fresh = initCumulativeTimes()
-    setCumulativeTimes(fresh)
+    cumulativeTimesRef.current = fresh
     setDisplayedCumulative(fresh)
     setRankedOrder(ALPHABETICAL_SERVICES)
     rankedOrderRef.current = ALPHABETICAL_SERVICES

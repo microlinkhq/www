@@ -1408,7 +1408,6 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
 
         if (!res.ok) {
           setError(normalizeApiError(json, res))
-          setIsLoading(false)
           return
         }
 
@@ -1420,11 +1419,11 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
           onUrlChange?.(url)
           onDataChange?.(data)
         }
-        setIsLoading(false)
       } catch (err) {
         if (err.name !== 'AbortError') {
           setError(normalizeApiError.fromNetwork(err))
         }
+      } finally {
         setIsLoading(false)
       }
     },
@@ -1454,6 +1453,7 @@ const Hero = function Hero ({ onRequestTiming, onUrlChange, onDataChange }) {
         setInputUrl('https://' + url.slice(0, i))
       }
       await delay(250)
+      if (check()) return false
       setIsGlowing(false)
       return true
     }
@@ -4377,7 +4377,9 @@ export const Head = () => (
 
 // --- Page Assembly ---
 
-const INITIAL_TIMING_MS = Math.floor(Math.random() * (25 - 14 + 1)) + 14
+const INITIAL_TIMING_MS = 14
+
+const randomTimingMs = () => Math.floor(Math.random() * (25 - 14 + 1)) + 14
 
 const MetaPage = () => {
   const [timingMs, setTimingMs] = useState(INITIAL_TIMING_MS)
@@ -4387,6 +4389,16 @@ const MetaPage = () => {
   ])
   const [currentUrl, setCurrentUrl] = useState(FIRST_URL)
   const [currentData, setCurrentData] = useState(null)
+
+  useEffect(() => {
+    const ms = randomTimingMs()
+    setTimingMs(prev => (prev === INITIAL_TIMING_MS ? ms : prev))
+    setTimingHistory(prev =>
+      prev.map(entry =>
+        entry.ms === INITIAL_TIMING_MS ? { ...entry, ms } : entry
+      )
+    )
+  }, [])
 
   const handleRequestTiming = useCallback((ms, url) => {
     setTimingMs(ms)

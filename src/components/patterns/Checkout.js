@@ -75,7 +75,10 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
           successUrl: `${canonicalUrl}/payment?status=success`,
           cancelUrl: `${canonicalUrl}/payment?status=failed`
         })
-      }).then(res => res.json())
+      }).then(res => {
+        if (!res.ok) throw new Error(res.statusText)
+        return res.json()
+      })
 
       window.location.href = data.url
     } catch (_) {

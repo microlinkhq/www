@@ -535,6 +535,24 @@ const ContentArea = React.memo(
     language,
     codeSnippets
   }) => {
+    const [imageUrl, setImageUrl] = useState(null)
+
+    useEffect(() => {
+      if (!responseData) {
+        setImageUrl(null)
+        return
+      }
+      const { body, headers } = responseData
+      const contentType = headers['content-type'] || ''
+      if (!contentType.startsWith('image/')) {
+        setImageUrl(null)
+        return
+      }
+      const url = URL.createObjectURL(new Blob([body], { type: contentType }))
+      setImageUrl(url)
+      return () => URL.revokeObjectURL(url)
+    }, [responseData])
+
     if (showApiKeyInput) {
       return (
         <Content
@@ -636,11 +654,8 @@ const ContentArea = React.memo(
             }
 
             if (contentType.startsWith('image/')) {
-              const blob = new Blob([body], { type: contentType })
-              const imageUrl = URL.createObjectURL(blob)
-
               const handleImageClick = () => {
-                window.open(imageUrl, '_blank')
+                window.open(imageUrl, '_blank', 'noopener,noreferrer')
               }
 
               const handleKeyDown = e => {
@@ -1000,48 +1015,50 @@ function MultiCodeEditorInteractive ({
   const parseCodeAndExecute = useCallback(
     async currentApiKey => {
       setIsLoading(true)
-      const result = await (async () => {
-        try {
-          const raw = await mql.arrayBuffer(url, {
-            ...mqlOpts,
-            ...(currentApiKey && { apiKey: currentApiKey })
-          })
-          const { body, headers } = raw
-          return {
-            status: 'fulfilled',
-            headers: Object.fromEntries(headers),
-            body
-          }
-        } catch (error) {
-          const {
-            headers,
-            name,
-            statusCode,
-            message,
-            url: errorUrl,
-            ...body
-          } = error
-          const encoder = new TextEncoder()
-          const errorBody = encoder.encode(JSON.stringify(body))
+      try {
+        const result = await (async () => {
+          try {
+            const raw = await mql.arrayBuffer(url, {
+              ...mqlOpts,
+              ...(currentApiKey && { apiKey: currentApiKey })
+            })
+            const { body, headers } = raw
+            return {
+              status: 'fulfilled',
+              headers: Object.fromEntries(headers),
+              body
+            }
+          } catch (error) {
+            const {
+              headers,
+              name,
+              statusCode,
+              message,
+              url: errorUrl,
+              ...body
+            } = error
+            const encoder = new TextEncoder()
+            const errorBody = encoder.encode(JSON.stringify(body))
 
-          return {
-            status: 'rejected',
-            headers: headers || {},
-            body: errorBody
+            return {
+              status: 'rejected',
+              headers: headers || {},
+              body: errorBody
+            }
+          }
+        })()
+
+        setResponseData(result)
+
+        if (result.status === 'rejected') {
+          const errorText = new TextDecoder().decode(result.body)
+          if (checkForProPlanRequired(errorText) && !currentApiKey) {
+            setShowApiKeyInput(true)
           }
         }
-      })()
-
-      setResponseData(result)
-
-      if (result.status === 'rejected') {
-        const errorText = new TextDecoder().decode(result.body)
-        if (checkForProPlanRequired(errorText) && !currentApiKey) {
-          setShowApiKeyInput(true)
-        }
+      } finally {
+        setIsLoading(false)
       }
-
-      setIsLoading(false)
     },
     [url, mqlOpts]
   )
@@ -1145,8 +1162,12 @@ function MultiCodeEditorInteractive ({
 
         if (contentType.includes('application/json')) {
           const text = new TextDecoder().decode(body)
-          const { data } = JSON.parse(text)
-          return JSON.stringify(data, null, 2)
+          try {
+            const { data } = JSON.parse(text)
+            return JSON.stringify(data, null, 2)
+          } catch {
+            return text
+          }
         }
 
         if (isTextContentType(contentType)) {

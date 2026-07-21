@@ -687,6 +687,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
         setInputUrl('https://' + url.slice(0, i))
       }
       await delay(250)
+      if (check()) return false
       setIsGlowing(false)
       return true
     }
@@ -810,6 +811,7 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
 
       const t0 = Date.now()
 
+      let waitForImageLoad = false
       try {
         const res = await window.fetch(
           `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot`,
@@ -820,7 +822,6 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
 
         if (!res.ok) {
           setError(normalizeApiError(json, res))
-          setIsLoading(false)
           return
         }
 
@@ -836,14 +837,14 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
           setScreenshotSrc(src)
           setImgKey(k => k + 1)
           setImgVisible(false)
-        } else {
-          setIsLoading(false)
+          waitForImageLoad = true
         }
       } catch (err) {
         if (err.name !== 'AbortError') {
           setError(normalizeApiError.fromNetwork(err))
         }
-        setIsLoading(false)
+      } finally {
+        if (!waitForImageLoad) setIsLoading(false)
       }
     },
     [onRequestTiming]
@@ -3114,7 +3115,9 @@ export const Head = () => (
     }}
   />
 )
-const INITIAL_TIMING_MS = Math.floor(Math.random() * (25 - 14 + 1)) + 14
+const INITIAL_TIMING_MS = 14
+
+const randomTimingMs = () => Math.floor(Math.random() * (25 - 14 + 1)) + 14
 
 const ScreenshotPage = () => {
   const [timingMs, setTimingMs] = useState(INITIAL_TIMING_MS)
@@ -3122,6 +3125,16 @@ const ScreenshotPage = () => {
   const [timingHistory, setTimingHistory] = useState([
     { ms: INITIAL_TIMING_MS, url: 'https://apple.com' }
   ])
+
+  useEffect(() => {
+    const ms = randomTimingMs()
+    setTimingMs(prev => (prev === INITIAL_TIMING_MS ? ms : prev))
+    setTimingHistory(prev =>
+      prev.map(entry =>
+        entry.ms === INITIAL_TIMING_MS ? { ...entry, ms } : entry
+      )
+    )
+  }, [])
 
   const handleRequestTiming = useCallback((ms, url) => {
     setTimingMs(ms)

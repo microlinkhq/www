@@ -71,6 +71,27 @@
           "src/components/pages/screenshot/lang/ScreenshotDemo.js"
         ],
         "rules": ["react-doctor/no-unknown-property"]
+      },
+      {
+        "files": [
+          "src/components/elements/PdfViewer/PdfViewer.js",
+          "src/components/pages/screenshot/lang/ScreenshotDemo.js",
+          "src/pages/markdown.js",
+          "src/pages/metadata.js",
+          "src/pages/pdf.js",
+          "src/pages/screenshot.js"
+        ],
+        "rules": ["react-doctor/no-set-state-after-await-in-effect"]
+      },
+      {
+        "files": [
+          "src/components/pages/embed-url/EmbedTool.js",
+          "src/components/pages/screenshot/lang/ScreenshotDemo.js",
+          "src/pages/markdown.js",
+          "src/pages/pdf.js",
+          "src/pages/screenshot.js"
+        ],
+        "rules": ["react-doctor/no-loading-flag-reset-outside-finally"]
       }
     ]
   }

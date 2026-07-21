@@ -2336,6 +2336,7 @@ const EmbedTool = ({
     null
   )
   const hydratedRef = useRef(false)
+  const userChangedConfigRef = useRef(false)
   const requestIdRef = useRef(0)
 
   useEffect(() => {
@@ -2347,16 +2348,15 @@ const EmbedTool = ({
     }
   }, [storedConfig])
 
-  const setConfig = useCallback(
-    updater => {
-      setConfigInternal(prev => {
-        const next = typeof updater === 'function' ? updater(prev) : updater
-        setStoredConfig(next)
-        return next
-      })
-    },
-    [setStoredConfig]
-  )
+  const setConfig = useCallback(updater => {
+    userChangedConfigRef.current = true
+    setConfigInternal(updater)
+  }, [])
+
+  useEffect(() => {
+    if (!userChangedConfigRef.current) return
+    setStoredConfig(config)
+  }, [config, setStoredConfig])
 
   const executeSubmit = useCallback(
     async nextUrl => {
@@ -2367,15 +2367,14 @@ const EmbedTool = ({
       setData(null)
       setLastUrl(nextUrl)
 
-      const localFallback = buildLocalEmbedResponse(nextUrl)
-      if (localFallback) {
-        if (requestId !== requestIdRef.current) return
-        setData(localFallback)
-        setIsLoading(false)
-        return
-      }
-
       try {
+        const localFallback = buildLocalEmbedResponse(nextUrl)
+        if (localFallback) {
+          if (requestId !== requestIdRef.current) return
+          setData(localFallback)
+          return
+        }
+
         const response = await mql(nextUrl, {
           iframe: true,
           audio: true,
@@ -2412,6 +2411,7 @@ const EmbedTool = ({
   }, [lastUrl, executeSubmit])
 
   const handleResetConfig = useCallback(() => {
+    userChangedConfigRef.current = false
     setConfigInternal(DEFAULT_CONFIG)
     setStoredConfig(null)
   }, [setStoredConfig])

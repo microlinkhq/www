@@ -145,7 +145,12 @@ export const withLink = Component => {
 
     useEffect(() => {
       if (isInternal && actively === 'observer') {
-        const node = document.querySelector(getHash(href))
+        let node
+        try {
+          node = document.querySelector(getHash(href))
+        } catch {
+          return
+        }
         onView(node, isBeingIntersecting =>
           setIsIntersecting(isBeingIntersecting)
         )

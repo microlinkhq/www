@@ -691,6 +691,7 @@ const Hero = function Hero ({ onRequestTiming }) {
 
       const t0 = Date.now()
 
+      let waitForPdfRender = false
       try {
         const scale = url === DEFAULT_HISTORY[0] || url === DEFAULT_HISTORY[1]
         const res = await window.fetch(
@@ -703,7 +704,6 @@ const Hero = function Hero ({ onRequestTiming }) {
 
         if (!res.ok) {
           setError(normalizeApiError(json, res))
-          setIsLoading(false)
           return
         }
 
@@ -714,14 +714,14 @@ const Hero = function Hero ({ onRequestTiming }) {
           hasPdfRef.current = true
           imgKeyRef.current += 1
           setPdfSrc(src)
-        } else {
-          setIsLoading(false)
+          waitForPdfRender = true
         }
       } catch (err) {
         if (err.name !== 'AbortError') {
           setError(normalizeApiError.fromNetwork(err))
         }
-        setIsLoading(false)
+      } finally {
+        if (!waitForPdfRender) setIsLoading(false)
       }
     },
     [onRequestTiming]
@@ -750,6 +750,7 @@ const Hero = function Hero ({ onRequestTiming }) {
         setInputUrl('https://' + url.slice(0, i))
       }
       await delay(250)
+      if (check()) return false
       setIsGlowing(false)
       return true
     }
@@ -3112,7 +3113,9 @@ export const Head = () => (
 
 // --- Page Assembly ---
 
-const INITIAL_TIMING_MS = Math.floor(Math.random() * (25 - 14 + 1)) + 14
+const INITIAL_TIMING_MS = 14
+
+const randomTimingMs = () => Math.floor(Math.random() * (25 - 14 + 1)) + 14
 
 const PdfPage = () => {
   const [timingMs, setTimingMs] = useState(INITIAL_TIMING_MS)
@@ -3120,6 +3123,16 @@ const PdfPage = () => {
   const [timingHistory, setTimingHistory] = useState([
     { ms: INITIAL_TIMING_MS, url: FIRST_URL }
   ])
+
+  useEffect(() => {
+    const ms = randomTimingMs()
+    setTimingMs(prev => (prev === INITIAL_TIMING_MS ? ms : prev))
+    setTimingHistory(prev =>
+      prev.map(entry =>
+        entry.ms === INITIAL_TIMING_MS ? { ...entry, ms } : entry
+      )
+    )
+  }, [])
 
   const handleRequestTiming = useCallback((ms, url) => {
     setTimingMs(ms)

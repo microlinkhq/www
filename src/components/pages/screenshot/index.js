@@ -681,6 +681,7 @@ export const SegmentedControl = ({ options, value, onChange, name }) => {
 export const downloadFile = async (fileUrl, filename) => {
   try {
     const response = await fetch(fileUrl)
+    if (!response.ok) throw new Error(response.statusText)
     const blob = await response.blob()
     const blobUrl = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -691,7 +692,7 @@ export const downloadFile = async (fileUrl, filename) => {
     document.body.removeChild(a)
     URL.revokeObjectURL(blobUrl)
   } catch {
-    window.open(fileUrl, '_blank')
+    window.open(fileUrl, '_blank', 'noopener,noreferrer')
   }
 }
 

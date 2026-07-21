@@ -589,6 +589,7 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
         setInputUrl('https://' + url.slice(0, i))
       }
       await delay(250)
+      if (check()) return false
       setIsGlowing(false)
       return true
     }
@@ -711,6 +712,7 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
       setShowNerdStats(false)
 
       const t0 = Date.now()
+      let waitingForImage = false
 
       try {
         const res = await window.fetch(
@@ -722,7 +724,6 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
 
         if (!res.ok) {
           setError(normalizeApiError(json, res))
-          setIsLoading(false)
           return
         }
 
@@ -738,14 +739,14 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
           setScreenshotSrc(src)
           setImgKey(k => k + 1)
           setImgVisible(false)
-        } else {
-          setIsLoading(false)
+          waitingForImage = true
         }
       } catch (err) {
         if (err.name !== 'AbortError') {
           setError(normalizeApiError.fromNetwork(err))
         }
-        setIsLoading(false)
+      } finally {
+        if (!waitingForImage) setIsLoading(false)
       }
     },
     [onRequestTiming]

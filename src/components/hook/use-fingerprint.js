@@ -7,7 +7,10 @@ const STORAGE_KEY = 'fingerprint:v3'
 
 const getFingerprint = once(() =>
   fetch('https://geolocation.microlink.io')
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error(res.statusText)
+      return res.json()
+    })
     .then(data => ({
       country: data.country.alpha2.toLowerCase(),
       ipAddress: data.ip.address
