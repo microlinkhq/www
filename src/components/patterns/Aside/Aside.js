@@ -33,20 +33,21 @@ const css = `
   left: 0;
 `
 
+const getVisibleAsideElement = () =>
+  Array.from(document.querySelectorAll('[data-aside]')).find(element => {
+    const style = window.getComputedStyle(element)
+    if (style.display === 'none' || style.visibility === 'hidden') {
+      return false
+    }
+
+    const { width, height } = element.getBoundingClientRect()
+    return width > 0 && height > 0
+  })
+
 const Aside = ({ children, ...props }) => {
   const [isOpen, setOpen] = useState(false)
   const toggleOpen = () => setOpen(!isOpen)
   const handleClose = () => setOpen(false)
-  const getVisibleAsideElement = () =>
-    Array.from(document.querySelectorAll('[data-aside]')).find(element => {
-      const style = window.getComputedStyle(element)
-      if (style.display === 'none' || style.visibility === 'hidden') {
-        return false
-      }
-
-      const { width, height } = element.getBoundingClientRect()
-      return width > 0 && height > 0
-    })
 
   // Handle Escape key to close drawer
   useEffect(() => {

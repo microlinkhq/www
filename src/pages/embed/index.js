@@ -331,6 +331,21 @@ const fallbackCopy = text => {
   }
 }
 
+const normalizeInputUrl = raw => {
+  const trimmed = (raw || '').trim()
+  if (!trimmed) return null
+  const withProtocol = /^https?:\/\//i.test(trimmed)
+    ? trimmed
+    : `https://${trimmed}`
+  try {
+    const parsed = new URL(withProtocol)
+    if (!parsed.hostname.includes('.')) return null
+    return parsed.href
+  } catch {
+    return null
+  }
+}
+
 const Hero = function Hero ({
   data,
   isLoading,
@@ -408,21 +423,6 @@ const Hero = function Hero ({
 
     return () => timers.forEach(clearTimeout)
   }, [])
-
-  const normalizeInputUrl = raw => {
-    const trimmed = (raw || '').trim()
-    if (!trimmed) return null
-    const withProtocol = /^https?:\/\//i.test(trimmed)
-      ? trimmed
-      : `https://${trimmed}`
-    try {
-      const parsed = new URL(withProtocol)
-      if (!parsed.hostname.includes('.')) return null
-      return parsed.href
-    } catch {
-      return null
-    }
-  }
 
   const handleInputSubmit = e => {
     e.preventDefault()

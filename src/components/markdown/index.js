@@ -5,7 +5,7 @@ import { withSlug } from 'helpers/hoc/with-slug'
 import { toPx, toRaw, fontSizes, theme } from 'theme'
 import styled from 'styled-components'
 import { MDXProvider } from '@mdx-js/react'
-import React, { useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
 import get from 'dlv'
 
 import { MarkdownContext } from './Context'
@@ -340,8 +340,13 @@ const ScopedComponents = {
 const components = { ...mdComponents, ...ScopedComponents }
 
 const Markdown = ({ children, isBlogPage, isGuidesPage, ...props }) => {
+  const contextValue = useMemo(
+    () => ({ isBlogPage, isGuidesPage }),
+    [isBlogPage, isGuidesPage]
+  )
+
   return (
-    <MarkdownContext.Provider value={{ isBlogPage, isGuidesPage }}>
+    <MarkdownContext.Provider value={contextValue}>
       <Box {...props}>
         <MDXProvider components={components}>{children}</MDXProvider>
       </Box>

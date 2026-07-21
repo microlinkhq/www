@@ -657,6 +657,23 @@ const addToHistory = (history, url) => {
   return [url, ...filtered].slice(0, MAX_HISTORY)
 }
 
+const fallbackCopy = text => {
+  try {
+    const el = document.createElement('textarea')
+    el.value = text
+    el.setAttribute('readonly', '')
+    el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0'
+    document.body.appendChild(el)
+    el.focus()
+    el.select()
+    const ok = document.execCommand('copy')
+    document.body.removeChild(el)
+    return ok
+  } catch {
+    return false
+  }
+}
+
 // --- Hero ---
 
 const Hero = function Hero ({ onRequestTiming }) {
@@ -820,23 +837,6 @@ const Hero = function Hero ({ onRequestTiming }) {
         })
     } else {
       fallbackCopy(apiUrl) && markCopied()
-    }
-  }
-
-  const fallbackCopy = text => {
-    try {
-      const el = document.createElement('textarea')
-      el.value = text
-      el.setAttribute('readonly', '')
-      el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0'
-      document.body.appendChild(el)
-      el.focus()
-      el.select()
-      const ok = document.execCommand('copy')
-      document.body.removeChild(el)
-      return ok
-    } catch {
-      return false
     }
   }
 

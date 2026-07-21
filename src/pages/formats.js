@@ -34,7 +34,7 @@ const SPACE = {
 
 const SkipIcon = props => <Text {...props}>-</Text>
 
-const StatusIcon = value => {
+const StatusIcon = ({ value }) => {
   const isOptional = value === undefined
   const condition = isOptional ? undefined : false
   const isPresent = value !== condition
@@ -225,19 +225,27 @@ const FormatsPage = () => (
                   {file.type}
                 </Text>
                 <Flex style={HEADER[2].style} css={theme({ p: 2 })}>
-                  {StatusIcon(file.size)}
+                  <StatusIcon value={file.size} />
                 </Flex>
                 <Text style={HEADER[3].style} css={theme({ p: 2 })}>
-                  <Flex>{StatusIcon(file.height)}</Flex>
+                  <Flex>
+                    <StatusIcon value={file.height} />
+                  </Flex>
                 </Text>
                 <Text style={HEADER[4].style} css={theme({ p: 2 })}>
-                  <Flex>{StatusIcon(file.width)}</Flex>
+                  <Flex>
+                    <StatusIcon value={file.width} />
+                  </Flex>
                 </Text>
                 <Text style={HEADER[5].style} css={theme({ p: 2 })}>
-                  <Flex>{StatusIcon(file.duration)}</Flex>
+                  <Flex>
+                    <StatusIcon value={file.duration} />
+                  </Flex>
                 </Text>
                 <Text style={HEADER[6].style} css={theme({ p: 2 })}>
-                  <Flex>{StatusIcon(file.palette)}</Flex>
+                  <Flex>
+                    <StatusIcon value={file.palette} />
+                  </Flex>
                 </Text>
               </Flex>
             )

@@ -40,8 +40,10 @@ const parseGitTimestamp = (value, filepath) => {
 }
 
 export const getLastModifiedDate = async filepath => {
-  const timestamps = await loadTimestamps()
-  const path = await import('node:path')
+  const [timestamps, path] = await Promise.all([
+    loadTimestamps(),
+    import('node:path')
+  ])
   const normalizedPath = path.isAbsolute(filepath)
     ? path.relative(process.cwd(), filepath)
     : filepath

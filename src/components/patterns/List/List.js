@@ -9,6 +9,8 @@ const List = props => (
   <Flex as='ul' css={theme({ flexDirection: 'column' })} {...props} />
 )
 
+const ICON_SIZE = [1, 1, 2, 2]
+
 const ListItem = ({
   type = 'yes',
   alignItems = 'center',
@@ -16,7 +18,6 @@ const ListItem = ({
   ...props
 }) => {
   const isYes = type === 'yes'
-  const iconSize = [1, 1, 2, 2]
 
   return (
     <Flex as='li' css={theme({ alignItems, mb: isLast ? 0 : 3 })}>
@@ -35,7 +36,7 @@ const ListItem = ({
         <FeatherIcon
           icon={isYes ? CheckCircle : XCircle}
           color={isYes ? 'close' : 'gray'}
-          size={iconSize}
+          size={ICON_SIZE}
           aria-hidden='true'
         />
       </Flex>

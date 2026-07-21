@@ -3,6 +3,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState
 } from 'react'
 import styled from 'styled-components'
@@ -196,9 +197,10 @@ export const useHorizontalFadeMask = containerRef => {
 
 export const FadeBackgroundProvider = ({ children, containerRef }) => {
   const { showTop, showBottom } = useFadeMask(containerRef)
+  const value = useMemo(() => ({ showTop, showBottom }), [showTop, showBottom])
 
   return (
-    <FadeBackgroundContext.Provider value={{ showTop, showBottom }}>
+    <FadeBackgroundContext.Provider value={value}>
       {children}
     </FadeBackgroundContext.Provider>
   )
@@ -210,11 +212,13 @@ export const FadeBackgroundHorizontalProvider = ({
   fadeColor = colors.white
 }) => {
   const { showLeft, showRight } = useHorizontalFadeMask(containerRef)
+  const value = useMemo(
+    () => ({ showLeft, showRight, fadeColor }),
+    [showLeft, showRight, fadeColor]
+  )
 
   return (
-    <FadeBackgroundHorizontalContext.Provider
-      value={{ showLeft, showRight, fadeColor }}
-    >
+    <FadeBackgroundHorizontalContext.Provider value={value}>
       <Box css={{ position: 'relative' }}>
         {children}
         <FadeBackground.Left />

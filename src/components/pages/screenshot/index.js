@@ -726,6 +726,8 @@ export const createThumbnail = (
 
 /* ─── Screenshot History ───────────────────────────────── */
 
+const defaultGetThumbnailSrc = entry => entry.thumbnail || entry.screenshot?.url
+
 export const ScreenshotHistory = ({
   entries,
   activeId,
@@ -747,9 +749,6 @@ export const ScreenshotHistory = ({
   }, [entries])
 
   if (!entries || entries.length === 0) return null
-
-  const defaultGetThumbnailSrc = entry =>
-    entry.thumbnail || entry.screenshot?.url
 
   const resolveThumbnail = getThumbnailSrc || defaultGetThumbnailSrc
 

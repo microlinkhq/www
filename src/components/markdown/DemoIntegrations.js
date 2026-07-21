@@ -9,6 +9,8 @@ const DEFAULTS = {
   url: 'https://microlink.io'
 }
 
+const EMPTY_PARAMETERS = {}
+
 const chainItems = (items, quotes, object, wrapKey = false) =>
   items
     .map(key => {
@@ -43,7 +45,7 @@ const formatParam = (param, useRealJson = false) => {
 
 export const DemoIntegrations = ({
   caption,
-  parameters = {},
+  parameters = EMPTY_PARAMETERS,
   showCard = true
 }) => {
   const params = useMemo(() => ({ ...DEFAULTS, ...parameters }), [parameters])

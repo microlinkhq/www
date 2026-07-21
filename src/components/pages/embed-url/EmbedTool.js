@@ -1183,6 +1183,12 @@ const EXAMPLE_URLS = [
   { url: 'facebook.com', hideOnMobile: true }
 ]
 
+const normalizeUrl = rawUrl => {
+  const trimmed = rawUrl.trim()
+  if (!trimmed) return ''
+  return prependHttp(trimmed)
+}
+
 const Omnibar = ({
   url,
   setUrl,
@@ -1200,12 +1206,6 @@ const Omnibar = ({
     },
     [setUrl]
   )
-
-  const normalizeUrl = rawUrl => {
-    const trimmed = rawUrl.trim()
-    if (!trimmed) return ''
-    return prependHttp(trimmed)
-  }
 
   const handleSubmit = useCallback(
     nextValue => {
@@ -2011,7 +2011,7 @@ const ConfigEditor = ({ config, setConfig, setHoverTarget }) => {
   const set = useCallback(
     (path, value) => {
       setConfig(prev => {
-        const next = JSON.parse(JSON.stringify(prev))
+        const next = structuredClone(prev)
         const keys = path.split('.')
         let cur = next
         for (let i = 0; i < keys.length - 1; i++) cur = cur[keys[i]]
@@ -2329,7 +2329,7 @@ const EmbedTool = ({
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
-  const [lastUrl, setLastUrl] = useState('')
+  const lastUrlRef = useRef('')
   const [config, setConfigInternal] = useState(DEFAULT_CONFIG)
   const [storedConfig, setStoredConfig] = useLocalStorage(
     LOCAL_STORAGE_KEY,
@@ -2365,7 +2365,7 @@ const EmbedTool = ({
       setIsLoading(true)
       setError(null)
       setData(null)
-      setLastUrl(nextUrl)
+      lastUrlRef.current = nextUrl
 
       try {
         const localFallback = buildLocalEmbedResponse(nextUrl)
@@ -2407,8 +2407,8 @@ const EmbedTool = ({
   )
 
   const handleRetry = useCallback(() => {
-    if (lastUrl) executeSubmit(lastUrl)
-  }, [lastUrl, executeSubmit])
+    if (lastUrlRef.current) executeSubmit(lastUrlRef.current)
+  }, [executeSubmit])
 
   const handleResetConfig = useCallback(() => {
     userChangedConfigRef.current = false

@@ -165,6 +165,41 @@ const LANGUAGE_MAP = {
 
 const isTextContentType = contentType => contentType.startsWith('text/')
 
+const checkForProPlanRequired = responseText =>
+  responseText && responseText.includes('You need a pro plan')
+
+const EDITOR_TEXTAREA_STYLE = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  background: 'transparent',
+  color: 'transparent',
+  resize: 'none',
+  border: 'none',
+  caretColor: colors.secondary
+}
+
+const IMAGE_OVERLAY_STYLE = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: colors.white70,
+  color: colors.black50,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  opacity: 0,
+  transition: `opacity ${transition.normal}`,
+  cursor: 'pointer',
+  fontSize: fontSizes[0],
+  fontWeight: fontWeights.bold,
+  textAlign: 'center'
+}
+
 const SEOParagraph = ({ url, mqlOpts, languages }) => {
   let message = 'The following examples show how to use the Microlink API'
   if (languages.length > 0) {
@@ -290,18 +325,7 @@ function InteractiveCodeEditor ({ activeLanguage, editable, code, setCode }) {
               outline-offset: -2px;
             }
           `}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'transparent',
-            color: 'transparent',
-            resize: 'none',
-            border: 'none',
-            caretColor: colors.secondary
-          }}
+          style={EDITOR_TEXTAREA_STYLE}
           spellCheck={false}
           autoComplete='off'
           autoCorrect='off'
@@ -698,24 +722,7 @@ const ContentArea = React.memo(
                     title='Click to open image in new tab'
                   />
                   <div
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      backgroundColor: colors.white70,
-                      color: colors.black50,
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      opacity: 0,
-                      transition: `opacity ${transition.normal}`,
-                      cursor: 'pointer',
-                      fontSize: fontSizes[0],
-                      fontWeight: fontWeights.bold,
-                      textAlign: 'center'
-                    }}
+                    style={IMAGE_OVERLAY_STYLE}
                     className='image-overlay'
                     aria-hidden='true'
                   >
@@ -1008,9 +1015,6 @@ function MultiCodeEditorInteractive ({
     setCode,
     setActiveView
   ])
-
-  const checkForProPlanRequired = responseText =>
-    responseText && responseText.includes('You need a pro plan')
 
   const parseCodeAndExecute = useCallback(
     async currentApiKey => {

@@ -1690,7 +1690,7 @@ const PROVIDERS = [
 
 const PAGE_SIZE = 40
 
-const ProviderIcon = ({ icon, color, logo, name }) => {
+const ProviderIcon = ({ icon, color: fallbackColor, logo, name }) => {
   if (icon) {
     return (
       <svg
@@ -1722,20 +1722,19 @@ const ProviderIcon = ({ icon, color, logo, name }) => {
   return (
     <span
       aria-hidden='true'
-      style={{
-        width: 24,
-        height: 24,
+      css={theme({
+        width: '24px',
+        height: '24px',
         borderRadius: '50%',
         flexShrink: 0,
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontSize: 12,
-        fontWeight: 700,
-        color: '#fff',
-        lineHeight: 1,
-        background: color || '#999'
-      }}
+        fontSize: '12px',
+        fontWeight: 'bold',
+        color: 'white'
+      })}
+      style={{ lineHeight: 1, background: fallbackColor || '#999' }}
     >
       {letter}
     </span>

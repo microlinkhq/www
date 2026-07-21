@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 
 const detectCurrency = () => {
   try {
@@ -17,9 +23,10 @@ export const useCurrencyContext = () => useContext(CurrencyContext)
 export const CurrencyProvider = ({ children }) => {
   const [currency, setCurrency] = useState(SSR_SAFE_DEFAULT)
   useEffect(() => setCurrency(detectCurrency()), [])
+  const value = useMemo(() => [currency], [currency])
 
   return (
-    <CurrencyContext.Provider value={[currency]}>
+    <CurrencyContext.Provider value={value}>
       {children}
     </CurrencyContext.Provider>
   )

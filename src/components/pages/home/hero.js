@@ -645,6 +645,15 @@ const composerHtml = (segments, { caret }) => {
 const readComposerText = el =>
   (el.textContent || '').replace(/\u00a0/g, ' ').replace(/[\r\n]+/g, ' ')
 
+const onEditorPaste = e => {
+  e.preventDefault()
+  const text = (e.clipboardData?.getData('text/plain') || '').replace(
+    /[\r\n]+/g,
+    ' '
+  )
+  document.execCommand('insertText', false, text)
+}
+
 const getCaretOffset = el => {
   const sel = window.getSelection()
   if (!sel || sel.rangeCount === 0) return null
@@ -1292,6 +1301,14 @@ const copyBody = (req, tab, snippet, snippetArg) => {
 const copyPayload = (req, tab, snippet, snippetArg) =>
   `// ${req.apiUrl}\n${copyBody(req, tab, snippet, snippetArg)}`
 
+const RESULT_TABS = [
+  { key: 'output', label: 'Output' },
+  { key: 'data', label: 'Data' },
+  { key: 'headers', label: 'Headers' },
+  { key: 'timing', label: 'Timing' },
+  { key: 'code', label: 'Code' }
+]
+
 const CopyResultButton = styled.button`
   cursor: pointer;
   transition: color ${transition.short};
@@ -1344,14 +1361,6 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
       .catch(() => {})
   }
 
-  const tabs = [
-    { key: 'output', label: 'Output' },
-    { key: 'data', label: 'Data' },
-    { key: 'headers', label: 'Headers' },
-    { key: 'timing', label: 'Timing' },
-    { key: 'code', label: 'Code' }
-  ]
-
   const barRef = useRef(null)
   const indicatorRef = useRef(null)
   const firstPaint = useRef(true)
@@ -1387,7 +1396,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
   }, [tab])
 
   const onTabKeyDown = e => {
-    const keys = tabs.map(t => t.key)
+    const keys = RESULT_TABS.map(t => t.key)
     const i = keys.indexOf(tab)
     let next = null
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
@@ -1453,7 +1462,7 @@ const ResultPanel = React.memo(({ tab, setTab, req }) => {
           aria-label='Response views'
           onKeyDown={onTabKeyDown}
         >
-          {tabs.map(t => (
+          {RESULT_TABS.map(t => (
             <TabButton
               key={t.key}
               id={`hero-tab-${t.key}`}
@@ -2146,15 +2155,6 @@ const Hero = () => {
     takeOver(text)
     setDVert(null)
     closeMenu()
-  }
-
-  const onEditorPaste = e => {
-    e.preventDefault()
-    const text = (e.clipboardData?.getData('text/plain') || '').replace(
-      /[\r\n]+/g,
-      ' '
-    )
-    document.execCommand('insertText', false, text)
   }
 
   const onEditorFocus = () => {

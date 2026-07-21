@@ -639,6 +639,25 @@ const addToHistory = (history, url) => {
   return [url, ...filtered].slice(0, MAX_HISTORY)
 }
 
+const DEMO_URLS = ['unavatar.io', 'microlink.io']
+
+const fallbackCopy = text => {
+  try {
+    const el = document.createElement('textarea')
+    el.value = text
+    el.setAttribute('readonly', '')
+    el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0'
+    document.body.appendChild(el)
+    el.focus()
+    el.select()
+    const ok = document.execCommand('copy')
+    document.body.removeChild(el)
+    return ok
+  } catch {
+    return false
+  }
+}
+
 const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
   const [inputUrl, setInputUrl] = useState(FIRST_URL)
   const [isFocused, setIsFocused] = useState(false)
@@ -665,8 +684,6 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
   const hasImageRef = useRef(false)
   const skipBlurRef = useRef(false)
   const imageLoadResolverRef = useRef(null)
-
-  const DEMO_URLS = ['unavatar.io', 'microlink.io']
 
   useEffect(() => {
     if (hasInteracted) return
@@ -774,23 +791,6 @@ const Hero = function Hero ({ onRequestTiming, heroLayout = HERO_LAYOUT }) {
         })
     } else {
       fallbackCopy(apiUrl) && markCopied()
-    }
-  }
-
-  const fallbackCopy = text => {
-    try {
-      const el = document.createElement('textarea')
-      el.value = text
-      el.setAttribute('readonly', '')
-      el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0'
-      document.body.appendChild(el)
-      el.focus()
-      el.select()
-      const ok = document.execCommand('copy')
-      document.body.removeChild(el)
-      return ok
-    } catch {
-      return false
     }
   }
 

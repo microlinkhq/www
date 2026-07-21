@@ -1,5 +1,5 @@
 /* global IntersectionObserver, requestAnimationFrame, cancelAnimationFrame, performance */
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import {
   theme,
@@ -689,6 +689,8 @@ const extractDomain = url => {
   }
 }
 
+const getVisualIndex = (key, order) => order.indexOf(key)
+
 const RaceContainer = ({
   benchmarkData,
   serviceColors,
@@ -699,6 +701,19 @@ const RaceContainer = ({
   const SERVICES = Object.keys(benchmarkData.results)
   const ALPHABETICAL_SERVICES = [...SERVICES].sort((a, b) =>
     benchmarkData.results[a].name.localeCompare(benchmarkData.results[b].name)
+  )
+  const coldDurationsByService = useMemo(() => {
+    const index = {}
+    Object.keys(benchmarkData.results).forEach(key => {
+      index[key] = new Map(
+        benchmarkData.results[key].perUrl.map(p => [p.url, p.coldDuration || 0])
+      )
+    })
+    return index
+  }, [benchmarkData])
+  const getColdDuration = useCallback(
+    (key, url) => coldDurationsByService[key].get(url) || 0,
+    [coldDurationsByService]
   )
   const SORTED_BY_AVG = [...SERVICES].sort(
     (a, b) =>
@@ -735,17 +750,12 @@ const RaceContainer = ({
   const getRankedOrder = cumulative =>
     [...ALPHABETICAL_SERVICES].sort((a, b) => cumulative[a] - cumulative[b])
 
-  const getVisualIndex = (key, order) => order.indexOf(key)
-
   const getCumulativeAtStep = targetStep => {
     const cum = initCumulativeTimes()
     for (let s = 0; s <= targetStep; s++) {
       const url = benchmarkData.testUrls[s]?.url
       ALPHABETICAL_SERVICES.forEach(key => {
-        const d =
-          benchmarkData.results[key].perUrl.find(p => p.url === url)
-            ?.coldDuration || 0
-        cum[key] += d
+        cum[key] += getColdDuration(key, url)
       })
     }
     return cum
@@ -795,10 +805,7 @@ const RaceContainer = ({
     const prev = cumulativeTimesRef.current
     const next = { ...prev }
     ALPHABETICAL_SERVICES.forEach(key => {
-      const d =
-        benchmarkData.results[key].perUrl.find(p => p.url === url)
-          ?.coldDuration || 0
-      next[key] = prev[key] + d
+      next[key] = prev[key] + getColdDuration(key, url)
     })
     cumulativeTimesRef.current = next
 
@@ -1080,11 +1087,7 @@ const RaceContainer = ({
 
   const currentUrl = benchmarkData.testUrls[step]?.url
   const currentMaxForStep = Math.max(
-    ...SERVICES.map(
-      key =>
-        benchmarkData.results[key].perUrl.find(p => p.url === currentUrl)
-          ?.coldDuration || 0
-    )
+    ...SERVICES.map(key => getColdDuration(key, currentUrl))
   )
 
   return (
@@ -1220,8 +1223,7 @@ const RaceContainer = ({
             >
               {ALPHABETICAL_SERVICES.map((key, domIndex) => {
                 const svc = benchmarkData.results[key]
-                const urlData = svc.perUrl.find(p => p.url === currentUrl)
-                const cold = urlData?.coldDuration || 0
+                const cold = getColdDuration(key, currentUrl)
                 const pct = (cold / currentMaxForStep) * 100
                 const isHighlighted = key === (highlightKey || 'microlink')
                 const visualIndex = getVisualIndex(key, rankedOrder)

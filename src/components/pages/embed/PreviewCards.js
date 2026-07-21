@@ -30,6 +30,85 @@ const getHostname = url => {
   }
 }
 
+const ONE_LINE_CARD_STYLE = {
+  width: '100%',
+  maxWidth: 460,
+  background: '#fff',
+  padding: '10px 14px',
+  borderRadius: 10,
+  border: `1px solid ${colors.black10}`,
+  boxShadow: `${shadows[2]}`,
+  display: 'flex',
+  alignItems: 'center',
+  gap: 10,
+  fontFamily: fonts.sans
+}
+
+const NOTIFICATION_CARD_STYLE = {
+  width: '100%',
+  maxWidth: 380,
+  padding: '12px 14px',
+  borderRadius: 16,
+  background: 'rgba(255, 255, 255, 0.92)',
+  backdropFilter: 'blur(20px) saturate(180%)',
+  WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+  border: `1px solid ${colors.black10}`,
+  boxShadow: `${shadows[4]}`,
+  display: 'flex',
+  gap: 10,
+  alignItems: 'flex-start',
+  fontFamily: fonts.sans
+}
+
+const CHAT_BUBBLE_TITLE_STYLE = {
+  fontSize: 12,
+  fontWeight: 700,
+  color: colors.black,
+  lineHeight: 1.3,
+  marginBottom: 2,
+  display: '-webkit-box',
+  WebkitLineClamp: 1,
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden'
+}
+
+const TWEET_CARD_STYLE = {
+  width: '100%',
+  maxWidth: 480,
+  fontFamily: fonts.sans,
+  background: '#fff',
+  borderRadius: 16,
+  border: `1px solid ${colors.black10}`,
+  boxShadow: `${shadows[2]}`,
+  padding: '14px 16px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 10
+}
+
+const TWEET_AVATAR_STYLE = {
+  width: 40,
+  height: 40,
+  borderRadius: '50%',
+  background: '#000',
+  flexShrink: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+}
+
+const TWEET_LINK_TITLE_STYLE = {
+  fontSize: 14,
+  fontWeight: 700,
+  color: colors.black,
+  lineHeight: 1.3,
+  marginBottom: 2,
+  display: '-webkit-box',
+  WebkitLineClamp: 1,
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden'
+}
+
 const PreviewMedia = ({ src, palette, alt = '', style }) => {
   const [errored, setErrored] = useState(false)
   useEffect(() => {
@@ -131,21 +210,7 @@ export const HeroCard = ({ data = STRIPE_DEMO_DATA }) => (
 )
 
 export const OneLineCard = ({ data = STRIPE_DEMO_DATA }) => (
-  <div
-    style={{
-      width: '100%',
-      maxWidth: 460,
-      background: '#fff',
-      padding: '10px 14px',
-      borderRadius: 10,
-      border: `1px solid ${colors.black10}`,
-      boxShadow: `${shadows[2]}`,
-      display: 'flex',
-      alignItems: 'center',
-      gap: 10,
-      fontFamily: fonts.sans
-    }}
-  >
+  <div style={ONE_LINE_CARD_STYLE}>
     {data.logo?.url
       ? (
         <img
@@ -353,23 +418,7 @@ export const TwitterCard = ({ data = STRIPE_DEMO_DATA }) => (
 )
 
 export const NotificationCard = ({ data = STRIPE_DEMO_DATA }) => (
-  <div
-    style={{
-      width: '100%',
-      maxWidth: 380,
-      padding: '12px 14px',
-      borderRadius: 16,
-      background: 'rgba(255, 255, 255, 0.92)',
-      backdropFilter: 'blur(20px) saturate(180%)',
-      WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-      border: `1px solid ${colors.black10}`,
-      boxShadow: `${shadows[4]}`,
-      display: 'flex',
-      gap: 10,
-      alignItems: 'flex-start',
-      fontFamily: fonts.sans
-    }}
-  >
+  <div style={NOTIFICATION_CARD_STYLE}>
     {data.logo?.url
       ? (
         <img
@@ -478,21 +527,7 @@ export const ChatBubbleCard = ({ data = STRIPE_DEMO_DATA }) => {
             style={{ width: '100%', aspectRatio: '2 / 1' }}
           />
           <div style={{ padding: '6px 10px 8px 8px' }}>
-            <div
-              style={{
-                fontSize: 12,
-                fontWeight: 700,
-                color: colors.black,
-                lineHeight: 1.3,
-                marginBottom: 2,
-                display: '-webkit-box',
-                WebkitLineClamp: 1,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden'
-              }}
-            >
-              {data.title}
-            </div>
+            <div style={CHAT_BUBBLE_TITLE_STYLE}>{data.title}</div>
             <div
               style={{
                 fontSize: 11,
@@ -545,34 +580,9 @@ export const ChatBubbleCard = ({ data = STRIPE_DEMO_DATA }) => {
 export const TweetCard = ({ data = STRIPE_DEMO_DATA }) => {
   const accent = '#1d9bf0'
   return (
-    <div
-      style={{
-        width: '100%',
-        maxWidth: 480,
-        fontFamily: fonts.sans,
-        background: '#fff',
-        borderRadius: 16,
-        border: `1px solid ${colors.black10}`,
-        boxShadow: `${shadows[2]}`,
-        padding: '14px 16px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10
-      }}
-    >
+    <div style={TWEET_CARD_STYLE}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: '50%',
-            background: '#000',
-            flexShrink: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
+        <div style={TWEET_AVATAR_STYLE}>
           <span
             style={{
               color: '#fff',
@@ -624,21 +634,7 @@ export const TweetCard = ({ data = STRIPE_DEMO_DATA }) => {
           <div style={{ fontSize: 12, color: colors.black50, marginBottom: 2 }}>
             {getHostname(data.url) || 'stripe.com'}
           </div>
-          <div
-            style={{
-              fontSize: 14,
-              fontWeight: 700,
-              color: colors.black,
-              lineHeight: 1.3,
-              marginBottom: 2,
-              display: '-webkit-box',
-              WebkitLineClamp: 1,
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden'
-            }}
-          >
-            {data.title}
-          </div>
+          <div style={TWEET_LINK_TITLE_STYLE}>{data.title}</div>
           <div
             style={{
               fontSize: 12,
