@@ -1,0 +1,150 @@
+import React from 'react'
+import { colors, layout, theme } from 'theme'
+import Box from 'components/elements/Box'
+import Caps from 'components/elements/Caps'
+import Flex from 'components/elements/Flex'
+import Hide from 'components/elements/Hide'
+import TimingsBand from 'components/patterns/Timings'
+import { LiveTiming } from 'components/patterns/LiveTiming/LiveTiming'
+import { useHealthcheck } from 'components/hook/use-healthcheck'
+import { trimMs } from 'helpers/trim-ms'
+import { Caption, Subhead } from './shared'
+
+export const Timings = ({ timingMs, timingUrl, timingHistory }) => {
+  const healthcheck = useHealthcheck()
+
+  const blockOne = (
+    <Flex
+      css={theme({
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      })}
+    >
+      <Subhead css={theme({ color: 'white' })}>
+        Send the URL{' '}
+        <span css={theme({ display: 'block', color: 'white60' })}>
+          Get clean markdown back
+        </span>
+      </Subhead>
+    </Flex>
+  )
+
+  const blockTwo = (
+    <Flex
+      css={theme({
+        pt: [3, 3, 4, 4],
+        justifyContent: 'center',
+        alignItems: 'baseline',
+        width: '100%',
+        maxWidth: layout.large,
+        gap: [1, 3, 4, 5],
+        fontVariantNumeric: 'tabular-nums'
+      })}
+    >
+      <Flex
+        css={theme({
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column'
+        })}
+      >
+        <Subhead
+          forwardedAs='div'
+          css={theme({
+            fontSize: ['20px', '26px', '32px', '32px'],
+            color: 'white',
+            fontWeight: 'bold'
+          })}
+        >
+          {trimMs(healthcheck.meta.p95_pretty)}
+          <Caption
+            forwardedAs='div'
+            css={theme({
+              ml: 1,
+              color: 'white',
+              display: 'inline',
+              fontWeight: 'bold'
+            })}
+            titleize={false}
+          >
+            secs
+          </Caption>
+        </Subhead>
+        <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
+          <Caps
+            css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}
+          >
+            P95 cold response
+          </Caps>
+        </Caption>
+      </Flex>
+      <Hide breakpoints={[1, 2, 3]}>
+        <Box css={theme({ px: 2 })} />
+      </Hide>
+      <LiveTiming
+        timingMs={timingMs}
+        timingUrl={timingUrl}
+        timingHistory={timingHistory}
+      />
+      <Flex
+        css={theme({
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column'
+        })}
+      >
+        <Subhead
+          forwardedAs='div'
+          css={theme({
+            fontSize: ['20px', '26px', '32px', '32px'],
+            color: 'white',
+            fontWeight: 'bold'
+          })}
+        >
+          99.9
+          <Caption
+            forwardedAs='div'
+            css={theme({
+              ml: 1,
+              color: 'white',
+              display: 'inline',
+              fontWeight: 'bold'
+            })}
+          >
+            %
+          </Caption>
+        </Subhead>
+        <Caption forwardedAs='div' css={theme({ color: 'white60', pt: 1 })}>
+          <Caps
+            css={theme({ fontWeight: 'bold', fontSize: ['12px', 1, 1, 1] })}
+          >
+            SLA Guaranteed
+          </Caps>
+        </Caption>
+      </Flex>
+    </Flex>
+  )
+
+  return (
+    <TimingsBand
+      accent={`radial-gradient(
+          circle at center right,
+          ${colors.orange9} 0%,
+          ${colors.orange9} 48%,
+          ${colors.orange8} 48%,
+          ${colors.orange8} 52%,
+          ${colors.orange7} 52%,
+          ${colors.orange7} 65%,
+          ${colors.orange6} 65%,
+          ${colors.orange6} 79%,
+          ${colors.orange5} 79%,
+          ${colors.orange5} 100%
+        )`}
+      title={blockOne}
+      stats={blockTwo}
+    />
+  )
+}
