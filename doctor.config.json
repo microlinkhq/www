@@ -1,14 +1,20 @@
 {
   "ignore": {
-    "files": [".cache/**", "public/**"],
+    "files": [
+      ".cache/**",
+      "public/**"
+    ],
     "overrides": [
       {
         "files": [
-          "src/pages/metadata.js",
+          "src/components/pages/metadata/hero.js",
           "src/pages/embed/index.js",
-          "src/pages/link-preview.js"
+          "src/pages/link-preview.js",
+          "src/pages/metadata.js"
         ],
-        "rules": ["react-doctor/effect-needs-cleanup"]
+        "rules": [
+          "react-doctor/effect-needs-cleanup"
+        ]
       },
       {
         "files": [
@@ -20,31 +26,43 @@
           "src/components/hook/healthcheck-fragment.js",
           "src/components/hook/oss-fragment.js"
         ],
-        "rules": ["deslop/unused-file"]
+        "rules": [
+          "deslop/unused-file"
+        ]
       },
       {
         "files": [
           "src/helpers/skills.js",
           "src/components/pages/embed/PreviewVariantsShowcase.js"
         ],
-        "rules": ["deslop/unused-export"]
+        "rules": [
+          "deslop/unused-export"
+        ]
       },
       {
         "files": [
           "src/components/hook/use-breakpoint.js",
           "src/components/hook/use-hover.js"
         ],
-        "rules": ["react-doctor/effect-needs-cleanup"]
+        "rules": [
+          "react-doctor/effect-needs-cleanup"
+        ]
       },
       {
-        "files": ["src/components/hook/use-fingerprint.js"],
+        "files": [
+          "src/components/hook/use-fingerprint.js"
+        ],
         "rules": [
           "react-doctor/no-unguarded-browser-global-in-render-or-hook-init"
         ]
       },
       {
-        "files": ["package.json"],
-        "rules": ["deslop/unused-dependency"]
+        "files": [
+          "package.json"
+        ],
+        "rules": [
+          "deslop/unused-dependency"
+        ]
       },
       {
         "files": [
@@ -55,43 +73,65 @@
           "src/components/pages/embed/InteractiveExample.js",
           "src/components/pages/home/hero.js"
         ],
-        "rules": ["react-doctor/dangerous-html-sink"]
-      },
-      {
-        "files": ["src/helpers/get-api-url.js"],
-        "rules": ["react-doctor/insecure-crypto-risk"]
-      },
-      {
-        "files": ["gatsby-ssr.js"],
-        "rules": ["react-doctor/unsafe-json-in-html"]
+        "rules": [
+          "react-doctor/dangerous-html-sink"
+        ]
       },
       {
         "files": [
-          "src/pages/screenshot.js",
-          "src/components/pages/screenshot/lang/ScreenshotDemo.js"
+          "src/helpers/get-api-url.js"
         ],
-        "rules": ["react-doctor/no-unknown-property"]
+        "rules": [
+          "react-doctor/insecure-crypto-risk"
+        ]
+      },
+      {
+        "files": [
+          "gatsby-ssr.js"
+        ],
+        "rules": [
+          "react-doctor/unsafe-json-in-html"
+        ]
+      },
+      {
+        "files": [
+          "src/components/pages/screenshot/hero.js",
+          "src/components/pages/screenshot/lang/ScreenshotDemo.js",
+          "src/pages/screenshot.js"
+        ],
+        "rules": [
+          "react-doctor/no-unknown-property"
+        ]
       },
       {
         "files": [
           "src/components/elements/PdfViewer/PdfViewer.js",
+          "src/components/pages/metadata/hero.js",
+          "src/components/pages/pdf/hero.js",
+          "src/components/pages/screenshot/hero.js",
           "src/components/pages/screenshot/lang/ScreenshotDemo.js",
           "src/pages/markdown.js",
           "src/pages/metadata.js",
           "src/pages/pdf.js",
           "src/pages/screenshot.js"
         ],
-        "rules": ["react-doctor/no-set-state-after-await-in-effect"]
+        "rules": [
+          "react-doctor/no-set-state-after-await-in-effect"
+        ]
       },
       {
         "files": [
           "src/components/pages/embed-url/EmbedTool.js",
+          "src/components/pages/pdf/hero.js",
+          "src/components/pages/screenshot/hero.js",
           "src/components/pages/screenshot/lang/ScreenshotDemo.js",
           "src/pages/markdown.js",
           "src/pages/pdf.js",
           "src/pages/screenshot.js"
         ],
-        "rules": ["react-doctor/no-loading-flag-reset-outside-finally"]
+        "rules": [
+          "react-doctor/no-loading-flag-reset-outside-finally"
+        ]
       }
     ]
   }
