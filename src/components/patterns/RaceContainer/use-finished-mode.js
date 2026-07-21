@@ -24,5 +24,5 @@ export const useFinishedMode = ({
     return () => {
       if (modeTimerRef.current) clearTimeout(modeTimerRef.current)
     }
-  }, [phase])
+  }, [phase, setLeaderboardEntered, setModeIndex, modeTimerRef])
 }

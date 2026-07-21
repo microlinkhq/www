@@ -106,5 +106,17 @@ export const useAttractLoop = ({ hasInteracted, actions }) => {
         imageLoadResolverRef.current = null
       }
     }
-  }, [hasInteracted])
+  }, [
+    hasInteracted,
+    setInputUrl,
+    setIsGlowing,
+    setIsFocused,
+    setIsAttractMode,
+    setIsPulsing,
+    setHistory,
+    setNavStack,
+    setNavIndex,
+    fetchScreenshot,
+    imageLoadResolverRef
+  ])
 }

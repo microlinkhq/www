@@ -67,7 +67,7 @@ export const Hero = function Hero ({ onRequestTiming }) {
 
   useEffect(() => {
     fetchPdf(FIRST_URL)
-  }, [])
+  }, [fetchPdf])
 
   useAttractLoop({
     hasInteracted,

@@ -67,5 +67,17 @@ export const useFetchScreenshot = ({
         if (!waitingForImage) setIsLoading(false)
       }
     },
-    [onRequestTiming]
+    [
+      onRequestTiming,
+      abortRef,
+      setIsLoading,
+      setError,
+      setShowNerdStats,
+      setNerdStats,
+      setNerdQuery,
+      setNerdResponse,
+      setScreenshotSrc,
+      setImgKey,
+      setImgVisible
+    ]
   )

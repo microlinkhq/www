@@ -87,5 +87,16 @@ export const useAttractLoop = ({ hasInteracted, actions }) => {
       cancelled = true
       timeouts.forEach(clearTimeout)
     }
-  }, [hasInteracted])
+  }, [
+    hasInteracted,
+    setInputUrl,
+    setIsGlowing,
+    setIsFocused,
+    setIsAttractMode,
+    setIsPulsing,
+    setHistory,
+    setNavStack,
+    setNavIndex,
+    fetchMetadata
+  ])
 }

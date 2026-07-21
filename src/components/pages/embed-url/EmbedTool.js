@@ -2068,15 +2068,16 @@ const ResultArea = ({
   const [useCard, setUseCard] = useState(false)
   const [editOverrides, setEditOverrides] = useState({})
   const [editHint, setEditHint] = useState('idle')
-  const hintShownRef = useRef(false)
+  const [prevData, setPrevData] = useState(data)
+  const hintShownForRef = useRef()
   const hintTimerRef = useRef(null)
 
-  useEffect(() => {
+  if (data !== prevData) {
+    setPrevData(data)
     setUseCard(false)
     setEditOverrides({})
-    hintShownRef.current = false
     setEditHint('idle')
-  }, [data])
+  }
 
   useEffect(
     () => () => {
@@ -2086,8 +2087,8 @@ const ResultArea = ({
   )
 
   const handlePreviewMouseEnter = useCallback(() => {
-    if (hintShownRef.current) return
-    hintShownRef.current = true
+    if (hintShownForRef.current === data) return
+    hintShownForRef.current = data
     setEditHint('visible')
     hintTimerRef.current = setTimeout(() => {
       setEditHint('leaving')
@@ -2096,7 +2097,7 @@ const ResultArea = ({
         hintTimerRef.current = null
       }, 240)
     }, 3500)
-  }, [])
+  }, [data])
 
   const onEditField = useCallback((field, value) => {
     setEditOverrides(prev => {

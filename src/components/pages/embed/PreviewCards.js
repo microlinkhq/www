@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { colors, fonts, shadows } from 'theme'
 import {
   Heart as HeartIcon,
@@ -110,12 +110,9 @@ const TWEET_LINK_TITLE_STYLE = {
 }
 
 const PreviewMedia = ({ src, palette, alt = '', style }) => {
-  const [errored, setErrored] = useState(false)
-  useEffect(() => {
-    setErrored(false)
-  }, [src])
+  const [erroredSrc, setErroredSrc] = useState(null)
   const fallbackBg = palette?.[0] || colors.black05
-  if (!src || errored) {
+  if (!src || erroredSrc === src) {
     return <div style={{ ...style, background: fallbackBg }} />
   }
   return (
@@ -123,7 +120,7 @@ const PreviewMedia = ({ src, palette, alt = '', style }) => {
       <img
         src={src}
         alt={alt}
-        onError={() => setErrored(true)}
+        onError={() => setErroredSrc(src)}
         style={{
           width: '100%',
           height: '100%',

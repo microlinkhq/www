@@ -46,5 +46,11 @@ export const useAttractTyping = ({
         capTypeTimerRef.current = null
       }
     }
-  }, [fetchCapMarkdown])
+  }, [
+    capSectionRef,
+    capTriggeredRef,
+    capTypeTimerRef,
+    setCapUrl,
+    fetchCapMarkdown
+  ])
 }

@@ -8,11 +8,11 @@ import { useBlogIndex } from 'components/hook/use-blog-index'
 import { layout, theme } from 'theme'
 
 import {
-  NavMicrolinkLogo,
   SOCIAL_NAV_ITEMS,
   ToolbarNavLink,
   getToolbarSectionFromPathname
 } from './ToolbarLinks'
+import { NavMicrolinkLogo } from './NavLogo'
 
 import {
   DEBUG_STICKY_SECTION,

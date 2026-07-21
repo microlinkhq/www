@@ -1,7 +1,6 @@
-import React, { createElement } from 'react'
+import React from 'react'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import { Microlink } from 'components/logos'
 import { Markdown as MarkdownIcon } from 'components/icons/Markdown'
 import { Bot as BotIcon } from 'components/icons/Bot'
 import { Award as AwardIcon } from 'components/icons/Award'
@@ -418,40 +417,3 @@ export const getToolbarSectionFromPathname = pathname => {
 
   return section ? section.label : ''
 }
-
-const NavLogoMobile = props => (
-  <ToolbarNavLink
-    href='/'
-    data-event-location='Toolbar'
-    data-event-name='Logo'
-    {...props}
-  >
-    <Microlink
-      css={{
-        height: 16,
-        width: 'auto'
-      }}
-    />
-  </ToolbarNavLink>
-)
-
-const NavLogoDesktop = props => (
-  <ToolbarNavLink
-    data-event-location='Toolbar'
-    data-event-name='Logo'
-    href='/'
-    css={{
-      display: 'flex',
-      width: '52px'
-    }}
-    {...props}
-  >
-    <Microlink />
-  </ToolbarNavLink>
-)
-
-export const NavMicrolinkLogo = ({ isMobile, ...props }) =>
-  createElement(isMobile ? NavLogoMobile : NavLogoDesktop, {
-    forwardedAs: 'div',
-    ...props
-  })

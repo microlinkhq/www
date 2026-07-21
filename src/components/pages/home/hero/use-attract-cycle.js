@@ -65,5 +65,5 @@ export const useAttractCycle = ({ anim, sectionRef, setDText }) => {
       document.removeEventListener('visibilitychange', syncActivity)
       if (observer) observer.disconnect()
     }
-  }, [])
+  }, [anim, sectionRef, setDText])
 }

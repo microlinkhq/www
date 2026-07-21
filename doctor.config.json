@@ -133,6 +133,24 @@
         "rules": [
           "react-doctor/no-giant-component"
         ]
+      },
+      {
+        "files": [
+          "src/components/patterns/RaceContainer/use-race-schedule.js",
+          "src/helpers/hoc/with-debounce.js"
+        ],
+        "rules": [
+          "react-doctor/exhaustive-deps"
+        ]
+      },
+      {
+        "files": [
+          "src/components/patterns/LiveTiming/LiveTiming.js"
+        ],
+        "rules": [
+          "react-doctor/no-derived-state",
+          "react-doctor/no-derived-state-effect"
+        ]
       }
     ]
   }

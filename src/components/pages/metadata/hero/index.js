@@ -75,7 +75,7 @@ export const Hero = function Hero ({
 
   useEffect(() => {
     fetchMetadata(FIRST_URL)
-  }, [])
+  }, [fetchMetadata])
 
   useAttractLoop({
     hasInteracted,

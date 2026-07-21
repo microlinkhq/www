@@ -16,10 +16,10 @@ import React, { useEffect, useState } from 'react'
 import {
   DIRECT_NAV_ITEMS,
   NAVIGATION_SECTIONS,
-  NavMicrolinkLogo,
   ToolbarNavLink,
   getToolbarSectionFromPathname
 } from './ToolbarLinks'
+import { NavMicrolinkLogo } from './NavLogo'
 import {
   TOOLBAR_CHEVRON_ICON_SIZE,
   TOOLBAR_LIST_RESET_STYLES,

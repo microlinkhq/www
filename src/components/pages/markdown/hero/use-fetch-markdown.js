@@ -84,5 +84,18 @@ export const useFetchMarkdown = ({
         setIsLoading(false)
       }
     },
-    [onRequestTiming]
+    [
+      onRequestTiming,
+      abortRef,
+      streamRef,
+      hasContentRef,
+      fetchResolverRef,
+      setIsLoading,
+      setError,
+      setShowNerdStats,
+      setNerdStats,
+      setNerdQuery,
+      setNerdResponse,
+      setMarkdownContent
+    ]
   )

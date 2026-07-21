@@ -732,7 +732,8 @@ export const PreviewDisplay = ({
   const [imagePainted, setImagePainted] = useState(false)
   const [copied, setCopied] = useState(false)
   const [downloaded, setDownloaded] = useState(false)
-  const prevImageUrlRef = useRef(null)
+  const [wasLoading, setWasLoading] = useState(isLoading)
+  const [prevImageUrl, setPrevImageUrl] = useState(null)
   const scrollAreaRef = useRef(null)
   const imageUrl = get(data, 'screenshot.url')
 
@@ -777,19 +778,18 @@ export const PreviewDisplay = ({
 
   const showSkeleton = isLoading || (!!imageUrl && !imagePainted)
 
-  useEffect(() => {
+  if (isLoading !== wasLoading) {
+    setWasLoading(isLoading)
     if (isLoading) {
       setIsPreviewTooBig(false)
       setImagePainted(false)
     }
-  }, [isLoading])
+  }
 
-  useEffect(() => {
-    if (imageUrl && imageUrl !== prevImageUrlRef.current) {
-      prevImageUrlRef.current = imageUrl
-      setImagePainted(false)
-    }
-  }, [imageUrl])
+  if (imageUrl && imageUrl !== prevImageUrl) {
+    setPrevImageUrl(imageUrl)
+    setImagePainted(false)
+  }
 
   return (
     <PreviewCanvas ref={viewportCardRef}>

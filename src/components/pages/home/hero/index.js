@@ -7,6 +7,7 @@ import heroDemoRequests from 'components/pages/home/hero-demo-requests'
 import { trackEvent } from 'helpers/plausible'
 import { timings, space, theme } from 'theme'
 import React, {
+  useCallback,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -191,12 +192,12 @@ const Hero = () => {
     })
   }
 
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     clearTimeout(menuTimer.current)
     window.cancelAnimationFrame(menuRaf.current)
     setMenuState(s => (s ? 'closing' : s))
     menuTimer.current = setTimeout(() => setMenuState(null), 150)
-  }
+  }, [menuTimer, menuRaf, setMenuState])
 
   const menuVisible = menuState === 'open' || menuState === 'pre'
 

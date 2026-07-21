@@ -38,5 +38,5 @@ export const useHeightTransition = ({
     } else {
       el.style.height = `${nextHeight}px`
     }
-  }, [phase, modeIndex, step, isAnnouncing])
+  }, [innerRef, phase, modeIndex, step, isAnnouncing])
 }

@@ -16,5 +16,5 @@ export const useAutoStart = ({ containerRef, hasAutoStarted, startIntro }) => {
     const el = containerRef.current
     if (el) observer.observe(el)
     return () => observer.disconnect()
-  }, [startIntro])
+  }, [containerRef, hasAutoStarted, startIntro])
 }

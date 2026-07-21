@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { SECTION_VERTICAL_SPACING, theme } from 'theme'
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
@@ -28,9 +28,7 @@ export const Capabilities = () => {
   const [capUrl, setCapUrl] = useState('')
   const [capFocused, setCapFocused] = useState(false)
   const [capMarkdown, setCapMarkdown] = useState('')
-  const [capDisplayed, setCapDisplayed] = useState('')
   const [capHtml, setCapHtml] = useState('')
-  const [capHtmlDisplayed, setCapHtmlDisplayed] = useState('')
   const [capLoading, setCapLoading] = useState(false)
   const [capHtmlLoading, setCapHtmlLoading] = useState(false)
   const [capError, setCapError] = useState(null)
@@ -46,6 +44,9 @@ export const Capabilities = () => {
   const isSmallMobile = useIsSmallMobile()
   const capFmt = isSmallMobile ? formatCompactNumberRound : formatCompactNumber
 
+  const capDisplayed = capMarkdown || ''
+  const capHtmlDisplayed = capHtml || ''
+
   const capMdWords = countWords(capDisplayed)
   const capMdTokens = estimateTokens(capDisplayed)
   const capHtmlWords = countWords(capHtmlDisplayed)
@@ -55,14 +56,6 @@ export const Capabilities = () => {
   const animatedCapMdTokens = useAnimatedCount(capMdTokens)
   const animatedCapHtmlWords = useAnimatedCount(capHtmlWords)
   const animatedCapHtmlTokens = useAnimatedCount(capHtmlTokens)
-
-  useEffect(() => {
-    setCapDisplayed(capMarkdown || '')
-  }, [capMarkdown])
-
-  useEffect(() => {
-    setCapHtmlDisplayed(capHtml || '')
-  }, [capHtml])
 
   const fetchCapMarkdown = useFetchCapMarkdown({
     capAbortRef,

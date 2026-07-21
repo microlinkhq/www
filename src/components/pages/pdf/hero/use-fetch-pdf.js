@@ -56,5 +56,13 @@ export const useFetchPdf = ({
         if (!waitForPdfRender) setIsLoading(false)
       }
     },
-    [onRequestTiming]
+    [
+      onRequestTiming,
+      abortRef,
+      hasPdfRef,
+      imgKeyRef,
+      setIsLoading,
+      setError,
+      setPdfSrc
+    ]
   )

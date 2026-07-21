@@ -53,5 +53,13 @@ export const useFetchMetadata = ({
         setIsLoading(false)
       }
     },
-    [onRequestTiming, onUrlChange, onDataChange]
+    [
+      onRequestTiming,
+      onUrlChange,
+      onDataChange,
+      abortRef,
+      setIsLoading,
+      setError,
+      setMetaData
+    ]
   )

@@ -20,12 +20,12 @@ export const useMenuBehavior = ({ menuState, chipRef, menuRef, closeMenu }) => {
       document.removeEventListener('mousedown', onDown)
       document.removeEventListener('keydown', onKey)
     }
-  }, [menuState])
+  }, [menuState, chipRef, menuRef, closeMenu])
 
   useEffect(() => {
     if (menuState !== 'open') return
     const el =
       menuRef.current && menuRef.current.querySelector('[data-active="true"]')
     if (el) el.focus()
-  }, [menuState])
+  }, [menuState, menuRef])
 }

@@ -57,7 +57,8 @@ export const useLanguageSync = ({
     availableLanguages,
     codeSnippets,
     setCode,
-    setActiveView
+    setActiveView,
+    setLanguageIndex
   ])
 }
 
@@ -68,7 +69,7 @@ export const useDefaultViewSync = ({
 }) => {
   useEffect(() => {
     setActiveView(normalizedDefaultView)
-  }, [normalizedDefaultView, url])
+  }, [normalizedDefaultView, url, setActiveView])
 }
 
 export const useCodeSync = ({
@@ -80,7 +81,7 @@ export const useCodeSync = ({
   useEffect(() => {
     if (!url) return
     setCode(codeSnippets[currentLanguage] || '')
-  }, [url, currentLanguage, codeSnippets])
+  }, [url, currentLanguage, codeSnippets, setCode])
 }
 
 export const useLoadingChange = ({ isLoading, onLoadingChange }) => {

@@ -49,5 +49,5 @@ export const useErrorModalFocus = ({ error, setError, errorModalRef }) => {
         previouslyFocused.focus()
       }
     }
-  }, [isErrorOpen])
+  }, [isErrorOpen, setError, errorModalRef])
 }

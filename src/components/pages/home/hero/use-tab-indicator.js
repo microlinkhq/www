@@ -31,5 +31,5 @@ export const useTabIndicator = ({ barRef, indicatorRef, tab }) => {
     const onResize = () => move(false)
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
-  }, [tab])
+  }, [barRef, indicatorRef, tab])
 }

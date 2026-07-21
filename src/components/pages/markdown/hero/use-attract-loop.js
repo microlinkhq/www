@@ -107,5 +107,17 @@ export const useAttractLoop = ({ hasInteracted, actions }) => {
         fetchResolverRef.current = null
       }
     }
-  }, [hasInteracted])
+  }, [
+    hasInteracted,
+    setInputUrl,
+    setIsGlowing,
+    setIsFocused,
+    setIsAttractMode,
+    setIsPulsing,
+    setHistory,
+    setNavStack,
+    setNavIndex,
+    fetchMarkdown,
+    fetchResolverRef
+  ])
 }

@@ -1,4 +1,4 @@
-import { useState, createElement, useEffect } from 'react'
+import { useState, createElement, useEffect, useRef } from 'react'
 import { aspectRatio } from 'helpers/aspect-ratio'
 import { template } from 'helpers/template'
 
@@ -21,6 +21,11 @@ export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
     const [isLoading, setLoading] = useState(!isDataURI(componentProps[attr]))
     const { [attr]: rawAttribute, ...props } = componentProps
     const compiledAttr = template(rawAttribute)
+    const onLazyErrorRef = useRef(componentProps.onLazyError)
+
+    useEffect(() => {
+      onLazyErrorRef.current = componentProps.onLazyError
+    })
 
     useEffect(() => {
       const tag = document.createElement(tagName)
@@ -30,8 +35,8 @@ export const withLazy = (Component, { tagName = 'img', attr = 'src' } = {}) => {
         .then(() => setLoading(false))
         .catch(error => {
           console.error('[hook/with-lazy]', error)
-          if (typeof componentProps.onLazyError === 'function') {
-            componentProps.onLazyError(error)
+          if (typeof onLazyErrorRef.current === 'function') {
+            onLazyErrorRef.current(error)
           }
         })
     }, [compiledAttr])
