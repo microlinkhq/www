@@ -125,6 +125,14 @@
         "rules": [
           "react-doctor/no-loading-flag-reset-outside-finally"
         ]
+      },
+      {
+        "files": [
+          "src/components/icons/Signature.js"
+        ],
+        "rules": [
+          "react-doctor/no-giant-component"
+        ]
       }
     ]
   }
