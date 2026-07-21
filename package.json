@@ -193,6 +193,8 @@
     "finepack": "latest",
     "git-authors-cli": "latest",
     "github-generate-release": "latest",
+    "hast-util-heading-rank": "^3.0.0",
+    "hast-util-to-string": "^3.0.1",
     "mime": "~3.0.0",
     "nano-staged": "latest",
     "optimo": "latest",
@@ -204,6 +206,7 @@
     "standard-version": "latest",
     "storybook": "latest",
     "tinyspawn": "latest",
+    "unist-util-visit": "^5.1.0",
     "vitest": "latest"
   },
   "engines": {

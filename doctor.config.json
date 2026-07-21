@@ -23,8 +23,24 @@
         "rules": ["deslop/unused-file"]
       },
       {
-        "files": ["src/helpers/skills.js"],
+        "files": [
+          "src/helpers/skills.js",
+          "src/components/pages/embed/PreviewVariantsShowcase.js"
+        ],
         "rules": ["deslop/unused-export"]
+      },
+      {
+        "files": [
+          "src/components/hook/use-breakpoint.js",
+          "src/components/hook/use-hover.js"
+        ],
+        "rules": ["react-doctor/effect-needs-cleanup"]
+      },
+      {
+        "files": ["src/components/hook/use-fingerprint.js"],
+        "rules": [
+          "react-doctor/no-unguarded-browser-global-in-render-or-hook-init"
+        ]
       },
       {
         "files": ["package.json"],
