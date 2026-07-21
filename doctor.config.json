@@ -7,7 +7,7 @@
     "overrides": [
       {
         "files": [
-          "src/components/pages/metadata/hero.js",
+          "src/components/pages/metadata/hero/use-reveal-lines.js",
           "src/pages/embed/index.js",
           "src/pages/link-preview.js",
           "src/pages/metadata.js"
@@ -95,7 +95,7 @@
       },
       {
         "files": [
-          "src/components/pages/screenshot/hero.js",
+          "src/components/pages/screenshot/hero/viewport.js",
           "src/components/pages/screenshot/lang/ScreenshotDemo.js",
           "src/pages/screenshot.js"
         ],
@@ -106,9 +106,6 @@
       {
         "files": [
           "src/components/elements/PdfViewer/PdfViewer.js",
-          "src/components/pages/metadata/hero.js",
-          "src/components/pages/pdf/hero.js",
-          "src/components/pages/screenshot/hero.js",
           "src/components/pages/screenshot/lang/ScreenshotDemo.js",
           "src/pages/markdown.js",
           "src/pages/metadata.js",
@@ -122,8 +119,7 @@
       {
         "files": [
           "src/components/pages/embed-url/EmbedTool.js",
-          "src/components/pages/pdf/hero.js",
-          "src/components/pages/screenshot/hero.js",
+          "src/components/pages/markdown/capabilities.js",
           "src/components/pages/screenshot/lang/ScreenshotDemo.js",
           "src/pages/markdown.js",
           "src/pages/pdf.js",

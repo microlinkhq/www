@@ -769,7 +769,10 @@ const RaceContainer = ({
   const [step, setStep] = useState(0)
   const [activeStep, setActiveStep] = useState(0)
   const [modeIndex, setModeIndex] = useState(0)
-  const cumulativeTimesRef = useRef(initCumulativeTimes())
+  const cumulativeTimesRef = useRef(null)
+  if (cumulativeTimesRef.current === null) {
+    cumulativeTimesRef.current = initCumulativeTimes()
+  }
   const [displayedCumulative, setDisplayedCumulative] =
     useState(initCumulativeTimes)
   const [rankedOrder, setRankedOrder] = useState(ALPHABETICAL_SERVICES)
