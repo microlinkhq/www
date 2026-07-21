@@ -119,7 +119,6 @@
       {
         "files": [
           "src/components/pages/embed-url/EmbedTool.js",
-          "src/components/pages/markdown/capabilities.js",
           "src/components/pages/screenshot/lang/ScreenshotDemo.js",
           "src/pages/markdown.js",
           "src/pages/pdf.js",

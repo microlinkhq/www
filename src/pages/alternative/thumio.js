@@ -17,6 +17,7 @@ import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
+import SpeedSectionBase from 'components/patterns/SpeedSection'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { trackEvent } from 'helpers/plausible'
 import styled, { css } from 'styled-components'
@@ -31,7 +32,6 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import SubheadBase from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import { extractDomain } from 'helpers/extract-domain'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
 
@@ -60,9 +60,7 @@ const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
-const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4]} - ${space[3]} - ${space[2]})`
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
-const SPACE_12 = `calc(${space[3]} - ${space[1]})`
 const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
 const CTA_LINK_FONT_SIZE = [
@@ -291,19 +289,7 @@ const SERVICE_COLORS = {
   thumio: colors.cyan6
 }
 
-const formatMs = ms => ms.toLocaleString('en-US', { maximumFractionDigits: 0 })
-
-const formatMsDecimal = ms =>
-  ms.toLocaleString('en-US', { maximumFractionDigits: 2 })
-
 const formatMb = bytes => `${(bytes / 1000000).toFixed(2)} MB`
-
-const SERVICES = Object.keys(BENCHMARK_DATA.results)
-const SORTED_SERVICES = [...SERVICES].sort(
-  (a, b) =>
-    BENCHMARK_DATA.results[a].summary.avgColdDuration -
-    BENCHMARK_DATA.results[b].summary.avgColdDuration
-)
 
 const MICRO_AVG = BENCHMARK_DATA.results.microlink.summary.avgColdDuration
 const THUMIO_AVG = BENCHMARK_DATA.results.thumio.summary.avgColdDuration
@@ -637,118 +623,6 @@ const ComparisonTable = () => (
 )
 
 /* ---------------------------------------------------------------------------
- * Speed Benchmark Table
- * --------------------------------------------------------------------------- */
-
-const PerUrlTable = styled('table')`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-variant-numeric: tabular-nums;
-  table-layout: auto;
-
-  th,
-  td {
-    padding: ${space[2]} ${SPACE_12};
-    ${theme({ textAlign: 'right', fontSize: 0, fontFamily: 'mono' })};
-    border-bottom: ${borders[1]} ${colors.black05};
-    white-space: nowrap;
-  }
-
-  th {
-    font-weight: 600;
-    text-transform: uppercase;
-    ${theme({ color: 'black', fontSize: 0 })};
-    border-bottom: ${borders[1]} ${colors.black10};
-  }
-
-  th:first-child,
-  td:first-child {
-    text-align: left;
-    font-weight: 500;
-    ${theme({ color: 'black' })};
-  }
-
-  th:last-child,
-  td:last-child {
-    @media (max-width: ${BREAKPOINT_COMPACT_MAX}) {
-      display: none;
-    }
-  }
-
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
-`
-
-const CellHighlight = styled('span')`
-  ${theme({ fontWeight: 'bold', color: 'green7' })};
-`
-
-const CellLoser = styled('span')`
-  ${theme({ fontWeight: 'bold', color: 'red8' })};
-`
-
-const MobileCards = styled('div')`
-  ${theme({ display: 'none', flexDirection: 'column', width: '100%' })};
-  gap: ${SPACE_12};
-
-  @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-    ${theme({ display: 'flex' })};
-  }
-`
-
-const MobileCard = styled('div')`
-  ${theme({ borderRadius: 4, bg: 'white' })};
-  border: ${borders[1]} ${colors.black10};
-  overflow: hidden;
-`
-
-const MobileCardHeader = styled('div')`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    fontWeight: 'bold',
-    bg: 'black05'
-  })};
-  color: ${colors.black} !important;
-  padding: ${SPACE_10} ${SPACE_14};
-  border-bottom: ${borders[1]} ${colors.black10};
-`
-
-const MobileCardRow = styled('div')`
-  ${theme({
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    fontFamily: 'mono',
-    fontSize: 0
-  })};
-  padding: ${space[2]} ${SPACE_14};
-  font-variant-numeric: tabular-nums;
-  border-bottom: ${borders[1]} ${colors.black05};
-
-  &:last-child {
-    border-bottom: 0;
-  }
-`
-
-const MobileCardName = styled('span')`
-  ${theme({ color: 'black' })};
-  font-weight: 500;
-`
-
-const MobileCardTime = styled('span')`
-  font-weight: ${({ $highlight }) => ($highlight ? 700 : 400)};
-  color: ${({ $isMin, $isMax }) =>
-    $isMin ? colors.green7 : $isMax ? colors.red8 : colors.black};
-`
-
-/* ---------------------------------------------------------------------------
  * Pricing Comparison
  * --------------------------------------------------------------------------- */
 
@@ -908,391 +782,116 @@ const ComparisonSection = () => (
  * Speed Section
  * --------------------------------------------------------------------------- */
 
-const SpeedSection = () => {
-  const micro = BENCHMARK_DATA.results.microlink
-  const microAvg = micro.summary.avgColdDuration
-
-  return (
-    <Section
-      as='section'
-      id='speed'
-      css={theme({ bg: 'white', pt: [3, 3, 4, 4] })}
-    >
-      <SectionInner>
-        <Subhead css={theme({ pb: [2, 2, 3, 3] })} titleize={false}>
-          <GradientText>{AVERAGE_MULTIPLIER}&times; lower</GradientText> average
-          cold-start latency
-        </Subhead>
-
-        <Caption
-          css={theme({
-            pb: [3, 3, 4, 4],
-            maxWidth: layout.normal,
-            color: 'black80'
-          })}
-          titleize={false}
-        >
-          Same request shape. Same URLs. Measured at final screenshot
-          completion.
-        </Caption>
-
+const SpeedSection = () => (
+  <SpeedSectionBase
+    benchmark={BENCHMARK_DATA}
+    floorPctSlower
+    title={
+      <>
+        <GradientText>{AVERAGE_MULTIPLIER}&times; lower</GradientText> average
+        cold-start latency
+      </>
+    }
+    subtitle='Same request shape. Same URLs. Measured at final screenshot completion.'
+    description={
+      <>
+        We tested 7&nbsp;real-world URLs with true cold starts (no caching) from
+        a New York server. This comparison measures when the final screenshot
+        was ready, not when a streamed loader first appeared. Thum.io did not
+        finish ahead on any URL in this suite, and Microlink still finished the
+        full suite <b>{AVERAGE_PCT_SLOWER}% faster on average</b>.
+      </>
+    }
+    aside={
+      <>
         <Text
           css={theme({
-            pb: [3, 3, 4, 4],
-            maxWidth: layout.normal,
-            color: 'black60',
+            mt: 4,
             fontSize: 2,
-            lineHeight: 2,
-            textAlign: 'center',
-            mx: 'auto'
+            fontWeight: 'bold',
+            letterSpacing: 0,
+            color: 'black',
+            pb: 3
           })}
         >
-          We tested 7&nbsp;real-world URLs with true cold starts (no caching)
-          from a New York server. This comparison measures when the final
-          screenshot was ready, not when a streamed loader first appeared.
-          Thum.io did not finish ahead on any URL in this suite, and Microlink
-          still finished the full suite{' '}
-          <b>{AVERAGE_PCT_SLOWER}% faster on average</b>.
+          Average image size
         </Text>
-
-        <Flex
-          css={theme({
-            pt: [3, 3, 4, 4],
-            flexDirection: ['column', 'column', 'row', 'row'],
-            gap: [3, 3, 4, 4],
-            alignItems: 'flex-start',
-            width: '100%'
-          })}
-        >
-          <Box css={theme({ flex: 1, minWidth: 0, width: '100%' })}>
-            <Text
-              css={theme({
-                fontSize: 2,
-                fontWeight: 'bold',
-                letterSpacing: 0,
-                color: 'black',
-                pb: 3
-              })}
-            >
-              Cold-start latency by&nbsp;URL
-            </Text>
-            <Box
-              css={theme({
-                overflowX: 'auto',
-                WebkitOverflowScrolling: 'touch',
-                borderRadius: 4,
-                border: `${borders[1]} ${colors.black10}`,
-                bg: 'white',
-                display: ['none', 'block']
-              })}
-            >
-              <PerUrlTable>
-                <thead>
-                  <tr>
-                    <th css={theme({ textAlign: 'left' })}>URL</th>
-                    {SORTED_SERVICES.map(key => (
-                      <th
-                        key={key}
-                        css={theme({
-                          color:
-                            key === 'microlink' ? colors.green7 : colors.black
-                        })}
-                      >
-                        {BENCHMARK_DATA.results[key].name}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {BENCHMARK_DATA.testUrls.map(({ url }) => {
-                    const times = SORTED_SERVICES.map(
-                      key =>
-                        BENCHMARK_DATA.results[key].perUrl.find(
-                          p => p.url === url
-                        )?.coldDuration || 0
-                    )
-                    const minTime = Math.min(...times)
-                    const maxTime = Math.max(...times)
-
-                    return (
-                      <tr key={url}>
-                        <td>{extractDomain(url)}</td>
-                        {SORTED_SERVICES.map((key, i) => {
-                          const isMin = times[i] === minTime
-                          const isMax = times[i] === maxTime
-
-                          return (
-                            <td key={key}>
-                              {isMin
-                                ? (
-                                  <CellHighlight>
-                                    {formatMs(times[i])}
-                                  </CellHighlight>
-                                  )
-                                : isMax
-                                  ? (
-                                    <CellLoser>{formatMs(times[i])}</CellLoser>
-                                    )
-                                  : (
-                                      formatMs(times[i])
-                                    )}
-                            </td>
-                          )
-                        })}
-                      </tr>
-                    )
-                  })}
-                  {(() => {
-                    const totals = SORTED_SERVICES.map(
-                      key =>
-                        BENCHMARK_DATA.results[key].summary.totalColdDuration
-                    )
-                    const minTotal = Math.min(...totals)
-                    const maxTotal = Math.max(...totals)
-
-                    return (
-                      <tr>
-                        <td
-                          css={theme({
-                            fontWeight: 'bold',
-                            color: 'black',
-                            borderTop: `${borders[1]} ${colors.black10}`
-                          })}
-                        >
-                          Total
-                        </td>
-                        {SORTED_SERVICES.map((key, i) => {
-                          const isMin = totals[i] === minTotal
-                          const isMax = totals[i] === maxTotal
-
-                          return (
-                            <td
-                              key={key}
-                              css={theme({
-                                fontWeight: 'bold',
-                                borderTop: `${borders[1]} ${colors.black10}`,
-                                color: isMin
-                                  ? colors.green7
-                                  : isMax
-                                    ? colors.red8
-                                    : colors.black
-                              })}
-                            >
-                              {(totals[i] / 1000).toFixed(1)}&thinsp;s
-                            </td>
-                          )
-                        })}
-                      </tr>
-                    )
-                  })()}
-                </tbody>
-              </PerUrlTable>
-            </Box>
-
-            <MobileCards>
-              {BENCHMARK_DATA.testUrls.map(({ url }) => {
-                const times = SORTED_SERVICES.map(
-                  key =>
-                    BENCHMARK_DATA.results[key].perUrl.find(p => p.url === url)
-                      ?.coldDuration || 0
-                )
-                const minTime = Math.min(...times)
-                const maxTime = Math.max(...times)
-
-                return (
-                  <MobileCard key={url}>
-                    <MobileCardHeader>{extractDomain(url)}</MobileCardHeader>
-                    {SORTED_SERVICES.map((key, i) => {
-                      const isMin = times[i] === minTime
-                      const isMax = times[i] === maxTime
-
-                      return (
-                        <MobileCardRow key={key}>
-                          <MobileCardName>
-                            {BENCHMARK_DATA.results[key].name}
-                          </MobileCardName>
-                          <MobileCardTime
-                            $highlight={isMin || isMax}
-                            $isMin={isMin}
-                            $isMax={isMax}
-                          >
-                            {formatMs(times[i])}&thinsp;ms
-                          </MobileCardTime>
-                        </MobileCardRow>
-                      )
-                    })}
-                  </MobileCard>
-                )
-              })}
-            </MobileCards>
-          </Box>
-
-          <Box css={theme({ flex: 1, minWidth: 0, width: '100%' })}>
-            <Text
-              css={theme({
-                fontSize: 2,
-                fontWeight: 'bold',
-                letterSpacing: 0,
-                color: 'black',
-                pb: 3
-              })}
-            >
-              Average cold-start latency
-            </Text>
-            <Box
-              css={theme({
-                overflowX: 'auto',
-                WebkitOverflowScrolling: 'touch',
-                borderRadius: 4,
-                border: `${borders[1]} ${colors.black10}`,
-                bg: 'white'
-              })}
-            >
-              <FeatureTable>
-                <thead>
-                  <tr>
-                    <th>Provider</th>
-                    <th css={theme({ textAlign: 'right' })}>
-                      Avg Cold Duration
-                    </th>
-                    <th css={theme({ textAlign: 'right' })}>
-                      vs.&nbsp;Microlink
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {SORTED_SERVICES.map(key => {
-                    const svc = BENCHMARK_DATA.results[key]
-                    const avg = svc.summary.avgColdDuration
-                    const delta = avg - microAvg
-                    const pctSlower =
-                      microAvg > 0 ? Math.floor((delta / microAvg) * 100) : 0
-                    const isMicrolink = key === 'microlink'
-
-                    return (
-                      <tr key={key}>
-                        <td>
-                          <span
-                            css={theme({
-                              fontWeight: isMicrolink ? 'bold' : 'normal',
-                              color: isMicrolink ? colors.green7 : 'black'
-                            })}
-                          >
-                            {svc.name}
-                          </span>
-                        </td>
-                        <td
-                          css={theme({
-                            textAlign: 'right',
-                            fontWeight: isMicrolink ? 'bold' : 'normal',
-                            color: isMicrolink ? colors.green7 : undefined
-                          })}
-                        >
-                          {formatMsDecimal(avg)}&thinsp;ms
-                        </td>
-                        <td
-                          css={theme({
-                            textAlign: 'right',
-                            color: isMicrolink ? colors.green7 : 'black'
-                          })}
-                        >
-                          {isMicrolink ? '—' : `+${pctSlower}% slower`}
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </FeatureTable>
-            </Box>
-            <Text
-              css={theme({
-                mt: 4,
-                fontSize: 2,
-                fontWeight: 'bold',
-                letterSpacing: 0,
-                color: 'black',
-                pb: 3
-              })}
-            >
-              Average image size
-            </Text>
-            <Box
-              css={theme({
-                overflowX: 'auto',
-                WebkitOverflowScrolling: 'touch',
-                borderRadius: 4,
-                border: `${borders[1]} ${colors.black10}`,
-                bg: 'white'
-              })}
-            >
-              <FeatureTable>
-                <thead>
-                  <tr>
-                    <th>Provider</th>
-                    <th css={theme({ textAlign: 'right' })}>Avg Image Size</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {['microlink', 'thumio'].map(key => {
-                    const svc =
-                      key === 'microlink'
-                        ? { name: 'Microlink' }
-                        : { name: 'Thum.io' }
-                    const row = IMAGE_COMPARISON_DATA[key]
-                    const isMicrolink = key === 'microlink'
-
-                    return (
-                      <tr key={key}>
-                        <td>
-                          <span
-                            css={theme({
-                              fontWeight: isMicrolink ? 'bold' : 'normal',
-                              color: isMicrolink ? colors.green7 : 'black'
-                            })}
-                          >
-                            {svc.name}
-                          </span>
-                        </td>
-                        <td
-                          css={theme({
-                            textAlign: 'right',
-                            fontWeight: isMicrolink ? 'bold' : 'normal',
-                            color: isMicrolink ? colors.green7 : undefined
-                          })}
-                        >
-                          {formatMb(row.avgImageSize)}
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </FeatureTable>
-            </Box>
-          </Box>
-        </Flex>
         <Box
           css={theme({
-            mt: 4,
-            width: '100%'
+            overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            borderRadius: 4,
+            border: `${borders[1]} ${colors.black10}`,
+            bg: 'white'
           })}
         >
-          <Text
-            css={theme({
-              fontSize: [0, 0, 1, 1],
-              color: 'black70',
-              lineHeight: 2
-            })}
-          >
-            Microlink images come out <b>{IMAGE_SIZE_ADVANTAGE_PCT}% smaller</b>{' '}
-            on average while staying in a similar quality range. Smaller image
-            size matters when screenshots need to load fast without looking
-            obviously over-compressed.
-          </Text>
+          <FeatureTable>
+            <thead>
+              <tr>
+                <th>Provider</th>
+                <th css={theme({ textAlign: 'right' })}>Avg Image Size</th>
+              </tr>
+            </thead>
+            <tbody>
+              {['microlink', 'thumio'].map(key => {
+                const svc =
+                  key === 'microlink'
+                    ? { name: 'Microlink' }
+                    : { name: 'Thum.io' }
+                const row = IMAGE_COMPARISON_DATA[key]
+                const isMicrolink = key === 'microlink'
+
+                return (
+                  <tr key={key}>
+                    <td>
+                      <span
+                        css={theme({
+                          fontWeight: isMicrolink ? 'bold' : 'normal',
+                          color: isMicrolink ? colors.green7 : 'black'
+                        })}
+                      >
+                        {svc.name}
+                      </span>
+                    </td>
+                    <td
+                      css={theme({
+                        textAlign: 'right',
+                        fontWeight: isMicrolink ? 'bold' : 'normal',
+                        color: isMicrolink ? colors.green7 : undefined
+                      })}
+                    >
+                      {formatMb(row.avgImageSize)}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </FeatureTable>
         </Box>
-      </SectionInner>
-    </Section>
-  )
-}
+      </>
+    }
+  >
+    <Box
+      css={theme({
+        mt: 4,
+        width: '100%'
+      })}
+    >
+      <Text
+        css={theme({
+          fontSize: [0, 0, 1, 1],
+          color: 'black70',
+          lineHeight: 2
+        })}
+      >
+        Microlink images come out <b>{IMAGE_SIZE_ADVANTAGE_PCT}% smaller</b> on
+        average while staying in a similar quality range. Smaller image size
+        matters when screenshots need to load fast without looking obviously
+        over-compressed.
+      </Text>
+    </Box>
+  </SpeedSectionBase>
+)
 
 /* ---------------------------------------------------------------------------
  * Why Developers Switch
