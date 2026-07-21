@@ -6,7 +6,13 @@ const read = file =>
   fs.readFileSync(path.join(process.cwd(), 'src', file), 'utf8')
 
 const products = read('components/pages/home/products.js')
-const hero = read('components/pages/home/hero.js')
+
+const HERO_DIR = path.join(process.cwd(), 'src/components/pages/home/hero')
+const hero = fs
+  .readdirSync(HERO_DIR)
+  .sort()
+  .map(file => fs.readFileSync(path.join(HERO_DIR, file), 'utf8'))
+  .join('\n')
 const production = read('components/pages/home/production.js')
 
 describe('home design language', () => {

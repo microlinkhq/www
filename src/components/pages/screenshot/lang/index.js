@@ -24,7 +24,7 @@ import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
-import ScreenshotDemo from './ScreenshotDemo'
+import ScreenshotDemo from './screenshot-demo'
 
 const ALL_TOOLS = TOOL_CATALOG.flatMap(section => section.tools)
 

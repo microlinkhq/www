@@ -35,7 +35,7 @@ describe('home hero badge contrast', () => {
 
   test('badge reuses the shared footer status dot', () => {
     const source = fs.readFileSync(
-      path.join(process.cwd(), 'src/components/pages/home/hero.js'),
+      path.join(process.cwd(), 'src/components/pages/home/hero/index.js'),
       'utf8'
     )
     expect(source).toContain('<Dot.Success />')

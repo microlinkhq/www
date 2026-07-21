@@ -16,9 +16,29 @@ const {
   canonicalDemoUrl
 } = heroDemoRequests
 
-const { source, slice, evaluate } = sourceHarness(
-  'src/components/pages/home/hero.js'
+const HERO_DIR = path.join(process.cwd(), 'src/components/pages/home/hero')
+
+const { source: constants, slice: constantsSlice } = sourceHarness(
+  'src/components/pages/home/hero/constants.js'
 )
+
+const { slice: requestsSlice, evaluate } = sourceHarness(
+  'src/components/pages/home/hero/requests.js'
+)
+
+const { source: run } = sourceHarness(
+  'src/components/pages/home/hero/use-run-request.js'
+)
+
+const { slice: heroSlice } = sourceHarness(
+  'src/components/pages/home/hero/index.js'
+)
+
+const source = fs
+  .readdirSync(HERO_DIR)
+  .sort()
+  .map(file => fs.readFileSync(path.join(HERO_DIR, file), 'utf8'))
+  .join('\n')
 
 describe('hero demo requests module', () => {
   test('covers every product except search', () => {
@@ -54,10 +74,10 @@ describe('hero demo requests module', () => {
   })
 
   test('hero consumes the shared module instead of inline maps', () => {
-    expect(source).toContain(
+    expect(constants).toContain(
       "import heroDemoRequests from 'components/pages/home/hero-demo-requests'"
     )
-    expect(source).toContain('...heroDemoRequests.DEMO_URLS')
+    expect(constants).toContain('...heroDemoRequests.DEMO_URLS')
   })
 })
 
@@ -84,14 +104,13 @@ describe('hero demo url canonicalization', () => {
   })
 
   test('derive routes typed URLs through canonicalization', () => {
-    const derive = slice('const derive', 'const TIMING_COLORS')
+    const derive = constantsSlice('const derive', 'export {')
     expect(derive).toContain('canonicalDemoUrl(p.url, v)')
   })
 })
 
 describe('hero demo snapshot cache', () => {
   test('runRequest serves snapshot demos before hitting the API', () => {
-    const run = slice('const runRequest', 'const D = useMemo')
     expect(run).toContain(
       'snapshot.fullUrl === SNAPSHOT_URLS[snapshot.vertical]'
     )
@@ -103,7 +122,6 @@ describe('hero demo snapshot cache', () => {
   })
 
   test('snapshot runs defer the loading state behind a grace timer', () => {
-    const run = slice('const runRequest', 'const D = useMemo')
     const gate = run.slice(
       run.indexOf('SNAPSHOT_URLS[snapshot.vertical]'),
       run.indexOf('const t0')
@@ -120,7 +138,7 @@ describe('hero demo snapshot cache', () => {
   })
 
   test('snapshot fetches are memoized per vertical', () => {
-    const cache = slice('const demoSnapshots', 'const snapshotReq')
+    const cache = requestsSlice('const demoSnapshots', 'const snapshotReq')
     expect(cache).toContain('demoSnapshots.get(vertical)')
     expect(cache).toContain('demoSnapshots.set(vertical, promise)')
     expect(cache).toContain('heroDemoPath(vertical)')
@@ -149,7 +167,7 @@ describe('hero demo snapshot cache', () => {
 
   test('the initial request is seeded from the bundled snapshot', () => {
     expect(source).toContain(
-      "import screenshotSnapshot from '../../../../static/data/hero-demo/screenshot.json'"
+      "import screenshotSnapshot from '../../../../../static/data/hero-demo/screenshot.json'"
     )
     expect(source).toContain(
       'demoSnapshots.set(INITIAL_VERTICAL, Promise.resolve(screenshotSnapshot))'
@@ -178,7 +196,7 @@ describe('hero demo snapshot cache', () => {
   )
 
   test('pickers fill the vertical demo URL unless the user typed one', () => {
-    const pick = slice('const typedUrl', 'const MENU_COLS')
+    const pick = heroSlice('const typedUrl', 'const MENU_COLS')
     expect(pick).toContain(
       'canonicalDemoUrl(p.url, v) === DEFAULT_URLS[v] ? null : p.raw'
     )
@@ -200,8 +218,8 @@ describe('hero demo snapshot cache', () => {
   test('snapshotReq rebuilds the full response state for both paths', () => {
     const snapshotReq = evaluate(
       [
-        slice('const TIMING_COLORS', 'const GUTTER_X'),
-        slice('const snapshotReq', 'demoSnapshots.set(INITIAL_VERTICAL')
+        requestsSlice('const TIMING_COLORS', 'const fmtDuration'),
+        requestsSlice('const snapshotReq', 'demoSnapshots.set(INITIAL_VERTICAL')
       ].join('\n'),
       'snapshotReq',
       { parseServerTimingEntries }
@@ -229,10 +247,9 @@ describe('hero demo snapshot cache', () => {
   })
 
   test('live responses are normalized to plain headers before snapshotReq', () => {
-    const run = slice('const runRequest', 'const D = useMemo')
     expect(run).toContain('Object.fromEntries(response.headers.entries())')
     const headersToRows = evaluate(
-      slice('const headersToRows', 'const parseServerTiming'),
+      requestsSlice('const headersToRows', 'const parseServerTiming'),
       'headersToRows'
     )
     expect(headersToRows({ b: '2', a: '1' })).toEqual([

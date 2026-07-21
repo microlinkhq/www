@@ -2,11 +2,17 @@ import { describe, expect, test } from 'vitest'
 import heroDemoRequests from '../../src/components/pages/home/hero-demo-requests.js'
 import { sourceHarness } from '../utils/eval-source.mjs'
 
-const {
-  source,
-  slice,
-  evaluate: rawEvaluate
-} = sourceHarness('src/components/pages/home/hero.js')
+const { slice, evaluate: rawEvaluate } = sourceHarness(
+  'src/components/pages/home/hero/constants.js'
+)
+
+const { source: composer, slice: composerSlice } = sourceHarness(
+  'src/components/pages/home/hero/composer.js'
+)
+
+const { source: hero, slice: heroSlice } = sourceHarness(
+  'src/components/pages/home/hero/index.js'
+)
 
 const evaluate = (code, name) => rawEvaluate(code, name, { heroDemoRequests })
 
@@ -99,62 +105,47 @@ describe('home hero prompts', () => {
   })
 
   test('composer renders the URL as an atomic chip in a contenteditable', () => {
-    expect(source).toContain('contentEditable')
-    expect(source).toContain('composerHtml(dSegments')
-    expect(source).toContain('contenteditable="false"')
-    expect(source).toContain('dangerouslySetInnerHTML')
-    const editor = source.slice(
-      source.indexOf('const ComposerEditor'),
-      source.indexOf('const CLOSE_ICON_SVG')
-    )
+    expect(composer).toContain('contentEditable')
+    expect(composer).toContain('composerHtml(dSegments')
+    expect(composer).toContain('contenteditable="false"')
+    expect(composer).toContain('dangerouslySetInnerHTML')
+    const editor = composerSlice('const ComposerEditor', 'const CLOSE_ICON_SVG')
     expect(editor).toContain('[data-url-tag]')
     expect(editor).not.toContain('grape')
   })
 
   test('url chip uses the docs inline-code style', () => {
-    const editor = source.slice(
-      source.indexOf('const ComposerEditor'),
-      source.indexOf('const CLOSE_ICON_SVG')
-    )
+    const editor = composerSlice('const ComposerEditor', 'const CLOSE_ICON_SVG')
     const tag = editor.slice(editor.indexOf('[data-url-tag]'))
     expect(tag).toContain("color: 'secondary'")
     expect(tag).toContain("fontFamily: 'mono'")
     expect(tag).toContain("fontWeight: 'normal'")
     expect(tag).toContain('text-shadow: rgba(0, 0, 0, 0.05) 0px 1px')
     expect(tag).not.toContain('content:')
-    expect(source).not.toContain('LINK_ICON_SVG')
+    expect(composer).not.toContain('LINK_ICON_SVG')
   })
 
   test('url chip reveals a remove button on hover', () => {
-    expect(source).toContain('aria-label="Remove URL"')
-    expect(source).toContain('removeUrl()')
-    const editor = source.slice(
-      source.indexOf('const ComposerEditor'),
-      source.indexOf('const CLOSE_ICON_SVG')
-    )
+    expect(composer).toContain('aria-label="Remove URL"')
+    expect(composer).toContain('removeUrl()')
+    const editor = composerSlice('const ComposerEditor', 'const CLOSE_ICON_SVG')
     expect(editor).toContain('[data-url-tag]:hover [data-url-action]')
-    const remove = source.slice(
-      source.indexOf('const removeUrl'),
-      source.indexOf('const pickExample')
-    )
+    const remove = heroSlice('const removeUrl', 'const pickExample')
     expect(remove).toContain('.replace(raw, ')
     expect(remove).toContain('.focus()')
   })
 
   test('focusing mid-animation completes the current example', () => {
-    const focus = source.slice(
-      source.indexOf('const onEditorFocus'),
-      source.indexOf('useIsomorphicLayoutEffect(')
-    )
+    const focus = heroSlice('const onEditorFocus', 'useIsomorphicLayoutEffect(')
     expect(focus).toContain('anim.current.userTook')
     expect(focus).toContain('CYCLE[anim.current.ci]')
     expect(focus).toContain('pendingCaret.current = target.length')
   })
 
   test('caret survives re-renders via offset save and restore', () => {
-    expect(source).toContain('const getCaretOffset')
-    expect(source).toContain('const setCaretOffset')
-    expect(source).toContain('pendingCaret.current = getCaretOffset(el)')
-    expect(source).toContain('setCaretOffset(el, pendingCaret.current)')
+    expect(composer).toContain('const getCaretOffset')
+    expect(composer).toContain('const setCaretOffset')
+    expect(hero).toContain('pendingCaret.current = getCaretOffset(el)')
+    expect(hero).toContain('setCaretOffset(el, pendingCaret.current)')
   })
 })

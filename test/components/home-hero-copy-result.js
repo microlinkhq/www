@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest'
 import { sourceHarness } from '../utils/eval-source.mjs'
 
 const { source, slice, evaluate } = sourceHarness(
-  'src/components/pages/home/hero.js'
+  'src/components/pages/home/hero/result-panel.js'
 )
 
 const helpers = [

@@ -4,10 +4,18 @@ import { describe, expect, test } from 'vitest'
 
 import { isRateLimited } from '../../src/helpers/api-error'
 
-const source = fs.readFileSync(
-  path.join(process.cwd(), 'src/components/pages/home/hero.js'),
+const HERO_DIR = path.join(process.cwd(), 'src/components/pages/home/hero')
+
+const runRequest = fs.readFileSync(
+  path.join(HERO_DIR, 'use-run-request.js'),
   'utf8'
 )
+
+const source = fs
+  .readdirSync(HERO_DIR)
+  .sort()
+  .map(file => fs.readFileSync(path.join(HERO_DIR, file), 'utf8'))
+  .join('\n')
 
 describe('home hero rate limit', () => {
   test('detects rate limits by status code and by ERATE code', () => {
@@ -18,10 +26,10 @@ describe('home hero rate limit', () => {
   })
 
   test('hero checks both err.statusCode and err.code via the shared helper', () => {
-    expect(source).toContain(
+    expect(runRequest).toContain(
       "import { isRateLimited } from 'helpers/api-error'"
     )
-    expect(source).toContain(
+    expect(runRequest).toContain(
       'isRateLimited(err.statusCode) || isRateLimited(err.code)'
     )
   })

@@ -66,12 +66,12 @@
       },
       {
         "files": [
-          "src/html.js",
           "src/components/pages/builder/Builder.js",
           "src/components/pages/builder/generators.js",
           "src/components/pages/embed-url/EmbedTool.js",
           "src/components/pages/embed/InteractiveExample.js",
-          "src/components/pages/home/hero.js"
+          "src/components/pages/home/hero/composer.js",
+          "src/html.js"
         ],
         "rules": [
           "react-doctor/dangerous-html-sink"
@@ -96,7 +96,7 @@
       {
         "files": [
           "src/components/pages/screenshot/hero/viewport.js",
-          "src/components/pages/screenshot/lang/ScreenshotDemo.js",
+          "src/components/pages/screenshot/lang/screenshot-demo/viewport.js",
           "src/pages/screenshot.js"
         ],
         "rules": [
@@ -106,7 +106,6 @@
       {
         "files": [
           "src/components/elements/PdfViewer/PdfViewer.js",
-          "src/components/pages/screenshot/lang/ScreenshotDemo.js",
           "src/pages/markdown.js",
           "src/pages/metadata.js",
           "src/pages/pdf.js",
@@ -119,7 +118,6 @@
       {
         "files": [
           "src/components/pages/embed-url/EmbedTool.js",
-          "src/components/pages/screenshot/lang/ScreenshotDemo.js",
           "src/pages/markdown.js",
           "src/pages/pdf.js",
           "src/pages/screenshot.js"
