@@ -1455,7 +1455,7 @@ const VideoPreview = () => (
 
 const WAVE = [
   30, 55, 80, 45, 95, 60, 35, 70, 50, 85, 40, 65, 30, 55, 45, 72, 38, 58
-]
+].map((height, index) => ({ id: `wave-${index}`, height }))
 
 const Bar = styled.span`
   flex: 1;
@@ -1480,12 +1480,12 @@ const AudioPreview = () => (
         marginBottom: '18px'
       }}
     >
-      {WAVE.map((h, i) => (
+      {WAVE.map(({ id, height }) => (
         <Bar
-          key={i}
+          key={id}
           css={{
-            height: `${h}%`,
-            background: h >= 80 ? colors.pink6 : colors.pink2
+            height: `${height}%`,
+            background: height >= 80 ? colors.pink6 : colors.pink2
           }}
         />
       ))}

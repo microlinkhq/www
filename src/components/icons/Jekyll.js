@@ -27,11 +27,11 @@ export const Jekyll = ({ color = '#333333', ...props }) => (
         <linearGradient
           id='tube_3_'
           gradientUnits='userSpaceOnUse'
-          x1='206.4585'
-          y1='215.2629'
-          x2='283.1295'
-          y2='291.9339'
-          gradientTransform='matrix(0.9138 -0.4062 0.4062 0.9138 -80.6459 125.703)'
+          x1='206.459'
+          y1='215.263'
+          x2='283.13'
+          y2='291.934'
+          gradientTransform='matrix(0.914 -0.406 0.406 0.914 -80.646 125.703)'
         >
           <stop offset='0' style={{ stopColor: '#919191' }} />
           <stop offset='1' style={{ stopColor: '#FFFFFF' }} />
@@ -49,11 +49,11 @@ export const Jekyll = ({ color = '#333333', ...props }) => (
         <linearGradient
           id='liquid_2_'
           gradientUnits='userSpaceOnUse'
-          x1='177.6289'
-          y1='273.7523'
-          x2='224.0456'
-          y2='320.1689'
-          gradientTransform='matrix(0.9138 -0.4062 0.4062 0.9138 -80.6459 125.703)'
+          x1='177.629'
+          y1='273.752'
+          x2='224.046'
+          y2='320.169'
+          gradientTransform='matrix(0.914 -0.406 0.406 0.914 -80.646 125.703)'
         >
           <stop offset='0' style={{ stopColor: '#990000' }} />
           <stop offset='1' style={{ stopColor: '#E80000' }} />
@@ -68,7 +68,7 @@ export const Jekyll = ({ color = '#333333', ...props }) => (
 
         <ellipse
           id='top'
-          transform='matrix(0.9334 0.359 -0.359 0.9334 48.4129 -108.3439)'
+          transform='matrix(0.933 0.359 -0.359 0.933 48.413 -108.344)'
           fill={color}
           cx='315.97'
           cy='76.201'
@@ -137,11 +137,11 @@ export const Jekyll = ({ color = '#333333', ...props }) => (
         <linearGradient
           id='tube_4_'
           gradientUnits='userSpaceOnUse'
-          x1='206.4585'
-          y1='215.2629'
-          x2='283.1295'
-          y2='291.9339'
-          gradientTransform='matrix(0.9138 -0.4062 0.4062 0.9138 -80.6459 125.703)'
+          x1='206.459'
+          y1='215.263'
+          x2='283.13'
+          y2='291.934'
+          gradientTransform='matrix(0.914 -0.406 0.406 0.914 -80.646 125.703)'
         >
           <stop offset='0' style={{ stopColor: '#919191' }} />
           <stop offset='1' style={{ stopColor: '#FFFFFF' }} />
@@ -159,11 +159,11 @@ export const Jekyll = ({ color = '#333333', ...props }) => (
         <linearGradient
           id='liquid_3_'
           gradientUnits='userSpaceOnUse'
-          x1='177.6289'
-          y1='273.7523'
-          x2='224.0456'
-          y2='320.1689'
-          gradientTransform='matrix(0.9138 -0.4062 0.4062 0.9138 -80.6459 125.703)'
+          x1='177.629'
+          y1='273.752'
+          x2='224.046'
+          y2='320.169'
+          gradientTransform='matrix(0.914 -0.406 0.406 0.914 -80.646 125.703)'
         >
           <stop offset='0' style={{ stopColor: '#990000' }} />
           <stop offset='1' style={{ stopColor: '#E80000' }} />
@@ -178,7 +178,7 @@ export const Jekyll = ({ color = '#333333', ...props }) => (
 
         <ellipse
           id='top_1_'
-          transform='matrix(0.9334 0.359 -0.359 0.9334 48.4129 -108.3439)'
+          transform='matrix(0.933 0.359 -0.359 0.933 48.413 -108.344)'
           fill={color}
           cx='315.97'
           cy='76.201'

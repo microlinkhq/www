@@ -295,10 +295,7 @@ export const BrowserToolbar = ({
   navStack,
   handleBack,
   handleForward,
-  isGlowing,
-  isAttractMode,
-  isPulsing,
-  isFocused,
+  ui: { isGlowing, isAttractMode, isPulsing, isFocused, hasInteracted },
   inputRef,
   displayValue,
   handleChange,
@@ -306,7 +303,6 @@ export const BrowserToolbar = ({
   handleFocus,
   handleBlur,
   handleKeyDown,
-  hasInteracted,
   history,
   handleHistoryClick
 }) => (

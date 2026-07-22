@@ -18,7 +18,7 @@ import styled, { css, keyframes } from 'styled-components'
 import { aspectRatio } from 'helpers/aspect-ratio'
 import { wordBreak } from 'helpers/style'
 import { blinkCursorLayoutStyle, blinkCursorStyle } from './blink-cursor'
-import React, { useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 
 import CodeCopy from '../Codecopy'
 import Text from '../Text'
@@ -55,10 +55,16 @@ const fromString = text => {
 
   const lines = text.split(/\r?\n/)
 
-  return lines.map((item, index) => (
-    <span key={index}>
+  const keyedLines = lines.map((item, index) => ({
+    id: `${item}-${index}`,
+    item,
+    newline: index < lines.length - 1
+  }))
+
+  return keyedLines.map(({ id, item, newline }) => (
+    <span key={id}>
       {item}
-      {index < lines.length - 1 ? '\n' : null}
+      {newline ? '\n' : null}
     </span>
   ))
 }
@@ -312,7 +318,10 @@ const Terminal = ({
   text: textProp,
   ...props
 }) => {
-  const content = typeof children === 'string' ? fromString(children) : children
+  const content = useMemo(
+    () => (typeof children === 'string' ? fromString(children) : children),
+    [children]
+  )
   const text = textProp ?? childrenTextAll(children)
 
   return (

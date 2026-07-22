@@ -11,7 +11,11 @@ import { ACCENT, Subhead, Caption } from './shared'
 const CTA_DURATION = 6.2
 const CTA_SWEEP_PCT = (1.2 / CTA_DURATION) * 100
 const CTA_LEAD_TEXT = 'Start'
-const CTA_LEAD_CHARS = CTA_LEAD_TEXT.split('')
+const CTA_LEAD_CHARS = CTA_LEAD_TEXT.split('').map((char, index) => ({
+  char,
+  id: `${char}${index}`,
+  index
+}))
 const CTA_CHAR_PCT = CTA_SWEEP_PCT / CTA_LEAD_CHARS.length
 
 const ctaCharAnim = index => {
@@ -64,8 +68,8 @@ export const CallToAction = () => (
           textAlign: 'center'
         })}
       >
-        {CTA_LEAD_CHARS.map((char, i) => (
-          <CtaChar key={`${char}-${i}`} $i={i}>
+        {CTA_LEAD_CHARS.map(({ char, id, index }) => (
+          <CtaChar key={id} $i={index}>
             {char}
           </CtaChar>
         ))}{' '}

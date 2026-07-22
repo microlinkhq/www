@@ -185,6 +185,11 @@ const LogoEmpty = ({ style, ...props }) => (
   </LogoBox>
 )
 
+const PLACEHOLDER_SWATCHES = Array.from({ length: 6 }, (_, index) => ({
+  id: `placeholder-${index}`,
+  color: '#fff'
+}))
+
 const PreviewResponsive = React.memo(function PreviewResponsive ({
   isLoading,
   toClipboard,
@@ -192,8 +197,8 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
 }) {
   const logo = data.logo || {}
 
-  const colors = isLoading
-    ? Array.from({ length: 6 }, () => '#fff')
+  const swatches = isLoading
+    ? PLACEHOLDER_SWATCHES
     : [
         ...new Set(
           []
@@ -205,7 +210,7 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
             )
             .filter(Boolean)
         )
-      ]
+      ].map(color => ({ id: color, color }))
 
   const LogoComponent = isLoading
     ? LogoEmpty
@@ -229,15 +234,15 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
           })}
         >
           <Choose>
-            <Choose.When condition={colors.length > 0}>
-              {colors.slice(0, 6).map((color, index) => {
+            <Choose.When condition={swatches.length > 0}>
+              {swatches.slice(0, 6).map(({ id, color }) => {
                 return (
                   <Box
-                    key={`${color}_${index}`}
+                    key={id}
                     css={theme({
                       m: 1,
                       height: toPx(LOGO_SIZE / 3),
-                      width: toPx((LOGO_SIZE * 3 * 1) / colors.length),
+                      width: toPx((LOGO_SIZE * 3 * 1) / swatches.length),
                       border: 1,
                       borderColor: 'black10'
                     })}
@@ -287,12 +292,12 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
             })}
           >
             <Choose>
-              <Choose.When condition={colors.length > 0}>
-                {colors.map((color, index) => {
+              <Choose.When condition={swatches.length > 0}>
+                {swatches.map(({ id, color }, index) => {
                   return (
                     <Tooltip
                       type='copy'
-                      key={`${color}_${index}`}
+                      key={id}
                       tooltipsOpts={{
                         interactive: false,
                         hideOnClick: true
@@ -310,7 +315,7 @@ const PreviewResponsive = React.memo(function PreviewResponsive ({
                       <Box
                         css={theme({
                           height: toPx(LOGO_SIZE / 3),
-                          width: toPx((LOGO_SIZE * 3 * 1) / colors.length),
+                          width: toPx((LOGO_SIZE * 3 * 1) / swatches.length),
                           border: 1,
                           borderColor: 'black10'
                         })}

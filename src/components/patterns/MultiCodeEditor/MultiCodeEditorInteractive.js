@@ -17,11 +17,8 @@ import ContentArea from './interactive/content-area'
 import Toolbar from './interactive/toolbar'
 import {
   useAutoExecute,
-  useCodeSync,
   useCurrentViewText,
-  useDefaultViewSync,
-  useLanguageSync,
-  useLoadingChange
+  useLanguageSync
 } from './interactive/hooks'
 
 const checkForProPlanRequired = responseText =>
@@ -91,6 +88,25 @@ function MultiCodeEditorInteractive ({
   const [apiKey, setApiKey] = useLocalStorage('mql-api-key', '')
   const [showApiKeyInput, setShowApiKeyInput] = useState(false)
 
+  const [previousDefaults, setPreviousDefaults] = useState({
+    normalizedDefaultView,
+    url
+  })
+  if (
+    previousDefaults.normalizedDefaultView !== normalizedDefaultView ||
+    previousDefaults.url !== url
+  ) {
+    setPreviousDefaults({ normalizedDefaultView, url })
+    setActiveView(normalizedDefaultView)
+  }
+
+  const snippet = codeSnippets[currentLanguage] || ''
+  const [previousSnippet, setPreviousSnippet] = useState(snippet)
+  if (url && snippet !== previousSnippet) {
+    setPreviousSnippet(snippet)
+    setCode(snippet)
+  }
+
   useLanguageSync({
     url,
     bodyPreviewOnly,
@@ -105,6 +121,7 @@ function MultiCodeEditorInteractive ({
   const parseCodeAndExecute = useCallback(
     async currentApiKey => {
       setIsLoading(true)
+      onLoadingChange?.(true)
       try {
         const result = await (async () => {
           try {
@@ -148,9 +165,10 @@ function MultiCodeEditorInteractive ({
         }
       } finally {
         setIsLoading(false)
+        onLoadingChange?.(false)
       }
     },
-    [url, mqlOpts]
+    [url, mqlOpts, onLoadingChange]
   )
 
   const handleApiKeySubmit = useCallback(
@@ -170,12 +188,6 @@ function MultiCodeEditorInteractive ({
       })
     }
   }, [isLoading, parseCodeAndExecute, apiKey])
-
-  useDefaultViewSync({ normalizedDefaultView, url, setActiveView })
-
-  useCodeSync({ url, currentLanguage, codeSnippets, setCode })
-
-  useLoadingChange({ isLoading, onLoadingChange })
 
   useAutoExecute({
     autoExecute,

@@ -62,36 +62,6 @@ export const useLanguageSync = ({
   ])
 }
 
-export const useDefaultViewSync = ({
-  normalizedDefaultView,
-  url,
-  setActiveView
-}) => {
-  useEffect(() => {
-    setActiveView(normalizedDefaultView)
-  }, [normalizedDefaultView, url, setActiveView])
-}
-
-export const useCodeSync = ({
-  url,
-  currentLanguage,
-  codeSnippets,
-  setCode
-}) => {
-  useEffect(() => {
-    if (!url) return
-    setCode(codeSnippets[currentLanguage] || '')
-  }, [url, currentLanguage, codeSnippets, setCode])
-}
-
-export const useLoadingChange = ({ isLoading, onLoadingChange }) => {
-  useEffect(() => {
-    onLoadingChange?.(isLoading)
-  }, [isLoading, onLoadingChange])
-
-  useEffect(() => () => onLoadingChange?.(false), [onLoadingChange])
-}
-
 export const useAutoExecute = ({
   autoExecute,
   url,

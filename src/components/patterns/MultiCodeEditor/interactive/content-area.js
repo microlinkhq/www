@@ -222,7 +222,7 @@ const ContentArea = React.memo(
             return (
               <Content
                 as='pre'
-                role='code'
+                role='tabpanel'
                 aria-label='Response content'
                 id={`tabpanel-${activeView}`}
                 aria-labelledby={`view-button-${activeView}`}
@@ -263,7 +263,7 @@ const ContentArea = React.memo(
                   </div>
                   )
                 : (
-                  <div role='table' aria-label='HTTP response headers'>
+                  <div>
                     {(() => {
                       const headers = responseData?.headers || {}
                       const maxKeyLength = Math.max(
@@ -273,20 +273,8 @@ const ContentArea = React.memo(
                         ([a], [b]) => a.localeCompare(b)
                       )
                       return sortedHeaders.map(([key, value], index) => (
-                        <Box
-                          key={key}
-                          css={theme({ mb: index > 0 ? 1 : 0 })}
-                          role='row'
-                        >
-                          <span role='cell' aria-label={`Header name: ${key}`}>
-                            {key.padEnd(maxKeyLength, ' ')}
-                          </span>
-                          <span role='cell' aria-hidden='true'>
-                            :
-                          </span>
-                          <span role='cell' aria-label={`Header value: ${value}`}>
-                            {value}
-                          </span>
+                        <Box key={key} css={theme({ mb: index > 0 ? 1 : 0 })}>
+                          {`${key.padEnd(maxKeyLength, ' ')}:${value}`}
                         </Box>
                       ))
                     })()}

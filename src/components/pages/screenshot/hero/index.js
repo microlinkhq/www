@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useCallback, useReducer, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { borders, colors, shadows, theme } from 'theme'
 import Box from 'components/elements/Box'
@@ -44,12 +44,41 @@ const BrowserWindow = styled('div')`
   }
 `
 
+const UI_INITIAL_STATE = {
+  isGlowing: false,
+  isAttractMode: false,
+  isPulsing: false,
+  isFocused: false,
+  hasInteracted: false
+}
+
+const setUiFlag = (state, flag, value) => {
+  const next = typeof value === 'function' ? value(state[flag]) : value
+  return Object.is(state[flag], next) ? state : { ...state, [flag]: next }
+}
+
+const uiReducer = (state, action) => {
+  switch (action.type) {
+    case 'glow':
+      return setUiFlag(state, 'isGlowing', action.value)
+    case 'attract':
+      return setUiFlag(state, 'isAttractMode', action.value)
+    case 'pulse':
+      return setUiFlag(state, 'isPulsing', action.value)
+    case 'focus':
+      return setUiFlag(state, 'isFocused', action.value)
+    case 'interact':
+      return setUiFlag(state, 'hasInteracted', action.value)
+    default:
+      return state
+  }
+}
+
 export const Hero = function Hero ({
   onRequestTiming,
   heroLayout = HERO_LAYOUT
 }) {
   const [inputUrl, setInputUrl] = useState(FIRST_URL)
-  const [isFocused, setIsFocused] = useState(false)
   const [history, setHistory] = useState(DEFAULT_HISTORY)
   const inputRef = useRef(null)
   const [screenshotSrc, setScreenshotSrc] = useState(FIRST_IMAGE_URL)
@@ -57,16 +86,34 @@ export const Hero = function Hero ({
   const [imgVisible, setImgVisible] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [isGlowing, setIsGlowing] = useState(false)
   const [showNerdStats, setShowNerdStats] = useState(false)
   const [nerdStats, setNerdStats] = useState(null)
   const [nerdQuery, setNerdQuery] = useState(null)
   const [nerdResponse, setNerdResponse] = useState(null)
-  const [isAttractMode, setIsAttractMode] = useState(false)
-  const [isPulsing, setIsPulsing] = useState(false)
-  const [hasInteracted, setHasInteracted] = useState(false)
   const [navStack, setNavStack] = useState(['https://apple.com'])
   const [navIndex, setNavIndex] = useState(0)
+  const [ui, dispatchUi] = useReducer(uiReducer, UI_INITIAL_STATE)
+  const { isGlowing, isAttractMode, isPulsing, isFocused, hasInteracted } = ui
+  const setIsGlowing = useCallback(
+    value => dispatchUi({ type: 'glow', value }),
+    []
+  )
+  const setIsAttractMode = useCallback(
+    value => dispatchUi({ type: 'attract', value }),
+    []
+  )
+  const setIsPulsing = useCallback(
+    value => dispatchUi({ type: 'pulse', value }),
+    []
+  )
+  const setIsFocused = useCallback(
+    value => dispatchUi({ type: 'focus', value }),
+    []
+  )
+  const setHasInteracted = useCallback(
+    value => dispatchUi({ type: 'interact', value }),
+    []
+  )
   const abortRef = useRef(null)
   const hasImageRef = useRef(false)
   const skipBlurRef = useRef(false)
@@ -284,10 +331,13 @@ export const Hero = function Hero ({
                 navStack={navStack}
                 handleBack={handleBack}
                 handleForward={handleForward}
-                isGlowing={isGlowing}
-                isAttractMode={isAttractMode}
-                isPulsing={isPulsing}
-                isFocused={isFocused}
+                ui={{
+                  isGlowing,
+                  isAttractMode,
+                  isPulsing,
+                  isFocused,
+                  hasInteracted
+                }}
                 inputRef={inputRef}
                 displayValue={displayValue}
                 handleChange={handleChange}
@@ -295,7 +345,6 @@ export const Hero = function Hero ({
                 handleFocus={handleFocus}
                 handleBlur={handleBlur}
                 handleKeyDown={handleKeyDown}
-                hasInteracted={hasInteracted}
                 history={history}
                 handleHistoryClick={handleHistoryClick}
                 showNerdStats={showNerdStats}

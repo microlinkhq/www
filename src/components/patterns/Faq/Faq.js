@@ -58,12 +58,12 @@ const Faq = ({ title, caption, questions, ...props }) => {
             return (
               <Text css={theme({ maxWidth: layout.small })} key={question}>
                 <Question index={index}>{question}</Question>
-                {toParagraphs(answer).map((paraph, index) => (
+                {toParagraphs(answer).map(paraph => (
                   <Text
                     css={theme({
                       pt: [3, 4, 4, 4]
                     })}
-                    key={`${slugger(question)}-${index}`}
+                    key={paraph.key ?? slugger(question)}
                   >
                     {paraph}
                   </Text>

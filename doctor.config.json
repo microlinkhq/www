@@ -151,6 +151,65 @@
           "react-doctor/no-derived-state",
           "react-doctor/no-derived-state-effect"
         ]
+      },
+      {
+        "files": [
+          "src/components/elements/PdfViewer/PdfViewer.js"
+        ],
+        "rules": [
+          "react-doctor/async-await-in-loop"
+        ]
+      },
+      {
+        "files": [
+          "src/components/patterns/RaceContainer/RaceContainer.js"
+        ],
+        "rules": [
+          "react-doctor/js-tosorted-immutable"
+        ]
+      },
+      {
+        "files": [
+          "src/components/pages/embed/PreviewCards.js"
+        ],
+        "rules": [
+          "react-doctor/no-tiny-text"
+        ]
+      },
+      {
+        "files": [
+          "src/components/pages/markdown/shared.js",
+          "src/components/pages/metadata/hero/json-lines.js",
+          "src/pages/tools/website-screenshot/bulk.js",
+          "src/pages/tools/website-to-pdf/bulk.js"
+        ],
+        "rules": [
+          "react-doctor/no-array-index-as-key"
+        ]
+      },
+      {
+        "files": [
+          "src/components/elements/Terminal/Terminal.js"
+        ],
+        "rules": [
+          "react-doctor/no-many-boolean-props"
+        ]
+      },
+      {
+        "files": [
+          "src/components/elements/Link/index.js"
+        ],
+        "rules": [
+          "react-doctor/no-polymorphic-children"
+        ]
+      },
+      {
+        "files": [
+          "src/components/pages/sharing-debugger/hero/use-sharing-debugger-state.js"
+        ],
+        "rules": [
+          "react-doctor/rendering-hydration-no-flicker"
+        ]
       }
     ]
   }
