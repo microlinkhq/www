@@ -127,14 +127,14 @@ const ToolbarDesktop = () => {
       setOpenSection(sectionId)
       return
     }
-    let nextId = sectionId
-
-    if (!canUseHover()) {
-      nextId = openSection === sectionId ? '' : sectionId
-    }
-
-    setRenderedSection(nextId)
-    setOpenSection(nextId)
+    const hoverable = canUseHover()
+    setRenderedSection(sectionId)
+    setOpenSection(currentId => {
+      if (!hoverable) {
+        return currentId === sectionId ? '' : sectionId
+      }
+      return sectionId
+    })
   }
 
   return (

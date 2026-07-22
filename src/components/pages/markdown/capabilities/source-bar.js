@@ -21,6 +21,8 @@ export const CapSourceBar = ({
   setCapHasInteracted,
   capTypeTimerRef,
   capHasContentRef,
+  capSkipBlurRef,
+  capLastFetchedRef,
   fetchCapMarkdown,
   submitCapUrl
 }) => (
@@ -61,6 +63,7 @@ export const CapSourceBar = ({
         value={capDisplayValue}
         onChange={e => setCapUrl(ensureProtocol(stripProtocol(e.target.value)))}
         onFocus={() => {
+          capSkipBlurRef.current = false
           setCapFocused(true)
           setCapHasInteracted(true)
           if (capTypeTimerRef.current) {
@@ -73,18 +76,29 @@ export const CapSourceBar = ({
           }
         }}
         onBlur={e => {
+          const value = e.target.value
           setTimeout(() => {
-            const normalized = ensureProtocol(e.target.value)
-            setCapUrl(normalized)
-            setCapFocused(false)
+            if (capSkipBlurRef.current) {
+              capSkipBlurRef.current = false
+              return
+            }
+            const normalized = ensureProtocol(value)
+            if (normalized && normalized !== capLastFetchedRef.current) {
+              submitCapUrl(normalized)
+            } else {
+              setCapUrl(normalized)
+              setCapFocused(false)
+            }
           }, 150)
         }}
         onKeyDown={e => {
           if (e.key === 'Enter') {
+            capSkipBlurRef.current = true
             e.target.blur()
             submitCapUrl(e.target.value)
           }
           if (e.key === 'Escape') {
+            capSkipBlurRef.current = true
             e.target.blur()
             setCapFocused(false)
           }

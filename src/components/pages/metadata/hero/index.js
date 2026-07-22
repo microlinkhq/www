@@ -1,14 +1,9 @@
-import React, {
-  useCallback,
-  useEffect,
-  useReducer,
-  useRef,
-  useState
-} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { borders, colors, shadows, theme } from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
+import { useDemoUi } from 'components/hook/use-demo-ui'
 import { FIRST_URL, HERO_LAYOUT } from '../shared'
 import { ensureProtocol, stripProtocol, stripForDisplay } from './url'
 import { addToHistory, MAX_HISTORY } from './history'
@@ -48,36 +43,6 @@ const DEFAULT_HISTORY = [
   'https://plausible.io'
 ]
 
-const UI_INITIAL_STATE = {
-  isGlowing: false,
-  isAttractMode: false,
-  isPulsing: false,
-  isFocused: false,
-  hasInteracted: false
-}
-
-const setUiFlag = (state, flag, value) => {
-  const next = typeof value === 'function' ? value(state[flag]) : value
-  return Object.is(state[flag], next) ? state : { ...state, [flag]: next }
-}
-
-const uiReducer = (state, action) => {
-  switch (action.type) {
-    case 'glow':
-      return setUiFlag(state, 'isGlowing', action.value)
-    case 'attract':
-      return setUiFlag(state, 'isAttractMode', action.value)
-    case 'pulse':
-      return setUiFlag(state, 'isPulsing', action.value)
-    case 'focus':
-      return setUiFlag(state, 'isFocused', action.value)
-    case 'interact':
-      return setUiFlag(state, 'hasInteracted', action.value)
-    default:
-      return state
-  }
-}
-
 export const Hero = function Hero ({
   onRequestTiming,
   onUrlChange,
@@ -91,28 +56,18 @@ export const Hero = function Hero ({
   const [error, setError] = useState(null)
   const [navStack, setNavStack] = useState([FIRST_URL])
   const [navIndex, setNavIndex] = useState(0)
-  const [ui, dispatchUi] = useReducer(uiReducer, UI_INITIAL_STATE)
-  const { isGlowing, isAttractMode, isPulsing, isFocused, hasInteracted } = ui
-  const setIsGlowing = useCallback(
-    value => dispatchUi({ type: 'glow', value }),
-    []
-  )
-  const setIsAttractMode = useCallback(
-    value => dispatchUi({ type: 'attract', value }),
-    []
-  )
-  const setIsPulsing = useCallback(
-    value => dispatchUi({ type: 'pulse', value }),
-    []
-  )
-  const setIsFocused = useCallback(
-    value => dispatchUi({ type: 'focus', value }),
-    []
-  )
-  const setHasInteracted = useCallback(
-    value => dispatchUi({ type: 'interact', value }),
-    []
-  )
+  const {
+    isGlowing,
+    isAttractMode,
+    isPulsing,
+    isFocused,
+    hasInteracted,
+    setIsGlowing,
+    setIsAttractMode,
+    setIsPulsing,
+    setIsFocused,
+    setHasInteracted
+  } = useDemoUi()
   const abortRef = useRef(null)
   const skipBlurRef = useRef(false)
 
@@ -183,18 +138,20 @@ export const Hero = function Hero ({
   }
 
   const handleFocus = () => {
+    skipBlurRef.current = false
     setIsFocused(true)
     stopAttract()
   }
 
   const submitUrl = url => {
     const normalized = ensureProtocol(url)
+    setIsFocused(false)
+    if (!normalized) return
     const newStack = [...navStack.slice(0, navIndex + 1), normalized].slice(
       -MAX_HISTORY
     )
     const newIndex = newStack.length - 1
     setInputUrl(normalized)
-    setIsFocused(false)
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
@@ -203,6 +160,7 @@ export const Hero = function Hero ({
 
   const handleBack = () => {
     if (navIndex === 0) return
+    skipBlurRef.current = true
     stopAttract()
     const newIndex = navIndex - 1
     const url = navStack[newIndex]
@@ -213,6 +171,7 @@ export const Hero = function Hero ({
 
   const handleForward = () => {
     if (navIndex >= navStack.length - 1) return
+    skipBlurRef.current = true
     stopAttract()
     const newIndex = navIndex + 1
     const url = navStack[newIndex]
@@ -222,27 +181,30 @@ export const Hero = function Hero ({
   }
 
   const handleBlur = e => {
+    const value = e.target.value
     setTimeout(() => {
       if (skipBlurRef.current) {
         skipBlurRef.current = false
         return
       }
-      const normalized = ensureProtocol(e.target.value)
-      setInputUrl(normalized)
-      setIsFocused(false)
-      if (normalized && normalized !== inputUrl) {
-        setHistory(h => addToHistory(h, normalized))
-        fetchMetadata(normalized)
+      const normalized = ensureProtocol(value)
+      if (normalized && normalized !== navStack[navIndex]) {
+        submitUrl(normalized)
+      } else {
+        setInputUrl(normalized)
+        setIsFocused(false)
       }
     }, 150)
   }
 
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
+      skipBlurRef.current = true
       e.target.blur()
       submitUrl(e.target.value)
     }
     if (e.key === 'Escape') {
+      skipBlurRef.current = true
       e.target.blur()
       setIsFocused(false)
     }

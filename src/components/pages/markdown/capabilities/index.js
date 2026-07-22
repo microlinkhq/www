@@ -36,6 +36,8 @@ export const Capabilities = () => {
   const capHtmlAbortRef = useRef(null)
   const capInputRef = useRef(null)
   const capHasContentRef = useRef(false)
+  const capSkipBlurRef = useRef(false)
+  const capLastFetchedRef = useRef('')
   const [capHasInteracted, setCapHasInteracted] = useState(false)
   const capSectionRef = useRef(null)
   const capTriggeredRef = useRef(false)
@@ -61,6 +63,7 @@ export const Capabilities = () => {
     capAbortRef,
     capHtmlAbortRef,
     capHasContentRef,
+    capLastFetchedRef,
     setCapLoading,
     setCapHtmlLoading,
     setCapError,
@@ -82,8 +85,9 @@ export const Capabilities = () => {
 
   const submitCapUrl = url => {
     const normalized = ensureProtocol(url)
-    setCapUrl(normalized)
     setCapFocused(false)
+    if (!normalized) return
+    setCapUrl(normalized)
     fetchCapMarkdown(normalized)
   }
 
@@ -150,6 +154,8 @@ export const Capabilities = () => {
               setCapHasInteracted={setCapHasInteracted}
               capTypeTimerRef={capTypeTimerRef}
               capHasContentRef={capHasContentRef}
+              capSkipBlurRef={capSkipBlurRef}
+              capLastFetchedRef={capLastFetchedRef}
               fetchCapMarkdown={fetchCapMarkdown}
               submitCapUrl={submitCapUrl}
             />

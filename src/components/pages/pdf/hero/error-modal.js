@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import {
   borders,
@@ -15,6 +15,7 @@ import {
   ApiErrorTitle,
   ApiErrorBody
 } from 'components/patterns/ApiError/ApiError'
+import { useErrorModalFocus } from 'components/hook/use-error-modal-focus'
 
 const ErrorModalOverlay = styled('div')`
   ${theme({
@@ -80,72 +81,77 @@ const ErrorCloseButton = styled('button')`
   }
 `
 
-export const ErrorModal = ({ error, setError }) => (
-  <ErrorModalOverlay
-    role='dialog'
-    aria-modal='true'
-    aria-label='Error'
-    onClick={e => {
-      if (e.target === e.currentTarget) setError(null)
-    }}
-  >
-    <ErrorModalWindow>
-      <ErrorModalHeader>
-        <Flex css={theme({ alignItems: 'center', gap: 2 })}>
-          <svg
-            width='16'
-            height='16'
-            viewBox='0 0 16 16'
-            fill='none'
-            aria-hidden='true'
+export const ErrorModal = ({ error, setError }) => {
+  const errorModalRef = useRef(null)
+  useErrorModalFocus({ error, setError, errorModalRef })
+
+  return (
+    <ErrorModalOverlay
+      role='dialog'
+      aria-modal='true'
+      aria-label='Error'
+      onClick={e => {
+        if (e.target === e.currentTarget) setError(null)
+      }}
+    >
+      <ErrorModalWindow ref={errorModalRef} tabIndex={-1}>
+        <ErrorModalHeader>
+          <Flex css={theme({ alignItems: 'center', gap: 2 })}>
+            <svg
+              width='16'
+              height='16'
+              viewBox='0 0 16 16'
+              fill='none'
+              aria-hidden='true'
+            >
+              <circle
+                cx='8'
+                cy='8'
+                r='7'
+                stroke={colors.red6}
+                strokeWidth='1.5'
+              />
+              <path
+                d='M8 5v3M8 10.5v.5'
+                stroke={colors.red5}
+                strokeWidth='1.5'
+                strokeLinecap='round'
+              />
+            </svg>
+            <Text
+              as='span'
+              css={theme({
+                color: 'red5',
+                fontSize: 0,
+                fontWeight: 'bold',
+                letterSpacing: 0
+              })}
+            >
+              <ApiErrorTitle code={error.code} />
+            </Text>
+          </Flex>
+          <ErrorCloseButton
+            type='button'
+            aria-label='Dismiss error'
+            onClick={() => setError(null)}
           >
-            <circle
-              cx='8'
-              cy='8'
-              r='7'
-              stroke={colors.red6}
-              strokeWidth='1.5'
-            />
-            <path
-              d='M8 5v3M8 10.5v.5'
-              stroke={colors.red5}
-              strokeWidth='1.5'
-              strokeLinecap='round'
-            />
-          </svg>
+            &times;
+          </ErrorCloseButton>
+        </ErrorModalHeader>
+        <ErrorModalBody>
           <Text
-            as='span'
+            as='p'
             css={theme({
-              color: 'red5',
-              fontSize: 0,
-              fontWeight: 'bold',
-              letterSpacing: 0
+              color: 'white90',
+              fontSize: 1,
+              lineHeight: 2,
+              m: 0
             })}
           >
-            <ApiErrorTitle code={error.code} />
+            <ApiErrorBody code={error.code} fallback={error.message} />
           </Text>
-        </Flex>
-        <ErrorCloseButton
-          type='button'
-          aria-label='Dismiss error'
-          onClick={() => setError(null)}
-        >
-          &times;
-        </ErrorCloseButton>
-      </ErrorModalHeader>
-      <ErrorModalBody>
-        <Text
-          as='p'
-          css={theme({
-            color: 'white90',
-            fontSize: 1,
-            lineHeight: 2,
-            m: 0
-          })}
-        >
-          <ApiErrorBody code={error.code} fallback={error.message} />
-        </Text>
-      </ErrorModalBody>
-    </ErrorModalWindow>
-  </ErrorModalOverlay>
-)
+        </ErrorModalBody>
+      </ErrorModalWindow>
+    </ErrorModalOverlay>
+  )
+}

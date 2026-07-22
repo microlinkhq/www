@@ -175,6 +175,7 @@ const PdfViewer = ({
           if (!cancelled && renderIdRef.current === currentRenderId) {
             setError(err?.message || 'Failed to render page')
           }
+          return
         }
       }
     }

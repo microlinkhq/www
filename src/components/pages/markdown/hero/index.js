@@ -1,7 +1,8 @@
-import React, { useCallback, useReducer, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { theme } from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
+import { useDemoUi } from 'components/hook/use-demo-ui'
 import {
   DocumentViewer,
   ensureProtocol,
@@ -26,36 +27,6 @@ const DEFAULT_HISTORY = [
   'https://stripe.com'
 ]
 
-const UI_INITIAL_STATE = {
-  isGlowing: false,
-  isAttractMode: false,
-  isPulsing: false,
-  isFocused: false,
-  hasInteracted: false
-}
-
-const setUiFlag = (state, flag, value) => {
-  const next = typeof value === 'function' ? value(state[flag]) : value
-  return Object.is(state[flag], next) ? state : { ...state, [flag]: next }
-}
-
-const uiReducer = (state, action) => {
-  switch (action.type) {
-    case 'glow':
-      return setUiFlag(state, 'isGlowing', action.value)
-    case 'attract':
-      return setUiFlag(state, 'isAttractMode', action.value)
-    case 'pulse':
-      return setUiFlag(state, 'isPulsing', action.value)
-    case 'focus':
-      return setUiFlag(state, 'isFocused', action.value)
-    case 'interact':
-      return setUiFlag(state, 'hasInteracted', action.value)
-    default:
-      return state
-  }
-}
-
 export const Hero = function Hero ({
   onRequestTiming,
   heroLayout = HERO_LAYOUT
@@ -66,34 +37,25 @@ export const Hero = function Hero ({
   const [markdownContent, setMarkdownContent] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [showNerdStats, setShowNerdStats] = useState(false)
   const [nerdStats, setNerdStats] = useState(null)
   const [nerdQuery, setNerdQuery] = useState(null)
   const [nerdResponse, setNerdResponse] = useState(null)
   const [navStack, setNavStack] = useState(['https://stripe.com'])
   const [navIndex, setNavIndex] = useState(0)
-  const [ui, dispatchUi] = useReducer(uiReducer, UI_INITIAL_STATE)
-  const { isGlowing, isAttractMode, isPulsing, isFocused, hasInteracted } = ui
-  const setIsGlowing = useCallback(
-    value => dispatchUi({ type: 'glow', value }),
-    []
-  )
-  const setIsAttractMode = useCallback(
-    value => dispatchUi({ type: 'attract', value }),
-    []
-  )
-  const setIsPulsing = useCallback(
-    value => dispatchUi({ type: 'pulse', value }),
-    []
-  )
-  const setIsFocused = useCallback(
-    value => dispatchUi({ type: 'focus', value }),
-    []
-  )
-  const setHasInteracted = useCallback(
-    value => dispatchUi({ type: 'interact', value }),
-    []
-  )
+  const {
+    isGlowing,
+    isAttractMode,
+    isPulsing,
+    isFocused,
+    hasInteracted,
+    showNerdStats,
+    setIsGlowing,
+    setIsAttractMode,
+    setIsPulsing,
+    setIsFocused,
+    setHasInteracted,
+    setShowNerdStats
+  } = useDemoUi()
   const abortRef = useRef(null)
   const hasContentRef = useRef(false)
   const skipBlurRef = useRef(false)
@@ -109,7 +71,6 @@ export const Hero = function Hero ({
     fetchResolverRef,
     setIsLoading,
     setError,
-    setShowNerdStats,
     setNerdStats,
     setNerdQuery,
     setNerdResponse,
@@ -127,6 +88,7 @@ export const Hero = function Hero ({
       setHistory,
       setNavStack,
       setNavIndex,
+      setShowNerdStats,
       fetchMarkdown,
       fetchResolverRef
     }
@@ -174,18 +136,21 @@ export const Hero = function Hero ({
   }
 
   const handleFocus = () => {
+    skipBlurRef.current = false
     setIsFocused(true)
     stopAttract()
   }
 
   const submitUrl = url => {
     const normalized = ensureProtocol(url)
+    setIsFocused(false)
+    if (!normalized) return
     const newStack = [...navStack.slice(0, navIndex + 1), normalized].slice(
       -MAX_HISTORY
     )
     const newIndex = newStack.length - 1
     setInputUrl(normalized)
-    setIsFocused(false)
+    setShowNerdStats(false)
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
@@ -194,46 +159,53 @@ export const Hero = function Hero ({
 
   const handleBack = () => {
     if (navIndex === 0) return
+    skipBlurRef.current = true
     stopAttract()
     const newIndex = navIndex - 1
     const url = navStack[newIndex]
     setNavIndex(newIndex)
     setInputUrl(url)
+    setShowNerdStats(false)
     fetchMarkdown(url)
   }
 
   const handleForward = () => {
     if (navIndex >= navStack.length - 1) return
+    skipBlurRef.current = true
     stopAttract()
     const newIndex = navIndex + 1
     const url = navStack[newIndex]
     setNavIndex(newIndex)
     setInputUrl(url)
+    setShowNerdStats(false)
     fetchMarkdown(url)
   }
 
   const handleBlur = e => {
+    const value = e.target.value
     setTimeout(() => {
       if (skipBlurRef.current) {
         skipBlurRef.current = false
         return
       }
-      const normalized = ensureProtocol(e.target.value)
-      setInputUrl(normalized)
-      setIsFocused(false)
-      if (normalized && normalized !== inputUrl) {
-        setHistory(h => addToHistory(h, normalized))
-        fetchMarkdown(normalized)
+      const normalized = ensureProtocol(value)
+      if (normalized && normalized !== navStack[navIndex]) {
+        submitUrl(normalized)
+      } else {
+        setInputUrl(normalized)
+        setIsFocused(false)
       }
     }, 150)
   }
 
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
+      skipBlurRef.current = true
       e.target.blur()
       submitUrl(e.target.value)
     }
     if (e.key === 'Escape') {
+      skipBlurRef.current = true
       e.target.blur()
       setIsFocused(false)
     }

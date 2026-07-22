@@ -14,6 +14,7 @@ export const useAttractLoop = ({ hasInteracted, actions }) => {
     setHistory,
     setNavStack,
     setNavIndex,
+    setShowNerdStats,
     fetchMarkdown,
     fetchResolverRef
   } = actions
@@ -67,10 +68,11 @@ export const useAttractLoop = ({ hasInteracted, actions }) => {
         setInputUrl(normalized)
         setHistory(h => addToHistory(h, normalized))
         setNavStack(s => [...s, normalized].slice(-MAX_HISTORY))
-        setNavIndex(i + 1)
+        setNavIndex(Math.min(i + 1, MAX_HISTORY - 1))
         const fetchDone = new Promise(resolve => {
           fetchResolverRef.current = resolve
         })
+        setShowNerdStats(false)
         fetchMarkdown(normalized)
 
         await Promise.race([fetchDone, delay(15000)])
@@ -117,6 +119,7 @@ export const useAttractLoop = ({ hasInteracted, actions }) => {
     setHistory,
     setNavStack,
     setNavIndex,
+    setShowNerdStats,
     fetchMarkdown,
     fetchResolverRef
   ])

@@ -15,7 +15,8 @@ export const useFetchMetadata = ({
     async (url, { track } = {}) => {
       if (track) trackEvent('demo submit', { product: 'metadata' })
       if (abortRef.current) abortRef.current.abort()
-      abortRef.current = new window.AbortController()
+      const controller = new window.AbortController()
+      abortRef.current = controller
 
       setIsLoading(true)
       setError(null)
@@ -27,13 +28,13 @@ export const useFetchMetadata = ({
           `https://api.microlink.io?url=${encodeURIComponent(url)}` +
           '&palette&video&audio'
         const res = await window.fetch(endpoint, {
-          signal: abortRef.current.signal
+          signal: controller.signal
         })
         const json = await res.json()
         const elapsedMs = Date.now() - t0
 
         if (!res.ok) {
-          setError(normalizeApiError(json, res))
+          if (!controller.signal.aborted) setError(normalizeApiError(json, res))
           return
         }
 
@@ -46,11 +47,11 @@ export const useFetchMetadata = ({
           onDataChange?.(data)
         }
       } catch (err) {
-        if (err.name !== 'AbortError') {
+        if (err.name !== 'AbortError' && !controller.signal.aborted) {
           setError(normalizeApiError.fromNetwork(err))
         }
       } finally {
-        setIsLoading(false)
+        if (!controller.signal.aborted) setIsLoading(false)
       }
     },
     [

@@ -14,7 +14,6 @@ export const useFetchMarkdown = ({
   fetchResolverRef,
   setIsLoading,
   setError,
-  setShowNerdStats,
   setNerdStats,
   setNerdQuery,
   setNerdResponse,
@@ -24,7 +23,8 @@ export const useFetchMarkdown = ({
     async (url, { track } = {}) => {
       if (track) trackEvent('demo submit', { product: 'markdown' })
       if (abortRef.current) abortRef.current.abort()
-      abortRef.current = new window.AbortController()
+      const controller = new window.AbortController()
+      abortRef.current = controller
       if (streamRef.current) {
         clearTimeout(streamRef.current)
         streamRef.current = null
@@ -32,7 +32,6 @@ export const useFetchMarkdown = ({
 
       setIsLoading(true)
       setError(null)
-      setShowNerdStats(false)
 
       const t0 = Date.now()
 
@@ -41,13 +40,13 @@ export const useFetchMarkdown = ({
           `https://api.microlink.io?url=${encodeURIComponent(
             url
           )}&data.markdown.attr=markdown&meta=false`,
-          { signal: abortRef.current.signal }
+          { signal: controller.signal }
         )
         const json = await res.json()
         const elapsedMs = Date.now() - t0
 
         if (!res.ok) {
-          setError(normalizeApiError(json, res))
+          if (!controller.signal.aborted) setError(normalizeApiError(json, res))
           return
         }
 
@@ -73,7 +72,7 @@ export const useFetchMarkdown = ({
           fetchResolverRef.current = null
         }
       } catch (err) {
-        if (err.name !== 'AbortError') {
+        if (err.name !== 'AbortError' && !controller.signal.aborted) {
           setError(normalizeApiError.fromNetwork(err))
         }
         if (fetchResolverRef.current) {
@@ -81,7 +80,7 @@ export const useFetchMarkdown = ({
           fetchResolverRef.current = null
         }
       } finally {
-        setIsLoading(false)
+        if (!controller.signal.aborted) setIsLoading(false)
       }
     },
     [
@@ -92,7 +91,6 @@ export const useFetchMarkdown = ({
       fetchResolverRef,
       setIsLoading,
       setError,
-      setShowNerdStats,
       setNerdStats,
       setNerdQuery,
       setNerdResponse,

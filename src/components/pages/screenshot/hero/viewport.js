@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import {
   borders,
@@ -17,6 +17,7 @@ import {
   ApiErrorBody
 } from 'components/patterns/ApiError/ApiError'
 import NerdStatsOverlay from 'components/patterns/NerdStats/NerdStats'
+import { useErrorModalFocus } from 'components/hook/use-error-modal-focus'
 import { rotate, dash } from 'components/keyframes'
 
 const ScreenshotOverlay = styled('div')`
@@ -120,138 +121,148 @@ export const Viewport = ({
   nerdResponse,
   error,
   setError
-}) => (
-  <Box
-    css={theme({
-      position: 'relative',
-      aspectRatio: '16/10',
-      overflow: 'hidden'
-    })}
-  >
-    <img
-      key={imgKey}
-      src={screenshotSrc}
-      alt='Website screenshot'
-      decoding='async'
-      loading='eager'
-      fetchpriority='high'
-      onLoad={() => {
-        hasImageRef.current = true
-        setImgVisible(true)
-        setIsLoading(false)
-        if (imageLoadResolverRef.current) {
-          imageLoadResolverRef.current()
-          imageLoadResolverRef.current = null
-        }
-      }}
-      onError={() => {
-        setIsLoading(false)
-        if (imageLoadResolverRef.current) {
-          imageLoadResolverRef.current()
-          imageLoadResolverRef.current = null
-        }
-      }}
-      css={[
-        theme({
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          display: 'block'
-        }),
-        {
-          filter: imgVisible ? 'blur(0px)' : 'blur(6px)',
-          transition: 'filter 0.5s ease'
-        }
-      ]}
-    />
-    {isLoading && (
-      <ScreenshotOverlay
-        $dim={hasImageRef.current}
-        aria-label='Loading screenshot'
-        role='status'
-      >
-        <Spinner width='36' height='36' viewBox='0 0 50 50' aria-hidden='true'>
-          <SpinnerCircle cx='25' cy='25' r='20' fill='none' strokeWidth='4' />
-        </Spinner>
-      </ScreenshotOverlay>
-    )}
-    {showNerdStats && nerdStats && (
-      <NerdStatsOverlay
-        stats={nerdStats}
-        mqlQuery={nerdQuery}
-        responseData={nerdResponse}
-      />
-    )}
-    {error && (
-      <ErrorModalOverlay
-        role='dialog'
-        aria-modal='true'
-        aria-label='Error'
-        onClick={e => {
-          if (e.target === e.currentTarget) setError(null)
+}) => {
+  const errorModalRef = useRef(null)
+  useErrorModalFocus({ error, setError, errorModalRef })
+
+  return (
+    <Box
+      css={theme({
+        position: 'relative',
+        aspectRatio: '16/10',
+        overflow: 'hidden'
+      })}
+    >
+      <img
+        key={imgKey}
+        src={screenshotSrc}
+        alt='Website screenshot'
+        decoding='async'
+        loading='eager'
+        fetchpriority='high'
+        onLoad={() => {
+          hasImageRef.current = true
+          setImgVisible(true)
+          setIsLoading(false)
+          if (imageLoadResolverRef.current) {
+            imageLoadResolverRef.current()
+            imageLoadResolverRef.current = null
+          }
         }}
-      >
-        <ErrorModalWindow>
-          <ErrorModalHeader>
-            <Flex css={theme({ alignItems: 'center', gap: 2 })}>
-              <svg
-                width='16'
-                height='16'
-                viewBox='0 0 16 16'
-                fill='none'
-                aria-hidden='true'
+        onError={() => {
+          setIsLoading(false)
+          if (imageLoadResolverRef.current) {
+            imageLoadResolverRef.current()
+            imageLoadResolverRef.current = null
+          }
+        }}
+        css={[
+          theme({
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block'
+          }),
+          {
+            filter: imgVisible ? 'blur(0px)' : 'blur(6px)',
+            transition: 'filter 0.5s ease'
+          }
+        ]}
+      />
+      {isLoading && (
+        <ScreenshotOverlay
+          $dim={hasImageRef.current}
+          aria-label='Loading screenshot'
+          role='status'
+        >
+          <Spinner
+            width='36'
+            height='36'
+            viewBox='0 0 50 50'
+            aria-hidden='true'
+          >
+            <SpinnerCircle cx='25' cy='25' r='20' fill='none' strokeWidth='4' />
+          </Spinner>
+        </ScreenshotOverlay>
+      )}
+      {showNerdStats && nerdStats && (
+        <NerdStatsOverlay
+          stats={nerdStats}
+          mqlQuery={nerdQuery}
+          responseData={nerdResponse}
+        />
+      )}
+      {error && (
+        <ErrorModalOverlay
+          role='dialog'
+          aria-modal='true'
+          aria-label='Error'
+          onClick={e => {
+            if (e.target === e.currentTarget) setError(null)
+          }}
+        >
+          <ErrorModalWindow ref={errorModalRef} tabIndex={-1}>
+            <ErrorModalHeader>
+              <Flex css={theme({ alignItems: 'center', gap: 2 })}>
+                <svg
+                  width='16'
+                  height='16'
+                  viewBox='0 0 16 16'
+                  fill='none'
+                  aria-hidden='true'
+                >
+                  <circle
+                    cx='8'
+                    cy='8'
+                    r='7'
+                    stroke={colors.red6}
+                    strokeWidth='1.5'
+                  />
+                  <path
+                    d='M8 5v3M8 10.5v.5'
+                    stroke={colors.red5}
+                    strokeWidth='1.5'
+                    strokeLinecap='round'
+                  />
+                </svg>
+                <Text
+                  as='span'
+                  css={theme({
+                    color: 'red5',
+                    fontSize: 0,
+                    fontWeight: 'bold',
+                    letterSpacing: 0
+                  })}
+                >
+                  <ApiErrorTitle code={error.code} />
+                </Text>
+              </Flex>
+              <ErrorCloseButton
+                type='button'
+                aria-label='Dismiss error'
+                onClick={() => setError(null)}
               >
-                <circle
-                  cx='8'
-                  cy='8'
-                  r='7'
-                  stroke={colors.red6}
-                  strokeWidth='1.5'
-                />
-                <path
-                  d='M8 5v3M8 10.5v.5'
-                  stroke={colors.red5}
-                  strokeWidth='1.5'
-                  strokeLinecap='round'
-                />
-              </svg>
+                ×
+              </ErrorCloseButton>
+            </ErrorModalHeader>
+            <ErrorModalBody>
               <Text
-                as='span'
+                as='p'
                 css={theme({
-                  color: 'red5',
-                  fontSize: 0,
-                  fontWeight: 'bold',
-                  letterSpacing: 0
+                  color: 'white90',
+                  fontSize: 1,
+                  lineHeight: 2,
+                  m: 0
                 })}
               >
-                <ApiErrorTitle code={error.code} />
+                <ApiErrorBody code={error.code} fallback={error.message} />
               </Text>
-            </Flex>
-            <ErrorCloseButton
-              type='button'
-              aria-label='Dismiss error'
-              onClick={() => setError(null)}
-            >
-              ×
-            </ErrorCloseButton>
-          </ErrorModalHeader>
-          <ErrorModalBody>
-            <Text
-              as='p'
-              css={theme({
-                color: 'white90',
-                fontSize: 1,
-                lineHeight: 2,
-                m: 0
-              })}
-            >
-              <ApiErrorBody code={error.code} fallback={error.message} />
-            </Text>
-          </ErrorModalBody>
-        </ErrorModalWindow>
-      </ErrorModalOverlay>
-    )}
-  </Box>
-)
+            </ErrorModalBody>
+          </ErrorModalWindow>
+        </ErrorModalOverlay>
+      )}
+    </Box>
+  )
+}

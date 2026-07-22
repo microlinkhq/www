@@ -14,6 +14,7 @@ export const useAttractLoop = ({ hasInteracted, actions }) => {
     setHistory,
     setNavStack,
     setNavIndex,
+    setShowNerdStats,
     fetchScreenshot,
     imageLoadResolverRef
   } = actions
@@ -66,10 +67,11 @@ export const useAttractLoop = ({ hasInteracted, actions }) => {
         setInputUrl(normalized)
         setHistory(h => addToHistory(h, normalized))
         setNavStack(s => [...s, normalized].slice(-MAX_HISTORY))
-        setNavIndex(i + 1)
+        setNavIndex(Math.min(i + 1, MAX_HISTORY - 1))
         const imageLoaded = new Promise(resolve => {
           imageLoadResolverRef.current = resolve
         })
+        setShowNerdStats(false)
         fetchScreenshot(normalized)
 
         await Promise.race([imageLoaded, delay(15000)])
@@ -116,6 +118,7 @@ export const useAttractLoop = ({ hasInteracted, actions }) => {
     setHistory,
     setNavStack,
     setNavIndex,
+    setShowNerdStats,
     fetchScreenshot,
     imageLoadResolverRef
   ])

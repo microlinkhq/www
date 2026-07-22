@@ -63,7 +63,7 @@ export const useAttractLoop = ({ hasInteracted, actions }) => {
         setInputUrl(normalized)
         setHistory(h => addToHistory(h, normalized))
         setNavStack(s => [...s, normalized].slice(-MAX_HISTORY))
-        setNavIndex(i + 1)
+        setNavIndex(Math.min(i + 1, MAX_HISTORY - 1))
         fetchMetadata(normalized)
 
         await delay(8000)

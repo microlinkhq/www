@@ -128,10 +128,13 @@ const CLIENTS = [
 const ClientLogo = styled(Flex)`
   ${theme({ textDecoration: 'none' })};
   color: inherit;
-  transition: transform ${transition.short};
 
-  &:hover {
-    transform: translateY(-${radii[1]}) scale(1.05);
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform ${transition.short};
+
+    &:hover {
+      transform: translateY(-${radii[1]}) scale(1.05);
+    }
   }
 
   &:focus-visible {

@@ -33,7 +33,9 @@ export const useFingerprint = () => {
     let active = true
     getFingerprint().then(data => {
       if (!active || !data) return
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+      } catch {}
       setFingerprint(data)
     })
     return () => {

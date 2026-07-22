@@ -15,6 +15,8 @@ const Caption = withTitle(CaptionBase)
 
 const HIGHLIGHT_DURATION = 1000
 const IDLE_ROTATE_MS = 5000
+const TIMING_VALUE_FONT_SIZE = ['28px', '34px', '42px', '42px']
+const TIMING_UNIT_FONT_SIZE = ['22px', '28px', '32px', '32px']
 
 const TimingHighlight = styled('span')`
   animation: ${highlight} ${HIGHLIGHT_DURATION}ms ease both;
@@ -35,7 +37,6 @@ export const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
   const [displayUrl, setDisplayUrl] = useState(null)
   const [key, setKey] = useState(0)
   const historyRef = useRef(timingHistory)
-  const prevTimingMsRef = useRef(undefined)
   const displayUrlRef = useRef(null)
 
   useEffect(() => {
@@ -51,14 +52,6 @@ export const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
 
   useEffect(() => {
     if (timingMs == null) return
-    if (
-      timingMs === prevTimingMsRef.current &&
-      timingUrl === prevTimingMsRef.currentUrl
-    ) {
-      return
-    }
-    prevTimingMsRef.current = timingMs
-    prevTimingMsRef.currentUrl = timingUrl
     show(timingMs, timingUrl)
 
     const idleTimer = setInterval(() => {
@@ -91,7 +84,7 @@ export const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
       <Subhead
         forwardedAs='div'
         css={theme({
-          fontSize: ['28px', '34px', '42px', '42px'],
+          fontSize: TIMING_VALUE_FONT_SIZE,
           color: 'white',
           fontWeight: 'bold',
           fontVariantNumeric: 'tabular-nums'
@@ -108,7 +101,7 @@ export const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
                   color: 'white',
                   display: 'inline',
                   fontWeight: 'bold',
-                  fontSize: ['22px', '28px', '32px', '32px']
+                  fontSize: TIMING_UNIT_FONT_SIZE
                 })}
                 titleize={false}
               >

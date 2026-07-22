@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { ensureProtocol } from './url'
+import { ensureProtocol, stripProtocol } from './url'
 import { addToHistory, MAX_HISTORY } from './history'
 
 const DEMO_URLS = ['https://nav.al/david-deutsch', 'https://plausible.io']
@@ -53,7 +53,7 @@ export const useAttractLoop = ({ hasInteracted, actions }) => {
         await delay(250)
         if (check()) return
 
-        const completed = await typeUrl(url)
+        const completed = await typeUrl(stripProtocol(url))
         if (!completed) return
 
         await delay(50)
@@ -63,7 +63,7 @@ export const useAttractLoop = ({ hasInteracted, actions }) => {
         setInputUrl(normalized)
         setHistory(h => addToHistory(h, normalized))
         setNavStack(s => [...s, normalized].slice(-MAX_HISTORY))
-        setNavIndex(i + 1)
+        setNavIndex(Math.min(i + 1, MAX_HISTORY - 1))
         fetchPdf(normalized)
 
         await delay(8000)

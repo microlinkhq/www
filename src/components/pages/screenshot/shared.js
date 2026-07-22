@@ -11,7 +11,7 @@ export const Subhead = withTitle(SubheadBase)
 export const Caption = withTitle(CaptionBase)
 
 export const ScreenshotApiBar = styled(Flex)`
-  background: 'white';
+  background: white;
 
   .codecopy__button {
     top: 0;
@@ -47,15 +47,22 @@ export const CopyButton = styled('button')`
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: color ${transition.short}, transform ${transition.short};
+  transition: color ${transition.short};
 
   &:hover {
     color: ${colors.black};
-    transform: scale(1.1);
   }
 
-  &:active {
-    transform: scale(0.95);
+  @media (prefers-reduced-motion: no-preference) {
+    transition: color ${transition.short}, transform ${transition.short};
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   &:focus-visible {

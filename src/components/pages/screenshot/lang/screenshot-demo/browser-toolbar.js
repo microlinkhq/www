@@ -298,10 +298,8 @@ export const BrowserToolbar = ({
               role='option'
               aria-selected={index === activeIndex}
               type='button'
-              onMouseDown={e => {
-                e.preventDefault()
-                handleHistoryClick(url)
-              }}
+              onMouseDown={e => e.preventDefault()}
+              onClick={() => handleHistoryClick(url)}
             >
               <svg
                 width='12'

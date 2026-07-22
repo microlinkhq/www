@@ -10,6 +10,8 @@ import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { trimMs } from 'helpers/trim-ms'
 import { Caption, Subhead } from './shared'
 
+const STAT_VALUE_FONT_SIZE = ['20px', '26px', '32px', '32px']
+
 export const Timings = ({ timingMs, timingUrl, timingHistory }) => {
   const healthcheck = useHealthcheck()
 
@@ -53,7 +55,7 @@ export const Timings = ({ timingMs, timingUrl, timingHistory }) => {
         <Subhead
           forwardedAs='div'
           css={theme({
-            fontSize: ['20px', '26px', '32px', '32px'],
+            fontSize: STAT_VALUE_FONT_SIZE,
             color: 'white',
             fontWeight: 'bold'
           })}
@@ -99,7 +101,7 @@ export const Timings = ({ timingMs, timingUrl, timingHistory }) => {
         <Subhead
           forwardedAs='div'
           css={theme({
-            fontSize: ['20px', '26px', '32px', '32px'],
+            fontSize: STAT_VALUE_FONT_SIZE,
             color: 'white',
             fontWeight: 'bold'
           })}

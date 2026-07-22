@@ -411,10 +411,8 @@ export const BrowserToolbar = ({
               key={url}
               role='option'
               type='button'
-              onMouseDown={e => {
-                e.preventDefault()
-                handleHistoryClick(url)
-              }}
+              onMouseDown={e => e.preventDefault()}
+              onClick={() => handleHistoryClick(url)}
             >
               <svg
                 width='12'

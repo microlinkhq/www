@@ -1,14 +1,15 @@
-import React, { useCallback, useReducer, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { borders, colors, shadows, theme } from 'theme'
 import Box from 'components/elements/Box'
+import { useDemoUi } from 'components/hook/use-demo-ui'
 import { ensureProtocol, stripForDisplay, stripProtocol } from './url'
 import { addToHistory, MAX_HISTORY } from './history'
 import { BrowserToolbar } from './browser-toolbar'
 import { Footer } from './footer'
 import { Viewport } from './viewport'
 import { useAttractLoop } from './use-attract-loop'
-import { useErrorModalFocus } from './use-error-modal-focus'
+import { useErrorModalFocus } from 'components/hook/use-error-modal-focus'
 import { useFetchScreenshot } from './use-fetch-screenshot'
 
 const FIRST_URL = 'https://apple.com'
@@ -42,36 +43,6 @@ const BrowserWindow = styled('div')`
   }
 `
 
-const UI_INITIAL_STATE = {
-  isGlowing: false,
-  isAttractMode: false,
-  isPulsing: false,
-  isFocused: false,
-  hasInteracted: false
-}
-
-const setUiFlag = (state, flag, value) => {
-  const next = typeof value === 'function' ? value(state[flag]) : value
-  return Object.is(state[flag], next) ? state : { ...state, [flag]: next }
-}
-
-const uiReducer = (state, action) => {
-  switch (action.type) {
-    case 'glow':
-      return setUiFlag(state, 'isGlowing', action.value)
-    case 'attract':
-      return setUiFlag(state, 'isAttractMode', action.value)
-    case 'pulse':
-      return setUiFlag(state, 'isPulsing', action.value)
-    case 'focus':
-      return setUiFlag(state, 'isFocused', action.value)
-    case 'interact':
-      return setUiFlag(state, 'hasInteracted', action.value)
-    default:
-      return state
-  }
-}
-
 const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
   const [inputUrl, setInputUrl] = useState(FIRST_URL)
   const [history, setHistory] = useState(DEFAULT_HISTORY)
@@ -81,35 +52,26 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
   const [imgVisible, setImgVisible] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [showNerdStats, setShowNerdStats] = useState(false)
   const [nerdStats, setNerdStats] = useState(null)
   const [nerdQuery, setNerdQuery] = useState(null)
   const [nerdResponse, setNerdResponse] = useState(null)
   const [navStack, setNavStack] = useState(['https://apple.com'])
   const [navIndex, setNavIndex] = useState(0)
   const [activeIndex, setActiveIndex] = useState(-1)
-  const [ui, dispatchUi] = useReducer(uiReducer, UI_INITIAL_STATE)
-  const { isGlowing, isAttractMode, isPulsing, isFocused, hasInteracted } = ui
-  const setIsGlowing = useCallback(
-    value => dispatchUi({ type: 'glow', value }),
-    []
-  )
-  const setIsAttractMode = useCallback(
-    value => dispatchUi({ type: 'attract', value }),
-    []
-  )
-  const setIsPulsing = useCallback(
-    value => dispatchUi({ type: 'pulse', value }),
-    []
-  )
-  const setIsFocused = useCallback(
-    value => dispatchUi({ type: 'focus', value }),
-    []
-  )
-  const setHasInteracted = useCallback(
-    value => dispatchUi({ type: 'interact', value }),
-    []
-  )
+  const {
+    isGlowing,
+    isAttractMode,
+    isPulsing,
+    isFocused,
+    hasInteracted,
+    showNerdStats,
+    setIsGlowing,
+    setIsAttractMode,
+    setIsPulsing,
+    setIsFocused,
+    setHasInteracted,
+    setShowNerdStats
+  } = useDemoUi()
   const abortRef = useRef(null)
   const hasImageRef = useRef(false)
   const skipBlurRef = useRef(false)
@@ -121,7 +83,6 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
     abortRef,
     setIsLoading,
     setError,
-    setShowNerdStats,
     setNerdStats,
     setNerdQuery,
     setNerdResponse,
@@ -141,6 +102,7 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
       setHistory,
       setNavStack,
       setNavIndex,
+      setShowNerdStats,
       fetchScreenshot,
       imageLoadResolverRef
     }
@@ -190,6 +152,7 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
   }
 
   const handleFocus = () => {
+    skipBlurRef.current = false
     setIsFocused(true)
     setActiveIndex(-1)
     stopAttract()
@@ -197,12 +160,14 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
 
   const submitUrl = url => {
     const normalized = ensureProtocol(url)
+    setIsFocused(false)
+    if (!normalized) return
     const newStack = [...navStack.slice(0, navIndex + 1), normalized].slice(
       -MAX_HISTORY
     )
     const newIndex = newStack.length - 1
     setInputUrl(normalized)
-    setIsFocused(false)
+    setShowNerdStats(false)
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
@@ -211,31 +176,36 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
 
   const handleBack = () => {
     if (navIndex === 0) return
+    skipBlurRef.current = true
     stopAttract()
     const newIndex = navIndex - 1
     const url = navStack[newIndex]
     setNavIndex(newIndex)
     setInputUrl(url)
+    setShowNerdStats(false)
     fetchScreenshot(url)
   }
 
   const handleForward = () => {
     if (navIndex >= navStack.length - 1) return
+    skipBlurRef.current = true
     stopAttract()
     const newIndex = navIndex + 1
     const url = navStack[newIndex]
     setNavIndex(newIndex)
     setInputUrl(url)
+    setShowNerdStats(false)
     fetchScreenshot(url)
   }
 
   const handleBlur = e => {
+    const value = e.target.value
     setTimeout(() => {
       if (skipBlurRef.current) {
         skipBlurRef.current = false
         return
       }
-      const normalized = ensureProtocol(e.target.value)
+      const normalized = ensureProtocol(value)
       if (normalized && normalized !== navStack[navIndex]) {
         submitUrl(normalized)
       } else {

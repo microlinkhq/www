@@ -5,6 +5,7 @@ export const useFetchCapMarkdown = ({
   capAbortRef,
   capHtmlAbortRef,
   capHasContentRef,
+  capLastFetchedRef,
   setCapLoading,
   setCapHtmlLoading,
   setCapError,
@@ -15,8 +16,11 @@ export const useFetchCapMarkdown = ({
     async url => {
       if (capAbortRef.current) capAbortRef.current.abort()
       if (capHtmlAbortRef.current) capHtmlAbortRef.current.abort()
-      capAbortRef.current = new window.AbortController()
-      capHtmlAbortRef.current = new window.AbortController()
+      const controller = new window.AbortController()
+      const htmlController = new window.AbortController()
+      capAbortRef.current = controller
+      capHtmlAbortRef.current = htmlController
+      capLastFetchedRef.current = url
       setCapLoading(true)
       setCapHtmlLoading(true)
       setCapError(null)
@@ -26,7 +30,7 @@ export const useFetchCapMarkdown = ({
           `https://api.microlink.io/?data.html.attr=html&meta=false&url=${encodeURIComponent(
             url
           )}`,
-          { signal: capHtmlAbortRef.current.signal }
+          { signal: htmlController.signal }
         )
         .then(r =>
           r.json().then(json => {
@@ -51,7 +55,7 @@ export const useFetchCapMarkdown = ({
           `https://api.microlink.io?url=${encodeURIComponent(
             url
           )}&data.markdown.attr=markdown&meta=true`,
-          { signal: capAbortRef.current.signal }
+          { signal: controller.signal }
         )
         .then(r =>
           r.json().then(json => {
@@ -68,6 +72,8 @@ export const useFetchCapMarkdown = ({
         })
 
       let aborted = false
+      const isStale = () =>
+        controller.signal.aborted || htmlController.signal.aborted
       try {
         const [htmlResult, mdResult] = await Promise.all([
           htmlPromise,
@@ -79,7 +85,7 @@ export const useFetchCapMarkdown = ({
 
         const capErr = htmlResult.error || mdResult.error
         if (capErr) {
-          setCapError(capErr)
+          if (!isStale()) setCapError(capErr)
           return
         }
 
@@ -89,7 +95,7 @@ export const useFetchCapMarkdown = ({
         }
         if (htmlResult.html) setCapHtml(htmlResult.html)
       } finally {
-        if (!aborted) {
+        if (!aborted && !isStale()) {
           setCapLoading(false)
           setCapHtmlLoading(false)
         }
@@ -99,6 +105,7 @@ export const useFetchCapMarkdown = ({
       capAbortRef,
       capHtmlAbortRef,
       capHasContentRef,
+      capLastFetchedRef,
       setCapLoading,
       setCapHtmlLoading,
       setCapError,
