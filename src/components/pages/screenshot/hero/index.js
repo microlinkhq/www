@@ -119,7 +119,9 @@ export const Hero = function Hero ({
   const displayValue = isFocused
     ? stripProtocol(inputUrl)
     : stripForDisplay(inputUrl)
-  const apiUrl = `https://api.microlink.io?screenshot&url=${inputUrl}`
+  const apiUrl = `https://api.microlink.io?screenshot&url=${encodeURIComponent(
+    inputUrl
+  )}`
 
   const handleChange = e => {
     setInputUrl(ensureProtocol(stripProtocol(e.target.value)))

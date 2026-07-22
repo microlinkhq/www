@@ -113,7 +113,9 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
   const displayValue = isFocused
     ? stripProtocol(inputUrl)
     : stripForDisplay(inputUrl)
-  const apiUrl = `https://api.microlink.io?screenshot&url=${inputUrl}`
+  const apiUrl = `https://api.microlink.io?screenshot&url=${encodeURIComponent(
+    inputUrl
+  )}`
 
   const handleChange = e => {
     setInputUrl(ensureProtocol(stripProtocol(e.target.value)))

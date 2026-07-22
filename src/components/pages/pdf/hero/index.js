@@ -92,7 +92,9 @@ export const Hero = function Hero ({ onRequestTiming }) {
     }
   })
 
-  const apiUrl = `https://api.microlink.io?pdf&url=${inputUrl}`
+  const apiUrl = `https://api.microlink.io?pdf&url=${encodeURIComponent(
+    inputUrl
+  )}`
 
   const displayValue = isFocused
     ? stripProtocol(inputUrl)

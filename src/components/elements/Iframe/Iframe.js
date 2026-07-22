@@ -6,12 +6,18 @@ import Box from '../Box'
 export const Iframe = ({ width, height, ...props }) => {
   const iframeRef = useRef(null)
   const [isMounted, setMounted] = useState(false)
+  const [prevSrc, setPrevSrc] = useState(props.src)
+
+  if (props.src !== prevSrc) {
+    setPrevSrc(props.src)
+    setMounted(false)
+  }
 
   useEffect(() => {
     if (iframeRef.current) {
       setMounted(true)
     }
-  }, [])
+  }, [prevSrc])
 
   return (
     <Box position='relative' css={theme({ width, height })}>

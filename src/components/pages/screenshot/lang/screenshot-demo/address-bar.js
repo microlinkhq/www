@@ -93,7 +93,7 @@ export const AddressInput = styled('input')`
     m: 0,
     flex: 1,
     minWidth: '0',
-    fontSize: 0,
+    fontSize: [1, 1, 0, 0],
     fontFamily: 'sans',
     letterSpacing: 0
   })};

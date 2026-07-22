@@ -100,7 +100,7 @@ export const Hero = function Hero ({
     }
   })
 
-  const apiUrl = `https://api.microlink.io?url=${inputUrl}`
+  const apiUrl = `https://api.microlink.io?url=${encodeURIComponent(inputUrl)}`
 
   const displayValue = isFocused
     ? stripProtocol(inputUrl)

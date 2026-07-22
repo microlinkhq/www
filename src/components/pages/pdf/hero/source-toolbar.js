@@ -152,7 +152,7 @@ const AddressInput = styled('input')`
     flex: 1,
     width: 0,
     minWidth: '0',
-    fontSize: 0,
+    fontSize: [1, 1, 0, 0],
     fontFamily: 'sans',
     letterSpacing: 0
   })};
