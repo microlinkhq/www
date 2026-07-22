@@ -153,8 +153,6 @@ const PlanName = ({ children }) => (
   </Text>
 )
 
-const ENTERPRISE_PRICE = { EUR: 500, USD: 625 }
-
 const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
   const [plan, setPlan] = useState(DEFAULT_PLAN)
   const [currency] = useCurrencyContext()
@@ -326,8 +324,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
               </Text>
             </Flex>
             <Text css={theme({ pt: 2, fontSize: 0, color: 'black70' })}>
-              From {currencySymbol}
-              {formatPrice(ENTERPRISE_PRICE, currency)} / month
+              Tailored to your volume
             </Text>
           </Box>
           <Box css={theme({ pt: [3, 3, 4, 4] })}>
