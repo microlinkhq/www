@@ -1,11 +1,14 @@
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import Annotation from 'components/elements/Annotation'
+import ContactButton from 'components/pages/enterprise/ContactButton'
 
 **Microlink Enterprise** is the Microlink API running on <Annotation>hardware that serves only you</Annotation>. No shared capacity. No noisy neighbors. One environment, tuned for your workload, integrated with your existing infrastructure.
 
 The full Microlink API — <Annotation>screenshots, PDF generation, metadata extraction, markdown, link preview</Annotation>, and every other product we offer — runs on your dedicated environment.
 
 When **Microlink Pro** starts hitting its limits, this is the next step.
+
+<ContactButton event='enterprise contact top' />
 
 **Your dedicated infrastructure:**
 
