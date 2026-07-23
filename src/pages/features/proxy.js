@@ -755,7 +755,7 @@ const Verifying = () => (
           : fetch-proxy
         </ResponseLine>
         <ResponseLine>
-          <Link href='/docs/api/parameters/ttl'>x-cache-ttl</Link>: 86400000
+          <Link href='/docs/api/basics/cache'>x-cache-ttl</Link>: 86400000
         </ResponseLine>
         <ResponseLine>
           <Link href='/docs/api/basics/cache'>x-cache-status</Link>: BYPASS
