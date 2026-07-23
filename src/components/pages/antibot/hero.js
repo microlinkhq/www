@@ -1,4 +1,4 @@
-import { layout, theme } from 'theme'
+import { SECTION_VERTICAL_SPACING, layout, theme } from 'theme'
 import React from 'react'
 
 import Box from 'components/elements/Box'
@@ -14,7 +14,10 @@ import {
 } from 'components/patterns/FeatureStory'
 
 export const Hero = () => (
-  <Section as='header' css={theme({ pt: [3, 3, 4, 4], pb: [3, 3, 4, 4] })}>
+  <Section
+    as='header'
+    css={theme({ pt: [3, 3, 4, 4], pb: SECTION_VERTICAL_SPACING })}
+  >
     <SectionInner>
       <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
         <PlanTag>Pro feature</PlanTag>

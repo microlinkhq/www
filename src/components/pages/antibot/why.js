@@ -1,4 +1,4 @@
-import { layout, theme } from 'theme'
+import { SECTION_VERTICAL_SPACING, layout, theme } from 'theme'
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
@@ -79,10 +79,7 @@ const StatusFlicker = styled('span')`
 `
 
 const StatusCycle = () => (
-  <StatusFlicker
-    role='text'
-    aria-label='429 Too Many Requests, 401 Unauthorized, or 403 Forbidden'
-  >
+  <StatusFlicker aria-label='429 Too Many Requests, 401 Unauthorized, or 403 Forbidden'>
     <span aria-hidden='true'>429 TOO_MANY_REQUESTS</span>
     <span aria-hidden='true'>401 UNAUTHORIZED</span>
     <span aria-hidden='true'>403 FORBIDDEN</span>
@@ -90,7 +87,7 @@ const StatusCycle = () => (
 )
 
 export const Why = () => (
-  <Section>
+  <Section css={theme({ py: SECTION_VERTICAL_SPACING })}>
     <SectionInner>
       <Box css={theme({ maxWidth: layout.large })}>
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>

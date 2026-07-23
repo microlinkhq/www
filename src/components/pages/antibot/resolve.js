@@ -1,4 +1,4 @@
-import { layout, theme } from 'theme'
+import { SECTION_VERTICAL_SPACING, layout, theme } from 'theme'
 import React from 'react'
 
 import Box from 'components/elements/Box'
@@ -16,7 +16,7 @@ import {
 } from 'components/patterns/FeatureStory'
 
 export const Resolve = () => (
-  <Section>
+  <Section css={theme({ py: SECTION_VERTICAL_SPACING })}>
     <SectionInner>
       <Box css={theme({ maxWidth: layout.large })}>
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>

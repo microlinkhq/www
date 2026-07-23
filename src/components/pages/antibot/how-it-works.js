@@ -1,4 +1,4 @@
-import { layout, theme } from 'theme'
+import { SECTION_VERTICAL_SPACING, layout, theme } from 'theme'
 import React from 'react'
 
 import Flex from 'components/elements/Flex'
@@ -23,7 +23,9 @@ import {
 
 const STATUS_EXAMPLES = ['LinkedIn · 999', 'Reddit · 403']
 
-const HEADER_EXAMPLES = ['cf-mitigated: challenge', 'mitigation cookies']
+const HEADER_EXAMPLES = ['cf-mitigated: challenge', 'server: cloudflare']
+
+const COOKIE_EXAMPLES = ['mitigation cookies', 'challenge tokens']
 
 const HTML_EXAMPLES = [
   'CAPTCHA widgets',
@@ -34,7 +36,7 @@ const HTML_EXAMPLES = [
 const URL_EXAMPLES = ['challenge redirects', 'verification paths']
 
 export const HowItWorks = () => (
-  <Section>
+  <Section css={theme({ py: SECTION_VERTICAL_SPACING })}>
     <SectionInner>
       <Box css={theme({ pb: [4, 4, 5, 5], maxWidth: layout.large })}>
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>
@@ -77,16 +79,15 @@ export const HowItWorks = () => (
 
         <Card>
           <CardSide>
-            <CardKicker>02 · headers & cookies</CardKicker>
-            <CardTitle>Mitigation headers and challenge tokens</CardTitle>
+            <CardKicker>02 · headers</CardKicker>
+            <CardTitle>Mitigation headers</CardTitle>
           </CardSide>
           <CardMain>
             <CardBody>
-              Blocking responses usually expose hints in headers and cookies —
+              Blocking responses usually expose hints in response headers —
               Cloudflare commonly surfaces{' '}
               <CodeInline>cf-mitigated: challenge</CodeInline>, while other
-              providers rely on mitigation cookies or provider-specific header
-              combinations.
+              providers rely on provider-specific header combinations.
             </CardBody>
             <ChipRow items={HEADER_EXAMPLES} />
           </CardMain>
@@ -94,7 +95,22 @@ export const HowItWorks = () => (
 
         <Card>
           <CardSide>
-            <CardKicker>03 · html</CardKicker>
+            <CardKicker>03 · cookies</CardKicker>
+            <CardTitle>Challenge tokens in cookies</CardTitle>
+          </CardSide>
+          <CardMain>
+            <CardBody>
+              Many antibot systems drop mitigation cookies or challenge tokens
+              before serving a block page. Matching those cookie names and
+              values identifies the provider even when headers stay quiet.
+            </CardBody>
+            <ChipRow items={COOKIE_EXAMPLES} />
+          </CardMain>
+        </Card>
+
+        <Card>
+          <CardSide>
+            <CardKicker>04 · html</CardKicker>
             <CardTitle>Known challenge signatures</CardTitle>
           </CardSide>
           <CardMain>
@@ -109,7 +125,7 @@ export const HowItWorks = () => (
 
         <Card>
           <CardSide>
-            <CardKicker>04 · url</CardKicker>
+            <CardKicker>05 · url</CardKicker>
             <CardTitle>Provider-specific redirect fingerprints</CardTitle>
           </CardSide>
           <CardMain>

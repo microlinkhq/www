@@ -1,4 +1,4 @@
-import { layout, theme } from 'theme'
+import { SECTION_VERTICAL_SPACING, layout, theme } from 'theme'
 import React from 'react'
 
 import Flex from 'components/elements/Flex'
@@ -12,7 +12,7 @@ import {
 } from 'components/patterns/FeatureStory'
 
 export const Cta = () => (
-  <Section>
+  <Section css={theme({ py: SECTION_VERTICAL_SPACING })}>
     <SectionInner css={theme({ textAlign: 'center' })}>
       <Subhead css={theme({ color: 'black' })}>
         Detect the block,{' '}

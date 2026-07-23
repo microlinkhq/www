@@ -7,9 +7,9 @@ export const CardLink = styled(Link)`
   ${theme({
     color: 'secondary',
     fontWeight: 'bold',
-    fontSize: [0, 1, 1, 1]
+    fontSize: [0, 1, 1, 1],
+    mt: 'auto'
   })}
-  margin-top: auto;
 `
 
 export const PROVIDERS = [
@@ -19,6 +19,11 @@ export const PROVIDERS = [
     methods: ['Headers', 'Cookies', 'HTML']
   },
   { name: 'AliExpress CAPTCHA', category: 'CAPTCHA', methods: ['HTML', 'URL'] },
+  {
+    name: 'Amazon',
+    category: 'Platform-specific',
+    methods: ['Headers', 'HTML']
+  },
   { name: 'Anubis', category: 'Antibot', methods: ['HTML'] },
   {
     name: 'AWS WAF',
@@ -34,14 +39,31 @@ export const PROVIDERS = [
     methods: ['HTML', 'URL']
   },
   { name: 'DataDome', category: 'Antibot', methods: ['Headers', 'Cookies'] },
+  {
+    name: 'Douban',
+    category: 'Platform-specific',
+    methods: ['Status Code']
+  },
+  {
+    name: 'Dribbble',
+    category: 'Platform-specific',
+    methods: ['Status Code']
+  },
   { name: 'Friendly Captcha', category: 'CAPTCHA', methods: ['HTML', 'URL'] },
+  {
+    name: 'FullStory Challenge',
+    category: 'Antibot',
+    methods: ['Cookies', 'HTML']
+  },
   {
     name: 'FunCaptcha (Arkose Labs)',
     category: 'CAPTCHA',
     methods: ['HTML', 'URL']
   },
   { name: 'GeeTest', category: 'CAPTCHA', methods: ['HTML', 'URL'] },
+  { name: 'Google', category: 'Platform-specific', methods: ['URL'] },
   { name: 'hCaptcha', category: 'CAPTCHA', methods: ['HTML', 'URL'] },
+  { name: 'Houzz', category: 'Platform-specific', methods: ['Status Code'] },
   {
     name: 'Imperva / Incapsula',
     category: 'Antibot',
@@ -69,5 +91,6 @@ export const PROVIDERS = [
   { name: 'Sucuri', category: 'Antibot', methods: ['HTML'] },
   { name: 'ThreatMetrix', category: 'Antibot', methods: ['HTML', 'URL'] },
   { name: 'Vercel', category: 'Antibot', methods: ['Headers'] },
+  { name: 'Weibo', category: 'Platform-specific', methods: ['HTML'] },
   { name: 'YouTube', category: 'Platform-specific', methods: ['HTML'] }
 ]

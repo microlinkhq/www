@@ -1,4 +1,4 @@
-import { theme } from 'theme'
+import { SECTION_VERTICAL_SPACING, theme } from 'theme'
 import React from 'react'
 
 import Box from 'components/elements/Box'
@@ -16,7 +16,7 @@ import {
 } from 'components/patterns/FeatureStory'
 
 export const CodeExample = () => (
-  <Section>
+  <Section css={theme({ py: SECTION_VERTICAL_SPACING })}>
     <SectionInner>
       <Eyebrow css={theme({ pb: 2, display: 'block' })}>Open source</Eyebrow>
       <Subhead css={theme({ textAlign: 'left' })}>

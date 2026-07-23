@@ -1,4 +1,4 @@
-import { layout, shadows, theme } from 'theme'
+import { SECTION_VERTICAL_SPACING, layout, shadows, theme } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -95,7 +95,7 @@ const MethodChip = styled(Text).attrs({ as: 'span' })`
 `
 
 export const Providers = () => (
-  <Section id='providers'>
+  <Section id='providers' css={theme({ py: SECTION_VERTICAL_SPACING })}>
     <SectionInner>
       <Box css={theme({ pb: [4, 4, 5, 5], maxWidth: layout.large })}>
         <Eyebrow css={theme({ pb: 2, display: 'block' })}>Coverage</Eyebrow>
