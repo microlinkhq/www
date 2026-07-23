@@ -2,7 +2,11 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { theme, layout, SECTION_VERTICAL_SPACING } from 'theme'
-import { HOME_CONTENT_WIDTH } from 'components/pages/home/catalog'
+import {
+  HOME_CONTENT_WIDTH,
+  CAPACITY_REQUESTS_PER_MONTH
+} from 'components/pages/home/catalog'
+import { CDN_EDGES } from 'helpers/cdn-edges'
 import Subhead from 'components/elements/Subhead'
 import Caption from 'components/patterns/Caption/Caption'
 
@@ -13,19 +17,12 @@ const FEATURES = [
     icon: 'cloud2',
     title: 'Grows with you',
     description:
-      'Capacity scales automatically with your traffic. One request or millions, a single script or a fleet of agents, everything keeps working.'
-  },
-  {
-    icon: 'costless',
-    title: 'Cost efficient',
-    description:
-      'Pay only for what you use. Smart engineering keeps the price per request low as you grow.'
+      'Capacity scales automatically with your traffic. One request or millions, a single script or a fleet of agents — no need to warn us before a spike.'
   },
   {
     icon: 'cdn',
     title: 'Fast everywhere',
-    description:
-      'Results come from servers close to you, so requests stay quick anywhere in the world.'
+    description: `Responses are served from ${CDN_EDGES} CDN edge locations close to your users, so requests stay quick anywhere in the world.`
   },
   {
     icon: 'developer',
@@ -40,22 +37,10 @@ const FEATURES = [
       'Simple options cover the common cases. Custom browser code covers everything else.'
   },
   {
-    icon: 'declarative',
-    title: 'Simple by design',
-    description:
-      'Say what you want in a single request. No setup, no sessions, nothing to maintain.'
-  },
-  {
-    icon: 'hardware',
-    title: 'Optimized hardware',
-    description:
-      'Modern hardware tuned for rendering web pages, so results stay fast even under heavy load.'
-  },
-  {
     icon: 'cache',
     title: 'Built-in cache',
     description:
-      'Run the same request twice and the result comes back in milliseconds. You control how fresh it needs to be.'
+      'Run the same request twice and the result comes back in milliseconds from the edge. A single ttl parameter controls how fresh it needs to be.'
   },
   {
     icon: 'security',
@@ -93,7 +78,8 @@ const Production = () => (
         })}
       >
         From your first request to millions, the same infrastructure scales with
-        your business. No maintenance, no capacity planning, no surprises.
+        you — we&rsquo;ve sustained {CAPACITY_REQUESTS_PER_MONTH} requests per
+        month for a single customer. No maintenance, no capacity planning.
       </Caption>
     </Box>
 

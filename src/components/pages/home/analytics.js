@@ -26,7 +26,7 @@ const bytes = (() => {
 
 const stats = [
   { value: CDN_EDGES, name: 'CDN Edges' },
-  { value: `+${reqsPretty}`, name: 'Requests per month' },
+  { value: `${reqsPretty}+`, name: 'Requests per month' },
   { value: bytes, name: 'Data served' },
   { value: '99.9%', name: 'Uptime' }
 ]
@@ -109,7 +109,7 @@ const Analytics = () => (
           backgroundImage: `linear-gradient(135deg, ${colors.black}, ${colors.secondary}, ${colors.yellow3})`
         })}
       >
-        Fast Anywhere
+        Fast anywhere
       </Text>
       <Box
         css={theme({

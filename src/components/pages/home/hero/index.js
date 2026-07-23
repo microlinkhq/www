@@ -344,16 +344,16 @@ const Hero = () => {
       <Content>
         <Badge>
           <Dot.Success />
-          Handling +{reqsPretty} requests every month
+          Handling {reqsPretty}+ requests every month
         </Badge>
 
         <Heading variant={null}>
-          The web,{' '}
+          Turn any URL into{' '}
           <Heading
             forwardedAs='span'
             css={theme({ fontSize: 'inherit', fontStyle: 'italic' })}
           >
-            transformed
+            structured&nbsp;data
           </Heading>
         </Heading>
 

@@ -6,9 +6,9 @@ const OpenSource = () => (
   <OpenSourcePattern
     repos={['metascraper', 'browserless', 'unavatar']}
     accent='gradient'
-    caption="Open source isn't just something we use: It's something we build. Many of the technologies behind Microlink are developed in public and available for everyone."
+    caption="Open source isn't just something we use — it's something we build. Many of the technologies behind Microlink are developed in public and available for everyone."
     ctaHref='/open-source'
-    ctaLabel={`Explore our +${Math.floor(OSS_STATS.repos / 10) * 10} projects`}
+    ctaLabel={`Explore our ${Math.floor(OSS_STATS.repos / 10) * 10}+ projects`}
   />
 )
 

@@ -60,7 +60,7 @@ export const PRODUCTS = {
     label: 'HTML',
     icon: CodeIcon,
     href: '/docs/api/parameters/data',
-    description: 'Fully rendered HTML for any page'
+    description: 'Fully rendered HTML, JavaScript executed'
   },
   text: {
     label: 'Text',
@@ -108,7 +108,7 @@ export const PRODUCTS = {
     label: 'Logo',
     icon: Shapes,
     href: '/logo',
-    description: 'Favicons and brand marks at scale'
+    description: 'Logos, favicons & brand palettes'
   },
   video: {
     label: 'Video',

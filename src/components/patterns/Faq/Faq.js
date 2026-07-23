@@ -17,7 +17,8 @@ const Question = withSlug(({ index, ...props }) => (
       fontWeight: 'bold',
       pt: 4,
       pr: [3, 0],
-      textAlign: 'left'
+      textAlign: 'left',
+      textWrap: 'pretty'
     })}
     {...props}
   />

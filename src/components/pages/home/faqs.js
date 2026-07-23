@@ -24,7 +24,7 @@ export const getFaqQuestions = () => {
             The free plan has limits to prevent abuse: burst rate, concurrency,
             and a daily quota.
           </div>
-          <div>It should be enough for small projects or a low API quota.</div>
+          <div>It should be enough for small projects or low-volume usage.</div>
         </>
       )
     },
@@ -47,7 +47,7 @@ export const getFaqQuestions = () => {
       )
     },
     {
-      question: "What if I don't know how much API quota I need?",
+      question: 'What if I don’t know how much API quota I need?',
       answer: (
         <div>
           No problem, just start with the smallest pro plan, and at the moment
@@ -106,11 +106,11 @@ export const getFaqQuestions = () => {
       )
     },
     {
-      question: "What's your SLA level?",
+      question: 'What’s your SLA level?',
       answer: (
         <div>
-          Our Service-Level Agreements commitment is 99.9% (three nines). You
-          can see the live <Link href='/status'>status</Link> of the service.
+          Our SLA commitment is 99.9% uptime (three nines). You can see the live{' '}
+          <Link href='/status'>status</Link> of the service.
         </div>
       )
     },

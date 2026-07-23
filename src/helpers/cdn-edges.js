@@ -8,4 +8,4 @@ if (typeof cdnEdges !== 'number' || Number.isNaN(cdnEdges)) {
   )
 }
 
-export const CDN_EDGES = `+${Math.floor(cdnEdges / 10) * 10}`
+export const CDN_EDGES = `${Math.floor(cdnEdges / 10) * 10}+`

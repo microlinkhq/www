@@ -2308,10 +2308,10 @@ const Products = () => (
         px: 3
       })}
     >
-      <Subhead variant='gradient'>Turn the web into capabilities</Subhead>
+      <Subhead variant='gradient'>Build features, not infrastructure</Subhead>
       <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4] })}>
-        Build features, not the infrastructure behind them. We handle everything
-        required to run them at scale.
+        Turn any URL into screenshots, PDFs, markdown, or structured data. We
+        run the browsers, the cache, and the scale behind them.
       </Caption>
     </Box>
 
