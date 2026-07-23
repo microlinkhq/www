@@ -38,9 +38,13 @@ export const FAQ_ITEMS = [
       <>
         <div>
           At two layers. Before the fetch, the hostname is resolved via DNS and
-          refused with <CodeInline>EFORBIDDENURL</CodeInline> if it points at a
-          reserved range — loopback, private networks, link-local, or cloud
-          metadata endpoints — with redirects re-checked hop by hop.
+          refused with{' '}
+          <Link href='/docs/api/basics/error-codes#eforbiddenurl'>
+            EFORBIDDENURL
+          </Link>{' '}
+          if it points at a reserved range — loopback, private networks,
+          link-local, or cloud metadata endpoints — with redirects re-checked
+          hop by hop.
         </div>
         <div>
           During rendering, a Chromium request interceptor validates every
@@ -73,7 +77,8 @@ export const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Code passed through the <CodeInline>function</CodeInline> parameter
+          Code passed through the{' '}
+          <Link href='/docs/api/parameters/function'>function</Link> parameter
           runs inside a VM with an execution timeout and a memory ceiling. On
           the free plan, code size is capped and cross-origin{' '}
           <CodeInline>fetch</CodeInline>, <CodeInline>xhr</CodeInline>, and{' '}

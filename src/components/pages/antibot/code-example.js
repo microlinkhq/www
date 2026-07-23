@@ -3,6 +3,7 @@ import React from 'react'
 
 import Box from 'components/elements/Box'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
+import { Link } from 'components/elements/Link'
 import Subhead from 'components/elements/Subhead'
 
 import { CodeInline } from 'components/markdown/CodeInline'
@@ -24,10 +25,10 @@ export const CodeExample = () => (
       </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         The detection logic that powers Pro is open source as{' '}
-        <CodeInline>is-antibot</CodeInline> — static HTTP response analysis with
-        a minimal footprint, no headless browser required. Pass it any response
-        and it tells you who blocked it. Works with{' '}
-        <CodeInline>fetch</CodeInline>, <CodeInline>got</CodeInline>,{' '}
+        <Link href='https://github.com/microlinkhq/is-antibot'>is-antibot</Link>{' '}
+        — static HTTP response analysis with a minimal footprint, no headless
+        browser required. Pass it any response and it tells you who blocked it.
+        Works with <CodeInline>fetch</CodeInline>, <CodeInline>got</CodeInline>,{' '}
         <CodeInline>axios</CodeInline>, or <CodeInline>undici</CodeInline>.
       </BodyText>
 

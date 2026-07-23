@@ -108,11 +108,14 @@ const Hero = () => (
           mx: 0
         })}
       >
-        Don't pay to re-render the same <strong>screenshot</strong> or{' '}
-        <strong>PDF</strong> twice. Every cache <CodeInline>HIT</CodeInline> is
-        free — across every Microlink output. Use <CodeInline>ttl</CodeInline>{' '}
-        to set the freshness window and <CodeInline>staleTtl</CodeInline> to
-        keep callers instant during the background refresh.
+        Don't pay to re-render the same{' '}
+        <Link href='/screenshot'>screenshot</Link> or{' '}
+        <Link href='/pdf'>PDF</Link> twice. Every cache{' '}
+        <CodeInline>HIT</CodeInline> is free — across every Microlink output.
+        Use <Link href='/docs/api/parameters/ttl'>ttl</Link> to set the
+        freshness window and{' '}
+        <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> to keep
+        callers instant during the background refresh.
       </Caption>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <ArrowLink
@@ -140,22 +143,24 @@ const WhatItDoes = () => (
       </Eyebrow>
       <BodyText>
         One paid <CodeInline>MISS</CodeInline> warms the cache; every{' '}
-        <CodeInline>HIT</CodeInline> until <CodeInline>ttl</CodeInline> expires
-        is free — including expensive screenshot and PDF renders.
+        <CodeInline>HIT</CodeInline> until{' '}
+        <Link href='/docs/api/parameters/ttl'>ttl</Link> expires is free —
+        including expensive screenshot and PDF renders.
       </BodyText>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
         Two caches behind it: a <strong>unified cache</strong> (
-        <CodeInline>x-cache-status</CodeInline>) holds the shared copy per URL;
-        a <strong>CloudFlare edge cache</strong> (
-        <CodeInline>cf-cache-status</CodeInline>) serves it from the nearest of{' '}
+        <Link href='/docs/api/basics/cache'>x-cache-status</Link>) holds the
+        shared copy per URL; a <strong>CloudFlare edge cache</strong> (
+        <Link href='/docs/api/basics/cache'>cf-cache-status</Link>) serves it
+        from the nearest of{' '}
         <Link href='/blog/edge-cdn'>{CDN_EDGES} edge nodes</Link>. Cold regions
         auto-populate from the unified layer.
       </BodyText>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
-        <CodeInline>ttl</CodeInline> sets the cache window.{' '}
-        <CodeInline>staleTtl</CodeInline> enables stale-while-revalidate —
-        callers always hit cache while refreshes happen in the background. No
-        Redis, no cron jobs.
+        <Link href='/docs/api/parameters/ttl'>ttl</Link> sets the cache window.{' '}
+        <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> enables
+        stale-while-revalidate — callers always hit cache while refreshes happen
+        in the background. No Redis, no cron jobs.
       </BodyText>
     </SectionInner>
   </Section>
@@ -246,26 +251,41 @@ const CardBody = styled(Text)`
 
 const ChipRow = ({ items }) => (
   <Flex css={theme({ flexWrap: 'wrap', gap: 2, py: 3 })}>
-    {items.map(item => (
-      <ProviderChip key={item}>{item}</ProviderChip>
-    ))}
+    {items.map(item => {
+      const label = typeof item === 'string' ? item : item.label
+      const href = typeof item === 'string' ? undefined : item.href
+
+      if (!href) {
+        return <ProviderChip key={label}>{label}</ProviderChip>
+      }
+
+      return (
+        <Link
+          key={label}
+          href={href}
+          css={theme({ textDecoration: 'none', color: 'inherit' })}
+        >
+          <ProviderChip>{label}</ProviderChip>
+        </Link>
+      )
+    })}
   </Flex>
 )
 
 const TTL_VALUES = ['min (1m)', '1h', '6h', '1d', '7d', '14d', 'max (31d)']
 
 const STALE_PATTERNS = [
-  'staleTtl: 0',
-  "staleTtl: '12h'",
-  "staleTtl: '1d'",
-  'staleTtl: false'
+  { label: 'staleTtl: 0', href: '/docs/api/parameters/staleTtl' },
+  { label: "staleTtl: '12h'", href: '/docs/api/parameters/staleTtl' },
+  { label: "staleTtl: '1d'", href: '/docs/api/parameters/staleTtl' },
+  { label: 'staleTtl: false', href: '/docs/api/parameters/staleTtl' }
 ]
 
 const CACHE_HEADERS = [
-  'x-cache-status',
-  'x-cache-ttl',
-  'cf-cache-status',
-  'x-response-time'
+  { label: 'x-cache-status', href: '/docs/api/basics/cache' },
+  { label: 'x-cache-ttl', href: '/docs/api/basics/cache' },
+  { label: 'cf-cache-status', href: '/docs/api/basics/cache' },
+  { label: 'x-response-time', href: '/docs/api/basics/cache' }
 ]
 
 const TwoInOne = () => (
@@ -288,10 +308,10 @@ const TwoInOne = () => (
           Pro folds them into the response layer — and{' '}
           <strong>cache hits never count against your plan quota</strong>, so
           the better your cache strategy, the less you pay per served request.{' '}
-          <CodeInline>ttl</CodeInline> tunes lifetime,{' '}
-          <CodeInline>staleTtl</CodeInline> covers cold starts, and the response
-          headers expose enough observability to keep your cache hit rate
-          honest.
+          <Link href='/docs/api/parameters/ttl'>ttl</Link> tunes lifetime,{' '}
+          <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> covers cold
+          starts, and the response headers expose enough observability to keep
+          your cache hit rate honest.
         </BodyText>
       </Box>
 
@@ -309,14 +329,15 @@ const TwoInOne = () => (
           </CardSide>
           <CardMain>
             <CardBody>
-              The <CodeInline>ttl</CodeInline> parameter sets the maximum time a
-              response is considered valid before expiring — from{' '}
-              <strong>1 minute</strong> to <strong>31 days</strong>. Pass it as
-              a number in milliseconds (<CodeInline>86400000</CodeInline>) or as
-              a humanized string (<CodeInline>'1d'</CodeInline>,{' '}
-              <CodeInline>'90s'</CodeInline>, <CodeInline>'1hour'</CodeInline>).
-              The aliases <CodeInline>'min'</CodeInline> and{' '}
-              <CodeInline>'max'</CodeInline> snap to the boundaries.
+              The <Link href='/docs/api/parameters/ttl'>ttl</Link> parameter
+              sets the maximum time a response is considered valid before
+              expiring — from <strong>1 minute</strong> to{' '}
+              <strong>31 days</strong>. Pass it as a number in milliseconds (
+              <CodeInline>86400000</CodeInline>) or as a humanized string (
+              <CodeInline>'1d'</CodeInline>, <CodeInline>'90s'</CodeInline>,{' '}
+              <CodeInline>'1hour'</CodeInline>). The aliases{' '}
+              <CodeInline>'min'</CodeInline> and <CodeInline>'max'</CodeInline>{' '}
+              snap to the boundaries.
             </CardBody>
             <ChipRow items={TTL_VALUES} />
             <CardBody>
@@ -325,7 +346,8 @@ const TwoInOne = () => (
               cache window. Short TTLs for dashboards and feeds, longer TTLs for
               marketing pages and docs, and <CodeInline>'max'</CodeInline> for
               content that essentially never changes. The effective lifetime
-              always echoes back as <CodeInline>x-cache-ttl</CodeInline>.
+              always echoes back as{' '}
+              <Link href='/docs/api/basics/cache'>x-cache-ttl</Link>.
             </CardBody>
             <Box css={theme({ mt: 'auto' })}>
               <ArrowLink
@@ -349,8 +371,8 @@ const TwoInOne = () => (
           </CardSide>
           <CardMain>
             <CardBody>
-              <CodeInline>staleTtl</CodeInline> opts into{' '}
-              <strong>stale-while-revalidate</strong>: when a cached entry
+              <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> opts
+              into <strong>stale-while-revalidate</strong>: when a cached entry
               passes its stale window, the next request still gets served from
               cache instantly while a background refresh regenerates a fresh
               copy. Your callers never wait on the origin again.
@@ -361,8 +383,9 @@ const TwoInOne = () => (
               <CodeInline>{"{ ttl: '1d', staleTtl: 0 }"}</CodeInline> — every
               caller is served from cache (free), and one background refresh per
               cache window keeps the entry current (the only billed request).
-              The <CodeInline>staleTtl</CodeInline> value cannot exceed{' '}
-              <CodeInline>ttl</CodeInline>.
+              The <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link>{' '}
+              value cannot exceed{' '}
+              <Link href='/docs/api/parameters/ttl'>ttl</Link>.
             </CardBody>
             <Box css={theme({ mt: 'auto' })}>
               <ArrowLink
@@ -388,18 +411,19 @@ const TwoInOne = () => (
             <CardBody>
               Every response carries the headers you need to track cache
               behavior and tune it over time. No probing, no guesswork —
-              <CodeInline>x-cache-status</CodeInline> tells you whether the
-              response was a <CodeInline>HIT</CodeInline>,{' '}
+              <Link href='/docs/api/basics/cache'>x-cache-status</Link> tells
+              you whether the response was a <CodeInline>HIT</CodeInline>,{' '}
               <CodeInline>MISS</CodeInline>, or <CodeInline>BYPASS</CodeInline>;
               the rest tell you why.
             </CardBody>
             <ChipRow items={CACHE_HEADERS} />
             <CardBody>
-              Combine <CodeInline>x-cache-status</CodeInline> with{' '}
-              <CodeInline>x-response-time</CodeInline> in your APM and you get a
-              real-time read on cache hit rate and p95 latency — enough to know
-              when a TTL needs to grow, shrink, or pivot to{' '}
-              <CodeInline>staleTtl</CodeInline>.
+              Combine <Link href='/docs/api/basics/cache'>x-cache-status</Link>{' '}
+              with <Link href='/docs/api/basics/cache'>x-response-time</Link> in
+              your APM and you get a real-time read on cache hit rate and p95
+              latency — enough to know when a TTL needs to grow, shrink, or
+              pivot to{' '}
+              <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link>.
             </CardBody>
             <Box css={theme({ mt: 'auto' })}>
               <ArrowLink
@@ -591,13 +615,16 @@ const ScenarioRow = ({ children }) => (
 )
 
 const CACHED_WORKFLOWS = [
-  'metadata',
-  'screenshot',
-  'pdf',
-  'html',
-  'markdown',
-  'insights',
-  'data extraction'
+  { label: 'metadata', href: '/metadata' },
+  { label: 'screenshot', href: '/screenshot' },
+  { label: 'pdf', href: '/pdf' },
+  {
+    label: 'html',
+    href: '/docs/guides/content-conversion/url-to-html'
+  },
+  { label: 'markdown', href: '/markdown' },
+  { label: 'insights', href: '/insights' },
+  { label: 'data extraction', href: '/features/scraping' }
 ]
 
 const Diagram = () => (
@@ -630,7 +657,13 @@ const Diagram = () => (
             Same cache, every output:
           </Text>
           {CACHED_WORKFLOWS.map(item => (
-            <ProviderChip key={item}>{item}</ProviderChip>
+            <Link
+              key={item.label}
+              href={item.href}
+              css={theme({ textDecoration: 'none', color: 'inherit' })}
+            >
+              <ProviderChip>{item.label}</ProviderChip>
+            </Link>
           ))}
         </Flex>
 
@@ -700,8 +733,8 @@ const Diagram = () => (
             textAlign: 'left'
           })}
         >
-          With <CodeInline>staleTtl</CodeInline>, even revalidations happen in
-          the background.
+          With <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link>, even
+          revalidations happen in the background.
         </Text>
       </Box>
     </SectionInner>
@@ -725,8 +758,12 @@ const CodeExample = () => (
         Keep responses valid for 24 hours and serve every caller from cache
         while a background refresh keeps them current. The result: a single
         billed <CodeInline>MISS</CodeInline> per cache window, every other
-        request a free <CodeInline>HIT</CodeInline>. Works the same on metadata,
-        screenshots, PDFs, HTML, and markdown.
+        request a free <CodeInline>HIT</CodeInline>. Works the same on{' '}
+        <Link href='/metadata'>metadata</Link>,{' '}
+        <Link href='/screenshot'>screenshots</Link>,{' '}
+        <Link href='/pdf'>PDFs</Link>,{' '}
+        <Link href='/docs/guides/content-conversion/url-to-html'>HTML</Link>,
+        and <Link href='/markdown'>markdown</Link>.
       </BodyText>
 
       <CodeEditor
@@ -775,11 +812,12 @@ const ForceFresh = () => (
         Need a guaranteed fresh response?
       </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
-        Pass <CodeInline>force: true</CodeInline> to skip the cache layer
-        entirely and force-regenerate a new copy. The response header{' '}
-        <CodeInline>x-cache-status</CodeInline> will read{' '}
-        <CodeInline>BYPASS</CodeInline>, and a fresh entry replaces the previous
-        one. Use it for cache invalidation events — not on every request.
+        Pass <Link href='/docs/api/parameters/force'>force: true</Link> to skip
+        the cache layer entirely and force-regenerate a new copy. The response
+        header <Link href='/docs/api/basics/cache'>x-cache-status</Link> will
+        read <CodeInline>BYPASS</CodeInline>, and a fresh entry replaces the
+        previous one. Use it for cache invalidation events — not on every
+        request.
       </BodyText>
 
       <CodeEditor
@@ -825,33 +863,34 @@ const Verifying = () => (
         How to confirm cache behavior
       </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
-        <CodeInline>x-cache-status</CodeInline> is the source of truth — and the
-        difference between a free request and a billed one.{' '}
+        <Link href='/docs/api/basics/cache'>x-cache-status</Link> is the source
+        of truth — and the difference between a free request and a billed one.{' '}
         <CodeInline>HIT</CodeInline> means served from the unified cache (
         <strong>not counted toward your plan</strong>),{' '}
         <CodeInline>MISS</CodeInline> means a fresh build (billed), and{' '}
         <CodeInline>BYPASS</CodeInline> means the cache was skipped on purpose
-        (billed). The accompanying <CodeInline>cf-cache-status</CodeInline>{' '}
-        tells you whether CloudFlare's edge served it from a node close to the
-        caller.
+        (billed). The accompanying{' '}
+        <Link href='/docs/api/basics/cache'>cf-cache-status</Link> tells you
+        whether CloudFlare's edge served it from a node close to the caller.
       </BodyText>
 
       <ResponseCard aria-label='Example response headers from a cached request'>
         <ResponseLine>HTTP/2 200</ResponseLine>
         <ResponseLine comment='Pro plan active'>
-          x-pricing-plan: pro
+          <Link href='/docs/api/basics/authentication'>x-pricing-plan</Link>:
+          pro
         </ResponseLine>
         <ResponseLine highlight comment='served from cache · no quota used'>
-          x-cache-status: HIT
+          <Link href='/docs/api/basics/cache'>x-cache-status</Link>: HIT
         </ResponseLine>
         <ResponseLine highlight comment='effective ttl in ms (= 1d)'>
-          x-cache-ttl: 86400000
+          <Link href='/docs/api/basics/cache'>x-cache-ttl</Link>: 86400000
         </ResponseLine>
         <ResponseLine comment='served from nearest edge node'>
-          cf-cache-status: HIT
+          <Link href='/docs/api/basics/cache'>cf-cache-status</Link>: HIT
         </ResponseLine>
         <ResponseLine comment='cache hit ⇒ tens of ms'>
-          x-response-time: 23ms
+          <Link href='/docs/api/basics/cache'>x-response-time</Link>: 23ms
         </ResponseLine>
       </ResponseCard>
     </SectionInner>
@@ -867,19 +906,24 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes — the cache layer covers every Microlink output equally: metadata,
-          HTML, markdown, <strong>screenshots</strong>, <strong>PDFs</strong>,
-          insights, and data extraction. There is no separate cache for media.
+          Yes — the cache layer covers every Microlink output equally:{' '}
+          <Link href='/metadata'>metadata</Link>,{' '}
+          <Link href='/docs/guides/content-conversion/url-to-html'>HTML</Link>,{' '}
+          <Link href='/markdown'>markdown</Link>,{' '}
+          <Link href='/screenshot'>screenshots</Link>,{' '}
+          <Link href='/pdf'>PDFs</Link>, <Link href='/insights'>insights</Link>,
+          and <Link href='/features/scraping'>data extraction</Link>. There is
+          no separate cache for media.
         </div>
         <div>
           A 4K full-page screenshot or a 50-page PDF behaves the same as a
           metadata response: the first request renders and caches the artifact (
-          <CodeInline>x-cache-status: MISS</CodeInline>, billed once); every
-          subsequent caller within the <CodeInline>ttl</CodeInline> window gets
-          it back as a <CodeInline>HIT</CodeInline> for free, served from the
-          nearest CloudFlare edge node. Because rendered outputs are the most
-          expensive ones to produce, that is also where caching saves you the
-          most.
+          <Link href='/docs/api/basics/cache'>x-cache-status: MISS</Link>,
+          billed once); every subsequent caller within the{' '}
+          <Link href='/docs/api/parameters/ttl'>ttl</Link> window gets it back
+          as a <CodeInline>HIT</CodeInline> for free, served from the nearest
+          CloudFlare edge node. Because rendered outputs are the most expensive
+          ones to produce, that is also where caching saves you the most.
         </div>
       </>
     )
@@ -891,17 +935,19 @@ const FAQ_ITEMS = [
       <>
         <div>
           No. Any response served from cache (
-          <CodeInline>x-cache-status: HIT</CodeInline>) does{' '}
+          <Link href='/docs/api/basics/cache'>x-cache-status: HIT</Link>) does{' '}
           <strong>not</strong> count toward your plan quota — it is served from
           CloudFlare's edge in milliseconds and billed at zero. Only the first
           request that warms the cache (
-          <CodeInline>x-cache-status: MISS</CodeInline>) and explicit cache
-          bypasses (<CodeInline>x-cache-status: BYPASS</CodeInline>, e.g. when{' '}
-          <CodeInline>force: true</CodeInline> is set) count as billed requests.
+          <Link href='/docs/api/basics/cache'>x-cache-status: MISS</Link>) and
+          explicit cache bypasses (
+          <Link href='/docs/api/basics/cache'>x-cache-status: BYPASS</Link>,
+          e.g. when <Link href='/docs/api/parameters/force'>force: true</Link>{' '}
+          is set) count as billed requests.
         </div>
         <div>
-          The longer your <CodeInline>ttl</CodeInline>, the more free hits each
-          paid miss generates. See the{' '}
+          The longer your <Link href='/docs/api/parameters/ttl'>ttl</Link>, the
+          more free hits each paid miss generates. See the{' '}
           <Link href='/blog/edge-cdn'>edge-cdn announcement</Link> and the{' '}
           <Link href='/docs/api/basics/cache'>cache documentation</Link> for the
           full rationale.
@@ -915,19 +961,22 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          <CodeInline>ttl</CodeInline> sets how long a cached response is
-          considered valid — between <strong>1 minute</strong> and{' '}
-          <strong>31 days</strong>. <CodeInline>staleTtl</CodeInline> opts into{' '}
+          <Link href='/docs/api/parameters/ttl'>ttl</Link> sets how long a
+          cached response is considered valid — between{' '}
+          <strong>1 minute</strong> and <strong>31 days</strong>.{' '}
+          <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> opts into{' '}
           <strong>stale-while-revalidate</strong>: when a cached entry crosses
           the staleTtl threshold, the next request still serves the cached copy
           instantly while a background refresh regenerates a fresh one.
         </div>
         <div>
-          The <CodeInline>staleTtl</CodeInline> value cannot exceed{' '}
-          <CodeInline>ttl</CodeInline>. The recommended production setup is{' '}
-          <CodeInline>ttl</CodeInline> set to your freshness budget,{' '}
-          <CodeInline>staleTtl: 0</CodeInline> — every request returns instantly
-          while background refreshes keep the cache current.
+          The <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> value
+          cannot exceed <Link href='/docs/api/parameters/ttl'>ttl</Link>. The
+          recommended production setup is{' '}
+          <Link href='/docs/api/parameters/ttl'>ttl</Link> set to your freshness
+          budget, <Link href='/docs/api/parameters/staleTtl'>staleTtl: 0</Link>{' '}
+          — every request returns instantly while background refreshes keep the
+          cache current.
         </div>
       </>
     )
@@ -960,11 +1009,12 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          When you set <CodeInline>staleTtl: 0</CodeInline>, every request hits
-          a cached copy if one exists — and if that copy has aged past the stale
-          threshold, Microlink schedules a background fetch to regenerate it.
-          The current caller does not wait. Subsequent callers benefit from the
-          freshly built copy.
+          When you set{' '}
+          <Link href='/docs/api/parameters/staleTtl'>staleTtl: 0</Link>, every
+          request hits a cached copy if one exists — and if that copy has aged
+          past the stale threshold, Microlink schedules a background fetch to
+          regenerate it. The current caller does not wait. Subsequent callers
+          benefit from the freshly built copy.
         </div>
         <div>
           This is the same pattern modern CDNs use (
@@ -981,9 +1031,10 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Pass <CodeInline>force: true</CodeInline>. The cache layer is skipped,
-          a new response is generated, and the response carries{' '}
-          <CodeInline>x-cache-status: BYPASS</CodeInline>.
+          Pass <Link href='/docs/api/parameters/force'>force: true</Link>. The
+          cache layer is skipped, a new response is generated, and the response
+          carries{' '}
+          <Link href='/docs/api/basics/cache'>x-cache-status: BYPASS</Link>.
         </div>
         <div>
           Use this for invalidation events — for example, you know the source
@@ -1001,15 +1052,17 @@ const FAQ_ITEMS = [
       <>
         <div>
           Read the cache headers on the response.{' '}
-          <CodeInline>x-cache-status</CodeInline> (<CodeInline>HIT</CodeInline>,{' '}
-          <CodeInline>MISS</CodeInline>, or <CodeInline>BYPASS</CodeInline>) is
-          the source of truth for the unified cache.{' '}
-          <CodeInline>cf-cache-status</CodeInline> reports the CloudFlare edge
-          layer separately.
+          <Link href='/docs/api/basics/cache'>x-cache-status</Link> (
+          <CodeInline>HIT</CodeInline>, <CodeInline>MISS</CodeInline>, or{' '}
+          <CodeInline>BYPASS</CodeInline>) is the source of truth for the
+          unified cache.{' '}
+          <Link href='/docs/api/basics/cache'>cf-cache-status</Link> reports the
+          CloudFlare edge layer separately.
         </div>
         <div>
-          <CodeInline>x-cache-ttl</CodeInline> confirms the effective ttl in
-          milliseconds. <CodeInline>x-response-time</CodeInline> gives you a
+          <Link href='/docs/api/basics/cache'>x-cache-ttl</Link> confirms the
+          effective ttl in milliseconds.{' '}
+          <Link href='/docs/api/basics/cache'>x-response-time</Link> gives you a
           quick latency sanity check — cache hits typically come back in tens of
           milliseconds.
         </div>
@@ -1022,11 +1075,11 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          No. Both <CodeInline>ttl</CodeInline> and{' '}
-          <CodeInline>staleTtl</CodeInline> are <Link href='/pricing'>Pro</Link>{' '}
-          features. Free-plan responses are still cached using the default
-          24-hour ttl, but the parameters themselves are honored only on Pro
-          requests.
+          No. Both <Link href='/docs/api/parameters/ttl'>ttl</Link> and{' '}
+          <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> are{' '}
+          <Link href='/pricing'>Pro</Link> features. Free-plan responses are
+          still cached using the default 24-hour ttl, but the parameters
+          themselves are honored only on Pro requests.
         </div>
         <div>
           The unified cache + CloudFlare edge cache combination is shared by

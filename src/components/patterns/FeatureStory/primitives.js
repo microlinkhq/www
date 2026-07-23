@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
+import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
 import { Caption } from 'components/patterns/CustomerStory/primitives'
@@ -267,8 +268,23 @@ export const CardBody = styled(Text)`
 
 export const ChipRow = ({ items }) => (
   <Flex css={theme({ flexWrap: 'wrap', gap: 2, py: 3 })}>
-    {items.map(item => (
-      <RuleChip key={item}>{item}</RuleChip>
-    ))}
+    {items.map(item => {
+      const label = typeof item === 'string' ? item : item.label
+      const href = typeof item === 'string' ? undefined : item.href
+
+      if (!href) {
+        return <RuleChip key={label}>{label}</RuleChip>
+      }
+
+      return (
+        <Link
+          key={label}
+          href={href}
+          css={theme({ textDecoration: 'none', color: 'inherit' })}
+        >
+          <RuleChip>{label}</RuleChip>
+        </Link>
+      )
+    })}
   </Flex>
 )

@@ -254,9 +254,15 @@ const Hero = () => {
               <span css={textGradient}>Every output.</span>
             </Heading>
             <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
-              Production-grade capabilities — data extraction, proxy, caching,
-              headers — that work uniformly across metadata, screenshots, PDFs,
-              and markdown.
+              Production-grade capabilities —{' '}
+              <Link href='/features/scraping'>data extraction</Link>,{' '}
+              <Link href='/features/proxy'>proxy</Link>,{' '}
+              <Link href='/features/ttl'>caching</Link>,{' '}
+              <Link href='/features/headers'>headers</Link> — that work
+              uniformly across <Link href='/metadata'>metadata</Link>,{' '}
+              <Link href='/screenshot'>screenshots</Link>,{' '}
+              <Link href='/pdf'>PDFs</Link>, and{' '}
+              <Link href='/markdown'>markdown</Link>.
             </Text>
             <Box css={theme({ pt: [3, 3, 4, 4] })}>
               <Text
@@ -496,9 +502,12 @@ const CtaSection = () => (
           mx: 'auto'
         })}
       >
-        Every feature works across every workflow — the same request that
-        extracts data can capture the screenshot, render the PDF, and cache the
-        result. No extra vendors, no extra glue.
+        Every feature works across every workflow — the same request that{' '}
+        <Link href='/features/scraping'>extracts data</Link> can capture the{' '}
+        <Link href='/screenshot'>screenshot</Link>, render the{' '}
+        <Link href='/pdf'>PDF</Link>, and{' '}
+        <Link href='/features/ttl'>cache</Link> the result. No extra vendors, no
+        extra glue.
       </Caption>
       <Flex
         css={theme({

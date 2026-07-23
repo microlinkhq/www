@@ -107,9 +107,12 @@ const Hero = () => (
         })}
       >
         Stop scraping the logged-out version. Public values go in{' '}
-        <CodeInline>headers</CodeInline>; secrets ride as{' '}
-        <CodeInline>x-api-header-*</CodeInline> request headers and never touch
-        the URL.
+        <Link href='/docs/api/parameters/headers'>headers</Link>
+        {'; secrets ride as '}
+        <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+          x-api-header-*
+        </Link>{' '}
+        request headers and never touch the URL.
       </Caption>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <ArrowLink
@@ -143,9 +146,12 @@ const WhatItDoes = () => (
         pattern across every Microlink output.
       </BodyText>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
-        Two channels: <CodeInline>headers</CodeInline> for non-sensitive values
-        that are safe in the URL; <CodeInline>x-api-header-*</CodeInline> for
-        cookies, tokens, and other secrets — Microlink strips the prefix and
+        Two channels: <Link href='/docs/api/parameters/headers'>headers</Link>{' '}
+        for non-sensitive values that are safe in the URL;{' '}
+        <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+          x-api-header-*
+        </Link>{' '}
+        for cookies, tokens, and other secrets — Microlink strips the prefix and
         forwards the original header to the target without ever logging the
         value into the public query string.
       </BodyText>
@@ -299,10 +305,10 @@ const TwoChannels = () => (
           </CardSide>
           <CardMain>
             <CardBody>
-              Pass <CodeInline>headers</CodeInline> as a JSON object on the MQL
-              request: locale, user-agent, referer, custom headers — anything
-              safe to put in a public URL. Microlink applies them verbatim when
-              fetching the target.
+              Pass <Link href='/docs/api/parameters/headers'>headers</Link> as a
+              JSON object on the MQL request: locale, user-agent, referer,
+              custom headers — anything safe to put in a public URL. Microlink
+              applies them verbatim when fetching the target.
             </CardBody>
             <ChipRow items={PUBLIC_HEADER_EXAMPLES} />
             <CardBody>
@@ -334,8 +340,12 @@ const TwoChannels = () => (
             <CardBody>
               Pass cookies, bearer tokens, basic-auth values, CSRF tokens — any
               header you can name — as request headers on your Microlink call,
-              prefixed with <CodeInline>x-api-header-</CodeInline>. Microlink
-              strips the prefix and forwards the original header to the target.
+              prefixed with{' '}
+              <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+                x-api-header-
+              </Link>
+              . Microlink strips the prefix and forwards the original header to
+              the target.
             </CardBody>
             <ChipRow items={PRIVATE_HEADER_EXAMPLES} />
             <CardBody>
@@ -514,7 +524,11 @@ const Diagram = () => (
             </Node>
             <Arrow />
             <Node>
-              <NodeLabel>x-api-header-cookie</NodeLabel>
+              <NodeLabel>
+                <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+                  x-api-header-cookie
+                </Link>
+              </NodeLabel>
               <NodeSub>HTTPS request header</NodeSub>
             </Node>
             <Arrow />
@@ -542,8 +556,11 @@ const Diagram = () => (
             textAlign: 'left'
           })}
         >
-          Microlink strips the <CodeInline>x-api-header-</CodeInline> prefix on
-          the way out — the credential never lands in a URL.
+          Microlink strips the{' '}
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-
+          </Link>{' '}
+          prefix on the way out — the credential never lands in a URL.
         </Text>
       </Box>
     </SectionInner>
@@ -565,10 +582,13 @@ const CodeExample = () => (
       </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         Public values go in the second argument (
-        <CodeInline>headers</CodeInline>); private ones go in MQL's third
-        argument (<CodeInline>httpOptions.headers</CodeInline>) prefixed with{' '}
-        <CodeInline>x-api-header-</CodeInline>. Both reach the target page; only
-        secrets stay off the URL.
+        <Link href='/docs/api/parameters/headers'>headers</Link>
+        ); private ones go in MQL's third argument (
+        <CodeInline>httpOptions.headers</CodeInline>) prefixed with{' '}
+        <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+          x-api-header-
+        </Link>
+        . Both reach the target page; only secrets stay off the URL.
       </BodyText>
 
       <CodeEditor
@@ -623,17 +643,22 @@ const FAQ_ITEMS = [
       <>
         <div>
           Both forward an HTTP header to the target page. The{' '}
-          <CodeInline>headers</CodeInline> parameter goes through the URL query
-          string and is publicly visible — fine for locale, user-agent, or
-          referer.
+          <Link href='/docs/api/parameters/headers'>headers</Link> parameter
+          goes through the URL query string and is publicly visible — fine for
+          locale, user-agent, or referer.
         </div>
         <div>
-          The <CodeInline>x-api-header-*</CodeInline> pattern is sent as a
-          request header on the Microlink call itself, so cookies, bearer
-          tokens, basic-auth values, and any other secret never appear in the
-          URL or in logs. Microlink strips the{' '}
-          <CodeInline>x-api-header-</CodeInline> prefix and forwards the
-          original header name to the target.
+          The{' '}
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-*
+          </Link>{' '}
+          pattern is sent as a request header on the Microlink call itself, so
+          cookies, bearer tokens, basic-auth values, and any other secret never
+          appear in the URL or in logs. Microlink strips the{' '}
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-
+          </Link>{' '}
+          prefix and forwards the original header name to the target.
         </div>
       </>
     )
@@ -644,18 +669,30 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes — through <CodeInline>x-api-header-*</CodeInline> only. Send{' '}
-          <CodeInline>x-api-header-cookie</CodeInline> or{' '}
-          <CodeInline>x-api-header-authorization</CodeInline> as request headers
-          on your Microlink call; Microlink forwards the original{' '}
-          <CodeInline>cookie</CodeInline> or{' '}
+          Yes — through{' '}
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-*
+          </Link>{' '}
+          only. Send{' '}
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-cookie
+          </Link>{' '}
+          or{' '}
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-authorization
+          </Link>{' '}
+          as request headers on your Microlink call; Microlink forwards the
+          original <CodeInline>cookie</CodeInline> or{' '}
           <CodeInline>authorization</CodeInline> header to the target.
         </div>
         <div>
           Putting cookies or tokens in the public{' '}
-          <CodeInline>headers</CodeInline> parameter would leak them via the
-          URL, so the API treats <CodeInline>x-api-header-*</CodeInline> as the
-          safe path for any credential.
+          <Link href='/docs/api/parameters/headers'>headers</Link> parameter
+          would leak them via the URL, so the API treats{' '}
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-*
+          </Link>{' '}
+          as the safe path for any credential.
         </div>
       </>
     )
@@ -667,10 +704,16 @@ const FAQ_ITEMS = [
       <>
         <div>
           Yes — and for every other Microlink output.{' '}
-          <CodeInline>headers</CodeInline> and{' '}
-          <CodeInline>x-api-header-*</CodeInline> apply uniformly to
-          screenshots, PDFs, metadata, HTML, markdown, insights, and data
-          extraction.
+          <Link href='/docs/api/parameters/headers'>headers</Link> and{' '}
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-*
+          </Link>{' '}
+          apply uniformly to <Link href='/screenshot'>screenshots</Link>,{' '}
+          <Link href='/pdf'>PDFs</Link>, <Link href='/metadata'>metadata</Link>,{' '}
+          <Link href='/docs/guides/content-conversion/url-to-html'>HTML</Link>,{' '}
+          <Link href='/markdown'>markdown</Link>,{' '}
+          <Link href='/insights'>insights</Link>, and{' '}
+          <Link href='/features/scraping'>data extraction</Link>.
         </div>
         <div>
           The same authenticated session that lets metadata read a logged-in
@@ -688,9 +731,11 @@ const FAQ_ITEMS = [
         <div>
           Always make Microlink calls from your backend. Use MQL's third
           argument (<CodeInline>httpOptions</CodeInline>) to pass{' '}
-          <CodeInline>x-api-key</CodeInline> and any{' '}
-          <CodeInline>x-api-header-*</CodeInline> values from environment
-          variables.
+          <Link href='/docs/api/basics/authentication'>x-api-key</Link> and any{' '}
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-*
+          </Link>{' '}
+          values from environment variables.
         </div>
         <div>
           If you need to consume Microlink from a browser, put{' '}
@@ -716,13 +761,20 @@ const FAQ_ITEMS = [
           Use <Link href='/features/proxy'>proxy</Link> alongside headers. When
           the page needs both authentication and a residential exit IP — for
           example a logged-in dashboard hosted behind Cloudflare — pass cookies
-          via <CodeInline>x-api-header-cookie</CodeInline> and combine with the{' '}
-          <CodeInline>proxy</CodeInline> parameter (or the automatic proxy
-          resolution included in Pro).
+          via{' '}
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-cookie
+          </Link>{' '}
+          and combine with the{' '}
+          <Link href='/docs/api/parameters/proxy'>proxy</Link> parameter (or the
+          automatic proxy resolution included in Pro).
         </div>
         <div>
-          If the API returns <CodeInline>EPROXYNEEDED</CodeInline>, the target
-          requires a proxy-backed request.
+          If the API returns{' '}
+          <Link href='/docs/api/basics/error-codes#eproxyneeded'>
+            EPROXYNEEDED
+          </Link>
+          , the target requires a proxy-backed request.
         </div>
       </>
     )
@@ -735,8 +787,12 @@ const FAQ_ITEMS = [
         <div>
           No. Both are <Link href='/pricing'>Pro</Link> features. Free-tier
           requests can target any public URL but cannot forward custom HTTP
-          headers — the <CodeInline>headers</CodeInline> parameter is rejected,
-          and <CodeInline>x-api-header-*</CodeInline> values are ignored.
+          headers — the <Link href='/docs/api/parameters/headers'>headers</Link>{' '}
+          parameter is rejected, and{' '}
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-*
+          </Link>{' '}
+          values are ignored.
         </div>
         <div>Upgrade to Pro to unlock both channels on every workflow.</div>
       </>
@@ -788,9 +844,11 @@ const CtaSection = () => (
         })}
       >
         Pick the volume that matches your traffic. Custom HTTP headers — both{' '}
-        <CodeInline>headers</CodeInline> and{' '}
-        <CodeInline>x-api-header-*</CodeInline> — are included on every Pro
-        plan, across every workflow.
+        <Link href='/docs/api/parameters/headers'>headers</Link> and{' '}
+        <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+          x-api-header-*
+        </Link>{' '}
+        — are included on every Pro plan, across every workflow.
       </Caption>
       <Flex
         css={theme({

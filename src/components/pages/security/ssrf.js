@@ -4,7 +4,7 @@ import React from 'react'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 
-import { CodeInline } from 'components/markdown/CodeInline'
+import { Link } from 'components/elements/Link'
 
 import {
   BodyText,
@@ -66,9 +66,11 @@ export const Ssrf = () => (
               against reserved ranges. Anything that does not resolve to a
               public unicast address — loopback, private networks, link-local,
               cloud metadata endpoints — is refused with{' '}
-              <CodeInline>EFORBIDDENURL</CodeInline> before a single byte is
-              fetched. HTTP redirects are re-checked hop by hop, so a URL cannot
-              302 its way into an internal address.
+              <Link href='/docs/api/basics/error-codes#eforbiddenurl'>
+                EFORBIDDENURL
+              </Link>{' '}
+              before a single byte is fetched. HTTP redirects are re-checked hop
+              by hop, so a URL cannot 302 its way into an internal address.
             </CardBody>
             <ChipRow items={BLOCKED_RANGES} />
           </CardMain>

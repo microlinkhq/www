@@ -74,7 +74,8 @@ export const FAQ_ITEMS = [
         </div>
         <div>
           It does detection only: it tells you which provider blocked a request,
-          not how to solve the challenge. The resolution paths live inside the
+          not how to solve the challenge. The{' '}
+          <Link href='/features/proxy'>resolution paths</Link> live inside the
           Microlink API.
         </div>
       </>
@@ -90,13 +91,18 @@ export const FAQ_ITEMS = [
           automatically routed through the resolution path that provider
           requires — rotating residential IPs, full browser rendering, retries.
           A response served through the proxy layer carries{' '}
-          <CodeInline>x-fetch-mode</CodeInline> prefixed with{' '}
-          <CodeInline>proxy-</CodeInline>.
+          <Link href='/docs/guides/common/proxy#verify-proxy-is-active'>
+            x-fetch-mode
+          </Link>{' '}
+          prefixed with <CodeInline>proxy-</CodeInline>.
         </div>
         <div>
           Without a Pro plan, the API returns{' '}
-          <CodeInline>EPROXYNEEDED</CodeInline>, so a block is never silent —
-          see <Link href='/features/proxy'>how the proxy works</Link>.
+          <Link href='/docs/api/basics/error-codes#eproxyneeded'>
+            EPROXYNEEDED
+          </Link>
+          , so a block is never silent — see{' '}
+          <Link href='/features/proxy'>how the proxy works</Link>.
         </div>
       </>
     )

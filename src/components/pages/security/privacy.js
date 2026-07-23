@@ -21,17 +21,22 @@ export const Privacy = () => (
         title='Your secrets stay secret'
       >
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
-          Credentials never reach the logs. <CodeInline>x-api-key</CodeInline>{' '}
-          and <CodeInline>authorization</CodeInline> values are redacted before
+          Credentials never reach the logs.{' '}
+          <Link href='/docs/api/basics/authentication'>x-api-key</Link> and{' '}
+          <CodeInline>authorization</CodeInline> values are redacted before
           anything is written, and every forwarded{' '}
-          <CodeInline>x-api-header-*</CodeInline> secret is masked the same way.
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-*
+          </Link>{' '}
+          secret is masked the same way.
         </BodyText>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
-          Cached responses cannot cross credential boundaries either: cache keys
-          are SHA-512 hashes that incorporate the headers a request was made
-          with, so a page fetched with your session cookie is never served to a
-          request without it. Cache lifetime is under your control, from
-          1&nbsp;minute to 31&nbsp;days.
+          Cached responses cannot cross credential boundaries either:{' '}
+          <Link href='/docs/api/basics/cache'>cache keys</Link> are SHA-512
+          hashes that incorporate the headers a request was made with, so a page
+          fetched with your session cookie is never served to a request without
+          it. <Link href='/features/ttl'>Cache lifetime</Link> is under your
+          control, from 1&nbsp;minute to 31&nbsp;days.
         </BodyText>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
           On the way out, every request carries{' '}

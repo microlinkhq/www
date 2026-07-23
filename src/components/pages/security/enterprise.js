@@ -2,6 +2,7 @@ import { SECTION_VERTICAL_SPACING, theme } from 'theme'
 import React from 'react'
 
 import Box from 'components/elements/Box'
+import { Link } from 'components/elements/Link'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import {
@@ -18,7 +19,7 @@ const ENTERPRISE_GUARANTEES = [
   'isolated browser pool',
   '8 regions',
   '99.9% uptime SLA',
-  'GDPR-compliant DPA'
+  { label: 'GDPR-compliant DPA', href: '/dpa' }
 ]
 
 export const Enterprise = () => (
@@ -40,7 +41,8 @@ export const Enterprise = () => (
           The data terms are just as explicit: your content is never used to
           train or fine-tune AI models, you own what you process, and we delete
           it within 60&nbsp;days of your request — all backed by a
-          GDPR-compliant Data Processing Agreement ready for your legal team.
+          GDPR-compliant <Link href='/dpa'>Data Processing Agreement</Link>{' '}
+          ready for your legal team.
         </BodyText>
         <Box css={theme({ pt: [3, 3, 4, 4] })}>
           <ArrowLink

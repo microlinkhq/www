@@ -29,17 +29,26 @@ export const Resolve = () => (
           On Pro plans, detection is wired straight into resolution: once the
           provider is identified, the request is routed through the resolution
           path that protection layer requires — rotating residential IPs, full
-          browser rendering, retries — well-tested across the Top 500 most
-          popular sites worldwide.
+          browser rendering, retries — well-tested across the{' '}
+          <Link href='/blog/microlink-proxy-how-it-works'>
+            Top 500 most popular sites worldwide
+          </Link>
+          .
         </BodyText>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
           A response served through the proxy layer carries{' '}
-          <CodeInline>x-fetch-mode</CodeInline> prefixed with{' '}
-          <CodeInline>proxy-</CodeInline>; when a target requires it and the
-          plan does not include it, the API returns{' '}
-          <CodeInline>EPROXYNEEDED</CodeInline> — so a block is never silent.
-          Available on <Link href='/docs/api/parameters/meta'>metadata</Link>,{' '}
-          HTML, and markdown requests.
+          <Link href='/docs/guides/common/proxy#verify-proxy-is-active'>
+            x-fetch-mode
+          </Link>{' '}
+          prefixed with <CodeInline>proxy-</CodeInline>; when a target requires
+          it and the plan does not include it, the API returns{' '}
+          <Link href='/docs/api/basics/error-codes#eproxyneeded'>
+            EPROXYNEEDED
+          </Link>{' '}
+          — so a block is never silent. Available on{' '}
+          <Link href='/docs/api/parameters/meta'>metadata</Link>,{' '}
+          <Link href='/docs/guides/content-conversion/url-to-html'>HTML</Link>,
+          and <Link href='/markdown'>markdown</Link> requests.
         </BodyText>
         <Box css={theme({ pt: [3, 3, 4, 4] })}>
           <ArrowLink

@@ -110,19 +110,41 @@ const Diagram = () => (
             <Arrow />
             <Node>
               <NodeLabel>Emulate</NodeLabel>
-              <NodeSub>device · viewport · colorScheme</NodeSub>
+              <NodeSub>
+                <Link href='/docs/api/parameters/device'>device</Link>
+                {' · '}
+                <Link href='/docs/api/parameters/viewport'>viewport</Link>
+                {' · '}
+                <Link href='/docs/api/parameters/colorScheme'>colorScheme</Link>
+              </NodeSub>
             </Node>
             <Arrow />
             <NodeActive>
               <NodeLabel css={theme({ color: 'secondary' })}>
                 Interact
               </NodeLabel>
-              <NodeSub>click · scroll · waitForSelector</NodeSub>
+              <NodeSub>
+                <Link href='/docs/api/parameters/click'>click</Link>
+                {' · '}
+                <Link href='/docs/api/parameters/scroll'>scroll</Link>
+                {' · '}
+                <Link href='/docs/api/parameters/waitForSelector'>
+                  waitForSelector
+                </Link>
+              </NodeSub>
             </NodeActive>
             <Arrow />
             <Node>
               <NodeLabel>Capture</NodeLabel>
-              <NodeSub>screenshot · pdf · data · meta</NodeSub>
+              <NodeSub>
+                <Link href='/screenshot'>screenshot</Link>
+                {' · '}
+                <Link href='/pdf'>pdf</Link>
+                {' · '}
+                <Link href='/features/scraping'>data</Link>
+                {' · '}
+                <Link href='/docs/api/parameters/meta'>meta</Link>
+              </NodeSub>
             </Node>
           </ScenarioRow>
         </Box>
@@ -155,29 +177,35 @@ const WhatItDoes = () => (
       </Eyebrow>
       <BodyText>
         Every request can run through headless Chrome —{' '}
-        <CodeInline>prerender</CodeInline> decides automatically when a target
-        needs it. Before anything is captured, you control what the browser
-        does: <CodeInline>click</CodeInline> DOM elements,{' '}
-        <CodeInline>scroll</CodeInline> to a section, and wait for dynamic
-        content with <CodeInline>waitForSelector</CodeInline>,{' '}
-        <CodeInline>waitUntil</CodeInline>, or{' '}
-        <CodeInline>waitForTimeout</CodeInline>.
+        <Link href='/docs/api/parameters/prerender'>prerender</Link> decides
+        automatically when a target needs it. Before anything is captured, you
+        control what the browser does:{' '}
+        <Link href='/docs/api/parameters/click'>click</Link> DOM elements,{' '}
+        <Link href='/docs/api/parameters/scroll'>scroll</Link> to a section, and
+        wait for dynamic content with{' '}
+        <Link href='/docs/api/parameters/waitForSelector'>waitForSelector</Link>
+        , <Link href='/docs/api/parameters/waitUntil'>waitUntil</Link>, or{' '}
+        <Link href='/docs/api/parameters/waitForTimeout'>waitForTimeout</Link>.
       </BodyText>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
         You also control what the browser <em>is</em>:{' '}
-        <CodeInline>device</CodeInline> presets set the right viewport, user
-        agent, and resolution in one word; <CodeInline>colorScheme</CodeInline>{' '}
-        forces light or dark mode; <CodeInline>mediaType</CodeInline> switches
-        to print CSS. Inject your own <CodeInline>styles</CodeInline>,{' '}
-        <CodeInline>scripts</CodeInline>, or ES <CodeInline>modules</CodeInline>{' '}
-        before the page renders.
+        <Link href='/docs/api/parameters/device'>device</Link> presets set the
+        right viewport, user agent, and resolution in one word;{' '}
+        <Link href='/docs/api/parameters/colorScheme'>colorScheme</Link> forces
+        light or dark mode;{' '}
+        <Link href='/docs/api/parameters/mediaType'>mediaType</Link> switches to
+        print CSS. Inject your own{' '}
+        <Link href='/docs/api/parameters/styles'>styles</Link>,{' '}
+        <Link href='/docs/api/parameters/scripts'>scripts</Link>, or ES{' '}
+        <Link href='/docs/api/parameters/modules'>modules</Link> before the page
+        renders.
       </BodyText>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
         And some things are handled before you ask: the built-in{' '}
-        <CodeInline>adblock</CodeInline> engine strips advertisements, trackers,
-        and cookie-consent banners by default, and CSS{' '}
-        <CodeInline>animations</CodeInline> are frozen so captures come out
-        consistent every time.
+        <Link href='/docs/api/parameters/adblock'>adblock</Link> engine strips
+        advertisements, trackers, and cookie-consent banners by default, and CSS{' '}
+        <Link href='/docs/api/parameters/animations'>animations</Link> are
+        frozen so captures come out consistent every time.
       </BodyText>
     </SectionInner>
   </Section>
@@ -185,11 +213,26 @@ const WhatItDoes = () => (
 
 /* ─── Three control planes ───────────────────────────────────────────────── */
 
-const INTERACT_EXAMPLES = ['click', 'scroll', 'waitForSelector', 'waitUntil']
+const INTERACT_EXAMPLES = [
+  { label: 'click', href: '/docs/api/parameters/click' },
+  { label: 'scroll', href: '/docs/api/parameters/scroll' },
+  { label: 'waitForSelector', href: '/docs/api/parameters/waitForSelector' },
+  { label: 'waitUntil', href: '/docs/api/parameters/waitUntil' }
+]
 
-const EMULATE_EXAMPLES = ['device', 'viewport', 'colorScheme', 'mediaType']
+const EMULATE_EXAMPLES = [
+  { label: 'device', href: '/docs/api/parameters/device' },
+  { label: 'viewport', href: '/docs/api/parameters/viewport' },
+  { label: 'colorScheme', href: '/docs/api/parameters/colorScheme' },
+  { label: 'mediaType', href: '/docs/api/parameters/mediaType' }
+]
 
-const REWRITE_EXAMPLES = ['styles', 'scripts', 'modules', 'adblock']
+const REWRITE_EXAMPLES = [
+  { label: 'styles', href: '/docs/api/parameters/styles' },
+  { label: 'scripts', href: '/docs/api/parameters/scripts' },
+  { label: 'modules', href: '/docs/api/parameters/modules' },
+  { label: 'adblock', href: '/docs/api/parameters/adblock' }
+]
 
 const ControlPlanes = () => (
   <Section>
@@ -256,12 +299,18 @@ const ControlPlanes = () => (
           </CardSide>
           <CardMain>
             <CardBody>
-              One <CodeInline>device</CodeInline> keyword sets the matching
-              viewport, user agent, and resolution — or tune{' '}
-              <CodeInline>viewport</CodeInline> by hand. Force{' '}
-              <CodeInline>colorScheme: 'dark'</CodeInline> to capture the dark
-              theme, or <CodeInline>mediaType: 'print'</CodeInline> to render
-              print stylesheets.
+              One <Link href='/docs/api/parameters/device'>device</Link> keyword
+              sets the matching viewport, user agent, and resolution — or tune{' '}
+              <Link href='/docs/api/parameters/viewport'>viewport</Link> by
+              hand. Force{' '}
+              <Link href='/docs/api/parameters/colorScheme'>
+                colorScheme: 'dark'
+              </Link>{' '}
+              to capture the dark theme, or{' '}
+              <Link href='/docs/api/parameters/mediaType'>
+                mediaType: 'print'
+              </Link>{' '}
+              to render print stylesheets.
             </CardBody>
             <ChipRow items={EMULATE_EXAMPLES} />
             <Box css={theme({ mt: 'auto' })}>
@@ -287,11 +336,13 @@ const ControlPlanes = () => (
           <CardMain>
             <CardBody>
               Inject inline CSS or external stylesheets with{' '}
-              <CodeInline>styles</CodeInline>, run your own JavaScript with{' '}
-              <CodeInline>scripts</CodeInline> or ES{' '}
-              <CodeInline>modules</CodeInline> — hide elements, override themes,
-              stub APIs. Meanwhile <CodeInline>adblock</CodeInline> keeps ads,
-              trackers, and cookie banners out by default.
+              <Link href='/docs/api/parameters/styles'>styles</Link>, run your
+              own JavaScript with{' '}
+              <Link href='/docs/api/parameters/scripts'>scripts</Link> or ES{' '}
+              <Link href='/docs/api/parameters/modules'>modules</Link> — hide
+              elements, override themes, stub APIs. Meanwhile{' '}
+              <Link href='/docs/api/parameters/adblock'>adblock</Link> keeps
+              ads, trackers, and cookie banners out by default.
             </CardBody>
             <ChipRow items={REWRITE_EXAMPLES} />
             <Box css={theme({ mt: 'auto' })}>
@@ -417,7 +468,11 @@ console.log(data.price)`}
 
 const ADBLOCK_EXAMPLES = ['ads', 'trackers', 'cookie banners']
 
-const PRO_PAIR_EXAMPLES = ['proxy', 'x-api-header-*', 'ttl']
+const PRO_PAIR_EXAMPLES = [
+  { label: 'proxy', href: '/features/proxy' },
+  { label: 'x-api-header-*', href: '/features/headers' },
+  { label: 'ttl', href: '/features/ttl' }
+]
 
 const CleanCaptures = () => (
   <Section>
@@ -520,15 +575,17 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. The <CodeInline>click</CodeInline> parameter clicks DOM elements
-          matching CSS selectors — accept a modal, switch a tab, trigger
-          navigation — and <CodeInline>scroll</CodeInline> brings a specific
-          element into view.
+          Yes. The <Link href='/docs/api/parameters/click'>click</Link>{' '}
+          parameter clicks DOM elements matching CSS selectors — accept a modal,
+          switch a tab, trigger navigation — and{' '}
+          <Link href='/docs/api/parameters/scroll'>scroll</Link> brings a
+          specific element into view.
         </div>
         <div>
           Both mutate the browser page state before any output is produced, and
-          they compose with screenshots, PDFs, metadata, and data extraction
-          alike.
+          they compose with <Link href='/screenshot'>screenshots</Link>,{' '}
+          <Link href='/pdf'>PDFs</Link>, <Link href='/metadata'>metadata</Link>,
+          and <Link href='/features/scraping'>data extraction</Link> alike.
         </div>
       </>
     )
@@ -540,9 +597,13 @@ const FAQ_ITEMS = [
       <>
         <div>
           Three tools, from precise to blunt:{' '}
-          <CodeInline>waitForSelector</CodeInline> pauses until a specific
-          element exists in the DOM; <CodeInline>waitUntil</CodeInline> waits
-          for browser lifecycle events; <CodeInline>waitForTimeout</CodeInline>{' '}
+          <Link href='/docs/api/parameters/waitForSelector'>
+            waitForSelector
+          </Link>{' '}
+          pauses until a specific element exists in the DOM;{' '}
+          <Link href='/docs/api/parameters/waitUntil'>waitUntil</Link> waits for
+          browser lifecycle events;{' '}
+          <Link href='/docs/api/parameters/waitForTimeout'>waitForTimeout</Link>{' '}
           waits a fixed number of milliseconds.
         </div>
         <div>
@@ -561,17 +622,19 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. A single <CodeInline>device</CodeInline> value — like{' '}
-          <CodeInline>'iPhone 15 Pro'</CodeInline> or{' '}
+          Yes. A single <Link href='/docs/api/parameters/device'>device</Link>{' '}
+          value — like <CodeInline>'iPhone 15 Pro'</CodeInline> or{' '}
           <CodeInline>'iPad'</CodeInline> — sets the matching viewport, user
-          agent, and screen resolution; <CodeInline>viewport</CodeInline> lets
-          you fine-tune by hand.
+          agent, and screen resolution;{' '}
+          <Link href='/docs/api/parameters/viewport'>viewport</Link> lets you
+          fine-tune by hand.
         </div>
         <div>
-          <CodeInline>colorScheme</CodeInline> forces the{' '}
-          <CodeInline>prefers-color-scheme</CodeInline> media feature to light
-          or dark, and <CodeInline>mediaType</CodeInline> switches the page to
-          its print stylesheets.
+          <Link href='/docs/api/parameters/colorScheme'>colorScheme</Link>{' '}
+          forces the <CodeInline>prefers-color-scheme</CodeInline> media feature
+          to light or dark, and{' '}
+          <Link href='/docs/api/parameters/mediaType'>mediaType</Link> switches
+          the page to its print stylesheets.
         </div>
       </>
     )
@@ -583,14 +646,15 @@ const FAQ_ITEMS = [
       <>
         <div>
           You usually do not have to do anything:{' '}
-          <CodeInline>adblock</CodeInline> is enabled by default and blocks
-          third-party requests for advertisements, trackers, and cookie-consent
-          services before they load.
+          <Link href='/docs/api/parameters/adblock'>adblock</Link> is enabled by
+          default and blocks third-party requests for advertisements, trackers,
+          and cookie-consent services before they load.
         </div>
         <div>
           For anything site-specific that survives, inject a{' '}
-          <CodeInline>styles</CodeInline> rule to hide it, or use{' '}
-          <CodeInline>click</CodeInline> to dismiss it explicitly.
+          <Link href='/docs/api/parameters/styles'>styles</Link> rule to hide
+          it, or use <Link href='/docs/api/parameters/click'>click</Link> to
+          dismiss it explicitly.
         </div>
       </>
     )
@@ -601,10 +665,12 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. <CodeInline>styles</CodeInline> accepts inline CSS or URLs to
-          external stylesheets; <CodeInline>scripts</CodeInline> injects plain
-          JavaScript and <CodeInline>modules</CodeInline> injects ES modules —
-          all applied before the capture.
+          Yes. <Link href='/docs/api/parameters/styles'>styles</Link> accepts
+          inline CSS or URLs to external stylesheets;{' '}
+          <Link href='/docs/api/parameters/scripts'>scripts</Link> injects plain
+          JavaScript and{' '}
+          <Link href='/docs/api/parameters/modules'>modules</Link> injects ES
+          modules — all applied before the capture.
         </div>
         <div>
           When injection is not expressive enough, the{' '}

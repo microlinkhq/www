@@ -110,7 +110,9 @@ const Hero = () => (
         blocking, routes the call through a rotating residential pool, and picks
         the resolution path for that specific antibot or CAPTCHA provider —
         well-tested across the Top 500 most popular sites worldwide. Available
-        on metadata, HTML, and markdown requests.
+        on <Link href='/metadata'>metadata</Link>,{' '}
+        <Link href='/docs/guides/content-conversion/url-to-html'>HTML</Link>,
+        and <Link href='/markdown'>markdown</Link> requests.
       </Caption>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <ArrowLink
@@ -158,11 +160,16 @@ const WhatItDoes = () => (
       <BodyText>
         When the API detects that a target site is blocking a request, the call
         is automatically routed through a rotating residential proxy pool. The
-        same pipeline absorbs antibot challenges and CAPTCHA gates, so metadata,
-        HTML, and markdown responses keep arriving even when the target sits
-        behind Cloudflare, DataDome, or Akamai. Today this runs on metadata,
-        HTML scraping, and markdown — for screenshots and PDFs, see the FAQ
-        below.
+        same pipeline absorbs antibot challenges and CAPTCHA gates, so{' '}
+        <Link href='/metadata'>metadata</Link>,{' '}
+        <Link href='/docs/guides/content-conversion/url-to-html'>HTML</Link>,
+        and <Link href='/markdown'>markdown</Link> responses keep arriving even
+        when the target sits behind Cloudflare, DataDome, or Akamai. Today this
+        runs on <Link href='/metadata'>metadata</Link>,{' '}
+        <Link href='/docs/guides/content-conversion/url-to-html'>HTML</Link>{' '}
+        scraping, and <Link href='/markdown'>markdown</Link> — for{' '}
+        <Link href='/screenshot'>screenshots</Link> and{' '}
+        <Link href='/pdf'>PDFs</Link>, see the FAQ below.
       </BodyText>
       <Figure>
         <FigureImage
@@ -639,9 +646,11 @@ const CodeExample = () => (
         Default: automatic resolution
       </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
-        Send the request as you normally would. On any Pro metadata, HTML, or
-        markdown request, the proxy layer engages automatically when the target
-        requires it.
+        Send the request as you normally would. On any Pro{' '}
+        <Link href='/metadata'>metadata</Link>,{' '}
+        <Link href='/docs/guides/content-conversion/url-to-html'>HTML</Link>, or{' '}
+        <Link href='/markdown'>markdown</Link> request, the proxy layer engages
+        automatically when the target requires it.
       </BodyText>
 
       <CodeEditor
@@ -677,9 +686,9 @@ const BringYourOwn = () => (
       </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         If you have a dedicated provider or need a fixed country IP, pass the
-        proxy URL on the <CodeInline>proxy</CodeInline> parameter. Microlink
-        routes every sub-request — redirects, assets, dynamic fetches — through
-        the same server.
+        proxy URL on the <Link href='/docs/api/parameters/proxy'>proxy</Link>{' '}
+        parameter. Microlink routes every sub-request — redirects, assets,
+        dynamic fetches — through the same server.
       </BodyText>
 
       <CodeEditor
@@ -724,7 +733,10 @@ const Verifying = () => (
         How to confirm a request was proxied
       </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
-        Every proxied response carries an <CodeInline>x-fetch-mode</CodeInline>{' '}
+        Every proxied response carries an{' '}
+        <Link href='/docs/guides/common/proxy#verify-proxy-is-active'>
+          x-fetch-mode
+        </Link>{' '}
         header ending in <CodeInline>-proxy</CodeInline>. That suffix is your
         proof the request went through the resolution layer — and that you are
         being billed under the Pro plan.
@@ -733,13 +745,21 @@ const Verifying = () => (
       <ResponseCard aria-label='Example response headers when a proxy was used'>
         <ResponseLine>HTTP/2 200</ResponseLine>
         <ResponseLine highlight comment='Pro plan active'>
-          x-pricing-plan: pro
+          <Link href='/docs/api/basics/authentication'>x-pricing-plan</Link>:
+          pro
         </ResponseLine>
         <ResponseLine highlight comment='request went through proxy'>
-          x-fetch-mode: fetch-proxy
+          <Link href='/docs/guides/common/proxy#verify-proxy-is-active'>
+            x-fetch-mode
+          </Link>
+          : fetch-proxy
         </ResponseLine>
-        <ResponseLine>x-cache-ttl: 86400000</ResponseLine>
-        <ResponseLine>x-cache-status: BYPASS</ResponseLine>
+        <ResponseLine>
+          <Link href='/docs/api/parameters/ttl'>x-cache-ttl</Link>: 86400000
+        </ResponseLine>
+        <ResponseLine>
+          <Link href='/docs/api/basics/cache'>x-cache-status</Link>: BYPASS
+        </ResponseLine>
       </ResponseCard>
     </SectionInner>
   </Section>
@@ -750,19 +770,24 @@ const Verifying = () => (
 const FAQ_ITEMS = [
   {
     question: 'Do I need to bring my own proxy?',
-    text: 'No — the residential proxy is included on every Pro plan, so you cancel one vendor contract on day one. If you already have a dedicated residential proxy you want to keep using (for example a fixed country IP), pass it on the proxy parameter; see the bring-your-own proxy guide at /docs/guides/common/proxy#bring-your-own-proxy.',
+    text: 'No — the residential proxy is included on every Pro plan, so you cancel one vendor contract on day one. Without a Pro plan, when a target requires a proxy the API returns EPROXYNEEDED. If you already have a dedicated residential proxy you want to keep using (for example a fixed country IP), pass it on the proxy parameter; see the bring-your-own proxy guide at /docs/guides/common/proxy#bring-your-own-proxy.',
     answer: (
       <>
         <div>
           No — the residential proxy is included on every{' '}
           <Link href='/pricing'>Pro plan</Link>, so the default request needs no
           extra configuration and one residential-proxy bill comes off your
-          stack on day one.
+          stack on day one. Without a Pro plan, when a target requires a proxy
+          the API returns{' '}
+          <Link href='/docs/api/basics/error-codes#eproxyneeded'>
+            EPROXYNEEDED
+          </Link>
+          , so a block is never silent.
         </div>
         <div>
           If you already have a dedicated residential proxy you want to keep
           using — for example a fixed country IP — pass it on the{' '}
-          <CodeInline>proxy</CodeInline> parameter. The{' '}
+          <Link href='/docs/api/parameters/proxy'>proxy</Link> parameter. The{' '}
           <Link href='/docs/guides/common/proxy#bring-your-own-proxy'>
             bring-your-own proxy guide
           </Link>{' '}
@@ -777,13 +802,17 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Not yet. Automatic proxy resolution currently runs on metadata, HTML
-          scraping, and markdown requests — the use cases that ship with most
-          scraping pipelines.
+          Not yet. Automatic proxy resolution currently runs on{' '}
+          <Link href='/metadata'>metadata</Link>,{' '}
+          <Link href='/docs/guides/content-conversion/url-to-html'>HTML</Link>{' '}
+          scraping, and <Link href='/markdown'>markdown</Link> requests — the
+          use cases that ship with most scraping pipelines.
         </div>
         <div>
-          For screenshots and PDFs we recommend two options: pass your own
-          residential proxy on the <CodeInline>proxy</CodeInline> parameter (see
+          For <Link href='/screenshot'>screenshots</Link> and{' '}
+          <Link href='/pdf'>PDFs</Link> we recommend two options: pass your own
+          residential proxy on the{' '}
+          <Link href='/docs/api/parameters/proxy'>proxy</Link> parameter (see
           the{' '}
           <Link href='/docs/guides/common/proxy#bring-your-own-proxy'>
             bring-your-own proxy guide
@@ -848,15 +877,18 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Check the <CodeInline>x-fetch-mode</CodeInline> response header. Any
-          value ending in <CodeInline>-proxy</CodeInline> — for example{' '}
-          <CodeInline>fetch-proxy</CodeInline> — means the request was routed
-          through the proxy layer.
+          Check the{' '}
+          <Link href='/docs/guides/common/proxy#verify-proxy-is-active'>
+            x-fetch-mode
+          </Link>{' '}
+          response header. Any value ending in <CodeInline>-proxy</CodeInline> —
+          for example <CodeInline>fetch-proxy</CodeInline> — means the request
+          was routed through the proxy layer.
         </div>
         <div>
-          The <CodeInline>x-pricing-plan</CodeInline> header on the same
-          response will read <CodeInline>pro</CodeInline>, confirming the
-          request was billed against your Pro plan.
+          The <Link href='/docs/api/basics/authentication'>x-pricing-plan</Link>{' '}
+          header on the same response will read <CodeInline>pro</CodeInline>,
+          confirming the request was billed against your Pro plan.
         </div>
       </>
     )
@@ -909,7 +941,9 @@ const CtaSection = () => (
       >
         Pick the volume that matches your traffic. Automatic proxy resolution,
         antibot detection, and CAPTCHA handling are included on every Pro plan
-        for metadata, HTML, and markdown requests.
+        for <Link href='/metadata'>metadata</Link>,{' '}
+        <Link href='/docs/guides/content-conversion/url-to-html'>HTML</Link>,
+        and <Link href='/markdown'>markdown</Link> requests.
       </Caption>
       <Flex
         css={theme({

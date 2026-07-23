@@ -104,6 +104,7 @@ The typography components own their size. Compose pages from them; do not restyl
 - MUST: Back/Forward restores scroll position
 - MUST: Links use `<a>`/`<Link>` for navigation (support Cmd/Ctrl/middle-click)
 - NEVER: Use `<div onClick>` for navigation
+- NEVER: Nest a presentational component inside prose `<Link>` (e.g. `<Link><CodeInline>…</CodeInline></Link>`). The inner styles hide underline/color, so the link is not evident. Put plain text (or the code token as text) as the Link child: `<Link href='…'>EFORBIDDENURL</Link>`. Keep bare `<CodeInline>` only when the token is not a link.
 
 ### Feedback
 

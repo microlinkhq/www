@@ -65,9 +65,11 @@ const Hero = () => (
         })}
       >
         Describe the fields you want with CSS selectors and the{' '}
-        <CodeInline>data</CodeInline> parameter does the rest — no headless
-        browser to run, no HTML to parse. Works on the free tier; Pro adds
-        automatic proxy resolution when targets fight back.
+        <Link href='/docs/api/parameters/data'>data</Link> parameter does the
+        rest — no headless browser to run, no HTML to parse. Works on the free
+        tier; Pro adds{' '}
+        <Link href='/features/antibot'>automatic proxy resolution</Link> when
+        targets fight back.
       </Caption>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <ArrowLink
@@ -138,8 +140,9 @@ const Diagram = () => (
             textAlign: 'left'
           })}
         >
-          Each key inside <CodeInline>data</CodeInline> becomes a field in the
-          response — validated by <CodeInline>type</CodeInline> on the way out.
+          Each key inside <Link href='/docs/api/parameters/data'>data</Link>{' '}
+          becomes a field in the response — validated by{' '}
+          <Link href='/docs/mql/data/type'>type</Link> on the way out.
         </Text>
       </Box>
     </SectionInner>
@@ -155,24 +158,28 @@ const WhatItDoes = () => (
         Your output schema
       </Eyebrow>
       <BodyText>
-        The <CodeInline>data</CodeInline> object you send is the shape of the
-        JSON you get back. Point a <CodeInline>selector</CodeInline> at an
-        element, pick what to read with <CodeInline>attr</CodeInline> — text, an
-        attribute, HTML, even markdown — and validate the result with{' '}
-        <CodeInline>type</CodeInline>: <CodeInline>url</CodeInline>,{' '}
-        <CodeInline>number</CodeInline>, <CodeInline>date</CodeInline>,{' '}
-        <CodeInline>image</CodeInline>, and more.
+        The <Link href='/docs/api/parameters/data'>data</Link> object you send
+        is the shape of the JSON you get back. Point a{' '}
+        <Link href='/docs/mql/data/selector'>selector</Link> at an element, pick
+        what to read with <Link href='/docs/mql/data/attr'>attr</Link> — text,
+        an attribute, HTML, even markdown — and validate the result with{' '}
+        <Link href='/docs/mql/data/type'>type</Link>:{' '}
+        <CodeInline>url</CodeInline>, <CodeInline>number</CodeInline>,{' '}
+        <CodeInline>date</CodeInline>, <CodeInline>image</CodeInline>, and more.
       </BodyText>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
-        Pages change and selectors break — so a rule can also be an array of
-        fallbacks, tried in priority order until one succeeds. When CSS alone is
-        not enough, <CodeInline>evaluate</CodeInline> runs a JavaScript function
-        against the page to compute the value.
+        Pages change and selectors break — so a rule can also be an array of{' '}
+        <Link href='/docs/mql/rules/fallbacks'>fallbacks</Link>, tried in
+        priority order until one succeeds. When CSS alone is not enough,{' '}
+        <Link href='/docs/mql/data/evaluate'>evaluate</Link> runs a JavaScript
+        function against the page to compute the value.
       </BodyText>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
         Microlink runs the headless browser, waits for the content, applies your
-        rules, and returns clean JSON — the same request can also capture the
-        screenshot, render the PDF, or read the metadata of the page.
+        rules, and returns clean JSON — the same request can also capture the{' '}
+        <Link href='/screenshot'>screenshot</Link>, render the{' '}
+        <Link href='/pdf'>PDF</Link>, or read the{' '}
+        <Link href='/metadata'>metadata</Link> of the page.
       </BodyText>
     </SectionInner>
   </Section>
@@ -181,15 +188,19 @@ const WhatItDoes = () => (
 /* ─── Three rule shapes ──────────────────────────────────────────────────── */
 
 const ATTR_EXAMPLES = [
-  "attr: 'text'",
-  "attr: 'href'",
-  "type: 'url'",
-  "type: 'number'"
+  { label: "attr: 'text'", href: '/docs/mql/data/attr' },
+  { label: "attr: 'href'", href: '/docs/mql/data/attr' },
+  { label: "type: 'url'", href: '/docs/mql/data/type' },
+  { label: "type: 'number'", href: '/docs/mql/data/type' }
 ]
 
 const COLLECTION_EXAMPLES = ['headlines', 'prices', 'reviews', 'job listings']
 
-const COMPUTED_EXAMPLES = ['evaluate', "type: 'date'", 'fallback arrays']
+const COMPUTED_EXAMPLES = [
+  { label: 'evaluate', href: '/docs/mql/data/evaluate' },
+  { label: "type: 'date'", href: '/docs/mql/data/type' },
+  { label: 'fallback arrays', href: '/docs/mql/rules/fallbacks' }
+]
 
 const RuleShapes = () => (
   <Section>
@@ -207,10 +218,12 @@ const RuleShapes = () => (
         </Subhead>
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
           Every extraction rule is built from the same five properties —{' '}
-          <CodeInline>selector</CodeInline>,{' '}
-          <CodeInline>selectorAll</CodeInline>, <CodeInline>attr</CodeInline>,{' '}
-          <CodeInline>type</CodeInline>, and <CodeInline>evaluate</CodeInline>.
-          Combine them to match the shape of the data you are after.
+          <Link href='/docs/mql/data/selector'>selector</Link>,{' '}
+          <Link href='/docs/mql/data/selectorAll'>selectorAll</Link>,{' '}
+          <Link href='/docs/mql/data/attr'>attr</Link>,{' '}
+          <Link href='/docs/mql/data/type'>type</Link>, and{' '}
+          <Link href='/docs/mql/data/evaluate'>evaluate</Link>. Combine them to
+          match the shape of the data you are after.
         </BodyText>
       </Box>
 
@@ -231,8 +244,8 @@ const RuleShapes = () => (
               Point a CSS selector at one element and read what you need:
               visible text, an attribute like <CodeInline>href</CodeInline> or{' '}
               <CodeInline>src</CodeInline>, inner HTML, or a markdown rendition.
-              Add <CodeInline>type</CodeInline> to validate and normalize the
-              value before it reaches your code.
+              Add <Link href='/docs/mql/data/type'>type</Link> to validate and
+              normalize the value before it reaches your code.
             </CardBody>
             <ChipRow items={ATTR_EXAMPLES} />
             <Box css={theme({ mt: 'auto' })}>
@@ -258,9 +271,9 @@ const RuleShapes = () => (
           <CardMain>
             <CardBody>
               Match every element on the page and get an array back. Nest{' '}
-              <CodeInline>attr</CodeInline> rules inside and each match becomes
-              a structured object — title, link, price — instead of a flat
-              string. One request, the whole listing.
+              <Link href='/docs/mql/data/attr'>attr</Link> rules inside and each
+              match becomes a structured object — title, link, price — instead
+              of a flat string. One request, the whole listing.
             </CardBody>
             <ChipRow items={COLLECTION_EXAMPLES} />
             <Box css={theme({ mt: 'auto' })}>
@@ -287,8 +300,9 @@ const RuleShapes = () => (
             <CardBody>
               When CSS alone cannot express it, run a JavaScript function
               against the page and return the result as the field value. Combine
-              with <CodeInline>type</CodeInline> validation and fallback arrays
-              so extraction keeps working when pages change.
+              with <Link href='/docs/mql/data/type'>type</Link> validation and{' '}
+              <Link href='/docs/mql/rules/fallbacks'>fallback arrays</Link> so
+              extraction keeps working when pages change.
             </CardBody>
             <ChipRow items={COMPUTED_EXAMPLES} />
             <Box css={theme({ mt: 'auto' })}>
@@ -324,10 +338,11 @@ const CodeExampleSingle = () => (
         Your first extraction, two rules
       </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
-        Each key inside <CodeInline>data</CodeInline> is a field in the
-        response. Here <CodeInline>headline</CodeInline> reads the text and{' '}
-        <CodeInline>link</CodeInline> reads the <CodeInline>href</CodeInline>,
-        validated as a URL — no parsing on your side.
+        Each key inside <Link href='/docs/api/parameters/data'>data</Link> is a
+        field in the response. Here <CodeInline>headline</CodeInline> reads the
+        text and <CodeInline>link</CodeInline> reads the{' '}
+        <CodeInline>href</CodeInline>, validated as a URL — no parsing on your
+        side.
       </BodyText>
 
       <CodeEditor
@@ -375,10 +390,11 @@ const CodeExampleCollection = () => (
         Every match, as structured objects
       </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
-        <CodeInline>selectorAll</CodeInline> turns the rule into an array;
-        nested <CodeInline>attr</CodeInline> rules run against each match. Add{' '}
-        <CodeInline>meta: false</CodeInline> to skip metadata and get just your
-        fields back.
+        <Link href='/docs/mql/data/selectorAll'>selectorAll</Link> turns the
+        rule into an array; nested <Link href='/docs/mql/data/attr'>attr</Link>{' '}
+        rules run against each match. Add{' '}
+        <Link href='/docs/api/parameters/meta'>meta: false</Link> to skip
+        metadata and get just your fields back.
       </BodyText>
 
       <CodeEditor
@@ -439,8 +455,10 @@ const ProSection = () => (
         <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
           Extraction rules are half the job — the other half is getting the page
           to render at all. Every Pro plan bundles the pieces that keep scraping
-          working in production: automatic proxy resolution against antibots,
-          custom headers for login walls, and configurable{' '}
+          working in production:{' '}
+          <Link href='/features/antibot'>automatic proxy resolution</Link>{' '}
+          against antibots, <Link href='/features/headers'>custom headers</Link>{' '}
+          for login walls, and configurable{' '}
           <Link href='/features/ttl'>cache TTL</Link> so repeated extractions
           cost nothing.
         </BodyText>
@@ -460,19 +478,24 @@ const ProSection = () => (
           </CardSide>
           <CardMain>
             <CardBody>
-              When a target blocks the request, Microlink identifies the antibot
-              provider and routes through a dedicated resolution path — no proxy
-              pool to manage, no CAPTCHA solver to integrate. The resolution
-              layer is well-tested across the Top 500 most popular sites
-              worldwide.
+              When a target blocks the request, Microlink identifies the{' '}
+              <Link href='/features/antibot'>antibot</Link> provider and routes
+              through a dedicated resolution path — no proxy pool to manage, no
+              CAPTCHA solver to integrate. The resolution layer is well-tested
+              across the Top 500 most popular sites worldwide.
             </CardBody>
             <ChipRow items={ANTIBOT_EXAMPLES} />
             <CardBody>
-              <CodeInline>EPROXYNEEDED</CodeInline> is the signal a target
-              requires it; a response served through the proxy layer carries{' '}
-              <CodeInline>x-fetch-mode: fetch-proxy</CodeInline>. You can also
-              bring your own exit IP with the <CodeInline>proxy</CodeInline>{' '}
-              parameter.
+              <Link href='/docs/api/basics/error-codes#eproxyneeded'>
+                EPROXYNEEDED
+              </Link>{' '}
+              is the signal a target requires it; a response served through the
+              proxy layer carries{' '}
+              <Link href='/docs/guides/common/proxy#verify-proxy-is-active'>
+                x-fetch-mode: fetch-proxy
+              </Link>
+              . You can also bring your own exit IP with the{' '}
+              <Link href='/docs/api/parameters/proxy'>proxy</Link> parameter.
             </CardBody>
             <Box css={theme({ mt: 'auto' })}>
               <ArrowLink
@@ -497,8 +520,11 @@ const ProSection = () => (
           <CardMain>
             <CardBody>
               Scrape the logged-in version of a page by forwarding the session:
-              send <CodeInline>x-api-header-cookie</CodeInline> as a request
-              header and Microlink forwards the original{' '}
+              send{' '}
+              <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+                x-api-header-cookie
+              </Link>{' '}
+              as a request header and Microlink forwards the original{' '}
               <CodeInline>cookie</CodeInline> to the target — the credential
               rides inside HTTPS and never touches the URL.
             </CardBody>
@@ -533,13 +559,17 @@ const FAQ_ITEMS = [
         <div>
           No. Microlink runs headless Chrome on its infrastructure and applies
           your CSS selectors server-side — you send a{' '}
-          <CodeInline>data</CodeInline> object and receive JSON back.
+          <Link href='/docs/api/parameters/data'>data</Link> object and receive
+          JSON back.
         </div>
         <div>
           For client-rendered content, control the rendering with{' '}
-          <CodeInline>prerender</CodeInline> and wait for dynamic elements with{' '}
-          <CodeInline>waitForSelector</CodeInline> before the rules are applied
-          — see the{' '}
+          <Link href='/docs/api/parameters/prerender'>prerender</Link> and wait
+          for dynamic elements with{' '}
+          <Link href='/docs/api/parameters/waitForSelector'>
+            waitForSelector
+          </Link>{' '}
+          before the rules are applied — see the{' '}
           <Link href='/docs/guides/data-extraction/page-preparation'>
             page preparation guide
           </Link>
@@ -554,16 +584,21 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. Every rule type — <CodeInline>selector</CodeInline>,{' '}
-          <CodeInline>selectorAll</CodeInline>, <CodeInline>attr</CodeInline>,{' '}
-          <CodeInline>type</CodeInline>, <CodeInline>evaluate</CodeInline>,
-          fallbacks — works on the free tier, which includes 25 requests per day
-          without an API key.
+          Yes. Every rule type —{' '}
+          <Link href='/docs/mql/data/selector'>selector</Link>,{' '}
+          <Link href='/docs/mql/data/selectorAll'>selectorAll</Link>,{' '}
+          <Link href='/docs/mql/data/attr'>attr</Link>,{' '}
+          <Link href='/docs/mql/data/type'>type</Link>,{' '}
+          <Link href='/docs/mql/data/evaluate'>evaluate</Link>,{' '}
+          <Link href='/docs/mql/rules/fallbacks'>fallbacks</Link> — works on the
+          free tier, which includes 25 requests per day without an API key.
         </div>
         <div>
           <Link href='/pricing'>Pro plans</Link> start at 14,000 requests per
-          month and add automatic proxy resolution, custom headers, and
-          configurable TTL on top.
+          month and add{' '}
+          <Link href='/features/antibot'>automatic proxy resolution</Link>,{' '}
+          <Link href='/features/headers'>custom headers</Link>, and configurable{' '}
+          <Link href='/features/ttl'>TTL</Link> on top.
         </div>
       </>
     )
@@ -574,11 +609,12 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Define a rule as an array of fallbacks and Microlink tries each one in
-          priority order until a value passes the <CodeInline>type</CodeInline>{' '}
-          validation — for example <CodeInline>og:title</CodeInline>, then{' '}
-          <CodeInline>title</CodeInline>, then the first{' '}
-          <CodeInline>h1</CodeInline>.
+          Define a rule as an array of{' '}
+          <Link href='/docs/mql/rules/fallbacks'>fallbacks</Link> and Microlink
+          tries each one in priority order until a value passes the{' '}
+          <Link href='/docs/mql/data/type'>type</Link> validation — for example{' '}
+          <CodeInline>og:title</CodeInline>, then <CodeInline>title</CodeInline>
+          , then the first <CodeInline>h1</CodeInline>.
         </div>
         <div>
           If nothing matches, the field comes back empty rather than failing the
@@ -586,7 +622,8 @@ const FAQ_ITEMS = [
           <Link href='/docs/guides/data-extraction/troubleshooting'>
             troubleshooting guide
           </Link>{' '}
-          covers how to diagnose selector, timing, and prerender issues.
+          covers how to diagnose selector, timing, and{' '}
+          <Link href='/docs/api/parameters/prerender'>prerender</Link> issues.
         </div>
       </>
     )
@@ -597,16 +634,22 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes, on Pro plans. Microlink detects the antibot provider protecting
-          the target — Cloudflare, DataDome, Akamai, PerimeterX, and more — and
+          Yes, on Pro plans. Microlink detects the{' '}
+          <Link href='/features/antibot'>antibot</Link> provider protecting the
+          target — Cloudflare, DataDome, Akamai, PerimeterX, and more — and
           automatically routes the request through a dedicated resolution path,
           tested across the Top 500 most popular sites worldwide.
         </div>
         <div>
           If a target requires it, the API returns{' '}
-          <CodeInline>EPROXYNEEDED</CodeInline>; proxied responses carry{' '}
-          <CodeInline>x-fetch-mode</CodeInline> ending in{' '}
-          <CodeInline>-proxy</CodeInline>. See{' '}
+          <Link href='/docs/api/basics/error-codes#eproxyneeded'>
+            EPROXYNEEDED
+          </Link>
+          ; proxied responses carry{' '}
+          <Link href='/docs/guides/common/proxy#verify-proxy-is-active'>
+            x-fetch-mode
+          </Link>{' '}
+          ending in <CodeInline>-proxy</CodeInline>. See{' '}
           <Link href='/features/proxy'>how the proxy works</Link>.
         </div>
       </>
@@ -619,8 +662,11 @@ const FAQ_ITEMS = [
       <>
         <div>
           Yes — forward the session as a request header on your Microlink call
-          using <CodeInline>x-api-header-cookie</CodeInline> (a{' '}
-          <Link href='/features/headers'>Pro feature</Link>). The credential
+          using{' '}
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-cookie
+          </Link>{' '}
+          (a <Link href='/features/headers'>Pro feature</Link>). The credential
           travels inside HTTPS request headers, never in the URL, so it does not
           end up in logs or embeds.
         </div>
@@ -646,11 +692,9 @@ const FAQ_ITEMS = [
         </div>
         <div>
           Tune the lifetime per request with{' '}
-          <Link href='/features/ttl'>
-            <CodeInline>ttl</CodeInline>
-          </Link>{' '}
-          (from 1 minute to 31 days) and serve stale content while revalidating
-          with <CodeInline>staleTtl</CodeInline> — the{' '}
+          <Link href='/features/ttl'>ttl</Link> (from 1 minute to 31 days) and
+          serve stale content while revalidating with{' '}
+          <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> — the{' '}
           <Link href='/docs/guides/data-extraction/caching-and-performance'>
             caching guide
           </Link>{' '}
@@ -665,18 +709,16 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. The <CodeInline>evaluate</CodeInline> property runs a JavaScript
-          function against the page and uses its return value as the field —
-          useful for computed values, JSON embedded in scripts, or anything CSS
-          selectors cannot reach.
+          Yes. The <Link href='/docs/mql/data/evaluate'>evaluate</Link> property
+          runs a JavaScript function against the page and uses its return value
+          as the field — useful for computed values, JSON embedded in scripts,
+          or anything CSS selectors cannot reach.
         </div>
         <div>
-          Combine it with <CodeInline>type</CodeInline> so the output is
-          validated before it reaches your code — see the{' '}
-          <Link href='/docs/api/parameters/data'>
-            <CodeInline>data</CodeInline> reference
-          </Link>
-          . When a single rule is not enough,{' '}
+          Combine it with <Link href='/docs/mql/data/type'>type</Link> so the
+          output is validated before it reaches your code — see the{' '}
+          <Link href='/docs/api/parameters/data'>data reference</Link>. When a
+          single rule is not enough,{' '}
           <Link href='/features/function'>browser functions</Link> run your code
           with full Puppeteer access.
         </div>
@@ -729,8 +771,10 @@ const CtaSection = () => (
         })}
       >
         Prototype on the free tier — 25 requests a day, no API key. When you go
-        to production, Pro plans start at 14,000 requests per month and bundle
-        proxy resolution, custom headers, and configurable TTL.
+        to production, Pro plans start at 14,000 requests per month and bundle{' '}
+        <Link href='/features/proxy'>proxy</Link> resolution,{' '}
+        <Link href='/features/headers'>custom headers</Link>, and configurable{' '}
+        <Link href='/features/ttl'>TTL</Link>.
       </Caption>
       <Flex
         css={theme({

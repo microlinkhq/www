@@ -64,10 +64,10 @@ const Hero = () => (
           mx: 0
         })}
       >
-        Run any JavaScript remotely with the <CodeInline>function</CodeInline>{' '}
-        parameter — full Puppeteer access, npm packages installed on the fly,
-        and zero infrastructure. No Lambda bundle, no browser fleet, no server
-        to manage.
+        Run any JavaScript remotely with the{' '}
+        <Link href='/docs/api/parameters/function'>function</Link> parameter —
+        full Puppeteer access, npm packages installed on the fly, and zero
+        infrastructure. No Lambda bundle, no browser fleet, no server to manage.
       </Caption>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <ArrowLink
@@ -111,9 +111,11 @@ const Diagram = () => (
             <Arrow />
             <Node>
               <NodeLabel>
-                @microlink
-                <br />
-                /function
+                <Link href='https://www.npmjs.com/package/@microlink/function'>
+                  @microlink
+                  <br />
+                  /function
+                </Link>
               </NodeLabel>
               <NodeSub>serialize · compress · send</NodeSub>
             </Node>
@@ -126,7 +128,11 @@ const Diagram = () => (
             </NodeActive>
             <Arrow />
             <Node>
-              <NodeLabel>result.value</NodeLabel>
+              <NodeLabel>
+                <Link href='/docs/guides/function/writing-functions'>
+                  result.value
+                </Link>
+              </NodeLabel>
               <NodeSub>plus execution profiling</NodeSub>
             </Node>
           </ScenarioRow>
@@ -142,8 +148,10 @@ const Diagram = () => (
             textAlign: 'left'
           })}
         >
-          Reference <CodeInline>page</CodeInline> and a browser starts with full
-          Puppeteer access — skip it and your function runs faster.
+          Reference{' '}
+          <Link href='/docs/guides/function/browser-interaction'>page</Link> and
+          a browser starts with full Puppeteer access — skip it and your
+          function runs faster.
         </Text>
       </Box>
     </SectionInner>
@@ -161,15 +169,19 @@ const WhatItDoes = () => (
       <BodyText>
         Write a normal JavaScript function and run it remotely in a sandboxed
         Node.js runtime. The return value comes back at{' '}
-        <CodeInline>result.value</CodeInline>; if the function throws,{' '}
-        <CodeInline>result.isFulfilled</CodeInline> is{' '}
-        <CodeInline>false</CodeInline> and the error details take its place.
+        <Link href='/docs/guides/function/writing-functions'>result.value</Link>
+        ; if the function throws,{' '}
+        <Link href='/docs/guides/function/troubleshooting'>
+          result.isFulfilled
+        </Link>{' '}
+        is <CodeInline>false</CodeInline> and the error details take its place.
       </BodyText>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
-        When the function references <CodeInline>page</CodeInline>, Microlink
-        spawns headless Chrome, navigates to the target URL, and hands you the
-        full Puppeteer API — click, type, evaluate, capture. When it does not,
-        no browser is started and execution is faster and cheaper.
+        When the function references{' '}
+        <Link href='/docs/guides/function/browser-interaction'>page</Link>,
+        Microlink spawns headless Chrome, navigates to the target URL, and hands
+        you the full Puppeteer API — click, type, evaluate, capture. When it
+        does not, no browser is started and execution is faster and cheaper.
       </BodyText>
       <BodyText css={theme({ pt: [3, 3, 4, 4] })}>
         Need a library? <CodeInline>require()</CodeInline> any npm package —
@@ -251,10 +263,12 @@ const ExecutionShapes = () => (
           </CardSide>
           <CardMain>
             <CardBody>
-              Reference <CodeInline>page</CodeInline> and Microlink boots
-              headless Chrome, navigates to the target URL, and passes you the
-              live Puppeteer page — click, type, wait, evaluate, or capture
-              anything the built-in parameters cannot express.
+              Reference{' '}
+              <Link href='/docs/guides/function/browser-interaction'>page</Link>{' '}
+              and Microlink boots headless Chrome, navigates to the target URL,
+              and passes you the live Puppeteer page — click, type, wait,
+              evaluate, or capture anything the built-in parameters cannot
+              express.
             </CardBody>
             <ChipRow items={PAGE_EXAMPLES} />
             <Box css={theme({ mt: 'auto' })}>
@@ -319,10 +333,14 @@ const CodeExampleBrowser = () => (
         Puppeteer, without the infrastructure
       </Subhead>
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
-        The <CodeInline>@microlink/function</CodeInline> library handles
-        serialization, compression, and the API call. Your function receives{' '}
-        <CodeInline>page</CodeInline> — a live Puppeteer instance already
-        navigated to the target URL.
+        The{' '}
+        <Link href='https://www.npmjs.com/package/@microlink/function'>
+          @microlink/function
+        </Link>{' '}
+        library handles serialization, compression, and the API call. Your
+        function receives{' '}
+        <Link href='/docs/guides/function/browser-interaction'>page</Link> — a
+        live Puppeteer instance already navigated to the target URL.
       </BodyText>
 
       <CodeEditor
@@ -369,7 +387,10 @@ const CodeExampleNpm = () => (
       <BodyText css={theme({ pt: 3, pb: [3, 3, 4, 4] })}>
         Write <CodeInline>require()</CodeInline> as if you were on your own
         machine. The first run installs and caches; subsequent runs skip the
-        install phase — check <CodeInline>result.profiling.phases</CodeInline>{' '}
+        install phase — check{' '}
+        <Link href='/docs/guides/function/profiling-and-performance'>
+          result.profiling.phases
+        </Link>{' '}
         to see exactly where the time goes.
       </BodyText>
 
@@ -518,8 +539,9 @@ const FAQ_ITEMS = [
         <div>
           Any JavaScript. Plain functions run in a sandboxed Node.js runtime and
           can return strings, numbers, arrays, or objects. Reference{' '}
-          <CodeInline>page</CodeInline> and Microlink starts headless Chrome
-          with full Puppeteer access, already navigated to the target URL.
+          <Link href='/docs/guides/function/browser-interaction'>page</Link> and
+          Microlink starts headless Chrome with full Puppeteer access, already
+          navigated to the target URL.
         </div>
         <div>
           You can also <CodeInline>require()</CodeInline> any npm package —
@@ -554,15 +576,17 @@ const FAQ_ITEMS = [
         <div>
           Start with <Link href='/features/scraping'>data</Link> — declarative
           CSS-selector rules are shorter, easier to maintain, and easier to
-          reuse. Escalate to <CodeInline>function</CodeInline> when you need to
-          click, wait, compute, reshape, or orchestrate custom logic that rules
-          cannot express.
+          reuse. Escalate to{' '}
+          <Link href='/docs/api/parameters/function'>function</Link> when you
+          need to click, wait, compute, reshape, or orchestrate custom logic
+          that rules cannot express.
         </div>
         <div>
           For injecting CSS or JavaScript before another workflow, the{' '}
-          <CodeInline>styles</CodeInline>, <CodeInline>scripts</CodeInline>, and{' '}
-          <CodeInline>modules</CodeInline> parameters are lighter than a full
-          function — see{' '}
+          <Link href='/docs/api/parameters/styles'>styles</Link>,{' '}
+          <Link href='/docs/api/parameters/scripts'>scripts</Link>, and{' '}
+          <Link href='/docs/api/parameters/modules'>modules</Link> parameters
+          are lighter than a full function — see{' '}
           <Link href='/features/automation'>browser automation</Link>.
         </div>
       </>
@@ -575,14 +599,23 @@ const FAQ_ITEMS = [
       <>
         <div>
           The request still succeeds:{' '}
-          <CodeInline>result.isFulfilled</CodeInline> comes back{' '}
-          <CodeInline>false</CodeInline> and{' '}
-          <CodeInline>result.value</CodeInline> contains the error details —
-          name, code, and message — so you can handle failures in your own code.
+          <Link href='/docs/guides/function/troubleshooting'>
+            result.isFulfilled
+          </Link>{' '}
+          comes back <CodeInline>false</CodeInline> and{' '}
+          <Link href='/docs/guides/function/writing-functions'>
+            result.value
+          </Link>{' '}
+          contains the error details — name, code, and message — so you can
+          handle failures in your own code.
         </div>
         <div>
           Security-restricted operations, such as spawning child processes,
-          return an <CodeInline>ERR_ACCESS_DENIED</CodeInline> error — see the{' '}
+          return an{' '}
+          <Link href='/docs/guides/function/writing-functions'>
+            ERR_ACCESS_DENIED
+          </Link>{' '}
+          error — see the{' '}
           <Link href='/docs/guides/function/troubleshooting'>
             troubleshooting guide
           </Link>
@@ -597,15 +630,20 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Skip <CodeInline>page</CodeInline> when you do not need a browser —
-          plain functions execute without booting Chrome.
+          Skip{' '}
+          <Link href='/docs/guides/function/browser-interaction'>page</Link>{' '}
+          when you do not need a browser — plain functions execute without
+          booting Chrome.
         </div>
         <div>
-          Check <CodeInline>result.profiling.phases</CodeInline> to see where
-          time goes: a high <CodeInline>install</CodeInline> value means
-          dependencies were installed for the first time and will be cached for
-          subsequent runs; a high <CodeInline>run</CodeInline> value means the
-          function itself is doing heavy work — see the{' '}
+          Check{' '}
+          <Link href='/docs/guides/function/profiling-and-performance'>
+            result.profiling.phases
+          </Link>{' '}
+          to see where time goes: a high <CodeInline>install</CodeInline> value
+          means dependencies were installed for the first time and will be
+          cached for subsequent runs; a high <CodeInline>run</CodeInline> value
+          means the function itself is doing heavy work — see the{' '}
           <Link href='/docs/guides/function/profiling-and-performance'>
             profiling guide
           </Link>
@@ -620,11 +658,15 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes, on Pro plans. Combine <CodeInline>function</CodeInline> with{' '}
+          Yes, on Pro plans. Combine{' '}
+          <Link href='/docs/api/parameters/function'>function</Link> with{' '}
           <Link href='/features/proxy'>automatic proxy resolution</Link> to get
           past Cloudflare, DataDome, or Akamai, and forward session cookies with{' '}
-          <CodeInline>x-api-header-cookie</CodeInline> for pages behind a login
-          — see <Link href='/features/headers'>custom headers</Link>.
+          <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
+            x-api-header-cookie
+          </Link>{' '}
+          for pages behind a login — see{' '}
+          <Link href='/features/headers'>custom headers</Link>.
         </div>
         <div>
           The browser your function receives is already unblocked and
@@ -679,8 +721,10 @@ const CtaSection = () => (
         })}
       >
         Prototype on the free tier — no API key, no setup. When your workload
-        grows, Pro plans raise the execution limits and add proxy resolution,
-        custom headers, and configurable TTL around your code.
+        grows, Pro plans raise the execution limits and add{' '}
+        <Link href='/features/proxy'>proxy resolution</Link>,{' '}
+        <Link href='/features/headers'>custom headers</Link>, and{' '}
+        <Link href='/features/ttl'>configurable TTL</Link> around your code.
       </Caption>
       <Flex
         css={theme({
