@@ -30,15 +30,15 @@ const FINGERPRINT_SIGNALS = [
 ]
 
 const statusFlicker = keyframes`
-  0%, 29% {
+  0%, 28% {
     opacity: 1;
   }
 
-  30%, 34% {
-    opacity: 0.2;
+  30% {
+    opacity: 0.25;
   }
 
-  35%, 100% {
+  33.333%, 100% {
     opacity: 0;
   }
 `
@@ -62,9 +62,8 @@ const StatusFlicker = styled('span')`
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    > span,
-    > span:first-child {
-      animation: ${statusFlicker} 3.6s steps(1, end) infinite;
+    > span {
+      animation: ${statusFlicker} 3.6s linear infinite;
       opacity: 0;
     }
 
