@@ -104,7 +104,7 @@ The typography components own their size. Compose pages from them; do not restyl
 - MUST: Back/Forward restores scroll position
 - MUST: Links use `<a>`/`<Link>` for navigation (support Cmd/Ctrl/middle-click)
 - NEVER: Use `<div onClick>` for navigation
-- NEVER: Nest styling components inside prose `<Link>` (`CodeInline`, `Text`, `Caps`, chips, etc.). Their styles override link underline/color, so the result no longer reads as a link. Put plain text as the Link child (`<Link href='…'>EFORBIDDENURL</Link>`); keep the styled component only when the token is not linked.
+- NEVER: Nest components whose styles override link underline/color inside prose `<Link>` (e.g. `<Link><CodeInline>…</CodeInline></Link>`, chips). The result no longer reads as a link — put plain text as the child (`<Link href='…'>EFORBIDDENURL</Link>`), and keep the styled component only when the token is not linked. `Text` and `Caps` are fine to combine with `Link` because they preserve link appearance.
 
 ### Feedback
 
