@@ -87,5 +87,16 @@ export const FEATURES = [
     oneLiner:
       'Forward cookies, tokens, and any header to the target page — secrets never touch the URL.',
     snippet: "headers: { 'x-api-header-cookie': 'session=…' }"
+  },
+  {
+    slug: 'security',
+    name: 'Request Security',
+    footerLabel: 'Security',
+    tag: 'Free + Pro',
+    category: 'Trust & isolation',
+    param: 'url',
+    oneLiner:
+      'Every request runs in its own browser — isolated, SSRF-protected, with no shared cookies or cache.',
+    snippet: "url: 'http://169.254.169.254' → EFORBIDDENURL"
   }
 ]
