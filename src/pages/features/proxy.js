@@ -385,8 +385,8 @@ const ThreeInOne = () => (
               IPs, full browser rendering, retries) live inside the API. Result:
               fewer retries, cleaner data, predictable behavior at scale.
             </CardBody>
-            <CardLink href='/blog/antibot-detection-at-scale'>
-              Read the antibot breakdown →
+            <CardLink href='/features/antibot'>
+              See how antibot detection works →
             </CardLink>
           </CardMain>
         </Card>

@@ -56,6 +56,17 @@ export const FEATURES = [
     snippet: 'x-fetch-mode: fetch-proxy'
   },
   {
+    slug: 'antibot',
+    name: 'Antibot Detection',
+    footerLabel: 'Antibot detection',
+    tag: 'Pro',
+    category: 'Anti-bot & unblocking',
+    param: 'x-fetch-mode',
+    oneLiner:
+      'Identify which of 30+ antibot and CAPTCHA providers blocked a request — then resolve it automatically.',
+    snippet: "detected: true, provider: 'cloudflare'"
+  },
+  {
     slug: 'ttl',
     name: 'Configurable TTL',
     footerLabel: 'Configurable TTL',
