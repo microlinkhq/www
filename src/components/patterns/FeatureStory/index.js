@@ -3,7 +3,13 @@
 // consistent. The feature registry (which drives the /features landing and
 // the footer) and the feature-page scaffolding live here.
 
-export { ACCENT, FEATURES } from './features'
+export {
+  ACCENT,
+  FEATURES,
+  FEATURE_TOC,
+  getFeature,
+  getRelatedFeatures
+} from './features'
 export {
   SECTION_PX,
   SECTION_PY,
@@ -32,3 +38,22 @@ export {
   ScenarioHeader,
   ScenarioRow
 } from './primitives'
+export {
+  FeatureBreadcrumbs,
+  FeatureFaqSection,
+  FeatureHero,
+  FeatureIcon,
+  FeaturePageShell,
+  FeatureSection,
+  FeatureToc,
+  HowItWorksSection,
+  OverviewSection,
+  ParamsSection,
+  PlanSupportBar,
+  QuickStartSection,
+  ExamplesSection,
+  UseCasesSection,
+  RelatedFeaturesSection,
+  faqFromItems,
+  buildMqlLanguages
+} from './landing'

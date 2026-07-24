@@ -4,31 +4,37 @@ import React from 'react'
 import Box from 'components/elements/Box'
 import Meta from 'components/elements/Meta/Meta'
 
-import { DashedGridOverlay } from 'components/patterns/FeatureStory'
+import {
+  DashedGridOverlay,
+  FeaturePageShell
+} from 'components/patterns/FeatureStory'
 import Layout from 'components/patterns/Layout'
 
-import { Cta } from 'components/pages/security/cta'
-import { Enterprise } from 'components/pages/security/enterprise'
+import { Examples } from 'components/pages/security/examples'
 import { FAQ_ITEMS, FaqSection } from 'components/pages/security/faq'
 import { Hero } from 'components/pages/security/hero'
-import { Isolation } from 'components/pages/security/isolation'
-import { Privacy } from 'components/pages/security/privacy'
-import { Sandbox } from 'components/pages/security/sandbox'
-import { Ssrf } from 'components/pages/security/ssrf'
-import { Why } from 'components/pages/security/why'
+import { HowItWorks } from 'components/pages/security/how-it-works'
+import { Overview } from 'components/pages/security/overview'
+import { Parameters } from 'components/pages/security/parameters'
+import { QuickStart } from 'components/pages/security/quick-start'
+import { Related } from 'components/pages/security/related'
+import { META } from 'components/pages/security/shared'
+import { UseCases } from 'components/pages/security/use-cases'
 
 const SecurityFeaturePage = () => (
   <Layout css={theme({ position: 'relative' })}>
     <DashedGridOverlay aria-hidden='true' />
     <Box css={theme({ position: 'relative', zIndex: 1 })}>
-      <Hero />
-      <Why />
-      <Isolation />
-      <Ssrf />
-      <Sandbox />
-      <Privacy />
-      <Enterprise />
-      <Cta />
+      <FeaturePageShell>
+        <Hero />
+        <Overview />
+        <HowItWorks />
+        <QuickStart />
+        <Parameters />
+        <Examples />
+        <UseCases />
+        <Related />
+      </FeaturePageShell>
       <FaqSection />
     </Box>
   </Layout>
@@ -36,8 +42,8 @@ const SecurityFeaturePage = () => (
 
 export const Head = () => (
   <Meta
-    title='Request Security: One Isolated Browser per Request'
-    description='Every Microlink API request runs in its own incognito browser context — no shared cookies, caches, or profiles — with dual-layer SSRF protection that blocks private and reserved IP ranges before and during rendering. Enterprise adds dedicated hardware.'
+    title={META.title}
+    description={META.description}
     schemaType='WebPage'
     structured={[
       {
