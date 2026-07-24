@@ -354,7 +354,7 @@ const Hero = () => {
             forwardedAs='span'
             css={theme({ fontSize: 'inherit', fontStyle: 'italic' })}
           >
-            structured&nbsp;data
+            everything
           </Heading>
         </Heading>
 
