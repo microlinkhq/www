@@ -60,7 +60,7 @@ export const PRODUCTS = {
     label: 'HTML',
     icon: CodeIcon,
     href: '/docs/api/parameters/data',
-    description: 'Fully rendered HTML, JavaScript executed'
+    description: 'Fully rendered HTML with JavaScript execution'
   },
   text: {
     label: 'Text',
