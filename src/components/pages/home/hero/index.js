@@ -348,7 +348,8 @@ const Hero = () => {
         </Badge>
 
         <Heading variant={null}>
-          Turn any URL into{' '}
+          Turn any URL into
+          <br />
           <Heading
             forwardedAs='span'
             css={theme({ fontSize: 'inherit', fontStyle: 'italic' })}
