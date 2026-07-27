@@ -64,5 +64,6 @@ export {
   HeadersDocLink,
   ProxyDocLink,
   ProxyHeadersTtlLinks,
+  sdkExample,
   TtlDocLink
 } from './landing'

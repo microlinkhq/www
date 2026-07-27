@@ -3,7 +3,8 @@ import { Link } from 'components/elements/Link'
 
 import {
   faqFromItems,
-  ProxyHeadersTtlLinks
+  ProxyHeadersTtlLinks,
+  sdkExample
 } from 'components/patterns/FeatureStory'
 
 export const META = {
@@ -94,14 +95,6 @@ export const PARAMS = {
     }
   ]
 }
-
-const sdkExample = body => `import createClient from 'microlink.io'
-
-const microlink = createClient({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-${body}`
 
 export const EXAMPLES = {
   eyebrow: 'Examples',

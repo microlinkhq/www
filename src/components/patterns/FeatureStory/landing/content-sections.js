@@ -6,7 +6,6 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
@@ -47,12 +46,7 @@ export const OverviewSection = ({
   eyebrow = 'Overview',
   title,
   body,
-  bullets,
-  sample,
-  sampleTitle,
-  sampleLanguage = 'json',
-  samples,
-  sampleAliases
+  bullets
 }) => (
   <FeatureSection id='overview'>
     <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
@@ -105,27 +99,6 @@ export const OverviewSection = ({
         </Box>
       )}
     </Box>
-    {samples && (
-      <Box css={theme({ pt: [4, 4, 5, 5], width: '100%', minWidth: 0 })}>
-        <MultiCodeEditor
-          languages={samples}
-          aliases={sampleAliases}
-          storageKey='feature-overview-samples'
-          defaultIndex={0}
-        />
-      </Box>
-    )}
-    {!samples && sample && (
-      <Box css={theme({ pt: [4, 4, 5, 5], maxWidth: layout.large })}>
-        <CodeEditor
-          title={sampleTitle || 'response.json'}
-          language={sampleLanguage}
-          css={theme({ width: '100%' })}
-        >
-          {sample}
-        </CodeEditor>
-      </Box>
-    )}
   </FeatureSection>
 )
 

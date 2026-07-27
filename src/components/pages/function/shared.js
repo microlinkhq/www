@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'components/elements/Link'
 
-import { faqFromItems } from 'components/patterns/FeatureStory'
+import { faqFromItems, sdkExample } from 'components/patterns/FeatureStory'
 
 export const META = {
   title: 'Browser Functions API: microlink.run()',
@@ -91,14 +91,6 @@ export const PARAMS = {
     }
   ]
 }
-
-const sdkExample = body => `import createClient from 'microlink.io'
-
-const microlink = createClient({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-${body}`
 
 export const EXAMPLES = {
   eyebrow: 'Examples',

@@ -30,5 +30,6 @@ export {
   HeadersDocLink,
   ProxyDocLink,
   ProxyHeadersTtlLinks,
+  sdkExample,
   TtlDocLink
 } from './helpers'

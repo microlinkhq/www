@@ -8,7 +8,6 @@ import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import Faq from 'components/patterns/Faq/Faq'
-import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
 
 import { ExamplesSwitcher } from './examples-switcher'
 import { FeatureCard } from './feature-card'
@@ -28,8 +27,6 @@ export const ExamplesSection = ({
   title,
   examples,
   moreHref,
-  samples,
-  sampleAliases,
   panels
 }) => (
   <FeatureSection id='examples'>
@@ -59,18 +56,8 @@ export const ExamplesSection = ({
       ? (
         <ExamplesSwitcher panels={panels} />
         )
-      : samples
+      : examples?.length
         ? (
-          <Box css={theme({ width: '100%', minWidth: 0 })}>
-            <MultiCodeEditor
-              languages={samples}
-              aliases={sampleAliases}
-              storageKey='feature-examples-samples'
-              defaultIndex={0}
-            />
-          </Box>
-          )
-        : (
           <Box
             css={theme({
               display: 'flex',
@@ -123,7 +110,8 @@ export const ExamplesSection = ({
               </Card>
             ))}
           </Box>
-          )}
+          )
+        : null}
   </FeatureSection>
 )
 
