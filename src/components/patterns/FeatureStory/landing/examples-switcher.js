@@ -112,7 +112,7 @@ export const ExamplesSwitcher = ({ panels, defaultIndex = 0 }) => {
       node.removeEventListener('scroll', update)
       window.removeEventListener('resize', update)
     }
-  }, [panels.length, activeIndex, active.snippet])
+  }, [panels.length, activeIndex, active?.snippet])
 
   useEffect(() => {
     tabRefs.current[activeIndex]?.scrollIntoView({
@@ -120,6 +120,8 @@ export const ExamplesSwitcher = ({ panels, defaultIndex = 0 }) => {
       behavior: 'smooth'
     })
   }, [activeIndex])
+
+  if (!panels.length || !active) return null
 
   const selectIndex = (index, { focus } = {}) => {
     if (index < 0 || index >= panels.length) return

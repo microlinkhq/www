@@ -55,7 +55,7 @@ export const ExamplesSection = ({
         </ArrowLink>
       )}
     </Flex>
-    {panels
+    {panels?.length
       ? (
         <ExamplesSwitcher panels={panels} />
         )
