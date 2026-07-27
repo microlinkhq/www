@@ -213,14 +213,6 @@
       },
       {
         "files": [
-          "src/components/pages/features/hero-icons.js"
-        ],
-        "rules": [
-          "react-doctor/no-multi-comp"
-        ]
-      },
-      {
-        "files": [
           "src/components/patterns/FeatureStory/landing/shell.js"
         ],
         "rules": [
