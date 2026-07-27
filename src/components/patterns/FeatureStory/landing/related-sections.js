@@ -1,28 +1,37 @@
-import { theme, shadows } from 'theme'
+import { theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React from 'react'
-import { ChevronRight } from 'react-feather'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
-import { Link } from 'components/elements/Link'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import Faq from 'components/patterns/Faq/Faq'
+import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
+
+import { ExamplesSwitcher } from './examples-switcher'
+import { FeatureCard } from './feature-card'
 
 import {
   SECTION_MAX_WIDTH,
-  SECTION_PX,
-  SECTION_PY
+  SECTION_PX
 } from 'components/patterns/CustomerStory/primitives'
 
-import { ACCENT, getRelatedFeatures } from '../features'
+import { ACCENT, getFeature, getRelatedFeatures } from '../features'
 import { Card, CardBody, CardTitle, Eyebrow } from '../primitives'
 import { FeatureIcon } from './feature-icon'
 import { FeatureSection } from './shell'
 
-export const ExamplesSection = ({ examples, moreHref }) => (
+export const ExamplesSection = ({
+  eyebrow = 'Examples',
+  title,
+  examples,
+  moreHref,
+  samples,
+  sampleAliases,
+  panels
+}) => (
   <FeatureSection id='examples'>
     <Flex
       css={theme({
@@ -34,175 +43,170 @@ export const ExamplesSection = ({ examples, moreHref }) => (
       })}
     >
       <Box>
-        <Eyebrow css={theme({ pb: 2, display: 'block' })}>Examples</Eyebrow>
-        <Subhead css={theme({ textAlign: 'left' })}>Common patterns.</Subhead>
+        <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
+        <Subhead css={theme({ textAlign: 'left' })}>{title}</Subhead>
       </Box>
       {moreHref && (
         <ArrowLink
           href={moreHref}
           css={theme({ color: 'link', fontWeight: 'bold', fontSize: 1 })}
         >
-          More examples →
+          More examples
         </ArrowLink>
       )}
     </Flex>
-    <Flex
-      css={theme({
-        gap: 3,
-        flexDirection: ['column', 'column', 'row', 'row'],
-        alignItems: 'stretch'
-      })}
-    >
-      {examples.map(({ title, description, snippet, href }) => (
-        <Card key={title} css={theme({ flex: '1 1 0', minWidth: 0 })}>
-          <CardTitle as='h3'>{title}</CardTitle>
-          <CardBody>{description}</CardBody>
-          {snippet && (
-            <Box
-              as='pre'
-              css={theme({
-                m: 0,
-                p: 3,
-                bg: 'black025',
-                borderRadius: 2,
-                fontFamily: 'mono',
-                fontSize: 0,
-                color: 'black70',
-                overflowX: 'auto',
-                lineHeight: 2
-              })}
-            >
-              {snippet}
-            </Box>
+    {panels
+      ? (
+        <ExamplesSwitcher panels={panels} />
+        )
+      : samples
+        ? (
+          <Box css={theme({ width: '100%', minWidth: 0 })}>
+            <MultiCodeEditor
+              languages={samples}
+              aliases={sampleAliases}
+              storageKey='feature-examples-samples'
+              defaultIndex={0}
+            />
+          </Box>
+          )
+        : (
+          <Box
+            css={theme({
+              display: 'flex',
+              flexDirection: 'column',
+              gap: [3, 3, 4, 4]
+            })}
+          >
+            {examples.map(({ title: exampleTitle, description, snippet, href }) => (
+              <Card key={exampleTitle} css={theme({ minWidth: 0 })}>
+                <CardTitle as='h3' css={theme({ fontFamily: 'sans' })}>
+                  {exampleTitle}
+                </CardTitle>
+                <CardBody
+                  css={theme({ fontFamily: 'sans', fontSize: [1, 1, 2, 2] })}
+                >
+                  {description}
+                </CardBody>
+                {snippet && (
+                  <Box
+                    as='pre'
+                    css={theme({
+                      m: 0,
+                      p: [3, 3, 4, 4],
+                      bg: 'gray1',
+                      borderRadius: 2,
+                      fontFamily: 'mono',
+                      fontSize: 1,
+                      color: 'black70',
+                      overflowX: 'auto',
+                      lineHeight: 2
+                    })}
+                  >
+                    {snippet}
+                  </Box>
+                )}
+                {href && (
+                  <Box css={theme({ mt: 'auto' })}>
+                    <ArrowLink
+                      href={href}
+                      css={theme({
+                        color: 'link',
+                        fontWeight: 'bold',
+                        fontSize: 1
+                      })}
+                    >
+                      View example
+                    </ArrowLink>
+                  </Box>
+                )}
+              </Card>
+            ))}
+          </Box>
           )}
-          {href && (
-            <Box css={theme({ mt: 'auto' })}>
-              <ArrowLink
-                href={href}
-                css={theme({ color: 'link', fontWeight: 'bold', fontSize: 0 })}
-              >
-                View example →
-              </ArrowLink>
-            </Box>
-          )}
-        </Card>
-      ))}
-    </Flex>
   </FeatureSection>
 )
 
-export const UseCasesSection = ({ useCases }) => (
+export const UseCasesSection = ({ eyebrow = 'Use cases', title, useCases }) => (
   <FeatureSection id='use-cases'>
-    <Eyebrow css={theme({ pb: 2, display: 'block' })}>Use cases</Eyebrow>
+    <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
     <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
-      Where teams use it.
+      {title}
     </Subhead>
-    <Flex
+    <Box
       css={theme({
-        gap: [3, 3, 4, 4],
-        flexWrap: 'wrap',
-        alignItems: 'stretch'
+        display: 'grid',
+        gridTemplateColumns: [
+          'minmax(0, 1fr)',
+          'minmax(0, 1fr)',
+          'repeat(2, minmax(0, 1fr))',
+          'repeat(2, minmax(0, 1fr))'
+        ],
+        gap: [4, 4, 5, 5]
       })}
     >
       {useCases.map(({ title, description, icon }) => (
-        <Box
-          key={title}
-          css={theme({
-            flex: ['1 1 100%', '1 1 45%', '1 1 0', '1 1 0'],
-            minWidth: [0, 0, '140px', '140px']
-          })}
-        >
+        <Box key={title} css={theme({ minWidth: 0 })}>
           <Flex css={theme({ alignItems: 'center', gap: 2, pb: 2 })}>
-            <FeatureIcon name={icon || 'globe'} color='secondary' size={18} />
+            <FeatureIcon name={icon || 'globe'} color='secondary' size={20} />
             <Text
-              css={theme({ fontWeight: 'bold', fontSize: 1, color: 'black' })}
+              css={theme({
+                fontFamily: 'sans',
+                fontWeight: 'bold',
+                fontSize: 2,
+                color: 'black'
+              })}
             >
               {title}
             </Text>
           </Flex>
-          <Text css={theme({ fontSize: 1, color: 'black70', lineHeight: 2 })}>
+          <Text
+            css={theme({
+              fontFamily: 'sans',
+              fontSize: [1, 1, 2, 2],
+              color: 'black70',
+              lineHeight: 2
+            })}
+          >
             {description}
           </Text>
         </Box>
       ))}
-    </Flex>
+    </Box>
   </FeatureSection>
 )
 
-export const RelatedFeaturesSection = ({ slug }) => {
-  const related = getRelatedFeatures(slug)
+export const RelatedFeaturesSection = ({
+  slug,
+  relatedSlugs,
+  eyebrow = 'Related features',
+  title = 'Compose with these next.'
+}) => {
+  const related = relatedSlugs?.length
+    ? relatedSlugs.map(id => getFeature(id)).filter(Boolean)
+    : getRelatedFeatures(slug)
   return (
     <FeatureSection id='related'>
-      <Eyebrow css={theme({ pb: 2, display: 'block' })}>
-        Related features
-      </Eyebrow>
+      <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
       <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
-        Compose with these next.
+        {title}
       </Subhead>
-      <Flex
+      <Box
         css={theme({
-          gap: 3,
-          flexDirection: ['column', 'column', 'row', 'row'],
-          flexWrap: 'wrap'
+          display: 'grid',
+          gridTemplateColumns: [
+            'minmax(0, 1fr)',
+            'minmax(0, 1fr)',
+            'repeat(2, minmax(0, 1fr))',
+            'repeat(2, minmax(0, 1fr))'
+          ],
+          gap: [3, 3, 3, 3]
         })}
       >
         {related.map(feature => (
-          <Link
-            key={feature.slug}
-            href={`/features/${feature.slug}`}
-            css={theme({
-              textDecoration: 'none',
-              color: 'inherit',
-              flex: ['1 1 100%', '1 1 45%', '1 1 0', '1 1 0'],
-              minWidth: 0
-            })}
-          >
-            <Flex
-              css={theme({
-                alignItems: 'center',
-                gap: 3,
-                p: 3,
-                bg: 'white',
-                border: 1,
-                borderColor: 'black10',
-                borderRadius: 3,
-                height: '100%'
-              })}
-              style={{ boxShadow: shadows[0] }}
-            >
-              <FeatureIcon
-                name={feature.icon}
-                color={feature.iconColor}
-                size={20}
-              />
-              <Box css={theme({ flex: '1 1 auto', minWidth: 0 })}>
-                <Text
-                  css={theme({
-                    fontWeight: 'bold',
-                    fontSize: 1,
-                    color: 'black'
-                  })}
-                >
-                  {feature.name}
-                </Text>
-                <Text
-                  css={theme({
-                    fontSize: 0,
-                    color: 'black60',
-                    lineHeight: 2,
-                    pt: 1
-                  })}
-                >
-                  {feature.oneLiner}
-                </Text>
-              </Box>
-              <Box aria-hidden='true' css={theme({ color: 'black40' })}>
-                <ChevronRight size={18} />
-              </Box>
-            </Flex>
-          </Link>
+          <FeatureCard key={feature.slug} feature={feature} />
         ))}
-      </Flex>
+      </Box>
     </FeatureSection>
   )
 }
@@ -219,7 +223,7 @@ export const FeatureFaqSection = ({ questions, moreHref }) => (
     <Box css={theme({ maxWidth: SECTION_MAX_WIDTH, mx: 'auto' })}>
       <Faq
         css={theme({
-          py: SECTION_PY,
+          py: SECTION_VERTICAL_SPACING,
           px: SECTION_PX
         })}
         title='FAQ'
@@ -229,7 +233,7 @@ export const FeatureFaqSection = ({ questions, moreHref }) => (
         <Box
           css={theme({
             px: SECTION_PX,
-            pb: SECTION_PY,
+            pb: SECTION_VERTICAL_SPACING,
             textAlign: 'center'
           })}
         >
@@ -237,7 +241,7 @@ export const FeatureFaqSection = ({ questions, moreHref }) => (
             href={moreHref}
             css={theme({ color: 'link', fontWeight: 'bold', fontSize: 1 })}
           >
-            View all FAQs →
+            View all FAQs
           </ArrowLink>
         </Box>
       )}

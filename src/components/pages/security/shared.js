@@ -1,255 +1,220 @@
 import React from 'react'
-import { Lock } from 'react-feather'
-
-import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
-import { theme } from 'theme'
 
-import { faqFromItems } from 'components/patterns/FeatureStory'
+import {
+  faqFromItems,
+  ProxyHeadersTtlLinks
+} from 'components/patterns/FeatureStory'
 
 export const META = {
-  title: 'Request Security: One Isolated Browser per Request',
+  title: 'Request Security API: Isolated Browsers, SSRF Protected',
   description:
-    'Every Microlink API request runs in its own incognito browser context — no shared cookies, caches, or profiles — with dual-layer SSRF protection that blocks private and reserved IP ranges before and during rendering. Enterprise adds dedicated hardware.'
+    'Every Microlink request runs in its own isolated, ephemeral browser and is destroyed after. SSRF is blocked by default — private and link-local URLs reject with EFORBIDDENURL before any navigation.'
 }
 
 export const HERO = {
   name: 'Request Security',
   title: 'Request Security',
   description:
-    'Every API call gets its own incognito browser context — created for that request, destroyed when it finishes. No shared cookies, caches, or profiles, and every URL is screened against reserved IP ranges.',
-  primaryCta: {
-    label: 'Read security practices →',
-    href: '/security'
-  },
-  secondaryCta: {
-    label: 'View error codes',
-    href: '/docs/api/basics/error-codes#eforbiddenurl'
-  },
+    'One browser. One request. Then gone. Every call runs in its own isolated, ephemeral browser, and SSRF to private targets is blocked with EFORBIDDENURL.',
   plans: [
     {
-      plan: 'Free + Pro',
-      description: 'Isolation and SSRF protection on every plan.'
+      plan: 'Free',
+      description: 'Isolation and SSRF protection on every request.'
     },
     {
-      plan: 'Enterprise',
-      description: 'Dedicated hardware and isolated browser pools.'
+      plan: 'Pro',
+      description: (
+        <>
+          Same guarantees with <ProxyHeadersTtlLinks />.
+        </>
+      )
     }
   ]
 }
 
-export const HeroMark = () => (
-  <Flex
-    css={theme({
-      width: '96px',
-      height: '96px',
-      borderRadius: '50%',
-      border: 1,
-      borderColor: 'black10',
-      bg: 'white',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'blue7'
-    })}
-  >
-    <Lock size={36} />
-  </Flex>
-)
-
 export const OVERVIEW = {
+  eyebrow: 'Overview',
+  title: 'Isolated by default. SSRF blocked.',
   body: (
     <>
-      Each request is assigned its own incognito browser context, destroyed when
-      it finishes. Before fetch, hostnames are DNS-resolved and refused with{' '}
-      <Link href='/docs/api/basics/error-codes#eforbiddenurl'>
-        EFORBIDDENURL
-      </Link>{' '}
-      if they point at reserved ranges. During render, a Chromium interceptor
-      validates every origin the page touches.
+      Every request gets a fresh, isolated browser that is destroyed the moment
+      it finishes — no shared cookies, no leaked state between calls. Requests
+      to private, loopback, or link-local addresses are rejected with{' '}
+      <code>EFORBIDDENURL</code> before any navigation, so a target URL can
+      never reach your internal network. See the{' '}
+      <Link href='/docs/api/getting-started/overview'>API overview</Link>.
     </>
   ),
   bullets: [
-    'One isolated browser context per request',
-    'Dual-layer SSRF protection (DNS + interceptor)',
-    'No shared cookies, caches, or profiles',
-    'User code runs in a VM with hard ceilings'
-  ],
-  sample: `{
-  "status": "fail",
-  "code": "EFORBIDDENURL",
-  "message": "The URL is forbidden"
-}`,
-  sampleTitle: 'response.json'
-}
-
-export const STEPS = [
-  {
-    title: 'Allocate',
-    description: 'Each request gets a dedicated incognito browser context.'
-  },
-  {
-    title: 'Screen',
-    description:
-      'DNS-resolve the host; refuse reserved ranges with EFORBIDDENURL.'
-  },
-  {
-    title: 'Enforce',
-    description: 'A Chromium interceptor aborts mid-render private navigations.'
-  },
-  {
-    title: 'Destroy',
-    description:
-      'Context is destroyed on completion — never recycled across tenants.'
-  }
-]
-
-export const LANGUAGES = {
-  cURL: `# Private / metadata targets are refused before fetch
-curl -G 'https://api.microlink.io' \\
-  --data-urlencode 'url=http://169.254.169.254'
-# → EFORBIDDENURL`,
-  JavaScript: `import mql from '@microlink/mql'
-
-try {
-  await mql('http://169.254.169.254')
-} catch (error) {
-  console.log(error.code) // EFORBIDDENURL
-}`,
-  Python: `import requests
-
-response = requests.get(
-  'https://api.microlink.io',
-  params={'url': 'http://169.254.169.254'}
-)
-print(response.json())  # EFORBIDDENURL`,
-  Go: `package main
-
-import (
-  "fmt"
-  "net/http"
-  "io"
-)
-
-func main() {
-  resp, err := http.Get(
-    "https://api.microlink.io?url=http%3A%2F%2F169.254.169.254")
-  if err != nil { panic(err) }
-  defer resp.Body.Close()
-  body, _ := io.ReadAll(resp.Body)
-  fmt.Println(string(body)) // EFORBIDDENURL
-}`
-}
-
-export const QUICK_START = {
-  description:
-    'SSRF protection and per-request isolation are always on — no configuration required.',
-  playgroundHref: '/security',
-  playgroundLabel: 'Read security practices →'
+    'One ephemeral browser per request — created, used, destroyed',
+    'No state, cookies or storage shared between calls',
+    'SSRF blocked: private / loopback / link-local URLs are refused',
+    'EFORBIDDENURL rejects unsafe targets before navigation',
+    'Errors are typed: catch MicrolinkError for code and description'
+  ]
 }
 
 export const PARAMS = {
-  docsHref: '/docs/api/basics/error-codes#eforbiddenurl',
+  eyebrow: 'Parameters',
+  title: 'The guarantees on every call.',
+  docsHref: '/docs/api/getting-started/overview',
   rows: [
     {
       name: 'url',
       type: 'string',
-      description:
-        'Validated against reserved IP ranges before and during render.',
+      description: 'Validated for SSRF before any browser navigates to it.',
       required: true,
-      plan: 'Free + Pro'
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/url'
     },
     {
-      name: 'function',
-      type: 'string',
-      description: 'User code runs in a VM with timeout and memory ceilings.',
+      name: 'EFORBIDDENURL',
+      type: 'error code',
+      description: 'Rejects private, loopback and link-local targets.',
       required: false,
-      plan: 'Free + Pro'
+      plan: 'Free + Pro',
+      href: '/docs/api/getting-started/overview'
     },
     {
-      name: 'x-api-header-*',
-      type: 'request header',
-      description: 'Secrets redacted from logs; cache keys include headers.',
+      name: 'MicrolinkError',
+      type: 'error',
+      description: 'Carries code, statusCode and a human-readable description.',
       required: false,
-      plan: 'Pro'
+      plan: 'Free + Pro',
+      href: '/docs/api/getting-started/overview'
+    },
+    {
+      name: 'isolation',
+      type: 'guarantee',
+      description: 'One ephemeral browser per request, destroyed after use.',
+      required: false,
+      plan: 'Free + Pro',
+      href: '/docs/api/getting-started/overview'
     }
   ]
 }
+
+const sdkExample = body => `import createClient from 'microlink.io'
+
+const microlink = createClient({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+
+${body}`
 
 export const EXAMPLES = {
-  moreHref: '/security',
-  items: [
+  eyebrow: 'Examples',
+  title: 'Guards you never opt into.',
+  panels: [
     {
-      title: 'SSRF refusal',
-      description:
-        'Private and cloud-metadata targets are refused before fetch.',
-      snippet: `url: 'http://169.254.169.254'
-→ EFORBIDDENURL`,
-      href: '/docs/api/basics/error-codes#eforbiddenurl'
+      id: 'ssrf',
+      title: 'SSRF is refused',
+      description: 'A link-local metadata URL rejects before navigation.',
+      language: 'js',
+      snippet: sdkExample(`await microlink.metadata(
+  'http://169.254.169.254'
+)
+// → MicrolinkError { code: 'EFORBIDDENURL' }`)
     },
     {
-      title: 'Sandboxed function',
-      description: 'User JS runs with timeout, memory, and egress ceilings.',
-      snippet: '// VM sandbox + hard limits',
-      href: '/features/function'
+      id: 'catch-error',
+      title: 'Catch MicrolinkError',
+      description: 'Typed errors carry code and a readable description.',
+      language: 'js',
+      snippet: `import createClient, { MicrolinkError } from 'microlink.io'
+
+const microlink = createClient({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+
+microlink.screenshot(url).catch(error => {
+  if (error instanceof MicrolinkError) {
+    console.error(error.code, error.description)
+  }
+})`
     },
     {
-      title: 'Credential-safe cache',
-      description: 'Cache keys incorporate headers so sessions never cross.',
-      snippet: '// SHA-512(url + headers…)',
-      href: '/features/ttl'
+      id: 'isolation',
+      title: 'Isolated by default',
+      description: 'No cookies or state carry over between requests.',
+      language: 'js',
+      snippet: sdkExample(`await microlink.metadata('https://a.example')
+await microlink.metadata('https://b.example')
+// → separate browsers, nothing shared`)
+    },
+    {
+      id: 'user-urls',
+      title: 'User-supplied URLs',
+      description: 'Render links from users without exposing internal hosts.',
+      language: 'js',
+      snippet: sdkExample(`async function preview (userUrl) {
+  try {
+    return await microlink.metadata(userUrl)
+  } catch (error) {
+    if (error.code === 'EFORBIDDENURL') {
+      return { blocked: true }
+    }
+    throw error
+  }
+}`)
+    },
+    {
+      id: 'compose',
+      title: 'Same guards under Pro options',
+      description: 'proxy, headers, and ttl still run inside the sandbox.',
+      language: 'js',
+      snippet: sdkExample(`const md = await microlink.markdown(url, {
+  proxy: true,
+  headers: { 'x-api-header-cookie': 'session=…' },
+  ttl: '1h'
+})
+// → still isolated; still SSRF-checked`)
     }
   ]
 }
 
-export const USE_CASES = [
-  {
-    title: 'Multi-tenant APIs',
-    description: 'Untrusted URLs cannot reach other tenants’ browser state.',
-    icon: 'lock'
-  },
-  {
-    title: 'SSRF-hardened rendering',
-    description: 'Block loopback, private nets, and cloud metadata.',
-    icon: 'shield'
-  },
-  {
-    title: 'Secret-safe private pages',
-    description: 'Headers redacted from logs; cache keyed by credentials.',
-    icon: 'list'
-  },
-  {
-    title: 'Contained user code',
-    description: 'function runs under VM ceilings — not an egress proxy.',
-    icon: 'code'
-  },
-  {
-    title: 'Enterprise isolation',
-    description: 'Dedicated endpoint, isolated browser pool, GDPR DPA.',
-    icon: 'globe'
-  }
-]
+export const RELATED = {
+  relatedSlugs: ['headers', 'proxy', 'antibot', 'ttl'],
+  title: 'Trust, access and isolation.'
+}
 
 export const FAQ_RAW = [
   {
-    question: 'Does every request really get its own browser?',
-    text: 'Yes. Each request is assigned its own incognito browser context, created when the request starts and destroyed when it finishes. Contexts are never shared or reused across requests.'
+    question: 'What does “isolated browser per request” mean?',
+    text: 'Every request gets its own fresh browser instance that is destroyed as soon as the response is sent. No cookies, storage or state are shared between calls, so one request can never observe or affect another.'
   },
   {
     question: 'How does Microlink prevent SSRF?',
-    text: 'At two layers. Before the fetch, the hostname is resolved via DNS and refused with EFORBIDDENURL if it points at a reserved range. During rendering, a Chromium request interceptor validates every origin the page touches.'
+    text: 'Before any navigation, the target URL is validated. Requests to private, loopback, or link-local addresses — like 127.0.0.1, 10.0.0.0/8, or 169.254.169.254 — are rejected with the EFORBIDDENURL error, so a target can never reach your internal network.'
   },
   {
-    question: 'Are cookies, cache, or sessions shared between requests?',
-    text: 'No. All browser state lives inside the request’s own incognito context and is destroyed with it. Cached API responses are keyed by SHA-512 hashes that incorporate request headers.'
+    question: 'What is EFORBIDDENURL?',
+    text: 'It is the error code returned when a URL is not allowed for security reasons, typically because it resolves to a private or link-local address. It rejects before the browser navigates, so the unsafe request never runs.'
   },
   {
-    question: 'What limits apply to user-supplied code?',
-    text: 'Code passed through the function parameter runs inside a VM with an execution timeout and a memory ceiling. On the free plan, cross-origin fetch, XHR, and WebSocket calls are blocked.'
+    question: 'How do I handle security errors in code?',
+    text: 'API errors reject with a MicrolinkError carrying code, statusCode and a human-readable description. Import it from microlink.io and branch on error.code to handle EFORBIDDENURL and other cases explicitly.'
   },
   {
-    question: 'What additional security does Enterprise provide?',
-    text: 'Microlink Enterprise runs the full API on hardware that serves only you: a dedicated endpoint backed by an isolated pool of always-ready browsers, deployable in 8 locations, with a 99.9% uptime SLA.'
+    question: 'Do these protections apply on the free plan?',
+    text: 'Yes. Per-request isolation and SSRF protection apply to every request on every plan, with no configuration required. They hold the same when you add proxy, headers or ttl on Pro.',
+    answer: (
+      <div>
+        Yes. Per-request isolation and SSRF protection apply to every request on
+        every plan, with no configuration required. They hold the same when you
+        add <ProxyHeadersTtlLinks ttlLabel='ttl' /> on Pro.
+      </div>
+    )
   }
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+
+export const TOC = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'parameters', label: 'Parameters' },
+  { id: 'examples', label: 'Examples' },
+  { id: 'related', label: 'Related features' },
+  { id: 'faq', label: 'FAQ' }
+]

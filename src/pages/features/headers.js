@@ -1,42 +1,28 @@
-import { theme } from 'theme'
 import React from 'react'
 
-import Box from 'components/elements/Box'
 import Meta from 'components/elements/Meta/Meta'
 
-import {
-  DashedGridOverlay,
-  FeaturePageShell
-} from 'components/patterns/FeatureStory'
+import { FeaturePageShell } from 'components/patterns/FeatureStory'
 import Layout from 'components/patterns/Layout'
 
 import { Examples } from 'components/pages/headers/examples'
 import { FAQ_ITEMS, FaqSection } from 'components/pages/headers/faq'
 import { Hero } from 'components/pages/headers/hero'
-import { HowItWorks } from 'components/pages/headers/how-it-works'
 import { Overview } from 'components/pages/headers/overview'
 import { Parameters } from 'components/pages/headers/parameters'
-import { QuickStart } from 'components/pages/headers/quick-start'
 import { Related } from 'components/pages/headers/related'
-import { META } from 'components/pages/headers/shared'
-import { UseCases } from 'components/pages/headers/use-cases'
+import { META, TOC } from 'components/pages/headers/shared'
 
 const HeadersFeaturePage = () => (
-  <Layout css={theme({ position: 'relative' })}>
-    <DashedGridOverlay aria-hidden='true' />
-    <Box css={theme({ position: 'relative', zIndex: 1 })}>
-      <FeaturePageShell>
-        <Hero />
-        <Overview />
-        <HowItWorks />
-        <QuickStart />
-        <Parameters />
-        <Examples />
-        <UseCases />
-        <Related />
-      </FeaturePageShell>
-      <FaqSection />
-    </Box>
+  <Layout>
+    <FeaturePageShell toc={TOC}>
+      <Hero />
+      <Overview />
+      <Parameters />
+      <Examples />
+      <Related />
+    </FeaturePageShell>
+    <FaqSection />
   </Layout>
 )
 

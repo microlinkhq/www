@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FeatureHero } from 'components/patterns/FeatureStory'
 
-import { HERO, HeroMark } from './shared'
+import { HERO } from './shared'
 
 export const Hero = () => (
   <FeatureHero
@@ -12,6 +12,5 @@ export const Hero = () => (
     primaryCta={HERO.primaryCta}
     secondaryCta={HERO.secondaryCta}
     plans={HERO.plans}
-    heroMark={<HeroMark />}
   />
 )

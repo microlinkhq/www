@@ -5,5 +5,9 @@ import { ExamplesSection } from 'components/patterns/FeatureStory'
 import { EXAMPLES } from './shared'
 
 export const Examples = () => (
-  <ExamplesSection examples={EXAMPLES.items} moreHref={EXAMPLES.moreHref} />
+  <ExamplesSection
+    eyebrow={EXAMPLES.eyebrow}
+    title={EXAMPLES.title}
+    panels={EXAMPLES.panels}
+  />
 )

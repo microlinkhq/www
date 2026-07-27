@@ -1,245 +1,211 @@
 import React from 'react'
-import { MousePointer } from 'react-feather'
-
-import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
-import { theme } from 'theme'
 
 import {
-  buildMqlLanguages,
-  faqFromItems
+  faqFromItems,
+  ProxyHeadersTtlLinks
 } from 'components/patterns/FeatureStory'
 
 export const META = {
-  title: 'Browser Automation API: Control the Page Before Capture',
+  title: 'Browser Automation API: Shape the Page Before Capture',
   description:
-    'Control a headless browser via query parameters — click elements, scroll, wait for dynamic content, emulate devices and dark mode, inject CSS or JavaScript, and block ads and cookie banners by default. The same parameters apply to screenshots, PDFs, metadata, and data extraction, and they all work on the free tier.'
+    'Set device, wait for the right state, click, and inject scripts as declarative options on any Microlink request — the page is shaped before the screenshot, PDF, or data is taken.'
 }
 
 export const HERO = {
   name: 'Browser Automation',
   title: 'Browser Automation',
   description:
-    'Click, scroll, wait, emulate devices, and inject CSS or JavaScript — shape the page before every capture.',
-  primaryCta: {
-    label: 'Try it in Playground →',
-    href: '/blog/browser-automation'
-  },
-  secondaryCta: {
-    label: 'View API docs',
-    href: '/docs/api/parameters/click'
-  },
+    'Shape the page first. Set the device, wait for the right state, click, and run scripts — declarative options on the same request, applied before capture.',
   plans: [
-    { plan: 'Free', description: 'Every browser parameter on every output.' },
-    { plan: 'Pro', description: 'Proxy, headers, and configurable TTL on top.' }
+    {
+      plan: 'Free',
+      description: 'device, waitUntil, click and scripts on any product.'
+    },
+    {
+      plan: 'Pro',
+      description: (
+        <>
+          Longer waits plus <ProxyHeadersTtlLinks /> on the same call.
+        </>
+      )
+    }
   ]
 }
 
-export const HeroMark = () => (
-  <Flex
-    css={theme({
-      width: '96px',
-      height: '96px',
-      borderRadius: '50%',
-      border: 1,
-      borderColor: 'black10',
-      bg: 'white',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'green7'
-    })}
-  >
-    <MousePointer size={36} />
-  </Flex>
-)
-
 export const OVERVIEW = {
+  eyebrow: 'Overview',
+  title: 'Declarative steps, then the capture.',
   body: (
     <>
-      Declarative query parameters control the headless browser on every
-      request. The page state you shape is the page every output sees —{' '}
-      <Link href='/screenshot'>screenshots</Link>, <Link href='/pdf'>PDFs</Link>
-      , <Link href='/metadata'>metadata</Link>, and{' '}
-      <Link href='/features/scraping'>data extraction</Link> alike.
+      Pass automation options on any product call —{' '}
+      <Link href='/docs/api/parameters/device'>device</Link>,{' '}
+      <Link href='/docs/api/parameters/waitUntil'>waitUntil</Link>,{' '}
+      <Link href='/docs/api/parameters/waitForSelector'>waitForSelector</Link>,{' '}
+      <Link href='/docs/api/parameters/click'>click</Link>,{' '}
+      <Link href='/docs/api/parameters/scripts'>scripts</Link>. The page is
+      shaped into the right state before the screenshot, PDF, or data is taken.
     </>
   ),
   bullets: [
-    'Click, scroll, and wait before capture',
-    'Device presets, dark mode, and print styles',
-    'Inject CSS or JavaScript when you need it',
-    'Adblock on by default — banners and trackers stay out'
-  ],
-  sample: `{
-  "screenshot": {
-    "url": "https://cdn.microlink.io/…",
-    "width": 393,
-    "height": 852
-  }
-}`,
-  sampleTitle: 'response.json'
-}
-
-export const STEPS = [
-  {
-    title: 'Request',
-    description: 'Send url plus declarative browser parameters on any workflow.'
-  },
-  {
-    title: 'Emulate',
-    description: 'Apply device, viewport, colorScheme, and mediaType.'
-  },
-  {
-    title: 'Interact',
-    description: 'click, scroll, and wait* shape the live page state.'
-  },
-  {
-    title: 'Capture',
-    description: 'The same prepared page feeds screenshot, pdf, data, and meta.'
-  }
-]
-
-export const LANGUAGES = buildMqlLanguages({
-  url: 'https://example.com',
-  options: {
-    screenshot: true,
-    device: 'iPhone 15 Pro',
-    colorScheme: 'dark',
-    meta: false
-  },
-  comment: 'Dark-mode iPhone screenshot'
-})
-
-export const QUICK_START = {
-  description:
-    'A single device value sets viewport, user agent, and resolution. Compose with colorScheme, click, and waitForSelector.',
-  playgroundHref: '/docs/guides/screenshot/browser-settings'
+    'One product call — the page is prepared, then captured',
+    'device emulates viewport, DPR and user-agent presets',
+    'waitUntil / waitForSelector settle dynamic, client-rendered pages',
+    'click, scroll and scripts drive the UI before extraction',
+    'Escalate to a function only when the flow is truly custom'
+  ]
 }
 
 export const PARAMS = {
-  docsHref: '/docs/api/parameters/click',
+  eyebrow: 'Parameters',
+  title: 'Options that shape the page.',
+  docsHref: '/docs/api/parameters/prerender',
   rows: [
     {
-      name: 'click',
-      type: 'string | string[]',
-      description: 'Click DOM elements by CSS selector before capture.',
+      name: 'device',
+      type: 'string',
+      description: 'Emulate a viewport, DPR and user-agent preset before load.',
       required: false,
-      plan: 'Free + Pro'
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/device'
+    },
+    {
+      name: 'waitUntil',
+      type: 'string',
+      description: "Navigation settle event — 'networkidle0', 'load', ….",
+      required: false,
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/waitUntil'
     },
     {
       name: 'waitForSelector',
       type: 'string',
-      description: 'Pause until an element exists in the DOM.',
+      description: 'Block until a selector is present before capturing.',
       required: false,
-      plan: 'Free + Pro'
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/waitForSelector'
     },
     {
-      name: 'device',
+      name: 'click / scroll',
       type: 'string',
-      description: 'Device preset (viewport + UA + resolution).',
+      description: 'Interact with the page — target elements by selector.',
       required: false,
-      plan: 'Free + Pro'
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/click'
     },
     {
-      name: 'colorScheme',
-      type: "'light' | 'dark'",
-      description: 'Force prefers-color-scheme.',
-      required: false,
-      plan: 'Free + Pro'
-    },
-    {
-      name: 'styles',
+      name: 'scripts',
       type: 'string | string[]',
-      description: 'Inject CSS before render.',
+      description: 'Inject and run JavaScript in the page context before read.',
       required: false,
-      plan: 'Free + Pro'
-    },
-    {
-      name: 'prerender',
-      type: "boolean | 'auto'",
-      description: 'Force or auto-enable headless Chrome for SPAs.',
-      required: false,
-      plan: 'Free + Pro'
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/scripts'
     }
   ]
 }
+
+const sdkExample = body => `import createClient from 'microlink.io'
+
+const microlink = createClient({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+
+${body}`
 
 export const EXAMPLES = {
-  moreHref: '/blog/browser-automation',
-  items: [
+  eyebrow: 'Examples',
+  title: 'Shape the page, then capture.',
+  panels: [
     {
-      title: 'Dark mode iPhone',
-      description: 'Device + colorScheme on a single screenshot request.',
-      snippet: `screenshot: true,
-device: 'iPhone 15 Pro',
-colorScheme: 'dark'`,
-      href: '/docs/api/parameters/device'
+      id: 'device',
+      title: 'Emulate a phone',
+      description:
+        'device presets the viewport before the screenshot is taken.',
+      language: 'js',
+      snippet: sdkExample(`const { url } = await microlink.screenshot(
+  'https://example.com',
+  { device: 'iPhone 11', fullPage: true }
+)`)
     },
     {
-      title: 'Click, wait, extract',
-      description: 'Open a tab, wait for price, then run data rules.',
-      snippet: `click: '.tab-annual',
-waitForSelector: '.price',
-data: { price: { selector: '.price', attr: 'text' } }`,
-      href: '/docs/guides/data-extraction/page-preparation'
+      id: 'click-wait',
+      title: 'Click, wait, capture',
+      description: 'Open the annual tab and wait for the price to render.',
+      language: 'js',
+      snippet: sdkExample(`const { url } = await microlink.screenshot(
+  'https://example.com/pricing',
+  { click: '.tab-annual', waitForSelector: '.price' }
+)`)
     },
     {
-      title: 'Hide UI with styles',
-      description: 'Inject CSS for site-specific chrome adblock misses.',
-      snippet: "styles: ['.cookie-banner { display: none !important }']",
-      href: '/docs/api/parameters/styles'
+      id: 'wait-until',
+      title: 'PDF after network idle',
+      description: 'Let async content settle before rendering to PDF.',
+      language: 'js',
+      snippet: sdkExample(`const { url } = await microlink.pdf(
+  'https://example.com/report',
+  { waitUntil: 'networkidle0', format: 'A4' }
+)`)
+    },
+    {
+      id: 'scripts',
+      title: 'Inject a script',
+      description: 'Dismiss a banner or expand a section before capture.',
+      language: 'js',
+      snippet: sdkExample(`const { url } = await microlink.screenshot(url, {
+  scripts: [
+    "document.querySelector('.cookie-banner')?.remove()"
+  ]
+})`)
+    },
+    {
+      id: 'extract',
+      title: 'Wait, then extract',
+      description: 'Settle the SPA, then pull structured fields.',
+      language: 'js',
+      snippet: sdkExample(`const { price } = await microlink.extract(
+  'https://example.com/pricing',
+  { price: { selector: '.price', type: 'string' } },
+  { click: '.tab-annual', waitForSelector: '.price' }
+)`)
     }
   ]
 }
 
-export const USE_CASES = [
-  {
-    title: 'Mobile & dark-mode QA',
-    description: 'Capture what an iPhone user would see.',
-    icon: 'mouse'
-  },
-  {
-    title: 'SPA scraping',
-    description: 'Click tabs and wait before data extraction.',
-    icon: 'code'
-  },
-  {
-    title: 'Clean screenshots',
-    description: 'Adblock strips ads and cookie banners by default.',
-    icon: 'shield'
-  },
-  {
-    title: 'Print / theme overrides',
-    description: 'mediaType and styles rewrite the page before PDF.',
-    icon: 'list'
-  },
-  {
-    title: 'Escalate to functions',
-    description: 'When params stop being enough, use full Puppeteer.',
-    icon: 'globe'
-  }
-]
+export const RELATED = {
+  relatedSlugs: ['function', 'scraping', 'proxy', 'antibot'],
+  title: 'Pair automation with these.'
+}
 
 export const FAQ_RAW = [
   {
-    question: 'Can I click or scroll before the capture happens?',
-    text: 'Yes. The click parameter clicks DOM elements matching CSS selectors, and scroll brings a specific element into view. Both mutate the browser page state before any output is produced.'
+    question: 'How is automation different from a function?',
+    text: 'Automation is declarative: device, waitUntil, click, scroll and scripts are options on a normal product call, so the page is shaped and then captured. A function is imperative code you author when a flow is too custom for those options.'
   },
   {
-    question: 'How do I wait for dynamic content to render?',
-    text: 'Use waitForSelector for a specific element, waitUntil for lifecycle events, or waitForTimeout for a fixed delay. For SPAs, prerender makes sure client-rendered content is executed before capture.'
+    question: 'Do automation options work on the free plan?',
+    text: 'Yes. device, waitUntil, waitForSelector, click, scroll and scripts all work on the free tier. Pro raises the time budget and lets you combine them with proxy, custom headers and configurable TTL.'
   },
   {
-    question: 'Can I emulate a mobile device or dark mode?',
-    text: 'Yes. A single device value sets viewport, user agent, and resolution. colorScheme forces prefers-color-scheme to light or dark.'
+    question: 'When should I use waitUntil vs waitForSelector?',
+    text: 'Use waitUntil to gate on a navigation event like networkidle0 for whole-page settling. Use waitForSelector when you know the exact element that signals the page is ready, which is more precise for single-page apps.'
   },
   {
-    question: 'How do I get rid of cookie banners and ads?',
-    text: 'Adblock is enabled by default and blocks advertisements, trackers, and cookie-consent services. For anything site-specific, inject a styles rule or use click to dismiss it.'
+    question: 'Can I run my own JavaScript before capture?',
+    text: 'Yes. Pass scripts to inject and execute JavaScript in the page context before the product reads it — useful for dismissing banners or expanding sections. For return values and npm packages, use the function parameter instead.'
   },
   {
-    question: 'Do these parameters work on the free plan?',
-    text: 'Yes — every browser automation parameter works on the free tier across every output. Pro adds proxy resolution, custom headers, and configurable TTL.'
+    question: 'Does automation compose with other products?',
+    text: 'Yes. The same options apply to screenshot, pdf, markdown and extract, and they stack with proxy, headers and ttl on Pro so one call can emulate a device, unblock the target, and cache the result.'
   }
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+
+export const TOC = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'parameters', label: 'Parameters' },
+  { id: 'examples', label: 'Examples' },
+  { id: 'related', label: 'Related features' },
+  { id: 'faq', label: 'FAQ' }
+]

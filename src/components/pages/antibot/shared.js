@@ -1,253 +1,201 @@
 import React from 'react'
-import { Activity } from 'react-feather'
-
-import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
-import { theme } from 'theme'
 
 import { faqFromItems } from 'components/patterns/FeatureStory'
 
 export const META = {
-  title: 'Antibot Detection: Know Who Blocked Your Request',
+  title: 'Antibot Detection API: Know Who Blocked You',
   description:
-    'Detect antibot and CAPTCHA challenges from 30+ providers — Cloudflare, Akamai, DataDome, reCAPTCHA, hCaptcha, and more — on every HTTP response. Pro plans route detected blocks through automatic proxy resolution; the detection layer is open source as is-antibot.'
+    'Microlink identifies 30+ anti-bot providers — Cloudflare, DataDome, Akamai and more — and names the one guarding a target. Once you know who blocked you, resolve it with proxy: true on the same request.'
 }
 
 export const HERO = {
   name: 'Antibot Detection',
   title: 'Antibot Detection',
   description:
-    'Detect antibot and CAPTCHA challenges from 30+ providers in every HTTP response — then route the request through the resolution path that provider requires.',
-  primaryCta: {
-    label: 'See proxy resolution →',
-    href: '/features/proxy'
-  },
-  secondaryCta: {
-    label: 'View on GitHub',
-    href: 'https://github.com/microlinkhq/is-antibot'
-  },
+    'Know who blocked you. Microlink identifies 30+ anti-bot providers guarding a target, names the signal, and lets you resolve it with proxy on the same call.',
   plans: [
     {
       plan: 'Free',
-      description: 'Detection signals; EPROXYNEEDED when blocked.'
+      description: 'Detection surfaces the provider guarding a target.'
     },
-    { plan: 'Pro', description: 'Automatic resolution after detection.' }
+    {
+      plan: 'Pro',
+      description: 'Resolve the block with proxy: true on the same request.'
+    }
   ]
 }
 
-export const HeroMark = () => (
-  <Flex
-    css={theme({
-      width: '96px',
-      height: '96px',
-      borderRadius: '50%',
-      border: 1,
-      borderColor: 'black10',
-      bg: 'white',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'pink7'
-    })}
-  >
-    <Activity size={36} />
-  </Flex>
-)
-
 export const OVERVIEW = {
+  eyebrow: 'Overview',
+  title: 'Detection first. Then resolution.',
   body: (
     <>
-      Every HTTP response is inspected across headers, cookies, HTML, URL, and
-      status code. The detection layer is open source as{' '}
-      <Link href='https://github.com/microlinkhq/is-antibot'>is-antibot</Link>.
-      On Pro, a detected block feeds{' '}
-      <Link href='/features/proxy'>automatic proxy resolution</Link>.
+      Before a request silently fails, Microlink fingerprints the defense in
+      front of a target and names the provider — Cloudflare, DataDome, Akamai
+      and 30+ more. Once you know who blocked you, resolve it with{' '}
+      <Link href='/docs/api/parameters/proxy'>proxy: true</Link> on the same
+      request.
     </>
   ),
   bullets: [
-    '30+ antibot and CAPTCHA providers',
-    'Static analysis — no extra browser cost',
-    'Open source fingerprints you can audit',
-    'Pro routes the right resolution path automatically'
-  ],
-  sample: `{
-  "detected": true,
-  "provider": "cloudflare",
-  "detection": "headers"
-}`,
-  sampleTitle: 'is-antibot'
-}
-
-export const STEPS = [
-  {
-    title: 'Status',
-    description: 'Unusual codes (e.g. LinkedIn 999) often classify the block.'
-  },
-  {
-    title: 'Headers',
-    description: 'Mitigation fingerprints like cf-mitigated identify providers.'
-  },
-  {
-    title: 'Cookies & HTML',
-    description:
-      'Challenge tokens and interstitial templates confirm the vendor.'
-  },
-  {
-    title: 'Resolve',
-    description: 'Pro routes the residential / browser path for that provider.'
-  }
-]
-
-export const LANGUAGES = {
-  cURL: `# Use is-antibot locally, or call Microlink Pro for auto-resolve
-curl -sI 'https://example.com' | head`,
-  JavaScript: `import isAntibot from 'is-antibot'
-
-const response = await fetch('https://example.com')
-
-const { detected, provider, detection } = isAntibot({
-  headers: Object.fromEntries(response.headers),
-  statusCode: response.status,
-  html: await response.text(),
-  url: response.url
-})
-
-if (detected) {
-  console.log(\`Blocked by \${provider} (via \${detection})\`)
-}`,
-  Python: `import requests
-
-# Microlink Pro auto-resolves after detection
-response = requests.get(
-  'https://api.microlink.io',
-  params={'url': 'https://example.com'},
-  headers={'x-api-key': 'YOUR_API_KEY'}
-)
-print(response.headers.get('x-fetch-mode'))`,
-  Go: `package main
-
-import (
-  "fmt"
-  "net/http"
-  "io"
-)
-
-func main() {
-  resp, err := http.Get("https://api.microlink.io?url=https%3A%2F%2Fexample.com")
-  if err != nil { panic(err) }
-  defer resp.Body.Close()
-  fmt.Println(resp.Header.Get("x-fetch-mode"))
-  body, _ := io.ReadAll(resp.Body)
-  fmt.Println(string(body))
-}`
-}
-
-export const QUICK_START = {
-  description:
-    'Run is-antibot against any HTTP response, or let Microlink Pro detect and resolve automatically.',
-  playgroundHref: 'https://github.com/microlinkhq/is-antibot',
-  playgroundLabel: 'View is-antibot on GitHub →'
+    'Identifies 30+ anti-bot providers — not just a generic “blocked”',
+    'The provider name tells you what you are up against',
+    'Resolve detected blocks with proxy: true on the same call',
+    'Detection is a signal, not a dead end — the flow keeps going',
+    'Composes with headers to pass session cookies through'
+  ]
 }
 
 export const PARAMS = {
-  docsHref: '/features/proxy',
+  eyebrow: 'Parameters',
+  title: 'Detection and resolution signals.',
+  docsHref: '/docs/api/parameters/proxy',
   rows: [
     {
-      name: '(automatic)',
-      type: 'n/a',
-      description: 'Detection runs on every API response; no opt-in parameter.',
+      name: 'detected',
+      type: 'boolean',
+      description: 'Whether an anti-bot defense guards the target.',
       required: false,
-      plan: 'Detection: all'
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/proxy'
+    },
+    {
+      name: 'provider',
+      type: 'string',
+      description: "The named defense — 'cloudflare', 'datadome', 'akamai', ….",
+      required: false,
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/proxy'
     },
     {
       name: 'proxy',
       type: 'boolean | string',
-      description: 'Resolution path after detection (auto on Pro).',
+      description:
+        'Resolve a detected block via residential IPs, or BYO proxy.',
       required: false,
-      plan: 'Pro'
+      plan: 'Pro',
+      href: '/docs/api/parameters/proxy'
     },
     {
-      name: 'is-antibot',
-      type: 'library',
-      description: 'Standalone OSS detector for any HTTP client.',
+      name: 'headers',
+      type: 'object',
+      description: 'Forward session cookies through with x-api-header-cookie.',
       required: false,
-      plan: 'Open source'
+      plan: 'Pro',
+      href: '/docs/api/parameters/headers'
     }
   ]
 }
+
+const sdkExample = body => `import createClient from 'microlink.io'
+
+const microlink = createClient({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+
+${body}`
 
 export const EXAMPLES = {
-  moreHref: 'https://github.com/microlinkhq/is-antibot',
-  items: [
+  eyebrow: 'Examples',
+  title: 'Detect, then resolve.',
+  panels: [
     {
-      title: 'Audit with is-antibot',
-      description: 'Open-source static analysis of any HTTP response.',
-      snippet: 'isAntibot({ headers, statusCode, html, url })',
-      href: 'https://github.com/microlinkhq/is-antibot'
+      id: 'resolve',
+      title: 'Resolve a detected block',
+      description: 'Once the provider is named, proxy: true routes around it.',
+      language: 'js',
+      snippet: sdkExample(`const { title } = await microlink.metadata(
+  'https://protected-target.com',
+  { proxy: true }
+)`)
     },
     {
-      title: 'Pro auto-resolve',
-      description: 'Detection feeds residential resolution.',
-      snippet: '// x-fetch-mode: fetch-proxy',
-      href: '/features/proxy'
+      id: 'signal',
+      title: 'Read the detection signal',
+      description: 'EPROXYNEEDED means a defense refused a direct request.',
+      language: 'js',
+      snippet: sdkExample(`try {
+  await microlink.metadata(url)
+} catch (error) {
+  console.log(error.code) // → 'EPROXYNEEDED'
+}`)
     },
     {
-      title: 'Classify outcomes',
-      description: 'Allowed, Blocked, or Challenged on every response.',
-      snippet: 'detected / provider / detection',
-      href: '/blog/antibot-detection-at-scale'
+      id: 'retry',
+      title: 'Smart retry',
+      description:
+        'Escalate to proxy only when the target refuses direct access.',
+      language: 'js',
+      snippet: sdkExample(`try {
+  return await microlink.metadata(url)
+} catch (error) {
+  if (error.code === 'EPROXYNEEDED') {
+    return microlink.metadata(url, { proxy: true })
+  }
+  throw error
+}`)
+    },
+    {
+      id: 'auth',
+      title: 'Unblock, then authenticate',
+      description: 'Combine proxy resolution with a forwarded session cookie.',
+      language: 'js',
+      snippet: sdkExample(`const md = await microlink.markdown(
+  'https://protected-target.com/account',
+  {
+    proxy: true,
+    headers: { 'x-api-header-cookie': 'session=…' }
+  }
+)`)
+    },
+    {
+      id: 'with-ttl',
+      title: 'Cache after resolution',
+      description: 'ttl keeps the unblocked result warm for the next run.',
+      language: 'js',
+      snippet: sdkExample(`const { title } = await microlink.metadata(url, {
+  proxy: true,
+  ttl: '6h'
+})`)
     }
   ]
 }
 
-export const USE_CASES = [
-  {
-    title: 'Stop blind retries',
-    description: 'Know which provider blocked you before rerouting.',
-    icon: 'radar'
-  },
-  {
-    title: 'Scraper observability',
-    description: 'Classify Allowed vs Blocked vs Challenged.',
-    icon: 'list'
-  },
-  {
-    title: 'OSS fingerprint audits',
-    description: 'Run is-antibot with fetch, got, or axios.',
-    icon: 'code'
-  },
-  {
-    title: 'Pro unblock pipelines',
-    description: 'Detection feeds automatic proxy resolution.',
-    icon: 'shield'
-  },
-  {
-    title: 'CAPTCHA vendor ID',
-    description: 'Identify reCAPTCHA, hCaptcha, Turnstile, and more.',
-    icon: 'lock'
-  }
-]
+export const RELATED = {
+  relatedSlugs: ['proxy', 'headers', 'scraping', 'function'],
+  title: 'From detection to access.'
+}
 
 export const FAQ_RAW = [
   {
-    question: 'How does Microlink detect an antibot challenge?',
-    text: 'Every HTTP response is inspected across five signals — headers, cookies, HTML, URL, and status code. Checks run in priority order and the first match identifies the provider.'
+    question: 'What does antibot detection tell me?',
+    text: 'It identifies the anti-bot provider guarding a target — Cloudflare, DataDome, Akamai and 30+ others — so you know exactly what is blocking you instead of getting a generic failure.'
   },
   {
-    question: 'Which providers can be detected?',
-    text: 'More than 30 providers across antibot systems, CAPTCHA vendors, and platform-specific protection flows (LinkedIn, Reddit, Instagram, YouTube, and more).'
+    question: 'How do I resolve a detected block?',
+    text: 'Retry the same request with proxy: true. Microlink routes through residential IPs to route around the named provider, then returns the normal result.'
   },
   {
-    question: 'Is the detection logic open source?',
-    text: 'Yes. The detection layer is published as is-antibot on GitHub and npm. It performs static HTTP response analysis — detection only, not challenge solving.'
+    question: 'How is this different from the proxy feature?',
+    text: 'Antibot detection is the diagnosis — it names who blocked you. Proxy is the treatment — it routes around that block. They are designed to work together: detect, then resolve.'
   },
   {
-    question: 'What happens after a block is detected?',
-    text: 'On Pro plans, the request is automatically routed through the resolution path that provider requires. Without Pro, the API returns EPROXYNEEDED.'
+    question: 'Is detection available on the free plan?',
+    text: 'The detection signal, including the EPROXYNEEDED error, surfaces on every plan so you always know when and by whom a target is guarded. Resolving the block with proxy: true is a Pro capability.'
   },
   {
-    question: 'Does detection slow down my requests?',
-    text: 'No. Detection is static response analysis without launching a browser or making extra network calls.'
+    question: 'Can I reach pages that also require login?',
+    text: 'Yes, on Pro. Combine proxy resolution with forwarded session cookies via x-api-header-cookie so one call both unblocks and authenticates the request.'
   }
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+
+export const TOC = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'parameters', label: 'Parameters' },
+  { id: 'examples', label: 'Examples' },
+  { id: 'related', label: 'Related features' },
+  { id: 'faq', label: 'FAQ' }
+]

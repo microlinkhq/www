@@ -1,9 +1,14 @@
-import { theme, shadows } from 'theme'
+import { theme, shadows, transition, shadowInk, colors } from 'theme'
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { ChevronRight } from 'react-feather'
 
 import Box from 'components/elements/Box'
+import Flex from 'components/elements/Flex'
+import { Link } from 'components/elements/Link'
 import Subhead from 'components/elements/Subhead'
+import Text from 'components/elements/Text'
+import FeatherIcon from 'components/icons/Feather'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 
@@ -11,92 +16,147 @@ import { ACCENT } from '../features'
 import { Eyebrow } from '../primitives'
 import { FeatureSection } from './shell'
 
-const Table = styled('table')`
-  width: 100%;
-  border-collapse: collapse;
-  ${theme({ fontSize: 1 })}
+const CARD_HOVER_SHADOW = `0 22px 46px -28px rgba(${shadowInk}, 0.35)`
 
-  th,
-  td {
-    ${theme({
-      textAlign: 'left',
-      py: 3,
-      px: 3,
-      borderBottom: 1,
-      borderBottomColor: 'black10',
-      verticalAlign: 'top'
-    })}
-  }
+const ParamCard = styled(Link)(
+  theme({
+    display: 'block',
+    bg: 'white',
+    border: 1,
+    borderColor: 'gray2',
+    borderRadius: 3,
+    p: [3, 3, 4, 4],
+    color: 'inherit',
+    textDecoration: 'none',
+    boxShadow: shadows[0],
+    _hover: { color: 'inherit' }
+  }),
+  css`
+    transition: border-color ${transition.medium},
+      box-shadow ${transition.medium}, transform ${transition.medium};
 
-  th {
-    ${theme({
-      fontFamily: 'mono',
-      fontSize: 0,
-      fontWeight: 'bold',
-      color: 'black60',
-      letterSpacing: '0.06em',
-      textTransform: 'uppercase',
-      bg: 'black025'
-    })}
-  }
+    > a {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
 
-  td {
-    ${theme({ color: 'black80', lineHeight: 2 })}
-  }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        border-color: ${colors.gray4};
+        box-shadow: ${CARD_HOVER_SHADOW};
+      }
 
-  code {
-    ${theme({
-      fontFamily: 'mono',
-      fontSize: 0,
-      color: 'secondary',
-      bg: ACCENT.bgSoft,
-      px: 2,
-      py: 1,
-      borderRadius: 2
-    })}
-  }
-`
+      @media (prefers-reduced-motion: no-preference) {
+        &:hover {
+          transform: translateY(-2px);
+        }
+      }
+    }
+  `
+)
 
-export const ParamsSection = ({ rows, docsHref }) => (
+export const ParamsSection = ({
+  eyebrow = 'Parameters',
+  title,
+  rows,
+  docsHref
+}) => (
   <FeatureSection id='parameters'>
-    <Eyebrow css={theme({ pb: 2, display: 'block' })}>Parameters</Eyebrow>
+    <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
     <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
-      What you can pass.
+      {title}
     </Subhead>
     <Box
+      as='ul'
       css={theme({
-        overflowX: 'auto',
-        border: 1,
-        borderColor: 'black10',
-        borderRadius: 3,
-        bg: 'white'
+        listStyle: 'none',
+        p: 0,
+        m: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 3
       })}
-      style={{ boxShadow: shadows[0] }}
     >
-      <Table>
-        <thead>
-          <tr>
-            <th>Parameter</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Required</th>
-            <th>Plan</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(row => (
-            <tr key={row.name}>
-              <td>
-                <code>{row.name}</code>
-              </td>
-              <td>{row.type}</td>
-              <td>{row.description}</td>
-              <td>{row.required ? 'Yes' : 'No'}</td>
-              <td>{row.plan}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      {rows.map(row => {
+        const content = (
+          <>
+            <Flex
+              css={theme({
+                gap: 3,
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                pb: 2
+              })}
+            >
+              <Text
+                as='code'
+                css={theme({
+                  fontFamily: 'mono',
+                  fontSize: 1,
+                  fontWeight: 'bold',
+                  color: 'secondary',
+                  bg: ACCENT.bgSoft,
+                  px: 2,
+                  py: 1,
+                  borderRadius: 2
+                })}
+              >
+                {row.name}
+              </Text>
+              <Text
+                css={theme({
+                  fontFamily: 'mono',
+                  fontSize: 0,
+                  color: 'gray6'
+                })}
+              >
+                {row.type}
+              </Text>
+              {row.href && (
+                <Box
+                  css={theme({ ml: 'auto', color: 'secondary', flexShrink: 0 })}
+                >
+                  <FeatherIcon icon={ChevronRight} />
+                </Box>
+              )}
+            </Flex>
+            <Text
+              css={theme({
+                fontFamily: 'sans',
+                fontSize: [1, 1, 2, 2],
+                color: 'black80',
+                lineHeight: 2
+              })}
+            >
+              {row.description}
+            </Text>
+          </>
+        )
+
+        return (
+          <Box as='li' key={row.name} css={theme({ minWidth: 0 })}>
+            {row.href
+              ? (
+                <ParamCard href={row.href}>{content}</ParamCard>
+                )
+              : (
+                <Box
+                  css={theme({
+                    p: [3, 3, 4, 4],
+                    bg: 'white',
+                    border: 1,
+                    borderColor: 'gray2',
+                    borderRadius: 3
+                  })}
+                  style={{ boxShadow: shadows[0] }}
+                >
+                  {content}
+                </Box>
+                )}
+          </Box>
+        )
+      })}
     </Box>
     {docsHref && (
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
@@ -104,7 +164,7 @@ export const ParamsSection = ({ rows, docsHref }) => (
           href={docsHref}
           css={theme({ color: 'link', fontWeight: 'bold', fontSize: 1 })}
         >
-          See all parameters in the API docs →
+          See all parameters in the API docs
         </ArrowLink>
       </Box>
     )}

@@ -1,4 +1,4 @@
-import { theme, shadows } from 'theme'
+import { theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -7,14 +7,21 @@ import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
-import {
-  SECTION_MAX_WIDTH,
-  SECTION_PX,
-  SECTION_PY
-} from 'components/patterns/CustomerStory/primitives'
+import { SECTION_PX } from 'components/patterns/CustomerStory/primitives'
 
 import { FEATURE_TOC } from '../features'
-import { PlanTag } from '../primitives'
+
+const FEATURE_SHELL_MAX_WIDTH = '1200px'
+const FEATURE_TOC_WIDTH = '200px'
+
+const breadcrumbStyle = {
+  fontFamily: 'mono',
+  color: 'secondary',
+  fontSize: 1,
+  fontWeight: 'bold',
+  letterSpacing: '0.12em',
+  textTransform: 'uppercase'
+}
 
 export const FeatureBreadcrumbs = ({ name }) => (
   <Flex
@@ -25,78 +32,118 @@ export const FeatureBreadcrumbs = ({ name }) => (
     <Link
       href='/features'
       css={theme({
-        color: 'secondary',
-        fontSize: 1,
-        fontWeight: 'bold',
+        ...breadcrumbStyle,
         textDecoration: 'none'
       })}
     >
       Features
     </Link>
-    <Text as='span' aria-hidden='true' css={theme({ color: 'black30' })}>
-      /
-    </Text>
     <Text
       as='span'
-      css={theme({ color: 'secondary', fontSize: 1, fontWeight: 'bold' })}
+      aria-hidden='true'
+      css={theme({
+        fontFamily: 'mono',
+        color: 'gray5',
+        letterSpacing: '0.12em'
+      })}
     >
+      /
+    </Text>
+    <Text as='span' css={theme(breadcrumbStyle)}>
       {name}
     </Text>
   </Flex>
 )
 
-export const PlanSupportBar = ({ plans }) => (
-  <Flex
-    css={theme({
-      mt: [3, 3, 4, 4],
-      p: [3, 3, 3, 3],
-      bg: 'white',
-      border: 1,
-      borderColor: 'black10',
-      borderRadius: 3,
-      alignItems: ['flex-start', 'flex-start', 'center', 'center'],
-      flexDirection: ['column', 'column', 'row', 'row'],
-      gap: [3, 3, 4, 4],
-      flexWrap: 'wrap'
+const PlanTable = styled(Text)`
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+
+  ${theme({ mt: [4, 4, 4, 4] })}
+
+  th,
+  td {
+    ${theme({ p: 2, textAlign: 'left', verticalAlign: 'top' })}
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: 0;
+    white-space: nowrap;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: 0;
+  }
+
+  thead th {
+    ${theme({
+      fontWeight: 'bold',
+      color: 'black',
+      borderBottom: 1,
+      borderBottomColor: 'black10'
     })}
-    style={{ boxShadow: shadows[0] }}
-  >
-    <Text
-      css={theme({
-        fontFamily: 'mono',
-        fontSize: 0,
-        fontWeight: 'bold',
-        color: 'black60',
-        letterSpacing: '0.08em',
-        textTransform: 'uppercase',
-        flexShrink: 0
-      })}
-    >
-      Supported in
-    </Text>
-    <Flex
-      css={theme({
-        gap: [3, 3, 4, 4],
-        flexWrap: 'wrap',
-        alignItems: 'flex-start'
-      })}
-    >
+  }
+
+  tbody tr {
+    ${theme({ borderBottom: 1, borderBottomColor: 'black05' })}
+  }
+
+  tbody tr:last-child {
+    border-bottom: none;
+  }
+`
+
+export const PlanSupportBar = ({ plans }) => (
+  <PlanTable as='table'>
+    <thead>
+      <tr>
+        <Text as='th' css={theme({ fontFamily: 'sans', fontSize: 1 })}>
+          Plan
+        </Text>
+        <Text as='th' css={theme({ fontFamily: 'sans', fontSize: 1 })}>
+          Included
+        </Text>
+      </tr>
+    </thead>
+    <tbody>
       {plans.map(({ plan, description }) => (
-        <Flex key={plan} css={theme({ gap: 2, alignItems: 'flex-start' })}>
-          <PlanTag>{plan}</PlanTag>
-          <Text css={theme({ fontSize: 1, color: 'black70', lineHeight: 2 })}>
+        <tr key={plan}>
+          <Text
+            as='td'
+            css={theme({
+              fontFamily: 'sans',
+              fontSize: 1,
+              fontWeight: 'bold',
+              color: 'black'
+            })}
+          >
+            {plan}
+          </Text>
+          <Text
+            as='td'
+            css={theme({
+              fontFamily: 'sans',
+              fontSize: 1,
+              color: 'black80',
+              lineHeight: 2
+            })}
+          >
             {description}
           </Text>
-        </Flex>
+        </tr>
       ))}
-    </Flex>
-  </Flex>
+    </tbody>
+  </PlanTable>
 )
 
 const TocLink = styled('a')`
   ${theme({
     display: 'block',
-    color: 'black60',
+    fontFamily: 'sans',
+    color: 'gray7',
     fontSize: 1,
     lineHeight: 2,
     textDecoration: 'none',
@@ -161,22 +208,11 @@ export const FeatureToc = ({ items = FEATURE_TOC }) => {
         top: 5,
         alignSelf: 'flex-start',
         width: '100%',
-        maxWidth: '200px'
+        pr: 4,
+        borderRight: 1,
+        borderRightColor: 'gray2'
       })}
     >
-      <Text
-        css={theme({
-          fontFamily: 'mono',
-          fontSize: 0,
-          fontWeight: 'bold',
-          color: 'black50',
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
-          pb: 3
-        })}
-      >
-        On this page
-      </Text>
       {items.map(({ id, label }) => (
         <TocLink
           key={id}
@@ -194,17 +230,31 @@ export const FeaturePageShell = ({ toc = FEATURE_TOC, children }) => (
   <Box
     css={theme({
       width: '100%',
-      maxWidth: SECTION_MAX_WIDTH,
+      maxWidth: FEATURE_SHELL_MAX_WIDTH,
       mx: 'auto',
       px: SECTION_PX,
       display: 'grid',
-      gridTemplateColumns: ['1fr', '1fr', '1fr', 'minmax(0, 1fr) 200px'],
-      gap: [0, 0, 0, 5],
+      gridTemplateColumns: [
+        '1fr',
+        '1fr',
+        '1fr',
+        `${FEATURE_TOC_WIDTH} minmax(0, 1fr)`
+      ],
+      columnGap: [0, 0, 0, 5],
       alignItems: 'start'
     })}
   >
-    <Box css={theme({ minWidth: 0, width: '100%' })}>{children}</Box>
     <FeatureToc items={toc} />
+    <Box
+      css={theme({
+        minWidth: 0,
+        width: '100%',
+        maxWidth: '960px',
+        fontFamily: 'sans'
+      })}
+    >
+      {children}
+    </Box>
   </Box>
 )
 
@@ -213,7 +263,7 @@ export const FeatureSection = ({ id, children, ...props }) => (
     as='section'
     id={id}
     css={theme({
-      py: SECTION_PY,
+      py: SECTION_VERTICAL_SPACING,
       width: '100%',
       scrollMarginTop: 5
     })}

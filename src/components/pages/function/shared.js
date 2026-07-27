@@ -1,261 +1,204 @@
 import React from 'react'
-import { Code } from 'react-feather'
-
-import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
-import { theme } from 'theme'
 
 import { faqFromItems } from 'components/patterns/FeatureStory'
 
 export const META = {
-  title: 'Browser Functions API: Serverless Puppeteer',
+  title: 'Browser Functions API: microlink.run()',
   description:
-    'Run any JavaScript remotely inside Microlink’s headless browser with the function parameter — full Puppeteer access, npm packages installed on the fly, and zero infrastructure to manage. Works on the free tier; Pro plans raise execution limits and add automatic proxy resolution, custom headers, and configurable cache TTL.'
+    'Write a function, get a value. microlink.run() ships JavaScript to a sandbox with full Puppeteer, npm on the fly, and profiling — a browser boots only when your code touches page.'
 }
 
 export const HERO = {
   name: 'Browser Functions',
   title: 'Browser Functions',
   description:
-    'Run any JavaScript remotely with the function parameter — full Puppeteer access, npm packages installed on the fly, and zero infrastructure.',
-  primaryCta: {
-    label: 'Try it in Playground →',
-    href: '/docs/guides/function'
-  },
-  secondaryCta: {
-    label: 'View API docs',
-    href: '/docs/api/parameters/function'
-  },
+    'Write a function. Get a value. microlink.run() runs your JavaScript in a sandbox — the browser is optional and boots only when your code touches page.',
   plans: [
     { plan: 'Free', description: '5s timeout, 16 MB, prototype workflows.' },
     { plan: 'Pro', description: 'Up to 28s, 32 MB, no code-size limits.' }
   ]
 }
 
-export const HeroMark = () => (
-  <Flex
-    css={theme({
-      width: '96px',
-      height: '96px',
-      borderRadius: '50%',
-      border: 1,
-      borderColor: 'black10',
-      bg: 'white',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'yellow7'
-    })}
-  >
-    <Code size={36} />
-  </Flex>
-)
-
 export const OVERVIEW = {
+  eyebrow: 'Overview',
+  title: 'Browser optional. Value guaranteed.',
   body: (
     <>
-      The <Link href='/docs/api/parameters/function'>function</Link> parameter
-      runs your JavaScript in a sandboxed Node.js runtime. Reference{' '}
-      <code>page</code> for full Puppeteer access, or skip it for plain compute.
-      Detected npm packages are installed on the fly and cached.
+      <code>microlink.run(url, code)</code> ships a plain function to a remote
+      sandbox — serialization, compression, and the API call are handled for
+      you. Reference <code>page</code> for the full{' '}
+      <Link href='/docs/guides/function/browser-interaction'>
+        Puppeteer page
+      </Link>
+      ; skip it and no browser starts at all. See the{' '}
+      <Link href='/docs/api/parameters/function'>function parameter</Link>.
     </>
   ),
   bullets: [
-    'No Lambda bundle or browser fleet',
-    'Full Puppeteer page access when you need it',
-    'require() any npm package — installed on the fly',
-    'Profiling phases show where time goes'
-  ],
-  sample: `{
-  "isFulfilled": true,
-  "value": "Example Domain",
-  "profiling": { "phases": { "run": 42 } }
-}`,
-  sampleTitle: 'result.json'
-}
-
-export const STEPS = [
-  {
-    title: 'Write',
-    description:
-      'Author plain JavaScript that returns any JSON-serializable value.'
-  },
-  {
-    title: 'Send',
-    description:
-      '@microlink/function serializes and posts your code to the API.'
-  },
-  {
-    title: 'Execute',
-    description:
-      'Deps install on the fly; optional headless Chrome with page access.'
-  },
-  {
-    title: 'Result',
-    description:
-      'Receive result.value plus profiling — or error details when it fails.'
-  }
-]
-
-export const LANGUAGES = {
-  cURL: `curl -G 'https://api.microlink.io' \\
-  --data-urlencode 'url=https://example.com' \\
-  --data-urlencode 'function=({ page }) => page.title()'`,
-  JavaScript: `const microlink = require('@microlink/function')
-
-const fn = microlink(({ page }) => page.title())
-const result = await fn('https://example.com')
-
-console.log(result.isFulfilled) // true
-console.log(result.value) // 'Example Domain'`,
-  Python: `import requests
-
-response = requests.get(
-  'https://api.microlink.io',
-  params={
-    'url': 'https://example.com',
-    'function': '({ page }) => page.title()'
-  }
-)
-
-print(response.json())`,
-  Go: `package main
-
-import (
-  "fmt"
-  "net/http"
-  "net/url"
-  "io"
-)
-
-func main() {
-  q := url.Values{}
-  q.Set("url", "https://example.com")
-  q.Set("function", "({ page }) => page.title()")
-  resp, err := http.Get("https://api.microlink.io?" + q.Encode())
-  if err != nil { panic(err) }
-  defer resp.Body.Close()
-  body, _ := io.ReadAll(resp.Body)
-  fmt.Println(string(body))
-}`
-}
-
-export const QUICK_START = {
-  description:
-    'Pass a function that references page for Puppeteer, or omit page for plain compute.',
-  playgroundHref: '/docs/guides/function'
+    'No page reference → no browser — faster, cheaper compute',
+    'require() any npm package — installed on the fly and cached',
+    'result.isFulfilled stays true even when your code throws',
+    'profiling.phases breaks down install / build / spawn / run'
+  ]
 }
 
 export const PARAMS = {
+  eyebrow: 'Parameters',
+  title: 'What run() forwards.',
   docsHref: '/docs/api/parameters/function',
   rows: [
     {
       name: 'url',
       type: 'string',
-      description: 'Target URL; navigated when the function references page.',
+      description: 'Target page; navigated only when the function reads page.',
       required: true,
-      plan: 'Free + Pro'
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/url'
     },
     {
       name: 'function',
       type: 'string | Function',
-      description: 'Remote JS to run; use @microlink/function from Node.',
+      description: 'The code to run remotely — run() serializes it for you.',
       required: false,
-      plan: 'Free + Pro'
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/function'
+    },
+    {
+      name: 'scope options',
+      type: 'object',
+      description:
+        'Extra options are forwarded into the function scope for reuse.',
+      required: false,
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/function'
     },
     {
       name: 'proxy',
       type: 'boolean | string',
       description: 'Compose with automatic or BYO proxy for antibot targets.',
       required: false,
-      plan: 'Pro'
+      plan: 'Pro',
+      href: '/docs/api/parameters/proxy'
     },
     {
       name: 'ttl',
       type: 'string | number',
-      description:
-        'Cache repeated function executions within a freshness window.',
+      description: 'Cache repeated executions within a freshness window.',
       required: false,
-      plan: 'Pro'
+      plan: 'Pro',
+      href: '/docs/api/parameters/ttl'
     }
   ]
 }
+
+const sdkExample = body => `import createClient from 'microlink.io'
+
+const microlink = createClient({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+
+${body}`
 
 export const EXAMPLES = {
-  moreHref: '/docs/guides/function',
-  items: [
+  eyebrow: 'Examples',
+  title: 'Canonical run() snippets.',
+  panels: [
     {
-      title: 'Puppeteer title',
-      description: 'A live page already navigated to the URL.',
-      snippet: 'microlink(({ page }) => page.title())',
-      href: '/docs/api/parameters/function'
+      id: 'no-browser',
+      title: 'No page, no browser',
+      description: 'Plain compute — Chrome never boots, so it stays fast.',
+      language: 'js',
+      snippet: sdkExample(`const { value } = await microlink.run(
+  'https://example.com',
+  () => 40 + 2
+)
+// → 42`)
     },
     {
-      title: 'npm deps on the fly',
-      description: 'require() installs and caches packages in the sandbox.',
-      snippet: `microlink(() => {
-  const { kebabCase } = require('lodash')
-  return kebabCase('Hello World')
-})`,
-      href: '/docs/guides/function'
+      id: 'page-eval',
+      title: 'Puppeteer page.$eval',
+      description: 'Reference page and a headless browser is navigated first.',
+      language: 'js',
+      snippet: sdkExample(`const { value } = await microlink.run(
+  'https://example.com',
+  ({ page }) => page.$eval('h1', el => el.textContent)
+)
+// → 'Example Domain'`)
     },
     {
-      title: 'Plain compute',
-      description: 'Skip page for faster orchestration without Chrome.',
-      snippet: 'microlink(({ amount }) => amount * 1.21)',
-      href: '/docs/guides/function'
+      id: 'cheerio',
+      title: 'require() cheerio',
+      description: 'Deps are detected, installed on the fly, and cached.',
+      language: 'js',
+      snippet: sdkExample(`await microlink.run(
+  'https://news.ycombinator.com',
+  async ({ page }) => {
+    const cheerio = require('cheerio')
+    const $ = cheerio.load(await page.content())
+    return $('.titleline > a').map((i, el) => $(el).text()).toArray()
+  }
+)`)
+    },
+    {
+      id: 'with-proxy',
+      title: 'run() behind a proxy',
+      description: 'Same sandbox, residential exit for hard targets.',
+      language: 'js',
+      snippet: sdkExample(`const { value } = await microlink.run(
+  'https://protected-target.com',
+  ({ page }) => page.title(),
+  { proxy: true }
+)`)
+    },
+    {
+      id: 'with-ttl',
+      title: 'Cache a repeated run',
+      description: 'ttl returns the stored value instead of executing again.',
+      language: 'js',
+      snippet: sdkExample(`const { value } = await microlink.run(
+  url,
+  ({ page }) => page.$eval('h1', el => el.textContent),
+  { ttl: '1h' }
+)`)
     }
   ]
 }
 
-export const USE_CASES = [
-  {
-    title: 'Custom automation',
-    description: 'Flows that declarative params cannot express.',
-    icon: 'mouse'
-  },
-  {
-    title: 'Remote compute',
-    description: 'Run plain JS in a sandbox across requests.',
-    icon: 'code'
-  },
-  {
-    title: 'Parse with npm',
-    description: 'cheerio, lodash, and friends — cached installs.',
-    icon: 'list'
-  },
-  {
-    title: 'Authenticated scrape',
-    description: 'Combine with proxy and headers on Pro.',
-    icon: 'lock'
-  },
-  {
-    title: 'No Lambda',
-    description: 'Prototype on free, scale limits on Pro.',
-    icon: 'globe'
-  }
-]
+export const RELATED = {
+  relatedSlugs: ['automation', 'scraping', 'proxy', 'headers', 'ttl'],
+  title: 'Compose around your function.'
+}
 
 export const FAQ_RAW = [
   {
-    question: 'What can I run inside a function?',
-    text: 'Any JavaScript. Plain functions run in a sandboxed Node.js runtime. Reference page for full Puppeteer access. You can also require() any npm package — dependencies are installed on the fly and cached.'
+    question: 'When does microlink.run() start a browser?',
+    text: 'Only when your code references page. Without it, Microlink skips the headless browser entirely, so plain compute runs faster and cheaper. Reference page to get the full Puppeteer API for clicks, waits, and evaluation.'
   },
   {
-    question: 'Is the function parameter available on the free plan?',
-    text: 'Yes. Free runs get a 5-second timeout, 16 MB of memory, 1024 bytes of code, and one concurrent execution per IP. Pro plans extend the timeout up to 28 seconds and raise memory to 32 MB.'
+    question: 'Is run() available on the free plan?',
+    text: 'Yes. Free runs get a 5-second timeout, 16 MB of memory, and one concurrent execution per IP. Pro plans extend the timeout up to 28 seconds, raise memory to 32 MB, and remove code-size limits.'
   },
   {
-    question: 'When should I use function instead of data?',
-    text: 'Start with data — declarative CSS-selector rules are shorter and easier to maintain. Escalate to function when you need to click, wait, compute, or orchestrate custom logic that rules cannot express.'
+    question: 'When should I use run() instead of extract()?',
+    text: 'Start with extract() — declarative CSS-selector rules are shorter and easier to maintain. Escalate to run() when you need to click, wait, compute, or orchestrate custom logic that rules cannot express.'
   },
   {
     question: 'What happens if my function throws?',
-    text: 'The request still succeeds: result.isFulfilled comes back false and result.value contains the error details so you can handle failures in your own code.'
+    text: 'The promise still resolves: result.isFulfilled comes back false and result.value carries the error as { name, message } so you handle failures in your own code.'
   },
   {
-    question: 'Can functions reach pages behind antibots or logins?',
-    text: 'Yes, on Pro plans. Combine function with automatic proxy resolution and forward session cookies with x-api-header-cookie.'
+    question: 'Can I require() npm packages?',
+    text: 'Yes. Any require() call is detected, installed on the fly into the sandbox, and cached for later runs. Pin a version with require("cheerio@1.0.0").'
   }
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+
+export const TOC = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'parameters', label: 'Parameters' },
+  { id: 'examples', label: 'Examples' },
+  { id: 'related', label: 'Related features' },
+  { id: 'faq', label: 'FAQ' }
+]

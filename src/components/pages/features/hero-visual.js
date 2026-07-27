@@ -13,7 +13,7 @@ const Card = styled(Box)`
   ${theme({
     bg: 'white',
     border: 1,
-    borderColor: 'black10',
+    borderColor: 'gray2',
     borderRadius: 4,
     minWidth: 0
   })}
@@ -193,7 +193,7 @@ export const CompositionVisual = () => (
             >
               {key}
             </Text>
-            <Text as='span' css={theme({ color: 'black30' })}>
+            <Text as='span' css={theme({ color: 'gray5' })}>
               =
             </Text>
             <Text as='span' css={theme({ color: 'blue7' })}>

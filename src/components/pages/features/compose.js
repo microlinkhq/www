@@ -37,7 +37,7 @@ const OUTPUTS = [
 
 const Band = styled(Box)`
   ${theme({
-    bg: 'black025',
+    bg: 'gray1',
     borderRadius: [0, 0, 4, 4],
     py: [4, 4, 5, 5],
     px: [3, 3, 4, 4]

@@ -1,276 +1,203 @@
 import React from 'react'
-import { List } from 'react-feather'
-
-import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
-import { theme } from 'theme'
 
 import { faqFromItems } from 'components/patterns/FeatureStory'
 
 export const META = {
-  title: 'Custom HTTP Headers API',
+  title: 'Custom HTTP Headers API: Secrets Stay Out of URLs',
   description:
-    'Forward any HTTP header to the target page on Microlink Pro. Use the headers parameter for non-sensitive values; use x-api-header-* request headers for cookies, bearer tokens, and other secrets that must never appear in the URL.'
+    'Pass cookies, tokens and any header through the headers option. They ride the HTTP layer — x-api-header-* is forwarded to the target fetch and never appears in the URL.'
 }
 
 export const HERO = {
   name: 'Custom HTTP Headers',
   title: 'Custom HTTP Headers',
   description:
-    'Stop scraping the logged-out version. Public values go in headers; secrets ride as x-api-header-* and never touch the URL.',
-  primaryCta: {
-    label: 'Read the private pages guide →',
-    href: '/docs/guides/common/private-pages'
-  },
-  secondaryCta: {
-    label: 'View API docs',
-    href: '/docs/api/parameters/headers'
-  },
+    'Secrets stay out of URLs. Pass headers on the HTTP layer, and any x-api-header-* is forwarded to the target fetch — cookies and tokens never touch the query string.',
   plans: [
     {
+      plan: 'Free',
+      description: 'Standard request headers on any product call.'
+    },
+    {
       plan: 'Pro',
-      description: 'headers and x-api-header-* on every workflow.'
+      description: 'Forward x-api-header-* secrets to the target fetch.'
     }
   ]
 }
 
-export const HeroMark = () => (
-  <Flex
-    css={theme({
-      width: '96px',
-      height: '96px',
-      borderRadius: '50%',
-      border: 1,
-      borderColor: 'black10',
-      bg: 'white',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'orange7'
-    })}
-  >
-    <List size={36} />
-  </Flex>
-)
-
 export const OVERVIEW = {
+  eyebrow: 'Overview',
+  title: 'Headers ride the HTTP layer.',
   body: (
     <>
-      The <Link href='/docs/api/parameters/headers'>headers</Link> parameter
-      goes through the query string — fine for locale or user-agent.{' '}
-      <Link href='/docs/guides/common/private-pages#sensitive-headers-and-cookies'>
-        x-api-header-*
-      </Link>{' '}
-      is sent as a request header on the Microlink call, so cookies and tokens
-      never appear in the URL or in logs.
+      The <Link href='/docs/api/parameters/headers'>headers</Link> option
+      travels as real request headers — never in the URL. The API forwards any{' '}
+      <code>x-api-header-&lt;name&gt;</code> to the target fetch as{' '}
+      <code>&lt;name&gt;</code>, so a session cookie becomes the target’s{' '}
+      <code>cookie</code> header. Your <code>apiKey</code> rides the same way,
+      as <code>x-api-key</code>.
     </>
   ),
   bullets: [
-    'Two channels: public headers vs secret x-api-header-*',
-    'Works on screenshots, PDFs, metadata, and extraction',
-    'Credentials stay server-side via MQL httpOptions',
-    'Compose with proxy for WAF-fronted dashboards'
-  ],
-  sample: `{
-  "headers": {
-    "accept-language": "es-ES"
-  },
-  "httpOptions": {
-    "headers": {
-      "x-api-header-cookie": "session=…"
-    }
-  }
-}`,
-  sampleTitle: 'request'
-}
-
-export const STEPS = [
-  {
-    title: 'Choose channel',
-    description:
-      'Public shaping values use headers; secrets use x-api-header-*.'
-  },
-  {
-    title: 'Call from backend',
-    description: 'Pass secrets + API key via httpOptions from environment vars.'
-  },
-  {
-    title: 'Strip & forward',
-    description: 'Microlink strips the prefix and sends Cookie/Authorization.'
-  },
-  {
-    title: 'Capture any output',
-    description: 'Authenticated page state applies to every Microlink workflow.'
-  }
-]
-
-export const LANGUAGES = {
-  cURL: `curl -G 'https://api.microlink.io' \\
-  -H 'x-api-key: $MICROLINK_API_KEY' \\
-  -H 'x-api-header-cookie: session=…' \\
-  --data-urlencode 'url=https://example.com/dashboard' \\
-  --data-urlencode 'screenshot=true' \\
-  --data-urlencode 'headers={"accept-language":"es-ES"}'`,
-  JavaScript: `import mql from '@microlink/mql'
-
-const { data } = await mql(
-  'https://example.com/dashboard',
-  {
-    screenshot: true,
-    meta: false,
-    headers: { 'accept-language': 'es-ES' }
-  },
-  {
-    headers: {
-      'x-api-key': process.env.MICROLINK_API_KEY,
-      'x-api-header-cookie': \`session=\${process.env.SESSION_COOKIE}\`
-    }
-  }
-)`,
-  Python: `import os, requests
-
-response = requests.get(
-  'https://api.microlink.io',
-  params={
-    'url': 'https://example.com/dashboard',
-    'screenshot': 'true',
-    'headers': '{"accept-language":"es-ES"}'
-  },
-  headers={
-    'x-api-key': os.environ['MICROLINK_API_KEY'],
-    'x-api-header-cookie': f"session={os.environ['SESSION_COOKIE']}"
-  }
-)`,
-  Go: `package main
-
-import (
-  "fmt"
-  "net/http"
-  "os"
-  "io"
-)
-
-func main() {
-  req, _ := http.NewRequest("GET",
-    "https://api.microlink.io?url=https%3A%2F%2Fexample.com%2Fdashboard&screenshot=true",
-    nil)
-  req.Header.Set("x-api-key", os.Getenv("MICROLINK_API_KEY"))
-  req.Header.Set("x-api-header-cookie", "session="+os.Getenv("SESSION_COOKIE"))
-  resp, err := http.DefaultClient.Do(req)
-  if err != nil { panic(err) }
-  defer resp.Body.Close()
-  body, _ := io.ReadAll(resp.Body)
-  fmt.Println(string(body))
-}`
-}
-
-export const QUICK_START = {
-  description:
-    'Always call Microlink from your backend so API keys and forwarded secrets never reach the browser.',
-  playgroundHref: '/docs/guides/common/private-pages'
+    'headers travel as HTTP request headers — never query params',
+    'x-api-header-cookie → forwarded to the target as cookie',
+    'apiKey is sent as x-api-key, never in the URL',
+    'Compose with proxy to authenticate behind an unblocker',
+    'Secrets stay out of logs, history and shareable links'
+  ]
 }
 
 export const PARAMS = {
+  eyebrow: 'Parameters',
+  title: 'How headers are routed.',
   docsHref: '/docs/api/parameters/headers',
   rows: [
     {
       name: 'headers',
       type: 'object',
-      description: 'Non-sensitive headers in the query string.',
+      description: 'Sent as real HTTP request headers — never in the URL.',
       required: false,
-      plan: 'Pro'
-    },
-    {
-      name: 'x-api-header-*',
-      type: 'request header',
-      description: 'Sensitive headers; prefix stripped before forward.',
-      required: false,
-      plan: 'Pro'
-    },
-    {
-      name: 'x-api-key',
-      type: 'request header',
-      description: 'Pro authentication; keep server-side.',
-      required: true,
-      plan: 'Pro'
-    }
-  ]
-}
-
-export const EXAMPLES = {
-  moreHref: '/docs/guides/common/private-pages',
-  items: [
-    {
-      title: 'Locale + session cookie',
-      description: 'Public Accept-Language; secrets via httpOptions.',
-      snippet: `headers: { 'accept-language': 'es-ES' }
-// + x-api-header-cookie`,
-      href: '/docs/guides/common/private-pages'
-    },
-    {
-      title: 'Logged-in screenshot',
-      description: 'Same cookie channel powers authenticated media.',
-      snippet: `screenshot: true
-// x-api-header-cookie: session=…`,
+      plan: 'Free + Pro',
       href: '/docs/api/parameters/headers'
     },
     {
-      title: 'Headers + proxy',
-      description: 'Auth cookies plus residential exit for WAFs.',
-      snippet: '// compose with Pro automatic proxy',
-      href: '/features/proxy'
+      name: 'x-api-header-*',
+      type: 'header',
+      description: 'Forwarded to the target fetch with the prefix stripped.',
+      required: false,
+      plan: 'Pro',
+      href: '/docs/api/parameters/headers'
+    },
+    {
+      name: 'apiKey',
+      type: 'string',
+      description: 'Sent as the x-api-key header by the client — not the URL.',
+      required: false,
+      plan: 'Pro',
+      href: '/docs/api/getting-started/overview'
+    },
+    {
+      name: 'url',
+      type: 'string',
+      description: 'The target the forwarded headers are attached to.',
+      required: true,
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/url'
     }
   ]
 }
 
-export const USE_CASES = [
-  {
-    title: 'Behind login',
-    description: 'Forward session cookies without leaking them into URLs.',
-    icon: 'lock'
-  },
-  {
-    title: 'Localized variants',
-    description: 'Accept-Language to fetch the right regional page.',
-    icon: 'globe'
-  },
-  {
-    title: 'Basic-auth staging',
-    description: 'x-api-header-authorization for protected environments.',
-    icon: 'shield'
-  },
-  {
-    title: 'A/B cohorts',
-    description: 'Custom headers to land in the cohort you need.',
-    icon: 'list'
-  },
-  {
-    title: 'Authenticated media',
-    description: 'Same session for logged-in screenshots and PDFs.',
-    icon: 'code'
+const sdkExample = body => `import createClient from 'microlink.io'
+
+const microlink = createClient({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+
+${body}`
+
+export const EXAMPLES = {
+  eyebrow: 'Examples',
+  title: 'Forward what the target needs.',
+  panels: [
+    {
+      id: 'cookie',
+      title: 'Forward a session cookie',
+      description: 'x-api-header-cookie reaches the target as cookie.',
+      language: 'js',
+      snippet: sdkExample(`const markdown = await microlink.markdown(
+  'https://x.com/some/article',
+  { headers: { 'x-api-header-cookie': 'auth_token=…' } }
+)`)
+    },
+    {
+      id: 'bearer',
+      title: 'Pass a bearer token',
+      description: 'Any header is forwarded — here an Authorization token.',
+      language: 'js',
+      snippet: sdkExample(`const data = await microlink.extract(
+  'https://api.example.com/me',
+  { name: { selector: '.name' } },
+  { headers: { 'x-api-header-authorization': 'Bearer …' } }
+)`)
+    },
+    {
+      id: 'user-agent',
+      title: 'Set a user agent',
+      description: 'Shape how the target sees the request.',
+      language: 'js',
+      snippet: sdkExample(`const { title } = await microlink.metadata(url, {
+  headers: {
+    'x-api-header-user-agent':
+      'Mozilla/5.0 (compatible; MicrolinkBot/1.0)'
   }
-]
+})`)
+    },
+    {
+      id: 'locale',
+      title: 'Locale and consent',
+      description: 'Send Accept-Language or a consent cookie before capture.',
+      language: 'js',
+      snippet: sdkExample(`const { url } = await microlink.screenshot(
+  'https://example.com',
+  {
+    headers: {
+      'x-api-header-accept-language': 'es-ES',
+      'x-api-header-cookie': 'consent=accepted'
+    }
+  }
+)`)
+    },
+    {
+      id: 'with-proxy',
+      title: 'Authenticate behind a proxy',
+      description: 'Combine forwarded headers with proxy resolution.',
+      language: 'js',
+      snippet: sdkExample(`const { url } = await microlink.screenshot(
+  'https://protected.example.com/account',
+  {
+    proxy: true,
+    headers: { 'x-api-header-cookie': 'session=…' }
+  }
+)`)
+    }
+  ]
+}
+
+export const RELATED = {
+  relatedSlugs: ['proxy', 'antibot', 'security', 'scraping'],
+  title: 'Authenticate and reach targets.'
+}
 
 export const FAQ_RAW = [
   {
-    question: 'What is the difference between headers and x-api-header-*?',
-    text: 'Both forward an HTTP header to the target. headers goes through the URL query string — fine for locale or user-agent. x-api-header-* is sent as a request header so secrets never appear in the URL or logs.'
+    question: 'Why not just put secrets in the URL?',
+    text: 'URLs leak. They land in server logs, browser history, and shared links. Send the headers option on the HTTP layer instead, so cookies and tokens never appear in the query string.'
   },
   {
-    question: 'Can I forward cookies and authorization tokens?',
-    text: 'Yes — through x-api-header-* only. Send x-api-header-cookie or x-api-header-authorization as request headers on your Microlink call.'
+    question: 'How does x-api-header-* work?',
+    text: 'The API forwards any request header prefixed with x-api-header- to the target fetch with the prefix stripped. So x-api-header-cookie becomes the target’s cookie header, and x-api-header-authorization becomes authorization.'
   },
   {
-    question: 'Does this work for screenshots and PDFs too?',
-    text: 'Yes — headers and x-api-header-* apply uniformly to every Microlink output.'
+    question: 'How is my apiKey sent?',
+    text: 'The client sends your apiKey as the x-api-key request header, never in the URL. Pass it once to createClient({ apiKey }) and every call is authenticated.'
   },
   {
-    question: 'How do I keep API keys out of client-side code?',
-    text: 'Always make Microlink calls from your backend. Use MQL’s third argument (httpOptions) to pass x-api-key and x-api-header-* from environment variables.'
+    question: 'Do forwarded headers work on the free plan?',
+    text: 'Standard request headers work on any plan. Forwarding x-api-header-* secrets to the target fetch is a Pro capability, since it typically pairs with authenticated or proxied requests.'
   },
   {
-    question: 'Do headers work on free plans?',
-    text: 'No. Both channels are Pro features. Free-tier requests cannot forward custom HTTP headers.'
+    question: 'Can I forward headers and use a proxy together?',
+    text: 'Yes. headers compose with proxy on the same request, so one call can route through a residential IP and still forward a session cookie to authenticate on the target.'
   }
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+
+export const TOC = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'parameters', label: 'Parameters' },
+  { id: 'examples', label: 'Examples' },
+  { id: 'related', label: 'Related features' },
+  { id: 'faq', label: 'FAQ' }
+]

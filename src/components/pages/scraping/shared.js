@@ -1,294 +1,255 @@
 import React from 'react'
-import { Code, Hash } from 'react-feather'
-
-import Box from 'components/elements/Box'
-import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
-import { theme } from 'theme'
 
 import {
-  buildMqlLanguages,
-  faqFromItems
+  faqFromItems,
+  ProxyHeadersTtlLinks
 } from 'components/patterns/FeatureStory'
 
 export const META = {
   title: 'Web Scraping API: Structured Data Extraction',
   description:
-    'Extract structured data from any URL with CSS selectors using the data parameter — single values, collections, and computed fields returned as clean JSON. Works on the free tier; Pro plans add automatic proxy resolution against Cloudflare, DataDome, and Akamai antibots, custom headers for login walls, and configurable cache TTL.'
+    'Extract structured JSON from any URL. Declare CSS-selector rules, render JavaScript pages when needed, and get typed fields back — links, emails, markdown, images, or a custom shape.'
 }
 
 export const HERO = {
   name: 'Web Scraping',
   title: 'Web Scraping',
   description:
-    'Extract structured JSON from any webpage using CSS selectors. URL → JSON in one request.',
-  primaryCta: {
-    label: 'Try it in Playground →',
-    href: '/docs/guides/data-extraction'
-  },
-  secondaryCta: {
-    label: 'View API docs',
-    href: '/docs/api/parameters/data'
-  },
+    'Turn any URL into structured JSON. Point CSS selectors at the fields you need — Microlink fetches the page, runs a browser when the content is client-rendered, and returns typed data.',
   plans: [
     {
       plan: 'Free',
-      description: 'Basic scraping. Perfect for simple cases.'
+      description: 'Full data extraction. 25 requests/day without a key.'
     },
     {
       plan: 'Pro',
-      description: 'Advanced scraping. Anti-bot, geo, proxy & more.'
+      description: (
+        <>
+          <ProxyHeadersTtlLinks /> on the same extraction calls.
+        </>
+      )
     }
   ]
 }
 
-export const HeroMark = () => (
-  <Flex css={theme({ alignItems: 'center', gap: 3 })}>
-    <Flex
-      css={theme({
-        width: '72px',
-        height: '72px',
-        borderRadius: '50%',
-        border: 1,
-        borderColor: 'black10',
-        bg: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'secondary'
-      })}
-    >
-      <Code size={28} />
-    </Flex>
-    <Box
-      css={theme({
-        width: '48px',
-        borderTop: 1,
-        borderTopColor: 'black20',
-        borderStyle: 'dashed'
-      })}
-    />
-    <Flex
-      css={theme({
-        width: '72px',
-        height: '72px',
-        borderRadius: '50%',
-        border: 1,
-        borderColor: 'black10',
-        bg: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'secondary'
-      })}
-    >
-      <Hash size={28} />
-    </Flex>
-  </Flex>
-)
-
 export const OVERVIEW = {
+  eyebrow: 'Overview',
+  title: 'Declare the shape. Get the data.',
   body: (
     <>
-      The <Link href='/docs/api/parameters/data'>data</Link> object you send is
-      the shape of the JSON you get back. Point a CSS selector at an element,
-      pick what to read, and validate the result — Microlink runs the headless
-      browser, waits for content, and returns clean JSON.
+      Web scraping on Microlink is built around a target{' '}
+      <Link href='/docs/api/parameters/url'>url</Link> and a{' '}
+      <Link href='/docs/api/parameters/data'>data</Link> schema. Each key in
+      that schema becomes a field in the response; each rule tells Microlink how
+      to pull that field from the page — a CSS selector, an attribute, a type,
+      or a list. The API returns clean JSON: absolute URLs, typed images with
+      size and dimensions, validated emails, or Markdown of the content you
+      scoped.
     </>
   ),
   bullets: [
-    'No infrastructure to maintain',
-    'Battle-tested browser environment',
-    'Handles JavaScript-rendered content',
-    'Works with anti-bot detectors (Pro)'
-  ],
-  sample: `{
-  "status": "success",
-  "data": {
-    "headline": "Show HN: Microlink",
-    "link": "https://news.ycombinator.com/…"
-  }
-}`,
-  sampleTitle: 'response.json'
-}
-
-export const STEPS = [
-  {
-    title: 'Request',
-    description: 'Send a URL and CSS selectors to the API.'
-  },
-  {
-    title: 'Render',
-    description: 'We render the page in a headless browser.'
-  },
-  {
-    title: 'Extract',
-    description: 'Your CSS selectors are applied to the page.'
-  },
-  {
-    title: 'Response',
-    description: 'You receive structured JSON in one request.'
-  }
-]
-
-const DATA_OPTIONS = {
-  data: {
-    headline: { selector: '.titleline > a', attr: 'text' },
-    link: { selector: '.titleline > a', attr: 'href', type: 'url' }
-  }
-}
-
-export const LANGUAGES = buildMqlLanguages({
-  url: 'https://news.ycombinator.com',
-  options: DATA_OPTIONS,
-  comment: 'Extract headline + link from Hacker News'
-})
-
-export const QUICK_START = {
-  description:
-    'Each key inside data becomes a field in the response. No HTML parsing on your side.',
-  playgroundHref: '/docs/guides/data-extraction',
-  playgroundLabel: 'Try it in Playground →'
+    'CSS selectors and attr rules define every field you want back',
+    'Headless Chrome runs when the page needs JavaScript to render',
+    'Types like url, image, and email normalize and validate server-side',
+    {
+      key: 'compose-pro',
+      label: (
+        <>
+          Same call can take <ProxyHeadersTtlLinks ttlLabel='ttl' /> when the
+          target is hard or repeated (Pro)
+        </>
+      )
+    }
+  ]
 }
 
 export const PARAMS = {
+  eyebrow: 'Parameters',
+  title: 'What an extraction call accepts.',
   docsHref: '/docs/api/parameters/data',
   rows: [
     {
       name: 'url',
       type: 'string',
-      description: 'Target page to extract from.',
+      description: 'The page to fetch and extract from.',
       required: true,
-      plan: 'Free + Pro'
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/url'
     },
     {
       name: 'data',
       type: 'object',
-      description: 'CSS-selector rules that define the JSON shape.',
+      description:
+        'Output schema: CSS-selector rules for each field you want back.',
       required: false,
-      plan: 'Free + Pro'
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/data'
+    },
+    {
+      name: 'selector / selectorAll',
+      type: 'string',
+      description: 'Scope a field or collection to part of the DOM.',
+      required: false,
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/data'
     },
     {
       name: 'prerender',
       type: "boolean | 'auto'",
-      description: 'Force headless Chrome for client-rendered pages.',
+      description: 'Run headless Chrome for client-rendered pages.',
       required: false,
-      plan: 'Free + Pro'
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/prerender'
     },
     {
       name: 'proxy',
       type: 'boolean | string',
-      description: 'Automatic or bring-your-own proxy for blocked targets.',
+      description: 'Automatic or BYO proxy when the target blocks the request.',
       required: false,
-      plan: 'Pro'
+      plan: 'Pro',
+      href: '/docs/api/parameters/proxy'
     },
     {
       name: 'ttl',
       type: 'string | number',
-      description: 'Cache lifetime so repeated extractions are free.',
+      description:
+        'Cache lifetime so repeated extractions on the same URL stay free.',
       required: false,
-      plan: 'Pro'
-    },
-    {
-      name: 'headers',
-      type: 'object',
-      description: 'Forward locale or other public headers to the target.',
-      required: false,
-      plan: 'Pro'
+      plan: 'Pro',
+      href: '/docs/api/parameters/ttl'
     }
   ]
 }
+
+const sdkExample = body => `import createClient from 'microlink.io'
+
+const microlink = createClient({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+
+${body}`
 
 export const EXAMPLES = {
-  moreHref: '/docs/guides/data-extraction',
-  items: [
+  eyebrow: 'Examples',
+  title: 'Extraction shapes.',
+  panels: [
     {
-      title: 'Extract article data',
-      description: 'Pull headline and canonical link with two rules.',
-      snippet: `data: {
-  headline: { selector: 'h1', attr: 'text' },
-  link: { selector: 'link[rel=canonical]', attr: 'href' }
-}`,
-      href: '/docs/guides/data-extraction'
+      id: 'extract',
+      title: 'Custom extract',
+      description: 'Shape any JSON with CSS-selector rules and typed fields.',
+      language: 'js',
+      snippet: sdkExample(`const { image } = await microlink.extract(url, {
+  image: {
+    selector: 'meta[property="og:image"]',
+    attr: 'content',
+    type: 'image'
+  }
+})`)
     },
     {
-      title: 'Product listing',
-      description: 'selectorAll returns every match as structured objects.',
-      snippet: `data: {
-  products: {
-    selectorAll: '.product',
-    attr: { title: { selector: 'h2', attr: 'text' } }
-  }
-}`,
-      href: '/docs/guides/data-extraction/defining-rules'
+      id: 'links',
+      title: 'Collect links',
+      description: 'Every matching href as absolute, deduped strings.',
+      language: 'js',
+      snippet: sdkExample(`const links = await microlink.links(url, {
+  selectorAll: 'nav a'
+})`)
     },
     {
-      title: 'Jobs board',
-      description: 'Collect titles and links across a listing page.',
-      snippet: `data: {
-  jobs: {
-    selectorAll: '.athing',
-    attr: {
-      title: { selector: '.titleline > a', attr: 'text' }
-    }
-  }
-}`,
-      href: '/docs/guides/data-extraction/defining-rules'
+      id: 'emails',
+      title: 'Harvest emails',
+      description: 'mailto and plain-text addresses, validated server-side.',
+      language: 'js',
+      snippet:
+        sdkExample(`const emails = await microlink.emails('https://microlink.io')
+// → ['hello@microlink.io']`)
+    },
+    {
+      id: 'images',
+      title: 'Collect images',
+      description: 'Image assets from the page as a clean collection.',
+      language: 'js',
+      snippet: sdkExample('const images = await microlink.images(url)')
+    },
+    {
+      id: 'videos',
+      title: 'Collect videos',
+      description: 'Playable video sources discovered on the page.',
+      language: 'js',
+      snippet: sdkExample('const videos = await microlink.videos(url)')
+    },
+    {
+      id: 'audios',
+      title: 'Collect audios',
+      description: 'Audio sources extracted from the target URL.',
+      language: 'js',
+      snippet: sdkExample('const audios = await microlink.audios(url)')
+    },
+    {
+      id: 'markdown',
+      title: 'Page to Markdown',
+      description: 'Scope content to Markdown for indexing or RAG.',
+      language: 'js',
+      snippet: sdkExample(`const md = await microlink.markdown(url, {
+  selector: 'article'
+})`)
+    },
+    {
+      id: 'html',
+      title: 'Page to HTML',
+      description: 'Return scoped HTML for the region you select.',
+      language: 'js',
+      snippet: sdkExample(`const html = await microlink.html(url, {
+  selector: 'article'
+})`)
+    },
+    {
+      id: 'text',
+      title: 'Page to text',
+      description: 'Plain text from a selector — no markup noise.',
+      language: 'js',
+      snippet: sdkExample(`const text = await microlink.text(url, {
+  selector: 'article'
+})`)
     }
   ]
 }
 
-export const USE_CASES = [
-  {
-    title: 'Price monitoring',
-    description: 'Track product prices without running your own browsers.',
-    icon: 'globe'
-  },
-  {
-    title: 'Lead generation',
-    description: 'Turn directory pages into structured contact lists.',
-    icon: 'list'
-  },
-  {
-    title: 'Market research',
-    description: 'Sample competitor pages at scale with one endpoint.',
-    icon: 'radar'
-  },
-  {
-    title: 'Content aggregation',
-    description: 'Normalize headlines and links from many sources.',
-    icon: 'code'
-  },
-  {
-    title: 'Competitive intel',
-    description: 'Watch pricing, copy, and feature pages for changes.',
-    icon: 'shield'
-  }
-]
+export const RELATED = {
+  relatedSlugs: ['function', 'proxy', 'headers', 'ttl', 'antibot'],
+  title: 'Compose after you extract.'
+}
 
 export const FAQ_RAW = [
   {
+    question: 'How does Microlink scrape a page?',
+    text: 'You send a url and a data schema of CSS-selector rules. Microlink fetches the page — with headless Chrome when JavaScript must run — applies each rule, and returns typed JSON for the fields you declared.'
+  },
+  {
     question: 'Can I scrape JavaScript-rendered pages?',
-    text: 'Yes. Microlink runs headless Chrome and applies your CSS selectors server-side. For client-rendered content, control rendering with prerender and wait for dynamic elements with waitForSelector before rules are applied.'
+    text: 'Yes. Microlink runs headless Chrome when the content is client-rendered. Pass prerender to force it when auto-detection is not enough.'
   },
   {
-    question: 'How does Microlink handle anti-bot protection?',
-    text: 'On Pro plans, Microlink detects the antibot provider protecting the target — Cloudflare, DataDome, Akamai, PerimeterX, and more — and automatically routes the request through a dedicated resolution path. Free plans return EPROXYNEEDED when a proxy is required.'
+    question: 'What is the difference between a custom data rule and a preset?',
+    text: 'A custom data object lets you shape any JSON you need. Presets like links, emails, and markdown are fixed shapes over the same engine — use them when they match, and a custom schema when they do not.'
   },
   {
-    question: 'Do I need to run a headless browser?',
-    text: 'No. Microlink runs headless Chrome on its infrastructure — you send a data object and receive JSON back.'
-  },
-  {
-    question: 'Is data extraction available on the free plan?',
-    text: 'Yes. Every rule type works on the free tier (25 requests per day without an API key). Pro plans add automatic proxy resolution, custom headers, and configurable TTL.'
+    question: 'Does scraping work on the free plan?',
+    text: 'Yes. Data extraction works on the free tier (25 requests per day without an API key). Pro adds proxy, custom headers, and configurable TTL on the same calls.'
   },
   {
     question: "What happens when a selector doesn't match?",
-    text: 'Define a rule as an array of fallbacks and Microlink tries each one in priority order. If nothing matches, the field comes back empty rather than failing the request.'
-  },
-  {
-    question: 'Can I extract data behind a login?',
-    text: 'Yes — forward the session as a request header using x-api-header-cookie (Pro). The credential travels inside HTTPS request headers and never appears in the URL.'
+    text: 'Define a rule as an array of fallbacks and Microlink tries each one. If nothing matches, the field comes back empty rather than failing the request.'
   }
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+
+export const TOC = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'parameters', label: 'Parameters' },
+  { id: 'examples', label: 'Examples' },
+  { id: 'related', label: 'Related features' },
+  { id: 'faq', label: 'FAQ' }
+]

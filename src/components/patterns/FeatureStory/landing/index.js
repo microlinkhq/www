@@ -1,4 +1,5 @@
-export { FeatureIcon } from './feature-icon'
+export { FeatureIcon, FeatureIconTile } from './feature-icon'
+export { FeatureCard } from './feature-card'
 export {
   FeatureBreadcrumbs,
   FeaturePageShell,
@@ -10,6 +11,7 @@ export { FeatureHero } from './hero'
 export {
   HowItWorksSection,
   OverviewSection,
+  ProductsSection,
   QuickStartSection
 } from './content-sections'
 export { ParamsSection } from './params-section'
@@ -19,4 +21,14 @@ export {
   RelatedFeaturesSection,
   UseCasesSection
 } from './related-sections'
-export { buildMqlLanguages, faqFromItems } from './helpers'
+export { ExamplesSwitcher } from './examples-switcher'
+export { TeachSection } from './teach-section'
+export {
+  buildMicrolinkLanguages,
+  buildMqlLanguages,
+  faqFromItems,
+  HeadersDocLink,
+  ProxyDocLink,
+  ProxyHeadersTtlLinks,
+  TtlDocLink
+} from './helpers'

@@ -98,11 +98,13 @@ const MultiCodeEditor = ({
   languages: codeByLanguage,
   download,
   aliases,
+  storageKey = LOCALSTORAGE_KEY,
+  defaultIndex = DEFAULT_LANGUAGE_INDEX,
   ...props
 }) => {
   const [languageIndex, setLanguageIndex] = useLocalStorage(
-    LOCALSTORAGE_KEY,
-    DEFAULT_LANGUAGE_INDEX
+    storageKey,
+    defaultIndex
   )
 
   const languages = useMemo(() => Object.keys(codeByLanguage), [codeByLanguage])
@@ -111,7 +113,7 @@ const MultiCodeEditor = ({
 
   // since we are memoizing the latest language used,
   // need to be reset when the memoized language is missing
-  if (!code) setLanguageIndex(DEFAULT_LANGUAGE_INDEX)
+  if (!code) setLanguageIndex(defaultIndex)
 
   // The tab label (e.g. `Vanilla`) doubles as the highlight language, but a
   // caller can remap it — e.g. the builder highlights its `Vanilla` tab as `js`

@@ -1,220 +1,193 @@
 import React from 'react'
-import { Clock } from 'react-feather'
-
-import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
-import { theme } from 'theme'
 
-import {
-  buildMqlLanguages,
-  faqFromItems
-} from 'components/patterns/FeatureStory'
+import { faqFromItems } from 'components/patterns/FeatureStory'
 
 export const META = {
-  title: 'Cache TTL & Stale-While-Revalidate API',
+  title: 'Configurable Caching API: Cache Hits Are Free',
   description:
-    'Cache hits never count against your Microlink plan quota — every HIT is free, including expensive screenshot and PDF renders. Tune cache lifetime per request with ttl (1 minute to 31 days) and eliminate cold-start latency with staleTtl.'
+    'Set ttl on any Microlink request with humanized durations like "1d". Cache hits are free and instant; staleTtl serves the cached value while a fresh one is fetched in the background.'
 }
 
 export const HERO = {
   name: 'Configurable Caching',
   title: 'Configurable Caching',
   description:
-    "Don't pay to re-render the same screenshot or PDF twice. Every cache HIT is free — tune lifetime with ttl and keep callers instant with staleTtl.",
-  primaryCta: {
-    label: 'Read the caching guide →',
-    href: '/docs/guides/common/caching'
-  },
-  secondaryCta: {
-    label: 'View API docs',
-    href: '/docs/api/parameters/ttl'
-  },
-  plans: [{ plan: 'Pro', description: 'Tune ttl and staleTtl per request.' }]
+    'Hits are free. Set ttl with a humanized duration on any request — cache hits return instantly and cost nothing, and staleTtl keeps responses fast while refreshing.',
+  plans: [
+    {
+      plan: 'Free',
+      description: 'Default caching keeps repeated calls fast.'
+    },
+    {
+      plan: 'Pro',
+      description: 'Tune ttl and staleTtl from 1 minute to 31 days.'
+    }
+  ]
 }
 
-export const HeroMark = () => (
-  <Flex
-    css={theme({
-      width: '96px',
-      height: '96px',
-      borderRadius: '50%',
-      border: 1,
-      borderColor: 'black10',
-      bg: 'white',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'violet7'
-    })}
-  >
-    <Clock size={36} />
-  </Flex>
-)
-
 export const OVERVIEW = {
+  eyebrow: 'Overview',
+  title: 'A cache hit costs nothing.',
   body: (
     <>
-      Use <Link href='/docs/api/parameters/ttl'>ttl</Link> to set the freshness
-      window (1 minute to 31 days) and{' '}
-      <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> for
-      stale-while-revalidate. Cache hits never count against your quota —
-      including expensive screenshot and PDF renders.
+      Add <Link href='/docs/api/parameters/ttl'>ttl</Link> to any request to set
+      its freshness window with a humanized duration — <code>'1d'</code>,{' '}
+      <code>'12h'</code>, <code>'30m'</code>. Repeat calls inside the window are
+      served from cache: free, instant, no browser. Add{' '}
+      <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> to serve the
+      cached value while a fresh one is fetched in the background.
     </>
   ),
   bullets: [
-    'Every HIT is free — MISS bills once',
-    'Unified cache across every Microlink output',
-    'Served from the nearest CloudFlare edge',
-    'force: true for intentional invalidation'
-  ],
-  sample: `{
-  "x-cache-status": "HIT",
-  "x-cache-ttl": "86400000",
-  "cf-cache-status": "HIT",
-  "x-response-time": "23ms"
-}`,
-  sampleTitle: 'headers'
-}
-
-export const STEPS = [
-  {
-    title: 'MISS',
-    description: 'First request renders once, bills that MISS, and warms cache.'
-  },
-  {
-    title: 'HIT',
-    description: 'Later callers within ttl get free edge responses.'
-  },
-  {
-    title: 'staleTtl',
-    description: 'Serve cache instantly while a background refresh runs.'
-  },
-  {
-    title: 'force',
-    description: 'Optional bypass regenerates with x-cache-status: BYPASS.'
-  }
-]
-
-export const LANGUAGES = buildMqlLanguages({
-  url: 'https://example.com',
-  options: { ttl: '1d', staleTtl: 0 },
-  comment: 'Production pattern: ttl 1d + staleTtl 0'
-})
-
-LANGUAGES.JavaScript = `import mql from '@microlink/mql'
-
-const { data } = await mql('https://example.com', {
-  apiKey: process.env.MICROLINK_API_KEY,
-  ttl: '1d',
-  staleTtl: 0
-})`
-
-export const QUICK_START = {
-  description:
-    'Recommended production setup: ttl set to your freshness budget, staleTtl set to 0.',
-  playgroundHref: '/docs/guides/common/caching'
+    'Cache hits are free and return instantly — no browser boots',
+    "Humanized durations: '1d', '12h', '30m' — no raw seconds",
+    'staleTtl serves stale-while-revalidate for zero-latency refreshes',
+    'x-cache-status header tells you HIT or MISS on every response',
+    'Works on every product — screenshot, markdown, extract, run'
+  ]
 }
 
 export const PARAMS = {
+  eyebrow: 'Parameters',
+  title: 'How caching is tuned.',
   docsHref: '/docs/api/parameters/ttl',
   rows: [
     {
       name: 'ttl',
-      type: "number | string ('1d', 'min', 'max')",
-      description: 'Cache lifetime from 1 minute to 31 days.',
+      type: 'string | number',
+      description: "Freshness window as a humanized duration ('1d') or ms.",
       required: false,
-      plan: 'Pro'
+      plan: 'Pro',
+      href: '/docs/api/parameters/ttl'
     },
     {
       name: 'staleTtl',
-      type: 'number | string | false',
-      description: 'Stale-while-revalidate window; cannot exceed ttl.',
+      type: 'string | number',
+      description: 'Serve the cached value while revalidating in background.',
       required: false,
-      plan: 'Pro'
+      plan: 'Pro',
+      href: '/docs/api/parameters/staleTtl'
+    },
+    {
+      name: 'x-cache-status',
+      type: 'response header',
+      description: 'HIT or MISS — tells you whether the cache served the call.',
+      required: false,
+      plan: 'Free + Pro',
+      href: '/docs/api/parameters/ttl'
     },
     {
       name: 'force',
       type: 'boolean',
-      description: 'Bypass cache and regenerate (BYPASS).',
+      description: 'Bypass the cache to render a fresh response on demand.',
       required: false,
-      plan: 'Free + Pro'
+      plan: 'Pro',
+      href: '/docs/api/parameters/force'
     }
   ]
 }
+
+const sdkExample = body => `import createClient from 'microlink.io'
+
+const microlink = createClient({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+
+${body}`
 
 export const EXAMPLES = {
-  moreHref: '/docs/guides/common/caching',
-  items: [
+  eyebrow: 'Examples',
+  title: 'Fetch once. Serve many.',
+  panels: [
     {
-      title: 'One paid request per day',
-      description: 'ttl 1d + staleTtl 0.',
-      snippet: "ttl: '1d', staleTtl: 0",
-      href: '/docs/api/parameters/ttl'
+      id: 'ttl-day',
+      title: 'Cache for a day',
+      description: "A humanized '1d' window — repeat calls are free and fast.",
+      language: 'js',
+      snippet: sdkExample(`const { url } = await microlink.screenshot(
+  'https://example.com',
+  { ttl: '1d' }
+)`)
     },
     {
-      title: 'Force a fresh copy',
-      description: 'Invalidate when you know the source changed.',
-      snippet: 'force: true',
-      href: '/docs/api/parameters/force'
+      id: 'stale',
+      title: 'Stale-while-revalidate',
+      description:
+        'staleTtl serves the cached value while refreshing behind it.',
+      language: 'js',
+      snippet: sdkExample(`const md = await microlink.markdown(
+  'https://example.com/blog',
+  { ttl: '1h', staleTtl: '30m' }
+)`)
     },
     {
-      title: 'Read cache headers',
-      description: 'HIT means free; MISS/BYPASS are billed.',
-      snippet: `x-cache-status: HIT
-x-cache-ttl: 86400000`,
-      href: '/docs/api/basics/cache'
+      id: 'force',
+      title: 'Force a fresh render',
+      description: 'Skip the cache when you need the latest response now.',
+      language: 'js',
+      snippet: sdkExample(`const { url } = await microlink.screenshot(
+  'https://example.com',
+  { force: true }
+)`)
+    },
+    {
+      id: 'extract',
+      title: 'Cheap monitoring',
+      description: 'Repeat extract on a schedule and pay only on MISS.',
+      language: 'js',
+      snippet: sdkExample(`const price = await microlink.extract(url, {
+  price: { selector: '.price', type: 'string' }
+}, { ttl: '15m' })`)
+    },
+    {
+      id: 'with-proxy',
+      title: 'Cache after proxy',
+      description:
+        'Keep hard-target results warm so you skip the proxy next time.',
+      language: 'js',
+      snippet: sdkExample(`const md = await microlink.markdown(url, {
+  proxy: true,
+  ttl: '1d'
+})`)
     }
   ]
 }
 
-export const USE_CASES = [
-  {
-    title: 'Cheap screenshots',
-    description: 'Pay once to render; serve every HIT for free.',
-    icon: 'clock'
-  },
-  {
-    title: 'Marketing freshness',
-    description: 'Long ttl for content that rarely changes.',
-    icon: 'globe'
-  },
-  {
-    title: 'Dashboard feeds',
-    description: 'Short ttl for near-real-time data.',
-    icon: 'radar'
-  },
-  {
-    title: 'Zero cold-start',
-    description: 'staleTtl: 0 keeps callers instant.',
-    icon: 'code'
-  },
-  {
-    title: 'APM-driven tuning',
-    description: 'Track x-cache-status to grow or shrink TTL.',
-    icon: 'list'
-  }
-]
+export const RELATED = {
+  relatedSlugs: ['scraping', 'proxy', 'function', 'headers'],
+  title: 'Make every product cheaper.'
+}
 
 export const FAQ_RAW = [
   {
-    question: 'Does caching apply to screenshots and PDFs too?',
-    text: 'Yes — the cache layer covers every Microlink output equally: metadata, HTML, markdown, screenshots, PDFs, insights, and data extraction.'
+    question: 'What does “cache hits are free” mean?',
+    text: 'When a request is served from cache inside its ttl window, no browser boots and no render happens — the stored response is returned instantly and does not count against your usage.'
   },
   {
-    question: 'Do cached responses count against my plan quota?',
-    text: 'No. Any response served from cache (x-cache-status: HIT) does not count toward your plan quota. Only MISS and BYPASS count as billed requests.'
+    question: 'How do I set the cache duration?',
+    text: 'Pass ttl on any request with a humanized duration such as "1d", "12h" or "30m" (or milliseconds). It ranges from 1 minute to 31 days, so you tune freshness to the content.'
   },
   {
-    question: 'What is the difference between ttl and staleTtl?',
-    text: 'ttl sets how long a cached response is valid. staleTtl opts into stale-while-revalidate: callers get the cached copy instantly while a background refresh regenerates a fresh one.'
+    question: 'What is staleTtl?',
+    text: 'staleTtl enables stale-while-revalidate: once the ttl expires, the cached value is still served immediately while a fresh response is fetched in the background, so callers never wait on a render.'
   },
   {
-    question: 'How do I bypass the cache for a fresh response?',
-    text: 'Pass force: true. The cache layer is skipped and the response carries x-cache-status: BYPASS.'
+    question: 'How do I know if a response was cached?',
+    text: 'Every response carries an x-cache-status header set to HIT or MISS, so you can confirm whether the cache served the call and measure your hit rate.'
   },
   {
-    question: 'Do ttl and staleTtl work on free plans?',
-    text: 'No. Both are Pro features. Free-plan responses are still cached using the default 24-hour ttl, but the parameters themselves are honored only on Pro.'
+    question: 'Can I bypass the cache when I need fresh data?',
+    text: 'Yes. Pass force: true to skip the cache and render a fresh response on demand, while still storing it for subsequent calls within the ttl.'
   }
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+
+export const TOC = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'parameters', label: 'Parameters' },
+  { id: 'examples', label: 'Examples' },
+  { id: 'related', label: 'Related features' },
+  { id: 'faq', label: 'FAQ' }
+]

@@ -40,9 +40,11 @@ export {
 } from './primitives'
 export {
   FeatureBreadcrumbs,
+  FeatureCard,
   FeatureFaqSection,
   FeatureHero,
   FeatureIcon,
+  FeatureIconTile,
   FeaturePageShell,
   FeatureSection,
   FeatureToc,
@@ -50,10 +52,17 @@ export {
   OverviewSection,
   ParamsSection,
   PlanSupportBar,
+  ProductsSection,
   QuickStartSection,
   ExamplesSection,
   UseCasesSection,
   RelatedFeaturesSection,
+  TeachSection,
   faqFromItems,
-  buildMqlLanguages
+  buildMicrolinkLanguages,
+  buildMqlLanguages,
+  HeadersDocLink,
+  ProxyDocLink,
+  ProxyHeadersTtlLinks,
+  TtlDocLink
 } from './landing'

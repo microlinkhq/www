@@ -6,9 +6,9 @@ import { OVERVIEW } from './shared'
 
 export const Overview = () => (
   <OverviewSection
+    eyebrow={OVERVIEW.eyebrow}
+    title={OVERVIEW.title}
     body={OVERVIEW.body}
     bullets={OVERVIEW.bullets}
-    sample={OVERVIEW.sample}
-    sampleTitle={OVERVIEW.sampleTitle}
   />
 )

@@ -4,24 +4,44 @@ import React from 'react'
 import Box from 'components/elements/Box'
 import Meta from 'components/elements/Meta/Meta'
 
-import { DashedGridOverlay } from 'components/patterns/FeatureStory'
+import {
+  DashedGridOverlay,
+  FeaturePageShell
+} from 'components/patterns/FeatureStory'
 import Layout from 'components/patterns/Layout'
 
-import { FeaturesGrid } from 'components/pages/features/grid'
+import { Definition } from 'components/pages/features/definition'
+import { Hero } from 'components/pages/features/hero'
+import { Introduction } from 'components/pages/features/introduction'
+import { Ladder } from 'components/pages/features/ladder'
+import { MentalModel } from 'components/pages/features/mental-model'
+import { NextSteps } from 'components/pages/features/next-steps'
+import { Primitives } from 'components/pages/features/primitives'
+import { META, TOC } from 'components/pages/features/shared'
+import { Why } from 'components/pages/features/why'
 
 const FeaturesIndexPage = () => (
   <Layout css={theme({ position: 'relative' })}>
     <DashedGridOverlay aria-hidden='true' />
     <Box css={theme({ position: 'relative', zIndex: 1 })}>
-      <FeaturesGrid />
+      <FeaturePageShell toc={TOC}>
+        <Hero />
+        <Introduction />
+        <Definition />
+        <MentalModel />
+        <Ladder />
+        <Primitives />
+        <Why />
+        <NextSteps />
+      </FeaturePageShell>
     </Box>
   </Layout>
 )
 
 export const Head = () => (
   <Meta
-    title='Features: Microlink engineering principles'
-    description='The cross-product engineering capabilities behind Microlink — web scraping, browser functions, automation, proxy resolution, antibot detection, configurable caching, custom headers, and request security — shared uniformly across every API.'
+    title={META.title}
+    description={META.description}
     schemaType='WebPage'
   />
 )

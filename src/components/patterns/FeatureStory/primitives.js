@@ -7,8 +7,6 @@ import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
-import { Caption } from 'components/patterns/CustomerStory/primitives'
-
 export const Eyebrow = styled(Text)`
   ${theme({
     color: 'secondary',
@@ -21,16 +19,18 @@ export const Eyebrow = styled(Text)`
 `
 
 export const BodyText = props => (
-  <Caption
-    forwardedAs='p'
-    titleize={false}
+  <Text
+    as='p'
     {...props}
     css={[
       theme({
+        fontFamily: 'sans',
         textAlign: 'left',
         maxWidth: layout.large,
         mx: 0,
-        color: 'black'
+        color: 'black',
+        fontSize: [2, 2, 2, 2],
+        lineHeight: 2
       }),
       props.css
     ]}
@@ -60,7 +60,7 @@ export const Node = styled(Box)`
   ${theme({
     bg: 'white',
     border: 1,
-    borderColor: 'black10',
+    borderColor: 'gray2',
     borderRadius: 3,
     px: [3, 3, 3, 3],
     py: [3, 3, 3, 3],
@@ -103,7 +103,7 @@ export const Arrow = () => (
     aria-hidden='true'
     css={`
       ${theme({
-        color: 'black30',
+        color: 'gray5',
         flex: '0 0 auto',
         alignItems: 'center',
         justifyContent: 'center'
@@ -155,7 +155,7 @@ export const ScenarioHeader = ({ title, status }) => (
         bg: 'white',
         color: 'black70',
         border: 1,
-        borderColor: 'black10',
+        borderColor: 'gray2',
         borderRadius: 5,
         fontFamily: 'mono',
         fontSize: 0,
@@ -192,7 +192,7 @@ const RuleChip = styled(Text).attrs({ as: 'span' })`
     bg: 'white',
     color: 'black',
     border: 1,
-    borderColor: 'black10',
+    borderColor: 'gray2',
     borderRadius: 2,
     fontFamily: 'mono',
     fontSize: 0,
@@ -206,7 +206,7 @@ export const Card = styled(Box)`
   ${theme({
     bg: 'white',
     border: 1,
-    borderColor: 'black10',
+    borderColor: 'gray2',
     borderRadius: 3,
     p: [3, 3, 4, 4],
     width: '100%',
