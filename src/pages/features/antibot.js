@@ -11,11 +11,11 @@ import { Hero } from 'components/pages/antibot/hero'
 import { Overview } from 'components/pages/antibot/overview'
 import { Parameters } from 'components/pages/antibot/parameters'
 import { Related } from 'components/pages/antibot/related'
-import { META, TOC } from 'components/pages/antibot/shared'
+import { META } from 'components/pages/antibot/shared'
 
 const AntibotFeaturePage = () => (
   <Layout>
-    <FeaturePageShell toc={TOC}>
+    <FeaturePageShell>
       <Hero />
       <Overview />
       <Parameters />

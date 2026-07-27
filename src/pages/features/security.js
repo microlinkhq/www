@@ -11,11 +11,11 @@ import { Hero } from 'components/pages/security/hero'
 import { Overview } from 'components/pages/security/overview'
 import { Parameters } from 'components/pages/security/parameters'
 import { Related } from 'components/pages/security/related'
-import { META, TOC } from 'components/pages/security/shared'
+import { META } from 'components/pages/security/shared'
 
 const SecurityFeaturePage = () => (
   <Layout>
-    <FeaturePageShell toc={TOC}>
+    <FeaturePageShell>
       <Hero />
       <Overview />
       <Parameters />

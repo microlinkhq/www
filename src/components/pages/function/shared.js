@@ -10,7 +10,6 @@ export const META = {
 }
 
 export const HERO = {
-  name: 'Browser Functions',
   title: 'Browser Functions',
   description:
     'Write a function. Get a value. microlink.run() runs your JavaScript in a sandbox — the browser is optional and boots only when your code touches page.',
@@ -21,7 +20,6 @@ export const HERO = {
 }
 
 export const OVERVIEW = {
-  eyebrow: 'Overview',
   title: 'Browser optional. Value guaranteed.',
   body: (
     <>
@@ -44,7 +42,6 @@ export const OVERVIEW = {
 }
 
 export const PARAMS = {
-  eyebrow: 'Parameters',
   title: 'What run() forwards.',
   docsHref: '/docs/api/parameters/function',
   rows: [
@@ -52,16 +49,12 @@ export const PARAMS = {
       name: 'url',
       type: 'string',
       description: 'Target page; navigated only when the function reads page.',
-      required: true,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/url'
     },
     {
       name: 'function',
       type: 'string | Function',
       description: 'The code to run remotely — run() serializes it for you.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/function'
     },
     {
@@ -69,31 +62,24 @@ export const PARAMS = {
       type: 'object',
       description:
         'Extra options are forwarded into the function scope for reuse.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/function'
     },
     {
       name: 'proxy',
       type: 'boolean | string',
       description: 'Compose with automatic or BYO proxy for antibot targets.',
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/parameters/proxy'
     },
     {
       name: 'ttl',
       type: 'string | number',
       description: 'Cache repeated executions within a freshness window.',
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/parameters/ttl'
     }
   ]
 }
 
 export const EXAMPLES = {
-  eyebrow: 'Examples',
   title: 'Canonical run() snippets.',
   panels: [
     {
@@ -186,11 +172,3 @@ export const FAQ_RAW = [
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
-
-export const TOC = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'parameters', label: 'Parameters' },
-  { id: 'examples', label: 'Examples' },
-  { id: 'related', label: 'Related features' },
-  { id: 'faq', label: 'FAQ' }
-]

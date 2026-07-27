@@ -14,7 +14,6 @@ export const META = {
 }
 
 export const HERO = {
-  name: 'Web Scraping',
   title: 'Web Scraping',
   description:
     'Turn any URL into structured JSON. Point CSS selectors at the fields you need — Microlink fetches the page, runs a browser when the content is client-rendered, and returns typed data.',
@@ -35,7 +34,6 @@ export const HERO = {
 }
 
 export const OVERVIEW = {
-  eyebrow: 'Overview',
   title: 'Declare the shape. Get the data.',
   body: (
     <>
@@ -66,7 +64,6 @@ export const OVERVIEW = {
 }
 
 export const PARAMS = {
-  eyebrow: 'Parameters',
   title: 'What an extraction call accepts.',
   docsHref: '/docs/api/parameters/data',
   rows: [
@@ -74,8 +71,6 @@ export const PARAMS = {
       name: 'url',
       type: 'string',
       description: 'The page to fetch and extract from.',
-      required: true,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/url'
     },
     {
@@ -83,32 +78,24 @@ export const PARAMS = {
       type: 'object',
       description:
         'Output schema: CSS-selector rules for each field you want back.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/data'
     },
     {
       name: 'selector / selectorAll',
       type: 'string',
       description: 'Scope a field or collection to part of the DOM.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/data'
     },
     {
       name: 'prerender',
       type: "boolean | 'auto'",
       description: 'Run headless Chrome for client-rendered pages.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/prerender'
     },
     {
       name: 'proxy',
       type: 'boolean | string',
       description: 'Automatic or BYO proxy when the target blocks the request.',
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/parameters/proxy'
     },
     {
@@ -116,15 +103,12 @@ export const PARAMS = {
       type: 'string | number',
       description:
         'Cache lifetime so repeated extractions on the same URL stay free.',
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/parameters/ttl'
     }
   ]
 }
 
 export const EXAMPLES = {
-  eyebrow: 'Examples',
   title: 'Extraction shapes.',
   panels: [
     {
@@ -238,11 +222,3 @@ export const FAQ_RAW = [
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
-
-export const TOC = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'parameters', label: 'Parameters' },
-  { id: 'examples', label: 'Examples' },
-  { id: 'related', label: 'Related features' },
-  { id: 'faq', label: 'FAQ' }
-]

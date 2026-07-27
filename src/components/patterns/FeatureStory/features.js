@@ -18,10 +18,7 @@ export const FEATURES = [
     tag: null,
     category: 'Scraping',
     param: 'data',
-    params: ['data'],
-    paramDisplay: 'data',
     icon: 'globe',
-    iconColor: 'violet7',
     iconBg: 'violet7',
     borderColor: 'violet2',
     oneLiner:
@@ -37,10 +34,7 @@ export const FEATURES = [
     tag: null,
     category: 'Code execution',
     param: 'function',
-    params: ['function'],
-    paramDisplay: 'function',
     icon: 'js',
-    iconColor: 'yellow7',
     iconBg: 'yellow5',
     borderColor: 'yellow2',
     oneLiner:
@@ -56,10 +50,7 @@ export const FEATURES = [
     tag: null,
     category: 'Page control',
     param: 'prerender',
-    params: ['prerender'],
-    paramDisplay: 'prerender',
     icon: 'mouse',
-    iconColor: 'green7',
     iconBg: 'green7',
     borderColor: 'green2',
     oneLiner:
@@ -75,10 +66,7 @@ export const FEATURES = [
     tag: 'PRO',
     category: 'Anti-bot & unblocking',
     param: 'proxy',
-    params: ['proxy'],
-    paramDisplay: 'proxy',
     icon: 'shield',
-    iconColor: 'cyan7',
     iconBg: 'cyan7',
     borderColor: 'cyan2',
     oneLiner:
@@ -94,10 +82,7 @@ export const FEATURES = [
     tag: 'PRO',
     category: 'Anti-bot & unblocking',
     param: 'x-fetch-mode',
-    params: ['x-fetch-mode'],
-    paramDisplay: 'x-fetch-mode',
     icon: 'radar',
-    iconColor: 'pink7',
     iconBg: 'pink7',
     borderColor: 'pink2',
     oneLiner:
@@ -112,10 +97,7 @@ export const FEATURES = [
     tag: 'PRO',
     category: 'Performance & caching',
     param: 'ttl',
-    params: ['ttl', 'staleTtl'],
-    paramDisplay: 'ttl / staleTtl',
     icon: 'clock',
-    iconColor: 'violet9',
     iconBg: 'violet9',
     borderColor: 'violet3',
     oneLiner:
@@ -131,10 +113,7 @@ export const FEATURES = [
     tag: 'PRO',
     category: 'Authentication & access',
     param: 'headers',
-    params: ['headers', 'x-api-header-*'],
-    paramDisplay: 'headers / x-api-header-*',
     icon: 'list',
-    iconColor: 'orange7',
     iconBg: 'orange7',
     borderColor: 'orange2',
     oneLiner:
@@ -150,10 +129,7 @@ export const FEATURES = [
     tag: null,
     category: 'Trust & isolation',
     param: 'url',
-    params: ['url'],
-    paramDisplay: 'url',
     icon: 'lock',
-    iconColor: 'blue9',
     iconBg: 'blue9',
     borderColor: 'blue3',
     oneLiner:
@@ -166,17 +142,14 @@ export const FEATURES = [
 
 export const FEATURE_TOC = [
   { id: 'overview', label: 'Overview' },
-  { id: 'teach', label: 'When to use' },
-  { id: 'how-it-works', label: 'How it works' },
-  { id: 'quick-start', label: 'Quick start' },
   { id: 'parameters', label: 'Parameters' },
   { id: 'examples', label: 'Examples' },
-  { id: 'use-cases', label: 'Use cases' },
   { id: 'related', label: 'Related features' },
   { id: 'faq', label: 'FAQ' }
 ]
 
-export const getFeature = slug => FEATURES.find(f => f.slug === slug)
+const FEATURES_BY_SLUG = new Map(
+  FEATURES.map(feature => [feature.slug, feature])
+)
 
-export const getRelatedFeatures = slug =>
-  FEATURES.filter(f => f.slug !== slug).slice(0, 5)
+export const getFeature = slug => FEATURES_BY_SLUG.get(slug)

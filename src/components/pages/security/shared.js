@@ -14,7 +14,6 @@ export const META = {
 }
 
 export const HERO = {
-  name: 'Request Security',
   title: 'Request Security',
   description:
     'One browser. One request. Then gone. Every call runs in its own isolated, ephemeral browser, and SSRF to private targets is blocked with EFORBIDDENURL.',
@@ -35,7 +34,6 @@ export const HERO = {
 }
 
 export const OVERVIEW = {
-  eyebrow: 'Overview',
   title: 'Isolated by default. SSRF blocked.',
   body: (
     <>
@@ -57,7 +55,6 @@ export const OVERVIEW = {
 }
 
 export const PARAMS = {
-  eyebrow: 'Parameters',
   title: 'The guarantees on every call.',
   docsHref: '/docs/api/getting-started/overview',
   rows: [
@@ -65,39 +62,30 @@ export const PARAMS = {
       name: 'url',
       type: 'string',
       description: 'Validated for SSRF before any browser navigates to it.',
-      required: true,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/url'
     },
     {
       name: 'EFORBIDDENURL',
       type: 'error code',
       description: 'Rejects private, loopback and link-local targets.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/getting-started/overview'
     },
     {
       name: 'MicrolinkError',
       type: 'error',
       description: 'Carries code, statusCode and a human-readable description.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/getting-started/overview'
     },
     {
       name: 'isolation',
       type: 'guarantee',
       description: 'One ephemeral browser per request, destroyed after use.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/getting-started/overview'
     }
   ]
 }
 
 export const EXAMPLES = {
-  eyebrow: 'Examples',
   title: 'Guards you never opt into.',
   panels: [
     {
@@ -203,11 +191,3 @@ export const FAQ_RAW = [
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
-
-export const TOC = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'parameters', label: 'Parameters' },
-  { id: 'examples', label: 'Examples' },
-  { id: 'related', label: 'Related features' },
-  { id: 'faq', label: 'FAQ' }
-]

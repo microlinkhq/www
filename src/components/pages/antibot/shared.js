@@ -10,7 +10,6 @@ export const META = {
 }
 
 export const HERO = {
-  name: 'Antibot Detection',
   title: 'Antibot Detection',
   description:
     'Know who blocked you. Microlink identifies 30+ anti-bot providers guarding a target, names the signal, and lets you resolve it with proxy on the same call.',
@@ -27,7 +26,6 @@ export const HERO = {
 }
 
 export const OVERVIEW = {
-  eyebrow: 'Overview',
   title: 'Detection first. Then resolution.',
   body: (
     <>
@@ -48,7 +46,6 @@ export const OVERVIEW = {
 }
 
 export const PARAMS = {
-  eyebrow: 'Parameters',
   title: 'Detection and resolution signals.',
   docsHref: '/docs/api/parameters/proxy',
   rows: [
@@ -56,16 +53,12 @@ export const PARAMS = {
       name: 'detected',
       type: 'boolean',
       description: 'Whether an anti-bot defense guards the target.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/proxy'
     },
     {
       name: 'provider',
       type: 'string',
       description: "The named defense — 'cloudflare', 'datadome', 'akamai', ….",
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/proxy'
     },
     {
@@ -73,23 +66,18 @@ export const PARAMS = {
       type: 'boolean | string',
       description:
         'Resolve a detected block via residential IPs, or BYO proxy.',
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/parameters/proxy'
     },
     {
       name: 'headers',
       type: 'object',
       description: 'Forward session cookies through with x-api-header-cookie.',
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/parameters/headers'
     }
   ]
 }
 
 export const EXAMPLES = {
-  eyebrow: 'Examples',
   title: 'Detect, then resolve.',
   panels: [
     {
@@ -183,11 +171,3 @@ export const FAQ_RAW = [
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
-
-export const TOC = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'parameters', label: 'Parameters' },
-  { id: 'examples', label: 'Examples' },
-  { id: 'related', label: 'Related features' },
-  { id: 'faq', label: 'FAQ' }
-]

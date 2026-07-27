@@ -4,13 +4,4 @@ import { FeatureHero } from 'components/patterns/FeatureStory'
 
 import { HERO } from './shared'
 
-export const Hero = () => (
-  <FeatureHero
-    name={HERO.name}
-    title={HERO.title}
-    description={HERO.description}
-    primaryCta={HERO.primaryCta}
-    secondaryCta={HERO.secondaryCta}
-    plans={HERO.plans}
-  />
-)
+export const Hero = () => <FeatureHero {...HERO} />

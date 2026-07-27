@@ -10,7 +10,6 @@ export const META = {
 }
 
 export const HERO = {
-  name: 'Proxy Resolution',
   title: 'Proxy Resolution',
   description:
     'One param. Hard targets. Add proxy: true and Microlink routes the request through residential IPs — the unblocker is automatic, no proxy list to manage.',
@@ -27,7 +26,6 @@ export const HERO = {
 }
 
 export const OVERVIEW = {
-  eyebrow: 'Overview',
   title: 'The unblocker is a single option.',
   body: (
     <>
@@ -49,7 +47,6 @@ export const OVERVIEW = {
 }
 
 export const PARAMS = {
-  eyebrow: 'Parameters',
   title: 'How proxy routing is controlled.',
   docsHref: '/docs/api/parameters/proxy',
   rows: [
@@ -57,39 +54,30 @@ export const PARAMS = {
       name: 'proxy',
       type: 'boolean | string',
       description: 'true for the managed unblocker, or your own proxy URL.',
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/parameters/proxy'
     },
     {
       name: 'url',
       type: 'string',
       description: 'Target page reached through the proxy when set.',
-      required: true,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/url'
     },
     {
       name: 'EPROXYNEEDED',
       type: 'error code',
       description: 'Signals the target refused a direct, non-proxied request.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/proxy'
     },
     {
       name: 'ttl',
       type: 'string | number',
       description: 'Cache proxied responses so repeat calls skip the proxy.',
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/parameters/ttl'
     }
   ]
 }
 
 export const EXAMPLES = {
-  eyebrow: 'Examples',
   title: 'Unblock hard targets.',
   panels: [
     {
@@ -177,11 +165,3 @@ export const FAQ_RAW = [
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
-
-export const TOC = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'parameters', label: 'Parameters' },
-  { id: 'examples', label: 'Examples' },
-  { id: 'related', label: 'Related features' },
-  { id: 'faq', label: 'FAQ' }
-]

@@ -11,11 +11,11 @@ import { Hero } from 'components/pages/proxy/hero'
 import { Overview } from 'components/pages/proxy/overview'
 import { Parameters } from 'components/pages/proxy/parameters'
 import { Related } from 'components/pages/proxy/related'
-import { META, TOC } from 'components/pages/proxy/shared'
+import { META } from 'components/pages/proxy/shared'
 
 const ProxyFeaturePage = () => (
   <Layout>
-    <FeaturePageShell toc={TOC}>
+    <FeaturePageShell>
       <Hero />
       <Overview />
       <Parameters />

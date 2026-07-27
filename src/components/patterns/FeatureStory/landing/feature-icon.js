@@ -19,7 +19,6 @@ import Text from 'components/elements/Text'
 const ICON_MAP = {
   globe: Globe,
   code: Code,
-  js: Code,
   mouse: MousePointer,
   shield: Shield,
   radar: Activity,
@@ -29,8 +28,6 @@ const ICON_MAP = {
 }
 
 const Glyph = ({ name, size, color }) => {
-  const Icon = ICON_MAP[name] || Globe
-
   if (name === 'js') {
     return (
       <Text
@@ -68,24 +65,9 @@ const Glyph = ({ name, size, color }) => {
     )
   }
 
+  const Icon = ICON_MAP[name] || Globe
   return <Icon size={size} strokeWidth={2} />
 }
-
-export const FeatureIcon = ({ name, color, size = 20, ...props }) => (
-  <Box
-    aria-hidden='true'
-    css={theme({
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: color || 'secondary',
-      flexShrink: 0
-    })}
-    {...props}
-  >
-    <Glyph name={name} size={size} color={color || 'secondary'} />
-  </Box>
-)
 
 export const FeatureIconTile = ({ name, bg, size = 36, color, ...props }) => {
   const ink = color || (name === 'js' ? 'black' : 'white')

@@ -1,5 +1,5 @@
 import { breakpoints, colors, theme, transition } from 'theme'
-import React, { useEffect, useId, useRef, useState } from 'react'
+import React, { useEffect, useId, useMemo, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import Box from 'components/elements/Box'
@@ -93,13 +93,38 @@ const isAtEnd = node => {
   return node.scrollTop + node.clientHeight >= node.scrollHeight - 2
 }
 
-export const ExamplesSwitcher = ({ panels, defaultIndex = 0 }) => {
+const TAB_TITLE_STYLE = theme({
+  fontFamily: 'sans',
+  fontWeight: 'bold',
+  fontSize: 1,
+  color: 'black',
+  pb: 1,
+  m: 0
+})
+
+const TAB_DESCRIPTION_STYLE = theme({
+  fontFamily: 'sans',
+  fontSize: 1,
+  color: 'black60',
+  lineHeight: 2,
+  m: 0
+})
+
+export const ExamplesSwitcher = ({ panels }) => {
   const baseId = useId()
   const listRef = useRef(null)
   const tabRefs = useRef([])
-  const [activeIndex, setActiveIndex] = useState(defaultIndex)
+  const [activeIndex, setActiveIndex] = useState(0)
   const [atEnd, setAtEnd] = useState(false)
-  const active = panels[activeIndex] || panels[0]
+  const active = panels[activeIndex]
+
+  const setTabRef = useMemo(
+    () =>
+      panels.map((_, index) => node => {
+        tabRefs.current[index] = node
+      }),
+    [panels]
+  )
 
   useEffect(() => {
     const node = listRef.current
@@ -112,7 +137,7 @@ export const ExamplesSwitcher = ({ panels, defaultIndex = 0 }) => {
       node.removeEventListener('scroll', update)
       window.removeEventListener('resize', update)
     }
-  }, [panels.length, activeIndex, active?.snippet])
+  }, [panels])
 
   useEffect(() => {
     tabRefs.current[activeIndex]?.scrollIntoView({
@@ -168,9 +193,7 @@ export const ExamplesSwitcher = ({ panels, defaultIndex = 0 }) => {
             <TabCard
               key={panel.id}
               id={tabId}
-              ref={node => {
-                tabRefs.current[index] = node
-              }}
+              ref={setTabRef[index]}
               type='button'
               role='tab'
               aria-selected={selected}
@@ -179,29 +202,8 @@ export const ExamplesSwitcher = ({ panels, defaultIndex = 0 }) => {
               onClick={() => selectIndex(index)}
               onKeyDown={event => onKeyDown(event, index)}
             >
-              <Text
-                css={theme({
-                  fontFamily: 'sans',
-                  fontWeight: 'bold',
-                  fontSize: 1,
-                  color: 'black',
-                  pb: 1,
-                  m: 0
-                })}
-              >
-                {panel.title}
-              </Text>
-              <Text
-                css={theme({
-                  fontFamily: 'sans',
-                  fontSize: 1,
-                  color: 'black60',
-                  lineHeight: 2,
-                  m: 0
-                })}
-              >
-                {panel.description}
-              </Text>
+              <Text css={TAB_TITLE_STYLE}>{panel.title}</Text>
+              <Text css={TAB_DESCRIPTION_STYLE}>{panel.description}</Text>
             </TabCard>
           )
         })}

@@ -1,69 +1,22 @@
-// Feature pages reuse the accent-agnostic primitives from the CustomerStory
-// pattern so feature, use-case, and customer-story sections stay visually
-// consistent. The feature registry (which drives the /features landing and
-// the footer) and the feature-page scaffolding live here.
+// Feature pages describe API capabilities — proxy, caching, headers, data
+// extraction — rather than customer outcomes. The feature registry (which
+// drives the /features landing and the footer) and the feature-page
+// scaffolding live here.
 
-export {
-  ACCENT,
-  FEATURES,
-  FEATURE_TOC,
-  getFeature,
-  getRelatedFeatures
-} from './features'
-export {
-  SECTION_PX,
-  SECTION_PY,
-  SECTION_MAX_WIDTH,
-  Section,
-  SectionInner,
-  Caption
-} from 'components/patterns/CustomerStory/primitives'
+export { ACCENT, FEATURES } from './features'
 export { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
+export { BodyText, Eyebrow } from './primitives'
 export {
-  Arrow,
-  BodyText,
-  Card,
-  CardBody,
-  CardKicker,
-  CardMain,
-  CardSide,
-  CardTitle,
-  ChipRow,
-  Eyebrow,
-  Node,
-  NodeActive,
-  NodeLabel,
-  NodeSub,
-  PlanTag,
-  ScenarioHeader,
-  ScenarioRow
-} from './primitives'
-export {
-  FeatureBreadcrumbs,
+  ExamplesSection,
   FeatureCard,
   FeatureFaqSection,
   FeatureHero,
-  FeatureIcon,
-  FeatureIconTile,
   FeaturePageShell,
   FeatureSection,
-  FeatureToc,
-  HowItWorksSection,
   OverviewSection,
   ParamsSection,
-  PlanSupportBar,
-  ProductsSection,
-  QuickStartSection,
-  ExamplesSection,
-  UseCasesSection,
   RelatedFeaturesSection,
-  TeachSection,
   faqFromItems,
-  buildMicrolinkLanguages,
-  buildMqlLanguages,
-  HeadersDocLink,
-  ProxyDocLink,
   ProxyHeadersTtlLinks,
-  sdkExample,
-  TtlDocLink
+  sdkExample
 } from './landing'

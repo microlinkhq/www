@@ -210,23 +210,6 @@
         "rules": [
           "react-doctor/rendering-hydration-no-flicker"
         ]
-      },
-      {
-        "files": [
-          "src/components/patterns/FeatureStory/landing/shell.js"
-        ],
-        "rules": [
-          "react-doctor/effect-needs-cleanup"
-        ]
-      },
-      {
-        "files": [
-          "src/components/patterns/FeatureStory/landing/content-sections.js",
-          "src/components/patterns/FeatureStory/landing/helpers.js"
-        ],
-        "rules": [
-          "react-doctor/no-array-index-as-key"
-        ]
       }
     ]
   }

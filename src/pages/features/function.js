@@ -11,11 +11,11 @@ import { Hero } from 'components/pages/function/hero'
 import { Overview } from 'components/pages/function/overview'
 import { Parameters } from 'components/pages/function/parameters'
 import { Related } from 'components/pages/function/related'
-import { META, TOC } from 'components/pages/function/shared'
+import { META } from 'components/pages/function/shared'
 
 const FunctionFeaturePage = () => (
   <Layout>
-    <FeaturePageShell toc={TOC}>
+    <FeaturePageShell>
       <Hero />
       <Overview />
       <Parameters />

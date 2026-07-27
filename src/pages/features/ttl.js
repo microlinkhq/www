@@ -11,11 +11,11 @@ import { Hero } from 'components/pages/ttl/hero'
 import { Overview } from 'components/pages/ttl/overview'
 import { Parameters } from 'components/pages/ttl/parameters'
 import { Related } from 'components/pages/ttl/related'
-import { META, TOC } from 'components/pages/ttl/shared'
+import { META } from 'components/pages/ttl/shared'
 
 const TtlFeaturePage = () => (
   <Layout>
-    <FeaturePageShell toc={TOC}>
+    <FeaturePageShell>
       <Hero />
       <Overview />
       <Parameters />

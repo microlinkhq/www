@@ -10,7 +10,6 @@ export const META = {
 }
 
 export const HERO = {
-  name: 'Custom HTTP Headers',
   title: 'Custom HTTP Headers',
   description:
     'Secrets stay out of URLs. Pass headers on the HTTP layer, and any x-api-header-* is forwarded to the target fetch — cookies and tokens never touch the query string.',
@@ -27,7 +26,6 @@ export const HERO = {
 }
 
 export const OVERVIEW = {
-  eyebrow: 'Overview',
   title: 'Headers ride the HTTP layer.',
   body: (
     <>
@@ -49,7 +47,6 @@ export const OVERVIEW = {
 }
 
 export const PARAMS = {
-  eyebrow: 'Parameters',
   title: 'How headers are routed.',
   docsHref: '/docs/api/parameters/headers',
   rows: [
@@ -57,39 +54,30 @@ export const PARAMS = {
       name: 'headers',
       type: 'object',
       description: 'Sent as real HTTP request headers — never in the URL.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/headers'
     },
     {
       name: 'x-api-header-*',
       type: 'header',
       description: 'Forwarded to the target fetch with the prefix stripped.',
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/parameters/headers'
     },
     {
       name: 'apiKey',
       type: 'string',
       description: 'Sent as the x-api-key header by the client — not the URL.',
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/getting-started/overview'
     },
     {
       name: 'url',
       type: 'string',
       description: 'The target the forwarded headers are attached to.',
-      required: true,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/url'
     }
   ]
 }
 
 export const EXAMPLES = {
-  eyebrow: 'Examples',
   title: 'Forward what the target needs.',
   panels: [
     {
@@ -185,11 +173,3 @@ export const FAQ_RAW = [
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
-
-export const TOC = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'parameters', label: 'Parameters' },
-  { id: 'examples', label: 'Examples' },
-  { id: 'related', label: 'Related features' },
-  { id: 'faq', label: 'FAQ' }
-]

@@ -175,17 +175,7 @@ export const FeatureToc = ({ items = FEATURE_TOC }) => {
   const [activeId, setActiveId] = useState(items[0]?.id)
 
   useEffect(() => {
-    const sections = items.flatMap(({ id }) => {
-      const section = document.getElementById(id)
-      return section ? [section] : []
-    })
-
-    if (!sections.length) return undefined
-
-    const Observer = window.IntersectionObserver
-    if (!Observer) return undefined
-
-    const observer = new Observer(
+    const observer = new window.IntersectionObserver(
       entries => {
         const visible = entries
           .filter(entry => entry.isIntersecting)
@@ -195,7 +185,11 @@ export const FeatureToc = ({ items = FEATURE_TOC }) => {
       { rootMargin: '-20% 0px -60% 0px', threshold: [0, 0.25, 0.5, 1] }
     )
 
-    sections.forEach(section => observer.observe(section))
+    items.forEach(({ id }) => {
+      const section = document.getElementById(id)
+      if (section) observer.observe(section)
+    })
+
     return () => observer.disconnect()
   }, [items])
 

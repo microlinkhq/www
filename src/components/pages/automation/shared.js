@@ -14,7 +14,6 @@ export const META = {
 }
 
 export const HERO = {
-  name: 'Browser Automation',
   title: 'Browser Automation',
   description:
     'Shape the page first. Set the device, wait for the right state, click, and run scripts — declarative options on the same request, applied before capture.',
@@ -35,7 +34,6 @@ export const HERO = {
 }
 
 export const OVERVIEW = {
-  eyebrow: 'Overview',
   title: 'Declarative steps, then the capture.',
   body: (
     <>
@@ -58,7 +56,6 @@ export const OVERVIEW = {
 }
 
 export const PARAMS = {
-  eyebrow: 'Parameters',
   title: 'Options that shape the page.',
   docsHref: '/docs/api/parameters/prerender',
   rows: [
@@ -66,47 +63,36 @@ export const PARAMS = {
       name: 'device',
       type: 'string',
       description: 'Emulate a viewport, DPR and user-agent preset before load.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/device'
     },
     {
       name: 'waitUntil',
       type: 'string',
       description: "Navigation settle event — 'networkidle0', 'load', ….",
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/waitUntil'
     },
     {
       name: 'waitForSelector',
       type: 'string',
       description: 'Block until a selector is present before capturing.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/waitForSelector'
     },
     {
       name: 'click / scroll',
       type: 'string',
       description: 'Interact with the page — target elements by selector.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/click'
     },
     {
       name: 'scripts',
       type: 'string | string[]',
       description: 'Inject and run JavaScript in the page context before read.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/scripts'
     }
   ]
 }
 
 export const EXAMPLES = {
-  eyebrow: 'Examples',
   title: 'Shape the page, then capture.',
   panels: [
     {
@@ -194,11 +180,3 @@ export const FAQ_RAW = [
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
-
-export const TOC = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'parameters', label: 'Parameters' },
-  { id: 'examples', label: 'Examples' },
-  { id: 'related', label: 'Related features' },
-  { id: 'faq', label: 'FAQ' }
-]

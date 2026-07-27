@@ -11,11 +11,11 @@ import { Hero } from 'components/pages/scraping/hero'
 import { Overview } from 'components/pages/scraping/overview'
 import { Parameters } from 'components/pages/scraping/parameters'
 import { Related } from 'components/pages/scraping/related'
-import { META, TOC } from 'components/pages/scraping/shared'
+import { META } from 'components/pages/scraping/shared'
 
 const ScrapingFeaturePage = () => (
   <Layout>
-    <FeaturePageShell toc={TOC}>
+    <FeaturePageShell>
       <Hero />
       <Overview />
       <Parameters />

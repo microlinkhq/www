@@ -10,7 +10,6 @@ export const META = {
 }
 
 export const HERO = {
-  name: 'Configurable Caching',
   title: 'Configurable Caching',
   description:
     'Hits are free. Set ttl with a humanized duration on any request — cache hits return instantly and cost nothing, and staleTtl keeps responses fast while refreshing.',
@@ -27,7 +26,6 @@ export const HERO = {
 }
 
 export const OVERVIEW = {
-  eyebrow: 'Overview',
   title: 'A cache hit costs nothing.',
   body: (
     <>
@@ -49,7 +47,6 @@ export const OVERVIEW = {
 }
 
 export const PARAMS = {
-  eyebrow: 'Parameters',
   title: 'How caching is tuned.',
   docsHref: '/docs/api/parameters/ttl',
   rows: [
@@ -57,39 +54,30 @@ export const PARAMS = {
       name: 'ttl',
       type: 'string | number',
       description: "Freshness window as a humanized duration ('1d') or ms.",
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/parameters/ttl'
     },
     {
       name: 'staleTtl',
       type: 'string | number',
       description: 'Serve the cached value while revalidating in background.',
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/parameters/staleTtl'
     },
     {
       name: 'x-cache-status',
       type: 'response header',
       description: 'HIT or MISS — tells you whether the cache served the call.',
-      required: false,
-      plan: 'Free + Pro',
       href: '/docs/api/parameters/ttl'
     },
     {
       name: 'force',
       type: 'boolean',
       description: 'Bypass the cache to render a fresh response on demand.',
-      required: false,
-      plan: 'Pro',
       href: '/docs/api/parameters/force'
     }
   ]
 }
 
 export const EXAMPLES = {
-  eyebrow: 'Examples',
   title: 'Fetch once. Serve many.',
   panels: [
     {
@@ -175,11 +163,3 @@ export const FAQ_RAW = [
 ]
 
 export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
-
-export const TOC = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'parameters', label: 'Parameters' },
-  { id: 'examples', label: 'Examples' },
-  { id: 'related', label: 'Related features' },
-  { id: 'faq', label: 'FAQ' }
-]
