@@ -175,9 +175,10 @@ export const FeatureToc = ({ items = FEATURE_TOC }) => {
   const [activeId, setActiveId] = useState(items[0]?.id)
 
   useEffect(() => {
-    const sections = items
-      .map(({ id }) => document.getElementById(id))
-      .filter(Boolean)
+    const sections = items.flatMap(({ id }) => {
+      const section = document.getElementById(id)
+      return section ? [section] : []
+    })
 
     if (!sections.length) return undefined
 

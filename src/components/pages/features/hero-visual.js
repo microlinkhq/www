@@ -64,34 +64,32 @@ const FanSvg = styled('svg')`
   }
 `
 
-const FanConnector = () => {
-  const left = 56.5
-  const right = 60.5
-  const midY = 50
-  const ends = [9, 21, 33, 45, 57, 69, 81, 93]
+const FAN_LEFT = 56.5
+const FAN_RIGHT = 60.5
+const FAN_MID_Y = 50
+const FAN_ENDS = [9, 21, 33, 45, 57, 69, 81, 93]
 
-  return (
-    <FanSvg
-      aria-hidden='true'
-      viewBox='0 0 100 100'
-      preserveAspectRatio='none'
-      fill='none'
-    >
-      {ends.map(y => (
-        <path
-          key={y}
-          d={`M ${left} ${midY} C ${left + 2.5} ${midY}, ${
-            right - 2.5
-          } ${y}, ${right} ${y}`}
-          stroke={colors.pink5}
-          strokeWidth='0.45'
-          strokeDasharray='1.2 1.1'
-          vectorEffect='non-scaling-stroke'
-        />
-      ))}
-    </FanSvg>
-  )
-}
+const FanConnector = () => (
+  <FanSvg
+    aria-hidden='true'
+    viewBox='0 0 100 100'
+    preserveAspectRatio='none'
+    fill='none'
+  >
+    {FAN_ENDS.map(y => (
+      <path
+        key={y}
+        d={`M ${FAN_LEFT} ${FAN_MID_Y} C ${FAN_LEFT + 2.5} ${FAN_MID_Y}, ${
+          FAN_RIGHT - 2.5
+        } ${y}, ${FAN_RIGHT} ${y}`}
+        stroke={colors.pink5}
+        strokeWidth='0.45'
+        strokeDasharray='1.2 1.1'
+        vectorEffect='non-scaling-stroke'
+      />
+    ))}
+  </FanSvg>
+)
 
 const CheckBadge = () => (
   <Flex

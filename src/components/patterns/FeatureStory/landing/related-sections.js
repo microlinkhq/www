@@ -183,7 +183,10 @@ export const RelatedFeaturesSection = ({
   title = 'Compose with these next.'
 }) => {
   const related = relatedSlugs?.length
-    ? relatedSlugs.map(id => getFeature(id)).filter(Boolean)
+    ? relatedSlugs.flatMap(id => {
+      const feature = getFeature(id)
+      return feature ? [feature] : []
+    })
     : getRelatedFeatures(slug)
   return (
     <FeatureSection id='related'>
