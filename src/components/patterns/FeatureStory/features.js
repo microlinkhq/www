@@ -12,36 +12,19 @@ export const ACCENT = {
 
 export const FEATURES = [
   {
-    slug: 'scraping',
-    name: 'Web Scraping',
-    footerLabel: 'Web scraping',
-    tag: null,
-    category: 'Scraping',
-    param: 'data',
-    icon: 'globe',
-    iconBg: 'violet7',
-    borderColor: 'violet2',
+    slug: 'antibot',
+    name: 'Antibot Detection',
+    footerLabel: 'Antibot detection',
+    tag: 'PRO',
+    category: 'Anti-bot & unblocking',
+    param: 'x-fetch-mode',
+    icon: 'radar',
+    iconBg: 'pink7',
+    borderColor: 'pink2',
     oneLiner:
-      'Extract structured JSON from any webpage using CSS selectors. URL → JSON in one request.',
-    teachLine:
-      'Declare the fields you need — Microlink fetches, renders, and returns typed data.',
-    snippet: "data: { headline: { selector: '.titleline > a', attr: 'text' } }"
-  },
-  {
-    slug: 'function',
-    name: 'Browser Functions',
-    footerLabel: 'Browser functions',
-    tag: null,
-    category: 'Code execution',
-    param: 'function',
-    icon: 'js',
-    iconBg: 'yellow5',
-    borderColor: 'yellow2',
-    oneLiner:
-      'Run JavaScript with Puppeteer and npm packages. No infrastructure, no servers.',
-    teachLine:
-      'Use when products and declarative options cannot express the flow.',
-    snippet: "function: '({ page }) => page.title()'"
+      'Detect and identify 30+ anti-bot providers before you get blocked. Then we resolve it.',
+    teachLine: 'Use when you need to know who blocked you before you retry.',
+    snippet: "detected: true, provider: 'cloudflare'"
   },
   {
     slug: 'automation',
@@ -60,35 +43,20 @@ export const FEATURES = [
     snippet: "click: '.tab-annual', waitForSelector: '.price'"
   },
   {
-    slug: 'proxy',
-    name: 'Proxy Resolution',
-    footerLabel: 'Proxy resolution',
-    tag: 'PRO',
-    category: 'Anti-bot & unblocking',
-    param: 'proxy',
-    icon: 'shield',
-    iconBg: 'cyan7',
-    borderColor: 'cyan2',
+    slug: 'function',
+    name: 'Browser Functions',
+    footerLabel: 'Browser functions',
+    tag: null,
+    category: 'Code execution',
+    param: 'function',
+    icon: 'js',
+    iconBg: 'yellow5',
+    borderColor: 'yellow2',
     oneLiner:
-      'Automatically bypass Cloudflare, DataDome, Akamai and more. We handle the hard part.',
+      'Run JavaScript with Puppeteer and npm packages. No infrastructure, no servers.',
     teachLine:
-      'Use when a direct request is blocked and you need residential routing.',
-    snippet: 'x-fetch-mode: fetch-proxy'
-  },
-  {
-    slug: 'antibot',
-    name: 'Antibot Detection',
-    footerLabel: 'Antibot detection',
-    tag: 'PRO',
-    category: 'Anti-bot & unblocking',
-    param: 'x-fetch-mode',
-    icon: 'radar',
-    iconBg: 'pink7',
-    borderColor: 'pink2',
-    oneLiner:
-      'Detect and identify 30+ anti-bot providers before you get blocked. Then we resolve it.',
-    teachLine: 'Use when you need to know who blocked you before you retry.',
-    snippet: "detected: true, provider: 'cloudflare'"
+      'Use when products and declarative options cannot express the flow.',
+    snippet: "function: '({ page }) => page.title()'"
   },
   {
     slug: 'ttl',
@@ -123,6 +91,22 @@ export const FEATURES = [
     snippet: "headers: { 'x-api-header-cookie': 'session=…' }"
   },
   {
+    slug: 'proxy',
+    name: 'Proxy Resolution',
+    footerLabel: 'Proxy resolution',
+    tag: 'PRO',
+    category: 'Anti-bot & unblocking',
+    param: 'proxy',
+    icon: 'shield',
+    iconBg: 'cyan7',
+    borderColor: 'cyan2',
+    oneLiner:
+      'Automatically bypass Cloudflare, DataDome, Akamai and more. We handle the hard part.',
+    teachLine:
+      'Use when a direct request is blocked and you need residential routing.',
+    snippet: 'x-fetch-mode: fetch-proxy'
+  },
+  {
     slug: 'security',
     name: 'Request Security',
     footerLabel: 'Security',
@@ -137,6 +121,22 @@ export const FEATURES = [
     teachLine:
       'Always on — understand the isolation and SSRF guarantees you get.',
     snippet: "url: 'http://169.254.169.254' → EFORBIDDENURL"
+  },
+  {
+    slug: 'scraping',
+    name: 'Web Scraping',
+    footerLabel: 'Web scraping',
+    tag: null,
+    category: 'Scraping',
+    param: 'data',
+    icon: 'globe',
+    iconBg: 'violet7',
+    borderColor: 'violet2',
+    oneLiner:
+      'Extract structured JSON from any webpage using CSS selectors. URL → JSON in one request.',
+    teachLine:
+      'Declare the fields you need — Microlink fetches, renders, and returns typed data.',
+    snippet: "data: { headline: { selector: '.titleline > a', attr: 'text' } }"
   }
 ]
 

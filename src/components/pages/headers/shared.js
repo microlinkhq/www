@@ -48,7 +48,6 @@ export const OVERVIEW = {
 
 export const PARAMS = {
   title: 'How headers are routed.',
-  docsHref: '/docs/api/parameters/headers',
   rows: [
     {
       name: 'headers',

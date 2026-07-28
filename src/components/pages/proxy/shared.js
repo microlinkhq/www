@@ -48,7 +48,6 @@ export const OVERVIEW = {
 
 export const PARAMS = {
   title: 'How proxy routing is controlled.',
-  docsHref: '/docs/api/parameters/proxy',
   rows: [
     {
       name: 'proxy',

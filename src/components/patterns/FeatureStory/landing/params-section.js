@@ -10,8 +10,6 @@ import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import FeatherIcon from 'components/icons/Feather'
 
-import ArrowLink from 'components/patterns/ArrowLink'
-
 import { ACCENT } from '../features'
 import { Eyebrow } from '../primitives'
 import { FeatureSection } from './shell'
@@ -56,12 +54,7 @@ const ParamCard = styled(Link)(
   `
 )
 
-export const ParamsSection = ({
-  eyebrow = 'Parameters',
-  title,
-  rows,
-  docsHref
-}) => (
+export const ParamsSection = ({ eyebrow = 'Parameters', title, rows }) => (
   <FeatureSection id='parameters'>
     <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
     <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
@@ -158,15 +151,5 @@ export const ParamsSection = ({
         )
       })}
     </Box>
-    {docsHref && (
-      <Box css={theme({ pt: [3, 3, 4, 4] })}>
-        <ArrowLink
-          href={docsHref}
-          css={theme({ color: 'link', fontWeight: 'bold', fontSize: 1 })}
-        >
-          See all parameters in the API docs
-        </ArrowLink>
-      </Box>
-    )}
   </FeatureSection>
 )

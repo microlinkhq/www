@@ -47,7 +47,6 @@ export const OVERVIEW = {
 
 export const PARAMS = {
   title: 'Detection and resolution signals.',
-  docsHref: '/docs/api/parameters/proxy',
   rows: [
     {
       name: 'detected',

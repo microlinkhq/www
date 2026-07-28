@@ -56,7 +56,6 @@ export const OVERVIEW = {
 
 export const PARAMS = {
   title: 'The guarantees on every call.',
-  docsHref: '/docs/api/getting-started/overview',
   rows: [
     {
       name: 'url',

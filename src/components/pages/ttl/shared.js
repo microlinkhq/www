@@ -48,7 +48,6 @@ export const OVERVIEW = {
 
 export const PARAMS = {
   title: 'How caching is tuned.',
-  docsHref: '/docs/api/parameters/ttl',
   rows: [
     {
       name: 'ttl',

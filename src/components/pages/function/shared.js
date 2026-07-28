@@ -43,7 +43,6 @@ export const OVERVIEW = {
 
 export const PARAMS = {
   title: 'What run() forwards.',
-  docsHref: '/docs/api/parameters/function',
   rows: [
     {
       name: 'url',

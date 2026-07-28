@@ -4,7 +4,6 @@ import React from 'react'
 import Box from 'components/elements/Box'
 import Subhead from 'components/elements/Subhead'
 
-import ArrowLink from 'components/patterns/ArrowLink'
 import Faq from 'components/patterns/Faq/Faq'
 
 import { ExamplesSwitcher } from './examples-switcher'
@@ -59,7 +58,7 @@ export const RelatedFeaturesSection = ({
   </FeatureSection>
 )
 
-export const FeatureFaqSection = ({ questions, moreHref }) => (
+export const FeatureFaqSection = ({ questions }) => (
   <Box
     css={theme({
       bg: ACCENT.bgSoft,
@@ -77,22 +76,6 @@ export const FeatureFaqSection = ({ questions, moreHref }) => (
         title='FAQ'
         questions={questions}
       />
-      {moreHref && (
-        <Box
-          css={theme({
-            px: SECTION_PX,
-            pb: SECTION_VERTICAL_SPACING,
-            textAlign: 'center'
-          })}
-        >
-          <ArrowLink
-            href={moreHref}
-            css={theme({ color: 'link', fontWeight: 'bold', fontSize: 1 })}
-          >
-            View all FAQs
-          </ArrowLink>
-        </Box>
-      )}
     </Box>
   </Box>
 )

@@ -57,7 +57,6 @@ export const OVERVIEW = {
 
 export const PARAMS = {
   title: 'Options that shape the page.',
-  docsHref: '/docs/api/parameters/prerender',
   rows: [
     {
       name: 'device',

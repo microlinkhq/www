@@ -2,11 +2,15 @@
 
 import React, { useEffect, useRef } from 'react'
 import { annotate } from 'rough-notation'
-import { colors } from 'theme'
+import { cx } from 'theme'
+
+const COLORS = {
+  highlight: cx('yellow'),
+  underline: cx('secondary')
+}
 
 const Annotation = ({
-  type = 'highlight',
-  color = 'yellow2',
+  variant: type = 'highlight',
   animationDuration = 800,
   multiline = true,
   children,
@@ -20,7 +24,7 @@ const Annotation = ({
 
     const annotation = annotate(current, {
       type,
-      color: colors[color] || color,
+      color: COLORS[type],
       animate: !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
       animationDuration,
       multiline
@@ -42,7 +46,7 @@ const Annotation = ({
       observer.disconnect()
       annotation.remove()
     }
-  }, [type, color, animationDuration, multiline])
+  }, [type, animationDuration, multiline])
 
   return (
     <span ref={ref} {...props}>

@@ -65,7 +65,6 @@ export const OVERVIEW = {
 
 export const PARAMS = {
   title: 'What an extraction call accepts.',
-  docsHref: '/docs/api/parameters/data',
   rows: [
     {
       name: 'url',
