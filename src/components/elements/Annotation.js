@@ -5,12 +5,12 @@ import { annotate } from 'rough-notation'
 import { cx } from 'theme'
 
 const COLORS = {
-  highlight: cx('yellow'),
+  highlight: cx('yellow4'),
   underline: cx('secondary')
 }
 
 const Annotation = ({
-  variant: type = 'highlight',
+  variant = 'highlight',
   animationDuration = 800,
   multiline = true,
   children,
@@ -23,8 +23,8 @@ const Annotation = ({
     if (!current) return
 
     const annotation = annotate(current, {
-      type,
-      color: COLORS[type],
+      type: variant,
+      color: COLORS[variant],
       animate: !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
       animationDuration,
       multiline
@@ -46,7 +46,7 @@ const Annotation = ({
       observer.disconnect()
       annotation.remove()
     }
-  }, [type, animationDuration, multiline])
+  }, [variant, animationDuration, multiline])
 
   return (
     <span ref={ref} {...props}>
