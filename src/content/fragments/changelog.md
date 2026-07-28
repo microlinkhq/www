@@ -1,3 +1,20 @@
+### July 2026
+
+- [Microlink](/): Redesigned [features](/features) with a unified showcase across all capability pages.
+- [Microlink](/): Published RFC 9116 [security.txt](/security.txt) and expanded the [security](/security) disclosure policy.
+- [Browserless v13.6](https://browserless.js.org): Fixed screenshots failing when `quality` is set without jpeg/webp.
+- [Microlink API](/docs/api/getting-started/overview): Improved [pdf](/docs/api/parameters/pdf) for SPA pages, tall documents, and [pageRanges](/docs/api/parameters/pdf/pageRanges).
+- [Microlink](/): Added [antibot](/features/antibot) and [security](/features/security) feature landings.
+- [Microlink API](/docs/api/getting-started/overview): Added [EPDFTOOLARGE](/docs/api/basics/error-codes#epdftoolarge) when a document is too large to render as PDF.
+- [Microlink](/): Redesigned [skills](/skills) page.
+- [Microlink](/): Added [Handinger](/use-cases/handinger) customer story.
+- [unavatar.io](https://unavatar.io): Improved DuckDuckGo favicon resolution for www/apex host variants.
+- [Microlink](/): New homepage hero with an interactive natural-language API console.
+- [Microlink](/): Added [Chrome extensions](/extensions) landings for website screenshot and PDF.
+- [Browserless v13.6](https://browserless.js.org): Improved cookie consent dismissal across multilingual CMPs.
+- [Microlink](/): Updated [MCP](/integrations/mcp) integrations page to the full 20-tool surface.
+- [Microlink API](/docs/api/getting-started/overview): Improved YouTube caption and [transcript](/docs/guides/content-conversion/url-to-markdown) resolution.
+
 ### June 2026
 
 - [Microlink](/): Added [builder](/integrations/builder) to generate link preview component code.
