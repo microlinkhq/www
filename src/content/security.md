@@ -72,16 +72,49 @@ For more information about our data processing practices, please see our [Data P
 
 For security-related questions or to report a vulnerability:
 
-**Email**: [hello@microlink.io](mailto:hello@microlink.io)  
+**Email**: [hello@microlink.io](mailto:hello@microlink.io?subject=Security%20Inquiry)  
 **Subject**: Security Inquiry
 
-### Responsible Disclosure
+## Responsible Disclosure
 
-If you discover a security vulnerability:
+We consider the security of our systems a top priority, but no matter how much effort we put into it, vulnerabilities can still be present. If you discover one, we want to know so we can address it as quickly as possible.
 
-1. Report it to [hello@microlink.io](mailto:hello@microlink.io).
-2. Allow reasonable time for investigation and resolution.
-3. Do not publicly disclose until resolved.
-4. Do not access or modify data that doesn't belong to you.
+**What we ask**
 
-We are committed to working with security researchers to address vulnerabilities quickly and responsibly.
+- Provide enough detail to reproduce the problem. The IP address or URL of the affected system and a description of the vulnerability is usually sufficient, though complex vulnerabilities may need more.
+- Do not run automated scanners against our infrastructure or dashboard. Contact us first and we will set up a sandbox for you.
+- Do not take advantage of the problem, for example by downloading more data than needed to demonstrate it, or by deleting or modifying data that belongs to someone else.
+- Do not reveal the problem to others until it has been resolved.
+- Do not use physical attacks, social engineering, distributed denial of service, spam, or third-party applications.
+
+**What we promise**
+
+- We respond within 3 business days with our evaluation of the report and an expected resolution date.
+- We take no legal action against you in regard to the report, provided you followed the above.
+- We handle your report confidentially, and do not pass your personal details to third parties without your permission.
+- We keep you informed of progress toward resolving the problem.
+- We credit you as the discoverer in any public information about the problem, unless you prefer otherwise.
+
+We resolve problems as quickly as we can, and we would like to play an active role in the eventual publication.
+
+**Out of scope**
+
+- Clickjacking on pages with no sensitive actions.
+- Unauthenticated, logout or login CSRF.
+- Attacks requiring MITM or physical access to a user's device.
+- Any activity that could lead to disruption of our service (DoS).
+- Content spoofing and text injection without a demonstrated attack vector or the ability to modify HTML/CSS.
+- Email spoofing.
+- Missing DNSSEC, CAA or CSP.
+- Lack of Secure or HttpOnly flag on non-sensitive cookies.
+- Dead links.
+- User enumeration.
+
+This policy is also published as [security.txt](/.well-known/security.txt), following [RFC 9116](https://www.rfc-editor.org/rfc/rfc9116).
+
+## Acknowledgments
+
+Our thanks to the researchers who have reported vulnerabilities to us:
+
+- [Daniel Wang](https://danielwang.dev)
+- Haaris B

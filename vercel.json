@@ -323,6 +323,10 @@
       "destination": "/integrations/sdk"
     },
     {
+      "source": "/security.txt",
+      "destination": "/.well-known/security.txt"
+    },
+    {
       "source": "/timeout",
       "destination": "/docs/api/parameters/timeout"
     },
