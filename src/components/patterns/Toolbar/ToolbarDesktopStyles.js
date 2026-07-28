@@ -298,6 +298,45 @@ export const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   }
 `
 
+export const ProductsChangelogEntryLink = styled(ToolbarNavLink)`
+  border-radius: 12px;
+  min-width: 0;
+  max-width: 80%;
+  flex: 1;
+
+  > a {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    min-width: 0;
+    width: 100%;
+    border-radius: inherit;
+    padding: 12px;
+    ${MENU_LINK_HOVER_STYLES};
+
+    .menu-item-title {
+      font-weight: ${fontWeights.bold};
+    }
+  }
+
+  &:hover .menu-item-description,
+  &:focus-within .menu-item-description,
+  > .active .menu-item-description {
+    color: ${colors.black};
+  }
+`
+
+export const ProductsChangelogPageLink = styled(ToolbarNavLink)`
+  flex-shrink: 0;
+
+  > a {
+    display: inline-flex;
+    align-items: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+`
+
 export const Header = styled(Box).withConfig({
   shouldForwardProp: prop => !['isDocsRoute'].includes(prop)
 })`

@@ -397,6 +397,10 @@ const ROUTES_API = [
             href: '/docs/api/parameters/screenshot/omitBackground'
           },
           {
+            name: 'quality',
+            href: '/docs/api/parameters/screenshot/quality'
+          },
+          {
             name: 'type',
             href: '/docs/api/parameters/screenshot/type'
           }

@@ -14,6 +14,6 @@ It specifies the screenshot file type for the [screenshot](/docs/api/parameters/
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://microlink.io', screenshot: { type: 'jpeg' } }} />
 
-This query parameter just defines the file format to be used at asset generation. 
+This query parameter just defines the file format to be used at asset generation. For JPEG output, pair it with [quality](/docs/api/parameters/screenshot/quality) to control compression.
 
 When you consume the asset thought [Microlink CDN](/blog/edge-cdn/), it automatically optimizes the assets to serve the best format possible (like WebP) based on your device (it's determining via `user-agent` header).

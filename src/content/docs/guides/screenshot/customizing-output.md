@@ -42,6 +42,10 @@ PNG is the default. Switch to JPEG when you care more about file size than lossl
 | `png`  | Lossless quality, transparent backgrounds | Yes |
 | `jpeg` | Smaller file size, photos | No |
 
+With JPEG, set <Link href='/docs/api/parameters/screenshot/quality' children='screenshot.quality' /> (`0`–`100`, default `80`) to trade file size for visual fidelity:
+
+<MultiCodeEditorInteractive height={230} mqlCode={{ url: 'https://github.com/microlinkhq', screenshot: { type: 'jpeg', quality: 50 }, meta: false }} />
+
 ## Transparent backgrounds
 
 Remove the default white background with `screenshot.omitBackground`:
