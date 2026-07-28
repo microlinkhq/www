@@ -17,21 +17,22 @@ export const faqFromItems = items =>
     answer: answer || text
   }))
 
-const ProxyDocLink = props => (
-  <Link href='/docs/api/parameters/proxy' {...props}>
-    {props.children || 'proxy'}
-  </Link>
-)
+export const faqPageStructured = items => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map(({ question, text }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text
+    }
+  }))
+})
 
-const HeadersDocLink = props => (
-  <Link href='/docs/api/parameters/headers' {...props}>
-    {props.children || 'headers'}
-  </Link>
-)
-
-const TtlDocLink = props => (
-  <Link href='/docs/api/parameters/ttl' {...props}>
-    {props.children || 'TTL'}
+const DocLink = ({ href, fallback, children, ...props }) => (
+  <Link href={href} {...props}>
+    {children || fallback}
   </Link>
 )
 
@@ -40,10 +41,12 @@ export const ProxyHeadersTtlLinks = ({
   ttlLabel = 'TTL'
 }) => (
   <>
-    <ProxyDocLink />
+    <DocLink href='/docs/api/parameters/proxy' fallback='proxy' />
     {', '}
-    <HeadersDocLink />
+    <DocLink href='/docs/api/parameters/headers' fallback='headers' />
     {` ${conjunction} `}
-    <TtlDocLink>{ttlLabel}</TtlDocLink>
+    <DocLink href='/docs/api/parameters/ttl' fallback='TTL'>
+      {ttlLabel}
+    </DocLink>
   </>
 )

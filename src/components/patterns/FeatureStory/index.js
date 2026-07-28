@@ -1,17 +1,16 @@
 export { ACCENT, FEATURES } from './features'
-export { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
-export { BodyText, Eyebrow } from './primitives'
+export { Eyebrow } from './primitives'
 export {
   ExamplesSection,
   FeatureCard,
   FeatureFaqSection,
   FeatureHero,
   FeaturePageShell,
-  FeatureSection,
   OverviewSection,
   ParamsSection,
   RelatedFeaturesSection,
   faqFromItems,
+  faqPageStructured,
   ProxyHeadersTtlLinks,
   sdkExample
 } from './landing'

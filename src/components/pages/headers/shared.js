@@ -83,7 +83,6 @@ export const EXAMPLES = {
       id: 'cookie',
       title: 'Forward a session cookie',
       description: 'x-api-header-cookie reaches the target as cookie.',
-      language: 'js',
       snippet: sdkExample(`const markdown = await microlink.markdown(
   'https://x.com/some/article',
   { headers: { 'x-api-header-cookie': 'auth_token=…' } }
@@ -93,7 +92,6 @@ export const EXAMPLES = {
       id: 'bearer',
       title: 'Pass a bearer token',
       description: 'Any header is forwarded — here an Authorization token.',
-      language: 'js',
       snippet: sdkExample(`const data = await microlink.extract(
   'https://api.example.com/me',
   { name: { selector: '.name' } },
@@ -104,7 +102,6 @@ export const EXAMPLES = {
       id: 'user-agent',
       title: 'Set a user agent',
       description: 'Shape how the target sees the request.',
-      language: 'js',
       snippet: sdkExample(`const { title } = await microlink.metadata(url, {
   headers: {
     'x-api-header-user-agent':
@@ -116,7 +113,6 @@ export const EXAMPLES = {
       id: 'locale',
       title: 'Locale and consent',
       description: 'Send Accept-Language or a consent cookie before capture.',
-      language: 'js',
       snippet: sdkExample(`const { url } = await microlink.screenshot(
   'https://example.com',
   {
@@ -131,7 +127,6 @@ export const EXAMPLES = {
       id: 'with-proxy',
       title: 'Authenticate behind a proxy',
       description: 'Combine forwarded headers with proxy resolution.',
-      language: 'js',
       snippet: sdkExample(`const { url } = await microlink.screenshot(
   'https://protected.example.com/account',
   {
@@ -148,7 +143,7 @@ export const RELATED = {
   title: 'Authenticate and reach targets.'
 }
 
-export const FAQ_RAW = [
+export const FAQ_ITEMS = faqFromItems([
   {
     question: 'Why not just put secrets in the URL?',
     text: 'URLs leak. They land in server logs, browser history, and shared links. Send the headers option on the HTTP layer instead, so cookies and tokens never appear in the query string.'
@@ -169,6 +164,4 @@ export const FAQ_RAW = [
     question: 'Can I forward headers and use a proxy together?',
     text: 'Yes. headers compose with proxy on the same request, so one call can route through a residential IP and still forward a session cookie to authenticate on the target.'
   }
-]
-
-export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+])

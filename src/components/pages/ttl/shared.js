@@ -83,7 +83,6 @@ export const EXAMPLES = {
       id: 'ttl-day',
       title: 'Cache for a day',
       description: "A humanized '1d' window — repeat calls are free and fast.",
-      language: 'js',
       snippet: sdkExample(`const { url } = await microlink.screenshot(
   'https://example.com',
   { ttl: '1d' }
@@ -94,7 +93,6 @@ export const EXAMPLES = {
       title: 'Stale-while-revalidate',
       description:
         'staleTtl serves the cached value while refreshing behind it.',
-      language: 'js',
       snippet: sdkExample(`const md = await microlink.markdown(
   'https://example.com/blog',
   { ttl: '1h', staleTtl: '30m' }
@@ -104,7 +102,6 @@ export const EXAMPLES = {
       id: 'force',
       title: 'Force a fresh render',
       description: 'Skip the cache when you need the latest response now.',
-      language: 'js',
       snippet: sdkExample(`const { url } = await microlink.screenshot(
   'https://example.com',
   { force: true }
@@ -114,7 +111,6 @@ export const EXAMPLES = {
       id: 'extract',
       title: 'Cheap monitoring',
       description: 'Repeat extract on a schedule and pay only on MISS.',
-      language: 'js',
       snippet: sdkExample(`const price = await microlink.extract(url, {
   price: { selector: '.price', type: 'string' }
 }, { ttl: '15m' })`)
@@ -124,7 +120,6 @@ export const EXAMPLES = {
       title: 'Cache after proxy',
       description:
         'Keep hard-target results warm so you skip the proxy next time.',
-      language: 'js',
       snippet: sdkExample(`const md = await microlink.markdown(url, {
   proxy: true,
   ttl: '1d'
@@ -138,7 +133,7 @@ export const RELATED = {
   title: 'Make every product cheaper.'
 }
 
-export const FAQ_RAW = [
+export const FAQ_ITEMS = faqFromItems([
   {
     question: 'What does “cache hits are free” mean?',
     text: 'When a request is served from cache inside its ttl window, no browser boots and no render happens — the stored response is returned instantly and does not count against your usage.'
@@ -159,6 +154,4 @@ export const FAQ_RAW = [
     question: 'Can I bypass the cache when I need fresh data?',
     text: 'Yes. Pass force: true to skip the cache and render a fresh response on demand, while still storing it for subsequent calls within the ttl.'
   }
-]
-
-export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+])

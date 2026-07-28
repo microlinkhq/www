@@ -99,7 +99,6 @@ export const EXAMPLES = {
       title: 'Emulate a phone',
       description:
         'device presets the viewport before the screenshot is taken.',
-      language: 'js',
       snippet: sdkExample(`const { url } = await microlink.screenshot(
   'https://example.com',
   { device: 'iPhone 11', fullPage: true }
@@ -109,7 +108,6 @@ export const EXAMPLES = {
       id: 'click-wait',
       title: 'Click, wait, capture',
       description: 'Open the annual tab and wait for the price to render.',
-      language: 'js',
       snippet: sdkExample(`const { url } = await microlink.screenshot(
   'https://example.com/pricing',
   { click: '.tab-annual', waitForSelector: '.price' }
@@ -119,7 +117,6 @@ export const EXAMPLES = {
       id: 'wait-until',
       title: 'PDF after network idle',
       description: 'Let async content settle before rendering to PDF.',
-      language: 'js',
       snippet: sdkExample(`const { url } = await microlink.pdf(
   'https://example.com/report',
   { waitUntil: 'networkidle0', format: 'A4' }
@@ -129,7 +126,6 @@ export const EXAMPLES = {
       id: 'scripts',
       title: 'Inject a script',
       description: 'Dismiss a banner or expand a section before capture.',
-      language: 'js',
       snippet: sdkExample(`const { url } = await microlink.screenshot(url, {
   scripts: [
     "document.querySelector('.cookie-banner')?.remove()"
@@ -140,7 +136,6 @@ export const EXAMPLES = {
       id: 'extract',
       title: 'Wait, then extract',
       description: 'Settle the SPA, then pull structured fields.',
-      language: 'js',
       snippet: sdkExample(`const { price } = await microlink.extract(
   'https://example.com/pricing',
   { price: { selector: '.price', type: 'string' } },
@@ -155,7 +150,7 @@ export const RELATED = {
   title: 'Pair automation with these.'
 }
 
-export const FAQ_RAW = [
+export const FAQ_ITEMS = faqFromItems([
   {
     question: 'How is automation different from a function?',
     text: 'Automation is declarative: device, waitUntil, click, scroll and scripts are options on a normal product call, so the page is shaped and then captured. A function is imperative code you author when a flow is too custom for those options.'
@@ -176,6 +171,4 @@ export const FAQ_RAW = [
     question: 'Does automation compose with other products?',
     text: 'Yes. The same options apply to screenshot, pdf, markdown and extract, and they stack with proxy, headers and ttl on Pro so one call can emulate a device, unblock the target, and cache the result.'
   }
-]
-
-export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+])

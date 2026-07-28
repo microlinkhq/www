@@ -1,5 +1,5 @@
 import { breakpoints, colors, theme, transition } from 'theme'
-import React, { useEffect, useId, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useId, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import Box from 'components/elements/Box'
@@ -120,14 +120,6 @@ export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
   const [atEnd, setAtEnd] = useState(false)
   const active = panels[activeIndex]
 
-  const setTabRef = useMemo(
-    () =>
-      panels.map((_, index) => node => {
-        tabRefs.current[index] = node
-      }),
-    [panels]
-  )
-
   useEffect(() => {
     const node = listRef.current
     if (!node) return undefined
@@ -195,7 +187,9 @@ export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
             <TabCard
               key={panel.id}
               id={tabId}
-              ref={setTabRef[index]}
+              ref={node => {
+                tabRefs.current[index] = node
+              }}
               type='button'
               role='tab'
               aria-selected={selected}
@@ -223,7 +217,7 @@ export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
       >
         <CodeEditor
           title={active.title}
-          language={active.language || 'js'}
+          language='js'
           css={theme({
             width: '100%',
             height: '100%',

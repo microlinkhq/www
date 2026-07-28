@@ -83,7 +83,6 @@ export const EXAMPLES = {
       id: 'auto-unblock',
       title: 'Auto-unblock',
       description: 'proxy: true routes through residential IPs automatically.',
-      language: 'js',
       snippet: sdkExample(`const markdown = await microlink.markdown(
   'https://hard-target.com/article',
   { proxy: true }
@@ -93,7 +92,6 @@ export const EXAMPLES = {
       id: 'eproxyneded',
       title: 'Handle EPROXYNEEDED',
       description: 'Catch the code, then retry the same call with a proxy.',
-      language: 'js',
       snippet: sdkExample(`try {
   await microlink.metadata(url)
 } catch (error) {
@@ -106,7 +104,6 @@ export const EXAMPLES = {
       id: 'byo-proxy',
       title: 'Bring your own proxy',
       description: 'Pass a proxy URL string to route through your own pool.',
-      language: 'js',
       snippet: sdkExample(`const { url } = await microlink.screenshot(
   'https://hard-target.com',
   { proxy: process.env.PROXY_URL }
@@ -116,7 +113,6 @@ export const EXAMPLES = {
       id: 'screenshot',
       title: 'Screenshot behind a wall',
       description: 'Same unblocker on visual capture — one option.',
-      language: 'js',
       snippet: sdkExample(`const { url } = await microlink.screenshot(
   'https://hard-target.com/pricing',
   { proxy: true }
@@ -126,7 +122,6 @@ export const EXAMPLES = {
       id: 'with-ttl',
       title: 'Cache the unblocked result',
       description: 'ttl keeps repeat calls off the proxy path.',
-      language: 'js',
       snippet: sdkExample(`const md = await microlink.markdown(url, {
   proxy: true,
   ttl: '1d'
@@ -140,7 +135,7 @@ export const RELATED = {
   title: 'Reach and read hard targets.'
 }
 
-export const FAQ_RAW = [
+export const FAQ_ITEMS = faqFromItems([
   {
     question: 'What does proxy: true actually do?',
     text: 'It routes your request through Microlink’s managed residential IP pool instead of a datacenter IP. There is no proxy list to maintain or rotate — Microlink picks and manages the exit for you.'
@@ -161,6 +156,4 @@ export const FAQ_RAW = [
     question: 'Does proxy compose with other options?',
     text: 'Yes. proxy stacks with headers, ttl and automation options on the same request, so one call can unblock a target, forward a session cookie, and cache the result.'
   }
-]
-
-export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+])

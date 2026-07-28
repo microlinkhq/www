@@ -85,7 +85,6 @@ export const EXAMPLES = {
       id: 'no-browser',
       title: 'No page, no browser',
       description: 'Plain compute — Chrome never boots, so it stays fast.',
-      language: 'js',
       snippet: sdkExample(`const { value } = await microlink.run(
   'https://example.com',
   () => 40 + 2
@@ -96,7 +95,6 @@ export const EXAMPLES = {
       id: 'page-eval',
       title: 'Puppeteer page.$eval',
       description: 'Reference page and a headless browser is navigated first.',
-      language: 'js',
       snippet: sdkExample(`const { value } = await microlink.run(
   'https://example.com',
   ({ page }) => page.$eval('h1', el => el.textContent)
@@ -107,7 +105,6 @@ export const EXAMPLES = {
       id: 'cheerio',
       title: 'require() cheerio',
       description: 'Deps are detected, installed on the fly, and cached.',
-      language: 'js',
       snippet: sdkExample(`await microlink.run(
   'https://news.ycombinator.com',
   async ({ page }) => {
@@ -121,7 +118,6 @@ export const EXAMPLES = {
       id: 'with-proxy',
       title: 'run() behind a proxy',
       description: 'Same sandbox, residential exit for hard targets.',
-      language: 'js',
       snippet: sdkExample(`const { value } = await microlink.run(
   'https://protected-target.com',
   ({ page }) => page.title(),
@@ -132,7 +128,6 @@ export const EXAMPLES = {
       id: 'with-ttl',
       title: 'Cache a repeated run',
       description: 'ttl returns the stored value instead of executing again.',
-      language: 'js',
       snippet: sdkExample(`const { value } = await microlink.run(
   url,
   ({ page }) => page.$eval('h1', el => el.textContent),
@@ -147,7 +142,7 @@ export const RELATED = {
   title: 'Compose around your function.'
 }
 
-export const FAQ_RAW = [
+export const FAQ_ITEMS = faqFromItems([
   {
     question: 'When does microlink.run() start a browser?',
     text: 'Only when your code references page. Without it, Microlink skips the headless browser entirely, so plain compute runs faster and cheaper. Reference page to get the full Puppeteer API for clicks, waits, and evaluation.'
@@ -168,6 +163,4 @@ export const FAQ_RAW = [
     question: 'Can I require() npm packages?',
     text: 'Yes. Any require() call is detected, installed on the fly into the sandbox, and cached for later runs. Pin a version with require("cheerio@1.0.0").'
   }
-]
-
-export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+])

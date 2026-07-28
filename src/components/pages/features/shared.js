@@ -6,5 +6,7 @@ export const META = {
 
 export const HERO = {
   lead: 'The web,',
-  unlock: 'unlocked'
+  unlock: 'unlocked',
+  caption:
+    'Microlink empowers teams to extract, capture, and unblock the web with one API. Flexibility, performance, and security — so you can ship faster and focus on what matters.'
 }

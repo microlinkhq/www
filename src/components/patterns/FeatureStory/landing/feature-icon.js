@@ -3,7 +3,6 @@ import React from 'react'
 import {
   Activity,
   Clock,
-  Code,
   Globe,
   List,
   Lock,
@@ -18,9 +17,7 @@ import Text from 'components/elements/Text'
 
 const ICON_MAP = {
   globe: Globe,
-  code: Code,
   mouse: MousePointer,
-  shield: Shield,
   radar: Activity,
   clock: Clock,
   list: List,

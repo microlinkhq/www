@@ -83,7 +83,6 @@ export const EXAMPLES = {
       id: 'resolve',
       title: 'Resolve a detected block',
       description: 'Once the provider is named, proxy: true routes around it.',
-      language: 'js',
       snippet: sdkExample(`const { title } = await microlink.metadata(
   'https://protected-target.com',
   { proxy: true }
@@ -93,7 +92,6 @@ export const EXAMPLES = {
       id: 'signal',
       title: 'Read the detection signal',
       description: 'EPROXYNEEDED means a defense refused a direct request.',
-      language: 'js',
       snippet: sdkExample(`try {
   await microlink.metadata(url)
 } catch (error) {
@@ -105,7 +103,6 @@ export const EXAMPLES = {
       title: 'Smart retry',
       description:
         'Escalate to proxy only when the target refuses direct access.',
-      language: 'js',
       snippet: sdkExample(`try {
   return await microlink.metadata(url)
 } catch (error) {
@@ -119,7 +116,6 @@ export const EXAMPLES = {
       id: 'auth',
       title: 'Unblock, then authenticate',
       description: 'Combine proxy resolution with a forwarded session cookie.',
-      language: 'js',
       snippet: sdkExample(`const md = await microlink.markdown(
   'https://protected-target.com/account',
   {
@@ -132,7 +128,6 @@ export const EXAMPLES = {
       id: 'with-ttl',
       title: 'Cache after resolution',
       description: 'ttl keeps the unblocked result warm for the next run.',
-      language: 'js',
       snippet: sdkExample(`const { title } = await microlink.metadata(url, {
   proxy: true,
   ttl: '6h'
@@ -146,7 +141,7 @@ export const RELATED = {
   title: 'From detection to access.'
 }
 
-export const FAQ_RAW = [
+export const FAQ_ITEMS = faqFromItems([
   {
     question: 'What does antibot detection tell me?',
     text: 'It identifies the anti-bot provider guarding a target — Cloudflare, DataDome, Akamai and 30+ others — so you know exactly what is blocking you instead of getting a generic failure.'
@@ -167,6 +162,4 @@ export const FAQ_RAW = [
     question: 'Can I reach pages that also require login?',
     text: 'Yes, on Pro. Combine proxy resolution with forwarded session cookies via x-api-header-cookie so one call both unblocks and authenticates the request.'
   }
-]
-
-export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+])

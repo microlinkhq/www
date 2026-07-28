@@ -71,9 +71,9 @@ export const ParamsSection = ({ eyebrow = 'Parameters', title, rows }) => (
         gap: 3
       })}
     >
-      {rows.map(row => {
-        const content = (
-          <>
+      {rows.map(row => (
+        <Box as='li' key={row.name} css={theme({ minWidth: 0 })}>
+          <ParamCard href={row.href}>
             <Flex
               css={theme({
                 gap: 3,
@@ -106,13 +106,11 @@ export const ParamsSection = ({ eyebrow = 'Parameters', title, rows }) => (
               >
                 {row.type}
               </Text>
-              {row.href && (
-                <Box
-                  css={theme({ ml: 'auto', color: 'secondary', flexShrink: 0 })}
-                >
-                  <FeatherIcon icon={ChevronRight} />
-                </Box>
-              )}
+              <Box
+                css={theme({ ml: 'auto', color: 'secondary', flexShrink: 0 })}
+              >
+                <FeatherIcon icon={ChevronRight} />
+              </Box>
             </Flex>
             <Text
               css={theme({
@@ -124,32 +122,9 @@ export const ParamsSection = ({ eyebrow = 'Parameters', title, rows }) => (
             >
               {row.description}
             </Text>
-          </>
-        )
-
-        return (
-          <Box as='li' key={row.name} css={theme({ minWidth: 0 })}>
-            {row.href
-              ? (
-                <ParamCard href={row.href}>{content}</ParamCard>
-                )
-              : (
-                <Box
-                  css={theme({
-                    p: [3, 3, 4, 4],
-                    bg: 'white',
-                    border: 1,
-                    borderColor: 'gray2',
-                    borderRadius: 3
-                  })}
-                  style={{ boxShadow: shadows[0] }}
-                >
-                  {content}
-                </Box>
-                )}
-          </Box>
-        )
-      })}
+          </ParamCard>
+        </Box>
+      ))}
     </Box>
   </FeatureSection>
 )

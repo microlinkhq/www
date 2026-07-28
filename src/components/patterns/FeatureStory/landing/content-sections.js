@@ -7,7 +7,7 @@ import Flex from 'components/elements/Flex'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import { BodyText, Eyebrow } from '../primitives'
+import { Eyebrow } from '../primitives'
 import { FeatureSection } from './shell'
 
 const CheckItem = ({ children }) => (
@@ -52,22 +52,16 @@ export const OverviewSection = ({
       </Subhead>
     )}
     <Box css={theme({ maxWidth: layout.large })}>
-      {typeof body === 'string'
-        ? (
-          <BodyText>{body}</BodyText>
-          )
-        : (
-          <Box
-            css={theme({
-              fontFamily: 'sans',
-              fontSize: [2, 2, 2, 2],
-              lineHeight: 2,
-              color: 'black'
-            })}
-          >
-            {body}
-          </Box>
-          )}
+      <Box
+        css={theme({
+          fontFamily: 'sans',
+          fontSize: [2, 2, 2, 2],
+          lineHeight: 2,
+          color: 'black'
+        })}
+      >
+        {body}
+      </Box>
       {bullets?.length > 0 && (
         <Box
           as='ul'

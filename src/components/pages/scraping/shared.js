@@ -114,7 +114,6 @@ export const EXAMPLES = {
       id: 'extract',
       title: 'Custom extract',
       description: 'Shape any JSON with CSS-selector rules and typed fields.',
-      language: 'js',
       snippet: sdkExample(`const { image } = await microlink.extract(url, {
   image: {
     selector: 'meta[property="og:image"]',
@@ -127,7 +126,6 @@ export const EXAMPLES = {
       id: 'links',
       title: 'Collect links',
       description: 'Every matching href as absolute, deduped strings.',
-      language: 'js',
       snippet: sdkExample(`const links = await microlink.links(url, {
   selectorAll: 'nav a'
 })`)
@@ -136,7 +134,6 @@ export const EXAMPLES = {
       id: 'emails',
       title: 'Harvest emails',
       description: 'mailto and plain-text addresses, validated server-side.',
-      language: 'js',
       snippet:
         sdkExample(`const emails = await microlink.emails('https://microlink.io')
 // → ['hello@microlink.io']`)
@@ -145,28 +142,24 @@ export const EXAMPLES = {
       id: 'images',
       title: 'Collect images',
       description: 'Image assets from the page as a clean collection.',
-      language: 'js',
       snippet: sdkExample('const images = await microlink.images(url)')
     },
     {
       id: 'videos',
       title: 'Collect videos',
       description: 'Playable video sources discovered on the page.',
-      language: 'js',
       snippet: sdkExample('const videos = await microlink.videos(url)')
     },
     {
       id: 'audios',
       title: 'Collect audios',
       description: 'Audio sources extracted from the target URL.',
-      language: 'js',
       snippet: sdkExample('const audios = await microlink.audios(url)')
     },
     {
       id: 'markdown',
       title: 'Page to Markdown',
       description: 'Scope content to Markdown for indexing or RAG.',
-      language: 'js',
       snippet: sdkExample(`const md = await microlink.markdown(url, {
   selector: 'article'
 })`)
@@ -175,7 +168,6 @@ export const EXAMPLES = {
       id: 'html',
       title: 'Page to HTML',
       description: 'Return scoped HTML for the region you select.',
-      language: 'js',
       snippet: sdkExample(`const html = await microlink.html(url, {
   selector: 'article'
 })`)
@@ -184,7 +176,6 @@ export const EXAMPLES = {
       id: 'text',
       title: 'Page to text',
       description: 'Plain text from a selector — no markup noise.',
-      language: 'js',
       snippet: sdkExample(`const text = await microlink.text(url, {
   selector: 'article'
 })`)
@@ -197,7 +188,7 @@ export const RELATED = {
   title: 'Compose after you extract.'
 }
 
-export const FAQ_RAW = [
+export const FAQ_ITEMS = faqFromItems([
   {
     question: 'How does Microlink scrape a page?',
     text: 'You send a url and a data schema of CSS-selector rules. Microlink fetches the page — with headless Chrome when JavaScript must run — applies each rule, and returns typed JSON for the fields you declared.'
@@ -218,6 +209,4 @@ export const FAQ_RAW = [
     question: "What happens when a selector doesn't match?",
     text: 'Define a rule as an array of fallbacks and Microlink tries each one. If nothing matches, the field comes back empty rather than failing the request.'
   }
-]
-
-export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+])

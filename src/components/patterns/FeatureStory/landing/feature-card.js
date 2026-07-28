@@ -59,6 +59,7 @@ const Card = styled(Link)(
 
 export const FeatureCard = ({ feature, showTeachLine = false }) => {
   const href = `/features/${feature.slug}`
+  const teachLine = showTeachLine ? feature.teachLine : null
 
   return (
     <Card href={href} $accent={feature.iconBg} $border={feature.borderColor}>
@@ -97,13 +98,13 @@ export const FeatureCard = ({ feature, showTeachLine = false }) => {
           color: 'black70',
           fontSize: 1,
           lineHeight: 2,
-          flex: showTeachLine && feature.teachLine ? '0 0 auto' : '1 1 auto',
-          pb: showTeachLine && feature.teachLine ? 2 : 0
+          flex: teachLine ? '0 0 auto' : '1 1 auto',
+          pb: teachLine ? 2 : 0
         })}
       >
         {feature.oneLiner}
       </Text>
-      {showTeachLine && feature.teachLine && (
+      {teachLine && (
         <Text
           css={theme({
             color: 'black60',
@@ -113,7 +114,7 @@ export const FeatureCard = ({ feature, showTeachLine = false }) => {
             fontFamily: 'sans'
           })}
         >
-          {feature.teachLine}
+          {teachLine}
         </Text>
       )}
     </Card>

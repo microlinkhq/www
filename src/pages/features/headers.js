@@ -2,7 +2,10 @@ import React from 'react'
 
 import Meta from 'components/elements/Meta/Meta'
 
-import { FeaturePageShell } from 'components/patterns/FeatureStory'
+import {
+  FeaturePageShell,
+  faqPageStructured
+} from 'components/patterns/FeatureStory'
 import Layout from 'components/patterns/Layout'
 
 import { Examples } from 'components/pages/headers/examples'
@@ -31,20 +34,7 @@ export const Head = () => (
     title={META.title}
     description={META.description}
     schemaType='WebPage'
-    structured={[
-      {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: FAQ_ITEMS.map(({ question, text }) => ({
-          '@type': 'Question',
-          name: question,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text
-          }
-        }))
-      }
-    ]}
+    structured={[faqPageStructured(FAQ_ITEMS)]}
   />
 )
 

@@ -16,4 +16,9 @@ export {
   RelatedFeaturesSection
 } from './related-sections'
 export { ExamplesSwitcher } from './examples-switcher'
-export { faqFromItems, ProxyHeadersTtlLinks, sdkExample } from './helpers'
+export {
+  faqFromItems,
+  faqPageStructured,
+  ProxyHeadersTtlLinks,
+  sdkExample
+} from './helpers'

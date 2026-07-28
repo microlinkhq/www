@@ -54,9 +54,10 @@ export const RelatedFeaturesSection = ({
         gap: [3, 3, 3, 3]
       })}
     >
-      {relatedSlugs.flatMap(slug => {
+      {relatedSlugs.map(slug => {
         const feature = getFeature(slug)
-        return feature ? [<FeatureCard key={slug} feature={feature} />] : []
+        if (!feature) return null
+        return <FeatureCard key={slug} feature={feature} />
       })}
     </Box>
   </FeatureSection>

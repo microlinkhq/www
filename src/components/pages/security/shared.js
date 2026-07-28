@@ -91,7 +91,6 @@ export const EXAMPLES = {
       id: 'ssrf',
       title: 'SSRF is refused',
       description: 'A link-local metadata URL rejects before navigation.',
-      language: 'js',
       snippet: sdkExample(`await microlink.metadata(
   'http://169.254.169.254'
 )
@@ -101,7 +100,6 @@ export const EXAMPLES = {
       id: 'catch-error',
       title: 'Catch MicrolinkError',
       description: 'Typed errors carry code and a readable description.',
-      language: 'js',
       snippet: `import createClient, { MicrolinkError } from 'microlink.io'
 
 const microlink = createClient({
@@ -118,7 +116,6 @@ microlink.screenshot(url).catch(error => {
       id: 'isolation',
       title: 'Isolated by default',
       description: 'No cookies or state carry over between requests.',
-      language: 'js',
       snippet: sdkExample(`await microlink.metadata('https://a.example')
 await microlink.metadata('https://b.example')
 // → separate browsers, nothing shared`)
@@ -127,7 +124,6 @@ await microlink.metadata('https://b.example')
       id: 'user-urls',
       title: 'User-supplied URLs',
       description: 'Render links from users without exposing internal hosts.',
-      language: 'js',
       snippet: sdkExample(`async function preview (userUrl) {
   try {
     return await microlink.metadata(userUrl)
@@ -143,7 +139,6 @@ await microlink.metadata('https://b.example')
       id: 'compose',
       title: 'Same guards under Pro options',
       description: 'proxy, headers, and ttl still run inside the sandbox.',
-      language: 'js',
       snippet: sdkExample(`const md = await microlink.markdown(url, {
   proxy: true,
   headers: { 'x-api-header-cookie': 'session=…' },
@@ -159,7 +154,7 @@ export const RELATED = {
   title: 'Trust, access and isolation.'
 }
 
-export const FAQ_RAW = [
+export const FAQ_ITEMS = faqFromItems([
   {
     question: 'What does “isolated browser per request” mean?',
     text: 'Every request gets its own fresh browser instance that is destroyed as soon as the response is sent. No cookies, storage or state are shared between calls, so one request can never observe or affect another.'
@@ -187,6 +182,4 @@ export const FAQ_RAW = [
       </div>
     )
   }
-]
-
-export const FAQ_ITEMS = faqFromItems(FAQ_RAW)
+])

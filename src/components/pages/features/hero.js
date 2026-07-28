@@ -3,14 +3,13 @@ import React from 'react'
 
 import Annotation from 'components/elements/Annotation'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 
 import CaptionBase from 'components/patterns/Caption/Caption'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import { HERO } from './shared'
 
-const Heading = withTitle(HeadingBase)
 const Caption = withTitle(CaptionBase)
 
 export const Hero = () => (
@@ -44,9 +43,7 @@ export const Hero = () => (
         maxWidth: layout.large
       })}
     >
-      Microlink empowers teams to extract, capture, and unblock the web with one
-      API. Flexibility, performance, and security — so you can ship faster and
-      focus on what matters.
+      {HERO.caption}
     </Caption>
   </Flex>
 )
