@@ -4,6 +4,7 @@ import Box from 'components/elements/Box'
 import { useLocation } from '@gatsbyjs/reach-router'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useBlogIndex } from 'components/hook/use-blog-index'
+import { useChangelogLatest } from 'components/hook/use-changelog-latest'
 
 import { layout, theme } from 'theme'
 
@@ -30,6 +31,7 @@ import ToolbarDesktopTopLevelNav from './ToolbarDesktopTopLevelNav'
 const ToolbarDesktop = () => {
   const location = useLocation()
   const blogPosts = useBlogIndex()
+  const latestChangelogEntry = useChangelogLatest()
   const headerRef = useRef(null)
   const closeTimeoutRef = useRef(null)
   const [openSection, setOpenSection] = useState(
@@ -199,6 +201,7 @@ const ToolbarDesktop = () => {
           isPanelVisible={isPanelVisible}
           renderedSection={renderedSection}
           latestPosts={latestPosts}
+          latestChangelogEntry={latestChangelogEntry}
           onMouseEnter={clearClosePanelTimeout}
           onMouseLeave={handleClosePanelWithDelay}
           onItemClick={handleClosePanel}

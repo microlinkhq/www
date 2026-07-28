@@ -15,6 +15,9 @@ const mql = require('@microlink/mql')
 const path = require('node:path')
 
 const { getLastModifiedDate, branchName } = require('./src/helpers/git')
+const {
+  parseLatestChangelogEntry
+} = require('./src/helpers/parse-latest-changelog-entry')
 const { title: formatTitle } = require('./src/helpers/title')
 const { generate: generateOgCards, slug, imagePath } = require('@microlink/og')
 
@@ -74,6 +77,13 @@ exports.createSchemaCustomization = ({ actions }) => {
       website: String
       githubUrl: String
       skillUrl: String
+    }
+    type ChangelogLatestEntry {
+      product: String
+      description: String
+    }
+    type MdxFields {
+      latestEntry: ChangelogLatestEntry
     }
   `)
 }
@@ -246,6 +256,19 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
             node,
             name: 'lastmod',
             value: fileNode.mtime
+          })
+        }
+      }
+
+      if (slug === '/fragments/changelog/') {
+        const latestEntry = parseLatestChangelogEntry(
+          readFileSync(contentFilePath, 'utf8')
+        )
+        if (latestEntry) {
+          createNodeField({
+            node,
+            name: 'latestEntry',
+            value: latestEntry
           })
         }
       }

@@ -12,6 +12,7 @@ import {
   toSectionDomId
 } from './ToolbarDesktopStyles'
 
+import ToolbarDesktopProductsPanel from './ToolbarDesktopProductsPanel'
 import ToolbarDesktopResourcesPanel from './ToolbarDesktopResourcesPanel'
 import ToolbarDesktopSectionItemsGrid from './ToolbarDesktopSectionItemsGrid'
 import ToolbarDesktopToolsPanel from './ToolbarDesktopToolsPanel'
@@ -20,6 +21,7 @@ const ToolbarDesktopMegaMenu = ({
   isPanelVisible,
   renderedSection,
   latestPosts,
+  latestChangelogEntry,
   onMouseEnter,
   onMouseLeave,
   onItemClick
@@ -36,6 +38,7 @@ const ToolbarDesktopMegaMenu = ({
   >
     {NAVIGATION_SECTIONS.map(section => {
       const isSectionActive = renderedSection === section.label
+      const isProductsSection = section.label === 'Products'
       const isResourcesSection = section.label === 'Resources'
       const isToolsSection = section.label === 'Tools'
 
@@ -52,8 +55,12 @@ const ToolbarDesktopMegaMenu = ({
               py: [3, 3, 4, 4]
             })}
           >
-            {!isResourcesSection && !isToolsSection && (
-              <Text css={theme(LABEL_STYLE)}>{section.description}</Text>
+            {isProductsSection && (
+              <ToolbarDesktopProductsPanel
+                section={section}
+                latestChangelogEntry={latestChangelogEntry}
+                onItemClick={onItemClick}
+              />
             )}
             {isToolsSection && (
               <ToolbarDesktopToolsPanel
@@ -68,12 +75,15 @@ const ToolbarDesktopMegaMenu = ({
                 onItemClick={onItemClick}
               />
             )}
-            {!isResourcesSection && !isToolsSection && (
-              <ToolbarDesktopSectionItemsGrid
-                items={section.items}
-                columns={section.columns}
-                onItemClick={onItemClick}
-              />
+            {!isProductsSection && !isResourcesSection && !isToolsSection && (
+              <>
+                <Text css={theme(LABEL_STYLE)}>{section.description}</Text>
+                <ToolbarDesktopSectionItemsGrid
+                  items={section.items}
+                  columns={section.columns}
+                  onItemClick={onItemClick}
+                />
+              </>
             )}
           </Box>
         </MegaMenuSection>

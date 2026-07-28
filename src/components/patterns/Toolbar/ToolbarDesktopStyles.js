@@ -298,6 +298,32 @@ export const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   }
 `
 
+export const ProductsChangelogFooter = styled(Box)(
+  theme({
+    mt: 3,
+    pt: 3,
+    borderTop: 1,
+    borderTopColor: 'black10',
+    minWidth: 0
+  })
+)
+
+export const ProductsChangelogLink = styled(ToolbarNavLink)`
+  width: 100%;
+  min-width: 0;
+
+  > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+`
+
 export const Header = styled(Box).withConfig({
   shouldForwardProp: prop => !['isDocsRoute'].includes(prop)
 })`
