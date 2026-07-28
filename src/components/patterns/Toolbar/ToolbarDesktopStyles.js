@@ -298,17 +298,28 @@ export const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   }
 `
 
-export const ProductsChangelogLink = styled(ToolbarNavLink)`
-  width: 100%;
+export const ProductsChangelogEntryLink = styled(ToolbarNavLink)`
   min-width: 0;
+  max-width: 80%;
+  flex: 1;
 
   > a {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    width: 100%;
+    align-items: baseline;
+    gap: 8px;
     min-width: 0;
+    width: 100%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+`
+
+export const ProductsChangelogPageLink = styled(ToolbarNavLink)`
+  flex-shrink: 0;
+
+  > a {
+    display: inline-flex;
+    align-items: center;
     padding-top: 4px;
     padding-bottom: 4px;
   }

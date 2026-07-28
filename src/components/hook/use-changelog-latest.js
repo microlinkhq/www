@@ -10,6 +10,7 @@ export const useChangelogLatest = () => {
             latestEntry {
               product
               description
+              href
             }
           }
         }

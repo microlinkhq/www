@@ -81,6 +81,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     type ChangelogLatestEntry {
       product: String
       description: String
+      href: String
     }
     type MdxFields {
       latestEntry: ChangelogLatestEntry
