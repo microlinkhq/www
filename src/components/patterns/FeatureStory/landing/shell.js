@@ -172,7 +172,7 @@ const TocLink = styled('a')`
 `
 
 export const FeatureToc = ({ items = FEATURE_TOC }) => {
-  const [activeId, setActiveId] = useState(items[0]?.id)
+  const [activeId, setActiveId] = useState(null)
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(

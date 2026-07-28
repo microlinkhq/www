@@ -1,4 +1,4 @@
-import { breakpoints, layout, theme } from 'theme'
+import { breakpoints, layout, SECTION_VERTICAL_SPACING, theme } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -24,8 +24,7 @@ export const Showcase = () => (
     css={theme({
       alignItems: 'stretch',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      pt: [3, 3, 4, 5],
-      pb: [4, 4, 5, 5]
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Grid>

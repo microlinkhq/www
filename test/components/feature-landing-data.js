@@ -19,6 +19,10 @@ const panelIdsOf = source =>
   [...source.matchAll(/^ {6}id: '([^']+)'/gm)].map(([, id]) => id)
 
 describe('feature landing data', () => {
+  test('feature registry is non-empty', () => {
+    expect(SLUGS.length).toBeGreaterThan(0)
+  })
+
   test.each(SLUGS)('%s relatedSlugs all resolve to a feature', slug => {
     const related = relatedSlugsOf(
       read(`src/components/pages/${slug}/shared.js`)

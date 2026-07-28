@@ -18,15 +18,19 @@ import { ACCENT, getFeature } from '../features'
 import { Eyebrow } from '../primitives'
 import { FeatureSection } from './shell'
 
-export const ExamplesSection = ({ eyebrow = 'Examples', title, panels }) => (
-  <FeatureSection id='examples'>
-    <Box css={theme({ pb: [3, 3, 4, 4] })}>
-      <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
-      <Subhead css={theme({ textAlign: 'left' })}>{title}</Subhead>
-    </Box>
-    <ExamplesSwitcher panels={panels} />
-  </FeatureSection>
-)
+export const ExamplesSection = ({ eyebrow = 'Examples', title, panels }) => {
+  if (!panels?.length) return null
+
+  return (
+    <FeatureSection id='examples'>
+      <Box css={theme({ pb: [3, 3, 4, 4] })}>
+        <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
+        <Subhead css={theme({ textAlign: 'left' })}>{title}</Subhead>
+      </Box>
+      <ExamplesSwitcher panels={panels} />
+    </FeatureSection>
+  )
+}
 
 export const RelatedFeaturesSection = ({
   relatedSlugs,

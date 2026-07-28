@@ -1,4 +1,4 @@
-import { layout, theme } from 'theme'
+import { layout, SECTION_VERTICAL_SPACING, theme } from 'theme'
 import React from 'react'
 
 import Annotation from 'components/elements/Annotation'
@@ -21,7 +21,7 @@ export const Hero = () => (
       flexDirection: 'column',
       alignItems: 'center',
       pt: [1],
-      pb: [1]
+      pb: SECTION_VERTICAL_SPACING
     })}
   >
     <Heading
