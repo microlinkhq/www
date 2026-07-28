@@ -110,7 +110,9 @@ const TAB_DESCRIPTION_STYLE = theme({
   m: 0
 })
 
-export const ExamplesSwitcher = ({ panels }) => {
+const EMPTY_PANELS = []
+
+export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
   const baseId = useId()
   const listRef = useRef(null)
   const tabRefs = useRef([])
