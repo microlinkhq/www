@@ -1,5 +1,5 @@
 Contact: mailto:hello@microlink.io?subject=Security%20Inquiry
-Expires: 2027-07-28T00:00:00.000Z
+Expires: 2027-07-28T00:00:00Z
 Canonical: https://microlink.io/.well-known/security.txt
 Preferred-Languages: en
 
@@ -19,15 +19,15 @@ Preferred-Languages: en
 # - Any activity that could lead to the disruption of our service (DoS).
 # - Content spoofing and text injection issues without showing an attack
 #   vector/without being able to modify HTML/CSS.
-# - Email spoofing
-# - Missing DNSSEC, CAA, CSP headers
-# - Lack of Secure or HTTP only flag on non-sensitive cookies
-# - Deadlinks
-# - User enumeration
+# - Email spoofing.
+# - Missing DNSSEC, CAA or CSP.
+# - Lack of Secure or HttpOnly flag on non-sensitive cookies.
+# - Dead links.
+# - User enumeration.
 #
 # Please do the following:
 #
-# - E-mail your findings to hello@microlink.io with the subject "Security Inquiry".
+# - E-mail your findings to hello@microlink.io.
 # - Do not run automated scanners on our infrastructure or dashboard. If you
 #   wish to do this, contact us and we will set up a sandbox for you.
 # - Do not take advantage of the vulnerability or problem you have discovered,
@@ -60,4 +60,4 @@ Preferred-Languages: en
 # Special Thanks
 #
 # - Daniel Wang (https://danielwang.dev)
-# - Haaris B (haaris.blacktech@gmail.com)
+# - Haaris B
