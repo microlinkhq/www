@@ -54,17 +54,19 @@ const ToolbarDesktopProductsPanel = ({
         >
           <Text
             as='span'
+            className='menu-item-title'
             css={theme({
               flexShrink: 0,
               fontSize: 0,
               fontWeight: 'bold',
-              color: 'black'
+              color: 'black80'
             })}
           >
             New: {latestChangelogEntry.product}
           </Text>
           <Text
             as='span'
+            className='menu-item-description'
             css={theme({
               fontSize: 0,
               color: 'black60',

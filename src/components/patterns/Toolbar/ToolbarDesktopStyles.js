@@ -299,6 +299,7 @@ export const ResourcesLatestPostLink = styled(ToolbarNavLink)`
 `
 
 export const ProductsChangelogEntryLink = styled(ToolbarNavLink)`
+  border-radius: 12px;
   min-width: 0;
   max-width: 80%;
   flex: 1;
@@ -309,8 +310,19 @@ export const ProductsChangelogEntryLink = styled(ToolbarNavLink)`
     gap: 8px;
     min-width: 0;
     width: 100%;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    border-radius: inherit;
+    padding: 12px;
+    ${MENU_LINK_HOVER_STYLES};
+
+    .menu-item-title {
+      font-weight: ${fontWeights.bold};
+    }
+  }
+
+  &:hover .menu-item-description,
+  &:focus-within .menu-item-description,
+  > .active .menu-item-description {
+    color: ${colors.black};
   }
 `
 
