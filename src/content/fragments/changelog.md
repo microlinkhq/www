@@ -2,7 +2,7 @@
 
 - [Microlink](/): Redesigned [features](/features) with a unified showcase across all capability pages.
 - [Microlink](/): Published RFC 9116 [security.txt](/security.txt) and expanded the [security](/security) disclosure policy.
-- [Browserless v13.6](https://browserless.js.org): Fixed screenshots failing when `quality` is set without jpeg/webp.
+- [Browserless v13.6](https://browserless.js.org): Fixed screenshots failing when [quality](/docs/api/parameters/screenshot/quality) is set without jpeg/webp.
 - [Microlink API](/docs/api/getting-started/overview): Improved [pdf](/docs/api/parameters/pdf) for SPA pages, tall documents, and [pageRanges](/docs/api/parameters/pdf/pageRanges).
 - [Microlink](/): Added [antibot](/features/antibot) and [security](/features/security) feature landings.
 - [Microlink API](/docs/api/getting-started/overview): Added [EPDFTOOLARGE](/docs/api/basics/error-codes#epdftoolarge) when a document is too large to render as PDF.
