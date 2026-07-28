@@ -1,12 +1,10 @@
 import Box from 'components/elements/Box'
-import Text from 'components/elements/Text'
 import React from 'react'
 
 import { theme } from 'theme'
 
 import { NAVIGATION_SECTIONS } from './ToolbarLinks'
 import {
-  LABEL_STYLE,
   MegaMenuPanel,
   MegaMenuSection,
   toSectionDomId
@@ -14,7 +12,6 @@ import {
 
 import ToolbarDesktopProductsPanel from './ToolbarDesktopProductsPanel'
 import ToolbarDesktopResourcesPanel from './ToolbarDesktopResourcesPanel'
-import ToolbarDesktopSectionItemsGrid from './ToolbarDesktopSectionItemsGrid'
 import ToolbarDesktopToolsPanel from './ToolbarDesktopToolsPanel'
 
 const ToolbarDesktopMegaMenu = ({
@@ -38,9 +35,6 @@ const ToolbarDesktopMegaMenu = ({
   >
     {NAVIGATION_SECTIONS.map(section => {
       const isSectionActive = renderedSection === section.label
-      const isProductsSection = section.label === 'Products'
-      const isResourcesSection = section.label === 'Resources'
-      const isToolsSection = section.label === 'Tools'
 
       return (
         <MegaMenuSection
@@ -55,35 +49,25 @@ const ToolbarDesktopMegaMenu = ({
               py: [3, 3, 4, 4]
             })}
           >
-            {isProductsSection && (
+            {section.label === 'Products' && (
               <ToolbarDesktopProductsPanel
                 section={section}
                 latestChangelogEntry={latestChangelogEntry}
                 onItemClick={onItemClick}
               />
             )}
-            {isToolsSection && (
+            {section.label === 'Tools' && (
               <ToolbarDesktopToolsPanel
                 section={section}
                 onItemClick={onItemClick}
               />
             )}
-            {isResourcesSection && (
+            {section.label === 'Resources' && (
               <ToolbarDesktopResourcesPanel
                 section={section}
                 latestPosts={latestPosts}
                 onItemClick={onItemClick}
               />
-            )}
-            {!isProductsSection && !isResourcesSection && !isToolsSection && (
-              <>
-                <Text css={theme(LABEL_STYLE)}>{section.description}</Text>
-                <ToolbarDesktopSectionItemsGrid
-                  items={section.items}
-                  columns={section.columns}
-                  onItemClick={onItemClick}
-                />
-              </>
             )}
           </Box>
         </MegaMenuSection>

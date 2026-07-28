@@ -1,3 +1,4 @@
+import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import Caps from 'components/elements/Caps'
@@ -5,18 +6,14 @@ import FeatherIcon from 'components/icons/Feather'
 import { ChevronRight } from 'react-feather'
 import React from 'react'
 
-import { fontWeights, theme } from 'theme'
+import { theme } from 'theme'
 
 import {
   TOOLBAR_CHEVRON_ICON_SIZE,
   TOOLBAR_TOP_LEVEL_CAPS_STYLES
 } from './ToolbarStyles'
 
-import {
-  LABEL_STYLE,
-  ProductsChangelogFooter,
-  ProductsChangelogLink
-} from './ToolbarDesktopStyles'
+import { LABEL_STYLE, ProductsChangelogLink } from './ToolbarDesktopStyles'
 import ToolbarDesktopSectionItemsGrid from './ToolbarDesktopSectionItemsGrid'
 
 const ToolbarDesktopProductsPanel = ({
@@ -32,7 +29,15 @@ const ToolbarDesktopProductsPanel = ({
       onItemClick={onItemClick}
     />
     {latestChangelogEntry && (
-      <ProductsChangelogFooter>
+      <Box
+        css={theme({
+          mt: 3,
+          pt: 3,
+          borderTop: 1,
+          borderTopColor: 'black10',
+          minWidth: 0
+        })}
+      >
         <ProductsChangelogLink
           forwardedAs='div'
           href='/changelog'
@@ -55,7 +60,7 @@ const ToolbarDesktopProductsPanel = ({
               css={theme({
                 flexShrink: 0,
                 fontSize: 0,
-                fontWeight: fontWeights.bold,
+                fontWeight: 'bold',
                 color: 'black'
               })}
             >
@@ -90,7 +95,7 @@ const ToolbarDesktopProductsPanel = ({
             <FeatherIcon icon={ChevronRight} size={TOOLBAR_CHEVRON_ICON_SIZE} />
           </Caps>
         </ProductsChangelogLink>
-      </ProductsChangelogFooter>
+      </Box>
     )}
   </>
 )

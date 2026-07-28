@@ -298,16 +298,6 @@ export const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   }
 `
 
-export const ProductsChangelogFooter = styled(Box)(
-  theme({
-    mt: 3,
-    pt: 3,
-    borderTop: 1,
-    borderTopColor: 'black10',
-    minWidth: 0
-  })
-)
-
 export const ProductsChangelogLink = styled(ToolbarNavLink)`
   width: 100%;
   min-width: 0;
