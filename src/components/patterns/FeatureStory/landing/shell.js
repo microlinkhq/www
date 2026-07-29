@@ -88,7 +88,7 @@ const TocLink = styled('a')`
   }
 `
 
-export const FeatureToc = ({ items = FEATURE_TOC }) => {
+const FeatureToc = ({ items = FEATURE_TOC }) => {
   const activeId = useActiveSection(items.map(item => item.id))
 
   return (
