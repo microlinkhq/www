@@ -22,12 +22,12 @@ const ProvidersTable = styled(Text)`
 
   th:first-child,
   td:first-child {
-    padding-left: 0;
+    ${theme({ pl: 0 })}
   }
 
   th:last-child,
   td:last-child {
-    padding-right: 0;
+    ${theme({ pr: 0 })}
   }
 
   thead th {
@@ -47,7 +47,7 @@ const ProvidersTable = styled(Text)`
   }
 
   tbody tr:last-child {
-    border-bottom: none;
+    ${theme({ borderBottom: 0 })}
   }
 `
 
@@ -125,7 +125,7 @@ const ProviderCard = ({ row }) => (
 
 export const Providers = () => (
   <FeatureSection id='providers'>
-    <Eyebrow css={theme({ pb: 2, display: 'block' })}>Providers</Eyebrow>
+    <Eyebrow>Providers</Eyebrow>
     <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
       {PROVIDERS_COVERED} providers across antibot, CAPTCHA, and platforms.
     </Subhead>

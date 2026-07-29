@@ -86,7 +86,7 @@ const LabelledItem = ({ title, body }) => (
 
 export const Overview = () => (
   <FeatureSection id='overview'>
-    <Eyebrow css={theme({ pb: 2, display: 'block' })}>Why</Eyebrow>
+    <Eyebrow>Why</Eyebrow>
     <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
       When a request fails, know who stopped it.
     </Subhead>
@@ -96,9 +96,7 @@ export const Overview = () => (
         infrastructure that takes a URL as input, you are constantly interacting
         with defenses designed to stop you.
       </Text>
-      <Box css={theme({ pb: [3, 3, 4, 4] })}>
-        <StatusFlicker />
-      </Box>
+      <StatusFlicker />
       <Text css={theme(BODY_STYLE)}>
         Modern antibot systems operate at multiple layers, often before your
         request even reaches application code. Detection does something

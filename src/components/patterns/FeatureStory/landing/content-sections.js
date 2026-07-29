@@ -46,7 +46,7 @@ export const OverviewSection = ({
   bullets
 }) => (
   <FeatureSection id={id}>
-    <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
+    <Eyebrow>{eyebrow}</Eyebrow>
     {title && (
       <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
         {title}

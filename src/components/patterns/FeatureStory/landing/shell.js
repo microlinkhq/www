@@ -1,4 +1,4 @@
-import { space, theme, SECTION_VERTICAL_SPACING } from 'theme'
+import { layout, space, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -142,7 +142,7 @@ export const FeaturePageShell = ({ toc = FEATURE_TOC, children }) => (
       css={theme({
         minWidth: 0,
         width: '100%',
-        maxWidth: '960px',
+        maxWidth: layout.large,
         fontFamily: 'sans'
       })}
     >

@@ -50,7 +50,7 @@ const ParamCard = styled(Link)(
 
 export const ParamsSection = ({ eyebrow = 'Parameters', title, rows }) => (
   <FeatureSection id='parameters'>
-    <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
+    <Eyebrow>{eyebrow}</Eyebrow>
     <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
       {title}
     </Subhead>

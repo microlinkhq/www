@@ -1,4 +1,4 @@
-import { colors, theme } from 'theme'
+import { theme } from 'theme'
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
@@ -20,8 +20,7 @@ const flicker = keyframes`
 `
 
 const Flicker = styled.span`
-  ${theme({ fontFamily: 'mono', fontWeight: 'bold' })}
-  color: ${colors.red7};
+  ${theme({ fontFamily: 'mono', fontWeight: 'bold', color: 'red7' })}
   display: inline-grid;
   font-variant-numeric: tabular-nums;
   min-width: 22ch;
@@ -54,7 +53,14 @@ const lineStyle = theme({
 })
 
 export const StatusFlicker = () => (
-  <Box css={theme({ display: 'flex', flexDirection: 'column', gap: 3 })}>
+  <Box
+    css={theme({
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 3,
+      pb: [3, 3, 4, 4]
+    })}
+  >
     <Text as='p' css={lineStyle}>
       A request can experience{' '}
       <Flicker aria-label='429 Too Many Requests, 401 Unauthorized, or 403 Forbidden'>
