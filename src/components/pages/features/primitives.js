@@ -6,10 +6,12 @@ import Box from 'components/elements/Box'
 import { FeatureCard, FEATURES } from 'components/patterns/FeatureStory'
 
 const Cards = styled(Box)`
-  display: grid;
+  ${theme({
+    display: 'grid',
+    gap: 3,
+    width: '100%'
+  })}
   grid-template-columns: minmax(0, 1fr);
-  ${theme({ gap: [3, 3, 3, 3] })}
-  width: 100%;
 
   @media (min-width: ${breakpoints[1]}) {
     grid-template-columns: repeat(2, minmax(0, 1fr));

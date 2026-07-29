@@ -16,9 +16,7 @@ export const FeatureHero = ({ title, description, tag }) => (
       <Heading variant={null} css={theme({ textAlign: 'left' })}>
         {title}
         {tag === 'PRO' && (
-          <ProBadge
-            css={theme({ ml: 3, top: ['8px', '8px', '12px', '12px'] })}
-          />
+          <ProBadge css={theme({ ml: 3, top: [1, 1, 2, 2] })} />
         )}
       </Heading>
       <Caption

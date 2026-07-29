@@ -14,7 +14,7 @@ export const useActiveSection = ids => {
 
     let anchors = []
     let frame
-    let currentId = sectionIds[0]
+    let currentId
 
     const measure = () => {
       anchors = sections.map(
