@@ -51,7 +51,7 @@ export const RelatedFeaturesSection = ({
           'repeat(2, minmax(0, 1fr))',
           'repeat(2, minmax(0, 1fr))'
         ],
-        gap: [3, 3, 3, 3]
+        gap: 3
       })}
     >
       {relatedSlugs.map(slug => {

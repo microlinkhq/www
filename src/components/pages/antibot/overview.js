@@ -1,4 +1,4 @@
-import { layout, theme } from 'theme'
+import { theme } from 'theme'
 import React from 'react'
 
 import Box from 'components/elements/Box'
@@ -76,7 +76,7 @@ const LIST_STYLE = {
 
 const LabelledItem = ({ title, body }) => (
   <CheckItem>
-    <Text as='strong' css={theme({ color: 'black', fontWeight: 'bold' })}>
+    <Text as='strong' css={theme({ color: 'black' })}>
       {title}
     </Text>
     {': '}
@@ -90,36 +90,34 @@ export const Overview = () => (
     <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
       When a request fails, know who stopped it.
     </Subhead>
-    <Box css={theme({ maxWidth: layout.large })}>
-      <Text css={theme(BODY_STYLE)}>
-        Microlink handles +700M requests every month. When you build
-        infrastructure that takes a URL as input, you are constantly interacting
-        with defenses designed to stop you.
-      </Text>
-      <StatusFlicker />
-      <Text css={theme(BODY_STYLE)}>
-        Modern antibot systems operate at multiple layers, often before your
-        request even reaches application code. Detection does something
-        fundamental: it tells you when a non-success resolution happens and who
-        triggered it, so you can make a better decision about what to do next.
-      </Text>
-      <ProviderGraph />
-      <Text css={theme({ ...HEADING_STYLE, pt: [2, 2, 3, 3] })}>
-        Common signals include:
-      </Text>
-      <Box as='ul' css={theme({ ...LIST_STYLE, pb: 4 })}>
-        {SIGNALS.map(item => (
-          <LabelledItem key={item.title} title={item.title} body={item.body} />
-        ))}
-      </Box>
-      <Text css={theme(HEADING_STYLE)}>
-        Based on these signals, a request is either:
-      </Text>
-      <Box as='ul' css={theme(LIST_STYLE)}>
-        {OUTCOMES.map(item => (
-          <LabelledItem key={item.title} title={item.title} body={item.body} />
-        ))}
-      </Box>
+    <Text css={theme(BODY_STYLE)}>
+      Microlink handles +700M requests every month. When you build
+      infrastructure that takes a URL as input, you are constantly interacting
+      with defenses designed to stop you.
+    </Text>
+    <StatusFlicker />
+    <Text css={theme(BODY_STYLE)}>
+      Modern antibot systems operate at multiple layers, often before your
+      request even reaches application code. Detection does something
+      fundamental: it tells you when a non-success resolution happens and who
+      triggered it, so you can make a better decision about what to do next.
+    </Text>
+    <ProviderGraph />
+    <Text css={theme({ ...HEADING_STYLE, pt: [2, 2, 3, 3] })}>
+      Common signals include:
+    </Text>
+    <Box as='ul' css={theme({ ...LIST_STYLE, pb: 4 })}>
+      {SIGNALS.map(item => (
+        <LabelledItem key={item.title} title={item.title} body={item.body} />
+      ))}
+    </Box>
+    <Text css={theme(HEADING_STYLE)}>
+      Based on these signals, a request is either:
+    </Text>
+    <Box as='ul' css={theme(LIST_STYLE)}>
+      {OUTCOMES.map(item => (
+        <LabelledItem key={item.title} title={item.title} body={item.body} />
+      ))}
     </Box>
   </FeatureSection>
 )

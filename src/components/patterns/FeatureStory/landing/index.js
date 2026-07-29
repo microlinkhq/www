@@ -1,11 +1,5 @@
-export { FeatureIconTile } from './feature-icon'
 export { FeatureCard } from './feature-card'
-export {
-  FeatureBreadcrumbs,
-  FeaturePageShell,
-  FeatureSection,
-  FeatureToc
-} from './shell'
+export { FeaturePageShell, FeatureSection } from './shell'
 export { FeatureHero } from './hero'
 export { CheckItem, OverviewSection } from './content-sections'
 export { ParamsSection } from './params-section'
@@ -14,7 +8,6 @@ export {
   FeatureFaqSection,
   RelatedFeaturesSection
 } from './related-sections'
-export { ExamplesSwitcher } from './examples-switcher'
 export {
   faqFromItems,
   faqPageStructured,
