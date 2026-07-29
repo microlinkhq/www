@@ -16,7 +16,7 @@ import { FeatureSection } from './shell'
 
 const CARD_HOVER_SHADOW = `0 22px 46px -28px rgba(${shadowInk}, 0.35)`
 
-const paramCardStyle = [
+const ParamCard = styled(Link)(
   theme({
     display: 'block',
     bg: 'white',
@@ -33,12 +33,6 @@ const paramCardStyle = [
     transition: border-color ${transition.medium},
       box-shadow ${transition.medium}, transform ${transition.medium};
 
-    > a {
-      display: block;
-      color: inherit;
-      text-decoration: none;
-    }
-
     @media (hover: hover) and (pointer: fine) {
       &:hover {
         border-color: ${colors.gray4};
@@ -52,23 +46,9 @@ const paramCardStyle = [
       }
     }
   `
-]
-
-const ParamCardLink = styled(Link)(...paramCardStyle)
-const ParamCardStatic = styled(Box)(
-  theme({
-    display: 'block',
-    bg: 'white',
-    border: 1,
-    borderColor: 'gray2',
-    borderRadius: 3,
-    p: [3, 3, 4, 4],
-    color: 'inherit',
-    boxShadow: shadows[0]
-  })
 )
 
-const ParamCardBody = ({ name, type, description, linked }) => (
+const ParamCardBody = ({ name, type, description }) => (
   <>
     <Flex
       css={theme({
@@ -102,14 +82,12 @@ const ParamCardBody = ({ name, type, description, linked }) => (
       >
         {type}
       </Text>
-      {linked && (
-        <Box
-          aria-hidden='true'
-          css={theme({ ml: 'auto', color: 'secondary', flexShrink: 0 })}
-        >
-          <FeatherIcon icon={ChevronRight} />
-        </Box>
-      )}
+      <Box
+        aria-hidden='true'
+        css={theme({ ml: 'auto', color: 'secondary', flexShrink: 0 })}
+      >
+        <FeatherIcon icon={ChevronRight} />
+      </Box>
     </Flex>
     <Text
       css={theme({
@@ -143,26 +121,13 @@ export const ParamsSection = ({ eyebrow = 'Parameters', title, rows }) => (
     >
       {rows.map(row => (
         <Box as='li' key={row.name} css={theme({ minWidth: 0 })}>
-          {row.href
-            ? (
-              <ParamCardLink href={row.href} externalIcon={false}>
-                <ParamCardBody
-                  name={row.name}
-                  type={row.type}
-                  description={row.description}
-                  linked
-                />
-              </ParamCardLink>
-              )
-            : (
-              <ParamCardStatic>
-                <ParamCardBody
-                  name={row.name}
-                  type={row.type}
-                  description={row.description}
-                />
-              </ParamCardStatic>
-              )}
+          <ParamCard href={row.href} externalIcon={false}>
+            <ParamCardBody
+              name={row.name}
+              type={row.type}
+              description={row.description}
+            />
+          </ParamCard>
         </Box>
       ))}
     </Box>

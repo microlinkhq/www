@@ -1,13 +1,15 @@
 import { layout, theme } from 'theme'
 import React from 'react'
-import { Check } from 'react-feather'
 
 import Box from 'components/elements/Box'
-import Flex from 'components/elements/Flex'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import { Eyebrow, FeatureSection } from 'components/patterns/FeatureStory'
+import {
+  CheckItem,
+  Eyebrow,
+  FeatureSection
+} from 'components/patterns/FeatureStory'
 
 import { ProviderGraph } from './provider-graph'
 import { StatusFlicker } from './status-flicker'
@@ -50,36 +52,36 @@ const OUTCOMES = [
   }
 ]
 
-const CheckItem = ({ title, body }) => (
-  <Flex as='li' css={theme({ gap: 2, alignItems: 'flex-start' })}>
-    <Flex
-      aria-hidden='true'
-      css={theme({
-        color: 'link',
-        flexShrink: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: [1, 1, 2, 2],
-        height: '2em'
-      })}
-    >
-      <Check size={18} />
-    </Flex>
-    <Text
-      css={theme({
-        fontFamily: 'sans',
-        fontSize: [1, 1, 2, 2],
-        color: 'black80',
-        lineHeight: 2
-      })}
-    >
-      <Text as='strong' css={theme({ color: 'black', fontWeight: 'bold' })}>
-        {title}
-      </Text>
-      {': '}
-      {body}
+const BODY_STYLE = {
+  fontFamily: 'sans',
+  fontSize: [2, 2, 2, 2],
+  lineHeight: 2,
+  color: 'black',
+  pb: 3
+}
+
+const HEADING_STYLE = {
+  ...BODY_STYLE,
+  fontWeight: 'bold'
+}
+
+const LIST_STYLE = {
+  listStyle: 'none',
+  p: 0,
+  m: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 3
+}
+
+const LabelledItem = ({ title, body }) => (
+  <CheckItem>
+    <Text as='strong' css={theme({ color: 'black', fontWeight: 'bold' })}>
+      {title}
     </Text>
-  </Flex>
+    {': '}
+    {body}
+  </CheckItem>
 )
 
 export const Overview = () => (
@@ -89,15 +91,7 @@ export const Overview = () => (
       When a request fails, know who stopped it.
     </Subhead>
     <Box css={theme({ maxWidth: layout.large })}>
-      <Text
-        css={theme({
-          fontFamily: 'sans',
-          fontSize: [2, 2, 2, 2],
-          lineHeight: 2,
-          color: 'black',
-          pb: 3
-        })}
-      >
+      <Text css={theme(BODY_STYLE)}>
         Microlink handles +700M requests every month. When you build
         infrastructure that takes a URL as input, you are constantly interacting
         with defenses designed to stop you.
@@ -105,75 +99,27 @@ export const Overview = () => (
       <Box css={theme({ pb: [3, 3, 4, 4] })}>
         <StatusFlicker />
       </Box>
-      <Text
-        css={theme({
-          fontFamily: 'sans',
-          fontSize: [2, 2, 2, 2],
-          lineHeight: 2,
-          color: 'black',
-          pb: 3
-        })}
-      >
+      <Text css={theme(BODY_STYLE)}>
         Modern antibot systems operate at multiple layers, often before your
         request even reaches application code. Detection does something
         fundamental: it tells you when a non-success resolution happens and who
         triggered it, so you can make a better decision about what to do next.
       </Text>
       <ProviderGraph />
-      <Text
-        css={theme({
-          fontFamily: 'sans',
-          fontSize: [2, 2, 2, 2],
-          lineHeight: 2,
-          color: 'black',
-          fontWeight: 'bold',
-          pt: [2, 2, 3, 3],
-          pb: 3
-        })}
-      >
+      <Text css={theme({ ...HEADING_STYLE, pt: [2, 2, 3, 3] })}>
         Common signals include:
       </Text>
-      <Box
-        as='ul'
-        css={theme({
-          listStyle: 'none',
-          p: 0,
-          m: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 3,
-          pb: [4, 4, 4, 4]
-        })}
-      >
+      <Box as='ul' css={theme({ ...LIST_STYLE, pb: [4, 4, 4, 4] })}>
         {SIGNALS.map(item => (
-          <CheckItem key={item.title} title={item.title} body={item.body} />
+          <LabelledItem key={item.title} title={item.title} body={item.body} />
         ))}
       </Box>
-      <Text
-        css={theme({
-          fontFamily: 'sans',
-          fontSize: [2, 2, 2, 2],
-          lineHeight: 2,
-          color: 'black',
-          fontWeight: 'bold',
-          pb: 3
-        })}
-      >
+      <Text css={theme(HEADING_STYLE)}>
         Based on these signals, a request is either:
       </Text>
-      <Box
-        as='ul'
-        css={theme({
-          listStyle: 'none',
-          p: 0,
-          m: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 3
-        })}
-      >
+      <Box as='ul' css={theme(LIST_STYLE)}>
         {OUTCOMES.map(item => (
-          <CheckItem key={item.title} title={item.title} body={item.body} />
+          <LabelledItem key={item.title} title={item.title} body={item.body} />
         ))}
       </Box>
     </Box>

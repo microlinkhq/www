@@ -10,7 +10,7 @@ import Text from 'components/elements/Text'
 import { Eyebrow } from '../primitives'
 import { FeatureSection } from './shell'
 
-const CheckItem = ({ children }) => (
+export const CheckItem = ({ children }) => (
   <Flex as='li' css={theme({ gap: 2, alignItems: 'flex-start' })}>
     <Flex
       aria-hidden='true'

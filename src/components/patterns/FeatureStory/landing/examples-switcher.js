@@ -71,7 +71,7 @@ const TabCard = styled('button')(
 
     &[aria-selected='true'] {
       border-color: ${colors.secondary};
-      background-color: ${colors[ACCENT.bgEdge] || colors.pinkest};
+      background-color: ${colors[ACCENT.bgEdge]};
       box-shadow: inset 0 0 0 1px ${colors.secondary};
     }
 
@@ -123,13 +123,24 @@ export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
   useEffect(() => {
     const node = listRef.current
     if (!node) return undefined
-    const update = () => setAtEnd(isAtEnd(node))
+    let frame
+    const update = () => {
+      frame = undefined
+      setAtEnd(current => {
+        const next = isAtEnd(node)
+        return next === current ? current : next
+      })
+    }
+    const schedule = () => {
+      if (frame === undefined) frame = window.requestAnimationFrame(update)
+    }
     update()
-    node.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update)
+    node.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
     return () => {
-      node.removeEventListener('scroll', update)
-      window.removeEventListener('resize', update)
+      if (frame !== undefined) window.cancelAnimationFrame(frame)
+      node.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
     }
   }, [panels])
 
@@ -216,7 +227,7 @@ export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
       >
         <CodeEditor
           title={active.title}
-          language={active.language || 'js'}
+          language='js'
           css={theme({
             width: '100%',
             height: '100%',

@@ -70,7 +70,7 @@ const MethodChip = ({ children }) => (
   </Text>
 )
 
-const ProviderMeta = ({ category, signals }) => (
+const ProviderMeta = ({ category, methods }) => (
   <Text
     css={theme({
       fontFamily: 'sans',
@@ -88,7 +88,7 @@ const ProviderMeta = ({ category, signals }) => (
         fontVariantNumeric: 'tabular-nums'
       })}
     >
-      {signals} signal{signals === 1 ? '' : 's'}
+      {methods.length} signal{methods.length === 1 ? '' : 's'}
     </Text>
   </Text>
 )
@@ -114,7 +114,7 @@ const ProviderCard = ({ row }) => (
       {row.name}
     </Text>
     <Box css={theme({ pb: 2 })}>
-      <ProviderMeta category={row.category} signals={row.signals} />
+      <ProviderMeta category={row.category} methods={row.methods} />
     </Box>
     <Flex css={theme({ gap: 2, flexWrap: 'wrap' })}>
       {row.methods.map(method => (
@@ -210,7 +210,7 @@ export const Providers = () => (
                   fontVariantNumeric: 'tabular-nums'
                 })}
               >
-                {row.signals}
+                {row.methods.length}
               </Text>
               <Box as='td' css={theme({ fontSize: 1 })}>
                 <Flex css={theme({ gap: 2, flexWrap: 'wrap' })}>

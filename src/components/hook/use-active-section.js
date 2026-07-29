@@ -7,16 +7,25 @@ export const useActiveSection = ids => {
 
   useEffect(() => {
     const sectionIds = key.split(',').filter(Boolean)
-    const sections = sectionIds.flatMap(id => document.getElementById(id) || [])
+    const sections = sectionIds
+      .map(id => document.getElementById(id))
+      .filter(Boolean)
 
     let anchors = []
     let frame
+    let currentId = sectionIds[0]
 
     const measure = () => {
       anchors = sections.map(
         section =>
           parseFloat(window.getComputedStyle(section).scrollMarginTop) || 0
       )
+    }
+
+    const commit = nextId => {
+      if (nextId === currentId) return
+      currentId = nextId
+      setActiveId(nextId)
     }
 
     const update = () => {
@@ -28,19 +37,19 @@ export const useActiveSection = ids => {
         window.innerHeight + window.scrollY >=
           document.documentElement.scrollHeight - 2
       ) {
-        setActiveId(sectionIds[sectionIds.length - 1])
+        commit(sectionIds[sectionIds.length - 1])
         return
       }
 
-      const current = sections.reduce(
-        (active, section, index) =>
-          section.getBoundingClientRect().top <= anchors[index] + 1
-            ? section.id
-            : active,
-        sectionIds[0]
+      commit(
+        sections.reduce(
+          (active, section, index) =>
+            section.getBoundingClientRect().top <= anchors[index] + 1
+              ? section.id
+              : active,
+          sectionIds[0]
+        )
       )
-
-      setActiveId(current)
     }
 
     const schedule = () => {

@@ -7,7 +7,7 @@ export {
   FeatureToc
 } from './shell'
 export { FeatureHero } from './hero'
-export { OverviewSection } from './content-sections'
+export { CheckItem, OverviewSection } from './content-sections'
 export { ParamsSection } from './params-section'
 export {
   ExamplesSection,
