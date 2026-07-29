@@ -6,7 +6,7 @@ import Subhead from 'components/elements/Subhead'
 
 import Faq from 'components/patterns/Faq/Faq'
 
-import { ExamplesSwitcher } from './examples-switcher'
+import ExamplesSwitcher from 'components/patterns/ExamplesSwitcher'
 import { FeatureCard } from './feature-card'
 
 import {

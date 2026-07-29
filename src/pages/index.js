@@ -1,4 +1,5 @@
 import Analytics from 'components/pages/home/analytics'
+import Examples from 'components/pages/home/examples'
 import Faqs, { getFaqQuestions } from 'components/pages/home/faqs'
 import Hero from 'components/pages/home/hero'
 import OpenSource from 'components/pages/home/open-source'
@@ -66,6 +67,7 @@ const HomePage = () => {
     <CurrencyProvider>
       <Layout>
         <Hero />
+        <Examples />
         <Products />
         <Analytics />
         <Pricing />
