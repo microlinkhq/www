@@ -1,6 +1,7 @@
 import Analytics from 'components/pages/home/analytics'
 import Examples from 'components/pages/home/examples'
 import Faqs, { getFaqQuestions } from 'components/pages/home/faqs'
+import GradualBlur from 'components/pages/home/gradual-blur'
 import Hero from 'components/pages/home/hero'
 import OpenSource from 'components/pages/home/open-source'
 import Products from 'components/pages/home/products'
@@ -74,6 +75,7 @@ const HomePage = () => {
         <Production />
         <OpenSource />
         <Faqs />
+        <GradualBlur />
       </Layout>
     </CurrencyProvider>
   )
