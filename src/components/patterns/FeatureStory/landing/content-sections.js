@@ -10,7 +10,7 @@ import Text from 'components/elements/Text'
 import { Eyebrow } from '../primitives'
 import { FeatureSection } from './shell'
 
-const CheckItem = ({ children }) => (
+export const CheckItem = ({ children }) => (
   <Flex as='li' css={theme({ gap: 2, alignItems: 'flex-start' })}>
     <Flex
       aria-hidden='true'
@@ -39,13 +39,14 @@ const CheckItem = ({ children }) => (
 )
 
 export const OverviewSection = ({
+  id = 'overview',
   eyebrow = 'Overview',
   title,
   body,
   bullets
 }) => (
-  <FeatureSection id='overview'>
-    <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
+  <FeatureSection id={id}>
+    <Eyebrow>{eyebrow}</Eyebrow>
     {title && (
       <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
         {title}
@@ -55,7 +56,7 @@ export const OverviewSection = ({
       <Box
         css={theme({
           fontFamily: 'sans',
-          fontSize: [2, 2, 2, 2],
+          fontSize: 2,
           lineHeight: 2,
           color: 'black'
         })}
@@ -69,7 +70,7 @@ export const OverviewSection = ({
             listStyle: 'none',
             p: 0,
             m: 0,
-            pt: [4, 4, 4, 4],
+            pt: 4,
             display: 'flex',
             flexDirection: 'column',
             gap: 3

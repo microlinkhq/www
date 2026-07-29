@@ -6,17 +6,13 @@ import { faqFromItems, sdkExample } from 'components/patterns/FeatureStory'
 export const META = {
   title: 'Browser Functions API: microlink.run()',
   description:
-    'Write a function, get a value. microlink.run() ships JavaScript to a sandbox with full Puppeteer, npm on the fly, and profiling — a browser boots only when your code touches page.'
+    'Write a function, get a value. microlink.run() ships JavaScript to a sandbox with full Puppeteer, npm on the fly, and profiling — a browser boots only when your code touches the page.'
 }
 
 export const HERO = {
   title: 'Browser Functions',
   description:
-    'Write a function. Get a value. microlink.run() runs your JavaScript in a sandbox — the browser is optional and boots only when your code touches page.',
-  plans: [
-    { plan: 'Free', description: '5s timeout, 16 MB, prototype workflows.' },
-    { plan: 'Pro', description: 'Up to 28s, 32 MB, no code-size limits.' }
-  ]
+    'Write a function. Get a value. microlink.run() runs your JavaScript in a sandbox — the browser is optional and boots only when your code touches the page.'
 }
 
 export const OVERVIEW = {

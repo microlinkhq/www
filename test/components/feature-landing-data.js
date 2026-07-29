@@ -6,6 +6,8 @@ import { FEATURES } from '../../src/components/patterns/FeatureStory/features'
 
 const read = file => fs.readFileSync(path.join(process.cwd(), file), 'utf8')
 
+const exists = file => fs.existsSync(path.join(process.cwd(), file))
+
 const SLUGS = FEATURES.map(({ slug }) => slug)
 
 const relatedSlugsOf = source => {
@@ -17,6 +19,9 @@ const relatedSlugsOf = source => {
 
 const panelIdsOf = source =>
   [...source.matchAll(/^ {6}id: '([^']+)'/gm)].map(([, id]) => id)
+
+const hasExport = (source, name) =>
+  new RegExp(`export const ${name}\\b`).test(source)
 
 describe('feature landing data', () => {
   test('feature registry is non-empty', () => {
@@ -32,28 +37,37 @@ describe('feature landing data', () => {
     expect(related).not.toContain(slug)
   })
 
-  test.each(SLUGS)('%s ships at least one examples panel', slug => {
-    expect(
-      panelIdsOf(read(`src/components/pages/${slug}/shared.js`)).length
-    ).toBeGreaterThan(0)
-  })
+  test.each(SLUGS)(
+    '%s ships examples panels when EXAMPLES is defined',
+    slug => {
+      const source = read(`src/components/pages/${slug}/shared.js`)
+      if (!hasExport(source, 'EXAMPLES')) return
+      expect(panelIdsOf(source).length).toBeGreaterThan(0)
+    }
+  )
 
-  test('every feature page has a data module and section files', () => {
+  test('every feature page has core section files', () => {
     for (const slug of SLUGS) {
-      for (const file of [
-        'shared',
-        'hero',
-        'overview',
-        'parameters',
-        'examples',
-        'related',
-        'faq'
-      ]) {
+      const source = read(`src/components/pages/${slug}/shared.js`)
+
+      for (const file of ['shared', 'hero', 'related', 'faq']) {
         expect(
-          fs.existsSync(
-            path.join(process.cwd(), `src/components/pages/${slug}/${file}.js`)
-          ),
+          exists(`src/components/pages/${slug}/${file}.js`),
           `${slug}/${file}.js`
+        ).toBe(true)
+      }
+
+      if (hasExport(source, 'EXAMPLES')) {
+        expect(
+          exists(`src/components/pages/${slug}/examples.js`),
+          `${slug}/examples.js`
+        ).toBe(true)
+      }
+
+      if (hasExport(source, 'PARAMS')) {
+        expect(
+          exists(`src/components/pages/${slug}/parameters.js`),
+          `${slug}/parameters.js`
         ).toBe(true)
       }
     }

@@ -33,12 +33,6 @@ const ParamCard = styled(Link)(
     transition: border-color ${transition.medium},
       box-shadow ${transition.medium}, transform ${transition.medium};
 
-    > a {
-      display: block;
-      color: inherit;
-      text-decoration: none;
-    }
-
     @media (hover: hover) and (pointer: fine) {
       &:hover {
         border-color: ${colors.gray4};
@@ -56,7 +50,7 @@ const ParamCard = styled(Link)(
 
 export const ParamsSection = ({ eyebrow = 'Parameters', title, rows }) => (
   <FeatureSection id='parameters'>
-    <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
+    <Eyebrow>{eyebrow}</Eyebrow>
     <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
       {title}
     </Subhead>
@@ -73,7 +67,7 @@ export const ParamsSection = ({ eyebrow = 'Parameters', title, rows }) => (
     >
       {rows.map(row => (
         <Box as='li' key={row.name} css={theme({ minWidth: 0 })}>
-          <ParamCard href={row.href}>
+          <ParamCard href={row.href} externalIcon={false}>
             <Flex
               css={theme({
                 gap: 3,
@@ -107,6 +101,7 @@ export const ParamsSection = ({ eyebrow = 'Parameters', title, rows }) => (
                 {row.type}
               </Text>
               <Box
+                aria-hidden='true'
                 css={theme({ ml: 'auto', color: 'secondary', flexShrink: 0 })}
               >
                 <FeatherIcon icon={ChevronRight} />

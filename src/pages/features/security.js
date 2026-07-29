@@ -1,41 +1,12 @@
-import React from 'react'
+import { navigate } from 'gatsby'
+import { useEffect } from 'react'
 
-import Meta from 'components/elements/Meta/Meta'
+const SecurityRedirect = () => {
+  useEffect(() => {
+    navigate('/features/isolation', { replace: true })
+  }, [])
 
-import {
-  FeaturePageShell,
-  faqPageStructured
-} from 'components/patterns/FeatureStory'
-import Layout from 'components/patterns/Layout'
+  return null
+}
 
-import { Examples } from 'components/pages/security/examples'
-import { FAQ_ITEMS, FaqSection } from 'components/pages/security/faq'
-import { Hero } from 'components/pages/security/hero'
-import { Overview } from 'components/pages/security/overview'
-import { Parameters } from 'components/pages/security/parameters'
-import { Related } from 'components/pages/security/related'
-import { META } from 'components/pages/security/shared'
-
-const SecurityFeaturePage = () => (
-  <Layout>
-    <FeaturePageShell>
-      <Hero />
-      <Overview />
-      <Parameters />
-      <Examples />
-      <Related />
-    </FeaturePageShell>
-    <FaqSection />
-  </Layout>
-)
-
-export const Head = () => (
-  <Meta
-    title={META.title}
-    description={META.description}
-    schemaType='WebPage'
-    structured={[faqPageStructured(FAQ_ITEMS)]}
-  />
-)
-
-export default SecurityFeaturePage
+export default SecurityRedirect

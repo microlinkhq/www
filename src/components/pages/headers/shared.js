@@ -11,18 +11,9 @@ export const META = {
 
 export const HERO = {
   title: 'Custom HTTP Headers',
+  tag: 'PRO',
   description:
-    'Secrets stay out of URLs. Pass headers on the HTTP layer, and any x-api-header-* is forwarded to the target fetch — cookies and tokens never touch the query string.',
-  plans: [
-    {
-      plan: 'Free',
-      description: 'Standard request headers on any product call.'
-    },
-    {
-      plan: 'Pro',
-      description: 'Forward x-api-header-* secrets to the target fetch.'
-    }
-  ]
+    'Secrets stay out of URLs. Pass headers on the HTTP layer, and any x-api-header-* is forwarded to the target fetch — cookies and tokens never touch the query string.'
 }
 
 export const OVERVIEW = {
@@ -139,7 +130,7 @@ export const EXAMPLES = {
 }
 
 export const RELATED = {
-  relatedSlugs: ['proxy', 'antibot', 'security', 'scraping'],
+  relatedSlugs: ['proxy', 'antibot', 'isolation', 'scraping'],
   title: 'Authenticate and reach targets.'
 }
 

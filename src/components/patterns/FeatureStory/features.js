@@ -20,8 +20,9 @@ export const FEATURES = [
     iconBg: 'pink7',
     borderColor: 'pink2',
     oneLiner:
-      'Detect and identify 30+ anti-bot providers before you get blocked. Then we resolve it.',
-    teachLine: 'Use when you need to know who blocked you before you retry.'
+      'Know exactly who blocked your request and why — 30+ antibot and CAPTCHA providers.',
+    teachLine:
+      'Use when you need to know who blocked you before you retry or escalate.'
   },
   {
     slug: 'automation',
@@ -88,17 +89,15 @@ export const FEATURES = [
       'Use when a direct request is blocked and you need residential routing.'
   },
   {
-    slug: 'security',
-    name: 'Request Security',
-    footerLabel: 'Security',
+    slug: 'isolation',
+    name: 'Request Isolation',
+    footerLabel: 'Isolation',
     tag: null,
     icon: 'lock',
     iconBg: 'blue9',
     borderColor: 'blue3',
-    oneLiner:
-      'Each request runs in its own isolated browser. SSRF protected by default.',
-    teachLine:
-      'Always on — understand the isolation and SSRF guarantees you get.'
+    oneLiner: 'One ephemeral browser per call. SSRF blocked before navigation.',
+    teachLine: 'Always on — isolation and the SSRF gate apply to every request.'
   },
   {
     slug: 'scraping',

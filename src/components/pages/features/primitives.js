@@ -3,34 +3,38 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
-import Container from 'components/elements/Container'
 import { FeatureCard, FEATURES } from 'components/patterns/FeatureStory'
 
-const Grid = styled(Box)`
-  display: grid;
+const Cards = styled(Box)`
+  ${theme({
+    display: 'grid',
+    gap: 3,
+    width: '100%'
+  })}
   grid-template-columns: minmax(0, 1fr);
-  ${theme({ gap: [3, 3, 3, 3] })}
-  width: 100%;
 
   @media (min-width: ${breakpoints[1]}) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 `
 
-export const Showcase = () => (
-  <Container
+export const Primitives = () => (
+  <Box
     as='section'
-    aria-label='Feature pages'
+    id='primitives'
+    aria-label='Request primitives'
     css={theme({
-      alignItems: 'stretch',
+      width: '100%',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
+      mx: 'auto',
+      px: [3, 3, 0, 0],
       py: SECTION_VERTICAL_SPACING
     })}
   >
-    <Grid>
+    <Cards>
       {FEATURES.map(feature => (
         <FeatureCard key={feature.slug} feature={feature} showTeachLine />
       ))}
-    </Grid>
-  </Container>
+    </Cards>
+  </Box>
 )

@@ -11,18 +11,9 @@ export const META = {
 
 export const HERO = {
   title: 'Configurable Caching',
+  tag: 'PRO',
   description:
-    'Hits are free. Set ttl with a humanized duration on any request — cache hits return instantly and cost nothing, and staleTtl keeps responses fast while refreshing.',
-  plans: [
-    {
-      plan: 'Free',
-      description: 'Default caching keeps repeated calls fast.'
-    },
-    {
-      plan: 'Pro',
-      description: 'Tune ttl and staleTtl from 1 minute to 31 days.'
-    }
-  ]
+    'Hits are free. Set ttl with a humanized duration on any request — cache hits return instantly and cost nothing, and staleTtl keeps responses fast while refreshing.'
 }
 
 export const OVERVIEW = {

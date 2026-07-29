@@ -10,6 +10,8 @@ export const Eyebrow = styled(Text)`
     fontSize: 1,
     fontWeight: 'bold',
     letterSpacing: '0.12em',
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+    display: 'block',
+    pb: 2
   })}
 `

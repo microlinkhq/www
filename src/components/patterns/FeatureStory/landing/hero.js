@@ -5,15 +5,19 @@ import Box from 'components/elements/Box'
 import Heading from 'components/elements/Heading'
 
 import { Caption } from 'components/patterns/CustomerStory/primitives'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
-import { FeatureBreadcrumbs, PlanSupportBar } from './shell'
+import { FeatureBreadcrumbs } from './shell'
 
-export const FeatureHero = ({ title, description, plans }) => (
+export const FeatureHero = ({ title, description, tag }) => (
   <Box as='header' css={theme({ pt: [3, 3, 4, 4], pb: [3, 3, 4, 4] })}>
     <FeatureBreadcrumbs name={title} />
     <Box css={theme({ maxWidth: layout.large })}>
       <Heading variant={null} css={theme({ textAlign: 'left' })}>
         {title}
+        {tag === 'PRO' && (
+          <ProBadge css={theme({ ml: 3, top: [1, 1, 2, 2] })} />
+        )}
       </Heading>
       <Caption
         forwardedAs='p'
@@ -28,7 +32,6 @@ export const FeatureHero = ({ title, description, plans }) => (
       >
         {description}
       </Caption>
-      {plans && <PlanSupportBar plans={plans} />}
     </Box>
   </Box>
 )

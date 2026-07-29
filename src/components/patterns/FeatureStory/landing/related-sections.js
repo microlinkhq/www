@@ -1,4 +1,4 @@
-import { theme, SECTION_VERTICAL_SPACING } from 'theme'
+import { space, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React from 'react'
 
 import Box from 'components/elements/Box'
@@ -23,10 +23,10 @@ export const ExamplesSection = ({ eyebrow = 'Examples', title, panels }) => {
 
   return (
     <FeatureSection id='examples'>
-      <Box css={theme({ pb: [3, 3, 4, 4] })}>
-        <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
-        <Subhead css={theme({ textAlign: 'left' })}>{title}</Subhead>
-      </Box>
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
+        {title}
+      </Subhead>
       <ExamplesSwitcher panels={panels} />
     </FeatureSection>
   )
@@ -38,7 +38,7 @@ export const RelatedFeaturesSection = ({
   title = 'Compose with these next.'
 }) => (
   <FeatureSection id='related'>
-    <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
+    <Eyebrow>{eyebrow}</Eyebrow>
     <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
       {title}
     </Subhead>
@@ -51,7 +51,7 @@ export const RelatedFeaturesSection = ({
           'repeat(2, minmax(0, 1fr))',
           'repeat(2, minmax(0, 1fr))'
         ],
-        gap: [3, 3, 3, 3]
+        gap: 3
       })}
     >
       {relatedSlugs.map(slug => {
@@ -76,7 +76,8 @@ export const FeatureFaqSection = ({ questions }) => (
       <Faq
         css={theme({
           py: SECTION_VERTICAL_SPACING,
-          px: SECTION_PX
+          px: SECTION_PX,
+          scrollMarginTop: space[5]
         })}
         title='FAQ'
         questions={questions}

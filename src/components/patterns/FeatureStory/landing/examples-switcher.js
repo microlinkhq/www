@@ -7,6 +7,8 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
+import { prefersReducedMotion } from 'helpers/reduced-motion'
+
 import { ACCENT } from '../features'
 
 const TAB_CARD_MIN_HEIGHT = '104px'
@@ -57,7 +59,7 @@ const TabCard = styled('button')(
     border: 1,
     borderColor: 'gray2',
     borderRadius: 3,
-    p: [3, 3, 3, 3],
+    p: 3,
     m: 0,
     color: 'inherit',
     fontFamily: 'sans',
@@ -71,7 +73,7 @@ const TabCard = styled('button')(
 
     &[aria-selected='true'] {
       border-color: ${colors.secondary};
-      background-color: ${colors[ACCENT.bgEdge] || colors.pinkest};
+      background-color: ${colors[ACCENT.bgEdge]};
       box-shadow: inset 0 0 0 1px ${colors.secondary};
     }
 
@@ -123,22 +125,26 @@ export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
   useEffect(() => {
     const node = listRef.current
     if (!node) return undefined
-    const update = () => setAtEnd(isAtEnd(node))
+    let frame
+    const update = () => {
+      frame = undefined
+      setAtEnd(current => {
+        const next = isAtEnd(node)
+        return next === current ? current : next
+      })
+    }
+    const schedule = () => {
+      if (frame === undefined) frame = window.requestAnimationFrame(update)
+    }
     update()
-    node.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update)
+    node.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
     return () => {
-      node.removeEventListener('scroll', update)
-      window.removeEventListener('resize', update)
+      if (frame !== undefined) window.cancelAnimationFrame(frame)
+      node.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
     }
   }, [panels])
-
-  useEffect(() => {
-    tabRefs.current[activeIndex]?.scrollIntoView({
-      block: 'nearest',
-      behavior: 'smooth'
-    })
-  }, [activeIndex])
 
   if (!panels.length || !active) return null
 
@@ -146,6 +152,10 @@ export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
     if (index < 0 || index >= panels.length) return
     setActiveIndex(index)
     if (focus) tabRefs.current[index]?.focus()
+    tabRefs.current[index]?.scrollIntoView({
+      block: 'nearest',
+      behavior: prefersReducedMotion() ? 'auto' : 'smooth'
+    })
   }
 
   const onKeyDown = (event, index) => {
