@@ -210,6 +210,22 @@
         "rules": [
           "react-doctor/rendering-hydration-no-flicker"
         ]
+      },
+      {
+        "files": [
+          "src/components/hook/use-active-section.js"
+        ],
+        "rules": [
+          "react-doctor/js-flatmap-filter"
+        ]
+      },
+      {
+        "files": [
+          "src/components/pages/antibot/providers-data.js"
+        ],
+        "rules": [
+          "react-doctor/js-combine-iterations"
+        ]
       }
     ]
   }
