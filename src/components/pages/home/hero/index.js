@@ -351,8 +351,7 @@ const Hero = () => {
         </Badge>
 
         <Heading variant={null}>
-          The web,
-          <br />
+          The web,{' '}
           <Heading
             forwardedAs='span'
             css={theme({ fontSize: 'inherit', fontStyle: 'italic' })}
