@@ -23,10 +23,10 @@ export const ExamplesSection = ({ eyebrow = 'Examples', title, panels }) => {
 
   return (
     <FeatureSection id='examples'>
-      <Box css={theme({ pb: [3, 3, 4, 4] })}>
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <Subhead css={theme({ textAlign: 'left' })}>{title}</Subhead>
-      </Box>
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
+        {title}
+      </Subhead>
       <ExamplesSwitcher panels={panels} />
     </FeatureSection>
   )

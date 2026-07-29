@@ -24,7 +24,6 @@ const Flicker = styled.span`
   display: inline-grid;
   font-variant-numeric: tabular-nums;
   min-width: 22ch;
-  position: relative;
 
   span {
     grid-area: 1 / 1;

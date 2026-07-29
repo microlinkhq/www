@@ -64,7 +64,7 @@ export const FeatureCard = ({ feature, showTeachLine = false }) => {
   return (
     <Card href={href} $accent={feature.iconBg} $border={feature.borderColor}>
       <Flex css={theme({ alignItems: 'center', gap: 3, pb: 2 })}>
-        <FeatureIconTile name={feature.icon} bg={feature.iconBg} size={36} />
+        <FeatureIconTile name={feature.icon} bg={feature.iconBg} />
         <Text
           as='h3'
           css={theme({
