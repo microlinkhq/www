@@ -1,11 +1,7 @@
 import React from 'react'
 import { Link } from 'components/elements/Link'
 
-import {
-  faqFromItems,
-  ProxyHeadersTtlLinks,
-  sdkExample
-} from 'components/patterns/FeatureStory'
+import { faqFromItems, sdkExample } from 'components/patterns/FeatureStory'
 
 export const META = {
   title: 'Browser Automation API: Shape the Page Before Capture',
@@ -16,21 +12,7 @@ export const META = {
 export const HERO = {
   title: 'Browser Automation',
   description:
-    'Shape the page first. Set the device, wait for the right state, click, and run scripts — declarative options on the same request, applied before capture.',
-  plans: [
-    {
-      plan: 'Free',
-      description: 'device, waitUntil, click and scripts on any product.'
-    },
-    {
-      plan: 'Pro',
-      description: (
-        <>
-          Longer waits plus <ProxyHeadersTtlLinks /> on the same call.
-        </>
-      )
-    }
-  ]
+    'Shape the page first. Set the device, wait for the right state, click, and run scripts — declarative options on the same request, applied before capture.'
 }
 
 export const OVERVIEW = {

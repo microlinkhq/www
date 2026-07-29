@@ -11,18 +11,9 @@ export const META = {
 
 export const HERO = {
   title: 'Proxy Resolution',
+  tag: 'PRO',
   description:
-    'One param. Hard targets. Add proxy: true and Microlink routes the request through residential IPs — the unblocker is automatic, no proxy list to manage.',
-  plans: [
-    {
-      plan: 'Free',
-      description: 'EPROXYNEEDED surfaces when a target needs a proxy.'
-    },
-    {
-      plan: 'Pro',
-      description: 'proxy: true auto-unblocks; or bring your own proxy URL.'
-    }
-  ]
+    'One param. Hard targets. Add proxy: true and Microlink routes the request through residential IPs — the unblocker is automatic, no proxy list to manage.'
 }
 
 export const OVERVIEW = {

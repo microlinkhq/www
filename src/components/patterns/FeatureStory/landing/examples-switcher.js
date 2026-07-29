@@ -133,19 +133,16 @@ export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
     }
   }, [panels])
 
-  useEffect(() => {
-    tabRefs.current[activeIndex]?.scrollIntoView({
-      block: 'nearest',
-      behavior: 'smooth'
-    })
-  }, [activeIndex])
-
   if (!panels.length || !active) return null
 
   const selectIndex = (index, { focus } = {}) => {
     if (index < 0 || index >= panels.length) return
     setActiveIndex(index)
     if (focus) tabRefs.current[index]?.focus()
+    tabRefs.current[index]?.scrollIntoView({
+      block: 'nearest',
+      behavior: 'smooth'
+    })
   }
 
   const onKeyDown = (event, index) => {
@@ -217,7 +214,7 @@ export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
       >
         <CodeEditor
           title={active.title}
-          language='js'
+          language={active.language || 'js'}
           css={theme({
             width: '100%',
             height: '100%',

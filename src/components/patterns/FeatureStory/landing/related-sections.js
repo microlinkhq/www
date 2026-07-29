@@ -1,4 +1,4 @@
-import { theme, SECTION_VERTICAL_SPACING } from 'theme'
+import { space, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React from 'react'
 
 import Box from 'components/elements/Box'
@@ -76,7 +76,8 @@ export const FeatureFaqSection = ({ questions }) => (
       <Faq
         css={theme({
           py: SECTION_VERTICAL_SPACING,
-          px: SECTION_PX
+          px: SECTION_PX,
+          scrollMarginTop: space[5]
         })}
         title='FAQ'
         questions={questions}

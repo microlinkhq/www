@@ -16,7 +16,7 @@ import { FeatureSection } from './shell'
 
 const CARD_HOVER_SHADOW = `0 22px 46px -28px rgba(${shadowInk}, 0.35)`
 
-const ParamCard = styled(Link)(
+const paramCardStyle = [
   theme({
     display: 'block',
     bg: 'white',
@@ -52,6 +52,73 @@ const ParamCard = styled(Link)(
       }
     }
   `
+]
+
+const ParamCardLink = styled(Link)(...paramCardStyle)
+const ParamCardStatic = styled(Box)(
+  theme({
+    display: 'block',
+    bg: 'white',
+    border: 1,
+    borderColor: 'gray2',
+    borderRadius: 3,
+    p: [3, 3, 4, 4],
+    color: 'inherit',
+    boxShadow: shadows[0]
+  })
+)
+
+const ParamCardBody = ({ name, type, description, linked }) => (
+  <>
+    <Flex
+      css={theme({
+        gap: 3,
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        pb: 2
+      })}
+    >
+      <Text
+        as='code'
+        css={theme({
+          fontFamily: 'mono',
+          fontSize: 1,
+          fontWeight: 'bold',
+          color: 'secondary',
+          bg: ACCENT.bgSoft,
+          px: 2,
+          py: 1,
+          borderRadius: 2
+        })}
+      >
+        {name}
+      </Text>
+      <Text
+        css={theme({
+          fontFamily: 'mono',
+          fontSize: 0,
+          color: 'gray6'
+        })}
+      >
+        {type}
+      </Text>
+      {linked && (
+        <Box css={theme({ ml: 'auto', color: 'secondary', flexShrink: 0 })}>
+          <FeatherIcon icon={ChevronRight} />
+        </Box>
+      )}
+    </Flex>
+    <Text
+      css={theme({
+        fontFamily: 'sans',
+        fontSize: [1, 1, 2, 2],
+        color: 'black80',
+        lineHeight: 2
+      })}
+    >
+      {description}
+    </Text>
+  </>
 )
 
 export const ParamsSection = ({ eyebrow = 'Parameters', title, rows }) => (
@@ -73,56 +140,26 @@ export const ParamsSection = ({ eyebrow = 'Parameters', title, rows }) => (
     >
       {rows.map(row => (
         <Box as='li' key={row.name} css={theme({ minWidth: 0 })}>
-          <ParamCard href={row.href}>
-            <Flex
-              css={theme({
-                gap: 3,
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                pb: 2
-              })}
-            >
-              <Text
-                as='code'
-                css={theme({
-                  fontFamily: 'mono',
-                  fontSize: 1,
-                  fontWeight: 'bold',
-                  color: 'secondary',
-                  bg: ACCENT.bgSoft,
-                  px: 2,
-                  py: 1,
-                  borderRadius: 2
-                })}
-              >
-                {row.name}
-              </Text>
-              <Text
-                css={theme({
-                  fontFamily: 'mono',
-                  fontSize: 0,
-                  color: 'gray6'
-                })}
-              >
-                {row.type}
-              </Text>
-              <Box
-                css={theme({ ml: 'auto', color: 'secondary', flexShrink: 0 })}
-              >
-                <FeatherIcon icon={ChevronRight} />
-              </Box>
-            </Flex>
-            <Text
-              css={theme({
-                fontFamily: 'sans',
-                fontSize: [1, 1, 2, 2],
-                color: 'black80',
-                lineHeight: 2
-              })}
-            >
-              {row.description}
-            </Text>
-          </ParamCard>
+          {row.href
+            ? (
+              <ParamCardLink href={row.href} externalIcon={false}>
+                <ParamCardBody
+                  name={row.name}
+                  type={row.type}
+                  description={row.description}
+                  linked
+                />
+              </ParamCardLink>
+              )
+            : (
+              <ParamCardStatic>
+                <ParamCardBody
+                  name={row.name}
+                  type={row.type}
+                  description={row.description}
+                />
+              </ParamCardStatic>
+              )}
         </Box>
       ))}
     </Box>

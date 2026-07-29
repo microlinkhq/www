@@ -12,11 +12,7 @@ export const META = {
 export const HERO = {
   title: 'Browser Functions',
   description:
-    'Write a function. Get a value. microlink.run() runs your JavaScript in a sandbox — the browser is optional and boots only when your code touches page.',
-  plans: [
-    { plan: 'Free', description: '5s timeout, 16 MB, prototype workflows.' },
-    { plan: 'Pro', description: 'Up to 28s, 32 MB, no code-size limits.' }
-  ]
+    'Write a function. Get a value. microlink.run() runs your JavaScript in a sandbox — the browser is optional and boots only when your code touches page.'
 }
 
 export const OVERVIEW = {

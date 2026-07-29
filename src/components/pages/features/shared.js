@@ -1,12 +1,12 @@
 export const META = {
-  title: 'Features: Microlink request capabilities',
+  title: 'Features: Microlink request primitives',
   description:
-    'Unlock the full potential of Microlink — scraping, proxy, caching, automation, and more. Compose them on any request for flexibility, performance, and security.'
+    'Understand the shared primitives behind Microlink Products — isolation, efficiency, performance, and reach on every API call.'
 }
 
 export const HERO = {
-  lead: 'The web,',
-  unlock: 'unlocked',
+  lead: 'One platform. Shared',
+  unlock: 'capabilities',
   caption:
-    'Microlink empowers teams to extract, capture, and unblock the web with one API. Flexibility, performance, and security — so you can ship faster and focus on what matters.'
+    "Every Microlink product is built on the same foundation. The capabilities below aren't tied to individual products. They're part of the platform every product inherits."
 }

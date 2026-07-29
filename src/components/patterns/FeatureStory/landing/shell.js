@@ -1,5 +1,5 @@
-import { theme, SECTION_VERTICAL_SPACING } from 'theme'
-import React, { useEffect, useState } from 'react'
+import { space, theme, SECTION_VERTICAL_SPACING } from 'theme'
+import React from 'react'
 import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
@@ -7,6 +7,7 @@ import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
+import { useActiveSection } from 'components/hook/use-active-section'
 import { SECTION_PX } from 'components/patterns/CustomerStory/primitives'
 
 import { FEATURE_TOC } from '../features'
@@ -55,90 +56,6 @@ export const FeatureBreadcrumbs = ({ name }) => (
   </Flex>
 )
 
-const PlanTable = styled(Text)`
-  width: 100%;
-  max-width: 100%;
-  border-collapse: collapse;
-
-  ${theme({ mt: [4, 4, 4, 4] })}
-
-  th,
-  td {
-    ${theme({ p: 2, textAlign: 'left', verticalAlign: 'top' })}
-  }
-
-  th:first-child,
-  td:first-child {
-    padding-left: 0;
-    white-space: nowrap;
-  }
-
-  th:last-child,
-  td:last-child {
-    padding-right: 0;
-  }
-
-  thead th {
-    ${theme({
-      fontWeight: 'bold',
-      color: 'black',
-      borderBottom: 1,
-      borderBottomColor: 'black10'
-    })}
-  }
-
-  tbody tr {
-    ${theme({ borderBottom: 1, borderBottomColor: 'black05' })}
-  }
-
-  tbody tr:last-child {
-    border-bottom: none;
-  }
-`
-
-export const PlanSupportBar = ({ plans }) => (
-  <PlanTable as='table'>
-    <thead>
-      <tr>
-        <Text as='th' css={theme({ fontFamily: 'sans', fontSize: 1 })}>
-          Plan
-        </Text>
-        <Text as='th' css={theme({ fontFamily: 'sans', fontSize: 1 })}>
-          Included
-        </Text>
-      </tr>
-    </thead>
-    <tbody>
-      {plans.map(({ plan, description }) => (
-        <tr key={plan}>
-          <Text
-            as='td'
-            css={theme({
-              fontFamily: 'sans',
-              fontSize: 1,
-              fontWeight: 'bold',
-              color: 'black'
-            })}
-          >
-            {plan}
-          </Text>
-          <Text
-            as='td'
-            css={theme({
-              fontFamily: 'sans',
-              fontSize: 1,
-              color: 'black80',
-              lineHeight: 2
-            })}
-          >
-            {description}
-          </Text>
-        </tr>
-      ))}
-    </tbody>
-  </PlanTable>
-)
-
 const TocLink = styled('a')`
   ${theme({
     display: 'block',
@@ -172,26 +89,7 @@ const TocLink = styled('a')`
 `
 
 export const FeatureToc = ({ items = FEATURE_TOC }) => {
-  const [activeId, setActiveId] = useState(null)
-
-  useEffect(() => {
-    const observer = new window.IntersectionObserver(
-      entries => {
-        const visible = entries
-          .filter(entry => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (visible[0]) setActiveId(visible[0].target.id)
-      },
-      { rootMargin: '-20% 0px -60% 0px', threshold: [0, 0.25, 0.5, 1] }
-    )
-
-    items.forEach(({ id }) => {
-      const section = document.getElementById(id)
-      if (section) observer.observe(section)
-    })
-
-    return () => observer.disconnect()
-  }, [items])
+  const activeId = useActiveSection(items.map(item => item.id))
 
   return (
     <Box
@@ -260,7 +158,7 @@ export const FeatureSection = ({ id, children, ...props }) => (
     css={theme({
       py: SECTION_VERTICAL_SPACING,
       width: '100%',
-      scrollMarginTop: 5
+      scrollMarginTop: space[5]
     })}
     {...props}
   >

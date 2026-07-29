@@ -39,12 +39,13 @@ const CheckItem = ({ children }) => (
 )
 
 export const OverviewSection = ({
+  id = 'overview',
   eyebrow = 'Overview',
   title,
   body,
   bullets
 }) => (
-  <FeatureSection id='overview'>
+  <FeatureSection id={id}>
     <Eyebrow css={theme({ pb: 2, display: 'block' })}>{eyebrow}</Eyebrow>
     {title && (
       <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>

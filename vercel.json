@@ -383,6 +383,10 @@
       "destination": "/features/:path*"
     },
     {
+      "source": "/features/security",
+      "destination": "/features/isolation"
+    },
+    {
       "source": "/oss",
       "destination": "/open-source"
     }

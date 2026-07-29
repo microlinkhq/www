@@ -6,6 +6,7 @@ export {
   FeatureFaqSection,
   FeatureHero,
   FeaturePageShell,
+  FeatureSection,
   OverviewSection,
   ParamsSection,
   RelatedFeaturesSection,

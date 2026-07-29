@@ -4,8 +4,7 @@ export {
   FeatureBreadcrumbs,
   FeaturePageShell,
   FeatureSection,
-  FeatureToc,
-  PlanSupportBar
+  FeatureToc
 } from './shell'
 export { FeatureHero } from './hero'
 export { OverviewSection } from './content-sections'

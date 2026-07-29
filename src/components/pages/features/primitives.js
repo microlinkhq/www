@@ -3,10 +3,9 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
-import Container from 'components/elements/Container'
 import { FeatureCard, FEATURES } from 'components/patterns/FeatureStory'
 
-const Grid = styled(Box)`
+const Cards = styled(Box)`
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   ${theme({ gap: [3, 3, 3, 3] })}
@@ -17,20 +16,24 @@ const Grid = styled(Box)`
   }
 `
 
-export const Showcase = () => (
-  <Container
+export const Primitives = () => (
+  <Box
     as='section'
-    aria-label='Feature pages'
+    id='primitives'
+    aria-label='Request primitives'
     css={theme({
-      alignItems: 'stretch',
+      width: '100%',
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
-      py: SECTION_VERTICAL_SPACING
+      mx: 'auto',
+      px: [3, 3, 0, 0],
+      pt: 0,
+      pb: SECTION_VERTICAL_SPACING
     })}
   >
-    <Grid>
+    <Cards>
       {FEATURES.map(feature => (
         <FeatureCard key={feature.slug} feature={feature} showTeachLine />
       ))}
-    </Grid>
-  </Container>
+    </Cards>
+  </Box>
 )

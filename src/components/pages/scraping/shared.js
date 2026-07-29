@@ -16,21 +16,7 @@ export const META = {
 export const HERO = {
   title: 'Web Scraping',
   description:
-    'Turn any URL into structured JSON. Point CSS selectors at the fields you need — Microlink fetches the page, runs a browser when the content is client-rendered, and returns typed data.',
-  plans: [
-    {
-      plan: 'Free',
-      description: 'Full data extraction. 25 requests/day without a key.'
-    },
-    {
-      plan: 'Pro',
-      description: (
-        <>
-          <ProxyHeadersTtlLinks /> on the same extraction calls.
-        </>
-      )
-    }
-  ]
+    'Turn any URL into structured JSON. Point CSS selectors at the fields you need — Microlink fetches the page, runs a browser when the content is client-rendered, and returns typed data.'
 }
 
 export const OVERVIEW = {

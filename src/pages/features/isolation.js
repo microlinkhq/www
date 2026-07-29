@@ -8,21 +8,19 @@ import {
 } from 'components/patterns/FeatureStory'
 import Layout from 'components/patterns/Layout'
 
-import { FAQ_ITEMS, FaqSection } from 'components/pages/antibot/faq'
-import { Hero } from 'components/pages/antibot/hero'
-import { How } from 'components/pages/antibot/how'
-import { Overview } from 'components/pages/antibot/overview'
-import { Providers } from 'components/pages/antibot/providers'
-import { Related } from 'components/pages/antibot/related'
-import { META, TOC } from 'components/pages/antibot/shared'
+import { Examples } from 'components/pages/isolation/examples'
+import { FAQ_ITEMS, FaqSection } from 'components/pages/isolation/faq'
+import { Hero } from 'components/pages/isolation/hero'
+import { Overview } from 'components/pages/isolation/overview'
+import { Related } from 'components/pages/isolation/related'
+import { META, TOC } from 'components/pages/isolation/shared'
 
-const AntibotFeaturePage = () => (
+const IsolationFeaturePage = () => (
   <Layout>
     <FeaturePageShell toc={TOC}>
       <Hero />
       <Overview />
-      <How />
-      <Providers />
+      <Examples />
       <Related />
     </FeaturePageShell>
     <FaqSection />
@@ -38,4 +36,4 @@ export const Head = () => (
   />
 )
 
-export default AntibotFeaturePage
+export default IsolationFeaturePage

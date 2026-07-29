@@ -5,13 +5,13 @@ import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
 
 import { Hero } from 'components/pages/features/hero'
-import { Showcase } from 'components/pages/features/showcase'
+import { Primitives } from 'components/pages/features/primitives'
 import { META } from 'components/pages/features/shared'
 
 const FeaturesIndexPage = () => (
   <Layout>
     <Hero />
-    <Showcase />
+    <Primitives />
   </Layout>
 )
 

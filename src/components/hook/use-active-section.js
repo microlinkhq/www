@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 
 export const useActiveSection = ids => {
-  const [activeId, setActiveId] = useState(ids[0])
+  const [activeId, setActiveId] = useState(null)
 
   const key = ids.join(',')
 
   useEffect(() => {
-    const sectionIds = key.split(',')
+    const sectionIds = key.split(',').filter(Boolean)
     const sections = sectionIds.flatMap(id => document.getElementById(id) || [])
 
     let anchors = []
@@ -27,7 +27,7 @@ export const useActiveSection = ids => {
           section.getBoundingClientRect().top <= anchors[index] + 1
             ? section.id
             : active,
-        sectionIds[0]
+        null
       )
 
       setActiveId(current)
