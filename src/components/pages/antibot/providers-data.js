@@ -16,10 +16,15 @@ const SIGNAL = {
   status_code: 'Status Code'
 }
 
-const signalsOf = ({ detections }) =>
-  Object.keys(SIGNAL)
-    .filter(type => detections.some(detection => detection.type === type))
-    .map(type => SIGNAL[type])
+const signalsOf = ({ detections }) => {
+  const signals = []
+  for (const type of Object.keys(SIGNAL)) {
+    if (detections.some(detection => detection.type === type)) {
+      signals.push(SIGNAL[type])
+    }
+  }
+  return signals
+}
 
 export const PROVIDERS_COVERED = `${Math.floor(providers.length / 10) * 10}+`
 

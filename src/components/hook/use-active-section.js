@@ -7,9 +7,10 @@ export const useActiveSection = ids => {
 
   useEffect(() => {
     const sectionIds = key.split(',').filter(Boolean)
-    const sections = sectionIds
-      .map(id => document.getElementById(id))
-      .filter(Boolean)
+    const sections = sectionIds.flatMap(id => {
+      const section = document.getElementById(id)
+      return section ? [section] : []
+    })
 
     let anchors = []
     let frame
