@@ -9,7 +9,7 @@ import Text from 'components/elements/Text'
 
 import { Eyebrow, FeatureSection } from 'components/patterns/FeatureStory'
 
-import { PROVIDERS } from './providers-data'
+import { PROVIDERS, PROVIDERS_COVERED } from './providers-data'
 
 const ProvidersTable = styled(Text)`
   width: 100%;
@@ -128,7 +128,7 @@ export const Providers = () => (
   <FeatureSection id='providers'>
     <Eyebrow css={theme({ pb: 2, display: 'block' })}>Providers</Eyebrow>
     <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
-      30+ providers across antibot, CAPTCHA, and platforms.
+      {PROVIDERS_COVERED} providers across antibot, CAPTCHA, and platforms.
     </Subhead>
     <Text
       css={theme({

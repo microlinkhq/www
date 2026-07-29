@@ -3,17 +3,17 @@ import { Link } from 'components/elements/Link'
 
 import { faqFromItems } from 'components/patterns/FeatureStory'
 
+import { PROVIDERS_COVERED } from './providers-data'
+
 export const META = {
   title: 'Antibot Detection: Know Who Blocked You',
-  description:
-    'Know exactly who blocked your request and why. Microlink detects antibot and CAPTCHA challenges from 30+ providers so you can decide what to do next.'
+  description: `Know exactly who blocked your request and why. Microlink detects antibot and CAPTCHA challenges from ${PROVIDERS_COVERED} providers so you can decide what to do next.`
 }
 
 export const HERO = {
   title: 'Antibot Detection',
   tag: 'PRO',
-  description:
-    'Know exactly who blocked your request and why. Microlink detects antibot and CAPTCHA challenges from 30+ providers using response signals — then you can decide what to do next.'
+  description: `Know exactly who blocked your request and why. Microlink detects antibot and CAPTCHA challenges from ${PROVIDERS_COVERED} providers using response signals — then you can decide what to do next.`
 }
 
 export const HOW = {
@@ -52,7 +52,7 @@ export const TOC = [
 export const FAQ_ITEMS = faqFromItems([
   {
     question: 'What does antibot detection tell me?',
-    text: 'Whether a response is an antibot or CAPTCHA challenge, which of 30+ providers triggered it, and which signal matched — so you can choose the right next step instead of treating every failure the same.'
+    text: `Whether a response is an antibot or CAPTCHA challenge, which of ${PROVIDERS_COVERED} providers triggered it, and which signal matched — so you can choose the right next step instead of treating every failure the same.`
   },
   {
     question: 'Why does naming the provider matter?',
