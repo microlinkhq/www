@@ -34,7 +34,7 @@ export const Link = ({
             width='16px'
             height='16px'
             style={{ marginRight: space[1] }}
-            query={domain}
+            query={`domain/${domain}`}
           />
           {children}
         </Flex>
