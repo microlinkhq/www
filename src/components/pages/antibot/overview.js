@@ -76,7 +76,7 @@ const LIST_STYLE = {
 
 const LabelledItem = ({ title, body }) => (
   <CheckItem>
-    <Text as='strong' css={theme({ color: 'black' })}>
+    <Text as='strong' css={theme({ color: 'black', fontWeight: 'bold' })}>
       {title}
     </Text>
     {': '}
