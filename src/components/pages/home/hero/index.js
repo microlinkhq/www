@@ -5,7 +5,7 @@ import Caption from 'components/patterns/Caption/Caption'
 import Overlay from 'components/pages/home/overlay'
 import heroDemoRequests from 'components/pages/home/hero-demo-requests'
 import { trackEvent } from 'helpers/plausible'
-import { timings, space, theme } from 'theme'
+import { layout, timings, space, theme } from 'theme'
 import React, {
   useCallback,
   useEffect,
@@ -360,9 +360,16 @@ const Hero = () => {
           </Heading>
         </Heading>
 
-        <Caption forwardedAs='p' css={theme({ pt: 3 })}>
-          AI-ready infrastructure for interacting with the web. Built on real
-          browsers. Exposed through a single API.
+        <Caption
+          forwardedAs='p'
+          css={theme({
+            pt: 3,
+            maxWidth: layout.small,
+            mx: 'auto'
+          })}
+        >
+          A single API for turning any URL into data. Built for apps, agents,
+          and AI. Powered by real browsers.
         </Caption>
 
         <HeroComposer
