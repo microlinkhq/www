@@ -43,8 +43,7 @@ const LABELS = [
     x: 40,
     y: 90,
     text: 'cloudflare-turnstile',
-    stroke: '#ffd629',
-    anchor: 'start'
+    stroke: '#ffd629'
   },
   {
     key: 'aws',
@@ -88,7 +87,6 @@ const GraphSvg = styled.svg`
   display: block;
   width: 100%;
   height: auto;
-  max-width: 560px;
   overflow: visible;
 `
 
@@ -99,7 +97,7 @@ export const ProviderGraph = () => (
     css={theme({
       m: 0,
       mx: 'auto',
-      my: [4, 4, 4, 4],
+      my: 4,
       maxWidth: '560px',
       width: '100%',
       overflow: 'visible'

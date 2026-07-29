@@ -34,14 +34,6 @@ const Flicker = styled.span`
     animation: ${flicker} 3.6s steps(1, end) infinite;
   }
 
-  span:nth-child(2) {
-    animation-delay: 1.2s;
-  }
-
-  span:nth-child(3) {
-    animation-delay: 2.4s;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     span {
       animation: none;
@@ -67,8 +59,12 @@ export const StatusFlicker = () => (
     <Text as='p' css={lineStyle}>
       A request can experience{' '}
       <Flicker aria-label='429 Too Many Requests, 401 Unauthorized, or 403 Forbidden'>
-        {STATUSES.map(status => (
-          <span key={status} aria-hidden='true'>
+        {STATUSES.map((status, index) => (
+          <span
+            key={status}
+            aria-hidden='true'
+            style={{ animationDelay: `${index * 1.2}s` }}
+          >
             {status}
           </span>
         ))}

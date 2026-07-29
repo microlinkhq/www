@@ -54,7 +54,7 @@ const OUTCOMES = [
 
 const BODY_STYLE = {
   fontFamily: 'sans',
-  fontSize: [2, 2, 2, 2],
+  fontSize: 2,
   lineHeight: 2,
   color: 'black',
   pb: 3
@@ -109,7 +109,7 @@ export const Overview = () => (
       <Text css={theme({ ...HEADING_STYLE, pt: [2, 2, 3, 3] })}>
         Common signals include:
       </Text>
-      <Box as='ul' css={theme({ ...LIST_STYLE, pb: [4, 4, 4, 4] })}>
+      <Box as='ul' css={theme({ ...LIST_STYLE, pb: 4 })}>
         {SIGNALS.map(item => (
           <LabelledItem key={item.title} title={item.title} body={item.body} />
         ))}

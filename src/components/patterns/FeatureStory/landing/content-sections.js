@@ -56,7 +56,7 @@ export const OverviewSection = ({
       <Box
         css={theme({
           fontFamily: 'sans',
-          fontSize: [2, 2, 2, 2],
+          fontSize: 2,
           lineHeight: 2,
           color: 'black'
         })}
@@ -70,7 +70,7 @@ export const OverviewSection = ({
             listStyle: 'none',
             p: 0,
             m: 0,
-            pt: [4, 4, 4, 4],
+            pt: 4,
             display: 'flex',
             flexDirection: 'column',
             gap: 3

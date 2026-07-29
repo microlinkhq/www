@@ -21,18 +21,12 @@ const signalsOf = ({ detections }) =>
     .filter(type => detections.some(detection => detection.type === type))
     .map(type => SIGNAL[type])
 
-const byName = (one, other) =>
-  one.name.toLowerCase() < other.name.toLowerCase() ? -1 : 1
-
 export const PROVIDERS_COVERED = `${Math.floor(providers.length / 10) * 10}+`
 
 export const PROVIDERS = providers
-  .map(provider => {
-    const methods = signalsOf(provider)
-    return {
-      name: provider.label,
-      category: CATEGORY[provider.category] || provider.category,
-      methods
-    }
-  })
-  .sort(byName)
+  .map(provider => ({
+    name: provider.label,
+    category: CATEGORY[provider.category] || provider.category,
+    methods: signalsOf(provider)
+  }))
+  .sort((one, other) => one.name.localeCompare(other.name))

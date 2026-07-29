@@ -51,43 +51,48 @@ const ProvidersTable = styled(Text)`
   }
 `
 
-const MethodChip = ({ children }) => (
-  <Text
-    as='span'
-    css={theme({
-      display: 'inline-block',
-      fontFamily: 'mono',
-      fontSize: 0,
-      color: 'secondary',
-      bg: 'pinky',
-      px: 2,
-      py: 1,
-      borderRadius: 2,
-      whiteSpace: 'nowrap'
-    })}
-  >
-    {children}
-  </Text>
+const METHOD_CHIP_STYLE = theme({
+  display: 'inline-block',
+  fontFamily: 'mono',
+  fontSize: 0,
+  color: 'secondary',
+  bg: 'pinky',
+  px: 2,
+  py: 1,
+  borderRadius: 2,
+  whiteSpace: 'nowrap'
+})
+
+const METHOD_CHIPS_STYLE = theme({ gap: 2, flexWrap: 'wrap' })
+
+const PROVIDER_META_STYLE = theme({
+  fontFamily: 'sans',
+  fontSize: 1,
+  color: 'black80',
+  lineHeight: 2,
+  pb: 2
+})
+
+const SIGNAL_COUNT_STYLE = theme({
+  fontFamily: 'mono',
+  fontVariantNumeric: 'tabular-nums'
+})
+
+const MethodChips = ({ methods }) => (
+  <Flex css={METHOD_CHIPS_STYLE}>
+    {methods.map(method => (
+      <Text as='span' key={method} css={METHOD_CHIP_STYLE}>
+        {method}
+      </Text>
+    ))}
+  </Flex>
 )
 
 const ProviderMeta = ({ category, methods }) => (
-  <Text
-    css={theme({
-      fontFamily: 'sans',
-      fontSize: 1,
-      color: 'black80',
-      lineHeight: 2
-    })}
-  >
+  <Text css={PROVIDER_META_STYLE}>
     {category}
     {' · '}
-    <Text
-      as='span'
-      css={theme({
-        fontFamily: 'mono',
-        fontVariantNumeric: 'tabular-nums'
-      })}
-    >
+    <Text as='span' css={SIGNAL_COUNT_STYLE}>
       {methods.length} signal{methods.length === 1 ? '' : 's'}
     </Text>
   </Text>
@@ -113,14 +118,8 @@ const ProviderCard = ({ row }) => (
     >
       {row.name}
     </Text>
-    <Box css={theme({ pb: 2 })}>
-      <ProviderMeta category={row.category} methods={row.methods} />
-    </Box>
-    <Flex css={theme({ gap: 2, flexWrap: 'wrap' })}>
-      {row.methods.map(method => (
-        <MethodChip key={method}>{method}</MethodChip>
-      ))}
-    </Flex>
+    <ProviderMeta category={row.category} methods={row.methods} />
+    <MethodChips methods={row.methods} />
   </Box>
 )
 
@@ -133,7 +132,7 @@ export const Providers = () => (
     <Text
       css={theme({
         fontFamily: 'sans',
-        fontSize: [2, 2, 2, 2],
+        fontSize: 2,
         lineHeight: 2,
         color: 'black',
         pb: [3, 3, 4, 4],
@@ -213,11 +212,7 @@ export const Providers = () => (
                 {row.methods.length}
               </Text>
               <Box as='td' css={theme({ fontSize: 1 })}>
-                <Flex css={theme({ gap: 2, flexWrap: 'wrap' })}>
-                  {row.methods.map(method => (
-                    <MethodChip key={method}>{method}</MethodChip>
-                  ))}
-                </Flex>
+                <MethodChips methods={row.methods} />
               </Box>
             </tr>
           ))}

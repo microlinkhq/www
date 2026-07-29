@@ -57,7 +57,7 @@ const TabCard = styled('button')(
     border: 1,
     borderColor: 'gray2',
     borderRadius: 3,
-    p: [3, 3, 3, 3],
+    p: 3,
     m: 0,
     color: 'inherit',
     fontFamily: 'sans',
@@ -112,6 +112,15 @@ const TAB_DESCRIPTION_STYLE = theme({
 
 const EMPTY_PANELS = []
 
+let reducedMotionQuery
+const prefersReducedMotion = () => {
+  if (typeof window === 'undefined') return false
+  if (!reducedMotionQuery) {
+    reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+  }
+  return reducedMotionQuery.matches
+}
+
 export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
   const baseId = useId()
   const listRef = useRef(null)
@@ -152,9 +161,7 @@ export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
     if (focus) tabRefs.current[index]?.focus()
     tabRefs.current[index]?.scrollIntoView({
       block: 'nearest',
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        ? 'auto'
-        : 'smooth'
+      behavior: prefersReducedMotion() ? 'auto' : 'smooth'
     })
   }
 
