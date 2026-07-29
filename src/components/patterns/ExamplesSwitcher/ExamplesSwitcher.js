@@ -191,9 +191,12 @@ const ExamplesSwitcher = ({
   const baseId = useId()
   const listRef = useRef(null)
   const tabRefs = useRef([])
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [selectedIndex, setSelectedIndex] = useState(0)
   const [scrollCues, setScrollCues] = useState({ up: false, down: false })
   const [viewportHeight, setViewportHeight] = useState(null)
+  const activeIndex = panels.length
+    ? Math.min(selectedIndex, panels.length - 1)
+    : 0
   const active = panels[activeIndex]
   const tabsHeight =
     visibleTabs && viewportHeight ? `${viewportHeight}px` : undefined
@@ -257,7 +260,7 @@ const ExamplesSwitcher = ({
 
   const selectIndex = (index, { focus } = {}) => {
     if (index < 0 || index >= panels.length) return
-    setActiveIndex(index)
+    setSelectedIndex(index)
     if (focus) tabRefs.current[index]?.focus()
     tabRefs.current[index]?.scrollIntoView({
       block: 'nearest',
@@ -325,7 +328,7 @@ const ExamplesSwitcher = ({
                 type='button'
                 role='tab'
                 aria-selected={selected}
-                aria-controls={panelId}
+                aria-controls={selected ? panelId : undefined}
                 tabIndex={selected ? 0 : -1}
                 onClick={() => selectIndex(index)}
                 onKeyDown={event => onKeyDown(event, index)}
