@@ -496,21 +496,33 @@ const PREVIEWS = [
 ]
 
 export const IframePreviewsShowcase = ({
-  minHeight = ['480px', '520px', '560px', '560px']
+  minHeight = ['480px', '520px', '560px', '560px'],
+  exclude = []
 }) => {
+  const previews = PREVIEWS.filter(({ id }) => !exclude.includes(id))
+  const count = previews.length
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
+    if (count === 0) return undefined
     const id = setInterval(() => {
-      setIndex(i => (i + 1) % PREVIEWS.length)
+      setIndex(i => (i + 1) % count)
     }, CYCLE_INTERVAL_MS)
     return () => clearInterval(id)
-  }, [])
+  }, [count])
+
+  if (count === 0) return null
+
+  const activeIndex = index % count
 
   return (
     <Stage css={theme({ minHeight })}>
-      {PREVIEWS.map(({ id, component: Variant, name }, i) => (
-        <Layer key={id} $active={i === index} aria-hidden={i !== index}>
+      {previews.map(({ id, component: Variant, name }, i) => (
+        <Layer
+          key={id}
+          $active={i === activeIndex}
+          aria-hidden={i !== activeIndex}
+        >
           <h3
             style={{
               position: 'absolute',

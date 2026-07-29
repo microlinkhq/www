@@ -240,6 +240,7 @@ const Hero = () => {
 
   const handleRun = () => {
     if (!canRun) return
+    trackEvent('hero run request', { product: D.vertical, source: 'input' })
     stopTyping()
     closeMenu()
     writeSharedState(dText, dVert)
@@ -295,6 +296,7 @@ const Hero = () => {
 
   const pickExample = value => () => {
     const vertical = parseLocal(value).vertical
+    trackEvent('hero run request', { product: vertical, source: 'example' })
     const url = typedUrl() || shortUrl(DEFAULT_URLS[vertical])
     const text = `${value} of ${url}`
     takeOver(text)
@@ -305,6 +307,7 @@ const Hero = () => {
   }
 
   const pickVertical = k => {
+    trackEvent('hero run request', { product: k, source: 'menu' })
     const template = PROMPTS[k] || ''
     const url = typedUrl() || (k !== 'search' && shortUrl(DEFAULT_URLS[k]))
     const prompt = url ? `${template} of ${url}` : template
@@ -344,7 +347,7 @@ const Hero = () => {
       <Content>
         <Badge>
           <Dot.Success />
-          Handling +{reqsPretty} requests every month
+          Handling {reqsPretty}+ requests every month
         </Badge>
 
         <Heading variant={null}>

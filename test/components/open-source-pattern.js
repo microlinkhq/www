@@ -68,7 +68,7 @@ describe('OpenSource pattern', () => {
       `repos={[${HOME_REPOS.map(s => `'${s}'`).join(', ')}]}`
     )
     expect(home).toContain("accent='gradient'")
-    expect(home).toContain("Open source isn't just something we use:")
+    expect(home).toContain("Open source isn't just something we use —")
     expect(home).toContain(
       'technologies behind Microlink are developed in public'
     )

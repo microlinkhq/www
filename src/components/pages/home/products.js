@@ -540,12 +540,12 @@ const TextPreview = () => (
 
 const ScreenshotPreview = () => (
   <Flex css={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
-    <Box css={{ position: 'relative', height: '260px', margin: '24px 8px 0' }}>
+    <Box css={{ position: 'relative', height: '252px', margin: '16px 8px 0' }}>
       <Box
         css={{
           position: 'absolute',
-          left: '88px',
-          top: '34px',
+          left: '72px',
+          top: '28px',
           right: '8px',
           bottom: '-8px',
           background: tone.surface,
@@ -557,10 +557,10 @@ const ScreenshotPreview = () => (
       <Box
         css={{
           position: 'absolute',
-          left: '46px',
-          top: '18px',
-          right: '42px',
-          bottom: '10px',
+          left: '38px',
+          top: '14px',
+          right: '34px',
+          bottom: '8px',
           background: tone.surface,
           border: `1px solid ${tone.border}`,
           borderRadius: radius.panel,
@@ -572,8 +572,8 @@ const ScreenshotPreview = () => (
           position: 'absolute',
           left: 0,
           top: 0,
-          right: '84px',
-          bottom: '22px',
+          right: '64px',
+          bottom: '18px',
           background: tone.surface,
           border: `1px solid ${tone.border}`,
           borderRadius: radius.panel,
@@ -582,7 +582,7 @@ const ScreenshotPreview = () => (
       >
         <Flex
           css={{
-            padding: '11px 16px',
+            padding: '9px 14px',
             gap: '7px',
             alignItems: 'center',
             borderBottom: `1px solid ${tone.neutral}`
@@ -590,14 +590,14 @@ const ScreenshotPreview = () => (
         >
           <WindowDots />
         </Flex>
-        <Box css={{ padding: '22px 26px 26px', textAlign: 'center' }}>
+        <Box css={{ padding: '16px 18px 18px', textAlign: 'center' }}>
           <Flex
             css={{
               justifyContent: 'space-between',
               alignItems: 'center',
               fontSize: '12px',
               color: tone.muted,
-              marginBottom: '26px'
+              marginBottom: '16px'
             }}
           >
             <Box as='span' css={{ fontWeight: 700, color: tone.ink900 }}>
@@ -607,7 +607,7 @@ const ScreenshotPreview = () => (
           </Flex>
           <Box
             css={{
-              fontSize: '26px',
+              fontSize: '20px',
               fontWeight: 800,
               lineHeight: 1.15,
               letterSpacing: '-0.02em'
@@ -618,7 +618,7 @@ const ScreenshotPreview = () => (
             for web data.
           </Box>
           <Box
-            css={{ fontSize: '12px', color: tone.muted, margin: '12px 0 18px' }}
+            css={{ fontSize: '12px', color: tone.muted, margin: '10px 0 14px' }}
           >
             One API to turn any URL into structured data.
           </Box>
@@ -654,7 +654,7 @@ const WindowDots = () => (
 const MiniButton = styled.span`
   font-size: 12px;
   ${theme({ fontWeight: 'bold' })};
-  padding: 9px 18px;
+  padding: 8px 14px;
   border-radius: ${radius.sm};
 `
 
@@ -674,7 +674,8 @@ const EmbedPreview = () => (
       })}
     >
       <IframePreviewsShowcase
-        minHeight={['380px', '380px', '480px', '480px']}
+        exclude={['instagram']}
+        minHeight={['360px', '400px', '420px', '360px']}
       />
     </Box>
   </Flex>
@@ -814,7 +815,7 @@ const PdfSheet = styled(Box)(
     border: 1,
     borderColor: 'gray2',
     borderRadius: 5,
-    p: [3, 3, 4],
+    p: 3,
     overflow: 'hidden'
   })
 )
@@ -928,7 +929,7 @@ const PdfPreview = () => (
         </Box>
       </PdfLineGrid>
 
-      <Flex css={theme({ alignItems: 'center', gap: 4 })}>
+      <Flex css={theme({ alignItems: 'center', gap: 3 })}>
         <Box
           css={theme({
             flex: 1,
@@ -945,8 +946,8 @@ const PdfPreview = () => (
         </Box>
         <Box
           css={theme({
-            width: ['96px', '96px', '128px'],
-            height: ['84px', '84px', '108px'],
+            width: '96px',
+            height: '84px',
             flexShrink: 0,
             borderRadius: 4,
             bg: 'violet1',
@@ -968,12 +969,6 @@ const PdfPreview = () => (
           </CornerSvg>
         </Box>
       </Flex>
-
-      <Box css={theme({ maxWidth: '72%' })}>
-        <Skel css={theme({ width: '92%', bg: 'gray3', mb: 2 })} />
-        <Skel css={theme({ width: '76%', bg: 'gray3', mb: 2 })} />
-        <Skel css={theme({ width: '54%', bg: 'gray3' })} />
-      </Box>
 
       <PdfFold />
     </PdfSheet>
@@ -1061,14 +1056,6 @@ const SEARCH_RESULTS = [
     title: 'microlinkhq · GitHub',
     description: 'Open source tools to turn websites into data.',
     tint: colors.black
-  },
-  {
-    name: 'Hacker News',
-    domain: 'news.ycombinator.com',
-    url: 'news.ycombinator.com/item?id=1',
-    title: 'Show HN: Microlink API',
-    description: 'Extract structured data from any website.',
-    tint: colors.orange6
   }
 ]
 
@@ -1177,7 +1164,7 @@ const SearchPreview = () => (
       css={theme({
         flex: 1,
         position: 'relative',
-        minHeight: ['320px', '320px', 0, 0]
+        minHeight: '380px'
       })}
     >
       <CodeBox
@@ -2308,10 +2295,10 @@ const Products = () => (
         px: 3
       })}
     >
-      <Subhead variant='gradient'>Turn the web into capabilities</Subhead>
+      <Subhead variant='gradient'>Build features, not infrastructure</Subhead>
       <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4] })}>
-        Build features, not the infrastructure behind them. We handle everything
-        required to run them at scale.
+        Turn any URL into screenshots, PDFs, markdown, or structured data. We
+        run the browsers, the cache, and the scale behind them.
       </Caption>
     </Box>
 
@@ -2338,8 +2325,8 @@ const Products = () => (
         <Feature vertical='html'>
           <HtmlPreview />
         </Feature>
-        <Feature vertical='embed'>
-          <EmbedPreview />
+        <Feature vertical='preview'>
+          <LinkPreview />
         </Feature>
       </Row>
 
@@ -2356,12 +2343,12 @@ const Products = () => (
         </Feature>
       </Row>
 
-      <Row $template='8fr 4fr'>
+      <Row $template='2fr 1fr'>
         <Feature vertical='search'>
           <SearchPreview />
         </Feature>
-        <Feature vertical='preview'>
-          <LinkPreview />
+        <Feature vertical='embed'>
+          <EmbedPreview />
         </Feature>
       </Row>
 
