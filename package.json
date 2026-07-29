@@ -145,7 +145,7 @@
     "gatsby-transformer-yaml": "~5.16.0",
     "github-slugger": "~2.0.0",
     "humanize-url": "~3.0.0",
-    "is-antibot": "~2.3.0",
+    "is-antibot": "latest",
     "is-url-http": "~2.3.13",
     "json-future": "~2.2.27",
     "jszip": "~3.10.1",
