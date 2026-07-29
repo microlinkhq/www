@@ -168,10 +168,18 @@ export const Providers = () => (
       <ProvidersTable as='table'>
         <thead>
           <tr>
-            <Text as='th'>Provider</Text>
-            <Text as='th'>Category</Text>
-            <Text as='th'>Signals</Text>
-            <Text as='th'>Detection methods</Text>
+            <Text as='th' scope='col'>
+              Provider
+            </Text>
+            <Text as='th' scope='col'>
+              Category
+            </Text>
+            <Text as='th' scope='col'>
+              Signals
+            </Text>
+            <Text as='th' scope='col'>
+              Detection methods
+            </Text>
           </tr>
         </thead>
         <tbody>

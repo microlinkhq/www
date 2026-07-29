@@ -84,10 +84,12 @@ const labelTextStyle = {
 }
 
 const GraphSvg = styled.svg`
-  display: block;
-  width: 100%;
+  ${theme({
+    display: 'block',
+    width: '100%',
+    overflow: 'visible'
+  })}
   height: auto;
-  overflow: visible;
 `
 
 export const ProviderGraph = () => (
