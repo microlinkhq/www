@@ -30,23 +30,12 @@ export const faqPageStructured = items => ({
   }))
 })
 
-const DocLink = ({ href, fallback, children, ...props }) => (
-  <Link href={href} {...props}>
-    {children || fallback}
-  </Link>
-)
-
-export const ProxyHeadersTtlLinks = ({
-  conjunction = 'and',
-  ttlLabel = 'TTL'
-}) => (
+export const ProxyHeadersTtlLinks = ({ ttlLabel = 'TTL' }) => (
   <>
-    <DocLink href='/docs/api/parameters/proxy' fallback='proxy' />
+    <Link href='/docs/api/parameters/proxy'>proxy</Link>
     {', '}
-    <DocLink href='/docs/api/parameters/headers' fallback='headers' />
-    {` ${conjunction} `}
-    <DocLink href='/docs/api/parameters/ttl' fallback='TTL'>
-      {ttlLabel}
-    </DocLink>
+    <Link href='/docs/api/parameters/headers'>headers</Link>
+    {' and '}
+    <Link href='/docs/api/parameters/ttl'>{ttlLabel}</Link>
   </>
 )

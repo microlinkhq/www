@@ -20,11 +20,10 @@ const flicker = keyframes`
 `
 
 const Flicker = styled.span`
-  ${theme({ fontFamily: 'mono' })}
+  ${theme({ fontFamily: 'mono', fontWeight: 'bold' })}
   color: ${colors.red7};
   display: inline-grid;
   font-variant-numeric: tabular-nums;
-  font-weight: 700;
   min-width: 22ch;
   position: relative;
 

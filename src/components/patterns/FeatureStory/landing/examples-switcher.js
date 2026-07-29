@@ -7,6 +7,8 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
+import { prefersReducedMotion } from 'helpers/reduced-motion'
+
 import { ACCENT } from '../features'
 
 const TAB_CARD_MIN_HEIGHT = '104px'
@@ -111,15 +113,6 @@ const TAB_DESCRIPTION_STYLE = theme({
 })
 
 const EMPTY_PANELS = []
-
-let reducedMotionQuery
-const prefersReducedMotion = () => {
-  if (typeof window === 'undefined') return false
-  if (!reducedMotionQuery) {
-    reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-  }
-  return reducedMotionQuery.matches
-}
 
 export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
   const baseId = useId()

@@ -93,7 +93,6 @@ const GraphSvg = styled.svg`
 export const ProviderGraph = () => (
   <Box
     as='figure'
-    aria-label='Illustrative antibot provider distribution'
     css={theme({
       m: 0,
       mx: 'auto',
