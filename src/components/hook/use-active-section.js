@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 export const useActiveSection = ids => {
-  const [activeId, setActiveId] = useState(null)
+  const [activeId, setActiveId] = useState(ids[0])
 
   const key = ids.join(',')
 
@@ -22,12 +22,21 @@ export const useActiveSection = ids => {
     const update = () => {
       frame = undefined
 
+      if (
+        sectionIds.length > 0 &&
+        window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 2
+      ) {
+        setActiveId(sectionIds[sectionIds.length - 1])
+        return
+      }
+
       const current = sections.reduce(
         (active, section, index) =>
           section.getBoundingClientRect().top <= anchors[index] + 1
             ? section.id
             : active,
-        null
+        sectionIds[0]
       )
 
       setActiveId(current)
