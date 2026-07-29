@@ -348,13 +348,13 @@ const Hero = () => {
         </Badge>
 
         <Heading variant={null}>
-          Turn any URL into
+          The web,
           <br />
           <Heading
             forwardedAs='span'
             css={theme({ fontSize: 'inherit', fontStyle: 'italic' })}
           >
-            everything
+            transformed
           </Heading>
         </Heading>
 
