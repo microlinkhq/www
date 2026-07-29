@@ -26,8 +26,7 @@ export const Primitives = () => (
       maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
       mx: 'auto',
       px: [3, 3, 0, 0],
-      pt: 0,
-      pb: SECTION_VERTICAL_SPACING
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <Cards>

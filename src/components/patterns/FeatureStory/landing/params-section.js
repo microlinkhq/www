@@ -103,7 +103,10 @@ const ParamCardBody = ({ name, type, description, linked }) => (
         {type}
       </Text>
       {linked && (
-        <Box css={theme({ ml: 'auto', color: 'secondary', flexShrink: 0 })}>
+        <Box
+          aria-hidden='true'
+          css={theme({ ml: 'auto', color: 'secondary', flexShrink: 0 })}
+        >
           <FeatherIcon icon={ChevronRight} />
         </Box>
       )}

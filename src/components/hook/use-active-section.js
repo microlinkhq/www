@@ -24,6 +24,7 @@ export const useActiveSection = ids => {
 
       if (
         sectionIds.length > 0 &&
+        document.documentElement.scrollHeight > window.innerHeight &&
         window.innerHeight + window.scrollY >=
           document.documentElement.scrollHeight - 2
       ) {

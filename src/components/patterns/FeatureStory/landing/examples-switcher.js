@@ -141,7 +141,9 @@ export const ExamplesSwitcher = ({ panels = EMPTY_PANELS }) => {
     if (focus) tabRefs.current[index]?.focus()
     tabRefs.current[index]?.scrollIntoView({
       block: 'nearest',
-      behavior: 'smooth'
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 'auto'
+        : 'smooth'
     })
   }
 
