@@ -29,18 +29,6 @@ console.log(url)
 // → 'https://cdn.microlink.io/…'`)
   },
   {
-    id: 'animated',
-    title: 'Record an animation',
-    description: 'Capture a page as a GIF or video clip.',
-    snippet: sdkExample(`const { url } = await microlink.screenshot(
-  '${DEMO_URLS.animated}',
-  { animated: true, type: 'gif' }
-)
-
-console.log(url)
-// → 'https://cdn.microlink.io/….gif'`)
-  },
-  {
     id: 'pdf',
     title: 'Generate a PDF',
     description: 'Render a printable document from any URL.',
@@ -130,43 +118,6 @@ console.log({ url, palette })
 // }`)
   },
   {
-    id: 'video',
-    title: 'Extract video',
-    description: 'Pull the primary video asset from a page.',
-    snippet: sdkExample(`const { url, duration } = await microlink.video(
-  '${DEMO_URLS.video}'
-)
-
-console.log({ url, duration })
-// → { url: 'https://….mp4', duration: 12.4 }`)
-  },
-  {
-    id: 'audio',
-    title: 'Extract audio',
-    description: 'Pull the primary audio asset from a page.',
-    snippet: sdkExample(`const { url, duration } = await microlink.audio(
-  '${DEMO_URLS.audio}'
-)
-
-console.log({ url, duration })
-// → { url: 'https://….mp3', duration: 214.8 }`)
-  },
-  {
-    id: 'lighthouse',
-    title: 'Run Lighthouse',
-    description: 'Audit performance remotely at scale.',
-    snippet: sdkExample(`const report = await microlink.lighthouse(
-  '${DEMO_URLS.lighthouse}'
-)
-
-console.log(report.categories)
-// → {
-//   performance: { score: 0.98, … },
-//   accessibility: { score: 0.92, … },
-//   …
-// }`)
-  },
-  {
     id: 'technologies',
     title: 'Detect technologies',
     description: 'Identify the tech stack behind any site.',
@@ -246,28 +197,6 @@ console.log(emails)
 
 console.log(images)
 // → [{ url: 'https://….jpg', width: 1200, height: 630 }, …]`)
-  },
-  {
-    id: 'videos',
-    title: 'Collect videos',
-    description: 'Gather playable video sources from the page.',
-    snippet: sdkExample(`const videos = await microlink.videos(
-  '${DEMO_URLS.video}'
-)
-
-console.log(videos)
-// → [{ url: 'https://….mp4', duration: 12.4 }, …]`)
-  },
-  {
-    id: 'audios',
-    title: 'Collect audios',
-    description: 'Gather audio sources from the target URL.',
-    snippet: sdkExample(`const audios = await microlink.audios(
-  '${DEMO_URLS.audio}'
-)
-
-console.log(audios)
-// → [{ url: 'https://….mp3', duration: 214.8 }, …]`)
   }
 ]
 
