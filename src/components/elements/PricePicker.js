@@ -183,7 +183,9 @@ const PricePicker = ({ onChange }) => {
           })}
         >
           {plan.reqsPerMonth}
-        </Text>
+        </Text>{' '}
+        {/* The gap is `pl`, so without this the text reads "46,000requests".
+            Flex drops whitespace-only children, so it costs no layout. */}
         <Text
           as='span'
           css={theme({ fontSize: [0, 0, 1, 1], color: 'black70', pl: 1 })}
