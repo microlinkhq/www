@@ -44,10 +44,11 @@ const Select = styled.select(
     boxShadow: 'none',
     py: 0,
     pl: 0,
-    pr: '28px',
-    m: 0
+    pr: '28px'
   }),
   css`
+    -webkit-tap-highlight-color: transparent;
+
     &:focus-visible {
       ${FOCUS_RING}
     }

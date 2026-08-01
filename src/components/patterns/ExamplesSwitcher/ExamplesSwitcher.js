@@ -149,7 +149,6 @@ const getScrollCues = node => {
 
 const measureVisibleTabsHeight = (list, visibleTabs) => {
   const items = [...list.children]
-  if (!items.length) return null
   const count = Math.min(visibleTabs, items.length)
   let height = 0
   for (let index = 0; index < count; index++) {
@@ -188,7 +187,6 @@ const ExamplesSwitcher = ({
 
     const update = () => {
       const next = measureVisibleTabsHeight(list, visibleTabs)
-      if (next == null) return
       setViewportHeight(current => (current === next ? current : next))
     }
 
