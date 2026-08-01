@@ -1,4 +1,4 @@
-import { breakpoints, colors, space, theme, transition } from 'theme'
+import { colors, space, theme, transition } from 'theme'
 import React, {
   useEffect,
   useId,
@@ -16,8 +16,18 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
 import { prefersReducedMotion } from 'helpers/reduced-motion'
 
-import { FOCUS_RING, TAB_DESCRIPTION_STYLE, TAB_TITLE_STYLE } from './styles'
+import { FOCUS_RING, TAB_DESCRIPTION_STYLE } from './styles'
 import ExamplesSelect from './examples-select'
+
+const TAB_TITLE_STYLE = theme({
+  fontFamily: 'sans',
+  fontWeight: 'bold',
+  fontSize: 1,
+  lineHeight: 2,
+  color: 'black',
+  pb: 1,
+  m: 0
+})
 
 const TAB_GAP_PX = Number.parseInt(space[2], 10)
 const PANEL_HEIGHT = CodeEditor.height.map(value =>
@@ -33,26 +43,22 @@ const TabList = styled(Flex).attrs({
     flexDirection: 'column',
     gap: 2,
     minWidth: 0,
-    overflowY: ['visible', 'visible', 'auto', 'auto'],
+    overflowY: 'auto',
     overscrollBehavior: 'contain',
-    pr: [0, 0, 1, 1],
-    scrollSnapType: ['none', 'none', 'y proximity', 'y proximity']
+    pr: 1,
+    scrollSnapType: 'y proximity'
   }),
   ({ $viewportHeight, $stretch }) => {
     if ($viewportHeight) {
       return css`
-        @media (min-width: ${breakpoints[1]}) {
-          height: ${$viewportHeight}px;
-          max-height: ${$viewportHeight}px;
-        }
+        height: ${$viewportHeight}px;
+        max-height: ${$viewportHeight}px;
       `
     }
     if ($stretch) {
       return css`
-        @media (min-width: ${breakpoints[1]}) {
-          height: 0;
-          min-height: 100%;
-        }
+        height: 0;
+        min-height: 100%;
       `
     }
     return undefined
@@ -63,7 +69,6 @@ const ScrollCue = styled(Flex).attrs({
   'aria-hidden': true
 })(
   theme({
-    display: ['none', 'none', 'flex', 'flex'],
     position: 'absolute',
     left: 0,
     right: 0,
@@ -156,7 +161,7 @@ const measureVisibleTabsHeight = (list, visibleTabs) => {
     height += items[index].offsetHeight
     if (index < count - 1) height += TAB_GAP_PX
   }
-  return height
+  return height || null
 }
 
 const EMPTY_PANELS = []
@@ -164,7 +169,6 @@ const EMPTY_PANELS = []
 const ExamplesSwitcher = ({
   panels = EMPTY_PANELS,
   language = 'js',
-  selectLabel = 'Choose an example',
   visibleTabs
 }) => {
   const baseId = useId()
@@ -279,8 +283,7 @@ const ExamplesSwitcher = ({
     >
       <ExamplesSelect
         panels={panels}
-        active={active}
-        label={selectLabel}
+        activeIndex={activeIndex}
         onSelect={selectIndex}
       />
 
@@ -290,10 +293,8 @@ const ExamplesSwitcher = ({
           position: 'relative',
           minWidth: 0,
           minHeight: 0,
-          height: tabsHeight
-            ? ['auto', 'auto', tabsHeight, tabsHeight]
-            : undefined,
-          alignSelf: ['start', 'start', 'stretch', 'stretch']
+          height: tabsHeight,
+          alignSelf: 'stretch'
         })}
       >
         <TabList

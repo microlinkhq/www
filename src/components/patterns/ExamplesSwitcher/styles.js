@@ -6,16 +6,6 @@ export const FOCUS_RING = css`
   outline-offset: 2px;
 `
 
-export const TAB_TITLE_STYLE = theme({
-  fontFamily: 'sans',
-  fontWeight: 'bold',
-  fontSize: 1,
-  lineHeight: 2,
-  color: 'black',
-  pb: 1,
-  m: 0
-})
-
 export const TAB_DESCRIPTION_STYLE = {
   ...theme({
     fontFamily: 'sans',

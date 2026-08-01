@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { ChevronDown } from 'react-feather'
-import React from 'react'
 import { colors, theme } from 'theme'
+import React from 'react'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
@@ -9,33 +9,7 @@ import Text from 'components/elements/Text'
 
 import { FOCUS_RING, TAB_DESCRIPTION_STYLE } from './styles'
 
-const Select = styled.select(
-  theme({
-    width: '100%',
-    bg: 'pinkest',
-    border: 0,
-    borderRadius: 0,
-    boxShadow: 'none',
-    fontFamily: 'sans',
-    fontSize: 1,
-    fontWeight: 'bold',
-    color: 'black',
-    lineHeight: 2,
-    py: 0,
-    pl: 0,
-    pr: '28px',
-    m: 0
-  }),
-  css`
-    appearance: none;
-    cursor: pointer;
-    touch-action: manipulation;
-
-    &:focus-visible {
-      ${FOCUS_RING}
-    }
-  `
-)
+const SELECT_LABEL = 'Choose an example'
 
 const Card = styled(Box)(
   theme({
@@ -51,36 +25,64 @@ const Card = styled(Box)(
   })
 )
 
-const ExamplesSelect = ({ panels, active, label, onSelect }) => (
+const Select = styled.select(
+  theme({
+    appearance: 'none',
+    cursor: 'pointer',
+    touchAction: 'manipulation',
+    width: '100%',
+    bg: 'pinkest',
+    border: 0,
+    borderRadius: 0,
+    boxShadow: 'none',
+    fontFamily: 'sans',
+    fontWeight: 'bold',
+    fontSize: 1,
+    lineHeight: 2,
+    color: 'black',
+    py: 0,
+    pl: 0,
+    pr: '28px',
+    m: 0
+  }),
+  css`
+    &:focus-visible {
+      ${FOCUS_RING}
+    }
+  `
+)
+
+const FIELD_STYLE = theme({ position: 'relative', mb: 1 })
+
+const CHEVRON_STYLE = theme({
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  alignItems: 'center',
+  color: 'black',
+  pointerEvents: 'none'
+})
+
+const ExamplesSelect = ({ panels, activeIndex, onSelect }) => (
   <Card>
-    <Box css={theme({ position: 'relative', mb: 1 })}>
+    <Box css={FIELD_STYLE}>
       <Select
-        aria-label={label}
-        value={active.id}
-        onChange={event => onSelect(event.target.selectedIndex)}
+        aria-label={SELECT_LABEL}
+        value={activeIndex}
+        onChange={event => onSelect(Number(event.target.value))}
       >
-        {panels.map(panel => (
-          <option key={panel.id} value={panel.id}>
+        {panels.map((panel, index) => (
+          <option key={panel.id} value={index}>
             {panel.title}
           </option>
         ))}
       </Select>
-      <Flex
-        aria-hidden
-        css={theme({
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          bottom: 0,
-          alignItems: 'center',
-          color: 'black',
-          pointerEvents: 'none'
-        })}
-      >
+      <Flex aria-hidden css={CHEVRON_STYLE}>
         <ChevronDown size={18} strokeWidth={2.25} />
       </Flex>
     </Box>
-    <Text css={TAB_DESCRIPTION_STYLE}>{active.description}</Text>
+    <Text css={TAB_DESCRIPTION_STYLE}>{panels[activeIndex].description}</Text>
   </Card>
 )
 
