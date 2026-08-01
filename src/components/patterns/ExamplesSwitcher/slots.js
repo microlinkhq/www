@@ -1,9 +1,16 @@
+const SLOTS = 4
 const DESKTOP_FROM = 2
 
-export const MOBILE_ONLY = ['block', 'block', 'none', 'none']
-export const DESKTOP_ONLY = ['none', 'none', 'block', 'block']
+const isDesktop = index => index >= DESKTOP_FROM
+
+const slots = pick => Array.from({ length: SLOTS }, (_, index) => pick(index))
+
+export const MOBILE_ONLY = slots(index => (isDesktop(index) ? 'none' : 'block'))
+export const DESKTOP_ONLY = slots(index =>
+  isDesktop(index) ? 'block' : 'none'
+)
 
 export const onDesktop = (desktopValue, values) =>
   values.map((value, index) =>
-    index >= DESKTOP_FROM && desktopValue ? desktopValue : value
+    isDesktop(index) && desktopValue ? desktopValue : value
   )

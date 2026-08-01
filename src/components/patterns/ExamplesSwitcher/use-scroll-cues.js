@@ -5,7 +5,7 @@ import observeTabsResize from './observe-tabs-resize'
 const NO_CUES = { up: false, down: false }
 
 const getScrollCues = node => {
-  if (!node || node.scrollHeight <= node.clientHeight + 2) return NO_CUES
+  if (node.scrollHeight <= node.clientHeight + 2) return NO_CUES
   return {
     up: node.scrollTop > 2,
     down: node.scrollTop + node.clientHeight < node.scrollHeight - 2

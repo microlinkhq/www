@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState } from 'react'
 
-import measureVisibleTabsHeight from './measure-tabs-height'
+import measureTabsHeight from './measure-tabs-height'
 import observeTabsResize from './observe-tabs-resize'
 
 export default (listRef, panels, visibleTabs) => {
@@ -14,7 +14,7 @@ export default (listRef, panels, visibleTabs) => {
     }
 
     const update = () => {
-      const measured = measureVisibleTabsHeight(list, visibleTabs)
+      const measured = measureTabsHeight(list, visibleTabs)
       setTabsHeight(measured ? `${measured}px` : undefined)
     }
 

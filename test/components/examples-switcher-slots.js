@@ -2,15 +2,16 @@ import { describe, expect, test } from 'vitest'
 
 import {
   DESKTOP_ONLY,
+  MOBILE_ONLY,
   onDesktop
 } from '../../src/components/patterns/ExamplesSwitcher/slots'
 
 const PANEL_HEIGHT = ['360px', '48%', '68%', '68%']
 
 describe('ExamplesSwitcher breakpoint slots', () => {
-  test('overrides exactly the slots DESKTOP_ONLY shows', () => {
-    const shown = DESKTOP_ONLY.map(value => value === 'block')
-    expect(onDesktop(true, [false, false, false, false])).toEqual(shown)
+  test('shows each branch on exactly one side of the boundary', () => {
+    expect(MOBILE_ONLY).toEqual(['block', 'block', 'none', 'none'])
+    expect(DESKTOP_ONLY).toEqual(['none', 'none', 'block', 'block'])
   })
 
   test('overrides only the desktop slots', () => {
