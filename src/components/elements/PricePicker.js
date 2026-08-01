@@ -15,39 +15,22 @@ const calculateMonthlyPrice = reqsPerDay => ({
   USD: Math.round((reqsPerDay / 1000) * BASE_PLAN_PRICE.USD)
 })
 
-const createReqsLabels = reqsPerDay => {
-  const total = reqsPerDay * MONTH_DAYS
-  const reqsPerMonth = formatNumber(total)
-  const pretty = Math.round(total / 1000)
-  const reqsPerMonthPretty = `${formatNumber(pretty)}K`
+const createPlanFromMonthly = reqsPerMonthTotal => ({
+  reqsPerMonth: formatNumber(reqsPerMonthTotal),
+  reqsPerMonthTotal,
+  reqsPerMonthPretty: `${formatNumber(Math.round(reqsPerMonthTotal / 1000))}K`,
+  monthlyPrice: calculateMonthlyPrice(reqsPerMonthTotal / MONTH_DAYS)
+})
 
-  return {
-    reqsPerMonth,
-    reqsPerMonthTotal: total,
-    reqsPerMonthPretty,
-    monthlyPrice: calculateMonthlyPrice(reqsPerDay)
-  }
-}
-
-const overrideReqsPerMonth = (plan, reqsPerMonth) => {
-  const total = Number(reqsPerMonth.replace(/,/g, ''))
-  const reqsPerDay = total / MONTH_DAYS
-  const pretty = Math.round(total / 1000)
-  return {
-    ...plan,
-    reqsPerMonth,
-    reqsPerMonthTotal: total,
-    reqsPerMonthPretty: `${formatNumber(pretty)}K`,
-    monthlyPrice: calculateMonthlyPrice(reqsPerDay)
-  }
-}
+const createPlanFromDaily = reqsPerDay =>
+  createPlanFromMonthly(reqsPerDay * MONTH_DAYS)
 
 export const PLANS = [
-  overrideReqsPerMonth({ id: 'pro-1_625k-v4' }, '46,000'),
-  { id: 'pro-3k-v4', ...createReqsLabels(3000) },
-  { id: 'pro-5k-v4', ...createReqsLabels(5000) },
-  { id: 'pro-10k-v4', ...createReqsLabels(10000) },
-  { id: 'pro-15k-v4', ...createReqsLabels(15000) }
+  { id: 'pro-1_625k-v4', ...createPlanFromMonthly(46000) },
+  { id: 'pro-3k-v4', ...createPlanFromDaily(3000) },
+  { id: 'pro-5k-v4', ...createPlanFromDaily(5000) },
+  { id: 'pro-10k-v4', ...createPlanFromDaily(10000) },
+  { id: 'pro-15k-v4', ...createPlanFromDaily(15000) }
 ]
 
 export const DEFAULT_PLAN = PLANS[0]
