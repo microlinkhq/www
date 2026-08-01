@@ -60,9 +60,7 @@ const CHEVRON_STYLE = theme({
   top: 0,
   right: 0,
   bottom: 0,
-  width: CHEVRON_RESERVE,
   alignItems: 'center',
-  justifyContent: 'flex-end',
   color: 'black',
   pointerEvents: 'none'
 })
