@@ -16,7 +16,8 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
 import { prefersReducedMotion } from 'helpers/reduced-motion'
 
-const DESKTOP_TABS_MQ = `(min-width: ${breakpoints[1]})`
+import { FOCUS_RING, TAB_DESCRIPTION_STYLE, TAB_TITLE_STYLE } from './styles'
+import ExamplesSelect from './examples-select'
 
 const TAB_GAP_PX = Number.parseInt(space[2], 10)
 const PANEL_HEIGHT = CodeEditor.height.map(value =>
@@ -131,8 +132,7 @@ const TabCard = styled('button')(
     }
 
     &:focus-visible {
-      outline: 2px solid ${colors.secondary};
-      outline-offset: 2px;
+      ${FOCUS_RING}
     }
   `
 )
@@ -159,72 +159,12 @@ const measureVisibleTabsHeight = (list, visibleTabs) => {
   return height
 }
 
-const TAB_TITLE_STYLE = theme({
-  fontFamily: 'sans',
-  fontWeight: 'bold',
-  fontSize: 1,
-  lineHeight: 2,
-  color: 'black',
-  pb: 1,
-  m: 0
-})
-
-const TAB_DESCRIPTION_STYLE = {
-  ...theme({
-    fontFamily: 'sans',
-    fontSize: 1,
-    color: 'black60',
-    lineHeight: 2,
-    m: 0
-  }),
-  display: '-webkit-box',
-  WebkitLineClamp: 2,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden'
-}
-
-const MobileSelect = styled.select(
-  theme({
-    width: '100%',
-    bg: 'pinkest',
-    border: 0,
-    borderRadius: 0,
-    boxShadow: 'none',
-    fontFamily: 'sans',
-    fontSize: 1,
-    fontWeight: 'bold',
-    color: 'black',
-    lineHeight: 2,
-    py: 0,
-    pl: 0,
-    pr: '28px',
-    m: 0
-  }),
-  css`
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border: none;
-    background-image: none;
-    cursor: pointer;
-    touch-action: manipulation;
-
-    &:focus {
-      outline: none;
-    }
-
-    &:focus-visible {
-      outline: 2px solid ${colors.secondary};
-      outline-offset: 2px;
-    }
-  `
-)
-
 const EMPTY_PANELS = []
 
 const ExamplesSwitcher = ({
   panels = EMPTY_PANELS,
   language = 'js',
+  selectLabel = 'Choose an example',
   visibleTabs
 }) => {
   const baseId = useId()
@@ -233,7 +173,6 @@ const ExamplesSwitcher = ({
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [scrollCues, setScrollCues] = useState({ up: false, down: false })
   const [viewportHeight, setViewportHeight] = useState(null)
-  const [selectFocused, setSelectFocused] = useState(false)
   const activeIndex = panels.length
     ? Math.min(selectedIndex, panels.length - 1)
     : 0
@@ -248,12 +187,7 @@ const ExamplesSwitcher = ({
       return undefined
     }
 
-    const mq = window.matchMedia(DESKTOP_TABS_MQ)
     const update = () => {
-      if (!mq.matches) {
-        setViewportHeight(null)
-        return
-      }
       const next = measureVisibleTabsHeight(list, visibleTabs)
       if (next == null) return
       setViewportHeight(current => (current === next ? current : next))
@@ -266,26 +200,15 @@ const ExamplesSwitcher = ({
         : null
     observer?.observe(list)
     ;[...list.children].forEach(child => observer?.observe(child))
-    mq.addEventListener('change', update)
-    return () => {
-      observer?.disconnect()
-      mq.removeEventListener('change', update)
-    }
+    return () => observer?.disconnect()
   }, [panels, visibleTabs])
 
   useEffect(() => {
     const node = listRef.current
     if (!node) return undefined
-    const mq = window.matchMedia(DESKTOP_TABS_MQ)
     let frame
     const update = () => {
       frame = undefined
-      if (!mq.matches) {
-        setScrollCues(current =>
-          current.up || current.down ? { up: false, down: false } : current
-        )
-        return
-      }
       setScrollCues(current => {
         const next = getScrollCues(node)
         return next.up === current.up && next.down === current.down
@@ -299,7 +222,6 @@ const ExamplesSwitcher = ({
     update()
     node.addEventListener('scroll', schedule, { passive: true })
     window.addEventListener('resize', schedule)
-    mq.addEventListener('change', schedule)
     const observer =
       typeof window.ResizeObserver !== 'undefined'
         ? new window.ResizeObserver(schedule)
@@ -309,7 +231,6 @@ const ExamplesSwitcher = ({
       if (frame !== undefined) window.cancelAnimationFrame(frame)
       node.removeEventListener('scroll', schedule)
       window.removeEventListener('resize', schedule)
-      mq.removeEventListener('change', schedule)
       observer?.disconnect()
     }
   }, [panels, visibleTabs, viewportHeight])
@@ -356,62 +277,12 @@ const ExamplesSwitcher = ({
         alignItems: ['start', 'start', 'stretch', 'stretch']
       })}
     >
-      <Box
-        css={theme({
-          display: ['block', 'block', 'none', 'none'],
-          position: 'relative',
-          minWidth: 0,
-          bg: 'pinkest',
-          border: 1,
-          borderColor: 'secondary',
-          borderRadius: 3,
-          boxShadow: `inset 0 0 0 1px ${colors.secondary}`,
-          p: 3,
-          textAlign: 'left'
-        })}
-      >
-        <Box css={theme({ position: 'relative', mb: 1 })}>
-          <MobileSelect
-            aria-label='Choose an SDK example'
-            value={active.id}
-            onChange={event => {
-              const index = panels.findIndex(
-                panel => panel.id === event.target.value
-              )
-              selectIndex(index)
-            }}
-            onFocus={() => setSelectFocused(true)}
-            onBlur={() => setSelectFocused(false)}
-          >
-            {panels.map(panel => (
-              <option key={panel.id} value={panel.id}>
-                {panel.title}
-              </option>
-            ))}
-          </MobileSelect>
-          <Flex
-            aria-hidden
-            css={theme({
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              bottom: 0,
-              alignItems: 'center',
-              color: 'black',
-              pointerEvents: 'none'
-            })}
-          >
-            {selectFocused
-              ? (
-                <ChevronUp size={18} strokeWidth={2.25} />
-                )
-              : (
-                <ChevronDown size={18} strokeWidth={2.25} />
-                )}
-          </Flex>
-        </Box>
-        <Text css={TAB_DESCRIPTION_STYLE}>{active.description}</Text>
-      </Box>
+      <ExamplesSelect
+        panels={panels}
+        active={active}
+        label={selectLabel}
+        onSelect={selectIndex}
+      />
 
       <Box
         css={theme({
