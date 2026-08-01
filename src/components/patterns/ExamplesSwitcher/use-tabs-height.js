@@ -2,33 +2,28 @@ import { useLayoutEffect, useState } from 'react'
 import { space, toRaw } from 'theme'
 
 import measureVisibleTabsHeight from './measure-tabs-height'
+import observeResize from './observe-resize'
 
 const TAB_GAP_PX = toRaw(space[2])
 
 export default (listRef, panels, visibleTabs) => {
-  const [viewportHeight, setViewportHeight] = useState(null)
+  const [tabsHeight, setTabsHeight] = useState(undefined)
 
   useLayoutEffect(() => {
     const list = listRef.current
     if (!list || !visibleTabs) {
-      setViewportHeight(null)
+      setTabsHeight(undefined)
       return undefined
     }
 
     const update = () => {
-      const next = measureVisibleTabsHeight(list, visibleTabs, TAB_GAP_PX)
-      setViewportHeight(current => (current === next ? current : next))
+      const measured = measureVisibleTabsHeight(list, visibleTabs, TAB_GAP_PX)
+      setTabsHeight(measured ? `${measured}px` : undefined)
     }
 
     update()
-    const observer =
-      typeof window.ResizeObserver !== 'undefined'
-        ? new window.ResizeObserver(update)
-        : null
-    observer?.observe(list)
-    ;[...list.children].forEach(child => observer?.observe(child))
-    return () => observer?.disconnect()
+    return observeResize([list, ...list.children], update)
   }, [panels, visibleTabs])
 
-  return viewportHeight
+  return tabsHeight
 }

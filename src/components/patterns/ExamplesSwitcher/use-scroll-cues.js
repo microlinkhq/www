@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import observeResize from './observe-resize'
+
 const NO_CUES = { up: false, down: false }
 
 const getScrollCues = node => {
@@ -10,7 +12,7 @@ const getScrollCues = node => {
   }
 }
 
-export default (listRef, deps) => {
+export default (listRef, panels) => {
   const [scrollCues, setScrollCues] = useState(NO_CUES)
 
   useEffect(() => {
@@ -32,18 +34,14 @@ export default (listRef, deps) => {
     update()
     node.addEventListener('scroll', schedule, { passive: true })
     window.addEventListener('resize', schedule)
-    const observer =
-      typeof window.ResizeObserver !== 'undefined'
-        ? new window.ResizeObserver(schedule)
-        : null
-    observer?.observe(node)
+    const disconnect = observeResize([node, ...node.children], schedule)
     return () => {
       if (frame !== undefined) window.cancelAnimationFrame(frame)
       node.removeEventListener('scroll', schedule)
       window.removeEventListener('resize', schedule)
-      observer?.disconnect()
+      disconnect()
     }
-  }, deps)
+  }, [panels])
 
   return scrollCues
 }

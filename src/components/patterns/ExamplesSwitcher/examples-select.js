@@ -8,11 +8,11 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 
 import {
-  MOBILE_ONLY,
   SECONDARY_FOCUS_RING,
   TAB_DESCRIPTION_STYLE,
   TAB_TITLE_STYLE
 } from './styles'
+import { MOBILE_ONLY } from './slots'
 
 const Select = styled.select(
   TAB_TITLE_STYLE,

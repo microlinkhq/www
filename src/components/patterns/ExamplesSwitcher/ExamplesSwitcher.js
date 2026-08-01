@@ -11,12 +11,11 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import { prefersReducedMotion } from 'helpers/reduced-motion'
 
 import {
-  DESKTOP_ONLY,
-  onDesktop,
   SECONDARY_FOCUS_RING,
   TAB_DESCRIPTION_STYLE,
   TAB_TITLE_STYLE
 } from './styles'
+import { DESKTOP_ONLY, onDesktop } from './slots'
 import useScrollCues from './use-scroll-cues'
 import useTabsHeight from './use-tabs-height'
 import ExamplesSelect from './examples-select'
@@ -144,20 +143,13 @@ const ExamplesSwitcher = ({
   const listRef = useRef(null)
   const tabRefs = useRef([])
   const [selectedIndex, setSelectedIndex] = useState(0)
-  const viewportHeight = useTabsHeight(listRef, panels, visibleTabs)
-  const scrollCues = useScrollCues(listRef, [
-    panels,
-    visibleTabs,
-    viewportHeight
-  ])
+  const tabsHeight = useTabsHeight(listRef, panels, visibleTabs)
+  const scrollCues = useScrollCues(listRef, panels)
   const activeIndex = panels.length
     ? Math.min(selectedIndex, panels.length - 1)
     : 0
   const active = panels[activeIndex]
-  const tabsHeight = viewportHeight ? `${viewportHeight}px` : undefined
-  const panelHeight = tabsHeight
-    ? onDesktop(tabsHeight, PANEL_HEIGHT)
-    : PANEL_HEIGHT
+  const panelHeight = onDesktop(tabsHeight, PANEL_HEIGHT)
 
   if (!panels.length || !active) return null
 
