@@ -42,7 +42,7 @@ const EnterprisePlanCard = ({ activePlan }) => (
         Tailored to your volume
       </Text>
     </Box>
-    <PlanCheckList as='ul' css={theme({ pt: [3, 3, 4, 4] })}>
+    <PlanCheckList css={theme({ pt: [3, 3, 4, 4] })}>
       <PlanCheck>Everything in Pro</PlanCheck>
       <PlanCheck>
         <Link href='/enterprise'>Custom API endpoint</Link>

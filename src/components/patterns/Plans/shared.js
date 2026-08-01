@@ -47,7 +47,7 @@ export const ProPricingCard = styled(PricingCard)`
   }
 `
 
-export const PlanCheckList = styled(Box)`
+export const PlanCheckList = styled(Box).attrs({ as: 'ul' })`
   ${theme({ m: 0, p: 0 })}
   list-style: none;
 `

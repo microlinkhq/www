@@ -39,7 +39,7 @@ const FreePlanCard = ({ activePlan }) => (
         {FREE_PLAN_RATE_LIMIT} requests per day
       </Text>
     </Box>
-    <PlanCheckList as='ul' css={theme({ pt: [3, 3, 4, 4] })}>
+    <PlanCheckList css={theme({ pt: [3, 3, 4, 4] })}>
       <PlanCheck>{FREE_PLAN_RATE_LIMIT} requests / day</PlanCheck>
       <PlanCheck>
         <Link href='/screenshot'>Screenshot</Link>, <Link href='/pdf'>PDF</Link>

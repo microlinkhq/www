@@ -54,7 +54,7 @@ const ProPlanCard = ({ activePlan, canonicalUrl, stripeKey }) => {
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <PricePicker onChange={setPlan} />
       </Box>
-      <PlanCheckList as='ul' css={theme({ pt: [3, 3, 4, 4] })}>
+      <PlanCheckList css={theme({ pt: [3, 3, 4, 4] })}>
         <PlanCheck>Everything in Free</PlanCheck>
         <PlanCheck>
           <Link href='/features/proxy'>Automatic proxy resolution</Link>
