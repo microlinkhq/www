@@ -138,15 +138,14 @@ export const PlanTagline = ({ children }) => (
 )
 
 export const PlanAction = ({ children }) => (
-  <Box
+  <Flex
     css={theme({
       pt: [4, 4, 5, 5],
       mt: 'auto',
-      display: 'flex',
       justifyContent: 'center',
       fontSize: [1, 1, 2, 2]
     })}
   >
     {children}
-  </Box>
+  </Flex>
 )

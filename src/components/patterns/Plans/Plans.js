@@ -16,8 +16,10 @@ const PLAN_TABS = [
   { id: 'enterprise', node: 'Enterprise' }
 ]
 
+const DEFAULT_PLAN_TAB = 'pro'
+
 const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
-  const [activePlan, setActivePlan] = useState('pro')
+  const [activePlan, setActivePlan] = useState(DEFAULT_PLAN_TAB)
 
   return (
     <Container
@@ -40,7 +42,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
       >
         <Toggle
           aria-label='Pricing plans'
-          defaultValue='pro'
+          defaultValue={DEFAULT_PLAN_TAB}
           onChange={setActivePlan}
           css={theme({ width: 'auto' })}
         >

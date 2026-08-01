@@ -19,8 +19,6 @@ import {
 
 const FREE_PLAN_RATE_LIMIT = 25
 
-const FREE_PLAN_PRICES = { EUR: 0, USD: 0 }
-
 const FreePlanCard = ({ activePlan }) => (
   <PricingCard
     id='panel-free'
@@ -29,7 +27,7 @@ const FreePlanCard = ({ activePlan }) => (
     <PlanName>Free</PlanName>
     <PlanTagline>Try the API in seconds. No card.</PlanTagline>
     <Box css={theme({ pt: [3, 3, 4, 4] })}>
-      <PriceTag prices={FREE_PLAN_PRICES} />
+      <PriceTag prices={0} />
       <Text
         css={theme({
           pt: 2,
