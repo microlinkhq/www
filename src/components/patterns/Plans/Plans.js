@@ -77,6 +77,7 @@ const PlanCheckList = styled(Box)`
 const PlanCheck = ({ children }) => (
   <Flex as='li' css={theme({ alignItems: 'center', gap: 2, pt: 2 })}>
     <FeatherIcon
+      data-icon='check'
       css={theme({
         display: 'inline-flex',
         color: 'pink7',
