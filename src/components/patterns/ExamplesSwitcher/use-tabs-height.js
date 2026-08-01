@@ -19,7 +19,7 @@ const useTabsHeight = (listRef, panels, visibleTabs) => {
     }
 
     update()
-    return observeTabsResize(list, update)
+    return observeTabsResize(list, update, { includeList: false })
   }, [panels, visibleTabs])
 
   return tabsHeight

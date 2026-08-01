@@ -15,7 +15,7 @@ import {
   EXAMPLE_TITLE_STYLE,
   SECONDARY_FOCUS_RING
 } from './styles'
-import { DESKTOP_ONLY, onDesktop } from './slots'
+import { onDesktop } from './slots'
 import useScrollCues from './use-scroll-cues'
 import useTabsHeight from './use-tabs-height'
 import ExamplesSelect from './examples-select'
@@ -201,7 +201,7 @@ const ExamplesSwitcher = ({
 
       <Box
         css={theme({
-          display: DESKTOP_ONLY,
+          display: ['none', 'none', 'block', 'block'],
           position: 'relative',
           minWidth: 0,
           minHeight: 0,

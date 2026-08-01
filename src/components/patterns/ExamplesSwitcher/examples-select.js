@@ -12,7 +12,6 @@ import {
   EXAMPLE_TITLE_STYLE,
   SECONDARY_FOCUS_RING
 } from './styles'
-import { MOBILE_ONLY } from './slots'
 
 const CHEVRON_RESERVE = 4
 
@@ -42,7 +41,7 @@ const Select = styled.select(
 )
 
 const CARD_STYLE = theme({
-  display: MOBILE_ONLY,
+  display: ['block', 'block', 'none', 'none'],
   minWidth: 0,
   bg: 'pinkest',
   border: 1,

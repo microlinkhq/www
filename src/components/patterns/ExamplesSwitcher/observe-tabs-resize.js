@@ -1,6 +1,7 @@
-const observeTabsResize = (list, callback) => {
+const observeTabsResize = (list, callback, { includeList = true } = {}) => {
   const observer = new window.ResizeObserver(callback)
-  ;[list, ...list.children].forEach(node => observer.observe(node))
+  const nodes = includeList ? [list, ...list.children] : [...list.children]
+  nodes.forEach(node => observer.observe(node))
   return () => observer.disconnect()
 }
 
