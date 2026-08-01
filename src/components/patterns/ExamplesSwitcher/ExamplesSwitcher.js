@@ -1,11 +1,5 @@
-import { colors, space, theme, toRaw, transition } from 'theme'
-import React, {
-  useEffect,
-  useId,
-  useLayoutEffect,
-  useRef,
-  useState
-} from 'react'
+import { colors, space, theme, transition } from 'theme'
+import React, { useId, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { ChevronDown, ChevronUp } from 'react-feather'
 
@@ -18,14 +12,15 @@ import { prefersReducedMotion } from 'helpers/reduced-motion'
 
 import {
   DESKTOP_ONLY,
+  onDesktop,
   SECONDARY_FOCUS_RING,
   TAB_DESCRIPTION_STYLE,
   TAB_TITLE_STYLE
 } from './styles'
-import measureVisibleTabsHeight from './measure-tabs-height'
+import useScrollCues from './use-scroll-cues'
+import useTabsHeight from './use-tabs-height'
 import ExamplesSelect from './examples-select'
 
-const TAB_GAP_PX = toRaw(space[2])
 const PANEL_HEIGHT = CodeEditor.height.map(value =>
   value === '100%' ? '360px' : value
 )
@@ -44,11 +39,11 @@ const TabList = styled(Flex).attrs({
     pr: 1,
     scrollSnapType: 'y proximity'
   }),
-  ({ $viewportHeight, $stretch }) => {
-    if ($viewportHeight) {
+  ({ $height, $stretch }) => {
+    if ($height) {
       return css`
-        height: ${$viewportHeight}px;
-        max-height: ${$viewportHeight}px;
+        height: ${$height};
+        max-height: ${$height};
       `
     }
     if ($stretch) {
@@ -138,16 +133,6 @@ const TabCard = styled('button')(
   `
 )
 
-const getScrollCues = node => {
-  if (!node || node.scrollHeight <= node.clientHeight + 2) {
-    return { up: false, down: false }
-  }
-  return {
-    up: node.scrollTop > 2,
-    down: node.scrollTop + node.clientHeight < node.scrollHeight - 2
-  }
-}
-
 const EMPTY_PANELS = []
 
 const ExamplesSwitcher = ({
@@ -159,73 +144,20 @@ const ExamplesSwitcher = ({
   const listRef = useRef(null)
   const tabRefs = useRef([])
   const [selectedIndex, setSelectedIndex] = useState(0)
-  const [scrollCues, setScrollCues] = useState({ up: false, down: false })
-  const [viewportHeight, setViewportHeight] = useState(null)
+  const viewportHeight = useTabsHeight(listRef, panels, visibleTabs)
+  const scrollCues = useScrollCues(listRef, [
+    panels,
+    visibleTabs,
+    viewportHeight
+  ])
   const activeIndex = panels.length
     ? Math.min(selectedIndex, panels.length - 1)
     : 0
   const active = panels[activeIndex]
-  const tabsHeight =
-    visibleTabs && viewportHeight ? `${viewportHeight}px` : undefined
+  const tabsHeight = viewportHeight ? `${viewportHeight}px` : undefined
   const panelHeight = tabsHeight
-    ? DESKTOP_ONLY.map((shown, index) =>
-      shown === 'block' ? tabsHeight : PANEL_HEIGHT[index]
-    )
+    ? onDesktop(tabsHeight, PANEL_HEIGHT)
     : PANEL_HEIGHT
-
-  useLayoutEffect(() => {
-    const list = listRef.current
-    if (!list || !visibleTabs) {
-      setViewportHeight(null)
-      return undefined
-    }
-
-    const update = () => {
-      const next = measureVisibleTabsHeight(list, visibleTabs, TAB_GAP_PX)
-      setViewportHeight(current => (current === next ? current : next))
-    }
-
-    update()
-    const observer =
-      typeof window.ResizeObserver !== 'undefined'
-        ? new window.ResizeObserver(update)
-        : null
-    observer?.observe(list)
-    ;[...list.children].forEach(child => observer?.observe(child))
-    return () => observer?.disconnect()
-  }, [panels, visibleTabs])
-
-  useEffect(() => {
-    const node = listRef.current
-    if (!node) return undefined
-    let frame
-    const update = () => {
-      frame = undefined
-      setScrollCues(current => {
-        const next = getScrollCues(node)
-        return next.up === current.up && next.down === current.down
-          ? current
-          : next
-      })
-    }
-    const schedule = () => {
-      if (frame === undefined) frame = window.requestAnimationFrame(update)
-    }
-    update()
-    node.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
-    const observer =
-      typeof window.ResizeObserver !== 'undefined'
-        ? new window.ResizeObserver(schedule)
-        : null
-    observer?.observe(node)
-    return () => {
-      if (frame !== undefined) window.cancelAnimationFrame(frame)
-      node.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
-      observer?.disconnect()
-    }
-  }, [panels, visibleTabs, viewportHeight])
 
   if (!panels.length || !active) return null
 
@@ -284,11 +216,7 @@ const ExamplesSwitcher = ({
           height: tabsHeight
         })}
       >
-        <TabList
-          ref={listRef}
-          $viewportHeight={viewportHeight}
-          $stretch={!visibleTabs}
-        >
+        <TabList ref={listRef} $height={tabsHeight} $stretch={!visibleTabs}>
           {panels.map((panel, index) => {
             const selected = index === activeIndex
             const tabId = `${baseId}-tab-${panel.id}`
