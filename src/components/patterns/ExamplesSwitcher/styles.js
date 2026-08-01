@@ -1,10 +1,23 @@
 import { colors, theme } from 'theme'
 import { css } from 'styled-components'
 
+export const MOBILE_ONLY = ['block', 'block', 'none', 'none']
+export const DESKTOP_ONLY = ['none', 'none', 'block', 'block']
+
 export const FOCUS_RING = css`
   outline: 2px solid ${colors.secondary};
   outline-offset: 2px;
 `
+
+export const TAB_TITLE_STYLE = theme({
+  fontFamily: 'sans',
+  fontWeight: 'bold',
+  fontSize: 1,
+  lineHeight: 2,
+  color: 'black',
+  pb: 1,
+  m: 0
+})
 
 export const TAB_DESCRIPTION_STYLE = {
   ...theme({

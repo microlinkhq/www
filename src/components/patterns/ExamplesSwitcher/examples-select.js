@@ -7,13 +7,18 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 
-import { FOCUS_RING, TAB_DESCRIPTION_STYLE } from './styles'
+import {
+  FOCUS_RING,
+  MOBILE_ONLY,
+  TAB_DESCRIPTION_STYLE,
+  TAB_TITLE_STYLE
+} from './styles'
 
 const SELECT_LABEL = 'Choose an example'
 
 const Card = styled(Box)(
   theme({
-    display: ['block', 'block', 'none', 'none'],
+    display: MOBILE_ONLY,
     minWidth: 0,
     bg: 'pinkest',
     border: 1,
@@ -26,20 +31,17 @@ const Card = styled(Box)(
 )
 
 const Select = styled.select(
+  TAB_TITLE_STYLE,
   theme({
     appearance: 'none',
     cursor: 'pointer',
     touchAction: 'manipulation',
     width: '100%',
     bg: 'pinkest',
+    color: 'black',
     border: 0,
     borderRadius: 0,
     boxShadow: 'none',
-    fontFamily: 'sans',
-    fontWeight: 'bold',
-    fontSize: 1,
-    lineHeight: 2,
-    color: 'black',
     py: 0,
     pl: 0,
     pr: '28px',

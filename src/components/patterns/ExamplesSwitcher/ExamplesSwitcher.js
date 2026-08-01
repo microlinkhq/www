@@ -16,18 +16,13 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
 import { prefersReducedMotion } from 'helpers/reduced-motion'
 
-import { FOCUS_RING, TAB_DESCRIPTION_STYLE } from './styles'
+import {
+  DESKTOP_ONLY,
+  FOCUS_RING,
+  TAB_DESCRIPTION_STYLE,
+  TAB_TITLE_STYLE
+} from './styles'
 import ExamplesSelect from './examples-select'
-
-const TAB_TITLE_STYLE = theme({
-  fontFamily: 'sans',
-  fontWeight: 'bold',
-  fontSize: 1,
-  lineHeight: 2,
-  color: 'black',
-  pb: 1,
-  m: 0
-})
 
 const TAB_GAP_PX = Number.parseInt(space[2], 10)
 const PANEL_HEIGHT = CodeEditor.height.map(value =>
@@ -161,7 +156,7 @@ const measureVisibleTabsHeight = (list, visibleTabs) => {
     height += items[index].offsetHeight
     if (index < count - 1) height += TAB_GAP_PX
   }
-  return height || null
+  return height
 }
 
 const EMPTY_PANELS = []
@@ -289,7 +284,7 @@ const ExamplesSwitcher = ({
 
       <Box
         css={theme({
-          display: ['none', 'none', 'block', 'block'],
+          display: DESKTOP_ONLY,
           position: 'relative',
           minWidth: 0,
           minHeight: 0,
