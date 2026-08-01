@@ -14,6 +14,8 @@ import {
 } from './styles'
 import { MOBILE_ONLY } from './slots'
 
+const CHEVRON_RESERVE = 4
+
 const Select = styled.select(
   EXAMPLE_TITLE_STYLE,
   theme({
@@ -27,7 +29,7 @@ const Select = styled.select(
     borderRadius: 0,
     boxShadow: 'none',
     p: 0,
-    pr: '28px',
+    pr: CHEVRON_RESERVE,
     m: 0
   }),
   css`
@@ -58,7 +60,9 @@ const CHEVRON_STYLE = theme({
   top: 0,
   right: 0,
   bottom: 0,
+  width: CHEVRON_RESERVE,
   alignItems: 'center',
+  justifyContent: 'flex-end',
   color: 'black',
   pointerEvents: 'none'
 })

@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react'
 import observeTabsResize from './observe-tabs-resize'
 
 const NO_CUES = { up: false, down: false }
+const EDGE_TOLERANCE = 2
 
 const getScrollCues = node => {
-  if (node.scrollHeight <= node.clientHeight + 2) return NO_CUES
+  if (node.scrollHeight <= node.clientHeight + EDGE_TOLERANCE) return NO_CUES
   return {
-    up: node.scrollTop > 2,
-    down: node.scrollTop + node.clientHeight < node.scrollHeight - 2
+    up: node.scrollTop > EDGE_TOLERANCE,
+    down:
+      node.scrollTop + node.clientHeight < node.scrollHeight - EDGE_TOLERANCE
   }
 }
 
