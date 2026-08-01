@@ -168,7 +168,9 @@ const ExamplesSwitcher = ({
   const tabsHeight =
     visibleTabs && viewportHeight ? `${viewportHeight}px` : undefined
   const panelHeight = tabsHeight
-    ? [PANEL_HEIGHT[0], PANEL_HEIGHT[1], tabsHeight, tabsHeight]
+    ? DESKTOP_ONLY.map((shown, index) =>
+      shown === 'block' ? tabsHeight : PANEL_HEIGHT[index]
+    )
     : PANEL_HEIGHT
 
   useLayoutEffect(() => {
@@ -279,8 +281,7 @@ const ExamplesSwitcher = ({
           position: 'relative',
           minWidth: 0,
           minHeight: 0,
-          height: tabsHeight,
-          alignSelf: 'stretch'
+          height: tabsHeight
         })}
       >
         <TabList
