@@ -9,12 +9,22 @@ import Highlight from 'components/elements/Highlight'
 import { Link } from 'components/elements/Link'
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import Text from 'components/elements/Text'
+import Toggle from 'components/elements/Toggle/Toggle'
 import FeatherIcon from 'components/icons/Feather'
 import { useCurrencyContext } from 'components/hook/use-currency'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Checkout from 'components/patterns/Checkout'
 import { colors, gradient, layout, theme } from 'theme'
+
+const PLAN_TABS = [
+  { id: 'free', node: 'Free' },
+  { id: 'pro', node: 'Pro' },
+  { id: 'enterprise', node: 'Enterprise' }
+]
+
+const planDisplay = (activePlan, id) =>
+  activePlan === id ? 'flex' : ['none', 'none', 'flex', 'flex']
 
 const FREE_PLAN_RATE_LIMIT = 25
 
@@ -69,9 +79,15 @@ const ProPricingCard = styled(PricingCard)`
   }
 `
 
+const PlanCheckList = styled(Box)`
+  ${theme({ m: 0, p: 0 })}
+  list-style: none;
+`
+
 const PlanCheck = ({ children }) => (
-  <Flex css={theme({ alignItems: 'center', gap: 2, pt: 2 })}>
+  <Flex as='li' css={theme({ alignItems: 'center', gap: 2, pt: 2 })}>
     <FeatherIcon
+      data-icon='check'
       css={theme({
         display: 'inline-flex',
         color: 'pink7',
@@ -133,7 +149,7 @@ const PriceTag = ({ prices, suffix = '/month', highlight = false }) => {
       >
         {amountNode}
       </Text>
-      <Text css={theme({ fontSize: [0, 0, 1, 1], color: 'black70' })}>
+      <Text as='span' css={theme({ fontSize: [0, 0, 1, 1], color: 'black70' })}>
         {suffix}
       </Text>
     </Flex>
@@ -142,6 +158,7 @@ const PriceTag = ({ prices, suffix = '/month', highlight = false }) => {
 
 const PlanName = ({ children }) => (
   <Text
+    as='h3'
     css={theme({
       fontSize: ['20px', '20px', '24px', '24px'],
       fontWeight: 'bold',
@@ -155,6 +172,7 @@ const PlanName = ({ children }) => (
 
 const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
   const [plan, setPlan] = useState(DEFAULT_PLAN)
+  const [activePlan, setActivePlan] = useState('pro')
   const [currency] = useCurrencyContext()
   const { monthlyPrice, id: planId, reqsPerMonth } = plan
   const reqsPerMonthNumber = Number(reqsPerMonth.replace(/,/g, ''))
@@ -176,6 +194,23 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
     >
       <Flex
         css={theme({
+          display: ['flex', 'flex', 'none', 'none'],
+          justifyContent: 'center',
+          pb: 4,
+          width: '100%'
+        })}
+      >
+        <Toggle
+          aria-label='Pricing plans'
+          defaultValue='pro'
+          onChange={setActivePlan}
+          css={theme({ width: 'auto' })}
+        >
+          {PLAN_TABS}
+        </Toggle>
+      </Flex>
+      <Flex
+        css={theme({
           flexDirection: ['column', 'column', 'row', 'row'],
           alignItems: ['stretch', 'stretch', 'flex-start', 'flex-start'],
           justifyContent: 'center',
@@ -183,7 +218,70 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
           width: '100%'
         })}
       >
-        <ProPricingCard css={theme({ order: [1, 1, 2, 2] })}>
+        <PricingCard
+          id='panel-free'
+          css={theme({ display: planDisplay(activePlan, 'free') })}
+        >
+          <PlanName>Free</PlanName>
+          <Text
+            css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black70' })}
+          >
+            Try the API in seconds. No card.
+          </Text>
+          <Box css={theme({ pt: [3, 3, 4, 4] })}>
+            <PriceTag prices={{ EUR: 0, USD: 0 }} />
+            <Text
+              css={theme({
+                pt: 2,
+                fontSize: 0,
+                color: 'black70',
+                fontVariantNumeric: 'tabular-nums'
+              })}
+            >
+              {FREE_PLAN_RATE_LIMIT} requests per day
+            </Text>
+          </Box>
+          <PlanCheckList as='ul' css={theme({ pt: [3, 3, 4, 4] })}>
+            <PlanCheck>{FREE_PLAN_RATE_LIMIT} requests / day</PlanCheck>
+            <PlanCheck>
+              <Link href='/screenshot'>Screenshot</Link>,{' '}
+              <Link href='/pdf'>PDF</Link>,{' '}
+              <Link href='/integrations/sdk'>SDK</Link>
+            </PlanCheck>
+            <PlanCheck>
+              <Link href='/metadata'>Metadata</Link>,{' '}
+              <Link href='/logo'>Logo</Link>,{' '}
+              <Link href='/insights'>Insights</Link>
+            </PlanCheck>
+            <PlanCheck>
+              <Link href='/blog/edge-cdn'>Global edge cache</Link>
+            </PlanCheck>
+            <PlanCheck>
+              <Link href='/docs/api/parameters/adblock'>
+                Adblock & cookie banners
+              </Link>
+            </PlanCheck>
+            <PlanCheck>
+              <Link href='/community'>Community support</Link>
+            </PlanCheck>
+          </PlanCheckList>
+          <Box
+            css={theme({
+              pt: [4, 4, 5, 5],
+              mt: 'auto',
+              display: 'flex',
+              justifyContent: 'center',
+              fontSize: [1, 1, 2, 2]
+            })}
+          >
+            <ArrowLink href='/docs/guides'>Get started free</ArrowLink>
+          </Box>
+        </PricingCard>
+
+        <ProPricingCard
+          id='panel-pro'
+          css={theme({ display: planDisplay(activePlan, 'pro') })}
+        >
           <PlanName>Pro</PlanName>
           <Text
             css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black70' })}
@@ -208,7 +306,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
           <Box css={theme({ pt: [3, 3, 4, 4] })}>
             <PricePicker onChange={setPlan} />
           </Box>
-          <Box css={theme({ pt: [3, 3, 4, 4] })}>
+          <PlanCheckList as='ul' css={theme({ pt: [3, 3, 4, 4] })}>
             <PlanCheck>Everything in Free</PlanCheck>
             <PlanCheck>
               <Link href='/features/proxy'>Automatic proxy resolution</Link>
@@ -223,7 +321,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
               <Link href='/docs/api/parameters/cacheKey'>Custom cache key</Link>
             </PlanCheck>
             <PlanCheck>Priority email support</PlanCheck>
-          </Box>
+          </PlanCheckList>
           <Box css={theme({ pt: [4, 4, 5, 5], mt: 'auto' })}>
             <Checkout
               variant='gradient'
@@ -245,64 +343,10 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
           </Box>
         </ProPricingCard>
 
-        <PricingCard css={theme({ order: [2, 2, 1, 1] })}>
-          <PlanName>Free</PlanName>
-          <Text
-            css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black70' })}
-          >
-            Try the API in seconds. No card.
-          </Text>
-          <Box css={theme({ pt: [3, 3, 4, 4] })}>
-            <PriceTag prices={{ EUR: 0, USD: 0 }} />
-            <Text
-              css={theme({
-                pt: 2,
-                fontSize: 0,
-                color: 'black70',
-                fontVariantNumeric: 'tabular-nums'
-              })}
-            >
-              {FREE_PLAN_RATE_LIMIT} requests per day
-            </Text>
-          </Box>
-          <Box css={theme({ pt: [3, 3, 4, 4] })}>
-            <PlanCheck>{FREE_PLAN_RATE_LIMIT} requests / day</PlanCheck>
-            <PlanCheck>
-              <Link href='/screenshot'>Screenshot</Link>,{' '}
-              <Link href='/pdf'>PDF</Link>,{' '}
-              <Link href='/integrations/sdk'>SDK</Link>
-            </PlanCheck>
-            <PlanCheck>
-              <Link href='/metadata'>Metadata</Link>,{' '}
-              <Link href='/logo'>Logo</Link>,{' '}
-              <Link href='/insights'>Insights</Link>
-            </PlanCheck>
-            <PlanCheck>
-              <Link href='/blog/edge-cdn'>Global edge cache</Link>
-            </PlanCheck>
-            <PlanCheck>
-              <Link href='/docs/api/parameters/adblock'>
-                Adblock & cookie banners
-              </Link>
-            </PlanCheck>
-            <PlanCheck>
-              <Link href='/community'>Community support</Link>
-            </PlanCheck>
-          </Box>
-          <Box
-            css={theme({
-              pt: [4, 4, 5, 5],
-              mt: 'auto',
-              display: 'flex',
-              justifyContent: 'center',
-              fontSize: [1, 1, 2, 2]
-            })}
-          >
-            <ArrowLink href='/docs/guides'>Get started free</ArrowLink>
-          </Box>
-        </PricingCard>
-
-        <PricingCard css={theme({ order: 3 })}>
+        <PricingCard
+          id='panel-enterprise'
+          css={theme({ display: planDisplay(activePlan, 'enterprise') })}
+        >
           <PlanName>Enterprise</PlanName>
           <Text
             css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black70' })}
@@ -327,7 +371,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
               Tailored to your volume
             </Text>
           </Box>
-          <Box css={theme({ pt: [3, 3, 4, 4] })}>
+          <PlanCheckList as='ul' css={theme({ pt: [3, 3, 4, 4] })}>
             <PlanCheck>Everything in Pro</PlanCheck>
             <PlanCheck>
               <Link href='/enterprise'>Custom API endpoint</Link>
@@ -339,7 +383,7 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
               <Link href='/enterprise'>S3-like storage integration</Link>
             </PlanCheck>
             <PlanCheck>Custom SLA & DPA available</PlanCheck>
-          </Box>
+          </PlanCheckList>
           <Box
             css={theme({
               pt: [4, 4, 5, 5],
