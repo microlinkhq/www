@@ -10,16 +10,14 @@ import FeatherIcon from 'components/icons/Feather'
 import { useCurrencyContext } from 'components/hook/use-currency'
 import { colors, gradient, theme } from 'theme'
 
-export const FREE_PLAN_RATE_LIMIT = 25
-
 export const CURRENCIES = {
-  USD: { code: 'USD', symbol: '$', label: 'USD', word: 'dollars' },
-  EUR: { code: 'EUR', symbol: '€', label: 'EUR', word: 'euros' }
+  USD: { symbol: '$', word: 'dollars' },
+  EUR: { symbol: '€', word: 'euros' }
 }
 
-export const formatPrice = (prices, currencyCode, { decimals = 0 } = {}) => {
+export const formatPrice = (prices, currencyCode) => {
   const value = typeof prices === 'number' ? prices : prices[currencyCode]
-  return value.toFixed(decimals)
+  return value.toFixed(0)
 }
 
 export const planDisplay = (activePlan, id) =>
@@ -72,18 +70,11 @@ export const PlanCheck = ({ children }) => (
   </Flex>
 )
 
-export const PriceTag = ({ prices, suffix = '/month', highlight = false }) => {
+export const PriceTag = ({ prices, highlight = false }) => {
   const [currency] = useCurrencyContext()
   const { symbol, word } = CURRENCIES[currency]
   const amount = formatPrice(prices, currency)
   const ariaLabel = `${amount} ${word} per month`
-  const amountNode = highlight
-    ? (
-      <Highlight as='span'>{amount}</Highlight>
-      )
-    : (
-        amount
-      )
 
   return (
     <Flex
@@ -117,10 +108,10 @@ export const PriceTag = ({ prices, suffix = '/month', highlight = false }) => {
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {amountNode}
+        {highlight ? <Highlight as='span'>{amount}</Highlight> : amount}
       </Text>
       <Text as='span' css={theme({ fontSize: [0, 0, 1, 1], color: 'black70' })}>
-        {suffix}
+        /month
       </Text>
     </Flex>
   )

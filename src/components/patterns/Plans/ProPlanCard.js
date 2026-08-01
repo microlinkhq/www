@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Box from 'components/elements/Box'
 import { Link } from 'components/elements/Link'
-import PricePicker from 'components/elements/PricePicker'
+import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import Text from 'components/elements/Text'
 import { useCurrencyContext } from 'components/hook/use-currency'
 import Checkout from 'components/patterns/Checkout'
@@ -19,18 +19,14 @@ import {
   planDisplay
 } from './shared'
 
-const ProPlanCard = ({
-  activePlan,
-  plan,
-  onPlanChange,
-  canonicalUrl,
-  stripeKey
-}) => {
+const ProPlanCard = ({ activePlan, canonicalUrl, stripeKey }) => {
+  const [plan, setPlan] = useState(DEFAULT_PLAN)
   const [currency] = useCurrencyContext()
-  const { monthlyPrice, id: planId, reqsPerMonth } = plan
-  const reqsPerMonthNumber = Number(reqsPerMonth.replace(/,/g, ''))
-  const pricePer1k = monthlyPrice[currency] / (reqsPerMonthNumber / 1000)
-  const pricePer1kDisplay = pricePer1k.toFixed(2)
+  const { monthlyPrice, id: planId, reqsPerMonthTotal } = plan
+  const pricePer1k = (
+    monthlyPrice[currency] /
+    (reqsPerMonthTotal / 1000)
+  ).toFixed(2)
   const { symbol: currencySymbol } = CURRENCIES[currency]
 
   return (
@@ -52,11 +48,11 @@ const ProPlanCard = ({
           })}
         >
           ≈ {currencySymbol}
-          {pricePer1kDisplay} per 1,000 requests
+          {pricePer1k} per 1,000 requests
         </Text>
       </Box>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
-        <PricePicker onChange={onPlanChange} />
+        <PricePicker onChange={setPlan} />
       </Box>
       <PlanCheckList as='ul' css={theme({ pt: [3, 3, 4, 4] })}>
         <PlanCheck>Everything in Free</PlanCheck>

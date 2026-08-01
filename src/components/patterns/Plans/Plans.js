@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import Toggle from 'components/elements/Toggle/Toggle'
 import { theme } from 'theme'
 
@@ -11,8 +10,6 @@ import FreePlanCard from './FreePlanCard'
 import PlansFooter from './PlansFooter'
 import ProPlanCard from './ProPlanCard'
 
-export { CURRENCIES, formatPrice } from './shared'
-
 const PLAN_TABS = [
   { id: 'free', node: 'Free' },
   { id: 'pro', node: 'Pro' },
@@ -20,7 +17,6 @@ const PLAN_TABS = [
 ]
 
 const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
-  const [plan, setPlan] = useState(DEFAULT_PLAN)
   const [activePlan, setActivePlan] = useState('pro')
 
   return (
@@ -63,8 +59,6 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
         <FreePlanCard activePlan={activePlan} />
         <ProPlanCard
           activePlan={activePlan}
-          plan={plan}
-          onPlanChange={setPlan}
           canonicalUrl={canonicalUrl}
           stripeKey={stripeKey}
         />

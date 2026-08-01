@@ -5,16 +5,10 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { formatCompactNumber } from 'helpers/format-number'
 import { colors, layout, theme } from 'theme'
 
-const COMPACT_NUMBER_FORMATTER = new Intl.NumberFormat('en-US', {
-  notation: 'compact',
-  maximumFractionDigits: 1
-})
-
-const formatCompact = n => COMPACT_NUMBER_FORMATTER.format(n).toLowerCase()
-
-const Dot = () => (
+const Separator = () => (
   <Text
     as='span'
     aria-hidden='true'
@@ -67,10 +61,10 @@ const PlansFooter = ({ footer }) => {
             letterSpacing: 1
           })}
         >
-          <Stat value={formatCompact(totalStars)}>GitHub stars</Stat>
-          <Dot />
+          <Stat value={formatCompactNumber(totalStars)}>GitHub stars</Stat>
+          <Separator />
           <Stat value='641M+'>requests last month</Stat>
-          <Dot />
+          <Separator />
           <Stat value='99.9%'>SLA</Stat>
         </Flex>
       )}

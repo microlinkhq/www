@@ -23,6 +23,7 @@ const createReqsLabels = reqsPerDay => {
 
   return {
     reqsPerMonth,
+    reqsPerMonthTotal: total,
     reqsPerMonthPretty,
     monthlyPrice: calculateMonthlyPrice(reqsPerDay)
   }
@@ -35,6 +36,7 @@ const overrideReqsPerMonth = (plan, reqsPerMonth) => {
   return {
     ...plan,
     reqsPerMonth,
+    reqsPerMonthTotal: total,
     reqsPerMonthPretty: `${formatNumber(pretty)}K`,
     monthlyPrice: calculateMonthlyPrice(reqsPerDay)
   }

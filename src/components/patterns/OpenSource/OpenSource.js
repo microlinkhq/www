@@ -25,6 +25,8 @@ import Text from 'components/elements/Text'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Caption from 'components/patterns/Caption/Caption'
 
+import { formatCompactNumber } from 'helpers/format-number'
+
 import ossData from '../../../../data/oss.json'
 
 const LAYOUT = {
@@ -33,14 +35,6 @@ const LAYOUT = {
   secondaryWidth: '45%',
   gap: [3, 3, 4, 5]
 }
-
-const COMPACT_NUMBER_FORMATTER = new Intl.NumberFormat('en-US', {
-  notation: 'compact',
-  maximumFractionDigits: 1
-})
-
-const formatCompactCount = number =>
-  COMPACT_NUMBER_FORMATTER.format(number).toLowerCase()
 
 const LANGUAGE_COLORS = {
   JavaScript: '#f1e05a',
@@ -75,7 +69,7 @@ export const getRepoStars = name => REPOS_BY_NAME.get(name)?.stars
 
 export const OSS_STATS = {
   repos: ossData.length,
-  stars: formatCompactCount(
+  stars: formatCompactNumber(
     ossData.reduce((total, { stars }) => total + stars, 0)
   )
 }
@@ -239,7 +233,7 @@ const RepoCardItem = ({ repo, tile, primary, ...props }) => (
       </Flex>
       <Flex css={theme({ alignItems: 'center', gap: 1 })}>
         <StarIcon size={primary ? 16 : 14} aria-hidden='true' />
-        {formatCompactCount(repo.stars)}
+        {formatCompactNumber(repo.stars)}
       </Flex>
     </RepoMeta>
   </RepoCard>

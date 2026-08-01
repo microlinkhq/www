@@ -7,7 +7,6 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import { theme } from 'theme'
 
 import {
-  FREE_PLAN_RATE_LIMIT,
   PlanAction,
   PlanCheck,
   PlanCheckList,
@@ -18,6 +17,10 @@ import {
   planDisplay
 } from './shared'
 
+const FREE_PLAN_RATE_LIMIT = 25
+
+const FREE_PLAN_PRICES = { EUR: 0, USD: 0 }
+
 const FreePlanCard = ({ activePlan }) => (
   <PricingCard
     id='panel-free'
@@ -26,7 +29,7 @@ const FreePlanCard = ({ activePlan }) => (
     <PlanName>Free</PlanName>
     <PlanTagline>Try the API in seconds. No card.</PlanTagline>
     <Box css={theme({ pt: [3, 3, 4, 4] })}>
-      <PriceTag prices={{ EUR: 0, USD: 0 }} />
+      <PriceTag prices={FREE_PLAN_PRICES} />
       <Text
         css={theme({
           pt: 2,
