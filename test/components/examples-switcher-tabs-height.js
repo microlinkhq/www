@@ -16,14 +16,6 @@ const list = (offsetHeights, startsAt = 40) => {
   }
 }
 
-const hiddenList = count => ({
-  offsetParent: null,
-  children: Array.from({ length: count }, () => ({
-    offsetTop: 0,
-    offsetHeight: 0
-  }))
-})
-
 describe('ExamplesSwitcher tab height measurement', () => {
   test('spans the visible tabs including the spacing between them', () => {
     expect(measureTabsHeight(list([100, 100, 100]), 3)).toBe(316)
@@ -40,7 +32,8 @@ describe('ExamplesSwitcher tab height measurement', () => {
   })
 
   test('returns null when there is nothing laid out to measure', () => {
-    expect(measureTabsHeight(hiddenList(5), 5)).toBe(null)
+    const hidden = { ...list([100, 100]), offsetParent: null }
+    expect(measureTabsHeight(hidden, 5)).toBe(null)
     expect(measureTabsHeight(list([]), 5)).toBe(null)
   })
 })

@@ -6,7 +6,7 @@ import {
   onDesktop
 } from '../../src/components/patterns/ExamplesSwitcher/slots'
 
-const PANEL_HEIGHT = ['360px', '48%', '68%', '68%']
+const SLOT_VALUES = ['a', 'b', 'c', 'd']
 
 describe('ExamplesSwitcher breakpoint slots', () => {
   test('shows each branch on exactly one side of the boundary', () => {
@@ -15,15 +15,10 @@ describe('ExamplesSwitcher breakpoint slots', () => {
   })
 
   test('overrides only the desktop slots', () => {
-    expect(onDesktop('320px', PANEL_HEIGHT)).toEqual([
-      '360px',
-      '48%',
-      '320px',
-      '320px'
-    ])
+    expect(onDesktop('z', SLOT_VALUES)).toEqual(['a', 'b', 'z', 'z'])
   })
 
   test('falls back to every mobile value when there is no override', () => {
-    expect(onDesktop(undefined, PANEL_HEIGHT)).toEqual(PANEL_HEIGHT)
+    expect(onDesktop(undefined, SLOT_VALUES)).toEqual(SLOT_VALUES)
   })
 })
