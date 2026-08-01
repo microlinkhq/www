@@ -9,12 +9,22 @@ import Highlight from 'components/elements/Highlight'
 import { Link } from 'components/elements/Link'
 import PricePicker, { DEFAULT_PLAN } from 'components/elements/PricePicker'
 import Text from 'components/elements/Text'
+import Toggle from 'components/elements/Toggle/Toggle'
 import FeatherIcon from 'components/icons/Feather'
 import { useCurrencyContext } from 'components/hook/use-currency'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Checkout from 'components/patterns/Checkout'
 import { colors, gradient, layout, theme } from 'theme'
+
+const PLAN_TABS = [
+  { id: 'free', node: 'Free' },
+  { id: 'pro', node: 'Pro' },
+  { id: 'enterprise', node: 'Enterprise' }
+]
+
+const planDisplay = (activePlan, id) =>
+  activePlan === id ? 'flex' : ['none', 'none', 'flex', 'flex']
 
 const FREE_PLAN_RATE_LIMIT = 25
 
@@ -162,6 +172,7 @@ const PlanName = ({ children }) => (
 
 const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
   const [plan, setPlan] = useState(DEFAULT_PLAN)
+  const [activePlan, setActivePlan] = useState('pro')
   const [currency] = useCurrencyContext()
   const { monthlyPrice, id: planId, reqsPerMonth } = plan
   const reqsPerMonthNumber = Number(reqsPerMonth.replace(/,/g, ''))
@@ -183,6 +194,23 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
     >
       <Flex
         css={theme({
+          display: ['flex', 'flex', 'none', 'none'],
+          justifyContent: 'center',
+          pb: 4,
+          width: '100%'
+        })}
+      >
+        <Toggle
+          aria-label='Pricing plans'
+          defaultValue='pro'
+          onChange={setActivePlan}
+          css={theme({ width: 'auto' })}
+        >
+          {PLAN_TABS}
+        </Toggle>
+      </Flex>
+      <Flex
+        css={theme({
           flexDirection: ['column', 'column', 'row', 'row'],
           alignItems: ['stretch', 'stretch', 'flex-start', 'flex-start'],
           justifyContent: 'center',
@@ -190,7 +218,10 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
           width: '100%'
         })}
       >
-        <PricingCard css={theme({ order: [2, 2, 1, 1] })}>
+        <PricingCard
+          id='panel-free'
+          css={theme({ display: planDisplay(activePlan, 'free') })}
+        >
           <PlanName>Free</PlanName>
           <Text
             css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black70' })}
@@ -247,7 +278,10 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
           </Box>
         </PricingCard>
 
-        <ProPricingCard css={theme({ order: [1, 1, 2, 2] })}>
+        <ProPricingCard
+          id='panel-pro'
+          css={theme({ display: planDisplay(activePlan, 'pro') })}
+        >
           <PlanName>Pro</PlanName>
           <Text
             css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black70' })}
@@ -309,7 +343,10 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
           </Box>
         </ProPricingCard>
 
-        <PricingCard css={theme({ order: 3 })}>
+        <PricingCard
+          id='panel-enterprise'
+          css={theme({ display: planDisplay(activePlan, 'enterprise') })}
+        >
           <PlanName>Enterprise</PlanName>
           <Text
             css={theme({ pt: 2, fontSize: [1, 1, 2, 2], color: 'black70' })}
