@@ -33,12 +33,10 @@ export default (listRef, panels) => {
     }
     update()
     node.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
     const disconnect = observeTabsResize(node, schedule)
     return () => {
       if (frame !== undefined) window.cancelAnimationFrame(frame)
       node.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
       disconnect()
     }
   }, [panels])

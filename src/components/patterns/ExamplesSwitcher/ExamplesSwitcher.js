@@ -11,9 +11,9 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import { prefersReducedMotion } from 'helpers/reduced-motion'
 
 import {
-  SECONDARY_FOCUS_RING,
-  TAB_DESCRIPTION_STYLE,
-  TAB_TITLE_STYLE
+  EXAMPLE_DESCRIPTION_STYLE,
+  EXAMPLE_TITLE_STYLE,
+  SECONDARY_FOCUS_RING
 } from './styles'
 import { DESKTOP_ONLY, onDesktop } from './slots'
 import useScrollCues from './use-scroll-cues'
@@ -228,10 +228,10 @@ const ExamplesSwitcher = ({
                 onClick={() => selectIndex(index)}
                 onKeyDown={event => onKeyDown(event, index)}
               >
-                <Text pb={1} css={TAB_TITLE_STYLE}>
+                <Text pb={1} css={EXAMPLE_TITLE_STYLE}>
                   {panel.title}
                 </Text>
-                <Text css={TAB_DESCRIPTION_STYLE}>{panel.description}</Text>
+                <Text css={EXAMPLE_DESCRIPTION_STYLE}>{panel.description}</Text>
               </TabCard>
             )
           })}

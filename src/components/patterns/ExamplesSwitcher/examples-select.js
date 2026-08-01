@@ -8,14 +8,14 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 
 import {
-  SECONDARY_FOCUS_RING,
-  TAB_DESCRIPTION_STYLE,
-  TAB_TITLE_STYLE
+  EXAMPLE_DESCRIPTION_STYLE,
+  EXAMPLE_TITLE_STYLE,
+  SECONDARY_FOCUS_RING
 } from './styles'
 import { MOBILE_ONLY } from './slots'
 
 const Select = styled.select(
-  TAB_TITLE_STYLE,
+  EXAMPLE_TITLE_STYLE,
   theme({
     appearance: 'none',
     cursor: 'pointer',
@@ -81,7 +81,9 @@ const ExamplesSelect = ({ panels, activeIndex, onSelect }) => (
         <ChevronDown size={18} strokeWidth={2.25} />
       </Flex>
     </Box>
-    <Text css={TAB_DESCRIPTION_STYLE}>{panels[activeIndex].description}</Text>
+    <Text css={EXAMPLE_DESCRIPTION_STYLE}>
+      {panels[activeIndex].description}
+    </Text>
   </Box>
 )
 

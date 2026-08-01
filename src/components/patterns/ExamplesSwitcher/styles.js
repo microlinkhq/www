@@ -6,7 +6,7 @@ export const SECONDARY_FOCUS_RING = css`
   outline-offset: 2px;
 `
 
-export const TAB_TITLE_STYLE = theme({
+export const EXAMPLE_TITLE_STYLE = theme({
   fontFamily: 'sans',
   fontWeight: 'bold',
   fontSize: 1,
@@ -14,7 +14,7 @@ export const TAB_TITLE_STYLE = theme({
   color: 'black'
 })
 
-export const TAB_DESCRIPTION_STYLE = {
+export const EXAMPLE_DESCRIPTION_STYLE = {
   ...theme({
     fontFamily: 'sans',
     fontSize: 1,
