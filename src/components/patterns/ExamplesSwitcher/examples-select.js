@@ -27,7 +27,8 @@ const Select = styled.select(
     borderRadius: 0,
     boxShadow: 'none',
     p: 0,
-    pr: '28px'
+    pr: '28px',
+    m: 0
   }),
   css`
     -webkit-tap-highlight-color: transparent;

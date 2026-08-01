@@ -14,9 +14,7 @@ export const TAB_TITLE_STYLE = theme({
   fontWeight: 'bold',
   fontSize: 1,
   lineHeight: 2,
-  color: 'black',
-  pb: 1,
-  m: 0
+  color: 'black'
 })
 
 export const TAB_DESCRIPTION_STYLE = {

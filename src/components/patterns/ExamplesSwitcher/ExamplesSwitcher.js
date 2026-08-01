@@ -1,4 +1,4 @@
-import { colors, space, theme, transition } from 'theme'
+import { colors, space, theme, toRaw, transition } from 'theme'
 import React, {
   useEffect,
   useId,
@@ -25,7 +25,7 @@ import {
 import measureVisibleTabsHeight from './measure-tabs-height'
 import ExamplesSelect from './examples-select'
 
-const TAB_GAP_PX = Number.parseInt(space[2], 10)
+const TAB_GAP_PX = toRaw(space[2])
 const PANEL_HEIGHT = CodeEditor.height.map(value =>
   value === '100%' ? '360px' : value
 )
@@ -167,6 +167,9 @@ const ExamplesSwitcher = ({
   const active = panels[activeIndex]
   const tabsHeight =
     visibleTabs && viewportHeight ? `${viewportHeight}px` : undefined
+  const panelHeight = tabsHeight
+    ? [PANEL_HEIGHT[0], PANEL_HEIGHT[1], tabsHeight, tabsHeight]
+    : PANEL_HEIGHT
 
   useLayoutEffect(() => {
     const list = listRef.current
@@ -304,7 +307,9 @@ const ExamplesSwitcher = ({
                 onClick={() => selectIndex(index)}
                 onKeyDown={event => onKeyDown(event, index)}
               >
-                <Text css={TAB_TITLE_STYLE}>{panel.title}</Text>
+                <Text pb={1} css={TAB_TITLE_STYLE}>
+                  {panel.title}
+                </Text>
                 <Text css={TAB_DESCRIPTION_STYLE}>{panel.description}</Text>
               </TabCard>
             )
@@ -328,8 +333,8 @@ const ExamplesSwitcher = ({
         css={theme({
           minWidth: 0,
           width: '100%',
-          height: tabsHeight || PANEL_HEIGHT,
-          minHeight: tabsHeight || PANEL_HEIGHT
+          height: panelHeight,
+          minHeight: panelHeight
         })}
       >
         <CodeEditor
