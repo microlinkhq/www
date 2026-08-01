@@ -12,7 +12,7 @@ const getScrollCues = node => {
   }
 }
 
-export default (listRef, panels) => {
+const useScrollCues = (listRef, panels) => {
   const [scrollCues, setScrollCues] = useState(NO_CUES)
 
   useEffect(() => {
@@ -43,3 +43,5 @@ export default (listRef, panels) => {
 
   return scrollCues
 }
+
+export default useScrollCues

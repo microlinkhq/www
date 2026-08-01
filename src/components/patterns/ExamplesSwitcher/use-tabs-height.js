@@ -3,7 +3,7 @@ import { useLayoutEffect, useState } from 'react'
 import measureTabsHeight from './measure-tabs-height'
 import observeTabsResize from './observe-tabs-resize'
 
-export default (listRef, panels, visibleTabs) => {
+const useTabsHeight = (listRef, panels, visibleTabs) => {
   const [tabsHeight, setTabsHeight] = useState(undefined)
 
   useLayoutEffect(() => {
@@ -24,3 +24,5 @@ export default (listRef, panels, visibleTabs) => {
 
   return tabsHeight
 }
+
+export default useTabsHeight
