@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from 'react'
 import { space, toRaw } from 'theme'
 
 import measureVisibleTabsHeight from './measure-tabs-height'
-import observeResize from './observe-resize'
+import observeTabsResize from './observe-tabs-resize'
 
 const TAB_GAP_PX = toRaw(space[2])
 
@@ -22,7 +22,7 @@ export default (listRef, panels, visibleTabs) => {
     }
 
     update()
-    return observeResize([list, ...list.children], update)
+    return observeTabsResize(list, update)
   }, [panels, visibleTabs])
 
   return tabsHeight

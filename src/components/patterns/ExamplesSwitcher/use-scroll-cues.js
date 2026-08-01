@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import observeResize from './observe-resize'
+import observeTabsResize from './observe-tabs-resize'
 
 const NO_CUES = { up: false, down: false }
 
@@ -34,7 +34,7 @@ export default (listRef, panels) => {
     update()
     node.addEventListener('scroll', schedule, { passive: true })
     window.addEventListener('resize', schedule)
-    const disconnect = observeResize([node, ...node.children], schedule)
+    const disconnect = observeTabsResize(node, schedule)
     return () => {
       if (frame !== undefined) window.cancelAnimationFrame(frame)
       node.removeEventListener('scroll', schedule)
