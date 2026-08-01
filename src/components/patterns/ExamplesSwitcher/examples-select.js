@@ -8,27 +8,11 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 
 import {
-  FOCUS_RING,
   MOBILE_ONLY,
+  SECONDARY_FOCUS_RING,
   TAB_DESCRIPTION_STYLE,
   TAB_TITLE_STYLE
 } from './styles'
-
-const SELECT_LABEL = 'Choose an example'
-
-const Card = styled(Box)(
-  theme({
-    display: MOBILE_ONLY,
-    minWidth: 0,
-    bg: 'pinkest',
-    border: 1,
-    borderColor: 'secondary',
-    borderRadius: 3,
-    boxShadow: `inset 0 0 0 1px ${colors.secondary}`,
-    p: 3,
-    textAlign: 'left'
-  })
-)
 
 const Select = styled.select(
   TAB_TITLE_STYLE,
@@ -42,18 +26,29 @@ const Select = styled.select(
     border: 0,
     borderRadius: 0,
     boxShadow: 'none',
-    py: 0,
-    pl: 0,
+    p: 0,
     pr: '28px'
   }),
   css`
     -webkit-tap-highlight-color: transparent;
 
     &:focus-visible {
-      ${FOCUS_RING}
+      ${SECONDARY_FOCUS_RING}
     }
   `
 )
+
+const CARD_STYLE = theme({
+  display: MOBILE_ONLY,
+  minWidth: 0,
+  bg: 'pinkest',
+  border: 1,
+  borderColor: 'secondary',
+  borderRadius: 3,
+  boxShadow: `inset 0 0 0 1px ${colors.secondary}`,
+  p: 3,
+  textAlign: 'left'
+})
 
 const FIELD_STYLE = theme({ position: 'relative', mb: 1 })
 
@@ -68,10 +63,10 @@ const CHEVRON_STYLE = theme({
 })
 
 const ExamplesSelect = ({ panels, activeIndex, onSelect }) => (
-  <Card>
+  <Box css={CARD_STYLE}>
     <Box css={FIELD_STYLE}>
       <Select
-        aria-label={SELECT_LABEL}
+        aria-label='Choose an example'
         value={activeIndex}
         onChange={event => onSelect(Number(event.target.value))}
       >
@@ -86,7 +81,7 @@ const ExamplesSelect = ({ panels, activeIndex, onSelect }) => (
       </Flex>
     </Box>
     <Text css={TAB_DESCRIPTION_STYLE}>{panels[activeIndex].description}</Text>
-  </Card>
+  </Box>
 )
 
 export default ExamplesSelect

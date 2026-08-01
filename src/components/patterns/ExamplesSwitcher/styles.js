@@ -4,7 +4,7 @@ import { css } from 'styled-components'
 export const MOBILE_ONLY = ['block', 'block', 'none', 'none']
 export const DESKTOP_ONLY = ['none', 'none', 'block', 'block']
 
-export const FOCUS_RING = css`
+export const SECONDARY_FOCUS_RING = css`
   outline: 2px solid ${colors.secondary};
   outline-offset: 2px;
 `

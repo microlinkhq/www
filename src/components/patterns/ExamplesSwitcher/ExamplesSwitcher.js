@@ -18,10 +18,11 @@ import { prefersReducedMotion } from 'helpers/reduced-motion'
 
 import {
   DESKTOP_ONLY,
-  FOCUS_RING,
+  SECONDARY_FOCUS_RING,
   TAB_DESCRIPTION_STYLE,
   TAB_TITLE_STYLE
 } from './styles'
+import measureVisibleTabsHeight from './measure-tabs-height'
 import ExamplesSelect from './examples-select'
 
 const TAB_GAP_PX = Number.parseInt(space[2], 10)
@@ -132,7 +133,7 @@ const TabCard = styled('button')(
     }
 
     &:focus-visible {
-      ${FOCUS_RING}
+      ${SECONDARY_FOCUS_RING}
     }
   `
 )
@@ -145,17 +146,6 @@ const getScrollCues = node => {
     up: node.scrollTop > 2,
     down: node.scrollTop + node.clientHeight < node.scrollHeight - 2
   }
-}
-
-const measureVisibleTabsHeight = (list, visibleTabs) => {
-  const items = [...list.children]
-  const count = Math.min(visibleTabs, items.length)
-  let height = 0
-  for (let index = 0; index < count; index++) {
-    height += items[index].offsetHeight
-    if (index < count - 1) height += TAB_GAP_PX
-  }
-  return height
 }
 
 const EMPTY_PANELS = []
@@ -186,7 +176,7 @@ const ExamplesSwitcher = ({
     }
 
     const update = () => {
-      const next = measureVisibleTabsHeight(list, visibleTabs)
+      const next = measureVisibleTabsHeight(list, visibleTabs, TAB_GAP_PX)
       setViewportHeight(current => (current === next ? current : next))
     }
 
@@ -277,7 +267,7 @@ const ExamplesSwitcher = ({
       <ExamplesSelect
         panels={panels}
         activeIndex={activeIndex}
-        onSelect={selectIndex}
+        onSelect={setSelectedIndex}
       />
 
       <Box
