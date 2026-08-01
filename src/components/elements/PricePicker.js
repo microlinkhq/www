@@ -15,40 +15,22 @@ const calculateMonthlyPrice = reqsPerDay => ({
   USD: Math.round((reqsPerDay / 1000) * BASE_PLAN_PRICE.USD)
 })
 
-const createReqsLabels = reqsPerDay => {
-  const total = reqsPerDay * MONTH_DAYS
-  const reqsPerMonth = formatNumber(total)
-  const pretty = Math.round(total / 1000)
-  const reqsPerMonthPretty = `${formatNumber(pretty)}K`
+const createPlanFromMonthly = reqsPerMonthTotal => ({
+  reqsPerMonth: formatNumber(reqsPerMonthTotal),
+  reqsPerMonthTotal,
+  reqsPerMonthPretty: `${formatNumber(Math.round(reqsPerMonthTotal / 1000))}K`,
+  monthlyPrice: calculateMonthlyPrice(reqsPerMonthTotal / MONTH_DAYS)
+})
 
-  return {
-    reqsPerMonth,
-    reqsPerMonthPretty,
-    monthlyPrice: calculateMonthlyPrice(reqsPerDay)
-  }
-}
-
-const overrideReqsPerMonth = (plan, reqsPerMonth) => {
-  const total = Number(reqsPerMonth.replace(/,/g, ''))
-  const reqsPerDay = total / MONTH_DAYS
-  const pretty = Math.round(total / 1000)
-  return {
-    ...plan,
-    reqsPerMonth,
-    reqsPerMonthPretty: `${formatNumber(pretty)}K`,
-    monthlyPrice: calculateMonthlyPrice(reqsPerDay)
-  }
-}
+const createPlanFromDaily = reqsPerDay =>
+  createPlanFromMonthly(reqsPerDay * MONTH_DAYS)
 
 export const PLANS = [
-  overrideReqsPerMonth(
-    { id: 'pro-1_625k-v4', ...createReqsLabels(1625) },
-    '46,000'
-  ),
-  { id: 'pro-3k-v4', ...createReqsLabels(3000) },
-  { id: 'pro-5k-v4', ...createReqsLabels(5000) },
-  { id: 'pro-10k-v4', ...createReqsLabels(10000) },
-  { id: 'pro-15k-v4', ...createReqsLabels(15000) }
+  { id: 'pro-1_625k-v4', ...createPlanFromMonthly(46000) },
+  { id: 'pro-3k-v4', ...createPlanFromDaily(3000) },
+  { id: 'pro-5k-v4', ...createPlanFromDaily(5000) },
+  { id: 'pro-10k-v4', ...createPlanFromDaily(10000) },
+  { id: 'pro-15k-v4', ...createPlanFromDaily(15000) }
 ]
 
 export const DEFAULT_PLAN = PLANS[0]
@@ -149,9 +131,14 @@ const TickLabel = styled(Text)`
 
 const DEFAULT_INDEX = PLANS.indexOf(DEFAULT_PLAN)
 
+const MAX_INDEX = PLANS.length - 1
+
+const indexPct = index => (MAX_INDEX > 0 ? (index / MAX_INDEX) * 100 : 0)
+
+const TICK_STYLES = PLANS.map((_, i) => ({ left: `${indexPct(i)}%` }))
+
 const PricePicker = ({ onChange }) => {
   const [index, setIndex] = useState(DEFAULT_INDEX)
-  const max = PLANS.length - 1
 
   const handleChange = useCallback(
     e => {
@@ -162,7 +149,7 @@ const PricePicker = ({ onChange }) => {
     [onChange]
   )
 
-  const fillPct = max > 0 ? (index / max) * 100 : 0
+  const fillPct = indexPct(index)
   const plan = PLANS[index]
 
   return (
@@ -184,8 +171,6 @@ const PricePicker = ({ onChange }) => {
         >
           {plan.reqsPerMonth}
         </Text>{' '}
-        {/* The gap is `pl`, so without this the text reads "46,000requests".
-            Flex drops whitespace-only children, so it costs no layout. */}
         <Text
           as='span'
           css={theme({ fontSize: [0, 0, 1, 1], color: 'black70', pl: 1 })}
@@ -202,7 +187,7 @@ const PricePicker = ({ onChange }) => {
           <SliderInput
             type='range'
             min={0}
-            max={max}
+            max={MAX_INDEX}
             step={1}
             value={index}
             onChange={handleChange}
@@ -220,7 +205,7 @@ const PricePicker = ({ onChange }) => {
               key={p.id}
               as='span'
               data-active={i === index}
-              style={{ left: `${max > 0 ? (i / max) * 100 : 0}%` }}
+              style={TICK_STYLES[i]}
             >
               {p.reqsPerMonthPretty}
             </TickLabel>

@@ -25,7 +25,8 @@ import {
   CurrencyProvider,
   useCurrencyContext
 } from 'components/hook/use-currency'
-import Plans, { CURRENCIES, formatPrice } from 'components/patterns/Plans/Plans'
+import Plans from 'components/patterns/Plans/Plans'
+import { CURRENCIES, formatPrice } from 'components/patterns/Plans/shared'
 import { trackEvent } from 'helpers/plausible'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
