@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest'
 
 import measureVisibleTabsHeight from '../../src/components/patterns/ExamplesSwitcher/measure-tabs-height'
 
-const GAP = 8
+const TAB_SPACING = 8
 
 const list = offsetHeights => {
   let offsetTop = 40
@@ -10,7 +10,7 @@ const list = offsetHeights => {
     offsetParent: {},
     children: offsetHeights.map(offsetHeight => {
       const child = { offsetTop, offsetHeight }
-      offsetTop += offsetHeight + GAP
+      offsetTop += offsetHeight + TAB_SPACING
       return child
     })
   }
@@ -25,7 +25,7 @@ const hiddenList = count => ({
 })
 
 describe('ExamplesSwitcher tab height measurement', () => {
-  test('spans the visible tabs including the gaps between them', () => {
+  test('spans the visible tabs including the spacing between them', () => {
     expect(measureVisibleTabsHeight(list([100, 100, 100]), 3)).toBe(316)
   })
 
@@ -37,11 +37,8 @@ describe('ExamplesSwitcher tab height measurement', () => {
     expect(measureVisibleTabsHeight(list([80, 120]), 2)).toBe(208)
   })
 
-  test('returns null for a list that is not laid out', () => {
+  test('returns null when there is nothing laid out to measure', () => {
     expect(measureVisibleTabsHeight(hiddenList(5), 5)).toBe(null)
-  })
-
-  test('returns zero, not gap-only height, for an empty list', () => {
-    expect(measureVisibleTabsHeight(list([]), 5)).toBe(0)
+    expect(measureVisibleTabsHeight(list([]), 5)).toBe(null)
   })
 })

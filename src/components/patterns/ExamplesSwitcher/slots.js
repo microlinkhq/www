@@ -1,7 +1,9 @@
-const DESKTOP_SLOTS = [false, false, true, true]
+const DESKTOP_FROM = 2
 
-export const MOBILE_ONLY = DESKTOP_SLOTS.map(on => (on ? 'none' : 'block'))
-export const DESKTOP_ONLY = DESKTOP_SLOTS.map(on => (on ? 'block' : 'none'))
+export const MOBILE_ONLY = ['block', 'block', 'none', 'none']
+export const DESKTOP_ONLY = ['none', 'none', 'block', 'block']
 
 export const onDesktop = (desktopValue, values) =>
-  DESKTOP_SLOTS.map((on, index) => (on && desktopValue) || values[index])
+  values.map((value, index) =>
+    index >= DESKTOP_FROM && desktopValue ? desktopValue : value
+  )
