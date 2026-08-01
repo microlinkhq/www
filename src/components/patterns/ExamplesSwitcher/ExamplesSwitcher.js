@@ -15,7 +15,6 @@ import {
   EXAMPLE_TITLE_STYLE,
   SECONDARY_FOCUS_RING
 } from './styles'
-import { onDesktop } from './slots'
 import useScrollCues from './use-scroll-cues'
 import useTabsHeight from './use-tabs-height'
 import ExamplesSelect from './examples-select'
@@ -23,6 +22,7 @@ import ExamplesSelect from './examples-select'
 const PANEL_HEIGHT = CodeEditor.height.map(value =>
   value === '100%' ? '360px' : value
 )
+const DESKTOP_FROM = 2
 
 const TabList = styled(Flex).attrs({
   as: 'div',
@@ -149,7 +149,9 @@ const ExamplesSwitcher = ({
     ? Math.min(selectedIndex, panels.length - 1)
     : 0
   const active = panels[activeIndex]
-  const panelHeight = onDesktop(tabsHeight, PANEL_HEIGHT)
+  const panelHeight = PANEL_HEIGHT.map((value, index) =>
+    index >= DESKTOP_FROM && tabsHeight ? tabsHeight : value
+  )
 
   if (!panels.length || !active) return null
 
