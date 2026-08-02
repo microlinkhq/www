@@ -2,10 +2,12 @@ import React from 'react'
 import { theme, layout } from 'theme'
 import Layout from 'components/patterns/Layout'
 import { withTitle } from 'helpers/hoc/with-title'
+import Box from 'components/elements/Box'
 import Meta from 'components/elements/Meta/Meta'
 import { Hero } from 'components/pages/sharing-debugger/hero'
 import Faq from 'components/patterns/Faq/Faq'
 import { Link } from 'components/elements/Link'
+import { SharingDebuggerExtensionBanner } from 'components/patterns/ChromeExtensionBanner/ChromeExtensionBanner'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
 const TOP_FAQ_ITEMS = [
@@ -344,9 +346,14 @@ export const Head = () => (
 
 const SharingDebugger = () => {
   return (
-    <Layout css={theme({ maxWidth: ['100%', layout.small], mx: 'auto' })}>
-      <Hero />
-      <Faq css={theme({ pt: 4, px: 0 })} questions={FAQ_QUESTIONS} />
+    <Layout>
+      <Box css={theme({ maxWidth: ['100%', layout.small], mx: 'auto' })}>
+        <Hero />
+      </Box>
+      <SharingDebuggerExtensionBanner />
+      <Box css={theme({ maxWidth: ['100%', layout.small], mx: 'auto' })}>
+        <Faq css={theme({ pt: 4, px: 0 })} questions={FAQ_QUESTIONS} />
+      </Box>
     </Layout>
   )
 }

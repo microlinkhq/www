@@ -514,3 +514,183 @@ export const ScreenshotStepResultMini = () => (
     </Flex>
   </MiniPanel>
 )
+
+const SCORE_TONES = {
+  good: { bg: colors.green0, border: colors.green2, text: colors.green8 },
+  fair: { bg: colors.yellow0, border: colors.yellow2, text: colors.yellow8 },
+  bad: { bg: colors.red0, border: colors.red2, text: colors.red7 },
+  info: { bg: colors.blue0, border: colors.blue2, text: colors.blue8 }
+}
+
+const ScoreCell = styled(Box)`
+  flex: 1;
+  ${theme({ borderRadius: 2 })}
+  padding: 6px 8px;
+  background: ${props => props.$tone.bg};
+  border: 1px solid ${props => props.$tone.border};
+`
+
+const ScoreValue = styled(Text)`
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 4px;
+  color: ${props => props.$color};
+`
+
+const ScorePill = ({ label, value, tone }) => (
+  <ScoreCell $tone={tone}>
+    <FieldLabel $color={tone.text}>{label}</FieldLabel>
+    <ScoreValue $color={tone.text}>{value}</ScoreValue>
+  </ScoreCell>
+)
+
+const TonedChip = styled(Box)`
+  ${theme({ borderRadius: 2 })}
+  padding: 3px 6px;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  background: ${props => props.$tone.bg};
+  border: 1px solid ${props => props.$tone.border};
+  color: ${props => props.$tone.text};
+`
+
+const ScoreRow = () => (
+  <Flex css={theme({ gap: '6px', mt: '6px' })}>
+    <ScorePill label='Overall' value='90' tone={SCORE_TONES.good} />
+    <ScorePill label='Sharing' value='100' tone={SCORE_TONES.good} />
+    <ScorePill label='SEO' value='80' tone={SCORE_TONES.fair} />
+  </Flex>
+)
+
+const TargetUrlField = () => (
+  <>
+    <FieldLabel $color={colors.grape7}>Target URL</FieldLabel>
+    <InputBox css={theme({ mt: '6px' })}>x.com</InputBox>
+    <Flex
+      css={theme({
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 1,
+        mt: '6px'
+      })}
+    >
+      <Hint>https://x.com/</Hint>
+      <MiniChip>Use current tab</MiniChip>
+    </Flex>
+  </>
+)
+
+export const SharingDebuggerExtensionMockup = () => (
+  <PanelFrame aria-hidden='true'>
+    <Titlebar title='Microlink: Sharing Debugger' />
+    <PanelBody>
+      <PanelCard>
+        <TargetUrlField />
+      </PanelCard>
+      <GradientButton>Run Sharing & SEO Debug</GradientButton>
+      <PanelCard>
+        <FieldLabel $color={colors.grape7}>Score summary</FieldLabel>
+        <ScoreRow />
+        <Flex
+          css={theme({
+            alignItems: 'center',
+            gap: '4px',
+            mt: '8px',
+            flexWrap: 'wrap'
+          })}
+        >
+          <TonedChip $tone={SCORE_TONES.bad}>0 Errors</TonedChip>
+          <TonedChip $tone={SCORE_TONES.fair}>2 Warnings</TonedChip>
+          <TonedChip $tone={SCORE_TONES.good}>13 Passes</TonedChip>
+        </Flex>
+      </PanelCard>
+    </PanelBody>
+  </PanelFrame>
+)
+
+export const SharingDebuggerStepUrlMini = () => (
+  <MiniPanel aria-hidden='true'>
+    <TargetUrlField />
+    <GradientButton css={theme({ mt: '8px' })}>
+      Run Sharing & SEO Debug
+    </GradientButton>
+  </MiniPanel>
+)
+
+export const SharingDebuggerStepScoreMini = () => (
+  <MiniPanel aria-hidden='true'>
+    <FieldLabel $color={colors.grape7}>Score summary</FieldLabel>
+    <ScoreRow />
+    <Flex
+      css={theme({
+        alignItems: 'center',
+        gap: '4px',
+        mt: '8px',
+        flexWrap: 'wrap'
+      })}
+    >
+      <TonedChip $tone={SCORE_TONES.fair}>2 Warnings</TonedChip>
+      <TonedChip $tone={SCORE_TONES.info}>0 Info</TonedChip>
+      <TonedChip $tone={SCORE_TONES.good}>13 Passes</TonedChip>
+    </Flex>
+  </MiniPanel>
+)
+
+const CodeBlock = styled(Box)`
+  ${theme({ borderRadius: 2, mt: '6px' })}
+  padding: 6px 8px;
+  background: ${colors.gray9};
+`
+
+const CodeLine = styled(Text)`
+  font-family: ${fonts.mono};
+  font-size: 8px;
+  line-height: 1.7;
+  color: ${colors.white80};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
+export const SharingDebuggerStepFixMini = () => (
+  <MiniPanel aria-hidden='true'>
+    <Flex
+      css={theme({
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 1
+      })}
+    >
+      <Text
+        css={theme({
+          fontSize: '10px',
+          fontWeight: 'bold',
+          color: 'black80',
+          lineHeight: 1
+        })}
+      >
+        Missing description
+      </Text>
+      <TonedChip $tone={SCORE_TONES.bad}>Error</TonedChip>
+    </Flex>
+    <Flex
+      css={theme({
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 1,
+        mt: '8px'
+      })}
+    >
+      <FieldLabel $color={colors.grape7}>Suggested tag</FieldLabel>
+      <MiniChip>Copy Tag</MiniChip>
+    </Flex>
+    <CodeBlock>
+      <CodeLine>{'<meta name="description"'}</CodeLine>
+      <CodeLine>{'  content="Turn websites into data" />'}</CodeLine>
+    </CodeBlock>
+  </MiniPanel>
+)

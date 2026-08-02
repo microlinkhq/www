@@ -56,9 +56,9 @@ const HeroGrid = styled(Box)`
   }
 `
 
-/* The two side-panel mockups fan out like cards on a desk instead of
-   sitting in a flat row. Layout is positional for two items — revisit
-   FLOAT_LAYOUT when a third extension ships. */
+/* The side-panel mockups fan out like cards on a desk instead of
+   sitting in a flat row. Layout is positional — FLOAT_LAYOUT needs one
+   entry per extension, cascading top-left to bottom-right. */
 
 const MockupStack = styled(Box)`
   position: relative;
@@ -80,7 +80,7 @@ const HeroGlow = styled(Box)`
 `
 
 const MockupFloat = styled(Box)`
-  width: min(300px, 58%);
+  width: min(280px, 54%);
   position: relative;
   justify-self: ${props => props.$justify};
   margin-top: ${props => props.$mt || 0};
@@ -89,8 +89,9 @@ const MockupFloat = styled(Box)`
 `
 
 const FLOAT_LAYOUT = [
-  { justify: 'start', rotate: '-2.5deg', z: 2 },
-  { justify: 'end', rotate: '2.5deg', z: 1, mt: '24%' }
+  { justify: 'start', rotate: '-3deg', z: 3 },
+  { justify: 'center', rotate: '1.5deg', z: 2, mt: '18%' },
+  { justify: 'end', rotate: '3deg', z: 1, mt: '36%' }
 ]
 
 const Hero = () => (
@@ -112,9 +113,9 @@ const Hero = () => (
             <span css={textGradient}>right where you work.</span>
           </Heading>
           <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
-            Capture screenshots and convert web pages to PDF without leaving
-            your browser — powered by the same Microlink API that processes
-            millions of requests per week.
+            Capture screenshots, convert web pages to PDF, and debug link
+            previews without leaving your browser — powered by the same
+            Microlink API that processes millions of requests per week.
           </Text>
           <Caps
             as='p'
@@ -153,6 +154,16 @@ const Hero = () => (
               height: 55%;
               top: 0;
               left: 0;
+            `}
+          />
+          <HeroGlow
+            css={`
+              background: ${colors.grape2};
+              opacity: 0.4;
+              width: 45%;
+              height: 45%;
+              top: 30%;
+              left: 28%;
             `}
           />
           <HeroGlow
@@ -501,6 +512,12 @@ const ApiBand = () => (
             >
               PDF API
             </ArrowLink>
+            <ArrowLink
+              href='/metadata'
+              css={theme({ color: 'white', fontWeight: 'bold', fontSize: 1 })}
+            >
+              Metadata API
+            </ArrowLink>
           </Flex>
         </Box>
         <StatsGrid>
@@ -537,6 +554,12 @@ const ApiBand = () => (
 
 /* ─── Closing CTA ────────────────────────────────────────────────────────── */
 
+const STORE_READY_EXTENSIONS = EXTENSIONS.filter(
+  extension => extension.storeUrl
+)
+
+const PENDING_EXTENSIONS = EXTENSIONS.filter(extension => !extension.storeUrl)
+
 const ClosingCta = () => (
   <Section
     css={`
@@ -568,8 +591,8 @@ const ClosingCta = () => (
           mx: 'auto'
         })}
       >
-        Both extensions are free on the Chrome Web Store — install in seconds,
-        no account needed, first capture one click away.
+        Every extension is free on the Chrome Web Store — install in seconds, no
+        account needed, first result one click away.
       </Text>
       <Flex
         css={theme({
@@ -580,19 +603,27 @@ const ClosingCta = () => (
           gap: 3
         })}
       >
-        {EXTENSIONS.map(({ slug, name, icon: Icon, storeUrl, eventName }) => (
-          <InstallButtonInline
-            key={slug}
-            href={storeUrl}
-            target='_blank'
-            rel='nofollow noopener noreferrer'
-            onClick={() => trackEvent(eventName)}
-          >
-            <Icon size={18} style={{ flexShrink: 0 }} />
-            Get {name}
-          </InstallButtonInline>
-        ))}
+        {STORE_READY_EXTENSIONS.map(
+          ({ slug, name, icon: Icon, storeUrl, eventName }) => (
+            <InstallButtonInline
+              key={slug}
+              href={storeUrl}
+              target='_blank'
+              rel='nofollow noopener noreferrer'
+              onClick={() => trackEvent(eventName)}
+            >
+              <Icon size={18} style={{ flexShrink: 0 }} />
+              Get {name}
+            </InstallButtonInline>
+          )
+        )}
       </Flex>
+      {PENDING_EXTENSIONS.map(({ slug, name, href }) => (
+        <Text key={slug} css={theme({ pt: 3, fontSize: 1, color: 'black60' })}>
+          {name} is pending review on the Chrome&nbsp;Web&nbsp;Store —{' '}
+          <Link href={href}>see what&apos;s coming</Link>.
+        </Text>
+      ))}
       <Text css={theme({ pt: [3, 3, 4, 4], fontSize: 1, color: 'black60' })}>
         Want Microlink somewhere else?{' '}
         <Link href='mailto:hello@microlink.io'>Tell us where</Link>.
@@ -618,7 +649,7 @@ const ExtensionsIndexPage = () => (
 export const Head = () => (
   <Meta
     title='Extensions: Microlink in your browser'
-    description='Official Microlink browser extensions — capture website screenshots and convert web pages to PDF in bulk, straight from Chrome’s side panel.'
+    description='Official Microlink browser extensions — capture website screenshots, convert web pages to PDF in bulk, and debug link previews, straight from Chrome’s side panel.'
     schemaType='WebPage'
   />
 )
