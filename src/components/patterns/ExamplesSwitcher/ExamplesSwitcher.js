@@ -1,5 +1,5 @@
 import { breakpoints, colors, space, theme, transition } from 'theme'
-import React, { useId, useRef, useState, useSyncExternalStore } from 'react'
+import React, { useRef, useState, useSyncExternalStore } from 'react'
 import styled, { css } from 'styled-components'
 import { ChevronDown, ChevronUp } from 'react-feather'
 
@@ -24,6 +24,7 @@ const PANEL_HEIGHT = CodeEditor.height.map(value =>
 )
 const DESKTOP_FROM = 2
 const DESKTOP_MQ = `(min-width: ${breakpoints[1]})`
+const BASE_ID = 'examples-switcher'
 
 const subscribeDesktop = onStoreChange => {
   const media = window.matchMedia(DESKTOP_MQ)
@@ -156,7 +157,6 @@ const ExamplesSwitcher = ({
   language = 'js',
   visibleTabs
 }) => {
-  const baseId = useId()
   const listRef = useRef(null)
   const tabRefs = useRef([])
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -231,8 +231,8 @@ const ExamplesSwitcher = ({
         <TabList ref={listRef} $height={tabsHeight} $stretch={!visibleTabs}>
           {panels.map((panel, index) => {
             const selected = index === activeIndex
-            const tabId = `${baseId}-tab-${panel.id}`
-            const panelId = `${baseId}-panel-${panel.id}`
+            const tabId = `${BASE_ID}-tab-${panel.id}`
+            const panelId = `${BASE_ID}-panel-${panel.id}`
             return (
               <TabCard
                 key={panel.id}
@@ -269,8 +269,8 @@ const ExamplesSwitcher = ({
       </Box>
       <Box
         role={isDesktop ? 'tabpanel' : 'region'}
-        id={`${baseId}-panel-${active.id}`}
-        aria-labelledby={isDesktop ? `${baseId}-tab-${active.id}` : undefined}
+        id={`${BASE_ID}-panel-${active.id}`}
+        aria-labelledby={isDesktop ? `${BASE_ID}-tab-${active.id}` : undefined}
         aria-label={active.title}
         css={theme({
           minWidth: 0,

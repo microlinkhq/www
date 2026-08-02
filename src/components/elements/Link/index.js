@@ -2,8 +2,8 @@ import React from 'react'
 import { LinkBase } from './base'
 import { LinkSolid } from './solid'
 
-import { space } from 'theme'
-import InputIcon from '../Input/InputIcon'
+import { UNAVATAR_FALLBACK, UNAVATAR_TOKEN } from 'helpers/unavatar'
+import { radii, space } from 'theme'
 import Flex from '../Flex'
 
 const getDomain = url => {
@@ -13,6 +13,24 @@ const getDomain = url => {
     return null
   }
 }
+
+const LogoIcon = ({ domain }) => (
+  <img
+    alt=''
+    width={16}
+    height={16}
+    decoding='async'
+    src={`https://unavatar.io/domain/${domain}?token=${UNAVATAR_TOKEN}&fallback=${UNAVATAR_FALLBACK}`}
+    style={{
+      display: 'inline-block',
+      width: 16,
+      height: 16,
+      marginRight: space[1],
+      borderRadius: radii[2],
+      verticalAlign: 'middle'
+    }}
+  />
+)
 
 export const Link = ({
   variant,
@@ -30,12 +48,7 @@ export const Link = ({
     if (domain) {
       children = (
         <Flex as='span' css={{ display: 'inline-flex', alignItems: 'center' }}>
-          <InputIcon
-            width='16px'
-            height='16px'
-            style={{ marginRight: space[1] }}
-            query={`domain/${domain}`}
-          />
+          <LogoIcon domain={domain} />
           {children}
         </Flex>
       )

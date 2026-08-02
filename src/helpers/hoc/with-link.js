@@ -65,7 +65,7 @@ const Icon = ({ children }) => {
   }, [])
 
   return (
-    <Flex ref={ref} css={linkIconWrapper}>
+    <Flex as='span' ref={ref} css={linkIconWrapper}>
       {children}
       <FeatherIcon icon={ArrowUpRight} size={toPx(size)} />
     </Flex>
