@@ -16,7 +16,7 @@ const StyledHeading = styled(Text)(
   theme({
     ...commonHeadingStyles,
     textWrap: 'balance',
-    fontSize: [4, 4, 5, 5]
+    fontSize: ['36px', 4, 5, 5]
   })
 )
 

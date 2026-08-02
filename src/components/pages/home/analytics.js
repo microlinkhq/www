@@ -15,7 +15,7 @@ import analyticsData from '../../../../data/analytics.json'
 
 const GLOBE_SRC = '/images/globe.webp'
 
-const FAST_TITLE_FONT_SIZE = 'clamp(64px, 12vw, 128px)'
+const FAST_TITLE_FONT_SIZE = 'clamp(28px, 12vw, 128px)'
 
 const [{ reqs_pretty: reqsPretty, bytes_pretty: bytesPretty }] = analyticsData
 

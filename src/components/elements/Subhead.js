@@ -8,7 +8,7 @@ const StyledSubhead = styled(Text)(
   theme({
     ...commonHeadingStyles,
     textWrap: 'balance',
-    fontSize: 4
+    fontSize: [3, 4, 4, 4]
   })
 )
 
