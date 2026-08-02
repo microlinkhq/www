@@ -49,8 +49,8 @@ The typography components own their size. Compose pages from them; do not restyl
 
 | Component | Tag | Size (mobile → desktop) | Role |
 | --- | --- | --- | --- |
-| `Heading` | `h1` | 52 → 64 | Page title (gradient) |
-| `Subhead` | `h2` | 52 | Section title |
+| `Heading` | `h1` | 36 → 52 → 64 | Page title (gradient) |
+| `Subhead` | `h2` | 28 → 52 | Section title |
 | `Caption` | `h3` | 20 → 28 | Section/hero supporting text (the lead under a heading) |
 | `Text` | `div`/`p` | 16 → 20 | Body copy, card/inline text, meta lines |
 | `Caps` | `span` | 16 | Uppercase micro-labels |
