@@ -1,11 +1,5 @@
 import { breakpoints, colors, space, theme, transition } from 'theme'
-import React, {
-  useEffect,
-  useId,
-  useLayoutEffect,
-  useRef,
-  useState
-} from 'react'
+import React, { useRef, useState, useSyncExternalStore } from 'react'
 import styled, { css } from 'styled-components'
 import { ChevronDown, ChevronUp } from 'react-feather'
 
@@ -16,10 +10,37 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
 import { prefersReducedMotion } from 'helpers/reduced-motion'
 
-const TAB_GAP_PX = Number.parseInt(space[2], 10)
+import {
+  EXAMPLE_DESCRIPTION_STYLE,
+  EXAMPLE_TITLE_STYLE,
+  SECONDARY_FOCUS_RING
+} from './styles'
+import useScrollCues from './use-scroll-cues'
+import useTabsHeight from './use-tabs-height'
+import ExamplesSelect from './examples-select'
+
 const PANEL_HEIGHT = CodeEditor.height.map(value =>
   value === '100%' ? '360px' : value
 )
+const DESKTOP_FROM = 2
+const DESKTOP_MQ = `(min-width: ${breakpoints[1]})`
+const BASE_ID = 'examples-switcher'
+
+const subscribeDesktop = onStoreChange => {
+  const media = window.matchMedia(DESKTOP_MQ)
+  media.addEventListener('change', onStoreChange)
+  return () => media.removeEventListener('change', onStoreChange)
+}
+
+const getDesktopSnapshot = () => window.matchMedia(DESKTOP_MQ).matches
+const getDesktopServerSnapshot = () => false
+
+const useIsDesktop = () =>
+  useSyncExternalStore(
+    subscribeDesktop,
+    getDesktopSnapshot,
+    getDesktopServerSnapshot
+  )
 
 const TabList = styled(Flex).attrs({
   as: 'div',
@@ -30,26 +51,22 @@ const TabList = styled(Flex).attrs({
     flexDirection: 'column',
     gap: 2,
     minWidth: 0,
-    overflowY: ['visible', 'visible', 'auto', 'auto'],
+    overflowY: 'auto',
     overscrollBehavior: 'contain',
-    pr: [0, 0, 1, 1],
-    scrollSnapType: ['none', 'none', 'y proximity', 'y proximity']
+    pr: 1,
+    scrollSnapType: 'y proximity'
   }),
-  ({ $viewportHeight, $stretch }) => {
-    if ($viewportHeight) {
+  ({ $height, $stretch }) => {
+    if ($height) {
       return css`
-        @media (min-width: ${breakpoints[1]}) {
-          height: ${$viewportHeight}px;
-          max-height: ${$viewportHeight}px;
-        }
+        height: ${$height};
+        max-height: ${$height};
       `
     }
     if ($stretch) {
       return css`
-        @media (min-width: ${breakpoints[1]}) {
-          height: 0;
-          min-height: 100%;
-        }
+        height: 0;
+        min-height: 100%;
       `
     }
     return undefined
@@ -60,7 +77,6 @@ const ScrollCue = styled(Flex).attrs({
   'aria-hidden': true
 })(
   theme({
-    display: ['none', 'none', 'flex', 'flex'],
     position: 'absolute',
     left: 0,
     right: 0,
@@ -129,57 +145,10 @@ const TabCard = styled('button')(
     }
 
     &:focus-visible {
-      outline: 2px solid ${colors.secondary};
-      outline-offset: 2px;
+      ${SECONDARY_FOCUS_RING}
     }
   `
 )
-
-const getScrollCues = node => {
-  if (!node || node.scrollHeight <= node.clientHeight + 2) {
-    return { up: false, down: false }
-  }
-  return {
-    up: node.scrollTop > 2,
-    down: node.scrollTop + node.clientHeight < node.scrollHeight - 2
-  }
-}
-
-const measureVisibleTabsHeight = (list, visibleTabs) => {
-  const items = [...list.children]
-  if (!items.length) return null
-  const count = Math.min(visibleTabs, items.length)
-  let height = 0
-  for (let index = 0; index < count; index++) {
-    height += items[index].offsetHeight
-    if (index < count - 1) height += TAB_GAP_PX
-  }
-  return height
-}
-
-const TAB_TITLE_STYLE = theme({
-  fontFamily: 'sans',
-  fontWeight: 'bold',
-  fontSize: 1,
-  lineHeight: 2,
-  color: 'black',
-  pb: 1,
-  m: 0
-})
-
-const TAB_DESCRIPTION_STYLE = {
-  ...theme({
-    fontFamily: 'sans',
-    fontSize: 1,
-    color: 'black60',
-    lineHeight: 2,
-    m: 0
-  }),
-  display: '-webkit-box',
-  WebkitLineClamp: 2,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden'
-}
 
 const EMPTY_PANELS = []
 
@@ -188,73 +157,19 @@ const ExamplesSwitcher = ({
   language = 'js',
   visibleTabs
 }) => {
-  const baseId = useId()
   const listRef = useRef(null)
   const tabRefs = useRef([])
   const [selectedIndex, setSelectedIndex] = useState(0)
-  const [scrollCues, setScrollCues] = useState({ up: false, down: false })
-  const [viewportHeight, setViewportHeight] = useState(null)
+  const isDesktop = useIsDesktop()
+  const tabsHeight = useTabsHeight(listRef, panels, visibleTabs)
+  const scrollCues = useScrollCues(listRef, panels)
   const activeIndex = panels.length
     ? Math.min(selectedIndex, panels.length - 1)
     : 0
   const active = panels[activeIndex]
-  const tabsHeight =
-    visibleTabs && viewportHeight ? `${viewportHeight}px` : undefined
-
-  useLayoutEffect(() => {
-    const list = listRef.current
-    if (!list || !visibleTabs) {
-      setViewportHeight(null)
-      return undefined
-    }
-
-    const update = () => {
-      const next = measureVisibleTabsHeight(list, visibleTabs)
-      if (next == null) return
-      setViewportHeight(current => (current === next ? current : next))
-    }
-
-    update()
-    const observer =
-      typeof window.ResizeObserver !== 'undefined'
-        ? new window.ResizeObserver(update)
-        : null
-    observer?.observe(list)
-    ;[...list.children].forEach(child => observer?.observe(child))
-    return () => observer?.disconnect()
-  }, [panels, visibleTabs])
-
-  useEffect(() => {
-    const node = listRef.current
-    if (!node) return undefined
-    let frame
-    const update = () => {
-      frame = undefined
-      setScrollCues(current => {
-        const next = getScrollCues(node)
-        return next.up === current.up && next.down === current.down
-          ? current
-          : next
-      })
-    }
-    const schedule = () => {
-      if (frame === undefined) frame = window.requestAnimationFrame(update)
-    }
-    update()
-    node.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
-    const observer =
-      typeof window.ResizeObserver !== 'undefined'
-        ? new window.ResizeObserver(schedule)
-        : null
-    observer?.observe(node)
-    return () => {
-      if (frame !== undefined) window.cancelAnimationFrame(frame)
-      node.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
-      observer?.disconnect()
-    }
-  }, [panels, visibleTabs, viewportHeight])
+  const panelHeight = PANEL_HEIGHT.map((value, index) =>
+    index >= DESKTOP_FROM && tabsHeight ? tabsHeight : value
+  )
 
   if (!panels.length || !active) return null
 
@@ -298,26 +213,26 @@ const ExamplesSwitcher = ({
         alignItems: ['start', 'start', 'stretch', 'stretch']
       })}
     >
+      <ExamplesSelect
+        panels={panels}
+        activeIndex={activeIndex}
+        onSelect={setSelectedIndex}
+      />
+
       <Box
         css={theme({
+          display: ['none', 'none', 'block', 'block'],
           position: 'relative',
           minWidth: 0,
           minHeight: 0,
           height: tabsHeight
-            ? ['auto', 'auto', tabsHeight, tabsHeight]
-            : undefined,
-          alignSelf: ['start', 'start', 'stretch', 'stretch']
         })}
       >
-        <TabList
-          ref={listRef}
-          $viewportHeight={viewportHeight}
-          $stretch={!visibleTabs}
-        >
+        <TabList ref={listRef} $height={tabsHeight} $stretch={!visibleTabs}>
           {panels.map((panel, index) => {
             const selected = index === activeIndex
-            const tabId = `${baseId}-tab-${panel.id}`
-            const panelId = `${baseId}-panel-${panel.id}`
+            const tabId = `${BASE_ID}-tab-${panel.id}`
+            const panelId = `${BASE_ID}-panel-${panel.id}`
             return (
               <TabCard
                 key={panel.id}
@@ -333,8 +248,10 @@ const ExamplesSwitcher = ({
                 onClick={() => selectIndex(index)}
                 onKeyDown={event => onKeyDown(event, index)}
               >
-                <Text css={TAB_TITLE_STYLE}>{panel.title}</Text>
-                <Text css={TAB_DESCRIPTION_STYLE}>{panel.description}</Text>
+                <Text pb={1} css={EXAMPLE_TITLE_STYLE}>
+                  {panel.title}
+                </Text>
+                <Text css={EXAMPLE_DESCRIPTION_STYLE}>{panel.description}</Text>
               </TabCard>
             )
           })}
@@ -351,14 +268,15 @@ const ExamplesSwitcher = ({
         )}
       </Box>
       <Box
-        role='tabpanel'
-        id={`${baseId}-panel-${active.id}`}
-        aria-labelledby={`${baseId}-tab-${active.id}`}
+        role={isDesktop ? 'tabpanel' : 'region'}
+        id={`${BASE_ID}-panel-${active.id}`}
+        aria-labelledby={isDesktop ? `${BASE_ID}-tab-${active.id}` : undefined}
+        aria-label={active.title}
         css={theme({
           minWidth: 0,
           width: '100%',
-          height: tabsHeight || PANEL_HEIGHT,
-          minHeight: tabsHeight || PANEL_HEIGHT
+          height: panelHeight,
+          minHeight: panelHeight
         })}
       >
         <CodeEditor
