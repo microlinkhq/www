@@ -9,6 +9,7 @@ import Text from 'components/elements/Text'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
 import { prefersReducedMotion } from 'helpers/reduced-motion'
+import { useBreakpoint } from 'components/hook/use-breakpoint'
 
 import {
   EXAMPLE_DESCRIPTION_STYLE,
@@ -143,6 +144,7 @@ const ExamplesSwitcher = ({
   const listRef = useRef(null)
   const tabRefs = useRef([])
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const isDesktop = useBreakpoint() >= DESKTOP_FROM
   const tabsHeight = useTabsHeight(listRef, panels, visibleTabs)
   const scrollCues = useScrollCues(listRef, panels)
   const activeIndex = panels.length
@@ -250,8 +252,9 @@ const ExamplesSwitcher = ({
         )}
       </Box>
       <Box
-        role='tabpanel'
+        role={isDesktop ? 'tabpanel' : 'region'}
         id={`${baseId}-panel-${active.id}`}
+        aria-labelledby={isDesktop ? `${baseId}-tab-${active.id}` : undefined}
         aria-label={active.title}
         css={theme({
           minWidth: 0,

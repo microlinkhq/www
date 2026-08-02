@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import { ChevronDown } from 'react-feather'
-import { colors, theme } from 'theme'
+import { colors, theme, touchTargets } from 'theme'
 import React from 'react'
 
 import Box from 'components/elements/Box'
@@ -27,6 +27,7 @@ const Select = styled.select(
     border: 0,
     borderRadius: 0,
     boxShadow: 'none',
+    minHeight: touchTargets.minHeight,
     p: 0,
     pr: CHEVRON_RESERVE,
     m: 0
@@ -55,6 +56,7 @@ const CARD_STYLE = theme({
 const FIELD_STYLE = theme({ position: 'relative', mb: 1 })
 
 const CHEVRON_STYLE = theme({
+  display: 'flex',
   position: 'absolute',
   top: 0,
   right: 0,
@@ -82,7 +84,7 @@ const ExamplesSelect = ({ panels, activeIndex, onSelect }) => (
         <ChevronDown size={18} strokeWidth={2.25} />
       </Flex>
     </Box>
-    <Text css={EXAMPLE_DESCRIPTION_STYLE}>
+    <Text aria-live='polite' css={EXAMPLE_DESCRIPTION_STYLE}>
       {panels[activeIndex].description}
     </Text>
   </Box>
