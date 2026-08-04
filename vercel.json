@@ -227,6 +227,10 @@
       "destination": "/docs/api/parameters/emulation"
     },
     {
+      "source": "/epagerange",
+      "destination": "/docs/api/basics/error-codes#epagerange"
+    },
+    {
       "source": "/epdftoolarge",
       "destination": "/docs/api/basics/error-codes#epdftoolarge"
     },

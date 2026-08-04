@@ -163,15 +163,17 @@ The [function](/docs/api/parameters/function) code was executed but failed durin
 
 **Message**
 
-The `function` code has a syntax error.
+The `function` code has a syntax error, or is not a valid `br`/`gz`/`lz` payload.
 
 **Solution**
 
-The [function](/docs/api/parameters/function) parameter contains invalid JavaScript syntax. Ensure your function:
+The [function](/docs/api/parameters/function) parameter could not be read. Ensure your function:
 
 - Has valid JavaScript syntax
 - Uses proper function formatting (arrow function or regular function)
 - Doesn't contain syntax errors like missing brackets or semicolons
+
+When the code is sent compressed (`br#`, `gz#` or `lz#`), the payload also has to survive the URL intact: a truncated or re-encoded one cannot be decompressed. The `message` says which of the two happened.
 
 ## EINVALDATA
 
@@ -234,6 +236,18 @@ The target URL reached the maximum number of redirect after 10 times.
 **Solution**
 
 Ensure the [url](/docs/api/parameters/url) provided reaches the destination URL in less than 10 hops.
+
+## EPAGERANGE
+
+**Message**
+
+The `pdf.pageRanges` value is outside the target document.
+
+**Solution**
+
+The [pdf.pageRanges](/docs/api/parameters/pdf/pageRanges) provided starts past the last page of the document, so there is nothing to render.
+
+Request a range the document actually has, or drop the parameter to render all of it.
 
 ## EPDFTOOLARGE
 

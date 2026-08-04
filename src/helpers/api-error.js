@@ -3,6 +3,7 @@ const ERROR_META = {
   ETIMEOUT: { title: 'Request timed out', showRetry: true },
   EFATAL: { title: 'Processing failed', showRetry: true },
   EPDFTOOLARGE: { title: 'Document too large', showRetry: false },
+  EPAGERANGE: { title: 'Page range not found', showRetry: false },
   EPROXYNEEDED: { title: 'Antibot detected', showRetry: false },
   EMPTY_MARKDOWN: {
     title: 'This URL couldn\u2019t be analyzed',

@@ -15,5 +15,7 @@ It specifies the page range for generating the [pdf](/docs/api/parameters/pdf) o
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://stripe.com', pdf: { pageRanges: '1-1' } }} />
 
-Any interval can be defined, such as, `'1-5, 8, 11-13'`. If you want to print just one page, specify it as range, e.g., `'1-1'`.
+Any interval can be defined, such as, `'1-5, 8, 11-13'`. A single page is just its number, e.g., `'9'`. Leaving the end open prints to the last page, e.g., `'5-'`.
+
+When the range falls outside the document, the request fails with [EPAGERANGE](/docs/api/basics/error-codes#epagerange).
 
