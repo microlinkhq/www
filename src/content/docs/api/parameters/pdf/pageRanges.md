@@ -13,7 +13,7 @@ It specifies the page range for generating the [pdf](/docs/api/parameters/pdf) o
 
 <Iframe src="https://cdn.microlink.io/docs/stripe.pdf" />
 
-<MultiCodeEditorInteractive mqlCode={{ url: 'https://stripe.com', pdf: { pageRanges: '1-1' } }} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://stripe.com', pdf: { pageRanges: '1' } }} />
 
 Any interval can be defined, such as, `'1-5, 8, 11-13'`. A single page is just its number, e.g., `'9'`. Leaving the end open prints to the last page, e.g., `'5-'`.
 
