@@ -6,6 +6,7 @@ import Box from 'components/elements/Box'
 import { PostFooter } from 'components/pages/blog/post-footer'
 import { PostTitle } from 'components/pages/blog/post-title'
 import { PostAuthor } from 'components/pages/blog/post-author'
+import { useMounted } from 'components/hook/use-mounted'
 import Layout from 'components/patterns/Layout'
 import Markdown, { H1, H2 } from 'components/markdown'
 import { textGradient, layout, theme } from 'theme'
@@ -23,6 +24,7 @@ const PageTemplate = ({
   content,
   lastEdited
 }) => {
+  const mounted = useMounted()
   const authorList = Array.isArray(authors) ? authors : []
   return (
     <Layout>
@@ -70,7 +72,13 @@ const PageTemplate = ({
                   color: 'black60'
                 })}
               >
-                {formatDate(date)} (<TimeAgo date={date} />)
+                {formatDate(date)}
+                {mounted && (
+                  <>
+                    {' '}
+                    (<TimeAgo date={date} />)
+                  </>
+                )}
               </Text>
             </Choose.When>
             <Choose.Otherwise>
