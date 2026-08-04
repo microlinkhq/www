@@ -227,8 +227,28 @@
       "destination": "/docs/api/parameters/emulation"
     },
     {
+      "source": "/eintegration",
+      "destination": "/docs/api/basics/error-codes#eintegration"
+    },
+    {
       "source": "/epagerange",
       "destination": "/docs/api/basics/error-codes#epagerange"
+    },
+    {
+      "source": "/einvaldata",
+      "destination": "/docs/api/basics/error-codes#einvaldata"
+    },
+    {
+      "source": "/einvaleval",
+      "destination": "/docs/api/basics/error-codes#einvaleval"
+    },
+    {
+      "source": "/einvalfunction",
+      "destination": "/docs/api/basics/error-codes#einvalfunction"
+    },
+    {
+      "source": "/einvaloverlaybg",
+      "destination": "/docs/api/basics/error-codes#einvaloverlaybg"
     },
     {
       "source": "/epdftoolarge",

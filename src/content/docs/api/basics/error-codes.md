@@ -227,6 +227,18 @@ The [overlay.background](/docs/api/parameters/screenshot/overlay) value must be 
 
 Ensure your gradient follows the [CSS gradient syntax](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient).
 
+## EINTEGRATION
+
+**Message**
+
+You need a <ProBadge/> plan for using integrations.
+
+**Solution**
+
+The [url](/docs/api/parameters/url) provided targets a service the API resolves through a dedicated integration rather than a normal fetch, and those are available on paid plans only.
+
+See [pricing](/pricing) for upgrading your plan.
+
 ## EMAXREDIRECTS
 
 **Message**
