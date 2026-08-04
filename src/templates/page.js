@@ -50,7 +50,7 @@ const PageTemplate = ({
                   ...textGradient,
                   textAlign: 'center',
                   mt: 0,
-                  mb: subtitle ? 1 : undefined
+                  mb: subtitle ? 3 : undefined
                 })}
               >
                 <PostTitle>{title}</PostTitle>
