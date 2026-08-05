@@ -23,5 +23,9 @@ export {
   ScreenshotExtensionMockup,
   ScreenshotStepConfigMini,
   ScreenshotStepResultMini,
-  ScreenshotStepUrlMini
+  ScreenshotStepUrlMini,
+  SharingDebuggerExtensionMockup,
+  SharingDebuggerStepFixMini,
+  SharingDebuggerStepScoreMini,
+  SharingDebuggerStepUrlMini
 } from './mockups'
