@@ -1,4 +1,10 @@
-import { breakpoints, colors, layout, theme } from 'theme'
+import {
+  SECTION_VERTICAL_SPACING,
+  breakpoints,
+  colors,
+  layout,
+  theme
+} from 'theme'
 import {
   CheckCircle,
   Chrome,
@@ -6,8 +12,6 @@ import {
   Cpu,
   Eye,
   FileText,
-  Key,
-  Shield,
   Sidebar
 } from 'react-feather'
 import React from 'react'
@@ -80,7 +84,10 @@ const HeroMockupGlow = styled(Box)`
 `
 
 const Hero = () => (
-  <Section as='header' css={theme({ pt: [3, 3, 4, 4], pb: [3, 3, 4, 4] })}>
+  <Section
+    as='header'
+    css={theme({ pt: [3, 3, 4, 4], pb: SECTION_VERTICAL_SPACING })}
+  >
     <SectionInner>
       <HeroGrid>
         <Box>
@@ -165,7 +172,7 @@ const Hero = () => (
 )
 
 const WhatItDoes = () => (
-  <Section css={theme({ pt: [4, 4, 5, 5], pb: 0 })}>
+  <Section css={theme({ py: SECTION_VERTICAL_SPACING })}>
     <SectionInner>
       <Eyebrow accent={ACCENT} css={theme({ pb: 3, display: 'block' })}>
         What it does
@@ -236,21 +243,11 @@ const FEATURES = [
     icon: FileText,
     title: 'The raw metadata, one click away',
     body: 'Expand Raw Metadata to read the full normalized JSON the API returned for your URL — the same payload you get from the Metadata API when you call it from your own code.'
-  },
-  {
-    icon: Key,
-    title: 'Free tier, pro ready',
-    body: 'Works without an account — 25 checks per day on the house. Add your Microlink API key and the extension switches to the pro endpoint with your plan limits.'
-  },
-  {
-    icon: Shield,
-    title: 'Honest about permissions',
-    body: 'Chrome warns that this extension can read your browsing history — that is the permission behind the Use Tab button. Your active tab URL stays in the browser, nothing is stored, and nothing is sent anywhere until you press analyze. The only server it calls is the Microlink API.'
   }
 ]
 
 const Features = () => (
-  <Section css={theme({ pt: 0 })}>
+  <Section css={theme({ py: SECTION_VERTICAL_SPACING })}>
     <SectionInner>
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         Features
@@ -268,7 +265,10 @@ const Features = () => (
 )
 
 const HowItWorks = () => (
-  <Section id='how-it-works' css={theme({ scrollMarginTop: 4 })}>
+  <Section
+    id='how-it-works'
+    css={theme({ py: SECTION_VERTICAL_SPACING, scrollMarginTop: 4 })}
+  >
     <SectionInner>
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         How it works
@@ -314,7 +314,7 @@ const HowItWorks = () => (
 )
 
 const Pricing = () => (
-  <Section css={theme({ pt: 0 })}>
+  <Section css={theme({ py: SECTION_VERTICAL_SPACING })}>
     <SectionInner>
       <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
         Pricing
