@@ -59,13 +59,13 @@ export const PRODUCTS = {
   html: {
     label: 'HTML',
     icon: CodeIcon,
-    href: '/docs/api/parameters/data',
+    href: '/html',
     description: 'Fully rendered HTML with JavaScript execution'
   },
   text: {
     label: 'Text',
     icon: AlignLeftIcon,
-    href: '/docs/api/parameters/data',
+    href: '/text',
     description: 'Clean, LLM-ready text from any page'
   },
   metadata: {
@@ -89,7 +89,7 @@ export const PRODUCTS = {
   function: {
     label: 'Function',
     icon: Terminal,
-    href: '/docs/api/parameters/function',
+    href: '/features/function',
     description: 'Run custom browser code on any page'
   },
   search: {
@@ -113,13 +113,13 @@ export const PRODUCTS = {
   video: {
     label: 'Video',
     icon: VideoIcon,
-    href: '/docs/api/parameters/video',
+    href: '/video',
     description: 'Extract video assets from any page'
   },
   audio: {
     label: 'Audio',
     icon: MusicIcon,
-    href: '/docs/api/parameters/audio',
+    href: '/audio',
     description: 'Extract audio assets from any page'
   }
 }

@@ -1,3 +1,7 @@
+### August 2026
+
+- [Microlink](/): Added [html](/html), [text](/text), [video](/video), [audio](/audio) and [file conversion](/file-conversion) product landings.
+
 ### July 2026
 
 - [Microlink](/): Redesigned [features](/features) with a unified showcase across all capability pages.

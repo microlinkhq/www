@@ -96,7 +96,7 @@ const EXTRA = {
     label: 'Browser Automations',
     description: 'Automate actions in the browser and extract results',
     icon: MousePointerIcon,
-    href: '/docs/guides/function/browser-interaction'
+    href: '/features/automation'
   },
   sdk: {
     label: 'Microlink SDK',
@@ -108,7 +108,7 @@ const EXTRA = {
     label: 'File conversion',
     description: 'Convert any file into HTML, Markdown, or clean text',
     icon: RepeatIcon,
-    href: '/docs/guides/content-conversion'
+    href: '/file-conversion'
   }
 }
 
