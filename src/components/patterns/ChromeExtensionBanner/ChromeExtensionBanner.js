@@ -398,13 +398,6 @@ export const ScreenshotExtensionBanner = ({
   />
 )
 
-/* ─── Sharing Debugger preset ────────────────────────────
-   Same banner, pre-filled for the Sharing Debugger
-   extension: store URL, mockup, highlights, and pricing
-   note. The description keeps the followed internal link to
-   the extension landing; the button is the nofollow store
-   CTA inherited from the base banner. */
-
 const SHARING_DEBUGGER_DEFAULT_TITLE =
   'Debug sharing metadata right from Chrome'
 

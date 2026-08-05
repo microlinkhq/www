@@ -56,10 +56,6 @@ const HeroGrid = styled(Box)`
   }
 `
 
-/* The side-panel mockups fan out like cards on a desk instead of
-   sitting in a flat row. Layout is positional — FLOAT_LAYOUT needs one
-   entry per extension, cascading top-left to bottom-right. */
-
 const MockupStack = styled(Box)`
   position: relative;
   display: grid;

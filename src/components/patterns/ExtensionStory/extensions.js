@@ -34,11 +34,6 @@ export const PLATFORMS = [
   }
 ]
 
-// Each extension owns one stop of the install-button gradient: screenshots
-// wear the pink end, PDFs the violet end, the Sharing Debugger the grape
-// midpoint. The shared shape keeps them siblings; the accent keeps them
-// from reading as clones. An empty storeUrl means the listing is pending
-// review — install CTAs stay hidden until the URL constant is filled in.
 export const EXTENSIONS = [
   {
     slug: 'chrome/website-screenshot',

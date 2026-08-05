@@ -53,8 +53,6 @@ const ACCENT = EXTENSIONS.find(
   extension => extension.slug === 'chrome/sharing-debugger'
 ).accent
 
-/* ─── Hero ───────────────────────────────────────────────────────────────── */
-
 const HeroGrid = styled(Box)`
   display: grid;
   grid-template-columns: 1fr;
@@ -166,8 +164,6 @@ const Hero = () => (
   </Section>
 )
 
-/* ─── What it does ───────────────────────────────────────────────────────── */
-
 const WhatItDoes = () => (
   <Section css={theme({ pt: [4, 4, 5, 5], pb: 0 })}>
     <SectionInner>
@@ -209,8 +205,6 @@ const WhatItDoes = () => (
     </SectionInner>
   </Section>
 )
-
-/* ─── Features ───────────────────────────────────────────────────────────── */
 
 const FEATURES = [
   {
@@ -273,8 +267,6 @@ const Features = () => (
   </Section>
 )
 
-/* ─── How it works ───────────────────────────────────────────────────────── */
-
 const HowItWorks = () => (
   <Section id='how-it-works' css={theme({ scrollMarginTop: 4 })}>
     <SectionInner>
@@ -321,8 +313,6 @@ const HowItWorks = () => (
   </Section>
 )
 
-/* ─── Pricing note ───────────────────────────────────────────────────────── */
-
 const Pricing = () => (
   <Section css={theme({ pt: 0 })}>
     <SectionInner>
@@ -350,8 +340,6 @@ const Pricing = () => (
   </Section>
 )
 
-/* ─── Page ───────────────────────────────────────────────────────────────── */
-
 const SharingDebuggerExtensionPage = () => (
   <Layout css={theme({ position: 'relative' })}>
     <DashedGridOverlay aria-hidden='true' />
@@ -372,8 +360,6 @@ const SharingDebuggerExtensionPage = () => (
     </Box>
   </Layout>
 )
-
-/* ─── Head / SEO ─────────────────────────────────────────────────────────── */
 
 export const Head = () => (
   <Meta
