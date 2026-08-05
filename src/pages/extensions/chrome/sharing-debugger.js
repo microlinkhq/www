@@ -1,5 +1,15 @@
 import { breakpoints, colors, layout, theme } from 'theme'
-import { CheckCircle, Chrome, Code, Cpu, Eye, Key, Shield } from 'react-feather'
+import {
+  CheckCircle,
+  Chrome,
+  Code,
+  Cpu,
+  Eye,
+  FileText,
+  Key,
+  Shield,
+  Sidebar
+} from 'react-feather'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -125,6 +135,20 @@ const Hero = () => (
               Try it online now
             </ArrowLink>
           </Flex>
+          <Caps
+            as='p'
+            css={theme({
+              fontFamily: 'mono',
+              fontSize: 0,
+              fontWeight: 'bold',
+              color: 'black50',
+              letterSpacing: '0.08em',
+              m: 0,
+              pt: 3
+            })}
+          >
+            Version 1.0.0 · Free · Chrome&nbsp;114+
+          </Caps>
         </Box>
         <HeroMockup aria-hidden='true'>
           <HeroMockupGlow
@@ -158,17 +182,29 @@ const WhatItDoes = () => (
         wrong title, missing image, stale description. Every platform reads your
         metadata differently, and the first time you find out is usually in
         front of your audience. This extension checks the page the way crawlers
-        do: it pulls the live metadata through the Microlink API and runs 17
-        checks across two lenses — social sharing (Open Graph and Twitter Card
-        titles, descriptions, image size and ratio, HTTPS, publisher, logo) and
-        SEO (title and description length, language, canonical hygiene, tracking
-        parameters, freshness).
+        do: it resolves the live metadata through the Microlink API — the
+        normalized title, description, image, publisher, logo, language, author,
+        date, and canonical URL a crawler actually ends up with — then runs 17
+        checks across two lenses. Sharing covers title and description length,
+        image presence, resolution and aspect ratio, HTTPS, publisher, and logo.
+        SEO covers title and description length, language, canonical and
+        redirect hygiene, tracking parameters, duplicate title and description,
+        content freshness, and author.
+      </Text>
+      <Text as='p' css={theme({ pb: 4 })}>
+        Each category gets a score, every check comes back as a pass, info,
+        warning, or error, and the preview pane renders the card WhatsApp,
+        Facebook, Google, Telegram, LinkedIn, X, Discord, and Slack will show —
+        so you can fix the tags before anyone sees them broken. A Raw Metadata
+        panel keeps the full normalized API response one click away, so you can
+        see exactly what a crawler resolves before you write a single tag.
       </Text>
       <Text as='p'>
-        Each category gets a score, every check comes back as a pass, warning,
-        or error, and the preview pane renders the card WhatsApp, Facebook,
-        Google, Telegram, LinkedIn, X, Discord, and Slack will show — so you can
-        fix the tags before anyone sees them broken.
+        The scores are arithmetic, not opinion. Each lens starts at 100 and
+        loses 22 points per error, 10 per warning, and 4 per info finding; the
+        overall score is the average of the two. In the panel, 85 and above
+        reads green, 65 and above amber, anything lower red — a number you can
+        act on, and the same number every time you re-run the check.
       </Text>
     </SectionInner>
   </Section>
@@ -180,7 +216,7 @@ const FEATURES = [
   {
     icon: CheckCircle,
     title: '17 checks, two lenses',
-    body: 'Sharing checks cover Open Graph and Twitter Card titles, descriptions, image size and ratio, HTTPS, publisher, and logo. SEO checks cover title and description length, language, canonical hygiene, tracking parameters, and freshness.'
+    body: 'Sharing checks cover title and description length, image presence, resolution and aspect ratio, HTTPS, publisher, and logo. SEO checks cover title and description length, language, canonical and redirect hygiene, tracking parameters, duplicate title and description, freshness, and author.'
   },
   {
     icon: Eye,
@@ -188,14 +224,24 @@ const FEATURES = [
     body: 'See the card WhatsApp, Facebook, Google, Telegram, LinkedIn, X, Discord, and Slack will render for your URL — before you share the link anywhere.'
   },
   {
+    icon: Sidebar,
+    title: 'Keeps up as you browse',
+    body: 'The side panel stays open while you move around. Switch tabs and Use Tab follows you, so auditing a whole site is paste, read, fix, next page — never reopening anything.'
+  },
+  {
     icon: Code,
     title: 'Copy-ready fix tags',
-    body: 'Every failing check ships the exact HTML tag that fixes it. Copy the snippet, paste it into your page, and re-run the check to confirm the card is right.'
+    body: 'Every error and warning ships the exact HTML tag that fixes it — Open Graph and Twitter Card variants together. Copy the snippet, paste it into your page, and re-run the check to confirm the card is right.'
   },
   {
     icon: Cpu,
     title: 'An LLM prompt that fixes it',
-    body: 'One click copies a structured prompt with every detected issue and its suggested tag — hand it to Claude or your coding agent and let it apply the fixes step by step.'
+    body: 'Each panel copies a structured prompt with its errors, warnings, and suggested tags. Hand it to Claude or your coding agent: the prompt makes it ask permission before every step and refuse to invent values it does not have.'
+  },
+  {
+    icon: FileText,
+    title: 'The raw metadata, one click away',
+    body: 'Expand Raw Metadata to read the full normalized JSON the API returned for your URL — the same payload you get from the Metadata API when you call it from your own code.'
   },
   {
     icon: Key,
@@ -204,8 +250,8 @@ const FEATURES = [
   },
   {
     icon: Shield,
-    title: 'Privacy-first permissions',
-    body: 'The extension reads the URL of the tab you choose to analyze — never your browsing history — and it only talks to microlink.io endpoints, nothing else.'
+    title: 'Honest about permissions',
+    body: 'Chrome warns that this extension can read your browsing history — that is the permission behind the Use Tab button. Your active tab URL stays in the browser, nothing is stored, and nothing is sent anywhere until you press analyze. The only server it calls is the Microlink API.'
   }
 ]
 
@@ -259,7 +305,7 @@ const HowItWorks = () => (
           number={2}
           kicker='Read the verdict'
           title='Three scores, every check explained.'
-          body='Overall, Sharing, and SEO scores land in seconds, with every check listed as a pass, warning, or error. Flip through the preview pane to see the exact card each platform will render.'
+          body='Overall, Sharing, and SEO scores land in seconds, with every check listed as a pass, info, warning, or error — and the passed ones collapsed behind a count until you want them. Flip through the preview pane to see the exact card each platform will render.'
           visual={<SharingDebuggerStepScoreMini />}
         />
         <StepCard
@@ -267,7 +313,7 @@ const HowItWorks = () => (
           number={3}
           kicker='Copy the fix'
           title='Exact tags, ready to paste.'
-          body='Every issue ships with the HTML tag that fixes it — copy a single tag, or copy the LLM fix prompt and let your coding agent apply every change step by step. Re-run the check to confirm the card is fixed.'
+          body='Every error and warning ships with the HTML tag that fixes it — copy a single tag, or copy the panel’s LLM fix prompt and let your coding agent apply every change, asking your permission at each step. Re-run the check to confirm the card is fixed.'
           visual={<SharingDebuggerStepFixMini />}
         />
       </Flex>
@@ -348,6 +394,16 @@ export const Head = () => (
         applicationCategory: 'BrowserApplication',
         operatingSystem: 'Chrome',
         browserRequirements: 'Requires Google Chrome 114 or later',
+        softwareVersion: '1.0.0',
+        fileSize: '83.48 kB',
+        permissions: 'storage, activeTab, tabs, sidePanel',
+        featureList: [
+          '17 sharing and SEO metadata checks',
+          'Link card previews for WhatsApp, Facebook, Google, Telegram, LinkedIn, X, Discord, and Slack',
+          'Copy-ready Open Graph and Twitter Card fix tags',
+          'Copyable LLM fix prompt for coding agents',
+          'Raw normalized metadata inspector'
+        ],
         provider: {
           '@type': 'Organization',
           '@id': 'https://microlink.io/#organization',

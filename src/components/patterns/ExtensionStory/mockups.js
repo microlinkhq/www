@@ -579,7 +579,7 @@ const TargetUrlField = () => (
       })}
     >
       <Hint>https://x.com/</Hint>
-      <MiniChip>Use current tab</MiniChip>
+      <MiniChip>Use Tab</MiniChip>
     </Flex>
   </>
 )
@@ -605,7 +605,7 @@ export const SharingDebuggerExtensionMockup = () => (
         >
           <TonedChip $tone={SCORE_TONES.bad}>0 Errors</TonedChip>
           <TonedChip $tone={SCORE_TONES.fair}>2 Warnings</TonedChip>
-          <TonedChip $tone={SCORE_TONES.good}>13 Passes</TonedChip>
+          <TonedChip $tone={SCORE_TONES.good}>14 Passes</TonedChip>
         </Flex>
       </PanelCard>
     </PanelBody>
@@ -635,7 +635,7 @@ export const SharingDebuggerStepScoreMini = () => (
     >
       <TonedChip $tone={SCORE_TONES.fair}>2 Warnings</TonedChip>
       <TonedChip $tone={SCORE_TONES.info}>0 Info</TonedChip>
-      <TonedChip $tone={SCORE_TONES.good}>13 Passes</TonedChip>
+      <TonedChip $tone={SCORE_TONES.good}>14 Passes</TonedChip>
     </Flex>
   </MiniPanel>
 )
@@ -654,6 +654,13 @@ const CodeLine = styled(Text)`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`
+
+const PromptStrip = styled(Box)`
+  ${theme({ borderRadius: 2, mt: '6px' })}
+  padding: 6px 8px;
+  background: ${colors.grape0};
+  border: 1px solid ${colors.grape2};
 `
 
 export const SharingDebuggerStepFixMini = () => (
@@ -692,5 +699,20 @@ export const SharingDebuggerStepFixMini = () => (
       <CodeLine>{'<meta name="description"'}</CodeLine>
       <CodeLine>{'  content="Turn websites into data" />'}</CodeLine>
     </CodeBlock>
+    <PromptStrip>
+      <Flex
+        css={theme({
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 1
+        })}
+      >
+        <FieldLabel $color={colors.grape7}>LLM fix prompt</FieldLabel>
+        <Flex css={theme({ alignItems: 'center', gap: '4px' })}>
+          <MiniChip>Show</MiniChip>
+          <MiniChip>Copy Prompt</MiniChip>
+        </Flex>
+      </Flex>
+    </PromptStrip>
   </MiniPanel>
 )
