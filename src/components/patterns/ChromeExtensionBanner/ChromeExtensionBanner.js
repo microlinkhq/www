@@ -24,7 +24,8 @@ export const PDF_EXTENSION_URL =
 export const SCREENSHOT_EXTENSION_URL =
   'https://chromewebstore.google.com/detail/microlink-web-page-screen/lcoeiekhoinlbhknghmmjfoaklkfpjhc'
 
-export const SHARING_DEBUGGER_EXTENSION_URL = ''
+export const SHARING_DEBUGGER_EXTENSION_URL =
+  'https://chromewebstore.google.com/detail/microlink-sharing-debugge/dbdnofdiilddkpnplkfififcmiincnln'
 
 export const SHARING_DEBUGGER_LANDING_PATH =
   '/extensions/chrome/sharing-debugger'
@@ -399,10 +400,10 @@ export const ScreenshotExtensionBanner = ({
 
 /* ─── Sharing Debugger preset ────────────────────────────
    Same banner, pre-filled for the Sharing Debugger
-   extension. While SHARING_DEBUGGER_EXTENSION_URL is empty
-   (store listing pending review) the button points to the
-   extension landing as an internal followed link; filling
-   the constant flips it to the nofollow store CTA. */
+   extension: store URL, mockup, highlights, and pricing
+   note. The description keeps the followed internal link to
+   the extension landing; the button is the nofollow store
+   CTA inherited from the base banner. */
 
 const SHARING_DEBUGGER_DEFAULT_TITLE =
   'Debug sharing metadata right from Chrome'
@@ -435,15 +436,6 @@ const SHARING_DEBUGGER_PRICING_NOTE = (
   </>
 )
 
-const SHARING_DEBUGGER_CTA = SHARING_DEBUGGER_EXTENSION_URL
-  ? { href: SHARING_DEBUGGER_EXTENSION_URL }
-  : {
-      href: SHARING_DEBUGGER_LANDING_PATH,
-      target: null,
-      rel: null,
-      buttonLabel: 'Meet the extension'
-    }
-
 export const SharingDebuggerExtensionBanner = ({
   title = SHARING_DEBUGGER_DEFAULT_TITLE,
   description = SHARING_DEBUGGER_DEFAULT_DESCRIPTION,
@@ -454,10 +446,10 @@ export const SharingDebuggerExtensionBanner = ({
     title={title}
     description={description}
     highlights={highlights}
+    href={SHARING_DEBUGGER_EXTENSION_URL}
     mockup={<SharingDebuggerExtensionMockup />}
     pricingNote={SHARING_DEBUGGER_PRICING_NOTE}
     eventName='sharing debugger extension install'
-    {...SHARING_DEBUGGER_CTA}
     {...props}
   />
 )

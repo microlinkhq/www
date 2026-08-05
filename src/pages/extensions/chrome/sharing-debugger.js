@@ -1,14 +1,5 @@
 import { breakpoints, colors, layout, theme } from 'theme'
-import {
-  CheckCircle,
-  Chrome,
-  Clock,
-  Code,
-  Cpu,
-  Eye,
-  Key,
-  Shield
-} from 'react-feather'
+import { CheckCircle, Chrome, Code, Cpu, Eye, Key, Shield } from 'react-feather'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -80,42 +71,6 @@ const HeroMockupGlow = styled(Box)`
   pointer-events: none;
 `
 
-const PendingChip = styled(Flex)`
-  ${theme({
-    alignItems: 'center',
-    gap: 2,
-    py: '12px',
-    px: 4,
-    border: 1,
-    borderColor: 'black10',
-    borderRadius: 2,
-    bg: 'white',
-    fontSize: 1,
-    fontWeight: 'bold',
-    color: 'black80'
-  })}
-`
-
-const InstallCta = () =>
-  SHARING_DEBUGGER_EXTENSION_URL
-    ? (
-      <InstallButtonInline
-        href={SHARING_DEBUGGER_EXTENSION_URL}
-        target='_blank'
-        rel='noopener noreferrer'
-        onClick={() => trackEvent(EVENT_NAME)}
-      >
-        <Chrome size={18} style={{ flexShrink: 0 }} />
-        Add to Chrome — it&apos;s free
-      </InstallButtonInline>
-      )
-    : (
-      <PendingChip>
-        <Clock size={18} color={colors.grape7} style={{ flexShrink: 0 }} />
-        Pending review on the Chrome&nbsp;Web&nbsp;Store
-      </PendingChip>
-      )
-
 const Hero = () => (
   <Section as='header' css={theme({ pt: [3, 3, 4, 4], pb: [3, 3, 4, 4] })}>
     <SectionInner>
@@ -154,7 +109,15 @@ const Hero = () => (
               gap: 3
             })}
           >
-            <InstallCta />
+            <InstallButtonInline
+              href={SHARING_DEBUGGER_EXTENSION_URL}
+              target='_blank'
+              rel='noopener noreferrer'
+              onClick={() => trackEvent(EVENT_NAME)}
+            >
+              <Chrome size={18} style={{ flexShrink: 0 }} />
+              Add to Chrome — it&apos;s free
+            </InstallButtonInline>
             <ArrowLink
               href='/tools/sharing-debugger'
               css={theme({ color: 'link', fontWeight: 'bold', fontSize: 1 })}
@@ -381,9 +344,7 @@ export const Head = () => (
         description:
           'Chrome extension that debugs social sharing and SEO metadata — score any URL, preview its link card across 8 platforms, and copy ready-to-paste fix tags, powered by Microlink.',
         url: 'https://microlink.io/extensions/chrome/sharing-debugger',
-        ...(SHARING_DEBUGGER_EXTENSION_URL
-          ? { installUrl: SHARING_DEBUGGER_EXTENSION_URL }
-          : {}),
+        installUrl: SHARING_DEBUGGER_EXTENSION_URL,
         applicationCategory: 'BrowserApplication',
         operatingSystem: 'Chrome',
         browserRequirements: 'Requires Google Chrome 114 or later',
