@@ -12,7 +12,8 @@ import Text from 'components/elements/Text'
 
 import {
   PdfExtensionMockup,
-  ScreenshotExtensionMockup
+  ScreenshotExtensionMockup,
+  SharingDebuggerExtensionMockup
 } from 'components/patterns/ExtensionStory/mockups'
 
 import { trackEvent } from 'helpers/plausible'
@@ -22,6 +23,12 @@ export const PDF_EXTENSION_URL =
 
 export const SCREENSHOT_EXTENSION_URL =
   'https://chromewebstore.google.com/detail/microlink-web-page-screen/lcoeiekhoinlbhknghmmjfoaklkfpjhc'
+
+export const SHARING_DEBUGGER_EXTENSION_URL =
+  'https://chromewebstore.google.com/detail/microlink-sharing-debugge/dbdnofdiilddkpnplkfififcmiincnln'
+
+export const SHARING_DEBUGGER_LANDING_PATH =
+  '/extensions/chrome/sharing-debugger'
 
 const cardBase = css`
   ${theme({
@@ -159,6 +166,8 @@ const ChromeExtensionBanner = ({
   pricingNote = DEFAULT_PRICING_NOTE,
   buttonLabel = "Add to Chrome — it's free",
   eventName = 'pdf extension install',
+  target = '_blank',
+  rel = 'nofollow noopener noreferrer',
   ...props
 }) => (
   <Container
@@ -246,8 +255,8 @@ const ChromeExtensionBanner = ({
           </Box>
           <InstallButton
             href={href}
-            target='_blank'
-            rel='nofollow noopener noreferrer'
+            target={target}
+            rel={rel}
             onClick={() => trackEvent(eventName)}
           >
             <Chrome size={18} style={{ flexShrink: 0 }} />
@@ -385,6 +394,55 @@ export const ScreenshotExtensionBanner = ({
     mockup={<ScreenshotExtensionMockup />}
     pricingNote={SCREENSHOT_PRICING_NOTE}
     eventName='screenshot extension install'
+    {...props}
+  />
+)
+
+const SHARING_DEBUGGER_DEFAULT_TITLE =
+  'Debug sharing metadata right from Chrome'
+
+const SHARING_DEBUGGER_DEFAULT_DESCRIPTION = (
+  <>
+    Skip the tab switching — the <b>Microlink Sharing Debugger</b> extension
+    scores sharing and SEO metadata from Chrome&apos;s side panel, powered by
+    the same <Link href='/metadata'>Metadata API</Link> as this tool. Preview
+    link cards across 8&nbsp;platforms and copy ready-to-paste fix tags —{' '}
+    <Link href={SHARING_DEBUGGER_LANDING_PATH}>see everything it does</Link>.
+  </>
+)
+
+const SHARING_DEBUGGER_DEFAULT_HIGHLIGHTS = [
+  '17 sharing & SEO checks',
+  '8 platform previews',
+  'Copy-ready fix tags',
+  'No account needed'
+]
+
+const SHARING_DEBUGGER_PRICING_NOTE = (
+  <>
+    25 checks/day included — need serious volume?
+    <br />
+    <Link href='/metadata#pricing'>
+      Upgrade for up to 46,000 checks per month
+    </Link>
+    .
+  </>
+)
+
+export const SharingDebuggerExtensionBanner = ({
+  title = SHARING_DEBUGGER_DEFAULT_TITLE,
+  description = SHARING_DEBUGGER_DEFAULT_DESCRIPTION,
+  highlights = SHARING_DEBUGGER_DEFAULT_HIGHLIGHTS,
+  ...props
+}) => (
+  <ChromeExtensionBanner
+    title={title}
+    description={description}
+    highlights={highlights}
+    href={SHARING_DEBUGGER_EXTENSION_URL}
+    mockup={<SharingDebuggerExtensionMockup />}
+    pricingNote={SHARING_DEBUGGER_PRICING_NOTE}
+    eventName='sharing debugger extension install'
     {...props}
   />
 )

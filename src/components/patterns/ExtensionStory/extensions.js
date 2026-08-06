@@ -1,11 +1,17 @@
-import { Camera, Chrome, FileText } from 'react-feather'
+import { Camera, Chrome, FileText, Share2 } from 'react-feather'
 
 import {
   PDF_EXTENSION_URL,
-  SCREENSHOT_EXTENSION_URL
+  SCREENSHOT_EXTENSION_URL,
+  SHARING_DEBUGGER_EXTENSION_URL,
+  SHARING_DEBUGGER_LANDING_PATH
 } from 'components/patterns/ChromeExtensionBanner/ChromeExtensionBanner'
 
-import { PdfExtensionMockup, ScreenshotExtensionMockup } from './mockups'
+import {
+  PdfExtensionMockup,
+  ScreenshotExtensionMockup,
+  SharingDebuggerExtensionMockup
+} from './mockups'
 
 // Violet ties the extension pages to the install-button gradient
 // used by ChromeExtensionBanner (#ec4899 → #8b5cf6).
@@ -28,9 +34,6 @@ export const PLATFORMS = [
   }
 ]
 
-// Each extension owns one end of the install-button gradient: screenshots
-// wear the pink end, PDFs the violet end. The shared shape keeps them
-// siblings; the accent keeps them from reading as clones.
 export const EXTENSIONS = [
   {
     slug: 'chrome/website-screenshot',
@@ -85,5 +88,32 @@ export const EXTENSIONS = [
     storeUrl: PDF_EXTENSION_URL,
     apiHref: '/pdf',
     eventName: 'pdf extension install'
+  },
+  {
+    slug: 'chrome/sharing-debugger',
+    platform: 'chrome',
+    name: 'Sharing Debugger',
+    fullName: 'Microlink: Sharing Debugger',
+    icon: Share2,
+    category: 'Metadata API',
+    accent: {
+      text: 'grape7',
+      bgSoft: 'grape0',
+      bgEdge: 'grape1',
+      highlight: 'grape5'
+    },
+    blurb:
+      'Debug how any URL unfurls — score its sharing and SEO metadata, preview the link card across 8 platforms, and copy ready-to-paste fix tags.',
+    highlights: [
+      '17 sharing & SEO checks',
+      '8 platform previews',
+      'Copy-ready fix tags',
+      'LLM fix prompt included'
+    ],
+    mockup: SharingDebuggerExtensionMockup,
+    href: SHARING_DEBUGGER_LANDING_PATH,
+    storeUrl: SHARING_DEBUGGER_EXTENSION_URL,
+    apiHref: '/metadata',
+    eventName: 'sharing debugger extension install'
   }
 ]
