@@ -29,7 +29,7 @@ export const TIMINGS_ACCENT = `radial-gradient(
 )`
 
 export const HERO = {
-  title: 'Rendered HTML API',
+  title: 'Rendered HTML API for developers',
   description:
     'Get the HTML a real browser sees, after JavaScript has run. One REST call returns the fully hydrated DOM of any URL, no headless Chrome to operate.',
   ctaHref: '/docs/api/parameters/data',
@@ -109,7 +109,7 @@ export const PRICING_CAPTION =
 
 export const CTA = {
   caption:
-    'Get 25 requests/day with zero commitment. The rendered HTML API is free to use, with no account and no credit card. Call it and start parsing real markup in seconds.',
+    'Get 25 requests/day with zero commitment. The rendered HTML API is free to use, with no account and no credit card. Call it and start parsing real markup in seconds.',
   ctaHref: '/docs/api/parameters/data',
   ctaLabel: 'Get started free'
 }
@@ -124,7 +124,7 @@ export const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          A plain HTTP fetch returns whatever the server sent on a single-page
+          A plain HTTP fetch returns whatever the server sent — on a single-page
           app that is usually an empty div. Microlink loads the URL in a real{' '}
           <Link href='/blog/what-is-a-headless-browser'>browser</Link>, runs the
           JavaScript, waits for the page to settle, and returns the resulting
@@ -160,7 +160,7 @@ export const FAQ_ITEMS = [
 ]
 
 export const META = {
-  title: 'Rendered HTML API - Get Page HTML After JavaScript',
+  title: 'Rendered HTML API - HTML After JavaScript',
   description:
     'Get the fully rendered HTML of any URL after JavaScript executes. Real browser rendering, CSS selector scoping, proxy support and edge caching. 25 free requests/day.',
   structuredName: 'Microlink HTML API',

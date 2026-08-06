@@ -29,7 +29,7 @@ export const TIMINGS_ACCENT = `radial-gradient(
 )`
 
 export const HERO = {
-  title: 'Audio Extraction API',
+  title: 'Audio extraction API for developers',
   description:
     'Find the playable audio behind any URL. Microlink resolves the direct file, its duration and type, so you can stream, transcribe or process it without scraping player markup.',
   ctaHref: '/docs/api/parameters/audio',
@@ -103,7 +103,7 @@ export const PRICING_CAPTION =
 
 export const CTA = {
   caption:
-    'Get 25 requests/day with zero commitment. The audio extraction API is free to use, with no account and no credit card. Send a URL and get a playable file back in seconds.',
+    'Get 25 requests/day with zero commitment. The audio extraction API is free to use, with no account and no credit card. Send a URL and get a playable file back in seconds.',
   ctaHref: '/docs/api/parameters/audio',
   ctaLabel: 'Get started free'
 }
@@ -139,7 +139,7 @@ export const FAQ_ITEMS = [
 ]
 
 export const META = {
-  title: 'Audio Extraction API - Get the Audio URL From Any Page',
+  title: 'Audio Extraction API - Direct Audio File URL',
   description:
     'Extract the direct audio file URL, duration and type from any web page. Real browser detection, transcription-ready output, proxy support. 25 free requests/day.',
   structuredName: 'Microlink Audio API',

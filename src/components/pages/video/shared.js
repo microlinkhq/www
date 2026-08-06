@@ -29,7 +29,7 @@ export const TIMINGS_ACCENT = `radial-gradient(
 )`
 
 export const HERO = {
-  title: 'Video Extraction API',
+  title: 'Video extraction API for developers',
   description:
     'Find the playable video behind any URL. Microlink resolves the direct file, its dimensions, duration and type, so you can embed or process it without scraping player markup.',
   ctaHref: '/docs/api/parameters/video',
@@ -103,7 +103,7 @@ export const PRICING_CAPTION =
 
 export const CTA = {
   caption:
-    'Get 25 requests/day with zero commitment. The video extraction API is free to use, with no account and no credit card. Send a URL and get a playable file back in seconds.',
+    'Get 25 requests/day with zero commitment. The video extraction API is free to use, with no account and no credit card. Send a URL and get a playable file back in seconds.',
   ctaHref: '/docs/api/parameters/video',
   ctaLabel: 'Get started free'
 }
@@ -153,7 +153,7 @@ export const FAQ_ITEMS = [
 ]
 
 export const META = {
-  title: 'Video Extraction API - Get the Video URL From Any Page',
+  title: 'Video Extraction API - Direct Video File URL',
   description:
     'Extract the direct video file URL, dimensions, duration and type from any web page. Real browser detection, proxy support and edge caching. 25 free requests/day.',
   structuredName: 'Microlink Video API',

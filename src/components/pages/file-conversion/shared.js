@@ -29,7 +29,7 @@ export const TIMINGS_ACCENT = `radial-gradient(
 )`
 
 export const HERO = {
-  title: 'File Conversion API',
+  title: 'File conversion API for developers',
   description:
     'Point the API at a document and get HTML, Markdown or clean text back. PDFs, Word files, spreadsheets and slide decks become content your code can read.',
   ctaHref: '/docs/guides/content-conversion',
@@ -114,7 +114,7 @@ export const PRICING_CAPTION =
 
 export const CTA = {
   caption:
-    'Get 25 requests/day with zero commitment. The file conversion API is free to use, with no account and no credit card. Send a document URL and get readable content back in seconds.',
+    'Get 25 requests/day with zero commitment. The file conversion API is free to use, with no account and no credit card. Send a document URL and get readable content back in seconds.',
   ctaHref: '/docs/guides/content-conversion',
   ctaLabel: 'Get started free'
 }
@@ -175,7 +175,7 @@ export const FAQ_ITEMS = [
 ]
 
 export const META = {
-  title: 'File Conversion API - Convert Any File to HTML, Markdown or Text',
+  title: 'File Conversion API - Files to Markdown & Text',
   description:
     'Convert PDFs, Word documents, spreadsheets and slide decks into HTML, Markdown or clean text with one API call. No local toolchain. 25 free requests/day.',
   structuredName: 'Microlink File Conversion API',
