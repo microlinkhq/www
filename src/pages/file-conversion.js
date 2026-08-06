@@ -100,7 +100,7 @@ export const Head = () => (
 
 const FileConversionPage = () => (
   <Layout>
-    <ProductHero {...HERO} />
+    <ProductHero {...HERO} accent={ACCENT} />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductCapabilities {...CAPABILITIES} accent={ACCENT} tileBg={TILE_BG} />
     <ProductPricing caption={PRICING_CAPTION} />

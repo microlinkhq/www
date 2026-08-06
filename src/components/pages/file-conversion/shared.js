@@ -34,10 +34,40 @@ export const HERO = {
     'Point the API at a document and get HTML, Markdown or clean text back. PDFs, Word files, spreadsheets and slide decks become content your code can read.',
   ctaHref: '/docs/guides/content-conversion',
   ctaLabel: 'Get Started',
-  mqlCode: {
-    url: 'https://arxiv.org/pdf/1706.03762',
-    markdown: true
-  }
+  examples: [
+    {
+      label: 'PDF → Markdown',
+      mqlCode: {
+        url: 'https://arxiv.org/pdf/1706.03762',
+        data: { markdown: { attr: 'markdown' } },
+        meta: false
+      }
+    },
+    {
+      label: 'DOCX → HTML',
+      mqlCode: {
+        url: 'https://cdn.microlink.io/file-examples/sample.docx',
+        data: { html: { attr: 'html' } },
+        meta: false
+      }
+    },
+    {
+      label: 'XLSX → Markdown',
+      mqlCode: {
+        url: 'https://cdn.microlink.io/file-examples/sample.xlsx',
+        data: { markdown: { attr: 'markdown' } },
+        meta: false
+      }
+    },
+    {
+      label: 'PPTX → Text',
+      mqlCode: {
+        url: 'https://cdn.microlink.io/file-examples/sample.pptx',
+        data: { text: { attr: 'text' } },
+        meta: false
+      }
+    }
+  ]
 }
 
 export const TIMINGS = {
