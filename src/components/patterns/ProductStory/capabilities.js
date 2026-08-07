@@ -101,12 +101,14 @@ export const ProductCapabilities = ({
         )}
         <Flex
           css={[
-            theme({ gap: [3, 3, 3, 4], width: '100%' }),
+            theme({
+              gap: [3, 3, 3, 4],
+              width: '100%',
+              flexDirection: ['column', 'column', 'row', 'column'],
+              flexWrap: ['nowrap', 'nowrap', 'wrap', 'nowrap']
+            }),
             {
-              flexDirection: 'column',
               '@media (min-width: 768px) and (max-width: 1199px)': {
-                flexDirection: 'row',
-                flexWrap: 'wrap',
                 '& > *': { width: 'calc(50% - 12px)' }
               }
             }
