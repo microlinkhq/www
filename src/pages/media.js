@@ -17,7 +17,7 @@ import {
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
-import { LogoCapabilitiesVisual } from 'components/pages/logo/capabilities-visual'
+import { MediaCapabilitiesVisual } from 'components/pages/media/capabilities-visual'
 import {
   ACCENT,
   TIMINGS_ACCENT,
@@ -29,38 +29,38 @@ import {
   FAQ_CAPTION,
   FAQ_ITEMS,
   META
-} from 'components/pages/logo/shared'
+} from 'components/pages/media/shared'
 
 const FEATURES = [
   {
-    title: 'Three Detection Sources',
+    title: 'Direct File URLs',
     description:
-      'Page markup, the DNS BIMI record and the favicon are checked in order, so the best available asset wins and coverage never drops to zero.'
+      'The response carries a playable media URL rather than an iframe or a widget, so you can render it, stream it or queue it for processing.'
   },
   {
-    title: 'Brand Palette Extraction',
+    title: 'Dimensions And Duration',
     description:
-      'Dominant colors arrive ordered by presence, plus background and foreground pairs picked for WCAG contrast — ready to theme UI with.'
+      'Width, height, duration and media type arrive with the URL, so players can be laid out without a probe request or a layout shift.'
   },
   {
-    title: 'Complete Image Metadata',
+    title: 'Transcription Ready',
     description:
-      'Format, file size and exact dimensions ship with every logo, so layouts render without a probe request or a layout shift.'
-  },
-  {
-    title: 'Hotlink-Ready Embedding',
-    description:
-      'One query parameter turns the response into the image itself, so the logo drops straight into an image tag with nothing to store.'
+      'You receive the media rather than the page hosting it, so audio drops straight into a speech-to-text pipeline with no scraping step.'
   },
   {
     title: 'Real Browser Detection',
     description:
-      'Markup injected by JavaScript is still found, because detection happens after the page has fully rendered.'
+      'Players that only mount after JavaScript runs are still found, because detection happens after the page has fully settled.'
   },
   {
-    title: 'No HTML Required',
+    title: 'Metadata In The Same Call',
     description:
-      'The DNS source resolves without touching the page, so a logo still comes back when a site is rate-limited or answers with a 403.'
+      'Request title, description, artwork and poster image alongside the media and pay for a single render instead of several.'
+  },
+  {
+    title: 'Residential Proxy Resolution',
+    description:
+      'Route hard targets through residential IPs to get past Cloudflare, DataDome and Akamai without maintaining a proxy pool yourself.'
   },
   {
     title: 'Edge Cached Responses',
@@ -70,7 +70,7 @@ const FEATURES = [
   {
     title: 'Enterprise-Grade Reliability',
     description:
-      'Production-ready infrastructure with a 99.9% uptime SLA and guaranteed performance for business-critical brand pipelines.'
+      'Production-ready infrastructure with a 99.9% uptime SLA and guaranteed performance for business-critical media workflows.'
   },
   {
     title: 'Generous Free Tier',
@@ -79,14 +79,14 @@ const FEATURES = [
   }
 ]
 
-const REPOS = ['metascraper', 'unavatar', 'splashy']
+const REPOS = ['youtube-dl-exec', 'spotify-url-info', 'ffprobe']
 
 export const Head = () => (
   <Meta
     title={META.title}
     description={META.description}
     structured={productStructured({
-      path: '/logo',
+      path: '/media',
       name: META.structuredName,
       description: META.structuredDescription,
       keywords: META.keywords,
@@ -98,26 +98,26 @@ export const Head = () => (
   />
 )
 
-const LogoPage = () => (
+const MediaPage = () => (
   <Layout>
     <ProductHero {...HERO} accent={ACCENT} />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductCapabilities
       {...CAPABILITIES}
       accent={ACCENT}
-      visual={<LogoCapabilitiesVisual />}
+      visual={<MediaCapabilitiesVisual />}
     />
     <ProductPricing caption={PRICING_CAPTION} />
     <OpenSource
       repos={REPOS}
       accent={ACCENT}
-      caption='The Microlink logo pipeline is powered by battle-tested open source libraries used by thousands of developers worldwide. Our logo API is built on an open source foundation: explore the code, contribute, or run it yourself.'
+      caption='The Microlink media pipeline is powered by battle-tested open source libraries used by thousands of developers worldwide. Our media extraction API is built on an open source foundation: explore the code, contribute, or run it yourself.'
     />
     <Features
       css={theme({ px: 4, py: SECTION_VERTICAL_SPACING })}
       title={
         <Subhead css={theme({ width: '100%', textAlign: 'left' })}>
-          The web never standardized the logo.{' '}
+          Every player is different.{' '}
           <span
             css={{
               display: 'block',
@@ -126,16 +126,16 @@ const LogoPage = () => (
               textAlign: 'left'
             }}
           >
-            We standardized finding it.
+            The file never is.
           </span>
         </Subhead>
       }
       caption={
         <>
-          One request checks every markup convention, the DNS record and the
-          favicon via the{' '}
-          <Link href='/docs/api/parameters/meta'>metadata API</Link>, then
-          returns the winner with its colors.
+          No player markup to reverse-engineer and no provider-specific
+          integrations to maintain. Send a URL and get a playable file back via
+          the <Link href='/docs/api/parameters/video'>video</Link> and{' '}
+          <Link href='/docs/api/parameters/audio'>audio</Link> APIs.
         </>
       }
       features={FEATURES}
@@ -145,4 +145,4 @@ const LogoPage = () => (
   </Layout>
 )
 
-export default LogoPage
+export default MediaPage

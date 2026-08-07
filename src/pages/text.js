@@ -17,7 +17,7 @@ import {
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
-import { LogoCapabilitiesVisual } from 'components/pages/logo/capabilities-visual'
+import { TextCapabilitiesVisual } from 'components/pages/text/capabilities-visual'
 import {
   ACCENT,
   TIMINGS_ACCENT,
@@ -29,38 +29,38 @@ import {
   FAQ_CAPTION,
   FAQ_ITEMS,
   META
-} from 'components/pages/logo/shared'
+} from 'components/pages/text/shared'
 
 const FEATURES = [
   {
-    title: 'Three Detection Sources',
+    title: 'Boilerplate Stripped',
     description:
-      'Page markup, the DNS BIMI record and the favicon are checked in order, so the best available asset wins and coverage never drops to zero.'
+      'Navigation, sidebars, consent banners, ads and footers are removed so the response carries only the content of the page.'
   },
   {
-    title: 'Brand Palette Extraction',
+    title: 'JavaScript Rendered First',
     description:
-      'Dominant colors arrive ordered by presence, plus background and foreground pairs picked for WCAG contrast — ready to theme UI with.'
+      'Text is extracted after the page hydrates, so client-rendered blogs, docs and single-page apps return their real content.'
   },
   {
-    title: 'Complete Image Metadata',
+    title: 'Built For LLM Pipelines',
     description:
-      'Format, file size and exact dimensions ship with every logo, so layouts render without a probe request or a layout shift.'
+      'Plain text is a fraction of the size of source HTML, cutting the cost and latency of every embedding, classification and summarisation call.'
   },
   {
-    title: 'Hotlink-Ready Embedding',
+    title: 'Documents Supported',
     description:
-      'One query parameter turns the response into the image itself, so the logo drops straight into an image tag with nothing to store.'
+      'PDFs, Word files, spreadsheets and slide decks resolve to text through the same endpoint, so one integration covers pages and documents.'
   },
   {
-    title: 'Real Browser Detection',
+    title: 'Structure On Demand',
     description:
-      'Markup injected by JavaScript is still found, because detection happens after the page has fully rendered.'
+      'Request markdown alongside text when headings, lists and links matter, and pay for a single render instead of two.'
   },
   {
-    title: 'No HTML Required',
+    title: 'Residential Proxy Resolution',
     description:
-      'The DNS source resolves without touching the page, so a logo still comes back when a site is rate-limited or answers with a 403.'
+      'Route hard targets through residential IPs to get past Cloudflare, DataDome and Akamai without maintaining a proxy pool yourself.'
   },
   {
     title: 'Edge Cached Responses',
@@ -70,7 +70,7 @@ const FEATURES = [
   {
     title: 'Enterprise-Grade Reliability',
     description:
-      'Production-ready infrastructure with a 99.9% uptime SLA and guaranteed performance for business-critical brand pipelines.'
+      'Production-ready infrastructure with a 99.9% uptime SLA and guaranteed performance for business-critical content pipelines.'
   },
   {
     title: 'Generous Free Tier',
@@ -79,14 +79,14 @@ const FEATURES = [
   }
 ]
 
-const REPOS = ['metascraper', 'unavatar', 'splashy']
+const REPOS = ['html-get', 'metascraper', 'browserless']
 
 export const Head = () => (
   <Meta
     title={META.title}
     description={META.description}
     structured={productStructured({
-      path: '/logo',
+      path: '/text',
       name: META.structuredName,
       description: META.structuredDescription,
       keywords: META.keywords,
@@ -98,26 +98,26 @@ export const Head = () => (
   />
 )
 
-const LogoPage = () => (
+const TextPage = () => (
   <Layout>
-    <ProductHero {...HERO} accent={ACCENT} />
+    <ProductHero {...HERO} />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductCapabilities
       {...CAPABILITIES}
       accent={ACCENT}
-      visual={<LogoCapabilitiesVisual />}
+      visual={<TextCapabilitiesVisual />}
     />
     <ProductPricing caption={PRICING_CAPTION} />
     <OpenSource
       repos={REPOS}
       accent={ACCENT}
-      caption='The Microlink logo pipeline is powered by battle-tested open source libraries used by thousands of developers worldwide. Our logo API is built on an open source foundation: explore the code, contribute, or run it yourself.'
+      caption='The Microlink content pipeline is powered by battle-tested open source libraries used by thousands of developers worldwide. Our readable text API is built on an open source foundation: explore the code, contribute, or run it yourself.'
     />
     <Features
       css={theme({ px: 4, py: SECTION_VERTICAL_SPACING })}
       title={
         <Subhead css={theme({ width: '100%', textAlign: 'left' })}>
-          The web never standardized the logo.{' '}
+          Every page, reduced to{' '}
           <span
             css={{
               display: 'block',
@@ -126,16 +126,15 @@ const LogoPage = () => (
               textAlign: 'left'
             }}
           >
-            We standardized finding it.
+            the words that matter.
           </span>
         </Subhead>
       }
       caption={
         <>
-          One request checks every markup convention, the DNS record and the
-          favicon via the{' '}
-          <Link href='/docs/api/parameters/meta'>metadata API</Link>, then
-          returns the winner with its colors.
+          Stop paying model tokens to read navigation bars. Send a URL and get
+          back clean prose, ready to embed or prompt with, via the{' '}
+          <Link href='/docs/api/parameters/data'>data API</Link>.
         </>
       }
       features={FEATURES}
@@ -145,4 +144,4 @@ const LogoPage = () => (
   </Layout>
 )
 
-export default LogoPage
+export default TextPage
