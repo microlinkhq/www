@@ -2303,6 +2303,15 @@ const Products = () => (
     </Box>
 
     <Grid>
+      <Row $template='1fr 1.3fr'>
+        <Feature vertical='preview'>
+          <LinkPreview />
+        </Feature>
+        <Feature vertical='screenshot'>
+          <ScreenshotPreview />
+        </Feature>
+      </Row>
+
       <Row $template='1.1fr 1fr'>
         <Feature vertical='metadata'>
           <MetadataPreview />
@@ -2312,21 +2321,12 @@ const Products = () => (
         </Feature>
       </Row>
 
-      <Row $template='1fr 1.3fr'>
-        <Feature vertical='pdf'>
-          <PdfPreview />
-        </Feature>
-        <Feature vertical='screenshot'>
-          <ScreenshotPreview />
-        </Feature>
-      </Row>
-
       <Row $template='1fr 1fr'>
         <Feature vertical='html'>
           <HtmlPreview />
         </Feature>
-        <Feature vertical='preview'>
-          <LinkPreview />
+        <Feature vertical='pdf'>
+          <PdfPreview />
         </Feature>
       </Row>
 
