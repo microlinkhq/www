@@ -216,8 +216,7 @@ const DisclosurePanel = styled(Box)`
   transform: translateY(-4px);
   pointer-events: none;
   visibility: hidden;
-  transition: opacity ${transition.short}, transform ${transition.short},
-    visibility ${transition.short};
+  transition: opacity ${transition.short}, transform ${transition.short};
 
   &[data-open='true'] {
     opacity: 1;
