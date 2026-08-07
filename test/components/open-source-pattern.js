@@ -20,7 +20,8 @@ const PAGES = [
   'src/pages/html.js',
   'src/pages/text.js',
   'src/pages/media.js',
-  'src/pages/file-conversion.js'
+  'src/pages/file-conversion.js',
+  'src/pages/logo.js'
 ]
 
 const HOME_REPOS = ['metascraper', 'browserless', 'unavatar']
