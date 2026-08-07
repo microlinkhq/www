@@ -19,8 +19,7 @@ const PAGES = [
   'src/pages/link-preview.js',
   'src/pages/html.js',
   'src/pages/text.js',
-  'src/pages/video.js',
-  'src/pages/audio.js',
+  'src/pages/media.js',
   'src/pages/file-conversion.js'
 ]
 

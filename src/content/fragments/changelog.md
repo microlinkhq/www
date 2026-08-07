@@ -1,6 +1,6 @@
 ### August 2026
 
-- [Microlink](/): Added [html](/html), [text](/text), [video](/video), [audio](/audio) and [file conversion](/file-conversion) product landings.
+- [Microlink](/): Added [html](/html), [text](/text), [media](/media) and [file conversion](/file-conversion) product landings.
 
 ### July 2026
 

@@ -37,8 +37,7 @@ const FOOTER_COLUMNS = [
       { label: 'Logo', href: '/logo' },
       { label: 'HTML', href: '/html' },
       { label: 'Text', href: '/text' },
-      { label: 'Video', href: '/video' },
-      { label: 'Audio', href: '/audio' },
+      { label: 'Media', href: '/media' },
       { label: 'File Conversion', href: '/file-conversion' },
       { label: 'Insights', href: '/insights' },
       { label: 'Unavatar', href: 'https://unavatar.io' }

@@ -113,13 +113,13 @@ export const PRODUCTS = {
   video: {
     label: 'Video',
     icon: VideoIcon,
-    href: '/video',
+    href: '/media',
     description: 'Extract video assets from any page'
   },
   audio: {
     label: 'Audio',
     icon: MusicIcon,
-    href: '/audio',
+    href: '/media',
     description: 'Extract audio assets from any page'
   }
 }

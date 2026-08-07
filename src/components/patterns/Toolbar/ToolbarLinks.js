@@ -25,7 +25,6 @@ import {
   Activity,
   AlignLeft as AlignLeftIcon,
   Maximize,
-  Music as MusicIcon,
   Repeat as RepeatIcon,
   Video as VideoIcon,
   Zap,
@@ -262,16 +261,10 @@ export const NAVIGATION_SECTIONS = [
         icon: AlignLeftIcon
       }),
       createNavigationItem({
-        label: 'Video',
-        href: '/video',
-        description: 'Resolve the direct video file behind any URL',
+        label: 'Media',
+        href: '/media',
+        description: 'Resolve the direct video or audio file behind any URL',
         icon: VideoIcon
-      }),
-      createNavigationItem({
-        label: 'Audio',
-        href: '/audio',
-        description: 'Resolve the direct audio file behind any URL',
-        icon: MusicIcon
       }),
       createNavigationItem({
         label: 'File Conversion',

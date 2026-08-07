@@ -29,23 +29,23 @@ import {
   FAQ_CAPTION,
   FAQ_ITEMS,
   META
-} from 'components/pages/audio/shared'
+} from 'components/pages/media/shared'
 
 const FEATURES = [
   {
     title: 'Direct File URLs',
     description:
-      'The response carries a playable audio URL rather than an embedded widget, so it can be streamed, transcribed or archived directly.'
+      'The response carries a playable media URL rather than an iframe or a widget, so you can render it, stream it or queue it for processing.'
+  },
+  {
+    title: 'Dimensions And Duration',
+    description:
+      'Width, height, duration and media type arrive with the URL, so players can be laid out without a probe request or a layout shift.'
   },
   {
     title: 'Transcription Ready',
     description:
-      'You receive the media rather than the page hosting it, so the output drops straight into a speech-to-text pipeline with no scraping step.'
-  },
-  {
-    title: 'One Shape, Every Platform',
-    description:
-      'Podcast hosts, music platforms, news sites and blogs all return the same response shape instead of a bespoke integration per provider.'
+      'You receive the media rather than the page hosting it, so audio drops straight into a speech-to-text pipeline with no scraping step.'
   },
   {
     title: 'Real Browser Detection',
@@ -55,7 +55,7 @@ const FEATURES = [
   {
     title: 'Metadata In The Same Call',
     description:
-      'Request title, author and artwork alongside the audio and pay for a single render instead of several.'
+      'Request title, description, artwork and poster image alongside the media and pay for a single render instead of several.'
   },
   {
     title: 'Residential Proxy Resolution',
@@ -79,14 +79,14 @@ const FEATURES = [
   }
 ]
 
-const REPOS = ['spotify-url-info', 'ffprobe', 'metascraper']
+const REPOS = ['youtube-dl-exec', 'spotify-url-info', 'ffprobe']
 
 export const Head = () => (
   <Meta
     title={META.title}
     description={META.description}
     structured={productStructured({
-      path: '/audio',
+      path: '/media',
       name: META.structuredName,
       description: META.structuredDescription,
       keywords: META.keywords,
@@ -98,22 +98,22 @@ export const Head = () => (
   />
 )
 
-const AudioPage = () => (
+const MediaPage = () => (
   <Layout>
-    <ProductHero {...HERO} />
+    <ProductHero {...HERO} accent={ACCENT} />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductCapabilities {...CAPABILITIES} accent={ACCENT} tileBg={TILE_BG} />
     <ProductPricing caption={PRICING_CAPTION} />
     <OpenSource
       repos={REPOS}
       accent={ACCENT}
-      caption='The Microlink media pipeline is powered by battle-tested open source libraries used by thousands of developers worldwide. Our audio extraction API is built on an open source foundation: explore the code, contribute, or run it yourself.'
+      caption='The Microlink media pipeline is powered by battle-tested open source libraries used by thousands of developers worldwide. Our media extraction API is built on an open source foundation: explore the code, contribute, or run it yourself.'
     />
     <Features
       css={theme({ px: 4, py: SECTION_VERTICAL_SPACING })}
       title={
         <Subhead css={theme({ width: '100%', textAlign: 'left' })}>
-          Skip the player.{' '}
+          Every player is different.{' '}
           <span
             css={{
               display: 'block',
@@ -122,15 +122,16 @@ const AudioPage = () => (
               textAlign: 'left'
             }}
           >
-            Get the audio.
+            The file never is.
           </span>
         </Subhead>
       }
       caption={
         <>
-          No widget markup to reverse-engineer and no provider-specific
+          No player markup to reverse-engineer and no provider-specific
           integrations to maintain. Send a URL and get a playable file back via
-          the <Link href='/docs/api/parameters/audio'>audio API</Link>.
+          the <Link href='/docs/api/parameters/video'>video</Link> and{' '}
+          <Link href='/docs/api/parameters/audio'>audio</Link> APIs.
         </>
       }
       features={FEATURES}
@@ -140,4 +141,4 @@ const AudioPage = () => (
   </Layout>
 )
 
-export default AudioPage
+export default MediaPage
