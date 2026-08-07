@@ -29,6 +29,7 @@ const CapabilityIcon = styled(Flex)`
 export const ProductCapabilities = ({
   title,
   titleAccent,
+  titleBreak = true,
   caption,
   items,
   accent,
@@ -83,7 +84,7 @@ export const ProductCapabilities = ({
           })}
         >
           {title}
-          <LineBreak />
+          {titleBreak ? <LineBreak /> : ' '}
           <span css={{ color: 'var(--capability-accent)' }}>{titleAccent}</span>
         </Subhead>
         {caption && (

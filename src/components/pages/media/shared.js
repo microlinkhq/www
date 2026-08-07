@@ -59,6 +59,7 @@ export const TIMINGS = {
 export const CAPABILITIES = {
   title: 'The file,',
   titleAccent: 'not the player.',
+  titleBreak: false,
   caption:
     'Every platform hides its media behind a different player, a different embed shape and a different set of scripts. Microlink resolves video and audio alike into one predictable response you can render, transcribe or process.',
   items: [

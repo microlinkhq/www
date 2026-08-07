@@ -128,16 +128,6 @@ const FooterText = styled(Text)`
 export const MediaCapabilitiesVisual = () => (
   <DemoCard
     maxWidth='520px'
-    url={
-      <HeaderStack>
-        <CycleLayer $from={0} $to={48}>
-          api.microlink.io?url=vimeo.com/571394002&video
-        </CycleLayer>
-        <CycleLayer $from={48} $to={96}>
-          api.microlink.io?url=soundcloud.com/tycho&audio
-        </CycleLayer>
-      </HeaderStack>
-    }
     footer={
       <HeaderStack>
         <CycleLayer $from={0} $to={48}>
