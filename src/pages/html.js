@@ -17,9 +17,9 @@ import {
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
+import { HtmlCapabilitiesVisual } from 'components/pages/html/capabilities-visual'
 import {
   ACCENT,
-  TILE_BG,
   TIMINGS_ACCENT,
   HERO,
   TIMINGS,
@@ -102,7 +102,11 @@ const HtmlPage = () => (
   <Layout>
     <ProductHero {...HERO} />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
-    <ProductCapabilities {...CAPABILITIES} accent={ACCENT} tileBg={TILE_BG} />
+    <ProductCapabilities
+      {...CAPABILITIES}
+      accent={ACCENT}
+      visual={<HtmlCapabilitiesVisual />}
+    />
     <ProductPricing caption={PRICING_CAPTION} />
     <OpenSource
       repos={REPOS}

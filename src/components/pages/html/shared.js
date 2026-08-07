@@ -51,7 +51,8 @@ export const TIMINGS = {
 }
 
 export const CAPABILITIES = {
-  title: 'The DOM after JavaScript, not before.',
+  title: 'The DOM after JavaScript,',
+  titleAccent: 'not before.',
   caption:
     'A plain HTTP fetch gives you an empty shell on any modern site. Microlink boots a real browser, waits for the app to hydrate, and hands back the markup that actually rendered.',
   items: [

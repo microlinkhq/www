@@ -80,7 +80,8 @@ export const TIMINGS = {
 }
 
 export const CAPABILITIES = {
-  title: 'One endpoint for every file type.',
+  title: 'One endpoint',
+  titleAccent: 'for every file type.',
   caption:
     'Documents arrive in whatever format their author chose. Instead of maintaining a parser per extension, send the URL and pick the output you want.',
   items: [

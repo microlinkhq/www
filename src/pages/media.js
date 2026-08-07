@@ -17,9 +17,9 @@ import {
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
+import { MediaCapabilitiesVisual } from 'components/pages/media/capabilities-visual'
 import {
   ACCENT,
-  TILE_BG,
   TIMINGS_ACCENT,
   HERO,
   TIMINGS,
@@ -102,7 +102,11 @@ const MediaPage = () => (
   <Layout>
     <ProductHero {...HERO} accent={ACCENT} />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
-    <ProductCapabilities {...CAPABILITIES} accent={ACCENT} tileBg={TILE_BG} />
+    <ProductCapabilities
+      {...CAPABILITIES}
+      accent={ACCENT}
+      visual={<MediaCapabilitiesVisual />}
+    />
     <ProductPricing caption={PRICING_CAPTION} />
     <OpenSource
       repos={REPOS}

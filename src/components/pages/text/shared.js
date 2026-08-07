@@ -51,7 +51,8 @@ export const TIMINGS = {
 }
 
 export const CAPABILITIES = {
-  title: 'Content, not chrome.',
+  title: 'Content,',
+  titleAccent: 'not chrome.',
   caption:
     'Feeding raw HTML to a model burns tokens on navigation, scripts and footers. Microlink renders the page, isolates the main content, and returns text you can embed or prompt with directly.',
   items: [
