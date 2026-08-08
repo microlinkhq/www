@@ -484,9 +484,9 @@ const FAQ_ITEMS = [
           detection with color palettes and sizing information.
         </div>
         <div>
-          Need a hotlinkable asset? `embed=logo.url` turns the API URL into the
-          logo itself — the response mimics the original resource's headers and
-          body, so it drops straight into an image tag.
+          Need a hotlinkable asset? <b>embed=logo.url</b> turns the API URL into
+          the logo itself — the response mimics the original resource's headers
+          and body, so it drops straight into an image tag.
         </div>
       </>
     ),
@@ -559,10 +559,10 @@ const FAQ_ITEMS = [
       <>
         <div>
           Both are GET APIs, so migration is mostly URL rewriting: drop the
-          Bearer header (the free tier needs no key), swap
-          `/web/scrape/markdown?url=` for `?url=` plus
-          `data.markdown.attr=markdown`, and delete the separate brand and
-          screenshot calls — metadata comes standard and `screenshot` is a
+          Bearer header (the free tier needs no key), swap{' '}
+          <b>/web/scrape/markdown?url=</b> for <b>?url=</b> plus{' '}
+          <b>data.markdown.attr=markdown</b>, and delete the separate brand and
+          screenshot calls — metadata comes standard and <b>screenshot</b> is a
           parameter on the same request.
         </div>
         <div>

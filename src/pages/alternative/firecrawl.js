@@ -442,7 +442,7 @@ const FAQ_ITEMS = [
       <>
         <div>
           Five credits per request instead of one, per Firecrawl's own proxy
-          docs — and `auto` mode escalates to it whenever the basic attempt
+          docs — and <b>auto</b> mode escalates to it whenever the basic attempt
           fails. If 30% of 46,000 monthly pages sit behind bot walls, that is
           32,200 + (13,800 × 5) = 101,200 credits — past the 100,000-credit
           Standard plan and into the $333 Growth tier.
@@ -511,9 +511,9 @@ const FAQ_ITEMS = [
         <div>
           Search is covered: <Link href='/search'>Microlink Search</Link> is a
           Google SERP API for AI agents returning normalized JSON across 10
-          surfaces, where every result exposes a lazy `.markdown()` helper to
-          expand top matches into LLM-ready content. It is a paid workflow from
-          the first request, since public-result collection runs on managed
+          surfaces, where every result exposes a lazy <b>.markdown()</b> helper
+          to expand top matches into LLM-ready content. It is a paid workflow
+          from the first request, since public-result collection runs on managed
           proxy capacity.
         </div>
       </>
@@ -543,11 +543,12 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Swap the authenticated POST for a plain GET. Firecrawl's `formats:
-          ["markdown"]` becomes `data.markdown.attr=markdown` (add
-          `embed=markdown` to receive raw markdown instead of JSON), and the
-          metadata Firecrawl returns alongside the content is included in
-          Microlink's standard response by default.
+          Swap the authenticated POST for a plain GET. Firecrawl's{' '}
+          <b>formats: ["markdown"]</b> becomes{' '}
+          <b>data.markdown.attr=markdown</b> (add <b>embed=markdown</b> to
+          receive raw markdown instead of JSON), and the metadata Firecrawl
+          returns alongside the content is included in Microlink's standard
+          response by default.
         </div>
         <div>
           Screenshots, headers, and browser automation map to query parameters
@@ -1387,8 +1388,8 @@ const PricingSection = () => (
             mx: 'auto'
           })}
         >
-          Firecrawl's default `auto` proxy escalates to enhanced when the basic
-          attempt fails — and enhanced bills <b>5 credits</b>. The mix of
+          Firecrawl's default <b>auto</b> proxy escalates to enhanced when the
+          basic attempt fails — and enhanced bills <b>5 credits</b>. The mix of
           protected pages, not your volume, decides the bill.
         </Text>
         <Box

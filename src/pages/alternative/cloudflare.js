@@ -7,7 +7,8 @@ import {
   fontSizes,
   space,
   radii,
-  breakpoints
+  breakpoints,
+  SECTION_VERTICAL_SPACING
 } from 'theme'
 import { withTitle } from 'helpers/hoc/with-title'
 import { CDN_EDGES } from 'helpers/cdn-edges'
@@ -68,7 +69,7 @@ const LIVE_SCREENSHOT_URL =
 
 const Section = styled(Box)`
   ${theme({
-    py: [5, 5, 6, 6],
+    py: SECTION_VERTICAL_SPACING,
     px: [3, 3, 4, 4]
   })}
 `
@@ -452,10 +453,10 @@ const FAQ_ITEMS = [
           for supported providers.
         </div>
         <div>
-          Cloudflare's screenshot endpoint gives you the raw tools instead:
-          `rejectRequestPattern` filters and `addScriptTag` injection. The
-          blocklists and consent-dismissal scripts are yours to write and keep
-          up to date.
+          Cloudflare's screenshot endpoint gives you the raw tools instead:{' '}
+          <b>rejectRequestPattern</b> filters and <b>addScriptTag</b> injection.
+          The blocklists and consent-dismissal scripts are yours to write and
+          keep up to date.
         </div>
       </>
     ),
@@ -496,7 +497,7 @@ const FAQ_ITEMS = [
         </div>
         <div>
           Microlink ships the missing piece: when a target refuses datacenter
-          traffic, the API signals `EPROXYNEEDED`, and{' '}
+          traffic, the API signals <b>EPROXYNEEDED</b>, and{' '}
           <Link href='/features/proxy'>proxy: true</Link> reroutes the same
           request through auto-rotating residential IPs on Pro plans, backed by{' '}
           <Link href='/features/antibot'>antibot detection</Link> for 30+
@@ -546,10 +547,11 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          The capture concepts map one-to-one: `url` stays `url`, `fullPage`
-          becomes `screenshot.fullPage`, `selector` becomes
-          `screenshot.element`, and `viewport`, `waitForSelector`, `cookies`,
-          and `setExtraHTTPHeaders` all have direct equivalents.
+          The capture concepts map one-to-one: <b>url</b> stays <b>url</b>,{' '}
+          <b>fullPage</b> becomes <b>screenshot.fullPage</b>, <b>selector</b>{' '}
+          becomes <b>screenshot.element</b>, and <b>viewport</b>,{' '}
+          <b>waitForSelector</b>, <b>cookies</b>, and <b>setExtraHTTPHeaders</b>{' '}
+          all have direct equivalents.
         </div>
         <div>
           The main change is simpler plumbing: Microlink is a GET request with
@@ -797,7 +799,7 @@ const ComparisonSection = () => (
     css={theme({
       borderTop: `${borders[1]} ${colors.black05}`,
       borderBottom: `${borders[1]} ${colors.black05}`,
-      py: 5
+      py: SECTION_VERTICAL_SPACING
     })}
   >
     <SectionInner>
@@ -857,8 +859,8 @@ const WHY_SWITCH_ITEMS = [
       <>
         Microlink ships <Link href='/docs/api/parameters/adblock'>adblock</Link>{' '}
         enabled by default: ads, trackers, and cookie consent banners are
-        stripped <b>before the page renders</b>. On Cloudflare you get
-        `rejectRequestPattern` and `addScriptTag` — the blocklists and
+        stripped <b>before the page renders</b>. On Cloudflare you get{' '}
+        <b>rejectRequestPattern</b> and <b>addScriptTag</b> — the blocklists and
         consent-dismissal scripts are yours to write and maintain.
       </>
     )
@@ -868,8 +870,8 @@ const WHY_SWITCH_ITEMS = [
     title: 'A proxy Cloudflare will never ship',
     description: (
       <>
-        When a target blocks datacenter traffic, Microlink signals
-        `EPROXYNEEDED` and <Link href='/features/proxy'>proxy: true</Link>{' '}
+        When a target blocks datacenter traffic, Microlink signals{' '}
+        <b>EPROXYNEEDED</b> and <Link href='/features/proxy'>proxy: true</Link>{' '}
         reroutes the request through <b>auto-rotating residential IPs</b>, with{' '}
         <Link href='/features/antibot'>antibot detection</Link> for 30+
         providers — Cloudflare included. Cloudflare sells the bot protection
@@ -1189,7 +1191,11 @@ const USAGE_TRAP_ROWS = [
 ]
 
 const PricingSection = () => (
-  <Section as='section' id='pricing' css={theme({ py: 5 })}>
+  <Section
+    as='section'
+    id='pricing'
+    css={theme({ py: SECTION_VERTICAL_SPACING })}
+  >
     <SectionInner>
       <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 3 })} titleize={false}>
         One request price. <br />
