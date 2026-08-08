@@ -128,7 +128,10 @@ const FOOTER_COLUMNS = [
     title: 'Comparisons',
     links: [
       { label: 'vs ApiFlash', href: '/alternative/apiflash' },
+      { label: 'vs Cloudflare', href: '/alternative/cloudflare' },
+      { label: 'vs Context.dev', href: '/alternative/context-dev' },
       { label: 'vs Embedly', href: '/alternative/embedly' },
+      { label: 'vs Firecrawl', href: '/alternative/firecrawl' },
       { label: 'vs Iframely', href: '/alternative/iframely' },
       { label: 'vs ScreenshotAPI', href: '/alternative/screenshotapi' },
       { label: 'vs ScreenshotLayer', href: '/alternative/screenshotlayer' },

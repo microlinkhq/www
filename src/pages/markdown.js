@@ -167,6 +167,14 @@ export const Head = () => (
             },
             {
               '@type': 'Question',
+              name: 'How does Microlink compare to other URL to markdown providers?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Microlink bills a flat per-request price with the residential proxy included and a free tier that renews daily, where credit-based providers meter stealth proxies, screenshots, and extraction separately. See the detailed comparisons against Firecrawl and Context.dev for feature tables, pricing math, and migration notes.'
+              }
+            },
+            {
+              '@type': 'Question',
               name: 'Can I control what content is extracted?',
               acceptedAnswer: {
                 '@type': 'Answer',
