@@ -21,6 +21,7 @@ Before any research or editing, **ask the user which Microlink product the compe
 
 - **Screenshot API** — competitor offers headless-browser screenshots / PDFs as their primary product. Examples already in the repo: ScreenshotOne, ApiFlash, Urlbox, Url2Png, Thum.io, ScreenshotAPI, ScreenshotLayer, ScreenshotMachine, Cloudflare (Browser Rendering).
 - **Embed API** — competitor offers URL → card / oEmbed / link preview as their primary product. Example already in the repo: Iframely.
+- **AI data / scraping** — competitor converts URLs into LLM-ready markdown or structured/brand data (Firecrawl, Context.dev). No benchmark exists: use the no-benchmark screenshot structure (`cloudflare.js` shape — curl-vs-curl hero, no `SpeedSection`), CTA URLs target `/markdown` or `/metadata`, and the TryIt uses `MultiCodeEditorInteractive` with a markdown or meta `mqlCode`.
 
 If you can identify the category confidently from the competitor's homepage, confirm with the user before proceeding instead of asking blindly. Phrasing example: "I see [Competitor] leads with [rich-media embeds / headless screenshots]. I'll use the [embed / screenshot] template — confirm?"
 
@@ -180,6 +181,11 @@ Screenshot category:
 - `screenshotlayer.js`: throughput / overage angle
 - `thumio.js`: final-screenshot vs streamed-thumbnail angle
 - `cloudflare.js`: batteries-included angle ("managed screenshot API vs DIY browser infrastructure") — no benchmark data, so no `SpeedSection`/`RaceContainer`; hero uses a side-by-side curl comparison instead
+
+AI data / scraping category:
+
+- `firecrawl.js`: flat-pricing angle ("without the credit math" — 5× stealth multiplier, one-time free credits, no rollover)
+- `context-dev.js`: one-request bundle angle ("answers in one request" — credit menu vs metadata+logo+markdown+screenshot in a single flat request)
 
 Embed category:
 
