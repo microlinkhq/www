@@ -104,6 +104,12 @@ A common use case is generating dynamic Open Graph images:
 
 ## Security Considerations
 
+Asset embeds (images, PDFs, and other remote URLs proxied under the API origin) are served with a strict `Content-Security-Policy` (`script-src 'none'`, `sandbox`) and `X-Content-Type-Options: nosniff`, so hostile SVG/HTML cannot execute in the browser under the API host.
+
+Documented HTML embeds such as `iframe.html` and Lighthouse reports keep a looser policy because scripts are part of the feature.
+
+Logo metadata candidates that look like executable markup are skipped so a later rule can win (`logo` fallthrough), rather than accepting a hostile favicon or SVG URL into the JSON payload.
+
 To authenticate requests securely when using embed in client-side code, use [proxy](https://github.com/microlinkhq/proxy) and [edge-proxy](https://github.com/microlinkhq/edge-proxy) to protect your API credentials.
 
 Read more about that at the [authentication](/docs/api/basics/authentication) section.
