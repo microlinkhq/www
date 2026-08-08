@@ -11,7 +11,6 @@ import { Clients } from 'components/pages/screenshot/clients'
 import { CodeExample } from 'components/pages/screenshot/code-example'
 import { CallToAction } from 'components/pages/screenshot/cta'
 import { Hero } from 'components/pages/screenshot/hero'
-import { LangLandings } from 'components/pages/screenshot/lang-landings'
 import { Playground } from 'components/pages/screenshot/playground'
 import { Pricing } from 'components/pages/screenshot/pricing'
 import { ProductInformation } from 'components/pages/screenshot/product-information'
@@ -170,7 +169,6 @@ const ScreenshotPage = () => {
       />
       <Capabilities />
       <CodeExample />
-      <LangLandings />
       <Clients />
       <Pricing />
       <OpenSource

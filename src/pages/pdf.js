@@ -12,7 +12,6 @@ import { Clients } from 'components/pages/pdf/clients'
 import { CodeExample } from 'components/pages/pdf/code-example'
 import { CallToAction } from 'components/pages/pdf/cta'
 import { Hero } from 'components/pages/pdf/hero'
-import { LangLandings } from 'components/pages/pdf/lang-landings'
 import { Playground } from 'components/pages/pdf/playground'
 import { Pricing } from 'components/pages/pdf/pricing'
 import { ProductInformation } from 'components/pages/pdf/product-information'
@@ -183,7 +182,6 @@ const PdfPage = () => {
       />
       <Capabilities />
       <CodeExample />
-      <LangLandings />
       <Clients />
       <Pricing />
       <OpenSource

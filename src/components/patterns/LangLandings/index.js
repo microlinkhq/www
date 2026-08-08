@@ -1,1 +1,1 @@
-export { LangLandings, LangLandingsNav, default } from './LangLandings'
+export { LangLandingsNav, default } from './LangLandings'
