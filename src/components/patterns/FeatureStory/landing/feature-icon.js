@@ -8,6 +8,7 @@ import {
   Lock,
   MousePointer,
   Shield,
+  Slash,
   Zap
 } from 'react-feather'
 
@@ -21,7 +22,8 @@ const ICON_MAP = {
   radar: Activity,
   clock: Clock,
   list: List,
-  lock: Lock
+  lock: Lock,
+  slash: Slash
 }
 
 const Glyph = ({ name, size, color }) => {
