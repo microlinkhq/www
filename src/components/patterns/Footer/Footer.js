@@ -22,6 +22,7 @@ import { ChevronDown, Mail } from 'react-feather'
 import styled from 'styled-components'
 
 import { LANG_LANDINGS } from 'components/pages/screenshot/lang/registry'
+import { LANG_LANDINGS as PDF_LANG_LANDINGS } from 'components/pages/pdf/lang/registry'
 import { FEATURES } from 'components/patterns/FeatureStory'
 
 const FOOTER_COLUMNS = [
@@ -44,6 +45,12 @@ const FOOTER_COLUMNS = [
         // so a new /screenshot/<lang> spoke is linked site-wide automatically.
         title: 'Screenshot API',
         links: LANG_LANDINGS.map(({ label, href }) => ({ label, href }))
+      },
+      {
+        // Per-language PDF landings, generated from the shared registry so a
+        // new /pdf/<lang> spoke is linked site-wide automatically.
+        title: 'PDF API',
+        links: PDF_LANG_LANDINGS.map(({ label, href }) => ({ label, href }))
       }
     ]
   },
