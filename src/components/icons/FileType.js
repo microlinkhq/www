@@ -1,5 +1,7 @@
 import React from 'react'
 
+// Icons from https://www.untitledui.com/resources/file-icons — labels outlined to paths
+
 const FRAME = '#D5D7DA'
 const LABEL = '#fff'
 const LINE = '#155EEF'
