@@ -185,6 +185,32 @@ export const ProductInformation = () => {
           )
         },
         {
+          question: 'How does Microlink compare to other screenshot providers?',
+          answer: (
+            <>
+              <div>
+                We publish an open{' '}
+                <Link href='/benchmarks/screenshot-api'>
+                  cold-start benchmark
+                </Link>{' '}
+                against the major dedicated screenshot APIs, plus detailed
+                comparisons like{' '}
+                <Link href='/alternative/cloudflare'>
+                  Microlink vs Cloudflare's screenshot endpoint
+                </Link>{' '}
+                covering DIY browser infrastructure.
+              </div>
+              <div>
+                The short version: Microlink returns finished captures — cookie
+                banners removed by default, a built-in{' '}
+                <Link href='/features/proxy'>residential proxy</Link> for
+                blocked pages, and CDN-hosted URLs — instead of raw browser
+                output you still need to clean, store, and serve.
+              </div>
+            </>
+          )
+        },
+        {
           question: 'How quickly can I integrate this into my stack?',
           answer: (
             <>

@@ -19,7 +19,7 @@ The goal is not generic comparison copy. The goal is a repo-native page that:
 
 Before any research or editing, **ask the user which Microlink product the competitor competes with**:
 
-- **Screenshot API** — competitor offers headless-browser screenshots / PDFs as their primary product. Examples already in the repo: ScreenshotOne, ApiFlash, Urlbox, Url2Png, Thum.io, ScreenshotAPI, ScreenshotLayer, ScreenshotMachine.
+- **Screenshot API** — competitor offers headless-browser screenshots / PDFs as their primary product. Examples already in the repo: ScreenshotOne, ApiFlash, Urlbox, Url2Png, Thum.io, ScreenshotAPI, ScreenshotLayer, ScreenshotMachine, Cloudflare (Browser Rendering).
 - **Embed API** — competitor offers URL → card / oEmbed / link preview as their primary product. Example already in the repo: Iframely.
 
 If you can identify the category confidently from the competitor's homepage, confirm with the user before proceeding instead of asking blindly. Phrasing example: "I see [Competitor] leads with [rich-media embeds / headless screenshots]. I'll use the [embed / screenshot] template — confirm?"
@@ -179,6 +179,7 @@ Screenshot category:
 - `url2png.js`: modernization angle ("a more modern screenshot API")
 - `screenshotlayer.js`: throughput / overage angle
 - `thumio.js`: final-screenshot vs streamed-thumbnail angle
+- `cloudflare.js`: batteries-included angle ("managed screenshot API vs DIY browser infrastructure") — no benchmark data, so no `SpeedSection`/`RaceContainer`; hero uses a side-by-side curl comparison instead
 
 Embed category:
 
