@@ -13,7 +13,7 @@ export const HERO = {
   title: 'Adblock & Cookie Banners',
   tag: null,
   description:
-    'Ads, trackers and consent banners are dropped before the page renders — on by default, on every plan. Cleaner captures, fewer third-party requests, repeatable results.'
+    'Third-party ads, trackers and consent banners are dropped before the page renders — on by default, on every plan. Cleaner captures, fewer third-party requests, repeatable results.'
 }
 
 export const OVERVIEW = {
@@ -180,7 +180,7 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'What exactly gets blocked?',
-    text: 'Third-party sub-requests that belong to advertisements, trackers or cookie-consent services. The page own resources — its HTML, CSS, images and scripts — are always loaded, so the capture still shows the real page.'
+    text: 'Third-party sub-requests that belong to advertisements, trackers or cookie-consent services. The page’s own resources — its HTML, CSS, images and scripts — are always loaded, so the capture still shows the real page.'
   },
   {
     question: 'A cookie banner still appears in my screenshot. Why?',
