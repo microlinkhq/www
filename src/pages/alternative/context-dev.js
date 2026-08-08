@@ -1082,11 +1082,6 @@ const HONESTY_ITEMS = [
       'Multi-page crawls, page and sitemap monitors with signed webhooks, and batch jobs up to 25,000 URLs cover pipeline shapes Microlink does not — Microlink converts one URL per call and leaves the queue to you.'
   },
   {
-    title: 'Anti-bot bypass on every plan',
-    description:
-      'Context.dev includes proxy escalation and bot-detection bypass at 1 credit per page on every plan, free tier included. Microlink gates its residential proxy behind Pro plans — a real difference for free-tier evaluation on hard targets.'
-  },
-  {
     title: 'Cheaper per plain page at high volume',
     description:
       'The Pro plan works out to about $0.75 per 1,000 markdown pages versus roughly $1.07 on Microlink. If your workload is pure single-endpoint scraping at scale and nothing else, Context.dev can be the cheaper line item.'
