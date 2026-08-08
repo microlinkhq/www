@@ -2,7 +2,7 @@ import { layout, colors, theme, transition, fontWeights, fonts } from 'theme'
 import { track } from '@vercel/analytics'
 import { issueUrl } from 'helpers/issue-url'
 import FeatherIcon from 'components/icons/Feather'
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useId } from 'react'
 
 import IntersectionObserver from '../../elements/IntersectionObserver'
 import Healthcheck from '../Healthcheck/Healthcheck'
@@ -218,12 +218,14 @@ const DisclosurePanel = styled(Box)`
   opacity: 0;
   transform: translateY(-4px);
   pointer-events: none;
+  visibility: hidden;
   transition: opacity ${transition.short}, transform ${transition.short};
 
   &[data-open='true'] {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
+    visibility: visible;
   }
 `
 
@@ -233,6 +235,18 @@ const DisclosureChevron = styled(ChevronDown)`
   &[data-open='true'] {
     transform: rotate(180deg);
   }
+`
+
+const DisclosureTrigger = styled('button')`
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: inherit;
 `
 
 const FooterLinkList = ({ links }) => (
@@ -264,25 +278,23 @@ const FooterLinkList = ({ links }) => (
 const FooterGroup = ({ title, links }) => {
   const [isOpen, setIsOpen] = useState(false)
   const toggle = useCallback(() => setIsOpen(prev => !prev), [])
+  const panelId = `${useId()}-footer-group`
 
   return (
     <Box css={{ position: 'relative' }}>
-      <Text
+      <DisclosureTrigger
+        type='button'
         onClick={toggle}
         aria-expanded={isOpen}
-        css={theme({
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '4px',
-          cursor: 'pointer'
-        })}
+        aria-controls={panelId}
       >
         <Text as='span' css={linkStyles}>
           {title}
         </Text>
         <DisclosureChevron size={12} data-open={isOpen} />
-      </Text>
+      </DisclosureTrigger>
       <DisclosurePanel
+        id={panelId}
         data-open={isOpen}
         css={theme({
           position: 'absolute',
