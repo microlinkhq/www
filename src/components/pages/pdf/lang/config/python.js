@@ -15,9 +15,9 @@ const python = {
   label: 'Python',
 
   meta: {
-    title: 'Python HTML to PDF API — Convert Any URL to PDF',
+    title: 'Python HTML to PDF API without wkhtmltopdf',
     description:
-      'Convert any URL or HTML to a pixel-perfect PDF in Python with a single HTTP request — no wkhtmltopdf, no headless Chrome to install. Works with requests, the standard library, Django, Flask & FastAPI. Free to start.',
+      'Convert any URL to a pixel-perfect PDF in Python with one HTTP request — no wkhtmltopdf, no headless Chrome. Works with Django, Flask and FastAPI.',
     image: OG_IMAGE,
     structured: [
       {
@@ -178,7 +178,7 @@ print(data['pdf']['url'])`
       {
         title: 'Customize the document',
         description:
-          'Paper format, margins, orientation, and print CSS — every document option is just a query field (dot notation for nested ones).',
+          'Paper format, margins, orientation, and print CSS are all query params. Nested options use dot notation, so pdf.format maps to the format field.',
         code: {
           language: 'python',
           title: 'options.py',
@@ -197,7 +197,7 @@ print(res.json()['data']['pdf']['url'])`
       {
         title: 'Save it to disk',
         description:
-          'The response is a hosted PDF URL on a global CDN. Download it with a second request, or just hand the URL to the browser.',
+          'The response is a hosted PDF URL on a global CDN. Stream it to a file with a second request, or hand the URL straight to your template.',
         code: {
           language: 'python',
           title: 'save.py',
@@ -225,8 +225,8 @@ with open('document.pdf', 'wb') as file:
     ),
     caption:
       'A view, a route, or a standalone script — the same request becomes your ' +
-      'own PDF endpoint, perfect for invoices, reports, and receipts on any ' +
-      'runtime.',
+      'own PDF endpoint, perfect for invoice downloads, nightly reports, and ' +
+      'export views in Django, Flask, or FastAPI.',
     examples: [
       {
         id: 'flask',
@@ -347,8 +347,8 @@ print(data['pdf']['url'])`
           'Runs anywhere: serverless, containers, a cron job, your laptop',
           'Autoscaled managed browser fleet with a 99.9% uptime SLA',
           `Sub-second cached responses from ${CDN_EDGES} edge locations`,
-          'A0-A6, Letter, Legal & Tabloid formats with margin and scale control',
-          'Print or screen CSS, custom styles & DOM interaction included'
+          'A0-A6, Letter, Legal & Tabloid — set as plain query params',
+          'Print stylesheets, custom CSS & DOM interaction, no extra deps'
         ]
       }
     ]
@@ -391,27 +391,27 @@ print(data['pdf']['url'])`
       {
         title: 'Real Browser Rendering',
         description:
-          'Pages render in Headless Chrome, so JavaScript, web fonts, and modern CSS come out exactly as they do on screen.'
+          'Pages render in Headless Chrome, so JavaScript-driven dashboards and charts come out right — the blind spot of WeasyPrint and xhtml2pdf.'
       },
       {
         title: 'Zero Infrastructure',
         description:
-          'Managed Headless Chrome, autoscaled and load-balanced. No browser pool, no servers, no patching to maintain.'
+          'No Chrome to pin to a driver version and no browser pool inside your workers. Your app stays a plain HTTP client.'
       },
       {
         title: 'Custom Paper & Layout',
         description:
-          'A0-A6, Letter, Legal, and Tabloid formats with portrait or landscape orientation, margins in cm, mm, or px, and page ranges.'
+          'Every layout option is a query param: pdf.format, pdf.margin, pdf.landscape, pdf.scale, and pdf.pageRanges.'
       },
       {
         title: 'Screen & Print Media',
         description:
-          'Render the web layout as-is or switch to print stylesheets with mediaType for clean, print-optimized documents.'
+          'Pass mediaType="print" in the same params dict to apply print stylesheets, or keep the default screen layout.'
       },
       {
         title: 'Generous Free Tier',
         description:
-          'Start with 25 requests per day — no account, no credit card. Add an API key when you are ready to scale.'
+          'Start with 25 requests per day — no account, no credit card. Point at pro.microlink.io with an x-api-key header when you scale.'
       }
     ]
   },
@@ -434,8 +434,8 @@ print(data['pdf']['url'])`
     title: 'Python PDF FAQ',
     caption: (
       <>
-        Everything Python developers ask before integrating the Microlink PDF
-        API.
+        What Python developers ask before integrating. For formats, limits, and
+        SLA, see the <Link href='/pdf'>PDF API overview</Link>.
       </>
     ),
     questions: [
@@ -456,21 +456,19 @@ print(data['pdf']['url'])`
         )
       },
       {
-        question: 'What paper sizes and layout options are supported?',
+        question: 'Does it work with asyncio?',
         answer: (
           <>
             <div>
-              All standard formats: A0 through A6, Letter, Legal, and Tabloid,
-              in portrait or landscape. Margins accept cm, mm, in, or px, and{' '}
-              <code>pdf.scale</code> and <code>pdf.pageRanges</code> give you
-              precise control over the output.
+              Yes. Nothing about the call is Python-specific — it is one HTTP{' '}
+              <code>GET</code>, so <code>httpx</code> or <code>aiohttp</code>{' '}
+              take the same parameters inside a coroutine. With{' '}
+              <code>requests</code>, run it in a thread executor to avoid
+              blocking the loop.
             </div>
             <div>
-              See the{' '}
-              <Link href='/docs/guides/pdf/page-size-and-layout'>
-                page size & layout guide
-              </Link>{' '}
-              for every option.
+              The rendering happens on Microlink's side either way, so your
+              worker only ever waits on the network.
             </div>
           </>
         )
@@ -502,37 +500,45 @@ print(data['pdf']['url'])`
         )
       },
       {
-        question: 'Is there a free tier or do I need an API key?',
+        question: 'How do I authenticate from Python?',
         answer: (
           <>
             <div>
-              The free tier gives you 25 requests per day with no account, no
-              credit card, and no API key. Just call the endpoint and start
-              converting.
+              Two things change together: send your key as the{' '}
+              <code>x-api-key</code> header, and point the request at{' '}
+              <code>pro.microlink.io</code> instead of{' '}
+              <code>api.microlink.io</code>. Sending the header to the free
+              endpoint returns an <code>EPRO</code> error.
             </div>
             <div>
-              When you need more throughput or caching control, add an{' '}
-              <code>apiKey</code> header and requests route to the Pro tier. See{' '}
-              <Link href='/pricing'>pricing</Link> for the limits.
+              With <code>requests</code> that is{' '}
+              <code>
+                requests.get('https://pro.microlink.io', params=…,
+                headers=&#123;'x-api-key': KEY&#125;)
+              </code>
+              . See the{' '}
+              <Link href='/docs/api/basics/authentication'>
+                authentication docs
+              </Link>{' '}
+              and <Link href='/pricing'>pricing</Link>.
             </div>
           </>
         )
       },
       {
-        question: 'How fast is it and how does it scale?',
+        question: 'How do I convert a batch of URLs?',
         answer: (
           <>
             <div>
-              Cached documents return sub-second from a global edge network, and
-              the browser fleet autoscales behind a 99.9% uptime SLA — so a
-              traffic spike does not mean provisioning more workers.
+              Each conversion is an independent stateless request, so a{' '}
+              <code>ThreadPoolExecutor</code> or a task queue like Celery
+              parallelises it without any coordination on your side.
             </div>
             <div>
-              Read the{' '}
-              <Link href='/docs/guides/pdf/caching-and-performance'>
-                caching & performance guide
-              </Link>{' '}
-              to tune TTL for your workload.
+              Concurrency is bounded by your plan rather than your hardware —
+              check the{' '}
+              <Link href='/docs/api/basics/rate-limit'>rate limit</Link> docs
+              before fanning out widely.
             </div>
           </>
         )
@@ -547,7 +553,7 @@ print(data['pdf']['url'])`
       </>
     ),
     caption:
-      'Get 25 requests/day with zero commitment — no account and no credit card. Send your first request and ship a PDF in minutes.',
+      'Get 25 requests/day with zero commitment — no account, no credit card. Paste the snippet into a view and ship a PDF today.',
     primary: {
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'

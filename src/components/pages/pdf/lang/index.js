@@ -19,6 +19,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import CaptionBase from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
+import { LangLandingsNav } from 'components/patterns/LangLandings'
 import Layout from 'components/patterns/Layout'
 import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
@@ -26,6 +27,7 @@ import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
 import { ACCENT } from '../shared'
 import PdfDemo from './pdf-demo'
+import { LANG_LANDINGS } from './registry'
 
 const ALL_TOOLS = TOOL_CATALOG.flatMap(section => section.tools)
 
@@ -391,7 +393,7 @@ const ToolCta = ({ tool }) => {
   )
 }
 
-const FinalCta = ({ cta }) => (
+const FinalCta = ({ cta, current }) => (
   <SectionContainer id='get-started'>
     <Flex
       css={theme({
@@ -459,6 +461,14 @@ const FinalCta = ({ cta }) => (
           </Flex>
         ))}
       </Flex>
+      <Box css={theme({ pt: [4, 4, 5, 5] })}>
+        <LangLandingsNav
+          langs={LANG_LANDINGS}
+          current={current}
+          label='Also available for'
+          accent={ACCENT}
+        />
+      </Box>
     </Flex>
   </SectionContainer>
 )
@@ -494,7 +504,7 @@ const PdfLang = ({ config }) => (
         css={theme({ bg: 'transparent', pb: [4, 4, 5, 5] })}
         questions={config.faq.questions}
       />
-      <FinalCta cta={config.cta} />
+      <FinalCta cta={config.cta} current={config.lang} />
     </Box>
   </Layout>
 )

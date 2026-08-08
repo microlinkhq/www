@@ -15,9 +15,9 @@ const php = {
   label: 'PHP',
 
   meta: {
-    title: 'PHP HTML to PDF API — Convert Any URL to PDF',
+    title: 'PHP HTML to PDF API without dompdf or mPDF',
     description:
-      'Convert any URL or HTML to a pixel-perfect PDF in PHP with a single HTTP request — no dompdf limits, no headless Chrome to install. Works with cURL, file_get_contents, Laravel, Symfony & WordPress. Free to start.',
+      'Convert any URL to a pixel-perfect PDF in PHP with one HTTP request — no dompdf, no wkhtmltopdf. Works with Laravel, Symfony and WordPress.',
     image: OG_IMAGE,
     structured: [
       {
@@ -195,7 +195,7 @@ echo $res['data']['pdf']['url'];`
       {
         title: 'Customize the document',
         description:
-          'Paper format, margins, orientation, and print CSS — every document option is just a query field (dot notation for nested ones).',
+          'Paper format, margins, orientation, and print CSS are all query fields. http_build_query handles the encoding, and nested options use dot notation.',
         code: {
           language: 'php',
           title: 'options.php',
@@ -217,7 +217,7 @@ echo $res['data']['pdf']['url'];`
       {
         title: 'Save it to disk',
         description:
-          'The response is a hosted PDF URL on a global CDN. Download it with a second request, or just hand the URL to the browser.',
+          'The response is a hosted PDF URL on a global CDN. Copy it to disk with file_put_contents, or redirect the visitor straight to it.',
         code: {
           language: 'php',
           title: 'save.php',
@@ -244,8 +244,8 @@ file_put_contents('document.pdf', file_get_contents($pdf));`
     ),
     caption:
       'A route, a controller, or a shortcode — the same request becomes your ' +
-      'own PDF endpoint, perfect for invoices, reports, and receipts on any ' +
-      'host.',
+      'own PDF endpoint, perfect for invoice downloads, packing slips, and ' +
+      'report links in Laravel, Symfony, or WordPress.',
     examples: [
       {
         id: 'laravel',
@@ -376,8 +376,8 @@ header('Location: ' . $res['data']['pdf']['url']);`
           'Runs anywhere: shared hosting, serverless, containers, your laptop',
           'Autoscaled managed browser fleet with a 99.9% uptime SLA',
           `Sub-second cached responses from ${CDN_EDGES} edge locations`,
-          'A0-A6, Letter, Legal & Tabloid formats with margin and scale control',
-          'Print or screen CSS, custom styles & DOM interaction included'
+          'A0-A6, Letter, Legal & Tabloid — set with http_build_query',
+          'Print stylesheets, custom CSS & DOM interaction on any host'
         ]
       }
     ]
@@ -420,27 +420,27 @@ header('Location: ' . $res['data']['pdf']['url']);`
       {
         title: 'Real Browser Rendering',
         description:
-          'Pages render in Headless Chrome, so JavaScript, web fonts, and modern CSS come out exactly as they do on screen.'
+          'Pages render in Headless Chrome, so flexbox, grid, web fonts, and JavaScript all survive — the things dompdf and mPDF silently drop.'
       },
       {
         title: 'Zero Infrastructure',
         description:
-          'Managed Headless Chrome, autoscaled and load-balanced. No browser pool, no servers, no patching to maintain.'
+          'No Chrome process sitting next to PHP-FPM competing for memory. Your host only makes an outbound HTTP request.'
       },
       {
         title: 'Custom Paper & Layout',
         description:
-          'A0-A6, Letter, Legal, and Tabloid formats with portrait or landscape orientation, margins in cm, mm, or px, and page ranges.'
+          'Every layout option is a query field: pdf.format, pdf.margin, pdf.landscape, pdf.scale, and pdf.pageRanges.'
       },
       {
         title: 'Screen & Print Media',
         description:
-          'Render the web layout as-is or switch to print stylesheets with mediaType for clean, print-optimized documents.'
+          'Add mediaType => print to the same query array when you want print stylesheets instead of the on-screen layout.'
       },
       {
         title: 'Generous Free Tier',
         description:
-          'Start with 25 requests per day — no account, no credit card. Add an API key when you are ready to scale.'
+          'Start free at 25 requests per day. Production traffic moves to pro.microlink.io with an x-api-key header.'
       }
     ]
   },
@@ -463,7 +463,8 @@ header('Location: ' . $res['data']['pdf']['url']);`
     title: 'PHP PDF FAQ',
     caption: (
       <>
-        Everything PHP developers ask before integrating the Microlink PDF API.
+        What PHP developers ask before integrating. For formats, limits, and
+        SLA, see the <Link href='/pdf'>PDF API overview</Link>.
       </>
     ),
     questions: [
@@ -484,21 +485,19 @@ header('Location: ' . $res['data']['pdf']['url']);`
         )
       },
       {
-        question: 'What paper sizes and layout options are supported?',
+        question: 'Does it work on shared hosting?',
         answer: (
           <>
             <div>
-              All standard formats: A0 through A6, Letter, Legal, and Tabloid,
-              in portrait or landscape. Margins accept cm, mm, in, or px, and{' '}
-              <code>pdf.scale</code> and <code>pdf.pageRanges</code> give you
-              precise control over the output.
+              Yes. There is nothing to compile and no Composer package to add —
+              the cURL extension ships with virtually every PHP install, and{' '}
+              <code>file_get_contents</code> covers the rest wherever{' '}
+              <code>allow_url_fopen</code> is enabled.
             </div>
             <div>
-              See the{' '}
-              <Link href='/docs/guides/pdf/page-size-and-layout'>
-                page size & layout guide
-              </Link>{' '}
-              for every option.
+              That matters because the usual alternatives do not: wrapping{' '}
+              <code>wkhtmltopdf</code> or running headless Chrome needs shell
+              access and system libraries most shared hosts do not give you.
             </div>
           </>
         )
@@ -530,37 +529,43 @@ header('Location: ' . $res['data']['pdf']['url']);`
         )
       },
       {
-        question: 'Is there a free tier or do I need an API key?',
+        question: 'How do I authenticate from PHP?',
         answer: (
           <>
             <div>
-              The free tier gives you 25 requests per day with no account, no
-              credit card, and no API key. Just call the endpoint and start
-              converting.
+              Two things change together: send your key as the{' '}
+              <code>x-api-key</code> header, and point the request at{' '}
+              <code>pro.microlink.io</code> instead of{' '}
+              <code>api.microlink.io</code>. Sending the header to the free
+              endpoint returns an <code>EPRO</code> error.
             </div>
             <div>
-              When you need more throughput or caching control, add an{' '}
-              <code>apiKey</code> header and requests route to the Pro tier. See{' '}
-              <Link href='/pricing'>pricing</Link> for the limits.
+              With cURL that is{' '}
+              <code>
+                curl_setopt($ch, CURLOPT_HTTPHEADER, ['x-api-key: KEY'])
+              </code>
+              . See the{' '}
+              <Link href='/docs/api/basics/authentication'>
+                authentication docs
+              </Link>{' '}
+              and <Link href='/pricing'>pricing</Link>.
             </div>
           </>
         )
       },
       {
-        question: 'How fast is it and how does it scale?',
+        question: 'Will PDF generation block my PHP-FPM workers?',
         answer: (
           <>
             <div>
-              Cached documents return sub-second from a global edge network, and
-              the browser fleet autoscales behind a 99.9% uptime SLA — so a
-              traffic spike does not mean provisioning more servers.
+              Far less than the alternatives. No Chrome process spawns on your
+              host, so a conversion costs one worker waiting on an outbound
+              request rather than hundreds of megabytes of RAM per document.
             </div>
             <div>
-              Read the{' '}
-              <Link href='/docs/guides/pdf/caching-and-performance'>
-                caching & performance guide
-              </Link>{' '}
-              to tune TTL for your workload.
+              The request is still synchronous, so for bulk jobs queue it —
+              Laravel jobs, a Symfony messenger handler, or WP-Cron — and cached
+              documents come back sub-second on repeat conversions.
             </div>
           </>
         )
@@ -575,7 +580,7 @@ header('Location: ' . $res['data']['pdf']['url']);`
       </>
     ),
     caption:
-      'Get 25 requests/day with zero commitment — no account and no credit card. Send your first request and ship a PDF in minutes.',
+      'Get 25 requests/day with zero commitment — no account, no credit card. Drop the snippet into a route and ship a PDF today.',
     primary: {
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'

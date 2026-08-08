@@ -5,9 +5,26 @@
 // /screenshot product page — keeping every spoke internally linked rather than
 // orphaned. Order is the display order.
 export const LANG_LANDINGS = [
-  { lang: 'nodejs', label: 'Node.js', href: '/screenshot/nodejs' },
-  { lang: 'python', label: 'Python', href: '/screenshot/python' },
-  { lang: 'php', label: 'PHP', href: '/screenshot/php' }
+  {
+    lang: 'nodejs',
+    label: 'Node.js',
+    href: '/screenshot/nodejs',
+    tagline:
+      'Three lines with @microlink/mql — no Puppeteer, no Chromium to bundle.'
+  },
+  {
+    lang: 'python',
+    label: 'Python',
+    href: '/screenshot/python',
+    tagline: 'One HTTP request with requests or urllib — no Selenium to drive.'
+  },
+  {
+    lang: 'php',
+    label: 'PHP',
+    href: '/screenshot/php',
+    tagline:
+      'cURL or file_get_contents — no Composer package, no extensions to compile.'
+  }
 ]
 
 export default LANG_LANDINGS

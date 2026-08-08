@@ -15,9 +15,9 @@ const nodejs = {
   label: 'Node.js',
 
   meta: {
-    title: 'Node.js HTML to PDF API — Convert Any URL to PDF',
+    title: 'Node.js HTML to PDF API with @microlink/mql',
     description:
-      'Convert any URL or HTML to a pixel-perfect PDF in Node.js with @microlink/mql. Three lines of code, no Puppeteer or Chromium to install, works on serverless & edge. Free to start.',
+      'Convert any URL to a pixel-perfect PDF in Node.js with @microlink/mql — three lines, no Puppeteer, no Chromium. Works on serverless and edge.',
     image: OG_IMAGE,
     structured: [
       {
@@ -375,7 +375,7 @@ http
           'Runs anywhere: serverless, edge, containers, your laptop',
           'Autoscaled managed browser fleet with a 99.9% uptime SLA',
           `Sub-second cached responses from ${CDN_EDGES} edge locations`,
-          'A0-A6, Letter, Legal & Tabloid formats with margin and scale control',
+          'A0-A6, Letter, Legal & Tabloid — typed options with autocomplete',
           'Print or screen CSS, custom styles & DOM interaction included'
         ]
       }
@@ -420,17 +420,17 @@ http
       {
         title: 'Zero Infrastructure',
         description:
-          'Managed Headless Chrome, autoscaled and load-balanced. No browser pool, no servers, no patching to maintain.'
+          'No browser pool to babysit inside your process. The managed Chrome fleet runs outside your event loop, so your app stays a thin HTTP client.'
       },
       {
         title: 'Custom Paper & Layout',
         description:
-          'A0-A6, Letter, Legal, and Tabloid formats with portrait or landscape orientation, margins in cm, mm, or px, and page ranges.'
+          'Pass a `pdf` object with format, margin, landscape, scale, and pageRanges — every field autocompletes from the bundled type definitions.'
       },
       {
         title: 'Screen & Print Media',
         description:
-          'Render the web layout as-is or switch to print stylesheets with mediaType for clean, print-optimized documents.'
+          'Add `mediaType: "print"` to the same options object to render print stylesheets instead of the on-screen layout.'
       },
       {
         title: 'Global Edge Caching',
@@ -439,7 +439,7 @@ http
       {
         title: 'Generous Free Tier',
         description:
-          'Start with 25 requests per day — no account, no credit card. Add an API key when you are ready to scale.'
+          'Start with 25 requests per day — no account, no credit card. Pass `apiKey` to `mql()` when you outgrow it.'
       }
     ]
   },
@@ -462,7 +462,8 @@ http
     title: 'Node.js PDF FAQ',
     caption: (
       <>
-        Everything Node developers ask before integrating the Microlink PDF API.
+        What Node developers ask before integrating. For formats, limits, and
+        SLA, see the <Link href='/pdf'>PDF API overview</Link>.
       </>
     ),
     questions: [
@@ -485,21 +486,21 @@ http
         )
       },
       {
-        question: 'What paper sizes and layout options are supported?',
+        question: 'How do I save or stream the PDF in Node.js?',
         answer: (
           <>
             <div>
-              All standard formats: A0 through A6, Letter, Legal, and Tabloid,
-              in portrait or landscape. Margins accept cm, mm, in, or px, and{' '}
-              <code>scale</code> and <code>pageRanges</code> give you precise
-              control over the output.
+              The response gives you <code>data.pdf.url</code>, a hosted
+              document on the CDN. Fetch it and write the buffer to disk, pipe
+              it into an upload, or redirect the browser straight to it — the
+              bytes never have to pass through your server.
             </div>
             <div>
-              See the{' '}
-              <Link href='/docs/guides/pdf/page-size-and-layout'>
-                page size & layout guide
+              If you would rather get the file back inline instead of a URL, the{' '}
+              <Link href='/docs/guides/pdf/embedding'>
+                delivery & embedding guide
               </Link>{' '}
-              for every option.
+              covers the <code>embed</code> parameter.
             </div>
           </>
         )
@@ -538,38 +539,41 @@ http
         )
       },
       {
-        question: 'Is there a free tier or do I need an API key?',
+        question: 'How do I use my API key with mql?',
         answer: (
           <>
             <div>
-              The free tier gives you 25 requests per day with no account, no
-              credit card, and no API key. Just call the endpoint and start
-              converting.
+              Pass <code>apiKey</code> in the options object. The SDK sends it
+              as the <code>x-api-key</code> header and switches the request to{' '}
+              <code>pro.microlink.io</code> for you, so there is no endpoint to
+              change by hand.
             </div>
             <div>
-              When you need more throughput or caching control, pass{' '}
-              <code>apiKey</code> to <code>mql()</code> and requests route to{' '}
-              the Pro tier. See <Link href='/pricing'>pricing</Link> for the
-              limits.
+              Free usage needs no key at all. See{' '}
+              <Link href='/pricing'>pricing</Link> for the tiers, or the{' '}
+              <Link href='/docs/api/basics/authentication'>
+                authentication docs
+              </Link>{' '}
+              for the details.
             </div>
           </>
         )
       },
       {
-        question: 'How fast is it and how does it scale?',
+        question: 'Can I convert several URLs in parallel?',
         answer: (
           <>
             <div>
-              Cached documents return sub-second from a global edge network, and
-              the browser fleet autoscales behind a 99.9% uptime SLA — so a
-              traffic spike does not mean provisioning more servers.
+              Yes — each call is an independent HTTP request, so{' '}
+              <code>Promise.all</code> over a list of URLs works as you would
+              expect. There is no browser instance in your process to contend
+              over.
             </div>
             <div>
-              Read the{' '}
-              <Link href='/docs/guides/pdf/caching-and-performance'>
-                caching & performance guide
-              </Link>{' '}
-              to tune TTL for your workload.
+              Throughput is bounded by your plan rather than your hardware;
+              check the{' '}
+              <Link href='/docs/api/basics/rate-limit'>rate limit</Link> docs
+              before fanning out widely.
             </div>
           </>
         )
