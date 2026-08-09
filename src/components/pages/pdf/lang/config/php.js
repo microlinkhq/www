@@ -32,7 +32,7 @@ const php = {
         image: OG_IMAGE,
         inLanguage: 'en',
         proficiencyLevel: 'Beginner',
-        dependencies: 'PHP 7.4+, cURL or allow_url_fopen',
+        dependencies: 'PHP 8.0+, cURL or allow_url_fopen',
         keywords:
           'php html to pdf api, url to pdf php, convert webpage to pdf php, dompdf alternative, generate pdf from html php, laravel pdf',
         author: {
@@ -186,8 +186,20 @@ $query = http_build_query([
 $ch = curl_init("https://api.microlink.io?$query");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-$res = json_decode(curl_exec($ch), true);
-curl_close($ch);
+
+try {
+  $body = curl_exec($ch);
+  if ($body === false) throw new RuntimeException(curl_error($ch));
+  $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+} finally {
+  curl_close($ch);
+}
+
+$res = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+
+if ($code !== 200 || $res['status'] !== 'success') {
+  throw new RuntimeException($res['message'] ?? "HTTP $code");
+}
 
 echo $res['data']['pdf']['url'];`
         }

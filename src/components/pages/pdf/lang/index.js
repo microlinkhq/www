@@ -155,6 +155,7 @@ const Hero = ({ hero, breadcrumb }) => (
       textAlign: 'center',
       maxWidth: '100%',
       pt: [3, 3, 4, 4],
+      pb: SECTION_VERTICAL_SPACING,
       px: [3, 3, 4, 4]
     })}
   >

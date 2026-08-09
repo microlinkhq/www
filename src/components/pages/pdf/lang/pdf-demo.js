@@ -72,6 +72,7 @@ const PdfDemo = () => {
 
   useEffect(() => {
     fetchPdf(FIRST_URL)
+    return () => abortRef.current?.abort()
   }, [fetchPdf])
 
   useAttractLoop({

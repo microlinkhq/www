@@ -47,8 +47,6 @@ const FOOTER_COLUMNS = [
         links: LANG_LANDINGS.map(({ label, href }) => ({ label, href }))
       },
       {
-        // Per-language PDF landings, generated from the shared registry so a
-        // new /pdf/<lang> spoke is linked site-wide automatically.
         title: 'PDF API',
         links: PDF_LANG_LANDINGS.map(({ label, href }) => ({ label, href }))
       }
