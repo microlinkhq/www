@@ -1,7 +1,6 @@
 import React from 'react'
 import { colors } from 'theme'
 import {
-  AlignLeft as AlignLeftIcon,
   Cpu as CpuIcon,
   Scissors as ScissorsIcon,
   Layers as LayersIcon,
@@ -93,17 +92,6 @@ export const CAPABILITIES = {
           Need headings and links preserved? Ask for{' '}
           <Link href='/markdown'>markdown</Link> instead, or request both in the
           same call.
-        </>
-      )
-    },
-    {
-      icon: AlignLeftIcon,
-      title: 'Cached and proxied',
-      description: (
-        <>
-          <Link href='/features/ttl'>Configurable TTL</Link> makes repeat reads
-          free, and <Link href='/features/proxy'>proxy resolution</Link> gets
-          you into sites that block plain fetches.
         </>
       )
     }

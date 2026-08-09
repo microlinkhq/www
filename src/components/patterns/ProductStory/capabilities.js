@@ -8,7 +8,7 @@ import Flex from 'components/elements/Flex'
 import LineBreak from 'components/elements/LineBreak'
 import Text from 'components/elements/Text'
 
-import { Subhead, Caption, STORY_LAYOUT } from './shared'
+import { Subhead, STORY_LAYOUT } from './shared'
 
 const CapabilityItem = styled(Flex)`
   ${theme({ gap: 2, alignItems: 'flex-start' })};
@@ -88,16 +88,15 @@ export const ProductCapabilities = ({
           <span css={{ color: 'var(--capability-accent)' }}>{titleAccent}</span>
         </Subhead>
         {caption && (
-          <Caption
-            forwardedAs='p'
+          <Text
+            as='p'
             css={theme({
               textAlign: ['center', 'center', 'center', 'left'],
-              mx: 0,
               width: '100%'
             })}
           >
             {caption}
-          </Caption>
+          </Text>
         )}
         <Flex
           css={[
