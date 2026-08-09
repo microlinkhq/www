@@ -197,11 +197,15 @@ try {
 
 $res = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
 
-if ($code !== 200 || $res['status'] !== 'success') {
+if ($code !== 200 || !is_array($res) || ($res['status'] ?? null) !== 'success') {
   throw new RuntimeException($res['message'] ?? "HTTP $code");
 }
 
-echo $res['data']['pdf']['url'];`
+$url = $res['data']['pdf']['url'] ?? null;
+
+if (!is_string($url)) throw new RuntimeException('Malformed API response');
+
+echo $url;`
         }
       },
       {
