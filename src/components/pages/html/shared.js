@@ -5,7 +5,6 @@ import {
   Cpu as CpuIcon,
   Clock as ClockIcon,
   Shield as ShieldIcon,
-  Zap as ZapIcon,
   Crosshair as CrosshairIcon
 } from 'react-feather'
 
@@ -82,16 +81,6 @@ export const CAPABILITIES = {
           Residential <Link href='/features/proxy'>proxy resolution</Link> and{' '}
           <Link href='/features/antibot'>antibot detection</Link> handle the
           sites that block plain fetches.
-        </>
-      )
-    },
-    {
-      icon: ZapIcon,
-      title: 'Cached at the edge',
-      description: (
-        <>
-          Set a <Link href='/features/ttl'>ttl</Link> and repeat calls return
-          instantly from cache — free, with no browser boot.
         </>
       )
     },

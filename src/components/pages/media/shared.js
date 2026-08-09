@@ -5,8 +5,7 @@ import {
   Link2 as Link2Icon,
   Mic as MicIcon,
   Video as VideoIcon,
-  Share2 as Share2Icon,
-  Zap as ZapIcon
+  Share2 as Share2Icon
 } from 'react-feather'
 
 import { Link } from 'components/elements/Link'
@@ -95,16 +94,6 @@ export const CAPABILITIES = {
           Combine with <Link href='/metadata'>metadata</Link> to get the title,
           description, artwork or poster image in the same call as the media
           file.
-        </>
-      )
-    },
-    {
-      icon: ZapIcon,
-      title: 'Cached at the edge',
-      description: (
-        <>
-          Set a <Link href='/features/ttl'>ttl</Link> and repeat lookups return
-          instantly from cache — free, with no browser boot.
         </>
       )
     }
