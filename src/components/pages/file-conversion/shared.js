@@ -4,7 +4,6 @@ import {
   Repeat as RepeatIcon,
   FileText as FileTextIcon,
   Table as TableIcon,
-  Zap as ZapIcon,
   Cpu as CpuIcon,
   CheckSquare as CheckSquareIcon
 } from 'react-feather'
@@ -48,6 +47,14 @@ export const HERO = {
       mqlCode: {
         url: 'https://cdn.microlink.io/file-examples/sample.docx',
         data: { html: { attr: 'html' } },
+        meta: false
+      }
+    },
+    {
+      label: 'XLSX → PDF',
+      mqlCode: {
+        url: 'https://cdn.microlink.io/file-examples/sample.xlsx',
+        pdf: true,
         meta: false
       }
     },
@@ -125,17 +132,6 @@ export const CAPABILITIES = {
       title: 'Structure preserved',
       description:
         'Headings, lists, tables and links survive the conversion when the output format supports them, so documents stay navigable downstream.'
-    },
-    {
-      icon: ZapIcon,
-      title: 'Cached at the edge',
-      description: (
-        <>
-          Set a <Link href='/features/ttl'>ttl</Link> and repeat conversions of
-          the same file return instantly from cache — free, and with no
-          reprocessing.
-        </>
-      )
     }
   ]
 }
