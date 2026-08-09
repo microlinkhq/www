@@ -27,9 +27,9 @@ const progressRun = keyframes`
   100% { transform: scaleX(1); }
 `
 
-const Body = styled(Box)(theme({ px: 4, py: 5, bg: 'white' }))
+const Body = styled(Box)(theme({ px: 4, py: 4, bg: 'white' }))
 
-const PlayerRow = styled(Flex)(theme({ alignItems: 'center', gap: 3, pb: 4 }))
+const PlayerRow = styled(Flex)(theme({ alignItems: 'center', gap: 3, pt: 5 }))
 
 const PlayButton = styled(Flex)`
   width: 40px;
@@ -144,6 +144,11 @@ export const MediaCapabilitiesVisual = () => (
     }
   >
     <Body>
+      <Equalizer>
+        {BAR_HEIGHTS.map((height, index) => (
+          <WaveBar key={index} $index={index} css={{ height: `${height}px` }} />
+        ))}
+      </Equalizer>
       <PlayerRow>
         <PlayButton>
           <svg width='14' height='14' viewBox='0 0 24 24' fill='#fff'>
@@ -155,11 +160,6 @@ export const MediaCapabilitiesVisual = () => (
         </ProgressTrack>
         <TimeStamp as='span'>12:14</TimeStamp>
       </PlayerRow>
-      <Equalizer>
-        {BAR_HEIGHTS.map((height, index) => (
-          <WaveBar key={index} $index={index} css={{ height: `${height}px` }} />
-        ))}
-      </Equalizer>
     </Body>
   </DemoCard>
 )
