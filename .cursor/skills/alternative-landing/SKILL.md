@@ -19,21 +19,22 @@ The goal is not generic comparison copy. The goal is a repo-native page that:
 
 Before any research or editing, **ask the user which Microlink product the competitor competes with**:
 
-- **Screenshot API** — competitor offers headless-browser screenshots / PDFs as their primary product. Examples already in the repo: ScreenshotOne, ApiFlash, Urlbox, Url2Png, Thum.io, ScreenshotAPI, ScreenshotLayer, ScreenshotMachine.
+- **Screenshot API** — competitor offers headless-browser screenshots / PDFs as their primary product. Examples already in the repo: ScreenshotOne, ApiFlash, Urlbox, Url2Png, Thum.io, ScreenshotAPI, ScreenshotLayer, ScreenshotMachine, Cloudflare (Browser Rendering).
 - **Embed API** — competitor offers URL → card / oEmbed / link preview as their primary product. Example already in the repo: Iframely.
+- **AI data / scraping** — competitor converts URLs into LLM-ready markdown or structured/brand data (Firecrawl, Context.dev). No benchmark exists: use the no-benchmark screenshot structure (`cloudflare.js` shape — curl-vs-curl hero, no `SpeedSection`), CTA URLs target `/markdown` or `/metadata`, and the TryIt uses `MultiCodeEditorInteractive` with a markdown or meta `mqlCode`.
 
-If you can identify the category confidently from the competitor's homepage, confirm with the user before proceeding instead of asking blindly. Phrasing example: "I see [Competitor] leads with [rich-media embeds / headless screenshots]. I'll use the [embed / screenshot] template — confirm?"
+If you can identify the category confidently from the competitor's homepage, confirm with the user before proceeding instead of asking blindly. Phrasing example: "I see [Competitor] leads with [rich-media embeds / headless screenshots / LLM-ready markdown]. I'll use the [embed / screenshot / AI data] template — confirm?"
 
-If a competitor straddles both, pick the **dominant** product. Lead with embeds → embed template. Lead with screenshots → screenshot template. Never mix templates.
+If a competitor straddles more than one category, pick the **dominant** product. Lead with embeds → embed template. Lead with screenshots → screenshot template. Lead with LLM-ready markdown or structured data → AI data / scraping structure. Never mix templates.
 
 The category choice changes:
 
-- which reference doc you follow (`template-structure.md` vs `embed-template.md`)
-- which existing page you use as a primary example (`screenshotone.js` vs `iframely.js`)
-- whether you include `SpeedSection` (screenshot only — no embed benchmark exists)
-- which hero visual you use (`RaceContainer` vs `<InteractiveExample flat hideFooter />`)
-- which TryIt visual you use (`MultiCodeEditorInteractive` vs `<PreviewVariantsShowcase />`)
-- which CTA URLs you target (`/screenshot` vs `/embed`)
+- which reference doc you follow (`template-structure.md` for screenshot and AI data; `embed-template.md` for embed)
+- which existing page you use as a primary example (`screenshotone.js`, `iframely.js`, or `cloudflare.js` for the no-benchmark shape)
+- whether you include `SpeedSection` — only when the competitor has real benchmark data in `src/pages/benchmarks/screenshot-api.js`. Embed and AI data / scraping competitors never do, and an unbenchmarked screenshot competitor does not either (`cloudflare.js` is the reference for that case). Without benchmark data there is no `SpeedSection` and no `RaceContainer`.
+- which hero visual you use (`RaceContainer` when benchmarked, a side-by-side curl comparison when not, `<InteractiveExample flat hideFooter />` for embed)
+- which TryIt visual you use (`MultiCodeEditorInteractive` for screenshot and AI data, `<PreviewVariantsShowcase />` for embed)
+- which CTA URLs you target (`/screenshot`, `/embed`, or `/markdown` / `/metadata` for AI data)
 
 ## Read First
 
@@ -98,7 +99,7 @@ Do not use third-party sources as proof for hard claims if the competitor site d
 
 Before editing:
 
-1. **Confirm the category — screenshot vs embed** (see "Category Selection — Ask First" above). Every subsequent step depends on this choice.
+1. **Confirm the category — screenshot, embed, or AI data / scraping** (see "Category Selection — Ask First" above). Every subsequent step depends on this choice.
 2. Confirm the competitor name.
 3. Confirm the competitor URL.
 4. Confirm the target slug if the user gave one.
@@ -114,6 +115,8 @@ Recommended options:
 - create a non-speed draft only if the user explicitly accepts a deviation from the existing structure
 
 If the competitor is **embed-category**, skip the benchmark mapping — there is no embed benchmark. Follow `embed-template.md` which deliberately omits `SpeedSection`.
+
+If the competitor is **AI data / scraping**, skip the benchmark mapping too — there is no markdown or structured-data benchmark. Follow the `cloudflare.js` no-benchmark shape, which omits `SpeedSection` and `RaceContainer`.
 
 ### 2. Research the Competitor
 
@@ -179,6 +182,12 @@ Screenshot category:
 - `url2png.js`: modernization angle ("a more modern screenshot API")
 - `screenshotlayer.js`: throughput / overage angle
 - `thumio.js`: final-screenshot vs streamed-thumbnail angle
+- `cloudflare.js`: batteries-included angle ("managed screenshot API vs DIY browser infrastructure") — no benchmark data, so no `SpeedSection`/`RaceContainer`; hero uses a side-by-side curl comparison instead
+
+AI data / scraping category:
+
+- `firecrawl.js`: flat-pricing angle ("without the credit math" — 5× stealth multiplier, one-time free credits, no rollover)
+- `context-dev.js`: one-request bundle angle ("answers in one request" — credit menu vs metadata+logo+markdown+screenshot in a single flat request)
 
 Embed category:
 
@@ -380,7 +389,7 @@ If unsure, propose the new section to the user instead of silently changing the 
 
 When updating an existing page:
 
-1. Read the current file. Identify its category from the section list (screenshot pages render `SpeedSection`; embed pages do not).
+1. Read the current file. Identify its category from the hero and TryIt visuals, not from `SpeedSection` alone: embed pages import `InteractiveExample` from `components/pages/embed`; screenshot and AI data pages use `MultiCodeEditorInteractive`, and only benchmarked screenshot pages add `SpeedSection`/`RaceContainer`.
 2. Re-research the competitor's homepage, docs, features, pricing, and relevant workflow pages.
 3. Re-read the category source-of-truth:
    - Screenshot pages → `src/pages/benchmarks/screenshot-api.js`.

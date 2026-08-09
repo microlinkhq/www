@@ -139,7 +139,8 @@
           "src/components/patterns/RaceContainer/use-race-schedule.js",
           "src/helpers/hoc/with-debounce.js",
           "src/components/patterns/ExamplesSwitcher/use-scroll-cues.js",
-          "src/components/patterns/ExamplesSwitcher/use-tabs-height.js"
+          "src/components/patterns/ExamplesSwitcher/use-tabs-height.js",
+          "src/components/pages/pdf/lang/pdf-demo.js"
         ],
         "rules": [
           "react-doctor/exhaustive-deps"

@@ -25,7 +25,8 @@ import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
-import ScreenshotDemo from './screenshot-demo'
+import { ACCENT } from '../shared'
+import PdfDemo from './pdf-demo'
 import { LANG_LANDINGS } from './registry'
 
 const ALL_TOOLS = TOOL_CATALOG.flatMap(section => section.tools)
@@ -34,7 +35,6 @@ const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
 const Caption = withTitle(CaptionBase)
 
-const ACCENT = 'red6'
 const SECTION_MAX_WIDTH = '1100px'
 const CONTENT_WIDTH = layout.normal
 
@@ -155,6 +155,7 @@ const Hero = ({ hero, breadcrumb }) => (
       textAlign: 'center',
       maxWidth: '100%',
       pt: [3, 3, 4, 4],
+      pb: SECTION_VERTICAL_SPACING,
       px: [3, 3, 4, 4]
     })}
   >
@@ -201,7 +202,7 @@ const Hero = ({ hero, breadcrumb }) => (
         justifyContent: 'center'
       })}
     >
-      <ScreenshotDemo alt={hero.demoAlt} />
+      <PdfDemo />
     </Flex>
   </Container>
 )
@@ -299,7 +300,7 @@ const ComparisonColumn = ({ column }) => {
         flex: 1,
         bg: 'white',
         borderRadius: 4,
-        border: `${borders[1]} ${positive ? colors.red6 : colors.black10}`,
+        border: `${borders[1]} ${positive ? ACCENT : colors.black10}`,
         boxShadow: positive
           ? `0 16px 40px ${colors.black10}`
           : `0 8px 24px ${colors.black05}`,
@@ -311,7 +312,7 @@ const ComparisonColumn = ({ column }) => {
         css={theme({
           fontWeight: 'bold',
           fontSize: [1, 1, 2, 2],
-          color: positive ? 'red6' : 'black60',
+          color: positive ? ACCENT : 'black60',
           pb: 3
         })}
       >
@@ -466,14 +467,14 @@ const FinalCta = ({ cta, current }) => (
           langs={LANG_LANDINGS}
           current={current}
           label='Also available for'
-          accent={colors.red6}
+          accent={ACCENT}
         />
       </Box>
     </Flex>
   </SectionContainer>
 )
 
-const ScreenshotLang = ({ config }) => (
+const PdfLang = ({ config }) => (
   <Layout css={theme({ position: 'relative' })}>
     <DashedGridOverlay aria-hidden='true' />
     <Box css={theme({ position: 'relative', zIndex: 1 })}>
@@ -518,4 +519,4 @@ export const LangHead = ({ config }) => (
   />
 )
 
-export default ScreenshotLang
+export default PdfLang
