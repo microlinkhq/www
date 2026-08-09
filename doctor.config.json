@@ -181,6 +181,7 @@
       {
         "files": [
           "src/components/pages/markdown/shared.js",
+          "src/components/pages/media/capabilities-visual.js",
           "src/components/pages/metadata/hero/json-lines.js",
           "src/pages/tools/website-screenshot/bulk.js",
           "src/pages/tools/website-to-pdf/bulk.js"
