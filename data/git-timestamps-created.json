@@ -251,6 +251,7 @@
   "src/pages/alternative/thumio.js": "2026-04-15T00:00:00.000Z",
   "src/pages/alternative/url2png.js": "2026-04-16T00:00:00.000Z",
   "src/pages/alternative/urlbox.js": "2026-04-09T00:00:00.000Z",
+  "src/pages/audio.js": "2026-08-05T00:00:00.000Z",
   "src/pages/benchmarks/screenshot-api.js": "2026-03-17T00:00:00.000Z",
   "src/pages/blog.js": "2018-03-29T00:00:00.000Z",
   "src/pages/blog/antibot-at-scale.md": "2026-01-04T00:00:00.000Z",
@@ -534,9 +535,11 @@
   "src/pages/features/scraping.js": "2026-07-06T00:00:00.000Z",
   "src/pages/features/security.js": "2026-07-23T00:00:00.000Z",
   "src/pages/features/ttl.js": "2026-07-06T00:00:00.000Z",
+  "src/pages/file-conversion.js": "2026-08-05T00:00:00.000Z",
   "src/pages/formats-supported.js": "2022-10-10T00:00:00.000Z",
   "src/pages/formats.js": "2022-10-10T00:00:00.000Z",
   "src/pages/graphql.js": "2019-06-18T00:00:00.000Z",
+  "src/pages/html.js": "2026-08-05T00:00:00.000Z",
   "src/pages/iframe.js": "2019-11-11T00:00:00.000Z",
   "src/pages/index.js": "2017-10-07T00:00:00.000Z",
   "src/pages/insights.js": "2020-01-30T00:00:00.000Z",
@@ -550,6 +553,7 @@
   "src/pages/link-preview.js": "2026-05-19T00:00:00.000Z",
   "src/pages/logo.js": "2022-12-17T00:00:00.000Z",
   "src/pages/markdown.js": "2026-02-19T00:00:00.000Z",
+  "src/pages/media.js": "2026-08-07T00:00:00.000Z",
   "src/pages/meta.js": "2019-12-27T00:00:00.000Z",
   "src/pages/metadata.js": "2026-01-31T00:00:00.000Z",
   "src/pages/mql.js": "2019-06-16T00:00:00.000Z",
@@ -583,6 +587,7 @@
   "src/pages/styleguide.md": "2019-03-15T00:00:00.000Z",
   "src/pages/subprocessors.md": "2025-07-01T00:00:00.000Z",
   "src/pages/terms.js": "2018-04-08T00:00:00.000Z",
+  "src/pages/text.js": "2026-08-05T00:00:00.000Z",
   "src/pages/tools.js": "2026-03-13T00:00:00.000Z",
   "src/pages/tools/embed-url.js": "2026-05-12T00:00:00.000Z",
   "src/pages/tools/embed-url/23hq.js": "2026-05-26T00:00:00.000Z",
@@ -982,5 +987,6 @@
   "src/pages/use-cases/mymahi.js": "2026-06-22T00:00:00.000Z",
   "src/pages/use-cases/r-advertising.js": "2026-06-22T00:00:00.000Z",
   "src/pages/use-cases/upscale-extracted-images.js": "2026-06-19T00:00:00.000Z",
-  "src/pages/user-agents.js": "2023-11-26T00:00:00.000Z"
+  "src/pages/user-agents.js": "2023-11-26T00:00:00.000Z",
+  "src/pages/video.js": "2026-08-05T00:00:00.000Z"
 }

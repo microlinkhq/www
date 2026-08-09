@@ -68,8 +68,8 @@ const HomePage = () => {
     <CurrencyProvider>
       <Layout>
         <Hero />
-        <Examples />
         <Products />
+        <Examples />
         <Analytics />
         <Pricing />
         <Production />

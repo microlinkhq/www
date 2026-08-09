@@ -17,7 +17,7 @@ import {
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
-import { LogoCapabilitiesVisual } from 'components/pages/logo/capabilities-visual'
+import { HtmlCapabilitiesVisual } from 'components/pages/html/capabilities-visual'
 import {
   ACCENT,
   TIMINGS_ACCENT,
@@ -29,38 +29,33 @@ import {
   FAQ_CAPTION,
   FAQ_ITEMS,
   META
-} from 'components/pages/logo/shared'
+} from 'components/pages/html/shared'
 
 const FEATURES = [
   {
-    title: 'Three Detection Sources',
+    title: 'Real Browser Rendering',
     description:
-      'Page markup, the DNS BIMI record and the favicon are checked in order, so the best available asset wins and coverage never drops to zero.'
+      'Every request runs in a real Chromium instance, so client-rendered apps return complete markup instead of an empty shell.'
   },
   {
-    title: 'Brand Palette Extraction',
+    title: 'Selector Scoping',
     description:
-      'Dominant colors arrive ordered by presence, plus background and foreground pairs picked for WCAG contrast — ready to theme UI with.'
+      'Return the whole document or a single subtree. Smaller responses mean less parsing and lower token cost in whatever consumes them.'
   },
   {
-    title: 'Complete Image Metadata',
+    title: 'Readiness You Control',
     description:
-      'Format, file size and exact dimensions ship with every logo, so layouts render without a probe request or a layout shift.'
+      'waitUntil and waitFor let you block on network idle, a fixed delay, or the appearance of a specific element before the HTML is captured.'
   },
   {
-    title: 'Hotlink-Ready Embedding',
+    title: 'Residential Proxy Resolution',
     description:
-      'One query parameter turns the response into the image itself, so the logo drops straight into an image tag with nothing to store.'
+      'Route hard targets through residential IPs to get past Cloudflare, DataDome and Akamai without maintaining a proxy pool yourself.'
   },
   {
-    title: 'Real Browser Detection',
+    title: 'Antibot Transparency',
     description:
-      'Markup injected by JavaScript is still found, because detection happens after the page has fully rendered.'
-  },
-  {
-    title: 'No HTML Required',
-    description:
-      'The DNS source resolves without touching the page, so a logo still comes back when a site is rate-limited or answers with a 403.'
+      'When a request is blocked you get told which of 30+ antibot and CAPTCHA providers blocked it, instead of a silent failure.'
   },
   {
     title: 'Edge Cached Responses',
@@ -68,9 +63,14 @@ const FEATURES = [
       'Configurable TTL from 1 minute to 31 days. Cache hits are free, return instantly, and never boot a browser.'
   },
   {
+    title: 'One Call, Many Formats',
+    description:
+      'Request HTML together with markdown, text, metadata, screenshots or PDFs and pay for a single render instead of several.'
+  },
+  {
     title: 'Enterprise-Grade Reliability',
     description:
-      'Production-ready infrastructure with a 99.9% uptime SLA and guaranteed performance for business-critical brand pipelines.'
+      'Production-ready infrastructure with a 99.9% uptime SLA and guaranteed performance for business-critical extraction workflows.'
   },
   {
     title: 'Generous Free Tier',
@@ -79,14 +79,14 @@ const FEATURES = [
   }
 ]
 
-const REPOS = ['metascraper', 'unavatar', 'splashy']
+const REPOS = ['browserless', 'html-get', 'html']
 
 export const Head = () => (
   <Meta
     title={META.title}
     description={META.description}
     structured={productStructured({
-      path: '/logo',
+      path: '/html',
       name: META.structuredName,
       description: META.structuredDescription,
       keywords: META.keywords,
@@ -98,26 +98,26 @@ export const Head = () => (
   />
 )
 
-const LogoPage = () => (
+const HtmlPage = () => (
   <Layout>
-    <ProductHero {...HERO} accent={ACCENT} />
+    <ProductHero {...HERO} />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductCapabilities
       {...CAPABILITIES}
       accent={ACCENT}
-      visual={<LogoCapabilitiesVisual />}
+      visual={<HtmlCapabilitiesVisual />}
     />
     <ProductPricing caption={PRICING_CAPTION} />
     <OpenSource
       repos={REPOS}
       accent={ACCENT}
-      caption='The Microlink logo pipeline is powered by battle-tested open source libraries used by thousands of developers worldwide. Our logo API is built on an open source foundation: explore the code, contribute, or run it yourself.'
+      caption='The Microlink rendering engine is powered by battle-tested open source libraries used by thousands of developers worldwide. Our rendered HTML API is built on an open source foundation: explore the code, contribute, or run it yourself.'
     />
     <Features
       css={theme({ px: 4, py: SECTION_VERTICAL_SPACING })}
       title={
         <Subhead css={theme({ width: '100%', textAlign: 'left' })}>
-          The web never standardized the logo.{' '}
+          The markup a browser sees,{' '}
           <span
             css={{
               display: 'block',
@@ -126,16 +126,15 @@ const LogoPage = () => (
               textAlign: 'left'
             }}
           >
-            We standardized finding it.
+            without running one.
           </span>
         </Subhead>
       }
       caption={
         <>
-          One request checks every markup convention, the DNS record and the
-          favicon via the{' '}
-          <Link href='/docs/api/parameters/meta'>metadata API</Link>, then
-          returns the winner with its colors.
+          No Chromium fleet to patch, no proxy pool to rotate, no queue to
+          babysit. Send a URL and get back the hydrated DOM, ready to parse via
+          the <Link href='/docs/api/parameters/data'>data API</Link>.
         </>
       }
       features={FEATURES}
@@ -145,4 +144,4 @@ const LogoPage = () => (
   </Layout>
 )
 
-export default LogoPage
+export default HtmlPage

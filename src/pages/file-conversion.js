@@ -17,7 +17,7 @@ import {
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
-import { LogoCapabilitiesVisual } from 'components/pages/logo/capabilities-visual'
+import { ConversionCapabilitiesVisual } from 'components/pages/file-conversion/capabilities-visual'
 import {
   ACCENT,
   TIMINGS_ACCENT,
@@ -29,48 +29,48 @@ import {
   FAQ_CAPTION,
   FAQ_ITEMS,
   META
-} from 'components/pages/logo/shared'
+} from 'components/pages/file-conversion/shared'
 
 const FEATURES = [
   {
-    title: 'Three Detection Sources',
+    title: 'Documents And Decks',
     description:
-      'Page markup, the DNS BIMI record and the favicon are checked in order, so the best available asset wins and coverage never drops to zero.'
+      'PDFs, Word documents, presentations and rich text all resolve to readable content through one request, with no per-format library to install.'
   },
   {
-    title: 'Brand Palette Extraction',
+    title: 'Spreadsheets And Data Files',
     description:
-      'Dominant colors arrive ordered by presence, plus background and foreground pairs picked for WCAG contrast — ready to theme UI with.'
+      'Tabular formats convert through the same endpoint, so data files and prose documents share a single integration.'
   },
   {
-    title: 'Complete Image Metadata',
+    title: 'Choose Your Output',
     description:
-      'Format, file size and exact dimensions ship with every logo, so layouts render without a probe request or a layout shift.'
+      'The same source returns as HTML, Markdown or plain text, whichever fits the parser, model or docs pipeline that consumes it.'
   },
   {
-    title: 'Hotlink-Ready Embedding',
+    title: 'No Local Toolchain',
     description:
-      'One query parameter turns the response into the image itself, so the logo drops straight into an image tag with nothing to store.'
+      'No LibreOffice container to run, no Ghostscript to patch, no parser dependencies to track. Conversion runs on our infrastructure.'
   },
   {
-    title: 'Real Browser Detection',
+    title: 'Structure Preserved',
     description:
-      'Markup injected by JavaScript is still found, because detection happens after the page has fully rendered.'
+      'Headings, lists, tables and links survive conversion when the output format supports them, so documents stay navigable downstream.'
   },
   {
-    title: 'No HTML Required',
+    title: 'URL In, Content Out',
     description:
-      'The DNS source resolves without touching the page, so a logo still comes back when a site is rate-limited or answers with a 403.'
+      'Files are fetched and converted server-side, so you never proxy large binaries through your own servers to get readable content.'
   },
   {
     title: 'Edge Cached Responses',
     description:
-      'Configurable TTL from 1 minute to 31 days. Cache hits are free, return instantly, and never boot a browser.'
+      'Configurable TTL from 1 minute to 31 days. Cache hits are free, return instantly, and never reprocess the document.'
   },
   {
     title: 'Enterprise-Grade Reliability',
     description:
-      'Production-ready infrastructure with a 99.9% uptime SLA and guaranteed performance for business-critical brand pipelines.'
+      'Production-ready infrastructure with a 99.9% uptime SLA and guaranteed performance for business-critical document workflows.'
   },
   {
     title: 'Generous Free Tier',
@@ -79,14 +79,14 @@ const FEATURES = [
   }
 ]
 
-const REPOS = ['metascraper', 'unavatar', 'splashy']
+const REPOS = ['html-get', 'browserless', 'metascraper']
 
 export const Head = () => (
   <Meta
     title={META.title}
     description={META.description}
     structured={productStructured({
-      path: '/logo',
+      path: '/file-conversion',
       name: META.structuredName,
       description: META.structuredDescription,
       keywords: META.keywords,
@@ -98,26 +98,26 @@ export const Head = () => (
   />
 )
 
-const LogoPage = () => (
+const FileConversionPage = () => (
   <Layout>
     <ProductHero {...HERO} accent={ACCENT} />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductCapabilities
       {...CAPABILITIES}
       accent={ACCENT}
-      visual={<LogoCapabilitiesVisual />}
+      visual={<ConversionCapabilitiesVisual />}
     />
     <ProductPricing caption={PRICING_CAPTION} />
     <OpenSource
       repos={REPOS}
       accent={ACCENT}
-      caption='The Microlink logo pipeline is powered by battle-tested open source libraries used by thousands of developers worldwide. Our logo API is built on an open source foundation: explore the code, contribute, or run it yourself.'
+      caption='The Microlink conversion pipeline is powered by battle-tested open source libraries used by thousands of developers worldwide. Our file conversion API is built on an open source foundation: explore the code, contribute, or run it yourself.'
     />
     <Features
       css={theme({ px: 4, py: SECTION_VERTICAL_SPACING })}
       title={
         <Subhead css={theme({ width: '100%', textAlign: 'left' })}>
-          The web never standardized the logo.{' '}
+          Any file in.{' '}
           <span
             css={{
               display: 'block',
@@ -126,16 +126,14 @@ const LogoPage = () => (
               textAlign: 'left'
             }}
           >
-            We standardized finding it.
+            Content your code can read out.
           </span>
         </Subhead>
       }
       caption={
         <>
-          One request checks every markup convention, the DNS record and the
-          favicon via the{' '}
-          <Link href='/docs/api/parameters/meta'>metadata API</Link>, then
-          returns the winner with its colors.
+          One endpoint replaces a shelf of per-format parsers. See every
+          supported format on the <Link href='/formats'>formats page</Link>.
         </>
       }
       features={FEATURES}
@@ -145,4 +143,4 @@ const LogoPage = () => (
   </Layout>
 )
 
-export default LogoPage
+export default FileConversionPage

@@ -23,7 +23,10 @@ import {
   Tag as TagIcon,
   Users,
   Activity,
+  AlignLeft as AlignLeftIcon,
   Maximize,
+  Repeat as RepeatIcon,
+  Video as VideoIcon,
   Zap,
   FileText,
   Layout as LayoutIcon,
@@ -244,6 +247,30 @@ export const NAVIGATION_SECTIONS = [
         href: '/logo',
         description: 'Fetch favicons and logos from websites',
         icon: Image
+      }),
+      createNavigationItem({
+        label: 'HTML',
+        href: '/html',
+        description: 'Get the rendered HTML after JavaScript runs',
+        icon: Code
+      }),
+      createNavigationItem({
+        label: 'Text',
+        href: '/text',
+        description: 'Extract clean, LLM-ready text from any page',
+        icon: AlignLeftIcon
+      }),
+      createNavigationItem({
+        label: 'Media',
+        href: '/media',
+        description: 'Resolve the direct video or audio file behind any URL',
+        icon: VideoIcon
+      }),
+      createNavigationItem({
+        label: 'File Conversion',
+        href: '/file-conversion',
+        description: 'Convert any file into HTML, Markdown or text',
+        icon: RepeatIcon
       }),
       createNavigationItem({
         label: 'Insights',

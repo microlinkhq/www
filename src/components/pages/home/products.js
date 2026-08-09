@@ -96,7 +96,7 @@ const EXTRA = {
     label: 'Browser Automations',
     description: 'Automate actions in the browser and extract results',
     icon: MousePointerIcon,
-    href: '/docs/guides/function/browser-interaction'
+    href: '/features/automation'
   },
   sdk: {
     label: 'Microlink SDK',
@@ -108,7 +108,7 @@ const EXTRA = {
     label: 'File conversion',
     description: 'Convert any file into HTML, Markdown, or clean text',
     icon: RepeatIcon,
-    href: '/docs/guides/content-conversion'
+    href: '/file-conversion'
   }
 }
 
@@ -2303,6 +2303,15 @@ const Products = () => (
     </Box>
 
     <Grid>
+      <Row $template='1fr 1.3fr'>
+        <Feature vertical='preview'>
+          <LinkPreview />
+        </Feature>
+        <Feature vertical='screenshot'>
+          <ScreenshotPreview />
+        </Feature>
+      </Row>
+
       <Row $template='1.1fr 1fr'>
         <Feature vertical='metadata'>
           <MetadataPreview />
@@ -2312,21 +2321,12 @@ const Products = () => (
         </Feature>
       </Row>
 
-      <Row $template='1fr 1.3fr'>
-        <Feature vertical='pdf'>
-          <PdfPreview />
-        </Feature>
-        <Feature vertical='screenshot'>
-          <ScreenshotPreview />
-        </Feature>
-      </Row>
-
       <Row $template='1fr 1fr'>
         <Feature vertical='html'>
           <HtmlPreview />
         </Feature>
-        <Feature vertical='preview'>
-          <LinkPreview />
+        <Feature vertical='pdf'>
+          <PdfPreview />
         </Feature>
       </Row>
 
