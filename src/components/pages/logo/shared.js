@@ -3,10 +3,8 @@ import { colors } from 'theme'
 import {
   Code as CodeIcon,
   Droplet as DropletIcon,
-  Image as ImageIcon,
   LifeBuoy as LifeBuoyIcon,
-  Mail as MailIcon,
-  Zap as ZapIcon
+  Mail as MailIcon
 } from 'react-feather'
 
 import { Link } from 'components/elements/Link'
@@ -54,8 +52,6 @@ export const CAPABILITIES = {
   title: 'More than',
   titleAccent: 'a favicon.',
   titleBreak: false,
-  caption:
-    'HTML never standardized how a site declares its logo. Microlink checks every source a brand can publish to and returns the best one, with the colors to match.',
   items: [
     {
       icon: CodeIcon,
@@ -89,28 +85,6 @@ export const CAPABILITIES = {
           <Link href='/docs/api/parameters/palette'>palette</Link> adds the
           dominant colors plus background and foreground pairs picked for WCAG
           contrast — ready to theme UI with.
-        </>
-      )
-    },
-    {
-      icon: ImageIcon,
-      title: 'Hotlink it anywhere',
-      description: (
-        <>
-          <Link href='/docs/api/parameters/embed'>embed</Link> turns the API URL
-          into the image itself, so the logo drops straight into an {'<img>'}{' '}
-          tag with nothing to parse or store.
-        </>
-      )
-    },
-    {
-      icon: ZapIcon,
-      title: 'Cached and current',
-      description: (
-        <>
-          <Link href='/features/ttl'>Configurable TTL</Link> makes repeat
-          lookups free and instant, while expiry means a rebrand propagates on
-          its own.
         </>
       )
     }

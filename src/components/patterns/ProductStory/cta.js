@@ -8,7 +8,7 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import ArrowLink from 'components/patterns/ArrowLink'
 
-import { Subhead, Caption, NARROW_MAX_WIDTH } from './shared'
+import { Subhead, NARROW_MAX_WIDTH } from './shared'
 
 const CTA_DURATION = 6.2
 const CTA_SWEEP_PCT = (1.2 / CTA_DURATION) * 100
@@ -84,8 +84,7 @@ export const ProductCta = ({
         ))}{' '}
         <CtaNow>now</CtaNow>
       </Subhead>
-      <Caption
-        forwardedAs='div'
+      <Text
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: NARROW_MAX_WIDTH,
@@ -93,7 +92,7 @@ export const ProductCta = ({
         })}
       >
         {caption}
-      </Caption>
+      </Text>
       <Flex
         css={theme({
           pt: [4, 4, 5, 5],
