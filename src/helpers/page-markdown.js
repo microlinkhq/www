@@ -10,7 +10,7 @@ export const isMarkdownPage = pathname =>
   !GATSBY_INTERNAL.test(pathname) &&
   !EXCLUDED.some(pattern => pattern.test(pathname))
 
-export const isDocsPage = pathname => pathname.startsWith('/docs/')
+const isDocsPage = pathname => pathname.startsWith('/docs/')
 
 // The docs template nests its article inside the page's main landmark, next to
 // the sidebar; every other page is its main landmark.
@@ -22,7 +22,7 @@ const selectorsFor = pathname =>
 export const toMarkdownPath = pathname =>
   `${pathname.replace(/^\/+/, '').replace(/\/+$/, '') || 'index'}.md`
 
-export const withTitle = (title, markdown) =>
+export const prependTitle = (title, markdown) =>
   title ? `# ${title}\n\n${markdown}` : markdown
 
 // The conversion runs against the deployed site, which is still the previous

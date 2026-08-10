@@ -55,15 +55,16 @@ const toEntry = ({ pathname, title, description }) => {
 export const buildLlmsTxt = pages => {
   const grouped = new Map(SECTIONS.map(([, title]) => [title, []]))
 
-  for (const page of [...pages].sort((a, b) =>
+  for (const page of pages.toSorted((a, b) =>
     a.pathname.localeCompare(b.pathname)
   )) {
     grouped.get(sectionFor(page.pathname)).push(toEntry(page))
   }
 
   const body = [...grouped]
-    .filter(([, entries]) => entries.length > 0)
-    .map(([title, entries]) => `## ${title}\n\n${entries.join('\n')}`)
+    .flatMap(([title, entries]) =>
+      entries.length > 0 ? `## ${title}\n\n${entries.join('\n')}` : []
+    )
     .join('\n\n')
 
   return [HEADING, '', SUMMARY, '', body, ''].join('\n')

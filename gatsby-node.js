@@ -20,7 +20,7 @@ const {
   extractMarkdown,
   isMarkdownPage,
   toMarkdownPath,
-  withTitle
+  prependTitle
 } = require('./src/helpers/page-markdown')
 const { buildLlmsTxt } = require('./src/helpers/llms-txt')
 const {
@@ -481,7 +481,10 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
 const isProductionBuild = () => process.env.VERCEL_ENV === 'production'
 
 const markdownPathnames = nodes =>
-  nodes.map(node => node.path.replace(/\/+$/, '') || '/').filter(isMarkdownPage)
+  nodes.flatMap(node => {
+    const pathname = node.path.replace(/\/+$/, '') || '/'
+    return isMarkdownPage(pathname) ? pathname : []
+  })
 
 // llms.txt indexes exactly the pages that have a markdown file, so both come
 // from the same filtered page list.
@@ -594,7 +597,7 @@ const createPageMarkdownFiles = async ({ graphql, reporter }) => {
           ? docsTitles.get(pathname)
           : undefined
       mkdirSync(path.dirname(outputPath), { recursive: true })
-      writeFileSync(outputPath, withTitle(title, markdown))
+      writeFileSync(outputPath, prependTitle(title, markdown))
     },
     { concurrency: 8 }
   )

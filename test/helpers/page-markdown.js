@@ -6,7 +6,7 @@ import {
   extractMarkdown,
   isMarkdownPage,
   toMarkdownPath,
-  withTitle
+  prependTitle
 } from '../../src/helpers/page-markdown.js'
 
 const fetcherOf = responses => {
@@ -61,15 +61,15 @@ describe('toMarkdownPath', () => {
   })
 })
 
-describe('withTitle', () => {
+describe('prependTitle', () => {
   test('prepends the title as an h1', () => {
-    expect(withTitle('filename', 'Type: <string>')).toBe(
+    expect(prependTitle('filename', 'Type: <string>')).toBe(
       '# filename\n\nType: <string>'
     )
   })
 
   test('leaves a titleless page untouched', () => {
-    expect(withTitle(undefined, 'Type: <string>')).toBe('Type: <string>')
+    expect(prependTitle(undefined, 'Type: <string>')).toBe('Type: <string>')
   })
 })
 
