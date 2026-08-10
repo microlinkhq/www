@@ -47,7 +47,7 @@
       ]
     },
     {
-      "source": "/((?!tools/embed-url/|recipes(?:/|\\.md$)).*)\\.md",
+      "source": "/((?!tools/embed-url/|(?:recipes|404|dev-404-page|offline-plugin-app-shell-fallback)(?:/|\\.md$)).*)\\.md",
       "headers": [
         {
           "key": "content-type",
@@ -423,7 +423,7 @@
       ]
     },
     {
-      "source": "/((?!tools/embed-url/|recipes(?:/|$)|.*\\.[a-zA-Z0-9]+$).+)",
+      "source": "/((?!tools/embed-url/|(?:recipes|404|dev-404-page|offline-plugin-app-shell-fallback)(?:/|$)|.*\\.[a-zA-Z0-9]+$).+)",
       "destination": "/$1.md",
       "permanent": false,
       "has": [

@@ -135,4 +135,9 @@ describe('the build', () => {
     expect(bodyOf('createLlmsTxt')).toContain('markdownPathnames(')
     expect(bodyOf('createPageMarkdownFiles')).toContain('markdownPathnames(')
   })
+
+  test('writes both only on a production build', () => {
+    expect(bodyOf('createLlmsTxt')).toContain('isProductionBuild()')
+    expect(bodyOf('createPageMarkdownFiles')).toContain('isProductionBuild()')
+  })
 })

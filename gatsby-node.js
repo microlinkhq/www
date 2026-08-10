@@ -478,12 +478,19 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
   return Promise.all(pages)
 }
 
+const isProductionBuild = () => process.env.VERCEL_ENV === 'production'
+
 const markdownPathnames = nodes =>
   nodes.map(node => node.path.replace(/\/+$/, '') || '/').filter(isMarkdownPage)
 
 // llms.txt indexes exactly the pages that have a markdown file, so both come
 // from the same filtered page list.
 const createLlmsTxt = async ({ graphql, reporter }) => {
+  if (!isProductionBuild()) {
+    reporter.info('Skipping llms.txt outside a production build')
+    return
+  }
+
   const result = await graphql('{ allSitePage { nodes { path } } }')
 
   if (result.errors) {
@@ -506,7 +513,7 @@ const createLlmsTxt = async ({ graphql, reporter }) => {
 }
 
 const createPageMarkdownFiles = async ({ graphql, reporter }) => {
-  if (process.env.VERCEL_ENV !== 'production') {
+  if (!isProductionBuild()) {
     reporter.info('Skipping markdown generation outside a production build')
     return
   }

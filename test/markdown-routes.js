@@ -48,7 +48,10 @@ const EXCLUDED_PATHNAMES = [
   '/tools/embed-url/miro.md',
   '/tools/embed-url/icosa-gallery.md',
   '/recipes.md',
-  '/recipes/take-a-screenshot.md'
+  '/recipes/take-a-screenshot.md',
+  '/404.md',
+  '/dev-404-page.md',
+  '/offline-plugin-app-shell-fallback.md'
 ]
 
 describe('markdown content-type header', () => {
