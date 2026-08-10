@@ -47,7 +47,7 @@
       ]
     },
     {
-      "source": "/docs/(.*)\\.md",
+      "source": "/((?!tools/embed-url/|recipes(/|\\.md$)).*)\\.md",
       "headers": [
         {
           "key": "content-type",
@@ -411,8 +411,20 @@
       "destination": "/open-source"
     },
     {
-      "source": "/docs/((?:(?!\\.md$).)*)",
-      "destination": "/docs/$1.md",
+      "source": "/",
+      "destination": "/index.md",
+      "permanent": false,
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": ".*text/markdown.*"
+        }
+      ]
+    },
+    {
+      "source": "/((?!tools/embed-url/|recipes(/|$)|.*\\.[a-zA-Z0-9]+$).+)",
+      "destination": "/$1.md",
       "permanent": false,
       "has": [
         {
