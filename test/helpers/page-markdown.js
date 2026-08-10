@@ -44,6 +44,7 @@ describe('isMarkdownPage', () => {
   })
 
   test('drops what Gatsby generates for itself', () => {
+    expect(isMarkdownPage('/404')).toBe(false)
     expect(isMarkdownPage('/dev-404-page/')).toBe(false)
     expect(isMarkdownPage('/offline-plugin-app-shell-fallback/')).toBe(false)
   })

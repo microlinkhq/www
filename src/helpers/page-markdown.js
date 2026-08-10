@@ -1,7 +1,8 @@
 export const DOCS_CONTENT_SELECTOR = '[data-docs-content]'
 export const MAIN_CONTENT_SELECTOR = '#main-content'
 
-const GATSBY_INTERNAL = /^\/(dev-404-page|offline-plugin-app-shell-fallback)\//
+const GATSBY_INTERNAL =
+  /^\/(404|dev-404-page|offline-plugin-app-shell-fallback)(\/|$)/
 
 const EXCLUDED = [/^\/tools\/embed-url\/.+/, /^\/recipes(\/|$)/]
 

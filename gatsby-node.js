@@ -22,6 +22,7 @@ const {
   toMarkdownPath,
   withTitle
 } = require('./src/helpers/page-markdown')
+const { buildLlmsTxt } = require('./src/helpers/llms-txt')
 const {
   parseLatestChangelogEntry
 } = require('./src/helpers/parse-latest-changelog-entry')
@@ -117,6 +118,7 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
 
 exports.onPostBuild = async ({ graphql, reporter }) => {
   await createPageMarkdownFiles({ graphql, reporter })
+  await createLlmsTxt({ graphql, reporter })
   await generateOgImages({ graphql, reporter })
 }
 
@@ -476,6 +478,33 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
   return Promise.all(pages)
 }
 
+const markdownPathnames = nodes =>
+  nodes.map(node => node.path.replace(/\/+$/, '') || '/').filter(isMarkdownPage)
+
+// llms.txt indexes exactly the pages that have a markdown file, so both come
+// from the same filtered page list.
+const createLlmsTxt = async ({ graphql, reporter }) => {
+  const result = await graphql('{ allSitePage { nodes { path } } }')
+
+  if (result.errors) {
+    return reporter.panicOnBuild(
+      'llms.txt: failed to query pages',
+      result.errors
+    )
+  }
+
+  const pages = markdownPathnames(result.data.allSitePage.nodes).map(
+    pathname => ({ pathname, ...pageMetadata(pathname) })
+  )
+
+  writeFileSync(
+    path.join(process.cwd(), 'public', 'llms.txt'),
+    buildLlmsTxt(pages)
+  )
+
+  reporter.info(`Generated llms.txt with ${pages.length} pages`)
+}
+
 const createPageMarkdownFiles = async ({ graphql, reporter }) => {
   if (process.env.VERCEL_ENV !== 'production') {
     reporter.info('Skipping markdown generation outside a production build')
@@ -524,9 +553,7 @@ const createPageMarkdownFiles = async ({ graphql, reporter }) => {
   const baseUrl =
     process.env.MICROLINK_MARKDOWN_BASE_URL || 'https://microlink.io'
 
-  const pathnames = result.data.allSitePage.nodes
-    .map(node => node.path.replace(/\/+$/, '') || '/')
-    .filter(isMarkdownPage)
+  const pathnames = markdownPathnames(result.data.allSitePage.nodes)
 
   const startTime = Date.now()
   await pMap(
