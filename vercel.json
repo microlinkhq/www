@@ -409,12 +409,11 @@
     {
       "source": "/oss",
       "destination": "/open-source"
-    }
-  ],
-  "rewrites": [
+    },
     {
-      "source": "/docs/(.*)",
+      "source": "/docs/((?:(?!\\.md$).)*)",
       "destination": "/docs/$1.md",
+      "permanent": false,
       "has": [
         {
           "type": "header",
