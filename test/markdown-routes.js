@@ -4,8 +4,12 @@ import { describe, expect, test } from 'vitest'
 
 const VERCEL_CONFIG = path.join(process.cwd(), 'vercel.json')
 const DOCS_DIR = path.join(process.cwd(), 'src/content/docs')
+const GATSBY_NODE = path.join(process.cwd(), 'gatsby-node.js')
+const DOC_TEMPLATE = path.join(process.cwd(), 'src/templates/doc.js')
 
-const { headers } = JSON.parse(fs.readFileSync(VERCEL_CONFIG, 'utf8'))
+const { headers, redirects, rewrites } = JSON.parse(
+  fs.readFileSync(VERCEL_CONFIG, 'utf8')
+)
 
 const markdownRule = headers.find(({ headers }) =>
   headers.some(
@@ -53,5 +57,54 @@ describe('markdown content-type header', () => {
     for (const pathname of NON_DOCS_PATHNAMES) {
       expect(matchesRule(pathname), pathname).toBe(false)
     }
+  })
+})
+
+const acceptsMarkdown = ({ has = [] }) =>
+  has.some(
+    ({ type, key, value }) =>
+      type === 'header' && key === 'accept' && value.includes('text/markdown')
+  )
+
+const negotiation = (redirects || []).find(acceptsMarkdown)
+
+const matchesNegotiation = pathname =>
+  new RegExp(`^${negotiation.source}$`).test(pathname)
+
+describe('markdown content negotiation', () => {
+  test('is a redirect, since rewrites run after the filesystem check', () => {
+    expect(negotiation).toBeDefined()
+    expect((rewrites || []).find(acceptsMarkdown)).toBeUndefined()
+  })
+
+  test('does not cache the negotiated location', () => {
+    expect(negotiation.permanent).toBe(false)
+  })
+
+  test('sends a docs page to its markdown file', () => {
+    expect(matchesNegotiation('/docs/api/parameters/filename')).toBe(true)
+    expect(negotiation.destination).toBe('/docs/$1.md')
+  })
+
+  test('leaves a markdown file alone, so it cannot redirect to itself', () => {
+    for (const pathname of docsMarkdownPathnames) {
+      expect(matchesNegotiation(pathname), pathname).toBe(false)
+    }
+  })
+})
+
+const selector = fs
+  .readFileSync(GATSBY_NODE, 'utf8')
+  .match(/DOCS_CONTENT_SELECTOR = '\[([\w-]+)\]'/)
+
+describe('docs markdown extraction', () => {
+  test('scopes to a selector', () => {
+    expect(selector).not.toBeNull()
+  })
+
+  test('targets an attribute the doc template renders', () => {
+    expect(fs.readFileSync(DOC_TEMPLATE, 'utf8')).toContain(
+      `<Markdown ${selector[1]}`
+    )
   })
 })

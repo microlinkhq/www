@@ -50,6 +50,8 @@ const githubUrl = (() => {
   }
 })()
 
+const DOCS_CONTENT_SELECTOR = '[data-docs-content]'
+
 const toMarkdown = async url => {
   const {
     data: { markdown },
@@ -58,6 +60,7 @@ const toMarkdown = async url => {
     apiKey: process.env.MICROLINK_API_KEY,
     data: {
       markdown: {
+        selector: DOCS_CONTENT_SELECTOR,
         attr: 'markdown'
       }
     },
@@ -472,6 +475,9 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
   return Promise.all(pages)
 }
 
+const withTitle = (title, markdown) =>
+  title ? `# ${title}\n\n${markdown}` : markdown
+
 const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
   const isPreviewDeployment = process.env.VERCEL_ENV === 'preview'
 
@@ -487,6 +493,9 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
         node {
           fields {
             slug
+          }
+          frontmatter {
+            title
           }
         }
       }
@@ -516,11 +525,18 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
       const slug = node.fields.slug.replace(/\/+$/, '')
       const url = new URL(slug, baseUrl).toString()
       const { markdown, duration } = await toMarkdown(url)
+
+      if (!markdown) {
+        return reporter.panicOnBuild(
+          `No content matched ${DOCS_CONTENT_SELECTOR} at ${url}`
+        )
+      }
+
       reporter.info(`Generating markdown for ${url} in ${duration}`)
       const relative = `${slug.replace(/^\/+/, '')}.md`
       const outputPath = path.join(process.cwd(), 'public', relative)
       mkdirSync(path.dirname(outputPath), { recursive: true })
-      writeFileSync(outputPath, markdown || '')
+      writeFileSync(outputPath, withTitle(node.frontmatter?.title, markdown))
     },
     { concurrency: 8 }
   )
