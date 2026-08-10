@@ -16,6 +16,11 @@ const path = require('node:path')
 
 const { getLastModifiedDate, branchName } = require('./src/helpers/git')
 const {
+  DOCS_CONTENT_SELECTOR,
+  extractMarkdown,
+  withTitle
+} = require('./src/helpers/docs-markdown')
+const {
   parseLatestChangelogEntry
 } = require('./src/helpers/parse-latest-changelog-entry')
 const { title: formatTitle } = require('./src/helpers/title')
@@ -50,16 +55,14 @@ const githubUrl = (() => {
   }
 })()
 
-const toMarkdown = async url => {
+const markdownFetcher = url => async selector => {
   const {
     data: { markdown },
     response
   } = await mql(url, {
     apiKey: process.env.MICROLINK_API_KEY,
     data: {
-      markdown: {
-        attr: 'markdown'
-      }
+      markdown: selector ? { selector, attr: 'markdown' } : { attr: 'markdown' }
     },
     meta: false,
     force: true
@@ -488,6 +491,9 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
           fields {
             slug
           }
+          frontmatter {
+            title
+          }
         }
       }
     }
@@ -515,12 +521,26 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
     async ({ node }) => {
       const slug = node.fields.slug.replace(/\/+$/, '')
       const url = new URL(slug, baseUrl).toString()
-      const { markdown, duration } = await toMarkdown(url)
+      const { markdown, duration, isScoped } = await extractMarkdown(
+        markdownFetcher(url)
+      )
+
+      if (!markdown) {
+        return reporter.panicOnBuild(`No content extracted from ${url}`)
+      }
+
+      if (!isScoped) {
+        reporter.warn(
+          `${DOCS_CONTENT_SELECTOR} is not on the deployed HTML for ${url} yet, ` +
+            'so the whole page was converted. It resolves on the next deploy.'
+        )
+      }
+
       reporter.info(`Generating markdown for ${url} in ${duration}`)
       const relative = `${slug.replace(/^\/+/, '')}.md`
       const outputPath = path.join(process.cwd(), 'public', relative)
       mkdirSync(path.dirname(outputPath), { recursive: true })
-      writeFileSync(outputPath, markdown || '')
+      writeFileSync(outputPath, withTitle(node.frontmatter?.title, markdown))
     },
     { concurrency: 8 }
   )
