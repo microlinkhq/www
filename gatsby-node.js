@@ -16,6 +16,11 @@ const path = require('node:path')
 
 const { getLastModifiedDate, branchName } = require('./src/helpers/git')
 const {
+  DOCS_CONTENT_SELECTOR,
+  extractMarkdown,
+  withTitle
+} = require('./src/helpers/docs-markdown')
+const {
   parseLatestChangelogEntry
 } = require('./src/helpers/parse-latest-changelog-entry')
 const { title: formatTitle } = require('./src/helpers/title')
@@ -50,19 +55,14 @@ const githubUrl = (() => {
   }
 })()
 
-const DOCS_CONTENT_SELECTOR = '[data-docs-content]'
-
-const toMarkdown = async url => {
+const markdownFetcher = url => async selector => {
   const {
     data: { markdown },
     response
   } = await mql(url, {
     apiKey: process.env.MICROLINK_API_KEY,
     data: {
-      markdown: {
-        selector: DOCS_CONTENT_SELECTOR,
-        attr: 'markdown'
-      }
+      markdown: selector ? { selector, attr: 'markdown' } : { attr: 'markdown' }
     },
     meta: false,
     force: true
@@ -475,9 +475,6 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
   return Promise.all(pages)
 }
 
-const withTitle = (title, markdown) =>
-  title ? `# ${title}\n\n${markdown}` : markdown
-
 const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
   const isPreviewDeployment = process.env.VERCEL_ENV === 'preview'
 
@@ -524,11 +521,18 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
     async ({ node }) => {
       const slug = node.fields.slug.replace(/\/+$/, '')
       const url = new URL(slug, baseUrl).toString()
-      const { markdown, duration } = await toMarkdown(url)
+      const { markdown, duration, isScoped } = await extractMarkdown(
+        markdownFetcher(url)
+      )
 
       if (!markdown) {
-        return reporter.panicOnBuild(
-          `No content matched ${DOCS_CONTENT_SELECTOR} at ${url}`
+        return reporter.panicOnBuild(`No content extracted from ${url}`)
+      }
+
+      if (!isScoped) {
+        reporter.warn(
+          `${DOCS_CONTENT_SELECTOR} is not on the deployed HTML for ${url} yet, ` +
+            'so the whole page was converted. It resolves on the next deploy.'
         )
       }
 

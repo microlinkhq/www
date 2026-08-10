@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest'
 
 const VERCEL_CONFIG = path.join(process.cwd(), 'vercel.json')
 const DOCS_DIR = path.join(process.cwd(), 'src/content/docs')
-const GATSBY_NODE = path.join(process.cwd(), 'gatsby-node.js')
+const DOCS_MARKDOWN = path.join(process.cwd(), 'src/helpers/docs-markdown.js')
 const DOC_TEMPLATE = path.join(process.cwd(), 'src/templates/doc.js')
 
 const { headers, redirects, rewrites } = JSON.parse(
@@ -94,7 +94,7 @@ describe('markdown content negotiation', () => {
 })
 
 const selector = fs
-  .readFileSync(GATSBY_NODE, 'utf8')
+  .readFileSync(DOCS_MARKDOWN, 'utf8')
   .match(/DOCS_CONTENT_SELECTOR = '\[([\w-]+)\]'/)
 
 describe('docs markdown extraction', () => {
