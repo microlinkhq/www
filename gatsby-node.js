@@ -486,8 +486,6 @@ const markdownPathnames = nodes =>
     return isMarkdownPage(pathname) ? pathname : []
   })
 
-// llms.txt indexes exactly the pages that have a markdown file, so both come
-// from the same filtered page list.
 const createLlmsTxt = async ({ graphql, reporter }) => {
   if (!isProductionBuild()) {
     reporter.info('Skipping llms.txt outside a production build')
