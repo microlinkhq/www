@@ -25,6 +25,7 @@ import {
   Activity,
   AlignLeft as AlignLeftIcon,
   Maximize,
+  Package as PackageIcon,
   Repeat as RepeatIcon,
   Video as VideoIcon,
   Zap,
@@ -148,20 +149,21 @@ export const SOCIAL_NAV_ITEMS = [
 
 export const TOOLS_INTEGRATIONS_ITEMS = [
   createNavigationItem({
+    label: 'API Client',
+    href: '/integrations/client',
+    description: 'Every product, one import',
+    icon: PackageIcon
+  }),
+  createNavigationItem({
     label: 'SDK',
     href: '/integrations/sdk',
     description: 'Beautiful link previews',
     icon: CodesandboxIcon
   }),
   createNavigationItem({
-    label: 'Component Builder',
-    href: '/integrations/builder',
-    icon: LayoutIcon
-  }),
-  createNavigationItem({
     label: 'MCP',
     href: '/integrations/mcp',
-    description: 'Give your AI access to the Microlink API',
+    description: 'Microlink for your AI agent',
     icon: BrainIcon
   }),
   createNavigationItem({
@@ -171,9 +173,14 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
     icon: TerminalIcon
   }),
   createNavigationItem({
+    label: 'Component Builder',
+    href: '/integrations/builder',
+    icon: LayoutIcon
+  }),
+  createNavigationItem({
     label: 'Embed Providers',
     href: '/embed/providers',
-    description: '300+ embed-ready sites',
+    description: '300+ embeddable sites',
     icon: GridIcon
   }),
   createNavigationItem({
