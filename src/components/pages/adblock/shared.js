@@ -13,20 +13,18 @@ export const HERO = {
   title: 'Adblock & Cookie Banners',
   tag: null,
   description:
-    'Third-party ads, trackers and consent banners are dropped before the page renders — on by default, on every plan. Cleaner captures, fewer third-party requests, repeatable results.'
+    'On by default, on every plan — cleaner captures, fewer third-party requests, repeatable results.'
 }
 
 export const OVERVIEW = {
   title: 'On by default.',
   body: (
     <>
-      A page rendered as-is pulls in third-party requests it does not need — ad
-      exchanges, analytics trackers, consent-management widgets. They slow the
-      response down and cover the target{' '}
-      <Link href='/docs/api/parameters/url'>url</Link> with banners.{' '}
-      <Link href='/docs/api/parameters/adblock'>adblock</Link> refuses those
-      requests before they load. It is enabled by default, so a plain request
-      already returns a clean result.
+      Ad exchanges, trackers and consent widgets slow the response down and
+      cover the target <Link href='/docs/api/parameters/url'>url</Link> with
+      banners. <Link href='/docs/api/parameters/adblock'>adblock</Link> refuses
+      those third-party requests before they load — on by default, so a plain
+      request already returns a clean result.
     </>
   ),
   bullets: [
@@ -44,12 +42,9 @@ export const HOW = {
   title: 'Requests, not markup.',
   body: (
     <>
-      Adblock works at the network layer: it matches each sub-request the page
-      makes against the engine filter rules and refuses the ones that belong to
-      ads, trackers or consent services. That is why a banner served from a
-      third-party widget disappears, while a consent dialog the site ships in
-      its own markup still renders — nothing was requested, so nothing was
-      blocked. For those, act on the page instead:{' '}
+      Adblock works at the network layer: sub-requests that belong to ads,
+      trackers or consent services are refused. A third-party banner disappears;
+      a dialog the site ships in its own markup still renders. For those,{' '}
       <Link href='/docs/api/parameters/click'>click</Link> the button that
       dismisses it, or hide it with{' '}
       <Link href='/docs/api/parameters/styles'>styles</Link>.
