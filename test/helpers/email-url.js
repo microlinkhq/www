@@ -1,8 +1,11 @@
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, vi, beforeAll, afterAll } from 'vitest'
 
 import { emailUrl } from '../../src/helpers/email-url.js'
 
 describe('emailUrl', () => {
+  beforeAll(() => vi.stubGlobal('navigator', { userAgent: 'Node.js/lts' }))
+  afterAll(() => vi.unstubAllGlobals())
+
   describe('.paymentError', () => {
     it('with error', () => {
       const error = new Error('oh no')
