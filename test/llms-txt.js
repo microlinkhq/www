@@ -132,12 +132,12 @@ describe('the build', () => {
     gatsbyNode.slice(gatsbyNode.indexOf(`const ${name} = `)).split('\n}\n')[0]
 
   test('indexes the same pages it writes markdown for', () => {
-    expect(bodyOf('createLlmsTxt')).toContain('markdownPathnames(')
-    expect(bodyOf('createPageMarkdownFiles')).toContain('markdownPathnames(')
+    const body = bodyOf('createPageMarkdownFiles')
+    expect(body).toContain('markdownPathnames(')
+    expect(body).toContain('buildLlmsTxt(')
   })
 
   test('writes both only on a production build', () => {
-    expect(bodyOf('createLlmsTxt')).toContain('isProductionBuild()')
     expect(bodyOf('createPageMarkdownFiles')).toContain('isProductionBuild()')
   })
 })

@@ -1,3 +1,5 @@
+import { toMarkdownPath } from './page-markdown.js'
+
 const SITE_URL = 'https://microlink.io'
 
 const HEADING = '# Microlink'
@@ -5,8 +7,6 @@ const HEADING = '# Microlink'
 const SUMMARY =
   '> Turn any website into data. APIs for link previews, screenshots, PDF generation, and web scraping.'
 
-// Every page title ends with the site name; llms.txt already says which site
-// this is.
 const TITLE_SUFFIX = /\s+—\s+Microlink(\s+\w+)?$/
 
 const SECTIONS = [
@@ -23,28 +23,28 @@ const SECTIONS = [
   ['/skills', 'Skills'],
   ['/screenshot', 'Screenshot'],
   ['/tools', 'Tools'],
-  ['/blog', 'Blog'],
-  ['/', 'Pages']
+  ['/blog', 'Blog']
 ]
 
 export const cleanTitle = title => title.replace(TITLE_SUFFIX, '').trim()
 
-export const titleFromPathname = pathname =>
-  pathname
-    .split('/')
-    .filter(Boolean)
-    .pop()
-    ?.replace(/[-_]/g, ' ')
-    .replace(/^./, character => character.toUpperCase()) ?? 'Home'
+export const titleFromPathname = pathname => {
+  const slug = pathname.split('/').filter(Boolean).pop()
+  if (!slug) return 'Home'
+  return slug
+    .replace(/[-_]/g, ' ')
+    .replace(/^./, character => character.toUpperCase())
+}
 
-export const sectionFor = pathname =>
-  SECTIONS.find(
-    ([prefix]) =>
-      prefix === '/' || pathname === prefix || pathname.startsWith(`${prefix}/`)
-  )[1]
+export const sectionFor = pathname => {
+  for (const [prefix, title] of SECTIONS) {
+    if (pathname === prefix || pathname.startsWith(`${prefix}/`)) return title
+  }
+  return 'Pages'
+}
 
 export const toMarkdownUrl = pathname =>
-  `${SITE_URL}${pathname === '/' ? '/index' : pathname}.md`
+  `${SITE_URL}/${toMarkdownPath(pathname)}`
 
 const toEntry = ({ pathname, title, description }) => {
   const label = title ? cleanTitle(title) : titleFromPathname(pathname)
@@ -54,6 +54,7 @@ const toEntry = ({ pathname, title, description }) => {
 
 export const buildLlmsTxt = pages => {
   const grouped = new Map(SECTIONS.map(([, title]) => [title, []]))
+  grouped.set('Pages', [])
 
   for (const page of pages.toSorted((a, b) =>
     a.pathname.localeCompare(b.pathname)
@@ -67,5 +68,5 @@ export const buildLlmsTxt = pages => {
     )
     .join('\n\n')
 
-  return [HEADING, '', SUMMARY, '', body, ''].join('\n')
+  return `${HEADING}\n\n${SUMMARY}\n\n${body}\n`
 }

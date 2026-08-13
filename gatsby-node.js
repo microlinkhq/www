@@ -118,7 +118,6 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
 
 exports.onPostBuild = async ({ graphql, reporter }) => {
   await createPageMarkdownFiles({ graphql, reporter })
-  await createLlmsTxt({ graphql, reporter })
   await generateOgImages({ graphql, reporter })
 }
 
@@ -486,33 +485,6 @@ const markdownPathnames = nodes =>
     return isMarkdownPage(pathname) ? pathname : []
   })
 
-const createLlmsTxt = async ({ graphql, reporter }) => {
-  if (!isProductionBuild()) {
-    reporter.info('Skipping llms.txt outside a production build')
-    return
-  }
-
-  const result = await graphql('{ allSitePage { nodes { path } } }')
-
-  if (result.errors) {
-    return reporter.panicOnBuild(
-      'llms.txt: failed to query pages',
-      result.errors
-    )
-  }
-
-  const pages = markdownPathnames(result.data.allSitePage.nodes).map(
-    pathname => ({ pathname, ...pageMetadata(pathname) })
-  )
-
-  writeFileSync(
-    path.join(process.cwd(), 'public', 'llms.txt'),
-    buildLlmsTxt(pages)
-  )
-
-  reporter.info(`Generated llms.txt with ${pages.length} pages`)
-}
-
 const createPageMarkdownFiles = async ({ graphql, reporter }) => {
   if (!isProductionBuild()) {
     reporter.info('Skipping markdown generation outside a production build')
@@ -604,4 +576,14 @@ const createPageMarkdownFiles = async ({ graphql, reporter }) => {
   reporter.info(
     `Generated ${pathnames.length} page markdown files in ${duration}ms`
   )
+
+  const pages = pathnames.map(pathname => ({
+    pathname,
+    ...pageMetadata(pathname)
+  }))
+  writeFileSync(
+    path.join(process.cwd(), 'public', 'llms.txt'),
+    buildLlmsTxt(pages)
+  )
+  reporter.info(`Generated llms.txt with ${pages.length} pages`)
 }
