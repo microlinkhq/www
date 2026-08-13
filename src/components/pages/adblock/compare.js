@@ -1,4 +1,4 @@
-import { shadows, theme } from 'theme'
+import { theme } from 'theme'
 import React, { useCallback, useRef, useState } from 'react'
 import {
   ReactCompareSlider,
@@ -45,7 +45,7 @@ export const AdblockCompare = () => {
           width: '100%',
           borderRadius: 3,
           overflow: 'hidden',
-          boxShadow: `${shadows[3]}`,
+          boxShadow: 3,
           lineHeight: 0
         }),
         {
@@ -80,7 +80,7 @@ export const AdblockCompare = () => {
         <Text
           as='span'
           css={theme({
-            fontSize: ['13px', '13px', '14px', '14px'],
+            fontSize: ['13px', '13px', 0, 0],
             fontFamily: 'mono',
             letterSpacing: 0,
             flex: 1,
