@@ -128,7 +128,7 @@ export const EXAMPLES = {
 }
 
 export const RELATED = {
-  relatedSlugs: ['function', 'scraping', 'proxy', 'antibot'],
+  relatedSlugs: ['function', 'scraping', 'proxy', 'antibot', 'adblock'],
   title: 'Pair automation with these.'
 }
 

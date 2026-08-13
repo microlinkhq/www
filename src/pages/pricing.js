@@ -589,7 +589,7 @@ const CAPABILITIES = [
     title: 'Adblock & cookie banners',
     description:
       'Strip ads, trackers, and consent banners automatically so screenshots and previews stay clean and consistent.',
-    href: '/docs/api/parameters/adblock'
+    href: '/features/adblock'
   }
 ]
 
