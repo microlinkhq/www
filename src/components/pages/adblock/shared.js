@@ -105,6 +105,7 @@ export const EXAMPLES = {
   panels: [
     {
       id: 'default',
+      icon: 'zap',
       title: 'Nothing to configure',
       description:
         'Adblock is already on — this screenshot arrives without ad slots or consent widgets.',
@@ -114,6 +115,7 @@ export const EXAMPLES = {
     },
     {
       id: 'consent-click',
+      icon: 'mouse',
       title: 'Dismiss a first-party dialog',
       description:
         'The site serves its own consent dialog, so click the button that accepts it.',
@@ -124,6 +126,7 @@ export const EXAMPLES = {
     },
     {
       id: 'hide-styles',
+      icon: 'eye-off',
       title: 'Hide what stays',
       description:
         'Inject CSS to remove a sticky bar or newsletter overlay before the capture.',
@@ -134,6 +137,7 @@ export const EXAMPLES = {
     },
     {
       id: 'markdown',
+      icon: 'file',
       title: 'Cleaner text extraction',
       description:
         'Ads and trackers never load, so the markdown carries the article and not the noise.',
@@ -143,9 +147,10 @@ export const EXAMPLES = {
     },
     {
       id: 'opt-out',
+      icon: 'toggle',
       title: 'Keep the page untouched',
       description:
-        'Auditing what a page actually loads? Turn adblock off and see every request.',
+        'Pass adblock: false and the page loads with every request intact.',
       snippet: sdkExample(`const { url } = await microlink.screenshot(
   'https://example.com',
   { adblock: false }
