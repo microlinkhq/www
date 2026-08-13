@@ -16,6 +16,14 @@ const path = require('node:path')
 
 const { getLastModifiedDate, branchName } = require('./src/helpers/git')
 const {
+  DOCS_CONTENT_SELECTOR,
+  extractMarkdown,
+  isMarkdownPage,
+  toMarkdownPath,
+  prependTitle
+} = require('./src/helpers/page-markdown')
+const { buildLlmsTxt } = require('./src/helpers/llms-txt')
+const {
   parseLatestChangelogEntry
 } = require('./src/helpers/parse-latest-changelog-entry')
 const { title: formatTitle } = require('./src/helpers/title')
@@ -50,19 +58,16 @@ const githubUrl = (() => {
   }
 })()
 
-const toMarkdown = async url => {
+const markdownFetcher = url => async selector => {
   const {
     data: { markdown },
     response
   } = await mql(url, {
     apiKey: process.env.MICROLINK_API_KEY,
     data: {
-      markdown: {
-        attr: 'markdown'
-      }
+      markdown: selector ? { selector, attr: 'markdown' } : { attr: 'markdown' }
     },
-    meta: false,
-    force: true
+    meta: false
   })
 
   return { markdown, duration: response.headers.get('x-response-time') }
@@ -112,7 +117,7 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
 }
 
 exports.onPostBuild = async ({ graphql, reporter }) => {
-  await createDocsMarkdownFiles({ graphql, reporter })
+  await createPageMarkdownFiles({ graphql, reporter })
   await generateOgImages({ graphql, reporter })
 }
 
@@ -472,21 +477,35 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
   return Promise.all(pages)
 }
 
-const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
-  const isPreviewDeployment = process.env.VERCEL_ENV === 'preview'
+const isProductionBuild = () => process.env.VERCEL_ENV === 'production'
 
-  if (isPreviewDeployment) {
-    reporter.info('Skipping markdown generation on preview deployment')
+const markdownPathnames = nodes =>
+  nodes.flatMap(node => {
+    const pathname = node.path.replace(/\/+$/, '') || '/'
+    return isMarkdownPage(pathname) ? pathname : []
+  })
+
+const createPageMarkdownFiles = async ({ graphql, reporter }) => {
+  if (!isProductionBuild()) {
+    reporter.info('Skipping markdown generation outside a production build')
     return
   }
 
   const query = `
   {
+    allSitePage {
+      nodes {
+        path
+      }
+    }
     allMdx(filter: { fields: { slug: { regex: "//docs//" } } }) {
       edges {
         node {
           fields {
             slug
+          }
+          frontmatter {
+            title
           }
         }
       }
@@ -498,35 +517,73 @@ const createDocsMarkdownFiles = async ({ graphql, reporter }) => {
 
   if (result.errors) {
     reporter.panicOnBuild(
-      'Error while generating docs markdown files',
+      'Error while generating page markdown files',
       result.errors
     )
     return
   }
 
+  const docsTitles = new Map(
+    result.data.allMdx.edges.map(({ node }) => [
+      node.fields.slug.replace(/\/+$/, ''),
+      node.frontmatter?.title
+    ])
+  )
+
   const baseUrl =
     process.env.MICROLINK_MARKDOWN_BASE_URL || 'https://microlink.io'
 
-  const pages = result.data.allMdx.edges
+  const pathnames = markdownPathnames(result.data.allSitePage.nodes)
 
   const startTime = Date.now()
   await pMap(
-    pages,
-    async ({ node }) => {
-      const slug = node.fields.slug.replace(/\/+$/, '')
-      const url = new URL(slug, baseUrl).toString()
-      const { markdown, duration } = await toMarkdown(url)
+    pathnames,
+    async pathname => {
+      const url = new URL(pathname, baseUrl).toString()
+      const { markdown, duration, selector } = await extractMarkdown(
+        markdownFetcher(url),
+        pathname
+      )
+
+      if (!markdown) {
+        return reporter.panicOnBuild(`No content extracted from ${url}`)
+      }
+
+      if (selector === null) {
+        reporter.warn(
+          `No content marker on the deployed HTML for ${url} yet, so the ` +
+            'whole page was converted. It resolves on the next deploy.'
+        )
+      }
+
       reporter.info(`Generating markdown for ${url} in ${duration}`)
-      const relative = `${slug.replace(/^\/+/, '')}.md`
-      const outputPath = path.join(process.cwd(), 'public', relative)
+      const outputPath = path.join(
+        process.cwd(),
+        'public',
+        toMarkdownPath(pathname)
+      )
+      const title =
+        selector === DOCS_CONTENT_SELECTOR
+          ? docsTitles.get(pathname)
+          : undefined
       mkdirSync(path.dirname(outputPath), { recursive: true })
-      writeFileSync(outputPath, markdown || '')
+      writeFileSync(outputPath, prependTitle(title, markdown))
     },
     { concurrency: 8 }
   )
   const duration = Date.now() - startTime
 
   reporter.info(
-    `Generated ${pages.length} docs markdown files in ${duration}ms`
+    `Generated ${pathnames.length} page markdown files in ${duration}ms`
   )
+
+  const pages = pathnames.map(pathname => ({
+    pathname,
+    ...pageMetadata(pathname)
+  }))
+  writeFileSync(
+    path.join(process.cwd(), 'public', 'llms.txt'),
+    buildLlmsTxt(pages)
+  )
+  reporter.info(`Generated llms.txt with ${pages.length} pages`)
 }

@@ -74,6 +74,7 @@ const Analytics = () => (
         position: 'relative',
         isolation: 'isolate',
         overflow: 'hidden',
+        mt: SECTION_VERTICAL_SPACING,
         height: ['320px', '400px', '500px', '500px']
       })}
     >

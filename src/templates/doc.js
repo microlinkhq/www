@@ -129,10 +129,7 @@ const DocTemplate = ({
                 <span>{title}</span>
                 {isPro && <ProBadge css={theme({ top: '12px', ml: 2 })} />}
               </H1>
-              <Flex
-                data-exclude-from-llms
-                css={theme({ alignItems: 'center', fontSize: 1, gap: 2 })}
-              >
+              <Flex css={theme({ alignItems: 'center', fontSize: 1, gap: 2 })}>
                 <Flex css={theme({ alignItems: 'center', gap: 1 })}>
                   <ClipboardIcon css={theme({ color: 'gray8' })} />
                   <Link
@@ -165,7 +162,9 @@ const DocTemplate = ({
               <Box css={theme({ mt: 4 })} />
             </Choose.Otherwise>
           </Choose>
-          <Markdown isGuidesPage={isGuidesPage}>{content}</Markdown>
+          <Markdown data-docs-content isGuidesPage={isGuidesPage}>
+            {content}
+          </Markdown>
           <Flex
             as='footer'
             css={theme({

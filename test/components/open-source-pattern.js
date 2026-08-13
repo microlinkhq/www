@@ -16,7 +16,12 @@ const PAGES = [
   'src/pages/pdf.js',
   'src/pages/markdown.js',
   'src/pages/metadata.js',
-  'src/pages/link-preview.js'
+  'src/pages/link-preview.js',
+  'src/pages/html.js',
+  'src/pages/text.js',
+  'src/pages/media.js',
+  'src/pages/file-conversion.js',
+  'src/pages/logo.js'
 ]
 
 const HOME_REPOS = ['metascraper', 'browserless', 'unavatar']
