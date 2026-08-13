@@ -6,7 +6,7 @@ import { faqFromItems, sdkExample } from 'components/patterns/FeatureStory'
 export const META = {
   title: 'Adblock API: Capture Pages Without Ads or Banners',
   description:
-    'Microlink drops third-party ad, tracker and cookie-consent requests before the page renders. Adblock is on by default on every request, on every plan.'
+    'Microlink blocks ads and trackers before the page renders and dismisses cookie-consent banners automatically. Adblock is on by default, on every plan.'
 }
 
 export const HERO = {
@@ -23,38 +23,44 @@ export const OVERVIEW = {
       Ad exchanges, trackers and consent widgets slow the response down and
       cover the target <Link href='/docs/api/parameters/url'>url</Link> with
       banners. <Link href='/docs/api/parameters/adblock'>adblock</Link> refuses
-      those third-party requests before they load — on by default, so a plain
-      request already returns a clean result.
+      those third-party requests before they load and dismisses common cookie
+      dialogs automatically — on by default, so a plain request already returns
+      a clean result.
     </>
   ),
   bullets: [
     'On by default — no parameter to set, on every plan',
     'Third-party ad, tracker and cookie-consent requests never load',
+    'Cookie banners from supported consent providers are dismissed automatically',
     'Applies to every product — screenshot, PDF, markdown, metadata, extract',
     'Opt out per request with adblock: false when you need the page untouched',
-    'Powered by the open-source Cliqz adblocker engine'
+    'Open source under the hood — Ghostery adblocker plus DuckDuckGo autoconsent'
   ]
 }
 
 export const HOW = {
   id: 'how',
   eyebrow: 'How it works',
-  title: 'Requests, not markup.',
+  title: 'Three layers, one parameter.',
   body: (
     <>
-      Adblock works at the network layer: sub-requests that belong to ads,
-      trackers or consent services are refused. A third-party banner disappears;
-      a dialog the site ships in its own markup still renders. For those,{' '}
+      Requests that belong to ads, trackers or consent services are refused at
+      the network level, cookie dialogs from supported consent providers are{' '}
+      <Link href='/blog/microlink-adblock-now-handles-cookie-banners'>
+        opted out automatically
+      </Link>
+      , and cosmetic rules hide leftover overlays before the capture. For a
+      site-specific dialog that slips through,{' '}
       <Link href='/docs/api/parameters/click'>click</Link> the button that
       dismisses it, or hide it with{' '}
       <Link href='/docs/api/parameters/styles'>styles</Link>.
     </>
   ),
   bullets: [
-    'Blocked: third-party requests to ad, tracker and consent-management hosts',
-    'Not blocked: first-party markup the site serves itself',
-    'Dismiss a first-party dialog with click and a CSS selector',
-    'Hide one with styles and a display: none rule',
+    'Network layer: requests to ad, tracker and consent-management hosts are refused',
+    'Consent layer: known cookie dialogs are opted out automatically',
+    'Cosmetic layer: leftover overlays are hidden before the capture',
+    'Custom dialogs: dismiss with click, hide with styles, or drive them with scripts',
     'Motion is already frozen — animations defaults to false'
   ]
 }
@@ -66,7 +72,7 @@ export const PARAMS = {
       name: 'adblock',
       type: 'boolean',
       description:
-        'Refuse third-party ad, tracker and consent requests. Default: true.',
+        'Block third-party ads and trackers, dismiss cookie banners automatically. Default: true.',
       href: '/docs/api/parameters/adblock'
     },
     {
@@ -118,7 +124,7 @@ export const EXAMPLES = {
       icon: 'mouse',
       title: 'Dismiss a first-party dialog',
       description:
-        'The site serves its own consent dialog, so click the button that accepts it.',
+        'For a custom consent dialog adblock does not recognize, click the button that accepts it.',
       snippet: sdkExample(`const { url } = await microlink.screenshot(
   'https://example.com',
   { click: '#accept-cookies' }
@@ -180,11 +186,25 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'What exactly gets blocked?',
-    text: 'Third-party sub-requests that belong to advertisements, trackers or cookie-consent services. The page’s own resources — its HTML, CSS, images and scripts — are always loaded, so the capture still shows the real page.'
+    text: 'Third-party sub-requests that belong to advertisements, trackers or cookie-consent services. On top of that, cookie dialogs from supported consent providers are dismissed automatically. The page’s own resources — its HTML, CSS, images and scripts — are always loaded, so the capture still shows the real page.'
+  },
+  {
+    question: 'Does adblock apply to every product?',
+    text: 'Yes. adblock acts at the browser level before the page renders, so screenshots, PDFs, markdown, metadata and structured data extraction all start from the same clean page.'
   },
   {
     question: 'A cookie banner still appears in my screenshot. Why?',
-    text: 'Adblock filters network requests, not markup. When a site ships its consent dialog in its own code, no third-party request is made and nothing is blocked. Dismiss it with click and the CSS selector of the accept button, or hide it by injecting a display: none rule with styles.'
+    text: 'No consent strategy covers every site. Adblock refuses consent-service requests and opts out of dialogs from supported consent providers, but a custom dialog it does not recognize still renders. Dismiss it with click and the CSS selector of the accept button, or hide it by injecting a display: none rule with styles.',
+    answer: (
+      <div>
+        No consent strategy covers every site. Adblock refuses consent-service
+        requests and opts out of dialogs from supported consent providers, but a
+        custom dialog it does not recognize still renders. Dismiss it with{' '}
+        <Link href='/docs/api/parameters/click'>click</Link> and the CSS
+        selector of the accept button, or hide it by injecting a display: none
+        rule with <Link href='/docs/api/parameters/styles'>styles</Link>.
+      </div>
+    )
   },
   {
     question: 'Does adblock make requests faster?',
@@ -192,6 +212,20 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'Which blocking engine is used?',
-    text: 'The open-source Cliqz adblocker engine. It ships as part of the API, so there is nothing to install, host or keep up to date.'
+    text: 'Two open-source projects. The Ghostery adblocker engine refuses ad and tracker requests, and DuckDuckGo’s autoconsent opts out of cookie dialogs. Both ship as part of the API, so there is nothing to install, host or keep up to date.',
+    answer: (
+      <div>
+        Two open-source projects.{' '}
+        <Link href='https://github.com/ghostery/adblocker'>
+          Ghostery adblocker
+        </Link>{' '}
+        refuses ad and tracker requests, and{' '}
+        <Link href='https://github.com/duckduckgo/autoconsent'>
+          DuckDuckGo’s autoconsent
+        </Link>{' '}
+        opts out of cookie dialogs. Both ship as part of the API, so there is
+        nothing to install, host or keep up to date.
+      </div>
+    )
   }
 ])

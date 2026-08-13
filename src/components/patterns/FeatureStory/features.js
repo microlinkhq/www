@@ -46,7 +46,7 @@ export const FEATURES = [
     iconBg: 'red7',
     borderColor: 'red2',
     oneLiner:
-      'Third-party ads, trackers and consent banners dropped before the page renders — on by default.',
+      'Ads and trackers blocked, cookie banners dismissed automatically — on by default, on every plan.',
     teachLine:
       'Use when captures must be clean and repeatable instead of full of third-party noise.'
   },
