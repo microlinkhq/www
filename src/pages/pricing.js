@@ -1366,7 +1366,10 @@ const Faqs = () => (
               After payment we send the API key to the email you signed up with.
               Use it as a header in the{' '}
               <Link href='/docs/api/getting-started/overview'>API</Link> or as
-              the <Link href='/docs/sdk/parameters/api-key/'>apiKey</Link>{' '}
+              the{' '}
+              <Link href='/docs/sdk/getting-started/overview/#authentication'>
+                apiKey
+              </Link>{' '}
               option in the{' '}
               <Link href='/docs/sdk/getting-started/overview'>SDK</Link>.
             </div>

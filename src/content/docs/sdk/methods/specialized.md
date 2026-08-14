@@ -1,0 +1,111 @@
+---
+title: 'Specialized'
+description: 'The deeper Microlink SDK capabilities: media extraction, custom data rules, technology detection, Lighthouse reports, structured Google search, and remote code execution.'
+---
+
+The specialized methods cover the deeper capabilities — media extraction, custom extraction rules, tech detection, search, and remote code execution.
+
+## video
+
+The primary video of the page as a direct, playable asset:
+
+```js
+const { url, type } = await microlink.video('https://vimeo.com/76979871')
+```
+
+## audio
+
+The primary audio track as a direct asset:
+
+```js
+const { url } = await microlink.audio('https://open.spotify.com/track/3BovdzfaX4jb5KFQwoPfAw')
+```
+
+## extract
+
+Typed values pulled with CSS selector rules, using the [MQL rules grammar](/docs/mql/rules/basic):
+
+```js
+const { image } = await microlink.extract('https://microlink.io', {
+  image: {
+    selector: 'meta[property="og:image"]',
+    attr: 'content',
+    type: 'image'
+  }
+})
+```
+
+## technologies
+
+The tech stack powering any site:
+
+```js
+const technologies = await microlink.technologies('https://microlink.io')
+```
+
+## lighthouse
+
+A full [Lighthouse report](/docs/api/parameters/insights/lighthouse) for any URL:
+
+```js
+const report = await microlink.lighthouse('https://example.com')
+```
+
+## search
+
+Google results as structured data. The resolved page carries `results`, `knowledgeGraph`, `peopleAlsoAsk`, and `relatedSearches`:
+
+```js
+const page = await microlink.search('Lotus Elise S2')
+
+console.log(page.results)
+```
+
+Switch verticals with `type` — `news`, `images`, `videos`, `places`, `maps`, `shopping`, `scholar`, `patents`, or `autocomplete` — and refine with `location`, `period`, and `limit`:
+
+```js
+const { results } = await microlink.search('open source llm', {
+  type: 'news',
+  period: 'week'
+})
+```
+
+Every result can expand itself lazily — `result.markdown()`, `result.html()` — and pages paginate with `page.next()`:
+
+```js
+let page = await microlink.search('node.js frameworks')
+
+while (page) {
+  for (const result of page.results) console.log(result.title)
+  page = await page.next()
+}
+```
+
+## run
+
+Execute your own JavaScript against a live page and get the value back. Code that never touches `page` runs faster and cheaper:
+
+```js
+const { value } = await microlink.run('https://example.com', () => 40 + 2)
+```
+
+Ask for `page` to drive a real browser session:
+
+```js
+const { value } = await microlink.run('https://example.com', async ({ page }) => {
+  await page.waitForSelector('h1')
+  return page.$eval('h1', el => el.textContent)
+})
+```
+
+Extra options become named arguments, and the full result also exposes `isFulfilled`, `logging`, and `profiling`:
+
+```js
+const { value, logging, profiling } = await microlink.run(
+  'https://example.com',
+  ({ page, selector }) => page.$eval(selector, el => el.textContent),
+  { selector: 'h1' }
+)
+```
+
+`function` is an alias of `run`. See the [function guide](/docs/guides/function) for writing patterns, package dependencies, and profiling.

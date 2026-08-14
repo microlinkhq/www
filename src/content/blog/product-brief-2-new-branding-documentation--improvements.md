@@ -65,7 +65,7 @@ On this period, we did a lot of internal improvements and developed [metascraper
 
 Under the hood, we’re testing something pretty exciting: Adding a new **video property** ([spoiler](https://api.microlink.io/?url=https://x.com/verge/status/957383241714970624)) into the [Microlink API](/docs/api).
 
-It would return any video detected in the target URL. This also allowing us to build a richer content preview (with the [Microlink SDK](/docs/sdk/getting-started/overview/)).
+It would return any video detected in the target URL. This also allowing us to build a richer content preview (with the [Microlink SDK](/docs/sdk-legacy/getting-started/overview/)).
 
 We seem to be heading in the right direction, stay tuned for our next newsletters to see how it turns out 👀.
 
@@ -75,7 +75,7 @@ We seem to be heading in the right direction, stay tuned for our next newsletter
 
 <Figcaption>
   {'A new '}
-  <Link href='/docs/sdk/getting-started/overview/' children='Microlink SDK' /> demo at{' '}
+  <Link href='/docs/sdk-legacy/getting-started/overview/' children='Microlink SDK' /> demo at{' '}
   <Link href='https://microlink.io/' children='microlink.io' />.
 </Figcaption>
 
@@ -83,6 +83,6 @@ First of all, we reached [100 stars 🌟 on GitHub](https://github.com/microlink
 
 We wanted to be sure the cards responded properly to different viewports, so we put extra effort into improving the responsive aspect of things.
 
-We’ve also added a new demo at [microlink.io](https://microlink.io) showing a quick look of what you can achieve with the [Microlink SDK](/docs/sdk/getting-started/overview/).
+We’ve also added a new demo at [microlink.io](https://microlink.io) showing a quick look of what you can achieve with the [Microlink SDK](/docs/sdk-legacy/getting-started/overview/).
 
 With the above-mentioned *documentation unification* we’ve also added more examples and API parameters that you can use to customize your previews.

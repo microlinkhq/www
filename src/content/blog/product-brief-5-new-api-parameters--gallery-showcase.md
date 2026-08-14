@@ -1,8 +1,6 @@
 ---
 title: 'Product Brief #5: New API Parameters & Gallery Showcase'
 description: 'Discover Microlink Product Brief, featuring custom User Agent support, optimized video detection parameters, and the major metascraper v3.11 update with Custom Rules.'
-authors:
-  - kiko
 date: '2018-05-30'
 ---
 
@@ -30,15 +28,15 @@ For example, is very common websites serve images on [WebP](https://en.wikipedia
 
 In the [previous](/blog/product-brief-3) Product Brief we introduced the first iteration of video support as part of the API supported data [types](/docs/api/getting-started/overview).
 
-Although it's widely used when you consume the API response using our [SDK](/docs/sdk/getting-started/overview/), it can degrade the general user experience, making the response times a bit heavy, specially if you are only interested in the rest of data extracted by the API.
+Although it's widely used when you consume the API response using our [SDK](/docs/sdk-legacy/getting-started/overview/), it can degrade the general user experience, making the response times a bit heavy, specially if you are only interested in the rest of data extracted by the API.
 
 We decide leverage the decision in the new [video](/docs/api/parameters/video) API Parameter, when the default value is \`false\`.
 
-If you are consuming link previews over the [SDK](/docs/sdk/getting-started/overview/), no breaking changes here. Otherwise, keep in mind you need to pass it to have the same effect as until now.
+If you are consuming link previews over the [SDK](/docs/sdk-legacy/getting-started/overview/), no breaking changes here. Otherwise, keep in mind you need to pass it to have the same effect as until now.
 
 ## Metascraper v3.11
 
-[![](https://metascraper.js.org/static/logo-banner.png)](https://metascraper.js.org/#/)
+[![](/images/logo-banner.png)](https://metascraper.js.org/#/)
 
 [metascraper](https://metascraper.js.org) continues to improve, which makes our extraction engine more efficient.
 

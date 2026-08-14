@@ -1,42 +1,55 @@
 ---
 title: 'Overview'
-description: 'Implementation guide for Microlink SDK. Transform plain URLs into beautiful, high-performance link previews, embeds, and media players with less than 10KB of JS.'
+description: 'Get started with the Microlink SDK. The microlink.io package exposes every Microlink product as a semantic method for Node.js, browsers, and Deno.'
 ---
 
-import { Microlink } from 'components/markdown/Microlink'
+**Microlink SDK** is the official way to consume [Microlink API](/docs/api/getting-started/overview) programmatically. It's published on npm as [microlink.io](https://www.npmjs.com/package/microlink.io) and organizes the API into semantic products — one method per product — so you call `microlink.screenshot(url)` instead of composing query strings by hand.
 
-**Microlink SDK** is the way to consume [Microlink API](/docs/api/getting-started/overview) directly from your UI, enabling beauty link previews for any link, designed with three things in mind:
+```bash
+npm install microlink.io
+```
 
-- **Common surface**: Although they may have different interface API, every specific integration has the same functionalities.
-- **Lightweight & fast**: The bundle size tends to be equal or less than 10KB (no polyfills included).
-- **Customizable style**: At least you can customize style using universal CSS classes present on the markup.
+Create a client once and call any product from it:
 
-You can convert any link present in your markup
+```js
+import createClient from 'microlink.io'
 
-[youtube.com/watch?v=9P6rdqiybaw](https://www.youtube.com/watch?v=9P6rdqiybaw)
+const microlink = createClient()
 
-into a beautiful preview
+const { title, description } = await microlink.metadata('https://vercel.com')
+```
 
-<Microlink 
-  url='https://www.youtube.com/watch?v=9P6rdqiybaw' 
-  media='image' 
-/>
+CommonJS is supported too:
 
-**Microlink SDK** can detect video, audio or image automagically. Also, it supports some customizable things, like [size](/docs/sdk/parameters/size/).
+```js
+const createClient = require('microlink.io')
+const microlink = createClient()
+```
 
-<Microlink 
-  url='https://www.youtube.com/watch?v=9P6rdqiybaw' 
-  media='video' 
-  size='large' 
-/>
+The same code runs in Node.js, browsers, and Deno, returning the same responses everywhere.
 
-or resolve into embed when is possible:
+## Authentication
 
-<div align="center">
-  <Microlink 
-    url='https://www.youtube.com/watch?v=9P6rdqiybaw' 
-    media='iframe' 
-  />
-</div>
+`createClient()` works without an API key on the [free plan](/pricing) out of the box. Pass an `apiKey` to unlock pro quotas — it travels as the [`x-api-key`](/docs/api/basics/authentication) header:
 
-The following steps show you how to integrate **Microlink SDK** in your site, no matter what web stack you have.
+```js
+const microlink = createClient({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+```
+
+Any other option passed to `createClient` is merged into every API call, which makes it the right place for defaults such as [`ttl`](/docs/api/parameters/ttl) or [`prerender`](/docs/api/parameters/prerender).
+
+## Methods
+
+Every product is a method on the client:
+
+- [Content](/docs/sdk/methods/content) — `metadata`, `markdown`, `html`, `text`, `screenshot`, `pdf`, `logo`, `embed`.
+- [Collections](/docs/sdk/methods/collections) — `links`, `images`, `videos`, `audios`, `emails`.
+- [Specialized](/docs/sdk/methods/specialized) — `video`, `audio`, `extract`, `technologies`, `lighthouse`, `search`, `run`.
+
+## How it fits together
+
+The SDK is a thin semantic layer over [@microlink/mql](/docs/mql/getting-started/overview): HTTP, authentication, retries, errors, and binary handling are already solved there. Each method sets the right API parameters and unwraps the result for you. Installing the package also ships a [`microlink` binary](/docs/sdk/getting-started/cli) where every product is a subcommand.
+
+Looking for the previous Microlink SDK, the drop-in link preview component for React, Vue, and vanilla JavaScript? Its documentation lives at [SDK legacy](/docs/sdk-legacy/getting-started/overview/). It keeps working, but it's no longer maintained.

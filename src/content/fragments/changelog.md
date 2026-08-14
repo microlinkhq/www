@@ -414,4 +414,4 @@
 ### June 2020
 
 - [Microlink](/): Launched [Microlink OSS](/oss).
-- [Microlink SDK](/docs/sdk/getting-started/overview/) Added [CSS variables](/docs/sdk/getting-started/styling/#css-variables) support.
+- [Microlink SDK](/docs/sdk-legacy/getting-started/overview/) Added [CSS variables](/docs/sdk-legacy/getting-started/styling/#css-variables) support.

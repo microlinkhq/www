@@ -174,5 +174,5 @@ These apply no matter which rendering approach you pick:
 
 - <Link href='/docs/guides/metadata' children='Metadata' /> — when you only need the data (titles, descriptions, images) and have your own renderer.
 - <Link href='/docs/guides/screenshot' children='Screenshot' /> — when the page has no usable `og:image` and you want a real capture as the preview.
-- <Link href='/docs/sdk/getting-started/overview' children='SDK reference' /> — the full SDK reference with every prop and integration.
+- <Link href='/docs/sdk-legacy/getting-started/overview' children='SDK reference' /> — the full SDK reference with every prop and integration.
 - <Link href='/docs/api/parameters/iframe' children='iframe parameter reference' /> — the authoritative parameter docs and provider list.

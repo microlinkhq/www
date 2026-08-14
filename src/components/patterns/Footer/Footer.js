@@ -59,7 +59,6 @@ const FOOTER_COLUMNS = [
   {
     title: 'Resources',
     links: [
-      { label: 'API Client', href: '/integrations/client' },
       { label: 'SDK', href: '/integrations/sdk' },
       { label: 'CLI', href: '/integrations/cli' },
       { label: 'Blog', href: '/blog' },

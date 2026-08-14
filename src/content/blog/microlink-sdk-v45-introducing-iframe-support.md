@@ -12,25 +12,25 @@ import { Microlink } from 'components/markdown/Microlink'
 
 We released [Microlink SDK v4.5.0](https://github.com/microlinkhq/sdk/releases/tag/v4.5.0), introducing a powerful functionality: the ability to embed **native iframes** 🔥.
 
-Every time you use **Microlink SDK**, it turns any link into a beautiful link preview, where the card can be displayed with three [size](/docs/sdk/parameters/size/) variations: `'small'`, `'normal'` and `'large'`.
+Every time you use **Microlink SDK**, it turns any link into a beautiful link preview, where the card can be displayed with three [size](/docs/sdk-legacy/parameters/size/) variations: `'small'`, `'normal'` and `'large'`.
 
 <Microlink media={['audio']} size='small' url='{{demolinks.spotify.url}}' />
 <Microlink media={['audio']} url='{{demolinks.spotify.url}}' />
 <Microlink media={['audio']} size='large' url='{{demolinks.spotify.url}}' />
 
 <Figcaption>
-Microlink SDK <Link href='/docs/sdk/parameters/size/'>size</Link> variations.
+Microlink SDK <Link href='/docs/sdk-legacy/parameters/size/'>size</Link> variations.
 </Figcaption>
 
 The card approach improves a lot of the URL preview experience, making it possible for you to adopt it on your own website or application.
 
 However, some domains on the Internet (like **Instagram**, **SoundCloud**, **Spotify**, **Facebook**, **X**,…) have their own way of embedding their content, making the Microlink card displayed less recognizable than using their own way.
 
-**Microlink SDK v4.5** introduces the ability to set `iframe` as the [media](/docs/sdk/parameters/media/) property for using a native embed solution always when it's available.
+**Microlink SDK v4.5** introduces the ability to set `iframe` as the [media](/docs/sdk-legacy/parameters/media/) property for using a native embed solution always when it's available.
 
 <Microlink media={['iframe']} url='{{demolinks.spotify.url}}' style={{textAlign:'center'}} />
 
-The [media](/docs/sdk/parameters/media/) property takes into consideration the URL preferences, setting up the [Microlink API](/docs/api/getting-started/overview) call in order to satisfy the media requirements.
+The [media](/docs/sdk-legacy/parameters/media/) property takes into consideration the URL preferences, setting up the [Microlink API](/docs/api/getting-started/overview) call in order to satisfy the media requirements.
 
 For example, when the URL is an audio provider (like **SoundCloud** or **Spotify**) if you set `media: ['audio']` you are telling Microlink API that you want to detect the streaming source of audio behind the URL, enabling [audio](/docs/api/parameters/audio) for that purpose.
 
@@ -62,7 +62,7 @@ In the same way, in case you prefer to use provider iframes, just need to set `m
 
 After that, Microlink API does the magic and returns you the iframe, leveraging into **Microlink SDK** for embedding it properly.
 
-Note that we are specifying [media](/docs/sdk/parameters/media/) as a collection. That's because you can add more than one value to be used as fallbacks.
+Note that we are specifying [media](/docs/sdk-legacy/parameters/media/) as a collection. That's because you can add more than one value to be used as fallbacks.
 
 ```jsx
 import Microlink from '@microlink/react'

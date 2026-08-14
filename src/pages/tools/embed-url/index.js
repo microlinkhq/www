@@ -107,7 +107,8 @@ const REASON_TO_USE = [
       <>
         Pick a card layout, theme the colors, set fonts and borders — no CSS.
         Power users can drop in the{' '}
-        <Link href='/integrations/sdk'>Microlink SDK</Link> for full control.
+        <Link href='/docs/guides/embed/sdk'>Microlink SDK</Link> for full
+        control.
       </>
     )
   },
@@ -169,8 +170,8 @@ const USE_CASES = [
       'Theme the card via CSS variables to match your design system'
     ],
     link: {
-      href: '/integrations/sdk',
-      alt: 'Microlink SDK landing',
+      href: '/docs/guides/embed/sdk',
+      alt: 'Microlink SDK embed guide',
       text: 'Use the SDK'
     }
   }
@@ -687,8 +688,10 @@ const ProductInformation = () => (
             </div>
             <div>
               For React or Vue, drop in the{' '}
-              <Link href='/integrations/sdk'>Microlink SDK</Link> component
-              instead — same data, framework-native rendering.
+              <Link href='/docs/sdk-legacy/getting-started/overview/'>
+                Microlink SDK
+              </Link>{' '}
+              component instead — same data, framework-native rendering.
             </div>
           </>
         )
@@ -698,7 +701,10 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes. The <Link href='/integrations/sdk'>Microlink SDK</Link>{' '}
+              Yes. The{' '}
+              <Link href='/docs/sdk-legacy/getting-started/styling/'>
+                Microlink SDK
+              </Link>{' '}
               exposes CSS variables (<code>--microlink-background-color</code>,{' '}
               <code>--microlink-max-width</code>) and stable BEM class hooks for
               styling cards.
@@ -759,8 +765,10 @@ const ProductInformation = () => (
                 @microlink/mql
               </Link>{' '}
               SDK for Node.js, or drop in the{' '}
-              <Link href='/integrations/sdk'>Microlink SDK</Link> for React,
-              Vue, or vanilla JS.
+              <Link href='/docs/sdk-legacy/getting-started/overview/'>
+                Microlink SDK
+              </Link>{' '}
+              for React, Vue, or vanilla JS.
             </div>
           </>
         )

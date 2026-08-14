@@ -155,6 +155,26 @@
       "destination": "/docs/guides/data-extraction/delivery-and-response.md"
     },
     {
+      "source": "/integrations/client",
+      "destination": "/integrations/sdk"
+    },
+    {
+      "source": "/docs/sdk/getting-started/styling",
+      "destination": "/docs/sdk-legacy/getting-started/styling"
+    },
+    {
+      "source": "/docs/sdk/getting-started/styling.md",
+      "destination": "/docs/sdk-legacy/getting-started/styling.md"
+    },
+    {
+      "source": "/docs/sdk/integrations/:path*",
+      "destination": "/docs/sdk-legacy/integrations/:path*"
+    },
+    {
+      "source": "/docs/sdk/parameters/:path*",
+      "destination": "/docs/sdk-legacy/parameters/:path*"
+    },
+    {
       "source": "/audio",
       "destination": "/docs/api/parameters/audio"
     },

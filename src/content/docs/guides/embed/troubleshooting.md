@@ -99,7 +99,7 @@ Two fixes:
 <Microlink url='...' lazy={{ rootMargin: '600px' }} />
 ```
 
-See <Link href='/docs/sdk/parameters/lazy' children='lazy reference' />.
+See <Link href='/docs/sdk-legacy/parameters/lazy' children='lazy reference' />.
 
 ## Inconsistent results across runs
 

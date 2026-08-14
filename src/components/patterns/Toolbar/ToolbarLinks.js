@@ -15,7 +15,6 @@ import {
   BarChart2,
   Chrome as ChromeIcon,
   Code,
-  Codesandbox as CodesandboxIcon,
   Image,
   Map,
   Search as SearchIcon,
@@ -149,16 +148,10 @@ export const SOCIAL_NAV_ITEMS = [
 
 export const TOOLS_INTEGRATIONS_ITEMS = [
   createNavigationItem({
-    label: 'API Client',
-    href: '/integrations/client',
-    description: 'Every product, one import',
-    icon: PackageIcon
-  }),
-  createNavigationItem({
     label: 'SDK',
     href: '/integrations/sdk',
-    description: 'Beautiful link previews',
-    icon: CodesandboxIcon
+    description: 'Every product, one import',
+    icon: PackageIcon
   }),
   createNavigationItem({
     label: 'MCP',

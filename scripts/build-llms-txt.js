@@ -22,7 +22,8 @@ const SECTIONS = [
   { dir: 'cards', title: 'Cards' },
   { dir: 'mql', title: 'MQL' },
   { dir: 'guides', title: 'Guides' },
-  { dir: 'sdk', title: 'SDK' }
+  { dir: 'sdk', title: 'SDK' },
+  { dir: 'sdk-legacy', title: 'SDK (legacy)' }
 ]
 
 const unquote = value =>

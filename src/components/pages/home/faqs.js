@@ -72,7 +72,10 @@ export const getFaqQuestions = () => {
                   Microlink SDK
                 </Link>
                 , attach it as{' '}
-                <Link href='/docs/sdk/parameters/api-key/'>apiKey</Link>.
+                <Link href='/docs/sdk/getting-started/overview/#authentication'>
+                  apiKey
+                </Link>
+                .
               </Box>
               <Box as='li' css={theme({ pt: 3 })}>
                 In{' '}

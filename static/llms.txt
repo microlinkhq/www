@@ -176,23 +176,33 @@
 
 ## SDK
 
-- [Overview](https://microlink.io/docs/sdk/getting-started/overview.md): Implementation guide for Microlink SDK. Transform plain URLs into beautiful, high-performance link previews, embeds, and media players with less than 10KB of JS.
-- [Styling](https://microlink.io/docs/sdk/getting-started/styling.md): Customize the look and feel of your link previews using CSS variables and BEM classes. Learn how to style Microlink SDK components to match your brand design system.
-- [Jekyll](https://microlink.io/docs/sdk/integrations/jekyll.md): Learn how to integrate Microlink SDK with Jekyll to create beautiful link previews in your blog posts. Use simple Markdown to automate URL-to-preview conversion.
-- [React](https://microlink.io/docs/sdk/integrations/react.md): Implement beautiful link previews in React applications using the official Microlink SDK. Supports styled-components, custom props, and all Microlink API parameters.
-- [Vanilla](https://microlink.io/docs/sdk/integrations/vanilla.md): Add beautiful link previews to any website with Microlink Vanilla. Integrate via CDN or npm, use CSS selectors for auto-replacement, and pass API parameters.
-- [Vue](https://microlink.io/docs/sdk/integrations/vue.md): Integrate beautiful link previews into Vue.js apps using the official Microlink SDK. Supports global registration, custom props, and CSS variable styling.
-- [apiKey](https://microlink.io/docs/sdk/parameters/api-key.md): Authenticate your Microlink SDK requests using your API key to increase rate limits and access Pro features.
-- [contrast](https://microlink.io/docs/sdk/parameters/contrast.md): Enable high-contrast mode for link previews based on predominant image colors. Improves accessibility and creates visually striking cards that adapt to your content.
-- [direction](https://microlink.io/docs/sdk/parameters/direction.md): Configure the text direction of your link previews. Support for LTR (left-to-right) and RTL (right-to-left) layouts.
-- [fetchData](https://microlink.io/docs/sdk/parameters/fetch-data.md): Control how link data is retrieved. Enable internal API calls for real-time metadata extraction or disable it to provide custom pre-fetched data manually.
-- [lazy](https://microlink.io/docs/sdk/parameters/lazy.md): Optimize performance with lazy loading for link previews. Use the lazy parameter to trigger API calls only when cards enter the viewport.
-- [mediaRef](https://microlink.io/docs/sdk/parameters/media-ref.md): Access the underlying DOM reference of the media component using the mediaRef prop. Perfect for programmatic playback control or attaching custom event listeners.
-- [autoPlay](https://microlink.io/docs/sdk/parameters/media/auto-play.md): Control the media playback behavior of your link previews. Use the autoPlay parameter to enable or disable automatic video and audio playback for Microlink SDK components.
-- [controls](https://microlink.io/docs/sdk/parameters/media/controls.md): Enable or disable native media player controls for video and audio in your link previews. Use the controls parameter to customize the interface of Microlink SDK.
-- [media](https://microlink.io/docs/sdk/parameters/media.md): Select the primary media type for your link previews. Support for images, logos, video, audio, screenshots, and iframes with automatic fallback logic.
-- [loop](https://microlink.io/docs/sdk/parameters/media/loop.md): Configure media looping for your link previews. Use the loop parameter to specify whether video or audio content should restart automatically after finishing.
-- [muted](https://microlink.io/docs/sdk/parameters/media/muted.md): Control the audio state of media within your link previews. Use the muted parameter to enable or disable sound for auto-playing videos and audio components.
-- [setData](https://microlink.io/docs/sdk/parameters/set-data.md): Manually override or augment extracted metadata. Pass an object or a function to completely transform the data before the link preview is rendered.
-- [size](https://microlink.io/docs/sdk/parameters/size.md): Define the visual dimensions of your link previews. Choose between small, normal, or large sizes to best fit your application layout and content density requirements.
-- [url](https://microlink.io/docs/sdk/parameters/url.md): Learn how to use the required url parameter to extract data, capture screenshots, or generate PDFs from any target website using the Microlink API.
+- [CLI](https://microlink.io/docs/sdk/getting-started/cli.md): Use the microlink binary bundled with the Microlink SDK. Every product is a subcommand, with flags mapping one-to-one to the SDK options.
+- [Errors](https://microlink.io/docs/sdk/getting-started/errors.md): Handle Microlink SDK failures with MicrolinkError. Every method throws a typed error carrying code, statusCode, and a human-readable description.
+- [Options](https://microlink.io/docs/sdk/getting-started/options.md): Learn how the Microlink SDK routes options. Product-specific keys nest automatically, headers travel as HTTP headers, and everything else maps to API query parameters.
+- [Overview](https://microlink.io/docs/sdk/getting-started/overview.md): Get started with the Microlink SDK. The microlink.io package exposes every Microlink product as a semantic method for Node.js, browsers, and Deno.
+- [Collections](https://microlink.io/docs/sdk/methods/collections.md): Sweep any page with the Microlink SDK and get every matching resource back as an array: links, images, videos, audios, and email addresses.
+- [Content](https://microlink.io/docs/sdk/methods/content.md): Turn any URL into rendered output with the Microlink SDK: unified metadata, Markdown, HTML, plain text, screenshots, PDFs, logos, and embeds.
+- [Specialized](https://microlink.io/docs/sdk/methods/specialized.md): The deeper Microlink SDK capabilities: media extraction, custom data rules, technology detection, Lighthouse reports, structured Google search, and remote code execution.
+
+## SDK (legacy)
+
+- [Overview](https://microlink.io/docs/sdk-legacy/getting-started/overview.md): Implementation guide for Microlink SDK. Transform plain URLs into beautiful, high-performance link previews, embeds, and media players with less than 10KB of JS.
+- [Styling](https://microlink.io/docs/sdk-legacy/getting-started/styling.md): Customize the look and feel of your link previews using CSS variables and BEM classes. Learn how to style Microlink SDK components to match your brand design system.
+- [Jekyll](https://microlink.io/docs/sdk-legacy/integrations/jekyll.md): Learn how to integrate Microlink SDK with Jekyll to create beautiful link previews in your blog posts. Use simple Markdown to automate URL-to-preview conversion.
+- [React](https://microlink.io/docs/sdk-legacy/integrations/react.md): Implement beautiful link previews in React applications using the official Microlink SDK. Supports styled-components, custom props, and all Microlink API parameters.
+- [Vanilla](https://microlink.io/docs/sdk-legacy/integrations/vanilla.md): Add beautiful link previews to any website with Microlink Vanilla. Integrate via CDN or npm, use CSS selectors for auto-replacement, and pass API parameters.
+- [Vue](https://microlink.io/docs/sdk-legacy/integrations/vue.md): Integrate beautiful link previews into Vue.js apps using the official Microlink SDK. Supports global registration, custom props, and CSS variable styling.
+- [apiKey](https://microlink.io/docs/sdk-legacy/parameters/api-key.md): Authenticate your Microlink SDK requests using your API key to increase rate limits and access Pro features.
+- [contrast](https://microlink.io/docs/sdk-legacy/parameters/contrast.md): Enable high-contrast mode for link previews based on predominant image colors. Improves accessibility and creates visually striking cards that adapt to your content.
+- [direction](https://microlink.io/docs/sdk-legacy/parameters/direction.md): Configure the text direction of your link previews. Support for LTR (left-to-right) and RTL (right-to-left) layouts.
+- [fetchData](https://microlink.io/docs/sdk-legacy/parameters/fetch-data.md): Control how link data is retrieved. Enable internal API calls for real-time metadata extraction or disable it to provide custom pre-fetched data manually.
+- [lazy](https://microlink.io/docs/sdk-legacy/parameters/lazy.md): Optimize performance with lazy loading for link previews. Use the lazy parameter to trigger API calls only when cards enter the viewport.
+- [mediaRef](https://microlink.io/docs/sdk-legacy/parameters/media-ref.md): Access the underlying DOM reference of the media component using the mediaRef prop. Perfect for programmatic playback control or attaching custom event listeners.
+- [autoPlay](https://microlink.io/docs/sdk-legacy/parameters/media/auto-play.md): Control the media playback behavior of your link previews. Use the autoPlay parameter to enable or disable automatic video and audio playback for Microlink SDK components.
+- [controls](https://microlink.io/docs/sdk-legacy/parameters/media/controls.md): Enable or disable native media player controls for video and audio in your link previews. Use the controls parameter to customize the interface of Microlink SDK.
+- [media](https://microlink.io/docs/sdk-legacy/parameters/media.md): Select the primary media type for your link previews. Support for images, logos, video, audio, screenshots, and iframes with automatic fallback logic.
+- [loop](https://microlink.io/docs/sdk-legacy/parameters/media/loop.md): Configure media looping for your link previews. Use the loop parameter to specify whether video or audio content should restart automatically after finishing.
+- [muted](https://microlink.io/docs/sdk-legacy/parameters/media/muted.md): Control the audio state of media within your link previews. Use the muted parameter to enable or disable sound for auto-playing videos and audio components.
+- [setData](https://microlink.io/docs/sdk-legacy/parameters/set-data.md): Manually override or augment extracted metadata. Pass an object or a function to completely transform the data before the link preview is rendered.
+- [size](https://microlink.io/docs/sdk-legacy/parameters/size.md): Define the visual dimensions of your link previews. Choose between small, normal, or large sizes to best fit your application layout and content density requirements.
+- [url](https://microlink.io/docs/sdk-legacy/parameters/url.md): Learn how to use the required url parameter to extract data, capture screenshots, or generate PDFs from any target website using the Microlink API.

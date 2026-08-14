@@ -37,8 +37,8 @@ const Examples = () => (
           pt: [3, 3, 4, 4]
         })}
       >
-        The <Link href='/integrations/client'>Microlink client</Link> gives you
-        a consistent interface to everything Microlink offers.
+        The <Link href='/integrations/sdk'>Microlink SDK</Link> gives you a
+        consistent interface to everything Microlink offers.
       </Caption>
     </Box>
 

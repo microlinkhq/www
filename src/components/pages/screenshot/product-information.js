@@ -217,9 +217,9 @@ export const ProductInformation = () => {
               <div>
                 In minutes. Visit our{' '}
                 <Link href='/docs/guides/screenshot'>documentation</Link> for
-                interactive playground examples, official{' '}
-                <Link href='/integrations/sdk'>SDKs</Link> (Node.js, Python,
-                Ruby, Go), and copy-paste code snippets.
+                interactive playground examples, the official{' '}
+                <Link href='/integrations/sdk'>SDK</Link> (Node.js, browsers,
+                Deno), and copy-paste code snippets.
               </div>
               <div>
                 Need architectural advice or have custom requirements? Check our{' '}
