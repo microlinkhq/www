@@ -43,6 +43,7 @@ export const OverviewSection = ({
   eyebrow = 'Overview',
   title,
   body,
+  media,
   bullets
 }) => (
   <FeatureSection id={id}>
@@ -63,6 +64,7 @@ export const OverviewSection = ({
       >
         {body}
       </Box>
+      {media && <Box css={theme({ pt: 4 })}>{media}</Box>}
       {bullets?.length > 0 && (
         <Box
           as='ul'

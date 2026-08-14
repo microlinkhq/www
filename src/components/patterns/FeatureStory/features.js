@@ -38,6 +38,19 @@ export const FEATURES = [
       'Use when the page must be in a specific UI state before capture.'
   },
   {
+    slug: 'adblock',
+    name: 'Adblock & Cookie Banners',
+    footerLabel: 'Adblock',
+    tag: null,
+    icon: 'slash',
+    iconBg: 'red7',
+    borderColor: 'red2',
+    oneLiner:
+      'Ads and trackers blocked, cookie banners dismissed automatically — on by default, on every plan.',
+    teachLine:
+      'Use when captures must be clean and repeatable instead of full of third-party noise.'
+  },
+  {
     slug: 'function',
     name: 'Browser Functions',
     footerLabel: 'Browser functions',
