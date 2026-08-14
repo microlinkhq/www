@@ -8,20 +8,30 @@ import Text from 'components/elements/Text'
 import { HOME_CONTENT_WIDTH } from 'components/pages/home/catalog'
 
 import {
+  ContentMockup,
+  CollectionsMockup,
+  SpecializedMockup
+} from 'components/pages/sdk/mockups'
+
+import {
   METHOD_GROUPS,
   Section,
   SectionHeader
 } from 'components/pages/sdk/shared'
 
-import { space, theme } from 'theme'
+import { colors, space, theme } from 'theme'
 
-const CARD_WIDTH = ['100%', `calc(50% - ${space[2]})`, '272px', '272px']
+const GROUP_MOCKUPS = {
+  content: ContentMockup,
+  collections: CollectionsMockup,
+  specialized: SpecializedMockup
+}
 
 const MethodCard = styled(Flex)`
   ${theme({
     flexDirection: 'column',
     gap: 2,
-    width: CARD_WIDTH,
+    width: '100%',
     p: 3,
     bg: 'white',
     border: 1,
@@ -107,69 +117,117 @@ const MethodItem = ({ method, accent }) => {
   )
 }
 
-const MethodGroup = ({ label, caption, accent, methods }) => (
-  <Box css={theme({ pt: [4, 4, 5, 5], width: '100%' })}>
-    <Flex
-      css={theme({
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 2
-      })}
-    >
-      <Box
+const GroupStage = ({ accent, children }) => (
+  <Flex
+    aria-hidden='true'
+    css={theme({
+      alignItems: 'center',
+      justifyContent: 'center',
+      minWidth: 0,
+      p: [3, 3, 4, 4],
+      borderRadius: 3,
+      border: 1,
+      borderColor: 'black05'
+    })}
+    style={{
+      background: `linear-gradient(135deg, ${
+        colors[accent.chipBg]
+      } 0%, #ffffff 85%)`
+    }}
+  >
+    {children}
+  </Flex>
+)
+
+const MethodGroup = ({ id, label, caption, accent, methods }) => {
+  const Mockup = GROUP_MOCKUPS[id]
+
+  return (
+    <Box css={theme({ pt: [4, 4, 5, 5], width: '100%' })}>
+      <Flex
         css={theme({
-          width: '8px',
-          height: '8px',
-          borderRadius: '50%',
-          bg: accent.dot,
-          flexShrink: 0
-        })}
-        aria-hidden='true'
-      />
-      <Caps
-        as='h3'
-        css={theme({
-          fontWeight: 'bold',
-          color: 'black70',
-          letterSpacing: 2
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 2
         })}
       >
-        {label}
-      </Caps>
-    </Flex>
-    <Text
-      css={theme({
-        m: 0,
-        pt: 2,
-        color: 'black60',
-        textAlign: 'center'
-      })}
-    >
-      {caption}
-    </Text>
-    <Flex
-      as='ul'
-      style={{
-        '--method-accent': accent.dot,
-        '--method-shadow': accent.shadow
-      }}
-      css={theme({
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        gap: 3,
-        pt: [3, 3, 4, 4],
-        px: 0,
-        pb: 0,
-        m: 0,
-        width: '100%'
-      })}
-    >
-      {methods.map(method => (
-        <MethodItem key={method.title} method={method} accent={accent} />
-      ))}
-    </Flex>
-  </Box>
-)
+        <Box
+          css={theme({
+            width: '8px',
+            height: '8px',
+            borderRadius: '50%',
+            bg: accent.dot,
+            flexShrink: 0
+          })}
+          aria-hidden='true'
+        />
+        <Caps
+          as='h3'
+          css={theme({
+            fontWeight: 'bold',
+            color: 'black70',
+            letterSpacing: 2
+          })}
+        >
+          {label}
+        </Caps>
+      </Flex>
+      <Text
+        css={theme({
+          m: 0,
+          pt: 2,
+          color: 'black60',
+          textAlign: 'center'
+        })}
+      >
+        {caption}
+      </Text>
+      <Box
+        css={theme({
+          display: 'grid',
+          gridTemplateColumns: [
+            'minmax(0, 1fr)',
+            'minmax(0, 1fr)',
+            'minmax(0, 5fr) minmax(0, 7fr)',
+            'minmax(0, 5fr) minmax(0, 7fr)'
+          ],
+          gap: [3, 3, 4, 4],
+          pt: [3, 3, 4, 4],
+          alignItems: 'stretch',
+          width: '100%'
+        })}
+      >
+        {Mockup && (
+          <GroupStage accent={accent}>
+            <Mockup accent={accent} />
+          </GroupStage>
+        )}
+        <Box
+          as='ul'
+          style={{
+            '--method-accent': accent.dot,
+            '--method-shadow': accent.shadow
+          }}
+          css={theme({
+            display: 'grid',
+            gridTemplateColumns: ['1fr', '1fr 1fr', '1fr 1fr', '1fr 1fr'],
+            gap: 3,
+            alignItems: 'stretch',
+            px: 0,
+            py: 0,
+            m: 0,
+            minWidth: 0,
+            width: '100%'
+          })}
+        >
+          {methods.map(method => (
+            <MethodItem key={method.title} method={method} accent={accent} />
+          ))}
+        </Box>
+      </Box>
+    </Box>
+  )
+}
 
 const Methods = () => (
   <Section id='methods'>
@@ -187,6 +245,7 @@ const Methods = () => (
       {METHOD_GROUPS.map(({ id, label, caption, accent, methods }) => (
         <MethodGroup
           key={id}
+          id={id}
           label={label}
           caption={caption}
           accent={accent}
