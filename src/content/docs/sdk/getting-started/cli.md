@@ -10,10 +10,10 @@ microlink markdown https://example.com
 microlink screenshot https://example.com --fullPage
 microlink logo https://github.com --square
 microlink links https://example.com
-microlink search "best coffee" --limit 10 --location es
+microlink search "best coffee" --limit 10 --location es --api-key YOUR_KEY
 ```
 
-Strings print raw; objects pretty-print as JSON, so the output is pipe-friendly.
+Strings print raw; objects pretty-print as JSON, so the output is pipe-friendly. Every subcommand except `search` runs on the free tier without credentials — `search` requires an API key, passed as shown above or exported once as described below.
 
 ## Authentication
 

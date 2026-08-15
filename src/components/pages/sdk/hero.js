@@ -52,7 +52,7 @@ const HERO_FEATURES = [
   },
   {
     title: 'Free to start',
-    description: 'No API key needed; add one when you go pro.',
+    description: 'No API key needed; add one for search and pro quotas.',
     icon: <Unlock {...featureIconProps} aria-hidden='true' />
   }
 ]

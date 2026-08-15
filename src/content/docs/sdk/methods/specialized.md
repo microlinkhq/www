@@ -53,7 +53,7 @@ const report = await microlink.lighthouse('https://example.com')
 
 ## search
 
-Google results as structured data. The resolved page carries `results`, `knowledgeGraph`, `peopleAlsoAsk`, and `relatedSearches`:
+Google results as structured data. Unlike the other methods, `search` requires an [`apiKey`](/docs/sdk/getting-started/overview#authentication) on every request. The resolved page carries `results`, `knowledgeGraph`, `peopleAlsoAsk`, and `relatedSearches`:
 
 ```js
 const page = await microlink.search('Lotus Elise S2')

@@ -38,6 +38,8 @@ const microlink = createClient({
 })
 ```
 
+[`search`](/docs/sdk/methods/specialized#search) is the exception: it requires an `apiKey` on every request.
+
 Any other option passed to `createClient` is merged into every API call, which makes it the right place for defaults such as [`ttl`](/docs/api/parameters/ttl) or [`prerender`](/docs/api/parameters/prerender).
 
 ## Methods

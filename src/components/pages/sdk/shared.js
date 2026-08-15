@@ -244,10 +244,14 @@ export const QUESTIONS = [
     answer: (
       <>
         <div>
-          No. <code>createClient()</code> works on the free tier out of the box.
-          Pass <code>{'createClient({ apiKey })'}</code> to unlock{' '}
+          Not to start. <code>createClient()</code> works on the free tier out
+          of the box. Pass <code>{'createClient({ apiKey })'}</code> to unlock{' '}
           <Link href='/pricing'>pro plans</Link> — the key travels as the{' '}
           <code>x-api-key</code> header.
+        </div>
+        <div>
+          <code>search</code> is the exception: it needs an API key on every
+          request.
         </div>
       </>
     )

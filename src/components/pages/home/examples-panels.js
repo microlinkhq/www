@@ -185,6 +185,6 @@ console.log(emails)
 )
 
 console.log(images)
-// → [{ url: 'https://….jpg', width: 1200, height: 630 }, …]`)
+// → ['https://www.apple.com/…/hero.jpg', 'https://www.apple.com/…/icon.png', …]`)
   }
 ]
