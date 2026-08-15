@@ -65,7 +65,7 @@ The API response will look like the following:
 }
 ```
 
-Although this is enough to have a global vision of what's behind a link (or to build a previsualization using our [SDK](/docs/sdk-legacy/getting-started/overview/)), you may be interested in specific information that we don't expose because it'sn't generic.
+Although this is enough to have a global vision of what's behind a link (or to build a previsualization using our [SDK](/docs/sdk-legacy/getting-started/overview/)), you may be interested in specific information that we don't expose because it isn't generic.
 
 Let's define a **rule** for extracting the avatar profile.
 

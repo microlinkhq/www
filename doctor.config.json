@@ -42,7 +42,8 @@
       {
         "files": [
           "src/components/hook/use-breakpoint.js",
-          "src/components/hook/use-hover.js"
+          "src/components/hook/use-hover.js",
+          "src/components/pages/sdk/mockups.js"
         ],
         "rules": [
           "react-doctor/effect-needs-cleanup"

@@ -60,7 +60,7 @@ Also thanks to the [Puppeteer community](https://github.com/GoogleChrome/puppete
 
 ### Added video support
 
-Because [Microlink API ](/docs/api/getting-started/overview)can detect video, we use the new field to place the streaming source into our preview cards, via our [SDK](/docs/sdk-legacy/getting-started/overview).
+Because [Microlink API](/docs/api/getting-started/overview) can detect video, we use the new field to place the streaming source into our preview cards, via our [SDK](/docs/sdk-legacy/getting-started/overview).
 
 ![](https://cdn-images-1.medium.com/max/1440/1*PWDop7s7KmmmvccVbULiyA.gif)
 

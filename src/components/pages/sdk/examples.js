@@ -35,9 +35,10 @@ const PANEL_ICONS = {
   extract: Filter
 }
 
-const EXAMPLE_PANELS = PANELS.filter(panel => PANEL_ICONS[panel.id]).map(
-  panel => ({ ...panel, icon: PANEL_ICONS[panel.id] })
-)
+const EXAMPLE_PANELS = PANELS.flatMap(panel => {
+  const icon = PANEL_ICONS[panel.id]
+  return icon ? [{ ...panel, icon }] : []
+})
 
 const Examples = () => (
   <Section id='examples'>

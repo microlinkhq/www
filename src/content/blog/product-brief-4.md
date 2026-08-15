@@ -44,7 +44,7 @@ Read more about [styling](/docs/sdk-legacy/integrations/react/#styling) in docum
 
 **Vanilla**
 
-The [vanilla](/docs/sdk-legacy/getting-started/overview/getting-started/vanilla/) version can apply the custom style using the class names shipped with the component:
+The [vanilla](/docs/sdk-legacy/integrations/vanilla/) version can apply the custom style using the class names shipped with the component:
 
 ```js
 <style>
@@ -62,7 +62,7 @@ The [vanilla](/docs/sdk-legacy/getting-started/overview/getting-started/vanilla/
 </script>
 ```
 
-Read more about [styling](/docs/sdk-legacy/getting-started/overview/getting-started/vanilla/#styling) at documentation.
+Read more about [styling](/docs/sdk-legacy/getting-started/styling/) at documentation.
 
 ## Microlink API
 

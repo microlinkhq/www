@@ -291,6 +291,7 @@ const UseCaseSwitcher = ({
           </PanelDescription>
         )}
         <CodeEditor
+          key={active.id}
           title={active.title}
           language={active.language || language}
           css={theme({

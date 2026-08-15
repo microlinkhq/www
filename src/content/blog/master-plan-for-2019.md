@@ -19,13 +19,13 @@ Although [Microlink API](/docs/api/getting-started/overview) works fine for gett
 
 In the past, we launched [custom rules](/blog/custom-rules) for that purpose, but we feel it only usable if you have a tiny rules set.
 
-The thing we want to do next is a totally developer friendly client API.
+The thing we want to do next is a totally developer-friendly client API.
 
 We called it **Microlink Query Language** (MQL) and you can see it as Custom Rules v2.0 iteration.
 
-The **MQL** goal is build the most simple to use and developer friendly for scraping purposes.
+The **MQL** goal is to build the most simple to use and developer-friendly for scraping purposes.
 
-This include the builtin types, caching and batching support and selectors declaration.
+This includes the built-in types, caching and batching support and selectors declaration.
  
 ## GraphQL Endpoint ([RFC](https://github.com/microlinkhq/open/issues/14))
 
@@ -51,4 +51,4 @@ Under this aspect, on hover previews are very attractive: They add contextual in
 
 –––
 
-That's the plan. How does it look? Please, you can answer, we are are going to read every reply.
+That's the plan. How does it look? Please, you can answer, we are going to read every reply.

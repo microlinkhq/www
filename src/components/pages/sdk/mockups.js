@@ -35,12 +35,18 @@ const useRotation = (length, interval) => {
 
 const MockPanel = styled(Box)`
   font-family: ${fonts.sans};
-  ${theme({ bg: 'white', borderRadius: 2, p: 3, width: '100%' })}
-  max-width: 440px;
-  margin: 0 auto;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  ${theme({
+    bg: 'white',
+    border: 1,
+    borderColor: 'black05',
+    borderRadius: 2,
+    p: 3,
+    width: '100%',
+    maxWidth: '440px',
+    mx: 'auto',
+    overflow: 'hidden'
+  })}
   box-shadow: 0 12px 20px -8px rgb(0 0 0 / 0.12);
-  overflow: hidden;
 `
 
 const slideIn = keyframes`
@@ -204,8 +210,14 @@ const PanelHeader = ({ accent, label, method }) => (
 
 const BrowserFrame = () => (
   <Box
-    css={theme({ mt: 2, bg: 'gray0', borderRadius: 2, p: 2 })}
-    style={{ border: `1px solid ${colors.black05}` }}
+    css={theme({
+      mt: 2,
+      bg: 'gray0',
+      border: 1,
+      borderColor: 'black05',
+      borderRadius: 2,
+      p: 2
+    })}
   >
     <Box css={theme({ bg: 'white', borderRadius: 2, overflow: 'hidden' })}>
       <Flex
@@ -271,18 +283,25 @@ const ContentPdf = ({ accent }) => (
       await microlink.pdf(url, {"{ format: 'A4' }"})
     </CodeStrip>
     <Box
-      css={theme({ mt: 2, bg: 'gray0', borderRadius: 2, p: 2 })}
-      style={{ border: `1px solid ${colors.black05}` }}
+      css={theme({
+        mt: 2,
+        bg: 'gray0',
+        border: 1,
+        borderColor: 'black05',
+        borderRadius: 2,
+        p: 2
+      })}
     >
       <Box
         css={theme({
           bg: 'white',
+          border: 1,
+          borderColor: 'black05',
           borderRadius: 2,
           p: '12px',
           maxWidth: '150px',
           mx: 'auto'
         })}
-        style={{ border: `1px solid ${colors.black05}` }}
       >
         <SkeletonBar css={theme({ width: '70%', mb: '8px' })} />
         <SkeletonBar css={theme({ width: '100%', mb: '6px' })} />
