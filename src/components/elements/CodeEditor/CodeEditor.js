@@ -7,6 +7,7 @@ import { childrenTextAll } from 'helpers/children-text-all'
 import { prettier } from 'helpers/prettier'
 import { template } from 'helpers/template'
 import { highlight } from 'sugar-high'
+import { lang } from 'sugar-high/lang'
 import { hash } from 'helpers/hash'
 import range from 'lodash/range'
 
@@ -18,9 +19,9 @@ import {
 } from '../Terminal/blink-cursor'
 import Terminal, { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
 
-const toAlias = (lang = '') => {
-  lang = lang.toLowerCase()
-  switch (lang) {
+const toAlias = (name = '') => {
+  name = name.toLowerCase()
+  switch (name) {
     case 'vanilla':
       return 'html'
     case 'react':
@@ -53,58 +54,50 @@ const generateHighlightLines = linesRange => {
 const getClassName = ({ className, metastring = '' }) =>
   className ? className + metastring : ''
 
-const STRIP_HTML_TAGS_REGEX = /<[^>]+>/g
+const HIGHLIGHT_LANG = {
+  bash: 'shell',
+  js: 'javascript',
+  jsx: 'javascript'
+}
+
 const HTML_COMMENT_START_REGEX = /^\s*<!/
 const HTML_COMMENT_ENTITY_START_REGEX = /^\s*&lt;!/
 const HTML_COMMENT_END_REGEX = /--(?:&gt;|>)/
 
-const applyBashCommentLineClass = line => {
-  const isBashCommentLine =
-    /^<span class="sh__line">(?:\s|<span[^>]*>)*<span class="sh__token--sign"[^>]*>#<\/span>/.test(
-      line
-    )
+const highlightSource = (source, language) => {
+  const options = {}
 
-  if (!isBashCommentLine) return line
+  if (language !== 'sfc') {
+    options.lang = HIGHLIGHT_LANG[language] ?? lang(language)
+  }
 
-  return line.replace(
-    'class="sh__line"',
-    'class="sh__line sh__token--bash-comment"'
-  )
-}
+  if (language === 'bash') {
+    let seenIdentifier = false
+    options.markLine = () => {
+      seenIdentifier = false
+    }
+    options.mark = token => {
+      if (token.type === 'identifier' && !seenIdentifier) {
+        token.className += ' sh__token--bash-command'
+        seenIdentifier = true
+      }
+    }
+  }
 
-const applyBashInlineCommentClass = line => {
-  if (line.includes('sh__line sh__token--bash-comment')) return line
-  if (!line.includes('sh__token--sign')) return line
-  if (line.includes('sh__token--bash-comment')) return line
-
-  return line.replace(
-    /(<span class="sh__token--sign"[^>]*>#<\/span>)(.*)$/,
-    '<span class="sh__token--comment sh__token--bash-comment">$1$2</span>'
-  )
-}
-
-// Mark every line that falls inside an HTML comment (`<!-- … -->`) so the theme
-// can mute it. Stateful, so multi-line comments — e.g. the usage banner at the
-// top of the generated Vue/Svelte components — are grayed in full, not just
-// their opening line.
-const markHtmlCommentLines = highlightedHtml => {
-  let inComment = false
-  return highlightedHtml
-    .split('\n')
-    .map(line => {
-      const text = line.replace(STRIP_HTML_TAGS_REGEX, '')
+  if (language === 'sfc') {
+    let inComment = false
+    options.markLine = line => {
       const opens =
-        HTML_COMMENT_START_REGEX.test(text) ||
-        HTML_COMMENT_ENTITY_START_REGEX.test(text)
-      if (!inComment && !opens) return line
+        HTML_COMMENT_START_REGEX.test(line.value) ||
+        HTML_COMMENT_ENTITY_START_REGEX.test(line.value)
+      if (!inComment && !opens) return
 
-      inComment = !HTML_COMMENT_END_REGEX.test(text)
-      return line.replace(
-        'class="sh__line"',
-        'class="sh__line sh__token--html-comment"'
-      )
-    })
-    .join('\n')
+      inComment = !HTML_COMMENT_END_REGEX.test(line.value)
+      line.className += ' sh__token--html-comment'
+    }
+  }
+
+  return highlight(source, options)
 }
 
 const CustomCodeBlock = styled.pre`
@@ -176,30 +169,10 @@ export const Code = ({
   language,
   blinkCursor = false
 }) => {
-  let highlightedHtml = highlight(children)
-
-  if (language === 'bash') {
-    highlightedHtml = highlightedHtml
-      .split('\n')
-      .map(line => {
-        line = line.replace(
-          /class="sh__token--identifier"/,
-          'class="sh__token--identifier sh__token--bash-command"'
-        )
-
-        line = applyBashCommentLineClass(line)
-        line = applyBashInlineCommentClass(line)
-
-        return line
-      })
-      .join('\n')
-  }
-
-  if (language === 'html' || language === 'sfc') {
-    highlightedHtml = markHtmlCommentLines(highlightedHtml)
-  }
-
-  const textHtml = wrapLinesWithHighlight(highlightedHtml, highlightLines)
+  const textHtml = wrapLinesWithHighlight(
+    highlightSource(children, language),
+    highlightLines
+  )
 
   return (
     <CustomCodeBlock

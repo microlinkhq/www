@@ -25,14 +25,10 @@ const languageColors = {
     --sh-jsxliterals: var(--gray9);
     --sh-string: var(--gray9);
     --sh-keyword: var(--gray9);
-    --sh-comment: var(--gray9);
+    --sh-comment: var(--gray6);
 
     .sh__token--bash-command {
       --sh-identifier: var(--link);
-    }
-
-    .sh__token--bash-comment * {
-      color: var(--gray6) !important;
     }
   `,
   json: `
@@ -48,12 +44,7 @@ const languageColors = {
   `
 }
 
-languageColors.html = `
-  ${languageColors.json}
-  .sh__token--html-comment * {
-    color: var(--gray5) !important;
-  }
-`
+languageColors.html = languageColors.json
 
 // Single-file components (Vue, Svelte): keep the colorful defaults for the
 // code, but mute the `<!-- -->` usage banner like a regular comment. Unlike
