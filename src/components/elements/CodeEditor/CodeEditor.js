@@ -40,7 +40,7 @@ const toAlias = (name = '') => {
     case 'javascript':
       return 'js'
     default:
-      return lang
+      return name
   }
 }
 
