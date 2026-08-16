@@ -60,8 +60,8 @@ const HIGHLIGHT_LANG = {
   jsx: 'javascript'
 }
 
-const HTML_COMMENT_START_REGEX = /^\s*<!/
-const HTML_COMMENT_ENTITY_START_REGEX = /^\s*&lt;!/
+const HTML_COMMENT_START_REGEX = /^\s*<!--/
+const HTML_COMMENT_ENTITY_START_REGEX = /^\s*&lt;!--/
 const HTML_COMMENT_END_REGEX = /--(?:&gt;|>)/
 
 const highlightSource = (source, language) => {
