@@ -17,7 +17,7 @@ const nodejs = {
   meta: {
     title: 'Node.js Screenshot API — Capture Any Website in Code',
     description:
-      'Take pixel-perfect website screenshots in Node.js with @microlink/mql. Three lines of code, no Puppeteer or Chromium to install, works on serverless & edge. Free to start.',
+      'Take pixel-perfect website screenshots in Node.js with microlink.io. Three lines of code, no Puppeteer or Chromium to install, works on serverless & edge. Free to start.',
     image: OG_IMAGE,
     structured: [
       {
@@ -27,14 +27,14 @@ const nodejs = {
         headline: 'Website Screenshot API for Node.js',
         name: 'Website Screenshot API for Node.js',
         description:
-          'A developer guide to capturing website screenshots programmatically in Node.js using the @microlink/mql SDK — install, capture, framework integration, and serverless deployment without managing Headless Chrome.',
+          'A developer guide to capturing website screenshots programmatically in Node.js using the microlink.io SDK — install, capture, framework integration, and serverless deployment without managing Headless Chrome.',
         url: PAGE_URL,
         image: OG_IMAGE,
         inLanguage: 'en',
         proficiencyLevel: 'Beginner',
-        dependencies: 'Node.js 18+, @microlink/mql',
+        dependencies: 'Node.js 24+, microlink.io',
         keywords:
-          'nodejs screenshot api, take screenshot node.js, website screenshot node, puppeteer alternative node, capture url node.js, @microlink/mql',
+          'nodejs screenshot api, take screenshot node.js, website screenshot node, puppeteer alternative node, capture url node.js, microlink.io',
         author: {
           '@type': 'Organization',
           name: 'Microlink',
@@ -94,30 +94,30 @@ const nodejs = {
         '@id': `${PAGE_URL}#howto`,
         name: 'How to take a website screenshot in Node.js',
         description:
-          'Capture a screenshot of any URL in Node.js with the @microlink/mql SDK in three steps.',
+          'Capture a screenshot of any URL in Node.js with the microlink.io SDK in three steps.',
         tool: [
           { '@type': 'HowToTool', name: 'Node.js' },
-          { '@type': 'HowToTool', name: '@microlink/mql' }
+          { '@type': 'HowToTool', name: 'microlink.io' }
         ],
         step: [
           {
             '@type': 'HowToStep',
             position: 1,
             name: 'Install the SDK',
-            text: 'Run npm install @microlink/mql in your Node.js project.',
+            text: 'Run npm install microlink.io in your Node.js project.',
             url: `${PAGE_URL}#quickstart`
           },
           {
             '@type': 'HowToStep',
             position: 2,
             name: 'Capture the screenshot',
-            text: 'Call mql(url, { screenshot: true }) with the URL you want to capture.'
+            text: 'Call microlink.screenshot(url) with the URL you want to capture.'
           },
           {
             '@type': 'HowToStep',
             position: 3,
             name: 'Use the image URL',
-            text: 'Read the hosted screenshot from data.screenshot.url and serve it to your users.'
+            text: 'Read the hosted screenshot from the returned url and serve it to your users.'
           }
         ]
       }
@@ -152,50 +152,45 @@ const nodejs = {
       </>
     ),
     caption:
-      '@microlink/mql is a tiny Promise-based client. Install it, point it at a URL, and you get back a hosted screenshot URL — ready to embed or store.',
+      'microlink.io is the official SDK: a tiny Promise-based client where every product is a method. Point it at a URL and you get back a hosted screenshot URL — ready to embed or store.',
     steps: [
       {
         title: 'Install the SDK',
         description:
-          'A single dependency with zero native binaries. It runs anywhere Node runs.',
-        code: { language: 'bash', source: 'npm install @microlink/mql' }
+          'A single dependency with zero native binaries, on Node.js 24 or newer.',
+        code: { language: 'bash', source: 'npm install microlink.io' }
       },
       {
         title: 'Capture any URL',
         description:
-          'Pass the page you want and set screenshot: true. With async/await you get the result in one call — both CommonJS (require) and ESM (import) are supported.',
+          'Create the client once and call the screenshot method. It resolves to the asset itself — url, type, width, height and size — with no envelope to unwrap. Both CommonJS (require) and ESM (import) are supported.',
         code: {
           language: 'js',
           title: 'capture.js',
-          source: `import mql from '@microlink/mql'
-// CommonJS: const mql = require('@microlink/mql')
+          source: `import createClient from 'microlink.io'
+// CommonJS: const createClient = require('microlink.io')
 
-const { status, data } = await mql('https://example.com', {
-  screenshot: true,
-  meta: false // skip metadata extraction for a faster response
-})
+const microlink = createClient()
 
-if (status === 'success') {
-  console.log(data.screenshot.url)
-}`
+const screenshot = await microlink.screenshot('https://example.com')
+
+console.log(screenshot.url)`
         }
       },
       {
         title: 'Customize the capture',
         description:
-          'Output format, full-page captures, device emulation, and waiting for content — every Headless Chrome option is just a field.',
+          'Output format, full-page captures, device emulation, and waiting for content — every Headless Chrome option is just a field. Screenshot options nest under the product for you; anything else travels as an API parameter.',
         code: {
           language: 'js',
           title: 'options.js',
-          source: `const { data } = await mql('https://example.com', {
-  screenshot: {
-    type: 'jpeg',   // png (default) | jpeg
-    fullPage: true, // capture the entire scrollable page
-    omitBackground: false
-  },
-  device: 'iPhone X',     // emulate any device
-  waitForTimeout: 1000,   // wait before capturing
-  adblock: true           // strip ads & cookie banners (default)
+          source: `const screenshot = await microlink.screenshot('https://example.com', {
+  type: 'jpeg',         // png (default) | jpeg
+  fullPage: true,       // capture the entire scrollable page
+  omitBackground: false,
+  device: 'iPhone X',   // emulate any device
+  waitForTimeout: 1000, // wait before capturing
+  adblock: true         // strip ads & cookie banners (default)
 })`
         }
       },
@@ -207,11 +202,13 @@ if (status === 'success') {
           language: 'js',
           title: 'save.js',
           source: `import { writeFile } from 'node:fs/promises'
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
-const { data } = await mql('https://example.com', { screenshot: true })
+const microlink = createClient()
 
-const response = await fetch(data.screenshot.url)
+const { url } = await microlink.screenshot('https://example.com')
+
+const response = await fetch(url)
 const buffer = Buffer.from(await response.arrayBuffer())
 await writeFile('screenshot.png', buffer)`
         }
@@ -237,19 +234,17 @@ await writeFile('screenshot.png', buffer)`
           language: 'js',
           title: 'server.js',
           source: `import express from 'express'
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
 const app = express()
+const microlink = createClient()
 
 // GET /screenshot?url=https://example.com
 app.get('/screenshot', async (req, res) => {
-  const { data } = await mql(req.query.url, {
-    screenshot: true,
-    meta: false
-  })
+  const screenshot = await microlink.screenshot(req.query.url)
 
-  // redirect to the hosted image, or res.json(data.screenshot.url)
-  res.redirect(data.screenshot.url)
+  // redirect to the hosted image, or res.json(screenshot)
+  res.redirect(screenshot.url)
 })
 
 app.listen(3000)`
@@ -261,20 +256,19 @@ app.listen(3000)`
         code: {
           language: 'js',
           title: 'app/api/screenshot/route.js',
-          source: `import mql from '@microlink/mql'
+          source: `import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 // GET /api/screenshot?url=https://example.com
 export async function GET (request) {
   const { searchParams } = new URL(request.url)
   const url = searchParams.get('url')
 
-  const { data } = await mql(url, {
-    screenshot: true,
-    meta: false
-  })
+  const screenshot = await microlink.screenshot(url)
 
-  // redirect to the hosted image, or return data.screenshot.url as JSON
-  return Response.redirect(data.screenshot.url)
+  // redirect to the hosted image, or return screenshot.url as JSON
+  return Response.redirect(screenshot.url)
 }`
         }
       },
@@ -285,18 +279,16 @@ export async function GET (request) {
           language: 'js',
           title: 'server.js',
           source: `import Fastify from 'fastify'
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
 const fastify = Fastify()
+const microlink = createClient()
 
 // GET /screenshot?url=https://example.com
 fastify.get('/screenshot', async (request, reply) => {
-  const { data } = await mql(request.query.url, {
-    screenshot: true,
-    meta: false
-  })
+  const screenshot = await microlink.screenshot(request.query.url)
 
-  return reply.redirect(data.screenshot.url)
+  return reply.redirect(screenshot.url)
 })
 
 await fastify.listen({ port: 3000 })`
@@ -309,7 +301,9 @@ await fastify.listen({ port: 3000 })`
           language: 'js',
           title: 'screenshot.controller.ts',
           source: `import { Controller, Get, Query, Redirect } from '@nestjs/common'
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 @Controller('screenshot')
 export class ScreenshotController {
@@ -317,8 +311,8 @@ export class ScreenshotController {
   @Get()
   @Redirect()
   async capture (@Query('url') url: string) {
-    const { data } = await mql(url, { screenshot: true, meta: false })
-    return { url: data.screenshot.url }
+    const screenshot = await microlink.screenshot(url)
+    return { url: screenshot.url }
   }
 }`
         }
@@ -330,19 +324,18 @@ export class ScreenshotController {
           language: 'js',
           title: 'server.js',
           source: `const http = require('node:http')
-const mql = require('@microlink/mql')
+const createClient = require('microlink.io')
+
+const microlink = createClient()
 
 // GET /screenshot?url=https://example.com
 http
   .createServer(async (req, res) => {
     const { searchParams } = new URL(req.url, 'http://localhost')
 
-    const { data } = await mql(searchParams.get('url'), {
-      screenshot: true,
-      meta: false
-    })
+    const screenshot = await microlink.screenshot(searchParams.get('url'))
 
-    res.writeHead(302, { Location: data.screenshot.url }).end()
+    res.writeHead(302, { Location: screenshot.url }).end()
   })
   .listen(3000)`
         }
@@ -375,7 +368,7 @@ http
         tone: 'positive',
         heading: 'Microlink for Node.js',
         points: [
-          'npm install @microlink/mql — pure JavaScript, zero binaries',
+          'npm install microlink.io — pure JavaScript, zero binaries',
           'Runs anywhere: serverless, edge, containers, your laptop',
           'Autoscaled managed browser fleet with a 99.95% uptime SLA',
           `Sub-second cached responses from ${CDN_EDGES} edge locations`,
@@ -410,12 +403,12 @@ http
       {
         title: 'ESM & CommonJS',
         description:
-          'Use `import mql from "@microlink/mql"` or `require("@microlink/mql")` — it works in any Node project without config.'
+          'Use `import createClient from "microlink.io"` or `require("microlink.io")` — it works in any Node project without config.'
       },
       {
         title: 'Serverless & Edge Friendly',
         description:
-          'No Chromium binary to bundle. Deploy to Vercel, AWS Lambda, or Cloudflare Workers with the lightweight build.'
+          'No Chromium binary to bundle. Deploy to Vercel, AWS Lambda, or any container — the same client also runs in browsers and Deno.'
       },
       {
         title: 'Promise-Based API',
@@ -477,7 +470,7 @@ http
         answer: (
           <>
             <div>
-              No. <code>@microlink/mql</code> is a thin HTTP client with zero
+              No. <code>microlink.io</code> is a thin HTTP client with zero
               native dependencies — there is no Chromium binary to download and
               nothing to compile. The Headless Chrome fleet runs on Microlink's
               side.
@@ -496,9 +489,9 @@ http
           <>
             <div>
               Yes. The package ships its own type definitions, so the{' '}
-              <code>mql()</code> client and every screenshot option are typed
-              and autocomplete in your editor — no <code>@types</code> package
-              required.
+              <code>createClient()</code> client and every screenshot option are
+              typed and autocomplete in your editor — no <code>@types</code>{' '}
+              package required.
             </div>
           </>
         )
@@ -508,8 +501,9 @@ http
         answer: (
           <>
             <div>
-              Both. Use <code>import mql from '@microlink/mql'</code> in ESM
-              projects or <code>const mql = require('@microlink/mql')</code> in
+              Both. Use <code>import createClient from 'microlink.io'</code> in
+              ESM projects or{' '}
+              <code>const createClient = require('microlink.io')</code> in
               CommonJS. The same options work either way.
             </div>
           </>
@@ -522,14 +516,12 @@ http
             <div>
               Yes. Because there is no browser binary to bundle, it works inside
               Next.js Route Handlers, AWS Lambda, and Vercel functions out of
-              the box. For the Edge runtime, import the lightweight build:{' '}
-              <code>@microlink/mql/lightweight</code>.
+              the box, on Node.js 24 or newer. The same client also runs in
+              browsers and Deno.
             </div>
             <div>
               See the{' '}
-              <Link href='/docs/mql/getting-started/installation'>
-                installation guide
-              </Link>{' '}
+              <Link href='/docs/sdk/getting-started/overview'>SDK overview</Link>{' '}
               for runtime details.
             </div>
           </>
@@ -546,8 +538,8 @@ http
             </div>
             <div>
               When you need more throughput or caching control, pass{' '}
-              <code>apiKey</code> to <code>mql()</code> and requests route to{' '}
-              the Pro tier. See <Link href='/pricing'>pricing</Link> for the
+              <code>apiKey</code> to <code>createClient()</code> and requests
+              route to the Pro tier. See <Link href='/pricing'>pricing</Link> for the
               limits.
             </div>
           </>
@@ -585,7 +577,7 @@ http
       'Get 25 requests/day with zero commitment — no account and no credit card. Install the SDK and ship your first screenshot in minutes.',
     primary: {
       label: 'Read the Node.js docs',
-      href: '/docs/mql/getting-started/installation'
+      href: '/docs/sdk/getting-started/overview'
     },
     secondary: { label: 'See pricing', href: '/pricing' },
     badges: ['No login needed', '25 reqs/day free', 'No credit card']

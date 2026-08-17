@@ -15,9 +15,9 @@ const nodejs = {
   label: 'Node.js',
 
   meta: {
-    title: 'Node.js HTML to PDF API with @microlink/mql',
+    title: 'Node.js HTML to PDF API with microlink.io',
     description:
-      'Convert any URL to a pixel-perfect PDF in Node.js with @microlink/mql — three lines, no Puppeteer, no Chromium. Works on serverless and edge.',
+      'Convert any URL to a pixel-perfect PDF in Node.js with microlink.io — three lines, no Puppeteer, no Chromium. Works on serverless and edge.',
     image: OG_IMAGE,
     structured: [
       {
@@ -27,14 +27,14 @@ const nodejs = {
         headline: 'HTML to PDF API for Node.js',
         name: 'HTML to PDF API for Node.js',
         description:
-          'A developer guide to converting web pages to PDF programmatically in Node.js using the @microlink/mql SDK — install, convert, framework integration, and serverless deployment without managing Headless Chrome.',
+          'A developer guide to converting web pages to PDF programmatically in Node.js using the microlink.io SDK — install, convert, framework integration, and serverless deployment without managing Headless Chrome.',
         url: PAGE_URL,
         image: OG_IMAGE,
         inLanguage: 'en',
         proficiencyLevel: 'Beginner',
-        dependencies: 'Node.js 18+, @microlink/mql',
+        dependencies: 'Node.js 24+, microlink.io',
         keywords:
-          'nodejs html to pdf api, url to pdf node.js, convert webpage to pdf node, puppeteer pdf alternative, generate pdf from html node.js, @microlink/mql',
+          'nodejs html to pdf api, url to pdf node.js, convert webpage to pdf node, puppeteer pdf alternative, generate pdf from html node.js, microlink.io',
         author: {
           '@type': 'Organization',
           name: 'Microlink',
@@ -94,30 +94,30 @@ const nodejs = {
         '@id': `${PAGE_URL}#howto`,
         name: 'How to convert a URL to PDF in Node.js',
         description:
-          'Convert any URL into a PDF document in Node.js with the @microlink/mql SDK in three steps.',
+          'Convert any URL into a PDF document in Node.js with the microlink.io SDK in three steps.',
         tool: [
           { '@type': 'HowToTool', name: 'Node.js' },
-          { '@type': 'HowToTool', name: '@microlink/mql' }
+          { '@type': 'HowToTool', name: 'microlink.io' }
         ],
         step: [
           {
             '@type': 'HowToStep',
             position: 1,
             name: 'Install the SDK',
-            text: 'Run npm install @microlink/mql in your Node.js project.',
+            text: 'Run npm install microlink.io in your Node.js project.',
             url: `${PAGE_URL}#quickstart`
           },
           {
             '@type': 'HowToStep',
             position: 2,
             name: 'Convert the URL',
-            text: 'Call mql(url, { pdf: true }) with the URL you want to convert.'
+            text: 'Call microlink.pdf(url) with the URL you want to convert.'
           },
           {
             '@type': 'HowToStep',
             position: 3,
             name: 'Use the PDF URL',
-            text: 'Read the hosted document from data.pdf.url and serve it to your users.'
+            text: 'Read the hosted document from the returned url and serve it to your users.'
           }
         ]
       }
@@ -148,32 +148,29 @@ const nodejs = {
       </>
     ),
     caption:
-      '@microlink/mql is a tiny Promise-based client. Install it, point it at a URL, and you get back a hosted PDF URL — ready to embed, download, or store.',
+      'microlink.io is the official SDK: a tiny Promise-based client where every product is a method. Point it at a URL and you get back a hosted PDF URL — ready to embed, download, or store.',
     steps: [
       {
         title: 'Install the SDK',
         description:
-          'A single dependency with zero native binaries. It runs anywhere Node runs.',
-        code: { language: 'bash', source: 'npm install @microlink/mql' }
+          'A single dependency with zero native binaries, on Node.js 24 or newer.',
+        code: { language: 'bash', source: 'npm install microlink.io' }
       },
       {
         title: 'Convert any URL',
         description:
-          'Pass the page you want and set pdf: true. With async/await you get the result in one call — both CommonJS (require) and ESM (import) are supported.',
+          'Create the client once and call the pdf method. It resolves to the document itself — url, type and size — with no envelope to unwrap. Both CommonJS (require) and ESM (import) are supported.',
         code: {
           language: 'js',
           title: 'convert.js',
-          source: `import mql from '@microlink/mql'
-// CommonJS: const mql = require('@microlink/mql')
+          source: `import createClient from 'microlink.io'
+// CommonJS: const createClient = require('microlink.io')
 
-const { status, data } = await mql('https://example.com', {
-  pdf: true,
-  meta: false // skip metadata extraction for a faster response
-})
+const microlink = createClient()
 
-if (status === 'success') {
-  console.log(data.pdf.url)
-}`
+const pdf = await microlink.pdf('https://example.com')
+
+console.log(pdf.url)`
         }
       },
       {
@@ -183,13 +180,11 @@ if (status === 'success') {
         code: {
           language: 'js',
           title: 'options.js',
-          source: `const { data } = await mql('https://example.com', {
-  pdf: {
-    format: 'A4',       // A0-A6 | Letter | Legal | Tabloid
-    margin: '0.35cm',   // cm, mm, in or px
-    landscape: false,   // portrait (default) | landscape
-    scale: 1            // zoom the rendering, 0.1 to 2
-  },
+          source: `const pdf = await microlink.pdf('https://example.com', {
+  format: 'A4',         // A0-A6 | Letter | Legal | Tabloid
+  margin: '0.35cm',     // cm, mm, in or px
+  landscape: false,     // portrait (default) | landscape
+  scale: 1,             // zoom the rendering, 0.1 to 2
   mediaType: 'print',   // print CSS stylesheets | screen (default)
   waitForTimeout: 1000  // wait before generating
 })`
@@ -203,11 +198,13 @@ if (status === 'success') {
           language: 'js',
           title: 'save.js',
           source: `import { writeFile } from 'node:fs/promises'
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
-const { data } = await mql('https://example.com', { pdf: true })
+const microlink = createClient()
 
-const response = await fetch(data.pdf.url)
+const { url } = await microlink.pdf('https://example.com')
+
+const response = await fetch(url)
 const buffer = Buffer.from(await response.arrayBuffer())
 await writeFile('document.pdf', buffer)`
         }
@@ -233,19 +230,17 @@ await writeFile('document.pdf', buffer)`
           language: 'js',
           title: 'server.js',
           source: `import express from 'express'
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
 const app = express()
+const microlink = createClient()
 
 // GET /pdf?url=https://example.com
 app.get('/pdf', async (req, res) => {
-  const { data } = await mql(req.query.url, {
-    pdf: true,
-    meta: false
-  })
+  const pdf = await microlink.pdf(req.query.url)
 
-  // redirect to the hosted document, or res.json(data.pdf.url)
-  res.redirect(data.pdf.url)
+  // redirect to the hosted document, or res.json(pdf)
+  res.redirect(pdf.url)
 })
 
 app.listen(3000)`
@@ -257,20 +252,19 @@ app.listen(3000)`
         code: {
           language: 'js',
           title: 'app/api/pdf/route.js',
-          source: `import mql from '@microlink/mql'
+          source: `import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 // GET /api/pdf?url=https://example.com
 export async function GET (request) {
   const { searchParams } = new URL(request.url)
   const url = searchParams.get('url')
 
-  const { data } = await mql(url, {
-    pdf: true,
-    meta: false
-  })
+  const pdf = await microlink.pdf(url)
 
-  // redirect to the hosted document, or return data.pdf.url as JSON
-  return Response.redirect(data.pdf.url)
+  // redirect to the hosted document, or return pdf.url as JSON
+  return Response.redirect(pdf.url)
 }`
         }
       },
@@ -281,18 +275,16 @@ export async function GET (request) {
           language: 'js',
           title: 'server.js',
           source: `import Fastify from 'fastify'
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
 const fastify = Fastify()
+const microlink = createClient()
 
 // GET /pdf?url=https://example.com
 fastify.get('/pdf', async (request, reply) => {
-  const { data } = await mql(request.query.url, {
-    pdf: true,
-    meta: false
-  })
+  const pdf = await microlink.pdf(request.query.url)
 
-  return reply.redirect(data.pdf.url)
+  return reply.redirect(pdf.url)
 })
 
 await fastify.listen({ port: 3000 })`
@@ -305,7 +297,9 @@ await fastify.listen({ port: 3000 })`
           language: 'js',
           title: 'pdf.controller.ts',
           source: `import { Controller, Get, Query, Redirect } from '@nestjs/common'
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 @Controller('pdf')
 export class PdfController {
@@ -313,8 +307,8 @@ export class PdfController {
   @Get()
   @Redirect()
   async convert (@Query('url') url: string) {
-    const { data } = await mql(url, { pdf: true, meta: false })
-    return { url: data.pdf.url }
+    const pdf = await microlink.pdf(url)
+    return { url: pdf.url }
   }
 }`
         }
@@ -326,19 +320,18 @@ export class PdfController {
           language: 'js',
           title: 'server.js',
           source: `const http = require('node:http')
-const mql = require('@microlink/mql')
+const createClient = require('microlink.io')
+
+const microlink = createClient()
 
 // GET /pdf?url=https://example.com
 http
   .createServer(async (req, res) => {
     const { searchParams } = new URL(req.url, 'http://localhost')
 
-    const { data } = await mql(searchParams.get('url'), {
-      pdf: true,
-      meta: false
-    })
+    const pdf = await microlink.pdf(searchParams.get('url'))
 
-    res.writeHead(302, { Location: data.pdf.url }).end()
+    res.writeHead(302, { Location: pdf.url }).end()
   })
   .listen(3000)`
         }
@@ -371,7 +364,7 @@ http
         tone: 'positive',
         heading: 'Microlink for Node.js',
         points: [
-          'npm install @microlink/mql — pure JavaScript, zero binaries',
+          'npm install microlink.io — pure JavaScript, zero binaries',
           'Runs anywhere: serverless, edge, containers, your laptop',
           'Autoscaled managed browser fleet with a 99.9% uptime SLA',
           `Sub-second cached responses from ${CDN_EDGES} edge locations`,
@@ -405,12 +398,12 @@ http
       {
         title: 'ESM & CommonJS',
         description:
-          'Use `import mql from "@microlink/mql"` or `require("@microlink/mql")` — it works in any Node project without config.'
+          'Use `import createClient from "microlink.io"` or `require("microlink.io")` — it works in any Node project without config.'
       },
       {
         title: 'Serverless & Edge Friendly',
         description:
-          'No Chromium binary to bundle. Deploy to Vercel, AWS Lambda, or Cloudflare Workers with the lightweight build.'
+          'No Chromium binary to bundle. Deploy to Vercel, AWS Lambda, or any container — the same client also runs in browsers and Deno.'
       },
       {
         title: 'Promise-Based API',
@@ -439,7 +432,7 @@ http
       {
         title: 'Generous Free Tier',
         description:
-          'Start with 25 requests per day — no account, no credit card. Pass `apiKey` to `mql()` when you outgrow it.'
+          'Start with 25 requests per day — no account, no credit card. Pass `apiKey` to `createClient()` when you outgrow it.'
       }
     ]
   },
@@ -472,7 +465,7 @@ http
         answer: (
           <>
             <div>
-              No. <code>@microlink/mql</code> is a thin HTTP client with zero
+              No. <code>microlink.io</code> is a thin HTTP client with zero
               native dependencies — there is no Chromium binary to download and
               nothing to compile. The Headless Chrome fleet runs on Microlink's
               side.
@@ -490,8 +483,8 @@ http
         answer: (
           <>
             <div>
-              The response gives you <code>data.pdf.url</code>, a hosted
-              document on the CDN. Fetch it and write the buffer to disk, pipe
+              The call resolves to the document itself, so{' '}
+              <code>pdf.url</code> is a hosted file on the CDN. Fetch it and write the buffer to disk, pipe
               it into an upload, or redirect the browser straight to it — the
               bytes never have to pass through your server.
             </div>
@@ -511,7 +504,8 @@ http
           <>
             <div>
               Yes. The package ships its own type definitions, so the{' '}
-              <code>mql()</code> client and every PDF option are typed and
+              <code>createClient()</code> client and every PDF option are typed
+              and
               autocomplete in your editor — no <code>@types</code> package
               required.
             </div>
@@ -525,25 +519,24 @@ http
             <div>
               Yes. Because there is no browser binary to bundle, it works inside
               Next.js Route Handlers, AWS Lambda, and Vercel functions out of
-              the box. For the Edge runtime, import the lightweight build:{' '}
-              <code>@microlink/mql/lightweight</code>.
+              the box, on Node.js 24 or newer. The same client also runs in
+              browsers and Deno.
             </div>
             <div>
               See the{' '}
-              <Link href='/docs/mql/getting-started/installation'>
-                installation guide
-              </Link>{' '}
+              <Link href='/docs/sdk/getting-started/overview'>SDK overview</Link>{' '}
               for runtime details.
             </div>
           </>
         )
       },
       {
-        question: 'How do I use my API key with mql?',
+        question: 'How do I use my API key?',
         answer: (
           <>
             <div>
-              Pass <code>apiKey</code> in the options object. The SDK sends it
+              Pass <code>apiKey</code> to <code>createClient()</code>. The SDK
+              sends it
               as the <code>x-api-key</code> header and switches the request to{' '}
               <code>pro.microlink.io</code> for you, so there is no endpoint to
               change by hand.
@@ -591,7 +584,7 @@ http
       'Get 25 requests/day with zero commitment — no account and no credit card. Install the SDK and ship your first PDF in minutes.',
     primary: {
       label: 'Read the Node.js docs',
-      href: '/docs/mql/getting-started/installation'
+      href: '/docs/sdk/getting-started/overview'
     },
     secondary: { label: 'See pricing', href: '/pricing' },
     badges: ['No login needed', '25 reqs/day free', 'No credit card']
