@@ -42,11 +42,11 @@ export const DOC_TABS = [
     name: 'GUIDES',
     path: '/docs/guides'
   },
+  { name: 'SDK', path: '/docs/sdk/getting-started/overview' },
   {
     name: 'MQL',
     path: '/docs/mql/getting-started/overview'
   },
-  { name: 'SDK', path: '/docs/sdk/getting-started/overview' },
   {
     name: 'CARDS',
     path: '/docs/cards/getting-started/overview'
@@ -84,12 +84,12 @@ const ROUTES_SDK = [
         href: '/docs/sdk/methods/content/'
       },
       {
-        name: 'Collections',
-        href: '/docs/sdk/methods/collections/'
-      },
-      {
         name: 'Specialized',
         href: '/docs/sdk/methods/specialized/'
+      },
+      {
+        name: 'Collections',
+        href: '/docs/sdk/methods/collections/'
       }
     ]
   }

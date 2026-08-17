@@ -11,13 +11,11 @@ import LineBreak from 'components/elements/LineBreak'
 import Text from 'components/elements/Text'
 
 import { GitHub as GitHubIcon } from 'components/icons/GitHub'
-import { SectionCaption } from 'components/pages/search/Sections'
 import Caption from 'components/patterns/Caption/Caption'
 
 import {
   ACCENT,
   INSTALL_SNIPPET,
-  PACKAGE_NAME,
   REPOSITORY_URL,
   Section
 } from 'components/pages/sdk/shared'
@@ -134,6 +132,7 @@ const HeroQuickStart = () => (
     id='install'
     css={theme({
       pt: [4, 4, 5, 5],
+      pb: [3, 3, 4, 4],
       width: '100%',
       maxWidth: '480px',
       minWidth: 0
@@ -165,19 +164,6 @@ const HeroQuickStart = () => (
     >
       {INSTALL_SNIPPET}
     </CodeEditor>
-    <Text
-      css={theme({
-        m: 0,
-        pt: 2,
-        color: 'black60',
-        fontSize: [0, 0, 1, 1],
-        lineHeight: 2
-      })}
-    >
-      <code>createClient()</code> runs on the free tier — pass an{' '}
-      <code>apiKey</code> to unlock pro quotas, sent as the{' '}
-      <code>x-api-key</code> header.
-    </Text>
   </Box>
 )
 
@@ -193,9 +179,6 @@ const Hero = () => (
         width: '100%'
       })}
     >
-      <SectionCaption bg='blue0' color={colors.blue7}>
-        {PACKAGE_NAME}
-      </SectionCaption>
       <Heading variant={null} css={theme({ textAlign: 'center' })}>
         The official <span css={theme({ color: ACCENT })}>SDK</span>
         <LineBreak />
@@ -214,37 +197,7 @@ const Hero = () => (
         screenshots, PDFs, metadata, scraping, search — in Node.js, browsers,
         and Deno.
       </Caption>
-      <Flex
-        css={theme({
-          pt: [3, 3, 4, 4],
-          gap: [2, 2, 3, 3],
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'center'
-        })}
-      >
-        <Button
-          as='a'
-          href='#install'
-          variant='black'
-          data-event-location='SDK Hero'
-          data-event-name='Install now'
-        >
-          <Flex
-            as='span'
-            css={theme({
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 2,
-              whiteSpace: 'nowrap'
-            })}
-          >
-            <ButtonIcon>
-              <Package width={16} height={16} />
-            </ButtonIcon>
-            Install now
-          </Flex>
-        </Button>
+      <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <Button
           as='a'
           href={REPOSITORY_URL}
@@ -269,7 +222,7 @@ const Hero = () => (
             View on GitHub
           </Flex>
         </Button>
-      </Flex>
+      </Box>
       <HeroQuickStart />
       <Box
         as='ul'

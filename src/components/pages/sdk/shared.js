@@ -54,6 +54,12 @@ export const METHOD_GROUPS = [
     },
     methods: [
       {
+        title: 'screenshot',
+        icon: Camera,
+        description:
+          'Any URL as a hosted image — full page, device emulation, custom CSS.'
+      },
+      {
         title: 'metadata',
         icon: Tag,
         description:
@@ -71,21 +77,15 @@ export const METHOD_GROUPS = [
         description: 'Fully rendered HTML, captured after JavaScript runs.'
       },
       {
-        title: 'text',
-        icon: AlignLeft,
-        description: 'Readable plain text with the markup stripped out.'
-      },
-      {
-        title: 'screenshot',
-        icon: Camera,
-        description:
-          'Any URL as a hosted image — full page, device emulation, custom CSS.'
-      },
-      {
         title: 'pdf',
         icon: Printer,
         description:
           'Print any URL to PDF with format, margin, and scale control.'
+      },
+      {
+        title: 'embed',
+        icon: Layout,
+        description: 'oEmbed-style iframe HTML for rich cards.'
       },
       {
         title: 'logo',
@@ -94,9 +94,61 @@ export const METHOD_GROUPS = [
           'The brand logo behind any URL, with an optional color palette.'
       },
       {
-        title: 'embed',
-        icon: Layout,
-        description: 'oEmbed-style iframe HTML for rich cards.'
+        title: 'text',
+        icon: AlignLeft,
+        description: 'Readable plain text with the markup stripped out.'
+      }
+    ]
+  },
+  {
+    id: 'specialized',
+    label: 'Specialized',
+    caption:
+      'Deeper capabilities — remote code execution, search, custom extraction, and tech detection.',
+    accent: {
+      dot: colors.violet6,
+      icon: colors.violet7,
+      chipBg: 'violet0',
+      chipBorder: 'violet2',
+      shadow: 'rgba(121, 80, 242, 0.45)'
+    },
+    methods: [
+      {
+        title: 'run',
+        icon: Play,
+        description:
+          'Execute your own JavaScript against a live page and get the value back.'
+      },
+      {
+        title: 'search',
+        icon: Search,
+        description:
+          'Google results as structured data, with built-in pagination and per-result expansion.'
+      },
+      {
+        title: 'video',
+        icon: Film,
+        description: 'The primary video as a direct, playable asset.'
+      },
+      {
+        title: 'audio',
+        icon: Headphones,
+        description: 'The primary audio track as a direct asset.'
+      },
+      {
+        title: 'extract',
+        icon: Filter,
+        description: 'Typed values pulled with CSS selector rules.'
+      },
+      {
+        title: 'technologies',
+        icon: Layers,
+        description: 'The tech stack powering any site.'
+      },
+      {
+        title: 'lighthouse',
+        icon: Activity,
+        description: 'A full Lighthouse report for any URL.'
       }
     ]
   },
@@ -136,58 +188,6 @@ export const METHOD_GROUPS = [
         title: 'emails',
         icon: AtSign,
         description: 'Addresses found in mailto links and plain text.'
-      }
-    ]
-  },
-  {
-    id: 'specialized',
-    label: 'Specialized',
-    caption:
-      'Deeper capabilities — custom extraction, tech detection, search, and remote code execution.',
-    accent: {
-      dot: colors.violet6,
-      icon: colors.violet7,
-      chipBg: 'violet0',
-      chipBorder: 'violet2',
-      shadow: 'rgba(121, 80, 242, 0.45)'
-    },
-    methods: [
-      {
-        title: 'video',
-        icon: Film,
-        description: 'The primary video as a direct, playable asset.'
-      },
-      {
-        title: 'audio',
-        icon: Headphones,
-        description: 'The primary audio track as a direct asset.'
-      },
-      {
-        title: 'extract',
-        icon: Filter,
-        description: 'Typed values pulled with CSS selector rules.'
-      },
-      {
-        title: 'technologies',
-        icon: Layers,
-        description: 'The tech stack powering any site.'
-      },
-      {
-        title: 'lighthouse',
-        icon: Activity,
-        description: 'A full Lighthouse report for any URL.'
-      },
-      {
-        title: 'search',
-        icon: Search,
-        description:
-          'Google results as structured data, with built-in pagination and per-result expansion.'
-      },
-      {
-        title: 'run',
-        icon: Play,
-        description:
-          'Execute your own JavaScript against a live page and get the value back.'
       }
     ]
   }

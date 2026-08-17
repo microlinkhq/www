@@ -1,6 +1,8 @@
 import React from 'react'
 
+import Box from 'components/elements/Box'
 import Meta from 'components/elements/Meta/Meta'
+import { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
 import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
 import OpenSource, { getRepoStars } from 'components/patterns/OpenSource'
@@ -59,21 +61,24 @@ export const Head = () => (
 )
 
 const SdkPage = () => (
-  <Layout>
-    <Hero />
-    <Methods />
-    <Examples />
-    <OpenSource
-      repos={REPOS}
-      accent={ACCENT}
-      caption='The SDK, the transport layer beneath it, and the terminal experience on top are all developed in the open. Explore the code, contribute, or run it yourself — MIT licensed.'
-    />
-    <Faq
-      css={theme({ py: SECTION_VERTICAL_SPACING })}
-      title='FAQ'
-      caption='Everything about the microlink.io package.'
-      questions={QUESTIONS}
-    />
+  <Layout css={theme({ position: 'relative' })}>
+    <DashedGridOverlay aria-hidden='true' />
+    <Box css={theme({ position: 'relative', zIndex: 1 })}>
+      <Hero />
+      <Methods />
+      <Examples />
+      <OpenSource
+        repos={REPOS}
+        accent={ACCENT}
+        caption='The SDK, the transport layer beneath it, and the terminal experience on top are all developed in the open. Explore the code, contribute, or run it yourself — MIT licensed.'
+      />
+      <Faq
+        css={theme({ py: SECTION_VERTICAL_SPACING })}
+        title='FAQ'
+        caption='Everything about the microlink.io package.'
+        questions={QUESTIONS}
+      />
+    </Box>
   </Layout>
 )
 
