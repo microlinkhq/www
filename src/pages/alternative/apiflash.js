@@ -374,7 +374,13 @@ const COMPARISON_DATA = [
     apiflash: false
   },
   {
-    feature: 'Link previews SDK',
+    feature: 'Link previews',
+    note: (
+      <>
+        <Link href='/link-preview'>Link preview API</Link> returns the oEmbed
+        iframe, card fields, and media in one call.
+      </>
+    ),
     microlink: true,
     apiflash: false,
     highlight: true
@@ -401,7 +407,17 @@ const COMPARISON_DATA = [
   { feature: 'Lighthouse audits', microlink: true, apiflash: false },
   { feature: 'Technology detection', microlink: true, apiflash: false },
   { feature: 'Color palette extraction', microlink: true, apiflash: false },
-  { feature: 'Typed SDKs (React/Vue/JS)', microlink: true, apiflash: false },
+  {
+    feature: 'Link preview components (React/Vue/JS)',
+    note: (
+      <>
+        Drop-in <Link href='/docs/guides/embed/sdk'>Embed SDK</Link> component
+        for React, Vue, and vanilla JS.
+      </>
+    ),
+    microlink: true,
+    apiflash: false
+  },
   {
     feature: 'S3 direct upload',
     microlink: false,

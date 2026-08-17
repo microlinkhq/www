@@ -1,12 +1,12 @@
 ---
 title: 'Jekyll'
-description: 'Learn how to integrate Microlink SDK with Jekyll to create beautiful link previews in your blog posts. Use simple Markdown to automate URL-to-preview conversion.'
+description: 'Learn how to integrate the Microlink Embed SDK with Jekyll to create beautiful link previews in your blog posts. Use simple Markdown to automate URL-to-preview conversion.'
 ---
 
 import { Microlink } from 'components/markdown/Microlink'
 
 
-> **The legacy Microlink SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
+> **The legacy Microlink Embed SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
 
 The [Jekyll](https://jekyllrb.com/) integration is pretty similar to the [Vanilla](/docs/sdk-legacy/integrations/vanilla/) approach.
 

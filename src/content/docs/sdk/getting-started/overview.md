@@ -47,11 +47,11 @@ Any other option passed to `createClient` is merged into every API call, which m
 Every product is a method on the client:
 
 - [Content](/docs/sdk/methods/content) — `metadata`, `markdown`, `html`, `text`, `screenshot`, `pdf`, `logo`, `embed`.
+- [Specialized](/docs/sdk/methods/specialized) — `run`, `search`, `video`, `audio`, `extract`, `technologies`, `lighthouse`.
 - [Collections](/docs/sdk/methods/collections) — `links`, `images`, `videos`, `audios`, `emails`.
-- [Specialized](/docs/sdk/methods/specialized) — `video`, `audio`, `extract`, `technologies`, `lighthouse`, `search`, `run`.
 
 ## How it fits together
 
 The SDK is a thin semantic layer over [@microlink/mql](/docs/mql/getting-started/overview): HTTP, authentication, retries, errors, and binary handling are already solved there. Each method sets the right API parameters and unwraps the result for you. Installing the package also ships a [`microlink` binary](/docs/sdk/getting-started/cli) where every product is a subcommand.
 
-Looking for the previous Microlink SDK, the drop-in link preview component for React, Vue, and vanilla JavaScript? Its documentation lives at [SDK legacy](/docs/sdk-legacy/getting-started/overview/). It keeps working, but it's no longer maintained.
+Looking for the legacy Microlink Embed SDK, the drop-in link preview component for React, Vue, and vanilla JavaScript? Its documentation lives at [SDK legacy](/docs/sdk-legacy/getting-started/overview/). It keeps working, but it's no longer maintained.

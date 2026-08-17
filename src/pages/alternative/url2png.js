@@ -124,7 +124,13 @@ const COMPARISON_DATA = [
     highlight: true
   },
   {
-    feature: 'Link previews SDK',
+    feature: 'Link previews',
+    note: (
+      <>
+        <Link href='/link-preview'>Link preview API</Link> returns the oEmbed
+        iframe, card fields, and media in one call.
+      </>
+    ),
     microlink: true,
     url2png: false,
     highlight: true

@@ -1,6 +1,6 @@
 ---
 title: 'Embed: Generate custom previews with AI'
-description: 'Skip the SDK and ship link previews styled to your project. Use the Microlink metadata API for the data and let Cursor, Claude Code, or any AI coding assistant generate the markup that matches your existing design system.'
+description: 'Skip the Embed SDK and ship link previews styled to your project. Use the Microlink metadata API for the data and let Cursor, Claude Code, or any AI coding assistant generate the markup that matches your existing design system.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
@@ -27,12 +27,12 @@ The same metadata response powers every recipe below. Show it to your assistant 
 
 <Figcaption>For the full field list, <code>palette</code>, <code>screenshot</code>, <code>filter</code>, and the security model, see <Link href='/docs/guides/embed/metadata-api' children='metadata API with custom HTML/CSS' />.</Figcaption>
 
-## Why prompt your assistant instead of using the SDK
+## Why prompt your assistant instead of using the Embed SDK
 
-- **No bundle cost.** No SDK install, no peer dependencies (`react`, `react-dom`, `styled-components`).
+- **No bundle cost.** No Embed SDK install, no peer dependencies (`react`, `react-dom`, `styled-components`).
 - **Matches your design system exactly.** Your assistant already knows your tokens, components, and conventions — let it use them.
 - **Server-renderable.** The result is plain HTML/JSX, so it works in SSR, RSC, static sites, emails, and Markdown.
-- **Easy to evolve.** When the design system changes, regenerate the card with the same prompt — no SDK upgrade dance.
+- **Easy to evolve.** When the design system changes, regenerate the card with the same prompt — no Embed SDK upgrade dance.
 
 ## The base prompt
 
@@ -40,7 +40,7 @@ Paste this into Cursor, Claude Code, or your IDE's AI assistant before asking fo
 
 ```text
 I want to add link previews to this project without installing the
-Microlink SDK. Instead, fetch the metadata directly from the API:
+Microlink Embed SDK. Instead, fetch the metadata directly from the API:
 
   GET https://api.microlink.io?url=<TARGET_URL>
 

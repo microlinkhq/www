@@ -1,11 +1,11 @@
 ---
 title: 'Vue'
-description: 'Integrate beautiful link previews into Vue.js apps using the official Microlink SDK. Supports global registration, custom props, and CSS variable styling.'
+description: 'Integrate beautiful link previews into Vue.js apps using the official Microlink Embed SDK. Supports global registration, custom props, and CSS variable styling.'
 ---
 
 import { Microlink } from 'components/markdown/Microlink'
 
-> **The legacy Microlink SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
+> **The legacy Microlink Embed SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
 
 It's available as [npm package](https://www.npmjs.com/package/@microlink/vue).
 

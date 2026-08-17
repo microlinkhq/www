@@ -218,10 +218,7 @@ const REASON_TO_USE = [
       <>
         Built on the <Link href='/markdown'>Microlink Markdown API</Link>.
         Integrate with any language via REST or the{' '}
-        <Link href='https://www.npmjs.com/package/@microlink/mql'>
-          @microlink/mql
-        </Link>{' '}
-        SDK.
+        <Link href='/integrations/sdk'>Microlink SDK</Link>.
       </>
     )
   }
@@ -2621,12 +2618,8 @@ const ProductInformation = () => (
               Node.js, Python, Ruby, or plain cURL.
             </div>
             <div>
-              Use the{' '}
-              <Link href='https://www.npmjs.com/package/@microlink/mql'>
-                @microlink/mql
-              </Link>{' '}
-              SDK for Node.js, or hit the API directly from any HTTP client.
-              Check the{' '}
+              Use the <Link href='/integrations/sdk'>Microlink SDK</Link> for
+              Node.js, or hit the API directly from any HTTP client. Check the{' '}
               <Link href='/docs/guides/data-extraction/delivery-and-response'>
                 data delivery guide
               </Link>{' '}
@@ -2779,7 +2772,7 @@ export const Head = () => (
             name: 'Can I integrate URL to markdown conversion into my app?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. This tool is built on the Microlink Markdown API, which provides a simple REST endpoint. Integrate with any language — Node.js, Python, Ruby, or plain cURL. Use the @microlink/mql SDK for Node.js, or hit the API directly from any HTTP client.'
+              text: 'Yes. This tool is built on the Microlink Markdown API, which provides a simple REST endpoint. Integrate with any language — Node.js, Python, Ruby, or plain cURL. Use the Microlink SDK for Node.js, or hit the API directly from any HTTP client.'
             }
           }
         ]

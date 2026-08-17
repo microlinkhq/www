@@ -242,7 +242,17 @@ const COMPARISON_DATA = [
   },
   { feature: 'MCP server', microlink: true, contextdev: true },
   { feature: 'CLI', microlink: true, contextdev: true },
-  { feature: 'SDKs (multiple languages)', microlink: true, contextdev: true },
+  {
+    feature: 'Official JavaScript SDK',
+    note: (
+      <>
+        <Link href='/integrations/sdk'>microlink.io</Link> — every product as
+        one method in Node.js, browsers, and Deno.
+      </>
+    ),
+    microlink: true,
+    contextdev: true
+  },
   {
     feature: 'Markdown + metadata + logo + screenshot in one request',
     microlink: true,
@@ -293,7 +303,13 @@ const COMPARISON_DATA = [
     contextdev: false
   },
   {
-    feature: 'Link previews SDK (React/Vue/JS)',
+    feature: 'Link previews',
+    note: (
+      <>
+        <Link href='/link-preview'>Link preview API</Link> returns the oEmbed
+        iframe, card fields, and media in one call.
+      </>
+    ),
     microlink: true,
     contextdev: false
   },

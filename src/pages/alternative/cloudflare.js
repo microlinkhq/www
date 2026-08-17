@@ -293,7 +293,17 @@ const COMPARISON_DATA = [
     microlink: true,
     cloudflare: false
   },
-  { feature: 'Link previews SDK', microlink: true, cloudflare: false },
+  {
+    feature: 'Link previews',
+    note: (
+      <>
+        <Link href='/link-preview'>Link preview API</Link> returns the oEmbed
+        iframe, card fields, and media in one call.
+      </>
+    ),
+    microlink: true,
+    cloudflare: false
+  },
   { feature: 'Browser chrome overlay', microlink: true, cloudflare: false },
   {
     feature: 'Dark/light mode capture',

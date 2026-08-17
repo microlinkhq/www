@@ -1,12 +1,12 @@
 ---
 title: 'autoPlay'
-description: 'Control the media playback behavior of your link previews. Use the autoPlay parameter to enable or disable automatic video and audio playback for Microlink SDK components.'
+description: 'Control the media playback behavior of your link previews. Use the autoPlay parameter to enable or disable automatic video and audio playback for Microlink Embed SDK components.'
 ---
 
 import { DemoIntegrations } from 'components/markdown/DemoIntegrations'
 import { Type } from 'components/markdown/Type'
 
-> **The legacy Microlink SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
+> **The legacy Microlink Embed SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
 
 Type: <Type children='<boolean>'/><br/>
 Default: <Type children='true'/>

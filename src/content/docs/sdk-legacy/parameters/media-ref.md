@@ -6,7 +6,7 @@ description: 'Access the underlying DOM reference of the media component using t
 import { Type, TypeContainer } from 'components/markdown/Type'
 import { Microlink } from 'components/markdown/Microlink'
 
-> **The legacy Microlink SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
+> **The legacy Microlink Embed SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
 
 Type: <TypeContainer><Type children='<object>'/> | <Type children='<function>'/></TypeContainer>
 

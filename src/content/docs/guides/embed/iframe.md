@@ -10,7 +10,7 @@ import { Link } from 'components/elements/Link'
 
 The `iframe` parameter asks Microlink to discover the provider's official interactive embed for the target URL — a real YouTube player, a Spotify track, a Tweet widget, a Vimeo video. When discovery succeeds, the response includes a new `iframe` field with HTML and any required scripts.
 
-This is the right path when the goal is *the experience the source provides*: playable media, interactive widgets, or anything that is not just a thumbnail and title. If you want a wrapper component that handles the injection for you, see <Link href='/docs/guides/embed/sdk' children='SDK' /> with `media='iframe'`. If you want a styled card built from JSON, see <Link href='/docs/guides/embed/metadata-api' children='metadata API + custom HTML' />.
+This is the right path when the goal is *the experience the source provides*: playable media, interactive widgets, or anything that is not just a thumbnail and title. If you want a wrapper component that handles the injection for you, see <Link href='/docs/guides/embed/sdk' children='Embed SDK' /> with `media='iframe'`. If you want a styled card built from JSON, see <Link href='/docs/guides/embed/metadata-api' children='metadata API + custom HTML' />.
 
 ## What the iframe field returns
 
@@ -97,7 +97,7 @@ function ProviderEmbed ({ url }) {
 }
 ```
 
-For React, the SDK already handles this — see <Link href='/docs/guides/embed/sdk' children='SDK' /> and pass `media="iframe"`.
+For React, the Embed SDK already handles this — see <Link href='/docs/guides/embed/sdk' children='Embed SDK' /> and pass `media="iframe"`.
 
 #### Server-side rendering
 
@@ -115,15 +115,15 @@ res.send(`
 `)
 ```
 
-## When to use iframe vs SDK vs custom HTML
+## When to use iframe vs Embed SDK vs custom HTML
 
 | If you want | Use |
 |-------------|-----|
 | The provider's *real* interactive player or widget | iframe parameter (this page) |
-| A drop-in component with fetching, lazy-loading, and theming | <Link href='/docs/guides/embed/sdk' children='SDK' /> with `media="iframe"` |
+| A drop-in component with fetching, lazy-loading, and theming | <Link href='/docs/guides/embed/sdk' children='Embed SDK' /> with `media="iframe"` |
 | A static rich card, fully styled by you | <Link href='/docs/guides/embed/metadata-api' children='metadata API + custom HTML' /> |
 
-The SDK and the iframe parameter are not alternatives — the SDK consumes the same `iframe` field internally when you set `media="iframe"`. Pick the SDK if you want the wrapping component to also handle the loading state, lazy-loading, and CSS theming. Pick the raw `iframe` parameter if you want the markup and nothing else.
+The Embed SDK and the iframe parameter are not alternatives — the Embed SDK consumes the same `iframe` field internally when you set `media="iframe"`. Pick the Embed SDK if you want the wrapping component to also handle the loading state, lazy-loading, and CSS theming. Pick the raw `iframe` parameter if you want the markup and nothing else.
 
 ## Customize the iframe with oEmbed options
 
@@ -171,7 +171,7 @@ You usually want both — the iframe for playback, the metadata for the surround
 
 <Figcaption>One request returns the player, the title and description, the publisher logo, and brand colors — enough to render a full provider-styled card.</Figcaption>
 
-This is also why the SDK works the way it does: it requests `iframe`, `audio`, `video`, `image`, `logo` together and picks the best media available per URL.
+This is also why the Embed SDK works the way it does: it requests `iframe`, `audio`, `video`, `image`, `logo` together and picks the best media available per URL.
 
 ## Security and sandboxing
 
@@ -185,4 +185,4 @@ The HTML returned by Microlink mirrors what the provider hands out via oEmbed, s
 
 ## Next step
 
-For a wrapper component that handles the iframe injection plus loading/lazy/theming for you, see <Link href='/docs/guides/embed/sdk' children='SDK' />.
+For a wrapper component that handles the iframe injection plus loading/lazy/theming for you, see <Link href='/docs/guides/embed/sdk' children='Embed SDK' />.

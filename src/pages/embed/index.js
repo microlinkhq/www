@@ -878,7 +878,7 @@ const CAPABILITIES = [
         <line x1='12' y1='22.08' x2='12' y2='12' />
       </svg>
     ),
-    title: 'Microlink SDK component',
+    title: 'Microlink Embed SDK component',
     description:
       'Drop in <Microlink /> for React, Vue, or vanilla JS — under 10KB, lazy-loaded by default. Pass any URL and let the SDK fetch, theme, and render it. Customizable through props, CSS variables, and stable BEM class hooks.',
     links: [{ label: 'Explore the SDK', href: '/docs/guides/embed/sdk' }]
@@ -1959,7 +1959,7 @@ const TOP_FAQ_ITEMS = [
         <div>
           The{' '}
           <Link href='/docs/sdk-legacy/getting-started/overview/'>
-            Microlink SDK
+            Microlink Embed SDK
           </Link>{' '}
           does the same thing zero-code:{' '}
           <code>
@@ -2439,7 +2439,10 @@ const EmbedPage = () => {
                     the workflow in the{' '}
                     <Link href='/docs/guides/embed'>embed guide</Link> — or skip
                     the markup with the{' '}
-                    <Link href='/docs/guides/embed/sdk'>Microlink SDK</Link>.
+                    <Link href='/docs/guides/embed/sdk'>
+                      Microlink Embed SDK
+                    </Link>
+                    .
                   </>
                 }
                 features={EMBED_FEATURES}

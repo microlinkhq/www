@@ -51,7 +51,12 @@ export const DOC_TABS = [
     name: 'CARDS',
     path: '/docs/cards/getting-started/overview'
   },
-  { name: 'Skills', path: '/skills', icon: Sparkles }
+  { name: 'Skills', path: '/skills', icon: Sparkles },
+  {
+    name: 'SDK LEGACY',
+    path: '/docs/sdk-legacy/getting-started/overview',
+    muted: true
+  }
 ]
 
 const ROUTES_SDK = [

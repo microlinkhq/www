@@ -1,11 +1,11 @@
 ---
 title: 'Styling'
-description: 'Customize the look and feel of your link previews using CSS variables and BEM classes. Learn how to style Microlink SDK components to match your brand design system.'
+description: 'Customize the look and feel of your link previews using CSS variables and BEM classes. Learn how to style Microlink Embed SDK components to match your brand design system.'
 ---
 
 import { Color } from 'components/markdown/Color/Color'
 
-> **The legacy Microlink SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
+> **The legacy Microlink Embed SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
 
 We don't inject any CSS into your application.
 

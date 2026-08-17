@@ -72,9 +72,9 @@ If you need the URL to change when source content changes (cache busting), appen
 
 Bumping `v` invalidates downstream caches without touching Microlink's behavior.
 
-## SDK lazy-loading
+## Embed SDK lazy-loading
 
-The SDK uses `IntersectionObserver` and only fires its API call when each preview enters the viewport. Pages with hundreds of embedded links still hit a fast first paint. To preload above-the-fold cards, tighten the lazy options:
+The Embed SDK uses `IntersectionObserver` and only fires its API call when each preview enters the viewport. Pages with hundreds of embedded links still hit a fast first paint. To preload above-the-fold cards, tighten the lazy options:
 
 ```jsx
 <Microlink url='...' lazy={{ rootMargin: '400px' }} />

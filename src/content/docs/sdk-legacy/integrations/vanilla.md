@@ -6,7 +6,7 @@ description: 'Add beautiful link previews to any website with Microlink Vanilla.
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Microlink } from 'components/markdown/Microlink'
 
-> **The legacy Microlink SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
+> **The legacy Microlink Embed SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
 
 It's available as [npm package](https://www.npmjs.com/package/@microlink/vanilla).
 

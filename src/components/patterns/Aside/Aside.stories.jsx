@@ -8,11 +8,11 @@ const ROUTES_SDK = [
     posts: [
       {
         name: 'Overview',
-        href: '/docs/sdk/getting-started/overview/'
+        href: '/docs/sdk-legacy/getting-started/overview/'
       },
       {
         name: 'Considerations',
-        href: '/docs/sdk/getting-started/considerations/'
+        href: '/docs/sdk-legacy/getting-started/considerations/'
       }
     ]
   },
@@ -21,15 +21,15 @@ const ROUTES_SDK = [
     posts: [
       {
         name: 'React',
-        href: '/docs/sdk/integrations/react/'
+        href: '/docs/sdk-legacy/integrations/react/'
       },
       {
         name: 'Vanilla',
-        href: '/docs/sdk/integrations/vanilla/'
+        href: '/docs/sdk-legacy/integrations/vanilla/'
       },
       {
         name: 'Jekyll',
-        href: '/docs/sdk/integrations/jekyll/'
+        href: '/docs/sdk-legacy/integrations/jekyll/'
       }
     ]
   },
@@ -38,50 +38,50 @@ const ROUTES_SDK = [
     posts: [
       {
         name: 'url',
-        href: '/docs/sdk/parameters/url/'
+        href: '/docs/sdk-legacy/parameters/url/'
       },
       {
         name: 'apiKey',
-        href: '/docs/sdk/parameters/api-key/'
+        href: '/docs/sdk-legacy/parameters/api-key/'
       },
       {
         name: 'setData',
-        href: '/docs/sdk/parameters/set-data/'
+        href: '/docs/sdk-legacy/parameters/set-data/'
       },
       {
         name: 'contrast',
-        href: '/docs/sdk/parameters/contrast/'
+        href: '/docs/sdk-legacy/parameters/contrast/'
       },
       {
         name: 'media',
-        href: '/docs/sdk/parameters/media/'
+        href: '/docs/sdk-legacy/parameters/media/'
       },
       {
         name: 'direction',
-        href: '/docs/sdk/parameters/direction/'
+        href: '/docs/sdk-legacy/parameters/direction/'
       },
       {
         name: 'size',
-        href: '/docs/sdk/parameters/size/'
+        href: '/docs/sdk-legacy/parameters/size/'
       },
       {
         name: 'media',
         posts: [
           {
             name: 'controls',
-            href: '/docs/sdk/parameters/media/controls/'
+            href: '/docs/sdk-legacy/parameters/media/controls/'
           },
           {
             name: 'muted',
-            href: '/docs/sdk/parameters/media/muted/'
+            href: '/docs/sdk-legacy/parameters/media/muted/'
           },
           {
             name: 'loop',
-            href: '/docs/sdk/parameters/media/loop/'
+            href: '/docs/sdk-legacy/parameters/media/loop/'
           },
           {
             name: 'autoPlay',
-            href: '/docs/sdk/parameters/media/auto-play/'
+            href: '/docs/sdk-legacy/parameters/media/auto-play/'
           }
         ]
       }

@@ -107,7 +107,7 @@ const REASON_TO_USE = [
       <>
         Pick a card layout, theme the colors, set fonts and borders — no CSS.
         Power users can drop in the{' '}
-        <Link href='/docs/guides/embed/sdk'>Microlink SDK</Link> for full
+        <Link href='/docs/guides/embed/sdk'>Microlink Embed SDK</Link> for full
         control.
       </>
     )
@@ -171,7 +171,7 @@ const USE_CASES = [
     ],
     link: {
       href: '/docs/guides/embed/sdk',
-      alt: 'Microlink SDK embed guide',
+      alt: 'Microlink Embed SDK guide',
       text: 'Use the SDK'
     }
   }
@@ -512,8 +512,8 @@ const EmbedApiDocsCard = () => (
         })}
       >
         Read the full embed guide — iframe parameter, custom HTML/CSS,
-        AI-generated previews, and the Microlink SDK across React, Vue, and
-        vanilla JS.
+        AI-generated previews, and the Microlink Embed SDK across React, Vue,
+        and vanilla JS.
       </Caption>
       <Flex
         css={theme({
@@ -681,7 +681,7 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              The tool falls back to a Microlink SDK card and gives you a
+              The tool falls back to a Microlink Embed SDK card and gives you a
               vanilla HTML snippet that includes the{' '}
               <code>microlink.min.js</code> script from jsDelivr. Paste it
               anywhere — the SDK upgrades the link into a card on page load.
@@ -689,7 +689,7 @@ const ProductInformation = () => (
             <div>
               For React or Vue, drop in the{' '}
               <Link href='/docs/sdk-legacy/getting-started/overview/'>
-                Microlink SDK
+                Microlink Embed SDK
               </Link>{' '}
               component instead — same data, framework-native rendering.
             </div>
@@ -703,7 +703,7 @@ const ProductInformation = () => (
             <div>
               Yes. The{' '}
               <Link href='/docs/sdk-legacy/getting-started/styling/'>
-                Microlink SDK
+                Microlink Embed SDK
               </Link>{' '}
               exposes CSS variables (<code>--microlink-background-color</code>,{' '}
               <code>--microlink-max-width</code>) and stable BEM class hooks for
@@ -760,13 +760,10 @@ const ProductInformation = () => (
               static site.
             </div>
             <div>
-              Use the{' '}
-              <Link href='https://www.npmjs.com/package/@microlink/mql'>
-                @microlink/mql
-              </Link>{' '}
-              SDK for Node.js, or drop in the{' '}
+              Use the <Link href='/integrations/sdk'>Microlink SDK</Link> for
+              Node.js, or drop in the{' '}
               <Link href='/docs/sdk-legacy/getting-started/overview/'>
-                Microlink SDK
+                Microlink Embed SDK
               </Link>{' '}
               for React, Vue, or vanilla JS.
             </div>
@@ -823,7 +820,7 @@ export const Head = () => (
         },
         featureList: [
           'Embed any URL as iframe HTML',
-          'Microlink SDK card fallback',
+          'Microlink Embed SDK card fallback',
           'Copy ready-to-paste HTML',
           '300+ oEmbed providers',
           'Edge-cached responses',
@@ -863,7 +860,7 @@ export const Head = () => (
             name: 'What does the embed code generator do?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Paste any URL and the tool calls the Microlink Embed API with the iframe parameter. When the provider supports an iframe embed, you get the ready-to-paste HTML. For URLs without a player, the tool falls back to a Microlink SDK card preview with a vanilla SDK snippet.'
+              text: 'Paste any URL and the tool calls the Microlink Embed API with the iframe parameter. When the provider supports an iframe embed, you get the ready-to-paste HTML. For URLs without a player, the tool falls back to a Microlink Embed SDK card preview with a vanilla SDK snippet.'
             }
           },
           {
@@ -879,7 +876,7 @@ export const Head = () => (
             name: 'What happens if a URL has no iframe?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'The tool falls back to a Microlink SDK card and gives you a vanilla HTML snippet that includes microlink.min.js from jsDelivr. Paste it anywhere — the SDK upgrades the link into a card on page load.'
+              text: 'The tool falls back to a Microlink Embed SDK card and gives you a vanilla HTML snippet that includes microlink.min.js from jsDelivr. Paste it anywhere — the SDK upgrades the link into a card on page load.'
             }
           },
           {
@@ -925,9 +922,9 @@ const EmbedUrlPage = () => (
       }
       caption={
         <>
-          One API to embed any URL — iframe HTML when supported, Microlink SDK
-          card otherwise. See the <Link href='/embed'>embed landing</Link> for
-          the full picture.
+          One API to embed any URL — iframe HTML when supported, Microlink Embed
+          SDK card otherwise. See the <Link href='/embed'>embed landing</Link>{' '}
+          for the full picture.
         </>
       }
       features={FEATURES_LIST}

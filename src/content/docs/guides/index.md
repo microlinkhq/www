@@ -107,13 +107,13 @@ Extract normalized metadata from any URL, narrow the field set to what you actua
 
 ## Embed
 
-Turn any URL into a rich preview, an interactive iframe, or a custom-styled card. Pick the SDK for a drop-in component, the iframe parameter for the provider's native player, or the metadata API for full HTML/CSS control — and learn how to instruct an LLM agent to use Microlink for previews.
+Turn any URL into a rich preview, an interactive iframe, or a custom-styled card. Pick the Embed SDK for a drop-in component, the iframe parameter for the provider's native player, or the metadata API for full HTML/CSS control — and learn how to instruct an LLM agent to use Microlink for previews.
 
 - <Link href='/docs/guides/embed' children='Quickstart' /> — pick the right embed approach for your stack in under a minute.
-- <Link href='/docs/guides/embed/sdk' children='SDK' /> — drop in a React, Vue, or Vanilla component that handles fetching, lazy-loading, and rendering.
+- <Link href='/docs/guides/embed/sdk' children='Embed SDK' /> — drop in a React, Vue, or Vanilla component that handles fetching, lazy-loading, and rendering.
 - <Link href='/docs/guides/embed/iframe' children='iframe parameter' /> — return ready-to-inject oEmbed HTML and scripts for 280+ providers.
 - <Link href='/docs/guides/embed/metadata-api' children='Metadata API with custom HTML/CSS' /> — render previews entirely in your own markup.
-- <Link href='/docs/guides/embed/custom-previews-with-ai' children='Generate custom previews with AI' /> — paste prompts into Cursor, Claude Code, or your IDE assistant to build previews styled to your project — no SDK required.
+- <Link href='/docs/guides/embed/custom-previews-with-ai' children='Generate custom previews with AI' /> — paste prompts into Cursor, Claude Code, or your IDE assistant to build previews styled to your project — no Embed SDK required.
 - <Link href='/docs/guides/embed/caching-and-performance' children='Caching and performance' /> — keep embeds fast at scale with TTL, stale-while-revalidate, and direct embed URLs.
 - <Link href='/docs/guides/embed/private-pages-and-proxy' children='Private pages and proxy' /> — embed authenticated dashboards, geofenced content, and antibot-protected sites.
 - <Link href='/docs/guides/embed/troubleshooting' children='Troubleshooting' /> — debug missing iframes, broken images, hot-linking, and provider-specific quirks.

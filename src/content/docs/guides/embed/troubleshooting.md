@@ -7,7 +7,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 
-When an embed renders wrong, the cause is usually one of five things: the field you needed wasn't returned, the iframe HTML wasn't injected with its scripts, the source page hot-link-blocks `og:image`, the SDK fetched too late, or the request needed auth or proxy.
+When an embed renders wrong, the cause is usually one of five things: the field you needed wasn't returned, the iframe HTML wasn't injected with its scripts, the source page hot-link-blocks `og:image`, the Embed SDK fetched too late, or the request needed auth or proxy.
 
 For timeouts, blocked sites, auth/plan errors, and debug headers that apply to all workflows, see <Link href='/docs/guides/common/troubleshooting' children='common troubleshooting' />.
 
@@ -85,9 +85,9 @@ Two options:
    <img src="https://api.microlink.io?url=https://stripe.com&screenshot&meta=false&embed=screenshot.url" />
    ```
 
-## The SDK preview never loads
+## The Embed SDK preview never loads
 
-The SDK is lazy by default — it only fetches when the card enters the viewport. If you embed it inside a hidden tab, accordion, or `display: none` container, it never triggers.
+The Embed SDK is lazy by default — it only fetches when the card enters the viewport. If you embed it inside a hidden tab, accordion, or `display: none` container, it never triggers.
 
 Two fixes:
 

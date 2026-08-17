@@ -148,7 +148,7 @@ const nodejs = {
       </>
     ),
     caption:
-      'The official SDK, @microlink/mql, is a tiny Promise-based client. Install it, point it at a URL, and you get back a hosted PDF URL — ready to embed, download, or store.',
+      '@microlink/mql is a tiny Promise-based client. Install it, point it at a URL, and you get back a hosted PDF URL — ready to embed, download, or store.',
     steps: [
       {
         title: 'Install the SDK',
