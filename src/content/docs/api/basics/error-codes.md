@@ -205,11 +205,11 @@ Invalid:
 
 **Message**
 
-The `<name>` query parameter is invalid.
+The `<name>` query parameter is not allowed.
 
 Example:
 
-The `path` query parameter is not supported.
+The `path` query parameter is not allowed.
 
 **Solution**
 
