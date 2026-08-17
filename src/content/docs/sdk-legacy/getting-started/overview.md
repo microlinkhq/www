@@ -7,7 +7,7 @@ import { Microlink } from 'components/markdown/Microlink'
 
 > **The legacy Microlink Embed SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
 
-**Microlink SDK** is the way to consume [Microlink API](/docs/api/getting-started/overview) directly from your UI, enabling beauty link previews for any link, designed with three things in mind:
+**Microlink SDK** is the way to consume [Microlink API](/docs/api/getting-started/overview) directly from your UI, enabling beautiful link previews for any link, designed with three things in mind:
 
 - **Common surface**: Although they may have different interface API, every specific integration has the same functionalities.
 - **Lightweight & fast**: The bundle size tends to be equal or less than 10KB (no polyfills included).

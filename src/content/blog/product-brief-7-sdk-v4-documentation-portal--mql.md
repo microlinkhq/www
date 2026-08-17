@@ -16,7 +16,7 @@ import { Microlink } from 'components/markdown/Microlink'
 
 This new major release has had two things in mind: Simplify some specific connectors parameters and provide a more smart bundle system.
 
-These changes were necessary since we are preparing the project for antoher big thing: leverage [audio](https://github.com/microlinkhq/sdk/issues/135) support (already supported on [API](/docs/api/parameters/audio)) at SDK level.
+These changes were necessary since we are preparing the project for another big thing: leverage [audio](https://github.com/microlinkhq/sdk/issues/135) support (already supported on [API](/docs/api/parameters/audio)) at SDK level.
 
 ### API Surface
 
@@ -45,11 +45,11 @@ The build system is the way we bundle the library to be consumed in different wa
 
 The way we created the bundle has been totally **rewritten**.
 
-We offer two officialy connectors: [React](/docs/sdk-legacy/integrations/react/) and [Vanilla](/docs/sdk-legacy/integrations/vanilla/).
+We offer two official connectors: [React](/docs/sdk-legacy/integrations/react/) and [Vanilla](/docs/sdk-legacy/integrations/vanilla/).
 
 The React connector is bundle to be consume in [CommonJS](https://github.com/microlinkhq/sdk/blob/master/packages/react/package.json#L6) and [ESM](https://github.com/microlinkhq/sdk/blob/master/packages/react/package.json#L7).
 
-After these builds are created, we use the ESM bundle to create the Vanilla conector. This new build is exported to be consumed as Universal Module Definition (_UMD_).
+After these builds are created, we use the ESM bundle to create the Vanilla connector. This new build is exported to be consumed as Universal Module Definition (_UMD_).
 
 ## New Documentation Portal
 
@@ -62,12 +62,12 @@ Also, we wanted to provide a way to anyone extend it, so every documentation sec
 ## Microlink Query Language
 
 ```jsx
-import mql from '@microlink.io/mql'
-const { status, data } = await 'https://microlink.io'
+import mql from '@microlink/mql'
+const { status, data } = await mql('https://microlink.io')
 console.log(data)
 ```
 
-Microlink Query Language (_MQL_) is the precessor of [Custom Rules](/blog/custom-rules) as we pointed in our [Master Plan for 2019](/blog/master-plan-2019/).
+Microlink Query Language (_MQL_) is the successor of [Custom Rules](/blog/custom-rules) as we pointed in our [Master Plan for 2019](/blog/master-plan-2019/).
 
 We are happy to say that **MQL is production ready** 🚀.
 
