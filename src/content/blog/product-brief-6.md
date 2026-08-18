@@ -37,7 +37,7 @@ Using it, it will **save payload size up to 70%**, so ensure you are using it!
 ## Informational headers
 
 ```bash
-$ curl -i -I -X GET https://api.microlink.io/?url=https%3A%2F%2Fwww.reddit.com
+curl -i -I -X GET https://api.microlink.io/?url=https%3A%2F%2Fwww.reddit.com
 
 x-response-time : 21.518ms
 x-fetch-mode    : fetch
