@@ -6,11 +6,10 @@ import { getLines } from 'helpers/get-lines'
 import { childrenTextAll } from 'helpers/children-text-all'
 import { prettier } from 'helpers/prettier'
 import { template } from 'helpers/template'
-import { highlight } from 'sugar-high'
-import { lang } from 'sugar-high/lang'
 import { hash } from 'helpers/hash'
 import range from 'lodash/range'
 
+import { highlightSource } from './highlight-source'
 import { getLanguageTheme } from './theme'
 
 import {
@@ -53,52 +52,6 @@ const generateHighlightLines = linesRange => {
 
 const getClassName = ({ className, metastring = '' }) =>
   className ? className + metastring : ''
-
-const HIGHLIGHT_LANG = {
-  bash: 'shell',
-  js: 'javascript',
-  jsx: 'javascript'
-}
-
-const HTML_COMMENT_START_REGEX = /^\s*<!--/
-const HTML_COMMENT_ENTITY_START_REGEX = /^\s*&lt;!--/
-const HTML_COMMENT_END_REGEX = /--(?:&gt;|>)/
-
-const highlightSource = (source, language) => {
-  const options = {}
-
-  if (language !== 'sfc') {
-    options.lang = HIGHLIGHT_LANG[language] ?? lang(language)
-  }
-
-  if (language === 'bash') {
-    let seenIdentifier = false
-    options.markLine = () => {
-      seenIdentifier = false
-    }
-    options.mark = token => {
-      if (token.type === 'identifier' && !seenIdentifier) {
-        token.className += ' sh__token--bash-command'
-        seenIdentifier = true
-      }
-    }
-  }
-
-  if (language === 'sfc') {
-    let inComment = false
-    options.markLine = line => {
-      const opens =
-        HTML_COMMENT_START_REGEX.test(line.value) ||
-        HTML_COMMENT_ENTITY_START_REGEX.test(line.value)
-      if (!inComment && !opens) return
-
-      inComment = !HTML_COMMENT_END_REGEX.test(line.value)
-      line.className += ' sh__token--html-comment'
-    }
-  }
-
-  return highlight(source, options)
-}
 
 const CustomCodeBlock = styled.pre`
   ${hideScrollbar};
