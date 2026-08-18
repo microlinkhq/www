@@ -1,7 +1,7 @@
 import { wrapLinesWithHighlight } from 'components/elements/CodeEditor/CodeEditor'
+import { highlightSource } from 'components/elements/CodeEditor/highlight-source'
 import Box from 'components/elements/Box'
 import React, { useRef } from 'react'
-import { highlight } from 'sugar-high'
 import { colors } from 'theme'
 
 import { LANGUAGE_MAP } from './language-map'
@@ -64,7 +64,7 @@ function InteractiveCodeEditor ({ activeLanguage, editable, code, setCode }) {
         <code
           className={`language-${langClass}`}
           dangerouslySetInnerHTML={{
-            __html: wrapLinesWithHighlight(highlight(code))
+            __html: wrapLinesWithHighlight(highlightSource(code, langClass))
           }}
         />
       </Content>
