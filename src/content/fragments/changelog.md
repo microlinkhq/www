@@ -1,5 +1,6 @@
 ### August 2026
 
+- [Microlink API](/docs/api/getting-started/overview): Rejects invalid query parameters with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery).
 - [Microlink](/): Added [html](/html), [text](/text), [media](/media) and [file conversion](/file-conversion) product landings.
 
 ### July 2026

@@ -65,7 +65,7 @@ The web never standardized logo discovery, but email effectively did.
 [BIMI](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi#section-4.2.2) (Brand Indicators for Message Identification) lets domains publish an official brand logo in DNS. Mail providers like Gmail and Apple Mail use it to display the sender's logo next to authenticated emails:
 
 ```console
-$ dig +short TXT default._bimi.microlink.io
+dig +short TXT default._bimi.microlink.io
 "v=BIMI1; l=https://cdn.microlink.io/logo/logo.svg;"
 ```
 
@@ -136,7 +136,7 @@ If you want metadata tools (and mailboxes) to pick up your real logo, publish it
 **3. Publish one TXT record** at `default._bimi.yourdomain.com`:
 
 ```console
-$ dig +short TXT default._bimi.microlink.io
+dig +short TXT default._bimi.microlink.io
 "v=BIMI1; l=https://cdn.microlink.io/logo/logo.svg;"
 ```
 

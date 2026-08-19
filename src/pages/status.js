@@ -67,7 +67,7 @@ const StatusPage = () => {
                   </Flex>
                 </Choose.When>
                 <Choose.Otherwise>
-                  <Monospace>$ watch curl -sL {endpoint}</Monospace>
+                  <Monospace>watch curl -sL {endpoint}</Monospace>
                   <Monospace>{`\n${resume}`}</Monospace>
                   <Monospace css={themeProp({ fontSize: [0, null, 1] })}>
                     {`\n${info}`}

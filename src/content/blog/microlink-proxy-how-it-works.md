@@ -45,7 +45,7 @@ The **Microlink Proxy** is enabled for all [Microlink Pro](/pricing) plans and i
 Just for informational purposes, you can check if a specific request was resolved using the proxy layer by checking `x-fetch-mode` response header.
 
 ```bash
-$ microlink https://www.bloomberg.com/news/articles/2016-05-24/as-zenefits-stumbles-gusto-goes-head-on-by-selling-insurance
+microlink https://www.bloomberg.com/news/articles/2016-05-24/as-zenefits-stumbles-gusto-goes-head-on-by-selling-insurance
 
  SUCCESS  3.64 kB in 329ms
 
