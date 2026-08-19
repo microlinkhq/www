@@ -1,6 +1,10 @@
 ### August 2026
 
+- [Metascraper v5.57](https://metascraper.js.org): Added IMDb integration.
+- [Microlink API](/docs/api/getting-started/overview): Improved metadata extraction for Shadow DOM pages.
+- [Microlink API](/docs/api/getting-started/overview): Fixed 500s from [iframe](/docs/api/parameters/iframe) and [pageRanges](/docs/api/parameters/pdf/pageRanges).
 - [Microlink API](/docs/api/getting-started/overview): Rejects invalid query parameters with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery).
+- [Metascraper v5.56](https://metascraper.js.org): Added citation integration for Highwire Press and Dublin Core tags.
 - [Microlink](/): Added [html](/html), [text](/text), [media](/media) and [file conversion](/file-conversion) product landings.
 
 ### July 2026
