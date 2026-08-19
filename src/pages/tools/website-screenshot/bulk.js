@@ -2716,11 +2716,9 @@ const ProductInformation = () => (
             </div>
             <div>
               For Node.js, use the{' '}
-              <Link href='https://www.npmjs.com/package/@microlink/mql'>
-                @microlink/mql
-              </Link>{' '}
-              SDK. Loop over your URLs, call the API for each, and you have a
-              fully automated bulk screenshot pipeline.
+              <Link href='/integrations/sdk'>Microlink SDK</Link>. Loop over
+              your URLs, call the API for each, and you have a fully automated
+              bulk screenshot pipeline.
             </div>
           </>
         )

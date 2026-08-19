@@ -11,7 +11,7 @@ Microlink API provides a powerful API for automating any browser action.
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://github.com/microlinkhq' }} />
 
-You can hit the API directly from your browser or any environment that allows you to perform a simple HTTP GET request.
+You can hit the API directly from your browser or any environment that allows you to perform a simple HTTP GET request. From JavaScript, the <Link href='/docs/sdk/getting-started/overview' children='Microlink SDK' /> wraps the same API into one method per product.
 
 <Figcaption>The <Link href='/docs/api/getting-started/cli' children='Microlink CLI' /> is helpful to explore the API under local development.</Figcaption>
 
@@ -58,3 +58,5 @@ There are some of the most common workflow you can do with Microlink API:
 - [prerender](/docs/api/parameters/prerender) mode, useful for getting more information from websites that use client-side frameworks.
 
 The following documentation is going to teach you all these things and more.
+
+Prefer not to compose query strings by hand? The [Microlink SDK](/docs/sdk/getting-started/overview) — the [microlink.io](https://www.npmjs.com/package/microlink.io) package — exposes every workflow above as a method, such as `microlink.screenshot(url)`, for Node.js, browsers, and Deno.

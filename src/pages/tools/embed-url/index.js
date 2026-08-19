@@ -122,11 +122,8 @@ const REASON_TO_USE = [
     description: (
       <>
         Built on the <Link href='/embed'>Microlink Embed API</Link> — call the
-        same endpoint from any backend, edge runtime, or SDK like{' '}
-        <Link href='https://www.npmjs.com/package/@microlink/mql'>
-          @microlink/mql
-        </Link>
-        .
+        same endpoint from any backend or edge runtime, or through the{' '}
+        <Link href='/integrations/sdk'>Microlink SDK</Link>.
       </>
     )
   }

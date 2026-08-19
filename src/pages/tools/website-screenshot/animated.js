@@ -1552,11 +1552,8 @@ const ProductInformation = () => (
             </div>
             <div>
               Use the{' '}
-              <Link href='https://www.npmjs.com/package/@microlink/mql'>
-                @microlink/mql
-              </Link>{' '}
-              SDK for the easiest integration, or call the HTTP endpoint
-              directly. If something goes wrong, check the{' '}
+              <Link href='/integrations/sdk'>Microlink SDK</Link> for the
+              easiest integration, or call the HTTP endpoint directly. If something goes wrong, check the{' '}
               <Link href='/docs/guides/screenshot/troubleshooting'>
                 troubleshooting guide
               </Link>

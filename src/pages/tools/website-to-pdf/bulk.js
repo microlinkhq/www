@@ -3439,11 +3439,9 @@ const ProductInformation = () => (
             </div>
             <div>
               For Node.js, use the{' '}
-              <Link href='https://www.npmjs.com/package/@microlink/mql'>
-                @microlink/mql
-              </Link>{' '}
-              SDK. Loop over your URL list, call the API for each, and you have
-              a fully automated <b>batch PDF pipeline</b>.
+              <Link href='/integrations/sdk'>Microlink SDK</Link>. Loop over
+              your URL list, call the API for each, and you have a fully
+              automated <b>batch PDF pipeline</b>.
             </div>
           </>
         )
