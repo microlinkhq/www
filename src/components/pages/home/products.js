@@ -1762,13 +1762,13 @@ const AutomationPreview = () => (
   </Flex>
 )
 
-const SDK_LANGS = [
+const SDK_RUNTIMES = [
   { name: 'TypeScript', abbr: 'TS', bg: '#3178c6', fg: tone.white },
   { name: 'JavaScript', abbr: 'JS', bg: '#f7df1e', fg: tone.ink900 },
-  { name: 'Python', abbr: 'Py', bg: '#3776ab', fg: tone.white },
-  { name: 'PHP', abbr: 'php', bg: '#777bb3', fg: tone.white },
-  { name: 'Ruby', abbr: 'Rb', bg: '#cc342d', fg: tone.white },
-  { name: 'Go', abbr: 'Go', bg: '#00add8', fg: tone.white }
+  { name: 'Node.js', abbr: 'N', bg: '#5fa04e', fg: tone.white },
+  { name: 'Deno', abbr: 'D', bg: tone.ink900, fg: tone.white },
+  { name: 'Browsers', abbr: 'B', bg: colors.blue7, fg: tone.white },
+  { name: 'CLI', abbr: '>_', bg: colors.gray7, fg: tone.white }
 ]
 
 const LangBadge = styled(Flex)`
@@ -1792,13 +1792,14 @@ const SdkPreview = () => (
       marginTop: '24px'
     }}
   >
-    {SDK_LANGS.map(l => (
-      <Chip key={l.name}>
-        <LangBadge css={{ background: l.bg, color: l.fg }}>{l.abbr}</LangBadge>
-        {l.name}
+    {SDK_RUNTIMES.map(runtime => (
+      <Chip key={runtime.name}>
+        <LangBadge css={{ background: runtime.bg, color: runtime.fg }}>
+          {runtime.abbr}
+        </LangBadge>
+        {runtime.name}
       </Chip>
     ))}
-    <Chip css={{ color: tone.muted }}>+3</Chip>
   </Flex>
 )
 

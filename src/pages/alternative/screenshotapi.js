@@ -348,7 +348,13 @@ const COMPARISON_DATA = [
     highlight: true
   },
   {
-    feature: 'Link previews SDK',
+    feature: 'Link previews',
+    note: (
+      <>
+        <Link href='/link-preview'>Link preview API</Link> returns the oEmbed
+        iframe, card fields, and media in one call.
+      </>
+    ),
     microlink: true,
     screenshotapi: false,
     highlight: true
@@ -396,7 +402,13 @@ const COMPARISON_DATA = [
     screenshotapi: false
   },
   {
-    feature: 'Typed SDKs (React/Vue/JS)',
+    feature: 'Link preview components (React/Vue/JS)',
+    note: (
+      <>
+        Drop-in <Link href='/docs/guides/embed/sdk'>Embed SDK</Link> component
+        for React, Vue, and vanilla JS.
+      </>
+    ),
     microlink: true,
     screenshotapi: false
   },

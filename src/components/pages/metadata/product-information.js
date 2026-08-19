@@ -176,13 +176,13 @@ export const ProductInformation = () => (
             <div>
               In minutes. Visit our{' '}
               <Link href='/docs/guides/metadata'>documentation</Link> for
-              interactive playground examples, official{' '}
-              <Link href='/integrations/sdk'>SDKs</Link> (Node.js, Python, Ruby,
-              Go), and copy-paste code snippets for any language.
+              interactive playground examples, the official{' '}
+              <Link href='/integrations/sdk'>SDK</Link> (Node.js, browsers,
+              Deno), and copy-paste code snippets for any language.
             </div>
             <div>
-              The <Link href='/integrations/sdk'>Microlink SDK</Link> turns the
-              metadata response into a rendered link preview component with{' '}
+              The <Link href='/embed'>embed workflow</Link> turns the metadata
+              response into a rendered link preview with{' '}
               <Link href='/docs/api/parameters/iframe/#providers-supported'>
                 250+ verified providers
               </Link>{' '}

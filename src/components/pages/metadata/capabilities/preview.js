@@ -64,7 +64,7 @@ export const CapabilitiesPreview = ({
         handleCapCopy={handleCapCopy}
       />
     </Box>
-    <ArrowLink css={theme({ fontSize: [1, 1, 2, 2] })} href='/integrations/sdk'>
+    <ArrowLink css={theme({ fontSize: [1, 1, 2, 2] })} href='/embed'>
       Drop-in link previews in one line of code
     </ArrowLink>
   </Flex>

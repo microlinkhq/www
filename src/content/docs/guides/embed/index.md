@@ -1,6 +1,6 @@
 ---
 title: 'Embed'
-description: 'Turn any URL into a rich preview, an interactive player, or a plain asset URL. Pick the SDK, the oEmbed iframe, or metadata-driven HTML — every approach starts from the same API call.'
+description: 'Turn any URL into a rich preview, an interactive player, or a plain asset URL. Pick the Embed SDK, the oEmbed iframe, or metadata-driven HTML — every approach starts from the same API call.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
@@ -14,9 +14,9 @@ Microlink turns any URL into a rich preview, an interactive player, or a plain a
 
 <Figcaption>The default response already returns the normalized fields — <code>title</code>, <code>description</code>, <code>image</code>, <code>logo</code>, <code>publisher</code> — needed to render any kind of preview.</Figcaption>
 
-## Shortcut: drop in the SDK
+## Shortcut: drop in the Embed SDK
 
-If you just want a preview rendered on the page, skip everything below and use the SDK. One component, one prop, no API call to write:
+If you just want a preview rendered on the page, skip everything below and use the Embed SDK. One component, one prop, no API call to write:
 
 ```jsx
 import Microlink from '@microlink/react'
@@ -24,11 +24,11 @@ import Microlink from '@microlink/react'
 <Microlink url='https://stripe.com' />
 ```
 
-The SDK handles the API call, the iframe-vs-card decision, lazy-loading, and rendering. Available for React, Vue, and Vanilla JavaScript. See the <Link href='/docs/guides/embed/sdk' children='SDK guide' />.
+The Embed SDK handles the API call, the iframe-vs-card decision, lazy-loading, and rendering. Available for React, Vue, and Vanilla JavaScript. See the <Link href='/docs/guides/embed/sdk' children='Embed SDK guide' />.
 
 ## Granular control: four steps
 
-When you need the provider's native player, your own HTML, server-rendered output, or any custom delivery, walk through the workflow below. The SDK is a higher-level wrapper around these same four steps — calling them yourself unlocks the full surface.
+When you need the provider's native player, your own HTML, server-rendered output, or any custom delivery, walk through the workflow below. The Embed SDK is a higher-level wrapper around these same four steps — calling them yourself unlocks the full surface.
 
 1. **Call the API** with a `url`. Add `iframe: true`, `palette: true`, or `screenshot: true` when you also want the provider's player, brand colors, or a fresh capture.
 2. **Read the response.** Microlink returns normalized JSON with `data.title`, `data.image.url`, `data.logo.url`, plus the optional fields you asked for.
@@ -45,7 +45,7 @@ The word collides. To keep this guide unambiguous:
 |------------------|---------------|
 | *Embed* in prose | The product workflow: rendering a URL as a preview |
 | `embed` in monospace | The API parameter that returns an asset (image, screenshot, logo, ...) as the response body |
-| The SDK component | The `<Microlink>` React, Vue, or Vanilla component that wraps the four-step workflow |
+| The Embed SDK component | The `<Microlink>` React, Vue, or Vanilla component that wraps the four-step workflow |
 
 Each section below states which one it means.
 
@@ -122,7 +122,7 @@ If you want your AI coding assistant to write the custom HTML against your desig
 - **iframe parameter** when the URL has a real player (YouTube, Spotify) and you want *the provider's* widget, not a card.
 - **Metadata API + custom HTML** when previews must match your design system, you need server-rendered output, or you ship to environments without client JavaScript.
 
-(Still want the wrapper component instead? Jump back to the <Link href='/docs/guides/embed/sdk' children='SDK guide' />.)
+(Still want the wrapper component instead? Jump back to the <Link href='/docs/guides/embed/sdk' children='Embed SDK guide' />.)
 
 ## Step 4 — Render it
 
@@ -174,5 +174,5 @@ These apply no matter which rendering approach you pick:
 
 - <Link href='/docs/guides/metadata' children='Metadata' /> — when you only need the data (titles, descriptions, images) and have your own renderer.
 - <Link href='/docs/guides/screenshot' children='Screenshot' /> — when the page has no usable `og:image` and you want a real capture as the preview.
-- <Link href='/docs/sdk/getting-started/overview' children='SDK reference' /> — the full SDK reference with every prop and integration.
+- <Link href='/docs/sdk-legacy/getting-started/overview' children='legacy Embed SDK reference' /> — every prop and integration of the legacy component.
 - <Link href='/docs/api/parameters/iframe' children='iframe parameter reference' /> — the authoritative parameter docs and provider list.

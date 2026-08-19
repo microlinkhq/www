@@ -82,7 +82,17 @@ const COMPARISON_DATA = [
   { feature: 'URL → embeddable iframe', microlink: true, iframely: true },
   { feature: 'oEmbed proxy endpoint', microlink: true, iframely: true },
   { feature: 'Card / large card output', microlink: true, iframely: true },
-  { feature: 'React component / SDK', microlink: true, iframely: true },
+  {
+    feature: 'Link preview component (React/Vue/JS)',
+    note: (
+      <>
+        Drop-in <Link href='/docs/guides/embed/sdk'>Embed SDK</Link> component
+        for React, Vue, and vanilla JS.
+      </>
+    ),
+    microlink: true,
+    iframely: true
+  },
   { feature: 'Lazy-loaded embed widgets', microlink: true, iframely: true },
   {
     feature: 'Theme switching (light / dark)',

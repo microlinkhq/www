@@ -878,10 +878,10 @@ const CAPABILITIES = [
         <line x1='12' y1='22.08' x2='12' y2='12' />
       </svg>
     ),
-    title: 'Microlink SDK component',
+    title: 'Microlink Embed SDK component',
     description:
       'Drop in <Microlink /> for React, Vue, or vanilla JS — under 10KB, lazy-loaded by default. Pass any URL and let the SDK fetch, theme, and render it. Customizable through props, CSS variables, and stable BEM class hooks.',
-    links: [{ label: 'Explore the SDK', href: '/integrations/sdk' }]
+    links: [{ label: 'Explore the SDK', href: '/docs/guides/embed/sdk' }]
   }
 ]
 
@@ -1494,7 +1494,7 @@ const SdkSection = () => (
           })}
         >
           <ArrowLink
-            href='/integrations/sdk'
+            href='/docs/sdk-legacy/getting-started/overview/'
             css={theme({ fontSize: ['20px', '20px', '24px', '24px'] })}
           >
             Explore the SDK
@@ -1803,7 +1803,7 @@ const CallToAction = () => (
           Read the embed guide
         </ArrowLink>
         <ArrowLink
-          href='/integrations/sdk'
+          href='/docs/guides/embed/sdk'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
           Use the SDK
@@ -1908,7 +1908,10 @@ const TOP_FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Drop the <Link href='/integrations/sdk'>Microlink component</Link>{' '}
+          Drop the{' '}
+          <Link href='/docs/sdk-legacy/getting-started/overview/'>
+            Microlink component
+          </Link>{' '}
           into your markup and pass the URL:
         </div>
         <Faq.List as='ul'>
@@ -1930,10 +1933,11 @@ const TOP_FAQ_ITEMS = [
           </li>
         </Faq.List>
         <div>
-          See the full <Link href='/docs/sdk/integrations/react/'>React</Link>,{' '}
-          <Link href='/docs/sdk/integrations/vue/'>Vue</Link>, and{' '}
-          <Link href='/docs/sdk/integrations/vanilla/'>vanilla</Link> guides for
-          deeper integration.
+          See the full{' '}
+          <Link href='/docs/sdk-legacy/integrations/react/'>React</Link>,{' '}
+          <Link href='/docs/sdk-legacy/integrations/vue/'>Vue</Link>, and{' '}
+          <Link href='/docs/sdk-legacy/integrations/vanilla/'>vanilla</Link>{' '}
+          guides for deeper integration.
         </div>
       </>
     )
@@ -1953,8 +1957,11 @@ const TOP_FAQ_ITEMS = [
           full request shape.
         </div>
         <div>
-          The <Link href='/integrations/sdk'>Microlink SDK</Link> does the same
-          thing zero-code:{' '}
+          The{' '}
+          <Link href='/docs/sdk-legacy/getting-started/overview/'>
+            Microlink Embed SDK
+          </Link>{' '}
+          does the same thing zero-code:{' '}
           <code>
             {'<Microlink url="https://tiktok.com/..." media="iframe" />'}
           </code>{' '}
@@ -2006,7 +2013,10 @@ const TOP_FAQ_ITEMS = [
           <Link href='https://styled-components.com'>styled-components</Link> or
           any CSS-in-JS library, you can wrap the component to apply additional
           styles per instance — see the{' '}
-          <Link href='/docs/sdk/getting-started/styling/'>styling guide</Link>.
+          <Link href='/docs/sdk-legacy/getting-started/styling/'>
+            styling guide
+          </Link>
+          .
         </div>
         <div>
           Want full control over the markup? Build your own zero-dependency
@@ -2048,13 +2058,17 @@ const TOP_FAQ_ITEMS = [
         <div>Yes. The SDK ships three packages with a unified surface:</div>
         <Faq.List as='ul'>
           <li>
-            <Link href='/docs/sdk/integrations/react/'>@microlink/react</Link>
+            <Link href='/docs/sdk-legacy/integrations/react/'>
+              @microlink/react
+            </Link>
           </li>
           <li>
-            <Link href='/docs/sdk/integrations/vue/'>@microlink/vue</Link>
+            <Link href='/docs/sdk-legacy/integrations/vue/'>
+              @microlink/vue
+            </Link>
           </li>
           <li>
-            <Link href='/docs/sdk/integrations/vanilla/'>
+            <Link href='/docs/sdk-legacy/integrations/vanilla/'>
               @microlink/vanilla
             </Link>
           </li>
@@ -2080,7 +2094,7 @@ const TOP_FAQ_ITEMS = [
         </div>
         <div>
           Lazy loading can be disabled via the{' '}
-          <Link href='/docs/sdk/parameters/lazy/'>
+          <Link href='/docs/sdk-legacy/parameters/lazy/'>
             <code>lazy</code> prop
           </Link>{' '}
           if you need eager rendering.
@@ -2104,7 +2118,8 @@ const TOP_FAQ_ITEMS = [
           render and friendlier on long-scrolling pages. You can also pass an
           array like <code>{'media={["iframe", "video", "image"]}'}</code> to
           define a fallback cascade — see the{' '}
-          <Link href='/docs/sdk/parameters/media/'>media parameter</Link> docs.
+          <Link href='/docs/sdk-legacy/parameters/media/'>media parameter</Link>{' '}
+          docs.
         </div>
       </>
     )
@@ -2424,7 +2439,10 @@ const EmbedPage = () => {
                     the workflow in the{' '}
                     <Link href='/docs/guides/embed'>embed guide</Link> — or skip
                     the markup with the{' '}
-                    <Link href='/integrations/sdk'>Microlink SDK</Link>.
+                    <Link href='/docs/guides/embed/sdk'>
+                      Microlink Embed SDK
+                    </Link>
+                    .
                   </>
                 }
                 features={EMBED_FEATURES}

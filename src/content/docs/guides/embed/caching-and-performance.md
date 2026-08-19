@@ -72,15 +72,15 @@ If you need the URL to change when source content changes (cache busting), appen
 
 Bumping `v` invalidates downstream caches without touching Microlink's behavior.
 
-## SDK lazy-loading
+## Embed SDK lazy-loading
 
-The SDK uses `IntersectionObserver` and only fires its API call when each preview enters the viewport. Pages with hundreds of embedded links still hit a fast first paint. To preload above-the-fold cards, tighten the lazy options:
+The Embed SDK uses `IntersectionObserver` and only fires its API call when each preview enters the viewport. Pages with hundreds of embedded links still hit a fast first paint. To preload above-the-fold cards, tighten the lazy options:
 
 ```jsx
 <Microlink url='...' lazy={{ rootMargin: '400px' }} />
 ```
 
-See <Link href='/docs/sdk/parameters/lazy' children='lazy reference' />.
+See <Link href='/docs/sdk-legacy/parameters/lazy' children='lazy reference' />.
 
 ## When you don't need fresh data
 
@@ -94,7 +94,7 @@ Static sites and SSR builds often have the metadata at build time. Skip the runt
 />
 ```
 
-That removes the API call entirely. Combined with build-time crawling, you ship zero-API-call embeds. See <Link href='/docs/sdk/parameters/set-data' children='setData reference' />.
+That removes the API call entirely. Combined with build-time crawling, you ship zero-API-call embeds. See <Link href='/docs/sdk-legacy/parameters/set-data' children='setData reference' />.
 
 ## Verify caching is working
 

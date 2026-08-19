@@ -15,7 +15,6 @@ import {
   BarChart2,
   Chrome as ChromeIcon,
   Code,
-  Codesandbox as CodesandboxIcon,
   Image,
   Map,
   Search as SearchIcon,
@@ -25,6 +24,7 @@ import {
   Activity,
   AlignLeft as AlignLeftIcon,
   Maximize,
+  Package as PackageIcon,
   Repeat as RepeatIcon,
   Video as VideoIcon,
   Zap,
@@ -150,18 +150,13 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
   createNavigationItem({
     label: 'SDK',
     href: '/integrations/sdk',
-    description: 'Beautiful link previews',
-    icon: CodesandboxIcon
-  }),
-  createNavigationItem({
-    label: 'Component Builder',
-    href: '/integrations/builder',
-    icon: LayoutIcon
+    description: 'Every product, one import',
+    icon: PackageIcon
   }),
   createNavigationItem({
     label: 'MCP',
     href: '/integrations/mcp',
-    description: 'Give your AI access to the Microlink API',
+    description: 'Microlink for your AI agent',
     icon: BrainIcon
   }),
   createNavigationItem({
@@ -171,9 +166,14 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
     icon: TerminalIcon
   }),
   createNavigationItem({
+    label: 'Component Builder',
+    href: '/integrations/builder',
+    icon: LayoutIcon
+  }),
+  createNavigationItem({
     label: 'Embed Providers',
     href: '/embed/providers',
-    description: '300+ embed-ready sites',
+    description: '300+ embeddable sites',
     icon: GridIcon
   }),
   createNavigationItem({

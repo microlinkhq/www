@@ -155,6 +155,26 @@
       "destination": "/docs/guides/data-extraction/delivery-and-response.md"
     },
     {
+      "source": "/integrations/client",
+      "destination": "/integrations/sdk"
+    },
+    {
+      "source": "/docs/sdk/getting-started/styling",
+      "destination": "/docs/sdk-legacy/getting-started/styling"
+    },
+    {
+      "source": "/docs/sdk/getting-started/styling.md",
+      "destination": "/docs/sdk-legacy/getting-started/styling.md"
+    },
+    {
+      "source": "/docs/sdk/integrations/:path*",
+      "destination": "/docs/sdk-legacy/integrations/:path*"
+    },
+    {
+      "source": "/docs/sdk/parameters/:path*",
+      "destination": "/docs/sdk-legacy/parameters/:path*"
+    },
+    {
       "source": "/audio",
       "destination": "/docs/api/parameters/audio"
     },
@@ -316,7 +336,7 @@
     },
     {
       "source": "/jekyll",
-      "destination": "/docs/sdk/integrations/jekyll"
+      "destination": "/docs/sdk-legacy/integrations/jekyll"
     },
     {
       "source": "/mql",
@@ -336,7 +356,7 @@
     },
     {
       "source": "/react",
-      "destination": "/docs/sdk/integrations/react"
+      "destination": "/docs/sdk-legacy/integrations/react"
     },
     {
       "source": "/scraping",
@@ -364,7 +384,7 @@
     },
     {
       "source": "/vanilla",
-      "destination": "/docs/sdk/integrations/vanilla"
+      "destination": "/docs/sdk-legacy/integrations/vanilla"
     },
     {
       "source": "/video",
@@ -376,7 +396,7 @@
     },
     {
       "source": "/vue",
-      "destination": "/docs/sdk/integrations/vue"
+      "destination": "/docs/sdk-legacy/integrations/vue"
     },
     {
       "source": "/waituntil",

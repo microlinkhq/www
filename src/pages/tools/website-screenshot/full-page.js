@@ -1152,12 +1152,8 @@ const ProductInformation = () => (
               Node.js, Python, Ruby, or plain cURL.
             </div>
             <div>
-              Use the{' '}
-              <Link href='https://www.npmjs.com/package/@microlink/mql'>
-                @microlink/mql
-              </Link>{' '}
-              SDK for Node.js, or hit the API directly from any HTTP client.
-              Check the{' '}
+              Use the <Link href='/integrations/sdk'>Microlink SDK</Link> for
+              Node.js, or hit the API directly from any HTTP client. Check the{' '}
               <Link href='/docs/guides/screenshot/embedding'>
                 embedding guide
               </Link>{' '}
@@ -1273,7 +1269,7 @@ export const Head = () => (
             name: 'Do you offer a screenshot API?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Absolutely. The tool is built on the Microlink Screenshot API, which provides a simple REST endpoint. Integrate with any language — Node.js, Python, Ruby, or plain cURL. Use the @microlink/mql SDK for Node.js, or hit the API directly from any HTTP client.'
+              text: 'Absolutely. The tool is built on the Microlink Screenshot API, which provides a simple REST endpoint. Integrate with any language — Node.js, Python, Ruby, or plain cURL. Use the Microlink SDK for Node.js, or hit the API directly from any HTTP client.'
             }
           }
         ]

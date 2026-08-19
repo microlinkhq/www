@@ -60,20 +60,20 @@ Also thanks to the [Puppeteer community](https://github.com/GoogleChrome/puppete
 
 ### Added video support
 
-Because [Microlink API ](/docs/api/getting-started/overview)can detect video, we use the new field to place the streaming source into our preview cards, via our [SDK](/docs/sdk/getting-started/overview).
+Because [Microlink API](/docs/api/getting-started/overview) can detect video, we use the new field to place the streaming source into our preview cards, via our [SDK](/docs/sdk-legacy/getting-started/overview).
 
 ![](https://cdn-images-1.medium.com/max/1440/1*PWDop7s7KmmmvccVbULiyA.gif)
 
 <Figcaption>
   video support is included for{' '}
   <Link
-    href='/docs/sdk/parameters/size'
+    href='/docs/sdk-legacy/parameters/size'
     children='normal or large'
   />{' '}
   card sizes.
 </Figcaption>
 
-We added properties to control the video, like [autoplay](/docs/sdk/parameters/media/auto-play), [muted](/docs/sdk/parameters/media/muted) or [loop](/docs/sdk/parameters/media/loop) options.
+We added properties to control the video, like [autoplay](/docs/sdk-legacy/parameters/media/auto-play), [muted](/docs/sdk-legacy/parameters/media/muted) or [loop](/docs/sdk-legacy/parameters/media/loop) options.
 
 ### Smooth image loading
 
@@ -93,13 +93,13 @@ We improved the transition between how the card looks before the content of the 
 <Figcaption>
   Using the new{' '}
   <Link
-    href='/docs/sdk/parameters/direction'
+    href='/docs/sdk-legacy/parameters/direction'
     children='direction'
   />{' '}
   API paramter for invert the media position in the card.
 </Figcaption>
 
-We added the possibility to invert the orientation of the content in the card using a new field called [reverse](/docs/sdk/parameters/direction).
+We added the possibility to invert the orientation of the content in the card using a new field called [reverse](/docs/sdk-legacy/parameters/direction).
 
 ## How to update
 
@@ -119,7 +119,7 @@ The easiest way to consume the frontend library. Just paste the corresponding sc
 <script type="text/javascript" src="//unpkg.com/@microlink/vanilla@latest/cjs/microlink.min.js"></script>`}</PreCode>
 ```
 
-See more [information](/docs/sdk/integrations/vanilla).
+See more [information](/docs/sdk-legacy/integrations/vanilla).
 
 ### From NPM
 
@@ -137,4 +137,4 @@ npm install @microlink/vanilla@latest
 npm update @microlink/react@latest
 ```
 
-See more [information](/docs/sdk/integrations/react).
+See more [information](/docs/sdk-legacy/integrations/react).

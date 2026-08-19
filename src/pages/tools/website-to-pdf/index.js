@@ -2115,11 +2115,8 @@ const ProductInformation = () => (
               Node.js, Python, Ruby, or plain cURL.
             </div>
             <div>
-              Use the{' '}
-              <Link href='https://www.npmjs.com/package/@microlink/mql'>
-                @microlink/mql
-              </Link>{' '}
-              SDK or hit the API directly. Check the{' '}
+              Use the <Link href='/integrations/sdk'>Microlink SDK</Link> or hit
+              the API directly. Check the{' '}
               <Link href='/docs/guides/pdf/embedding'>embedding guide</Link> for
               delivery and integration patterns.
             </div>
@@ -2282,7 +2279,7 @@ export const Head = () => (
             name: 'Can I integrate HTML to PDF conversion into my application?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. This tool is built on the Microlink PDF API, a simple REST endpoint. Integrate with Node.js, Python, Ruby, or plain cURL. Use the @microlink/mql SDK or hit the API directly from any HTTP client.'
+              text: 'Yes. This tool is built on the Microlink PDF API, a simple REST endpoint. Integrate with Node.js, Python, Ruby, or plain cURL. Use the Microlink SDK or hit the API directly from any HTTP client.'
             }
           },
           {

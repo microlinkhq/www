@@ -14,7 +14,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 
 <Figcaption>Custom Rules enables build custom API response based on your necessities.</Figcaption>
 
-[Microlink API](/docs/api/getting-started/overview) is so powerful for extracting data. We created links previews as one of the possible use cases (actually our [SDK](/docs/sdk/getting-started/overview/)), but because the API response returns generic data, it's a bit difficult use Microlink API for different problems scope.
+[Microlink API](/docs/api/getting-started/overview) is so powerful for extracting data. We created link previews as one of the possible use cases (actually our [SDK](/docs/sdk-legacy/getting-started/overview/)), but because the API response returns generic data, it's a bit difficult to use Microlink API for different problem scopes.
 
 Now, we are introducing the concept of **Custom Rules**: The ability to setup custom API response based on user necessities.
 
@@ -48,17 +48,17 @@ x-fetch-time    : 618.055ms
 
 As part of the response header, we added two new headers to help optimize your API calls:
 
-#### x-response-time
+### x-response-time
 
 It returns the total amount of time used for processing the API call.
 
-#### x-fetch-mode
+### x-fetch-mode
 
 It specifies the way to content will be fetched.
 
 It could be `fetch` or `prerendering`. The value is strongly related with [prerender](/docs/api/parameters/prerender) API parameter.
 
-#### x-fetch-time
+### x-fetch-time
 
 It expresses the amount of time spend just in the `x-fetch-mode` step.
 

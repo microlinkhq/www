@@ -164,6 +164,13 @@ const Aside = ({
                 {tab.name}
               </option>
             ))}
+            {!DOC_TABS.some(
+              tab => tab.name === activeRouteName.toUpperCase()
+            ) && (
+              <option value={activeRouteName.toUpperCase()}>
+                {activeRouteName.toUpperCase()}
+              </option>
+            )}
           </Select>
         </Box>
         <Box as='section' data-aside-tree css={theme({ pl: 3 })}>

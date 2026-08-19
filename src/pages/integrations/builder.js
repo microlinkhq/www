@@ -213,12 +213,16 @@ const QUESTIONS = [
     )
   },
   {
-    question: 'How is this different from the SDK?',
+    question: 'How is this different from the legacy SDK?',
     answer: (
       <>
         <div>
-          The <Link href='/integrations/sdk'>SDK</Link> is a prebuilt,
-          batteries-included component you install from npm. This builder
+          The{' '}
+          <Link href='/docs/sdk-legacy/getting-started/overview/'>
+            legacy Microlink SDK
+          </Link>{' '}
+          is a prebuilt, batteries-included component you install from npm — it
+          keeps working, but it&rsquo;s no longer maintained. This builder
           generates source you own and can edit — handy when you want a specific
           look with zero dependencies. Either way, the component renders data
           from the <Link href='/link-preview'>link preview API</Link>.

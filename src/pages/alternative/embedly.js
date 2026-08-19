@@ -92,7 +92,17 @@ const COMPARISON_DATA = [
   { feature: 'URL → embeddable iframe', microlink: true, embedly: true },
   { feature: 'oEmbed proxy endpoint', microlink: true, embedly: true },
   { feature: 'Card / rich card output', microlink: true, embedly: true },
-  { feature: 'React / JavaScript SDK', microlink: true, embedly: true },
+  {
+    feature: 'Link preview component (React/Vue/JS)',
+    note: (
+      <>
+        Drop-in <Link href='/docs/guides/embed/sdk'>Embed SDK</Link> component
+        for React, Vue, and vanilla JS.
+      </>
+    ),
+    microlink: true,
+    embedly: true
+  },
   { feature: 'Lazy-loaded embed widgets', microlink: true, embedly: true },
   {
     feature: 'Open Graph + Twitter Card parsing',

@@ -31,6 +31,10 @@ const TabButton = styled(Link)`
       fontWeight: 600
     })}
   }
+
+  &.active[data-muted] {
+    ${theme({ borderBottomColor: 'black30' })}
+  }
 `
 
 const isActive = (activeRouteName, tab) =>
@@ -49,8 +53,15 @@ const DocTabs = ({ activeRouteName }) => {
             key={tab.name}
             href={tab.path}
             className={isActive(activeRouteName, tab) ? 'active' : ''}
+            data-muted={tab.muted ? '' : undefined}
             css={theme({
-              color: isActive(activeRouteName, tab) ? 'black' : 'black50'
+              color: isActive(activeRouteName, tab)
+                ? tab.muted
+                  ? 'black60'
+                  : 'black'
+                : tab.muted
+                  ? 'black30'
+                  : 'black50'
             })}
           >
             <Flex

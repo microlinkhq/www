@@ -7,7 +7,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 
-When the SDK is too opinionated and the iframe parameter is too provider-specific, you can render previews entirely from your own markup. The metadata API gives you the raw fields — title, description, image, logo, palette — and you decide everything else.
+When the Embed SDK is too opinionated and the iframe parameter is too provider-specific, you can render previews entirely from your own markup. The metadata API gives you the raw fields — title, description, image, logo, palette — and you decide everything else.
 
 This is the right path when:
 
@@ -56,7 +56,7 @@ The response payload looks like this:
 
 <Figcaption>The default response includes <code>title</code>, <code>description</code>, <code>image</code>, <code>logo</code>, <code>publisher</code>, and <code>url</code>.</Figcaption>
 
-Read those fields directly from `data` and pass them into your template. No SDK install, no script tag, no iframe.
+Read those fields directly from `data` and pass them into your template. No Embed SDK install, no script tag, no iframe.
 
 ## Render a custom card from JSON
 
@@ -208,7 +208,7 @@ For the full security model, see <Link href='/docs/guides/embed/private-pages-an
 |-------------|-----|
 | Server-rendered HTML, no client-side JS, full control | Metadata API + custom HTML/CSS (this page) |
 | Pre-built layouts and prompts to feed your AI coding assistant | <Link href='/docs/guides/embed/custom-previews-with-ai' children='Generate custom previews with AI' /> |
-| A drop-in component with fetching, lazy-loading, and theming built in | <Link href='/docs/guides/embed/sdk' children='SDK' /> |
+| A drop-in component with fetching, lazy-loading, and theming built in | <Link href='/docs/guides/embed/sdk' children='Embed SDK' /> |
 | The provider's interactive player (real YouTube embed, Spotify track) | <Link href='/docs/guides/embed/iframe' children='iframe parameter' /> |
 
 Mixing them is fine — the metadata API powers all four.

@@ -19,6 +19,7 @@ const Icons = {
 
 export const ASIDE_WIDTH = '320px'
 export const SDK = 'SDK'
+export const SDK_LEGACY = 'SDK Legacy'
 export const API = 'API'
 export const MQL = 'MQL'
 export const CARDS = 'Cards'
@@ -28,6 +29,7 @@ export const DEFAULT_ACTIVE_ROUTE_NAME = API
 
 export const getActiveRouteName = ({ pathname }) => {
   if (pathname.startsWith('/docs/guides')) return GUIDES
+  if (pathname.startsWith('/docs/sdk-legacy')) return SDK_LEGACY
   if (pathname.startsWith('/docs/sdk')) return SDK
   if (pathname.startsWith('/docs/api')) return API
   if (pathname.startsWith('/docs/cards')) return CARDS
@@ -40,16 +42,21 @@ export const DOC_TABS = [
     name: 'GUIDES',
     path: '/docs/guides'
   },
+  { name: 'SDK', path: '/docs/sdk/getting-started/overview' },
   {
     name: 'MQL',
     path: '/docs/mql/getting-started/overview'
   },
-  { name: 'SDK', path: '/docs/sdk/getting-started/overview' },
   {
     name: 'CARDS',
     path: '/docs/cards/getting-started/overview'
   },
-  { name: 'Skills', path: '/skills', icon: Sparkles }
+  { name: 'Skills', path: '/skills', icon: Sparkles },
+  {
+    name: 'SDK LEGACY',
+    path: '/docs/sdk-legacy/getting-started/overview',
+    muted: true
+  }
 ]
 
 const ROUTES_SDK = [
@@ -61,8 +68,49 @@ const ROUTES_SDK = [
         href: '/docs/sdk/getting-started/overview/'
       },
       {
+        name: 'Options',
+        href: '/docs/sdk/getting-started/options/'
+      },
+      {
+        name: 'Errors',
+        href: '/docs/sdk/getting-started/errors/'
+      },
+      {
+        name: 'CLI',
+        href: '/docs/sdk/getting-started/cli/'
+      }
+    ]
+  },
+  {
+    name: 'Methods',
+    posts: [
+      {
+        name: 'Content',
+        href: '/docs/sdk/methods/content/'
+      },
+      {
+        name: 'Specialized',
+        href: '/docs/sdk/methods/specialized/'
+      },
+      {
+        name: 'Collections',
+        href: '/docs/sdk/methods/collections/'
+      }
+    ]
+  }
+]
+
+const ROUTES_SDK_LEGACY = [
+  {
+    name: 'Getting Started',
+    posts: [
+      {
+        name: 'Overview',
+        href: '/docs/sdk-legacy/getting-started/overview/'
+      },
+      {
         name: 'Styling',
-        href: '/docs/sdk/getting-started/styling/'
+        href: '/docs/sdk-legacy/getting-started/styling/'
       }
     ]
   },
@@ -81,22 +129,22 @@ const ROUTES_SDK = [
       },
       {
         name: 'Jekyll',
-        href: '/docs/sdk/integrations/jekyll/',
+        href: '/docs/sdk-legacy/integrations/jekyll/',
         icon: Icons.Jekyll
       },
       {
         name: 'React',
-        href: '/docs/sdk/integrations/react/',
+        href: '/docs/sdk-legacy/integrations/react/',
         icon: Icons.React
       },
       {
         name: 'Vanilla',
-        href: '/docs/sdk/integrations/vanilla/',
+        href: '/docs/sdk-legacy/integrations/vanilla/',
         icon: Icons.JavaScript
       },
       {
         name: 'Vue',
-        href: '/docs/sdk/integrations/vue/',
+        href: '/docs/sdk-legacy/integrations/vue/',
         icon: Icons.Vue
       }
     ]
@@ -106,61 +154,61 @@ const ROUTES_SDK = [
     posts: [
       {
         name: 'apiKey',
-        href: '/docs/sdk/parameters/api-key/'
+        href: '/docs/sdk-legacy/parameters/api-key/'
       },
       {
         name: 'contrast',
-        href: '/docs/sdk/parameters/contrast/'
+        href: '/docs/sdk-legacy/parameters/contrast/'
       },
       {
         name: 'direction',
-        href: '/docs/sdk/parameters/direction/'
+        href: '/docs/sdk-legacy/parameters/direction/'
       },
       {
         name: 'fetchData',
-        href: '/docs/sdk/parameters/fetch-data/'
+        href: '/docs/sdk-legacy/parameters/fetch-data/'
       },
       {
         name: 'lazy',
-        href: '/docs/sdk/parameters/lazy/'
+        href: '/docs/sdk-legacy/parameters/lazy/'
       },
       {
         name: 'media',
-        href: '/docs/sdk/parameters/media/',
+        href: '/docs/sdk-legacy/parameters/media/',
         posts: [
           {
             name: 'autoPlay',
-            href: '/docs/sdk/parameters/media/auto-play/'
+            href: '/docs/sdk-legacy/parameters/media/auto-play/'
           },
           {
             name: 'controls',
-            href: '/docs/sdk/parameters/media/controls/'
+            href: '/docs/sdk-legacy/parameters/media/controls/'
           },
           {
             name: 'muted',
-            href: '/docs/sdk/parameters/media/muted/'
+            href: '/docs/sdk-legacy/parameters/media/muted/'
           },
           {
             name: 'loop',
-            href: '/docs/sdk/parameters/media/loop/'
+            href: '/docs/sdk-legacy/parameters/media/loop/'
           }
         ]
       },
       {
         name: 'mediaRef',
-        href: '/docs/sdk/parameters/media-ref/'
+        href: '/docs/sdk-legacy/parameters/media-ref/'
       },
       {
         name: 'setData',
-        href: '/docs/sdk/parameters/set-data/'
+        href: '/docs/sdk-legacy/parameters/set-data/'
       },
       {
         name: 'size',
-        href: '/docs/sdk/parameters/size/'
+        href: '/docs/sdk-legacy/parameters/size/'
       },
       {
         name: 'url',
-        href: '/docs/sdk/parameters/url/'
+        href: '/docs/sdk-legacy/parameters/url/'
       }
     ]
   }
@@ -895,6 +943,7 @@ const ROUTES_GUIDES = [
 
 export const ROUTES = {
   [SDK]: ROUTES_SDK,
+  [SDK_LEGACY]: ROUTES_SDK_LEGACY,
   [MQL]: ROUTES_MQL,
   [CARDS]: ROUTES_CARDS,
   [API]: ROUTES_API,
