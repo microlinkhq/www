@@ -123,6 +123,21 @@ to {
 }
 `
 
+export const popOut = keyframes`
+from {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+40% {
+  opacity: 1;
+  transform: scale(1.08) translateY(-4px);
+}
+to {
+  opacity: 0;
+  transform: scale(0.4) translateY(24px);
+}
+`
+
 export const wiggle = keyframes`
 0%, 100% {
   transform: rotate(0deg);

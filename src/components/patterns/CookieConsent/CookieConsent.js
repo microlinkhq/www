@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { getStoredConsent, updateConsent } from 'helpers/gtag'
 import { Button } from 'components/elements/Button/Button'
-import { popIn, wiggle } from 'components/keyframes'
-import { theme, transition, colors, touchTargets } from 'theme'
+import { popIn, popOut, wiggle } from 'components/keyframes'
+import { theme, transition, colors, touchTargets, speed } from 'theme'
 import { Link } from 'components/elements/Link'
 import styled from 'styled-components'
 import Text from 'components/elements/Text'
@@ -11,6 +11,7 @@ import Flex from 'components/elements/Flex'
 const Wrapper = styled(Flex)`
   bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   right: calc(16px + env(safe-area-inset-right, 0px));
+  transform-origin: 100% 100%;
 
   ${theme({
     position: 'fixed',
@@ -20,7 +21,9 @@ const Wrapper = styled(Flex)`
   })}
 
   @media (prefers-reduced-motion: no-preference) {
-    animation: ${popIn} ${transition.long} both;
+    &[data-closing='true'] {
+      animation: ${popOut} ${transition.medium} both;
+    }
   }
 `
 
@@ -53,6 +56,7 @@ const Bubble = styled('button')`
   }
 
   @media (prefers-reduced-motion: no-preference) {
+    animation: ${popIn} ${transition.long} both;
     transition: transform ${transition.short}, box-shadow ${transition.short};
 
     &:hover {
@@ -66,6 +70,8 @@ const Bubble = styled('button')`
 `
 
 const Panel = styled(Flex)`
+  transform-origin: 100% 100%;
+
   ${theme({
     flexDirection: 'column',
     width: '288px',
@@ -79,6 +85,10 @@ const Panel = styled(Flex)`
 
   @media (prefers-reduced-motion: no-preference) {
     animation: ${popIn} ${transition.medium} both;
+
+    &[data-closing='true'] {
+      animation: ${popOut} ${transition.medium} both;
+    }
   }
 `
 
@@ -112,7 +122,13 @@ const DeclineButton = styled('button')`
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [isClosing, setIsClosing] = useState(false)
+  const [isLeaving, setIsLeaving] = useState(false)
   const wasOpenRef = useRef(false)
+  const restoreFocusRef = useRef(false)
+  const closeTimerRef = useRef(null)
+  const leaveTimerRef = useRef(null)
+  const wrapperRef = useRef(null)
   const bubbleRef = useRef(null)
   const acceptRef = useRef(null)
 
@@ -120,30 +136,71 @@ const CookieConsent = () => {
     if (getStoredConsent() === undefined) setIsVisible(true)
   }, [])
 
+  useEffect(
+    () => () => {
+      clearTimeout(closeTimerRef.current)
+      clearTimeout(leaveTimerRef.current)
+    },
+    []
+  )
+
   useEffect(() => {
     if (isOpen && acceptRef.current) acceptRef.current.focus()
-    else if (wasOpenRef.current && bubbleRef.current) bubbleRef.current.focus()
+    else if (wasOpenRef.current && restoreFocusRef.current && bubbleRef.current) {
+      bubbleRef.current.focus()
+    }
     wasOpenRef.current = isOpen
+  }, [isOpen])
+
+  const closePanel = restoreFocus => {
+    if (closeTimerRef.current || leaveTimerRef.current) return
+    restoreFocusRef.current = restoreFocus
+    setIsClosing(true)
+    closeTimerRef.current = setTimeout(() => {
+      closeTimerRef.current = null
+      setIsClosing(false)
+      setIsOpen(false)
+    }, speed.normal)
+  }
+
+  useEffect(() => {
+    if (!isOpen) return undefined
+
+    const handlePointerDown = event => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        closePanel(false)
+      }
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown)
+    return () => document.removeEventListener('pointerdown', handlePointerDown)
   }, [isOpen])
 
   if (!isVisible) return null
 
   const choose = value => {
+    if (leaveTimerRef.current) return
     updateConsent(value)
-    setIsVisible(false)
+    setIsLeaving(true)
+    leaveTimerRef.current = setTimeout(() => setIsVisible(false), speed.normal)
   }
 
   const handleKeyDown = event => {
-    if (event.key === 'Escape') setIsOpen(false)
+    if (event.key === 'Escape') closePanel(true)
   }
 
   return (
-    <Wrapper className='hidden-print'>
+    <Wrapper
+      ref={wrapperRef}
+      data-closing={isLeaving}
+      className='hidden-print'
+    >
       {isOpen
         ? (
           <Panel
             role='dialog'
             aria-label='Cookie preferences'
+            data-closing={isClosing}
             onKeyDown={handleKeyDown}
           >
             <Text css={theme({ fontSize: 0, lineHeight: 2, color: 'black80' })}>
