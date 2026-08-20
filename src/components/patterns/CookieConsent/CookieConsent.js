@@ -182,7 +182,16 @@ const CookieConsent = () => {
     if (leaveTimerRef.current) return
     updateConsent(value)
     setIsLeaving(true)
-    leaveTimerRef.current = setTimeout(() => setIsVisible(false), speed.normal)
+    leaveTimerRef.current = setTimeout(() => {
+      if (
+        wrapperRef.current &&
+        wrapperRef.current.contains(document.activeElement)
+      ) {
+        const main = document.getElementById('main-content')
+        if (main) main.focus({ preventScroll: true })
+      }
+      setIsVisible(false)
+    }, speed.normal)
   }
 
   const handleKeyDown = event => {
