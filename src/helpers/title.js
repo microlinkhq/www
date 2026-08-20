@@ -35,6 +35,7 @@ const special = [
   'PDFs',
   'quality',
   'retry',
+  'ScrapingBee',
   'ScreenshotAPI',
   'Screenshotmachine',
   'ScreenshotOne',
