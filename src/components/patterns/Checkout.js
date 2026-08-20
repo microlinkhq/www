@@ -7,7 +7,7 @@ import Flex from 'components/elements/Flex'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useState, useRef, useEffect } from 'react'
 import { gradient, theme } from 'theme'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 
 const PRODUCT_LANDING_SLUGS = [
   'metadata',

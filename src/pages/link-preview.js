@@ -11,7 +11,7 @@ import {
 import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import { trimMs } from 'helpers/trim-ms'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 

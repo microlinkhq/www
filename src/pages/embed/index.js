@@ -12,7 +12,7 @@ import {
 import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 
 import Box from 'components/elements/Box'

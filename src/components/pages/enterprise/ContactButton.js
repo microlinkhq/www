@@ -1,5 +1,5 @@
 import { theme } from 'theme'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import React from 'react'
 
 import { Button } from 'components/elements/Button/Button'

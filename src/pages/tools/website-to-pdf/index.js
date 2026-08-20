@@ -72,7 +72,7 @@ import {
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import {

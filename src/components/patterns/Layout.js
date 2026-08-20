@@ -3,6 +3,7 @@ import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Toolbar from './Toolbar/Toolbar'
 import Footer from './Footer/Footer'
+import CookieConsent from './CookieConsent/CookieConsent'
 import { noop } from 'helpers/noop'
 import React from 'react'
 
@@ -94,6 +95,7 @@ const Layout = ({
             <Footer {...footer} />
           </Box>
         )}
+        <CookieConsent />
       </Root>
     </ThemeProvider>
   )

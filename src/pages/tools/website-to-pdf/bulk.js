@@ -70,7 +70,7 @@ import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError, isRateLimited } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { withTitle } from 'helpers/hoc/with-title'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import {
   extractNerdStats,
   buildMqlQuery
