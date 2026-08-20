@@ -1,6 +1,6 @@
 /* global ResizeObserver */
 
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import {
   borders,
   colors,

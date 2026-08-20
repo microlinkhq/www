@@ -16,6 +16,12 @@ Microlink respects your privacy regarding any information we may collect from yo
 
 **When you consume our API**: Similar to data collected for website analytics purposes, we do the same in our API for detecting errors or improve response timing.
 
+## Cookies and analytics
+
+We use Google Analytics to understand how our website is used — which pages matter, where things break, and what to build next. We use this data for one purpose: iterating on the platform to make it better.
+
+Google Analytics sets cookies (such as `_ga`) to recognise repeat visits. You can decline at any time from the cookie widget at the bottom-right corner of the site, and your choice is remembered in your browser. If you decline, measurement continues as anonymous, cookieless pings that can’t be linked to you across visits.
+
 ## Our legal bases for processing
 
 We process information lawfully, fairly and transparently.

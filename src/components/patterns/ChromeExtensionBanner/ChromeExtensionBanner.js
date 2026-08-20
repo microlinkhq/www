@@ -16,7 +16,7 @@ import {
   SharingDebuggerExtensionMockup
 } from 'components/patterns/ExtensionStory/mockups'
 
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 
 export const PDF_EXTENSION_URL =
   'https://chromewebstore.google.com/detail/microlink-website-to-pdf/ljffiabcijcclcicihhjmoibjjnlkdon'

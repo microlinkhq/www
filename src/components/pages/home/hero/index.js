@@ -4,7 +4,7 @@ import Heading from 'components/elements/Heading'
 import Caption from 'components/patterns/Caption/Caption'
 import Overlay from 'components/pages/home/overlay'
 import heroDemoRequests from 'components/pages/home/hero-demo-requests'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import { layout, timings, space, theme } from 'theme'
 import React, {
   useCallback,

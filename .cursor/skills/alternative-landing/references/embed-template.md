@@ -57,7 +57,7 @@ import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { cdnUrl } from 'helpers/cdn-url'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
 import React from 'react'
 

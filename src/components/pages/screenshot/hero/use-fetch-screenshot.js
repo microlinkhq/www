@@ -4,7 +4,7 @@ import {
   buildMqlQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import { normalizeApiError } from 'helpers/api-error'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 
 export const useFetchScreenshot = ({
   onRequestTiming,

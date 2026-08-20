@@ -27,7 +27,7 @@ import {
 } from 'components/hook/use-currency'
 import Plans from 'components/patterns/Plans/Plans'
 import { CURRENCIES, formatPrice } from 'components/patterns/Plans/shared'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
   borders,

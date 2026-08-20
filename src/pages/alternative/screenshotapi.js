@@ -18,7 +18,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import SpeedSectionBase from 'components/patterns/SpeedSection'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
 import React from 'react'
 

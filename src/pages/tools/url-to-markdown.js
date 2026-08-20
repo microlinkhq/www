@@ -1,5 +1,5 @@
 import { CDN_EDGES } from 'helpers/cdn-edges'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import {
   borders,
   colors,

@@ -1,4 +1,4 @@
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import {
   colors,
   layout,
