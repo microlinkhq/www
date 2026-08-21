@@ -33,10 +33,59 @@ export const Head = () => {
     },
     author: {
       '@type': 'Organization',
+      '@id': 'https://microlink.io/#organization',
       name: 'Microlink',
       url: 'https://microlink.io'
     },
     sameAs: ['https://github.com/microlinkhq', 'https://x.com/microlinkhq']
+  })
+
+  const organizationStructuredData = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': 'https://microlink.io/#organization',
+    name: 'Microlink',
+    alternateName: ['Microlink.io', 'Microlink HQ'],
+    url: 'https://microlink.io',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://cdn.microlink.io/logo/logo.png'
+    },
+    description:
+      'Microlink turns any URL into data: link previews, screenshots, PDFs, markdown and web scraping, powered by real browsers.',
+    foundingDate: '2017',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'ES'
+    },
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        contactType: 'customer support',
+        email: 'hello@microlink.io',
+        url: 'https://microlink.io/contact',
+        availableLanguage: ['English', 'Spanish']
+      },
+      {
+        '@type': 'ContactPoint',
+        contactType: 'sales',
+        email: 'hello@microlink.io',
+        url: 'https://microlink.io/enterprise',
+        availableLanguage: ['English', 'Spanish']
+      },
+      {
+        '@type': 'ContactPoint',
+        contactType: 'technical support',
+        email: 'hello@microlink.io',
+        url: 'https://microlink.io/docs/api/getting-started/overview',
+        availableLanguage: ['English', 'Spanish']
+      }
+    ],
+    sameAs: [
+      'https://github.com/microlinkhq',
+      'https://x.com/microlinkhq',
+      'https://www.linkedin.com/company/microlinkhq'
+    ]
   })
 
   const faqStructuredData = JSON.stringify({
@@ -58,6 +107,7 @@ export const Head = () => {
     <>
       <Meta noSuffix />
       <script type='application/ld+json'>{structuredData}</script>
+      <script type='application/ld+json'>{organizationStructuredData}</script>
       <script type='application/ld+json'>{faqStructuredData}</script>
     </>
   )

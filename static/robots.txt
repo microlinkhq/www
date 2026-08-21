@@ -1,3 +1,13 @@
 User-agent: *
 Allow: /
+
 Sitemap: https://microlink.io/sitemap-index.xml
+
+# Machine-readable resources for agents:
+#   https://microlink.io/llms.txt              every page as a markdown link
+#   https://microlink.io/openapi.json          the API as an OpenAPI 3.1 document
+#   https://microlink.io/apis.json             APIs.json service description
+#   https://microlink.io/.well-known/api-catalog   RFC 9727 API catalog
+#
+# Any page is also served as markdown: append .md to its path, or send
+# `Accept: text/markdown`.

@@ -89,7 +89,7 @@ const FOOTER_COLUMNS = [
     links: [
       { label: 'About', href: '/about' },
       { label: 'Bug Reports', href: issueUrl.bug() },
-      { label: 'Contact', href: 'mailto:hello@microlink.io' },
+      { label: 'Contact', href: '/contact' },
       { label: 'GitHub', href: 'https://github.com/microlinkhq' },
       {
         label: 'LinkedIn',

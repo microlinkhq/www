@@ -1,0 +1,1531 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Microlink API",
+    "summary": "Turn any website into data.",
+    "description": "Microlink turns any URL into data. A single GET request drives a real browser to\nextract normalized metadata, capture screenshots, generate PDFs, convert content\nto markdown or text, detect media and technologies, and run Lighthouse audits.\n\n## Endpoints\n\n`api.microlink.io` serves unauthenticated requests with a soft limit of 25\nrequests/day per IP. `pro.microlink.io` serves authenticated requests, with the\nquota of the plan attached to the API key.\n\n## Rate limits\n\nEvery response carries `x-rate-limit-limit`, `x-rate-limit-remaining` and\n`x-rate-limit-reset` (UTC epoch seconds). Exceeding the quota returns HTTP 429\nwith the `ERATE` code; wait until the reset instant before retrying.\n\n## Errors\n\nResponses follow the JSend specification. A failed request keeps the same shape\nas a successful one and adds a machine-readable `code`, a human-readable\nexplanation under `data`, and links to the documentation and to a prefilled\nreport. Match on `code`, never on the message text.\n\n## Versioning\n\nThe API is unversioned and additive-only: new query parameters and new response\nfields ship continuously, and no change ever removes or repurposes an existing\none. A change that cannot be made additively ships as a separate endpoint rather\nthan as a new behaviour of this one, so an integration written today keeps\nworking without pinning a version.\n\nDeprecation policy: a deprecated parameter or field is announced at\nhttps://microlink.io/changelog at least 6 months before removal, and the affected\nresponses carry `Deprecation` and `Sunset` headers (RFC 9745, RFC 8594) for the\nwhole notice period. Nothing is deprecated today.",
+    "version": "1.0.0",
+    "termsOfService": "https://microlink.io/tos",
+    "contact": {
+      "name": "Microlink",
+      "email": "hello@microlink.io",
+      "url": "https://microlink.io/contact"
+    },
+    "license": {
+      "name": "Microlink Terms of Service",
+      "url": "https://microlink.io/tos"
+    },
+    "x-logo": {
+      "url": "https://cdn.microlink.io/logo/logo.png",
+      "altText": "Microlink"
+    },
+    "x-versioning": {
+      "strategy": "unversioned-additive",
+      "deprecationNoticeMonths": 6,
+      "deprecationChannel": "https://microlink.io/changelog",
+      "deprecationHeaders": [
+        "Deprecation",
+        "Sunset"
+      ],
+      "policy": "The API is unversioned and additive-only: new query parameters and new response\nfields ship continuously, and no change ever removes or repurposes an existing\none. A change that cannot be made additively ships as a separate endpoint rather\nthan as a new behaviour of this one, so an integration written today keeps\nworking without pinning a version.\n\nDeprecation policy: a deprecated parameter or field is announced at\nhttps://microlink.io/changelog at least 6 months before removal, and the affected\nresponses carry `Deprecation` and `Sunset` headers (RFC 9745, RFC 8594) for the\nwhole notice period. Nothing is deprecated today."
+    }
+  },
+  "externalDocs": {
+    "description": "Microlink API documentation",
+    "url": "https://microlink.io/docs/api/getting-started/overview"
+  },
+  "servers": [
+    {
+      "url": "https://api.microlink.io",
+      "description": "Free endpoint. Unauthenticated, soft limit of 25 requests/day per IP."
+    },
+    {
+      "url": "https://pro.microlink.io",
+      "description": "Pro endpoint. Requires an API key, quota given by the plan."
+    }
+  ],
+  "security": [
+    {},
+    {
+      "apiKey": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "extraction",
+      "description": "Drive a browser over a URL and return the data it produces."
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "getUrlData",
+        "summary": "Extract data from a URL",
+        "description": "Runs the target URL through a real browser and returns the data selected by\nthe query parameters: normalized metadata by default, plus screenshots,\nPDFs, markdown, plain text, media, technologies or Lighthouse audits when\nthe matching parameter is enabled.\n\nParameter names are accepted in camelCase and snake_case alike. Nested\noptions use dot notation, for example `screenshot.fullPage=true`.",
+        "tags": [
+          "extraction"
+        ],
+        "parameters": [
+          {
+            "name": "adblock",
+            "in": "query",
+            "description": "Improve performance and reduce response times by blocking non-essential advertisements, trackers, and cookie banners.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/adblock"
+          },
+          {
+            "name": "animations",
+            "in": "query",
+            "description": "Control CSS animations and transitions during website rendering. Ensures consistent snapshots by handling motion effects in the headless browser.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/animations"
+          },
+          {
+            "name": "audio",
+            "in": "query",
+            "description": "Detect and extract audio sources from any URL. It returns browser-friendly audio URLs along with metadata enabling integration of media content from platforms.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/audio"
+          },
+          {
+            "name": "cacheKey",
+            "in": "query",
+            "description": "Take full control of cache identity to maximize hit rates and avoid redundant processing.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "x-pro": true,
+            "x-docs": "https://microlink.io/docs/api/parameters/cacheKey"
+          },
+          {
+            "name": "click",
+            "in": "query",
+            "description": "Automate browser interactions by clicking specific DOM elements via CSS selectors. Use this parameter to trigger navigation, toggle UI components, or change page state.",
+            "required": false,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/click"
+          },
+          {
+            "name": "colorScheme",
+            "in": "query",
+            "description": "Force the browser to render websites in light or dark mode using the prefers-color-scheme CSS media feature.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "no-preference"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/colorScheme"
+          },
+          {
+            "name": "data",
+            "in": "query",
+            "description": "Define custom data extraction rules using CSS selectors with the Microlink Query Language (MQL). Extract specific content like prices, reviews, or any structured data from any URL.",
+            "required": false,
+            "schema": {
+              "type": "object"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/data"
+          },
+          {
+            "name": "device",
+            "in": "query",
+            "description": "Emulate a wide range of mobile, tablet, and desktop devices by automatically setting the correct viewport, user agent, and screen resolution.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "macbook pro 13"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/device"
+          },
+          {
+            "name": "embed",
+            "in": "query",
+            "description": "Return a specific data field directly as the response body with appropriate content-type headers. Embed screenshots, PDFs, or extracted data directly in HTML, CSS, or Markdown.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/embed"
+          },
+          {
+            "name": "filename",
+            "in": "query",
+            "description": "Define a custom name for generated assets like screenshots or PDFs using the filename parameter.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "x-pro": true,
+            "x-docs": "https://microlink.io/docs/api/parameters/filename"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Reduce response bandwidth and optimize payload size by selecting specific data fields.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/filter"
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "description": "Bypass the Microlink CDN cache to fetch a fresh version of the target URL. Use the force parameter to invalidate existing cached copies and ensure the most up-to-date metadata.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/force"
+          },
+          {
+            "name": "function",
+            "in": "query",
+            "description": "Execute custom JavaScript code inside a headless browser to perform advanced scraping or automation tasks. Gain full control over the page lifecycle with Puppeteer access.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/function"
+          },
+          {
+            "name": "headers",
+            "in": "query",
+            "description": "Configure custom HTTP headers to be sent with your requests to the target URL. This Pro feature allows for emulating specific browsers.",
+            "required": false,
+            "schema": {
+              "type": "object"
+            },
+            "x-pro": true,
+            "x-docs": "https://microlink.io/docs/api/parameters/headers"
+          },
+          {
+            "name": "iframe",
+            "in": "query",
+            "description": "The iframe parameter returns ready-to-use HTML and script tags for hundreds of providers.",
+            "required": false,
+            "schema": {
+              "type": [
+                "boolean",
+                "object"
+              ],
+              "default": false
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/iframe"
+          },
+          {
+            "name": "insights",
+            "in": "query",
+            "description": "Analyze web performance and stack data with Microlink Insights. Extract identified technologies via Wappalyzer and detailed Lighthouse audit reports directly from any target URL.",
+            "required": false,
+            "schema": {
+              "type": [
+                "boolean",
+                "object"
+              ],
+              "default": false
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/insights"
+          },
+          {
+            "name": "insights.lighthouse",
+            "in": "query",
+            "description": "Generate comprehensive Google Lighthouse reports for any URL. Export web performance audits in JSON, HTML, or CSV formats using custom configurations via Microlink API.",
+            "required": false,
+            "schema": {
+              "type": [
+                "boolean",
+                "object"
+              ],
+              "default": true
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/insights/lighthouse"
+          },
+          {
+            "name": "insights.technologies",
+            "in": "query",
+            "description": "Identify the software stack behind any URL using Microlink technology detection. It returns a detailed list of frameworks, CDNs, and analytics tools with confidence scores.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/insights/technologies"
+          },
+          {
+            "name": "javascript",
+            "in": "query",
+            "description": "Control whether JavaScript is executed within the headless browser for a target URL.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/javascript"
+          },
+          {
+            "name": "mediaType",
+            "in": "query",
+            "description": "Switch between \"screen\" and \"print\" CSS media queries to control how a website renders for capture.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "screen"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/mediaType"
+          },
+          {
+            "name": "meta",
+            "in": "query",
+            "description": "Extract normalized metadata from any URL, including titles, descriptions, images, and logos.",
+            "required": false,
+            "schema": {
+              "type": [
+                "boolean",
+                "object"
+              ],
+              "default": true
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/meta"
+          },
+          {
+            "name": "modules",
+            "in": "query",
+            "description": "Inject JavaScript modules into a webpage during the rendering process.",
+            "required": false,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/modules"
+          },
+          {
+            "name": "palette",
+            "in": "query",
+            "description": "Extract dominant color palettes and accessibility-compliant color schemes from detected images.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/palette"
+          },
+          {
+            "name": "pdf",
+            "in": "query",
+            "description": "Generate high-quality PDFs from any website using Microlink headless browser infrastructure.",
+            "required": false,
+            "schema": {
+              "type": [
+                "boolean",
+                "object"
+              ],
+              "default": false
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/pdf"
+          },
+          {
+            "name": "pdf.format",
+            "in": "query",
+            "description": "Customize the paper format for PDF generation from any URL. Supports standard sizes including A4, Letter, Legal, and Tabloid for high-quality.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "A4"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/pdf/format"
+          },
+          {
+            "name": "pdf.height",
+            "in": "query",
+            "description": "Set a custom paper height for your PDF generation using pixels, inches, or other CSS units. Fine-tune the dimensions of your website-to-PDF conversions.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/pdf/height"
+          },
+          {
+            "name": "pdf.landscape",
+            "in": "query",
+            "description": "Set the paper orientation to landscape for your website-to-PDF conversions. Toggle between portrait and landscape modes to optimize the layout of generated PDF documents.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/pdf/landscape"
+          },
+          {
+            "name": "pdf.margin",
+            "in": "query",
+            "description": "Configure custom paper margins for your website-to-PDF conversions. Specify unified margins or individual top, bottom, left, and right values.",
+            "required": false,
+            "schema": {
+              "type": [
+                "string",
+                "object"
+              ],
+              "default": "0.35cm"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/pdf/margin"
+          },
+          {
+            "name": "pdf.pageRanges",
+            "in": "query",
+            "description": "Define specific page ranges for your website-to-PDF conversion. Extract single pages or custom intervals like \"1-5, 8, 11-13\" from any URL using the Microlink API pageRanges parameter.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/pdf/pageRanges"
+          },
+          {
+            "name": "pdf.scale",
+            "in": "query",
+            "description": "Adjust the zoom level of your website-to-PDF conversions using the scale parameter with Microlink API automated browser.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 0.6
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/pdf/scale"
+          },
+          {
+            "name": "pdf.width",
+            "in": "query",
+            "description": "Set a custom paper width for your PDF generation using pixels, inches, or other CSS units. Fine-tune the horizontal dimensions of your website-to-PDF conversions.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/pdf/width"
+          },
+          {
+            "name": "ping",
+            "in": "query",
+            "description": "Validate the accessibility of all URLs extracted in the response payload. The ping parameter verifies that links to images, videos, or audio are publicly reachable.",
+            "required": false,
+            "schema": {
+              "type": [
+                "boolean",
+                "object"
+              ],
+              "default": true
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/ping"
+          },
+          {
+            "name": "prerender",
+            "in": "query",
+            "description": "Optimize how content is fetched from the target URL by choosing between a headless browser or a simple HTTP request.",
+            "required": false,
+            "schema": {
+              "type": [
+                "boolean",
+                "string"
+              ],
+              "default": "auto"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/prerender"
+          },
+          {
+            "name": "proxy",
+            "in": "query",
+            "description": "Bypass IP rate limits, CAPTCHAs, and regional restrictions using high-quality proxy rotation.",
+            "required": false,
+            "schema": {
+              "type": [
+                "string",
+                "object"
+              ]
+            },
+            "x-pro": true,
+            "x-docs": "https://microlink.io/docs/api/parameters/proxy"
+          },
+          {
+            "name": "retry",
+            "in": "query",
+            "description": "Configure the number of exponential backoff retries to attempt if the underlying browser encounters an unexpected internal error.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 2
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/retry"
+          },
+          {
+            "name": "screenshot",
+            "in": "query",
+            "description": "Generate high-fidelity screenshots of any website with a single API call. Automatically handle headless browser infrastructure to extract visual data.",
+            "required": false,
+            "schema": {
+              "type": [
+                "boolean",
+                "object"
+              ],
+              "default": false
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/screenshot"
+          },
+          {
+            "name": "screenshot.animated",
+            "in": "query",
+            "description": "Record a website as a short video instead of a static image. Capture animations, transitions and live content as an H.264 MP4 with a single API call.",
+            "required": false,
+            "schema": {
+              "type": [
+                "boolean",
+                "object"
+              ],
+              "default": false
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/screenshot/animated"
+          },
+          {
+            "name": "screenshot.codeScheme",
+            "in": "query",
+            "description": "Beautify HTML and JSON content with professional code syntax highlighting using the codeScheme parameter. Choose from popular Prism themes like Darcula or provide a custom CSS URL.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "atom-dark"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/screenshot/codeScheme"
+          },
+          {
+            "name": "screenshot.element",
+            "in": "query",
+            "description": "Capture a specific DOM element as a screenshot by providing a CSS selector. The Microlink API automatically waits for the element to be visible before rendering the image.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/screenshot/element"
+          },
+          {
+            "name": "screenshot.fullPage",
+            "in": "query",
+            "description": "Capture a high-resolution screenshot of the entire scrollable content of a website. Use the fullPage parameter to render the complete layout of a URL.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/screenshot/fullPage"
+          },
+          {
+            "name": "screenshot.omitBackground",
+            "in": "query",
+            "description": "Generate transparent screenshots by omitting the default white background of the webpage.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/screenshot/omitBackground"
+          },
+          {
+            "name": "screenshot.overlay",
+            "in": "query",
+            "description": "Create professional screenshot compositions with customizable browser overlays and backgrounds.",
+            "required": false,
+            "schema": {
+              "type": "object"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/screenshot/overlay"
+          },
+          {
+            "name": "screenshot.quality",
+            "in": "query",
+            "description": "Control JPEG compression for website screenshots. Set quality between 0 and 100 to balance file size and visual fidelity.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 80
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/screenshot/quality"
+          },
+          {
+            "name": "screenshot.type",
+            "in": "query",
+            "description": "Choose between JPEG or PNG file formats for your website screenshots. Assets are automatically optimized and served in modern formats based on client device capabilities.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "png"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/screenshot/type"
+          },
+          {
+            "name": "scripts",
+            "in": "query",
+            "description": "Inject custom JavaScript into a webpage before it is rendered or captured.",
+            "required": false,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/scripts"
+          },
+          {
+            "name": "scroll",
+            "in": "query",
+            "description": "Navigate to specific sections of a webpage by scrolling to a DOM element matching a CSS selector.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/scroll"
+          },
+          {
+            "name": "staleTtl",
+            "in": "query",
+            "description": "Optimize API performance by serving cached content while simultaneously refreshing it in the background.",
+            "required": false,
+            "schema": {
+              "type": [
+                "string",
+                "number",
+                "boolean"
+              ],
+              "default": false
+            },
+            "x-pro": true,
+            "x-docs": "https://microlink.io/docs/api/parameters/staleTtl"
+          },
+          {
+            "name": "styles",
+            "in": "query",
+            "description": "Inject custom CSS into a webpage before it is rendered or captured. The styles parameter supports both inline CSS rules and absolute URLs to external stylesheets.",
+            "required": false,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/styles"
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "description": "Define the maximum duration allowed for the API to process a request before timing out. The timeout parameter accepts values in milliseconds or human-readable formats.",
+            "required": false,
+            "schema": {
+              "type": [
+                "string",
+                "number"
+              ],
+              "default": "28s"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/timeout"
+          },
+          {
+            "name": "ttl",
+            "in": "query",
+            "description": "Define the cache expiration time for your requests to balance data freshness and response speed. The ttl parameter supports human-readable formats.",
+            "required": false,
+            "schema": {
+              "type": [
+                "string",
+                "number"
+              ],
+              "default": "24h"
+            },
+            "x-pro": true,
+            "x-docs": "https://microlink.io/docs/api/parameters/ttl"
+          },
+          {
+            "name": "url",
+            "in": "query",
+            "description": "The primary address of the website you want to process. The url parameter is the core requirement for any Microlink API request, serving as the base for metadata extraction.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/url"
+          },
+          {
+            "name": "video",
+            "in": "query",
+            "description": "Detect and extract direct video source URLs from any website in a browser-friendly format.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/video"
+          },
+          {
+            "name": "viewport",
+            "in": "query",
+            "description": "Customize the browser visible area and device capabilities to control how a website is rendered.",
+            "required": false,
+            "schema": {
+              "type": "object"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/viewport"
+          },
+          {
+            "name": "waitForSelector",
+            "in": "query",
+            "description": "Pause browser execution until a specific element is present in the DOM. The waitForSelector parameter ensures that dynamic content is fully rendered before extracting data.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/waitForSelector"
+          },
+          {
+            "name": "waitForTimeout",
+            "in": "query",
+            "description": "Force the headless browser to wait for a specific duration before capturing or extracting data from the target URL.",
+            "required": false,
+            "schema": {
+              "type": [
+                "string",
+                "number"
+              ]
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/waitForTimeout"
+          },
+          {
+            "name": "waitUntil",
+            "in": "query",
+            "description": "Fine-tune when Microlink considers a page fully \"loaded\" by waiting for specific lifecycle events.",
+            "required": false,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "default": "auto"
+            },
+            "x-docs": "https://microlink.io/docs/api/parameters/waitUntil"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The data extracted from the target URL.",
+            "headers": {
+              "x-rate-limit-limit": {
+                "description": "Maximum number of requests allowed in the current window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "x-rate-limit-remaining": {
+                "description": "Requests left in the current window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "x-rate-limit-reset": {
+                "description": "Instant the current window resets, in UTC epoch seconds.",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              },
+              "x-request-id": {
+                "description": "Unique identifier of the request, quote it when reporting an error.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request is malformed, most often an invalid or unreachable url.",
+            "headers": {
+              "x-rate-limit-limit": {
+                "description": "Maximum number of requests allowed in the current window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "x-rate-limit-remaining": {
+                "description": "Requests left in the current window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "x-rate-limit-reset": {
+                "description": "Instant the current window resets, in UTC epoch seconds.",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              },
+              "x-request-id": {
+                "description": "Unique identifier of the request, quote it when reporting an error.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "EINVALURL": {
+                    "summary": "EINVALURL",
+                    "value": {
+                      "status": "fail",
+                      "data": {
+                        "url": "The URL `notaurl` is not valid."
+                      },
+                      "code": "EINVALURL",
+                      "more": "https://microlink.io/einvalurl"
+                    }
+                  },
+                  "EFORBIDDENURL": {
+                    "summary": "EFORBIDDENURL",
+                    "value": {
+                      "status": "fail",
+                      "data": {
+                        "url": "The URL `notaurl` is not valid."
+                      },
+                      "code": "EFORBIDDENURL",
+                      "more": "https://microlink.io/eforbiddenurl"
+                    }
+                  },
+                  "EINVALQUERY": {
+                    "summary": "EINVALQUERY",
+                    "value": {
+                      "status": "fail",
+                      "data": {
+                        "url": "The URL `notaurl` is not valid."
+                      },
+                      "code": "EINVALQUERY",
+                      "more": "https://microlink.io/einvalquery"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The API key is missing or invalid, or the parameter needs a Pro plan.",
+            "headers": {
+              "x-rate-limit-limit": {
+                "description": "Maximum number of requests allowed in the current window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "x-rate-limit-remaining": {
+                "description": "Requests left in the current window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "x-rate-limit-reset": {
+                "description": "Instant the current window resets, in UTC epoch seconds.",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              },
+              "x-request-id": {
+                "description": "Unique identifier of the request, quote it when reporting an error.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "EAUTH": {
+                    "summary": "EAUTH",
+                    "value": {
+                      "status": "fail",
+                      "data": {
+                        "url": "The URL `notaurl` is not valid."
+                      },
+                      "code": "EAUTH",
+                      "more": "https://microlink.io/eauth"
+                    }
+                  },
+                  "EPRO": {
+                    "summary": "EPRO",
+                    "value": {
+                      "status": "fail",
+                      "data": {
+                        "url": "The URL `notaurl` is not valid."
+                      },
+                      "code": "EPRO",
+                      "more": "https://microlink.io/epro"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The API quota for the window is exhausted.",
+            "headers": {
+              "x-rate-limit-limit": {
+                "description": "Maximum number of requests allowed in the current window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "x-rate-limit-remaining": {
+                "description": "Requests left in the current window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "x-rate-limit-reset": {
+                "description": "Instant the current window resets, in UTC epoch seconds.",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              },
+              "x-request-id": {
+                "description": "Unique identifier of the request, quote it when reporting an error.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "ERATE": {
+                    "summary": "ERATE",
+                    "value": {
+                      "status": "fail",
+                      "data": {
+                        "url": "The URL `notaurl` is not valid."
+                      },
+                      "code": "ERATE",
+                      "more": "https://microlink.io/erate"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The request could not be resolved against the target URL.",
+            "headers": {
+              "x-rate-limit-limit": {
+                "description": "Maximum number of requests allowed in the current window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "x-rate-limit-remaining": {
+                "description": "Requests left in the current window.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "x-rate-limit-reset": {
+                "description": "Instant the current window resets, in UTC epoch seconds.",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              },
+              "x-request-id": {
+                "description": "Unique identifier of the request, quote it when reporting an error.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "EFATAL": {
+                    "summary": "EFATAL",
+                    "value": {
+                      "status": "fail",
+                      "data": {
+                        "url": "The URL `notaurl` is not valid."
+                      },
+                      "code": "EFATAL",
+                      "more": "https://microlink.io/efatal"
+                    }
+                  },
+                  "EBRWSRTIMEOUT": {
+                    "summary": "EBRWSRTIMEOUT",
+                    "value": {
+                      "status": "fail",
+                      "data": {
+                        "url": "The URL `notaurl` is not valid."
+                      },
+                      "code": "EBRWSRTIMEOUT",
+                      "more": "https://microlink.io/ebrwsrtimeout"
+                    }
+                  },
+                  "ETIMEOUT": {
+                    "summary": "ETIMEOUT",
+                    "value": {
+                      "status": "fail",
+                      "data": {
+                        "url": "The URL `notaurl` is not valid."
+                      },
+                      "code": "ETIMEOUT",
+                      "more": "https://microlink.io/etimeout"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "An API key issued at https://microlink.io/pricing. Required by the pro endpoint."
+      }
+    },
+    "schemas": {
+      "Status": {
+        "type": "string",
+        "enum": [
+          "success",
+          "fail",
+          "error"
+        ],
+        "description": "The outcome of the request, as defined by JSend. `success` pairs with a 2xx status code, `fail` with a 4xx and `error` with a 5xx."
+      },
+      "ErrorCode": {
+        "type": "string",
+        "enum": [
+          "EAUTH",
+          "EBRWSRTIMEOUT",
+          "ECACHEKEY",
+          "EFATAL",
+          "EFATALCLIENT",
+          "EFILENAME",
+          "EFORBIDDENURL",
+          "EHEADERS",
+          "EINTEGRATION",
+          "EINVALDATA",
+          "EINVALEVAL",
+          "EINVALFUNCTION",
+          "EINVALOVERLAYBG",
+          "EINVALPROXY",
+          "EINVALQUERY",
+          "EINVALSTTL",
+          "EINVALTTL",
+          "EINVALURL",
+          "EINVALURLCLIENT",
+          "EMAXREDIRECTS",
+          "EPAGERANGE",
+          "EPDFTOOLARGE",
+          "EPRO",
+          "EPROXY",
+          "EPROXYNEEDED",
+          "ERATE",
+          "ESTTL",
+          "ETIMEOUT",
+          "ETTL"
+        ],
+        "description": "The machine-readable reason the request failed. Each code is documented at https://microlink.io/docs/api/basics/error-codes."
+      },
+      "Metadata": {
+        "type": "object",
+        "description": "The data extracted from the target URL.",
+        "properties": {
+          "author": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A human-readable representation of the author's name."
+          },
+          "date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "ISO 8601 date the content was published."
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The publisher's chosen description of the content."
+          },
+          "lang": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ISO 639-1 language of the content."
+          },
+          "publisher": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A human-readable representation of the publisher's name."
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The publisher's chosen title of the content."
+          },
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "description": "The canonical URL of the content."
+          },
+          "image": {
+            "type": [
+              "object",
+              "string",
+              "null"
+            ],
+            "description": "A media asset: an absolute URL plus its contextual metadata.",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "size": {
+                "type": "integer",
+                "description": "File size in bytes."
+              },
+              "size_pretty": {
+                "type": "string",
+                "description": "File size in a human readable format."
+              },
+              "type": {
+                "type": "string",
+                "description": "File type extension."
+              },
+              "width": {
+                "type": "integer",
+                "description": "File width in pixels."
+              },
+              "height": {
+                "type": "integer",
+                "description": "File height in pixels."
+              },
+              "duration": {
+                "type": "number",
+                "description": "Source duration in seconds, for playable media."
+              },
+              "duration_pretty": {
+                "type": "string",
+                "description": "Source duration in a human readable format."
+              }
+            }
+          },
+          "logo": {
+            "type": [
+              "object",
+              "string",
+              "null"
+            ],
+            "description": "A media asset: an absolute URL plus its contextual metadata.",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "size": {
+                "type": "integer",
+                "description": "File size in bytes."
+              },
+              "size_pretty": {
+                "type": "string",
+                "description": "File size in a human readable format."
+              },
+              "type": {
+                "type": "string",
+                "description": "File type extension."
+              },
+              "width": {
+                "type": "integer",
+                "description": "File width in pixels."
+              },
+              "height": {
+                "type": "integer",
+                "description": "File height in pixels."
+              },
+              "duration": {
+                "type": "number",
+                "description": "Source duration in seconds, for playable media."
+              },
+              "duration_pretty": {
+                "type": "string",
+                "description": "Source duration in a human readable format."
+              }
+            }
+          },
+          "video": {
+            "type": [
+              "object",
+              "string",
+              "null"
+            ],
+            "description": "A media asset: an absolute URL plus its contextual metadata.",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "size": {
+                "type": "integer",
+                "description": "File size in bytes."
+              },
+              "size_pretty": {
+                "type": "string",
+                "description": "File size in a human readable format."
+              },
+              "type": {
+                "type": "string",
+                "description": "File type extension."
+              },
+              "width": {
+                "type": "integer",
+                "description": "File width in pixels."
+              },
+              "height": {
+                "type": "integer",
+                "description": "File height in pixels."
+              },
+              "duration": {
+                "type": "number",
+                "description": "Source duration in seconds, for playable media."
+              },
+              "duration_pretty": {
+                "type": "string",
+                "description": "Source duration in a human readable format."
+              }
+            }
+          },
+          "audio": {
+            "type": [
+              "object",
+              "string",
+              "null"
+            ],
+            "description": "A media asset: an absolute URL plus its contextual metadata.",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "size": {
+                "type": "integer",
+                "description": "File size in bytes."
+              },
+              "size_pretty": {
+                "type": "string",
+                "description": "File size in a human readable format."
+              },
+              "type": {
+                "type": "string",
+                "description": "File type extension."
+              },
+              "width": {
+                "type": "integer",
+                "description": "File width in pixels."
+              },
+              "height": {
+                "type": "integer",
+                "description": "File height in pixels."
+              },
+              "duration": {
+                "type": "number",
+                "description": "Source duration in seconds, for playable media."
+              },
+              "duration_pretty": {
+                "type": "string",
+                "description": "Source duration in a human readable format."
+              }
+            }
+          },
+          "screenshot": {
+            "type": [
+              "object",
+              "string",
+              "null"
+            ],
+            "description": "A media asset: an absolute URL plus its contextual metadata.",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "size": {
+                "type": "integer",
+                "description": "File size in bytes."
+              },
+              "size_pretty": {
+                "type": "string",
+                "description": "File size in a human readable format."
+              },
+              "type": {
+                "type": "string",
+                "description": "File type extension."
+              },
+              "width": {
+                "type": "integer",
+                "description": "File width in pixels."
+              },
+              "height": {
+                "type": "integer",
+                "description": "File height in pixels."
+              },
+              "duration": {
+                "type": "number",
+                "description": "Source duration in seconds, for playable media."
+              },
+              "duration_pretty": {
+                "type": "string",
+                "description": "Source duration in a human readable format."
+              }
+            }
+          },
+          "pdf": {
+            "type": [
+              "object",
+              "string",
+              "null"
+            ],
+            "description": "A media asset: an absolute URL plus its contextual metadata.",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "size": {
+                "type": "integer",
+                "description": "File size in bytes."
+              },
+              "size_pretty": {
+                "type": "string",
+                "description": "File size in a human readable format."
+              },
+              "type": {
+                "type": "string",
+                "description": "File type extension."
+              },
+              "width": {
+                "type": "integer",
+                "description": "File width in pixels."
+              },
+              "height": {
+                "type": "integer",
+                "description": "File height in pixels."
+              },
+              "duration": {
+                "type": "number",
+                "description": "Source duration in seconds, for playable media."
+              },
+              "duration_pretty": {
+                "type": "string",
+                "description": "Source duration in a human readable format."
+              }
+            }
+          },
+          "markdown": {
+            "type": "string",
+            "description": "The page content converted to markdown."
+          },
+          "text": {
+            "type": "string",
+            "description": "The page content converted to plain text."
+          },
+          "html": {
+            "type": "string",
+            "description": "The rendered HTML of the page."
+          }
+        },
+        "additionalProperties": true
+      },
+      "Redirect": {
+        "type": "object",
+        "description": "One hop of the redirect chain followed from the target URL.",
+        "properties": {
+          "statusCode": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "SuccessResponse": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Metadata"
+          },
+          "statusCode": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The HTTP status code returned by the target URL."
+          },
+          "headers": {
+            "type": [
+              "object",
+              "array"
+            ],
+            "description": "The HTTP response headers returned by the target URL."
+          },
+          "redirects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Redirect"
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "status",
+          "code"
+        ],
+        "description": "The typed error model. `code` is the contract: it is stable, enumerable and safe to branch on. `data` maps the offending parameter to a human-readable explanation, and is written for people, not for parsers.",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "code": {
+            "$ref": "#/components/schemas/ErrorCode"
+          },
+          "data": {
+            "type": "object",
+            "description": "The offending parameter mapped to an explanation of what is wrong with it.",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "message": {
+            "type": "string",
+            "description": "A human-readable explanation of the failure."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the request that failed."
+          },
+          "more": {
+            "type": "string",
+            "format": "uri",
+            "description": "The documentation for this error code."
+          },
+          "report": {
+            "type": "string",
+            "format": "uri",
+            "description": "A prefilled report for this exact request."
+          }
+        }
+      }
+    }
+  }
+}

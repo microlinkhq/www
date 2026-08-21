@@ -38,6 +38,15 @@
       ]
     },
     {
+      "source": "/.well-known/api-catalog",
+      "headers": [
+        {
+          "key": "content-type",
+          "value": "application/linkset+json; charset=utf-8"
+        }
+      ]
+    },
+    {
       "source": "/llms.txt",
       "headers": [
         {
@@ -113,6 +122,10 @@
         {
           "key": "x-xss-protection",
           "value": "0"
+        },
+        {
+          "key": "vary",
+          "value": "Accept, Accept-Encoding"
         }
       ]
     }
@@ -447,7 +460,7 @@
       ]
     },
     {
-      "source": "/((?!tools/embed-url/|(?:recipes|404|dev-404-page|offline-plugin-app-shell-fallback)(?:/|$)|.*\\.[a-zA-Z0-9]+$).+)",
+      "source": "/((?!\\.well-known/|tools/embed-url/|(?:recipes|404|dev-404-page|offline-plugin-app-shell-fallback)(?:/|$)|.*\\.[a-zA-Z0-9]+$).+)",
       "destination": "/$1.md",
       "permanent": false,
       "has": [

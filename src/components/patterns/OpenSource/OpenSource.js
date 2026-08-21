@@ -275,51 +275,11 @@ const OpenSource = ({
       >
         <Flex
           css={theme({
-            width: ['100%', '100%', '100%', LAYOUT.mainWidth],
-            pt: [4, 4, 5, 0],
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
-          })}
-        >
-          <Flex
-            css={theme({
-              width: ['100%', '100%', '85%', '100%'],
-              flexDirection: 'column',
-              gap: [3, 3, 4, 4]
-            })}
-          >
-            {primary && (
-              <RepoCardItem
-                repo={primary}
-                tile={repoTile(primary, 0)}
-                primary
-              />
-            )}
-            <Flex
-              css={theme({
-                gap: [3, 3, 4, 4],
-                flexDirection: ['column', 'column', 'row', 'row']
-              })}
-            >
-              {secondary.map((repo, index) => (
-                <RepoCardItem
-                  key={repo.name}
-                  repo={repo}
-                  tile={repoTile(repo, index + 1)}
-                  css={theme({ flex: 1 })}
-                />
-              ))}
-            </Flex>
-          </Flex>
-        </Flex>
-        <Flex
-          css={theme({
             flexDirection: 'column',
             width: ['100%', '100%', '100%', LAYOUT.secondaryWidth],
             justifyContent: 'center',
             alignItems: ['center', 'center', 'center', 'flex-start'],
-            order: [-1, -1, -1, 0]
+            order: [0, 0, 0, 1]
           })}
         >
           <Subhead
@@ -368,6 +328,46 @@ const OpenSource = ({
             >
               {ctaLabel}
             </ArrowLink>
+          </Flex>
+        </Flex>
+        <Flex
+          css={theme({
+            width: ['100%', '100%', '100%', LAYOUT.mainWidth],
+            pt: [4, 4, 5, 0],
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          })}
+        >
+          <Flex
+            css={theme({
+              width: ['100%', '100%', '85%', '100%'],
+              flexDirection: 'column',
+              gap: [3, 3, 4, 4]
+            })}
+          >
+            {primary && (
+              <RepoCardItem
+                repo={primary}
+                tile={repoTile(primary, 0)}
+                primary
+              />
+            )}
+            <Flex
+              css={theme({
+                gap: [3, 3, 4, 4],
+                flexDirection: ['column', 'column', 'row', 'row']
+              })}
+            >
+              {secondary.map((repo, index) => (
+                <RepoCardItem
+                  key={repo.name}
+                  repo={repo}
+                  tile={repoTile(repo, index + 1)}
+                  css={theme({ flex: 1 })}
+                />
+              ))}
+            </Flex>
           </Flex>
         </Flex>
       </Flex>

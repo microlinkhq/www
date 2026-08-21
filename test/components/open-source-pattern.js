@@ -118,3 +118,17 @@ describe('OpenSource pattern', () => {
     }
   })
 })
+
+describe('heading order', () => {
+  const source = read('src/components/patterns/OpenSource/OpenSource.js')
+
+  test('renders the section title before the repo cards it introduces', () => {
+    expect(source.indexOf('<Subhead')).toBeLessThan(
+      source.indexOf('<RepoCardItem')
+    )
+  })
+
+  test('keeps the cards on the left at the widest breakpoint', () => {
+    expect(source).toContain('order: [0, 0, 0, 1]')
+  })
+})

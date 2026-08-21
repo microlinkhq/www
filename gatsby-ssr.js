@@ -12,6 +12,27 @@ const GA_TRACKING_ID = 'G-4MN95ELTLZ'
 const CONSENT_STORAGE_KEY = 'microlink-cookie-consent'
 
 exports.onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
+  setHeadComponents([
+    <link
+      key='service-desc'
+      rel='service-desc'
+      type='application/openapi+json'
+      href='https://microlink.io/openapi.json'
+    />,
+    <link
+      key='service-doc'
+      rel='service-doc'
+      type='text/html'
+      href='https://microlink.io/docs/api/getting-started/overview'
+    />,
+    <link
+      key='api-catalog'
+      rel='api-catalog'
+      type='application/linkset+json'
+      href='https://microlink.io/.well-known/api-catalog'
+    />
+  ])
+
   if (!isDevelopment) {
     setHeadComponents([
       <script

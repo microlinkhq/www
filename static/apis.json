@@ -1,64 +1,121 @@
 {
   "name": "microlink.io",
-  "description": "Turn websites into data",
+  "description": "Turn any website into data. APIs for link previews, screenshots, PDF generation, markdown conversion and web scraping, powered by real browsers.",
   "image": "https://cdn.microlink.io/logo/logo.png",
-  "url": "http://microlink.io/apis.json",
+  "url": "https://microlink.io/apis.json",
+  "created": "2017-10-10",
+  "modified": "2026-08-21",
+  "specificationVersion": "1.0",
   "tags": [
     "API",
-    "embeddable",
-    "preview-images-links",
-    "embedded-media",
-    "screenshot",
+    "browser-automation",
     "color-palette",
     "embed",
-    "preview-links"
+    "embeddable",
+    "embedded-media",
+    "markdown",
+    "metadata",
+    "pdf",
+    "preview-images-links",
+    "preview-links",
+    "scraping",
+    "screenshot"
   ],
   "apis": [
     {
-	      "name": "microlink",
-	      "description": "Turn websites into data",
-	      "image": "https://cdn.microlink.io/logo/logo.png",
-        "humanURL": "https://microlink.io/docs",
-        "baseURL": "https://api.microlink.io",
-	      "tags": [
-          "API",
-          "embeddable",
-          "preview-images-links",
-          "embedded-media",
-          "screenshot",
-          "color-palette",
-          "embed",
-          "preview-links"
-	      ],
-	      "properties": [
-	        {
-	          "type": "Pricing",
-	          "url": "https://microlink.io/pricing"
-	        },
-	        {
-	          "type": "X-docs",
-	          "url": "https://microlink.io/docs"
-	        }
-	      ],
-	      "contact": [
-	        {
-	          "FN": "Microlink HQ",
-	          "email": "hello@microlink.io",
-	          "X-twitter": "microlinkhq"
-	        }
-	      ]
-	    }
+      "name": "Microlink API",
+      "description": "A single HTTP GET turns any URL into data: normalized metadata, screenshots, PDFs, markdown, plain text, media, detected technologies and Lighthouse audits.",
+      "image": "https://cdn.microlink.io/logo/logo.png",
+      "humanURL": "https://microlink.io/docs/api/getting-started/overview",
+      "baseURL": "https://api.microlink.io",
+      "tags": [
+        "API",
+        "browser-automation",
+        "markdown",
+        "metadata",
+        "pdf",
+        "scraping",
+        "screenshot"
+      ],
+      "properties": [
+        {
+          "type": "OpenAPI",
+          "url": "https://microlink.io/openapi.json"
+        },
+        {
+          "type": "Documentation",
+          "url": "https://microlink.io/docs/api/getting-started/overview"
+        },
+        {
+          "type": "Authentication",
+          "url": "https://microlink.io/docs/api/basics/authentication"
+        },
+        {
+          "type": "RateLimits",
+          "url": "https://microlink.io/docs/api/basics/rate-limit"
+        },
+        {
+          "type": "Errors",
+          "url": "https://microlink.io/docs/api/basics/error-codes"
+        },
+        {
+          "type": "Versioning",
+          "url": "https://microlink.io/docs/api/basics/versioning"
+        },
+        {
+          "type": "Pricing",
+          "url": "https://microlink.io/pricing"
+        },
+        {
+          "type": "StatusPage",
+          "url": "https://microlink.io/status"
+        },
+        {
+          "type": "TermsOfService",
+          "url": "https://microlink.io/tos"
+        },
+        {
+          "type": "PrivacyPolicy",
+          "url": "https://microlink.io/privacy"
+        },
+        {
+          "type": "SecurityPolicy",
+          "url": "https://microlink.io/.well-known/security.txt"
+        },
+        {
+          "type": "X-mcp",
+          "url": "https://microlink.io/docs/api/getting-started/mcp"
+        },
+        {
+          "type": "X-llms-txt",
+          "url": "https://microlink.io/llms.txt"
+        },
+        {
+          "type": "X-api-catalog",
+          "url": "https://microlink.io/.well-known/api-catalog"
+        },
+        {
+          "type": "X-github",
+          "url": "https://github.com/microlinkhq"
+        }
+      ],
+      "contact": [
+        {
+          "FN": "Microlink HQ",
+          "email": "hello@microlink.io",
+          "url": "https://microlink.io/contact",
+          "X-twitter": "microlinkhq"
+        }
+      ]
+    }
   ],
-  "created": "2017-10-10",
-  "modified": "2019-29-04",
-  "specificationVersion": "1.0",
   "maintainers": [
     {
       "FN": "Kiko Beats",
-      "X-Twitter": "kikobeats",
+      "email": "hello@microlink.io",
+      "url": "https://kikobeats.com",
       "X-GitHub": "kikobeats",
-      "email": "josefrancisco.verdu@gmail.com",
-      "url": "https://kikobeats.com"
+      "X-Twitter": "kikobeats"
     }
   ]
 }

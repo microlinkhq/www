@@ -3,7 +3,7 @@ import { toDate } from 'helpers/to-date'
 const sharedContext = {
   provider: {
     '@type': 'Organization',
-    '@id': 'https://microlink.io/about',
+    '@id': 'https://microlink.io/#organization',
     name: 'Microlink',
     url: 'https://microlink.io'
   },

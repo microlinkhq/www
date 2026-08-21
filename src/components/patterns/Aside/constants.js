@@ -266,6 +266,10 @@ const ROUTES_API = [
       {
         name: 'Rate limit',
         href: '/docs/api/basics/rate-limit'
+      },
+      {
+        name: 'Versioning',
+        href: '/docs/api/basics/versioning'
       }
     ]
   },

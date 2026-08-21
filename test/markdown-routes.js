@@ -79,6 +79,28 @@ describe('markdown content-type header', () => {
   })
 })
 
+describe('markdown variant caching', () => {
+  const globalRule = headers.find(({ source }) => source === '/(.*)')
+
+  const varyOf = rule =>
+    rule.headers
+      .find(({ key }) => key.toLowerCase() === 'vary')
+      ?.value.split(',')
+      .map(value => value.trim().toLowerCase())
+
+  test('varies on Accept, since the same URL serves HTML and markdown', () => {
+    expect(varyOf(globalRule)).toContain('accept')
+  })
+
+  test('keeps varying on Accept-Encoding, so compression stays cacheable', () => {
+    expect(varyOf(globalRule)).toContain('accept-encoding')
+  })
+
+  test('covers the markdown files too', () => {
+    expect(new RegExp(`^${globalRule.source}$`).test('/pricing.md')).toBe(true)
+  })
+})
+
 const acceptsMarkdown = ({ has = [] }) =>
   has.some(
     ({ type, key, value }) =>
@@ -133,6 +155,15 @@ describe('markdown content negotiation', () => {
       '/llms.txt',
       '/sitemap-index.xml',
       '/static/main.css'
+    ]) {
+      expect(matchesNegotiation(pathname), pathname).toBe(false)
+    }
+  })
+
+  test('leaves the well-known resources alone, extension or not', () => {
+    for (const pathname of [
+      '/.well-known/api-catalog',
+      '/.well-known/security.txt'
     ]) {
       expect(matchesNegotiation(pathname), pathname).toBe(false)
     }

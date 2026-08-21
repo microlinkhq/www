@@ -14,6 +14,17 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - NEVER: Rewrite a working idiom to satisfy a lint matcher. `doctor.config.json` is the ledger of verified false positives — suppress there with evidence in the commit message. When decomposing files, repoint any suppression pinned to the old path.
 - NEVER: Delete an "unused" file or export on a dead-code scanner's word alone. MDX content imports (`src/content/**/*.md` has real `import` statements), Gatsby conventions (`src/html.js`, GraphQL fragment spreading) and `scripts/` usage are invisible to it — grep those first.
 
+## Machine-readable Surface
+
+Agents read this site through files, not pages. Each one has a generator and a test; none is hand-maintained.
+
+- MUST: Regenerate `static/openapi.json` with `npm run build:openapi` after touching `src/content/docs/api/parameters/**` or `basics/error-codes.md`. The spec is parsed out of those docs (`Type:`/`Default:` lines, `isPro` frontmatter, `## CODE` headings), and `test/openapi.js` fails on any drift between the committed file and a fresh build. Never hand-edit the JSON.
+- MUST: Keep the spec honest. It is a public contract: nothing goes in it that the API does not already do. The versioning policy in `info.x-versioning` and `/docs/api/basics/versioning` are one statement in two places — change both or neither.
+- MUST: Give any new well-known resource a `vercel.json` entry. A path with no file extension under `/.well-known/` is otherwise swallowed by the markdown-negotiation redirect and sent to a `.md` that does not exist.
+- MUST: Keep `Vary: Accept` on the global header rule. Every URL serves HTML and markdown from the same path, so without it a CDN hands an agent the cached HTML variant.
+- MUST: Route new recovery destinations through `RECOVERY_LINKS` in `src/helpers/not-found.js`. The 404 page is an agent's only way back, and `test/agent-discovery.js` asserts every link resolves to something that exists.
+- MUST: Add a section title before the cards it introduces. `h3` before its `h2` reads as a flat outline to crawlers, which is what the open-source section did until its columns were reordered with flex `order` (`test/components/open-source-pattern.js`).
+
 ## Demo Correctness
 
 The interactive demos (hero omniboxes, capabilities panes) share one contract:

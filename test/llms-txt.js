@@ -31,6 +31,18 @@ const PAGES = [
 
 const content = buildLlmsTxt(PAGES)
 
+const sections = content
+  .split(/^## /m)
+  .slice(1)
+  .map(section => {
+    const [title, ...rest] = section.split('\n')
+    return { title, links: rest.filter(line => line.startsWith('- [')) }
+  })
+
+const pageLinks = sections
+  .filter(({ title }) => title !== 'Developer resources')
+  .flatMap(({ links }) => links)
+
 describe('cleanTitle', () => {
   test('drops the site name', () => {
     expect(cleanTitle('Pricing — Microlink')).toBe('Pricing')
@@ -90,12 +102,11 @@ describe('buildLlmsTxt', () => {
   })
 
   test('writes one link per page', () => {
-    const links = content.split('\n').filter(line => line.startsWith('- ['))
-    expect(links).toHaveLength(PAGES.length)
+    expect(pageLinks).toHaveLength(PAGES.length)
   })
 
   test('links every page to an absolute .md URL', () => {
-    for (const line of content.split('\n').filter(l => l.startsWith('- ['))) {
+    for (const line of pageLinks) {
       expect(line).toMatch(/^- \[[^\]]+\]\(https:\/\/microlink\.io\/.+\.md\)/)
     }
   })
@@ -111,6 +122,7 @@ describe('buildLlmsTxt', () => {
 
   test('groups the links under H2 sections', () => {
     expect(content.match(/^## .+$/gm)).toEqual([
+      '## Developer resources',
       '## API',
       '## Blog',
       '## Pages'
@@ -119,6 +131,30 @@ describe('buildLlmsTxt', () => {
 
   test('omits a section with no pages', () => {
     expect(content).not.toContain('## SDK')
+  })
+})
+
+describe('developer resources', () => {
+  const [resources] = sections
+
+  test('leads the file, before the page listing', () => {
+    expect(resources.title).toBe('Developer resources')
+  })
+
+  test('names the machine-readable entry points', () => {
+    const urls = resources.links.map(line => line.match(/\((.+?)\)/)[1])
+    expect(urls).toContain('https://microlink.io/openapi.json')
+    expect(urls).toContain('https://microlink.io/.well-known/api-catalog')
+    expect(urls).toContain('https://microlink.io/sitemap-index.xml')
+    expect(urls).toContain(
+      'https://microlink.io/docs/api/getting-started/mcp.md'
+    )
+  })
+
+  test('describes every entry, so an agent can pick one without fetching it', () => {
+    for (const line of resources.links) {
+      expect(line).toMatch(/^- \[[^\]]+\]\([^)]+\): .{20,}$/)
+    }
   })
 })
 

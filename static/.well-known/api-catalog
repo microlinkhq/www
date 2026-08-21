@@ -1,0 +1,65 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://microlink.io/.well-known/api-catalog",
+      "item": [
+        {
+          "href": "https://api.microlink.io",
+          "title": "Microlink API",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://api.microlink.io",
+      "service-desc": [
+        {
+          "href": "https://microlink.io/openapi.json",
+          "title": "Microlink API OpenAPI 3.1 description",
+          "type": "application/openapi+json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://microlink.io/docs/api/getting-started/overview",
+          "title": "Microlink API documentation",
+          "type": "text/html"
+        }
+      ],
+      "service-meta": [
+        {
+          "href": "https://microlink.io/apis.json",
+          "title": "Microlink APIs.json",
+          "type": "application/json"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://microlink.io/status",
+          "title": "Microlink status",
+          "type": "text/html"
+        }
+      ],
+      "terms-of-service": [
+        {
+          "href": "https://microlink.io/tos",
+          "title": "Microlink terms of service",
+          "type": "text/html"
+        }
+      ],
+      "privacy-policy": [
+        {
+          "href": "https://microlink.io/privacy",
+          "title": "Microlink privacy policy",
+          "type": "text/html"
+        }
+      ],
+      "author": [
+        {
+          "href": "mailto:hello@microlink.io",
+          "title": "Microlink HQ"
+        }
+      ]
+    }
+  ]
+}
