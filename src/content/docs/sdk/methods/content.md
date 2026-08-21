@@ -78,7 +78,7 @@ Options:
 - [omitBackground](/docs/api/parameters/screenshot/omitBackground) `<boolean>` — omits the default white background, producing transparent captures (default: `false`).
 - [overlay](/docs/api/parameters/screenshot/overlay) `<object>` — composes the capture over a `browser` frame (`'light'` or `'dark'`) and a `background` color, gradient, or image URL.
 - [codeScheme](/docs/api/parameters/screenshot/codeScheme) `<string>` — syntax-highlights JSON and text responses using a Prism theme or a remote CSS URL (default: `'atom-dark'`).
-- [animated](/docs/api/parameters/screenshot/animated) `<boolean>` — records a short MP4 of the page instead of a static image (default: `false`).
+- [animated](/docs/api/parameters/screenshot/animated) `<boolean> | <object>` — records a short video of the page instead of a static image (default: `false`). As an object it takes `duration`, the recording length in milliseconds and also accepting `'5s'` form (default: `5000`, max `10000`), `fps` (default: `30`, max `60`), and `type`, the video container — `'mp4'` or `'webm'` (default: `'mp4'`).
 - `optimizeForSpeed` `<boolean>` — prioritizes capture speed over image size and fidelity (default: `false`).
 
 Capture a single element with a transparent background:
@@ -103,16 +103,18 @@ const { url } = await microlink.screenshot('https://www.apple.com/music', {
 })
 ```
 
-Record the page as a short MP4 — the asset gains an `animated` object pointing to the video:
+Record the page as a short video instead of a static image. Passing `animated: true` records with the defaults; passing an object tunes the result:
 
 ```js
 const { animated } = await microlink.screenshot(
   'https://threejs.org/examples/webgl_animation_skinning_blending',
-  { animated: true }
+  { animated: { duration: '8s', fps: 60, type: 'webm' } }
 )
 
-console.log(animated.url)
+console.log(animated.url, animated.type)
 ```
+
+The asset gains an `animated` object carrying the recording — its `url`, `duration`, `fps`, `type`, and `size`.
 
 Shared options compose naturally here: [device](/docs/api/parameters/device) emulation, custom [styles](/docs/api/parameters/styles), or [waitForSelector](/docs/api/parameters/waitForSelector) timing all apply before the capture happens.
 

@@ -3,7 +3,7 @@ title: 'Collections'
 description: 'Sweep any page with the Microlink SDK and get every matching resource back as an array: links, images, videos, audios, and email addresses.'
 ---
 
-The collection methods sweep a page and return every matching resource as a deduplicated array of absolute URLs. Each method ships a sensible default rule — which elements to sweep and which attribute to read — and the same four options override it:
+The collection methods sweep a page and return every matching resource as a deduplicated array. `links`, `images`, `videos`, and `audios` resolve their values to absolute URLs; `emails` returns bare address strings. Each method ships a sensible default rule — which elements to sweep and which attribute to read — and the same four options override it:
 
 - [selectorAll](/docs/mql/data/selectorAll) `<string> | <string[]>` — the CSS selector(s) whose every match gets swept.
 - [selector](/docs/mql/data/selector) `<string>` — sweeps only the first element matching the CSS selector.
@@ -57,8 +57,11 @@ const audios = await microlink.audios('https://example.com')
 
 ## emails
 
-Scans the whole document — `mailto:` links and plain text — and returns every address found:
+Scans the whole document — `mailto:` links and plain text — and returns every address found as a bare string, with any `mailto:` prefix stripped:
 
 ```js
 const emails = await microlink.emails('https://microlink.io')
+
+console.log(emails)
+// => ['hello@microlink.io', 'you@domain.com']
 ```
