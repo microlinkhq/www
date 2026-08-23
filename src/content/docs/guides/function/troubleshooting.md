@@ -44,7 +44,7 @@ Each error message is plan-aware:
   "isFulfilled": false,
   "value": {
     "name": "TimeoutError",
-    "message": "Function exceeded the 5s free plan timeout. Upgrade to pro for up to 60s with retries."
+    "message": "Function exceeded the 5s free plan timeout. Upgrade to pro for up to 60s."
   }
 }
 ```
