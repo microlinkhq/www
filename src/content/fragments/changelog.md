@@ -1,5 +1,6 @@
 ### August 2026
 
+- [Microlink API](/docs/api/getting-started/overview): [timeout](/docs/api/parameters/timeout) is now 30s on the free plan and 60s on pro.
 - [Metascraper v5.57](https://metascraper.js.org): Added IMDb integration.
 - [Microlink API](/docs/api/getting-started/overview): Improved metadata extraction for Shadow DOM pages.
 - [Microlink API](/docs/api/getting-started/overview): Fixed 500s from [iframe](/docs/api/parameters/iframe) and [pageRanges](/docs/api/parameters/pdf/pageRanges).

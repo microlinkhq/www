@@ -8,13 +8,15 @@ import { Type, TypeContainer } from 'components/markdown/Type'
 import { Figcaption } from 'components/markdown/Figcaption'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/></TypeContainer><br/>
-Default: <Type children="28s"/>
+Default: <Type children="30s"/> (free) / <Type children="60s"/> (pro)
 
 It sets the maximum quantity of time allowed for the internal request lifecycle over the target [url](/docs/api/parameters/url).
 
+The default is the maximum time available on your plan. Values above the plan ceiling are capped.
+
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://microlink.io', timeout: '10s' }} />
 
-<Figcaption>The default value is the maximum time available.</Figcaption>
+<Figcaption>The default value is the maximum time available on your plan: 30 seconds free, 60 seconds pro.</Figcaption>
 
 You can specify the value in any of the following human-readable way:
 

@@ -44,7 +44,7 @@ Each error message is plan-aware:
   "isFulfilled": false,
   "value": {
     "name": "TimeoutError",
-    "message": "Function exceeded the 5s free plan timeout. Upgrade to pro for up to 28s."
+    "message": "Function exceeded the 5s free plan timeout. Upgrade to pro for up to 60s with retries."
   }
 }
 ```
@@ -56,7 +56,7 @@ Each error message is plan-aware:
 
 ## Fixing resource limit errors
 
-**TimeoutError** — the function exceeded its plan timeout (5s free, ~28s pro):
+**TimeoutError** — the function exceeded its plan timeout (5s free, ~60s pro):
 
 1. Reduce the function to a trivial check such as `({ page }) => page.title()` to confirm the page itself loads in time.
 2. Set `meta: false` unless metadata is part of the requirement.
