@@ -86,14 +86,14 @@ const metadata = await microlink.metadata('https://example.com', {
 
 ### Request
 
-- [timeout](/docs/api/parameters/timeout) `<string> | <number>` — the maximum time allowed for the request lifecycle (default: `'28s'`).
+- [timeout](/docs/api/parameters/timeout) `<string> | <number>` — the maximum time allowed for the request lifecycle (default: `'30s'` free / `'60s'` pro).
 - [retry](/docs/api/parameters/retry) `<number>` — how many retries to perform under an internal browser error (default: `2`).
 - [proxy](/docs/api/parameters/proxy) `<string> | <object>` — resolves any sub-request through an HTTP proxy server.
 - [filename](/docs/api/parameters/filename) `<string>` — the filename associated with a generated asset.
 - [ping](/docs/api/parameters/ping) `<boolean> | <object>` — verifies every URL in the payload is publicly reachable (default: `true`).
 - [palette](/docs/api/parameters/palette) `<boolean>` — adds dominant colors and accessible color pairs to every image field (default: `false`).
 
-Give a slow page more room to render, retry harder, and name the resulting document:
+On pro, give a slow page the full 60s, retry harder, and name the resulting document:
 
 ```js
 const { url } = await microlink.pdf('https://example.com/report', {
