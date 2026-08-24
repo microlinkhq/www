@@ -62,5 +62,12 @@ export const useExecuteRequest = ({
         onLoadingChange?.(false)
       }
     },
-    [url, mqlOpts, onLoadingChange]
+    [
+      url,
+      mqlOpts,
+      onLoadingChange,
+      setIsLoading,
+      setResponseData,
+      setShowApiKeyInput
+    ]
   )
