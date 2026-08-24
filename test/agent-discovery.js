@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 
+import { buildServerCard } from '../scripts/build-mcp-card/index.mjs'
 import { RECOVERY_LINKS } from '../src/helpers/not-found.js'
 
 const read = file => fs.readFileSync(path.join(process.cwd(), file), 'utf8')
@@ -12,10 +13,18 @@ const GENERATED_FILES = ['/sitemap-index.xml']
 
 const exists = file => fs.existsSync(path.join(process.cwd(), file))
 
+const vercelConfig = JSON.parse(read('vercel.json'))
+
+const afterRewrites = pathname =>
+  vercelConfig.rewrites?.find(({ source }) => source === pathname)
+    ?.destination ?? pathname
+
 const resolvesToAPage = pathname => {
   if (GENERATED_FILES.includes(pathname)) return true
   if (STATIC_FILES.includes(pathname)) return exists(`static${pathname}`)
-  if (pathname.startsWith('/.well-known/')) return exists(`static${pathname}`)
+  if (pathname.startsWith('/.well-known/')) {
+    return exists(`static${afterRewrites(pathname)}`)
+  }
   if (pathname === '/') return exists('src/pages/index.js')
 
   const slug = pathname.replace(/^\//, '')
@@ -105,6 +114,86 @@ describe('the api catalog', () => {
   })
 })
 
+describe('the mcp server card', () => {
+  const card = JSON.parse(read('static/.well-known/mcp/server-card.json'))
+  const [pkg] = card.packages
+
+  test('identifies the server the way the registry does', () => {
+    expect(card.name).toBe('io.github.microlinkhq/mcp')
+    expect(card.title.length).toBeGreaterThan(0)
+    expect(card.description.length).toBeGreaterThan(40)
+    expect(card.$schema).toContain('server-card.schema.json')
+  })
+
+  test('stays in step with the packaged server, so it cannot drift', () => {
+    const { version } = JSON.parse(
+      read('node_modules/@microlink/mcp/package.json')
+    )
+    expect(card.version).toBe(version)
+    expect(pkg.identifier).toBe('@microlink/mcp')
+    expect(pkg.version).toBe(version)
+    expect(pkg.registryType).toBe('npm')
+    expect(pkg.transport.type).toBe('stdio')
+  })
+
+  test('claims no transport the server does not answer on', () => {
+    expect(card.remotes).toBeUndefined()
+    expect(card.serverUrl).toBeUndefined()
+  })
+
+  test('previews every tool by name and description', () => {
+    expect(card.tools.length).toBeGreaterThan(0)
+    for (const { name, description } of card.tools) {
+      expect(name, name).toMatch(/^microlink_[a-z_]+$/)
+      expect(description.length, name).toBeGreaterThan(20)
+    }
+  })
+
+  test('links only to pages that exist', () => {
+    for (const url of [card.websiteUrl, card.documentationUrl]) {
+      expect(resolvesToAPage(url.replace(SITE_URL, '')), url).toBe(true)
+    }
+  })
+
+  test('is reachable at the well-known path agents probe first', () => {
+    expect(vercelConfig.rewrites).toContainEqual({
+      source: '/.well-known/mcp',
+      destination: '/.well-known/mcp/server-card.json'
+    })
+    const contentTypeOf = source =>
+      vercelConfig.headers
+        .find(rule => rule.source === source)
+        .headers.find(({ key }) => key === 'content-type').value
+
+    expect(contentTypeOf('/.well-known/mcp')).toBe(
+      'application/json; charset=utf-8'
+    )
+    expect(contentTypeOf('/.well-known/mcp/server-card.json')).toBe(
+      'application/mcp-server-card+json; charset=utf-8'
+    )
+  })
+
+  test('is built from the handshake, not hand-written', () => {
+    const built = buildServerCard({
+      serverInfo: { name: 'microlink-mcp-server', version: '9.9.9' },
+      tools: [
+        {
+          name: 'microlink_meta',
+          description: 'Extract metadata.',
+          inputSchema: {}
+        }
+      ]
+    })
+
+    expect(built.version).toBe('9.9.9')
+    expect(built.packages[0].version).toBe('9.9.9')
+    expect(built.tools).toEqual([
+      { name: 'microlink_meta', description: 'Extract metadata.' }
+    ])
+    expect(built.remotes).toBeUndefined()
+  })
+})
+
 describe('apis.json', () => {
   const catalog = JSON.parse(read('static/apis.json'))
   const [api] = catalog.apis
@@ -140,7 +229,12 @@ describe('robots.txt', () => {
   })
 
   test('signposts the machine-readable resources', () => {
-    for (const file of ['/llms.txt', '/openapi.json', '/apis.json']) {
+    for (const file of [
+      '/llms.txt',
+      '/openapi.json',
+      '/apis.json',
+      '/.well-known/mcp'
+    ]) {
       expect(source, file).toContain(`${SITE_URL}${file}`)
     }
   })

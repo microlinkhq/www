@@ -21,6 +21,11 @@ const RESOURCES = [
     'Microlink API as MCP tools for Claude, Codex, Cursor and VS Code, published on npm as @microlink/mcp.'
   ],
   [
+    'MCP server card',
+    `${SITE_URL}/.well-known/mcp`,
+    'The @microlink/mcp server described before connecting: every tool with its name and description, the npm package and how it is launched.'
+  ],
+  [
     'API reference',
     `${SITE_URL}/docs/api/getting-started/overview.md`,
     'The human-readable API documentation: endpoints, authentication, parameters and response format.'

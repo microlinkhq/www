@@ -189,6 +189,7 @@
   "devDependencies": {
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
+    "@microlink/mcp": "~2.0.4",
     "@storybook/addon-a11y": "latest",
     "@storybook/react-vite": "latest",
     "contrast": "latest",
@@ -229,6 +230,7 @@
   "scripts": {
     "build": "NODE_ENV=production gatsby build",
     "build:data": "DEBUG=data:providers* node scripts/fetch-data",
+    "build:mcp-card": "node scripts/build-mcp-card/index.mjs",
     "build:openapi": "node scripts/build-openapi/index.mjs",
     "build:storybook": "NODE_ENV=production storybook build",
     "build:timestamps": "node scripts/git-timestamps.js",
@@ -241,7 +243,7 @@
     "lint": "standard",
     "postinstall": "npm run transpile",
     "postrelease": "npm run release:tags && npm run release:github",
-    "prebuild": "npm run clean:data && npm run build:data && npm run build:openapi",
+    "prebuild": "npm run clean:data && npm run build:data && npm run build:openapi && npm run build:mcp-card",
     "prebuild:storybook": "npm run clean:data && npm run build:data",
     "predev": "npm run build:data",
     "pretest": "npm run lint",

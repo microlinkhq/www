@@ -47,6 +47,24 @@
       ]
     },
     {
+      "source": "/.well-known/mcp",
+      "headers": [
+        {
+          "key": "content-type",
+          "value": "application/json; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/.well-known/mcp/server-card.json",
+      "headers": [
+        {
+          "key": "content-type",
+          "value": "application/mcp-server-card+json; charset=utf-8"
+        }
+      ]
+    },
+    {
       "source": "/llms.txt",
       "headers": [
         {
@@ -128,6 +146,12 @@
           "value": "Accept, Accept-Encoding"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/.well-known/mcp",
+      "destination": "/.well-known/mcp/server-card.json"
     }
   ],
   "redirects": [

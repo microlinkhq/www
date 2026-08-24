@@ -1,0 +1,114 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/v1/server-card.schema.json",
+  "name": "io.github.microlinkhq/mcp",
+  "title": "Microlink",
+  "description": "Turn any URL into data from an agent: normalized metadata, screenshots, PDFs, markdown, plain text, media detection, technology and Lighthouse insights, and CSS-selector scraping, all backed by a real browser.",
+  "version": "2.0.4",
+  "websiteUrl": "https://microlink.io/integrations/mcp",
+  "documentationUrl": "https://microlink.io/docs/api/getting-started/mcp",
+  "repository": {
+    "source": "github",
+    "url": "https://github.com/microlinkhq/mcp"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@microlink/mcp",
+      "version": "2.0.4",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "MICROLINK_API_KEY",
+          "description": "Optional. Without it requests go to the free endpoint, limited to 25 requests/day per IP.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "name": "microlink_metadata",
+      "description": "Extract normalized metadata from any public URL via Microlink. Returns the metadata object: `title`, `description`, `lang`, `author`, `publisher`, `date`, `url`, `image` (with dimensions and file info), and `logo`. Pass `meta: false` to skip extraction, or a config object to include/exclude fields (e.g. `{ logo: true, title: true }`). Mirrors the `microlink.metadata(url)` library method."
+    },
+    {
+      "name": "microlink_logo",
+      "description": "Extract the brand logo of any public URL via Microlink. Returns the logo asset: `url`, `type`, `width`, `height`, `size`, and `size_pretty`. Pass `square: true` to prefer a square (icon-shaped) variant. Mirrors the `microlink.logo(url, { square })` library method."
+    },
+    {
+      "name": "microlink_markdown",
+      "description": "Convert any public URL to Markdown via Microlink. Returns the page content as a Markdown string. Pass `selector` to scope it to part of the page. Combine with browser options such as `javascript`, `waitUntil`, `waitForSelector`, `headers`, and `proxy`. Mirrors the `microlink.markdown(url)` library method."
+    },
+    {
+      "name": "microlink_html",
+      "description": "Extract the HTML content of any public URL via Microlink. Returns the page HTML as a string. Pass `selector` to scope it to part of the page. Combine with browser options such as `javascript`, `waitUntil`, `waitForSelector`, `headers`, and `proxy`. Mirrors the `microlink.html(url)` library method."
+    },
+    {
+      "name": "microlink_text",
+      "description": "Extract the plain text of any public URL via Microlink. Returns the readable page text as a string. Pass `selector` to scope it to part of the page. Combine with browser options such as `javascript`, `waitUntil`, `waitForSelector`, `headers`, and `proxy`. Mirrors the `microlink.text(url)` library method."
+    },
+    {
+      "name": "microlink_screenshot",
+      "description": "Capture a screenshot of any public URL via Microlink and return the asset object (`url`, `type`, `width`, `height`, `size`, ...) with a permanent CDN URL. Pass `screenshot: true` for defaults or `screenshot: { ... }` for options; `screenshot: {}` is treated as `true`. Use `screenshot.fullPage` to capture the whole scrollable page. Use `screenshot.animated` to capture an animated screenshot (GIF/MP4) instead of a still image. Use `screenshot.element` (CSS selector) to capture a specific element, `screenshot.type` for format (\"jpeg\", default \"png\"), `screenshot.omitBackground` for transparency, `screenshot.overlay` for browser chrome, `screenshot.palette` to also extract dominant colors, or `screenshot.codeScheme` to theme code pages. Combine with `device`, `viewport`, `click`, `scroll`, `styles`, `scripts`, `modules`, `waitForSelector`, `waitForTimeout`, `waitUntil`, `colorScheme`, and `mediaType`. Mirrors the `microlink.screenshot(url, options)` library method."
+    },
+    {
+      "name": "microlink_pdf",
+      "description": "Generate a PDF of any public URL via Microlink and return the asset object (`url`, `type`, `size`, ...) with a permanent CDN URL. Pass `pdf: true` for defaults or `pdf: { ... }` for options; `pdf: {}` is treated as `true`. Use `pdf.format` (\"A4\" default, \"Letter\", \"Legal\", ...), `pdf.landscape`, `pdf.margin` (string or top/bottom/left/right object), `pdf.scale` (0.1-2.0), `pdf.pageRanges` (\"1-5\"), or `pdf.width`/`pdf.height`. Combine with `styles`, `scripts`, `modules`, `mediaType`, `waitForSelector`, and `waitUntil` for full control. Mirrors the `microlink.pdf(url, options)` library method."
+    },
+    {
+      "name": "microlink_embed",
+      "description": "Get the oEmbed-style embeddable iframe for any public URL via Microlink (YouTube, Tweet, CodePen, ...). Returns `{ html, scripts }` — the markup to embed plus the script URLs it needs. Pass `maxWidth` / `maxHeight` to constrain the embed size. Mirrors the `microlink.embed(url)` library method."
+    },
+    {
+      "name": "microlink_video",
+      "description": "Detect the primary playable video of any public URL via Microlink. Works with YouTube, Vimeo, Twitter/X, TikTok, Instagram, and hundreds of other platforms. Returns the video asset: `url`, `type`, `duration`, `size`, `width`, `height`, `duration_pretty`, `size_pretty`. Mirrors the `microlink.video(url)` library method. For every video on the page, use `microlink_videos`."
+    },
+    {
+      "name": "microlink_audio",
+      "description": "Detect the primary playable audio of any public URL via Microlink. Works with SoundCloud, Spotify, Mixcloud, and other audio platforms. Returns the audio asset: `url`, `type`, `duration`, `size`, `duration_pretty`, `size_pretty`. Mirrors the `microlink.audio(url)` library method. For every audio on the page, use `microlink_audios`."
+    },
+    {
+      "name": "microlink_links",
+      "description": "Collect every link (`<a href>`) from any public URL via Microlink. Returns an array of absolute, deduped URLs. Pass `selectorAll` to scope the collection. Mirrors the `microlink.links(url)` library method."
+    },
+    {
+      "name": "microlink_images",
+      "description": "Collect every image (`<img src>`) from any public URL via Microlink. Returns an array of absolute, deduped image URLs. Pass `selectorAll` to scope the collection. Mirrors the `microlink.images(url)` library method."
+    },
+    {
+      "name": "microlink_videos",
+      "description": "Collect every video source (`<video>`, `<source>`) from any public URL via Microlink. Returns an array of absolute, deduped video URLs. Mirrors the `microlink.videos(url)` library method. For the primary playable video, use `microlink_video`."
+    },
+    {
+      "name": "microlink_audios",
+      "description": "Collect every audio source (`<audio>`, `<source>`) from any public URL via Microlink. Returns an array of absolute, deduped audio URLs. Mirrors the `microlink.audios(url)` library method. For the primary playable audio, use `microlink_audio`."
+    },
+    {
+      "name": "microlink_emails",
+      "description": "Collect every email address present on any public URL via Microlink. Detects addresses from `mailto:` links and plain text alike; returns a deduped array. Mirrors the `microlink.emails(url)` library method."
+    },
+    {
+      "name": "microlink_technologies",
+      "description": "Detect the technology stack behind any public URL via Microlink (Wappalyzer). Returns an array of detected technologies (frameworks, CDNs, analytics, e-commerce, etc.). Mirrors the `microlink.technologies(url)` library method."
+    },
+    {
+      "name": "microlink_lighthouse",
+      "description": "Run a Google Lighthouse audit (performance, accessibility, best-practices, SEO) for any public URL via Microlink. Returns the Lighthouse report. Mirrors the `microlink.lighthouse(url)` library method."
+    },
+    {
+      "name": "microlink_search",
+      "description": "Search Google and get structured results via Microlink (requires an API key). Returns `results` (title, url, description) plus `knowledgeGraph`, `peopleAlsoAsk`, and `relatedSearches` when available. Use `type` for a vertical (\"search\" default, \"news\", \"images\", \"videos\", \"places\", \"maps\", \"shopping\", \"scholar\", \"patents\", \"autocomplete\"), and `limit` / `location` / `period` to refine. Google search operators (`site:`, `filetype:`, quotes, ...) work as-is. Mirrors the `microlink.search(query)` library method."
+    },
+    {
+      "name": "microlink_function",
+      "description": "Run a JavaScript function against any public URL inside Microlink’s server-side browser sandbox. Pass `code` as the function source (e.g. \"async ({ page }) => page.title()\"); it receives `{ page, response, ...args }` and its return value comes back in `value`. Combine with browser options such as `javascript`, `waitUntil`, `waitForSelector`, `click`, `scroll`, `headers`, and `proxy`. Also returns `isFulfilled`, `profiling`, and `logging`. Mirrors the `microlink.function(url, code)` library method."
+    },
+    {
+      "name": "microlink_extract",
+      "description": "Scrape custom fields from any public URL via Microlink using MQL data rules. Pass `data` with the rules object (selector/selectorAll, attr, type, evaluate; nested rules and arrays supported); returns the extracted `data` object. Also supports combining capabilities (`screenshot`, `pdf`, `iframe`, `insights`) and browser controls in the same request. Mirrors the `microlink.extract(url, rules)` library method."
+    }
+  ]
+}
