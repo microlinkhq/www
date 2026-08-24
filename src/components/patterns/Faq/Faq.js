@@ -34,6 +34,7 @@ const Faq = ({ title, caption, questions, ...props }) => {
           </Subhead>
           {caption && (
             <Caption
+              as='p'
               css={theme({
                 px: [4, 0, 0, 0],
                 pt: [3, 4, 4, 4],

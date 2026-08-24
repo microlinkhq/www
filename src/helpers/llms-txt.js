@@ -9,6 +9,22 @@ const SUMMARY =
 
 const TITLE_SUFFIX = /\s+—\s+Microlink(\s+\w+)?$/
 
+const WHEN_TO_USE = [
+  '## When to use',
+  '',
+  'Microlink drives a real browser so an agent does not have to run one. Reach for it when:',
+  '',
+  '- **A link needs a preview**: one request returns title, description, author, publisher, date, logo and a normalized image.',
+  '- **A page needs an image**: add `&screenshot` for a picture of the page or `&pdf` for a document, both returned as permanent CDN URLs.',
+  '- **A page needs scraping**: `data` pulls named fields out of the DOM with CSS selectors, after the page JavaScript has run.',
+  '- **A page needs measuring**: `&insights` returns a Lighthouse audit and the technology stack behind the page.',
+  '- **Media needs detecting**: `&video`, `&audio`, `&palette` and `&embed` find what is playable, the dominant colors, and the oEmbed-style iframe.',
+  '',
+  `Call it with a single GET and no credential at \`https://api.microlink.io/?url=<url>\`, which allows 25 requests/day per IP. With an API key, call \`https://pro.microlink.io\` and send the key as the \`x-api-key\` header — ${SITE_URL}/auth.md walks through how an agent gets one. To call the same surface as MCP tools instead, read ${SITE_URL}/.well-known/mcp`,
+  '',
+  'It is a per-URL API rather than a crawler: point it at pages you already know about, one at a time.'
+].join('\n')
+
 const RESOURCES = [
   [
     'OpenAPI specification',
@@ -196,10 +212,10 @@ export const buildLlmsTxt = pages => {
     .filter(Boolean)
     .join('\n\n')
 
-  return `${HEADING}\n\n${SUMMARY}\n\n${body}\n`
+  return `${HEADING}\n\n${SUMMARY}\n\n${WHEN_TO_USE}\n\n${body}\n`
 }
 
 export const buildLlmsFullTxt = pages =>
-  `${HEADING}\n\n${SUMMARY}\n\n${RESOURCES_SECTION}\n\n${listing(
+  `${HEADING}\n\n${SUMMARY}\n\n${WHEN_TO_USE}\n\n${RESOURCES_SECTION}\n\n${listing(
     groupBySection(pages)
   )}\n`

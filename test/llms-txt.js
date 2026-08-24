@@ -44,7 +44,9 @@ const sections = content
   })
 
 const pageLinks = sections
-  .filter(({ title }) => title !== 'Developer resources')
+  .filter(
+    ({ title }) => !['Developer resources', 'When to use'].includes(title)
+  )
   .flatMap(({ links }) => links)
 
 describe('cleanTitle', () => {
@@ -126,6 +128,7 @@ describe('buildLlmsFullTxt', () => {
 
   test('groups the links under H2 sections', () => {
     expect(content.match(/^## .+$/gm)).toEqual([
+      '## When to use',
       '## Developer resources',
       '## API',
       '## Blog',
@@ -145,6 +148,7 @@ describe('buildLlmsTxt', () => {
 
   test('navigates by section instead of listing every page', () => {
     expect(index.match(/^## .+$/gm)).toEqual([
+      '## When to use',
       '## Developer resources',
       '## Site sections',
       '## Pages',
@@ -228,10 +232,18 @@ describe('buildSectionIndexes', () => {
 })
 
 describe('developer resources', () => {
-  const [resources] = sections
+  const resources = sections.find(
+    ({ title }) => title === 'Developer resources'
+  )
 
-  test('leads the file, before the page listing', () => {
-    expect(resources.title).toBe('Developer resources')
+  test('leads the page listing, after the when-to-use guidance', () => {
+    expect(resources).toBeDefined()
+    expect(content.indexOf('## When to use')).toBeLessThan(
+      content.indexOf('## Developer resources')
+    )
+    expect(content.indexOf('## Developer resources')).toBeLessThan(
+      content.indexOf('## API')
+    )
   })
 
   test('names the machine-readable entry points', () => {
@@ -274,6 +286,59 @@ describe('the build', () => {
 
   test('writes the indexes in every build, so a preview carries them', () => {
     expect(bodyOf('createLlmsTxtFiles')).not.toContain('isProductionBuild()')
+  })
+})
+
+describe('the when-to-use guidance', () => {
+  const section = source =>
+    source.split(/^## /m).find(part => part.startsWith('When to use'))
+
+  test('leads both indexes, before the resource listing', () => {
+    for (const [name, source] of [
+      ['llms.txt', index],
+      ['llms-full.txt', content]
+    ]) {
+      expect(section(source), name).toBeDefined()
+      expect(source.indexOf('## When to use'), name).toBeLessThan(
+        source.indexOf('## Developer resources')
+      )
+    }
+  })
+
+  test('names the jobs rather than describing the product', () => {
+    const bullets = section(index)
+      .split('\n')
+      .filter(line => line.startsWith('- **'))
+
+    expect(bullets.length).toBeGreaterThanOrEqual(4)
+    for (const bullet of bullets) {
+      expect(bullet, bullet).toMatch(/^- \*\*[^*]+\*\*: .{40,}$/)
+    }
+  })
+
+  test('says how an agent actually calls it', () => {
+    const guidance = section(index)
+    expect(guidance).toContain('https://api.microlink.io')
+    expect(guidance).toContain('https://pro.microlink.io')
+    expect(guidance).toContain('x-api-key')
+    expect(guidance).toContain('https://microlink.io/auth.md')
+    expect(guidance).toContain('https://microlink.io/.well-known/mcp')
+  })
+
+  test('claims only parameters the published spec declares', () => {
+    const declared = new Set(
+      JSON.parse(
+        fs.readFileSync(path.join(process.cwd(), 'static/openapi.json'), 'utf8')
+      ).paths['/'].get.parameters.map(({ name }) => name)
+    )
+    const claimed = [...section(index).matchAll(/`&?([a-z]+)`/g)].map(
+      ([, name]) => name
+    )
+
+    expect(claimed.length).toBeGreaterThan(0)
+    for (const name of claimed) {
+      expect(declared.has(name), name).toBe(true)
+    }
   })
 })
 

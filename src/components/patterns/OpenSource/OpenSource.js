@@ -301,6 +301,7 @@ const OpenSource = ({
             trusted by developers
           </Subhead>
           <Caption
+            as='p'
             css={theme({
               pt: [3, 3, 4, 4],
               px: [4, 4, 4, 0],
