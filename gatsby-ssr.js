@@ -2,6 +2,11 @@
 
 const React = require('react')
 
+const {
+  isMarkdownPage,
+  toMarkdownPath
+} = require('./src/helpers/page-markdown')
+
 const isDevelopment = (process.env.NODE_ENV || 'development') === 'development'
 
 const VA_SCRIPT = isDevelopment
@@ -11,7 +16,11 @@ const VA_SCRIPT = isDevelopment
 const GA_TRACKING_ID = 'G-4MN95ELTLZ'
 const CONSENT_STORAGE_KEY = 'microlink-cookie-consent'
 
-exports.onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
+exports.onRenderBody = ({
+  pathname,
+  setHeadComponents,
+  setPostBodyComponents
+}) => {
   setHeadComponents([
     <link
       key='service-desc'
@@ -30,7 +39,17 @@ exports.onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
       rel='api-catalog'
       type='application/linkset+json'
       href='https://microlink.io/.well-known/api-catalog'
-    />
+    />,
+    ...(isMarkdownPage(pathname)
+      ? [
+        <link
+          key='markdown-alternate'
+          rel='alternate'
+          type='text/markdown'
+          href={`https://microlink.io/${toMarkdownPath(pathname)}`}
+        />
+        ]
+      : [])
   ])
 
   if (!isDevelopment) {

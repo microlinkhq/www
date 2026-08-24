@@ -20,6 +20,7 @@ const {
   extractMarkdown,
   isMarkdownPage,
   toMarkdownPath,
+  prependFrontmatter,
   prependTitle
 } = require('./src/helpers/page-markdown')
 const { buildLlmsTxt } = require('./src/helpers/llms-txt')
@@ -477,6 +478,8 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
   return Promise.all(pages)
 }
 
+const SITE_URL = 'https://microlink.io'
+
 const isProductionBuild = () => process.env.VERCEL_ENV === 'production'
 
 const markdownPathnames = nodes =>
@@ -533,12 +536,14 @@ const createPageMarkdownFiles = async ({ graphql, reporter }) => {
   const baseUrl =
     process.env.MICROLINK_MARKDOWN_BASE_URL || 'https://microlink.io'
 
-  const pathnames = markdownPathnames(result.data.allSitePage.nodes)
+  const pages = markdownPathnames(result.data.allSitePage.nodes).map(
+    pathname => ({ pathname, ...pageMetadata(pathname) })
+  )
 
   const startTime = Date.now()
   await pMap(
-    pathnames,
-    async pathname => {
+    pages,
+    async ({ pathname, title: pageTitle, description }) => {
       const url = new URL(pathname, baseUrl).toString()
       const { markdown, duration, selector } = await extractMarkdown(
         markdownFetcher(url),
@@ -562,25 +567,31 @@ const createPageMarkdownFiles = async ({ graphql, reporter }) => {
         'public',
         toMarkdownPath(pathname)
       )
-      const title =
+      const heading =
         selector === DOCS_CONTENT_SELECTOR
           ? docsTitles.get(pathname)
           : undefined
       mkdirSync(path.dirname(outputPath), { recursive: true })
-      writeFileSync(outputPath, prependTitle(title, markdown))
+      writeFileSync(
+        outputPath,
+        prependFrontmatter(
+          {
+            title: pageTitle ?? heading,
+            description,
+            canonical: `${SITE_URL}${pathname}`
+          },
+          prependTitle(heading, markdown)
+        )
+      )
     },
     { concurrency: 8 }
   )
   const duration = Date.now() - startTime
 
   reporter.info(
-    `Generated ${pathnames.length} page markdown files in ${duration}ms`
+    `Generated ${pages.length} page markdown files in ${duration}ms`
   )
 
-  const pages = pathnames.map(pathname => ({
-    pathname,
-    ...pageMetadata(pathname)
-  }))
   writeFileSync(
     path.join(process.cwd(), 'public', 'llms.txt'),
     buildLlmsTxt(pages)

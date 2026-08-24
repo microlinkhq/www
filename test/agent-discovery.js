@@ -96,7 +96,8 @@ describe('the api catalog', () => {
     )
     expect(rule.headers).toContainEqual({
       key: 'content-type',
-      value: 'application/linkset+json; charset=utf-8'
+      value:
+        'application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"; charset=utf-8'
     })
   })
 
@@ -254,12 +255,53 @@ describe('the document head', () => {
     expect(source).toContain(`href='${SITE_URL}/openapi.json'`)
   })
 
+  test('points every page at its own markdown twin', () => {
+    expect(source).toContain("rel='alternate'")
+    expect(source).toContain("type='text/markdown'")
+    expect(source).toContain('isMarkdownPage(pathname)')
+    expect(source).toContain('toMarkdownPath(pathname)')
+    expect(source).toContain(`href={\`${SITE_URL}/`)
+  })
+
   test('emits them on every page, not only in production', () => {
     const beforeProductionGuard = source.slice(
       source.indexOf('exports.onRenderBody'),
       source.indexOf('if (!isDevelopment)')
     )
     expect(beforeProductionGuard).toContain("rel='service-desc'")
+    expect(beforeProductionGuard).toContain("rel='alternate'")
+  })
+})
+
+describe('the link headers', () => {
+  const rule = vercelConfig.headers.find(({ source }) => source === '/(.*)')
+  const link = rule.headers.find(({ key }) => key === 'link').value
+
+  test('advertises the indexes before an agent parses a single page', () => {
+    for (const [target, relation] of [
+      ['/sitemap-index.xml', 'sitemap'],
+      ['/openapi.json', 'service-desc'],
+      ['/docs/api/getting-started/overview', 'service-doc'],
+      ['/.well-known/api-catalog', 'api-catalog'],
+      ['/.well-known/mcp', 'describedby'],
+      ['/llms.txt', 'describedby']
+    ]) {
+      expect(link, target).toContain(`<${target}>; rel="${relation}"`)
+    }
+  })
+
+  test('advertises only targets that exist', () => {
+    const targets = [...link.matchAll(/<([^>]+)>/g)].map(([, target]) => target)
+    expect(targets.length).toBeGreaterThan(0)
+    for (const target of targets) {
+      expect(resolvesToAPage(target), target).toBe(true)
+    }
+  })
+
+  test('survives a regeneration of the security headers', () => {
+    const generator = read('scripts/security-headers.js')
+    expect(generator).toContain('mergeHeaders(rule.headers, headers)')
+    expect(generator).not.toContain('rule.headers = headers')
   })
 })
 

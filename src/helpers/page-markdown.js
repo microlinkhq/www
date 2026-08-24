@@ -31,3 +31,12 @@ export const extractMarkdown = async (fetchMarkdown, pathname) => {
   const wholePage = await fetchMarkdown()
   return { ...wholePage, selector: null }
 }
+
+export const prependFrontmatter = (metadata, markdown) => {
+  const fields = Object.entries(metadata).filter(([, value]) => value)
+  if (fields.length === 0) return markdown
+  const block = fields
+    .map(([key, value]) => `${key}: ${JSON.stringify(String(value))}`)
+    .join('\n')
+  return `---\n${block}\n---\n\n${markdown}`
+}

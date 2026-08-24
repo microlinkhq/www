@@ -2,7 +2,6 @@
 
 const { writeFile } = require('fs').promises
 const { once } = require('events')
-const helmet = require('helmet')()
 const http = require('http')
 
 const listen = async (server, ...args) => {
@@ -12,7 +11,7 @@ const listen = async (server, ...args) => {
   return `http://${family === 'IPv6' ? `[${address}]` : address}:${port}/`
 }
 
-const createServer = ({ withHelmet = false } = {}) =>
+const createServer = ({ helmet, withHelmet = false } = {}) =>
   http.createServer((req, res) => {
     const fn = withHelmet ? helmet : (req, res, next) => next()
     fn(req, res, err => {
@@ -28,7 +27,9 @@ const createServer = ({ withHelmet = false } = {}) =>
   })
 
 const getSecurityHeaders = async () => {
-  let server = createServer({ withHelmet: false })
+  const helmet = require('helmet')()
+
+  let server = createServer({ helmet, withHelmet: false })
 
   let serverUrl = await listen(server)
 
@@ -37,7 +38,7 @@ const getSecurityHeaders = async () => {
 
   server.close()
 
-  server = createServer({ withHelmet: true })
+  server = createServer({ helmet, withHelmet: true })
   serverUrl = await listen(server)
 
   res = await fetch(serverUrl)
@@ -54,7 +55,14 @@ const getSecurityHeaders = async () => {
   return Object.entries(diff).map(([key, value]) => ({ key, value }))
 }
 
-;(async () => {
+const mergeHeaders = (existing, incoming) => {
+  const replacements = new Map(incoming.map(header => [header.key, header]))
+  const merged = existing.map(header => replacements.get(header.key) ?? header)
+  const present = new Set(merged.map(({ key }) => key))
+  return [...merged, ...incoming.filter(({ key }) => !present.has(key))]
+}
+
+const main = async () => {
   const SOURCE_PATTERN = '/(.*)'
   const headers = await getSecurityHeaders()
 
@@ -70,8 +78,12 @@ const getSecurityHeaders = async () => {
   } else {
     const rule = vercelJSON.headers.find(rule => rule.source === SOURCE_PATTERN)
     if (!rule) vercelJSON.headers.push({ source: SOURCE_PATTERN, headers })
-    else rule.headers = headers
+    else rule.headers = mergeHeaders(rule.headers, headers)
   }
 
-  await writeFile('vercel.json', JSON.stringify(vercelJSON, null, 2))
-})()
+  await writeFile('vercel.json', `${JSON.stringify(vercelJSON, null, 2)}\n`)
+}
+
+module.exports = { mergeHeaders }
+
+if (require.main === module) main()

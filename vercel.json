@@ -42,7 +42,7 @@
       "headers": [
         {
           "key": "content-type",
-          "value": "application/linkset+json; charset=utf-8"
+          "value": "application/linkset+json; profile=\"https://www.rfc-editor.org/info/rfc9727\"; charset=utf-8"
         }
       ]
     },
@@ -140,6 +140,10 @@
         {
           "key": "x-xss-protection",
           "value": "0"
+        },
+        {
+          "key": "link",
+          "value": "</sitemap-index.xml>; rel=\"sitemap\", </openapi.json>; rel=\"service-desc\"; type=\"application/openapi+json\", </docs/api/getting-started/overview>; rel=\"service-doc\"; type=\"text/html\", </.well-known/api-catalog>; rel=\"api-catalog\"; type=\"application/linkset+json\", </.well-known/mcp>; rel=\"describedby\"; type=\"application/mcp-server-card+json\", </llms.txt>; rel=\"describedby\"; type=\"text/markdown\""
         },
         {
           "key": "vary",
@@ -492,6 +496,30 @@
           "type": "header",
           "key": "accept",
           "value": ".*text/markdown.*"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "destination": "/index.md",
+      "permanent": false,
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(GPTBot|ChatGPT-User|OAI-SearchBot|ClaudeBot|Claude-User|Claude-SearchBot|PerplexityBot|Perplexity-User|CCBot|Amazonbot|meta-externalagent|DuckAssistBot|MistralAI-User|YouBot|Diffbot|Timpibot|omgili).*"
+        }
+      ]
+    },
+    {
+      "source": "/((?!\\.well-known/|tools/embed-url/|(?:recipes|404|dev-404-page|offline-plugin-app-shell-fallback)(?:/|$)|.*\\.[a-zA-Z0-9]+$).+)",
+      "destination": "/$1.md",
+      "permanent": false,
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(GPTBot|ChatGPT-User|OAI-SearchBot|ClaudeBot|Claude-User|Claude-SearchBot|PerplexityBot|Perplexity-User|CCBot|Amazonbot|meta-externalagent|DuckAssistBot|MistralAI-User|YouBot|Diffbot|Timpibot|omgili).*"
         }
       ]
     }

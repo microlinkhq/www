@@ -6,6 +6,7 @@ import {
   extractMarkdown,
   isMarkdownPage,
   toMarkdownPath,
+  prependFrontmatter,
   prependTitle
 } from '../../src/helpers/page-markdown.js'
 
@@ -116,5 +117,61 @@ describe('extractMarkdown', () => {
     const { fetchMarkdown } = fetcherOf([{ markdown: '' }, { markdown: '' }])
 
     expect((await extractMarkdown(fetchMarkdown, '/pricing')).markdown).toBe('')
+  })
+})
+
+describe('markdown frontmatter', () => {
+  const CANONICAL = 'https://microlink.io/pricing'
+
+  test('gives an agent the document metadata without scraping', () => {
+    const document = prependFrontmatter(
+      {
+        title: 'Pricing',
+        description: 'What every plan costs.',
+        canonical: CANONICAL
+      },
+      '# Pricing\n\nbody'
+    )
+
+    expect(document).toBe(
+      [
+        '---',
+        'title: "Pricing"',
+        'description: "What every plan costs."',
+        `canonical: "${CANONICAL}"`,
+        '---',
+        '',
+        '# Pricing',
+        '',
+        'body'
+      ].join('\n')
+    )
+  })
+
+  test('quotes values, so a colon in a title cannot break the block', () => {
+    expect(
+      prependFrontmatter({ title: 'Microlink: turn a URL into data' }, 'body')
+    ).toContain('title: "Microlink: turn a URL into data"')
+  })
+
+  test('drops the fields a page has no value for', () => {
+    expect(
+      prependFrontmatter(
+        { title: 'Pricing', description: undefined, canonical: CANONICAL },
+        'body'
+      )
+    ).not.toContain('description')
+  })
+
+  test('leaves the markdown untouched when there is no metadata at all', () => {
+    expect(prependFrontmatter({ title: undefined }, 'body')).toBe('body')
+  })
+
+  test('keeps the heading the docs pages depend on', () => {
+    const document = prependFrontmatter(
+      { title: 'Endpoint' },
+      prependTitle('Endpoint', 'body')
+    )
+    expect(document.split('---\n\n')[1]).toBe('# Endpoint\n\nbody')
   })
 })

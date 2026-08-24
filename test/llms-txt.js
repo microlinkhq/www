@@ -177,3 +177,16 @@ describe('the build', () => {
     expect(bodyOf('createPageMarkdownFiles')).toContain('isProductionBuild()')
   })
 })
+
+describe('the markdown files the index points at', () => {
+  const gatsbyNode = fs.readFileSync(
+    path.join(process.cwd(), 'gatsby-node.js'),
+    'utf8'
+  )
+
+  test('open with a frontmatter block built from the page metadata', () => {
+    expect(gatsbyNode).toContain('prependFrontmatter(')
+    expect(gatsbyNode).toMatch(/canonical: `.+SITE_URL.+pathname.+`/)
+    expect(gatsbyNode).toContain('prependTitle(heading, markdown)')
+  })
+})

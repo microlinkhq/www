@@ -193,3 +193,52 @@ describe('docs markdown extraction', () => {
     )
   })
 })
+
+const AI_CRAWLER_LIST = JSON.parse(
+  fs.readFileSync(path.join(process.cwd(), 'static/user-agents.json'), 'utf8')
+).ai
+
+const crawlsAsAgent = ({ has = [] }) =>
+  has.some(({ type, key }) => type === 'header' && key === 'user-agent')
+
+const crawlerNegotiations = (redirects || []).filter(crawlsAsAgent)
+
+const crawlerTokens = crawlerNegotiations.flatMap(({ has }) =>
+  has[0].value.replace(/^\.\*\(|\)\.\*$/g, '').split('|')
+)
+
+describe('markdown for AI crawlers', () => {
+  test('routes them exactly where Accept: text/markdown routes', () => {
+    expect(crawlerNegotiations.length).toBe(negotiations.length)
+    expect(crawlerNegotiations.map(({ source }) => source).sort()).toEqual(
+      negotiations.map(({ source }) => source).sort()
+    )
+    for (const rule of crawlerNegotiations) {
+      const twin = negotiations.find(({ source }) => source === rule.source)
+      expect(rule.destination, rule.source).toBe(twin.destination)
+      expect(rule.permanent, rule.source).toBe(false)
+    }
+  })
+
+  test('names only user agents the crawler dataset knows are AI', () => {
+    expect(crawlerTokens.length).toBeGreaterThan(0)
+    for (const token of crawlerTokens) {
+      expect(AI_CRAWLER_LIST, token).toContain(token.toLowerCase())
+    }
+  })
+
+  test('leaves ordinary search crawlers on the HTML', () => {
+    const [{ has }] = crawlerNegotiations
+    const matches = new RegExp(has[0].value)
+    for (const agent of [
+      'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+      'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)',
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+    ]) {
+      expect(matches.test(agent), agent).toBe(false)
+    }
+    expect(
+      matches.test('Mozilla/5.0 AppleWebKit/537.36 (compatible; ClaudeBot/1.0)')
+    ).toBe(true)
+  })
+})
