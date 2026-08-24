@@ -170,7 +170,7 @@ export const CodeExample = ({ currentUrl }) => {
             ]}
           >
             <MultiCodeEditorInteractive
-              height={320}
+              height={100}
               mqlCode={{
                 url: currentUrl || FIRST_URL,
                 meta: true

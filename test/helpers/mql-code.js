@@ -33,8 +33,7 @@ describe('mql-code', () => {
 
 const microlink = createClient()
 
-const { title, description, image } =
-  await microlink.metadata('https://github.com')`)
+const data = await microlink.metadata('https://github.com')`)
   })
 
   test('should generate JavaScript code with options', () => {
@@ -265,7 +264,7 @@ const { url } = await microlink.screenshot('https://github.com', {
   })
 
   describe('SDK method translation in JavaScript', () => {
-    test('meta object narrows the metadata destructuring', () => {
+    test('meta object still resolves to a plain metadata call', () => {
       const result = mqlCode(testUrl, {
         meta: { title: true, description: true }
       })
@@ -274,17 +273,17 @@ const { url } = await microlink.screenshot('https://github.com', {
 
 const microlink = createClient()
 
-const { title, description } = await microlink.metadata('https://github.com')`)
+const data = await microlink.metadata('https://github.com')`)
     })
 
-    test('filter narrows the metadata destructuring', () => {
+    test('filter still resolves to a plain metadata call', () => {
       const result = mqlCode(testUrl, { filter: 'title,description' })
 
       expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
 
 const microlink = createClient()
 
-const { title, description } = await microlink.metadata('https://github.com')`)
+const data = await microlink.metadata('https://github.com')`)
     })
 
     test('embed field is dropped from the screenshot call', () => {
@@ -464,7 +463,7 @@ const technologies = await microlink.technologies('https://github.com')`)
 
 const microlink = createClient()
 
-const { url } = await microlink.video('https://vimeo.com/571394002')`)
+const data = await microlink.video('https://vimeo.com/571394002')`)
     })
 
     test('audio becomes the audio method', () => {
@@ -476,8 +475,7 @@ const { url } = await microlink.video('https://vimeo.com/571394002')`)
 
 const microlink = createClient()
 
-const { url } =
-  await microlink.audio('https://soundcloud.com/tycho/tycho-awake')`)
+const data = await microlink.audio('https://soundcloud.com/tycho/tycho-awake')`)
     })
 
     test('iframe becomes embed', () => {
@@ -504,14 +502,14 @@ const { image, logo } = await microlink.metadata('https://github.com', {
 })`)
     })
 
-    test('palette alone destructures image from metadata', () => {
+    test('palette stays a metadata option with the data binding', () => {
       const result = mqlCode(testUrl, { palette: true })
 
       expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
 
 const microlink = createClient()
 
-const { image } = await microlink.metadata('https://github.com', {
+const data = await microlink.metadata('https://github.com', {
   palette: true
 })`)
     })

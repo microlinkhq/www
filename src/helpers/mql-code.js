@@ -134,7 +134,7 @@ const translateToSdkCalls = options => {
     return [
       {
         method: 'video',
-        binding: '{ url }',
+        binding: 'data',
         opts: { ...(video === true ? {} : video), ...shared }
       }
     ]
@@ -145,7 +145,7 @@ const translateToSdkCalls = options => {
     return [
       {
         method: 'audio',
-        binding: '{ url }',
+        binding: 'data',
         opts: { ...(audio === true ? {} : audio), ...shared }
       }
     ]
@@ -222,17 +222,7 @@ const translateToSdkCalls = options => {
     return [{ method: 'run', binding: '{ value }', fn, opts: shared }]
   }
 
-  const fields =
-    fieldList ||
-    (embed
-      ? toFieldNames([embed])
-      : rest.palette
-        ? ['image']
-        : ['title', 'description', 'image'])
-
-  return [
-    { method: 'metadata', binding: `{ ${fields.join(', ')} }`, opts: rest }
-  ]
+  return [{ method: 'metadata', binding: 'data', opts: rest }]
 }
 
 const renderSdkCall = (url, { method, binding, fn, rules, opts }) => {

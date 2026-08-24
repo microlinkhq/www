@@ -33,6 +33,7 @@ export const HERO = {
     'Turn any URL into clean, LLM-ready plain text. Navigation, ads, cookie banners and boilerplate stripped out — just the words that matter.',
   ctaHref: '/docs/api/parameters/data',
   ctaLabel: 'Get Started',
+  editorHeight: 100,
   mqlCode: {
     url: 'https://stripe.com/blog/payment-api-design',
     data: { text: { attr: 'text' } },
