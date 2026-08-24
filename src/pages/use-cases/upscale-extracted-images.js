@@ -35,8 +35,7 @@ const EXTRACT_SNIPPET = `import createClient from 'microlink.io'
 const microlink = createClient()
 
 // Get the main image (og:image) of any URL, including width/height
-const { image } = await microlink.metadata('https://example.com')
-// image = { url, width, height, type, size }`
+const { image } = await microlink.metadata('https://example.com')`
 
 const UPSCALE_SNIPPET = `const TARGET_WIDTH = 2048
 
