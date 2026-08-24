@@ -175,3 +175,17 @@ describe('markdown frontmatter', () => {
     expect(document.split('---\n\n')[1]).toBe('# Endpoint\n\nbody')
   })
 })
+
+describe('the heading every markdown twin gets', () => {
+  test('gives a page whose content starts below the fold an h1', () => {
+    expect(prependTitle('Pricing', '## Table of contents')).toBe(
+      '# Pricing\n\n## Table of contents'
+    )
+  })
+
+  test('does not double the h1 a page already carries', () => {
+    expect(prependTitle('Pricing', '# Pricing\n\nbody')).toBe(
+      '# Pricing\n\nbody'
+    )
+  })
+})

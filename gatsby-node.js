@@ -26,7 +26,8 @@ const {
 const {
   buildLlmsTxt,
   buildLlmsFullTxt,
-  buildSectionIndexes
+  buildSectionIndexes,
+  cleanTitle
 } = require('./src/helpers/llms-txt')
 const {
   buildSkillsIndex,
@@ -610,7 +611,7 @@ const createPageMarkdownFiles = async ({ graphql, reporter }) => {
       const heading =
         selector === DOCS_CONTENT_SELECTOR
           ? docsTitles.get(pathname)
-          : undefined
+          : pageTitle && cleanTitle(pageTitle)
       mkdirSync(path.dirname(outputPath), { recursive: true })
       writeFileSync(
         outputPath,

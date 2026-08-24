@@ -21,7 +21,7 @@ export const toMarkdownPath = pathname =>
   `${pathname.replace(/^\/+/, '').replace(/\/+$/, '') || 'index'}.md`
 
 export const prependTitle = (title, markdown) =>
-  title ? `# ${title}\n\n${markdown}` : markdown
+  title && !markdown.startsWith('# ') ? `# ${title}\n\n${markdown}` : markdown
 
 export const extractMarkdown = async (fetchMarkdown, pathname) => {
   for (const selector of selectorsFor(pathname)) {
