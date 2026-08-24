@@ -383,6 +383,27 @@ const ProductInformation = () => (
         )
       },
       {
+        question: 'How does Microlink MCP compare to Browserbase?',
+        answer: (
+          <>
+            <div>
+              Browserbase gives an agent a full cloud browser to drive with
+              Playwright, Puppeteer, Selenium, or Stagehand. Microlink MCP gives
+              an agent 20 web tools it calls in natural language — screenshot,
+              PDF, Markdown, extract, and more — so it gets the result without
+              scripting a browser.
+            </div>
+            <div>
+              See the{' '}
+              <Link href='/alternative/browserbase'>
+                Browserbase alternative
+              </Link>{' '}
+              comparison for where each one fits.
+            </div>
+          </>
+        )
+      },
+      {
         question: 'How do I install it?',
         answer: (
           <>
