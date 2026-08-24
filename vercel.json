@@ -1,9 +1,4 @@
 {
-  "build": {
-    "env": {
-      "NPM_CONFIG_LEGACY_PEER_DEPS": "true"
-    }
-  },
   "installCommand": "NODE_ENV=development npm install --legacy-peer-deps",
   "headers": [
     {

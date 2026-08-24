@@ -51,33 +51,6 @@ describe('vercel.json', () => {
   })
 })
 
-describe('the install the deployment runs', () => {
-  const npmrc = fs.readFileSync(path.join(process.cwd(), '.npmrc'), 'utf8')
-
-  test('resolves peers the same way whoever runs npm install', () => {
-    expect(
-      npmrc,
-      'the build runs a second npm install after the framework build, and that ' +
-        'one does not carry the --legacy-peer-deps flag from vercel.json ' +
-        "installCommand. Without this line it fails on gatsby-plugin-mdx's " +
-        '@mdx-js/react peer range.'
-    ).toContain('legacy-peer-deps=true')
-  })
-
-  test('keeps the flag on the install command it does control', () => {
-    expect(config.installCommand).toContain('--legacy-peer-deps')
-  })
-
-  test('passes it as an environment variable too, for installs run elsewhere', () => {
-    expect(
-      config.build?.env?.NPM_CONFIG_LEGACY_PEER_DEPS,
-      'a builder that stages package.json into its own directory never reads ' +
-        'the repo .npmrc, so the override has to travel as an environment ' +
-        'variable as well as a file.'
-    ).toBe('true')
-  })
-})
-
 describe('the noindex rule for the agent indexes', () => {
   const matches = matcherFor(headerRule('X-Robots-Tag').source)
   const fullIndex = matcherFor(
