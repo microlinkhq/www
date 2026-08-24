@@ -74,7 +74,16 @@
       ]
     },
     {
-      "source": "/(?:.+/)?llms(?:-full)?\\.txt",
+      "source": "/:path*/llms.txt",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
+      "source": "/llms-full.txt",
       "headers": [
         {
           "key": "X-Robots-Tag",

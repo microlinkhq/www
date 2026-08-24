@@ -193,6 +193,7 @@
     "@microlink/mcp": "~2.0.4",
     "@storybook/addon-a11y": "latest",
     "@storybook/react-vite": "latest",
+    "@vercel/routing-utils": "~6.5.0",
     "contrast": "latest",
     "debug-logfmt": "latest",
     "esbuild": "latest",
