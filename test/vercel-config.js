@@ -67,6 +67,15 @@ describe('the install the deployment runs', () => {
   test('keeps the flag on the install command it does control', () => {
     expect(config.installCommand).toContain('--legacy-peer-deps')
   })
+
+  test('passes it as an environment variable too, for installs run elsewhere', () => {
+    expect(
+      config.build?.env?.NPM_CONFIG_LEGACY_PEER_DEPS,
+      'a builder that stages package.json into its own directory never reads ' +
+        'the repo .npmrc, so the override has to travel as an environment ' +
+        'variable as well as a file.'
+    ).toBe('true')
+  })
 })
 
 describe('the noindex rule for the agent indexes', () => {
