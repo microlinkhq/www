@@ -1,12 +1,9 @@
-import Box from 'components/elements/Box'
 import If from 'components/elements/If'
 import { theme } from 'theme'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import React, { useState, useCallback, useMemo } from 'react'
-import styled from 'styled-components'
 import { mqlCode } from 'helpers/mql-code'
-import mql from '@microlink/mql'
 
 import Terminal, { TERMINAL_WIDTH } from 'components/elements/Terminal/Terminal'
 
@@ -14,39 +11,14 @@ import SeoCodeSnippets from './interactive/seo-code-snippets'
 import TerminalActions from './interactive/terminal-actions'
 import ViewNavigation from './interactive/view-navigation'
 import ContentArea from './interactive/content-area'
+import FadeOverlay from './interactive/fade-overlay'
 import Toolbar from './interactive/toolbar'
+import { useExecuteRequest } from './interactive/use-execute-request'
 import {
   useAutoExecute,
   useCurrentViewText,
   useLanguageSync
 } from './interactive/hooks'
-
-const checkForProPlanRequired = responseText =>
-  responseText && responseText.includes('You need a pro plan')
-
-const FadeOverlay = styled(Box)`
-  height: ${({ $position }) => ($position === 'top' ? '30px' : '34px')};
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 100%;
-  top: ${({ $position }) => ($position === 'top' ? '34px' : 'auto')};
-  bottom: ${({ $position }) => ($position === 'bottom' ? '0' : 'auto')};
-
-  &:before {
-    background: linear-gradient(
-      to ${({ $position }) => ($position === 'bottom' ? 'top' : 'bottom')},
-      white ${({ $position }) => ($position === 'top' ? '50%' : '50%')},
-      transparent 100%
-    );
-    bottom: 0px;
-    content: '';
-    height: ${({ $position }) => ($position === 'top' ? '30px' : '34px')};
-    left: 0px;
-    position: absolute;
-    width: 100%;
-  }
-`
 
 const SDK_PREAMBLE_HEIGHT = 118
 
@@ -120,58 +92,14 @@ function MultiCodeEditorInteractive ({
     setLanguageIndex
   })
 
-  const parseCodeAndExecute = useCallback(
-    async currentApiKey => {
-      setIsLoading(true)
-      onLoadingChange?.(true)
-      try {
-        const result = await (async () => {
-          try {
-            const raw = await mql.arrayBuffer(url, {
-              ...mqlOpts,
-              ...(currentApiKey && { apiKey: currentApiKey })
-            })
-            const { body, headers } = raw
-            return {
-              status: 'fulfilled',
-              headers: Object.fromEntries(headers),
-              body
-            }
-          } catch (error) {
-            const {
-              headers,
-              name,
-              statusCode,
-              message,
-              url: errorUrl,
-              ...body
-            } = error
-            const encoder = new TextEncoder()
-            const errorBody = encoder.encode(JSON.stringify(body))
-
-            return {
-              status: 'rejected',
-              headers: headers || {},
-              body: errorBody
-            }
-          }
-        })()
-
-        setResponseData(result)
-
-        if (result.status === 'rejected') {
-          const errorText = new TextDecoder().decode(result.body)
-          if (checkForProPlanRequired(errorText) && !currentApiKey) {
-            setShowApiKeyInput(true)
-          }
-        }
-      } finally {
-        setIsLoading(false)
-        onLoadingChange?.(false)
-      }
-    },
-    [url, mqlOpts, onLoadingChange]
-  )
+  const parseCodeAndExecute = useExecuteRequest({
+    url,
+    mqlOpts,
+    onLoadingChange,
+    setIsLoading,
+    setResponseData,
+    setShowApiKeyInput
+  })
 
   const handleApiKeySubmit = useCallback(
     newApiKey => {
