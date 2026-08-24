@@ -51,6 +51,22 @@ const toFieldNames = fields => [
   ...new Set(fields.map(field => field.split('.')[0]))
 ]
 
+const toHeaderName = key =>
+  key
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/_/g, '-')
+    .toLowerCase()
+
+const toForwardedHeaders = headers =>
+  Object.fromEntries(
+    Object.entries(headers).map(([key, value]) => [
+      key.toLowerCase().startsWith('x-api-header-')
+        ? key.toLowerCase()
+        : `x-api-header-${toHeaderName(key)}`,
+      value
+    ])
+  )
+
 const getFieldList = (meta, filter) => {
   if (typeof filter === 'string') {
     const fields = filter
@@ -68,6 +84,10 @@ const getFieldList = (meta, filter) => {
 const translateToSdkCalls = options => {
   const { apiKey, meta, filter, embed, ...rest } = options
   const fieldList = getFieldList(meta, filter)
+
+  if (rest.headers !== null && typeof rest.headers === 'object') {
+    rest.headers = toForwardedHeaders(rest.headers)
+  }
 
   if (rest.screenshot) {
     const { screenshot, ...shared } = rest

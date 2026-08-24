@@ -441,6 +441,27 @@ const { image } = await microlink.metadata('https://github.com', {
 })`)
     })
 
+    test('headers become forwarded x-api-header transport headers', () => {
+      const result = mqlCode(testUrl, {
+        screenshot: true,
+        headers: { 'Accept-Language': 'es-ES', userAgent: 'googlebot' }
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const { url } = await microlink.screenshot('https://github.com', {
+  headers: {
+    "x-api-header-accept-language": "es-ES",
+    "x-api-header-user-agent": "googlebot"
+  }
+})`)
+      expect(result.CLI).toBe(
+        'microlink https://github.com&screenshot&headers.Accept-Language=es-ES&headers.userAgent=googlebot'
+      )
+    })
+
     test('run forwards extra named arguments as options', () => {
       const result = mqlCode(testUrl, {
         function: '({ page, greetings }) => page.evaluate(greetings)',
