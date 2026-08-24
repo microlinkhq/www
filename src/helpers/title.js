@@ -3,6 +3,7 @@ import capitalize from 'microsoft-capitalize'
 const special = [
   'AI',
   'ApiFlash',
+  'Gemini Nano',
   'apiKey',
   'APIs',
   'background',
