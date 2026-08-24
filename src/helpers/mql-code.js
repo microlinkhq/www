@@ -166,7 +166,11 @@ const translateToSdkCalls = options => {
     if (insights === true || insights.lighthouse) {
       calls.push({ method: 'lighthouse', binding: 'report', opts: shared })
     }
-    if (calls.length === 0) {
+    if (
+      calls.length === 0 &&
+      typeof insights === 'object' &&
+      Object.keys(insights).length === 0
+    ) {
       calls.push(
         { method: 'technologies', binding: 'technologies', opts: shared },
         { method: 'lighthouse', binding: 'report', opts: shared }
@@ -227,26 +231,34 @@ const translateToSdkCalls = options => {
   return [{ method: 'metadata', binding: 'data', opts: rest }]
 }
 
+const toJsUrl = url =>
+  `'${String(url)
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/\n/g, '\\n')
+    .replace(/\r/g, '\\r')}'`
+
 const renderSdkCall = (url, { method, binding, fn, rules, opts }) => {
   const hasOpts = Object.keys(opts).length > 0
+  const jsUrl = toJsUrl(url)
 
   if (method === 'run') {
-    const inline = `const ${binding} = await microlink.run('${url}', ${fn})`
+    const inline = `const ${binding} = await microlink.run(${jsUrl}, ${fn})`
     if (!hasOpts && !fn.includes('\n') && inline.length <= 80) return inline
-    const args = [`'${url}'`, fn.split('\n').join('\n  ')]
+    const args = [jsUrl, fn.split('\n').join('\n  ')]
     if (hasOpts) args.push(formatJavaScriptObject(opts, 2))
     return `const ${binding} = await microlink.run(\n  ${args.join(',\n  ')}\n)`
   }
 
   if (method === 'extract') {
-    const args = [`'${url}'`, formatJavaScriptObject(rules, 0)]
+    const args = [jsUrl, formatJavaScriptObject(rules, 0)]
     if (hasOpts) args.push(formatJavaScriptObject(opts, 0))
     return `const ${binding} = await microlink.extract(${args.join(', ')})`
   }
 
   const call = hasOpts
-    ? `await microlink.${method}('${url}', ${formatJavaScriptObject(opts, 0)})`
-    : `await microlink.${method}('${url}')`
+    ? `await microlink.${method}(${jsUrl}, ${formatJavaScriptObject(opts, 0)})`
+    : `await microlink.${method}(${jsUrl})`
   const inline = `const ${binding} = ${call}`
   if (!hasOpts && inline.length > 80) return `const ${binding} =\n  ${call}`
   return inline

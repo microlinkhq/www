@@ -490,6 +490,41 @@ const microlink = createClient()
 const data = await microlink.audio('https://soundcloud.com/tycho/tycho-awake')`)
     })
 
+    test('insights with both selections false emits no calls', () => {
+      const result = mqlCode(testUrl, {
+        insights: { technologies: false, lighthouse: false }
+      })
+
+      expect(result.JavaScript).not.toContain('await microlink.')
+      expect(result.JavaScript.trim()).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()`)
+    })
+
+    test('insights as an empty object still emits both calls', () => {
+      const result = mqlCode(testUrl, { insights: {} })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const technologies = await microlink.technologies('https://github.com')
+
+const report = await microlink.lighthouse('https://github.com')`)
+    })
+
+    test('urls with quotes and backslashes are escaped in the snippet', () => {
+      const result = mqlCode("https://example.com/o'brien", {
+        screenshot: true
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const data = await microlink.screenshot('https://example.com/o\\'brien')`)
+    })
+
     test('iframe becomes embed', () => {
       const result = mqlCode(testUrl, { iframe: true })
 
