@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest'
-import { mqlCode } from '../../src/helpers/mql-code'
+import { mqlCode, sdkPreamble } from '../../src/helpers/mql-code'
 
 describe('mql-code', () => {
   const testUrl = 'https://github.com'
@@ -152,6 +152,21 @@ const { url } = await microlink.screenshot('https://github.com', {
           code.includes('https%3A%2F%2Fgithub.com')
         expect(containsUrl).toBe(true)
       }
+    })
+  })
+
+  describe('sdkPreamble', () => {
+    test('produces an executable preamble without apiKey', () => {
+      expect(sdkPreamble()).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()`)
+    })
+
+    test('produces an executable preamble with apiKey', () => {
+      expect(sdkPreamble('MICROLINK_API_KEY'))
+        .toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient({ apiKey: 'MICROLINK_API_KEY' })`)
     })
   })
 

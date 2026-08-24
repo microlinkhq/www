@@ -13,18 +13,16 @@ import {
 import Email from 'components/elements/Email'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
-import { sdkCall } from 'helpers/mql-code'
+import { sdkCall, sdkPreamble } from 'helpers/mql-code'
 import { parseServerTimingEntries } from 'helpers/server-timing'
 
 const NERD_STATS_STORAGE_KEY = 'screenshot-nerd-stats'
 
 export const buildSdkQuery = (url, opts) => {
   const { apiKey, ...rest } = opts
-  const query = sdkCall(url, rest)
-  if (!apiKey) return query
-  return `const microlink = createClient({ apiKey: 'MICROLINK_API_KEY' })
+  return `${sdkPreamble(apiKey && 'MICROLINK_API_KEY')}
 
-${query}`
+${sdkCall(url, rest)}`
 }
 
 const ALL_HEADER_KEYS = [

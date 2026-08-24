@@ -29,9 +29,9 @@ export const mqlCode = (url, options = {}) => {
   return codeSnippets
 }
 
-const SDK_PREAMBLE = `import createClient from 'microlink.io'
+export const sdkPreamble = apiKey => `import createClient from 'microlink.io'
 
-const microlink = createClient()`
+const microlink = createClient(${apiKey ? `{ apiKey: '${apiKey}' }` : ''})`
 
 const CONTENT_METHODS = ['markdown', 'html', 'text']
 
@@ -248,7 +248,7 @@ export const sdkCall = (url, options = {}) =>
     .join('\n\n')
 
 const generateJavaScriptCode = (url, options = {}) =>
-  `${SDK_PREAMBLE}\n\n${sdkCall(url, options)}`
+  `${sdkPreamble()}\n\n${sdkCall(url, options)}`
 
 /**
  * Format JavaScript object literal with proper indentation and unquoted keys
