@@ -611,15 +611,14 @@ const { value } = await microlink.run(
   describe('apiKey special handling', () => {
     const testApiKey = 'my-api-key-123'
 
-    test('should not include apiKey in the JavaScript snippet', () => {
+    test('should pass apiKey to createClient in the JavaScript snippet', () => {
       const result = mqlCode(testUrl, { apiKey: testApiKey, screenshot: true })
 
       expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
 
-const microlink = createClient()
+const microlink = createClient({ apiKey: '${testApiKey}' })
 
 const { url } = await microlink.screenshot('https://github.com')`)
-      expect(result.JavaScript).not.toContain(testApiKey)
     })
 
     test('should handle apiKey in CLI as flag', () => {

@@ -266,7 +266,7 @@ export const sdkCall = (url, options = {}) =>
     .join('\n\n')
 
 const generateJavaScriptCode = (url, options = {}) =>
-  `${sdkPreamble()}\n\n${sdkCall(url, options)}`
+  `${sdkPreamble(options.apiKey)}\n\n${sdkCall(url, options)}`
 
 /**
  * Format JavaScript object literal with proper indentation and unquoted keys
