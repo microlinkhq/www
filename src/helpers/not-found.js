@@ -30,3 +30,21 @@ export const RECOVERY_LINKS = [
     description: 'Reach a human when none of the above answers the question.'
   }
 ]
+
+const SITE_URL = 'https://microlink.io'
+
+const CONTEXT =
+  'That path does not exist on microlink.io. These indexes lead everywhere else:'
+
+export const buildNotFoundMarkdown = () =>
+  [
+    '# Page not found',
+    '',
+    CONTEXT,
+    '',
+    RECOVERY_LINKS.map(
+      ({ href, title, description }) =>
+        `- [${title}](${SITE_URL}${href}) — ${description}`
+    ).join('\n'),
+    ''
+  ].join('\n')
