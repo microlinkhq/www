@@ -112,7 +112,7 @@ const translateToSdkCalls = options => {
     return [
       {
         method: 'screenshot',
-        binding: '{ url }',
+        binding: 'data',
         opts: { ...(screenshot === true ? {} : screenshot), ...shared }
       }
     ]
@@ -123,7 +123,7 @@ const translateToSdkCalls = options => {
     return [
       {
         method: 'pdf',
-        binding: '{ url }',
+        binding: 'data',
         opts: { ...(pdf === true ? {} : pdf), ...shared }
       }
     ]

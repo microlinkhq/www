@@ -30,7 +30,7 @@ ${sdkCall('https://example.com', { screenshot: true })}`
 
 const microlink = createClient()
 
-const { url } = await microlink.screenshot('https://example.com')`)
+const data = await microlink.screenshot('https://example.com')`)
   })
 
   test('the composition renders an executable query with the apiKey masked', () => {
@@ -42,7 +42,7 @@ ${sdkCall('https://example.com', { screenshot: true })}`
 
 const microlink = createClient({ apiKey: 'MICROLINK_API_KEY' })
 
-const { url } = await microlink.screenshot('https://example.com')`)
+const data = await microlink.screenshot('https://example.com')`)
     expect(query).not.toContain('secret-key')
   })
 })

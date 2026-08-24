@@ -45,7 +45,7 @@ const data = await microlink.metadata('https://github.com')`)
 
 const microlink = createClient()
 
-const { url } = await microlink.screenshot('https://github.com', {
+const data = await microlink.screenshot('https://github.com', {
   type: "jpeg",
   quality: 100,
   fullPage: true
@@ -257,7 +257,7 @@ const { value } = await microlink.run(
 
 const microlink = createClient()
 
-const { url } = await microlink.screenshot('https://github.com', {
+const data = await microlink.screenshot('https://github.com', {
   function: '({ page }) => page.click("#btn")'
 })`)
     })
@@ -296,7 +296,7 @@ const data = await microlink.metadata('https://github.com')`)
 
 const microlink = createClient()
 
-const { url } = await microlink.screenshot('https://github.com')`)
+const data = await microlink.screenshot('https://github.com')`)
     })
 
     test('screenshot passes shared options through', () => {
@@ -309,7 +309,7 @@ const { url } = await microlink.screenshot('https://github.com')`)
 
 const microlink = createClient()
 
-const { url } = await microlink.screenshot('https://github.com', {
+const data = await microlink.screenshot('https://github.com', {
   waitForTimeout: 3000
 })`)
     })
@@ -323,7 +323,7 @@ const { url } = await microlink.screenshot('https://github.com', {
 
 const microlink = createClient()
 
-const { url } = await microlink.pdf('https://github.com', {
+const data = await microlink.pdf('https://github.com', {
   format: "A4",
   margin: "0.35cm"
 })`)
@@ -524,7 +524,7 @@ const data = await microlink.metadata('https://github.com', {
 
 const microlink = createClient()
 
-const { url } = await microlink.screenshot('https://github.com', {
+const data = await microlink.screenshot('https://github.com', {
   headers: {
     "x-api-header-accept-language": "es-ES",
     "x-api-header-user-agent": "googlebot"
@@ -616,7 +616,7 @@ const { value } = await microlink.run(
 
 const microlink = createClient({ apiKey: '${testApiKey}' })
 
-const { url } = await microlink.screenshot('https://github.com')`)
+const data = await microlink.screenshot('https://github.com')`)
     })
 
     test('should handle apiKey in CLI as flag', () => {
