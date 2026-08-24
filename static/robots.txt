@@ -4,8 +4,9 @@ Allow: /
 Sitemap: https://microlink.io/sitemap-index.xml
 
 # Machine-readable resources for agents:
-#   https://microlink.io/llms.txt                              every page as a markdown link
+#   https://microlink.io/llms.txt                              every section of this site as a markdown link
 #   https://microlink.io/openapi.json                          the API as an OpenAPI 3.1 document
+#   https://microlink.io/auth.md                               how an agent gets credentials
 #   https://microlink.io/apis.json                             APIs.json service description
 #   https://microlink.io/.well-known/api-catalog               RFC 9727 API catalog
 #   https://microlink.io/.well-known/mcp                       MCP server card

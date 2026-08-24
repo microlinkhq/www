@@ -41,6 +41,11 @@ const RESOURCES = [
     'How the API evolves: unversioned and additive-only, with six months of deprecation notice.'
   ],
   [
+    'Agent authentication',
+    `${SITE_URL}/auth.md`,
+    'How an agent gets credentials: the keyless endpoint, the x-api-key header, where a key comes from and how it is revoked.'
+  ],
+  [
     'API catalog',
     `${SITE_URL}/.well-known/api-catalog`,
     'RFC 9727 catalog linking the API to its description, documentation and status page.'

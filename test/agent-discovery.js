@@ -8,7 +8,7 @@ import { RECOVERY_LINKS } from '../src/helpers/not-found.js'
 const read = file => fs.readFileSync(path.join(process.cwd(), file), 'utf8')
 
 const SITE_URL = 'https://microlink.io'
-const STATIC_FILES = ['/openapi.json', '/apis.json']
+const STATIC_FILES = ['/openapi.json', '/apis.json', '/auth.md']
 const GENERATED_FILES = [
   '/sitemap-index.xml',
   '/llms.txt',
@@ -280,6 +280,72 @@ describe('the agent skills index', () => {
     expect(body.indexOf('writeFileSync(outputPath, contents)')).toBeLessThan(
       body.indexOf('buildSkillsIndex(skills)')
     )
+  })
+})
+
+describe('auth.md', () => {
+  const source = read('static/auth.md')
+
+  test('reads as markdown prose, not as a placeholder', () => {
+    expect(source.startsWith('# ')).toBe(true)
+    expect(source.length).toBeGreaterThan(200)
+  })
+
+  test('walks an agent through every step the convention names', () => {
+    expect(source.match(/^## .+$/gm)).toEqual([
+      '## Discover',
+      '## Pick a method',
+      '## Register',
+      '## Claim',
+      '## Use the credential',
+      '## Errors',
+      '## Revocation'
+    ])
+  })
+
+  test('names the one credential this API actually takes', () => {
+    expect(source).toContain('x-api-key')
+    expect(source).toContain('https://api.microlink.io')
+    expect(source).toContain('https://pro.microlink.io')
+    expect(source).toContain('25 requests per day')
+  })
+
+  test('claims no mechanism the API does not implement', () => {
+    expect(source).toContain('There is no OAuth 2.0')
+    expect(source).not.toMatch(/\bregister_uri\b/)
+    expect(source).not.toMatch(/\bid-jag\b/)
+  })
+
+  test('sends an agent to the errors it will actually hit', () => {
+    expect(source).toContain('EAUTH')
+    expect(source).toContain('ERATE')
+  })
+
+  test('says how a key is revoked, by a human', () => {
+    expect(source).toContain('hello@microlink.io')
+    expect(source).toContain(`${SITE_URL}/contact`)
+    expect(source).toContain(`${SITE_URL}/security`)
+  })
+
+  test('links only to pages that exist', () => {
+    const links = [...source.matchAll(/https:\/\/microlink\.io(\/\S*)/g)]
+      .map(([, pathname]) => pathname.replace(/[).,]+$/, ''))
+      .filter(pathname => pathname !== '/auth.md')
+
+    expect(links.length).toBeGreaterThan(0)
+    for (const pathname of new Set(links)) {
+      expect(resolvesToAPage(pathname), pathname).toBe(true)
+    }
+  })
+
+  test('is served as markdown by the markdown rule', () => {
+    const rule = vercelConfig.headers.find(({ headers }) =>
+      headers.some(
+        ({ key, value }) =>
+          key === 'content-type' && value.startsWith('text/markdown')
+      )
+    )
+    expect(new RegExp(`^${rule.source}$`).test('/auth.md')).toBe(true)
   })
 })
 
