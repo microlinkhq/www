@@ -25,6 +25,10 @@ const {
 } = require('./src/helpers/page-markdown')
 const { buildLlmsTxt } = require('./src/helpers/llms-txt')
 const {
+  buildSkillsIndex,
+  skillPathname
+} = require('./src/helpers/agent-skills')
+const {
   parseLatestChangelogEntry
 } = require('./src/helpers/parse-latest-changelog-entry')
 const { title: formatTitle } = require('./src/helpers/title')
@@ -32,6 +36,12 @@ const { generate: generateOgCards, slug, imagePath } = require('@microlink/og')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
+)
+
+const SKILLS_REPO_DIR = path.join(process.cwd(), 'data', 'skills-repo')
+
+const SKILLS = JSON.parse(
+  readFileSync(path.join(process.cwd(), 'data', 'skills.json'), 'utf8')
 )
 
 const GIT_TIMESTAMPS = JSON.parse(
@@ -118,8 +128,35 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
 }
 
 exports.onPostBuild = async ({ graphql, reporter }) => {
+  createAgentSkillFiles({ reporter })
   await createPageMarkdownFiles({ graphql, reporter })
   await generateOgImages({ graphql, reporter })
+}
+
+const createAgentSkillFiles = ({ reporter }) => {
+  const skills = SKILLS.map(({ slug, description }) => {
+    const contents = readFileSync(
+      path.join(SKILLS_REPO_DIR, slug, 'SKILL.md'),
+      'utf8'
+    )
+    const outputPath = path.join(process.cwd(), 'public', skillPathname(slug))
+    mkdirSync(path.dirname(outputPath), { recursive: true })
+    writeFileSync(outputPath, contents)
+    return { name: slug, description, contents }
+  })
+
+  const index = buildSkillsIndex(skills)
+  writeFileSync(
+    path.join(
+      process.cwd(),
+      'public',
+      '.well-known',
+      'agent-skills',
+      'index.json'
+    ),
+    `${JSON.stringify(index, null, 2)}\n`
+  )
+  reporter.info(`Generated the agent skills index with ${skills.length} skills`)
 }
 
 // Each page's built HTML already carries its real og:title/og:description (set

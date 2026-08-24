@@ -9,7 +9,10 @@ const read = file => fs.readFileSync(path.join(process.cwd(), file), 'utf8')
 
 const SITE_URL = 'https://microlink.io'
 const STATIC_FILES = ['/openapi.json', '/llms.txt', '/apis.json']
-const GENERATED_FILES = ['/sitemap-index.xml']
+const GENERATED_FILES = [
+  '/sitemap-index.xml',
+  '/.well-known/agent-skills/index.json'
+]
 
 const exists = file => fs.existsSync(path.join(process.cwd(), file))
 
@@ -192,6 +195,89 @@ describe('the mcp server card', () => {
       { name: 'microlink_meta', description: 'Extract metadata.' }
     ])
     expect(built.remotes).toBeUndefined()
+  })
+})
+
+describe('the ai catalog', () => {
+  const catalog = JSON.parse(read('static/.well-known/ai-catalog.json'))
+
+  test('names the host an agent is talking to', () => {
+    expect(catalog.specVersion).toBe('1.0')
+    expect(catalog.host.identifier).toBe('microlink.io')
+    expect(catalog.host.displayName.length).toBeGreaterThan(0)
+  })
+
+  test('lists every agentic resource, not only the API', () => {
+    expect(catalog.entries.map(({ type }) => type)).toEqual(
+      expect.arrayContaining([
+        'application/vnd.oai.openapi+json;version=3.1',
+        'application/mcp-server-card+json',
+        'application/ai-skill+md',
+        'text/markdown'
+      ])
+    )
+  })
+
+  test('gives every entry what an agent needs to use it', () => {
+    for (const entry of catalog.entries) {
+      expect(entry.identifier, entry.displayName).toMatch(
+        /^urn:air:microlink\.io:[a-z]+:[a-z0-9-]+$/
+      )
+      expect(entry.displayName.length, entry.identifier).toBeGreaterThan(0)
+      expect(entry.description.length, entry.identifier).toBeGreaterThan(20)
+      expect(
+        Number('url' in entry) + Number('data' in entry),
+        entry.identifier
+      ).toBe(1)
+    }
+  })
+
+  test('claims nothing this site does not publish', () => {
+    expect(catalog.entries.map(({ type }) => type)).not.toContain(
+      'application/a2a-agent-card+json'
+    )
+  })
+
+  test('links only to pages that exist', () => {
+    for (const { url } of catalog.entries) {
+      expect(resolvesToAPage(url.replace(SITE_URL, '')), url).toBe(true)
+    }
+  })
+
+  test('is served as a catalog, not as plain JSON', () => {
+    const rule = vercelConfig.headers.find(
+      ({ source }) => source === '/.well-known/ai-catalog.json'
+    )
+    expect(rule.headers).toContainEqual({
+      key: 'content-type',
+      value: 'application/ai-catalog+json; charset=utf-8'
+    })
+  })
+})
+
+describe('the agent skills index', () => {
+  const gatsbyNode = read('gatsby-node.js')
+
+  test('publishes the skills this site already lists at /skills', () => {
+    expect(gatsbyNode).toContain('createAgentSkillFiles({ reporter })')
+    expect(gatsbyNode).toContain("path.join(SKILLS_REPO_DIR, slug, 'SKILL.md')")
+    expect(gatsbyNode).toContain('buildSkillsIndex(skills)')
+  })
+
+  test('is built in every build, so a preview carries it too', () => {
+    const body = gatsbyNode
+      .slice(gatsbyNode.indexOf('const createAgentSkillFiles = '))
+      .split('\n}\n')[0]
+    expect(body).not.toContain('isProductionBuild()')
+  })
+
+  test('digests the bytes it writes, not the bytes in the repo', () => {
+    const body = gatsbyNode
+      .slice(gatsbyNode.indexOf('const createAgentSkillFiles = '))
+      .split('\n}\n')[0]
+    expect(body.indexOf('writeFileSync(outputPath, contents)')).toBeLessThan(
+      body.indexOf('buildSkillsIndex(skills)')
+    )
   })
 })
 

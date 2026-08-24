@@ -1,0 +1,42 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Microlink",
+    "identifier": "microlink.io",
+    "documentationUrl": "https://microlink.io/docs/api/getting-started/overview"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:microlink.io:api:microlink",
+      "displayName": "Microlink API",
+      "type": "application/vnd.oai.openapi+json;version=3.1",
+      "url": "https://microlink.io/openapi.json",
+      "description": "Turn any URL into data with a single GET request: normalized metadata, screenshots, PDFs, markdown, plain text, media detection, technology and Lighthouse insights, and CSS-selector scraping.",
+      "tags": ["api", "rest", "openapi", "scraping", "screenshot", "pdf"]
+    },
+    {
+      "identifier": "urn:air:microlink.io:mcp:microlink",
+      "displayName": "Microlink MCP server",
+      "type": "application/mcp-server-card+json",
+      "url": "https://microlink.io/.well-known/mcp",
+      "description": "The Microlink API as MCP tools, distributed on npm as @microlink/mcp and launched over stdio.",
+      "tags": ["mcp", "tools", "stdio"]
+    },
+    {
+      "identifier": "urn:air:microlink.io:skill:microlink",
+      "displayName": "Microlink agent skills",
+      "type": "application/ai-skill+md",
+      "url": "https://microlink.io/.well-known/agent-skills/index.json",
+      "description": "Agent Skills for the Microlink API and the open source projects behind it, each one a SKILL.md an agent can read and follow.",
+      "tags": ["skills", "agent-skills"]
+    },
+    {
+      "identifier": "urn:air:microlink.io:doc:llms-txt",
+      "displayName": "Microlink llms.txt",
+      "type": "text/markdown",
+      "url": "https://microlink.io/llms.txt",
+      "description": "The navigation index for this site: developer resources first, then a link into every section's own index.",
+      "tags": ["llms-txt", "documentation"]
+    }
+  ]
+}

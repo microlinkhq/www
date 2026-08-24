@@ -65,6 +65,15 @@
       ]
     },
     {
+      "source": "/.well-known/ai-catalog.json",
+      "headers": [
+        {
+          "key": "content-type",
+          "value": "application/ai-catalog+json; charset=utf-8"
+        }
+      ]
+    },
+    {
       "source": "/llms.txt",
       "headers": [
         {
@@ -143,7 +152,7 @@
         },
         {
           "key": "link",
-          "value": "</sitemap-index.xml>; rel=\"sitemap\", </openapi.json>; rel=\"service-desc\"; type=\"application/openapi+json\", </docs/api/getting-started/overview>; rel=\"service-doc\"; type=\"text/html\", </.well-known/api-catalog>; rel=\"api-catalog\"; type=\"application/linkset+json\", </.well-known/mcp>; rel=\"describedby\"; type=\"application/mcp-server-card+json\", </llms.txt>; rel=\"describedby\"; type=\"text/markdown\""
+          "value": "</sitemap-index.xml>; rel=\"sitemap\", </openapi.json>; rel=\"service-desc\"; type=\"application/openapi+json\", </docs/api/getting-started/overview>; rel=\"service-doc\"; type=\"text/html\", </.well-known/api-catalog>; rel=\"api-catalog\"; type=\"application/linkset+json\", </.well-known/mcp>; rel=\"describedby\"; type=\"application/mcp-server-card+json\", </.well-known/ai-catalog.json>; rel=\"ai-catalog\"; type=\"application/ai-catalog+json\", </llms.txt>; rel=\"describedby\"; type=\"text/markdown\""
         },
         {
           "key": "vary",

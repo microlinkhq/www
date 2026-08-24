@@ -46,6 +46,16 @@ const RESOURCES = [
     'RFC 9727 catalog linking the API to its description, documentation and status page.'
   ],
   [
+    'Agent skills',
+    `${SITE_URL}/.well-known/agent-skills/index.json`,
+    'Every Microlink skill an agent can install and follow, each with its description and the digest of the SKILL.md served here.'
+  ],
+  [
+    'Agentic resource catalog',
+    `${SITE_URL}/.well-known/ai-catalog.json`,
+    'One catalog of everything this site offers an agent: the API, the MCP server, the skills and this index.'
+  ],
+  [
     'Sitemap',
     `${SITE_URL}/sitemap-index.xml`,
     'The canonical index of every URL published on this site.'
