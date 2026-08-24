@@ -47,14 +47,16 @@ The simplest pattern: fetch the data server-side, pass `iframe.html` to the clie
 #### Vanilla JavaScript
 
 ```js
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
-const { data } = await mql(url, { iframe: true })
+const microlink = createClient()
 
-if (data.iframe) {
-  document.getElementById('embed').innerHTML = data.iframe.html
+const embed = await microlink.embed(url)
 
-  data.iframe.scripts.forEach(({ src, async, charset }) => {
+if (embed) {
+  document.getElementById('embed').innerHTML = embed.html
+
+  embed.scripts.forEach(({ src, async, charset }) => {
     if (document.querySelector(`script[src="${src}"]`)) return
     const script = document.createElement('script')
     script.src = src
@@ -70,17 +72,19 @@ The script step is what makes Twitter, Instagram, and similar widgets actually r
 #### React
 
 ```jsx
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 function ProviderEmbed ({ url }) {
   const [iframe, setIframe] = useState(null)
 
   useEffect(() => {
     let cancelled = false
-    mql(url, { iframe: true }).then(({ data }) => {
+    microlink.embed(url).then(embed => {
       if (cancelled) return
-      setIframe(data.iframe)
-      data.iframe?.scripts?.forEach(({ src, async, charset }) => {
+      setIframe(embed)
+      embed?.scripts?.forEach(({ src, async, charset }) => {
         if (document.querySelector(`script[src="${src}"]`)) return
         const s = document.createElement('script')
         s.src = src
@@ -104,13 +108,14 @@ For React, the Embed SDK already handles this — see <Link href='/docs/guides/e
 If you SSR the page, write the HTML and the script tags directly into the response — no client fetch needed:
 
 ```js
-const { data } = await mql(url, { iframe: true })
+const { title } = await microlink.metadata(url)
+const { html, scripts } = await microlink.embed(url)
 
 res.send(`
   <article>
-    <h1>${data.title}</h1>
-    ${data.iframe.html}
-    ${data.iframe.scripts.map(s => `<script async src="${s.src}"></script>`).join('')}
+    <h1>${title}</h1>
+    ${html}
+    ${scripts.map(s => `<script async src="${s.src}"></script>`).join('')}
   </article>
 `)
 ```
@@ -147,13 +152,13 @@ Not every URL has an oEmbed endpoint. If discovery fails, the `iframe` field is 
 Plan your code for both shapes:
 
 ```js
-const { data } = await mql(url, { iframe: true })
+const embed = await microlink.embed(url)
 
-if (data.iframe) {
-  container.innerHTML = data.iframe.html
+if (embed) {
+  container.innerHTML = embed.html
 } else {
-  // fall back to a custom card built from data.title / data.image / data.description
-  container.innerHTML = renderCard(data)
+  // fall back to a custom card built from title / image / description
+  container.innerHTML = renderCard(await microlink.metadata(url))
 }
 ```
 

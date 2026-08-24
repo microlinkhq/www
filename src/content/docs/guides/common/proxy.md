@@ -123,11 +123,12 @@ Some proxy endpoints are temporarily unreachable or the target site intermittent
 A common use case is scraping a site that serves different content depending on the visitor's country. Route through a country-specific proxy IP to get the version you need:
 
 ```js
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
-const { data } = await mql('https://example.com/pricing', {
-  proxy: 'https://user:pass@fr-proxy.example.com:8080',
-  meta: false
+const microlink = createClient()
+
+const { title, description } = await microlink.metadata('https://example.com/pricing', {
+  proxy: 'https://user:pass@fr-proxy.example.com:8080'
 })
 ```
 
@@ -149,11 +150,12 @@ Proxy URLs contain credentials. Treat them the same as API keys:
 - Pass them from environment variables in server-side code:
 
 ```js
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
-const { data } = await mql('https://example.com', {
-  proxy: process.env.PROXY_URL,
-  meta: false
+const microlink = createClient()
+
+const { title, description } = await microlink.metadata('https://example.com', {
+  proxy: process.env.PROXY_URL
 })
 ```
 

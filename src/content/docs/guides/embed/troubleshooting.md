@@ -18,13 +18,13 @@ Not every URL has an oEmbed endpoint. When discovery fails, the response has no 
 Plan for both shapes in your renderer:
 
 ```js
-const { data } = await mql(url, { iframe: true })
+const embed = await microlink.embed(url)
 
-if (data.iframe) {
-  container.innerHTML = data.iframe.html
-  data.iframe.scripts.forEach(injectScript)
+if (embed) {
+  container.innerHTML = embed.html
+  embed.scripts.forEach(injectScript)
 } else {
-  container.innerHTML = renderCustomCard(data) // fall back
+  container.innerHTML = renderCustomCard(await microlink.metadata(url)) // fall back
 }
 ```
 

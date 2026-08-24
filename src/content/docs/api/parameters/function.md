@@ -191,7 +191,7 @@ const { status, data } = await mql('https://microlink.io', {
   scripts: 'https://code.jquery.com/jquery-3.5.0.min.js'
 })
 
-mql.render(data.function)
+console.log(data.function.value)
 ```
 
 <Figcaption>Prefix the compressed data with the compressor alias.</Figcaption>
@@ -211,7 +211,9 @@ Read [how to compress](/blog/compress) to know more.
 The function runtime supports `require()` for any npm package. Dependencies are detected automatically from your code and installed on-the-fly during the install phase.
 
 ```js
-const mql = require('@microlink/mql')
+import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 const code = () => {
   const cheerio = require('cheerio')
@@ -219,10 +221,7 @@ const code = () => {
   return $('h1').text()
 }
 
-const { data } = await mql('https://example.com', {
-  function: code.toString(),
-  meta: false
-})
+const { value } = await microlink.run('https://example.com', code)
 ```
 
 <Figcaption>Dependencies are parsed from your function code, installed in a sandbox, and cached for subsequent runs.</Figcaption>
