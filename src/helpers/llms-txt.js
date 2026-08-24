@@ -62,6 +62,10 @@ const RESOURCES = [
   ]
 ]
 
+const UNSECTIONED = 'Pages'
+
+const FULL_INDEX = '/llms-full.txt'
+
 const SECTIONS = [
   ['/docs/api', 'API'],
   ['/docs/cards', 'Cards'],
@@ -79,6 +83,8 @@ const SECTIONS = [
   ['/blog', 'Blog']
 ]
 
+const SECTION_INDEXES = [['/docs', 'Docs'], ...SECTIONS]
+
 export const cleanTitle = title => title.replace(TITLE_SUFFIX, '').trim()
 
 export const titleFromPathname = pathname => {
@@ -93,11 +99,16 @@ export const sectionFor = pathname => {
   for (const [prefix, title] of SECTIONS) {
     if (pathname === prefix || pathname.startsWith(`${prefix}/`)) return title
   }
-  return 'Pages'
+  return UNSECTIONED
 }
 
 export const toMarkdownUrl = pathname =>
   `${SITE_URL}/${toMarkdownPath(pathname)}`
+
+export const sectionIndexUrl = prefix => `${SITE_URL}${prefix}/llms.txt`
+
+const isUnder = prefix => pathname =>
+  pathname === prefix || pathname.startsWith(`${prefix}/`)
 
 const toEntry = ({ pathname, title, description }) => {
   const label = title ? cleanTitle(title) : titleFromPathname(pathname)
@@ -113,9 +124,9 @@ const RESOURCES_SECTION = [
   ).join('\n')
 ].join('\n')
 
-export const buildLlmsTxt = pages => {
+const groupBySection = pages => {
   const grouped = new Map(SECTIONS.map(([, title]) => [title, []]))
-  grouped.set('Pages', [])
+  grouped.set(UNSECTIONED, [])
 
   for (const page of pages.toSorted((a, b) =>
     a.pathname.localeCompare(b.pathname)
@@ -123,11 +134,67 @@ export const buildLlmsTxt = pages => {
     grouped.get(sectionFor(page.pathname)).push(toEntry(page))
   }
 
-  const body = [...grouped]
+  return grouped
+}
+
+const listing = grouped =>
+  [...grouped]
     .flatMap(([title, entries]) =>
       entries.length > 0 ? `## ${title}\n\n${entries.join('\n')}` : []
     )
     .join('\n\n')
 
-  return `${HEADING}\n\n${SUMMARY}\n\n${RESOURCES_SECTION}\n\n${body}\n`
+export const buildSectionIndexes = pages =>
+  SECTION_INDEXES.flatMap(([prefix, title]) => {
+    const scoped = pages
+      .filter(({ pathname }) => isUnder(prefix)(pathname))
+      .toSorted((a, b) => a.pathname.localeCompare(b.pathname))
+
+    if (scoped.length === 0) return []
+
+    return {
+      prefix,
+      title,
+      pathname: `${prefix}/llms.txt`,
+      contents: [
+        `# Microlink — ${title}`,
+        '',
+        `> Everything under ${prefix} on ${SITE_URL}, one markdown link per page.`,
+        '',
+        `## ${title}`,
+        '',
+        scoped.map(toEntry).join('\n'),
+        '',
+        '## Optional',
+        '',
+        `- [Site index](${SITE_URL}/llms.txt): every section of this site.`,
+        `- [Full index](${SITE_URL}${FULL_INDEX}): every page of this site in one file.`,
+        ''
+      ].join('\n')
+    }
+  })
+
+export const buildLlmsTxt = pages => {
+  const sections = buildSectionIndexes(pages).map(
+    ({ prefix, title, pathname }) =>
+      `- [${title}](${SITE_URL}${pathname}): every page under ${prefix}.`
+  )
+
+  const unsectioned = groupBySection(pages).get(UNSECTIONED)
+
+  const body = [
+    RESOURCES_SECTION,
+    sections.length > 0 && `## Site sections\n\n${sections.join('\n')}`,
+    unsectioned.length > 0 && `## ${UNSECTIONED}\n\n${unsectioned.join('\n')}`,
+    `## Optional\n\n- [Full index](${SITE_URL}${FULL_INDEX}): every page of this site in one file, when a section index is not enough.`
+  ]
+    .filter(Boolean)
+    .join('\n\n')
+
+  return `${HEADING}\n\n${SUMMARY}\n\n${body}\n`
 }
+
+export const buildLlmsFullTxt = pages =>
+  `${HEADING}\n\n${SUMMARY}\n\n${RESOURCES_SECTION}\n\n${listing(
+    groupBySection(pages)
+  )}\n`

@@ -23,7 +23,11 @@ const {
   prependFrontmatter,
   prependTitle
 } = require('./src/helpers/page-markdown')
-const { buildLlmsTxt } = require('./src/helpers/llms-txt')
+const {
+  buildLlmsTxt,
+  buildLlmsFullTxt,
+  buildSectionIndexes
+} = require('./src/helpers/llms-txt')
 const {
   buildSkillsIndex,
   skillPathname
@@ -130,6 +134,7 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
 exports.onPostBuild = async ({ graphql, reporter }) => {
   createAgentSkillFiles({ reporter })
   await createPageMarkdownFiles({ graphql, reporter })
+  await createLlmsTxtFiles({ graphql, reporter })
   await generateOgImages({ graphql, reporter })
 }
 
@@ -139,9 +144,7 @@ const createAgentSkillFiles = ({ reporter }) => {
       path.join(SKILLS_REPO_DIR, slug, 'SKILL.md'),
       'utf8'
     )
-    const outputPath = path.join(process.cwd(), 'public', skillPathname(slug))
-    mkdirSync(path.dirname(outputPath), { recursive: true })
-    writeFileSync(outputPath, contents)
+    writePublicFile(skillPathname(slug), contents)
     return { name: slug, description, contents }
   })
 
@@ -628,10 +631,43 @@ const createPageMarkdownFiles = async ({ graphql, reporter }) => {
   reporter.info(
     `Generated ${pages.length} page markdown files in ${duration}ms`
   )
+}
 
-  writeFileSync(
-    path.join(process.cwd(), 'public', 'llms.txt'),
-    buildLlmsTxt(pages)
+const writePublicFile = (pathname, contents) => {
+  const outputPath = path.join(process.cwd(), 'public', pathname)
+  mkdirSync(path.dirname(outputPath), { recursive: true })
+  writeFileSync(outputPath, contents)
+}
+
+const createLlmsTxtFiles = async ({ graphql, reporter }) => {
+  const result = await graphql(`
+    {
+      allSitePage {
+        nodes {
+          path
+        }
+      }
+    }
+  `)
+
+  if (result.errors) {
+    reporter.panicOnBuild('Error while generating llms.txt', result.errors)
+    return
+  }
+
+  const pages = markdownPathnames(result.data.allSitePage.nodes).map(
+    pathname => ({ pathname, ...pageMetadata(pathname) })
   )
-  reporter.info(`Generated llms.txt with ${pages.length} pages`)
+
+  writePublicFile('llms.txt', buildLlmsTxt(pages))
+  writePublicFile('llms-full.txt', buildLlmsFullTxt(pages))
+
+  const sections = buildSectionIndexes(pages)
+  for (const { pathname, contents } of sections) {
+    writePublicFile(pathname, contents)
+  }
+
+  reporter.info(
+    `Generated llms.txt with ${pages.length} pages and ${sections.length} section indexes`
+  )
 }

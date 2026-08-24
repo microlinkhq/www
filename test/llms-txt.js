@@ -3,7 +3,9 @@ import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 
 import {
+  buildLlmsFullTxt,
   buildLlmsTxt,
+  buildSectionIndexes,
   cleanTitle,
   sectionFor,
   titleFromPathname,
@@ -29,7 +31,9 @@ const PAGES = [
   }
 ]
 
-const content = buildLlmsTxt(PAGES)
+const content = buildLlmsFullTxt(PAGES)
+
+const index = buildLlmsTxt(PAGES)
 
 const sections = content
   .split(/^## /m)
@@ -96,7 +100,7 @@ describe('toMarkdownUrl', () => {
   })
 })
 
-describe('buildLlmsTxt', () => {
+describe('buildLlmsFullTxt', () => {
   test('starts with an H1 and a summary', () => {
     expect(content.startsWith('# Microlink\n\n> ')).toBe(true)
   })
@@ -134,6 +138,95 @@ describe('buildLlmsTxt', () => {
   })
 })
 
+describe('buildLlmsTxt', () => {
+  test('starts with an H1 and a summary', () => {
+    expect(index.startsWith('# Microlink\n\n> ')).toBe(true)
+  })
+
+  test('navigates by section instead of listing every page', () => {
+    expect(index.match(/^## .+$/gm)).toEqual([
+      '## Developer resources',
+      '## Site sections',
+      '## Pages',
+      '## Optional'
+    ])
+    expect(index).toContain(
+      '- [Docs](https://microlink.io/docs/llms.txt): every page under /docs.'
+    )
+    expect(index).toContain(
+      '- [Blog](https://microlink.io/blog/llms.txt): every page under /blog.'
+    )
+    expect(index).not.toContain('/docs/api/basics/cache.md')
+  })
+
+  test('keeps the pages that belong to no section', () => {
+    expect(index).toContain('https://microlink.io/pricing.md')
+    expect(index).toContain('https://microlink.io/index.md')
+  })
+
+  test('hands the complete listing to llms-full.txt', () => {
+    expect(index).toContain('https://microlink.io/llms-full.txt')
+  })
+
+  test('does not grow with the pages that live in a section', () => {
+    const docs = Array.from({ length: 1000 }, (unused, position) => ({
+      pathname: `/docs/api/parameters/parameter-${position}`,
+      title: `Parameter ${position} — Microlink Docs`,
+      description: 'What this parameter does and what it defaults to.'
+    }))
+
+    expect(buildLlmsTxt([...PAGES, ...docs]).length).toBe(index.length)
+  })
+
+  test('stays under the 30k an index is allowed', () => {
+    const standalone = Array.from({ length: 100 }, (unused, position) => ({
+      pathname: `/standalone-page-with-a-long-slug-${position}`,
+      title: `Standalone page number ${position} — Microlink`,
+      description:
+        'A description as long as the longest one this site publishes today, which is roughly this many characters of prose.'
+    }))
+
+    expect(
+      buildLlmsTxt([...PAGES, ...standalone]).length,
+      'the index lists every page that belongs to no section, so a page added ' +
+        'outside SECTIONS costs index budget. Give it a section instead.'
+    ).toBeLessThan(30000)
+  })
+})
+
+describe('buildSectionIndexes', () => {
+  const indexes = buildSectionIndexes(PAGES)
+  const byPathname = new Map(indexes.map(entry => [entry.pathname, entry]))
+
+  test('writes one file per section that has pages', () => {
+    expect([...byPathname.keys()]).toEqual([
+      '/docs/llms.txt',
+      '/docs/api/llms.txt',
+      '/blog/llms.txt'
+    ])
+  })
+
+  test('scopes each file to its own prefix', () => {
+    const api = byPathname.get('/docs/api/llms.txt').contents
+    expect(api.startsWith('# Microlink — API\n\n> ')).toBe(true)
+    expect(api).toContain('https://microlink.io/docs/api/basics/cache.md')
+    expect(api).not.toContain('https://microlink.io/pricing.md')
+  })
+
+  test('rolls the docs sections up into one docs index', () => {
+    expect(byPathname.get('/docs/llms.txt').contents).toContain(
+      'https://microlink.io/docs/api/basics/cache.md'
+    )
+  })
+
+  test('leads back to the site index and the full one', () => {
+    for (const { pathname, contents } of indexes) {
+      expect(contents, pathname).toContain('https://microlink.io/llms.txt')
+      expect(contents, pathname).toContain('https://microlink.io/llms-full.txt')
+    }
+  })
+})
+
 describe('developer resources', () => {
   const [resources] = sections
 
@@ -168,13 +261,19 @@ describe('the build', () => {
     gatsbyNode.slice(gatsbyNode.indexOf(`const ${name} = `)).split('\n}\n')[0]
 
   test('indexes the same pages it writes markdown for', () => {
-    const body = bodyOf('createPageMarkdownFiles')
+    const body = bodyOf('createLlmsTxtFiles')
     expect(body).toContain('markdownPathnames(')
     expect(body).toContain('buildLlmsTxt(')
+    expect(body).toContain('buildLlmsFullTxt(')
+    expect(body).toContain('buildSectionIndexes(')
   })
 
-  test('writes both only on a production build', () => {
+  test('writes the markdown twins only on a production build', () => {
     expect(bodyOf('createPageMarkdownFiles')).toContain('isProductionBuild()')
+  })
+
+  test('writes the indexes in every build, so a preview carries them', () => {
+    expect(bodyOf('createLlmsTxtFiles')).not.toContain('isProductionBuild()')
   })
 })
 

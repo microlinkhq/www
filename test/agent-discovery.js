@@ -8,9 +8,11 @@ import { RECOVERY_LINKS } from '../src/helpers/not-found.js'
 const read = file => fs.readFileSync(path.join(process.cwd(), file), 'utf8')
 
 const SITE_URL = 'https://microlink.io'
-const STATIC_FILES = ['/openapi.json', '/llms.txt', '/apis.json']
+const STATIC_FILES = ['/openapi.json', '/apis.json']
 const GENERATED_FILES = [
   '/sitemap-index.xml',
+  '/llms.txt',
+  '/llms-full.txt',
   '/.well-known/agent-skills/index.json'
 ]
 
