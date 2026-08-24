@@ -330,6 +330,43 @@ const { url } = await microlink.pdf('https://github.com', {
 })`)
     })
 
+    test('combined pdf and screenshot emit both calls in author order', () => {
+      const result = mqlCode('https://example.com', {
+        meta: false,
+        pdf: { format: 'a4', landscape: true, scale: 0.6, pageRanges: '1-2' },
+        screenshot: true,
+        adblock: true
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const pdf = await microlink.pdf('https://example.com', {
+  format: "a4",
+  landscape: true,
+  scale: 0.6,
+  pageRanges: "1-2",
+  adblock: true
+})
+
+const screenshot = await microlink.screenshot('https://example.com', {
+  adblock: true
+})`)
+    })
+
+    test('combined screenshot and pdf keep screenshot first', () => {
+      const result = mqlCode(testUrl, { screenshot: true, pdf: true })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const screenshot = await microlink.screenshot('https://github.com')
+
+const pdf = await microlink.pdf('https://github.com')`)
+    })
+
     test('content conversion rule becomes the content method', () => {
       const result = mqlCode('https://stripe.com/docs/api', {
         data: { markdown: { attr: 'markdown' } },

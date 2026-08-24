@@ -89,6 +89,24 @@ const translateToSdkCalls = options => {
     rest.headers = toForwardedHeaders(rest.headers)
   }
 
+  if (rest.screenshot && rest.pdf) {
+    const { screenshot, pdf, ...shared } = rest
+    const screenshotCall = {
+      method: 'screenshot',
+      binding: 'screenshot',
+      opts: { ...(screenshot === true ? {} : screenshot), ...shared }
+    }
+    const pdfCall = {
+      method: 'pdf',
+      binding: 'pdf',
+      opts: { ...(pdf === true ? {} : pdf), ...shared }
+    }
+    const keys = Object.keys(rest)
+    return keys.indexOf('pdf') < keys.indexOf('screenshot')
+      ? [pdfCall, screenshotCall]
+      : [screenshotCall, pdfCall]
+  }
+
   if (rest.screenshot) {
     const { screenshot, ...shared } = rest
     return [
