@@ -109,14 +109,17 @@ For React, the Embed SDK already handles this — see <Link href='/docs/guides/e
 If you SSR the page, write the HTML and the script tags directly into the response — no client fetch needed:
 
 ```js
+const escapeHtml = value =>
+  String(value).replace(/[&<>"']/g, char => `&#${char.charCodeAt(0)};`)
+
 const { title } = await microlink.metadata(url)
 const { html, scripts } = await microlink.embed(url)
 
 res.send(`
   <article>
-    <h1>${title}</h1>
+    <h1>${escapeHtml(title)}</h1>
     ${html}
-    ${scripts.map(s => `<script async src="${s.src}"></script>`).join('')}
+    ${scripts.map(s => `<script async src="${escapeHtml(s.src)}"></script>`).join('')}
   </article>
 `)
 ```

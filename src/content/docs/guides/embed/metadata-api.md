@@ -67,16 +67,21 @@ import createClient from 'microlink.io'
 
 const microlink = createClient()
 
+const escapeHtml = value =>
+  String(value).replace(/[&<>"']/g, char => `&#${char.charCodeAt(0)};`)
+
+const safeUrl = value => (/^https?:\/\//.test(value) ? escapeHtml(value) : '')
+
 export async function renderCard (url) {
   const metadata = await microlink.metadata(url)
 
   return `
-    <a class="link-card" href="${metadata.url}" rel="noopener noreferrer">
-      <img class="link-card__image" src="${metadata.image.url}" alt="" loading="lazy" />
+    <a class="link-card" href="${safeUrl(metadata.url)}" rel="noopener noreferrer">
+      <img class="link-card__image" src="${safeUrl(metadata.image.url)}" alt="" loading="lazy" />
       <div class="link-card__body">
-        <span class="link-card__publisher">${metadata.publisher ?? ''}</span>
-        <h3 class="link-card__title">${metadata.title}</h3>
-        <p class="link-card__description">${metadata.description ?? ''}</p>
+        <span class="link-card__publisher">${escapeHtml(metadata.publisher ?? '')}</span>
+        <h3 class="link-card__title">${escapeHtml(metadata.title)}</h3>
+        <p class="link-card__description">${escapeHtml(metadata.description ?? '')}</p>
       </div>
     </a>
   `
