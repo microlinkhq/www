@@ -31,7 +31,9 @@ export const mqlCode = (url, options = {}) => {
 
 export const sdkPreamble = apiKey => `import createClient from 'microlink.io'
 
-const microlink = createClient(${apiKey ? `{ apiKey: '${apiKey}' }` : ''})`
+const microlink = createClient(${
+  apiKey ? `{ apiKey: ${JSON.stringify(apiKey)} }` : ''
+})`
 
 const CONTENT_METHODS = ['markdown', 'html', 'text']
 

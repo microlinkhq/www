@@ -74,10 +74,11 @@ const safeUrl = value => (/^https?:\/\//.test(value) ? escapeHtml(value) : '')
 
 export async function renderCard (url) {
   const metadata = await microlink.metadata(url)
+  const imageUrl = safeUrl(metadata.image?.url)
 
   return `
     <a class="link-card" href="${safeUrl(metadata.url)}" rel="noopener noreferrer">
-      <img class="link-card__image" src="${safeUrl(metadata.image.url)}" alt="" loading="lazy" />
+      ${imageUrl ? `<img class="link-card__image" src="${imageUrl}" alt="" loading="lazy" />` : ''}
       <div class="link-card__body">
         <span class="link-card__publisher">${escapeHtml(metadata.publisher ?? '')}</span>
         <h3 class="link-card__title">${escapeHtml(metadata.title)}</h3>

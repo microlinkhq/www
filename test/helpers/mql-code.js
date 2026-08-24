@@ -165,7 +165,19 @@ const microlink = createClient()`)
       expect(sdkPreamble('MICROLINK_API_KEY'))
         .toBe(`import createClient from 'microlink.io'
 
-const microlink = createClient({ apiKey: 'MICROLINK_API_KEY' })`)
+const microlink = createClient({ apiKey: "MICROLINK_API_KEY" })`)
+    })
+
+    test('serializes keys with quotes, backslashes and line breaks', () => {
+      expect(sdkPreamble("secret'key")).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient({ apiKey: "secret'key" })`)
+      expect(sdkPreamble('back\\slash')).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient({ apiKey: "back\\\\slash" })`)
+      expect(sdkPreamble('line\nbreak')).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient({ apiKey: "line\\nbreak" })`)
     })
   })
 
@@ -614,7 +626,7 @@ const { value } = await microlink.run(
 
       expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
 
-const microlink = createClient({ apiKey: '${testApiKey}' })
+const microlink = createClient({ apiKey: "${testApiKey}" })
 
 const data = await microlink.screenshot('https://github.com')`)
     })

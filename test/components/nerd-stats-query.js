@@ -40,7 +40,7 @@ ${sdkCall('https://example.com', { screenshot: true })}`
 
     expect(query).toBe(`import createClient from 'microlink.io'
 
-const microlink = createClient({ apiKey: 'MICROLINK_API_KEY' })
+const microlink = createClient({ apiKey: "MICROLINK_API_KEY" })
 
 const data = await microlink.screenshot('https://example.com')`)
     expect(query).not.toContain('secret-key')
