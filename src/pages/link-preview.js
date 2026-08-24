@@ -44,7 +44,7 @@ import Layout from 'components/patterns/Layout'
 import OpenSource, { getRepoStars } from 'components/patterns/OpenSource'
 import NerdStatsOverlay, {
   extractNerdStats,
-  buildMqlQuery
+  buildSdkQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
@@ -946,7 +946,7 @@ const CapabilityTool = ({
     currentUrl
   )}`
   const nerdStats = data ? extractNerdStats(response?.headers) : null
-  const nerdQuery = buildMqlQuery(currentUrl, { meta: true })
+  const nerdQuery = buildSdkQuery(currentUrl, { meta: true })
   const nerdResponse = data ? JSON.stringify(data, null, 2) : ''
 
   const handleCopy = () => {

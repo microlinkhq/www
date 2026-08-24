@@ -13,29 +13,18 @@ import {
 import Email from 'components/elements/Email'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
+import { sdkCall } from 'helpers/mql-code'
 import { parseServerTimingEntries } from 'helpers/server-timing'
 
 const NERD_STATS_STORAGE_KEY = 'screenshot-nerd-stats'
 
-const serializeValue = (val, indent = 2) => {
-  if (val === null || val === undefined) return String(val)
-  if (typeof val === 'string') return `'${val}'`
-  if (typeof val !== 'object') return String(val)
-  const pad = ' '.repeat(indent)
-  const inner = ' '.repeat(indent + 2)
-  const entries = Object.entries(val)
-    .map(([k, v]) => `${inner}${k}: ${serializeValue(v, indent + 2)}`)
-    .join(',\n')
-  return `{\n${entries}\n${pad}}`
-}
+export const buildSdkQuery = (url, opts) => {
+  const { apiKey, ...rest } = opts
+  const query = sdkCall(url, rest)
+  if (!apiKey) return query
+  return `const microlink = createClient({ apiKey: 'MICROLINK_API_KEY' })
 
-export const buildMqlQuery = (url, opts) => {
-  const sanitized = { ...opts }
-  if (sanitized.apiKey) sanitized.apiKey = 'MICROLINK_API_KEY'
-  const inner = Object.entries(sanitized)
-    .map(([k, v]) => `  ${k}: ${serializeValue(v, 2)}`)
-    .join(',\n')
-  return `await mql('${url}', {\n${inner}\n})`
+${query}`
 }
 
 const ALL_HEADER_KEYS = [
@@ -455,7 +444,7 @@ const NerdStatsOverlay = ({ stats, mqlQuery, responseData }) => {
                 borderBottom: `${borders[1]} ${colors.white10}`
               }}
             >
-              Microlink Query Language (MQL)
+              Microlink SDK
             </SectionTitle>
             <QueryBlock>{mqlQuery}</QueryBlock>
           </Box>
