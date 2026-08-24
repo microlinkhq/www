@@ -48,7 +48,7 @@ const FadeOverlay = styled(Box)`
   }
 `
 
-const SDK_PREAMBLE_HEIGHT = 58
+const SDK_PREAMBLE_HEIGHT = 88
 
 function MultiCodeEditorInteractive ({
   mqlCode: mqlCodeProps,
