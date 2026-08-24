@@ -72,6 +72,7 @@ The script step is what makes Twitter, Instagram, and similar widgets actually r
 #### React
 
 ```jsx
+import { useEffect, useState } from 'react'
 import createClient from 'microlink.io'
 
 const microlink = createClient()
