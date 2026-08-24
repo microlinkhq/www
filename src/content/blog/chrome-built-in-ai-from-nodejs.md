@@ -5,7 +5,7 @@ description: 'Chrome Built-in AI only exists inside a page, and Chrome for Testi
 date: '2026-08-21'
 ---
 
-![](/images/google-gemini-nano-ai-1024x538.jpg)
+![Gemini Nano wordmark](/images/google-gemini-nano-ai-1024x538.jpg)
 
 Chrome ships [Built-in AI](https://developer.chrome.com/docs/ai/built-in-apis): the model runs on-device, in the page.
 
@@ -34,8 +34,8 @@ That is why we shipped [@browserless/ai](https://github.com/microlinkhq/browserl
 const createBrowser = require('browserless')
 const createAI = require('@browserless/ai')
 
-// unpack a model you already packed; you own the download
-const { dir } = await createAI.unpack(dest => s3.download(url, dest))
+// unpack a model you already packed
+const { dir } = await createAI.unpack(createAI.download)
 
 // launch Chrome for Testing with the model flags
 const browser = createBrowser(createAI.launch({ dir }))
