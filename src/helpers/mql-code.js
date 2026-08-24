@@ -111,6 +111,28 @@ const translateToSdkCalls = options => {
     ]
   }
 
+  if (rest.video) {
+    const { video, ...shared } = rest
+    return [
+      {
+        method: 'video',
+        binding: '{ url }',
+        opts: { ...(video === true ? {} : video), ...shared }
+      }
+    ]
+  }
+
+  if (rest.audio) {
+    const { audio, ...shared } = rest
+    return [
+      {
+        method: 'audio',
+        binding: '{ url }',
+        opts: { ...(audio === true ? {} : audio), ...shared }
+      }
+    ]
+  }
+
   if (rest.insights) {
     const { insights, ...shared } = rest
     const calls = []

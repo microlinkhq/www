@@ -405,6 +405,29 @@ const microlink = createClient()
 const technologies = await microlink.technologies('https://github.com')`)
     })
 
+    test('video becomes the video method', () => {
+      const result = mqlCode('https://vimeo.com/571394002', { video: true })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const { url } = await microlink.video('https://vimeo.com/571394002')`)
+    })
+
+    test('audio becomes the audio method', () => {
+      const result = mqlCode('https://soundcloud.com/tycho/tycho-awake', {
+        audio: true
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const { url } =
+  await microlink.audio('https://soundcloud.com/tycho/tycho-awake')`)
+    })
+
     test('iframe becomes embed', () => {
       const result = mqlCode(testUrl, { iframe: true })
 
