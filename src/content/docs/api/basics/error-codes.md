@@ -217,6 +217,8 @@ A query parameter was rejected. Drop it, or pass a value the API accepts.
 
 `path`, `pdf.path`, and `screenshot.path` are never supported: Microlink does not write files to disk. The API returns the asset URL instead.
 
+Unknown [proxy.location](/docs/api/parameters/proxy/location) country codes are also rejected.
+
 ## EINVALSTTL
 
 **Message**

@@ -120,26 +120,28 @@ Some proxy endpoints are temporarily unreachable or the target site intermittent
 
 ## Geolocation: target region-specific content
 
-A common use case is scraping a site that serves different content depending on the visitor's country. Route through a country-specific proxy IP to get the version you need:
+A common use case is scraping a site that serves different content depending on the visitor's country. Pin Microlink's proxy to that country with <Link href='/docs/api/parameters/proxy/location' children='proxy.location' /> <ProBadge />:
 
-```js
-import mql from '@microlink/mql'
+<MultiCodeEditorInteractive height={210} mqlCode={{
+  url: 'https://example.com/pricing',
+  proxy: { location: 'FR' },
+  meta: false,
+  apiKey: 'YOUR_API_TOKEN'
+}} />
 
-const { data } = await mql('https://example.com/pricing', {
-  proxy: 'https://user:pass@fr-proxy.example.com:8080',
-  meta: false
-})
-```
+<Figcaption>The request is resolved through a French IP. Use any ISO 3166-1 alpha-2 code the proxy pool supports.</Figcaption>
 
-Pair this with a reliable geolocation test URL to verify the proxy is resolving from the expected country before sending production requests:
+Confirm the exit country before sending production requests:
 
 <MultiCodeEditorInteractive height={210} mqlCode={{
   url: 'https://geolocation.microlink.io',
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001',
+  proxy: { location: 'FR' },
   meta: false
 }} />
 
-<Figcaption><code>geolocation.microlink.io</code> returns the origin IP and country seen by the server — useful to confirm a proxy is routing through the right region.</Figcaption>
+<Figcaption><code>geolocation.microlink.io</code> returns the origin IP and country seen by the server — useful to confirm the request is routing through the right region.</Figcaption>
+
+If you already pay for a country-specific proxy, you can still pass that URL as <Link href='/docs/api/parameters/proxy' children='proxy' /> instead.
 
 ## Keep proxy credentials secure
 

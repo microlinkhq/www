@@ -17,7 +17,7 @@ We provide an **automatic proxy resolution** included for any [pro plan](/docs/a
 
 Our automatic proxy resolution is well-tested against [Top 500](/blog/microlink-proxy-how-it-works) most popular worldwide websites.
 
-Additionally, you can provide your own proxy server:
+Pin the request to a country with [location](/docs/api/parameters/proxy/location), or provide your own proxy server:
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://geolocation.microlink.io', proxy: 'https://myproxy:603f60f5@superproxy.cool:8001' }} />
 
