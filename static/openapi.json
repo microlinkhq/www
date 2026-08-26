@@ -668,7 +668,7 @@
                 "string",
                 "number"
               ],
-              "default": "28s"
+              "default": "30s"
             },
             "x-docs": "https://microlink.io/docs/api/parameters/timeout"
           },
