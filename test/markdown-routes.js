@@ -245,4 +245,46 @@ describe('markdown for AI crawlers', () => {
       matches.test('Mozilla/5.0 AppleWebKit/537.36 (compatible; ClaudeBot/1.0)')
     ).toBe(true)
   })
+
+  const SEARCH_INDEXERS = [
+    'OAI-SearchBot',
+    'Claude-SearchBot',
+    'PerplexityBot',
+    'Amazonbot',
+    'YouBot',
+    'Diffbot',
+    'Timpibot'
+  ]
+
+  const everyRuleMatches = agent =>
+    crawlerNegotiations.every(({ has }) => new RegExp(has[0].value).test(agent))
+
+  test('names no crawler that builds a search index, since the markdown twins are noindex', () => {
+    for (const token of SEARCH_INDEXERS) {
+      expect(crawlerTokens, token).not.toContain(token)
+    }
+  })
+
+  test('leaves the AI search indexers on the HTML, like Googlebot', () => {
+    for (const agent of [
+      'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; OAI-SearchBot/1.0; +https://openai.com/searchbot',
+      'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Claude-SearchBot/1.0; +claude-searchbot@anthropic.com)',
+      'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)',
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/600.2.5 (KHTML, like Gecko) Version/8.0.2 Safari/600.2.5 (Amazonbot/0.1; +https://developer.amazon.com/support/amazonbot)'
+    ]) {
+      expect(everyRuleMatches(agent), agent).toBe(false)
+    }
+  })
+
+  test('still sends the on-demand readers and the training crawlers to markdown', () => {
+    for (const agent of [
+      'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; ChatGPT-User/1.0; +https://openai.com/bot',
+      'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Claude-User/1.0; +Claude-User@anthropic.com)',
+      'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Perplexity-User/1.0; +https://perplexity.ai/perplexity-user)',
+      'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; GPTBot/1.2; +https://openai.com/gptbot',
+      'CCBot/2.0 (https://commoncrawl.org/faq/)'
+    ]) {
+      expect(everyRuleMatches(agent), agent).toBe(true)
+    }
+  })
 })

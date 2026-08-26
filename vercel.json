@@ -525,7 +525,7 @@
         {
           "type": "header",
           "key": "user-agent",
-          "value": ".*(GPTBot|ChatGPT-User|OAI-SearchBot|ClaudeBot|Claude-User|Claude-SearchBot|PerplexityBot|Perplexity-User|CCBot|Amazonbot|meta-externalagent|DuckAssistBot|MistralAI-User|YouBot|Diffbot|Timpibot|omgili).*"
+          "value": ".*(GPTBot|ChatGPT-User|ClaudeBot|Claude-User|Perplexity-User|CCBot|meta-externalagent|DuckAssistBot|MistralAI-User|omgili).*"
         }
       ]
     },
@@ -537,7 +537,7 @@
         {
           "type": "header",
           "key": "user-agent",
-          "value": ".*(GPTBot|ChatGPT-User|OAI-SearchBot|ClaudeBot|Claude-User|Claude-SearchBot|PerplexityBot|Perplexity-User|CCBot|Amazonbot|meta-externalagent|DuckAssistBot|MistralAI-User|YouBot|Diffbot|Timpibot|omgili).*"
+          "value": ".*(GPTBot|ChatGPT-User|ClaudeBot|Claude-User|Perplexity-User|CCBot|meta-externalagent|DuckAssistBot|MistralAI-User|omgili).*"
         }
       ]
     }
