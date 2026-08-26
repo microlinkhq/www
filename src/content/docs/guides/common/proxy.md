@@ -35,17 +35,17 @@ x-fetch-mode: prerender-proxy
 
 ## Bring your own proxy <ProBadge />
 
-If you have a dedicated proxy service — for example a residential proxy with a specific country IP — pass the proxy URL using the `proxy` parameter:
+If you have a dedicated proxy service — for example a residential proxy with a specific country IP — pass it as <Link href='/docs/api/parameters/proxy/url' children='proxy.url' />:
 
 <MultiCodeEditorInteractive height={210} mqlCode={{
   url: 'https://geolocation.microlink.io',
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001',
+  proxy: { url: 'https://myproxy:603f60f5@superproxy.cool:8001' },
   apiKey: 'YOUR_API_TOKEN'
 }} />
 
 <Figcaption>The <code>x-fetch-mode</code> response header will be prefixed with <code>proxy-*</code> when the request routes through your proxy.</Figcaption>
 
-The proxy URL must be a valid [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api). The supported format is:
+The proxy URL must be a valid [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api). A bare `proxy` string is still accepted and treated as `proxy.url`. The supported format is:
 
 ```
 https://username:password@hostname:port
@@ -87,7 +87,7 @@ Proxy works with every workflow parameter. Some useful combinations:
   url: 'https://microlink.io',
   screenshot: true,
   meta: false,
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001'
+  proxy: { url: 'https://myproxy:603f60f5@superproxy.cool:8001' }
 }} />
 
 <Figcaption>Adding <code>meta: false</code> skips metadata extraction and focuses the request on the screenshot alone.</Figcaption>
@@ -99,7 +99,7 @@ Proxy works with every workflow parameter. Some useful combinations:
   data: {
     title: { selector: 'h1', attr: 'text' }
   },
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001',
+  proxy: { url: 'https://myproxy:603f60f5@superproxy.cool:8001' },
   meta: false
 }} />
 
@@ -111,7 +111,7 @@ Some proxy endpoints are temporarily unreachable or the target site intermittent
 
 <MultiCodeEditorInteractive height={230} mqlCode={{
   url: 'https://microlink.io',
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001',
+  proxy: { url: 'https://myproxy:603f60f5@superproxy.cool:8001' },
   retry: 3,
   meta: false
 }} />
@@ -141,7 +141,7 @@ Confirm the exit country before sending production requests:
 
 <Figcaption><code>geolocation.microlink.io</code> returns the origin IP and country seen by the server — useful to confirm the request is routing through the right region.</Figcaption>
 
-If you already pay for a country-specific proxy, you can still pass that URL as <Link href='/docs/api/parameters/proxy' children='proxy' /> instead.
+If you already pay for a country-specific proxy, you can still pass that URL as <Link href='/docs/api/parameters/proxy/url' children='proxy.url' /> instead.
 
 ## Keep proxy credentials secure
 
@@ -154,7 +154,7 @@ Proxy URLs contain credentials. Treat them the same as API keys:
 import mql from '@microlink/mql'
 
 const { data } = await mql('https://example.com', {
-  proxy: process.env.PROXY_URL,
+  proxy: { url: process.env.PROXY_URL },
   meta: false
 })
 ```

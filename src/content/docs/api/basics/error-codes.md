@@ -123,7 +123,7 @@ The proxy URL is considered not valid.
 
 **Solution**
 
-Ensure the [url](/docs/api/parameters/proxy) provided can be parsed as [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api).
+Ensure the [proxy.url](/docs/api/parameters/proxy/url) provided can be parsed as [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api).
 
 ## EINVALURLCLIENT
 

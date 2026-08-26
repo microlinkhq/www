@@ -1,6 +1,7 @@
 ### August 2026
 
 - [Microlink API](/docs/api/getting-started/overview): Added [proxy.location](/docs/api/parameters/proxy/location) to pin the proxy to a country.
+- [Microlink API](/docs/api/getting-started/overview): Bring-your-own proxy is now [proxy.url](/docs/api/parameters/proxy/url). A bare `proxy` string is still accepted.
 - [Microlink API](/docs/api/getting-started/overview): [timeout](/docs/api/parameters/timeout) is now 30s on the free plan and 60s on pro.
 - [Metascraper v5.57](https://metascraper.js.org): Added IMDb integration.
 - [Microlink API](/docs/api/getting-started/overview): Improved metadata extraction for Shadow DOM pages.
