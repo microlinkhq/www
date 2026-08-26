@@ -129,7 +129,7 @@ const Hero = () => (
       >
         Read the docs
       </ArrowLink>
-      <ArrowLink href='https://github.com/microlinkhq/mcp'>
+      <ArrowLink href='https://github.com/microlinkhq/microlink/tree/master/packages/mcp'>
         View on GitHub
       </ArrowLink>
     </Flex>

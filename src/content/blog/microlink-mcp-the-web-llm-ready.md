@@ -80,4 +80,4 @@ Designers: ask your agent to screenshot any URL at mobile, tablet, and desktop i
 
 - [Integration page](/integrations/mcp)
 - [Documentation](/docs/api/getting-started/mcp)
-- [GitHub](https://github.com/microlinkhq/mcp)
+- [GitHub](https://github.com/microlinkhq/microlink/tree/master/packages/mcp)

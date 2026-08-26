@@ -2,7 +2,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 
-import { buildServerCard } from '../scripts/build-mcp-card/index.mjs'
+import {
+  buildServerCard,
+  DESCRIPTION_MAX_LENGTH
+} from '../scripts/build-mcp-card/index.mjs'
 import { RECOVERY_LINKS } from '../src/helpers/not-found.js'
 
 const read = file => fs.readFileSync(path.join(process.cwd(), file), 'utf8')
@@ -128,7 +131,19 @@ describe('the mcp server card', () => {
     expect(card.name).toBe('io.github.microlinkhq/mcp')
     expect(card.title.length).toBeGreaterThan(0)
     expect(card.description.length).toBeGreaterThan(40)
-    expect(card.$schema).toContain('server-card.schema.json')
+    expect(card.description.length).toBeLessThanOrEqual(DESCRIPTION_MAX_LENGTH)
+    expect(card.$schema).toBe(
+      'https://static.modelcontextprotocol.io/schemas/v1/server-card.schema.json'
+    )
+  })
+
+  test('points at the monorepo folder the server is published from', () => {
+    const { repository } = JSON.parse(
+      read('node_modules/@microlink/mcp/package.json')
+    )
+    expect(card.repository.source).toBe('github')
+    expect(card.repository.url).toBe('https://github.com/microlinkhq/microlink')
+    expect(card.repository.subfolder).toBe(repository.directory)
   })
 
   test('stays in step with the packaged server, so it cannot drift', () => {

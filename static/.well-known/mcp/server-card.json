@@ -2,20 +2,21 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/v1/server-card.schema.json",
   "name": "io.github.microlinkhq/mcp",
   "title": "Microlink",
-  "description": "Turn any URL into data from an agent: normalized metadata, screenshots, PDFs, markdown, plain text, media detection, technology and Lighthouse insights, and CSS-selector scraping, all backed by a real browser.",
-  "version": "2.0.4",
+  "description": "Turn any URL into agent-ready data: metadata, screenshots, PDFs, markdown, text, media, insights.",
+  "version": "2.1.1",
   "websiteUrl": "https://microlink.io/integrations/mcp",
   "documentationUrl": "https://microlink.io/docs/api/getting-started/mcp",
   "repository": {
     "source": "github",
-    "url": "https://github.com/microlinkhq/mcp"
+    "url": "https://github.com/microlinkhq/microlink",
+    "subfolder": "packages/mcp"
   },
   "packages": [
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@microlink/mcp",
-      "version": "2.0.4",
+      "version": "2.1.1",
       "transport": {
         "type": "stdio"
       },
@@ -100,7 +101,7 @@
     },
     {
       "name": "microlink_search",
-      "description": "Search Google and get structured results via Microlink (requires an API key). Returns `results` (title, url, description) plus `knowledgeGraph`, `peopleAlsoAsk`, and `relatedSearches` when available. Use `type` for a vertical (\"search\" default, \"news\", \"images\", \"videos\", \"places\", \"maps\", \"shopping\", \"scholar\", \"patents\", \"autocomplete\"), and `limit` / `location` / `period` to refine. Google search operators (`site:`, `filetype:`, quotes, ...) work as-is. Mirrors the `microlink.search(query)` library method."
+      "description": "Search Google and get structured results via Microlink (requires an API key). Returns `results` (title, url, description) plus `knowledgeGraph`, `peopleAlsoAsk`, and `relatedSearches` when available. Use `type` for a vertical (\"search\" default, \"news\", \"images\", \"videos\", \"places\", \"maps\", \"shopping\", \"scholar\", \"patents\", \"autocomplete\"), and `limit` / `page` / `location` / `period` to refine. Google search operators (`site:`, `filetype:`, quotes, ...) work as-is. Mirrors the `microlink.search(query)` library method."
     },
     {
       "name": "microlink_function",

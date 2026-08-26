@@ -189,7 +189,7 @@
   "devDependencies": {
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
-    "@microlink/mcp": "~2.0.4",
+    "@microlink/mcp": "~2.1.1",
     "@storybook/addon-a11y": "latest",
     "@storybook/react-vite": "latest",
     "@vercel/routing-utils": "~6.5.0",

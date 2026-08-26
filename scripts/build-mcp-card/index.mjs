@@ -5,6 +5,8 @@ import path from 'node:path'
 const SITE_URL = 'https://microlink.io'
 const ROOT_DIR = path.join(import.meta.dirname, '..', '..')
 const PACKAGE_NAME = '@microlink/mcp'
+const REPOSITORY_URL = 'https://github.com/microlinkhq/microlink'
+const REPOSITORY_SUBFOLDER = 'packages/mcp'
 const PACKAGE_DIR = path.join(ROOT_DIR, 'node_modules', ...PACKAGE_NAME.split('/'))
 const OUTPUT_PATH = path.join(
   ROOT_DIR,
@@ -14,7 +16,7 @@ const OUTPUT_PATH = path.join(
   'server-card.json'
 )
 
-const PROTOCOL_VERSION = '2025-06-18'
+const PROTOCOL_VERSION = '2025-11-25'
 const HANDSHAKE_TIMEOUT_MS = 60000
 
 const CARD_SCHEMA =
@@ -22,11 +24,10 @@ const CARD_SCHEMA =
 
 const TITLE = 'Microlink'
 
-const DESCRIPTION = [
-  'Turn any URL into data from an agent: normalized metadata, screenshots, PDFs,',
-  'markdown, plain text, media detection, technology and Lighthouse insights, and',
-  'CSS-selector scraping, all backed by a real browser.'
-].join(' ')
+export const DESCRIPTION_MAX_LENGTH = 100
+
+const DESCRIPTION =
+  'Turn any URL into agent-ready data: metadata, screenshots, PDFs, markdown, text, media, insights.'
 
 const packageBin = () => {
   const manifest = JSON.parse(
@@ -108,7 +109,8 @@ export const buildServerCard = ({ serverInfo, tools }) => ({
   documentationUrl: `${SITE_URL}/docs/api/getting-started/mcp`,
   repository: {
     source: 'github',
-    url: 'https://github.com/microlinkhq/mcp'
+    url: REPOSITORY_URL,
+    subfolder: REPOSITORY_SUBFOLDER
   },
   packages: [
     {
