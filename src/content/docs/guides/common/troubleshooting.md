@@ -23,7 +23,7 @@ If you hit `ETIMEOUT` or `EBRWSRTIMEOUT`, reduce the amount of work before raisi
 
 <MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://example.com', meta: false, retry: 3, timeout: '20s' }} />
 
-<Figcaption>Increase timeout only after removing unnecessary work. The maximum allowed timeout is 28 seconds.</Figcaption>
+<Figcaption>Increase timeout only after removing unnecessary work. The maximum allowed timeout is 30 seconds on the free plan and 60 seconds on pro.</Figcaption>
 
 ## The site blocks the browser <ProBadge />
 
