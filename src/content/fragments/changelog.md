@@ -1,5 +1,6 @@
 ### August 2026
 
+- [Microlink](/subprocessors): Listed [Datadog](https://www.datadoghq.com) and [Sentry](https://sentry.io) as observability subprocessors.
 - [Microlink](https://dashboard.microlink.io): Auto-upgrades the plan at 90% quota. Opt out on Notifications.
 - [Microlink Blog](/blog): Published [Chrome Built-in AI from Node.js](/blog/chrome-built-in-ai-from-nodejs).
 - [Microlink API](/docs/api/getting-started/overview): Added [proxy.location](/docs/api/parameters/proxy/location) to pin the proxy to a country.
