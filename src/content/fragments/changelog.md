@@ -1,12 +1,23 @@
 ### August 2026
 
+- [Microlink](https://dashboard.microlink.io): Auto-upgrades the plan at 90% quota. Opt out on Notifications.
+- [Microlink Blog](/blog): Published [Chrome Built-in AI from Node.js](/blog/chrome-built-in-ai-from-nodejs).
 - [Microlink API](/docs/api/getting-started/overview): [timeout](/docs/api/parameters/timeout) is now 30s on the free plan and 60s on pro.
+- [Browserless v13.9](https://browserless.js.org): Added [@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai) for Chrome Built-in AI.
+- [Microlink API](/docs/api/getting-started/overview): Improved metadata extraction from PDFs.
+- [unavatar.io](https://unavatar.io): Improved [Printables](https://unavatar.io/printables) avatar resolution.
 - [Metascraper v5.57](https://metascraper.js.org): Added IMDb integration.
-- [Microlink API](/docs/api/getting-started/overview): Improved metadata extraction for Shadow DOM pages.
-- [Microlink API](/docs/api/getting-started/overview): Fixed 500s from [iframe](/docs/api/parameters/iframe) and [pageRanges](/docs/api/parameters/pdf/pageRanges).
 - [Microlink API](/docs/api/getting-started/overview): Rejects invalid query parameters with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery).
 - [Metascraper v5.56](https://metascraper.js.org): Added citation integration for Highwire Press and Dublin Core tags.
+- [Microlink](/): Every page is available as markdown; [llms.txt](/llms.txt) covers the full site.
+- [Microlink](/): Added [SDK](/integrations/sdk) landing.
+- [Microlink](/): Added [adblock](/features/adblock) feature landing.
+- [Microlink](/): Added [PDF](/pdf/nodejs) landings for Node.js, Python, and PHP.
+- [Microlink](/): Added [Cloudflare](/alternative/cloudflare), [Firecrawl](/alternative/firecrawl), and [Context](/alternative/context-dev) alternatives.
 - [Microlink](/): Added [html](/html), [text](/text), [media](/media) and [file conversion](/file-conversion) product landings.
+- [Microlink Blog](/blog): Published [Brand Logos Are Hiding in DNS](/blog/brand-logos-are-hiding-in-dns).
+- [Microlink](/): Added [Sharing Debugger](/extensions/chrome/sharing-debugger) Chrome extension landing.
+- [Microlink](https://dashboard.microlink.io): Added an API playground.
 
 ### July 2026
 

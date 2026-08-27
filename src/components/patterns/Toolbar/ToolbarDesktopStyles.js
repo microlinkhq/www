@@ -317,6 +317,14 @@ export const ProductsChangelogEntryLink = styled(ToolbarNavLink)`
     .menu-item-title {
       font-weight: ${fontWeights.bold};
     }
+
+    > span:not(.menu-item-title):not(.menu-item-description) {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      min-width: 0;
+      width: 100%;
+    }
   }
 
   &:hover .menu-item-description,
