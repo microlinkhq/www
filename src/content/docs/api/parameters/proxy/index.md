@@ -19,7 +19,7 @@ Our automatic proxy resolution is well-tested against [Top 500](/blog/microlink-
 
 Pin the request to a country with [location](/docs/api/parameters/proxy/location), or provide your own proxy server with [url](/docs/api/parameters/proxy/url):
 
-<MultiCodeEditorInteractive mqlCode={{ url: 'https://geolocation.microlink.io', proxy: { location: 'US' } }} />
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://geolocation.microlink.io', proxy: { location: 'us' } }} />
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://geolocation.microlink.io', proxy: { url: 'https://myproxy:603f60f5@superproxy.cool:8001' } }} />
 
