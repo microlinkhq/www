@@ -35,19 +35,19 @@ x-fetch-mode: prerender-proxy
 
 ## Bring your own proxy <ProBadge />
 
-If you have a dedicated proxy service — for example a residential proxy with a specific country IP — pass the proxy URL using the `proxy` parameter:
+If you have a dedicated proxy service — for example a residential proxy with a specific country IP — pass it as <Link href='/docs/api/parameters/proxy/url' children='proxy.url' />:
 
 <MultiCodeEditorInteractive height={210} mqlCode={{
   url: 'https://geolocation.microlink.io',
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001',
+  proxy: { url: 'https://myproxy:603f60f5@superproxy.cool:8001' },
   apiKey: 'YOUR_API_TOKEN'
 }} />
 
 <Figcaption>The <code>x-fetch-mode</code> response header will be prefixed with <code>proxy-*</code> when the request routes through your proxy.</Figcaption>
 
-The proxy URL must be a valid [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api). The supported format is:
+The proxy URL must be a valid [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api). A bare `proxy` string is still accepted and treated as `proxy.url`. The supported format is:
 
-```
+```text
 https://username:password@hostname:port
 ```
 
@@ -87,7 +87,7 @@ Proxy works with every workflow parameter. Some useful combinations:
   url: 'https://microlink.io',
   screenshot: true,
   meta: false,
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001'
+  proxy: { url: 'https://myproxy:603f60f5@superproxy.cool:8001' }
 }} />
 
 <Figcaption>Adding <code>meta: false</code> skips metadata extraction and focuses the request on the screenshot alone.</Figcaption>
@@ -99,7 +99,7 @@ Proxy works with every workflow parameter. Some useful combinations:
   data: {
     title: { selector: 'h1', attr: 'text' }
   },
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001',
+  proxy: { url: 'https://myproxy:603f60f5@superproxy.cool:8001' },
   meta: false
 }} />
 
@@ -111,7 +111,7 @@ Some proxy endpoints are temporarily unreachable or the target site intermittent
 
 <MultiCodeEditorInteractive height={230} mqlCode={{
   url: 'https://microlink.io',
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001',
+  proxy: { url: 'https://myproxy:603f60f5@superproxy.cool:8001' },
   retry: 3,
   meta: false
 }} />
@@ -120,27 +120,28 @@ Some proxy endpoints are temporarily unreachable or the target site intermittent
 
 ## Geolocation: target region-specific content
 
-A common use case is scraping a site that serves different content depending on the visitor's country. Route through a country-specific proxy IP to get the version you need:
+A common use case is scraping a site that serves different content depending on the visitor's country. Pin Microlink's proxy to that country with <Link href='/docs/api/parameters/proxy/location' children='proxy.location' /> <ProBadge />:
 
-```js
-import createClient from 'microlink.io'
+<MultiCodeEditorInteractive height={210} mqlCode={{
+  url: 'https://example.com/pricing',
+  proxy: { location: 'fr' },
+  meta: false,
+  apiKey: 'YOUR_API_TOKEN'
+}} />
 
-const microlink = createClient()
+<Figcaption>The request is resolved through a French IP. The default is <code>us</code>. See the <Link href='/docs/api/parameters/proxy/location' children='location' /> reference for every supported country code.</Figcaption>
 
-const { title, description } = await microlink.metadata('https://example.com/pricing', {
-  proxy: 'https://user:pass@fr-proxy.example.com:8080'
-})
-```
-
-Pair this with a reliable geolocation test URL to verify the proxy is resolving from the expected country before sending production requests:
+Confirm the exit country before sending production requests:
 
 <MultiCodeEditorInteractive height={210} mqlCode={{
   url: 'https://geolocation.microlink.io',
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001',
+  proxy: { location: 'fr' },
   meta: false
 }} />
 
-<Figcaption><code>geolocation.microlink.io</code> returns the origin IP and country seen by the server — useful to confirm a proxy is routing through the right region.</Figcaption>
+<Figcaption><code>geolocation.microlink.io</code> returns the origin IP and country seen by the server — useful to confirm the request is routing through the right region.</Figcaption>
+
+If you already pay for a country-specific proxy, you can still pass that URL as <Link href='/docs/api/parameters/proxy/url' children='proxy.url' /> instead.
 
 ## Keep proxy credentials secure
 
@@ -155,7 +156,7 @@ import createClient from 'microlink.io'
 const microlink = createClient()
 
 const { title, description } = await microlink.metadata('https://example.com', {
-  proxy: process.env.PROXY_URL
+  proxy: { url: process.env.PROXY_URL }
 })
 ```
 

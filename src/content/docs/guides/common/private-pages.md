@@ -95,7 +95,7 @@ When the target site blocks headless browsers, geofences content, or triggers an
 
 <MultiCodeEditorInteractive height={210} mqlCode={{
   url: 'https://example.com',
-  proxy: 'https://myproxy:603f60f5@superproxy.cool:8001',
+  proxy: { url: 'https://myproxy:603f60f5@superproxy.cool:8001' },
   apiKey: 'YOUR_API_TOKEN'
 }} />
 

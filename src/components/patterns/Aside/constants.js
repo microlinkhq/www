@@ -410,7 +410,17 @@ const ROUTES_API = [
       },
       {
         name: 'proxy',
-        href: '/docs/api/parameters/proxy'
+        href: '/docs/api/parameters/proxy',
+        posts: [
+          {
+            name: 'url',
+            href: '/docs/api/parameters/proxy/url'
+          },
+          {
+            name: 'location',
+            href: '/docs/api/parameters/proxy/location'
+          }
+        ]
       },
       {
         name: 'retry',
