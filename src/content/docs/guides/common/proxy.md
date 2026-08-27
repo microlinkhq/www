@@ -129,7 +129,7 @@ A common use case is scraping a site that serves different content depending on 
   apiKey: 'YOUR_API_TOKEN'
 }} />
 
-<Figcaption>The request is resolved through a French IP. Use any ISO 3166-1 alpha-2 code the proxy pool supports.</Figcaption>
+<Figcaption>The request is resolved through a French IP. The default is <code>US</code>. Use any ISO 3166-1 alpha-2 code the proxy pool supports.</Figcaption>
 
 Confirm the exit country before sending production requests:
 

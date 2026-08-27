@@ -8,6 +8,7 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 import { Type } from 'components/markdown/Type'
 
 Type: <Type children='<string>'/><br/>
+Default: <Type children="'US'"/><br/>
 Values: ISO 3166-1 alpha-2 country code
 
 It routes the request through a [proxy](/docs/api/parameters/proxy) IP in the given country over the target [url](/docs/api/parameters/url).
