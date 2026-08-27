@@ -2,6 +2,8 @@
 
 - [Microlink](https://dashboard.microlink.io): Auto-upgrades the plan at 90% quota. Opt out on Notifications.
 - [Microlink Blog](/blog): Published [Chrome Built-in AI from Node.js](/blog/chrome-built-in-ai-from-nodejs).
+- [Microlink API](/docs/api/getting-started/overview): Added [proxy.location](/docs/api/parameters/proxy/location) to pin the proxy to a country.
+- [Microlink API](/docs/api/getting-started/overview): Bring-your-own proxy is now [proxy.url](/docs/api/parameters/proxy/url). A bare `proxy` string is still accepted.
 - [Microlink API](/docs/api/getting-started/overview): [timeout](/docs/api/parameters/timeout) is now 30s on the free plan and 60s on pro.
 - [Browserless v13.9](https://browserless.js.org): Added [@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai) for Chrome Built-in AI.
 - [Microlink API](/docs/api/getting-started/overview): Improved metadata extraction from PDFs.
