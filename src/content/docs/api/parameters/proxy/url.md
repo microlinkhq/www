@@ -19,7 +19,7 @@ It sets the proxy HTTP server for resolving any internal sub-requests over the t
 
 The value must be a valid [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api). The supported format is:
 
-```
+```text
 https://username:password@hostname:port
 ```
 

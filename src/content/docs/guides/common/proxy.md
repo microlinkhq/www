@@ -47,7 +47,7 @@ If you have a dedicated proxy service — for example a residential proxy with a
 
 The proxy URL must be a valid [WHATWG URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api). A bare `proxy` string is still accepted and treated as `proxy.url`. The supported format is:
 
-```
+```text
 https://username:password@hostname:port
 ```
 
