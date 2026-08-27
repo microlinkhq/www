@@ -124,18 +124,18 @@ A common use case is scraping a site that serves different content depending on 
 
 <MultiCodeEditorInteractive height={210} mqlCode={{
   url: 'https://example.com/pricing',
-  proxy: { location: 'FR' },
+  proxy: { location: 'fr' },
   meta: false,
   apiKey: 'YOUR_API_TOKEN'
 }} />
 
-<Figcaption>The request is resolved through a French IP. The default is <code>US</code>. Use any ISO 3166-1 alpha-2 code the proxy pool supports.</Figcaption>
+<Figcaption>The request is resolved through a French IP. The default is <code>us</code>. See the <Link href='/docs/api/parameters/proxy/location' children='location' /> reference for every supported country code.</Figcaption>
 
 Confirm the exit country before sending production requests:
 
 <MultiCodeEditorInteractive height={210} mqlCode={{
   url: 'https://geolocation.microlink.io',
-  proxy: { location: 'FR' },
+  proxy: { location: 'fr' },
   meta: false
 }} />
 
