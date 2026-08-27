@@ -19,5 +19,3 @@ It routes the request through a [proxy](/docs/api/parameters/proxy) IP in the gi
 }} />
 
 The value is case-insensitive. Unknown codes are rejected with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery). `location` and [url](/docs/api/parameters/proxy/url) are exclusive.
-
-Use `https://geolocation.microlink.io` to confirm the response is coming from the country you asked for.
