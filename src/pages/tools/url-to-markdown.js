@@ -55,7 +55,7 @@ import { Pencil } from 'components/icons/PencilLine'
 import NerdStatsOverlay, {
   NerdStatsToggle,
   extractNerdStats,
-  buildMqlQuery
+  buildSdkQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
@@ -1870,7 +1870,7 @@ const MarkdownTool = () => {
           mqlOpts.waitUntil = 'load'
         }
 
-        const queryStr = buildMqlQuery(url, mqlOpts)
+        const queryStr = buildSdkQuery(url, mqlOpts)
         setMqlQuery(queryStr)
 
         let response = null

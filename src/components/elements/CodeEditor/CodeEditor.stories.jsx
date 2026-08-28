@@ -6,35 +6,35 @@ import { Story } from 'story'
 import React from 'react'
 
 const jsCode = `
-const mql = require('@microlink/mql')
+import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 const github = (username) =>
-  mql(\`https://github.com/\${username}\`, {
-    data: {
-      stats: {
-        selector: '.user-profile-nav nav',
-        attr: {
-          repositories: {
-            selector: 'a:nth-child(2) > span',
-            type: 'number'
-          },
-          followers: {
-            selector: 'a:nth-child(4) > span',
-            type: 'number'
-          },
-          followings: {
-            selector: 'a:nth-child(5) > span',
-            type: 'number'
-          }
+  microlink.extract(\`https://github.com/\${username}\`, {
+    stats: {
+      selector: '.user-profile-nav nav',
+      attr: {
+        repositories: {
+          selector: 'a:nth-child(2) > span',
+          type: 'number'
+        },
+        followers: {
+          selector: 'a:nth-child(4) > span',
+          type: 'number'
+        },
+        followings: {
+          selector: 'a:nth-child(5) > span',
+          type: 'number'
         }
       }
     }
   })
 
 const username = 'kikobeats'
-const { response, data } = await github(username)
+const { stats } = await github(username)
 
-console.log(\`GitHub stats for @\${username}:\`, data.stats)
+console.log(\`GitHub stats for @\${username}:\`, stats)
 `
 
 const bashCode = `
@@ -126,9 +126,9 @@ export const Default = () => (
   <Story name='CodeEditor'>
     <Box css={theme({ mb: 4 })}>
       <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
-        {"<CodeEditor title='mql.js' language='js'>"}
+        {"<CodeEditor title='microlink.js' language='js'>"}
       </Text>
-      <CodeEditor className='language-js{10}' title='mql.js' language='js'>
+      <CodeEditor className='language-js{10}' title='microlink.js' language='js'>
         {jsCode}
       </CodeEditor>
     </Box>
@@ -144,9 +144,9 @@ export const Default = () => (
 
     <Box css={theme({ mb: 4 })}>
       <Text css={theme({ color: 'gray6', mb: 2, fontSize: 0 })}>
-        {"<CodeEditor title='mql.sh' language='bash'>"}
+        {"<CodeEditor title='microlink.sh' language='bash'>"}
       </Text>
-      <CodeEditor className='language-sh{1}' title='mql.sh' language='bash'>
+      <CodeEditor className='language-sh{1}' title='microlink.sh' language='bash'>
         {bashCode}
       </CodeEditor>
     </Box>

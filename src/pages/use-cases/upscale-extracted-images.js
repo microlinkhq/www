@@ -30,11 +30,12 @@ const InlineLink = styled('a')`
   text-decoration: underline;
 `
 
-const EXTRACT_SNIPPET = `import mql from '@microlink/mql'
+const EXTRACT_SNIPPET = `import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 // Get the main image (og:image) of any URL, including width/height
-const { data } = await mql('https://example.com')
-const image = data.image // { url, width, height, type, size }`
+const { image } = await microlink.metadata('https://example.com')`
 
 const UPSCALE_SNIPPET = `const TARGET_WIDTH = 2048
 

@@ -11,12 +11,13 @@ Every function response includes profiling data with phase-level timing and reso
 ## Profiling
 
 ```js
-const microlink = require('@microlink/function')
+import createClient from 'microlink.io'
 
-const fn = microlink(({ page }) => page.title())
-const result = await fn('https://example.com')
+const microlink = createClient()
 
-console.log(result.profiling)
+const { profiling } = await microlink.run('https://example.com', ({ page }) => page.title())
+
+console.log(profiling)
 // {
 //   phases: { install: 0, build: 120, spawn: 45, run: 890, total: 1055 },
 //   cpu: 234,
@@ -57,58 +58,53 @@ The free plan is enough to prototype workflows and run the examples in this guid
 To authenticate, pass your API key:
 
 ```js
-const microlink = require('@microlink/function')
+import createClient from 'microlink.io'
 
-const fn = microlink(
-  ({ page }) => page.title(),
-  {},
-  { headers: { 'x-api-key': 'YOUR_API_KEY' } }
-)
+const microlink = createClient({
+  apiKey: process.env.MICROLINK_API_KEY
+})
 
-const result = await fn('https://example.com')
+const { value } = await microlink.run('https://example.com', ({ page }) => page.title())
 ```
 
 See the <Link href='/docs/api/basics/authentication' children='authentication' /> and <Link href='/docs/api/basics/rate-limit' children='rate limit' /> docs for endpoint and quota details.
 
 ## Skip metadata
 
-Most function-only workflows do not need normalized metadata. Set `meta: false` to skip it:
+Most function-only workflows do not need normalized metadata. `microlink.run()` already sends `meta: false`, so the request only pays for the function itself; set it yourself if you call the API directly:
 
 ```js
-const microlink = require('@microlink/function')
+import createClient from 'microlink.io'
 
-const fn = microlink(({ page }) => page.title(), { meta: false })
-const result = await fn('https://example.com')
+const microlink = createClient()
+
+const { value } = await microlink.run('https://example.com', ({ page }) => page.title())
 ```
 
-<Figcaption>Disabling metadata is usually the biggest speedup for function requests. If you still need the rendered markup, call <code>page.content()</code> inside the function.</Figcaption>
+<Figcaption>Skipping metadata is usually the biggest speedup for function requests. If you still need the rendered markup, call <code>page.content()</code> inside the function.</Figcaption>
 
 ## Compress large functions
 
-When using MQL directly, large function bodies can be compressed before sending. The `@microlink/function` library handles compression automatically, but if you prefer the raw MQL approach:
+Large function bodies are compressed before they are sent. Both the SDK and `@microlink/function` handle this automatically — `microlink.run()` compresses the code with brotli in Node.js and lz-string in browsers, so the call stays the same:
 
 ```js
-const { compressToURI } = require('lz-ts')
-const mql = require('@microlink/mql')
+import createClient from 'microlink.io'
 
-const code = ({ page }) => page.title()
+const microlink = createClient()
 
-const { data } = await mql('https://example.com', {
-  function: `lz#${compressToURI(code.toString())}`,
-  meta: false
-})
+const { value, profiling } = await microlink.run('https://example.com', ({ page }) => page.title())
 
-console.log(data.function.value)
+console.log(profiling.size)
 ```
 
-Prefix the compressed payload with the algorithm alias: `lz#` for lz-string, `br#` for brotli, `gz#` for gzip.
+If you call the API directly, prefix the compressed payload with the algorithm alias: `lz#` for lz-string, `br#` for brotli, `gz#` for gzip. See the [compression reference](/docs/api/parameters/function#compression) for details.
 
 ## Optimization checklist
 
-1. Set `meta: false` unless you need normalized metadata — this is usually the biggest win.
+1. Skip normalized metadata — `microlink.run()` already sends `meta: false`; set it yourself when calling the API directly. This is usually the biggest win.
 2. Use `page.title()` and `page.$eval()` instead of `page.evaluate()` when possible — they are faster and easier to debug.
 3. Replace fixed waits like `page.waitForTimeout(3000)` with `page.waitForSelector()` — they resolve as soon as the element appears.
-4. Check `result.profiling.phases` to find the bottleneck — a high install on first run is normal, but a high run means the function itself needs work.
+4. Check `profiling.phases` to find the bottleneck — a high install on first run is normal, but a high run means the function itself needs work.
 5. Minimize dependencies — each `require()` adds install and build time. Use only what you need.
 
 ## See also

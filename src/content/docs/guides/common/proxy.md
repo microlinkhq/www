@@ -151,11 +151,12 @@ Proxy URLs contain credentials. Treat them the same as API keys:
 - Pass them from environment variables in server-side code:
 
 ```js
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
-const { data } = await mql('https://example.com', {
-  proxy: { url: process.env.PROXY_URL },
-  meta: false
+const microlink = createClient()
+
+const { title, description } = await microlink.metadata('https://example.com', {
+  proxy: { url: process.env.PROXY_URL }
 })
 ```
 

@@ -51,30 +51,26 @@ Microlink strips the `x-api-header-` prefix and forwards the original header to 
 - `x-api-header-authorization`
 - `x-api-header-x-my-custom-header`
 
-## Use MQL from the server
+## Use the SDK from the server
 
-Keep credentials in the request headers passed via `httpOptions`, not in public client-side code:
+Keep credentials in the `headers` option — the SDK sends them as real HTTP request headers, never in the URL:
 
 ```js
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
-const { data } = await mql(
-  'https://example.com/dashboard',
-  {
-    headers: {
-      'accept-language': 'es-ES'
-    }
-  },
-  {
-    headers: {
-      'x-api-key': process.env.MICROLINK_API_KEY,
-      'x-api-header-cookie': `session=${process.env.SESSION_COOKIE}`
-    }
+const microlink = createClient({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+
+const { title, description } = await microlink.metadata('https://example.com/dashboard', {
+  headers: {
+    'x-api-header-accept-language': 'es-ES',
+    'x-api-header-cookie': `session=${process.env.SESSION_COOKIE}`
   }
-)
+})
 ```
 
-See the <Link href='/docs/mql/getting-started/api' children='MQL API reference' /> for more on `httpOptions`.
+See the <Link href='/docs/sdk/getting-started/options' children='SDK options' /> for more on `headers`.
 
 ## Use the correct endpoint
 

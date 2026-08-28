@@ -49,7 +49,7 @@ import { CDN_EDGES } from 'helpers/cdn-edges'
 import { withTitle } from 'helpers/hoc/with-title'
 import {
   extractNerdStats,
-  buildMqlQuery
+  buildSdkQuery
 } from 'components/patterns/NerdStats/NerdStats'
 
 import {
@@ -537,7 +537,7 @@ const ScreenshotTool = () => {
           force: !options.cache
         }
 
-        const queryStr = buildMqlQuery(url, mqlOpts)
+        const queryStr = buildSdkQuery(url, mqlOpts)
         setMqlQuery(queryStr)
 
         let response = null

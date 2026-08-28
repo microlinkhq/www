@@ -164,7 +164,7 @@ export const CodeExample = () => {
             ]}
           >
             <MultiCodeEditorInteractive
-              height={320}
+              height={175}
               mqlCode={{
                 url: 'https://basecamp.com/shapeup/0.3-chapter-01',
                 pdf: {

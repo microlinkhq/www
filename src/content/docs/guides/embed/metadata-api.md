@@ -63,18 +63,26 @@ Read those fields directly from `data` and pass them into your template. No Embe
 Fetch the metadata server-side, then render whatever HTML you want:
 
 ```js
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const escapeHtml = value =>
+  String(value).replace(/[&<>"']/g, char => `&#${char.charCodeAt(0)};`)
+
+const safeUrl = value => (/^https?:\/\//.test(value) ? escapeHtml(value) : '')
 
 export async function renderCard (url) {
-  const { data } = await mql(url)
+  const metadata = await microlink.metadata(url)
+  const imageUrl = safeUrl(metadata.image?.url)
 
   return `
-    <a class="link-card" href="${data.url}" rel="noopener noreferrer">
-      <img class="link-card__image" src="${data.image.url}" alt="" loading="lazy" />
+    <a class="link-card" href="${safeUrl(metadata.url)}" rel="noopener noreferrer">
+      ${imageUrl ? `<img class="link-card__image" src="${imageUrl}" alt="" loading="lazy" />` : ''}
       <div class="link-card__body">
-        <span class="link-card__publisher">${data.publisher ?? ''}</span>
-        <h3 class="link-card__title">${data.title}</h3>
-        <p class="link-card__description">${data.description ?? ''}</p>
+        <span class="link-card__publisher">${escapeHtml(metadata.publisher ?? '')}</span>
+        <h3 class="link-card__title">${escapeHtml(metadata.title)}</h3>
+        <p class="link-card__description">${escapeHtml(metadata.description ?? '')}</p>
       </div>
     </a>
   `
@@ -171,11 +179,11 @@ For UI that adapts to each link's brand, request `palette: true`:
 Use those fields directly:
 
 ```js
-const { data } = await mql('https://stripe.com', { palette: true })
+const { image } = await microlink.metadata('https://stripe.com', { palette: true })
 
-card.style.background = data.image.background_color
-card.style.color = data.image.color
-card.querySelector('.accent-bar').style.background = data.image.palette[0]
+card.style.background = image.background_color
+card.style.color = image.color
+card.querySelector('.accent-bar').style.background = image.palette[0]
 ```
 
 See the <Link href='/docs/api/parameters/palette' children='palette reference' /> for details.
