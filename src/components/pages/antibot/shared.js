@@ -40,18 +40,11 @@ export const EXAMPLES = {
   title: 'From a named block to a resolved request.',
   panels: [
     {
-      id: 'retry-proxy',
-      title: 'Retry with a proxy',
+      id: 'auto-resolve',
+      title: 'Resolved automatically',
       description:
-        'On Pro, proxy: true routes through residential IPs for the named provider.',
-      snippet: sdkExample(`try {
-  return await microlink.metadata(url)
-} catch (error) {
-  if (error.code === 'EPROXYNEEDED') {
-    return microlink.metadata(url, { proxy: true })
-  }
-  throw error
-}`)
+        'On Pro, a named block is retried through a residential IP — no extra option.',
+      snippet: sdkExample('const { title } = await microlink.metadata(url)')
     },
     {
       id: 'pin-location',
@@ -86,21 +79,21 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'Why does naming the provider matter?',
-    text: 'Antibot systems are not interchangeable. A Cloudflare JS challenge is not an Akamai edge block. Once you know who blocked you, you can adapt retries, route through a proxy in a specific country, escalate to a browser, or exit early.'
+    text: 'Antibot systems are not interchangeable. A Cloudflare JS challenge is not an Akamai edge block. Microlink uses the named provider to pick the right residential resolution path automatically. Pin a country with proxy.location only when the target is geofenced or serves regional content.'
   },
   {
     question: 'How do I resolve a detected block?',
     answer: (
       <div>
-        On Pro, retry with{' '}
-        <Link href='/docs/api/parameters/proxy'>proxy: true</Link> or pin the
-        exit country with{' '}
-        <Link href='/docs/api/parameters/proxy/location'>proxy.location</Link>.
-        Microlink routes through residential IPs for the named provider, then
-        returns the normal result.
+        On Pro, you do not retry it yourself. Microlink names the provider and
+        routes the same request through a residential{' '}
+        <Link href='/docs/api/parameters/proxy'>proxy</Link> automatically. Pin
+        the exit country with{' '}
+        <Link href='/docs/api/parameters/proxy/location'>proxy.location</Link>{' '}
+        only when the target is geofenced or serves regional content.
       </div>
     ),
-    text: 'On Pro, retry with proxy: true or pin the exit country with proxy.location. Microlink routes through residential IPs for the named provider, then returns the normal result.'
+    text: 'On Pro, you do not retry it yourself. Microlink names the provider and routes the same request through a residential proxy automatically. Pin the exit country with proxy.location only when the target is geofenced or serves regional content.'
   },
   {
     question: 'Can I choose which country the proxy exits from?',
@@ -119,11 +112,11 @@ export const FAQ_ITEMS = faqFromItems([
   {
     question: 'Is the detection logic open source?',
     answer: (
-      <>
+      <div>
         Yes. The classifier is published as{' '}
         <Link href='https://github.com/microlinkhq/is-antibot'>is-antibot</Link>{' '}
         so you can audit how providers and signals are matched.
-      </>
+      </div>
     ),
     text: 'Yes. The classifier is published as is-antibot so you can audit how providers and signals are matched.'
   }
