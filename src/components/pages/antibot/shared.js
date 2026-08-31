@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'components/elements/Link'
 
-import { faqFromItems } from 'components/patterns/FeatureStory'
+import { faqFromItems, sdkExample } from 'components/patterns/FeatureStory'
 
 import { PROVIDERS_COVERED } from './providers-data'
 
@@ -36,6 +36,28 @@ export const HOW = {
   ]
 }
 
+export const EXAMPLES = {
+  title: 'From a named block to a resolved request.',
+  panels: [
+    {
+      id: 'auto-resolve',
+      title: 'Resolved automatically',
+      description:
+        'On Pro, a named block is retried through a residential IP — no extra option.',
+      snippet: sdkExample('const { title } = await microlink.metadata(url)')
+    },
+    {
+      id: 'pin-location',
+      title: 'Pin the exit country',
+      description:
+        'proxy.location routes through a residential IP in that country.',
+      snippet: sdkExample(`const { title } = await microlink.metadata(url, {
+  proxy: { location: 'fr' }
+})`)
+    }
+  ]
+}
+
 export const RELATED = {
   relatedSlugs: ['proxy', 'headers', 'scraping', 'function'],
   title: 'From detection to access.'
@@ -45,6 +67,7 @@ export const TOC = [
   { id: 'overview', label: 'Why' },
   { id: 'how', label: 'How it works' },
   { id: 'providers', label: 'Providers' },
+  { id: 'examples', label: 'Examples' },
   { id: 'related', label: 'Related features' },
   { id: 'faq', label: 'FAQ' }
 ]
@@ -56,28 +79,44 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'Why does naming the provider matter?',
-    text: 'Antibot systems are not interchangeable. A Cloudflare JS challenge is not an Akamai edge block. Once you know who blocked you, you can adapt retries, route through a proxy, escalate to a browser, or exit early.'
+    text: 'Antibot systems are not interchangeable. A Cloudflare JS challenge is not an Akamai edge block. Microlink uses the named provider to pick the right residential resolution path automatically. Pin a country with proxy.location only when the target is geofenced or serves regional content.'
   },
   {
     question: 'How do I resolve a detected block?',
     answer: (
-      <>
-        On Pro, retry with{' '}
-        <Link href='/docs/api/parameters/proxy'>proxy: true</Link>. Microlink
-        routes through residential IPs for the named provider, then returns the
-        normal result.
-      </>
+      <div>
+        On Pro, you do not retry it yourself. Microlink names the provider and
+        routes the same request through a residential{' '}
+        <Link href='/docs/api/parameters/proxy'>proxy</Link> automatically. Pin
+        the exit country with{' '}
+        <Link href='/docs/api/parameters/proxy/location'>proxy.location</Link>{' '}
+        only when the target is geofenced or serves regional content.
+      </div>
     ),
-    text: 'On Pro, retry with proxy: true. Microlink routes through residential IPs for the named provider, then returns the normal result.'
+    text: 'On Pro, you do not retry it yourself. Microlink names the provider and routes the same request through a residential proxy automatically. Pin the exit country with proxy.location only when the target is geofenced or serves regional content.'
+  },
+  {
+    question: 'Can I choose which country the proxy exits from?',
+    answer: (
+      <div>
+        Yes. Pass{' '}
+        <Link href='/docs/api/parameters/proxy/location'>proxy.location</Link>{' '}
+        with a two-letter country code such as fr or jp when the target is
+        geofenced or serves regional content. The default is us. See the{' '}
+        <Link href='/docs/api/parameters/proxy/location'>location</Link>{' '}
+        reference for every supported code.
+      </div>
+    ),
+    text: 'Yes. Pass proxy.location with a two-letter country code such as fr or jp when the target is geofenced or serves regional content. The default is us. See the location reference for every supported code.'
   },
   {
     question: 'Is the detection logic open source?',
     answer: (
-      <>
+      <div>
         Yes. The classifier is published as{' '}
         <Link href='https://github.com/microlinkhq/is-antibot'>is-antibot</Link>{' '}
         so you can audit how providers and signals are matched.
-      </>
+      </div>
     ),
     text: 'Yes. The classifier is published as is-antibot so you can audit how providers and signals are matched.'
   }

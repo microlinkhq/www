@@ -30,6 +30,7 @@ export const OVERVIEW = {
   ),
   bullets: [
     'proxy: true routes through managed residential IPs — nothing to rotate',
+    'proxy.location pins the exit to a two-letter country code — default us',
     'Bypasses Cloudflare, DataDome, Akamai and similar defenses',
     'EPROXYNEEDED names the moment a target requires a proxy',
     'Works on every product — screenshot, markdown, extract, run',
@@ -42,9 +43,17 @@ export const PARAMS = {
   rows: [
     {
       name: 'proxy',
-      type: 'boolean | string',
-      description: 'true for the managed unblocker, or your own proxy URL.',
+      type: 'boolean | string | object',
+      description:
+        'true for the managed unblocker, { location }, or your own proxy URL.',
       href: '/docs/api/parameters/proxy'
+    },
+    {
+      name: 'proxy.location',
+      type: 'string',
+      description:
+        'Pin the residential exit to a two-letter country code. Default us.',
+      href: '/docs/api/parameters/proxy/location'
     },
     {
       name: 'url',
@@ -90,6 +99,15 @@ export const EXAMPLES = {
     return microlink.metadata(url, { proxy: true })
   }
 }`)
+    },
+    {
+      id: 'pin-location',
+      title: 'Pin the exit country',
+      description:
+        'proxy.location routes through a residential IP in that country.',
+      snippet: sdkExample(`const { title } = await microlink.metadata(url, {
+  proxy: { location: 'fr' }
+})`)
     },
     {
       id: 'byo-proxy',
@@ -138,6 +156,19 @@ export const FAQ_ITEMS = faqFromItems([
   {
     question: 'Is proxy available on the free plan?',
     text: 'The EPROXYNEEDED signal surfaces on every plan so you always know when a target needs a proxy. Actually routing through the residential unblocker with proxy: true is a Pro capability.'
+  },
+  {
+    question: 'Can I choose which country the proxy exits from?',
+    answer: (
+      <div>
+        Yes. Pass{' '}
+        <Link href='/docs/api/parameters/proxy/location'>proxy.location</Link>{' '}
+        with a two-letter country code such as fr or jp. The request routes
+        through a residential IP in that country. The default is us. location
+        and a custom proxy URL are exclusive.
+      </div>
+    ),
+    text: 'Yes. Pass proxy.location with a two-letter country code such as fr or jp. The request routes through a residential IP in that country. The default is us. location and a custom proxy URL are exclusive.'
   },
   {
     question: 'Can I bring my own proxy?',
