@@ -8,6 +8,7 @@ import {
 } from 'components/patterns/FeatureStory'
 import Layout from 'components/patterns/Layout'
 
+import { Examples } from 'components/pages/antibot/examples'
 import { FAQ_ITEMS, FaqSection } from 'components/pages/antibot/faq'
 import { Hero } from 'components/pages/antibot/hero'
 import { How } from 'components/pages/antibot/how'
@@ -23,6 +24,7 @@ const AntibotFeaturePage = () => (
       <Overview />
       <How />
       <Providers />
+      <Examples />
       <Related />
     </FeaturePageShell>
     <FaqSection />
