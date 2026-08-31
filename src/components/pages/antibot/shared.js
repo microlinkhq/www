@@ -91,28 +91,28 @@ export const FAQ_ITEMS = faqFromItems([
   {
     question: 'How do I resolve a detected block?',
     answer: (
-      <>
+      <div>
         On Pro, retry with{' '}
         <Link href='/docs/api/parameters/proxy'>proxy: true</Link> or pin the
         exit country with{' '}
         <Link href='/docs/api/parameters/proxy/location'>proxy.location</Link>.
         Microlink routes through residential IPs for the named provider, then
         returns the normal result.
-      </>
+      </div>
     ),
     text: 'On Pro, retry with proxy: true or pin the exit country with proxy.location. Microlink routes through residential IPs for the named provider, then returns the normal result.'
   },
   {
     question: 'Can I choose which country the proxy exits from?',
     answer: (
-      <>
+      <div>
         Yes. Pass{' '}
         <Link href='/docs/api/parameters/proxy/location'>proxy.location</Link>{' '}
         with a two-letter country code such as fr or jp when the target is
         geofenced or serves regional content. The default is us. See the{' '}
         <Link href='/docs/api/parameters/proxy/location'>location</Link>{' '}
         reference for every supported code.
-      </>
+      </div>
     ),
     text: 'Yes. Pass proxy.location with a two-letter country code such as fr or jp when the target is geofenced or serves regional content. The default is us. See the location reference for every supported code.'
   },

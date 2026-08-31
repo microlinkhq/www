@@ -160,13 +160,13 @@ export const FAQ_ITEMS = faqFromItems([
   {
     question: 'Can I choose which country the proxy exits from?',
     answer: (
-      <>
+      <div>
         Yes. Pass{' '}
         <Link href='/docs/api/parameters/proxy/location'>proxy.location</Link>{' '}
         with a two-letter country code such as fr or jp. The request routes
         through a residential IP in that country. The default is us. location
         and a custom proxy URL are exclusive.
-      </>
+      </div>
     ),
     text: 'Yes. Pass proxy.location with a two-letter country code such as fr or jp. The request routes through a residential IP in that country. The default is us. location and a custom proxy URL are exclusive.'
   },
