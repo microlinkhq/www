@@ -1,6 +1,6 @@
-import { borders, breakpoints, colors, radii, space, theme } from 'theme'
 import React from 'react'
 import styled from 'styled-components'
+import { borders, breakpoints, colors, radii, space, theme } from 'theme'
 
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
@@ -53,6 +53,64 @@ export const FeatureTable = styled('table')`
   }
 `
 
+export const ProseTable = styled('table')`
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+
+  th,
+  td {
+    padding: ${CELL_PAD_Y} ${CELL_PAD_X};
+    ${theme({
+      textAlign: 'left',
+      verticalAlign: 'top',
+      fontFamily: 'sans',
+      fontSize: 1,
+      lineHeight: 2
+    })}
+    border-bottom: ${borders[1]} ${colors.black05};
+  }
+
+  thead th {
+    ${theme({
+      color: 'black',
+      fontWeight: 'bold',
+      fontSize: 0,
+      letterSpacing: 2
+    })}
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-bottom: ${borders[1]} ${colors.black10};
+  }
+
+  tbody th {
+    ${theme({ color: 'black', fontWeight: 'bold' })}
+  }
+
+  tbody td {
+    ${theme({ color: 'black70' })}
+  }
+
+  tbody tr:last-child th,
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  tbody tr:hover {
+    ${theme({ bg: 'black05' })}
+  }
+
+  @media (max-width: ${breakpoints[0]}) {
+    th,
+    td {
+      padding: ${space[2]} ${CELL_PAD_Y};
+      white-space: normal;
+      word-break: break-word;
+    }
+  }
+`
+
 export const TableCard = ({ children }) => (
   <Box
     css={theme({
@@ -79,9 +137,10 @@ export const CellNote = ({ children }) => (
       pt: 1,
       fontSize: NOTE_FONT_SIZE,
       fontWeight: 'normal',
-      color: 'black40',
+      color: 'black60',
       lineHeight: 1,
-      whiteSpace: 'normal'
+      whiteSpace: 'normal',
+      textTransform: 'none'
     })}
   >
     {children}

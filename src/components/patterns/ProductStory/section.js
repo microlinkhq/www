@@ -1,3 +1,5 @@
+import React from 'react'
+import styled, { css } from 'styled-components'
 import {
   SECTION_VERTICAL_SPACING,
   layout,
@@ -5,13 +7,11 @@ import {
   textGradient,
   theme
 } from 'theme'
-import React from 'react'
-import styled, { css } from 'styled-components'
 
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 
-import { Subhead } from 'components/patterns/ProductStory'
+import { Subhead } from './shared'
 
 export const GradientText = styled('span')`
   ${css`

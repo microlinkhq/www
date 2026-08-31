@@ -4,14 +4,16 @@ import React from 'react'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
-import { Section, SectionHeader, SectionNote } from './section'
 import {
   CellNote,
   CellValue,
   FeatureTable,
   HIGHLIGHT_BG,
+  Section,
+  SectionHeader,
+  SectionNote,
   TableCard
-} from './table'
+} from 'components/patterns/ProductStory'
 import { COMPARISON } from './shared'
 
 const FEATURE_MIN_WIDTH = '240px'

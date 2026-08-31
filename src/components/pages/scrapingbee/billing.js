@@ -4,8 +4,13 @@ import React from 'react'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 
-import { Section, SectionHeader } from './section'
-import { FeatureTable, HIGHLIGHT_BG, TableCard } from './table'
+import {
+  FeatureTable,
+  HIGHLIGHT_BG,
+  Section,
+  SectionHeader,
+  TableCard
+} from 'components/patterns/ProductStory'
 import { BILLING } from './shared'
 
 export const Billing = () => (

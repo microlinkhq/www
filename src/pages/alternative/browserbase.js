@@ -5,6 +5,7 @@ import Layout from 'components/patterns/Layout'
 import OpenSource, { getRepoStars } from 'components/patterns/OpenSource'
 import {
   ProductHero,
+  ProductTimings,
   ProductPricing,
   ProductCta,
   ProductFaq,
@@ -13,6 +14,7 @@ import {
 } from 'components/patterns/ProductStory'
 
 import { Capabilities } from 'components/pages/browserbase/capabilities'
+import { Paths } from 'components/pages/browserbase/paths'
 import { Comparison } from 'components/pages/browserbase/comparison'
 import { Honesty } from 'components/pages/browserbase/honesty'
 import {
@@ -22,7 +24,9 @@ import {
   CTA,
   FAQ_CAPTION,
   FAQ_ITEMS,
-  META
+  META,
+  TIMINGS,
+  TIMINGS_ACCENT
 } from 'components/pages/browserbase/shared'
 
 const REPOS = ['browserless', 'mcp', 'function']
@@ -46,17 +50,19 @@ export const Head = () => (
 
 const BrowserbaseAlternativePage = () => (
   <Layout>
-    <ProductHero {...HERO} />
+    <ProductHero {...HERO} accent={ACCENT} />
     <Capabilities />
+    <Paths />
+    <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
+    <ProductPricing caption={PRICING_CAPTION} />
+    <ProductCta {...CTA} accent={ACCENT} />
     <Comparison />
     <Honesty />
-    <ProductPricing caption={PRICING_CAPTION} />
     <OpenSource
       repos={REPOS}
       accent={ACCENT}
       caption='Microlink runs on open source. The rendering engine, the MCP server, and the function runtime are public — read the code, contribute, or self-host instead of renting a browser.'
     />
-    <ProductCta {...CTA} accent={ACCENT} />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
   </Layout>
 )
