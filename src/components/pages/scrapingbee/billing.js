@@ -1,107 +1,76 @@
-import { theme } from 'theme'
+import { layout, theme } from 'theme'
 import React from 'react'
-import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 
-import { Section, SectionHeader, Scroller } from './section'
+import { Section, SectionHeader } from './section'
+import { FeatureTable, HIGHLIGHT_BG, TableCard } from './table'
 import { BILLING } from './shared'
-
-const BillingTable = styled(Text)`
-  width: 100%;
-  border-collapse: collapse;
-  ${theme({ fontVariantNumeric: 'tabular-nums' })}
-
-  th,
-  td {
-    ${theme({ p: 2, textAlign: 'left', verticalAlign: 'top' })}
-  }
-
-  th:first-child,
-  td:first-child {
-    ${theme({ pl: 0 })}
-  }
-
-  th:last-child,
-  td:last-child {
-    ${theme({ pr: 0 })}
-  }
-
-  thead th {
-    ${theme({
-      fontFamily: 'sans',
-      fontSize: 1,
-      fontWeight: 'bold',
-      color: 'black',
-      borderBottom: 1,
-      borderBottomColor: 'black10',
-      whiteSpace: 'nowrap'
-    })}
-  }
-
-  tbody tr {
-    ${theme({ borderBottom: 1, borderBottomColor: 'black05' })}
-  }
-
-  tbody tr:last-child {
-    ${theme({ borderBottom: 0 })}
-  }
-`
-
-const Cell = ({ children, mono = false, strong = false }) => (
-  <Text
-    as='td'
-    css={theme({
-      fontFamily: mono ? 'mono' : 'sans',
-      fontSize: 1,
-      color: strong ? 'black' : 'black80'
-    })}
-  >
-    {children}
-  </Text>
-)
 
 export const Billing = () => (
   <Section id='billing' bg='pinky'>
     <SectionHeader title={BILLING.title} caption={BILLING.caption} />
 
-    <Scroller>
-      <BillingTable as='table'>
+    <TableCard>
+      <FeatureTable>
         <thead>
           <tr>
-            {BILLING.columns.map(column => (
-              <Text key={column} as='th' scope='col'>
+            {BILLING.columns.map((column, index) => (
+              <Text
+                key={column}
+                as='th'
+                scope='col'
+                css={index === 0 ? null : theme({ textAlign: 'right' })}
+              >
                 {column}
               </Text>
             ))}
           </tr>
         </thead>
         <tbody>
-          {BILLING.rows.map(row => (
-            <tr key={row.config}>
+          {BILLING.rows.map(({ config, credits, pages, highlight }) => (
+            <tr
+              key={config}
+              css={{ background: highlight ? HIGHLIGHT_BG : 'transparent' }}
+            >
               <Text
                 as='th'
                 scope='row'
-                css={theme({
-                  fontFamily: 'sans',
-                  fontSize: 1,
-                  fontWeight: 'bold',
-                  color: 'black'
-                })}
+                css={theme({ fontWeight: highlight ? 'bold' : 'regular' })}
               >
-                {row.config}
+                {config}
               </Text>
-              <Cell mono>{row.credits}</Cell>
-              <Cell strong>{row.pages}</Cell>
+              <Text
+                as='td'
+                css={[
+                  theme({ textAlign: 'right', color: 'black60' }),
+                  { whiteSpace: 'nowrap' }
+                ]}
+              >
+                {credits}
+              </Text>
+              <Text
+                as='td'
+                css={[
+                  theme({
+                    textAlign: 'right',
+                    fontWeight: 'bold',
+                    color: 'black'
+                  }),
+                  { whiteSpace: 'nowrap' }
+                ]}
+              >
+                {pages}
+              </Text>
             </tr>
           ))}
         </tbody>
-      </BillingTable>
-    </Scroller>
+      </FeatureTable>
+    </TableCard>
 
-    <Box css={theme({ pt: [3, 3, 4, 4] })}>
-      <Text css={theme({ fontSize: 1, color: 'black60' })}>
+    <Box css={theme({ pt: [3, 3, 4, 4], mx: 'auto', maxWidth: layout.normal })}>
+      <Text css={theme({ fontSize: 0, color: 'black60', lineHeight: 2 })}>
         {BILLING.footnote}
       </Text>
     </Box>

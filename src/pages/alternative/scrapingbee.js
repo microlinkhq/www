@@ -31,12 +31,12 @@ import {
 const ScrapingBeeAlternativePage = () => (
   <Layout>
     <ProductHero {...HERO} accent={ACCENT} />
-    <Comparison />
     <Billing />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
-    <Honesty />
     <ProductPricing caption={PRICING_CAPTION} />
     <ProductCta {...CTA} accent={ACCENT} />
+    <Comparison />
+    <Honesty />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
   </Layout>
 )
