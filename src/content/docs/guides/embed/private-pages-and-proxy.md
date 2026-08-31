@@ -87,13 +87,15 @@ Pro plans include **automatic proxy resolution** — the API detects the antibot
 You can also pass your own proxy URL when you have a residential or country-specific service:
 
 ```js
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
-const { data } = await mql('https://example.com/pricing', {
+const microlink = createClient()
+
+const { url } = await microlink.screenshot('https://example.com/pricing', {
   proxy: process.env.PROXY_URL
 })
 
-return data.screenshot.url // hand this to your embed renderer
+return url // hand this to your embed renderer
 ```
 
 Keep that call server-side — never expose the `proxy=` param in a public embed URL.
@@ -107,12 +109,8 @@ A common embed use case: a product whose homepage shows different prices per cou
 ```js
 async function regionalEmbed (region) {
   const proxy = PROXIES[region] // e.g. 'https://user:pass@us-proxy.example.com:8080'
-  const { data } = await mql('https://example.com/pricing', {
-    proxy,
-    screenshot: true,
-    meta: false
-  })
-  return data.screenshot.url
+  const { url } = await microlink.screenshot('https://example.com/pricing', { proxy })
+  return url
 }
 ```
 

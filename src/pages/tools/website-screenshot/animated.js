@@ -59,7 +59,7 @@ import { withTitle } from 'helpers/hoc/with-title'
 import NerdStatsOverlay, {
   NerdStatsToggle,
   extractNerdStats,
-  buildMqlQuery
+  buildSdkQuery
 } from 'components/patterns/NerdStats/NerdStats'
 
 import {
@@ -928,7 +928,7 @@ const AnimatedScreenshotTool = () => {
           force: !options.cache
         }
 
-        const queryStr = buildMqlQuery(url, mqlOpts)
+        const queryStr = buildSdkQuery(url, mqlOpts)
         setMqlQuery(queryStr)
 
         let response = null
@@ -1551,9 +1551,9 @@ const ProductInformation = () => (
               for drop-in HTML snippets.
             </div>
             <div>
-              Use the{' '}
-              <Link href='/integrations/sdk'>Microlink SDK</Link> for the
-              easiest integration, or call the HTTP endpoint directly. If something goes wrong, check the{' '}
+              Use the <Link href='/integrations/sdk'>Microlink SDK</Link> for
+              the easiest integration, or call the HTTP endpoint directly. If
+              something goes wrong, check the{' '}
               <Link href='/docs/guides/screenshot/troubleshooting'>
                 troubleshooting guide
               </Link>

@@ -33,6 +33,7 @@ export const HERO = {
     'Point the API at a document and get HTML, Markdown or clean text back. PDFs, Word files, spreadsheets and slide decks become content your code can read.',
   ctaHref: '/docs/guides/content-conversion',
   ctaLabel: 'Get Started',
+  editorHeight: 100,
   examples: [
     {
       label: 'PDF → Markdown',

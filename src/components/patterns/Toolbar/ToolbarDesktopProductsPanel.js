@@ -5,6 +5,7 @@ import FeatherIcon from 'components/icons/Feather'
 import { ChevronRight } from 'react-feather'
 import React from 'react'
 
+import { changelogBannerLabel } from 'helpers/parse-latest-changelog-entry'
 import { theme } from 'theme'
 
 import {
@@ -59,10 +60,11 @@ const ToolbarDesktopProductsPanel = ({
               flexShrink: 0,
               fontSize: 0,
               fontWeight: 'bold',
-              color: 'black80'
+              color: 'black80',
+              textTransform: 'none'
             })}
           >
-            New: {latestChangelogEntry.product}
+            {changelogBannerLabel(latestChangelogEntry.product)}
           </Text>
           <Text
             as='span'

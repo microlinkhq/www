@@ -27,8 +27,8 @@ The endpoint accepts multiple query parameters. It doesn't matter if they are ca
 
 <Figcaption children='Provide the same API parameter but using snake_case has the same effect.' />
 
-If you are using [Microlink Query Language](/docs/mql/getting-started/overview) (MQL), the endpoint is automatically determined in case you provide an API Key.
+If you are using the [SDK](/docs/sdk/getting-started/overview), the endpoint is automatically determined in case you provide an API Key.
 
 <MultiCodeEditorInteractive 
-  mqlCode={{ url: 'https://github.com/microlinkhq', headers: { apiKey: 'YOUR_API_TOKEN', userAgent: 'googlebot' } }} 
+  mqlCode={{ url: 'https://github.com/microlinkhq', apiKey: 'YOUR_API_TOKEN', headers: { userAgent: 'googlebot' } }} 
 />

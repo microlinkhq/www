@@ -33,6 +33,7 @@ export const HERO = {
     'Get the HTML a real browser sees, after JavaScript has run. One REST call returns the fully hydrated DOM of any URL, no headless Chrome to operate.',
   ctaHref: '/docs/api/parameters/data',
   ctaLabel: 'Get Started',
+  editorHeight: 100,
   mqlCode: {
     url: 'https://vercel.com',
     data: { html: { attr: 'html' } },

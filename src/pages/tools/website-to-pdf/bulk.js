@@ -73,7 +73,7 @@ import { withTitle } from 'helpers/hoc/with-title'
 import { trackEvent } from 'helpers/gtag'
 import {
   extractNerdStats,
-  buildMqlQuery
+  buildSdkQuery
 } from 'components/patterns/NerdStats/NerdStats'
 
 import {
@@ -2654,7 +2654,7 @@ const PdfBatchTool = () => {
             mediaType: options.mediaType,
             ...(options.waitForLoad && { waitForTimeout: 4000 })
           }
-          const queryStr = buildMqlQuery(url, mqlOpts)
+          const queryStr = buildSdkQuery(url, mqlOpts)
           const response = await mql(url, mqlOpts)
           const duration = Date.now() - reqStart
           const headerStats = extractNerdStats(response?.response?.headers)

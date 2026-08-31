@@ -18,13 +18,13 @@ Not every URL has an oEmbed endpoint. When discovery fails, the response has no 
 Plan for both shapes in your renderer:
 
 ```js
-const { data } = await mql(url, { iframe: true })
+const embed = await microlink.embed(url)
 
-if (data.iframe) {
-  container.innerHTML = data.iframe.html
-  data.iframe.scripts.forEach(injectScript)
+if (embed) {
+  container.innerHTML = embed.html
+  embed.scripts.forEach(injectScript)
 } else {
-  container.innerHTML = renderCustomCard(data) // fall back
+  container.innerHTML = renderCustomCard(await microlink.metadata(url)) // fall back
 }
 ```
 
@@ -37,7 +37,7 @@ Twitter, Instagram, Reddit, and similar widgets need their script tag to actuall
 Inject `iframe.scripts` too:
 
 ```js
-data.iframe.scripts.forEach(({ src, async, charset }) => {
+embed.scripts.forEach(({ src, async, charset }) => {
   if (document.querySelector(`script[src="${src}"]`)) return // dedupe
   const script = document.createElement('script')
   script.src = src
@@ -64,7 +64,8 @@ Many sites either skip `og:image` entirely or ship a small social-media-only thu
 Or fall back inside your renderer:
 
 ```js
-const heroImage = data.image?.url ?? data.screenshot?.url
+const { image } = await microlink.metadata(url)
+const heroImage = image?.url ?? (await microlink.screenshot(url)).url
 ```
 
 ## The image works in the browser but not in `<img>`

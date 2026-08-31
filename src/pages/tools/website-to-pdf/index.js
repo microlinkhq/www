@@ -61,7 +61,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 
 import NerdStatsOverlay, {
   extractNerdStats,
-  buildMqlQuery,
+  buildSdkQuery,
   NerdStatsToggle
 } from 'components/patterns/NerdStats/NerdStats'
 import { useClipboard } from 'components/hook/use-clipboard'
@@ -1338,7 +1338,7 @@ const PdfTool = () => {
           ...(options.waitForLoad && { waitForTimeout: 4000 })
         }
 
-        const queryStr = buildMqlQuery(url, mqlOpts)
+        const queryStr = buildSdkQuery(url, mqlOpts)
         setMqlQuery(queryStr)
 
         let response = null

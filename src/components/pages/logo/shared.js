@@ -32,6 +32,7 @@ export const HERO = {
     'Get the logo behind any URL. Microlink walks the page markup, checks the BIMI record in DNS and falls back to the favicon — returning the best asset with its format, dimensions and brand palette.',
   ctaHref: '/docs/api/parameters/meta',
   ctaLabel: 'Get Started',
+  editorHeight: 100,
   mqlCode: {
     url: 'https://www.cloudflare.com',
     palette: true,

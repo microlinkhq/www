@@ -194,5 +194,18 @@ export const FAQ_ITEMS = faqFromItems([
   {
     question: "What happens when a selector doesn't match?",
     text: 'Define a rule as an array of fallbacks and Microlink tries each one. If nothing matches, the field comes back empty rather than failing the request.'
+  },
+  {
+    question: 'How does this compare to a credit-based scraping API?',
+    text: 'Scraping APIs priced in credits charge a multiplier per option — rendering, premium proxy and stealth each cost more than a plain fetch. Microlink counts one request per API call whatever the call does. See the ScrapingBee comparison for the numbers side by side.',
+    answer: (
+      <div>
+        Scraping APIs priced in credits charge a multiplier per option —
+        rendering, premium proxy and stealth each cost more than a plain fetch.
+        Microlink counts one request per API call whatever the call does. See
+        the <Link href='/alternative/scrapingbee'>ScrapingBee comparison</Link>{' '}
+        for the numbers side by side.
+      </div>
+    )
   }
 ])

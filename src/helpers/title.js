@@ -3,6 +3,7 @@ import capitalize from 'microsoft-capitalize'
 const special = [
   'AI',
   'ApiFlash',
+  'Gemini Nano',
   'apiKey',
   'APIs',
   'background',
@@ -29,6 +30,7 @@ const special = [
   'Mesa',
   'Microlink Cards',
   'Microlink',
+  'Node.js',
   'oEmbed',
   'omitBackground',
   'Open Graph',
@@ -36,6 +38,7 @@ const special = [
   'PDFs',
   'quality',
   'retry',
+  'ScrapingBee',
   'ScreenshotAPI',
   'Screenshotmachine',
   'ScreenshotOne',
