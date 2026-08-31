@@ -49,7 +49,7 @@ import {
 } from 'components/patterns/ExtensionStory'
 import Layout from 'components/patterns/Layout'
 
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 
 const EVENT_NAME = 'sharing debugger extension install'
 

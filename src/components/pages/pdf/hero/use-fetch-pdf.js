@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { normalizeApiError } from 'helpers/api-error'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import { DEFAULT_HISTORY } from './history'
 
 export const useFetchPdf = ({

@@ -164,11 +164,12 @@ Once your assistant has generated the markup, you only need a minimal data-fetch
 #### Server / RSC / build-time
 
 ```js
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 export async function getPreview (url, options = {}) {
-  const { data } = await mql(url, { palette: true, ...options })
-  return data
+  return microlink.metadata(url, { palette: true, ...options })
 }
 ```
 
@@ -215,11 +216,11 @@ See the <Link href='/docs/api/parameters/embed' children='embed reference' /> fo
 Ask your assistant to make any recipe brand-aware once `palette: true` is on. The pattern:
 
 ```js
-const { data } = await mql(url, { palette: true })
+const { image } = await microlink.metadata(url, { palette: true })
 
-card.style.setProperty('--brand', data.image.background_color)
-card.style.setProperty('--brand-text', data.image.color)
-card.style.setProperty('--brand-accent', data.image.palette[0])
+card.style.setProperty('--brand', image.background_color)
+card.style.setProperty('--brand-text', image.color)
+card.style.setProperty('--brand-accent', image.palette[0])
 ```
 
 The contrast pair (`background_color` + `color`) is WCAG-checked, so foreground text stays readable. See <Link href='/docs/api/parameters/palette' children='palette reference' />.
@@ -229,8 +230,8 @@ The contrast pair (`background_color` + `color`) is WCAG-checked, so foreground 
 Some pages don't expose a usable image. Tell your assistant to fall back to a real screenshot:
 
 ```js
-const { data } = await mql(url, { screenshot: true, palette: true })
-const heroImage = data.image?.url ?? data.screenshot.url
+const { image } = await microlink.metadata(url, { palette: true })
+const heroImage = image?.url ?? (await microlink.screenshot(url)).url
 ```
 
 Or use `embed=screenshot.url` directly inside an `<img src>`. See the <Link href='/docs/guides/screenshot' children='screenshot guide' />.

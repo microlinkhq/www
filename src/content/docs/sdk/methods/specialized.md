@@ -3,7 +3,7 @@ title: 'Specialized'
 description: 'The deeper Microlink SDK capabilities: remote code execution, structured Google search, media extraction, custom data rules, technology detection, and Lighthouse reports.'
 ---
 
-The specialized methods cover the deeper capabilities — remote code execution, search, media extraction, custom extraction rules, and tech detection.
+The specialized methods cover the deeper capabilities — remote code execution, search, media extraction, custom extraction rules, and tech detection. All of them accept the [shared options](/docs/sdk/getting-started/options); the ones with method-specific keys list them below.
 
 ## run
 
@@ -44,12 +44,19 @@ const page = await microlink.search('Lotus Elise S2')
 console.log(page.results)
 ```
 
-Switch verticals with `type` — `news`, `images`, `videos`, `places`, `maps`, `shopping`, `scholar`, `patents`, or `autocomplete` — and refine with `location`, `period`, and `limit`:
+Options:
+
+- `type` `<string>` — the search vertical: `'search'` (default), `'news'`, `'images'`, `'videos'`, `'places'`, `'maps'`, `'shopping'`, `'scholar'`, `'patents'`, or `'autocomplete'`.
+- `limit` `<number>` — the maximum number of results per page.
+- `location` `<string>` — a two-letter country code geo-targeting the results, e.g. `'us'` or `'es'`.
+- `period` `<string>` — restricts results by recency: `'hour'`, `'day'`, `'week'`, `'month'`, or `'year'`.
 
 ```js
 const { results } = await microlink.search('open source llm', {
   type: 'news',
-  period: 'week'
+  period: 'week',
+  location: 'us',
+  limit: 10
 })
 ```
 
@@ -94,6 +101,16 @@ const { image } = await microlink.extract('https://microlink.io', {
 })
 ```
 
+A third argument takes the [shared options](/docs/sdk/getting-started/options), useful for pairing rules with `prerender` or `waitForSelector`:
+
+```js
+const { price } = await microlink.extract(
+  'https://example.com/product',
+  { price: { selector: '.price', type: 'number' } },
+  { waitForSelector: '.price' }
+)
+```
+
 ## technologies
 
 The tech stack powering any site:
@@ -108,4 +125,20 @@ A full [Lighthouse report](/docs/api/parameters/insights/lighthouse) for any URL
 
 ```js
 const report = await microlink.lighthouse('https://example.com')
+```
+
+Options:
+
+- `onlyCategories` `<string[]>` — runs only the given categories, e.g. `['performance', 'accessibility']`.
+- `onlyAudits` `<string[]>` — runs only the given audits.
+- `skipAudits` `<string[]>` — skips the given audits.
+- `output` `<string> | <string[]>` — the report format: `'json'`, `'html'`, or `'csv'` (default: `'json'`).
+
+Audit just two categories and get the report as a self-contained HTML page:
+
+```js
+const report = await microlink.lighthouse('https://example.com', {
+  onlyCategories: ['performance', 'accessibility'],
+  output: 'html'
+})
 ```

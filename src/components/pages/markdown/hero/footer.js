@@ -4,7 +4,7 @@ import { borders, colors, radii, theme, transition } from 'theme'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { fadeInDown } from 'components/keyframes'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import {
   WordCountBadge,
   countWords,

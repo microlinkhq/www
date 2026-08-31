@@ -23,13 +23,13 @@ If you hit `ETIMEOUT` or `EBRWSRTIMEOUT`, reduce the amount of work before raisi
 
 <MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://example.com', meta: false, retry: 3, timeout: '20s' }} />
 
-<Figcaption>Increase timeout only after removing unnecessary work. The maximum allowed timeout is 28 seconds.</Figcaption>
+<Figcaption>Increase timeout only after removing unnecessary work. The maximum allowed timeout is 30 seconds on the free plan and 60 seconds on pro.</Figcaption>
 
 ## The site blocks the browser <ProBadge />
 
 Some sites block headless browsers, require a region-specific IP, or trigger antibot protection. In those cases, use `proxy`:
 
-<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://example.com', meta: false, proxy: 'https://myproxy:603f60f5@superproxy.cool:8001', apiKey: 'YOUR_API_TOKEN' }} />
+<MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://example.com', meta: false, proxy: { url: 'https://myproxy:603f60f5@superproxy.cool:8001' }, apiKey: 'YOUR_API_TOKEN' }} />
 
 <Figcaption>Use a proxy URL when the target site blocks headless traffic, geofences content, or rate-limits your origin.</Figcaption>
 

@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest'
-import { mqlCode } from '../../src/helpers/mql-code'
+import { mqlCode, sdkPreamble } from '../../src/helpers/mql-code'
 
 describe('mql-code', () => {
   const testUrl = 'https://github.com'
@@ -29,9 +29,11 @@ describe('mql-code', () => {
 
   test('should generate correct JavaScript code', () => {
     const result = mqlCode(testUrl)
-    expect(result.JavaScript).toBe(`import mql from '@microlink/mql'
+    expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
 
-const { data } = await mql('https://github.com')`)
+const microlink = createClient()
+
+const data = await microlink.metadata('https://github.com')`)
   })
 
   test('should generate JavaScript code with options', () => {
@@ -39,13 +41,13 @@ const { data } = await mql('https://github.com')`)
       screenshot: { type: 'jpeg', quality: 100 },
       fullPage: true
     })
-    expect(result.JavaScript).toBe(`import mql from '@microlink/mql'
+    expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
 
-const { data } = await mql('https://github.com', {
-  screenshot: {
-    type: "jpeg",
-    quality: 100
-  },
+const microlink = createClient()
+
+const data = await microlink.screenshot('https://github.com', {
+  type: "jpeg",
+  quality: 100,
   fullPage: true
 })`)
   })
@@ -152,58 +154,451 @@ const { data } = await mql('https://github.com', {
     })
   })
 
-  describe('quote handling in JavaScript', () => {
-    test('should handle double quotes in string values by using single quotes', () => {
+  describe('sdkPreamble', () => {
+    test('produces an executable preamble without apiKey', () => {
+      expect(sdkPreamble()).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()`)
+    })
+
+    test('produces an executable preamble with apiKey', () => {
+      expect(sdkPreamble('MICROLINK_API_KEY'))
+        .toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient({ apiKey: "MICROLINK_API_KEY" })`)
+    })
+
+    test('serializes keys with quotes, backslashes and line breaks', () => {
+      expect(sdkPreamble("secret'key")).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient({ apiKey: "secret'key" })`)
+      expect(sdkPreamble('back\\slash')).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient({ apiKey: "back\\\\slash" })`)
+      expect(sdkPreamble('line\nbreak')).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient({ apiKey: "line\\nbreak" })`)
+    })
+  })
+
+  describe('function emission in JavaScript', () => {
+    test('should emit run with the function as a raw literal', () => {
       const result = mqlCode(testUrl, {
         function: '({ page }) => page.evaluate("jQuery.fn.jquery")'
       })
 
-      expect(result.JavaScript).toBe(`import mql from '@microlink/mql'
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
 
-const { data } = await mql('https://github.com', {
-  function: '({ page }) => page.evaluate("jQuery.fn.jquery")'
-})`)
+const microlink = createClient()
+
+const { value } = await microlink.run(
+  'https://github.com',
+  ({ page }) => page.evaluate("jQuery.fn.jquery")
+)`)
     })
 
-    test('should handle single quotes in string values by using double quotes', () => {
+    test('should keep single quotes inside the raw function literal', () => {
       const result = mqlCode(testUrl, {
         function: "({ page }) => page.evaluate('jQuery.fn.jquery')"
       })
 
-      expect(result.JavaScript).toBe(`import mql from '@microlink/mql'
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
 
-const { data } = await mql('https://github.com', {
-  function: "({ page }) => page.evaluate('jQuery.fn.jquery')"
-})`)
+const microlink = createClient()
+
+const { value } = await microlink.run(
+  'https://github.com',
+  ({ page }) => page.evaluate('jQuery.fn.jquery')
+)`)
     })
 
-    test('should escape double quotes when string contains both quote types', () => {
+    test('should keep mixed quote types inside the raw function literal', () => {
       const result = mqlCode(testUrl, {
         function:
           '({ page }) => page.evaluate("jQuery.fn.jquery") && page.evaluate(\'version\')'
       })
 
-      expect(result.JavaScript).toBe(`import mql from '@microlink/mql'
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
 
-const { data } = await mql('https://github.com', {
-  function: "({ page }) => page.evaluate(\\"jQuery.fn.jquery\\") && page.evaluate('version')"
-})`)
+const microlink = createClient()
+
+const { value } = await microlink.run(
+  'https://github.com',
+  ({ page }) => page.evaluate("jQuery.fn.jquery") && page.evaluate('version')
+)`)
     })
 
-    test('should handle complex JavaScript function with embedded quotes', () => {
+    test('should keep a short function call on a single line', () => {
+      const result = mqlCode(testUrl, { function: '() => 42' })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const { value } = await microlink.run('https://github.com', () => 42)`)
+    })
+
+    test('should pass remaining options as the third run argument', () => {
       const result = mqlCode('https://microlink.io', {
         function: '({ page }) => page.evaluate("jQuery.fn.jquery")',
         scripts: ['https://code.jquery.com/jquery-3.5.0.min.js']
       })
 
-      expect(result.JavaScript).toBe(`import mql from '@microlink/mql'
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
 
-const { data } = await mql('https://microlink.io', {
-  function: '({ page }) => page.evaluate("jQuery.fn.jquery")',
-  scripts: [
-    "https://code.jquery.com/jquery-3.5.0.min.js"
-  ]
+const microlink = createClient()
+
+const { value } = await microlink.run(
+  'https://microlink.io',
+  ({ page }) => page.evaluate("jQuery.fn.jquery"),
+  {
+    scripts: [
+      "https://code.jquery.com/jquery-3.5.0.min.js"
+    ]
+  }
+)`)
+    })
+
+    test('should keep a page-preparation function as a string option', () => {
+      const result = mqlCode(testUrl, {
+        screenshot: true,
+        function: '({ page }) => page.click("#btn")'
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const data = await microlink.screenshot('https://github.com', {
+  function: '({ page }) => page.click("#btn")'
 })`)
+    })
+  })
+
+  describe('SDK method translation in JavaScript', () => {
+    test('meta object still resolves to a plain metadata call', () => {
+      const result = mqlCode(testUrl, {
+        meta: { title: true, description: true }
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const data = await microlink.metadata('https://github.com')`)
+    })
+
+    test('filter still resolves to a plain metadata call', () => {
+      const result = mqlCode(testUrl, { filter: 'title,description' })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const data = await microlink.metadata('https://github.com')`)
+    })
+
+    test('embed field is dropped from the screenshot call', () => {
+      const result = mqlCode(testUrl, {
+        screenshot: true,
+        embed: 'screenshot.url'
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const data = await microlink.screenshot('https://github.com')`)
+    })
+
+    test('screenshot passes shared options through', () => {
+      const result = mqlCode(testUrl, {
+        screenshot: true,
+        waitForTimeout: 3000
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const data = await microlink.screenshot('https://github.com', {
+  waitForTimeout: 3000
+})`)
+    })
+
+    test('pdf options are un-nested', () => {
+      const result = mqlCode(testUrl, {
+        pdf: { format: 'A4', margin: '0.35cm' }
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const data = await microlink.pdf('https://github.com', {
+  format: "A4",
+  margin: "0.35cm"
+})`)
+    })
+
+    test('combined pdf and screenshot emit both calls in author order', () => {
+      const result = mqlCode('https://example.com', {
+        meta: false,
+        pdf: { format: 'a4', landscape: true, scale: 0.6, pageRanges: '1-2' },
+        screenshot: true,
+        adblock: true
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const pdf = await microlink.pdf('https://example.com', {
+  format: "a4",
+  landscape: true,
+  scale: 0.6,
+  pageRanges: "1-2",
+  adblock: true
+})
+
+const screenshot = await microlink.screenshot('https://example.com', {
+  adblock: true
+})`)
+    })
+
+    test('combined screenshot and pdf keep screenshot first', () => {
+      const result = mqlCode(testUrl, { screenshot: true, pdf: true })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const screenshot = await microlink.screenshot('https://github.com')
+
+const pdf = await microlink.pdf('https://github.com')`)
+    })
+
+    test('content conversion rule becomes the content method', () => {
+      const result = mqlCode('https://stripe.com/docs/api', {
+        data: { markdown: { attr: 'markdown' } },
+        embed: 'markdown'
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const markdown = await microlink.markdown('https://stripe.com/docs/api')`)
+    })
+
+    test('content conversion keeps the selector option', () => {
+      const result = mqlCode(testUrl, {
+        data: { text: { selector: 'article', attr: 'text' } },
+        meta: false
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const text = await microlink.text('https://github.com', {
+  selector: "article"
+})`)
+    })
+
+    test('data rules become extract with shared options as third argument', () => {
+      const result = mqlCode(testUrl, {
+        data: { title: { selector: 'main h1', attr: 'text' } },
+        meta: false,
+        waitUntil: 'domcontentloaded'
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const { title } = await microlink.extract('https://github.com', {
+  title: {
+    selector: "main h1",
+    attr: "text"
+  }
+}, {
+  waitUntil: "domcontentloaded"
+})`)
+    })
+
+    test('embed field narrows the extract destructuring', () => {
+      const result = mqlCode(testUrl, {
+        data: { json: { attr: 'json' } },
+        embed: 'json'
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const { json } = await microlink.extract('https://github.com', {
+  json: {
+    attr: "json"
+  }
+})`)
+    })
+
+    test('insights true emits technologies and lighthouse', () => {
+      const result = mqlCode(testUrl, { insights: true })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const technologies = await microlink.technologies('https://github.com')
+
+const report = await microlink.lighthouse('https://github.com')`)
+    })
+
+    test('insights subset emits only the selected method', () => {
+      const result = mqlCode(testUrl, {
+        insights: { technologies: true, lighthouse: false }
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const technologies = await microlink.technologies('https://github.com')`)
+    })
+
+    test('video becomes the video method', () => {
+      const result = mqlCode('https://vimeo.com/571394002', { video: true })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const data = await microlink.video('https://vimeo.com/571394002')`)
+    })
+
+    test('audio becomes the audio method', () => {
+      const result = mqlCode('https://soundcloud.com/tycho/tycho-awake', {
+        audio: true
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const data = await microlink.audio('https://soundcloud.com/tycho/tycho-awake')`)
+    })
+
+    test('insights with both selections false emits no calls', () => {
+      const result = mqlCode(testUrl, {
+        insights: { technologies: false, lighthouse: false }
+      })
+
+      expect(result.JavaScript).not.toContain('await microlink.')
+      expect(result.JavaScript.trim()).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()`)
+    })
+
+    test('insights as an empty object still emits both calls', () => {
+      const result = mqlCode(testUrl, { insights: {} })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const technologies = await microlink.technologies('https://github.com')
+
+const report = await microlink.lighthouse('https://github.com')`)
+    })
+
+    test('urls with quotes and backslashes are escaped in the snippet', () => {
+      const result = mqlCode("https://example.com/o'brien", {
+        screenshot: true
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const data = await microlink.screenshot('https://example.com/o\\'brien')`)
+    })
+
+    test('iframe becomes embed', () => {
+      const result = mqlCode(testUrl, { iframe: true })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const { html } = await microlink.embed('https://github.com')`)
+    })
+
+    test('iframe with palette emits embed and metadata', () => {
+      const result = mqlCode(testUrl, { iframe: true, palette: true })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const { html } = await microlink.embed('https://github.com')
+
+const { image, logo } = await microlink.metadata('https://github.com', {
+  palette: true
+})`)
+    })
+
+    test('palette stays a metadata option with the data binding', () => {
+      const result = mqlCode(testUrl, { palette: true })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const data = await microlink.metadata('https://github.com', {
+  palette: true
+})`)
+    })
+
+    test('headers become forwarded x-api-header transport headers', () => {
+      const result = mqlCode(testUrl, {
+        screenshot: true,
+        headers: { 'Accept-Language': 'es-ES', userAgent: 'googlebot' }
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const data = await microlink.screenshot('https://github.com', {
+  headers: {
+    "x-api-header-accept-language": "es-ES",
+    "x-api-header-user-agent": "googlebot"
+  }
+})`)
+      expect(result.CLI).toBe(
+        'microlink https://github.com&screenshot&headers.Accept-Language=es-ES&headers.userAgent=googlebot'
+      )
+    })
+
+    test('run forwards extra named arguments as options', () => {
+      const result = mqlCode(testUrl, {
+        function: '({ page, greetings }) => page.evaluate(greetings)',
+        greetings: 'hello world'
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const { value } = await microlink.run(
+  'https://github.com',
+  ({ page, greetings }) => page.evaluate(greetings),
+  {
+    greetings: "hello world"
+  }
+)`)
     })
   })
 
@@ -261,15 +656,14 @@ const { data } = await mql('https://microlink.io', {
   describe('apiKey special handling', () => {
     const testApiKey = 'my-api-key-123'
 
-    test('should handle apiKey in JavaScript as option', () => {
+    test('should pass apiKey to createClient in the JavaScript snippet', () => {
       const result = mqlCode(testUrl, { apiKey: testApiKey, screenshot: true })
 
-      expect(result.JavaScript).toBe(`import mql from '@microlink/mql'
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
 
-const { data } = await mql('https://github.com', {
-  apiKey: "${testApiKey}",
-  screenshot: true
-})`)
+const microlink = createClient({ apiKey: "${testApiKey}" })
+
+const data = await microlink.screenshot('https://github.com')`)
     })
 
     test('should handle apiKey in CLI as flag', () => {

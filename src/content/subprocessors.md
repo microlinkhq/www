@@ -46,6 +46,22 @@ The following companies act as subprocessors and may have access to personal dat
 - **Location**: Global (multiple data centers worldwide)  
 - **Website**: [digitalocean.com](https://digitalocean.com)
 
+### Observability
+
+**Datadog, Inc.**
+
+- **Services**: Application logs, metrics, infrastructure monitoring  
+- **Data Types**: API request logs (URLs, query parameters, IP addresses, API key identifiers, timestamps), server logs, system metrics  
+- **Location**: United States  
+- **Website**: [datadoghq.com](https://www.datadoghq.com)
+
+**Sentry (Functional Software, Inc.)**
+
+- **Services**: Error tracking  
+- **Data Types**: Unexpected error events, request identifiers, query parameters, request headers, IP addresses, API key identifiers  
+- **Location**: United States  
+- **Website**: [sentry.io](https://sentry.io)
+
 ### Payment Processing
 
 **Stripe Inc.**

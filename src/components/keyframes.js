@@ -107,3 +107,45 @@ export const rotation = keyframes`
 export const dots = keyframes`
 to { transform: translateY( -6.0em); }
 `
+
+export const popIn = keyframes`
+from {
+  opacity: 0;
+  transform: scale(0.4) translateY(24px);
+}
+60% {
+  opacity: 1;
+  transform: scale(1.08) translateY(-4px);
+}
+to {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+`
+
+export const popOut = keyframes`
+from {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+40% {
+  opacity: 1;
+  transform: scale(1.08) translateY(-4px);
+}
+to {
+  opacity: 0;
+  transform: scale(0.4) translateY(24px);
+}
+`
+
+export const wiggle = keyframes`
+0%, 100% {
+  transform: rotate(0deg);
+}
+25% {
+  transform: rotate(-12deg);
+}
+75% {
+  transform: rotate(12deg);
+}
+`

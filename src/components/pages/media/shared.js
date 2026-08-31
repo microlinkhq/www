@@ -33,6 +33,7 @@ export const HERO = {
     'Find the playable video or audio behind any URL. Microlink resolves the direct file, its dimensions, duration and type, so you can embed, transcribe or process it without scraping player markup.',
   ctaHref: '/docs/api/parameters/video',
   ctaLabel: 'Get Started',
+  editorHeight: 100,
   examples: [
     {
       label: 'Video',

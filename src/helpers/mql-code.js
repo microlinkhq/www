@@ -29,28 +29,248 @@ export const mqlCode = (url, options = {}) => {
   return codeSnippets
 }
 
-/**
- * Generate JavaScript code using @microlink/mql
- * @param {string} url - Target URL
- * @param {Object} options - Additional options (non-flattened)
- * @returns {string} JavaScript code string
- */
-const generateJavaScriptCode = (url, options = {}) => {
-  const hasOptions = Object.keys(options).length > 0
+export const sdkPreamble = apiKey => `import createClient from 'microlink.io'
 
-  if (hasOptions) {
-    // Format options object with proper 2-space indentation and unquoted keys
-    const optionsString = formatJavaScriptObject(options, 0)
+const microlink = createClient(${
+  apiKey ? `{ apiKey: ${JSON.stringify(apiKey)} }` : ''
+})`
 
-    return `import mql from '@microlink/mql'
+const CONTENT_METHODS = ['markdown', 'html', 'text']
 
-const { data } = await mql('${url}', ${optionsString})`
-  } else {
-    return `import mql from '@microlink/mql'
+const isContentConversion = data => {
+  const keys = Object.keys(data)
+  if (keys.length !== 1 || !CONTENT_METHODS.includes(keys[0])) return false
+  const rule = data[keys[0]]
+  return (
+    rule !== null &&
+    typeof rule === 'object' &&
+    rule.attr === keys[0] &&
+    Object.keys(rule).every(key => key === 'attr' || key === 'selector')
+  )
+}
 
-const { data } = await mql('${url}')`
+const toFieldNames = fields => [
+  ...new Set(fields.map(field => field.split('.')[0]))
+]
+
+const toHeaderName = key =>
+  key
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/_/g, '-')
+    .toLowerCase()
+
+const toForwardedHeaders = headers =>
+  Object.fromEntries(
+    Object.entries(headers).map(([key, value]) => [
+      key.toLowerCase().startsWith('x-api-header-')
+        ? key.toLowerCase()
+        : `x-api-header-${toHeaderName(key)}`,
+      value
+    ])
+  )
+
+const getFieldList = (meta, filter) => {
+  if (typeof filter === 'string') {
+    const fields = filter
+      .split(',')
+      .map(field => field.trim())
+      .filter(field => field && field !== 'insights')
+    if (fields.length > 0) return toFieldNames(fields)
+  }
+  if (meta !== null && typeof meta === 'object') {
+    const fields = Object.keys(meta).filter(key => meta[key])
+    if (fields.length > 0) return toFieldNames(fields)
   }
 }
+
+const translateToSdkCalls = options => {
+  const { apiKey, meta, filter, embed, ...rest } = options
+  const fieldList = getFieldList(meta, filter)
+
+  if (rest.headers !== null && typeof rest.headers === 'object') {
+    rest.headers = toForwardedHeaders(rest.headers)
+  }
+
+  if (rest.screenshot && rest.pdf) {
+    const { screenshot, pdf, ...shared } = rest
+    const screenshotCall = {
+      method: 'screenshot',
+      binding: 'screenshot',
+      opts: { ...(screenshot === true ? {} : screenshot), ...shared }
+    }
+    const pdfCall = {
+      method: 'pdf',
+      binding: 'pdf',
+      opts: { ...(pdf === true ? {} : pdf), ...shared }
+    }
+    const keys = Object.keys(rest)
+    return keys.indexOf('pdf') < keys.indexOf('screenshot')
+      ? [pdfCall, screenshotCall]
+      : [screenshotCall, pdfCall]
+  }
+
+  if (rest.screenshot) {
+    const { screenshot, ...shared } = rest
+    return [
+      {
+        method: 'screenshot',
+        binding: 'data',
+        opts: { ...(screenshot === true ? {} : screenshot), ...shared }
+      }
+    ]
+  }
+
+  if (rest.pdf) {
+    const { pdf, ...shared } = rest
+    return [
+      {
+        method: 'pdf',
+        binding: 'data',
+        opts: { ...(pdf === true ? {} : pdf), ...shared }
+      }
+    ]
+  }
+
+  if (rest.video) {
+    const { video, ...shared } = rest
+    return [
+      {
+        method: 'video',
+        binding: 'data',
+        opts: { ...(video === true ? {} : video), ...shared }
+      }
+    ]
+  }
+
+  if (rest.audio) {
+    const { audio, ...shared } = rest
+    return [
+      {
+        method: 'audio',
+        binding: 'data',
+        opts: { ...(audio === true ? {} : audio), ...shared }
+      }
+    ]
+  }
+
+  if (rest.insights) {
+    const { insights, ...shared } = rest
+    const calls = []
+    if (insights === true || insights.technologies) {
+      calls.push({
+        method: 'technologies',
+        binding: 'technologies',
+        opts: shared
+      })
+    }
+    if (insights === true || insights.lighthouse) {
+      calls.push({ method: 'lighthouse', binding: 'report', opts: shared })
+    }
+    if (
+      calls.length === 0 &&
+      typeof insights === 'object' &&
+      Object.keys(insights).length === 0
+    ) {
+      calls.push(
+        { method: 'technologies', binding: 'technologies', opts: shared },
+        { method: 'lighthouse', binding: 'report', opts: shared }
+      )
+    }
+    return calls
+  }
+
+  if (rest.iframe) {
+    const { iframe, palette, ...shared } = rest
+    const calls = [
+      {
+        method: 'embed',
+        binding: '{ html }',
+        opts: { ...(iframe === true ? {} : iframe), ...shared }
+      }
+    ]
+    if (palette) {
+      calls.push({
+        method: 'metadata',
+        binding: '{ image, logo }',
+        opts: { palette }
+      })
+    }
+    return calls
+  }
+
+  if (rest.data) {
+    const { data, ...shared } = rest
+    if (isContentConversion(data)) {
+      const method = Object.keys(data)[0]
+      const { selector } = data[method]
+      return [
+        {
+          method,
+          binding: method,
+          opts: { ...(selector && { selector }), ...shared }
+        }
+      ]
+    }
+    const names =
+      fieldList || (embed ? toFieldNames([embed]) : Object.keys(data))
+    return [
+      {
+        method: 'extract',
+        binding: `{ ${names.join(', ')} }`,
+        rules: data,
+        opts: shared
+      }
+    ]
+  }
+
+  if (typeof rest.function === 'string') {
+    const { function: fn, ...shared } = rest
+    return [{ method: 'run', binding: '{ value }', fn, opts: shared }]
+  }
+
+  return [{ method: 'metadata', binding: 'data', opts: rest }]
+}
+
+const toJsUrl = url =>
+  `'${String(url)
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/\n/g, '\\n')
+    .replace(/\r/g, '\\r')}'`
+
+const renderSdkCall = (url, { method, binding, fn, rules, opts }) => {
+  const hasOpts = Object.keys(opts).length > 0
+  const jsUrl = toJsUrl(url)
+
+  if (method === 'run') {
+    const inline = `const ${binding} = await microlink.run(${jsUrl}, ${fn})`
+    if (!hasOpts && !fn.includes('\n') && inline.length <= 80) return inline
+    const args = [jsUrl, fn.split('\n').join('\n  ')]
+    if (hasOpts) args.push(formatJavaScriptObject(opts, 2))
+    return `const ${binding} = await microlink.run(\n  ${args.join(',\n  ')}\n)`
+  }
+
+  if (method === 'extract') {
+    const args = [jsUrl, formatJavaScriptObject(rules, 0)]
+    if (hasOpts) args.push(formatJavaScriptObject(opts, 0))
+    return `const ${binding} = await microlink.extract(${args.join(', ')})`
+  }
+
+  const call = hasOpts
+    ? `await microlink.${method}(${jsUrl}, ${formatJavaScriptObject(opts, 0)})`
+    : `await microlink.${method}(${jsUrl})`
+  const inline = `const ${binding} = ${call}`
+  if (!hasOpts && inline.length > 80) return `const ${binding} =\n  ${call}`
+  return inline
+}
+
+export const sdkCall = (url, options = {}) =>
+  translateToSdkCalls(options)
+    .map(call => renderSdkCall(url, call))
+    .join('\n\n')
+
+const generateJavaScriptCode = (url, options = {}) =>
+  `${sdkPreamble(options.apiKey)}\n\n${sdkCall(url, options)}`
 
 /**
  * Format JavaScript object literal with proper indentation and unquoted keys

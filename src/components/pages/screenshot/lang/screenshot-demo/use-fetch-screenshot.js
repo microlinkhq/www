@@ -1,10 +1,10 @@
 import { useCallback } from 'react'
 import {
   extractNerdStats,
-  buildMqlQuery
+  buildSdkQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import { normalizeApiError } from 'helpers/api-error'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 
 export const useFetchScreenshot = ({
   onRequestTiming,
@@ -48,7 +48,7 @@ export const useFetchScreenshot = ({
 
         const stats = extractNerdStats(res.headers)
         setNerdStats(stats)
-        setNerdQuery(buildMqlQuery(url, { screenshot: true }))
+        setNerdQuery(buildSdkQuery(url, { screenshot: true }))
         setNerdResponse(JSON.stringify(json.data, null, 2))
 
         const src = json?.data?.screenshot?.url

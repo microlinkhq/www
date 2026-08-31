@@ -6,7 +6,7 @@ import { HOME_CONTENT_WIDTH, PRODUCTS } from 'components/pages/home/catalog'
 import { Microlink } from 'components/logos'
 import { IframePreviewsShowcase } from 'components/pages/embed/IframePreviewsShowcase'
 import { FileType } from 'components/icons/FileType'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import {
   theme,
   transition,

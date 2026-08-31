@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { normalizeApiError } from 'helpers/api-error'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 
 export const useFetchMetadata = ({
   onRequestTiming,

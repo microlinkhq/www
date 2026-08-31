@@ -138,7 +138,7 @@ The function parameter is available on both free and pro plans with different re
 
 |                      | Free       | Pro              |
 | -------------------- | ---------- | ---------------- |
-| Timeout              | 5 seconds  | Up to 28 seconds |
+| Timeout              | 5 seconds  | Up to 60 seconds |
 | Memory               | 16 MB      | 32 MB            |
 | Code size            | 1024 bytes | Unlimited        |
 | Concurrency          | 1 per IP   | Unlimited        |
@@ -153,7 +153,7 @@ When a limit is exceeded, the function returns `isFulfilled: false` with a descr
       "isFulfilled": false,
       "value": {
         "name": "TimeoutError",
-        "message": "Function exceeded the 5s free plan timeout. Upgrade to pro for up to 28s."
+        "message": "Function exceeded the 5s free plan timeout. Upgrade to pro for up to 60s."
       },
       "profiling": {},
       "logging": {}
@@ -177,32 +177,27 @@ Each error message is plan-aware and tells you the exact limit that was hit.
 
 ## Compression
 
-Since the function body can be large, you can compress it:
+Since the function body can be large, it is compressed before being sent. The SDK handles this for you: `microlink.run()` compresses the code with brotli in Node.js and lz-string in browsers, so the call stays the same:
 
 ```js
-const { compressToURI } = require('lz-ts')
-const mql = require('@microlink/mql')
+import createClient from 'microlink.io'
 
-const code = ({ page }) => page.evaluate("jQuery.fn.jquery")
+const microlink = createClient()
 
-const { status, data } = await mql('https://microlink.io', {
-  function: `lz#${compressToURI(code.toString())}`,
-  meta: false,
-  scripts: 'https://code.jquery.com/jquery-3.5.0.min.js'
-})
-
-mql.render(data.function)
+const { value } = await microlink.run(
+  'https://microlink.io',
+  ({ page }) => page.evaluate('jQuery.fn.jquery'),
+  { scripts: 'https://code.jquery.com/jquery-3.5.0.min.js' }
+)
 ```
 
-<Figcaption>Prefix the compressed data with the compressor alias.</Figcaption>
+<Figcaption>The SDK picks the compressor for the runtime and prefixes the payload with its alias.</Figcaption>
 
-The following compression algorithms are supported:
+The same applies if you use [@microlink/function](https://www.npmjs.com/package/@microlink/function) directly. If you call the API yourself, compress the function body and send it prefixed with the compressor alias, e.g. `lz#<compressed code>`. The following compression algorithms are supported:
 
 - brotli (`br`)
 - gzip (`gz`)
 - lz-string (`lz`)
-
-If you use the [@microlink/function](https://www.npmjs.com/package/@microlink/function) library, compression is handled automatically.
 
 Read [how to compress](/blog/compress) to know more.
 
@@ -211,7 +206,9 @@ Read [how to compress](/blog/compress) to know more.
 The function runtime supports `require()` for any npm package. Dependencies are detected automatically from your code and installed on-the-fly during the install phase.
 
 ```js
-const mql = require('@microlink/mql')
+import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 const code = () => {
   const cheerio = require('cheerio')
@@ -219,10 +216,7 @@ const code = () => {
   return $('h1').text()
 }
 
-const { data } = await mql('https://example.com', {
-  function: code.toString(),
-  meta: false
-})
+const { value } = await microlink.run('https://example.com', code)
 ```
 
 <Figcaption>Dependencies are parsed from your function code, installed in a sandbox, and cached for subsequent runs.</Figcaption>

@@ -145,7 +145,7 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'Is run() available on the free plan?',
-    text: 'Yes. Free runs get a 5-second timeout, 16 MB of memory, and one concurrent execution per IP. Pro plans extend the timeout up to 28 seconds, raise memory to 32 MB, and remove code-size limits.'
+    text: 'Yes. Free runs get a 5-second timeout, 16 MB of memory, and one concurrent execution per IP. Pro plans extend the timeout up to 60 seconds, raise memory to 32 MB, and remove code-size limits.'
   },
   {
     question: 'When should I use run() instead of extract()?',

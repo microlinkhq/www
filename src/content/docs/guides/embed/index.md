@@ -51,25 +51,27 @@ Each section below states which one it means.
 
 ## Step 1 — Call the API
 
-To run the JavaScript examples, install MQL:
+To run the JavaScript examples, install the SDK:
 
 ```bash
-npm install @microlink/mql --save
+npm install microlink.io --save
 ```
 
-It works in Node.js, edge runtimes, and the browser. See the <Link href='/docs/mql/getting-started/installation' children='MQL installation guide' /> for environment-specific setup.
+It works in Node.js, edge runtimes, and the browser. See the <Link href='/docs/sdk/getting-started/overview' children='SDK overview' /> for environment-specific setup.
 
 If you call the API directly with `fetch`, `curl`, or any HTTP client, you do not need to install anything — every example also works as a plain HTTPS GET to `https://api.microlink.io`.
 
 Every example in this guide uses the same canonical shape:
 
 ```js
-import mql from '@microlink/mql'
+import createClient from 'microlink.io'
 
-const { data } = await mql('https://example.com', { /* options */ })
+const microlink = createClient()
+
+const { title, description, image } = await microlink.metadata('https://example.com')
 ```
 
-The options object is equivalent to a query string: `mql(url, { iframe: true })` is the same call as `?url=…&iframe=true`.
+Each capability is a method: `microlink.embed(url)` is the same call as `?url=…&iframe=true`.
 
 ## Step 2 — Read the response
 

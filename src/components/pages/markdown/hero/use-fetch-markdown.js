@@ -1,10 +1,10 @@
 import { useCallback } from 'react'
 import {
   extractNerdStats,
-  buildMqlQuery
+  buildSdkQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import { normalizeApiError } from 'helpers/api-error'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 
 export const useFetchMarkdown = ({
   onRequestTiming,
@@ -55,7 +55,7 @@ export const useFetchMarkdown = ({
         const stats = extractNerdStats(res.headers)
         setNerdStats(stats)
         setNerdQuery(
-          buildMqlQuery(url, {
+          buildSdkQuery(url, {
             data: { markdown: { attr: 'markdown' } },
             meta: false
           })

@@ -8,19 +8,26 @@ const VA_SCRIPT = isDevelopment
   ? 'https://cdn.vercel-insights.com/v1/script.debug.js'
   : '/_vercel/insights/script.js'
 
+const GA_TRACKING_ID = 'G-4MN95ELTLZ'
+const CONSENT_STORAGE_KEY = 'microlink-cookie-consent'
+
 exports.onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
   if (!isDevelopment) {
     setHeadComponents([
       <script
-        key='plausible-script'
+        key='gtag-script'
         async
-        src='https://plausible.io/js/pa-9WGGaGH1_X9e8zH2gSymh.js'
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
       />,
       <script
-        key='plausible-init'
+        key='gtag-init'
         dangerouslySetInnerHTML={{
-          __html:
-            'window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()'
+          __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+var consent='granted';try{if(localStorage.getItem('${CONSENT_STORAGE_KEY}')==='denied')consent='denied'}catch(e){}
+gtag('consent','default',{ad_storage:consent,ad_user_data:consent,ad_personalization:consent,analytics_storage:consent});
+gtag('set','ads_data_redaction',consent==='denied');
+gtag('js',new Date());
+gtag('config','${GA_TRACKING_ID}');`
         }}
       />
     ])

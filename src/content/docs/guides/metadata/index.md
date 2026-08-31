@@ -18,17 +18,17 @@ Metadata detection is enabled by default, so the standard fields are returned ev
 
 That is the base flow: Microlink fetches the page, detects normalized metadata from the available markup, and returns a structured JSON payload you can reuse in previews, feeds, automation, or indexing workflows.
 
-## MQL installation
+## SDK installation
 
-To run the JavaScript examples with MQL, install `@microlink/mql`:
+To run the JavaScript examples with the SDK, install `microlink.io`:
 
 ```bash
-npm install @microlink/mql --save
+npm install microlink.io --save
 ```
 
-It works in Node.js, Edge runtimes, and the browser. See the <Link href='/docs/mql/getting-started/installation' children='MQL installation guide' /> for the environment-specific setup.
+It works in Node.js, Edge runtimes, and the browser. See the <Link href='/docs/sdk/getting-started/overview' children='SDK overview' /> for the environment-specific setup.
 
-If you are using another language, you do not need to install MQL to follow this guide. You can use the terminal examples or call the API directly from any HTTP client.
+If you are using another language, you do not need to install the SDK to follow this guide. You can use the terminal examples or call the API directly from any HTTP client.
 
 ## How metadata options work
 

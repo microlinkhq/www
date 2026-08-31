@@ -171,7 +171,7 @@ export const CodeExample = () => {
             ]}
           >
             <MultiCodeEditorInteractive
-              height={320}
+              height={100}
               mqlCode={{
                 url: 'https://stripe.com/docs/api',
                 data: {

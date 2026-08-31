@@ -61,7 +61,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 
 import NerdStatsOverlay, {
   extractNerdStats,
-  buildMqlQuery,
+  buildSdkQuery,
   NerdStatsToggle
 } from 'components/patterns/NerdStats/NerdStats'
 import { useClipboard } from 'components/hook/use-clipboard'
@@ -72,7 +72,7 @@ import {
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import {
@@ -1338,7 +1338,7 @@ const PdfTool = () => {
           ...(options.waitForLoad && { waitForTimeout: 4000 })
         }
 
-        const queryStr = buildMqlQuery(url, mqlOpts)
+        const queryStr = buildSdkQuery(url, mqlOpts)
         setMqlQuery(queryStr)
 
         let response = null

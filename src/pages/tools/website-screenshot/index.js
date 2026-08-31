@@ -45,12 +45,12 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import {
   extractNerdStats,
-  buildMqlQuery
+  buildSdkQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import { withTitle } from 'helpers/hoc/with-title'
 
 import {
@@ -995,7 +995,7 @@ const ScreenshotTool = () => {
           }
         }
 
-        const queryStr = buildMqlQuery(url, mqlOpts)
+        const queryStr = buildSdkQuery(url, mqlOpts)
         setMqlQuery(queryStr)
 
         let response = null

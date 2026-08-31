@@ -27,7 +27,7 @@ import {
 } from 'components/hook/use-currency'
 import Plans from 'components/patterns/Plans/Plans'
 import { CURRENCIES, formatPrice } from 'components/patterns/Plans/shared'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
   borders,
@@ -248,6 +248,10 @@ const COMPARISON_ROWS = [
   { label: 'Adblock & cookie banners', values: [true, true, true] },
   { label: 'Global CDN edge cache', values: ['Shared', 'Shared', 'Dedicated'] },
   { label: 'Concurrency', values: ['Limited', 'Standard', 'Custom'] },
+  {
+    label: 'Request timeout',
+    values: ['30 seconds', '60 seconds', '60 seconds']
+  },
   { label: 'SLA', values: ['Best effort', '99.9%', '99,99%'] },
   {
     label: 'Support',

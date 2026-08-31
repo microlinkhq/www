@@ -1,5 +1,5 @@
 import React from 'react'
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import { theme } from 'theme'
 import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'

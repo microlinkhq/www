@@ -1,6 +1,6 @@
 /* global fetch */
 
-import { trackEvent } from 'helpers/plausible'
+import { trackEvent } from 'helpers/gtag'
 import { colors, theme, transition } from 'theme'
 import React from 'react'
 import { Check, Clipboard, Download, ExternalLink, Loader } from 'react-feather'
