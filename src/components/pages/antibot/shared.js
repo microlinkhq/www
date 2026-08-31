@@ -45,11 +45,12 @@ export const EXAMPLES = {
       description:
         'On Pro, proxy: true routes through residential IPs for the named provider.',
       snippet: sdkExample(`try {
-  await microlink.metadata(url)
+  return await microlink.metadata(url)
 } catch (error) {
   if (error.code === 'EPROXYNEEDED') {
     return microlink.metadata(url, { proxy: true })
   }
+  throw error
 }`)
     },
     {
