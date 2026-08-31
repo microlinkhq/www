@@ -4,8 +4,9 @@ import { colors } from 'theme'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
-import { GradientText } from './section'
+import { GradientText } from 'components/patterns/ProductStory'
 
+export const ACCENT_NAME = 'cyan'
 export const ACCENT = colors.cyan7
 
 export const TIMINGS_ACCENT = `radial-gradient(

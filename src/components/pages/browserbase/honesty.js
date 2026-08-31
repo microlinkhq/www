@@ -10,7 +10,7 @@ import {
 import { ACCENT_NAME, HONESTY } from './shared'
 
 export const Honesty = () => (
-  <Section id='scrapingbee-strengths' bg='gray0'>
+  <Section id='when-browserbase' bg='gray0'>
     <SectionHeader title={HONESTY.title} caption={HONESTY.caption} />
     <StoryCardGrid $columns={2}>
       {HONESTY.items.map((item, index) => (
@@ -18,8 +18,7 @@ export const Honesty = () => (
           key={item.title}
           accent={ACCENT_NAME}
           index={index}
-          title={item.title}
-          description={item.body}
+          {...item}
         />
       ))}
     </StoryCardGrid>

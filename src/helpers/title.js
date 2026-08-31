@@ -8,6 +8,7 @@ const special = [
   'APIs',
   'background',
   'browser',
+  'Browserbase',
   'cache',
   'click',
   'CodeSandbox',

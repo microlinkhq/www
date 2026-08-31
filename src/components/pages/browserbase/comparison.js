@@ -1,5 +1,5 @@
-import { textGradient, theme } from 'theme'
 import React from 'react'
+import { textGradient, theme } from 'theme'
 
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
@@ -14,6 +14,7 @@ import {
   SectionNote,
   TableCard
 } from 'components/patterns/ProductStory'
+
 import { COMPARISON } from './shared'
 
 const FEATURE_MIN_WIDTH = '240px'
@@ -52,7 +53,7 @@ export const Comparison = () => (
         </thead>
         <tbody>
           {COMPARISON.rows.map(
-            ({ feature, href, microlink, scrapingbee, note, highlight }) => (
+            ({ feature, href, microlink, browserbase, note, highlight }) => (
               <tr
                 key={feature}
                 css={{ background: highlight ? HIGHLIGHT_BG : 'transparent' }}
@@ -65,7 +66,7 @@ export const Comparison = () => (
                   <CellValue value={microlink} />
                 </td>
                 <td>
-                  <CellValue value={scrapingbee} />
+                  <CellValue value={browserbase} />
                 </td>
               </tr>
             )

@@ -137,6 +137,7 @@ const FOOTER_COLUMNS = [
     title: 'Comparisons',
     links: [
       { label: 'vs ApiFlash', href: '/alternative/apiflash' },
+      { label: 'vs Browserbase', href: '/alternative/browserbase' },
       { label: 'vs Cloudflare', href: '/alternative/cloudflare' },
       { label: 'vs Context.dev', href: '/alternative/context-dev' },
       { label: 'vs Embedly', href: '/alternative/embedly' },
