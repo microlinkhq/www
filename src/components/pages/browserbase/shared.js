@@ -164,7 +164,7 @@ export const PATHS = {
   rows: [
     {
       output: 'Raw HTML of a static page',
-      browserbase: 'Fetch API — from $0.5 per 1,000 calls, no JavaScript run',
+      browserbase: 'Fetch API — from $0.50 per 1,000 calls, no JavaScript run',
       microlink: (
         <>
           <Link href='/html'>html</Link> — rendered, one request
@@ -410,7 +410,7 @@ export const HONESTY = {
     {
       title: 'Cheap bulk HTML of static pages',
       description:
-        'Fetch starts at $0.5 per 1,000 calls on the Startup plan for pages that need no JavaScript. If your targets are server-rendered and you only want the source, that is hard to beat on price alone.'
+        'Fetch starts at $0.50 per 1,000 calls on the Startup plan for pages that need no JavaScript. If your targets are server-rendered and you only want the source, that is hard to beat on price alone.'
     },
     {
       title: 'A whole agent platform behind one key',
