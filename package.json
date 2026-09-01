@@ -126,7 +126,7 @@
     "@microlink/react-json-view": "~1.31.22",
     "@microlink/recipes": "~1.8.1",
     "@stripe/react-stripe-js": "~6.8.0",
-    "@stripe/stripe-js": "~9.12.1",
+    "@stripe/stripe-js": "~9.14.0",
     "@techstack/styled-system": "~1.0.501",
     "@tippyjs/react": "~4.2.6",
     "@vercel/analytics": "~2.0.1",
