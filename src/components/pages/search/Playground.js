@@ -253,7 +253,7 @@ const PlaygroundOutputPanels = ({
       css={theme({
         border: 1,
         borderColor: 'black10',
-        height: ['auto', 'auto', 'auto', '190px'],
+        height: ['auto', 'auto', 'auto', '248px'],
         flexShrink: 0
       })}
     >

@@ -9,6 +9,7 @@ import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { sdkExample } from 'components/patterns/FeatureStory'
 
 import { GUIDE_URL, PACKAGE_URL } from 'helpers/search-landing'
 
@@ -24,11 +25,11 @@ const INTEGRATION_TUTORIAL_STEPS = [
     title: 'Install and initialize',
     icon: Target,
     description:
-      'Install @microlink/google, add your Microlink API key, and create one client you can reuse across every supported search surface.',
+      'Install microlink.io, add your Microlink API key, and create one client you can reuse across every supported search surface.',
     panel: {
       type: 'code',
       language: 'bash',
-      content: 'pnpm add @microlink/google'
+      content: 'npm install microlink.io'
     }
   },
   {
@@ -40,16 +41,11 @@ const INTEGRATION_TUTORIAL_STEPS = [
     panel: {
       type: 'code',
       language: 'javascript',
-      content: `
-      const google = require('@microlink/google')({
-        apiKey: process.env.MICROLINK_API_KEY
-      })
-
-      const page = await google('ai agents', {
+      content: sdkExample(`const page = await microlink.search('ai agents', {
   type: 'search'
 })
 
-console.log(page.results)`
+console.log(page.results)`)
     }
   },
   {
@@ -159,7 +155,7 @@ const IntegrationSection = () => (
             })}
           >
             <Button as='a' href={PACKAGE_URL}>
-              See @microlink/google
+              See microlink.io
             </Button>
             <ArrowLink href={GUIDE_URL}>View docs</ArrowLink>
           </ActionRow>
