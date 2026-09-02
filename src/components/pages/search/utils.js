@@ -63,7 +63,9 @@ export const getVerticalPreviewResult = (verticalId, payload) => {
 }
 
 const createCode = code =>
-  `const google = require('@microlink/google')({ apiKey: MICROLINK_API_KEY })
+  `import createClient from 'microlink.io'
+
+const microlink = createClient({ apiKey: process.env.MICROLINK_API_KEY })
 
 ${code}
 
@@ -71,7 +73,9 @@ console.log(page.results)
 `.trim()
 
 const getVerticalExampleCode = (query, verticalId) =>
-  createCode(`const page = await google('${query}', { type: '${verticalId}' })`)
+  createCode(
+    `const page = await microlink.search('${query}', { type: '${verticalId}' })`
+  )
 
 export const getVerticalExampleOptions = (verticalId, examples) => {
   if (!examples || examples.length === 0) {

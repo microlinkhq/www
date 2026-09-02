@@ -1,6 +1,8 @@
+import { sdkExample } from 'components/patterns/ExamplesSwitcher/sdk-example'
+
 const PAGE_URL = 'https://microlink.io/search'
 const GUIDE_URL = '/docs/guides/search'
-const PACKAGE_URL = 'https://www.npmjs.com/package/@microlink/google'
+const PACKAGE_URL = 'https://www.npmjs.com/package/microlink.io'
 const HERO_IMAGE = 'https://search.microlink.io/static/banner.jpg'
 
 const SUPPORTED_GOOGLE_SERVICES = [
@@ -129,13 +131,9 @@ const GOOGLE_VERTICALS = [
   }
 ]
 
-const INSTALL_SNIPPET = `const google = require('@microlink/google')({
-  apiKey: process.env.MICROLINK_API_KEY
-})
+const INSTALL_SNIPPET = sdkExample(`const page = await microlink.search('ai agents')
 
-const page = await google('ai agents')
-
-console.log(page.results)`
+console.log(page.results)`)
 
 const HERO_EXAMPLES = [
   {
@@ -172,16 +170,12 @@ const HERO_EXAMPLES = [
     title: 'News Monitoring',
     description:
       'Pull current Google News results into monitoring and alerting workflows.',
-    code: `const google = require('@microlink/google')({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('AI startups', {
+    code: sdkExample(`const page = await microlink.search('AI startups', {
   type: 'news',
   period: 'week'
 })
 
-console.log(page.results)`,
+console.log(page.results)`),
     result: {
       variant: 'news',
       data: [
@@ -219,16 +213,12 @@ console.log(page.results)`,
     title: 'Local SEO',
     description:
       'Collect local pack and map-style entities for geo-targeted research.',
-    code: `const google = require('@microlink/google')({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('best coffee madrid', {
+    code: sdkExample(`const page = await microlink.search('best coffee madrid', {
   type: 'places',
   location: 'es'
 })
 
-console.log(page.results[0])`,
+console.log(page.results[0])`),
     result: {
       variant: 'places',
       data: {
@@ -247,11 +237,7 @@ console.log(page.results[0])`,
     title: 'Document Discovery',
     description:
       'Use search operators to find technical sources, then expand the best matches with .html() or .markdown().',
-    code: `const google = require('@microlink/google')({
-  apiKey: process.env.MICROLINK_API_KEY
-})
-
-const page = await google('site:arxiv.org "deep learning"')
+    code: sdkExample(`const page = await microlink.search('site:arxiv.org "deep learning"')
 
 const enriched = await Promise.all(
   page.results.slice(0, 3).map(async r => ({
@@ -259,7 +245,7 @@ const enriched = await Promise.all(
     url: r.url,
     markdown: await r.markdown()
   }))
-)`,
+)`),
     result: {
       variant: 'search-enriched',
       data: [
@@ -297,7 +283,7 @@ const FAQ_ENTRIES = [
     question: 'What is Microlink Search?',
     answers: [
       'Microlink Search is a paid search intelligence API for querying and normalizing public results from multiple Google surfaces through one product.',
-      '@microlink/google is the Node.js client for integrating Search into your own SEO tooling, monitoring jobs, and AI workflows.'
+      'The microlink.io SDK is the JavaScript client for integrating Search into your own SEO tooling, monitoring jobs, and AI workflows.'
     ]
   },
   {
