@@ -1,19 +1,26 @@
 ### August 2026
 
+- [unavatar.io](https://unavatar.io): Added [Kick](https://unavatar.io/kick) and [BIMI](https://unavatar.io/bimi) support.
+- [unavatar.io](https://unavatar.io): Improved [Bluesky](https://unavatar.io/bluesky), [Deezer](https://unavatar.io/deezer), and [GitLab](https://unavatar.io/gitlab) avatar resolution.
+- [Microlink](https://dashboard.microlink.io): Auto-upgrades the plan at the quota limit.
+- [Microlink API](/docs/api/getting-started/overview): Retries timeouts from the origin country.
 - [Microlink](/subprocessors): Listed [Datadog](https://www.datadoghq.com) and [Sentry](https://sentry.io) as observability subprocessors.
-- [Microlink](https://dashboard.microlink.io): Auto-upgrades the plan at 90% quota. Opt out on Notifications.
-- [Microlink Blog](/blog): Published [Chrome Built-in AI from Node.js](/blog/chrome-built-in-ai-from-nodejs).
 - [Microlink API](/docs/api/getting-started/overview): Added [proxy.location](/docs/api/parameters/proxy/location) to pin the proxy to a country.
 - [Microlink API](/docs/api/getting-started/overview): Bring-your-own proxy is now [proxy.url](/docs/api/parameters/proxy/url). A bare `proxy` string is still accepted.
+- [Microlink Blog](/blog): Published [Chrome Built-in AI from Node.js](/blog/chrome-built-in-ai-from-nodejs).
+- [Microlink](/): Added [Browserbase](/alternative/browserbase) alternative.
 - [Microlink API](/docs/api/getting-started/overview): [timeout](/docs/api/parameters/timeout) is now 30s on the free plan and 60s on pro.
-- [Browserless v13.9](https://browserless.js.org): Added [@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai) for Chrome Built-in AI.
+- [Browserless v13.9](https://browserless.js.org): Fixed incomplete [fullPage](/docs/api/parameters/screenshot/fullPage) screenshots and PDFs on overflow SPAs.
 - [Microlink API](/docs/api/getting-started/overview): Improved metadata extraction from PDFs.
+- [Browserless v13.9](https://browserless.js.org): Added [@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai) for Chrome Built-in AI.
 - [unavatar.io](https://unavatar.io): Improved [Printables](https://unavatar.io/printables) avatar resolution.
+- [Microlink](/): Added [ScrapingBee](/alternative/scrapingbee) alternative.
 - [Metascraper v5.57](https://metascraper.js.org): Added IMDb integration.
 - [Microlink API](/docs/api/getting-started/overview): Rejects invalid query parameters with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery).
 - [Metascraper v5.56](https://metascraper.js.org): Added citation integration for Highwire Press and Dublin Core tags.
 - [Microlink](/): Every page is available as markdown; [llms.txt](/llms.txt) covers the full site.
 - [Microlink](/): Added [SDK](/integrations/sdk) landing.
+- [Metascraper](https://metascraper.js.org): Dates YouTube videos by upload date, not a comment timestamp.
 - [Microlink](/): Added [adblock](/features/adblock) feature landing.
 - [Microlink](/): Added [PDF](/pdf/nodejs) landings for Node.js, Python, and PHP.
 - [Microlink](/): Added [Cloudflare](/alternative/cloudflare), [Firecrawl](/alternative/firecrawl), and [Context](/alternative/context-dev) alternatives.
