@@ -47,6 +47,15 @@
       ]
     },
     {
+      "source": "/styleguide",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
       "source": "/((?!tools/embed-url/|(?:recipes|404|dev-404-page|offline-plugin-app-shell-fallback)(?:/|\\.md$)).*)\\.md",
       "headers": [
         {
