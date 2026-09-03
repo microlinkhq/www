@@ -28,7 +28,7 @@ You can use [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web
 
 ## CSS Classes
 
-When the microlink UI card is rendered, each subcomponent of the card has been assigned a [BEM](http://getbem.com/introduction) class name:
+When the microlink UI card is rendered, each subcomponent of the card has been assigned a [BEM](https://css-tricks.com/bem-101/) class name:
 
 - **microlink_card** <br/>
 The root element of the card.
