@@ -100,7 +100,7 @@ During my time at [Vercel](https://vercel.com/), I spent years obsessing over ed
 
 My hatred turned into an obsession: after battling the nightmare of scaling browser infrastructure at Vercel, I decided to solve the 'cold start' and 'font nightmare' once and for all by making Microlink my primary mission.
 
-We built Microlink to solve those specific engineering headaches so you don't have to, and because I needed it too. We turned the browser into a [high-performance utility](/meta).
+We built Microlink to solve those specific engineering headaches so you don't have to, and because I needed it too. We turned the browser into a [high-performance utility](/metadata).
 
 Instead of fighting with Dockerfiles and concurrency limits, you just hit an endpoint:
 
