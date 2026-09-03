@@ -1747,14 +1747,14 @@ const FAQSection = () => (
 
 export const Head = () => (
   <Meta
-    title='Thum.io Alternative for Final Screenshots and Modern Browser Control'
+    title='Thum.io Alternative for Final Screenshots'
     description='Thum.io is clever for ultra-cheap streamed thumbnails. Microlink is built for final screenshots, selectors, PDFs, metadata, and blocked-page workloads, with 6× lower average cold-start latency in our April 2026 benchmark.'
     schemaType='WebPage'
     structured={[
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'Thum.io Alternative for Final Screenshots and Modern Browser Control | Microlink',
+        name: 'Thum.io Alternative for Final Screenshots | Microlink',
         description:
           'Compare Microlink and Thum.io when simple website thumbnails are no longer enough. Microlink delivers final screenshots, PDF generation, metadata extraction, and broader browser control with 6× lower average cold-start latency in our April 2026 benchmark.',
         url: 'https://microlink.io/alternative/thumio',
