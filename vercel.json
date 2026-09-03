@@ -411,6 +411,22 @@
       "destination": "/blog/unavatario-generally-available-now"
     },
     {
+      "source": "/blog/master-plan-2019",
+      "destination": "/blog/master-plan-for-2019"
+    },
+    {
+      "source": "/blog/product-brief-4",
+      "destination": "/blog/product-brief-4-sdk-v2--more-video-providers"
+    },
+    {
+      "source": "/blog/product-brief-6",
+      "destination": "/blog/product-brief-6-custom-rules--metadata-improvements"
+    },
+    {
+      "source": "/blog/product-brief-7",
+      "destination": "/blog/product-brief-7-sdk-v4-documentation-portal--mql"
+    },
+    {
       "source": "/sharing-debugger",
       "destination": "/tools/sharing-debugger"
     },
