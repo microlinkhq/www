@@ -791,6 +791,7 @@ const Hero = () => (
           href={LIVE_MARKDOWN_URL}
           target='_blank'
           rel='noopener noreferrer'
+          aria-label='Convert firecrawl.dev to Markdown with the Microlink API (opens in a new tab)'
         >
           {LIVE_MARKDOWN_URL}
         </HeroCodeLink>

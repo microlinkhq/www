@@ -874,6 +874,7 @@ const Hero = () => (
             href={UNAVATAR_SCREENSHOT_URL}
             target='_blank'
             rel='noopener noreferrer'
+            aria-label='Generate a live screenshot of unavatar.io with the Microlink API (opens in a new tab)'
           >
             {UNAVATAR_SCREENSHOT_URL}
           </HeroCodeLink>
