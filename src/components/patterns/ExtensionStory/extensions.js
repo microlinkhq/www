@@ -2,7 +2,9 @@ import { Camera, Chrome, FileText, Share2 } from 'react-feather'
 
 import {
   PDF_EXTENSION_URL,
+  PDF_LANDING_PATH,
   SCREENSHOT_EXTENSION_URL,
+  SCREENSHOT_LANDING_PATH,
   SHARING_DEBUGGER_EXTENSION_URL,
   SHARING_DEBUGGER_LANDING_PATH
 } from 'components/patterns/ChromeExtensionBanner/ChromeExtensionBanner'
@@ -57,7 +59,7 @@ export const EXTENSIONS = [
       '24-hour capture history'
     ],
     mockup: ScreenshotExtensionMockup,
-    href: '/extensions/chrome/website-screenshot',
+    href: SCREENSHOT_LANDING_PATH,
     storeUrl: SCREENSHOT_EXTENSION_URL,
     apiHref: '/screenshot',
     eventName: 'screenshot extension install'
@@ -84,7 +86,7 @@ export const EXTENSIONS = [
       '24-hour PDF history'
     ],
     mockup: PdfExtensionMockup,
-    href: '/extensions/chrome/website-pdf',
+    href: PDF_LANDING_PATH,
     storeUrl: PDF_EXTENSION_URL,
     apiHref: '/pdf',
     eventName: 'pdf extension install'
