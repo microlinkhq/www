@@ -116,5 +116,5 @@ This policy is also published as [security.txt](/.well-known/security.txt), foll
 
 Our thanks to the researchers who have reported vulnerabilities to us:
 
-- [Daniel Wang](https://danielwang.dev)
+- Daniel Wang
 - Haaris B

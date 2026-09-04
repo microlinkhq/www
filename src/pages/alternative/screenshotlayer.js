@@ -1621,14 +1621,14 @@ const FAQSection = () => (
 
 export const Head = () => (
   <Meta
-    title='Screenshotlayer Alternative for Higher Throughput and Lower Overage Risk'
+    title='Screenshotlayer Alternative for More Throughput'
     description='Compare Microlink vs Screenshotlayer when plan caps, overages, and cold starts start to matter. Microlink gives you 46,000 requests for $49 versus Screenshotlayer 30,000 for $59.99, no per-minute cap, and lower average latency on the 6 shared benchmark URLs.'
     schemaType='WebPage'
     structured={[
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'Screenshotlayer Alternative for Higher Throughput and Lower Overage Risk | Microlink',
+        name: 'Screenshotlayer Alternative for More Throughput | Microlink',
         description:
           'Compare Microlink and Screenshotlayer when bursty screenshot workloads start running into plan caps, overages, and slower cold starts. Microlink gives you 46,000 requests for $49 versus Screenshotlayer 30,000 for $59.99, no per-minute cap on paid plans, and lower average cold-start latency on the 6 shared benchmark URLs.',
         url: 'https://microlink.io/alternative/screenshotlayer',

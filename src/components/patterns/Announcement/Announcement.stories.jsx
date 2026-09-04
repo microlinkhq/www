@@ -9,7 +9,7 @@ export default () => (
   <Announcement
     data-event-location='Home'
     data-event-name='Announcement'
-    href='/blog/product-brief-7/'
+    href='/blog/product-brief-7-sdk-v4-documentation-portal--mql/'
     children={
       <>
         Speed, meet simplicity. Introducing <b>Microlink PDF</b>
@@ -26,7 +26,7 @@ export const Default = () => (
     <Announcement
       data-event-location='Home'
       data-event-name='Announcement'
-      href='/blog/product-brief-7/'
+      href='/blog/product-brief-7-sdk-v4-documentation-portal--mql/'
     >
       Speed, meet simplicity. Introducing <b>Microlink PDF</b>
     </Announcement>

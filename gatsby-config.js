@@ -138,7 +138,8 @@ module.exports = {
           '/dev-404-page',
           '/offline-plugin-app-shell-fallback',
           '/payment',
-          '/payment/update'
+          '/payment/update',
+          '/styleguide'
         ],
         query: `
         {

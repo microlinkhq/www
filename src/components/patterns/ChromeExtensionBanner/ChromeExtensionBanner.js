@@ -27,6 +27,10 @@ export const SCREENSHOT_EXTENSION_URL =
 export const SHARING_DEBUGGER_EXTENSION_URL =
   'https://chromewebstore.google.com/detail/microlink-sharing-debugge/dbdnofdiilddkpnplkfififcmiincnln'
 
+export const PDF_LANDING_PATH = '/extensions/chrome/website-pdf'
+
+export const SCREENSHOT_LANDING_PATH = '/extensions/chrome/website-screenshot'
+
 export const SHARING_DEBUGGER_LANDING_PATH =
   '/extensions/chrome/sharing-debugger'
 
@@ -162,6 +166,7 @@ const ChromeExtensionBanner = ({
   description,
   highlights = DEFAULT_HIGHLIGHTS,
   href = PDF_EXTENSION_URL,
+  landingHref = PDF_LANDING_PATH,
   mockup = <PdfExtensionMockup />,
   pricingNote = DEFAULT_PRICING_NOTE,
   buttonLabel = "Add to Chrome — it's free",
@@ -216,6 +221,12 @@ const ChromeExtensionBanner = ({
             })}
           >
             {description}
+            {landingHref && (
+              <>
+                {' '}
+                <Link href={landingHref}>See everything it does</Link>.
+              </>
+            )}
           </Text>
           <Box
             css={theme({
@@ -307,6 +318,7 @@ export const ChromeExtensionBannerCompact = ({
   title = COMPACT_DEFAULT_TITLE,
   description = COMPACT_DEFAULT_DESCRIPTION,
   href = PDF_EXTENSION_URL,
+  landingHref = PDF_LANDING_PATH,
   buttonLabel = "Add to Chrome — it's free",
   eventName = 'pdf extension install',
   ...props
@@ -331,6 +343,12 @@ export const ChromeExtensionBannerCompact = ({
         })}
       >
         {description}
+        {landingHref && (
+          <>
+            {' '}
+            <Link href={landingHref}>See everything it does</Link>.
+          </>
+        )}
       </Text>
     </Box>
     <InstallButtonInline
@@ -391,6 +409,7 @@ export const ScreenshotExtensionBanner = ({
     description={description}
     highlights={highlights}
     href={SCREENSHOT_EXTENSION_URL}
+    landingHref={SCREENSHOT_LANDING_PATH}
     mockup={<ScreenshotExtensionMockup />}
     pricingNote={SCREENSHOT_PRICING_NOTE}
     eventName='screenshot extension install'
@@ -406,8 +425,7 @@ const SHARING_DEBUGGER_DEFAULT_DESCRIPTION = (
     Skip the tab switching — the <b>Microlink Sharing Debugger</b> extension
     scores sharing and SEO metadata from Chrome&apos;s side panel, powered by
     the same <Link href='/metadata'>Metadata API</Link> as this tool. Preview
-    link cards across 8&nbsp;platforms and copy ready-to-paste fix tags —{' '}
-    <Link href={SHARING_DEBUGGER_LANDING_PATH}>see everything it does</Link>.
+    link cards across 8&nbsp;platforms and copy ready-to-paste fix tags.
   </>
 )
 
@@ -440,6 +458,7 @@ export const SharingDebuggerExtensionBanner = ({
     description={description}
     highlights={highlights}
     href={SHARING_DEBUGGER_EXTENSION_URL}
+    landingHref={SHARING_DEBUGGER_LANDING_PATH}
     mockup={<SharingDebuggerExtensionMockup />}
     pricingNote={SHARING_DEBUGGER_PRICING_NOTE}
     eventName='sharing debugger extension install'

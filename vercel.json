@@ -47,6 +47,15 @@
       ]
     },
     {
+      "source": "/styleguide",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
       "source": "/((?!tools/embed-url/|(?:recipes|404|dev-404-page|offline-plugin-app-shell-fallback)(?:/|\\.md$)).*)\\.md",
       "headers": [
         {
@@ -411,6 +420,22 @@
       "destination": "/blog/unavatario-generally-available-now"
     },
     {
+      "source": "/blog/master-plan-2019",
+      "destination": "/blog/master-plan-for-2019"
+    },
+    {
+      "source": "/blog/product-brief-4",
+      "destination": "/blog/product-brief-4-sdk-v2--more-video-providers"
+    },
+    {
+      "source": "/blog/product-brief-6",
+      "destination": "/blog/product-brief-6-custom-rules--metadata-improvements"
+    },
+    {
+      "source": "/blog/product-brief-7",
+      "destination": "/blog/product-brief-7-sdk-v4-documentation-portal--mql"
+    },
+    {
       "source": "/sharing-debugger",
       "destination": "/tools/sharing-debugger"
     },
@@ -429,6 +454,10 @@
     {
       "source": "/feature/:path*",
       "destination": "/features/:path*"
+    },
+    {
+      "source": "/features/security",
+      "destination": "/features/isolation"
     },
     {
       "source": "/oss",

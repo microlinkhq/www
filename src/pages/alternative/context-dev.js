@@ -813,6 +813,7 @@ const Hero = () => (
           href={LIVE_METADATA_URL}
           target='_blank'
           rel='noopener noreferrer'
+          aria-label={`${LIVE_METADATA_URL}. Fetch live brand and metadata for context.dev from the Microlink API (opens in a new tab)`}
         >
           {LIVE_METADATA_URL}
         </HeroCodeLink>
