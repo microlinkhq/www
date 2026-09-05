@@ -13,6 +13,11 @@ export const categoryWash = accent =>
     accentBorder(accent)
   )} 100%)`
 
+export const chipWash = accent =>
+  `linear-gradient(145deg, ${token(accentBand(accent))} 0%, ${token(
+    accentTile(accent)
+  )} 100%)`
+
 export const tileWash = accent =>
   `linear-gradient(145deg, ${token(accentTile(accent))} 0%, ${token(
     accentBorder(accent)

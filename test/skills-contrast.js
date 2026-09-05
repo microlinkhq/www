@@ -53,6 +53,9 @@ describe('skills page colors meet WCAG 2.2 AA', () => {
     expect(
       onBackdrop(accentText(accent), accentBand(accent))
     ).toBeGreaterThanOrEqual(BODY_TEXT)
+    expect(
+      onBackdrop(accentText(accent), accentTile(accent))
+    ).toBeGreaterThanOrEqual(BODY_TEXT)
   })
 
   test.each(accents)('%s: category icon on its tile', (_title, accent) => {
