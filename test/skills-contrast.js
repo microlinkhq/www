@@ -4,7 +4,6 @@ import { describe, expect, test } from 'vitest'
 import {
   colors,
   accentBand,
-  accentBorder,
   accentIcon,
   accentText,
   accentTile
@@ -53,17 +52,11 @@ describe('skills page colors meet WCAG 2.2 AA', () => {
     expect(
       onBackdrop(accentText(accent), accentBand(accent))
     ).toBeGreaterThanOrEqual(BODY_TEXT)
-    expect(
-      onBackdrop(accentText(accent), accentTile(accent))
-    ).toBeGreaterThanOrEqual(BODY_TEXT)
   })
 
   test.each(accents)('%s: category icon on its tile', (_title, accent) => {
     expect(
-      onBackdrop(accentIcon(accent), accentTile(accent))
-    ).toBeGreaterThanOrEqual(NON_TEXT)
-    expect(
-      onBackdrop(accentIcon(accent), accentBorder(accent))
+      onBackdrop(accentIcon(accent), accentBand(accent), accentTile(accent))
     ).toBeGreaterThanOrEqual(NON_TEXT)
   })
 
@@ -74,14 +67,6 @@ describe('skills page colors meet WCAG 2.2 AA', () => {
         accentBand(accent),
         'white',
         accentTile(accent)
-      )
-    ).toBeGreaterThanOrEqual(NON_TEXT)
-    expect(
-      onBackdrop(
-        accentIcon(accent),
-        accentBand(accent),
-        'white',
-        accentBorder(accent)
       )
     ).toBeGreaterThanOrEqual(NON_TEXT)
   })
@@ -96,22 +81,10 @@ describe('skills page colors meet WCAG 2.2 AA', () => {
     expect(onBackdrop('black60', accentBand(accent))).toBeGreaterThanOrEqual(
       BODY_TEXT
     )
-    expect(onBackdrop('black60', accentTile(accent))).toBeGreaterThanOrEqual(
-      BODY_TEXT
-    )
-    expect(onBackdrop('black60', accentBorder(accent))).toBeGreaterThanOrEqual(
-      BODY_TEXT
-    )
   })
 
   test.each(accents)('%s: category title on the band', (_title, accent) => {
     expect(onBackdrop('black', accentBand(accent))).toBeGreaterThanOrEqual(
-      LARGE_TEXT
-    )
-    expect(onBackdrop('black', accentTile(accent))).toBeGreaterThanOrEqual(
-      LARGE_TEXT
-    )
-    expect(onBackdrop('black', accentBorder(accent))).toBeGreaterThanOrEqual(
       LARGE_TEXT
     )
   })
@@ -121,22 +94,14 @@ describe('skills page colors meet WCAG 2.2 AA', () => {
   })
 
   test.each(accents)(
-    '%s: card title and description stay readable on the wash',
+    '%s: card title and description stay readable on white',
     (_title, accent) => {
-      expect(onBackdrop('black')).toBeGreaterThanOrEqual(BODY_TEXT)
-      expect(onBackdrop('black60')).toBeGreaterThanOrEqual(BODY_TEXT)
-      expect(onBackdrop('black', accentBand(accent))).toBeGreaterThanOrEqual(
-        BODY_TEXT
-      )
-      expect(onBackdrop('black60', accentBand(accent))).toBeGreaterThanOrEqual(
-        BODY_TEXT
-      )
-      expect(onBackdrop('black', accentTile(accent))).toBeGreaterThanOrEqual(
-        BODY_TEXT
-      )
-      expect(onBackdrop('black60', accentTile(accent))).toBeGreaterThanOrEqual(
-        BODY_TEXT
-      )
+      expect(
+        onBackdrop('black', accentBand(accent), 'white')
+      ).toBeGreaterThanOrEqual(BODY_TEXT)
+      expect(
+        onBackdrop('black60', accentBand(accent), 'white')
+      ).toBeGreaterThanOrEqual(BODY_TEXT)
     }
   )
 

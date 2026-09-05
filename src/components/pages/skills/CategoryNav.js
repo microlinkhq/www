@@ -19,13 +19,11 @@ import React from 'react'
 import { useActiveSection } from 'components/hook/use-active-section'
 
 import { NAV_HEIGHT } from './constants'
-import { chipWash } from './washes'
 
 const Chip = styled(Text).attrs({ as: 'a' })`
   white-space: nowrap;
   transition: background-color ${transition.medium},
-    background-image ${transition.medium}, border-color ${transition.medium},
-    color ${transition.medium};
+    border-color ${transition.medium}, color ${transition.medium};
 `
 
 const ChipScroller = styled(Flex)`
@@ -47,7 +45,6 @@ const CategoryChip = ({ category, isActive }) => (
       borderColor: isActive ? accentBorder(category.accent) : 'black10',
       borderRadius: 3,
       bg: isActive ? accentBand(category.accent) : 'white',
-      backgroundImage: isActive ? chipWash(category.accent) : 'none',
       color: isActive ? accentText(category.accent) : 'black60',
       fontSize: 0,
       fontWeight: isActive ? 'bold' : 'normal',
