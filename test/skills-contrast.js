@@ -99,6 +99,9 @@ describe('skills page colors meet WCAG 2.2 AA', () => {
     expect(onBackdrop('black60', accentTile(accent))).toBeGreaterThanOrEqual(
       BODY_TEXT
     )
+    expect(onBackdrop('black60', accentBorder(accent))).toBeGreaterThanOrEqual(
+      BODY_TEXT
+    )
   })
 
   test.each(accents)('%s: category title on the band', (_title, accent) => {
@@ -106,6 +109,9 @@ describe('skills page colors meet WCAG 2.2 AA', () => {
       LARGE_TEXT
     )
     expect(onBackdrop('black', accentTile(accent))).toBeGreaterThanOrEqual(
+      LARGE_TEXT
+    )
+    expect(onBackdrop('black', accentBorder(accent))).toBeGreaterThanOrEqual(
       LARGE_TEXT
     )
   })
