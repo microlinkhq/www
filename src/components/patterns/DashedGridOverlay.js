@@ -13,7 +13,7 @@ export const DashedGridOverlay = styled(Box)`
       transparent 1px
     ),
     linear-gradient(to bottom, ${colors.gray2} 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-size: 40px 40px;
   background-position: 0 0, 0 0;
   mask-image: repeating-linear-gradient(
       to right,

@@ -1,10 +1,4 @@
-import {
-  theme,
-  transition,
-  accentBand,
-  accentBorderHover,
-  accentIcon
-} from 'theme'
+import { theme, transition, accentBand, accentIcon } from 'theme'
 import { ArrowRight } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
 import styled from 'styled-components'
@@ -15,10 +9,11 @@ import React from 'react'
 
 import { getSkillIcon } from './catalog'
 import { SKILL_ICON_TILE_SIZE } from './constants'
+import { cardWash, tileWash } from './washes'
 
 const CardLink = styled(Link)`
-  transition: border-color ${transition.medium}, box-shadow ${transition.medium},
-    transform ${transition.medium};
+  transition: background-image ${transition.medium},
+    box-shadow ${transition.medium}, transform ${transition.medium};
 
   @media (prefers-reduced-motion: no-preference) {
     &:hover {
@@ -47,12 +42,15 @@ const SkillCard = ({ skill, accent, fallbackIcon }) => (
         bg: 'white',
         color: 'black',
         border: 1,
-        borderColor: 'black10',
+        borderColor: 'transparent',
         borderRadius: 3,
         boxShadow: 1,
+        backgroundImage: cardWash(accent),
+        backgroundOrigin: 'border-box',
+        backgroundClip: 'padding-box, border-box',
         textDecoration: 'none',
         '&:hover': {
-          borderColor: accentBorderHover(accent),
+          backgroundImage: cardWash(accent, true),
           boxShadow: 3
         }
       })}
@@ -67,7 +65,8 @@ const SkillCard = ({ skill, accent, fallbackIcon }) => (
             width: SKILL_ICON_TILE_SIZE,
             height: SKILL_ICON_TILE_SIZE,
             borderRadius: 3,
-            bg: accentBand(accent)
+            bg: accentBand(accent),
+            backgroundImage: tileWash(accent)
           })}
         >
           <FeatherIcon

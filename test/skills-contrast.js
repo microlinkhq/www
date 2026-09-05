@@ -4,6 +4,7 @@ import { describe, expect, test } from 'vitest'
 import {
   colors,
   accentBand,
+  accentBorder,
   accentIcon,
   accentText,
   accentTile
@@ -58,6 +59,9 @@ describe('skills page colors meet WCAG 2.2 AA', () => {
     expect(
       onBackdrop(accentIcon(accent), accentTile(accent))
     ).toBeGreaterThanOrEqual(NON_TEXT)
+    expect(
+      onBackdrop(accentIcon(accent), accentBorder(accent))
+    ).toBeGreaterThanOrEqual(NON_TEXT)
   })
 
   test.each(accents)('%s: skill icon on its tile', (_title, accent) => {
@@ -66,7 +70,15 @@ describe('skills page colors meet WCAG 2.2 AA', () => {
         accentIcon(accent),
         accentBand(accent),
         'white',
-        accentBand(accent)
+        accentTile(accent)
+      )
+    ).toBeGreaterThanOrEqual(NON_TEXT)
+    expect(
+      onBackdrop(
+        accentIcon(accent),
+        accentBand(accent),
+        'white',
+        accentBorder(accent)
       )
     ).toBeGreaterThanOrEqual(NON_TEXT)
   })
@@ -81,10 +93,16 @@ describe('skills page colors meet WCAG 2.2 AA', () => {
     expect(onBackdrop('black60', accentBand(accent))).toBeGreaterThanOrEqual(
       BODY_TEXT
     )
+    expect(onBackdrop('black60', accentTile(accent))).toBeGreaterThanOrEqual(
+      BODY_TEXT
+    )
   })
 
   test.each(accents)('%s: category title on the band', (_title, accent) => {
     expect(onBackdrop('black', accentBand(accent))).toBeGreaterThanOrEqual(
+      LARGE_TEXT
+    )
+    expect(onBackdrop('black', accentTile(accent))).toBeGreaterThanOrEqual(
       LARGE_TEXT
     )
   })
@@ -93,10 +111,25 @@ describe('skills page colors meet WCAG 2.2 AA', () => {
     expect(onBackdrop('black60')).toBeGreaterThanOrEqual(BODY_TEXT)
   })
 
-  test('card title and description are readable on white', () => {
-    expect(onBackdrop('black')).toBeGreaterThanOrEqual(BODY_TEXT)
-    expect(onBackdrop('black60')).toBeGreaterThanOrEqual(BODY_TEXT)
-  })
+  test.each(accents)(
+    '%s: card title and description stay readable on the wash',
+    (_title, accent) => {
+      expect(onBackdrop('black')).toBeGreaterThanOrEqual(BODY_TEXT)
+      expect(onBackdrop('black60')).toBeGreaterThanOrEqual(BODY_TEXT)
+      expect(onBackdrop('black', accentBand(accent))).toBeGreaterThanOrEqual(
+        BODY_TEXT
+      )
+      expect(onBackdrop('black60', accentBand(accent))).toBeGreaterThanOrEqual(
+        BODY_TEXT
+      )
+      expect(onBackdrop('black', accentTile(accent))).toBeGreaterThanOrEqual(
+        BODY_TEXT
+      )
+      expect(onBackdrop('black60', accentTile(accent))).toBeGreaterThanOrEqual(
+        BODY_TEXT
+      )
+    }
+  )
 
   test('request a skill button label is readable', () => {
     expect(onBackdrop('white', 'link')).toBeGreaterThanOrEqual(BODY_TEXT)

@@ -1,10 +1,10 @@
 export const SKILL_CATEGORIES = [
   {
-    id: 'apis',
-    title: 'APIs',
+    id: 'consuming',
+    title: 'Consuming',
     description:
-      'Hosted endpoints for URL metadata, structured data, and avatar resolution.',
-    accent: 'teal'
+      'SDK, CLI, MCP, and HTTP APIs for Microlink products and avatar resolution.',
+    accent: 'red'
   },
   {
     id: 'automation',
@@ -36,9 +36,10 @@ export const UNCATEGORIZED_CATEGORY = {
 }
 
 export const SKILL_CATEGORY = {
-  'microlink-api': 'apis',
-  'microlink-google': 'apis',
-  'unavatar-api': 'apis',
+  microlink: 'consuming',
+  'microlink-mcp': 'consuming',
+  'microlink-api': 'consuming',
+  'unavatar-api': 'consuming',
   browserless: 'automation',
   'html-get': 'automation',
   metascraper: 'automation',
