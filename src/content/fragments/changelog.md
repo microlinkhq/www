@@ -1,3 +1,7 @@
+### September 2026
+
+- [Microlink](/): Added a [Java](/pdf/java) PDF landing.
+
 ### August 2026
 
 - [unavatar.io](https://unavatar.io): Added [Kick](https://unavatar.io/kick) and [BIMI](https://unavatar.io/bimi) support.

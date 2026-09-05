@@ -5,8 +5,10 @@ import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import LineBreak from 'components/elements/LineBreak'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { LangLandingsNav } from 'components/patterns/LangLandings'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { ACCENT, Subhead, Caption, HERO_LAYOUT } from './shared'
+import { LANG_LANDINGS } from './lang/registry'
 
 const CODE_EXAMPLE_LANGUAGES = ['JavaScript', 'Python', 'Ruby', 'PHP', 'Golang']
 const TYPE_SPEED_MS = 90
@@ -133,6 +135,19 @@ export const CodeExample = () => {
             })}
           >
             <ArrowLink href='/docs/guides/pdf'>Read the docs</ArrowLink>
+          </Flex>
+          <Flex
+            css={theme({
+              pt: [3, 3, 4, 4],
+              width: '100%',
+              justifyContent: ['center', 'center', 'center', 'flex-start']
+            })}
+          >
+            <LangLandingsNav
+              langs={LANG_LANDINGS}
+              label='Available for'
+              accent={ACCENT}
+            />
           </Flex>
         </Flex>
         <Flex
