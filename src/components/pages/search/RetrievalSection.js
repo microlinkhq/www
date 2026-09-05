@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { colors, layout, theme } from 'theme'
+import { layout, theme } from 'theme'
 
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
@@ -8,7 +8,7 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 
 import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from './'
-import { RetrievalFeatureCard, SectionCaption } from './Sections'
+import { RetrievalFeatureCard } from './Sections'
 import { SECTION_HEADING_FONT_SIZE } from './constants'
 
 const RetrievalSection = () => (
@@ -43,9 +43,6 @@ const RetrievalSection = () => (
             pt: [0, 0, 2, 2]
           })}
         >
-          <SectionCaption color={colors.red7}>
-            Automated SERP Data
-          </SectionCaption>
           <Text
             as='h2'
             css={theme({

@@ -16,7 +16,6 @@ import Text from 'components/elements/Text'
 import TerminalJsonView from 'components/pages/cli/TerminalJsonView'
 import { GitHub as GitHubIcon } from 'components/icons/GitHub'
 import { Terminal as TerminalPromptIcon } from 'components/icons/Terminal'
-import { SectionCaption } from 'components/pages/search/Sections'
 import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from 'components/pages/search'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
@@ -352,15 +351,6 @@ const Hero = () => (
           textAlign: ['center', 'center', 'left', 'left']
         })}
       >
-        <Flex
-          css={theme({
-            justifyContent: ['center', 'center', 'flex-start', 'flex-start']
-          })}
-        >
-          <SectionCaption bg='red0' color={colors.red7}>
-            Microlink CLI
-          </SectionCaption>
-        </Flex>
         <Heading
           variant={null}
           css={theme({ textAlign: ['center', 'center', 'left', 'left'] })}

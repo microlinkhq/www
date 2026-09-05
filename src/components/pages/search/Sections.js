@@ -6,7 +6,7 @@ import {
   Search as SearchIcon,
   Zap
 } from 'react-feather'
-import { fontSizes, layout, space, theme } from 'theme'
+import { layout, theme } from 'theme'
 
 import Box from 'components/elements/Box'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
@@ -16,59 +16,6 @@ import Text from 'components/elements/Text'
 import FeatherIcon from 'components/icons/Feather'
 
 import { BulletItem, TutorialStepContainer } from './'
-
-const CAPTION_FONT_SIZE_10 = `calc(${fontSizes[0]} - ${space[1]})`
-const CAPTION_FONT_SIZE_12 = `calc(${fontSizes[1]} - ${space[1]})`
-
-export const SectionCaption = ({
-  bg = 'white',
-  color,
-  children,
-  centered = false
-}) => (
-  <Flex
-    css={theme({
-      alignItems: 'center',
-      mb: 3,
-      justifyContent: centered ? 'center' : 'flex-start'
-    })}
-  >
-    <Flex
-      as='span'
-      css={theme({
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: 2,
-        px: 3,
-        py: 2,
-        bg,
-        border: 1,
-        borderColor: color,
-        borderRadius: 5
-      })}
-    >
-      <Text
-        as='span'
-        css={theme({
-          m: 0,
-          color,
-          fontWeight: 'bold',
-          fontSize: [
-            CAPTION_FONT_SIZE_10,
-            CAPTION_FONT_SIZE_10,
-            CAPTION_FONT_SIZE_12,
-            CAPTION_FONT_SIZE_12
-          ],
-          textTransform: 'uppercase',
-          letterSpacing: 2,
-          lineHeight: 0
-        })}
-      >
-        {children}
-      </Text>
-    </Flex>
-  </Flex>
-)
 
 const Bullet = ({ children }) => (
   <BulletItem>
