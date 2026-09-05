@@ -13,9 +13,10 @@ import {
   UploadCloud,
   Zap
 } from 'react-feather'
-import { siGoogle, siKubernetes } from 'simple-icons'
+import { siKubernetes } from 'simple-icons'
 import React from 'react'
 
+import { Bot } from 'components/icons/Bot'
 import { Sparkles } from 'components/icons/Sparkles'
 import Svg from 'components/elements/Svg'
 import { enrichedSkills } from 'helpers/skills'
@@ -37,10 +38,9 @@ const brandIcon = icon => {
 }
 
 const Kubernetes = brandIcon(siKubernetes)
-const Google = brandIcon(siGoogle)
 
 const CATEGORY_ICONS = {
-  apis: Code,
+  consuming: Sparkles,
   automation: Globe,
   infrastructure: Layers,
   agent: Terminal,
@@ -54,8 +54,9 @@ const SKILL_ICONS = {
   'k8s-hpa-cost-tuning': Kubernetes,
   keyvhq: Zap,
   metascraper: Search,
+  microlink: Sparkles,
   'microlink-api': Link,
-  'microlink-google': Google,
+  'microlink-mcp': Bot,
   'nodejs-performance': Activity,
   optimo: Sparkles,
   'run-skill': Play,

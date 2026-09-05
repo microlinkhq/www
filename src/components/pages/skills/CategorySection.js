@@ -1,4 +1,4 @@
-import { theme, layout, accentBand, accentIcon, accentTile } from 'theme'
+import { theme, layout, accentBand, accentIcon } from 'theme'
 import FeatherIcon from 'components/icons/Feather'
 import SubheadBase from 'components/elements/Subhead'
 import { withTitle } from 'helpers/hoc/with-title'
@@ -8,6 +8,7 @@ import Text from 'components/elements/Text'
 import React from 'react'
 
 import SkillCard from './SkillCard'
+import { categoryWash, tileWash } from './washes'
 import {
   CATEGORY_ICON_TILE_SIZE,
   CATEGORY_TITLE_FONT_SIZE,
@@ -30,6 +31,7 @@ const CategorySection = ({ category }) => (
       maxWidth: layout.large,
       borderRadius: 5,
       bg: accentBand(category.accent),
+      backgroundImage: categoryWash(category.accent),
       scrollMarginTop: SECTION_SCROLL_MARGIN
     })}
   >
@@ -51,7 +53,8 @@ const CategorySection = ({ category }) => (
           width: CATEGORY_ICON_TILE_SIZE,
           height: CATEGORY_ICON_TILE_SIZE,
           borderRadius: 4,
-          bg: accentTile(category.accent)
+          bg: accentBand(category.accent),
+          backgroundImage: tileWash(category.accent)
         })}
       >
         <FeatherIcon
