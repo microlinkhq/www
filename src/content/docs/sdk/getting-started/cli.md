@@ -45,4 +45,4 @@ microlink extract https://microlink.io --data '{"image":{"selector":"meta[proper
 microlink function https://example.com --file ./fn.js
 ```
 
-Looking for a richer standalone terminal experience? That's [@microlink/cli](/integrations/cli).
+See the [CLI](/integrations/cli) page for a walkthrough.

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { colors, layout, theme } from 'theme'
+import { layout, theme } from 'theme'
 
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
@@ -9,7 +9,7 @@ import Text from 'components/elements/Text'
 import ArrowLink from 'components/patterns/ArrowLink'
 
 import { PricingCard, SEARCH_LAYOUT_WIDE_MAX_WIDTH } from './'
-import { PricingCheck, SectionCaption } from './Sections'
+import { PricingCheck } from './Sections'
 import { MOBILE_SECTION_BLEED, SECTION_HEADING_FONT_SIZE } from './constants'
 
 const PRICE_DISPLAY_FONT_SIZE = ['36px', '42px', 5, 5]
@@ -49,7 +49,6 @@ const PricingSection = () => (
             minWidth: 0
           })}
         >
-          <SectionCaption color={colors.orange7}>Pricing</SectionCaption>
           <Text
             as='h2'
             css={theme({

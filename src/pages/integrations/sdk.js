@@ -14,7 +14,7 @@ import { ACCENT, QUESTIONS } from 'components/pages/sdk/shared'
 
 import { theme, SECTION_VERTICAL_SPACING } from 'theme'
 
-const REPOS = ['microlink', 'mql', 'cli']
+const REPOS = ['microlink', 'mql', 'function']
 
 export const Head = () => (
   <Meta
@@ -70,7 +70,7 @@ const SdkPage = () => (
       <OpenSource
         repos={REPOS}
         accent={ACCENT}
-        caption='The SDK, the transport layer beneath it, and the terminal experience on top are all developed in the open. Explore the code, contribute, or run it yourself — MIT licensed.'
+        caption='The SDK, the transport layer beneath it, and Microlink Function are all developed in the open. Explore the code, contribute, or run it yourself — MIT licensed.'
       />
       <Faq
         css={theme({ py: SECTION_VERTICAL_SPACING })}
