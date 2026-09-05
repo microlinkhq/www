@@ -1,7 +1,3 @@
-### September 2026
-
-- [Microlink](/): Grouped product skills under Consuming on [skills](/skills).
-
 ### August 2026
 
 - [unavatar.io](https://unavatar.io): Added [Kick](https://unavatar.io/kick) and [BIMI](https://unavatar.io/bimi) support.
