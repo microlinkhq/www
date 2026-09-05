@@ -288,9 +288,8 @@ export const QUESTIONS = [
         <div>
           Yes — installing the package also ships a <code>microlink</code>{' '}
           binary where every product is a subcommand, such as{' '}
-          <code>microlink markdown https://example.com</code>. Looking for the
-          standalone terminal experience? That&rsquo;s{' '}
-          <Link href='/integrations/cli'>@microlink/cli</Link>.
+          <code>microlink markdown https://example.com</code>. See the{' '}
+          <Link href='/integrations/cli'>CLI</Link> page.
         </div>
       </>
     )

@@ -23,7 +23,7 @@ We revisited the cache layer and implemented some improvements, making it more p
 ### Cache saves your API quota
 
 ```bash
-npx @microlink/cli https://example.com&screenshot&embed=screenshot.url
+npx microlink.io screenshot https://example.com
 ```
 
 Starting from today, any response served from the cache won't count towards your API quota.

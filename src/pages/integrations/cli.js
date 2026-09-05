@@ -1,5 +1,5 @@
 import React from 'react'
-import { Clipboard, Code, Monitor } from 'react-feather'
+import { Code, LogIn, Monitor } from 'react-feather'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -30,12 +30,11 @@ const HERO_LAYOUT_MAX_WIDTH = [
   '100%',
   SEARCH_LAYOUT_WIDE_MAX_WIDTH
 ]
-const CLI_REPOSITORY = 'https://github.com/microlinkhq/cli'
+const CLI_REPOSITORY = 'https://github.com/microlinkhq/microlink'
 const CLI_COMMAND = 'microlink'
 const CLI_URL = ' https://news.ycombinator.com/'
-const CLI_FLAGS = ' --json'
 
-const INSTALL_SNIPPET = 'npm install @microlink/cli --global'
+const INSTALL_SNIPPET = 'npm install -g microlink.io'
 
 const TerminalToken = ({ children, color }) => (
   <Text
@@ -92,8 +91,9 @@ const featureIconProps = {
 
 const HERO_FEATURES = [
   {
-    title: 'One command',
-    description: 'Pass a URL, and Microlink returns the API response.',
+    title: 'Every product',
+    description:
+      'Pass a URL for metadata, or a subcommand like markdown, screenshot, pdf, or search.',
     icon: (
       <TerminalPromptIcon
         width={FEATURE_ICON_SIZE}
@@ -104,19 +104,20 @@ const HERO_FEATURES = [
     )
   },
   {
-    title: 'JSON when you need it',
-    description: 'Use --json for request and response payloads.',
+    title: 'Pretty JSON',
+    description:
+      'Objects pretty-print as JSON. Add --trace to inspect the request and response.',
     icon: <Code {...featureIconProps} aria-hidden='true' />
   },
   {
-    title: 'Copy-ready output',
-    description: 'Add --copy to put the parsed response on your clipboard.',
-    icon: <Clipboard {...featureIconProps} aria-hidden='true' />
+    title: 'Login once',
+    description: 'Run microlink login to save an API key from your account.',
+    icon: <LogIn {...featureIconProps} aria-hidden='true' />
   },
   {
     title: 'Terminal previews',
     description:
-      'Pretty output renders metadata, images, screenshots, PDFs, and timing details in place.',
+      'Pretty output includes cache status, fetch mode, and request timing.',
     icon: <Monitor {...featureIconProps} aria-hidden='true' />
   }
 ]
@@ -166,8 +167,8 @@ const TerminalFooterOutput = () => (
 
 const TerminalPreview = () => (
   <Terminal
-    title='@microlink/cli'
-    text={`${CLI_COMMAND}${CLI_URL}${CLI_FLAGS}`}
+    title='microlink'
+    text={`${CLI_COMMAND}${CLI_URL}`}
     autoHeight
     showFade={false}
     blinkCursor={false}
@@ -189,7 +190,6 @@ const TerminalPreview = () => (
     >
       <TerminalToken color='blue6'>{CLI_COMMAND}</TerminalToken>
       {CLI_URL}
-      {CLI_FLAGS}
     </Text>
     <TerminalGap />
     <TerminalJsonView />
@@ -378,9 +378,9 @@ const Hero = () => (
             textAlign: ['center', 'center', 'left', 'left']
           })}
         >
-          Install the global command, pass any URL, and inspect screenshots,
-          metadata, PDFs, cache status, timing, headers, and JSON payloads
-          without leaving your shell.
+          The microlink command ships with microlink.io. Pass any URL — or a
+          product subcommand — and inspect metadata, screenshots, PDFs, cache
+          status, and timing without leaving your shell.
         </Caption>
         <Flex
           css={theme({
@@ -498,7 +498,7 @@ const Hero = () => (
 export const Head = () => (
   <Meta
     title='CLI'
-    description='Use the Microlink API from your terminal. Install @microlink/cli, pass any URL, inspect pretty output, JSON payloads, headers, cache status, and timing.'
+    description='Use the Microlink API from your terminal. Install microlink.io, pass any URL or product subcommand, inspect pretty JSON, cache status, and timing.'
     schemaType='SoftwareApplication'
     structured={[
       {
@@ -510,8 +510,8 @@ export const Head = () => (
         description:
           'Command-line interface for interacting with the Microlink API from a terminal.',
         url: 'https://microlink.io/cli',
-        downloadUrl: 'https://www.npmjs.com/package/@microlink/cli',
-        softwareVersion: '2.1.56',
+        downloadUrl: 'https://www.npmjs.com/package/microlink.io',
+        softwareVersion: '0.6.0',
         offers: {
           '@type': 'Offer',
           price: '0',
