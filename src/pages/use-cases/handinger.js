@@ -158,9 +158,9 @@ const HowTheyUseIt = () => (
       <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         When a Handinger agent needs the web — searching for competitors,
         checking a business on Google Maps, pulling fresh results for a research
-        task — it calls Microlink under the hood. Microlink's Google Search API
-        turns those queries into structured, LLM-ready JSON, so the agent gets
-        back data it can reason over instead of raw HTML it has to fight with.
+        task — it calls Microlink under the hood. Microlink Search turns those
+        queries into structured, LLM-ready JSON, so the agent gets back data it
+        can reason over instead of raw HTML it has to fight with.
       </Text>
       <FlowDiagram
         accent={ACCENT}
@@ -315,7 +315,7 @@ const CustomerStoryPage = () => (
 export const Head = () => (
   <Meta
     title='Handinger: real-time Google search for AI agents'
-    description="Handinger's AI agents search the web and use Google Maps through Microlink's Google Search API — live, structured results powering every agent task."
+    description="Handinger's AI agents search the web and use Google Maps through Microlink Search — live, structured results powering every agent task."
     schemaType='WebPage'
   />
 )

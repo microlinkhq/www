@@ -515,16 +515,15 @@ const FAQ_ITEMS = [
           own the queue and the diffing.
         </div>
         <div>
-          Search is covered: <Link href='/search'>Microlink Search</Link> is a
-          Google SERP API for AI agents returning normalized JSON across 10
-          surfaces, where every result exposes a lazy <b>.markdown()</b> helper
-          to expand top matches into LLM-ready content. It is a paid workflow
-          from the first request, since public-result collection runs on managed
-          proxy capacity.
+          Search is covered: <Link href='/search'>Microlink Search</Link>{' '}
+          returns normalized JSON for AI agents across 10 surfaces, where every
+          result exposes a lazy <b>.markdown()</b> helper to expand top matches
+          into LLM-ready content. It is a paid workflow from the first request,
+          since public-result collection runs on managed proxy capacity.
         </div>
       </>
     ),
-    text: "Crawling and monitoring are genuinely Firecrawl's territory: Microlink converts one URL per call and does not watch pages for changes — you own the queue and the diffing. Search is covered: Microlink Search is a Google SERP API for AI agents returning normalized JSON across 10 surfaces, where every result exposes a lazy .markdown() helper to expand top matches into LLM-ready content. It is a paid workflow from the first request, since public-result collection runs on managed proxy capacity."
+    text: "Crawling and monitoring are genuinely Firecrawl's territory: Microlink converts one URL per call and does not watch pages for changes — you own the queue and the diffing. Search is covered: Microlink Search returns normalized JSON for AI agents across 10 surfaces, where every result exposes a lazy .markdown() helper to expand top matches into LLM-ready content. It is a paid workflow from the first request, since public-result collection runs on managed proxy capacity."
   },
   {
     question: 'How do the open-source licenses compare (MIT vs AGPL)?',
