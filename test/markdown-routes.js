@@ -9,7 +9,7 @@ const DOCS_DIR = path.join(process.cwd(), 'src/content/docs')
 const PAGE_MARKDOWN = path.join(process.cwd(), 'src/helpers/page-markdown.js')
 const DOC_TEMPLATE = path.join(process.cwd(), 'src/templates/doc.js')
 
-const { headers, redirects, rewrites } = JSON.parse(
+const { headers, redirects, rewrites, routes } = JSON.parse(
   fs.readFileSync(VERCEL_CONFIG, 'utf8')
 )
 
@@ -41,7 +41,8 @@ const PAGE_MARKDOWN_PATHNAMES = [
   '/screenshot/php.md',
   '/features/screenshot.md',
   '/blog/some-post.md',
-  '/tools/embed-url.md'
+  '/tools/embed-url.md',
+  '/404.md'
 ]
 
 const EXCLUDED_PATHNAMES = [
@@ -49,7 +50,6 @@ const EXCLUDED_PATHNAMES = [
   '/tools/embed-url/icosa-gallery.md',
   '/recipes.md',
   '/recipes/take-a-screenshot.md',
-  '/404.md',
   '/dev-404-page.md',
   '/offline-plugin-app-shell-fallback.md'
 ]
@@ -139,11 +139,48 @@ describe('markdown content negotiation', () => {
   })
 
   test('leaves the pages without a markdown file alone', () => {
-    for (const pathname of EXCLUDED_PATHNAMES) {
+    for (const pathname of [...EXCLUDED_PATHNAMES, '/404.md']) {
       expect(matchesNegotiation(pathname.replace(/\.md$/, '')), pathname).toBe(
         false
       )
     }
+  })
+})
+
+const markdownNotFound = (routes || []).find(
+  ({ dest, status }) => dest === '/404.md' && status === 404
+)
+
+const matchesMarkdownNotFound = pathname =>
+  new RegExp(`^${markdownNotFound.src}$`).test(pathname)
+
+describe('missing markdown file', () => {
+  test('is a filesystem miss, so an existing .md file is served as-is', () => {
+    const filesystem = (routes || []).findIndex(
+      ({ handle }) => handle === 'filesystem'
+    )
+    const notFound = (routes || []).findIndex(
+      ({ dest, status }) => dest === '/404.md' && status === 404
+    )
+    expect(filesystem).toBeGreaterThanOrEqual(0)
+    expect(notFound).toBeGreaterThan(filesystem)
+  })
+
+  test('answers with 404.md and HTTP 404', () => {
+    expect(markdownNotFound).toBeDefined()
+    expect(markdownNotFound.headers['Content-Type']).toBe(
+      'text/markdown; charset=utf-8'
+    )
+  })
+
+  test('covers a path that has no page', () => {
+    for (const pathname of ['/notexist.md', '/foo/bar.md', '/404.md']) {
+      expect(matchesMarkdownNotFound(pathname), pathname).toBe(true)
+    }
+  })
+
+  test('does not steal HTML 404s', () => {
+    expect(matchesMarkdownNotFound('/notexist')).toBe(false)
   })
 })
 

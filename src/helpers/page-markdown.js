@@ -23,6 +23,18 @@ export const toMarkdownPath = pathname =>
 export const prependTitle = (title, markdown) =>
   title ? `# ${title}\n\n${markdown}` : markdown
 
+export const notFoundMarkdown = `# Page not found
+
+The page you’re looking for doesn’t exist or has been moved.
+
+## Where to look next
+
+- [Home](https://microlink.io/)
+- [Documentation](https://microlink.io/docs)
+- [llms.txt](https://microlink.io/llms.txt) — index of every page as markdown
+- [Sitemap](https://microlink.io/sitemap.xml)
+`
+
 export const extractMarkdown = async (fetchMarkdown, pathname) => {
   for (const selector of selectorsFor(pathname)) {
     const result = await fetchMarkdown(selector)

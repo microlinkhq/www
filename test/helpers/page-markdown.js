@@ -6,7 +6,8 @@ import {
   extractMarkdown,
   isMarkdownPage,
   toMarkdownPath,
-  prependTitle
+  prependTitle,
+  notFoundMarkdown
 } from '../../src/helpers/page-markdown.js'
 
 const fetcherOf = responses => {
@@ -70,6 +71,16 @@ describe('prependTitle', () => {
 
   test('leaves a titleless page untouched', () => {
     expect(prependTitle(undefined, 'Type: <string>')).toBe('Type: <string>')
+  })
+})
+
+describe('notFoundMarkdown', () => {
+  test('is a short recovery page, not the HTML app shell', () => {
+    expect(notFoundMarkdown.startsWith('# Page not found\n')).toBe(true)
+    expect(notFoundMarkdown).not.toContain('<!DOCTYPE')
+    expect(notFoundMarkdown).toContain('https://microlink.io/llms.txt')
+    expect(notFoundMarkdown).toContain('https://microlink.io/sitemap.xml')
+    expect(notFoundMarkdown).toContain('https://microlink.io/docs')
   })
 })
 
