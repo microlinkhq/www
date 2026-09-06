@@ -176,7 +176,7 @@ export const COMPARISON = {
       href: '/search',
       microlink: true,
       scrapingbee: true,
-      note: 'Google Search API on Microlink paid plans; included on every ScrapingBee plan.'
+      note: 'Search on Microlink paid plans; included on every ScrapingBee plan.'
     },
     {
       feature: 'Free tier',
@@ -258,9 +258,9 @@ export const BILLING = {
       tries the cheapest configuration first and bills nothing for an attempt
       that fails, which narrows this spread when it works. Microlink has no
       multiplier to narrow: a rendered page and a proxied page are each one
-      request against the plan you pick on{' '}
-      <Link href='/pricing'>pricing</Link>, proxy resolution is included on Pro,
-      and a <Link href='/features/ttl'>cache hit</Link> costs nothing at all.
+      request against the plan you pick on <Link href='/pricing'>pricing</Link>,
+      proxy resolution is included on Pro, and a{' '}
+      <Link href='/features/ttl'>cache hit</Link> costs nothing at all.
     </>
   )
 }
