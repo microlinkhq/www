@@ -34,6 +34,7 @@ const FOOTER_COLUMNS = [
       { label: 'Markdown', href: '/markdown' },
       { label: 'Metadata', href: '/metadata' },
       { label: 'Embed', href: '/embed' },
+      { label: 'Search', href: '/search' },
       { label: 'PDF', href: '/pdf' },
       { label: 'Logo', href: '/logo' },
       { label: 'HTML', href: '/html' },
