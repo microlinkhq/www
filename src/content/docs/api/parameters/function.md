@@ -136,13 +136,13 @@ The profiling phases are:
 
 The function parameter is available on both free and pro plans with different resource limits:
 
-|                      | Free       | Pro              |
-| -------------------- | ---------- | ---------------- |
-| Timeout              | 5 seconds  | Up to 60 seconds |
-| Memory               | 16 MB      | 32 MB            |
-| Code size            | 1024 bytes | Unlimited        |
-| Concurrency          | 1 per IP   | Unlimited        |
-| Outgoing requests    | Same-origin only | Unrestricted |
+|                      | Free             | Pro              |
+| -------------------- | ---------------- | ---------------- |
+| Timeout              | 5 seconds        | Up to 60 seconds |
+| Memory               | 16 MB            | 32 MB            |
+| Code size            | 1024 bytes       | Unlimited        |
+| Concurrency          | 1 in-flight per IP | Unlimited      |
+| Outgoing requests    | Same-origin only | Unrestricted     |
 
 When a limit is exceeded, the function returns `isFulfilled: false` with a descriptive error instead of failing the entire request:
 
@@ -170,7 +170,7 @@ The resource error types are:
 | `CpuTimeError`         | Function CPU time exceeded the plan limit                            |
 | `MemoryError`          | Function memory usage exceeded the plan limit                        |
 | `CodeSizeError`        | Function code exceeds the 1024 bytes free plan limit                 |
-| `ConcurrencyError`     | Too many concurrent function executions for the free plan (1 per IP) |
+| `ConcurrencyError`     | Too many concurrent function executions for the free plan            |
 | `OutgoingRequestError` | Function made a cross-origin network request on the free plan        |
 
 Each error message is plan-aware and tells you the exact limit that was hit.

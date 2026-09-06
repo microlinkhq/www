@@ -46,12 +46,13 @@ Use profiling to understand where time is spent. If install is high, your depend
 
 The function parameter is available on both free and pro plans:
 
-|             | Free       | Pro              |
-| ----------- | ---------- | ---------------- |
-| Timeout     | 5 seconds  | Up to 60 seconds |
-| Memory      | 16 MB      | 32 MB            |
-| Code size   | 1024 bytes | Unlimited        |
-| Concurrency | 1 per IP   | Unlimited        |
+|                   | Free             | Pro              |
+| ----------------- | ---------------- | ---------------- |
+| Timeout           | 5 seconds        | Up to 60 seconds |
+| Memory            | 16 MB            | 32 MB            |
+| Code size         | 1024 bytes       | Unlimited        |
+| Concurrency       | 1 in-flight per IP | Unlimited      |
+| Outgoing requests | Same-origin only | Unrestricted     |
 
 The free plan is enough to prototype workflows and run the examples in this guide. For production workloads that need more time or memory, or parameters such as `headers`, `proxy`, `ttl`, or `staleTtl`, use a pro plan.
 
