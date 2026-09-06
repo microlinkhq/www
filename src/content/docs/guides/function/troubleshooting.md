@@ -28,13 +28,13 @@ Non-Error throws (like `throw 'oh no'`) are normalized into a `NonError` with th
 
 When a function exceeds its plan limits, the API returns a descriptive error instead of failing the entire request:
 
-| Error              | Trigger                                                         |
-| ------------------ | --------------------------------------------------------------- |
-| `TimeoutError`     | Function wall-clock time exceeded the plan limit                |
-| `CpuTimeError`     | Function CPU time exceeded the plan limit                       |
-| `MemoryError`      | Function memory usage exceeded the plan limit                   |
-| `CodeSizeError`    | Function code exceeds the 1024 bytes free plan limit            |
-| `ConcurrencyError` | Too many concurrent function executions for the free plan (1 per IP) |
+| Error                  | Trigger                                                              |
+| ---------------------- | -------------------------------------------------------------------- |
+| `TimeoutError`         | Function wall-clock time exceeded the plan limit                     |
+| `CpuTimeError`         | Function CPU time exceeded the plan limit                            |
+| `MemoryError`          | Function memory usage exceeded the plan limit                        |
+| `CodeSizeError`        | Function code exceeds the 1024 bytes free plan limit                 |
+| `ConcurrencyError`     | Too many concurrent function executions for the free plan            |
 | `OutgoingRequestError` | Function made a cross-origin network request on the free plan        |
 
 Each error message is plan-aware:
@@ -83,7 +83,7 @@ Binary data such as `Buffer` and typed arrays is allocated off the heap and is r
 2. Compress the function body manually with `lz#`, `br#`, or `gz#` prefixes.
 3. Upgrade to pro for unlimited code size.
 
-**ConcurrencyError** — too many concurrent function executions (1 per IP on the free plan):
+**ConcurrencyError** — too many concurrent function executions (1 in-flight per IP on the free plan):
 
 1. Wait for the current function execution to finish before sending another request.
 2. Upgrade to pro for unlimited concurrency.
