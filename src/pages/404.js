@@ -62,7 +62,9 @@ const NotFoundPage = () => (
               textAlign: 'center'
             })}
           >
-            <Link href={href}>{label}</Link>
+            <Link href={href} prefetch={false}>
+              {label}
+            </Link>
           </Text>
         ))}
       </Flex>

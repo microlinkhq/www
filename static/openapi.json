@@ -105,7 +105,17 @@
             "required": false,
             "description": "Automate browser interactions by clicking specific DOM elements via CSS selectors. Use this parameter to trigger navigation, toggle UI components, or change page state.",
             "schema": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "externalDocs": {
               "url": "https://microlink.io/docs/api/parameters/click"
@@ -343,7 +353,17 @@
             "required": false,
             "description": "Inject JavaScript modules into a webpage during the rendering process.",
             "schema": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "externalDocs": {
               "url": "https://microlink.io/docs/api/parameters/modules"
@@ -699,7 +719,17 @@
             "required": false,
             "description": "Inject custom JavaScript into a webpage before it is rendered or captured.",
             "schema": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "externalDocs": {
               "url": "https://microlink.io/docs/api/parameters/scripts"
@@ -745,7 +775,17 @@
             "required": false,
             "description": "Inject custom CSS into a webpage before it is rendered or captured. The styles parameter supports both inline CSS rules and absolute URLs to external stylesheets.",
             "schema": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "externalDocs": {
               "url": "https://microlink.io/docs/api/parameters/styles"
@@ -863,7 +903,17 @@
             "required": false,
             "description": "Fine-tune when Microlink considers a page fully \"loaded\" by waiting for specific lifecycle events.",
             "schema": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "externalDocs": {
               "url": "https://microlink.io/docs/api/parameters/waitUntil"

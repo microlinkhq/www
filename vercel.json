@@ -135,6 +135,10 @@
         {
           "key": "x-xss-protection",
           "value": "0"
+        },
+        {
+          "key": "Vary",
+          "value": "Accept, Accept-Encoding"
         }
       ]
     },

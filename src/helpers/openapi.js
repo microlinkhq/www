@@ -6,7 +6,8 @@ const TYPE_MAP = {
   string: { type: 'string' },
   boolean: { type: 'boolean' },
   number: { type: 'number' },
-  object: { type: 'object', additionalProperties: true }
+  object: { type: 'object', additionalProperties: true },
+  'string[]': { type: 'array', items: { type: 'string' } }
 }
 
 const unwrapType = value => value.replace(/^<|>$/g, '')

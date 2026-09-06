@@ -163,6 +163,16 @@ describe('markdown content negotiation', () => {
     expect(new RegExp(`^${htmlVary.source}$`).test('/pricing')).toBe(true)
     expect(new RegExp(`^${htmlVary.source}$`).test('/pricing.md')).toBe(false)
   })
+
+  test('also varies extension paths so HTML 404s are not reused for markdown', () => {
+    const catchAll = headers.find(
+      ({ source, headers: ruleHeaders }) =>
+        source === '/(.*)' && varyValue(ruleHeaders)
+    )
+    expect(catchAll).toBeDefined()
+    expect(varyValue(catchAll.headers)).toBe('Accept, Accept-Encoding')
+    expect(new RegExp(`^${catchAll.source}$`).test('/missing.txt')).toBe(true)
+  })
 })
 
 const markdownNotFound = (routes || []).find(

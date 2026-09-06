@@ -69,6 +69,12 @@ Later <Type children="'10s'"/>
       ]
     })
   })
+
+  test('keeps string-or-array parameter types', () => {
+    expect(schemaFromTypes(['<string>', '<string[]>'])).toEqual({
+      oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }]
+    })
+  })
 })
 
 describe('OpenAPI document', () => {
@@ -88,6 +94,11 @@ describe('OpenAPI document', () => {
     expect(
       spec.paths['/'].get.parameters.find(({ name }) => name === 'url').required
     ).toBe(true)
+    expect(
+      spec.paths['/'].get.parameters.find(({ name }) => name === 'click').schema
+    ).toEqual({
+      oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }]
+    })
   })
 
   test('gives 4xx and 5xx a typed error schema', () => {
@@ -132,5 +143,6 @@ describe('published files', () => {
     const page = fs.readFileSync(PAGE_404, 'utf8')
     expect(page).toContain('notFoundLinks')
     expect(page).toContain("from 'helpers/page-markdown'")
+    expect(page).toContain('prefetch={false}')
   })
 })
