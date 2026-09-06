@@ -176,7 +176,7 @@ export const COMPARISON = {
       href: '/search',
       microlink: true,
       scrapingbee: true,
-      note: 'Search on Microlink paid plans; included on every ScrapingBee plan.'
+      note: 'Microlink Search on paid plans; included on every ScrapingBee plan.'
     },
     {
       feature: 'Free tier',
