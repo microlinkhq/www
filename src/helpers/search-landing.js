@@ -283,7 +283,7 @@ const FAQ_ENTRIES = [
   {
     question: 'What is Microlink Search?',
     answers: [
-      'Microlink Search is a paid Microlink product for querying and normalizing public results from multiple Google surfaces through one client.',
+      'Microlink Search is a paid search intelligence API for querying and normalizing public results from multiple Google surfaces through one product.',
       'The microlink.io SDK is the JavaScript client for integrating Search into your own SEO tooling, monitoring jobs, and AI workflows.'
     ]
   },
@@ -349,12 +349,18 @@ const buildSchemas = () => {
     url: PAGE_URL,
     image: HERO_IMAGE,
     description:
-      'Microlink Search queries public Google search surfaces and returns normalized JSON. Independent Microlink product, not affiliated with Google.',
+      'Microlink Search is a paid search intelligence API for querying and normalizing public results from Google Search, News, Maps, Shopping, Scholar, and more.',
     keywords: [
-      'Microlink Search',
-      'structured search results',
-      'public Google search results',
-      'search intelligence'
+      'search api',
+      'serp api',
+      'search intelligence api',
+      'search api for ai agents',
+      'search api for seo',
+      'local search api',
+      'shopping data api',
+      'ai seo data api',
+      'rank tracking api',
+      'news monitoring api'
     ],
     offers: {
       '@type': 'AggregateOffer',
