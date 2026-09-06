@@ -20,7 +20,8 @@ const {
   extractMarkdown,
   isMarkdownPage,
   toMarkdownPath,
-  prependTitle
+  prependTitle,
+  notFoundMarkdown
 } = require('./src/helpers/page-markdown')
 const { buildLlmsTxt } = require('./src/helpers/llms-txt')
 const {
@@ -486,6 +487,8 @@ const markdownPathnames = nodes =>
   })
 
 const createPageMarkdownFiles = async ({ graphql, reporter }) => {
+  writeFileSync(path.join(process.cwd(), 'public', '404.md'), notFoundMarkdown)
+
   if (!isProductionBuild()) {
     reporter.info('Skipping markdown generation outside a production build')
     return

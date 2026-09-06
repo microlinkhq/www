@@ -56,7 +56,7 @@
       ]
     },
     {
-      "source": "/((?!tools/embed-url/|(?:recipes|404|dev-404-page|offline-plugin-app-shell-fallback)(?:/|\\.md$)).*)\\.md",
+      "source": "/((?!tools/embed-url/|(?:recipes|dev-404-page|offline-plugin-app-shell-fallback)(?:/|\\.md$)).*)\\.md",
       "headers": [
         {
           "key": "content-type",
@@ -486,6 +486,18 @@
           "value": ".*text/markdown.*"
         }
       ]
+    }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    {
+      "src": "/(.+)\\.md",
+      "dest": "/404.md",
+      "status": 404,
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "X-Robots-Tag": "noindex"
+      }
     }
   ]
 }
