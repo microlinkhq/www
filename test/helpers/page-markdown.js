@@ -7,6 +7,7 @@ import {
   isMarkdownPage,
   toMarkdownPath,
   prependTitle,
+  notFoundLinks,
   notFoundMarkdown
 } from '../../src/helpers/page-markdown.js'
 
@@ -79,8 +80,19 @@ describe('notFoundMarkdown', () => {
     expect(notFoundMarkdown.startsWith('# Page not found\n')).toBe(true)
     expect(notFoundMarkdown).not.toContain('<!DOCTYPE')
     expect(notFoundMarkdown).toContain('https://microlink.io/llms.txt')
+    expect(notFoundMarkdown).toContain('https://microlink.io/openapi.json')
     expect(notFoundMarkdown).toContain('https://microlink.io/sitemap.xml')
     expect(notFoundMarkdown).toContain('https://microlink.io/docs')
+  })
+
+  test('lists every recovery link the HTML 404 page uses', () => {
+    expect(notFoundLinks.map(({ href }) => href)).toEqual([
+      '/',
+      '/docs',
+      '/llms.txt',
+      '/openapi.json',
+      '/sitemap.xml'
+    ])
   })
 })
 

@@ -75,6 +75,10 @@ const llmsTxt = [
   '',
   '> Turn any website into data. APIs for link previews, screenshots, PDF generation, and web scraping.',
   '',
+  '## Machine-readable',
+  '',
+  '- [OpenAPI](https://microlink.io/openapi.json): Microlink API specification',
+  '',
   SECTIONS.map(toSection).join('\n\n'),
   ''
 ].join('\n')
