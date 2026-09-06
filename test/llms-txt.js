@@ -89,13 +89,32 @@ describe('buildLlmsTxt', () => {
     expect(content.startsWith('# Microlink\n\n> ')).toBe(true)
   })
 
+  test('points agents at the OpenAPI spec', () => {
+    expect(content).toContain(
+      '- [OpenAPI](https://microlink.io/openapi.json): Microlink API specification'
+    )
+  })
+
   test('writes one link per page', () => {
-    const links = content.split('\n').filter(line => line.startsWith('- ['))
-    expect(links).toHaveLength(PAGES.length)
+    const pageLinks = content
+      .split('## Machine-readable')[1]
+      .split(/^## /m)
+      .slice(1)
+      .join('\n')
+      .split('\n')
+      .filter(line => line.startsWith('- ['))
+    expect(pageLinks).toHaveLength(PAGES.length)
   })
 
   test('links every page to an absolute .md URL', () => {
-    for (const line of content.split('\n').filter(l => l.startsWith('- ['))) {
+    const pageLinks = content
+      .split('## Machine-readable')[1]
+      .split(/^## /m)
+      .slice(1)
+      .join('\n')
+      .split('\n')
+      .filter(line => line.startsWith('- ['))
+    for (const line of pageLinks) {
       expect(line).toMatch(/^- \[[^\]]+\]\(https:\/\/microlink\.io\/.+\.md\)/)
     }
   })
@@ -111,6 +130,7 @@ describe('buildLlmsTxt', () => {
 
   test('groups the links under H2 sections', () => {
     expect(content.match(/^## .+$/gm)).toEqual([
+      '## Machine-readable',
       '## API',
       '## Blog',
       '## Pages'

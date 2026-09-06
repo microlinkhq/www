@@ -2,6 +2,10 @@
 
 > Turn any website into data. APIs for link previews, screenshots, PDF generation, and web scraping.
 
+## Machine-readable
+
+- [OpenAPI](https://microlink.io/openapi.json): Microlink API specification
+
 ## API
 
 - [Authentication](https://microlink.io/docs/api/basics/authentication.md): Securely authenticate your Microlink API requests using x-api-key headers. Includes best practices for Pro plan integration and protecting tokens via proxy for frontend usage.
@@ -11,7 +15,7 @@
 - [Error codes](https://microlink.io/docs/api/basics/error-codes.md): Troubleshoot Microlink API error codes including EAUTH, ERATE, and EBRWSRTIMEOUT. Find solutions for authentication issues, rate limits, timeouts, and specific Pro plan parameter requirements.
 - [Format](https://microlink.io/docs/api/basics/format.md): Understand the Microlink API response format based on the JSend specification. Learn about status codes, JSON data payloads, and how to handle error messages.
 - [Rate limit](https://microlink.io/docs/api/basics/rate-limit.md): Understand Microlink API rate limits for free and pro endpoints. Monitor usage via x-rate-limit headers, handle HTTP 429, and scale your quota for high-concurrency.
-- [CLI](https://microlink.io/docs/api/getting-started/cli.md): Install and use the CLI to interact with the API from your terminal. Perform requests, authenticate via API keys, and format JSON output.
+- [CLI](https://microlink.io/docs/api/getting-started/cli.md): Install and use the CLI to interact with the API from your terminal. Every product is a subcommand; flags map to API options.
 - [Data fields](https://microlink.io/docs/api/getting-started/data-fields.md): Explore the default data fields extracted by Microlink API, including metadata, media properties, and HTTP status details like headers and redirects.
 - [MCP](https://microlink.io/docs/api/getting-started/mcp.md): Connect Microlink MCP to your AI client to extract metadata, screenshots, PDFs, insights, media, markdown, and text from any URL.
 - [Overview](https://microlink.io/docs/api/getting-started/overview.md): Get started with Microlink API. Learn how to automate browser actions, extract metadata, take screenshots, generate PDFs with a simple HTTP GET request.
@@ -49,6 +53,8 @@
 - [ping](https://microlink.io/docs/api/parameters/ping.md): Validate the accessibility of all URLs extracted in the response payload. The ping parameter verifies that links to images, videos, or audio are publicly reachable.
 - [prerender](https://microlink.io/docs/api/parameters/prerender.md): Optimize how content is fetched from the target URL by choosing between a headless browser or a simple HTTP request.
 - [proxy](https://microlink.io/docs/api/parameters/proxy.md): Bypass IP rate limits, CAPTCHAs, and regional restrictions using high-quality proxy rotation.
+- [proxy › location](https://microlink.io/docs/api/parameters/proxy/location.md): Route the request through a proxy IP in a specific country to fetch region-specific content.
+- [proxy › url](https://microlink.io/docs/api/parameters/proxy/url.md): Route every sub-request through your own HTTP proxy server.
 - [retry](https://microlink.io/docs/api/parameters/retry.md): Configure the number of exponential backoff retries to attempt if the underlying browser encounters an unexpected internal error.
 - [screenshot › animated](https://microlink.io/docs/api/parameters/screenshot/animated.md): Record a website as a short video instead of a static image. Capture animations, transitions and live content as an H.264 MP4 with a single API call.
 - [screenshot › codeScheme](https://microlink.io/docs/api/parameters/screenshot/codeScheme.md): Beautify HTML and JSON content with professional code syntax highlighting using the codeScheme parameter. Choose from popular Prism themes like Darcula or provide a custom CSS URL.
@@ -178,7 +184,7 @@
 
 - [CLI](https://microlink.io/docs/sdk/getting-started/cli.md): Use the microlink binary bundled with the Microlink SDK. Every product is a subcommand, with flags mapping one-to-one to the SDK options.
 - [Errors](https://microlink.io/docs/sdk/getting-started/errors.md): Handle Microlink SDK failures with MicrolinkError. Every method throws a typed error carrying code, statusCode, and a human-readable description.
-- [Options](https://microlink.io/docs/sdk/getting-started/options.md): Learn how the Microlink SDK routes options. Product-specific keys nest automatically, headers travel as HTTP headers, and everything else maps to API query parameters.
+- [Options](https://microlink.io/docs/sdk/getting-started/options.md): How the Microlink SDK routes options, plus the shared options every method accepts: browser emulation, page lifecycle, cache, and request controls.
 - [Overview](https://microlink.io/docs/sdk/getting-started/overview.md): Get started with the Microlink SDK. The microlink.io package exposes every Microlink product as a semantic method for Node.js, browsers, and Deno.
 - [Collections](https://microlink.io/docs/sdk/methods/collections.md): Sweep any page with the Microlink SDK and get every matching resource back as an array: links, images, videos, audios, and email addresses.
 - [Content](https://microlink.io/docs/sdk/methods/content.md): Turn any URL into rendered output with the Microlink SDK: unified metadata, Markdown, HTML, plain text, screenshots, PDFs, logos, and embeds.

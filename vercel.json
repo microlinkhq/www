@@ -63,8 +63,21 @@
           "value": "text/markdown; charset=utf-8"
         },
         {
+          "key": "Vary",
+          "value": "Accept, Accept-Encoding"
+        },
+        {
           "key": "X-Robots-Tag",
           "value": "noindex"
+        }
+      ]
+    },
+    {
+      "source": "/((?!.*\\.[a-zA-Z0-9]+$).*)",
+      "headers": [
+        {
+          "key": "Vary",
+          "value": "Accept, Accept-Encoding"
         }
       ]
     },
@@ -122,6 +135,27 @@
         {
           "key": "x-xss-protection",
           "value": "0"
+        },
+        {
+          "key": "Vary",
+          "value": "Accept, Accept-Encoding"
+        }
+      ]
+    },
+    {
+      "source": "/openapi.json",
+      "headers": [
+        {
+          "key": "content-type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "access-control-allow-origin",
+          "value": "*"
+        },
+        {
+          "key": "cross-origin-resource-policy",
+          "value": "cross-origin"
         }
       ]
     }
@@ -496,6 +530,24 @@
       "status": 404,
       "headers": {
         "Content-Type": "text/markdown; charset=utf-8",
+        "Vary": "Accept, Accept-Encoding",
+        "X-Robots-Tag": "noindex"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "missing": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": ".*text/html.*"
+        }
+      ],
+      "dest": "/404.md",
+      "status": 404,
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "Vary": "Accept, Accept-Encoding",
         "X-Robots-Tag": "noindex"
       }
     }

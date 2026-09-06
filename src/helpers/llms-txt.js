@@ -7,6 +7,10 @@ const HEADING = '# Microlink'
 const SUMMARY =
   '> Turn any website into data. APIs for link previews, screenshots, PDF generation, and web scraping.'
 
+const MACHINE_READABLE = `## Machine-readable
+
+- [OpenAPI](https://microlink.io/openapi.json): Microlink API specification`
+
 const TITLE_SUFFIX = /\s+—\s+Microlink(\s+\w+)?$/
 
 const SECTIONS = [
@@ -68,5 +72,5 @@ export const buildLlmsTxt = pages => {
     )
     .join('\n\n')
 
-  return `${HEADING}\n\n${SUMMARY}\n\n${body}\n`
+  return `${HEADING}\n\n${SUMMARY}\n\n${MACHINE_READABLE}\n\n${body}\n`
 }

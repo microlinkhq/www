@@ -23,16 +23,39 @@ export const toMarkdownPath = pathname =>
 export const prependTitle = (title, markdown) =>
   title ? `# ${title}\n\n${markdown}` : markdown
 
+export const SITE_URL = 'https://microlink.io'
+
+export const notFoundLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/docs', label: 'Documentation' },
+  {
+    href: '/llms.txt',
+    label: 'llms.txt',
+    detail: 'index of every page as markdown'
+  },
+  {
+    href: '/openapi.json',
+    label: 'OpenAPI',
+    detail: 'machine-readable API specification'
+  },
+  { href: '/sitemap.xml', label: 'Sitemap' }
+]
+
+const toAbsolute = href =>
+  href === '/' ? `${SITE_URL}/` : `${SITE_URL}${href}`
+
 export const notFoundMarkdown = `# Page not found
 
 The page you’re looking for doesn’t exist or has been moved.
 
 ## Where to look next
 
-- [Home](https://microlink.io/)
-- [Documentation](https://microlink.io/docs)
-- [llms.txt](https://microlink.io/llms.txt) — index of every page as markdown
-- [Sitemap](https://microlink.io/sitemap.xml)
+${notFoundLinks
+  .map(({ href, label, detail }) => {
+    const note = detail ? ` — ${detail}` : ''
+    return `- [${label}](${toAbsolute(href)})${note}`
+  })
+  .join('\n')}
 `
 
 export const extractMarkdown = async (fetchMarkdown, pathname) => {
