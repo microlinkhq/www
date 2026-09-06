@@ -231,7 +231,7 @@ export const NAVIGATION_SECTIONS = [
         icon: Code
       }),
       createNavigationItem({
-        label: 'Search API',
+        label: 'Search',
         href: '/search',
         description: 'Turn Google results into structured data',
         icon: SearchIcon

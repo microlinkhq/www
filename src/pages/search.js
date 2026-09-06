@@ -71,8 +71,8 @@ const GooglePage = () => (
 
 export const Head = () => (
   <Meta
-    title='Google Search API (SERP) for AI Agents | Microlink'
-    description='Scrape Google Search results in ~1s. A reliable Google SERP API delivering normalized JSON for RAG pipelines, LLM tools, and developer workflows.'
+    title='Search — Structured public Google results'
+    description='Query public Google search surfaces with Microlink Search. Normalized JSON for RAG, LLM tools, and developer workflows. Not affiliated with Google.'
     image={HERO_IMAGE}
     structured={STRUCTURED_DATA}
   />

@@ -67,11 +67,7 @@ console.log(page.results)`)
 ]
 
 const IntegrationSection = () => (
-  <Box
-    as='section'
-    id='google-api-integration'
-    css={theme({ py: [5, 5, 6, 6] })}
-  >
+  <Box as='section' id='search-integration' css={theme({ py: [5, 5, 6, 6] })}>
     <Container
       css={theme({
         p: 0,

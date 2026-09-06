@@ -55,7 +55,7 @@ const RetrievalSection = () => (
               textAlign: 'left'
             })}
           >
-            Scrape Google first, <br />
+            Search first, <br />
             <span css={theme({ color: 'red7' })}>fetch later</span>
           </Text>
           <Text

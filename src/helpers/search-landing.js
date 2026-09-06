@@ -131,7 +131,8 @@ const GOOGLE_VERTICALS = [
   }
 ]
 
-const INSTALL_SNIPPET = sdkExample(`const page = await microlink.search('ai agents')
+const INSTALL_SNIPPET =
+  sdkExample(`const page = await microlink.search('ai agents')
 
 console.log(page.results)`)
 
@@ -282,15 +283,15 @@ const FAQ_ENTRIES = [
   {
     question: 'What is Microlink Search?',
     answers: [
-      'Microlink Search is a paid search intelligence API for querying and normalizing public results from multiple Google surfaces through one product.',
+      'Microlink Search is a paid Microlink product for querying and normalizing public results from multiple Google surfaces through one client.',
       'The microlink.io SDK is the JavaScript client for integrating Search into your own SEO tooling, monitoring jobs, and AI workflows.'
     ]
   },
   {
     question: 'Is this an official Google product?',
     answers: [
-      'No. Search is an independent Microlink product that works on top of public Google surfaces.',
-      'It is not affiliated with, endorsed by, or provided by Google.'
+      'No. Search is an independent Microlink product that queries public Google surfaces and returns structured results for your own workflows.',
+      'It is not affiliated with, endorsed by, or provided by Google, and it does not replace Google Search.'
     ]
   },
   {
@@ -348,19 +349,12 @@ const buildSchemas = () => {
     url: PAGE_URL,
     image: HERO_IMAGE,
     description:
-      'Microlink Search is a paid search intelligence API for querying and normalizing public results from Google Search, News, Maps, Shopping, Scholar, and more.',
+      'Microlink Search queries public Google search surfaces and returns normalized JSON. Independent Microlink product, not affiliated with Google.',
     keywords: [
-      'search api',
-      'serp api',
-      'search intelligence api',
-      'serp api alternative',
-      'search api for ai agents',
-      'search api for seo',
-      'local search api',
-      'shopping data api',
-      'ai seo data api',
-      'rank tracking api',
-      'news monitoring api'
+      'Microlink Search',
+      'structured search results',
+      'public Google search results',
+      'search intelligence'
     ],
     offers: {
       '@type': 'AggregateOffer',
