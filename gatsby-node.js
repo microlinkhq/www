@@ -317,32 +317,42 @@ exports.createPages = ({ graphql, actions }) => {
   ])
 }
 
-const getMqlCode = (recipe, { name }) => `const mql = require('@microlink/mql')
+const toSdkSource = source =>
+  source
+    .replace(
+      /const \{ data \} = await mql\(/g,
+      'const data = await microlink.metadata('
+    )
+    .replace(
+      /const result = await mql\(/g,
+      'const result = await microlink.metadata('
+    )
+    .replace(/\bmql\(/g, 'microlink.metadata(')
 
-const ${name} = ${recipe.toString()}
+const SDK_PREAMBLE = `import createClient from 'microlink.io'
+
+const microlink = createClient()`
+
+const getDataCode = (recipe, { name }) => `${SDK_PREAMBLE}
+
+const ${name} = ${toSdkSource(recipe.toString())}
 
 const result = await ${name}('${recipe.meta.examples[0]}')
 
-mql.render(result)`
+console.log(result)`
 
-const getFunctionCode = (
-  recipe,
-  { name }
-) => `const mql = require('@microlink/mql')
+const getFunctionCode = (recipe, { name }) => `${SDK_PREAMBLE}
 
 const code = ${recipe.code}
 
-const ${name} = (url, props) =>
-  mql(url, { function: code.toString(), meta: false, ...props })
-  .then(({ data }) => data.function)
+const ${name} = (url, props) => microlink.run(url, code, props)
 
-const result = await ${name}('${recipe.meta.examples[0]}')
+const { value } = await ${name}('${recipe.meta.examples[0]}')
 
-mql.render(result)
-`
+console.log(value)`
 
 const getCode = (recipe, { name }) =>
-  (recipe.code ? getFunctionCode : getMqlCode)(recipe, { name })
+  (recipe.code ? getFunctionCode : getDataCode)(recipe, { name })
 
 const createRecipesPages = async ({ createPage, recipes }) => {
   const pages = map(recipes, async (recipe, recipeName) => {

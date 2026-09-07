@@ -8,7 +8,7 @@ import { Link } from 'components/elements/Link'
 Product listings with parsed prices and structured ratings. Use it for product intelligence, price comparison, and merchant research.
 
 ```js
-const page = await google('macbook pro', { type: 'shopping' })
+const page = await microlink.search('macbook pro', { type: 'shopping' })
 ```
 
 ## Result fields
@@ -24,7 +24,7 @@ const page = await google('macbook pro', { type: 'shopping' })
 | `id` | `string?` | Product identifier |
 
 ```js
-const page = await google('macbook pro', { type: 'shopping' })
+const page = await microlink.search('macbook pro', { type: 'shopping' })
 
 page.results[0]
 // {
@@ -40,7 +40,7 @@ page.results[0]
 Prices are already parsed into numeric `amount` values — no need to strip currency strings in your pipeline:
 
 ```js
-const page = await google('macbook pro', { type: 'shopping' })
+const page = await microlink.search('macbook pro', { type: 'shopping' })
 
 const affordable = page.results.filter(r => r.price.amount < 500)
 const avgPrice = page.results.reduce((sum, r) => sum + r.price.amount, 0) / page.results.length

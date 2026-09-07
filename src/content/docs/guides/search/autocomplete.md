@@ -8,7 +8,7 @@ import { Link } from 'components/elements/Link'
 Search suggestions as the user types. Use it for query expansion, demand modeling, and prompt seeding.
 
 ```js
-const page = await google('javascript debounce', { type: 'autocomplete' })
+const page = await microlink.search('javascript debounce', { type: 'autocomplete' })
 ```
 
 ## Result fields
@@ -18,7 +18,7 @@ const page = await google('javascript debounce', { type: 'autocomplete' })
 | `value` | `string` | Suggested query string |
 
 ```js
-const page = await google('javascript debounce', { type: 'autocomplete' })
+const page = await microlink.search('javascript debounce', { type: 'autocomplete' })
 
 page.results
 // [

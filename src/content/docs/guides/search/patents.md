@@ -8,7 +8,7 @@ import { Link } from 'components/elements/Link'
 Patent filings with ISO 8601 dates and metadata. Use it for prior-art research, invention monitoring, and filing lookup.
 
 ```js
-const page = await google('compiler optimization', { type: 'patents' })
+const page = await microlink.search('compiler optimization', { type: 'patents' })
 ```
 
 ## Result fields
@@ -31,7 +31,7 @@ const page = await google('compiler optimization', { type: 'patents' })
 | `id` | `string?` | Patent identifier |
 
 ```js
-const page = await google('compiler optimization', { type: 'patents' })
+const page = await microlink.search('compiler optimization', { type: 'patents' })
 
 page.results[0]
 // {

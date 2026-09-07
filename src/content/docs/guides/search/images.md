@@ -8,7 +8,7 @@ import { Link } from 'components/elements/Link'
 Full-resolution image URLs with dimensions. Use it for visual references, asset discovery, and image metadata retrieval.
 
 ```js
-const page = await google('northern lights', { type: 'images' })
+const page = await microlink.search('northern lights', { type: 'images' })
 ```
 
 ## Result fields
@@ -24,7 +24,7 @@ const page = await google('northern lights', { type: 'images' })
 | `credit` | `string?` | Image credit or copyright |
 
 ```js
-const page = await google('northern lights', { type: 'images' })
+const page = await microlink.search('northern lights', { type: 'images' })
 
 page.results[0]
 // {

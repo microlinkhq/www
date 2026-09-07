@@ -157,7 +157,7 @@
 - [Search: Maps](https://microlink.io/docs/guides/search/maps.md): Detailed place data with ratings, hours, and pricing. Use it when you need richer metadata than Places provides.
 - [Search: News](https://microlink.io/docs/guides/search/news.md): Recent articles with publisher, date, and thumbnail. Use it when freshness matters and your workflow depends on publication timestamps.
 - [Search: Patents](https://microlink.io/docs/guides/search/patents.md): Patent filings with ISO 8601 dates and metadata. Use it for prior-art research, invention monitoring, and filing lookup.
-- [Search: Integration patterns](https://microlink.io/docs/guides/search/patterns.md): Practical patterns for using @microlink/google in agent frameworks, RAG pipelines, news monitoring, entity lookup, academic research, and product intelligence workflows.
+- [Search: Integration patterns](https://microlink.io/docs/guides/search/patterns.md): Practical patterns for using Microlink Search through the SDK in agent frameworks, RAG pipelines, news monitoring, entity lookup, academic research, and product intelligence workflows.
 - [Search: Places](https://microlink.io/docs/guides/search/places.md): Local business listings with coordinates and contact info. Use it for local entity lookup when you need addresses, phone numbers, and geographic coordinates.
 - [Search: Scholar](https://microlink.io/docs/guides/search/scholar.md): Academic papers with citation counts and PDF links. Use it for technical or scientific research workflows that need papers, citations, and publication context.
 - [Search: Web Search](https://microlink.io/docs/guides/search/search.md): Web results with knowledge graph, related questions, and related searches. The default surface when you omit type.
