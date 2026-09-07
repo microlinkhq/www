@@ -10,14 +10,17 @@ import { Link } from 'components/elements/Link'
 Your function runs remotely in a Node.js sandbox. The simplest function is just plain JavaScript — no browser, no page, no Puppeteer:
 
 ```js
-const microlink = require('@microlink/function')
+import createClient from 'microlink.io'
 
-const fn = microlink(() => 40 + 2)
-const result = await fn('https://example.com')
+const microlink = createClient()
+
+const result = await microlink.run('https://example.com', () => 40 + 2)
 
 console.log(result.isFulfilled) // true
 console.log(result.value)       // 42
 ```
+
+Every example on this page assumes the `microlink` client above. See [`run`](/docs/sdk/methods/specialized#run) for the method reference.
 
 <Figcaption>When your function does not reference <code>page</code>, no browser is started. This makes execution faster and cheaper.</Figcaption>
 
@@ -26,15 +29,12 @@ console.log(result.value)       // 42
 Functions can return strings, numbers, booleans, arrays, or plain objects:
 
 ```js
-const microlink = require('@microlink/function')
-
-const fn = microlink(() => ({
+const result = await microlink.run('https://example.com', () => ({
   greeting: 'Hello',
   items: [1, 2, 3],
   nested: { works: true }
 }))
 
-const result = await fn('https://example.com')
 console.log(result.value)
 // { greeting: 'Hello', items: [1, 2, 3], nested: { works: true } }
 ```
@@ -43,15 +43,12 @@ The return value is always available at `result.value`. If the function throws, 
 
 ## Custom parameters
 
-Any extra parameter you include in the request is forwarded to the function:
+Any extra option you include in the request is forwarded to the function as a named argument:
 
 ```js
-const microlink = require('@microlink/function')
-
 const greet = ({ name, greeting }) => `${greeting}, ${name}!`
-const fn = microlink(greet)
 
-const result = await fn('https://example.com', {
+const result = await microlink.run('https://example.com', greet, {
   name: 'Kiko',
   greeting: 'Hello'
 })
@@ -73,14 +70,11 @@ console.log(result.value) // 'Hello, Kiko!'
 You can `require()` any npm package inside your function. Dependencies are detected automatically and installed on-the-fly:
 
 ```js
-const microlink = require('@microlink/function')
-
-const fn = microlink(() => {
+const result = await microlink.run('https://example.com', () => {
   const { kebabCase } = require('lodash')
   return kebabCase('Hello World')
 })
 
-const result = await fn('https://example.com')
 console.log(result.value) // 'hello-world'
 ```
 
@@ -124,12 +118,10 @@ The runtime restricts certain system capabilities for security. Operations such 
 When your function references `page`, Microlink starts a headless browser and navigates to the URL before calling your function. This gives you full Puppeteer access but takes more time:
 
 ```js
-const microlink = require('@microlink/function')
-
 const getTitle = ({ page }) => page.title()
-const fn = microlink(getTitle)
 
-const result = await fn('https://example.com')
+const result = await microlink.run('https://example.com', getTitle)
+
 console.log(result.value) // 'Example Domain'
 ```
 

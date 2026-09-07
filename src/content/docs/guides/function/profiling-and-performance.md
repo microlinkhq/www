@@ -86,7 +86,7 @@ const { value } = await microlink.run('https://example.com', ({ page }) => page.
 
 ## Compress large functions
 
-Large function bodies are compressed before they are sent. Both the SDK and `@microlink/function` handle this automatically — `microlink.run()` compresses the code with brotli in Node.js and lz-string in browsers, so the call stays the same:
+Large function bodies are compressed before they are sent. The SDK handles this automatically — `microlink.run()` compresses the code with brotli in Node.js and lz-string in browsers, so the call stays the same:
 
 ```js
 import createClient from 'microlink.io'

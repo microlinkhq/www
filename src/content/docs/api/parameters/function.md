@@ -193,7 +193,7 @@ const { value } = await microlink.run(
 
 <Figcaption>The SDK picks the compressor for the runtime and prefixes the payload with its alias.</Figcaption>
 
-The same applies if you use [@microlink/function](https://www.npmjs.com/package/@microlink/function) directly. If you call the API yourself, compress the function body and send it prefixed with the compressor alias, e.g. `lz#<compressed code>`. The following compression algorithms are supported:
+If you call the API yourself, compress the function body and send it prefixed with the compressor alias, e.g. `lz#<compressed code>`. The following compression algorithms are supported:
 
 - brotli (`br`)
 - gzip (`gz`)
@@ -223,19 +223,20 @@ const { value } = await microlink.run('https://example.com', code)
 
 The runtime restricts certain system capabilities for security. Operations such as spawning child processes or writing to the filesystem outside the sandbox are not permitted.
 
-## Function constructor
+## SDK
 
-The most convenient way to use `function` is through the [@microlink/function](https://www.npmjs.com/package/@microlink/function) library:
+The most convenient way to use `function` is through the [`run`](/docs/sdk/methods/specialized#run) method of the [Microlink SDK](/docs/sdk/getting-started/overview):
 
 ```js
-const microlink = require('@microlink/function')
+import createClient from 'microlink.io'
 
-const getTitle = microlink(({ page }) => page.title())
+const microlink = createClient()
 
-const result = await getTitle('https://example.com')
+const result = await microlink.run('https://example.com', ({ page }) => page.title())
+
 console.log(result.value) // 'Example Domain'
 ```
 
-It lets you write normal JavaScript functions instead of managing string serialization and compression yourself:
+It lets you write normal JavaScript functions instead of managing string serialization and compression yourself, and it resolves to the `data.function` object directly.
 
 See the [function guide](/docs/guides/function) for practical examples covering page interaction, npm packages, error handling, and profiling.
