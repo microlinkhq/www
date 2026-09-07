@@ -37,7 +37,7 @@ A rule is defined by a handful of primitives. Each one answers a single question
 
 A rule needs at least a query — `selector`, `selectorAll`, or `evaluate` — or an `attr` alone to serialize the whole page. Omitted primitives fall back to `attr: 'html'` and `type: 'auto'`.
 
-Rules compose in two ways: an object under `attr` builds [nested](/docs/sdk/methods/extract/nested) structures, and an array of rules defines [fallbacks](/docs/sdk/methods/extract/fallbacks) evaluated in order until one yields a value.
+Rules compose in two ways: an object under `attr` builds [nested](/docs/sdk/methods/extract/attr#nested-rules) structures, and an array of rules defines [fallbacks](#fallback-rules) evaluated in order until one yields a value.
 
 ## Options
 
@@ -71,6 +71,35 @@ const { title, description, price } = await microlink.metadata('https://example.
 
 A rule named after a normalized field — `title`, `image`, `author` — overrides that field, which is how you fix a page whose metadata is wrong or missing.
 
+## Fallback rules
+
+A field can be defined by more than one rule. Pass an array and the rules are evaluated respecting the order: if the first one fails, the second is tried, then the third, and so on. The value is the one obtained by the first rule that succeeds:
+
+```js
+const github = username =>
+  microlink.extract(`https://github.com/${username}`, {
+    avatar: [
+      {
+        selector: 'meta[name="twitter:image:src"]:not([content=""])',
+        attr: 'content',
+        type: 'image'
+      },
+      {
+        selector: 'meta[property="og:image"]:not([content=""])',
+        attr: 'content',
+        type: 'image'
+      }
+    ]
+  })
+
+const username = 'kikobeats'
+const { avatar } = await github(username)
+
+console.log(`GitHub avatar for @${username}: ${avatar.url} (${avatar.size_pretty})`)
+```
+
+A rule fails when its query matches nothing or when the value doesn't pass its [type](/docs/sdk/methods/extract/type), so a fallback chain is also how you make a rule resilient to pages whose markup varies. The same array form works for [selector](/docs/sdk/methods/extract/selector#fallback-selectors) and [attr](/docs/sdk/methods/extract/attr#fallback-values) on their own.
+
 ## Examples
 
 A list of objects — one per story — with [selectorAll](/docs/sdk/methods/extract/selectorAll) and a nested `attr`:
@@ -84,17 +113,6 @@ const { stories } = await microlink.extract('https://news.ycombinator.com', {
       href: { selector: '.titleline > a', attr: 'href', type: 'url' }
     }
   }
-})
-```
-
-Fallback rules, evaluated in order until one yields a value:
-
-```js
-const { avatar } = await microlink.extract('https://github.com/kikobeats', {
-  avatar: [
-    { selector: 'meta[name="twitter:image:src"]', attr: 'content', type: 'image' },
-    { selector: 'meta[property="og:image"]', attr: 'content', type: 'image' }
-  ]
 })
 ```
 

@@ -91,22 +91,6 @@ const ROUTES_SDK = [
         href: '/docs/sdk/methods/extract/',
         posts: [
           {
-            name: 'Nested rules',
-            href: '/docs/sdk/methods/extract/nested/'
-          },
-          {
-            name: 'Fallback rules',
-            href: '/docs/sdk/methods/extract/fallbacks/'
-          },
-          {
-            name: 'attr',
-            href: '/docs/sdk/methods/extract/attr/'
-          },
-          {
-            name: 'evaluate',
-            href: '/docs/sdk/methods/extract/evaluate/'
-          },
-          {
             name: 'selector',
             href: '/docs/sdk/methods/extract/selector/'
           },
@@ -115,8 +99,16 @@ const ROUTES_SDK = [
             href: '/docs/sdk/methods/extract/selectorAll/'
           },
           {
+            name: 'attr',
+            href: '/docs/sdk/methods/extract/attr/'
+          },
+          {
             name: 'type',
             href: '/docs/sdk/methods/extract/type/'
+          },
+          {
+            name: 'evaluate',
+            href: '/docs/sdk/methods/extract/evaluate/'
           }
         ]
       },

@@ -36,7 +36,7 @@ const { name, upvotes } = await productHunt(productSlug)
 console.log(`'${name}' has ${upvotes} upvotes`)
 ```
 
-The data shape ensures that the extracted value will only be considered as valid when it's of the declared shape: a rule whose value doesn't match its `type` resolves to `null`, which is what lets [fallback rules](/docs/sdk/methods/extract/fallbacks) move on to the next candidate.
+The data shape ensures that the extracted value will only be considered as valid when it's of the declared shape: a rule whose value doesn't match its `type` resolves to `null`, which is what lets [fallback rules](/docs/sdk/methods/extract#fallback-rules) move on to the next candidate.
 
 Media types do more than validate. <Type children="'image'"/>, <Type children="'video'"/>, <Type children="'audio'"/>, and <Type children="'logo'"/> resolve the value to an absolute URL and expand it into an asset object with `url`, `type`, `width`, `height`, `size`, and `size_pretty`, the same shape the normalized [data fields](/docs/api/getting-started/data-fields) use:
 

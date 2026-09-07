@@ -246,8 +246,20 @@
       "destination": "/docs/sdk/methods/extract.md"
     },
     {
-      "source": "/docs/mql/rules/:name",
-      "destination": "/docs/sdk/methods/extract/:name"
+      "source": "/docs/mql/rules/nested",
+      "destination": "/docs/sdk/methods/extract/attr#nested-rules"
+    },
+    {
+      "source": "/docs/mql/rules/nested.md",
+      "destination": "/docs/sdk/methods/extract/attr.md"
+    },
+    {
+      "source": "/docs/mql/rules/fallbacks",
+      "destination": "/docs/sdk/methods/extract#fallback-rules"
+    },
+    {
+      "source": "/docs/mql/rules/fallbacks.md",
+      "destination": "/docs/sdk/methods/extract.md"
     },
     {
       "source": "/docs/mql/data/:name",

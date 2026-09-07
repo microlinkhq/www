@@ -67,7 +67,7 @@ Every method throws a typed [`MicrolinkError`](/docs/sdk/getting-started/errors)
 
 Every method is a call to Microlink API with the right parameters set for you and the result unwrapped; HTTP, authentication, retries, errors, and compression are handled underneath, so the whole client behaves the same way.
 
-Custom data extraction is part of the SDK too: write the rules and pass them to [extract](/docs/sdk/methods/extract), or as the `data` option of [metadata](/docs/sdk/methods/metadata). The `extract` pages cover the rules grammar — [selector](/docs/sdk/methods/extract/selector), [attr](/docs/sdk/methods/extract/attr), [type](/docs/sdk/methods/extract/type), [nested](/docs/sdk/methods/extract/nested) and [fallback](/docs/sdk/methods/extract/fallbacks) rules — shared by `extract`, the content methods, and the collections.
+Custom data extraction is part of the SDK too: write the rules and pass them to [extract](/docs/sdk/methods/extract), or as the `data` option of [metadata](/docs/sdk/methods/metadata). The `extract` pages cover the rules grammar — [selector](/docs/sdk/methods/extract/selector), [attr](/docs/sdk/methods/extract/attr), [type](/docs/sdk/methods/extract/type), [nested](/docs/sdk/methods/extract/attr#nested-rules) and [fallback](/docs/sdk/methods/extract#fallback-rules) rules — shared by `extract`, the content methods, and the collections.
 
 Installing the package also ships a [`microlink` binary](/docs/sdk/getting-started/cli) where every product is a subcommand.
 

@@ -214,7 +214,7 @@ Start with plain selectors and fallbacks. Add `evaluate` only when the page need
 
 ## Rule references
 
-For the full rule surface, see the `extract` reference pages for <Link href='/docs/sdk/methods/extract/selector' children='selector' />, <Link href='/docs/sdk/methods/extract/selectorAll' children='selectorAll' />, <Link href='/docs/sdk/methods/extract/attr' children='attr' />, <Link href='/docs/sdk/methods/extract/type' children='type' />, <Link href='/docs/sdk/methods/extract/evaluate' children='evaluate' />, <Link href='/docs/sdk/methods/extract/nested' children='nested rules' />, and <Link href='/docs/sdk/methods/extract/fallbacks' children='fallback rules' />.
+For the full rule surface, see the `extract` reference pages for <Link href='/docs/sdk/methods/extract/selector' children='selector' />, <Link href='/docs/sdk/methods/extract/selectorAll' children='selectorAll' />, <Link href='/docs/sdk/methods/extract/attr' children='attr' />, <Link href='/docs/sdk/methods/extract/type' children='type' />, <Link href='/docs/sdk/methods/extract/evaluate' children='evaluate' />, <Link href='/docs/sdk/methods/extract/attr#nested-rules' children='nested rules' />, and <Link href='/docs/sdk/methods/extract#fallback-rules' children='fallback rules' />.
 
 ## Next step
 

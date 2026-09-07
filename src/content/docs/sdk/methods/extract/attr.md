@@ -1,6 +1,6 @@
 ---
 title: attr
-description: 'Extract HTML attributes, text, inner HTML, Markdown, or JSON from any URL with the attr primitive of extract in the Microlink SDK.'
+description: 'Extract HTML attributes, text, inner HTML, Markdown, or JSON from any URL with the attr primitive of extract in the Microlink SDK, and nest rules under it to build objects.'
 ---
 
 import { Type, TypeContainer } from 'components/markdown/Type'
@@ -87,6 +87,57 @@ console.log(content)
 ```
 
 `json` is whole-page only — it cannot be combined with `selector`. See <Link href='/docs/guides/data-extraction/defining-rules#extract-json' children='Extract JSON' /> for the full walkthrough.
+
+## Nested rules
+
+An object under `attr` maps a data structure over the same property key. Each nested rule is evaluated relative to the element matched by the parent `selector`, and the result is an object with one key per nested rule:
+
+```js
+const github = username =>
+  microlink.extract(`https://github.com/${username}`, {
+    stats: {
+      selector: '.application-main',
+      attr: {
+        followers: {
+          selector: '.js-profile-editable-area a[href*="tab=followers"] span',
+          type: 'number'
+        },
+        following: {
+          selector: '.js-profile-editable-area a[href*="tab=following"] span',
+          type: 'number'
+        },
+        stars: {
+          selector: '.js-responsive-underlinenav a[data-tab-item="stars"] span',
+          type: 'number'
+        }
+      }
+    }
+  })
+
+const username = 'kikobeats'
+const { stats } = await github(username)
+
+console.log(`GitHub stats for @${username}:`, stats)
+// => { followers: 1234, following: 56, stars: 789 }
+```
+
+The same structure applies to every item of a list when the parent uses [selectorAll](/docs/sdk/methods/extract/selectorAll), which is how you turn repeated markup into an array of objects:
+
+```js
+const { stories } = await microlink.extract('https://news.ycombinator.com', {
+  stories: {
+    selectorAll: '.athing',
+    attr: {
+      title: { selector: '.titleline > a', attr: 'text' },
+      url: { selector: '.titleline > a', attr: 'href', type: 'url' }
+    }
+  }
+})
+
+console.log(stories[0]) // => { title: '…', url: 'https://…' }
+```
+
+Nested rules can nest again, so a parent rule can describe a whole section of a page as one JSON document.
 
 ## Fallback values
 

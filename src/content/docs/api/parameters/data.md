@@ -95,7 +95,7 @@ Use [selectorAll](/docs/sdk/methods/extract/selectorAll) to extract multiple mat
 
 ## Nested Data Extraction
 
-For complex DOM structures, use [nested rules](/docs/sdk/methods/extract/nested) to organize your data hierarchically:
+For complex DOM structures, use [nested rules](/docs/sdk/methods/extract/attr#nested-rules) to organize your data hierarchically:
 
 <MultiCodeEditorInteractive
   mqlCode={{
@@ -116,7 +116,7 @@ For complex DOM structures, use [nested rules](/docs/sdk/methods/extract/nested)
 
 ## Fallback Values
 
-Define [fallback rules](/docs/sdk/methods/extract/fallbacks) to ensure data extraction succeeds even when the primary selector fails:
+Define [fallback rules](/docs/sdk/methods/extract#fallback-rules) to ensure data extraction succeeds even when the primary selector fails:
 
 <MultiCodeEditorInteractive 
   mqlCode={{
