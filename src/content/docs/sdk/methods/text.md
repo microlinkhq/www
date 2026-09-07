@@ -15,9 +15,9 @@ Leading, trailing, and repeated whitespace is collapsed, which keeps the output 
 
 It takes the same scoping options as [markdown](/docs/sdk/methods/markdown):
 
-- [selector](/docs/sdk/mql/data/selector) `<string>` — returns the text of the first element matching the CSS selector.
-- [selectorAll](/docs/sdk/mql/data/selectorAll) `<string> | <string[]>` — returns the text of every matching element, as an array.
-- [type](/docs/sdk/mql/data/type) `<string>` — overrides how the extracted value is normalized, per the [rules grammar](/docs/sdk/mql/rules/basic).
+- [selector](/docs/sdk/methods/extract/selector) `<string>` — returns the text of the first element matching the CSS selector.
+- [selectorAll](/docs/sdk/methods/extract/selectorAll) `<string> | <string[]>` — returns the text of every matching element, as an array.
+- [type](/docs/sdk/methods/extract/type) `<string>` — overrides how the extracted value is normalized, per the [rules grammar](/docs/sdk/methods/extract).
 
 Any [shared option](/docs/sdk/getting-started/options) applies too.
 

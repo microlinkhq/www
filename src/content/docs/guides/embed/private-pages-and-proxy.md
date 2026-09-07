@@ -22,7 +22,7 @@ Whatever you put in an embed URL ends up in HTML, browser devtools, server logs,
 | `headers={ 'cookie': '...' }` (sensitive) | **No** — exposes credentials |
 | `x-api-header-cookie: ...` request header | Yes — sent server-to-server, never in the embed URL |
 | `proxy=https://user:pass@...` query param | **No** — leaks proxy credentials |
-| `proxy` set inside an MQL call from the server | Yes — never reaches the browser |
+| `proxy` set inside an SDK call from the server | Yes — never reaches the browser |
 
 The rule: only **non-sensitive** values belong in the embed URL. Everything else stays server-side, behind a backend that proxies the call to Microlink.
 

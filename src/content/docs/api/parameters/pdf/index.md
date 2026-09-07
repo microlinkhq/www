@@ -48,7 +48,7 @@ When it's enabled, a new `pdf` data field will be part of the response payload.
 }
 ```
 
-In MQL and SDKs, use `pdf: true` for the default behavior or pass an object when you need PDF-specific options:
+In the SDK, use `pdf: true` for the default behavior or pass an object when you need PDF-specific options:
 
 ```js
 {

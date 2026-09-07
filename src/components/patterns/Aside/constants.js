@@ -88,7 +88,37 @@ const ROUTES_SDK = [
       },
       {
         name: 'extract',
-        href: '/docs/sdk/methods/extract/'
+        href: '/docs/sdk/methods/extract/',
+        posts: [
+          {
+            name: 'Nested rules',
+            href: '/docs/sdk/methods/extract/nested/'
+          },
+          {
+            name: 'Fallback rules',
+            href: '/docs/sdk/methods/extract/fallbacks/'
+          },
+          {
+            name: 'attr',
+            href: '/docs/sdk/methods/extract/attr/'
+          },
+          {
+            name: 'evaluate',
+            href: '/docs/sdk/methods/extract/evaluate/'
+          },
+          {
+            name: 'selector',
+            href: '/docs/sdk/methods/extract/selector/'
+          },
+          {
+            name: 'selectorAll',
+            href: '/docs/sdk/methods/extract/selectorAll/'
+          },
+          {
+            name: 'type',
+            href: '/docs/sdk/methods/extract/type/'
+          }
+        ]
       },
       {
         name: 'run',
@@ -149,71 +179,6 @@ const ROUTES_SDK = [
           {
             name: 'lighthouse',
             href: '/docs/sdk/methods/insights/lighthouse/'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    name: 'MQL',
-    posts: [
-      {
-        name: 'Overview',
-        href: '/docs/sdk/mql/getting-started/overview/'
-      },
-      {
-        name: 'Installation',
-        href: '/docs/sdk/mql/getting-started/installation/'
-      },
-      {
-        name: 'Usage',
-        href: '/docs/sdk/mql/getting-started/usage/'
-      },
-      {
-        name: 'API',
-        href: '/docs/sdk/mql/getting-started/api/'
-      },
-      {
-        name: 'Rules definition',
-        href: '/docs/sdk/mql/rules/',
-        posts: [
-          {
-            name: 'Basic rule',
-            href: '/docs/sdk/mql/rules/basic/'
-          },
-          {
-            name: 'Nested rules',
-            href: '/docs/sdk/mql/rules/nested/'
-          },
-          {
-            name: 'Rules fallbacks',
-            href: '/docs/sdk/mql/rules/fallbacks/'
-          }
-        ]
-      },
-      {
-        name: 'Data definition',
-        href: '/docs/sdk/mql/data/',
-        posts: [
-          {
-            name: 'attr',
-            href: '/docs/sdk/mql/data/attr/'
-          },
-          {
-            name: 'evaluate',
-            href: '/docs/sdk/mql/data/evaluate/'
-          },
-          {
-            name: 'selector',
-            href: '/docs/sdk/mql/data/selector/'
-          },
-          {
-            name: 'selectorAll',
-            href: '/docs/sdk/mql/data/selectorAll/'
-          },
-          {
-            name: 'type',
-            href: '/docs/sdk/mql/data/type/'
           }
         ]
       }

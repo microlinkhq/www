@@ -137,7 +137,7 @@
             "name": "data",
             "in": "query",
             "required": false,
-            "description": "Define custom data extraction rules using CSS selectors with the Microlink Query Language (MQL). Extract specific content like prices, reviews, or any structured data from any URL.",
+            "description": "Define custom data extraction rules using CSS selectors. Extract specific content like prices, reviews, or any structured data from any URL, through the API or the SDK.",
             "schema": {
               "type": "object",
               "additionalProperties": true

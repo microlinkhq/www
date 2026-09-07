@@ -206,8 +206,56 @@
       "destination": "/link-preview"
     },
     {
+      "source": "/docs/mql/getting-started/overview",
+      "destination": "/docs/sdk/methods/extract"
+    },
+    {
+      "source": "/docs/mql/getting-started/overview.md",
+      "destination": "/docs/sdk/methods/extract.md"
+    },
+    {
+      "source": "/docs/mql/getting-started/installation",
+      "destination": "/docs/sdk/methods/extract"
+    },
+    {
+      "source": "/docs/mql/getting-started/installation.md",
+      "destination": "/docs/sdk/methods/extract.md"
+    },
+    {
+      "source": "/docs/mql/getting-started/usage",
+      "destination": "/docs/sdk/methods/extract"
+    },
+    {
+      "source": "/docs/mql/getting-started/usage.md",
+      "destination": "/docs/sdk/methods/extract.md"
+    },
+    {
+      "source": "/docs/mql/getting-started/api",
+      "destination": "/docs/sdk/methods/extract"
+    },
+    {
+      "source": "/docs/mql/getting-started/api.md",
+      "destination": "/docs/sdk/methods/extract.md"
+    },
+    {
+      "source": "/docs/mql/rules/basic",
+      "destination": "/docs/sdk/methods/extract"
+    },
+    {
+      "source": "/docs/mql/rules/basic.md",
+      "destination": "/docs/sdk/methods/extract.md"
+    },
+    {
+      "source": "/docs/mql/rules/:name",
+      "destination": "/docs/sdk/methods/extract/:name"
+    },
+    {
+      "source": "/docs/mql/data/:name",
+      "destination": "/docs/sdk/methods/extract/:name"
+    },
+    {
       "source": "/docs/mql/:path*",
-      "destination": "/docs/sdk/mql/:path*"
+      "destination": "/docs/sdk/methods/extract"
     },
     {
       "source": "/docs/sdk/methods/content",
@@ -407,7 +455,7 @@
     },
     {
       "source": "/mql",
-      "destination": "/docs/sdk/mql/getting-started/overview"
+      "destination": "/docs/sdk/methods/extract"
     },
     {
       "source": "/palette",
@@ -427,7 +475,7 @@
     },
     {
       "source": "/scraping",
-      "destination": "/docs/sdk/mql/getting-started/overview"
+      "destination": "/docs/sdk/methods/extract"
     },
     {
       "source": "/scroll",

@@ -60,7 +60,7 @@ console.log(video.url, video.duration_pretty)
 
 ## Extending the result
 
-Combine `metadata` with your own [extraction rules](/docs/sdk/mql/rules/basic) when the normalized fields are not enough. [extract](/docs/sdk/methods/extract) returns only your fields; to get both at once, pass the rules as `data` and the normalized fields ride along:
+Combine `metadata` with your own [extraction rules](/docs/sdk/methods/extract) when the normalized fields are not enough. [extract](/docs/sdk/methods/extract) returns only your fields; to get both at once, pass the rules as `data` and the normalized fields ride along:
 
 ```js
 const { title, price } = await microlink.metadata('https://example.com/product', {

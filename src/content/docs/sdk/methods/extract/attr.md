@@ -1,6 +1,6 @@
 ---
 title: attr
-description: 'Extract HTML attributes, text, inner HTML, or serialize content from any URL using the Microlink Query Language (MQL) attr parameter.'
+description: 'Extract HTML attributes, text, inner HTML, Markdown, or JSON from any URL with the attr primitive of extract in the Microlink SDK.'
 ---
 
 import { Type, TypeContainer } from 'components/markdown/Type'
@@ -11,26 +11,26 @@ Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/>
 Default: <Type children="'html'"/><br/>
 Values: <TypeContainer><Type><Link href="https://developer.mozilla.org/en-US/docs/Web/API/Element/tagName">tagName</Link></Type> | <Type><Link href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeName">nodeName</Link></Type> | <Type children="'html'"/> | <Type children="'outerHTML'"/> | <Type children="'text'"/> | <Type children="'markdown'"/> | <Type children="'json'"/> | <Type children="'val'"/></TypeContainer>
 
-It specifies how the value should be extracted from the matched [selector](/docs/sdk/mql/data/selector):
+It specifies how the value should be extracted from the matched [selector](/docs/sdk/methods/extract/selector):
 
 ```js
-const mql = require('@microlink/mql')
+import createClient from 'microlink.io'
 
-const github = username => 
-  mql(`https://github.com/${username}`, {
-    data: {
-      avatar: {
-        selector: 'meta[property="og:image"]:not([content=""])',
-        attr: 'content',
-        type: 'image'
-      }
+const microlink = createClient()
+
+const github = username =>
+  microlink.extract(`https://github.com/${username}`, {
+    avatar: {
+      selector: 'meta[property="og:image"]:not([content=""])',
+      attr: 'content',
+      type: 'image'
     }
   })
 
 const username = 'kikobeats'
-const { response, data } = await github(username)
+const { avatar } = await github(username)
 
-console.log(`GitHub avatar for @${username}: ${data.avatar.url} (${data.avatar.size_pretty})`)
+console.log(`GitHub avatar for @${username}: ${avatar.url} (${avatar.size_pretty})`)
 ```
 
 Any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) is supported, plus the following special cases:
@@ -44,56 +44,46 @@ Any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attribute
 
 ## Whole-page serialization
 
-When [selector](/docs/sdk/mql/data/selector) is omitted, `attr` operates on the entire page. This is useful for serializing a full page into a new output format:
+When [selector](/docs/sdk/methods/extract/selector) is omitted, `attr` operates on the entire page. This is useful for serializing a full page into a new output format:
 
 ```js
-const mql = require('@microlink/mql')
-
-const { data } = await mql('https://example.com', {
-  data: {
-    content: {
-      attr: 'markdown'
-    }
+const { content } = await microlink.extract('https://example.com', {
+  content: {
+    attr: 'markdown'
   }
 })
 
-console.log(data.content)
+console.log(content)
 // => '# Example Domain\n\nThis domain is for use in illustrative examples…'
 ```
+
+The [markdown](/docs/sdk/methods/markdown), [html](/docs/sdk/methods/html), and [text](/docs/sdk/methods/text) methods are shortcuts over exactly this rule.
 
 You can also scope the conversion to a specific element by combining `selector` with `attr`:
 
 ```js
-const mql = require('@microlink/mql')
-
-const { data } = await mql('https://example.com', {
-  data: {
-    article: {
-      selector: 'article',
-      attr: 'markdown'
-    }
+const { article } = await microlink.extract('https://example.com', {
+  article: {
+    selector: 'article',
+    attr: 'markdown'
   }
 })
 
-console.log(data.article)
+console.log(article)
 // => '# Article Title\n\nArticle content as markdown…'
 ```
 
 For JSON endpoints, use `attr: 'json'` to parse the response body as structured data:
 
 ```js
-const mql = require('@microlink/mql')
-
-const { data } = await mql('https://pokeapi.co/api/v2/pokemon', {
-  data: {
-    content: {
-      attr: 'json'
-    }
+const { content } = await microlink.extract('https://pokeapi.co/api/v2/pokemon', {
+  content: {
+    attr: 'json'
   }
 })
 
-console.log(data.content)
-// => { userId: 1, id: 1, title: '…', body: '…' }
+console.log(content)
+// => { count: 1302, next: '…', results: [ … ] }
 ```
 
 `json` is whole-page only — it cannot be combined with `selector`. See <Link href='/docs/guides/data-extraction/defining-rules#extract-json' children='Extract JSON' /> for the full walkthrough.
@@ -102,32 +92,27 @@ console.log(data.content)
 
 If you specify more than one value, they will be used as fallback values:
 
-```jsx
-const mql = require('@microlink/mql')
-
+```js
 const github = username =>
-  mql(`https://github.com/${username}`, {
-    data: {
-      avatar: [
-        {
-          selector: 'meta[name="twitter:image:src"]:not([content=""])',
-          attr: 'content',
-          type: 'image'
-        },
-        {
-          selector: 'meta[property="og:image"]:not([content=""])',
-          attr: 'content',
-          type: 'image'
-        }
-      ]
-    }
+  microlink.extract(`https://github.com/${username}`, {
+    avatar: [
+      {
+        selector: 'meta[name="twitter:image:src"]:not([content=""])',
+        attr: 'content',
+        type: 'image'
+      },
+      {
+        selector: 'meta[property="og:image"]:not([content=""])',
+        attr: 'content',
+        type: 'image'
+      }
+    ]
   })
 
 const username = 'kikobeats'
-const { response, data } = await github(username)
+const { avatar } = await github(username)
 
-console.log(`GitHub avatar for @${username}: ${data.avatar.url} (${data.avatar.size_pretty})`)
+console.log(`GitHub avatar for @${username}: ${avatar.url} (${avatar.size_pretty})`)
 ```
 
 <Figcaption children="The first attribute that resolves a value will be used." />
-

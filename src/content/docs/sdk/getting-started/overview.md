@@ -1,6 +1,6 @@
 ---
 title: 'Overview'
-description: 'Get started with the Microlink SDK. The microlink.io package exposes every Microlink product as a method for Node.js, browsers, and Deno, with MQL underneath.'
+description: 'Get started with the Microlink SDK. The microlink.io package exposes every Microlink product as a method for Node.js, browsers, and Deno, custom data extraction rules included.'
 ---
 
 **Microlink SDK** is the official way to consume [Microlink API](/docs/api/getting-started/overview) programmatically. It's published on npm as [microlink.io](https://www.npmjs.com/package/microlink.io) and organizes the API into products — one method per product — so you call `microlink.screenshot(url)` instead of composing query strings by hand.
@@ -65,10 +65,35 @@ Every method throws a typed [`MicrolinkError`](/docs/sdk/getting-started/errors)
 
 ## How it fits together
 
-The SDK is a thin semantic layer over [MQL](/docs/sdk/mql/getting-started/overview), the HTTP client for Microlink API: HTTP, authentication, retries, errors, and binary handling are already solved there. Each method sets the right API parameters and unwraps the result for you.
+Every method is a call to Microlink API with the right parameters set for you and the result unwrapped; HTTP, authentication, retries, errors, and compression are handled underneath, so the whole client behaves the same way.
 
-Reach for MQL directly, through the [@microlink/mql](https://www.npmjs.com/package/@microlink/mql) package the SDK depends on, when you need the raw API response — the `status`, `data`, and `response` envelope — or a [stream or buffer](/docs/sdk/mql/getting-started/api) instead of a hosted URL. The [MQL section](/docs/sdk/mql/getting-started/overview) of these docs covers the client and the [rules grammar](/docs/sdk/mql/rules/basic) shared by [extract](/docs/sdk/methods/extract), the content methods, and the collections.
+Custom data extraction is part of the SDK too: write the rules and pass them to [extract](/docs/sdk/methods/extract), or as the `data` option of [metadata](/docs/sdk/methods/metadata). The `extract` pages cover the rules grammar — [selector](/docs/sdk/methods/extract/selector), [attr](/docs/sdk/methods/extract/attr), [type](/docs/sdk/methods/extract/type), [nested](/docs/sdk/methods/extract/nested) and [fallback](/docs/sdk/methods/extract/fallbacks) rules — shared by `extract`, the content methods, and the collections.
 
 Installing the package also ships a [`microlink` binary](/docs/sdk/getting-started/cli) where every product is a subcommand.
+
+## Runtimes
+
+The package is built on Web Standard APIs — `fetch`, `URL`, `URLSearchParams` — so one build runs everywhere, with the same import in CommonJS and ESM:
+
+- **Node.js** — any version above v24; we recommend the active LTS.
+- **Edge runtimes** — [Cloudflare Workers](https://workers.cloudflare.com/), [Vercel Edge Functions](https://vercel.com/features/edge-functions), [Deno](https://deno.com/), or any provider that supports [WinterCG](https://wintercg.org/), with nothing extra to configure.
+- **Browsers** — through any bundler, with the same import.
+
+A worker that returns extracted data as JSON:
+
+```js
+import createClient from 'microlink.io'
+
+const microlink = createClient({ apiKey: MICROLINK_API_KEY })
+
+export default {
+  async fetch (request) {
+    const { title, image } = await microlink.metadata('https://example.com')
+    return Response.json({ title, image })
+  }
+}
+```
+
+Keep your `apiKey` out of browser code: requests from a page run on the free tier of the API, and the [`x-api-key`](/docs/api/basics/authentication) header belongs on a server you control.
 
 Looking for the drop-in link preview component for React, Vue, and vanilla JavaScript? That's a different product: see [link preview](/link-preview).

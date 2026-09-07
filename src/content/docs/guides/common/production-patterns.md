@@ -96,10 +96,10 @@ Build observability into your integration by logging these headers:
 
 ## Compress responses
 
-If you call the API directly (not through MQL or the SDK), set the `Accept-Encoding` header to `br` or `gzip`:
+If you call the API directly (not through the SDK), set the `Accept-Encoding` header to `br` or `gzip`:
 
 ```bash
 curl -H 'Accept-Encoding: br' 'https://api.microlink.io?url=https://example.com'
 ```
 
-MQL and the SDK enable compression by default. See the <Link href='/docs/api/basics/compression' children='compression docs' />.
+The SDK enables compression by default. See the <Link href='/docs/api/basics/compression' children='compression docs' />.

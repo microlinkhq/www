@@ -45,6 +45,6 @@ const { audits } = await microlink.lighthouse('https://example.com', {
 for (const { title, displayValue } of Object.values(audits)) console.log(title, displayValue)
 ```
 
-Other [Lighthouse settings](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md), such as `preset`, aren't routed by the SDK; pass them through [MQL](/docs/sdk/mql/getting-started/overview) as `insights: { lighthouse: { preset: 'desktop' } }` when you need them.
+Other [Lighthouse settings](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md), such as `preset`, aren't routed by the SDK yet; call the API directly with `insights.lighthouse.preset` when you need them, as shown on the [lighthouse parameter](/docs/api/parameters/insights/lighthouse) page.
 
 See the [lighthouse parameter](/docs/api/parameters/insights/lighthouse) for the underlying API and [Lighthouse reports](/docs/guides/insights/lighthouse-reports) in the insights guide.

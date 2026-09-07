@@ -7,7 +7,7 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 
 The compression algorithms **brotli** and **gzip** are supported.
 
-If you are performing the API requests using the [SDK](/docs/sdk/getting-started/overview/) or [MQL](/docs/sdk/mql/getting-started/overview/), compression will be enabled by default.
+If you are performing the API requests using the [SDK](/docs/sdk/getting-started/overview/), compression will be enabled by default.
 
 Otherwise, ensure to specify what compression you want to use using [Accept-Encoding](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding) header.
 

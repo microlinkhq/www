@@ -5,7 +5,7 @@ description: 'Convert any URL — a web page, a PDF, a docx, xlsx, or pptx docum
 
 import { Link } from 'components/elements/Link'
 
-Point [url](/docs/api/parameters/url) at anything and pick the output with [attr](/docs/sdk/mql/data/attr). Documents are converted to an HTML DOM at fetch time, so the same rule reads a PDF or `.docx` just like a web page.
+Point [url](/docs/api/parameters/url) at anything and pick the output with [attr](/docs/sdk/methods/extract/attr). Documents are converted to an HTML DOM at fetch time, so the same rule reads a PDF or `.docx` just like a web page.
 
 ## Supported source formats
 

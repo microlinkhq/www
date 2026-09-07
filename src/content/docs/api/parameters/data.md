@@ -1,6 +1,6 @@
 ---
 title: 'data'
-description: 'Define custom data extraction rules using CSS selectors with the Microlink Query Language (MQL). Extract specific content like prices, reviews, or any structured data from any URL.'
+description: 'Define custom data extraction rules using CSS selectors. Extract specific content like prices, reviews, or any structured data from any URL, through the API or the SDK.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
@@ -52,11 +52,11 @@ Each data rule accepts the following properties:
 
 | Property | Type | Description |
 |----------|------|-------------|
-| [selector](/docs/sdk/mql/data/selector) | `string` | CSS selector to target the element |
-| [selectorAll](/docs/sdk/mql/data/selectorAll) | `string` | CSS selector to target multiple elements |
-| [attr](/docs/sdk/mql/data/attr) | `string` | HTML attribute to extract (e.g., `href`, `src`) |
-| [type](/docs/sdk/mql/data/type) | `string` | Data type for validation (`string`, `number`, `date`, `image`, `url`, etc.) |
-| [evaluate](/docs/sdk/mql/data/evaluate) | `function` | JavaScript function to transform the extracted value |
+| [selector](/docs/sdk/methods/extract/selector) | `string` | CSS selector to target the element |
+| [selectorAll](/docs/sdk/methods/extract/selectorAll) | `string` | CSS selector to target multiple elements |
+| [attr](/docs/sdk/methods/extract/attr) | `string` | HTML attribute to extract (e.g., `href`, `src`) |
+| [type](/docs/sdk/methods/extract/type) | `string` | Data type for validation (`string`, `number`, `date`, `image`, `url`, etc.) |
+| [evaluate](/docs/sdk/methods/extract/evaluate) | `function` | JavaScript function to transform the extracted value |
 
 ## Extracting Multiple Fields
 
@@ -77,7 +77,7 @@ You can extract multiple data fields in a single request:
 
 ## Extracting Collections
 
-Use [selectorAll](/docs/sdk/mql/data/selectorAll) to extract multiple matching elements as an array:
+Use [selectorAll](/docs/sdk/methods/extract/selectorAll) to extract multiple matching elements as an array:
 
 <MultiCodeEditorInteractive 
   mqlCode={{
@@ -95,7 +95,7 @@ Use [selectorAll](/docs/sdk/mql/data/selectorAll) to extract multiple matching e
 
 ## Nested Data Extraction
 
-For complex DOM structures, use [nested rules](/docs/sdk/mql/rules/nested) to organize your data hierarchically:
+For complex DOM structures, use [nested rules](/docs/sdk/methods/extract/nested) to organize your data hierarchically:
 
 <MultiCodeEditorInteractive
   mqlCode={{
@@ -116,7 +116,7 @@ For complex DOM structures, use [nested rules](/docs/sdk/mql/rules/nested) to or
 
 ## Fallback Values
 
-Define [fallback rules](/docs/sdk/mql/rules/fallbacks) to ensure data extraction succeeds even when the primary selector fails:
+Define [fallback rules](/docs/sdk/methods/extract/fallbacks) to ensure data extraction succeeds even when the primary selector fails:
 
 <MultiCodeEditorInteractive 
   mqlCode={{
@@ -133,4 +133,4 @@ Define [fallback rules](/docs/sdk/mql/rules/fallbacks) to ensure data extraction
 
 <Figcaption children="Try multiple selectors in order until one succeeds." />
 
-You can read the [Microlink Query Language](/docs/sdk/mql/getting-started/overview) documentation to learn more about defining data extraction rules.
+See [extract](/docs/sdk/methods/extract) in the SDK docs to learn more about defining data extraction rules.

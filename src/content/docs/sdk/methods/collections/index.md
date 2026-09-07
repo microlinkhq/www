@@ -23,10 +23,10 @@ console.log(links) // ['https://www.iana.org/domains/example']
 
 Each method ships a sensible default rule — which elements to sweep and which attribute to read — and the same four options override it:
 
-- [selectorAll](/docs/sdk/mql/data/selectorAll) `<string> | <string[]>` — the CSS selector(s) whose every match gets swept.
-- [selector](/docs/sdk/mql/data/selector) `<string>` — sweeps only the first element matching the CSS selector.
-- [attr](/docs/sdk/mql/data/attr) `<string>` — the attribute read from each matched element.
-- [type](/docs/sdk/mql/data/type) `<string>` — how each value is validated and normalized, e.g. `'url'` or `'email'`.
+- [selectorAll](/docs/sdk/methods/extract/selectorAll) `<string> | <string[]>` — the CSS selector(s) whose every match gets swept.
+- [selector](/docs/sdk/methods/extract/selector) `<string>` — sweeps only the first element matching the CSS selector.
+- [attr](/docs/sdk/methods/extract/attr) `<string>` — the attribute read from each matched element.
+- [type](/docs/sdk/methods/extract/type) `<string>` — how each value is validated and normalized, e.g. `'url'` or `'email'`.
 
 Any [shared option](/docs/sdk/getting-started/options) applies too — [prerender](/docs/api/parameters/prerender) and [waitForSelector](/docs/api/parameters/waitForSelector) for content rendered on the client, or [headers](/docs/api/parameters/headers) for pages behind a login.
 
@@ -38,4 +38,4 @@ const links = await microlink.links('https://example.com', {
 })
 ```
 
-Under the hood every collection is an [extraction rule](/docs/sdk/mql/rules/basic) with `selectorAll`, `attr`, and `type`; when you need a shape these five don't cover, write the rule yourself with [extract](/docs/sdk/methods/extract).
+Under the hood every collection is an [extraction rule](/docs/sdk/methods/extract) with `selectorAll`, `attr`, and `type`; when you need a shape these five don't cover, write the rule yourself with [extract](/docs/sdk/methods/extract).

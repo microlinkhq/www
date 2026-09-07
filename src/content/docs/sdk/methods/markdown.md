@@ -13,9 +13,9 @@ Headings, links, lists, tables, and code blocks are preserved; navigation chrome
 
 ## Options
 
-- [selector](/docs/sdk/mql/data/selector) `<string>` — scopes the conversion to the first element matching the CSS selector.
-- [selectorAll](/docs/sdk/mql/data/selectorAll) `<string> | <string[]>` — scopes the conversion to every matching element, resolving to an array with one Markdown string per match.
-- [type](/docs/sdk/mql/data/type) `<string>` — overrides how the extracted value is normalized, per the [rules grammar](/docs/sdk/mql/rules/basic).
+- [selector](/docs/sdk/methods/extract/selector) `<string>` — scopes the conversion to the first element matching the CSS selector.
+- [selectorAll](/docs/sdk/methods/extract/selectorAll) `<string> | <string[]>` — scopes the conversion to every matching element, resolving to an array with one Markdown string per match.
+- [type](/docs/sdk/methods/extract/type) `<string>` — overrides how the extracted value is normalized, per the [rules grammar](/docs/sdk/methods/extract).
 
 Any [shared option](/docs/sdk/getting-started/options) applies too. [prerender](/docs/api/parameters/prerender) and [waitForSelector](/docs/api/parameters/waitForSelector) matter most here: client-side rendered content only exists after JavaScript runs.
 
@@ -48,6 +48,6 @@ const markdown = await microlink.markdown('https://app.example.com/docs', {
 })
 ```
 
-Under the hood the call is an [extraction rule](/docs/sdk/mql/rules/basic) with `attr: 'markdown'`; use [extract](/docs/sdk/methods/extract) when you want Markdown for one field and other values alongside it.
+Under the hood the call is an [extraction rule](/docs/sdk/methods/extract) with `attr: 'markdown'`; use [extract](/docs/sdk/methods/extract) when you want Markdown for one field and other values alongside it.
 
 See [URL to Markdown](/docs/guides/content-conversion/url-to-markdown) in the content conversion guide for scoping strategies, document support, and LLM pipelines.

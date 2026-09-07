@@ -9,7 +9,7 @@ Sweeps every `a` element and returns each `href` as an absolute, deduped URL:
 const links = await microlink.links('https://example.com')
 ```
 
-Relative hrefs are resolved against the page URL, and values that don't parse as a URL — `mailto:`, `javascript:`, empty anchors — are dropped by the `'url'` [type](/docs/sdk/mql/data/type).
+Relative hrefs are resolved against the page URL, and values that don't parse as a URL — `mailto:`, `javascript:`, empty anchors — are dropped by the `'url'` [type](/docs/sdk/methods/extract/type).
 
 ## Options
 

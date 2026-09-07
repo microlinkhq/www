@@ -214,13 +214,11 @@ export const QUESTIONS = [
       <>
         <div>
           It&rsquo;s a thin semantic layer over{' '}
-          <Link href='/docs/sdk/mql/getting-started/overview'>
-            @microlink/mql
-          </Link>
-          : HTTP, authentication, retries, errors, and binary handling are
-          already solved there. Each product method sets the right API
-          parameters and unwraps the result for you, and MQL is documented
-          alongside the SDK for when you need the raw response.
+          <Link href='https://github.com/microlinkhq/mql'>@microlink/mql</Link>:
+          HTTP, authentication, retries, errors, and binary handling are already
+          solved there. Each product method sets the right API parameters and
+          unwraps the result for you, and the rules grammar is documented under{' '}
+          <Link href='/docs/sdk/methods/extract'>extract</Link>.
         </div>
       </>
     )

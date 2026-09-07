@@ -16,7 +16,7 @@ It started as a project for getting unified metadata from any URL. The project [
 
 We started to dig deeper and in order to get specific data from the HTML content behind any URL, it's necessary to have an accurate HTML markup. So we built [browserless](https://github.com/browserless/browserless), a browser automation library on top of puppeteer.
 
-Getting unified metadata is great, but it's not enough. We needed to get specific data from the HTML content behind any URL. So we built [MQL](/docs/sdk/mql/getting-started/overview), a client library to get easy to define data rules.
+Getting unified metadata is great, but it's not enough. We needed to get specific data from the HTML content behind any URL. So we built [MQL](https://github.com/microlinkhq/mql), a client library to get easy to define data rules — today the [extract](/docs/sdk/methods/extract) method of the SDK.
 
 All of this is running when you use [Microlink API](/docs/api/getting-started/overview), a service to automate any browser action.
 
