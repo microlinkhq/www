@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useMemo } from 'react'
 import styled from 'styled-components'
 import { accentBand, accentIcon, colors, fonts, layout, theme } from 'theme'
 
@@ -205,9 +205,10 @@ export const Diagram = ({
   accent = 'indigo',
   children
 }) => {
-  const tokens = diagramTokens(accent)
+  const tokens = useMemo(() => diagramTokens(accent), [accent])
+  const value = useMemo(() => ({ id, tokens }), [id, tokens])
   return (
-    <DiagramContext.Provider value={{ id, tokens }}>
+    <DiagramContext.Provider value={value}>
       <Frame>
         <Canvas
           viewBox={viewBox}
