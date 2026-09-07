@@ -13,19 +13,14 @@ const Grid = styled(Box)(
   theme({
     display: 'grid',
     gap: 3,
-    width: '100%'
-  }),
-  `
-  grid-template-columns: minmax(0, 1fr);
-
-  @media (min-width: ${breakpoints[1]}) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @media (min-width: ${breakpoints[2]}) {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-`
+    width: '100%',
+    gridTemplateColumns: [
+      'minmax(0, 1fr)',
+      'minmax(0, 1fr)',
+      'repeat(2, minmax(0, 1fr))',
+      'repeat(6, minmax(0, 1fr))'
+    ]
+  })
 )
 
 const Card = styled(Box).attrs({ as: 'a' })(

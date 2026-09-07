@@ -28,8 +28,8 @@ const Frame = styled(Box)(
 const Canvas = styled('svg')(
   theme({
     display: 'block',
-    width: '100%',
-    maxWidth: `min(${layout.large}, 80vw)`,
+    width: layout.large,
+    maxWidth: layout.large,
     height: 'auto',
     mx: 'auto'
   }),
