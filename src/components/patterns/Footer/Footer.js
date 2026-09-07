@@ -38,6 +38,7 @@ const FOOTER_COLUMNS = [
       { label: 'PDF', href: '/pdf' },
       { label: 'Logo', href: '/logo' },
       { label: 'HTML', href: '/html' },
+      { label: 'Function', href: '/function' },
       { label: 'Text', href: '/text' },
       { label: 'Media', href: '/media' },
       { label: 'File Conversion', href: '/file-conversion' },

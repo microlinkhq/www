@@ -89,7 +89,7 @@ export const PRODUCTS = {
   function: {
     label: 'Function',
     icon: Terminal,
-    href: '/features/function',
+    href: '/function',
     description: 'Run custom browser code on any page'
   },
   search: {

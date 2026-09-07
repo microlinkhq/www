@@ -169,13 +169,16 @@ const microlink = createClient({ apiKey: "MICROLINK_API_KEY" })`)
     })
 
     test('serializes keys with quotes, backslashes and line breaks', () => {
-      expect(sdkPreamble("secret'key")).toBe(`import createClient from 'microlink.io'
+      expect(sdkPreamble("secret'key"))
+        .toBe(`import createClient from 'microlink.io'
 
 const microlink = createClient({ apiKey: "secret'key" })`)
-      expect(sdkPreamble('back\\slash')).toBe(`import createClient from 'microlink.io'
+      expect(sdkPreamble('back\\slash'))
+        .toBe(`import createClient from 'microlink.io'
 
 const microlink = createClient({ apiKey: "back\\\\slash" })`)
-      expect(sdkPreamble('line\nbreak')).toBe(`import createClient from 'microlink.io'
+      expect(sdkPreamble('line\nbreak'))
+        .toBe(`import createClient from 'microlink.io'
 
 const microlink = createClient({ apiKey: "line\\nbreak" })`)
     })
@@ -236,6 +239,24 @@ const { value } = await microlink.run(
 const microlink = createClient()
 
 const { value } = await microlink.run('https://github.com', () => 42)`)
+    })
+
+    test('should let run() destructure profiling without leaking into CLI', () => {
+      const result = mqlCode(testUrl, {
+        function: '({ page }) => page.title()',
+        binding: '{ profiling }',
+        meta: false
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const { profiling } = await microlink.run(
+  'https://github.com',
+  ({ page }) => page.title()
+)`)
+      expect(result.CLI).not.toContain('binding')
     })
 
     test('should pass remaining options as the third run argument', () => {
@@ -496,7 +517,8 @@ const data = await microlink.audio('https://soundcloud.com/tycho/tycho-awake')`)
       })
 
       expect(result.JavaScript).not.toContain('await microlink.')
-      expect(result.JavaScript.trim()).toBe(`import createClient from 'microlink.io'
+      expect(result.JavaScript.trim())
+        .toBe(`import createClient from 'microlink.io'
 
 const microlink = createClient()`)
     })
