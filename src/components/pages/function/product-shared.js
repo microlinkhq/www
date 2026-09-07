@@ -52,13 +52,18 @@ export const HERO = {
     {
       label: 'Page interaction',
       mqlCode: {
-        url: 'https://example.com',
+        url: 'https://en.wikipedia.org/wiki/Headless_browser',
         function: `async ({ page }) => {
-  await page.click('button.load-more')
-  await page.waitForSelector('.results')
-  return page.$$eval('.results li', items =>
-    items.map(el => el.textContent.trim())
-  )
+  await Promise.all([
+    page.waitForNavigation(),
+    page.click('#ca-talk a')
+  ])
+  return {
+    title: await page.$eval('#firstHeading', el =>
+      el.textContent.trim()
+    ),
+    url: page.url()
+  }
 }`,
         meta: false
       }
@@ -66,7 +71,7 @@ export const HERO = {
     {
       label: 'Profiling',
       mqlCode: {
-        url: 'https://example.com',
+        url: 'https://motherfuckingwebsite.com',
         function: '({ page }) => page.title()',
         binding: '{ profiling }',
         meta: false
