@@ -59,7 +59,7 @@ describe('titleFromPathname', () => {
 describe('sectionFor', () => {
   test('splits the docs by product', () => {
     expect(sectionFor('/docs/api/basics/cache')).toBe('API')
-    expect(sectionFor('/docs/mql/getting-started/overview')).toBe('MQL')
+    expect(sectionFor('/docs/sdk/mql/getting-started/overview')).toBe('SDK')
     expect(sectionFor('/docs/guides')).toBe('Guides')
   })
 

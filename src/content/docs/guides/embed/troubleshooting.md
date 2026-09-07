@@ -100,7 +100,7 @@ Two fixes:
 <Microlink url='...' lazy={{ rootMargin: '600px' }} />
 ```
 
-See <Link href='/docs/sdk-legacy/parameters/lazy' children='lazy reference' />.
+The `lazy` prop is covered on the <Link href='/link-preview' children='link preview component' /> page.
 
 ## Inconsistent results across runs
 

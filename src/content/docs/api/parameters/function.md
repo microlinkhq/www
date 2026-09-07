@@ -225,7 +225,7 @@ The runtime restricts certain system capabilities for security. Operations such 
 
 ## SDK
 
-The most convenient way to use `function` is through the [`run`](/docs/sdk/methods/specialized#run) method of the [Microlink SDK](/docs/sdk/getting-started/overview):
+The most convenient way to use `function` is through the [`run`](/docs/sdk/methods/run) method of the [Microlink SDK](/docs/sdk/getting-started/overview):
 
 ```js
 import createClient from 'microlink.io'

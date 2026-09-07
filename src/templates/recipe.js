@@ -127,7 +127,7 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
               gap: [3, 4]
             })}
           >
-            <ArrowLink href='/docs/mql/getting-started/overview'>
+            <ArrowLink href='/docs/sdk/mql/getting-started/overview'>
               Read docs
             </ArrowLink>
             <ArrowLink href={gitHubUrl}>Edit on GitHub</ArrowLink>

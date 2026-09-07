@@ -13,7 +13,7 @@ Send a function, get the result back. No Lambda bundle, no browser fleet, no ser
 
 ## Install
 
-The [Microlink SDK](/docs/sdk/getting-started/overview) lets you write normal JavaScript functions and run them remotely through [`run`](/docs/sdk/methods/specialized#run). It handles serialization, compression, and the API call for you:
+The [Microlink SDK](/docs/sdk/getting-started/overview) lets you write normal JavaScript functions and run them remotely through [`run`](/docs/sdk/methods/run). It handles serialization, compression, and the API call for you:
 
 ```bash
 npm install microlink.io

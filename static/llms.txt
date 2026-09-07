@@ -89,21 +89,6 @@
 - [Encoding](https://microlink.io/docs/cards/others/encoding.md): Manage how your design state and configuration are stored within the URL to ensure compatibility with the Microlink API.
 - [Pricing](https://microlink.io/docs/cards/others/pricing.md): Cards operates on a consumption-based model tied to the Microlink API. Cloud-rendered screenshot served via a global edge network, usage counts toward your API quota.
 
-## MQL
-
-- [attr](https://microlink.io/docs/mql/data/attr.md): Extract HTML attributes, text, inner HTML, or serialize content from any URL using the Microlink Query Language (MQL) attr parameter.
-- [evaluate](https://microlink.io/docs/mql/data/evaluate.md): Execute custom JavaScript strings or functions within the headless browser context to extract dynamic data or interact with the DOM using the evaluate parameter.
-- [selector](https://microlink.io/docs/mql/data/selector.md): Define CSS selectors to target and extract specific HTML elements from any URL. Support for IDs, classes, pseudo-classes, and fallback logic for resilient scraping.
-- [selectorAll](https://microlink.io/docs/mql/data/selectorAll.md): Extract multiple elements from a URL using CSS selectors. Similar to querySelectorAll, it returns a collection of structured data for lists, tables, or repeated patterns.
-- [type](https://microlink.io/docs/mql/data/type.md): Validate and cast extracted values into specific data types like strings, numbers, images, or URLs. Ensure data consistency and correctness for your API responses.
-- [API](https://microlink.io/docs/mql/getting-started/api.md): Technical documentation for the mql function. Learn how to configure URL targets, API keys, Node.js caching, and retry logic for high-performance web scraping and automation.
-- [Installation](https://microlink.io/docs/mql/getting-started/installation.md): Install and set up the Microlink Query Language (MQL) client. Support for Node.js, Edge Functions (Vercel/Cloudflare), and direct Browser integration via ESM.
-- [Overview](https://microlink.io/docs/mql/getting-started/overview.md): Use Microlink Query Language (MQL) to interact with Microlink API. A lightweight HTTP client for metadata extraction, custom data scraping, and browser automation.
-- [Usage](https://microlink.io/docs/mql/getting-started/usage.md): Learn how to use the MQL library to fetch URL data. Detailed guide on handling API responses, objects, and MicrolinkError exceptions for robust error handling.
-- [Basic rules definition](https://microlink.io/docs/mql/rules/basic.md): Learn how to define custom data extraction rules using MQL primitives: selectors, attributes, and types. Overwrite or extend default metadata to build custom APIs.
-- [Fallbacks rules definition](https://microlink.io/docs/mql/rules/fallbacks.md): Implement resilient data scraping using fallback rules. Define multiple selector strategies to ensure data extraction success even when website structures or meta tags vary.
-- [Nested rules definition](https://microlink.io/docs/mql/rules/nested.md): Organize your scraped data using nested rules. Map complex DOM structures into clean JSON objects by nesting selectors and attributes within a single parent property.
-
 ## Guides
 
 - [Common patterns: Caching patterns](https://microlink.io/docs/guides/common/caching.md): Control cache TTL, serve stale responses while revalidating, bypass cache on demand, and verify caching behavior through response headers.
@@ -182,33 +167,44 @@
 
 ## SDK
 
-- [CLI](https://microlink.io/docs/sdk/getting-started/cli.md): Use the microlink binary bundled with the Microlink SDK. Every product is a subcommand, with flags mapping one-to-one to the SDK options.
-- [Errors](https://microlink.io/docs/sdk/getting-started/errors.md): Handle Microlink SDK failures with MicrolinkError. Every method throws a typed error carrying code, statusCode, and a human-readable description.
+- [CLI](https://microlink.io/docs/sdk/getting-started/cli.md): Use the microlink binary bundled with the Microlink SDK. Every product is a subcommand, with flags mapping one-to-one to the SDK options, plus login, tracing, and structured input.
+- [Errors](https://microlink.io/docs/sdk/getting-started/errors.md): Handle Microlink SDK failures with MicrolinkError. Every method throws a typed error carrying code, statusCode, and a human-readable description, and the client keeps the last request around for debugging.
 - [Options](https://microlink.io/docs/sdk/getting-started/options.md): How the Microlink SDK routes options, plus the shared options every method accepts: browser emulation, page lifecycle, cache, and request controls.
-- [Overview](https://microlink.io/docs/sdk/getting-started/overview.md): Get started with the Microlink SDK. The microlink.io package exposes every Microlink product as a semantic method for Node.js, browsers, and Deno.
-- [Collections](https://microlink.io/docs/sdk/methods/collections.md): Sweep any page with the Microlink SDK and get every matching resource back as an array: links, images, videos, audios, and email addresses.
-- [Content](https://microlink.io/docs/sdk/methods/content.md): Turn any URL into rendered output with the Microlink SDK: unified metadata, Markdown, HTML, plain text, screenshots, PDFs, logos, and embeds.
-- [Specialized](https://microlink.io/docs/sdk/methods/specialized.md): The deeper Microlink SDK capabilities: remote code execution, structured Google search, media extraction, custom data rules, technology detection, and Lighthouse reports.
-
-## SDK (legacy)
-
-- [Overview](https://microlink.io/docs/sdk-legacy/getting-started/overview.md): Implementation guide for the Microlink Embed SDK (legacy). Transform plain URLs into beautiful, high-performance link previews, embeds, and media players with less than 10KB of JS.
-- [Styling](https://microlink.io/docs/sdk-legacy/getting-started/styling.md): Customize the look and feel of your link previews using CSS variables and BEM classes. Learn how to style Microlink Embed SDK components to match your brand design system.
-- [Jekyll](https://microlink.io/docs/sdk-legacy/integrations/jekyll.md): Learn how to integrate the Microlink Embed SDK with Jekyll to create beautiful link previews in your blog posts. Use simple Markdown to automate URL-to-preview conversion.
-- [React](https://microlink.io/docs/sdk-legacy/integrations/react.md): Implement beautiful link previews in React applications using the official Microlink Embed SDK. Supports styled-components, custom props, and all Microlink API parameters.
-- [Vanilla](https://microlink.io/docs/sdk-legacy/integrations/vanilla.md): Add beautiful link previews to any website with Microlink Vanilla. Integrate via CDN or npm, use CSS selectors for auto-replacement, and pass API parameters.
-- [Vue](https://microlink.io/docs/sdk-legacy/integrations/vue.md): Integrate beautiful link previews into Vue.js apps using the official Microlink Embed SDK. Supports global registration, custom props, and CSS variable styling.
-- [apiKey](https://microlink.io/docs/sdk-legacy/parameters/api-key.md): Authenticate your Microlink Embed SDK requests using your API key to increase rate limits and access Pro features.
-- [contrast](https://microlink.io/docs/sdk-legacy/parameters/contrast.md): Enable high-contrast mode for link previews based on predominant image colors. Improves accessibility and creates visually striking cards that adapt to your content.
-- [direction](https://microlink.io/docs/sdk-legacy/parameters/direction.md): Configure the text direction of your link previews. Support for LTR (left-to-right) and RTL (right-to-left) layouts.
-- [fetchData](https://microlink.io/docs/sdk-legacy/parameters/fetch-data.md): Control how link data is retrieved. Enable internal API calls for real-time metadata extraction or disable it to provide custom pre-fetched data manually.
-- [lazy](https://microlink.io/docs/sdk-legacy/parameters/lazy.md): Optimize performance with lazy loading for link previews. Use the lazy parameter to trigger API calls only when cards enter the viewport.
-- [mediaRef](https://microlink.io/docs/sdk-legacy/parameters/media-ref.md): Access the underlying DOM reference of the media component using the mediaRef prop. Perfect for programmatic playback control or attaching custom event listeners.
-- [autoPlay](https://microlink.io/docs/sdk-legacy/parameters/media/auto-play.md): Control the media playback behavior of your link previews. Use the autoPlay parameter to enable or disable automatic video and audio playback for Microlink Embed SDK components.
-- [controls](https://microlink.io/docs/sdk-legacy/parameters/media/controls.md): Enable or disable native media player controls for video and audio in your link previews. Use the controls parameter to customize the interface of Microlink SDK.
-- [media](https://microlink.io/docs/sdk-legacy/parameters/media.md): Select the primary media type for your link previews. Support for images, logos, video, audio, screenshots, and iframes with automatic fallback logic.
-- [loop](https://microlink.io/docs/sdk-legacy/parameters/media/loop.md): Configure media looping for your link previews. Use the loop parameter to specify whether video or audio content should restart automatically after finishing.
-- [muted](https://microlink.io/docs/sdk-legacy/parameters/media/muted.md): Control the audio state of media within your link previews. Use the muted parameter to enable or disable sound for auto-playing videos and audio components.
-- [setData](https://microlink.io/docs/sdk-legacy/parameters/set-data.md): Manually override or augment extracted metadata. Pass an object or a function to completely transform the data before the link preview is rendered.
-- [size](https://microlink.io/docs/sdk-legacy/parameters/size.md): Define the visual dimensions of your link previews. Choose between small, normal, or large sizes to best fit your application layout and content density requirements.
-- [url](https://microlink.io/docs/sdk-legacy/parameters/url.md): Learn how to use the required url parameter to extract data, capture screenshots, or generate PDFs from any target website using the Microlink API.
+- [Overview](https://microlink.io/docs/sdk/getting-started/overview.md): Get started with the Microlink SDK. The microlink.io package exposes every Microlink product as a method for Node.js, browsers, and Deno, with MQL underneath.
+- [audios](https://microlink.io/docs/sdk/methods/collections/audios.md): Get every audio source on a page as an array of absolute URLs with the Microlink SDK.
+- [emails](https://microlink.io/docs/sdk/methods/collections/emails.md): Get every email address found on a page as an array of bare strings with the Microlink SDK, from mailto links and plain text alike.
+- [images](https://microlink.io/docs/sdk/methods/collections/images.md): Get every image on a page as an array of absolute URLs with the Microlink SDK, including lazy-loaded galleries via a custom attribute.
+- [collections](https://microlink.io/docs/sdk/methods/collections.md): Sweep any page with the Microlink SDK and get every matching resource back as an array: links, images, videos, audios, and email addresses, with the same four options to override the default rule.
+- [links](https://microlink.io/docs/sdk/methods/collections/links.md): Get every link on a page as an array of absolute, deduplicated URLs with the Microlink SDK, optionally scoped to a CSS selector.
+- [videos](https://microlink.io/docs/sdk/methods/collections/videos.md): Get every video source on a page as an array of absolute URLs with the Microlink SDK.
+- [embed](https://microlink.io/docs/sdk/methods/embed.md): Get oEmbed-style iframe HTML for any URL with the Microlink SDK: ready-to-render markup and the scripts it needs, for hundreds of providers such as YouTube, X, Spotify, and TikTok.
+- [extract](https://microlink.io/docs/sdk/methods/extract.md): Pull typed values from any URL with your own CSS selector rules using the Microlink SDK: selectors, attributes, types, nested rules, fallbacks, and JavaScript evaluation.
+- [html](https://microlink.io/docs/sdk/methods/html.md): Get the fully rendered HTML of any URL with the Microlink SDK, captured after JavaScript runs and optionally scoped to a CSS selector.
+- [insights](https://microlink.io/docs/sdk/methods/insights.md): Analyze any site with the Microlink SDK: the technologies powering it, detected by Wappalyzer, and a full Lighthouse performance report.
+- [lighthouse](https://microlink.io/docs/sdk/methods/insights/lighthouse.md): Run a full Lighthouse report for any URL with the Microlink SDK, choosing categories and audits and getting the report as JSON, HTML, or CSV.
+- [technologies](https://microlink.io/docs/sdk/methods/insights/technologies.md): Detect the tech stack behind any URL with the Microlink SDK: frameworks, CDNs, analytics, and more, each with a confidence score, logo, and categories.
+- [logo](https://microlink.io/docs/sdk/methods/logo.md): Get the brand logo behind any URL with the Microlink SDK, as a hosted image asset, with an optional square variant and color palette.
+- [markdown](https://microlink.io/docs/sdk/methods/markdown.md): Convert any URL to clean Markdown with the Microlink SDK, scoped to a CSS selector when needed. Ready for LLM context windows, RAG pipelines, and documentation imports.
+- [audio](https://microlink.io/docs/sdk/methods/media/audio.md): Get the primary audio track of any URL as a direct asset with the Microlink SDK, with duration, size, and format.
+- [media](https://microlink.io/docs/sdk/methods/media.md): Get the primary video or audio of any URL as a direct, playable asset with the Microlink SDK, resolved from the page rather than swept from its markup.
+- [video](https://microlink.io/docs/sdk/methods/media/video.md): Get the primary video of any URL as a direct, playable asset with the Microlink SDK, with duration, dimensions, size, and format.
+- [metadata](https://microlink.io/docs/sdk/methods/metadata.md): Get unified metadata for any URL with the Microlink SDK: title, description, image, logo, author, publisher, date, and language, normalized from Open Graph, Twitter Cards, JSON-LD, and HTML.
+- [pdf](https://microlink.io/docs/sdk/methods/pdf.md): Print any URL to a hosted PDF with the Microlink SDK: paper format, landscape, margins, scale, page ranges, custom paper size, and background graphics.
+- [run](https://microlink.io/docs/sdk/methods/run.md): Execute your own JavaScript against a live page with the Microlink SDK: full Puppeteer access, npm packages, named arguments, profiling, and automatic compression, with no browser fleet to manage.
+- [screenshot](https://microlink.io/docs/sdk/methods/screenshot.md): Capture any URL as a hosted image with the Microlink SDK: full page, element, JPEG quality, transparent background, browser overlays, device emulation, and short video recordings.
+- [search](https://microlink.io/docs/sdk/methods/search.md): Get Google results as structured data with the Microlink SDK: web, news, images, videos, places, maps, shopping, scholar, patents, and autocomplete, with pagination and per-result content expansion.
+- [text](https://microlink.io/docs/sdk/methods/text.md): Get readable plain text from any URL with the Microlink SDK, with the markup stripped out and optionally scoped to a CSS selector.
+- [attr](https://microlink.io/docs/sdk/mql/data/attr.md): Extract HTML attributes, text, inner HTML, or serialize content from any URL using the Microlink Query Language (MQL) attr parameter.
+- [evaluate](https://microlink.io/docs/sdk/mql/data/evaluate.md): Execute custom JavaScript strings or functions within the headless browser context to extract dynamic data or interact with the DOM using the evaluate parameter.
+- [Data definition](https://microlink.io/docs/sdk/mql/data.md): The primitives of a Microlink Query Language rule: selector, selectorAll, attr, type, and evaluate, and how each one shapes the value extracted from a page.
+- [selector](https://microlink.io/docs/sdk/mql/data/selector.md): Define CSS selectors to target and extract specific HTML elements from any URL. Support for IDs, classes, pseudo-classes, and fallback logic for resilient scraping.
+- [selectorAll](https://microlink.io/docs/sdk/mql/data/selectorAll.md): Extract multiple elements from a URL using CSS selectors. Similar to querySelectorAll, it returns a collection of structured data for lists, tables, or repeated patterns.
+- [type](https://microlink.io/docs/sdk/mql/data/type.md): Validate and cast extracted values into specific data types like strings, numbers, images, or URLs. Ensure data consistency and correctness for your API responses.
+- [API](https://microlink.io/docs/sdk/mql/getting-started/api.md): Technical documentation for the mql function. Learn how to configure URL targets, API keys, endpoints, retries, HTTP options, and how to get the response as a stream or buffer.
+- [Installation](https://microlink.io/docs/sdk/mql/getting-started/installation.md): Install and set up the Microlink Query Language (MQL) client. Support for Node.js, Edge Functions (Vercel/Cloudflare), Deno, and direct browser integration via ESM.
+- [Overview](https://microlink.io/docs/sdk/mql/getting-started/overview.md): Microlink Query Language (MQL) is the HTTP client beneath the Microlink SDK and the grammar for custom data extraction rules. Use it for raw API responses, streams, and declarative scraping.
+- [Usage](https://microlink.io/docs/sdk/mql/getting-started/usage.md): Learn how to use the MQL library to fetch URL data. Detailed guide on handling API responses, objects, and MicrolinkError exceptions for robust error handling.
+- [Basic rules definition](https://microlink.io/docs/sdk/mql/rules/basic.md): Learn how to define custom data extraction rules using MQL primitives: selectors, attributes, and types. Overwrite or extend default metadata to build custom APIs.
+- [Fallbacks rules definition](https://microlink.io/docs/sdk/mql/rules/fallbacks.md): Implement resilient data scraping using fallback rules. Define multiple selector strategies to ensure data extraction success even when website structures or meta tags vary.
+- [Rules definition](https://microlink.io/docs/sdk/mql/rules.md): How custom data extraction rules are defined in Microlink Query Language: the basic rule, nested rules that build objects, and fallback rules that make extraction resilient.
+- [Nested rules definition](https://microlink.io/docs/sdk/mql/rules/nested.md): Organize your scraped data using nested rules. Map complex DOM structures into clean JSON objects by nesting selectors and attributes within a single parent property.

@@ -7,7 +7,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 
-Use [attr](/docs/mql/data/attr) with `json` when the target URL is already a JSON endpoint. Microlink fetches the URL, parses the full response body with `JSON.parse`, and returns native structured data instead of a string.
+Use [attr](/docs/sdk/mql/data/attr) with `json` when the target URL is already a JSON endpoint. Microlink fetches the URL, parses the full response body with `JSON.parse`, and returns native structured data instead of a string.
 
 <MultiCodeEditorInteractive
   height={300}
@@ -54,7 +54,7 @@ https://api.microlink.io?url=https://pokeapi.co/api/v2/pokemon/pikachu&data.json
 
 ## Keep the whole response body
 
-`attr: 'json'` is whole-page only. Do not combine it with [selector](/docs/mql/data/selector) or [selectorAll](/docs/mql/data/selectorAll); Microlink parses the entire endpoint response.
+`attr: 'json'` is whole-page only. Do not combine it with [selector](/docs/sdk/mql/data/selector) or [selectorAll](/docs/sdk/mql/data/selectorAll); Microlink parses the entire endpoint response.
 
 ```js
 {

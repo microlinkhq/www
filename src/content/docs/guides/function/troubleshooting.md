@@ -82,7 +82,7 @@ Binary data such as `Buffer` and typed arrays is allocated off the heap and is r
 
 **CodeSizeError** — the function code exceeds the 1024 bytes free plan limit:
 
-1. Use the [SDK](/docs/sdk/methods/specialized#run), which compresses code automatically.
+1. Use the [SDK](/docs/sdk/methods/run), which compresses code automatically.
 2. Compress the function body manually with `lz#`, `br#`, or `gz#` prefixes when calling the API directly.
 3. Upgrade to pro for unlimited code size.
 

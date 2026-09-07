@@ -16,7 +16,6 @@ const TITLE_SUFFIX = /\s+—\s+Microlink(\s+\w+)?$/
 const SECTIONS = [
   ['/docs/api', 'API'],
   ['/docs/cards', 'Cards'],
-  ['/docs/mql', 'MQL'],
   ['/docs/guides', 'Guides'],
   ['/docs/sdk', 'SDK'],
   ['/features', 'Features'],

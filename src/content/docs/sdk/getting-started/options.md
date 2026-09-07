@@ -5,7 +5,7 @@ description: 'How the Microlink SDK routes options, plus the shared options ever
 
 Every method accepts an options object as its last argument. Its keys are routed automatically so you never have to remember how the underlying API call is shaped:
 
-- **Method-specific keys** — such as `fullPage` for screenshot, `format` for pdf, or `selector` for markdown — are nested under the right product parameter. Each [method page](/docs/sdk/getting-started/overview#methods) lists its own keys.
+- **Method-specific keys** — such as `fullPage` for [screenshot](/docs/sdk/methods/screenshot), `format` for [pdf](/docs/sdk/methods/pdf), or `selector` for [markdown](/docs/sdk/methods/markdown) — are nested under the right product parameter. Each method page lists its own keys.
 - **`headers`** — sent as HTTP request headers, never serialized into the URL.
 - **Everything else** — passed through as top-level API query parameters. The useful ones are listed below.
 
@@ -128,4 +128,16 @@ const microlink = createClient({
 })
 
 await microlink.pdf('https://example.com', { ttl: '12h' })
+```
+
+Two options only make sense at the client level:
+
+- `apiKey` `<string>` — authenticates every request and switches the client to the [pro endpoint](/docs/api/basics/endpoint).
+- `endpoint` `<string>` — overrides the API endpoint, for example to point at a self-hosted or enterprise deployment. When omitted, the client picks `https://api.microlink.io` or `https://pro.microlink.io` based on whether an `apiKey` is present.
+
+```js
+const microlink = createClient({
+  apiKey: process.env.MICROLINK_API_KEY,
+  endpoint: 'https://microlink.internal.example.com'
+})
 ```

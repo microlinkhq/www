@@ -7,7 +7,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 
-Use [attr](/docs/mql/data/attr) with `text` when your consumer needs readable plain text instead of Markdown structure or HTML markup. Point [url](/docs/api/parameters/url) at any source — a web page, a PDF file, or an office document — and Microlink returns the content as a string.
+Use [attr](/docs/sdk/mql/data/attr) with `text` when your consumer needs readable plain text instead of Markdown structure or HTML markup. Point [url](/docs/api/parameters/url) at any source — a web page, a PDF file, or an office document — and Microlink returns the content as a string.
 
 <MultiCodeEditorInteractive
   height={280}
@@ -71,7 +71,7 @@ https://api.microlink.io?url=https://example.com&data.text.attr=text&meta=false&
 
 ## Scope text extraction
 
-For HTML pages, use a [selector](/docs/mql/data/selector) when the page has navigation, footers, or other text that should not be included:
+For HTML pages, use a [selector](/docs/sdk/mql/data/selector) when the page has navigation, footers, or other text that should not be included:
 
 <MultiCodeEditorInteractive
   height={300}

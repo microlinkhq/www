@@ -1494,10 +1494,10 @@ const SdkSection = () => (
           })}
         >
           <ArrowLink
-            href='/docs/sdk-legacy/getting-started/overview/'
+            href='/link-preview'
             css={theme({ fontSize: ['20px', '20px', '24px', '24px'] })}
           >
-            Explore the SDK
+            Explore the link preview component
           </ArrowLink>
           <ArrowLink
             href='/docs/guides/embed/sdk'
@@ -1908,11 +1908,8 @@ const TOP_FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Drop the{' '}
-          <Link href='/docs/sdk-legacy/getting-started/overview/'>
-            Microlink component
-          </Link>{' '}
-          into your markup and pass the URL:
+          Drop the <Link href='/link-preview'>Microlink component</Link> into
+          your markup and pass the URL:
         </div>
         <Faq.List as='ul'>
           <li>
@@ -1933,11 +1930,8 @@ const TOP_FAQ_ITEMS = [
           </li>
         </Faq.List>
         <div>
-          See the full{' '}
-          <Link href='/docs/sdk-legacy/integrations/react/'>React</Link>,{' '}
-          <Link href='/docs/sdk-legacy/integrations/vue/'>Vue</Link>, and{' '}
-          <Link href='/docs/sdk-legacy/integrations/vanilla/'>vanilla</Link>{' '}
-          guides for deeper integration.
+          See the <Link href='/link-preview'>link preview component</Link> for
+          the React, Vue, and vanilla integrations.
         </div>
       </>
     )
@@ -1957,11 +1951,8 @@ const TOP_FAQ_ITEMS = [
           full request shape.
         </div>
         <div>
-          The{' '}
-          <Link href='/docs/sdk-legacy/getting-started/overview/'>
-            Microlink Embed SDK
-          </Link>{' '}
-          does the same thing zero-code:{' '}
+          The <Link href='/link-preview'>Microlink Embed SDK</Link> does the
+          same thing zero-code:{' '}
           <code>
             {'<Microlink url="https://tiktok.com/..." media="iframe" />'}
           </code>{' '}
@@ -2013,10 +2004,7 @@ const TOP_FAQ_ITEMS = [
           <Link href='https://styled-components.com'>styled-components</Link> or
           any CSS-in-JS library, you can wrap the component to apply additional
           styles per instance — see the{' '}
-          <Link href='/docs/sdk-legacy/getting-started/styling/'>
-            styling guide
-          </Link>
-          .
+          <Link href='/link-preview'>link preview component</Link>.
         </div>
         <div>
           Want full control over the markup? Build your own zero-dependency
@@ -2058,21 +2046,19 @@ const TOP_FAQ_ITEMS = [
         <div>Yes. The SDK ships three packages with a unified surface:</div>
         <Faq.List as='ul'>
           <li>
-            <Link href='/docs/sdk-legacy/integrations/react/'>
-              @microlink/react
-            </Link>
+            <code>@microlink/react</code>
           </li>
           <li>
-            <Link href='/docs/sdk-legacy/integrations/vue/'>
-              @microlink/vue
-            </Link>
+            <code>@microlink/vue</code>
           </li>
           <li>
-            <Link href='/docs/sdk-legacy/integrations/vanilla/'>
-              @microlink/vanilla
-            </Link>
+            <code>@microlink/vanilla</code>
           </li>
         </Faq.List>
+        <div>
+          All three are covered on the{' '}
+          <Link href='/link-preview'>link preview component</Link> page.
+        </div>
         <div>
           They share the same props, the same CSS hooks, and the same {'<10KB'}{' '}
           bundle target. Switching between them later is a near drop-in
@@ -2093,11 +2079,9 @@ const TOP_FAQ_ITEMS = [
           to, keeping the first paint fast.
         </div>
         <div>
-          Lazy loading can be disabled via the{' '}
-          <Link href='/docs/sdk-legacy/parameters/lazy/'>
-            <code>lazy</code> prop
-          </Link>{' '}
-          if you need eager rendering.
+          Lazy loading can be disabled via the <code>lazy</code> prop if you
+          need eager rendering — see the{' '}
+          <Link href='/link-preview'>link preview component</Link>.
         </div>
       </>
     )
@@ -2118,8 +2102,7 @@ const TOP_FAQ_ITEMS = [
           render and friendlier on long-scrolling pages. You can also pass an
           array like <code>{'media={["iframe", "video", "image"]}'}</code> to
           define a fallback cascade — see the{' '}
-          <Link href='/docs/sdk-legacy/parameters/media/'>media parameter</Link>{' '}
-          docs.
+          <Link href='/link-preview'>link preview component</Link>.
         </div>
       </>
     )

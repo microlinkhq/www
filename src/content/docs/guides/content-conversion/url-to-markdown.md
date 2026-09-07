@@ -7,7 +7,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 
-Use [attr](/docs/mql/data/attr) with `markdown` to serialize any URL as Markdown. This is the direct recipe for LLM ingestion, RAG pipelines, docs imports, and any workflow that should not carry raw HTML.
+Use [attr](/docs/sdk/mql/data/attr) with `markdown` to serialize any URL as Markdown. This is the direct recipe for LLM ingestion, RAG pipelines, docs imports, and any workflow that should not carry raw HTML.
 
 <MultiCodeEditorInteractive
   height={280}
@@ -88,7 +88,7 @@ If the full page includes navigation, footers, or cookie banners, scope the rule
   }}
 />
 
-<Figcaption>Use <code>main</code>, <code>article</code>, or a page-specific [selector](/docs/mql/data/selector) when the full page is too noisy.</Figcaption>
+<Figcaption>Use <code>main</code>, <code>article</code>, or a page-specific [selector](/docs/sdk/mql/data/selector) when the full page is too noisy.</Figcaption>
 
 ## Keep metadata when useful
 

@@ -214,10 +214,13 @@ export const QUESTIONS = [
       <>
         <div>
           It&rsquo;s a thin semantic layer over{' '}
-          <Link href='https://github.com/microlinkhq/mql'>@microlink/mql</Link>:
-          HTTP, authentication, retries, errors, and binary handling are already
-          solved there. Each product method sets the right API parameters and
-          unwraps the result for you.
+          <Link href='/docs/sdk/mql/getting-started/overview'>
+            @microlink/mql
+          </Link>
+          : HTTP, authentication, retries, errors, and binary handling are
+          already solved there. Each product method sets the right API
+          parameters and unwraps the result for you, and MQL is documented
+          alongside the SDK for when you need the raw response.
         </div>
       </>
     )
@@ -228,11 +231,9 @@ export const QUESTIONS = [
       <>
         <div>
           The previous SDK was a UI component for rendering link previews in
-          React, Vue, or vanilla JavaScript. It keeps working and its{' '}
-          <Link href='/docs/sdk-legacy/getting-started/overview/'>
-            documentation stays available
-          </Link>
-          , but it&rsquo;s no longer maintained. This package is the SDK going
+          React, Vue, or vanilla JavaScript. It keeps working as the{' '}
+          <Link href='/link-preview'>link preview component</Link>, but
+          it&rsquo;s no longer maintained. This package is the SDK going
           forward: it returns data and assets from every Microlink product, with
           no UI attached.
         </div>

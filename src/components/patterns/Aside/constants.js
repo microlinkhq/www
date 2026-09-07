@@ -1,27 +1,8 @@
-import { HourGlass } from 'components/icons/HourGlass'
-import { JavaScript } from 'components/icons/JavaScript'
-import { Jekyll } from 'components/icons/Jekyll'
-import { Vue } from 'components/icons/Vue'
-import { Hugo } from 'components/icons/Hugo'
-import { Eleventy } from 'components/icons/Eleventy'
-import { _React as ReactIcon } from 'components/icons/React'
 import { Sparkles } from 'components/icons/Sparkles'
-
-const Icons = {
-  HourGlass,
-  JavaScript,
-  Jekyll,
-  Vue,
-  Hugo,
-  Eleventy,
-  React: ReactIcon
-}
 
 export const ASIDE_WIDTH = '320px'
 export const SDK = 'SDK'
-export const SDK_LEGACY = 'SDK Legacy'
 export const API = 'API'
-export const MQL = 'MQL'
 export const CARDS = 'Cards'
 export const GUIDES = 'Guides'
 
@@ -29,11 +10,9 @@ export const DEFAULT_ACTIVE_ROUTE_NAME = API
 
 export const getActiveRouteName = ({ pathname }) => {
   if (pathname.startsWith('/docs/guides')) return GUIDES
-  if (pathname.startsWith('/docs/sdk-legacy')) return SDK_LEGACY
   if (pathname.startsWith('/docs/sdk')) return SDK
   if (pathname.startsWith('/docs/api')) return API
   if (pathname.startsWith('/docs/cards')) return CARDS
-  if (pathname.startsWith('/docs/mql')) return MQL
 }
 
 export const DOC_TABS = [
@@ -44,19 +23,10 @@ export const DOC_TABS = [
   },
   { name: 'SDK', path: '/docs/sdk/getting-started/overview' },
   {
-    name: 'MQL',
-    path: '/docs/mql/getting-started/overview'
-  },
-  {
     name: 'CARDS',
     path: '/docs/cards/getting-started/overview'
   },
-  { name: 'Skills', path: '/skills', icon: Sparkles },
-  {
-    name: 'SDK LEGACY',
-    path: '/docs/sdk-legacy/getting-started/overview',
-    muted: true
-  }
+  { name: 'Skills', path: '/skills', icon: Sparkles }
 ]
 
 const ROUTES_SDK = [
@@ -85,130 +55,167 @@ const ROUTES_SDK = [
     name: 'Methods',
     posts: [
       {
-        name: 'Content',
-        href: '/docs/sdk/methods/content/'
+        name: 'metadata',
+        href: '/docs/sdk/methods/metadata/'
       },
       {
-        name: 'Specialized',
-        href: '/docs/sdk/methods/specialized/'
+        name: 'screenshot',
+        href: '/docs/sdk/methods/screenshot/'
       },
       {
-        name: 'Collections',
-        href: '/docs/sdk/methods/collections/'
-      }
-    ]
-  }
-]
-
-const ROUTES_SDK_LEGACY = [
-  {
-    name: 'Getting Started',
-    posts: [
-      {
-        name: 'Overview',
-        href: '/docs/sdk-legacy/getting-started/overview/'
+        name: 'pdf',
+        href: '/docs/sdk/methods/pdf/'
       },
       {
-        name: 'Styling',
-        href: '/docs/sdk-legacy/getting-started/styling/'
-      }
-    ]
-  },
-  {
-    name: 'Integrations',
-    posts: [
-      {
-        name: 'Eleventy',
-        href: 'https://github.com/daviddarnes/eleventy-plugin-unfurl',
-        icon: Icons.Eleventy
+        name: 'markdown',
+        href: '/docs/sdk/methods/markdown/'
       },
       {
-        name: 'Hugo',
-        href: 'https://blog.ypertex.com/articles/useful-hugo-templating',
-        icon: Icons.Hugo
+        name: 'html',
+        href: '/docs/sdk/methods/html/'
       },
       {
-        name: 'Jekyll',
-        href: '/docs/sdk-legacy/integrations/jekyll/',
-        icon: Icons.Jekyll
+        name: 'text',
+        href: '/docs/sdk/methods/text/'
       },
       {
-        name: 'React',
-        href: '/docs/sdk-legacy/integrations/react/',
-        icon: Icons.React
+        name: 'logo',
+        href: '/docs/sdk/methods/logo/'
       },
       {
-        name: 'Vanilla',
-        href: '/docs/sdk-legacy/integrations/vanilla/',
-        icon: Icons.JavaScript
+        name: 'embed',
+        href: '/docs/sdk/methods/embed/'
       },
       {
-        name: 'Vue',
-        href: '/docs/sdk-legacy/integrations/vue/',
-        icon: Icons.Vue
-      }
-    ]
-  },
-  {
-    name: 'Query Parameters',
-    posts: [
-      {
-        name: 'apiKey',
-        href: '/docs/sdk-legacy/parameters/api-key/'
+        name: 'extract',
+        href: '/docs/sdk/methods/extract/'
       },
       {
-        name: 'contrast',
-        href: '/docs/sdk-legacy/parameters/contrast/'
+        name: 'run',
+        href: '/docs/sdk/methods/run/'
       },
       {
-        name: 'direction',
-        href: '/docs/sdk-legacy/parameters/direction/'
-      },
-      {
-        name: 'fetchData',
-        href: '/docs/sdk-legacy/parameters/fetch-data/'
-      },
-      {
-        name: 'lazy',
-        href: '/docs/sdk-legacy/parameters/lazy/'
+        name: 'search',
+        href: '/docs/sdk/methods/search/'
       },
       {
         name: 'media',
-        href: '/docs/sdk-legacy/parameters/media/',
+        href: '/docs/sdk/methods/media/',
         posts: [
           {
-            name: 'autoPlay',
-            href: '/docs/sdk-legacy/parameters/media/auto-play/'
+            name: 'video',
+            href: '/docs/sdk/methods/media/video/'
           },
           {
-            name: 'controls',
-            href: '/docs/sdk-legacy/parameters/media/controls/'
-          },
-          {
-            name: 'muted',
-            href: '/docs/sdk-legacy/parameters/media/muted/'
-          },
-          {
-            name: 'loop',
-            href: '/docs/sdk-legacy/parameters/media/loop/'
+            name: 'audio',
+            href: '/docs/sdk/methods/media/audio/'
           }
         ]
       },
       {
-        name: 'mediaRef',
-        href: '/docs/sdk-legacy/parameters/media-ref/'
+        name: 'collections',
+        href: '/docs/sdk/methods/collections/',
+        posts: [
+          {
+            name: 'links',
+            href: '/docs/sdk/methods/collections/links/'
+          },
+          {
+            name: 'images',
+            href: '/docs/sdk/methods/collections/images/'
+          },
+          {
+            name: 'videos',
+            href: '/docs/sdk/methods/collections/videos/'
+          },
+          {
+            name: 'audios',
+            href: '/docs/sdk/methods/collections/audios/'
+          },
+          {
+            name: 'emails',
+            href: '/docs/sdk/methods/collections/emails/'
+          }
+        ]
       },
       {
-        name: 'setData',
-        href: '/docs/sdk-legacy/parameters/set-data/'
+        name: 'insights',
+        href: '/docs/sdk/methods/insights/',
+        posts: [
+          {
+            name: 'technologies',
+            href: '/docs/sdk/methods/insights/technologies/'
+          },
+          {
+            name: 'lighthouse',
+            href: '/docs/sdk/methods/insights/lighthouse/'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'MQL',
+    posts: [
+      {
+        name: 'Overview',
+        href: '/docs/sdk/mql/getting-started/overview/'
       },
       {
-        name: 'size',
-        href: '/docs/sdk-legacy/parameters/size/'
+        name: 'Installation',
+        href: '/docs/sdk/mql/getting-started/installation/'
       },
       {
-        name: 'url',
-        href: '/docs/sdk-legacy/parameters/url/'
+        name: 'Usage',
+        href: '/docs/sdk/mql/getting-started/usage/'
+      },
+      {
+        name: 'API',
+        href: '/docs/sdk/mql/getting-started/api/'
+      },
+      {
+        name: 'Rules definition',
+        href: '/docs/sdk/mql/rules/',
+        posts: [
+          {
+            name: 'Basic rule',
+            href: '/docs/sdk/mql/rules/basic/'
+          },
+          {
+            name: 'Nested rules',
+            href: '/docs/sdk/mql/rules/nested/'
+          },
+          {
+            name: 'Rules fallbacks',
+            href: '/docs/sdk/mql/rules/fallbacks/'
+          }
+        ]
+      },
+      {
+        name: 'Data definition',
+        href: '/docs/sdk/mql/data/',
+        posts: [
+          {
+            name: 'attr',
+            href: '/docs/sdk/mql/data/attr/'
+          },
+          {
+            name: 'evaluate',
+            href: '/docs/sdk/mql/data/evaluate/'
+          },
+          {
+            name: 'selector',
+            href: '/docs/sdk/mql/data/selector/'
+          },
+          {
+            name: 'selectorAll',
+            href: '/docs/sdk/mql/data/selectorAll/'
+          },
+          {
+            name: 'type',
+            href: '/docs/sdk/mql/data/type/'
+          }
+        ]
       }
     ]
   }
@@ -511,72 +518,6 @@ const ROUTES_API = [
       {
         name: 'waitUntil',
         href: '/docs/api/parameters/waitUntil'
-      }
-    ]
-  }
-]
-
-const ROUTES_MQL = [
-  {
-    name: 'Getting Started',
-    posts: [
-      {
-        name: 'Overview',
-        href: '/docs/mql/getting-started/overview'
-      },
-      {
-        name: 'Installation',
-        href: '/docs/mql/getting-started/installation'
-      },
-      {
-        name: 'Usage',
-        href: '/docs/mql/getting-started/usage'
-      },
-      {
-        name: 'API',
-        href: '/docs/mql/getting-started/api'
-      }
-    ]
-  },
-  {
-    name: 'Rules Definition',
-    posts: [
-      {
-        name: 'Basic rule',
-        href: '/docs/mql/rules/basic'
-      },
-      {
-        name: 'Nested rules',
-        href: '/docs/mql/rules/nested'
-      },
-      {
-        name: 'Rules fallbacks',
-        href: '/docs/mql/rules/fallbacks'
-      }
-    ]
-  },
-  {
-    name: 'Data definition',
-    posts: [
-      {
-        name: 'attr',
-        href: '/docs/mql/data/attr'
-      },
-      {
-        name: 'evaluate',
-        href: '/docs/mql/data/evaluate'
-      },
-      {
-        name: 'selector',
-        href: '/docs/mql/data/selector'
-      },
-      {
-        name: 'selectorAll',
-        href: '/docs/mql/data/selectorAll'
-      },
-      {
-        name: 'type',
-        href: '/docs/mql/data/type'
       }
     ]
   }
@@ -953,8 +894,6 @@ const ROUTES_GUIDES = [
 
 export const ROUTES = {
   [SDK]: ROUTES_SDK,
-  [SDK_LEGACY]: ROUTES_SDK_LEGACY,
-  [MQL]: ROUTES_MQL,
   [CARDS]: ROUTES_CARDS,
   [API]: ROUTES_API,
   [GUIDES]: ROUTES_GUIDES

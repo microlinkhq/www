@@ -685,10 +685,8 @@ const ProductInformation = () => (
             </div>
             <div>
               For React or Vue, drop in the{' '}
-              <Link href='/docs/sdk-legacy/getting-started/overview/'>
-                Microlink Embed SDK
-              </Link>{' '}
-              component instead — same data, framework-native rendering.
+              <Link href='/link-preview'>Microlink Embed SDK</Link> component
+              instead — same data, framework-native rendering.
             </div>
           </>
         )
@@ -698,10 +696,7 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes. The{' '}
-              <Link href='/docs/sdk-legacy/getting-started/styling/'>
-                Microlink Embed SDK
-              </Link>{' '}
+              Yes. The <Link href='/link-preview'>Microlink Embed SDK</Link>{' '}
               exposes CSS variables (<code>--microlink-background-color</code>,{' '}
               <code>--microlink-max-width</code>) and stable BEM class hooks for
               styling cards.
@@ -759,10 +754,8 @@ const ProductInformation = () => (
             <div>
               Use the <Link href='/integrations/sdk'>Microlink SDK</Link> for
               Node.js, or drop in the{' '}
-              <Link href='/docs/sdk-legacy/getting-started/overview/'>
-                Microlink Embed SDK
-              </Link>{' '}
-              for React, Vue, or vanilla JS.
+              <Link href='/link-preview'>Microlink Embed SDK</Link> for React,
+              Vue, or vanilla JS.
             </div>
           </>
         )
