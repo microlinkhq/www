@@ -117,7 +117,7 @@ export const EXAMPLES = {
       snippet: sdkExample(`const { value } = await microlink.run(
   'https://protected-target.com',
   ({ page }) => page.title(),
-  { proxy: true }
+  { proxy: { location: 'us' } }
 )`)
     },
     {

@@ -37,7 +37,8 @@ export const productStructured = ({
   about = [],
   stars,
   starsRepo,
-  faqItems = []
+  faqItems = [],
+  howTo
 }) => {
   const url = `${SITE_URL}${path}`
 
@@ -74,6 +75,21 @@ export const productStructured = ({
   }
 
   const graph = [softwareApplication]
+
+  if (howTo) {
+    graph.push({
+      '@type': 'HowTo',
+      '@id': `${url}#how`,
+      name: howTo.name,
+      description: howTo.description,
+      step: howTo.steps.map(({ title, description }, index) => ({
+        '@type': 'HowToStep',
+        position: index + 1,
+        name: title,
+        text: description
+      }))
+    })
+  }
 
   if (faqItems.length > 0) {
     graph.push({
