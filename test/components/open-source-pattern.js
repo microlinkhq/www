@@ -18,6 +18,7 @@ const PAGES = [
   'src/pages/metadata.js',
   'src/pages/link-preview.js',
   'src/pages/html.js',
+  'src/pages/function.js',
   'src/pages/text.js',
   'src/pages/media.js',
   'src/pages/file-conversion.js',

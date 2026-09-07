@@ -80,7 +80,7 @@ const TILE = {
   logo: { bg: colors.yellow0, color: colors.yellow7 },
   search: { bg: colors.blue0, color: colors.blue7 },
   technologies: { bg: colors.violet0, color: colors.violet7 },
-  function: { bg: colors.green0, color: colors.green8 },
+  function: { bg: colors.indigo0, color: colors.indigo8 },
   text: { bg: colors.orange0, color: colors.orange6 },
   lighthouse: { bg: colors.teal0, color: colors.teal7 },
   video: { bg: colors.violet0, color: colors.violet7 },
