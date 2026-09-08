@@ -82,8 +82,10 @@ export const createCliSession = ({
   }
 
   const prompt = () => {
+    pinOverlay = false
     resetInput()
     term.write('\x1b[?25h' + PROMPT)
+    paintPins()
   }
 
   const rewriteLine = next => {
@@ -117,25 +119,32 @@ export const createCliSession = ({
       term.write(chunk, resolve)
     })
 
+  const stopAttract = () => {
+    if (!attracting) return
+    attracting = false
+    if (pager || running) return
+    rewriteLine('')
+    historyIndex = -1
+    paintPins()
+  }
+
   const execute = async (argv, { page = false } = {}) => {
     if (argv[0] === 'clear' && argv.length === 1) {
-      pinOverlay = false
       marks.length = 0
-      paintPins()
       wipe()
       prompt()
       return
     }
-    const commandLine = term.buffer.active.baseY + term.buffer.active.cursorY
-    await write('\r\n')
     running = true
-    const chunks = []
+    const commandLine = term.buffer.active.baseY + term.buffer.active.cursorY
     try {
-      await run(argv, createBrowserHost(term, chunks))
-    } catch (error) {
-      if (!disposed) chunks.push(`\n${error.message || error}\n`)
-    } finally {
-      running = false
+      await write('\r\n')
+      const chunks = []
+      try {
+        await run(argv, createBrowserHost(term, chunks))
+      } catch (error) {
+        if (!disposed) chunks.push(`\n${error.message || error}\n`)
+      }
       const text = chunks.join('')
       let usedPager = false
       if (!disposed && text.trim()) {
@@ -181,19 +190,16 @@ export const createCliSession = ({
           )
         }
       }
+    } finally {
+      running = false
     }
   }
 
   const onData = data => {
     if (disposed) return
     if (attracting) {
-      attracting = false
-      if (!pager && !running) {
-        rewriteLine('')
-        historyIndex = -1
-        paintPins()
-        return
-      }
+      stopAttract()
+      if (!pager && !running) return
     }
     if (pager) {
       pager.handle(data)
@@ -283,14 +289,6 @@ export const createCliSession = ({
         await delay(instant ? 200 : 400)
       }
     }
-  }
-
-  const stopAttract = () => {
-    if (!attracting || pager || running) return
-    attracting = false
-    rewriteLine('')
-    historyIndex = -1
-    paintPins()
   }
 
   return {
