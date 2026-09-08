@@ -120,8 +120,6 @@
     "@gatsbyjs/reach-router": "~2.0.1",
     "@kikobeats/use-query-state": "~1.2.2",
     "@mdx-js/react": "~3.1.1",
-    "@microlink/function": "~0.3.4",
-    "@microlink/google": "~1.2.2",
     "@microlink/mql": "~0.17.0",
     "@microlink/og": "~1.4.6",
     "@microlink/react": "~5.5.25",
