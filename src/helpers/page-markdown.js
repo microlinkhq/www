@@ -63,6 +63,12 @@ const NOT_FOUND_STATUS_CODE = 404
 export const isNotDeployedYet = statusCode =>
   statusCode === NOT_FOUND_STATUS_CODE
 
+export const retryStaleNotFound = async fetchOnce => {
+  const first = await fetchOnce(false)
+  if (!isNotDeployedYet(first.statusCode)) return first
+  return fetchOnce(true)
+}
+
 export const extractMarkdown = async (fetchMarkdown, pathname) => {
   for (const selector of selectorsFor(pathname)) {
     const result = await fetchMarkdown(selector)
