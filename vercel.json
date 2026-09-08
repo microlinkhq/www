@@ -294,6 +294,78 @@
       "destination": "/docs/sdk/methods/function.md"
     },
     {
+      "source": "/docs/sdk/methods/technologies",
+      "destination": "/docs/sdk/methods/insights/technologies"
+    },
+    {
+      "source": "/docs/sdk/methods/technologies.md",
+      "destination": "/docs/sdk/methods/insights/technologies.md"
+    },
+    {
+      "source": "/docs/sdk/methods/lighthouse",
+      "destination": "/docs/sdk/methods/insights/lighthouse"
+    },
+    {
+      "source": "/docs/sdk/methods/lighthouse.md",
+      "destination": "/docs/sdk/methods/insights/lighthouse.md"
+    },
+    {
+      "source": "/docs/sdk/methods/links",
+      "destination": "/docs/sdk/methods/collections/links"
+    },
+    {
+      "source": "/docs/sdk/methods/links.md",
+      "destination": "/docs/sdk/methods/collections/links.md"
+    },
+    {
+      "source": "/docs/sdk/methods/images",
+      "destination": "/docs/sdk/methods/collections/images"
+    },
+    {
+      "source": "/docs/sdk/methods/images.md",
+      "destination": "/docs/sdk/methods/collections/images.md"
+    },
+    {
+      "source": "/docs/sdk/methods/videos",
+      "destination": "/docs/sdk/methods/collections/videos"
+    },
+    {
+      "source": "/docs/sdk/methods/videos.md",
+      "destination": "/docs/sdk/methods/collections/videos.md"
+    },
+    {
+      "source": "/docs/sdk/methods/audios",
+      "destination": "/docs/sdk/methods/collections/audios"
+    },
+    {
+      "source": "/docs/sdk/methods/audios.md",
+      "destination": "/docs/sdk/methods/collections/audios.md"
+    },
+    {
+      "source": "/docs/sdk/methods/emails",
+      "destination": "/docs/sdk/methods/collections/emails"
+    },
+    {
+      "source": "/docs/sdk/methods/emails.md",
+      "destination": "/docs/sdk/methods/collections/emails.md"
+    },
+    {
+      "source": "/docs/sdk/methods/video",
+      "destination": "/docs/sdk/methods/media/video"
+    },
+    {
+      "source": "/docs/sdk/methods/video.md",
+      "destination": "/docs/sdk/methods/media/video.md"
+    },
+    {
+      "source": "/docs/sdk/methods/audio",
+      "destination": "/docs/sdk/methods/media/audio"
+    },
+    {
+      "source": "/docs/sdk/methods/audio.md",
+      "destination": "/docs/sdk/methods/media/audio.md"
+    },
+    {
       "source": "/docs/sdk/getting-started/styling",
       "destination": "/link-preview"
     },

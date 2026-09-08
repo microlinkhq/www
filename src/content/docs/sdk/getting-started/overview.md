@@ -56,7 +56,7 @@ Every product is a method on the client. All of them follow the same `method(url
 - [embed](/docs/sdk/methods/embed) — oEmbed-style iframe HTML for rich cards.
 - [extract](/docs/sdk/methods/extract) — typed values pulled with your own CSS selector rules.
 - [function](/docs/sdk/methods/function) — your own JavaScript executed against a live page, with full Puppeteer access.
-- [search](/docs/sdk/methods/search) — Google results as structured data, with pagination and per-result expansion.
+- [search](/docs/sdk/methods/search) — Google results as structured data, with a `type` per surface ([news](/docs/sdk/methods/search/news), [images](/docs/sdk/methods/search/images), [shopping](/docs/sdk/methods/search/shopping), …), pagination, and per-result expansion.
 - [media](/docs/sdk/methods/media) — the primary [video](/docs/sdk/methods/media/video) or [audio](/docs/sdk/methods/media/audio) of a page as a direct, playable asset.
 - [collections](/docs/sdk/methods/collections) — every [link](/docs/sdk/methods/collections/links), [image](/docs/sdk/methods/collections/images), [video](/docs/sdk/methods/collections/videos), [audio](/docs/sdk/methods/collections/audios), or [email](/docs/sdk/methods/collections/emails) found on a page, as an array.
 - [insights](/docs/sdk/methods/insights) — the [technologies](/docs/sdk/methods/insights/technologies) powering a site and a full [Lighthouse](/docs/sdk/methods/insights/lighthouse) report.

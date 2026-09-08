@@ -55,41 +55,33 @@ const ROUTES_SDK = [
     name: 'Methods',
     posts: [
       {
-        name: '.metadata',
-        href: '/docs/sdk/methods/metadata/'
+        name: '.audio',
+        href: '/docs/sdk/methods/media/audio/'
       },
       {
-        name: '.screenshot',
-        href: '/docs/sdk/methods/screenshot/'
+        name: '.audios',
+        href: '/docs/sdk/methods/collections/audios/'
       },
       {
-        name: '.pdf',
-        href: '/docs/sdk/methods/pdf/'
+        name: '.emails',
+        href: '/docs/sdk/methods/collections/emails/'
       },
       {
-        name: '.markdown',
-        href: '/docs/sdk/methods/markdown/'
-      },
-      {
-        name: '.html',
-        href: '/docs/sdk/methods/html/'
-      },
-      {
-        name: '.text',
-        href: '/docs/sdk/methods/text/'
-      },
-      {
-        name: '.function',
-        href: '/docs/sdk/methods/function/'
-      },
-      {
-        name: '.search',
-        href: '/docs/sdk/methods/search/'
+        name: '.embed',
+        href: '/docs/sdk/methods/embed/'
       },
       {
         name: '.extract',
         href: '/docs/sdk/methods/extract/',
         posts: [
+          {
+            name: 'attr',
+            href: '/docs/sdk/methods/extract/attr/'
+          },
+          {
+            name: 'evaluate',
+            href: '/docs/sdk/methods/extract/evaluate/'
+          },
           {
             name: 'selector',
             href: '/docs/sdk/methods/extract/selector/'
@@ -99,34 +91,104 @@ const ROUTES_SDK = [
             href: '/docs/sdk/methods/extract/selectorAll/'
           },
           {
-            name: 'attr',
-            href: '/docs/sdk/methods/extract/attr/'
-          },
-          {
             name: 'type',
             href: '/docs/sdk/methods/extract/type/'
-          },
-          {
-            name: 'evaluate',
-            href: '/docs/sdk/methods/extract/evaluate/'
           }
         ]
       },
       {
-        name: '.logo',
-        href: '/docs/sdk/methods/logo/'
+        name: '.function',
+        href: '/docs/sdk/methods/function/'
       },
       {
-        name: '.emails',
-        href: '/docs/sdk/methods/collections/emails/'
+        name: '.html',
+        href: '/docs/sdk/methods/html/'
+      },
+      {
+        name: '.images',
+        href: '/docs/sdk/methods/collections/images/'
+      },
+      {
+        name: '.lighthouse',
+        href: '/docs/sdk/methods/insights/lighthouse/'
       },
       {
         name: '.links',
         href: '/docs/sdk/methods/collections/links/'
       },
       {
-        name: '.images',
-        href: '/docs/sdk/methods/collections/images/'
+        name: '.logo',
+        href: '/docs/sdk/methods/logo/'
+      },
+      {
+        name: '.markdown',
+        href: '/docs/sdk/methods/markdown/'
+      },
+      {
+        name: '.metadata',
+        href: '/docs/sdk/methods/metadata/'
+      },
+      {
+        name: '.pdf',
+        href: '/docs/sdk/methods/pdf/'
+      },
+      {
+        name: '.screenshot',
+        href: '/docs/sdk/methods/screenshot/'
+      },
+      {
+        name: '.search',
+        href: '/docs/sdk/methods/search/',
+        posts: [
+          {
+            name: 'autocomplete',
+            href: '/docs/sdk/methods/search/autocomplete/'
+          },
+          {
+            name: 'images',
+            href: '/docs/sdk/methods/search/images/'
+          },
+          {
+            name: 'maps',
+            href: '/docs/sdk/methods/search/maps/'
+          },
+          {
+            name: 'news',
+            href: '/docs/sdk/methods/search/news/'
+          },
+          {
+            name: 'patents',
+            href: '/docs/sdk/methods/search/patents/'
+          },
+          {
+            name: 'places',
+            href: '/docs/sdk/methods/search/places/'
+          },
+          {
+            name: 'scholar',
+            href: '/docs/sdk/methods/search/scholar/'
+          },
+          {
+            name: 'search',
+            href: '/docs/sdk/methods/search/search/'
+          },
+          {
+            name: 'shopping',
+            href: '/docs/sdk/methods/search/shopping/'
+          },
+          {
+            name: 'videos',
+            href: '/docs/sdk/methods/search/videos/'
+          }
+        ]
+      },
+      {
+        name: '.technologies',
+        href: '/docs/sdk/methods/insights/technologies/'
+      },
+      {
+        name: '.text',
+        href: '/docs/sdk/methods/text/'
       },
       {
         name: '.video',
@@ -135,26 +197,6 @@ const ROUTES_SDK = [
       {
         name: '.videos',
         href: '/docs/sdk/methods/collections/videos/'
-      },
-      {
-        name: '.audio',
-        href: '/docs/sdk/methods/media/audio/'
-      },
-      {
-        name: '.audios',
-        href: '/docs/sdk/methods/collections/audios/'
-      },
-      {
-        name: '.embed',
-        href: '/docs/sdk/methods/embed/'
-      },
-      {
-        name: '.technologies',
-        href: '/docs/sdk/methods/insights/technologies/'
-      },
-      {
-        name: '.lighthouse',
-        href: '/docs/sdk/methods/insights/lighthouse/'
       }
     ]
   }
