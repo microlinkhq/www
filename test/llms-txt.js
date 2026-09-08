@@ -160,4 +160,11 @@ describe('the build', () => {
   test('writes both only on a production build', () => {
     expect(bodyOf('createPageMarkdownFiles')).toContain('isProductionBuild()')
   })
+
+  test('busts a cached 404 when converting a page', () => {
+    expect(bodyOf('markdownFetcher')).toContain(
+      'retryStaleNotFound(force => requestMarkdown'
+    )
+    expect(bodyOf('requestMarkdown')).toContain('force')
+  })
 })

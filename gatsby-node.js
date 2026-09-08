@@ -20,6 +20,7 @@ const {
   extractMarkdown,
   isNotDeployedYet,
   isMarkdownPage,
+  retryStaleNotFound,
   toMarkdownPath,
   prependTitle,
   notFoundMarkdown
@@ -60,25 +61,22 @@ const githubUrl = (() => {
   }
 })()
 
-const markdownFetcher = url => async selector => {
-  const {
-    data: { markdown },
-    statusCode,
-    response
-  } = await mql(url, {
+const requestMarkdown = (url, selector, force) =>
+  mql(url, {
     apiKey: process.env.MICROLINK_API_KEY,
     data: {
       markdown: selector ? { selector, attr: 'markdown' } : { attr: 'markdown' }
     },
-    meta: false
-  })
-
-  return {
+    meta: false,
+    force
+  }).then(({ data: { markdown }, statusCode, response }) => ({
     markdown,
     statusCode,
     duration: response.headers.get('x-response-time')
-  }
-}
+  }))
+
+const markdownFetcher = url => async selector =>
+  retryStaleNotFound(force => requestMarkdown(url, selector, force))
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions

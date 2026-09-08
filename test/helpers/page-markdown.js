@@ -6,6 +6,7 @@ import {
   extractMarkdown,
   isNotDeployedYet,
   isMarkdownPage,
+  retryStaleNotFound,
   toMarkdownPath,
   prependTitle,
   notFoundLinks,
@@ -102,6 +103,47 @@ describe('isNotDeployedYet', () => {
     expect(isNotDeployedYet(404)).toBe(true)
     expect(isNotDeployedYet(200)).toBe(false)
     expect(isNotDeployedYet(undefined)).toBe(false)
+  })
+})
+
+describe('retryStaleNotFound', () => {
+  test('keeps a live response', async () => {
+    const calls = []
+    const fetchOnce = force => {
+      calls.push(force)
+      return { markdown: 'article', statusCode: 200 }
+    }
+
+    expect(await retryStaleNotFound(fetchOnce)).toEqual({
+      markdown: 'article',
+      statusCode: 200
+    })
+    expect(calls).toEqual([false])
+  })
+
+  test('busts a cached 404 and returns the fresh page', async () => {
+    const calls = []
+    const fetchOnce = force => {
+      calls.push(force)
+      return force
+        ? { markdown: 'article', statusCode: 200 }
+        : { markdown: null, statusCode: 404 }
+    }
+
+    expect(await retryStaleNotFound(fetchOnce)).toEqual({
+      markdown: 'article',
+      statusCode: 200
+    })
+    expect(calls).toEqual([false, true])
+  })
+
+  test('keeps a real 404 after force', async () => {
+    const fetchOnce = () => ({ markdown: null, statusCode: 404 })
+
+    expect(await retryStaleNotFound(fetchOnce)).toEqual({
+      markdown: null,
+      statusCode: 404
+    })
   })
 })
 
