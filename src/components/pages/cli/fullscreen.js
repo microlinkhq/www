@@ -106,6 +106,7 @@ const Fullscreen = () => {
       <Box
         id='cli-terminal'
         ref={surfaceRef}
+        tabIndex={-1}
         role='application'
         aria-label='Interactive Microlink CLI'
         css={theme({

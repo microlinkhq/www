@@ -50,7 +50,7 @@ export const createCliSession = ({ term, run, attractCommands }) => {
     }
     term.write('\r\n')
     running = true
-    const output = { all: [], stdout: [] }
+    const output = { all: [] }
     try {
       await run(argv, createBrowserHost(term, output))
     } catch (error) {
@@ -72,8 +72,7 @@ export const createCliSession = ({ term, run, attractCommands }) => {
           if (!pager.closed) await pager.finished
           pager = null
         } else {
-          const inline = output.stdout.join('') || text
-          term.write(inline.replace(/\n/g, '\r\n'))
+          term.write(text.replace(/\n/g, '\r\n'))
         }
       }
       if (!disposed && !attracting) prompt()

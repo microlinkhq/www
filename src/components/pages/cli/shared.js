@@ -34,7 +34,7 @@ export const HERO_LAYOUT_MAX_WIDTH = [
 export const XTERM_SURFACE_CSS = {
   overflowX: 'auto',
   overflowY: 'hidden',
-  touchAction: 'pan-x pan-y',
+  touchAction: 'manipulation',
   overscrollBehavior: 'contain',
   '-webkit-overflow-scrolling': 'touch',
   '& .xterm': {
@@ -52,12 +52,12 @@ export const XTERM_SURFACE_CSS = {
     overflowY: 'auto',
     overflowX: 'hidden',
     bg: 'black',
-    touchAction: 'pan-x pan-y',
+    touchAction: 'manipulation',
     overscrollBehavior: 'contain',
     '-webkit-overflow-scrolling': 'touch'
   },
   '& .xterm-screen': {
-    touchAction: 'pan-x pan-y'
+    touchAction: 'manipulation'
   }
 }
 

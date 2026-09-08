@@ -139,14 +139,13 @@ export const useCliTerminal = (
       window.visualViewport?.addEventListener('resize', onViewportResize)
       resizeObserver = new window.ResizeObserver(() => fit())
       resizeObserver.observe(surface)
-      await session.start()
-
       detachTouch = () => {
         surface.removeEventListener('touchstart', onTouchStart, touchOpts)
         surface.removeEventListener('touchmove', onTouchMove, touchOpts)
         surface.removeEventListener('touchend', onTouchEnd, touchOpts)
         window.visualViewport?.removeEventListener('resize', onViewportResize)
       }
+      await session.start()
     })()
 
     return () => {

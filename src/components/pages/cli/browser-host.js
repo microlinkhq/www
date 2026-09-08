@@ -9,15 +9,16 @@ const toCrlf = value => String(value).replace(/\n/g, '\r\n')
 export const createBrowserHost = (term, output) => {
   const writeLive = chunk => term.write(toCrlf(chunk))
   const writeOut = chunk => {
-    if (output) {
-      const text = String(chunk)
-      output.all.push(text)
-      output.stdout.push(text)
-    } else writeLive(chunk)
+    if (output) output.all.push(String(chunk))
+    else writeLive(chunk)
   }
   const writeErr = chunk => {
-    writeLive(chunk)
-    if (output && !isSpinnerChunk(chunk)) output.all.push(String(chunk))
+    if (isSpinnerChunk(chunk)) {
+      writeLive(chunk)
+      return
+    }
+    if (output) output.all.push(String(chunk))
+    else writeLive(chunk)
   }
   return {
     stdout: { write: writeOut },
