@@ -49,8 +49,8 @@ const Fullscreen = () => {
         <Text as='span' css={theme({ fontSize: 'inherit', color: 'white' })}>
           Microlink CLI v{CLI_VERSION}
         </Text>{' '}
-        in your browser. Type{' '}
-        <span css={theme({ color: 'white' })}>--help</span> for commands.
+        in your browser. Type <span css={theme({ color: 'white' })}>help</span>{' '}
+        for commands.
         <LineBreak />
         Commands hit the live API. See products and flags in the{' '}
         <Link href={DOCS_HREF}>docs</Link>.
