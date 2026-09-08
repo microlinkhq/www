@@ -83,9 +83,13 @@ export const createCliSession = ({
 
   const prompt = () => {
     pinOverlay = false
+    holdView = null
     resetInput()
-    term.write('\x1b[?25h' + PROMPT)
-    paintPins()
+    term.write('\x1b[?25h' + PROMPT, () => {
+      if (disposed) return
+      paintPins()
+      revealInput()
+    })
   }
 
   const rewriteLine = next => {
