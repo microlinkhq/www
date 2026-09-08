@@ -89,7 +89,7 @@ const { results } = await microlink.search('artificial intelligence', { type: 'n
 results[0]
 // {
 //   title: 'Artificial Intelligence Floods Court Dockets with Home-Brewed Lawsuits',
-//   url: 'https://www.nytimes.com/2026/05/25/us/politics/artificial-intelliegence-courts.html',
+//   url: 'https://www.nytimes.com/2026/05/25/us/politics/artificial-intelligence-courts.html',
 //   description: 'For years, courts have welcomed cases brought by self-represented litigants…',
 //   date: '2026-05-25T15:13:08.232Z',
 //   publisher: 'The New York Times',
@@ -438,7 +438,7 @@ const { results } = await microlink.search('node.js frameworks', { page: 3 })
 
 ## Content expansion
 
-Every result can expand itself lazily: `result.markdown()` and `result.html()` fetch the linked page through Microlink and resolve to its content, so an agent can read only the results worth reading. The page itself exposes the same `markdown()` and `html()` for the results page:
+Results that carry a `url` can expand themselves lazily: `result.markdown()` and `result.html()` fetch the linked page through Microlink and resolve to its content, so an agent can read only the results worth reading. Autocomplete results expose only `value` and have nothing to expand. The page itself exposes the same `markdown()` and `html()` for the results page:
 
 ```js
 const page = await microlink.search('web performance budgets', { limit: 3 })
@@ -449,6 +449,6 @@ for (const result of page.results) {
 }
 ```
 
-Pass `markdown: true` or `html: true` to fetch everything up front instead; the functions then resolve immediately with the prefetched content.
+Pass `markdown: true` or `html: true` to fetch everything up front instead; the functions then resolve immediately with the prefetched content. Those options apply to URL-backed results only.
 
 See the [search guide](/docs/guides/search) for workflow-first pages per surface and [integration patterns](/docs/guides/search/patterns) for agents, RAG, and monitoring.

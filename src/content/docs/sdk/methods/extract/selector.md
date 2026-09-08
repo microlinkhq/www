@@ -34,7 +34,7 @@ console.log(`GitHub avatar for @${username}: ${avatar.url} (${avatar.size_pretty
 It's equivalent to [Document.querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) and any [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) can be specified, such as:
 
 - An HTML tag (e.g., <Type children="'img'"/>).
-- A CSS class or pseudo class, id or data-attribute (e.g., <Type children="'#avatar'"/>).
+- A CSS class or pseudo-class, id or data-attribute (e.g., <Type children="'#avatar'"/>).
 - A combination of both (e.g., <Type children="'img:first'"/>).
 
 When `selector` is omitted, the [attr](/docs/sdk/methods/extract/attr) operates on the entire page. This is useful for whole-page serialization (including formats like <Type children="'markdown'"/>):

@@ -16,7 +16,7 @@ const { results } = await microlink.search('artificial intelligence', { type: 'n
 results[0]
 // {
 //   title: 'Artificial Intelligence Floods Court Dockets with Home-Brewed Lawsuits',
-//   url: 'https://www.nytimes.com/2026/05/25/us/politics/artificial-intelliegence-courts.html',
+//   url: 'https://www.nytimes.com/2026/05/25/us/politics/artificial-intelligence-courts.html',
 //   description: 'For years, courts have welcomed cases brought by self-represented litigants…',
 //   date: '2026-05-25T15:13:08.232Z',
 //   publisher: 'The New York Times',

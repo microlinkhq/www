@@ -44,7 +44,7 @@ Any other option passed to `createClient` is merged into every API call, which m
 
 ## Methods
 
-Every product is a method on the client. All of them follow the same `method(url, options)` shape and resolve to the product's result directly, with no envelope to unwrap:
+Every product is a method on the client. URL-based methods share the `method(url, options)` shape and resolve to the product's result directly, with no envelope to unwrap. [`search`](/docs/sdk/methods/search) takes a query string instead:
 
 - [metadata](/docs/sdk/methods/metadata) — unified metadata from Open Graph, Twitter Cards, JSON-LD, and HTML.
 - [screenshot](/docs/sdk/methods/screenshot) — any URL as a hosted image, or a short video recording.
