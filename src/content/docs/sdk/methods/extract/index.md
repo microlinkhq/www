@@ -72,53 +72,11 @@ It's equivalent to [Document.querySelector()](https://developer.mozilla.org/en-U
 - A CSS class or pseudo-class, id or data-attribute (e.g., <Type children="'#avatar'"/>).
 - A combination of both (e.g., <Type children="'img:first'"/>).
 
-When `selector` is omitted, the [attr](#attr) operates on the entire page. This is useful for whole-page serialization (including formats like <Type children="'markdown'"/>):
-
-```js
-const { content } = await microlink.extract('https://example.com', {
-  content: {
-    attr: 'markdown'
-  }
-})
-
-console.log(content)
-// => '# Example Domain\n\nThis domain is for use in…'
-```
-
-<Figcaption children='Omitting selector with attr is useful for LLM pipelines, content indexing, or feeding page content into downstream processing. Unsupported attr values fall back to HTML.' />
-
-The same `selector` is what the [markdown](/docs/sdk/methods/markdown), [html](/docs/sdk/methods/html), [text](/docs/sdk/methods/text), and [collection](/docs/sdk/methods/collections) methods accept as an option to scope their extraction.
+When `selector` is omitted, [attr](#attr) operates on the entire page — see [whole-page serialization](#whole-page-serialization). The same `selector` is what the [markdown](/docs/sdk/methods/markdown), [html](/docs/sdk/methods/html), [text](/docs/sdk/methods/text), and [collection](/docs/sdk/methods/collections) methods accept as an option to scope their extraction.
 
 ### Fallback selectors
 
-If you pass a collection of selectors, they are considered as fallback values:
-
-```js
-const github = username =>
-  microlink.extract(`https://github.com/${username}`, {
-    avatar: [
-      {
-        selector: 'meta[name="twitter:image:src"]:not([content=""])',
-        attr: 'content',
-        type: 'image'
-      },
-      {
-        selector: 'meta[property="og:image"]:not([content=""])',
-        attr: 'content',
-        type: 'image'
-      }
-    ]
-  })
-
-const username = 'kikobeats'
-const { avatar } = await github(username)
-
-console.log(`GitHub avatar for @${username}: ${avatar.url} (${avatar.size_pretty})`)
-```
-
-<Figcaption children='Using multiple selectors makes the data rule more generic.' />
-
-The position into the collection matters: The first data rule that returns a truthy value after applying type will be used, discarding the rest of the selectors.
+A collection of selectors is an array of [fallback rules](#fallback-rules): the first selector that yields a typed value wins.
 
 ## selectorAll
 
@@ -298,32 +256,7 @@ Nested rules can nest again, so a parent rule can describe a whole section of a 
 
 ### Fallback values
 
-If you specify more than one value, they will be used as fallback values:
-
-```js
-const github = username =>
-  microlink.extract(`https://github.com/${username}`, {
-    avatar: [
-      {
-        selector: 'meta[name="twitter:image:src"]:not([content=""])',
-        attr: 'content',
-        type: 'image'
-      },
-      {
-        selector: 'meta[property="og:image"]:not([content=""])',
-        attr: 'content',
-        type: 'image'
-      }
-    ]
-  })
-
-const username = 'kikobeats'
-const { avatar } = await github(username)
-
-console.log(`GitHub avatar for @${username}: ${avatar.url} (${avatar.size_pretty})`)
-```
-
-<Figcaption children="The first attribute that resolves a value will be used." />
+More than one `attr` is the same [fallback](#fallback-rules) form: the first attribute that resolves a value is used.
 
 ## type
 
@@ -480,38 +413,6 @@ console.log(`GitHub avatar for @${username}: ${avatar.url} (${avatar.size_pretty
 ```
 
 A rule fails when its query matches nothing or when the value doesn't pass its [type](#type), so a fallback chain is also how you make a rule resilient to pages whose markup varies. The same array form works for [selector](#fallback-selectors) and [attr](#fallback-values) on their own.
-
-## Examples
-
-A list of objects — one per story — with [selectorAll](#selectorall) and a nested `attr`:
-
-```js
-const { stories } = await microlink.extract('https://news.ycombinator.com', {
-  stories: {
-    selectorAll: '.athing',
-    attr: {
-      title: { selector: '.titleline > a', attr: 'text' },
-      href: { selector: '.titleline > a', attr: 'href', type: 'url' }
-    }
-  }
-})
-```
-
-A value that only exists in JavaScript, read with [evaluate](#evaluate):
-
-```js
-const { version } = await microlink.extract('https://vercel.com', {
-  version: { evaluate: 'window.next.version', type: 'string' }
-})
-```
-
-A JSON endpoint parsed into structured data, with `attr: 'json'` on the whole page:
-
-```js
-const { content } = await microlink.extract('https://pokeapi.co/api/v2/pokemon', {
-  content: { attr: 'json' }
-})
-```
 
 ## Everywhere else
 
