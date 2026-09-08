@@ -4,6 +4,7 @@ import {
   DOCS_CONTENT_SELECTOR,
   MAIN_CONTENT_SELECTOR,
   extractMarkdown,
+  isNotDeployedYet,
   isMarkdownPage,
   toMarkdownPath,
   prependTitle,
@@ -96,6 +97,14 @@ describe('notFoundMarkdown', () => {
   })
 })
 
+describe('isNotDeployedYet', () => {
+  test('is only the 404 production returns before a page ships', () => {
+    expect(isNotDeployedYet(404)).toBe(true)
+    expect(isNotDeployedYet(200)).toBe(false)
+    expect(isNotDeployedYet(undefined)).toBe(false)
+  })
+})
+
 describe('extractMarkdown', () => {
   test('takes the article out of a docs page', async () => {
     const { calls, fetchMarkdown } = fetcherOf([{ markdown: 'article' }])
@@ -133,6 +142,19 @@ describe('extractMarkdown', () => {
       MAIN_CONTENT_SELECTOR,
       undefined
     ])
+  })
+
+  test('stops at the first fetch when the page is not deployed yet', async () => {
+    const { calls, fetchMarkdown } = fetcherOf([
+      { markdown: null, statusCode: 404 },
+      { markdown: 'never fetched' },
+      { markdown: 'never fetched' }
+    ])
+
+    expect(
+      await extractMarkdown(fetchMarkdown, '/docs/sdk/methods/pdf')
+    ).toEqual({ markdown: null, statusCode: 404, selector: null })
+    expect(calls).toEqual([DOCS_CONTENT_SELECTOR])
   })
 
   test('reports no markdown when nothing returns content', async () => {

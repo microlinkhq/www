@@ -18,6 +18,7 @@ const { getLastModifiedDate, branchName } = require('./src/helpers/git')
 const {
   DOCS_CONTENT_SELECTOR,
   extractMarkdown,
+  isNotDeployedYet,
   isMarkdownPage,
   toMarkdownPath,
   prependTitle,
@@ -62,6 +63,7 @@ const githubUrl = (() => {
 const markdownFetcher = url => async selector => {
   const {
     data: { markdown },
+    statusCode,
     response
   } = await mql(url, {
     apiKey: process.env.MICROLINK_API_KEY,
@@ -71,7 +73,11 @@ const markdownFetcher = url => async selector => {
     meta: false
   })
 
-  return { markdown, duration: response.headers.get('x-response-time') }
+  return {
+    markdown,
+    statusCode,
+    duration: response.headers.get('x-response-time')
+  }
 }
 
 exports.createSchemaCustomization = ({ actions }) => {
@@ -548,15 +554,22 @@ const createPageMarkdownFiles = async ({ graphql, reporter }) => {
 
   const pathnames = markdownPathnames(result.data.allSitePage.nodes)
 
+  const undeployedPathnames = new Set()
   const startTime = Date.now()
   await pMap(
     pathnames,
     async pathname => {
       const url = new URL(pathname, baseUrl).toString()
-      const { markdown, duration, selector } = await extractMarkdown(
-        markdownFetcher(url),
-        pathname
-      )
+      const { markdown, duration, selector, statusCode } =
+        await extractMarkdown(markdownFetcher(url), pathname)
+
+      if (isNotDeployedYet(statusCode)) {
+        undeployedPathnames.add(pathname)
+        return reporter.warn(
+          `${url} is not deployed yet, so its markdown was skipped. ` +
+            'It resolves on the next deploy.'
+        )
+      }
 
       if (!markdown) {
         return reporter.panicOnBuild(`No content extracted from ${url}`)
@@ -586,11 +599,14 @@ const createPageMarkdownFiles = async ({ graphql, reporter }) => {
   )
   const duration = Date.now() - startTime
 
+  const writtenPathnames = pathnames.filter(
+    pathname => !undeployedPathnames.has(pathname)
+  )
   reporter.info(
-    `Generated ${pathnames.length} page markdown files in ${duration}ms`
+    `Generated ${writtenPathnames.length} page markdown files in ${duration}ms`
   )
 
-  const pages = pathnames.map(pathname => ({
+  const pages = writtenPathnames.map(pathname => ({
     pathname,
     ...pageMetadata(pathname)
   }))
