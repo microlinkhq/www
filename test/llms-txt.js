@@ -162,7 +162,9 @@ describe('the build', () => {
   })
 
   test('busts a cached 404 when converting a page', () => {
-    expect(gatsbyNode).toContain('retryStaleNotFound')
+    expect(bodyOf('markdownFetcher')).toContain(
+      'retryStaleNotFound(force => requestMarkdown'
+    )
     expect(bodyOf('requestMarkdown')).toContain('force')
   })
 })
