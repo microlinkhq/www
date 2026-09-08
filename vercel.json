@@ -202,20 +202,112 @@
       "destination": "/integrations/sdk"
     },
     {
+      "source": "/docs/sdk-legacy/:path*",
+      "destination": "/link-preview"
+    },
+    {
+      "source": "/docs/mql/getting-started/overview",
+      "destination": "/docs/sdk/methods/extract"
+    },
+    {
+      "source": "/docs/mql/getting-started/overview.md",
+      "destination": "/docs/sdk/methods/extract.md"
+    },
+    {
+      "source": "/docs/mql/getting-started/installation",
+      "destination": "/docs/sdk/methods/extract"
+    },
+    {
+      "source": "/docs/mql/getting-started/installation.md",
+      "destination": "/docs/sdk/methods/extract.md"
+    },
+    {
+      "source": "/docs/mql/getting-started/usage",
+      "destination": "/docs/sdk/methods/extract"
+    },
+    {
+      "source": "/docs/mql/getting-started/usage.md",
+      "destination": "/docs/sdk/methods/extract.md"
+    },
+    {
+      "source": "/docs/mql/getting-started/api",
+      "destination": "/docs/sdk/methods/extract"
+    },
+    {
+      "source": "/docs/mql/getting-started/api.md",
+      "destination": "/docs/sdk/methods/extract.md"
+    },
+    {
+      "source": "/docs/mql/rules/basic",
+      "destination": "/docs/sdk/methods/extract"
+    },
+    {
+      "source": "/docs/mql/rules/basic.md",
+      "destination": "/docs/sdk/methods/extract.md"
+    },
+    {
+      "source": "/docs/mql/rules/nested",
+      "destination": "/docs/sdk/methods/extract/attr#nested-rules"
+    },
+    {
+      "source": "/docs/mql/rules/nested.md",
+      "destination": "/docs/sdk/methods/extract/attr.md"
+    },
+    {
+      "source": "/docs/mql/rules/fallbacks",
+      "destination": "/docs/sdk/methods/extract#fallback-rules"
+    },
+    {
+      "source": "/docs/mql/rules/fallbacks.md",
+      "destination": "/docs/sdk/methods/extract.md"
+    },
+    {
+      "source": "/docs/mql/data/:name",
+      "destination": "/docs/sdk/methods/extract/:name"
+    },
+    {
+      "source": "/docs/mql/:path*",
+      "destination": "/docs/sdk/methods/extract"
+    },
+    {
+      "source": "/docs/sdk/methods/content",
+      "destination": "/docs/sdk/getting-started/overview#methods"
+    },
+    {
+      "source": "/docs/sdk/methods/content.md",
+      "destination": "/docs/sdk/getting-started/overview.md"
+    },
+    {
+      "source": "/docs/sdk/methods/specialized",
+      "destination": "/docs/sdk/getting-started/overview#methods"
+    },
+    {
+      "source": "/docs/sdk/methods/specialized.md",
+      "destination": "/docs/sdk/getting-started/overview.md"
+    },
+    {
+      "source": "/docs/sdk/methods/run",
+      "destination": "/docs/sdk/methods/function"
+    },
+    {
+      "source": "/docs/sdk/methods/run.md",
+      "destination": "/docs/sdk/methods/function.md"
+    },
+    {
       "source": "/docs/sdk/getting-started/styling",
-      "destination": "/docs/sdk-legacy/getting-started/styling"
+      "destination": "/link-preview"
     },
     {
       "source": "/docs/sdk/getting-started/styling.md",
-      "destination": "/docs/sdk-legacy/getting-started/styling.md"
+      "destination": "/link-preview"
     },
     {
       "source": "/docs/sdk/integrations/:path*",
-      "destination": "/docs/sdk-legacy/integrations/:path*"
+      "destination": "/link-preview"
     },
     {
       "source": "/docs/sdk/parameters/:path*",
-      "destination": "/docs/sdk-legacy/parameters/:path*"
+      "destination": "/link-preview"
     },
     {
       "source": "/audio",
@@ -379,11 +471,11 @@
     },
     {
       "source": "/jekyll",
-      "destination": "/docs/sdk-legacy/integrations/jekyll"
+      "destination": "/link-preview"
     },
     {
       "source": "/mql",
-      "destination": "/docs/mql/getting-started/overview"
+      "destination": "/docs/sdk/methods/extract"
     },
     {
       "source": "/palette",
@@ -399,11 +491,11 @@
     },
     {
       "source": "/react",
-      "destination": "/docs/sdk-legacy/integrations/react"
+      "destination": "/link-preview"
     },
     {
       "source": "/scraping",
-      "destination": "/docs/mql/getting-started/overview"
+      "destination": "/docs/sdk/methods/extract"
     },
     {
       "source": "/scroll",
@@ -427,7 +519,7 @@
     },
     {
       "source": "/vanilla",
-      "destination": "/docs/sdk-legacy/integrations/vanilla"
+      "destination": "/link-preview"
     },
     {
       "source": "/video",
@@ -439,7 +531,7 @@
     },
     {
       "source": "/vue",
-      "destination": "/docs/sdk-legacy/integrations/vue"
+      "destination": "/link-preview"
     },
     {
       "source": "/waituntil",

@@ -8,7 +8,7 @@ import { Link } from 'components/elements/Link'
 Local business listings with coordinates and contact info. Use it for local entity lookup when you need addresses, phone numbers, and geographic coordinates.
 
 ```js
-const page = await google('coworking spaces barcelona', { type: 'places' })
+const page = await microlink.search('coworking spaces barcelona', { type: 'places' })
 ```
 
 ## Result fields
@@ -27,7 +27,7 @@ const page = await google('coworking spaces barcelona', { type: 'places' })
 | `cid` | `string` | Google CID identifier |
 
 ```js
-const page = await google('coworking spaces barcelona', { type: 'places' })
+const page = await microlink.search('coworking spaces barcelona', { type: 'places' })
 
 page.results[0]
 // {

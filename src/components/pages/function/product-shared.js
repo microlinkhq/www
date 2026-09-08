@@ -27,7 +27,7 @@ export const GLANCE = {
       title: 'Read the page',
       href: '/docs/guides/function/browser-interaction',
       span: 2,
-      code: `const { value } = await microlink.run(
+      code: `const { value } = await microlink.function(
   'https://microlink.io',
   ({ page }) => page.evaluate(() => ({
     title: document.title,
@@ -41,7 +41,7 @@ export const GLANCE = {
       title: 'Click, then scrape',
       href: '/docs/guides/function/browser-interaction',
       span: 2,
-      code: `const { value } = await microlink.run(
+      code: `const { value } = await microlink.function(
   'https://news.ycombinator.com',
   async ({ page }) => {
     await page.click('a.morelink')
@@ -57,7 +57,7 @@ export const GLANCE = {
       title: 'Run through a proxy',
       href: '/docs/api/parameters/proxy',
       span: 2,
-      code: `const { value } = await microlink.run(
+      code: `const { value } = await microlink.function(
   'https://github.com/microlinkhq/mql',
   async ({ page }) => {
     await page.waitForSelector('#repo-stars-counter-star')
@@ -71,7 +71,7 @@ export const GLANCE = {
       title: 'Inject a script',
       href: '/docs/guides/function/browser-interaction',
       span: 3,
-      code: `const { value } = await microlink.run(
+      code: `const { value } = await microlink.function(
   'https://microlink.io',
   ({ page }) => page.evaluate(() =>
     $('a[href^="/docs"]').map((i, el) => el.href).get()
@@ -84,7 +84,7 @@ export const GLANCE = {
       title: 'require() a package',
       href: '/docs/guides/function/writing-functions',
       span: 3,
-      code: `const { value } = await microlink.run(
+      code: `const { value } = await microlink.function(
   'https://microlink.io/blog',
   async ({ page }) => {
     const cheerio = require('cheerio')

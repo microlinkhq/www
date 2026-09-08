@@ -185,7 +185,7 @@ const microlink = createClient({ apiKey: "line\\nbreak" })`)
   })
 
   describe('function emission in JavaScript', () => {
-    test('should emit run with the function as a raw literal', () => {
+    test('should emit function with the code as a raw literal', () => {
       const result = mqlCode(testUrl, {
         function: '({ page }) => page.evaluate("jQuery.fn.jquery")'
       })
@@ -194,7 +194,7 @@ const microlink = createClient({ apiKey: "line\\nbreak" })`)
 
 const microlink = createClient()
 
-const { value } = await microlink.run(
+const { value } = await microlink.function(
   'https://github.com',
   ({ page }) => page.evaluate("jQuery.fn.jquery")
 )`)
@@ -209,7 +209,7 @@ const { value } = await microlink.run(
 
 const microlink = createClient()
 
-const { value } = await microlink.run(
+const { value } = await microlink.function(
   'https://github.com',
   ({ page }) => page.evaluate('jQuery.fn.jquery')
 )`)
@@ -225,7 +225,7 @@ const { value } = await microlink.run(
 
 const microlink = createClient()
 
-const { value } = await microlink.run(
+const { value } = await microlink.function(
   'https://github.com',
   ({ page }) => page.evaluate("jQuery.fn.jquery") && page.evaluate('version')
 )`)
@@ -238,10 +238,10 @@ const { value } = await microlink.run(
 
 const microlink = createClient()
 
-const { value } = await microlink.run('https://github.com', () => 42)`)
+const { value } = await microlink.function('https://github.com', () => 42)`)
     })
 
-    test('should let run() destructure profiling without leaking into CLI', () => {
+    test('should let function() destructure profiling without leaking into CLI', () => {
       const result = mqlCode(testUrl, {
         function: '({ page }) => page.title()',
         binding: '{ profiling }',
@@ -252,14 +252,14 @@ const { value } = await microlink.run('https://github.com', () => 42)`)
 
 const microlink = createClient()
 
-const { profiling } = await microlink.run(
+const { profiling } = await microlink.function(
   'https://github.com',
   ({ page }) => page.title()
 )`)
       expect(result.CLI).not.toContain('binding')
     })
 
-    test('should pass remaining options as the third run argument', () => {
+    test('should pass remaining options as the third function argument', () => {
       const result = mqlCode('https://microlink.io', {
         function: '({ page }) => page.evaluate("jQuery.fn.jquery")',
         scripts: ['https://code.jquery.com/jquery-3.5.0.min.js']
@@ -269,7 +269,7 @@ const { profiling } = await microlink.run(
 
 const microlink = createClient()
 
-const { value } = await microlink.run(
+const { value } = await microlink.function(
   'https://microlink.io',
   ({ page }) => page.evaluate("jQuery.fn.jquery"),
   {
@@ -604,7 +604,7 @@ const data = await microlink.screenshot('https://github.com', {
       )
     })
 
-    test('run forwards extra named arguments as options', () => {
+    test('function forwards extra named arguments as options', () => {
       const result = mqlCode(testUrl, {
         function: '({ page, greetings }) => page.evaluate(greetings)',
         greetings: 'hello world'
@@ -614,7 +614,7 @@ const data = await microlink.screenshot('https://github.com', {
 
 const microlink = createClient()
 
-const { value } = await microlink.run(
+const { value } = await microlink.function(
   'https://github.com',
   ({ page, greetings }) => page.evaluate(greetings),
   {

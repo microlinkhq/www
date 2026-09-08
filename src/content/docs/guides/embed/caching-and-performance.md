@@ -80,7 +80,7 @@ The Embed SDK uses `IntersectionObserver` and only fires its API call when each 
 <Microlink url='...' lazy={{ rootMargin: '400px' }} />
 ```
 
-See <Link href='/docs/sdk-legacy/parameters/lazy' children='lazy reference' />.
+The `lazy` prop is covered on the <Link href='/link-preview' children='link preview component' /> page.
 
 ## When you don't need fresh data
 
@@ -94,7 +94,7 @@ Static sites and SSR builds often have the metadata at build time. Skip the runt
 />
 ```
 
-That removes the API call entirely. Combined with build-time crawling, you ship zero-API-call embeds. See <Link href='/docs/sdk-legacy/parameters/set-data' children='setData reference' />.
+That removes the API call entirely. Combined with build-time crawling, you ship zero-API-call embeds. See the <Link href='/link-preview' children='link preview component' /> page for `setData`.
 
 ## Verify caching is working
 

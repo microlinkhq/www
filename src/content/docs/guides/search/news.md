@@ -8,7 +8,7 @@ import { Link } from 'components/elements/Link'
 Recent articles with publisher, date, and thumbnail. Use it when freshness matters and your workflow depends on publication timestamps.
 
 ```js
-const page = await google('artificial intelligence', { type: 'news' })
+const page = await microlink.search('artificial intelligence', { type: 'news' })
 ```
 
 ## Result fields
@@ -23,7 +23,7 @@ const page = await google('artificial intelligence', { type: 'news' })
 | `image` | `{ url }?` | Thumbnail image |
 
 ```js
-const page = await google('artificial intelligence', { type: 'news' })
+const page = await microlink.search('artificial intelligence', { type: 'news' })
 
 page.results[0]
 // {
@@ -39,13 +39,13 @@ page.results[0]
 Combine with `period` to narrow the time window:
 
 ```js
-await google('tech acquisitions', { type: 'news', period: 'week' })
+await microlink.search('tech acquisitions', { type: 'news', period: 'week' })
 ```
 
 Combine with `location` for regional coverage:
 
 ```js
-await google('regulatory update', { type: 'news', location: 'de', period: 'day' })
+await microlink.search('regulatory update', { type: 'news', location: 'de', period: 'day' })
 ```
 
 ## See also

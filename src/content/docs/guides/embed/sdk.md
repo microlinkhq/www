@@ -6,7 +6,7 @@ description: 'The Microlink Embed SDK turns any URL into a preview card or inter
 import { Microlink } from 'components/markdown/Microlink'
 import { Link } from 'components/elements/Link'
 
-> **The legacy Microlink Embed SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The new [Microlink Embed SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward.
+> **The legacy Microlink Embed SDK is no longer maintained.** It keeps working and you can still use it, but it won't receive further updates. The [Microlink SDK](/integrations/sdk) — the [microlink.io](/docs/sdk/getting-started/overview/) package — is the way to consume the Microlink API going forward, and the [link preview](/link-preview) page covers the component.
 
 The Embed SDK is the fastest way to embed any URL: drop one component into your markup, pass a `url`, and get a live preview. It handles the API call, lazy-loading, the iframe-vs-card choice, and CSS theming.
 
@@ -61,7 +61,7 @@ export default { components: { Microlink } }
 
 The vanilla integration is selector-driven — pass any CSS selector and the Embed SDK replaces matching elements with previews.
 
-For the full per-integration reference, see <Link href='/docs/sdk-legacy/integrations/react' children='React' />, <Link href='/docs/sdk-legacy/integrations/vue' children='Vue' />, and <Link href='/docs/sdk-legacy/integrations/vanilla' children='Vanilla' />.
+The React, Vue, and vanilla integrations share the same props and CSS hooks; see the <Link href='/link-preview' children='link preview component' /> page for all three.
 
 ## Card or iframe — your call
 
@@ -86,21 +86,21 @@ The single embed-relevant decision the Embed SDK adds is the `media` prop. Toggl
 />
 ```
 
-The Embed SDK picks the first field that exists in the response — so one component handles YouTube, Spotify, GitHub READMEs, and plain articles without branching. See the <Link href='/docs/sdk-legacy/parameters/media' children='media reference' />.
+The Embed SDK picks the first field that exists in the response — so one component handles YouTube, Spotify, GitHub READMEs, and plain articles without branching.
 
-## Everything else lives in the Embed SDK reference
+## Everything else is a prop
 
 Every Microlink API parameter works as an Embed SDK prop, and the Embed SDK adds a few of its own:
 
-| Prop | What it does | Reference |
-|------|--------------|-----------|
-| `apiKey` | Authenticate requests for Pro features | <Link href='/docs/sdk-legacy/parameters/api-key' children='apiKey' /> |
-| `lazy` | Defer the API call until the card is in view (default `true`) | <Link href='/docs/sdk-legacy/parameters/lazy' children='lazy' /> |
-| `setData` / `fetchData` | Skip the runtime fetch when you already have the metadata (SSR, build-time crawls) | <Link href='/docs/sdk-legacy/parameters/set-data' children='setData' /> |
-| `size`, `contrast`, `direction` | Visual layout knobs | <Link href='/docs/sdk-legacy/parameters/size' children='size' /> |
-| Any API parameter (`screenshot`, `iframe`, `palette`, `meta`, ...) | Forwarded to the API call | <Link href='/docs/api/getting-started/overview' children='API parameters' /> |
+| Prop | What it does |
+|------|--------------|
+| `apiKey` | Authenticate requests for Pro features |
+| `lazy` | Defer the API call until the card is in view (default `true`) |
+| `setData` / `fetchData` | Skip the runtime fetch when you already have the metadata (SSR, build-time crawls) |
+| `size`, `contrast`, `direction` | Visual layout knobs |
+| Any <Link href='/docs/api/getting-started/overview' children='API parameter' /> (`screenshot`, `iframe`, `palette`, `meta`, ...) | Forwarded to the API call |
 
-For the full prop list and styling (CSS variables, BEM classes, `styled-components` wrappers), see the <Link href='/docs/sdk-legacy/getting-started/overview' children='SDK overview' /> and <Link href='/docs/sdk-legacy/getting-started/styling' children='SDK styling' />.
+Styling goes through CSS variables, stable BEM classes, or a `styled-components` wrapper. The <Link href='/link-preview' children='link preview component' /> page shows the props and styling hooks in action.
 
 ## Choose between the Embed SDK and the other approaches
 

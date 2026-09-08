@@ -8,7 +8,7 @@ import { Link } from 'components/elements/Link'
 Video metadata with duration in milliseconds. Use it for tutorial discovery, content research, and video SERP coverage.
 
 ```js
-const page = await google('node.js streams', { type: 'videos' })
+const page = await microlink.search('node.js streams', { type: 'videos' })
 ```
 
 ## Result fields
@@ -27,7 +27,7 @@ const page = await google('node.js streams', { type: 'videos' })
 | `date` | `string?` | ISO 8601 publish date |
 
 ```js
-const page = await google('node.js streams', { type: 'videos' })
+const page = await microlink.search('node.js streams', { type: 'videos' })
 
 page.results[0]
 // {

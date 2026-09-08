@@ -455,13 +455,13 @@ const SpecializedSearch = ({ accent }) => (
 
 const SpecializedRun = ({ accent }) => (
   <>
-    <PanelHeader accent={accent} label='Structured answers' method='run' />
+    <PanelHeader accent={accent} label='Structured answers' method='function' />
     <Box
       css={theme({ mt: 2, borderRadius: 2 })}
       style={{ background: colors.gray9, padding: '8px 10px' }}
     >
       <CodeLine>
-        await microlink.run(url, async ({'{ page }'}) =&gt; {'{'}
+        await microlink.function(url, async ({'{ page }'}) =&gt; {'{'}
       </CodeLine>
       <CodeLine>{'  '}await page.waitForSelector(&apos;h1&apos;)</CodeLine>
       <CodeLine>

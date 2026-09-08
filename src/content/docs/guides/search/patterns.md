@@ -1,21 +1,21 @@
 ---
 title: 'Search: Integration patterns'
-description: 'Practical patterns for using @microlink/google in agent frameworks, RAG pipelines, news monitoring, entity lookup, academic research, and product intelligence workflows.'
+description: 'Practical patterns for using Microlink Search through the SDK in agent frameworks, RAG pipelines, news monitoring, entity lookup, academic research, and product intelligence workflows.'
 ---
 
 import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
-This page collects the most common ways teams integrate `@microlink/google` into production systems. Each pattern includes the surface choice, the query strategy, and the expansion depth that makes sense for the workflow.
+This page collects the most common ways teams integrate `microlink.search` into production systems. Each pattern includes the surface choice, the query strategy, and the expansion depth that makes sense for the workflow.
 
 ## Agent tool calling
 
-Expose `google(query, options)` as a tool and let the model decide when to search, which surface to use, and when to expand:
+Expose `microlink.search(query, options)` as a tool and let the model decide when to search, which surface to use, and when to expand:
 
 ```js
-import createGoogleClient from '@microlink/google'
+import createClient from 'microlink.io'
 
-const google = createGoogleClient({
+const microlink = createClient({
   apiKey: process.env.MICROLINK_API_KEY
 })
 
@@ -31,7 +31,7 @@ const searchTool = {
     }
   },
   execute: async ({ query, type = 'search' }) => {
-    const page = await google(query, { type })
+    const page = await microlink.search(query, { type })
     return page.results.map(r => ({
       title: r.title,
       url: r.url,
@@ -41,7 +41,7 @@ const searchTool = {
 }
 ```
 
-The key insight: keep the tool result lightweight. Return `title`, `url`, and `description` from the first call. If the model needs full page content, expose `.markdown()` as a second tool.
+The key insight: keep the tool result lightweight. Return `title`, `url`, and `description` from the first call. If the model needs full page content, expose the [markdown](/docs/sdk/methods/markdown) method as a second tool.
 
 ### Separate expansion tool
 
@@ -52,11 +52,7 @@ const expandTool = {
   parameters: {
     url: { type: 'string', description: 'URL to read' }
   },
-  execute: async ({ url }) => {
-    const page = await google(url)
-    const result = page.results.find(r => r.url === url)
-    return result ? await result.markdown() : null
-  }
+  execute: ({ url }) => microlink.markdown(url)
 }
 ```
 
@@ -67,7 +63,7 @@ This two-tool pattern gives the model explicit control over cost and depth.
 Start with search to find relevant sources, then expand the best matches into your retrieval pipeline:
 
 ```js
-const page = await google('site:openai.com function calling guide')
+const page = await microlink.search('site:openai.com function calling guide')
 
 const documents = await Promise.all(
   page.results.slice(0, 3).map(async result => ({
@@ -81,12 +77,12 @@ const documents = await Promise.all(
 For broader coverage, combine `autocomplete` to discover related queries, then search each one:
 
 ```js
-const suggestions = await google('how to fine tune', { type: 'autocomplete' })
+const suggestions = await microlink.search('how to fine tune', { type: 'autocomplete' })
 const queries = suggestions.results.slice(0, 5).map(s => s.value)
 
 const allResults = []
 for (const query of queries) {
-  const page = await google(query)
+  const page = await microlink.search(query)
   allResults.push(...page.results)
 }
 ```
@@ -100,7 +96,7 @@ Pagination adds recall at the cost of latency and API calls. Paginate when:
 - the model's confidence is still low after the first page
 
 ```js
-let page = await google('vector database benchmarks')
+let page = await microlink.search('vector database benchmarks')
 const sources = [...page.results]
 
 if (sources.length < 5) {
@@ -114,7 +110,7 @@ if (sources.length < 5) {
 Use `news` with `period` to build monitoring and alerting workflows:
 
 ```js
-const page = await google('data breach', {
+const page = await microlink.search('data breach', {
   type: 'news',
   period: 'day'
 })
@@ -134,7 +130,7 @@ const regions = ['us', 'gb', 'de', 'jp']
 
 const results = await Promise.all(
   regions.map(async location => {
-    const page = await google('regulatory update', {
+    const page = await microlink.search('regulatory update', {
       type: 'news',
       location,
       period: 'week'
@@ -149,7 +145,7 @@ const results = await Promise.all(
 Use `places` or `maps` when your workflow needs business or geographic context:
 
 ```js
-const page = await google('coworking spaces barcelona', { type: 'places' })
+const page = await microlink.search('coworking spaces barcelona', { type: 'places' })
 
 const locations = page.results.map(result => ({
   name: result.title,
@@ -165,7 +161,7 @@ const locations = page.results.map(result => ({
 Use `maps` instead of `places` when you also need opening hours, price levels, or Google Place IDs for downstream API calls:
 
 ```js
-const page = await google('restaurants near times square', { type: 'maps' })
+const page = await microlink.search('restaurants near times square', { type: 'maps' })
 
 page.results[0].opening?.hours
 // { Monday: '11:00 AM – 10:00 PM', ... }
@@ -179,7 +175,7 @@ page.results[0].place?.id
 Use `scholar` to build literature review or citation analysis workflows:
 
 ```js
-const page = await google('retrieval augmented generation', { type: 'scholar' })
+const page = await microlink.search('retrieval augmented generation', { type: 'scholar' })
 
 const papers = page.results
   .sort((a, b) => b.citations - a.citations)
@@ -196,7 +192,7 @@ const papers = page.results
 For research agents, combine `scholar` with content expansion to fetch full papers:
 
 ```js
-const page = await google('transformer architecture', { type: 'scholar' })
+const page = await microlink.search('transformer architecture', { type: 'scholar' })
 
 for (const result of page.results.slice(0, 3)) {
   if (result.pdf?.url) {
@@ -213,7 +209,7 @@ for (const result of page.results.slice(0, 3)) {
 Use `shopping` for price monitoring, competitive analysis, and product comparison:
 
 ```js
-const page = await google('mechanical keyboard', { type: 'shopping' })
+const page = await microlink.search('mechanical keyboard', { type: 'shopping' })
 
 const products = page.results.map(result => ({
   name: result.title,
@@ -247,7 +243,7 @@ const route = (intent) => {
   return routes[intent] || 'search'
 }
 
-const page = await google(query, { type: route(detectedIntent) })
+const page = await microlink.search(query, { type: route(detectedIntent) })
 ```
 
 This reduces noise in the results and gives the downstream consumer exactly the fields it needs.
@@ -257,7 +253,7 @@ This reduces noise in the results and gives the downstream consumer exactly the 
 Use `autocomplete` to discover related queries before running heavier searches:
 
 ```js
-const suggestions = await google('how to deploy', { type: 'autocomplete' })
+const suggestions = await microlink.search('how to deploy', { type: 'autocomplete' })
 
 console.log(suggestions.results.map(s => s.value))
 // [
@@ -276,6 +272,6 @@ This is useful for:
 
 ## See also
 
-- <Link href='/docs/guides/search' children='Search' /> — install the client and make your first query.
+- <Link href='/docs/guides/search' children='Search' /> — install the SDK and make your first query.
 - <Link href='/docs/guides/search/search' children='Web Search' />, <Link href='/docs/guides/search/news' children='News' />, <Link href='/docs/guides/search/scholar' children='Scholar' />, and more — field reference for each surface.
 - <Link href='/docs/guides/search/content-expansion' children='Content expansion' /> — the two-step retrieval model and when to use `.html()` vs `.markdown()`.

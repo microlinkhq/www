@@ -207,13 +207,13 @@
 
 ### September 2023
 
-- [Microlink MQL](/docs/mql/getting-started/overview): Added ESM support. Edge bundle isn't necessary anymore.
+- [Microlink MQL](/docs/sdk/methods/extract): Added ESM support. Edge bundle isn't necessary anymore.
 - [Microlink API](/docs/api/getting-started/overview): All `logos` are square.
 - [Microlink API](/docs/api/getting-started/overview): Improved iframe resolution.
 
 ### August 2023
 
-- [Microlink MQL](/docs/mql/getting-started/overview): Added TypeScript types; Added edge installation details.
+- [Microlink MQL](/docs/sdk/methods/extract): Added TypeScript types; Added edge installation details.
 
 ### July 2023
 
@@ -243,10 +243,10 @@
 
 ### November 2022
 
-- [Microlink MQL](/docs/mql/getting-started/overview): Added nested selectorAll support.
+- [Microlink MQL](/docs/sdk/methods/extract): Added nested selectorAll support.
 - [Microlink API](/docs/api/getting-started/overview): Improved logo detection.
 - [Microlink OSS](/oss): Released [nanoclamp](https://nanoclamp.microlink.io) 2.0
-- [Microlink MQL](/docs/mql/getting-started/overview): Added ESM bundle and [demo](https://mql.microlink.io) site.
+- [Microlink MQL](/docs/sdk/methods/extract): Added ESM bundle and [demo](https://mql.microlink.io) site.
 
 ### October 2022
 
@@ -334,7 +334,7 @@
 
 - [Metascraper v5.25.0](https://metascraper.js.org): Improved highest resolution logo detection and PWA manifest integration.
 - [Microlink Recipes](/recipes): Added [emails](/recipes/emails) recipe.
-- [Microlink MQL](/docs/mql/getting-started/overview): Added [email](/docs/mql/data/type) as type.
+- [Microlink MQL](/docs/sdk/methods/extract): Added [email](/docs/sdk/methods/extract/type) as type.
 - [Microlink Security](/.well-known/security.txt): Special thanks to Daniel Wang for improving service security.
 - [Microlink API](/docs/api/getting-started/overview): Added [efatalclient](https://microlink.io/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](https://microlink.io/docs/api/basics/error-codes#eforbiddenurl) error codes.
 
@@ -343,7 +343,7 @@
 - [Microlink API](/docs/api/getting-started/overview): Added preset support for [lighthouse](/docs/api/parameters/insights/lighthouse).
 - [Microlink Cards](https://cards.microlink.io): Added [dracula](https://cards.microlink.io/editor?preset=dracula) preset.
 - [Microlink Recipes](/recipes): Added [excerption](/recipes/excerpt) recipe.
-- [Microlink API](/docs/api/getting-started/overview): Improved [evaluate](/docs/mql/data/evaluate) performance.
+- [Microlink API](/docs/api/getting-started/overview): Improved [evaluate](/docs/sdk/methods/extract/evaluate) performance.
 - [Keyv](https://github.com/microlinkhq/keyvhq): Released [@keyvhq/multi](https://github.com/microlinkhq/keyv/tree/master/packages/multi)
 - [Keyv](https://github.com/microlinkhq/keyvhq): Released [@keyvhq/offline](https://github.com/microlinkhq/keyv/tree/master/packages/offline)
 - [Keyv](https://github.com/microlinkhq/keyvhq): Released [@keyvhq/compress](https://github.com/microlinkhq/keyv/tree/master/packages/compress)
@@ -413,7 +413,7 @@
 ### November 2020
 
 - [Metascraper v5.15](https://metascraper.js.org): Improved Telegram integration.
-- [Microlink API](/docs/api/getting-started/overview): Added [evaluate](/docs/mql/data/evaluate) data extractor.
+- [Microlink API](/docs/api/getting-started/overview): Added [evaluate](/docs/sdk/methods/extract/evaluate) data extractor.
 - [Microlink API](/docs/api/getting-started/overview): Added [retry](/docs/api/parameters/retry) query parameter.
 - [Microlink Cluster](/status): Upgraded to [Node.js 14 LTS](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md).
 
@@ -441,4 +441,4 @@
 ### June 2020
 
 - [Microlink](/): Launched [Microlink OSS](/oss).
-- [Microlink SDK](/docs/sdk-legacy/getting-started/overview/) Added [CSS variables](/docs/sdk-legacy/getting-started/styling/#css-variables) support.
+- [Microlink SDK](/link-preview): Added CSS variables support.

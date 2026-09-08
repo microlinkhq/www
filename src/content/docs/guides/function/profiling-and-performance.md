@@ -15,7 +15,7 @@ import createClient from 'microlink.io'
 
 const microlink = createClient()
 
-const { profiling } = await microlink.run('https://example.com', ({ page }) => page.title())
+const { profiling } = await microlink.function('https://example.com', ({ page }) => page.title())
 
 console.log(profiling)
 // {
@@ -65,35 +65,35 @@ const microlink = createClient({
   apiKey: process.env.MICROLINK_API_KEY
 })
 
-const { value } = await microlink.run('https://example.com', ({ page }) => page.title())
+const { value } = await microlink.function('https://example.com', ({ page }) => page.title())
 ```
 
 See the <Link href='/docs/api/basics/authentication' children='authentication' /> and <Link href='/docs/api/basics/rate-limit' children='rate limit' /> docs for endpoint and quota details.
 
 ## Skip metadata
 
-Most function-only workflows do not need normalized metadata. `microlink.run()` already sends `meta: false`, so the request only pays for the function itself; set it yourself if you call the API directly:
+Most function-only workflows do not need normalized metadata. `microlink.function()` already sends `meta: false`, so the request only pays for the function itself; set it yourself if you call the API directly:
 
 ```js
 import createClient from 'microlink.io'
 
 const microlink = createClient()
 
-const { value } = await microlink.run('https://example.com', ({ page }) => page.title())
+const { value } = await microlink.function('https://example.com', ({ page }) => page.title())
 ```
 
 <Figcaption>Skipping metadata is usually the biggest speedup for function requests. If you still need the rendered markup, call <code>page.content()</code> inside the function.</Figcaption>
 
 ## Compress large functions
 
-Large function bodies are compressed before they are sent. Both the SDK and `@microlink/function` handle this automatically — `microlink.run()` compresses the code with brotli in Node.js and lz-string in browsers, so the call stays the same:
+Large function bodies are compressed before they are sent. The SDK handles this automatically — `microlink.function()` compresses the code with brotli in Node.js and lz-string in browsers, so the call stays the same:
 
 ```js
 import createClient from 'microlink.io'
 
 const microlink = createClient()
 
-const { value, profiling } = await microlink.run('https://example.com', ({ page }) => page.title())
+const { value, profiling } = await microlink.function('https://example.com', ({ page }) => page.title())
 
 console.log(profiling.size)
 ```
@@ -102,7 +102,7 @@ If you call the API directly, prefix the compressed payload with the algorithm a
 
 ## Optimization checklist
 
-1. Skip normalized metadata — `microlink.run()` already sends `meta: false`; set it yourself when calling the API directly. This is usually the biggest win.
+1. Skip normalized metadata — `microlink.function()` already sends `meta: false`; set it yourself when calling the API directly. This is usually the biggest win.
 2. Use `page.title()` and `page.$eval()` instead of `page.evaluate()` when possible — they are faster and easier to debug.
 3. Replace fixed waits like `page.waitForTimeout(3000)` with `page.waitForSelector()` — they resolve as soon as the element appears.
 4. Check `profiling.phases` to find the bottleneck — a high install on first run is normal, but a high run means the function itself needs work.

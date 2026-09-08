@@ -6,16 +6,16 @@ description: 'Structured search results as JSON — no HTML parsing, no browser.
 
 import { Link } from 'components/elements/Link'
 
-Microlink Search turns public search surfaces into structured JSON through the [@microlink/google](https://www.npmjs.com/package/@microlink/google) Node.js client.
+Microlink Search turns public search surfaces into structured JSON through the [`search`](/docs/sdk/methods/search) method of the [Microlink SDK](/docs/sdk/getting-started/overview).
 
 No HTML parsing, no browser, no proxy fleet to manage. Send a query, get normalized results back. Microlink handles the infrastructure, rotation, and result extraction so your code stays focused on what to do with the data.
 
 ## Install
 
-The [@microlink/google](https://www.npmjs.com/package/@microlink/google) library handles the API call, pagination, and lazy content expansion for you:
+The [microlink.io](https://www.npmjs.com/package/microlink.io) package handles the API call, pagination, and lazy content expansion for you:
 
 ```bash
-npm install @microlink/google
+npm install microlink.io
 ```
 
 ## Your first query
@@ -23,19 +23,19 @@ npm install @microlink/google
 Create a client with your <Link href='https://microlink.io/#pricing' children='API key' />, then query any surface:
 
 ```js
-import createGoogleClient from '@microlink/google'
+import createClient from 'microlink.io'
 
-const google = createGoogleClient({
+const microlink = createClient({
   apiKey: process.env.MICROLINK_API_KEY
 })
 
-const page = await google('technical seo checklist')
+const page = await microlink.search('technical seo checklist')
 
 console.log(page.results[0])
 // { title: '...', url: '...', description: '...' }
 ```
 
-When you omit `type`, the client defaults to web search. The same `google(query, options)` shape works for every surface.
+When you omit `type`, the client defaults to web search. The same `microlink.search(query, options)` shape works for every surface, and every example in these guides assumes the `microlink` client above.
 
 ## Choose the right surface
 

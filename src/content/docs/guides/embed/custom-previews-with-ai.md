@@ -39,12 +39,15 @@ The same metadata response powers every recipe below. Show it to your assistant 
 Paste this into Cursor, Claude Code, or your IDE's AI assistant before asking for a specific style. It establishes the contract once.
 
 ```text
-I want to add link previews to this project without installing the
-Microlink Embed SDK. Instead, fetch the metadata directly from the API:
+I want to add link previews to this project without installing a UI
+component. Instead, fetch the metadata with the Microlink SDK
+(`npm install microlink.io`):
 
-  GET https://api.microlink.io?url=<TARGET_URL>
+  import createClient from 'microlink.io'
+  const microlink = createClient()
+  const data = await microlink.metadata(<TARGET_URL>)
 
-The response is JSON with `data` containing at least:
+`data` is a plain object containing at least:
   - data.title         (string)
   - data.description   (string)
   - data.publisher     (string)
@@ -187,19 +190,24 @@ export async function LinkPreview ({ url }) {
 
 ```jsx
 import { useEffect, useState } from 'react'
+import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 export function useLinkPreview (url) {
   const [data, setData] = useState(null)
   useEffect(() => {
     let cancelled = false
-    fetch(`https://api.microlink.io?url=${encodeURIComponent(url)}&palette=true`)
-      .then(r => r.json())
-      .then(json => { if (!cancelled && json.status === 'success') setData(json.data) })
+    microlink.metadata(url, { palette: true })
+      .then(data => { if (!cancelled) setData(data) })
+      .catch(() => {})
     return () => { cancelled = true }
   }, [url])
   return data
 }
 ```
+
+The SDK runs in the browser on the free tier; keep the `apiKey` for the server-side helper.
 
 #### Direct from HTML
 

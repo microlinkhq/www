@@ -35,7 +35,7 @@ If the URL provided has query string parameters, they should be properly escaped
 
 <Figcaption children="URLs with query parameters are automatically encoded." />
 
-Using [MQL](/docs/mql/getting-started/overview) or [Microlink CLI](/docs/api/getting-started/cli) will escape the URL properly. Otherwise, you need to escape it using [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) or equivalent.
+Using the [SDK](/docs/sdk/getting-started/overview) or the [Microlink CLI](/docs/api/getting-started/cli) will escape the URL properly. Otherwise, you need to escape it using [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) or equivalent.
 
 ## Protocol Handling
 

@@ -15,7 +15,7 @@ This page covers how those helpers work, when to use each format, and how to app
 Any result that contains a `url` field gets two lazy methods attached:
 
 ```js
-const page = await google('technical seo checklist')
+const page = await microlink.search('technical seo checklist')
 const result = page.results[0]
 
 const html = await result.html()
@@ -45,7 +45,7 @@ Use `.markdown()` when the consumer is a language model or a text-based pipeline
 The page object itself also exposes `.html()` and `.markdown()` — these fetch the content of the Google SERP page for the query, not an individual result:
 
 ```js
-const page = await google('technical seo checklist')
+const page = await microlink.search('technical seo checklist')
 
 const serpHtml = await page.html()
 const serpMarkdown = await page.markdown()
@@ -58,7 +58,7 @@ This is useful when you want the raw SERP layout for analysis, competitive monit
 The core idea: search first, expand selectively.
 
 ```js
-const page = await google('site:openai.com function calling guide')
+const page = await microlink.search('site:openai.com function calling guide')
 
 const sources = await Promise.all(
   page.results.slice(0, 3).map(async result => ({
@@ -86,7 +86,7 @@ Let your application logic (or the LLM) decide which results deserve deeper insp
 Combine pagination with selective expansion to build deep retrieval pipelines:
 
 ```js
-let page = await google('node.js frameworks')
+let page = await microlink.search('node.js frameworks')
 const allSources = []
 
 while (page && allSources.length < 10) {
@@ -108,9 +108,9 @@ This pattern is especially useful for research agents that need broad coverage a
 
 ## Expansion in agent workflows
 
-When `@microlink/google` is exposed as a tool, let the model control expansion depth:
+When `search` is exposed as a tool, let the model control expansion depth:
 
-1. **First tool call**: `google(query)` — the model sees structured results
+1. **First tool call**: `microlink.search(query)` — the model sees structured results
 2. **Second tool call**: `result.markdown()` — the model picks which results to read in full
 3. **Third tool call**: `page.next()` — the model paginates only if confidence is low
 
@@ -118,7 +118,7 @@ This two-step pattern maps naturally to tool-calling agent loops. The model make
 
 ## See also
 
-- <Link href='/docs/guides/search' children='Search' /> — install the client and make your first query.
+- <Link href='/docs/guides/search' children='Search' /> — install the SDK and make your first query.
 - <Link href='/docs/guides/search/search' children='Web Search' />, <Link href='/docs/guides/search/news' children='News' />, <Link href='/docs/guides/search/scholar' children='Scholar' />, and more — field reference for each surface.
 - <Link href='/docs/guides/search/patterns' children='Integration patterns' /> — agent tool calling, RAG pipelines, and multi-step research workflows.
 - <Link href='/docs/guides/content-conversion/url-to-markdown' children='Web page to Markdown' /> — if you already have a URL and want to convert it to Markdown directly through the Microlink API.

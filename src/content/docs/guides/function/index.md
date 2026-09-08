@@ -13,21 +13,22 @@ Send a function, get the result back. No Lambda bundle, no browser fleet, no ser
 
 ## Install
 
-The [@microlink/function](https://www.npmjs.com/package/@microlink/function) library lets you write normal JavaScript functions and run them remotely. It handles serialization, compression, and the API call for you:
+The [Microlink SDK](/docs/sdk/getting-started/overview) lets you write normal JavaScript functions and run them remotely through [`function`](/docs/sdk/methods/function). It handles serialization, compression, and the API call for you:
 
 ```bash
-npm install @microlink/function
+npm install microlink.io
 ```
 
 ## Your first function
 
-Pass a JavaScript function and a target URL. The library sends it to the Microlink API and returns the result:
+Pass a target URL and a JavaScript function. The SDK sends it to the Microlink API and returns the result:
 
 ```js
-const microlink = require('@microlink/function')
+import createClient from 'microlink.io'
 
-const fn = microlink(() => 40 + 2)
-const result = await fn('https://example.com')
+const microlink = createClient()
+
+const result = await microlink.function('https://example.com', () => 40 + 2)
 
 console.log(result.isFulfilled) // true
 console.log(result.value)       // 42

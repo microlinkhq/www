@@ -7,7 +7,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 
-Use [attr](/docs/mql/data/attr) with `html` when your consumer needs markup instead of Markdown or plain text. Microlink can fetch the source document, optionally render it in a browser, and expose the resulting HTML through a [data](/docs/api/parameters/data) field.
+Use [attr](/docs/sdk/methods/extract/attr) with `html` when your consumer needs markup instead of Markdown or plain text. Microlink can fetch the source document, optionally render it in a browser, and expose the resulting HTML through a [data](/docs/api/parameters/data) field.
 
 <MultiCodeEditorInteractive
   height={280}
@@ -71,7 +71,7 @@ https://api.microlink.io?url=https://example.com&data.html.attr=html&meta=false&
 
 ## Extract a fragment instead of the full document
 
-Use a [selector](/docs/mql/data/selector) when you only need one part of the page:
+Use a [selector](/docs/sdk/methods/extract/selector) when you only need one part of the page:
 
 <MultiCodeEditorInteractive
   height={300}

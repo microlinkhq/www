@@ -1,6 +1,6 @@
 ---
 title: 'Data extraction'
-description: 'Extract exactly the fields you need from any page with Microlink API, understand how MQL rules shape the response, and choose the right next step for dynamic or private targets.'
+description: 'Extract exactly the fields you need from any page with Microlink API, understand how extraction rules shape the response, and choose the right next step for dynamic or private targets.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
