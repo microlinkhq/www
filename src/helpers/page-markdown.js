@@ -58,9 +58,21 @@ ${notFoundLinks
   .join('\n')}
 `
 
+const NOT_FOUND_STATUS_CODE = 404
+
+export const isNotDeployedYet = statusCode =>
+  statusCode === NOT_FOUND_STATUS_CODE
+
 export const extractMarkdown = async (fetchMarkdown, pathname) => {
   for (const selector of selectorsFor(pathname)) {
     const result = await fetchMarkdown(selector)
+    if (isNotDeployedYet(result.statusCode)) {
+      return {
+        markdown: null,
+        statusCode: NOT_FOUND_STATUS_CODE,
+        selector: null
+      }
+    }
     if (result.markdown) return { ...result, selector }
   }
   const wholePage = await fetchMarkdown()
