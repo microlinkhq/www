@@ -6,23 +6,20 @@ const isSpinnerChunk = chunk => SPINNER.test(String(chunk))
 
 const toCrlf = value => String(value).replace(/\n/g, '\r\n')
 
-export const createBrowserHost = (term, output) => {
+export const createBrowserHost = (term, chunks) => {
   const writeLive = chunk => term.write(toCrlf(chunk))
-  const writeOut = chunk => {
-    if (output) output.all.push(String(chunk))
-    else writeLive(chunk)
-  }
-  const writeErr = chunk => {
-    if (isSpinnerChunk(chunk)) {
-      writeLive(chunk)
-      return
-    }
-    if (output) output.all.push(String(chunk))
+  const collect = chunk => {
+    if (chunks) chunks.push(String(chunk))
     else writeLive(chunk)
   }
   return {
-    stdout: { write: writeOut },
-    stderr: { write: writeErr },
+    stdout: { write: collect },
+    stderr: {
+      write (chunk) {
+        if (isSpinnerChunk(chunk)) writeLive(chunk)
+        else collect(chunk)
+      }
+    },
     env: {},
     isTTY: true,
     hasColors: true,

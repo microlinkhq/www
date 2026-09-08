@@ -1,7 +1,7 @@
 import { prefersReducedMotion } from 'helpers/reduced-motion'
 
 import { createBrowserHost } from './browser-host'
-import { openPager, toPagerLines } from './pager'
+import { openPager, pagerRows, toPagerLines } from './pager'
 import { CLI_COMMAND, isCompactCli } from './shared'
 import { parseCommand } from './tokenize'
 
@@ -42,6 +42,24 @@ export const createCliSession = ({ term, run, attractCommands }) => {
     history = history.at(-1) === line ? history : [...history, line]
   }
 
+  const stepHistory = delta => {
+    if (delta < 0) {
+      if (!history.length) return
+      if (historyIndex < 0) historyIndex = history.length
+      historyIndex = Math.max(0, historyIndex - 1)
+      rewriteLine(history[historyIndex])
+      return
+    }
+    if (historyIndex < 0) return
+    historyIndex += 1
+    if (historyIndex >= history.length) {
+      historyIndex = -1
+      rewriteLine('')
+      return
+    }
+    rewriteLine(history[historyIndex])
+  }
+
   const execute = async (argv, { page = false } = {}) => {
     if (argv[0] === 'clear' && argv.length === 1) {
       term.clear()
@@ -50,16 +68,16 @@ export const createCliSession = ({ term, run, attractCommands }) => {
     }
     term.write('\r\n')
     running = true
-    const output = { all: [] }
+    const chunks = []
     try {
-      await run(argv, createBrowserHost(term, output))
+      await run(argv, createBrowserHost(term, chunks))
     } catch (error) {
-      if (!disposed) output.all.push(`\n${error.message || error}\n`)
+      if (!disposed) chunks.push(`\n${error.message || error}\n`)
     } finally {
       running = false
-      const text = output.all.join('')
+      const text = chunks.join('')
       if (!disposed && text.trim()) {
-        const overflows = toPagerLines(text).length > Math.max(1, term.rows - 1)
+        const overflows = toPagerLines(text).length > pagerRows(term)
         if ((page || overflows) && !isCompactCli()) {
           pager = openPager(term, text)
           if (attracting) {
@@ -119,18 +137,11 @@ export const createCliSession = ({ term, run, attractCommands }) => {
       return
     }
     if (data === '\x1b[A') {
-      if (!history.length) return
-      if (historyIndex < 0) historyIndex = history.length
-      historyIndex = Math.max(0, historyIndex - 1)
-      rewriteLine(history[historyIndex])
+      stepHistory(-1)
       return
     }
     if (data === '\x1b[B') {
-      if (historyIndex < 0) return
-      historyIndex += 1
-      const next = historyIndex >= history.length ? '' : history[historyIndex]
-      if (historyIndex >= history.length) historyIndex = -1
-      rewriteLine(next)
+      stepHistory(1)
       return
     }
     if (data < '\x20') return

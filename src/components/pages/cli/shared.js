@@ -9,7 +9,6 @@ import { colors } from 'theme'
 
 export const CLI_VERSION = pkg.version
 export const ACCENT = 'red6'
-export const CLI_REPOSITORY = 'https://github.com/microlinkhq/microlink'
 export const CLI_COMMAND = 'microlink'
 export const MIN_TERMINAL_COLS = 96
 
@@ -31,12 +30,16 @@ export const HERO_LAYOUT_MAX_WIDTH = [
   SEARCH_LAYOUT_WIDE_MAX_WIDTH
 ]
 
+const TOUCH_PAN = {
+  touchAction: 'manipulation',
+  overscrollBehavior: 'contain',
+  '-webkit-overflow-scrolling': 'touch'
+}
+
 export const XTERM_SURFACE_CSS = {
   overflowX: 'auto',
   overflowY: 'hidden',
-  touchAction: 'manipulation',
-  overscrollBehavior: 'contain',
-  '-webkit-overflow-scrolling': 'touch',
+  ...TOUCH_PAN,
   '& .xterm': {
     height: '100%',
     width: 'max-content',
@@ -52,9 +55,7 @@ export const XTERM_SURFACE_CSS = {
     overflowY: 'auto',
     overflowX: 'hidden',
     bg: 'black',
-    touchAction: 'manipulation',
-    overscrollBehavior: 'contain',
-    '-webkit-overflow-scrolling': 'touch'
+    ...TOUCH_PAN
   },
   '& .xterm-screen': {
     touchAction: 'manipulation'

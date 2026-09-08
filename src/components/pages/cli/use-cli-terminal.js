@@ -34,6 +34,54 @@ const THEME = {
   brightWhite: colors.white
 }
 
+const bindTouchScroll = (surface, term) => {
+  let touchX = null
+  let touchY = null
+  const onStart = e => {
+    if (e.touches.length !== 1) return
+    touchX = e.touches[0].clientX
+    touchY = e.touches[0].clientY
+  }
+  const onMove = e => {
+    if (
+      touchX == null ||
+      touchY == null ||
+      e.touches.length !== 1 ||
+      !term.element
+    ) {
+      return
+    }
+    const x = e.touches[0].clientX
+    const y = e.touches[0].clientY
+    const dx = touchX - x
+    const dy = touchY - y
+    const rowHeight = term.rows ? term.element.clientHeight / term.rows : 20
+    const lines = Math.round(dy / rowHeight)
+    if (lines) {
+      term.scrollLines(lines)
+      touchY = y
+    }
+    if (dx) {
+      surface.scrollLeft += dx
+      touchX = x
+    }
+    if (lines || dx) e.preventDefault()
+  }
+  const onEnd = () => {
+    touchX = null
+    touchY = null
+  }
+  const opts = { capture: true }
+  surface.addEventListener('touchstart', onStart, { ...opts, passive: true })
+  surface.addEventListener('touchmove', onMove, { ...opts, passive: false })
+  surface.addEventListener('touchend', onEnd, opts)
+  return () => {
+    surface.removeEventListener('touchstart', onStart, opts)
+    surface.removeEventListener('touchmove', onMove, opts)
+    surface.removeEventListener('touchend', onEnd, opts)
+  }
+}
+
 export const useCliTerminal = (
   containerRef,
   { attract = true, attractCommands = ATTRACT_COMMANDS } = {}
@@ -88,61 +136,14 @@ export const useCliTerminal = (
         attractCommands: commands
       })
       term.onData(session.onData)
-      let touchX = null
-      let touchY = null
       const surface = containerRef.current
-      const onTouchStart = e => {
-        if (e.touches.length !== 1) return
-        touchX = e.touches[0].clientX
-        touchY = e.touches[0].clientY
-      }
-      const onTouchMove = e => {
-        if (
-          touchX == null ||
-          touchY == null ||
-          e.touches.length !== 1 ||
-          !term.element
-        ) {
-          return
-        }
-        const x = e.touches[0].clientX
-        const y = e.touches[0].clientY
-        const dx = touchX - x
-        const dy = touchY - y
-        const rowHeight = term.rows ? term.element.clientHeight / term.rows : 20
-        const lines = Math.round(dy / rowHeight)
-        if (lines) {
-          term.scrollLines(lines)
-          touchY = y
-        }
-        if (dx) {
-          surface.scrollLeft += dx
-          touchX = x
-        }
-        if (lines || dx) e.preventDefault()
-      }
-      const onTouchEnd = () => {
-        touchX = null
-        touchY = null
-      }
-      const touchOpts = { capture: true }
-      surface.addEventListener('touchstart', onTouchStart, {
-        ...touchOpts,
-        passive: true
-      })
-      surface.addEventListener('touchmove', onTouchMove, {
-        ...touchOpts,
-        passive: false
-      })
-      surface.addEventListener('touchend', onTouchEnd, touchOpts)
+      const unbindTouch = bindTouchScroll(surface, term)
       const onViewportResize = () => fit()
       window.visualViewport?.addEventListener('resize', onViewportResize)
       resizeObserver = new window.ResizeObserver(() => fit())
       resizeObserver.observe(surface)
       detachTouch = () => {
-        surface.removeEventListener('touchstart', onTouchStart, touchOpts)
-        surface.removeEventListener('touchmove', onTouchMove, touchOpts)
-        surface.removeEventListener('touchend', onTouchEnd, touchOpts)
+        unbindTouch()
         window.visualViewport?.removeEventListener('resize', onViewportResize)
       }
       await session.start()

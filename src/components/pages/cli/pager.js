@@ -1,5 +1,7 @@
 import { speed } from 'theme'
 
+export const pagerRows = term => Math.max(1, term.rows - 1)
+
 export const toPagerLines = text => {
   const lines = String(text)
     .replace(/\r\n/g, '\n')
@@ -18,7 +20,7 @@ export const openPager = (term, text) => {
     settle = resolve
   })
 
-  const pageSize = () => Math.max(1, term.rows - 1)
+  const pageSize = () => pagerRows(term)
   const maxOffset = () => Math.max(0, lines.length - pageSize())
 
   const draw = () => {
@@ -60,23 +62,24 @@ export const openPager = (term, text) => {
   }
 
   const autoScroll = async ({ delay, stop, instant }) => {
+    const aborted = () => closed || stop()
     if (instant) {
       offset = maxOffset()
       draw()
       await delay(400)
-      if (!closed && !stop()) close()
+      if (!aborted()) close()
       return
     }
     while (offset < maxOffset()) {
-      if (closed || stop()) return
+      if (aborted()) return
       await delay(speed.normal)
-      if (closed || stop()) return
+      if (aborted()) return
       offset += 1
       draw()
     }
-    if (!closed && !stop()) {
+    if (!aborted()) {
       await delay(900)
-      if (!closed && !stop()) close()
+      if (!aborted()) close()
     }
   }
 
