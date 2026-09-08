@@ -1,11 +1,6 @@
 import { speed } from 'theme'
 
-const ESC = String.fromCharCode(27)
-const SPINNER = new RegExp(`${ESC}\\[K|${ESC}\\[\\?25|[⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏]`)
-
-export const isSpinnerChunk = chunk => SPINNER.test(String(chunk))
-
-export const toPagerLines = text => {
+const toPagerLines = text => {
   const lines = String(text)
     .replace(/\r\n/g, '\n')
     .replace(/\r/g, '\n')

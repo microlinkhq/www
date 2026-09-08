@@ -1,6 +1,8 @@
-import { isSpinnerChunk } from './pager'
-
 const STORAGE_KEY = 'microlink.cli.apiKey'
+const ESC = String.fromCharCode(27)
+const SPINNER = new RegExp(`${ESC}\\[K|${ESC}\\[\\?25|[⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏]`)
+
+const isSpinnerChunk = chunk => SPINNER.test(String(chunk))
 
 const toCrlf = value => String(value).replace(/\n/g, '\r\n')
 

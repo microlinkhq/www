@@ -8,7 +8,7 @@ import Text from 'components/elements/Text'
 
 import { theme } from 'theme'
 
-import { CLI_VERSION } from './shared'
+import { CLI_VERSION, XTERM_SURFACE_CSS } from './shared'
 import { useCliTerminal } from './use-cli-terminal'
 
 import '@xterm/xterm/css/xterm.css'
@@ -66,17 +66,7 @@ const Fullscreen = () => {
           overflow: 'hidden',
           bg: 'black',
           p: [3, 3, 4, 4],
-          '& .xterm': { height: '100%' },
-          '& .xterm span': {
-            padding: 0
-          },
-          '& .xterm-rows > div > span': {
-            padding: 0
-          },
-          '& .xterm-viewport': {
-            overflowY: 'auto',
-            bg: 'black'
-          }
+          ...XTERM_SURFACE_CSS
         })}
       />
     </Flex>

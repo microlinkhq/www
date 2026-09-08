@@ -110,7 +110,7 @@ export const HeroFeatures = () => (
       mx: ['auto', 'auto', 0, 0],
       display: 'flex',
       flexDirection: 'column',
-      gap: [3, 3, 3, 3],
+      gap: 3,
       width: '100%',
       textAlign: 'left'
     })}

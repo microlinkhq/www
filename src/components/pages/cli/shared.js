@@ -25,6 +25,20 @@ export const HERO_LAYOUT_MAX_WIDTH = [
   SEARCH_LAYOUT_WIDE_MAX_WIDTH
 ]
 
+export const XTERM_SURFACE_CSS = {
+  '& .xterm': { height: '100%' },
+  '& .xterm span': {
+    padding: 0
+  },
+  '& .xterm-rows > div > span': {
+    padding: 0
+  },
+  '& .xterm-viewport': {
+    overflowY: 'auto',
+    bg: 'black'
+  }
+}
+
 const FEATURE_ICON_SIZE = 20
 
 const featureIconProps = {
