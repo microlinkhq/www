@@ -19,7 +19,7 @@ const microlink = createClient()
 const scrape = ({ page }) =>
   page.$eval('h1', el => el.textContent.trim())
 
-const result = await microlink.run('https://example.com', scrape)
+const result = await microlink.function('https://example.com', scrape)
 
 console.log(result.value) // 'Example Domain'
 ```
@@ -55,7 +55,7 @@ const scrapeAfterClick = ({ page }) =>
       items.map(el => el.textContent.trim())
     ))
 
-const result = await microlink.run('https://example.com', scrapeAfterClick)
+const result = await microlink.function('https://example.com', scrapeAfterClick)
 ```
 
 Replace fixed waits like `page.waitForTimeout(3000)` with [page.waitForSelector](https://pptr.dev/api/puppeteer.page.waitforselector) or [page.waitForNavigation](https://pptr.dev/api/puppeteer.page.waitfornavigation) whenever possible — they are faster and more reliable.
@@ -65,7 +65,7 @@ Replace fixed waits like `page.waitForTimeout(3000)` with [page.waitForSelector]
 Because [function](/docs/api/parameters/function) is just another Microlink parameter, you can prepare the page before your function runs using [scripts](/docs/api/parameters/scripts), [modules](/docs/api/parameters/modules), [click](/docs/api/parameters/click), or [waitForSelector](/docs/api/parameters/waitForSelector). In the SDK they travel as the third argument of `run`:
 
 ```js
-const { value } = await microlink.run(
+const { value } = await microlink.function(
   'https://microlink.io',
   ({ page }) => page.evaluate('jQuery.fn.jquery'),
   { scripts: 'https://code.jquery.com/jquery-3.5.0.min.js' }

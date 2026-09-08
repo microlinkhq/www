@@ -16,7 +16,7 @@ const microlink = createClient()
 
 const failing = ({ name }) => name()
 
-const result = await microlink.run('https://example.com', failing, { name: 'Kiko' })
+const result = await microlink.function('https://example.com', failing, { name: 'Kiko' })
 
 console.log(result.isFulfilled)    // false
 console.log(result.value.name)     // 'TypeError'
@@ -82,7 +82,7 @@ Binary data such as `Buffer` and typed arrays is allocated off the heap and is r
 
 **CodeSizeError** — the function code exceeds the 1024 bytes free plan limit:
 
-1. Use the [SDK](/docs/sdk/methods/run), which compresses code automatically.
+1. Use the [SDK](/docs/sdk/methods/function), which compresses code automatically.
 2. Compress the function body manually with `lz#`, `br#`, or `gz#` prefixes when calling the API directly.
 3. Upgrade to pro for unlimited code size.
 

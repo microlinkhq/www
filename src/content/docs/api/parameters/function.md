@@ -177,14 +177,14 @@ Each error message is plan-aware and tells you the exact limit that was hit.
 
 ## Compression
 
-Since the function body can be large, it is compressed before being sent. The SDK handles this for you: `microlink.run()` compresses the code with brotli in Node.js and lz-string in browsers, so the call stays the same:
+Since the function body can be large, it is compressed before being sent. The SDK handles this for you: `microlink.function()` compresses the code with brotli in Node.js and lz-string in browsers, so the call stays the same:
 
 ```js
 import createClient from 'microlink.io'
 
 const microlink = createClient()
 
-const { value } = await microlink.run(
+const { value } = await microlink.function(
   'https://microlink.io',
   ({ page }) => page.evaluate('jQuery.fn.jquery'),
   { scripts: 'https://code.jquery.com/jquery-3.5.0.min.js' }
@@ -216,7 +216,7 @@ const code = () => {
   return $('h1').text()
 }
 
-const { value } = await microlink.run('https://example.com', code)
+const { value } = await microlink.function('https://example.com', code)
 ```
 
 <Figcaption>Dependencies are parsed from your function code, installed in a sandbox, and cached for subsequent runs.</Figcaption>
@@ -225,14 +225,14 @@ The runtime restricts certain system capabilities for security. Operations such 
 
 ## SDK
 
-The most convenient way to use `function` is through the [`run`](/docs/sdk/methods/run) method of the [Microlink SDK](/docs/sdk/getting-started/overview):
+The most convenient way to use `function` is through the [`function`](/docs/sdk/methods/function) method of the [Microlink SDK](/docs/sdk/getting-started/overview):
 
 ```js
 import createClient from 'microlink.io'
 
 const microlink = createClient()
 
-const result = await microlink.run('https://example.com', ({ page }) => page.title())
+const result = await microlink.function('https://example.com', ({ page }) => page.title())
 
 console.log(result.value) // 'Example Domain'
 ```

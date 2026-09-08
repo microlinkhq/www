@@ -286,6 +286,14 @@
       "destination": "/docs/sdk/getting-started/overview.md"
     },
     {
+      "source": "/docs/sdk/methods/run",
+      "destination": "/docs/sdk/methods/function"
+    },
+    {
+      "source": "/docs/sdk/methods/run.md",
+      "destination": "/docs/sdk/methods/function.md"
+    },
+    {
       "source": "/docs/sdk/getting-started/styling",
       "destination": "/link-preview"
     },

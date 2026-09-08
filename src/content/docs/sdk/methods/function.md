@@ -1,24 +1,24 @@
 ---
-title: 'run'
+title: 'function'
 description: 'Execute your own JavaScript against a live page with the Microlink SDK: full Puppeteer access, npm packages, named arguments, profiling, and automatic compression, with no browser fleet to manage.'
 ---
 
 Execute your own JavaScript remotely and get the value back. The function runs in a sandboxed Node.js runtime on Microlink's side; code that never touches `page` runs faster and cheaper:
 
 ```js
-const { value } = await microlink.run('https://example.com', () => 40 + 2)
+const { value } = await microlink.function('https://example.com', () => 40 + 2)
 
 console.log(value) // 42
 ```
 
-`function` is an alias of `run`, so `microlink.function(url, code)` is the same call.
+`run` is an alias of `function`, so `microlink.run(url, code)` is the same call.
 
 ## Browser access
 
 Ask for `page` and Microlink starts a headless browser, navigates to the URL, and hands you the full [Puppeteer Page](https://pptr.dev/api/puppeteer.page) object:
 
 ```js
-const { value } = await microlink.run('https://example.com', async ({ page }) => {
+const { value } = await microlink.function('https://example.com', async ({ page }) => {
   await page.waitForSelector('h1')
   return page.$eval('h1', el => el.textContent)
 })
@@ -38,7 +38,7 @@ It resolves to the [function response](/docs/api/parameters/function#response) o
 A throwing function does not reject the promise; check `isFulfilled` instead:
 
 ```js
-const result = await microlink.run('https://example.com', () => {
+const result = await microlink.function('https://example.com', () => {
   throw new Error('boom')
 })
 
@@ -51,7 +51,7 @@ console.log(result.value.name, result.value.message) // 'Error' 'boom'
 The third argument takes the [shared options](/docs/sdk/getting-started/options), so [scripts](/docs/api/parameters/scripts), [click](/docs/api/parameters/click), [waitForSelector](/docs/api/parameters/waitForSelector), or [headers](/docs/api/parameters/headers) can prepare the page before your code runs:
 
 ```js
-const { value } = await microlink.run(
+const { value } = await microlink.function(
   'https://microlink.io',
   ({ page }) => page.evaluate('jQuery.fn.jquery'),
   { scripts: 'https://code.jquery.com/jquery-3.5.0.min.js' }
@@ -65,7 +65,7 @@ Normalized metadata is skipped by default (`meta: false`) so the request only pa
 Any option that isn't an API parameter is forwarded to the function as a named argument, which makes one function reusable across requests without changing its code:
 
 ```js
-const { value } = await microlink.run(
+const { value } = await microlink.function(
   'https://example.com',
   ({ page, selector }) => page.$eval(selector, el => el.textContent),
   { selector: 'h1' }

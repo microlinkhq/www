@@ -132,7 +132,7 @@ console.log(page.results)
     id: 'function',
     title: 'Run a function',
     description: 'Execute custom browser code and return a value.',
-    snippet: sdkExample(`const { value } = await microlink.run(
+    snippet: sdkExample(`const { value } = await microlink.function(
   '${DEMO_URLS.function}',
   ${FN_SNIPPET}
 )

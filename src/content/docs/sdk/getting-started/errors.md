@@ -55,4 +55,4 @@ console.log(microlink.last.response.headers.get('x-cache-status'))
 
 It exposes `requestUrl`, the API URL that was called; `requestOptions`, the HTTP options sent with it, headers included; and `response`, the raw HTTP response with `url`, `statusCode`, `headers`, and `body` — the complete API envelope, with its [status](/docs/api/basics/format#status) and the full `data` payload a method unwraps from. The [CLI](/docs/sdk/getting-started/cli) prints the same information with `--trace`.
 
-[run](/docs/sdk/methods/run) issues its requests through its own transport, so `last` reflects the most recent call of any other method.
+[function](/docs/sdk/methods/function) issues its requests through its own transport, so `last` reflects the most recent call of any other method.

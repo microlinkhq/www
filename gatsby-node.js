@@ -345,7 +345,7 @@ const getFunctionCode = (recipe, { name }) => `${SDK_PREAMBLE}
 
 const code = ${recipe.code}
 
-const ${name} = (url, props) => microlink.run(url, code, props)
+const ${name} = (url, props) => microlink.function(url, code, props)
 
 const { value } = await ${name}('${recipe.meta.examples[0]}')
 

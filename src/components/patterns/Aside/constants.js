@@ -55,39 +55,39 @@ const ROUTES_SDK = [
     name: 'Methods',
     posts: [
       {
-        name: 'metadata',
+        name: '.metadata',
         href: '/docs/sdk/methods/metadata/'
       },
       {
-        name: 'screenshot',
+        name: '.screenshot',
         href: '/docs/sdk/methods/screenshot/'
       },
       {
-        name: 'pdf',
+        name: '.pdf',
         href: '/docs/sdk/methods/pdf/'
       },
       {
-        name: 'markdown',
+        name: '.markdown',
         href: '/docs/sdk/methods/markdown/'
       },
       {
-        name: 'html',
+        name: '.html',
         href: '/docs/sdk/methods/html/'
       },
       {
-        name: 'text',
+        name: '.text',
         href: '/docs/sdk/methods/text/'
       },
       {
-        name: 'logo',
-        href: '/docs/sdk/methods/logo/'
+        name: '.function',
+        href: '/docs/sdk/methods/function/'
       },
       {
-        name: 'embed',
-        href: '/docs/sdk/methods/embed/'
+        name: '.search',
+        href: '/docs/sdk/methods/search/'
       },
       {
-        name: 'extract',
+        name: '.extract',
         href: '/docs/sdk/methods/extract/',
         posts: [
           {
@@ -113,66 +113,48 @@ const ROUTES_SDK = [
         ]
       },
       {
-        name: 'run',
-        href: '/docs/sdk/methods/run/'
+        name: '.logo',
+        href: '/docs/sdk/methods/logo/'
       },
       {
-        name: 'search',
-        href: '/docs/sdk/methods/search/'
+        name: '.emails',
+        href: '/docs/sdk/methods/collections/emails/'
       },
       {
-        name: 'media',
-        href: '/docs/sdk/methods/media/',
-        posts: [
-          {
-            name: 'video',
-            href: '/docs/sdk/methods/media/video/'
-          },
-          {
-            name: 'audio',
-            href: '/docs/sdk/methods/media/audio/'
-          }
-        ]
+        name: '.links',
+        href: '/docs/sdk/methods/collections/links/'
       },
       {
-        name: 'collections',
-        href: '/docs/sdk/methods/collections/',
-        posts: [
-          {
-            name: 'links',
-            href: '/docs/sdk/methods/collections/links/'
-          },
-          {
-            name: 'images',
-            href: '/docs/sdk/methods/collections/images/'
-          },
-          {
-            name: 'videos',
-            href: '/docs/sdk/methods/collections/videos/'
-          },
-          {
-            name: 'audios',
-            href: '/docs/sdk/methods/collections/audios/'
-          },
-          {
-            name: 'emails',
-            href: '/docs/sdk/methods/collections/emails/'
-          }
-        ]
+        name: '.images',
+        href: '/docs/sdk/methods/collections/images/'
       },
       {
-        name: 'insights',
-        href: '/docs/sdk/methods/insights/',
-        posts: [
-          {
-            name: 'technologies',
-            href: '/docs/sdk/methods/insights/technologies/'
-          },
-          {
-            name: 'lighthouse',
-            href: '/docs/sdk/methods/insights/lighthouse/'
-          }
-        ]
+        name: '.video',
+        href: '/docs/sdk/methods/media/video/'
+      },
+      {
+        name: '.videos',
+        href: '/docs/sdk/methods/collections/videos/'
+      },
+      {
+        name: '.audio',
+        href: '/docs/sdk/methods/media/audio/'
+      },
+      {
+        name: '.audios',
+        href: '/docs/sdk/methods/collections/audios/'
+      },
+      {
+        name: '.embed',
+        href: '/docs/sdk/methods/embed/'
+      },
+      {
+        name: '.technologies',
+        href: '/docs/sdk/methods/insights/technologies/'
+      },
+      {
+        name: '.lighthouse',
+        href: '/docs/sdk/methods/insights/lighthouse/'
       }
     ]
   }

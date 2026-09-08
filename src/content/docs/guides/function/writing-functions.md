@@ -14,13 +14,13 @@ import createClient from 'microlink.io'
 
 const microlink = createClient()
 
-const result = await microlink.run('https://example.com', () => 40 + 2)
+const result = await microlink.function('https://example.com', () => 40 + 2)
 
 console.log(result.isFulfilled) // true
 console.log(result.value)       // 42
 ```
 
-Every example on this page assumes the `microlink` client above. See [`run`](/docs/sdk/methods/run) for the method reference.
+Every example on this page assumes the `microlink` client above. See [`function`](/docs/sdk/methods/function) for the method reference.
 
 <Figcaption>When your function does not reference <code>page</code>, no browser is started. This makes execution faster and cheaper.</Figcaption>
 
@@ -29,7 +29,7 @@ Every example on this page assumes the `microlink` client above. See [`run`](/do
 Functions can return strings, numbers, booleans, arrays, or plain objects:
 
 ```js
-const result = await microlink.run('https://example.com', () => ({
+const result = await microlink.function('https://example.com', () => ({
   greeting: 'Hello',
   items: [1, 2, 3],
   nested: { works: true }
@@ -48,7 +48,7 @@ Any extra option you include in the request is forwarded to the function as a na
 ```js
 const greet = ({ name, greeting }) => `${greeting}, ${name}!`
 
-const result = await microlink.run('https://example.com', greet, {
+const result = await microlink.function('https://example.com', greet, {
   name: 'Kiko',
   greeting: 'Hello'
 })
@@ -70,7 +70,7 @@ console.log(result.value) // 'Hello, Kiko!'
 You can `require()` any npm package inside your function. Dependencies are detected automatically and installed on-the-fly:
 
 ```js
-const result = await microlink.run('https://example.com', () => {
+const result = await microlink.function('https://example.com', () => {
   const { kebabCase } = require('lodash')
   return kebabCase('Hello World')
 })
@@ -120,7 +120,7 @@ When your function references `page`, Microlink starts a headless browser and na
 ```js
 const getTitle = ({ page }) => page.title()
 
-const result = await microlink.run('https://example.com', getTitle)
+const result = await microlink.function('https://example.com', getTitle)
 
 console.log(result.value) // 'Example Domain'
 ```

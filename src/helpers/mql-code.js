@@ -225,7 +225,7 @@ const translateToSdkCalls = options => {
 
   if (typeof rest.function === 'string') {
     const { function: fn, ...shared } = rest
-    return [{ method: 'run', binding: '{ value }', fn, opts: shared }]
+    return [{ method: 'function', binding: '{ value }', fn, opts: shared }]
   }
 
   return [{ method: 'metadata', binding: 'data', opts: rest }]
@@ -242,12 +242,12 @@ const renderSdkCall = (url, { method, binding, fn, rules, opts }) => {
   const hasOpts = Object.keys(opts).length > 0
   const jsUrl = toJsUrl(url)
 
-  if (method === 'run') {
-    const inline = `const ${binding} = await microlink.run(${jsUrl}, ${fn})`
+  if (method === 'function') {
+    const inline = `const ${binding} = await microlink.function(${jsUrl}, ${fn})`
     if (!hasOpts && !fn.includes('\n') && inline.length <= 80) return inline
     const args = [jsUrl, fn.split('\n').join('\n  ')]
     if (hasOpts) args.push(formatJavaScriptObject(opts, 2))
-    return `const ${binding} = await microlink.run(\n  ${args.join(',\n  ')}\n)`
+    return `const ${binding} = await microlink.function(\n  ${args.join(',\n  ')}\n)`
   }
 
   if (method === 'extract') {

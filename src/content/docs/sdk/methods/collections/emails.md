@@ -35,4 +35,4 @@ const emails = await microlink.emails('https://example.com/contact', {
 })
 ```
 
-Obfuscated addresses — `name [at] domain [dot] com`, images, or JavaScript-assembled links — are not detected. For those, run your own logic against the rendered page with [run](/docs/sdk/methods/run).
+Obfuscated addresses — `name [at] domain [dot] com`, images, or JavaScript-assembled links — are not detected. For those, run your own logic against the rendered page with [function](/docs/sdk/methods/function).

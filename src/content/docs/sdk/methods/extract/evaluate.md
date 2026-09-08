@@ -56,4 +56,4 @@ const { excerpt } = await getExcerpt('https://levelup.gitconnected.com/how-to-lo
 console.log(excerpt)
 ```
 
-When the logic outgrows a single expression — clicks, waits, npm packages — reach for [run](/docs/sdk/methods/run), which gives the function full Puppeteer access instead of a page-side evaluation.
+When the logic outgrows a single expression — clicks, waits, npm packages — reach for [function](/docs/sdk/methods/function), which gives the function full Puppeteer access instead of a page-side evaluation.

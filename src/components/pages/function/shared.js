@@ -4,22 +4,22 @@ import { Link } from 'components/elements/Link'
 import { faqFromItems, sdkExample } from 'components/patterns/FeatureStory'
 
 export const META = {
-  title: 'Browser Functions API: microlink.run()',
+  title: 'Browser Functions API: microlink.function()',
   description:
-    'Write a function, get a value. microlink.run() ships JavaScript to a sandbox with full Puppeteer, npm on the fly, and profiling — a browser boots only when your code touches the page.'
+    'Write a function, get a value. microlink.function() ships JavaScript to a sandbox with full Puppeteer, npm on the fly, and profiling — a browser boots only when your code touches the page.'
 }
 
 export const HERO = {
   title: 'Browser Functions',
   description:
-    'Write a function. Get a value. microlink.run() runs your JavaScript in a sandbox — the browser is optional and boots only when your code touches the page.'
+    'Write a function. Get a value. microlink.function() runs your JavaScript in a sandbox — the browser is optional and boots only when your code touches the page.'
 }
 
 export const OVERVIEW = {
   title: 'Browser optional. Value guaranteed.',
   body: (
     <>
-      <code>microlink.run(url, code)</code> ships a plain function to a remote
+      <code>microlink.function(url, code)</code> ships a plain function to a remote
       sandbox — serialization, compression, and the API call are handled for
       you. Reference <code>page</code> for the full{' '}
       <Link href='/docs/guides/function/browser-interaction'>
@@ -38,7 +38,7 @@ export const OVERVIEW = {
 }
 
 export const PARAMS = {
-  title: 'What run() forwards.',
+  title: 'What function() forwards.',
   rows: [
     {
       name: 'url',
@@ -49,7 +49,7 @@ export const PARAMS = {
     {
       name: 'function',
       type: 'string | Function',
-      description: 'The code to run remotely — run() serializes it for you.',
+      description: 'The code to run remotely — function() serializes it for you.',
       href: '/docs/api/parameters/function'
     },
     {
@@ -75,13 +75,13 @@ export const PARAMS = {
 }
 
 export const EXAMPLES = {
-  title: 'Canonical run() snippets.',
+  title: 'Canonical function() snippets.',
   panels: [
     {
       id: 'no-browser',
       title: 'No page, no browser',
       description: 'Plain compute — Chrome never boots, so it stays fast.',
-      snippet: sdkExample(`const { value } = await microlink.run(
+      snippet: sdkExample(`const { value } = await microlink.function(
   'https://example.com',
   () => 40 + 2
 )
@@ -91,7 +91,7 @@ export const EXAMPLES = {
       id: 'page-eval',
       title: 'Puppeteer page.$eval',
       description: 'Reference page and a headless browser is navigated first.',
-      snippet: sdkExample(`const { value } = await microlink.run(
+      snippet: sdkExample(`const { value } = await microlink.function(
   'https://example.com',
   ({ page }) => page.$eval('h1', el => el.textContent)
 )
@@ -101,7 +101,7 @@ export const EXAMPLES = {
       id: 'cheerio',
       title: 'require() cheerio',
       description: 'Deps are detected, installed on the fly, and cached.',
-      snippet: sdkExample(`await microlink.run(
+      snippet: sdkExample(`await microlink.function(
   'https://news.ycombinator.com',
   async ({ page }) => {
     const cheerio = require('cheerio')
@@ -112,9 +112,9 @@ export const EXAMPLES = {
     },
     {
       id: 'with-proxy',
-      title: 'run() behind a proxy',
+      title: 'function() behind a proxy',
       description: 'Same sandbox, residential exit for hard targets.',
-      snippet: sdkExample(`const { value } = await microlink.run(
+      snippet: sdkExample(`const { value } = await microlink.function(
   'https://protected-target.com',
   ({ page }) => page.title(),
   { proxy: true }
@@ -124,7 +124,7 @@ export const EXAMPLES = {
       id: 'with-ttl',
       title: 'Cache a repeated run',
       description: 'ttl returns the stored value instead of executing again.',
-      snippet: sdkExample(`const { value } = await microlink.run(
+      snippet: sdkExample(`const { value } = await microlink.function(
   url,
   ({ page }) => page.$eval('h1', el => el.textContent),
   { ttl: '1h' }
@@ -140,16 +140,16 @@ export const RELATED = {
 
 export const FAQ_ITEMS = faqFromItems([
   {
-    question: 'When does microlink.run() start a browser?',
+    question: 'When does microlink.function() start a browser?',
     text: 'Only when your code references page. Without it, Microlink skips the headless browser entirely, so plain compute runs faster and cheaper. Reference page to get the full Puppeteer API for clicks, waits, and evaluation.'
   },
   {
-    question: 'Is run() available on the free plan?',
+    question: 'Is function() available on the free plan?',
     text: 'Yes. Free runs get a 5-second timeout, 16 MB of memory, and one concurrent execution per IP. Pro plans extend the timeout up to 60 seconds, raise memory to 32 MB, and remove code-size limits.'
   },
   {
-    question: 'When should I use run() instead of extract()?',
-    text: 'Start with extract() — declarative CSS-selector rules are shorter and easier to maintain. Escalate to run() when you need to click, wait, compute, or orchestrate custom logic that rules cannot express.'
+    question: 'When should I use function() instead of extract()?',
+    text: 'Start with extract() — declarative CSS-selector rules are shorter and easier to maintain. Escalate to function() when you need to click, wait, compute, or orchestrate custom logic that rules cannot express.'
   },
   {
     question: 'What happens if my function throws?',

@@ -114,7 +114,7 @@ export const METHOD_GROUPS = [
     },
     methods: [
       {
-        title: 'run',
+        title: 'function',
         icon: Play,
         description:
           'Execute your own JavaScript against a live page and get the value back.'
