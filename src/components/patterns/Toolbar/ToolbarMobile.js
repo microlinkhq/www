@@ -5,19 +5,19 @@ import Toolbar, {
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import Caps from 'components/elements/Caps'
-import { Button } from 'components/elements/Button/Button'
 import FeatherIcon from 'components/icons/Feather'
 import { useLocation } from '@gatsbyjs/reach-router'
-import { ChevronDown, X } from 'react-feather'
+import { Calendar, ChevronDown, X } from 'react-feather'
 import { backDrop } from 'helpers/style'
 import styled, { css } from 'styled-components'
 import { colors, fontWeights, theme, transition } from 'theme'
-import { BOOK_CALL_LABEL, bookCallUrl } from 'helpers/book-call'
+import { BOOK_CALL_LABEL, BOOK_CALL_TITLE, bookCallUrl } from 'helpers/book-call'
 import React, { useEffect, useState } from 'react'
 
 import {
   DIRECT_NAV_ITEMS,
   NAVIGATION_SECTIONS,
+  ToolbarActionLink,
   ToolbarNavLink,
   getToolbarSectionFromPathname
 } from './ToolbarLinks'
@@ -468,28 +468,27 @@ const ToolbarMobile = () => {
               </Caps>
             </MobileDirectNavLink>
           ))}
-          <Flex
-            as='li'
+          <ToolbarActionLink
+            forwardedAs='li'
+            href={bookCallUrl('header')}
+            title={BOOK_CALL_TITLE}
+            externalIcon={false}
+            data-event-location='header'
+            data-event-name={BOOK_CALL_LABEL}
+            onClick={closeMenu}
             css={theme({
-              flexDirection: 'column',
-              listStyle: 'none',
-              pt: 3,
-              px: 2
+              display: 'flex',
+              width: '100%',
+              height: '44px',
+              mt: 3,
+              listStyle: 'none'
             })}
           >
-            <Button
-              as='a'
-              href={bookCallUrl('header')}
-              variant='white'
-              rel='noopener noreferrer'
-              target='_blank'
-              data-event-location='header'
-              data-event-name={BOOK_CALL_LABEL}
-              onClick={closeMenu}
-            >
+            <FeatherIcon icon={Calendar} size='14px' />
+            <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
               {BOOK_CALL_LABEL}
-            </Button>
-          </Flex>
+            </Caps>
+          </ToolbarActionLink>
         </Box>
       </MobileMenuPanel>
     </Header>

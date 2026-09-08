@@ -28,7 +28,7 @@ import {
 import Plans from 'components/patterns/Plans/Plans'
 import { CURRENCIES, formatPrice } from 'components/patterns/Plans/shared'
 import { trackEvent } from 'helpers/gtag'
-import { BOOK_CALL_LABEL, bookCallUrl } from 'helpers/book-call'
+import { BOOK_CALL_LABEL, BOOK_CALL_TITLE, bookCallUrl } from 'helpers/book-call'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
   borders,
@@ -253,19 +253,24 @@ const CalendarIcon = (
 const BookCallCard = styled(Flex)`
   ${theme({
     width: '100%',
-    maxWidth: layout.normal,
+    maxWidth: layout.large,
     flexDirection: ['column', 'column', 'row', 'row'],
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: [3, 3, 4, 4],
+    bg: 'white',
+    border: 1,
+    borderColor: 'black10',
     borderRadius: 3,
+    boxShadow: 1,
     px: [3, 3, 4, 4],
     py: [3, 3, 4, 4],
-    bg: 'white',
     textAlign: ['center', 'center', 'left', 'left']
   })}
-  border: ${borders[1]};
-  border-color: ${colors.black10};
+`
+
+const BookCallButton = styled(Button)`
+  ${theme({ flexShrink: 0, width: ['100%', 'auto', 'auto', 'auto'] })}
 `
 
 const BookCall = () => (
@@ -285,6 +290,7 @@ const BookCall = () => (
           gap: 3,
           flexDirection: ['column', 'column', 'row', 'row'],
           alignItems: 'center',
+          flex: 1,
           minWidth: 0
         })}
       >
@@ -293,31 +299,40 @@ const BookCall = () => (
           <Text
             css={theme({
               fontWeight: 'bold',
-              fontSize: [1, 1, 2, 2],
+              fontSize: [2, 2, '18px', '18px'],
               color: 'black',
               lineHeight: 1
             })}
           >
-            Not sure which plan fits?
+            Bigger volume, custom infra, or just questions?
           </Text>
-          <Text css={theme({ fontSize: [0, 0, 1, 1], color: 'black60' })}>
-            Talk to an engineer for 15 minutes — no sales pitch.
+          <Text
+            css={theme({
+              fontSize: [1, 1, '15px', '15px'],
+              color: 'black70',
+              lineHeight: 2
+            })}
+          >
+            Book 15 minutes with the engineers who run the API. We&apos;ll walk
+            through your use case, size your traffic and tell you which plan
+            actually fits — or whether you need one at all.
           </Text>
         </Flex>
       </Flex>
-      <Box css={theme({ flexShrink: 0 })}>
-        <Button
-          as='a'
-          href={bookCallUrl('pricing')}
-          variant='white'
-          rel='noopener noreferrer'
-          target='_blank'
-          data-event-location='pricing'
-          data-event-name={BOOK_CALL_LABEL}
-        >
+      <BookCallButton
+        forwardedAs='a'
+        href={bookCallUrl('pricing')}
+        variant='black'
+        title={BOOK_CALL_TITLE}
+        rel='noopener noreferrer'
+        target='_blank'
+        data-event-location='pricing'
+        data-event-name={BOOK_CALL_LABEL}
+      >
+        <Caps as='span' css={theme({ fontSize: 0 })}>
           {BOOK_CALL_LABEL}
-        </Button>
-      </Box>
+        </Caps>
+      </BookCallButton>
     </BookCallCard>
   </Container>
 )

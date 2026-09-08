@@ -1,13 +1,10 @@
 import Toolbar from 'components/elements/Toolbar'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
-import { Button } from 'components/elements/Button/Button'
-import styled from 'styled-components'
 import { useLocation } from '@gatsbyjs/reach-router'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useBlogIndex } from 'components/hook/use-blog-index'
 import { useChangelogLatest } from 'components/hook/use-changelog-latest'
-import { BOOK_CALL_LABEL, bookCallUrl } from 'helpers/book-call'
 
 import { layout, theme } from 'theme'
 
@@ -30,15 +27,6 @@ import {
 
 import ToolbarDesktopMegaMenu from './ToolbarDesktopMegaMenu'
 import ToolbarDesktopTopLevelNav from './ToolbarDesktopTopLevelNav'
-
-const BookCallButton = styled(Button)`
-  ${theme({
-    fontSize: 0,
-    px: 3,
-    py: '6px',
-    minHeight: '36px'
-  })}
-`
 
 const ToolbarDesktop = () => {
   const location = useLocation()
@@ -187,25 +175,7 @@ const ToolbarDesktop = () => {
             onOpenSectionWithHover={handleOpenSectionWithHover}
             onClosePanel={handleClosePanel}
           />
-          <Flex as='div' css={theme({ alignItems: 'center', gap: 3 })}>
-            <Box
-              onMouseEnter={handleClosePanel}
-              css={theme({
-                display: ['none', 'none', 'block', 'block']
-              })}
-            >
-              <BookCallButton
-                forwardedAs='a'
-                href={bookCallUrl('header')}
-                variant='white'
-                rel='noopener noreferrer'
-                target='_blank'
-                data-event-location='header'
-                data-event-name={BOOK_CALL_LABEL}
-              >
-                {BOOK_CALL_LABEL}
-              </BookCallButton>
-            </Box>
+          <Flex as='div' css={theme({ alignItems: 'center' })}>
             {SOCIAL_NAV_ITEMS.map(
               ({ href, label, title, externalIcon, icon: Icon }) => {
                 return (

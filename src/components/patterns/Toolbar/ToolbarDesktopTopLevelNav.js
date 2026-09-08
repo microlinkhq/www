@@ -1,12 +1,18 @@
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
-import { ChevronDown } from 'react-feather'
+import FeatherIcon from 'components/icons/Feather'
+import { Calendar, ChevronDown } from 'react-feather'
 import React from 'react'
+import { BOOK_CALL_LABEL, BOOK_CALL_TITLE, bookCallUrl } from 'helpers/book-call'
 
 import { theme } from 'theme'
 
-import { DIRECT_NAV_ITEMS, NAVIGATION_SECTIONS } from './ToolbarLinks'
+import {
+  DIRECT_NAV_ITEMS,
+  NAVIGATION_SECTIONS,
+  ToolbarActionLink
+} from './ToolbarLinks'
 import {
   TOOLBAR_CHEVRON_ICON_SIZE,
   TOOLBAR_LIST_RESET_STYLES,
@@ -135,6 +141,26 @@ const ToolbarDesktopTopLevelNav = ({
         </Caps>
       </TopLevelDirectLink>
     ))}
+    <ToolbarActionLink
+      forwardedAs='li'
+      href={bookCallUrl('header')}
+      title={BOOK_CALL_TITLE}
+      externalIcon={false}
+      data-event-location='header'
+      data-event-name={BOOK_CALL_LABEL}
+      onMouseEnter={onClosePanel}
+      css={theme({
+        display: ['none', 'none', 'inline-flex', 'inline-flex'],
+        alignSelf: 'center',
+        height: '36px',
+        ml: 2
+      })}
+    >
+      <FeatherIcon icon={Calendar} size='14px' />
+      <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
+        {BOOK_CALL_LABEL}
+      </Caps>
+    </ToolbarActionLink>
   </Flex>
 )
 
