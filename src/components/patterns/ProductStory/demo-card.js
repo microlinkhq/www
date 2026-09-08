@@ -65,7 +65,7 @@ const HeaderUrl = styled(Text)(
   theme({
     fontFamily: 'mono',
     fontSize: '11px',
-    color: 'black50',
+    color: 'gray7',
     minWidth: 0
   }),
   'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;'

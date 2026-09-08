@@ -15,15 +15,16 @@ export const mqlCode = (url, options = {}) => {
     throw new Error('URL parameter is required and must be a string')
   }
 
-  // Generate code snippets object
+  const { binding, ...publicOptions } = options
+
   const codeSnippets = {
-    CLI: generateCliCommand(url, options),
-    cURL: generateCurlCommand(url, options),
-    JavaScript: generateJavaScriptCode(url, options), // Custom implementation
-    Python: generatePythonCode(url, options), // Custom implementation
-    Ruby: generateRubyCode(url, options), // Custom implementation
-    PHP: generatePhpCode(url, options), // Custom implementation
-    Golang: generateGolangCode(url, options) // Custom implementation
+    CLI: generateCliCommand(url, publicOptions),
+    cURL: generateCurlCommand(url, publicOptions),
+    JavaScript: generateJavaScriptCode(url, options),
+    Python: generatePythonCode(url, publicOptions),
+    Ruby: generateRubyCode(url, publicOptions),
+    PHP: generatePhpCode(url, publicOptions),
+    Golang: generateGolangCode(url, publicOptions)
   }
 
   return codeSnippets
@@ -224,8 +225,10 @@ const translateToSdkCalls = options => {
   }
 
   if (typeof rest.function === 'string') {
-    const { function: fn, ...shared } = rest
-    return [{ method: 'function', binding: '{ value }', fn, opts: shared }]
+    const { function: fn, binding, ...shared } = rest
+    return [
+      { method: 'function', binding: binding || '{ value }', fn, opts: shared }
+    ]
   }
 
   return [{ method: 'metadata', binding: 'data', opts: rest }]
@@ -247,7 +250,9 @@ const renderSdkCall = (url, { method, binding, fn, rules, opts }) => {
     if (!hasOpts && !fn.includes('\n') && inline.length <= 80) return inline
     const args = [jsUrl, fn.split('\n').join('\n  ')]
     if (hasOpts) args.push(formatJavaScriptObject(opts, 2))
-    return `const ${binding} = await microlink.function(\n  ${args.join(',\n  ')}\n)`
+    return `const ${binding} = await microlink.function(\n  ${args.join(
+      ',\n  '
+    )}\n)`
   }
 
   if (method === 'extract') {

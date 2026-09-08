@@ -31,11 +31,12 @@ function MultiCodeEditorInteractive ({
   defaultResponseData,
   onLoadingChange
 }) {
-  const { url, ...mqlOpts } = mqlCodeProps || {}
+  const { url, binding, ...mqlOpts } = mqlCodeProps || {}
 
   const codeSnippets = useMemo(
-    () => (url ? mqlCode(url, mqlOpts) : {}),
-    [url, mqlOpts]
+    () =>
+      url ? mqlCode(url, { ...mqlOpts, ...(binding && { binding }) }) : {},
+    [url, binding, mqlOpts]
   )
 
   const [languageIndex, setLanguageIndex] = useLocalStorage(

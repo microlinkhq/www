@@ -19,9 +19,9 @@ export const OVERVIEW = {
   title: 'Browser optional. Value guaranteed.',
   body: (
     <>
-      <code>microlink.function(url, code)</code> ships a plain function to a remote
-      sandbox — serialization, compression, and the API call are handled for
-      you. Reference <code>page</code> for the full{' '}
+      <code>microlink.function(url, code)</code> ships a plain function to a
+      remote sandbox — serialization, compression, and the API call are handled
+      for you. Reference <code>page</code> for the full{' '}
       <Link href='/docs/guides/function/browser-interaction'>
         Puppeteer page
       </Link>
@@ -49,7 +49,8 @@ export const PARAMS = {
     {
       name: 'function',
       type: 'string | Function',
-      description: 'The code to run remotely — function() serializes it for you.',
+      description:
+        'The code to run remotely — function() serializes it for you.',
       href: '/docs/api/parameters/function'
     },
     {
@@ -117,7 +118,7 @@ export const EXAMPLES = {
       snippet: sdkExample(`const { value } = await microlink.function(
   'https://protected-target.com',
   ({ page }) => page.title(),
-  { proxy: true }
+  { proxy: { location: 'us' } }
 )`)
     },
     {

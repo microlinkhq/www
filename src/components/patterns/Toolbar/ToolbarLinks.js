@@ -255,6 +255,12 @@ export const NAVIGATION_SECTIONS = [
         icon: Code
       }),
       createNavigationItem({
+        label: 'Function',
+        href: '/function',
+        description: 'Run custom browser code on any page',
+        icon: TerminalIcon
+      }),
+      createNavigationItem({
         label: 'Text',
         href: '/text',
         description: 'Extract clean, LLM-ready text from any page',
