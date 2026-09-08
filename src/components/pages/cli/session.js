@@ -2,7 +2,7 @@ import { prefersReducedMotion } from 'helpers/reduced-motion'
 
 import { createBrowserHost } from './browser-host'
 import { openPager, toPagerLines } from './pager'
-import { CLI_COMMAND } from './shared'
+import { CLI_COMMAND, isCompactCli } from './shared'
 import { parseCommand } from './tokenize'
 
 const PROMPT = `${CLI_COMMAND} `
@@ -60,7 +60,7 @@ export const createCliSession = ({ term, run, attractCommands }) => {
       const text = output.all.join('')
       if (!disposed && text.trim()) {
         const overflows = toPagerLines(text).length > Math.max(1, term.rows - 1)
-        if (page || overflows) {
+        if ((page || overflows) && !isCompactCli()) {
           pager = openPager(term, text)
           if (attracting) {
             await pager.autoScroll({
@@ -72,7 +72,8 @@ export const createCliSession = ({ term, run, attractCommands }) => {
           if (!pager.closed) await pager.finished
           pager = null
         } else {
-          term.write(output.stdout.join('').replace(/\n/g, '\r\n'))
+          const inline = output.stdout.join('') || text
+          term.write(inline.replace(/\n/g, '\r\n'))
         }
       }
       if (!disposed && !attracting) prompt()

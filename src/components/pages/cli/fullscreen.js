@@ -44,6 +44,8 @@ const Fullscreen = () => {
         left: 0,
         flexDirection: 'column',
         overflow: 'hidden',
+        height: '100dvh',
+        touchAction: 'manipulation',
         bg: 'black'
       })}
     >
@@ -110,7 +112,6 @@ const Fullscreen = () => {
           flex: 1,
           minHeight: 0,
           width: '100%',
-          overflow: 'hidden',
           bg: 'black',
           p: [3, 3, 4, 4],
           ...XTERM_SURFACE_CSS

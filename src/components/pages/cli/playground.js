@@ -41,7 +41,6 @@ const Playground = () => {
           width: '100%',
           height: toPx(PLAYGROUND_HEIGHT),
           minHeight: toPx(PLAYGROUND_HEIGHT),
-          overflow: 'hidden',
           bg: 'black',
           ...XTERM_SURFACE_CSS
         })}

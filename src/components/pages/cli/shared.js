@@ -11,6 +11,12 @@ export const CLI_VERSION = pkg.version
 export const ACCENT = 'red6'
 export const CLI_REPOSITORY = 'https://github.com/microlinkhq/microlink'
 export const CLI_COMMAND = 'microlink'
+export const MIN_TERMINAL_COLS = 96
+
+export const isCompactCli = () =>
+  typeof window !== 'undefined' &&
+  (window.matchMedia('(pointer: coarse)').matches ||
+    window.matchMedia('(max-width: 768px)').matches)
 export const ATTRACT_COMMANDS = [
   ['metadata', 'news.ycombinator.com/'],
   ['screenshot', 'stripe.com'],
@@ -26,7 +32,16 @@ export const HERO_LAYOUT_MAX_WIDTH = [
 ]
 
 export const XTERM_SURFACE_CSS = {
-  '& .xterm': { height: '100%' },
+  overflowX: 'auto',
+  overflowY: 'hidden',
+  touchAction: 'pan-x pan-y',
+  overscrollBehavior: 'contain',
+  '-webkit-overflow-scrolling': 'touch',
+  '& .xterm': {
+    height: '100%',
+    width: 'max-content',
+    minWidth: '100%'
+  },
   '& .xterm span': {
     padding: 0
   },
@@ -35,7 +50,14 @@ export const XTERM_SURFACE_CSS = {
   },
   '& .xterm-viewport': {
     overflowY: 'auto',
-    bg: 'black'
+    overflowX: 'hidden',
+    bg: 'black',
+    touchAction: 'pan-x pan-y',
+    overscrollBehavior: 'contain',
+    '-webkit-overflow-scrolling': 'touch'
+  },
+  '& .xterm-screen': {
+    touchAction: 'pan-x pan-y'
   }
 }
 
