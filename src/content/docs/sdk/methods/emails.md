@@ -14,7 +14,7 @@ console.log(emails)
 
 ## Options
 
-The [collection options](/docs/sdk/methods/collections#options) override the default rule of `selector: 'html'`, `attr: 'html'`, and `type: 'email'`. The `'email'` type is what turns the swept HTML into addresses, so keep it when changing the scope.
+Override the default rule of `selector: 'html'`, `attr: 'html'`, and `type: 'email'` with [selectorAll](/docs/sdk/methods/extract/selectorAll), [selector](/docs/sdk/methods/extract/selector), [attr](/docs/sdk/methods/extract/attr), or [type](/docs/sdk/methods/extract/type). The `'email'` type is what turns the swept HTML into addresses, so keep it when changing the scope.
 
 ## Examples
 

@@ -39,7 +39,7 @@ const { posts } = await hackerNews()
 console.log('latest hacker news posts:', posts)
 ```
 
-Without a nested `attr`, each match contributes one plain value, which is how the [collection](/docs/sdk/methods/collections) methods sweep a page:
+Without a nested `attr`, each match contributes one plain value, which is how [links](/docs/sdk/methods/links) and the other sweep methods work:
 
 ```js
 const { links } = await microlink.extract('https://news.ycombinator.com/', {

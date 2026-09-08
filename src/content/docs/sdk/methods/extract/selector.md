@@ -52,7 +52,7 @@ console.log(content)
 
 <Figcaption children='Omitting selector with attr is useful for LLM pipelines, content indexing, or feeding page content into downstream processing. Unsupported attr values fall back to HTML.' />
 
-The same `selector` is what the [markdown](/docs/sdk/methods/markdown), [html](/docs/sdk/methods/html), [text](/docs/sdk/methods/text), and [collection](/docs/sdk/methods/collections) methods accept as an option to scope their extraction.
+The same `selector` is what the [markdown](/docs/sdk/methods/markdown), [html](/docs/sdk/methods/html), [text](/docs/sdk/methods/text), and [links](/docs/sdk/methods/links) methods accept as an option to scope their extraction.
 
 ## Fallback selectors
 

@@ -56,15 +56,15 @@ const ROUTES_SDK = [
     posts: [
       {
         name: '.audio',
-        href: '/docs/sdk/methods/media/audio/'
+        href: '/docs/sdk/methods/audio/'
       },
       {
         name: '.audios',
-        href: '/docs/sdk/methods/collections/audios/'
+        href: '/docs/sdk/methods/audios/'
       },
       {
         name: '.emails',
-        href: '/docs/sdk/methods/collections/emails/'
+        href: '/docs/sdk/methods/emails/'
       },
       {
         name: '.embed',
@@ -106,15 +106,15 @@ const ROUTES_SDK = [
       },
       {
         name: '.images',
-        href: '/docs/sdk/methods/collections/images/'
+        href: '/docs/sdk/methods/images/'
       },
       {
         name: '.lighthouse',
-        href: '/docs/sdk/methods/insights/lighthouse/'
+        href: '/docs/sdk/methods/lighthouse/'
       },
       {
         name: '.links',
-        href: '/docs/sdk/methods/collections/links/'
+        href: '/docs/sdk/methods/links/'
       },
       {
         name: '.logo',
@@ -184,7 +184,7 @@ const ROUTES_SDK = [
       },
       {
         name: '.technologies',
-        href: '/docs/sdk/methods/insights/technologies/'
+        href: '/docs/sdk/methods/technologies/'
       },
       {
         name: '.text',
@@ -192,11 +192,11 @@ const ROUTES_SDK = [
       },
       {
         name: '.video',
-        href: '/docs/sdk/methods/media/video/'
+        href: '/docs/sdk/methods/video/'
       },
       {
         name: '.videos',
-        href: '/docs/sdk/methods/collections/videos/'
+        href: '/docs/sdk/methods/videos/'
       }
     ]
   }

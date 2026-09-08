@@ -41,4 +41,4 @@ Or get both in one request by asking [metadata](/docs/sdk/methods/metadata) for 
 const { image, video } = await microlink.metadata(url, { video: true })
 ```
 
-For every `video` element on a page rather than the primary one, use the [videos](/docs/sdk/methods/collections/videos) collection. To get the provider's own player instead of a raw file, use [embed](/docs/sdk/methods/embed).
+For every `video` element on a page rather than the primary one, use [videos](/docs/sdk/methods/videos). To get the provider's own player instead of a raw file, use [embed](/docs/sdk/methods/embed).

@@ -72,7 +72,7 @@ It's equivalent to [Document.querySelector()](https://developer.mozilla.org/en-U
 - A CSS class or pseudo-class, id or data-attribute (e.g., <Type children="'#avatar'"/>).
 - A combination of both (e.g., <Type children="'img:first'"/>).
 
-When `selector` is omitted, [attr](#attr) operates on the entire page — see [whole-page serialization](#whole-page-serialization). The same `selector` is what the [markdown](/docs/sdk/methods/markdown), [html](/docs/sdk/methods/html), [text](/docs/sdk/methods/text), and [collection](/docs/sdk/methods/collections) methods accept as an option to scope their extraction.
+When `selector` is omitted, [attr](#attr) operates on the entire page — see [whole-page serialization](#whole-page-serialization). The same `selector` is what the [markdown](/docs/sdk/methods/markdown), [html](/docs/sdk/methods/html), [text](/docs/sdk/methods/text), and [links](/docs/sdk/methods/links) methods accept as an option to scope their extraction.
 
 ### Fallback selectors
 
@@ -110,7 +110,7 @@ const { posts } = await hackerNews()
 console.log('latest hacker news posts:', posts)
 ```
 
-Without a nested `attr`, each match contributes one plain value, which is how the [collection](/docs/sdk/methods/collections) methods sweep a page:
+Without a nested `attr`, each match contributes one plain value, which is how [links](/docs/sdk/methods/links) and the other sweep methods work:
 
 ```js
 const { links } = await microlink.extract('https://news.ycombinator.com/', {
@@ -416,7 +416,7 @@ A rule fails when its query matches nothing or when the value doesn't pass its [
 
 ## Everywhere else
 
-The [markdown](/docs/sdk/methods/markdown), [html](/docs/sdk/methods/html), [text](/docs/sdk/methods/text), and [collection](/docs/sdk/methods/collections) methods are shortcuts over rules like these, and accept the same primitives as options to scope their extraction. The same grammar — historically known as MQL, the Microlink Query Language — is what the [data](/docs/api/parameters/data) query parameter takes when you call the API directly, and what the [CLI](/docs/sdk/getting-started/cli) accepts as JSON through `extract --data`.
+The [markdown](/docs/sdk/methods/markdown), [html](/docs/sdk/methods/html), [text](/docs/sdk/methods/text), and [links](/docs/sdk/methods/links) methods are shortcuts over rules like these, and accept the same primitives as options to scope their extraction. The same grammar — historically known as MQL, the Microlink Query Language — is what the [data](/docs/api/parameters/data) query parameter takes when you call the API directly, and what the [CLI](/docs/sdk/getting-started/cli) accepts as JSON through `extract --data`.
 
 Underneath, the SDK talks to the API through [@microlink/mql](https://github.com/microlinkhq/mql), the low-level client it ships as a dependency; you never need to install or import it yourself. Reading a response body as a stream or a buffer is the one thing that still lives there rather than in the SDK.
 
