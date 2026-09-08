@@ -1,0 +1,49 @@
+import { isSpinnerChunk } from './pager'
+
+const STORAGE_KEY = 'microlink.cli.apiKey'
+
+const toCrlf = value => String(value).replace(/\n/g, '\r\n')
+
+export const createBrowserHost = (term, collected) => {
+  const writeLive = chunk => term.write(toCrlf(chunk))
+  const writeOut = chunk => {
+    if (collected) collected.push(String(chunk))
+    else writeLive(chunk)
+  }
+  const writeErr = chunk => {
+    writeLive(chunk)
+    if (collected && !isSpinnerChunk(chunk)) collected.push(String(chunk))
+  }
+  return {
+    stdout: { write: writeOut },
+    stderr: { write: writeErr },
+    env: {},
+    isTTY: true,
+    hasColors: true,
+    readFile () {
+      throw new Error('`--file` is not available in the browser playground')
+    },
+    readApiKey () {
+      const value = globalThis.localStorage?.getItem(STORAGE_KEY)
+      return value || undefined
+    },
+    writeConfig (data) {
+      if (data?.apiKey) {
+        globalThis.localStorage?.setItem(STORAGE_KEY, data.apiKey)
+      }
+    },
+    clearConfig () {
+      const had = Boolean(globalThis.localStorage?.getItem(STORAGE_KEY))
+      globalThis.localStorage?.removeItem(STORAGE_KEY)
+      return had
+    },
+    async login () {
+      throw new Error(
+        'login is not available here. Pass --api-key, or run microlink login in your terminal.'
+      )
+    },
+    exit (code) {
+      return code
+    }
+  }
+}

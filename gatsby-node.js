@@ -99,8 +99,30 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   actions.setWebpackConfig({
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+      alias: {
+        'microlink.io/cli': require.resolve('microlink.io/cli')
+      },
       fallback: {
-        path: require.resolve('path-browserify')
+        path: require.resolve('path-browserify'),
+        fs: false,
+        os: false,
+        http: false,
+        https: false,
+        crypto: false,
+        child_process: false,
+        zlib: false,
+        util: false,
+        assert: false,
+        stream: false,
+        constants: false,
+        'node:fs': false,
+        'node:os': false,
+        'node:http': false,
+        'node:crypto': false,
+        'node:util': false,
+        'node:zlib': false,
+        'node:path': false,
+        'node:child_process': false
       }
     }
   })
