@@ -1,6 +1,5 @@
 import React, { useRef } from 'react'
 
-import { Link } from 'components/elements/Link'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import LineBreak from 'components/elements/LineBreak'
@@ -12,8 +11,6 @@ import { CLI_VERSION, XTERM_SURFACE_CSS } from './shared'
 import { useCliTerminal } from './use-cli-terminal'
 
 import '@xterm/xterm/css/xterm.css'
-
-const DOCS_HREF = '/docs/sdk/getting-started/cli'
 
 const visuallyHiddenCss = theme({
   position: 'absolute',
@@ -105,11 +102,9 @@ const Fullscreen = () => {
         <Text as='span' css={theme({ fontSize: 'inherit', color: 'white' })}>
           Microlink CLI v{CLI_VERSION}
         </Text>{' '}
-        in your browser. Type <span css={theme({ color: 'white' })}>help</span>{' '}
-        for commands.
-        <LineBreak />
-        Commands hit the live API. See products and flags in the{' '}
-        <Link href={DOCS_HREF}>docs</Link>.
+        in your browser.
+        <LineBreak breakpoints={[0, 1]} /> Type{' '}
+        <span css={theme({ color: 'white' })}>help</span> for commands.
       </Text>
       <Box
         id='cli-terminal'
