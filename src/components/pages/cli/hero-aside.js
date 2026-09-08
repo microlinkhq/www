@@ -71,7 +71,7 @@ export const HeroQuickStart = () => (
   <Box id='install' css={theme({ width: '100%', minWidth: 0 })}>
     <Caps
       css={theme({
-        color: 'black50',
+        color: 'black80',
         fontWeight: 'bold',
         fontSize: 0,
         letterSpacing: 2,

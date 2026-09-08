@@ -33,10 +33,12 @@ const Playground = () => {
           color: 'white70'
         }
       })}
-      aria-label='Interactive Microlink CLI'
     >
       <div
         ref={surfaceRef}
+        role='application'
+        tabIndex={-1}
+        aria-label='Interactive Microlink CLI'
         css={theme({
           width: '100%',
           height: toPx(PLAYGROUND_HEIGHT),

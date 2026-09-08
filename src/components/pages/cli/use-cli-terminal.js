@@ -109,6 +109,7 @@ export const useCliTerminal = (
         cursorBlink: !prefersReducedMotion(),
         cursorStyle: 'bar',
         disableStdin: false,
+        ariaLabel: 'Interactive Microlink CLI',
         fontFamily: FONT_FAMILY,
         fontSize: toRaw(
           window.matchMedia('(max-width: 768px)').matches
@@ -122,28 +123,72 @@ export const useCliTerminal = (
       })
       fitAddon = new FitAddon()
       term.loadAddon(fitAddon)
-      term.open(containerRef.current)
+      const surface = containerRef.current
+      const commandPin = document.createElement('div')
+      const host = document.createElement('div')
+      const promptPin = document.createElement('div')
+      commandPin.dataset.cliPin = 'command'
+      host.dataset.cliHost = ''
+      promptPin.dataset.cliPin = 'prompt'
+      commandPin.dataset.collapsed = 'true'
+      promptPin.hidden = true
+      const pinFont = `${term.options.fontSize}px`
+      commandPin.style.fontSize = pinFont
+      promptPin.style.fontSize = pinFont
+      surface.append(commandPin, host, promptPin)
+      const focusTerm = e => {
+        e.preventDefault()
+        term.focus()
+      }
+      commandPin.addEventListener('pointerdown', focusTerm)
+      promptPin.addEventListener('pointerdown', focusTerm)
+      term.open(host)
       const fit = () => {
+        const y = term.buffer.active.viewportY
         fitAddon.fit()
         if (isCompactCli() && term.cols < MIN_TERMINAL_COLS) {
           term.resize(MIN_TERMINAL_COLS, term.rows)
         }
+        term.scrollToLine(y)
       }
       fit()
       session = createCliSession({
         term,
         run: cli.run ?? cli.default,
-        attractCommands: commands
+        attractCommands: commands,
+        surface,
+        onPin: ({ command, prompt: promptText, viewLine }) => {
+          const open = Boolean(command)
+          if (command) commandPin.textContent = command
+          const wasOpen = commandPin.dataset.collapsed !== 'true'
+          commandPin.dataset.collapsed = open ? 'false' : 'true'
+          promptPin.textContent = promptText
+          promptPin.hidden = !promptText
+          if (viewLine != null) {
+            term.scrollToLine(viewLine)
+            window.requestAnimationFrame(() => {
+              fit()
+              term.scrollToLine(viewLine)
+            })
+          } else if (wasOpen !== open) {
+            const keep = term.buffer.active.viewportY
+            fit()
+            term.scrollToLine(keep)
+          }
+        }
       })
       term.onData(session.onData)
-      const surface = containerRef.current
       const unbindTouch = bindTouchScroll(surface, term)
       const onViewportResize = () => fit()
       window.visualViewport?.addEventListener('resize', onViewportResize)
+      surface.addEventListener('pointerdown', session.stopAttract)
+      surface.addEventListener('focusin', session.stopAttract)
       resizeObserver = new window.ResizeObserver(() => fit())
-      resizeObserver.observe(surface)
+      resizeObserver.observe(host)
       detachTouch = () => {
         unbindTouch()
+        surface.removeEventListener('pointerdown', session.stopAttract)
+        surface.removeEventListener('focusin', session.stopAttract)
         window.visualViewport?.removeEventListener('resize', onViewportResize)
       }
       await session.start()

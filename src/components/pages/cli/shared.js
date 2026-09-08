@@ -37,9 +37,55 @@ const TOUCH_PAN = {
 }
 
 export const XTERM_SURFACE_CSS = {
+  display: 'flex',
+  flexDirection: 'column',
   overflowX: 'auto',
   overflowY: 'hidden',
   ...TOUCH_PAN,
+  '& [data-cli-pin]': {
+    flexShrink: 0,
+    bg: 'black',
+    color: 'white',
+    fontFamily: 'mono',
+    lineHeight: 1.2,
+    whiteSpace: 'pre',
+    cursor: 'text'
+  },
+  '& [data-cli-pin="command"]': {
+    overflow: 'hidden',
+    maxHeight: '3em',
+    opacity: 1,
+    pb: 2,
+    mb: 2,
+    borderBottom: 1,
+    borderBottomColor: 'white10',
+    '@media (prefers-reduced-motion: no-preference)': {
+      transition:
+        'max-height 160ms ease, padding 160ms ease, margin 160ms ease, opacity 160ms ease, border-width 160ms ease'
+    },
+    '&[data-collapsed="true"]': {
+      maxHeight: 0,
+      opacity: 0,
+      pb: 0,
+      mb: 0,
+      borderBottom: 0
+    }
+  },
+  '& [data-cli-pin="prompt"]': {
+    pt: 3,
+    pb: 'max(8px, env(safe-area-inset-bottom))',
+    '&::after': {
+      content: '"▋"',
+      color: 'white'
+    }
+  },
+  '& [data-cli-host]': {
+    flex: 1,
+    minHeight: 0,
+    width: 'max-content',
+    minWidth: '100%',
+    position: 'relative'
+  },
   '& .xterm': {
     height: '100%',
     width: 'max-content',

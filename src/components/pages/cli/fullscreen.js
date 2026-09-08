@@ -52,6 +52,14 @@ const Fullscreen = () => {
       <Box
         as='a'
         href='#cli-terminal'
+        onClick={e => {
+          const input = surfaceRef.current?.querySelector(
+            'textarea.xterm-helper-textarea'
+          )
+          if (!input) return
+          e.preventDefault()
+          input.focus()
+        }}
         css={theme({
           position: 'absolute',
           width: '1px',

@@ -1,13 +1,19 @@
 import { prefersReducedMotion } from 'helpers/reduced-motion'
 
 import { createBrowserHost } from './browser-host'
-import { openPager, pagerRows, toPagerLines } from './pager'
+import { openPager } from './pager'
 import { CLI_COMMAND, isCompactCli } from './shared'
 import { parseCommand } from './tokenize'
 
 const PROMPT = `${CLI_COMMAND} `
 
-export const createCliSession = ({ term, run, attractCommands }) => {
+export const createCliSession = ({
+  term,
+  run,
+  attractCommands,
+  onPin,
+  surface
+}) => {
   let disposed = false
   let running = false
   let attracting = false
@@ -28,14 +34,61 @@ export const createCliSession = ({ term, run, attractCommands }) => {
     historyIndex = -1
   }
 
+  const wipe = () => {
+    term.write('\x1b[2J\x1b[3J\x1b[H')
+    term.clear()
+    term.scrollToTop()
+    if (surface) surface.scrollLeft = 0
+  }
+
+  let pinOverlay = false
+  const marks = []
+
+  const commandAt = y => {
+    let found = null
+    for (const mark of marks) {
+      if (mark.line < y) found = mark
+    }
+    return found
+  }
+
+  const paintPins = viewLine => {
+    const y = viewLine ?? term.buffer.active.viewportY
+    const mark = commandAt(y)
+    onPin?.({
+      command: mark ? mark.text : '',
+      prompt: pinOverlay ? `${PROMPT}${buffer}` : '',
+      viewLine
+    })
+  }
+
+  let holdView = null
+
+  const scrollDisp = term.onScroll(() => {
+    if (holdView != null) {
+      term.scrollToLine(holdView)
+      return
+    }
+    if (pinOverlay) paintPins()
+  })
+
+  const revealInput = () => {
+    if (pinOverlay) {
+      paintPins()
+      return
+    }
+    term.scrollToBottom()
+    if (surface) surface.scrollLeft = 0
+  }
+
   const prompt = () => {
     resetInput()
-    term.write(PROMPT)
+    term.write('\x1b[?25h' + PROMPT)
   }
 
   const rewriteLine = next => {
-    term.write('\x1b[2K\r' + PROMPT + next)
     buffer = next
+    if (!pinOverlay) term.write('\x1b[2K\r' + PROMPT + next)
   }
 
   const remember = line => {
@@ -48,25 +101,33 @@ export const createCliSession = ({ term, run, attractCommands }) => {
       if (historyIndex < 0) historyIndex = history.length
       historyIndex = Math.max(0, historyIndex - 1)
       rewriteLine(history[historyIndex])
-      return
+    } else {
+      if (historyIndex < 0) return
+      historyIndex += 1
+      if (historyIndex >= history.length) {
+        historyIndex = -1
+        rewriteLine('')
+      } else rewriteLine(history[historyIndex])
     }
-    if (historyIndex < 0) return
-    historyIndex += 1
-    if (historyIndex >= history.length) {
-      historyIndex = -1
-      rewriteLine('')
-      return
-    }
-    rewriteLine(history[historyIndex])
+    paintPins()
   }
+
+  const write = chunk =>
+    new Promise(resolve => {
+      term.write(chunk, resolve)
+    })
 
   const execute = async (argv, { page = false } = {}) => {
     if (argv[0] === 'clear' && argv.length === 1) {
-      term.clear()
+      pinOverlay = false
+      marks.length = 0
+      paintPins()
+      wipe()
       prompt()
       return
     }
-    term.write('\r\n')
+    const commandLine = term.buffer.active.baseY + term.buffer.active.cursorY
+    await write('\r\n')
     running = true
     const chunks = []
     try {
@@ -76,9 +137,10 @@ export const createCliSession = ({ term, run, attractCommands }) => {
     } finally {
       running = false
       const text = chunks.join('')
+      let usedPager = false
       if (!disposed && text.trim()) {
-        const overflows = toPagerLines(text).length > pagerRows(term)
-        if ((page || overflows) && !isCompactCli()) {
+        if (page && !isCompactCli()) {
+          usedPager = true
           pager = openPager(term, text)
           if (attracting) {
             await pager.autoScroll({
@@ -90,10 +152,35 @@ export const createCliSession = ({ term, run, attractCommands }) => {
           if (!pager.closed) await pager.finished
           pager = null
         } else {
-          term.write(text.replace(/\n/g, '\r\n'))
+          await write(text.replace(/\n/g, '\r\n'))
         }
       }
-      if (!disposed && !attracting) prompt()
+      if (!disposed && !attracting) {
+        if (usedPager) prompt()
+        else {
+          resetInput()
+          pinOverlay = true
+          marks.push({
+            line: commandLine,
+            text: `${PROMPT}${history.at(-1) || ''}`
+          })
+          term.write('\x1b[?25l')
+          const viewLine = commandLine + 1
+          holdView = viewLine
+          paintPins(viewLine)
+          const stick = () => term.scrollToLine(viewLine)
+          stick()
+          window.requestAnimationFrame(stick)
+          timeouts.push(setTimeout(stick, 50))
+          timeouts.push(
+            setTimeout(() => {
+              stick()
+              holdView = null
+              paintPins()
+            }, 200)
+          )
+        }
+      }
     }
   }
 
@@ -104,6 +191,7 @@ export const createCliSession = ({ term, run, attractCommands }) => {
       if (!pager && !running) {
         rewriteLine('')
         historyIndex = -1
+        paintPins()
         return
       }
     }
@@ -111,6 +199,7 @@ export const createCliSession = ({ term, run, attractCommands }) => {
       pager.handle(data)
       return
     }
+    if (!running) revealInput()
     if (data === '\x03' || data === '\x1b') {
       if (running) return
       term.write('^C\r\n')
@@ -121,8 +210,10 @@ export const createCliSession = ({ term, run, attractCommands }) => {
     if (data === '\r') {
       const line = buffer
       if (!line.trim()) {
-        term.write('\r\n')
-        prompt()
+        if (!pinOverlay) {
+          term.write('\r\n')
+          prompt()
+        }
         return
       }
       remember(line)
@@ -133,7 +224,8 @@ export const createCliSession = ({ term, run, attractCommands }) => {
     if (data === '\x7f') {
       if (!buffer) return
       buffer = buffer.slice(0, -1)
-      term.write('\b \b')
+      if (!pinOverlay) term.write('\b \b')
+      paintPins()
       return
     }
     if (data === '\x1b[A') {
@@ -146,7 +238,8 @@ export const createCliSession = ({ term, run, attractCommands }) => {
     }
     if (data < '\x20') return
     buffer += data
-    term.write(data)
+    if (!pinOverlay) term.write(data)
+    paintPins()
   }
 
   const typeLine = async (text, instant) => {
@@ -184,7 +277,7 @@ export const createCliSession = ({ term, run, attractCommands }) => {
         if (cancelled()) break
         await delay(instant ? 600 : 1800)
         if (cancelled()) break
-        term.clear()
+        wipe()
         resetInput()
         if (cancelled()) break
         await delay(instant ? 200 : 400)
@@ -192,19 +285,30 @@ export const createCliSession = ({ term, run, attractCommands }) => {
     }
   }
 
+  const stopAttract = () => {
+    if (!attracting || pager || running) return
+    attracting = false
+    rewriteLine('')
+    historyIndex = -1
+    paintPins()
+  }
+
   return {
     onData,
+    stopAttract,
     async start () {
-      if (attractCommands?.length) await runAttract()
-      else {
-        prompt()
-        term.focus()
+      if (attractCommands?.length && !prefersReducedMotion()) {
+        await runAttract()
+        return
       }
+      prompt()
+      if (!attractCommands?.length) term.focus()
     },
     dispose () {
       disposed = true
       attracting = false
       pager?.close()
+      scrollDisp.dispose()
       timeouts.forEach(clearTimeout)
     }
   }
