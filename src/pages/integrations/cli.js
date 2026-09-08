@@ -23,7 +23,7 @@ export const Head = () => (
           'Command-line interface for interacting with the Microlink API from a terminal.',
         url: 'https://microlink.io/cli',
         downloadUrl: 'https://www.npmjs.com/package/microlink.io',
-        softwareVersion: '0.8.0',
+        softwareVersion: '0.9.2',
         offers: {
           '@type': 'Offer',
           price: '0',

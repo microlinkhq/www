@@ -156,7 +156,7 @@
     "json-future": "~2.2.27",
     "jszip": "~3.10.1",
     "lodash": "~4.18.1",
-    "microlink.io": "~0.8.0",
+    "microlink.io": "~0.9.2",
     "microsoft-capitalize": "~1.0.8",
     "normalize.css": "~8.0.1",
     "p-map": "~7.0.5",
