@@ -1,6 +1,6 @@
 import { speed } from 'theme'
 
-const toPagerLines = text => {
+export const toPagerLines = text => {
   const lines = String(text)
     .replace(/\r\n/g, '\n')
     .replace(/\r/g, '\n')

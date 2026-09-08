@@ -15,12 +15,27 @@ import '@xterm/xterm/css/xterm.css'
 
 const DOCS_HREF = '/docs/sdk/getting-started/cli'
 
+const visuallyHiddenCss = theme({
+  position: 'absolute',
+  width: '1px',
+  height: '1px',
+  p: 0,
+  m: '-1px',
+  overflow: 'hidden',
+  clip: 'rect(0, 0, 0, 0)',
+  whiteSpace: 'nowrap',
+  border: 0
+})
+
 const Fullscreen = () => {
   const surfaceRef = useRef(null)
   useCliTerminal(surfaceRef, { attract: false })
 
   return (
     <Flex
+      as='main'
+      id='main-content'
+      tabIndex={-1}
       css={theme({
         position: 'fixed',
         top: 0,
@@ -32,6 +47,37 @@ const Fullscreen = () => {
         bg: 'black'
       })}
     >
+      <Box
+        as='a'
+        href='#cli-terminal'
+        css={theme({
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          zIndex: 9999,
+          '&:focus': {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: 'auto',
+            height: 'auto',
+            overflow: 'visible',
+            clip: 'auto',
+            p: 3,
+            bg: 'link',
+            color: 'white',
+            fontWeight: 'bold'
+          }
+        })}
+      >
+        Skip to terminal
+      </Box>
+      <Text as='h1' css={visuallyHiddenCss}>
+        Microlink CLI
+      </Text>
       <Text
         as='p'
         css={theme({
@@ -56,6 +102,7 @@ const Fullscreen = () => {
         <Link href={DOCS_HREF}>docs</Link>.
       </Text>
       <Box
+        id='cli-terminal'
         ref={surfaceRef}
         role='application'
         aria-label='Interactive Microlink CLI'

@@ -1,9 +1,9 @@
 import { prefersReducedMotion } from 'helpers/reduced-motion'
 
 import { createBrowserHost } from './browser-host'
-import { openPager } from './pager'
+import { openPager, toPagerLines } from './pager'
 import { CLI_COMMAND } from './shared'
-import { toArgv } from './tokenize'
+import { parseCommand } from './tokenize'
 
 const PROMPT = `${CLI_COMMAND} `
 
@@ -42,7 +42,7 @@ export const createCliSession = ({ term, run, attractCommands }) => {
     history = history.at(-1) === line ? history : [...history, line]
   }
 
-  const execute = async argv => {
+  const execute = async (argv, { page = false } = {}) => {
     if (argv[0] === 'clear' && argv.length === 1) {
       term.clear()
       prompt()
@@ -50,25 +50,30 @@ export const createCliSession = ({ term, run, attractCommands }) => {
     }
     term.write('\r\n')
     running = true
-    const collected = []
+    const output = { all: [], stdout: [] }
     try {
-      await run(argv, createBrowserHost(term, collected))
+      await run(argv, createBrowserHost(term, output))
     } catch (error) {
-      if (!disposed) collected.push(`\n${error.message || error}\n`)
+      if (!disposed) output.all.push(`\n${error.message || error}\n`)
     } finally {
       running = false
-      const output = collected.join('')
-      if (!disposed && output.trim()) {
-        pager = openPager(term, output)
-        if (attracting) {
-          await pager.autoScroll({
-            delay,
-            instant: prefersReducedMotion(),
-            stop: () => disposed || !attracting
-          })
+      const text = output.all.join('')
+      if (!disposed && text.trim()) {
+        const overflows = toPagerLines(text).length > Math.max(1, term.rows - 1)
+        if (page || overflows) {
+          pager = openPager(term, text)
+          if (attracting) {
+            await pager.autoScroll({
+              delay,
+              instant: prefersReducedMotion(),
+              stop: () => disposed || !attracting
+            })
+          }
+          if (!pager.closed) await pager.finished
+          pager = null
+        } else {
+          term.write(output.stdout.join('').replace(/\n/g, '\r\n'))
         }
-        if (!pager.closed) await pager.finished
-        pager = null
       }
       if (!disposed && !attracting) prompt()
     }
@@ -76,7 +81,14 @@ export const createCliSession = ({ term, run, attractCommands }) => {
 
   const onData = data => {
     if (disposed) return
-    if (attracting) attracting = false
+    if (attracting) {
+      attracting = false
+      if (!pager && !running) {
+        rewriteLine('')
+        historyIndex = -1
+        return
+      }
+    }
     if (pager) {
       pager.handle(data)
       return
@@ -90,13 +102,14 @@ export const createCliSession = ({ term, run, attractCommands }) => {
     if (running) return
     if (data === '\r') {
       const line = buffer
-      term.write('\r\n')
       if (!line.trim()) {
+        term.write('\r\n')
         prompt()
         return
       }
       remember(line)
-      execute(toArgv(line))
+      const parsed = parseCommand(line)
+      execute(parsed.argv, { page: parsed.page })
       return
     }
     if (data === '\x7f') {
@@ -156,7 +169,7 @@ export const createCliSession = ({ term, run, attractCommands }) => {
           instant
         )
         if (!typed || cancelled()) break
-        await execute(argv)
+        await execute(argv, { page: true })
         if (cancelled()) break
         await delay(instant ? 600 : 1800)
         if (cancelled()) break

@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 
-import { toArgv } from '../../src/components/pages/cli/tokenize'
+import { parseCommand, toArgv } from '../../src/components/pages/cli/tokenize'
 
 test('strips the microlink binary name', () => {
   expect(toArgv('microlink markdown https://example.com')).toEqual([
@@ -33,4 +33,12 @@ test('strips a trailing pipe to less', () => {
     'screenshot',
     'stripe.com'
   ])
+})
+
+test('parseCommand records whether the line asked for a pager', () => {
+  expect(parseCommand('help')).toEqual({ argv: ['help'], page: false })
+  expect(parseCommand('microlink screenshot stripe.com | less')).toEqual({
+    argv: ['screenshot', 'stripe.com'],
+    page: true
+  })
 })

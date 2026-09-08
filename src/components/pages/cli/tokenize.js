@@ -23,13 +23,13 @@ const tokenize = line => {
   return tokens
 }
 
-export const toArgv = line => {
+export const parseCommand = line => {
   const tokens = tokenize(line.trim())
   const start =
     tokens[0] === 'microlink' || tokens[0] === 'microlink.io' ? 1 : 0
   const rest = tokens.slice(start)
-  if (rest.at(-2) === '|' && rest.at(-1) === 'less') {
-    return rest.slice(0, -2)
-  }
-  return rest
+  const page = rest.at(-2) === '|' && rest.at(-1) === 'less'
+  return { argv: page ? rest.slice(0, -2) : rest, page }
 }
+
+export const toArgv = line => parseCommand(line).argv
