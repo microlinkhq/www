@@ -260,12 +260,17 @@ const Framework = ({ framework }) => {
     return acc
   }, {})
 
+  const aliases = framework.examples.reduce((acc, example) => {
+    acc[example.label] = example.code.language
+    return acc
+  }, {})
+
   return (
     <SectionContainer id='framework'>
       <SectionHead title={framework.title} caption={framework.caption} />
       <Box css={theme({ width: '100%', maxWidth: CONTENT_WIDTH, mx: 'auto' })}>
         <Box css={[theme({ width: '100%' }), CODE_FULL_WIDTH]}>
-          <MultiCodeEditor languages={languages} />
+          <MultiCodeEditor languages={languages} aliases={aliases} />
         </Box>
         {framework.footnote && (
           <Text

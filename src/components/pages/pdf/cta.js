@@ -1,11 +1,14 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { SECTION_VERTICAL_SPACING, layout, colors, theme } from 'theme'
+import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Check as CheckIcon } from 'react-feather'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { LangLandingsNav } from 'components/patterns/LangLandings'
+import { LANG_LANDINGS } from './lang/registry'
 import { ACCENT, Subhead, Caption } from './shared'
 
 const CTA_DURATION = 6.2
@@ -127,6 +130,13 @@ export const CallToAction = () => (
           )
         )}
       </Flex>
+      <Box css={theme({ pt: [4, 4, 5, 5] })}>
+        <LangLandingsNav
+          langs={LANG_LANDINGS}
+          label='Language guides'
+          accent={ACCENT}
+        />
+      </Box>
     </Flex>
   </Container>
 )
