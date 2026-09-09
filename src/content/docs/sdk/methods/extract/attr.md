@@ -140,4 +140,4 @@ Nested rules can nest again, so a parent rule can describe a whole section of a 
 
 ## Fallback values
 
-More than one `attr` is the same [fallback](/docs/sdk/methods/extract#fallback-rules) form: the first attribute that resolves a value is used.
+Multiple `attr` values use the same [fallback](/docs/sdk/methods/extract#fallback-rules) form: the first attribute that resolves a value is used.

@@ -38,6 +38,6 @@ It's equivalent to [Document.querySelector()](https://developer.mozilla.org/en-U
 
 When `selector` is omitted, [attr](/docs/sdk/methods/extract/attr) operates on the entire page — see [whole-page serialization](/docs/sdk/methods/extract/attr#whole-page-serialization). The same `selector` is what the [markdown](/docs/sdk/methods/markdown), [html](/docs/sdk/methods/html), [text](/docs/sdk/methods/text), and [links](/docs/sdk/methods/links) methods accept as an option to scope their extraction.
 
-### Fallback selectors
+## Fallback selectors
 
 A collection of selectors is an array of [fallback rules](/docs/sdk/methods/extract#fallback-rules): the first selector that yields a typed value wins.
