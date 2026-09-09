@@ -4,7 +4,6 @@ description: 'Extract HTML attributes, text, inner HTML, Markdown, or JSON from 
 ---
 
 import { Type, TypeContainer } from 'components/markdown/Type'
-import { Figcaption } from 'components/markdown/Figcaption'
 import { Link } from 'components/elements/Link'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
@@ -141,29 +140,4 @@ Nested rules can nest again, so a parent rule can describe a whole section of a 
 
 ## Fallback values
 
-If you specify more than one value, they will be used as fallback values:
-
-```js
-const github = username =>
-  microlink.extract(`https://github.com/${username}`, {
-    avatar: [
-      {
-        selector: 'meta[name="twitter:image:src"]:not([content=""])',
-        attr: 'content',
-        type: 'image'
-      },
-      {
-        selector: 'meta[property="og:image"]:not([content=""])',
-        attr: 'content',
-        type: 'image'
-      }
-    ]
-  })
-
-const username = 'kikobeats'
-const { avatar } = await github(username)
-
-console.log(`GitHub avatar for @${username}: ${avatar.url} (${avatar.size_pretty})`)
-```
-
-<Figcaption children="The first attribute that resolves a value will be used." />
+More than one `attr` is the same [fallback](/docs/sdk/methods/extract#fallback-rules) form: the first attribute that resolves a value is used.

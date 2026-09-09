@@ -3,9 +3,11 @@ title: 'extract'
 description: 'Pull typed values from any URL with your own CSS selector rules using the Microlink SDK: selectors, attributes, types, nested rules, fallbacks, JavaScript evaluation, and rules alongside metadata.'
 ---
 
-import { Type, TypeContainer } from 'components/markdown/Type'
-import { Figcaption } from 'components/markdown/Figcaption'
-import { Link } from 'components/elements/Link'
+import Selector from './selector.md'
+import SelectorAll from './selectorAll.md'
+import Attr from './attr.md'
+import TypeDoc from './type.md'
+import Evaluate from './evaluate.md'
 
 Typed values pulled with your own rules. Declare the data you want from a page — a CSS selector, the attribute to read, the type to validate it as — and get it back normalized. It takes the rules as its second argument and resolves to an object with one key per rule:
 
@@ -45,313 +47,23 @@ Rules compose in two ways: an object under `attr` builds [nested](#nested-rules)
 
 ## selector
 
-Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
-Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
-
-It defines the [HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) you want to pick from the HTML markup over the [url](/docs/api/parameters/url):
-
-```js
-const github = username =>
-  microlink.extract(`https://github.com/${username}`, {
-    avatar: {
-      selector: 'meta[property="og:image"]:not([content=""])',
-      attr: 'content',
-      type: 'image'
-    }
-  })
-
-const username = 'kikobeats'
-const { avatar } = await github(username)
-
-console.log(`GitHub avatar for @${username}: ${avatar.url} (${avatar.size_pretty})`)
-```
-
-It's equivalent to [Document.querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) and any [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) can be specified, such as:
-
-- An HTML tag (e.g., <Type children="'img'"/>).
-- A CSS class or pseudo-class, id or data-attribute (e.g., <Type children="'#avatar'"/>).
-- A combination of both (e.g., <Type children="'img:first'"/>).
-
-When `selector` is omitted, [attr](#attr) operates on the entire page — see [whole-page serialization](#whole-page-serialization). The same `selector` is what the [markdown](/docs/sdk/methods/markdown), [html](/docs/sdk/methods/html), [text](/docs/sdk/methods/text), and [links](/docs/sdk/methods/links) methods accept as an option to scope their extraction.
-
-### Fallback selectors
-
-A collection of selectors is an array of [fallback rules](#fallback-rules): the first selector that yields a typed value wins.
+<Selector />
 
 ## selectorAll
 
-Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
-Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
-
-It's the same as [selector](#selector) but it returns a collection of results, being equivalent to [Document.querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll):
-
-```js
-const hackerNews = () =>
-  microlink.extract('https://news.ycombinator.com/', {
-    posts: {
-      selectorAll: '.athing',
-      attr: {
-        title: {
-          type: 'title',
-          selector: '.titleline > a',
-          attr: 'text'
-        },
-        url: {
-          type: 'url',
-          selector: '.titleline > a',
-          attr: 'href'
-        }
-      }
-    }
-  })
-
-const { posts } = await hackerNews()
-
-console.log('latest hacker news posts:', posts)
-```
-
-Without a nested `attr`, each match contributes one plain value, which is how [links](/docs/sdk/methods/links) and the other sweep methods work:
-
-```js
-const { links } = await microlink.extract('https://news.ycombinator.com/', {
-  links: {
-    selectorAll: '.titleline > a',
-    attr: 'href',
-    type: 'url'
-  }
-})
-
-console.log(links) // => ['https://…', 'https://…', …]
-```
+<SelectorAll />
 
 ## attr
 
-Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
-Default: <Type children="'html'"/><br/>
-Values: <TypeContainer><Type><Link href="https://developer.mozilla.org/en-US/docs/Web/API/Element/tagName">tagName</Link></Type> | <Type><Link href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeName">nodeName</Link></Type> | <Type children="'html'"/> | <Type children="'outerHTML'"/> | <Type children="'text'"/> | <Type children="'markdown'"/> | <Type children="'json'"/> | <Type children="'val'"/></TypeContainer>
-
-It specifies how the value should be extracted from the matched [selector](#selector):
-
-```js
-const github = username =>
-  microlink.extract(`https://github.com/${username}`, {
-    avatar: {
-      selector: 'meta[property="og:image"]:not([content=""])',
-      attr: 'content',
-      type: 'image'
-    }
-  })
-
-const username = 'kikobeats'
-const { avatar } = await github(username)
-
-console.log(`GitHub avatar for @${username}: ${avatar.url} (${avatar.size_pretty})`)
-```
-
-Any [HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes) is supported, plus the following special cases:
-
-- <Type children="'html'"/>: Get the inner HTML content of the matched selector.
-- <Type children="'outerHTML'"/>: Get the outer HTML of the matched selector, including the element itself.
-- <Type children="'text'"/>: Returns the combined text content, including its descendants, by removing leading, trailing, and repeated whitespace.
-- <Type children="'markdown'"/>: Converts the HTML content into Markdown, preserving headings, links, and formatting.
-- <Type children="'json'"/>: Parses the page body as JSON and returns structured data. Whole-page only — do not combine with `selector`. See <Link href='/docs/guides/data-extraction/defining-rules#extract-json' children='Extract JSON' /> in the Data extraction guide.
-- <Type children="'val'"/>: Get the current value of the matched selector, oriented for select or input fields.
-
-### Whole-page serialization
-
-When [selector](#selector) is omitted, `attr` operates on the entire page. This is useful for serializing a full page into a new output format:
-
-```js
-const { content } = await microlink.extract('https://example.com', {
-  content: {
-    attr: 'markdown'
-  }
-})
-
-console.log(content)
-// => '# Example Domain\n\nThis domain is for use in illustrative examples…'
-```
-
-The [markdown](/docs/sdk/methods/markdown), [html](/docs/sdk/methods/html), and [text](/docs/sdk/methods/text) methods are shortcuts over exactly this rule.
-
-You can also scope the conversion to a specific element by combining `selector` with `attr`:
-
-```js
-const { article } = await microlink.extract('https://example.com', {
-  article: {
-    selector: 'article',
-    attr: 'markdown'
-  }
-})
-
-console.log(article)
-// => '# Article Title\n\nArticle content as markdown…'
-```
-
-For JSON endpoints, use `attr: 'json'` to parse the response body as structured data:
-
-```js
-const { content } = await microlink.extract('https://pokeapi.co/api/v2/pokemon', {
-  content: {
-    attr: 'json'
-  }
-})
-
-console.log(content)
-// => { count: 1302, next: '…', results: [ … ] }
-```
-
-`json` is whole-page only — it cannot be combined with `selector`. See <Link href='/docs/guides/data-extraction/defining-rules#extract-json' children='Extract JSON' /> for the full walkthrough.
-
-### Nested rules
-
-An object under `attr` maps a data structure over the same property key. Each nested rule is evaluated relative to the element matched by the parent `selector`, and the result is an object with one key per nested rule:
-
-```js
-const github = username =>
-  microlink.extract(`https://github.com/${username}`, {
-    stats: {
-      selector: '.application-main',
-      attr: {
-        followers: {
-          selector: '.js-profile-editable-area a[href*="tab=followers"] span',
-          type: 'number'
-        },
-        following: {
-          selector: '.js-profile-editable-area a[href*="tab=following"] span',
-          type: 'number'
-        },
-        stars: {
-          selector: '.js-responsive-underlinenav a[data-tab-item="stars"] span',
-          type: 'number'
-        }
-      }
-    }
-  })
-
-const username = 'kikobeats'
-const { stats } = await github(username)
-
-console.log(`GitHub stats for @${username}:`, stats)
-// => { followers: 1234, following: 56, stars: 789 }
-```
-
-The same structure applies to every item of a list when the parent uses [selectorAll](#selectorall), which is how you turn repeated markup into an array of objects:
-
-```js
-const { stories } = await microlink.extract('https://news.ycombinator.com', {
-  stories: {
-    selectorAll: '.athing',
-    attr: {
-      title: { selector: '.titleline > a', attr: 'text' },
-      url: { selector: '.titleline > a', attr: 'href', type: 'url' }
-    }
-  }
-})
-
-console.log(stories[0]) // => { title: '…', url: 'https://…' }
-```
-
-Nested rules can nest again, so a parent rule can describe a whole section of a page as one JSON document.
-
-### Fallback values
-
-More than one `attr` is the same [fallback](#fallback-rules) form: the first attribute that resolves a value is used.
+<Attr />
 
 ## type
 
-Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
-Default: <Type children="'auto'"/><br/>
-Values: <TypeContainer><Type children="'audio'"/> | <Type children="'author'"/> | <Type children="'auto'"/> | <Type children="'boolean'"/> | <Type children="'date'"/> | <Type children="'description'"/> | <Type children="'email'"/> | <Type children="'image'"/> | <Type children="'ip'"/> | <Type children="'lang'"/> | <Type children="'logo'"/> | <Type children="'number'"/> | <Type children="'object'"/> | <Type children="'publisher'"/> | <Type children="'regexp'"/> | <Type children="'string'"/> | <Type children="'title'"/> | <Type children="'url'"/> | <Type children="'video'"/></TypeContainer>
-
-It defines how the value extracted should be considered.
-
-```js
-const productHunt = id =>
-  microlink.extract(`https://www.producthunt.com/posts/${id}`, {
-    name: {
-      selector: 'h1 a',
-      attr: 'text',
-      type: 'string'
-    },
-    upvotes: {
-      selector: '.bigButtonCount_10448',
-      attr: 'text',
-      type: 'number'
-    }
-  })
-
-const productSlug = 'microlink-2-0'
-const { name, upvotes } = await productHunt(productSlug)
-
-console.log(`'${name}' has ${upvotes} upvotes`)
-```
-
-The data shape ensures that the extracted value will only be considered as valid when it's of the declared shape: a rule whose value doesn't match its `type` resolves to `null`, which is what lets [fallback rules](#fallback-rules) move on to the next candidate.
-
-Media types do more than validate. <Type children="'image'"/>, <Type children="'video'"/>, <Type children="'audio'"/>, and <Type children="'logo'"/> resolve the value to an absolute URL and expand it into an asset object with `url`, `type`, `width`, `height`, `size`, and `size_pretty`, the same shape the normalized [data fields](/docs/api/getting-started/data-fields) use:
-
-```js
-const { cover } = await microlink.extract('https://www.youtube.com/watch?v=9P6rdqiybaw', {
-  cover: {
-    selector: 'meta[property="og:image"]',
-    attr: 'content',
-    type: 'image'
-  }
-})
-
-console.log(cover.width, cover.height, cover.size_pretty)
-```
+<TypeDoc />
 
 ## evaluate
 
-Type: <TypeContainer><Type children='<string>'/> | <Type children='<function>'/></TypeContainer>
-
-It evaluates the JavaScript provided inside the browser context over the target URL, returning the result.
-
-It's quite similar to [selector](#selector), but designed to specify the value to be obtained in a JavaScript-like way.
-
-```js
-const getNextVersion = url =>
-  microlink.extract(url, {
-    version: {
-      evaluate: 'window.next.version',
-      type: 'string'
-    }
-  })
-
-const { version } = await getNextVersion('https://vercel.com')
-
-console.log(`Next.js version is: ${version}`)
-```
-
-<Figcaption children='You can combine evaluate with types for data correctness.' />
-
-It can evaluate anything browser compatible in the JavaScript context. A function is serialized to its source before being sent, so it can be as long as you need — but it runs in the page, not in your process, so it can only reach what the page can:
-
-```js
-const getExcerpt = url =>
-  microlink.extract(url, {
-    excerpt: {
-      evaluate: async () => {
-        const response = await window.fetch(
-          'https://cdn.jsdelivr.net/npm/@mozilla/readability/Readability.js'
-        )
-        const script = await response.text()
-        window.eval(script)
-        const reader = new window.Readability(window.document)
-        return reader.parse().excerpt
-      },
-      type: 'string'
-    }
-  })
-
-const { excerpt } = await getExcerpt('https://levelup.gitconnected.com/how-to-load-external-javascript-files-from-the-browser-console-8eb97f7db778')
-
-console.log(excerpt)
-```
-
-When the logic outgrows a single expression — clicks, waits, npm packages — reach for [function](/docs/sdk/methods/function), which gives the function full Puppeteer access instead of a page-side evaluation.
+<Evaluate />
 
 ## Options
 
