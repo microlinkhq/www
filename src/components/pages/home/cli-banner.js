@@ -24,6 +24,7 @@ const DEVICE_HEIGHT = 576
 
 const Command = styled(Flex)`
   ${theme({
+    position: 'relative',
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 2,
@@ -69,6 +70,12 @@ const DeviceLink = styled(Link)`
     color: 'inherit',
     _hover: { color: 'inherit' }
   })}
+
+  > a {
+    display: block;
+    height: 100%;
+    color: inherit;
+  }
 
   &:focus-within {
     outline: 2px solid ${colors.link};
@@ -196,8 +203,6 @@ const CliBanner = () => {
               type='button'
               data-copied={copied}
               onClick={copyInstall}
-              aria-label={copied ? 'Copied!' : 'Copy install command'}
-              aria-live='polite'
             >
               <Text
                 as='span'
@@ -237,6 +242,23 @@ const CliBanner = () => {
               >
                 {copied ? <CheckIcon size={16} /> : <CopyIcon size={16} />}
               </Flex>
+              <Text
+                as='span'
+                aria-live='polite'
+                css={theme({
+                  position: 'absolute',
+                  width: '1px',
+                  height: '1px',
+                  p: 0,
+                  m: '-1px',
+                  overflow: 'hidden',
+                  clip: 'rect(0, 0, 0, 0)',
+                  whiteSpace: 'nowrap',
+                  border: 0
+                })}
+              >
+                {copied ? 'Copied!' : 'Copy'}
+              </Text>
             </Command>
             <Box css={theme({ mt: 3 })}>
               <ArrowLink
@@ -260,7 +282,7 @@ const CliBanner = () => {
             <DeviceLink
               href='/terminal'
               externalIcon={false}
-              aria-label='Try the Microlink CLI in your browser'
+              title='Try the Microlink CLI in your browser'
               data-event-location='Home CLI Banner'
               data-event-name='Try now'
             >
