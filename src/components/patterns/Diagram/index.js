@@ -30,7 +30,8 @@ const TONES = {
   focal: t => ({ fill: t.accentTint, stroke: t.accent }),
   input: t => ({ fill: t.inputFill, stroke: t.soft }),
   store: t => ({ fill: t.inputFill, stroke: t.muted }),
-  backend: t => ({ fill: t.paper, stroke: t.ink })
+  backend: t => ({ fill: t.paper, stroke: t.ink }),
+  optional: t => ({ fill: t.paper, stroke: t.soft, dashed: true })
 }
 
 const MARKERS = [
@@ -55,7 +56,7 @@ const Frame = styled(Box)(
 const Canvas = styled('svg')(
   theme({
     display: 'block',
-    width: layout.large,
+    width: '100%',
     maxWidth: layout.large,
     height: 'auto',
     mx: 'auto'
@@ -125,6 +126,7 @@ export const Connector = ({
   x2,
   y2,
   variant = 'link',
+  dashed,
   label,
   labelX,
   labelY
@@ -134,7 +136,8 @@ export const Connector = ({
   const common = {
     fill: 'none',
     stroke: t[variant],
-    strokeWidth: '1.2',
+    strokeWidth: dashed ? '1' : '1.2',
+    strokeDasharray: dashed ? '4,3' : undefined,
     markerEnd: `url(#${markerId})`
   }
   const w = label ? labelWidth(label) : 0
@@ -156,12 +159,20 @@ export const Connector = ({
   )
 }
 
+const diamondPoints = (x, y, width, height) => {
+  const mx = x + width / 2
+  const my = y + height / 2
+  return `${mx},${y} ${x + width},${my} ${mx},${y + height} ${x},${my}`
+}
+
 export const Node = ({
   x,
   y,
   width,
   height,
   name,
+  note,
+  shape = 'rect',
   tone = 'input',
   fill,
   stroke
@@ -169,20 +180,42 @@ export const Node = ({
   const { tokens: t } = useDiagram()
   const resolved = TONES[tone](t)
   const cx = x + width / 2
-  const cy = y + height / 2 + 4
+  const cy = y + height / 2 + (note ? -2 : 4)
+  const common = {
+    fill: fill ?? resolved.fill,
+    stroke: stroke ?? resolved.stroke,
+    strokeWidth: '1',
+    strokeDasharray: resolved.dashed ? '4,3' : undefined
+  }
   return (
     <g>
-      <rect x={x} y={y} width={width} height={height} rx='6' fill={t.paper} />
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        rx='6'
-        fill={fill ?? resolved.fill}
-        stroke={stroke ?? resolved.stroke}
-        strokeWidth='1'
-      />
+      {shape === 'diamond'
+        ? (
+          <>
+            <polygon points={diamondPoints(x, y, width, height)} fill={t.paper} />
+            <polygon points={diamondPoints(x, y, width, height)} {...common} />
+          </>
+          )
+        : (
+          <>
+            <rect
+              x={x}
+              y={y}
+              width={width}
+              height={height}
+              rx={shape === 'oval' ? height / 2 : 6}
+              fill={t.paper}
+            />
+            <rect
+              x={x}
+              y={y}
+              width={width}
+              height={height}
+              rx={shape === 'oval' ? height / 2 : 6}
+              {...common}
+            />
+          </>
+          )}
       <text
         x={cx}
         y={cy}
@@ -193,6 +226,73 @@ export const Node = ({
       >
         {name}
       </text>
+      {note && (
+        <text
+          className='mono'
+          x={cx}
+          y={cy + 14}
+          fill={t.muted}
+          fontSize='8'
+          textAnchor='middle'
+        >
+          {note}
+        </text>
+      )}
+    </g>
+  )
+}
+
+export const Layer = ({
+  x,
+  y,
+  width,
+  height,
+  index,
+  name,
+  note,
+  tone = 'backend'
+}) => {
+  const { tokens: t } = useDiagram()
+  const resolved = TONES[tone](t)
+  const cy = y + height / 2 + 4
+  return (
+    <g>
+      <rect x={x} y={y} width={width} height={height} rx='6' fill={t.paper} />
+      <rect
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        rx='6'
+        fill={resolved.fill}
+        stroke={resolved.stroke}
+        strokeWidth='1'
+      />
+      <text
+        className='mono'
+        x={x + 16}
+        y={cy}
+        fill={t.soft}
+        fontSize='8'
+        letterSpacing='0.14em'
+      >
+        {index}
+      </text>
+      <text x={x + 72} y={cy} fill={t.ink} fontSize='12' fontWeight='600'>
+        {name}
+      </text>
+      {note && (
+        <text
+          className='mono'
+          x={x + width - 16}
+          y={cy}
+          fill={t.muted}
+          fontSize='8'
+          textAnchor='end'
+        >
+          {note}
+        </text>
+      )}
     </g>
   )
 }

@@ -17,6 +17,7 @@ import { toCurlSnippetOrEmpty } from 'helpers/curl-snippet'
 import { lighthouseViewerUrl } from 'helpers/lighthouse'
 import { trimMs } from 'helpers/trim-ms'
 import { CDN_EDGES } from 'helpers/cdn-edges'
+import { InsightsPrimerVisual } from 'components/pages/insights/primer-visual'
 import humanizeUrl from 'humanize-url'
 import get from 'dlv'
 
@@ -673,6 +674,10 @@ const Resume = () => (
       track Core Web Vitals, detect technology stacks, and integrate performance
       monitoring into your CI/CD pipeline in minutes.
     </Caption>
+
+    <Box css={theme({ pt: [4, 4, 5, 5], width: '100%' })}>
+      <InsightsPrimerVisual />
+    </Box>
 
     <Block
       blockOne={

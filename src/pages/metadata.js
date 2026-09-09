@@ -19,6 +19,7 @@ import {
   TOP_FAQ_ITEMS
 } from 'components/pages/metadata/product-information'
 import { ACCENT, FIRST_URL, Subhead } from 'components/pages/metadata/shared'
+import { MetadataPrimer } from 'components/pages/metadata/primer'
 import { Stack } from 'components/pages/metadata/stack'
 import { Timings } from 'components/pages/metadata/timings'
 
@@ -235,6 +236,7 @@ const MetaPage = () => {
         timingUrl={timingUrl}
         timingHistory={timingHistory}
       />
+      <MetadataPrimer />
       <Capabilities currentUrl={currentUrl} currentData={currentData} />
       <CodeExample currentUrl={currentUrl} />
       <Clients />
