@@ -6,7 +6,12 @@ import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import { BOOK_CALL_LABEL, BOOK_CALL_TITLE, bookCallUrl } from 'helpers/book-call'
+import {
+  BOOK_CALL_LABEL,
+  BOOK_CALL_TITLE,
+  bookCallUrl,
+  trackBookCall
+} from 'helpers/book-call'
 import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 
 import {
@@ -112,6 +117,7 @@ const BookCall = () => (
         target='_blank'
         data-event-location='pricing'
         data-event-name={BOOK_CALL_LABEL}
+        onClick={() => trackBookCall('pricing')}
       >
         <Caps as='span' css={theme({ fontSize: 0 })}>
           {BOOK_CALL_LABEL}

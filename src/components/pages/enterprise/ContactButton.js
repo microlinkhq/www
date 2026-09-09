@@ -1,5 +1,11 @@
 import { theme } from 'theme'
 import { trackEvent } from 'helpers/gtag'
+import {
+  BOOK_CALL_LABEL,
+  BOOK_CALL_TITLE,
+  bookCallUrl,
+  trackBookCall
+} from 'helpers/book-call'
 import React from 'react'
 
 import { Button } from 'components/elements/Button/Button'
@@ -10,7 +16,16 @@ const ENTERPRISE_MAILTO =
   'mailto:hello@microlink.io?subject=Microlink%20Enterprise&body=Hi%2C%20I%27m%20interested%20in%20Microlink%20Enterprise.%20Could%20you%20share%20more%20details%3F%0D%0A%0D%0AThanks!%0D%0A'
 
 const ContactButton = ({ event = 'enterprise contact', my = [4, null, 5] }) => (
-  <Flex css={theme({ justifyContent: 'center', width: '100%', my })}>
+  <Flex
+    css={theme({
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: ['column', 'row', 'row', 'row'],
+      gap: [2, 3, 3, 3],
+      width: '100%',
+      my
+    })}
+  >
     <Button
       variant='black'
       onClick={() => {
@@ -19,6 +34,21 @@ const ContactButton = ({ event = 'enterprise contact', my = [4, null, 5] }) => (
       }}
     >
       <Caps css={theme({ fontSize: 0 })}>Contact sales</Caps>
+    </Button>
+    <Button
+      as='a'
+      href={bookCallUrl('enterprise')}
+      variant='white'
+      title={BOOK_CALL_TITLE}
+      rel='noopener noreferrer'
+      target='_blank'
+      data-event-location='enterprise'
+      data-event-name={BOOK_CALL_LABEL}
+      onClick={() => trackBookCall('enterprise')}
+    >
+      <Caps as='span' css={theme({ fontSize: 0 })}>
+        {BOOK_CALL_LABEL}
+      </Caps>
     </Button>
   </Flex>
 )

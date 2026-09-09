@@ -4,7 +4,12 @@ import Caps from 'components/elements/Caps'
 import FeatherIcon from 'components/icons/Feather'
 import { Calendar, ChevronDown } from 'react-feather'
 import React from 'react'
-import { BOOK_CALL_LABEL, BOOK_CALL_TITLE, bookCallUrl } from 'helpers/book-call'
+import {
+  BOOK_CALL_LABEL,
+  BOOK_CALL_TITLE,
+  bookCallUrl,
+  trackBookCall
+} from 'helpers/book-call'
 
 import { theme } from 'theme'
 
@@ -148,6 +153,7 @@ const ToolbarDesktopTopLevelNav = ({
       externalIcon={false}
       data-event-location='header'
       data-event-name={BOOK_CALL_LABEL}
+      onClick={() => trackBookCall('header')}
       onMouseEnter={onClosePanel}
       css={theme({
         display: ['none', 'none', 'inline-flex', 'inline-flex'],

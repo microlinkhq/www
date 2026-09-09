@@ -11,7 +11,12 @@ import { Calendar, ChevronDown, X } from 'react-feather'
 import { backDrop } from 'helpers/style'
 import styled, { css } from 'styled-components'
 import { colors, fontWeights, theme, transition } from 'theme'
-import { BOOK_CALL_LABEL, BOOK_CALL_TITLE, bookCallUrl } from 'helpers/book-call'
+import {
+  BOOK_CALL_LABEL,
+  BOOK_CALL_TITLE,
+  bookCallUrl,
+  trackBookCall
+} from 'helpers/book-call'
 import React, { useEffect, useState } from 'react'
 
 import {
@@ -470,12 +475,15 @@ const ToolbarMobile = () => {
           ))}
           <ToolbarActionLink
             forwardedAs='li'
-            href={bookCallUrl('header')}
+            href={bookCallUrl('mobile_menu')}
             title={BOOK_CALL_TITLE}
             externalIcon={false}
-            data-event-location='header'
+            data-event-location='mobile_menu'
             data-event-name={BOOK_CALL_LABEL}
-            onClick={closeMenu}
+            onClick={() => {
+              trackBookCall('mobile_menu')
+              closeMenu()
+            }}
             css={theme({
               display: 'flex',
               width: '100%',
