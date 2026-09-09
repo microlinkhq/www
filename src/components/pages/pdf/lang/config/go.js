@@ -13,13 +13,18 @@ const OG_IMAGE = 'https://cdn.microlink.io/banner/pdf.jpeg'
 const HELPER_SOURCE = `package main
 
 import (
+    "context"
     "encoding/json"
+    "errors"
     "fmt"
     "net/http"
     "net/url"
+    "time"
 )
 
-func pdfURL(target string) (string, error) {
+var client = &http.Client{Timeout: 60 * time.Second}
+
+func pdfURL(ctx context.Context, target string) (string, error) {
     endpoint, err := url.Parse("https://api.microlink.io")
     if err != nil {
         return "", err
@@ -31,14 +36,20 @@ func pdfURL(target string) (string, error) {
     query.Set("meta", "false")
     endpoint.RawQuery = query.Encode()
 
-    res, err := http.Get(endpoint.String())
+    req, err := http.NewRequestWithContext(ctx, http.MethodGet, endpoint.String(), nil)
+    if err != nil {
+        return "", err
+    }
+
+    res, err := client.Do(req)
     if err != nil {
         return "", err
     }
     defer res.Body.Close()
 
     var payload struct {
-        Data struct {
+        Message string \`json:"message"\`
+        Data    struct {
             PDF struct {
                 URL string \`json:"url"\`
             } \`json:"pdf"\`
@@ -46,14 +57,22 @@ func pdfURL(target string) (string, error) {
     }
 
     if err := json.NewDecoder(res.Body).Decode(&payload); err != nil {
-        return "", err
+        return "", fmt.Errorf("microlink: %s: %w", res.Status, err)
+    }
+
+    if res.StatusCode != http.StatusOK {
+        return "", fmt.Errorf("microlink: %s: %s", res.Status, payload.Message)
+    }
+
+    if payload.Data.PDF.URL == "" {
+        return "", errors.New("microlink: no pdf url in response")
     }
 
     return payload.Data.PDF.URL, nil
 }
 
 func main() {
-    link, err := pdfURL("https://example.com")
+    link, err := pdfURL(context.Background(), "https://example.com")
     if err != nil {
         panic(err)
     }
@@ -199,7 +218,7 @@ const go = {
       </>
     ),
     caption:
-      'No SDK and no browser binaries — the Microlink REST API turns any URL into a hosted PDF with a single HTTP GET. Everything below is standard library: net/http, net/url and encoding/json.',
+      'No SDK and no browser binaries — the Microlink REST API turns any URL into a hosted PDF with a single HTTP GET. Everything below is standard library, built on net/http, net/url and encoding/json.',
     steps: [
       {
         title: 'Start a module',
@@ -210,7 +229,7 @@ const go = {
       {
         title: 'Convert any URL',
         description:
-          'Point it at a page, ask for a PDF, and decode the hosted document URL from the JSON response. This helper is reused everywhere below.',
+          'Point it at a page, ask for a PDF, and decode the hosted document URL from the JSON response. A shared http.Client carries the timeout and the context cancels the wait with the caller. This helper is reused everywhere below.',
         code: {
           language: 'go',
           title: 'main.go',
@@ -220,40 +239,48 @@ const go = {
       {
         title: 'Customize the document',
         description:
-          'Paper format, margins, orientation, and print CSS are all query params. Nested options use dot notation, so pdf.format maps to the format field.',
+          'Paper format, margins, orientation, and print CSS are all query params — swap them in for the query block inside pdfURL. Nested options use dot notation, so pdf.format maps to the format field.',
         code: {
           language: 'go',
           title: 'options.go',
-          source: `func withOptions(endpoint *url.URL, target string) {
-    query := endpoint.Query()
+          source: `func setOptions(query url.Values, target string) {
     query.Set("url", target)
     query.Set("pdf.format", "A4")        // A0-A6 | Letter | Legal | Tabloid
     query.Set("pdf.margin", "0.35cm")    // cm, mm, in or px
     query.Set("pdf.landscape", "false")  // portrait (default) | landscape
+    query.Set("pdf.scale", "1")          // zoom the rendering, 0.1 to 2
     query.Set("mediaType", "print")      // print CSS stylesheets | screen (default)
     query.Set("meta", "false")
-    endpoint.RawQuery = query.Encode()
 }`
         }
       },
       {
         title: 'Stream it to disk',
         description:
-          'The response is a hosted PDF URL on a global CDN. Copy it into a file with a second request, or hand the URL straight to your template.',
+          'The response is a hosted PDF URL on a global CDN. Copy it into a file with a second request that reuses the same client and context, or hand the URL straight to your template.',
         code: {
           language: 'go',
           title: 'save.go',
-          source: `func savePDF(target string) error {
-    link, err := pdfURL(target)
+          source: `func savePDF(ctx context.Context, target string) error {
+    link, err := pdfURL(ctx, target)
     if err != nil {
         return err
     }
 
-    res, err := http.Get(link)
+    req, err := http.NewRequestWithContext(ctx, http.MethodGet, link, nil)
+    if err != nil {
+        return err
+    }
+
+    res, err := client.Do(req)
     if err != nil {
         return err
     }
     defer res.Body.Close()
+
+    if res.StatusCode != http.StatusOK {
+        return fmt.Errorf("download %s: %s", link, res.Status)
+    }
 
     file, err := os.Create("document.pdf")
     if err != nil {
@@ -296,7 +323,7 @@ import (
 // GET /pdf?url=https://example.com
 func main() {
     http.HandleFunc("/pdf", func(w http.ResponseWriter, r *http.Request) {
-        link, err := pdfURL(r.URL.Query().Get("url"))
+        link, err := pdfURL(r.Context(), r.URL.Query().Get("url"))
         if err != nil {
             http.Error(w, err.Error(), http.StatusBadGateway)
             return
@@ -328,7 +355,7 @@ func main() {
     router := gin.Default()
 
     router.GET("/pdf", func(c *gin.Context) {
-        link, err := pdfURL(c.Query("url"))
+        link, err := pdfURL(c.Request.Context(), c.Query("url"))
         if err != nil {
             c.String(http.StatusBadGateway, err.Error())
             return
@@ -360,7 +387,7 @@ func main() {
     e := echo.New()
 
     e.GET("/pdf", func(c echo.Context) error {
-        link, err := pdfURL(c.QueryParam("url"))
+        link, err := pdfURL(c.Request().Context(), c.QueryParam("url"))
         if err != nil {
             return err
         }
@@ -392,7 +419,7 @@ func main() {
     router := chi.NewRouter()
 
     router.Get("/pdf", func(w http.ResponseWriter, r *http.Request) {
-        link, err := pdfURL(r.URL.Query().Get("url"))
+        link, err := pdfURL(r.Context(), r.URL.Query().Get("url"))
         if err != nil {
             http.Error(w, err.Error(), http.StatusBadGateway)
             return
@@ -407,8 +434,8 @@ func main() {
       }
     ],
     footnote: {
-      text: 'Every tab reuses the helper from the quickstart:',
-      code: 'func pdfURL(target string) (string, error)'
+      text: 'Every tab reuses the quickstart helper:',
+      code: 'func pdfURL(ctx context.Context, target string) (string, error)'
     }
   },
 
@@ -607,9 +634,9 @@ func main() {
               endpoint returns an <code>EPRO</code> error.
             </div>
             <div>
-              Build the request with <code>http.NewRequest</code>, call{' '}
-              <code>req.Header.Set(&quot;x-api-key&quot;, key)</code>, and send
-              it with <code>client.Do(req)</code>. See the{' '}
+              The helper already builds a request, so add one line before{' '}
+              <code>client.Do(req)</code>:{' '}
+              <code>req.Header.Set(&quot;x-api-key&quot;, key)</code>. See the{' '}
               <Link href='/docs/api/basics/authentication'>
                 authentication docs
               </Link>{' '}
@@ -623,9 +650,10 @@ func main() {
         answer: (
           <>
             <div>
-              Give the shared <code>http.Client</code> a <code>Timeout</code>,
-              or build the request with <code>http.NewRequestWithContext</code>{' '}
-              so an inbound request cancelling propagates to the conversion.
+              Both at once, the way the helper above does it: the shared{' '}
+              <code>http.Client</code> carries a <code>Timeout</code> that caps
+              every call, and <code>http.NewRequestWithContext</code> lets a
+              cancelled inbound request abort the one it started.
             </div>
             <div>
               Rendering happens on Microlink&apos;s side, so your service only
