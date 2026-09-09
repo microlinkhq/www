@@ -26,7 +26,11 @@ import {
   useCurrencyContext
 } from 'components/hook/use-currency'
 import BookCall from 'components/pages/pricing/book-call'
-import { CapabilityIcon } from 'components/pages/pricing/shared'
+import {
+  CapabilityIcon,
+  TILE_DESCRIPTION_FONT_SIZE,
+  TILE_TITLE_FONT_SIZE
+} from 'components/pages/pricing/shared'
 import Plans from 'components/patterns/Plans/Plans'
 import { CURRENCIES, formatPrice } from 'components/patterns/Plans/shared'
 import { trackEvent } from 'helpers/gtag'
@@ -619,7 +623,7 @@ const CapabilityTile = ({ icon, title, description, href }) => (
       <Text
         css={theme({
           fontWeight: 'bold',
-          fontSize: [2, 2, '18px', '18px'],
+          fontSize: TILE_TITLE_FONT_SIZE,
           color: 'black',
           lineHeight: 1
         })}
@@ -628,7 +632,7 @@ const CapabilityTile = ({ icon, title, description, href }) => (
       </Text>
       <Text
         css={theme({
-          fontSize: [1, 1, '15px', '15px'],
+          fontSize: TILE_DESCRIPTION_FONT_SIZE,
           color: 'black70',
           lineHeight: 2
         })}

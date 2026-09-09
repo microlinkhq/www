@@ -9,7 +9,11 @@ import Text from 'components/elements/Text'
 import { BOOK_CALL_LABEL, BOOK_CALL_TITLE, bookCallUrl } from 'helpers/book-call'
 import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 
-import { CapabilityIcon } from './shared'
+import {
+  CapabilityIcon,
+  TILE_DESCRIPTION_FONT_SIZE,
+  TILE_TITLE_FONT_SIZE
+} from './shared'
 
 const CalendarIcon = (
   <svg
@@ -79,7 +83,7 @@ const BookCall = () => (
           <Text
             css={theme({
               fontWeight: 'bold',
-              fontSize: [2, 2, '18px', '18px'],
+              fontSize: TILE_TITLE_FONT_SIZE,
               color: 'black',
               lineHeight: 1
             })}
@@ -88,7 +92,7 @@ const BookCall = () => (
           </Text>
           <Text
             css={theme({
-              fontSize: [1, 1, '15px', '15px'],
+              fontSize: TILE_DESCRIPTION_FONT_SIZE,
               color: 'black70',
               lineHeight: 2
             })}
