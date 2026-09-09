@@ -18,6 +18,9 @@ const RESPONSE_TYPE = `type response struct {
     } \`json:"data"\`
 }`
 
+const CLIENT =
+  'var client = &http.Client{Timeout: 90 * time.Second} // above the API budget: 30s free, 60s pro'
+
 const SCREENSHOT_URL_FUNC = `func screenshotURL(target string) (string, error) {
     query := url.Values{
         "url":        {target},
@@ -25,15 +28,23 @@ const SCREENSHOT_URL_FUNC = `func screenshotURL(target string) (string, error) {
         "meta":       {"false"},
     }
 
-    res, err := http.Get("https://api.microlink.io?" + query.Encode())
+    res, err := client.Get("https://api.microlink.io?" + query.Encode())
     if err != nil {
         return "", err
     }
     defer res.Body.Close()
 
+    if res.StatusCode != http.StatusOK {
+        return "", fmt.Errorf("microlink: unexpected status %d", res.StatusCode)
+    }
+
     var body response
     if err := json.NewDecoder(res.Body).Decode(&body); err != nil {
         return "", err
+    }
+
+    if body.Data.Screenshot.URL == "" {
+        return "", fmt.Errorf("microlink: no screenshot for %s", target)
     }
 
     return body.Data.Screenshot.URL, nil
@@ -203,9 +214,12 @@ import (
     "fmt"
     "net/http"
     "net/url"
+    "time"
 )
 
 ${RESPONSE_TYPE}
+
+${CLIENT}
 
 func main() {
     query := url.Values{
@@ -214,11 +228,15 @@ func main() {
         "meta":       {"false"}, // skip metadata extraction for a faster response
     }
 
-    res, err := http.Get("https://api.microlink.io?" + query.Encode())
+    res, err := client.Get("https://api.microlink.io?" + query.Encode())
     if err != nil {
         panic(err)
     }
     defer res.Body.Close()
+
+    if res.StatusCode != http.StatusOK {
+        panic(fmt.Errorf("microlink: unexpected status %d", res.StatusCode))
+    }
 
     var body response
     if err := json.NewDecoder(res.Body).Decode(&body); err != nil {
@@ -245,7 +263,7 @@ func main() {
     "meta":                {"false"},
 }
 
-res, err := http.Get("https://api.microlink.io?" + query.Encode())`
+res, err := client.Get("https://api.microlink.io?" + query.Encode())`
         }
       },
       {
@@ -259,13 +277,17 @@ res, err := http.Get("https://api.microlink.io?" + query.Encode())`
 
 import (
     "encoding/json"
+    "fmt"
     "io"
     "net/http"
     "net/url"
     "os"
+    "time"
 )
 
 ${RESPONSE_TYPE}
+
+${CLIENT}
 
 func main() {
     query := url.Values{
@@ -273,18 +295,22 @@ func main() {
         "screenshot": {"true"},
     }
 
-    res, err := http.Get("https://api.microlink.io?" + query.Encode())
+    res, err := client.Get("https://api.microlink.io?" + query.Encode())
     if err != nil {
         panic(err)
     }
     defer res.Body.Close()
+
+    if res.StatusCode != http.StatusOK {
+        panic(fmt.Errorf("microlink: unexpected status %d", res.StatusCode))
+    }
 
     var body response
     if err := json.NewDecoder(res.Body).Decode(&body); err != nil {
         panic(err)
     }
 
-    image, err := http.Get(body.Data.Screenshot.URL)
+    image, err := client.Get(body.Data.Screenshot.URL)
     if err != nil {
         panic(err)
     }
@@ -324,11 +350,15 @@ func main() {
 
 import (
     "encoding/json"
+    "fmt"
     "net/http"
     "net/url"
+    "time"
 )
 
 ${RESPONSE_TYPE}
+
+${CLIENT}
 
 ${SCREENSHOT_URL_FUNC}
 
@@ -357,13 +387,17 @@ func main() {
 
 import (
     "encoding/json"
+    "fmt"
     "net/http"
     "net/url"
+    "time"
 
     "github.com/gin-gonic/gin"
 )
 
 ${RESPONSE_TYPE}
+
+${CLIENT}
 
 ${SCREENSHOT_URL_FUNC}
 
@@ -394,13 +428,17 @@ func main() {
 
 import (
     "encoding/json"
+    "fmt"
     "net/http"
     "net/url"
+    "time"
 
     "github.com/labstack/echo/v4"
 )
 
 ${RESPONSE_TYPE}
+
+${CLIENT}
 
 ${SCREENSHOT_URL_FUNC}
 
@@ -430,13 +468,17 @@ func main() {
 
 import (
     "encoding/json"
+    "fmt"
     "net/http"
     "net/url"
+    "time"
 
     "github.com/gofiber/fiber/v2"
 )
 
 ${RESPONSE_TYPE}
+
+${CLIENT}
 
 ${SCREENSHOT_URL_FUNC}
 
@@ -533,7 +575,7 @@ func main() {
       {
         title: 'Goroutine Friendly',
         description:
-          'Fan out captures across goroutines. There is no throttling beyond your plan quota, so parallelism is yours to choose.'
+          'Fan out captures across goroutines. Parallelism is bounded by your plan quota and its concurrency, not by a browser pool you have to build.'
       },
       {
         title: 'Simple JSON Response',
@@ -637,9 +679,9 @@ func main() {
         answer: (
           <>
             <div>
-              Yes. There is no throttling beyond your plan quota — parallel
-              requests are limited only by the quota itself, so a{' '}
-              <code>sync.WaitGroup</code> over a batch of URLs is fine.
+              Yes. There is no browser pool to size, so a{' '}
+              <code>sync.WaitGroup</code> over a batch of URLs is fine — just
+              keep the fan-out within your plan quota and its concurrency.
             </div>
             <div>
               The exact limits are on the{' '}
