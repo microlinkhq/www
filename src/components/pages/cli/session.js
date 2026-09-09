@@ -48,6 +48,7 @@ export const createCliSession = ({
   }
 
   let pinOverlay = false
+  let liveCommand = null
   const marks = []
 
   const commandAt = y => {
@@ -62,9 +63,9 @@ export const createCliSession = ({
     const y = viewLine ?? term.buffer.active.viewportY
     const mark = commandAt(y)
     onPin?.({
-      command: mark ? mark.text : '',
+      command: liveCommand || (mark ? mark.text : ''),
       output: mark ? mark.output || '' : '',
-      prompt: pinOverlay ? `${PROMPT}${buffer}` : '',
+      prompt: pinOverlay && !running ? `${PROMPT}${buffer}` : '',
       viewLine
     })
   }
@@ -147,10 +148,29 @@ export const createCliSession = ({
       return
     }
     running = true
+    const commandText = `${PROMPT}${history.at(-1) || ''}`
     const typedInTerm = !pinOverlay && !attracting
     try {
+      if (!attracting) {
+        liveCommand = commandText
+        pinOverlay = true
+        term.write('\x1b[?25l')
+        paintPins()
+      }
       await write(typedInTerm ? '\r\x1b[2K' : '\r\n')
+      if (!attracting) term.write('\x1b[?25l')
       const commandLine = term.buffer.active.baseY + term.buffer.active.cursorY
+      if (!attracting) {
+        if (!typedInTerm) {
+          const fill = Math.max(0, term.rows - 1)
+          if (fill) {
+            await write('\r\n'.repeat(fill))
+            await write(`\x1b[${fill}A`)
+          }
+        }
+        holdView = commandLine
+        term.scrollToLine(commandLine)
+      }
       const chunks = []
       try {
         await run(argv, createBrowserHost(term, chunks))
@@ -174,37 +194,36 @@ export const createCliSession = ({
           pager = null
         } else {
           await write(text.replace(/\n/g, '\r\n'))
+          term.write('\x1b[?25l')
         }
       }
       if (!disposed && !attracting) {
+        liveCommand = null
         if (usedPager) prompt()
         else {
           resetInput()
-          pinOverlay = true
+          running = false
           marks.push({
             line: commandLine,
-            text: `${PROMPT}${history.at(-1) || ''}`,
+            text: commandText,
             output: toPlain(text)
           })
-          term.write('\x1b[?25l')
-          const viewLine = commandLine
-          holdView = viewLine
-          paintPins(viewLine)
-          const stick = () => term.scrollToLine(viewLine)
+          holdView = commandLine
+          paintPins(commandLine)
+          const stick = () => term.scrollToLine(commandLine)
           stick()
           window.requestAnimationFrame(stick)
           timeouts.push(setTimeout(stick, 50))
           timeouts.push(
             setTimeout(() => {
-              stick()
               holdView = null
-              paintPins()
             }, 200)
           )
         }
       }
     } finally {
       running = false
+      liveCommand = null
     }
   }
 

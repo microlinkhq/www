@@ -296,16 +296,12 @@ export const useCliTerminal = (
           commandPin.inert = !open
           promptPin.textContent = promptText
           promptPin.hidden = !promptText
-          if (viewLine != null) {
-            term.scrollToLine(viewLine)
-            window.requestAnimationFrame(() => {
-              fit()
-              term.scrollToLine(viewLine)
-            })
-          } else if (wasOpen !== open) {
-            const keep = term.buffer.active.viewportY
+          if (wasOpen !== open) {
+            const keep = viewLine ?? term.buffer.active.viewportY
             fit()
             term.scrollToLine(keep)
+          } else if (viewLine != null) {
+            term.scrollToLine(viewLine)
           }
         }
       })

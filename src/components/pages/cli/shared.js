@@ -1,11 +1,9 @@
 import React from 'react'
-import { css } from 'styled-components'
+import { css, keyframes } from 'styled-components'
 import { Code, LogIn, Monitor } from 'react-feather'
 
 import { Terminal as TerminalPromptIcon } from 'components/icons/Terminal'
 import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from 'components/pages/search'
-import { blink } from 'components/keyframes'
-
 import pkg from '../../../../node_modules/microlink.io/package.json'
 import { colors, speed, transition } from 'theme'
 
@@ -170,6 +168,12 @@ export const XTERM_SURFACE_CSS = {
   }
 }
 
+const promptCaretBlink = keyframes`
+  50% {
+    opacity: 0;
+  }
+`
+
 export const XTERM_PROMPT_CARET_CSS = css`
   [data-cli-action] {
     --icon-swap-start-scale: 0.95;
@@ -183,10 +187,7 @@ export const XTERM_PROMPT_CARET_CSS = css`
 
   @media (prefers-reduced-motion: no-preference) {
     [data-cli-pin='prompt']::after {
-      animation-name: ${blink};
-      animation-duration: 1s;
-      animation-timing-function: steps(1);
-      animation-iteration-count: infinite;
+      animation: ${promptCaretBlink} 1s step-end infinite;
     }
   }
 `
