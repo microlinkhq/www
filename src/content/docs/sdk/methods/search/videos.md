@@ -26,8 +26,6 @@ results[0]
 // }
 ```
 
-## Result
-
 | Field | Type | Description |
 |-------|------|-------------|
 | `title` | `string` | Video title |

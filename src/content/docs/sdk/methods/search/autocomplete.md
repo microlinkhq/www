@@ -22,8 +22,6 @@ results.map(({ value }) => value)
 // ]
 ```
 
-## Result
-
 | Field | Type | Description |
 |-------|------|-------------|
 | `value` | `string` | Suggested query string |

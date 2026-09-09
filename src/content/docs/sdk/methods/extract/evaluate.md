@@ -30,7 +30,7 @@ const { version } = await getNextVersion('https://vercel.com')
 console.log(`Next.js version is: ${version}`)
 ```
 
-<Figcaption children='You can combine evaluate with types for data correcteness.' />
+<Figcaption children='You can combine evaluate with types for data correctness.' />
 
 It can evaluate anything browser compatible in the JavaScript context. A function is serialized to its source before being sent, so it can be as long as you need — but it runs in the page, not in your process, so it can only reach what the page can:
 
