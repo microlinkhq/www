@@ -207,6 +207,7 @@ export const useCliTerminal = (
       host.dataset.cliHost = ''
       promptPin.dataset.cliPin = 'prompt'
       commandPin.dataset.collapsed = 'true'
+      commandPin.inert = true
       promptPin.hidden = true
       const commandText = document.createElement('span')
       commandText.dataset.cliCmd = ''
