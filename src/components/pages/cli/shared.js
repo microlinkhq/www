@@ -7,7 +7,7 @@ import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from 'components/pages/search'
 import { blink } from 'components/keyframes'
 
 import pkg from '../../../../node_modules/microlink.io/package.json'
-import { colors, transition } from 'theme'
+import { colors, speed, transition } from 'theme'
 
 export const CLI_VERSION = pkg.version
 export const ACCENT = 'red6'
@@ -171,6 +171,16 @@ export const XTERM_SURFACE_CSS = {
 }
 
 export const XTERM_PROMPT_CARET_CSS = css`
+  [data-cli-action] {
+    --icon-swap-start-scale: 0.95;
+    --icon-swap-dur: ${speed.quickly}ms;
+    --icon-swap-ease: cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  [data-cli-action][data-state='a'] {
+    --icon-swap-dur: 100ms;
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     [data-cli-pin='prompt']::after {
       animation-name: ${blink};
