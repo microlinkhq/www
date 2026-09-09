@@ -4,7 +4,112 @@ import { prefersReducedMotion } from 'helpers/reduced-motion'
 import { colors, fontSizes, toRaw } from 'theme'
 
 import { createCliSession } from './session'
+import { shareHref } from './share'
 import { ATTRACT_COMMANDS, MIN_TERMINAL_COLS, isCompactCli } from './shared'
+
+const ICON = {
+  copy: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+  link: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+  check:
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>'
+}
+
+const iconSlot = (name, svg) => {
+  const span = document.createElement('span')
+  span.className = 't-icon'
+  span.dataset.icon = name === 'done' ? 'b' : 'a'
+  span.dataset.cliIcon = name
+  span.setAttribute('aria-hidden', 'true')
+  span.innerHTML = svg
+  return span
+}
+
+const attachPinButton = (parent, { name, label, icon, getText }) => {
+  const button = document.createElement('button')
+  button.type = 'button'
+  button.className = 't-icon-swap'
+  button.dataset.state = 'a'
+  button.dataset.cliAction = name
+  button.setAttribute('aria-label', label)
+  button.setAttribute('aria-live', 'polite')
+  button.append(iconSlot('action', icon), iconSlot('done', ICON.check))
+  let timer
+  const restoreLabel = () => {
+    delete button.dataset.copied
+    button.dataset.state = 'a'
+    button.setAttribute('aria-label', label)
+  }
+  const announce = message => {
+    delete button.dataset.copied
+    button.dataset.state = 'a'
+    button.setAttribute('aria-label', message)
+    clearTimeout(timer)
+    timer = setTimeout(restoreLabel, 1500)
+  }
+  const onClick = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (button.disabled) return
+    if (typeof navigator === 'undefined' || !navigator.clipboard) {
+      announce('Couldn’t copy')
+      return
+    }
+    button.disabled = true
+    button.setAttribute('aria-busy', 'true')
+    Promise.resolve()
+      .then(getText)
+      .then(text => {
+        if (!text) {
+          announce('Couldn’t copy')
+          return
+        }
+        return navigator.clipboard.writeText(text).then(() => {
+          delete button.dataset.copied
+          button.dataset.state = 'a'
+          button.getBoundingClientRect()
+          button.dataset.copied = 'true'
+          button.dataset.state = 'b'
+          button.setAttribute('aria-label', 'Copied')
+          clearTimeout(timer)
+          timer = setTimeout(restoreLabel, 1500)
+        })
+      })
+      .catch(() => {
+        announce('Couldn’t copy')
+      })
+      .finally(() => {
+        button.disabled = false
+        button.removeAttribute('aria-busy')
+      })
+  }
+  button.addEventListener('click', onClick)
+  parent.append(button)
+  return () => {
+    clearTimeout(timer)
+    button.removeEventListener('click', onClick)
+  }
+}
+
+const attachPinActions = (pin, { getCommand, getTraceOutput }) => {
+  const actions = document.createElement('span')
+  actions.dataset.cliActions = ''
+  const unbind = [
+    attachPinButton(actions, {
+      name: 'copy',
+      label: 'Copy output',
+      icon: ICON.copy,
+      getText: getTraceOutput
+    }),
+    attachPinButton(actions, {
+      name: 'permalink',
+      label: 'Copy permalink',
+      icon: ICON.link,
+      getText: () => shareHref(getCommand())
+    })
+  ]
+  pin.append(actions)
+  return () => unbind.forEach(fn => fn())
+}
 
 export const PLAYGROUND_HEIGHT = 360
 
@@ -13,7 +118,7 @@ const FONT_FAMILY = '"SF Mono", Menlo, Monaco, monospace'
 const THEME = {
   background: colors.black,
   foreground: colors.white,
-  cursor: colors.white,
+  cursor: colors.secondary,
   cursorAccent: colors.black,
   selectionBackground: colors.white20,
   black: colors.black,
@@ -84,7 +189,7 @@ const bindTouchScroll = (surface, term) => {
 
 export const useCliTerminal = (
   containerRef,
-  { attract = true, attractCommands = ATTRACT_COMMANDS } = {}
+  { attract = true, attractCommands = ATTRACT_COMMANDS, share = false } = {}
 ) => {
   const commands = attract ? attractCommands : null
   useEffect(() => {
@@ -97,6 +202,7 @@ export const useCliTerminal = (
     let resizeObserver
     let session
     let detachTouch
+    let detachActions
     ;(async () => {
       const [{ Terminal }, { FitAddon }, cli] = await Promise.all([
         import('@xterm/xterm'),
@@ -131,12 +237,33 @@ export const useCliTerminal = (
       host.dataset.cliHost = ''
       promptPin.dataset.cliPin = 'prompt'
       commandPin.dataset.collapsed = 'true'
+      commandPin.inert = true
       promptPin.hidden = true
-      const pinFont = `${term.options.fontSize}px`
-      commandPin.style.fontSize = pinFont
-      promptPin.style.fontSize = pinFont
+      const commandText = document.createElement('span')
+      commandText.dataset.cliCmd = ''
+      commandPin.append(commandText)
+      let copyTrace = async () => ''
+      if (share) {
+        detachActions = attachPinActions(commandPin, {
+          getCommand: () => commandText.textContent,
+          getTraceOutput: () => copyTrace()
+        })
+      }
+      const syncPinMetrics = () => {
+        const size = `${term.options.fontSize}px`
+        commandPin.style.fontSize = size
+        promptPin.style.fontSize = size
+        const row = term.element?.querySelector('.xterm-rows > div')
+        const rowHeight = row?.getBoundingClientRect().height
+        if (rowHeight) {
+          const line = `${rowHeight}px`
+          commandPin.style.lineHeight = line
+          promptPin.style.lineHeight = line
+        }
+      }
       surface.append(commandPin, host, promptPin)
       const focusTerm = e => {
+        if (e.target.closest('[data-cli-actions]')) return
         e.preventDefault()
         term.focus()
       }
@@ -150,18 +277,23 @@ export const useCliTerminal = (
           term.resize(MIN_TERMINAL_COLS, term.rows)
         }
         term.scrollToLine(y)
+        syncPinMetrics()
       }
       fit()
       session = createCliSession({
         term,
         run: cli.run ?? cli.default,
         attractCommands: commands,
+        share,
         surface,
         onPin: ({ command, prompt: promptText, viewLine }) => {
           const open = Boolean(command)
-          if (command) commandPin.textContent = command
+          if (command) {
+            commandText.textContent = command
+          }
           const wasOpen = commandPin.dataset.collapsed !== 'true'
           commandPin.dataset.collapsed = open ? 'false' : 'true'
+          commandPin.inert = !open
           promptPin.textContent = promptText
           promptPin.hidden = !promptText
           if (viewLine != null) {
@@ -177,6 +309,7 @@ export const useCliTerminal = (
           }
         }
       })
+      copyTrace = () => session.copyTrace()
       term.onData(session.onData)
       const unbindTouch = bindTouchScroll(surface, term)
       const onViewportResize = () => fit()
@@ -196,10 +329,11 @@ export const useCliTerminal = (
 
     return () => {
       disposed = true
+      detachActions?.()
       detachTouch?.()
       session?.dispose()
       resizeObserver?.disconnect()
       term?.dispose()
     }
-  }, [containerRef, commands])
+  }, [containerRef, commands, share])
 }

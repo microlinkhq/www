@@ -1,11 +1,13 @@
 import React from 'react'
+import { css } from 'styled-components'
 import { Code, LogIn, Monitor } from 'react-feather'
 
 import { Terminal as TerminalPromptIcon } from 'components/icons/Terminal'
 import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from 'components/pages/search'
+import { blink } from 'components/keyframes'
 
 import pkg from '../../../../node_modules/microlink.io/package.json'
-import { colors } from 'theme'
+import { colors, speed, transition } from 'theme'
 
 export const CLI_VERSION = pkg.version
 export const ACCENT = 'red6'
@@ -52,6 +54,9 @@ export const XTERM_SURFACE_CSS = {
     cursor: 'text'
   },
   '& [data-cli-pin="command"]': {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 2,
     overflow: 'hidden',
     maxHeight: '3em',
     opacity: 1,
@@ -60,23 +65,80 @@ export const XTERM_SURFACE_CSS = {
     borderBottom: 1,
     borderBottomColor: 'white10',
     '@media (prefers-reduced-motion: no-preference)': {
-      transition:
-        'max-height 160ms ease, padding 160ms ease, margin 160ms ease, opacity 160ms ease, border-width 160ms ease'
+      transition: `opacity ${transition.short}`
     },
     '&[data-collapsed="true"]': {
       maxHeight: 0,
       opacity: 0,
       pb: 0,
       mb: 0,
-      borderBottom: 0
+      borderBottom: 0,
+      pointerEvents: 'none'
+    },
+    '& [data-cli-cmd]': {
+      flex: '0 1 auto',
+      minWidth: 0,
+      overflow: 'hidden',
+      whiteSpace: 'pre-wrap',
+      overflowWrap: 'anywhere'
+    },
+    '& [data-cli-actions]': {
+      display: 'inline-flex',
+      alignItems: 'center',
+      flexShrink: 0,
+      gap: 1
+    },
+    '& [data-cli-action]': {
+      position: 'relative',
+      display: 'inline-grid',
+      alignItems: 'center',
+      justifyItems: 'center',
+      appearance: 'none',
+      background: 'transparent',
+      border: 0,
+      color: 'white40',
+      cursor: 'pointer',
+      p: 0,
+      width: '1.2em',
+      height: '1.2em',
+      '@media (hover: hover) and (pointer: fine)': {
+        '&:hover': { color: 'white' }
+      },
+      '&[data-copied="true"]': { color: 'green5' },
+      '&:focus-visible': {
+        outline: '2px solid',
+        outlineColor: 'link',
+        outlineOffset: '2px'
+      },
+      '&::after': {
+        content: '""',
+        position: 'absolute',
+        inset: ['-12px', '-4px', '-4px', '-4px']
+      },
+      '& [data-cli-icon]': {
+        display: 'flex',
+        '& svg': {
+          display: 'block',
+          width: '1em',
+          height: '1em'
+        }
+      },
+      '@media (prefers-reduced-motion: no-preference)': {
+        transition: `color ${transition.short}`,
+        '&:active': { transform: 'scale(0.97)' }
+      }
     }
   },
   '& [data-cli-pin="prompt"]': {
     pt: 3,
     pb: 'max(8px, env(safe-area-inset-bottom))',
     '&::after': {
-      content: '"▋"',
-      color: 'white'
+      content: '""',
+      display: 'inline-block',
+      width: '1px',
+      height: '1lh',
+      bg: 'secondary',
+      verticalAlign: 'bottom'
     }
   },
   '& [data-cli-host]': {
@@ -107,6 +169,27 @@ export const XTERM_SURFACE_CSS = {
     touchAction: 'manipulation'
   }
 }
+
+export const XTERM_PROMPT_CARET_CSS = css`
+  [data-cli-action] {
+    --icon-swap-start-scale: 0.95;
+    --icon-swap-dur: ${speed.quickly}ms;
+    --icon-swap-ease: cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  [data-cli-action][data-state='a'] {
+    --icon-swap-dur: 100ms;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-cli-pin='prompt']::after {
+      animation-name: ${blink};
+      animation-duration: 1s;
+      animation-timing-function: steps(1);
+      animation-iteration-count: infinite;
+    }
+  }
+`
 
 const FEATURE_ICON_SIZE = 20
 

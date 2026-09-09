@@ -7,7 +7,11 @@ import Text from 'components/elements/Text'
 
 import { theme } from 'theme'
 
-import { CLI_VERSION, XTERM_SURFACE_CSS } from './shared'
+import {
+  CLI_VERSION,
+  XTERM_PROMPT_CARET_CSS,
+  XTERM_SURFACE_CSS
+} from './shared'
 import { useCliTerminal } from './use-cli-terminal'
 
 import '@xterm/xterm/css/xterm.css'
@@ -26,7 +30,7 @@ const visuallyHiddenCss = theme({
 
 const Fullscreen = () => {
   const surfaceRef = useRef(null)
-  useCliTerminal(surfaceRef, { attract: false })
+  useCliTerminal(surfaceRef, { attract: false, share: true })
 
   return (
     <Flex
@@ -112,14 +116,17 @@ const Fullscreen = () => {
         tabIndex={-1}
         role='application'
         aria-label='Interactive Microlink CLI'
-        css={theme({
-          flex: 1,
-          minHeight: 0,
-          width: '100%',
-          bg: 'black',
-          p: [3, 3, 4, 4],
-          ...XTERM_SURFACE_CSS
-        })}
+        css={[
+          theme({
+            flex: 1,
+            minHeight: 0,
+            width: '100%',
+            bg: 'black',
+            p: [3, 3, 4, 4],
+            ...XTERM_SURFACE_CSS
+          }),
+          XTERM_PROMPT_CARET_CSS
+        ]}
       />
     </Flex>
   )
