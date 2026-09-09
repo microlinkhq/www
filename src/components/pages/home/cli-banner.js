@@ -19,7 +19,7 @@ import {
   SECTION_VERTICAL_SPACING
 } from 'theme'
 
-const DEVICE_SRC = '/images/cli-banner.png'
+const DEVICE_SRC = '/images/cli-banner.jpeg'
 const DEVICE_WIDTH = 1920
 const DEVICE_HEIGHT = 1080
 
