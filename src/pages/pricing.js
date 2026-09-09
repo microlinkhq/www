@@ -51,7 +51,7 @@ const FAQ_SCHEMA = {
       name: 'Is there really a free plan?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes — the free plan is forever free, no credit card required. You get 25 requests per day against the public endpoint, with the same screenshot, PDF, metadata, SDK, insights and recipes capabilities used on Pro. It runs with rate limits and shared concurrency, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.'
+        text: 'Yes — the free plan is forever free, no credit card required. You get 25 requests per day against the public endpoint, with the same screenshot, PDF, metadata, markdown, insights and SDK capabilities used on Pro. It runs with rate limits and shared concurrency, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.'
       }
     },
     {
@@ -1225,7 +1225,7 @@ const Faqs = () => (
               Yes — the free plan is forever free, no credit card required. You
               get 25 requests per day against the public{' '}
               <Link href='/docs/api/basics/endpoint'>endpoint</Link>, with the
-              same screenshot, PDF, metadata, SDK, insights and recipes
+              same screenshot, PDF, metadata, markdown, insights and SDK
               capabilities used on Pro.
             </div>
             <div>
