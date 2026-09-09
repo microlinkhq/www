@@ -75,7 +75,11 @@ export const XTERM_SURFACE_CSS = {
       pointerEvents: 'none'
     },
     '& [data-cli-cmd]': {
-      minWidth: 0
+      flex: '0 1 auto',
+      minWidth: 0,
+      overflow: 'hidden',
+      whiteSpace: 'pre-wrap',
+      overflowWrap: 'anywhere'
     },
     '& [data-cli-actions]': {
       display: 'inline-flex',

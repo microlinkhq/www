@@ -253,6 +253,7 @@ export const useCliTerminal = (
           }
           const wasOpen = commandPin.dataset.collapsed !== 'true'
           commandPin.dataset.collapsed = open ? 'false' : 'true'
+          commandPin.inert = !open
           promptPin.textContent = promptText
           promptPin.hidden = !promptText
           if (viewLine != null) {
