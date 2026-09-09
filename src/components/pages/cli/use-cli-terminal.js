@@ -203,6 +203,7 @@ export const useCliTerminal = (
     let session
     let detachTouch
     let detachActions
+    let unbindStuck
     ;(async () => {
       const [{ Terminal }, { FitAddon }, cli] = await Promise.all([
         import('@xterm/xterm'),
@@ -249,6 +250,13 @@ export const useCliTerminal = (
           getTraceOutput: () => copyTrace()
         })
       }
+      const contentRows = () => {
+        const buf = term.buffer.active
+        for (let i = buf.length - 1; i >= 0; i--) {
+          if (buf.getLine(i)?.translateToString(true).trim()) return i + 1
+        }
+        return 1
+      }
       const syncPinMetrics = () => {
         const size = `${term.options.fontSize}px`
         commandPin.style.fontSize = size
@@ -260,6 +268,27 @@ export const useCliTerminal = (
           commandPin.style.lineHeight = line
           promptPin.style.lineHeight = line
         }
+        if (promptPin.hidden) {
+          host.style.flex = ''
+          host.style.height = ''
+          commandPin.dataset.stuck = 'false'
+          promptPin.style.marginTop = ''
+          return
+        }
+        if (!rowHeight) return
+        const reserved =
+          (commandPin.dataset.collapsed === 'true'
+            ? 0
+            : commandPin.offsetHeight) + promptPin.offsetHeight
+        const max = Math.max(rowHeight, surface.clientHeight - reserved)
+        const used = contentRows() * rowHeight
+        const stuck =
+          commandPin.dataset.collapsed !== 'true' &&
+          (term.buffer.active.viewportY > 0 || used > max)
+        commandPin.dataset.stuck = stuck ? 'true' : 'false'
+        promptPin.style.marginTop = stuck ? '' : `${rowHeight}px`
+        host.style.flex = '0 0 auto'
+        host.style.height = `${Math.min(used, max)}px`
       }
       surface.append(commandPin, host, promptPin)
       const focusTerm = e => {
@@ -270,11 +299,18 @@ export const useCliTerminal = (
       commandPin.addEventListener('pointerdown', focusTerm)
       promptPin.addEventListener('pointerdown', focusTerm)
       term.open(host)
+      unbindStuck = term.onScroll(() => {
+        if (!promptPin.hidden) syncPinMetrics()
+      })
       const fit = () => {
         const y = term.buffer.active.viewportY
-        fitAddon.fit()
-        if (isCompactCli() && term.cols < MIN_TERMINAL_COLS) {
-          term.resize(MIN_TERMINAL_COLS, term.rows)
+        if (promptPin.hidden) {
+          host.style.flex = ''
+          host.style.height = ''
+          fitAddon.fit()
+          if (isCompactCli() && term.cols < MIN_TERMINAL_COLS) {
+            term.resize(MIN_TERMINAL_COLS, term.rows)
+          }
         }
         term.scrollToLine(y)
         syncPinMetrics()
@@ -292,11 +328,12 @@ export const useCliTerminal = (
             commandText.textContent = command
           }
           const wasOpen = commandPin.dataset.collapsed !== 'true'
+          const promptWasHidden = promptPin.hidden
           commandPin.dataset.collapsed = open ? 'false' : 'true'
           commandPin.inert = !open
           promptPin.textContent = promptText
           promptPin.hidden = !promptText
-          if (wasOpen !== open) {
+          if (wasOpen !== open || promptWasHidden !== promptPin.hidden) {
             const keep = viewLine ?? term.buffer.active.viewportY
             fit()
             term.scrollToLine(keep)
@@ -327,6 +364,7 @@ export const useCliTerminal = (
       disposed = true
       detachActions?.()
       detachTouch?.()
+      unbindStuck?.dispose()
       session?.dispose()
       resizeObserver?.disconnect()
       term?.dispose()

@@ -160,14 +160,8 @@ export const createCliSession = ({
       await write(typedInTerm ? '\r\x1b[2K' : '\r\n')
       if (!attracting) term.write('\x1b[?25l')
       const commandLine = term.buffer.active.baseY + term.buffer.active.cursorY
+      if (!typedInTerm && !attracting) await write(`${commandText}\r\n`)
       if (!attracting) {
-        if (!typedInTerm) {
-          const fill = Math.max(0, term.rows - 1)
-          if (fill) {
-            await write('\r\n'.repeat(fill))
-            await write(`\x1b[${fill}A`)
-          }
-        }
         holdView = commandLine
         term.scrollToLine(commandLine)
       }

@@ -5,7 +5,7 @@ import Flex from 'components/elements/Flex'
 import LineBreak from 'components/elements/LineBreak'
 import Text from 'components/elements/Text'
 
-import { theme } from 'theme'
+import { space, theme } from 'theme'
 
 import {
   CLI_VERSION,
@@ -123,6 +123,7 @@ const Fullscreen = () => {
             width: '100%',
             bg: 'black',
             p: [3, 3, 4, 4],
+            '--cli-bleed': [space[3], space[3], space[4], space[4]],
             ...XTERM_SURFACE_CSS
           }),
           XTERM_PROMPT_CARET_CSS
