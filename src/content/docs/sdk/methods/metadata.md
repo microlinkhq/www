@@ -48,7 +48,7 @@ const { image } = await microlink.metadata('https://vercel.com', {
 console.log(image.palette, image.background_color, image.color)
 ```
 
-Get the primary video along with the rest of the metadata, instead of a separate [video](/docs/sdk/methods/media/video) call:
+Get the primary video along with the rest of the metadata, instead of a separate [video](/docs/sdk/methods/video) call:
 
 ```js
 const { title, video } = await microlink.metadata('https://www.youtube.com/watch?v=9P6rdqiybaw', {

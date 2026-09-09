@@ -13,7 +13,7 @@ Relative hrefs are resolved against the page URL, and values that don't parse as
 
 ## Options
 
-The [collection options](/docs/sdk/methods/collections#options) override the default rule of `selectorAll: 'a'`, `attr: 'href'`, and `type: 'url'`.
+Override the default rule of `selectorAll: 'a'`, `attr: 'href'`, and `type: 'url'` with [selectorAll](/docs/sdk/methods/extract/selectorAll), [selector](/docs/sdk/methods/extract/selector), [attr](/docs/sdk/methods/extract/attr), or [type](/docs/sdk/methods/extract/type).
 
 ## Examples
 

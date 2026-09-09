@@ -20,6 +20,13 @@ microlink search "best coffee" --limit 10 --location es
 
 Passing a URL with no product returns [metadata](/docs/sdk/methods/metadata). Strings print raw; objects pretty-print as JSON, so the output is pipe-friendly. Every subcommand except `search` runs on the free tier without credentials.
 
+Print the markdown reference for any product with `docs`:
+
+```bash
+microlink extract docs
+microlink screenshot docs
+```
+
 Run `microlink --help` for the list of products, or `microlink <product> --help` for the flags a product accepts. You can also try it without installing anything:
 
 ```bash

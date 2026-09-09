@@ -11,7 +11,7 @@ const audios = await microlink.audios('https://example.com')
 
 ## Options
 
-The [collection options](/docs/sdk/methods/collections#options) override the default rule of `selectorAll: ['audio[src]', 'audio source[src]']`, `attr: 'src'`, and `type: 'url'`.
+Override the default rule of `selectorAll: ['audio[src]', 'audio source[src]']`, `attr: 'src'`, and `type: 'url'` with [selectorAll](/docs/sdk/methods/extract/selectorAll), [selector](/docs/sdk/methods/extract/selector), [attr](/docs/sdk/methods/extract/attr), or [type](/docs/sdk/methods/extract/type).
 
 ## Examples
 
@@ -24,4 +24,4 @@ const episodes = await microlink.audios('https://example.com/podcast', {
 })
 ```
 
-This sweeps the markup; a Spotify or SoundCloud page has no `audio` element with a direct source. For the primary track of such a page, resolved through the provider, use [audio](/docs/sdk/methods/media/audio).
+This sweeps the markup; a Spotify or SoundCloud page has no `audio` element with a direct source. For the primary track of such a page, resolved through the provider, use [audio](/docs/sdk/methods/audio).

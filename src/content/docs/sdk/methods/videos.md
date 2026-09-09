@@ -11,7 +11,7 @@ const videos = await microlink.videos('https://example.com')
 
 ## Options
 
-The [collection options](/docs/sdk/methods/collections#options) override the default rule of `selectorAll: ['video[src]', 'video source[src]']`, `attr: 'src'`, and `type: 'url'`.
+Override the default rule of `selectorAll: ['video[src]', 'video source[src]']`, `attr: 'src'`, and `type: 'url'` with [selectorAll](/docs/sdk/methods/extract/selectorAll), [selector](/docs/sdk/methods/extract/selector), [attr](/docs/sdk/methods/extract/attr), or [type](/docs/sdk/methods/extract/type).
 
 ## Examples
 
@@ -32,4 +32,4 @@ const posters = await microlink.videos('https://example.com', {
 })
 ```
 
-This sweeps the markup; a YouTube or Vimeo page has no `video` element with a direct source. For the primary video of such a page, resolved through the provider, use [video](/docs/sdk/methods/media/video).
+This sweeps the markup; a YouTube or Vimeo page has no `video` element with a direct source. For the primary video of such a page, resolved through the provider, use [video](/docs/sdk/methods/video).

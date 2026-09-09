@@ -294,6 +294,54 @@
       "destination": "/docs/sdk/methods/function.md"
     },
     {
+      "source": "/docs/sdk/methods/insights",
+      "destination": "/docs/sdk/getting-started/overview#methods"
+    },
+    {
+      "source": "/docs/sdk/methods/insights.md",
+      "destination": "/docs/sdk/getting-started/overview.md"
+    },
+    {
+      "source": "/docs/sdk/methods/insights/:name",
+      "destination": "/docs/sdk/methods/:name"
+    },
+    {
+      "source": "/docs/sdk/methods/insights/:name.md",
+      "destination": "/docs/sdk/methods/:name.md"
+    },
+    {
+      "source": "/docs/sdk/methods/collections",
+      "destination": "/docs/sdk/getting-started/overview#methods"
+    },
+    {
+      "source": "/docs/sdk/methods/collections.md",
+      "destination": "/docs/sdk/getting-started/overview.md"
+    },
+    {
+      "source": "/docs/sdk/methods/collections/:name",
+      "destination": "/docs/sdk/methods/:name"
+    },
+    {
+      "source": "/docs/sdk/methods/collections/:name.md",
+      "destination": "/docs/sdk/methods/:name.md"
+    },
+    {
+      "source": "/docs/sdk/methods/media",
+      "destination": "/docs/sdk/getting-started/overview#methods"
+    },
+    {
+      "source": "/docs/sdk/methods/media.md",
+      "destination": "/docs/sdk/getting-started/overview.md"
+    },
+    {
+      "source": "/docs/sdk/methods/media/:name",
+      "destination": "/docs/sdk/methods/:name"
+    },
+    {
+      "source": "/docs/sdk/methods/media/:name.md",
+      "destination": "/docs/sdk/methods/:name.md"
+    },
+    {
       "source": "/docs/sdk/getting-started/styling",
       "destination": "/link-preview"
     },

@@ -31,4 +31,4 @@ player.src = audio.url
 caption.textContent = `${title} — ${publisher} (${audio.duration_pretty})`
 ```
 
-For every `audio` element on a page rather than the primary track, use the [audios](/docs/sdk/methods/collections/audios) collection.
+For every `audio` element on a page rather than the primary track, use [audios](/docs/sdk/methods/audios).

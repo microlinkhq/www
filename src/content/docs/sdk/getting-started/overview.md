@@ -44,7 +44,7 @@ Any other option passed to `createClient` is merged into every API call, which m
 
 ## Methods
 
-Every product is a method on the client. All of them follow the same `method(url, options)` shape and resolve to the product's result directly, with no envelope to unwrap:
+Every product is a method on the client. URL-based methods share the `method(url, options)` shape and resolve to the product's result directly, with no envelope to unwrap. [`search`](/docs/sdk/methods/search) takes a query string instead:
 
 - [metadata](/docs/sdk/methods/metadata) — unified metadata from Open Graph, Twitter Cards, JSON-LD, and HTML.
 - [screenshot](/docs/sdk/methods/screenshot) — any URL as a hosted image, or a short video recording.
@@ -56,10 +56,16 @@ Every product is a method on the client. All of them follow the same `method(url
 - [embed](/docs/sdk/methods/embed) — oEmbed-style iframe HTML for rich cards.
 - [extract](/docs/sdk/methods/extract) — typed values pulled with your own CSS selector rules.
 - [function](/docs/sdk/methods/function) — your own JavaScript executed against a live page, with full Puppeteer access.
-- [search](/docs/sdk/methods/search) — Google results as structured data, with pagination and per-result expansion.
-- [media](/docs/sdk/methods/media) — the primary [video](/docs/sdk/methods/media/video) or [audio](/docs/sdk/methods/media/audio) of a page as a direct, playable asset.
-- [collections](/docs/sdk/methods/collections) — every [link](/docs/sdk/methods/collections/links), [image](/docs/sdk/methods/collections/images), [video](/docs/sdk/methods/collections/videos), [audio](/docs/sdk/methods/collections/audios), or [email](/docs/sdk/methods/collections/emails) found on a page, as an array.
-- [insights](/docs/sdk/methods/insights) — the [technologies](/docs/sdk/methods/insights/technologies) powering a site and a full [Lighthouse](/docs/sdk/methods/insights/lighthouse) report.
+- [search](/docs/sdk/methods/search) — Google results as structured data, with a `type` per surface ([news](/docs/sdk/methods/search/news), [images](/docs/sdk/methods/search/images), [shopping](/docs/sdk/methods/search/shopping), …), pagination, and per-result expansion.
+- [video](/docs/sdk/methods/video) — the primary video of a page as a direct, playable asset.
+- [audio](/docs/sdk/methods/audio) — the primary audio track of a page as a direct, playable asset.
+- [links](/docs/sdk/methods/links) — every link on a page, as an array of absolute URLs.
+- [images](/docs/sdk/methods/images) — every image on a page, as an array of absolute URLs.
+- [videos](/docs/sdk/methods/videos) — every video source on a page, as an array of absolute URLs.
+- [audios](/docs/sdk/methods/audios) — every audio source on a page, as an array of absolute URLs.
+- [emails](/docs/sdk/methods/emails) — every email address on a page, as an array.
+- [technologies](/docs/sdk/methods/technologies) — the tech stack powering a site.
+- [lighthouse](/docs/sdk/methods/lighthouse) — a full Lighthouse report.
 
 Every method throws a typed [`MicrolinkError`](/docs/sdk/getting-started/errors) when the API call fails, so one `try/catch` covers the whole client.
 

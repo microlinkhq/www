@@ -8,7 +8,7 @@ import { Type, TypeContainer } from 'components/markdown/Type'
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<string[]>'/></TypeContainer><br/>
 Values: [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
 
-It's the same than [selector](/docs/sdk/methods/extract/selector) but it returns your a collection of results, being equivalent to [Document.querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll):
+It's the same as [selector](/docs/sdk/methods/extract/selector) but it returns a collection of results, being equivalent to [Document.querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll):
 
 ```js
 import createClient from 'microlink.io'
@@ -39,7 +39,7 @@ const { posts } = await hackerNews()
 console.log('latest hacker news posts:', posts)
 ```
 
-Without a nested `attr`, each match contributes one plain value, which is how the [collection](/docs/sdk/methods/collections) methods sweep a page:
+Without a nested `attr`, each match contributes one plain value, which is how [links](/docs/sdk/methods/links) and the other sweep methods work:
 
 ```js
 const { links } = await microlink.extract('https://news.ycombinator.com/', {
