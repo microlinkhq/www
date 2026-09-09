@@ -1,11 +1,30 @@
 'use strict'
 
+const { execFileSync } = require('child_process')
 const { readFile, rename } = require('fs/promises')
 const { slug } = require('github-slugger')
 const path = require('path')
 const fs = require('fs')
 
 const git = require('../src/helpers/git')
+
+const repoRoot = execFileSync('git', ['rev-parse', '--show-toplevel'], {
+  encoding: 'utf8'
+}).trim()
+
+const toRepoPath = filepath =>
+  path.relative(repoRoot, path.resolve(filepath)).split(path.sep).join('/')
+
+const existsInHead = filepath => {
+  try {
+    execFileSync('git', ['cat-file', '-e', `HEAD:${toRepoPath(filepath)}`], {
+      stdio: 'pipe'
+    })
+    return true
+  } catch {
+    return false
+  }
+}
 
 /**
  * Parse frontmatter from markdown file content
@@ -41,6 +60,7 @@ const main = async () => {
   for (const filepath of files) {
     // Only process files in src/content/blog/
     if (!filepath.includes('src/content/blog/')) continue
+    if (existsInHead(filepath)) continue
 
     try {
       if (!fs.existsSync(filepath)) continue

@@ -81,7 +81,7 @@ const CategoryNav = ({ categories }) => {
         alignItems: 'center',
         width: '100%',
         height: NAV_HEIGHT,
-        bg: 'white'
+        bg: 'transparent'
       })}
     >
       <ChipScroller

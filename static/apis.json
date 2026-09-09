@@ -38,6 +38,10 @@
 	        {
 	          "type": "X-docs",
 	          "url": "https://microlink.io/docs"
+	        },
+	        {
+	          "type": "OpenAPI",
+	          "url": "https://microlink.io/openapi.json"
 	        }
 	      ],
 	      "contact": [

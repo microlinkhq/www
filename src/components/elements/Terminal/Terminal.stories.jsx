@@ -53,8 +53,8 @@ export const Default = () => (
     </Text>
     <Terminal blinkCursor={false}>
       <span>
-        npx @microlink/cli
-        https://kikobeats.com?&screenshot&embed=screenshot.url&border=false&force
+        npx microlink.io screenshot
+        https://kikobeats.com
       </span>
       <Image
         css={theme({ pt: 3, width: 300 })}

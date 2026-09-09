@@ -20,10 +20,8 @@ const OUTPUT_PATH = path.join(ROOT_DIR, 'static', 'llms.txt')
 const SECTIONS = [
   { dir: 'api', title: 'API' },
   { dir: 'cards', title: 'Cards' },
-  { dir: 'mql', title: 'MQL' },
   { dir: 'guides', title: 'Guides' },
-  { dir: 'sdk', title: 'SDK' },
-  { dir: 'sdk-legacy', title: 'SDK (legacy)' }
+  { dir: 'sdk', title: 'SDK' }
 ]
 
 const unquote = value =>
@@ -74,6 +72,10 @@ const llmsTxt = [
   '# Microlink',
   '',
   '> Turn any website into data. APIs for link previews, screenshots, PDF generation, and web scraping.',
+  '',
+  '## Machine-readable',
+  '',
+  '- [OpenAPI](https://microlink.io/openapi.json): Microlink API specification',
   '',
   SECTIONS.map(toSection).join('\n\n'),
   ''

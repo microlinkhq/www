@@ -10,17 +10,20 @@ import { Link } from 'components/elements/Link'
 When a function throws, the result comes back with `isFulfilled: false` and the error details at `result.value`:
 
 ```js
-const microlink = require('@microlink/function')
+import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 const failing = ({ name }) => name()
 
-const fn = microlink(failing)
-const result = await fn('https://example.com', { name: 'Kiko' })
+const result = await microlink.function('https://example.com', failing, { name: 'Kiko' })
 
 console.log(result.isFulfilled)    // false
 console.log(result.value.name)     // 'TypeError'
 console.log(result.value.message)  // 'name is not a function'
 ```
+
+The promise only rejects when the API call itself fails — an invalid URL, an expired API key, a timeout — and then it throws a [`MicrolinkError`](/docs/sdk/getting-started/errors) like every other SDK method.
 
 Non-Error throws (like `throw 'oh no'`) are normalized into a `NonError` with the thrown value as the message.
 
@@ -28,13 +31,13 @@ Non-Error throws (like `throw 'oh no'`) are normalized into a `NonError` with th
 
 When a function exceeds its plan limits, the API returns a descriptive error instead of failing the entire request:
 
-| Error              | Trigger                                                         |
-| ------------------ | --------------------------------------------------------------- |
-| `TimeoutError`     | Function wall-clock time exceeded the plan limit                |
-| `CpuTimeError`     | Function CPU time exceeded the plan limit                       |
-| `MemoryError`      | Function memory usage exceeded the plan limit                   |
-| `CodeSizeError`    | Function code exceeds the 1024 bytes free plan limit            |
-| `ConcurrencyError` | Too many concurrent function executions for the free plan (1 per IP) |
+| Error                  | Trigger                                                              |
+| ---------------------- | -------------------------------------------------------------------- |
+| `TimeoutError`         | Function wall-clock time exceeded the plan limit                     |
+| `CpuTimeError`         | Function CPU time exceeded the plan limit                            |
+| `MemoryError`          | Function memory usage exceeded the plan limit                        |
+| `CodeSizeError`        | Function code exceeds the 1024 bytes free plan limit                 |
+| `ConcurrencyError`     | Too many concurrent function executions for the free plan            |
 | `OutgoingRequestError` | Function made a cross-origin network request on the free plan        |
 
 Each error message is plan-aware:
@@ -79,11 +82,11 @@ Binary data such as `Buffer` and typed arrays is allocated off the heap and is r
 
 **CodeSizeError** — the function code exceeds the 1024 bytes free plan limit:
 
-1. Use the [@microlink/function](https://www.npmjs.com/package/@microlink/function) library, which compresses code automatically.
-2. Compress the function body manually with `lz#`, `br#`, or `gz#` prefixes.
+1. Use the [SDK](/docs/sdk/methods/function), which compresses code automatically.
+2. Compress the function body manually with `lz#`, `br#`, or `gz#` prefixes when calling the API directly.
 3. Upgrade to pro for unlimited code size.
 
-**ConcurrencyError** — too many concurrent function executions (1 per IP on the free plan):
+**ConcurrencyError** — too many concurrent function executions (1 in-flight per IP on the free plan):
 
 1. Wait for the current function execution to finish before sending another request.
 2. Upgrade to pro for unlimited concurrency.

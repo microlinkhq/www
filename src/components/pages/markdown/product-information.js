@@ -172,11 +172,12 @@ export const ProductInformation = () => {
                 <Link href='/docs/guides/content-conversion/url-to-markdown'>
                   documentation
                 </Link>{' '}
-                for interactive playground examples, official{' '}
-                <Link href='/docs/mql/getting-started/overview'>
-                  MQL client
-                </Link>{' '}
-                (Node.js, Python, Ruby, Go, etc.), and copy-paste code snippets.
+                for interactive playground examples, the official{' '}
+                <Link href='/docs/sdk/getting-started/overview'>
+                  Microlink SDK
+                </Link>
+                , and copy-paste code snippets for Node.js, Python, Ruby, Go,
+                and more.
               </div>
               <div>
                 Or use the shortcut endpoint markdown.microlink.io/{'<url>'} for

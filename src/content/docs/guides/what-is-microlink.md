@@ -273,7 +273,6 @@ You can call the API from any language that supports HTTP GET, but Microlink pro
 
 | Library | Use case |
 |---------|----------|
-| <Link href='/docs/mql/getting-started/overview' children='MQL' /> | JavaScript/TypeScript client for Node.js, Edge runtimes, and the browser |
 | <Link href='/docs/sdk/getting-started/overview' children='SDK' /> | Every product as a semantic method — one npm package for Node.js, browsers, and Deno |
 | <Link href='/docs/api/getting-started/cli' children='CLI' /> | Explore the API from your terminal during local development |
 

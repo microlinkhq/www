@@ -25,6 +25,12 @@ import {
   CurrencyProvider,
   useCurrencyContext
 } from 'components/hook/use-currency'
+import BookCall from 'components/pages/pricing/book-call'
+import {
+  CapabilityIcon,
+  TILE_DESCRIPTION_FONT_SIZE,
+  TILE_TITLE_FONT_SIZE
+} from 'components/pages/pricing/shared'
 import Plans from 'components/patterns/Plans/Plans'
 import { CURRENCIES, formatPrice } from 'components/patterns/Plans/shared'
 import { trackEvent } from 'helpers/gtag'
@@ -35,7 +41,6 @@ import {
   gradient,
   layout,
   radii,
-  space,
   theme,
   transition,
   shadows,
@@ -51,7 +56,7 @@ const FAQ_SCHEMA = {
       name: 'Is there really a free plan?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes — the free plan is forever free, no credit card required. You get 25 requests per day against the public endpoint, with the same screenshot, PDF, metadata, SDK, insights and recipes capabilities used on Pro. It runs with rate limits and shared concurrency, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.'
+        text: 'Yes — the free plan is forever free, no credit card required. You get 25 requests per day against the public endpoint, with the same screenshot, PDF, metadata, markdown, insights and SDK capabilities used on Pro. It runs with rate limits and shared concurrency, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.'
       }
     },
     {
@@ -597,19 +602,6 @@ const CAPABILITIES = [
   }
 ]
 
-const CapabilityIcon = styled(Flex)`
-  ${theme({
-    width: space[4],
-    height: space[4],
-    borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
-    color: 'secondary',
-    bg: 'pinkest'
-  })}
-`
-
 const CapabilityTile = ({ icon, title, description, href }) => (
   <Flex
     css={theme({
@@ -631,7 +623,7 @@ const CapabilityTile = ({ icon, title, description, href }) => (
       <Text
         css={theme({
           fontWeight: 'bold',
-          fontSize: [2, 2, '18px', '18px'],
+          fontSize: TILE_TITLE_FONT_SIZE,
           color: 'black',
           lineHeight: 1
         })}
@@ -640,7 +632,7 @@ const CapabilityTile = ({ icon, title, description, href }) => (
       </Text>
       <Text
         css={theme({
-          fontSize: [1, 1, '15px', '15px'],
+          fontSize: TILE_DESCRIPTION_FONT_SIZE,
           color: 'black70',
           lineHeight: 2
         })}
@@ -1225,7 +1217,7 @@ const Faqs = () => (
               Yes — the free plan is forever free, no credit card required. You
               get 25 requests per day against the public{' '}
               <Link href='/docs/api/basics/endpoint'>endpoint</Link>, with the
-              same screenshot, PDF, metadata, SDK, insights and recipes
+              same screenshot, PDF, metadata, markdown, insights and SDK
               capabilities used on Pro.
             </div>
             <div>
@@ -1524,6 +1516,7 @@ const PricingPage = () => {
             stripeKey={stripeKey}
             footer='stats'
           />
+          <BookCall />
           <Comparison />
           <Testimonials />
           <Clients />

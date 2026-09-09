@@ -1,7 +1,7 @@
 import React from 'react'
 import { GitMerge, Hexagon, Target } from 'react-feather'
 
-import { colors, layout, theme } from 'theme'
+import { layout, theme } from 'theme'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -15,7 +15,7 @@ import { GUIDE_URL, PACKAGE_URL } from 'helpers/search-landing'
 
 import { ActionRow, SEARCH_LAYOUT_WIDE_MAX_WIDTH, TutorialTimeline } from './'
 
-import { SectionCaption, TutorialStep } from './Sections'
+import { TutorialStep } from './Sections'
 
 const SECTION_HEADING_FONT_SIZE_MEDIUM = ['36px', '42px', '36px', '36px']
 
@@ -67,11 +67,7 @@ console.log(page.results)`)
 ]
 
 const IntegrationSection = () => (
-  <Box
-    as='section'
-    id='google-api-integration'
-    css={theme({ py: [5, 5, 6, 6] })}
-  >
+  <Box as='section' id='search-integration' css={theme({ py: [5, 5, 6, 6] })}>
     <Container
       css={theme({
         p: 0,
@@ -94,9 +90,6 @@ const IntegrationSection = () => (
             minWidth: 0
           })}
         >
-          <SectionCaption color={colors.green7}>
-            Google SERP Scraper
-          </SectionCaption>
           <Text
             as='h2'
             css={theme({

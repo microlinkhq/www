@@ -136,13 +136,13 @@ The profiling phases are:
 
 The function parameter is available on both free and pro plans with different resource limits:
 
-|                      | Free       | Pro              |
-| -------------------- | ---------- | ---------------- |
-| Timeout              | 5 seconds  | Up to 60 seconds |
-| Memory               | 16 MB      | 32 MB            |
-| Code size            | 1024 bytes | Unlimited        |
-| Concurrency          | 1 per IP   | Unlimited        |
-| Outgoing requests    | Same-origin only | Unrestricted |
+|                      | Free             | Pro              |
+| -------------------- | ---------------- | ---------------- |
+| Timeout              | 5 seconds        | Up to 60 seconds |
+| Memory               | 16 MB            | 32 MB            |
+| Code size            | 1024 bytes       | Unlimited        |
+| Concurrency          | 1 in-flight per IP | Unlimited      |
+| Outgoing requests    | Same-origin only | Unrestricted     |
 
 When a limit is exceeded, the function returns `isFulfilled: false` with a descriptive error instead of failing the entire request:
 
@@ -170,21 +170,21 @@ The resource error types are:
 | `CpuTimeError`         | Function CPU time exceeded the plan limit                            |
 | `MemoryError`          | Function memory usage exceeded the plan limit                        |
 | `CodeSizeError`        | Function code exceeds the 1024 bytes free plan limit                 |
-| `ConcurrencyError`     | Too many concurrent function executions for the free plan (1 per IP) |
+| `ConcurrencyError`     | Too many concurrent function executions for the free plan            |
 | `OutgoingRequestError` | Function made a cross-origin network request on the free plan        |
 
 Each error message is plan-aware and tells you the exact limit that was hit.
 
 ## Compression
 
-Since the function body can be large, it is compressed before being sent. The SDK handles this for you: `microlink.run()` compresses the code with brotli in Node.js and lz-string in browsers, so the call stays the same:
+Since the function body can be large, it is compressed before being sent. The SDK handles this for you: `microlink.function()` compresses the code with brotli in Node.js and lz-string in browsers, so the call stays the same:
 
 ```js
 import createClient from 'microlink.io'
 
 const microlink = createClient()
 
-const { value } = await microlink.run(
+const { value } = await microlink.function(
   'https://microlink.io',
   ({ page }) => page.evaluate('jQuery.fn.jquery'),
   { scripts: 'https://code.jquery.com/jquery-3.5.0.min.js' }
@@ -193,7 +193,7 @@ const { value } = await microlink.run(
 
 <Figcaption>The SDK picks the compressor for the runtime and prefixes the payload with its alias.</Figcaption>
 
-The same applies if you use [@microlink/function](https://www.npmjs.com/package/@microlink/function) directly. If you call the API yourself, compress the function body and send it prefixed with the compressor alias, e.g. `lz#<compressed code>`. The following compression algorithms are supported:
+If you call the API yourself, compress the function body and send it prefixed with the compressor alias, e.g. `lz#<compressed code>`. The following compression algorithms are supported:
 
 - brotli (`br`)
 - gzip (`gz`)
@@ -216,26 +216,27 @@ const code = () => {
   return $('h1').text()
 }
 
-const { value } = await microlink.run('https://example.com', code)
+const { value } = await microlink.function('https://example.com', code)
 ```
 
 <Figcaption>Dependencies are parsed from your function code, installed in a sandbox, and cached for subsequent runs.</Figcaption>
 
 The runtime restricts certain system capabilities for security. Operations such as spawning child processes or writing to the filesystem outside the sandbox are not permitted.
 
-## Function constructor
+## SDK
 
-The most convenient way to use `function` is through the [@microlink/function](https://www.npmjs.com/package/@microlink/function) library:
+The most convenient way to use `function` is through the [`function`](/docs/sdk/methods/function) method of the [Microlink SDK](/docs/sdk/getting-started/overview):
 
 ```js
-const microlink = require('@microlink/function')
+import createClient from 'microlink.io'
 
-const getTitle = microlink(({ page }) => page.title())
+const microlink = createClient()
 
-const result = await getTitle('https://example.com')
+const result = await microlink.function('https://example.com', ({ page }) => page.title())
+
 console.log(result.value) // 'Example Domain'
 ```
 
-It lets you write normal JavaScript functions instead of managing string serialization and compression yourself:
+It lets you write normal JavaScript functions instead of managing string serialization and compression yourself, and it resolves to the `data.function` object directly.
 
 See the [function guide](/docs/guides/function) for practical examples covering page interaction, npm packages, error handling, and profiling.

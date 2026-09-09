@@ -12,13 +12,15 @@ Microlink functions can interact with a browser.
 When your function references `page`, you get the full [Puppeteer Page](https://pptr.dev/api/puppeteer.page) object:
 
 ```js
-const microlink = require('@microlink/function')
+import createClient from 'microlink.io'
+
+const microlink = createClient()
 
 const scrape = ({ page }) =>
   page.$eval('h1', el => el.textContent.trim())
 
-const fn = microlink(scrape)
-const result = await fn('https://example.com')
+const result = await microlink.function('https://example.com', scrape)
+
 console.log(result.value) // 'Example Domain'
 ```
 
@@ -46,8 +48,6 @@ Any [Puppeteer Page method](https://pptr.dev/api/puppeteer.page) is available.
 Puppeteer helpers let you interact with the page before extracting data:
 
 ```js
-const microlink = require('@microlink/function')
-
 const scrapeAfterClick = ({ page }) =>
   page.click('button.load-more')
     .then(() => page.waitForSelector('.results'))
@@ -55,15 +55,22 @@ const scrapeAfterClick = ({ page }) =>
       items.map(el => el.textContent.trim())
     ))
 
-const fn = microlink(scrapeAfterClick)
-const result = await fn('https://example.com')
+const result = await microlink.function('https://example.com', scrapeAfterClick)
 ```
 
 Replace fixed waits like `page.waitForTimeout(3000)` with [page.waitForSelector](https://pptr.dev/api/puppeteer.page.waitforselector) or [page.waitForNavigation](https://pptr.dev/api/puppeteer.page.waitfornavigation) whenever possible — they are faster and more reliable.
 
 ## Combine with other parameters
 
-Because [function](/docs/api/parameters/function) is just another Microlink parameter, you can prepare the page before your function runs using [scripts](/docs/api/parameters/scripts), [modules](/docs/api/parameters/modules), [click](/docs/api/parameters/click), or [waitForSelector](/docs/api/parameters/wait-for-selector):
+Because [function](/docs/api/parameters/function) is just another Microlink parameter, you can prepare the page before your function runs using [scripts](/docs/api/parameters/scripts), [modules](/docs/api/parameters/modules), [click](/docs/api/parameters/click), or [waitForSelector](/docs/api/parameters/waitForSelector). In the SDK they travel as the third argument of `run`:
+
+```js
+const { value } = await microlink.function(
+  'https://microlink.io',
+  ({ page }) => page.evaluate('jQuery.fn.jquery'),
+  { scripts: 'https://code.jquery.com/jquery-3.5.0.min.js' }
+)
+```
 
 <MultiCodeEditorInteractive height={250} mqlCode={{
   url: 'https://microlink.io',

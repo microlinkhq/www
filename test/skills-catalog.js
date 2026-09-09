@@ -64,9 +64,10 @@ describe('skills taxonomy is explicit', () => {
   })
 
   test('skills are filed by purpose, not by keyword collision', () => {
-    expect(SKILL_CATEGORY['microlink-google']).toBe('apis')
-    expect(SKILL_CATEGORY['microlink-api']).toBe('apis')
-    expect(SKILL_CATEGORY['unavatar-api']).toBe('apis')
+    expect(SKILL_CATEGORY.microlink).toBe('consuming')
+    expect(SKILL_CATEGORY['microlink-mcp']).toBe('consuming')
+    expect(SKILL_CATEGORY['microlink-api']).toBe('consuming')
+    expect(SKILL_CATEGORY['unavatar-api']).toBe('consuming')
     expect(SKILL_CATEGORY.optimo).toBe('automation')
     expect(SKILL_CATEGORY.metascraper).toBe('automation')
     expect(SKILL_CATEGORY['use-pnpm']).toBe('infrastructure')

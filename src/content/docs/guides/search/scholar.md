@@ -8,7 +8,7 @@ import { Link } from 'components/elements/Link'
 Academic papers with citation counts and PDF links. Use it for technical or scientific research workflows that need papers, citations, and publication context.
 
 ```js
-const page = await google('attention is all you need', { type: 'scholar' })
+const page = await microlink.search('attention is all you need', { type: 'scholar' })
 ```
 
 ## Result fields
@@ -25,7 +25,7 @@ const page = await google('attention is all you need', { type: 'scholar' })
 | `id` | `string` | Google Scholar ID |
 
 ```js
-const page = await google('attention is all you need', { type: 'scholar' })
+const page = await microlink.search('attention is all you need', { type: 'scholar' })
 
 page.results[0]
 // {

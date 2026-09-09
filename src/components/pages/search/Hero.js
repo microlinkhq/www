@@ -65,7 +65,7 @@ const HeroSection = () => (
             textAlign: 'center'
           })}
         >
-          The Google Search API <br />
+          Microlink Search <br />
           <Text
             as='span'
             variant='gradient'
@@ -92,8 +92,8 @@ const HeroSection = () => (
             textAlign: 'center'
           })}
         >
-          Scrape Google search results in ~1s via a unified API. One client,
-          normalized JSON for tools, prompts, and RAG pipelines.
+          Search results in ~1s via a unified API. One client, normalized JSON
+          for tools, prompts, and RAG pipelines.
         </Text>
       </Box>
 

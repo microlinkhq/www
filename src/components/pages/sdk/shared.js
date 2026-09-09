@@ -114,7 +114,7 @@ export const METHOD_GROUPS = [
     },
     methods: [
       {
-        title: 'run',
+        title: 'function',
         icon: Play,
         description:
           'Execute your own JavaScript against a live page and get the value back.'
@@ -217,7 +217,8 @@ export const QUESTIONS = [
           <Link href='https://github.com/microlinkhq/mql'>@microlink/mql</Link>:
           HTTP, authentication, retries, errors, and binary handling are already
           solved there. Each product method sets the right API parameters and
-          unwraps the result for you.
+          unwraps the result for you, and the rules grammar is documented under{' '}
+          <Link href='/docs/sdk/methods/extract'>extract</Link>.
         </div>
       </>
     )
@@ -228,11 +229,9 @@ export const QUESTIONS = [
       <>
         <div>
           The previous SDK was a UI component for rendering link previews in
-          React, Vue, or vanilla JavaScript. It keeps working and its{' '}
-          <Link href='/docs/sdk-legacy/getting-started/overview/'>
-            documentation stays available
-          </Link>
-          , but it&rsquo;s no longer maintained. This package is the SDK going
+          React, Vue, or vanilla JavaScript. It keeps working as the{' '}
+          <Link href='/link-preview'>link preview component</Link>, but
+          it&rsquo;s no longer maintained. This package is the SDK going
           forward: it returns data and assets from every Microlink product, with
           no UI attached.
         </div>
@@ -288,9 +287,8 @@ export const QUESTIONS = [
         <div>
           Yes — installing the package also ships a <code>microlink</code>{' '}
           binary where every product is a subcommand, such as{' '}
-          <code>microlink markdown https://example.com</code>. Looking for the
-          standalone terminal experience? That&rsquo;s{' '}
-          <Link href='/integrations/cli'>@microlink/cli</Link>.
+          <code>microlink markdown https://example.com</code>. See the{' '}
+          <Link href='/integrations/cli'>CLI</Link> page.
         </div>
       </>
     )

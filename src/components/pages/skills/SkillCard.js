@@ -1,9 +1,9 @@
 import {
   theme,
   transition,
-  accentBand,
   accentBorderHover,
-  accentIcon
+  accentIcon,
+  accentTile
 } from 'theme'
 import { ArrowRight } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
@@ -47,7 +47,7 @@ const SkillCard = ({ skill, accent, fallbackIcon }) => (
         bg: 'white',
         color: 'black',
         border: 1,
-        borderColor: 'black10',
+        borderColor: accentTile(accent),
         borderRadius: 3,
         boxShadow: 1,
         textDecoration: 'none',
@@ -67,7 +67,7 @@ const SkillCard = ({ skill, accent, fallbackIcon }) => (
             width: SKILL_ICON_TILE_SIZE,
             height: SKILL_ICON_TILE_SIZE,
             borderRadius: 3,
-            bg: accentBand(accent)
+            bg: accentTile(accent)
           })}
         >
           <FeatherIcon

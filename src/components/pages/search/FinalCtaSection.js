@@ -11,7 +11,6 @@ import Text from 'components/elements/Text'
 import ArrowLink from 'components/patterns/ArrowLink'
 
 import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from './'
-import { SectionCaption } from './Sections'
 import { MOBILE_SECTION_BLEED } from './constants'
 
 const SECTION_HEADING_FONT_SIZE_LARGE = ['36px', '42px', '42px', '42px']
@@ -58,9 +57,6 @@ const FinalCtaSection = () => (
             maxWidth: ['100%', '100%', layout.small, layout.small]
           })}
         >
-          <SectionCaption bg='blue0' color={colors.blue6}>
-            Connect everything
-          </SectionCaption>
           <Text
             as='h2'
             css={theme({

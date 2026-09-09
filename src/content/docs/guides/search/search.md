@@ -8,7 +8,7 @@ import { Link } from 'components/elements/Link'
 Web results with knowledge graph, related questions, and related searches. This is the default surface when you omit `type`.
 
 ```js
-const page = await google('technical seo checklist')
+const page = await microlink.search('technical seo checklist')
 ```
 
 ## Result fields
@@ -20,7 +20,7 @@ const page = await google('technical seo checklist')
 | `description` | `string` | Snippet or meta description |
 
 ```js
-const page = await google('technical seo checklist')
+const page = await microlink.search('technical seo checklist')
 
 page.results[0]
 // {
@@ -45,7 +45,7 @@ The `search` surface can also return these top-level fields alongside `results`:
 When the query matches a well-known entity, the response includes structured attributes:
 
 ```js
-const page = await google('apple inc')
+const page = await microlink.search('apple inc')
 
 page.knowledgeGraph
 // {
@@ -65,7 +65,7 @@ page.knowledgeGraph
 Use `relatedSearches` for query expansion in retrieval workflows:
 
 ```js
-const page = await google('apple inc')
+const page = await microlink.search('apple inc')
 
 page.relatedSearches.map(s => s.query)
 // ['Apple Inc full form', 'Apple Inc address', 'Apple Inc usa', 'Apple Inc stock']

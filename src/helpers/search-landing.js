@@ -131,7 +131,8 @@ const GOOGLE_VERTICALS = [
   }
 ]
 
-const INSTALL_SNIPPET = sdkExample(`const page = await microlink.search('ai agents')
+const INSTALL_SNIPPET =
+  sdkExample(`const page = await microlink.search('ai agents')
 
 console.log(page.results)`)
 
@@ -289,8 +290,8 @@ const FAQ_ENTRIES = [
   {
     question: 'Is this an official Google product?',
     answers: [
-      'No. Search is an independent Microlink product that works on top of public Google surfaces.',
-      'It is not affiliated with, endorsed by, or provided by Google.'
+      'No. Search is an independent Microlink product that queries public Google surfaces and returns structured results for your own workflows.',
+      'It is not affiliated with, endorsed by, or provided by Google, and it does not replace Google Search.'
     ]
   },
   {
@@ -353,7 +354,6 @@ const buildSchemas = () => {
       'search api',
       'serp api',
       'search intelligence api',
-      'serp api alternative',
       'search api for ai agents',
       'search api for seo',
       'local search api',

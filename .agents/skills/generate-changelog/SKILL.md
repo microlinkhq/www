@@ -51,7 +51,7 @@ Scan commits after the cutoff date across these repo groups:
 | `fonts`           | New features                                                        |
 | `cards`           | New presets                                                         |
 | `skills`          | New skills (only if user-facing)                                    |
-| `cli`             | New commands, flags, output formats                                 |
+| `microlink`       | SDK and CLI — new methods, commands, flags, output formats          |
 | `function`        | Microlink Function SDK — new packages, API changes, runtime updates |
 | `google`          | Releases, new Google product support                                |
 | `is-antibot`      | Major versions (improves API antibot resolution)                    |

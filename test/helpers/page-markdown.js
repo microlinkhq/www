@@ -4,9 +4,13 @@ import {
   DOCS_CONTENT_SELECTOR,
   MAIN_CONTENT_SELECTOR,
   extractMarkdown,
+  isNotDeployedYet,
   isMarkdownPage,
+  retryStaleNotFound,
   toMarkdownPath,
-  prependTitle
+  prependTitle,
+  notFoundLinks,
+  notFoundMarkdown
 } from '../../src/helpers/page-markdown.js'
 
 const fetcherOf = responses => {
@@ -73,6 +77,76 @@ describe('prependTitle', () => {
   })
 })
 
+describe('notFoundMarkdown', () => {
+  test('is a short recovery page, not the HTML app shell', () => {
+    expect(notFoundMarkdown.startsWith('# Page not found\n')).toBe(true)
+    expect(notFoundMarkdown).not.toContain('<!DOCTYPE')
+    expect(notFoundMarkdown).toContain('https://microlink.io/llms.txt')
+    expect(notFoundMarkdown).toContain('https://microlink.io/openapi.json')
+    expect(notFoundMarkdown).toContain('https://microlink.io/sitemap.xml')
+    expect(notFoundMarkdown).toContain('https://microlink.io/docs')
+  })
+
+  test('lists every recovery link the HTML 404 page uses', () => {
+    expect(notFoundLinks.map(({ href }) => href)).toEqual([
+      '/',
+      '/docs',
+      '/llms.txt',
+      '/openapi.json',
+      '/sitemap.xml'
+    ])
+  })
+})
+
+describe('isNotDeployedYet', () => {
+  test('is only the 404 production returns before a page ships', () => {
+    expect(isNotDeployedYet(404)).toBe(true)
+    expect(isNotDeployedYet(200)).toBe(false)
+    expect(isNotDeployedYet(undefined)).toBe(false)
+  })
+})
+
+describe('retryStaleNotFound', () => {
+  test('keeps a live response', async () => {
+    const calls = []
+    const fetchOnce = force => {
+      calls.push(force)
+      return { markdown: 'article', statusCode: 200 }
+    }
+
+    expect(await retryStaleNotFound(fetchOnce)).toEqual({
+      markdown: 'article',
+      statusCode: 200
+    })
+    expect(calls).toEqual([false])
+  })
+
+  test('busts a cached 404 and returns the fresh page', async () => {
+    const calls = []
+    const fetchOnce = force => {
+      calls.push(force)
+      return force
+        ? { markdown: 'article', statusCode: 200 }
+        : { markdown: null, statusCode: 404 }
+    }
+
+    expect(await retryStaleNotFound(fetchOnce)).toEqual({
+      markdown: 'article',
+      statusCode: 200
+    })
+    expect(calls).toEqual([false, true])
+  })
+
+  test('keeps a real 404 after force', async () => {
+    const fetchOnce = () => ({ markdown: null, statusCode: 404 })
+
+    expect(await retryStaleNotFound(fetchOnce)).toEqual({
+      markdown: null,
+      statusCode: 404
+    })
+  })
+})
+
 describe('extractMarkdown', () => {
   test('takes the article out of a docs page', async () => {
     const { calls, fetchMarkdown } = fetcherOf([{ markdown: 'article' }])
@@ -110,6 +184,19 @@ describe('extractMarkdown', () => {
       MAIN_CONTENT_SELECTOR,
       undefined
     ])
+  })
+
+  test('stops at the first fetch when the page is not deployed yet', async () => {
+    const { calls, fetchMarkdown } = fetcherOf([
+      { markdown: null, statusCode: 404 },
+      { markdown: 'never fetched' },
+      { markdown: 'never fetched' }
+    ])
+
+    expect(
+      await extractMarkdown(fetchMarkdown, '/docs/sdk/methods/pdf')
+    ).toEqual({ markdown: null, statusCode: 404, selector: null })
+    expect(calls).toEqual([DOCS_CONTENT_SELECTOR])
   })
 
   test('reports no markdown when nothing returns content', async () => {

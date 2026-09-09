@@ -95,7 +95,7 @@ const CODE_TAB = {
   },
   function: {
     binding: '{ value }',
-    method: 'run',
+    method: 'function',
     code: FN_SNIPPET,
     log: 'value',
     comment: 'every link on the page'

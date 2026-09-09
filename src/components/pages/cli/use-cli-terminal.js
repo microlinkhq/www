@@ -1,0 +1,205 @@
+import { useEffect } from 'react'
+
+import { prefersReducedMotion } from 'helpers/reduced-motion'
+import { colors, fontSizes, toRaw } from 'theme'
+
+import { createCliSession } from './session'
+import { ATTRACT_COMMANDS, MIN_TERMINAL_COLS, isCompactCli } from './shared'
+
+export const PLAYGROUND_HEIGHT = 360
+
+const FONT_FAMILY = '"SF Mono", Menlo, Monaco, monospace'
+
+const THEME = {
+  background: colors.black,
+  foreground: colors.white,
+  cursor: colors.white,
+  cursorAccent: colors.black,
+  selectionBackground: colors.white20,
+  black: colors.black,
+  red: colors.red7,
+  green: colors.green6,
+  yellow: colors.yellow,
+  blue: colors.blue5,
+  magenta: colors.grape6,
+  cyan: colors.cyan5,
+  white: colors.white,
+  brightBlack: colors.gray6,
+  brightRed: colors.red5,
+  brightGreen: colors.green5,
+  brightYellow: colors.yellow,
+  brightBlue: colors.blue4,
+  brightMagenta: colors.grape5,
+  brightCyan: colors.cyan4,
+  brightWhite: colors.white
+}
+
+const bindTouchScroll = (surface, term) => {
+  let touchX = null
+  let touchY = null
+  const onStart = e => {
+    if (e.touches.length !== 1) return
+    touchX = e.touches[0].clientX
+    touchY = e.touches[0].clientY
+  }
+  const onMove = e => {
+    if (
+      touchX == null ||
+      touchY == null ||
+      e.touches.length !== 1 ||
+      !term.element
+    ) {
+      return
+    }
+    const x = e.touches[0].clientX
+    const y = e.touches[0].clientY
+    const dx = touchX - x
+    const dy = touchY - y
+    const rowHeight = term.rows ? term.element.clientHeight / term.rows : 20
+    const lines = Math.round(dy / rowHeight)
+    if (lines) {
+      term.scrollLines(lines)
+      touchY = y
+    }
+    if (dx) {
+      surface.scrollLeft += dx
+      touchX = x
+    }
+    if (lines || dx) e.preventDefault()
+  }
+  const onEnd = () => {
+    touchX = null
+    touchY = null
+  }
+  const opts = { capture: true }
+  surface.addEventListener('touchstart', onStart, { ...opts, passive: true })
+  surface.addEventListener('touchmove', onMove, { ...opts, passive: false })
+  surface.addEventListener('touchend', onEnd, opts)
+  return () => {
+    surface.removeEventListener('touchstart', onStart, opts)
+    surface.removeEventListener('touchmove', onMove, opts)
+    surface.removeEventListener('touchend', onEnd, opts)
+  }
+}
+
+export const useCliTerminal = (
+  containerRef,
+  { attract = true, attractCommands = ATTRACT_COMMANDS } = {}
+) => {
+  const commands = attract ? attractCommands : null
+  useEffect(() => {
+    const node = containerRef.current
+    if (!node) return undefined
+
+    let disposed = false
+    let term
+    let fitAddon
+    let resizeObserver
+    let session
+    let detachTouch
+    ;(async () => {
+      const [{ Terminal }, { FitAddon }, cli] = await Promise.all([
+        import('@xterm/xterm'),
+        import('@xterm/addon-fit'),
+        import('microlink.io/cli')
+      ])
+      if (disposed || !containerRef.current) return
+      term = new Terminal({
+        convertEol: false,
+        cursorBlink: !prefersReducedMotion(),
+        cursorStyle: 'bar',
+        disableStdin: false,
+        ariaLabel: 'Interactive Microlink CLI',
+        fontFamily: FONT_FAMILY,
+        fontSize: toRaw(
+          window.matchMedia('(max-width: 768px)').matches
+            ? fontSizes[0]
+            : fontSizes[1]
+        ),
+        lineHeight: 1.2,
+        letterSpacing: 0,
+        scrollback: 4000,
+        theme: THEME
+      })
+      fitAddon = new FitAddon()
+      term.loadAddon(fitAddon)
+      const surface = containerRef.current
+      const commandPin = document.createElement('div')
+      const host = document.createElement('div')
+      const promptPin = document.createElement('div')
+      commandPin.dataset.cliPin = 'command'
+      host.dataset.cliHost = ''
+      promptPin.dataset.cliPin = 'prompt'
+      commandPin.dataset.collapsed = 'true'
+      promptPin.hidden = true
+      const pinFont = `${term.options.fontSize}px`
+      commandPin.style.fontSize = pinFont
+      promptPin.style.fontSize = pinFont
+      surface.append(commandPin, host, promptPin)
+      const focusTerm = e => {
+        e.preventDefault()
+        term.focus()
+      }
+      commandPin.addEventListener('pointerdown', focusTerm)
+      promptPin.addEventListener('pointerdown', focusTerm)
+      term.open(host)
+      const fit = () => {
+        const y = term.buffer.active.viewportY
+        fitAddon.fit()
+        if (isCompactCli() && term.cols < MIN_TERMINAL_COLS) {
+          term.resize(MIN_TERMINAL_COLS, term.rows)
+        }
+        term.scrollToLine(y)
+      }
+      fit()
+      session = createCliSession({
+        term,
+        run: cli.run ?? cli.default,
+        attractCommands: commands,
+        surface,
+        onPin: ({ command, prompt: promptText, viewLine }) => {
+          const open = Boolean(command)
+          if (command) commandPin.textContent = command
+          const wasOpen = commandPin.dataset.collapsed !== 'true'
+          commandPin.dataset.collapsed = open ? 'false' : 'true'
+          promptPin.textContent = promptText
+          promptPin.hidden = !promptText
+          if (viewLine != null) {
+            term.scrollToLine(viewLine)
+            window.requestAnimationFrame(() => {
+              fit()
+              term.scrollToLine(viewLine)
+            })
+          } else if (wasOpen !== open) {
+            const keep = term.buffer.active.viewportY
+            fit()
+            term.scrollToLine(keep)
+          }
+        }
+      })
+      term.onData(session.onData)
+      const unbindTouch = bindTouchScroll(surface, term)
+      const onViewportResize = () => fit()
+      window.visualViewport?.addEventListener('resize', onViewportResize)
+      surface.addEventListener('pointerdown', session.stopAttract)
+      surface.addEventListener('focusin', session.stopAttract)
+      resizeObserver = new window.ResizeObserver(() => fit())
+      resizeObserver.observe(host)
+      detachTouch = () => {
+        unbindTouch()
+        surface.removeEventListener('pointerdown', session.stopAttract)
+        surface.removeEventListener('focusin', session.stopAttract)
+        window.visualViewport?.removeEventListener('resize', onViewportResize)
+      }
+      await session.start()
+    })()
+
+    return () => {
+      disposed = true
+      detachTouch?.()
+      session?.dispose()
+      resizeObserver?.disconnect()
+      term?.dispose()
+    }
+  }, [containerRef, commands])
+}

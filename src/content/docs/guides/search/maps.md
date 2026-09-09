@@ -8,7 +8,7 @@ import { Link } from 'components/elements/Link'
 Detailed place data with ratings, hours, and pricing. Use it when you need richer metadata than <Link href='/docs/guides/search/places' children='Places' /> provides — opening hours, price levels, place types, and thumbnails.
 
 ```js
-const page = await google('restaurants madrid', { type: 'maps' })
+const page = await microlink.search('restaurants madrid', { type: 'maps' })
 ```
 
 ## Result fields
@@ -34,7 +34,7 @@ const page = await google('restaurants madrid', { type: 'maps' })
 | `place` | `{ id }?` | Google Place ID |
 
 ```js
-const page = await google('restaurants madrid', { type: 'maps' })
+const page = await microlink.search('restaurants madrid', { type: 'maps' })
 
 page.results[0]
 // {

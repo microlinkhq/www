@@ -1,0 +1,1248 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Microlink API",
+    "summary": "Turn any website into data.",
+    "description": "A single HTTP GET turns a URL into metadata, screenshots, PDFs, media, and structured extraction. Query parameters accept camelCase or snake_case. Authenticated requests use the Pro endpoint with an `x-api-key` header.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Microlink HQ",
+      "email": "hello@microlink.io",
+      "url": "https://microlink.io"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/microlinkhq/www/blob/master/LICENSE"
+    }
+  },
+  "externalDocs": {
+    "description": "API documentation",
+    "url": "https://microlink.io/docs/api/getting-started/overview"
+  },
+  "servers": [
+    {
+      "url": "https://api.microlink.io",
+      "description": "Free endpoint. Daily rate limit. No API key."
+    },
+    {
+      "url": "https://pro.microlink.io",
+      "description": "Pro endpoint. Send `x-api-key`. Higher limits and Pro parameters."
+    }
+  ],
+  "security": [
+    {},
+    {
+      "apiKey": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "URL",
+      "description": "Normalize any public URL into structured data."
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "URL"
+        ],
+        "operationId": "retrieveUrl",
+        "summary": "Retrieve data from a URL",
+        "description": "Give a `url` and get structured metadata back. Add query parameters to take a screenshot, render a PDF, extract fields, or embed a single asset. Failures use a typed error object with `code` and `message`.",
+        "parameters": [
+          {
+            "name": "adblock",
+            "in": "query",
+            "required": false,
+            "description": "Improve performance and reduce response times by blocking non-essential advertisements, trackers, and cookie banners.",
+            "schema": {
+              "type": "boolean"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/adblock"
+            }
+          },
+          {
+            "name": "animations",
+            "in": "query",
+            "required": false,
+            "description": "Control CSS animations and transitions during website rendering. Ensures consistent snapshots by handling motion effects in the headless browser.",
+            "schema": {
+              "type": "boolean"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/animations"
+            }
+          },
+          {
+            "name": "audio",
+            "in": "query",
+            "required": false,
+            "description": "Detect and extract audio sources from any URL. It returns browser-friendly audio URLs along with metadata enabling integration of media content from platforms.",
+            "schema": {
+              "type": "boolean"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/audio"
+            }
+          },
+          {
+            "name": "cacheKey",
+            "in": "query",
+            "required": false,
+            "description": "Take full control of cache identity to maximize hit rates and avoid redundant processing. Requires a Pro plan.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/cacheKey"
+            }
+          },
+          {
+            "name": "click",
+            "in": "query",
+            "required": false,
+            "description": "Automate browser interactions by clicking specific DOM elements via CSS selectors. Use this parameter to trigger navigation, toggle UI components, or change page state.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/click"
+            }
+          },
+          {
+            "name": "colorScheme",
+            "in": "query",
+            "required": false,
+            "description": "Force the browser to render websites in light or dark mode using the prefers-color-scheme CSS media feature.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/colorScheme"
+            }
+          },
+          {
+            "name": "data",
+            "in": "query",
+            "required": false,
+            "description": "Define custom data extraction rules using CSS selectors. Extract specific content like prices, reviews, or any structured data from any URL, through the API or the SDK.",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/data"
+            }
+          },
+          {
+            "name": "device",
+            "in": "query",
+            "required": false,
+            "description": "Emulate a wide range of mobile, tablet, and desktop devices by automatically setting the correct viewport, user agent, and screen resolution.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/device"
+            }
+          },
+          {
+            "name": "embed",
+            "in": "query",
+            "required": false,
+            "description": "Return a specific data field directly as the response body with appropriate content-type headers. Embed screenshots, PDFs, or extracted data directly in HTML, CSS, or Markdown.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/embed"
+            }
+          },
+          {
+            "name": "filename",
+            "in": "query",
+            "required": false,
+            "description": "Define a custom name for generated assets like screenshots or PDFs using the filename parameter. Requires a Pro plan.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/filename"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "description": "Reduce response bandwidth and optimize payload size by selecting specific data fields.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/filter"
+            }
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "description": "Bypass the Microlink CDN cache to fetch a fresh version of the target URL. Use the force parameter to invalidate existing cached copies and ensure the most up-to-date metadata.",
+            "schema": {
+              "type": "boolean"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/force"
+            }
+          },
+          {
+            "name": "function",
+            "in": "query",
+            "required": false,
+            "description": "Execute custom JavaScript code inside a headless browser to perform advanced scraping or automation tasks. Gain full control over the page lifecycle with Puppeteer access.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/function"
+            }
+          },
+          {
+            "name": "headers",
+            "in": "query",
+            "required": false,
+            "description": "Configure custom HTTP headers to be sent with your requests to the target URL. This Pro feature allows for emulating specific browsers. Requires a Pro plan.",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/headers"
+            }
+          },
+          {
+            "name": "iframe",
+            "in": "query",
+            "required": false,
+            "description": "The iframe parameter returns ready-to-use HTML and script tags for hundreds of providers.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/iframe"
+            }
+          },
+          {
+            "name": "insights",
+            "in": "query",
+            "required": false,
+            "description": "Analyze web performance and stack data with Microlink Insights. Extract identified technologies via Wappalyzer and detailed Lighthouse audit reports directly from any target URL.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/insights"
+            }
+          },
+          {
+            "name": "insights.lighthouse",
+            "in": "query",
+            "required": false,
+            "description": "Generate comprehensive Google Lighthouse reports for any URL. Export web performance audits in JSON, HTML, or CSV formats using custom configurations via Microlink API.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/insights/lighthouse"
+            }
+          },
+          {
+            "name": "insights.technologies",
+            "in": "query",
+            "required": false,
+            "description": "Identify the software stack behind any URL using Microlink technology detection. It returns a detailed list of frameworks, CDNs, and analytics tools with confidence scores.",
+            "schema": {
+              "type": "boolean"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/insights/technologies"
+            }
+          },
+          {
+            "name": "javascript",
+            "in": "query",
+            "required": false,
+            "description": "Control whether JavaScript is executed within the headless browser for a target URL.",
+            "schema": {
+              "type": "boolean"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/javascript"
+            }
+          },
+          {
+            "name": "mediaType",
+            "in": "query",
+            "required": false,
+            "description": "Switch between \"screen\" and \"print\" CSS media queries to control how a website renders for capture.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/mediaType"
+            }
+          },
+          {
+            "name": "meta",
+            "in": "query",
+            "required": false,
+            "description": "Extract normalized metadata from any URL, including titles, descriptions, images, and logos.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/meta"
+            }
+          },
+          {
+            "name": "modules",
+            "in": "query",
+            "required": false,
+            "description": "Inject JavaScript modules into a webpage during the rendering process.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/modules"
+            }
+          },
+          {
+            "name": "palette",
+            "in": "query",
+            "required": false,
+            "description": "Extract dominant color palettes and accessibility-compliant color schemes from detected images.",
+            "schema": {
+              "type": "boolean"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/palette"
+            }
+          },
+          {
+            "name": "pdf.format",
+            "in": "query",
+            "required": false,
+            "description": "Customize the paper format for PDF generation from any URL. Supports standard sizes including A4, Letter, Legal, and Tabloid for high-quality.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/pdf/format"
+            }
+          },
+          {
+            "name": "pdf.height",
+            "in": "query",
+            "required": false,
+            "description": "Set a custom paper height for your PDF generation using pixels, inches, or other CSS units. Fine-tune the dimensions of your website-to-PDF conversions.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/pdf/height"
+            }
+          },
+          {
+            "name": "pdf",
+            "in": "query",
+            "required": false,
+            "description": "Generate high-quality PDFs from any website using Microlink headless browser infrastructure.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/pdf"
+            }
+          },
+          {
+            "name": "pdf.landscape",
+            "in": "query",
+            "required": false,
+            "description": "Set the paper orientation to landscape for your website-to-PDF conversions. Toggle between portrait and landscape modes to optimize the layout of generated PDF documents.",
+            "schema": {
+              "type": "boolean"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/pdf/landscape"
+            }
+          },
+          {
+            "name": "pdf.margin",
+            "in": "query",
+            "required": false,
+            "description": "Configure custom paper margins for your website-to-PDF conversions. Specify unified margins or individual top, bottom, left, and right values.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/pdf/margin"
+            }
+          },
+          {
+            "name": "pdf.pageRanges",
+            "in": "query",
+            "required": false,
+            "description": "Define specific page ranges for your website-to-PDF conversion. Extract single pages or custom intervals like \"1-5, 8, 11-13\" from any URL using the Microlink API pageRanges parameter.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/pdf/pageRanges"
+            }
+          },
+          {
+            "name": "pdf.scale",
+            "in": "query",
+            "required": false,
+            "description": "Adjust the zoom level of your website-to-PDF conversions using the scale parameter with Microlink API automated browser.",
+            "schema": {
+              "type": "number"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/pdf/scale"
+            }
+          },
+          {
+            "name": "pdf.width",
+            "in": "query",
+            "required": false,
+            "description": "Set a custom paper width for your PDF generation using pixels, inches, or other CSS units. Fine-tune the horizontal dimensions of your website-to-PDF conversions.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/pdf/width"
+            }
+          },
+          {
+            "name": "ping",
+            "in": "query",
+            "required": false,
+            "description": "Validate the accessibility of all URLs extracted in the response payload. The ping parameter verifies that links to images, videos, or audio are publicly reachable.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/ping"
+            }
+          },
+          {
+            "name": "prerender",
+            "in": "query",
+            "required": false,
+            "description": "Optimize how content is fetched from the target URL by choosing between a headless browser or a simple HTTP request.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/prerender"
+            }
+          },
+          {
+            "name": "proxy",
+            "in": "query",
+            "required": false,
+            "description": "Bypass IP rate limits, CAPTCHAs, and regional restrictions using high-quality proxy rotation. Requires a Pro plan.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/proxy"
+            }
+          },
+          {
+            "name": "proxy.location",
+            "in": "query",
+            "required": false,
+            "description": "Route the request through a proxy IP in a specific country to fetch region-specific content. Requires a Pro plan.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/proxy/location"
+            }
+          },
+          {
+            "name": "proxy.url",
+            "in": "query",
+            "required": false,
+            "description": "Route every sub-request through your own HTTP proxy server. Requires a Pro plan.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/proxy/url"
+            }
+          },
+          {
+            "name": "retry",
+            "in": "query",
+            "required": false,
+            "description": "Configure the number of exponential backoff retries to attempt if the underlying browser encounters an unexpected internal error.",
+            "schema": {
+              "type": "number"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/retry"
+            }
+          },
+          {
+            "name": "screenshot.animated",
+            "in": "query",
+            "required": false,
+            "description": "Record a website as a short video instead of a static image. Capture animations, transitions and live content as an H.264 MP4 with a single API call.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/screenshot/animated"
+            }
+          },
+          {
+            "name": "screenshot.codeScheme",
+            "in": "query",
+            "required": false,
+            "description": "Beautify HTML and JSON content with professional code syntax highlighting using the codeScheme parameter. Choose from popular Prism themes like Darcula or provide a custom CSS URL.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/screenshot/codeScheme"
+            }
+          },
+          {
+            "name": "screenshot.element",
+            "in": "query",
+            "required": false,
+            "description": "Capture a specific DOM element as a screenshot by providing a CSS selector. The Microlink API automatically waits for the element to be visible before rendering the image.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/screenshot/element"
+            }
+          },
+          {
+            "name": "screenshot.fullPage",
+            "in": "query",
+            "required": false,
+            "description": "Capture a high-resolution screenshot of the entire scrollable content of a website. Use the fullPage parameter to render the complete layout of a URL.",
+            "schema": {
+              "type": "boolean"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/screenshot/fullPage"
+            }
+          },
+          {
+            "name": "screenshot",
+            "in": "query",
+            "required": false,
+            "description": "Generate high-fidelity screenshots of any website with a single API call. Automatically handle headless browser infrastructure to extract visual data.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/screenshot"
+            }
+          },
+          {
+            "name": "screenshot.omitBackground",
+            "in": "query",
+            "required": false,
+            "description": "Generate transparent screenshots by omitting the default white background of the webpage.",
+            "schema": {
+              "type": "boolean"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/screenshot/omitBackground"
+            }
+          },
+          {
+            "name": "screenshot.overlay",
+            "in": "query",
+            "required": false,
+            "description": "Create professional screenshot compositions with customizable browser overlays and backgrounds.",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/screenshot/overlay"
+            }
+          },
+          {
+            "name": "screenshot.quality",
+            "in": "query",
+            "required": false,
+            "description": "Control JPEG compression for website screenshots. Set quality between 0 and 100 to balance file size and visual fidelity.",
+            "schema": {
+              "type": "number"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/screenshot/quality"
+            }
+          },
+          {
+            "name": "screenshot.type",
+            "in": "query",
+            "required": false,
+            "description": "Choose between JPEG or PNG file formats for your website screenshots. Assets are automatically optimized and served in modern formats based on client device capabilities.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/screenshot/type"
+            }
+          },
+          {
+            "name": "scripts",
+            "in": "query",
+            "required": false,
+            "description": "Inject custom JavaScript into a webpage before it is rendered or captured.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/scripts"
+            }
+          },
+          {
+            "name": "scroll",
+            "in": "query",
+            "required": false,
+            "description": "Navigate to specific sections of a webpage by scrolling to a DOM element matching a CSS selector.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/scroll"
+            }
+          },
+          {
+            "name": "staleTtl",
+            "in": "query",
+            "required": false,
+            "description": "Optimize API performance by serving cached content while simultaneously refreshing it in the background. Requires a Pro plan.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/staleTtl"
+            }
+          },
+          {
+            "name": "styles",
+            "in": "query",
+            "required": false,
+            "description": "Inject custom CSS into a webpage before it is rendered or captured. The styles parameter supports both inline CSS rules and absolute URLs to external stylesheets.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/styles"
+            }
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "required": false,
+            "description": "Define the maximum duration allowed for the API to process a request before timing out. The timeout parameter accepts values in milliseconds or human-readable formats.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/timeout"
+            }
+          },
+          {
+            "name": "ttl",
+            "in": "query",
+            "required": false,
+            "description": "Define the cache expiration time for your requests to balance data freshness and response speed. The ttl parameter supports human-readable formats. Requires a Pro plan.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/ttl"
+            }
+          },
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "description": "The primary address of the website you want to process. The url parameter is the core requirement for any Microlink API request, serving as the base for metadata extraction.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/url"
+            }
+          },
+          {
+            "name": "video",
+            "in": "query",
+            "required": false,
+            "description": "Detect and extract direct video source URLs from any website in a browser-friendly format.",
+            "schema": {
+              "type": "boolean"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/video"
+            }
+          },
+          {
+            "name": "viewport",
+            "in": "query",
+            "required": false,
+            "description": "Customize the browser visible area and device capabilities to control how a website is rendered.",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/viewport"
+            }
+          },
+          {
+            "name": "waitForSelector",
+            "in": "query",
+            "required": false,
+            "description": "Pause browser execution until a specific element is present in the DOM. The waitForSelector parameter ensures that dynamic content is fully rendered before extracting data.",
+            "schema": {
+              "type": "string"
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/waitForSelector"
+            }
+          },
+          {
+            "name": "waitForTimeout",
+            "in": "query",
+            "required": false,
+            "description": "Force the headless browser to wait for a specific duration before capturing or extracting data from the target URL.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/waitForTimeout"
+            }
+          },
+          {
+            "name": "waitUntil",
+            "in": "query",
+            "required": false,
+            "description": "Fine-tune when Microlink considers a page fully \"loaded\" by waiting for specific lifecycle events.",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "externalDocs": {
+              "url": "https://microlink.io/docs/api/parameters/waitUntil"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The URL was resolved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request failed. A parameter is missing, invalid, or not allowed on the current plan.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed. Send a valid `x-api-key` or use the free endpoint without one.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The request is not allowed. Typical codes: EFORBIDDENURL, EPRO, EINTEGRATION.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "The request reached its timeout. Typical codes: ETIMEOUT, EBRWSRTIMEOUT.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The daily or monthly rate limit has been reached. Code: ERATE.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred. Typical codes: EFATAL, EFATALCLIENT.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "Pro API key. Use the `https://pro.microlink.io` server. Do not send this header to the free endpoint (that returns EPRO)."
+      }
+    },
+    "schemas": {
+      "Media": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "type": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "size_pretty": {
+            "type": "string"
+          },
+          "width": {
+            "type": "integer"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "duration": {
+            "type": "number"
+          },
+          "duration_pretty": {
+            "type": "string"
+          }
+        }
+      },
+      "Data": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "author": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "image": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Media"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "video": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Media"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "audio": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Media"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lang": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "logo": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Media"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "publisher": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "screenshot": {
+            "$ref": "#/components/schemas/Media"
+          },
+          "pdf": {
+            "$ref": "#/components/schemas/Media"
+          },
+          "statusCode": {
+            "type": "integer"
+          },
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "redirects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "integer"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "required": [
+          "status",
+          "data"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "success"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Data"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "status",
+          "code",
+          "message"
+        ],
+        "description": "JSend fail/error payload. `code` is machine-readable; `message` is human-readable.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "fail",
+              "error"
+            ]
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "EAUTH",
+              "ECACHEKEY",
+              "EBRWSRTIMEOUT",
+              "EFATAL",
+              "EFILENAME",
+              "EFATALCLIENT",
+              "EFORBIDDENURL",
+              "EHEADERS",
+              "EINVALURL",
+              "EINVALPROXY",
+              "EINVALURLCLIENT",
+              "EINVALTTL",
+              "EINVALEVAL",
+              "EINVALFUNCTION",
+              "EINVALDATA",
+              "EINVALQUERY",
+              "EINVALSTTL",
+              "EINVALOVERLAYBG",
+              "EINTEGRATION",
+              "EMAXREDIRECTS",
+              "EPAGERANGE",
+              "EPDFTOOLARGE",
+              "EPRO",
+              "EPROXY",
+              "EPROXYNEEDED",
+              "ERATE",
+              "ETIMEOUT",
+              "ETTL",
+              "ESTTL"
+            ],
+            "description": "Stable error code. See https://microlink.io/docs/api/basics/error-codes"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable explanation of why the request failed."
+          },
+          "more": {
+            "type": "string",
+            "format": "uri",
+            "description": "Documentation URL for this error code."
+          },
+          "report": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL for reporting the request to Microlink."
+          },
+          "id": {
+            "type": "string",
+            "description": "Request identifier. Include it when contacting support."
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    }
+  }
+}

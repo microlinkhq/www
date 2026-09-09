@@ -502,7 +502,7 @@ const Playground = () => {
     <Box
       id='playground'
       as='section'
-      aria-label='Google SERP API playground'
+      aria-label='Microlink Search playground'
       css={theme({ mt: 4 })}
     >
       <Text aria-live='polite' aria-atomic='true' css={visuallyHiddenCss}>

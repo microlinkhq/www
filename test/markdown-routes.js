@@ -9,7 +9,7 @@ const DOCS_DIR = path.join(process.cwd(), 'src/content/docs')
 const PAGE_MARKDOWN = path.join(process.cwd(), 'src/helpers/page-markdown.js')
 const DOC_TEMPLATE = path.join(process.cwd(), 'src/templates/doc.js')
 
-const { headers, redirects, rewrites } = JSON.parse(
+const { headers, redirects, rewrites, routes } = JSON.parse(
   fs.readFileSync(VERCEL_CONFIG, 'utf8')
 )
 
@@ -41,7 +41,8 @@ const PAGE_MARKDOWN_PATHNAMES = [
   '/screenshot/php.md',
   '/features/screenshot.md',
   '/blog/some-post.md',
-  '/tools/embed-url.md'
+  '/tools/embed-url.md',
+  '/404.md'
 ]
 
 const EXCLUDED_PATHNAMES = [
@@ -49,14 +50,20 @@ const EXCLUDED_PATHNAMES = [
   '/tools/embed-url/icosa-gallery.md',
   '/recipes.md',
   '/recipes/take-a-screenshot.md',
-  '/404.md',
   '/dev-404-page.md',
   '/offline-plugin-app-shell-fallback.md'
 ]
 
+const varyValue = headers =>
+  headers.find(({ key }) => key.toLowerCase() === 'vary')?.value
+
 describe('markdown content-type header', () => {
   test('is declared', () => {
     expect(markdownRule).toBeDefined()
+  })
+
+  test('varies by Accept so caches do not mix HTML and markdown', () => {
+    expect(varyValue(markdownRule.headers)).toBe('Accept, Accept-Encoding')
   })
 
   test('covers every generated markdown file', () => {
@@ -139,11 +146,104 @@ describe('markdown content negotiation', () => {
   })
 
   test('leaves the pages without a markdown file alone', () => {
-    for (const pathname of EXCLUDED_PATHNAMES) {
+    for (const pathname of [...EXCLUDED_PATHNAMES, '/404.md']) {
       expect(matchesNegotiation(pathname.replace(/\.md$/, '')), pathname).toBe(
         false
       )
     }
+  })
+
+  test('marks HTML pages as varying by Accept', () => {
+    const htmlVary = headers.find(
+      ({ source, headers: ruleHeaders }) =>
+        source === '/((?!.*\\.[a-zA-Z0-9]+$).*)' && varyValue(ruleHeaders)
+    )
+    expect(htmlVary).toBeDefined()
+    expect(varyValue(htmlVary.headers)).toBe('Accept, Accept-Encoding')
+    expect(new RegExp(`^${htmlVary.source}$`).test('/pricing')).toBe(true)
+    expect(new RegExp(`^${htmlVary.source}$`).test('/pricing.md')).toBe(false)
+  })
+
+  test('also varies extension paths so HTML 404s are not reused for markdown', () => {
+    const catchAll = headers.find(
+      ({ source, headers: ruleHeaders }) =>
+        source === '/(.*)' && varyValue(ruleHeaders)
+    )
+    expect(catchAll).toBeDefined()
+    expect(varyValue(catchAll.headers)).toBe('Accept, Accept-Encoding')
+    expect(new RegExp(`^${catchAll.source}$`).test('/missing.txt')).toBe(true)
+  })
+})
+
+const markdownNotFound = (routes || []).find(
+  ({ dest, status, src }) =>
+    dest === '/404.md' && status === 404 && src === '/(.+)\\.md'
+)
+
+const agentNotFound = (routes || []).find(
+  ({ dest, status, missing }) => dest === '/404.md' && status === 404 && missing
+)
+
+const matchesMarkdownNotFound = pathname =>
+  new RegExp(`^${markdownNotFound.src}$`).test(pathname)
+
+describe('missing markdown file', () => {
+  test('is a filesystem miss, so an existing .md file is served as-is', () => {
+    const filesystem = (routes || []).findIndex(
+      ({ handle }) => handle === 'filesystem'
+    )
+    const notFound = (routes || []).findIndex(
+      ({ dest, status, src }) =>
+        dest === '/404.md' && status === 404 && src === '/(.+)\\.md'
+    )
+    expect(filesystem).toBeGreaterThanOrEqual(0)
+    expect(notFound).toBeGreaterThan(filesystem)
+  })
+
+  test('answers with 404.md and HTTP 404', () => {
+    expect(markdownNotFound).toBeDefined()
+    expect(markdownNotFound.headers['Content-Type']).toBe(
+      'text/markdown; charset=utf-8'
+    )
+    expect(markdownNotFound.headers.Vary).toBe('Accept, Accept-Encoding')
+  })
+
+  test('covers a path that has no page', () => {
+    for (const pathname of ['/notexist.md', '/foo/bar.md', '/404.md']) {
+      expect(matchesMarkdownNotFound(pathname), pathname).toBe(true)
+    }
+  })
+
+  test('does not steal HTML 404s', () => {
+    expect(matchesMarkdownNotFound('/notexist')).toBe(false)
+  })
+})
+
+describe('agent-friendly 404', () => {
+  test('serves 404.md when the client does not ask for HTML', () => {
+    expect(agentNotFound).toBeDefined()
+    expect(agentNotFound.headers['Content-Type']).toBe(
+      'text/markdown; charset=utf-8'
+    )
+    expect(agentNotFound.headers.Vary).toBe('Accept, Accept-Encoding')
+    expect(agentNotFound.missing).toEqual([
+      {
+        type: 'header',
+        key: 'accept',
+        value: '.*text/html.*'
+      }
+    ])
+  })
+
+  test('runs after the filesystem so real pages stay 200', () => {
+    const filesystem = (routes || []).findIndex(
+      ({ handle }) => handle === 'filesystem'
+    )
+    const agent = (routes || []).findIndex(
+      ({ dest, status, missing }) =>
+        dest === '/404.md' && status === 404 && missing
+    )
+    expect(agent).toBeGreaterThan(filesystem)
   })
 })
 

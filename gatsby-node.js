@@ -18,9 +18,12 @@ const { getLastModifiedDate, branchName } = require('./src/helpers/git')
 const {
   DOCS_CONTENT_SELECTOR,
   extractMarkdown,
+  isNotDeployedYet,
   isMarkdownPage,
+  retryStaleNotFound,
   toMarkdownPath,
-  prependTitle
+  prependTitle,
+  notFoundMarkdown
 } = require('./src/helpers/page-markdown')
 const { buildLlmsTxt } = require('./src/helpers/llms-txt')
 const {
@@ -58,20 +61,22 @@ const githubUrl = (() => {
   }
 })()
 
-const markdownFetcher = url => async selector => {
-  const {
-    data: { markdown },
-    response
-  } = await mql(url, {
+const requestMarkdown = (url, selector, force) =>
+  mql(url, {
     apiKey: process.env.MICROLINK_API_KEY,
     data: {
       markdown: selector ? { selector, attr: 'markdown' } : { attr: 'markdown' }
     },
-    meta: false
-  })
+    meta: false,
+    force
+  }).then(({ data: { markdown }, statusCode, response }) => ({
+    markdown,
+    statusCode,
+    duration: response.headers.get('x-response-time')
+  }))
 
-  return { markdown, duration: response.headers.get('x-response-time') }
-}
+const markdownFetcher = url => async selector =>
+  retryStaleNotFound(force => requestMarkdown(url, selector, force))
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
@@ -98,8 +103,30 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   actions.setWebpackConfig({
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+      alias: {
+        'microlink.io/cli': require.resolve('microlink.io/cli')
+      },
       fallback: {
-        path: require.resolve('path-browserify')
+        path: require.resolve('path-browserify'),
+        fs: false,
+        os: false,
+        http: false,
+        https: false,
+        crypto: false,
+        child_process: false,
+        zlib: false,
+        util: false,
+        assert: false,
+        stream: false,
+        constants: false,
+        'node:fs': false,
+        'node:os': false,
+        'node:http': false,
+        'node:crypto': false,
+        'node:util': false,
+        'node:zlib': false,
+        'node:path': false,
+        'node:child_process': false
       }
     }
   })
@@ -316,32 +343,42 @@ exports.createPages = ({ graphql, actions }) => {
   ])
 }
 
-const getMqlCode = (recipe, { name }) => `const mql = require('@microlink/mql')
+const toSdkSource = source =>
+  source
+    .replace(
+      /const \{ data \} = await mql\(/g,
+      'const data = await microlink.metadata('
+    )
+    .replace(
+      /const result = await mql\(/g,
+      'const result = await microlink.metadata('
+    )
+    .replace(/\bmql\(/g, 'microlink.metadata(')
 
-const ${name} = ${recipe.toString()}
+const SDK_PREAMBLE = `import createClient from 'microlink.io'
+
+const microlink = createClient()`
+
+const getDataCode = (recipe, { name }) => `${SDK_PREAMBLE}
+
+const ${name} = ${toSdkSource(recipe.toString())}
 
 const result = await ${name}('${recipe.meta.examples[0]}')
 
-mql.render(result)`
+console.log(result)`
 
-const getFunctionCode = (
-  recipe,
-  { name }
-) => `const mql = require('@microlink/mql')
+const getFunctionCode = (recipe, { name }) => `${SDK_PREAMBLE}
 
 const code = ${recipe.code}
 
-const ${name} = (url, props) =>
-  mql(url, { function: code.toString(), meta: false, ...props })
-  .then(({ data }) => data.function)
+const ${name} = (url, props) => microlink.function(url, code, props)
 
-const result = await ${name}('${recipe.meta.examples[0]}')
+const { value } = await ${name}('${recipe.meta.examples[0]}')
 
-mql.render(result)
-`
+console.log(value)`
 
 const getCode = (recipe, { name }) =>
-  (recipe.code ? getFunctionCode : getMqlCode)(recipe, { name })
+  (recipe.code ? getFunctionCode : getDataCode)(recipe, { name })
 
 const createRecipesPages = async ({ createPage, recipes }) => {
   const pages = map(recipes, async (recipe, recipeName) => {
@@ -486,6 +523,8 @@ const markdownPathnames = nodes =>
   })
 
 const createPageMarkdownFiles = async ({ graphql, reporter }) => {
+  writeFileSync(path.join(process.cwd(), 'public', '404.md'), notFoundMarkdown)
+
   if (!isProductionBuild()) {
     reporter.info('Skipping markdown generation outside a production build')
     return
@@ -535,15 +574,22 @@ const createPageMarkdownFiles = async ({ graphql, reporter }) => {
 
   const pathnames = markdownPathnames(result.data.allSitePage.nodes)
 
+  const undeployedPathnames = new Set()
   const startTime = Date.now()
   await pMap(
     pathnames,
     async pathname => {
       const url = new URL(pathname, baseUrl).toString()
-      const { markdown, duration, selector } = await extractMarkdown(
-        markdownFetcher(url),
-        pathname
-      )
+      const { markdown, duration, selector, statusCode } =
+        await extractMarkdown(markdownFetcher(url), pathname)
+
+      if (isNotDeployedYet(statusCode)) {
+        undeployedPathnames.add(pathname)
+        return reporter.warn(
+          `${url} is not deployed yet, so its markdown was skipped. ` +
+            'It resolves on the next deploy.'
+        )
+      }
 
       if (!markdown) {
         return reporter.panicOnBuild(`No content extracted from ${url}`)
@@ -573,11 +619,14 @@ const createPageMarkdownFiles = async ({ graphql, reporter }) => {
   )
   const duration = Date.now() - startTime
 
+  const writtenPathnames = pathnames.filter(
+    pathname => !undeployedPathnames.has(pathname)
+  )
   reporter.info(
-    `Generated ${pathnames.length} page markdown files in ${duration}ms`
+    `Generated ${writtenPathnames.length} page markdown files in ${duration}ms`
   )
 
-  const pages = pathnames.map(pathname => ({
+  const pages = writtenPathnames.map(pathname => ({
     pathname,
     ...pageMetadata(pathname)
   }))

@@ -90,9 +90,8 @@ export const CAPABILITIES = {
       description: (
         <>
           Ask for <Link href='/markdown'>Markdown</Link>,{' '}
-          <Link href='/html'>HTML</Link>,{' '}
-          <Link href='/metadata'>metadata</Link>, a{' '}
-          <Link href='/screenshot'>screenshot</Link>, a{' '}
+          <Link href='/html'>HTML</Link>, <Link href='/metadata'>metadata</Link>
+          , a <Link href='/screenshot'>screenshot</Link>, a{' '}
           <Link href='/pdf'>PDF</Link>, or a custom{' '}
           <Link href='/docs/api/parameters/data'>data</Link> shape with CSS
           selectors — several of them in the same request.
@@ -104,7 +103,7 @@ export const CAPABILITIES = {
       title: 'Run code when you need to',
       description: (
         <>
-          <Link href='/features/function'>Browser Functions</Link> execute your
+          <Link href='/function'>Browser Functions</Link> execute your
           JavaScript against a live Puppeteer page and <code>require()</code>{' '}
           any npm package — page-level control without operating a session.
         </>
@@ -327,7 +326,7 @@ export const COMPARISON = {
     },
     {
       feature: 'Run your own browser code',
-      href: '/features/function',
+      href: '/function',
       microlink: true,
       browserbase: true,
       note: 'Browser Functions give Microlink a Puppeteer page plus any npm package. Browserbase gives you the whole session in your own framework.'
@@ -498,10 +497,10 @@ export const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. <Link href='/features/function'>Browser Functions</Link> execute
-          your JavaScript against a live Puppeteer page, and the runtime
-          installs any npm package you <code>require()</code> automatically,
-          caching it for later runs.
+          Yes. <Link href='/function'>Browser Functions</Link> execute your
+          JavaScript against a live Puppeteer page, and the runtime installs any
+          npm package you <code>require()</code> automatically, caching it for
+          later runs.
         </div>
         <div>
           You get page-level control without opening and managing a session —

@@ -55,6 +55,7 @@ const REPO_TILES = {
   metascraper: TILE_PALETTE[0],
   browserless: TILE_PALETTE[1],
   sdk: TILE_PALETTE[2],
+  microlink: TILE_PALETTE[2],
   cards: TILE_PALETTE[3],
   'html-get': TILE_PALETTE[4],
   unavatar: TILE_PALETTE[5]

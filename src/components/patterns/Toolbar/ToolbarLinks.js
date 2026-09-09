@@ -43,7 +43,7 @@ import { Grid as GridIcon } from 'components/icons/Grid'
 import { GitHub as GitHubBrand } from 'components/icons/GitHub'
 import { Brain as BrainIcon } from 'components/icons/Brain'
 import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
-import { theme } from 'theme'
+import { theme, transition } from 'theme'
 import styled from 'styled-components'
 import NavLink from './NavLink'
 
@@ -64,6 +64,31 @@ export const ToolbarNavLink = styled(NavLink)`
   ${theme({
     pl: 0
   })}
+`
+
+export const ToolbarActionLink = styled(ToolbarNavLink)`
+  ${theme({
+    border: 1,
+    borderColor: 'black10',
+    borderRadius: '999px',
+    color: 'black80'
+  })}
+  transition: color ${transition.medium}, background-color ${transition.medium},
+    border-color ${transition.medium};
+
+  > a {
+    ${theme({ px: 3 })}
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  &:hover,
+  &:focus-within {
+    ${theme({ bg: 'black05', borderColor: 'black20', color: 'black' })}
+  }
 `
 
 const docsMatcher = ({ location }) => location.pathname.startsWith('/docs')
@@ -231,7 +256,7 @@ export const NAVIGATION_SECTIONS = [
         icon: Code
       }),
       createNavigationItem({
-        label: 'Search API',
+        label: 'Search',
         href: '/search',
         description: 'Turn Google results into structured data',
         icon: SearchIcon
@@ -253,6 +278,12 @@ export const NAVIGATION_SECTIONS = [
         href: '/html',
         description: 'Get the rendered HTML after JavaScript runs',
         icon: Code
+      }),
+      createNavigationItem({
+        label: 'Function',
+        href: '/function',
+        description: 'Run custom browser code on any page',
+        icon: TerminalIcon
       }),
       createNavigationItem({
         label: 'Text',

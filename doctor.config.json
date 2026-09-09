@@ -43,6 +43,7 @@
         "files": [
           "src/components/hook/use-breakpoint.js",
           "src/components/hook/use-hover.js",
+          "src/components/pages/cli/use-cli-terminal.js",
           "src/components/pages/sdk/mockups.js"
         ],
         "rules": [

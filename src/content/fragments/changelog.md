@@ -79,7 +79,7 @@
 - [Microlink API](/docs/api/getting-started/overview): Added [JSON](/docs/guides/data-extraction) data extraction support.
 - [Microlink API](/docs/api/getting-started/overview): Improved [markdown](/docs/api/parameters/markdown) table and code block rendering.
 - [Microlink API](/docs/api/getting-started/overview): Improved Reddit, Instagram, and LinkedIn URLs resolution.
-- [Microlink CLI](https://github.com/microlinkhq/cli): Added [headers](/docs/api/parameters/headers) support.
+- [Microlink CLI](https://github.com/microlinkhq/microlink): Added [headers](/docs/api/parameters/headers) support.
 - [unavatar.io](https://unavatar.io): Added [Pinterest](https://unavatar.io/pinterest), [Snapchat](https://unavatar.io/snapchat), [Discord](https://unavatar.io/discord), [Behance](https://unavatar.io/behance), [Threads](https://unavatar.io/threads), [Steam](https://unavatar.io/steam), [Tumblr](https://unavatar.io/tumblr), [Facebook](https://unavatar.io/facebook), [Flickr](https://unavatar.io/flickr), [Stack Overflow](https://unavatar.io/stackoverflow), [Buy Me a Coffee](https://unavatar.io/buymeacoffee), [Google Play](https://unavatar.io/google-play), [Apple Store](https://unavatar.io/apple-store), [Xbox Gamertag](https://unavatar.io/xboxgamertag), and [PSN Profiles](https://unavatar.io/psnprofiles) support.
 - [unavatar.io](https://unavatar.io): [GitHub](https://unavatar.io/github) now supports email avatar lookup.
 - [unavatar.io](https://unavatar.io): [Gravatar](https://unavatar.io/gravatar) now accepts pre-computed MD5/SHA256 hash as input.
@@ -207,13 +207,13 @@
 
 ### September 2023
 
-- [Microlink MQL](/docs/mql/getting-started/overview): Added ESM support. Edge bundle isn't necessary anymore.
+- [Microlink MQL](/docs/sdk/methods/extract): Added ESM support. Edge bundle isn't necessary anymore.
 - [Microlink API](/docs/api/getting-started/overview): All `logos` are square.
 - [Microlink API](/docs/api/getting-started/overview): Improved iframe resolution.
 
 ### August 2023
 
-- [Microlink MQL](/docs/mql/getting-started/overview): Added TypeScript types; Added edge installation details.
+- [Microlink MQL](/docs/sdk/methods/extract): Added TypeScript types; Added edge installation details.
 
 ### July 2023
 
@@ -243,10 +243,10 @@
 
 ### November 2022
 
-- [Microlink MQL](/docs/mql/getting-started/overview): Added nested selectorAll support.
+- [Microlink MQL](/docs/sdk/methods/extract): Added nested selectorAll support.
 - [Microlink API](/docs/api/getting-started/overview): Improved logo detection.
 - [Microlink OSS](/oss): Released [nanoclamp](https://nanoclamp.microlink.io) 2.0
-- [Microlink MQL](/docs/mql/getting-started/overview): Added ESM bundle and [demo](https://mql.microlink.io) site.
+- [Microlink MQL](/docs/sdk/methods/extract): Added ESM bundle and [demo](https://mql.microlink.io) site.
 
 ### October 2022
 
@@ -334,7 +334,7 @@
 
 - [Metascraper v5.25.0](https://metascraper.js.org): Improved highest resolution logo detection and PWA manifest integration.
 - [Microlink Recipes](/recipes): Added [emails](/recipes/emails) recipe.
-- [Microlink MQL](/docs/mql/getting-started/overview): Added [email](/docs/mql/data/type) as type.
+- [Microlink MQL](/docs/sdk/methods/extract): Added [email](/docs/sdk/methods/extract/type) as type.
 - [Microlink Security](/.well-known/security.txt): Special thanks to Daniel Wang for improving service security.
 - [Microlink API](/docs/api/getting-started/overview): Added [efatalclient](https://microlink.io/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](https://microlink.io/docs/api/basics/error-codes#eforbiddenurl) error codes.
 
@@ -343,7 +343,7 @@
 - [Microlink API](/docs/api/getting-started/overview): Added preset support for [lighthouse](/docs/api/parameters/insights/lighthouse).
 - [Microlink Cards](https://cards.microlink.io): Added [dracula](https://cards.microlink.io/editor?preset=dracula) preset.
 - [Microlink Recipes](/recipes): Added [excerption](/recipes/excerpt) recipe.
-- [Microlink API](/docs/api/getting-started/overview): Improved [evaluate](/docs/mql/data/evaluate) performance.
+- [Microlink API](/docs/api/getting-started/overview): Improved [evaluate](/docs/sdk/methods/extract/evaluate) performance.
 - [Keyv](https://github.com/microlinkhq/keyvhq): Released [@keyvhq/multi](https://github.com/microlinkhq/keyv/tree/master/packages/multi)
 - [Keyv](https://github.com/microlinkhq/keyvhq): Released [@keyvhq/offline](https://github.com/microlinkhq/keyv/tree/master/packages/offline)
 - [Keyv](https://github.com/microlinkhq/keyvhq): Released [@keyvhq/compress](https://github.com/microlinkhq/keyv/tree/master/packages/compress)
@@ -382,7 +382,7 @@
 ### April 2021
 
 - [Microlink API](/docs/api/getting-started/overview): Added better default fonts and improved [font rendering](https://pro.microlink.io/?url=https%3A%2F%2Ffont-rendering.vercel.app&screenshot=&fullPage=&embed=screenshot.url).
-- [Microlink CLI](https://github.com/microlinkhq/cli): Released v2.0.0.
+- [Microlink CLI](https://github.com/microlinkhq/microlink): Released v2.0.0.
 - [Microlink Function](https://github.com/microlinkhq/function): Released [@microlink/local](https://github.com/microlinkhq/local) for running them locally.
 
 ### March 2021
@@ -413,7 +413,7 @@
 ### November 2020
 
 - [Metascraper v5.15](https://metascraper.js.org): Improved Telegram integration.
-- [Microlink API](/docs/api/getting-started/overview): Added [evaluate](/docs/mql/data/evaluate) data extractor.
+- [Microlink API](/docs/api/getting-started/overview): Added [evaluate](/docs/sdk/methods/extract/evaluate) data extractor.
 - [Microlink API](/docs/api/getting-started/overview): Added [retry](/docs/api/parameters/retry) query parameter.
 - [Microlink Cluster](/status): Upgraded to [Node.js 14 LTS](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md).
 
@@ -441,4 +441,4 @@
 ### June 2020
 
 - [Microlink](/): Launched [Microlink OSS](/oss).
-- [Microlink SDK](/docs/sdk-legacy/getting-started/overview/) Added [CSS variables](/docs/sdk-legacy/getting-started/styling/#css-variables) support.
+- [Microlink SDK](/link-preview): Added CSS variables support.

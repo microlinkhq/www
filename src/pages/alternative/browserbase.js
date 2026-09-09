@@ -29,7 +29,7 @@ import {
   TIMINGS_ACCENT
 } from 'components/pages/browserbase/shared'
 
-const REPOS = ['browserless', 'mcp', 'function']
+const REPOS = ['browserless', 'mcp', 'microlink']
 
 export const Head = () => (
   <Meta
