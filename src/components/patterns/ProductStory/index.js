@@ -6,7 +6,6 @@ export {
   NARROW_MAX_WIDTH
 } from './shared'
 export { ProductHero } from './hero'
-export { ProductPrimer } from './primer'
 export { ProductTimings } from './timings'
 export { ProductCapabilities } from './capabilities'
 export { ProductPricing } from './pricing'

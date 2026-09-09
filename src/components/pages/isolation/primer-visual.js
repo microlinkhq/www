@@ -12,7 +12,7 @@ export const IsolationPrimerVisual = () => (
     <Connector x1={252} y1={72} x2={320} y2={72} />
     <Connector x1={480} y1={72} x2={520} y2={72} />
     <Connector x1={680} y1={72} x2={740} y2={72} />
-    <Connector d='M 400,104 V 168' dashed variant='muted' />
+    <Connector d='M 400,104 V 168' dashed />
     <Node
       x={52}
       y={40}

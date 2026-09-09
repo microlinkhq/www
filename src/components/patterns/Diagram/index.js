@@ -14,20 +14,18 @@ const useDiagram = () => {
   return ctx
 }
 
-const diagramTokens = () => ({
+const TOKENS = {
   paper: colors.white,
   ink: colors.black,
   muted: colors.black60,
   soft: colors.black40,
-  rule: colors.black10,
-  link: colors.black60,
   inputFill: colors.black05,
   nestOuterFill: colors.black0125,
   nestMidFill: colors.black025,
   nestOuterStroke: colors.black30,
   nestMidStroke: colors.black50,
   accent: colors.secondary
-})
+}
 
 const TONES = {
   focal: t => ({ fill: t.accent, fillOpacity: 0.08, stroke: t.accent }),
@@ -36,12 +34,6 @@ const TONES = {
   backend: t => ({ fill: t.paper, stroke: t.ink }),
   optional: t => ({ fill: t.paper, stroke: t.soft, dashed: true })
 }
-
-const MARKERS = [
-  ['arrow', 'link'],
-  ['arrow-accent', 'accent'],
-  ['arrow-muted', 'muted']
-]
 
 const labelWidth = text => Math.ceil((text.length * 8 + 16) / 4) * 4
 
@@ -98,52 +90,24 @@ const Label = ({ x, y, width, text, wide, fill }) => {
   )
 }
 
-export const Zone = ({ x, y, width, height, label }) => {
-  const { tokens: t } = useDiagram()
-  return (
-    <g>
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        rx='8'
-        fill={t.ink}
-        fillOpacity='0.02'
-        stroke={t.rule}
-        strokeWidth='0.8'
-      />
-      <Label
-        x={x + 12}
-        y={y + 4}
-        width={label.length * 8 + 8}
-        text={label}
-        wide
-      />
-    </g>
-  )
-}
-
 export const Connector = ({
   d,
   x1,
   y1,
   x2,
   y2,
-  variant = 'link',
   dashed,
   label,
   labelX,
   labelY
 }) => {
   const { id, tokens: t } = useDiagram()
-  const markerId = variant === 'link' ? `${id}-arrow` : `${id}-arrow-${variant}`
   const common = {
     fill: 'none',
-    stroke: t[variant],
+    stroke: t.muted,
     strokeWidth: dashed ? '1' : '1.2',
     strokeDasharray: dashed ? '4,3' : undefined,
-    markerEnd: `url(#${markerId})`
+    markerEnd: `url(#${id}-arrow)`
   }
   const w = label ? labelWidth(label) : 0
   const lx = labelX ?? (x1 != null && x2 != null ? (x1 + x2) / 2 - w / 2 : null)
@@ -170,6 +134,25 @@ const diamondPoints = (x, y, width, height) => {
   return `${mx},${y} ${x + width},${my} ${mx},${y + height} ${x},${my}`
 }
 
+const Shape = ({ x, y, width, height, shape, paper, overlay }) => {
+  if (shape === 'diamond') {
+    const points = diamondPoints(x, y, width, height)
+    return (
+      <>
+        <polygon points={points} fill={paper} />
+        <polygon points={points} {...overlay} />
+      </>
+    )
+  }
+  const rx = shape === 'oval' ? height / 2 : 6
+  return (
+    <>
+      <rect x={x} y={y} width={width} height={height} rx={rx} fill={paper} />
+      <rect x={x} y={y} width={width} height={height} rx={rx} {...overlay} />
+    </>
+  )
+}
+
 export const Node = ({
   x,
   y,
@@ -178,50 +161,29 @@ export const Node = ({
   name,
   note,
   shape = 'rect',
-  tone = 'input',
-  fill,
-  stroke
+  tone = 'input'
 }) => {
   const { tokens: t } = useDiagram()
   const resolved = TONES[tone](t)
   const cx = x + width / 2
   const cy = y + height / 2 + (note ? -2 : 4)
-  const common = {
-    fill: fill ?? resolved.fill,
-    fillOpacity: resolved.fillOpacity,
-    stroke: stroke ?? resolved.stroke,
-    strokeWidth: '1',
-    strokeDasharray: resolved.dashed ? '4,3' : undefined
-  }
   return (
     <g>
-      {shape === 'diamond'
-        ? (
-          <>
-            <polygon points={diamondPoints(x, y, width, height)} fill={t.paper} />
-            <polygon points={diamondPoints(x, y, width, height)} {...common} />
-          </>
-          )
-        : (
-          <>
-            <rect
-              x={x}
-              y={y}
-              width={width}
-              height={height}
-              rx={shape === 'oval' ? height / 2 : 6}
-              fill={t.paper}
-            />
-            <rect
-              x={x}
-              y={y}
-              width={width}
-              height={height}
-              rx={shape === 'oval' ? height / 2 : 6}
-              {...common}
-            />
-          </>
-          )}
+      <Shape
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        shape={shape}
+        paper={t.paper}
+        overlay={{
+          fill: resolved.fill,
+          fillOpacity: resolved.fillOpacity,
+          stroke: resolved.stroke,
+          strokeWidth: '1',
+          strokeDasharray: resolved.dashed ? '4,3' : undefined
+        }}
+      />
       <text
         x={cx}
         y={cy}
@@ -343,65 +305,8 @@ export const Nest = ({
   )
 }
 
-export const Layer = ({
-  x,
-  y,
-  width,
-  height,
-  index,
-  name,
-  note,
-  tone = 'backend'
-}) => {
-  const { tokens: t } = useDiagram()
-  const resolved = TONES[tone](t)
-  const cy = y + height / 2 + 4
-  return (
-    <g>
-      <rect x={x} y={y} width={width} height={height} rx='6' fill={t.paper} />
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        rx='6'
-        fill={resolved.fill}
-        fillOpacity={resolved.fillOpacity}
-        stroke={resolved.stroke}
-        strokeWidth='1'
-      />
-      <text
-        className='mono'
-        x={x + 16}
-        y={cy}
-        fill={t.soft}
-        fontSize='8'
-        letterSpacing='0.14em'
-      >
-        {index}
-      </text>
-      <text x={x + 72} y={cy} fill={t.ink} fontSize='12' fontWeight='600'>
-        {name}
-      </text>
-      {note && (
-        <text
-          className='mono'
-          x={x + width - 16}
-          y={cy}
-          fill={t.muted}
-          fontSize='8'
-          textAnchor='end'
-        >
-          {note}
-        </text>
-      )}
-    </g>
-  )
-}
-
 export const Diagram = ({ id, viewBox, title, description, children }) => {
-  const tokens = useMemo(() => diagramTokens(), [])
-  const value = useMemo(() => ({ id, tokens }), [id, tokens])
+  const value = useMemo(() => ({ id, tokens: TOKENS }), [id])
   return (
     <DiagramContext.Provider value={value}>
       <Frame>
@@ -413,22 +318,19 @@ export const Diagram = ({ id, viewBox, title, description, children }) => {
           <title id={`${id}-title`}>{title}</title>
           <desc id={`${id}-desc`}>{description}</desc>
           <defs>
-            {MARKERS.map(([suffix, key]) => (
-              <marker
-                key={suffix}
-                id={`${id}-${suffix}`}
-                markerWidth='8'
-                markerHeight='6'
-                refX='8'
-                refY='3'
-                markerUnits='userSpaceOnUse'
-                orient='auto'
-              >
-                <polygon points='0 0, 8 3, 0 6' fill={tokens[key]} />
-              </marker>
-            ))}
+            <marker
+              id={`${id}-arrow`}
+              markerWidth='8'
+              markerHeight='6'
+              refX='8'
+              refY='3'
+              markerUnits='userSpaceOnUse'
+              orient='auto'
+            >
+              <polygon points='0 0, 8 3, 0 6' fill={TOKENS.muted} />
+            </marker>
           </defs>
-          <rect width='100%' height='100%' fill={tokens.paper} />
+          <rect width='100%' height='100%' fill={TOKENS.paper} />
           {children}
         </Canvas>
       </Frame>
