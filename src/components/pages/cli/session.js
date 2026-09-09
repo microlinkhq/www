@@ -192,9 +192,11 @@ export const createCliSession = ({
         }
       }
       if (!disposed && !attracting) {
+        term.write('\x1b[?25l')
         liveCommand = null
         if (usedPager) prompt()
         else {
+          pinOverlay = true
           resetInput()
           running = false
           marks.push({
