@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
+import { blink } from 'components/keyframes'
 import { Link } from 'components/elements/Link'
 import ArrowLink from 'components/patterns/ArrowLink'
 import { HOME_CONTENT_WIDTH } from 'components/pages/home/catalog'
@@ -18,9 +19,26 @@ import {
   SECTION_VERTICAL_SPACING
 } from 'theme'
 
-const DEVICE_SRC = '/images/cli-banner.jpg'
-const DEVICE_WIDTH = 1024
-const DEVICE_HEIGHT = 576
+const DEVICE_SRC = '/images/cli-banner.png'
+const DEVICE_WIDTH = 1920
+const DEVICE_HEIGHT = 1080
+
+const Caret = styled.span`
+  ${theme({
+    display: 'inline-block',
+    width: '2px',
+    height: '0.85em',
+    ml: '6px',
+    bg: 'secondary'
+  })}
+  vertical-align: -0.08em;
+  animation: ${blink} 1s cubic-bezier(1, 0, 0, 1) infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: 1;
+  }
+`
 
 const Command = styled(Flex)`
   ${theme({
@@ -94,8 +112,10 @@ const DeviceWell = styled(Box)`
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    object-position: center;
+    object-fit: cover;
+    ${theme({
+      objectPosition: ['center 22%', 'center 22%', 'center 22%', 'center']
+    })}
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -185,6 +205,7 @@ const CliBanner = () => {
               })}
             >
               Try it in your terminal
+              <Caret aria-hidden='true' />
             </Text>
             <Text
               as='p'
