@@ -54,8 +54,8 @@ const FreePlanCard = ({ activePlan }) => (
         <Link href='/text'>Text</Link>
       </PlanCheck>
       <PlanCheck>
-        <Link href='/function'>Function</Link>,{' '}
-        <Link href='/search'>Search</Link>, <Link href='/media'>Media</Link>
+        <Link href='/function'>Function</Link>, <Link href='/media'>Media</Link>
+        , <Link href='/file-conversion'>File Conversion</Link>
       </PlanCheck>
       <PlanCheck>
         <Link href='/blog/edge-cdn'>Global edge cache</Link>
