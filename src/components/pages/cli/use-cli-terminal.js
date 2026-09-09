@@ -4,7 +4,82 @@ import { prefersReducedMotion } from 'helpers/reduced-motion'
 import { colors, fontSizes, toRaw } from 'theme'
 
 import { createCliSession } from './session'
+import { shareHref } from './share'
 import { ATTRACT_COMMANDS, MIN_TERMINAL_COLS, isCompactCli } from './shared'
+
+const ICON = {
+  copy: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+  link: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+  check:
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>'
+}
+
+const iconSlot = (name, svg) => {
+  const span = document.createElement('span')
+  span.dataset.cliIcon = name
+  span.setAttribute('aria-hidden', 'true')
+  span.innerHTML = svg
+  return span
+}
+
+const attachPinButton = (parent, { name, label, icon, getText }) => {
+  const button = document.createElement('button')
+  button.type = 'button'
+  button.dataset.cliAction = name
+  button.setAttribute('aria-label', label)
+  button.setAttribute('aria-live', 'polite')
+  button.append(iconSlot('action', icon), iconSlot('done', ICON.check))
+  let timer
+  const onClick = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    const text = getText()
+    if (!text || typeof navigator === 'undefined' || !navigator.clipboard) {
+      return
+    }
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        delete button.dataset.copied
+        button.getBoundingClientRect()
+        button.dataset.copied = 'true'
+        button.setAttribute('aria-label', 'Copied')
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          delete button.dataset.copied
+          button.setAttribute('aria-label', label)
+        }, 1500)
+      })
+      .catch(() => {})
+  }
+  button.addEventListener('click', onClick)
+  parent.append(button)
+  return () => {
+    clearTimeout(timer)
+    button.removeEventListener('click', onClick)
+  }
+}
+
+const attachPinActions = (pin, { getCommand, getOutput }) => {
+  const actions = document.createElement('span')
+  actions.dataset.cliActions = ''
+  const unbind = [
+    attachPinButton(actions, {
+      name: 'copy',
+      label: 'Copy output',
+      icon: ICON.copy,
+      getText: getOutput
+    }),
+    attachPinButton(actions, {
+      name: 'permalink',
+      label: 'Copy permalink',
+      icon: ICON.link,
+      getText: () => shareHref(getCommand())
+    })
+  ]
+  pin.append(actions)
+  return () => unbind.forEach(fn => fn())
+}
 
 export const PLAYGROUND_HEIGHT = 360
 
@@ -84,7 +159,7 @@ const bindTouchScroll = (surface, term) => {
 
 export const useCliTerminal = (
   containerRef,
-  { attract = true, attractCommands = ATTRACT_COMMANDS } = {}
+  { attract = true, attractCommands = ATTRACT_COMMANDS, share = false } = {}
 ) => {
   const commands = attract ? attractCommands : null
   useEffect(() => {
@@ -97,6 +172,7 @@ export const useCliTerminal = (
     let resizeObserver
     let session
     let detachTouch
+    let detachActions
     ;(async () => {
       const [{ Terminal }, { FitAddon }, cli] = await Promise.all([
         import('@xterm/xterm'),
@@ -132,11 +208,22 @@ export const useCliTerminal = (
       promptPin.dataset.cliPin = 'prompt'
       commandPin.dataset.collapsed = 'true'
       promptPin.hidden = true
+      const commandText = document.createElement('span')
+      commandText.dataset.cliCmd = ''
+      commandPin.append(commandText)
+      let pinnedOutput = ''
+      if (share) {
+        detachActions = attachPinActions(commandPin, {
+          getCommand: () => commandText.textContent,
+          getOutput: () => pinnedOutput
+        })
+      }
       const pinFont = `${term.options.fontSize}px`
       commandPin.style.fontSize = pinFont
       promptPin.style.fontSize = pinFont
       surface.append(commandPin, host, promptPin)
       const focusTerm = e => {
+        if (e.target.closest('[data-cli-actions]')) return
         e.preventDefault()
         term.focus()
       }
@@ -156,10 +243,14 @@ export const useCliTerminal = (
         term,
         run: cli.run ?? cli.default,
         attractCommands: commands,
+        share,
         surface,
-        onPin: ({ command, prompt: promptText, viewLine }) => {
+        onPin: ({ command, output, prompt: promptText, viewLine }) => {
           const open = Boolean(command)
-          if (command) commandPin.textContent = command
+          if (command) {
+            commandText.textContent = command
+            pinnedOutput = output || ''
+          }
           const wasOpen = commandPin.dataset.collapsed !== 'true'
           commandPin.dataset.collapsed = open ? 'false' : 'true'
           promptPin.textContent = promptText
@@ -196,10 +287,11 @@ export const useCliTerminal = (
 
     return () => {
       disposed = true
+      detachActions?.()
       detachTouch?.()
       session?.dispose()
       resizeObserver?.disconnect()
       term?.dispose()
     }
-  }, [containerRef, commands])
+  }, [containerRef, commands, share])
 }

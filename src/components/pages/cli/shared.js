@@ -5,7 +5,7 @@ import { Terminal as TerminalPromptIcon } from 'components/icons/Terminal'
 import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from 'components/pages/search'
 
 import pkg from '../../../../node_modules/microlink.io/package.json'
-import { colors } from 'theme'
+import { colors, transition } from 'theme'
 
 export const CLI_VERSION = pkg.version
 export const ACCENT = 'red6'
@@ -52,6 +52,9 @@ export const XTERM_SURFACE_CSS = {
     cursor: 'text'
   },
   '& [data-cli-pin="command"]': {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 2,
     overflow: 'hidden',
     maxHeight: '3em',
     opacity: 1,
@@ -68,7 +71,71 @@ export const XTERM_SURFACE_CSS = {
       opacity: 0,
       pb: 0,
       mb: 0,
-      borderBottom: 0
+      borderBottom: 0,
+      pointerEvents: 'none'
+    },
+    '& [data-cli-cmd]': {
+      minWidth: 0
+    },
+    '& [data-cli-actions]': {
+      display: 'inline-flex',
+      alignItems: 'center',
+      flexShrink: 0,
+      gap: 1
+    },
+    '& [data-cli-action]': {
+      position: 'relative',
+      display: 'inline-grid',
+      alignItems: 'center',
+      justifyItems: 'center',
+      appearance: 'none',
+      background: 'transparent',
+      border: 0,
+      color: 'white40',
+      cursor: 'pointer',
+      p: 0,
+      width: '1.2em',
+      height: '1.2em',
+      _hover: { color: 'white' },
+      '&[data-copied="true"]': { color: 'green5' },
+      '&:focus-visible': {
+        outline: '2px solid',
+        outlineColor: 'link',
+        outlineOffset: '2px'
+      },
+      '&::after': {
+        content: '""',
+        position: 'absolute',
+        inset: ['-12px', '-4px', '-4px', '-4px']
+      },
+      '& [data-cli-icon]': {
+        gridArea: '1 / 1',
+        display: 'flex',
+        '& svg': {
+          display: 'block',
+          width: '1em',
+          height: '1em'
+        }
+      },
+      '& [data-cli-icon="done"]': {
+        opacity: 0,
+        transform: 'scale(0.4)'
+      },
+      '&[data-copied="true"] [data-cli-icon="action"]': {
+        opacity: 0,
+        transform: 'scale(0.4)'
+      },
+      '&[data-copied="true"] [data-cli-icon="done"]': {
+        opacity: 1,
+        transform: 'scale(1)'
+      },
+      '@media (prefers-reduced-motion: no-preference)': {
+        transition: `color ${transition.short}`,
+        '&:active': { transform: 'scale(0.92)' },
+        '& [data-cli-icon]': {
+          transition: `opacity ${transition.short}, transform ${transition.short}`
+        }
+      }
     }
   },
   '& [data-cli-pin="prompt"]': {

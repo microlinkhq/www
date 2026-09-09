@@ -26,7 +26,7 @@ const visuallyHiddenCss = theme({
 
 const Fullscreen = () => {
   const surfaceRef = useRef(null)
-  useCliTerminal(surfaceRef, { attract: false })
+  useCliTerminal(surfaceRef, { attract: false, share: true })
 
   return (
     <Flex

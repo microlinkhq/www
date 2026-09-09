@@ -2,17 +2,23 @@ import { prefersReducedMotion } from 'helpers/reduced-motion'
 
 import { createBrowserHost } from './browser-host'
 import { openPager } from './pager'
+import { readSharedLine } from './share'
 import { CLI_COMMAND, isCompactCli } from './shared'
 import { parseCommand } from './tokenize'
 
 const PROMPT = `${CLI_COMMAND} `
+const ANSI = new RegExp(`${String.fromCharCode(27)}\\[[0-9;?]*[ -/]*[@-~]`, 'g')
+
+const toPlain = value =>
+  String(value).replace(ANSI, '').replace(/\r/g, '').trim()
 
 export const createCliSession = ({
   term,
   run,
   attractCommands,
   onPin,
-  surface
+  surface,
+  share = false
 }) => {
   let disposed = false
   let running = false
@@ -47,7 +53,7 @@ export const createCliSession = ({
   const commandAt = y => {
     let found = null
     for (const mark of marks) {
-      if (mark.line < y) found = mark
+      if (mark.line <= y) found = mark
     }
     return found
   }
@@ -57,6 +63,7 @@ export const createCliSession = ({
     const mark = commandAt(y)
     onPin?.({
       command: mark ? mark.text : '',
+      output: mark ? mark.output || '' : '',
       prompt: pinOverlay ? `${PROMPT}${buffer}` : '',
       viewLine
     })
@@ -140,9 +147,10 @@ export const createCliSession = ({
       return
     }
     running = true
-    const commandLine = term.buffer.active.baseY + term.buffer.active.cursorY
+    const typedInTerm = !pinOverlay && !attracting
     try {
-      await write('\r\n')
+      await write(typedInTerm ? '\r\x1b[2K' : '\r\n')
+      const commandLine = term.buffer.active.baseY + term.buffer.active.cursorY
       const chunks = []
       try {
         await run(argv, createBrowserHost(term, chunks))
@@ -175,10 +183,11 @@ export const createCliSession = ({
           pinOverlay = true
           marks.push({
             line: commandLine,
-            text: `${PROMPT}${history.at(-1) || ''}`
+            text: `${PROMPT}${history.at(-1) || ''}`,
+            output: toPlain(text)
           })
           term.write('\x1b[?25l')
-          const viewLine = commandLine + 1
+          const viewLine = commandLine
           holdView = viewLine
           paintPins(viewLine)
           const stick = () => term.scrollToLine(viewLine)
@@ -299,6 +308,16 @@ export const createCliSession = ({
     onData,
     stopAttract,
     async start () {
+      const shared = share ? readSharedLine() : ''
+      if (shared) {
+        resetInput()
+        buffer = shared
+        remember(shared)
+        const parsed = parseCommand(shared)
+        await execute(parsed.argv, { page: parsed.page })
+        term.focus()
+        return
+      }
       if (attractCommands?.length && !prefersReducedMotion()) {
         await runAttract()
         return

@@ -10,7 +10,7 @@ import 'styles/main.scss'
 export const Head = () => (
   <Meta
     title='Terminal'
-    description='Run the Microlink CLI in your browser. Pass any URL or product subcommand and inspect pretty JSON, cache status, and timing.'
+    description='Run the Microlink CLI in your browser. Pass any URL or product subcommand and inspect pretty JSON, cache status, and timing. Share the URL to replay the command.'
   />
 )
 
