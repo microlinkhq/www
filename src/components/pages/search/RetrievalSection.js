@@ -31,16 +31,14 @@ const RetrievalSection = () => (
           ],
           mx: 'auto',
           minWidth: 0,
-          flexDirection: ['column', 'column', 'row', 'row'],
-          alignItems: ['stretch', 'stretch', 'center', 'center'],
-          gap: [4, 4, 0, 0]
+          flexDirection: 'column',
+          gap: [4, 4, 5, 5]
         })}
       >
         <Box
           css={theme({
-            width: ['100%', '100%', '42%', '42%'],
-            flexShrink: 0,
-            pt: [0, 0, 2, 2]
+            width: '100%',
+            flexShrink: 0
           })}
         >
           <Text
@@ -77,10 +75,9 @@ const RetrievalSection = () => (
 
         <Box
           css={theme({
-            width: ['100%', '100%', '58%', '58%'],
+            width: '100%',
             minWidth: 0,
             display: 'grid',
-            ml: [0, 0, 6, 6],
             gap: 4
           })}
         >
