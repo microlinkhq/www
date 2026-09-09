@@ -1,11 +1,9 @@
 import React from 'react'
-import { css } from 'styled-components'
+import { css, keyframes } from 'styled-components'
 import { Code, LogIn, Monitor } from 'react-feather'
 
 import { Terminal as TerminalPromptIcon } from 'components/icons/Terminal'
 import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from 'components/pages/search'
-import { blink } from 'components/keyframes'
-
 import pkg from '../../../../node_modules/microlink.io/package.json'
 import { colors, speed, transition } from 'theme'
 
@@ -57,22 +55,33 @@ export const XTERM_SURFACE_CSS = {
     display: 'flex',
     alignItems: 'center',
     gap: 2,
+    width: '100%',
     overflow: 'hidden',
     maxHeight: '3em',
     opacity: 1,
-    pb: 2,
-    mb: 2,
-    borderBottom: 1,
-    borderBottomColor: 'white10',
     '@media (prefers-reduced-motion: no-preference)': {
       transition: `opacity ${transition.short}`
+    },
+    '&[data-stuck="true"]': {
+      overflow: 'visible',
+      pb: 2,
+      mb: 2,
+      position: 'relative',
+      '&::after': {
+        content: '""',
+        position: 'absolute',
+        left: 'calc(-1 * var(--cli-bleed, 0px))',
+        right: 'calc(-1 * var(--cli-bleed, 0px))',
+        bottom: 0,
+        borderBottom: 1,
+        borderBottomColor: 'white10'
+      }
     },
     '&[data-collapsed="true"]': {
       maxHeight: 0,
       opacity: 0,
       pb: 0,
       mb: 0,
-      borderBottom: 0,
       pointerEvents: 'none'
     },
     '& [data-cli-cmd]': {
@@ -129,8 +138,10 @@ export const XTERM_SURFACE_CSS = {
       }
     }
   },
+  '& [data-cli-pin="command"][data-stuck="true"] ~ [data-cli-pin="prompt"]': {
+    pt: 2
+  },
   '& [data-cli-pin="prompt"]': {
-    pt: 3,
     pb: 'max(8px, env(safe-area-inset-bottom))',
     '&::after': {
       content: '""',
@@ -146,7 +157,8 @@ export const XTERM_SURFACE_CSS = {
     minHeight: 0,
     width: 'max-content',
     minWidth: '100%',
-    position: 'relative'
+    position: 'relative',
+    overflow: 'hidden'
   },
   '& .xterm': {
     height: '100%',
@@ -170,6 +182,12 @@ export const XTERM_SURFACE_CSS = {
   }
 }
 
+const promptCaretBlink = keyframes`
+  50% {
+    opacity: 0;
+  }
+`
+
 export const XTERM_PROMPT_CARET_CSS = css`
   [data-cli-action] {
     --icon-swap-start-scale: 0.95;
@@ -183,10 +201,7 @@ export const XTERM_PROMPT_CARET_CSS = css`
 
   @media (prefers-reduced-motion: no-preference) {
     [data-cli-pin='prompt']::after {
-      animation-name: ${blink};
-      animation-duration: 1s;
-      animation-timing-function: steps(1);
-      animation-iteration-count: infinite;
+      animation: ${promptCaretBlink} 1s step-end infinite;
     }
   }
 `
