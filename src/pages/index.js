@@ -1,4 +1,5 @@
 import Analytics from 'components/pages/home/analytics'
+import CliBanner from 'components/pages/home/cli-banner'
 import Examples from 'components/pages/home/examples'
 import Faqs, { getFaqQuestions } from 'components/pages/home/faqs'
 import GradualBlur from 'components/pages/home/gradual-blur'
@@ -68,6 +69,7 @@ const HomePage = () => {
     <CurrencyProvider>
       <Layout>
         <Hero />
+        <CliBanner />
         <Products />
         <Examples />
         <Analytics />
