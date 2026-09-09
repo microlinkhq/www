@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo } from 'react'
 import styled from 'styled-components'
-import { accentBand, accentIcon, colors, fonts, layout, theme } from 'theme'
+import { colors, fonts, layout, theme } from 'theme'
 
 import Box from 'components/elements/Box'
 
@@ -14,20 +14,23 @@ const useDiagram = () => {
   return ctx
 }
 
-const diagramTokens = (accent = 'indigo') => ({
+const diagramTokens = () => ({
   paper: colors.white,
   ink: colors.black,
   muted: colors.black60,
   soft: colors.black40,
   rule: colors.black10,
-  link: colors.link,
+  link: colors.black60,
   inputFill: colors.black05,
-  accent: colors[accentIcon(accent)],
-  accentTint: colors[accentBand(accent)]
+  nestOuterFill: colors.black0125,
+  nestMidFill: colors.black025,
+  nestOuterStroke: colors.black30,
+  nestMidStroke: colors.black50,
+  accent: colors.secondary
 })
 
 const TONES = {
-  focal: t => ({ fill: t.accentTint, stroke: t.accent }),
+  focal: t => ({ fill: t.accent, fillOpacity: 0.08, stroke: t.accent }),
   input: t => ({ fill: t.inputFill, stroke: t.soft }),
   store: t => ({ fill: t.inputFill, stroke: t.muted }),
   backend: t => ({ fill: t.paper, stroke: t.ink }),
@@ -62,6 +65,8 @@ const Canvas = styled('svg')(
     mx: 'auto'
   }),
   `
+  overflow: visible;
+
   text {
     font-family: ${fonts.sans};
   }
@@ -72,7 +77,7 @@ const Canvas = styled('svg')(
 `
 )
 
-const Label = ({ x, y, width, text, wide }) => {
+const Label = ({ x, y, width, text, wide, fill }) => {
   const { tokens: t } = useDiagram()
   const w = width ?? labelWidth(text)
   return (
@@ -82,7 +87,7 @@ const Label = ({ x, y, width, text, wide }) => {
         className='mono'
         x={x + w / 2}
         y={y + 9}
-        fill={t.soft}
+        fill={fill ?? t.soft}
         fontSize='8'
         textAnchor='middle'
         letterSpacing={wide ? '0.14em' : '0.06em'}
@@ -183,6 +188,7 @@ export const Node = ({
   const cy = y + height / 2 + (note ? -2 : 4)
   const common = {
     fill: fill ?? resolved.fill,
+    fillOpacity: resolved.fillOpacity,
     stroke: stroke ?? resolved.stroke,
     strokeWidth: '1',
     strokeDasharray: resolved.dashed ? '4,3' : undefined
@@ -242,6 +248,101 @@ export const Node = ({
   )
 }
 
+const NEST_TONES = {
+  outer: t => ({
+    fill: t.nestOuterFill,
+    stroke: t.nestOuterStroke,
+    label: t.soft
+  }),
+  mid: t => ({
+    fill: t.nestMidFill,
+    stroke: t.nestMidStroke,
+    label: t.muted
+  }),
+  focal: t => ({
+    fill: t.accent,
+    fillOpacity: 0.08,
+    stroke: t.accent,
+    label: t.accent
+  })
+}
+
+export const Nest = ({
+  x,
+  y,
+  width,
+  height,
+  label,
+  note,
+  name,
+  caption,
+  tone = 'outer'
+}) => {
+  const { tokens: t } = useDiagram()
+  const resolved = NEST_TONES[tone](t)
+  const lw = Math.ceil((label.length * 8 + 24) / 4) * 4
+  const nw = note ? labelWidth(note) : 0
+  const cx = x + width / 2
+  const cy = y + height / 2 + (caption ? -4 : 4)
+  return (
+    <g>
+      <rect
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        rx='8'
+        fill={resolved.fill}
+        fillOpacity={resolved.fillOpacity}
+        stroke={resolved.stroke}
+        strokeWidth='1'
+      />
+      <Label
+        x={x + 16}
+        y={y - 8}
+        width={lw}
+        text={label}
+        wide
+        fill={resolved.label}
+      />
+      {note && (
+        <Label
+          x={x + width - 16 - nw}
+          y={y - 8}
+          width={nw}
+          text={note}
+          fill={t.muted}
+        />
+      )}
+      {name && (
+        <text
+          x={cx}
+          y={cy}
+          fill={t.ink}
+          fontSize='16'
+          fontWeight='600'
+          textAnchor='middle'
+        >
+          {name}
+        </text>
+      )}
+      {caption && (
+        <text
+          className='mono'
+          x={cx}
+          y={cy + 20}
+          fill={t.muted}
+          fontSize='8'
+          textAnchor='middle'
+          letterSpacing='0.08em'
+        >
+          {caption}
+        </text>
+      )}
+    </g>
+  )
+}
+
 export const Layer = ({
   x,
   y,
@@ -265,6 +366,7 @@ export const Layer = ({
         height={height}
         rx='6'
         fill={resolved.fill}
+        fillOpacity={resolved.fillOpacity}
         stroke={resolved.stroke}
         strokeWidth='1'
       />
@@ -297,15 +399,8 @@ export const Layer = ({
   )
 }
 
-export const Diagram = ({
-  id,
-  viewBox,
-  title,
-  description,
-  accent = 'indigo',
-  children
-}) => {
-  const tokens = useMemo(() => diagramTokens(accent), [accent])
+export const Diagram = ({ id, viewBox, title, description, children }) => {
+  const tokens = useMemo(() => diagramTokens(), [])
   const value = useMemo(() => ({ id, tokens }), [id, tokens])
   return (
     <DiagramContext.Provider value={value}>
@@ -324,8 +419,9 @@ export const Diagram = ({
                 id={`${id}-${suffix}`}
                 markerWidth='8'
                 markerHeight='6'
-                refX='7'
+                refX='8'
                 refY='3'
+                markerUnits='userSpaceOnUse'
                 orient='auto'
               >
                 <polygon points='0 0, 8 3, 0 6' fill={tokens[key]} />

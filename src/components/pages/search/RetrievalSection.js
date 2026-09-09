@@ -10,7 +10,6 @@ import Text from 'components/elements/Text'
 import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from './'
 import { RetrievalFeatureCard } from './Sections'
 import { SECTION_HEADING_FONT_SIZE } from './constants'
-import { SearchPrimerVisual } from './primer-visual'
 
 const RetrievalSection = () => (
   <Box as='section' id='retrieval-workflows' css={theme({ py: [5, 5, 6, 6] })}>
@@ -38,7 +37,7 @@ const RetrievalSection = () => (
       >
         <Box
           css={theme({
-            width: ['100%', '100%', '42%', '42%'],
+            width: '100%',
             flexShrink: 0
           })}
         >
@@ -74,13 +73,9 @@ const RetrievalSection = () => (
           </Text>
         </Box>
 
-        <Box css={theme({ width: '100%' })}>
-          <SearchPrimerVisual />
-        </Box>
-
         <Box
           css={theme({
-            width: ['100%', '100%', '58%', '58%'],
+            width: '100%',
             minWidth: 0,
             display: 'grid',
             gap: 4

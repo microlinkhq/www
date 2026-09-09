@@ -9,8 +9,6 @@ import Text from 'components/elements/Text'
 import { Subhead, STORY_LAYOUT } from 'components/patterns/ProductStory'
 
 import { ACCENT, PRIMER } from './product-shared'
-import { FunctionPrimerVisual } from './primer-visual'
-
 const Item = ({ icon: Icon, title, description }) => (
   <Flex
     as='li'
@@ -97,9 +95,6 @@ export const FunctionPrimer = () => (
           {PRIMER.caption}
         </Text>
       </Flex>
-      <Box css={theme({ width: '100%' })}>
-        <FunctionPrimerVisual />
-      </Box>
       <Box
         as='ul'
         css={theme({

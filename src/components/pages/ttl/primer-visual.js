@@ -5,7 +5,6 @@ import { Connector, Diagram, Node } from 'components/patterns/Diagram'
 export const TtlPrimerVisual = () => (
   <Diagram
     id='ttl-cache'
-    accent='violet'
     viewBox='0 0 960 280'
     title='How Microlink caching serves a request'
     description='A request hits the cache first. A hit is free and instant. A miss boots a browser and stores a fresh result.'

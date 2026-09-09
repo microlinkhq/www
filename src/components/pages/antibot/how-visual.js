@@ -1,31 +1,14 @@
 import React from 'react'
 
-import { Connector, Diagram, Node, Zone } from 'components/patterns/Diagram'
+import { Connector, Diagram, Node } from 'components/patterns/Diagram'
 
 export const AntibotHowVisual = () => (
   <Diagram
     id='antibot-classify'
-    accent='pink'
     viewBox='0 0 960 280'
     title='How Microlink names an antibot challenge'
     description='The HTTP response is classified from status, headers, and body markers. Providers are checked in order and the first match wins.'
   >
-    <Zone x={32} y={16} width={240} height={248} label='SIGNALS' />
-    <Zone x={704} y={68} width={224} height={144} label='RESULT' />
-    <Connector
-      d='M 252,64 H 312 Q 320,64 320,72 V 112 Q 320,120 328,120 H 400'
-      label='STATUS'
-      labelX={248}
-      labelY={44}
-    />
-    <Connector d='M 252,136 H 400' label='HEADER' labelX={280} labelY={116} />
-    <Connector
-      d='M 252,208 H 312 Q 320,208 320,200 V 168 Q 320,160 328,160 H 400'
-      label='BODY'
-      labelX={264}
-      labelY={174}
-    />
-    <Connector x1={560} y1={140} x2={720} y2={140} label='MATCH' />
     <Node
       x={52}
       y={36}
@@ -52,5 +35,9 @@ export const AntibotHowVisual = () => (
       tone='store'
       name='Provider'
     />
+    <Connector d='M 252,64 H 312 Q 320,64 320,72 V 116 Q 320,124 328,124 H 408' />
+    <Connector x1={252} y1={136} x2={408} y2={136} />
+    <Connector d='M 252,208 H 312 Q 320,208 320,200 V 164 Q 320,156 328,156 H 408' />
+    <Connector x1={560} y1={140} x2={728} y2={140} />
   </Diagram>
 )

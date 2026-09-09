@@ -18,7 +18,6 @@ import {
   toFaqQuestions
 } from 'components/patterns/ProductStory'
 import { LogoCapabilitiesVisual } from 'components/pages/logo/capabilities-visual'
-import { LogoPrimer } from 'components/pages/logo/primer'
 import {
   ACCENT,
   TIMINGS_ACCENT,
@@ -103,7 +102,6 @@ const LogoPage = () => (
   <Layout>
     <ProductHero {...HERO} accent={ACCENT} />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
-    <LogoPrimer />
     <ProductCapabilities
       {...CAPABILITIES}
       accent={ACCENT}

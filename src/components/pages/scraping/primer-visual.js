@@ -1,17 +1,14 @@
 import React from 'react'
 
-import { Connector, Diagram, Node, Zone } from 'components/patterns/Diagram'
+import { Connector, Diagram, Node } from 'components/patterns/Diagram'
 
 export const ScrapingPrimerVisual = () => (
   <Diagram
     id='scraping-flow'
-    accent='violet'
     viewBox='0 0 960 280'
     title='How Microlink extracts structured data'
     description='You send a URL and a data schema. Microlink fetches the page, runs a browser only if the content is client-rendered, and returns typed JSON.'
   >
-    <Zone x={32} y={16} width={240} height={248} label='INPUT' />
-    <Zone x={704} y={68} width={224} height={144} label='OUTPUT' />
     <Connector
       d='M 252,80 H 312 Q 320,80 320,88 V 124 Q 320,132 328,132 H 400'
       label='FETCH'
