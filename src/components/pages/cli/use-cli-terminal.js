@@ -257,6 +257,18 @@ export const useCliTerminal = (
         }
         return 1
       }
+      const fitTerm = () => {
+        fitAddon.fit()
+        if (isCompactCli() && term.cols < MIN_TERMINAL_COLS) {
+          term.resize(MIN_TERMINAL_COLS, term.rows)
+        }
+      }
+      const fitCols = () => {
+        const cols = fitAddon.proposeDimensions()?.cols
+        if (!cols) return
+        const next = isCompactCli() ? Math.max(cols, MIN_TERMINAL_COLS) : cols
+        if (next !== term.cols) term.resize(next, term.rows)
+      }
       const syncPinMetrics = () => {
         const size = `${term.options.fontSize}px`
         commandPin.style.fontSize = size
@@ -289,6 +301,14 @@ export const useCliTerminal = (
         promptPin.style.marginTop = stuck ? '' : `${rowHeight}px`
         host.style.flex = '0 0 auto'
         host.style.height = `${Math.min(used, max)}px`
+        if (used > max) {
+          const rows = Math.max(1, Math.round(max / rowHeight))
+          if (Math.abs(term.rows - rows) > 1) {
+            const keep = term.buffer.active.viewportY
+            fitTerm()
+            term.scrollToLine(keep)
+          } else fitCols()
+        } else fitCols()
       }
       surface.append(commandPin, host, promptPin)
       const focusTerm = e => {
@@ -307,10 +327,7 @@ export const useCliTerminal = (
         if (promptPin.hidden) {
           host.style.flex = ''
           host.style.height = ''
-          fitAddon.fit()
-          if (isCompactCli() && term.cols < MIN_TERMINAL_COLS) {
-            term.resize(MIN_TERMINAL_COLS, term.rows)
-          }
+          fitTerm()
         }
         term.scrollToLine(y)
         syncPinMetrics()
