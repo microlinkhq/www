@@ -301,6 +301,7 @@ export const useCliTerminal = (
         promptPin.style.marginTop = stuck ? '' : `${rowHeight}px`
         host.style.flex = '0 0 auto'
         host.style.height = `${Math.min(used, max)}px`
+        const needed = Math.max(1, Math.round(used / rowHeight))
         if (used > max) {
           const rows = Math.max(1, Math.round(max / rowHeight))
           if (Math.abs(term.rows - rows) > 1) {
@@ -308,6 +309,10 @@ export const useCliTerminal = (
             fitTerm()
             term.scrollToLine(keep)
           } else fitCols()
+        } else if (term.rows < needed) {
+          const keep = term.buffer.active.viewportY
+          fitTerm()
+          term.scrollToLine(keep)
         } else fitCols()
       }
       surface.append(commandPin, host, promptPin)
