@@ -24,6 +24,16 @@ export const commandToShareLine = command =>
     String(command || '').replace(/^(?:microlink(?:\.io)?\s+)/i, '')
   )
 
+const TRACE_FLAG = /(?:^|\s)--trace(?:-full)?(?:\s|=|$)/i
+
+export const hasTraceFlag = line => TRACE_FLAG.test(String(line || ''))
+
+export const commandToTraceLine = command => {
+  const line = sanitizeShareLine(command)
+  if (!line) return ''
+  return hasTraceFlag(line) ? line : `${line} --trace`
+}
+
 export const shareHref = (command, loc = window.location) =>
   new URL(sharePath(commandToShareLine(command), loc), loc.href).href
 

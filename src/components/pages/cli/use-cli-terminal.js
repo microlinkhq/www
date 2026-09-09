@@ -16,6 +16,8 @@ const ICON = {
 
 const iconSlot = (name, svg) => {
   const span = document.createElement('span')
+  span.className = 't-icon'
+  span.dataset.icon = name === 'done' ? 'b' : 'a'
   span.dataset.cliIcon = name
   span.setAttribute('aria-hidden', 'true')
   span.innerHTML = svg
@@ -25,32 +27,60 @@ const iconSlot = (name, svg) => {
 const attachPinButton = (parent, { name, label, icon, getText }) => {
   const button = document.createElement('button')
   button.type = 'button'
+  button.className = 't-icon-swap'
+  button.dataset.state = 'a'
   button.dataset.cliAction = name
   button.setAttribute('aria-label', label)
   button.setAttribute('aria-live', 'polite')
   button.append(iconSlot('action', icon), iconSlot('done', ICON.check))
   let timer
+  const restoreLabel = () => {
+    delete button.dataset.copied
+    button.dataset.state = 'a'
+    button.setAttribute('aria-label', label)
+  }
+  const announce = message => {
+    delete button.dataset.copied
+    button.dataset.state = 'a'
+    button.setAttribute('aria-label', message)
+    clearTimeout(timer)
+    timer = setTimeout(restoreLabel, 1500)
+  }
   const onClick = e => {
     e.preventDefault()
     e.stopPropagation()
-    const text = getText()
-    if (!text || typeof navigator === 'undefined' || !navigator.clipboard) {
+    if (button.disabled) return
+    if (typeof navigator === 'undefined' || !navigator.clipboard) {
+      announce('Couldn’t copy')
       return
     }
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        delete button.dataset.copied
-        button.getBoundingClientRect()
-        button.dataset.copied = 'true'
-        button.setAttribute('aria-label', 'Copied')
-        clearTimeout(timer)
-        timer = setTimeout(() => {
+    button.disabled = true
+    button.setAttribute('aria-busy', 'true')
+    Promise.resolve()
+      .then(getText)
+      .then(text => {
+        if (!text) {
+          announce('Couldn’t copy')
+          return
+        }
+        return navigator.clipboard.writeText(text).then(() => {
           delete button.dataset.copied
-          button.setAttribute('aria-label', label)
-        }, 1500)
+          button.dataset.state = 'a'
+          button.getBoundingClientRect()
+          button.dataset.copied = 'true'
+          button.dataset.state = 'b'
+          button.setAttribute('aria-label', 'Copied')
+          clearTimeout(timer)
+          timer = setTimeout(restoreLabel, 1500)
+        })
       })
-      .catch(() => {})
+      .catch(() => {
+        announce('Couldn’t copy')
+      })
+      .finally(() => {
+        button.disabled = false
+        button.removeAttribute('aria-busy')
+      })
   }
   button.addEventListener('click', onClick)
   parent.append(button)
@@ -60,7 +90,7 @@ const attachPinButton = (parent, { name, label, icon, getText }) => {
   }
 }
 
-const attachPinActions = (pin, { getCommand, getOutput }) => {
+const attachPinActions = (pin, { getCommand, getTraceOutput }) => {
   const actions = document.createElement('span')
   actions.dataset.cliActions = ''
   const unbind = [
@@ -68,7 +98,7 @@ const attachPinActions = (pin, { getCommand, getOutput }) => {
       name: 'copy',
       label: 'Copy output',
       icon: ICON.copy,
-      getText: getOutput
+      getText: getTraceOutput
     }),
     attachPinButton(actions, {
       name: 'permalink',
@@ -88,7 +118,7 @@ const FONT_FAMILY = '"SF Mono", Menlo, Monaco, monospace'
 const THEME = {
   background: colors.black,
   foreground: colors.white,
-  cursor: colors.white,
+  cursor: colors.secondary,
   cursorAccent: colors.black,
   selectionBackground: colors.white20,
   black: colors.black,
@@ -212,16 +242,25 @@ export const useCliTerminal = (
       const commandText = document.createElement('span')
       commandText.dataset.cliCmd = ''
       commandPin.append(commandText)
-      let pinnedOutput = ''
+      let copyTrace = async () => ''
       if (share) {
         detachActions = attachPinActions(commandPin, {
           getCommand: () => commandText.textContent,
-          getOutput: () => pinnedOutput
+          getTraceOutput: () => copyTrace()
         })
       }
-      const pinFont = `${term.options.fontSize}px`
-      commandPin.style.fontSize = pinFont
-      promptPin.style.fontSize = pinFont
+      const syncPinMetrics = () => {
+        const size = `${term.options.fontSize}px`
+        commandPin.style.fontSize = size
+        promptPin.style.fontSize = size
+        const row = term.element?.querySelector('.xterm-rows > div')
+        const rowHeight = row?.getBoundingClientRect().height
+        if (rowHeight) {
+          const line = `${rowHeight}px`
+          commandPin.style.lineHeight = line
+          promptPin.style.lineHeight = line
+        }
+      }
       surface.append(commandPin, host, promptPin)
       const focusTerm = e => {
         if (e.target.closest('[data-cli-actions]')) return
@@ -238,6 +277,7 @@ export const useCliTerminal = (
           term.resize(MIN_TERMINAL_COLS, term.rows)
         }
         term.scrollToLine(y)
+        syncPinMetrics()
       }
       fit()
       session = createCliSession({
@@ -246,11 +286,10 @@ export const useCliTerminal = (
         attractCommands: commands,
         share,
         surface,
-        onPin: ({ command, output, prompt: promptText, viewLine }) => {
+        onPin: ({ command, prompt: promptText, viewLine }) => {
           const open = Boolean(command)
           if (command) {
             commandText.textContent = command
-            pinnedOutput = output || ''
           }
           const wasOpen = commandPin.dataset.collapsed !== 'true'
           commandPin.dataset.collapsed = open ? 'false' : 'true'
@@ -270,6 +309,7 @@ export const useCliTerminal = (
           }
         }
       })
+      copyTrace = () => session.copyTrace()
       term.onData(session.onData)
       const unbindTouch = bindTouchScroll(surface, term)
       const onViewportResize = () => fit()

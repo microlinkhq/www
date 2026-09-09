@@ -1,8 +1,8 @@
 import { prefersReducedMotion } from 'helpers/reduced-motion'
 
-import { createBrowserHost } from './browser-host'
+import { createBrowserHost, createSilentHost } from './browser-host'
 import { openPager } from './pager'
-import { readSharedLine } from './share'
+import { commandToTraceLine, hasTraceFlag, readSharedLine } from './share'
 import { CLI_COMMAND, isCompactCli } from './shared'
 import { parseCommand } from './tokenize'
 
@@ -304,9 +304,32 @@ export const createCliSession = ({
     }
   }
 
+  const copyTrace = async () => {
+    const mark = commandAt(term.buffer.active.viewportY)
+    if (!mark) return ''
+    if (mark.traceOutput) return mark.traceOutput
+    if (mark.output && hasTraceFlag(mark.text)) {
+      mark.traceOutput = mark.output
+      return mark.output
+    }
+    const line = commandToTraceLine(mark.text)
+    if (!line) return ''
+    const { argv } = parseCommand(line)
+    if (!argv.length) return ''
+    const chunks = []
+    try {
+      await run(argv, createSilentHost(chunks))
+    } catch (error) {
+      if (!disposed) chunks.push(`\n${error.message || error}\n`)
+    }
+    mark.traceOutput = toPlain(chunks.join(''))
+    return mark.traceOutput
+  }
+
   return {
     onData,
     stopAttract,
+    copyTrace,
     async start () {
       const shared = share ? readSharedLine() : ''
       if (shared) {

@@ -4,7 +4,7 @@ import Terminal from 'components/elements/Terminal/Terminal'
 
 import { theme, toPx } from 'theme'
 
-import { XTERM_SURFACE_CSS } from './shared'
+import { XTERM_PROMPT_CARET_CSS, XTERM_SURFACE_CSS } from './shared'
 import { PLAYGROUND_HEIGHT, useCliTerminal } from './use-cli-terminal'
 
 import '@xterm/xterm/css/xterm.css'
@@ -39,13 +39,16 @@ const Playground = () => {
         role='application'
         tabIndex={-1}
         aria-label='Interactive Microlink CLI'
-        css={theme({
-          width: '100%',
-          height: toPx(PLAYGROUND_HEIGHT),
-          minHeight: toPx(PLAYGROUND_HEIGHT),
-          bg: 'black',
-          ...XTERM_SURFACE_CSS
-        })}
+        css={[
+          theme({
+            width: '100%',
+            height: toPx(PLAYGROUND_HEIGHT),
+            minHeight: toPx(PLAYGROUND_HEIGHT),
+            bg: 'black',
+            ...XTERM_SURFACE_CSS
+          }),
+          XTERM_PROMPT_CARET_CSS
+        ]}
       />
     </Terminal>
   )

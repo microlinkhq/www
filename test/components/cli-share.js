@@ -2,6 +2,7 @@ import { expect, test } from 'vitest'
 
 import {
   commandToShareLine,
+  commandToTraceLine,
   parseSharedLine,
   sanitizeShareLine,
   shareHref,
@@ -39,6 +40,22 @@ test('commandToShareLine strips the prompt prefix', () => {
     'screenshot stripe.com'
   )
   expect(commandToShareLine('help')).toBe('help')
+})
+
+test('commandToTraceLine appends --trace once', () => {
+  expect(commandToTraceLine('microlink screenshot stripe.com')).toBe(
+    'microlink screenshot stripe.com --trace'
+  )
+  expect(commandToTraceLine('microlink screenshot stripe.com --trace')).toBe(
+    'microlink screenshot stripe.com --trace'
+  )
+  expect(commandToTraceLine('microlink stripe.com --trace-full')).toBe(
+    'microlink stripe.com --trace-full'
+  )
+  expect(
+    commandToTraceLine('screenshot stripe.com --api-key sk_live_xxx')
+  ).toBe('screenshot stripe.com --trace')
+  expect(commandToTraceLine('')).toBe('')
 })
 
 test('shareHref builds an absolute permalink', () => {

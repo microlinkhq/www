@@ -1,8 +1,10 @@
 import React from 'react'
+import { css } from 'styled-components'
 import { Code, LogIn, Monitor } from 'react-feather'
 
 import { Terminal as TerminalPromptIcon } from 'components/icons/Terminal'
 import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from 'components/pages/search'
+import { blink } from 'components/keyframes'
 
 import pkg from '../../../../node_modules/microlink.io/package.json'
 import { colors, transition } from 'theme'
@@ -63,8 +65,7 @@ export const XTERM_SURFACE_CSS = {
     borderBottom: 1,
     borderBottomColor: 'white10',
     '@media (prefers-reduced-motion: no-preference)': {
-      transition:
-        'max-height 160ms ease, padding 160ms ease, margin 160ms ease, opacity 160ms ease, border-width 160ms ease'
+      transition: `opacity ${transition.short}`
     },
     '&[data-collapsed="true"]': {
       maxHeight: 0,
@@ -100,7 +101,9 @@ export const XTERM_SURFACE_CSS = {
       p: 0,
       width: '1.2em',
       height: '1.2em',
-      _hover: { color: 'white' },
+      '@media (hover: hover) and (pointer: fine)': {
+        '&:hover': { color: 'white' }
+      },
       '&[data-copied="true"]': { color: 'green5' },
       '&:focus-visible': {
         outline: '2px solid',
@@ -113,7 +116,6 @@ export const XTERM_SURFACE_CSS = {
         inset: ['-12px', '-4px', '-4px', '-4px']
       },
       '& [data-cli-icon]': {
-        gridArea: '1 / 1',
         display: 'flex',
         '& svg': {
           display: 'block',
@@ -121,24 +123,9 @@ export const XTERM_SURFACE_CSS = {
           height: '1em'
         }
       },
-      '& [data-cli-icon="done"]': {
-        opacity: 0,
-        transform: 'scale(0.4)'
-      },
-      '&[data-copied="true"] [data-cli-icon="action"]': {
-        opacity: 0,
-        transform: 'scale(0.4)'
-      },
-      '&[data-copied="true"] [data-cli-icon="done"]': {
-        opacity: 1,
-        transform: 'scale(1)'
-      },
       '@media (prefers-reduced-motion: no-preference)': {
         transition: `color ${transition.short}`,
-        '&:active': { transform: 'scale(0.92)' },
-        '& [data-cli-icon]': {
-          transition: `opacity ${transition.short}, transform ${transition.short}`
-        }
+        '&:active': { transform: 'scale(0.97)' }
       }
     }
   },
@@ -146,8 +133,12 @@ export const XTERM_SURFACE_CSS = {
     pt: 3,
     pb: 'max(8px, env(safe-area-inset-bottom))',
     '&::after': {
-      content: '"▋"',
-      color: 'white'
+      content: '""',
+      display: 'inline-block',
+      width: '1px',
+      height: '1lh',
+      bg: 'secondary',
+      verticalAlign: 'bottom'
     }
   },
   '& [data-cli-host]': {
@@ -178,6 +169,17 @@ export const XTERM_SURFACE_CSS = {
     touchAction: 'manipulation'
   }
 }
+
+export const XTERM_PROMPT_CARET_CSS = css`
+  @media (prefers-reduced-motion: no-preference) {
+    [data-cli-pin='prompt']::after {
+      animation-name: ${blink};
+      animation-duration: 1s;
+      animation-timing-function: steps(1);
+      animation-iteration-count: infinite;
+    }
+  }
+`
 
 const FEATURE_ICON_SIZE = 20
 
