@@ -48,6 +48,7 @@ export const useSitemapState = () => {
       const requestId = ++requestIdRef.current
       setInputError('')
       setError(null)
+      setUrls(null)
       setIsLoading(true)
       if (fillInput) setInputUrl(trimmedValue)
       setCurrentUrl(trimmedValue)

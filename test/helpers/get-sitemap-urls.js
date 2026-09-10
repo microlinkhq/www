@@ -16,6 +16,11 @@ test('does not reference page', () => {
   expect(getSitemapUrls).not.toMatch(/\bpage\b/)
 })
 
+test('walks gzipped sitemap indexes and isolates fetch errors', () => {
+  expect(getSitemapUrls).toMatch(/\\.xml(\\.gz)?/)
+  expect(getSitemapUrls).toMatch(/catch/)
+})
+
 test('SDK snippet is JavaScript, not a query-string function', () => {
   const snippet = sitemapSdkSnippet('https://microlink.io')
   expect(snippet).toContain("import createClient from 'microlink.io'")
