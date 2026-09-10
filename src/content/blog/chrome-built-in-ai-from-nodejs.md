@@ -2,6 +2,8 @@
 title: 'Chrome Built-in AI from Node.js'
 subtitle: 'How we run Gemini Nano on a GPU-less headless fleet'
 description: 'Chrome Built-in AI only exists inside a page, and Chrome for Testing will not download Gemini Nano. How we pack the model once, unpack it on the server, and call Prompt, Summarizer, and Language Detector from Node.js — on CPU, with no GPU and no extra API key.'
+authors:
+  - kiko
 date: '2026-08-21'
 ---
 
