@@ -98,6 +98,9 @@ export const ActionButton = styled(Flex).attrs({ as: 'a' })`
   -webkit-tap-highlight-color: transparent;
 
   @media (prefers-reduced-motion: no-preference) {
+    transition: background ${transition.short}, box-shadow ${transition.short},
+      transform ${transition.short};
+
     &:active {
       transform: scale(0.97);
     }

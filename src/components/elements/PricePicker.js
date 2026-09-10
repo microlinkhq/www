@@ -99,14 +99,20 @@ const SliderInput = styled('input')`
     transition: transform 120ms ease, box-shadow 120ms ease;
   }
 
+  &:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 2px 8px ${colors.black20};
+  }
+
+  &:focus-visible::-moz-range-thumb {
+    box-shadow: 0 2px 8px ${colors.black20};
+  }
+
   @media (hover: hover) and (pointer: fine) {
-    &:hover::-webkit-slider-thumb,
-    &:focus::-webkit-slider-thumb {
+    &:hover::-webkit-slider-thumb {
       box-shadow: 0 2px 8px ${colors.black20};
     }
 
-    &:hover::-moz-range-thumb,
-    &:focus::-moz-range-thumb {
+    &:hover::-moz-range-thumb {
       box-shadow: 0 2px 8px ${colors.black20};
     }
   }

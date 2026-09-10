@@ -279,6 +279,11 @@ export const LaneRow = styled('div')`
     ${theme({ gap: 2 })};
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    transition: ${({ $reordering }) =>
+      $reordering ? 'transform 200ms cubic-bezier(0.23, 1, 0.32, 1)' : 'none'};
+  }
+
   @media (prefers-reduced-motion: reduce) {
     opacity: 1;
     animation: none;
@@ -341,6 +346,11 @@ export const LaneBar = styled('div')`
         ${barGrow} ${transition.medium} forwards
       `};
   position: relative;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    transform: scaleX(1);
+  }
 
   ${({ $isMicrolink }) =>
     $isMicrolink &&

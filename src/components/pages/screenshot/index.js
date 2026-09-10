@@ -347,12 +347,15 @@ export const UseCaseCard = styled(Box)`
   transition: box-shadow ${transition.short};
   touch-action: manipulation;
 
-  @media (prefers-reduced-motion: no-preference) {
-    @media (hover: hover) and (pointer: fine) {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
       transition: box-shadow ${transition.short}, transform ${transition.short};
 
       &:hover {
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         transform: translateY(-1px);
       }
     }

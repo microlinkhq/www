@@ -52,16 +52,19 @@ const CardBox = styled(Box).attrs({ as: 'li' })`
       p: [3, 3, 4, 4]
     })}
 
-  @media (prefers-reduced-motion: no-preference) {
-    transition: box-shadow ${transition.short}, border-color ${transition.short};
+  transition: box-shadow ${transition.short}, border-color ${transition.short};
 
-    @media (hover: hover) and (pointer: fine) {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      ${({ $accent }) =>
+        theme({ boxShadow: 3, borderColor: accentBorderHover($accent) })}
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
       transition: box-shadow ${transition.short}, transform ${transition.short},
         border-color ${transition.short};
 
       &:hover {
-        ${({ $accent }) =>
-          theme({ boxShadow: 3, borderColor: accentBorderHover($accent) })}
         transform: translateY(-1px);
       }
     }
