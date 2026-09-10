@@ -31,7 +31,7 @@ That’s exactly what the agents did. Instead of solving the problem the way the
 
 Microlink spins up real browsers and lets you execute arbitrary code inside them. With a simple GET request, you can make that remote browser do almost anything:
 
-```
+```text
 https://api.microlink.io/?url=https://example.com&function=()=>5*5
 ```
 
