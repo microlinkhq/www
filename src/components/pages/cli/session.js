@@ -72,9 +72,14 @@ export const createCliSession = ({
 
   let holdView = null
 
+  const applyHold = () => {
+    if (holdView === 'bottom') term.scrollToBottom()
+    else if (holdView != null) term.scrollToLine(holdView)
+  }
+
   const scrollDisp = term.onScroll(() => {
     if (holdView != null) {
-      term.scrollToLine(holdView)
+      applyHold()
       return
     }
     if (pinOverlay) paintPins()
@@ -162,8 +167,8 @@ export const createCliSession = ({
       const commandLine = term.buffer.active.baseY + term.buffer.active.cursorY
       if (!typedInTerm && !attracting) await write(`${commandText}\r\n`)
       if (!attracting) {
-        holdView = commandLine
-        term.scrollToLine(commandLine)
+        holdView = 'bottom'
+        term.scrollToBottom()
       }
       const chunks = []
       try {
@@ -204,12 +209,11 @@ export const createCliSession = ({
             text: commandText,
             output: toPlain(text)
           })
-          holdView = commandLine
-          paintPins(commandLine)
-          const stick = () => term.scrollToLine(commandLine)
-          stick()
-          window.requestAnimationFrame(stick)
-          timeouts.push(setTimeout(stick, 50))
+          holdView = 'bottom'
+          paintPins()
+          applyHold()
+          window.requestAnimationFrame(applyHold)
+          timeouts.push(setTimeout(applyHold, 50))
           timeouts.push(
             setTimeout(() => {
               holdView = null
