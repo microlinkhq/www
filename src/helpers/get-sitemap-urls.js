@@ -5,14 +5,13 @@ export const FREE_FUNCTION_CODE_LIMIT = 1024
 
 export const getSitemapUrls = `async ({ site }) => {
   // Discover sitemap URLs from this origin's robots.txt
-  const { href: robotsUrl } = new URL('/robots.txt', site)
+  const robotsUrl = new URL('/robots.txt', site).href
   const res = await fetch(robotsUrl)
   const body = res.ok ? await res.text() : ''
-  const robotsParser = require('robots-parser')
-  const sitemaps = robotsParser(robotsUrl, body).getSitemaps()
+  const maps = require('robots-parser')(robotsUrl, body).getSitemaps()
 
   // Walk nested sitemap indexes. \`fetcher\` is how each document is loaded.
-  return require('xml-urls')(sitemaps, { fetcher: fetch })
+  return require('xml-urls@2.2.0')(maps, { fetcher: fetch })
 }`
 
 const microlink = createClient()

@@ -17,7 +17,7 @@ test('does not reference page', () => {
 })
 
 test('walks sitemaps with xml-urls and isolate fetch', () => {
-  expect(getSitemapUrls).toMatch(/xml-urls/)
+  expect(getSitemapUrls).toMatch(/xml-urls@2\.2\.0/)
   expect(getSitemapUrls).toMatch(/fetcher:\s*fetch/)
   expect(getSitemapUrls).toMatch(/robots-parser/)
 })
