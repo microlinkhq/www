@@ -109,8 +109,8 @@ const StyledButton = styled(Box).withConfig({
         @media (hover: hover) and (pointer: fine) {
           &:hover:not(:disabled) {
             cursor: ${hover.cursor};
-            background: ${hover.background};
-            color: ${hover.color};
+            background: ${colors[hover.background] || hover.background};
+            color: ${colors[hover.color] || hover.color};
             box-shadow: ${hover.boxShadow};
           }
         }
