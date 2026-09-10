@@ -252,10 +252,7 @@ export const useCliTerminal = (
       }
       const contentRows = () => {
         const buf = term.buffer.active
-        for (let i = buf.length - 1; i >= 0; i--) {
-          if (buf.getLine(i)?.translateToString(true).trim()) return i + 1
-        }
-        return 1
+        return Math.max(1, buf.baseY + buf.cursorY + 1)
       }
       const fitTerm = () => {
         fitAddon.fit()
@@ -321,6 +318,7 @@ export const useCliTerminal = (
         host.style.height = `${hostH}px`
         host.style.maxHeight = `${hostH}px`
         const stayBottom =
+          usedRows > maxRows &&
           term.buffer.active.viewportY >= term.buffer.active.baseY
         if (term.rows !== rows) {
           const keep = term.buffer.active.viewportY
