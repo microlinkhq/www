@@ -139,7 +139,7 @@ The function parameter is available on both free and pro plans with different re
 |                      | Free             | Pro              |
 | -------------------- | ---------------- | ---------------- |
 | Timeout              | 5 seconds        | Up to 60 seconds |
-| Memory               | 16 MB            | 32 MB            |
+| Memory               | 32 MB            | 64 MB            |
 | Code size            | 1024 bytes       | Unlimited        |
 | Concurrency          | 1 in-flight per IP | Unlimited      |
 | Outgoing requests    | Same-origin only | Unrestricted     |

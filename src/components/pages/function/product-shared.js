@@ -431,7 +431,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Is Function available on the free plan?',
-    text: 'Yes. Free runs get a 5-second timeout, 16 MB of memory, 1024 bytes of code, and one concurrent execution per IP. Pro plans extend the timeout up to 60 seconds, raise memory to 32 MB, and remove code-size and concurrency limits.'
+    text: 'Yes. Free runs get a 5-second timeout, 32 MB of memory, 1024 bytes of code, and one concurrent execution per IP. Pro plans extend the timeout up to 60 seconds, raise memory to 64 MB, and remove code-size and concurrency limits.'
   },
   {
     question: 'Does every call execute the function again?',
