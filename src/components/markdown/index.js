@@ -339,10 +339,16 @@ const ScopedComponents = {
 
 const components = { ...mdComponents, ...ScopedComponents }
 
-const Markdown = ({ children, isBlogPage, isGuidesPage, ...props }) => {
+const Markdown = ({
+  children,
+  isBlogPage,
+  isGuidesPage,
+  titleize = true,
+  ...props
+}) => {
   const contextValue = useMemo(
-    () => ({ isBlogPage, isGuidesPage }),
-    [isBlogPage, isGuidesPage]
+    () => ({ isBlogPage, isGuidesPage, titleize }),
+    [isBlogPage, isGuidesPage, titleize]
   )
 
   return (

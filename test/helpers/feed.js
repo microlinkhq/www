@@ -1,7 +1,6 @@
 import { test, expect } from 'vitest'
 
 import { serializeBlogFeed } from '../../src/helpers/feed'
-import { title as formatTitle } from '../../src/helpers/title'
 
 const siteUrl = 'https://microlink.io'
 
@@ -29,21 +28,20 @@ test('builds absolute url and stable guid from slug', () => {
   expect(item.date).toBe('2026-01-15')
 })
 
-test('formats titles with the shared title helper', () => {
+test('keeps the authored title casing', () => {
   const [item] = serializeBlogFeed({
     siteUrl,
     nodes: [
       node({
         slug: '/blog/example',
-        title: 'what is a headless browser?',
+        title: 'What Is a Headless Browser? Puppeteer vs Playwright',
         description: 'A description.',
         date: '2026-01-15'
       })
     ]
   })
 
-  expect(item.title).toBe(formatTitle('what is a headless browser?'))
-  expect(item.title).not.toBe('what is a headless browser?')
+  expect(item.title).toBe('What Is a Headless Browser? Puppeteer vs Playwright')
 })
 
 test('falls back to excerpt when description is missing', () => {

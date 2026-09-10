@@ -1,7 +1,6 @@
 import { textGradient, theme, transition, breakpoints } from 'theme'
 import { Link } from 'components/elements/Link'
 import { formatDate } from 'helpers/format-date'
-import { title as titleize } from 'helpers/title'
 import { H2 } from 'components/markdown'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
@@ -70,6 +69,7 @@ export const BlogPostList = ({
         >
           <H2
             slug={false}
+            titleize={false}
             css={theme({
               mt: 0,
               mb: 0,
@@ -77,7 +77,7 @@ export const BlogPostList = ({
               display: 'inline-block'
             })}
           >
-            {titleize(title)}
+            {title}
           </H2>
           <Flex
             css={theme({
