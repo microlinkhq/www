@@ -11,7 +11,6 @@ import Layout from 'components/patterns/Layout'
 import Markdown, { H1, H2 } from 'components/markdown'
 import { textGradient, layout, theme } from 'theme'
 import { formatDate } from 'helpers/format-date'
-import { title as titleize } from 'helpers/title'
 import TimeAgo from 'react-timeago'
 import React from 'react'
 
@@ -62,7 +61,7 @@ const PageTemplate = ({
                     mt: 0
                   })}
                 >
-                  <PostTitle>{titleize(subtitle)}</PostTitle>
+                  <PostTitle>{subtitle}</PostTitle>
                 </H2>
               )}
               <PostAuthor authorIds={authorList} />
@@ -96,11 +95,13 @@ const PageTemplate = ({
       </Text>
 
       <Box css={theme({ pt: [3, null, 4] })}>
-        <Markdown isBlogPage>{content}</Markdown>
+        <Markdown isBlogPage titleize={!isBlogPage}>
+          {content}
+        </Markdown>
       </Box>
 
       {isBlogPage && (
-        <Markdown isBlogPage={isBlogPage}>
+        <Markdown isBlogPage={isBlogPage} titleize={false}>
           <PostFooter />
         </Markdown>
       )}

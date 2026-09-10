@@ -29,7 +29,6 @@ const { buildLlmsTxt } = require('./src/helpers/llms-txt')
 const {
   parseLatestChangelogEntry
 } = require('./src/helpers/parse-latest-changelog-entry')
-const { title: formatTitle } = require('./src/helpers/title')
 const { generate: generateOgCards, slug, imagePath } = require('@microlink/og')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
@@ -460,14 +459,10 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
     const slug = node.fields.slug.replace(/\/+$/, '')
     const contentFilePath = node.internal.contentFilePath
     const lastEdited = await getLastModifiedDate(contentFilePath)
-    const isBlogPage = node.fields.slug.startsWith('/blog/')
     const isSkillPage = node.fields.slug.startsWith('/skills/')
     const skillSlug = isSkillPage
       ? node.fields.slug.split('/').filter(Boolean).pop()
       : null
-    const frontmatter = isBlogPage
-      ? { ...node.frontmatter, title: formatTitle(node.frontmatter.title) }
-      : node.frontmatter
     const templatePath = isSkillPage
       ? path.resolve('./src/templates/skill.js')
       : path.resolve('./src/templates/index.js')
@@ -490,7 +485,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
       context: {
         id: node.id,
         description: node.frontmatter.description || node.description,
-        frontmatter,
+        frontmatter: node.frontmatter,
         githubUrl: await githubUrl(contentFilePath),
         lastEdited,
         isBlogPage: node.fields.slug.startsWith('/blog/'),
