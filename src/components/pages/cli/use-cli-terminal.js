@@ -252,10 +252,14 @@ export const useCliTerminal = (
       }
       const contentRows = () => {
         const buf = term.buffer.active
+        let last = buf.baseY + buf.cursorY + 1
         for (let i = buf.length - 1; i >= 0; i--) {
-          if (buf.getLine(i)?.translateToString(true).trim()) return i + 1
+          if (buf.getLine(i)?.translateToString(true).trim()) {
+            last = Math.max(last, i + 1)
+            break
+          }
         }
-        return 1
+        return Math.max(1, last)
       }
       const fitTerm = () => {
         fitAddon.fit()
@@ -268,6 +272,15 @@ export const useCliTerminal = (
         if (!cols) return
         const next = isCompactCli() ? Math.max(cols, MIN_TERMINAL_COLS) : cols
         if (next !== term.cols) term.resize(next, term.rows)
+      }
+      const pinBlock = el => {
+        if (!el || el.hidden) return 0
+        const cs = window.getComputedStyle(el)
+        return (
+          el.offsetHeight +
+          parseFloat(cs.marginTop) +
+          parseFloat(cs.marginBottom)
+        )
       }
       const syncPinMetrics = () => {
         const size = `${term.options.fontSize}px`
@@ -283,36 +296,46 @@ export const useCliTerminal = (
         if (promptPin.hidden) {
           host.style.flex = ''
           host.style.height = ''
+          host.style.maxHeight = ''
           commandPin.dataset.stuck = 'false'
           promptPin.style.marginTop = ''
           return
         }
         if (!rowHeight) return
-        const reserved =
-          (commandPin.dataset.collapsed === 'true'
-            ? 0
-            : commandPin.offsetHeight) + promptPin.offsetHeight
-        const max = Math.max(rowHeight, surface.clientHeight - reserved)
+        const box = window.getComputedStyle(surface)
+        const inner =
+          surface.clientHeight -
+          parseFloat(box.paddingTop) -
+          parseFloat(box.paddingBottom)
+        promptPin.style.marginTop = `${rowHeight}px`
         const used = contentRows() * rowHeight
+        const reserved =
+          (commandPin.dataset.collapsed === 'true' ? 0 : pinBlock(commandPin)) +
+          pinBlock(promptPin)
+        const max = Math.max(rowHeight, inner - reserved)
+        const maxRows = Math.max(1, Math.floor(max / rowHeight))
+        const usedRows = Math.max(1, Math.round(used / rowHeight))
+        const rows = Math.min(usedRows, maxRows)
+        const hostH = rows * rowHeight
         const stuck =
           commandPin.dataset.collapsed !== 'true' &&
-          (term.buffer.active.viewportY > 0 || used > max)
+          (term.buffer.active.viewportY > 0 || usedRows > maxRows)
         commandPin.dataset.stuck = stuck ? 'true' : 'false'
-        promptPin.style.marginTop = stuck ? '' : `${rowHeight}px`
-        host.style.flex = '0 0 auto'
-        host.style.height = `${Math.min(used, max)}px`
-        const needed = Math.max(1, Math.round(used / rowHeight))
-        if (used > max) {
-          const rows = Math.max(1, Math.round(max / rowHeight))
-          if (Math.abs(term.rows - rows) > 1) {
-            const keep = term.buffer.active.viewportY
-            fitTerm()
-            term.scrollToLine(keep)
-          } else fitCols()
-        } else if (term.rows < needed) {
+        host.style.flex = '0 1 auto'
+        host.style.height = `${hostH}px`
+        host.style.maxHeight = `${hostH}px`
+        const stayBottom =
+          usedRows > maxRows &&
+          term.buffer.active.viewportY >= term.buffer.active.baseY
+        if (term.rows !== rows) {
           const keep = term.buffer.active.viewportY
-          fitTerm()
-          term.scrollToLine(keep)
+          const cols = fitAddon.proposeDimensions()?.cols ?? term.cols
+          const nextCols = isCompactCli()
+            ? Math.max(cols, MIN_TERMINAL_COLS)
+            : cols
+          term.resize(nextCols, rows)
+          if (stayBottom) term.scrollToBottom()
+          else term.scrollToLine(keep)
         } else fitCols()
       }
       surface.append(commandPin, host, promptPin)
