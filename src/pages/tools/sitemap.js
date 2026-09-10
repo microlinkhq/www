@@ -155,17 +155,13 @@ export const Head = () => (
   />
 )
 
-const SitemapTool = () => {
-  return (
-    <Layout>
-      <Box css={theme({ maxWidth: ['100%', layout.normal], mx: 'auto' })}>
-        <Hero />
-      </Box>
-      <Box css={theme({ maxWidth: ['100%', layout.normal], mx: 'auto' })}>
-        <Faq css={theme({ pt: 4, px: 0 })} questions={FAQ_QUESTIONS} />
-      </Box>
-    </Layout>
-  )
-}
+const SitemapTool = () => (
+  <Layout>
+    <Box css={theme({ maxWidth: ['100%', layout.normal], mx: 'auto' })}>
+      <Hero />
+      <Faq css={theme({ pt: 4, px: 0 })} questions={FAQ_QUESTIONS} />
+    </Box>
+  </Layout>
+)
 
 export default withTitle(SitemapTool)

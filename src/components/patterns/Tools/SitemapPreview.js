@@ -34,21 +34,19 @@ const SitemapPreview = () => (
         boxShadow: 2
       })}
     >
-      <Flex
+      <Text
         css={theme({
+          fontSize: 0,
+          fontWeight: 'bold',
+          color: 'black70',
           px: 2,
           py: 1,
           borderBottom: 1,
-          borderBottomColor: 'black05',
-          justifyContent: 'space-between'
+          borderBottomColor: 'black05'
         })}
       >
-        <Text
-          css={theme({ fontSize: 0, fontWeight: 'bold', color: 'black70' })}
-        >
-          5 URLs
-        </Text>
-      </Flex>
+        5 URLs
+      </Text>
       {ROWS.map(path => (
         <Text
           key={path}

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React from 'react'
 import { ArrowUpRight, Clipboard, Download } from 'react-feather'
 import styled from 'styled-components'
 import { theme, layout, touchTargets } from 'theme'
@@ -10,69 +10,25 @@ import Caps from 'components/elements/Caps'
 import { Link } from 'components/elements/Link'
 import { useClipboard } from 'components/hook/use-clipboard'
 
-const ROW_HEIGHT = 44
-const VIEWPORT_ROWS = 12
+const LIST_MAX_HEIGHT = 44 * 12
 
-const UrlList = ({ urls }) => {
-  const [scrollTop, setScrollTop] = useState(0)
-  const start = Math.max(0, Math.floor(scrollTop / ROW_HEIGHT) - 2)
-  const end = Math.min(urls.length, start + VIEWPORT_ROWS + 4)
-  const offsetY = start * ROW_HEIGHT
-  const visible = urls.slice(start, end)
-
-  if (urls.length <= 50) {
-    return (
-      <Box
-        as='ul'
-        css={theme({
-          listStyle: 'none',
-          m: 0,
-          p: 0,
-          maxHeight: `${ROW_HEIGHT * VIEWPORT_ROWS}px`,
-          overflowY: 'auto',
-          overscrollBehavior: 'contain'
-        })}
-      >
-        {urls.map(url => (
-          <UrlRow key={url} url={url} />
-        ))}
-      </Box>
-    )
-  }
-
-  return (
-    <Box
-      css={theme({
-        maxHeight: `${ROW_HEIGHT * VIEWPORT_ROWS}px`,
-        overflowY: 'auto',
-        overscrollBehavior: 'contain'
-      })}
-      onScroll={event => setScrollTop(event.currentTarget.scrollTop)}
-    >
-      <Box
-        css={{ height: `${urls.length * ROW_HEIGHT}px`, position: 'relative' }}
-      >
-        <Box
-          as='ul'
-          css={theme({
-            listStyle: 'none',
-            m: 0,
-            p: 0,
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            transform: `translateY(${offsetY}px)`
-          })}
-        >
-          {visible.map(url => (
-            <UrlRow key={url} url={url} />
-          ))}
-        </Box>
-      </Box>
-    </Box>
-  )
-}
+const UrlList = ({ urls }) => (
+  <Box
+    as='ul'
+    css={theme({
+      listStyle: 'none',
+      m: 0,
+      p: 0,
+      maxHeight: `${LIST_MAX_HEIGHT}px`,
+      overflowY: 'auto',
+      overscrollBehavior: 'contain'
+    })}
+  >
+    {urls.map(url => (
+      <UrlRow key={url} url={url} />
+    ))}
+  </Box>
+)
 
 const UrlRowItem = styled(Box)`
   a::after {
@@ -147,10 +103,7 @@ const ActionButton = ({ children, ...props }) => (
 
 export const Results = ({ urls }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
-  const countLabel = useMemo(
-    () => new Intl.NumberFormat().format(urls.length),
-    [urls.length]
-  )
+  const countLabel = new Intl.NumberFormat().format(urls.length)
 
   if (urls.length === 0) {
     return (

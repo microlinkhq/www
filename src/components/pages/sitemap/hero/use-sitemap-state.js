@@ -5,7 +5,7 @@ import { hasDomainLikeHostname } from 'helpers/url-input'
 import { fetchSitemapUrls } from 'helpers/get-sitemap-urls'
 import { normalizeApiError } from 'helpers/api-error'
 
-export const DEFAULT_URL = 'https://microlink.io'
+const DEFAULT_URL = 'https://microlink.io'
 
 export const useSitemapState = () => {
   const [query, setQuery] = useQueryState()
@@ -16,7 +16,6 @@ export const useSitemapState = () => {
   const [urls, setUrls] = useState(null)
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [isDefaultDemo, setIsDefaultDemo] = useState(false)
   const skipBlurRef = useRef(false)
   const lastSubmittedRef = useRef('')
   const requestIdRef = useRef(0)
@@ -78,35 +77,31 @@ export const useSitemapState = () => {
     [setQuery]
   )
 
-  useEffect(() => {
-    if (!isMounted || didInitial.current) return
-    didInitial.current = true
-    if (query.url) {
-      setIsDefaultDemo(false)
-      fetchSite(query.url, { syncQuery: false })
-      return
-    }
-    setIsDefaultDemo(true)
-    fetchSite(DEFAULT_URL, { syncQuery: false, fillInput: false })
-  }, [isMounted, query.url, fetchSite])
-
-  useEffect(() => {
-    const handlePopState = () => {
-      const params = new URLSearchParams(window.location.search)
-      const url = params.get('url')
+  const loadFromQuery = useCallback(
+    url => {
       if (url) {
-        setIsDefaultDemo(false)
         fetchSite(url, { syncQuery: false })
         return
       }
-      setIsDefaultDemo(true)
       setInputUrl('')
       fetchSite(DEFAULT_URL, { syncQuery: false, fillInput: false })
-    }
+    },
+    [fetchSite]
+  )
 
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
-  }, [fetchSite])
+  useEffect(() => {
+    if (!isMounted || didInitial.current) return
+    didInitial.current = true
+    loadFromQuery(query.url)
+  }, [isMounted, query.url, loadFromQuery])
+
+  useEffect(() => {
+    const onPopState = () => {
+      loadFromQuery(new URLSearchParams(window.location.search).get('url'))
+    }
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [loadFromQuery])
 
   const handleBlur = useCallback(event => {
     if (skipBlurRef.current) {
@@ -120,7 +115,6 @@ export const useSitemapState = () => {
   }, [])
 
   return {
-    query,
     inputUrl,
     setInputUrl,
     inputError,
@@ -129,8 +123,6 @@ export const useSitemapState = () => {
     urls,
     error,
     isLoading,
-    isDefaultDemo,
-    setIsDefaultDemo,
     skipBlurRef,
     lastSubmittedRef,
     fetchSite,

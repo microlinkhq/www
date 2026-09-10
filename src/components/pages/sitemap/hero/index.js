@@ -16,7 +16,7 @@ import { Results } from 'components/pages/sitemap/results'
 import { ErrorPanel } from './error-panel'
 import { Highlights } from './highlights'
 import { ExampleLinks } from './examples'
-import { DEFAULT_URL, useSitemapState } from './use-sitemap-state'
+import { useSitemapState } from './use-sitemap-state'
 
 export const Hero = () => {
   const {
@@ -28,8 +28,6 @@ export const Hero = () => {
     urls,
     error,
     isLoading,
-    isDefaultDemo,
-    setIsDefaultDemo,
     skipBlurRef,
     lastSubmittedRef,
     fetchSite,
@@ -47,9 +45,6 @@ export const Hero = () => {
       !error
     ) {
       return
-    }
-    if (isDefaultDemo && normalizedUrl && normalizedUrl !== DEFAULT_URL) {
-      setIsDefaultDemo(false)
     }
     fetchSite(value)
   }
@@ -71,7 +66,6 @@ export const Hero = () => {
   const handleExample = url => {
     trackEvent('sitemap inspect')
     skipBlurRef.current = true
-    if (isDefaultDemo) setIsDefaultDemo(false)
     fetchSite(url)
   }
 
