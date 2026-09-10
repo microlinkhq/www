@@ -338,6 +338,13 @@ export const NAVIGATION_SECTIONS = [
         icon: BugIcon
       }),
       createNavigationItem({
+        label: 'Sitemap URLs',
+        href: '/tools/sitemap',
+        actively: 'exact',
+        description: 'List every page from a site sitemap',
+        icon: Map
+      }),
+      createNavigationItem({
         label: 'Website to PDF',
         href: '/tools/website-to-pdf',
         actively: 'exact',

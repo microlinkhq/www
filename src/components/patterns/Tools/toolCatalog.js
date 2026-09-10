@@ -5,13 +5,15 @@ import {
   Smartphone,
   Film,
   Code as CodeIcon,
-  FileText as FileTextIcon
+  FileText as FileTextIcon,
+  Map as MapIcon
 } from 'react-feather'
 
 import { Camera as CameraIcon } from 'components/icons/Camera'
 import { BookImage as BookImageIcon } from 'components/icons/BookImage'
 import { Bug as BugIcon } from 'components/icons/Bug'
 import EmbedToolPreview from 'components/patterns/Tools/EmbedToolPreview'
+import SitemapPreview from 'components/patterns/Tools/SitemapPreview'
 
 export const TOOLS = [
   {
@@ -126,6 +128,14 @@ export const TOOLS = [
           transition: 'transform 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
           transformOrigin: 'top center'
         }
+      },
+      {
+        title: 'Sitemap URLs',
+        description:
+          'Paste a site URL and list every page from Sitemap: in robots.txt. Copy the list or download it as a text file.',
+        href: '/tools/sitemap',
+        icon: MapIcon,
+        preview: SitemapPreview
       }
     ]
   },

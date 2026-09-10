@@ -114,6 +114,7 @@ const FOOTER_COLUMNS = [
     title: 'Tools',
     links: [
       { label: 'Sharing Debugger', href: '/tools/sharing-debugger' },
+      { label: 'Sitemap URLs', href: '/tools/sitemap' },
       { label: 'Website Screenshot', href: '/tools/website-screenshot' },
       { label: 'Embed URL', href: '/tools/embed-url' },
       { label: 'URL to Markdown', href: '/tools/url-to-markdown' },

@@ -1,3 +1,7 @@
+### September 2026
+
+- [Microlink Tools](/tools): Added [sitemap](/tools/sitemap) page.
+
 ### August 2026
 
 - [unavatar.io](https://unavatar.io): Added [Kick](https://unavatar.io/kick) and [BIMI](https://unavatar.io/bimi) support.
