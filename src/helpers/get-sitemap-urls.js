@@ -4,9 +4,13 @@ import { mqlCode } from './mql-code'
 export const FREE_FUNCTION_CODE_LIMIT = 1024
 
 export const getSitemapUrls = `async ({ site }) => {
+  // Discover sitemap URLs from this origin's robots.txt
   const robotsUrl = new URL('/robots.txt', site).href
   const res = await fetch(robotsUrl)
-  const maps = require('robots-parser')(robotsUrl, res.ok ? await res.text() : '').getSitemaps()
+  const body = res.ok ? await res.text() : ''
+  const maps = require('robots-parser')(robotsUrl, body).getSitemaps()
+
+  // Walk nested sitemap indexes. \`fetcher\` is how each document is loaded.
   return require('xml-urls')(maps, { fetcher: fetch })
 }`
 
