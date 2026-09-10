@@ -93,22 +93,20 @@ export const ActionButton = styled(Flex).attrs({ as: 'a' })`
     textAlign: 'center'
   })}
   text-decoration: none;
-  transition: background ${transition.medium}, box-shadow ${transition.medium},
-    transform ${transition.short};
+  transition: background ${transition.short}, box-shadow ${transition.short};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
+  @media (prefers-reduced-motion: no-preference) {
+    &:active {
+      transform: scale(0.97);
+    }
   }
 
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  &:active {
-    transform: translateY(0);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
   }
 
   &:focus-visible {

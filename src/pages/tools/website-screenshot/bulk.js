@@ -228,13 +228,13 @@ const REASON_TO_USE = [
 /* ─── Preview Animations (bulk-specific) ────────────────── */
 
 const resultEnter = keyframes`
-  from { opacity: 0; transform: translateY(10px); max-height: 0; }
-  to { opacity: 1; transform: translateY(0); max-height: 40px; }
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 `
 
 const resultExit = keyframes`
-  from { opacity: 1; transform: translateY(0); max-height: 40px; }
-  to { opacity: 0; transform: translateY(-10px); max-height: 0; padding-top: 0; padding-bottom: 0; }
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-8px); }
 `
 
 const VISIBLE_RESULTS = 8

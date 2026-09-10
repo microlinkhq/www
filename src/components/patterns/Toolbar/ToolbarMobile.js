@@ -218,13 +218,7 @@ const SectionChevron = styled(FeatherIcon).withConfig({
 const SectionContent = styled(Box).withConfig({
   shouldForwardProp: prop => !['isExpanded'].includes(prop)
 })`
-  overflow: hidden;
-  max-height: ${({ isExpanded }) => (isExpanded ? '1200px' : '0px')};
-  opacity: ${({ isExpanded }) => (isExpanded ? 1 : 0)};
-  transform: translateY(${({ isExpanded }) => (isExpanded ? '0px' : '-4px')});
-  transition: max-height ${transition.short}, opacity ${transition.short},
-    transform ${transition.short};
-  pointer-events: ${({ isExpanded }) => (isExpanded ? 'auto' : 'none')};
+  display: ${({ isExpanded }) => (isExpanded ? 'block' : 'none')};
 `
 
 const MobileMenuPanel = styled(Box).withConfig({

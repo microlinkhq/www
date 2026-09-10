@@ -29,26 +29,6 @@ export const shine = keyframes`
 }
 `
 
-export const showNotification = keyframes`
-from {
-  opacity: 0;
-  transform: scale(0.5);
-} to {
-  opacity: 1;
-  transform: scale(1);
-}
-`
-
-export const hideNotification = keyframes`
-from {
-  opacity: 1;
-  transform: translateY(0);
-} to {
-  opacity: 0;
-  transform: translateY(100%);
-}
-`
-
 export const rotate = keyframes`
   100% {
     transform: rotate(360deg);
@@ -111,11 +91,7 @@ to { transform: translateY( -6.0em); }
 export const popIn = keyframes`
 from {
   opacity: 0;
-  transform: scale(0.4) translateY(24px);
-}
-60% {
-  opacity: 1;
-  transform: scale(1.08) translateY(-4px);
+  transform: scale(0.95) translateY(8px);
 }
 to {
   opacity: 1;
@@ -128,24 +104,8 @@ from {
   opacity: 1;
   transform: scale(1) translateY(0);
 }
-40% {
-  opacity: 1;
-  transform: scale(1.08) translateY(-4px);
-}
 to {
   opacity: 0;
-  transform: scale(0.4) translateY(24px);
-}
-`
-
-export const wiggle = keyframes`
-0%, 100% {
-  transform: rotate(0deg);
-}
-25% {
-  transform: rotate(-12deg);
-}
-75% {
-  transform: rotate(12deg);
+  transform: scale(0.95) translateY(8px);
 }
 `

@@ -43,15 +43,17 @@ const cardBase = css`
     overflow: 'hidden'
   })}
   background: linear-gradient(120deg, #ffffff 0%, #fdfaff 60%, #fff5fa 100%);
-  transition: box-shadow ${transition.medium}, transform ${transition.medium};
+  transition: box-shadow ${transition.short};
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) and (pointer: fine) {
+      transition: box-shadow ${transition.short}, transform ${transition.short};
 
-  &:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+      &:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transform: translateY(-1px);
+      }
+    }
   }
 `
 
@@ -106,23 +108,24 @@ const installButtonBase = css`
   text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
-  transition: opacity ${transition.medium}, transform ${transition.short},
-    box-shadow ${transition.medium};
+  transition: opacity ${transition.short}, box-shadow ${transition.short};
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity ${transition.short}, transform ${transition.short},
+      box-shadow ${transition.short};
+
+    &:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 8px 0 rgba(236, 72, 153, 0.3);
+    }
   }
 
-  &:hover {
-    opacity: 0.92;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px 0 rgba(236, 72, 153, 0.45);
-    color: white;
-  }
-
-  &:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px 0 rgba(236, 72, 153, 0.3);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      opacity: 0.92;
+      box-shadow: 0 6px 20px 0 rgba(236, 72, 153, 0.45);
+      color: white;
+    }
   }
 
   &:focus-visible {

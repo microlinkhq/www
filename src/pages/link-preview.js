@@ -309,11 +309,12 @@ const HeroCopyButton = styled('button')`
 
   &:hover {
     color: ${colors.black};
-    transform: scale(1.1);
   }
 
-  &:active {
-    transform: scale(0.95);
+  @media (prefers-reduced-motion: no-preference) {
+    &:active {
+      transform: scale(0.97);
+    }
   }
 
   &:focus-visible {
@@ -1477,10 +1478,14 @@ const CLIENTS = [
 const ClientLogo = styled(Flex)`
   ${theme({ textDecoration: 'none' })};
   color: inherit;
-  transition: transform ${transition.short};
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) and (pointer: fine) {
+      transition: transform ${transition.short};
 
-  &:hover {
-    transform: translateY(-${radii[1]}) scale(1.05);
+      &:hover {
+        transform: translateY(-1px);
+      }
+    }
   }
 
   &:focus-visible {
@@ -1647,11 +1652,18 @@ const CustomerStoryCard = styled('a')`
     color: 'inherit'
   })}
   box-shadow: ${shadows[1]};
-  transition: transform ${transition.short}, border-color ${transition.short};
+  transition: border-color ${transition.short};
 
-  &:hover {
-    transform: translateY(-2px);
-    border-color: ${colors.black20};
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) and (pointer: fine) {
+      transition: transform ${transition.short},
+        border-color ${transition.short};
+
+      &:hover {
+        transform: translateY(-1px);
+        border-color: ${colors.black20};
+      }
+    }
   }
 
   &:focus-visible {

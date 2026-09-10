@@ -116,10 +116,12 @@ const ClientLogo = styled(Flex)`
   color: inherit;
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: transform ${transition.short};
+    @media (hover: hover) and (pointer: fine) {
+      transition: transform ${transition.short};
 
-    &:hover {
-      transform: translateY(-${radii[1]}) scale(1.05);
+      &:hover {
+        transform: translateY(-1px);
+      }
     }
   }
 

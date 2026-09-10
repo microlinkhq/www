@@ -182,21 +182,15 @@ const FinalCtaSection = () => (
                   cursor: 'pointer',
                   touchAction: 'manipulation',
                   WebkitTapHighlightColor: 'transparent',
-                  transition: `transform ${transition.short}`,
-                  _hover: {
-                    transform: 'translateY(-4px)'
-                  },
-                  _active: {
-                    transform: 'translateY(-1px)'
-                  },
-                  '@media (prefers-reduced-motion: reduce)': {
-                    transition: 'none',
-                    transform: 'none',
-                    _hover: {
-                      transform: 'none'
-                    },
-                    _active: {
-                      transform: 'none'
+                  '@media (prefers-reduced-motion: no-preference)': {
+                    '@media (hover: hover) and (pointer: fine)': {
+                      transition: `transform ${transition.short}`,
+                      '&:hover': {
+                        transform: 'translateY(-1px)'
+                      },
+                      '&:active': {
+                        transform: 'scale(0.97)'
+                      }
                     }
                   },
                   '&:focus-visible': {

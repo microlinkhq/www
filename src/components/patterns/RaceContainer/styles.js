@@ -106,12 +106,7 @@ export const RaceContainerWrapper = styled('div')`
 `
 
 export const RaceInner = styled('div')`
-  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
 `
 
 export const UrlLabel = styled('div')`
@@ -343,9 +338,8 @@ export const LaneBar = styled('div')`
     $noGrow
       ? 'none'
       : css`
-        ${barGrow} 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards
+        ${barGrow} ${transition.medium} forwards
       `};
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 
   ${({ $isMicrolink }) =>
@@ -474,13 +468,14 @@ export const StepDot = styled('button')`
     $active ? colors.red6 : $done ? colors.black50 : 'transparent'};
   padding: 0;
   cursor: pointer;
-  transition: background ${transition.medium}, transform ${transition.medium};
+  transition: background ${transition.short};
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 
-  &:hover {
-    transform: scale(1.3);
-    background: ${({ $active }) => ($active ? colors.red6 : colors.black10)};
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: ${({ $active }) => ($active ? colors.red6 : colors.black10)};
+    }
   }
 
   &:focus-visible {

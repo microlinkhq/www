@@ -280,7 +280,7 @@ const ColorSwatch = styled(Box).withConfig({
   height: 24px;
   border-radius: 50%;
   cursor: pointer;
-  transition: transform ${transition.short}, box-shadow ${transition.short};
+  transition: box-shadow ${transition.short};
 
   ${({ isActive }) =>
     isActive ? `border: 2px solid ${colors.black80}` : null};
@@ -288,13 +288,10 @@ const ColorSwatch = styled(Box).withConfig({
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &:hover {
-    transform: scale(1.15);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
   }
 
   &:focus-visible {

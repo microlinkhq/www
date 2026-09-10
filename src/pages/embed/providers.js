@@ -1799,17 +1799,19 @@ const ProviderCardLink = styled.a`
   font-size: 15px;
   font-weight: 600;
   line-height: 1;
-  transition: border-color ${transition.medium}, box-shadow ${transition.medium},
-    transform 150ms ease;
+  transition: border-color ${transition.short}, box-shadow ${transition.short};
 
-  &:hover {
-    border-color: ${colors.black20};
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    transform: translateY(-1px);
+  @media (prefers-reduced-motion: no-preference) {
+    &:active {
+      transform: scale(0.97);
+    }
   }
 
-  &:active {
-    transform: translateY(0);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: ${colors.black20};
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
   }
 `
 

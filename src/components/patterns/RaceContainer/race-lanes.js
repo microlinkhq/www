@@ -125,7 +125,7 @@ export const RaceLanes = ({
               right: 0,
               transform: `translateY(${offset}px)`,
               transition: isReordering
-                ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                ? 'transform 200ms cubic-bezier(0.23, 1, 0.32, 1)'
                 : 'none'
             }}
           >

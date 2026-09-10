@@ -218,17 +218,19 @@ const Card = styled(Box)`
     overflow: 'hidden'
   })}
   box-shadow: ${shadows[1]};
-  transition: box-shadow ${transition.medium}, transform ${transition.medium},
-    border-color ${transition.medium};
+  transition: box-shadow ${transition.short}, border-color ${transition.short};
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) and (pointer: fine) {
+      transition: box-shadow ${transition.short}, transform ${transition.short},
+        border-color ${transition.short};
 
-  &:hover {
-    border-color: ${props => props.$edge};
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px -14px ${props => props.$glow};
+      &:hover {
+        border-color: ${props => props.$edge};
+        transform: translateY(-1px);
+        box-shadow: 0 12px 32px -14px ${props => props.$glow};
+      }
+    }
   }
 `
 

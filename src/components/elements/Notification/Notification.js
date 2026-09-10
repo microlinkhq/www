@@ -1,8 +1,7 @@
-import { hideNotification, showNotification } from 'components/keyframes'
 import { CheckCircle, X, AlertTriangle } from 'react-feather' // TODO: XCircle is probably X
 import React, { createElement, useState } from 'react'
 import FeatherIcon from 'components/icons/Feather'
-import { theme, transition, touchTargets } from 'theme'
+import { theme, transition, touchTargets, speed } from 'theme'
 import styled from 'styled-components'
 import Text from '../Text'
 import Flex from '../Flex'
@@ -13,15 +12,25 @@ const Wrapper = styled(Flex)`
   position: fixed;
   right: 0;
   z-index: 3;
-  animation: ${showNotification} ${transition.medium} forwards 1;
   padding-bottom: env(safe-area-inset-bottom, 0);
+  opacity: 1;
+  transform: translateY(0) scale(1);
 
-  &[aria-hidden='true'] {
-    animation: ${hideNotification} ${transition.medium} forwards 1;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity ${transition.medium}, transform ${transition.medium};
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(100%) scale(0.95);
+    }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
+  &[aria-hidden='true'] {
+    opacity: 0;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transform: translateY(100%) scale(0.95);
+    }
   }
 `
 
@@ -92,7 +101,7 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
             })}
             onClick={() => {
               setIsHidden(true)
-              setTimeout(() => setIsClosed(true), 300)
+              setTimeout(() => setIsClosed(true), speed.normal)
             }}
           >
             <X size={16} />

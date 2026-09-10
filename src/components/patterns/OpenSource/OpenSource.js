@@ -105,12 +105,19 @@ const RepoCard = styled('a')`
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       border-color: ${({ $accent }) => $accent};
-      transform: translateY(-3px);
       box-shadow: ${CARD_HOVER_SHADOW};
     }
     &:hover ${Arrow} {
       color: ${colors.black};
-      transform: translate(2px, -2px);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &:hover {
+        transform: translateY(-1px);
+      }
+      &:hover ${Arrow} {
+        transform: translate(2px, -2px);
+      }
     }
   }
 

@@ -56,12 +56,8 @@ export const CopyButton = styled('button')`
   @media (prefers-reduced-motion: no-preference) {
     transition: color ${transition.short}, transform ${transition.short};
 
-    &:hover {
-      transform: scale(1.1);
-    }
-
     &:active {
-      transform: scale(0.95);
+      transform: scale(0.97);
     }
   }
 

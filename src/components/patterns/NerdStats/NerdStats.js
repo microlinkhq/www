@@ -373,27 +373,29 @@ const ToggleButton = styled.button`
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   font-family: inherit;
-  transition: background ${transition.medium}, box-shadow ${transition.medium},
-    transform ${transition.short};
+  transition: background ${transition.short}, box-shadow ${transition.short};
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background ${transition.short}, box-shadow ${transition.short},
+      transform ${transition.short};
+
+    &:active {
+      transform: scale(0.97);
+    }
   }
 
   background: ${({ $active }) => ($active ? colors.green0 : colors.white)};
   color: ${({ $active }) => ($active ? colors.green8 : colors.black80)};
   border-color: ${({ $active }) => ($active ? colors.green4 : colors.black10)};
 
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: ${shadows[2]};
-    background: ${({ $active }) => ($active ? colors.green1 : colors.black025)};
-    border-color: ${({ $active }) =>
-      $active ? colors.green5 : colors.black20};
-  }
-
-  &:active {
-    transform: translateY(0);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: ${shadows[2]};
+      background: ${({ $active }) =>
+        $active ? colors.green1 : colors.black025};
+      border-color: ${({ $active }) =>
+        $active ? colors.green5 : colors.black20};
+    }
   }
 
   &:focus-visible {

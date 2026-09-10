@@ -344,16 +344,18 @@ export const UseCaseCard = styled(Box)`
     borderRadius: 3,
     bg: 'white'
   })}
-  transition: box-shadow ${transition.medium}, transform ${transition.medium};
+  transition: box-shadow ${transition.short};
   touch-action: manipulation;
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) and (pointer: fine) {
+      transition: box-shadow ${transition.short}, transform ${transition.short};
 
-  &:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+      &:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transform: translateY(-1px);
+      }
+    }
   }
 `
 

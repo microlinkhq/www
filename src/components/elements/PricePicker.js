@@ -50,11 +50,17 @@ const SliderFill = styled(Box)`
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
   height: 100%;
   border-radius: 999px;
   background: ${gradient};
   pointer-events: none;
-  transition: width 120ms ease;
+  transform-origin: left center;
+  transition: transform 120ms cubic-bezier(0.23, 1, 0.32, 1);
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 `
 
 const SliderInput = styled('input')`
@@ -93,16 +99,16 @@ const SliderInput = styled('input')`
     transition: transform 120ms ease, box-shadow 120ms ease;
   }
 
-  &:hover::-webkit-slider-thumb,
-  &:focus::-webkit-slider-thumb {
-    transform: scale(1.15);
-    box-shadow: 0 2px 8px ${colors.black20};
-  }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover::-webkit-slider-thumb,
+    &:focus::-webkit-slider-thumb {
+      box-shadow: 0 2px 8px ${colors.black20};
+    }
 
-  &:hover::-moz-range-thumb,
-  &:focus::-moz-range-thumb {
-    transform: scale(1.15);
-    box-shadow: 0 2px 8px ${colors.black20};
+    &:hover::-moz-range-thumb,
+    &:focus::-moz-range-thumb {
+      box-shadow: 0 2px 8px ${colors.black20};
+    }
   }
 
   &::-moz-range-track {
@@ -182,7 +188,7 @@ const PricePicker = ({ onChange }) => {
       <Box css={theme({ px: [2, 2, 3, 3] })}>
         <Box css={theme({ position: 'relative', py: 2 })}>
           <SliderTrack>
-            <SliderFill style={{ width: `${fillPct}%` }} />
+            <SliderFill style={{ transform: `scaleX(${fillPct / 100})` }} />
           </SliderTrack>
           <SliderInput
             type='range'

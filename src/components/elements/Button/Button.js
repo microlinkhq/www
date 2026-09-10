@@ -31,8 +31,8 @@ export const hoverStyle = ({ theme, variant }) => {
 const StyledButton = styled(Box).withConfig({
   shouldForwardProp: prop => !['variant'].includes(prop)
 })`
-  transition: background-color ${transition.medium}, color ${transition.medium},
-    box-shadow ${transition.medium};
+  transition: background-color ${transition.short}, color ${transition.short},
+    box-shadow ${transition.short}, transform ${transition.short};
   appearance: none;
   display: inline-block;
   text-align: center;
@@ -46,6 +46,12 @@ const StyledButton = styled(Box).withConfig({
     transition: none;
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    &:active:not(:disabled) {
+      transform: scale(0.97);
+    }
+  }
+
   &:focus-visible {
     outline: 2px solid ${colors.link};
     outline-offset: 2px;
@@ -55,13 +61,15 @@ const StyledButton = styled(Box).withConfig({
     variant === 'gradient' &&
     `
     &&& {
-      transition: filter ${transition.medium};
+      transition: filter ${transition.short}, transform ${transition.short};
       background: ${gradient};
       padding: ${space[1]};
-      &:hover {
-        box-shadow: none;
-        color: white;
-        filter: hue-rotate(40deg);
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          box-shadow: none;
+          color: white;
+          filter: hue-rotate(40deg);
+        }
       }
       @media (prefers-reduced-motion: reduce) {
         transition: none;
@@ -71,34 +79,43 @@ const StyledButton = styled(Box).withConfig({
 
   ${({ theme, variant }) => {
     const { background, color } = getVariant({ theme, variant })
-    return themeProp({
-      fontFamily: 'sans',
-      fontSize: 1,
-      fontWeight: 'bold',
-      px: 3,
-      /*
-       * WCAG/Apple HIG touch target: minimum 44px for comfortable tap interaction.
-       * py: 12px + fontSize + lineHeight achieves the minHeight.
-       */
-      py: '12px',
-      minHeight: touchTargets.minHeight,
-      border: 0,
-      borderRadius: 2,
-      background,
-      color,
-      boxShadow: variant === 'white' ? `0 0 0 1px ${color}` : undefined,
-      _hover: hoverStyle({ theme, variant }),
-      _disabled: {
-        opacity: 0.8,
-        cursor: 'not-allowed',
-        background: colors.black05,
-        color: colors.black50,
-        boxShadow: `0 0 0 1px ${colors.black20}`,
-        '.path': {
-          stroke: colors.black30
+    const hover = hoverStyle({ theme, variant })
+    return css`
+      ${themeProp({
+        fontFamily: 'sans',
+        fontSize: 1,
+        fontWeight: 'bold',
+        px: 3,
+        py: '12px',
+        minHeight: touchTargets.minHeight,
+        border: 0,
+        borderRadius: 2,
+        background,
+        color,
+        boxShadow: variant === 'white' ? `0 0 0 1px ${color}` : undefined,
+        _disabled: {
+          opacity: 0.8,
+          cursor: 'not-allowed',
+          background: colors.black05,
+          color: colors.black50,
+          boxShadow: `0 0 0 1px ${colors.black20}`,
+          '.path': {
+            stroke: colors.black30
+          }
         }
-      }
-    })
+      })}
+      ${variant !== 'gradient' &&
+      css`
+        @media (hover: hover) and (pointer: fine) {
+          &:hover:not(:disabled) {
+            cursor: ${hover.cursor};
+            background: ${hover.background};
+            color: ${hover.color};
+            box-shadow: ${hover.boxShadow};
+          }
+        }
+      `}
+    `
   }}
 `
 
