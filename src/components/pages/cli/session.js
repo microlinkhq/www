@@ -73,6 +73,7 @@ export const createCliSession = ({
   let holdView = null
 
   const applyHold = () => {
+    if (disposed) return
     if (holdView === 'bottom') term.scrollToBottom()
     else if (holdView != null) term.scrollToLine(holdView)
   }
