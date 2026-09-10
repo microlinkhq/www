@@ -252,7 +252,14 @@ export const useCliTerminal = (
       }
       const contentRows = () => {
         const buf = term.buffer.active
-        return Math.max(1, buf.baseY + buf.cursorY + 1)
+        let last = buf.baseY + buf.cursorY + 1
+        for (let i = buf.length - 1; i >= 0; i--) {
+          if (buf.getLine(i)?.translateToString(true).trim()) {
+            last = Math.max(last, i + 1)
+            break
+          }
+        }
+        return Math.max(1, last)
       }
       const fitTerm = () => {
         fitAddon.fit()
