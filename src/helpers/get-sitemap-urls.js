@@ -23,8 +23,10 @@ export const getSitemapUrls = `async ({ site }) => {
       let m, re = /<loc>([^<]+)<\\/loc>/gi, xml = await res.text()
       while ((m = re.exec(xml))) {
         try {
-          const href = new URL(m[1].trim(), u).href
-          /\\.xml(\\.gz)?(\\?|#|$)/i.test(href) ? await walk(href) : urls.add(href)
+          const href = new URL(m[1].trim().replace(/&amp;/g, '&'), u).href
+          /\\.xml(\\.gz)?(\\?|#|$)/i.test(href)
+            ? await walk(href)
+            : /^https?:/.test(href) && urls.add(href)
         } catch (e) {}
       }
     } catch (e) {}

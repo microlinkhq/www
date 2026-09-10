@@ -77,9 +77,10 @@ const FAQ_QUESTIONS = [
     answer: (
       <>
         <div>
-          Large or deeply nested sitemaps can exceed the free Function budget (5
-          seconds). The result is empty when robots.txt has no <b>Sitemap:</b>{' '}
-          lines, the file is blocked, or expansion fails.
+          The list is empty when robots.txt has no <b>Sitemap:</b> lines. A
+          Function failure (timeout, blocked fetch, or budget) shows the error
+          panel instead. Large or deeply nested sitemaps can exceed the free
+          5-second limit.
         </div>
         <div>
           See the{' '}
