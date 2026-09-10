@@ -289,9 +289,12 @@ export const ToolsIntegrationsColumn = styled(Box)(
 
 export const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   border-radius: 12px;
+  min-width: 0;
 
   > a {
     display: block;
+    min-width: 0;
+    width: 100%;
     border-radius: inherit;
     padding: 12px;
     ${MENU_LINK_HOVER_STYLES};

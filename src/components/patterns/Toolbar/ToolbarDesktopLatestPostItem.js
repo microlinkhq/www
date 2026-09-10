@@ -12,6 +12,7 @@ const ToolbarDesktopLatestPostItem = ({ post, onItemClick }) => (
   <ResourcesLatestPostLink
     forwardedAs='li'
     href={post.slug}
+    title={post.title}
     data-event-location='Toolbar'
     data-event-name={`Blog Post: ${post.title}`}
     onClick={onItemClick}
@@ -26,7 +27,11 @@ const ToolbarDesktopLatestPostItem = ({ post, onItemClick }) => (
         lineHeight: 1,
         fontFamily: 'sans',
         fontWeight: fontWeights.regular,
-        mb: 1
+        mb: 1,
+        minWidth: 0,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap'
       })}
     >
       {post.title}
