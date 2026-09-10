@@ -16,11 +16,10 @@ test('does not reference page', () => {
   expect(getSitemapUrls).not.toMatch(/\bpage\b/)
 })
 
-test('walks gzipped sitemap indexes and isolates fetch errors', () => {
-  expect(getSitemapUrls).toMatch(/\\.xml(\\.gz)?/)
-  expect(getSitemapUrls).toMatch(/gunzipSync/)
-  expect(getSitemapUrls).toMatch(/catch/)
-  expect(getSitemapUrls).toMatch(/seen\.size >= 1e3/)
+test('walks sitemaps with xml-urls and isolate fetch', () => {
+  expect(getSitemapUrls).toMatch(/xml-urls/)
+  expect(getSitemapUrls).toMatch(/fetcher:\s*fetch/)
+  expect(getSitemapUrls).toMatch(/robots-parser/)
 })
 
 test('SDK snippet is JavaScript, not a query-string function', () => {
