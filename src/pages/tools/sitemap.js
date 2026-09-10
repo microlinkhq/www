@@ -59,8 +59,9 @@ const TOP_FAQ_ITEMS = [
           <Link href='/docs/sdk/methods/function' logoIcon>
             microlink.function()
           </Link>
-          . The function does not start a browser — it reads robots.txt and
-          sitemap XML in the Node sandbox.
+          . The function does not start a browser — it reads <b>Sitemap:</b>{' '}
+          from robots.txt, then <b>xml-urls</b> walks nested indexes with
+          isolate <b>fetch</b>.
         </div>
         <CodeEditor language='javascript' autoHeight>
           {sitemapSdkSnippet('https://microlink.io')}
