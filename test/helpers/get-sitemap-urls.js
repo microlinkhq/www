@@ -18,7 +18,9 @@ test('does not reference page', () => {
 
 test('walks gzipped sitemap indexes and isolates fetch errors', () => {
   expect(getSitemapUrls).toMatch(/\\.xml(\\.gz)?/)
+  expect(getSitemapUrls).toMatch(/gunzipSync/)
   expect(getSitemapUrls).toMatch(/catch/)
+  expect(getSitemapUrls).toMatch(/seen\.size >= 1e3/)
 })
 
 test('SDK snippet is JavaScript, not a query-string function', () => {

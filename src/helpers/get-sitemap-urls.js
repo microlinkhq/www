@@ -4,32 +4,28 @@ import { mqlCode } from './mql-code'
 export const FREE_FUNCTION_CODE_LIMIT = 1024
 
 export const getSitemapUrls = `async ({ site }) => {
-  const parse = require('robots-parser')
-  const origin = new URL('/robots.txt', site).href
-  const r = await fetch(origin)
-  const maps = [...new Set(parse(origin, r.ok ? await r.text() : '').getSitemaps().flatMap(loc => {
+  const o = new URL('/robots.txt', site).href
+  const r = await fetch(o)
+  const href = (x, b) => {
     try {
-      const u = new URL(loc, origin)
-      return /^https?:$/.test(u.protocol) ? [u.href] : []
-    } catch (e) { return [] }
-  }))]
+      const u = new URL(x.trim().replace(/&amp;/g, '&'), b)
+      return /^https?:$/.test(u.protocol) && u.href
+    } catch {}
+  }
+  const maps = [...new Set(require('robots-parser')(o, r.ok ? await r.text() : '').getSitemaps().map(l => href(l, o)).filter(Boolean))]
   const seen = new Set(), urls = new Set()
   const walk = async u => {
-    if (seen.has(u) || seen.size > 1000) return
+    if (seen.has(u) || seen.size >= 1e3) return
     seen.add(u)
     try {
       const res = await fetch(u)
       if (!res.ok) return
-      let m, re = /<loc>([^<]+)<\\/loc>/gi, xml = await res.text()
+      let m, re = /<loc>([^<]+)<\\/loc>/gi, b = Buffer.from(await res.arrayBuffer()), xml = (b[0]==31&&b[1]==139?require('zlib').gunzipSync(b):b).toString()
       while ((m = re.exec(xml))) {
-        try {
-          const href = new URL(m[1].trim().replace(/&amp;/g, '&'), u).href
-          /\\.xml(\\.gz)?(\\?|#|$)/i.test(href)
-            ? await walk(href)
-            : /^https?:/.test(href) && urls.add(href)
-        } catch (e) {}
+        const h = href(m[1], u)
+        h && (/\\.xml(\\.gz)?(\\?|#|$)/i.test(h) ? await walk(h) : urls.add(h))
       }
-    } catch (e) {}
+    } catch {}
   }
   for (const s of maps) await walk(s)
   return [...urls]
