@@ -234,6 +234,7 @@ export const ToolCard = ({
   href,
   icon: Icon,
   image,
+  preview: Preview,
   animation = ['scale(1.05)', 'scale(1)'],
   styles = {},
   linkCss = {},
@@ -279,7 +280,13 @@ export const ToolCard = ({
             ...previewCss
           })}
         >
-          {renderToolImage({ image, title, styles, transform })}
+          {Preview
+            ? (
+              <Preview />
+              )
+            : (
+                renderToolImage({ image, title, styles, transform })
+              )}
         </ImagePreview>
 
         <Flex
