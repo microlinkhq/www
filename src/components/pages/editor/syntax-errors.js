@@ -54,22 +54,23 @@ export const collectSyntaxErrors = async (monaco, files) => {
   if (!monaco?.editor || !files) return []
   try {
     ensureModels(monaco, files)
-    const errors = []
-    for (const name of Object.keys(files)) {
-      const model = modelForFile(monaco, name)
-      if (!model) continue
-      const diags = await diagnosticsFor(monaco, name, model.uri)
-      for (const diag of diags) {
-        const pos = model.getPositionAt(diag.start || 0)
-        errors.push({
-          file: name,
-          line: pos.lineNumber,
-          column: pos.column,
-          message: flattenMessage(diag.messageText)
+    const groups = await Promise.all(
+      Object.keys(files).map(async name => {
+        const model = modelForFile(monaco, name)
+        if (!model) return []
+        const diags = await diagnosticsFor(monaco, name, model.uri)
+        return diags.map(diag => {
+          const pos = model.getPositionAt(diag.start || 0)
+          return {
+            file: name,
+            line: pos.lineNumber,
+            column: pos.column,
+            message: flattenMessage(diag.messageText)
+          }
         })
-      }
-    }
-    return errors
+      })
+    )
+    return groups.flat()
   } catch (_) {
     return []
   }
