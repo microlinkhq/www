@@ -88,7 +88,7 @@ const FAQ_SCHEMA = {
       name: 'Can I cancel anytime?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes — no contracts, no commitments. Cancel by sending an email to hello@microlink.io and we\u2019ll process it within 24 hours. You keep access through the end of your paid period.'
+        text: 'On Free and Pro, yes — no contracts, no commitments. Cancel by sending an email to hello@microlink.io and we\u2019ll process it within 24 hours. You keep access through the end of your paid period. Business and Enterprise follow the terms of the contract you signed, including any annual commitment.'
       }
     },
     {
@@ -1336,10 +1336,15 @@ const Faqs = () => (
         answer: (
           <>
             <div>
-              Yes — no contracts, no commitments. Cancel by sending an email to{' '}
+              On Free and Pro, yes — no contracts, no commitments. Cancel by
+              sending an email to{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>{' '}
               and we&apos;ll process it within 24 hours. You keep access through
               the end of your paid period.
+            </div>
+            <div>
+              Business and Enterprise follow the terms of the contract you
+              signed, including any annual commitment.
             </div>
           </>
         )
