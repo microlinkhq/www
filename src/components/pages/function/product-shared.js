@@ -16,7 +16,7 @@ export const HERO = {
   glanceCaption:
     'A function is just JavaScript. These five run remotely and return a value.',
   ctaHref: '/editor',
-  ctaLabel: 'Debug in the editor',
+  ctaLabel: 'Open editor',
   docsHref: '/docs/guides/function',
   docsLabel: 'Read the docs'
 }
@@ -392,7 +392,7 @@ export const CTA = {
   caption:
     'Write a function in the browser. 25 requests/day, no account, no card.',
   ctaHref: '/editor',
-  ctaLabel: 'Debug in the editor'
+  ctaLabel: 'Open editor'
 }
 
 export const FAQ_CAPTION =

@@ -147,7 +147,7 @@ export const FunctionShowcase = () => (
             fontSize: [2, 2, 3, 3]
           })}
         >
-          Debug in the editor
+          Open editor
         </ArrowLink>
       </Flex>
       {SHOWCASE.items.map(item => (
