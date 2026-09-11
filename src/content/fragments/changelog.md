@@ -1,6 +1,13 @@
 ### September 2026
 
 - [Microlink Tools](/tools): Added [sitemap](/tools/sitemap) page.
+- [Microlink API](/docs/api/parameters/function): Raised heap limits to 32 MB (free) and 64 MB (pro).
+- [Browserless v13.9](https://browserless.js.org): Matches the Chrome user-agent to the launched browser.
+- [Microlink](/terminal): Run the real CLI in the browser.
+- [Microlink SDK](/docs/sdk/methods/function): Renamed `run` to `function`.
+- [Microlink](/function): Added the Function product landing.
+- [Microlink](/openapi.json): Published the OpenAPI spec.
+- [Microlink](/): Added [PDF](/pdf/go) and [screenshot](/screenshot/go) landings for Go.
 
 ### August 2026
 
