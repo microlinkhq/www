@@ -84,8 +84,13 @@ const rewriteSpecifiers = source =>
 
 const formatLogArg = arg => {
   if (typeof arg === 'string') return arg
+  if (typeof arg !== 'object' || arg == null) return String(arg)
+  if (typeof arg.message === 'string' && (arg.stack || arg.name)) {
+    return arg.stack || `${arg.name}: ${arg.message}`
+  }
   try {
-    return JSON.stringify(arg)
+    const json = JSON.stringify(arg)
+    return json === undefined ? String(arg) : json
   } catch (_) {
     return String(arg)
   }
