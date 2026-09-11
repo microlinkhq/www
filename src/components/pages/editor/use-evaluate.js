@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react'
 
 import { ENTRY_FILE } from './shared'
-import { withScript } from './with-script'
+import { serializeError, withScript } from './with-script'
 
 export const useEvaluate = ({ apiKey, onSettled } = {}) => {
   const [status, setStatus] = useState('idle')
@@ -28,6 +28,12 @@ export const useEvaluate = ({ apiKey, onSettled } = {}) => {
         setElapsed(Math.round(performance.now() - started))
         setStatus(result.status)
         onSettled?.(files)
+      } catch (error) {
+        setValue(serializeError(error))
+        setLogs({})
+        setHttp(null)
+        setElapsed(Math.round(performance.now() - started))
+        setStatus('error')
       } finally {
         runningRef.current = false
       }

@@ -18,10 +18,15 @@ const MonacoEditor = ({
   onReady
 }) => {
   const filesRef = useRef(files)
+  const onEvaluateRef = useRef(onEvaluate)
 
   useEffect(() => {
     filesRef.current = files
   }, [files])
+
+  useEffect(() => {
+    onEvaluateRef.current = onEvaluate
+  }, [onEvaluate])
 
   return (
     <Monaco
@@ -55,7 +60,7 @@ const MonacoEditor = ({
           id: 'run-code',
           label: 'Run editor code',
           keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter],
-          run: () => onEvaluate(filesRef.current)
+          run: () => onEvaluateRef.current(filesRef.current)
         })
       }}
     />

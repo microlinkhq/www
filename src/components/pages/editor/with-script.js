@@ -111,6 +111,14 @@ const captureHttp = (assign, wrap) => {
   }
 }
 
+const installFetch = (target, assign, apiKey) => {
+  const native = target.fetch.bind(target)
+  target.fetch = captureHttp(assign, wrapFetch(native, apiKey))
+  return () => {
+    target.fetch = native
+  }
+}
+
 const createShimUrl = (win, apiKey) => {
   win.__microlinkCreateClient = (opts = {}) =>
     createClient({ ...(apiKey ? { apiKey } : {}), ...opts })
@@ -161,11 +169,11 @@ const evalInFrame = async (iframe, files, { apiKey, entry }) => {
   const logs = Object.create(null)
   let http = null
   const restoreConsole = patchConsole(win.console, logs)
-  const nativeFetch = win.fetch.bind(win)
-  const wrapped = wrapFetch(nativeFetch, apiKey)
-  win.fetch = captureHttp(next => {
+  const assignHttp = next => {
     http = next
-  }, wrapped)
+  }
+  const restoreIframeFetch = installFetch(win, assignHttp, apiKey)
+  const restoreParentFetch = installFetch(window, assignHttp, apiKey)
 
   const blobUrls = []
   const shimUrl = createShimUrl(win, apiKey)
@@ -194,7 +202,8 @@ const evalInFrame = async (iframe, files, { apiKey, entry }) => {
     }
   } finally {
     restoreConsole()
-    win.fetch = nativeFetch
+    restoreIframeFetch()
+    restoreParentFetch()
     delete win.__microlinkCreateClient
     delete win.__editorCallback
     blobUrls.forEach(url => URL.revokeObjectURL(url))
@@ -202,7 +211,7 @@ const evalInFrame = async (iframe, files, { apiKey, entry }) => {
 }
 
 export const withScript = (files, { apiKey, entry = 'main.mjs' } = {}) =>
-  new Promise((resolve, reject) => {
+  new Promise(resolve => {
     if (!files || !files[entry]) {
       resolve({
         status: 'error',
@@ -236,6 +245,12 @@ export const withScript = (files, { apiKey, entry = 'main.mjs' } = {}) =>
         })
       )
     }
-    iframe.onerror = () => reject(new Error('Editor runtime failed to start'))
+    iframe.onerror = () =>
+      finish({
+        status: 'error',
+        value: serializeError(new Error('Editor runtime failed to start')),
+        logs: {},
+        http: null
+      })
     document.body.appendChild(iframe)
   })
