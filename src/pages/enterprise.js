@@ -20,7 +20,7 @@ const Heading = withTitle(HeadingBase)
 const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
-  <Meta description='Microlink Enterprise: dedicated API infrastructure, isolated browser pool, global CDN, and priority support for high-volume customers.' />
+  <Meta description='Microlink Business and Enterprise: the Microlink API bought the way your company buys. Card or invoice with your PO number, net 30 terms, NDA, DPA and service agreement on Business. Dedicated endpoint, browser pool, storage and CDN on Enterprise.' />
 )
 
 const EnterprisePage = () => (
@@ -43,9 +43,10 @@ const EnterprisePage = () => (
             maxWidth: layout.large
           })}
         >
-          Microlink for Enterprise
+          Microlink for Business & Enterprise
         </Heading>
         <Caption
+          titleize={false}
           forwardedAs='h2'
           css={theme({
             pt: [2, 2, 3, 3],
@@ -53,8 +54,8 @@ const EnterprisePage = () => (
             maxWidth: layout.large
           })}
         >
-          The Microlink API you own. Dedicated endpoint, always-ready
-          infrastructure, worldwide distribution.
+          The Microlink API, bought the way your company buys. A contract and
+          an invoice on Business. Your own infrastructure on Enterprise.
         </Caption>
       </Flex>
       <Container
@@ -65,7 +66,7 @@ const EnterprisePage = () => (
         })}
       >
         <Box>
-          <Markdown>
+          <Markdown titleize={false}>
             <Content />
           </Markdown>
         </Box>

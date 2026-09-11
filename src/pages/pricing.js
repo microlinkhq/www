@@ -88,7 +88,7 @@ const FAQ_SCHEMA = {
       name: 'Can I cancel anytime?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes — no contracts, no commitments. Cancel by sending an email to hello@microlink.io and we\u2019ll process it within 24 hours. You keep access through the end of your paid period.'
+        text: 'On Free and Pro, yes — no contracts, no commitments. Cancel by sending an email to hello@microlink.io and we\u2019ll process it within 24 hours. You keep access through the end of your paid period. Business and Enterprise follow the terms of the contract you signed, including any annual commitment.'
       }
     },
     {
@@ -96,7 +96,7 @@ const FAQ_SCHEMA = {
       name: 'Do you offer annual billing or volume discounts?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Annual contracts and custom volume discounts are available on Enterprise. Contact hello@microlink.io with your expected volume and we\u2019ll send a quote.'
+        text: 'Annual contracts are available on Business and Enterprise with a 10% discount. Custom volume discounts are negotiated on Enterprise. Contact hello@microlink.io with your expected volume and we\u2019ll send a quote.'
       }
     },
     {
@@ -104,7 +104,23 @@ const FAQ_SCHEMA = {
       name: 'How is payment processed?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Payments are handled by Stripe — the same provider trusted by Twitter, Pinterest, and Lyft. We never see or store your card details. Invoices are emailed automatically each cycle.'
+        text: 'Card payments are handled by Stripe — the same provider trusted by Twitter, Pinterest, and Lyft. We never see or store your card details. Invoices are emailed automatically each cycle. On Business and Enterprise you can also pay by bank transfer against an invoice.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I pay by invoice instead of card?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes, on Business and Enterprise. Invoices are paid by bank transfer with net 30 terms, and reference your PO number. Pro is self-serve by card. The purchase flow, from legal entity and VAT number to the first invoice, is on https://microlink.io/enterprise.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Do you sign NDAs, DPAs or MSAs?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes, on Business and Enterprise: an NDA, a GDPR-compliant DPA and a service agreement, signed by both parties. We also complete vendor assessments and procurement questionnaires on request. Free and Pro run on our standard Terms of Service, and our standard DPA is published at https://microlink.io/dpa.'
       }
     },
     {
@@ -128,7 +144,7 @@ const FAQ_SCHEMA = {
       name: 'When do I need Enterprise?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Enterprise makes sense when you need any of: dedicated infrastructure, custom API endpoints, S3-compatible storage, custom SLAs, a signed DPA, or pricing for very high volumes (millions of requests / month). See https://microlink.io/enterprise for details, or email hello@microlink.io.'
+        text: 'Enterprise makes sense when you need dedicated infrastructure: your own API endpoint and browser pool, dedicated CDN distribution, S3-compatible storage, or a custom SLA. If you need to buy as a company, with a contract, an invoice and payment terms, but not dedicated infrastructure, Business covers that. See https://microlink.io/enterprise for details, or email hello@microlink.io.'
       }
     },
     {
@@ -170,7 +186,7 @@ export const Head = () => {
     '@type': 'Product',
     name: 'Microlink — Pricing',
     description:
-      'Simple, predictable pricing for the Microlink browser API. Start free, scale to millions of requests, with custom Enterprise tiers when you need them.',
+      'Simple, predictable pricing for the Microlink browser API. Start free, scale to millions of requests, with Business and Enterprise tiers when you need them.',
     brand: { '@type': 'Brand', name: 'Microlink' },
     image: 'https://cdn.microlink.io/logo/logo.png',
     url: 'https://microlink.io/pricing',
@@ -200,7 +216,7 @@ export const Head = () => {
   return (
     <Meta
       title='Pricing'
-      description='Simple, predictable pricing for the Microlink browser API. Start free, scale to millions of requests, with custom Enterprise tiers when you need them.'
+      description='Simple, predictable pricing for the Microlink browser API. Start free, scale to millions of requests, with Business and Enterprise tiers when you need them.'
       structured={[productSchema, FAQ_SCHEMA]}
     />
   )
@@ -235,34 +251,69 @@ const Hero = () => {
   )
 }
 
-const PLAN_NAMES = ['Free', 'Pro', 'Enterprise']
+const PLAN_NAMES = ['Free', 'Pro', 'Business', 'Enterprise']
 
 const COMPARISON_ROWS = [
   {
     label: 'Daily quota',
-    values: ['25 req/day', 'Unlimited', 'Unlimited']
+    values: ['25 req/day', 'Unlimited', 'Unlimited', 'Unlimited']
   },
   {
     label: 'Monthly quota',
-    values: ['~1.5K req/month', '46K – 420K req/month', 'Millions+']
+    values: [
+      '~1.5K req/month',
+      '46K – 420K req/month',
+      'Aligned to your usage',
+      'Custom'
+    ]
   },
-  { label: 'Custom cache key', values: [false, true, true] },
-  { label: 'Configurable TTL', values: [false, true, true] },
-  { label: 'Custom HTTP headers', values: [false, true, true] },
-  { label: 'Automatic proxy resolution', values: [false, true, true] },
-  { label: 'Adblock & cookie banners', values: [true, true, true] },
-  { label: 'Global CDN edge cache', values: ['Shared', 'Shared', 'Dedicated'] },
-  { label: 'Concurrency', values: ['Limited', 'Standard', 'Custom'] },
+  { label: 'Custom cache key', values: [false, true, true, true] },
+  { label: 'Configurable TTL', values: [false, true, true, true] },
+  { label: 'Custom HTTP headers', values: [false, true, true, true] },
+  { label: 'Automatic proxy resolution', values: [false, true, true, true] },
+  { label: 'Adblock & cookie banners', values: [true, true, true, true] },
+  {
+    label: 'Global CDN edge cache',
+    values: ['Shared', 'Shared', 'Shared', 'Dedicated']
+  },
+  {
+    label: 'Concurrency',
+    values: ['Limited', 'Standard', 'Standard', 'Custom']
+  },
   {
     label: 'Request timeout',
-    values: ['30 seconds', '60 seconds', '60 seconds']
+    values: ['30 seconds', '60 seconds', '60 seconds', '60 seconds']
   },
-  { label: 'SLA', values: ['Best effort', '99.9%', '99,99%'] },
+  { label: 'SLA', values: ['Best effort', '99.9%', 'Same as Pro', '99.9%'] },
+  { label: 'Dedicated endpoint', values: [false, false, false, true] },
+  {
+    label: 'Payment method',
+    values: ['No card needed', 'Card', 'Card or invoice', 'Card or invoice']
+  },
+  { label: 'PO number on invoice', values: [false, false, true, true] },
+  {
+    label: 'Payment terms',
+    values: [false, 'Monthly, by card', 'Net 30', 'Net 30']
+  },
+  { label: 'Signed NDA, DPA & MSA', values: [false, false, true, true] },
+  { label: 'Vendor assessments', values: [false, false, true, true] },
+  {
+    label: 'Named contacts',
+    values: [false, false, 'Commercial & technical', 'Commercial & technical']
+  },
   {
     label: 'Support',
-    values: ['Community', 'Priority email', 'Dedicated channel']
+    values: [
+      'Community',
+      'Priority email',
+      'Email, no ticket queue',
+      'Dedicated Slack channel'
+    ]
   },
-  { label: 'Dedicated endpoint', values: [false, false, true] }
+  {
+    label: 'First response',
+    values: ['Community', 'Best effort', '1 business day', '12 hours']
+  }
 ]
 
 const ComparisonTable = styled(Box)`
@@ -1285,10 +1336,15 @@ const Faqs = () => (
         answer: (
           <>
             <div>
-              Yes — no contracts, no commitments. Cancel by sending an email to{' '}
+              On Free and Pro, yes — no contracts, no commitments. Cancel by
+              sending an email to{' '}
               <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>{' '}
               and we&apos;ll process it within 24 hours. You keep access through
               the end of your paid period.
+            </div>
+            <div>
+              Business and Enterprise follow the terms of the contract you
+              signed, including any annual commitment.
             </div>
           </>
         )
@@ -1298,8 +1354,10 @@ const Faqs = () => (
         answer: (
           <>
             <div>
-              Annual contracts and custom volume discounts are available on
-              Enterprise. Contact{' '}
+              Annual contracts are available on{' '}
+              <Link href='/enterprise'>Business</Link> and{' '}
+              <Link href='/enterprise'>Enterprise</Link> with a 10% discount.
+              Custom volume discounts are negotiated on Enterprise. Contact{' '}
               <Link href='mailto:hello@microlink.io?subject=Annual%20billing'>
                 hello@microlink.io
               </Link>{' '}
@@ -1313,9 +1371,49 @@ const Faqs = () => (
         answer: (
           <>
             <div>
-              Payments are handled by Stripe — the same provider trusted by
-              Twitter, Pinterest, and Lyft. We never see or store your card
-              details. Invoices are emailed automatically each cycle.
+              Card payments are handled by Stripe — the same provider trusted
+              by Twitter, Pinterest, and Lyft. We never see or store your card
+              details. Invoices are emailed automatically each cycle. On{' '}
+              <Link href='/enterprise'>Business</Link> and{' '}
+              <Link href='/enterprise'>Enterprise</Link> you can also pay by
+              bank transfer against an invoice.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'Can I pay by invoice instead of card?',
+        answer: (
+          <>
+            <div>
+              Yes, on <Link href='/enterprise'>Business</Link> and{' '}
+              <Link href='/enterprise'>Enterprise</Link>. Invoices are paid by
+              bank transfer with net 30 terms, and reference your PO number.
+              Pro is self-serve by card.
+            </div>
+            <div>
+              The purchase flow, from legal entity and VAT number to the first
+              invoice, is on the{' '}
+              <Link href='/enterprise'>Business & Enterprise page</Link>.
+            </div>
+          </>
+        )
+      },
+      {
+        question: 'Do you sign NDAs, DPAs or MSAs?',
+        answer: (
+          <>
+            <div>
+              Yes, on <Link href='/enterprise'>Business</Link> and{' '}
+              <Link href='/enterprise'>Enterprise</Link>: an NDA, a
+              GDPR-compliant DPA and a service agreement, signed by both
+              parties. We also complete vendor assessments and procurement
+              questionnaires on request.
+            </div>
+            <div>
+              Free and Pro run on our standard{' '}
+              <Link href='/tos'>Terms of Service</Link>. Our standard{' '}
+              <Link href='/dpa'>DPA</Link> is published.
             </div>
           </>
         )
@@ -1350,10 +1448,14 @@ const Faqs = () => (
         answer: (
           <>
             <div>
-              Enterprise makes sense when you need any of: dedicated
-              infrastructure, custom API endpoints, S3-compatible storage,
-              custom SLAs, a signed DPA, or pricing for very high volumes
-              (millions of requests / month).
+              Enterprise makes sense when you need dedicated infrastructure:
+              your own API endpoint and browser pool, dedicated CDN
+              distribution, S3-compatible storage, or a custom SLA.
+            </div>
+            <div>
+              If you need to buy as a company, with a contract, an invoice and
+              payment terms, but not dedicated infrastructure,{' '}
+              <Link href='/enterprise'>Business</Link> covers that.
             </div>
             <div>
               See the <Link href='/enterprise'>Enterprise page</Link> for

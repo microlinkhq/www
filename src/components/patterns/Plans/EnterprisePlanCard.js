@@ -1,9 +1,7 @@
 import React from 'react'
 
-import Box from 'components/elements/Box'
-import Flex from 'components/elements/Flex'
+import Caps from 'components/elements/Caps'
 import { Link } from 'components/elements/Link'
-import Text from 'components/elements/Text'
 import ArrowLink from 'components/patterns/ArrowLink'
 import { theme } from 'theme'
 
@@ -22,41 +20,53 @@ const EnterprisePlanCard = ({ activePlan }) => (
     id='panel-enterprise'
     css={theme({ display: planDisplay(activePlan, 'enterprise') })}
   >
-    <PlanName>Enterprise</PlanName>
-    <PlanTagline>Dedicated infra for high-volume.</PlanTagline>
-    <Box css={theme({ pt: [3, 3, 4, 4] })}>
-      <Flex css={theme({ alignItems: 'baseline', gap: 1 })}>
-        <Text
-          as='span'
-          css={theme({
-            fontSize: [2, 2, 3, 3],
-            fontWeight: 'bold',
-            color: 'black',
-            lineHeight: 0
-          })}
-        >
-          Custom
-        </Text>
-      </Flex>
-      <Text css={theme({ pt: 2, fontSize: 0, color: 'black70' })}>
-        Tailored to your volume
-      </Text>
-    </Box>
+    <PlanName>Business & Enterprise</PlanName>
+    <PlanTagline>Bought the way companies buy.</PlanTagline>
     <PlanCheckList css={theme({ pt: [3, 3, 4, 4] })}>
-      <PlanCheck>Everything in Pro</PlanCheck>
+      <PlanCheck>Everything in Pro, plus:</PlanCheck>
       <PlanCheck>
-        <Link href='/enterprise'>Custom API endpoint</Link>
+        <Link href='/enterprise#what-business-includes'>
+          Card or invoice, PO number, net 30
+        </Link>
       </PlanCheck>
       <PlanCheck>
-        <Link href='/enterprise'>Dedicated CDN distribution</Link>
+        <Link href='/enterprise#your-data-protected'>
+          NDA, DPA & service agreement
+        </Link>
+      </PlanCheck>
+      <PlanCheck>Vendor assessments on request</PlanCheck>
+      <PlanCheck>Same named contact</PlanCheck>
+      <PlanCheck>Annual billing, 10% discount</PlanCheck>
+    </PlanCheckList>
+    <Caps
+      css={theme({
+        pt: [3, 3, 4, 4],
+        fontSize: 0,
+        fontWeight: 'bold',
+        color: 'black60'
+      })}
+    >
+      Enterprise adds
+    </Caps>
+    <PlanCheckList>
+      <PlanCheck>
+        <Link href='/enterprise#what-enterprise-includes'>
+          Dedicated endpoint & browser pool
+        </Link>
       </PlanCheck>
       <PlanCheck>
-        <Link href='/enterprise'>S3-like storage integration</Link>
+        <Link href='/enterprise#what-enterprise-includes'>
+          Dedicated CDN & S3-like storage
+        </Link>
       </PlanCheck>
-      <PlanCheck>Custom SLA & DPA available</PlanCheck>
+      <PlanCheck>
+        <Link href='/enterprise#choose-where-your-hardware-lives'>
+          Hosted where you need it
+        </Link>
+      </PlanCheck>
     </PlanCheckList>
     <PlanAction>
-      <ArrowLink href='/enterprise'>Explore Enterprise</ArrowLink>
+      <ArrowLink href='/enterprise'>View details</ArrowLink>
     </PlanAction>
   </PricingCard>
 )
