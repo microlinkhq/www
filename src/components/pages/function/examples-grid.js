@@ -4,6 +4,7 @@ import { breakpoints, colors, shadows, theme, transition } from 'theme'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
+import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
 import { GLANCE } from './product-shared'
@@ -23,7 +24,7 @@ const Grid = styled(Box)(
   })
 )
 
-const Card = styled(Box).attrs({ as: 'a' })(
+const Card = styled(Link)(
   theme({
     display: 'flex',
     flexDirection: 'column',
@@ -35,30 +36,41 @@ const Card = styled(Box).attrs({ as: 'a' })(
     borderColor: 'gray2',
     borderRadius: 5,
     overflow: 'hidden',
-    boxShadow: shadows[2]
+    boxShadow: shadows[2],
+    textDecoration: 'none',
+    _hover: { color: 'black' }
   }),
   ({ $span }) => `
-  text-decoration: none;
   touch-action: manipulation;
+
+  > a {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    min-height: inherit;
+    color: inherit;
+    text-decoration: none;
+  }
 
   @media (min-width: ${breakpoints[2]}) {
     grid-column: span ${$span};
   }
 
-  &:focus-visible {
+  &:has(> a:focus-visible) {
     outline: 2px solid ${colors.link};
     outline-offset: 2px;
   }
 
   &:hover [data-explore],
-  &:focus-visible [data-explore] {
+  &:has(> a:focus-visible) [data-explore] {
     color: ${colors.black};
   }
 
   @media (prefers-reduced-motion: no-preference) {
     transition: transform ${transition.short}, box-shadow ${transition.short};
 
-    &:focus-visible {
+    &:has(> a:focus-visible) {
       transform: translateY(-1px);
       box-shadow: ${shadows[4]};
     }

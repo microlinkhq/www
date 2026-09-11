@@ -2,6 +2,7 @@ import React from 'react'
 import { colors } from 'theme'
 import { CheckCircle, Code, Globe } from 'react-feather'
 
+import { editorTemplateHref } from 'components/pages/editor/shared'
 import { Link } from 'components/elements/Link'
 
 export const ACCENT = colors.indigo8
@@ -15,7 +16,7 @@ export const HERO = {
   glanceCaption:
     'A function is just JavaScript. These five run remotely and return a value.',
   ctaHref: '/editor',
-  ctaLabel: 'Debug in the editor',
+  ctaLabel: 'Open editor',
   docsHref: '/docs/guides/function',
   docsLabel: 'Read the docs'
 }
@@ -25,7 +26,7 @@ export const GLANCE = {
     {
       id: 'extract',
       title: 'Read the page',
-      href: '/docs/guides/function/browser-interaction',
+      href: editorTemplateHref('extract'),
       span: 2,
       code: `const { value } = await microlink.function(
   'https://microlink.io',
@@ -39,13 +40,15 @@ export const GLANCE = {
     {
       id: 'click',
       title: 'Click, then scrape',
-      href: '/docs/guides/function/browser-interaction',
+      href: editorTemplateHref('click-wait'),
       span: 2,
       code: `const { value } = await microlink.function(
   'https://news.ycombinator.com',
   async ({ page }) => {
-    await page.click('a.morelink')
-    await page.waitForSelector('.athing')
+    await Promise.all([
+      page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
+      page.click('a.morelink')
+    ])
     return page.$$eval('.titleline a', els =>
       els.map(el => el.textContent)
     )
@@ -55,7 +58,7 @@ export const GLANCE = {
     {
       id: 'proxy',
       title: 'Run through a proxy',
-      href: '/docs/api/parameters/proxy',
+      href: editorTemplateHref('proxy'),
       span: 2,
       code: `const { value } = await microlink.function(
   'https://github.com/microlinkhq/mql',
@@ -69,7 +72,7 @@ export const GLANCE = {
     {
       id: 'inject',
       title: 'Inject a script',
-      href: '/docs/guides/function/browser-interaction',
+      href: editorTemplateHref('inject'),
       span: 3,
       code: `const { value } = await microlink.function(
   'https://microlink.io',
@@ -82,7 +85,7 @@ export const GLANCE = {
     {
       id: 'npm',
       title: 'require() a package',
-      href: '/docs/guides/function/writing-functions',
+      href: editorTemplateHref('cheerio'),
       span: 3,
       code: `const { value } = await microlink.function(
   'https://microlink.io/blog',
@@ -389,7 +392,7 @@ export const CTA = {
   caption:
     'Write a function in the browser. 25 requests/day, no account, no card.',
   ctaHref: '/editor',
-  ctaLabel: 'Debug in the editor'
+  ctaLabel: 'Open editor'
 }
 
 export const FAQ_CAPTION =
