@@ -72,7 +72,7 @@ Each error message is plan-aware:
 2. Avoid CPU-intensive operations like large JSON parsing or complex regular expressions.
 3. Move heavy processing to your own server and use the function only for data extraction.
 
-**MemoryError** — the function exceeded its memory limit (32 MB free, 64 MB pro). The limit applies to the JavaScript heap, which is where objects, arrays, and strings live, and it is reported as `profiling.memory.heap`:
+**MemoryError** — the function exceeded its memory limit (64 MB free, 128 MB pro). The limit applies to the JavaScript heap, which is where objects, arrays, and strings live, and it is reported as `profiling.memory.heap`:
 
 1. Reduce the amount of data held in memory at once.
 2. Avoid loading entire pages into memory when you only need a small part.
