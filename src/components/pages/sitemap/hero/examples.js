@@ -6,7 +6,7 @@ import { Link } from 'components/elements/Link'
 export const EXAMPLES = [
   { label: 'microlink.io', url: 'https://microlink.io' },
   { label: 'vercel.com', url: 'https://vercel.com' },
-  { label: 'x.ai', url: 'https://x.ai' }
+  { label: 'stripe.com', url: 'https://stripe.com' }
 ]
 
 export const ExampleLinks = ({ onPick }) => (
