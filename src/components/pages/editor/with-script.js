@@ -82,13 +82,22 @@ const rewriteSpecifiers = source =>
       '$1microlink.io$2'
     )
 
+const formatLogArg = arg => {
+  if (typeof arg === 'string') return arg
+  try {
+    return JSON.stringify(arg)
+  } catch (_) {
+    return String(arg)
+  }
+}
+
 const patchConsole = (consoleRef, logs) => {
   const native = Object.fromEntries(
     CONSOLE_METHODS.map(method => [method, consoleRef[method].bind(consoleRef)])
   )
   for (const method of CONSOLE_METHODS) {
     consoleRef[method] = (...args) => {
-      const input = args.join(' ')
+      const input = args.map(formatLogArg).join(' ')
       if (Array.isArray(logs[method])) logs[method].push(input)
       else logs[method] = [input]
     }

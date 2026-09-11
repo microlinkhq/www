@@ -2,7 +2,8 @@ import { ENTRY_FILE, filesFromEntry } from './shared'
 
 export const SHARE_QUERY_KEY = 'q'
 
-const API_KEY_LITERAL = /apiKey\s*:\s*(['"`])(?:\\.|(?!\1).)*\1\s*,?/g
+const API_KEY_LITERAL =
+  /(?:['"]apiKey['"]|apiKey)\s*:\s*(['"`])(?:\\.|(?!\1).)*\1\s*,?/g
 
 export const sanitizeShareCode = code =>
   String(code || '')

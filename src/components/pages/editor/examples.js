@@ -49,8 +49,10 @@ export const EXAMPLES = [
       toSdkSnippet({
         url: 'https://news.ycombinator.com',
         fn: `async ({ page }) => {
-  await page.click('a.morelink')
-  await page.waitForSelector('.athing')
+  await Promise.all([
+    page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
+    page.click('a.morelink')
+  ])
   return page.$$eval('.titleline a', els =>
     els.map(el => el.textContent)
   )
