@@ -43,10 +43,17 @@ const isMicrolinkApi = url => {
   }
 }
 
-const toProUrl = url =>
-  url
-    .replace('https://api.microlink.io', 'https://pro.microlink.io')
-    .replace('http://api.microlink.io', 'https://pro.microlink.io')
+const toProUrl = url => {
+  try {
+    const parsed = new URL(url, 'https://api.microlink.io')
+    if (!MICROLINK_HOSTS.has(parsed.hostname)) return url
+    parsed.protocol = 'https:'
+    parsed.hostname = 'pro.microlink.io'
+    return parsed.href
+  } catch (_) {
+    return url
+  }
+}
 
 const mergeHeaders = (input, init, apiKey) => {
   const headers = new Headers(
@@ -76,9 +83,9 @@ const wrapFetch =
 
 const rewriteSpecifiers = source =>
   source
-    .replace(/(from\s+['"])\.\/([^'"]+)(['"])/g, '$1$2$3')
+    .replace(/((?:from|import)\s*\(?\s*['"])\.\/([^'"]+)(['"])/g, '$1$2$3')
     .replace(
-      /(from\s+['"])https:\/\/esm\.sh\/microlink\.io(?:@[^'"]*)?(['"])/g,
+      /((?:from|import)\s*\(?\s*['"])https:\/\/esm\.sh\/microlink\.io(?:@[^'"]*)?(['"])/g,
       '$1microlink.io$2'
     )
 
