@@ -3,6 +3,7 @@ import Monaco, { loader } from '@monaco-editor/react'
 
 import { formatSource } from './format'
 import { editorOptions, setupMonaco } from './monaco-setup'
+import { editorLanguage } from './shared'
 
 loader.config({
   paths: {
@@ -19,6 +20,7 @@ const MonacoEditor = ({
 }) => {
   const filesRef = useRef(files)
   const onEvaluateRef = useRef(onEvaluate)
+  const activeFileRef = useRef(activeFile)
 
   useEffect(() => {
     filesRef.current = files
@@ -28,10 +30,14 @@ const MonacoEditor = ({
     onEvaluateRef.current = onEvaluate
   }, [onEvaluate])
 
+  useEffect(() => {
+    activeFileRef.current = activeFile
+  }, [activeFile])
+
   return (
     <Monaco
       path={activeFile}
-      language='javascript'
+      language={editorLanguage(activeFile)}
       value={files[activeFile] || ''}
       theme='microlink'
       options={editorOptions}
@@ -53,7 +59,9 @@ const MonacoEditor = ({
           label: 'Format with Prettier',
           keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS],
           run: async current => {
-            current.setValue(await formatSource(current.getValue()))
+            current.setValue(
+              await formatSource(current.getValue(), activeFileRef.current)
+            )
           }
         })
         editor.addAction({

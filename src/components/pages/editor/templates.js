@@ -9,7 +9,7 @@ import { Link } from 'components/elements/Link'
 import { DOCS_HREF } from './shared'
 import { EXAMPLES } from './examples'
 
-const Templates = ({ open, onToggle, onSelect }) => {
+const Templates = ({ open, selectedId, onToggle, onSelect }) => {
   const panelRef = useRef(null)
 
   useEffect(() => {
@@ -84,6 +84,7 @@ const Templates = ({ open, onToggle, onSelect }) => {
               as='li'
               key={example.id}
               role='option'
+              aria-selected={example.id === selectedId}
               onMouseDown={event => event.preventDefault()}
               onClick={() => {
                 onSelect(example.id)

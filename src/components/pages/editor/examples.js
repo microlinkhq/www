@@ -91,6 +91,30 @@ export default microlink.function('https://example.com', scrape)
       'scrape.mjs': `export const scrape = ({ page }) => page.title()
 `
     }
+  },
+  {
+    id: 'typescript',
+    label: 'TypeScript function',
+    files: {
+      [ENTRY_FILE]: `import createClient from 'microlink.io'
+import { scrape } from './scrape.ts'
+
+const microlink = createClient()
+
+export default microlink.function('https://example.com', scrape)
+`,
+      'scrape.ts': `type Page = {
+  title: () => Promise<string>
+  $eval: <T>(selector: string, fn: (el: Element) => T) => Promise<T>
+}
+
+export const scrape = async ({ page }: { page: Page }) => {
+  const title = await page.title()
+  const heading = await page.$eval('h1', el => el.textContent)
+  return { title, heading }
+}
+`
+    }
   }
 ]
 

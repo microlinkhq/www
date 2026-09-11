@@ -1,6 +1,8 @@
+import { EXAMPLES, exampleIdForFiles } from './examples'
 import { ENTRY_FILE, filesFromEntry } from './shared'
 
 export const SHARE_QUERY_KEY = 'q'
+export const TEMPLATE_QUERY_KEY = 'template'
 
 const API_KEY_LITERAL =
   /(?:['"]apiKey['"]|apiKey)\s*:\s*(['"`])(?:\\.|(?!\1).)*\1\s*,?/g
@@ -86,22 +88,45 @@ export const decodeShareCode = async query => {
   }
 }
 
-export const readSharedFiles = async () => {
-  if (typeof window === 'undefined') return null
-  return decodeShareCode(
-    new URLSearchParams(window.location.search).get(SHARE_QUERY_KEY) || ''
-  )
+export const exampleFromSearch = search => {
+  const id = new URLSearchParams(search).get(TEMPLATE_QUERY_KEY)
+  return EXAMPLES.find(example => example.id === id) || null
 }
 
-export const writeShareQuery = async files => {
+export const applyEditorParams = (url, { templateId, encoded } = {}) => {
+  if (templateId && templateId !== 'custom') {
+    url.searchParams.set(TEMPLATE_QUERY_KEY, templateId)
+    url.searchParams.delete(SHARE_QUERY_KEY)
+  } else {
+    url.searchParams.delete(TEMPLATE_QUERY_KEY)
+    if (encoded) url.searchParams.set(SHARE_QUERY_KEY, encoded)
+    else url.searchParams.delete(SHARE_QUERY_KEY)
+  }
+  return `${url.pathname}${url.search}${url.hash}`
+}
+
+export const readSharedFiles = async () => {
+  if (typeof window === 'undefined') return null
+  const search = window.location.search
+  const shared = await decodeShareCode(
+    new URLSearchParams(search).get(SHARE_QUERY_KEY) || ''
+  )
+  if (shared) return shared
+  const example = exampleFromSearch(search)
+  return example ? example.files : null
+}
+
+export const writeShareQuery = async (files, isCurrent) => {
   if (typeof window === 'undefined') return window.location.href
   const url = new URL(window.location.href)
-  const encoded = await encodeShareCode(files)
-  if (encoded) url.searchParams.set(SHARE_QUERY_KEY, encoded)
-  else url.searchParams.delete(SHARE_QUERY_KEY)
-  const next = `${url.pathname}${url.search}${url.hash}`
+  const templateId = exampleIdForFiles(files)
+  const encoded = templateId === 'custom' ? await encodeShareCode(files) : ''
+  if (typeof isCurrent === 'function' && !isCurrent()) {
+    return window.location.href
+  }
+  const next = applyEditorParams(url, { templateId, encoded })
   window.history.replaceState(null, '', next)
-  return url.href
+  return new URL(next, url.origin).href
 }
 
 export const hasEntry = files => files && typeof files[ENTRY_FILE] === 'string'

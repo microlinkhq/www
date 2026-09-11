@@ -14,7 +14,12 @@ import Text from 'components/elements/Text'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 
 import FileBar from './chrome'
-import { DEFAULT_EXAMPLE, DEFAULT_FILES, EXAMPLES } from './examples'
+import {
+  DEFAULT_EXAMPLE,
+  DEFAULT_FILES,
+  EXAMPLES,
+  exampleIdForFiles
+} from './examples'
 import { Pane, PaneBody, PaneFooter } from './pane'
 import Results from './results'
 import { ENTRY_FILE, nextFileName } from './shared'
@@ -36,6 +41,7 @@ const Editor = () => {
   const editorApi = useRef(null)
   const filesRef = useRef(DEFAULT_FILES)
   const templateRef = useRef(DEFAULT_EXAMPLE.files)
+  const shareEpochRef = useRef(0)
 
   const snapshot = useCallback(
     () => editorApi.current?.getFiles() || filesRef.current,
@@ -48,9 +54,17 @@ const Editor = () => {
     setActiveFile(nextActive)
   }, [])
 
-  const onSettled = useCallback(async nextFiles => {
-    await writeShareQuery(nextFiles)
+  const commitShare = useCallback(async files => {
+    const epoch = shareEpochRef.current
+    return writeShareQuery(files, () => epoch === shareEpochRef.current)
   }, [])
+
+  const onSettled = useCallback(
+    nextFiles => {
+      commitShare(nextFiles)
+    },
+    [commitShare]
+  )
 
   const { status, value, logs, http, elapsed, evaluate } = useEvaluate({
     apiKey,
@@ -112,10 +126,12 @@ const Editor = () => {
     id => {
       const example = EXAMPLES.find(item => item.id === id)
       if (!example) return
+      shareEpochRef.current += 1
       templateRef.current = example.files
       replaceFiles({ ...example.files })
+      commitShare(example.files)
     },
-    [replaceFiles]
+    [commitShare, replaceFiles]
   )
 
   const onCopy = useCallback(async text => {
@@ -190,6 +206,7 @@ const Editor = () => {
         <PaneFooter>
           <Templates
             open={templatesOpen}
+            selectedId={exampleIdForFiles(files)}
             onToggle={setTemplatesOpen}
             onSelect={onTemplate}
           />

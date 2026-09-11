@@ -3,10 +3,12 @@ import { once } from './once'
 const loadPrettier = once(() =>
   Promise.all([
     import('prettier/standalone'),
-    import('prettier/parser-babel')
-  ]).then(([{ format }, babel]) => ({
+    import('prettier/parser-babel'),
+    import('prettier/parser-typescript')
+  ]).then(([{ format }, babel, typescript]) => ({
     format,
-    babel: babel.default || babel
+    babel: babel.default || babel,
+    typescript: typescript.default || typescript
   }))
 )
 
@@ -23,20 +25,26 @@ const PRETTIER_CONFIG = {
   trailingComma: 'none'
 }
 
-const jsFormatterOpts = babel => ({
+const jsFormatterOpts = ({ babel }) => ({
   parser: 'babel',
   plugins: [babel]
 })
 
-const jsonFormatterOpts = babel => ({
+const jsonFormatterOpts = ({ babel }) => ({
   parser: 'json',
   plugins: [babel]
+})
+
+const tsFormatterOpts = ({ typescript }) => ({
+  parser: 'typescript',
+  plugins: [typescript]
 })
 
 const getFormatterOpts = {
   js: jsFormatterOpts,
   jsx: jsFormatterOpts,
-  json: jsonFormatterOpts
+  json: jsonFormatterOpts,
+  ts: tsFormatterOpts
 }
 
 /**
@@ -118,10 +126,12 @@ export const prettier = async (code, language = 'js') => {
 
   const formatterOpts = getFormatterOpts[language] || getFormatterOpts.js
 
-  // For JS/JSON, use lazy-loaded prettier
   try {
-    const { format, babel } = await loadPrettier()
-    const opts = { ...PRETTIER_CONFIG, ...formatterOpts(babel) }
+    const { format, babel, typescript } = await loadPrettier()
+    const opts = {
+      ...PRETTIER_CONFIG,
+      ...formatterOpts({ babel, typescript })
+    }
     const formatted = format(code, opts)
     return formatted.replace(';<', '<')
   } catch (error) {

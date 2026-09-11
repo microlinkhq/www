@@ -50,12 +50,19 @@ export const toSdkSnippet = ({ url, fn, opts, log, method = 'function' }) => {
 
 export const filesFromEntry = code => ({ [ENTRY_FILE]: code })
 
+export const isTypeScriptFile = name => /\.[cm]?tsx?$/.test(name)
+
+export const editorLanguage = name =>
+  isTypeScriptFile(name) ? 'typescript' : 'javascript'
+
 export const nextFileName = files => {
   const used = new Set(Object.keys(files))
-  if (!used.has('helper.mjs')) return 'helper.mjs'
+  const ext = Object.keys(files).some(isTypeScriptFile) ? 'ts' : 'mjs'
+  const first = `helper.${ext}`
+  if (!used.has(first)) return first
   let index = 2
-  while (used.has(`helper-${index}.mjs`)) index += 1
-  return `helper-${index}.mjs`
+  while (used.has(`helper-${index}.${ext}`)) index += 1
+  return `helper-${index}.${ext}`
 }
 
 export const byteLength = value => {

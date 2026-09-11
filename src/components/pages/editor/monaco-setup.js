@@ -73,18 +73,29 @@ declare module 'microlink.io' {
 
 export const setupMonaco = monaco => {
   monaco.editor.defineTheme('microlink', monacoTheme)
-  monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-    noSemanticValidation: true,
-    noSyntaxValidation: false
-  })
-  monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
+  const compilerOptions = {
     target: monaco.languages.typescript.ScriptTarget.ESNext,
     allowNonTsExtensions: true,
     esModuleInterop: true,
-    module: monaco.languages.typescript.ModuleKind.ESNext
-  })
-  monaco.languages.typescript.javascriptDefaults.addExtraLib(
-    MICROLINK_TYPES,
-    'ts:filename/microlink.io.d.ts'
-  )
+    module: monaco.languages.typescript.ModuleKind.ESNext,
+    lib: ['esnext', 'dom']
+  }
+  const extras = [
+    [MICROLINK_TYPES, 'ts:filename/microlink.io.d.ts'],
+    [
+      'declare const Buffer: { concat(chunks: Uint8Array[]): { toString(encoding: string): string } }',
+      'ts:filename/buffer.d.ts'
+    ]
+  ]
+  for (const defaults of [
+    monaco.languages.typescript.javascriptDefaults,
+    monaco.languages.typescript.typescriptDefaults
+  ]) {
+    defaults.setDiagnosticsOptions({
+      noSemanticValidation: true,
+      noSyntaxValidation: false
+    })
+    defaults.setCompilerOptions(compilerOptions)
+    for (const [source, path] of extras) defaults.addExtraLib(source, path)
+  }
 }
