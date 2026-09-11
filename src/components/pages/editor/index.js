@@ -14,7 +14,12 @@ import Text from 'components/elements/Text'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 
 import FileBar from './chrome'
-import { DEFAULT_EXAMPLE, DEFAULT_FILES, EXAMPLES } from './examples'
+import {
+  DEFAULT_EXAMPLE,
+  DEFAULT_FILES,
+  EXAMPLES,
+  exampleIdForFiles
+} from './examples'
 import { Pane, PaneBody, PaneFooter } from './pane'
 import Results from './results'
 import { ENTRY_FILE, nextFileName } from './shared'
@@ -114,6 +119,7 @@ const Editor = () => {
       if (!example) return
       templateRef.current = example.files
       replaceFiles({ ...example.files })
+      writeShareQuery(example.files)
     },
     [replaceFiles]
   )
@@ -190,6 +196,7 @@ const Editor = () => {
         <PaneFooter>
           <Templates
             open={templatesOpen}
+            selectedId={exampleIdForFiles(files)}
             onToggle={setTemplatesOpen}
             onSelect={onTemplate}
           />
