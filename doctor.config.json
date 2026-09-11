@@ -216,6 +216,22 @@
         "rules": [
           "react-doctor/rendering-hydration-no-flicker"
         ]
+      },
+      {
+        "files": [
+          "src/components/pages/editor/monaco-editor.js"
+        ],
+        "rules": [
+          "react-doctor/prefer-dynamic-import"
+        ]
+      },
+      {
+        "files": [
+          "src/components/pages/editor/with-script.js"
+        ],
+        "rules": [
+          "react-doctor/no-create-object-url-without-revoke"
+        ]
       }
     ]
   }

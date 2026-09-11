@@ -14,9 +14,9 @@ export const HERO = {
     'Write a JavaScript function. Send a URL. Microlink runs the function remotely and returns whatever it returned — no Lambda, no browser fleet, no server to operate.',
   glanceCaption:
     'A function is just JavaScript. These five run remotely and return a value.',
-  ctaHref: '/docs/guides/function',
-  ctaLabel: 'Get Started',
-  docsHref: '/docs/api/parameters/function',
+  ctaHref: '/editor',
+  ctaLabel: 'Debug in the editor',
+  docsHref: '/docs/guides/function',
   docsLabel: 'Read the docs'
 }
 
@@ -387,9 +387,9 @@ export const PRICING_CAPTION =
 
 export const CTA = {
   caption:
-    'Write a function. Send a URL. 25 requests/day, no account, no card.',
-  ctaHref: '/docs/guides/function',
-  ctaLabel: 'Get started free'
+    'Write a function in the browser. 25 requests/day, no account, no card.',
+  ctaHref: '/editor',
+  ctaLabel: 'Debug in the editor'
 }
 
 export const FAQ_CAPTION =

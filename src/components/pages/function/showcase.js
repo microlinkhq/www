@@ -140,6 +140,15 @@ export const FunctionShowcase = () => (
         >
           {SHOWCASE.caption}
         </Caption>
+        <ArrowLink
+          href='/editor'
+          css={theme({
+            pt: [3, 3, 4, 4],
+            fontSize: [2, 2, 3, 3]
+          })}
+        >
+          Debug in the editor
+        </ArrowLink>
       </Flex>
       {SHOWCASE.items.map(item => (
         <ShowcaseFeature key={item.title} {...item} />

@@ -63,6 +63,7 @@ const FOOTER_COLUMNS = [
     links: [
       { label: 'SDK', href: '/integrations/sdk' },
       { label: 'CLI', href: '/integrations/cli' },
+      { label: 'Editor', href: '/editor' },
       { label: 'Blog', href: '/blog' },
       { label: 'Use cases', href: '/use-cases' },
       { label: 'Extensions', href: '/extensions' },

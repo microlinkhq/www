@@ -324,6 +324,13 @@ export const NAVIGATION_SECTIONS = [
     columns: 2,
     items: [
       createNavigationItem({
+        label: 'Editor',
+        href: '/editor',
+        actively: 'exact',
+        description: 'Write Microlink code and run it in the browser',
+        icon: Code
+      }),
+      createNavigationItem({
         label: 'Website Screenshot',
         href: '/tools/website-screenshot',
         actively: screenshotToolMatcher,
