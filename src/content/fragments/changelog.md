@@ -1,5 +1,6 @@
 ### September 2026
 
+- [Microlink API](/docs/api/parameters/function): Raised heap limits to 64 MB (free) and 128 MB (pro).
 - [Microlink Tools](/tools): Added [sitemap](/tools/sitemap) page.
 - [Microlink API](/docs/api/parameters/function): Raised heap limits to 32 MB (free) and 64 MB (pro).
 - [Browserless v13.9](https://browserless.js.org): Matches the Chrome user-agent to the launched browser.
