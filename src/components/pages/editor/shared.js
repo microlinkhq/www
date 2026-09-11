@@ -2,6 +2,8 @@ export const DOCS_HREF = '/docs/guides/function'
 
 export const ENTRY_FILE = 'main.mjs'
 
+export const editorTemplateHref = id => `/editor?template=${id}`
+
 export const META = {
   title: 'Editor',
   description:
@@ -35,7 +37,9 @@ export const toSdkSnippet = ({ url, fn, opts, log, method = 'function' }) => {
     lines.push(`export default microlink.${method}('${url}')`, '')
     return lines.join('\n')
   }
-  const extra = opts ? `,\n  ${JSON.stringify(opts)}` : ''
+  const extra = opts
+    ? `,\n  ${typeof opts === 'string' ? opts : JSON.stringify(opts)}`
+    : ''
   const body = indentFn(fn)
   if (!String(fn).includes('\n') && !opts) {
     lines.push(`export default microlink.function('${url}', ${fn})`, '')

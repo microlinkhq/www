@@ -43,6 +43,20 @@ export const EXAMPLES = [
     )
   },
   {
+    id: 'extract',
+    label: 'Read the page',
+    files: filesFromEntry(
+      toSdkSnippet({
+        url: 'https://microlink.io',
+        fn: `({ page }) => page.evaluate(() => ({
+  title: document.title,
+  links: document.links.length,
+  resources: performance.getEntriesByType('resource').length
+}))`
+      })
+    )
+  },
+  {
     id: 'click-wait',
     label: 'Click, wait, then scrape',
     files: filesFromEntry(
@@ -74,6 +88,33 @@ export const EXAMPLES = [
     href: $(el).find('a').attr('href')
   })).get()
 }`
+      })
+    )
+  },
+  {
+    id: 'inject',
+    label: 'Inject a script',
+    files: filesFromEntry(
+      toSdkSnippet({
+        url: 'https://microlink.io',
+        fn: `({ page }) => page.evaluate(() =>
+  $('a[href^="/docs"]').map((i, el) => el.href).get()
+)`,
+        opts: "{ scripts: 'https://code.jquery.com/jquery-3.5.0.min.js' }"
+      })
+    )
+  },
+  {
+    id: 'proxy',
+    label: 'Run through a proxy',
+    files: filesFromEntry(
+      toSdkSnippet({
+        url: 'https://github.com/microlinkhq/mql',
+        fn: `async ({ page }) => {
+  await page.waitForSelector('#repo-stars-counter-star')
+  return page.$eval('#repo-stars-counter-star', el => el.title)
+}`,
+        opts: "{ proxy: { location: 'us' } }"
       })
     )
   },
