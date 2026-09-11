@@ -138,7 +138,7 @@ The function parameter is available on both free and pro plans with different re
 
 |                      | Free             | Pro              |
 | -------------------- | ---------------- | ---------------- |
-| Timeout              | 5 seconds        | Up to 60 seconds |
+| Timeout              | 10 seconds       | Up to 60 seconds |
 | Memory               | 32 MB            | 64 MB            |
 | Code size            | 1024 bytes       | Unlimited        |
 | Concurrency          | 1 in-flight per IP | Unlimited      |
@@ -153,7 +153,7 @@ When a limit is exceeded, the function returns `isFulfilled: false` with a descr
       "isFulfilled": false,
       "value": {
         "name": "TimeoutError",
-        "message": "Function exceeded the 5s free plan timeout. Upgrade to pro for up to 60s."
+        "message": "Function exceeded the 10s free plan timeout. Upgrade to pro for up to 60s."
       },
       "profiling": {},
       "logging": {}
