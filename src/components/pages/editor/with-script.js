@@ -172,27 +172,30 @@ const evalInFrame = async (iframe, files, { apiKey, entry }) => {
   const assignHttp = next => {
     http = next
   }
-  const restoreIframeFetch = installFetch(win, assignHttp, apiKey)
-  const restoreParentFetch = installFetch(window, assignHttp, apiKey)
-
+  let restoreIframeFetch = () => {}
+  let restoreParentFetch = () => {}
   const blobUrls = []
-  const shimUrl = createShimUrl(win, apiKey)
-  blobUrls.push(shimUrl)
-  const imports = { 'microlink.io': shimUrl }
-
-  for (const [name, source] of Object.entries(files)) {
-    const url = URL.createObjectURL(
-      new Blob([`// ${Date.now()}\n${rewriteSpecifiers(source)}`], {
-        type: 'text/javascript'
-      })
-    )
-    imports[name] = url
-    blobUrls.push(url)
-  }
-
-  injectImportMap(doc, imports)
 
   try {
+    restoreIframeFetch = installFetch(win, assignHttp, apiKey)
+    restoreParentFetch = installFetch(window, assignHttp, apiKey)
+
+    const shimUrl = createShimUrl(win, apiKey)
+    blobUrls.push(shimUrl)
+    const imports = { 'microlink.io': shimUrl }
+
+    for (const [name, source] of Object.entries(files)) {
+      const url = URL.createObjectURL(
+        new Blob([`// ${Date.now()}\n${rewriteSpecifiers(source)}`], {
+          type: 'text/javascript'
+        })
+      )
+      imports[name] = url
+      blobUrls.push(url)
+    }
+
+    injectImportMap(doc, imports)
+
     const { status, value } = await runEntry(doc, win, entry)
     return {
       status,
