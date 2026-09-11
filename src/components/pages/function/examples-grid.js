@@ -56,12 +56,18 @@ const Card = styled(Box).attrs({ as: 'a' })(
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: transform ${transition.medium}, box-shadow ${transition.medium};
+    transition: transform ${transition.short}, box-shadow ${transition.short};
 
-    &:hover,
     &:focus-visible {
-      transform: translateY(-2px);
+      transform: translateY(-1px);
       box-shadow: ${shadows[4]};
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: ${shadows[4]};
+      }
     }
   }
 `

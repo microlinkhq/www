@@ -269,13 +269,13 @@ export const sizes = [
 
 export const speed = {
   quickly: 150,
-  normal: 300,
+  normal: 200,
   slowly: 450
 }
 
 export const timings = {
-  short: 'cubic-bezier(.25,.8,.25,1)',
-  medium: 'cubic-bezier(.25,.8,.25,1)',
+  short: 'cubic-bezier(0.23, 1, 0.32, 1)',
+  medium: 'cubic-bezier(0.23, 1, 0.32, 1)',
   long: 'cubic-bezier(.4, 0, .2, 1)',
   smooth: 'cubic-bezier(0.22, 1, 0.36, 1)'
 }

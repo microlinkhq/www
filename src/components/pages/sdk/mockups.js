@@ -76,7 +76,7 @@ const slideOut = keyframes`
 const VariantSlide = styled(Box)`
   @media (prefers-reduced-motion: no-preference) {
     animation: ${props => (props.$leaving ? slideOut : slideIn)} ${SLIDE_MS}ms
-      ${props => (props.$leaving ? 'ease-in' : 'ease-out')} both;
+      cubic-bezier(0.23, 1, 0.32, 1) both;
   }
 `
 

@@ -50,7 +50,7 @@ const Card = styled(Link)(
 
       @media (prefers-reduced-motion: no-preference) {
         &:hover {
-          transform: translateY(-3px);
+          transform: translateY(-1px);
         }
       }
     }

@@ -225,7 +225,7 @@ const PaymentUpdatePage = () => {
                   },
                   rules: {
                     '.Input': {
-                      transition: `all ${transition.medium}`
+                      transition: `border-color ${transition.short}, box-shadow ${transition.short}`
                     },
                     '.Label': {
                       margin: '-18px 0 0 0',

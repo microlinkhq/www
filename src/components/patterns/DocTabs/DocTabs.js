@@ -9,7 +9,7 @@ import React from 'react'
 import { DOC_TABS } from 'components/patterns/Aside/constants'
 
 const TabButton = styled(Link)`
-  transition: color ${transition.medium}, border-color ${transition.medium};
+  transition: color ${transition.short}, border-color ${transition.short};
 
   ${theme({
     px: 3,

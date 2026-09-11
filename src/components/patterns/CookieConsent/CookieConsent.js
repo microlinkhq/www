@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { getStoredConsent, updateConsent } from 'helpers/gtag'
 import { Button } from 'components/elements/Button/Button'
-import { popIn, popOut, wiggle } from 'components/keyframes'
+import { popIn, popOut } from 'components/keyframes'
 import { theme, transition, colors, touchTargets, speed } from 'theme'
 import { Link } from 'components/elements/Link'
 import styled from 'styled-components'
@@ -56,15 +56,17 @@ const Bubble = styled('button')`
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    animation: ${popIn} ${transition.long} both;
+    animation: ${popIn} ${transition.medium} both;
     transition: transform ${transition.short}, box-shadow ${transition.short};
 
-    &:hover {
-      transform: translateY(-2px);
-    }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        transform: translateY(-1px);
+      }
 
-    &:hover > span {
-      animation: ${wiggle} ${transition.long};
+      &:active {
+        transform: scale(0.97);
+      }
     }
   }
 `
@@ -146,7 +148,11 @@ const CookieConsent = () => {
 
   useEffect(() => {
     if (isOpen && acceptRef.current) acceptRef.current.focus()
-    else if (wasOpenRef.current && restoreFocusRef.current && bubbleRef.current) {
+    else if (
+      wasOpenRef.current &&
+      restoreFocusRef.current &&
+      bubbleRef.current
+    ) {
       bubbleRef.current.focus()
     }
     wasOpenRef.current = isOpen
@@ -199,11 +205,7 @@ const CookieConsent = () => {
   }
 
   return (
-    <Wrapper
-      ref={wrapperRef}
-      data-closing={isLeaving}
-      className='hidden-print'
-    >
+    <Wrapper ref={wrapperRef} data-closing={isLeaving} className='hidden-print'>
       {isOpen
         ? (
           <Panel
@@ -218,7 +220,11 @@ const CookieConsent = () => {
               <Link href='/privacy'>privacy policy</Link>.
             </Text>
             <Flex
-              css={theme({ mt: 3, justifyContent: 'flex-end', alignItems: 'center' })}
+              css={theme({
+                mt: 3,
+                justifyContent: 'flex-end',
+                alignItems: 'center'
+              })}
             >
               <DeclineButton type='button' onClick={() => choose('denied')}>
                 Decline

@@ -303,14 +303,20 @@ const StepCard = styled(Flex)`
   background: ${colors.white};
   border: 1px solid ${colors.black10};
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 30px rgba(0, 0, 0, 0.05);
-  transition: transform ${transition.medium}, box-shadow ${transition.medium},
-    border-color ${transition.medium};
+  transition: box-shadow ${transition.short}, border-color ${transition.short};
 
-  &:hover {
-    transform: translateY(-4px);
-    border-color: rgba(192, 63, 162, 0.35);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05),
-      0 18px 44px rgba(140, 27, 171, 0.12);
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) and (pointer: fine) {
+      transition: transform ${transition.short}, box-shadow ${transition.short},
+        border-color ${transition.short};
+
+      &:hover {
+        transform: translateY(-1px);
+        border-color: rgba(192, 63, 162, 0.35);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05),
+          0 18px 44px rgba(140, 27, 171, 0.12);
+      }
+    }
   }
 `
 

@@ -19,7 +19,7 @@ import {
   SectionHeader
 } from 'components/pages/sdk/shared'
 
-import { colors, space, theme } from 'theme'
+import { colors, space, theme, transition } from 'theme'
 
 const GROUP_MOCKUPS = {
   content: ContentMockup,
@@ -40,7 +40,7 @@ const MethodCard = styled(Flex)`
     textAlign: 'left'
   })}
   border-radius: 12px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color ${transition.short}, box-shadow ${transition.short};
 
   &:hover {
     border-color: var(--method-accent);
@@ -48,11 +48,13 @@ const MethodCard = styled(Flex)`
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: transform 0.2s ease, border-color 0.2s ease,
-      box-shadow 0.2s ease;
+    @media (hover: hover) and (pointer: fine) {
+      transition: transform ${transition.short},
+        border-color ${transition.short}, box-shadow ${transition.short};
 
-    &:hover {
-      transform: translateY(-2px);
+      &:hover {
+        transform: translateY(-1px);
+      }
     }
   }
 `

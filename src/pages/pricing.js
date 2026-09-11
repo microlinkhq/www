@@ -927,10 +927,17 @@ const TestimonialCard = styled(Flex)`
   })}
   border: ${borders[1]};
   box-shadow: ${shadows[1]};
-  transition: box-shadow 200ms ease, transform 200ms ease;
-  &:hover {
-    box-shadow: ${shadows[3]};
-    transform: translateY(-2px);
+  transition: box-shadow ${transition.short};
+
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) and (pointer: fine) {
+      transition: box-shadow ${transition.short}, transform ${transition.short};
+
+      &:hover {
+        box-shadow: ${shadows[3]};
+        transform: translateY(-1px);
+      }
+    }
   }
 `
 
@@ -1125,9 +1132,14 @@ const CLIENTS = [
 const ClientLogo = styled(Flex)`
   ${theme({ textDecoration: 'none' })};
   color: inherit;
-  transition: transform ${transition.short};
-  &:hover {
-    transform: translateY(-${radii[1]}) scale(1.05);
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) and (pointer: fine) {
+      transition: transform ${transition.short};
+
+      &:hover {
+        transform: translateY(-1px);
+      }
+    }
   }
   &:focus-visible {
     outline: ${borders[2]} ${colors.link};

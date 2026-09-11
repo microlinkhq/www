@@ -118,15 +118,13 @@ export const RaceLanes = ({
         return (
           <LaneRow
             key={key}
+            $reordering={isReordering}
             style={{
               position: 'absolute',
               top: domIndex * ROW_SLOT,
               left: 0,
               right: 0,
-              transform: `translateY(${offset}px)`,
-              transition: isReordering
-                ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                : 'none'
+              transform: `translateY(${offset}px)`
             }}
           >
             <LaneRank $rank={visualIndex} $compact={compact}>

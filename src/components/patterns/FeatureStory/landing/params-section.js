@@ -41,7 +41,7 @@ const ParamCard = styled(Link)(
 
       @media (prefers-reduced-motion: no-preference) {
         &:hover {
-          transform: translateY(-2px);
+          transform: translateY(-1px);
         }
       }
     }

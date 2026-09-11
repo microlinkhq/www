@@ -230,16 +230,23 @@ const Health = () => (
 
 const DisclosurePanel = styled(Box)`
   opacity: 0;
-  transform: translateY(-4px);
   pointer-events: none;
   visibility: hidden;
-  transition: opacity ${transition.short}, transform ${transition.short};
+  transition: opacity ${transition.short};
+
+  @media (prefers-reduced-motion: no-preference) {
+    transform: translateY(-4px);
+    transition: opacity ${transition.short}, transform ${transition.short};
+  }
 
   &[data-open='true'] {
     opacity: 1;
-    transform: translateY(0);
     pointer-events: auto;
     visibility: visible;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transform: translateY(0);
+    }
   }
 `
 

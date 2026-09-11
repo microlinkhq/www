@@ -20,7 +20,9 @@ describe('home products card hover', () => {
 
   test('keeps border, lift and arrow as the only hover affordances', () => {
     expect(card).toMatch(/border-color: \$\{props => props\.\$accent\}/)
-    expect(card).toContain('transform: translateY(-3px)')
+    expect(card).toContain('@media (hover: hover) and (pointer: fine)')
+    expect(card).toContain('@media (prefers-reduced-motion: no-preference)')
+    expect(card).toContain('transform: translateY(-1px)')
     expect(card).toMatch(/&:hover \$\{Arrow\}/)
   })
 })

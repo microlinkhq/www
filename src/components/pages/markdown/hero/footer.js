@@ -44,11 +44,12 @@ const CopyButton = styled('button')`
 
   &:hover {
     color: ${colors.black};
-    transform: scale(1.1);
   }
 
-  &:active {
-    transform: scale(0.95);
+  @media (prefers-reduced-motion: no-preference) {
+    &:active {
+      transform: scale(0.97);
+    }
   }
 
   &:focus-visible {

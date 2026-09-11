@@ -150,13 +150,14 @@ export const MegaMenuPanel = styled(Box).withConfig({
   box-shadow: ${shadows[4]};
   transform-origin: top center;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
-  transform: translateY(${({ isVisible }) => (isVisible ? '0px' : '-8px')})
-    scale(${({ isVisible }) => (isVisible ? 1 : 0.985)});
   pointer-events: ${({ isVisible }) => (isVisible ? 'auto' : 'none')};
-  transition: opacity
-      ${({ isVisible }) => (isVisible ? transition.medium : transition.short)},
-    transform
-      ${({ isVisible }) => (isVisible ? transition.medium : transition.short)};
+  transition: opacity ${transition.short};
+
+  @media (prefers-reduced-motion: no-preference) {
+    transform: translateY(${({ isVisible }) => (isVisible ? '0px' : '-8px')})
+      scale(${({ isVisible }) => (isVisible ? 1 : 0.985)});
+    transition: opacity ${transition.short}, transform ${transition.short};
+  }
 `
 
 export const MegaMenuSection = styled(Box).withConfig({

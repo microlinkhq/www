@@ -136,8 +136,7 @@ const StackCard = styled('a')`
   color: inherit;
   border: ${borders[1]} ${colors.black10};
   box-shadow: ${shadows[1]};
-  transition: transform ${transition.medium}, box-shadow ${transition.medium},
-    border-color ${transition.medium};
+  transition: box-shadow ${transition.short}, border-color ${transition.short};
   overflow: hidden;
   isolation: isolate;
 
@@ -151,27 +150,46 @@ const StackCard = styled('a')`
     background: ${({ $accent }) => $accent};
     transform: scaleX(0);
     transform-origin: left center;
-    transition: transform ${transition.medium};
   }
 
-  &:hover,
+  @media (prefers-reduced-motion: no-preference) {
+    &::before {
+      transition: transform ${transition.short};
+    }
+  }
+
   &:focus-visible {
-    transform: translateY(-2px);
     box-shadow: ${shadows[3]};
     border-color: ${colors.black20};
   }
 
-  &:hover::before,
   &:focus-visible::before {
     transform: scaleX(1);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: ${shadows[3]};
+      border-color: ${colors.black20};
+    }
 
-    &:hover,
+    &:hover::before {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform ${transition.short}, box-shadow ${transition.short},
+      border-color ${transition.short};
+
     &:focus-visible {
-      transform: none;
+      transform: translateY(-1px);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        transform: translateY(-1px);
+      }
     }
   }
 `

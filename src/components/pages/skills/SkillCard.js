@@ -21,8 +21,10 @@ const CardLink = styled(Link)`
     transform ${transition.medium};
 
   @media (prefers-reduced-motion: no-preference) {
-    &:hover {
-      transform: translateY(-2px);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        transform: translateY(-1px);
+      }
     }
   }
 
