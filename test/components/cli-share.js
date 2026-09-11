@@ -75,3 +75,45 @@ test('strips --api-key from shared lines', () => {
     parseSharedLine('?q=screenshot+stripe.com+--api-key+sk_live_xxx')
   ).toBe('screenshot stripe.com')
 })
+
+test('strips --apiKey from shared lines', () => {
+  expect(sanitizeShareLine('screenshot stripe.com --apiKey sk_live_xxx')).toBe(
+    'screenshot stripe.com'
+  )
+})
+
+test('strips --header and -H from shared lines', () => {
+  expect(
+    sanitizeShareLine("screenshot stripe.com --header 'x-api-key: sk_live_xxx'")
+  ).toBe('screenshot stripe.com')
+  expect(
+    sanitizeShareLine('screenshot stripe.com -H Authorization:Bearer+secret')
+  ).toBe('screenshot stripe.com')
+  expect(
+    sanitizeShareLine(
+      "metadata example.com -H 'Cookie: session=abc; token=def' --fullPage"
+    )
+  ).toBe('metadata example.com --fullPage')
+})
+
+test('strips --http.header.* from shared lines', () => {
+  expect(
+    sanitizeShareLine(
+      "screenshot stripe.com --http.header.authorization 'Bearer secret'"
+    )
+  ).toBe('screenshot stripe.com')
+  expect(
+    sanitizeShareLine(
+      'screenshot stripe.com --http.header.cookie=session=abc --fullPage'
+    )
+  ).toBe('screenshot stripe.com --fullPage')
+})
+
+test('shareHref does not embed header secrets', () => {
+  expect(
+    shareHref(
+      "microlink metadata example.com -H 'x-api-key: sk_live_xxx'",
+      loc('https://microlink.io/terminal')
+    )
+  ).toBe('https://microlink.io/terminal?q=metadata+example.com')
+})

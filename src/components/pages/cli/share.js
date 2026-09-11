@@ -1,6 +1,10 @@
 export const SHARE_QUERY_KEY = 'q'
 
-const SECRET_FLAG = /(?:^|\s)--api-key(?:=|\s+)\S+/gi
+const FLAG_VALUE = String.raw`(?:'[^']*'|"[^"]*"|\S+)`
+const SECRET_FLAG = new RegExp(
+  String.raw`(?:^|\s)(?:--(?:api-key|apiKey|header|http\.header\.[^\s=]+)|-H)(?=\s|=|$)(?:=${FLAG_VALUE}|\s+${FLAG_VALUE})?`,
+  'gi'
+)
 
 export const sanitizeShareLine = line =>
   String(line || '')
