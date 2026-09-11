@@ -25,10 +25,14 @@ const EnterprisePlanCard = ({ activePlan }) => (
     <PlanCheckList css={theme({ pt: [3, 3, 4, 4] })}>
       <PlanCheck>Everything in Pro, plus:</PlanCheck>
       <PlanCheck>
-        <Link href='/enterprise'>Card or invoice, PO number, net 30</Link>
+        <Link href='/enterprise#what-business-includes'>
+          Card or invoice, PO number, net 30
+        </Link>
       </PlanCheck>
       <PlanCheck>
-        <Link href='/enterprise'>NDA, DPA & service agreement</Link>
+        <Link href='/enterprise#your-data-protected'>
+          NDA, DPA & service agreement
+        </Link>
       </PlanCheck>
       <PlanCheck>Vendor assessments on request</PlanCheck>
       <PlanCheck>Same named contact</PlanCheck>
@@ -46,17 +50,23 @@ const EnterprisePlanCard = ({ activePlan }) => (
     </Caps>
     <PlanCheckList>
       <PlanCheck>
-        <Link href='/enterprise'>Dedicated endpoint & browser pool</Link>
+        <Link href='/enterprise#what-enterprise-includes'>
+          Dedicated endpoint & browser pool
+        </Link>
       </PlanCheck>
       <PlanCheck>
-        <Link href='/enterprise'>Dedicated CDN & S3-like storage</Link>
+        <Link href='/enterprise#what-enterprise-includes'>
+          Dedicated CDN & S3-like storage
+        </Link>
       </PlanCheck>
       <PlanCheck>
-        <Link href='/enterprise'>Hosted where you need it</Link>
+        <Link href='/enterprise#choose-where-your-hardware-lives'>
+          Hosted where you need it
+        </Link>
       </PlanCheck>
     </PlanCheckList>
     <PlanAction>
-      <ArrowLink href='/enterprise'>Explore Business & Enterprise</ArrowLink>
+      <ArrowLink href='/enterprise'>View details</ArrowLink>
     </PlanAction>
   </PricingCard>
 )

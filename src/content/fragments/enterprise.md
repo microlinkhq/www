@@ -8,7 +8,7 @@ Included volume is sized to your usage. What you pay for is <Annotation variant=
 
 <ContactButton event='business contact top' mailto={BUSINESS_MAILTO} medium='business' />
 
-**What Business includes:**
+### What Business includes
 
 - Everything in Pro, on the same shared infrastructure.
 - Pay by card, or by invoice: <Annotation>bank transfer, with your PO number on the invoice</Annotation>.
@@ -18,7 +18,7 @@ Included volume is sized to your usage. What you pay for is <Annotation variant=
 - The same named contact for commercial and technical matters, every time. No ticket queue. Every question gets priority, with a first response within <Annotation variant='underline'>1 business day</Annotation>.
 - Annual billing, with a <Annotation variant='underline'>10% discount</Annotation>.
 
-**Your data, protected:**
+### Your data, protected
 
 - Your content is <Annotation>never used to train or fine-tune AI models</Annotation> — not by us, not by anyone.
 - You own your content. We process it only to serve you, and delete it within <Annotation variant='underline'>60 days</Annotation> of your request.
@@ -26,7 +26,7 @@ Included volume is sized to your usage. What you pay for is <Annotation variant=
 - Backed by a standard Master Subscription Agreement and DPA, ready for your legal team to review.
 - We never use your name or logo without your written consent.
 
-**What Enterprise includes:**
+### What Enterprise includes
 
 - Everything in Business, running on <Annotation>hardware that serves only you</Annotation>. No shared capacity. No noisy neighbors.
 - The full Microlink API, <Annotation variant='underline'>running on your dedicated environment</Annotation>: screenshots, PDF generation, metadata extraction, markdown, link preview, and every other product we offer.
@@ -38,7 +38,9 @@ Included volume is sized to your usage. What you pay for is <Annotation variant=
 - Priority support via email and a dedicated Slack channel, with direct access to the Microlink team and a 12-hour maximum response time.
 - Enterprise onboarding and launch validation.
 
-**Choose where your hardware lives**, from <Annotation>8 locations</Annotation>:
+### Choose where your hardware lives
+
+Your dedicated environment runs in one of <Annotation>8 locations</Annotation>:
 
 - 🇺🇸 New York
 - 🇺🇸 San Francisco

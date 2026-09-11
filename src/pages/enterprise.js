@@ -66,7 +66,7 @@ const EnterprisePage = () => (
         })}
       >
         <Box>
-          <Markdown>
+          <Markdown titleize={false}>
             <Content />
           </Markdown>
         </Box>
