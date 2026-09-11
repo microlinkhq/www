@@ -1,5 +1,7 @@
 import createClient from 'microlink.io'
 
+import { toModuleSource } from './to-module-source'
+
 const MICROLINK_HOSTS = new Set(['api.microlink.io', 'pro.microlink.io'])
 const CONSOLE_METHODS = ['log', 'debug', 'info', 'warn', 'error']
 
@@ -80,14 +82,6 @@ const wrapFetch =
       }
       return nativeFetch(new Request(nextUrl, input), { ...init, headers })
     }
-
-const rewriteSpecifiers = source =>
-  source
-    .replace(/((?:from|import)\s*\(?\s*['"])\.\/([^'"]+)(['"])/g, '$1$2$3')
-    .replace(
-      /((?:from|import)\s*\(?\s*['"])https:\/\/esm\.sh\/microlink\.io(?:@[^'"]*)?(['"])/g,
-      '$1microlink.io$2'
-    )
 
 const formatLogArg = arg => {
   if (typeof arg === 'string') return arg
@@ -207,7 +201,7 @@ const evalInFrame = async (iframe, files, { apiKey, entry }) => {
 
     for (const [name, source] of Object.entries(files)) {
       const url = URL.createObjectURL(
-        new Blob([`// ${Date.now()}\n${rewriteSpecifiers(source)}`], {
+        new Blob([`// ${Date.now()}\n${await toModuleSource(name, source)}`], {
           type: 'text/javascript'
         })
       )

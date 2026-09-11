@@ -1,3 +1,6 @@
 import { prettier } from 'helpers/prettier'
 
-export const formatSource = code => prettier(code, 'js')
+import { isTypeScriptFile } from './shared'
+
+export const formatSource = (code, file) =>
+  prettier(code, isTypeScriptFile(file) ? 'ts' : 'js')
