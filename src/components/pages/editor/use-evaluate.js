@@ -1,9 +1,10 @@
 import { useCallback, useRef, useState } from 'react'
 
 import { ENTRY_FILE } from './shared'
+import { formatSyntaxError } from './syntax-errors'
 import { serializeError, withScript } from './with-script'
 
-export const useEvaluate = ({ apiKey, onSettled } = {}) => {
+export const useEvaluate = ({ apiKey, onSettled, getSyntaxErrors } = {}) => {
   const [status, setStatus] = useState('idle')
   const [value, setValue] = useState(null)
   const [logs, setLogs] = useState(null)
@@ -18,6 +19,15 @@ export const useEvaluate = ({ apiKey, onSettled } = {}) => {
       setStatus('running')
       const started = performance.now()
       try {
+        const syntaxErrors = await getSyntaxErrors?.(files)
+        if (syntaxErrors?.length) {
+          setValue(serializeError(formatSyntaxError(syntaxErrors)))
+          setLogs({})
+          setHttp(null)
+          setElapsed(Math.round(performance.now() - started))
+          setStatus('error')
+          return
+        }
         const result = await withScript(files, {
           apiKey,
           entry: ENTRY_FILE
@@ -38,7 +48,7 @@ export const useEvaluate = ({ apiKey, onSettled } = {}) => {
         runningRef.current = false
       }
     },
-    [apiKey, onSettled]
+    [apiKey, getSyntaxErrors, onSettled]
   )
 
   return { status, value, logs, http, elapsed, evaluate }
