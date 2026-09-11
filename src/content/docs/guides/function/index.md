@@ -58,6 +58,7 @@ For simpler extraction flows, start with <Link href='/docs/guides/data-extractio
 
 ## What's next
 
+- **[Editor](/editor)** — write a function in the browser and inspect the live response.
 - **[Writing functions](/docs/guides/function/writing-functions)** — return values, custom parameters, and npm packages.
 - **[Browser interaction](/docs/guides/function/browser-interaction)** — Puppeteer helpers, execution contexts, and browser automation.
 - **[Profiling and performance](/docs/guides/function/profiling-and-performance)** — understand execution phases, plan limits, and optimization.

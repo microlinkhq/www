@@ -162,6 +162,10 @@
   ],
   "redirects": [
     {
+      "source": "/playground",
+      "destination": "/editor"
+    },
+    {
       "source": "/adblock",
       "destination": "/docs/api/parameters/adblock"
     },
