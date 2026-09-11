@@ -4,6 +4,7 @@ import Monaco, { loader } from '@monaco-editor/react'
 import { formatSource } from './format'
 import { editorOptions, setupMonaco } from './monaco-setup'
 import { editorLanguage } from './shared'
+import { collectSyntaxErrors, ensureModels } from './syntax-errors'
 
 loader.config({
   paths: {
@@ -21,9 +22,11 @@ const MonacoEditor = ({
   const filesRef = useRef(files)
   const onEvaluateRef = useRef(onEvaluate)
   const activeFileRef = useRef(activeFile)
+  const monacoRef = useRef(null)
 
   useEffect(() => {
     filesRef.current = files
+    if (monacoRef.current) ensureModels(monacoRef.current, files)
   }, [files])
 
   useEffect(() => {
@@ -51,8 +54,12 @@ const MonacoEditor = ({
         onFilesChange(activeFile, value ?? '')
       }}
       onMount={(editor, monaco) => {
+        monacoRef.current = monaco
+        ensureModels(monaco, filesRef.current)
         onReady?.({
-          getFiles: () => filesRef.current
+          getFiles: () => filesRef.current,
+          getSyntaxErrors: nextFiles =>
+            collectSyntaxErrors(monaco, nextFiles || filesRef.current)
         })
         editor.addAction({
           id: 'run-prettier',

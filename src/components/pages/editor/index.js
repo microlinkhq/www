@@ -66,9 +66,15 @@ const Editor = () => {
     [commitShare]
   )
 
+  const getSyntaxErrors = useCallback(async files => {
+    if (!editorApi.current?.getSyntaxErrors) return []
+    return editorApi.current.getSyntaxErrors(files)
+  }, [])
+
   const { status, value, logs, http, elapsed, evaluate } = useEvaluate({
     apiKey,
-    onSettled
+    onSettled,
+    getSyntaxErrors
   })
 
   useEffect(() => {

@@ -95,6 +95,7 @@ export const setupMonaco = monaco => {
       noSemanticValidation: true,
       noSyntaxValidation: false
     })
+    defaults.setEagerModelSync(true)
     defaults.setCompilerOptions(compilerOptions)
     for (const [source, path] of extras) defaults.addExtraLib(source, path)
   }
