@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import Text from '../Text'
 import Flex from '../Flex'
 
+const TOAST_HIDDEN = 'translateY(100%) scale(0.95)'
+
 const Wrapper = styled(Flex)`
   bottom: 0;
   left: 0;
@@ -21,7 +23,7 @@ const Wrapper = styled(Flex)`
 
     @starting-style {
       opacity: 0;
-      transform: translateY(100%) scale(0.95);
+      transform: ${TOAST_HIDDEN};
     }
   }
 
@@ -29,7 +31,7 @@ const Wrapper = styled(Flex)`
     opacity: 0;
 
     @media (prefers-reduced-motion: no-preference) {
-      transform: translateY(100%) scale(0.95);
+      transform: ${TOAST_HIDDEN};
     }
   }
 `

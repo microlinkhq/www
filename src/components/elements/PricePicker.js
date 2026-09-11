@@ -3,8 +3,16 @@ import Box from './Box'
 import Flex from './Flex'
 import Text from './Text'
 import React, { useState, useCallback } from 'react'
-import styled from 'styled-components'
-import { colors, gradient, theme, shadows } from 'theme'
+import styled, { css } from 'styled-components'
+import {
+  colors,
+  fontWeights,
+  gradient,
+  gradientStops,
+  shadows,
+  theme,
+  transition
+} from 'theme'
 
 const BASE_PLAN_PRICE = { EUR: 24, USD: 30 }
 
@@ -56,11 +64,25 @@ const SliderFill = styled(Box)`
   background: ${gradient};
   pointer-events: none;
   transform-origin: left center;
-  transition: transform 120ms cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform ${transition.short};
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
   }
+`
+
+const sliderThumb = css`
+  width: ${THUMB_SIZE};
+  height: ${THUMB_SIZE};
+  border-radius: 50%;
+  background: ${colors.white};
+  border: 2px solid ${gradientStops[1][1]};
+  box-shadow: ${shadows[1]};
+  transition: transform ${transition.short}, box-shadow ${transition.short};
+`
+
+const thumbGlow = css`
+  box-shadow: 0 2px 8px ${colors.black20};
 `
 
 const SliderInput = styled('input')`
@@ -80,40 +102,28 @@ const SliderInput = styled('input')`
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: ${THUMB_SIZE};
-    height: ${THUMB_SIZE};
-    border-radius: 50%;
-    background: ${colors.white};
-    border: 2px solid #c03fa2;
-    box-shadow: ${shadows[1]};
-    transition: transform 120ms ease, box-shadow 120ms ease;
+    ${sliderThumb}
   }
 
   &::-moz-range-thumb {
-    width: ${THUMB_SIZE};
-    height: ${THUMB_SIZE};
-    border-radius: 50%;
-    background: ${colors.white};
-    border: 2px solid #c03fa2;
-    box-shadow: ${shadows[1]};
-    transition: transform 120ms ease, box-shadow 120ms ease;
+    ${sliderThumb}
   }
 
   &:focus-visible::-webkit-slider-thumb {
-    box-shadow: 0 2px 8px ${colors.black20};
+    ${thumbGlow}
   }
 
   &:focus-visible::-moz-range-thumb {
-    box-shadow: 0 2px 8px ${colors.black20};
+    ${thumbGlow}
   }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover::-webkit-slider-thumb {
-      box-shadow: 0 2px 8px ${colors.black20};
+      ${thumbGlow}
     }
 
     &:hover::-moz-range-thumb {
-      box-shadow: 0 2px 8px ${colors.black20};
+      ${thumbGlow}
     }
   }
 
@@ -133,11 +143,11 @@ const TickLabel = styled(Text)`
   position: absolute;
   transform: translateX(-50%);
   white-space: nowrap;
-  transition: color 120ms ease, font-weight 120ms ease;
+  transition: color ${transition.short}, font-weight ${transition.short};
 
   &[data-active='true'] {
     color: ${colors.black};
-    font-weight: bold;
+    font-weight: ${fontWeights.bold};
   }
 `
 

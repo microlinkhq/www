@@ -281,7 +281,7 @@ export const LaneRow = styled('div')`
 
   @media (prefers-reduced-motion: no-preference) {
     transition: ${({ $reordering }) =>
-      $reordering ? 'transform 200ms cubic-bezier(0.23, 1, 0.32, 1)' : 'none'};
+      $reordering ? `transform ${transition.medium}` : 'none'};
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -2,6 +2,7 @@ import {
   transition,
   theme as themeProp,
   colors,
+  cx,
   space,
   gradient,
   touchTargets
@@ -20,11 +21,13 @@ const getVariant = ({ theme, variant }) => {
 
 export const hoverStyle = ({ theme, variant }) => {
   const { background, color } = getVariant({ theme, variant })
+  const hoverBackground = cx(color)
+  const hoverColor = cx(background)
   return {
     cursor: 'pointer',
-    background: color,
-    color: background,
-    boxShadow: `0 0 0 1px ${colors[background]}`
+    background: hoverBackground,
+    color: hoverColor,
+    boxShadow: `0 0 0 1px ${hoverColor}`
   }
 }
 
@@ -67,7 +70,7 @@ const StyledButton = styled(Box).withConfig({
       @media (hover: hover) and (pointer: fine) {
         &:hover {
           box-shadow: none;
-          color: white;
+          color: ${colors.white};
           filter: hue-rotate(40deg);
         }
       }
@@ -92,7 +95,7 @@ const StyledButton = styled(Box).withConfig({
         borderRadius: 2,
         background,
         color,
-        boxShadow: variant === 'white' ? `0 0 0 1px ${color}` : undefined,
+        boxShadow: variant === 'white' ? `0 0 0 1px ${cx(color)}` : undefined,
         _disabled: {
           opacity: 0.8,
           cursor: 'not-allowed',
@@ -109,8 +112,8 @@ const StyledButton = styled(Box).withConfig({
         @media (hover: hover) and (pointer: fine) {
           &:hover:not(:disabled) {
             cursor: ${hover.cursor};
-            background: ${colors[hover.background] || hover.background};
-            color: ${colors[hover.color] || hover.color};
+            background: ${hover.background};
+            color: ${hover.color};
             box-shadow: ${hover.boxShadow};
           }
         }
