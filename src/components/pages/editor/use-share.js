@@ -116,11 +116,14 @@ export const readSharedFiles = async () => {
   return example ? example.files : null
 }
 
-export const writeShareQuery = async files => {
+export const writeShareQuery = async (files, isCurrent) => {
   if (typeof window === 'undefined') return window.location.href
   const url = new URL(window.location.href)
   const templateId = exampleIdForFiles(files)
   const encoded = templateId === 'custom' ? await encodeShareCode(files) : ''
+  if (typeof isCurrent === 'function' && !isCurrent()) {
+    return window.location.href
+  }
   const next = applyEditorParams(url, { templateId, encoded })
   window.history.replaceState(null, '', next)
   return new URL(next, url.origin).href
