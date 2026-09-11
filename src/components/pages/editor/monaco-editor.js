@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Monaco, { loader } from '@monaco-editor/react'
 
 import { formatSource } from './format'
@@ -18,7 +18,10 @@ const MonacoEditor = ({
   onReady
 }) => {
   const filesRef = useRef(files)
-  filesRef.current = files
+
+  useEffect(() => {
+    filesRef.current = files
+  }, [files])
 
   return (
     <Monaco
@@ -29,7 +32,13 @@ const MonacoEditor = ({
       options={editorOptions}
       loading={null}
       beforeMount={setupMonaco}
-      onChange={value => onFilesChange(activeFile, value ?? '')}
+      onChange={value => {
+        filesRef.current = {
+          ...filesRef.current,
+          [activeFile]: value ?? ''
+        }
+        onFilesChange(activeFile, value ?? '')
+      }}
       onMount={(editor, monaco) => {
         onReady?.({
           getFiles: () => filesRef.current

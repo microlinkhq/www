@@ -89,12 +89,17 @@ const ResultBody = ({ tab, status, value, logs, http }) => {
 
   if (logCount === 0) return <Centered>No logs</Centered>
 
+  const seen = {}
   return LOG_ORDER.flatMap(type =>
-    (logs?.[type] || []).map((line, index) => (
-      <LogRow key={`${type}-${index}`} type={type}>
-        {line}
-      </LogRow>
-    ))
+    (logs?.[type] || []).map(line => {
+      const base = `${type}:${line}`
+      seen[base] = (seen[base] || 0) + 1
+      return (
+        <LogRow key={`${base}:${seen[base]}`} type={type}>
+          {line}
+        </LogRow>
+      )
+    })
   )
 }
 
