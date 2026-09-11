@@ -84,7 +84,7 @@ function Toggle ({ onChange = noop, children, defaultValue, ...props }) {
               css={theme({
                 borderRight: !isLast ? 1 : undefined,
                 borderColor: !isLast ? 'black05' : undefined,
-                px: 3,
+                px: [2, 3, 3, 3],
                 alignItems: 'center',
                 justifyContent: 'center'
               })}

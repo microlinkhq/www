@@ -13,7 +13,7 @@ import ProPlanCard from './ProPlanCard'
 const PLAN_TABS = [
   { id: 'free', node: 'Free' },
   { id: 'pro', node: 'Pro' },
-  { id: 'enterprise', node: 'Enterprise' }
+  { id: 'enterprise', node: 'Business & Enterprise' }
 ]
 
 const DEFAULT_PLAN_TAB = 'pro'

@@ -93,7 +93,7 @@ const BookCall = () => (
               lineHeight: 1
             })}
           >
-            Bigger volume, custom infra, or just questions?
+            Bigger volume, a contract, custom infra, or just questions?
           </Text>
           <Text
             css={theme({
