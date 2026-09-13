@@ -48,7 +48,7 @@ The function parameter is available on both free and pro plans:
 
 |                   | Free             | Pro              |
 | ----------------- | ---------------- | ---------------- |
-| Timeout           | 10 seconds       | Up to 60 seconds |
+| Timeout           | 30 seconds       | Up to 60 seconds |
 | Memory            | 64 MB            | 128 MB           |
 | Code size         | 1024 bytes       | Unlimited        |
 | Concurrency       | 1 in-flight per IP | Unlimited      |

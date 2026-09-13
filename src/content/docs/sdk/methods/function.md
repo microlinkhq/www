@@ -78,6 +78,6 @@ Large function bodies are compressed before they're sent, so the free plan's cod
 
 ## Limits
 
-The free plan allows 10 seconds, 64 MB of heap, 1024 bytes of code, one in-flight function per IP, and same-origin outgoing requests only; the pro plan lifts those to 60 seconds, 128 MB, unlimited code size and concurrency, and unrestricted requests. Exceeding a limit returns `isFulfilled: false` with a plan-aware error such as `TimeoutError`; see [plan limits](/docs/api/parameters/function#plan-limits) and [troubleshooting](/docs/guides/function/troubleshooting).
+The free plan allows 30 seconds, 64 MB of heap, 1024 bytes of code, one in-flight function per IP, and same-origin outgoing requests only; the pro plan lifts those to 60 seconds, 128 MB, unlimited code size and concurrency, and unrestricted requests. Exceeding a limit returns `isFulfilled: false` with a plan-aware error such as `TimeoutError`; see [plan limits](/docs/api/parameters/function#plan-limits) and [troubleshooting](/docs/guides/function/troubleshooting).
 
 See the [function guide](/docs/guides/function) for writing patterns, package dependencies, and profiling.
