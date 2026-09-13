@@ -95,6 +95,7 @@ By API, summed over every site and mode:
 | `innerText` | 2,910 | **0** |
 | `querySelectorAll` | 2,116 | 608 |
 | `getBoundingClientRect` | 735 | **0** |
+| other APIs | 397 | 29 |
 
 `getComputedStyle` going from 769,473 to zero is the cookie-banner engine leaving the room.
 
@@ -106,7 +107,7 @@ Those run in the main world on purpose. A scriptlet that neutralizes an anti-adb
 
 The last 141 the harness could not attribute to anyone, so they stay in an `other` bucket rather than a flattering one. 139 of them are on AliExpress, and their stack frames name the page's own ad tracking (`spm_getParamForAD`) running from a script with no URL in its stack, which is exactly the case the "is this frame the page's own?" test cannot decide. The remaining two are a single `click` each on El País and the NYT. Read them at their worst and the bound still holds: 141 calls we have not proven innocent, against 1,716,830 before.
 
-## Why hiding made it faster
+## Why hiding made it cheaper
 
 The part I did not expect: doing the work where the page cannot see it is also the cheaper way to do it.
 
@@ -125,7 +126,7 @@ Three hundred round trips of object lifecycle collapse into eleven world creatio
 
 Measured inside the screenshot package alone, commands per capture fell from 35 to 11 for a viewport shot, 42 to 18 for fullPage, and 49 to 29 for an element clip.
 
-The same collapse shows up per frame during navigation. On a page with a cookie banner, protocol commands per navigation fall from 40 to 27 with no iframes, 240 to 167 with twenty, and 540 to 377 with fifty. `Runtime.callFunctionOn` is the whole difference: 21 to 9, 141 to 69, and 321 to 159, because the banner logic stops reaching into every frame's main world one call at a time. The trade is a single `Page.createIsolatedWorld`, plus `Page.addScriptToEvaluateOnNewDocument` dropping from 3 to 1. Handle release is not what improves here: `Runtime.releaseObject` stays at one per frame on both sides. On The Guardian, `goto` went 163 to 151.
+The same collapse shows up per frame during navigation. On a page with a cookie banner, protocol commands per navigation fall from 40 to 27 with no iframes, 240 to 167 with twenty, and 540 to 377 with fifty. `Runtime.callFunctionOn` accounts for most of the reduction: 21 to 9, 141 to 69, and 321 to 159, because the banner logic stops reaching into every frame's main world one call at a time. The trade is a single `Page.createIsolatedWorld`, plus `Page.addScriptToEvaluateOnNewDocument` dropping from 3 to 1. Handle release is not what improves here: `Runtime.releaseObject` stays at one per frame on both sides. On The Guardian, `goto` went 163 to 151.
 
 Worlds get cheaper to account for, too. Handling cookie banners used to run in the main world of every frame; on a 50-iframe page that was all 51 frames, and it is now a single isolated world. JS heap on that page went from 24.14&nbsp;MB to 22.08&nbsp;MB.
 
@@ -153,7 +154,7 @@ Desktop pages were getting their tablet layout. `screen` now reads 1440x900 for 
 
 **Client Hints were missing.** We set a Chrome user agent string and then sent no `Sec-CH-UA` headers at all, and `navigator.userAgentData` came back empty. Modern Chrome always sends them, so the combination was self-contradicting. Both now match the user agent we claim.
 
-Measured across those detectors, 3 runs per side, 36 runs, zero errors:
+Measured across those detectors, 3 runs per side, 24 runs, zero errors:
 
 | Detector | before | after |
 | --- | --- | --- |
