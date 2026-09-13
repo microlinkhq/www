@@ -123,7 +123,9 @@ That shows up directly in the protocol log. Per-method counts for one Guardian c
 
 Three hundred round trips of object lifecycle collapse into eleven world creations and a handful of evaluations. The totals follow: The Guardian's viewport capture went from 645 commands to 162, CNN from 518 to 186, GitHub from 322 to 209. Viewport screenshots issue 35% to 75% fewer commands, fullPage 11% to 59% (The Guardian: 843 to 344).
 
-Measured inside the screenshot package alone, commands per capture fell from 35 to 11 for a viewport shot, 42 to 18 for fullPage, and 49 to 29 for an element clip. Navigation barely moved by comparison, because it was never handle-heavy: the ad-block engine's DOM scan dropped from 6 calls per navigation to 0 while total round trips for a local `goto` went 308 to 302, and on The Guardian `goto` went 163 to 151.
+Measured inside the screenshot package alone, commands per capture fell from 35 to 11 for a viewport shot, 42 to 18 for fullPage, and 49 to 29 for an element clip.
+
+The same collapse shows up per frame during navigation. On a page with a cookie banner, protocol commands per navigation fall from 40 to 27 with no iframes, 240 to 167 with twenty, and 540 to 377 with fifty. `Runtime.callFunctionOn` is the whole difference: 21 to 9, 141 to 69, and 321 to 159, because the banner logic stops reaching into every frame's main world one call at a time. The trade is a single `Page.createIsolatedWorld`, plus `Page.addScriptToEvaluateOnNewDocument` dropping from 3 to 1. Handle release is not what improves here: `Runtime.releaseObject` stays at one per frame on both sides. On The Guardian, `goto` went 163 to 151.
 
 Worlds get cheaper to account for, too. Handling cookie banners used to run in the main world of every frame; on a 50-iframe page that was all 51 frames, and it is now a single isolated world. JS heap on that page went from 24.14&nbsp;MB to 22.08&nbsp;MB.
 
