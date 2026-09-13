@@ -27,9 +27,9 @@ On [The Guardian](https://www.theguardian.com), a single viewport screenshot tri
 
 **TL;DR**
 
-- Nine PRs in [browserless](https://browserless.js.org) ([#920](https://github.com/microlinkhq/browserless/pull/920) through [#929](https://github.com/microlinkhq/browserless/pull/929), v13.9.15 to v13.9.21) moved our DOM work out of the page's JavaScript world.
+- Across v13.9.15 to v13.9.21, [browserless](https://browserless.js.org) moved its own DOM work out of the page's JavaScript world.
 - Page-visible automation calls across ten live sites dropped from **1,716,830 to 14,658**, a 99.1% reduction. Five of ten sites now sit at exactly zero, one of them with a caveat I flag below.
-- Three of those PRs were not about hiding at all. They fixed emulation bugs so bad that the detectors' own fingerprinting scripts were crashing partway through.
+- Some of that work was not about hiding at all. It fixed emulation bugs so bad that the detectors' own fingerprinting scripts were crashing partway through.
 - Screenshots come out pixel-identical, wall clock is unchanged, and DevTools protocol traffic went down, not up.
 
 ## Two worlds, one DOM
@@ -51,24 +51,18 @@ If the page patched `document.querySelectorAll`, the main world calls the patch.
 
 We were calling the patch. Everywhere.
 
-## Where we were standing in the page
+## What we were doing inside the page
 
-Six of the nine PRs are the same fix applied to a different caller. Each one was a helper that had a legitimate reason to touch the DOM and no reason at all to do it in public:
+Taking a screenshot is never just a screenshot. Before the shutter, a handful of helpers walk the DOM, and every one of them was doing it in public:
 
-| PR | What moved into an isolated world |
-| --- | --- |
-| [#920](https://github.com/microlinkhq/browserless/pull/920) | `browserless.text()` reading page text |
-| [#921](https://github.com/microlinkhq/browserless/pull/921) | shadow DOM flattening (`flattenShadowDOM`) |
-| [#924](https://github.com/microlinkhq/browserless/pull/924) | the `screenshot` page helpers |
-| [#925](https://github.com/microlinkhq/browserless/pull/925) | overlay dismissal |
-| [#926](https://github.com/microlinkhq/browserless/pull/926) | [autoconsent](https://github.com/duckduckgo/autoconsent) cookie-banner handling |
-| [#927](https://github.com/microlinkhq/browserless/pull/927) | Ghostery DOM scans (`extractFeatures`) |
+- **Handling cookie banners.** The clearest case. Consent dialogs have to be found, measured and clicked, which is exactly the shape of activity a bot detector watches for. This one helper accounts for most of the old volume.
+- **Blocking ads.** The ad-block engine scans the document to decide what to hide.
+- **Dismissing overlays.** Newsletter modals and paywall interstitials get scanned and closed the same way.
+- **Reading a page's text.** The helper behind text extraction was querying the page's own DOM to do it.
+- **Flattening shadow DOM.** Components hidden inside shadow roots get inlined so a screenshot captures them.
+- **Positioning the shot.** The screenshot helpers themselves measured elements through page APIs.
 
-The cookie-banner one is the clearest case. Handling consent dialogs means querying, reading computed styles, and clicking, which is exactly the shape of activity a bot detector is looking for. In `packages/goto/src/adblock.js` it is now one flag:
-
-```js
-isMainWorld: false
-```
+Each one had a legitimate reason to touch the DOM and no reason at all to do it where the page could watch. So each moved into an isolated world, one at a time, with the cookie-banner engine reduced to a single flag telling it to stop running in the main world.
 
 ## How we measured what a site can see
 
@@ -106,7 +100,7 @@ By API, summed over every site and mode:
 
 ## What the remaining 14,658 are
 
-Almost none of it is helper code. 14,517 of the 14,658 classify as `adblock/scriptlet`: [uBlock-style scriptlets](https://github.com/gorhill/uBlock/wiki/Resources-Library) shipped inside the ad-block engine's `engine.bin`, injected as page scripts against specific domains.
+Almost none of it is helper code. 14,517 of the 14,658 are [uBlock-style scriptlets](https://github.com/gorhill/uBlock/wiki/Resources-Library) shipped inside the ad-block engine's filter lists and injected as page scripts against specific domains.
 
 Those run in the main world on purpose. A scriptlet that neutralizes an anti-adblock check has to be *in* the page to do it, and it looks like the filter-list resource it is, not like automation. Bild and AliExpress are the heaviest filtered sites in the set, and they hold nearly all of the residue: 11,068 and 3,077 calls.
 
@@ -114,13 +108,13 @@ The last 141 the harness could not attribute to anyone, so they stay in an `othe
 
 ## The bugs we found by looking
 
-Three PRs had nothing to do with isolated worlds. They surfaced because once we started reading detector output carefully, the output was obviously broken.
+Three of the fixes had nothing to do with isolated worlds. They surfaced because once we started reading detector output carefully, the output was obviously broken.
 
-**[#922](https://github.com/microlinkhq/browserless/pull/922) stopped disabling standard Web APIs.** Our launch flags carried `--disable-notifications`, `--disable-speech-api`, and the `PushMessaging` and `WebPayments` feature switches. Those delete `Notification`, `speechSynthesis`, `webkitSpeechRecognition`, `PushManager` and `PaymentRequest` from every page. Stock Chrome exposes all five. Worse, `permissions.query('notifications')` still answered `prompt`, so a page could read the contradiction: permission to send notifications, no API to send them with.
+**We were deleting standard Web APIs.** Our launch flags stripped `Notification`, `speechSynthesis`, `webkitSpeechRecognition`, `PushManager` and `PaymentRequest` from every page. Stock Chrome exposes all five. Worse, `permissions.query('notifications')` still answered `prompt`, so a page could read the contradiction: permission to send notifications, no API to send them with.
 
-That missing API was not a subtle signal, it was fatal to the detectors themselves. On [bot.sannysoft.com](https://bot.sannysoft.com), the `fp-collect` section never rendered: **0 checks completed** before, 20 after. On [bot.incolumitas.com](https://bot.incolumitas.com), `fpscanner` returned **0 keys** before and 21 after. Their scripts were throwing partway through on a missing global, and a fingerprinting script that dies is itself an anomaly. We were failing tests by being too strange to test.
+That was not a subtle signal, it was fatal to the detectors themselves. On [bot.sannysoft.com](https://bot.sannysoft.com), the `fp-collect` section never rendered: **0 checks completed** before, 20 after. On [bot.incolumitas.com](https://bot.incolumitas.com), `fpscanner` returned **0 keys** before and 21 after. Their scripts were throwing partway through on a missing global, and a fingerprinting script that dies is itself an anomaly. We were failing tests by being too strange to test.
 
-**[#923](https://github.com/microlinkhq/browserless/pull/923) emulated a screen consistent with the viewport.** `window.innerWidth` reported 1280, while `screen.width` reported Chrome's headless default of 800x600. No desktop exists where the window is wider than the screen. The consequence was not only a fingerprint:
+**The screen was smaller than the window.** `window.innerWidth` reported 1280, while `screen.width` reported Chrome's headless default of 800x600. No desktop exists where the window is wider than the screen. The consequence was not only a fingerprint:
 
 ```js
 matchMedia('(max-device-width: 1024px)').matches
@@ -130,13 +124,7 @@ matchMedia('(max-device-width: 1024px)').matches
 
 Desktop pages were getting their tablet layout. `screen` now reads 1440x900 for the default device, and the screenshots come back pixel-identical, so the fix changed what sites decide and not what we render.
 
-**[#929](https://github.com/microlinkhq/browserless/pull/929) sent UA Client Hints matching the user agent.** We set a Chrome user agent string and then sent no `Sec-CH-UA` headers at all, and `navigator.userAgentData` came back empty. Modern Chrome always sends them.
-
-| Signal | Before | After |
-| --- | --- | --- |
-| `Sec-CH-UA` request header | absent | `"Google Chrome";v="149", …` |
-| `Sec-CH-UA-Mobile` / `-Platform` | absent | `?0` / `"macOS"` |
-| `navigator.userAgentData` | empty | Google Chrome 149 |
+**Client Hints were missing.** We set a Chrome user agent string and then sent no `Sec-CH-UA` headers at all, and `navigator.userAgentData` came back empty. Modern Chrome always sends them, so the combination was self-contradicting. Both now match the user agent we claim.
 
 Measured across those detectors, 3 runs per side, 36 runs, zero errors:
 
@@ -149,25 +137,17 @@ Measured across those detectors, 3 runs per side, 36 runs, zero errors:
 
 ## The cost
 
-Cheaper, which was not the plan. An element handle round trip is several protocol messages; one isolated-world `evaluate` is one. DevTools protocol commands per capture, median of five runs:
-
-| | viewport CDP commands | fullPage CDP commands |
-| --- | --- | --- |
-| theguardian.com | 645 → **162** (−74.9%) | 843 → 344 (−59.2%) |
-| cnn.com | 518 → **186** (−64.1%) | 1455 → 1299 (−10.7%) |
-| github.com | 322 → **209** (−35.1%) | 383 → 257 (−32.9%) |
+Cheaper, which was not the plan. An element handle round trip is several protocol messages; one isolated-world `evaluate` is one. Viewport screenshots now issue 35% to 75% fewer DevTools protocol commands (The Guardian: 645 down to 162), and fullPage between 11% and 59% fewer.
 
 Wall clock did not move: every timing landed between −3.8% and +0.7%, inside run-to-run noise. Resident memory moved between −0.2% and +4.8%, the top of that range being GitHub's fullPage capture. Titles, extracted text and cookie-banner outcomes stayed equivalent site by site.
 
 ## What still leaks
 
-Four things, none of them fixed by this work.
+**`Runtime.enable` is still detectable.** Rebrowser's check passes, but the general technique does not care: `Error.prepareStackTrace` and console timing still reveal that a debugger is attached. Closing that means patching `puppeteer-core` itself.
 
-**`Runtime.enable` is still detectable.** Rebrowser's check passes, but the general technique does not care: `Error.prepareStackTrace` and console timing still reveal that a debugger is attached. Closing that requires patching `puppeteer-core` itself, which was out of scope here.
+**Web Workers still say HeadlessChrome.** The page reports Chrome; spawn a worker and its `navigator.userAgent` reports `HeadlessChrome`. CreepJS flags exactly that, before and after.
 
-**Web Workers still say HeadlessChrome.** The page reports Chrome; spawn a worker and its `navigator.userAgent` reports `HeadlessChrome`. CreepJS flags exactly that, before and after. A fix is being investigated.
-
-**One real regression.** Re-enabling `Notification` in #922 means sites that gate a notification opt-in overlay on the API existing now render that overlay, and it lands in the screenshot. AliExpress does this. Being more honest about Chrome's API surface made us look more like Chrome and made one class of screenshot worse. A fix is in progress.
+**Notification overlays now show up in screenshots.** Restoring the `Notification` API means sites that gate a notification opt-in prompt on the API existing now render it, and it lands in the capture. AliExpress does this. Denying the permission does not help: the site reads the permission, sees `denied`, and renders its overlay anyway. The overlay was absent before only because the API was missing entirely, so the site's feature detection never ran and it never got as far as asking. Exposing the API is the right call for detection, and this is its visible cost.
 
 **The scoreboard barely moved, and that is expected.** 100/100 to 90/100 on fingerprint-scan, 38% to 31% on CreepJS. These numbers are dominated by signals we are not pretending about: real headless Chrome, a datacenter IP, no GPU. What changed is not the score on a detector page, it is that a real site watching its own DOM sees 99% less of us.
 
