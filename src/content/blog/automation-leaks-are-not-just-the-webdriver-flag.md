@@ -109,7 +109,7 @@ That was fatal to the detectors themselves. On [bot.sannysoft.com](https://bot.s
 
 **The screen was smaller than the window.** `window.innerWidth` reported 1280 while `screen.width` reported Chrome's headless default of 800×600. No desktop exists where the window is wider than the screen. Sites using `matchMedia('(max-device-width: 1024px)')` were serving tablet CSS. `screen` now reads 1440×900 for the default device, so the window fits on the screen it claims.
 
-**Client Hints were missing.** We set a Chrome user agent string, then sent no `Sec-CH-UA` headers, and `navigator.userAgentData` came back empty. Modern Chrome always sends them. Both now match the user agent we claim.
+**Client Hints were missing.** We set a Chrome user agent string, then sent no `Sec-CH-UA` headers, and `navigator.userAgentData` came back empty. Desktop Chrome on HTTPS sends the default low-entropy hints; we were sending none. The request headers and the JS API now both match the user agent we claim.
 
 Measured across those detectors, 3 runs per side, 24 runs, zero errors:
 
