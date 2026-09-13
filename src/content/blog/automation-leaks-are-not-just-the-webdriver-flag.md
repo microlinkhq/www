@@ -1,7 +1,7 @@
 ---
 title: 'Automation Leaks Are Not Just the WebDriver Flag'
 subtitle: 'Cutting page-visible automation calls by 99% with isolated worlds'
-description: 'Before taking a screenshot, browserless was running its own DOM work inside the page, where any site can watch it. Moving that work into isolated worlds cut page-visible automation calls from 1.7M to 14.6K across ten live sites. The measurements, the cost, and what still leaks.'
+description: 'Before taking a screenshot, browserless was running its own DOM work inside the page, where any site can watch it. Moving that work into isolated worlds cut page-visible automation calls from 1.7M to 14.6K across ten live sites, and made captures cheaper. The measurements, the mechanism, and what still leaks.'
 authors:
   - kiko
 date: '2026-09-13'
@@ -27,10 +27,10 @@ On [The Guardian](https://www.theguardian.com), a single viewport screenshot tri
 
 **TL;DR**
 
-- Across v13.9.15 to v13.9.21, [browserless](https://browserless.js.org) moved its own DOM work out of the page's JavaScript world.
+- [browserless](https://browserless.js.org) moved its own DOM work out of the page's JavaScript world, shipping across v13.9.14 to v13.9.21. Every table below is labelled before and after: the two measurement campaigns ran at different points in that range, so the exact builds differ between tables, but each pair is a true A/B with identical Chrome and Puppeteer on both sides.
 - Page-visible automation calls across ten live sites dropped from **1,716,830 to 14,658**, a 99.1% reduction. Five of ten sites now sit at exactly zero, one of them with a caveat I flag below.
-- Some of that work was not about hiding at all. It fixed emulation bugs so bad that the detectors' own fingerprinting scripts were crashing partway through.
-- Screenshots come out pixel-identical, wall clock is unchanged, and DevTools protocol traffic went down, not up.
+- It also made captures **cheaper**, which was not the plan. A Guardian viewport screenshot went from 645 protocol commands to 162.
+- Some of the work was not about hiding at all. It fixed emulation bugs so bad that the detectors' own fingerprinting scripts were crashing partway through.
 
 ## Two worlds, one DOM
 
@@ -74,7 +74,7 @@ Then we take an ordinary screenshot. Ten live sites (Guardian, El País, Bild, L
 
 ## The numbers
 
-| Automation calls the page could observe | v13.9.15 | v13.9.21 |
+| Automation calls the page could observe | before | after |
 | --- | --- | --- |
 | viewport screenshots | 288,659 | **7,082** |
 | fullPage screenshots | 1,428,171 | **7,576** |
@@ -86,7 +86,7 @@ One zero in that table has an asterisk. Stack Overflow's new fullPage navigation
 
 By API, summed over every site and mode:
 
-| API | v13.9.15 | v13.9.21 |
+| API | before | after |
 | --- | --- | --- |
 | `getComputedStyle` | 769,473 | **0** |
 | `getAttribute` | 554,655 | 2,908 |
@@ -105,6 +105,31 @@ Almost none of it is helper code. 14,517 of the 14,658 are [uBlock-style scriptl
 Those run in the main world on purpose. A scriptlet that neutralizes an anti-adblock check has to be *in* the page to do it, and it looks like the filter-list resource it is, not like automation. Bild and AliExpress are the heaviest filtered sites in the set, and they hold nearly all of the residue: 11,068 and 3,077 calls.
 
 The last 141 the harness could not attribute to anyone, so they stay in an `other` bucket rather than a flattering one. 139 of them are on AliExpress, and their stack frames name the page's own ad tracking (`spm_getParamForAD`) running from a script with no URL in its stack, which is exactly the case the "is this frame the page's own?" test cannot decide. The remaining two are a single `click` each on El País and the NYT. Read them at their worst and the bound still holds: 141 calls we have not proven innocent, against 1,716,830 before.
+
+## Why hiding made it faster
+
+The part I did not expect: doing the work where the page cannot see it is also the cheaper way to do it.
+
+The reason is what an element handle costs. Reaching into a page for a node through Puppeteer is not one message, it is a conversation. The protocol resolves the node into a remote object, describes it, then releases it, and the handle has to be cleaned up afterwards. Do that per element, per capture, and most of the traffic is bookkeeping about objects rather than work on the page. One isolated-world `evaluate` is a single message: the logic runs inside the page and one value comes back.
+
+That shows up directly in the protocol log. Per-method counts for one Guardian capture, median of five runs:
+
+| DevTools protocol method | before | after |
+| --- | --- | --- |
+| `Runtime.releaseObject` | 484 | **22** |
+| `DOM.describeNode` | 248 | **22** |
+| `DOM.resolveNode` | 248 | **22** |
+| `Page.createIsolatedWorld` | 0 | 11 |
+
+Three hundred round trips of object lifecycle collapse into eleven world creations and a handful of evaluations. The totals follow: The Guardian's viewport capture went from 645 commands to 162, CNN from 518 to 186, GitHub from 322 to 209. Viewport screenshots issue 35% to 75% fewer commands, fullPage 11% to 59% (The Guardian: 843 to 344).
+
+Measured inside the screenshot package alone, commands per capture fell from 35 to 11 for a viewport shot, 42 to 18 for fullPage, and 49 to 29 for an element clip. Navigation barely moved by comparison, because it was never handle-heavy: the ad-block engine's DOM scan dropped from 6 calls per navigation to 0 while total round trips for a local `goto` went 308 to 302, and on The Guardian `goto` went 163 to 151.
+
+Worlds get cheaper to account for, too. Handling cookie banners used to run in the main world of every frame; on a 50-iframe page that was all 51 frames, and it is now a single isolated world. JS heap on that page went from 24.14&nbsp;MB to 22.08&nbsp;MB.
+
+That heap result is conditional and worth stating as such: an isolated world costs about 0.2&nbsp;MB per document, so at 20 iframes the same harness measured slightly worse (11.10&nbsp;MB to 11.77&nbsp;MB). The win only appears once frames multiply enough for one world to beat fifty-one.
+
+None of this made captures faster on the clock. Every timing landed between −3.8% and +0.7%, inside run-to-run noise, and resident memory moved between −0.2% and +4.8%, the top of that range being GitHub's fullPage capture. Overlay dismissal even pays one extra protocol call to create its world, at a median of 0.099&nbsp;ms. Fewer messages bought headroom, not latency: the work was never protocol-bound. Titles, extracted text and cookie-banner outcomes stayed equivalent site by site.
 
 ## The bugs we found by looking
 
@@ -128,18 +153,12 @@ Desktop pages were getting their tablet layout. `screen` now reads 1440x900 for 
 
 Measured across those detectors, 3 runs per side, 36 runs, zero errors:
 
-| Detector | v13.9.14 | v13.9.20 |
+| Detector | before | after |
 | --- | --- | --- |
 | [fingerprint-scan.com](https://fingerprint-scan.com) bot score | 100/100 | **90/100** |
 | [CreepJS](https://abrahamjuliot.github.io/creepjs/) "like headless" | 38% | **31%** |
 | sannysoft `fp-collect` checks | 0 | 20 |
 | incolumitas `fpscanner` keys | 0 | 21 |
-
-## The cost
-
-Cheaper, which was not the plan. An element handle round trip is several protocol messages; one isolated-world `evaluate` is one. Viewport screenshots now issue 35% to 75% fewer DevTools protocol commands (The Guardian: 645 down to 162), and fullPage between 11% and 59% fewer.
-
-Wall clock did not move: every timing landed between −3.8% and +0.7%, inside run-to-run noise. Resident memory moved between −0.2% and +4.8%, the top of that range being GitHub's fullPage capture. Titles, extracted text and cookie-banner outcomes stayed equivalent site by site.
 
 ## What still leaks
 
