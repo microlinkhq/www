@@ -1,9 +1,14 @@
 import createClient from 'microlink.io'
 
+import {
+  createRuntimeSrcdoc,
+  decodeRpcValue,
+  MESSAGE,
+  RUNTIME_SANDBOX
+} from './runtime-frame'
 import { toModuleSource } from './to-module-source'
 
 const MICROLINK_HOSTS = new Set(['api.microlink.io', 'pro.microlink.io'])
-const CONSOLE_METHODS = ['log', 'debug', 'info', 'warn', 'error']
 
 export const serializeError = error => {
   if (!error) return { name: 'Error', message: 'Unknown error' }
@@ -83,36 +88,6 @@ const wrapFetch =
       return nativeFetch(new Request(nextUrl, input), { ...init, headers })
     }
 
-const formatLogArg = arg => {
-  if (typeof arg === 'string') return arg
-  if (typeof arg !== 'object' || arg == null) return String(arg)
-  if (typeof arg.message === 'string' && (arg.stack || arg.name)) {
-    return arg.stack || `${arg.name}: ${arg.message}`
-  }
-  try {
-    const json = JSON.stringify(arg)
-    return json === undefined ? String(arg) : json
-  } catch (_) {
-    return String(arg)
-  }
-}
-
-const patchConsole = (consoleRef, logs) => {
-  const native = Object.fromEntries(
-    CONSOLE_METHODS.map(method => [method, consoleRef[method].bind(consoleRef)])
-  )
-  for (const method of CONSOLE_METHODS) {
-    consoleRef[method] = (...args) => {
-      const input = args.map(formatLogArg).join(' ')
-      if (Array.isArray(logs[method])) logs[method].push(input)
-      else logs[method] = [input]
-    }
-  }
-  return () => {
-    for (const method of CONSOLE_METHODS) consoleRef[method] = native[method]
-  }
-}
-
 const captureHttp = (assign, wrap) => {
   return async (input, init) => {
     const response = await wrap(input, init)
@@ -134,141 +109,135 @@ const installFetch = (target, assign, apiKey) => {
   }
 }
 
-const createShimUrl = (win, apiKey) => {
-  win.__microlinkCreateClient = (opts = {}) =>
-    createClient({ ...(apiKey ? { apiKey } : {}), ...opts })
-  return URL.createObjectURL(
-    new Blob(['export default globalThis.__microlinkCreateClient\n'], {
-      type: 'text/javascript'
-    })
-  )
-}
-
-const injectImportMap = (doc, imports) => {
-  const script = doc.createElement('script')
-  script.type = 'importmap'
-  script.textContent = JSON.stringify({ imports })
-  doc.head.appendChild(script)
-  return script
-}
-
-const runEntry = (doc, win, entry) =>
-  new Promise((resolve, reject) => {
-    win.__editorCallback = resolve
-    const script = doc.createElement('script')
-    script.type = 'module'
-    script.textContent = `import('${entry}').then(async mod => {
-      let status
-      let value
-      try {
-        if (!('default' in mod)) throw new Error('Editor code must export default from ${entry}')
-        const raw = typeof mod.default === 'function' ? mod.default() : mod.default
-        value = await Promise.resolve(raw)
-        status = 'success'
-      } catch (error) {
-        value = error
-        status = 'error'
-      } finally {
-        globalThis.__editorCallback({ status, value })
-      }
-    }).catch(error => {
-      globalThis.__editorCallback({ status: 'error', value: error })
-    })`
-    script.onerror = () => reject(new Error('Editor module failed to load'))
-    doc.body.appendChild(script)
-  })
-
-const evalInFrame = async (iframe, files, { apiKey, entry }) => {
-  const win = iframe.contentWindow
-  const doc = iframe.contentDocument
-  const logs = Object.create(null)
-  let http = null
-  const restoreConsole = patchConsole(win.console, logs)
-  const assignHttp = next => {
-    http = next
+const compileFiles = async files => {
+  const compiled = {}
+  for (const [name, source] of Object.entries(files)) {
+    compiled[name] = await toModuleSource(name, source)
   }
-  let restoreIframeFetch = () => {}
-  let restoreParentFetch = () => {}
-  const blobUrls = []
+  return compiled
+}
 
+const cloneForFrame = value => {
   try {
-    restoreIframeFetch = installFetch(win, assignHttp, apiKey)
-    restoreParentFetch = installFetch(window, assignHttp, apiKey)
-
-    const shimUrl = createShimUrl(win, apiKey)
-    blobUrls.push(shimUrl)
-    const imports = { 'microlink.io': shimUrl }
-
-    for (const [name, source] of Object.entries(files)) {
-      const url = URL.createObjectURL(
-        new Blob([`// ${Date.now()}\n${await toModuleSource(name, source)}`], {
-          type: 'text/javascript'
-        })
-      )
-      imports[name] = url
-      blobUrls.push(url)
-    }
-
-    injectImportMap(doc, imports)
-
-    const { status, value } = await runEntry(doc, win, entry)
-    return {
-      status,
-      value: status === 'error' ? serializeError(value) : value,
-      logs,
-      http
-    }
-  } finally {
-    restoreConsole()
-    restoreIframeFetch()
-    restoreParentFetch()
-    delete win.__microlinkCreateClient
-    delete win.__editorCallback
-    blobUrls.forEach(url => URL.revokeObjectURL(url))
+    structuredClone(value)
+    return value
+  } catch (_) {
+    return JSON.parse(JSON.stringify(value))
   }
 }
+
+const callMicrolink = async (apiKey, data) => {
+  const client = createClient({
+    ...(apiKey ? { apiKey } : {}),
+    ...data.opts
+  })
+  const method = client[data.method]
+  if (typeof method !== 'function') {
+    throw new Error(`Unknown microlink method ${data.method}`)
+  }
+  return cloneForFrame(await method.apply(client, decodeRpcValue(data.args)))
+}
+
+const emptyResult = (value, extra = {}) => ({
+  status: 'error',
+  value: serializeError(value),
+  logs: {},
+  http: null,
+  ...extra
+})
 
 export const withScript = (files, { apiKey, entry = 'main.mjs' } = {}) =>
   new Promise(resolve => {
     if (!files || !files[entry]) {
-      resolve({
-        status: 'error',
-        value: serializeError(`Missing entry file ${entry}`),
-        logs: {},
-        http: null
-      })
+      resolve(emptyResult(`Missing entry file ${entry}`))
       return
     }
 
+    const runId = Math.random().toString(36).slice(2)
     const iframe = document.createElement('iframe')
-    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin')
+    iframe.setAttribute('sandbox', RUNTIME_SANDBOX)
     iframe.title = 'Editor runtime'
     iframe.setAttribute('aria-hidden', 'true')
     iframe.style.cssText =
       'position:absolute;width:0;height:0;border:0;visibility:hidden'
-    iframe.srcdoc = '<!doctype html><title>Editor runtime</title>'
+    iframe.srcdoc = createRuntimeSrcdoc(window.location.origin)
+
+    let settled = false
+    let restoreParentFetch = () => {}
+    let http = null
 
     const finish = result => {
+      if (settled) return
+      settled = true
+      window.removeEventListener('message', onMessage)
+      restoreParentFetch()
       iframe.remove()
       resolve(result)
     }
 
-    iframe.onload = () => {
-      evalInFrame(iframe, files, { apiKey, entry }).then(finish, error =>
+    const onMessage = event => {
+      if (event.source !== iframe.contentWindow) return
+      const data = event.data
+      if (!data || data.id !== runId) return
+      if (data.type === MESSAGE.MQL) {
+        callMicrolink(apiKey, data).then(
+          value => {
+            iframe.contentWindow.postMessage(
+              {
+                type: MESSAGE.MQL_RESULT,
+                id: runId,
+                requestId: data.requestId,
+                status: 'success',
+                value
+              },
+              '*'
+            )
+          },
+          error => {
+            iframe.contentWindow.postMessage(
+              {
+                type: MESSAGE.MQL_RESULT,
+                id: runId,
+                requestId: data.requestId,
+                status: 'error',
+                value: serializeError(error)
+              },
+              '*'
+            )
+          }
+        )
+        return
+      }
+      if (data.type === MESSAGE.RESULT) {
         finish({
-          status: 'error',
-          value: serializeError(error),
-          logs: {},
-          http: null
+          status: data.status,
+          value: data.value,
+          logs: data.logs || {},
+          http
         })
+      }
+    }
+
+    iframe.onload = () => {
+      window.addEventListener('message', onMessage)
+      restoreParentFetch = installFetch(
+        window,
+        next => {
+          http = next
+        },
+        apiKey
+      )
+      compileFiles(files).then(
+        compiled => {
+          iframe.contentWindow.postMessage(
+            { type: MESSAGE.RUN, id: runId, files: compiled, entry },
+            '*'
+          )
+        },
+        error => finish(emptyResult(error))
       )
     }
     iframe.onerror = () =>
-      finish({
-        status: 'error',
-        value: serializeError(new Error('Editor runtime failed to start')),
-        logs: {},
-        http: null
-      })
+      finish(emptyResult(new Error('Editor runtime failed to start')))
     document.body.appendChild(iframe)
   })
