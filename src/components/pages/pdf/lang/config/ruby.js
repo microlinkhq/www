@@ -27,10 +27,14 @@ module Microlink
 
     request = Net::HTTP::Get.new(uri)
 
-    response = Net::HTTP.start(
-      uri.host, uri.port,
-      use_ssl: true, open_timeout: 10, read_timeout: 60
-    ) { |http| http.request(request) }
+    response = begin
+      Net::HTTP.start(
+        uri.host, uri.port,
+        use_ssl: true, open_timeout: 10, read_timeout: 60
+      ) { |http| http.request(request) }
+    rescue Net::OpenTimeout, Net::ReadTimeout => e
+      raise Error, "microlink: #{e.class}"
+    end
 
     payload = begin
       JSON.parse(response.body.to_s)
