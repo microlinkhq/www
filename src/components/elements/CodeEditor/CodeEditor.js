@@ -9,7 +9,7 @@ import { template } from 'helpers/template'
 import { hash } from 'helpers/hash'
 import range from 'lodash/range'
 
-import { highlightSource } from './highlight-source'
+import { highlightSource, toAlias } from './highlight-source'
 import { getLanguageTheme } from './theme'
 
 import {
@@ -17,31 +17,6 @@ import {
   blinkCursorStyle
 } from '../Terminal/blink-cursor'
 import Terminal, { TERMINAL_WIDTH, TERMINAL_HEIGHT } from '../Terminal/Terminal'
-
-const toAlias = (name = '') => {
-  name = name.toLowerCase()
-  switch (name) {
-    case 'vanilla':
-      return 'html'
-    case 'react':
-    case 'angular':
-    case 'typescript':
-      return 'jsx'
-    case 'vue':
-    case 'svelte':
-      return 'html'
-    case 'jekyll':
-      return 'markdown'
-    case 'curl':
-    case 'shell':
-      return 'bash'
-    case 'node.js':
-    case 'javascript':
-      return 'js'
-    default:
-      return name
-  }
-}
 
 const generateHighlightLines = linesRange => {
   if (!linesRange) return

@@ -25,12 +25,18 @@ module Microlink
     uri = URI(ENDPOINT)
     uri.query = URI.encode_www_form(url: target, pdf: true, meta: false)
 
+    request = Net::HTTP::Get.new(uri)
+
     response = Net::HTTP.start(
       uri.host, uri.port,
       use_ssl: true, open_timeout: 10, read_timeout: 60
-    ) { |http| http.request(Net::HTTP::Get.new(uri)) }
+    ) { |http| http.request(request) }
 
-    payload = JSON.parse(response.body)
+    payload = begin
+      JSON.parse(response.body.to_s)
+    rescue JSON::ParserError
+      raise Error, "microlink: #{response.code} #{response.message}: invalid JSON"
+    end
 
     unless response.is_a?(Net::HTTPSuccess)
       raise Error, "microlink: #{response.code}: #{payload['message']}"
@@ -543,8 +549,8 @@ run app`
               endpoint returns an <code>EPRO</code> error.
             </div>
             <div>
-              The module already builds a request, so add one line before
-              sending it:{' '}
+              The module already builds a request, so add one line before{' '}
+              <code>http.request(request)</code>:{' '}
               <code>
                 request[&apos;x-api-key&apos;] =
                 ENV[&apos;MICROLINK_API_KEY&apos;]

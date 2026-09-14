@@ -1,7 +1,10 @@
 import { describe, expect, test } from 'vitest'
 import { lang } from 'sugar-high/lang'
 
-import { highlightSource } from '../../src/components/elements/CodeEditor/highlight-source.js'
+import {
+  highlightSource,
+  toAlias
+} from '../../src/components/elements/CodeEditor/highlight-source.js'
 
 const tokenValues = (html, className) =>
   [
@@ -82,5 +85,24 @@ describe('highlightSource', () => {
 
     expect(highlightSource('# wait', 'python')).toContain('sh__token--comment')
     expect(highlightSource('# wait', 'js')).not.toContain('sh__token--comment')
+  })
+
+  test('aliases languages sugar-high does not ship a grammar for', () => {
+    expect(lang('ruby')).toBeUndefined()
+    expect(lang(toAlias('ruby'))).toBe('python')
+    expect(lang(toAlias('Node.js'))).toBe('javascript')
+    expect(lang(toAlias('cURL'))).toBe('shell')
+  })
+
+  test('keeps Ruby comments out of the code', () => {
+    const html = highlightSource(
+      "# GET /pdf?url=https://example.com\n'pdf.format': 'A4', # Letter | Legal",
+      toAlias('ruby')
+    )
+
+    expect(tokenValues(html, 'sh__token--comment')).toEqual([
+      '# GET /pdf?url=https://example.com',
+      '# Letter | Legal'
+    ])
   })
 })
