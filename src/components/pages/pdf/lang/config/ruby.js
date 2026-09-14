@@ -49,9 +49,7 @@ module Microlink
     payload.dig('data', 'pdf', 'url') ||
       raise(Error, 'microlink: no pdf url in response')
   end
-end
-
-puts Microlink.pdf_url('https://example.com')`
+end`
 
 const ruby = {
   lang: 'ruby',
