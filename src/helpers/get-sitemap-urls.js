@@ -1,5 +1,5 @@
 import createClient from 'microlink.io'
-import { mqlCode } from './mql-code'
+import { mqlCode, sdkCall } from './mql-code'
 
 export const FREE_FUNCTION_CODE_LIMIT = 1024
 
@@ -39,3 +39,9 @@ export const sitemapSdkSnippet = siteUrl =>
     function: getSitemapUrls,
     site: siteUrl
   }).JavaScript
+
+export const sitemapCardCode = siteUrl =>
+  sdkCall(siteUrl, {
+    function: getSitemapUrls,
+    site: siteUrl
+  })

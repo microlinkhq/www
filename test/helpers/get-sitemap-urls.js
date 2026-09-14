@@ -3,6 +3,7 @@ import { expect, test } from 'vitest'
 import {
   getSitemapUrls,
   FREE_FUNCTION_CODE_LIMIT,
+  sitemapCardCode,
   sitemapSdkSnippet
 } from '../../src/helpers/get-sitemap-urls'
 
@@ -28,4 +29,11 @@ test('SDK snippet is JavaScript, not a query-string function', () => {
   expect(snippet).toContain('microlink.function')
   expect(snippet).not.toContain('curl')
   expect(snippet).not.toContain('function=async')
+})
+
+test('card code is the function call without the SDK preamble', () => {
+  const code = sitemapCardCode('https://microlink.io')
+  expect(code).toContain('microlink.function')
+  expect(code).toContain('xml-urls')
+  expect(code).not.toContain('import createClient')
 })

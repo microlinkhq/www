@@ -1,3 +1,5 @@
+import { getSitemapUrls } from '../../../helpers/get-sitemap-urls'
+
 import { ENTRY_FILE, filesFromEntry, toSdkSnippet } from './shared'
 
 export const EXAMPLES = [
@@ -19,6 +21,17 @@ export const EXAMPLES = [
       toSdkSnippet({
         url: 'https://example.com',
         fn: '() => 40 + 2'
+      })
+    )
+  },
+  {
+    id: 'sitemap',
+    label: 'List sitemap URLs',
+    files: filesFromEntry(
+      toSdkSnippet({
+        url: 'https://microlink.io',
+        fn: getSitemapUrls,
+        opts: "{ site: 'https://microlink.io' }"
       })
     )
   },

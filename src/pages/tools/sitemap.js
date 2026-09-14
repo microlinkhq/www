@@ -7,8 +7,9 @@ import Meta from 'components/elements/Meta/Meta'
 import { Hero } from 'components/pages/sitemap/hero'
 import Faq from 'components/patterns/Faq/Faq'
 import { Link } from 'components/elements/Link'
-import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
-import { sitemapSdkSnippet } from 'helpers/get-sitemap-urls'
+import { editorTemplateHref } from 'components/pages/editor/shared'
+import { FunctionExampleCard } from 'components/pages/function/examples-grid'
+import { sitemapCardCode } from 'helpers/get-sitemap-urls'
 
 const TOP_FAQ_ITEMS = [
   {
@@ -51,21 +52,25 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Can I run this from my own code?',
-    text: 'Yes. The tool is a Microlink Function. Call microlink.function with the same helper to get the URL list in Node.js or the browser.',
+    text: 'Yes. Open the same helper in the editor, or call microlink.function from Node.js or the browser to get the URL list.',
     answer: (
       <>
         <div>
-          The tool calls{' '}
-          <Link href='/docs/sdk/methods/function' logoIcon>
-            microlink.function()
+          The tool uses{' '}
+          <Link href='/function' logoIcon>
+            Microlink Function
           </Link>
-          . The function does not start a browser — it reads <b>Sitemap:</b>{' '}
-          from robots.txt, then <b>xml-urls</b> walks nested indexes with
-          isolate <b>fetch</b>.
+          . Open the example in the{' '}
+          <Link href={editorTemplateHref('sitemap')}>editor</Link> to run it.
+          The function does not start a browser — it reads <b>Sitemap:</b> from
+          robots.txt, then <b>xml-urls</b> walks nested indexes with isolate{' '}
+          <b>fetch</b>.
         </div>
-        <CodeEditor language='javascript' autoHeight>
-          {sitemapSdkSnippet('https://microlink.io')}
-        </CodeEditor>
+        <FunctionExampleCard
+          href={editorTemplateHref('sitemap')}
+          title='List sitemap URLs'
+          code={sitemapCardCode('https://microlink.io')}
+        />
       </>
     )
   }

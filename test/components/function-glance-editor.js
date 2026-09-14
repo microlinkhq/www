@@ -19,11 +19,33 @@ test('function glance examples open matching editor templates', () => {
   const hrefs = [
     ...glance.matchAll(/href: editorTemplateHref\('([^']+)'\)/g)
   ].map(([, id]) => id)
-  expect(hrefs).toEqual(['extract', 'click-wait', 'proxy', 'inject', 'cheerio'])
+  expect(hrefs).toEqual([
+    'extract',
+    'click-wait',
+    'proxy',
+    'inject',
+    'cheerio',
+    'sitemap'
+  ])
 
   const ids = new Set(EXAMPLES.map(example => example.id))
   for (const id of hrefs) {
     expect(ids.has(id)).toBe(true)
     expect(exampleFromSearch(`?template=${id}`)?.id).toBe(id)
   }
+})
+
+test('sitemap FAQ opens the sitemap editor template', () => {
+  const sitemapPage = fs.readFileSync(
+    path.join(process.cwd(), 'src/pages/tools/sitemap.js'),
+    'utf8'
+  )
+  expect(sitemapPage).toMatch(/editorTemplateHref\('sitemap'\)/)
+  expect(sitemapPage).toContain('FunctionExampleCard')
+  expect(exampleFromSearch('?template=sitemap')?.id).toBe('sitemap')
+  expect(EXAMPLES.find(example => example.id === 'sitemap').files).toEqual(
+    expect.objectContaining({
+      'main.mjs': expect.stringContaining("require('xml-urls')")
+    })
+  )
 })
