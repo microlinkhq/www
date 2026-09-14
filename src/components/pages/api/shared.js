@@ -12,6 +12,7 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
 import { PRODUCTS, HOME_CONTENT_WIDTH } from 'components/pages/home/catalog'
+import heroDemoRequests from 'components/pages/home/hero-demo-requests'
 import { Subhead } from 'components/patterns/ProductStory'
 import { TOOLBAR_PRIMARY_HEIGHTS } from 'components/elements/Toolbar'
 import { CDN_EDGES } from 'helpers/cdn-edges'
@@ -69,25 +70,59 @@ export const HERO_PROOF = [
   `Cached across ${CDN_EDGES} edge locations`
 ]
 
+const { DEMO_URLS } = heroDemoRequests
+
 export const HERO_EXAMPLES = [
   {
     label: 'Metadata',
-    mqlCode: { url: 'https://microlink.io' }
+    mqlCode: { url: DEMO_URLS.metadata }
   },
   {
     label: 'Screenshot',
-    mqlCode: { url: 'https://microlink.io', screenshot: true }
+    mqlCode: { url: DEMO_URLS.screenshot, screenshot: true }
   },
   {
     label: 'PDF',
-    mqlCode: { url: 'https://microlink.io', pdf: true }
+    mqlCode: { url: DEMO_URLS.pdf, pdf: true }
   },
   {
     label: 'Markdown',
     mqlCode: {
-      url: 'https://microlink.io',
+      url: DEMO_URLS.markdown,
       data: { markdown: { attr: 'markdown' } }
     }
+  },
+  {
+    label: 'HTML',
+    mqlCode: {
+      url: 'https://stripe.com',
+      data: { html: { attr: 'html' } }
+    }
+  },
+  {
+    label: 'Text',
+    mqlCode: {
+      url: DEMO_URLS.text,
+      data: { text: { attr: 'text' } }
+    }
+  },
+  {
+    label: 'URLs',
+    mqlCode: {
+      url: DEMO_URLS.markdown,
+      data: { links: { selectorAll: 'a', attr: 'href', type: 'url' } }
+    }
+  },
+  {
+    label: 'Emails',
+    mqlCode: {
+      url: 'https://microlink.io',
+      data: { emails: { selector: 'html', attr: 'html', type: 'email' } }
+    }
+  },
+  {
+    label: 'Embed',
+    mqlCode: { url: DEMO_URLS.embed, iframe: true }
   }
 ]
 

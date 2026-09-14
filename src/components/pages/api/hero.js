@@ -19,20 +19,17 @@ import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/Mult
 import {
   Heading,
   Caption,
-  STORY_LAYOUT,
-  CENTERED_TO_LEFT,
-  CENTERED_TO_START
+  STORY_LAYOUT
 } from 'components/patterns/ProductStory'
 
 import { HERO, HERO_EXAMPLES, HERO_PROOF } from './shared'
 
-const EDITOR_CARD_WIDTH = layout.small
-const EDITOR_CARD_HEIGHT = 168
+const EDITOR_ASPECT_RATIO = 1.586
 
 const EditorStage = styled(Flex)`
   ${theme({
-    width: ['100%', '100%', EDITOR_CARD_WIDTH, EDITOR_CARD_WIDTH],
-    maxWidth: '100%',
+    width: '100%',
+    maxWidth: '700px',
     justifyContent: 'center',
     pb: [4, 4, 4, 5],
     px: [2, 3, 0, 0]
@@ -45,6 +42,30 @@ const EditorStage = styled(Flex)`
 
   & [role='application'] {
     box-shadow: ${shadows[4]};
+    aspect-ratio: ${EDITOR_ASPECT_RATIO} / 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  & [role='tabpanel'] {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  & [role='tabpanel'] > div {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  & [role='tabpanel'] [aria-live] {
+    flex: 1;
+    min-height: 0;
+    height: auto !important;
   }
 
   @media (min-width: ${breakpoints[2]}) {
@@ -106,77 +127,74 @@ export const Hero = () => {
             flexDirection: 'column',
             width: ['100%', '100%', '100%', STORY_LAYOUT.secondaryWidth],
             justifyContent: 'center',
-            alignItems: CENTERED_TO_START
+            alignItems: 'center',
+            px: [2, 3, 4, 0]
           })}
         >
-          <Eyebrow
-            as='p'
-            css={theme({
-              textAlign: 'center',
-              width: '100%'
-            })}
-          >
-            {HERO.eyebrow}
-          </Eyebrow>
-          <Heading
-            variant={null}
-            css={theme({
-              px: [2, 3, 4, 0],
-              maxWidth: ['100%', '100%', '100%', '640px'],
-              textAlign: CENTERED_TO_LEFT,
-              color: 'black'
-            })}
-          >
-            {HERO.title}
-          </Heading>
-          <Caption
-            forwardedAs='p'
-            titleize={false}
-            css={theme({
-              pt: [3, 3, 4, 4],
-              px: [1, 2, 4, 0],
-              maxWidth: ['100%', layout.small, layout.small, '640px'],
-              textAlign: CENTERED_TO_LEFT
-            })}
-          >
-            {HERO.description}
-          </Caption>
           <Flex
             css={theme({
-              pt: [4, 4, 4, 4],
-              px: [4, 4, 4, 0],
+              flexDirection: 'column',
+              alignItems: 'center',
               width: '100%',
-              gap: 3,
-              flexDirection: ['column', 'column', 'row', 'row'],
-              alignItems: ['stretch', 'stretch', 'center', 'center'],
-              justifyContent: CENTERED_TO_START
+              maxWidth: layout.small
             })}
           >
-            <Button as='a' href={HERO.ctaHref}>
-              {HERO.ctaLabel}
-            </Button>
-            <Button as='a' href={HERO.docsHref} variant='white'>
-              {HERO.docsLabel}
-            </Button>
+            <Eyebrow as='p' css={theme({ textAlign: 'center' })}>
+              {HERO.eyebrow}
+            </Eyebrow>
+            <Heading
+              variant={null}
+              css={theme({
+                textAlign: 'center',
+                color: 'black'
+              })}
+            >
+              {HERO.title}
+            </Heading>
+            <Caption
+              forwardedAs='p'
+              titleize={false}
+              css={theme({
+                pt: [3, 3, 4, 4],
+                textAlign: 'center'
+              })}
+            >
+              {HERO.description}
+            </Caption>
+            <Flex
+              css={theme({
+                pt: [4, 4, 4, 4],
+                width: '100%',
+                gap: 3,
+                flexDirection: ['column', 'column', 'row', 'row'],
+                alignItems: ['stretch', 'stretch', 'center', 'center'],
+                justifyContent: 'center'
+              })}
+            >
+              <Button as='a' href={HERO.ctaHref}>
+                {HERO.ctaLabel}
+              </Button>
+              <Button as='a' href={HERO.docsHref} variant='white'>
+                {HERO.docsLabel}
+              </Button>
+            </Flex>
+            <List
+              css={theme({
+                pt: [4, 4, 4, 4],
+                alignItems: 'flex-start'
+              })}
+            >
+              {HERO_PROOF.map((point, index) => (
+                <List.Item
+                  key={point}
+                  isLast={index === HERO_PROOF.length - 1}
+                  css={proofItemCss}
+                >
+                  {point}
+                </List.Item>
+              ))}
+            </List>
           </Flex>
-          <List
-            css={theme({
-              pt: [4, 4, 4, 4],
-              px: [4, 4, 4, 0],
-              width: '100%',
-              alignItems: CENTERED_TO_START
-            })}
-          >
-            {HERO_PROOF.map((point, index) => (
-              <List.Item
-                key={point}
-                isLast={index === HERO_PROOF.length - 1}
-                css={proofItemCss}
-              >
-                {point}
-              </List.Item>
-            ))}
-          </List>
         </Flex>
         <Flex
           css={theme({
@@ -189,8 +207,8 @@ export const Hero = () => {
         >
           <EditorStage>
             <MultiCodeEditorInteractive
-              height={EDITOR_CARD_HEIGHT}
               mqlCode={active.mqlCode}
+              showAction={false}
               contentId='api-hero-editor'
               contentRole='tabpanel'
               contentLabelledBy={`api-hero-tab-${exampleIndex}`}
