@@ -84,17 +84,101 @@ const FEATURES = [
   }
 ]
 
-const MCP_CONFIG_WITH_KEY = `{
+const JSON_CONFIG = `{
   "mcpServers": {
     "microlink": {
       "command": "npx",
       "args": ["-y", "@microlink/mcp"],
       "env": {
-        "MICROLINK_API_KEY": "your-api-key" // Optional - Free tier 25 reqs/day
+        "MICROLINK_API_KEY": "your-api-key"
       }
     }
   }
 }`
+
+const VS_CODE_CONFIG = `{
+  "servers": {
+    "microlink": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@microlink/mcp"],
+      "env": {
+        "MICROLINK_API_KEY": "your-api-key"
+      }
+    }
+  }
+}`
+
+const CODEX_CONFIG = `[mcp_servers.microlink]
+command = "npx"
+args = ["-y", "@microlink/mcp"]
+
+[mcp_servers.microlink.env]
+MICROLINK_API_KEY = "your-api-key"`
+
+const CONTINUE_CONFIG = `name: Microlink MCP
+version: 1.0.0
+schema: v1
+mcpServers:
+  - name: Microlink
+    command: npx
+    args:
+      - "-y"
+      - "@microlink/mcp"
+    env:
+      MICROLINK_API_KEY: "your-api-key"`
+
+const MCP_CLIENTS = {
+  'claude-desktop': {
+    name: 'Claude Desktop',
+    title: 'claude_desktop_config.json',
+    config: JSON_CONFIG,
+    help: 'Add this to your Claude Desktop configuration file.'
+  },
+  'claude-code': {
+    name: 'Claude Code',
+    title: 'Terminal',
+    config:
+      'claude mcp add --scope user --env MICROLINK_API_KEY=your-api-key microlink -- npx -y @microlink/mcp',
+    help: 'Run this command to add Microlink MCP to Claude Code.'
+  },
+  cursor: {
+    name: 'Cursor',
+    title: '.cursor/mcp.json',
+    config: JSON_CONFIG,
+    help: 'Add this to your Cursor MCP settings.'
+  },
+  codex: {
+    name: 'Codex',
+    title: '~/.codex/config.toml',
+    config: CODEX_CONFIG,
+    help: 'Add this to your Codex configuration file.'
+  },
+  'vs-code': {
+    name: 'VS Code',
+    title: '.vscode/mcp.json',
+    config: VS_CODE_CONFIG,
+    help: 'Add this to your VS Code MCP configuration file.'
+  },
+  windsurf: {
+    name: 'Windsurf',
+    title: '~/.codeium/windsurf/mcp_config.json',
+    config: JSON_CONFIG,
+    help: 'Add this to your Windsurf MCP configuration file.'
+  },
+  chatgpt: {
+    name: 'ChatGPT',
+    title: '~/.codex/config.toml',
+    config: CODEX_CONFIG,
+    help: 'Add this to the shared ChatGPT desktop and Codex MCP configuration.'
+  },
+  continue: {
+    name: 'Continue',
+    title: '.continue/mcpServers/microlink.yaml',
+    config: CONTINUE_CONFIG,
+    help: 'Add this standalone MCP block to your Continue workspace.'
+  }
+}
 
 const Hero = () => (
   <Flex
@@ -136,52 +220,66 @@ const Hero = () => (
   </Flex>
 )
 
-const Installation = () => (
-  <Container
-    as='section'
-    id='installation'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: layout.small,
-      pt: [4, 4, 5, 5],
-      mb: [4, 4, 4, 5]
-    })}
-  >
-    <Flex
+const Installation = ({ client }) => {
+  const selectedClient = MCP_CLIENTS[client]
+  const config = selectedClient?.config || JSON_CONFIG
+  const title = selectedClient?.title || 'mcp.json'
+
+  return (
+    <Container
+      as='section'
+      id='installation'
       css={theme({
-        flexDirection: 'column',
-        alignItems: ['center', 'center', 'flex-start', 'flex-start'],
-        width: '100%',
-        mt: [2, 2, 0]
+        alignItems: 'center',
+        maxWidth: layout.small,
+        pt: [4, 4, 5, 5],
+        mb: [4, 4, 4, 5]
       })}
     >
-      <Terminal title='mcp.json'>{MCP_CONFIG_WITH_KEY}</Terminal>
-      <Text
+      <Flex
         css={theme({
-          pt: 4,
-          fontSize: [1, 1, 2, 2],
-          color: 'black60',
-          textAlign: ['center', 'center', 'left', 'left'],
-          width: '100%'
+          flexDirection: 'column',
+          alignItems: ['center', 'center', 'flex-start', 'flex-start'],
+          width: '100%',
+          mt: [2, 2, 0]
         })}
       >
-        Paste this into your MCP client config file.{' '}
-        <Link href='https://claude.ai/download' logoIcon>
-          Claude Desktop
-        </Link>
-        ,{' '}
-        <Link href='https://cursor.com' logoIcon>
-          Cursor
-        </Link>
-        ,{' '}
-        <Link href='https://openai.com/codex' logoIcon>
-          Codex
-        </Link>
-        , and every other MCP-compatible client gets access immediately.
-      </Text>
-    </Flex>
-  </Container>
-)
+        <Terminal title={title}>{config}</Terminal>
+        <Text
+          css={theme({
+            pt: 4,
+            fontSize: [1, 1, 2, 2],
+            color: 'black60',
+            textAlign: ['center', 'center', 'left', 'left'],
+            width: '100%'
+          })}
+        >
+          {selectedClient
+            ? (
+                selectedClient.help
+              )
+            : (
+              <>
+                Paste this into your MCP client config file.{' '}
+                <Link href='https://claude.ai/download' logoIcon>
+                  Claude Desktop
+                </Link>
+                ,{' '}
+                <Link href='https://cursor.com' logoIcon>
+                  Cursor
+                </Link>
+                ,{' '}
+                <Link href='https://openai.com/codex' logoIcon>
+                  Codex
+                </Link>
+                , and every other MCP-compatible client gets access immediately.
+              </>
+              )}
+        </Text>
+      </Flex>
+    </Container>
+  )
+}
 
 const MediaPlaceholder = () => (
   <Block
@@ -1398,42 +1496,46 @@ const Examples = () => (
   </Box>
 )
 
-const McpPage = () => (
-  <Layout>
-    <Hero />
-    <Installation />
-    <MediaPlaceholder />
-    <Features
-      css={theme({ px: 4, py: [5, 5, 6, 6] })}
-      title={
-        <Subhead css={theme({ width: '100%', textAlign: 'left' })}>
-          Twenty tools.{' '}
-          <span
-            css={theme({
-              display: 'block',
-              color: '#7B61FF',
-              width: '100%',
-              textAlign: 'left'
-            })}
-          >
-            Zero boilerplate.
-          </span>
-        </Subhead>
+const McpPage = ({ location }) => {
+  const client = new URLSearchParams(location?.search || '').get('client')
+
+  return (
+    <Layout>
+      <Hero />
+      <Installation client={client} />
+      <MediaPlaceholder />
+      <Features
+        css={theme({ px: 4, py: [5, 5, 6, 6] })}
+        title={
+          <Subhead css={theme({ width: '100%', textAlign: 'left' })}>
+            Twenty tools.{' '}
+            <span
+              css={theme({
+                display: 'block',
+                color: '#7B61FF',
+                width: '100%',
+                textAlign: 'left'
+              })}
+            >
+              Zero boilerplate.
+            </span>
+          </Subhead>
       }
-      caption={
-        <>
-          Everything Microlink can do, available to your AI through natural
-          language. No HTTP clients, no API keys on day one, no parsing layers.
-          Read the{' '}
-          <Link href='/docs/api/getting-started/mcp'>documentation</Link> to get
-          started.
-        </>
+        caption={
+          <>
+            Everything Microlink can do, available to your AI through natural
+            language. No HTTP clients, no API keys on day one, no parsing layers.
+            Read the{' '}
+            <Link href='/docs/api/getting-started/mcp'>documentation</Link> to get
+            started.
+          </>
       }
-      features={FEATURES}
-    />
-    <Examples />
-    <ProductInformation />
-  </Layout>
-)
+        features={FEATURES}
+      />
+      <Examples />
+      <ProductInformation />
+    </Layout>
+  )
+}
 
 export default McpPage
