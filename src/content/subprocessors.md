@@ -80,12 +80,12 @@ The following companies act as subprocessors and may have access to personal dat
 - **Location**: Global (multiple data centers worldwide)  
 - **Website**: [zoho.com](https://zoho.com)
 
-**Mailchimp (Intuit Inc.)**
+**Sequenzy (Nic Tech Solutions, LLC)**
 
 - **Services**: Email marketing, newsletter distribution, marketing automation  
 - **Data Types**: Email addresses, subscriber preferences, campaign analytics  
-- **Location**: Global (with EU data processing capabilities)  
-- **Website**: [mailchimp.com](https://mailchimp.com)  
+- **Location**: United States (international transfers under standard contractual clauses)  
+- **Website**: [sequenzy.com](https://sequenzy.com)  
 
 ## Data Protection Standards
 
