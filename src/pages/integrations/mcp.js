@@ -128,97 +128,203 @@ mcpServers:
     env:
       MICROLINK_API_KEY: "your-api-key"`
 
-const MCP_CLIENTS = {
+export const MCP_CLIENTS = {
   'claude-desktop': {
+    slug: 'claude',
     name: 'Claude Desktop',
+    keyword: 'Claude web scraping MCP',
     title: 'claude_desktop_config.json',
     config: JSON_CONFIG,
-    help: 'Add this to your Claude Desktop configuration file.'
+    help: 'Add this to your Claude Desktop configuration file.',
+    headline: 'Claude web scraping MCP',
+    description:
+      'Give Claude Desktop web scraping, screenshots, PDFs, clean Markdown, and structured extraction through Microlink MCP.',
+    intro:
+      'Turn Claude into a web research workspace. It can read live pages as Markdown, extract structured facts, and capture visual evidence without leaving the conversation.',
+    examples: [
+      'Research five competitor pricing pages and return a cited comparison table.',
+      'Convert this documentation site to clean Markdown and summarize the API.',
+      'Capture a full-page screenshot of this landing page for the launch review.'
+    ]
   },
   'claude-code': {
+    slug: 'claude-code',
     name: 'Claude Code',
+    keyword: 'Claude Code browser MCP',
     title: 'Terminal',
     config:
       'claude mcp add --scope user --env MICROLINK_API_KEY=your-api-key microlink -- npx -y @microlink/mcp',
-    help: 'Run this command to add Microlink MCP to Claude Code.'
+    help: 'Run this command to add Microlink MCP to Claude Code.',
+    headline: 'Claude Code browser MCP',
+    description:
+      'Add browser tools to Claude Code for screenshots, rendered HTML, web scraping, Lighthouse audits, and structured search.',
+    intro:
+      'Let Claude Code inspect the live web while it works in your repository. It can verify UI changes, read rendered documentation, and audit production pages from the terminal.',
+    examples: [
+      'Screenshot the deployed page at desktop and mobile sizes, then compare the layout.',
+      'Run Lighthouse on this pull request preview and explain every failing audit.',
+      'Read the framework docs and update this implementation against the current API.'
+    ]
   },
   cursor: {
+    slug: 'cursor',
     name: 'Cursor',
+    keyword: 'Cursor screenshot MCP',
     title: '.cursor/mcp.json',
     config: JSON_CONFIG,
-    help: 'Add this to your Cursor MCP settings.'
+    help: 'Add this to your Cursor MCP settings.',
+    headline: 'Cursor screenshot MCP',
+    description:
+      'Give Cursor screenshot, web scraping, rendered HTML, Markdown, and browser audit tools with one MCP configuration.',
+    intro:
+      'Bring visual QA and live web context into Cursor. Your coding agent can inspect the page it is changing, capture the result, and use current documentation while editing.',
+    examples: [
+      'Take a mobile screenshot of the preview URL and fix the overflow you find.',
+      'Extract the design tokens from this reference site and map them to our theme.',
+      'Read the latest library docs as Markdown and implement the missing option.'
+    ]
   },
   codex: {
+    slug: 'codex',
     name: 'Codex',
+    keyword: 'Codex web scraping MCP',
     title: '~/.codex/config.toml',
     config: CODEX_CONFIG,
-    help: 'Add this to your Codex configuration file.'
+    help: 'Add this to your Codex configuration file.',
+    headline: 'Codex web scraping MCP',
+    description:
+      'Connect Codex to web scraping, screenshots, structured search, rendered HTML, and Lighthouse through Microlink MCP.',
+    intro:
+      'Give Codex a source of current web data alongside your code. It can investigate documentation, collect structured inputs, and validate deployed output before finishing a task.',
+    examples: [
+      'Scrape the current pricing table from these URLs and save normalized JSON.',
+      'Inspect the rendered HTML of this JavaScript app and find the missing metadata.',
+      'Search for the current migration guide and update this code for the new version.'
+    ]
   },
   'vs-code': {
+    slug: 'vscode',
     name: 'VS Code',
+    keyword: 'VS Code screenshot MCP',
     title: '.vscode/mcp.json',
     config: VS_CODE_CONFIG,
-    help: 'Add this to your VS Code MCP configuration file.'
+    help: 'Add this to your VS Code MCP configuration file.',
+    headline: 'VS Code screenshot MCP',
+    description:
+      'Add screenshot, PDF, web scraping, Markdown, and browser audit tools to VS Code agents with native MCP configuration.',
+    intro:
+      'Keep browser work inside VS Code agent mode. The agent can capture previews, turn pages into useful context, and check production behavior while it edits your project.',
+    examples: [
+      'Capture the local preview through its public URL and check the responsive states.',
+      'Convert this API reference to Markdown and generate typed client code from it.',
+      'Audit the deployed page for performance, accessibility, SEO, and best practices.'
+    ]
   },
   windsurf: {
+    slug: 'windsurf',
     name: 'Windsurf',
+    keyword: 'Windsurf web scraping MCP',
     title: '~/.codeium/windsurf/mcp_config.json',
     config: JSON_CONFIG,
-    help: 'Add this to your Windsurf MCP configuration file.'
+    help: 'Add this to your Windsurf MCP configuration file.',
+    headline: 'Windsurf web scraping MCP',
+    description:
+      'Give Windsurf Cascade web scraping, screenshots, Markdown, metadata, and browser automation through Microlink MCP.',
+    intro:
+      'Let Cascade use live web evidence while planning and coding. It can inspect reference products, collect page data, and verify the experience you ship.',
+    examples: [
+      'Extract the feature matrix from these competitor pages into structured JSON.',
+      'Screenshot each breakpoint of the preview and identify inconsistent spacing.',
+      'Detect the technology stack behind this site and suggest matching libraries.'
+    ]
   },
   chatgpt: {
+    slug: 'chatgpt',
     name: 'ChatGPT',
+    keyword: 'ChatGPT web scraping MCP',
     title: '~/.codex/config.toml',
     config: CODEX_CONFIG,
-    help: 'Add this to the shared ChatGPT desktop and Codex MCP configuration.'
+    help: 'Add this to the shared ChatGPT desktop and Codex MCP configuration.',
+    headline: 'ChatGPT web scraping MCP',
+    description:
+      'Connect ChatGPT to web scraping, screenshots, PDFs, clean Markdown, and structured extraction with Microlink MCP.',
+    intro:
+      'Use ChatGPT for research grounded in the live web. It can collect repeatable data, preserve pages as PDFs, and return visual or structured results in the same chat.',
+    examples: [
+      'Compare these product pages and extract price, plan limits, and trial details.',
+      'Save this long report as a PDF, then summarize its main claims.',
+      'Take screenshots of these campaign pages and group them by design pattern.'
+    ]
   },
   continue: {
+    slug: 'continue',
     name: 'Continue',
+    keyword: 'Continue web scraping MCP',
     title: '.continue/mcpServers/microlink.yaml',
     config: CONTINUE_CONFIG,
-    help: 'Add this standalone MCP block to your Continue workspace.'
+    help: 'Add this standalone MCP block to your Continue workspace.',
+    headline: 'Continue web scraping MCP',
+    description:
+      'Add web scraping, screenshots, Markdown, metadata, and browser tools to Continue agent mode through Microlink MCP.',
+    intro:
+      'Give an open-source Continue agent the web context it needs to code. It can read current documentation, inspect rendered apps, and collect structured data without a custom integration.',
+    examples: [
+      'Read this documentation section as Markdown and implement the example locally.',
+      'Extract every link from this resource page and create a checked task list.',
+      'Screenshot the deployed component and compare it with the reference design.'
+    ]
   }
 }
 
-const Hero = () => (
-  <Flex
-    as='section'
-    css={theme({ flexDirection: 'column', alignItems: 'center' })}
-  >
-    <Heading
-      css={theme({
-        mt: [3, 3, 0, 0],
-        maxWidth: layout.large,
-        textAlign: 'center'
-      })}
+const Hero = ({ client }) => {
+  const selectedClient = MCP_CLIENTS[client]
+
+  return (
+    <Flex
+      as='section'
+      css={theme({ flexDirection: 'column', alignItems: 'center' })}
     >
-      The web browser your <br /> AI agent never had
-    </Heading>
-    <Caption
-      forwardedAs='h2'
-      css={theme({
-        pt: [3, 3, 4, 4],
-        px: 4,
-        maxWidth: layout.large
-      })}
-    >
-      One config block gives Claude, Cursor, and any MCP client access to
-      screenshots, PDFs, web scraping, markdown conversion, and metadata
-      extraction. No API wrangling, no extra SDKs.
-    </Caption>
-    <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
-      <ArrowLink
-        css={theme({ pr: [2, 4, 4, 4] })}
-        href='/docs/api/getting-started/mcp'
+      <Heading
+        css={theme({
+          mt: [3, 3, 0, 0],
+          maxWidth: layout.large,
+          textAlign: 'center'
+        })}
       >
-        Read the docs
-      </ArrowLink>
-      <ArrowLink href='https://github.com/microlinkhq/mcp'>
-        View on GitHub
-      </ArrowLink>
+        {selectedClient
+          ? selectedClient.headline
+          : (
+            <>
+              The web browser your <br /> AI agent never had
+            </>
+            )}
+      </Heading>
+      <Caption
+        forwardedAs='h2'
+        css={theme({
+          pt: [3, 3, 4, 4],
+          px: 4,
+          maxWidth: layout.large
+        })}
+      >
+        {selectedClient
+          ? selectedClient.description
+          : 'One config block gives Claude, Cursor, and any MCP client access to screenshots, PDFs, web scraping, markdown conversion, and metadata extraction. No API wrangling, no extra SDKs.'}
+      </Caption>
+      <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
+        <ArrowLink
+          css={theme({ pr: [2, 4, 4, 4] })}
+          href='/docs/api/getting-started/mcp'
+        >
+          Read the docs
+        </ArrowLink>
+        <ArrowLink href='https://github.com/microlinkhq/mcp'>
+          View on GitHub
+        </ArrowLink>
+      </Flex>
     </Flex>
-  </Flex>
-)
+  )
+}
 
 const Installation = ({ client }) => {
   const selectedClient = MCP_CLIENTS[client]
@@ -277,6 +383,66 @@ const Installation = ({ client }) => {
               )}
         </Text>
       </Flex>
+    </Container>
+  )
+}
+
+const ClientUseCases = ({ client }) => {
+  const selectedClient = MCP_CLIENTS[client]
+  if (!selectedClient) return null
+
+  return (
+    <Container
+      as='section'
+      css={theme({
+        alignItems: 'center',
+        maxWidth: layout.large,
+        px: 4,
+        pb: [5, 5, 6, 6]
+      })}
+    >
+      <Subhead>{selectedClient.name} browser workflows</Subhead>
+      <Text
+        css={theme({
+          color: 'black80',
+          fontSize: [1, 1, 2, 2],
+          lineHeight: 2,
+          maxWidth: layout.normal,
+          mt: 3,
+          textAlign: 'center'
+        })}
+      >
+        {selectedClient.intro}
+      </Text>
+      <Box
+        css={theme({
+          display: 'grid',
+          gridTemplateColumns: ['1fr', '1fr', 'repeat(3, 1fr)'],
+          gap: 3,
+          mt: 4,
+          width: '100%'
+        })}
+      >
+        {selectedClient.examples.map((example, index) => (
+          <Box
+            key={example}
+            css={theme({
+              bg: 'white',
+              border: 1,
+              borderColor: 'black10',
+              borderRadius: 3,
+              p: 4
+            })}
+          >
+            <Text css={theme({ color: 'black50', fontSize: 0, fontWeight: 'bold' })}>
+              EXAMPLE {index + 1}
+            </Text>
+            <Text css={theme({ fontSize: [1, 1, 2, 2], lineHeight: 2, mt: 2 })}>
+              “{example}”
+            </Text>
+          </Box>
+        ))}
+      </Box>
     </Container>
   )
 }
@@ -1501,8 +1667,9 @@ const McpPage = ({ location }) => {
 
   return (
     <Layout>
-      <Hero />
+      <Hero client={client} />
       <Installation client={client} />
+      <ClientUseCases client={client} />
       <MediaPlaceholder />
       <Features
         css={theme({ px: 4, py: [5, 5, 6, 6] })}
@@ -1535,6 +1702,109 @@ const McpPage = ({ location }) => {
       <Examples />
       <ProductInformation />
     </Layout>
+  )
+}
+
+export const McpClientPage = ({ client }) => (
+  <Layout>
+    <Hero client={client} />
+    <Installation client={client} />
+    <ClientUseCases client={client} />
+    <MediaPlaceholder />
+    <Features
+      css={theme({ px: 4, py: [5, 5, 6, 6] })}
+      title={
+        <Subhead css={theme({ width: '100%', textAlign: 'left' })}>
+          Twenty tools.{' '}
+          <span
+            css={theme({
+              display: 'block',
+              color: '#7B61FF',
+              width: '100%',
+              textAlign: 'left'
+            })}
+          >
+            Zero boilerplate.
+          </span>
+        </Subhead>
+      }
+      caption={
+        <>
+          Everything Microlink can do, ready inside {MCP_CLIENTS[client].name}.
+          No HTTP clients or parsing layers. Read the{' '}
+          <Link href='/docs/api/getting-started/mcp'>documentation</Link> to get
+          started.
+        </>
+      }
+      features={FEATURES}
+    />
+    <Examples />
+    <ProductInformation />
+  </Layout>
+)
+
+export const McpClientHead = ({ client }) => {
+  const selectedClient = MCP_CLIENTS[client]
+  const url = `https://microlink.io/integrations/${selectedClient.slug}`
+
+  return (
+    <Meta
+      title={`${selectedClient.headline} | Microlink`}
+      description={selectedClient.description}
+      noSuffix
+      structured={[
+        {
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          '@id': url,
+          name: `Microlink MCP for ${selectedClient.name}`,
+          description: selectedClient.description,
+          url,
+          applicationCategory: ['DeveloperApplication', 'API'],
+          keywords: [
+            selectedClient.keyword,
+            `${selectedClient.name} MCP server`,
+            `${selectedClient.name} browser tools`,
+            `${selectedClient.name} screenshot`,
+            `${selectedClient.name} web scraping`,
+            'Microlink MCP'
+          ],
+          provider: {
+            '@type': 'Organization',
+            '@id': 'https://microlink.io/about',
+            name: 'Microlink',
+            url: 'https://microlink.io'
+          }
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          '@id': `${url}#setup`,
+          name: `How to connect Microlink MCP to ${selectedClient.name}`,
+          description: selectedClient.help,
+          step: [
+            {
+              '@type': 'HowToStep',
+              position: 1,
+              name: 'Open the MCP configuration',
+              text: `Open ${selectedClient.title} for ${selectedClient.name}.`
+            },
+            {
+              '@type': 'HowToStep',
+              position: 2,
+              name: 'Add Microlink MCP',
+              text: selectedClient.help
+            },
+            {
+              '@type': 'HowToStep',
+              position: 3,
+              name: 'Start a browser task',
+              text: selectedClient.examples[0]
+            }
+          ]
+        }
+      ]}
+    />
   )
 }
 

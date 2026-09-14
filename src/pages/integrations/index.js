@@ -20,7 +20,7 @@ const INTEGRATIONS = [
     category: 'AI agents',
     description:
       'Connect Claude Desktop to screenshots, scraping, search, PDFs, and every Microlink browser tool.',
-    href: '/integrations/mcp?client=claude-desktop',
+    href: '/integrations/claude',
     icon: Cpu,
     accent: 'pink7'
   },
@@ -29,7 +29,7 @@ const INTEGRATIONS = [
     category: 'AI agents',
     description:
       'Give Claude Code a browser for screenshots, scraping, search, PDFs, and structured web data.',
-    href: '/integrations/mcp?client=claude-code',
+    href: '/integrations/claude-code',
     icon: Cpu,
     accent: 'violet7'
   },
@@ -38,7 +38,7 @@ const INTEGRATIONS = [
     category: 'AI agents',
     description:
       'Use Microlink browser tools from Cursor through a ready-to-paste MCP configuration.',
-    href: '/integrations/mcp?client=cursor',
+    href: '/integrations/cursor',
     icon: Cpu,
     accent: 'blue7'
   },
@@ -47,7 +47,7 @@ const INTEGRATIONS = [
     category: 'AI agents',
     description:
       'Connect Codex to Microlink for screenshots, scraping, search, PDFs, and browser automation.',
-    href: '/integrations/mcp?client=codex',
+    href: '/integrations/codex',
     icon: Cpu,
     accent: 'green7'
   },
@@ -56,7 +56,7 @@ const INTEGRATIONS = [
     category: 'AI agents',
     description:
       'Add Microlink browser tools to VS Code agents with its native MCP configuration.',
-    href: '/integrations/mcp?client=vs-code',
+    href: '/integrations/vscode',
     icon: Cpu,
     accent: 'cyan7'
   },
@@ -65,7 +65,7 @@ const INTEGRATIONS = [
     category: 'AI agents',
     description:
       'Use screenshots, scraping, search, PDFs, and more directly from Windsurf Cascade.',
-    href: '/integrations/mcp?client=windsurf',
+    href: '/integrations/windsurf',
     icon: Cpu,
     accent: 'orange7'
   },
@@ -74,7 +74,7 @@ const INTEGRATIONS = [
     category: 'AI agents',
     description:
       'Give the ChatGPT desktop app access to Microlink through its shared MCP configuration.',
-    href: '/integrations/mcp?client=chatgpt',
+    href: '/integrations/chatgpt',
     icon: Cpu,
     accent: 'red7'
   },
@@ -83,7 +83,7 @@ const INTEGRATIONS = [
     category: 'AI agents',
     description:
       'Connect Continue agent mode to Microlink with a standalone MCP server block.',
-    href: '/integrations/mcp?client=continue',
+    href: '/integrations/continue',
     icon: Cpu,
     accent: 'purple7'
   },
