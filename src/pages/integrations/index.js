@@ -1,4 +1,4 @@
-import { Cpu, Edit3, Package, Terminal } from 'react-feather'
+import { Cpu, Edit3, GitMerge, Package, Terminal, Zap } from 'react-feather'
 import React from 'react'
 
 import Box from 'components/elements/Box'
@@ -43,6 +43,24 @@ const INTEGRATIONS = [
     accent: 'green7'
   },
   {
+    name: 'n8n',
+    category: 'Automation',
+    description:
+      'Capture website intelligence (screenshot, PDF, and Markdown) inside n8n workflows with a ready-to-use Microlink template.',
+    href: 'https://n8n.io/workflows/16490-capture-website-intelligence-report-screenshot-pdf-and-markdown-with-microlink/',
+    icon: GitMerge,
+    accent: 'red7'
+  },
+  {
+    name: 'Zapier',
+    category: 'Automation',
+    description:
+      'Connect Microlink to thousands of apps on Zapier: screenshot, PDF, metadata, and Markdown actions inside any Zap.',
+    href: 'https://zapier.com/apps/microlink/integrations',
+    icon: Zap,
+    accent: 'orange7'
+  },
+  {
     name: 'Component builder',
     category: 'Frontend',
     description:
@@ -55,7 +73,14 @@ const INTEGRATIONS = [
 
 const CATEGORIES = [...new Set(INTEGRATIONS.map(({ category }) => category))]
 
-const IntegrationCard = ({ name, category, description, href, icon: Icon, accent }) => (
+const IntegrationCard = ({
+  name,
+  category,
+  description,
+  href,
+  icon: Icon,
+  accent
+}) => (
   <Link
     href={href}
     css={theme({
@@ -80,7 +105,9 @@ const IntegrationCard = ({ name, category, description, href, icon: Icon, accent
       }
     })}
   >
-    <Flex css={theme({ alignItems: 'center', justifyContent: 'space-between' })}>
+    <Flex
+      css={theme({ alignItems: 'center', justifyContent: 'space-between' })}
+    >
       <Flex
         css={theme({
           alignItems: 'center',
@@ -131,7 +158,7 @@ const IntegrationCard = ({ name, category, description, href, icon: Icon, accent
 export const Head = () => (
   <Meta
     title='Integrations'
-    description='Connect Microlink to AI agents, applications, frontend frameworks, and your terminal through MCP, the SDK, CLI, and component builder.'
+    description='Connect Microlink to AI agents, automation platforms, applications, frontend frameworks, and your terminal through MCP, n8n, Zapier, the SDK, CLI, and component builder.'
     structured={[
       {
         '@context': 'https://schema.org',
@@ -143,13 +170,17 @@ export const Head = () => (
         url: 'https://microlink.io/integrations',
         mainEntity: {
           '@type': 'ItemList',
-          itemListElement: INTEGRATIONS.map(({ name, description, href }, index) => ({
-            '@type': 'ListItem',
-            position: index + 1,
-            name,
-            description,
-            url: `https://microlink.io${href}`
-          }))
+          itemListElement: INTEGRATIONS.map(
+            ({ name, description, href }, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name,
+              description,
+              url: href.startsWith('http')
+                ? href
+                : `https://microlink.io${href}`
+            })
+          )
         }
       }
     ]}
@@ -185,13 +216,18 @@ const IntegrationsPage = () => (
             pt: 3
           })}
         >
-          Connect Microlink to AI agents, applications, frontend frameworks,
-          and your terminal. Every integration runs on the same browser
+          Connect Microlink to AI agents, applications, frontend frameworks, and
+          your terminal. Every integration runs on the same browser
           infrastructure and API.
         </Text>
         <Flex
           aria-label='Integration categories'
-          css={theme({ flexWrap: 'wrap', gap: 2, justifyContent: 'center', pt: 4 })}
+          css={theme({
+            flexWrap: 'wrap',
+            gap: 2,
+            justifyContent: 'center',
+            pt: 4
+          })}
         >
           {CATEGORIES.map(category => (
             <Text
@@ -216,7 +252,12 @@ const IntegrationsPage = () => (
         as='main'
         css={theme({
           display: 'grid',
-          gridTemplateColumns: ['1fr', '1fr', 'repeat(2, 1fr)', 'repeat(2, 1fr)'],
+          gridTemplateColumns: [
+            '1fr',
+            '1fr',
+            'repeat(2, 1fr)',
+            'repeat(2, 1fr)'
+          ],
           gap: 3,
           maxWidth: layout.large,
           px: [3, 3, 4, 4],
@@ -242,7 +283,9 @@ const IntegrationsPage = () => (
         <Subhead>Build directly with the API</Subhead>
         <Text css={theme({ color: 'black80', fontSize: [1, 1, 2, 2], mt: 2 })}>
           Prefer HTTP? Read the{' '}
-          <Link href='/docs/api/getting-started/overview'>API documentation</Link>{' '}
+          <Link href='/docs/api/getting-started/overview'>
+            API documentation
+          </Link>{' '}
           and make your first request.
         </Text>
       </Box>
