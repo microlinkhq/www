@@ -1,10 +1,27 @@
 /* global fetch */
 
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import cloudflareBotsDirectory from 'cloudflare-bot-directory'
 import topUserAgents from 'top-user-agents'
 import { once } from '../../src/helpers/once.js'
 
 import { extractBotName } from './extract-bot.mjs'
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../..')
+
+const installedVersion = name =>
+  JSON.parse(readFileSync(join(ROOT, 'node_modules', name, 'package.json')))
+    .version
+
+const publishedAt = async name => {
+  const res = await fetch(`https://registry.npmjs.org/${name}`)
+  if (!res.ok) return 0
+  const { time } = await res.json()
+  return Date.parse(time?.[installedVersion(name)]) || 0
+}
 
 const sortAlphabetically = (a, b) =>
   a.toLowerCase().localeCompare(b.toLowerCase())
@@ -152,10 +169,15 @@ const buildCrawler = async ai => {
 
 export const buildUserAgents = async () => {
   const ai = await buildAI()
+  const updatedAt =
+    Math.max(
+      await publishedAt('top-user-agents'),
+      await publishedAt('cloudflare-bot-directory')
+    ) || Date.now()
   return {
     ai,
     crawler: await buildCrawler(ai),
-    updatedAt: Date.now(),
+    updatedAt,
     user: topUserAgents
   }
 }

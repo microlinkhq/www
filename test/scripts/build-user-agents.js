@@ -43,4 +43,10 @@ describe('buildUserAgents', () => {
       crawler.some(crawler => crawler.includes('(') || crawler.includes(')'))
     ).toBe(false)
   })
+
+  it('updatedAt is the newest installed source package publish time', async () => {
+    const { updatedAt } = await buildUserAgents()
+    expect(updatedAt).toBeGreaterThan(1e12)
+    expect(updatedAt).toBeLessThanOrEqual(Date.now())
+  })
 })
