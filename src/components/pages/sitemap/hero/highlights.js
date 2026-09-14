@@ -20,8 +20,13 @@ export const Highlights = () => (
       p: 0,
       px: 3,
       gap: [3, 3, 4, 4],
+      flexDirection: ['column', 'row'],
       flexWrap: 'wrap',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      alignItems: ['flex-start', 'center'],
+      width: ['max-content', '100%'],
+      maxWidth: '100%',
+      mx: 'auto'
     })}
   >
     {ITEMS.map(({ Icon, label }) => (

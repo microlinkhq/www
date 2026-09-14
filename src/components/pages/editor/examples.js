@@ -30,8 +30,7 @@ export const EXAMPLES = [
     files: filesFromEntry(
       toSdkSnippet({
         url: 'https://microlink.io',
-        fn: getSitemapUrls,
-        opts: "{ site: 'https://microlink.io' }"
+        fn: getSitemapUrls
       })
     )
   },
