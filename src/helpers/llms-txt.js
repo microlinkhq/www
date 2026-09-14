@@ -14,6 +14,7 @@ const MACHINE_READABLE = `## Machine-readable
 const TITLE_SUFFIX = /\s+—\s+Microlink(\s+\w+)?$/
 
 const SECTIONS = [
+  ['/api', 'API overview'],
   ['/docs/api', 'API'],
   ['/docs/cards', 'Cards'],
   ['/docs/guides', 'Guides'],

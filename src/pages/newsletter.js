@@ -11,6 +11,12 @@ import Flex from 'components/elements/Flex'
 import HeadingBase from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
 import Meta from 'components/elements/Meta/Meta'
+import Text from 'components/elements/Text'
+import {
+  NEWSLETTER_ACTION,
+  NewsletterHoneypot,
+  useNewsletter
+} from 'components/hook/use-newsletter'
 import { Mail } from 'react-feather'
 
 const Heading = withTitle(HeadingBase)
@@ -19,77 +25,97 @@ export const Head = () => (
   <Meta description='Get early access & updates on new releases.' />
 )
 
-const NewsletterPage = () => (
-  <Layout>
-    <Flex
-      css={theme({
-        flexDirection: 'column',
-        alignItems: 'center'
-      })}
-    >
-      <Heading>Newsletter</Heading>
+const NewsletterPage = () => {
+  const { status, message, onSubmit, isLoading } = useNewsletter()
 
-      <Caption
-        css={theme({
-          pt: [3, null, 4],
-          px: 4,
-          maxWidth: layout.small
-        })}
-      >
-        Get early access & updates on new releases.
-      </Caption>
-
+  return (
+    <Layout>
       <Flex
         css={theme({
-          alignItems: 'center',
-          justifyContent: 'center',
-          pt: [0, null, 4]
+          flexDirection: 'column',
+          alignItems: 'center'
         })}
       >
-        <Flex
+        <Heading>Newsletter</Heading>
+
+        <Caption
           css={theme({
-            alignItems: ['center', null, null, 'inherit'],
-            flexDirection: 'column'
+            pt: [3, null, 4],
+            px: 4,
+            maxWidth: layout.small
           })}
         >
-          <Flex css={theme({ pt: 3 })}>
-            <form
-              action='https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452'
-              method='post'
-            >
-              <Flex>
-                <Input
-                  type='email'
-                  name='EMAIL'
-                  placeholder='you@domain.com'
-                  autoComplete='email'
-                  inputMode='email'
-                  css={theme({ width: '8rem' })}
-                  iconComponent={
-                    <FeatherIcon
-                      icon={Mail}
-                      color='black40'
-                      size={[0, 0, 1, 1]}
-                    />
-                  }
-                  required
-                />
+          Get early access & updates on new releases.
+        </Caption>
 
-                <Button
-                  type='submit'
-                  data-event-location='Footer'
-                  data-event-name='Be Notified'
-                  css={theme({ ml: 2 })}
+        <Flex
+          css={theme({
+            alignItems: 'center',
+            justifyContent: 'center',
+            pt: [0, null, 4]
+          })}
+        >
+          <Flex
+            css={theme({
+              alignItems: ['center', null, null, 'inherit'],
+              flexDirection: 'column'
+            })}
+          >
+            <Flex css={theme({ pt: 3 })}>
+              <form
+                action={NEWSLETTER_ACTION}
+                method='post'
+                onSubmit={onSubmit}
+              >
+                <NewsletterHoneypot />
+                <Flex>
+                  <Input
+                    type='email'
+                    name='email'
+                    placeholder='you@domain.com'
+                    autoComplete='email'
+                    inputMode='email'
+                    aria-label='Email address'
+                    css={theme({ width: '8rem' })}
+                    iconComponent={
+                      <FeatherIcon
+                        icon={Mail}
+                        color='black40'
+                        size={[0, 0, 1, 1]}
+                      />
+                    }
+                    required
+                  />
+
+                  <Button
+                    type='submit'
+                    loading={isLoading}
+                    data-event-location='Footer'
+                    data-event-name='Be Notified'
+                    css={theme({ ml: 2 })}
+                  >
+                    <Caps css={theme({ fontSize: 0 })}>Be Notified</Caps>
+                  </Button>
+                </Flex>
+                <Text
+                  role='status'
+                  aria-live='polite'
+                  css={theme({
+                    pt: message ? 2 : 0,
+                    fontSize: 0,
+                    textAlign: 'center',
+                    color: status === 'error' ? 'red8' : 'black80'
+                  })}
                 >
-                  <Caps css={theme({ fontSize: 0 })}>Be Notified</Caps>
-                </Button>
-              </Flex>
-            </form>
+                  {message}
+                </Text>
+              </form>
+            </Flex>
           </Flex>
         </Flex>
       </Flex>
-    </Flex>
-  </Layout>
-)
+    </Layout>
+  )
+}
 
 export default NewsletterPage

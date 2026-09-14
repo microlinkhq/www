@@ -8,6 +8,7 @@ export const LANG_LANDINGS = [
   { lang: 'nodejs', label: 'Node.js', href: '/screenshot/nodejs' },
   { lang: 'python', label: 'Python', href: '/screenshot/python' },
   { lang: 'php', label: 'PHP', href: '/screenshot/php' },
+  { lang: 'ruby', label: 'Ruby', href: '/screenshot/ruby' },
   { lang: 'go', label: 'Go', href: '/screenshot/go' }
 ]
 
