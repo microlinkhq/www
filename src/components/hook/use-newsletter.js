@@ -43,18 +43,18 @@ export const useNewsletter = () => {
         headers: { Accept: 'application/json' },
         signal: controller.signal
       })
-      const data = await response.json().catch(() => null)
-      if (controller.signal.aborted) return
-
-      if (response.ok && data?.success !== false) {
-        form.reset()
-        setStatus('success')
-        setMessage(SUCCESS_MESSAGE)
+      if (!response.ok) {
+        const data = await response.json().catch(() => null)
+        if (controller.signal.aborted) return
+        setStatus('error')
+        setMessage(data?.message || ERROR_MESSAGE)
         return
       }
 
-      setStatus('error')
-      setMessage(data?.message || ERROR_MESSAGE)
+      if (controller.signal.aborted) return
+      form.reset()
+      setStatus('success')
+      setMessage(SUCCESS_MESSAGE)
     } catch {
       if (controller.signal.aborted) return
       setStatus('error')
