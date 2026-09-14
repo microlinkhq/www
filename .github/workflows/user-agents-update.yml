@@ -23,21 +23,13 @@ jobs:
         with:
           node-version: lts/*
 
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v6
-        with:
-          version: latest
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile --ignore-scripts
-
       - name: Update top-user-agents and cloudflare-bot-directory
-        run: pnpm up --latest top-user-agents cloudflare-bot-directory --ignore-scripts
+        run: npx npm-check-updates --filter top-user-agents,cloudflare-bot-directory --install never -u
 
       - name: Commit and push to master
         run: |
           git config --global user.email ${{ secrets.GIT_EMAIL }}
           git config --global user.name ${{ secrets.GIT_USERNAME }}
-          git add package.json pnpm-lock.yaml
+          git add package.json
           git diff-index --quiet HEAD || git commit -m "chore(deps): update top-user-agents, cloudflare-bot-directory" --no-verify
-          git push origin ${{ github.head_ref }} || true
+          git push origin HEAD:master

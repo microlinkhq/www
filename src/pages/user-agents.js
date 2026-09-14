@@ -104,7 +104,10 @@ const UserAgentsPage = () => {
           A self-updating list of the latest
           <br />& most common user agents.
         </Caption>
-        <Text as='p' css={theme({ pt: 3, color: 'black60' })}>
+        <Text
+          as='p'
+          css={theme({ pt: 3, color: 'black60', textAlign: 'center' })}
+        >
           Last updated on {formatDate(new Date(userAgents.updatedAt))}
         </Text>
 
