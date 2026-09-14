@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 import mql from '@microlink/mql'
 
 const checkForProPlanRequired = responseText =>
@@ -7,13 +7,18 @@ const checkForProPlanRequired = responseText =>
 export const useExecuteRequest = ({
   url,
   mqlOpts,
+  requestKey,
   onLoadingChange,
   setIsLoading,
   setResponseData,
   setShowApiKeyInput
-}) =>
-  useCallback(
+}) => {
+  const latestKeyRef = useRef(requestKey)
+  latestKeyRef.current = requestKey
+
+  return useCallback(
     async currentApiKey => {
+      const startedKey = requestKey
       setIsLoading(true)
       onLoadingChange?.(true)
       try {
@@ -49,25 +54,31 @@ export const useExecuteRequest = ({
           }
         })()
 
-        setResponseData(result)
+        if (latestKeyRef.current === startedKey) {
+          setResponseData(result)
 
-        if (result.status === 'rejected') {
-          const errorText = new TextDecoder().decode(result.body)
-          if (checkForProPlanRequired(errorText) && !currentApiKey) {
-            setShowApiKeyInput(true)
+          if (result.status === 'rejected') {
+            const errorText = new TextDecoder().decode(result.body)
+            if (checkForProPlanRequired(errorText) && !currentApiKey) {
+              setShowApiKeyInput(true)
+            }
           }
         }
       } finally {
-        setIsLoading(false)
-        onLoadingChange?.(false)
+        if (latestKeyRef.current === startedKey) {
+          setIsLoading(false)
+          onLoadingChange?.(false)
+        }
       }
     },
     [
       url,
       mqlOpts,
+      requestKey,
       onLoadingChange,
       setIsLoading,
       setResponseData,
       setShowApiKeyInput
     ]
   )
+}

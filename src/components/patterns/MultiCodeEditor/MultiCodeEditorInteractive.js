@@ -69,16 +69,21 @@ function MultiCodeEditorInteractive ({
   const [apiKey, setApiKey] = useLocalStorage('mql-api-key', '')
   const [showApiKeyInput, setShowApiKeyInput] = useState(false)
 
+  const requestKey = JSON.stringify(mqlCodeProps ?? null)
   const [previousDefaults, setPreviousDefaults] = useState({
     normalizedDefaultView,
-    url
+    requestKey
   })
   if (
     previousDefaults.normalizedDefaultView !== normalizedDefaultView ||
-    previousDefaults.url !== url
+    previousDefaults.requestKey !== requestKey
   ) {
-    setPreviousDefaults({ normalizedDefaultView, url })
+    setPreviousDefaults({ normalizedDefaultView, requestKey })
     setActiveView(normalizedDefaultView)
+    setResponseData(defaultResponseData ?? null)
+    setIsLoading(false)
+    setShowApiKeyInput(false)
+    setIsExpanded(false)
   }
 
   const snippet = codeSnippets[currentLanguage] || ''
@@ -102,6 +107,7 @@ function MultiCodeEditorInteractive ({
   const parseCodeAndExecute = useExecuteRequest({
     url,
     mqlOpts,
+    requestKey,
     onLoadingChange,
     setIsLoading,
     setResponseData,
