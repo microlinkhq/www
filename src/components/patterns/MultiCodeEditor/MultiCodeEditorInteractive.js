@@ -125,7 +125,8 @@ function MultiCodeEditorInteractive ({
 
   const executeRequest = useCallback(() => {
     if (!isLoading) {
-      parseCodeAndExecute(apiKey).then(() => {
+      parseCodeAndExecute(apiKey).then(applied => {
+        if (!applied) return
         setActiveView('body')
         setIsExpanded(false)
       })

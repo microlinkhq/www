@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useLayoutEffect, useRef } from 'react'
 import mql from '@microlink/mql'
 
 const checkForProPlanRequired = responseText =>
@@ -14,13 +14,17 @@ export const useExecuteRequest = ({
   setShowApiKeyInput
 }) => {
   const latestKeyRef = useRef(requestKey)
-  latestKeyRef.current = requestKey
+
+  useLayoutEffect(() => {
+    latestKeyRef.current = requestKey
+  }, [requestKey])
 
   return useCallback(
     async currentApiKey => {
       const startedKey = requestKey
       setIsLoading(true)
       onLoadingChange?.(true)
+      let applied = false
       try {
         const result = await (async () => {
           try {
@@ -56,6 +60,7 @@ export const useExecuteRequest = ({
 
         if (latestKeyRef.current === startedKey) {
           setResponseData(result)
+          applied = true
 
           if (result.status === 'rejected') {
             const errorText = new TextDecoder().decode(result.body)
@@ -70,6 +75,7 @@ export const useExecuteRequest = ({
           onLoadingChange?.(false)
         }
       }
+      return applied
     },
     [
       url,
