@@ -20,8 +20,7 @@ const microlink = createClient()
 export const fetchSitemapUrls = async siteUrl => {
   const { isFulfilled, value } = await microlink.function(
     siteUrl,
-    getSitemapUrls,
-    { site: siteUrl }
+    getSitemapUrls
   )
 
   if (!isFulfilled) {
