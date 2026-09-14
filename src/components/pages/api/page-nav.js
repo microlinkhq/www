@@ -24,7 +24,8 @@ const NavLink = styled('a')`
     whiteSpace: 'nowrap',
     px: [2, 2, 3, 3],
     py: 2,
-    minHeight: '44px'
+    minHeight: '44px',
+    minWidth: '44px'
   })}
   transition: color ${transition.medium};
 
