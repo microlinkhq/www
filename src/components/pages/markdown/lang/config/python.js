@@ -488,8 +488,8 @@ print(data['markdown'])`
     title: 'Python URL to Markdown FAQ',
     caption: (
       <>
-        Everything Python developers ask before integrating the Microlink
-        URL to Markdown API.
+        Everything Python developers ask before integrating the Microlink URL to
+        Markdown API.
       </>
     ),
     questions: [
@@ -498,9 +498,9 @@ print(data['markdown'])`
         answer: (
           <>
             <div>
-              No. JavaScript rendering runs on Microlink’s managed browser
-              fleet — pass <code>prerender=true</code> and the page is rendered
-              before conversion. Your Python process stays browser-free.
+              No. JavaScript rendering runs on Microlink’s managed browser fleet
+              — pass <code>prerender=true</code> and the page is rendered before
+              conversion. Your Python process stays browser-free.
             </div>
           </>
         )

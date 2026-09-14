@@ -402,8 +402,8 @@ puts res.dig('data', 'markdown')`
     ),
     caption: (
       <>
-        A REST API that feels native in Ruby — one call, JSON back, and at
-        home in anything from a Rake task to a Rails app. Read the{' '}
+        A REST API that feels native in Ruby — one call, JSON back, and at home
+        in anything from a Rake task to a Rails app. Read the{' '}
         <Link href='/docs/guides/content-conversion/url-to-markdown'>
           URL to Markdown guide
         </Link>{' '}
@@ -477,8 +477,8 @@ puts res.dig('data', 'markdown')`
     title: 'Ruby URL to Markdown FAQ',
     caption: (
       <>
-        Everything Ruby developers ask before integrating the Microlink
-        URL to Markdown API.
+        Everything Ruby developers ask before integrating the Microlink URL to
+        Markdown API.
       </>
     ),
     questions: [
@@ -487,9 +487,9 @@ puts res.dig('data', 'markdown')`
         answer: (
           <>
             <div>
-              No. JavaScript rendering runs on Microlink’s managed browser
-              fleet — pass <code>prerender=true</code> and the page is rendered
-              before conversion. Your Ruby process stays browser-free.
+              No. JavaScript rendering runs on Microlink’s managed browser fleet
+              — pass <code>prerender=true</code> and the page is rendered before
+              conversion. Your Ruby process stays browser-free.
             </div>
           </>
         )
@@ -499,7 +499,9 @@ puts res.dig('data', 'markdown')`
         answer: (
           <>
             <div>
-              No. Net::HTTP and JSON are part of the Ruby standard library, so the examples work with zero dependencies. If you already use faraday or httparty, the same request translates directly.
+              No. Net::HTTP and JSON are part of the Ruby standard library, so
+              the examples work with zero dependencies. If you already use
+              faraday or httparty, the same request translates directly.
             </div>
           </>
         )
@@ -529,7 +531,9 @@ puts res.dig('data', 'markdown')`
         answer: (
           <>
             <div>
-              Yes. Because there is no browser binary to ship, it works on Heroku, serverless functions, and containers alike — no Chrome buildpack to fight.
+              Yes. Because there is no browser binary to ship, it works on
+              Heroku, serverless functions, and containers alike — no Chrome
+              buildpack to fight.
             </div>
           </>
         )
@@ -557,8 +561,8 @@ puts res.dig('data', 'markdown')`
           <>
             <div>
               Yes. Add <code>embed=markdown</code> and the API responds with{' '}
-              <code>text/markdown</code> directly — handy for piping into
-              files, queues, or prompts without parsing an envelope.
+              <code>text/markdown</code> directly — handy for piping into files,
+              queues, or prompts without parsing an envelope.
             </div>
           </>
         )

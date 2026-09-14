@@ -390,8 +390,8 @@ echo $res['data']['markdown'];`
     ),
     caption: (
       <>
-        A REST API that feels native in PHP — one call, JSON back, and at
-        home in anything from a script to a Laravel app. Read the{' '}
+        A REST API that feels native in PHP — one call, JSON back, and at home
+        in anything from a script to a Laravel app. Read the{' '}
         <Link href='/docs/guides/content-conversion/url-to-markdown'>
           URL to Markdown guide
         </Link>{' '}
@@ -465,8 +465,8 @@ echo $res['data']['markdown'];`
     title: 'PHP URL to Markdown FAQ',
     caption: (
       <>
-        Everything PHP developers ask before integrating the Microlink
-        URL to Markdown API.
+        Everything PHP developers ask before integrating the Microlink URL to
+        Markdown API.
       </>
     ),
     questions: [
@@ -475,9 +475,9 @@ echo $res['data']['markdown'];`
         answer: (
           <>
             <div>
-              No. JavaScript rendering runs on Microlink’s managed browser
-              fleet — pass <code>prerender=true</code> and the page is rendered
-              before conversion. Your PHP process stays browser-free.
+              No. JavaScript rendering runs on Microlink’s managed browser fleet
+              — pass <code>prerender=true</code> and the page is rendered before
+              conversion. Your PHP process stays browser-free.
             </div>
           </>
         )
@@ -487,7 +487,9 @@ echo $res['data']['markdown'];`
         answer: (
           <>
             <div>
-              No. The examples use file_get_contents and the cURL extension that ship with PHP. If you already use Guzzle or Laravel’s HTTP client, the same request translates directly.
+              No. The examples use file_get_contents and the cURL extension that
+              ship with PHP. If you already use Guzzle or Laravel’s HTTP client,
+              the same request translates directly.
             </div>
           </>
         )
@@ -517,7 +519,9 @@ echo $res['data']['markdown'];`
         answer: (
           <>
             <div>
-              Yes. Because there is no browser binary to ship, it works on shared hosting, serverless functions, and containers alike — a plain HTTPS call with nothing to compile.
+              Yes. Because there is no browser binary to ship, it works on
+              shared hosting, serverless functions, and containers alike — a
+              plain HTTPS call with nothing to compile.
             </div>
           </>
         )
@@ -545,8 +549,8 @@ echo $res['data']['markdown'];`
           <>
             <div>
               Yes. Add <code>embed=markdown</code> and the API responds with{' '}
-              <code>text/markdown</code> directly — handy for piping into
-              files, queues, or prompts without parsing an envelope.
+              <code>text/markdown</code> directly — handy for piping into files,
+              queues, or prompts without parsing an envelope.
             </div>
           </>
         )
