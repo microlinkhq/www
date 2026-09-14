@@ -23,6 +23,7 @@ import styled from 'styled-components'
 
 import { LANG_LANDINGS } from 'components/pages/screenshot/lang/registry'
 import { LANG_LANDINGS as PDF_LANG_LANDINGS } from 'components/pages/pdf/lang/registry'
+import { LANG_LANDINGS as LOGO_LANG_LANDINGS } from 'components/pages/logo/lang/registry'
 import { FEATURES } from 'components/patterns/FeatureStory'
 
 const FOOTER_COLUMNS = [
@@ -55,6 +56,13 @@ const FOOTER_COLUMNS = [
       {
         title: 'PDF API',
         links: PDF_LANG_LANDINGS.map(({ label, href }) => ({ label, href }))
+      },
+      {
+        title: 'Logo API',
+        links: LOGO_LANG_LANDINGS.map(({ label, href }) => ({
+          label,
+          href
+        }))
       }
     ]
   },
