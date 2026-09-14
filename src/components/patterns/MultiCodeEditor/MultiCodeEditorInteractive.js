@@ -29,7 +29,13 @@ function MultiCodeEditorInteractive ({
   autoExecute = false,
   bodyPreviewOnly = false,
   defaultResponseData,
-  onLoadingChange
+  onLoadingChange,
+  headerContent,
+  showWindowButtons = true,
+  showAction = true,
+  contentId,
+  contentRole,
+  contentLabelledBy
 }) {
   const { url, binding, ...mqlOpts } = mqlCodeProps || {}
 
@@ -63,16 +69,21 @@ function MultiCodeEditorInteractive ({
   const [apiKey, setApiKey] = useLocalStorage('mql-api-key', '')
   const [showApiKeyInput, setShowApiKeyInput] = useState(false)
 
+  const requestKey = JSON.stringify(mqlCodeProps ?? null)
   const [previousDefaults, setPreviousDefaults] = useState({
     normalizedDefaultView,
-    url
+    requestKey
   })
   if (
     previousDefaults.normalizedDefaultView !== normalizedDefaultView ||
-    previousDefaults.url !== url
+    previousDefaults.requestKey !== requestKey
   ) {
-    setPreviousDefaults({ normalizedDefaultView, url })
+    setPreviousDefaults({ normalizedDefaultView, requestKey })
     setActiveView(normalizedDefaultView)
+    setResponseData(defaultResponseData ?? null)
+    setIsLoading(false)
+    setShowApiKeyInput(false)
+    setIsExpanded(false)
   }
 
   const snippet = codeSnippets[currentLanguage] || ''
@@ -96,6 +107,7 @@ function MultiCodeEditorInteractive ({
   const parseCodeAndExecute = useExecuteRequest({
     url,
     mqlOpts,
+    requestKey,
     onLoadingChange,
     setIsLoading,
     setResponseData,
@@ -113,7 +125,8 @@ function MultiCodeEditorInteractive ({
 
   const executeRequest = useCallback(() => {
     if (!isLoading) {
-      parseCodeAndExecute(apiKey).then(() => {
+      parseCodeAndExecute(apiKey).then(applied => {
+        if (!applied) return
         setActiveView('body')
         setIsExpanded(false)
       })
@@ -215,6 +228,12 @@ function MultiCodeEditorInteractive ({
           blinkCursor={false}
           text={getCurrentViewText()}
           ActionComponent={MemoizedActionComponent}
+          headerContent={headerContent}
+          showWindowButtons={showWindowButtons}
+          showAction={showAction}
+          contentId={contentId}
+          contentRole={contentRole}
+          contentLabelledBy={contentLabelledBy}
           css={theme({ width: TERMINAL_WIDTH })}
           style={{ position: 'relative' }}
           role='application'

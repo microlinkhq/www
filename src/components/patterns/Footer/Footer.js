@@ -34,6 +34,7 @@ const FOOTER_COLUMNS = [
   {
     title: 'Products',
     links: [
+      { label: 'API', href: '/api' },
       { label: 'Screenshot', href: '/screenshot' },
       { label: 'Link Preview', href: '/link-preview' },
       { label: 'Markdown', href: '/markdown' },
@@ -490,11 +491,7 @@ const Footer = ({ ...props }) => {
             />
           </Flex>
 
-          <form
-            action={NEWSLETTER_ACTION}
-            method='post'
-            onSubmit={onSubmit}
-          >
+          <form action={NEWSLETTER_ACTION} method='post' onSubmit={onSubmit}>
             <NewsletterHoneypot />
             <Flex css={theme({ alignItems: 'center' })}>
               <Input
