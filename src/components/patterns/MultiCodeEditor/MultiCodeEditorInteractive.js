@@ -32,6 +32,7 @@ function MultiCodeEditorInteractive ({
   onLoadingChange,
   headerContent,
   showWindowButtons = true,
+  showAction = true,
   contentId,
   contentRole,
   contentLabelledBy
@@ -222,6 +223,7 @@ function MultiCodeEditorInteractive ({
           ActionComponent={MemoizedActionComponent}
           headerContent={headerContent}
           showWindowButtons={showWindowButtons}
+          showAction={showAction}
           contentId={contentId}
           contentRole={contentRole}
           contentLabelledBy={contentLabelledBy}

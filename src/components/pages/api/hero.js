@@ -14,6 +14,7 @@ import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import List from 'components/patterns/List/List'
 import { Eyebrow } from 'components/patterns/FeatureStory'
+import { HeroEditorTabs } from 'components/patterns/MultiCodeEditor/hero-editor-tabs'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import {
   Heading,
@@ -23,7 +24,6 @@ import {
   CENTERED_TO_START
 } from 'components/patterns/ProductStory'
 
-import { HeroEditorTabs } from './hero-editor-tabs'
 import { HERO, HERO_EXAMPLES, HERO_PROOF } from './shared'
 
 const EDITOR_CARD_WIDTH = layout.small
@@ -199,6 +199,9 @@ export const Hero = () => {
                   examples={HERO_EXAMPLES}
                   selectedIndex={exampleIndex}
                   onSelect={setExampleIndex}
+                  ariaLabel='API examples'
+                  idPrefix='api-hero-tab'
+                  controlsId='api-hero-editor'
                 />
               }
             />

@@ -188,6 +188,7 @@ const TerminalWindowButtons = styled('div')`
       flex-shrink: 0;
       border-right: ${borders[1]};
       border-right-color: ${cx('black10')};
+      ${theme({ display: ['none', 'flex', 'flex', 'flex'] })}
     `}
 `
 

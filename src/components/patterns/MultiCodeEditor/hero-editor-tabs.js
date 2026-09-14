@@ -19,7 +19,7 @@ const tabCss = isActive =>
     justifyContent: 'center',
     flex: '0 0 auto',
     minHeight: [touchTargets.minHeight, '36px', '36px', '36px'],
-    px: 3,
+    px: 2,
     py: 0,
     border: 0,
     borderRight: 1,
@@ -47,11 +47,22 @@ const tabCss = isActive =>
     }
   })
 
-export const HeroEditorTabs = ({ examples, selectedIndex, onSelect }) => {
+export const HeroEditorTabs = ({
+  examples,
+  selectedIndex,
+  onSelect,
+  ariaLabel = 'Examples',
+  idPrefix = 'hero-editor-tab',
+  controlsId = 'hero-editor'
+}) => {
   const onKeyDown = event => {
     const last = examples.length - 1
     let next = selectedIndex
-    if (event.key === 'ArrowRight') { next = selectedIndex === last ? 0 : selectedIndex + 1 } else if (event.key === 'ArrowLeft') { next = selectedIndex === 0 ? last : selectedIndex - 1 } else if (event.key === 'Home') next = 0
+    if (event.key === 'ArrowRight') {
+      next = selectedIndex === last ? 0 : selectedIndex + 1
+    } else if (event.key === 'ArrowLeft') {
+      next = selectedIndex === 0 ? last : selectedIndex - 1
+    } else if (event.key === 'Home') next = 0
     else if (event.key === 'End') next = last
     else return
     event.preventDefault()
@@ -63,13 +74,13 @@ export const HeroEditorTabs = ({ examples, selectedIndex, onSelect }) => {
   return (
     <Box
       role='tablist'
-      aria-label='API examples'
+      aria-label={ariaLabel}
       onKeyDown={onKeyDown}
       css={tablistCss}
     >
       {examples.map(({ label }, index) => {
         const isActive = index === selectedIndex
-        const tabId = `api-hero-tab-${index}`
+        const tabId = `${idPrefix}-${index}`
         return (
           <Box
             key={label}
@@ -78,7 +89,7 @@ export const HeroEditorTabs = ({ examples, selectedIndex, onSelect }) => {
             id={tabId}
             role='tab'
             aria-selected={isActive}
-            aria-controls='api-hero-editor'
+            aria-controls={controlsId}
             tabIndex={isActive ? 0 : -1}
             onClick={() => onSelect(index)}
             css={[
