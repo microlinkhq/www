@@ -1,11 +1,11 @@
 import createClient from 'microlink.io'
-import { mqlCode } from './mql-code'
+import { mqlCode, sdkCall } from './mql-code'
 
 export const FREE_FUNCTION_CODE_LIMIT = 1024
 
-export const getSitemapUrls = `async ({ site }) => {
+export const getSitemapUrls = `async ({ page }) => {
   // Discover sitemap URLs from this origin's robots.txt
-  const { href: robotsUrl } = new URL('/robots.txt', site)
+  const { href: robotsUrl } = new URL('/robots.txt', page.url())
   const res = await fetch(robotsUrl)
   const body = res.ok ? await res.text() : ''
   const robotsParser = require('robots-parser')
@@ -20,8 +20,7 @@ const microlink = createClient()
 export const fetchSitemapUrls = async siteUrl => {
   const { isFulfilled, value } = await microlink.function(
     siteUrl,
-    getSitemapUrls,
-    { site: siteUrl }
+    getSitemapUrls
   )
 
   if (!isFulfilled) {
@@ -36,6 +35,10 @@ export const fetchSitemapUrls = async siteUrl => {
 
 export const sitemapSdkSnippet = siteUrl =>
   mqlCode(siteUrl, {
-    function: getSitemapUrls,
-    site: siteUrl
+    function: getSitemapUrls
   }).JavaScript
+
+export const sitemapCardCode = siteUrl =>
+  sdkCall(siteUrl, {
+    function: getSitemapUrls
+  })

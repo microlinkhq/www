@@ -72,23 +72,30 @@ export const Hero = () => {
   const trimmedInput = inputUrl.trim()
 
   return (
-    <Box as='section' id='hero'>
-      <Box id='input'>
+    <Box as='section' id='hero' css={theme({ width: '100%', minWidth: 0 })}>
+      <Box id='input' css={theme({ width: '100%', minWidth: 0 })}>
         <Heading>Sitemap URLs</Heading>
         <Caption
           forwardedAs='h2'
           css={theme({
-            pt: '20px',
+            pt: [3, 3, 4, 4],
             px: [4, 0]
           })}
         >
-          Paste a site URL. We read its sitemap (and robots.txt) and list every
-          page location.
+          Paste a site URL. We’ll find its sitemap and list every URL without
+          duplicates.
         </Caption>
 
         <Highlights />
 
-        <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Flex
+          css={theme({
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            minWidth: 0
+          })}
+        >
           <Flex
             as='form'
             css={theme({
@@ -96,17 +103,22 @@ export const Hero = () => {
               pt: [3, 3, 4, 4],
               pb: 2,
               mx: [0, 0, 'auto', 'auto'],
+              width: ['100%', 'auto'],
+              maxWidth: '100%',
               justifyContent: 'center',
               flexDirection: ['column', 'column', 'row', 'row']
             })}
             onSubmit={handleSubmit}
           >
-            <Box>
+            <Box css={theme({ width: ['100%', 'auto'] })}>
               <Input
                 id='sitemap-url'
+                labelCss={{
+                  width: ['100%', '320px', '320px', '320px']
+                }}
                 css={theme({
                   fontSize: 2,
-                  width: ['100%', '320px', '320px', '320px']
+                  width: '100%'
                 })}
                 iconComponent={
                   <InputIcon.Microlink
@@ -134,7 +146,11 @@ export const Hero = () => {
             </Box>
             <Button
               type='submit'
-              css={theme({ mt: [3, 3, 0, 0], ml: [0, 2, 2, 2] })}
+              css={theme({
+                mt: [3, 3, 0, 0],
+                ml: [0, 2, 2, 2],
+                width: ['100%', 'auto']
+              })}
               loading={isLoading}
             >
               <Flex

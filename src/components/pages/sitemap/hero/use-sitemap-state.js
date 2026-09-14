@@ -5,8 +5,6 @@ import { hasDomainLikeHostname } from 'helpers/url-input'
 import { fetchSitemapUrls } from 'helpers/get-sitemap-urls'
 import { normalizeApiError } from 'helpers/api-error'
 
-const DEFAULT_URL = 'https://microlink.io'
-
 export const useSitemapState = () => {
   const [query, setQuery] = useQueryState()
   const [isMounted, setIsMounted] = useState(false)
@@ -83,8 +81,14 @@ export const useSitemapState = () => {
         fetchSite(url, { syncQuery: false })
         return
       }
+      requestIdRef.current += 1
       setInputUrl('')
-      fetchSite(DEFAULT_URL, { syncQuery: false, fillInput: false })
+      setCurrentUrl('')
+      setUrls(null)
+      setError(null)
+      setInputError('')
+      setIsLoading(false)
+      lastSubmittedRef.current = ''
     },
     [fetchSite]
   )

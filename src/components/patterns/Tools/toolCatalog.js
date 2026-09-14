@@ -132,7 +132,7 @@ export const TOOLS = [
       {
         title: 'Sitemap URLs',
         description:
-          'Paste a site URL and list every page from Sitemap: in robots.txt. Copy the list or download it as a text file.',
+          'Paste a site URL and list every page from the sitemap in robots.txt. Copy the list or download it as a text file.',
         href: '/tools/sitemap',
         icon: MapIcon,
         preview: SitemapPreview

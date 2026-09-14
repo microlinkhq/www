@@ -1,5 +1,5 @@
 import React from 'react'
-import { theme, touchTargets } from 'theme'
+import { theme } from 'theme'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
 
@@ -17,7 +17,10 @@ export const ExampleLinks = ({ onPick }) => (
       fontSize: 1,
       color: 'black60',
       textAlign: 'center',
-      px: 3
+      px: [4, 0],
+      width: '100%',
+      minWidth: 0,
+      overflowWrap: 'break-word'
     })}
   >
     Try an example:{' '}
@@ -44,11 +47,6 @@ export const ExampleLinks = ({ onPick }) => (
             event.preventDefault()
             onPick(example.url)
           }}
-          css={theme({
-            display: 'inline-flex',
-            alignItems: 'center',
-            minHeight: touchTargets.minHeight
-          })}
         >
           {example.label}
         </Link>

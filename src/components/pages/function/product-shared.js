@@ -4,6 +4,7 @@ import { CheckCircle, Code, Globe } from 'react-feather'
 
 import { editorTemplateHref } from 'components/pages/editor/shared'
 import { Link } from 'components/elements/Link'
+import { sitemapCardCode } from 'helpers/get-sitemap-urls'
 
 export const ACCENT = colors.indigo8
 export const ACCENT_NAME = 'indigo'
@@ -14,7 +15,7 @@ export const HERO = {
   description:
     'Write a JavaScript function. Send a URL. Microlink runs the function remotely and returns whatever it returned — no Lambda, no browser fleet, no server to operate.',
   glanceCaption:
-    'A function is just JavaScript. These five run remotely and return a value.',
+    'A function is just JavaScript. These examples run remotely and return a value.',
   ctaHref: '/editor',
   ctaLabel: 'Open editor',
   docsHref: '/docs/guides/function',
@@ -73,7 +74,7 @@ export const GLANCE = {
       id: 'inject',
       title: 'Inject a script',
       href: editorTemplateHref('inject'),
-      span: 3,
+      span: 2,
       code: `const { value } = await microlink.function(
   'https://microlink.io',
   ({ page }) => page.evaluate(() =>
@@ -86,7 +87,7 @@ export const GLANCE = {
       id: 'npm',
       title: 'require() a package',
       href: editorTemplateHref('cheerio'),
-      span: 3,
+      span: 2,
       code: `const { value } = await microlink.function(
   'https://microlink.io/blog',
   async ({ page }) => {
@@ -98,6 +99,13 @@ export const GLANCE = {
     })).get()
   }
 )`
+    },
+    {
+      id: 'sitemap',
+      title: 'List sitemap URLs',
+      href: editorTemplateHref('sitemap'),
+      span: 2,
+      code: sitemapCardCode('https://microlink.io')
     }
   ]
 }

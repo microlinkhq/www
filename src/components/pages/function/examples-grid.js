@@ -28,6 +28,7 @@ const Card = styled(Link)(
   theme({
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
     minHeight: ['220px', '220px', '260px', '280px'],
     minWidth: 0,
     bg: 'white',
@@ -53,8 +54,12 @@ const Card = styled(Link)(
     text-decoration: none;
   }
 
-  @media (min-width: ${breakpoints[2]}) {
+  ${
+    $span == null
+      ? ''
+      : `@media (min-width: ${breakpoints[2]}) {
     grid-column: span ${$span};
+  }`
   }
 
   &:has(> a:focus-visible) {
@@ -112,18 +117,28 @@ const Explore = styled(Text)(
   })
 )
 
+export const FunctionExampleCard = ({ href, title, code, span }) => (
+  <Card href={href} $span={span}>
+    <CodeTile code={code} />
+    <Foot>
+      <Title as='span'>{title}</Title>
+      <Explore as='span' data-explore>
+        Explore →
+      </Explore>
+    </Foot>
+  </Card>
+)
+
 export const FunctionExamplesGrid = () => (
   <Grid>
     {GLANCE.items.map(item => (
-      <Card key={item.id} href={item.href} $span={item.span}>
-        <CodeTile code={item.code} />
-        <Foot>
-          <Title as='span'>{item.title}</Title>
-          <Explore as='span' data-explore>
-            Explore →
-          </Explore>
-        </Foot>
-      </Card>
+      <FunctionExampleCard
+        key={item.id}
+        href={item.href}
+        title={item.title}
+        code={item.code}
+        span={item.span}
+      />
     ))}
   </Grid>
 )

@@ -140,14 +140,20 @@ export const Results = ({ urls }) => {
           textAlign: 'center'
         })}
       >
-        No Sitemap: lines in robots.txt — nothing to list.
+        No sitemap in robots.txt. Nothing to list.
       </Text>
     )
   }
 
   return (
     <Box
-      css={theme({ mt: 4, width: '100%', maxWidth: layout.normal, mx: 'auto' })}
+      css={theme({
+        mt: 4,
+        width: '100%',
+        maxWidth: layout.small,
+        minWidth: 0,
+        mx: 'auto'
+      })}
     >
       <ClipboardComponent />
       <Flex
