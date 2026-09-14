@@ -223,9 +223,7 @@ module Microlink
     payload.dig('data', 'screenshot', 'url') ||
       raise(Error, 'microlink: no screenshot url in response')
   end
-end
-
-puts Microlink.screenshot_url('https://example.com')`
+end`
         }
       },
       {
@@ -292,19 +290,12 @@ File.binwrite('screenshot.png', Net::HTTP.get(URI(image)))`
         code: {
           language: 'ruby',
           title: 'app/controllers/screenshots_controller.rb',
-          source: `class ScreenshotsController < ApplicationController
-  # GET /screenshot?url=https://example.com
+          source: `# GET /screenshot?url=https://example.com
+class ScreenshotsController < ApplicationController
   def show
-    uri = URI('https://api.microlink.io')
-    uri.query = URI.encode_www_form(
-      url: params.require(:url),
-      screenshot: true,
-      meta: false
-    )
-
-    res = JSON.parse(Net::HTTP.get(uri))
-
-    redirect_to res.dig('data', 'screenshot', 'url'), allow_other_host: true
+    redirect_to Microlink.screenshot_url(params[:url]), allow_other_host: true
+  rescue Microlink::Error => e
+    render plain: e.message, status: :bad_gateway
   end
 end`
         }
@@ -316,22 +307,13 @@ end`
           language: 'ruby',
           title: 'app.rb',
           source: `require 'sinatra'
-require 'json'
-require 'net/http'
-require 'uri'
+require_relative 'microlink'
 
 # GET /screenshot?url=https://example.com
 get '/screenshot' do
-  uri = URI('https://api.microlink.io')
-  uri.query = URI.encode_www_form(
-    url: params[:url],
-    screenshot: true,
-    meta: false
-  )
-
-  res = JSON.parse(Net::HTTP.get(uri))
-
-  redirect res.dig('data', 'screenshot', 'url')
+  redirect Microlink.screenshot_url(params['url'])
+rescue Microlink::Error => e
+  halt 502, e.message
 end`
         }
       },
@@ -340,21 +322,16 @@ end`
         label: 'Sidekiq',
         code: {
           language: 'ruby',
-          title: 'app/workers/screenshot_worker.rb',
-          source: `class ScreenshotWorker
+          title: 'app/jobs/screenshot_job.rb',
+          source: `# ScreenshotJob.perform_async(page.id)
+class ScreenshotJob
   include Sidekiq::Job
 
-  def perform(target_url)
-    uri = URI('https://api.microlink.io')
-    uri.query = URI.encode_www_form(url: target_url, screenshot: true)
+  sidekiq_options retry: 3
 
-    res = JSON.parse(Net::HTTP.get(uri))
-    image = res.dig('data', 'screenshot', 'url')
-
-    File.binwrite(
-      Rails.root.join('tmp', 'screenshot.png'),
-      Net::HTTP.get(URI(image))
-    )
+  def perform(page_id)
+    page = Page.find(page_id)
+    page.update!(screenshot_url: Microlink.screenshot_url(page.public_url))
   end
 end`
         }
@@ -365,24 +342,17 @@ end`
         code: {
           language: 'ruby',
           title: 'screenshot.rb',
-          source: `require 'json'
-require 'net/http'
-require 'uri'
+          source: `require_relative 'microlink'
 
 # ruby screenshot.rb https://example.com
-uri = URI('https://api.microlink.io')
-uri.query = URI.encode_www_form(
-  url: ARGV.fetch(0),
-  screenshot: true,
-  meta: false
-)
-
-res = JSON.parse(Net::HTTP.get(uri))
-
-puts res.dig('data', 'screenshot', 'url')`
+puts Microlink.screenshot_url(ARGV.fetch(0))`
         }
       }
-    ]
+    ],
+    footnote: {
+      text: 'Every tab reuses the quickstart module:',
+      code: 'Microlink.screenshot_url(target)'
+    }
   },
 
   comparison: {
