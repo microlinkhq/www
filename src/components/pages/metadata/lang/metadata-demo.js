@@ -12,8 +12,22 @@ const SAMPLE_RESPONSE = `{
   "url": "https://microlink.io/",
   "publisher": "Microlink",
   "date": null,
-  "image": "https://microlink.io/images/og/home.png?v=pzsfu2",
-  "logo": "https://cdn.microlink.io/logo/logo.svg"
+  "image": {
+    "url": "https://microlink.io/images/og/home.png?v=pzsfu2",
+    "type": "png",
+    "size": 32357,
+    "height": 1260,
+    "width": 2400,
+    "size_pretty": "32.4 kB"
+  },
+  "logo": {
+    "url": "https://cdn.microlink.io/logo/logo.svg",
+    "type": "svg",
+    "size": 837,
+    "height": 31,
+    "width": 44,
+    "size_pretty": "837 B"
+  }
 }`
 
 const MetadataDemo = ({ alt }) => (

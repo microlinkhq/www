@@ -259,12 +259,17 @@ const Framework = ({ framework }) => {
     return acc
   }, {})
 
+  const aliases = framework.examples.reduce((acc, example) => {
+    acc[example.label] = example.code.language
+    return acc
+  }, {})
+
   return (
     <SectionContainer id='framework'>
       <SectionHead title={framework.title} caption={framework.caption} />
       <Box css={theme({ width: '100%', maxWidth: CONTENT_WIDTH, mx: 'auto' })}>
         <Box css={[theme({ width: '100%' }), CODE_FULL_WIDTH]}>
-          <MultiCodeEditor languages={languages} />
+          <MultiCodeEditor languages={languages} aliases={aliases} />
         </Box>
         {framework.footnote && (
           <Text
@@ -299,7 +304,7 @@ const ComparisonColumn = ({ column }) => {
         flex: 1,
         bg: 'white',
         borderRadius: 4,
-        border: `${borders[1]} ${positive ? colors.red6 : colors.black10}`,
+        border: `${borders[1]} ${positive ? ACCENT : colors.black10}`,
         boxShadow: positive
           ? `0 16px 40px ${colors.black10}`
           : `0 8px 24px ${colors.black05}`,
@@ -311,7 +316,7 @@ const ComparisonColumn = ({ column }) => {
         css={theme({
           fontWeight: 'bold',
           fontSize: [1, 1, 2, 2],
-          color: positive ? 'red6' : 'black60',
+          color: positive ? ACCENT : 'black60',
           pb: 3
         })}
       >
