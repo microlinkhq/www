@@ -45,9 +45,12 @@ Then make the message do work. When we know the recovery path, the error carries
 
 ```js
 {
-  reason,   // stable machine-readable code: quota exceeded, proxy required...
-  hint,     // the exact next step, written for the agent to relay
-  upgrade   // how to unlock the capability, when it is a plan limit
+  isError: true,
+  content: {
+    reason,   // stable machine-readable code: quota exceeded, proxy required...
+    hint,     // the exact next step, written for the agent to relay
+    upgrade   // how to unlock the capability, when it is a plan limit
+  }
 }
 ```
 
