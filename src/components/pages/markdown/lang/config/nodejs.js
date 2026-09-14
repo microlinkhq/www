@@ -155,7 +155,7 @@ const nodejs = {
           'A few lines with global fetch — no npm package to add. Point it at a page and read the markdown string from the JSON response.',
         code: {
           language: 'js',
-          title: 'convert.js',
+          title: 'convert.mjs',
           source: `const params = new URLSearchParams({
   url: 'https://example.com',
   'data.markdown.attr': 'markdown',
@@ -174,7 +174,7 @@ console.log(res.data.markdown)`
           'Pass a CSS selector to keep just the article body and drop headers, footers, and sidebars — fewer tokens, better embeddings.',
         code: {
           language: 'js',
-          title: 'scoped.js',
+          title: 'scoped.mjs',
           source: `const params = new URLSearchParams({
   url: 'https://example.com/blog/post',
   'data.markdown.attr': 'markdown',
@@ -194,7 +194,7 @@ console.log(res.data.markdown)`
           'Client-side rendered content only exists after JavaScript runs — prerender with a real browser and wait for the content, still one request.',
         code: {
           language: 'js',
-          title: 'spa.js',
+          title: 'spa.mjs',
           source: `const params = new URLSearchParams({
   url: 'https://app.example.com/docs',
   'data.markdown.attr': 'markdown',
@@ -216,7 +216,7 @@ console.log(res.data.markdown)`
           'Skip the JSON envelope entirely: embed=markdown returns the page as text/markdown, ready to pipe into a file or a prompt.',
         code: {
           language: 'js',
-          title: 'embed.js',
+          title: 'embed.mjs',
           source: `import { writeFile } from 'node:fs/promises'
 
 const params = new URLSearchParams({
@@ -328,8 +328,8 @@ export async function loadPage (url) {
         label: 'Plain Node.js',
         code: {
           language: 'js',
-          title: 'markdown.js',
-          source: `// node markdown.js https://example.com
+          title: 'markdown.mjs',
+          source: `// node markdown.mjs https://example.com
 const params = new URLSearchParams({
   url: process.argv[2],
   'data.markdown.attr': 'markdown',
@@ -464,8 +464,8 @@ process.stdout.write(data.markdown)`
     title: 'Node.js URL to Markdown FAQ',
     caption: (
       <>
-        Everything Node.js developers ask before integrating the Microlink
-        URL to Markdown API.
+        Everything Node.js developers ask before integrating the Microlink URL
+        to Markdown API.
       </>
     ),
     questions: [
@@ -474,9 +474,9 @@ process.stdout.write(data.markdown)`
         answer: (
           <>
             <div>
-              No. JavaScript rendering runs on Microlink’s managed browser
-              fleet — pass <code>prerender=true</code> and the page is rendered
-              before conversion. Your Node.js process stays browser-free.
+              No. JavaScript rendering runs on Microlink’s managed browser fleet
+              — pass <code>prerender=true</code> and the page is rendered before
+              conversion. Your Node.js process stays browser-free.
             </div>
           </>
         )
@@ -552,8 +552,8 @@ process.stdout.write(data.markdown)`
           <>
             <div>
               Yes. Add <code>embed=markdown</code> and the API responds with{' '}
-              <code>text/markdown</code> directly — handy for piping into
-              files, queues, or prompts without parsing an envelope.
+              <code>text/markdown</code> directly — handy for piping into files,
+              queues, or prompts without parsing an envelope.
             </div>
           </>
         )

@@ -172,7 +172,10 @@ func main() {
     "meta":                {"false"}, // skip metadata for a faster response
   }
 
-  res, _ := http.Get("https://api.microlink.io?" + params.Encode())
+  res, err := http.Get("https://api.microlink.io?" + params.Encode())
+  if err != nil {
+    panic(err)
+  }
   defer res.Body.Close()
 
   var payload struct {
@@ -210,7 +213,10 @@ func main() {
     "meta":                   {"false"},
   }
 
-  res, _ := http.Get("https://api.microlink.io?" + params.Encode())
+  res, err := http.Get("https://api.microlink.io?" + params.Encode())
+  if err != nil {
+    panic(err)
+  }
   defer res.Body.Close()
 
   var payload struct {
@@ -250,7 +256,10 @@ func main() {
     "meta":                   {"false"},
   }
 
-  res, _ := http.Get("https://api.microlink.io?" + params.Encode())
+  res, err := http.Get("https://api.microlink.io?" + params.Encode())
+  if err != nil {
+    panic(err)
+  }
   defer res.Body.Close()
 
   var payload struct {
@@ -288,7 +297,10 @@ func main() {
     "embed":              {"markdown"}, // respond with text/markdown
   }
 
-  res, _ := http.Get("https://api.microlink.io?" + params.Encode())
+  res, err := http.Get("https://api.microlink.io?" + params.Encode())
+  if err != nil {
+    panic(err)
+  }
   defer res.Body.Close()
 
   markdown, _ := io.ReadAll(res.Body)
@@ -468,7 +480,10 @@ func main() {
     "meta":               {"false"},
   }
 
-  res, _ := http.Get("https://api.microlink.io?" + params.Encode())
+  res, err := http.Get("https://api.microlink.io?" + params.Encode())
+  if err != nil {
+    panic(err)
+  }
   defer res.Body.Close()
 
   var payload struct {
@@ -529,8 +544,8 @@ func main() {
     ),
     caption: (
       <>
-        A REST API that feels native in Go — one call, JSON back, and at
-        home in anything from a CLI tool to a worker fleet. Read the{' '}
+        A REST API that feels native in Go — one call, JSON back, and at home in
+        anything from a CLI tool to a worker fleet. Read the{' '}
         <Link href='/docs/guides/content-conversion/url-to-markdown'>
           URL to Markdown guide
         </Link>{' '}
@@ -604,8 +619,8 @@ func main() {
     title: 'Go URL to Markdown FAQ',
     caption: (
       <>
-        Everything Go developers ask before integrating the Microlink
-        URL to Markdown API.
+        Everything Go developers ask before integrating the Microlink URL to
+        Markdown API.
       </>
     ),
     questions: [
@@ -614,9 +629,9 @@ func main() {
         answer: (
           <>
             <div>
-              No. JavaScript rendering runs on Microlink’s managed browser
-              fleet — pass <code>prerender=true</code> and the page is rendered
-              before conversion. Your Go process stays browser-free.
+              No. JavaScript rendering runs on Microlink’s managed browser fleet
+              — pass <code>prerender=true</code> and the page is rendered before
+              conversion. Your Go process stays browser-free.
             </div>
           </>
         )
@@ -626,7 +641,8 @@ func main() {
         answer: (
           <>
             <div>
-              No. The examples use net/http and encoding/json from the Go standard library — they compile with zero external dependencies.
+              No. The examples use net/http and encoding/json from the Go
+              standard library — they compile with zero external dependencies.
             </div>
           </>
         )
@@ -656,7 +672,9 @@ func main() {
         answer: (
           <>
             <div>
-              Yes. Because there is no browser binary or CGO dependency to ship, your Go service stays a single static binary — the rendering fleet runs on Microlink’s side.
+              Yes. Because there is no browser binary or CGO dependency to ship,
+              your Go service stays a single static binary — the rendering fleet
+              runs on Microlink’s side.
             </div>
           </>
         )
@@ -684,8 +702,8 @@ func main() {
           <>
             <div>
               Yes. Add <code>embed=markdown</code> and the API responds with{' '}
-              <code>text/markdown</code> directly — handy for piping into
-              files, queues, or prompts without parsing an envelope.
+              <code>text/markdown</code> directly — handy for piping into files,
+              queues, or prompts without parsing an envelope.
             </div>
           </>
         )
