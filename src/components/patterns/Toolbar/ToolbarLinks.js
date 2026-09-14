@@ -24,6 +24,7 @@ import {
   Activity,
   AlignLeft as AlignLeftIcon,
   Maximize,
+  Server as ServerIcon,
   Package as PackageIcon,
   Repeat as RepeatIcon,
   Video as VideoIcon,
@@ -159,7 +160,17 @@ export const DOCUMENTATION_NAV_ITEM = createNavigationItem({
   actively: docsMatcher
 })
 
-export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM, PRICING_NAV_ITEM]
+export const API_NAV_ITEM = createNavigationItem({
+  label: 'API',
+  href: '/api',
+  actively: 'exact'
+})
+
+export const DIRECT_NAV_ITEMS = [
+  API_NAV_ITEM,
+  DOCUMENTATION_NAV_ITEM,
+  PRICING_NAV_ITEM
+]
 
 export const SOCIAL_NAV_ITEMS = [
   createNavigationItem({
@@ -225,6 +236,13 @@ export const NAVIGATION_SECTIONS = [
     description: 'APIs and tooling to turn any URL into structured output.',
     columns: 3,
     items: [
+      createNavigationItem({
+        label: 'API',
+        href: '/api',
+        actively: 'exact',
+        description: 'One REST endpoint for every Microlink product',
+        icon: ServerIcon
+      }),
       createNavigationItem({
         label: 'Screenshot',
         href: '/screenshot',

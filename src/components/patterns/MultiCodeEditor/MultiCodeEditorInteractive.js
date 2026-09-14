@@ -29,7 +29,12 @@ function MultiCodeEditorInteractive ({
   autoExecute = false,
   bodyPreviewOnly = false,
   defaultResponseData,
-  onLoadingChange
+  onLoadingChange,
+  headerContent,
+  showWindowButtons = true,
+  contentId,
+  contentRole,
+  contentLabelledBy
 }) {
   const { url, binding, ...mqlOpts } = mqlCodeProps || {}
 
@@ -215,6 +220,11 @@ function MultiCodeEditorInteractive ({
           blinkCursor={false}
           text={getCurrentViewText()}
           ActionComponent={MemoizedActionComponent}
+          headerContent={headerContent}
+          showWindowButtons={showWindowButtons}
+          contentId={contentId}
+          contentRole={contentRole}
+          contentLabelledBy={contentLabelledBy}
           css={theme({ width: TERMINAL_WIDTH })}
           style={{ position: 'relative' }}
           role='application'
