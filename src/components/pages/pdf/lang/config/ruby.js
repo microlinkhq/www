@@ -192,8 +192,13 @@ const ruby = {
       {
         title: 'Skip the Gemfile',
         description:
-          'Nothing to bundle install. The API is plain HTTP, so the standard library is the only dependency.',
-        code: { language: 'bash', source: 'ruby -e "require \'net/http\'"' }
+          'Nothing to bundle install — the standard library already speaks HTTP. Run this from your terminal and a hosted PDF URL comes back before you write a single file.',
+        code: {
+          language: 'bash',
+          source: `ruby -rnet/http -rjson -e '
+  uri = URI("https://api.microlink.io?url=https://example.com&pdf=true&meta=false")
+  puts JSON.parse(Net::HTTP.get(uri)).dig("data", "pdf", "url")'`
+        }
       },
       {
         title: 'Convert any URL',
@@ -219,7 +224,7 @@ const ruby = {
     'pdf.margin': '0.35cm',     # cm, mm, in or px
     'pdf.landscape': false,     # portrait (default) | landscape
     'pdf.scale': 1,             # zoom the rendering, 0.1 to 2
-    mediaType: 'print',         # print CSS stylesheets | screen (default)
+    mediaType: 'print',         # print stylesheets (default) | screen
     meta: false
   }
 end`
@@ -432,7 +437,7 @@ run app`
       {
         title: 'Screen & Print Media',
         description:
-          'Set mediaType to print in the same query to apply print stylesheets, or keep the default screen layout.'
+          'Print stylesheets apply by default. Set mediaType to screen in the same query to keep the on-screen layout instead.'
       },
       {
         title: 'Generous Free Tier',
