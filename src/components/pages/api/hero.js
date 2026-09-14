@@ -189,7 +189,6 @@ export const Hero = () => {
         >
           <EditorStage>
             <MultiCodeEditorInteractive
-              key={active.label}
               height={EDITOR_CARD_HEIGHT}
               mqlCode={active.mqlCode}
               contentId='api-hero-editor'
