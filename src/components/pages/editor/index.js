@@ -25,7 +25,7 @@ import Results from './results'
 import { ENTRY_FILE, nextFileName } from './shared'
 import Templates from './templates'
 import { useEvaluate } from './use-evaluate'
-import { readSharedFiles, writeShareQuery } from './use-share'
+import { readSharedFiles, SHARE_QUERY_KEY, writeShareQuery } from './use-share'
 
 const MonacoEditor = lazy(() => import('./monaco-editor'))
 
@@ -76,6 +76,8 @@ const Editor = () => {
     onSettled,
     getSyntaxErrors
   })
+  const evaluateRef = useRef(evaluate)
+  evaluateRef.current = evaluate
 
   useEffect(() => {
     let cancelled = false
@@ -86,6 +88,9 @@ const Editor = () => {
         templateRef.current = shared
         setFiles(shared)
         setActiveFile(ENTRY_FILE)
+        if (new URLSearchParams(window.location.search).get(SHARE_QUERY_KEY)) {
+          evaluateRef.current(shared)
+        }
       }
       setMounted(true)
     })
