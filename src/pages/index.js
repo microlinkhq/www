@@ -7,7 +7,7 @@ import Layout from 'components/patterns/Layout'
 import LazyRender from 'components/elements/IntersectionObserver'
 import { CurrencyProvider } from 'components/hook/use-currency'
 import toPlainText from 'components/patterns/Faq/to-plain-text'
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
 
 const Products = lazy(() => import('components/pages/home/products'))
 const Examples = lazy(() => import('components/pages/home/examples'))
@@ -19,17 +19,60 @@ const Faqs = lazy(() => import('components/pages/home/faqs'))
 
 const NEAR_VIEWPORT = { rootMargin: '25% 0px' }
 
-const Deferred = ({ minHeight, children }) => (
-  <LazyRender
-    options={NEAR_VIEWPORT}
-    placeholder={() => <div aria-hidden style={{ minHeight }} />}
-    onView={() => (
-      <Suspense fallback={<div aria-hidden style={{ minHeight }} />}>
+const Placeholder = ({ minHeight }) => <div aria-hidden style={{ minHeight }} />
+
+const Deferred = ({ minHeight, children }) => {
+  const [force, setForce] = useState(false)
+
+  useEffect(() => {
+    const unlock = () => {
+      if (window.location.hash) setForce(true)
+    }
+    unlock()
+    window.addEventListener('hashchange', unlock)
+    return () => window.removeEventListener('hashchange', unlock)
+  }, [])
+
+  useEffect(() => {
+    if (!force) return undefined
+    const { hash } = window.location
+    if (!hash) return undefined
+
+    let tries = 0
+    const timer = window.setInterval(() => {
+      const el = document.querySelector(hash)
+      tries += 1
+      if (el) {
+        el.scrollIntoView()
+        window.clearInterval(timer)
+      } else if (tries > 40) {
+        window.clearInterval(timer)
+      }
+    }, 50)
+
+    return () => window.clearInterval(timer)
+  }, [force])
+
+  if (force) {
+    return (
+      <Suspense fallback={<Placeholder minHeight={minHeight} />}>
         {children}
       </Suspense>
-    )}
-  />
-)
+    )
+  }
+
+  return (
+    <LazyRender
+      options={NEAR_VIEWPORT}
+      placeholder={() => <Placeholder minHeight={minHeight} />}
+      onView={() => (
+        <Suspense fallback={<Placeholder minHeight={minHeight} />}>
+          {children}
+        </Suspense>
+      )}
+    />
+  )
+}
 
 export const Head = () => {
   const structuredData = JSON.stringify({
