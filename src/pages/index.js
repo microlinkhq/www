@@ -1,18 +1,35 @@
-import Analytics from 'components/pages/home/analytics'
 import CliBanner from 'components/pages/home/cli-banner'
-import Examples from 'components/pages/home/examples'
-import Faqs, { getFaqQuestions } from 'components/pages/home/faqs'
 import GradualBlur from 'components/pages/home/gradual-blur'
 import Hero from 'components/pages/home/hero'
-import OpenSource from 'components/pages/home/open-source'
-import Products from 'components/pages/home/products'
-import Production from 'components/pages/home/production'
-import Pricing from 'components/pages/home/pricing'
+import { getFaqQuestions } from 'components/pages/home/faqs'
 import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
+import LazyRender from 'components/elements/IntersectionObserver'
 import { CurrencyProvider } from 'components/hook/use-currency'
 import toPlainText from 'components/patterns/Faq/to-plain-text'
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
+
+const Products = lazy(() => import('components/pages/home/products'))
+const Examples = lazy(() => import('components/pages/home/examples'))
+const Analytics = lazy(() => import('components/pages/home/analytics'))
+const Pricing = lazy(() => import('components/pages/home/pricing'))
+const Production = lazy(() => import('components/pages/home/production'))
+const OpenSource = lazy(() => import('components/pages/home/open-source'))
+const Faqs = lazy(() => import('components/pages/home/faqs'))
+
+const NEAR_VIEWPORT = { rootMargin: '25% 0px' }
+
+const Deferred = ({ minHeight, children }) => (
+  <LazyRender
+    options={NEAR_VIEWPORT}
+    placeholder={() => <div aria-hidden style={{ minHeight }} />}
+    onView={() => (
+      <Suspense fallback={<div aria-hidden style={{ minHeight }} />}>
+        {children}
+      </Suspense>
+    )}
+  />
+)
 
 export const Head = () => {
   const structuredData = JSON.stringify({
@@ -70,13 +87,27 @@ const HomePage = () => {
       <Layout>
         <Hero />
         <CliBanner />
-        <Products />
-        <Examples />
-        <Analytics />
-        <Pricing />
-        <Production />
-        <OpenSource />
-        <Faqs />
+        <Deferred minHeight='80vh'>
+          <Products />
+        </Deferred>
+        <Deferred minHeight='40vh'>
+          <Examples />
+        </Deferred>
+        <Deferred minHeight='30vh'>
+          <Analytics />
+        </Deferred>
+        <Deferred minHeight='50vh'>
+          <Pricing />
+        </Deferred>
+        <Deferred minHeight='30vh'>
+          <Production />
+        </Deferred>
+        <Deferred minHeight='40vh'>
+          <OpenSource />
+        </Deferred>
+        <Deferred minHeight='40vh'>
+          <Faqs />
+        </Deferred>
         <GradualBlur />
       </Layout>
     </CurrencyProvider>
