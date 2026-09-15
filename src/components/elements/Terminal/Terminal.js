@@ -80,6 +80,18 @@ const TerminalHeader = styled('div')`
   height: 36px;
   top: 0;
   z-index: 1;
+
+  ${props =>
+    props.$flush &&
+    css`
+      padding: 0;
+      height: auto;
+      min-height: 36px;
+      align-items: stretch;
+      background: ${cx('gray1')};
+      border-bottom: ${borders[1]};
+      border-bottom-color: ${cx('black10')};
+    `}
 `
 
 const animationStyle = css`
@@ -168,6 +180,16 @@ const TerminalHeaderSpacer = styled('div')`
 const TerminalWindowButtons = styled('div')`
   display: flex;
   align-items: center;
+
+  ${props =>
+    props.$flush &&
+    css`
+      padding: 0 ${space[3]};
+      flex-shrink: 0;
+      border-right: ${borders[1]};
+      border-right-color: ${cx('black10')};
+      ${theme({ display: ['none', 'flex', 'flex', 'flex'] })}
+    `}
 `
 
 const TerminalTitle = ({ children, showWindowButtons = true }) => (
@@ -187,7 +209,9 @@ export const TerminalText = styled('div')`
   padding: ${props =>
     props.$autoHeight ? `${space[3]} 8px` : '0 8px 8px 8px'};
   padding-top: ${props =>
-    props.$compactAction || props.$autoHeight ? space[3] : 0};
+    props.$compactAction || props.$autoHeight || props.$flushHeader
+      ? space[3]
+      : 0};
   overflow: visible;
   font-size: 13px;
   line-height: 20px;
@@ -233,6 +257,10 @@ const TerminalProvider = ({
   loading = false,
   title,
   header,
+  headerContent,
+  contentId,
+  contentRole,
+  contentLabelledBy,
   showFade = true,
   showHeader = true,
   showWindowButtons = true,
@@ -243,12 +271,17 @@ const TerminalProvider = ({
 }) => {
   const containerRef = useRef(null)
   const hasTitle = showTitle && title
+  const hasHeaderContent = Boolean(headerContent)
   const useCompactAction =
-    showHeader && !showWindowButtons && !hasTitle && showAction
+    showHeader &&
+    !showWindowButtons &&
+    !hasTitle &&
+    !hasHeaderContent &&
+    showAction
   const renderHeader =
     showHeader &&
-    !useCompactAction &&
-    (showWindowButtons || hasTitle || showAction)
+    (hasHeaderContent ||
+      (!useCompactAction && (showWindowButtons || hasTitle || showAction)))
 
   return (
     <FadeBackgroundProvider containerRef={containerRef}>
@@ -262,23 +295,48 @@ const TerminalProvider = ({
         {...props}
       >
         {renderHeader && (
-          <TerminalHeader {...header}>
+          <TerminalHeader {...header} $flush={hasHeaderContent}>
             {showWindowButtons && (
-              <TerminalWindowButtons>
+              <TerminalWindowButtons $flush={hasHeaderContent}>
                 <TerminalButton.Red loading={loading} />
                 <TerminalButton.Yellow loading={loading} />
                 <TerminalButton.Green loading={loading} />
               </TerminalWindowButtons>
             )}
-            {hasTitle && (
-              <TerminalTitle showWindowButtons={showWindowButtons}>
-                {title}
-              </TerminalTitle>
-            )}
-            {!hasTitle && showWindowButtons && (
-              <TerminalHeaderSpacer aria-hidden='true' />
-            )}
-            {showAction && ActionComponent && <ActionComponent text={text} />}
+            {hasHeaderContent
+              ? (
+                <Box css={theme({ flex: 1, minWidth: 0 })}>{headerContent}</Box>
+                )
+              : (
+                <>
+                  {hasTitle && (
+                    <TerminalTitle showWindowButtons={showWindowButtons}>
+                      {title}
+                    </TerminalTitle>
+                  )}
+                  {!hasTitle && showWindowButtons && (
+                    <TerminalHeaderSpacer aria-hidden='true' />
+                  )}
+                </>
+                )}
+            {showAction &&
+              ActionComponent &&
+              (hasHeaderContent
+                ? (
+                  <Box
+                    css={theme({
+                      display: ['none', 'flex', 'flex', 'flex'],
+                      alignItems: 'center',
+                      px: 3,
+                      flexShrink: 0
+                    })}
+                  >
+                    <ActionComponent text={text} />
+                  </Box>
+                  )
+                : (
+                  <ActionComponent text={text} />
+                  ))}
           </TerminalHeader>
         )}
 
@@ -299,7 +357,11 @@ const TerminalProvider = ({
           <FadeBackground.Top $offsetTop={useCompactAction ? 0 : undefined} />
         )}
         <TerminalText
+          id={contentId}
+          role={contentRole}
+          aria-labelledby={contentLabelledBy}
           $compactAction={useCompactAction}
+          $flushHeader={hasHeaderContent}
           $autoHeight={autoHeight}
         >
           {children}

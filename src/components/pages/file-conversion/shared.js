@@ -34,9 +34,10 @@ export const HERO = {
   ctaHref: '/docs/guides/content-conversion',
   ctaLabel: 'Get Started',
   editorHeight: 100,
+  examplesLabel: 'Conversion examples',
   examples: [
     {
-      label: 'PDF → Markdown',
+      label: 'Markdown',
       mqlCode: {
         url: 'https://arxiv.org/pdf/1706.03762',
         data: { markdown: { attr: 'markdown' } },
@@ -44,7 +45,7 @@ export const HERO = {
       }
     },
     {
-      label: 'DOCX → HTML',
+      label: 'HTML',
       mqlCode: {
         url: 'https://cdn.microlink.io/file-examples/sample.docx',
         data: { html: { attr: 'html' } },
@@ -52,7 +53,7 @@ export const HERO = {
       }
     },
     {
-      label: 'XLSX → PDF',
+      label: 'PDF',
       mqlCode: {
         url: 'https://cdn.microlink.io/file-examples/sample.xlsx',
         pdf: true,
@@ -60,19 +61,27 @@ export const HERO = {
       }
     },
     {
-      label: 'XLSX → Markdown',
-      mqlCode: {
-        url: 'https://cdn.microlink.io/file-examples/sample.xlsx',
-        data: { markdown: { attr: 'markdown' } },
-        meta: false
-      }
-    },
-    {
-      label: 'PPTX → Text',
+      label: 'Text',
       mqlCode: {
         url: 'https://cdn.microlink.io/file-examples/sample.pptx',
         data: { text: { attr: 'text' } },
         meta: false
+      }
+    },
+    {
+      label: 'JSON',
+      mqlCode: {
+        url: 'https://cdn.microlink.io/file-examples/sample.json',
+        data: { json: { attr: 'json' } },
+        meta: false,
+        prerender: false
+      }
+    },
+    {
+      label: 'Screenshot',
+      mqlCode: {
+        url: 'https://cdn.microlink.io/file-examples/sample.pdf',
+        screenshot: true
       }
     }
   ]
