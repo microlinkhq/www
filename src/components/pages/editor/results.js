@@ -6,6 +6,7 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import Spinner from 'components/elements/Spinner'
 import Dot from 'components/elements/Dot/Dot'
+import JsonView from 'components/elements/JsonView/JsonView'
 
 import { IconCopy } from './icons'
 import { IconButton } from './chrome'
@@ -52,6 +53,22 @@ const StatusMark = ({ status, elapsed }) => {
   )
 }
 
+const jsonPaneCss = theme({
+  p: 3,
+  minHeight: '100%'
+})
+
+const JsonPane = ({ src }) => {
+  if (src !== null && typeof src === 'object') {
+    return (
+      <Box css={jsonPaneCss}>
+        <JsonView src={src} />
+      </Box>
+    )
+  }
+  return <SyntaxHighlight>{JSON.stringify(src, null, 2)}</SyntaxHighlight>
+}
+
 const ResultBody = ({ tab, status, value, logs, http }) => {
   const payload = toPayload(value)
   const { headers } = statusFromValue(value, http)
@@ -75,17 +92,9 @@ const ResultBody = ({ tab, status, value, logs, http }) => {
     )
   }
 
-  if (tab === 'output') {
-    return <SyntaxHighlight>{JSON.stringify(payload, null, 2)}</SyntaxHighlight>
-  }
+  if (tab === 'output') return <JsonPane src={payload} />
 
-  if (tab === 'http') {
-    return (
-      <SyntaxHighlight>
-        {JSON.stringify(headers || {}, null, 2)}
-      </SyntaxHighlight>
-    )
-  }
+  if (tab === 'http') return <JsonPane src={headers || {}} />
 
   if (logCount === 0) return <Centered>No logs</Centered>
 
