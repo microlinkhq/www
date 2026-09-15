@@ -25,7 +25,12 @@ import Results from './results'
 import { ENTRY_FILE, nextFileName } from './shared'
 import Templates from './templates'
 import { useEvaluate } from './use-evaluate'
-import { readSharedFiles, SHARE_QUERY_KEY, writeShareQuery } from './use-share'
+import {
+  decodeShareCode,
+  readSharedFiles,
+  SHARE_QUERY_KEY,
+  writeShareQuery
+} from './use-share'
 
 const MonacoEditor = lazy(() => import('./monaco-editor'))
 
@@ -42,6 +47,9 @@ const Editor = () => {
   const filesRef = useRef(DEFAULT_FILES)
   const templateRef = useRef(DEFAULT_EXAMPLE.files)
   const shareEpochRef = useRef(0)
+  const runEpochRef = useRef(0)
+  const fromShareRef = useRef(false)
+  const autoRanRef = useRef(false)
 
   const snapshot = useCallback(
     () => editorApi.current?.getFiles() || filesRef.current,
@@ -61,6 +69,7 @@ const Editor = () => {
 
   const onSettled = useCallback(
     nextFiles => {
+      if (runEpochRef.current !== shareEpochRef.current) return
       commitShare(nextFiles)
     },
     [commitShare]
@@ -76,28 +85,44 @@ const Editor = () => {
     onSettled,
     getSyntaxErrors
   })
-  const evaluateRef = useRef(evaluate)
-  evaluateRef.current = evaluate
 
   useEffect(() => {
     let cancelled = false
-    readSharedFiles().then(shared => {
+    ;(async () => {
+      const encoded = new URLSearchParams(window.location.search).get(
+        SHARE_QUERY_KEY
+      )
+      const decoded = encoded ? await decodeShareCode(encoded) : null
       if (cancelled) return
-      if (shared && shared[ENTRY_FILE]) {
-        filesRef.current = shared
-        templateRef.current = shared
-        setFiles(shared)
+      if (decoded && decoded[ENTRY_FILE]) {
+        fromShareRef.current = true
+        filesRef.current = decoded
+        templateRef.current = decoded
+        setFiles(decoded)
         setActiveFile(ENTRY_FILE)
-        if (new URLSearchParams(window.location.search).get(SHARE_QUERY_KEY)) {
-          evaluateRef.current(shared)
+      } else {
+        const shared = await readSharedFiles()
+        if (cancelled) return
+        if (shared && shared[ENTRY_FILE]) {
+          filesRef.current = shared
+          templateRef.current = shared
+          setFiles(shared)
+          setActiveFile(ENTRY_FILE)
         }
       }
-      setMounted(true)
-    })
+      if (!cancelled) setMounted(true)
+    })()
     return () => {
       cancelled = true
     }
   }, [])
+
+  useEffect(() => {
+    if (!mounted || autoRanRef.current || !fromShareRef.current) return
+    autoRanRef.current = true
+    runEpochRef.current = shareEpochRef.current
+    evaluate(filesRef.current)
+  }, [mounted, evaluate])
 
   const onFileChange = useCallback((name, source) => {
     filesRef.current = { ...filesRef.current, [name]: source }
@@ -105,6 +130,7 @@ const Editor = () => {
   }, [])
 
   const onRun = useCallback(() => {
+    runEpochRef.current = shareEpochRef.current
     evaluate(snapshot())
   }, [evaluate, snapshot])
 
