@@ -22,13 +22,9 @@ import Features from 'components/patterns/Features/Features'
 import { LangLandingsNav } from 'components/patterns/LangLandings'
 import Layout from 'components/patterns/Layout'
 import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
-import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
-import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 
 import HtmlDemo from './html-demo'
 import { LANG_LANDINGS } from './registry'
-
-const ALL_TOOLS = TOOL_CATALOG.flatMap(section => section.tools)
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -259,12 +255,17 @@ const Framework = ({ framework }) => {
     return acc
   }, {})
 
+  const aliases = framework.examples.reduce((acc, example) => {
+    acc[example.label] = example.code.language
+    return acc
+  }, {})
+
   return (
     <SectionContainer id='framework'>
       <SectionHead title={framework.title} caption={framework.caption} />
       <Box css={theme({ width: '100%', maxWidth: CONTENT_WIDTH, mx: 'auto' })}>
         <Box css={[theme({ width: '100%' }), CODE_FULL_WIDTH]}>
-          <MultiCodeEditor languages={languages} />
+          <MultiCodeEditor languages={languages} aliases={aliases} />
         </Box>
         {framework.footnote && (
           <Text
@@ -299,7 +300,7 @@ const ComparisonColumn = ({ column }) => {
         flex: 1,
         bg: 'white',
         borderRadius: 4,
-        border: `${borders[1]} ${positive ? colors.red6 : colors.black10}`,
+        border: `${borders[1]} ${positive ? ACCENT : colors.black10}`,
         boxShadow: positive
           ? `0 16px 40px ${colors.black10}`
           : `0 8px 24px ${colors.black05}`,
@@ -311,7 +312,7 @@ const ComparisonColumn = ({ column }) => {
         css={theme({
           fontWeight: 'bold',
           fontSize: [1, 1, 2, 2],
-          color: positive ? 'red6' : 'black60',
+          color: positive ? ACCENT : 'black60',
           pb: 3
         })}
       >
@@ -368,30 +369,19 @@ const Comparison = ({ comparison }) => (
   </SectionContainer>
 )
 
-const ToolCta = ({ tool }) => {
-  const card = ALL_TOOLS.find(item => item.href === tool.cta.href)
-  return (
-    <SectionContainer id='playground'>
-      <SectionHead title={tool.title} caption={tool.caption} />
-      {card && (
-        <Box
-          css={theme({
-            width: '100%',
-            maxWidth: ['100%', '550px', '600px', '600px'],
-            mx: 'auto'
-          })}
-        >
-          <FeaturedToolCard
-            {...card}
-            cardCss={{ height: '100%' }}
-            titleCss={{ fontSize: [2, 2, 2, 2] }}
-            descriptionCss={{ color: 'black60' }}
-          />
-        </Box>
-      )}
-    </SectionContainer>
-  )
-}
+const ToolCta = ({ tool }) => (
+  <SectionContainer id='playground'>
+    <SectionHead title={tool.title} caption={tool.caption} />
+    <Flex
+      css={theme({
+        justifyContent: 'center',
+        fontSize: ['24px', '28px', '30px', '32px']
+      })}
+    >
+      <ArrowLink href={tool.cta.href}>{tool.cta.label}</ArrowLink>
+    </Flex>
+  </SectionContainer>
+)
 
 const FinalCta = ({ cta, current }) => (
   <SectionContainer id='get-started'>
@@ -473,7 +463,7 @@ const FinalCta = ({ cta, current }) => (
   </SectionContainer>
 )
 
-const MetadataLang = ({ config }) => (
+const HtmlLang = ({ config }) => (
   <Layout css={theme({ position: 'relative' })}>
     <DashedGridOverlay aria-hidden='true' />
     <Box css={theme({ position: 'relative', zIndex: 1 })}>
@@ -518,4 +508,4 @@ export const LangHead = ({ config }) => (
   />
 )
 
-export default MetadataLang
+export default HtmlLang

@@ -119,10 +119,7 @@ const ruby = {
     ]
   },
 
-  breadcrumb: [
-    { label: 'HTML API', href: '/html' },
-    { label: 'Ruby' }
-  ],
+  breadcrumb: [{ label: 'HTML API', href: '/html' }, { label: 'Ruby' }],
 
   hero: {
     title: (
@@ -386,10 +383,10 @@ puts data['html']`
     ),
     caption: (
       <>
-        A REST API that feels native in Ruby — one call, JSON back, and at
-        home in anything from a script to a background job. Read the{' '}
-        <Link href='/docs/api/getting-started/overview'>API overview</Link>
-        {' '}to go deeper.
+        A REST API that feels native in Ruby — one call, JSON back, and at home
+        in anything from a script to a background job. Read the{' '}
+        <Link href='/docs/api/getting-started/overview'>API overview</Link> to
+        go deeper.
       </>
     ),
     items: [
@@ -451,7 +448,7 @@ puts data['html']`
       'Paste a URL and see the rendered output before you write a line of Ruby.',
     cta: {
       label: 'Open the live demo',
-      href: '/'
+      href: '/html'
     }
   },
 
@@ -459,8 +456,8 @@ puts data['html']`
     title: 'Ruby HTML API FAQ',
     caption: (
       <>
-        Everything Ruby developers ask before integrating the Microlink
-        HTML API.
+        Everything Ruby developers ask before integrating the Microlink HTML
+        API.
       </>
     ),
     questions: [
@@ -470,9 +467,8 @@ puts data['html']`
           <>
             <div>
               Every request runs in a real Chromium instance, so data.html is
-              the fully rendered DOM — JavaScript executed, lazy content
-              loaded. Control the capture point with waitUntil and
-              waitForSelector.
+              the fully rendered DOM — JavaScript executed, lazy content loaded.
+              Control the capture point with waitUntil and waitForSelector.
             </div>
           </>
         )
@@ -482,7 +478,9 @@ puts data['html']`
         answer: (
           <>
             <div>
-              No. Net::HTTP and JSON are part of the Ruby standard library, and rendering runs on Microlink — no Ferrum, no Cuprite, no Chromium binary to manage.
+              No. Net::HTTP and JSON are part of the Ruby standard library, and
+              rendering runs on Microlink — no Ferrum, no Cuprite, no Chromium
+              binary to manage.
             </div>
           </>
         )
@@ -494,8 +492,8 @@ puts data['html']`
             <div>
               Use <code>waitUntil</code> to block on network idle or a fixed
               delay, and <code>waitForSelector</code> to hold the capture until
-              a specific element exists — the HTML comes back exactly when
-              your page is ready, still in one request.
+              a specific element exists — the HTML comes back exactly when your
+              page is ready, still in one request.
             </div>
           </>
         )
@@ -507,8 +505,7 @@ puts data['html']`
             <div>
               Yes. Add a <code>selector</code> to the extraction rule and only
               that subtree comes back — ideal for articles, product cards or
-              pricing tables, with smaller payloads and less parsing
-              downstream.
+              pricing tables, with smaller payloads and less parsing downstream.
             </div>
           </>
         )
@@ -537,8 +534,10 @@ puts data['html']`
             <div>
               Responses are cached at the edge with a sane default TTL, and you
               control freshness per request — see the{' '}
-              <Link href='/docs/api/getting-started/overview'>API overview</Link>
-              {' '}for cache parameters.
+              <Link href='/docs/api/getting-started/overview'>
+                API overview
+              </Link>{' '}
+              for cache parameters.
             </div>
           </>
         )

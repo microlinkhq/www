@@ -119,10 +119,7 @@ const nodejs = {
     ]
   },
 
-  breadcrumb: [
-    { label: 'HTML API', href: '/html' },
-    { label: 'Node.js' }
-  ],
+  breadcrumb: [{ label: 'HTML API', href: '/html' }, { label: 'Node.js' }],
 
   hero: {
     title: (
@@ -359,8 +356,8 @@ console.log(data.html)`
       <>
         A REST API that feels native in Node.js — one call, JSON back, and at
         home in anything from a script to a serverless function. Read the{' '}
-        <Link href='/docs/api/getting-started/overview'>API overview</Link>
-        {' '}to go deeper.
+        <Link href='/docs/api/getting-started/overview'>API overview</Link> to
+        go deeper.
       </>
     ),
     items: [
@@ -422,7 +419,7 @@ console.log(data.html)`
       'Paste a URL and see the rendered output before you write a line of Node.js.',
     cta: {
       label: 'Open the live demo',
-      href: '/'
+      href: '/html'
     }
   },
 
@@ -430,8 +427,8 @@ console.log(data.html)`
     title: 'Node.js HTML API FAQ',
     caption: (
       <>
-        Everything Node.js developers ask before integrating the Microlink
-        HTML API.
+        Everything Node.js developers ask before integrating the Microlink HTML
+        API.
       </>
     ),
     questions: [
@@ -441,9 +438,8 @@ console.log(data.html)`
           <>
             <div>
               Every request runs in a real Chromium instance, so data.html is
-              the fully rendered DOM — JavaScript executed, lazy content
-              loaded. Control the capture point with waitUntil and
-              waitForSelector.
+              the fully rendered DOM — JavaScript executed, lazy content loaded.
+              Control the capture point with waitUntil and waitForSelector.
             </div>
           </>
         )
@@ -453,7 +449,9 @@ console.log(data.html)`
         answer: (
           <>
             <div>
-              No. The examples use the global fetch that ships with Node.js 18+, and rendering runs on Microlink — no Puppeteer, no Playwright, no Chromium in your deploy.
+              No. The examples use the global fetch that ships with Node.js 18+,
+              and rendering runs on Microlink — no Puppeteer, no Playwright, no
+              Chromium in your deploy.
             </div>
           </>
         )
@@ -465,8 +463,8 @@ console.log(data.html)`
             <div>
               Use <code>waitUntil</code> to block on network idle or a fixed
               delay, and <code>waitForSelector</code> to hold the capture until
-              a specific element exists — the HTML comes back exactly when
-              your page is ready, still in one request.
+              a specific element exists — the HTML comes back exactly when your
+              page is ready, still in one request.
             </div>
           </>
         )
@@ -478,8 +476,7 @@ console.log(data.html)`
             <div>
               Yes. Add a <code>selector</code> to the extraction rule and only
               that subtree comes back — ideal for articles, product cards or
-              pricing tables, with smaller payloads and less parsing
-              downstream.
+              pricing tables, with smaller payloads and less parsing downstream.
             </div>
           </>
         )
@@ -508,8 +505,10 @@ console.log(data.html)`
             <div>
               Responses are cached at the edge with a sane default TTL, and you
               control freshness per request — see the{' '}
-              <Link href='/docs/api/getting-started/overview'>API overview</Link>
-              {' '}for cache parameters.
+              <Link href='/docs/api/getting-started/overview'>
+                API overview
+              </Link>{' '}
+              for cache parameters.
             </div>
           </>
         )

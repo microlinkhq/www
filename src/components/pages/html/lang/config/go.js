@@ -119,10 +119,7 @@ const go = {
     ]
   },
 
-  breadcrumb: [
-    { label: 'HTML API', href: '/html' },
-    { label: 'Go' }
-  ],
+  breadcrumb: [{ label: 'HTML API', href: '/html' }, { label: 'Go' }],
 
   hero: {
     title: (
@@ -515,10 +512,10 @@ func main() {
     ),
     caption: (
       <>
-        A REST API that feels native in Go — one call, JSON back, and at
-        home in anything from a CLI to a render proxy. Read the{' '}
-        <Link href='/docs/api/getting-started/overview'>API overview</Link>
-        {' '}to go deeper.
+        A REST API that feels native in Go — one call, JSON back, and at home in
+        anything from a CLI to a render proxy. Read the{' '}
+        <Link href='/docs/api/getting-started/overview'>API overview</Link> to
+        go deeper.
       </>
     ),
     items: [
@@ -580,7 +577,7 @@ func main() {
       'Paste a URL and see the rendered output before you write a line of Go.',
     cta: {
       label: 'Open the live demo',
-      href: '/'
+      href: '/html'
     }
   },
 
@@ -588,8 +585,7 @@ func main() {
     title: 'Go HTML API FAQ',
     caption: (
       <>
-        Everything Go developers ask before integrating the Microlink
-        HTML API.
+        Everything Go developers ask before integrating the Microlink HTML API.
       </>
     ),
     questions: [
@@ -599,9 +595,8 @@ func main() {
           <>
             <div>
               Every request runs in a real Chromium instance, so data.html is
-              the fully rendered DOM — JavaScript executed, lazy content
-              loaded. Control the capture point with waitUntil and
-              waitForSelector.
+              the fully rendered DOM — JavaScript executed, lazy content loaded.
+              Control the capture point with waitUntil and waitForSelector.
             </div>
           </>
         )
@@ -611,7 +606,9 @@ func main() {
         answer: (
           <>
             <div>
-              No. The examples use net/http and encoding/json from the Go standard library, and rendering runs on Microlink — no chromedp, no Chromium binary in your image.
+              No. The examples use net/http and encoding/json from the Go
+              standard library, and rendering runs on Microlink — no chromedp,
+              no Chromium binary in your image.
             </div>
           </>
         )
@@ -623,8 +620,8 @@ func main() {
             <div>
               Use <code>waitUntil</code> to block on network idle or a fixed
               delay, and <code>waitForSelector</code> to hold the capture until
-              a specific element exists — the HTML comes back exactly when
-              your page is ready, still in one request.
+              a specific element exists — the HTML comes back exactly when your
+              page is ready, still in one request.
             </div>
           </>
         )
@@ -636,8 +633,7 @@ func main() {
             <div>
               Yes. Add a <code>selector</code> to the extraction rule and only
               that subtree comes back — ideal for articles, product cards or
-              pricing tables, with smaller payloads and less parsing
-              downstream.
+              pricing tables, with smaller payloads and less parsing downstream.
             </div>
           </>
         )
@@ -666,8 +662,10 @@ func main() {
             <div>
               Responses are cached at the edge with a sane default TTL, and you
               control freshness per request — see the{' '}
-              <Link href='/docs/api/getting-started/overview'>API overview</Link>
-              {' '}for cache parameters.
+              <Link href='/docs/api/getting-started/overview'>
+                API overview
+              </Link>{' '}
+              for cache parameters.
             </div>
           </>
         )

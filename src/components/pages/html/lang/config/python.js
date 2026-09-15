@@ -119,10 +119,7 @@ const python = {
     ]
   },
 
-  breadcrumb: [
-    { label: 'HTML API', href: '/html' },
-    { label: 'Python' }
-  ],
+  breadcrumb: [{ label: 'HTML API', href: '/html' }, { label: 'Python' }],
 
   hero: {
     title: (
@@ -391,8 +388,8 @@ print(data['html'])`
       <>
         A REST API that feels native in Python — one call, JSON back, and at
         home in anything from a script to a web framework. Read the{' '}
-        <Link href='/docs/api/getting-started/overview'>API overview</Link>
-        {' '}to go deeper.
+        <Link href='/docs/api/getting-started/overview'>API overview</Link> to
+        go deeper.
       </>
     ),
     items: [
@@ -454,7 +451,7 @@ print(data['html'])`
       'Paste a URL and see the rendered output before you write a line of Python.',
     cta: {
       label: 'Open the live demo',
-      href: '/'
+      href: '/html'
     }
   },
 
@@ -462,8 +459,8 @@ print(data['html'])`
     title: 'Python HTML API FAQ',
     caption: (
       <>
-        Everything Python developers ask before integrating the Microlink
-        HTML API.
+        Everything Python developers ask before integrating the Microlink HTML
+        API.
       </>
     ),
     questions: [
@@ -473,9 +470,8 @@ print(data['html'])`
           <>
             <div>
               Every request runs in a real Chromium instance, so data.html is
-              the fully rendered DOM — JavaScript executed, lazy content
-              loaded. Control the capture point with waitUntil and
-              waitForSelector.
+              the fully rendered DOM — JavaScript executed, lazy content loaded.
+              Control the capture point with waitUntil and waitForSelector.
             </div>
           </>
         )
@@ -485,7 +481,9 @@ print(data['html'])`
         answer: (
           <>
             <div>
-              No. The examples use urllib and json from the Python standard library, and rendering runs on Microlink — no Playwright, no Selenium, no Chromium to manage.
+              No. The examples use urllib and json from the Python standard
+              library, and rendering runs on Microlink — no Playwright, no
+              Selenium, no Chromium to manage.
             </div>
           </>
         )
@@ -497,8 +495,8 @@ print(data['html'])`
             <div>
               Use <code>waitUntil</code> to block on network idle or a fixed
               delay, and <code>waitForSelector</code> to hold the capture until
-              a specific element exists — the HTML comes back exactly when
-              your page is ready, still in one request.
+              a specific element exists — the HTML comes back exactly when your
+              page is ready, still in one request.
             </div>
           </>
         )
@@ -510,8 +508,7 @@ print(data['html'])`
             <div>
               Yes. Add a <code>selector</code> to the extraction rule and only
               that subtree comes back — ideal for articles, product cards or
-              pricing tables, with smaller payloads and less parsing
-              downstream.
+              pricing tables, with smaller payloads and less parsing downstream.
             </div>
           </>
         )
@@ -540,8 +537,10 @@ print(data['html'])`
             <div>
               Responses are cached at the edge with a sane default TTL, and you
               control freshness per request — see the{' '}
-              <Link href='/docs/api/getting-started/overview'>API overview</Link>
-              {' '}for cache parameters.
+              <Link href='/docs/api/getting-started/overview'>
+                API overview
+              </Link>{' '}
+              for cache parameters.
             </div>
           </>
         )

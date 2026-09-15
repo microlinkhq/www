@@ -35,7 +35,7 @@ const HtmlDemo = ({ alt }) => (
   >
     <CodeEditor
       autoHeight
-      language='json'
+      language='html'
       title='GET api.microlink.io?url=microlink.io → data'
     >
       {SAMPLE_RESPONSE}
