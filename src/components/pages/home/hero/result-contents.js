@@ -208,7 +208,7 @@ export const TimingContent = ({ bars, maxHeight = PANEL_HEIGHT }) =>
                 css={theme({
                   height: '100%',
                   borderRadius: '999px',
-                  width: b.pct,
+                  width: b.width,
                   bg: b.color
                 })}
               />

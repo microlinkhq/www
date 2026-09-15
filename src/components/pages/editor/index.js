@@ -27,7 +27,7 @@ import Templates from './templates'
 import { useEvaluate } from './use-evaluate'
 import {
   decodeShareCode,
-  readSharedFiles,
+  exampleFromSearch,
   SHARE_QUERY_KEY,
   writeShareQuery
 } from './use-share'
@@ -94,28 +94,21 @@ const Editor = () => {
   useEffect(() => {
     let cancelled = false
     ;(async () => {
-      const encoded = new URLSearchParams(window.location.search).get(
-        SHARE_QUERY_KEY
+      const search = window.location.search
+      const decoded = await decodeShareCode(
+        new URLSearchParams(search).get(SHARE_QUERY_KEY)
       )
-      const decoded = encoded ? await decodeShareCode(encoded) : null
       if (cancelled) return
-      if (decoded && decoded[ENTRY_FILE]) {
-        fromShareRef.current = true
-        filesRef.current = decoded
-        templateRef.current = decoded
-        setFiles(decoded)
+      const fromShare = Boolean(decoded?.[ENTRY_FILE])
+      const shared = fromShare ? decoded : exampleFromSearch(search)?.files
+      if (shared?.[ENTRY_FILE]) {
+        fromShareRef.current = fromShare
+        filesRef.current = shared
+        templateRef.current = shared
+        setFiles(shared)
         setActiveFile(ENTRY_FILE)
-      } else {
-        const shared = await readSharedFiles()
-        if (cancelled) return
-        if (shared && shared[ENTRY_FILE]) {
-          filesRef.current = shared
-          templateRef.current = shared
-          setFiles(shared)
-          setActiveFile(ENTRY_FILE)
-        }
       }
-      if (!cancelled) setMounted(true)
+      setMounted(true)
     })()
     return () => {
       cancelled = true

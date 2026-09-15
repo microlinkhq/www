@@ -130,8 +130,8 @@ const copyBody = (req, tab, snippet, snippetArg) => {
     return (req.headerRows || []).map(({ k, v }) => `${k}: ${v}`).join('\n')
   }
   if (tab === 'timing') {
-    return (req.rows || [])
-      .map(({ name, dur, pct }) => `${name}  ${dur} (${pct})`)
+    return (req.bars || [])
+      .map(({ name, dur, share }) => `${name}  ${dur} (${share})`)
       .join('\n')
   }
   if (tab === 'code') return snippetText(snippet, snippetArg)

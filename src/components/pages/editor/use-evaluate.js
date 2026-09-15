@@ -24,14 +24,17 @@ export const useEvaluate = ({
       onStart?.()
       setStatus('running')
       const started = performance.now()
+      const fail = value => {
+        setValue(value)
+        setLogs({})
+        setTrace(null)
+        setElapsed(Math.round(performance.now() - started))
+        setStatus('error')
+      }
       try {
         const syntaxErrors = await getSyntaxErrors?.(files)
         if (syntaxErrors?.length) {
-          setValue(serializeError(formatSyntaxError(syntaxErrors)))
-          setLogs({})
-          setTrace(null)
-          setElapsed(Math.round(performance.now() - started))
-          setStatus('error')
+          fail(serializeError(formatSyntaxError(syntaxErrors)))
           return
         }
         const result = await withScript(files, {
@@ -45,11 +48,7 @@ export const useEvaluate = ({
         setStatus(result.status)
         onSettled?.(files)
       } catch (error) {
-        setValue(serializeError(error))
-        setLogs({})
-        setTrace(null)
-        setElapsed(Math.round(performance.now() - started))
-        setStatus('error')
+        fail(serializeError(error))
       } finally {
         runningRef.current = false
       }

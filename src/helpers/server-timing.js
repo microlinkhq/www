@@ -16,7 +16,7 @@ export const parseServerTimingEntries = raw => {
 }
 
 export const parseServerTiming = raw => {
-  if (!raw) return { bars: [], rows: [], totalMs: null }
+  if (!raw) return { bars: [], totalMs: null }
 
   const entries = parseServerTimingEntries(raw).map(e => ({
     name: e.name,
@@ -38,15 +38,9 @@ export const parseServerTiming = raw => {
     name: e.name,
     dur: `${e.dur.toFixed(1)}ms`,
     share: share(e.dur),
-    pct: `${Math.max(2, Math.round(pct(e.dur)))}%`,
+    width: `${Math.max(2, Math.round(pct(e.dur)))}%`,
     color: TIMING_COLORS[i % TIMING_COLORS.length]
   }))
 
-  const rows = entries.map(e => ({
-    name: e.name,
-    dur: `${e.dur.toFixed(1)}ms`,
-    pct: share(e.dur)
-  }))
-
-  return { bars, rows, totalMs: total }
+  return { bars, totalMs: total }
 }

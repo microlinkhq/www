@@ -8,9 +8,8 @@ export const toPlainHeaders = headers => {
   return { ...headers }
 }
 
-export const maskTraceHeaders = (headers, { full = false } = {}) => {
+export const maskTraceHeaders = headers => {
   const next = toPlainHeaders(headers)
-  if (full) return next
   return Object.fromEntries(
     Object.entries(next).map(([key, value]) => [
       key,
@@ -24,8 +23,7 @@ export const maskTraceHeaders = (headers, { full = false } = {}) => {
 export const toTracePayload = ({
   requestUrl,
   requestOptions = {},
-  response,
-  full = false
+  response
 } = {}) => {
   const rest = { ...requestOptions }
   delete rest.responseType
@@ -33,7 +31,7 @@ export const toTracePayload = ({
     request: {
       url: requestUrl,
       ...rest,
-      headers: maskTraceHeaders(rest.headers, { full })
+      headers: maskTraceHeaders(rest.headers)
     },
     response: {
       ...response,

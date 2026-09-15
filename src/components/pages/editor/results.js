@@ -32,20 +32,20 @@ const TABS = [
   { id: 'logs', label: 'Logs' }
 ]
 
-const copyAriaLabel = tab =>
-  tab === 'trace'
-    ? 'Copy trace'
-    : tab === 'timing'
-      ? 'Copy timing'
-      : tab === 'logs'
-        ? 'Copy logs'
-        : 'Copy output'
+const COPY_ARIA_LABEL = {
+  output: 'Copy output',
+  trace: 'Copy trace',
+  timing: 'Copy timing',
+  logs: 'Copy logs'
+}
+
+const copyAriaLabel = tab => COPY_ARIA_LABEL[tab] || 'Copy output'
 
 const copyTextForTab = (tab, { trace, timing, logs, payload }) => {
   if (tab === 'trace') return JSON.stringify(trace, null, 2)
   if (tab === 'timing') {
-    return timing.rows
-      .map(row => `${row.name}  ${row.dur} (${row.pct})`)
+    return timing.bars
+      .map(row => `${row.name}  ${row.dur} (${row.share})`)
       .join('\n')
   }
   if (tab === 'logs') {

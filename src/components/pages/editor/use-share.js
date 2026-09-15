@@ -105,17 +105,6 @@ export const applyEditorParams = (url, { templateId, encoded } = {}) => {
   return `${url.pathname}${url.search}${url.hash}`
 }
 
-export const readSharedFiles = async () => {
-  if (typeof window === 'undefined') return null
-  const search = window.location.search
-  const shared = await decodeShareCode(
-    new URLSearchParams(search).get(SHARE_QUERY_KEY) || ''
-  )
-  if (shared) return shared
-  const example = exampleFromSearch(search)
-  return example ? example.files : null
-}
-
 export const writeShareQuery = async (files, isCurrent) => {
   if (typeof window === 'undefined') return window.location.href
   const url = new URL(window.location.href)
