@@ -474,7 +474,7 @@ print(data['logo'])`
             <div>
               No. The examples use urllib and json from the Python standard
               library. If you already use requests or httpx, the same call is
-              one line shorter — see the FastAPI tab above.
+              one line shorter.
             </div>
           </>
         )

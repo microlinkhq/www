@@ -220,7 +220,7 @@ $query = http_build_query([
 $logoUrl = "https://api.microlink.io?$query";
 
 // Drop it straight into an <img> tag — no JSON parsing
-echo "<img src="$logoUrl" alt="stripe logo" />";`
+echo '<img src="' . $logoUrl . '" alt="stripe logo" />';`
         }
       }
     ]

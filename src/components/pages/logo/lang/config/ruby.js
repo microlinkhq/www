@@ -270,6 +270,8 @@ end`
           language: 'ruby',
           title: 'app.rb',
           source: `require 'sinatra'
+require 'net/http'
+require 'uri'
 
 # GET /logo?url=https://stripe.com
 get '/logo' do
