@@ -1,4 +1,3 @@
-import prettyMs from 'pretty-ms'
 import React, { useState } from 'react'
 import { theme } from 'theme'
 
@@ -59,6 +58,9 @@ const copyTextForTab = (tab, { trace, timing, logs, payload }) => {
   return JSON.stringify(payload, null, 2)
 }
 
+const formatElapsed = ms =>
+  ms >= 1000 ? `${(ms / 1000).toFixed(1)}s` : `${ms}ms`
+
 const StatusMark = ({ status, elapsed }) => {
   if (status !== 'success' && status !== 'error') return null
   const ok = status === 'success'
@@ -75,7 +77,7 @@ const StatusMark = ({ status, elapsed }) => {
       {ok ? <Dot.Success /> : <Dot.Error />}
       <Text as='span' css={theme({ color: 'inherit', fontSize: 'inherit' })}>
         {ok ? 'Success' : 'Error'}
-        {elapsed != null ? ` ${prettyMs(elapsed)}` : ''}
+        {elapsed != null ? ` ${formatElapsed(elapsed)}` : ''}
       </Text>
     </Flex>
   )
