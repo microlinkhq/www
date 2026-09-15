@@ -85,7 +85,7 @@ describe('OpenSource pattern', () => {
 
     const index = read('src/pages/index.js')
     expect(index).toContain(
-      "import OpenSource from 'components/pages/home/open-source'"
+      "lazy(() => import('components/pages/home/open-source'))"
     )
     expect(index).toContain('<OpenSource />')
   })
