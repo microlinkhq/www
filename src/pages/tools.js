@@ -1,4 +1,4 @@
-import { layout, theme, borders, colors } from 'theme'
+import { layout, theme } from 'theme'
 import React from 'react'
 
 import Box from 'components/elements/Box'
@@ -130,13 +130,11 @@ const ToolsPage = () => (
           Explore a handful of things Microlink's API can do for you.
         </Caption>
         <Text
+          as='p'
           css={theme({
-            fontSize: [1, 1, 2, 2],
-            color: 'black80',
             pt: 3,
             textAlign: 'center',
             maxWidth: layout.normal,
-            lineHeight: 2,
             px: [4, null, 0]
           })}
         >
@@ -166,14 +164,14 @@ const ToolsPage = () => (
           px: [3, 3, 4, 4],
           pb: [1, 1, 2, 2],
           pt: [3, null, 4],
-          borderTop: `${borders[1]} ${colors.black05}`,
+          borderTop: 1,
+          borderTopColor: 'black05',
           textAlign: 'center'
         })}
       >
         <Text
+          as='p'
           css={theme({
-            fontSize: [1, 1, 2, 2],
-            color: 'black80',
             pt: [4, null, 5]
           })}
         >
