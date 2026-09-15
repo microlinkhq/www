@@ -2,34 +2,34 @@ import React from 'react'
 import { Link } from 'components/elements/Link'
 
 const Accent = ({ children }) => (
-  <span style={{ color: '#3e55ff' }}>{children}</span>
+  <span style={{ color: '#f59f00' }}>{children}</span>
 )
 
-const PAGE_URL = 'https://microlink.io/metadata/nodejs'
+const PAGE_URL = 'https://microlink.io/logo/nodejs'
 
 const nodejs = {
   lang: 'nodejs',
   label: 'Node.js',
 
   meta: {
-    title: 'Node.js Metadata API — Extract Metadata from Any URL',
+    title: 'Node.js Logo API — Get the Logo of Any URL',
     description:
-      'Extract title, description, image and logo from any URL in Node.js with a single HTTP request — no HTML parsing, no headless browser. Open Graph, Twitter Cards and JSON-LD merged. Free to start.',
+      'Get the logo of any website in Node.js with a single HTTP request — markup, BIMI and favicon detection, format and dimensions, brand palette, hotlink-ready. Free to start.',
     structured: [
       {
         '@context': 'https://schema.org',
         '@type': 'TechArticle',
         '@id': `${PAGE_URL}#article`,
-        headline: 'Website Metadata API for Node.js',
-        name: 'Website Metadata API for Node.js',
+        headline: 'Logo API for Node.js',
+        name: 'Logo API for Node.js',
         description:
-          'A developer guide to extracting website metadata programmatically in Node.js over the Microlink REST API — request, extract, framework integration, and link previews without parsing HTML or running a headless browser.',
+          'A developer guide to getting the logo of any URL programmatically in Node.js over the Microlink REST API — detection, image metadata, brand palette and hotlink embedding without scraping markup or probing images.',
         url: PAGE_URL,
         inLanguage: 'en',
         proficiencyLevel: 'Beginner',
         dependencies: 'Node.js 18+, global fetch only',
         keywords:
-          'nodejs metadata api, website metadata api, url metadata nodejs, open graph parser nodejs, link preview api, url preview nodejs',
+          'nodejs logo api, logo api, get logo from url nodejs, brand logo api, website logo nodejs, favicon api nodejs',
         author: {
           '@type': 'Organization',
           name: 'Microlink',
@@ -52,8 +52,8 @@ const nodejs = {
         },
         about: {
           '@type': 'SoftwareApplication',
-          name: 'Microlink Metadata API',
-          url: 'https://microlink.io/metadata',
+          name: 'Microlink Logo API',
+          url: 'https://microlink.io/logo',
           applicationCategory: ['DeveloperApplication', 'WebAPI']
         },
         mainEntityOfPage: PAGE_URL
@@ -72,8 +72,8 @@ const nodejs = {
           {
             '@type': 'ListItem',
             position: 2,
-            name: 'Metadata API',
-            item: 'https://microlink.io/metadata'
+            name: 'Logo API',
+            item: 'https://microlink.io/logo'
           },
           {
             '@type': 'ListItem',
@@ -87,9 +87,9 @@ const nodejs = {
         '@context': 'https://schema.org',
         '@type': 'HowTo',
         '@id': `${PAGE_URL}#howto`,
-        name: 'How to extract website metadata in Node.js',
+        name: 'How to get the logo of any URL in Node.js',
         description:
-          'Extract title, description, image and logo from any URL in Node.js with one HTTP request to the Microlink API in three steps.',
+          'Get the logo of any URL as a hotlink-ready image with format, dimensions and brand palette in Node.js with one HTTP request in three steps.',
         tool: [
           { '@type': 'HowToTool', name: 'Node.js' },
           { '@type': 'HowToTool', name: 'fetch' }
@@ -105,34 +105,31 @@ const nodejs = {
           {
             '@type': 'HowToStep',
             position: 2,
-            name: 'Read the metadata',
-            text: 'Decode the JSON response and read title, description, image and logo from data.'
+            name: 'Read the logo',
+            text: 'Decode the JSON response and read the logo URL, format and dimensions from data.logo.'
           },
           {
             '@type': 'HowToStep',
             position: 3,
-            name: 'Use the metadata',
-            text: 'Render a link preview, enrich a record, or store the fields.'
+            name: 'Use the logo',
+            text: 'Hotlink the image with embed=logo.url, theme your UI with the palette, or store the asset.'
           }
         ]
       }
     ]
   },
 
-  breadcrumb: [
-    { label: 'Metadata API', href: '/metadata' },
-    { label: 'Node.js' }
-  ],
+  breadcrumb: [{ label: 'Logo API', href: '/logo' }, { label: 'Node.js' }],
 
   hero: {
     title: (
       <>
-        <Accent>Node.js</Accent> Metadata API
+        <Accent>Node.js</Accent> Logo API
       </>
     ),
     subtitle:
-      'Extract title, description, image and logo from any URL with one HTTP request in Node.js — no HTML parsing, no tag soup, no browser to maintain.',
-    demoAlt: 'Node.js website metadata API example',
+      'Get the logo behind any URL with one HTTP request in Node.js — markup, BIMI and favicon detection merged, with format, dimensions and brand palette.',
+    demoAlt: 'Node.js logo API example',
     primaryCta: { label: 'Get started free', href: '#quickstart' },
     secondaryCta: {
       label: 'Read the docs',
@@ -143,91 +140,85 @@ const nodejs = {
   quickstart: {
     title: (
       <>
-        Extract <Accent>metadata</Accent> in Node.js
+        Get a <Accent>logo</Accent> in Node.js
       </>
     ),
     caption:
-      'No package and no parser — the Microlink REST API turns any URL into normalized metadata with a single HTTP GET. Here it is with the global fetch that ships with Node.js 18+.',
+      'No package and no scraping — the Microlink REST API detects the best logo for any URL and returns it with a single HTTP GET. Here it is with the global fetch that ships with Node.js 18+.',
     steps: [
       {
         title: 'Extract any URL',
         description:
-          'A few lines with global fetch — no npm package to add. Point it at a page and read the metadata from the JSON response.',
+          'A few lines with global fetch — no npm package to add. Point it at a domain and read the logo from the JSON response.',
         code: {
           language: 'js',
-          title: 'extract.js',
-          source: `const params = new URLSearchParams({ url: 'https://microlink.io' })
+          title: 'logo.js',
+          source: `const params = new URLSearchParams({ url: 'https://stripe.com' })
 
 const { data } = await fetch(\`https://api.microlink.io?\${params}\`)
   .then(res => res.json())
 
-console.log(data.title)       // 'Microlink | The web, transformed'
-console.log(data.description) // 'A single API for turning any URL into data…'
-console.log(data.image.url)   // absolute, CDN-hosted
-console.log(data.logo.url)    // absolute, CDN-hosted`
+console.log(data.logo.url)         // absolute, hotlink-ready
+console.log(data.logo.type)        // 'png'
+console.log(data.logo.width)       // 180
+console.log(data.logo.size_pretty) // '3.14 kB'`
         }
       },
       {
-        title: 'Pick the fields you need',
+        title: 'Read the logo fields',
         description:
-          'Title, description, publisher, author, date, lang, image and logo all come back in one call — build exactly the object your product needs.',
+          'URL, format, dimensions and byte size come back in one call — everything an img tag or an avatar component needs.',
         code: {
           language: 'js',
-          title: 'fields.js',
-          source: `const params = new URLSearchParams({ url: 'https://microlink.io' })
+          title: 'palette.js',
+          source: `const params = new URLSearchParams({
+  url: 'https://stripe.com',
+  palette: 'true' // add the brand palette to every detected image
+})
 
 const { data } = await fetch(\`https://api.microlink.io?\${params}\`)
   .then(res => res.json())
 
-const preview = {
-  title: data.title,
-  description: data.description,
-  publisher: data.publisher,
-  author: data.author,
-  date: data.date,
-  lang: data.lang,
-  image: data.image?.url ?? null,
-  logo: data.logo?.url ?? null
-}`
+// Ordered from most dominant color to least
+console.log(data.logo.palette) // ['#543CFC', '#DEDAFC', ...]`
         }
       },
       {
         title: 'Render JavaScript pages',
         description:
-          'Tags injected by client-side JavaScript only exist after the page renders — prerender with a real browser and wait for them, still one request.',
+          'Icons injected by client-side JavaScript only exist after the page renders — prerender in a real browser and they are detected too, still one request.',
         code: {
           language: 'js',
           title: 'spa.js',
           source: `const params = new URLSearchParams({
   url: 'https://app.example.com',
   prerender: 'true',          // render JS in a real browser first
-  waitForSelector: 'h1'       // wait until the content exists
+  waitForSelector: 'h1'       // detect only when the content exists
 })
 
 const { data } = await fetch(\`https://api.microlink.io?\${params}\`)
   .then(res => res.json())
 
-console.log(data.title)`
+// Icons injected by client-side JavaScript are found too
+console.log(data.logo.url)`
         }
       },
       {
-        title: 'Build a link preview',
+        title: 'Hotlink the image directly',
         description:
-          'Image and logo come back as absolute, CDN-hosted URLs — drop them straight into an img tag and you have a link preview.',
+          'Add embed=logo.url and the API URL becomes the image itself — drop it into an img tag or a CSS background with no JSON parsing.',
         code: {
           language: 'js',
-          title: 'link-preview.js',
-          source: `const params = new URLSearchParams({ url: 'https://microlink.io' })
+          title: 'embed.js',
+          source: `const params = new URLSearchParams({
+  url: 'https://stripe.com',
+  embed: 'logo.url' // the API URL becomes the image itself
+})
 
-const { data } = await fetch(\`https://api.microlink.io?\${params}\`)
-  .then(res => res.json())
+const logoUrl = \`https://api.microlink.io?\${params}\`
 
-const html = \`
-  <a href="\${data.url}" class="card">
-    <img src="\${data.image?.url ?? data.logo?.url}" alt="" />
-    <strong>\${data.title}</strong>
-    <p>\${data.description}</p>
-  </a>\``
+// Drop it straight into an <img> tag — no JSON parsing
+console.log(\`<img src="\${logoUrl}" alt="stripe logo" />\`)`
         }
       }
     ]
@@ -240,27 +231,24 @@ const html = \`
       </>
     ),
     caption:
-      'A route handler, an Express endpoint, or a chat bot unfurl — the same request becomes your own metadata endpoint for link previews and enrichment.',
+      'An image proxy route, a redirect endpoint, or an avatar payload — the same request becomes your own logo endpoint.',
     examples: [
       {
         id: 'nextjs',
         label: 'Next.js',
         code: {
           language: 'js',
-          title: 'app/api/preview/route.js',
-          source: `// GET /api/preview?url=https://microlink.io
+          title: 'app/api/logo/route.js',
+          source: `// GET /api/logo?url=https://stripe.com
 export async function GET (request) {
   const url = new URL(request.url).searchParams.get('url')
 
-  const { data } = await fetch(
-    \`https://api.microlink.io?url=\${encodeURIComponent(url)}\`
-  ).then(res => res.json())
+  const upstream = await fetch(
+    \`https://api.microlink.io?url=\${encodeURIComponent(url)}&embed=logo.url\`
+  )
 
-  return Response.json({
-    title: data.title,
-    description: data.description,
-    image: data.image?.url ?? null,
-    logo: data.logo?.url ?? null
+  return new Response(upstream.body, {
+    headers: { 'content-type': upstream.headers.get('content-type') }
   })
 }`
         }
@@ -275,40 +263,34 @@ export async function GET (request) {
 
 const app = express()
 
-// GET /preview?url=https://microlink.io
-app.get('/preview', async (req, res) => {
-  const { data } = await fetch(
-    \`https://api.microlink.io?url=\${encodeURIComponent(req.query.url)}\`
-  ).then(res => res.json())
-
-  res.json({
-    title: data.title,
-    description: data.description,
-    image: data.image?.url ?? null
+// GET /logo?url=https://stripe.com — redirect to the hotlink-ready image
+app.get('/logo', (req, res) => {
+  const params = new URLSearchParams({
+    url: req.query.url,
+    embed: 'logo.url'
   })
+
+  res.redirect(\`https://api.microlink.io?\${params}\`)
 })`
         }
       },
       {
-        id: 'discord-bot',
-        label: 'Discord Bot',
+        id: 'avatar',
+        label: 'Brand Avatar',
         code: {
           language: 'js',
-          title: 'unfurl.js',
-          source: `import { EmbedBuilder } from 'discord.js'
+          title: 'avatar.js',
+          source: `// Build the payload for a brand avatar component
+export async function brandAvatar (url) {
+  const params = new URLSearchParams({ url, palette: 'true' })
 
-// Unfurl a URL into a rich embed
-export async function unfurl (url) {
-  const { data } = await fetch(
-    \`https://api.microlink.io?url=\${encodeURIComponent(url)}\`
-  ).then(res => res.json())
+  const { data } = await fetch(\`https://api.microlink.io?\${params}\`)
+    .then(res => res.json())
 
-  return new EmbedBuilder()
-    .setTitle(data.title)
-    .setDescription(data.description)
-    .setURL(data.url)
-    .setImage(data.image?.url ?? null)
-    .setFooter({ text: data.publisher ?? data.url })
+  return {
+    src: data.logo?.url ?? null,
+    color: data.logo?.palette?.[0] ?? '#cccccc' // dominant brand color
+  }
 }`
         }
       },
@@ -317,13 +299,13 @@ export async function unfurl (url) {
         label: 'Plain Node.js',
         code: {
           language: 'js',
-          title: 'metadata.js',
-          source: `// node metadata.js https://microlink.io
+          title: 'logo.js',
+          source: `// node logo.js https://stripe.com
 const { data } = await fetch(
   \`https://api.microlink.io?url=\${encodeURIComponent(process.argv[2])}\`
 ).then(res => res.json())
 
-console.log(JSON.stringify(data, null, 2))`
+console.log(data.logo)`
         }
       }
     ]
@@ -332,21 +314,21 @@ console.log(JSON.stringify(data, null, 2))`
   comparison: {
     title: (
       <>
-        Skip the <Accent>tag-parsing</Accent> maintenance
+        Skip the <Accent>icon-hunting</Accent> scrapers
       </>
     ),
     caption:
-      'Rolling your own means fetching HTML, parsing Open Graph and Twitter Cards, merging JSON-LD and oEmbed, and adding a headless browser for JavaScript-injected tags. The API gives you normalized metadata from any page without any of the moving parts.',
+      'Rolling your own means parsing apple-touch-icon, og:logo and JSON-LD per site, checking BIMI DNS records, probing image formats and building a palette pipeline. The API returns the best logo for any page without any of the moving parts.',
     columns: [
       {
         tone: 'negative',
-        heading: 'DIY tag parsing',
+        heading: 'DIY logo detection',
         points: [
-          'Fetch the HTML and parse og, twitter and meta tags yourself',
-          'Merge JSON-LD, oEmbed and microdata by hand — every site differs',
-          'Resolve relative image and logo URLs against redirects yourself',
-          'JavaScript-injected tags need a headless browser — a 300 MB binary',
-          'Each browser eats hundreds of MB of RAM per worker',
+          'Parse apple-touch-icon, og:logo and JSON-LD per site',
+          'Check BIMI DNS records and favicon fallbacks yourself',
+          'Probe image formats and dimensions with extra requests',
+          'JavaScript-injected icons need a headless browser',
+          'Extract brand palettes with your own image pipeline',
           'You build the caching, retries and autoscaling'
         ]
       },
@@ -355,10 +337,10 @@ console.log(JSON.stringify(data, null, 2))`
         heading: 'Microlink for Node.js',
         points: [
           'One HTTP request — global fetch, no npm package to add',
-          'Open Graph, Twitter Cards, JSON-LD and oEmbed merged for you',
-          'Image and logo as absolute, CDN-hosted URLs',
-          'JavaScript-injected tags captured with prerender=true',
-          'Cached responses from a global edge network',
+          'Markup, BIMI and favicon detection merged for you',
+          'Format, dimensions and byte size included',
+          'Brand palette with WCAG-friendly color pairs',
+          'Hotlink-ready with embed=logo.url',
           'Autoscaled fleet with a 99.95% uptime SLA'
         ]
       }
@@ -381,9 +363,9 @@ console.log(JSON.stringify(data, null, 2))`
     ),
     items: [
       {
-        title: 'No HTML Parsing',
+        title: 'Three Detection Sources',
         description:
-          'No tag soup, no regex, no DOM library to install. One HTTP GET returns a normalized JSON object.'
+          'Page markup, the BIMI DNS record and the favicon as fallback — the best available asset wins, every time.'
       },
       {
         title: 'Zero Dependencies',
@@ -391,29 +373,29 @@ console.log(JSON.stringify(data, null, 2))`
           'Node.js 18+ ships global fetch — the examples work with no npm install and nothing to vendor.'
       },
       {
-        title: 'Every Source Merged',
+        title: 'Complete Image Metadata',
         description:
-          'Open Graph, Twitter Cards, JSON-LD, oEmbed, microdata and plain HTML tags are merged into a single normalized response.'
+          'Format, byte size and exact dimensions come with every logo — no HEAD requests or image probing on your side.'
       },
       {
-        title: 'CDN-Hosted Assets',
+        title: 'Hotlink-Ready',
         description:
-          'Image and logo come back as absolute URLs on a global CDN — hot-link them directly, no downloading or proxying.'
+          'The logo comes back as an absolute URL — hotlink it directly, or use embed=logo.url and the API URL is the image.'
       },
       {
-        title: 'JavaScript Rendering',
+        title: 'Real Browser Detection',
         description:
-          'Tags injected by client-side JavaScript are captured too, with prerender=true and waitForSelector.'
+          'Icons injected by client-side JavaScript are detected too, with prerender=true and waitForSelector.'
       },
       {
-        title: 'Link Preview Ready',
+        title: 'Brand Palette',
         description:
-          'Title, description, image, logo and publisher are exactly the fields a link preview card needs — one call, one card.'
+          'Enable palette=true and every detected image gains a dominant-color palette with WCAG-friendly pairs — theme your UI straight from the response.'
       },
       {
         title: 'Framework Friendly',
         description:
-          'Drop it into Next.js, Express, or a chat bot as a route or a few-line function.'
+          'Drop it into Next.js, Express, or an avatar component as a route or a few-line function.'
       },
       {
         title: 'Zero Infrastructure',
@@ -435,30 +417,31 @@ console.log(JSON.stringify(data, null, 2))`
       </>
     ),
     caption:
-      'Paste a URL and see the exact metadata response before you write a line of Node.js.',
+      'Paste a URL and see the detected logo before you write a line of Node.js.',
     cta: {
-      label: 'Open the sharing debugger',
-      href: '/tools/sharing-debugger'
+      label: 'Open the live demo',
+      href: '/logo'
     }
   },
 
   faq: {
-    title: 'Node.js Metadata API FAQ',
+    title: 'Node.js Logo API FAQ',
     caption: (
       <>
-        Everything Node.js developers ask before integrating the Microlink
-        metadata API.
+        Everything Node.js developers ask before integrating the Microlink logo
+        API.
       </>
     ),
     questions: [
       {
-        question: 'Which metadata sources are covered?',
+        question: 'Where does the logo come from?',
         answer: (
           <>
             <div>
-              Open Graph, Twitter Cards, JSON-LD, oEmbed, microdata, RDFa and
-              plain HTML tags — all merged and normalized into a single JSON
-              response, so you never parse tag soup yourself.
+              Microlink walks the page markup — apple-touch-icon, Open Graph and
+              JSON-LD — checks the BIMI record in DNS, and falls back to the
+              favicon. The best available asset wins, with its format and
+              dimensions included.
             </div>
           </>
         )
@@ -476,26 +459,26 @@ console.log(JSON.stringify(data, null, 2))`
         )
       },
       {
-        question: 'What about tags rendered by JavaScript?',
+        question: 'What about icons injected by JavaScript?',
         answer: (
           <>
             <div>
               Pass <code>prerender=true</code> and the page is rendered in a
-              real browser before extraction, so tags injected by React, Vue or
-              any client-side framework are captured too. Combine it with{' '}
+              real browser before detection, so icons injected by React, Vue or
+              any client-side framework are found too. Combine it with{' '}
               <code>waitForSelector</code> to wait for specific content.
             </div>
           </>
         )
       },
       {
-        question: 'Are image and logo URLs ready to use?',
+        question: 'Can I hotlink the logo directly?',
         answer: (
           <>
             <div>
-              Yes. They come back as absolute URLs hosted on a global CDN —
-              resolve-relative-URL bugs included — so you can hot-link them
-              directly in an <code>img</code> tag or store them as-is.
+              Yes. Add <code>embed=logo.url</code> and the API URL becomes the
+              image itself — use it in an <code>img</code> tag or a CSS
+              background with no JSON parsing and nothing to store on your side.
             </div>
           </>
         )
@@ -518,7 +501,7 @@ console.log(JSON.stringify(data, null, 2))`
         )
       },
       {
-        question: 'How fresh is the metadata?',
+        question: 'How fresh is the logo?',
         answer: (
           <>
             <div>
@@ -542,7 +525,7 @@ console.log(JSON.stringify(data, null, 2))`
       </>
     ),
     caption:
-      'Get 25 requests/day with zero commitment — no account and no credit card. Send your first request and ship metadata in minutes.',
+      'Get 25 requests/day with zero commitment — no account and no credit card. Send your first request and get logos back in minutes.',
     primary: {
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'

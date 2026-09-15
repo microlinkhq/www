@@ -119,10 +119,7 @@ const go = {
     ]
   },
 
-  breadcrumb: [
-    { label: 'Metadata API', href: '/metadata' },
-    { label: 'Go' }
-  ],
+  breadcrumb: [{ label: 'Metadata API', href: '/metadata' }, { label: 'Go' }],
 
   hero: {
     title: (
@@ -554,10 +551,10 @@ func main() {
     ),
     caption: (
       <>
-        A REST API that feels native in Go — one call, JSON back, and at
-        home in anything from a CLI tool to a worker fleet. Read the{' '}
-        <Link href='/docs/api/getting-started/overview'>API overview</Link>
-        {' '}to go deeper.
+        A REST API that feels native in Go — one call, JSON back, and at home in
+        anything from a CLI tool to a worker fleet. Read the{' '}
+        <Link href='/docs/api/getting-started/overview'>API overview</Link> to
+        go deeper.
       </>
     ),
     items: [
@@ -627,8 +624,8 @@ func main() {
     title: 'Go Metadata API FAQ',
     caption: (
       <>
-        Everything Go developers ask before integrating the Microlink
-        metadata API.
+        Everything Go developers ask before integrating the Microlink metadata
+        API.
       </>
     ),
     questions: [
@@ -649,7 +646,8 @@ func main() {
         answer: (
           <>
             <div>
-              No. The examples use net/http and encoding/json from the Go standard library — they compile with zero external dependencies.
+              No. The examples use net/http and encoding/json from the Go
+              standard library — they compile with zero external dependencies.
             </div>
           </>
         )
@@ -660,8 +658,8 @@ func main() {
           <>
             <div>
               Pass <code>prerender=true</code> and the page is rendered in a
-              real browser before extraction, so tags injected by React, Vue
-              or any client-side framework are captured too. Combine it with{' '}
+              real browser before extraction, so tags injected by React, Vue or
+              any client-side framework are captured too. Combine it with{' '}
               <code>waitForSelector</code> to wait for specific content.
             </div>
           </>
@@ -703,8 +701,10 @@ func main() {
             <div>
               Responses are cached at the edge with a sane default TTL, and you
               control freshness per request — see the{' '}
-              <Link href='/docs/api/getting-started/overview'>API overview</Link>
-              {' '}for cache parameters.
+              <Link href='/docs/api/getting-started/overview'>
+                API overview
+              </Link>{' '}
+              for cache parameters.
             </div>
           </>
         )

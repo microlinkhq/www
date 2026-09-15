@@ -418,8 +418,8 @@ print(json.dumps(data, indent=2))`
       <>
         A REST API that feels native in Python — one call, JSON back, and at
         home in anything from a notebook to a worker fleet. Read the{' '}
-        <Link href='/docs/api/getting-started/overview'>API overview</Link>
-        {' '}to go deeper.
+        <Link href='/docs/api/getting-started/overview'>API overview</Link> to
+        go deeper.
       </>
     ),
     items: [
@@ -511,7 +511,9 @@ print(json.dumps(data, indent=2))`
         answer: (
           <>
             <div>
-              No. The examples use urllib and json from the Python standard library. If you already use requests or httpx, the same call is one line shorter — see the FastAPI tab above.
+              No. The examples use urllib and json from the Python standard
+              library. If you already use requests or httpx, the same call is
+              one line shorter — see the FastAPI tab above.
             </div>
           </>
         )
@@ -522,8 +524,8 @@ print(json.dumps(data, indent=2))`
           <>
             <div>
               Pass <code>prerender=true</code> and the page is rendered in a
-              real browser before extraction, so tags injected by React, Vue
-              or any client-side framework are captured too. Combine it with{' '}
+              real browser before extraction, so tags injected by React, Vue or
+              any client-side framework are captured too. Combine it with{' '}
               <code>waitForSelector</code> to wait for specific content.
             </div>
           </>
@@ -565,8 +567,10 @@ print(json.dumps(data, indent=2))`
             <div>
               Responses are cached at the edge with a sane default TTL, and you
               control freshness per request — see the{' '}
-              <Link href='/docs/api/getting-started/overview'>API overview</Link>
-              {' '}for cache parameters.
+              <Link href='/docs/api/getting-started/overview'>
+                API overview
+              </Link>{' '}
+              for cache parameters.
             </div>
           </>
         )

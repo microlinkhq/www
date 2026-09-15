@@ -119,10 +119,7 @@ const ruby = {
     ]
   },
 
-  breadcrumb: [
-    { label: 'Metadata API', href: '/metadata' },
-    { label: 'Ruby' }
-  ],
+  breadcrumb: [{ label: 'Metadata API', href: '/metadata' }, { label: 'Ruby' }],
 
   hero: {
     title: (
@@ -402,10 +399,10 @@ puts JSON.pretty_generate(data)`
     ),
     caption: (
       <>
-        A REST API that feels native in Ruby — one call, JSON back, and at
-        home in anything from a Rake task to a Rails app. Read the{' '}
-        <Link href='/docs/api/getting-started/overview'>API overview</Link>
-        {' '}to go deeper.
+        A REST API that feels native in Ruby — one call, JSON back, and at home
+        in anything from a Rake task to a Rails app. Read the{' '}
+        <Link href='/docs/api/getting-started/overview'>API overview</Link> to
+        go deeper.
       </>
     ),
     items: [
@@ -475,8 +472,8 @@ puts JSON.pretty_generate(data)`
     title: 'Ruby Metadata API FAQ',
     caption: (
       <>
-        Everything Ruby developers ask before integrating the Microlink
-        metadata API.
+        Everything Ruby developers ask before integrating the Microlink metadata
+        API.
       </>
     ),
     questions: [
@@ -497,7 +494,9 @@ puts JSON.pretty_generate(data)`
         answer: (
           <>
             <div>
-              No. Net::HTTP and JSON are part of the Ruby standard library, so the examples work with zero dependencies. If you already use faraday or httparty, the same request translates directly.
+              No. Net::HTTP and JSON are part of the Ruby standard library, so
+              the examples work with zero dependencies. If you already use
+              faraday or httparty, the same request translates directly.
             </div>
           </>
         )
@@ -508,8 +507,8 @@ puts JSON.pretty_generate(data)`
           <>
             <div>
               Pass <code>prerender=true</code> and the page is rendered in a
-              real browser before extraction, so tags injected by React, Vue
-              or any client-side framework are captured too. Combine it with{' '}
+              real browser before extraction, so tags injected by React, Vue or
+              any client-side framework are captured too. Combine it with{' '}
               <code>waitForSelector</code> to wait for specific content.
             </div>
           </>
@@ -551,8 +550,10 @@ puts JSON.pretty_generate(data)`
             <div>
               Responses are cached at the edge with a sane default TTL, and you
               control freshness per request — see the{' '}
-              <Link href='/docs/api/getting-started/overview'>API overview</Link>
-              {' '}for cache parameters.
+              <Link href='/docs/api/getting-started/overview'>
+                API overview
+              </Link>{' '}
+              for cache parameters.
             </div>
           </>
         )
