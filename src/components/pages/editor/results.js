@@ -1,3 +1,4 @@
+import prettyMs from 'pretty-ms'
 import React, { useState } from 'react'
 import { theme } from 'theme'
 
@@ -74,7 +75,7 @@ const StatusMark = ({ status, elapsed }) => {
       {ok ? <Dot.Success /> : <Dot.Error />}
       <Text as='span' css={theme({ color: 'inherit', fontSize: 'inherit' })}>
         {ok ? 'Success' : 'Error'}
-        {elapsed != null ? ` ${elapsed}ms` : ''}
+        {elapsed != null ? ` ${prettyMs(elapsed)}` : ''}
       </Text>
     </Flex>
   )
