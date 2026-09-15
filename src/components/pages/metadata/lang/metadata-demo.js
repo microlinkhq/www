@@ -5,10 +5,10 @@ import Box from 'components/elements/Box'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
 const SAMPLE_RESPONSE = `{
-  "title": "Microlink | The web, transformed",
+  "title": "Microlink | The web, ready for AI",
   "author": "Microlink",
   "lang": "en",
-  "description": "A single API for turning any URL into data. Built for apps, agents, and AI. Powered by real browsers. Try it, no signup.",
+  "description": "A single API for turning any URL into data. Built for apps & agents. Powered by real browsers. Try it, no signup.",
   "url": "https://microlink.io/",
   "publisher": "Microlink",
   "date": null,

@@ -159,7 +159,7 @@ $query = http_build_query(['url' => 'https://microlink.io']);
 $res = json_decode(file_get_contents("https://api.microlink.io?$query"), true);
 $data = $res['data'];
 
-echo $data['title'];        // 'Microlink | The web, transformed'
+echo $data['title'];        // 'Microlink | The web, ready for AI'
 echo $data['description'];  // 'A single API for turning any URL into data…'
 echo $data['image']['url']; // absolute, CDN-hosted
 echo $data['logo']['url'];  // absolute, CDN-hosted`

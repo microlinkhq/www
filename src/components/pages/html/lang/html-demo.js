@@ -8,7 +8,7 @@ const SAMPLE_RESPONSE = `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Microlink | The web, transformed</title>
+    <title>Microlink | The web, ready for AI</title>
     <meta name="description" content="A single API for turning any URL into data." />
     <meta property="og:image" content="https://microlink.io/images/og/home.png" />
   </head>

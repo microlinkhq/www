@@ -165,7 +165,7 @@ params = urllib.parse.urlencode({'url': 'https://microlink.io'})
 with urllib.request.urlopen(f'https://api.microlink.io?{params}') as res:
     data = json.load(res)['data']
 
-print(data['title'])        # 'Microlink | The web, transformed'
+print(data['title'])        # 'Microlink | The web, ready for AI'
 print(data['description'])  # 'A single API for turning any URL into data…'
 print(data['image']['url']) # absolute, CDN-hosted
 print(data['logo']['url'])  # absolute, CDN-hosted`
