@@ -38,6 +38,12 @@ const microlink = createClient(${
 
 const CONTENT_METHODS = ['markdown', 'html', 'text']
 
+const COLLECTION_METHODS = {
+  emails: { selector: 'html', attr: 'html', type: 'email' },
+  links: { selectorAll: 'a', attr: 'href', type: 'url' },
+  images: { selectorAll: 'img', attr: 'src', type: 'url' }
+}
+
 const isContentConversion = data => {
   const keys = Object.keys(data)
   if (keys.length !== 1 || !CONTENT_METHODS.includes(keys[0])) return false
@@ -49,6 +55,28 @@ const isContentConversion = data => {
     Object.keys(rule).every(key => key === 'attr' || key === 'selector')
   )
 }
+
+const collectionMethodOf = data => {
+  const keys = Object.keys(data)
+  if (keys.length !== 1) return null
+  const method = keys[0]
+  const defaults = COLLECTION_METHODS[method]
+  const rule = data[method]
+  if (
+    !defaults ||
+    !rule ||
+    typeof rule !== 'object' ||
+    rule.type !== defaults.type
+  ) {
+    return null
+  }
+  return method
+}
+
+const collectionExtras = (rule, defaults) =>
+  Object.fromEntries(
+    Object.entries(rule).filter(([key, value]) => value !== defaults[key])
+  )
 
 const toFieldNames = fields => [
   ...new Set(fields.map(field => field.split('.')[0]))
@@ -209,6 +237,20 @@ const translateToSdkCalls = options => {
           method,
           binding: method,
           opts: { ...(selector && { selector }), ...shared }
+        }
+      ]
+    }
+    const collection = collectionMethodOf(data)
+    if (collection) {
+      const extras = collectionExtras(
+        data[collection],
+        COLLECTION_METHODS[collection]
+      )
+      return [
+        {
+          method: collection,
+          binding: collection,
+          opts: { ...extras, ...shared }
         }
       ]
     }

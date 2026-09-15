@@ -24,6 +24,7 @@ import {
   Activity,
   AlignLeft as AlignLeftIcon,
   Maximize,
+  Server as ServerIcon,
   Package as PackageIcon,
   Repeat as RepeatIcon,
   Video as VideoIcon,
@@ -225,6 +226,13 @@ export const NAVIGATION_SECTIONS = [
     description: 'APIs and tooling to turn any URL into structured output.',
     columns: 3,
     items: [
+      createNavigationItem({
+        label: 'API',
+        href: '/api',
+        actively: 'exact',
+        description: 'One REST endpoint for every Microlink product',
+        icon: ServerIcon
+      }),
       createNavigationItem({
         label: 'Screenshot',
         href: '/screenshot',

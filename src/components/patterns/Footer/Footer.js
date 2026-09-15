@@ -18,18 +18,26 @@ import Input from 'components/elements/Input/Input'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
 import Dot from 'components/elements/Dot/Dot'
+import {
+  NEWSLETTER_ACTION,
+  NewsletterHoneypot,
+  useNewsletter
+} from 'components/hook/use-newsletter'
 import { ChevronDown, Mail } from 'react-feather'
 import styled from 'styled-components'
 
 import { LANG_LANDINGS } from 'components/pages/screenshot/lang/registry'
 import { LANG_LANDINGS as PDF_LANG_LANDINGS } from 'components/pages/pdf/lang/registry'
 import { LANG_LANDINGS as LOGO_LANG_LANDINGS } from 'components/pages/logo/lang/registry'
+import { LANG_LANDINGS as MARKDOWN_LANG_LANDINGS } from 'components/pages/markdown/lang/registry'
+import { LANG_LANDINGS as METADATA_LANG_LANDINGS } from 'components/pages/metadata/lang/registry'
 import { FEATURES } from 'components/patterns/FeatureStory'
 
 const FOOTER_COLUMNS = [
   {
     title: 'Products',
     links: [
+      { label: 'API', href: '/api' },
       { label: 'Screenshot', href: '/screenshot' },
       { label: 'Link Preview', href: '/link-preview' },
       { label: 'Markdown', href: '/markdown' },
@@ -60,6 +68,20 @@ const FOOTER_COLUMNS = [
       {
         title: 'Logo API',
         links: LOGO_LANG_LANDINGS.map(({ label, href }) => ({
+          label,
+          href
+        }))
+      },
+      {
+        title: 'Markdown API',
+        links: MARKDOWN_LANG_LANDINGS.map(({ label, href }) => ({
+          label,
+          href
+        }))
+      },
+      {
+        title: 'Metadata API',
+        links: METADATA_LANG_LANDINGS.map(({ label, href }) => ({
           label,
           href
         }))
@@ -426,6 +448,8 @@ const GiantEmail = () => (
 )
 
 const Footer = ({ ...props }) => {
+  const { status, message, onSubmit, isLoading } = useNewsletter()
+
   return (
     <Container
       css={theme({
@@ -491,16 +515,16 @@ const Footer = ({ ...props }) => {
             />
           </Flex>
 
-          <form
-            action='https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452'
-            method='post'
-          >
-            <input type='hidden' name='tags' value='50279' />
+          <form action={NEWSLETTER_ACTION} method='post' onSubmit={onSubmit}>
+            <NewsletterHoneypot />
             <Flex css={theme({ alignItems: 'center' })}>
               <Input
                 type='email'
-                name='EMAIL'
+                name='email'
                 placeholder='you@domain.com'
+                autoComplete='email'
+                inputMode='email'
+                aria-label='Email address'
                 iconComponent={
                   <FeatherIcon
                     icon={Mail}
@@ -520,6 +544,8 @@ const Footer = ({ ...props }) => {
                 required
               />
               <Button
+                type='submit'
+                loading={isLoading}
                 data-event-location='Footer'
                 data-event-name='Be Notified'
                 variant='black'
@@ -528,6 +554,17 @@ const Footer = ({ ...props }) => {
                 <Caps css={theme({ fontSize: 0 })}>Be Notified</Caps>
               </Button>
             </Flex>
+            <Text
+              role='status'
+              aria-live='polite'
+              css={theme({
+                pt: message ? 2 : 0,
+                fontSize: 0,
+                color: status === 'error' ? 'red8' : 'black80'
+              })}
+            >
+              {message}
+            </Text>
           </form>
         </Flex>
 

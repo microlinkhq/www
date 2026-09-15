@@ -1,17 +1,10 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
-import {
-  SECTION_VERTICAL_SPACING,
-  colors,
-  layout,
-  theme,
-  shadows,
-  transition
-} from 'theme'
+import { SECTION_VERTICAL_SPACING, layout, theme, shadows } from 'theme'
 
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { HeroEditorTabs } from 'components/patterns/MultiCodeEditor/hero-editor-tabs'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 
 import {
@@ -22,6 +15,8 @@ import {
   CENTERED_TO_START
 } from './shared'
 
+const EDITOR_ID = 'product-hero-editor'
+
 const EDITOR_FRAME = {
   '& > div, & > div > div:first-child': {
     width: '100%'
@@ -31,42 +26,6 @@ const EDITOR_FRAME = {
   }
 }
 
-const ExamplePill = styled('button')(
-  theme({
-    px: 3,
-    py: [2, 2, 1, 1],
-    borderRadius: 2,
-    border: 1,
-    borderColor: 'black10',
-    bg: 'white',
-    fontFamily: 'sans',
-    fontSize: 0,
-    fontWeight: 'bold',
-    color: 'black60'
-  }),
-  `
-    cursor: pointer;
-    touch-action: manipulation;
-    white-space: nowrap;
-    transition: color ${transition.medium}, border-color ${transition.medium};
-
-    &:hover {
-      color: ${colors.black80};
-      border-color: ${colors.black20};
-    }
-
-    &[aria-pressed='true'] {
-      color: var(--story-accent);
-      border-color: var(--story-accent);
-    }
-
-    &:focus-visible {
-      outline: 2px solid ${colors.link};
-      outline-offset: 2px;
-    }
-  `
-)
-
 export const ProductHero = ({
   title,
   description,
@@ -74,7 +33,7 @@ export const ProductHero = ({
   ctaLabel = 'Get Started',
   mqlCode,
   examples,
-  accent,
+  examplesLabel = 'Examples',
   editorHeight = 320
 }) => {
   const [exampleIndex, setExampleIndex] = useState(0)
@@ -84,7 +43,6 @@ export const ProductHero = ({
     <Container
       as='section'
       id='hero'
-      style={accent ? { '--story-accent': accent } : undefined}
       css={theme({
         alignItems: 'center',
         width: '100%',
@@ -153,35 +111,12 @@ export const ProductHero = ({
             alignItems: 'center'
           })}
         >
-          {examples && (
-            <Flex
-              role='group'
-              aria-label='Conversion examples'
-              css={theme({
-                pt: [0, 0, 4, 4],
-                gap: 2,
-                flexWrap: 'wrap',
-                justifyContent: 'center'
-              })}
-            >
-              {examples.map(({ label }, index) => (
-                <ExamplePill
-                  key={label}
-                  type='button'
-                  aria-pressed={index === exampleIndex}
-                  onClick={() => setExampleIndex(index)}
-                >
-                  {label}
-                </ExamplePill>
-              ))}
-            </Flex>
-          )}
           <Flex
             css={[
               theme({
                 width: ['100%', '100%', '85%', '100%'],
                 justifyContent: 'center',
-                pt: examples ? [3, 3, 3, 3] : [0, 0, 4, 4],
+                pt: [0, 0, 4, 4],
                 pb: [4, 4, 4, 5],
                 px: [2, 3, 0, 0]
               }),
@@ -189,9 +124,27 @@ export const ProductHero = ({
             ]}
           >
             <MultiCodeEditorInteractive
-              key={exampleIndex}
               height={editorHeight}
               mqlCode={activeMqlCode}
+              contentId={examples ? EDITOR_ID : undefined}
+              contentRole={examples ? 'tabpanel' : undefined}
+              contentLabelledBy={
+                examples ? `product-hero-tab-${exampleIndex}` : undefined
+              }
+              headerContent={
+                examples
+                  ? (
+                    <HeroEditorTabs
+                      examples={examples}
+                      selectedIndex={exampleIndex}
+                      onSelect={setExampleIndex}
+                      ariaLabel={examplesLabel}
+                      idPrefix='product-hero-tab'
+                      controlsId={EDITOR_ID}
+                    />
+                    )
+                  : undefined
+              }
             />
           </Flex>
         </Flex>
