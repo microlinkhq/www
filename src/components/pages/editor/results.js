@@ -42,7 +42,9 @@ const COPY_ARIA_LABEL = {
 const copyAriaLabel = tab => COPY_ARIA_LABEL[tab] || 'Copy output'
 
 const copyTextForTab = (tab, { trace, timing, logs, payload }) => {
-  if (tab === 'trace') return JSON.stringify(trace, null, 2)
+  if (tab === 'trace') {
+    return trace ? JSON.stringify(trace, null, 2) : 'No trace'
+  }
   if (tab === 'timing') {
     return timing.bars
       .map(row => `${row.name}  ${row.dur} (${row.share})`)
