@@ -25,7 +25,12 @@ import Results from './results'
 import { ENTRY_FILE, nextFileName } from './shared'
 import Templates from './templates'
 import { useEvaluate } from './use-evaluate'
-import { readSharedFiles, writeShareQuery } from './use-share'
+import {
+  decodeShareCode,
+  exampleFromSearch,
+  SHARE_QUERY_KEY,
+  writeShareQuery
+} from './use-share'
 
 const MonacoEditor = lazy(() => import('./monaco-editor'))
 
@@ -42,6 +47,9 @@ const Editor = () => {
   const filesRef = useRef(DEFAULT_FILES)
   const templateRef = useRef(DEFAULT_EXAMPLE.files)
   const shareEpochRef = useRef(0)
+  const runEpochRef = useRef(0)
+  const fromShareRef = useRef(false)
+  const autoRanRef = useRef(false)
 
   const snapshot = useCallback(
     () => editorApi.current?.getFiles() || filesRef.current,
@@ -61,6 +69,7 @@ const Editor = () => {
 
   const onSettled = useCallback(
     nextFiles => {
+      if (runEpochRef.current !== shareEpochRef.current) return
       commitShare(nextFiles)
     },
     [commitShare]
@@ -71,28 +80,46 @@ const Editor = () => {
     return editorApi.current.getSyntaxErrors(files)
   }, [])
 
-  const { status, value, logs, http, elapsed, evaluate } = useEvaluate({
+  const onStart = useCallback(() => {
+    runEpochRef.current = shareEpochRef.current
+  }, [])
+
+  const { status, value, logs, trace, elapsed, evaluate } = useEvaluate({
     apiKey,
     onSettled,
+    onStart,
     getSyntaxErrors
   })
 
   useEffect(() => {
     let cancelled = false
-    readSharedFiles().then(shared => {
+    ;(async () => {
+      const search = window.location.search
+      const decoded = await decodeShareCode(
+        new URLSearchParams(search).get(SHARE_QUERY_KEY)
+      )
       if (cancelled) return
-      if (shared && shared[ENTRY_FILE]) {
+      const fromShare = Boolean(decoded?.[ENTRY_FILE])
+      const shared = fromShare ? decoded : exampleFromSearch(search)?.files
+      if (shared?.[ENTRY_FILE]) {
+        fromShareRef.current = fromShare
         filesRef.current = shared
         templateRef.current = shared
         setFiles(shared)
         setActiveFile(ENTRY_FILE)
       }
       setMounted(true)
-    })
+    })()
     return () => {
       cancelled = true
     }
   }, [])
+
+  useEffect(() => {
+    if (!mounted || autoRanRef.current || !fromShareRef.current) return
+    autoRanRef.current = true
+    evaluate(filesRef.current)
+  }, [mounted, evaluate])
 
   const onFileChange = useCallback((name, source) => {
     filesRef.current = { ...filesRef.current, [name]: source }
@@ -249,7 +276,7 @@ const Editor = () => {
         status={status}
         value={value}
         logs={logs}
-        http={http}
+        trace={trace}
         elapsed={elapsed}
         onCopy={onCopy}
         copyLabel={copyLabel}

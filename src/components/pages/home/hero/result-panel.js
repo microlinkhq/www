@@ -130,8 +130,8 @@ const copyBody = (req, tab, snippet, snippetArg) => {
     return (req.headerRows || []).map(({ k, v }) => `${k}: ${v}`).join('\n')
   }
   if (tab === 'timing') {
-    return (req.rows || [])
-      .map(({ name, dur, pct }) => `${name}  ${dur}  ${pct}`)
+    return (req.bars || [])
+      .map(({ name, dur, share }) => `${name}  ${dur} (${share})`)
       .join('\n')
   }
   if (tab === 'code') return snippetText(snippet, snippetArg)
@@ -168,7 +168,7 @@ const CopyResultButton = styled.button`
 `
 
 export const ResultPanel = React.memo(({ tab, setTab, req }) => {
-  const { D, status, body, headerRows, bars, rows, totalMs } = req
+  const { D, status, body, headerRows, bars } = req
   const isLoading = status === 'loading'
   const isError = status === 'error'
   const isRateLimited = status === 'rate-limited'
@@ -309,13 +309,7 @@ export const ResultPanel = React.memo(({ tab, setTab, req }) => {
 
         {!hideTabs &&
           tab === 'timing' &&
-          (isLoading || !bars
-            ? (
-              <Skeleton />
-              )
-            : (
-              <TimingContent bars={bars} rows={rows} totalMs={totalMs} />
-              ))}
+          (isLoading || !bars ? <Skeleton /> : <TimingContent bars={bars} />)}
 
         {!hideTabs && tab === 'code' && (
           <CodeContent snippet={snippet} snippetArg={snippetArg} />

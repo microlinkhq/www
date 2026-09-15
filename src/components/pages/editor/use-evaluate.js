@@ -4,11 +4,16 @@ import { ENTRY_FILE } from './shared'
 import { formatSyntaxError } from './syntax-errors'
 import { serializeError, withScript } from './with-script'
 
-export const useEvaluate = ({ apiKey, onSettled, getSyntaxErrors } = {}) => {
+export const useEvaluate = ({
+  apiKey,
+  onSettled,
+  onStart,
+  getSyntaxErrors
+} = {}) => {
   const [status, setStatus] = useState('idle')
   const [value, setValue] = useState(null)
   const [logs, setLogs] = useState(null)
-  const [http, setHttp] = useState(null)
+  const [trace, setTrace] = useState(null)
   const [elapsed, setElapsed] = useState(null)
   const runningRef = useRef(false)
 
@@ -16,16 +21,20 @@ export const useEvaluate = ({ apiKey, onSettled, getSyntaxErrors } = {}) => {
     async files => {
       if (runningRef.current) return
       runningRef.current = true
+      onStart?.()
       setStatus('running')
       const started = performance.now()
+      const fail = value => {
+        setValue(value)
+        setLogs({})
+        setTrace(null)
+        setElapsed(Math.round(performance.now() - started))
+        setStatus('error')
+      }
       try {
         const syntaxErrors = await getSyntaxErrors?.(files)
         if (syntaxErrors?.length) {
-          setValue(serializeError(formatSyntaxError(syntaxErrors)))
-          setLogs({})
-          setHttp(null)
-          setElapsed(Math.round(performance.now() - started))
-          setStatus('error')
+          fail(serializeError(formatSyntaxError(syntaxErrors)))
           return
         }
         const result = await withScript(files, {
@@ -34,22 +43,18 @@ export const useEvaluate = ({ apiKey, onSettled, getSyntaxErrors } = {}) => {
         })
         setValue(result.value)
         setLogs(result.logs)
-        setHttp(result.http)
+        setTrace(result.trace)
         setElapsed(Math.round(performance.now() - started))
         setStatus(result.status)
         onSettled?.(files)
       } catch (error) {
-        setValue(serializeError(error))
-        setLogs({})
-        setHttp(null)
-        setElapsed(Math.round(performance.now() - started))
-        setStatus('error')
+        fail(serializeError(error))
       } finally {
         runningRef.current = false
       }
     },
-    [apiKey, getSyntaxErrors, onSettled]
+    [apiKey, getSyntaxErrors, onSettled, onStart]
   )
 
-  return { status, value, logs, http, elapsed, evaluate }
+  return { status, value, logs, trace, elapsed, evaluate }
 }

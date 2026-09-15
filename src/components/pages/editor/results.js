@@ -6,6 +6,9 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import Spinner from 'components/elements/Spinner'
 import Dot from 'components/elements/Dot/Dot'
+import JsonView from 'components/elements/JsonView/JsonView'
+import { TimingContent } from 'components/pages/home/hero/result-contents'
+import { parseServerTiming } from 'helpers/server-timing'
 
 import { IconCopy } from './icons'
 import { IconButton } from './chrome'
@@ -18,16 +21,42 @@ import {
   LOG_ORDER,
   LogRow,
   ResultTabs,
-  statusFromValue,
   SyntaxHighlight,
   toPayload
 } from './results-views'
 
 const TABS = [
   { id: 'output', label: 'Output' },
-  { id: 'http', label: 'HTTP' },
+  { id: 'trace', label: 'Trace' },
+  { id: 'timing', label: 'Timing' },
   { id: 'logs', label: 'Logs' }
 ]
+
+const COPY_ARIA_LABEL = {
+  output: 'Copy output',
+  trace: 'Copy trace',
+  timing: 'Copy timing',
+  logs: 'Copy logs'
+}
+
+const copyAriaLabel = tab => COPY_ARIA_LABEL[tab] || 'Copy output'
+
+const copyTextForTab = (tab, { trace, timing, logs, payload }) => {
+  if (tab === 'trace') {
+    return trace ? JSON.stringify(trace, null, 2) : 'No trace'
+  }
+  if (tab === 'timing') {
+    return timing.bars
+      .map(row => `${row.name}  ${row.dur} (${row.share})`)
+      .join('\n')
+  }
+  if (tab === 'logs') {
+    return LOG_ORDER.flatMap(type =>
+      (logs?.[type] || []).map(line => `${type}  ${line}`)
+    ).join('\n')
+  }
+  return JSON.stringify(payload, null, 2)
+}
 
 const StatusMark = ({ status, elapsed }) => {
   if (status !== 'success' && status !== 'error') return null
@@ -37,7 +66,6 @@ const StatusMark = ({ status, elapsed }) => {
       css={theme({
         alignItems: 'center',
         gap: 2,
-        ml: 'auto',
         color: ok ? 'teal8' : 'red8',
         fontSize: 0,
         fontWeight: 'bold'
@@ -52,9 +80,24 @@ const StatusMark = ({ status, elapsed }) => {
   )
 }
 
-const ResultBody = ({ tab, status, value, logs, http }) => {
+const jsonPaneCss = theme({
+  p: 3,
+  minHeight: '100%'
+})
+
+const JsonPane = ({ src }) => {
+  if (src !== null && typeof src === 'object') {
+    return (
+      <Box css={jsonPaneCss}>
+        <JsonView src={src} />
+      </Box>
+    )
+  }
+  return <SyntaxHighlight>{JSON.stringify(src, null, 2)}</SyntaxHighlight>
+}
+
+const ResultBody = ({ tab, status, value, logs, trace, timing }) => {
   const payload = toPayload(value)
-  const { headers } = statusFromValue(value, http)
   const logCount = countLogs(logs)
 
   if (status === 'idle') {
@@ -75,16 +118,15 @@ const ResultBody = ({ tab, status, value, logs, http }) => {
     )
   }
 
-  if (tab === 'output') {
-    return <SyntaxHighlight>{JSON.stringify(payload, null, 2)}</SyntaxHighlight>
+  if (tab === 'output') return <JsonPane src={payload} />
+
+  if (tab === 'trace') {
+    if (!trace) return <Centered>No trace</Centered>
+    return <JsonPane src={trace} />
   }
 
-  if (tab === 'http') {
-    return (
-      <SyntaxHighlight>
-        {JSON.stringify(headers || {}, null, 2)}
-      </SyntaxHighlight>
-    )
+  if (tab === 'timing') {
+    return <TimingContent bars={timing.bars} maxHeight={null} />
   }
 
   if (logCount === 0) return <Centered>No logs</Centered>
@@ -103,37 +145,47 @@ const ResultBody = ({ tab, status, value, logs, http }) => {
   )
 }
 
-const Results = ({ status, value, logs, http, elapsed, onCopy, copyLabel }) => {
+const Results = ({
+  status,
+  value,
+  logs,
+  trace,
+  elapsed,
+  onCopy,
+  copyLabel
+}) => {
   const [tab, setTab] = useState('output')
   const payload = toPayload(value)
+  const timing = parseServerTiming(trace?.response?.headers?.['server-timing'])
   const bytes =
     status === 'success' || status === 'error' ? byteLength(payload) : 0
+  const copyText = copyTextForTab(tab, { trace, timing, logs, payload })
 
   return (
     <Pane>
       <PaneBar>
         <ResultTabs tabs={TABS} active={tab} onChange={setTab} />
-        <StatusMark status={status} elapsed={elapsed} />
-      </PaneBar>
-      <PaneBody>
         {(status === 'success' || status === 'error') && (
-          <Box
+          <Flex
             css={theme({
-              position: 'absolute',
-              top: 2,
-              right: 2,
-              zIndex: 1
+              alignItems: 'center',
+              gap: 2,
+              ml: 'auto',
+              flexShrink: 0
             })}
           >
+            <StatusMark status={status} elapsed={elapsed} />
             <IconButton
-              aria-label='Copy output'
-              onClick={() => onCopy(JSON.stringify(payload, null, 2))}
+              aria-label={copyAriaLabel(tab)}
+              onClick={() => onCopy(copyText)}
             >
               <IconCopy />
               {copyLabel}
             </IconButton>
-          </Box>
+          </Flex>
         )}
+      </PaneBar>
+      <PaneBody>
         <Box
           role='tabpanel'
           id={`${tab}-panel`}
@@ -145,7 +197,8 @@ const Results = ({ status, value, logs, http, elapsed, onCopy, copyLabel }) => {
             status={status}
             value={value}
             logs={logs}
-            http={http}
+            trace={trace}
+            timing={timing}
           />
         </Box>
       </PaneBody>

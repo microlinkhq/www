@@ -29,7 +29,6 @@ export const useRunRequest = ({ reqId, setReq }) =>
           },
           headerRows: [],
           bars: [],
-          rows: [],
           totalMs: null,
           elapsedMs: 0
         })
