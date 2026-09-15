@@ -356,7 +356,7 @@ const Hero = () => {
             forwardedAs='span'
             css={theme({ fontSize: 'inherit', fontStyle: 'italic' })}
           >
-            transformed
+            ready for AI
           </Heading>
         </Heading>
 
@@ -368,8 +368,8 @@ const Hero = () => {
             mx: 'auto'
           })}
         >
-          A single API for turning any URL into data. Built for apps, agents,
-          and AI. Powered by real browsers.
+          A single API for turning any URL into data. Built for apps & agents.
+          Powered by real browsers.
         </Caption>
 
         <HeroComposer

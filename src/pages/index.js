@@ -25,7 +25,7 @@ export const Head = () => {
     url: 'https://microlink.io',
     image: 'https://cdn.microlink.io/logo/logo.png',
     description:
-      'A single API for turning any URL into data. Built for apps, agents, and AI. Powered by real browsers.',
+      'A single API for turning any URL into data. Built for apps & agents. Powered by real browsers.',
     softwareHelp: 'https://microlink.io/docs',
     offers: {
       '@type': 'Offer',

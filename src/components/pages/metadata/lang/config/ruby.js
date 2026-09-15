@@ -162,7 +162,7 @@ uri.query = URI.encode_www_form(url: 'https://microlink.io')
 
 data = JSON.parse(Net::HTTP.get(uri))['data']
 
-puts data['title']        # 'Microlink | The web, transformed'
+puts data['title']        # 'Microlink | The web, ready for AI'
 puts data['description']  # 'A single API for turning any URL into data…'
 puts data.dig('image', 'url') # absolute, CDN-hosted
 puts data.dig('logo', 'url')  # absolute, CDN-hosted`

@@ -161,7 +161,7 @@ const nodejs = {
 const { data } = await fetch(\`https://api.microlink.io?\${params}\`)
   .then(res => res.json())
 
-console.log(data.title)       // 'Microlink | The web, transformed'
+console.log(data.title)       // 'Microlink | The web, ready for AI'
 console.log(data.description) // 'A single API for turning any URL into data…'
 console.log(data.image.url)   // absolute, CDN-hosted
 console.log(data.logo.url)    // absolute, CDN-hosted`

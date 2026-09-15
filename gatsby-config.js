@@ -49,9 +49,9 @@ module.exports = {
     // Basic
     name: 'Microlink',
     author: 'Microlink HQ',
-    headline: 'Microlink | The web, transformed',
+    headline: 'Microlink | The web, ready for AI',
     description:
-      'A single API for turning any URL into data. Built for apps, agents, and AI. Powered by real browsers. Try it, no signup.',
+      'A single API for turning any URL into data. Built for apps & agents. Powered by real browsers. Try it, no signup.',
     siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
     ogImageBase: OG_IMAGE_BASE,

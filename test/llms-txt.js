@@ -21,7 +21,7 @@ const PAGES = [
     title: 'Pricing — Microlink',
     description: 'Simple, predictable pricing.'
   },
-  { pathname: '/', title: 'Microlink | The web, transformed' },
+  { pathname: '/', title: 'Microlink | The web, ready for AI' },
   {
     pathname: '/blog/some-post',
     title: 'Some post — Microlink',
@@ -43,8 +43,8 @@ describe('cleanTitle', () => {
   })
 
   test('leaves a title that does not carry it', () => {
-    expect(cleanTitle('Microlink | The web, transformed')).toBe(
-      'Microlink | The web, transformed'
+    expect(cleanTitle('Microlink | The web, ready for AI')).toBe(
+      'Microlink | The web, ready for AI'
     )
   })
 })
@@ -125,7 +125,7 @@ describe('buildLlmsTxt', () => {
       '- [Pricing](https://microlink.io/pricing.md): Simple, predictable pricing.'
     )
     expect(content).toContain(
-      '- [Microlink | The web, transformed](https://microlink.io/index.md)\n'
+      '- [Microlink | The web, ready for AI](https://microlink.io/index.md)\n'
     )
   })
 
