@@ -32,6 +32,30 @@ const TABS = [
   { id: 'logs', label: 'Logs' }
 ]
 
+const copyAriaLabel = tab =>
+  tab === 'trace'
+    ? 'Copy trace'
+    : tab === 'timing'
+      ? 'Copy timing'
+      : tab === 'logs'
+        ? 'Copy logs'
+        : 'Copy output'
+
+const copyTextForTab = (tab, { trace, timing, logs, payload }) => {
+  if (tab === 'trace') return JSON.stringify(trace, null, 2)
+  if (tab === 'timing') {
+    return timing.rows
+      .map(row => `${row.name}  ${row.dur} (${row.pct})`)
+      .join('\n')
+  }
+  if (tab === 'logs') {
+    return LOG_ORDER.flatMap(type =>
+      (logs?.[type] || []).map(line => `${type}  ${line}`)
+    ).join('\n')
+  }
+  return JSON.stringify(payload, null, 2)
+}
+
 const StatusMark = ({ status, elapsed }) => {
   if (status !== 'success' && status !== 'error') return null
   const ok = status === 'success'
@@ -135,18 +159,7 @@ const Results = ({
   const timing = parseServerTiming(trace?.response?.headers?.['server-timing'])
   const bytes =
     status === 'success' || status === 'error' ? byteLength(payload) : 0
-  const copyText =
-    tab === 'trace'
-      ? JSON.stringify(trace, null, 2)
-      : tab === 'timing'
-        ? timing.rows
-          .map(row => `${row.name}  ${row.dur} (${row.pct})`)
-          .join('\n')
-        : tab === 'logs'
-          ? LOG_ORDER.flatMap(type =>
-            (logs?.[type] || []).map(line => `${type}  ${line}`)
-          ).join('\n')
-          : JSON.stringify(payload, null, 2)
+  const copyText = copyTextForTab(tab, { trace, timing, logs, payload })
 
   return (
     <Pane>
@@ -163,15 +176,7 @@ const Results = ({
           >
             <StatusMark status={status} elapsed={elapsed} />
             <IconButton
-              aria-label={
-                tab === 'trace'
-                  ? 'Copy trace'
-                  : tab === 'timing'
-                    ? 'Copy timing'
-                    : tab === 'logs'
-                      ? 'Copy logs'
-                      : 'Copy output'
-              }
+              aria-label={copyAriaLabel(tab)}
               onClick={() => onCopy(copyText)}
             >
               <IconCopy />

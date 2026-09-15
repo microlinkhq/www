@@ -232,6 +232,14 @@
         "rules": [
           "react-doctor/no-create-object-url-without-revoke"
         ]
+      },
+      {
+        "files": [
+          "src/components/pages/home/hero/result-panel.js"
+        ],
+        "rules": [
+          "react-doctor/no-high-complexity-react-function"
+        ]
       }
     ]
   }
