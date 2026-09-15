@@ -8,7 +8,7 @@ export const useEvaluate = ({ apiKey, onSettled, getSyntaxErrors } = {}) => {
   const [status, setStatus] = useState('idle')
   const [value, setValue] = useState(null)
   const [logs, setLogs] = useState(null)
-  const [http, setHttp] = useState(null)
+  const [trace, setTrace] = useState(null)
   const [elapsed, setElapsed] = useState(null)
   const runningRef = useRef(false)
 
@@ -23,7 +23,7 @@ export const useEvaluate = ({ apiKey, onSettled, getSyntaxErrors } = {}) => {
         if (syntaxErrors?.length) {
           setValue(serializeError(formatSyntaxError(syntaxErrors)))
           setLogs({})
-          setHttp(null)
+          setTrace(null)
           setElapsed(Math.round(performance.now() - started))
           setStatus('error')
           return
@@ -34,14 +34,14 @@ export const useEvaluate = ({ apiKey, onSettled, getSyntaxErrors } = {}) => {
         })
         setValue(result.value)
         setLogs(result.logs)
-        setHttp(result.http)
+        setTrace(result.trace)
         setElapsed(Math.round(performance.now() - started))
         setStatus(result.status)
         onSettled?.(files)
       } catch (error) {
         setValue(serializeError(error))
         setLogs({})
-        setHttp(null)
+        setTrace(null)
         setElapsed(Math.round(performance.now() - started))
         setStatus('error')
       } finally {
@@ -51,5 +51,5 @@ export const useEvaluate = ({ apiKey, onSettled, getSyntaxErrors } = {}) => {
     [apiKey, getSyntaxErrors, onSettled]
   )
 
-  return { status, value, logs, http, elapsed, evaluate }
+  return { status, value, logs, trace, elapsed, evaluate }
 }

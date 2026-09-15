@@ -171,24 +171,6 @@ export const toPayload = value => {
   return value
 }
 
-export const toHeadersObject = headers => {
-  if (!headers) return {}
-  const entries =
-    typeof headers.forEach === 'function'
-      ? Array.from(headers)
-      : Object.entries(headers)
-  return Object.fromEntries(entries.sort(([a], [b]) => a.localeCompare(b)))
-}
-
-export const statusFromValue = (value, http) => {
-  if (http) return http
-  if (!value || typeof value !== 'object') return {}
-  return {
-    statusCode: value.statusCode || value.response?.statusCode,
-    headers: toHeadersObject(value.response?.headers || value.headers)
-  }
-}
-
 export const countLogs = logs =>
   Object.values(logs || {}).reduce((total, items) => total + items.length, 0)
 

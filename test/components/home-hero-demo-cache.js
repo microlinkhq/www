@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 import heroDemoRequests from '../../src/components/pages/home/hero-demo-requests.js'
-import { parseServerTimingEntries } from '../../src/helpers/server-timing.js'
+import { parseServerTiming } from '../../src/helpers/server-timing.js'
 import { sourceHarness } from '../utils/eval-source.mjs'
 
 const {
@@ -218,11 +218,11 @@ describe('hero demo snapshot cache', () => {
   test('snapshotReq rebuilds the full response state for both paths', () => {
     const snapshotReq = evaluate(
       [
-        requestsSlice('const TIMING_COLORS', 'const fmtDuration'),
+        requestsSlice('const headersToRows', 'const fmtDuration'),
         requestsSlice('const snapshotReq', 'demoSnapshots.set(INITIAL_VERTICAL')
       ].join('\n'),
       'snapshotReq',
-      { parseServerTimingEntries }
+      { parseServerTiming }
     )
     const snapshot = { vertical: 'screenshot', fullUrl: DEMO_URLS.screenshot }
     const cached = {
@@ -249,7 +249,7 @@ describe('hero demo snapshot cache', () => {
   test('live responses are normalized to plain headers before snapshotReq', () => {
     expect(run).toContain('Object.fromEntries(response.headers.entries())')
     const headersToRows = evaluate(
-      requestsSlice('const headersToRows', 'const parseServerTiming'),
+      requestsSlice('const headersToRows', 'const fmtDuration'),
       'headersToRows'
     )
     expect(headersToRows({ b: '2', a: '1' })).toEqual([

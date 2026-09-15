@@ -7,6 +7,8 @@ import Text from 'components/elements/Text'
 import Spinner from 'components/elements/Spinner'
 import Dot from 'components/elements/Dot/Dot'
 import JsonView from 'components/elements/JsonView/JsonView'
+import { TimingContent } from 'components/pages/home/hero/result-contents'
+import { parseServerTiming } from 'helpers/server-timing'
 
 import { IconCopy } from './icons'
 import { IconButton } from './chrome'
@@ -19,14 +21,14 @@ import {
   LOG_ORDER,
   LogRow,
   ResultTabs,
-  statusFromValue,
   SyntaxHighlight,
   toPayload
 } from './results-views'
 
 const TABS = [
   { id: 'output', label: 'Output' },
-  { id: 'http', label: 'HTTP' },
+  { id: 'trace', label: 'Trace' },
+  { id: 'timing', label: 'Timing' },
   { id: 'logs', label: 'Logs' }
 ]
 
@@ -38,7 +40,6 @@ const StatusMark = ({ status, elapsed }) => {
       css={theme({
         alignItems: 'center',
         gap: 2,
-        ml: 'auto',
         color: ok ? 'teal8' : 'red8',
         fontSize: 0,
         fontWeight: 'bold'
@@ -69,9 +70,8 @@ const JsonPane = ({ src }) => {
   return <SyntaxHighlight>{JSON.stringify(src, null, 2)}</SyntaxHighlight>
 }
 
-const ResultBody = ({ tab, status, value, logs, http }) => {
+const ResultBody = ({ tab, status, value, logs, trace, timing }) => {
   const payload = toPayload(value)
-  const { headers } = statusFromValue(value, http)
   const logCount = countLogs(logs)
 
   if (status === 'idle') {
@@ -94,7 +94,16 @@ const ResultBody = ({ tab, status, value, logs, http }) => {
 
   if (tab === 'output') return <JsonPane src={payload} />
 
-  if (tab === 'http') return <JsonPane src={headers || {}} />
+  if (tab === 'trace') {
+    if (!trace) return <Centered>No trace</Centered>
+    return <JsonPane src={trace} />
+  }
+
+  if (tab === 'timing') {
+    return (
+      <TimingContent bars={timing.bars} rows={timing.rows} maxHeight={null} />
+    )
+  }
 
   if (logCount === 0) return <Centered>No logs</Centered>
 
@@ -112,37 +121,60 @@ const ResultBody = ({ tab, status, value, logs, http }) => {
   )
 }
 
-const Results = ({ status, value, logs, http, elapsed, onCopy, copyLabel }) => {
+const Results = ({
+  status,
+  value,
+  logs,
+  trace,
+  elapsed,
+  onCopy,
+  copyLabel
+}) => {
   const [tab, setTab] = useState('output')
   const payload = toPayload(value)
+  const timing = parseServerTiming(trace?.response?.headers?.['server-timing'])
   const bytes =
     status === 'success' || status === 'error' ? byteLength(payload) : 0
+  const copyText =
+    tab === 'trace'
+      ? JSON.stringify(trace, null, 2)
+      : tab === 'timing'
+        ? timing.rows
+          .map(row => `${row.name}  ${row.dur} (${row.pct})`)
+          .join('\n')
+        : JSON.stringify(payload, null, 2)
 
   return (
     <Pane>
       <PaneBar>
         <ResultTabs tabs={TABS} active={tab} onChange={setTab} />
-        <StatusMark status={status} elapsed={elapsed} />
-      </PaneBar>
-      <PaneBody>
         {(status === 'success' || status === 'error') && (
-          <Box
+          <Flex
             css={theme({
-              position: 'absolute',
-              top: 2,
-              right: 2,
-              zIndex: 1
+              alignItems: 'center',
+              gap: 2,
+              ml: 'auto',
+              flexShrink: 0
             })}
           >
+            <StatusMark status={status} elapsed={elapsed} />
             <IconButton
-              aria-label='Copy output'
-              onClick={() => onCopy(JSON.stringify(payload, null, 2))}
+              aria-label={
+                tab === 'trace'
+                  ? 'Copy trace'
+                  : tab === 'timing'
+                    ? 'Copy timing'
+                    : 'Copy output'
+              }
+              onClick={() => onCopy(copyText)}
             >
               <IconCopy />
               {copyLabel}
             </IconButton>
-          </Box>
+          </Flex>
         )}
+      </PaneBar>
+      <PaneBody>
         <Box
           role='tabpanel'
           id={`${tab}-panel`}
@@ -154,7 +186,8 @@ const Results = ({ status, value, logs, http, elapsed, onCopy, copyLabel }) => {
             status={status}
             value={value}
             logs={logs}
-            http={http}
+            trace={trace}
+            timing={timing}
           />
         </Box>
       </PaneBody>

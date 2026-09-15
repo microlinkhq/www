@@ -71,7 +71,7 @@ const Editor = () => {
     return editorApi.current.getSyntaxErrors(files)
   }, [])
 
-  const { status, value, logs, http, elapsed, evaluate } = useEvaluate({
+  const { status, value, logs, trace, elapsed, evaluate } = useEvaluate({
     apiKey,
     onSettled,
     getSyntaxErrors
@@ -254,7 +254,7 @@ const Editor = () => {
         status={status}
         value={value}
         logs={logs}
-        http={http}
+        trace={trace}
         elapsed={elapsed}
         onCopy={onCopy}
         copyLabel={copyLabel}

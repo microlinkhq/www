@@ -52,10 +52,10 @@ describe('hero copy result', () => {
   test('timing tab copies the metric rows', () => {
     const req = {
       apiUrl: API_URL,
-      rows: [{ name: 'total', dur: '10.0ms', pct: '100.0%' }]
+      rows: [{ name: 'total', dur: '10.0ms', pct: '100%' }]
     }
     expect(copyPayload(req, 'timing')).toBe(
-      REQUEST_COMMENT + 'total  10.0ms  100.0%'
+      REQUEST_COMMENT + 'total  10.0ms (100%)'
     )
   })
 

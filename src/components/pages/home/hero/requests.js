@@ -1,6 +1,6 @@
 import { PRODUCTS } from 'components/pages/home/catalog'
 import heroDemoRequests from 'components/pages/home/hero-demo-requests'
-import { parseServerTimingEntries } from 'helpers/server-timing'
+import { parseServerTiming } from 'helpers/server-timing'
 import { colors } from 'theme'
 import { getApiUrl } from '@microlink/mql'
 
@@ -13,43 +13,11 @@ const { REQUEST_OPTS, INITIAL_VERTICAL, heroDemoPath } = heroDemoRequests
 
 const SUCCESS = colors.green8
 
-const TIMING_COLORS = ['green5', 'blue5', 'yellow5', 'pink5', 'grape5', 'teal5']
-
 const headersToRows = headers => {
   if (!headers) return []
   return Object.entries(headers)
     .map(([k, v]) => ({ k, v }))
     .sort((a, b) => a.k.localeCompare(b.k))
-}
-
-const parseServerTiming = raw => {
-  if (!raw) return { bars: [], rows: [], totalMs: null }
-
-  const entries = parseServerTimingEntries(raw).map(e => ({
-    name: e.name,
-    dur: e.dur ?? 0
-  }))
-
-  const total =
-    entries.find(e => e.name === 'total')?.dur ??
-    entries.reduce((sum, e) => sum + e.dur, 0)
-
-  const pct = dur => (total ? (dur / total) * 100 : 0)
-
-  const bars = entries.map((e, i) => ({
-    name: e.name,
-    dur: `${e.dur.toFixed(1)}ms`,
-    pct: `${Math.max(2, Math.round(pct(e.dur)))}%`,
-    color: TIMING_COLORS[i % TIMING_COLORS.length]
-  }))
-
-  const rows = entries.map(e => ({
-    name: e.name,
-    dur: `${e.dur.toFixed(1)}ms`,
-    pct: `${pct(e.dur).toFixed(1)}%`
-  }))
-
-  return { bars, rows, totalMs: total }
 }
 
 const fmtDuration = ms =>

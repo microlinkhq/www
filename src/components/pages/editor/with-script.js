@@ -1,6 +1,7 @@
 import createClient from 'microlink.io'
 
 import { toModuleSource } from './to-module-source'
+import { readTraceBody, toTracePayload } from './trace'
 
 const MICROLINK_HOSTS = new Set(['api.microlink.io', 'pro.microlink.io'])
 const CONSOLE_METHODS = ['log', 'debug', 'info', 'warn', 'error']
@@ -70,18 +71,35 @@ const mergeHeaders = (input, init, apiKey) => {
   return headers
 }
 
-const wrapFetch =
-  (nativeFetch, apiKey) =>
-    (input, init = {}) => {
-      const url = requestUrl(input)
-      if (!apiKey || !isMicrolinkApi(url)) return nativeFetch(input, init)
-      const nextUrl = toProUrl(url)
-      const headers = mergeHeaders(input, init, apiKey)
-      if (typeof input === 'string') {
-        return nativeFetch(nextUrl, { ...init, headers })
-      }
-      return nativeFetch(new Request(nextUrl, input), { ...init, headers })
+const requestMethod = (input, init) =>
+  init?.method || (input && input.method) || 'GET'
+
+const sendFetch = async (nativeFetch, input, init = {}, apiKey) => {
+  const url = requestUrl(input)
+  if (!apiKey || !isMicrolinkApi(url)) {
+    return {
+      response: await nativeFetch(input, init),
+      requestUrl: url,
+      requestOptions: {
+        headers: init.headers || (input && input.headers)
+      },
+      method: requestMethod(input, init)
     }
+  }
+  const nextUrl = toProUrl(url)
+  const headers = mergeHeaders(input, init, apiKey)
+  const nextInit = { ...init, headers }
+  const response =
+    typeof input === 'string'
+      ? await nativeFetch(nextUrl, nextInit)
+      : await nativeFetch(new Request(nextUrl, input), nextInit)
+  return {
+    response,
+    requestUrl: nextUrl,
+    requestOptions: { headers },
+    method: requestMethod(input, nextInit)
+  }
+}
 
 const formatLogArg = arg => {
   if (typeof arg === 'string') return arg
@@ -113,22 +131,35 @@ const patchConsole = (consoleRef, logs) => {
   }
 }
 
-const captureHttp = (assign, wrap) => {
-  return async (input, init) => {
-    const response = await wrap(input, init)
-    if (isMicrolinkApi(response.url || requestUrl(input))) {
-      assign({
-        statusCode: response.status,
-        headers: Object.fromEntries(response.headers.entries())
-      })
+const installFetch = (target, assign, apiKey) => {
+  const native = target.fetch.bind(target)
+  target.fetch = async (input, init) => {
+    const {
+      response,
+      requestUrl: url,
+      requestOptions,
+      method
+    } = await sendFetch(native, input, init, apiKey)
+    if (isMicrolinkApi(response.url || url)) {
+      const options = { ...requestOptions }
+      if (method && String(method).toUpperCase() !== 'GET') {
+        options.method = method
+      }
+      assign(
+        toTracePayload({
+          requestUrl: url,
+          requestOptions: options,
+          response: {
+            url: response.url,
+            statusCode: response.status,
+            headers: response.headers,
+            body: await readTraceBody(response)
+          }
+        })
+      )
     }
     return response
   }
-}
-
-const installFetch = (target, assign, apiKey) => {
-  const native = target.fetch.bind(target)
-  target.fetch = captureHttp(assign, wrapFetch(native, apiKey))
   return () => {
     target.fetch = native
   }
@@ -182,18 +213,18 @@ const evalInFrame = async (iframe, files, { apiKey, entry }) => {
   const win = iframe.contentWindow
   const doc = iframe.contentDocument
   const logs = Object.create(null)
-  let http = null
+  let trace = null
   const restoreConsole = patchConsole(win.console, logs)
-  const assignHttp = next => {
-    http = next
+  const assignTrace = next => {
+    trace = next
   }
   let restoreIframeFetch = () => {}
   let restoreParentFetch = () => {}
   const blobUrls = []
 
   try {
-    restoreIframeFetch = installFetch(win, assignHttp, apiKey)
-    restoreParentFetch = installFetch(window, assignHttp, apiKey)
+    restoreIframeFetch = installFetch(win, assignTrace, apiKey)
+    restoreParentFetch = installFetch(window, assignTrace, apiKey)
 
     const shimUrl = createShimUrl(win, apiKey)
     blobUrls.push(shimUrl)
@@ -216,7 +247,7 @@ const evalInFrame = async (iframe, files, { apiKey, entry }) => {
       status,
       value: status === 'error' ? serializeError(value) : value,
       logs,
-      http
+      trace
     }
   } finally {
     restoreConsole()
@@ -235,7 +266,7 @@ export const withScript = (files, { apiKey, entry = 'main.mjs' } = {}) =>
         status: 'error',
         value: serializeError(`Missing entry file ${entry}`),
         logs: {},
-        http: null
+        trace: null
       })
       return
     }
@@ -259,7 +290,7 @@ export const withScript = (files, { apiKey, entry = 'main.mjs' } = {}) =>
           status: 'error',
           value: serializeError(error),
           logs: {},
-          http: null
+          trace: null
         })
       )
     }
@@ -268,7 +299,7 @@ export const withScript = (files, { apiKey, entry = 'main.mjs' } = {}) =>
         status: 'error',
         value: serializeError(new Error('Editor runtime failed to start')),
         logs: {},
-        http: null
+        trace: null
       })
     document.body.appendChild(iframe)
   })
