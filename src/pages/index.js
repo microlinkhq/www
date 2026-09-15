@@ -21,7 +21,7 @@ const NEAR_VIEWPORT = { rootMargin: '25% 0px' }
 
 const Placeholder = ({ minHeight }) => <div aria-hidden style={{ minHeight }} />
 
-const Deferred = ({ minHeight, children }) => {
+const useHashUnlock = () => {
   const [force, setForce] = useState(false)
 
   useEffect(() => {
@@ -39,20 +39,34 @@ const Deferred = ({ minHeight, children }) => {
     if (!hash) return undefined
 
     let tries = 0
+    let lastTop = null
+    let stable = 0
     const timer = window.setInterval(() => {
       const el = document.querySelector(hash)
       tries += 1
-      if (el) {
-        el.scrollIntoView()
-        window.clearInterval(timer)
-      } else if (tries > 40) {
-        window.clearInterval(timer)
+      if (!el) {
+        if (tries > 80) window.clearInterval(timer)
+        return
       }
-    }, 50)
+      el.scrollIntoView()
+      const top = el.getBoundingClientRect().top
+      if (lastTop !== null && Math.abs(top - lastTop) < 2) {
+        stable += 1
+        if (stable >= 4) window.clearInterval(timer)
+      } else {
+        stable = 0
+      }
+      lastTop = top
+      if (tries > 80) window.clearInterval(timer)
+    }, 100)
 
     return () => window.clearInterval(timer)
   }, [force])
 
+  return force
+}
+
+const Deferred = ({ minHeight, force, children }) => {
   if (force) {
     return (
       <Suspense fallback={<Placeholder minHeight={minHeight} />}>
@@ -125,30 +139,32 @@ export const Head = () => {
 }
 
 const HomePage = () => {
+  const forceDeferred = useHashUnlock()
+
   return (
     <CurrencyProvider>
       <Layout>
         <Hero />
         <CliBanner />
-        <Deferred minHeight='80vh'>
+        <Deferred force={forceDeferred} minHeight='80vh'>
           <Products />
         </Deferred>
-        <Deferred minHeight='40vh'>
+        <Deferred force={forceDeferred} minHeight='40vh'>
           <Examples />
         </Deferred>
-        <Deferred minHeight='30vh'>
+        <Deferred force={forceDeferred} minHeight='30vh'>
           <Analytics />
         </Deferred>
-        <Deferred minHeight='50vh'>
+        <Deferred force={forceDeferred} minHeight='50vh'>
           <Pricing />
         </Deferred>
-        <Deferred minHeight='30vh'>
+        <Deferred force={forceDeferred} minHeight='30vh'>
           <Production />
         </Deferred>
-        <Deferred minHeight='40vh'>
+        <Deferred force={forceDeferred} minHeight='40vh'>
           <OpenSource />
         </Deferred>
-        <Deferred minHeight='40vh'>
+        <Deferred force={forceDeferred} minHeight='40vh'>
           <Faqs />
         </Deferred>
         <GradualBlur />
