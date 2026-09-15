@@ -124,9 +124,7 @@ const ResultBody = ({ tab, status, value, logs, trace, timing }) => {
   }
 
   if (tab === 'timing') {
-    return (
-      <TimingContent bars={timing.bars} rows={timing.rows} maxHeight={null} />
-    )
+    return <TimingContent bars={timing.bars} maxHeight={null} />
   }
 
   if (logCount === 0) return <Centered>No logs</Centered>

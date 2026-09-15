@@ -37,6 +37,7 @@ export const parseServerTiming = raw => {
   const bars = entries.map((e, i) => ({
     name: e.name,
     dur: `${e.dur.toFixed(1)}ms`,
+    share: share(e.dur),
     pct: `${Math.max(2, Math.round(pct(e.dur)))}%`,
     color: TIMING_COLORS[i % TIMING_COLORS.length]
   }))

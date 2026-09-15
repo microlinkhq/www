@@ -168,7 +168,7 @@ const CopyResultButton = styled.button`
 `
 
 export const ResultPanel = React.memo(({ tab, setTab, req }) => {
-  const { D, status, body, headerRows, bars, rows } = req
+  const { D, status, body, headerRows, bars } = req
   const isLoading = status === 'loading'
   const isError = status === 'error'
   const isRateLimited = status === 'rate-limited'
@@ -309,13 +309,7 @@ export const ResultPanel = React.memo(({ tab, setTab, req }) => {
 
         {!hideTabs &&
           tab === 'timing' &&
-          (isLoading || !bars
-            ? (
-              <Skeleton />
-              )
-            : (
-              <TimingContent bars={bars} rows={rows} />
-              ))}
+          (isLoading || !bars ? <Skeleton /> : <TimingContent bars={bars} />)}
 
         {!hideTabs && tab === 'code' && (
           <CodeContent snippet={snippet} snippetArg={snippetArg} />

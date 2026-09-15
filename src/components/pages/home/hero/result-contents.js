@@ -166,7 +166,7 @@ export const HeadersContent = ({ headerRows }) => (
   </Box>
 )
 
-export const TimingContent = ({ bars, rows, maxHeight = PANEL_HEIGHT }) =>
+export const TimingContent = ({ bars, maxHeight = PANEL_HEIGHT }) =>
   bars.length === 0
     ? (
       <Box css={theme({ p: 4 })}>
@@ -193,7 +193,7 @@ export const TimingContent = ({ bars, rows, maxHeight = PANEL_HEIGHT }) =>
             >
               <Mono css={theme({ fontSize: 0, color: 'black' })}>{b.name}</Mono>
               <Mono css={theme({ fontSize: 0, color: SYNTAX.muted })}>
-                {b.dur}
+                {b.dur} ({b.share})
               </Mono>
             </Flex>
             <Box
@@ -212,51 +212,6 @@ export const TimingContent = ({ bars, rows, maxHeight = PANEL_HEIGHT }) =>
                   bg: b.color
                 })}
               />
-            </Box>
-          </Box>
-        ))}
-        <Box
-          css={theme({
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 2,
-            mt: 3,
-            pb: 2,
-            borderBottom: 1,
-            borderBottomColor: 'gray1',
-            fontFamily: 'mono',
-            fontSize: 0,
-            letterSpacing: '.05em',
-            color: SYNTAX.muted,
-            textTransform: 'uppercase'
-          })}
-        >
-          <span>Metric</span>
-          <Box as='span' css={theme({ textAlign: 'right' })}>
-            Duration
-          </Box>
-        </Box>
-        {rows.map(r => (
-          <Box
-            key={r.name}
-            css={theme({
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: 2,
-              py: 3,
-              borderBottom: 1,
-              borderBottomColor: 'gray1',
-              fontFamily: 'mono',
-              fontSize: 0,
-              color: SYNTAX.body
-            })}
-          >
-            <span>{r.name}</span>
-            <Box
-              as='span'
-              css={theme({ textAlign: 'right', color: SYNTAX.muted })}
-            >
-              {r.dur} ({r.pct})
             </Box>
           </Box>
         ))}
