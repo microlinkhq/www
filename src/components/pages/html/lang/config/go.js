@@ -168,7 +168,10 @@ func main() {
     "data.html.attr": {"html"},
   }
 
-  res, _ := http.Get("https://api.microlink.io?" + params.Encode())
+  res, err := http.Get("https://api.microlink.io?" + params.Encode())
+  if err != nil {
+    panic(err)
+  }
   defer res.Body.Close()
 
   var payload struct {
@@ -205,7 +208,10 @@ func main() {
     "data.html.selector": {"main"}, // only the <main> subtree
   }
 
-  res, _ := http.Get("https://api.microlink.io?" + params.Encode())
+  res, err := http.Get("https://api.microlink.io?" + params.Encode())
+  if err != nil {
+    panic(err)
+  }
   defer res.Body.Close()
 
   var payload struct {
@@ -244,7 +250,10 @@ func main() {
     "waitForSelector": {"h1"},   // capture only when the content exists
   }
 
-  res, _ := http.Get("https://api.microlink.io?" + params.Encode())
+  res, err := http.Get("https://api.microlink.io?" + params.Encode())
+  if err != nil {
+    panic(err)
+  }
   defer res.Body.Close()
 
   var payload struct {
@@ -281,7 +290,10 @@ func main() {
     "embed":          {"html"}, // respond with text/html, no JSON
   }
 
-  res, _ := http.Get("https://api.microlink.io?" + params.Encode())
+  res, err := http.Get("https://api.microlink.io?" + params.Encode())
+  if err != nil {
+    panic(err)
+  }
   defer res.Body.Close()
 
   html, _ := io.ReadAll(res.Body) // ready to serve or store
@@ -327,7 +339,11 @@ func main() {
       "data.html.attr": {"html"},
     }
 
-    res, _ := http.Get("https://api.microlink.io?" + params.Encode())
+    res, err := http.Get("https://api.microlink.io?" + params.Encode())
+    if err != nil {
+      c.Status(http.StatusBadGateway)
+      return
+    }
     defer res.Body.Close()
 
     var payload struct {
@@ -370,7 +386,10 @@ func main() {
       "data.html.attr": {"html"},
     }
 
-    res, _ := http.Get("https://api.microlink.io?" + params.Encode())
+    res, err := http.Get("https://api.microlink.io?" + params.Encode())
+    if err != nil {
+      return echo.ErrBadGateway
+    }
     defer res.Body.Close()
 
     var payload struct {
@@ -451,7 +470,10 @@ func main() {
     "data.html.attr": {"html"},
   }
 
-  res, _ := http.Get("https://api.microlink.io?" + params.Encode())
+  res, err := http.Get("https://api.microlink.io?" + params.Encode())
+  if err != nil {
+    panic(err)
+  }
   defer res.Body.Close()
 
   var payload struct {

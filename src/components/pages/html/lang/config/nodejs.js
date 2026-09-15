@@ -152,7 +152,7 @@ const nodejs = {
           'A few lines with global fetch — no npm package, no Chromium download. Point it at a page and read the rendered HTML from the JSON response.',
         code: {
           language: 'js',
-          title: 'fetch.js',
+          title: 'fetch.mjs',
           source: `const params = new URLSearchParams({
   url: 'https://microlink.io',
   'data.html.attr': 'html'
@@ -171,7 +171,7 @@ console.log(data.html.slice(0, 15)) // '<!DOCTYPE html>'`
           'Return the whole document or only the subtree you need — smaller responses, less parsing and lower token cost downstream.',
         code: {
           language: 'js',
-          title: 'selector.js',
+          title: 'selector.mjs',
           source: `const params = new URLSearchParams({
   url: 'https://microlink.io/blog',
   'data.html.attr': 'html',
@@ -191,7 +191,7 @@ console.log(data.html)`
           'Client-rendered apps only produce their markup after JavaScript runs — prerender in a real browser and wait for it, still one request.',
         code: {
           language: 'js',
-          title: 'spa.js',
+          title: 'spa.mjs',
           source: `const params = new URLSearchParams({
   url: 'https://app.example.com',
   'data.html.attr': 'html',
@@ -211,7 +211,7 @@ console.log(data.html)`
           'Ask for embed=html and the API answers with text/html directly — proxy it straight to a browser or write it to a file.',
         code: {
           language: 'js',
-          title: 'raw.js',
+          title: 'raw.mjs',
           source: `const params = new URLSearchParams({
   url: 'https://microlink.io',
   'data.html.attr': 'html',
@@ -298,8 +298,8 @@ export async function archive (url, file) {
         label: 'Plain Node.js',
         code: {
           language: 'js',
-          title: 'html.js',
-          source: `// node html.js https://microlink.io
+          title: 'html.mjs',
+          source: `// node html.mjs https://microlink.io
 const { data } = await fetch(
   \`https://api.microlink.io?url=\${encodeURIComponent(process.argv[2])}&data.html.attr=html\`
 ).then(res => res.json())
