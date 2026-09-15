@@ -3,8 +3,8 @@ import React from 'react'
 
 import Box from 'components/elements/Box'
 import Subhead from 'components/elements/Subhead'
-import Text from 'components/elements/Text'
 
+import Caption from 'components/patterns/Caption/Caption'
 import { FeaturedToolCard, ToolCard } from 'components/patterns/Tools/ToolCards'
 
 const CategorySection = ({ category, description, tools }) => {
@@ -21,17 +21,16 @@ const CategorySection = ({ category, description, tools }) => {
         >
           {category}
         </Subhead>
-        <Text
+        <Caption
+          forwardedAs='p'
           css={theme({
-            fontSize: [1, 1, 2, 2],
-            color: 'black80',
             mt: 2,
-            lineHeight: 2,
+            textAlign: 'left',
             maxWidth: layout.normal
           })}
         >
           {description}
-        </Text>
+        </Caption>
       </Box>
 
       {featured && (

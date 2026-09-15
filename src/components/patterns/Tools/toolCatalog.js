@@ -19,7 +19,7 @@ export const TOOLS = [
   {
     category: 'Screenshots',
     description:
-      'Turn any URL into a pixel-perfect image. Choose the right tool for your workflow — single captures, full-page scrolls, bulk exports, or mobile viewports.',
+      'Turn any URL into a pixel-perfect image. Choose the right tool for your workflow: single captures, full-page scrolls, bulk exports, or mobile viewports.',
     tools: [
       {
         title: 'Website Screenshot',
@@ -113,7 +113,7 @@ export const TOOLS = [
       {
         title: 'Sharing Debugger',
         description:
-          'Validate Open Graph, Twitter Cards, JSON-LD, microdata, and every other meta tag in one place. Preview how your URL renders on Facebook, X, LinkedIn, Slack, and more — before you hit publish.',
+          'Validate Open Graph, Twitter Cards, JSON-LD, microdata, and every other meta tag in one place. Preview how your URL renders on Facebook, X, LinkedIn, Slack, and more, before you hit publish.',
         href: '/tools/sharing-debugger',
         icon: BugIcon,
         image: '/images/sharing-debugger.png',
@@ -142,12 +142,12 @@ export const TOOLS = [
   {
     category: 'PDF',
     description:
-      'Convert any URL into a clean, high-fidelity PDF document. Choose paper size, orientation, margins, and more — download or share the result instantly.',
+      'Convert any URL into a clean, high-fidelity PDF document. Choose paper size, orientation, margins, and more. Download or share the result instantly.',
     tools: [
       {
         title: 'Website to PDF',
         description:
-          'Save any web page as a PDF. Pick your paper format, orientation, and appearance — download a high-fidelity document in seconds. No login required.',
+          'Save any web page as a PDF. Pick your paper format, orientation, and appearance. Download a high-fidelity document in seconds. No login required.',
         href: '/tools/website-to-pdf',
         icon: FileTextIcon,
         image: '/images/pdf-tool.png',
@@ -183,12 +183,12 @@ export const TOOLS = [
   {
     category: 'Markdown',
     description:
-      'Convert any webpage into clean, structured markdown. Extract content from blogs, docs, and SPAs — edit, copy, or download the result instantly.',
+      'Convert any webpage into clean, structured markdown. Extract content from blogs, docs, and SPAs. Edit, copy, or download the result instantly.',
     tools: [
       {
         title: 'URL to Markdown',
         description:
-          'Turn any URL into clean, structured markdown. Supports ad blocking, HTML selectors, JavaScript rendering, and inline editing — copy or download the result. No login required.',
+          'Turn any URL into clean, structured markdown. Supports ad blocking, HTML selectors, JavaScript rendering, and inline editing. Copy or download the result. No login required.',
         href: '/tools/url-to-markdown',
         icon: FileTextIcon,
         image: '/images/url-to-markdown.jpg',
@@ -209,7 +209,7 @@ export const TOOLS = [
   {
     category: 'Embedding',
     description:
-      'Turn any URL into a ready-to-paste embed. Works with any link — for 300+ providers like YouTube, Spotify, X, and Figma you get the native preview straight from the source, and every other URL is rendered as a rich preview card.',
+      'Turn any URL into a ready-to-paste embed. Works with any link. For 300+ providers like YouTube, Spotify, X, and Figma you get the native preview straight from the source, and every other URL is rendered as a rich preview card.',
     tools: [
       {
         title: 'Embed URL',
