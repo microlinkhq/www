@@ -119,10 +119,7 @@ const php = {
     ]
   },
 
-  breadcrumb: [
-    { label: 'Logo API', href: '/logo' },
-    { label: 'PHP' }
-  ],
+  breadcrumb: [{ label: 'Logo API', href: '/logo' }, { label: 'PHP' }],
 
   hero: {
     title: (
@@ -368,10 +365,10 @@ print_r($res['data']['logo']);`
     ),
     caption: (
       <>
-        A REST API that feels native in PHP — one call, JSON back, and at
-        home in anything from a script to a WordPress theme. Read the{' '}
-        <Link href='/docs/api/getting-started/overview'>API overview</Link>
-        {' '}to go deeper.
+        A REST API that feels native in PHP — one call, JSON back, and at home
+        in anything from a script to a WordPress theme. Read the{' '}
+        <Link href='/docs/api/getting-started/overview'>API overview</Link> to
+        go deeper.
       </>
     ),
     items: [
@@ -433,7 +430,7 @@ print_r($res['data']['logo']);`
       'Paste a URL and see the detected logo before you write a line of PHP.',
     cta: {
       label: 'Open the live demo',
-      href: '/'
+      href: '/logo'
     }
   },
 
@@ -441,8 +438,7 @@ print_r($res['data']['logo']);`
     title: 'PHP Logo API FAQ',
     caption: (
       <>
-        Everything PHP developers ask before integrating the Microlink
-        logo API.
+        Everything PHP developers ask before integrating the Microlink logo API.
       </>
     ),
     questions: [
@@ -451,9 +447,9 @@ print_r($res['data']['logo']);`
         answer: (
           <>
             <div>
-              Microlink walks the page markup — apple-touch-icon, Open Graph
-              and JSON-LD — checks the BIMI record in DNS, and falls back to
-              the favicon. The best available asset wins, with its format and
+              Microlink walks the page markup — apple-touch-icon, Open Graph and
+              JSON-LD — checks the BIMI record in DNS, and falls back to the
+              favicon. The best available asset wins, with its format and
               dimensions included.
             </div>
           </>
@@ -464,7 +460,9 @@ print_r($res['data']['logo']);`
         answer: (
           <>
             <div>
-              No. The examples use file_get_contents and the cURL extension that ship with PHP. If you already use Guzzle or Laravel’s HTTP client, the same request translates directly.
+              No. The examples use file_get_contents and the cURL extension that
+              ship with PHP. If you already use Guzzle or Laravel’s HTTP client,
+              the same request translates directly.
             </div>
           </>
         )
@@ -475,8 +473,8 @@ print_r($res['data']['logo']);`
           <>
             <div>
               Pass <code>prerender=true</code> and the page is rendered in a
-              real browser before detection, so icons injected by React, Vue
-              or any client-side framework are found too. Combine it with{' '}
+              real browser before detection, so icons injected by React, Vue or
+              any client-side framework are found too. Combine it with{' '}
               <code>waitForSelector</code> to wait for specific content.
             </div>
           </>
@@ -489,8 +487,7 @@ print_r($res['data']['logo']);`
             <div>
               Yes. Add <code>embed=logo.url</code> and the API URL becomes the
               image itself — use it in an <code>img</code> tag or a CSS
-              background with no JSON parsing and nothing to store on your
-              side.
+              background with no JSON parsing and nothing to store on your side.
             </div>
           </>
         )
@@ -519,8 +516,10 @@ print_r($res['data']['logo']);`
             <div>
               Responses are cached at the edge with a sane default TTL, and you
               control freshness per request — see the{' '}
-              <Link href='/docs/api/getting-started/overview'>API overview</Link>
-              {' '}for cache parameters.
+              <Link href='/docs/api/getting-started/overview'>
+                API overview
+              </Link>{' '}
+              for cache parameters.
             </div>
           </>
         )

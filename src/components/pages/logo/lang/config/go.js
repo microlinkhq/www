@@ -119,10 +119,7 @@ const go = {
     ]
   },
 
-  breadcrumb: [
-    { label: 'Logo API', href: '/logo' },
-    { label: 'Go' }
-  ],
+  breadcrumb: [{ label: 'Logo API', href: '/logo' }, { label: 'Go' }],
 
   hero: {
     title: (
@@ -513,10 +510,10 @@ func main() {
     ),
     caption: (
       <>
-        A REST API that feels native in Go — one call, JSON back, and at
-        home in anything from a CLI to a logo proxy. Read the{' '}
-        <Link href='/docs/api/getting-started/overview'>API overview</Link>
-        {' '}to go deeper.
+        A REST API that feels native in Go — one call, JSON back, and at home in
+        anything from a CLI to a logo proxy. Read the{' '}
+        <Link href='/docs/api/getting-started/overview'>API overview</Link> to
+        go deeper.
       </>
     ),
     items: [
@@ -578,7 +575,7 @@ func main() {
       'Paste a URL and see the detected logo before you write a line of Go.',
     cta: {
       label: 'Open the live demo',
-      href: '/'
+      href: '/logo'
     }
   },
 
@@ -586,8 +583,7 @@ func main() {
     title: 'Go Logo API FAQ',
     caption: (
       <>
-        Everything Go developers ask before integrating the Microlink
-        logo API.
+        Everything Go developers ask before integrating the Microlink logo API.
       </>
     ),
     questions: [
@@ -596,9 +592,9 @@ func main() {
         answer: (
           <>
             <div>
-              Microlink walks the page markup — apple-touch-icon, Open Graph
-              and JSON-LD — checks the BIMI record in DNS, and falls back to
-              the favicon. The best available asset wins, with its format and
+              Microlink walks the page markup — apple-touch-icon, Open Graph and
+              JSON-LD — checks the BIMI record in DNS, and falls back to the
+              favicon. The best available asset wins, with its format and
               dimensions included.
             </div>
           </>
@@ -609,7 +605,8 @@ func main() {
         answer: (
           <>
             <div>
-              No. The examples use net/http and encoding/json from the Go standard library — they compile with zero external dependencies.
+              No. The examples use net/http and encoding/json from the Go
+              standard library — they compile with zero external dependencies.
             </div>
           </>
         )
@@ -620,8 +617,8 @@ func main() {
           <>
             <div>
               Pass <code>prerender=true</code> and the page is rendered in a
-              real browser before detection, so icons injected by React, Vue
-              or any client-side framework are found too. Combine it with{' '}
+              real browser before detection, so icons injected by React, Vue or
+              any client-side framework are found too. Combine it with{' '}
               <code>waitForSelector</code> to wait for specific content.
             </div>
           </>
@@ -634,8 +631,7 @@ func main() {
             <div>
               Yes. Add <code>embed=logo.url</code> and the API URL becomes the
               image itself — use it in an <code>img</code> tag or a CSS
-              background with no JSON parsing and nothing to store on your
-              side.
+              background with no JSON parsing and nothing to store on your side.
             </div>
           </>
         )
@@ -664,8 +660,10 @@ func main() {
             <div>
               Responses are cached at the edge with a sane default TTL, and you
               control freshness per request — see the{' '}
-              <Link href='/docs/api/getting-started/overview'>API overview</Link>
-              {' '}for cache parameters.
+              <Link href='/docs/api/getting-started/overview'>
+                API overview
+              </Link>{' '}
+              for cache parameters.
             </div>
           </>
         )

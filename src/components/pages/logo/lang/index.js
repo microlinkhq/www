@@ -22,13 +22,8 @@ import Features from 'components/patterns/Features/Features'
 import { LangLandingsNav } from 'components/patterns/LangLandings'
 import Layout from 'components/patterns/Layout'
 import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
-import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
-import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
-
 import LogoDemo from './logo-demo'
 import { LANG_LANDINGS } from './registry'
-
-const ALL_TOOLS = TOOL_CATALOG.flatMap(section => section.tools)
 
 const Heading = withTitle(HeadingBase)
 const Subhead = withTitle(SubheadBase)
@@ -368,30 +363,19 @@ const Comparison = ({ comparison }) => (
   </SectionContainer>
 )
 
-const ToolCta = ({ tool }) => {
-  const card = ALL_TOOLS.find(item => item.href === tool.cta.href)
-  return (
-    <SectionContainer id='playground'>
-      <SectionHead title={tool.title} caption={tool.caption} />
-      {card && (
-        <Box
-          css={theme({
-            width: '100%',
-            maxWidth: ['100%', '550px', '600px', '600px'],
-            mx: 'auto'
-          })}
-        >
-          <FeaturedToolCard
-            {...card}
-            cardCss={{ height: '100%' }}
-            titleCss={{ fontSize: [2, 2, 2, 2] }}
-            descriptionCss={{ color: 'black60' }}
-          />
-        </Box>
-      )}
-    </SectionContainer>
-  )
-}
+const ToolCta = ({ tool }) => (
+  <SectionContainer id='playground'>
+    <SectionHead title={tool.title} caption={tool.caption} />
+    <Flex
+      css={theme({
+        justifyContent: 'center',
+        fontSize: ['24px', '28px', '30px', '32px']
+      })}
+    >
+      <ArrowLink href={tool.cta.href}>{tool.cta.label}</ArrowLink>
+    </Flex>
+  </SectionContainer>
+)
 
 const FinalCta = ({ cta, current }) => (
   <SectionContainer id='get-started'>

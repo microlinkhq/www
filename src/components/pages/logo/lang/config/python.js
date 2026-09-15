@@ -119,10 +119,7 @@ const python = {
     ]
   },
 
-  breadcrumb: [
-    { label: 'Logo API', href: '/logo' },
-    { label: 'Python' }
-  ],
+  breadcrumb: [{ label: 'Logo API', href: '/logo' }, { label: 'Python' }],
 
   hero: {
     title: (
@@ -381,8 +378,8 @@ print(data['logo'])`
       <>
         A REST API that feels native in Python — one call, JSON back, and at
         home in anything from a script to a web framework. Read the{' '}
-        <Link href='/docs/api/getting-started/overview'>API overview</Link>
-        {' '}to go deeper.
+        <Link href='/docs/api/getting-started/overview'>API overview</Link> to
+        go deeper.
       </>
     ),
     items: [
@@ -444,7 +441,7 @@ print(data['logo'])`
       'Paste a URL and see the detected logo before you write a line of Python.',
     cta: {
       label: 'Open the live demo',
-      href: '/'
+      href: '/logo'
     }
   },
 
@@ -452,8 +449,8 @@ print(data['logo'])`
     title: 'Python Logo API FAQ',
     caption: (
       <>
-        Everything Python developers ask before integrating the Microlink
-        logo API.
+        Everything Python developers ask before integrating the Microlink logo
+        API.
       </>
     ),
     questions: [
@@ -462,9 +459,9 @@ print(data['logo'])`
         answer: (
           <>
             <div>
-              Microlink walks the page markup — apple-touch-icon, Open Graph
-              and JSON-LD — checks the BIMI record in DNS, and falls back to
-              the favicon. The best available asset wins, with its format and
+              Microlink walks the page markup — apple-touch-icon, Open Graph and
+              JSON-LD — checks the BIMI record in DNS, and falls back to the
+              favicon. The best available asset wins, with its format and
               dimensions included.
             </div>
           </>
@@ -475,7 +472,9 @@ print(data['logo'])`
         answer: (
           <>
             <div>
-              No. The examples use urllib and json from the Python standard library. If you already use requests or httpx, the same call is one line shorter — see the FastAPI tab above.
+              No. The examples use urllib and json from the Python standard
+              library. If you already use requests or httpx, the same call is
+              one line shorter — see the FastAPI tab above.
             </div>
           </>
         )
@@ -486,8 +485,8 @@ print(data['logo'])`
           <>
             <div>
               Pass <code>prerender=true</code> and the page is rendered in a
-              real browser before detection, so icons injected by React, Vue
-              or any client-side framework are found too. Combine it with{' '}
+              real browser before detection, so icons injected by React, Vue or
+              any client-side framework are found too. Combine it with{' '}
               <code>waitForSelector</code> to wait for specific content.
             </div>
           </>
@@ -500,8 +499,7 @@ print(data['logo'])`
             <div>
               Yes. Add <code>embed=logo.url</code> and the API URL becomes the
               image itself — use it in an <code>img</code> tag or a CSS
-              background with no JSON parsing and nothing to store on your
-              side.
+              background with no JSON parsing and nothing to store on your side.
             </div>
           </>
         )
@@ -530,8 +528,10 @@ print(data['logo'])`
             <div>
               Responses are cached at the edge with a sane default TTL, and you
               control freshness per request — see the{' '}
-              <Link href='/docs/api/getting-started/overview'>API overview</Link>
-              {' '}for cache parameters.
+              <Link href='/docs/api/getting-started/overview'>
+                API overview
+              </Link>{' '}
+              for cache parameters.
             </div>
           </>
         )

@@ -119,10 +119,7 @@ const nodejs = {
     ]
   },
 
-  breadcrumb: [
-    { label: 'Logo API', href: '/logo' },
-    { label: 'Node.js' }
-  ],
+  breadcrumb: [{ label: 'Logo API', href: '/logo' }, { label: 'Node.js' }],
 
   hero: {
     title: (
@@ -360,8 +357,8 @@ console.log(data.logo)`
       <>
         A REST API that feels native in Node.js — one call, JSON back, and at
         home in anything from a script to a serverless function. Read the{' '}
-        <Link href='/docs/api/getting-started/overview'>API overview</Link>
-        {' '}to go deeper.
+        <Link href='/docs/api/getting-started/overview'>API overview</Link> to
+        go deeper.
       </>
     ),
     items: [
@@ -423,7 +420,7 @@ console.log(data.logo)`
       'Paste a URL and see the detected logo before you write a line of Node.js.',
     cta: {
       label: 'Open the live demo',
-      href: '/'
+      href: '/logo'
     }
   },
 
@@ -431,8 +428,8 @@ console.log(data.logo)`
     title: 'Node.js Logo API FAQ',
     caption: (
       <>
-        Everything Node.js developers ask before integrating the Microlink
-        logo API.
+        Everything Node.js developers ask before integrating the Microlink logo
+        API.
       </>
     ),
     questions: [
@@ -441,9 +438,9 @@ console.log(data.logo)`
         answer: (
           <>
             <div>
-              Microlink walks the page markup — apple-touch-icon, Open Graph
-              and JSON-LD — checks the BIMI record in DNS, and falls back to
-              the favicon. The best available asset wins, with its format and
+              Microlink walks the page markup — apple-touch-icon, Open Graph and
+              JSON-LD — checks the BIMI record in DNS, and falls back to the
+              favicon. The best available asset wins, with its format and
               dimensions included.
             </div>
           </>
@@ -454,7 +451,9 @@ console.log(data.logo)`
         answer: (
           <>
             <div>
-              No. The examples use the global fetch that ships with Node.js 18+. If you prefer the official SDK, the microlink SDK wraps the same API with typed conveniences.
+              No. The examples use the global fetch that ships with Node.js 18+.
+              If you prefer the official SDK, the microlink SDK wraps the same
+              API with typed conveniences.
             </div>
           </>
         )
@@ -465,8 +464,8 @@ console.log(data.logo)`
           <>
             <div>
               Pass <code>prerender=true</code> and the page is rendered in a
-              real browser before detection, so icons injected by React, Vue
-              or any client-side framework are found too. Combine it with{' '}
+              real browser before detection, so icons injected by React, Vue or
+              any client-side framework are found too. Combine it with{' '}
               <code>waitForSelector</code> to wait for specific content.
             </div>
           </>
@@ -479,8 +478,7 @@ console.log(data.logo)`
             <div>
               Yes. Add <code>embed=logo.url</code> and the API URL becomes the
               image itself — use it in an <code>img</code> tag or a CSS
-              background with no JSON parsing and nothing to store on your
-              side.
+              background with no JSON parsing and nothing to store on your side.
             </div>
           </>
         )
@@ -509,8 +507,10 @@ console.log(data.logo)`
             <div>
               Responses are cached at the edge with a sane default TTL, and you
               control freshness per request — see the{' '}
-              <Link href='/docs/api/getting-started/overview'>API overview</Link>
-              {' '}for cache parameters.
+              <Link href='/docs/api/getting-started/overview'>
+                API overview
+              </Link>{' '}
+              for cache parameters.
             </div>
           </>
         )

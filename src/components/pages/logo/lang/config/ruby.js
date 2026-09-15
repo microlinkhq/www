@@ -119,10 +119,7 @@ const ruby = {
     ]
   },
 
-  breadcrumb: [
-    { label: 'Logo API', href: '/logo' },
-    { label: 'Ruby' }
-  ],
+  breadcrumb: [{ label: 'Logo API', href: '/logo' }, { label: 'Ruby' }],
 
   hero: {
     title: (
@@ -374,10 +371,10 @@ puts logo`
     ),
     caption: (
       <>
-        A REST API that feels native in Ruby — one call, JSON back, and at
-        home in anything from a script to a background job. Read the{' '}
-        <Link href='/docs/api/getting-started/overview'>API overview</Link>
-        {' '}to go deeper.
+        A REST API that feels native in Ruby — one call, JSON back, and at home
+        in anything from a script to a background job. Read the{' '}
+        <Link href='/docs/api/getting-started/overview'>API overview</Link> to
+        go deeper.
       </>
     ),
     items: [
@@ -439,7 +436,7 @@ puts logo`
       'Paste a URL and see the detected logo before you write a line of Ruby.',
     cta: {
       label: 'Open the live demo',
-      href: '/'
+      href: '/logo'
     }
   },
 
@@ -447,8 +444,8 @@ puts logo`
     title: 'Ruby Logo API FAQ',
     caption: (
       <>
-        Everything Ruby developers ask before integrating the Microlink
-        logo API.
+        Everything Ruby developers ask before integrating the Microlink logo
+        API.
       </>
     ),
     questions: [
@@ -457,9 +454,9 @@ puts logo`
         answer: (
           <>
             <div>
-              Microlink walks the page markup — apple-touch-icon, Open Graph
-              and JSON-LD — checks the BIMI record in DNS, and falls back to
-              the favicon. The best available asset wins, with its format and
+              Microlink walks the page markup — apple-touch-icon, Open Graph and
+              JSON-LD — checks the BIMI record in DNS, and falls back to the
+              favicon. The best available asset wins, with its format and
               dimensions included.
             </div>
           </>
@@ -470,7 +467,9 @@ puts logo`
         answer: (
           <>
             <div>
-              No. Net::HTTP and JSON are part of the Ruby standard library, so the examples work with zero dependencies. If you already use faraday or httparty, the same request translates directly.
+              No. Net::HTTP and JSON are part of the Ruby standard library, so
+              the examples work with zero dependencies. If you already use
+              faraday or httparty, the same request translates directly.
             </div>
           </>
         )
@@ -481,8 +480,8 @@ puts logo`
           <>
             <div>
               Pass <code>prerender=true</code> and the page is rendered in a
-              real browser before detection, so icons injected by React, Vue
-              or any client-side framework are found too. Combine it with{' '}
+              real browser before detection, so icons injected by React, Vue or
+              any client-side framework are found too. Combine it with{' '}
               <code>waitForSelector</code> to wait for specific content.
             </div>
           </>
@@ -495,8 +494,7 @@ puts logo`
             <div>
               Yes. Add <code>embed=logo.url</code> and the API URL becomes the
               image itself — use it in an <code>img</code> tag or a CSS
-              background with no JSON parsing and nothing to store on your
-              side.
+              background with no JSON parsing and nothing to store on your side.
             </div>
           </>
         )
@@ -525,8 +523,10 @@ puts logo`
             <div>
               Responses are cached at the edge with a sane default TTL, and you
               control freshness per request — see the{' '}
-              <Link href='/docs/api/getting-started/overview'>API overview</Link>
-              {' '}for cache parameters.
+              <Link href='/docs/api/getting-started/overview'>
+                API overview
+              </Link>{' '}
+              for cache parameters.
             </div>
           </>
         )
