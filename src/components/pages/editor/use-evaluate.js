@@ -4,7 +4,12 @@ import { ENTRY_FILE } from './shared'
 import { formatSyntaxError } from './syntax-errors'
 import { serializeError, withScript } from './with-script'
 
-export const useEvaluate = ({ apiKey, onSettled, getSyntaxErrors } = {}) => {
+export const useEvaluate = ({
+  apiKey,
+  onSettled,
+  onStart,
+  getSyntaxErrors
+} = {}) => {
   const [status, setStatus] = useState('idle')
   const [value, setValue] = useState(null)
   const [logs, setLogs] = useState(null)
@@ -16,6 +21,7 @@ export const useEvaluate = ({ apiKey, onSettled, getSyntaxErrors } = {}) => {
     async files => {
       if (runningRef.current) return
       runningRef.current = true
+      onStart?.()
       setStatus('running')
       const started = performance.now()
       try {
@@ -48,7 +54,7 @@ export const useEvaluate = ({ apiKey, onSettled, getSyntaxErrors } = {}) => {
         runningRef.current = false
       }
     },
-    [apiKey, getSyntaxErrors, onSettled]
+    [apiKey, getSyntaxErrors, onSettled, onStart]
   )
 
   return { status, value, logs, trace, elapsed, evaluate }

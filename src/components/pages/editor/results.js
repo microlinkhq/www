@@ -142,7 +142,11 @@ const Results = ({
         ? timing.rows
           .map(row => `${row.name}  ${row.dur} (${row.pct})`)
           .join('\n')
-        : JSON.stringify(payload, null, 2)
+        : tab === 'logs'
+          ? LOG_ORDER.flatMap(type =>
+            (logs?.[type] || []).map(line => `${type}  ${line}`)
+          ).join('\n')
+          : JSON.stringify(payload, null, 2)
 
   return (
     <Pane>
@@ -164,7 +168,9 @@ const Results = ({
                   ? 'Copy trace'
                   : tab === 'timing'
                     ? 'Copy timing'
-                    : 'Copy output'
+                    : tab === 'logs'
+                      ? 'Copy logs'
+                      : 'Copy output'
               }
               onClick={() => onCopy(copyText)}
             >

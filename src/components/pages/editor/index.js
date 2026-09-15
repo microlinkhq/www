@@ -80,9 +80,14 @@ const Editor = () => {
     return editorApi.current.getSyntaxErrors(files)
   }, [])
 
+  const onStart = useCallback(() => {
+    runEpochRef.current = shareEpochRef.current
+  }, [])
+
   const { status, value, logs, trace, elapsed, evaluate } = useEvaluate({
     apiKey,
     onSettled,
+    onStart,
     getSyntaxErrors
   })
 
@@ -120,7 +125,6 @@ const Editor = () => {
   useEffect(() => {
     if (!mounted || autoRanRef.current || !fromShareRef.current) return
     autoRanRef.current = true
-    runEpochRef.current = shareEpochRef.current
     evaluate(filesRef.current)
   }, [mounted, evaluate])
 
@@ -130,7 +134,6 @@ const Editor = () => {
   }, [])
 
   const onRun = useCallback(() => {
-    runEpochRef.current = shareEpochRef.current
     evaluate(snapshot())
   }, [evaluate, snapshot])
 
