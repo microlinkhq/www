@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useLayoutEffect, useRef } from 'react'
 import mql from '@microlink/mql'
 
 const checkForProPlanRequired = responseText =>
@@ -7,15 +7,24 @@ const checkForProPlanRequired = responseText =>
 export const useExecuteRequest = ({
   url,
   mqlOpts,
+  requestKey,
   onLoadingChange,
   setIsLoading,
   setResponseData,
   setShowApiKeyInput
-}) =>
-  useCallback(
+}) => {
+  const latestKeyRef = useRef(requestKey)
+
+  useLayoutEffect(() => {
+    latestKeyRef.current = requestKey
+  }, [requestKey])
+
+  return useCallback(
     async currentApiKey => {
+      const startedKey = requestKey
       setIsLoading(true)
       onLoadingChange?.(true)
+      let applied = false
       try {
         const result = await (async () => {
           try {
@@ -49,25 +58,33 @@ export const useExecuteRequest = ({
           }
         })()
 
-        setResponseData(result)
+        if (latestKeyRef.current === startedKey) {
+          setResponseData(result)
+          applied = true
 
-        if (result.status === 'rejected') {
-          const errorText = new TextDecoder().decode(result.body)
-          if (checkForProPlanRequired(errorText) && !currentApiKey) {
-            setShowApiKeyInput(true)
+          if (result.status === 'rejected') {
+            const errorText = new TextDecoder().decode(result.body)
+            if (checkForProPlanRequired(errorText) && !currentApiKey) {
+              setShowApiKeyInput(true)
+            }
           }
         }
       } finally {
-        setIsLoading(false)
-        onLoadingChange?.(false)
+        if (latestKeyRef.current === startedKey) {
+          setIsLoading(false)
+          onLoadingChange?.(false)
+        }
       }
+      return applied
     },
     [
       url,
       mqlOpts,
+      requestKey,
       onLoadingChange,
       setIsLoading,
       setResponseData,
       setShowApiKeyInput
     ]
   )
+}

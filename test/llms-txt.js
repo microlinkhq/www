@@ -66,6 +66,7 @@ describe('sectionFor', () => {
   test('groups the rest of the site by its first segment', () => {
     expect(sectionFor('/features/screenshot')).toBe('Features')
     expect(sectionFor('/blog/some-post')).toBe('Blog')
+    expect(sectionFor('/api')).toBe('API overview')
   })
 
   test('falls back to a single section for standalone pages', () => {

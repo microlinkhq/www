@@ -427,6 +427,44 @@ const text = await microlink.text('https://github.com', {
 })`)
     })
 
+    test('emails collection rule becomes the emails method', () => {
+      const result = mqlCode('https://microlink.io', {
+        data: { emails: { selector: 'html', attr: 'html', type: 'email' } }
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const emails = await microlink.emails('https://microlink.io')`)
+    })
+
+    test('links collection rule becomes the links method', () => {
+      const result = mqlCode('https://microlink.io/docs', {
+        data: { links: { selectorAll: 'a', attr: 'href', type: 'url' } }
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const links = await microlink.links('https://microlink.io/docs')`)
+    })
+
+    test('emails collection keeps a selector override', () => {
+      const result = mqlCode('https://example.com', {
+        data: { emails: { selector: 'footer', attr: 'html', type: 'email' } }
+      })
+
+      expect(result.JavaScript).toBe(`import createClient from 'microlink.io'
+
+const microlink = createClient()
+
+const emails = await microlink.emails('https://example.com', {
+  selector: "footer"
+})`)
+    })
+
     test('data rules become extract with shared options as third argument', () => {
       const result = mqlCode(testUrl, {
         data: { title: { selector: 'main h1', attr: 'text' } },

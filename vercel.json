@@ -170,10 +170,6 @@
       "destination": "/docs/api/parameters/adblock"
     },
     {
-      "source": "/api",
-      "destination": "/docs/api/getting-started/overview"
-    },
-    {
       "source": "/guides",
       "destination": "/docs/guides"
     },
