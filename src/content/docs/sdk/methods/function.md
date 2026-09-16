@@ -24,7 +24,7 @@ const { value } = await microlink.function('https://example.com', async ({ page 
 })
 ```
 
-Besides `page`, the function receives `response`, the Puppeteer response of the implicit navigation, and `headers`, the request headers used to fetch the target URL. Any npm package can be required from inside the function; dependencies are detected, installed on the fly, and cached. See [browser interaction](/docs/guides/function/browser-interaction) and [writing functions](/docs/guides/function/writing-functions) for the patterns.
+The function always receives `url`, the target of the request, without starting a browser. It also receives `response` (the Puppeteer response of the implicit navigation, when `page` is used) and `headers`. Any npm package can be required from inside the function; dependencies are detected, installed on the fly, and cached. See [browser interaction](/docs/guides/function/browser-interaction) and [writing functions](/docs/guides/function/writing-functions) for the patterns.
 
 ## Result
 

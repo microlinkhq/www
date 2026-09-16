@@ -65,6 +65,19 @@ console.log(result.value) // 'Hello, Kiko!'
   meta: false
 }} />
 
+## The target URL
+
+The function always receives `url`, the target of the request. You do not need `page` — or a browser — just to resolve paths against that origin:
+
+```js
+const result = await microlink.function(
+  'https://example.com',
+  ({ url }) => new URL('/robots.txt', url).href
+)
+
+console.log(result.value) // 'https://example.com/robots.txt'
+```
+
 ## Using npm packages
 
 You can `require()` any npm package inside your function. Dependencies are detected automatically and installed on-the-fly:

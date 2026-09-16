@@ -84,8 +84,8 @@ const TOP_FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Paste a site URL and submit. The helper reads the origin from the
-          page, fetches <RobotsTxt />, collects every <b>sitemap</b>, and walks
+          Paste a site URL and submit. The helper reads the origin from that
+          URL, fetches <RobotsTxt />, collects every <b>sitemap</b>, and walks
           nested indexes. Copy the list, or download it as a text file, when you
           need it in a spreadsheet or script.
         </div>
@@ -100,11 +100,11 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'How does it find the sitemap?',
-    text: 'It reads page.url() for the origin, fetches /robots.txt, and collects every sitemap. Nested indexes are expanded. We do not try /sitemap.xml or other common paths. If robots.txt has no sitemap, the list is empty.',
+    text: 'It reads the origin from the URL you pasted, fetches /robots.txt, and collects every sitemap. Nested indexes are expanded. We do not try /sitemap.xml or other common paths. If robots.txt has no sitemap, the list is empty.',
     answer: (
       <>
         <div>
-          The helper reads the origin from <b>page.url()</b>, fetches{' '}
+          The helper reads the origin from the URL you pasted, fetches{' '}
           <RobotsTxt />, and collects every <b>sitemap</b>. Nested indexes are
           expanded from there.
         </div>
@@ -117,7 +117,7 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'How does it work?',
-    text: 'The URL list is the return value of a Microlink Function. The helper reads the origin from page.url(), fetches /robots.txt, require()s robots-parser to collect sitemap URLs, then require()s xml-urls to walk nested indexes and return every page URL.',
+    text: 'The URL list is the return value of a Microlink Function. The helper reads the origin from the site URL, fetches /robots.txt, require()s robots-parser to collect sitemap URLs, then require()s xml-urls to walk nested indexes and return every page URL.',
     answer: (
       <>
         <div>
@@ -132,11 +132,8 @@ const TOP_FAQ_ITEMS = [
           <Link href='/docs/guides/function/writing-functions'>
             NPM dependencies
           </Link>{' '}
-          to run in a{' '}
-          <Link href='/docs/guides/function/browser-interaction'>
-            remote browser page
-          </Link>
-          :
+          in a remote sandbox. This helper never touches <b>page</b>, so no
+          browser starts:
         </div>
         <FunctionExampleCard
           href={editorTemplateHref('sitemap')}
