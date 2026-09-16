@@ -38,18 +38,26 @@ const useHashUnlock = () => {
     const { hash } = window.location
     if (!hash) return undefined
 
+    let id
+    try {
+      id = decodeURIComponent(hash.slice(1))
+    } catch {
+      return undefined
+    }
+    if (!id) return undefined
+
     let tries = 0
     let lastTop = null
     let stable = 0
     const timer = window.setInterval(() => {
-      const el = document.querySelector(hash)
       tries += 1
+      const el = document.getElementById(id)
       if (!el) {
         if (tries > 80) window.clearInterval(timer)
         return
       }
       el.scrollIntoView()
-      const top = el.getBoundingClientRect().top
+      const top = el.getBoundingClientRect().top + window.scrollY
       if (lastTop !== null && Math.abs(top - lastTop) < 2) {
         stable += 1
         if (stable >= 4) window.clearInterval(timer)
