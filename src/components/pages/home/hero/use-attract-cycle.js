@@ -1,3 +1,4 @@
+import { isMobileMenuOpen, subscribeMobileMenuOpen } from 'helpers/mobile-menu'
 import { prefersReducedMotion } from 'helpers/reduced-motion'
 import { useEffect } from 'react'
 
@@ -44,13 +45,14 @@ export const useAttractCycle = ({ anim, sectionRef, setDText }) => {
       a.timer = setTimeout(tick, 2600)
     }
     const syncActivity = () => {
-      const shouldPause = document.hidden || !a.inView
+      const shouldPause = document.hidden || !a.inView || isMobileMenuOpen()
       if (shouldPause === a.paused) return
       a.paused = shouldPause
       clearTimeout(a.timer)
       if (!shouldPause && !a.userTook) a.timer = setTimeout(tick, 600)
     }
     document.addEventListener('visibilitychange', syncActivity)
+    const unsubscribeMenu = subscribeMobileMenuOpen(syncActivity)
     let observer
     if (window.IntersectionObserver && sectionRef.current) {
       observer = new window.IntersectionObserver(([entry]) => {
@@ -63,6 +65,7 @@ export const useAttractCycle = ({ anim, sectionRef, setDText }) => {
     return () => {
       clearTimeout(a.timer)
       document.removeEventListener('visibilitychange', syncActivity)
+      unsubscribeMenu()
       if (observer) observer.disconnect()
     }
   }, [anim, sectionRef, setDText])

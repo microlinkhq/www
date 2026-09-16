@@ -1,18 +1,102 @@
-import Analytics from 'components/pages/home/analytics'
 import CliBanner from 'components/pages/home/cli-banner'
-import Examples from 'components/pages/home/examples'
-import Faqs, { getFaqQuestions } from 'components/pages/home/faqs'
 import GradualBlur from 'components/pages/home/gradual-blur'
 import Hero from 'components/pages/home/hero'
-import OpenSource from 'components/pages/home/open-source'
-import Products from 'components/pages/home/products'
-import Production from 'components/pages/home/production'
-import Pricing from 'components/pages/home/pricing'
+import { getFaqQuestions } from 'components/pages/home/faqs'
 import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
+import LazyRender from 'components/elements/IntersectionObserver'
 import { CurrencyProvider } from 'components/hook/use-currency'
 import toPlainText from 'components/patterns/Faq/to-plain-text'
-import React from 'react'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
+
+const Products = lazy(() => import('components/pages/home/products'))
+const Examples = lazy(() => import('components/pages/home/examples'))
+const Analytics = lazy(() => import('components/pages/home/analytics'))
+const Pricing = lazy(() => import('components/pages/home/pricing'))
+const Production = lazy(() => import('components/pages/home/production'))
+const OpenSource = lazy(() => import('components/pages/home/open-source'))
+const Faqs = lazy(() => import('components/pages/home/faqs'))
+
+const NEAR_VIEWPORT = { rootMargin: '25% 0px' }
+
+const Placeholder = ({ minHeight }) => <div aria-hidden style={{ minHeight }} />
+
+const useHashUnlock = () => {
+  const [hash, setHash] = useState('')
+
+  useEffect(() => {
+    const sync = () => setHash(window.location.hash)
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [])
+
+  useEffect(() => {
+    if (!hash) return undefined
+
+    let id
+    try {
+      id = decodeURIComponent(hash.slice(1))
+    } catch {
+      return undefined
+    }
+    if (!id) return undefined
+
+    let tries = 0
+    let lastTop = null
+    let lastHeight = null
+    let stable = 0
+    const timer = window.setInterval(() => {
+      tries += 1
+      const el = document.getElementById(id)
+      if (!el) {
+        if (tries > 80) window.clearInterval(timer)
+        return
+      }
+      el.scrollIntoView()
+      const top = el.getBoundingClientRect().top + window.scrollY
+      const height = document.documentElement.scrollHeight
+      const topStable = lastTop !== null && Math.abs(top - lastTop) < 2
+      const heightStable =
+        lastHeight !== null && Math.abs(height - lastHeight) < 2
+      if (topStable && heightStable) {
+        stable += 1
+        if (stable >= 4) window.clearInterval(timer)
+      } else {
+        stable = 0
+      }
+      lastTop = top
+      lastHeight = height
+      if (tries > 80) window.clearInterval(timer)
+    }, 100)
+
+    return () => window.clearInterval(timer)
+  }, [hash])
+
+  return Boolean(hash)
+}
+
+const Deferred = ({ minHeight, force, children }) => {
+  if (force) {
+    return (
+      <Suspense fallback={<Placeholder minHeight={minHeight} />}>
+        {children}
+      </Suspense>
+    )
+  }
+
+  return (
+    <LazyRender
+      options={NEAR_VIEWPORT}
+      placeholder={() => <Placeholder minHeight={minHeight} />}
+      onView={() => (
+        <Suspense fallback={<Placeholder minHeight={minHeight} />}>
+          {children}
+        </Suspense>
+      )}
+    />
+  )
+}
 
 export const Head = () => {
   const structuredData = JSON.stringify({
@@ -65,18 +149,34 @@ export const Head = () => {
 }
 
 const HomePage = () => {
+  const forceDeferred = useHashUnlock()
+
   return (
     <CurrencyProvider>
       <Layout>
         <Hero />
         <CliBanner />
-        <Products />
-        <Examples />
-        <Analytics />
-        <Pricing />
-        <Production />
-        <OpenSource />
-        <Faqs />
+        <Deferred force={forceDeferred} minHeight='80vh'>
+          <Products />
+        </Deferred>
+        <Deferred force={forceDeferred} minHeight='40vh'>
+          <Examples />
+        </Deferred>
+        <Deferred force={forceDeferred} minHeight='30vh'>
+          <Analytics />
+        </Deferred>
+        <Deferred force={forceDeferred} minHeight='50vh'>
+          <Pricing />
+        </Deferred>
+        <Deferred force={forceDeferred} minHeight='30vh'>
+          <Production />
+        </Deferred>
+        <Deferred force={forceDeferred} minHeight='40vh'>
+          <OpenSource />
+        </Deferred>
+        <Deferred force={forceDeferred} minHeight='40vh'>
+          <Faqs />
+        </Deferred>
         <GradualBlur />
       </Layout>
     </CurrencyProvider>
