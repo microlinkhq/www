@@ -1,6 +1,5 @@
 import { colors, fonts, fontSizes } from 'theme'
 
-import { PUPPETEER_TYPES } from './monaco-puppeteer-types'
 import { MICROLINK_TYPES } from './monaco-types'
 
 const hex6 = value => {
@@ -64,7 +63,6 @@ export const setupMonaco = monaco => {
     lib: ['esnext', 'dom']
   }
   const extras = [
-    [PUPPETEER_TYPES, 'ts:filename/puppeteer-core.d.ts'],
     [MICROLINK_TYPES, 'ts:filename/microlink.io.d.ts'],
     [
       'declare const Buffer: { concat(chunks: Uint8Array[]): { toString(encoding: string): string } }',

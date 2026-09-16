@@ -1,6 +1,37 @@
 export const MICROLINK_TYPES = `
 declare module 'microlink.io' {
-  import { HTTPResponse, Page } from 'puppeteer-core'
+  interface HTTPResponse {
+    status(): number
+    statusText(): string
+    url(): string
+    ok(): boolean
+    headers(): Record<string, string>
+    text(): Promise<string>
+    json(): Promise<unknown>
+  }
+  interface Page {
+    title(): Promise<string>
+    url(): string
+    content(): Promise<string>
+    $(selector: string): Promise<unknown>
+    $$(selector: string): Promise<unknown[]>
+    $eval<T>(selector: string, fn: (el: Element) => T): Promise<T>
+    $$eval<T>(selector: string, fn: (els: Element[]) => T): Promise<T>
+    evaluate<T>(fn: string | ((...args: any[]) => T), ...args: any[]): Promise<T>
+    click(selector: string): Promise<void>
+    type(selector: string, text: string): Promise<void>
+    hover(selector: string): Promise<void>
+    focus(selector: string): Promise<void>
+    select(selector: string, ...values: string[]): Promise<string[]>
+    waitForSelector(selector: string, options?: { visible?: boolean; hidden?: boolean; timeout?: number }): Promise<unknown>
+    waitForFunction(fn: string | ((...args: any[]) => unknown), options?: { timeout?: number }): Promise<unknown>
+    waitForNavigation(options?: { waitUntil?: string; timeout?: number }): Promise<HTTPResponse | null>
+    waitForNetworkIdle(options?: { idleTime?: number; timeout?: number }): Promise<void>
+    goto(url: string, options?: { waitUntil?: string; timeout?: number }): Promise<HTTPResponse | null>
+    cookies(): Promise<unknown[]>
+    keyboard: { type(text: string): Promise<void>; press(key: string): Promise<void> }
+    mouse: { click(x: number, y: number): Promise<void>; move(x: number, y: number): Promise<void> }
+  }
   export type FunctionArgs = {
     page: Page
     response: HTTPResponse
