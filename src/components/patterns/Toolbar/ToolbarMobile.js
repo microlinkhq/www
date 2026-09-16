@@ -17,6 +17,7 @@ import {
   bookCallUrl,
   trackBookCall
 } from 'helpers/book-call'
+import { riseInAnimation } from 'helpers/rise-in'
 import { setMobileMenuOpen } from 'helpers/mobile-menu'
 import React, { useEffect, useState } from 'react'
 
@@ -228,7 +229,9 @@ const MobileMenuPanel = styled(Box).withConfig({
   pointer-events: ${({ isOpen }) => (isOpen ? 'auto' : 'none')};
 `
 
-const Header = styled(Box)`
+const Header = styled(Box).withConfig({
+  shouldForwardProp: prop => prop !== 'animated'
+})`
   ${theme({
     position: 'fixed',
     zIndex: 101,
@@ -238,6 +241,7 @@ const Header = styled(Box)`
   })}
 
   ${backDrop}
+  ${({ animated }) => animated && riseInAnimation()}
 `
 
 const toMobileSectionDomId = label =>
@@ -248,7 +252,7 @@ const prefetchPath = href => {
   window.___loader?.enqueue?.(href)
 }
 
-const ToolbarMobile = () => {
+const ToolbarMobile = ({ animated }) => {
   const location = useLocation()
   const [isOpen, setOpen] = useState(false)
   const [hasOpened, setHasOpened] = useState(false)
@@ -309,7 +313,7 @@ const ToolbarMobile = () => {
   }, [isOpen])
 
   return (
-    <Header as='header'>
+    <Header as='header' animated={animated}>
       <Toolbar
         as='nav'
         aria-label='Mobile Navigation'

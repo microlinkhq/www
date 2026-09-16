@@ -14,7 +14,7 @@ import React, {
   useRef,
   useState
 } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 import analyticsData from '../../../../../data/analytics.json'
 
@@ -36,6 +36,7 @@ import { CopyPromptAction } from './copy-prompt'
 import { ExampleChips } from './example-chips'
 import { HeroGradientDefs } from './gradient-defs'
 import { fadeIn, reduceMotion } from './primitives'
+import { riseIn } from 'helpers/rise-in'
 import {
   INITIAL_REQ,
   INITIAL_SNAPSHOT,
@@ -55,11 +56,6 @@ const { shortUrl, canonicalDemoUrl } = heroDemoRequests
 
 const useIsomorphicLayoutEffect =
   typeof window === 'undefined' ? useEffect : useLayoutEffect
-
-const riseIn = keyframes`
-  from { opacity: 0; transform: translateY(8px); filter: blur(3px) }
-  to { opacity: 1; transform: translateY(0); filter: blur(0) }
-`
 
 const GUTTER_X = `clamp(${space[3]}, 4vw, 40px)`
 const PADDING_BOTTOM = `clamp(${space[4]}, 5vw, ${space[5]})`
@@ -87,25 +83,25 @@ const Content = styled(Container)`
   })};
 
   & > * {
-    animation: ${riseIn} 440ms ${timings.short} both;
+    animation: ${riseIn} 440ms ${timings.short} 45ms both;
   }
   & > *:nth-child(2) {
-    animation-delay: 45ms;
-  }
-  & > *:nth-child(3) {
     animation-delay: 90ms;
   }
-  & > *:nth-child(4) {
+  & > *:nth-child(3) {
     animation-delay: 135ms;
   }
-  & > *:nth-child(5) {
+  & > *:nth-child(4) {
     animation-delay: 180ms;
   }
-  & > *:nth-child(6) {
+  & > *:nth-child(5) {
     animation-delay: 225ms;
   }
-  & > *:nth-child(7) {
+  & > *:nth-child(6) {
     animation-delay: 270ms;
+  }
+  & > *:nth-child(7) {
+    animation-delay: 315ms;
   }
 
   ${reduceMotion} {
