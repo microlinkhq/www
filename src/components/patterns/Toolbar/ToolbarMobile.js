@@ -259,34 +259,41 @@ const ToolbarMobile = () => {
     setOpenSection('')
   }
 
-  const toggleOpen = () => setOpen(value => !value)
+  const toggleOpen = () => {
+    setOpen(value => {
+      if (!value) setHasOpened(true)
+      return !value
+    })
+  }
 
   const toggleSection = label => {
-    setOpenSection(currentLabel => (currentLabel === label ? '' : label))
+    setOpenSection(currentLabel => {
+      const next = currentLabel === label ? '' : label
+      if (next) {
+        const section = NAVIGATION_SECTIONS.find(
+          ({ label: name }) => name === next
+        )
+        section?.items?.forEach(({ href }) => prefetchPath(href))
+      }
+      return next
+    })
   }
 
   useEffect(() => {
     if (!isOpen) return
-    setHasOpened(true)
     const activeSection = getToolbarSectionFromPathname(location.pathname)
     setOpenSection(activeSection || '')
+    if (activeSection) {
+      const section = NAVIGATION_SECTIONS.find(
+        ({ label }) => label === activeSection
+      )
+      section?.items?.forEach(({ href }) => prefetchPath(href))
+    }
   }, [isOpen, location.pathname])
 
   useEffect(() => {
     setMobileMenuOpen(isOpen)
-    return () => setMobileMenuOpen(false)
-  }, [isOpen])
-
-  useEffect(() => {
-    if (!openSection) return
-    const section = NAVIGATION_SECTIONS.find(
-      ({ label }) => label === openSection
-    )
-    section?.items?.forEach(({ href }) => prefetchPath(href))
-  }, [openSection])
-
-  useEffect(() => {
-    if (!isOpen) return
+    if (!isOpen) return () => setMobileMenuOpen(false)
 
     const body = document.body
     const previousOverflow = body.style.overflow
@@ -299,6 +306,7 @@ const ToolbarMobile = () => {
     document.addEventListener('keydown', handleKeyDown)
 
     return () => {
+      setMobileMenuOpen(false)
       body.style.overflow = previousOverflow
       document.removeEventListener('keydown', handleKeyDown)
     }

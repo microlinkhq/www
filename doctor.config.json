@@ -7,6 +7,7 @@
     "overrides": [
       {
         "files": [
+          "src/components/pages/home/hero/use-attract-cycle.js",
           "src/components/pages/metadata/hero/use-reveal-lines.js",
           "src/pages/embed/index.js",
           "src/pages/link-preview.js",
