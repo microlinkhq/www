@@ -17,6 +17,7 @@ import {
   bookCallUrl,
   trackBookCall
 } from 'helpers/book-call'
+import { setMobileMenuOpen } from 'helpers/mobile-menu'
 import React, { useEffect, useState } from 'react'
 
 import {
@@ -215,12 +216,6 @@ const SectionChevron = styled(FeatherIcon).withConfig({
   transition: transform ${transition.short}, color ${transition.short};
 `
 
-const SectionContent = styled(Box).withConfig({
-  shouldForwardProp: prop => !['isExpanded'].includes(prop)
-})`
-  display: ${({ isExpanded }) => (isExpanded ? 'block' : 'none')};
-`
-
 const MobileMenuPanel = styled(Box).withConfig({
   shouldForwardProp: prop => !['isOpen'].includes(prop)
 })`
@@ -248,9 +243,15 @@ const Header = styled(Box)`
 const toMobileSectionDomId = label =>
   `mobile-toolbar-section-${String(label).toLowerCase().replace(/\s+/g, '-')}`
 
+const prefetchPath = href => {
+  if (typeof window === 'undefined' || !href?.startsWith('/')) return
+  window.___loader?.enqueue?.(href)
+}
+
 const ToolbarMobile = () => {
   const location = useLocation()
   const [isOpen, setOpen] = useState(false)
+  const [hasOpened, setHasOpened] = useState(false)
   const [openSection, setOpenSection] = useState('')
 
   const closeMenu = () => {
@@ -266,9 +267,23 @@ const ToolbarMobile = () => {
 
   useEffect(() => {
     if (!isOpen) return
+    setHasOpened(true)
     const activeSection = getToolbarSectionFromPathname(location.pathname)
     setOpenSection(activeSection || '')
   }, [isOpen, location.pathname])
+
+  useEffect(() => {
+    setMobileMenuOpen(isOpen)
+    return () => setMobileMenuOpen(false)
+  }, [isOpen])
+
+  useEffect(() => {
+    if (!openSection) return
+    const section = NAVIGATION_SECTIONS.find(
+      ({ label }) => label === openSection
+    )
+    section?.items?.forEach(({ href }) => prefetchPath(href))
+  }, [openSection])
 
   useEffect(() => {
     if (!isOpen) return
@@ -323,176 +338,177 @@ const ToolbarMobile = () => {
           </MenuButton>
         </Flex>
       </Toolbar>
-      <MobileMenuPanel
-        isOpen={isOpen}
-        id='toolbar-mobile-navigation'
-        role='dialog'
-        aria-label='Navigation'
-        aria-hidden={!isOpen}
-        inert={!isOpen ? '' : undefined}
-        css={theme({
-          height: `calc(100dvh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
-          'min-height': `calc(100vh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
-          'max-height': `calc(100vh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
-          'overflow-y': 'auto',
-          borderTop: 1,
-          borderColor: 'black10',
-          background: 'white',
-          p: '12px'
-        })}
-      >
-        <Box as='ul' css={theme(TOOLBAR_LIST_RESET_STYLES)}>
-          {NAVIGATION_SECTIONS.map(({ label, description, items }) => {
-            const isExpanded = openSection === label
+      {hasOpened && (
+        <MobileMenuPanel
+          isOpen={isOpen}
+          id='toolbar-mobile-navigation'
+          role='dialog'
+          aria-label='Navigation'
+          aria-hidden={!isOpen}
+          inert={!isOpen ? '' : undefined}
+          css={theme({
+            height: `calc(100dvh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
+            'min-height': `calc(100vh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
+            'max-height': `calc(100vh - ${TOOLBAR_PRIMARY_MOBILE_HEIGHT})`,
+            'overflow-y': 'auto',
+            borderTop: 1,
+            borderColor: 'black10',
+            background: 'white',
+            p: '12px'
+          })}
+        >
+          <Box as='ul' css={theme(TOOLBAR_LIST_RESET_STYLES)}>
+            {NAVIGATION_SECTIONS.map(({ label, description, items }) => {
+              const isExpanded = openSection === label
 
-            return (
-              <Box as='li' key={label}>
-                <SectionContainer>
-                  <SectionToggle
-                    type='button'
-                    isExpanded={isExpanded}
-                    aria-expanded={isExpanded}
-                    aria-controls={toMobileSectionDomId(label)}
-                    onClick={() => toggleSection(label)}
-                  >
-                    <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
-                      {label}
-                    </Caps>
-                    <SectionChevron
-                      icon={ChevronDown}
+              return (
+                <Box as='li' key={label}>
+                  <SectionContainer>
+                    <SectionToggle
+                      type='button'
                       isExpanded={isExpanded}
-                      size={TOOLBAR_CHEVRON_ICON_SIZE}
-                    />
-                  </SectionToggle>
-                  <SectionContent
-                    isExpanded={isExpanded}
-                    aria-hidden={!isExpanded}
-                  >
-                    <Text
-                      as='p'
+                      aria-expanded={isExpanded}
+                      aria-controls={toMobileSectionDomId(label)}
+                      onClick={() => toggleSection(label)}
+                    >
+                      <Caps
+                        as='span'
+                        css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}
+                      >
+                        {label}
+                      </Caps>
+                      <SectionChevron
+                        icon={ChevronDown}
+                        isExpanded={isExpanded}
+                        size={TOOLBAR_CHEVRON_ICON_SIZE}
+                      />
+                    </SectionToggle>
+                    {isExpanded && (
+                      <Text
+                        as='p'
+                        css={theme({
+                          ...TOOLBAR_SECTION_DESCRIPTION_STYLES,
+                          mt: 0,
+                          mb: 0,
+                          px: 2,
+                          pb: 2,
+                          pt: 2
+                        })}
+                      >
+                        {description}
+                      </Text>
+                    )}
+                  </SectionContainer>
+                  {isExpanded && (
+                    <Flex
+                      id={toMobileSectionDomId(label)}
+                      as='ul'
                       css={theme({
-                        ...TOOLBAR_SECTION_DESCRIPTION_STYLES,
-                        mt: 0,
-                        mb: 0,
-                        px: 2,
-                        pb: 2,
-                        pt: 2
+                        flexDirection: 'column',
+                        ...TOOLBAR_LIST_RESET_STYLES,
+                        mt: 1,
+                        mb: 2
                       })}
                     >
-                      {description}
-                    </Text>
-                  </SectionContent>
-                </SectionContainer>
-                <SectionContent
-                  isExpanded={isExpanded}
-                  aria-hidden={!isExpanded}
-                >
-                  <Flex
-                    id={toMobileSectionDomId(label)}
-                    as='ul'
-                    css={theme({
-                      flexDirection: 'column',
-                      ...TOOLBAR_LIST_RESET_STYLES,
-                      mt: 1,
-                      mb: 2
-                    })}
-                  >
-                    {items.map(
-                      ({
-                        label,
-                        href,
-                        actively,
-                        title,
-                        externalIcon,
-                        description,
-                        logo,
-                        icon: Icon
-                      }) => (
-                        <MobileMenuItemLink
-                          key={label}
-                          forwardedAs='li'
-                          href={href}
-                          actively={actively}
-                          title={title}
-                          externalIcon={externalIcon}
-                          data-event-location='Toolbar'
-                          data-event-name={label}
-                          onClick={closeMenu}
-                          css={theme(MOBILE_MENU_ITEM_STYLES)}
-                        >
-                          <MenuItemIcon as='span'>
-                            <ToolbarMenuItemMedia
-                              label={label}
-                              logo={logo}
-                              icon={Icon}
-                              iconCss={theme(getMenuItemMediaStyles(label))}
-                              imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
-                            />
-                          </MenuItemIcon>
-                          <Box as='span'>
-                            <MenuItemTitle
-                              as='span'
-                              className='menu-item-title'
-                            >
-                              {label}
-                            </MenuItemTitle>
-                            <MenuItemDescription
-                              as='span'
-                              className='menu-item-description'
-                            >
-                              {description}
-                            </MenuItemDescription>
-                          </Box>
-                        </MobileMenuItemLink>
-                      )
-                    )}
-                  </Flex>
-                </SectionContent>
-              </Box>
-            )
-          })}
-          {DIRECT_NAV_ITEMS.map(({ label, href, actively }) => (
-            <MobileDirectNavLink
-              key={label}
-              forwardedAs='li'
-              href={href}
-              actively={actively}
-              data-event-location='Toolbar'
-              data-event-name={label}
-              onClick={closeMenu}
-              css={theme(MOBILE_DIRECT_NAV_ITEM_STYLES)}
-            >
-              <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
-                {label}
-              </Caps>
-            </MobileDirectNavLink>
-          ))}
-          <ToolbarActionLink
-            forwardedAs='li'
-            href={bookCallUrl('mobile_menu')}
-            title={BOOK_CALL_TITLE}
-            externalIcon={false}
-            data-event-location='mobile_menu'
-            data-event-name={BOOK_CALL_LABEL}
-            onClick={() => {
-              trackBookCall('mobile_menu')
-              closeMenu()
-            }}
-            css={theme({
-              display: 'flex',
-              width: '100%',
-              height: '44px',
-              mt: 3,
-              listStyle: 'none'
+                      {items.map(
+                        ({
+                          label: itemLabel,
+                          href,
+                          actively,
+                          title,
+                          externalIcon,
+                          description: itemDescription,
+                          logo,
+                          icon: Icon
+                        }) => (
+                          <MobileMenuItemLink
+                            key={itemLabel}
+                            forwardedAs='li'
+                            href={href}
+                            actively={actively}
+                            title={title}
+                            externalIcon={externalIcon}
+                            data-event-location='Toolbar'
+                            data-event-name={itemLabel}
+                            onClick={closeMenu}
+                            css={theme(MOBILE_MENU_ITEM_STYLES)}
+                          >
+                            <MenuItemIcon as='span'>
+                              <ToolbarMenuItemMedia
+                                label={itemLabel}
+                                logo={logo}
+                                icon={Icon}
+                                iconCss={theme(
+                                  getMenuItemMediaStyles(itemLabel)
+                                )}
+                                imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
+                              />
+                            </MenuItemIcon>
+                            <Box as='span'>
+                              <MenuItemTitle
+                                as='span'
+                                className='menu-item-title'
+                              >
+                                {itemLabel}
+                              </MenuItemTitle>
+                              <MenuItemDescription
+                                as='span'
+                                className='menu-item-description'
+                              >
+                                {itemDescription}
+                              </MenuItemDescription>
+                            </Box>
+                          </MobileMenuItemLink>
+                        )
+                      )}
+                    </Flex>
+                  )}
+                </Box>
+              )
             })}
-          >
-            <FeatherIcon icon={Calendar} size='14px' />
-            <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
-              {BOOK_CALL_LABEL}
-            </Caps>
-          </ToolbarActionLink>
-        </Box>
-      </MobileMenuPanel>
+            {DIRECT_NAV_ITEMS.map(({ label, href, actively }) => (
+              <MobileDirectNavLink
+                key={label}
+                forwardedAs='li'
+                href={href}
+                actively={actively}
+                data-event-location='Toolbar'
+                data-event-name={label}
+                onClick={closeMenu}
+                css={theme(MOBILE_DIRECT_NAV_ITEM_STYLES)}
+              >
+                <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
+                  {label}
+                </Caps>
+              </MobileDirectNavLink>
+            ))}
+            <ToolbarActionLink
+              forwardedAs='li'
+              href={bookCallUrl('mobile_menu')}
+              title={BOOK_CALL_TITLE}
+              externalIcon={false}
+              data-event-location='mobile_menu'
+              data-event-name={BOOK_CALL_LABEL}
+              onClick={() => {
+                trackBookCall('mobile_menu')
+                closeMenu()
+              }}
+              css={theme({
+                display: 'flex',
+                width: '100%',
+                height: '44px',
+                mt: 3,
+                listStyle: 'none'
+              })}
+            >
+              <FeatherIcon icon={Calendar} size='14px' />
+              <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
+                {BOOK_CALL_LABEL}
+              </Caps>
+            </ToolbarActionLink>
+          </Box>
+        </MobileMenuPanel>
+      )}
     </Header>
   )
 }
