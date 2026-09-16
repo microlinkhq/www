@@ -12,8 +12,13 @@ export const fadeIn = keyframes`
   to { opacity: 1 }
 `
 
+const toolbarRiseIn = keyframes`
+  from { opacity: 0; transform: translateY(8px) }
+  to { opacity: 1; transform: translateY(0) }
+`
+
 export const riseInAnimation = (delay = '0ms') => css`
-  animation: ${riseIn} 440ms ${timings.short} ${delay} both;
+  animation: ${toolbarRiseIn} 440ms ${timings.short} ${delay} both;
 
   ${REDUCED_MOTION_MEDIA} {
     animation-name: ${fadeIn};

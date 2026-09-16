@@ -23,28 +23,34 @@ const DesktopOnly = styled(Box)`
 
 const Toolbar = ({ animated, ...props }) => {
   const [mode, setMode] = useState(null)
+  const [didSwitch, setDidSwitch] = useState(false)
 
   useEffect(() => {
     const media = window.matchMedia(`(max-width: ${MOBILE_MAX_WIDTH}px)`)
     const sync = () => setMode(media.matches ? 'mobile' : 'desktop')
     sync()
-    media.addEventListener('change', sync)
-    return () => media.removeEventListener('change', sync)
+    const onChange = () => {
+      setDidSwitch(true)
+      sync()
+    }
+    media.addEventListener('change', onChange)
+    return () => media.removeEventListener('change', onChange)
   }, [])
 
   const showMobile = mode !== 'desktop'
   const showDesktop = mode !== 'mobile'
+  const animate = animated && !didSwitch
 
   return (
     <>
       {showMobile && (
         <MobileOnly $alone={mode === 'mobile'}>
-          <ToolbarMobile animated={animated} {...props} />
+          <ToolbarMobile animated={animate} {...props} />
         </MobileOnly>
       )}
       {showDesktop && (
         <DesktopOnly $alone={mode === 'desktop'}>
-          <ToolbarDesktop animated={animated} {...props} />
+          <ToolbarDesktop animated={animate} {...props} />
         </DesktopOnly>
       )}
     </>
