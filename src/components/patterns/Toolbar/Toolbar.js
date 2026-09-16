@@ -1,25 +1,27 @@
 import ToolbarDesktop from './ToolbarDesktop'
 import ToolbarMobile from './ToolbarMobile'
 import Box from 'components/elements/Box'
-import { TOOLBAR_PRIMARY_HEIGHTS } from 'components/elements/Toolbar'
 import { breakpoints, theme, toRaw } from 'theme'
 import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
 
 const MOBILE_MAX_WIDTH = toRaw(breakpoints[0]) - 1
 
-const ToolbarShell = styled(Box)`
-  ${theme({
-    position: 'fixed',
-    zIndex: 101,
-    top: 0,
-    left: 0,
-    right: 0,
-    height: TOOLBAR_PRIMARY_HEIGHTS
-  })}
+const MobileOnly = styled(Box)`
+  ${({ $alone }) =>
+    theme({
+      display: $alone ? 'block' : ['block', 'none', 'none', 'none']
+    })};
 `
 
-const Toolbar = props => {
+const DesktopOnly = styled(Box)`
+  ${({ $alone }) =>
+    theme({
+      display: $alone ? 'block' : ['none', 'block', 'block', 'block']
+    })};
+`
+
+const Toolbar = ({ animated, ...props }) => {
   const [mode, setMode] = useState(null)
 
   useEffect(() => {
@@ -30,9 +32,23 @@ const Toolbar = props => {
     return () => media.removeEventListener('change', sync)
   }, [])
 
-  if (mode === 'mobile') return <ToolbarMobile {...props} />
-  if (mode === 'desktop') return <ToolbarDesktop {...props} />
-  return <ToolbarShell aria-hidden />
+  const showMobile = mode !== 'desktop'
+  const showDesktop = mode !== 'mobile'
+
+  return (
+    <>
+      {showMobile && (
+        <MobileOnly $alone={mode === 'mobile'}>
+          <ToolbarMobile animated={animated} {...props} />
+        </MobileOnly>
+      )}
+      {showDesktop && (
+        <DesktopOnly $alone={mode === 'desktop'}>
+          <ToolbarDesktop animated={animated} {...props} />
+        </DesktopOnly>
+      )}
+    </>
+  )
 }
 
 export default Toolbar
