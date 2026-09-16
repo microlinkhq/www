@@ -78,6 +78,7 @@ const Layout = ({
   children,
   onClick = noop,
   style,
+  toolbarAnimated,
   ...props
 }) => {
   const breakpoint = useBreakpoint()
@@ -86,7 +87,7 @@ const Layout = ({
     <ThemeProvider theme={themeSpec}>
       <SkipLink />
       <Root data-breakpoint={breakpoint} onClick={onClick} style={style}>
-        <Toolbar as='header' style={style} />
+        <Toolbar as='header' style={style} animated={toolbarAnimated} />
         <Main as='main' id='main-content' tabIndex={-1} {...props}>
           {children}
         </Main>

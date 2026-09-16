@@ -28,7 +28,7 @@ import {
 import ToolbarDesktopMegaMenu from './ToolbarDesktopMegaMenu'
 import ToolbarDesktopTopLevelNav from './ToolbarDesktopTopLevelNav'
 
-const ToolbarDesktop = () => {
+const ToolbarDesktop = ({ animated }) => {
   const location = useLocation()
   const blogPosts = useBlogIndex()
   const latestChangelogEntry = useChangelogLatest()
@@ -143,6 +143,7 @@ const ToolbarDesktop = () => {
     <Header
       as='header'
       className='hidden-print'
+      animated={animated}
       ref={headerRef}
       onMouseEnter={clearClosePanelTimeout}
       onMouseLeave={handleClosePanelWithDelay}

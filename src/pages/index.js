@@ -153,7 +153,7 @@ const HomePage = () => {
 
   return (
     <CurrencyProvider>
-      <Layout>
+      <Layout toolbarAnimated>
         <Hero />
         <CliBanner />
         <Deferred force={forceDeferred} minHeight='80vh'>
