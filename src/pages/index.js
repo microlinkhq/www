@@ -44,6 +44,7 @@ const useHashUnlock = () => {
 
     let tries = 0
     let lastTop = null
+    let lastHeight = null
     let stable = 0
     const timer = window.setInterval(() => {
       tries += 1
@@ -54,13 +55,18 @@ const useHashUnlock = () => {
       }
       el.scrollIntoView()
       const top = el.getBoundingClientRect().top + window.scrollY
-      if (lastTop !== null && Math.abs(top - lastTop) < 2) {
+      const height = document.documentElement.scrollHeight
+      const topStable = lastTop !== null && Math.abs(top - lastTop) < 2
+      const heightStable =
+        lastHeight !== null && Math.abs(height - lastHeight) < 2
+      if (topStable && heightStable) {
         stable += 1
         if (stable >= 4) window.clearInterval(timer)
       } else {
         stable = 0
       }
       lastTop = top
+      lastHeight = height
       if (tries > 80) window.clearInterval(timer)
     }, 100)
 
