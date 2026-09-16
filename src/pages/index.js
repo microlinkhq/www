@@ -22,20 +22,16 @@ const NEAR_VIEWPORT = { rootMargin: '25% 0px' }
 const Placeholder = ({ minHeight }) => <div aria-hidden style={{ minHeight }} />
 
 const useHashUnlock = () => {
-  const [force, setForce] = useState(false)
+  const [hash, setHash] = useState('')
 
   useEffect(() => {
-    const unlock = () => {
-      if (window.location.hash) setForce(true)
-    }
-    unlock()
-    window.addEventListener('hashchange', unlock)
-    return () => window.removeEventListener('hashchange', unlock)
+    const sync = () => setHash(window.location.hash)
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
   }, [])
 
   useEffect(() => {
-    if (!force) return undefined
-    const { hash } = window.location
     if (!hash) return undefined
 
     let id
@@ -69,9 +65,9 @@ const useHashUnlock = () => {
     }, 100)
 
     return () => window.clearInterval(timer)
-  }, [force])
+  }, [hash])
 
-  return force
+  return Boolean(hash)
 }
 
 const Deferred = ({ minHeight, force, children }) => {

@@ -260,23 +260,19 @@ const ToolbarMobile = () => {
   }
 
   const toggleOpen = () => {
-    setOpen(value => {
-      if (!value) setHasOpened(true)
-      return !value
-    })
+    if (!isOpen) setHasOpened(true)
+    setOpen(value => !value)
   }
 
   const toggleSection = label => {
-    setOpenSection(currentLabel => {
-      const next = currentLabel === label ? '' : label
-      if (next) {
-        const section = NAVIGATION_SECTIONS.find(
-          ({ label: name }) => name === next
-        )
-        section?.items?.forEach(({ href }) => prefetchPath(href))
-      }
-      return next
-    })
+    const next = openSection === label ? '' : label
+    setOpenSection(next)
+    if (next) {
+      const section = NAVIGATION_SECTIONS.find(
+        ({ label: name }) => name === next
+      )
+      section?.items?.forEach(({ href }) => prefetchPath(href))
+    }
   }
 
   useEffect(() => {
