@@ -36,6 +36,7 @@ const REPOS = ['metascraper', 'browserless', 'mql']
 export const Head = () => (
   <Meta
     title={META.title}
+    noSuffix
     description={META.description}
     structured={productStructured({
       path: '/api',

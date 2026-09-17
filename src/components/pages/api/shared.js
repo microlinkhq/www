@@ -44,9 +44,9 @@ export const ACCENT = colors.link
 export const PAGE_NAV_HEIGHT = '52px'
 
 export const META = {
-  title: 'Microlink API. One request, any URL',
+  title: 'Microlink API: Turn Any URL into Screenshots, PDFs, and Data',
   description:
-    'Turn any URL into screenshots, PDFs, metadata, markdown, embeds, and browser functions. One REST endpoint. 25 requests/day free. No API key to start.',
+    'The Microlink API turns any URL into screenshots, PDFs, metadata, markdown, and HTML with one REST call. 25 free requests a day, no API key to start.',
   structuredName: 'Microlink API',
   structuredDescription:
     'A single REST API that turns any URL into structured data, screenshots, PDFs, markdown, HTML, text, embeds, and browser functions. Free to start, with no API key needed on the free plan.',
@@ -75,8 +75,8 @@ export const TOC = [
 ]
 
 export const HERO = {
-  eyebrow: 'Microlink API',
-  title: 'One request. Any URL.',
+  eyebrow: 'One request. Any URL.',
+  title: 'Microlink API',
   description:
     'Screenshots, PDFs, metadata, markdown, HTML, text, embeds, and browser functions from a single REST endpoint. No browser fleet to run.',
   ctaHref: '/pricing',
@@ -229,24 +229,28 @@ const PRODUCT_ENTRIES = {
 const BUILD_ITEMS = [
   {
     key: 'screenshot',
+    label: 'Screenshot API',
     description:
       'Pixel-perfect PNG or JPEG captures of any page, full page or a single element.',
     docs: { href: '/docs/guides/screenshot', label: 'Screenshot guide' }
   },
   {
     key: 'pdf',
+    label: 'PDF API',
     description:
       'Print-ready PDFs from any URL, with paper size, margins, and page ranges.',
     docs: { href: '/docs/guides/pdf', label: 'PDF guide' }
   },
   {
     key: 'metadata',
+    label: 'Metadata API',
     description:
       'Normalized title, description, image, logo, and more from any page.',
     docs: { href: '/docs/guides/metadata', label: 'Metadata guide' }
   },
   {
     key: 'markdown',
+    label: 'Markdown API',
     description:
       'Web pages, PDFs, and Office documents as clean markdown for LLMs.',
     docs: {
@@ -256,6 +260,7 @@ const BUILD_ITEMS = [
   },
   {
     key: 'html',
+    label: 'HTML API',
     description:
       'Fully rendered HTML after JavaScript runs, for a page or one selector.',
     docs: {
@@ -265,6 +270,7 @@ const BUILD_ITEMS = [
   },
   {
     key: 'text',
+    label: 'Text API',
     description:
       'Readable plain text from any page or document, without the markup.',
     docs: {
@@ -274,6 +280,7 @@ const BUILD_ITEMS = [
   },
   {
     key: 'preview',
+    label: 'Link preview API',
     description:
       'Slack-style link previews for any URL, built from one metadata call.',
     docs: {
@@ -283,17 +290,20 @@ const BUILD_ITEMS = [
   },
   {
     key: 'embed',
+    label: 'Embed API',
     description:
       'Ready-to-paste iframes for 300+ providers like YouTube and Spotify.',
     docs: { href: '/docs/guides/embed/iframe', label: 'Embed guide' }
   },
   {
     key: 'logo',
+    label: 'Logo API',
     description: 'Logos, favicons, and brand color palettes for any website.',
     docs: { href: '/docs/sdk/methods/logo', label: 'Logo docs' }
   },
   {
     key: 'conversion',
+    label: 'File conversion API',
     description:
       'PDF, Word, Excel, and PowerPoint files as HTML, markdown, or text.',
     docs: {
@@ -303,11 +313,13 @@ const BUILD_ITEMS = [
   },
   {
     key: 'function',
+    label: 'Browser function API',
     description: 'Run your own Puppeteer code on any page, with npm packages.',
     docs: { href: '/docs/guides/function', label: 'Function guide' }
   },
   {
     key: 'search',
+    label: 'Search API',
     isPro: true,
     description:
       'Google results as structured JSON: web, news, images, places, and more.',
@@ -414,14 +426,14 @@ export const HOW_TO = {
         'A public page is enough. The API detects when a page needs a headless browser, so client-rendered sites work as well as static HTML.'
     },
     {
-      title: 'Call the endpoint',
+      title: 'Hit api.microlink.io',
       description:
-        'GET https://api.microlink.io with a url query parameter. No API key is required on the free plan.'
+        'GET api.microlink.io with a url. Metadata comes back by default.'
     },
     {
-      title: 'Read the JSON',
+      title: 'Ask for what you need',
       description:
-        'Metadata is returned by default. Add screenshot, pdf, or markdown on the same request when you need those fields too.'
+        'Add screenshot, pdf, or markdown on the same request. Same endpoint, extra fields.'
     }
   ]
 }
