@@ -5,12 +5,13 @@ import Box from 'components/elements/Box'
 
 import {
   INTEGRATIONS,
+  CardDocsLink,
   CardGrid,
+  CardHeading,
   CardText,
-  CardTitle,
   IconTile,
-  LinkCard,
   SectionBlock,
+  StretchedCard,
   tileColors
 } from './shared'
 
@@ -26,11 +27,14 @@ export const Integrations = () => (
         const tile = tileColors(item.hue)
         return (
           <Box as='li' key={item.href} css={theme({ minWidth: 0 })}>
-            <LinkCard href={item.href} $accent={tile.color}>
+            <StretchedCard $accent={tile.color}>
               <IconTile icon={item.icon} tile={tile} />
-              <CardTitle>{item.label}</CardTitle>
+              <CardHeading href={item.href}>{item.label}</CardHeading>
               <CardText>{item.description}</CardText>
-            </LinkCard>
+              <CardDocsLink href={item.docs.href}>
+                {item.docs.label}
+              </CardDocsLink>
+            </StretchedCard>
           </Box>
         )
       })}

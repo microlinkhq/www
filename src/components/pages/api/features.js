@@ -37,8 +37,18 @@ export const Features = () => (
         <FeatureCard key={feature.slug} feature={feature} />
       ))}
     </Cards>
-    <Flex css={theme({ pt: [4, 4, 5, 5] })}>
+    <Flex
+      css={theme({
+        pt: [4, 4, 5, 5],
+        gap: [3, 3, 4, 4],
+        flexDirection: ['column', 'column', 'row', 'row'],
+        alignItems: ['center', 'center', 'flex-start', 'flex-start']
+      })}
+    >
       <ArrowLink href='/features'>See all features</ArrowLink>
+      <ArrowLink href='/docs/guides/common/production-patterns'>
+        Production patterns guide
+      </ArrowLink>
     </Flex>
   </SectionBlock>
 )

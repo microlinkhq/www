@@ -7,12 +7,13 @@ import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 import {
   BUILD,
+  CardDocsLink,
   CardGrid,
+  CardHeading,
   CardText,
-  CardTitle,
   IconTile,
-  LinkCard,
-  SectionBlock
+  SectionBlock,
+  StretchedCard
 } from './shared'
 
 export const Products = () => (
@@ -20,12 +21,12 @@ export const Products = () => (
     id='products'
     bg='pinky'
     title='Everything you can build with the API'
-    caption='Every product runs on the same endpoint. Pick a workflow, then read the page behind it.'
+    caption='Every product runs on the same endpoint. Open its page to see what it does, or jump straight to the guide.'
   >
     <CardGrid $columns={4}>
       {BUILD.map(product => (
         <Box as='li' key={product.label} css={theme({ minWidth: 0 })}>
-          <LinkCard href={product.href} $accent={product.tile.color}>
+          <StretchedCard $accent={product.tile.color}>
             <Flex
               css={theme({
                 alignItems: 'flex-start',
@@ -35,21 +36,17 @@ export const Products = () => (
             >
               <IconTile icon={product.icon} tile={product.tile} />
               {product.isPro && (
-                <Box
-                  css={theme({ flexShrink: 0 })}
-                  onClick={e => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                  }}
-                  onMouseDown={e => e.stopPropagation()}
-                >
+                <Box className='card-above' css={theme({ flexShrink: 0 })}>
                   <ProBadge />
                 </Box>
               )}
             </Flex>
-            <CardTitle>{product.label}</CardTitle>
+            <CardHeading href={product.href}>{product.label}</CardHeading>
             <CardText>{product.description}</CardText>
-          </LinkCard>
+            <CardDocsLink href={product.docs.href}>
+              {product.docs.label}
+            </CardDocsLink>
+          </StretchedCard>
         </Box>
       ))}
     </CardGrid>

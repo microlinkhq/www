@@ -15,6 +15,7 @@ import {
   Database,
   FileText,
   Package,
+  Repeat,
   Server,
   Shield,
   UserCheck
@@ -32,10 +33,11 @@ import {
   HOME_CONTENT_WIDTH
 } from 'components/pages/home/catalog'
 import heroDemoRequests from 'components/pages/home/hero-demo-requests'
+import ArrowLink from 'components/patterns/ArrowLink'
 import { Subhead } from 'components/patterns/ProductStory'
 import { TOOLBAR_PRIMARY_HEIGHTS } from 'components/elements/Toolbar'
 import { CDN_EDGES } from 'helpers/cdn-edges'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 export const ACCENT = colors.link
 
@@ -175,6 +177,8 @@ export const QUICKSTART = {
     'The free endpoint is a GET. Pass a URL, read JSON. Add a key later when you need Search, more quota, a proxy, or a custom cache TTL.',
   docsHref: '/docs/api/getting-started/overview',
   docsLabel: 'Full quickstart in docs',
+  flowHref: '/docs/guides/what-is-microlink#how-requests-work',
+  flowLabel: 'How a request works',
   steps: [
     {
       title: 'Pick any URL',
@@ -213,38 +217,109 @@ export const QUICKSTART = {
   ]
 }
 
-const BUILD_KEYS = [
-  'screenshot',
-  'pdf',
-  'metadata',
-  'markdown',
-  'embed',
-  'function',
-  'search',
-  'text'
-]
-
-const PRO_ONLY_KEYS = ['search']
-
-const BUILD_DESCRIPTIONS = {
-  screenshot:
-    'Pixel-perfect PNG or JPEG captures of any page, full page or a single element.',
-  pdf: 'Print-ready PDFs from any URL, with paper size, margins, and page ranges.',
-  metadata:
-    'Normalized title, description, image, logo, and more from any page.',
-  markdown: 'Web pages, PDFs, and Office documents as clean markdown for LLMs.',
-  embed: 'Ready-to-paste iframes for 300+ providers like YouTube and Spotify.',
-  function: 'Run your own Puppeteer code on any page, with npm packages.',
-  search:
-    'Google results as structured JSON: web, news, images, places, and more.',
-  text: 'Readable plain text from any page or document, without the markup.'
+const PRODUCT_ENTRIES = {
+  ...PRODUCTS,
+  conversion: {
+    label: 'File conversion',
+    icon: Repeat,
+    href: '/file-conversion'
+  }
 }
 
-export const BUILD = BUILD_KEYS.map(key => ({
-  ...PRODUCTS[key],
-  description: BUILD_DESCRIPTIONS[key],
+const BUILD_ITEMS = [
+  {
+    key: 'screenshot',
+    description:
+      'Pixel-perfect PNG or JPEG captures of any page, full page or a single element.',
+    docs: { href: '/docs/guides/screenshot', label: 'Screenshot guide' }
+  },
+  {
+    key: 'pdf',
+    description:
+      'Print-ready PDFs from any URL, with paper size, margins, and page ranges.',
+    docs: { href: '/docs/guides/pdf', label: 'PDF guide' }
+  },
+  {
+    key: 'metadata',
+    description:
+      'Normalized title, description, image, logo, and more from any page.',
+    docs: { href: '/docs/guides/metadata', label: 'Metadata guide' }
+  },
+  {
+    key: 'markdown',
+    description:
+      'Web pages, PDFs, and Office documents as clean markdown for LLMs.',
+    docs: {
+      href: '/docs/guides/content-conversion/url-to-markdown',
+      label: 'Markdown guide'
+    }
+  },
+  {
+    key: 'html',
+    description:
+      'Fully rendered HTML after JavaScript runs, for a page or one selector.',
+    docs: {
+      href: '/docs/guides/content-conversion/url-to-html',
+      label: 'HTML guide'
+    }
+  },
+  {
+    key: 'text',
+    description:
+      'Readable plain text from any page or document, without the markup.',
+    docs: {
+      href: '/docs/guides/content-conversion/url-to-text',
+      label: 'Text guide'
+    }
+  },
+  {
+    key: 'preview',
+    description:
+      'Slack-style link previews for any URL, built from one metadata call.',
+    docs: {
+      href: '/docs/guides/embed/metadata-api',
+      label: 'Link preview guide'
+    }
+  },
+  {
+    key: 'embed',
+    description:
+      'Ready-to-paste iframes for 300+ providers like YouTube and Spotify.',
+    docs: { href: '/docs/guides/embed/iframe', label: 'Embed guide' }
+  },
+  {
+    key: 'logo',
+    description: 'Logos, favicons, and brand color palettes for any website.',
+    docs: { href: '/docs/sdk/methods/logo', label: 'Logo docs' }
+  },
+  {
+    key: 'conversion',
+    description:
+      'PDF, Word, Excel, and PowerPoint files as HTML, markdown, or text.',
+    docs: {
+      href: '/docs/guides/content-conversion',
+      label: 'File conversion guide'
+    }
+  },
+  {
+    key: 'function',
+    description: 'Run your own Puppeteer code on any page, with npm packages.',
+    docs: { href: '/docs/guides/function', label: 'Function guide' }
+  },
+  {
+    key: 'search',
+    isPro: true,
+    description:
+      'Google results as structured JSON: web, news, images, places, and more.',
+    docs: { href: '/docs/guides/search', label: 'Search guide' }
+  }
+]
+
+export const BUILD = BUILD_ITEMS.map(({ key, isPro = false, ...item }) => ({
+  ...PRODUCT_ENTRIES[key],
+  ...item,
   tile: PRODUCT_TILES[key],
-  isPro: PRO_ONLY_KEYS.includes(key)
+  isPro
 }))
 
 export const INTEGRATIONS = [
@@ -254,21 +329,24 @@ export const INTEGRATIONS = [
     icon: Package,
     hue: 'blue',
     description:
-      'One client for every product. Typed methods instead of query strings.'
+      'One client for every product. Typed methods instead of query strings.',
+    docs: { href: '/docs/sdk/getting-started/overview', label: 'SDK docs' }
   },
   {
     label: 'CLI',
     href: '/integrations/cli',
     icon: Terminal,
     hue: 'indigo',
-    description: 'Explore the API from your terminal during local development.'
+    description: 'Explore the API from your terminal during local development.',
+    docs: { href: '/docs/sdk/getting-started/cli', label: 'CLI docs' }
   },
   {
     label: 'MCP',
     href: '/integrations/mcp',
     icon: Brain,
     hue: 'violet',
-    description: 'Give an AI agent the same URL-to-data API you use in code.'
+    description: 'Give an AI agent the same URL-to-data API you use in code.',
+    docs: { href: '/docs/api/getting-started/mcp', label: 'MCP docs' }
   },
   {
     label: 'Editor',
@@ -276,7 +354,8 @@ export const INTEGRATIONS = [
     icon: Code,
     hue: 'pink',
     description:
-      'Write a request in the browser and run it before you integrate.'
+      'Write a request in the browser and run it before you integrate.',
+    docs: { href: '/docs/guides/function', label: 'Function guide' }
   }
 ]
 
@@ -489,43 +568,47 @@ const CARD_HOVER_SHADOW = `0 22px 46px -28px rgba(${shadowInk}, 0.35)`
 
 export const StaticCard = styled(Box)(theme(CARD_STYLES))
 
-export const LinkCard = styled(Link)(
-  theme({
-    ...CARD_STYLES,
-    textDecoration: 'none',
-    _hover: { color: 'black' }
-  }),
-  css`
-    transition: border-color ${transition.medium},
-      box-shadow ${transition.medium};
+export const StretchedCard = styled(StaticCard)`
+  position: relative;
+  transition: border-color ${transition.medium}, box-shadow ${transition.medium};
 
-    > a {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      min-width: 0;
-      height: 100%;
-      color: inherit;
-      text-decoration: none;
+  .card-link a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    ${theme({ borderRadius: 4 })}
+  }
+
+  .card-link a:focus-visible {
+    outline: none;
+  }
+
+  .card-link a:focus-visible::after {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
+
+  .card-above {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: ${({ $accent }) => $accent || colors.gray4};
+      box-shadow: ${CARD_HOVER_SHADOW};
     }
 
-    @media (hover: hover) and (pointer: fine) {
+    @media (prefers-reduced-motion: no-preference) {
+      transition: border-color ${transition.medium},
+        box-shadow ${transition.medium}, transform ${transition.medium};
+
       &:hover {
-        border-color: ${({ $accent }) => $accent || colors.gray4};
-        box-shadow: ${CARD_HOVER_SHADOW};
-      }
-
-      @media (prefers-reduced-motion: no-preference) {
-        transition: border-color ${transition.medium},
-          box-shadow ${transition.medium}, transform ${transition.medium};
-
-        &:hover {
-          transform: translateY(-1px);
-        }
+        transform: translateY(-1px);
       }
     }
-  `
-)
+  }
+`
 
 export const CardTitle = styled(Text).attrs({ as: 'h3' })(
   theme({
@@ -545,4 +628,22 @@ export const CardText = styled(Text)(
     lineHeight: 2,
     flex: 1
   })
+)
+
+export const CardHeading = ({ href, children }) => (
+  <CardTitle>
+    <Link
+      className='card-link'
+      href={href}
+      css={theme({ color: 'black', fontWeight: 'bold' })}
+    >
+      {children}
+    </Link>
+  </CardTitle>
+)
+
+export const CardDocsLink = ({ href, children }) => (
+  <Box className='card-above' css={theme({ pt: 3, fontSize: 1 })}>
+    <ArrowLink href={href}>{children}</ArrowLink>
+  </Box>
 )

@@ -2284,8 +2284,9 @@ const Products = () => (
     >
       <Subhead variant='gradient'>Build features, not infrastructure</Subhead>
       <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4] })}>
-        Turn any URL into screenshots, PDFs, markdown, or structured data. We
-        run the browsers, the cache, and the scale behind them.
+        Turn any URL into screenshots, PDFs, markdown, or structured data with
+        the <Link href='/api'>Microlink API</Link>. We run the browsers, the
+        cache, and the scale behind them.
       </Caption>
     </Box>
 

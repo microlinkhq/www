@@ -46,7 +46,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What can I get from one request?',
-    text: 'Normalized metadata by default: title, description, image, logo, and more. The same request can also return a screenshot, PDF, markdown, HTML, iframe embed, or the return value of a browser function.',
+    text: 'Normalized metadata by default: title, description, image, logo, and more. The same request can also return a screenshot, PDF, markdown, HTML, iframe embed, or the return value of a browser function. When you only need one of those, add meta=false to skip metadata, which is usually the biggest speedup.',
     answer: (
       <>
         <div>
@@ -56,8 +56,58 @@ export const FAQ_ITEMS = [
         <div>
           The same request can also return a screenshot, PDF, markdown, HTML,
           iframe embed, or the return value of a browser function. See{' '}
-          <Link href='/docs/api/getting-started/overview'>the docs</Link> for
-          every parameter.
+          <Link href='/docs/guides/what-is-microlink#combine-workflows-in-one-call'>
+            combining workflows
+          </Link>
+          .
+        </div>
+        <div>
+          When you only need one of those, add <b>meta=false</b> to skip
+          metadata, which is usually the biggest speedup. More in{' '}
+          <Link href='/docs/guides/common/production-patterns'>
+            production patterns
+          </Link>
+          .
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'What does a response look like?',
+    text: 'JSON with a status field: success, fail for a problem with the request, or error for a server-side issue. The payload lives in data. Failed requests add a code such as EINVALURL or ERATE and a human-readable message.',
+    answer: (
+      <>
+        <div>
+          JSON with a <b>status</b> field: success, fail for a problem with the
+          request, or error for a server-side issue. The payload lives in{' '}
+          <b>data</b>.
+        </div>
+        <div>
+          Failed requests add a <b>code</b> such as EINVALURL or ERATE and a
+          human-readable message. See the{' '}
+          <Link href='/docs/api/basics/format'>response format</Link> and{' '}
+          <Link href='/docs/api/basics/error-codes'>error codes</Link>.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'Can I use the API URL directly as an image or file?',
+    text: 'Yes. Add embed with the field you want, such as embed=screenshot.url, and the API answers with that asset instead of JSON. The request URL then works as an img src, an og:image, or a PDF download link. Keep API keys out of those URLs.',
+    answer: (
+      <>
+        <div>
+          Yes. Add <Link href='/docs/api/parameters/embed'>embed</Link> with the
+          field you want, such as <b>embed=screenshot.url</b>, and the API
+          answers with that asset instead of JSON.
+        </div>
+        <div>
+          The request URL then works as an img src, an og:image, or a PDF
+          download link. Keep API keys out of those URLs. See{' '}
+          <Link href='/docs/guides/screenshot/embedding'>
+            embedding screenshots
+          </Link>
+          .
         </div>
       </>
     )
@@ -79,6 +129,70 @@ export const FAQ_ITEMS = [
     )
   },
   {
+    question: 'When is Microlink not the right fit?',
+    text: 'When you need to crawl thousands of pages by following links, drive a live browser session interactively, or fetch static HTML that needs no rendering. A crawler, a local Puppeteer or Playwright instance, or a plain HTTP client fits those better.',
+    answer: (
+      <>
+        <div>
+          When you need to crawl thousands of pages by following links, drive a
+          live browser session interactively, or fetch static HTML that needs no
+          rendering.
+        </div>
+        <div>
+          A crawler, a local Puppeteer or Playwright instance, or a plain HTTP
+          client fits those better. See{' '}
+          <Link href='/docs/guides/what-is-microlink#when-something-else-is-better'>
+            when something else is better
+          </Link>
+          .
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'How does caching work?',
+    text: 'Every response is cached for 24 hours by default, and the x-cache-status header tells you whether it was a MISS or a HIT. Cache hits are free and fast. Add force to skip the cache. On Pro, ttl sets anything from 1 minute to 31 days and staleTtl serves the cached copy while a fresh one is fetched.',
+    answer: (
+      <>
+        <div>
+          Every response is cached for 24 hours by default, and the{' '}
+          <b>x-cache-status</b> header tells you whether it was a MISS or a HIT.
+          Cache hits are free and fast. Add{' '}
+          <Link href='/docs/api/parameters/force'>force</Link> to skip the
+          cache.
+        </div>
+        <div>
+          On Pro, <Link href='/features/ttl'>ttl</Link> sets anything from 1
+          minute to 31 days and{' '}
+          <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> serves the
+          cached copy while a fresh one is fetched. See the{' '}
+          <Link href='/docs/guides/common/caching'>caching guide</Link>.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'What happens when a site blocks the request?',
+    text: 'On the free plan, a site behind antibot protection returns the EPROXYNEEDED error. On Pro, Microlink names the antibot or CAPTCHA provider that blocked you and retries the same request through a residential proxy automatically.',
+    answer: (
+      <>
+        <div>
+          On the free plan, a site behind antibot protection returns the{' '}
+          <b>EPROXYNEEDED</b> error.
+        </div>
+        <div>
+          On Pro, Microlink{' '}
+          <Link href='/features/antibot'>
+            names the antibot or CAPTCHA provider
+          </Link>{' '}
+          that blocked you and retries the same request through a{' '}
+          <Link href='/features/proxy'>residential proxy</Link> automatically.
+          See the <Link href='/docs/guides/common/proxy'>proxy guide</Link>.
+        </div>
+      </>
+    )
+  },
+  {
     question: 'What is included on the free plan?',
     text: '25 requests per day on every product except Search, no credit card. Adblock and cookie-banner dismissal are on by default. Pro adds Search, quota, proxy, custom headers, and configurable TTL.',
     answer: (
@@ -91,6 +205,29 @@ export const FAQ_ITEMS = [
           dismissal are on by default. Pro adds Search, quota, proxy, custom
           headers, and configurable TTL. See{' '}
           <Link href='/pricing'>pricing</Link>.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'How do I know how much quota is left?',
+    text: 'The free endpoint returns x-rate-limit-limit, x-rate-limit-remaining, and x-rate-limit-reset headers on every response. Past the limit you get HTTP 429 with the ERATE code. There is no throttling, so parallel requests are fine within your quota. On Pro you are notified at 80% of your plan, and requests pause at 100% with no overage fees.',
+    answer: (
+      <>
+        <div>
+          The free endpoint returns <b>x-rate-limit-limit</b>,{' '}
+          <b>x-rate-limit-remaining</b>, and <b>x-rate-limit-reset</b> headers
+          on every response. Past the limit you get HTTP 429 with the ERATE
+          code.
+        </div>
+        <div>
+          There is no throttling, so parallel requests are fine within your
+          quota. On Pro you are notified at 80% of your plan, and requests pause
+          at 100% with no overage fees. See{' '}
+          <Link href='/docs/guides/common/production-patterns#handle-rate-limits-gracefully'>
+            handling rate limits
+          </Link>
+          .
         </div>
       </>
     )
@@ -114,7 +251,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Where is the documentation?',
-    text: 'The API reference lives at /docs/api/getting-started/overview. Guides cover workflows. OpenAPI is at /openapi.json.',
+    text: 'The API reference lives at /docs/api/getting-started/overview. Guides cover workflows, starting with what Microlink is and how a request works. The SDK has its own docs, and OpenAPI is at /openapi.json.',
     answer: (
       <>
         <div>
@@ -122,8 +259,12 @@ export const FAQ_ITEMS = [
           <Link href='/docs/api/getting-started/overview'>docs</Link>.
         </div>
         <div>
-          <Link href='/docs/guides'>Guides</Link> cover workflows. The{' '}
-          <Link href='/openapi.json'>OpenAPI spec</Link> is machine-readable.
+          <Link href='/docs/guides'>Guides</Link> cover workflows, starting with{' '}
+          <Link href='/docs/guides/what-is-microlink'>what Microlink is</Link>{' '}
+          and how a request works. The{' '}
+          <Link href='/docs/sdk/getting-started/overview'>SDK</Link> has its own
+          docs, and the <Link href='/openapi.json'>OpenAPI spec</Link> is
+          machine-readable.
         </div>
       </>
     )

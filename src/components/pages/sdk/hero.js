@@ -8,6 +8,7 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import LineBreak from 'components/elements/LineBreak'
+import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
 import { GitHub as GitHubIcon } from 'components/icons/GitHub'
@@ -193,9 +194,9 @@ const Hero = () => (
           textAlign: 'center'
         })}
       >
-        One import gives you every Microlink product as a semantic method —
-        screenshots, PDFs, metadata, scraping, search — in Node.js, browsers,
-        and Deno.
+        One import gives you every <Link href='/api'>Microlink API</Link>{' '}
+        product as a semantic method: screenshots, PDFs, metadata, scraping, and
+        search, in Node.js, browsers, and Deno.
       </Caption>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <Button

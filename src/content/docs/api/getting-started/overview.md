@@ -7,7 +7,7 @@ import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
-Microlink API provides a powerful API for automating any browser action.
+Microlink API provides a powerful API for automating any browser action. The <Link href='/api' children='Microlink API overview' /> shows every product it covers, with plans and pricing.
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://github.com/microlinkhq' }} />
 
