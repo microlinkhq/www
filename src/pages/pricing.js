@@ -64,7 +64,7 @@ const FAQ_SCHEMA = {
       name: 'What counts as a request?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'One request is one API call to a Microlink endpoint — screenshot, PDF, metadata, insights, or any other. Cached responses count too, but they\u2019re served from our edge in milliseconds and don\u2019t exhaust your concurrency.'
+        text: 'One request is one API call to a Microlink endpoint: screenshot, PDF, metadata, insights, or any other. Responses served from cache don\u2019t count against your quota, and they return from our edge in milliseconds.'
       }
     },
     {
@@ -627,7 +627,7 @@ const CAPABILITIES = [
     icon: ClockIcon,
     title: 'Configurable cache (TTL)',
     description:
-      'Tune cache lifetime per request. Cached hits are served from the edge and billed at a fraction of the price.',
+      'Tune cache lifetime per request. Cache hits are served from the edge and do not count against your quota.',
     href: '/features/ttl'
   },
   {
@@ -1296,10 +1296,10 @@ const Faqs = () => (
         answer: (
           <>
             <div>
-              One request is one API call to a Microlink endpoint — screenshot,
-              PDF, metadata, insights, or any other. Cached responses count too,
-              but they&apos;re served from our edge in milliseconds and
-              don&apos;t exhaust your concurrency.
+              One request is one API call to a Microlink endpoint: screenshot,
+              PDF, metadata, insights, or any other. Responses served from cache
+              don&apos;t count against your quota, and they return from our edge
+              in milliseconds.
             </div>
           </>
         )
@@ -1371,8 +1371,8 @@ const Faqs = () => (
         answer: (
           <>
             <div>
-              Card payments are handled by Stripe — the same provider trusted
-              by Twitter, Pinterest, and Lyft. We never see or store your card
+              Card payments are handled by Stripe — the same provider trusted by
+              Twitter, Pinterest, and Lyft. We never see or store your card
               details. Invoices are emailed automatically each cycle. On{' '}
               <Link href='/enterprise'>Business</Link> and{' '}
               <Link href='/enterprise'>Enterprise</Link> you can also pay by
@@ -1388,8 +1388,8 @@ const Faqs = () => (
             <div>
               Yes, on <Link href='/enterprise'>Business</Link> and{' '}
               <Link href='/enterprise'>Enterprise</Link>. Invoices are paid by
-              bank transfer with net 30 terms, and reference your PO number.
-              Pro is self-serve by card.
+              bank transfer with net 30 terms, and reference your PO number. Pro
+              is self-serve by card.
             </div>
             <div>
               The purchase flow, from legal entity and VAT number to the first

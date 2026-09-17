@@ -5,12 +5,15 @@ import { Link } from 'components/elements/Link'
 export const FAQ_ITEMS = [
   {
     question: 'What is the Microlink API?',
-    text: 'A REST API that turns any URL into structured data. One endpoint at api.microlink.io. Metadata is returned by default. Add query parameters for screenshots, PDFs, markdown, embeds, or a browser function.',
+    text: 'A REST API that turns any URL into structured data. Call api.microlink.io on the free plan, or pro.microlink.io with an API key. Metadata is returned by default. Add query parameters for screenshots, PDFs, markdown, embeds, or a browser function.',
     answer: (
       <>
         <div>
-          A REST API that turns any URL into structured data. One endpoint at{' '}
-          <Link href='https://api.microlink.io'>api.microlink.io</Link>.
+          A REST API that turns any URL into structured data. Call{' '}
+          <Link href='https://api.microlink.io'>api.microlink.io</Link> on the
+          free plan, or{' '}
+          <Link href='/docs/api/basics/endpoint'>pro.microlink.io</Link> with an
+          API key.
         </div>
         <div>
           Metadata is returned by default. Add query parameters for{' '}
@@ -61,15 +64,16 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'How is this different from running Puppeteer myself?',
-    text: 'You do not run browsers, proxies, caches, or a fleet. Each request gets an isolated browser, optional residential proxy, and an edge cache. Cache hits are free.',
+    text: 'You do not run browsers, proxies, caches, or a fleet. Pages that need rendering run in an isolated browser, Pro adds a residential proxy when a site blocks you, and responses are cached at the edge. Cache hits are free.',
     answer: (
       <>
         <div>You do not run browsers, proxies, caches, or a fleet.</div>
         <div>
-          Each request gets an{' '}
-          <Link href='/features/isolation'>isolated browser</Link>, optional{' '}
-          <Link href='/features/proxy'>residential proxy</Link>, and an{' '}
-          <Link href='/features/ttl'>edge cache</Link>. Cache hits are free.
+          Pages that need rendering run in an{' '}
+          <Link href='/features/isolation'>isolated browser</Link>, Pro adds a{' '}
+          <Link href='/features/proxy'>residential proxy</Link> when a site
+          blocks you, and responses are cached at the{' '}
+          <Link href='/features/ttl'>edge</Link>. Cache hits are free.
         </div>
       </>
     )
@@ -101,7 +105,8 @@ export const FAQ_ITEMS = [
           <Link href='https://pro.microlink.io'>pro.microlink.io</Link>.
         </div>
         <div>
-          Do not put the key in frontend code. See{' '}
+          Do not put the key in frontend code. Use a proxy that allowlists your
+          domains, as shown in{' '}
           <Link href='/docs/api/basics/authentication'>authentication</Link>.
         </div>
       </>
@@ -125,7 +130,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Do you offer an enterprise API?',
-    text: 'Yes. Business is Pro with invoicing, net 30, NDA, DPA, and a named contact. Enterprise is a dedicated environment with your own endpoint, browser pool, storage, CDN, and a 99.9% uptime SLA.',
+    text: 'Yes. Business is Pro with invoicing, net 30, NDA, DPA, and a named contact. Enterprise is a dedicated environment with your own endpoint, browser pool, storage, and CDN, plus service credits behind the 99.9% uptime SLA every paid plan gets.',
     answer: (
       <>
         <div>
@@ -134,7 +139,8 @@ export const FAQ_ITEMS = [
         </div>
         <div>
           Enterprise is a dedicated environment with your own endpoint, browser
-          pool, storage, CDN, and a 99.9% uptime SLA. See{' '}
+          pool, storage, and CDN, plus service credits behind the 99.9% uptime
+          SLA every paid plan gets. See{' '}
           <Link href='/enterprise'>Business & Enterprise</Link>.
         </div>
       </>

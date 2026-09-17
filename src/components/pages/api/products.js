@@ -89,7 +89,7 @@ export const Products = () => (
     id='products'
     bg='pinky'
     title='Everything you can build with the API'
-    caption='Each product is a parameter on the same endpoint. Pick a workflow, then read the page behind it.'
+    caption='Every product runs on the same endpoint. Pick a workflow, then read the page behind it.'
   >
     <Cards>
       {BUILD.map(product => {

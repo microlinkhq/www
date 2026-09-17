@@ -28,7 +28,7 @@ export const META = {
     'Turn any URL into screenshots, PDFs, metadata, markdown, embeds, and browser functions. One REST endpoint. 25 requests/day free. No API key to start.',
   structuredName: 'Microlink API',
   structuredDescription:
-    'A single REST API that turns any URL into structured data, screenshots, PDFs, markdown, embeds, and browser functions. Free to start. No API key required.',
+    'A single REST API that turns any URL into structured data, screenshots, PDFs, markdown, HTML, text, embeds, and browser functions. Free to start, with no API key needed on the free plan.',
   keywords:
     'Microlink API, URL to JSON, screenshot API, PDF API, metadata API, markdown API, headless browser API, web scraping API',
   about: [
@@ -57,7 +57,7 @@ export const HERO = {
   eyebrow: 'Microlink API',
   title: 'One request. Any URL.',
   description:
-    'Screenshots, PDFs, metadata, markdown, embeds, and browser functions from a single REST endpoint. No browser fleet to run.',
+    'Screenshots, PDFs, metadata, markdown, HTML, text, embeds, and browser functions from a single REST endpoint. No browser fleet to run.',
   ctaHref: '/pricing',
   ctaLabel: 'Start for free',
   docsHref: '/docs/api/getting-started/overview',
@@ -130,14 +130,14 @@ export const QUICKSTART = {
   eyebrow: 'Zero to first response',
   title: 'Call the API. No key needed.',
   caption:
-    'The free endpoint is a GET. Pass a URL, read JSON. Add a key later when you need more quota, a proxy, or a custom cache TTL.',
+    'The free endpoint is a GET. Pass a URL, read JSON. Add a key later when you need Search, more quota, a proxy, or a custom cache TTL.',
   docsHref: '/docs/api/getting-started/overview',
   docsLabel: 'Full quickstart in docs',
   steps: [
     {
       title: 'Pick any URL',
       description:
-        'A public page is enough. The API fetches it in a real browser, so client-rendered sites work the same as static HTML.'
+        'A public page is enough. The API detects when a page needs a headless browser, so client-rendered sites work as well as static HTML.'
     },
     {
       title: 'Hit api.microlink.io',
@@ -181,8 +181,23 @@ const BUILD_KEYS = [
 
 const PRO_ONLY_KEYS = ['search']
 
+const BUILD_DESCRIPTIONS = {
+  screenshot:
+    'Pixel-perfect PNG or JPEG captures of any page, full page or a single element.',
+  pdf: 'Print-ready PDFs from any URL, with paper size, margins, and page ranges.',
+  metadata:
+    'Normalized title, description, image, logo, and more from any page.',
+  markdown: 'Web pages, PDFs, and Office documents as clean markdown for LLMs.',
+  embed: 'Ready-to-paste iframes for 300+ providers like YouTube and Spotify.',
+  function: 'Run your own Puppeteer code on any page, with npm packages.',
+  search:
+    'Google results as structured JSON: web, news, images, places, and more.',
+  text: 'Readable plain text from any page or document, without the markup.'
+}
+
 export const BUILD = BUILD_KEYS.map(key => ({
   ...PRODUCTS[key],
+  description: BUILD_DESCRIPTIONS[key],
   isPro: PRO_ONLY_KEYS.includes(key)
 }))
 
@@ -225,7 +240,7 @@ export const ENTERPRISE_ITEMS = [
   {
     title: 'Named contact',
     description:
-      'The same person for commercial and technical questions. First response within 1 business day.'
+      'The same person for commercial and technical questions. First response within 1 business day on Business, 12 hours on Enterprise.'
   },
   {
     title: 'Dedicated environment',
@@ -235,7 +250,7 @@ export const ENTERPRISE_ITEMS = [
   {
     title: '99.9% uptime SLA',
     description:
-      'On Enterprise, backed by service credits and never rate-limited. Traffic spikes are served, not throttled.'
+      'On every paid plan. Enterprise adds service credits and no rate limits, so traffic spikes are served, not throttled.'
   },
   {
     title: 'Your storage and CDN',
@@ -259,14 +274,14 @@ export const START = {
   },
   extra: {
     title: 'Get extra support',
-    body: 'Business is Pro, bought the way companies buy. Enterprise is a dedicated environment with an SLA.',
+    body: 'Business is Pro, bought the way companies buy. Enterprise is a dedicated environment that is never rate-limited.',
     href: '/enterprise',
     label: 'Talk to us',
     items: [
       'Invoice, net 30, NDA, and DPA',
       'Named contact, no ticket queue',
       'Dedicated endpoint on Enterprise',
-      '99.9% uptime SLA'
+      'SLA service credits on Enterprise'
     ]
   }
 }
@@ -279,7 +294,7 @@ export const HOW_TO = {
     {
       title: 'Pick any URL',
       description:
-        'A public page is enough. The API fetches it in a real browser, so client-rendered sites work the same as static HTML.'
+        'A public page is enough. The API detects when a page needs a headless browser, so client-rendered sites work as well as static HTML.'
     },
     {
       title: 'Call the endpoint',
