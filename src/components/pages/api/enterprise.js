@@ -2,8 +2,6 @@ import React from 'react'
 import { theme } from 'theme'
 
 import Box from 'components/elements/Box'
-import Flex from 'components/elements/Flex'
-import ArrowLink from 'components/patterns/ArrowLink'
 
 import {
   ENTERPRISE_ITEMS,
@@ -34,10 +32,5 @@ export const Enterprise = () => (
         </Box>
       ))}
     </CardGrid>
-    <Flex css={theme({ pt: [4, 4, 5, 5] })}>
-      <ArrowLink href='/enterprise'>
-        Talk to us about Business & Enterprise
-      </ArrowLink>
-    </Flex>
   </SectionBlock>
 )

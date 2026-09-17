@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
-import ArrowLink from 'components/patterns/ArrowLink'
 
 import {
   QUICKSTART,
@@ -73,16 +72,5 @@ export const Quickstart = () => (
         </Box>
       ))}
     </CardGrid>
-    <Flex
-      css={theme({
-        pt: [4, 4, 5, 5],
-        gap: [3, 3, 4, 4],
-        flexDirection: ['column', 'column', 'row', 'row'],
-        alignItems: ['center', 'center', 'flex-start', 'flex-start']
-      })}
-    >
-      <ArrowLink href={QUICKSTART.docsHref}>{QUICKSTART.docsLabel}</ArrowLink>
-      <ArrowLink href={QUICKSTART.flowHref}>{QUICKSTART.flowLabel}</ArrowLink>
-    </Flex>
   </SectionBlock>
 )

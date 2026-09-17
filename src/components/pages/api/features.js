@@ -3,11 +3,9 @@ import styled from 'styled-components'
 import { breakpoints, theme } from 'theme'
 
 import Box from 'components/elements/Box'
-import Flex from 'components/elements/Flex'
-import ArrowLink from 'components/patterns/ArrowLink'
 import { FeatureCard, FEATURES } from 'components/patterns/FeatureStory'
 
-import { SectionBlock } from './shared'
+import { FEATURE_CTAS, SectionBlock } from './shared'
 
 const Cards = styled(Box)`
   ${theme({
@@ -34,21 +32,12 @@ export const Features = () => (
   >
     <Cards>
       {FEATURES.map(feature => (
-        <FeatureCard key={feature.slug} feature={feature} />
+        <FeatureCard
+          key={feature.slug}
+          feature={feature}
+          cta={FEATURE_CTAS[feature.slug]}
+        />
       ))}
     </Cards>
-    <Flex
-      css={theme({
-        pt: [4, 4, 5, 5],
-        gap: [3, 3, 4, 4],
-        flexDirection: ['column', 'column', 'row', 'row'],
-        alignItems: ['center', 'center', 'flex-start', 'flex-start']
-      })}
-    >
-      <ArrowLink href='/features'>See all features</ArrowLink>
-      <ArrowLink href='/docs/guides/common/production-patterns'>
-        Production patterns guide
-      </ArrowLink>
-    </Flex>
   </SectionBlock>
 )

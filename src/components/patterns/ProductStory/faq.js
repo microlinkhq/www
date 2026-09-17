@@ -6,14 +6,16 @@ import Faq from 'components/patterns/Faq/Faq'
 export const ProductFaq = ({
   title = 'Product Information',
   caption,
-  questions
+  questions,
+  pt = SECTION_VERTICAL_SPACING
 }) => (
   <Faq
     title={title}
     caption={caption}
     questions={questions}
     css={theme({
-      py: SECTION_VERTICAL_SPACING,
+      pt,
+      pb: SECTION_VERTICAL_SPACING,
       bg: 'pinky',
       borderTop: `${borders[1]} ${colors.pinkest}`,
       borderBottom: `${borders[1]} ${colors.pinkest}`

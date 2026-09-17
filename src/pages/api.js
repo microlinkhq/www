@@ -1,5 +1,7 @@
 import React from 'react'
+import { SECTION_VERTICAL_SPACING, theme } from 'theme'
 
+import Box from 'components/elements/Box'
 import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
 import OpenSource, { getRepoStars } from 'components/patterns/OpenSource'
@@ -21,11 +23,13 @@ import { Enterprise } from 'components/pages/api/enterprise'
 import {
   ACCENT,
   CTA,
+  CompactPricing,
   FAQ_CAPTION,
   FAQ_ITEMS,
   HOW_TO,
   META,
   PRICING_CAPTION,
+  SPACIOUS_SECTION_SPACING,
   TIMINGS,
   TIMINGS_ACCENT,
   PageRoot
@@ -62,14 +66,19 @@ const ApiPage = () => (
       <Products />
       <Features />
       <Integrations />
-      <ProductPricing caption={PRICING_CAPTION} bg='white' />
+      <CompactPricing>
+        <ProductPricing caption={PRICING_CAPTION} bg='white' />
+      </CompactPricing>
       <Enterprise />
-      <OpenSource
-        repos={REPOS}
-        accent={ACCENT}
-        caption='The Microlink API runs on open source you can read, fork, and run yourself: metascraper for metadata, browserless for the headless browser, and mql, the HTTP client behind the SDK.'
-      />
+      <Box css={theme({ py: SECTION_VERTICAL_SPACING })}>
+        <OpenSource
+          repos={REPOS}
+          accent={ACCENT}
+          caption='The Microlink API runs on open source you can read, fork, and run yourself: metascraper for metadata, browserless for the headless browser, and mql, the HTTP client behind the SDK.'
+        />
+      </Box>
       <ProductFaq
+        pt={SPACIOUS_SECTION_SPACING}
         title='Frequently asked questions'
         caption={FAQ_CAPTION}
         questions={toFaqQuestions(FAQ_ITEMS)}

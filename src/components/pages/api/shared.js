@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   colors,
-  layout,
   breakpoints,
   shadows,
   shadowInk,
@@ -34,7 +33,7 @@ import {
 } from 'components/pages/home/catalog'
 import heroDemoRequests from 'components/pages/home/hero-demo-requests'
 import ArrowLink from 'components/patterns/ArrowLink'
-import { Subhead } from 'components/patterns/ProductStory'
+import { Caption, Subhead } from 'components/patterns/ProductStory'
 import { TOOLBAR_PRIMARY_HEIGHTS } from 'components/elements/Toolbar'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import styled from 'styled-components'
@@ -42,6 +41,8 @@ import styled from 'styled-components'
 export const ACCENT = colors.link
 
 export const PAGE_NAV_HEIGHT = '52px'
+
+export const SPACIOUS_SECTION_SPACING = [5, 5, 6, 6]
 
 export const META = {
   title: 'Microlink API: Turn Any URL into Screenshots, PDFs, and Data',
@@ -175,10 +176,6 @@ export const QUICKSTART = {
   title: 'Call the API. No key needed.',
   caption:
     'The free endpoint is a GET. Pass a URL, read JSON. Add a key later when you need Search, more quota, a proxy, or a custom cache TTL.',
-  docsHref: '/docs/api/getting-started/overview',
-  docsLabel: 'Full quickstart in docs',
-  flowHref: '/docs/guides/what-is-microlink#how-requests-work',
-  flowLabel: 'How a request works',
   steps: [
     {
       title: 'Pick any URL',
@@ -226,104 +223,101 @@ const PRODUCT_ENTRIES = {
   }
 }
 
+export const FEATURE_CTAS = {
+  antibot: 'Detect blockers',
+  automation: 'Automate pages',
+  adblock: 'Block ads',
+  function: 'Write functions',
+  ttl: 'Tune caching',
+  headers: 'Forward headers',
+  proxy: 'Bypass blocks',
+  isolation: 'How isolation works',
+  scraping: 'Scrape any page'
+}
+
 const BUILD_ITEMS = [
   {
     key: 'screenshot',
     label: 'Screenshot API',
+    cta: 'Capture a page',
     description:
-      'Pixel-perfect PNG or JPEG captures of any page, full page or a single element.',
-    docs: { href: '/docs/guides/screenshot', label: 'Screenshot guide' }
+      'Pixel-perfect PNG or JPEG captures of any page, full page or a single element.'
   },
   {
     key: 'pdf',
     label: 'PDF API',
+    cta: 'Generate PDFs',
     description:
-      'Print-ready PDFs from any URL, with paper size, margins, and page ranges.',
-    docs: { href: '/docs/guides/pdf', label: 'PDF guide' }
+      'Print-ready PDFs from any URL, with paper size, margins, and page ranges.'
   },
   {
     key: 'metadata',
     label: 'Metadata API',
+    cta: 'Extract metadata',
     description:
-      'Normalized title, description, image, logo, and more from any page.',
-    docs: { href: '/docs/guides/metadata', label: 'Metadata guide' }
+      'Normalized title, description, image, logo, and more from any page.'
   },
   {
     key: 'markdown',
     label: 'Markdown API',
+    cta: 'Convert to markdown',
     description:
-      'Web pages, PDFs, and Office documents as clean markdown for LLMs.',
-    docs: {
-      href: '/docs/guides/content-conversion/url-to-markdown',
-      label: 'Markdown guide'
-    }
+      'Web pages, PDFs, and Office documents as clean markdown for LLMs.'
   },
   {
     key: 'html',
     label: 'HTML API',
+    cta: 'Get rendered HTML',
     description:
-      'Fully rendered HTML after JavaScript runs, for a page or one selector.',
-    docs: {
-      href: '/docs/guides/content-conversion/url-to-html',
-      label: 'HTML guide'
-    }
+      'Fully rendered HTML after JavaScript runs, for a page or one selector.'
   },
   {
     key: 'text',
     label: 'Text API',
+    cta: 'Extract clean text',
     description:
-      'Readable plain text from any page or document, without the markup.',
-    docs: {
-      href: '/docs/guides/content-conversion/url-to-text',
-      label: 'Text guide'
-    }
+      'Readable plain text from any page or document, without the markup.'
   },
   {
     key: 'preview',
     label: 'Link preview API',
+    cta: 'Build link previews',
     description:
-      'Slack-style link previews for any URL, built from one metadata call.',
-    docs: {
-      href: '/docs/guides/embed/metadata-api',
-      label: 'Link preview guide'
-    }
+      'Slack-style link previews for any URL, built from one metadata call.'
   },
   {
     key: 'embed',
     label: 'Embed API',
+    cta: 'Embed any URL',
     description:
-      'Ready-to-paste iframes for 300+ providers like YouTube and Spotify.',
-    docs: { href: '/docs/guides/embed/iframe', label: 'Embed guide' }
+      'Ready-to-paste iframes for 300+ providers like YouTube and Spotify.'
   },
   {
     key: 'logo',
     label: 'Logo API',
-    description: 'Logos, favicons, and brand color palettes for any website.',
-    docs: { href: '/docs/sdk/methods/logo', label: 'Logo docs' }
+    cta: 'Fetch brand logos',
+    description: 'Logos, favicons, and brand color palettes for any website.'
   },
   {
     key: 'conversion',
     label: 'File conversion API',
+    cta: 'Convert files',
     description:
-      'PDF, Word, Excel, and PowerPoint files as HTML, markdown, or text.',
-    docs: {
-      href: '/docs/guides/content-conversion',
-      label: 'File conversion guide'
-    }
+      'PDF, Word, Excel, and PowerPoint files as HTML, markdown, or text.'
   },
   {
     key: 'function',
     label: 'Browser function API',
-    description: 'Run your own Puppeteer code on any page, with npm packages.',
-    docs: { href: '/docs/guides/function', label: 'Function guide' }
+    cta: 'Run browser code',
+    description: 'Run your own Puppeteer code on any page, with npm packages.'
   },
   {
     key: 'search',
     label: 'Search API',
+    cta: 'Search Google',
     isPro: true,
     description:
-      'Google results as structured JSON: web, news, images, places, and more.',
-    docs: { href: '/docs/guides/search', label: 'Search guide' }
+      'Google results as structured JSON: web, news, images, places, and more.'
   }
 ]
 
@@ -496,15 +490,18 @@ export const SectionBlock = ({ id, title, caption, bg, children }) => (
       >
         <Subhead titleize={false}>{title}</Subhead>
         {caption && (
-          <Text
+          <Caption
+            forwardedAs='p'
+            titleize={false}
             css={theme({
               pt: [3, 3, 4, 4],
-              maxWidth: layout.normal,
-              color: 'black60'
+              color: 'black60',
+              textAlign: ['center', 'center', 'left', 'left'],
+              textWrap: 'pretty'
             })}
           >
             {caption}
-          </Text>
+          </Caption>
         )}
       </Flex>
       {children}
@@ -659,3 +656,13 @@ export const CardDocsLink = ({ href, children }) => (
     <ArrowLink href={href}>{children}</ArrowLink>
   </Box>
 )
+
+export const CompactPricing = styled(Box)`
+  #pricing > div:first-child {
+    ${theme({ pt: 0 })}
+  }
+
+  #pricing-plans {
+    ${theme({ pb: 0 })}
+  }
+`

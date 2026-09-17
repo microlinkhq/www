@@ -3,11 +3,11 @@ import { theme } from 'theme'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
+import { ArrowLinkLabel } from 'components/patterns/ArrowLink'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 import {
   BUILD,
-  CardDocsLink,
   CardGrid,
   CardHeading,
   CardText,
@@ -21,7 +21,7 @@ export const Products = () => (
     id='products'
     bg='pinky'
     title='Everything you can build with the API'
-    caption='Every product runs on the same endpoint. Open its page to see what it does, or jump straight to the guide.'
+    caption='Every product runs on the same endpoint. Open one to see what it does and how to use it.'
   >
     <CardGrid $columns={4}>
       {BUILD.map(product => (
@@ -43,9 +43,9 @@ export const Products = () => (
             </Flex>
             <CardHeading href={product.href}>{product.label}</CardHeading>
             <CardText>{product.description}</CardText>
-            <CardDocsLink href={product.docs.href}>
-              {product.docs.label}
-            </CardDocsLink>
+            <ArrowLinkLabel css={theme({ pt: 3 })}>
+              {product.cta}
+            </ArrowLinkLabel>
           </StretchedCard>
         </Box>
       ))}
