@@ -1,6 +1,10 @@
 import { colors, fonts, fontSizes } from 'theme'
 
-import { MICROLINK_TYPES } from './monaco-types'
+import {
+  GOOGLE_TYPES,
+  MICROLINK_TYPES,
+  PUPPETEER_CORE_TYPES
+} from './monaco-types'
 
 const hex6 = value => {
   const short = String(value || '').match(/^#([0-9a-f]{3})$/i)
@@ -64,6 +68,8 @@ export const setupMonaco = monaco => {
   }
   const extras = [
     [MICROLINK_TYPES, 'ts:filename/microlink.io.d.ts'],
+    [PUPPETEER_CORE_TYPES, 'ts:filename/puppeteer-core.d.ts'],
+    [GOOGLE_TYPES, 'ts:filename/google.d.ts'],
     [
       'declare const Buffer: { concat(chunks: Uint8Array[]): { toString(encoding: string): string } }',
       'ts:filename/buffer.d.ts'

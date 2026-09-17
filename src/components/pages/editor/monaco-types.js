@@ -1,6 +1,20 @@
-export const MICROLINK_TYPES = `
-declare module 'microlink.io' {
-  interface HTTPResponse {
+import { MICROLINK_DTS } from './monaco-dts'
+
+const asAmbient = (name, dts) =>
+  `declare module '${name}' {\n${dts
+    .replace(/\s+with\s+\{[\s\S]*?\}/g, '')
+    .replace(/^export declare /gm, 'export ')
+    .replace(/^declare /gm, '')}\n}`
+
+export const MICROLINK_TYPES = asAmbient('microlink.io', MICROLINK_DTS)
+
+export const GOOGLE_TYPES = `declare module '@microlink/google' {
+  const createGoogleClient: (...args: any[]) => any
+  export default createGoogleClient
+}`
+
+export const PUPPETEER_CORE_TYPES = `declare module 'puppeteer-core' {
+  export interface HTTPResponse {
     status(): number
     statusText(): string
     url(): string
@@ -9,7 +23,7 @@ declare module 'microlink.io' {
     text(): Promise<string>
     json(): Promise<unknown>
   }
-  interface Page {
+  export interface Page {
     title(): Promise<string>
     url(): string
     content(): Promise<string>
@@ -32,26 +46,4 @@ declare module 'microlink.io' {
     keyboard: { type(text: string): Promise<void>; press(key: string): Promise<void> }
     mouse: { click(x: number, y: number): Promise<void>; move(x: number, y: number): Promise<void> }
   }
-  export type FunctionArgs = {
-    page: Page
-    response: HTTPResponse
-    headers: Record<string, string>
-    url: string
-    [key: string]: any
-  }
-  export type FunctionInput = (args: FunctionArgs) => any
-  interface FunctionResult<T = unknown> {
-    isFulfilled: boolean
-    value: T
-    profiling: Record<string, unknown>
-    logging: Record<string, unknown>
-  }
-  interface MicrolinkClient {
-    metadata(url: string, options?: Record<string, unknown>): Promise<Record<string, unknown>>
-    function<T = unknown>(url: string, code: FunctionInput, options?: Record<string, unknown>): Promise<FunctionResult<T>>
-    function<T = unknown>(url: string, code: string, options?: Record<string, unknown>): Promise<FunctionResult<T>>
-  }
-  function createClient(options?: { apiKey?: string; [key: string]: unknown }): MicrolinkClient
-  export default createClient
-}
-`
+}`
