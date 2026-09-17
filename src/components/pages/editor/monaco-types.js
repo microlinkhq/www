@@ -15,9 +15,9 @@ declare module 'microlink.io' {
     content(): Promise<string>
     $(selector: string): Promise<unknown>
     $$(selector: string): Promise<unknown[]>
-    $eval<T>(selector: string, fn: (el: Element) => T): Promise<T>
-    $$eval<T>(selector: string, fn: (els: Element[]) => T): Promise<T>
-    evaluate<T>(fn: string | ((...args: any[]) => T), ...args: any[]): Promise<T>
+    $eval<T>(selector: string, fn: (el: Element) => T): Promise<Awaited<T>>
+    $$eval<T>(selector: string, fn: (els: Element[]) => T): Promise<Awaited<T>>
+    evaluate<T>(fn: string | ((...args: any[]) => T), ...args: any[]): Promise<Awaited<T>>
     click(selector: string): Promise<void>
     type(selector: string, text: string): Promise<void>
     hover(selector: string): Promise<void>
