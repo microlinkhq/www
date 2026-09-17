@@ -152,15 +152,23 @@ export const EXAMPLES = [
       return \`body>\${path.join('>')}\`
     }
     const roles = { A: 'link', BUTTON: 'button', INPUT: 'input', SELECT: 'select', TEXTAREA: 'textbox' }
+    const visible = element => {
+      const style = getComputedStyle(element)
+      return element.getClientRects().length && style.visibility !== 'hidden'
+    }
+    const text = element => element.getAttribute('aria-label') ||
+      element.getAttribute('placeholder') ||
+      (element.tagName === 'SELECT'
+        ? element.selectedOptions[0]?.textContent
+        : element.innerText) || ''
     return {
       title: document.title,
       url: location.href,
-      elements: elements.filter(element => element.offsetParent)
+      elements: elements.filter(visible)
         .map((element, index) => ({
           index,
-          role: roles[element.tagName] || element.localName,
-          text: (element.getAttribute('aria-label') || element.placeholder ||
-            element.innerText || '').replace(/\\s+/g, ' ').trim(),
+          role: element.getAttribute('role') || roles[element.tagName] || element.localName,
+          text: text(element).replace(/\s+/g, ' ').trim(),
           selector: selector(element)
         }))
     }
