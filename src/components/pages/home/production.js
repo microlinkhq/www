@@ -26,9 +26,9 @@ const FEATURES = [
   },
   {
     icon: 'developer',
-    title: 'Developer first',
+    title: 'Developer and agent first',
     description:
-      'Clear docs, predictable responses, and SDKs for every major language. Integrate in minutes, not days.'
+      'Clear docs, predictable responses, and SDKs for every major language - plus an MCP server so any agent can call the same API as tools.'
   },
   {
     icon: 'programmable',

@@ -29,7 +29,8 @@ const Pricing = () => {
           })}
         >
           Start free and pay only for what you use as you grow. No seats, no
-          minimums, no surprises.
+          minimums, no surprises. Your agent can even sign up, pay, and get its
+          own API key.
         </Caption>
       </Container>
       <Plans

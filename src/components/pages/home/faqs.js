@@ -64,6 +64,10 @@ export const getFaqQuestions = () => {
             email you signed up with.
           </div>
           <div>
+            Your AI agent can also do the whole flow itself - sign up, pay, and
+            retrieve its key through the Microlink MCP server.
+          </div>
+          <div>
             The API key needs to be attached to all your requests:
             <Box as='ul' css={theme({ pt: 3, my: 0 })}>
               <Box as='li'>
@@ -88,6 +92,17 @@ export const getFaqQuestions = () => {
             </Box>
           </div>
         </>
+      )
+    },
+    {
+      question: 'Can my AI agent use Microlink?',
+      answer: (
+        <div>
+          Yes - install the Microlink MCP server with one config block and
+          Claude, Cursor, or any MCP client gets screenshots, PDFs, markdown,
+          search, and more as callable tools. The free tier works out of the
+          box; add an API key when you need volume.
+        </div>
       )
     },
     {
