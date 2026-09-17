@@ -271,7 +271,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Do you offer an enterprise API?',
-    text: 'Yes. Business is Pro with invoicing, net 30, NDA, DPA, and a named contact. Enterprise is a dedicated environment with your own endpoint, browser pool, storage, and CDN, plus service credits behind the 99.9% uptime SLA every paid plan gets.',
+    text: 'Yes. Business is Pro with invoicing, net 30, NDA, DPA, and a named contact. Enterprise is a dedicated environment with your own endpoint, browser pool, storage, and CDN. Every paid plan has a 99.9% uptime SLA, and only Enterprise backs it with service credits.',
     answer: (
       <>
         <div>
@@ -280,8 +280,8 @@ export const FAQ_ITEMS = [
         </div>
         <div>
           Enterprise is a dedicated environment with your own endpoint, browser
-          pool, storage, and CDN, plus service credits behind the 99.9% uptime
-          SLA every paid plan gets. See{' '}
+          pool, storage, and CDN. Every paid plan has a 99.9% uptime SLA, and
+          only Enterprise backs it with service credits. See{' '}
           <Link href='/enterprise'>Business & Enterprise</Link>.
         </div>
       </>
