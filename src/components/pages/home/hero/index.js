@@ -1,11 +1,14 @@
 import Container from 'components/elements/Container'
 import Dot from 'components/elements/Dot/Dot'
+import Flex from 'components/elements/Flex'
+import { Link } from 'components/elements/Link'
 import Heading from 'components/elements/Heading'
+import Text from 'components/elements/Text'
 import Caption from 'components/patterns/Caption/Caption'
 import Overlay from 'components/pages/home/overlay'
 import heroDemoRequests from 'components/pages/home/hero-demo-requests'
 import { trackEvent } from 'helpers/gtag'
-import { layout, timings, space, theme } from 'theme'
+import { colors, layout, timings, space, theme, transition } from 'theme'
 import React, {
   useCallback,
   useEffect,
@@ -127,6 +130,29 @@ const Badge = styled.span`
     borderRadius: '999px',
     mb: '26px'
   })};
+`
+
+const HeroAction = styled(Link)`
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '44px',
+    px: 3,
+    py: 2,
+    borderRadius: 3,
+    bg: 'black',
+    color: 'white',
+    fontWeight: 'bold',
+    textDecoration: 'none'
+  })}
+  transition: background ${transition.short}, color ${transition.short};
+  &:hover { color: ${colors.white}; background: ${colors.gray8}; }
+`
+
+const HeroSecondary = styled(HeroAction)`
+  ${theme({ bg: 'white', color: 'black', border: 1, borderColor: 'gray3' })}
+  &:hover { color: ${colors.black}; background: ${colors.gray0}; }
 `
 
 const Hero = () => {
@@ -364,9 +390,27 @@ const Hero = () => {
             mx: 'auto'
           })}
         >
-          A single API for turning any URL into data. Built for apps & agents.
+          Turn any URL into clean data, Markdown, screenshots, PDFs, search
+          results, and more. One API for developers. One MCP server for agents.
           Powered by real browsers.
         </Caption>
+
+        <Flex
+          css={theme({
+            mt: 4,
+            gap: 3,
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap'
+          })}
+        >
+          <HeroAction href='/pricing'>Get your API key</HeroAction>
+          <HeroSecondary href='/integrations/mcp'>Set up MCP</HeroSecondary>
+          <Link href='/docs' css={theme({ fontWeight: 'bold' })}>Read the docs</Link>
+        </Flex>
+        <Text css={theme({ mt: 2, mb: 1, color: 'black60', fontSize: 0 })}>
+          25 requests a day free. No signup or credit card.
+        </Text>
 
         <HeroComposer
           editorRef={editorRef}
