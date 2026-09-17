@@ -168,7 +168,7 @@ export const EXAMPLES = [
         .map((element, index) => ({
           index,
           role: element.getAttribute('role') || roles[element.tagName] || element.localName,
-          text: text(element).replace(/\s+/g, ' ').trim(),
+          text: text(element).replace(/\\s+/g, ' ').trim(),
           selector: selector(element)
         }))
     }
