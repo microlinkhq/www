@@ -34,7 +34,7 @@ Its defining decision is what it leaves out: there is no graphical rendering eng
 
 That is a strong fit for crawling and extraction. It is not a fit for pixel-accurate screenshots, PDFs, or automation that depends on real element geometry. Lightpanda documents that element positions are simulated rather than produced by visual layout.
 
-The payoff can be large. In [Lightpanda's own benchmark](https://lightpanda.io/blog/posts/from-local-to-real-world-benchmarks), a 933-page JavaScript crawl at 25-way concurrency used 123 MB instead of Chrome's 2 GB and finished in 5 seconds instead of 46. Those are project-published results on its demo workload, not a promise for the wider web, but they show what becomes possible when rendering is removed rather than optimized.
+The payoff can be large. In [Lightpanda's own benchmark](https://lightpanda.io/blog/posts/from-local-to-real-world-benchmarks), a 933-page JavaScript crawl at 25-way concurrency used 123 MB instead of Chrome's 2 GB and finished in 5 seconds instead of 46. The setups used different parallelism models: 25 independent Lightpanda processes versus 25 Chrome tabs in one browser process. These are project-published results on its demo workload, not a promise for the wider web, but they show what becomes possible when rendering is removed rather than optimized.
 
 ### Obscura: build the missing pieces again
 
