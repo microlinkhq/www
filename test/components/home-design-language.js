@@ -56,7 +56,7 @@ describe('home design language', () => {
       products.indexOf('const EXTRA'),
       products.indexOf('const CATALOG')
     )
-    expect(extra.match(/icon:/g)).toHaveLength(3)
+    expect(extra.match(/icon:/g)).toHaveLength(4)
   })
 
   test('window chrome uses the shared traffic light tokens', () => {
