@@ -75,12 +75,14 @@ const Action = styled(Link)`
     color: 'link'
   })}
 
-  svg {
-    transition: transform ${transition.short};
-  }
+  @media (prefers-reduced-motion: no-preference) {
+    svg {
+      transition: transform ${transition.short};
+    }
 
-  &:hover svg {
-    transform: translateX(3px);
+    &:hover svg {
+      transform: translateX(3px);
+    }
   }
 `
 
@@ -308,6 +310,17 @@ const CTAButton = styled(Link)`
     fontWeight: 'bold',
     textDecoration: 'none'
   })}
+
+  > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 16px;
+  }
+
+  padding: 0;
 
   &:hover {
     color: ${colors.white};

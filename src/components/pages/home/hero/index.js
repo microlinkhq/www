@@ -146,6 +146,15 @@ const HeroAction = styled(Link)`
     fontWeight: 'bold',
     textDecoration: 'none'
   })}
+  > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 16px;
+  }
+  padding: 0;
   transition: background ${transition.short}, color ${transition.short};
   &:hover { color: ${colors.white}; background: ${colors.gray8}; }
 `
