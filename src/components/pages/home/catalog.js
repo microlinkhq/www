@@ -1,3 +1,4 @@
+import { colors } from 'theme'
 import GOOGLE_EXAMPLES from 'data/google-examples'
 import { Focus } from 'components/icons/Focus'
 import { Markdown } from 'components/icons/Markdown'
@@ -135,3 +136,28 @@ export const SEARCH_EXAMPLE = GOOGLE_EXAMPLES.search[0]
 export const HOME_CONTENT_WIDTH = '1180px'
 
 export const CAPACITY_REQUESTS_PER_MONTH = '188 million'
+
+export const PRODUCT_TILES = {
+  metadata: { bg: colors.violet0, color: colors.violet7 },
+  screenshot: { bg: colors.pink0, color: colors.pink6 },
+  markdown: { bg: colors.indigo0, color: colors.indigo7 },
+  html: { bg: colors.violet0, color: colors.violet7 },
+  embed: { bg: colors.blue0, color: colors.blue7 },
+  preview: {
+    bg: `linear-gradient(135deg, ${colors.violet0}, ${colors.pink0})`,
+    color: colors.violet7
+  },
+  pdf: { bg: colors.red0, color: colors.red6 },
+  logo: { bg: colors.yellow0, color: colors.yellow7 },
+  search: { bg: colors.blue0, color: colors.blue7 },
+  technologies: { bg: colors.violet0, color: colors.violet7 },
+  function: { bg: colors.indigo0, color: colors.indigo8 },
+  text: { bg: colors.orange0, color: colors.orange6 },
+  lighthouse: { bg: colors.teal0, color: colors.teal7 },
+  video: { bg: colors.violet0, color: colors.violet7 },
+  audio: { bg: colors.pink0, color: colors.pink6 },
+  animated: { bg: colors.indigo0, color: colors.indigo7 },
+  automation: { bg: colors.pink0, color: colors.pink6 },
+  sdk: { bg: colors.blue0, color: colors.blue7 },
+  conversion: { bg: colors.orange0, color: colors.orange8 }
+}

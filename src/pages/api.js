@@ -2,10 +2,12 @@ import React from 'react'
 
 import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
+import OpenSource, { getRepoStars } from 'components/patterns/OpenSource'
 import {
   ProductPricing,
   ProductCta,
   ProductFaq,
+  ProductTimings,
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
@@ -16,7 +18,6 @@ import { Products } from 'components/pages/api/products'
 import { Features } from 'components/pages/api/features'
 import { Integrations } from 'components/pages/api/integrations'
 import { Enterprise } from 'components/pages/api/enterprise'
-import { Start } from 'components/pages/api/start'
 import {
   ACCENT,
   CTA,
@@ -25,8 +26,12 @@ import {
   HOW_TO,
   META,
   PRICING_CAPTION,
+  TIMINGS,
+  TIMINGS_ACCENT,
   PageRoot
 } from 'components/pages/api/shared'
+
+const REPOS = ['metascraper', 'browserless', 'mql']
 
 export const Head = () => (
   <Meta
@@ -38,6 +43,8 @@ export const Head = () => (
       description: META.structuredDescription,
       keywords: META.keywords,
       about: META.about,
+      stars: getRepoStars(REPOS[0]),
+      starsRepo: REPOS[0],
       faqItems: FAQ_ITEMS,
       howTo: HOW_TO
     })}
@@ -49,13 +56,18 @@ const ApiPage = () => (
     <PageRoot>
       <Hero />
       <PageNav />
+      <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
       <Quickstart />
       <Products />
       <Features />
       <Integrations />
-      <ProductPricing caption={PRICING_CAPTION} />
+      <ProductPricing caption={PRICING_CAPTION} bg='white' />
       <Enterprise />
-      <Start />
+      <OpenSource
+        repos={REPOS}
+        accent={ACCENT}
+        caption='The Microlink API runs on open source you can read, fork, and run yourself: metascraper for metadata, browserless for the headless browser, and mql, the HTTP client behind the SDK.'
+      />
       <ProductFaq
         title='Frequently asked questions'
         caption={FAQ_CAPTION}

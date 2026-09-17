@@ -11,6 +11,7 @@ const ossData = fs.existsSync(OSS_PATH)
 const OSS_NAMES = new Set((ossData ?? []).map(({ name }) => name))
 
 const PAGES = [
+  'src/pages/api.js',
   'src/pages/embed/index.js',
   'src/pages/screenshot.js',
   'src/pages/pdf.js',
