@@ -496,7 +496,7 @@ func main() {
           'Format, dimensions and byte size included',
           'Brand palette with WCAG-friendly color pairs',
           'Hotlink-ready with embed=logo.url',
-          'Autoscaled fleet with a 99.95% uptime SLA'
+          'Autoscaled fleet with a 99.9% uptime SLA'
         ]
       }
     ]

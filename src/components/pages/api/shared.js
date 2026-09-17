@@ -1,19 +1,39 @@
 import React from 'react'
 import {
   colors,
-  layout,
   breakpoints,
+  shadows,
+  shadowInk,
+  transition,
   SECTION_VERTICAL_SPACING,
   theme
 } from 'theme'
+import {
+  Activity,
+  Code,
+  Database,
+  FileText,
+  Package,
+  Repeat,
+  Server,
+  Shield,
+  UserCheck
+} from 'react-feather'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
-import { PRODUCTS, HOME_CONTENT_WIDTH } from 'components/pages/home/catalog'
+import { Brain } from 'components/icons/Brain'
+import { Terminal } from 'components/icons/Terminal'
+import {
+  PRODUCTS,
+  PRODUCT_TILES,
+  HOME_CONTENT_WIDTH
+} from 'components/pages/home/catalog'
 import heroDemoRequests from 'components/pages/home/hero-demo-requests'
-import { Subhead } from 'components/patterns/ProductStory'
+import ArrowLink from 'components/patterns/ArrowLink'
+import { Caption, Subhead } from 'components/patterns/ProductStory'
 import { TOOLBAR_PRIMARY_HEIGHTS } from 'components/elements/Toolbar'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import styled from 'styled-components'
@@ -22,13 +42,15 @@ export const ACCENT = colors.link
 
 export const PAGE_NAV_HEIGHT = '52px'
 
+export const SPACIOUS_SECTION_SPACING = [5, 5, 6, 6]
+
 export const META = {
-  title: 'Microlink API. One request, any URL',
+  title: 'Microlink API: Turn Any URL into Screenshots, PDFs, and Data',
   description:
-    'Turn any URL into screenshots, PDFs, metadata, markdown, embeds, and browser functions. One REST endpoint. 25 requests/day free. No API key to start.',
+    'The Microlink API turns any URL into screenshots, PDFs, metadata, markdown, and HTML with one REST call. 25 free requests a day, no API key to start.',
   structuredName: 'Microlink API',
   structuredDescription:
-    'A single REST API that turns any URL into structured data, screenshots, PDFs, markdown, embeds, and browser functions. Free to start. No API key required.',
+    'A single REST API that turns any URL into structured data, screenshots, PDFs, markdown, HTML, text, embeds, and browser functions. Free to start, with no API key needed on the free plan.',
   keywords:
     'Microlink API, URL to JSON, screenshot API, PDF API, metadata API, markdown API, headless browser API, web scraping API',
   about: [
@@ -54,10 +76,10 @@ export const TOC = [
 ]
 
 export const HERO = {
-  eyebrow: 'Microlink API',
-  title: 'One request. Any URL.',
+  eyebrow: 'One request. Any URL.',
+  title: 'Microlink API',
   description:
-    'Screenshots, PDFs, metadata, markdown, embeds, and browser functions from a single REST endpoint. No browser fleet to run.',
+    'Screenshots, PDFs, metadata, markdown, HTML, text, embeds, and browser functions from a single REST endpoint. No browser fleet to run.',
   ctaHref: '/pricing',
   ctaLabel: 'Start for free',
   docsHref: '/docs/api/getting-started/overview',
@@ -69,6 +91,30 @@ export const HERO_PROOF = [
   '25 requests per day free',
   `Cached across ${CDN_EDGES} edge locations`
 ]
+
+export const TIMINGS_ACCENT = `radial-gradient(
+  circle at center right,
+  ${colors.blue9} 0%,
+  ${colors.blue9} 48%,
+  ${colors.blue8} 48%,
+  ${colors.blue8} 52%,
+  ${colors.indigo8} 52%,
+  ${colors.indigo8} 65%,
+  ${colors.blue7} 65%,
+  ${colors.blue7} 79%,
+  ${ACCENT} 79%,
+  ${ACCENT} 100%
+)`
+
+export const TIMINGS = {
+  title: 'One endpoint,',
+  subtitle: 'production-ready speed.',
+  stats: [
+    { healthcheckKey: 'screenshot', label: 'Screenshot P95' },
+    { healthcheckKey: 'meta', label: 'Metadata P95' },
+    { value: '99.9', unit: '%', label: 'SLA on paid plans' }
+  ]
+}
 
 const { DEMO_URLS } = heroDemoRequests
 
@@ -127,20 +173,19 @@ export const HERO_EXAMPLES = [
 ]
 
 export const QUICKSTART = {
-  eyebrow: 'Zero to first response',
   title: 'Call the API. No key needed.',
   caption:
-    'The free endpoint is a GET. Pass a URL, read JSON. Add a key later when you need more quota, a proxy, or a custom cache TTL.',
-  docsHref: '/docs/api/getting-started/overview',
-  docsLabel: 'Full quickstart in docs',
+    'The free endpoint is a GET. Pass a URL, read JSON. Add a key later when you need Search, more quota, a proxy, or a custom cache TTL.',
   steps: [
     {
       title: 'Pick any URL',
       description:
-        'A public page is enough. The API fetches it in a real browser, so client-rendered sites work the same as static HTML.'
+        'A public page is enough. The API detects when a page needs a headless browser, so client-rendered sites work as well as static HTML.',
+      code: 'https://github.com'
     },
     {
       title: 'Hit api.microlink.io',
+      code: '?url=https://github.com',
       description: (
         <>
           GET{' '}
@@ -154,115 +199,215 @@ export const QUICKSTART = {
     },
     {
       title: 'Ask for what you need',
+      code: '&screenshot=true',
       description: (
         <>
           Add <Link href='/docs/api/parameters/screenshot'>screenshot</Link>,{' '}
           <Link href='/docs/api/parameters/pdf'>pdf</Link>, or{' '}
-          <Link href='/docs/api/parameters/markdown'>markdown</Link> on the same
-          request. Same endpoint, extra fields.
+          <Link href='/docs/guides/content-conversion/url-to-markdown'>
+            markdown
+          </Link>{' '}
+          on the same request. Same endpoint, extra fields.
         </>
       )
     }
   ]
 }
 
-const BUILD_KEYS = [
-  'screenshot',
-  'pdf',
-  'metadata',
-  'markdown',
-  'embed',
-  'function',
-  'search',
-  'text'
+const PRODUCT_ENTRIES = {
+  ...PRODUCTS,
+  conversion: {
+    label: 'File conversion',
+    icon: Repeat,
+    href: '/file-conversion'
+  }
+}
+
+export const FEATURE_CTAS = {
+  antibot: 'Detect blockers',
+  automation: 'Automate pages',
+  adblock: 'Block ads',
+  function: 'Write functions',
+  ttl: 'Tune caching',
+  headers: 'Forward headers',
+  proxy: 'Bypass blocks',
+  isolation: 'How isolation works',
+  scraping: 'Scrape any page'
+}
+
+const BUILD_ITEMS = [
+  {
+    key: 'screenshot',
+    label: 'Screenshot API',
+    cta: 'Capture a page',
+    description:
+      'Pixel-perfect PNG or JPEG captures of any page, full page or a single element.'
+  },
+  {
+    key: 'pdf',
+    label: 'PDF API',
+    cta: 'Generate PDFs',
+    description:
+      'Print-ready PDFs from any URL, with paper size, margins, and page ranges.'
+  },
+  {
+    key: 'metadata',
+    label: 'Metadata API',
+    cta: 'Extract metadata',
+    description:
+      'Normalized title, description, image, logo, and more from any page.'
+  },
+  {
+    key: 'markdown',
+    label: 'Markdown API',
+    cta: 'Convert to markdown',
+    description:
+      'Web pages, PDFs, and Office documents as clean markdown for LLMs.'
+  },
+  {
+    key: 'html',
+    label: 'HTML API',
+    cta: 'Get rendered HTML',
+    description:
+      'Fully rendered HTML after JavaScript runs, for a page or one selector.'
+  },
+  {
+    key: 'text',
+    label: 'Text API',
+    cta: 'Extract clean text',
+    description:
+      'Readable plain text from any page or document, without the markup.'
+  },
+  {
+    key: 'preview',
+    label: 'Link preview API',
+    cta: 'Build link previews',
+    description:
+      'Slack-style link previews for any URL, built from one metadata call.'
+  },
+  {
+    key: 'embed',
+    label: 'Embed API',
+    cta: 'Embed any URL',
+    description:
+      'Ready-to-paste iframes for 300+ providers like YouTube and Spotify.'
+  },
+  {
+    key: 'logo',
+    label: 'Logo API',
+    cta: 'Fetch brand logos',
+    description: 'Logos, favicons, and brand color palettes for any website.'
+  },
+  {
+    key: 'conversion',
+    label: 'File conversion API',
+    cta: 'Convert files',
+    description:
+      'PDF, Word, Excel, and PowerPoint files as HTML, markdown, or text.'
+  },
+  {
+    key: 'function',
+    label: 'Browser function API',
+    cta: 'Run browser code',
+    description: 'Run your own Puppeteer code on any page, with npm packages.'
+  },
+  {
+    key: 'search',
+    label: 'Search API',
+    cta: 'Search Google',
+    isPro: true,
+    description:
+      'Google results as structured JSON: web, news, images, places, and more.'
+  }
 ]
 
-export const BUILD = BUILD_KEYS.map(key => PRODUCTS[key])
+export const BUILD = BUILD_ITEMS.map(({ key, isPro = false, ...item }) => ({
+  ...PRODUCT_ENTRIES[key],
+  ...item,
+  tile: PRODUCT_TILES[key],
+  isPro
+}))
 
 export const INTEGRATIONS = [
   {
     label: 'SDK',
     href: '/integrations/sdk',
+    icon: Package,
+    hue: 'blue',
     description:
-      'One client for every product. Typed methods instead of query strings.'
+      'One client for every product. Typed methods instead of query strings.',
+    docs: { href: '/docs/sdk/getting-started/overview', label: 'SDK docs' }
   },
   {
     label: 'CLI',
     href: '/integrations/cli',
-    description: 'Explore the API from your terminal during local development.'
+    icon: Terminal,
+    hue: 'indigo',
+    description: 'Explore the API from your terminal during local development.',
+    docs: { href: '/docs/sdk/getting-started/cli', label: 'CLI docs' }
   },
   {
     label: 'MCP',
     href: '/integrations/mcp',
-    description: 'Give an AI agent the same URL-to-data API you use in code.'
+    icon: Brain,
+    hue: 'violet',
+    description: 'Give an AI agent the same URL-to-data API you use in code.',
+    docs: { href: '/docs/api/getting-started/mcp', label: 'MCP docs' }
   },
   {
     label: 'Editor',
     href: '/editor',
+    icon: Code,
+    hue: 'pink',
     description:
-      'Write a request in the browser and run it before you integrate.'
+      'Write a request in the browser and run it before you integrate.',
+    docs: { href: '/docs/guides/function', label: 'Function guide' }
   }
 ]
 
 export const ENTERPRISE_ITEMS = [
   {
     title: 'Invoice and net 30',
+    icon: FileText,
+    hue: 'green',
     description:
       'Pay by card or invoice, with your PO number on the invoice. Net 30 terms on Business.'
   },
   {
     title: 'NDA, DPA, and MSA',
+    icon: Shield,
+    hue: 'violet',
     description:
       'A published DPA, plus NDA and service agreement signed on request for your legal team.'
   },
   {
     title: 'Named contact',
+    icon: UserCheck,
+    hue: 'blue',
     description:
-      'The same person for commercial and technical questions. First response within 1 business day.'
+      'The same person for commercial and technical questions. First response within 1 business day on Business, 12 hours on Enterprise.'
   },
   {
     title: 'Dedicated environment',
+    icon: Server,
+    hue: 'indigo',
     description:
       'Your own API endpoint and browser pool on Enterprise. No shared capacity, no noisy neighbors.'
   },
   {
     title: '99.9% uptime SLA',
+    icon: Activity,
+    hue: 'teal',
     description:
-      'Backed by service credits. Traffic spikes are served, not throttled.'
+      'On every paid plan. Enterprise adds service credits and no rate limits, so traffic spikes are served, not throttled.'
   },
   {
     title: 'Your storage and CDN',
-    description: `Your own asset store with no TTL cap, plus ${CDN_EDGES} Cloudflare edge nodes.`
+    icon: Database,
+    hue: 'orange',
+    description: `On Enterprise, your own asset store with no TTL cap and your own CDN across ${CDN_EDGES} Cloudflare edge nodes.`
   }
 ]
-
-export const START = {
-  title: 'Choose how to get started',
-  selfServe: {
-    title: 'Build on your own',
-    body: 'The free plan is enough to ship a prototype. Pro is the same API with more quota, proxy, custom headers, and configurable TTL.',
-    href: '/pricing',
-    label: 'See pricing',
-    items: [
-      '25 requests/day free, no credit card',
-      'Every product on one endpoint',
-      'SDK, CLI, MCP, and OpenAPI',
-      'Upgrade when the quota is the only thing in the way'
-    ]
-  },
-  extra: {
-    title: 'Get extra support',
-    body: 'Business is Pro, bought the way companies buy. Enterprise is a dedicated environment with an SLA.',
-    href: '/enterprise',
-    label: 'Talk to us',
-    items: [
-      'Invoice, net 30, NDA, and DPA',
-      'Named contact, no ticket queue',
-      'Dedicated endpoint on Enterprise',
-      '99.9% uptime SLA'
-    ]
-  }
-}
 
 export const HOW_TO = {
   name: 'How to use the Microlink API',
@@ -272,17 +417,17 @@ export const HOW_TO = {
     {
       title: 'Pick any URL',
       description:
-        'A public page is enough. The API fetches it in a real browser, so client-rendered sites work the same as static HTML.'
+        'A public page is enough. The API detects when a page needs a headless browser, so client-rendered sites work as well as static HTML.'
     },
     {
-      title: 'Call the endpoint',
+      title: 'Hit api.microlink.io',
       description:
-        'GET https://api.microlink.io with a url query parameter. No API key is required on the free plan.'
+        'GET api.microlink.io with a url. Metadata comes back by default.'
     },
     {
-      title: 'Read the JSON',
+      title: 'Ask for what you need',
       description:
-        'Metadata is returned by default. Add screenshot, pdf, or markdown on the same request when you need those fields too.'
+        'Add screenshot, pdf, or markdown on the same request. Same endpoint, extra fields.'
     }
   ]
 }
@@ -345,18 +490,179 @@ export const SectionBlock = ({ id, title, caption, bg, children }) => (
       >
         <Subhead titleize={false}>{title}</Subhead>
         {caption && (
-          <Text
+          <Caption
+            forwardedAs='p'
+            titleize={false}
             css={theme({
               pt: [3, 3, 4, 4],
-              maxWidth: layout.normal,
-              color: 'black60'
+              color: 'black60',
+              textAlign: ['center', 'center', 'left', 'left'],
+              textWrap: 'pretty'
             })}
           >
             {caption}
-          </Text>
+          </Caption>
         )}
       </Flex>
       {children}
     </Box>
   </Flex>
 )
+
+export const tileColors = hue => ({
+  bg: colors[`${hue}0`],
+  color: colors[`${hue}7`]
+})
+
+export const IconTile = ({ icon: Icon, tile }) => (
+  <Flex
+    aria-hidden='true'
+    css={[
+      theme({
+        width: '40px',
+        height: '40px',
+        borderRadius: 3,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0
+      }),
+      { background: tile.bg, color: tile.color }
+    ]}
+  >
+    <Icon width='20px' height='20px' />
+  </Flex>
+)
+
+export const CardGrid = styled(Box).attrs(({ as }) => ({ as: as || 'ul' }))`
+  ${theme({
+    display: 'grid',
+    gap: 3,
+    width: '100%',
+    listStyle: 'none',
+    p: 0,
+    m: 0
+  })}
+  grid-template-columns: minmax(0, 1fr);
+
+  @media (min-width: ${breakpoints[1]}) {
+    grid-template-columns: repeat(
+      ${({ $tabletColumns = 2 }) => $tabletColumns},
+      minmax(0, 1fr)
+    );
+  }
+
+  @media (min-width: ${breakpoints[2]}) {
+    grid-template-columns: repeat(
+      ${({ $columns }) => $columns},
+      minmax(0, 1fr)
+    );
+  }
+`
+
+const CARD_STYLES = {
+  bg: 'white',
+  border: 1,
+  borderColor: 'gray2',
+  borderRadius: 4,
+  p: [3, 3, 4, 4],
+  minWidth: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+  color: 'black',
+  boxShadow: shadows[1]
+}
+
+const CARD_HOVER_SHADOW = `0 22px 46px -28px rgba(${shadowInk}, 0.35)`
+
+export const StaticCard = styled(Box)(theme(CARD_STYLES))
+
+export const StretchedCard = styled(StaticCard)`
+  position: relative;
+  transition: border-color ${transition.medium}, box-shadow ${transition.medium};
+
+  .card-link a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    ${theme({ borderRadius: 4 })}
+  }
+
+  .card-link a:focus-visible {
+    outline: none;
+  }
+
+  .card-link a:focus-visible::after {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
+
+  .card-above {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: ${({ $accent }) => $accent || colors.gray4};
+      box-shadow: ${CARD_HOVER_SHADOW};
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: border-color ${transition.medium},
+        box-shadow ${transition.medium}, transform ${transition.medium};
+
+      &:hover {
+        transform: translateY(-1px);
+      }
+    }
+  }
+`
+
+export const CardTitle = styled(Text).attrs({ as: 'h3' })(
+  theme({
+    m: 0,
+    pt: 3,
+    color: 'black',
+    fontWeight: 'bold',
+    minWidth: 0
+  })
+)
+
+export const CardText = styled(Text)(
+  theme({
+    pt: 2,
+    color: 'black70',
+    fontSize: 1,
+    lineHeight: 2,
+    flex: 1
+  })
+)
+
+export const CardHeading = ({ href, children }) => (
+  <CardTitle>
+    <Link
+      className='card-link'
+      href={href}
+      css={theme({ color: 'black', fontWeight: 'bold' })}
+    >
+      {children}
+    </Link>
+  </CardTitle>
+)
+
+export const CardDocsLink = ({ href, children }) => (
+  <Box className='card-above' css={theme({ pt: 3, fontSize: 1 })}>
+    <ArrowLink href={href}>{children}</ArrowLink>
+  </Box>
+)
+
+export const CompactPricing = styled(Box)`
+  #pricing > div:first-child {
+    ${theme({ pt: 0 })}
+  }
+
+  #pricing-plans {
+    ${theme({ pb: 0 })}
+  }
+`

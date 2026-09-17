@@ -1,13 +1,53 @@
 import React from 'react'
 import { theme } from 'theme'
+import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
-import Text from 'components/elements/Text'
-import ArrowLink from 'components/patterns/ArrowLink'
-import { Eyebrow } from 'components/patterns/FeatureStory'
 
-import { QUICKSTART, SectionBlock } from './shared'
+import {
+  QUICKSTART,
+  CardGrid,
+  CardText,
+  CardTitle,
+  SectionBlock,
+  StaticCard,
+  tileColors
+} from './shared'
+
+const STEP_TILE = tileColors('blue')
+
+const StepNumber = styled(Flex)(
+  theme({
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '40px',
+    height: '40px',
+    borderRadius: 3,
+    fontFamily: 'mono',
+    fontSize: 1,
+    fontWeight: 'bold',
+    flexShrink: 0
+  })
+)
+
+const StepCode = styled(Box).attrs({ as: 'code' })(
+  theme({
+    display: 'block',
+    mt: 3,
+    px: 3,
+    py: 2,
+    bg: 'gray0',
+    border: 1,
+    borderColor: 'black05',
+    borderRadius: 3,
+    fontFamily: 'mono',
+    fontSize: 0,
+    lineHeight: 2,
+    color: 'black80',
+    overflowWrap: 'anywhere'
+  })
+)
 
 export const Quickstart = () => (
   <SectionBlock
@@ -15,74 +55,22 @@ export const Quickstart = () => (
     title={QUICKSTART.title}
     caption={QUICKSTART.caption}
   >
-    <Eyebrow as='p' css={theme({ pb: [3, 3, 4, 4] })}>
-      {QUICKSTART.eyebrow}
-    </Eyebrow>
-    <Box
-      as='ol'
-      css={theme({
-        listStyle: 'none',
-        m: 0,
-        p: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: [4, 4, 4, 4]
-      })}
-    >
+    <CardGrid as='ol' $columns={3} $tabletColumns={1}>
       {QUICKSTART.steps.map((step, index) => (
-        <Flex
-          as='li'
-          key={step.title}
-          css={theme({
-            alignItems: 'flex-start',
-            gap: 3
-          })}
-        >
-          <Flex
-            aria-hidden='true'
-            css={theme({
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              width: '32px',
-              height: '32px',
-              borderRadius: 5,
-              border: 1,
-              borderColor: 'black10',
-              color: 'black80',
-              fontFamily: 'mono',
-              fontSize: 1,
-              fontWeight: 'bold'
-            })}
-          >
-            {index + 1}
-          </Flex>
-          <Box css={theme({ minWidth: 0, pt: '2px' })}>
-            <Text
-              as='h3'
-              css={theme({
-                m: 0,
-                fontWeight: 'bold',
-                color: 'black'
-              })}
+        <Box as='li' key={step.title} css={theme({ minWidth: 0 })}>
+          <StaticCard>
+            <StepNumber
+              aria-hidden='true'
+              css={{ background: STEP_TILE.bg, color: STEP_TILE.color }}
             >
-              {step.title}
-            </Text>
-            <Text
-              css={theme({
-                pt: 2,
-                color: 'black70',
-                lineHeight: 2
-              })}
-            >
-              {step.description}
-            </Text>
-          </Box>
-        </Flex>
+              {index + 1}
+            </StepNumber>
+            <CardTitle>{step.title}</CardTitle>
+            <CardText>{step.description}</CardText>
+            <StepCode>{step.code}</StepCode>
+          </StaticCard>
+        </Box>
       ))}
-    </Box>
-    <Flex css={theme({ pt: [4, 4, 5, 5] })}>
-      <ArrowLink href={QUICKSTART.docsHref}>{QUICKSTART.docsLabel}</ArrowLink>
-    </Flex>
+    </CardGrid>
   </SectionBlock>
 )

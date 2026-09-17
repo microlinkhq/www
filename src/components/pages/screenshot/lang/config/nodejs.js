@@ -370,7 +370,7 @@ http
         points: [
           'npm install microlink.io — pure JavaScript, zero binaries',
           'Runs anywhere: serverless, edge, containers, your laptop',
-          'Autoscaled managed browser fleet with a 99.95% uptime SLA',
+          'Autoscaled managed browser fleet with a 99.9% uptime SLA',
           `Sub-second cached responses from ${CDN_EDGES} edge locations`,
           'Built-in adblock removes ads & cookie banners automatically',
           'Full-page, device emulation, overlays & DOM interaction included'
@@ -521,7 +521,9 @@ http
             </div>
             <div>
               See the{' '}
-              <Link href='/docs/sdk/getting-started/overview'>SDK overview</Link>{' '}
+              <Link href='/docs/sdk/getting-started/overview'>
+                SDK overview
+              </Link>{' '}
               for runtime details.
             </div>
           </>
@@ -539,8 +541,8 @@ http
             <div>
               When you need more throughput or caching control, pass{' '}
               <code>apiKey</code> to <code>createClient()</code> and requests
-              route to the Pro tier. See <Link href='/pricing'>pricing</Link> for the
-              limits.
+              route to the Pro tier. See <Link href='/pricing'>pricing</Link>{' '}
+              for the limits.
             </div>
           </>
         )
@@ -551,7 +553,7 @@ http
           <>
             <div>
               Cached captures return sub-second from a global edge network, and
-              the browser fleet autoscales behind a 99.95% uptime SLA — so a
+              the browser fleet autoscales behind a 99.9% uptime SLA — so a
               traffic spike does not mean provisioning more servers.
             </div>
             <div>

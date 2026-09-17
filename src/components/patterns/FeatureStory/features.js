@@ -20,7 +20,7 @@ export const FEATURES = [
     iconBg: 'pink7',
     borderColor: 'pink2',
     oneLiner:
-      'Know exactly who blocked your request and why — 30+ antibot and CAPTCHA providers.',
+      'Know exactly who blocked your request and why, across 30+ antibot and CAPTCHA providers.',
     teachLine:
       'Use when you need to know who blocked you before you retry or escalate.'
   },
@@ -46,7 +46,7 @@ export const FEATURES = [
     iconBg: 'red7',
     borderColor: 'red2',
     oneLiner:
-      'Ads and trackers blocked, cookie banners dismissed automatically — on by default, on every plan.',
+      'Ads and trackers blocked, cookie banners dismissed automatically. On by default, on every plan.',
     teachLine:
       'Use when captures must be clean and repeatable instead of full of third-party noise.'
   },
@@ -110,7 +110,7 @@ export const FEATURES = [
     iconBg: 'blue9',
     borderColor: 'blue3',
     oneLiner: 'One ephemeral browser per call. SSRF blocked before navigation.',
-    teachLine: 'Always on — isolation and the SSRF gate apply to every request.'
+    teachLine: 'Always on. Isolation and the SSRF gate apply to every request.'
   },
   {
     slug: 'scraping',
@@ -123,7 +123,7 @@ export const FEATURES = [
     oneLiner:
       'Extract structured JSON from any webpage using CSS selectors. URL → JSON in one request.',
     teachLine:
-      'Declare the fields you need — Microlink fetches, renders, and returns typed data.'
+      'Declare the fields you need. Microlink fetches, renders, and returns typed data.'
   }
 ]
 

@@ -1,13 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import {
-  SECTION_VERTICAL_SPACING,
-  breakpoints,
-  layout,
-  theme,
-  shadows,
-  transition
-} from 'theme'
+import { SECTION_VERTICAL_SPACING, layout, theme, shadows } from 'theme'
 
 import { Button } from 'components/elements/Button/Button'
 import Container from 'components/elements/Container'
@@ -66,24 +59,6 @@ const EditorStage = styled(Flex)`
     flex: 1;
     min-height: 0;
     height: auto !important;
-  }
-
-  @media (min-width: ${breakpoints[2]}) {
-    @media (hover: hover) and (pointer: fine) {
-      @media (prefers-reduced-motion: no-preference) {
-        & [role='application'] {
-          transform: perspective(1000px) rotateX(10deg) rotateY(0deg)
-            scale3d(1, 1, 1);
-          transition: transform ${transition.medium};
-        }
-
-        &:hover [role='application'],
-        &:focus-within [role='application'] {
-          transform: perspective(1000px) rotateX(-0deg) rotateY(0deg)
-            scale3d(1, 1, 1);
-        }
-      }
-    }
   }
 `
 

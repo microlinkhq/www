@@ -399,7 +399,7 @@ print(data['markdown'])`
           'Real browser rendering built in with prerender=true',
           'CSS selector scoping keeps tokens focused on the content',
           'Cached responses from a global edge network',
-          'Autoscaled fleet with a 99.95% uptime SLA'
+          'Autoscaled fleet with a 99.9% uptime SLA'
         ]
       }
     ]

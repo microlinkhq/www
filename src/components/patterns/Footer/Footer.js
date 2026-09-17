@@ -38,7 +38,7 @@ const FOOTER_COLUMNS = [
   {
     title: 'Products',
     links: [
-      { label: 'API', href: '/api' },
+      { label: 'Microlink API', href: '/api' },
       { label: 'Screenshot', href: '/screenshot' },
       { label: 'Link Preview', href: '/link-preview' },
       { label: 'Markdown', href: '/markdown' },

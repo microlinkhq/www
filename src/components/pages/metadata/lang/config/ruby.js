@@ -385,7 +385,7 @@ puts JSON.pretty_generate(data)`
           'Image and logo as absolute, CDN-hosted URLs',
           'JavaScript-injected tags captured with prerender=true',
           'Cached responses from a global edge network',
-          'Autoscaled fleet with a 99.95% uptime SLA'
+          'Autoscaled fleet with a 99.9% uptime SLA'
         ]
       }
     ]

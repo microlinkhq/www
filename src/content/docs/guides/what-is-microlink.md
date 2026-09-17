@@ -288,4 +288,4 @@ Now that you understand what Microlink does, pick the workflow that matches your
 - **<Link href='/docs/guides/function' children='Function' />** — run JavaScript with full Puppeteer access.
 - **<Link href='/docs/guides/insights' children='Insights' />** — detect technologies or run Lighthouse audits.
 
-Or jump to <Link href='/docs/guides/common/production-patterns' children='production patterns' /> if you are ready to integrate.
+Or jump to <Link href='/docs/guides/common/production-patterns' children='production patterns' /> if you are ready to integrate, or compare products and plans on the <Link href='/api' children='Microlink API overview' />.

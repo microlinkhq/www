@@ -3,6 +3,7 @@ import { Link } from 'components/elements/Link'
 import Flex from 'components/elements/Flex'
 import { useHover } from 'components/hook/use-hover'
 import React from 'react'
+import { theme } from 'theme'
 import { ArrowRight, ChevronRight } from 'react-feather'
 
 const ArrowLink = ({ children, ...props }) => {
@@ -26,5 +27,22 @@ const ArrowLink = ({ children, ...props }) => {
     </Flex>
   )
 }
+
+export const ArrowLinkLabel = ({ children, ...props }) => (
+  <Flex
+    as='span'
+    aria-hidden='true'
+    css={theme({
+      alignItems: 'center',
+      color: 'link',
+      fontFamily: 'sans',
+      fontSize: 1,
+      lineHeight: 2
+    })}
+    {...props}
+  >
+    {children} <FeatherIcon icon={ChevronRight} size={1} />
+  </Flex>
+)
 
 export default ArrowLink

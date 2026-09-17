@@ -6,6 +6,7 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
+import { ArrowLinkLabel } from 'components/patterns/ArrowLink'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 import { FeatureIconTile } from './feature-icon'
@@ -57,7 +58,7 @@ const Card = styled(Link)(
   `
 )
 
-export const FeatureCard = ({ feature, showTeachLine = false }) => {
+export const FeatureCard = ({ feature, showTeachLine = false, cta }) => {
   const href = `/features/${feature.slug}`
   const teachLine = showTeachLine ? feature.teachLine : null
 
@@ -117,6 +118,7 @@ export const FeatureCard = ({ feature, showTeachLine = false }) => {
           {teachLine}
         </Text>
       )}
+      {cta && <ArrowLinkLabel css={theme({ pt: 3 })}>{cta}</ArrowLinkLabel>}
     </Card>
   )
 }

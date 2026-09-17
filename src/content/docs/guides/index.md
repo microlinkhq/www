@@ -18,6 +18,8 @@ Some features are marked with <ProBadge /> and require a paid plan. Everything e
 
 Microlink Search is the main exception: it is a paid workflow from the first request because public-result collection depends on managed proxy capacity.
 
+For every product, plan, and price on one page, see the <Link href='/api' children='Microlink API overview' />.
+
 ## What is Microlink?
 
 New to the API? Start with <Link href='/docs/guides/what-is-microlink' children='What is Microlink' /> — it explains the core idea, walks through every workflow with live examples, and helps you decide which guide to read next.
