@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { colors, theme, transition } from 'theme'
 
@@ -11,6 +11,7 @@ import { hideScrollbar } from 'helpers/style'
 import { HOME_CONTENT_WIDTH } from 'components/pages/home/catalog'
 
 import { PAGE_NAV_HEIGHT, TOC } from './shared'
+import { useRevealActiveLink } from './use-reveal-active-link'
 
 const NavLink = styled('a')`
   ${theme({
@@ -53,6 +54,8 @@ const NavLink = styled('a')`
 
 export const PageNav = () => {
   const activeId = useActiveSection(TOC.map(item => item.id))
+  const scrollerRef = useRef(null)
+  useRevealActiveLink(scrollerRef, activeId)
 
   return (
     <Box
@@ -69,6 +72,7 @@ export const PageNav = () => {
       })}
     >
       <Flex
+        ref={scrollerRef}
         css={[
           theme({
             width: '100%',
