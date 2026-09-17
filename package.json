@@ -157,7 +157,7 @@
     "json-future": "~2.2.27",
     "jszip": "~3.10.1",
     "lodash": "~4.18.1",
-    "microlink.io": "~0.10.0",
+    "microlink.io": "~0.11.0",
     "microsoft-capitalize": "~1.0.8",
     "normalize.css": "~8.0.1",
     "p-map": "~7.0.5",
@@ -255,7 +255,7 @@
     "release:tags": "git push --follow-tags origin HEAD:master",
     "storybook": "storybook dev -p 6006",
     "test": "vitest --no-watch",
-    "transpile": "echo \"export { getApiUrl } from '@microlink/mql'\" | esbuild --bundle --target=ES2019 --format=esm --minify-whitespace --minify-identifiers > src/helpers/get-api-url.js",
+    "transpile": "node scripts/editor-monaco-dts.js && echo \"export { getApiUrl } from '@microlink/mql'\" | esbuild --bundle --target=ES2019 --format=esm --minify-whitespace --minify-identifiers > src/helpers/get-api-url.js",
     "update": "ncu -i"
   },
   "private": true,
@@ -291,6 +291,7 @@
   },
   "standard": {
     "ignore": [
+      "src/components/pages/editor/monaco-dts.js",
       "src/helpers/get-api-url.js"
     ]
   }

@@ -1,5 +1,11 @@
 import { colors, fonts, fontSizes } from 'theme'
 
+import {
+  GOOGLE_TYPES,
+  MICROLINK_TYPES,
+  PUPPETEER_CORE_TYPES
+} from './monaco-types'
+
 const hex6 = value => {
   const short = String(value || '').match(/^#([0-9a-f]{3})$/i)
   if (!short) return value
@@ -48,40 +54,22 @@ export const monacoTheme = {
   }
 }
 
-const MICROLINK_TYPES = `
-declare module 'microlink.io' {
-  type FunctionInput = string | ((args: Record<string, unknown>) => unknown)
-  interface FunctionResult<T = unknown> {
-    isFulfilled: boolean
-    value: T
-    profiling: Record<string, unknown>
-    logging: Record<string, unknown>
-  }
-  interface MicrolinkClient {
-    metadata(url: string, options?: Record<string, unknown>): Promise<Record<string, unknown>>
-    function<T = unknown>(
-      url: string,
-      code: FunctionInput,
-      options?: Record<string, unknown>
-    ): Promise<FunctionResult<T>>
-    [key: string]: unknown
-  }
-  function createClient(options?: { apiKey?: string; [key: string]: unknown }): MicrolinkClient
-  export default createClient
-}
-`
-
 export const setupMonaco = monaco => {
   monaco.editor.defineTheme('microlink', monacoTheme)
   const compilerOptions = {
     target: monaco.languages.typescript.ScriptTarget.ESNext,
+    allowJs: true,
     allowNonTsExtensions: true,
+    allowSyntheticDefaultImports: true,
     esModuleInterop: true,
     module: monaco.languages.typescript.ModuleKind.ESNext,
+    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
     lib: ['esnext', 'dom']
   }
   const extras = [
     [MICROLINK_TYPES, 'ts:filename/microlink.io.d.ts'],
+    [GOOGLE_TYPES, 'ts:filename/google.d.ts'],
+    [PUPPETEER_CORE_TYPES, 'ts:filename/puppeteer-core.d.ts'],
     [
       'declare const Buffer: { concat(chunks: Uint8Array[]): { toString(encoding: string): string } }',
       'ts:filename/buffer.d.ts'
