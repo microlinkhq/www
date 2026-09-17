@@ -22,6 +22,7 @@ const NavLink = styled('a')`
     lineHeight: 2,
     textDecoration: 'none',
     whiteSpace: 'nowrap',
+    flexShrink: 0,
     px: [2, 2, 3, 3],
     py: 2,
     minHeight: '44px',

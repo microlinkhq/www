@@ -13,6 +13,7 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 import { BUILD, SectionBlock } from './shared'
 
@@ -114,11 +115,24 @@ export const Products = () => (
                     m: 0,
                     color: 'black',
                     fontWeight: 'bold',
-                    minWidth: 0
+                    minWidth: 0,
+                    flex: '1 1 auto'
                   })}
                 >
                   {product.label}
                 </Text>
+                {product.isPro && (
+                  <Box
+                    css={theme({ flexShrink: 0 })}
+                    onClick={e => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                    }}
+                    onMouseDown={e => e.stopPropagation()}
+                  >
+                    <ProBadge />
+                  </Box>
+                )}
               </Flex>
               <Text
                 css={theme({

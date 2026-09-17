@@ -158,8 +158,10 @@ export const QUICKSTART = {
         <>
           Add <Link href='/docs/api/parameters/screenshot'>screenshot</Link>,{' '}
           <Link href='/docs/api/parameters/pdf'>pdf</Link>, or{' '}
-          <Link href='/docs/api/parameters/markdown'>markdown</Link> on the same
-          request. Same endpoint, extra fields.
+          <Link href='/docs/guides/content-conversion/url-to-markdown'>
+            markdown
+          </Link>{' '}
+          on the same request. Same endpoint, extra fields.
         </>
       )
     }
@@ -177,7 +179,12 @@ const BUILD_KEYS = [
   'text'
 ]
 
-export const BUILD = BUILD_KEYS.map(key => PRODUCTS[key])
+const PRO_ONLY_KEYS = ['search']
+
+export const BUILD = BUILD_KEYS.map(key => ({
+  ...PRODUCTS[key],
+  isPro: PRO_ONLY_KEYS.includes(key)
+}))
 
 export const INTEGRATIONS = [
   {
@@ -228,11 +235,11 @@ export const ENTERPRISE_ITEMS = [
   {
     title: '99.9% uptime SLA',
     description:
-      'Backed by service credits. Traffic spikes are served, not throttled.'
+      'On Enterprise, backed by service credits and never rate-limited. Traffic spikes are served, not throttled.'
   },
   {
     title: 'Your storage and CDN',
-    description: `Your own asset store with no TTL cap, plus ${CDN_EDGES} Cloudflare edge nodes.`
+    description: `On Enterprise, your own asset store with no TTL cap and your own CDN across ${CDN_EDGES} Cloudflare edge nodes.`
   }
 ]
 
@@ -240,7 +247,7 @@ export const START = {
   title: 'Choose how to get started',
   selfServe: {
     title: 'Build on your own',
-    body: 'The free plan is enough to ship a prototype. Pro is the same API with more quota, proxy, custom headers, and configurable TTL.',
+    body: 'The free plan is enough to ship a prototype. Pro is the same API with Search, more quota, proxy, custom headers, and configurable TTL.',
     href: '/pricing',
     label: 'See pricing',
     items: [

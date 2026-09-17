@@ -24,15 +24,16 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Do I need an API key?',
-    text: 'No. The free plan is 25 requests per day with no key and no credit card. A key is required for Pro: higher quota, proxy, custom headers, and configurable TTL.',
+    text: 'Not to start. The free plan is 25 requests per day with no key and no credit card. A Pro key unlocks Search, higher quota, proxy, custom headers, and configurable TTL.',
     answer: (
       <>
         <div>
-          No. The free plan is 25 requests per day with no key and no credit
-          card.
+          Not to start. The free plan is 25 requests per day with no key and no
+          credit card.
         </div>
         <div>
-          A key is required for <Link href='/pricing'>Pro</Link>: higher quota,{' '}
+          A <Link href='/pricing'>Pro</Link> key unlocks{' '}
+          <Link href='/search'>Search</Link>, higher quota,{' '}
           <Link href='/features/proxy'>proxy</Link>,{' '}
           <Link href='/features/headers'>custom headers</Link>, and{' '}
           <Link href='/features/ttl'>configurable TTL</Link>.
@@ -75,14 +76,17 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What is included on the free plan?',
-    text: '25 requests per day, no credit card. Adblock and cookie-banner dismissal are on by default. Pro adds quota, proxy, custom headers, and configurable TTL.',
+    text: '25 requests per day on every product except Search, no credit card. Adblock and cookie-banner dismissal are on by default. Pro adds Search, quota, proxy, custom headers, and configurable TTL.',
     answer: (
       <>
-        <div>25 requests per day, no credit card.</div>
+        <div>
+          25 requests per day on every product except Search, no credit card.
+        </div>
         <div>
           <Link href='/features/adblock'>Adblock</Link> and cookie-banner
-          dismissal are on by default. Pro adds quota, proxy, custom headers,
-          and configurable TTL. See <Link href='/pricing'>pricing</Link>.
+          dismissal are on by default. Pro adds Search, quota, proxy, custom
+          headers, and configurable TTL. See{' '}
+          <Link href='/pricing'>pricing</Link>.
         </div>
       </>
     )
