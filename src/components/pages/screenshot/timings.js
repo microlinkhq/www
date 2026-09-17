@@ -106,7 +106,7 @@ export const Timings = ({ timingMs, timingUrl, timingHistory }) => {
             fontWeight: 'bold'
           })}
         >
-          99.95
+          99.9
           <Caption
             forwardedAs='div'
             css={theme({

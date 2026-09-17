@@ -349,7 +349,7 @@ print(data['screenshot']['url'])`
         points: [
           'One HTTP request — works with requests or the standard library',
           'Runs anywhere: serverless, containers, a cron job, your laptop',
-          'Autoscaled managed browser fleet with a 99.95% uptime SLA',
+          'Autoscaled managed browser fleet with a 99.9% uptime SLA',
           `Sub-second cached responses from ${CDN_EDGES} edge locations`,
           'Built-in adblock removes ads & cookie banners automatically',
           'Full-page, device emulation, overlays & DOM interaction included'
@@ -529,7 +529,7 @@ print(data['screenshot']['url'])`
           <>
             <div>
               Cached captures return sub-second from a global edge network, and
-              the browser fleet autoscales behind a 99.95% uptime SLA — so a
+              the browser fleet autoscales behind a 99.9% uptime SLA — so a
               traffic spike does not mean provisioning more workers.
             </div>
             <div>
