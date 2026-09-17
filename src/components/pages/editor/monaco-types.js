@@ -1,4 +1,4 @@
-import { MICROLINK_DTS } from './monaco-dts'
+import { GOOGLE_DTS, MICROLINK_DTS } from './monaco-dts'
 
 const asAmbient = (name, dts) =>
   `declare module '${name}' {\n${dts
@@ -8,10 +8,7 @@ const asAmbient = (name, dts) =>
 
 export const MICROLINK_TYPES = asAmbient('microlink.io', MICROLINK_DTS)
 
-export const GOOGLE_TYPES = `declare module '@microlink/google' {
-  const createGoogleClient: (...args: any[]) => any
-  export default createGoogleClient
-}`
+export const GOOGLE_TYPES = asAmbient('@microlink/google', GOOGLE_DTS)
 
 export const PUPPETEER_CORE_TYPES = `declare module 'puppeteer-core' {
   export interface HTTPResponse {
