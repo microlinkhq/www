@@ -64,8 +64,9 @@ export const getFaqQuestions = () => {
             email you signed up with.
           </div>
           <div>
-            Your AI agent can also do the whole flow itself - sign up, pay, and
-            retrieve its key through the Microlink MCP server.
+            Your AI agent can also start the upgrade flow through Microlink
+            MCP - choose a plan and create checkout. You complete payment, then
+            add the API key to your MCP config.
           </div>
           <div>
             The API key needs to be attached to all your requests:
@@ -101,7 +102,8 @@ export const getFaqQuestions = () => {
           Yes - install the Microlink MCP server with one config block and
           Claude, Cursor, or any MCP client gets screenshots, PDFs, markdown,
           search, and more as callable tools. The free tier works out of the
-          box; add an API key when you need volume.
+          box for every tool except Search; add an API key for Search or when
+          you need volume.
         </div>
       )
     },
