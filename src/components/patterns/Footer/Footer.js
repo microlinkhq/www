@@ -101,6 +101,7 @@ const FOOTER_COLUMNS = [
     links: [
       { label: 'SDK', href: '/integrations/sdk' },
       { label: 'CLI', href: '/integrations/cli' },
+      { label: 'MCP', href: '/integrations/mcp' },
       { label: 'Editor', href: '/editor' },
       { label: 'Blog', href: '/blog' },
       { label: 'Use cases', href: '/use-cases' },

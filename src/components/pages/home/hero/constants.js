@@ -6,9 +6,6 @@ import { rgba } from 'polished'
 const { FN_SNIPPET, REQUEST_OPTS, shortUrl, canonicalDemoUrl } =
   heroDemoRequests
 
-const SKILL_INSTALL =
-  'npx skills add https://github.com/microlinkhq/skills --skill microlink-api'
-
 const AGENT_TASK = {
   screenshot: 'capture a screenshot of',
   animated: 'record an animated screenshot of',
@@ -32,7 +29,7 @@ const agentPrompt = ({ vertical, fullUrl }) => {
     vertical === 'search'
       ? `search Google for "${SEARCH_EXAMPLE.query}" and return the structured results`
       : `${AGENT_TASK[vertical]} ${fullUrl} and return the structured result`
-  return `Using the Microlink API, ${task}.\n\nSet up Microlink for your agent first: ${SKILL_INSTALL}`
+  return `Using the Microlink MCP server, ${task}.\n\nIf your agent doesn't have it yet, add it first (one config block): https://microlink.io/integrations/mcp`
 }
 
 const INSTALL_COMMENT = '// npm install microlink.io'

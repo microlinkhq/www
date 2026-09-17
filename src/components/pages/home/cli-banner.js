@@ -219,6 +219,14 @@ const CliBanner = () => {
               One command to install. Works with any URL, any product, right
               now.
             </Text>
+            <Text
+              as='p'
+              css={theme({ m: 0, mt: 2, color: 'black80', lineHeight: 2 })}
+            >
+              Or give it to your agent - one config block and any MCP client
+              gets every product as a tool.{' '}
+              <Link href='/integrations/mcp'>Set up Microlink MCP</Link>.
+            </Text>
             <Command
               as='button'
               type='button'

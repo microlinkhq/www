@@ -28,6 +28,7 @@ import styled, { css } from 'styled-components'
 import { rgba } from 'polished'
 import React from 'react'
 import {
+  Cpu as CpuIcon,
   MousePointer as MousePointerIcon,
   Package as PackageIcon,
   Repeat as RepeatIcon
@@ -82,6 +83,12 @@ const EXTRA = {
     description: 'The official SDK to integrate Microlink in your app',
     icon: PackageIcon,
     href: '/integrations/sdk'
+  },
+  mcp: {
+    label: 'Microlink MCP',
+    description: 'Every product as tools your AI agent can call',
+    icon: CpuIcon,
+    href: '/integrations/mcp'
   },
   conversion: {
     label: 'File conversion',
@@ -2372,6 +2379,8 @@ const Products = () => (
           <AudioPreview />
         </Feature>
       </Row>
+
+      <Feature vertical='mcp' />
     </Grid>
   </Box>
 )
