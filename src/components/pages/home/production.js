@@ -17,18 +17,18 @@ const FEATURES = [
     icon: 'cloud2',
     title: 'Grows with you',
     description:
-      'Capacity scales automatically with your traffic. One request or millions, a single script or a fleet of agents — no need to warn us before a spike.'
+      'Capacity scales automatically with your traffic. One request or millions, a single script or a fleet of agents. No maintenance, no capacity planning on your side.'
   },
   {
     icon: 'cdn',
-    title: 'Fast everywhere',
-    description: `Responses are served from ${CDN_EDGES} CDN edge locations close to your users, so requests stay quick anywhere in the world.`
+    title: 'Served from the edge',
+    description: `Responses come from ${CDN_EDGES} CDN edge locations close to your users, so requests stay quick anywhere in the world.`
   },
   {
     icon: 'developer',
     title: 'Developer and agent first',
     description:
-      'Clear docs, predictable responses, and SDKs for every major language - plus an MCP server so any agent can call the same API as tools.'
+      'Clear docs, predictable responses, and SDKs for every major language. Agents get the same API as tools through the MCP server.'
   },
   {
     icon: 'programmable',
@@ -78,8 +78,8 @@ const Production = () => (
         })}
       >
         From your first request to millions, the same infrastructure scales with
-        you — we&rsquo;ve sustained {CAPACITY_REQUESTS_PER_MONTH} requests per
-        month for a single customer. No maintenance, no capacity planning.
+        you. Our record for a single customer is {CAPACITY_REQUESTS_PER_MONTH}{' '}
+        requests in one month.
       </Caption>
     </Box>
 

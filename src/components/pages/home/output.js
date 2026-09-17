@@ -304,7 +304,7 @@ const SearchOutput = ({ data }) => (
     >
       <ProBadge>Pro</ProBadge>
       <Box as='span' css={theme({ fontSize: 0, color: 'gray7' })}>
-        Example results — query live Google data on the{' '}
+        Example results. Query live Google data on the{' '}
         <Box
           as='a'
           href='/search'
