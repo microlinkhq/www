@@ -22,6 +22,15 @@ The goal is a repo-native page that:
 - uses the **real** partner logo, not a placeholder
 - stays honest about *when the use case makes sense and when it doesn't*
 
+## Two kinds of use case
+
+- **Partner recipe** (this document): a hand-composed page such as
+  `upscale-extracted-images.js`, pairing Microlink with another API.
+- **Intent landing**: a data-driven page under a vertical hub
+  (`/use-cases/website-screenshot/<intent>`) that solves one search intent with one
+  Microlink product. Author those from `references/intent-landing.md`; they share the
+  registry, the hub grid and the `MoreUseCases` carousel with partner recipes.
+
 ## Architecture — read this first
 
 Customer stories and use cases now share the `/use-cases` route and folder. A use case is still a
@@ -52,6 +61,7 @@ Before planning or editing, read in order:
 4. `.cursor/skills/use-case-landing/references/page-template.md` — the page template with `{{TOKEN}}` placeholders.
 5. `.cursor/skills/use-case-landing/references/module-and-registry.md` — the `UseCaseStory` module map + the `USE_CASES` registry shape.
 6. `.cursor/skills/use-case-landing/references/partner-api-verification.md` — how to verify a partner API before writing any code block.
+7. `.cursor/skills/use-case-landing/references/intent-landing.md` — the data-driven intent landings (registry per vertical, content schema, tests).
 7. `AGENTS.md` — repo conventions (`theme({...})`, import style).
 
 ## Naming — topic, not brand

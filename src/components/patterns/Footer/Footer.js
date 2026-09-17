@@ -33,6 +33,14 @@ import { LANG_LANDINGS as MARKDOWN_LANG_LANDINGS } from 'components/pages/markdo
 import { LANG_LANDINGS as METADATA_LANG_LANDINGS } from 'components/pages/metadata/lang/registry'
 import { LANG_LANDINGS as HTML_LANG_LANDINGS } from 'components/pages/html/lang/registry'
 import { FEATURES } from 'components/patterns/FeatureStory'
+import { VERTICALS } from 'components/patterns/UseCaseStory/use-cases'
+
+const USE_CASE_LINKS = Object.fromEntries(
+  VERTICALS.map(({ slug }) => [
+    slug,
+    { label: 'Use cases', href: `/use-cases/${slug}` }
+  ])
+)
 
 const FOOTER_COLUMNS = [
   {
@@ -60,11 +68,17 @@ const FOOTER_COLUMNS = [
         // Per-language screenshot landings, generated from the shared registry
         // so a new /screenshot/<lang> spoke is linked site-wide automatically.
         title: 'Screenshot API',
-        links: LANG_LANDINGS.map(({ label, href }) => ({ label, href }))
+        links: [
+          ...LANG_LANDINGS.map(({ label, href }) => ({ label, href })),
+          USE_CASE_LINKS['website-screenshot']
+        ]
       },
       {
         title: 'PDF API',
-        links: PDF_LANG_LANDINGS.map(({ label, href }) => ({ label, href }))
+        links: [
+          ...PDF_LANG_LANDINGS.map(({ label, href }) => ({ label, href })),
+          USE_CASE_LINKS['website-to-pdf']
+        ]
       },
       {
         title: 'Logo API',
@@ -75,17 +89,17 @@ const FOOTER_COLUMNS = [
       },
       {
         title: 'Markdown API',
-        links: MARKDOWN_LANG_LANDINGS.map(({ label, href }) => ({
-          label,
-          href
-        }))
+        links: [
+          ...MARKDOWN_LANG_LANDINGS.map(({ label, href }) => ({ label, href })),
+          USE_CASE_LINKS['website-to-markdown']
+        ]
       },
       {
         title: 'Metadata API',
-        links: METADATA_LANG_LANDINGS.map(({ label, href }) => ({
-          label,
-          href
-        }))
+        links: [
+          ...METADATA_LANG_LANDINGS.map(({ label, href }) => ({ label, href })),
+          USE_CASE_LINKS['website-metadata']
+        ]
       },
       {
         title: 'HTML API',

@@ -15,6 +15,7 @@ import { Hero } from 'components/pages/pdf/hero'
 import { Playground } from 'components/pages/pdf/playground'
 import { Pricing } from 'components/pages/pdf/pricing'
 import { ProductInformation } from 'components/pages/pdf/product-information'
+import { UseCases } from 'components/pages/pdf/use-cases'
 import { Timings } from 'components/pages/pdf/timings'
 import { ACCENT, Subhead, FIRST_URL } from 'components/pages/pdf/shared'
 
@@ -223,6 +224,7 @@ const PdfPage = () => {
         }
         features={FEATURES}
       />
+      <UseCases />
       <CallToAction />
       <ProductInformation />
     </Layout>

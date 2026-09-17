@@ -103,3 +103,7 @@ If one field is consistently missing:
 ## Next step
 
 Learn how to add custom fields, embed HTML, palettes, and other enriched outputs in [extending results](/docs/guides/metadata/extending-results).
+
+## See also
+
+- <Link href='/use-cases/website-metadata/only-the-fields-you-need' children='Only the fields you need' /> — include, exclude and filter in one recipe.

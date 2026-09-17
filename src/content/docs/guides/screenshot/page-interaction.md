@@ -178,3 +178,9 @@ These parameters work together. Here is a realistic sequence: wait for the targe
 ## Next step
 
 Learn how to deliver screenshots as JSON or direct image responses in [delivery and embedding](/docs/guides/screenshot/embedding).
+
+## See also
+
+- <Link href='/use-cases/website-screenshot/block-cookie-banners-and-ads' children='Screenshots without cookie banners or ads' /> — adblock, click and styles working together.
+- <Link href='/use-cases/website-screenshot/capture-element' children='Screenshot a single element' /> — crop the capture to one CSS selector.
+- <Link href='/use-cases/website-screenshot/dynamic-content' children='Screenshots of JavaScript-rendered pages' /> — wait strategies for dynamic content.

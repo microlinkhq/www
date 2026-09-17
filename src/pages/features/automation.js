@@ -14,16 +14,18 @@ import { Hero } from 'components/pages/automation/hero'
 import { Overview } from 'components/pages/automation/overview'
 import { Parameters } from 'components/pages/automation/parameters'
 import { Related } from 'components/pages/automation/related'
-import { META } from 'components/pages/automation/shared'
+import { RelatedUseCases } from 'components/pages/automation/related-use-cases'
+import { META, TOC } from 'components/pages/automation/shared'
 
 const AutomationFeaturePage = () => (
   <Layout>
-    <FeaturePageShell>
+    <FeaturePageShell toc={TOC}>
       <Hero />
       <Overview />
       <Parameters />
       <Examples />
       <Related />
+      <RelatedUseCases />
     </FeaturePageShell>
     <FaqSection />
   </Layout>

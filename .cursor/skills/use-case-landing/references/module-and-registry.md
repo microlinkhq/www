@@ -12,7 +12,7 @@ export {
   SECTION_PX, SECTION_PY, SECTION_MAX_WIDTH,
   Section, SectionInner, Caption, Figure, FigureImage
 } from 'components/patterns/CustomerStory/primitives'
-export { DashedGridOverlay } from 'components/patterns/CustomerStory/DashedGridOverlay'
+export { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
 export { Eyebrow, StoryTag } from 'components/patterns/CustomerStory/chrome'
 export { CtaSection } from 'components/patterns/CustomerStory/CtaSection'
 export { WhyCard } from 'components/patterns/CustomerStory/WhyCards'
@@ -101,3 +101,14 @@ Append a new object per use case. Field usage:
   blurb, category `StoryTag`, "View use case →" link to `/use-cases/<slug>`.
 
 Appending a `USE_CASES` registry entry makes it appear in the use-cases grid automatically.
+
+## Intent landings share the registry
+
+`use-cases.js` now concatenates the partner recipes with four per-vertical arrays from
+`registry/<vertical>.js` (`WEBSITE_SCREENSHOT`, `WEBSITE_TO_PDF`, `WEBSITE_TO_MARKDOWN`,
+`WEBSITE_METADATA`) and exports `VERTICALS`, `getUseCase`, `getVertical`,
+`useCasesByVertical`, `partnerUseCases` and `useCasePath`. The listing groups landings
+by vertical (`UseCaseGroups`) and keeps partner recipes in their own block. `MoreUseCases`
+accepts an explicit `slugs` list (used by intent landings for their curated `related`
+set) and falls back to same-vertical siblings, then to every other entry. See
+`intent-landing.md` for the full contract.

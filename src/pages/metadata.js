@@ -18,6 +18,7 @@ import {
   ProductInformation,
   TOP_FAQ_ITEMS
 } from 'components/pages/metadata/product-information'
+import { UseCases } from 'components/pages/metadata/use-cases'
 import { ACCENT, FIRST_URL, Subhead } from 'components/pages/metadata/shared'
 import { Stack } from 'components/pages/metadata/stack'
 import { Timings } from 'components/pages/metadata/timings'
@@ -287,6 +288,7 @@ const MetaPage = () => {
         }
         features={FEATURES}
       />
+      <UseCases />
       <CallToAction />
       <ProductInformation />
     </Layout>

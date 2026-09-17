@@ -20,7 +20,7 @@ import {
   SectionInner,
   StoryTag
 } from 'components/patterns/CustomerStory'
-import { USE_CASES } from 'components/patterns/UseCaseStory'
+import { UseCaseGroups } from 'components/patterns/UseCaseStory'
 import Layout from 'components/patterns/Layout'
 
 const ROTATE_MS = 6000
@@ -596,13 +596,6 @@ const CustomerGrid = () => (
   </Section>
 )
 
-const UseCaseCardsGrid = styled(Box)`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 560px));
-  ${theme({ gap: [3, 3, 4, 4] })}
-  justify-content: center;
-`
-
 const UseCaseGrid = () => (
   <Section id='use-cases' css={theme({ scrollMarginTop: 4 })}>
     <SectionInner>
@@ -612,37 +605,7 @@ const UseCaseGrid = () => (
       >
         Use cases
       </Eyebrow>
-
-      <UseCaseCardsGrid>
-        {USE_CASES.map(({ slug, name, blurb, icon, category }) => (
-          <Card key={slug}>
-            <Flex css={theme({ alignItems: 'center', gap: 2 })}>
-              <CompanyLogo
-                src={icon}
-                alt=''
-                width='40'
-                height='40'
-                loading='lazy'
-                decoding='async'
-                css={theme({ width: '40px', height: '40px' })}
-              />
-              <CompanyName>{name}</CompanyName>
-            </Flex>
-            <Text css={theme({ color: 'black70', fontSize: 1, lineHeight: 2 })}>
-              {blurb}
-            </Text>
-            <StoryTag accent={ACCENT} css={theme({ alignSelf: 'flex-start' })}>
-              {category}
-            </StoryTag>
-            <CardLink
-              href={`/use-cases/${slug}`}
-              css={theme({ color: 'link' })}
-            >
-              View use case →
-            </CardLink>
-          </Card>
-        ))}
-      </UseCaseCardsGrid>
+      <UseCaseGroups />
     </SectionInner>
   </Section>
 )
