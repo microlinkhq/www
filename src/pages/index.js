@@ -1,6 +1,7 @@
 import CliBanner from 'components/pages/home/cli-banner'
 import GradualBlur from 'components/pages/home/gradual-blur'
 import Hero from 'components/pages/home/hero'
+import { AdoptionPaths, Outcomes, FinalCta } from 'components/pages/home/journey'
 import { getFaqQuestions } from 'components/pages/home/faqs'
 import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
@@ -156,6 +157,8 @@ const HomePage = () => {
       <Layout toolbarAnimated>
         <Hero />
         <CliBanner />
+        <AdoptionPaths />
+        <Outcomes />
         <Deferred force={forceDeferred} minHeight='80vh'>
           <Products />
         </Deferred>
@@ -177,6 +180,7 @@ const HomePage = () => {
         <Deferred force={forceDeferred} minHeight='40vh'>
           <Faqs />
         </Deferred>
+        <FinalCta />
         <GradualBlur />
       </Layout>
     </CurrencyProvider>
