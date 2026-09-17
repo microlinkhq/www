@@ -60,7 +60,7 @@ const result = await microlink.function(
   )
 )
 
-console.log(result.data.function.value)
+console.log(result.value)
 ```
 
 Treat the selectors as snapshot state, not permanent site identifiers. A navigation or DOM update can change them.
@@ -84,7 +84,7 @@ const result = await microlink.function(
   )
 )
 
-console.log(result.data.function.value)
+console.log(result.value)
 ```
 
 This is source data supplied by the page. Validate the fields your workflow depends on rather than assuming every publisher follows the schema perfectly.
@@ -107,7 +107,7 @@ const result = await microlink.function(
   )
 )
 
-console.log(result.data.function.value)
+console.log(result.value)
 ```
 
 Filtering by rendered geometry removes headings hidden with CSS. The result describes what a visitor can see, not every heading left in the source.
@@ -133,7 +133,7 @@ const result = await microlink.function(
   }))
 )
 
-console.log(result.data.function.value)
+console.log(result.value)
 ```
 
 These are signals, not a definitive technology inventory. Production builds may remove globals, proxies can hide hosts, and unrelated third-party scripts can add them.
